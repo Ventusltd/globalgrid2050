@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Dathan Eldridge: A Fearless Solar Troubleshooter and Builder
+
 John Davies: On a Mission to Establish Solar Excellence
 
 Brett Baber: From the Army to Award-Winning Leadership in Solar Energy
@@ -2463,6 +2465,564 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Dathan Eldridge: A Fearless Solar Troubleshooter and Builder
+
+Vikram (00:00)
+Welcome to our ninth podcast of the future of solar photovoltaics. It's with absolute pleasure today we are joined by Mr. Dathan Elbridge, an up to 33,000 volt SAP and HV designated person. For those of you who are not in the industry, it means a senior authorized person with a health and safety responsibility. can work in high voltage environments, what we call in the cable industry, medium voltage.
+
+So, you know a very serious person. Dathan, welcome!
+
+Dathan Eldridge (00:33)
+Yeah, thank you. Thanks for having me, Vikram.
+
+Yeah sure. Yeah so I was born on the Isle of Wight in Rye. My mum's from Ireland. She met my dad on the Isle of Wight when she came over. They decided to move to Southampton when I was one just because there was better opportunities for me growing up. Education and everything like that. ⁓
+
+Vikram (01:26)
+You said in
+
+the past you moved to Hampshire in the 80s, right?
+
+Dathan Eldridge (01:34)
+Yeah, 1980, yeah. Yeah, moved over. Then my brother come along three years later. Then we just had a normal childhood. Went to normal schools. I ended up in an all boys school. As my last school. I didn't know what I wanted to do when I left school. So I had a few jobs, just doing normal stuff.
+
+And I decided to become a chef. So I went to college, started to become a chef, because I always enjoyed working with my hands, being involved. Did that, ended up working in restaurants like TGI Fridays, main brands. I worked my way up into management in those businesses. I got to a point where I thought, I don't want to be doing this when I'm older.
+
+the hours, unsociable hours, I was 20 at the time. So I decided to look at a different aspect of life and that's when Vestas started a factory on the Isle of Wight and also down in Wollstone near where I lived. So I applied for a job there as a talent.
+
+Vikram (02:53)
+You know we want to absolutely talk about that we would absolutely talk about them did you say you went to an old boy school in the previous conversations and that you were a perfect A grade student
+
+Dathan Eldridge (03:05)
+Yeah,
+
+I was a good student. Yeah, I was a good student. Top set. So I was a prefect for a while till I got caught bunking off by the head teacher and then wasn't allowed to be a prefect anymore. Yeah, I did wear school, got all the grades you need. Just was never really clear what I wanted to do. Thought about joining the Royal Marines. That didn't go down that avenue.
+
+So yeah, I just went to college, become a chef because it's just something I enjoyed doing, working in that high pressure environment. I had a good social life when you're that young. I paid pretty good money at a time from my age. They me get my first car, give me a bit of freedom.
+
+Vikram (03:57)
+Did you say you had a sense of
+
+Dathan Eldridge (04:00)
+Yeah, my dad was an engineer. His dad before him was an engineer. He's always been in the family. My brother's also an engineer. He's gone on to do that. He works on all the railways. He's in high level management in the railways. So yeah, I did the cheffing for a while. Realized there was no longevity to it. And really thought about what I wanted to do. And like I said, I always enjoyed working my hands. So I looked at...
+
+jobs where I could do that and Vestas was the perfect opportunity for me to move out of the catering industry into an engineering based renewable energy industry. They were pretty well established as a company.
+
+Vikram (04:44)
+You
+
+enjoy working with your hands, you enjoy problem solving. What about motorbikes and martial arts? Is that something you got involved in? Or is that our stuff?
+
+Dathan Eldridge (04:53)
+My dad was actually a black belt in karate. used to teach students. He used to taught some of the SBS down in Poole as well. He's been doing that since the 70s. So he again used to teach me and my brother stuff. Then I looked at doing a of Tae Kwon Do, Wing Chung, stuff like that. He's always enjoyed the martial arts.
+
+I'm the discipline of it. And obviously, yeah, it's pretty cool about it. I did that sort of stuff as a kid. And then, yeah, I got into motorbikes when I was 20. I my first bike. didn't tell my parents. I thought I'd come over and just sort of parked outside the house. too happy. Yeah, sort of been into bikes since then, really. It's been a massive part of my life.
+
+Vikram (05:50)
+What was your first motorbike? How old were you when you got your first bike?
+
+Dathan Eldridge (05:54)
+I was 20, I did a direct access course and I bought a Yamaha R6. So it's probably one of the fastest 600s pretty quickly on that.
+
+Vikram (06:03)
+Was
+
+this from your career? it's from chef.
+
+Dathan Eldridge (06:09)
+in
+
+the air basically. Yeah so yeah that was my sole transport for a while. Used to ride all weather, winter wasn't great but yeah it's become a big passion of mine riding motorbikes, I still do to this day. Go on annual trips
+
+Vikram (06:28)
+And then Vestas is a Danish company, how did you come across Vestas in Hampshire?
+
+Dathan Eldridge (06:34)
+So they started a factory on the Isle of Wight producing blades and other components for their turbines. And then they had a smaller facility down in Wollstone producing some of the components, some of the molds and everything. And it had just come up, so I applied for it. They wanted people who didn't have a lot of experience so they could train them their way. Which is probably why I got the job, to be honest, because I didn't have any experience at the time.
+
+So yeah, there's about 40 of us from different aspects, different industries all joined. And I was there for three years to my motorbike accident.
+
+Vikram (07:11)
+old were you when you joined Vestas? The motorbike accident is a traumatic thing, we want to talk a bit longer about that. how old were you you joined Vestas? You decided you don't want to be a chef anymore. What did you do at Vestas?
+
+Dathan Eldridge (07:27)
+So I was a blade technician and a mold technician. So we were responsible for making all the molds and the internal components of the blades. The molds were carbon fiber, just GPR stuff like that where we build them. And then they get sent over to the owner and they'd make the blades out of the molds. And then we'd go over there to repair them, fix them. They had plumbing systems built into them to heat them up.
+
+which is where I got the sort of first taste of plumbing from that point of view. ⁓ Yes, and then we used to build all the internal components that went inside the blades and just learning different aspects of laminating, stuff like that. bit of engineering, structural engineering. Yeah, it's a good opening to starting a renewable energy system.
+
+industry really for a big player.
+
+Vikram (08:29)
+Fantastic,
+
+I'll try to picture your early beginnings, How old were you you joined Vestas and leading to your motorbike issue? you able to give us bit more info? 21, so you're a really young lad, your life's just starting.
+
+Dathan Eldridge (08:47)
+Yeah, I was 21. Yeah, I was 21. 21 when I started there. I worked there for three years. Four years actually, because my mobile case was in 2005.
+
+Vikram (09:01)
+So Vestas is a huge company, what made you want to leave them? Why did you not want progress with Vestas?
+
+Dathan Eldridge (09:08)
+I didn't want to leave. I basically had a near fatal motorbike accident in 2005 and the results of that, the injuries I had, the amount of time I was going to be off work, I sort of was made medically redundant because I was basically off work for three years recovering.
+
+Yeah, I couldn't go back to where they're basically. So they obviously couldn't hold my job open either. And they're having some structural changes anyway. So they were changing the team dynamics and they're having some redundancies at that time. So I took voluntary redundancy while I was recovering. had...
+
+I mean, I broke several bones in my leg, my femur, tibia, fibia, done my crucial ligaments in my knee, broke my wrist, my shoulder. I had the fixator frames on for 18 months because I lost three inches of bone in my femur. had one of top specialists in the UK as a consultant. They actually used my medical records for a case study because it was that severe.
+
+so was lucky to survive really i died at the scene and i was revived at a scene i had very
+
+Vikram (10:31)
+died at the scene.
+
+Dathan Eldridge (10:34)
+Yeah, I died in scenes from the injuries. So I got revived at the scene. I went straight into the general. Yeah, yeah. And I went straight into the general. I had 36 hours of operations to stabilize me right away. ⁓ Then I went into a coma for three days after that. Stopped I was on life support for three days. My parents were told.
+
+Vikram (10:41)
+and CPR and all.
+
+Dathan Eldridge (11:04)
+If I don't start breathing there's nothing they can do. But luckily I did.
+
+And then I'll just start the slow progress of recovering and having to learn to walk again, stuff like that.
+
+But again, a lot of time to think.
+
+Vikram (11:20)
+How long were you at Vestas leading up to your motorbike accident? As you say, you died at the scene. I've trained in emergency first aid but I've never performed sleep because for me this is all very frightening. What led to your accident? How did you find yourself in that position?
+
+Dathan Eldridge (11:40)
+So it was road works. was actually a mile from my house. It wasn't far. just going home from work and I thought I'd just go round and check my bank balance at the cash machine because you didn't have apps or anything back then. And there was a load of road works and I was just going through road works and I got a car turned out on the road and I clipped this car and I hit their windscreen and I went about 50 feet in the air, witnesses said.
+
+and I landed on my right leg and that took the full impact and just snapped everything basically. I was fully conscious the whole time until they got me in hospital and I asked to be knocked out basically because of the pain because my femur had a 90 degree bend in my femur and that straightened my leg out at the scene which was painful. Yeah and then I come around probably four or five days later after that out of the coma and everything not realizing how bad I've been.
+
+⁓ yeah and then i had probably another 14 operations after that and i ended up with the ⁓ those metal frames you have on your legs to extend your bone by them top and bottom for 18 months so every day i'd wake up i had a little chart where you had to make minor adjustment to the struts with a 10 mil spanner just add a couple millimeters here and there to one keep your legs straight your bones straight but also to
+
+increase the gap. when the bones grow and the growth continued and that took 18 months to heal. And then they removed that. And then I spent another year getting better after that. And I finally went back to work in 2008.
+
+Vikram (13:26)
+business.
+
+Dathan Eldridge (13:28)
+I went to chef and first of all, because it's the easiest job to get. then while sheffing, I went back to college. So I was working in the evenings, sheffing, and I was going to college during the day doing plumbing and electrical. And then I started my own business off the back of that, doing plumbing and electrical work. But while I was at college, I carried on studying.
+
+doing unvented heating systems, solar thermal, just a load of renewable energy technologies I could do back then, heat pumps. So I managed to do a hell of a lot of training and then...
+
+I knew for me to progress into renewables, I needed to be in a larger company. Otherwise, I'll just be working for myself just doing the
+
+Vikram (14:16)
+Of course, course, Nathan, you can't just say you died at a motorbike scene and had a near-death experience and then go talk about plumbing, know, it's a bit ⁓ of an extreme. So your near-death experience, did you see Jesus? What happened?
+
+Dathan Eldridge (14:28)
+You
+
+So I remember all, I actually wrote a poem about it afterwards, which got published. So I'm actually a published poet as well. I got contacted a few weeks ago by someone.
+
+Vikram (14:48)
+way but how to find how to make
+
+Dathan Eldridge (14:51)
+It's just online. It's just, yeah,
+
+it was just published. It's just, yeah, it's just published online. Um, it's just Dave and Elvish, my experience of death. Cause I remember it all. I remember exactly how it felt. Uh, so yeah, I'll just write a poem about it. Um, it's probably one of the, the ways I had closure dealing with it all, think. Cause it, it does leave you with a lot of questions going through something like that. But also gave me a massive urge to, uh, to learn.
+
+Vikram (15:20)
+building
+
+up to all building up to this podcast session you said that their death experience in the past made you want to study physics and quantum mechanics you know that's a bit of jump
+
+Dathan Eldridge (15:31)
+Yeah. Well, had this feel. Yeah. I just had this need to strange really that I just wanted to learn as much as I could. And I had, I've always had an interest in physics. Um, so I did an A level physics course through Oxford online. Um, so I started learning about general physics and I got into quantum mechanics, stuff like that. And I started reading a lot of quantum physics books, know, Stephen Hawkins, stuff like that, know, brief history of time.
+
+So yeah, I started getting into all that and then I just thought how can I apply this to my actual work life and that's when I started studying more renewable energy, trying to build a career, which eventually led me to do my engineering degree as well. But I've always had an interest in just learning new skills.
+
+Vikram (16:22)
+Mm-hmm.
+
+⁓ the
+
+Dathan Eldridge (16:38)
+No,
+
+was a success. Yeah, it was a success. No, I just closed it down in the end. Yeah, I worked for myself doing that. Did renewable energy, heat pumps, stuff like that. But I just wanted to get into the larger stuff and I just knew I couldn't do that working for myself. Because it wasn't even a thing.
+
+Vikram (16:58)
+That's right.
+
+Dathan Eldridge (17:13)
+Yeah, so they were a renewable energy company I joined where I just got into doing solar, thermal, photovoltaics, heat pumps. And I was only there briefly and then I got contacted by a recruiter for a job at Solar Century.
+
+Vikram (17:35)
+How did you make a recovery from this massive injury? know, are you able to walk around? Do you have any health problems? People similar situation to you. They would want to know how'd you make such a fantastic recovery? happened?
+
+Dathan Eldridge (17:48)
+As soon as I could, I just started training, working out. had gym equipment in the garage. So I just started working out. actually rebuilt my motorbike I crashed on into a track day bike while I was off. I just kept myself occupied. So I was studying and just working on my bike, weight training. I was going for regular physio. I've got no cartilage in my right knee. My right leg's a little shorter because the bone didn't fit.
+
+grow as much as I wanted to. But other than that, I don't really have any issues that affect me.
+
+Vikram (18:29)
+Do you have screws in your knees? Because I have lot of football mates and lot of people that work out on the road, they've got issues with their knees and they can't straighten their knee after they've been driving. Do you have problems like that? Or are you completely fine?
+
+Dathan Eldridge (18:39)
+So
+
+I'm fine, but I've got titanium plates, screws. When I was in hospital, was going through an MRI and I had two consultants discuss some whether the screws and plates would be an issue. They had magnets and they were sticking magnets on my framework and stuff. And one said it was fine, the other one wasn't too sure. So it was a 50-50 chance of me having stuff pulled out of my leg when I went in this big machine, but it turned out okay in the end.
+
+Yeah, I've got titanium plates that haven't got any rods, but just broke and screw him off FEMA when it played in and didn't work, which is why I ended up with a frame. Um, but yeah, I don't, I'll probably need a knee replacement when I'm older, they said, but at the moment I was too young to have that done. It doesn't affect me. It doesn't affect my work life. still work 50, 60 hours a week. Yeah. On site.
+
+Vikram (19:35)
+You're fine, obviously I've seen you around sites and places and you get about a bit in terms of travelling. I calculated in 2005 ⁓ accident during your Vestas departure you may have been about 25, 26 years old so you're still a young lad and then you seem quite keen to talk about your interviews with Solar Technologies which became British Gas Solar, now Centrica and Solar Sentry. What happened with these interviews? Why did you join Solar Sentry and not British Gas?
+
+Dathan Eldridge (20:04)
+So for me, British Gas, I was offered a job, same sort of role, just their installation team. And then I had the same South Century. But for me, South Century felt more like a business I could be involved in, where British Gas at the time, I just felt more like I'll just disappear into the ether, I'll just be an employee number. So I just had the choice to choose a better company. I thought it would suit my career needs, which was South Century.
+
+And I I went for the interview. Um, during that interview, there was a guy called Dave Bailey who was going to head up the commercial teams. His role was available and they said I'd be better suited for the technical role on all the commissioning side and the O &M, EPC stuff than just being an installation engineer. Cause of my background and the training I've done in the education I've done to that point.
+
+basically.
+
+Vikram (21:05)
+2010 right well that's two thousand years after you accidentally you started with Southern Century
+
+Dathan Eldridge (21:12)
+Yeah, yeah, roughly, yeah, just like 2009, yeah, joined. It's that century.
+
+Vikram (21:19)
+And then the bridge, this was the time they were working on a very famous bridge, Blackfriars Bridge I believe.
+
+Dathan Eldridge (21:25)
+Yeah, so when I started there, they were still doing like large residential projects, some commercial stuff. Obviously they did Cambridge, the five megawatt sofa on there. Black Fires was a couple of years after I joined. I was involved in that, just on the commissioning and working on the, you know, help with the EPC stuff and then the O &M after that. So yeah, I was lucky to get involved in some of that.
+
+the larger projects they were doing because they were sort of quite ahead in the marketplace, so essentially at the time. So they had some really good stuff I could get my teeth into really and expand my knowledge and that's where a lot of the manufacturing training come in. Getting exposure to that, learning all the new technologies. And just just, and I just carried on learning myself, learning more about the physics, the background.
+
+the technologies or did additional courses I could do. I've always said to people in the industry who want to advance themselves, don't wait for a company to train you because they often only do it if it's a financial benefit to the business. ⁓ So you can spend years somewhere and just not really gain much knowledge or experience unless you push yourself really.
+
+Vikram (22:53)
+Absolutely. 2010 and until 2016, so about six years, you joined SolarCenter two years before I started visiting them on behalf of Leonie, which is student now. And so you spent six years and four months as a commissioning engineer and a field service engineer and an asset manager. You say on your LinkedIn, you spend some time obviously on the Blackfriars Bridge, which was very prestigious at the time, but also Bentley and some of the last solar farms.
+
+What were you seeing? during that time, quality was more of a focus because everything was new and we spent a lot of time with Guy Atherton and other people really meticulously looking at details. You were coming in towards the back end of the project. What was your impression of what you used to see then on sites during the commissioning?
+
+Dathan Eldridge (23:44)
+The build quality was always good. There was always that blend of the electrical regulations, making sure everything that there to that being private networks. ⁓ And then obviously the technologies, make sure that component selection, because it was sort of fairly new back then. You didn't really know how certain aspects or components would stand over time to where we do now.
+
+You know, certain things you just wouldn't install because it's not going to last. They always are up against crazy deadlines trying to because of the feed-in tariffs and everything back then. They didn't get a site generated by certain data, end up with massive fines or. So there was always massive pressure, even on the commercial side. So it was always pretty hectic. The sites were.
+
+Obviously terrible with mud and working conditions. So yeah, we were brought in to QA, obviously commission everything, get everything online working, get the site generating so they could basically hit their deadlines. And they would feed back to the engineering team. Obviously it'd be under O at that point as well. wasn't really...
+
+O and back then like it is now. Contractually, there's all these tasks you have to do every year annually. That wasn't the case back then. was more keep the asset running as best as you could, fix anything that needed fixing, do the maintenance that was required, ⁓ and just reactive more than planned back then. It's that the O and sort of aspect developed over the years to form a lot more contractual stuff, I think.
+
+rather than just building these sites and fixing them as they went to the client took them over basically.
+
+Vikram (25:45)
+You say on your LinkedIn profile during this hectic six years from 2010 till 2016 that you've commissioned over a thousand systems, domestic, commercial and large scale. What proportion of that is large scale?
+
+Dathan Eldridge (26:04)
+Probably a big part of it to be honest. ⁓ Because yeah, the slow century sort of pushed into that era. ⁓ They still did a bit of residential. They still did a bit of commercial, but it was mainly ground mounts. ⁓ Some of the larger stuff, know, 50 megawatt sites. And then it obviously moved into Europe. So there's some sites over there we went and did QA and TA on. ⁓ Commissioning. So yeah, it's probably about 60 % ground mount I'd say.
+
+Vikram (26:43)
+the So anyway, between 2012 and 2016. So that was the first UK boom. We seem to be moving towards another one. In the meantime, you did some O &M engineering. What does that mean, O &M engineering for Soul Sentry?
+
+Dathan Eldridge (27:01)
+So obviously all this equipment has manufacturers recommendations for maintenance. So that's your first protocol, you do your general maintenance, but then as these sites age, they start developing issues due to technologies, equipment selection, sometimes even down to the physical materials that they're
+
+The equipment was made from specially PV modules. So there's a big learning curve of all the issues that could come with an agent site from inverters degrading, communication issues causing shutdowns, fan failures, moisture from subs flooding, modules having PID like potential induced degradation, which can seriously impact the performance of a module.
+
+you know, crack cells from installation because people didn't really understand back then. You couldn't walk on the modules or...
+
+Vikram (28:10)
+Yeah.
+
+Dathan Eldridge (28:11)
+handle them too roughly because that sort of all sort of grew from the early days to when they were starting getting like wildly soaps not performing the way it should be, not doing what they're designed to do. So the whole aspect of that sort of led into, once again, I started studying a lot in my own time of about modules and the materials, PRD and other stuff that can affect the modules performance, other stuff can affect.
+
+in various performance, transformers, harmonics and everything like that. And then from that grew from our technical experience, we started developing aspects of techniques and procedures.
+
+sort of testing we could go and do on a site to establish what was wrong with it. And then from that point, we'd be able to start tackling the liquidated damages the business was receiving for underperformance, which was quite high at the time. At some sites, we managed to reduce it quite significantly. ⁓
+
+Vikram (29:20)
+Absolutely. One of the positive things about the podcast is, know, we want everyone to learn and participate and go towards a positive direction and avoid anything that might be, you know, confidential, but at the same time, we don't want to learn lessons from the past. And what I've learned here, myself, is whenever you would go to Solicentri site, it would be one of the cleanest sites you'll come across, despite the equipment, quality, bad quality, average quality.
+
+⁓ the ⁓
+
+work on it like I said it's park.
+
+Dathan Eldridge (30:23)
+They had good contractors who grew as South Century grew. So from the early day, mean, our construction sort of built some of really early sites for South Century. And so they were consistently using the same contractors. So everyone was learning as the years went by what work, what didn't work, getting better at their jobs, basically. And the projects just got larger.
+
+So yeah, I feel it's just down to using consistently good contractors. Obviously design aspects, they knew what didn't work and what did, so they'd implement changes every design to improve the sites. I always selected the top tier equipment inverters that had good manufacturer support. Top tier modules, framework, again, where we just get the support from the manufacturer, we go and do specific training.
+
+for looking after the equipment because they often didn't have people in the UK and it was financially viable for us to be doing it instead of them. So we've become a service partner for some of these main manufacturers. So we've grown our knowledge on that side as well as just the actual EPC side and the build side. So we'd have a really good clear image of how to look after these sites and we'd relay.
+
+back to the engineering team from an O &M point of view as well, like how to improve it so it's easier to look after during O &M. What equipment would last, what wouldn't, stuff that was taking a lot more maintenance than it should do because of equipment selection. So there's just feedback and reviewing everything that had been done previously and just using consistently good contractors, basically.
+
+Vikram (32:18)
+the ⁓
+
+Dathan Eldridge (32:33)
+So it was one, knowledgeable, two, presence. They always had senior management on site, good project managers. They were never project managed from an office.
+
+Vikram (32:48)
+Right, right, right. So that's a big thing now because everyone's working remotely. It's hard to do that now. Yeah.
+
+Dathan Eldridge (32:54)
+Good supervisors. Obviously everyone uses agency, so even down to agency guys, having decent agency guys and managing them properly. But yeah, it was mainly down to their management really. Yeah, and Phil. Yeah, Kevin and Phil being on site all the time, overseeing and working out in the field as well, not just sat in an office.
+
+Vikram (33:21)
+I have to guess Kevin and Phil you mean as an Aaron right Kevin Kylie and Phil Deadman, right?
+
+Dathan Eldridge (33:25)
+Yeah, yeah, yeah, yeah. Yeah, great guys, always, always there, you know. And cared what they did, as you know, they really cared. That's another massive factor. You've got to take some pride in what you do.
+
+Yeah, and then I essentially supported them as well. They sort of worked hand in hand really, they sort of support each other and their businesses both grew because of
+
+Vikram (33:49)
+Nathan,
+
+entire high streets have been shut down by the Covid and the solar industry is no different. A lot of businesses have changed or gone under or stopped doing solar themselves. You're such a senior person with this whole century. I rarely came across you at that time because you were on the commissioning and on them side of things I was more on the pre-construction side. But I found later how vital you were to the business and you were working more hours than you had.
+
+in a successful business, what made you want to leave and start your own business? At what point did you drive around in your vehicle and thought, I want to leave sales entry? Why would you even think that?
+
+Dathan Eldridge (34:32)
+So for me, the way O &M is done generally as a business, I don't think it's very successful packaging everything together. So I did write a new business plan model for O &M at Soar Century, which they did sort of implement a bit, but they also had, they were looking at selling the business at a time, so they had a sort of shift in
+
+what they wanted to do with the business. So O wasn't really something they wanted to grow. It was more of a necessity that had to be done because of the EPC side of the projects needed two year warranty O So after we...
+
+Yeah.
+
+Vikram (35:20)
+the the
+
+But what did you think? you thought you're getting squeezed and then I'm gonna start my own business. Was it as simple as that or was it a more detailed?
+
+Dathan Eldridge (35:54)
+That was a similar, really, just thought, you know, we could take our knowledge. We're sort of a company within Soar Century, the O team, the business within a business. ⁓ So we thought we could just do it for ourselves, basically, take our knowledge, our experience. I left Soar Century, think it was a Wednesday. I was on site Thursday working for myself. There's literally no, no in between.
+
+left one day, I was working for myself the next day. We originally just carried on being field service support engineers, doing O ⁓ tasks, environment and stuff like that, because of our backgrounds. And then the business slowly, rapidly grew into where it is today, a sort of fucking EPC.
+
+specialists where we can support all the R &M's with everything they need to do. We can do all the repairing, revamping, quite a lot of hot voltage works. We also do EV charges, a lot of commercial and we still do electrical contracting. We rewired a gym not so long ago in London. So we've always just kept, I didn't want to sort of, I always wanted a business where we
+
+be open to anything really and just see where it took us. ⁓
+
+Vikram (37:50)
+You seem a bit silent about the whole thing. What's your, without getting into anything negative, weirdly legal, from you, you join almost as apprentice, you get all of these qualifications, you do ⁓ more mega-wars than most people have ever built in their lives in terms of commissioning and O What's your reflections about the whole 10 years of experience, the 10 years of life you've given up because with your accident, you said you've gone your outlook on life. What's your outlook on whole century?
+
+Dathan Eldridge (38:21)
+For me, they always had that vibe of being like a kind of Apple, Google. they're predominantly, you know, a lot of the founding members, you know, they really care about the environment. That's always been their major push. It was nice to work in a company that wasn't just purely financially driven. They were trying to solve a problem.
+
+tackle climate change, but also had a lot of opportunity to learn and to try new things. I worked with some amazing people. One of the guys I worked with, George, he was in his sixties when I started, but he had such a career previous where he commissioned nuclear submarines. He worked on every aspect of electrical engineering and just having those few years with him, getting his knowledge passed down to me.
+
+I was invaluable. Learned a lot on the communication side with him. So yeah, I just had the opportunity to work with some really good people to learn a lot. I got a lot of chances to work on a lot of stuff that you don't normally get to work on. And that also, I went into Europe doing stuff, Africa.
+
+If we thought we could do something, they'd let us have a go, basically. If we could solve a problem, they'd let us try and fix it instead of just subbing it out, which we often did. It really annoys me when I can't fix something.
+
+Vikram (39:58)
+⁓ and ⁓
+
+uh... from uh... various different people some of our duty of the wishing massive orders because they are really well peter train well over really enthusiastic people all mentioned they've just to keep people uh... you know happy but you'll get really young people are very very clever you know the system which matters and you know what i thought that you can go to a prototype and i know what you mean you would always be trying new things and indian you know we've found it you know something we could save a million pounds on
+
+going to aluminium cables and that came about just as a bit of fun R &D that we had agreed with Solentri.
+
+Dathan Eldridge (41:01)
+Yeah, exactly. And just being able to influence O to a point where you could have a big impact on budgets. ⁓ I was in charge of the liquidated damages for a while at Center Century, producing that. So I did a lot on warranty claims with module manufacturers, PID. Did a lot of research development on that. A lot of drone development, thermal surveys.
+
+infrared cameras, just developing skills and techniques to and testing with all of your curve testers to get a successful warranty claim with these manufacturers because they try anything not to give you a warranty claim ⁓ and even down to
+
+Vikram (41:48)
+I understand it's essential sometimes but it's not a nice thing to to do claims of liquid damage or warranties it gets very negative and nasty very quickly. Did you fly any drones yourself? I know people I won't mention their names some people have been in hot water for crashing 20 grand drones. you get involved with stuff like that yourself?
+
+Dathan Eldridge (42:10)
+I didn't fly any. just worked on the process of taking that information and using it in the field. Because we used the drone company, they gave us a load of data and then I found I was spending three days out in the field just trying to find the information they provided, the modules. It wasn't accurate enough. So I worked a lot with the company at times to develop a system where you could just hand it to a field engineer and I could go straight to the
+
+issue, fix it or sort out, get the information you needed. You know, working on algorithms, software development, you know, and using the luminescence testing at night to find the difference between PID and some other issue the modules having because you get a lot of inverted clipping on some of the larger sites because they've already been designed and it's
+
+It can be misinterpreted as an issue with the modules PID because it gives a similar thermal pattern on the camera. So it's understanding that the way a solar farm works as well and interpreting that data and just knowing that's not a physical issue with the modules. It's just a design aspect of the site because it's, you know, the environment is oversized to their output because of the lifetime of the project and even still generate.
+
+you know, 10 megawatts in 20 years. So it's having all that information and understanding. Because once you mention PRD to a client, you know, it's sort of going to have big implications because it's sort of your modules are dying basically.
+
+Vikram (43:56)
+What is the idea of induced degradation? How do you get potential induced degradation? What do mean by potential? Is it voltage?
+
+Dathan Eldridge (44:06)
+Yeah, so basically you have the electrons not flowing the regular paths. It's down to material selection sometimes. Could be down to grounding. So the electrons flow out of the cells into the framework, into the ground basically, and the module becomes dead. You can negatively ground a site.
+
+to negate that to a point, but then you introduce loads of other health and safety issues because you can't pick up string faults. So you might have string faults you're unaware of which can cause fires or electrical safety hazards.
+
+Every module get POD at some point. It's just natural. It's just the ones that are manufactured to the best.
+
+performance with the best material selection choice tend to have a greater risk of getting PID sooner than others.
+
+It's only so manufacturers as well as I haven't seen it on. So this is a.
+
+Vikram (45:20)
+Anything to do with modules. Anything to do with modules huge because a lot of people don't realize how big solar farms are. can have solar farms that are a thousand acres and a lot of it can be taken up by modules and it looks simple but then you walk and you walk and you walk and it's repetitive, huge bits of equipment and PID is a big thing. I know that myself from previous experiences, if I try to summarize it,
+
+the cells don't the electrons don't flow you got photons from light turn into electrons they don't flow through the solar cells like you have in a calculator like you haven't sold the panels they don't flow down the intended buzz bars they start to leakers to ground ground as in earthing so they'll start flowing into the earth instead of through the buzz bars is that what you mean
+
+Dathan Eldridge (46:14)
+Yeah, they migrate out through the framework. And then you essentially just get dead cells. They just stop working. it looks, luminescence testing looks like an X-ray. So you'll see a module with just loads of dark cells where they're just not running, basically. And it always generally starts at negative end of the string and it sort of works its way up the modules. So the first module is always the worst.
+
+And over time, it just gets worse and worse because of the way the sites have strung and everything like that. And just the way it physically works. can reverse it by putting reverse current in at night. Some new inverters do that at night anyway to mitigate this problem. We installed some anti-PID systems on some older sites to reverse it.
+
+but you'll never get rid of it. And every mortal will eventually suffer it to some extent as they degrade.
+
+Nah, it's okay.
+
+No, not really. It's just a performance. You can lose 30 % of your site, basically performance wise. It just pulls down your performance of your string. Basically your output. So you might have an underperformance site, but you've got no insulation faults or anything like that. You could have an issue like that, which is completely, you can't see it through your naked eye. You have to have a thermal camera.
+
+and drone surveys to pick this up.
+
+Vikram (48:00)
+And when you have a dead cell, you got Bipostar diodes, right? So the module can still keep working apart from the cell that's died with its electrons leaking to Earth. So the module still is functional, you might have a 60 cell or 72 cell module, might lose a couple of cells. That's what you mean.
+
+Dathan Eldridge (48:21)
+You're testing, you have like 20 volts on the module instead of 38. Because every cell is generally 0.6 of a volt. But where you've lost a lot of it. So your voltages are down on your strings. That's where your performance losses come from, basically.
+
+And then I
+
+Vikram (48:45)
+How does negatively grounding stop PID? That's really fascinating for me.
+
+Dathan Eldridge (48:54)
+Cause it's, ⁓ cause it's floating system. Generally I'd have to look it up now.
+
+Vikram (49:01)
+I think a lot of people don't know, there's things we can research and follow up later on but yeah, other than negative grounding, it's an interesting area. And floating means it's not grounded at all, which makes you feel a bit scared from a safety point of view. Why is negatively grounding dangerous from your perspective? What is the risk? We don't need to understand all the science, all the boffinry, even the boffins don't understand it to be honest. But we need to appreciate what we're dealing with. That's all we need to do.
+
+Dathan Eldridge (49:29)
+So negatively grounded sites, you get a high leakage current on earth. So I've seen on some central sites, up to seven amps on an earth, just through leakage. Can't be avoided. So you have an aspect of safety from that point of view. But because you've got it negatively grounded, you then can't pick up individual string faults because the whole thing's grounded. So you can't see if a string's gone down to earth.
+
+as well because it's being masked by the the grounding so you lose all your individual string monitoring which again you can have strings out which you won't know unless you physically go and check instead of the monitoring telling you you've lost two strings in the combiner box and there's also a fire aspect as well so it has
+
+Yeah, so you might reduce the impact PRD has on your modules or getting PRD, but you've introduced a nother realm of issues to do with RF in and string leakage, string monitoring. So you can have strings out that you're not even aware of.
+
+Vikram (50:53)
+Corrosion, what about galvanic corrosion? What about corrosion? Yeah, you're saying Chris. ⁓
+
+Dathan Eldridge (51:00)
+Yeah, you also increase the risk of that through galvanic action, which is big problem on sites. People using the wrong washer and the bolts rust. Little things like that. That's not just the UK. I've seen that in many different countries. It's sort of an industry flaw, think. Just picking the wrong, dissimilar materials. Not understanding, know, selecting the wrong washer can have that much impact.
+
+especially on a groundwork because it's just replicated across the whole site.
+
+Vikram (51:33)
+the if providing the string craigs cables are not broken, you can have seven amps flowing out of the ID or whatever that the things we don't really understand, but we know it's happening. And then so you got current flowing through two different metals, you basically made a battery that know, corrode
+
+33 kilograms of steel or 8 kilograms of lead, I don't know the numbers exactly. It's a big thing in the transmission industry where they have to put in sacrificial anodes or cathodes because you don't want pylons collapsing, all railway tunnels collapsing because of galvanic actions. It's very, important thing. But what about the hard-drawn copper, the bare copper that you bury in the soil? Do you have any experience of that?
+
+a risk of the earth corroding? Isn't the structure already providing an earth in some description?
+
+Dathan Eldridge (52:35)
+It is, but it's not under the same potential, which is why they bond everything. Because you can touch one table and you can touch another, but it might have different potential. that's why they have to bond it. It's just about electrical safety from that point of view as part of regulations as well.
+
+Vikram (52:55)
+right? The next person in our thing that is a heavy area in itself. But now let's talk about DES. You start DES, Dynamic Energy Solutions. You leave under a tumultuous time. It's all essentially you're such a key person. So are your colleagues who are working on them, such as Mr. Liam Hicks. You have these visions of starting your own company. When you said the first day you were allowed, you were working in your own business on site.
+
+It's been about over four years now. tell us about your business. Dynamic Energy Solutions. Just to make sure I'm saying it right. What is your business? What were your first visions and where do you stand from them now four years later?
+
+Dathan Eldridge (53:35)
+Yeah.
+
+So when we left, we just saw ourselves as support services in the industry, using our inverted manufacturer training, our specialist knowledge, just to fill the gaps, because a lot of companies, they don't have the capacity.
+
+to have people skilled in their team because of the cost. Or they just don't have the manpower as well to do a lot of the O &M or reactive maintenance are required. So we filled that gap initially, just supporting the larger O &Ms with just normal O &M work and for our manufacturer repairs, maintenance, and then high voltage stuffs.
+
+and transformers, switch gear.
+
+actually maintenance. We started that aspect and then we started hiring people, building the internal management team bigger, growing what the company could do. So we moved in commercial, solar, commercial EV, grew the services we were already providing more into an EPC aspect. So moving into repair and revamping and then
+
+taking on full EPC work as well and just building our knowledge further with more employees, more key personnel in the office to deliver larger works and we've had rapid growth because of it because it's such a need for it in the industry at the moment. So even though we left during when Covid happened, it didn't really affect us to be honest as a business.
+
+We've been doubling or tripling in size every year financially as a business. Teams been growing.
+
+Vikram (55:40)
+and very hard working, too hard working if you ask me and you make time for yourself as well but you know you use social media very effectively because it was hard to ignore what you guys were doing. would delete LinkedIn and install it back to see what your next day's posts were and here we are we have these funds going through their own issues because they didn't return money back to shareholders and they've had
+
+exploding transformers. Again, let's not get into anything confidential. And next minute, everyone's moaning about what's going on and getting their lawyers involved. And then we see a post from Dynamic Energy Solutions or DES from you with motorbikes considering a motorbike accident. I'm bit shocked you still have motorbikes and suddenly you have these transformers being craned into place and everything's fine. So one minute you're installing a domestic EV charger next minute you're
+
+you're lowering these massive transformers and the demand for your services grows and grows and grows because you guys are very ballsy and you go and get the job done. So when you say repowering and a lot of people say repowering, some might have a desktop on pain and say they repower because they draw some solar cells, but you guys are actually repowering high voltage equipment. So this is what I mean when I say you undersell yourselves. So how did this happen? When you Solar Century, did people start panicking and start calling you to change?
+
+load of transformers? happened exactly? Don't mention any sites, any names, but tell us like what, are you solving these kinds of problems? How can you just go on site and replace a burning building into a brand new transformer?
+
+Dathan Eldridge (57:17)
+So we had, we also had a lot of contacts when we left. People knew us anyway, because we'd been in the industry for quite a long time. And we've always tried to react as fast as we can. If there's an issue, we least try to get there the same day or next day. And then we just formulate a plan to fix the issue. I think a lot of our experience on a lot of these sites where we've been involved in the build or R &M, so we knew these sites pretty well anyway.
+
+So it's just sort of made it easy for us to go in and fix a problem or find a solution to solve the issue.
+
+Vikram (57:55)
+⁓ the ⁓
+
+You know the equipment manufacturers, you know who built them. So when completely random new people come in and panicking, at least when they go to you, they could get a 10 year encyclopedia on certain sites.
+
+Dathan Eldridge (58:38)
+Yeah, and it's just having that experience with the older equipment, the older comms because integrating new equipment with old is sometimes tricky, especially on the comms side. So just having a real good core foundation understanding of how these sites were built. Because a lot of the manufacturers aren't around anymore. So you just don't have the technical support, but we have that knowledge. Yeah, we were service partners for a lot of the major companies still are now taking on new server partnerships.
+
+with the key players today. Yeah, we're familiar with a lot of the old Switch gear, Transformers, lot of the problems they had. So we just applied that knowledge and just built our own client base. And we've been successful at doing that because we tried doing it obviously as fast as we can, but to best of our ability in delivering and getting everything back online.
+
+quickly as possible really and it's but also a high standard as well. ⁓
+
+which is why I think repowering has been very good for us. We always do it with understanding of these sites need to be looked after. They're going to be around another 10, 20 years. The contracts are going to be so they're going to be around probably even longer than that. So when it comes to doing a repowering, revamping design and everything, we think about all aspects, not just how quickly can we do this? What equipment can we shove in there? Is it going to make O life difficult?
+
+to go and increase costs down the line for the client. we look at the whole picture really, as well as delivering it on time and budget to a high standard. And it's going to be a massive industry like you said, hold sites.
+
+Vikram (1:00:27)
+Absolutely, absolutely.
+
+Absolutely and you're working for some large funds, know, let's not get into any any legals etc. But how do you convince such big companies to go with you for repowering and tell us what what is repowering and what is rebound revamping? What do you understand it as as the difference between the two?
+
+Dathan Eldridge (1:00:53)
+So revamping is where you're just improving a site, changing some components to.
+
+generally make it safer or just increase your performance just by changing the modules maybe. Could be a sign of repamping. Reparing is when you're almost doing taking it back to the framework and you're doing everything from that. Maybe new modules, new environs and that involves all the restring of the site, all the main DCs, new ACs. It's practically like a build almost. ⁓
+
+bit more complex because you're dealing with the cables and everything that are already in the grounds. You you're walking into a site that's 10 years old, it might have massive health and safety issues, it's had fires, half the site doesn't run. It's a lot of cable faults. The communication's sketchy, it doesn't work. Because often when you need repower, you don't change the comms, you just...
+
+You use what's there, just use different cores in a cable, but if that cable's been faulty, you often find that you have problems at the end where you're going around fault finding and trying to fix comms issues to get the site on, communicating. it's dealing with all those. So there's a blend of our own experience, EPC knowledge where we can go in and just do it, but we can also deal with any problems that crop up. ⁓
+
+We will also do substation fires, we will replace complete subs. We'll take out non-supported and vertical manufacturers and put in a new one that's supported. then it's again, marrying up an old site with new equipment, taking into account all the new regulations, G99, G100, stuff like that. So it's understanding the bigger picture.
+
+also you've got to be careful because you might put an inverter in that can produce way more than the original so then you've got to look at curtailing that environment, how to set that up so you don't go over the original export agreement. So it's a bit more in depth than just an EPC project and I think that's why we enjoy doing them, it's a bit more challenging. We get to use our experience and knowledge a lot more
+
+Vikram (1:03:23)
+Absolutely. We're this podcast now and because you're so busy, we're doing it remotely. I prefer to do face to face with you if I can in the future. we have to remember, we're not retired from the industry. We are still very much in the deep end, in the mud, doing things. I'm almost working seven days now with my kids' sports and work even on the weekends because...
+
+To honest, I am a solar geek and I like electrical engineering myself and I've been doing it 20 plus years and I enjoy it. That's why I don't take breaks sometimes because if someone gives me something I find fun, I'll work the weekend if I have to. So you are doing the same right now, but we have to take time aside. But there's some things I want to mention like PID we need to come back to in the future. Negative grounding we need to come back in the future. Repowering inverters we need come back in the future.
+
+substations and we need to come back in the future because you're working so often we need to sometimes sit back and take stock but you know I'm a bit conscious as well about the signal quality as well and you know what I want to ask you as we try to wrap this up for this evening you know you've had four and a half years with four years and three months with Dez you are still busy I'm doing projects with you right now in fact we've done a repowered one you did some other stuff yourself
+
+I've got things to do for you tonight and tomorrow morning, which I'm conscious of, I just save energy for. But let's not get our studies and our nerdiness distract from our social skills on the bigger picture, which is you are in business with four years plus. You are a success. You have to look after your health as we all do. What is the future for Des? If you talk to your future self, your listeners, your customers, your former colleagues.
+
+How do you see what you've done now evolving into the future business that's Dynamic Energy Solutions? If you want to talk a bit about that before I wish you a good Sunday evening.
+
+Dathan Eldridge (1:05:26)
+Yeah, so we're just going to expand on what we're doing really. I want to grow the commercial team so we can deliver more commercial projects. I want to grow the EPC team so we can take on larger projects. mean, right now we're substation replacement, switch gear replacement. We have a build. We're just finishing a repairing project. We've got a couple of rooftops we're doing. We're doing an airport.
+
+So we're doing a lot. I just want to be able to make them more of their own section within the business. Instead of the team doing everything, I'd have specific teams to do certain aspects. And obviously, Repan and Revamp is going to be a massive sector. Yeah, and then obviously we've got other things going on in the background where we're just scaling up the business from management side.
+
+money way, money sides with investment. There is there's something else we're starting, which is going to feed into what we're doing. So there's will be a supporting company to this new business, which I can't really talk about, but that will come out at some point down the road. So it's been a quiet rollercoaster. It's been rapid growth.
+
+And I'll just say again, because there's so much happening. So many builds. They start to get an older. So we're just end up supporting the industry. Like we've been trying to do from day one, really just on a bigger scale and maybe build some of our own projects one day. We're we're own.
+
+Bye, silly.
+
+Vikram (1:07:12)
+Absolutely, really fantastic. You know, I just want to say, you you do really undersell yourself. You have to take care of your health a bit more. You know, be careful with the motorbikes, you know, because you are straightforward, your partner, business partners are straightforward. They get down to the business and get the work done. And that's what inspires a lot of people in an environment where people play politics, talk a lot of nonsense.
+
+you go and get the job done, don't shout about it so much, you're very active on social media, but it's more to do with the industry stuff, you're not all the time saying, me, me, me, you're actually doing stuff and actions speak louder than words and you can see that in very, very senior people joining you and other people wanting to work with you. So I want to say congratulations for what you've achieved so far and you've got your daughter to pick up soon and we've got work to do together in the morning.
+
+Dathan Eldridge (1:08:27)
+Yeah.
+
+I'd just like to say your company is only as good as your team behind you really. I've had some fantastic people like Brett Baber working for me. He played a massive part in building the business. Obviously moved on to Bear Electric, but we're in contact working with each other. I've got a great management team, great guys in the field, and you can't do this on your own. So we treat everyone the way we want to be treated. Coming from a tools helps, think.
+
+We won't do anything. wouldn't. We're not prepared. Yeah, we're asked. We're asked people to do something, but if we're prepared to do ourselves, you know, we wouldn't get people doing something that we wouldn't do. And we treat people fairly. And I think that shows and that's why people want to work with us and work for us. think. Like you said, you know, just being humble.
+
+Vikram (1:09:24)
+⁓
+
+the sure we don't slip anything that we're not supposed to and we haven't so far and you know we've got hundreds of burning questions to ask you and ⁓ we're in our one hour and 11 minutes I know you need to your door up in about four minutes so thank you very much for joining this podcast I will listen back
+
+Several times I think deeply about the things you've said and I will have follow-up questions. So, thanks very much, Nathan.
+
+Dathan Eldridge (1:09:58)
+I thank you, it's been great. Thanks for the opportunity.
 
 ## John Davies: On a Mission to Establish Solar Excellence
 

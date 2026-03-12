@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Brett Baber: From the Army to Award-Winning Leadership in Solar Energy
+
 Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar
 
 Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management
@@ -2459,6 +2461,471 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Brett Baber: From the Army to Award-Winning Leadership in Solar Energy
+
+Vikram (00:02)
+Welcome to the Future of Photovoltaics podcast. We are already on our seventh episode, getting immense interest from our colleagues in the industry. Today, I'm very excited to have Mr. Brett Baber, head of ONM at Belectric UK join us. Brett, welcome.
+
+Brett Baber (00:18)
+Thanks for having me.
+
+Vikram (00:20)
+I want to talk a bit about how we first met, I think, because it was a strange time. was a lot of bad things about the lockdown and the COVID pandemic, but not many people talk about the good things. I think meeting you were one of the good things of that period. rebuilt our businesses after Brexit and things started going immensely well for us. then March 2020, we get told by Boris, we're going into lockdown.
+
+You know, and we start this whole virtual reality world of working and then all the things change with our existing customers. You know, first, I remember walking around Bank in London and feeling like the Will Smith movie, I am legend because there was not a single person there. You know, the good thing was there was no traffic. So I met one of your former colleagues, Mr. Liam Hicks and Mr. Dayton Eldridge.
+
+you know, you could get offices for 10 quid an hour because there was nobody in them. so, and then after the initial meeting with Dez, we agreed to meet at GridServe Braintree Electric Four Court because, you know, we had to do social distance meetings and, you know, things kept changing so often. And I remember you turning up in a nice YMG to charge in Braintree and that's how we were first meeting.
+
+Brett Baber (01:42)
+I mean just about made it from my house. I mean had about 140 mile range on that thing but it was decent car apart from the range but yeah, yeah was an interesting time wasn't it?
+
+Vikram (01:51)
+it was certainly and it's already been four years how time flies and you know so I want to talk a bit about you as a person before we get into discussing the future of photovoltaics specific technical details you know because people is what make this industry fun to be in and in terms of how you got to where you are your early career challenges growing up but do want to tell us a bit about that?
+
+Brett Baber (02:17)
+Yeah, I I mean, probably a pretty normal life to most people, working class family in Norfolk. I had two older brothers and an older sister. I was the youngest of the family by by some margin, my sister being almost 10 years older than me. Both my brothers quite early joined joined the army straight from school at 16. So it's imprinted on me pretty early in life that I didn't want to be the, you know, the brother in that family who didn't join the army. So
+
+quite early I had already decided that I was going to join the army. So I kind of switched off a bit, if I'm honest with you. At school, I was never massively taken in by lessons and academically I did struggle, if I'm honest with you. And I switched off and I just had it in my head I was going to join the army. And then at 16, I'd done that. I managed to just scrape in and get into a junior apprenticeship scheme.
+
+And that's really where my life started to change a bit. You definitely find in the military that you have to comply, you have to try your hardest. There is no second efforts at things. And if you are that type of person, you didn't last in the military very long. So I think in the military definitely crafted my management skill to a certain degree because you're obviously in situations and times doing, you know, working with
+
+with people and you need to know that they're pretty robust around you as well. So it led to some interesting times. I ⁓ ended up going across to Bosnia ⁓ in a place called Banja Luka where I was based for six months looking after radios and basically the communications equipment. Yeah, six months of real soldiers running about doing work while I was... ⁓
+
+based getting a suntan, drinking coke in the back of a Range Rover. So yeah, it wasn't all bad in the military for me. I had pretty easy time, but I just found that for me, I always had a bit more drive and the military, felt kind of stifled me, if I'm honest with you. kind of, you know, it's a certain amount of time served with ranks in the military and stuff. And I found it really hard to sit there for a long time and kind of, felt a bit stale. So after six years, I kind of decided to leave
+
+took my resettlement, done some management, further management training and then yeah, found myself working in the agriculture industry really.
+
+Vikram (04:48)
+There's a massive transition from struggling in school to joining the army. At what point did you think I should join the army? I'm not good at school. You obviously are very well spoken, so I wouldn't know that you struggled at school.
+
+Brett Baber (05:02)
+I something happened quite early in my life where I remember being, if you're going to rewind really back, I remember being a real child, probably 10 at school. And we were listening to this show and the teacher said afterwards, we want everyone in the class to write a letter and we're going to send it to this DJ and hopefully we'll all get a reply. And at the end of the lesson, the teacher held me aside and went, we have a certain standard in school, so we're not going to send your letter off.
+
+I remember that really resonating with me that I just wasn't good enough. I I of carried that through for a long time until I hit the military and actually realized that if I was taught stuff in the right way and I was explained stuff properly, actually I wasn't stupid. was actually quite intelligent and that really gave me the confidence to believe in myself a bit more.
+
+School's not for everyone, it certainly didn't work for me and I strongly believe in academics, I really do, but it it failed me in my early years. So yes, I think thankfully for the military, kind of, it did stick me and stand me on my feet and kind of make me who I am today to a lot, there's still a lot of things now. 25 years after leaving the army, they're still with me and they, still do to this day.
+
+Vikram (06:18)
+Did you ever get enrolled in combat or any confrontational situations? ⁓ Why were you deployed to Bosnia? What was going on and when was that?
+
+Brett Baber (06:27)
+At the time I was quite young, I was 18, so the conflict there was the Serbian-Croatian conflict. We were sent as a stabilisation force. The idea was we were to act as police, re-infrastructure, rebuild. It was that kind, so it was after the first wave. So for me, I've been really lucky in terms of my military career. I've been to conflict areas. I've never been involved in any direct action.
+
+Like I said, the real soldiers are out there carrying the guns. I was sat there just building up my son's hand. The King does go to the real soldiers. I wasn't certainly one of them. just used it as a career stepping stone.
+
+Vikram (07:10)
+And we obviously to 10 people out of their bubbles during the lockdown easing we ran this social networking drinks thing in London just to see people again and I remember you mentioned before you carried a rifle, right?
+
+Brett Baber (07:24)
+Yeah, I mean, I had one. mean, God forbid I have to shoot the bloody thing, but yeah, definitely. I was a soldier at the end of the day. I was weapons trained and stuff. I believe when I used to drive around in tanks and stuff, it all feels quite surreal now to think about it. But it all felt like a really long holiday, if I'm honest with you.
+
+Vikram (07:42)
+It's a big thing because you were trusted to carry a rifle, gun and you didn't do anything silly.
+
+Brett Baber (07:49)
+You know, never squeeze a trigger once in anything but a range.
+
+Vikram (07:52)
+Yeah, exactly. So you can be trusted with sensitive equipment. And then you mentioned that you became an engineer or got a technical NVQ level three. Do want to tell us about that?
+
+Brett Baber (08:10)
+I don't even know to this day how I managed to blag it, if I'm honest with you. ⁓ It was part of the phase in the army where it was coming out of the 80s and 90s where they really didn't leave soldiers with anything. You just done your time in the army and left. They really done this whole reboot phase with MVQs. What I don't remember doing a lot of the actual course, I remember the assessors turning up, doing a lot of interviewing. We'd do some tests back and forth. Like I I ended up leaving with an MVQ level three.
+
+without even touching anything outside of a radio with 12 amps on it kind of thing. it's dangerous when you think of it, I suppose. So I left with the theory and not the practical really. But no, it was good. But then like I said, that experience has still helped me even in agricultural crew and stuff like that. So it was all building blocks to where I've got to now.
+
+Vikram (09:06)
+What do what do you mean by agriculture career? Did you work as a farmer?
+
+Brett Baber (09:10)
+I wasn't a farmer. My father had worked in milling, agricultural milling pretty much his whole life. So when I left the army and I'd done a bit of management training, I ended up working with my father, which again, an amazing experience to see a man who was this disciplinary figure as a child suddenly be a normal person who goes to work. So yeah, I went to work with him and looked after a small team of
+
+milling guys and engineers and the maintenance team responsible for scheduling. It was my first real kind of job outside the army where I had a small team and it was electrically based to a certain degree where I had to have some understanding, but I didn't really have to be the expert. But it was more about the same as within the solar energy really. It was about managing expectations of your contract to make sure you deliver all the feed and all the milling requirements we had. So yeah, it's not quite the rock and roll.
+
+lifestyle we live in solar, but again, it was something that is essential in my life in learning management, especially coming out of the military where you ask someone to do something in military, they just do it. So one of the hardest things I certainly had to learn in my first kind of roles is that if you ask someone to do something, doesn't necessarily mean they're going to do it.
+
+To me, was mind-boggling because from school, I've always had that mindset that you've asked to get on with a certain degree. Obviously, there's an assessment of health and safety and there's nothing against that. But yeah, it was my first real experience. You actually have to manage people and it's not just a dictatorship. That hurt me. I don't mind being my first management role. I was pretty heavy for first six months until I realized that you don't really get anything out of anyone that way. It was quite integral.
+
+making sure that I understand that work is a necessity for most people and nearly all of us. And actually, you get the best out of people by making sure their life balance and work is all in harmony really. And that's quite hard with shift workers and stuff like that in agriculture. There's always issues for everyone. So running a 24-hour shift seven days a week is tough for a lot of people like that. So it was a challenge.
+
+and I've done that for a lot of years really.
+
+Vikram (11:31)
+Speaking of work, how did your military service shape your approach to your profession and career? Specifically, we work in an electrical industry, in the power industry, I'm most interested in is your NVQ level 3. Did that allow you to become an electrical engineer or technician? Are you able to give us some context on that at all?
+
+Brett Baber (11:49)
+I mean, not in my early stages. I mean, when I say when I first left, I went pretty much into management and there was electrical works to do, but it was the same as something I didn't need to be an electrician, although I had the MVQ level three. My first real taster was really when I joined renewables. And that's the first time that qualification really helped me. I went in ⁓ to LightSource as a junior engineer. I remember
+
+Going in quite early 2013, I went to London and met up with the management team there, explained that, know, been in the army, practically had all this theory training, but never really put it to pieces. And they had the confidence really in me to give me a job really, and allow me to learn those practical skills on site. And yeah.
+
+build up. So that was my first experience into using my qualification from the army really. Before that, it had all been just management really. I just naturally fought from the military. That's where I was going. So never thought I would take a change in a career, certainly at that age of my life really. I thought I was just going to stay in the agricultural industry forever. Yeah. And then suddenly this opportunity and I really felt the time in my life where I wanted to change. I had young children and all that as well.
+
+you start looking at the financials of staying in agriculture or moving across into a new industry. So yeah, I took that leap and that definitely was the main reason I managed to get into light source. And I know they stayed at a stage when, again, it was part of the first boom, so it was just growing so quickly. I mean, don't even know how many megawatts they had when I
+
+Vikram (13:35)
+Light Source are very important because many of our early EBC clients such as Soul Sentry and Oscar Mera were working for Light Source in the peak feed-in tariff time. So what year did you join Light Source? ⁓ So I joined in 2013.
+
+Brett Baber (13:51)
+2013, believe it was.
+
+Yeah, honestly, it was early on. It was either spring or summer kind of thing. But yeah, so I joined them at the stage where they were still trying to get engineers through the doors. there was some really good people. one, you know, not just with, it's like sort of pivotal company because they've essentially created this huge O &M industry to which, know, it's still to this day a massive industry and quite rightfully owned by it.
+
+of the big fuel companies now because of how big it's grown. In terms of its importance, the people they managed to get there were quite incredible. They had some really good engineers who had been in early days of solar and they managed to get them across to train everyone up. It was a really good experience for me, LightSource.
+
+Vikram (14:44)
+I pinch myself, know, and we say, you we delivered a lot indirectly to LightSource, transferred a lot of warranties, which I remember getting the signatures for. And then, you know, I pinch myself and think, you know, they are owned by BP, British Petroleum, you know, something that we've done is that belong to the oil and gas industry, you know. When I first entered renewables, you know, I wasn't necessarily motivated by climate change, but I preferred to do renewables over working in.
+
+you know, defense, for example, because it gave me that warm fuzzy feeling that what we're doing is greening the earth, is giving land, breathing space, you know, and we are doing something that's clean. So felt less guilty about driving a fossil fuel car because I'm offsetting some of my carbon with all this good solar work that we're doing. But now that they belong to BP, you know, it is a bit surreal, but also getting very serious.
+
+What motivated you to move into renewables? What was your drive? it, did you just want any job or did you have a specific focus?
+
+Brett Baber (15:41)
+I definitely wanted to do something which meant a bit more. Again, it was no offense against the Herian Culture Institute, but I'd done it for six, seven years, eight years. I can't even remember how long I'd done it for, a lot of years. I really just wanted to change. At that stage, again, I don't think I thought I want to change the world and become this massive green advocating man. I just wanted a change.
+
+I like the fact that renewables was a new sector and I'm very aware that when you get into new sectors early it can accelerate your career and that's one of the reasons I wanted to get into it. But mainly it was a change, I didn't want to continue working in that kind of thing and I wanted to was a new challenge really.
+
+Vikram (16:26)
+Of for me, I like Solar because if you go to the atomic weapons establishment where they make the Trident or Network Rail, they'll have thousands of engineers. There's already established processes. just, you are one of the many people there. But with Solar, the reason why it attracted me was you can learn from building blocks, from the very basics to very complex. So that's why, you know, I've stayed in the industry for so long.
+
+But how did your light source period come to an end? And how did you end up moving to Equitix? Who are Equitix?
+
+Brett Baber (17:00)
+Well, light sources, think, I mean, one of the things I'll say about being in the military is that, like I say, you end up being quite focused to get to an end point or to a certain level. So I think when you're at light source quite early on and you're able to grow and you're growing quite quickly and after a few years, you're a bit more in management or this way, you kind of you realize there's suddenly a ceiling and that ceiling is going to slow what I thought was my career path down at the time.
+
+rightfully or wrongfully, I decided at that point that I'd leave. Then I went to join a business, Equitex, who are a private fund infrastructure. They predominantly were doing pension funds and doing
+
+investment into hospitals and universities, those kind of long-term paybacks. And I think they just dipped their foot into renewables. And I was looking for something different from O If I was honest, I wanted to grow my kind of commercial bias a bit more and just learn a bit more. And again, just for personal growth, really. And I was lucky enough to end up at Equifix under Ian Davidson, who used to be at Solar Century.
+
+And to me, I think that is where my career really felt like it started. You know, it wasn't nothing to do with LightSource, but I felt like that was where my career actually started. So Ian spent a lot of time supporting me at my time at Epix. And yeah, I've got a lot of time for Ian and I, and I always will have. He really...
+
+taught me the commercial bias that I know today. He taught me how to understand contracts properly. He understood me all the financial elements that went with asset management. Technically, I was doing engineering, so I understood the technical side, but jumping from that ship into another was a really steep learning curve. I remember after probably my first year at Equitix, I had a break. was like, that was a tough year. That was hard work.
+
+But then at the same vein, was like, I don't want to slow down. I really didn't want to slow down. yeah, and actually it's had faith in me. I went from being a technical manager to one of the main general managers looking after their solar and onshore wind portfolios. Yeah, a really good time for me. And I would have continued to stay there had we not been hit by COVID probably. ⁓ And that's when your mindset.
+
+start thinking and you have time to consider where you want to go in your career, I suppose, and what you want to do. And you want to spend more time with family at the time I was commuting into London, you know, most days, you know, so yeah, yeah, Ektik was an amazing business. Yeah, I've got I've got no, bad words about them at all. They really looked after me and mentored me and supported me into a job I really wouldn't have found myself in these kind of positions today.
+
+Vikram (20:14)
+Absolutely. you know, I don't know who said this and I could probably credit this later on, but I remember thinking driving all over the place between 2012 and 2015, you know, that sometimes nothing happens for an eternity and sometimes an eternity happens in a few moments. And it was that kind of period 2012, 2013, 2014, the Olympics 2012, we had London offshore wind farm happening. We had the first massive scale solar farms.
+
+So, you know, people were keeping up with a lot of changes in feed-in tariffs, anti-dumping duty and in position of minimum import prices, ⁓ then change new rock schemes. So just to keep up was tough. But it was a good time and you have to enjoy the good times is my reflection of the last decade or so. And I remember walking in the rain, in the mud, was all the solar farms were always built during the worst possible time. I remember losing my boots at Cowdown solar farm.
+
+I believe you had some sort of involvement there, right?
+
+Brett Baber (21:17)
+Yeah, no, was one of the sites under the monitoring. over the ship holders. 50 megawatts at the time, it was one of the biggest single sites I looked after, just based outside or just inside Hampshire. Trying to the technology on that now. I think it was, I it might have been Solamax, but I'm not 100 % sure. It might be one of the last Solamax or it might have changed something else. I really can't remember what the technology was right now. But yeah, that was an interesting project just because it was at the time it was
+
+considered big.
+
+Vikram (21:50)
+Absolutely. And I work a lot in Switzerland where Solamax were from. I remember, I won't mention all the stories of what we go up to in the evening, but I remember taking Solamax to the factory and then the following morning they were going under, was, you know, hard to fathom. What were your key learnings from Cowd and Solar Farm and what sort of involvement did you have?
+
+Brett Baber (22:12)
+At that stage, my involvement was definitely off tools. It was more commercial management. The process there was predominantly still the fact process. We were in that handover from the actual EPC fully to the owner. These things always come with their own issues.
+
+That was my biggest focus for Cadaan, is getting a 50 megawatt through the fact process and make sure it's kind of ticked all the boxes. And it is, it's a good site, it's a successful site and they have good results from there and yeah, it's in a good location as well. So yeah.
+
+Vikram (22:52)
+You've said something very important then a few people have joked the Arnold have mentioned this on previous podcasts, the fact process for people that are young and new and that just entering the industry and ⁓ non-technical people. know, FAC is final acceptance certification. How did you come across this process? Did you develop it yourself? Did you gain this from suppliers or partners?
+
+Brett Baber (23:15)
+No, I mean, this was something inherited by the time I was working on the process. It was already working in place. I'm not sure where the first one's come from, essentially it's a two-year handover from the UPC into the asset owners. It just means that they can have a site generating work and they may have some teething problems. They may have some planning issues they still need to resolve and they get a bit of time to do that.
+
+and you have an intermediate certificate as well. they agree to hit a certain level by the end of that year. So the process is a bit laborious because it's basically checking, tracking through works and stuff like that. But it is fundamental to making sure that, you know, what was agreed is in place on solar farms. So it works. It's, yeah, like I say, it is a heavy, heavy process because there's so many, you one of the best comparisons I've ever had with working on wind and solar was when a guy went out.
+
+So, so it's a process that we're bound to be seeing back again soon. We've got the new phases of build going on in the UK now, and without a doubt, they will be a fact process. If not slightly renamed to something different, it will still be the same process. It's that that allow.
+
+of time to complete the project to its fullness. Sometimes it doesn't always work. Sometimes the EPC goes, we have some issues with this, we're not going to able to complete this. Here is a set amount of money to offset that we didn't finish that work. Then it becomes a bit of an agreement then between the asset owners and the EPCs to how they'll manage that financially really. It tends to end up pretty amicably, must admit. Not everyone, but in general terms, it's
+
+the contracts fulfilled but through that process. So I hope that plays out.
+
+Vikram (25:09)
+Absolutely. I run a small business called Ventus. We are agents in the UK for a massive cable factory with 400 employees. They should belong to a PLC called Leone in the past. The name Ventus means wind in Latin. I wanted to look for something renewables when I registered the company, it became available. I was trying to work on offshore wind farms. It's interesting you make the comparison between moving and non-moving parts. There are a lot of moving parts. There's salt water and wind.
+
+But the reason why I kind of gave up on wind and jumped full head first into solar is because in wind, the OEMs do the certification, know, like Vestas or Siemens, they've got everything type tested in a dry environment. The wind turbines arrive and you have to assemble with solar. are integrating the system as we go. and, and you said something very important about the fact that finally accepted certification process. And the reason why it's so vital.
+
+is because the industry's been a boom and bust solar coaster. You've had people who are highly technical, highly experienced, been there for 20, 30 years. Some people were academics in this area as well. And suddenly they've disappeared or decided they don't want to do EPC anymore or they've been taken over and now they want to go back to being developers. there are now, there is our situation where there's a shortage of VPCs in the market. And, but development has been very, very immense because after Brexit, the construction started to slow down.
+
+And developers less CAPEX intensive. there's a huge amount of developers who are now starting to go into build and for them is completely new. know, what is the fact process? Where do you start? How do you keep a control on quality? So what you said is very, very vital because, you know, people that work in O some of us don't see how intense the work environment was, you know, the politics.
+
+with a feed-in tariff, either you're twiddling your thumbs doing nothing and suddenly you've got 300 megawatts to build and there's not enough hours in the day.
+
+Brett Baber (27:10)
+certain date as well. I remember that mad March. It was absolutely crazy, it? the end of it, you've got to have it connected and generating before you can get the FIT tariff or the ROC payments, whatever. It was a really heck I remember never booking any holiday between March and April.
+
+Vikram (27:25)
+I worked through my holidays because the money was too good to say no to. I've said this before, I received a letter of witness by Xi Jinping and David Cameron. said to him, Mrs, cancel the holiday, need to do this. in Cowden's prime example, it's a massive project, but was one of several projects happening at the same time. And when you look at some of the research online, we need to do something crazy like 75 terawatts.
+
+of solar by 2050 and the whole world is in one terawatt, you know, even though the numbers were massive, they are not even a decimal point. You know, I think we're doing like less than 1 % of our energy. The UK 10 years ago used to use 400 terawatt hours of electricity. Someone mentioned on a four site blog, you know, now we have 50 terawatt hours. You know, it's nothing in the general scheme of things, but also massive at the same time. Do you want to go a bit more into
+
+how you went into lockdown and what happened, how did the journey with Equotex come to an end for you? ⁓
+
+Brett Baber (28:30)
+I mean, it was just circumstantial. you know, before, I kind of remember Ian Davidson making a comment like, oh, this kind of disease going around looks like it's getting pretty serious. I can imagine as not being able to come to work. And I was thinking, that's ridiculous. There's no way the government is going to stop the whole country coming to work, stopping going to work. then, yeah, suddenly no one's allowed to travel. The big announcement from Boris and there we were working from home all the time.
+
+And it was that flip from having a team around you all the time to being at home all the time and working all the time. it was fine at first. But again, I think that little itch got in the back of my head. don't get me wrong, I had a lot of opportunities to leave Equitix within that time to go somewhere else. But I really was happy there. But it did change when I started working from home. You ended up
+
+working extra hours, longer hours, not because of the company, just because you're at home and you feel like you need to do more hours. I just felt that then became a bit the norm. ⁓ I just really wanted a change. I felt like probably again, I've got as much commercial training as I was going to get out of Eptics. I couldn't see I was going back to London anytime soon. One of the biggest drives for me is I enjoyed working in the city. ⁓
+
+you know, having a really kind of busy job. when that all came to an end, it just gave you time to reflect. And then obviously I started seeing my children more and taking them to clubs and the reality of, actually, I'm not sure I really want to do all those things I thought I enjoyed like traveling into London because my children are growing up and all those things, you just have a change of mindset. So yeah, so I decided that, you know, it was time for me to move on. I didn't really know 100 % what
+
+wanted to do. I mean, I had the O &M experience and I had asset management experience at that point. During all that stage, I've always been quite vocal in solar anyway. I'd always been at the steering groups and done talks and stuff. I'd always been out there. So I thought my options were really mine. I could go anywhere. Eventually, I found the company of Liam and Nathan and they were
+
+probably a year or so into running DES and they asked me at a time that I really needed a challenge in life, they asked me to come and join them and yeah, it was a really, really nice experience to have two guys actually call you up and say, would you come and help us out for a little while? So they say, yeah, so I went then went and joined DES doing the development really and commercial management.
+
+Vikram (31:16)
+Before we go into that, you'd raise an important point that will resonate with a lot of people with me at least, which is you work for this massive financial firm, Equitex, finance is huge industry. think something crazy like 29 trillion in London, ⁓ don't quote me in the numbers, but I've read it's huge. you've got this massive opportunity with this financial sort of developer or investor, etc. ⁓
+
+and then suddenly you've come to this realization that everyone has that I could spend more time with my kids. I could work from home. I don't need to lose four hours a day on travel. Would you say it be right to say it was time with family that persuaded you to not go into London anymore?
+
+Brett Baber (31:59)
+Yeah, absolutely. I mean, yeah, it was. mean, financially, I took a cut for that, but it was, I absolutely understood that would be the case. But, you know, ⁓ I just felt that I'd missed a lot of, you know, tucking my children in or seeing them to school. I was getting up early and by the time I got home, they were very in bed or now going to bed. So yeah, it was really that impact of seeing them more. But actually it was just my social kind of, you know, it built up our relationships. You know, I now spend
+
+more time with my children generally because of that whole experience and something that really I'm quite thankful for. And like you, I spend a lot of time running my children around to golf or other piano lessons or other kind of clubs. it's actually really enjoyable. It's more enjoyable than work. you don't realize that when you're in, like you say, you're working for a really big business. You don't forget about it, but you certainly get blinkered to it. So when you were suddenly removed from that environment, was just like, actually,
+
+Yeah, the important things I think is what most people's comments were at the time. The important things in life became obvious and stuff. So I never felt like moving house, but yeah, I certainly didn't feel like commuting long hours all the time again. So that was certainly the focus.
+
+Vikram (33:12)
+And that's a big, big, big change because, you know, I've worked in LAP, I worked in Honeywell, I worked at Cable and Wireless and there is a huge work culture in the US where people work sometimes six or seven days, same in China as well. And, you know, I've taken a massive pay cut to spend time with the kids who run a football team for my son to play tennis with my daughter. as they're becoming teenagers and need me less, I'm kind of glad because they're never going to be young again. You're never going to get this time again. You've got the rest of your life to
+
+to make money, but it's important to reflect that this was a luxury not available to very many people before the COVID. was only sales reps or very senior managers or very key people that work from home. If you were someone that worked in an office, you were expected to be there because, you know, why are you working on your own? So that is a huge change. So I won't dwell too much on that, but what's interesting for me is how you met Liam and how you formed a relationship.
+
+Brett Baber (34:06)
+Yeah, so I remember I met Liam years ago with Lightslors. He was obviously doing some work for Solar Century at time. So that's one of my first kind of introductions as a brief, know, Solar Century guy there, name's Liam. That was my first kind of introduction to them and then working with Ian Davison. And then I got to know that both Liam and David were working with him at Solar Century. So when I
+
+naturally left Equitex and was looking for businesses to, I was doing some consulting originally and I was looking at some other business support. Liam and Dave was just one of the first people we kind of got in contact with. I can't even remember if Liam rang me first or I rang him, but I certainly needed some work doing on some solar farms and yeah, it was just me. So I thought I'd reach out to those guys. So that was my first real kind of engagement was them, was actually asking them to do some work for me. Yeah, and it kind of started from there.
+
+Vikram (35:01)
+And you mentioned I've got notes here just to have some sort of structure, you join as a Bit Develop Manager, you got promoted to being the Managing Director. You mentioned there was explosive growth with Dez. Are you able to paint a picture about what you mean by explosive growth? ⁓
+
+Brett Baber (35:19)
+We came out of a time where not just the COVID, but like I say, solar had been stale for a couple of years. There was no development. Everyone had left and it was just managing this. So it got very, very slow. And then what happened is suddenly everyone wanted a solar farm built or everyone needed work catching up on. And like dynamic energy, like Liam and Nathan, you know, were on the tools. were out all the time. went from really...
+
+steady work and quite frankly, the first year is scratching around for some work to it being a really solid booked up and in demand business. it was explosive in terms of workload. Then ultimately, you have that balance of trying to recruit sustainably because it's a self-funded business. You've got to rewind slightly and look at this business was funded from
+
+Liam and Dave are just putting some money in their bank account and trying to do some work themselves. I don't think they ever expected it to be the business as is today. And that is kudos to their working testament. And actually recruiting the right people. They went and recruited David Williamson when he left Solar Century, who is just probably the most hard-working ops manager I think I've ever met in my life. He just never puts the phone down and never stops working.
+
+So they went and recruited correctly in him and they were then billed out into correct engineers and the right subcontractor to help them build the business. But it's explosive in terms of for a relatively new business to go from two engineers to an award-winning O business today. ⁓
+
+Vikram (37:05)
+Yes, it's highly, most businesses fail, right? So we've got these action heroes that work for the SoulCentury O team, they've got a lot on their plate. Suddenly, we've got COVID and everything and then they meet me and saying they want to start their own business. And I thought, yeah, these are great guys, they've come across really senior and I know what they're talking about.
+
+It wasn't until they hired you and David Williamson, who I've worked with for a century in the past, who was one of the key people, whenever you saw his name in your inbox, you know you were getting a purchase order. And it was usually a big one. So when David Williamson suddenly joined Dez, you've joined Dez as well from Equitex, you start to take your friends a bit more serious. But for people that are not part of our media network or media industry,
+
+Are you able to tell us what does stand for? What are they as a business? And are you able to comment on what's so special about Daz and Liam that they can just start a business from nothing in the worst possible time and get to, as you say, explosive growth?
+
+Brett Baber (38:06)
+I mean, they're crazy, right, to start a business during that time. But fortune favors the brave, guess is what they say. But look, I mean, it is really testament to their character that not only are they robust, solid, knowledgeable engineers, that they are hardworking, they are committed to sites, they were a bit of a fresh air because if you asked them to go and do something, they would do all those things and more and send you a report. And it would just be so timely. They were just very sleek in what they were doing.
+
+Yeah, so Dynamic Energy Solutions was born out ⁓ of those guys. ⁓ Initially as a kind of support partner to the industry, I think is how it started. And then when I joined and David had joined, it was just a matter of trying to get business wherever we could. So we started pushing hard into our own rooftop development, supporting more O &M's and trying to cast them out to work with more people.
+
+And on top of that, we found that there was a real niche for repowering. It was something that worked out really well for the business in terms of how we scale our staff and our locations. It turned out to be just the most logical choice. So we really spent a lot of time focusing on repowering and what that meant to the clients, the uplifts and what we could get for it. And at a time that, again, we didn't realize that we always knew repowering was going to be a subject that we needed addressing over the next few years.
+
+I don't think we really thought it would be that quickly coming at those. It really turned from one repowering project one year to four the next to, I don't know how many they've got now, but plenty of repowering projects. On top of that, they're HV experts. really are like when you're stuck on a solar farm and you can't find the answers, they are.
+
+They are the last chance to try and work it out. And if they don't know, then it is something really, really bizarre. And I think that's what always appealed to me about working with Liam and Dave and I always knew whatever I could bring in as a business for them, they would be able to deliver it. I think it was one of the most secure feelings I ever had is trying to sell something is that I didn't have to worry about particularly what that work was as long as it was,
+
+financially worked for the business and it would keep our guys busy. yeah, they are phenomenally hardworking guys and they thoroughly deserve everything they've got with their business. it's certainly not a testament to me, it's testament to how they look after their staff, how they treat people. And yeah, an absolutely diamond of a business and one what was a very difficult decision to leave and a very
+
+part wrenching decision to leave because Liam, Dave and David, all those guys, and Michael included, they've all become friends of mine and long will we be friends ever since. They're just generally really good guys, not just for the business but in their personal lives as well. It's really hard not to want to work for them and like them as people.
+
+Vikram (41:16)
+Absolutely. And DEST stands for Dynamic Energy Solutions, right? Solutions, Dynamic Energy Solutions, okay. So I find it very inspiring to meet Dathan at first and talk about repowering and then Liam straight after, because it was during the lockdown period and people started to work from home and hardly ever seeing daylight and many people, they were having facing a lot of uncertainty.
+
+Brett Baber (41:19)
+solutions.
+
+Vikram (41:41)
+It was a crazy period because we had deliveries coming from Switzerland and Turkey and the trucks had to be stopped because they want to fumigate the trucks against Covid. It was a surreal time and if you wanted to get someone to come out, people were scared or didn't want to come out. So was very inspiring to meet Nathan and Liam and whatever you say to them, they will say, okay, we'll be there tomorrow morning.
+
+Brett Baber (42:03)
+They
+
+move mountains for their clients and I think that's, it's quite impressive, the way they can get around it and run their business in such a way. Like you say, it is inspiring. It was lovely to be the public. The long way they continue, I genuinely mean that.
+
+Vikram (42:23)
+And the drive is motivating. But before we go into your period leaving Des, you know, one of the goals of this podcast is, you know, because if you want to solve climate change, you know, I'm starting to appreciate what it means starting to mean now. I think we've had the hottest 2023 on record ever. You know, I'm probably not clever enough to truly understand climate science, but I'm starting to take notice that it is very, very serious. Like in the out, sometimes you don't get snow, enough snow for skiing, you
+
+actual changes but some housekeeping when you say repowering for new people that we want to motivate to enter the industry what do you mean by repowering how do you understand this
+
+Brett Baber (43:06)
+I think from a marketing level, it's kind of re-engineering the solar farm. Essentially, it's almost a new solar farm. If you were to remove all the inverter stations and then replace them for new models within the six years, 10 years they've been on site, obviously equipment's come a long way from them. So obviously better yields. They also have better tracking on them.
+
+know, less downtime for tracking strings. So there's multiple reasons for doing it. It's a financial, financially, you get the payback. can't remember what the full term is now, but it is pretty quickly. It's less than five years to get the payback or switch now and invert at this stage. But essentially it's re-engineering the existing solar farm and uplifting it to make sure it's not just hits the remaining of its life cycle. You get spare parts from the inverters that you're taking out for the existing rest of the solar farm.
+
+and then you get the uplift from that substation as well. It's a process that we didn't expect maybe inverters to fail quite as quickly as they did in the industry, but it was a consideration in most people's models to do a repower at some stage. The other issue we had is manufacturers disappearing or pulling out of the market because it wasn't feasible to them. So they then got products that
+
+outside of warranty and with no manufacturing support. So there's other factors to think about in terms of reparing is if I can't get the support from the inverter anyway, how am going to get spare parts? So you have to strip a bank out to give you spare parts to your remaining site, as well as just making sure you've got longevity and further warranty going forward, a bit more protection. So there's lots of pros and cons on it. In fact, Dynamic Energy Solutions done an amazing video on reparing. suggest you go check it out if you haven't.
+
+Vikram (44:59)
+I will do, I will do. We are very fortunate in Switzerland at Stude Cable AG, formerly Leoni, because we've got 400 colleagues and we've got a massive R &D workforce. We have our own scientists because we run our own irradiation center where we accelerate particles. These guys are ex-ABB and they're electronically very, very trained. Some of these colleagues unfortunately retired, which has been a massive loss to us. But the early objections from
+
+nerdy point of views like how do you get the electronic components like capacitors and resistors to have an inverter that lights the life of the solar farm from from your point of view is are the intervals like five years or 10 years 15 years when you should be replacing that inverters
+
+Brett Baber (45:44)
+I mean, one thing is probably too much to get into is that we're not fully aware of the longevity of the new inverters. think some of the older issues was technology probably not suitable for the environment. There's lots of factors to consider before you can just put a finite number of 5, 10 years. But I think in terms of financial modeling, certainly, you should look at doing a repower at 10 years. And there may be.
+
+some requirements to do it as early as five years. I've certainly seen it on some solar farms which are about five years old that we started reef powering. So it's hard to put a finite number into doing this.
+
+Vikram (46:22)
+We will do more technical podcasts in the future. I've done one already with dr. Jothi Roy So it is it is and also with honored. It's an immense area because the technology is changing so rapidly and According to dr. Roy there is now OEMs out there that make inverse specifically for repowering So we won't go too much into that. We need a couple of hours only on inverters. Otherwise But winning the O &M of the year award
+
+at Dez, you know, how did that come about? Who said that these guys are award worthy?
+
+Brett Baber (46:55)
+Me probably. mean, was probably my job is shouting about that. mean, that was probably, if I'm honest, probably one of my strongest self points. I know a lot of people in the industry and I do like to shout about how good we were. yeah, so I mean, yeah, there was an opportunity to nominate, you know, dynamic energy and I just felt it was the right time. You know, I remember being stood at solar storage in one of the little one meter by one meter hubs trying to generate generate business the following year, being there with our own proper
+
+⁓ proper exhibition stand and just growing and the third year it just felt the right time to try and top an award. It's like the dream isn't it? Like a startup business who was in the startup zone is now winning O of the year. So I thought it was an amazing end to my time at Dez. So I'm really glad that I could get that nomination in for them. And again.
+
+The credit is really down to those guys. There was no embellishments in my nomination, it was true. They genuinely are liked and respected by their clients. They do excellent work. So it was well deserved. I was very happy that they let me come on stage and collect that award with them because I'd already done shit by that stage by the time we won. it was a nice accolade to leave on.
+
+Vikram (48:14)
+There's a Scottish comedian called Billy Connolly. might know him already. I'd listened to lot of audio books during the lockdown and I think his book was bestseller called Windswept and Interesting. And he says, if people don't give you a medal, then invent your own. So if you're doing business development and you're pushing the business, of course, let's go do this. But was hard to keep up on your LinkedIn feed. I admit I delete LinkedIn just to not get addicted on constantly screen scrolling and tiring myself out.
+
+Every time I reinstall the app or login there will be something that you guys are winning. So you won O &M of the year and then you went to some X-Forces event as well?
+
+Brett Baber (48:52)
+Yeah, no, that was a really surreal one. yeah, I got an email come through to say I've been nominated for ⁓ an engineering award for ⁓ X-Forces in Business, which is a great award ceremony running in London. And that was quite nice just to know I'd been nominated. So that was the first kind of level into that. then, leading up to July, I then got told I was shortlisted and I'd have to attend. So yeah, I went to the swanky
+
+the ballroom in London and yeah, sat there with loads of doctorates and PhDs around this table shortlisted for an engineering and thinking this is never going to happen. You know, I remember having a call with Dave and he was like, in for a chance. was like, no way. It's nice to be nominated. I remember saying, I'll get, I'll take the pictures of the stage to show dynamic energy, you know, on the stage and that never in a million years thinking that I would win. then, yeah, and suddenly my name was called out and
+
+Yeah, then the rest was a bit blurry, I'm honest with you. It was a very surreal experience to be nominated in the first place and then taken award home for engineering, which, yeah, probably a bit tongue in cheek. I'm not sure how many times in my lifetime a screwdriver has actually been in my hand. But in terms of why I won it, it was more around being ex-forces in renewables. I I have to tip my hat to renewables again. It's because I'd been working in renewables that supported that win.
+
+But yeah, it was a really great experience and it's both really humbling and big-headed at the same time to receive these things. yeah, it was a really nice experience.
+
+Vikram (50:30)
+Because you can put yourself forward for an award, but people have to vote for you and you guys were existing in an industry with billion euro companies like Biowire and you know, could be Electrics also, one we're now is very big and you guys are in rubbing shoulders with massive organizations and so people are voting for you. So it's a testament to you and to your team, Dathan, Liam, David Williamson. then you had this great chemistry and a great team and great potential.
+
+suddenly you turn up at Be Electric, how did you meet Mr Barry Benny and do you want to tell us bit about that?
+
+Brett Baber (51:06)
+Yeah, so I've known Barry for over 10 years. Yeah, I've worked with him previously at LightSource and then another business we worked together. And we've always stayed in contact regularly, met up every year and we remain quite close. So yeah, that was kind of my relationship with Barry. then, yeah, Electric had had a lot of changes and I was asked if I would go along and take a challenge off.
+
+looking after and building on the O &M team. So that was the start of that conversation. And yeah, like I said, it was a really hard decision at the time to one, have to leave Dez, who I did have a great job, a you know, great package with, and I had no complaints, genuinely had no complaints. you know, they respected me and I respected them back. it was really hard to make that call today and just say that I'm really sorry, but I've been offered this and it wasn't
+
+it wasn't financially led at this base. was to me, it was the opportunity to go work for what is now a global business ⁓ and see if I could stand on my own two feet in a similar role, but probably more people and probably slightly more responsibility. So I saw it as a really big challenge. And more importantly, as an opportunity to join a really well-established business who is having this amazing growth at the moment. again, I just saw it as just a huge
+
+career opportunity that they don't come around all the time. So when they do, you try and grab them with both hands.
+
+Vikram (52:41)
+Absolutely. And as you said earlier, people say there's no moving parts in solar, but it is a massive under construction undertaking, you know, and every country is different. In the future, we will do episodes on the electric story in itself. You know, it was a key account for us for my colleagues. because the UK gets so much rain, we have high groundwater level, we developed a product water blocked main DC and LVAC cable.
+
+specifically with UK engineers and my colleagues in Switzerland, Mr. Furgi Gensu, Jan Wolfgang went and sold it to Be Electric for 350 megawatt Lyman Dale solar farm. so we have a lot of background Be Electric, they were sold to RWE and now I think they've got a new owner. But for people that are new to meeting you, do want to tell us a bit about Be Electric and about Barry specifically, what kind of business they are, what they do?
+
+Brett Baber (53:37)
+Yeah, mean, yes, electric have been around for over 10 years in the UK. They're a global business. They're established in Germany, Norway, Denmark, France, Italy, Africa. So it's a very well established global business. In the UK, it was one of the original kind of EPCs. And they, as a business, tended to have longer term O contracts built in as part of their EPC.
+
+So they had a slight niche to the normal guys who were going out getting five-year contracts and stuff. And they managed to hold on to their own projects for quite some years, 10 years, and never actively looked for third-party work. just looked up their own sites and became this quite small O &M business looking after their own built sites for asset owners.
+
+Barry joined, I think six years ago, believe, I have to check with him his numbers, but I believe it's about six years ago. And then there was an opportunity to really change, like I say, after the first couple of years of ⁓ solar being stale, an opportunity came available to them to build again. Barry's kind of, know, marched forward with Belletrig, not just Barry, whole scene, think you've got Chris Abel and Ruben Martin.
+
+Joe, they were all in the same team pushing forward. But they're now really established as an EPC. Obviously, they're several projects in the UK as we speak. And again, I won't go into the full details of those. But it then has broadened the market for us. So we as an ONMC need to get bigger because we're to have more megawatts coming in. But the more defined choice on top of that was Barry decided that they would finally approach the third party market.
+
+and start looking after third party O &M projects. So now that decision was made, I think, tail end of 22. And then they started winning some projects with the well-known asset management company, but we've got some contracts that they're up to. I think we're up to about 400 megawatts around that right now. But the real growing pain is coming now.
+
+at the end of the year, definitely possibly pushing for a gigawatt with other stuff we're tendering on at the moment. we're at a stage of growing pains right now. yeah, Electric is this business who has been around a long time and ⁓ decided to probably go stand along with the big guys such like LightSource and Res and PSHs and see if we can.
+
+play our part in the industry. think there's enough in the market for everybody. There's enough work that we should as businesses be able to sustain another one of us in the market and hopefully doing a good job.
+
+Vikram (56:39)
+Absolutely. Confidentiality is a big thing if you want to work in any big business. People have to be able to trust you and certain things have to stay between the people that they're discussed with. And also, I want to speak a bit about EPCs. That's where all the action seems to be in terms of responsibility, in terms of the engineering, in terms of the maintenance. There is a lot of companies that get roped into being EPCs and they haven't got the capacity and they do struggle.
+
+But Be Electric has a very important brand name. You have a very interesting chemistry with your colleagues in Germany and other countries. We agreed before this call we won't mention specific precise numbers to protect commercial sensitive information. But in terms of growth, in terms of employees, are you able to give us an idea about the UK team?
+
+Brett Baber (57:27)
+Yeah, mean, yeah, I mean, the easiest one without definitive numbers is beginning of 2023, there was less than 20 people working for Belletrik UK. And to this date, there is over 70. And that's an ever growing number. And I think the target is to be around 120 by summer of this year. So
+
+You can imagine that's created its own tasks on its own, but it is a massive ⁓ period of growth for Belletrik, the biggest within the UK. Belletrik UK, definitely.
+
+Vikram (58:01)
+and you are head of O ⁓ you able to give us an idea of your day to day role, what sort things you get involved with at Be Electric?
+
+Brett Baber (58:08)
+Well, I try and plan my days, but they're always scuffered because that is O for you.
+
+Vikram (58:13)
+the NATO and then we have to run when something goes wrong you have to respond right
+
+Brett Baber (58:17)
+What I love about O is that there is no two days the same. ⁓ Every day is different. There's always something. Before I joined this call, we have some stray dogs on a site. We've never dealt with that before, but there you go. It's an interesting. I've had horses before, but never dogs. So every day is different. And I do love that. I love the fact that from an O point of view, I still get to have an engineering mind and a commercial boss. So my day to day really is looking after
+
+three managers on me. have David Maribel and Dom underneath me and they look after various teams. So I have a portfolio management team and monitoring team who's looked after by one manager. I then have ⁓ the health and safety and project teams and then I have the full-on O and HPE teams. So we're split across the board. We try and do as much as we can in-house as an O I think it's one of our bits that all of our engineers in terms of our
+
+our training going forward, all have the right levels for the right site and stuff. So yeah, it's definitely been quite painful.
+
+Vikram (59:23)
+And I've got notes saying you have plans to reach a gigawatt by the end of 2024 and expanding your team according to that. Is this a gigawatt in EPC, gigawatt in O &M? What do you mean?
+
+Brett Baber (59:34)
+So I think that, yeah, so I mean, I think the world's the limit really in terms of what we all reach for at the moment. I don't know what the full EP scale is, I don't know those numbers right now. In terms of ⁓ yeah, we're not necessarily targeting it, but I think, yeah, I think it's reasonable to expect us to be in or around that by the end of the year, just with the projects we already are building and facing and the tenders that we already know we're involved in.
+
+mean, pushing the market slightly now because we're looking at best projects and co-location. So another integrity to add or another complexity, sorry, to add to the mix. yeah, we've got to grow accordingly. And obviously that comes with its own issues, as you know, the technical resources in the UK is pretty low right now. And we're in a bit of an auction for engineers. it is tough to try and grow your team, make sure you train them correctly and ethically.
+
+not in a stage where they just train them and they're gone straight away. So there is this real balance within my job of making sure, again, going back to my early agriculture days, it's not just the work we're managing, it's the people as well. yeah, but actually I've got a really good team below them and they've always had a good name. And the real drive over the last year is fundamental to people like Alastair and Barry who run the business.
+
+So yeah, it's going to be both interesting headaches and ⁓ tantrums throughout the year, but that is the world of O ⁓ It's an ever moving boost. There's always faults, there's always issues, and there's always something going wrong. And with the current climate crisis as we see, you will see in wetter weathers, which is more trips for us, it's more cool-outs, we're seeing more wind, we're seeing more challenges as we get from year to year. ⁓
+
+not including the aging equipment or all the other issues that we've got. So it's a really demanding role, but it's fully enjoyable, I must admit. Like I say, it's every day is different. But I really like working with across all boards. I like being involved with the client management team and being part of that and seeing how we're adapting that. We've had to put in a lot of systems into place because obviously with growth,
+
+with 20 people, you can talk amongst yourself and do most of your business on email and Excel. So, you know, one of my fundamentals for the next 12 months is building out on the system that we've put in place to manage the engineers and schedule the work and reporting. You know, then got to look at, you know, building, you know, commercial dashboards for clients and stuff like that. So I'm involved in a broad spectrum across the O business.
+
+But yeah, it's where I like to be. It's a bit of everything and yeah, it's very interesting.
+
+Vikram (1:02:31)
+So,
+
+Sq is, know, to hit your ambitious growth plans in the market of labor shortages, you know, you need to attract good people. Yeah. And so, in terms of the sort of people you to work with, are you able to give us an idea about that? And can you share specifically what processes and procedures you're implementing to attract and train and retain good people to hit your gigawatt plus target?
+
+Brett Baber (1:03:00)
+Yeah, I mean, it's a really, really tough subject if I must be a vikram. But I mean, internally, what we're trying to do is reduce traveling time for engineers, more regionalization ⁓ and ⁓ less sites and less megawatts to look at per engineer. Obviously, there is a fine balance to what you can pay your engineers compared to your market competition. we're trying to recruit at the higher level.
+
+really solid industrial experts in solar. So the real finite PV, HP experts, those kind of people, we're looking to cement those into our business within the regionalization of the teams. We're looking to grow the teams further. Unfortunately, like you say, it's hard to either convince someone to come from ⁓ house bashing or from a domestic market into standing in the middle of the field. So I think I have a slightly different approach to it. I think there's
+
+probably for us and our focus again for the training team is to bring in novices and try and cross train people from other industries. And I have to look at myself, I came from another industry 10 years ago and if I can do it, I'm pretty sure anyone else can. So I think it's thinking outside the box. can't just keep looking with inside our own market now because it's saturated already. We've already got all the engineers. So I think it's about bringing in the right mentality, the right people.
+
+to do the jobs outlay. And I'd like to see us in a world where there's probably modularized training within the industry. we know that whatever we call them, a ⁓ general engineer can do X, Y, Z job, HB can do those. And then it should help the workforce balance out. I don't know if there's a full requirement for a PV engineer, every PV engineer that is to be an electrician. think there is some.
+
+some unique things we can do around it to reduce the workload. And we're also going to look at the future of innovation, and what we're to do to reduce time on site and how we can use better monitoring and technology to support us delivering a more robust product to the client.
+
+Vikram (1:05:12)
+The unfortunate reality we have is because of COVID, like yourself, you're quite young, but people have taken the stock of their careers, their lives, and we've had a massive workforce disappear. We've had obviously Brexit as well. because of that, there is a natural labor shortage across all sectors, not only solar, but solar itself is very, very exciting because the energy has just started. It's about a terawatt within the 75 terawatt goals that we may have worldwide.
+
+and already is one of most efficient and the lowest cost ways of generating energy. So there is that vision we can sell to ⁓ young people or mature people that want to enter the industry. And as we come towards the end of our podcast, the most important question I want to ask you is, know, what is your vision and what do you see as the future of solar photovoltaics?
+
+Brett Baber (1:06:07)
+I think for me, think we have to look at a more balanced world. think there is definitely a call for the government to be more relaxed around solar. I don't know if we're in a world where we need funding so much anymore. I think we've proven that we're an industry can stand on our own feet, but I think they certainly need to look at relaxing the rules a bit more around it. There's a lot of back...
+
+press around so that especially around agricultural land usage as we all know and I'm sure you'll speak to someone in the future about those kind of things. But there's a lot of government support that they can do which isn't financial that I believe should change. So I'd like to see that on the horizon. I'd like to see a more direct route for people wanting to get into the industry. It is a hard industry to get into, although we're crying out for people. It's one of those strange anomalies that I find.
+
+once you hire someone that most of my life I've been trying to get into the industry for a year or two years and then we wonder why we're just can't get in. So we need to have this more direct obvious route in. don't know how we get that right now. There's this again, John Davies and other people in the industry thinking about these things. So I see a world where we have that more direct route and a more obvious chain of getting into the industry. More importantly, I think we need to be at a stage where, you know, as a
+
+Vikram (1:07:21)
+Okay.
+
+Brett Baber (1:07:27)
+as a country, need to start harnessing our own power. And I think that that is to a certain degree, when it's affordable, should be at our own home to a certain degree. And I think there should be, I know the government is supporting doing heat pumps. But I mean, there is an element of putting solar on your own roof is quite empowering outside of it being financially rewarding over time. It's quite empowering to know that you've got your own power. So I think there should be this mindset change as well to
+
+every house probably should consider where practical to have solar and battery storage to try and help balance that grid out a bit more because it's going to get worse, know, and more imbalanced as we start putting more grid and more items onto the grid. And we're already seeing that in delays in the grid. So, and again, I can talk all day on the issues around that. But yeah, I see a future where it's a bit easier, a bit clearer of where we're going. I think it is happening. I think we are getting there.
+
+and I'm about talking full politics, think the change is afoot now.
+
+Vikram (1:08:29)
+I've spent so much time in solar that I ask this question myself all the time. I've been asking it for last over 15 years. What is the future of solar photovoltaics? What is my own future? Are we destroying agricultural land? Are we doing something unethical? These are things you ask yourself because the moral argument is what you need to have to grow a big team, to have people following you. Solar by all means is not
+
+a bullet because it doesn't work in the night time, it does cause grid intimacy, it doesn't work in the winter as well. But every kilowatt hour of solar we generate in the summer or when there's daylight, there's less gas that needs to be burned. And specifically, if you care about the environment, you look around you, I've researched a lot about agricultural land and food use and we are destroying our environment with fertilizer,
+
+we're bees, we're chopping down forests and for what? And this is on the WWF, it's the animal charity. These are proven research, evidence papers. say on the, most of the land we use in the UK is for growing food for animals, which is actually destroying the environment. And when you take all the nutrients out of the soil, it's dead, it's finished. And so if you put solar somewhere where,
+
+York Solar Farm is a pig farm, you know, it can't be used for agriculture anymore. If you install solar, then you allow the, for crop rotation, you allow the land to recover. So that land argument doesn't wash anywhere. Of course you have to be ethical and not put solar where people have lovely views out of their window. You know, you have to listen to people and take them forward with you. I've certainly enjoyed this conversation and I've found from previous podcasts, when you listen again, you realize there are bits that you miss. So I will think deeply about the things you've said and
+
+And thanks very much for joining us today.
+
+Brett Baber (1:10:24)
+Thanks for having me, Vikram. It generally has been a pleasure. It's always a pleasure to speak to you. Cheers. Cheers.
+
+Vikram (1:10:28)
+Perfect. Thanks. Thanks, bro.
+
+
 
 ## Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar
 

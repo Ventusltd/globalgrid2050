@@ -2470,23 +2470,23 @@ You're welcome, Erin. Thank you.
 
 ## Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development
 
-Vikram (00:00)
+Vince Barnes (00:00)
 you
 
 Welcome to the Future of Solar podcast with Vikram Kumar.
 
-Vince Barnes (00:15)
+Vikram (00:15)
 Now on our magic number, ⁓ 10th podcast. Today we have the absolute pleasure of having a very important person from the industry join us, Mr. Vince Barnes. So he's an electrical engineer, a solar and battery project developer, a musician, a very senior manager from the past, a giant called Wurzel, an ex-submariner.
 
 We've had someone from the Navy now, sorry, we've had someone from the Army now we've got someone from the Navy. Vince, welcome.
 
-Vikram (00:50)
+Vince Barnes (00:50)
 Thank you very much, Vikram. I just hope I can live up to your big intro there. And it's always a pleasure to speak to you.
 
-Vince Barnes (01:01)
+Vikram (01:01)
 The feelings likewise, Vince. We didn't talk much about our backgrounds and I think this is proving to be popular on our podcast. Can you tell us a bit about Anthony Hopkins as a new advert of Welcome to Wrexham, where he looks in the mirror and says, who are you? I find that quite chilling, know, who are you Vince? Can you tell us about your early life growing up in Newcastle and your football and your rugby stuff?
 
-Vikram (01:26)
+Vince Barnes (01:26)
 Yeah, certainly. So ⁓ I was born just outside of Newcastle and in a little village and I had a fairly normal upbringing. But I was one of those kids that when I was about five or six, my mother was constantly having to come out and find me, which was always in the same place on the football field playing football with my mates. And I could play for eight, nine, 10 hours a day and not get tired.
 
 And when I went to the comprehensive, became, I was a goalkeeper and also a rugby player. And when I was, I was 11, I think it was, and I used to play in goal and I really loved it. And I had a nickname at the time of Mick Mabini. My nickname was Bean because ⁓ I was tall, well, I wasn't tall, I was just very skinny.
@@ -2499,10 +2499,10 @@ And whereas everybody else was running away and not wanting to be plowed by him,
 
 So that's my rugby career. I did sort of play rugby when I was in the Navy, but not as much as football.
 
-Vince Barnes (04:03)
+Vikram (04:03)
 So 42 nil, can only be rugby, right? Share with us more about this young rugby prodigy.
 
-Vikram (04:14)
+Vince Barnes (04:14)
 Well, I don't really know much about him. was...
 
 Yeah, sorry, I don't really know much about him. just know that he was a huge, he was probably twice the height of me. I mean, when I was a kid, when I was 11 years old, I was one of the smallest in my class. And this guy was, you know, he was very big. I was a hooker and he was just a giant running towards the team. And even the big guys on our team were afraid of him because once he built up a momentum, you know,
@@ -2511,12 +2511,12 @@ Challenging him stopping him, you know, buddy to buddy just wasn't working He wa
 
 ⁓ But as I said, a prodigy, I really don't know anything about him, just that he was big and fast. Just like John Olumu.
 
-Vince Barnes (05:24)
+Vikram (05:24)
 It speaks a lot of your character because I'm a Sunday league coach for my sons under 13s and often we come across a big guy who walks through the whole three-year team and you can take the horse to the water but you can't make a drink and I very much live by that because some of the littlest boys they impress you and just get stuck in. What inspired you to join the Navy at the age of 17, Vince? And how did
 
 Your sporting interest continues during the Navy.
 
-Vikram (05:56)
+Vince Barnes (05:56)
 Well, it was, the Navy was, it's something that came about when I was five years old. I was on a little rowing boat in Scarborough with my parents, my brother and my sister. And it was a really windy day and the sea was up and we were chugging along in this, it was a rowing boat but it had an engine on the back. And we were chugging along. I don't know who stupid idea it was to have a day out on a boat when it was.
 
 pouring with rain and windy. But anyway, we went out on this boat and I was petrified. I won't deny it. I looked at the waves and they were twice the height of me. And I thought this boat's never gonna survive. But when we got back in, I thought I'm never ever gonna be afraid like that again. And I determined then I was gonna join the Navy. My stepfather at the time ⁓ was in the Navy and it was just something that I had in my mind.
@@ -2533,12 +2533,12 @@ She called my mum up and said, is your Vince gonna join the forces? And she said
 
 1982. And I remember leaving Newcastle train station at quarter past eight and my family were on the platform. My mum was crying her eyes out. My brother and sister were going, go on, get away. ⁓ And I ended up in Plymouth in HMS Fiskard at, I think it was about four o'clock in the afternoon on January the second, 1982.
 
-Vince Barnes (09:41)
+Vikram (09:41)
 It's interesting that you've got experience in energy and ⁓ in the Navy and you had some thoughts about the RAF. As I said earlier, we've had an army man on board ⁓ with the podcast and we are in middle of an energy war. The Department of Defense, they are complaining about the army, the Navy, everything's shrinking and we need to get into a war footing, which is quite frightening for me. ⁓
 
 What's new is because of remote working, it's very difficult for us to get to know our colleagues and to build a chemistry which is essential for successful work. How did you name the cat, Vince?
 
-Vikram (10:19)
+Vince Barnes (10:19)
 Well, was... So, as I said, I used to be a goalkeeper and when I joined the Navy, ⁓ I signed up to the... So, where I was was at HMS Fiskar. There were six divisions and each division had a football team and I happened to be... And we had two teams. I happened to be the goalkeeper for my division. And we were playing... We did this knockout competition.
 
 where the divisions were split East side and West side. There was three divisions on East side, three divisions West side. And it's kind of like the Champions League where ⁓ everybody on the East side plays each other and home and away, even though it's the same football pitch. And then everybody on the West side plays each other home and away. And whoever's the top of each division, if you like, played each other. And so I was in goal in the final.
@@ -2551,22 +2551,22 @@ How on earth did you ever get to that ball? That was a dead on goal. And from th
 
 Nothing to-
 
-Vince Barnes (12:26)
+Vikram (12:26)
 The
 
 Navy is a big highlight on your profile. Did you say in the past you were in charge of a nuclear weapons submarine? Did I remember that right?
 
-Vikram (12:42)
+Vince Barnes (12:42)
 Yeah. ⁓ So I was, ended up being in charge of the missile control center on Polaroid submarines. And that is effectively the computer systems. ⁓ And I say computer systems with tongue in cheek because the memory storage on this huge computer system, took a room about the size of an average sized living room. ⁓
 
 was 16 kilobytes. That was the ⁓ storage space. And so I was in charge of the missile control center. It was the system that made sure the weapons got to wherever they were going to go. But the funny thing and the ironic thing is ⁓ I used to write poetry a lot. I now write songs. And when I was 13, I wrote a song called Smoke Without Flame.
 
 And it was a protest song about nuclear weapons and specifically about the Polaris nuclear weapons system. And at 23, there I was in charge of the Polaris nuclear weapons system. How ironic, eh?
 
-Vince Barnes (14:02)
+Vikram (14:02)
 And on build up to this call you said you hardly come across ⁓ submariners. What is a submariner? think you said it's as prestigious as being a fighter plane pilot in the RAF, right?
 
-Vikram (14:14)
+Vince Barnes (14:14)
 Yeah, so as a submariner, get, let me explain, in the marine, in the navy, sorry, there is two types of vessel. There's a ship and there's a target. Ship being a submarine and the target being what you would call something that floats on the surface. ⁓ And a submarine is just a long oblong tube which carries missiles or torpedoes and it goes under the water.
 
 Now, on the submarines I was on, they were underwater for up to three or four months. The earlier submarines, the old diesel submarines, they would be underwater for about 24 hours and had to come up to, not to the surface, but just below the surface and recharge their batteries. But we were nuclear. We had a nuclear reactor on board, and so we could stay down. The only thing that
@@ -2575,12 +2575,12 @@ meant we had to come up with running out of food, running out of, well not runni
 
 So I guess, so question. Sorry, go on.
 
-Vince Barnes (15:32)
+Vikram (15:32)
 in charge all this.
 
 Please finish and then lead us to why you left the Navy you're in charge of all this exciting stuff. Why would you leave?
 
-Vikram (15:46)
+Vince Barnes (15:46)
 Well, to finish off the question before, ⁓ what's a Submariner? So the difference between surface fleet and submarine, the submarine fleet is on surface fleet, you need to know a little bit about every compartment. When you join, you spend the day on each compartment just getting to know it. When you're on submarines, you spend between three and six months in doing what's called your part three. And that means you have to know every single sea valve, every air valve, every hydraulic valve.
 
 every ⁓ system for shutdown, how to shut down the door in the event of emergency, how to fight fires in the event of emergency, which isn't just a fire extinguisher. could be ⁓ having to initiate the ⁓ firefighting, the dry powder stuff or whatever in the compartment, which meant you had to get out of that compartment as well. So you had to know everything about that compartment in case
@@ -2591,26 +2591,26 @@ from aft to forward or forward to aft and they will walk through with you and as
 
 congratulate you and he gives you dolphins in a tot of rum and you're not allowed to pick the dolphins out. You have to catch them in your teeth while you're drinking the rum. And I nearly swallowed the damn things.
 
-Vince Barnes (17:57)
+Vikram (17:57)
 The Dolphins, it's an insignia kind of medal you get when you've learned everything about the submarine and qualified as a submariner,
 
-Vikram (18:06)
+Vince Barnes (18:06)
 Yeah, so if you imagine a pilot gets his wings and he sews it onto his jacket, a submariner gets his dolphins, but these were like a gold badge that you put on your uniform. And it's the same in every Navy throughout the world. Submariners get the dolphins. And it's quite unique because I've met a number of, when I was in the Navy and just after when I was in the oil industry, I met a number of submariners.
 
 And there's a great amount of respect for each other. It doesn't matter what Navy you were in. I met a Russian submariner once and I met a couple of French submariners when I was in Belgium. And it's like, you're a submariner. Yes. ⁓ that's fantastic. You know, it doesn't matter the Navy. They all have to go through the same thing. So they all know ⁓ that you've gone through what they've gone through. And it's like, you know, I take my hat off to you, sir. You've become a submariner and that's great.
 
 So there's a big camaraderie between some mariners around the world. Everybody has the respect of each other, which is a good thing, I think.
 
-Vince Barnes (19:17)
+Vikram (19:17)
 And do you still have your dolphins?
 
-Vikram (19:20)
+Vince Barnes (19:20)
 They're probably at my mum's house to be honest. Because when I left the Navy I left everything at my mum's house and she's probably still got them there.
 
-Vince Barnes (19:31)
+Vikram (19:31)
 I'll be coming to your birthday, so hopefully we'll get to see them then. And then why would you leave this exciting environment to join the oil and gas industry? You mentioned to me in the past you did hydrographic survey engineering. What is a hydrographic survey? And why did you leave the Navy?
 
-Vikram (19:49)
+Vince Barnes (19:49)
 Well, I'll answer the second question first. hydrographic survey engineer is just somebody who is an engineer who sets up, installs equipment on say a layer barge or a tug. And we will do solar, sorry, sonar scanning of the seabed to find routes through for gas pipelines or oil pipelines. Or if we're laying a pipeline, then we'll be on a pipe layer barge and
 
 I'll be in charge of the navigation equipment to make sure that the pipeline is laid in exactly where it's meant to be laid. So that's what a hydrographic survey engineer is. Why did I leave the Navy? Well, basically because they put me in submarines and I joined the Navy to see the world and I wasn't getting to see the world. after I was in the Navy for nine years, I was four years on submarines, five years as an apprentice.
@@ -2621,10 +2621,10 @@ And I'll remember this guy for the rest of my life. He's a guy called Peter Chri
 
 He said, why do you want to leave the Navy? And I said, well, I joined the Navy to see the world, sir. And I'm not getting to see it. And he laughed and he said, well, the next time we go on patrol, why don't you come up to the control room and I'll put the periscope up for you. And I said, that's not quite the view of the world that I had in mind, to be honest.
 
-Vince Barnes (22:10)
+Vikram (22:10)
 Isn't it ironic? Was the submarine docked or was he actually sailing for three months under the oceans and the seas and you were actually traveling around the world but not actually seeing it? Did I understand that well?
 
-Vikram (22:21)
+Vince Barnes (22:21)
 Yeah, we were traveling around, we were going thousands and thousands of miles, but I wasn't actually getting to, all I saw was the internal side, the tunnel of the submarine. another story to share is when I first went on patrol, or when I first went, before you go on patrol, you do what's called a test.
 
 So you spend a week at sea and it's fire, flood and famine. And they drill you from like six in the morning until midnight. When we were heading out and we were about to dive for the first time, we have to do a deep dive pressure test. And you go down to a certain depth and you stay there for about five minutes. And if anything's going to leak, it's going to leak then because you're going down about three times the depth that you would normally go if you were operational.
@@ -2633,16 +2633,16 @@ What they, so I was in the missile control center and what they had was a ⁓ pi
 
 gone down about a meter and maybe 1.2 meters to the floor. And then they fastened it ⁓ again while we were down there. And as we were coming up, at some point ⁓ the string just broke. And that was a very graphic demonstration for me of how much pressure there is under the water. It's quite incredible.
 
-Vince Barnes (24:15)
+Vikram (24:15)
 the ⁓
 
-Vikram (24:44)
+Vince Barnes (24:44)
 I remember
 
-Vince Barnes (24:45)
+Vikram (24:45)
 I'm surprised you do because we have had a few beers. How did your journey into renewable energy begin whilst living in Spain? How did you end up in Spain and how did your involvement in solar projects start then?
 
-Vikram (25:00)
+Vince Barnes (25:00)
 So I was, ⁓ once I left the Navy, I joined the oil and gas industry. I was in there for about four and half, five years. ⁓ And because of my naval background, was very highly in demand. And so I was always going offshore ⁓ because I used to get the job done. If equipment was broken, I would fix it because I'm a logical thinker. ⁓ And so I used to think logically and I would get the job,
 
 I would get the faults repaired very quickly. And because of that, initially I was sent out to areas where they were having problems from the ship that I was on to go and fix somebody else's problems. And then in the end, I just didn't get home and I just said, ⁓ the only way I'm going to get out of this is by leaving the oil industry. And I went into IT. And so I developed, I used to do software development. ⁓
@@ -2663,10 +2663,10 @@ give me 1500 euros and I was like, what's this for? said, for selling a house. A
 
 was looking for a large plot of land, sorry, 1500 square meter plot land with the permission to build 200 square meters. So I showed him a few and he wasn't very happy because the prices were very expensive. And I said, well, you're better off actually going for 10,000 square meters of rustic land because if it's over 10,000 square meters, you can build a two meter house and you can just fence off 1500 meters.
 
-Vince Barnes (29:47)
+Vikram (29:47)
 This is your friend DJ, right? This is Mr. DJ Bruins, right?
 
-Vikram (29:50)
+Vince Barnes (29:50)
 Bruins.
 
 So it was DJ Bruins looking for his uncle. And he mentioned, ⁓ can put in the other eight and a half thousand square meters, I can put a solar park in and I went, what on earth a solar park? And so he told me, I got interested, we kept in contact. And, and then, you know, I did some marketing ⁓ collateral for him and a few other little bits and pieces. And one day he called me up and said, What are you doing for the next few months? And I said, Well,
@@ -2687,12 +2687,12 @@ And I found an announcement that Gordon Brownhood was going to introduce a feed-
 
 I jumped on a plane and came back to the UK, stayed with my brother and I was only going to stay for two weeks and just decide what I wanted to do and within 24 hours I decided I was staying back in the UK again. So that's how I came back to the UK.
 
-Vince Barnes (33:52)
+Vikram (33:52)
 A lot of people I know in solar suffer from burnout or anxiety of some kind because it's a boom and bust sort of industry. Things change all the time. People get very excited and things deflate and then if you win a job it becomes all work, work, work and in your case it was it seems like it wasn't all bad in the Navy. I did a bit of research before this podcast. Were you on HMS IX? Did you get to go out to see Antarctica and how did
 
 Your musical interests developed, was this during Spain when you brought your album Step into the Sunlight?
 
-Vikram (34:26)
+Vince Barnes (34:26)
 No, HMS Ajax was the ship I was on during my apprenticeship. And we went down to the Falklands and it was a great experience. And one of my most poignant moments was going to the Sub-Antarctic and seeing an iceberg at close quarters. Now have a photograph of it. It was only a small one. It looked like it was popping its head out.
 
 And it looked like you could almost reach out and touch it, but it was actually, it was about three and half miles away. And there was a ⁓ massive ice wall, which again looked, it looked as if it was about five, six miles away, but it was 20 odd miles away. It was that big. was, it was popping up well above the sea level. But my favorite experience and all of that was I was walking along the beach at Gridviken.
@@ -2703,10 +2703,10 @@ And I started walking towards these penguins and all turned away and they were w
 
 And it's one of my most treasured moments. I will probably never experience meeting a penguin in its natural habitat ever again. ⁓ And it was just incredible. The scenery was breathtaking. There was a mountain drop behind us. There was icebergs all around us. And just incredible, the most amazing experience.
 
-Vince Barnes (36:40)
+Vikram (36:40)
 Fantastic. it's football polluting my brain. It's not HMS IX, it's HMS Ajax. And your musical interest, did that start in the UK later on? It started in UK.
 
-Vikram (37:00)
+Vince Barnes (37:00)
 Yeah, I mean, when I was on the submarine, was playing. We had a band on the submarine, which isn't a very good thing because you make a lot of noise on the submarine. can be heard for miles to listening sonar. But we were in safe places, so we could play. And I really enjoyed it. I used to play bass at the time. And we went away on one trip, and I bought this ⁓ Tascam Porter Studio, which meant I could draw a chord.
 
 four tracks onto a cassette tape, remember them? Probably if there's anybody younger than 40 thinking, what on earth is a cassette tape? But anyway, so I started writing songs and I wrote one which I actually released in 2017, but I wrote it in 1988. And it was when we were meant to be coming home for Christmas and we got told that we were gonna be staying out for two extra weeks.
@@ -2727,10 +2727,10 @@ because otherwise it have been a very short concert. And this guy came up to me 
 
 And it kept building up like that. And then in, I think it was in 2006, 2007, I wrote this song called Dance With Me, which you've heard played live, by the way.
 
-Vince Barnes (41:34)
+Vikram (41:34)
 I have a tea, or something it was.
 
-Vikram (41:37)
+Vince Barnes (41:37)
 No, no, Tea Coffee or something was a lot later. Dance With Me was the first song that I ever had properly professionally recorded. it was, there was a local radio station in near where I lived in a place called Havia called Coast FM. And there was a guy on there called Bob, Bob James. And I cheekily sent this letter to him saying, I'm the man sitting in the bins outside knocking on your window when it's cold. And
 
 but I'm also launching a single called Dance With Me. And he got back in touch with me. He phoned me up and said, have you spoken to anybody else about this? And I said, no. He said, we've effectively got a world exclusive. I said, well, you're the only other person in the world that knows about it apart from me and my family. And so he listened to it. He was brilliant for about a whole week. He was gonna launch it on this Wednesday afternoon between two and three.
@@ -2743,10 +2743,10 @@ And so I listened to it and I saw Jasmine bobbing up and down in a baby bouncer 
 
 So after that, sorry, go on.
 
-Vince Barnes (44:10)
+Vikram (44:10)
 You've got so if I manage to keep up a bit, I think I heard you say you wrote 150 songs in the Navy, you're a goldmine of creativity. I was referring to coffee or something as a gig that you did for homeless shelters in Portsmouth. So I did hear a few of your songs then. And then please finish on your music. if you've got links,
 
-Vikram (45:00)
+Vince Barnes (45:00)
 Okay, so I'll make it very quick. So I decided, as I said, that was going to move back to England from Spain in 2010. And part of that was part of the driver for that was the music because I was playing in a band in Spain and the musicians were very flaking and I thought this can't be the same in England. So I'm definitely going to move back to England and it'll be much easier there. So when I went back to England, I had this
 
 I had this ⁓ drive for, I have a dream and that's literally the name of a song that I wrote as well. And it was, it started in 1994 when I went to see the Eagles live on stage and I was looking at the cloud and it was very eclectic. was an old lady beside me and her granddaughter. There was a couple of yuppies, was loads and loads of hippies. was people just like me dressed in jeans and t-shirt. There was every kind of person from every walk of life.
@@ -2761,12 +2761,12 @@ And we became friends, he became a friend of the band, he became a bit of a road
 
 They don't really know how to cope with the real world. Their real world is a lot different to ours, obviously. And so ⁓ I'd written this song about him and I got it recorded and it was in May the 5th. My birthday seems to come up quite a lot here, doesn't it? Anyway, May the 5th.
 
-Vince Barnes (48:13)
+Vikram (48:13)
 2017
 
 with the- ⁓
 
-Vikram (48:17)
+Vince Barnes (48:17)
 Yeah, we played in in Portsmouth Guildhall and you and a few, I think it was your brother, your wife and David from DK Cables and his wife and a couple of others ⁓ booked a table and we raised, I think about two and a half thousand pounds for, ⁓ which we donated to ⁓ the Pompey Bus, was a bus which was being, it was given by Go Ahead.
 
 And it was being reformed and people would donate in the town, they would donate materials and donating money to get this bus up and running. And I think it was about three months after that, it was donated to a local charity, fully done with enough beds for 10 people. So I did get into the homeless thing for a while and we ended up going to a hostel as a band and
@@ -2779,12 +2779,12 @@ And we donated to this hostel and we went down a few times to do some jam sessio
 
 and I disbanded the band in July 2018 and I haven't really done anything since. Until now.
 
-Vince Barnes (50:49)
+Vikram (50:49)
 Wow, wow. So 2017 was an important year because 2016 we had the Brexit referendum and all these uncertainties started before 2017. We had more work than we had capacity. We were forecasting huge, huge growth in 2017 and they all just completely crashed. The chap that paid for half of this table in your gig in Portsmouth, his name was Ross Kenway, brothers with the Firefighter Mark Kenway worked with him as well.
 
 Those two brothers, make leads for Henry Hoover's at Vacumatic. Very nice bunch of lads. Lots of things we can't talk about because of the crash and burn nature of the industry. And then your involvement with DJ Bruins, it seems like it carried on potentially with Risen Energy and Smart Energy Solutions or SCS, which you mentioned in the past, you grew to massive turnover in a short period of time. Are you able to delve a bit more into that?
 
-Vikram (51:44)
+Vince Barnes (51:44)
 Yeah, sure. So, so when I came back to the UK, ⁓ originally I was working with a company in Valencia who, who, when I moved to the UK, they wanted to explore the UK market, but within about three or four months, it was obvious that they didn't really have the ⁓ money to invest. So I just, I went on the MCS database. I, I sent out 25 emails to people, to companies on the MCS database, just saying,
 
 Would you like more clients? I've got a business model that can help expand your business rapidly. And I had 10 responses to it within about 20 minutes. One of them was SES. There was five others who wanted me to come in for an interview, but SES impressed me because there was three directors, Mark, Paul, and Philo. And they were ⁓ sitting in the boardroom.
@@ -2809,14 +2809,14 @@ what happens if, and then I got that question on site quite a lot of times, what
 
 and everything just clicked into place. So there was a lot of luck as well because you know, it's almost impossible even now to pull a solar part together even small as five megawatts nowadays in a month and get it fully funded. that's probably one of my
 
-Vince Barnes (57:22)
+Vikram (57:22)
 A lot of people, the things we need to do a whole series to cover all our stories, but there's a lot of people tune into this podcast because they want to know about your time at Versaul and we're starting a new Gold Rush now and the new Gold Rush is going to be so mental because, can I even say that? It's going to be insane the new Gold Rush because we're talking about 300 megawatts to gigawatt scale projects and we haven't got anywhere near the people we had before and I came across you
 
 When I, when I took my first holiday in years, managed to secure some cash flows and, you know, grew, started to grow my own business. And I thought I deserved a holiday. So I went to California for the first time and I was on a beach and I was getting panicky phone calls from a chap called Richwin. And he was late in the evening and, and he wanted to place orders for Whirlpool in a extreme panic. and we, we managed to the orders out. Why would I say no to money? Even if, even on a beach, you take the orders and then I come back.
 
 jet lag from California ⁓ and the first visit is to come and meet you in Sussex as you're starting at Wurzel and there's all these stretches coming out of everywhere and we haven't got time, have to deliver. comment briefly about the things you can say about your time at Wurzel. There's a lot more we need to cover as well, Vince.
 
-Vikram (58:40)
+Vince Barnes (58:40)
 Yeah, so basically I joined Worcel in June 2015. Mark had known previously when I was at SES and I just called him up and said, you know, gives a job sort of thing. And he said, what do want to do? I went, well, you know what, I quite fancy project management. And he said, have you ever done it? I said, of Mark, I've been doing project management since pretty much since I joined the Navy because everything that you do,
 
 No matter what, you know, I was in business development for a long time, but sales, business development, whatever it is, you, project managing, you have to, you have to maintain contacts with people. You have to let everybody know what's going on suppliers, clients, whatever, stakeholders. have to, you have to do that. So it's project management is, is just part of what you do in life. I ⁓ And the funny thing is I,
@@ -2827,12 +2827,12 @@ You know, you get funding around about October time, October, November, and you'
 
 And did, you know, there was one time we had eight projects on the go and we delivered it. And it was, was frenetic. It was fun. It was, you know, it was about building relationships and I probably built more relationships in that period of time than I have done in most of my career. ⁓ know, Worsall was a great experience.
 
-Vince Barnes (1:00:50)
+Vikram (1:00:50)
 Intensely you live sometimes. It's so intensely you live sometimes. Unfortunately, we had a good reputation and Paul Richmond or yourself will be phoning me and saying, can you deliver so and so and so? I said, no, can't, we're full. by the way, we've sent a 600 grand payment. All right, we'll deliver then. And so, it was a crazy intense period and a lot of it's still not unpacked. I've got Google maps of the places I've been and the projects we've delivered to.
 
 But wasn't without its challenges. But even then, compared to what we've gone through with the COVID and Ukraine energy crisis and people just going missing from the industry, it was a good time. now we get to challenges in the industry. What were some of the challenges you faced while working in solar or still working in solar and batteries? And how do you think we can overcome them?
 
-Vikram (1:01:43)
+Vince Barnes (1:01:43)
 Well, think ⁓ over time, the biggest challenge was the cutoff date of more to 31st. mean, which idiot chose the end of winter to have a feed-in tariff drop? And that was always a challenge because, like I said, nobody made decisions during the summer. And it was always a late start. many, many a time I've been on a solar site and up to my knees deep in murder.
 
 In fact, at one time, I remember we were connecting a project up in Worcestershire and Steve Ford, who you mentioned earlier, was walking around the solar park. Thankfully, he his waders on, the things that fishermen wear so they can go waist-high or chest-high into a river. And he literally walked on this bit of mud.
@@ -2865,14 +2865,14 @@ You're credited with that one and a half megawatt hours. You can draw it back at
 
 and it's all feeding everybody else. it genuinely everybody has an investment into their local area and everybody has a benefit from it. That's my view anyway, that's my vision. That's where I see, that's where I would like to see it go. I don't know whether it's going to go that way.
 
-Vince Barnes (1:09:05)
+Vikram (1:09:05)
 Vince, you're a very senior commercial person, you're commercially very astute, but we mustn't forget, you've been in nuclear submarines, you know electrical engineering, and you know a lot about the development side of things financially. If you look at it from a layman's point of view, pubs are closing their doors because they can't afford the energy, factories are shutting down, steel plants are closing because of net zero. There seems to be complete failure of regulation from the government.
 
 You know, I've spoken to taxi drivers in London. They're saying they can't fund their EV because the finance payments are too much, the interest rates going up and the charging going up in some places up to 50 or 80 pence a kilowatt hour, which seems absolutely maddening for me. And you've got these aggregates, you've got the steel plants and their headspace is already fried. And they've got issued these penalties for consuming energy from the grid at the wrong time. Who funds the development for putting these microgrids in place and upgrading the switchboards and
 
 the infrastructure that they might already have. Who pays for all of this development work at a smaller scale where there's a crisis of energy for heavy industry users?
 
-Vikram (1:10:12)
+Vince Barnes (1:10:12)
 Well, if I look at what we're doing at the moment, ⁓ I'm working with a company based in Newcastle, who they trade energy, but they also put in battery storage. also do, ⁓ they don't do the planning. ⁓ That's one of the roles I'm looking at ⁓ discussing with them. So effectively, if one of these companies, let's just say,
 
 and aggregates once has got a problem on one of their sites and they want to have this microgrid. We go in there, we assess what the energy use is and more importantly, when the energy use is so that even if we can't supply the whole of the energy for the whole day from a battery because of the grid, we can at least supply them enough capacity to overcome the startup.
@@ -2887,10 +2887,10 @@ Hopefully, that's going to be a lot less than what they're paying at the moment.
 
 Typically, it's a 10-year rolling contract because batteries have a 10-year life. And so they'll be looking to renew every 10 years. But they could still have a rolling contract for those 10 years with a known cost for those 10 years. And for some businesses, that's imperative. It allows them to forecast. It allows them to budget. It allows them to know what their costs are going to be fairly accurately for quite some distance in the future.
 
-Vince Barnes (1:13:38)
+Vikram (1:13:38)
 You said in the notes that it's just very difficult to find decent grid connections available for the next few years, even though NASA grid are reinforcing their network. You said that there's people going to find a million pound a year for breaching the demand capacity. What do you mean by that?
 
-Vikram (1:13:52)
+Vince Barnes (1:13:52)
 Well, let's say you've ⁓ got a one megawatt connection. And let's say that your base load is 500 kilowatts per hour. ⁓ So your one megawatt grid connection is fine for that. But when you start up all your machinery, if you've got lots of rotating machinery, you have inrush currents. And there can be three or four times the
 
 the base load. So potentially you could be drawing down for half an hour or an hour, ⁓ something like 400 kilowatts over your agreed capacity. And the problem there is if you're doing it during the peak time, so if you're starting up at seven o'clock, that's actually a peak time, you're in the red zone. So you're paying 12 pounds per kilowatt hour that you use during that period, plus you get fined ⁓ an additional fine on top of that.
@@ -2901,14 +2901,14 @@ Less than a year, well, half a year. ⁓ It's a no-brainer. And this is what I m
 
 They're just saying, no, you can't have it. If you go over, we'll stop you. We'll cut you off. And that's probably even more potentially damaging to a business because if you start and then all of a sudden your machinery goes off, then that's a big problem for you because you've got to start all the game from scratch or you've got a slow start and that can take two hours rather than 40 minutes or so.
 
-Vince Barnes (1:16:16)
+Vikram (1:16:16)
 Fantastic. This podcast started off as a bit of fun between myself and Mr. Matthew Zanakis from JSola. He comes from Zimbabwe. He taught me something very fascinating, which is anyone with the name Kiss in the end is from the island of Crete, famous for Zeus. So, two more light-hearted subjects. We need to come back to these heavy topics, the problems, the crisis that's being faced by small and medium-sized businesses. And hopefully we can find a way out of it.
 
 Hopefully you're still in touch with Mr. Mark Hogan, is a very well respected senior figure. believe he started Boom and more lightheartedly, you own a pub, I guess, with your brother. you know, as we meet up in this pub in the future, are you able to tell us how you think the future of the battery and solar technologies can evolve? know, we've got precious metals in these batteries that could be toxifying landscapes during mining. How do you see the future of
 
 precious metals and the compounds and the alloys we might need for all the solar and battery technology.
 
-Vikram (1:17:18)
+Vince Barnes (1:17:18)
 Well, there's obviously new technology coming out. And I believe Tesla announced last week sometime. And for the life of me, I can't remember the name of the battery technology, but it's lithium something. And it gets rid of the magnesium, the cobalt, and the nickel. the energy density is higher. And it's
 
 With, I think ⁓ Elon Musk announced that on one full charge, he replaced the battery in a typical Tesla and instead of going 310 miles, it went 730 miles. So it's more than double the energy density. So I think, and that's just today in two years time, battery technology comes on ⁓ in fits and starts, but when it goes, it goes big time. And there's other technologies out there. ⁓
@@ -2925,12 +2925,12 @@ And now it's like, you know, it's probably one of the most bankable technologies
 
 it might be a third of the size and it might be twice the amount of energy output.
 
-Vince Barnes (1:20:50)
+Vikram (1:20:50)
 Fantastic. As Jyothi said on an earlier podcast, solar and wind in the UK are a perfect marriage because when the wind is blowing, usually the sun is not shining as much and even the rain is cleaning our modules. So it seems like we're definitely not short on solar panels. The world's installed more than a terawatt peak of solar. Prices are reaching 10 cents a watt, is maddening to even comprehend. It hasn't sunk in with a lot of people. So we're not short on solar panels, we're short on people.
 
 And as we come towards the end of this podcast and we try to conclude, ⁓ what kind of people do you want to work with and what is your message to your listeners?
 
-Vikram (1:21:30)
+Vince Barnes (1:21:30)
 you know, I've had a fair bit of fun in my life in solar and it's because I like to work with people who, who really know their onions or even if they don't, they're willing to, to, to knuckle down and learn. When I, when I first started with worse all, you know, when we transitioned from worse all to boom, ⁓ I, I suggested to Mark very strongly that we, that we develop our own projects and
 
 eventually after much cajoling, Boom Energy, Boom Power, sorry, are now, ⁓ they're now developing. That's their primary model. They are going to be building as well, but you know, the primary model at the moment is development. And ⁓ I think ⁓ that, you know, one of the things I loved about Warsaw was that the people within Warsaw, only had 12, 13 people, but everybody knew what they were meant to do and everybody would
@@ -2949,27 +2949,25 @@ And I love that idea that there's a mix of fresh talent who come through, who ar
 
 Just have that attitude of, see how we're going to do this and let's get the job done. I love that spirit of, if you like, the pioneering spirit. Yeah, we've got this project. How we going to build it? We'll work it out. Don't worry. Let's just take it on. That's the kind of people I want to work with.
 
-Vince Barnes (1:25:39)
+Vikram (1:25:39)
 It's the environment that you create. mentioned Soul Sentry a lot, probably worse or not enough. And to me, yourself and people like Ben Hogan and Steve Ford and Ian Fudge are worse. because there's this lack of toxicity, people enjoy visiting you when you would need any little thing or even a general conversation about new inverters or whatever. We look forward to coming and seeing you in Sussex and that will be the highlight of our day.
 
 for a nice hub lunch and I've noticed, know, people, junior people joined you, you know, like Rizwan, Harry Finnegan, they went on to become very senior people in their fields. Rizwan is CEO at Huawei, Harry's a very big manager in Stackcraft. And so that's what seems to be missing on certain other environments. You know, when there is lame culture and toxicity, you tend to have people arguing, but your magic ingredient seems to be the positive environment you tend to nurture.
 
 I certainly have enjoyed working with you. I've enjoyed listening to you on this podcast and I hope to listen back and reflect on some of the things you've said and have you back on in very near future.
 
-Vikram (1:26:51)
+Vince Barnes (1:26:51)
 Absolutely, and maybe next time I will play the guitar and sing.
 
-Vince Barnes (1:26:57)
+Vikram (1:26:57)
 Fantastic, Vince. Thanks very much for joining us.
 
-Vikram (1:27:00)
+Vince Barnes (1:27:00)
 Thank
 
 you very much Vikram, it's been an absolute pleasure as always.
 
 You have been listening to the Future of Solar podcast with Vikram Kumar. Thank you very much for listening.
-
-
 
 ## Dathan Eldridge: A Fearless Solar Troubleshooter and Builder
 

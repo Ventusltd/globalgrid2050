@@ -8,6 +8,8 @@ Valerio Pelizzi: Agrivoltaics, C&I and Grid
 
 Nick Spicer: Your Eco, Commercial Solar Projects
 
+Erin Mahan: Sunspec Alliance
+
 ---
 
 ## David Mack: Solar O&M, Rural Growth and Resilience
@@ -2032,6 +2034,420 @@ You know, in terms of the future, think for me, one of things I really want to a
 You know, we've got a 25 year passive income potential, you know, through these solar assets, 25, 30 years. We need to see solar as a hedge against energy price volatility, but also as a part of that decarbonisation piece. And as a result, we've done an awful lot. But if I was to say one final piece, I would say we have to go further and faster. Fantastic. Nick, I've certainly enjoyed listening to you.
 
 listening back to this podcast to reflect on my thoughts and thank you very much for joining us today. No really thank you very much thanks for having me it's been great and hopefully it's resonated with some of you. perfect and hopefully we'll have your wife Amanda on the next podcast. Yeah that'd be great another insight that side. Thank you. Cheers.
+
+## Erin Mahan: Sunspec Alliance
+
+Vikram Kumar (00:00)
+Welcome to the Future of Solar Photovoltaics podcast. My name is Vikram Kumar. We are being listened to now in 85 countries and today I have the absolute pleasure of welcoming Erin Mahan from the Sunspec Alliance. Erin, welcome.
+
+Erin Mahan (00:13)
+Thanks so much, Vikram. It's great to be here.
+
+Vikram Kumar (00:15)
+Fantastic Erin and you are now our 14th guest on this podcast You do very important work with the SunSpec Alliance. We will get into the details on that very shortly But because we do deal with quite sensitive projects the kind of people we work with the credibility is very important so if you would like to kind of introduce yourself talk a little bit about your personal background your origins and Who you work for that would give us a great start
+
+Erin Mahan (00:40)
+Yeah, absolutely. I'm happy to be on this podcast because I know that you've interviewed people all across the value chain. And I know that you're really interested in investment and quality you have this quality first ethos. So I'm happy to contribute to that today. Again, my name is Erin Mahan and I live in Flagstaff, Arizona. I come from a multi-generational utility family from Oregon.
+
+And that's actually the home of the nation's first long distance transmission lines. I grew up with a lot of dinnertime chat about grid safety and transmission dynamics and electrical hazards, which really set the tone for what I later studied and now my work with Sunspec Alliance. So today I am the director of membership at the Sunspec Alliance.
+
+And the SunSpec Alliance is a nonprofit trade alliance that advances standards for distributed energy resources. In this podcast, I'll use a couple different acronyms. One of them is DER, and that stands for Distributed Energy Resources. So SunSpec Alliance covers PV, energy storage, and grid communications, and I'll talk to you more about that later. I went to school.
+
+at the University of Oregon and the University of California Davis for my graduate studies. And otherwise, I've worked as a consultant for government contracts, particularly in technology, and now for the Sunspec Alliance, working to help our members facilitate the advancement of the DER industry.
+
+Vikram Kumar (02:06)
+it's interesting that you mentioned you're from a utility background. Are you able to tell us a little bit more about that and having our research notes end drawn, what are your thoughts on that?
+
+Erin Mahan (02:16)
+That's right. Yeah. So my father worked for Portland General Electric, the electrical utility, and my grandfather worked for Northwest Natural Gas. So when I say I'm from a utilities family, basically everyone in my family worked for a utility. Portland General Electric was bought by Enron in 1997. And I remember that really well. There was a lot of high hopes for the future of electrification in our state.
+
+Enron was rebranding everything that I saw around me. And then by 2007, by the time I was at university, the Enron scandal had happened and almost the entirety of Portland General Electric employees lost their retirement 401k plans. America was in the subprime mortgage lending crisis. And it was a fascinating time actually to be in university.
+6
+This collapse of Endron marked a pretty critical failure of oversight and utility regulation. that was a formative event for me. It pushed me to understand how policy frameworks can fail or how they can succeed and how we need to safeguard public infrastructure.
+
+That really catalyzed my focus on international regulatory harmonization and eventually guided my transition into solar and compliance work. At the time I was at the university, like I said, and I was studying international law and humanities. Luckily, I had this chance to work on a few interesting bioeconomy and green economy projects.
+
+One of them with the University of Padua's Law and Investment in the Environment program and the American University Wake Forest University. And I started learning about the potential of the conto energia, the energy credits and what a renewable future could actually look like. So that inspired me to study the European Union, particularly policy in the European Union for quite a long time.
+
+I did take a break. It was the wild west of Excel back then, and I transitioned into university teaching and science and business translation services for nearly 10 years. But I was still involved in this sort of business and technical landscape.
+
+Vikram Kumar (04:25)
+utility regulation is an important topic. We have an issue with the water industry right now. The grid companies have their own politics. In solar, we're no longer a cottage industry either. There's two terawatts of solar installed worldwide. that's why I was drawn to the SunSpec Alliance to understand probably because...
+
+California may be a more mature market, what kind of regulations are involved and what kind of work you're doing, but if you go deeper into that about Sunspec's historical conditions, you are a master of German languages, is that right?
+
+Erin Mahan (04:56)
+That's right, I spent nearly six years in Germany after college. I was looking for an economy that was a little bit more stable than America's in 2008, and Germany was it for me. And I really sharpened my grasp of technical language and systems thinking during that time.
+
+But yeah, the formation of Sunspec also has to do with Germany, in fact, Vikram. in the early days, know, grids couldn't handle more than 10 % of distributed energy resources, DER, due to imbalances. in Germany, this caused brownouts in the 1990s. So one real world case that helps illustrate this danger is that brownout experience. Germany had high PV adoption, but no smart inverter protocols.
+
+this led to frequency instability and Germany was basically the first stress test for unmanaged PV penetration at scale. So what SunSpec does is we have these advanced DER controls that now allow up to 100 % of DER safely. And that was one of our founding influences. I always like to talk about
+
+Daniel Juergens, The Prize. It's a great book for the lessons about infrastructure. So energy transitions are never purely about technology, but they're also about infrastructure, trust, and systemic alignment. For example, in the oil era, like in the book, it took decades to standardize refining processes and safety norms. And those who succeeded in standardizing, those who collaborated on that,
+
+The ones who understood that interoperability is the path to industrial maturity, they are the ones who succeeded. So in solar, we went through a lot of the same evolution, but of course we've done it much faster because of climate change and global instability and cyber threats. That's really forcing us to move at a faster speed.
+
+So we can't afford to build new energy infrastructure on a digital foundation that has fragmented standards or is insecure. So that's kind of the background for what Sunspec does. The historical conditions that led to Sunspec's creation came together in the aftermath of that 2008 financial crisis. So a lot of solar tech was proprietary back then. If a startup failed, its system became unsupported.
+
+Our founder, Tom Tansey, wanted to create open standards together with other industry players that would protect those long-term investments in solar and ensure system longevity, interoperability, and grid compliance.
+
+Vikram Kumar (07:24)
+Fantastic. And Sunspeck, how long have they been going for? 15 years, I've got in the notes. Do you have some more thoughts about that? How Sunspeck came about and a bit more information about your founding influences?
+
+Erin Mahan (07:36)
+Absolutely. we've been creating standards for 15 years and the founding influences, like I said, was kind of a wake up call from the energy sector collapse after the Enron scandals. so dozens of energy solar companies went bankrupt and they left behind orphan systems. So Tom Tansey, our founder, was working with companies
+
+and early inverter makers who recognized that the solar industry needed this shared foundation. Something like a USB for solar, a plug and play communication protocol. So Tom Tansey and other technologists created Sunspec Alliance to address this gap. And so to describe Sunspec in simple terms, it comes from this historical moment. We are an open standards and testing organization.
+
+for the solar and DER industry. We define protocols like SunSpec Modbus Common Smart Inverter Profile for California under California Rule 21 that make the solar components interoperable. We certify products, lead working groups and support cybersecurity best practices.
+
+So you can kind of think of us as the standards body that ensures every PV inverter, battery, and gateway speaks the same language. Without that, systems can't scale. And more importantly, they can't remain safe. So I like to use this analogy of Bluetooth or Wi-Fi. When you see that certified logo on your headphones, you expect them to pair seamlessly with your phone. So we are doing the same for energy devices.
+
+Vikram Kumar (09:00)
+Mm-hmm.
+
+Fantastic and before we go further into interoperability, you made an interesting remark there which some of our listeners will find potentially controversial. you I would like to ask you more about that and please correct me if I have a misunderstanding. You said 100 % DER integration, I guess as you referred to that earlier, that means distributed energy resources integration. What do you exactly mean by 100 %?
+
+De-I integration safely? you mean the whole power could come from solar and wind? Do you have a bit more context on that for us?
+
+Erin Mahan (09:37)
+Well,
+
+that's yeah, that would be the ideal world. The idea is that we want to make sure that as much DER integration as possible is safe and is secure. So maybe 100 % is not realistic. However, ⁓ it is possible.
+
+Vikram Kumar (09:55)
+Perfect, that is our aim at the end of the day, but this is a reality we face on a daily basis. I've been working in utility scale solar, ground and rooftops for almost 13 years now, full time. It's an argument we come across quite often, especially with respect to curtailment and grid applications. So it is the challenge of our time. And now moving on to ⁓ part two of our discussion.
+
+interoperability and why it matters, are you able to go into that a bit more in detail, especially with respect to the economic cost, what do you mean by that economic cost of non-interoperable systems?
+
+Erin Mahan (10:27)
+Sure, yeah.
+
+Yeah, echoing your curtailment comment, if a DER management system sends a curtailment command, for example, reduce your output by 30%, we need to know that the inverter will respond reliably. And that's what we verify. Without that reliability, grid operators are flying blind. standardization reduces engineering variability.
+
+which cuts CapEx and OpEx capital expenses and operating expenses. So for financial institutions, it lowers the risk profile of projects. With SunSpec certification, you know that your product meets a globally recognized safety and interoperability baseline, and this reduces insurance premiums and boosts long-term asset value. So our executive director, Dylan, says,
+
+bad standards increase project risk. And of course, I agree with that. ⁓ So the economic cost of non-interoperable systems goes pretty deep. I'll start at the top ⁓ about the inverter functions. So by having advanced inverter functions, you're keeping the system operating within optimal bounds, which will increase the lifetime of the devices in that system. So like on a battery,
+
+something as simple as cycling the power. You don't ever fully charge your battery. You only go to 80 % full. You don't ever fully discharge your battery. You only go to 20 % discharge. If you keep it within bounds for this optimal lifespan, that's an aspect of cost savings. Another aspect with interoperability is that it ensures you can plug in something new. So like if one of the original vendors goes out of business or the regulations change,
+
+Interoperability reduces equipment replacement costs and it also steadies the financial model of the system over time. A really good way to illustrate this point is anybody over a certain age will recall that in the early days of the internet, if you wanted to get internet at your house, you have to schedule a three hour window where a technician could come out and set up your network.
+
+Vikram Kumar (12:38)
+Mm-hmm.
+
+Erin Mahan (12:39)
+These
+
+days, when you want to get internet, you just go to the store, you get some equipment, you go home and plug it in. And that is the direct result of standardization. So that's where interoperability is pushing us towards that place where the cost and difficulty of technical sophistication required to put a system together is all going down. Another example is that
+
+Enabling the same product to be used in multiple geographies also limits the proliferation of ⁓ SKUs. So standardization allows the same product to serve multiple geographies, reducing the need for localized product lines. That of course helps new market entry and standards make this a lot easier. You know, just a couple of years ago, EPRI
+
+EPRI produced an ecosystem study looking at Sunspec supporting SKUs in the market and found tens of thousands. So that is a huge penetration rate and that was already a couple of years ago. So knowing that our work supports new market entry, grid operators, regulators and utilities that need to find reliable products is great. And also further on ⁓ capital and operating expenses,
+
+All of that electrical and safety testing is quite expensive. It introduces delays into project timelines and it has a major impact on the bottom line for releasing new products. So having standardized communication interfaces allows you to cut down the testing time by using automation. And that's important both at the individual manufacturing company level to keep their costs down and also the time getting to market.
+
+but also industry-wide. It means that a system integrator, system designer has more options to pick from and more products become more available more quickly. And that obviously has an effect on the cost for end users of all kinds.
+
+Vikram Kumar (14:28)
+Fantastic. In the industry, think it's a worldwide famous term now, it's called the solar coaster, play on word on roller coaster, because the industry has faced a boom and bust cycle for the last 15 years or so, because in the early days, it was very much a cottage industry, a bit of fun. Then suddenly massive feed-in tariffs and we had a boom and then anti-dumping duties and we had a bust and...
+
+Erin Mahan (14:35)
+Mm-hmm.
+
+Vikram Kumar (14:53)
+Now we are in the middle of an energy war and there is two terawatts of solar installed worldwide. Just in the UK there's about 17 gigawatts. And many of the early manufacturers and companies did go bankrupt. now investors have a challenge on how they repower these assets when the manufacturers may no longer exist on existing projects. At the same time, there is new solar going in with new technologies that are completely brand new and may not have been tested as a complete system.
+
+Erin Mahan (15:00)
+amazing.
+
+Vikram Kumar (15:19)
+So are you able to tell us how the SunSpec compliance framework works and what kind of market addresses considering now Solr is probably a two trillion plus market worldwide? How do you differentiate between existing projects and new ones for example?
+
+Erin Mahan (15:32)
+Sure. So ⁓ on the compliance framework, SunSpec ensures the grid compliance of hardware. So for example, inverters that meet UK settings or rapid shutdown devices that meet UK safety regulations. And when I say inverters that meet UK settings, I am talking about G98 and G99 settings mostly. And these are all parts of the interoperability puzzle.
+
+So I know that ⁓ on your podcast, you have talked to a lot of people that value hardware that is grid smart and compliant by design because it reduces friction with regulators and network operators. ⁓ grid integration is really important because without standards, grid integration requires custom engineering. So standards reduce both the engineering burden and the time delay.
+
+of course, improving ROI timelines. And also there's that concept of bankability linked to standards compliance. this is really standards are concrete advice for industry players to avoid connector failures. For example, ⁓ improving these MC4 compatible connectors or training installers is a big part of that. For example, in 2022,
+
+A commercial rooftop system in Texas failed to shut down properly during a fire and investigators found that the shutdown device had been installed ⁓ had been installed correctly, but the receiver modules were different. They were from a different vendor and they didn't recognize the signal. So they had no SunSpec certification, no interoperability. The building suffered two million in damages and the installer faced liability suits.
+
+So this is the risk when you allow proprietary lock-in without third party validation. So Sunspec and our certification programs and our standards and specifications, they ensure that systems are going to work together in the field and not just in the lab. We're really not just preventing ⁓ risk ⁓ in grid compliance, but we're also creating a lot of market clarity.
+
+Vikram Kumar (17:37)
+Do you understand correctly that Sunspec is not only an American company, that you have a focus internationally as well? Do you have activity in China to be able to back your interoperability claims and compliance frameworks?
+
+Erin Mahan (17:51)
+Yeah, so Sunspec is a global organization. I think people really get it wrong when they think Sunspec is a US market entry vehicle. We are a global market entry vehicle. 30 % of our members, that is the people who are creating standards and working together with us in work groups to proliferate those standards. 30 % of our members are from Europe, 30 % from China.
+
+and the rest from the United States and Australia. So we have in India, of course, as well, we have a really wide group of people working together. And as far as working in China goes, we want to enable Chinese manufacturers to continue to do business. We want to enable everyone to continue to do business.
+
+We treat all of our members the same regardless of nationality. And what I mean by that is we hold everyone to the same standard. That isn't uniquely about ⁓ risks from one country or another. All countries ⁓ will require third party validation.
+
+Vikram Kumar (18:54)
+Fantastic. And then there's the big question about Huawei. They've got a fantastic reputation in the UK, in Europe and worldwide generally because they make really good products. And it was a huge disruption to the industry when they had to stop supporting us because of the disagreements they might have had in the US or Canada. So that takes us nicely to the cyber security segment, blackout risk and the next digital threats to the grid.
+
+What are your views about Sunspec Cyber Security Standards and IEC 62443 alignment?
+
+Erin Mahan (19:27)
+the stakes are nothing short of systemic for cybersecurity. So as DERs, distributed energy resources, grow in number, they form a new digital attack surface. So every inverter, battery controller, and gateway becomes this potential access point to the grid.
+
+And if those entry points aren't protected, they can be exploited to disrupt voltage stability or hijack firmware or coordinate these cascading failures. And it kind of sounds like science fiction, but it's very real. Another book that I like on the topic of energy is Mark Ellsberg's Blackout. ⁓
+
+It talks about what could happen if malicious actors coordinated a power system takedown using compromised devices. So in his novel, utilities fail across Europe. ⁓ And what makes it terrifying is how plausible it is. And in fact, parts of that scenario have already played out just on a smaller scale. So we've introduced cybersecurity certification for Modbus implementations.
+
+And we are developing profiles that actually go beyond IEC 62443 requirements. Now that IEC 62443, is the standard that will be important in Europe in 2027 when the cyber security, the Cyber Resiliency Act comes down. There are other standards that are coming down this August, like the radio equipment directive, RED. and that has to do...
+
+more with that Wi-Fi and Bluetooth security. Sunspec always stays ahead of the game. And that has to do, of course, with the people who participate in our work groups. We have industry leaders at the highest level coming together to discuss cybersecurity. So we help manufacturers document threat surfaces, implement controls, and verify that their devices behave securely under both normal and abnormal conditions.
+
+as far as our cybersecurity standards and alignment, there are certain types of attacks where they just compromise people's personal information or they lock people out of a system until they get paid. that's like a ransom attack and they're not actually attacking the grid itself. But that's not the type of cybersecurity attack that SunSpec interoperability is addressing.
+
+We're actually addressing the ability to have many PV systems on the grid and keep the grid itself safe, up and running and active. our cybersecurity standards are evolving along with Europe and United States and UK regulations. For example, we are securing Modbus over TLS in our upcoming device interface work group that will start again this summer.
+
+that helps protect systems from rogue control signals or firmware injections. In fact, a recent Solar Power Europe study found that 45 % of global solar capacity is vulnerable to cyber attack. Sunspec is helping future-proof this infrastructure. Another modern concern is cybersecurity for solar and battery systems. As PV sites and EV chargers become IoT-connected assets, we need to protect them.
+
+Sunspec works on cybersecurity requirements from the IEC 62443, those European industrial standards for security, to prevent malicious actors from hacking into inverter controls that could pose safety and financial risks. So cyber secure DERs or devices that have authentication, encryption, and resilience,
+
+That is our forward-looking priority in cybersecurity. It's a pretty technical topic, but it has a super clear business angle. Basically, insurers and grid operators are starting to ask how secure their energy assets are. So being proactive is definitely going to confer a competitive advantage to anyone who is certified. Again, third-party verification is the most important thing that we can do for the industry.
+
+Vikram Kumar (23:28)
+We're facing a massive challenge in this area because I can't comment too much about the defence industry or military sensitivities or so on because I can absolutely understand why they may have concerns and as energy prices have skyrocketed and there's been massive crippling inflation.
+
+actually affecting industrial production in the West and the viability of many businesses across all market segments, with retail airports and so on. And there's also net zero targets to decarbonize, so there is a pressure on government and private organizations to install solar. And here, even innocently, we have tremendous friends in China and even colleagues in the UK and Europe that work for really good Chinese businesses.
+
+And the reality you have is you need to be connected to the internet to be able to send the data back to China to be able to monitor and to maintain your assets regardless. your work is really quite important because if we're really being honest, China is installing three or four times the volume of the nearest countries such as the United States. they've got the critical mass in equipment and production and the price and the support.
+
+and even the quality now. And so we are facing a real problem on some projects where ⁓ Chinese inverters might not be allowed. we need to somehow find consensus in this area because it does affect the viability of deploying new projects.
+
+Erin Mahan (24:58)
+Absolutely, third party validation is essential to that. earlier you mentioned Huawei and the problems that come up with that. ⁓ Sunspec Alliance won't comment on any specific organization, but it does appear that running remote software updates, ⁓ they will not be allowed. And I do anticipate that services will be created for third party verification.
+
+prior to pushing remote software updates. So yeah, basically I would anticipate ⁓ there will be commercial solutions that enable Chinese manufacturers to continue to do business. Along those lines, of course, the new security regulations that cover remote updates will allow European and American companies to continue using not only Chinese products, but each other's products. I would say that every nation has an interest to protect their own grids.
+
+and I could see a future where every remote software update has to be checked by a third party, ⁓ that any remote update coming from another country. So I anticipate that services will arise for third party verification before remote updates. Remote updates from other countries won't be allowed and this will become the norm for all countries, not just China.
+
+Vikram Kumar (26:16)
+And I did have a brief browse around your website and your equipment list. The impression I had was a lot of the inverters seemed to be targeted at smaller commercial installations. Do you have plans for a utility scale to add the larger inverters to your approved database list, which gives us the cybersecurity assurance and bankability to go forward with those inverters?
+
+Erin Mahan (26:40)
+⁓ Yeah, so the products that are currently certified ⁓ represent what we've worked on in the past. like I said, ⁓ cybersecurity work and our Modbus work is advancing. So this will allow a whole new range of manufacturers to come get certified. So we work with companies across the value chain. ⁓
+
+I'd say number one, these are our stakeholders, government organizations, that is regulators, utilities, universities, and then software providers for monitoring virtual power plants. Our standards typically get applied at the device level, aggregators, BESS, battery energy storage systems, ⁓ BESS controllers, inverter manufacturers, VPP providers.
+
+⁓ Sunspec standards can be applied on equipment used in any size of system and also at the utility scale, all the way down to like plug in solar scale. So, Sunspec standards have been in the past most commonly used in commercial residential behind the meter applications. But in the future, of course, because of this grid interoperability problem that we are talking about with our stakeholders,
+
+I think that we will ⁓ expand, or rather, I think that utility scale will be asking us more questions and requiring more certifications as well.
+
+Vikram Kumar (28:16)
+So this is really an exciting cross-domain area because we now in the UK have nationally significant infrastructure projects. think projects of 50 megawatts have to go through central government. There may be changes where they might try to increase the threshold. But if new inverter manufacturers from China or any other country want to be listed for utility scale to prove that they are bankable, that they meet the security requirements for software and so on.
+
+How do they get in touch with you? How do they start the process of enrolling and getting the products listed under the Sunspec Alliance?
+
+Erin Mahan (28:51)
+if the UK would like to get a product certified, for example, they can contact the SunSpec Alliance.
+
+we have our website is sunspec.org and there you can find a list of all of our certified projects. You can also find a good example of what certification means and how important it is. So do visit the website, reach out membership at sunspec.org. you'll reach me, Erin. and we can start a conversation about how to get certified and how to get your product listed on our website.
+
+our product certification registry is accessed by people around the world. And of course, not just engineers who need to integrate systems, but also regulators. That would be a good point to get started with. Otherwise, products that need to be certified, well, they also need to comply. ⁓ engineers need to look at our specifications, read them, and join the Alliance early.
+
+We say that because when you join the SunSpec Alliance, you have access to one-to-one engineering support. That's invaluable. You have access to our ecosystem, so talking to others, talking to leaders in the market. You have access to the SunSpec dashboard, which is an incredible software. We do license this software, so...
+
+⁓ It's $1,000 per license, or you could join the SunSpec Alliance for $5,000 annually and have unlimited licenses. this is more technical. This is a discovery software which makes following specifications much easier. We also have a support AI tool, which sounds pretty common, but in fact, it's amazing. And that's because it is gated to only SunSpec documents and
+
+IEEE documents, so that's the American Electrical Standards Body. And this makes reading specifications much easier. You can query the SunSpec AI tool. We also have the SunSpec Academy. So if a UK company is looking to get certified and they are feeling somewhat new to standards, new to third-party certification, our SunSpec Academy is accredited.
+
+by the University of San Diego, and it is taught by industry leaders who, for example, Tom Tansey, who founded the Sunspec Alliance, who go into the details about what things are important, why they're important, and what's going to happen in the future. So I would say come explore the website and talk to me.
+
+Vikram Kumar (31:15)
+I want to elaborate a little bit more about the UK because it's a market. I've worked on two and a half gigawatts of solar farms on even a lot of rooftops and EV charging and battery storage projects. the UK, it's a small market, but it's an important market. We have quite a well established grid. there's a 50 gigawatt pipeline for the next nine years in solar.
+
+So that's not small by any length of the imagination because 50 gigawatts means $50 billion. the UK is an extremely financially advanced market where there are established processes. one in three of every dollar might go through the city of London. interchangeable with Wall Street. You've got Wall Street or you've got the city, which specifically means London.
+
+Erin Mahan (31:45)
+Yes.
+
+Vikram Kumar (31:57)
+In the past, the project development rights for a solar farm with a grid connection, with land agreements, with the designs that are buildable are referred to as RTB, ready to build. And once you reach that stage, you can have a very lucrative position where your project rights in the past could sell for 200,000 pounds per megawatt peak. individual projects could be now 500 megawatts. Of course, the larger projects will not sell for as much. The situation you face now in the UK is,
+
+the European inverter manufacturers might be very small or might not have the capacity. The module industry has been decimated and it is going to be very much Chinese led. So if you have new Chinese equipment, like for example, Sungrow listed, it does have an impact because if they don't pass due diligence, the developers simply won't get the funding to build their projects, which means the target will not be met. this is what I meant with respect to the UK.
+
+major manufacturers in China, listed in the SunSpec Alliance, or if you've got even new manufacturers listed for utility scale, that could be a very exciting common ground for you in the UK.
+
+Erin Mahan (33:03)
+The UK is an exciting market, particularly for the reasons you mentioned. We are working with UK distributors, EPCs and DSO affiliated developers to build demand for certified and interoperable devices. once you have enough market side pull, policy will often follow. So that is our approach and that's been our approach
+
+in other markets that working with industry leadership will create an opportunity for policy. The UK is really at this turning point Post-Brexit, the regulatory landscape diverged from continental Europe. So for example, you now have in-roof cable standards unique to the UK, those G98 and G99 settings that have to do with grid code adaptations.
+
+and different fire safety ratings that are an offshoot from European standards, but with these UK domestic nuances. So we're building kind of beachheads with credible commercial players. So installers who are tired of coding custom APIs. And then we bring in the test labs, compliance partners, and pilot projects together to discuss these things. That's how we broke into Germany.
+
+And that's how we started working with Denmark and Poland as well. And that's how we intend to help the UK streamline and de-risk its huge DER transition. For example, the Cyber Resilience Act and ⁓ NIS 2, both cybersecurity regulations have major impacts for the UK. Why? Because any UK manufactured or distributed product
+
+sold into the EU must comply. Of course, we're helping members align with these regulations pretty early. And like I mentioned, third party verification for devices coming from outside of the UK is also a huge focus. So we're really future-proofing this financial market.
+
+the UK has a history of technical leadership. And we think that the UK companies in the UK should talk with us to shape the next chapter of the UK's digital energy systems. And this means participating in our work groups. Companies from the UK can also come to the InterSolar North America show.
+
+ISNA, I-E-S-N-A, SunSpec Alliance will be hosting a Plugfest on a stage there. So come see devices, come see interoperability in real time, look at these pilot deployments and what's actually possible there.
+
+Vikram Kumar (35:29)
+One thing I can say to you is in the UK the utilities are highly respected, especially the grid companies. outside of Switzerland and Germany, the city of London has a very stable grid and the Industrial Revolution started in the UK and so we have a very, very advanced utility culture within the distribution network operators and the transmission operators. The national grid also exists in the US but they are probably
+
+more comprehensive it could be a two-way street. the gravity we follow because the utilities are so highly regarded, we have to follow the utility standards such as G99. The equipment has to be listed on the Energy Networks Association. And so for you to change any standards, you normally have to win a tender, which can take several years with the power grid companies directly.
+
+I noted earlier from our previous conversations that you're very active in Denmark, you mentioned Danfoss in the past I think, and also Poland. So what is your more specific view on fragmentation across European markets in the UK and the grid standards? You are finding, I guess, success in Poland.
+
+Erin Mahan (36:35)
+Absolutely, the UK has a strong legacy. It's a total bellwether in utility culture and grid sophistication. And SunSpec Alliance talks about that pretty often. I've heard that this stems from early investment in SCADA systems.
+
+the super robust DSO hierarchy, and also some of these super early moves to deregulate the retail electricity markets in the 1990s, something that America still struggles with. what makes the UK really unique is that super strong grid fundamental combination. So voltage stability, frequency response and dispatch.
+
+a very well-funded appetite for technical compliance and risk management. the UK faces now this paradox, like you were saying about fragmented supply chains that lack unified signaling protocols or safeguards. And that's where SunSpec plays a transformative role. We've really bridged the gap between high compliance expectations in the UK and a scattered technology base.
+
+I just attended InterSolar in Munich and learned a little bit more about fragmentation across European countries and grid standards. One main issue is protocol variation. Now this is a lot of acronyms, but there's like,
+
+BACnet, Dolly, LMS, which is actually a model in chain two. So Europe suffers from fragmented standards and ⁓ our industry leaders that I spoke with at Intrasolar in Munich, they suffer from it as well. They want to bring things together. So for example, Germany uses full digital outputs, which is something Sunspec supports. Italy favors this LMS model based chain two protocol.
+
+Sunspec's mission is to unify this chaos. So we are aligning Sunspec Modbus with IEC frameworks and providing third party validation to combat this relatively weak self-declaration process or practice that Europe has. For example, Sunspec Modbus is embedded in over 25 % of energy management system, EMS providers in Europe.
+
+And without these, grid operators would lack the visibility to manage inverter variability or respond to voltage anomalies in real time. in the UK, we offer a similar thing, lower integration costs, like I discussed before, higher DER orchestration capacity and ready-made compliance. we aim to...
+
+establish relationships via utility collaboration, distributor engagement, and pilot projects to show that Sunspec certified devices deliver measurable reductions in compliance costs and risks. And this is a really compelling proposition for insurers and regulators.
+
+Vikram Kumar (39:14)
+Fantastic. The UK is also one the windiest places in Europe and we have a massive wind industry and now solar is growing rapidly and this just means that we have a very large battery storage market. There's a tremendous pipeline in batteries that's kicking off now as well. There may be needed to unlock more grid capacity but I don't want to talk too much about grid. could ask you about the US fragmentation as well but we will just be here forever. Let's get on to...
+
+Erin Mahan (39:30)
+Definitely.
+
+Vikram Kumar (39:40)
+the topic which was the happy coincidence which led us to discover Sunspec using AI no less. And this is fire safety and rapid shutdown. Do you want to introduce the topic and give us a background please?
+
+Erin Mahan (39:56)
+Absolutely. ⁓ Fire safety and rapid shutdown is obviously fundamental. ⁓ When you install PV panels on a rooftop, you are mounting a live DC electrical system above a family or a school or a business or, for example, in Bristol recently, a hospital. These systems can often operate at 600 volts or more. And when compromised ⁓ by fire or cable damage or installation error,
+
+they pose crazy risks. So fire safety is not just a checkbox. It's about protecting lives and infrastructure in worst case conditions. So that's where rapid shutdown comes in. ⁓ So you can imagine in the United States, we have this big red button and that's our rapid shutdown button. And it's next to the solar inverter.
+
+In the event of an emergency, pushing that button sends a signal to module level or string level devices on the roof. And then they de-energize the panels, ⁓ either completely or to well below 30 volts within a very short timeframe. And that saves the lives of firefighters when they're stepping onto a live roof. ⁓ So the beginning of rapid shutdown ⁓ came with the NEC, the National Electric Code in America ⁓ in 2017.
+
+So ⁓ in 2017, the National Electric Code mandated that rooftop PV systems have the ability to quickly depower and that limits the risk of ⁓ electrocution. So if you have string or micro inverters, that red button might be located inside the junction box. So rapid shutdown isn't about fire prevention. That's where
+
+⁓ Some other partners come in like JA Solar or Studer Cables who are working on fire safety ⁓ on cabling insulation and circuit breakers and stuff like that. But rapid shutdown allows firemen to safely do their job. ⁓ The problem is is that when you want to bring a new system ⁓ up and running, ⁓ you eliminate the circuit breaker, then you have to have somebody go out and physically flip back every circuit breaker.
+
+And that's where rapid shutdown standard is a superior technology because you can depower the system to a safe level and then quickly bring it back online after the event occurs.
+
+Vikram Kumar (42:27)
+From my perspective, a lot of people ⁓ mislabel solar as a simple modular technology, but is ⁓ electricity generating asset as soon as there's light, there's electricity, and the hazards are actually more severe than AC electricity because it's not a regulated area. I'm not going to mention the names of the engineers because people make their livelihood out of this industry.
+
+But I've been told more than on a few occasions that there isn't a of uniform standard that marries the different components together to have a complete system. And here, you can have massive transformer failures and utility scale or rooftop fires because you may have the emergency stop button or you may have DC isolators, but the regulation themselves are very confused.
+
+with respect to what is actually needed for compliance. example, in Australia, one of the largest causes of fire is the DC isolator switches because ⁓ people forget how dangerous DC is. Unlike AC electricity, which is fluctuating 50 times per second, or in the United States at 60 Hertz, in DC, once the sun's on, the DC's on, and it doesn't turn off. It's almost like a welding torch.
+
+And if you have any circuit break, it creates an immediate fire. So it's an area that's very interesting for us. there are an enormous amount of people out there that are skeptical about power optimizers and rapid shutdown devices purely because they feel they may add to the fire risk. So what can you say to those people to comfort them that we're doing things the right way and not trying to sell a product to them that may cause an issue in the future?
+
+Erin Mahan (44:22)
+⁓ Sure. So I would say that ⁓ the biggest challenges to fire risk of solar panels are environmental heat, humidity, electromagnetic interference. Devices must operate reliably when exposed to sun, rain and thermal cycling. cables, they expand and contract. Connectors corrode. There's ⁓
+
+transmission issues as well. So if signaling fails in those conditions, shutdown fails. And that's why Sunspec tests for EMI resilience. We test for thermal drift and signal degradation over time. So this is simulating real-world fire conditions. And we test if the device behaves consistently after 500 cycles of heating and cooling. Can I hear a signal?
+
+⁓ Can it hear a signal with rooftop noise at 10 decibels over baseline? These are really specific details ⁓ that matter for fire safety and make rapid shutdown such an important standard.
+
+Vikram Kumar (45:33)
+I don't want to dwell too much on the case of the fire risk because anyone that Googles it will find hundreds of examples and we want to stay positive and in all honesty a lot of dodgy solas gone in the UK in the last couple of years so without us saying anything the pull will come from the fire investigators, the insurance authorities, the asset owners who might have highly prized assets and now have a potential fire risk.
+
+Erin Mahan (45:40)
+Yes, unfortunately.
+
+Vikram Kumar (46:00)
+Sometimes in hard to reach places you might have the know emergency off switch or inverter shutdown functions But the DC remains live and if it's on a rooftop you might not see the fire until it's too late very often so building trust with the industry is very important because it is it is a critical area that is misunderstood and it will be very public very soon because of the The frequency of the cases of fire that will increase inevitably so
+
+With respect to building trust, Sunspec, they are a charity. You have a commercial operation with DER security, but Sunspec themselves, this a non-profit alliance? What is your view on open standards versus proprietary standards?
+
+Erin Mahan (46:45)
+Yeah, thanks for asking. So ⁓ first of all, we are not a charity, but a trade association in the United States. This is classified differently. We're a 501 ⁓ six rather than a five or one three, which is the charity. And this means we bring ⁓ trade members together ⁓ to discuss standards. I'll put it this way. If a utility ⁓ can't trust a rooftop system to behave as expected, the entire value proposition of solar fails.
+
+So people forget that solar is electricity and electricity obeys physics and not just your intentions. So we are designing systems and specifications open and royalty free to create trust in the industry and grow the industry. ⁓ So as far as ⁓ our members, they help shape these standards and we publish them totally open. Everything is free.
+
+and they will define the next era of distributed energy systems. We are a convening platform, a standards body, and an amplifier for this excellence of engineering. ⁓ So ⁓ our reason for being is to grow the industry, ⁓ we do that by certifying products and having members. So this actually comes a lot from the lessons California has taught us.
+
+California trusts the SunSpec Alliance to write the standards for its common smart inverter profile. SunSpec Alliance is a highly trusted, highly intelligent group of stakeholders, and they promote interoperability and higher DER penetration.
+
+Vikram Kumar (48:27)
+when manufacturers develop their products, they may have no control over what size installation their products deployed on. For example, having two or three or four solar panels is a different ballgame to having a one megawatt rooftop or a 500 megawatt solar field or solar farm, as we say, in the UK. So with this respect, you have any thoughts on rapid shutdown timelines and voltage thresholds?
+
+Erin Mahan (48:49)
+Yes, simply put, are increasing. or the timelines are decreasing, voltage thresholds are increasing. And the reason for that is we are ⁓ redeveloping the rapid shutdown standard to go from the modular level to the string level. And we're working with our partners on their concerns in those areas. For example, Sandia National Laboratories spoke at the InterSolar Conference in Munich about wildfire risk. Now this isn't...
+
+directly related to fire risk, but it is part of the conversation. by convening experts, we're going to make sure that high voltage also has a fire safety element. And as we're moving away from modular configurations to string level configurations, we will make sure that those are secure.
+
+Vikram Kumar (49:30)
+Absolutely and one of the things that I can say here from experience on doing electrical consultancy work for many years some of the electrical studies as the systems get larger are very very expensive and complicated to do such as insulation coordination studies which tell you if you wrap a shutdown device or solar panel or whatever switch you might have
+
+can handle the system voltage it's within. And if you have small companies that may be, know, semi-skilled labor, if they start working in larger solar installs, like one megawatt and above, you can create a dangerous situation where people may misuse equipment which might not be suitable for very large strings, for example. So we won't dwell on that for too long because that's, you know, people do paid consultancy work in that area. There are massive technical advisors that are hired by the bank
+
+to oversee those kind of functions, because the industry is so rapidly, there can be a lot of blind spots that we need to address. But moving on to our final topic, the future of solar photovoltaics, which is the title of this podcast and Sunspec's role in shaping it. What are your thoughts about market trends, AI, EVs and grid load?
+
+Erin Mahan (50:37)
+insulation coordination studies are super complex. That is absolutely true. And looking forward on the future of photovoltaics, electric vehicles are increasingly important, obviously. Electric vehicles are batteries on wheels, and they can do the same grid-supporting functions that stationary batteries can have.
+
+So SunSpec standards have been applied in the electric vehicle space through the Society of Automotive Engineers, SAE J3072. And we also are looking at home automation. So the standards for like a home automation platform that wants to connect with the local DER system, SunSpec Modbus can be used for that. We also have a 2030.5 metering profile.
+
+So home automation hub can use that to connect directly to the meter. We're also working ⁓ with a Belgian organization KNX home automations to apply the SunSpec Modbus models to load controls. And this is going to be another way that home automation systems can connect to it and control various loads within the home system.
+
+We are well adopted in the EV space. We have metering profiles and Modbus for home automation, and we're working to enable load control. Sunspec is a big player in the future of PV systems and distributed energy resources. For example, we talked a little bit about grid connection.
+
+Our voltage variation control features in SunSpec Modbus maintain balance on the grid. So power continues to be supplied to critical infrastructure. These issues, these super contemporary 2025 Iberian Peninsula blackout, they trace these cascading failures back to a loss of solar generation and inadequate ride through. So this really underlines the need for robust insulation, robust grid forming capabilities.
+
+And our work ensures that these systems meet FRT voltage support and cyber resilience thresholds. looking forward, I would say, yeah, like you mentioned, EVs, grid load, these are really important topics. You also mentioned AI, and we are working with a lot of software providers right now. An increasing amount of software providers are accessing SunSpec Alliance specifications.
+
+So they can act as virtual power plants to the utilities. That's a growing theme in America at least. And ⁓ that's a definite future for the distributed energy resources industry.
+
+Vikram Kumar (52:58)
+the Spain and Portuguese grid blackout, it's a very fresh topic and there's a lot of speculation out there in the industry. My personal view on this is that they may need a lot of battery storage to stabilize the frequency on the grid and so we may see an explosion in the battery storage market segment because the solar is installed now and if they can't export their power...
+
+the grid companies or the governments may need to pay those developers for the energy that they've installed that they can't now accept and this will be a trend that'll be seen everywhere. There is a lot of solar at wind or any distributed generation that's not ⁓ providing constant base load. with respect to off-grid systems, do have any comments on that at all?
+
+Erin Mahan (53:32)
+Absolutely.
+
+I like what you said about these systems are being seen everywhere. You can see these systems in places like Coachella, our American off-grid festivals, then also to refugee camps or places where power is not a convenience but a lifeline. These systems are becoming increasingly important. I was just talking with some of our partners at DIFE, D-E-I-F.
+
+the Danish company about how they are working more with BESS controllers these days. So really people are forward looking in this domain. Let me give you a few concrete examples. For example,
+
+Victron Energy, one of our long-standing members, is pushing innovation in off-grid and remote applications. So they are integrating SunSpec protocols into mobile battery systems. Also in Europe, EcoFlow, a company that has lots of SunSpec certifications, has created the only certified balcony solar system with plug-and-play battery connectivity. So that's a direct... And that can control all the devices in the home.
+
+That's what makes it special. That's a direct application of our specifications in this huge leap forward for battery energy storage systems. Also on the topic of battery energy storage systems, we are working together with Danfoss and other leaders in this area to think about the future of off-grid systems or think about the future of storing wind.
+
+and solar energy in a hybrid capacity. this will further stabilize our grid. This will encourage policy makers to make policies about third party standardization. Yeah, so we see a bright future when it comes to battery energy storage systems as well.
+
+Vikram Kumar (55:17)
+Fantastic. Well, Erin, I've certainly enjoyed this conversation and I enjoyed meeting you in InterSolar in Munich. it's inspiring to see your work rate and your enthusiasm for advancing the solar photovoltaic industry. And you come from one of the solar centric places in the United States. And there's a lot of interchange of information that can take place that may add value to our colleagues and our customers and partners.
+
+with respect to getting involved with the Sunspeck Alliance, do you have any pointers on how people can get in touch with you?
+
+Erin Mahan (55:51)
+Yeah, thanks so much Vikram. We are really excited about innovation ⁓ in PV and DER. It's super smart and it's what Sunspec fosters. So to get involved with this, of course, like I mentioned, go to our website, sunspec.org, or you can email me at membership at sunspec.org. And the way that our members get involved is participation in our technical work groups.
+
+You can also create your own work group to work on standards or specifications that are important to you. So, you know, those who write the rules ⁓ play first. you have something you care about, come to the SunSpec Alliance and talk with us about it. And we will ask our members who else wants to get involved, who else is an expert in that area. So work groups, number one, stakeholders.
+
+even if you are not a manufacturer, should get involved in our workgroups and support the work the SunSpec Alliance is doing. We also, of course, have certain benefits for manufacturers, such as the SunSpec Dashboard software tool, the SunSpec Academy courses, our AI-powered SunSpec support tool. We have discounted prices on software tools from DER Security, our offshoot company.
+
+we also have tools with quality logic that will help you get your projects off the ground if you're a manufacturer. Another way you can get involved is attend some of our hackathons. We've had two hackathons in the Bay Area recently at Port Labs in Oakland, and they were super successful. Basically, we showed that devices certified with the SB mark, which is great for safety.
+
+were not compatible, they were not interoperable. those certified with SunSpec were 100 % interoperable every single time. So get involved with our hackathons and show off your products. You can also come to the InterSolar North America show, ISNA, and participate in our Plugfest event. we have ecosystem marketing opportunities. So as a member of the SunSpec Alliance, you can co-host webinars with us.
+
+And working previously for a consulting organization, I know that this is very expensive and it doesn't necessarily put your product in front of the people you want to reach. So Sunspec Alliance membership in the grander scheme of things, it's worth about $50,000 with all of our tools, ecosystem marketing and technical work groups, but it costs only $5,000 a year.
+
+So if you are a stakeholder in the industry or a manufacturer, check us out and see if we can support you in growing the DER industry.
+
+Vikram Kumar (58:20)
+fantastic, Erin I've certainly enjoyed this conversation and I will be listening back on this podcast to reflect on some of the other more detailed points and we'll be in touch with you by offline. So thank you very much for joining us today, Erin.
+
+Erin Mahan (58:33)
+Thanks Vikram, this might be the most comprehensive conversation I've had about solar ever and I'm happy to have it on your podcast. thanks so much. Ta, thanks, bye bye.
+
+Vikram Kumar (58:41)
+You're welcome, Erin. Thank you.
+
 
 
 

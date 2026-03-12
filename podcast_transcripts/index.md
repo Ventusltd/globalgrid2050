@@ -2468,6 +2468,397 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
 
+## Rob Tippett: Challenges and Opportunities in Solar O&M and RePowering
+
+Vikram (00:02)
+Welcome to the future of solar photovoltaics podcast today. I have the absolute pleasure of being joined by mr. Rob Tippett of bluefield operations managing director of a footsie 250 listed solar fund and also one of the up-and-coming major contractors in the industry mr. Liam Hicks co-founder of dynamic energy solutions Our first stop is Rob. Rob, welcome. Are you able to introduce yourself and
+
+Tell us a bit about your early life and background.
+
+Rob Tippett (00:33)
+Absolutely and thanks, thanks Vikram, thanks Liam. So I'm Rob Tippett, Managing Director of Blueford Operations. We carry out the O &M services for Blueford Group, the BCIF fund. I'm not managing director of the fund itself but the operations team. We've got 50 personnel around the UK and in the office. I suppose to start with how I got here really, my early life and all that kind of stuff. grew up in Cornwall.
+
+My parents had a ⁓ civil engineering company and they did environmental surveys across the UK. I spent most of my holidays, most of my breaks working for them on the survey crews. That was quite enjoyable, getting around the UK, Scotland, Ireland and places, working with older guys, very health and safety driven.
+
+We working in confined spaces, rivers, coastal areas on the road as well, which is obviously quite a dangerous place to be. ⁓ Went to study environmental science at Plymouth University. Had a good time there. But with environmental science, you kind of find yourself a jack of all trades, mastering none. It was a good experience to have.
+
+I knew I wanted to work outside, I knew I wanted to work in the environmental sector, but ended up back with my parents' company. So working back on the cruise straight after university, obviously did the bit of travelling in between. Instead of doing a gap year working, I ended up doing a gap year working my way around the world, which was...
+
+Obviously a lot more enjoyable than just sitting in a job. I feel I was also more aligned to vocational roots rather than academic. So although I enjoyed university, I wouldn't say I was very good at it. I learned through experience. I learned through kind of seeing it and doing it. So yeah, as I said, after university,
+
+worked back for my parents for a number of years, ended up working overseas, Belgium, Bulgaria, Eastern Europe, Middle East, Hong Kong for a while, again, all around the UK. And then my parents decided to sell the business, probably when they were about 45, was in my early 20s. I think previous to that, I thought...
+
+there was an expectation from me that I would take the company over, but I was too young. You know, I felt I was too young. It wasn't an option for me at that time. And I thought, well, hats off to them. They can sell up. They can go and do their thing. So they were bought out by a company called RPS. I carried on working there for another eight years or so, probably a bit longer than that. Ended up managing the operational side of the business. We had 70 staff.
+
+mostly field service engineers. Again, health and safety heavy, you know, working in confined spaces, up to 2000 gases that can kill anybody, fatal gases in the sewer networks. Working at height, so obviously you've got to drop people into the sewer, you've got to get them out again or into the rivers and that kind of stuff. So a lot of these things working in the wastewater industry,
+
+has really fed into how I'm able to influence how the current operations business can improve, can maintain high safety quality and delivery, but also the data as well. So the data we used to collect on those environmental surveys was very, really sensitive equipment, routinely calibrated. We would...
+
+we would use that data to verify mathematical models and the mathematical models would be used by the big water firms, utility firms around the UK to make informed decisions on multi-million pound infrastructure improvements or flooding incidents and things like that. know, data quality was key, health and safety was key for us and quality was good. you know, we...
+
+We had ISO 9001, 14001, 18001. I didn't really appreciate at that time, at such a young age, the importance of those processes to go through, those steps to go through. So after a number of years working at RPS, I moved into solar. Working for a small company down in Somerset, a small little developer.
+
+primarily focused on commercial rooftops and small commercial systems. But they had O &M on some small ground mount systems up to sort of two meg. And they did it, delivered a lot, but working for a small company, as I'm sure you're aware, both of you, you have to wear many hats. It's a real challenge. you know, even with good clients and customers.
+
+It's still a challenge, you you've got to adapt, you've got to just drop the priority at that moment to move on to another priority, which you might be moving from the finance side to the quality side to let's get the contract or let's go and actually put some solar panels on the roof, you know, that kind of ⁓ flying around. But that got me into solar.
+
+Vikram (06:33)
+Thanks
+
+Rob Tippett (06:39)
+worked there for four odd years and then moved to Bluefield, which is where I'm now. So started off as a portfolio manager, looking after the sites from the office perspective. And then I'm now managing director five years later.
+
+Vikram (06:54)
+Fantastic. completely get what you mean by small companies. I run my own small business called Ventus Limited and when I was first visiting solar customers the first objection was who the hell is Ventus? happens if you go bankrupt? So I'm very grateful to the support I've had from my partner especially Leoni which is Tudor Cables now. But today something's a bit special because ⁓ we're joined by Mr. Liam Hicks as well because we are talking about re-powering an O ⁓
+
+covering your own personal profile as well Rob because I think that's important building transparency and trust and showing people the kind of people the kind of person you are. before we go into deeper into how you go into solar, getting into the health and safety, transformers, repowering, discussing the future of solar photovoltaics and some of our memorable experiences I would like ⁓ Liam to just spend about 30 seconds introducing himself, explaining how he knows you Rob and
+
+what he brings to the party with respect to O and repowering.
+
+Liam Hicks (07:58)
+So thank you Vikram. Liam Hicks, co-founder of Dynamic Energy Solutions. My background is working within solar for the last 10 years. Electrical contractor commercially and domestically before that. Born and bred electrical electrician, should I say. I've worked quite closely with Rob at Bluefield. We had a really good relationship with Bluefield from...
+
+where I previously worked at Solar Century. ⁓
+
+once SolarCentury disappeared, started dynamic energy solutions and we've had a really good relationship with Bluefields moving forward, re-powering O support services to Bluefield operations. One thing I'd like to say is Rob, I saw the inception of ⁓ Bluefield operations and you came in quite early on and what you've done there up to now I think is quite admirable with regards to what you guys have
+
+been up against really and we will get deeper into that I'm sure later on in the podcast.
+
+Vikram (09:07)
+Absolutely and Robbie mentioned you work for a small solar company and I'm just looking at your LinkedIn profile, I think everyone does this. So there's a lot of people that look at your profile and don't engage which frightens me sometimes but it's public information so you were at this small company for just over four years and we are now in the election year, the industry has been boom and bust cycling itself as well and not helped by...
+
+constant changes But the Tories are now saying you know in the next five years We might face more change in the industry than we've had in the last 30 years specifically This is net zero targets which some people question even if it's affordable or not so ⁓ So with respect to how you got into solo I can see you started with so Southwest in 2014 only two years before the
+
+Brexit referendum which is still the shock was for which are still being felt and I remember quite clearly in those times minimum import price cut in feed-in tariffs It was really an uncertain time. It was nothing like 2011 2012 and everything was boom and growth growth growth small companies going into 300 employee businesses. What was your memorable time from working in solar southwest?
+
+Rob Tippett (10:29)
+I think within the first 12 months I came in on the back end of all the good times and within 12 months there were noises, whispers and reality from the government about what was happening with the industry and how the sport was going to tail off and I honestly was thinking what the heck have I got myself into. It was very uncertain times.
+
+As a small little company developing small commercial systems, we rely on just the technology, but the support and the noise from the government, the messages from the government, and the messages were very negative. It put a lot of people off. I wouldn't say the tap was turned off in terms of supply of business, but it was drastically reduced. like any other small business, we had to...
+
+just look at what we were doing, have honest conversations about where we wanted to be. They were quite, you know, they were difficult times. know, do we focus on O Do we carry on focusing or do we focus more on domestic installs? Do we look at the commercial systems? And it all stacked up, you know, all stacked up in terms of the paybacks to customers, to the clients and potential clients. But, you know, actually making those sales.
+
+and although I wasn't really directly involved with many of those sales, they were hard conversations to have because people just weren't interested. It was all about confidence and that confidence came or lack of confidence came from the government at the time. But then I think going through the ISO 9001 process really helped the business from my point of view because it really centered what we wanted to do.
+
+you know, we had up to that point, some of us really wanted to focus on O some of us, because we had some good clients. Do we grow that portfolio or do we focus on domestic installs? Everyone knows who've worked in the domestic install market, it's cutthroat and it's by volume, you know, in rural Somerset, we're never going to hit that volume. But it was actually having sit down and having a proper grown up conversation about, okay, what we're going to do.
+
+what are we doing here? And I think ISO really helped define the purpose of the business and helped us align ourselves to a goal and the target. And that's when I really saw the value of the ISO process. But memorable things, think, past that first 12 months, 18 months of uncertainty, and then I think just enjoying the fact that I was
+
+still working outside, still realizing that dream that I was working in an environmental setting. And I transitioned from one utility sector to another utility sector and the learning curve was massive. And I also, think being totally candid, I feel that I verified my fear of heights after going and working on those so many roofs during those.
+
+Betty Betty years. I hate it
+
+Vikram (13:53)
+I was product manager for Safety at Hype for Honeywell, Balsgate of Heights and the butt of all the jokes and...
+
+And I appreciate completely what you mean by 90001, ISO 140001, our factory in Switzerland, they supply the railways, need to give massive indemnities, 50 million Swiss francs or 45 million pounds roughly. So there needs to be traceability. I think the Japanese believe even one small screw getting lost can lead to a train crash. So when you counterbalance that with solar, where a one-man bank can grow into a massive company, there's none of those processes and a lot of is on private land.
+
+don't really even need to follow many of the regulations which you should do anyway but why I got into solar is because you know Crossrail which is the Elizabeth line a 15 billion pound project I still haven't got my first meeting but I've done two and a half gigawatt solar already so in terms of career progress and progression
+
+You know, here's from other clients, colleagues of mine in the industry, even from Liam, if you work for a DNO, you might be waiting 10 years before you do switching or work in certain environments. It's so like you're thrown in the deep end from day one.
+
+And I can see that from your progress as well. And I don't want to talk a bit more about that because you started as an O manager at Bluefield and now you're the Manage Director of the O ⁓ department or the O company. But one of the great things about this podcast is we can make an impact for young people, for mature people from other industries because there is a labor shortage, especially a skilled labor shortage and bringing good people in who have good ethics and want to do the right thing is very, very tough.
+
+and we want to look at your inspiring stories like yourself and Liam and try to inspire other people and one of things you can do in these moments of pause is to reflect so I can see you had quite a technical uni background and you did even though you said you're not very good at it you did a very relevant subject in environmental science you were to tell us a bit about what you studied and what your sort of dreams and ambitions were
+
+what your view on climate science is in general?
+
+Rob Tippett (16:06)
+Yeah, no problem. So I actually started off doing a degree in coastal management up in Scarborough. was part of the University of York. But I quickly figured out after one year, although I did very well in that first year, that I had far too much free time on my hands. And I spent most of that time.
+
+not studying and socializing. And let's just leave it at that. So I moved, I went down to Plymouth to actually what I thought was doing a proper degree, proper university. Although it was a proper degree, a proper university, and I did see it through, got my degree. was, I suppose what it did do is formed and confirmed my appetite for working in
+
+the outdoors. I say that I'm office based 100 % of the time at the moment. But also working in the environment and making environmental improvements. You can see even back then there were massive red flags going up about climate change or the impact that humans are having on the climate. As I said, I did a year studying coastal management and that was quite eye opening and fascinating about
+
+you know, how you can protect one area of the coast. But what you're actually doing is you are saving that bit of the coast, but two miles down the coast, you're exacerbating another issue and causing a bigger problem. massive domino effect. Absolutely. And that was playing out in almost every single subject that I was looking at or studying every single module at university at Plymouth. And it was a bit eye-opening. I suppose
+
+You know, just talking about climate science or the climate impact that's happening at the moment. think, you from my experience, you know, I look at all the health and safety incidents that come in from the guys on site and the office team. You know, I feel that the weather events are getting more extreme. They're getting more severe. You know, the storms are getting, the winds are getting harder, the rain's getting harder in small intense bursts.
+
+flooding is getting more common. even in the heat in the summer, which obviously impacts all of our and all these things impact the solar sites, you know, we've got to think, the industry's got to think about not just how we fix the current issues, the OPEC stuff, but we also got to put in place ⁓ mitigations to...
+
+allow those sites to work and operate in those future conditions. know, we've got to be thinking about the mounting structures. We've got to be thinking about the substations and the transformers overheating or obviously not overheating. We've got to think about flooding. know, we've got to think about, look at the flood risk assessments that I've done at planning stage and actually maybe go one step further and put those substations maybe another couple of feet in the air or whatever it is, you know, or
+
+you know, Liam and I have done a lot of work on, well, not me specifically, but the team with Bluefield, but doing a lot of environmental controls in substations, you know, looking at HVAC systems and looking to dry out the bases of the substations just to prevent that humidity, for instance. So yeah, it's visceral what's happening and you know, that...
+
+You get an understanding when you see the incident reports coming in and it's really important that we continue to report this stuff, but also react on it now, especially in design for new sites.
+
+Liam Hicks (20:02)
+Yeah, yes, so I think you're right there with regards to the new sites that going in, maybe a bit of future proofing for the kind of climate we're heading for.
+
+Vikram (20:13)
+Absolutely. ⁓ And moving on to now the blue field. You started off as an O manager about just over five years ago and you've risen to being managing director. What has been the recipe behind your success?
+
+Rob Tippett (20:38)
+I don't go as far as saying right place, right time, but it is a little bit of that. I joined rather fortuitously at a time where the business, the O &M business, the Ops business had just set up. So it'd been around since 2017, I think it was set up. I joined in 2018 in that period of time.
+
+the operations team at Bluefield were basically looking after third party O &M's and probably only about 100 megawatts of sites. When I joined and a colleague of mine, Ben, a couple of weeks later, we looked at it and we thought, okay, this is a challenge. We want to actually have our own engineers. We were joined about a month later by a chap called Howard Johns.
+
+And then we ripped it all up and started again. We got our first engineer, Alex Lennon-Hannan, it probably started January 2018, sorry, 2019. And we had to build the whole business from scratch. There were no safety processes, there were no operating practices, there were no vehicles, no fleet, not even any designs of the logos or anything like that. No PPE, no tools.
+
+literally starting from scratch. you in that time, that first sort of two years, was, you know, I think Ben and I felt that we were hanging onto the coattails of the partners and Howard with their expectations of where the business needed to be. But I suppose what we were lucky with is that we managed to find some really good staff. We managed to, we were lucky in that we've got a very good staff retention rate.
+
+And those really good staff are still there in the business and they are the backbone to the business. The team we built, we didn't want any kind of massive characters in the office team. We needed a team that would work together and collaborate and actually deliver the work that was needed. But it's the same with the field service engineers. Masses of experience. know, I wouldn't even like to calculate the number of centuries of the combined knowledge that they've got in solar.
+
+But the ex-OEMs, ex-military, ex-Navy, they come from a variety of different sources. Ex-ONMs as well, we've got a lot of our competitors, especially locally around Bristol. They've joined Bluefield and joined the project that we've got going. And just having that continuation, having that team grow together and trust each other and collaborate, it's really...
+
+had an impact and I suppose, you how did I get from portfolio manager or whatever I was back then to managing director? I don't know. I put my hand up, brave enough to put my hand head forward and apply for it and go for it.
+
+Vikram (23:48)
+And you've stuck at it because there's a lot great people that work for Bluefield. One of the principal engineers from British Solar Renewables, Hugh Murtha, who I worked with quite closely for a very short burst of time for Shotwick Solar Farm. He's in Australia now, I believe working for BEON. There might be Subsidria Power Core, which is a sister company of UK Power Networks. A lot of people don't know that. And he was at Bluefield for a while. Valerio, who I network with and drink with occasionally, sometimes a bit too much. He was at Bluefield.
+
+Dr. Jyoti Roy who we've done a podcast with he's you know a few doors down from where I live he was at Bluefield and of course during the early days of the gold rush a very interesting chap Mr. Francesco Gerardi who very nervously took to the factory on audits hoping not to get banned at Sorcentry or other other EBCs he was one of the few people from the funds that took an interest in the actual details
+
+From my perspective, you've been one of the longest lasting individuals within Bluefield and it shows if you stick at something, it can pay dividends and you write in your personal statement, you're managing 675 megawatts across 75 sites. Are you able to comment about what are some of your challenges on these sites and what sticks out to you?
+
+Rob Tippett (25:15)
+Yeah, absolutely. Just going back to your Francesco comment, mean, Francesco is the detail, devil is in the detail for Francesco and he's working his magic over in Italy at the moment. you know, just going about how I became MD, I suppose trust works both ways. You know, I believe in the project. I believe in the visions that the partners have got of the operations team and the whole group itself.
+
+And they trust me to do it as well at the same time. I think it's, we've mentioned trust a few times, but I think trust within the industry, with our peers, with our suppliers and everything else is so important.
+
+It's the bedrock of our business as well. We trust each other. I'm not asking my engineers to do time sheets. I just trust them to do the work. It's the same with the office team. I don't want to micromanage anybody. It's up to them to do the work that they think is needed. And if they need help, they can ask for it. the question, going back to your question, which I've forgotten about, by the way.
+
+Vikram (26:28)
+that you've lasted a very long time and ⁓ yeah just said I basically because I've been working in this industry for over 12 years full-time now a lot of it comes to me like flashbacks because some of these people I've met under very stressful circumstances good or bad there's I mentioned as in a flash so I wanted you to comment a bit about Francesco because I see him as a friend he's very charismatic and always spiring sometimes and so I wanted you just to mention
+
+him for a bit, still at Bluefield of course but you've lasted longer than many other people that have come and gone because O is a stressful industry because you're taking on you're carrying the can for people that built assets in the rush under enormous pressure without proper ISO 9001 processes sometimes the panels will be on the water and the feed-in tariffs will change so lots of things that could go wrong did go wrong and
+
+And so I just wanted to congratulate you for lasting so long and also as a hint to people listening, if you do apply yourself, you do see rewards. But my question was based around your notes, you wrote that you're managing today 675 megawatts, out of which you may have some of the sites that even I've worked on with SolarCentry and with British Solar Renewables and others in the past, such as Wurzel, RF Linum, it's a memorable site for me.
+
+Of course I don't speak about any confidential or any commercial secrets or anything like that. But in terms of what you deal with on a day to day basis, out of these 75 sites, what sticks out to you as your main challenges at the moment?
+
+Rob Tippett (28:04)
+I think the, thanks for the reminder there, I think the issues and challenges that we face are not uncommon for the rest of the UK solar fleet and the O &M's and the supporting businesses like Liam and Datham Supply. The rush...
+
+10 years or so ago to build, to get these systems accredited and online and energised. You know, that was one part of the problem, one part of the issue. I think a number of other challenges are just being realised now. I think O &M's, when you scratch the surface of some of the sites, you identify many other issues with cable sizing or...
+
+ducting or lack of ducting, kind of Component selection at the time may have seemed like a really good idea, may have been really beneficial for the balance sheet or the financial model, but the reality is during the operational phase of the asset, it's not, in some cases, it's just not working. And I think that's really important to stress. You go to trade shows and trade events,
+
+Solar Energy UK have solar storage and then you go to Munich to ⁓ InterSolar and Barcelona for the event in January. A lot is talked about the development phases, a lot is talked about the components, but the biggest phase, operational phase on a solar asset is the O is actually looking after them, making sure they perform and generate.
+
+the widgets that are being able to sold to sell to the PPAs in the open market. And I think more emphasis is needed industry wide about how that is going to develop and how that is going to be improved. So going back to, you know, specifics, you know, we're seeing a number of we've had a number of issues with HV on on on transformers. Maybe it's poor design or poor specification.
+
+You know, learning instances through the industry, but not just solar. We learn of other issues through, you know, maybe switch gears and safety notices through switch gears. But we, the assets that we maintain, they're coming up to, you know, on average, probably six, seven, eight, nine years old. We're coming to this phase in their life cycle that they do need some.
+
+more investment and that's happening now. We're set up as a business to deliver the operations and the maintenance, the plan, preventative and to fix things, get things back online. As a business, we're not set up to deliver the bigger projects and we engage with other specialists for those services, people like Dynamic, who've been really helpful on a number of projects over the last couple of years.
+
+A number of the issues that have been identified, you we are addressing at the moment and there are plans to address more in the coming years. But it will, you know, there's not a finite list of things. There's a long list and there's a lot to do.
+
+Vikram (31:39)
+Absolutely, there's so much to unpack and we are tight for time because to talk about last 10-12 years in one day is an impossible task and we would catch up offline as well. But a passing comment I just want to make about trust and my own experience with dealing with Bluefield and everyone else in the industry. Of course, the whole world has gone upside down since people started working from home and...
+
+We had the energy crisis, increased interest rates and labour shortages. Some companies have a banking skill, people engineer to stay with them because people change their lifestyles completely. I've almost always worked from home, I have no issue with working from home. But trust is essential which is dependent on communication with your colleagues, with your suppliers, with the people that you work with.
+
+How do you manage your team and how do you instill good communication between your sites, your colleagues and your contractors?
+
+Rob Tippett (32:41)
+Yeah, it is a challenge. think what we set up during the first day of COVID and lockdown was something that we still do. We have a daily meeting with the office team just to make sure that everyone's appraised of any activity on the sites. And obviously, as the portfolio grows and the team grows, that's becoming quite an event every morning. But as you say, communication is absolutely key.
+
+I am a huge advocate of face-to-face. You can solve so many more problems being together in an office or to getting together in a meeting than you can over teams or any other route. Saying that, we've got the technology, we have got teams. We are lucky enough to be able to work in a, certainly the office teams, the engineers will never get away with it, but in a hybrid situation, you can do a couple of days at home or you can do...
+
+most of your time in the office or whatever suits you. But there's nothing like getting together. Liam and Nathan have been down a couple of times. Other suppliers have been down a couple of times. We try and engage at industry events with suppliers and other contractors as well. We find it difficult and one of the other issues which I didn't mention earlier about
+
+issues with the industry or with the portfolio that we maintain is that a lot of those older components, older manufacturers, some of them aren't around anymore. That's a challenge. And I don't think that's unique to Bluefield. I think it's industry wide. They're either not around anymore or those original designs are not supported anymore. So, you you've got to make a decision. Are you going to keep going? Are you going to try and repair those? ⁓
+
+at component level or inverter level or are you going to consider revamping? There's a lot of questions. You can't just rip things up just because the supply is not around anymore. There may be other clever solutions around. And it's interesting. I listened to one of your podcasts with John Davies and he's a big advocate of getting the data and understanding what the real issue is before you invest heavily on the millions of pounds scale in addressing a problem.
+
+But those OEMs, ⁓ if they're not supporting those technologies anymore, then what do do about it? there's a lot of scope, but there's a lot of potential ⁓ for new work streams for people like myself and people like Liam in helping out solving these problems.
+
+Back to communication, think we've had some very difficult conversations with OEMs on the continent in recent years. Lack of support being one of them. Lead times, which is not their fault, but we get it in the neck if something's not delivered on time or the lead time is 18 months plus. Those hangovers from COVID still exist. Those hangovers from Brexit still exist, unfortunately, in terms of supply.
+
+I think the electrical industry is nice to think we're in this little bubble of it's all about solar, it's all about keeping plants running, but the reality is we're just part of the jigsaw puzzle. There's the electric fleet, electrification of the fleet, electric vehicles, there's computers, there's mobile phones. The industry is massive and we're just a tiny part of it.
+
+you know, in terms of the value that those manufacturers, those chip manufacturers during COVID placed on the solar industry, it was negligible because their turnover is elsewhere. So, you we've got to think differently as an industry. We've got to look at different solutions and we've got to be smart about it.
+
+Vikram (36:50)
+Thank you very much. I absolutely believe in climate change and climate science and it's almost like talking about religion or what political party support but the scientists are 100 % clear we are heading for catastrophic climate change. There is urgency, there's also national security interests, there's issues with energy supply and security and
+
+having some control over it and in no other industry I've seen progress be so fast because I worked at LAP before, worked at Honeywell before and also for software companies in the early through cable and wireless a new product would take several years in development when solar projects were executed by EPCs there was several new products in a new design all at the same time under difficult circumstances
+
+And one of the continuity good things about working with the funds like Bluefield like with foresight in the past with honored Clarion who's done a podcast with us as well now he's at quintess was that is that you guys get to have a long-term view on things and one of the objections are not raised on the podcast preparation notes was you know where'd you get the budgets for proper O from
+
+Rob Tippett (38:11)
+Budgets for proper O I mean, yeah, that's one of the issues about O in the UK. Typically, if you go out to the third party market, it's a ⁓ race to the bottom on O fees. And we're not set up for that. To properly maintain a solar farm, you need to be there. You need to make sure that it's running, that it's operating properly. ⁓
+
+And to do that, unfortunately, it costs money. So we were never going to compete with the lowest price O companies. We're happy to work with those clients that want to maintain their assets. I mean, at the end of the day, the asset is king. The asset is what we're all here to do, certainly in the O ⁓ sector, is to maintain and look after and maximize the availability and maximize the performance.
+
+And I don't think you can do that on a tiny budget. You've got to invest in the plants, not just at component level and future proofing the sites, but you've got to put the right people on there to actually make the difference.
+
+Liam Hicks (39:25)
+Yeah for sure I agree. I'd like to touch on some of the O stuff in the UK and the different types of quality of build. think sort of 10 years ago was a very challenging time for solar because there was so much solar being installed and it was a massive innovation time of innovation. You had the likes of Solar Century and Bluefield building sites, Bluefield as a client, Solar Century as the EPC. ⁓
+
+of innovation was going on at that time and there were some fantastic people working on those projects but there were other projects being installed in the UK that weren't as innovative and a lot of stuff was installed probably not to standard well definitely not to standard we know that we know that based on what we see now. Bluefield are obviously buying a lot of new plant that they didn't build I'm sure that's throwing a lot of new challenges at you as
+
+Well, because I mean, I like to shout out a few of the early asset managers Beatrice ⁓ Lopez and Paul and Aranja from Bluefields. Those guys were fantastic asset managers working with them on the Solar Century portfolio that we had for Bluefield at the time. They were very, very, very attention to detail orientated and that pushed innovation within Solar Century. And I think it was a fantastic mix. What we're seeing now
+
+is we've seen a lot of installations that didn't have that innovation, that drive for excellence. And that's kind of what is leading us onto the revamping, repowering side of the industry right now, which is rife just as much as the build side. With respect to your existing Bluefield owned plant and the stuff that you're buying now, is it throwing new challenges at you or do you feel like the team that you've built are able
+
+to sort of attack this and get under management and control in as an efficient way as the stuff that was built for Bluefield.
+
+Rob Tippett (41:35)
+Yeah, it's interesting point. mean, I think if you'd asked me a few years ago, you know, how can you just absorb the assets and take them on, I would have said, yeah, absolutely. But, you know, I think time and experience can sometimes...
+
+give you a better reality of the situation. mean, I'm not going to, you know, we're no different to any of the other portfolios or large asset owners. There's always going to be problematic assets or groups of assets. And it's just about how you deal with that. And I think the way that the Bluefield are not unique, but they are uniquely set up in the sense that we are
+
+We act like an owner operator. So we've got good communication between the businesses, between the ops team, the technical asset management team, and the commercial team. So all the decision makers sit quite close together. So we realize we find the problem, we figure out what the problem is, and we come up with a solution, and then we deliver on it quite quickly. But as I said before, we're not set up as an operations business to do the big.
+
+capex works, the big revamps, the big repowers, you know, that's, that's big, big labor heavy, intense work streams, which we would, you know, look to our supply chain to deliver for us. But
+
+As you say, going back to your question, it is a challenge when you do get one or two tricky sites come on because it's like having a tricky client. You end up giving them all the attention when you're good client.
+
+gets the perception is they get ignored because they're not pestering you all the time. You know, it's the same with an asset. You know, you'll get a pesky asset, which is always tripping or something happening and all your engineer time is spent there resolving that issue. But the good site down the road probably gets less attention, but there's stuff building up in the background. So it's a real balancing act, you know, but we're looking to act on the faults and failings as soon as possible because the longer you leave it, the bigger problem you're going to create in the end.
+
+When we haven't got the resource to do it, we'll go out to market and we'll get some operational excellence from the country, from people like Des and the others.
+
+Liam Hicks (44:05)
+For sure, mean one thing I will say is credit to you I've worked alongside a lot of your engineers in the field and they speak very highly of you Rob and one thing I've found and witnessed with Bluefield is you guys do listen to the guys from the ground up and you do take on what your what these guys all with this sort of world of experience they come to and they say what what should be done and how things could be done better and I think at Bluefield
+
+for sure your guys have all said that you take it on board and they do see stuff happening and I think in the industry it's something that's rare and I think it's why Bluefield's operations probably done so well is because you do take on that information coming from your staff and I mean the office staff all credit to them as well Ben, ⁓ Adriana, fantastic project managers for those sites and
+
+And it really shows, you know, we've worked alongside you repowering quite a few sites now. Your engineers are always on site. They're always very interested in what's going on health and safety wise and with the actual installation. ⁓ Project managers on that side of things, repowering side of things, Sean, Carlos, great guys. Working with different companies, it's obvious to see where the ⁓ championing of being successful as a solar plant
+
+owner and operator. It's so challenging. We know, we see it. We see it with everyone and we know exactly how it can be. But I think the blue field mix that you've got there is definitely a recipe for success because although you probably do have lot of obstacles that have to, and the hoops you have to jump through, I think it works as being the asset owner and the operator. Fantastic. And yeah, credit to you. It seems to be working.
+
+Rob Tippett (46:01)
+Yeah,
+
+thanks about this. That's very kind. It's nice to have that feedback. But you know, as we talked about already, I started out as an O &M manager, whatever it was, and now I'm managing director. You know, I don't know everything. I've not got all the answers. You know, I look to...
+
+the people I work for, the engineers and the office staff, I look to them for the answers and they give me the answers and what they need. And then we have discussion about it and we figure out what's the best way forward. Every quarter we have a health and safety committee where everybody's invited, all the engineers, they can come if they want, they don't have to, but they'll always have a champion from the site or from the region that will say, this isn't working for us. It might be down to the PPE they're wearing.
+
+or it might be down to the tools they're using, it might be down to a specific SOP that we've developed, you know, and they'll say this isn't working for us and we'll take it away and we'll rip it up or we'll get something else and we just get something that will work for everybody and it's just easier that way. think, you you trust your people and they'll trust you and I think that's, you know, that's really valuable.
+
+Liam Hicks (47:11)
+You're only as good as your team. I know that all too well.
+
+Vikram (47:15)
+So
+
+what's SOP?
+
+Rob Tippett (47:17)
+A safe operating practice, standard operating practice, depends on the seat you're sitting in.
+
+Vikram (47:22)
+It certainly seems like you guys are professional to have health and safety meetings. used to do a thing ⁓ at Honeywell Safety College called Toolbox Talks. They were always very popular because people are so busy with everyday day-to-day life that they forget to innovate sometimes or look at what else is out there and taking a moment to reflect and review does help in driving continuous improvement.
+
+I'm a complete solar and electrical geek myself. I work in sales, I run a small business. There's so many topics that we don't have the headspace for to go into like module technology. Now we have biofacial modules with reflected energy generation. We contrast that with the SADC Solar Farm which probably has 270 watt JSO modules on and now we're working, we're looking at 670 watt modules.
+
+or more and there's unknown areas like the albedo so that sort gets your nerdy juices going if you're into that sort of stuff like I am with also string and central inverters with string optimizers there's so many things how do you fuse successfully DC strings so there's so many things we could go into but the thing that sobers me the most and giving credit to Ms Carmen McGovern my former finance director from Lab you know she said
+
+is cash flow, cash is king, cash is what kills businesses. Good businesses don't go bankrupt because they're bad businesses, they go bankrupt because they run out of money. So cash flow is a sobering reality, staff retention as you mentioned, sobering reality, and focusing on the profit and loss is a sobering reality which is why I raised the point about Arnott saying earlier, you just need one transformer to go and your own budget could purely evaporate and this is why...
+
+I wanted Liam to be involved with this because he's successfully done a repowering project with you and how you get to a point where you develop the business case of repowering because in development, some sites are selling for 200,000 pounds of megawatt and they were drawn on a fag packet. And now you've got actual sites that you have to do real engineering, real development. How do you go from a stage where you assess the assets not performing as to expectation?
+
+or it's coming to the end of its life, or the parts are obsolete and you need to now re-power, and how do you spin all these plates? How do you maintain your module warranties? How do you maintain your voltages? What is the process you go through to get to a re-power for a 10 year old site?
+
+Rob Tippett (49:56)
+Yeah, it's very difficult. It's a good question. There's no one size fits all answer to any of that. But as you say, we've worked with a number of suppliers to realise some revamping projects these last 24 months. They've been very successful. The key drivers in those instances were fundamentally the availability of the OEM to deliver on warranty, to deliver on spares and failure rates at particular.
+
+particular site as well. you they're the indicators that you have at your disposal. Goes back to an earlier conversation we had a minute ago about communication. It's flagging as early as you can the issues that you're seeing on site. You know, the eyes and the ears from the operational perspective are the engineers and the fault events that are recorded in the control room. So, you know, if you're getting...
+
+20 inverters, string inverters pop in every day, then you know there's an issue on one side. And that's quite an easy argument to have for the NASA owner. And as I said before, the longest phase in the asset lifecycle is the operational phase. And it's probably the least thought about during the planning. Certainly going back a few years, maybe it's different now. I do feel like things are improving. You talk about the...
+
+that you're excited juices coming out with the 600 watt modules and the bifacials and the cables and all those kind of things. I see it differently. see how am I going to how am I lads going to get change that module if it weighs 50 kilos or whatever it does, you know, a string inverter which weighs, you know, a 250 ⁓ kilowatt string inverter. And I'm using a very common here.
+
+That's not string inverter, that's a mini central and how are the guys going to lift that off the railing to swap that? That's heavy machinery in use and that's proper trackways and proper, that needs to be thought through and I wonder, and Liam and I will find out in two or three years time in a day, if it has been thought through. exciting times, more challenges.
+
+Liam Hicks (52:14)
+There are a lot more operational challenges. mean just with the voltages, the difference in voltages, the string voltages now are higher than they so that comes with a whole load more health and safety aspects to it and like you said with the inverters, lifting those bits of equipment on site becomes a real issue because you need lifting equipment now. You cannot lift some of these inverters by hand.
+
+Yeah, you're absolutely right. The challenge is that we have coming, I mean from a design and installation point, viewpoint, it's fantastic. Innovation again, we all love bit of innovation, but yeah, I can completely see your point and we have to think about it as contractors because we offer a lot of support services to the O &M's.
+
+We find that lot of that sort of work as well is subbed out because the internal teams are busy, very busy doing the operation, that day-to-day operational stuff. So something that we as a contractor, we need to think about as well.
+
+Rob Tippett (53:19)
+Absolutely, it goes back to the communication bit and how we engage with the suppliers. The more diverse the conversations you have, the more answers and ideas and innovation you're going to realise. think it's so important to have those conversations, these conversations that we're having now, and make these connections.
+
+Vikram (53:39)
+The
+
+truth is a very dangerous thing and ⁓ it can ⁓ rub people up the wrong way. But for me, the quiet truth on the inside, for me it's like gold, you only gain in value. On the one side you've got the sobering reality of budgets and profit and loss and cash flow and sales. On the other side you have the ethical ⁓ issues as well and of course with capitalism comes greed. And it's a lot easier to...
+
+developer solar farm than to build one or even to maintain one because you just need to Not all developers are like this, but you just need to spam a few grid applications you get lucky You could see you you know charm the landowner you register 15 pound company you've got on SPV Suddenly the market picks up and you've got 50 of these sites and you sell them and you never take the liability of If they're buildable no or not or if you're to maintain them or not
+
+And so with respect to creative juices and the excitement, it comes from a lot of scary things. Like I'm dealing with solar forms that have 1 through 2 kV connections. I'm delivering cables that are eight tons for 700 meters. 1 through 2 kV cable. The ceiling ends to connect them are 100 kilograms per connector. The 670 watt modules, they're over two meters tall. Some of them, it's with the packaging.
+
+palates are 1.2 tonnes to unload. And people fall out of their chair when suddenly they don't think about these things. Because you talk about ISO and everything, because the greed consumes the industry, there's hundreds of gigawatts of developments, when something closes finance, people get shocked. They don't expect it to close finance. And suddenly you've got 1,000, 2,000 shipping containers turning up full of palates that are 1.1 tonnes each.
+
+And you got agency labor that don't even have to unload them. So this is, this is what's going to come to you, but maybe that's just go for another podcast. But here we are talking about repowering and Liam, what are your specific thoughts about repowering? How do you, how do you get to a stage where you close business for repowering?
+
+Liam Hicks (55:52)
+Well, I think
+
+Rob Tippett (55:54)
+Thank
+
+Liam Hicks (55:55)
+Being an electrical contractor and installer with operations and maintenance background helps because we know the challenges of forward thinking, maintenance side of things. We're not just looking to install whatever we're given. We do try to have some input and offer some help to our clients with regards to moving forward. this going to be easy to inspect? we connect the
+
+hard-drawn copper to the piles. We want to have them on the site that hasn't got a ducting in front of it because when your operational guys are out and they're doing their inspections on a monthly basis, they need to be able to see these things easily. If they've got to get done on their hands and knees and these kind of things, we understand that an O budget is very tight. the quicker you can make it, the checks can be done, the better it is for the client. And identifying those things, relaying them
+
+to the project managers and that whole communication thing we've been talking about and keeps coming up is so key and working closely with Bluefield ⁓ personally, we try to offer as much as we can in the way of actually installing it on site. What's best for the site? Not so much what's quicker, but what's actually going forward going to be better for the operational guys because we have that experience behind us and we know what Bluefield
+
+want, luckily, because we've got that history with them. We know how they like their sites to be installed, and we try to offer that up to them. Sometimes without them even realising, you know, there's certain things that we do that we know that that's the way they like it, and then when we do the walk around, snag lists are small, the work's done efficiently, and it works, it just works for us.
+
+Vikram (57:51)
+It seems like communications are a common denominator because whenever you're going to do something that involves large amounts of money or big change, you naturally will have confrontation and only good teams seem to pull through. There's almost an industry secret in the pub that it's roughly 20p a watt for development, 50p a watt for EBC, 70p a watt to develop and build a solar farm and then it's on the public record that sites are selling for 1.35 a watt.
+
+You know, there might be feed-in tariff, there might be other things involved that we don't quite understand, but to me it seems you can have 50 % margin if you very expensively develop an EPC site for 70 pence a watt, and you can sell it for 1.35 million a megawatt. If you look at the acquisition value of the Toucan portfolio by Greencourt Capital, which anyone can go up and look. So reaching that stage where you can build the relationships and the trust.
+
+You know, I still haven't figured that out, otherwise I'd be retired by now, but there is value in doing things properly. But as we come towards the close of our conversation, ⁓ Rob, I do want to mention some of the nicer things to do with the environment, to do with the future of solar photovoltaics. According to Shell's Sky scenario, solar will generate twice as much energy as any other power source by 2100, which for me is unfathomable.
+
+But you mentioned in your notes about natural capital. Are you able to comment a bit about that for us and also talk what you think will be the future of Southern Football takes?
+
+Rob Tippett (59:26)
+Yeah, well, I'm no soothsayer, but so the future I think is very bright for solar. You know, this sounds very ⁓ a very common thing to say, but I think, you know, it doesn't need government support to stand on its own anymore. It can stand up on itself commercially in the UK at utility scale, even in, you know, as we're seeing at the moment, volatile markets. It's still profitable business.
+
+And I think that will continue. You know, going back to the environmental piece, you know, what we talked about earlier on, but we, when I first arrived at Bluefield, you know, I was...
+
+The way the land was managed was very binary. You cut the grass tick, you've sprayed the weeds tick, you've cut the hedges tick. At that time, there was no thought in how it was done and how it would benefit. We've got some guidelines and there's guidelines in the public domain and also attached to every single site, there is compliance, basically a list of to-dos to land management practice.
+
+There may be certain methods that need to be employed when you're cutting the grass. It may be directional, it might be how you're cutting the hedges.
+
+what typically happens is that the whole hedge is cut every year or every third year, whatever it was. But the reality was you can't be doing that because what you're doing is you're just completely wiping out the food stock for the birds or other creatures in the hedges for that period of time. And you're decimating the benefits that solar could actually bring. And I think, you know, we've been working with the technical asset management team and the owners.
+
+And we've delivered a lot in the last 24 months and we're going to deliver a lot more in the next.
+
+well, goodness knows how long, but it's years ahead. We're looking at not just ensuring that the LEMP compliance, that's the Landscape Environmental Management Plan, is upheld, but also that we're going above and beyond. We're putting in more habitats, such as wildflower. But wildflower that works, not just wildflower that's done to tick a box, it's wildflower that's managed and maintained, that flourishes and does actually benefit the biodiversity.
+
+So there's a lot of discussion, there's a lot of conversation around the industry and in the development sector, you you look at the big housing developments, these big commercial developments, industrial developments, they all need to meet certain targets. They all need to have 10 % BNG and that's biodiversity net gain. So they need to have more biodiversity in 20 years time than they was in their existing.
+
+as soon as the shovel hit the ground. With solar you can achieve that ⁓ really quite easily, really, really easily, but it's not so easy for those industrial and commercial sites and those house building sites. There's huge opportunities for the industry to offset the other industries' impact.
+
+and they can buy credits from the solar owners. Solar is a unique position. It's hundreds of acres of land which is not lost to solar, which is an argument we still hear again and again on a daily basis, which is absolutely nonsensical. You've not lost any land at all. You're just generating electricity. You can still farm. can still graze sheep.
+
+you can still do other things. There's going to be innovation in agrivoltaics, absolutely will do. it's happening elsewhere, it will happen here as well. But you know, there's so much opportunity. You've got long lease, 25, 40 year leases. You've got enough time to actually make a huge impact and increase the natural capital on solar farms, wherein the rest of the UK is fundamentally on the decline, which is a real scary thing to see.
+
+But we can, using our position, our very unique position of these long leases, these open, vast stretches of land, we can actually make a difference.
+
+Vikram (1:03:45)
+Fantastic,
+
+it does give you a warm fuzzy feeling when you work in things that don't destroy the environment and you know I'll be watching Dilly Squat Farm on Amazon and one of the things that do excite me about the future of solar is to you know engage more with farmers and landowners in future because intensive farming it's not sustainable you actually take all the nutrients out of the soil and you desertify the soil and you kill all habitats kill all insects and poison your waterways
+
+So for me, think not many people understand the environment impact than farmers who are dealing with it on a daily basis. with Liam by my side, I don't know many other people that are on solar farms as much as you and how hard you work. And as we come to close to this podcast, do you have any last words, Liam, before we close?
+
+Liam Hicks (1:04:35)
+⁓ I'd just like to say thank you to you Vikram for ⁓ all that you do for the industry. I think this podcast has been fantastic and I think that you're very humble, you don't give yourself enough credit for what you've done within the industry and your time when I was at Solar Sentry and before that, ⁓ the innovation you've done at the front end and the constant champion of promoting the industry and
+
+and fighting for it to be a better industry constantly and all the time. Thank you to you and thanks to Rob as well because you guys have gave my company in particular a chance very early on. I like to think that we've lived up to your expectations and exceeded in some instances but yeah I'd just like to thank you both and it's been fantastic coming here today and seeing you both in person. We don't get to do it a lot, I'm always in the field so I ⁓
+
+I rarely see people face to face. It's always over the phone or on a teams meeting. yeah.
+
+Rob Tippett (1:05:42)
+you
+
+Vikram (1:05:42)
+Thank you,
+
+Liam and you can't take all the credit because you're only as good as the people that you work with and a young chap called Matthew Zanakis, who is co-founder of this podcast. He's the one that gave me the confidence to start and Clive Cosby who made ⁓ a more bigger thing than it was intended. thanks so much, Rob and Liam for joining us today.
+
+Rob Tippett (1:06:02)
+No problem, thanks very much.
+
 ## Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development
 
 Vince Barnes (00:00)

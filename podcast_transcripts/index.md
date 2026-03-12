@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Clive Cosby: Constructing The Largest Solar Farms
+
 Guy Atherton: Solar PV Expert & Developer
 
 ---
@@ -2449,6 +2451,294 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Clive Cosby: Constructing The Largest Solar Farms
+
+Vikram (00:00)
+Welcome to another podcast, another episode of the future of solar photovoltaics. Today I'm very excited to have Mr Clive Cosby join us from EDF as a senior project manager who I've known from 2014 going back to Canada farm. But the most exciting time was during Shotwick solar farm, which was 72 megawatt peak. The biggest solar farm to be constructed ever at the time. Received a letter from
+
+from the investor witnessed by David Cameron and Xi Jinping. Welcome Clive.
+
+Clive (00:35)
+Vikram, good to see you again. It's been good to be, in touch with you and kept in contact over the years. And yeah, looking forward to talking about my experience of delivering, as you say, some of the biggest projects in the country and elsewhere.
+
+Vikram (00:51)
+Right, as I said on earlier episodes, people are what make this industry great and the future of solar photovoltaics cannot be defined without the people that make this industry possible. Are you able to tell us a bit about your background, what you studied, where you come from?
+
+Clive (01:08)
+Sure, sure. Yeah, and I think that's a big influence over where I've gone in life and what I've done and my experience that I bring to projects. ⁓ I grew up on a farm, which was an idyllic upbringing in South Devon, a long line of family ⁓ farmers for generations. So we had a lot of freedom. We were out and about in nature all the time. But I also saw that with my parents, that there was a lot of work to be done. There was a lot of delivery responsibility.
+
+You have to look after the animals, you have to tend to the crops, otherwise you don't get the yields, you don't get the return. So it's very much a performance focus. I can remember when I was very young, a winter probably in the early 80s where it snowed and it was snowing hard. ⁓ And dad stayed up all night keeping the track to the farm open so that the milk lorry could come in in the morning to take the milk, otherwise it would all be...
+
+it would all go to waste and there wouldn't be any income. So it was a very real environment to grow up in and ⁓ a good experience for me in life. And after that, big influences for me were getting into sailing as a passion, as a sport, as something that I loved and enjoyed. And I sought that after university, after a few years of working in sales, actually. And I had the opportunity to get into sailing as a profession.
+
+I learnt a lot about working with people, ⁓ leading people, communicating with people. I sailed with famous people, whatever that means, celebrities, some captains of industry, some very, very good ⁓ decorated sailors, ⁓ and a lot of very ordinary people that wanted to go sailing. And I learnt how to work with and coach and motivate people to get the best out of them.
+
+I've often said to people in the past that when you're in the middle of an ocean, unless you've sorted out your crew, you've organized and prepared and planned your boat and your passage, and you've addressed all of those minor issues that you might have with people with conflict on board. It's going to be a pretty unpleasant journey, a pretty unpleasant passage. So there's a lot of drilling down into the bottom of things, no stone unturned, and taking full responsibility for.
+
+everything that you you oversee and need to deliver.
+
+Vikram (03:35)
+Fantastic. what drew you to the solar industry? How did sailing lead to a career transition into solar?
+
+Clive (03:42)
+It was a direct, a direct segue, I guess you'd say. one of the last boats that I worked on professionally, ⁓ a beautiful 40 meter classic ⁓ in the Mediterranean about, well, 10 years ago now, more than 10 years ago. And I met the director of a, of a solar business and was talking about how, you know, I loved my job and what I did, but I had a family at home and
+
+The lifestyle took me away a lot, a lot of traveling, a lot of being away. When you're on a boat, that's your, it's a lifestyle job, right? You don't get to choose when you go home and when you have holiday, when you have breaks. So I was missing out on a lot of things at home and wanted to get more of a quote, normal job at home. And he was very kind to give me an opportunity. And that's how I came to start at BSR. And I often said that if I'd have applied for that job, then
+
+I may not have got it, but because he saw me in a different context and a different industry, he appreciated the transferable skills, the experience and knowledge that I could bring. And at BSR at that time, ⁓ was a great place to be, a lot of energy, a lot of good people. ⁓ 2014, when I started, was just when things were kind of peaking at the sort of the maximum on that tariff roller coaster that we were on. And ⁓ I was given a
+
+huge platform to go and deliver projects very very quickly.
+
+Vikram (05:15)
+I used to love visiting British Solar Renewables or BSR. Even before then they used be known as Solar Power Generation Limited, SBGL. And the reason why I used love visiting BSR was because I've grown up in an urban environment in London and I used to get to drive past Stonehenge on the way there. I remember meeting lots of people in shipping container offices and...
+
+Things went absolutely mad. I still haven't written down all the experiences from that time and BSR wasn't the only company we working with in that period. In terms of your most memorable project experiences from that period, which one stands out as the most challenging or memorable and what were the key lessons learnt?
+
+Clive (06:00)
+Yeah, there were a few. ⁓ I guess I've not been involved in a massive number of projects, but I have been involved in very significant projects. ⁓ My first solar park, everyone remembers their first one, was ⁓ a project called Canada Farm near Blanford Forum. It was a summer build and during that time, that was relatively unusual because we had this...
+
+Mad Dash to achieve the tariff deadline at the end of March. So we'd go to site generally waiting for developments in technology and the price to be right in January time and have these winter builds to get commissioned and accredited. But we built this project throughout the summer. It was a very dry summer. It was a brilliant site, rectangular project, single field, easy access off a nice tarmac farmer's drive.
+
+and the ground conditions were superb. You could drive your car around if you needed to. So there was very little constraints and the project went really well. And because it was after that boom to the March of that year, we had a lot of resources available. We had good contractors at the time. We had a lot of our own people who were fairly experienced by that stage, certainly more experienced than me. They'd been building solar projects for a couple of years and BSR had learnt from
+
+building the first project or their first projects really themselves and just figuring out how to do things. So it was a very steep learning curve for me. I'm very grateful to that. That was a fun project. And then moving on from there, we just really, there was a massive step change. That was a nine-meg project, which at the time was really big. I remember having conversations with a contractor about a 20-meg project and
+
+a little bit of head scratching about whether that would even be possible, which is quite funny now looking back seeing how far we've come. And then a project came up called Owl's Hatch. It had been around for quite some years. It was still subject to planning, but grid was there, land agreements were there, procurement was underway. And ⁓ it was a collection of nine fields, co-joined single landowner ⁓ near Herne Bay in Kent.
+
+The planning decision in December was deferred. So then we had this whole project, the biggest project that had ever been built in the country, first 132 connection, first project going above 50 megawatts. And it was all subject to a planning decision, as I recall, on a Thursday evening, the first Thursday of January 2015. And ⁓ late that night, I got a message to say,
+
+we go green light and then the next day and the days following that and the weeks and months were just some incredible experience actually. ⁓ As I say, the steepest learning curve ever. We had contractors on site within days. Everything had been hinged upon this planning decision because if we didn't get it, then we would have to have reevaluated as to whether the project would have been possible in that tariff window. The project succeeded really
+
+because we had some incredible people, some personalities involved, some great experience, some brilliant contractors that we brought in who really delivered in very challenging conditions and pulled together to make it happen. So that was a real memorable project. I would say that I always felt like we were slightly behind the curve. I wasn't fully on top of everything that was happening in the way that I would have liked to have been. We were delivering.
+
+safely as best we could at the time. You have to think the industry was different then. Maybe it was a little bit more cowboy to a certain extent. Things have moved on a long, long way since then. But that lessons that I learned in that project and that winter set me up for some great projects that followed.
+
+Vikram (10:03)
+In terms of successful collaboration with experienced contractors, if you forget about the negatives and focus only on the positives, who did you like working with in your time at Canada and such?
+
+Clive (10:16)
+⁓ Well, there was a, and still is, I'm sure, ⁓ a great contractor ⁓ called Sphere, who those guys were involved from the beginning. I think with BSR, they brought a huge amount of knowledge and professionalism. I think that the quality standards that they adhered to, and BSR did as well in general, think, is, you know, there are simpler, quicker and cheaper ways of doing things very often. ⁓
+
+And I talk about that a lot now with projects that I work in. Obviously program and price is very important, but fundamentally, if you don't get the quality right, if you don't get the engineering right, your program, your cost is out the window anyway, because your project will not perform. But I think probably in those days, there was quite a few projects that were short-termist in the way that they were contracted. There were contractors that wanted to slam it in very quickly, get paid and moved on.
+
+I like to think that we used to take a more long-term approach because we were integrated as a director, as a developer, ⁓ EPC, and then O operator. So we had a longer term view. So I think definitely Sphere and then with Al's Hatch, Robinson Lawler did an incredible job from a standing start in terms of their experience in the industry. And now they're involved as with Sphere with many.
+
+many projects and have a huge amount of experience, but their guys really grafted in very challenging conditions. It was a very wet Q1 that year. There was a lot of mud to deal with. ⁓ There were a lot of opportunities where they could have, ⁓ how would I say, perhaps quite reasonably have complained and not fulfilled their contract, but they didn't. They made it happen and we got there, we got commissioned.
+
+Vikram (12:12)
+I have lot of respect for Sphere and Robinson and Lula. I haven't got a bad word to say about them. But if you contrast that period with SPGL and solar renewables and at the same time we had Sol Sentry and Wurzel and several others constructing projects. You know, now if you fast forward to 2023, you know, we seem to not be able to build anything. know, with HS2 there's a complete debacle as one of the most expensive failures on earth. You know, what was
+
+different about BSR and your team at the time that you were developing and installing so many solar farms? What is it more than 500 megawatts that BSR have accomplished since?
+
+Clive (12:52)
+I'm sure it is, yeah, over the years. And things have changed a lot ⁓ since ⁓ the end of that tariff era. It got the industry to where it needed to be, but it didn't quite bridge the gap to parity that was always spoken about as where we needed the economics to be to make projects work. So there has been this lull-less void, and we're just getting back up to speed now. The goalposts have moved a lot. We're up to hundreds of megawatts now of projects.
+
+So yeah, there's been a significant step there. I think what I would say is that we learned, and it was before my time to be honest, they learned from day one of how is this possible? How can we do this? How does this work? The early projects, they were using Grundamatt piles, which are sort of driven in within ⁓ an air compressor, like tapping them in and then filled with
+
+filled with cement and then angle structure put in it. All the structure for the site was basically handmade by the guys who were cutting it on site. A lot of the specification of the components was all that they knew at the time, but they got the job done. And because they learned how to do it at that smaller scale, then stepping up to five meg, nine meg, 20 meg, 50 meg sites, they learned how to do it. And I always think that it became like a...
+
+production line really. So every time a new development opportunity came in, everyone knew their task, everyone knew their job, everyone knew the decision points and how we like to operate. ⁓ we delivered and delivered a lot of projects and it was a really great place to be. mean, of course, it wasn't perfect. Nothing ever is, but it was pretty much as good as it gets. And I think there were quite a few other developer EPCs at that time that had that same level of it.
+
+level of experience to deliver so effectively.
+
+Vikram (14:48)
+Well, I'm quite proud of what we've achieved. In the UK, there's 9 gigawatts of solar installed on large scale, probably 13 to 15 gigawatts if you include commercial. And domestic, so much so that in almost 12 years of continuity, my team has built up a Google Maps database which plots every single solar farm that's been installed, including the 2.5 gig that we've supplied to.
+
+And it always makes me think with everything that we've been through with Brexit, with the lockdowns, with the Ukraine war, now issues in the Middle East with Israel and Palestine, know. And now there's this huge development, this 19 gigawatt peak in development, but not a lot going into construction since 2017. Can you point to a magic ingredient? What was special about BSR that, you know, despite making mistakes, you know,
+
+they could construct so much in such little time.
+
+Clive (15:48)
+Yeah, we just had this great team that could deliver. We had great contractors who knew and trusted us. I think there was a lot done on trust. A lot of contracts were on trust at that stage that we had existing relationships. So now with projects that I'm looking at, big projects, interesting projects, you know, that trust is the glue that binds relationships, right? And when you've delivered a project, then you know how to do it again. I've brought in a few.
+
+colleagues from that time back into where I'm at at the moment. they come in, they sit down, you press play, you know how to work, you know how to operate, you know how to deliver. ⁓ So yeah, it was a ⁓ great team, great leadership. The finances were there. Of course, the sector was being supported at the time. And there was this big excitement actually. And it was pioneering. We were learning how to do things. We were working out whether we wanted
+
+our central inverters on concrete foundations or pile foundations. We figured that pile foundations were quicker, simpler, faster, less site risk to install. We figured out which was the best track way to use to be able to get our deliveries around site. So we're delivering all of our materials as much as we could right into site within 100 meters or so of where it's being installed. So you're reducing the second handling, the logistics, because we had this, we had a cliff edge. We had the end of March deadline and we had to be commissioned
+
+by that time and we would be independently checked and tested and verified by Ofgem and we had to be ready for that.
+
+Vikram (17:30)
+I remember there was a great and immense rivalry at the time. Obviously Solar Century were the pioneers, know, this was supposed to be the Solar Century and I remember being in Waterloo talking to them about ⁓ SADC Solar Farm 50 megawatt peak and it was all over the news on Solar Power Portal. It's a blog that still exists.
+
+where I think BeElectric may have developed Rorten Solar Farm and they wanted to sell or find an EPC. I don't really understand the confidential dynamics on how these things work. And SoulCentury, there was this talk in the office that they're competing to win this Rorten Solar Farm from BSR. So BSR somehow land that project, RF Linum's happening at the same sort of time period. And I remember saying very clearly in the SoulCentury office,
+
+Don't worry about Roughton because they're already on site at Shotwick Solar Farm. So it was an immense period and before we talk about Shotwick, what were the sort of learning experiences from Al's Hatch? It's in the same sort of ballpark or area as Cleve Hill Solar Farm may have been known as Project Fortress at some point. In terms of flooding and ground conditions, what did you learn or take away from the experience at Al's Hatch?
+
+in terms of the specifics of the ground conditions, propensity of flooding, working in the mud.
+
+Clive (18:54)
+Yeah, ⁓
+
+I think we just, have to be thinking on your feet. You have to be ⁓ dynamic in the way that you manage. You need a lot of contingency. We had a plan with the trackway company that they were going to put in kilometers of trackway for us. On the second week, on a Thursday morning, the MD of the business was in my office before seven o'clock, before I got there on a busy construction day towards the beginning of the build of a solar park.
+
+to tell me that they could not fulfill the order that we placed with them. ⁓ So we had to move. We had to find alternative trackway. We had to start importing stone and build roads so that we could get around the fields. So when you have cojo and co-located fields, you have these pinch points where you're going through, you know, where were hedges or trackways to access through gates. And when it's raining and wet and muddy, there's a lot of topsoil, a lot of vehicle movements. The conditions for moving around can be incredibly challenging.
+
+So you need a lot of motivated staff, you need a lot of vehicles and a decent transport plan of how you're going to achieve this. We began to realize partway through that project, maybe into the second month, that we couldn't move the modules around site quick enough because we couldn't drive the ⁓ solar trucks delivering the modules around the site. So they came into a separate entrance, as I remember. We used to offload three pallets.
+
+as part of our testing protocol. So one got tested, depending on how they performed, the other two might get tested. Worst case, of course, that whole delivery container could get returned to the factory. So we're documenting the quality of the modules and how they're arriving at site in terms of the performance. But we couldn't get them into the field quick enough because they then had to be moved on by tractor and trailer. And there was only
+
+so much room on the roadways during the day. So we started running 24 seven. So we brought in a new site manager and a new team to just be running out modules, lacing them out around the clock. And without that, we would not have delivered on time. So it's having the resource and the kind of just being in touch with what's going on really having a good team around you who aren't afraid to put their hand up and.
+
+share their concerns. It's bringing in people that have got knowledge and experience, but also just learning yourself. And I'd always say to the team, what concerns you? What's on your mind? You know, in the evening when you're going to bed, what's the thing that you're thinking about that is just concerning you and causing you anxiety? Because that's what we need to deal with. And I've also said that, you know, when we're building at that kind of pace, we were building
+
+You know, probably we built in 10 weeks that project by the time we got mobilized to site 50 megs, which at the time was quite impressive. ⁓ and the sort of pace that, you know, now we could probably easily achieve and contracts are used to, ⁓ delivering, but we need lots of long, boring, productive days. We don't need any excitement, any dramas. We just need that flatline productivity to get the job done.
+
+Vikram (22:14)
+Absolutely and I remember then moving on to Shopwick Solar Farm in Wrexham near the paper mill. I remember being disheartened over Christmas because I thought the project was dead, nothing's going to happen and know, and interestingly it raised the point about team dynamic and chemistry because you know, I've been working for Studer Cables in Switzerland, formerly owned by Leoni, a 5 billion euro PLC existing for almost 500 years.
+
+you know, very corporate and but we had some great backers and we always had an amazing impression of BSR, especially I think Drive Wellstone Henge helped and factory visits helped and now they reflect a lot on remote working and trying to recover that some sort of team dynamism. You know, I remember losing all hope on Shotwick and suddenly we receive a phone call from a Mr. Simon Ng saying
+
+You know, the founder of BSR has been to 10 Downing Street and you'll get a letter from the Chinese government and you know, can you make two million pounds worth of stock without any guarantees? And you know, I had no hope and I sent this really fancy letter to our board of directors, especially to Mr. Christoph Studer and I received an email back saying we've started production. You know, this was, I think, a few weeks before Grid Connection, know, but we managed to get this somehow. You know, I remember
+
+making it up as I go along in terms of the cable schedule because there just wasn't enough time and luckily we were within 99 % of what was required. had two driver teams driving 24-7 to deliver to site. We had reports that the cables were arriving still warm from the production line. That's how quick we were working. So enter the Chinese and you build the biggest solar farm in the country and you don't want to slow down there. It seems then...
+
+You know, your travels or your ambition took you to Myanmar. Are able to tell us a little bit more about that? And especially China Triumph Engineering. Who are these guys? I remember visiting them in Shanghai, but still haven't recovered from that period.
+
+Clive (24:22)
+Well, think one of the things at BSR was ⁓ there was the cycles driven by the tariffs. There were cycles in terms of funding as well. then there was a relationship that developed with WeLink, CTIEC. So WeLink are the project management sort of TA arm of ⁓ CTIEC, ⁓ China Triumph International Engineering Company, large EPC. They have a module. ⁓
+
+manufacturers part of the group as well. They came in and gave us the ability to deliver Shotwick, but also Swindon solar park that you mentioned earlier. that was next level to be honest, because we'd learned so much from that previous ⁓ winter and BSR actually only came across that project. I understand at the solar event at Birmingham NEC probably October time, we were on site.
+
+In January, having redesigned the park, looked at it ⁓ in a number of ways. The EPC that were engaged or the developer, they'd looked at having a compound on the site and then building themselves out. And I just thought, how on are you going to do that in that time scale? So we negotiated some land and built a compound outside of the footprint. meant that we had to put in some high pressure gas pipe crossings.
+
+which were complicated and expensive, but it just de-risked the project massively. We put in a new logistics plan and different gateways and different access to sites so that this time we actually could get all of our deliveries, all of our structure and modules and cable trucks into the field and unloading as we planned to do previously at Owl's Hatch. And it ran like clockwork really. I think we were able to complete with a brilliant team that joined us to deliver on the experience we had.
+
+just a field factory that flowed from one end to the other. We had some great contractors, in particular Tech Energy and Eleco 99 who delivered on the LV side and just really, really made it happen. And that project really is probably one of my proudest and the greatest pleasure to have delivered.
+
+And following that, I realized that there were less opportunities in the UK. Perhaps that was the biggest thing that was going to be delivered for some period of time. And I was able to take an opportunity with, with WeLink to work with them with CTIC to deliver in Myanmar, which is also known as Burma. ⁓ It's a country, very under or less developed country in Southeast Asia between Thailand and Bangladesh. And there was a
+
+project there that they were involved with to build a 200 megawatt ⁓ solar plant in that country, the first phase of which would be 50 megawatts, when really there was nothing there. There was no solar infrastructure. So it was a familiar subject, but really extraordinary and unfamiliar circumstances to be in.
+
+Vikram (27:25)
+But I remember receiving some, know, solar is what we're here to talk about, but you know, Myanmar, know, with everything that's happening in that part of the world, the exotic environment, know, the issues with the genocide, you know. I remember receiving some great photographs from you about the train journeys, you know. How was it like getting to site and can you tell us a bit more about the environment that you experienced?
+
+Clive (27:49)
+Yeah, I mean, it was fascinating. It was extraordinary. mean, one of the first things you notice, you're turning up for meetings in Yangon, which is the former capital, but the biggest city in the south, the port in the south, previously known as Rangin. And outside of all of the building, there's a generator. And you'd be in a meeting, like in a room like this, and all the lights would go out. And the first time it happens, you're a little bit concerned about what's going on. But no one panics. They'll sit there for a few seconds.
+
+someone starts the generator or automatically kicks in and the lights come back on. they're having blackouts and brownouts all the time. They have a lot of grid issues. The country's developing and growing massively, but most of the population live a very much subsistence, humble life. And this project was right in the middle of the country. this land was given to the project. I'm not quite sure how, but it was virgin land. You could imagine that really no one had ever been there.
+
+They first had to go in and cut down all the bushes and the trees and the shrubs in this area. You can still see the footprint of it actually on Google Earth. land is running with little rivulets and little valleys and ⁓ also a good number of snakes as well. you have to be careful where you trot. I always went everywhere with a local who you felt would help preserve your safety.
+
+Vikram (29:09)
+Some of worrying things I've read about Myanmar besides the genocide which we won't go into is as of the scope of our podcast. I've always had a positive impression of Buddhism. I'm not a particularly religious person. I come from a Hindu Punjabi background. I've been fascinated by the teachings of Buddhism. Myanmar, remember reading, is almost like an extremist Buddhist country. What was your interaction? What was your experience of Buddhism while you were there?
+
+Clive (29:36)
+Yeah, it's hard to say because this was happening whilst we were there and we became increasingly aware of it and had some conversations with ⁓ people that operated on the developer side. So we had a ⁓ Thai-Burmese developer, a Chinese funder, and we linked. I was British, but I Italian, Spanish, Irish, Bulgarians, you know, I probably the only
+
+⁓ So it's a real cosmopolitan mix. But it was really quite clear that the of the contempt that was felt, you know, really strong, even from people that were, you know, Western educated, but were Burmese from Myanmar. And that was quite unsettling. ⁓ So yeah, it's difficult to dwell on that really because
+
+At the lowest ground level, the people we worked with, they were wonderful people and you had some incredible experiences. They were so kind and generous and keen to be involved in the project and excited about it. And yet within their country, under their leadership, there was this ⁓ genocide happening, not more than a few hundred miles from where we were operating. And I think that
+
+For that and some other reasons that it was my time to bow out, I found a team who came in, mainly South Africans, and they came in and delivered that project all the way through to completion.
+
+Vikram (31:20)
+Fantastic and then you went on to Portugal straight after that.
+
+Clive (31:23)
+Yeah, so WeLink had a lot of projects, a lot of interest in different places, offices in Milan, Barcelona, worked there quite a bit. ⁓ We built ⁓ some significant projects in Portugal, 46 meg, 220-odd megawatt sites, right in probably what is some of the highest ⁓ rates of irradiance in Europe, in the middle of the Algarve, ⁓ inland, in the centre.
+
+50 Ks in from the coast, irradiance really high, land pretty cheap, but yeah, some incredible sites. ⁓ The Solara Quattro project has been renamed now. ⁓ very interesting land conditions. So very rural, a lot of unused farmland, ⁓ a lot of little communities and villages where, you know, there's
+
+probably, I don't know, less than 50 % occupancy and the people that live there as the older generation, the older community, maybe there's still a cafe, maybe there's still a shop there. So a very interesting way of life, but very much underfunded, under-resourced. And we built on land that was ⁓ not especially well-suited to solar, apart from the irradiance. So quite challenging sites, very undulating terrain, rocky. So all of the piling had to be.
+
+pre-drilled, all of the trenches had to be cut with a special machine. You couldn't just dig with an excavator in the way that we're used to. But again, it got delivered and it's delivering a lot of green energy down there.
+
+Vikram (33:00)
+So now you're back in the UK working for probably one of largest energy companies in the world with Energy Day France or EDF. Yeah. And before that you had a small stint at Cleve Hill Solar Farm. Yeah. With Quinnbrook, you know. What made you want to come back to dark and miserable UK after all these exotic jungle experiences and...
+
+Clive (33:24)
+Yeah, it's probably maybe similar to before when I was sailing, it sort of takes you away. And ⁓ I love traveling and interacting with people in different countries and different cultures and different experiences. That's worth a lot more to me than a regular nine to five for the next decade or so. So they were really rich experiences. as I say, sort of familiar subject matter, but different circumstances and work with some good people there, did some good work. But then yes,
+
+Cleve Hill came up as an opportunity to come back ⁓ and work in the UK. It had always been there. I think even since the days of being involved with Al's Hatch, Cleve was mentioned. It was being developed at that stage. It was a long way off and just seemed crazy that we were ever going to be building something that big. So yeah, the opportunity to work on that was very enticing.
+
+And it was a good project. It's under construction now. It's underway. It's really very much pioneering. And now with EDF similar. So Longfield is consented now, 400 megawatts. So similar, but just a bit bigger than Cleave. We're working on going to tender. We're looking at all the pre-construction elements of that project to kind of in a way.
+
+you know, deliver like we did at Shotwick, I think in my mind, that's the way that I see it. We learnt in many different projects, different places, bringing together and building a team to deliver this project out effectively, because this is the new normal. We're talking to EPCs, going towards this tendering process, and it's a big step, and we need to work out, you know, the most efficient way to deliver these projects, because it's all about maintaining quality, but...
+
+focusing on price and program and the quicker we can get the project built, the distance between starting to spend money and getting that generation, that revenue return ⁓ is key. And we're tying in with National Grid now. So there's some big challenges there. We're connecting at 400. They're building a substation. We're building a substation. So it's really next level.
+
+Vikram (35:39)
+400,000 volts right? 400 kV transmission voltage. To put things in perspective it seems like wherever there's a big project you seem to be there. Whether it's a war zone or a muddy field in England or Wales and you know if we look at context for a second know Shotwick was the largest solar farm ever built in the UK. 72 megawatt peak. It's only been eclipsed by Land Wern which is only a couple of megawatts more.
+
+Clive (35:41)
+Yeah, yeah, yeah.
+
+Vikram (36:08)
+But Cleve Hill's 300 megawatt peak more than Shotwick in a period where we've got labour shortages, where people have had mental health challenges with remote working and lots of people, they talk about the great retirement and so on. And so you've had some involvement with that. then Longfield is even bigger, it's 400 or 500 megawatt peak. So what do you see on these sites?
+
+The subject or the goal here is the future of solar photovoltaics. Do you see solar competing with food?
+
+Clive (36:45)
+Well, it's a big site and there's certainly a lot of efficiencies in putting that size and that scale. I've been involved with rooftops before and they've got their place as well. on this project, it's one landowner. So it's one single agreement, which brings efficiencies, ⁓ makes it far simpler in many regards. There is the consenting process to go through. So once you move above 49.9,
+
+AC export, it goes away from the local planners in terms of the ⁓ consenting or the approval. So it has to go through the sector of state ⁓ to be consented to become ⁓ an NSIP, a nationally significant infrastructure project, which gives you certain privileges and rights, but also responsibilities. now going through the stage of discharging all of those conditions. So proving to the local planners that we are compliant and how we will comply.
+
+There's a lot more than we ever used to do in terms of getting this to site and getting it to be realized in terms of environmental, ecological considerations, traffic considerations, considerations with regard to neighbors and the wider community on the project. There's looking at managing the soil, the ground conditions ⁓ as well, committing to enhancing the community.
+
+the environment, giving employment opportunities as well. So it is the future. It is on currently farmed land. It will return to be farmed land. ⁓ For a period of time, it will be a solar park. The land will get the opportunity to regenerate to an extent. During that time, it is possible to bother with looks and moves to grow crops. You can graze as well.
+
+around as we've been doing on many many parks.
+
+Vikram (38:43)
+What is the interaction with the landowners or the farmers or the people that work there? you know, travel, the nature of our jobs means we travel a lot, we talk on the phone a lot, we kill time on the road sometimes. And what made me feel... ⁓
+
+interested was you you mentioned you had chats with a farmer at cleave hill you know you said good luck with the flooding and you mentioned there were potatoes in longfield you know what is your view from from the farmers perspective why are they giving up their farming careers to to farm energy now
+
+Clive (39:15)
+I suppose a lot of it is probably economics, right? It's economic stability for them, isn't it, as like an income. also, there's a need, there's a demand, right? We need to clean up our energy supply chain. Energy demand is increasing. We need to diversify it. We need to get away from ⁓ oil, gas, fossil fuels as much as we can. I'm sure that they'll always play a part. But we have this opportunity with these big projects to
+
+put a large part of our infrastructure over to renewable energy. So a project like this and Cleave and others that we're developing, where you've got a significant amount of solar connected with significant battery storage as well, can be part of the solution for giving us renewable energy and decreasing our reliance upon fossil fuel.
+
+Vikram (40:08)
+So Longfield and Cleaver, they're nationally significant infrastructure projects, referred to as NSIPs sometimes. A lot of this is public information. is in the public interest to go look at the documents, to question things. I remember reading the grid connection for Longfield was delayed to October 28, Constructors starting at 25. And now as we come towards the end of our podcast, know...
+
+We talk about the future. Where do you see we will be this time next year or in 2028? What do you think will happen eventually at this site?
+
+Clive (40:45)
+Yeah, mean there's a long way, it's not my area to be honest, but there's a long way for the grid to go to develop in terms of supporting these projects. So a lot of upgrade works are needed for that. As I say, think Solr could be part of the solution. I've been working in Solr now for 10 years and I think as Al Gore, who said in The Inconvenient Truth that it's
+
+very hard to convince somebody of the truth when their livelihood depends upon it. He was, course, talking about the fossil fuel industry and talking about the end ⁓ of that era and the need to progress beyond it. I'm not entirely blinded by solar. I think there are other opportunities out there. Of course, there's wind. One area that I personally feel, probably because of my background and upbringing and passion for things in the marine environment, is tidal energy.
+
+You if you think about a renewable energy source that you can model 24 7 infinitely that it's always flowing right so four times a day round round our shores it changes direction so you've got this little period but somewhere else you'll still be potentially able to generate there are there are companies that are in that sector now that are coming up with solutions and of course the argument always is that it's so expensive the engineering challenges that we have but probably if you went back 25 30 years and said we're going to be putting.
+
+wind turbines offshore off the coast and connecting them into our grid infrastructure. People said, you're crazy. That's going to cost too much. That's going to be too complicated from an engineering point of view. now let's change those in future developments for tidal turbines and see where we can go. And if there were to be more investment in that, and then that would be 24-7 providing us with energy solutions.
+
+Vikram (42:29)
+And you mentioned before balancing ethics with ambition, you know, I won't go too much into that, you know. There's enormous politics with energy. are in the middle of an energy war. In the future, we've got to know what will happen with hydrogen, with tidal, working under seawater. You know, there's also the big C word China, you know, they've incentivized and supported this industry and spent billions, hundreds of billions of pounds. We're at module prices of less than 18 cents a watt and potentially 40 gigawatt peak in stock.
+
+in Europe. know, China has driven down prices for solar panels in the same way as semiconductors for computer chips in the past. So it seems to be following the same sort of pattern. in terms of your advice for people that are potentially listening to this podcast, who may be interested in contributing to sustainable practices or pursuing a career in renewable energy, what would be your advice for them? How can they get into solar and get to build the biggest projects like you have?
+
+Clive (43:28)
+Well, I suppose get involved. I've said to younger people before, you know, if you've got an interest, I think one area to get into is engineering. I don't have that background. I've got a degree in surveying, which is very useful, but I don't have a technical background and knowledge. So I've seen a lot of very successful people who've got that basic understanding through their studies. So electrical, technical engineering, there's huge opportunities. If you look at the
+
+giant leaps that we're taking in terms of technology as we move forward and that will surely continue. I think other areas as well that I see, I just think that people are so important to everything that we do. Like you say, one of your passions for being involved, reasons for being involved is the people and the relationships that you can develop and you enjoy that. People make it happen. Without people, no matter how far AI goes,
+
+You know we need people to deliver these projects and make things happen so it's about you know learning how to develop and foster those relationships for me some my experience that I've had it's about learning how to put people first about how to encourage and facilitate autonomy to let them thrive to be able to make decisions to be able to make mistakes but learn to develop this independence and interdependence to be able to deliver these great projects in a really
+
+successful way. mean, I've found it just really thrilling in the past to be involved in projects to just let things go. I probably learned that very much from being, you if you think about being offshore, and I was very often the only professional on board the boat and I have a crew of up to 18 people. If I'm crossing an ocean, I've got to be able to sleep at some point. And you've got to be able to trust the people that are on the boat to make the right decisions and to wake you up or to take a course of action.
+
+Otherwise, you're not going to sleep and that's not sustainable. So that's where I encourage people to go and get involved, take responsibility for what's happening, the state of our planet and see opportunities of what we can do in the future.
+
+Vikram (45:34)
+It seems like lot of farmers and sailors, know, know Nick Keeler at Solar Southwest, he's in New Zealand now, he's an enthusiastic sailor as well, so, you know, I got excited to get into this industry because you get to meet some exciting people, you get out of your urban bubble and you do other things. But also at heart, you know, some people call me the cable guy, but you know, I'm a total nerd at heart and I find it mind-boggling how you can have a semiconductor, a silicon solar cell.
+
+and they shoot electron beams or whatever it is with particle accelerators they remove holes or add holes or add electrons and suddenly shine sunlight at this solar cell and you have electricity. How this works is completely... it gives me tingles. We have the Sun that is producing energy 24 hours a day. It's still there when the Earth turns.
+
+And instead of splitting the atom, I think we should use the nuclear reactor we already have in the sky. And so I do very much enjoy the technology. And this isn't a technical discussion, but it's something that we will come to in the future. In terms of your view on the technology, when you see masses of solar panel in the field, what goes through your mind? How do you see creating energy for you?
+
+Clive (46:55)
+I mean, yeah, it's quite impressive actually to look at. I have found one of the greatest things being involved in the project is just looking at that physical transformation and the scale of what we can build and achieve. ⁓ But as I say, it's just one of the solutions, one of the options for creating greener energy for ourselves. And just when you're describing there and getting excited about the engineering, I...
+
+always just imagine in my mind that I don't know what happens, that the sun shines on the module and there's all these ump-a-lumpas inside that jump around and make all this electricity come out, so I'm not as technical as you.
+
+Vikram (47:32)
+Fantastic Clive, thanks very much for joining us.
+
+Clive (47:34)
+No, great to see you again, Vikram. Thank you.
+
+
 
 ## Guy Atherton: Solar PV Expert & Developer
 

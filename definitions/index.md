@@ -1,4 +1,4 @@
-Symbol | Definition
+[Symbol | Definition
 --- | ---
 1 kV | Voltage level equal to one thousand volts representing the upper limit of low voltage networks
 11 kV | Typical distribution voltage level used for local electricity networks in the United Kingdom
@@ -136,3 +136,4 @@ Y | Star connection configuration used in three phase systems
 Δ | Delta connection configuration used in three phase systems
 ∞ | Infinite bus ideal grid reference with constant voltage and frequency
 ⏚ | Earth ground symbol representing electrical connection to earth
+](https://globalgrid2050.com/definitions/)

@@ -1,12 +1,8 @@
 # Podcast Episodes 
 
-Jump to episode:
+David Mack: Solar O&M, Rural Growth and Resilience
 
-Jump to episode
-
-<a href="#david-mack">David Mack – Solar O&M, Rural Growth and Resilience</a>
-
-<a href="#clark-frost">Clark Frost – UK’s First Nationally Significant Solar Farm</a>
+UK’s First Nationally Significant Solar Farm - Clark Frost
 
 
 ## David Mack: Solar O&M, Rural Growth and Resilience
@@ -801,6 +797,894 @@ So, thank you.
 
 Vikram (41:40)
 So.
+
+## Valerio Pelizzi: Agrivoltaics, C&I and Grid
+
+Vikram Kumar (00:00)
+Welcome to the Future of Solar Photovoltaics podcast. My name is Vic Ramkumar. I have the absolute pleasure of welcoming again Mr. Valerio Polizzi. ⁓ Valerio, welcome.
+
+Valerio Pelizzi (00:11)
+Thank you, Vick, I'm very pleased to be back.
+
+Vikram Kumar (00:14)
+Great. It was over a year ago since we recorded our first podcast with you. In that time, we've been listened to in 89 countries and over 821 cities. We've had massive reception. We are ranking number one on Google in many countries. It's a volunteer run initiative purely for us to network with our colleagues to pass information in an honorable way. What has been your reaction since the last podcast?
+
+Valerio Pelizzi (00:45)
+Well, ⁓ I'm not going to lie here. The first thing that comes to my mind is I've been overwhelmed, really. This is the word to describe because...
+
+I wasn't expecting that much ⁓ traction. ⁓ You start whatever work you do, whatever job you have, you try to make your, to add something to the industry you're working in. And the fact that my podcast has been listened to so many countries and that by so many people is really overwhelming. mean, now you always sort of like having the imposter
+
+syndrome or something, know, or at least I have. And this is basically the opposite. People are listening because probably I had something to tell, something ⁓ to transfer to people and professionals.
+
+Vikram Kumar (01:47)
+have the statistics in front of me right now. I could tell you, you are the second most listened to podcast from maybe 15, 16 episodes we've done so far. Only one person is ahead of you. That's Mr. Clive Cosby, but he doesn't count because he's a customer.
+
+and he was a customer, he's now doing module handling technology and for you to be neck and neck with the customer and pull one and two positions, it's really something because Clive was project director or manager for Cleve Hill Solar Farm, the biggest project ever built in the UK, one of the biggest in Europe, 300 megawatts bigger than the last big one.
+
+⁓ So of course the whole world is chasing after Clive so they want to listen to him and then straight after that project he was going to EDF for Longfield Solar Farm which is even bigger and so everyone including you and me are chasing after Clive and you are based on just the content of what you were saying in the word of mouth you know you are the second most listened to podcast
+
+Valerio Pelizzi (02:36)
+Yeah.
+
+Vikram Kumar (02:48)
+So far and so you should tell us you know, what is what is your secret? long have you been in the industry? You know and what are your current activities?
+
+Valerio Pelizzi (02:53)
+No.
+
+Well again, that's why I'm overwhelmed, you know, because most of the times when you listen to podcasts, when you go to events, you are a speaker at events, conferences, you know, there is always people listening to you because of the company you are working for.
+
+In my case, I'm basically on my own for the last six years, no more than six years. They're really genuinely interested in what I have to tell. So that's why I'm very flattered but also overwhelmed because I wasn't expecting ⁓ that kind of reaction from professional, from people.
+
+again, mostly because I'm now, as you correctly said, I'm chasing now people rather than people that chasing me because being a developer, that is what you are looking, you seeking. You're seeking investors, you're seeking ⁓ exit buyer for your project, you are seeking manufacturer to help you out with, you know, favorable framework agreement, but definitely it's people not chasing you. Let's put it in this way.
+
+Vikram Kumar (04:07)
+But you are in high demand now because developers with experience are worth their weight in gold if they are in front of the right people and hopefully we are going to be doing that soon. So before we go into the main topics of the day which is agrivoltaics, energy economics and know project development to bring a real depth to what we want to do in the next year or so.
+
+Could you tell us your current commercial situation? Last time you said you had a company called Ingeb and you had an involvement with another company called PowerG. You are really quite humble, but I see on LinkedIn you have a network in Rome, in New York. So give us a bit more specifics about your current commercial position.
+
+Valerio Pelizzi (04:51)
+Yeah, PowerG is basically my main role, like a full-time job almost. With PowerG is an integrated developer and we are actively working in the Italian and US market with the goal to become a small IPP. In Italy we have already... ⁓
+
+some projects, we developing some projects on our own along with some other projects for clients, for exit buyers basically and in US we are following the same path we are trying to get our project the NTP as they call it so notice to proceed opposed to RTB in Europe which is ready to build plus developing Greenfield some assets. As a technology we are pretty agnostic meaning we can develop PV
+
+we can develop BES, we can develop PV plus BES. It depends on the condition, on the market, what is required, on the land itself I would say, because it's not really a decision you can make not considering the land or the area where you are. The area actually probably drives you more on the decision.
+
+what kind of technology you want to develop and also the extension of the land itself. Clearly 300 megawatts pairs is not the same extension of 300 megawatts peak of PV. While in the UK, know,
+
+Ingep is just my own company, so it's not really a big name. I'm developing, I'm trying to, we try to bring in the UK also the concept of AgriPV, which we are really seeking in our project in Italy.
+
+Vikram Kumar (06:45)
+And what is IPP exactly? You said you're IPP in Italy. Is it the case in the US as well? And you want to first tell us, know, what is it? What does it take to be IPP? Do you have a license to trade power in the Italian market?
+
+Valerio Pelizzi (07:00)
+I don't know, IPV is just an acronym to independent power producers as you know and all the people know. It's just ⁓ a decision, it's just a strategic decision. You don't need to have any license in any country I think. It's just a matter that you want to start Greenfield Develop and develop, get to ready to build, build your project, own your project for you know... ⁓
+
+the lifetime or whatever is the strategy of the company selling at a certain point, but basically being an integrated entity doing from scratch everything, from the land down to an operational site, an operational asset producing, generating energy.
+
+Vikram Kumar (07:47)
+So if you're holding your own projects as an independent power producer, what is the revenue stream? Who do you sell the energy to? To the grid? To a commercial user? How does this work? ⁓
+
+Valerio Pelizzi (07:58)
+You
+
+have a few options here. You can decide to go through a PPA, so having ⁓ a trader buying your energy and then they will sell to whoever. You can go merchant and sell directly to the grid if the economics are there. You can decide to work behind the meter for example, not even using the grid, so generating energy for large ⁓ consumers.
+
+it's again, it's depending. I would say that the most important thing is the economics and the figures on your financial model. If the famous IRR is good enough, you're fine.
+
+Vikram Kumar (08:40)
+Fantastic, and now that we want to get into development and agrivoltaics more specifically, to paint a kind of strategic picture, in the last year, because we did so many different podcasts, and we are now working more at the investor level, especially in high voltage, 400 kV and 132 kV, there is a shortage of projects that have reliable grid connections. I did massive research using AI, but also my own research on the Office of National Statistics,
+
+Valerio Pelizzi (09:10)
+you
+
+Vikram Kumar (09:11)
+We are not far away from Russia at The airplanes, drones are invading NATO aerospace. It is a tough situation because if one NATO country is attacked, the whole of NATO has to go to war. War and energy is now inseparable more than ever before. From this basis, I did the research, what is our primary energy use in the UK? Primary energy use has
+
+definition by the International Energies Agency. on our blog as well on VentusLTD.com. You can go have a read. You don't need to read my massive monologues. You can just put this in AI and they can summarize for you. Even do some economic calculations. So no one has an excuse anymore that they haven't got time to absorb data.
+
+because artificial intelligence is also a military technology, together with research in quantum mechanics and data centers and all of these things, because the energy is really accelerating very fast. From this, I learned that in 2019, the whole of the UK used 1,644 terawatt hours of primary energy. And if we change this to electrification for sectors that can easily be electrified, other than, you airplanes and ships,
+
+we can maybe reduce 70 % of the primary energy use with electrification. so 1644 terawatt hours sounds like a massive number, but the UK is a small country. And because the energy politics is so intensive, the sobering reality is, let's put this into context, the whole of London Underground is moving with only 1.2 terawatt hours. If you put this into 30 pence per kilowatt hour or 7 pence per kilowatt hour or negative energy pricing,
+
+It's massive numbers, 1.2 terawatt hours for the underground to move the trains, but it's still nothing compared to the 1,644 terawatt hours we use in the whole of the UK, which is 70 % inefficient because of the fossil fuel economics and lobbies. And if you apply this to now bigger markets in the US or in China, in India, you start to see why we're destroying the environment because the numbers are so astronomical. So from your perspective,
+
+What is your view on the energy economics in the UK because we are based here and how do you compare this to the Italian market?
+
+Valerio Pelizzi (11:30)
+You touched a very interesting point about the know the the the lobbyist the energy lobbyist that is the the whole point ⁓ It's not a matter of having fossil or renewables clearly we are all for renewables because it's much better for everyone and because also much more efficient the fossil fuels, but the problem is exactly about energy itself and
+
+It's a story very old about the grid efficiency and so on. But the real point is we need to switch from a system where there are few central generation points and moving energy around to a more distributed generation. Meaning you don't need to really to run ⁓ hundreds of kilometers of lines to bring energy
+
+everywhere. You need to bring generation points almost everywhere. That's why so important the integration with renewables. You don't need a massive, ⁓ clearly we are biased, but we don't need a 500 megawatts nuclear plant in one point and then I need to waste 30 % of all the energy just in grid and in efficiency and transformation, voltage transformation stepping down. You can have ⁓
+
+even like 20 small PV or wind or whatever generation, assuming even fossil fuels, small generation points everywhere so that the energy doesn't have to travel around the country to bring to everyone. There will be a big shift.
+
+Clearly going into the economics, it will become a matter of, if I do smaller generation plants, what does it mean? It means that I need to have the economy of scale, of course, because no one really wants to run. ⁓
+
+a not-profit business. so this is down to the engineering. Down to the engineering means any project has to be, any asset has to be efficient. And to be efficient clearly has to be from renewables because the fossil fuels are just barely making the numbers only because of the economy of scale. If they are going to be smaller and smaller, I don't think they can be financially viable.
+
+viable. So that's why the lobbyists are pushing ⁓ against everything really, because they need to take their leadership. This is something that probably, the most important thing about this is the narrative that is going to the public opinion, to the public really, because if you speak to anyone not in the industry, they really don't grasp the fact that
+
+all those massive companies are profiting on them just because they need to cover their efficiency, need to cover all the old grids, they basically are covering their own, I wouldn't say mistakes, because clearly the historical evolution of any grid is just following, just being like that.
+
+It's been easier at the beginning of the industrial revolution having one big power plant and then just bringing energy all around rather than ⁓ building two, three, four, five, ten, fifty small generation plants. The public doesn't really understand that most of the cost, as you correctly say, is just wasted because of the inefficiencies.
+
+And those lobbies are also making it difficult for companies that want to enter the market with much favorable pricing for the retail customers. it's always like a battle on those grounds. The perception that the public has about renewables, about fossil fuels, about the grid. I'm pretty sure if we are going to talk to anyone, say, do you know that the
+
+UK grid is very old and needs massive upgrades. They probably don't know. They probably say, we like everything in the country, like everything in all industries. The answer is actually no, not really. It's just, you know...
+
+fact that no one really took care or really thought that it was an important thing to keep the grid up and running. At the end of the day they just charge the retail customers so they pay more and they cover the costs.
+
+Vikram Kumar (16:28)
+Fantastic. think last podcast I listened to couple of times, especially to edit the transcript, which was a good revision for me because you can speak five times faster than you can write, especially with me, it's probably 10 times faster I speak than I can write. And so maybe it's the caffeine and the thousand milligrams of vitamin C, who knows. But you said some important things, which is about agrivoltaics in the past. We talk about that shortly. think you're speaking the day after tomorrow ⁓ is the movie.
+
+as well but you know with Putin around you don't know if there's a day after tomorrow anymore. We are speaking at an agriculture conference ⁓ the day after tomorrow we're going to get into that but coming before to your earlier podcast notes which are ringing in my mind because I made a recent revision to correct the AI transcripts which is wrong in many cases is you said you know many governments like to ban PV on prime agricultural land but you said things like peppers they grow very well in the
+
+and you know I find this efficiency topic very fascinating because 70 % of the energy is wasted in the internal combustion engine ⁓ heat pumps are three or five times depending on the weather more efficient than gas boilers
+
+And so we need to talk about efficiency and people make jokes about solar but they forget that the whole planet is solar powered. Every plant, every tree is growing up from solar energy. So one of the things that is awe-inspiring is solar is not different from farming. with this aspect...
+
+You know, we are all trying to connect to the high voltage centralized grid. What the developers do is they exhaust the medium voltage, the 11 and 33 kV in the UK, maybe 10 and 30 kV in Germany and other countries. The voltage is different, but the concept is still the same. have medium voltage, which is exhausted, there's no more grid.
+
+They want to go high voltage. High voltage is a big, big boys and girls game because you make one mistake, your substation is going down. You can have a case like we had in Heathrow, 1,400 airplanes cannot land because the substation has blown up because of some failure and in moisture ingress. So high voltage is a big money game. Media voltage is exhausted. So we need to now think about behind the meter. We need to think about agri-voltaics. So now, can you introduce your topics for the conference the day after tomorrow?
+
+and agrivoltaics as a topic in general, know, is it now legal in Italy? Can you do agrivoltaics now?
+
+Valerio Pelizzi (19:03)
+Tomorrow I'll be speaking at Solar and Storage Live conference. They're making a series around the world that this will be in Italy and my personal contribution will be about me and other professionals we will have in a panel on... ⁓
+
+AgriPV really, the real integration. Well, AgriPV has been always, let's put it this way, legal everywhere, meaning it's your decision if you want to keep farming under the panels. The difference is that now it's becoming, from a technical perspective and also a financial perspective, more viable because the cost of truckers went down. Clearly, if you want to integrate farming with...
+
+with energy generation means that you have to change something. Most of the investors want to maximize the investment and try to profit as much as they can. in simple words, they want to pack the land with panels instead of leaving space for farming and the machinery needed for farming. basically now with truckers and with new panels,
+
+the technology is much easier because the costs are really comparable now. The AgriPV is an interesting topic, something that I always felt...
+
+strongly. mean we are working in the renewable energy industry. We want to clean the world. That's it. Clean the world. Having a clean world means also having proper farming rather than you know intensive ⁓ farming and stuff and hormones and this kind of ⁓ chemical addictive. And so yeah my intervention will be mostly ⁓ on this one. ⁓
+
+It's something that I think they can work very easily. You mentioned before my last podcast, my first podcast, I mentioned the peppers. It's something that I learned from farmers because you cannot invent ugly PV in a meaning. are tech guy, are engineers, are building up a generation plant. ⁓ But if you want to have a real ugly PV, have to work also with farmers or with...
+
+you should have a partner that knows that because AgriPV is not just a label you put on, you know, I would put trackers, I would put down, you know, grass or whatever, something, it's AgriPV, no, it doesn't work like that. Works in a way that I have a land, a farming land,
+
+Depending on where I am in the region, what area I am, what kind of crops you are growing, and then based on that, you decide what kind of agri-peat you can put on. Clearly, again, I'll make you the example first of Italy because it's far ahead compared to the UK.
+
+If you are growing wheat in North Italy, you cannot have an ugly PV. Because you don't have that big of radiation, you don't have enough to have a good quality wheat. While on the contrary, if you have wheat in Central and South Italy, ugly PV is a viable choice. Because for several reasons.
+
+extremely hot weather now because of the climate change so you sort of shield from extreme weather events the the crops and so basically means AgriPV is working with wheat everywhere? No. Is AgriPV working with wheat at all? Yeah it depends. If you are in north Italy? No. If you are in Italy or south Italy? Yes. So the the whole point is you need to decide the AgriPV
+
+based on what kind of crops you want to grow. Another example that I heard of, is actually a study, scientific study on that one is they were doing AgriPV on vineyards in central north Italy. It wasn't working properly because basically it was changing the properties of the grapes. ⁓
+
+some flavors, basically they were creating a very bad quality end product. While on the opposite, they went to the South Italy, they made the exact same system, and they found out that the quality stayed the same or improved, actually, on the wine at the end game. So again, it's just a matter of, AgriPV means study,
+
+First of all, where you are, the crops you have or you want to do to farm and then integrate your design into it. This is real agri PV. Or you can make what I call the fake agri PV or the green washing, which is an interesting topic. I see a lot of projects in Italy just poorly failing because they didn't...
+
+They sold and they authorized projects as Agri PV, but they weren't working with ⁓ farmers. They just put, okay, Agri PV, will make these crops down there. But those crops are not growing because they were, I don't know exactly all the projects in detail, but it just doesn't work because they didn't study beforehand. even green washing to me is always throwing a bunch of sheep.
+
+or livestock into the plant, say, okay, know, it's ugly PV because we are doing, we are farming, we grazing. It depends. Grazing, and this can make you an example, two projects we are addressing right now, we are grazing on two projects, Central Italy. What we do, we chose a local ⁓ breed of sheep, which is actually also in the verge of extinction.
+
+We ⁓ created inside ⁓ the plant ⁓ a ⁓ enclosed area where there are the veterinary facilities, know, genic facilities, something that can be controlled on top of the welfare of the animal. This is AgriPV in a meaning of I know what the welfare of the animals is. I know how they should be.
+
+breathed or you know.
+
+you know, all the things they have to ⁓ be in a normal like ⁓ grazing business. And then on that kind of foundation, we adapt the design of the solar PV. So basically it's not, means you're not bringing agriculture into a PV, but you bring PV into the agriculture. And this is a big shift.
+
+Again, another big shift that needs to be understood by the public.
+
+This is the main point. You mentioned about the authorities. I'm just a long monologue now from my side. Politics normally don't really understand that. Again, for example, the particular about Italy is they made a law for the AKPV. They set certain parameters to be...
+
+be considered as an Agri-PV, which make...
+
+I wouldn't say no sense, but it depends on what you are growing. Again, the example of peppers. To have a real agri PV for peppers, I should cover all the fields with panels. But I can't because to get the planning permission as agri PV on agricultural land, I need to cover the total surface of the panels has to be no more than 30%.
+
+that 40 % of the total land. So now, if I have to go at only 40%, how can make shade for peppers? I can't. Which means it would be a real ugly PV, technically speaking, from both farmers and... But it won't be for the regulation. So this is really what we are facing. In the UK, I would say, there is no rule.
+
+Vikram Kumar (27:56)
+Yep.
+
+Valerio Pelizzi (28:09)
+But again, there is a lot of people having, you know, try to solve the project through for the communities like, oh, we'll have livestocks, we'll have grazing, we'll have whatever it is. The reality is, it's not really here. Or at least, you know, I see there are a lot of plants, which is still good. I'm not saying the opposite, that having like beehives, they're trying to, you know, biodiversity. is all good. But this is, I would say...
+
+Vikram Kumar (28:20)
+Mm-hmm.
+
+you
+
+Valerio Pelizzi (28:39)
+My personal opinion of AgriPV is more like really integrated farming or something similar. I'm trying to do the first real AgriPV in the UK, meaning a site where there will be a combined harvester going around for people that doesn't know what is a combined harvester. It's basically a machine which is a head of 12 meters wide.
+
+and the height of the tractor itself I think is like five or six meters. So point is real farming on a PV side, so real agri-PV.
+
+Vikram Kumar (29:20)
+Fantastic what you're doing now. It's quite Amazing especially with the podcast because the AI or artificial intelligence is transcribing what we are saying Unfortunately, it means you have to spend some hours to correct some of the errors. It's not precise maybe 60 70 percent Accuracy, it's quite frightening that everything that you're saying will go into the internet and be read by every artificial Intelligence program from Russia from China from us. So you are literally forming
+
+the in this sense. that's what the no one has a reason to be. I think there's now a hangover of the Instagram, the Twitter or X generation because now there's a there's a sort of hangover that everyone wants to do everything in a few sentences or do everything in the attention span of TikTok.
+
+do everything quickly, know, it's this tokenization of the economy. Young people don't go out meeting each other anymore. They sit on video calls on TikTok asking for tokens, you know. So now the comeback from this, you know, is that, you know, we have to pay attention to what the future generation, own children are doing. Attention spans are much lower. And I think artificial intelligence is the perfect counter attack or countermeasure to this because you give someone 10,000 words and they don't have an excuse anymore. They can just
+
+just
+
+upload this to chatgpt or deepseq or whatever and you can ask for a summary for very long topics. You don't need to say I don't have time to read 10,000 pages anymore when you can split this into a thousand pages each.
+
+and AI can summarize for you within a few seconds. So it's getting into the realm of quantum mechanics. Whatever you imagine, you can do it now. But I find this quite funny because, you know, our podcast is becoming quite big in the small utility scale sector. There are not many decision makers. We have close to 100 % market penetration. Now we have a WhatsApp group of 114 people. These are very senior people, you that you were struggling to get an appointment with. Now they all want to join our WhatsApp group. It's clearly what you're giving to them, Valerian.
+
+has a value because it's without agenda, without attachment and you know anything you do without attachment is it purifies your intentions and this is very valuable in corporate environments where trust is very difficult. You said about bad grapes or sour grapes in North Italy and sweet grapes and nice grapes in southern Italy hopefully we don't upset anyone with the sour grapes.
+
+Valerio Pelizzi (31:50)
+No, no, no, I didn't say
+
+sour or stuff thing, so don't put in my mouth something that I didn't say. I said that Agrippi on vineyard in North Italy didn't work because they basically worsened the quality of the grape, while in the South actually they kept or even improving slightly.
+
+Vikram Kumar (31:59)
+Yes. Yeah. Yeah. Yeah.
+
+so you have
+
+better wine in southern Italy.
+
+Valerio Pelizzi (32:11)
+You have
+
+amazing wines everywhere. Someone can be with PV on top, someone no.
+
+Vikram Kumar (32:18)
+Yes,
+
+right, right. Okay, so the solar wine is in southern Italy, so no agrivoltaics if you want the good wine from northern Italy. What is the revenue streams? Like how do you talk about, when you go to a farmer, the farmer has enough challenges, he or she is trying not to be bankrupt from the bad weather or from...
+
+the seed prices, know, is, Jeremy Clarkson he likes his V8s, but he did a tremendous documentary about farmers, Clarkson's Farm, which was exciting for me, you know, energy prices even affecting fertilizers. Farmers are getting bankrupt because if they cannot afford the fertilizer and the seeds for the following year, they cannot get their money back, and so you can have negative pricing.
+
+even in agriculture. And then there's the quality aspect as well, as you said with the wheat and so on. If the quality is not right, you don't have the sufficient protein content, you are in deep trouble because the value you get for your wheat is different. So in your case, how do you go to such a farmer in the position of just staying alive and you sell them solar? Where does the revenue streams come from?
+
+Valerio Pelizzi (33:23)
+You
+
+got exactly the point. It's about surviving. mean, most of the farmers in Italy are just running out of business.
+
+I was speaking with a landowner that has some land which is completely left on its own now and he was telling me, you know, when I was young I was used to go, I love hiking, I was used to go to the mountain near my town and I was looking around all fields, properly farmed, you know, now I'm going to the same spot, I just see...
+
+desert lands, abandoned lands, because no one is doing anymore. In Italy also there is a, I'm not really sure about the UK, because it's not my industry, but I learned that in Italy there is basically the...
+
+the farming union or trade or whatever you want to call basically they set the pricing they set the price for the crops to be sold to large supermarket groups but those pricing are very low and if you want to do a proper farming you you really struggle that's why they just close the business and do something else with AgriPV or with the energy on top of that they have those extra
+
+revenue stream that can help the business to stay afloat, to be even profitable. And especially Italy is one of the, well, I wouldn't say the most affected country in Europe, because also here in the UK we saw the reality of climate change, but in Italy is basically there is the temperatures going up and up, the rains. ⁓
+
+basically no longer distributed throughout the year, but they're just concentrated in few, not even few days, but in few hours. There are quantity of water falling down from the sky in two hours that was used to be like in three days or something. ⁓ In Italian they make this neologism, which is like water bombs. It's no longer like raining, but there are water bombs.
+
+So like a bucket of water you just throw into the land. So with all the problems they can bring, because extreme weather, they just damage the crops. And even from a pure mechanical point of view, if you have panels on top, sort of they shield the crops from those extreme events. And that's why it's so important, ⁓ really pushing towards the right direction.
+
+Vikram Kumar (36:13)
+It's amazing what you say. I'm coming from an Indian background. know what monsoons are. People are riding bicycles in water that is hip deep. So we have a rough understanding of what massive rain can be. But I've never heard the term water bombs. I've heard weather bombs in the US news reports. And I think on the greenwashing aspect, it's important as well that we are creating a good reputation as well. You could throw some sheep on a solar farm. But if you have a transformer on fire in the back,
+
+on the news this will not be a good look. know obviously solar and wind has much lower risk than oil and gas failure but still we are in a market which is very much commercially driven with boom and bust cycles and it does have a self-fulfilling greed cycles where people are focused on just staying alive and then they build projects which are bankrupting the company and then which is why you have so many people constantly unstable and now with inflation as well more and more people are
+
+our self-employed. it's important that we are creating a good message for people to be able to have confidence in the solar market. But in terms of the revenue stream for the farmer, what does the farmer do? Does the farmer take just the land rentals? Does the farmer get a share in the energy costs? Do you export the energy? Do you use the energy within the farm itself? If it's a large farm, how is the energy moving in agri-voltaics?
+
+Valerio Pelizzi (37:41)
+Well, that is a question more for the commercial people rather than me. But I mean, you have a bunch of options. You can do whatever you want. mean, they can quantify how much land they are losing for farming and you can compensate that by giving them a premium, maybe. You can give them a share of the revenues, of the energy sales. It's still up to the...
+
+to the personal negotiation with the landlord. What else you can do? mean, there are a things you can put together. The things is, again, not trying to take advantage of the farmers, trying to work. The reality is, let's try and start to work together. Because so far, at least in my experience, and this is across the globe, not only UK or Italy or other countries, is that...
+
+There are a bunch of cowboys, as I call them, that just trying to really to get to maximize the profit, try to to snatch lands and contracts for people just ignorant in a sense that they don't know the economics behind the renewables or the energy industry in general. And this is something that has to change because this is something that builds up a bad reputation for renewables. renewables are...
+
+are just eating all the farming land. We cannot farm anymore. No, this is not the reality. Cowboys are doing that and we need really to get rid of those people as soon as possible. Hopefully the market now will kick them out. But it's the fact that we are not taking farming land. We want to make your life, your business more comfortable, not struggling with financial shortage. That is the...
+
+That is the message we have to push forward. And this is so important because it's the only way we can make also the public understanding the good that the integration can bring. also, ⁓ I'm talking in a way that we always have to teach people, we need to bring our message out and so on. It's not only that we have to teach or trying to be on the...
+
+to ⁓ bring our message out. It's also we need to learn some stuff. Meaning, I love PV sites that have beehives, biodiversity, have sheep grazing so they can avoid cost of moving the grass. It's all good. The important thing is this is a PV site. We are trying to be
+
+as much as integrated that we can into the land, so using different things, but not call them ugly PV. That's the, mean, we have to avoid at all cold-screen washing because that is bring you on the other side of the truth. You will be lying to people. You're not doing, you're not doing ugly PV. But you're doing PV, but you're using your land.
+
+to having other ⁓ bodies taking advantage of your site. the sheep grazing, bees, biodiversity. So it's important to call things how they really are, not trying to have like a mask on it and just to put because of the trend. Now, call AgriPV is trendy. How I'm developing AgriPV, really?
+
+Vikram Kumar (41:11)
+Mm-hmm.
+
+Thank
+
+Valerio Pelizzi (41:33)
+If you have like an agronomist, I don't know if it's in English the correct word, you have an agronomist working with you? No. Okay, so tell me, how then you can be an agri-pv if you don't have an agronomist telling you what crops you can farm in this area? You know, with your design most importantly. Because you can either say...
+
+Vikram Kumar (41:40)
+Mm-hmm. Mm-hmm.
+
+Valerio Pelizzi (41:58)
+Okay, I want to have this design. Is there any crops that in this area can work with my design? Yes. Okay, fine. I always prefer the way around, meaning that let's see which is the crops that are the best, that have the best, sorry, what are the area where is the best climate for what kind of crops and based on that, making the design around it. That is...
+
+what I would like more. But again, I won't mind if there is people doing it the way around, as long as it's a real agricultural project, not only an energy project.
+
+Vikram Kumar (42:40)
+you
+
+course, solar is a green technology and it's possible to greenwash with solar as well. at the end of the day, wherever there's power, political power, literal power, electrical power, and there's money, there's going to be politics. like in the early days, Erin Mahan, who did a podcast with us, I approached her about DC fire safety, which is a separate topic, massive on its own right. There's even Sandy, a nuclear weapons lab.
+
+they are working on wildfire prevention because know DC solar and wildfire it's also a climate change phenomena and so you know you are people like yourself you know we're very you're very humble but you are founders of industry you know there's a saying you know in in Sanskrit that the the hand that serves is holier than the lips that pray so now these these these definitions are going to be the future good or bad is based on our actions and how we conduct ourselves
+
+under pressure and so you have solar which people just throw some sheep in there because they want to cut the grass or they don't want to they want to save money from cutting the grass that's why those sheep are there this is not agri PV that you got agrivoltaics which is dedicated design incorporating farming you know I want to dig deep into that because I don't want to mention specific project names because people are very anxious and insecure about the decisions they might have made especially under pressure but in the last three years three
+
+I worked on three very interesting projects two were below sea level they have sea defense walls or dikes one in the Netherlands one in the UK and these are below sea level projects and Farming is very difficult in these areas because the groundwater levels very very high and in this process I met two lovely guys One's called Clark Frost the other was Andy Nicholson. They work for a company called FGS or Heathcote Holdings where they have these massive machinery
+
+similar
+
+in size to combine harvesters where they can do civil engineering for you they can you know do drainage so you can make the land farmable to manage the water flow you talked about the water bomb weather where you can have a huge water fall on your farmland within a couple of hours and you know how you manage this you have to adjust the civils and the water drainage and these guys the civil guys are very important with that respect so
+
+So there is things we can do to improve the land. I also learned from a pig farm, farming is not always healthy for the land. If you're constantly farming for meat, you're using ammonia and fertilizers, farming itself is one of the biggest damage.
+
+damaging activities to the environment. It's literally poisoning your water supplies, poisoning the land. You have to do crop rotation to allow the land to heal and to recover. And so this is where flower meadows and, like you said, the bee are keeping all that can come in. But instead of just being general, because you are an engineer, you are in the industry for over 15 years, if you're going more specific into the mechanical design, you mentioned trackers for agri-PV. How does this
+
+Is this unusual? Are there really high mounting structures?
+
+Valerio Pelizzi (46:05)
+Well, it depends. It depends what you're growing. I mean, ⁓ if you are, for example, if you're talking about animals, if you are grazing sheep, it means that you have to be probably the minimum height of the panels has to be like 80 centimeters, while if you have ⁓ cattle, you have to be like 1.3 meters, if ⁓ I remember correctly. So that is it.
+
+this long solid-shore meaning it decides the structure and the design of your system so you will have the height of the trackers. I'm always talking about trackers for one reason not because you know again they are trendy they are all doing that compared to fixed-steel structure but it's also a matter of financial stuff now with cost of trackers being comparable to fixed-steel structure you know the the I don't know
+
+on average 20 % increase in generation make the project more financially viable. This has to be important because everyone is doing their own share of profit and clearly if you're doing Agri PV you are losing some of the potential revenues from a classic PV. So having trackers will help you
+
+your business case, your revenues really. This is the main reason why it's better having trackers. Most of the trackers now have like one pole, a single pole, basically all three poles depending on different designs. the point is they really...
+
+Much lighter than before they're much less steel compared to a fixed steel structure that probably has more steel I saw a few designs where they have like a sort of like tracker approach to fixed steel structure But in that respect, you know I'm not sure how it works because to me from an engineering perspective really not going into details that looks like you can make only short strings on those but again, I'm just talking
+
+without any knowledge. ⁓ And also because, to be honest, I think that trackers are the way forward for, especially for, rugby.
+
+Vikram Kumar (48:36)
+You said last time you spent five or ten years doing engineering and enrollment. You don't like books so much, you like to implement what you learn instead of only learn about it. And no one is more true in this aspect than the farmer because they are always gambling what happens in the next season's harvest. They don't know what happens with this season's harvest, but they have to spend hundreds of thousands of pounds for big farms, a similar ratios for smaller farms, on seeds, on fertilizer for next
+
+Valerio Pelizzi (48:45)
+Thanks
+
+Vikram Kumar (49:06)
+season already. And so there's a huge gamble and there's an entrepreneurial aspect where you have to decide which plot you're going to do what in the following season and how will you break even for the season after. Many people are in farming not for the profit but they have many generations of farmers they want to carry on farming. They want to know if they will even have enough cash flow to be in business the following season. This isn't capitalism this is almost less than communism because you
+
+You don't know if you survive from one year to the next, and eventually the bank takes your land and then you are back to being a peasant on farmland again. So the point is the farmer's not going to know the difference between a tracker and fixed-tilled and bifacial modules and monofacials. They can obviously learn some big companies grew from farms, but most farmers, are thinking more on an agricultural practical logistics sense. At what point...
+
+do you do the yield analysis? You clearly demonstrated something clever earlier, which is you knew the grapes are sour if you agri-PV in North Italy, but they are sweet if you make the same installation in Southern Italy. Who does this kind of yield analysis so the farm owners can make a decision to incorporate agri-PV when they buy fertilizer or plan planting for a specific plot?
+
+Valerio Pelizzi (50:31)
+Well, this example I mentioned earlier is led by university, so by the academics. There will be a professor that will be speaking with me on Wednesday about that. let's say that most of the innovation, this kind of studies, lies on the academics rather than on people. But coming back to your point about farmers, they don't care if it's truckers, fixed-heel, whatever it is. The important thing for them is
+
+If they work together, if we are working together, we are sort of like de-risking their business because ⁓ first of all, they have an extra secure stream, revenue stream, because they have the renting of the land used by AgriPV or, know, they are coming from the AgriPV, whatever is the agreement they find. But again, they can be less exposed
+
+to extreme weather. Again, if you have panels making some shade, if you very dry summer, you use less water for the crops. So it is a savings you have. Or again, on the opposite, if you have like hail coming, panels now, most of them unless you have very big hail, they are shielding the crops. So the hail is not going directly.
+
+to own the crop itself, own the crops itself. So again, it's another, the risks, the risking factor into the farming. So clearly, again, it's still a gamble, it's still their business, but you can help them in taking the decision or help them to, you know, to be a little bit, I will say peace of mind, but much better than let's see what happen next year or next season. So that is the real point.
+
+And this is apart from the study you do. Most of the academics are trying to make ⁓ a base knowledge about almost every kind of the science, every kind of crops. Clearly, depending also on the most viable crops, can have how much they will be affected by having a ⁓ PV on site or not.
+
+But the farmers to me have already the knowledge because the farmers knows what they need. Again, example of the peppers, peppers need shade. Example of wheat, wheat needs sunshine. So if you have enough sunshine to grow a proper good quality wheat, you can have Agri-Bee V. If Agri-Bee V is not guarantee you that, clearly you can't.
+
+So another important point I want to stress out is Agri-PV is not the solution to everything. There will be still land where Agri-PV is not possible, is not worthy. Unless again you're a cowboy and you want to convince the farmer of something different. This is another thing we need to learn as an industry.
+
+We need to learn to say no. Not all the land is suitable. We need to find the land that is suitable to what we can build, really. And clearly, again, what I was saying earlier, adapting the design based on everything, not just based on the financial metrics.
+
+Vikram Kumar (54:18)
+of course you can build a perfect solar farm or perfect agri-pv but you know i'm starting to learn you know i need to pay as much attention to the commercial aspect as the technical aspect because if you build a beautiful 50 megawatt solar farm if we have no grid where does the energy go
+
+Valerio Pelizzi (54:38)
+Exactly. This is another point that is struggling, at least here in the UK. It's basically coming back of what we were discussing earlier, know, at the beginning of this chat between us about how you structure your system. This system has been structured in the late 19th century, and nothing has changed from that. Everyone just, know, this is the way we do. No, this is not the way we do.
+
+This is the way that was suitable in the 19th, in the end of the 19th century. It's no longer now. But just, know, because of renewables or because of, again, ⁓ it's agnostic what kind of generation and fuel you want to use. It's just a matter that now everyone, let's say, needs energy. So you need to rethink the system itself. And I'm really in favor of...
+
+again, regardless of the source of power, you need to be smaller and distributed. This is the key to me for any grid to work. Because again, on an economy of scale, even if your is old, but you have to do 10 kilometers instead of 800, it makes the difference. The losses are still the same in ⁓ percentage, but in absolute terms, you are...
+
+losing some money but not a massive amount of money. So distribution to me is the answer regardless and clearly you know upgrading works to upgrade the grid would be very welcomed anyway especially from me being an engineer try to be as mass efficient as I can so having a grid that's losing 40 % in just in pure losses because of the
+
+old stuff, not upgrades, and this is across the world, again, it's not a UK issue.
+
+makes the difference.
+
+Vikram Kumar (56:43)
+I find that humans are not very different to animals. We might wear suits and live in cities and in houses, but we are still very territorial. You can see there's been siblings in corporate companies, but also you can see this on a macro level as well. I can sell to you now cables which can take the energy from here to Rome, from London to Rome, with subsea cables or with 500 or 400 kV. The technical point is not the limitation. We already proven this with the internet.
+
+you know, we can send a message from here to London to Australia within a few milliseconds. We have already a global grid with the internet, so to make a global energy grid, it's not technically difficult. The difficult part is the political aspect. So if you have a ⁓ solar farm and you use the energy locally for dairy, processing, cheese making, whatever, you don't have so many losses. But, you know, even with very small losses, we can send, you know, 400 kV, 500 kV lines.
+
+When you are crossing 30-40 landowners, all of those people want to be paid. If you are going on the DNO or distribution companies land or national grids area, all these people want to know that you are complying to the standards. There is a commercial aspect, gates that you have to cross, which is also adding a political margin.
+
+which means you are uneconomical from this point anymore. And so I reflect a lot what's going on because there is, people are saying there's now huge under-employment, people have jobs.
+
+but they're doing less and less work and in the future with AI maybe people will be on universal basic incomes and AI does all the work. What do humans do? So you said an important point earlier. In the 19th century, starting with the Industrial Revolution in the UK, funded by colonialism, I am a product of this colonialism from India. Apparently the British took 45 trillion, it's a controversial figure, but over 200 years, quite a lot. This funded the Industrial Revolution together with the other
+
+colonies in the UK with the railways and everything. And, you know, you had electrification with Edison, arguing about DC and AC in New York and America. And, you know, we made this centralized grid. Tesla was winning with the high voltage aspect. And we all don't need to be farmers anymore because it's urbanization. know, China and India still working on urbanization where people are leaving the farms, going to the cities. But there's now a shock. And the shock is
+
+In COVID, people realize you can work from home now and cities are now hollow. The high streets are now empty. So, you know, we need to rethink how we do things because the centralized way is now changing very, very dramatically. And so the grid now, we need to plug into this 400 kb network or whatever is a huge limiting point because as you say, it's designed to for big infrastructure, not necessary.
+
+a smaller infrastructure but it's quite fascinating that now we only need do 50 gigawatts of solar in the UK in the next 10 years, probably even less if the politics is changing with the fossil fuel lobby and demographic changes and so on maybe we have four years to do 40 gigawatts. There are projects now in the pipeline you can go to the REPD renewable energy planning database on Google which are 500 megawatts 800 megawatt projects now connecting at 400 kV.
+
+for small developers anymore. So now this takes us nicely to your day-to-day job in project development. Do you want to tell us what is really project development? What is RTB and NTP and why is there such a gold rush for everyone wanting an RTB solar farm?
+
+Valerio Pelizzi (1:00:18)
+you
+
+Yeah.
+
+Well, RTB is ready to build, meaning that you have the license to start the construction site, build your site and connect to the grid. NTP is the US version, which means notice to proceed, but it's basically the same. You can start the construction site, basically.
+
+⁓ There is this rush, especially in the UK, to try to seek RTB projects because of the grid. mean, is constrained, there is no grid available for projects, so people that have grid are golden in their hands now. That's why everyone is looking after it. clearly, people that have those projects, don't sell. ⁓
+
+Regarding the bigger project you mentioned, clearly from an engineering perspective is amazing because clearly you have different levels to look after. is a lot of knowledge put in it.
+
+Personally, I don't think it's the right answer. As a developer in all the countries, we are working with smaller size. Again, because we really, I really think and the companies I'm working with share the same idea. Distribution is the key word. Again, okay, fine.
+
+800 megawatts solar side great basically we have let's say zero carbon zero fossil fuel perfect okay those 800 megawatts has to be delivered so you need the grid and you need long lines and stuff it's not locally utilized and again long lines means losses
+
+because no one has the magic wand to make the grid upgraded instantly, so there will be lot of money lost. Why? Because they want to be a big site. I understand big corporations want to do big sites, or even large developers want to do that, because they have to pay salaries. They need the economy of scale, because basically a big site has much more revenues than a small site, and in some of the workforce you use...
+
+or let's I'm just exaggerating the concept, but if you're developing a five megawatt site, you basically spend the same amount of money of one guy over a team of guys developing a 50 megawatt site. But clearly the revenues are different. And if you have like a workforce of X number of people, you need to pay salaries, you need to be profitable and so on. So definitely you don't want to develop a five megawatt site.
+
+which actually the opposite what I'm looking for because we are trying to keep the team as dynamic as possible and using a network of subcontractors or business partners, I prefer to say because those are business partners, to work together and build up those small sites. For a number of reasons. It's the...
+
+I can make the parallel of the eternal discussion in the solar industry between string inverters and central inverters. If you lose a string inverter, you lose a small amount of power. If you lose a central inverter, you lose a lot more power. I don't want to say I prefer string or central because they are own advantage, their pros and cons, but it's like the same. You are either small scale theme or big scale theme.
+
+I in this one I can choose my part. I will choose small scale because small scale means it's much easier to deliver locally. If you have like 5-10 megawatts side next to industrial area or a town or wouldn't say a village, but town or small city, it's more likely that you deliver your energy there. So it's very efficient regardless of the grid inefficiency or lines inefficiency.
+
+At the of the day, you don't lose a lot of money because you deliver locally. And this is to me the most important thing.
+
+The clearly has to be upgraded, that's for sure, but we can sort of like de-risking the situation. On the opposite, for example, Italy is doing something very good because most of the DNOs and TNOs are allowing you to do the upgrading works, which means you have no delays. ⁓ You can have your connection, you just have to build up primary substation.
+
+Vikram Kumar (1:05:04)
+Mm.
+
+Valerio Pelizzi (1:05:18)
+on top of your evacuation line or connecting to the main EHB grid. So you manage, you can control the timing and the construction, you get the works done for the public and get reimbursed by that. It's not as, you know, as a fairy as it sounds because clearly they don't give you back the real money but a certain amount of money.
+
+Vikram Kumar (1:05:43)
+I'm sorry.
+
+Valerio Pelizzi (1:05:46)
+But again, is more for financial guidance, to balance, know, it's better to lose some money towards building something for someone else and not get reimbursed or not having the project at all or waiting 10 years for a project. It's, know, multiple factors are playing. But to me, it's a good thing that, especially for small scale or medium scale, you have the possibility to do the works so you can control your process and you basically...
+
+getting connected almost immediately.
+
+Vikram Kumar (1:06:16)
+So from my point of view, everyone's correct from their own situation. Just like with cable sizing, depending on the laying environment, you have different ⁓ current ratings. In the natural world, we have a different situation in different countries. Like in the UK, we are a cloudy country. We have only capacity factor of 10%.
+
+In America and Italy, you might have in the sunnier parts more than 20 % capacity factor, means you can have twice as much energy for the same solar panel area.
+
+You can have higher density, can have maybe even longer hours in the winter. In the UK, we don't probably see the sun in the winter at all. And so there so many things coming to my mind. solar and farming is a marriage made in heaven because we understand each other not from our crops and electrons pointing to V, but from the uncertainty. A farmer doesn't know what kind of yield he has the following year. In solar, we tend to make bubbles. We don't know if we have a job the following year or not.
+
+something special about you. have to be a little bit crazy, I say, to stay in the industry for as long as we have done. I'm coming up to almost 14 years full-time. You are in the industry probably 15-20 years. To survive this time you have to really have a passion and this passion was clear from your last podcast transcription which I...
+
+went through to prepare for this discussion, which is people in university were laughing that you want to do solar, you want to do the easy stuff. If you want to do the hard stuff, you should be working for the power grid company. But now it's a reversal of fortunes because there's $2 trillion US dollars worth of solar installed worldwide. There's a pipeline of another $75 trillion worth of solar, according to the National Renewable Energy Laboratory in the US.
+
+Valerio Pelizzi (1:07:50)
+Thanks.
+
+Vikram Kumar (1:08:09)
+which is one of the most leading research institutes. Whatever goes on with Trump, the US is still the superpower and they are making these researches and solar is identified as a defense technology. So in this aspect in the UK, maybe we are not as efficient as Italy because we don't have someone's son and we have wasted 10 years with Brexit. So now we have to quickly install
+
+50 gigawatts solar before Niger Faraj cancels everything. And so in this aspect it's quite interesting because he made no secret that he's a fossil fuel. He thinks this is all green. To quote David Cameron, this is all green, a CRAP. So the point here is going to your RTB point. There's a desperation for RTB projects because when you're ready to build projects, everything is already developed.
+
+Valerio Pelizzi (1:08:40)
+you
+
+Vikram Kumar (1:09:04)
+Then there's a game where people look for a bankable EPC to underwrite the credit risk so the lender can provide the money. And now we've reached a point where there aren't many R2B sites. There are maybe even claims because so much is done in the intensive environments. Can you tell our listeners, your customers, partners, contractors, you know, where do you start from a Greenfield project? If you want to really...
+
+generate originate projects what is the first step?
+
+Valerio Pelizzi (1:09:35)
+Well, the first step is always land. You need to find land. Now, actually, it's slightly different. Now, what is very important and more than other parts in the world, probably the UK, you need to look at the grid. Because you know where the grid has some capacity, where the grid needs some of the energy. So now, you basically try to look at that.
+
+for the when you start originating a project is you know that certain area of the of the country which has more possibility and you then you go there and check the check the grid and check potential land for ⁓ for starting really the whole process or that there is also the opposite way
+
+you might, something that to be honest I'm trying to do as well where it's possible ⁓ large energy consumers and having their own ⁓ project, own green energy behind the meter. That is another approach that again depends on the strategy of the company, your strategy or the company you're working for.
+
+which of the the the path you want to to take on So I would say pretty much this it stayed the same you find the land maybe now land and grid at the same time or grid and land But this is especially in the UK
+
+We do almost the same also in Italy and also in the In the US it's even more important to be honest because there are lot of like, the grid is sort of like private or mostly private. There are a lot of companies owning part of the grid. So you definitely want to find a primary substation that can give you the more, know, comfortability on building the site near them.
+
+And then you start the whole process you get the land you start in our case doing ugly PV or in my case doing ugly PV you start looking after you start looking at what kind of crops are growing there and if it's feasible making an ugly PV or Building in what way and then you run financials and then it's everything is in their place You start the proper process so you apply for the grid you got the grid connection
+
+You do all the studies for environmental studies on the pre-application phase for the planning permission. You do the planning permission. You get hopefully the planning permission and then you start your RTP status. You either plan for the construction site or you sell the project to someone that wants to do. What I see now, to be honest, is a ⁓ shift in
+
+the in the economy in the economics of the of the renewable energies market meaning they were especially before they were everyone was doing their bit there were you know funds they were buying sites epsis they were building for funds developer were developing and selling now is more is more fluid i would say margins are tighter because there are no more incentives
+
+still if you design, you in a proper project, is still very one of the only assets that are profitable, because meaning that you earn money or running the assets till the end. But I mean clearly the margins are tighter, so there is more like of, and also the education is higher to...
+
+all the players in the industry are much more educated than before, everyone wants to build up sort of partnership. there are developers that are no longer independent, there are developers that are finding agreement of co-development with funds or with the EPCs, or EPCs that have their own development department in-house, so they start developing and then building their own sites, maybe selling a...
+
+either a RTB or a construction site, whatever they see fit. So it's more fluid. I wouldn't say that all the fans are buying RTB and that they build through VPCs. There are still some, know, someone is doing something, someone else is doing differently. It's more like it's maturing in the market. So there is no longer one way to do stuff, but there is multiple ways, depending again.
+
+a new strategy and how do you want to go ahead with
+
+Vikram Kumar (1:14:34)
+And so staying with this theme about ⁓ avoiding cowboy behaviors, you know, it's an interesting topic now because, you know, there's there's an illusion or a mirage like on the desert, you want water, you start to imagine this, that there is water and then you arrive and there's nothing you're just hallucinating in your mind. And this hallucination can be driven by greed or driven by quick wins. If you want to be tricked by a scammer, go for the quick win. This is the far
+
+way to lose all your money in one or two nights. And so this is the misnomer now, or the illusion rather, because people calculate the economics of energy and they see there's two trillion dollars of solar installed worldwide. there's another 75 trillion dollars in the pipeline and that's just the the capex of owning the asset. The energy revenue is even more than this. So this kind of greed can be self-fulfilling. It feeds a cycle, it creates a bubble.
+
+where the developer has no responsibility for the asset performance. If you have an investor, they don't want any risk because they're a big company. Who's going to lose their job taking a gamble? They have a nice salary already, nice expense account. You're going to do something that's going to get you fired. You're not. So there's a natural feedback loop where you want to farm out the risk. This is the reason why the DNO or the power utility companies, the railway people want to work in solar because they see us do the real stuff.
+
+and
+
+they are stuck behind so many procedures where they never get near a high voltage substation until the end of their career, by this time they too tired. the point is now you have a situation where the big projects in the UK, are funded against the EPC's, Engineering Procurement Contractors' balance sheet, because against their EPC bonds or credit limits, have the bank, Lloyd's Bank and others are giving the CAPEX. And the big CAPEX makes people chase the easy stuff.
+
+Easy stuff is you have 50 pence per watt or whatever construction cost. can calculate this very easy, half a million per megawatt. Everybody wants to have this, but when you have a margin of only 10%, this is not enough to break even because you make one mistake, one design miscalculation. You are bankrupt on that project already.
+
+because the bank will come after you when it's not performing. The company that's taking the PPAs or the energy will come after you.
+
+The EPCs are learning now. You need to start developing your own sites. Otherwise, you have an incentive not to build a good solar farm because the employer's requirements are not even controlled by you. It's controlled by maybe a developer that will not hold the asset. And so in this sense, who pays for the studies? Who pays to find the land? Who pays to find the grid? Who pays to do the earthing assessments?
+
+Valerio Pelizzi (1:17:26)
+This is a very good point that actually I like a lot. I really, I really see the point in this kind of build because this is the way the market can kick out the cowboys.
+
+At the end of the day, all the costs are on the owner's shoulders. Regardless if it's person, family office, or infrastructure fund, whatever it is, it's on their balance sheet. That's why they are getting more more educated, and that's why the people working properly with a very good standard and quality are...
+
+you know, I keep working. There are some people that think when there is consolidation it's not good for the market. The monopoly is not good for the market. But consolidation, it is good. Because there are, at least to me, meaning that if you are a good developer, whatever is developer of good PC,
+
+It means that you will keep working because the funds, clearly they want to maximize the profits and to maximize the profits they have to have the best developer possible is the one that makes the less mistakes and makes you decide more efficient possible. You want the best EPC because the best EPC will build with quality your assets. You don't need to do correct maintenance or spend a lot of money correcting mistakes of someone else.
+
+So consolidation in a way, it is good because even if the margins are, let's say less for people, but ⁓ as a whole industry is still good. again, it's down to every single entity to negotiate their own ⁓ fair ⁓ profit. It's no longer a time where I always, no, I wouldn't say that, but there were a few entities that
+
+they were working as a the strategy was take the money and run. Exactly as you were saying earlier. Let's try to make the easy way. Let's try to do the stuff quickly and try to sell as soon as we can and just run. No responsibility, no everything. And I really want to say who is going to pay for the mistakes. That's why I really love co-development or having educated
+
+owners involved since the beginning because it's like a shared vision, shared strategy, a shared discussion. know, where everything is part of the equation to build up a good project. I've never been like a developer even in my early days where I don't care about performances. I'm selling for each megawatt peak installed, so I would just panel everything.
+
+Vikram Kumar (1:20:18)
+Mm-hmm.
+
+Valerio Pelizzi (1:20:27)
+What is the performance? don't know, 60%. I don't care. I will find someone to sell it. And early days, that no one was really the fans, the owners were not educated. The TAs were not educated as well because it was a learning process for everyone. in the early days, there were a lot of cowboys that really, they make good money.
+
+Vikram Kumar (1:20:27)
+you
+
+Yes, or someone to guarantee the performance.
+
+Valerio Pelizzi (1:20:58)
+good money in a sense, a lot of money, not good because basically they were sort of like cheating or, you know, really selling something that it was not supposed to be. Let's put it this way.
+
+Vikram Kumar (1:21:12)
+from my point of view I studied law for five years and I didn't become a lawyer because I hate litigation I hate fighting you know when something's not working there's a divorce there's a claim nobody wins from that because as human beings are very good at arguments for your what 10,000 words I have a hundred thousand replies and this is a never-ending process once the project's already stranded you know it's just gonna be a war between the parties and everyone is up
+
+Valerio Pelizzi (1:21:34)
+Thank
+
+Vikram Kumar (1:21:42)
+in the end walking with no friends you know when I was saying who pays I meant who pays for the development in the early stage
+
+who pays for the estate agents that go out and find land, who pays for the grid finder, who pays for engineers like you to do the studies, to build a relationship with the farmer, to build the PPA agreements. At what point do people start paying for development instead of chasing ready to build or RTB project which are not existing anymore?
+
+Valerio Pelizzi (1:22:14)
+Well, is the developer paid for the initial costs? I mean, you have to invest something. either it's your work, either it's your time, you have to invest. You have to build up those relationships with landowners, with farmers. You have to find land. You have to go around. So you invest your time, really. So let's say you spend, I don't know, 10, 15 working days doing those stuff.
+
+Vikram Kumar (1:22:29)
+Mm-hmm.
+
+Valerio Pelizzi (1:22:40)
+So pay nothing, clearly, because you will get the end game when you set up your project. This is a good point, again, because ⁓ working in this kind of environment means that you have to be good. You don't want to waste time in projects that are not going to go ahead somehow. And it is good also, you can maybe share some risk with... ⁓
+
+Vikram Kumar (1:23:00)
+Mm-hmm. Mm-hmm.
+
+Valerio Pelizzi (1:23:07)
+with the owners at the end because they want to enter at the beginning because clearly the money is where the risk is. It's clear to everyone. So if you are a developer, you take 100 % risk, it means that when your project is totally risked, you get a lot of money. But it's a bet. You should manage your mortality rate of the project. If you are a fan, you want the same, but if you...
+
+I a big balance sheet I can take home this risk for x amount of money so developer you are good I want you to work with your mind free you don't have to worry about risks I'll get all the risk on but I'll pay you this amount of money much less which is fair I mean it's your decision you want to either bet on your skills or you want to
+
+you know, just work and having the risk on someone else's shoulders. It's fine. It's a part of the market. So you decide wherever you want to be. If you want to be independent, you pay either in time or even money at the beginning to get rewarded at the end. Or you find an agreement like a co-development with funds. So I am good in developing. You don't have expertise or people enough to do those kinds of stuff. I'll do it for you as a...
+
+Vikram Kumar (1:24:15)
+Okay.
+
+Thank
+
+Valerio Pelizzi (1:24:36)
+sort of like business partner. Even if I keep seeing now, not keep seeing, but I saw a few sort of like technical consultants. they own, the ⁓ owners owning the assets from scratch and you just develop for them as an external consultant. So basically not owning anything really, zero risks, but the project already in the end.
+
+is more often you see agreements where you are a sort of business partner with your final exit owner, so you have some shares on it.
+
+Vikram Kumar (1:25:17)
+Fantastic and you know.
+
+Not everyone is a cowboy. Sometimes people are natural animal instincts. They chase where is the low hanging fruit. One of the things that can distort the market is subsidies because it was essential to start the industry. As you said, also for the Italian market, but it was the same in the UK market, is the subsidies were designed for 4 kilowatt or 2 kilowatt or 3 kilowatt solar systems, not 50 megawatt projects. And the subsidies were far too generous.
+
+and this creates a gold rush for the subsidies. Subsidies are cut and then the market is bankrupt and then it creates a gold rush to export as much as possible to the grid and then you have negative prices and then you have again stranded projects from the developers and now these developers are desperate to find an EPC and we are quite lucky in our networking group in our regular meetups in London, in Solar and Storage and into Solar Munich that we have some of the three of the top EPCs in our group.
+
+you one of these guys you know even though they work at tough conditions is mr frederick sterling young young chap you know they are really learning through fire you know there's the the the the sharpest swords of force in fire and ⁓ you know frederick was teaching me in birmingham solar show if you have five megawatts ⁓ times about thousands five thousand kilowatts ⁓ or five million kilowatt hours per year you generate and you can calculate quickly
+
+What is going to be your revenue streams? So?
+
+If you take the longer approach, which is develop really a CNI project and use the energy locally, you can have 7 pence per kilowatt hour, can have energy revenues of 7 million over 20 years, or if you're selling to EV charging, some people are charging 89 pence per kilowatt hour. For only 5 megawatts, you can have 89 million revenue over 20 years, 89 million pounds for a 5 megawatt site.
+
+Valerio Pelizzi (1:27:18)
+Yeah, it
+
+won't be fair to be honest to me. But still...
+
+Vikram Kumar (1:27:21)
+It won't be fair but this is the
+
+re-
+
+This is the reality in the market because the grid is limited in capacity. So if you want to be green and you're a driver EV car and then you don't have the range to get home from Birmingham, you have to pay whatever the service charges charging you. So in terms of the revenue stream, now we are in a situation in German market and some others where you've got negative energy pricing. So people are looking at repowering all sites, but this repowering is also being driven by greed because
+
+Why do they want to repower old sites and not build new ones? Because the old sites are still with subsidies. So we are really chasing subsidies and this creates a bubble. know, it's almost like a artificial drug. You have a high because you have a subsidies and then you have a crash because you can't find the subsidies anymore. That's not sustainable long term. Subsidies are there to make a stable market, not to create a boom and bust every two or three years. So from your perspective, what's your thoughts?
+
+Valerio Pelizzi (1:28:11)
+Yeah.
+
+May I disagree
+
+with you? May I disagree with you on this one? You get a very good point. You need subsidies to start the industry. Because you need to create demand. Because when there is no demand, the price is high. Clearly. It's the simplest rule of economics. It's still dragging a little bit, but it's no longer the time where you need subsidies.
+
+Vikram Kumar (1:28:23)
+Yes, of course.
+
+Valerio Pelizzi (1:28:48)
+because any renewable energy assets, even the average one, not the best performing, are still super profitable. If you consider now, we know that systems can last 30 years at least, 30-35 years, even if you have, I don't know, 20 years payback time, which I think is like probably, I don't know, 3, 4 % IRR, something like that. Meaning that...
+
+Vikram Kumar (1:29:05)
+Mm-hmm.
+
+Mm-hmm.
+
+you
+
+Valerio Pelizzi (1:29:18)
+in the whole
+
+scenario means that for 20 years you don't get any money, you just pay back your investment, but still you have another 15 years which is pure revenue. This is not happening for any... When you say you cannot stay on subsidies forever, this is only true for renewables, but not because you cannot sustain it, but because you don't need them. On the opposite I would say...
+
+Vikram Kumar (1:29:23)
+Yeah. Yeah.
+
+Yes. Yes.
+
+Mm-hmm.
+
+Valerio Pelizzi (1:29:45)
+You can stay on subsidies forever because fossil fuels are running on subsidies. They are totally anti-economic. But energy is a primary need now for people. So any country has to guarantee energy to people. And the only way they can keep open, know, carbon, carbon, well, no longer in the UK, but...
+
+Vikram Kumar (1:29:49)
+Yes, Yeah.
+
+Yes. Yes.
+
+Yes.
+
+Valerio Pelizzi (1:30:13)
+let's say, ⁓ fossil fuel plant, they need to pay them because on the op, on the contrary, they cannot run the plant. the short, long story short, you answer, you know, cannot sustain forever incentives subsidies. No, you have to in a way. The good is you can now save a lot of money renewables integrating into the existing ⁓
+
+generation profile because there are assets that don't need money to be profitable and to run.
+
+That is the really, and again, I'm pretty sure at least 90 % of the people not working in our industry will tell you that their fossil fuels are perfect because they don't need subsidies to run. I think this is the perception outside our industry. No one knows that the only assets that don't need subsidies are the renewable ones.
+
+Vikram Kumar (1:31:17)
+Fossil fuels are subsidized, nuclear is even more subsidized probably and delivered always ten years late. the point is, wealth gained unjustly is lost quickly. And energy is so extremely valuable for every economy in the world that if the market design is not correct, it creates sharks and it creates wolves. People grow dependency
+
+on the subsidies you give them, it fossil, whether it is nuclear, whether it is solar, and if that dependency is not appropriate,
+
+You never get in a market where you're dealing with Orm's law and energy efficiency and all of that. You're chasing only subsidies. And of course, this makes the older sites very valuable because they've got inflation linked subsidies and they are less than the fossil fuel subsidies. But that same thing repeats the oil and gas mistakes, you know, because we chasing the subsidies. When the subsidy is not there anymore, people are laying off 300 people. Why do need an EPC when you have no project anymore? ⁓
+
+project, need 300 people because you have too much work to do. Now you go back to the Second World War, you know, why we are in this situation is the war moved to the Middle East because of oil and gas. Even today we have the same geopolitics with the Strait of Hormuz, which gives a lot of leverage because if Iran is blocking the Strait of Hormuz, you stop all the oil and gas, all your panels cannot arrive because they're coming on fossil fuels.
+
+Valerio Pelizzi (1:32:48)
+Yeah, yeah, that's true. I can't really...
+
+Vikram Kumar (1:32:53)
+The I want to ask you
+
+is about the negative energy pricing. Germany has done huge projects, the US as well. Everyone is doing the same thing. Everyone is sending solar in the daytime. Now people have negative energy hours. There is going to be a very senior CTO who will write a Forbes magazine article about this soon. They are documenting a PV magazine negative number of hours, hours where you are paying to export your energy.
+
+So what is your way out of this?
+
+Valerio Pelizzi (1:33:26)
+Yeah, that...
+
+Yeah, sorry, go ahead.
+
+Vikram Kumar (1:33:30)
+What is your way out of the negative energy pricing in Central Europe? How did you come out of this situation?
+
+Valerio Pelizzi (1:33:37)
+Just studying the grid itself, mean, point is you need to have a broader view on the industry itself. It's not like I need to build, so I sell, so I make money and that's it. No, it's not working like that. You have to adapt.
+
+always, it's changing, all the markets are changing, not only our industry, has been always, historically, in any ⁓ market. So what does it now? You need, when the energy is most used, know, peak time, early morning, and late afternoon, night. So you have to shift your energy. You have an asset that is performing
+
+you know, on a, ⁓ the, sorry, you have a solar asset is not performing the famous duck curve where you have those peaks, you know, early morning and late afternoon, you have to shift and to adapt to that curve. What does it mean? It means that you, for example, restore storage.
+
+Storage in form of batteries storage in form of hydrogen Whatever it is. You need to sell your energy or use your energy differently So you need to you know to learn new stuff Yeah, it's it's always like that talking about fossil fuels, you know the first cars ⁓ You know not talking about the EV ones, but the the first cars were running with a liter of petrol. I don't know
+
+six, seven, eight kilometers, maybe less. Now there are like 15, 20. The technology has advanced because it was not longer sustainable in that way. Then they make the diesel engine to have more range, less consumption. Again, it's everything evolving. if now you have too much energy during daytime, either you decide, I don't care.
+
+the amount of energy I sell is still profitable to me so I keep doing like that, I don't do anything or you try to find a solution. You cannot be stuck in one model. If the model doesn't work anymore, you have to think, even think outside of the box. Clear the easiest things, especially with the pricing going ⁓ down like ⁓ a waterfall ⁓ for storage, you have storage.
+
+Vikram Kumar (1:35:56)
+.
+
+Valerio Pelizzi (1:36:09)
+meaning your generation is going into batteries during the day when the price is negative and you just release when it's needed and this is also a good thing because it means that if you make your renewable energy assets more reliable, more time shifting, it means that you need less base generation from fossil fuels and actually you also have
+
+no longer well again exaggerating and thinking out loud you have you will have no longer negative pricing because the negative pricing just because you have too much energy for what is needed if you just give them the energy they need they will have still a price it will be a low one but still positive so we let's say in the
+
+the balance will be in a position where most of the energy you generate will be into storage to be used later on for whatever reason, selling, balancing, regulation, whatever it is, but it will be the majority of your generation will be stored and part of your generation will be sold directly. This is what I see the balance.
+
+Vikram Kumar (1:37:24)
+Mm-hmm.
+
+So addressing.
+
+Valerio Pelizzi (1:37:32)
+And the only
+
+way to avoid negative pricing really.
+
+Vikram Kumar (1:37:34)
+So addressing this from a cable point of view, a lot of the power utility people that say solar was the easy stuff and they missed on the first few booms in solar, these same guys and girls or ladies or whatever, they see now what happens. They see that the energy price is not relative to the generation capacity but the ability to move the energy around, having energy at the right place at the right time.
+
+If we electrify everything in the UK that can be electrified, we reduce energy from 1,644 terawatt hours to 500 terawatt hours, but then this is more than doubling the electrical demand. And the grid, you cannot dig up every single road in England because people will be upset with you about that. And so now to deal with these issues and with negative energy pricing, there is a grid reality. There are funds called grid out there now. So these same high-voltage engineers now are leaving to join the battery storage companies.
+
+companies because they can see there's a gold rush now for battery development. There's more than 100 gigawatt hours of batteries in the pipeline on the RAPD database, 30 gigawatts of solar, gigawatt peak of solar, and they have a lot of work to do. Many people are burnt out by the time the contract signature happens for RTB assets or notice to proceed or whatever and you get your funding and your milestone payments. And when they go to procure, they don't realize and some people are very naive.
+
+that high voltage industry is also a defense kind of technology. There's a reason why Putin is bombing substations in Ukraine. bomb a high voltage substation, you take our whole city of power, you can disable the trains. There are real defense aspects to high voltage. People don't realize when they sign the contract, they are told your transformers, your high voltage cable, even one connector for 132KV can be on two-year lead times.
+
+And you can only use very specific things because why would National Grid take the risk of putting random things on the high voltage network? Because your project will never be more important.
+
+than the whole national grid. You cannot knock out an entire airport or a railway because somebody wants to connect some batteries. So your development ideas now, do you consider co-location with batteries? And second point as we come towards the end, I want to push towards is the CNI, the commercial and industrial market. Because if you ask me now, what is my forecast for the next five years, I would say the small developers
+
+will be kicked out of high voltage projects because it's becoming a big game. You have to have alliances with the big partners that have the deep pockets.
+
+And so they will find the projects are stranded because they cannot access the grid. The grid's gone. National Grid is under pressure to kick our projects, which are not showing mass and progress. So I believe CNI will see a return. So from your point of view, the first question, do you co-locate batteries with every development? And the second question, what percentage of your time will you spend in the smaller commercial and industrial projects, where you will not need to worry about the
+
+it.
+
+Valerio Pelizzi (1:40:54)
+Okay, well, the first answer to your question is yes. Co-location is going to become more and more important over the next years. Just only for one reason. It's not only a financial reason, but it's also a matter of taking out pressure from the grid.
+
+At the end of the day it means that you can manage the grid so it will be less strained and it can first of all work better and you need even less works. At the end of the day if you need to build up 100 megawatts instead of like 50 your grid has to support massive works to do upgrades.
+
+So that's why colocation can help out because you will again, instead of having like big peaks and very low ⁓ injection, you will have more stable curve. So you can manage better. It's not only having a, ⁓ let's say a better curve of your generation, your generation profile, but it's a matter of giving energy when it's needed. That is very important.
+
+And to be honest, it came back to my earlier point, being more distributed the better. And answering to small developers kicked out of the HP, it's fine. Everyone has to do what they excel at. Small developers can work on what they do best. So developing assets, leaving
+
+the management of the grid itself, and people that have experience and knowledge about that. And this is actually something that is not really clear, or at least not to everyone, because you correctly said everyone now need to jump on the HV because the MV is totally overwhelmed. There is nothing there. No, the answer is no. You cannot go there if you don't know how it works, unless you are the right business partners.
+
+I'm happy that the people that pretend to be knowledgeable about HP are kicked out. It has to be that. You either, you really are or you don't. If you are not, go out. It's not your business. I'm fine with that. Regarding CNI, CNI can play a massive role in the overall industry. And I don't think everyone really, really...
+
+understood that very well. CNI can take out a lot of pressure from grid. There are a lot of factories and labs and so on that works only during the day or mostly during the day. They are buying energy. If they can have behind the meter installation or super local generation plans,
+
+it means that there no weight on the grid itself. And again, grid with less weight on it will work much better, it's much easier to manage power, and you need not to be worried too much about how many generations you need to put on to keep up with the demand. And this is again, it's something including myself, I I'm not really doing CNI or...
+
+a small part of my time now ⁓ because I don't have too much experience or knowledge yet to be only on CNI. But CNI is a market that is really interesting, not as business itself, but as a balance of the overall system, electrical system. Because consider all the warehouses doing, consider if they are cut out from the grid.
+
+in terms of energy, no real cut out. You are probably, I don't 40 % less of the demand of the UK, maybe? I don't know, I'm just shooting numbers, random numbers, I don't know. But I'm pretty sure that all the industries in this country are consuming a large part of the energy. If you consider that chunk out of the grid, because either they're behind the meter installation,
+
+Vikram Kumar (1:45:22)
+Mm-hmm.
+
+Valerio Pelizzi (1:45:26)
+or a local ⁓ generation product can use basically without use of the grid, it be a massive release of pressure, massive release of problems on the grid for everyone.
+
+Vikram Kumar (1:45:33)
+Mm-hmm.
+
+Valerio Pelizzi (1:45:39)
+I you're on mute, Vic.
+
+Vikram Kumar (1:45:41)
+Sorry about that. What I see on the Office of National Statistics is that ⁓ the biggest energy use is in fact generating electricity generally for the whole country. It's split into all different applications. We have also domestic space heating requirements, which is the second biggest energy use. And then you have aircraft and shipping.
+
+and water heating and then you've got the transport fossil fuels for the transport for cars and trucks which is why electrification ⁓ of vehicles is so controversial because it has an economic impact. Industries depend on the country like China will have massive industrial use in the UK. Our industrial use is strategic. We need the steel plants for the railways, for defence, for shipbuilding and here you have ⁓ an important point where the energy
+
+volume is not as important as the security. you are integrating energy, know, we make cables in many factories. If you're integrating ⁓ embedded generation like solar or batteries or whatever kind of facility inside a factory, you're affecting more than just the solar. If something goes wrong and the whole production is affected, you can have an issue in the factory. And so this requires a lot of electrical
+
+engineering know-how to do the load flow, do the power analysis, to upgrade the circuit breakers so they can handle the additional...
+
+demands if you're putting 800 amp circuits on a switchboard and you need to be able to run the analysis, you need to do the power factor corrections, all of these things are affecting the plant, the airport, the railway, even the EV chargers. So here again someone has to pay for that development so that when you put solar in a factory you don't find that you have poor energy efficiency. If your power factor is not adjusted properly you can lose 30 % in poor power factor correction that the inverters have to comply to G19.
+
+or G100 or whatever, even if they're not importing they're still grid connected, you're not always 100 % off grid. because a lot of the big corporates want to do embedded generation, when they go into the actual details they realize, oh wow, it's complicated, I can affect how the airport's running, maybe I should just go to Shell or Stackcraft or anyone or EDF and I should just do a PPA agreement, power purchase agreement.
+
+it's easier for them this way. You TFL has signed with Longfield Solar Farm, which is not even constructed yet, a PPA which is on the public record. So from this point of view...
+
+you have to convince the corporate company and they have to be credit worthy because if you're giving them a PPA loan they have to be able to pay the energy bills for a fixed period of time. do you have intentions to go to such heavy energy users to convince them to make their own energy instead of buying PPAs in the open market?
+
+Valerio Pelizzi (1:48:46)
+It can be either way. Again, it's just a matter of where the risks lie at the end. If you want to, if the big companies doesn't want to have risks of generation 1 of PPA, you can give them a PPA. Then the risk will be on you. If you have enough financial records and track to be bankable at the end of the day, you can do that.
+
+Vikram Kumar (1:49:06)
+you
+
+Valerio Pelizzi (1:49:14)
+But I mean, the best assets to me is not about, it's not financial, it's technical. You know how to be reliable in the energy. You can be unlucky and having failures and stuff, but...
+
+This can happen, but it cannot keep happening. If you develop a good project properly, you are not going to be affected. Even if you are the luckiest person in this world, you have few failures, those will be few failures. If you keep having failures and you have problems in delivering, it's not a problem of being bankable or not if you have the economic power. It means that you...
+
+Vikram Kumar (1:49:35)
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Valerio Pelizzi (1:49:59)
+you are not skilled enough to deliver a good project. So to me the best asset is still your knowledge. If you're able to deliver a good project, doesn't matter if you, you shouldn't be worried about liquidated damages or pain for the missing energy delivered because you're not going to face it. ⁓ again, everything can happen, you know, but...
+
+Vikram Kumar (1:50:02)
+Mm-hmm. Mm-hmm.
+
+Yes.
+
+Valerio Pelizzi (1:50:25)
+You cannot assume there would be a crazy guy that put fire on your system and it burned everything. Clearly it's a risk, but it's not really, you cannot plan on the other one. is a how is likely to happen.
+
+Vikram Kumar (1:50:45)
+Well, we have real
+
+clear examples. If you EPC a solar farm or battery project and you build up the capability like you have done at Canadian Solar and other places in the past, you learn through fire. You have learned through negotiations. You're constantly fighting the employer's requirements or what the client wants. And so you're learning constantly. But once you've built the project and you go into O in a few years past and you demobilize, you lose your industrial capability.
+
+because you don't need it. You don't need huge delivery teams and teams of engineers running analyses. You don't have 100 contractors on your project. So to give you an idea, like I said, our primary energy demand is 1,644 terawatt hours. And put this into context, the whole London Underground is 1.2 terawatt hours. And then drilling further down, Heathrow Airport probably uses less energy for electricity than the London Underground. But I visited the Heathrow Energy category manager, buyer for the energy
+
+for lockdown and he told me he's spending 90 million pounds per year on electricity in Heathrow. Heathrow is a big microgrid and but what they're using is peanuts and that's before the energy prices were doubling and so for these guys they have a desire to do their own generation but if there's a lot of complications because you're affecting the airport operations and
+
+Valerio Pelizzi (1:51:54)
+Yeah.
+
+Yeah.
+
+Vikram Kumar (1:52:11)
+There is a lot of risk that has to be managed, at the same time, we have now legal obligations to report our CO2 emissions, and so they have a pressure. If they want to build the runway, they have to start doing EV charging, have to do solar. But I won't go too far into that. think we have covered a lot. Do you want to close by summarizing your next steps and your travel plan for...
+
+Valerio Pelizzi (1:52:23)
+Yeah.
+
+Yeah.
+
+Vikram Kumar (1:52:38)
+for solar and storage and are you going to be in to solar this year or next year as well?
+
+Valerio Pelizzi (1:52:45)
+Yeah, I will definitely be in Intersolar next year. We really didn't realize that it take two hours now. I'm not sure, hopefully it's not that boring to all the people. anyway, I will keep doing what I now think is something that I like a lot and I will focus on AgriPV globally.
+
+Vikram Kumar (1:52:54)
+Yes, exactly.
+
+Mm-hmm.
+
+Valerio Pelizzi (1:53:14)
+to be in the development and be in this part of the industry for a lot of years. ⁓ So that's where I'm heading in the next future.
+
+Vikram Kumar (1:53:26)
+Fantastic.
+
+And in 2026, which countries do you expect to spend most of your time?
+
+Valerio Pelizzi (1:53:32)
+Yeah, still yeah you This is a good question. I would say probably split into three between Well, no, let's say most of the time between UK and Italy and a growing part compared to this year in the US
+
+Vikram Kumar (1:53:51)
+⁓ So, Valeri, thanks very much for your time today. I think you're right, we're talking close to two hours. So, I would love to listen again to our podcast, you know, look at the transcripts which I will send to you. if there's anything about sour grapes you want to remove, you have...
+
+Valerio Pelizzi (1:54:04)
+Yeah.
+
+I didn't say anything so it's up to you really.
+
+You told that, I never did so I'm happy with everything.
+
+Vikram Kumar (1:54:15)
+You have to have fun.
+
+Life is short if you don't make a few jokes. Thank you very much for joining us today. I will reflect back on what you've said and we will follow up offline in our networking events as well. Any last words to your listeners before we hang up?
+
+Valerio Pelizzi (1:54:21)
+Yeah.
+
+Well, thank you very much to you, Vikram. And you are the humblest person in our group because you put together really a very high quality product because this podcast, you know...
+
+except when I talk about myself but all the other professionals have been talking to you very very knowledgeable, very long experience in the industry and they are always giving you a lot of ⁓ points to think about and to know to really reflect on your daily job and I hope not to bore too many people this time and
+
+it would be great replicating this access of the previous one.
+
+Vikram Kumar (1:55:18)
+I think generally people like to listen to you because you're bringing a wealth of knowledge, especially when so many youngsters are entering the market, they worked in isolation. They should be working with people like you to benefit from the experience so they don't repeat the mistakes that we made. And we have generally a very great group of people and many of them are coming because we have you joining our events so they want to learn from you. So thank you very much for joining us today.
+
+Valerio Pelizzi (1:55:44)
+Thank you very much for inviting me again. be my pleasure.
+
+Vikram Kumar (1:55:48)
+You're welcome. Thank you.
+
 
 
 

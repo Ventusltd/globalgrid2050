@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+John Davies: On a Mission to Establish Solar Excellence
+
 Brett Baber: From the Army to Award-Winning Leadership in Solar Energy
 
 Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar
@@ -2461,6 +2463,378 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## John Davies: On a Mission to Establish Solar Excellence
+
+Vikram (00:02)
+Welcome again to the Future of Solar Photovoltaics podcast. We're getting enormous interest from our colleagues in the industry, now being listened to in 43 countries. Today I have the absolute pleasure of welcoming Mr. John Davis, a good friend of mine from the industry, a chartered mechanical engineer, 20 years experience in the energy business, and CEO of 2 degrees Kelvin. John, welcome.
+
+John Davies 2DK (00:28)
+Thank you, Vikram. Very nice to be here and a real honor to be part of this growing podcast.
+
+Vikram (00:37)
+Fantastic, John. And going with the theme of our earlier podcasts, know, people are what makes this industry exciting to be in and it's what gets us through the good and bad times. Tell us a bit about yourself. We spoke in the past that you were born in Tasmania in Australia.
+
+John Davies 2DK (00:55)
+Yes, born in Hobart, Tasmania in 1981. My mum's, my mum is from Australia. My father actually emigrated on the 10 Bob boats over when he was 15 and they met in high school. So yeah, very, very proud actually of my Australian heritage. And then moved back to Pembrokeshire in Southwest Wales in the early eighties, where my father set up.
+
+Ostwell Limited, ⁓ a civil company down there to service the oil and gas sector in the Port of Milford Haven.
+
+Vikram (01:33)
+John, what's a ten bob boat?
+
+John Davies 2DK (01:35)
+Yeah, so I think back at the time they were trying to encourage people to emigrate out to Australia and to get British citizens out there. So 10 bob, 10 pounds cost you to jump on a ship and to sail around the world to sunnier climes. So yeah, my father emigrated with his mother when he was 15 on the 10 bob boat.
+
+Vikram (02:02)
+Fantastic and how long did you spend in Tasmania? It's an exotic place. Are you able to give us a picture?
+
+John Davies 2DK (02:08)
+Yeah, it's a beautiful ⁓ state of Australia. It's a small island just off the southeast of mainland Australia. ⁓ Beautiful country and Hobart in particular is a lovely city, ⁓ overlooked by Mount Wellington and with a ⁓ river running right through the city or a big estuary really. ⁓ So I didn't spend a huge amount of time there, but I've been lucky enough to go back there a few times.
+
+with my family over the years, over the decades. So I have a lot of family down there and dotted around Australia as well.
+
+Vikram (02:44)
+And you mentioned earlier, you an Australian mother and a Welsh father. How are they meeting in Tasmania?
+
+John Davies 2DK (02:50)
+Well, they met in high school and they got on there. So quite a lot of my father's family from Southwest Wales and Pembrokeshire in particular emigrated out before he went there. So we've got roots in both places really. And then we emigrated back to Pembrokeshire, back for my father's career, essentially to set up a civil company down in the port of Milford Haven there.
+
+So yeah, still fond memories of Australia. Would love to go back there and do some proper traveling when time allows over the next few years, perhaps. I'll bring my own family down there.
+
+Vikram (03:33)
+And what persuaded your parents to emigrate back to Wales when there's so much to do in Australia?
+
+John Davies 2DK (03:42)
+I think my father's roots and older brother were here and he talked about the boom in industrial development, particularly around oil refinery construction and the development of the port in Milford Haven. So that drew him back. He was a civil engineer and he then went on to start his own civil engineering business in the early 80s.
+
+And that business is still operational today, 40 years on. So that was the draw really. And since the original oil refinery down there, Texaco, on the Pembroke side of the Haven, there's been three or four other refineries down there. And subsequently, since they've been at the end of their life, there's been a new surgence of LNG terminals.
+
+The marina and the haven down there is quite a vibrant place. There's plans for considerable offshore floating wind farms and lots of infrastructure projects going on down there. It's still bustling in terms of industry and ⁓ development and progression down there. Yeah, still keep very close to my family down there.
+
+I'm very close in touch, still sit on the board of Ostwell as my father's now since retired.
+
+Vikram (05:14)
+And Ostwell means Australian Wells, right?
+
+John Davies 2DK (05:18)
+Yeah, I mean, just a play on words really, just a combination of the two areas. yeah, the name stuck over the years, Australia, Welsh, Ostwell.
+
+Vikram (05:29)
+Welles is an important story because of the coal miners, the oil and gas industry. You said before you've got more than 20,000 or 25,000 followers on social media, especially on LinkedIn, a business networking platform. How do you balance being a known figure in renewables and especially in solar sector with sitting on the board of an oil and gas civil company?
+
+John Davies 2DK (05:52)
+Yeah, that's an interesting question, Vikram. Thank you. Listen, I mean, the heritage of oil and gas has got deep roots and we're all still incredibly reliant on all of the different products and materials that that particular industry produces. I think there's a...
+
+⁓ You know global trend towards moving away from them in the most part particularly for energy generation. You know my my own background is not only with with Ostwell and ⁓ you know servicing the oil and gas industry but actually some of my first more poignant roles in engineering is is in coal fired power stations and oil refineries steel works all all heavy industry so.
+
+I've really had to transition away from, you know, fossil fuels, but, you know, knowing that they are still important and the transition needs to be done correctly. I think there's real big moves for the oil and gas to transition towards hydrogen. And that's a real natural transition for them so that they just don't shut the doors. But we have to educate and pull them along with us. We're trying to...
+
+speak to some of these more traditional fossil fuel related companies ⁓ and install renewable assets to power parts of the industry to make them more efficient. So I think, yeah, it's something that plays on my mind. I'm proud of the time I've spent in the solar industry and what I've achieved so far. I'm really proud of the
+
+the solar businesses that I've developed ⁓ and the future of solar going forward. Yeah. So there still is, I suppose, a ⁓ few routes still in the oil and gas sector, but I think we're trying to actually encourage the transition and diversification of Ostwell as an example to include solar in their repertoire of services.
+
+So that's one thing I've done to move them away so that not completely reliant on the sector. And of course, there's going to be a natural end to the scale of oil production down in Pembrokeshire and around the world. But yeah, we're all moving in the right direction, I think. And yeah, an interesting sort of want to balance for myself and for our businesses.
+
+Vikram (08:44)
+So we're here to discuss the future of solar photovoltaics. I became interested in this podcast because I've spent 12 years in solar full time and the future of solar photovoltaics is also my own future. some of the things, the worrying things that I read on the news about the fossil fuel industry, we are in the middle of an energy war and a gas crisis.
+
+We can't ignore that coal probably still is the number one source of energy worldwide. So there's a huge population of people, not just in Wales, but around the world that we have to take forward with us. Tata Steel were in the news yesterday, closing the blast furnaces down, 3,000 job losses, and moving potentially to electric furnaces. How do you take these colleagues, your people in your community forward with you? How do you convince them that electric vehicles
+
+and solar and wind is the future when their livelihoods are so heavily impacted.
+
+John Davies 2DK (09:45)
+Yeah, it's a challenge and there's no silver bullet, think. ⁓ You know, getting back to people's individual homes, there's definitely a piece there where, you know, in terms of return on investment, putting solar on your roof at home and battery storage and electric vehicles for relatively short trips and things like that, it just makes commercial sense these days. So I think we are educating through
+
+you know, sensible personal finance decisions relating to renewables and ⁓ sort of smart energy systems within your home and things like that. So that's the first piece. I think there will be ⁓ job losses or certainly job transitions with more of the traditional fossil fuel companies. I've been part of some of that, working for coal-fired power stations and
+
+A lot of people have had to transition away from that. don't think there's anything to sort of fear there. I think the renewable sector is, from my perspective, is absolutely booming ⁓ and is a great opportunity for people within the oil and gas sector to look at for long-term, secure, well-paid employment. ⁓
+
+quite a lot ⁓ of joint transitional skills and knowledge and competency which can be used in the solar sector. So I think it's partly education as well and know there's the sort of lobbying and subsidies and support and all of that piece which I don't particularly want to get into ⁓ but I think we just need to keep banging the drum. We need to keep improving innovation and technology and efficiencies. ⁓
+
+⁓ Solar is by far the cheapest large-scale energy source in terms of levelized cost of energy out there at the moment. I think that financial driver is really fueling the transition away from fossil fuels and towards large-scale renewable adoption.
+
+Vikram (12:02)
+John, change is frightening for everyone. I've read in the past, when London was run on horses, there was an enormous industry of people shoveling horse manure. There's a period called the Great Stink of London, if I recall well. And then we had the Industrial Revolution in the UK and invention of the motor car and ⁓ those people that worked in...
+
+horses lost their jobs. And now in a situation there is a great labor shortage and we try to explore some of this change. And one of the surprising discoveries for me is how many people are from the fossil fuel industry in solar? How many people are from the farming industry in solar? Because one of the biggest arguments, the emotions is you're competing with agriculture. I learned from Clive Cosby on an earlier podcast.
+
+No, we're not competing agriculture. There's farmers whose livelihoods are suffering because they can't make it economical anymore. So when they're farming energy, it's actually helping them in the existing trade. Matthew the same, he was diverting water resources in Zimbabwe. then also Guy Atherton, he was a farmer from Queensland. He immigrated from Australia because of farming not making sense financially. So he got into solar like that. Jothi worked on coal fired.
+
+power stations in the past. The only exception probably being Arnold who was very much into solar from almost the very beginning. And then now with yourself, you have a fossil fuels background, you have fossil fuels engagement now, but also you started your career at a coal-fired power station. Do want to tell us a bit about how you went to uni and how you ended up working for Babcock? Is it an usk mouth power station? Please correct me if I'm saying it wrong.
+
+John Davies 2DK (13:59)
+Uskmouth, yeah, it's Uskmouth. It was the UK's oldest operating coal-fired power station. So 330 megawatt, three units. And it was commissioned in the late 50s. So it was, I would say, held together with duct tape and blue tack, but that's probably exaggerating a little bit. But yeah, I graduated from Swansea Uni.
+
+with a mechanical engineering degree. I then went to work for a mechanical test house, actually, pulling big anchors and chains and things like that apart, which was quite cool as a graduate job. I then proceeded on to a graduate training scheme at Doosan Babcock, formerly ⁓ Mitsui Babcock. ⁓ And they were involved in providing ⁓ boiler and mechanical shutdown.
+
+services on several major RWE power stations. So Ditcot was a big outage that I was part of crawling around the feed system and the boiler system there. So that's how I got into large scale power station engineering, I suppose. I then picked up a boiler engineering role, but not your sort of domestic boilers, obviously. This is a 150 foot high
+
+pressurized boiler vessel as part of a power station. And then I transitioned to engineering manager and outage manager, managed several very large shutdowns where the whole plant is powered down and we carry out significant maintenance on rotating parts, the steam turbine, all of the pressure parts. And so I heavily involved in that from an engineering perspective.
+
+from an insurance and compliance pressure parts perspective. And I then became station manager. And at the time, I was quite the young age of 28. I was the youngest station manager in the UK. And then had the opportunity to, and that was with SSE at the time, who owned the power station itself, which is just south of Newport in South Wales. I had the opportunity to
+
+transition over to the major projects department of SSE and manage the biomass conversion, which I took. So I really enjoyed that final year at Uskmouth. And during my time there, next door, Seven Power was being built, which is a much larger CCGT gas station. And the project director there, ⁓ Mr. Ian Cromack, he ⁓ saw me, I suppose.
+
+at the time wondering about my future and ⁓ he offered me an opportunity to go and work for a company called Cobalt Energy. So that was the next chapter of my career really as I transitioned out of working for a power station directly into working for an engineering business involved in the development and construction ⁓ of various different power plants.
+
+Vikram (17:22)
+Interesting you say the conversion from coal to biomass because there are people in solar now and some very, very huge NC projects from a biomass background from Wales, which I will go into on this podcast, but something for us to talk to have a lunch in the future. But with respect to your own personal ambitions and your vision, at what point did you think you don't want to be in coal-fired power stations or heavy industry like tartar steel?
+
+When did you think you want to go to solo? Was it just looking for a job or did you actually have a plan to get into renewables?
+
+John Davies 2DK (17:58)
+So at the time when I started with Cobalt Energy, know, solar really wasn't on the agenda. I'd heard of renewables, of course. And, ⁓ you know, I had a natural engineering sort of geeky interest, I suppose, from a technical perspective in the technology. ⁓ Within Cobalt, my first role was O Mobilization Manager at an energy from waste construction project in Exeter.
+
+which was a real ⁓ eye-opener really, but I was exposed to construction practices and quality management and onboarding operational teams and making sure that all the documentation was in place and in the correct place. So I enjoyed that period. And then I can remember the day really where my boss offered me the opportunity to
+
+to set up a solar and battery storage division within the business. Is this something that I'd be interested in? We had a common client who was working in the energy from waste business and they had a subsidiary solar EPC business. They were looking to get into the UK during the early stages of the boom, the subsidy boom, and that was back in 2012, 13. So my initial remit was,
+
+to find projects for them, to find developers who are looking for bankable EPCs and introduce them. So I very quickly, I suppose, learned who was who in the industry. I attended all of the seminars and conferences and exhibitions and started to pick up a bit of a rapport. We found somewhere between 150 and 200 megawatts over
+
+Over a few years for this, the European EPC, we started to solve their problems, their local problems. And that's really the origins of 2 degrees Kelvin, I suppose, is we've got a history of partnering with European EPCs and IPPs who want to come to the UK and build quality assets. ⁓ And they've got local problems to solve and they prefer to
+
+to use someone that they trust and someone who's going to be open ⁓ and valuable to them. And that's really how we progressed. In that particular case at Cobalt, we had that partnership established and they decided to partner with us on the O ⁓ And so we got up to around 175 megawatts under management on the O side.
+
+⁓ Being the EPC, it was a fairly limited tenure in each of those cases. It was a two-year warranty period O contract. And so we could see the writing was on the wall. It was a tough business to be in actually, the O at that particular time. still is. It still is. But it was being squeezed. And in terms of the rates and the price points and things like that, ⁓ things were hard.
+
+We were trying to do things in innovative way and provide service excellence, but that wasn't enough. We just could not find, I suppose, a site owner, a fund who'd be willing to give us a go at that particular stage. ⁓ That was the end of, I suppose, the O peeled off at that stage. That's when I started thinking, right, I think I've always thought about doing something
+
+on my own and at that particular stage I thought possibly it's just me and a one man band consultancy. I didn't give it any more thought than that other than I think this is the right time to move.
+
+Vikram (22:04)
+Fantastic John. I want to dig a bit about your six or seven years at Cobalt. know what two degrees at Kelvin are about. got ten employees now. So there's a lot of work talk we need to get into but we should remember and reflect that you know energy is an intense business. There's huge sums of money involved. It's construction. It's in some of the most difficult environments in the winter time through political change with
+
+In minimum input price, mentioned earlier IPPs, is independent power producers, EPCs, engineering, procurement consultancies for those that are unaware. But you know what I read a lot and I giggle sometimes, grids of say on their electric forecords and their marketing that our fuel spill is a sunny day. I remember you getting very emotional about the Sea Empress incident in Wales. Do you want to tell us a bit about that before we actually go into
+
+Upwork agenda?
+
+John Davies 2DK (23:00)
+Yeah, sure. ⁓ For those who are listening and aren't aware, there was a major environmental disaster down in Pembrokeshire, which is a national park. ⁓ Back in the mid-90s, the ⁓ CM press, which is a ⁓ huge supertanker, ran aground just off St. Anne's Head there ⁓ and spilt tens of thousands of
+
+gallons of oil, crude oil into the sea and the Pembrokeshire coastline. So yeah, that was in my sort of mid-teens. So, know, me and all my friends, we lived through that and we can remember just sort of sat there on the coastal path, looking out at this shipwreck and seeing the devastation all around us. Yeah, so quite a tough time, I suppose. And that's a really strong memory for me to...
+
+to draw on and give me motivation why we do need to transition to renewables, why global warming and climate change is such a personal topic of mine and something that I've talked about a lot in various mediums. So yeah, it was a huge event and I think there was quite a lot of policy and procedural changes that happened after that to prevent it happening again.
+
+But yeah, these sorts of global environmental catastrophes, we really need to draw a line under and prevent as much as we can in terms of process safety, health and safety and all those sorts of things.
+
+Vikram (24:40)
+Of course offshore wind is very dangerous. You can have turbines which are 80 meters up in the air and in offshore environments. But in comparison to oil and gas, Wales is a special place for me because in my early days I learnt my trade visiting Celso Steel, Chevron and other such companies. was even then a company called Dudlis that was doing solar since the 80s. So it was always an amazing place to visit.
+
+you you would have phone signal, which wasn't a bad thing because you get left alone from the office sometimes. But are you able to comment more about your communities in the places you work and the places you've lived? What are some of the health and safety challenges of working in these heavy steel plants and coal power stations and oil refineries? What is the environment like for the workers being there?
+
+John Davies 2DK (25:32)
+Oil refineries, I started working for my father's company at quite a young age, really, 15, 16. Very quickly, you find yourself on coma site, having to do all of the inductions and surrounded by highly flammable, explosive materials, liquids, processes, pressurized systems, all of this sort of thing. You learn very quickly.
+
+to stay in your line and only do what you're allowed to do. ⁓ In Uskmouth, it was a coal-fired power station. Certainly on the coal side and boiler side, was mills. was quite a ⁓ thick, dusty, dark, gloomy environment in certain cases. The turbine hall was completely different. It was quite light and airy, but full of
+
+of almost that mechanical smell of steam. you know, maybe that's, I've got fond memories of that and seeing our operations manager, you know, bring up on to load these, these steam turbines and synchronizing to grid and, and all of that sort of thing. I've spent a bit of time, had a six months, we'd do some Babcock in the steelworks down in Port Talbot. And, you know, they're quite challenging industrial environments that the
+
+The O staff need to keep on top of. ⁓ But yeah, they're always investing in keeping these places as clean as possible. And obviously health and safety has transitioned significantly over the last 20 years. yeah, that's my sort of two pennies worth on that.
+
+Vikram (27:20)
+And now if we compare that to your campaign at Cobalt Energy, I remember them being very active in the past at events such as Solar Finance and so on. Of course, some people have the misconception that solar runs itself, which is not the case. It's a huge undertaking in terms of construction. At the same time, the culture is not as intense as oil and gas and coal and steel plants.
+
+What was your reflection, you know, without getting into the day to day details and the politics or anything confidential, what was your reflection of seven, six or seven years of O business at Cobalt Energy? What memories do you take away from that period? Good or bad?
+
+John Davies 2DK (28:00)
+Yeah, I think there was a general excitement to grow as an organization in the first case, know, O ⁓ You know, when I stood on an empty field in 2012 with our partners to be, ⁓ whilst they carried out a survey. And then, you know, 12 months later, I'm standing in the same field, but surrounded by rows of solar panels. I've got an O ⁓
+
+scope of work in my hand and I've got a young O technician who's electrically qualified. And that was it really. We had to create all of the templates, the reporting templates. We had to ensure that we were hitting all of the frequencies, the various inspections and testing and find our way. But I think...
+
+generally, know, solar farm environments are out in the open. It's a completely different environment. And I think that's been part of the challenges. You know, ⁓ our first exposure to solar farm construction, having been from UK heavy industry, which is fairly world renowned for health and safety and standards and things like that. It was a bit of a shock to the system, how fast it was and how
+
+you know how I would say I would say sort of, you know, quick and quick and dirty it was, but it it wasn't refined and it was get it in as soon as possible. ⁓ And, you know, I think from the early days in the boom, there's been some significant improvements in the engineering side and the safety side and certainly the quality side. But there's a long way to go in my opinion. And that's part of the two.
+
+2DK piece really, 2 degrees Kelvin is the quality piece. It's to champion quality, to talk about quality along the project life cycle itself from origination of sites all the way through to really sound top industry practices in construction commissioning and even onto decommissioning, repower projects, things like that. Quality is the...
+
+the golden thread that runs through the entire project life cycle.
+
+Vikram (30:27)
+John, so you founded in 2019 at 2 degrees Kelvin a business almost four years old now with ten employees You are one of the leading authorities now on Electro-Luminescence testing Do you want to tell us a bit about 2 degrees Kelvin or 2DK for short? Why did you choose this name? What does it mean?
+
+John Davies 2DK (30:46)
+Well, I was looking for to make a difference in the world. So two degrees Kelvin is really a, it's a nod ⁓ to the unfortunate situation with regards to global warming ⁓ and the Paris Agreement and the commitment to stay underneath 1.5 degrees ⁓ in general atmospheric warming. But for me, the data and the trend is unfortunately
+
+is going to punch through that. So for me, it's all about two degrees. And being an engineer, ⁓ rather than Celsius, course, Kelvin is the preferred thermodynamics ⁓ unit of choice. And it's the same scale unit, ⁓ although offset. So that's where two degrees Kelvin came from. And 2DK is for short. Obviously, people prefer 2DK because it's easier to say.
+
+⁓ So yeah, so that's where it's come from
+
+Vikram (31:48)
+There's so much for us to talk about and of course we'll have to do other podcasts in the future with our partners and clients in the industry and even colleagues. How did you find the time to become a published author? Do want to tell us about that before we go further into your business?
+
+John Davies 2DK (32:04)
+Yeah, absolutely. I mean, it was never a plan. You know, I scraped two C's in English language and literature in school in GCSEs. So, you know, not particularly strong point of mine, certainly from school days. So writing a book was something that I hadn't even thought of. I went on an entrepreneurial accelerator the year before COVID hit and one of the
+
+One of the things that resonated really was the requirement to publish and share insights. And one of the points really related to look the most effective business card you could ever have is a published or number one Amazon bestselling book. And so I set out my stall really in terms of my plan to produce what wasn't around, which was a
+
+you know, a layman's term guide to the utility scale solar industry. And that's where solar boom came from. And obviously I hadn't written a book before, so I followed guidelines and I dug in. Took me about 18 months from the initial planning all the way through to publishing. And there was various stages that I had no idea about. I found out that I write lots of words in the middle of sentences that there's no need for.
+
+⁓ And, you know, the edited script that came back was more red than black. But yeah, I pushed on through the COVID period ⁓ and, you know, hopefully created something that is a resource for the industry. I've sold just under 5,000 copies worldwide now, which I'm really proud of. And I'm probably giving away two or 3,000 of ⁓ eBooks and hard copies to, you know, to partners and clients.
+
+and friends. it, you know, it's, it's, it, I suppose it's put me on, on the map as well, you know, from a, a key person of influence within the industry. Like I'm not, I'm not saying I'm a, a, absolute expert in every single discipline. ⁓ but I've been able to pick up and retain a lot of useful information. And I noticed that
+
+A lot of people I was speaking to actually knew a lot about their particular niche within the industry, whether they're a supplier or service provider, but they didn't really know who else was around them. They didn't know how projects were developed and constructed and financed and all those sorts of things. So that was really my aim is to create something that could be used as almost a resource to look back on and to
+
+to give newcomers to the industry something that they could very quickly build that foundation knowledge of the industry itself. So yeah, it's something I'm very proud of and managed to get Amazon number one bestselling status in four categories and beat Bill Gates in one of those. So I was quite chuffed, although momentarily only for several days until his book sales took over mine again.
+
+Yeah, his book was how to avoid a climate disaster. yeah, so I've still got copies in my hard copies in my garage, as you can imagine, but certainly distributing them where I can and, you know, wanted to offer all those listeners of this podcast a free ebook. So please do reach out to Vikram or myself and I'd be happy to send one over to
+
+Vikram (35:49)
+Fantastic. And so this is an entry-level ebook for new people in the industry, for people who are investors and they just want to get a rough idea of what this is all about. I did purchase your book, John, and I've shown this to my kids and I had to read it My daughter who's 15, she very much enjoyed it as well and thanks you for writing the book. But you are...
+
+not just a beginner you are a chartered mechanical engineer what steps do you take to to keep your chartership
+
+John Davies 2DK (36:22)
+⁓ Well, the chartership status, I suppose, is different depending on which discipline. It's similar in certain ways, but ⁓ the Institute of Mechanical Engineers, for example, you had to go through a chartership application. ⁓ I did this probably 10, 15 years ago or so where you have to ⁓ prepare almost a dossier of your engineering ⁓ exposure.
+
+and what you've been involved with and improve the sort of breadth and depth of your engineering knowledge, particularly in my case with a mechanical engineering degree in mechanical engineering. So I was charted before I got into the solar industry. I think that obviously there's other institutions out there and slightly different ⁓ processes and routes through.
+
+But I was lucky enough to go down the CNG route, the chartered engineer. think there's incorporated engineer as well. But I'd certainly recommend doing that. I think it holds a bit more clout in places like Germany, where it's actually a title and your name, much like a doctor. Whereas, yeah, in the UK, it's lost a little bit. And yet there seems to be lots of engineers out there of all different disciplines. ⁓
+
+I'm not dissing those people and in fact, you know, those engineers and certainly technicians are much more practical and know much more about all of the intricate and technical elements practically, a lot more than I do. But anyone who's, ⁓ you know, got a degree or a master's or a PhD and they're moving forward in the engineering discipline, I'd certainly encourage the progression towards chartership status.
+
+Vikram (38:17)
+What I want say on that is, you know, you are a professional engineer, even I've dealt with some top level electrical engineers and it's impossible to know everything. Some people have the degrees, they're doctorates and doctors of engineering and science and they've spent 20 years in sales and some people have spent 20 years in sales and are deeply involved and we're not far away from the Royal Institution which is famous for Michael Faraday. He didn't take a typical route.
+
+At the same time, not everyone is a Michael Faraday. There is a need for process and professionality, which sometimes can be lacking, especially when we've gone through a great retirement and Brexit has meant a lot of senior people have left the country. There is very much a need for professional structure. so you have involvement with Solar Trade bodies, you're vice chair of the Solar Energy UK's
+
+large-scale technical working group. What is your involvement there and what is it all about?
+
+John Davies 2DK (39:18)
+Well, Solar Energy UK is also a trade association. I suppose it's the body that represents solar, in domestic, commercial, industrial scale, and also utility scale. It's a voluntary membership association, so companies can join their membership. Then they have various working groups.
+
+⁓ specific to different sub industries, if you like, and then specific areas within those sub industries. So the large scale technical working group's been going for several years and chairs and vice chairs come and go. I got invited by a friend of mine, Will Hitchcock, who's the CEO at Above Surveying. He's the chair there and asked me to come along and help out and contribute.
+
+So I've only been doing it for several months and been part of two or three working groups, but we like to bring insightful and interesting content to those working groups. So it's a great opportunity not only to listen to innovation and cut and edge things, but also it's a great networking opportunity as well because a lot of the...
+
+big players, funds, asset managers, EPCs, O &M's, TAs, they all seem to attend. So I certainly recommend anyone listening to this who wants to increase their network and ⁓ learn more about the technicalities of this amazing industry to become a member of Solar Energy UK. It's a great institute and they do a lot of good work, particularly
+
+around policy and ⁓ elevating solar ⁓ as an industry.
+
+Vikram (41:18)
+Fantastic. There is a need for technical working groups. After purchasing your book and having a look, did buy Bill Gates book on climate disaster and he talks about what I tend to do now is I buy the audio book and the physical book. I just like to listen and you know, sometimes with all the screen time, you don't have the luxury of reading books all the time at work either, but the audio books work fantastic. And Bill Gates in his book says, know, this
+
+eye-watering sums that will need to be spent on energy storage, battery storage specifically, it's going to be game changing. The biggest machine in the world is the power grid itself and it's going to be completely transforming. You raise an important point there about above surveying, guess, that they do drone surveys of solar farms. In your case, you're a bit more detailed than that. You do electro-luminescence testing.
+
+You're the only expert I know in this area. Tell us the difference between drone surveys and EL Electro-Luminescence testing.
+
+John Davies 2DK (42:21)
+Sure. So yeah, we have a long standing partnership with ABOVE. From our O days, we started to use them as a partner for aerial thermography, which is of infrared surveys of operational solar farms. Still, by far, the biggest bang for your buck in terms of having a ⁓ site-wide overview of general condition and health, it's particularly useful for
+
+for the commissioning period and making sure all your modules are in good order, your strings are all connected, all inverters are operating sensibly. And it's become a very good value service, ⁓ relatively cheap to take part and to actually deploy on very large solar farms very quickly.
+
+And of course the back end of those sorts of systems is now being developed. So you have digital twins ⁓ where you have, you know, in God mode, if you like, Google maps mode, looking down on your asset with all individual modules and various different electrical components ⁓ all on there digitally. So you can put on there not only the thermography image, but multiple other images, tests, reports, whatever it may be.
+
+So that's a little bit about above and ⁓ we've still got an ongoing collaboration there moving towards ⁓ construction monitoring services. But the part that we've become best known for, I suppose, is more advanced ⁓ analytical testing, in particular, electro luminescence and flash testing. Electro luminescence is almost a forensic level
+
+inspection technique which allows the solar panel to act like an LED, a light emitting diode essentially. You back power the solar panel itself and in ⁓ zero light conditions, so either in an artificial dark room or container or test van or even at night if it's in situ, it emits almost like an X-ray type ⁓
+
+quite bright light gray image that illuminates and enables you to see not only the range of possible mechanical damage, but a long list of potential manufacturing defects. So from an IR and thermography perspective, you could diagnose that ⁓ a module has a hotspot or a thermal anomaly, whereas from a electro luminescence test,
+
+You could be very specific, whether it's manufacturing defects like grid finger interruptions or styration rings or delamination, or it could be widespread mechanical damage. And we have a range of test machines and rigs that are used at different points along the value chain. So quite often we provide post shipment testing as part of the quality management.
+
+strategy for EPCs and IPPs, project owners essentially, where we will take a representative sample of those brand new fresh out of the packet modules. We will carry out electro luminescence and flash testing and that the flash testing is a calibrated IV curve essentially which exposes the module to standard test conditions, which is thousand watts per meter squared at 25 degrees. So we can give you a point in time
+
+power output and look at the power class of the module where it should be allowing for inaccuracies. And then we can also provide the consistent high quality electro luminescence images so that we can check, you know, a relatively inexpensive check to make sure that the quality of the modules are suitable before they go into your site. And the next part of that is the installation.
+
+methodology and quality management. making sure that the installation parties are handling the pallets around the site correctly. They're unpacking them and supporting them as they're being unpacked. And they've got a sound, safe and technically suitable installation methodology. So they're not being thrown in ⁓ and mechanical damage is being caused. So we have a...
+
+array of different rigs that we can carry out in situ electro luminescence testing. And this is, I suppose, to verify that installation standards have been followed and mechanical damage hasn't been ⁓ introduced at that particular stage. Now, there has been a transition in the attitude. mean, still in the most part, if it says that you need to do these two types of tests in
+
+the employer's requirements document, then the EPC needs to do it. But there has been a transition where EPCs are actually embracing this sort of testing to almost promote the care and the quality and the standards of their installations. So it's very much looked upon now as not a pain or an inconvenience, but also
+
+a verification tool or demonstration of quality and making sure that we're not installing brand new multi hundred thousand unit modules in solar farms that are riddled with mechanical damage and manufacturing issues.
+
+Vikram (48:20)
+I think for people that are not in the industry or even near entrance People don't appreciate the scale of large utility scale Solar farms, know you you are an expert but if I forgive me if I if I butcher any terms or say anything technically wrong and do it correct me but I remember you as as the the as the chap who has a mobile test laboratory
+
+that's essentially able to produce photocopies of solar panels in 2D images using this ElectroLuminescence testing technology, which shows something that we do care about, the eye can't see, which is microcracks. And before you talk about microcracks and why that's important electrically and in terms of the warranty, the scale is important. A 300 megawatt solar farm can easily have 1,040 foot containers.
+
+of modules, which is that's an entire container ship. And they do do EL and other testing when the modules are boarding in China or wherever they're coming from. Why is it important to do this kind of X-ray of your solar cells, at least for a representative sample when they are being unloaded on site?
+
+John Davies 2DK (49:38)
+Yeah, absolutely. So I suppose just to start with, just for everyone's understanding, we would call it upstream testing or upstream quality management services, which would be professional engineering businesses based in Asia or around where the bulk of the manufacturing facilities are. And they provide factory audits. They provide ⁓ procurement guidance for clients and also a real forensic look at
+
+at the bill of materials and ⁓ where the various materials come from. Because of course, many of these ⁓ manufacturing facilities, they're not the manufacturer per se of the wafers, but they get them in from a wafer production plant. So it's really important that there's this upstream piece ⁓ to minimize the risk, particularly when you're purchasing either multiple
+
+You know, 50, 100 megawatt sites or large end-sit projects, you know, because a lot of these defects that we're finding are batch related. And so you can have almost the identical nameplate on a solar panel, but in two different parts or two different containers. And the origins of the materials have come from different places with slightly different quality standards. So Upstream has its place and that's growing around the world as a
+
+as a risk reduction exercise, for lenders and funders, that's very important. However, what I would sort of raise people's awareness of is that that's fine, but we're still seeing damage in tier one modules that are coming through in shipping containers. I think the bifacial technology, the shift towards bifaciality and glass, glass,
+
+large format modules, we have seen actually from a testing perspective, a reduction in mechanical damage. And that's due to the stiffness, we believe, of the modules themselves. However, ⁓ we have seen an uptick in manufacturing related defects and their volume and intensity in certain cases. So we're still seeing a lot. Every site that we test on, we find things.
+
+I know people don't like to pay for bad news, but we're there to lower risks and ⁓ highlight in certain cases that the modules are not up to standard and you shouldn't be paying for things that are below par. And all of these individual potential power ⁓ generation impacting conditions will worsen over time.
+
+And these will compound over time over hundreds of thousands of modules. So when you're talking about 50 megawatt schemes plus, know, pretty minor defects, but you're finding in 30 or 40 % of your representative sample will have a multimillion pound impact on that scheme over the 30 to 40 year life. So really critical stuff really. And it's not only the shipping,
+
+risk that we're looking for. Like I said, it's the mechanical damage and then it's the line in the sand in terms of making sure that construction standards are elevated. And we're putting these large format modules, which are very big. They're almost four man lifts ⁓ now to do it safely. We're looking at mechanical aids to fit modules onto the top of three meter high mounting structures. So we really need to focus in because we could be
+
+you know, in our rush to get it in the ground and get it on the bars, we're going back to our subsidy March 31st days where we're under pressure to energize. And we just need to take a breath and realize that, you know, relatively small things that we can introduce now and improvements will compound over time for the next 40 years. So.
+
+Vikram (54:01)
+To go towards a positive direction, I wouldn't say it's bad news at all because what we do know from the past 10 years plus is that eventually there is a fight between O and whoever did the EBC. Eventually there are questions about warranty and if there's a solid quality control process to begin with, everybody wins. No one wins when there's litigation and people are getting NDA signed and all.
+
+unfortunately really bringing people leave the industry or retire from the stress because it's a huge undertaking. We want to do what 70 plus gigawatts by 2035, which means from last year, maybe a thousand or 1600 megawatts, we need to ramp up to over five gigawatts a year. It's not including what we have to do additionally with battery storage. I think there's over 30 gigawatt hours of battery storage in planning. There's over 22 gigawatt peak of solar in planning.
+
+There's no consideration or formula to determine what EVs will demand in terms of the grid. The pure energy from EVs is almost nothing. But if you want one terawatt in a few seconds, you need cables that are the size of trucks. You know, so there's a lot of challenges ahead and we want to start on a positive footing to begin with. So your EL testing document, which for me is still mind boggling and something I need to get my head around, is it enforceable in terms of warranties with the major module producers?
+
+If there is damage, there is manufacturing defects, is that something the asset owner can do? Because they can't slow down construction. There's 300 people on site often. Every day they're standing there, they're losing money. They need to build. But later there is, I suppose, questions. Can they use your EL reports to do warranty claims with the manufacturer?
+
+John Davies 2DK (55:50)
+Yes,
+
+we've been involved in several successful warranty claims. mean, that's the highlighting of the issues is what we're trying to do from a risk reduction perspective. You know, we're not sort of bashing module manufacturers here at all. In certain cases, we're working very closely with manufacturers to ensure and highlight the quality of their products. I think it all stems from
+
+an education piece predominantly actually to the TAs, so the technical advisors who are responsible for drafting and distributing employers' requirements specifications because inevitably if it doesn't say you need to do these types of testing in the spec, then it doesn't get done. So we're exposed to several large IPPs, independent power producers,
+
+and EPCs, engineer, procure and construct contractors ⁓ who are on the front foot in terms of quality and they insist on these types of tests, which is great. But we're also seeing a lot of solar farms being built without any ⁓ module testing at all. So I think that's something that needs to change. I would certainly encourage TAs to come and speak to us and we can share some insights about.
+
+the return on investment because it's an absolute no brainer, particularly if you're finding defects. And it really does add to the value. If long-term holding is the priority for the project owner, then you will have more production. And if you are looking to sell your asset in a few years time, then the...
+
+the robust documentation and evidence of the quality of your site is going to add to the value of the sale price of the asset. So it ticks a lot of boxes. Yeah, and I think that 2DK, we're doing our best to talk about quality, to ensure that, you know, along the pipeline that designs standards are elevated, you know, especially with these large NSIP schemes.
+
+that we're sensitive to the fact that these are huge. mean, some of these hundred megawatt plus schemes are like small towns and you're going to have, if not, you know, industrial relations issues, but certainly community relations is going to come into this now for these ⁓ large format sites. They need to be designed with longevity and operability in mind, not
+
+⁓ quick gains or quick savings on capex. So that's really, really important. Like I said before, upstream and downstream quality checks, that's really, really critical as well. There needs to be a professionalization of the construction management and a real adoption of quality management as a dedicated ⁓ commitment from these EPCs and IPPs to
+
+to really demonstrate quality and ensure that it's going to last because we've been lucky enough to visit over 200 operational sites in the UK as 2 degrees Kelvin. And the bulk of those sites, we are seeing preventable construction quality related issues that if it would have been done, you know, perhaps under not so much time pressure at the time, then we wouldn't have the high volume.
+
+condition that we've got now. So there's this definite lessons learned that we can put in to robust quality management elements and a whole range now of quite advanced inspection and testing tools and applications and even leaning towards AI. So we're really excited about the prospect of moving quality up the priority list within the industry.
+
+Vikram (1:00:03)
+Fantastic John and as we come towards the end of our session, we need to make some closing remarks. My message to young people, people from fossil fuels is, know, the renewables, solar specifically, batteries, EVs, the opportunity is big and it's only going to get bigger. Specifically, this means we have 15 gigawatts of solar in the UK now, we'd get to 70 gigawatts within the next decade or less, really, and that's still not enough to hit our goals. Worldwide we've...
+
+install over a terawatt of solar, terawatt peak of solar, and there's the future scenarios are 75 terawatt by 2050. So it's just going to get bigger and bigger and bigger. there's plenty of opportunity to go out there. in terms of reaching serious numbers, we do need to get more professional, more serious and bring more people on board together with us. Otherwise, we won't hit our goals if everything becomes about arguments and negativity. From your perspective.
+
+Do you want to just close with telling us about your Academy of Solar Excellence and also a message to your listeners out there?
+
+John Davies 2DK (1:01:09)
+Certainly, yes. ⁓ We've obviously been exposed to not only the live pipeline of construction projects that's going on at the moment, but we can see the future pipeline. Like you said, it's quite exciting and ⁓ quite daunting actually, the scale of gigawatts that are through the planning pipeline. Then you couple that with, I suppose, an unfortunate sort
+
+step change in available labor, which relates to Brexit, and changes in immigration law, which means that the previous solar boom, the majority of that was built by European labor. ⁓ I think now with the uptick in deployment, we're looking to Europe for labor support, ⁓ but unfortunately, it's not an easy or smooth ⁓ access.
+
+route through. So we've seen, I suppose, this growing demand for UK-based labour and also to improve the standards of European travelling labour as well. with this in mind ⁓ and increasing quality as a general theme within 2° Kelvin, we've developed a micro-credential training company called the Academy of Solar Excellence.
+
+We are in build mode at the moment. Our plans are to develop ⁓ an initial range of online training courses which are accessible to the masses and are very affordable. These will start with a stream in construction, looking at a general operative on a solar farm construction project, then discipline specific courses, which would be complementary to that in civils, mechanical and electrical.
+
+and then also ⁓ a management and supervisor course as well. So that's in the construction stream, that's our plans and we're all but finished on the first course and we have quite advanced syllabus in the other ones. And then we have our fundamentals course range as well, which is an introduction to utility scale solar. You have design and development fundamentals.
+
+You have O fundamentals and ⁓ revamp and repower fundamentals as well. So some real interesting stuff that people will be able to take online and take advantage of our exposure to all of the sites that we visited and all of the construction sites that we're involved with at the moment. We do have plans to advance that, hopefully to multiple locations around
+
+the country, know, a range of more physical and practical training, because of course you can't create a competent electrical technician from purely an online course. There's a whole range of things you need to do there. So we're looking to work with regions and possibly NSIP projects to support the development of ⁓ and employment of local.
+
+local staff and operatives and to train them throughout the deployment of these large scale solar projects. it's not a silver bullet. It's only part of the story. I've been lucky enough to be part of the government solar task force skills group in 2023, which has just concluded. And we also have a skills and workforce group within Solar Energy UK.
+
+So I'm a part of all that and I can see that it's because of the complexity and diversity of the sector, particularly, you know, at one end you've got domestic where you've got, you know, multi-skilled electricians who do EVs and air source heat pumps and put solar and batteries on your domestic residents, all the way to much more discipline specific and high volume workforces in ⁓ utility that it's not
+
+one size fits all, there's no silver bullet. So our contribution to this is to provide ⁓ certainly utility scale, solar focused range of training resources and competency management systems so that we are doing our bit to increase or improve the quality of installations and development design all the way through to operations and maintenance revamp and repower as well.
+
+Vikram (1:05:58)
+Fantastic, John. Lots of work to do. I've certainly enjoyed this podcast. We'll listen back to reflect on some of the points. I'm sure we'll be back in a year's time to reflect on the progress that we've made. You're obviously very active in sports and with your family as well. Doing Ironman, as you mentioned before we started the podcast. So I've certainly enjoyed your time here, John. Then I'll be following up with you later on. Thanks so much for joining us.
+
+John Davies 2DK (1:06:27)
+Thank you, Vikram. An absolute pleasure. ⁓ yeah, just thanks to Victor and really to all of the listeners of bringing this podcast to the sector. And I certainly, you know, distribute links to this podcast far and wide with my network. Thank you, Vikram.
 
 ## Brett Baber: From the Army to Award-Winning Leadership in Solar Energy
 

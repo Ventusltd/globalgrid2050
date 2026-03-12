@@ -1,13 +1,11 @@
-# Podcast Episodes 
+# Podcast Episodes
 
 David Mack: Solar O&M, Rural Growth and Resilience
-
 UK’s First Nationally Significant Solar Farm - Clark Frost
-
 Valerio Pelizzi: Agrivoltaics, C&I and Grid
-
 Nick Spicer: Your Eco, Commercial Solar Projects
 
+---
 
 ## David Mack: Solar O&M, Rural Growth and Resilience
 Vikram (00:01.742)

@@ -4,6 +4,8 @@ David Mack: Solar O&M, Rural Growth and Resilience
 
 UK’s First Nationally Significant Solar Farm - Clark Frost
 
+Valerio Pelizzi: Agrivoltaics, C&I and Grid
+
 
 ## David Mack: Solar O&M, Rural Growth and Resilience
 Vikram (00:01.742)

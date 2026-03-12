@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar
+
 Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management
 
 Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End
@@ -2457,6 +2459,506 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar
+
+Vikram (00:01)
+Welcome to the future of solar photovoltaics podcast. This is our sixth episode in the series today. have the absolute pleasure of welcoming welcoming Jyothi Roy a former visiting professor from Loughborough University who holds a PhD in the solar related field Jyothi welcome
+
+Jyoti (00:19)
+Thank you. Good morning, Vikram. And it's really good to be here with you today.
+
+Vikram (00:23)
+Fantastic. So Jothi, you actually have a doctorate in solar related field. Are you able to give us any detail about that at all?
+
+Jyoti (00:30)
+Yeah, so that that PhD was on energy yield assessment of different PV modules at different climatic conditions. And I did that PhD from Laffer University at Crest Center for Renewable Energy Systems Technology.
+
+Vikram (00:46)
+Fantastic and in the past when I was visiting Carnegie in Hamburg I met Chuck Courtney-Sorla who mentioned he's actually studied under you so you're actually quite famous in the industry.
+
+Jyoti (00:57)
+I didn't know about the famous part of it, but yes, I was teaching an MSc course at Laffer University and that was a very popular course back then when feed-in tariff and other mechanism was available. So yes, quite a few graduates from that course, they used to work for OST, Rena these days and other companies in the renewable sector.
+
+Vikram (01:18)
+Fantastic and before we go deeper into that, are you able to share any details about your early life and background?
+
+Jyoti (01:26)
+I grew up in India and in a middle-class family. My father was a school teacher. And one thing really we learned from our childhood that ⁓ there's no success without hard work. And education is one of the fundamental aspects that we always, always learn ⁓ across our family. So we are three brothers. We all three are engineers. And interestingly,
+
+we all three are related to clean tech sector.
+
+Vikram (01:59)
+Fantastic and then in terms of your career transition your first job where did you start?
+
+Jyoti (02:04)
+So after graduating as a manufacturing engineer, I used to work for a production company, foundry company. But I very quickly realized that this is not the right place for me to be in. And I left that job and I moved into the power sector. That was back in early 2000.
+
+And that power sector was to do some industrial research work. yes, passion, think what I learned back then that passion is very important in terms of choosing the career path.
+
+Vikram (02:44)
+Yes, exactly. And your transition into the solar industry is not something very regular in those days. How did you end up getting into solar?
+
+Jyoti (02:54)
+So it's interesting that power sector I mentioned, the research work that I was in, that was in coal industry. So there's two projects that I was involved. Blending different proportion of different coal from different sources, whether Indian coal or Australian coal or Indonesian coal to test the calorific value. And later on, those combination was used for thermal power plant to generate power.
+
+The other part of the research I was involved there is to create a new product using activated carbon for water filtration system, but all around coal. So darker side of the power sector that I was in. So was there for a couple of years and then I felt something that is not right. And at that point of time, my elder brother was doing his research on green hydrogen.
+
+Vikram (03:34)
+Right.
+
+Jyoti (03:51)
+Electrolyzer in the UK. So he guided me for a particular master's course in Sweden. So I resigned that job and then I went for doing this master's program in Sweden. So that's how really I transited initially from ⁓ coal to greener side of the power sector.
+
+Vikram (04:14)
+Fantastic and before we talk about Sweden, know, water purification, that's an important topic, you know, even able to give us a bit more detail about that.
+
+Jyoti (04:22)
+So obviously, if we see today's challenges related to climate, one thing we should also be talking about water and its challenges that it will face. ⁓ different parts in India, ⁓ drinking water was a challenge. So what we are doing, we are using this activated carbon as a filtration method for water purification system.
+
+Vikram (04:51)
+And as Sweden, what was your experience of life there? Was this your first time visiting the country?
+
+Jyoti (04:57)
+very first time visiting country and someone going out of India, not a cold country to going to Sweden. It was absolutely challenging for me in my mind, but I didn't actually face that much of challenge from cold perspective. Yes, I did live there in minus 26 degrees, but it was very enjoyable. It was a different type of cold in Sweden. And I I remember the day I
+
+came to UK from Sweden, it was minus 15 that day, but that day UK temperature was somewhere in the range of zero or one, but I was feeling more cold here than it in Sweden. So it was different kind of cold. But yeah, no, that was fantastic time for me really be there in Sweden.
+
+Vikram (05:40)
+Fantastic and I remember 2006 was when it was the World Cup I think when Zidane was sent off in the final and... right, that's right, yes. I was working in cable and wireless, just about to move into lab cable. For yourself, how did the move to the UK happen for you?
+
+Jyoti (05:58)
+So I came to UK as an academic visitor to Loughborough University. ⁓ place that I mentioned earlier did my PhD as an academic visitor working in
+
+Tracker, working on tracker, 2006. Tracker was probably one of the very newest thing in solar field. It was a very small tracker with few modules on the top of the tracker, two axis tracker. So that was my move to UK, working on solar.
+
+Vikram (06:32)
+trackers in tracking the sun right
+
+Jyoti (06:35)
+Yeah, yeah, the solar tracking system, mounting structure.
+
+Vikram (06:39)
+fantastic. And what was your memory about it has a cost in those days? Do have any any comparison any any recollections?
+
+Jyoti (06:45)
+I do not have exact numbers, but it was not just cost, but also availability. was only very few. I handful of one or two companies were producing, but definitely not for commercial applications. It was only very small, few research application tracker was available back then.
+
+Vikram (07:03)
+And in our past podcast, Mr Stefano Girolami, he mentioned that he moved to the UK to study renewables because there were hardly any courses in Italy at the time. How did you find your transition to Loughborough University as a visiting professor? Was there already courses on renewables or did you have to develop your own one?
+
+Jyoti (07:22)
+There was a, so that master's program started, I think it's early 2000 sometime before I visited Crest. So that master's program was running and that program not just for solar, all renewables, solar, wind, bio, different other technologies they were covering. And ⁓ yes, that program was very popular. ⁓ It got even more popular when feed-in tariffs started in 2010.
+
+Vikram (07:52)
+And in terms of Memro projects, know, before we go into deeper discussion, first met you in 2014 at Juvia, major German EBC, I believe. Are you able to give us a bit more details about them? I can see on your LinkedIn you were there for quite a long time.
+
+Jyoti (08:09)
+Yeah, that's right. But in terms of my available project, I would actually refer to this tracker project of my research that I was doing for the same reason why I just mentioned about is cost, obviously, availability, size, et cetera. And ⁓ a second project I would mention about a solar hydrogen project. was during my time at UV and ⁓ funded by Innovate UK, one of the
+
+government funding body and it was on the literally the roof of Top Gear Studio. irony is solar power electrolyser producing hydrogen and that was one of the reference project back in 2012 and obviously from ⁓ technical and commercial viability was not there back then which for green hydrogen concept it is gaining more traction.
+
+I would mention a couple of other projects during my time at UV. design and ⁓ currently owned by one of the listed fund and we know that, I know that particular project was one of the highest performing project in that asset. So ⁓ I think designing a good system, procuring good component and building ⁓ in an appropriate way, obviously quality comes at a cost.
+
+but that will have long time bigger value for those projects. So quality design, quality procurement, quality material and quality build, obviously that will give the longevity and sustainability of our industry. And I would also mention about a code of practice published by IET. Version one, I was the co-author of that book that published I think in 2014. And then
+
+a few other projects in my current organization that we do in terms of optimizing assets. Because what we have seen with a feed-in tariff and ROK, we are so busy building, building, building more projects. And then when feed-in tariff came to an end, we realized ⁓ the time that how we really optimize those operational assets. So ⁓ we have implemented this particular solution into different parts of the world. And on average, we have seen
+
+about 8 % uplift in generation. So that is another project I'd to mention. And we do face a lot of debate these days here about land scarcity, et cetera, though I'm not fully buying into those debates in terms of really the land that is utilized for solar is not taking any agricultural land, et cetera. But landfills solar is one of the interesting subject that
+
+is gaining quite a lot of traction. So we are very actively working as a technical advisor, owner's engineer, doing ⁓ or providing services to landfill solar because this land are no good for anything else. And solar is one of the best way can be utilized. Other advantage for landfill solar projects are greed is already available and the quantum of gas are reducing day by day. Adding solar on those sites are really
+
+getting ⁓ good value for those land, purely from an economical point of view.
+
+Vikram (11:35)
+So you have ⁓ a lot of UK experience but also a lot of international experience. Before we move on into that, you mentioned that you've got 20 gigawatts of career experience in solar. Which countries is that based in roughly?
+
+Jyoti (11:49)
+I feel really extremely lucky to able to work in different international markets and knowing and seeing what level of complexity, because every market is different. Level of complexity, level of mechanism are different in different markets. So those markets are largely Europe, any really any market that you pick up active for solar weather, obviously UK, Germany, Italy, Switzerland, ⁓ France, and recent days, Romania.
+
+Bulgaria, those are the markets are becoming popular. ⁓ Poland is another market, South Africa. ⁓ In Asian context or Southeast Asian market, Vietnam, Thailand, ⁓ India, Bangladesh. So these are quite a few markets that I have worked with. And during my time at UV, we are a global developer and EPC.
+
+We are involved in two different projects in Europe, Asia and US market. And during my time at Bluefield, so before starting Green Enco, I was at Bluefield and I was involved into project, of course, in the UK, but also in Italy and in Netherlands. then Green Enco really started in 2017, which helped us to really expand our international exposures or my exposure into international market.
+
+for both solar and energy storage projects. So yes, out of that 20 gigawatt, it was quite encouraging for me to be able to see those landscapes.
+
+Vikram (13:29)
+Right and you mentioned that you achieved 10 % generation uplift on a 300 megawatt solar portfolio in India. Are you able to give us a bit more detail about that? How you achieved this?
+
+Jyoti (13:39)
+So 2018, that was 2018 and reason actually we started, I started Green Enco ⁓ is when in 2016-17 when feed-in tariff was coming to an end, ROK was coming to an end and I was thinking what to do and during my academic period at Lafayette University I did some algorithms and literally those algorithms in PowerPoint format.
+
+And then I realized probably those algorithms might have some value to the market to optimize asset. And that particular portfolio in India, 300 megawatt of portfolio, we validated those algorithms. It's really a holistic approach that we take. It's not just data analysis, very granular level data analysis, but also some level of site intervention.
+
+Vikram (14:23)
+Mm-hmm.
+
+Jyoti (14:33)
+by doing some testing on site. So going through the full cycle of exercise, there are three different stages that we go through. Diagnostic stage, where we identify gaps in performance compared to expected values. And then go through a predictive modeling. And then the last part, we call it prescriptive model, but which is nothing but a corrective action very specific to a problem. So going through a full cycle of exercise, we have seen on average 10 % on that particular ⁓ portfolio that we have worked on.
+
+If I take really as a takeaway from this, from financial benefit point of view, we have calculated on that portfolio based on additional revenue from PPA or some liquidity damage, etc. that has been mitigated in one year, that portfolio has resulted an uplift of 20 million pounds. So there's a huge financial impact that we have seen. And that exercise has resulted of upsetting about 33,000 ton of additional CO2.
+
+emission, ⁓ meaning climate impact.
+
+Vikram (15:37)
+So Green Enco is your own business. You said you started this in 2017. We will go deeper into that. in terms of your experience at Juve, a major international company and then transitioning to another major fund in Bluefield, what did you take away from those experiences? What was the difference between working for an EPC like Juve and then moving on to a fund like Bluefield?
+
+Jyoti (16:02)
+I had ⁓ an intention in mind to go full cycle of the life cycle. So I was in academia and then moved into ⁓ UV mode to get my hands dirty. ⁓ development, so huge learning happened in terms of really understanding the development phases, going through different planning processes, grid application processes, et cetera, and then going through the full complexity of EPC.
+
+That was a huge learning for me. I think working, if I take one of the key takeaways in addition to all of this technicality, et cetera, is process, how process would be ⁓ important in executing a really good quality process. So that really, that was a huge learning for me from UB. And then moving towards more of asset management, asset financing side, working with Bluefield.
+
+It me a really huge insight in terms of seeing same things, but from the other side of the table. So knowing really the full cycle and understanding, because there's nothing right or wrong, depending on which angle you are seeing from. So that gave me a really good perspective in terms of seeing same project, but purely from different angles.
+
+Vikram (17:18)
+And then what was the major difference? Were you thinking about balancer systems? you thinking about product qualities? Or was it more about EPC warranties and O What was the major paradigm change?
+
+Jyoti (17:33)
+In terms of really quality assurance, et cetera, ⁓ it was not a huge amount because always, I guess, coming from academic background and me being involved in IEC and IET standard committees. So quality assurance, et cetera, always stays in the delivery that I have done, whether in academia or in EPC or in project financing side of the business. So from that perspective, it was a quite easy transition ⁓ because we are following those best.
+
+best practices ⁓ during the time of EPC ⁓ moving into more project financing stage. So meaning good quality due diligence is absolutely key for sustainability of this industry.
+
+Vikram (18:16)
+Absolutely and you advertise on your LinkedIn profile, you know, have some involvement with Vikram Solar as well. Are you able to give us a bit more?
+
+Jyoti (18:22)
+Yeah, Vikram Solar is one of the leading module manufacturers from India and I am associated with them as ⁓ one of the board members. my role there is to support in terms of market, global market landscape, how they are moving, etc. in terms of product roadmap. So more on the Board of Advisors role that support their product and into different markets.
+
+Vikram (18:52)
+And from your perspective, this applies to Europe as well, know, these companies, they're trying to localize module production again, but we are facing a juggernaut in China. The level of investment is astronomical in comparison. This is all on the public record. Now people are talking about module prices going below 10 cents a watt. So in terms of that perspective, do you have a view on it from an Indian point of view?
+
+Jyoti (19:16)
+So really, because of economy of scale, even though significant amount of ramped up is happening in Indian market, Indian manufacturers and lot of new manufacturers coming up as well, but economy of scale still not comparable if you really compare with China. So if we, what we see this recent prices in the European market, less than 10 cents, that
+
+Obviously that is large proportion of is due to over supply and to to face that price pressure. I think Indian manufacture is still a little bit behind. So there's a lot of a lot of catch up to do.
+
+Vikram (20:00)
+Are there duties protecting the local market in the
+
+Jyoti (20:02)
+So there are some duties which and Indian market is very complex market depending on what type of project you're talking about. You're talking about government tender, yes, then those are protected with some sort of ⁓ taxation and still because Indian market has significant volume to deploy but also there are international market where Indian manufacturers are supplying their product to.
+
+But yes, in my point of view, those tax sessions are one way of safeguarding local manufacturing. But I guess a holistic view would be needed in terms of providing some sort of support, some sort of financial support perhaps to local manufacturer to be more cost competitive rather than just putting some level of anti-damping tariff, et cetera. We have seen that was quite disturbing in the European market in the past.
+
+getting the project deployed.
+
+Vikram (21:04)
+Absolutely and then we change topics slightly you know one of things that I think about is you Bluefield are one of the big funds they listed on the FTSE 250 stock exchange like with foresight you know next could be the other big funds what persuaded you to leave the big fund and set up your own business?
+
+Jyoti (21:27)
+It's a quite interesting question because that is to live of my dream to be an entrepreneur. That's one thing. ⁓ like I said earlier, when, and that was 2017 when feed-in tariff and rock was ⁓ coming to an end and what would happen next? was, that was thought process was going in my mind. And those algorithms that
+
+I developed during my academic time, I thought could have some commercial value. So it was a quite tough decision, quite challenging decision to leaving a healthy job behind and doing something what it started Green Enco with. But if I look back now, was that a right decision? ⁓ Definitely yes. Obviously, level of challenges are different these days. again, challenges would always be there in the market.
+
+Vikram (22:09)
+.
+
+Right, so now Green Enco is a technical advisor. You mentioned you've performed over 11 gigawatts of services in 15 countries in Europe and Asia. In terms of your company structure, your team dynamics, do you have a team in the UK and in India?
+
+Jyoti (22:41)
+So yeah, so we originally obviously started here and then it's just last year we opened our ⁓ India office. And the reason being we opened this purely from a strategic reason because if we see different market research, renewable energy deployment, Asian market is one of the key markets globally speaking. And some key markets in Asia or Southeast Asian market is Vietnam.
+
+Thailand, India, and not being physically present in those markets. This is different dynamics. You got to be there in person. So that is why we opened this office in India, which will not only just cover ⁓ Indian market, but also other Southeast Asian markets. ⁓ So we have two teams now, one team here in the UK and another team in India. And these two teams really working in tandem. And whether...
+
+project that we are delivering here in Europe. ⁓ Team in India, they are also involved in those projects. But also project that we are doing in Asian market. Team here, they also involved in those Asian market. And I think one of the advantage we have, because working into two different time zones, it's just offering extended delivery time or longer hours to work and adding value to our partners.
+
+Vikram (24:03)
+Fantastic, so if someone needs to ramp up advisory services, you can do that pretty quickly.
+
+Jyoti (24:09)
+Absolutely. And with the growing demand that what we see for our services here in Europe, also in Asian market, yes, we are growing in terms of headcount, in terms of obviously, different other KPIs in the business. So yes, it is quite interesting space where we are at at the moment.
+
+Vikram (24:29)
+And in terms of challenges in adaptability, of course we had Brexit, then we had COVID, then we've had, you know, the Ukraine energy crisis. What have been your biggest challenges and how did you adapt?
+
+Jyoti (24:44)
+I'll take one common challenge, as I guess many people will take a reference of is COVID. When that started, ⁓ the first few months when lockdown happened, almost I was thinking to going back to job and because nothing was happening. And then what we have done very quickly, we changed so many things within our company structure, within our service verticals, et cetera. So what was happening? Obviously a pensioner about the Green Enco started to do this asset optimization of an operational asset.
+
+But again, that market was not fully ready at that point of time. So market acceptance is also a challenge that we face, but then COVID hit it. What was happening back then is more of desktop work, development work. And that was the time our engineering design services started. we also, because at that point of time we're doing projects into different other markets, so we managed to do projects into different areas differently.
+
+but also added different service vertical. In fact, engineering services, which is one of our key service vertical today,
+
+started because of challenges that we faced during COVID time.
+
+Vikram (25:54)
+Absolutely. And if you go back 20 years, know, not many people would choose solar for financial reasons only, of course, you know, as I said in a previous podcast, know, the money makes the world go around. This is how our world works. But, you know, there are other sectors which is easier to be financially successful. You you go into solar because lots of people want to make a difference in this industry. You express your desire and making a difference. How do you
+
+integrate this philosophy into your professional endeavors, particularly in the renewable energy sector.
+
+Jyoti (26:27)
+I mean, like you said, it's not just economics because economics will not actually help to drive for long period of time. So I mentioned about my very first job when I left that within three months, passion. So really passion is quite important and we always cultivate within our team, me, myself, values that we really follow. ⁓ It's passion, obviously, innovation, ownership and trust.
+
+and partnership. And I mentioned about earlier that ⁓ partner, we work with partners, we'd never say they're client or customer because relationship management in this ever dynamic landscape where we are is absolutely essential. In terms of really a philosophy that we follow, ⁓ after being in this solar field for last 18 years and
+
+Seeing so many natural disasters, whether you call it fire in Australia, in Spain, drought in Africa or flood in the UK, it's heartbreaking seeing people and animals, whole society, livelihood are suffering. So I strongly believe 100 % renewable is possible. Obviously, intermittency is a challenge.
+
+round the clock supply and that is where energy storage comes into picture. And if we see energy storage is expensive today, yes it is expensive today, I would say we need to look back 10 years solar and wind cost prices and how they gone down. I have no doubt that the cost for energy storage will go down much faster than are projected. One thing has happened in the past.
+
+cost projection for solar or wind in the past, everything was wrong. Yeah. And wrong for the right way, meaning we always overachieved. So those challenges that we see are achievable. And ⁓ if we really see the cost of electricity from solar today, one of the cheapest form of electricity, purely from economics point of view as well, no brainer that solar will drive, solar or wind will drive this particular energy.
+
+Vikram (28:41)
+Mm-hmm.
+
+Jyoti (28:48)
+landscape towards net zero.
+
+Vikram (28:50)
+But what is your view on the big issue with grid connections? know, people are getting grid connection dates of 15 years into the future.
+
+Jyoti (28:59)
+This is one of the biggest challenges. We are sitting on 30 plus gigawatt of development project ready to be built, whether solar or energy storage projects. So grid is one of the biggest challenge perhaps at the moment. What is missing in my point of view is a holistic approach. Overall, ⁓ energy policy is missing in terms of how do we
+
+transit to net zero. And I think when net ⁓ zero target set up, was underestimated the complexity of it. And the speed that we are going through to address those challenges, still not there. We are far away from this. So grid challenges, grid connection challenges is one of the biggest challenges.
+
+A short term in my point of view would be energy storage solutions because if we still see obviously there's a significant amount of development happening from energy storage point of view. But if I see really from energy storage perspective, we're still scratching the surface. If we see some of those great challenges, whether they are capacity challenge or thermal challenges or other challenges, battery storage has solution to address those challenges. How do you really put those bricks all together so that
+
+different stakeholders are integrated. I think this is where the big ⁓ missing link that I see.
+
+Vikram (30:26)
+And some of the things people have raised in the past is you go to a big industrial factory and they've got issues with grid, with energy, input limits, and battery storage and solar would be perfect for them. And people are knocking on their doors and offering consultancy for free, whereas on the large scale side, people are charging 200,000 per megawatt for a fully developed solar project without even picking up a shovel just to study.
+
+grid connection and the land agreements are going for that. What is your view in terms of solving an energy crisis for heavy industry? What should be the way forward in engaging with large corporates, for example?
+
+Jyoti (31:08)
+There's a significant amount of commercial industrial solar energy storage project as we speak are happening and we are involved. This is our day to day job working as a technical advisor for commercial industrial behind the meter projects. And this is strong economics there, particularly with energy price are quite high at the moment. So project economics are very healthy.
+
+So yes, are a lot of developments are happening, a of executions projects are happening as we speak because grid connection would be relatively less challenging for commercial industrial applications because they already have their load, they already have their facilities in terms of ⁓ grid infrastructure point of view, whether they're connecting, depending on the size of the project really, whether a few hundred kilowatt connecting to a low voltage network of their facility or megawatt scale system going into their internal high voltage system.
+
+⁓ Commercial industrial application of solar energy storage is happening at a relatively faster speed for last one and a half years since energy price has gone up.
+
+Vikram (32:16)
+Fantastic. if potential partners want to engage with you so far, we didn't talk so much about Green Enco. We know that you're active internationally. We know you have a lot of experience. We know you're a technical advisor, but dig into specifics. You know, how should potential partners engage with Green Enco? What sort of things do you focus on as a starting point in a relationship?
+
+Jyoti (32:39)
+So it covers across the whole project lifecycle. So we have different service verticals that we ⁓ engage with. We work with ⁓ developers at an early stage, whether someone needs an early stage assessment or feasibility assessment, going through development phase. Development means, in my point of view, twofold, planning and grid. So whether going through different grid application process, whether for G99,
+
+distribution connection or quite significant amount of national grid ⁓ transmission line connections are happening. So we manage those processes and there are a lot of planning designs are needed. That's what we do work with developers. But there's a one interesting point ⁓ has taken huge amount of traction in the subsidy free landscape is optimization of a design even before submitting a planning application.
+
+These are the areas that we work with developers and quite large number of developers that we work with providing these different services. And then very traditional owners engineering, technically diligent services that we do, whether managing RFPs for EPC or validation of EPC design and construction audit, QC, QA, quality control, quality assurance measure, going through a full pack, IAC and fact process for operational sites. And then... ⁓
+
+this PVAPM, we call it PVAPM, PV Asset Performance Management, the asset optimization piece that I mentioned earlier, is working with fund, working with IPPs and ⁓ different fund managers or asset owners. ⁓ So this is a whole full cycle of exercise we do. And in last two years, what is happening because of the age of those existing asset, their
+
+lot of repowering or revamping exercises are happening, which is even more challenging in my point of view, because there are a lot of existing technical compliances, commercial compliances to be be to be maintained.
+
+Vikram (34:41)
+And of course, with repowering, big topic is the inverters, because a lot of them are designed for 10-year life cycles, or they fail earlier, or they're just coming to the natural end of life. you know, in solar, we never have stability for more than a couple of years. know, suddenly, we've had Huawei almost disappear from the UK market. What has been your experience?
+
+Jyoti (35:05)
+So when it comes to repowering, ⁓ it comes with a character, whether you're talking about repowering of a whole system, which ⁓ I haven't actually seen that is happening, is more of revamping which is happening. And within this, whether you change module or change inverter or change transformer, combination of all three rarely happening. Most of the time, like you said, inverter replacement is happening.
+
+whether you're changing existing central inverter to string inverter these days, which is a high power string inverter, ⁓ lot of challenges to, electrical challenges to overcome, lot of, and those projects are either connected with under feed-in tariff or ROC projects. So there are TIC, total install capacity and DMC, declare net capacity. Those has to be ⁓ maintained. Otherwise existing ROC or feed-in tariff might be compromised. There are a lot of, ⁓
+
+different things need to check when selecting a new product to retrofit or revamp to an existing system. But you mentioned about Huawei, but they are available now. They are coming back in the market. ⁓ So yes, there are a options available from high power string inverter. They are available these days.
+
+Vikram (36:23)
+Right, in the early days they had what, 28 kilowatt or 33 or 36 KTL inverters and now if you had to replace those because either you're changing modules or the inverters are coming to end of life, you know, how do you achieve that without going over your export list?
+
+Jyoti (36:39)
+Now quite interesting, not just on the export limit point as well. I all the systems, the 1000 volt system. Yes. And these days inverters are, most of them 1500 volt. So manufacturing industry, whether module or inverter, they have realized that particular demand and they are producing some product just for repowering, which would be a 1000 volt inverter, ⁓ newly available these days, can match with the existing.
+
+Vikram (36:58)
+Right.
+
+Jyoti (37:08)
+existing system design. Yes, there's a lot of ⁓ puzzle to really play with so that you can make a perfect match. Now, 100 % perfect match is very difficult to achieve. So how close you can go, that's where think the beauty is.
+
+Vikram (37:20)
+Do have a view on inverter clipping? Because even now if you replace the modules because they've blown off in the wind or have any other issues, warranty claim or or theft could be an issue as well. So if you replace your current module with higher power modules and replace an inverter with a higher powered inverter, what do you see as the perfect?
+
+base it dc ac ratio and and in terms of inverted clipping juju face that challenge at all
+
+Jyoti (37:51)
+So yeah, DC-AC ratio, one needs to really model that throughout the year based on different design parameters. Now, for a retrofit project or a revamping project or repowering project, there's less chance of play with mounting structure. So either the mechanical dimension ⁓ of those products are ⁓ fixed basically for the mounting structure.
+
+point of view, but also the inter-door spacing. can't really play with too much because there is existing infrastructure. So if you like, you have a limited boundary conditions here to play with compared to a new design. So DC to AC ratio remain somewhere in the range of 1.3 to 1.4, sort of in that range, which is not very dissimilar to what we have seen in the past, which was about 1.2, 1.25.
+
+So DC-AC ratio is not the biggest challenge, but like I said, wanting to really see it purely from annual clipping point of view. when you mentioned about high power module, now if you're changing all days, let's say 300 watt-peak module, 310 watt-peak module with 540 watt-peak module, it's not the electrical challenge because you can change inverter and you can make an electrical match with.
+
+string configuration etc. But the biggest challenge here is the dimension of those modules are not fitting with the existing mounting structure. Even at a granular level like what is the thickness of the frame that has been used because the clamp would be different if you use different type of ⁓ module. But the advantage we have like I said earlier different module manufacturer have identified this is an opportunity. They are producing certain modules which is not very dissimilar
+
+from mechanical dimension point of view, they can fit with the existing structure, may not have different thickness, same thickness as the frame of the module as in the past, but some level of metal frame can adjust those problems. ⁓ But overall dimension could be similar. So I see ⁓ less electrical challenge, more could be a mechanical challenge, because if you wanted to do whole remamping work,
+
+then cost of revamping would be significantly higher because when you talk about revamping, it's not just the technical gain, it's more of a techno commercial viability because even though system may not be performing, some module may not be performing to its optimum level, question is how much your new system will cost and where is the breakthrough? So one really need to see not just with complexity of this integration from electrical, mechanical, compliance, et cetera point of view, but also
+
+cost-weighted analysis.
+
+Vikram (40:42)
+How do you see in terms of cash flows? Because in the past I was always told there's a cash flow issue in O and asset management because most of the money is spent in EBC and now the asset has to return ⁓ an investment back to the shareholders. But now that the energy prices have gone so so high, does this create a windfall in terms of cash flows to fund more repowering or revamping?
+
+Jyoti (41:07)
+One of the reasons perhaps in my point of view why those revamping, repowering is happening these days because they are six, seven years old and perhaps ⁓ project return has already achieved. And by injecting a little bit of operational capex in those projects, ⁓ uplift of generation can result into better return. So, gas flow in my point of view would be healthy one going forward with this.
+
+Vikram (41:35)
+Fantastic. And your current projects, do you have any details you can share with your listeners?
+
+Jyoti (41:42)
+That is really whether commercial industrial due diligence, owner's engineering project from few hundred kilowatt to multi-megawatt ground mounted system, ⁓ whether in the UK or in other part in Europe, whether in Romania, in Ireland and in Germany, different areas that we are currently working on. And we mainly work with fund ⁓ investors.
+
+IPPs, developers, and ⁓ asset optimization piece is really taking a huge traction because of injecting a little bit of CAPEX, a significant amount of uplift happen. So if we see the cost of deploying this optimization is significantly less compared to uplift that we see could gain from additional revenue, from additional generation.
+
+Vikram (42:37)
+Fantastic. And you said 2024 is looking promising. ⁓ What is your feeling and your forecast about this year?
+
+Jyoti (42:44)
+Two ways. mean, from market perspective, I am very, very optimistic because if we look back when we started, if I really look back, back in 2006 when I moved into solar, ⁓ one common question I used to face, solar in the UK, you must be joking. And now we are sitting on over perhaps 15 gigawatt of operational asset with 30 plus gigawatt of development asset.
+
+So future is promising from market perspective. Of course, there are some challenges, great challenges and other development challenges out there. But what we have seen really, industry is relatively smarter to find the way out with a weather level of innovation in product, weather level of innovation in technologies or level of innovation in financial model or business model, et cetera. So I'm very optimistic in terms of growth potential that we would expect to see. if we call it UK market had
+
+a golden era, I think, Vietnam era yet to come. So that's purely from a market perspective. And just to reflect that market scenario, for us at Green Enco, we are very optimistic in terms of starting this year. Today is just one of the early days of 2024. And in terms of our project volume, project pipeline that is looking like that to be delivered, very healthy. So we are very, very optimistic from a Green Enco perspective as well.
+
+Vikram (44:06)
+Fantastic and in terms of you know you've been in the industry for almost two decades now in terms of personal and professional growth how have you personally and professionally evolved throughout your career in this sector and what advice do you give to your aspiring young people who want to make a positive impact in this field?
+
+Jyoti (44:26)
+Yeah, like I said, when I started into solar in the UK, there was no market was there. Then we developed that market as some of the stakeholders in the market. So ⁓ with this current level of development pipeline that we have and what we need in terms of our net zero transition, so there is no brainer that solar will drive the landscape. And what we have seen in the past that how much
+
+job it will create. I'm very optimistic again, seeing the history and how we have transited from no solar to solar and then overcoming these current challenges. And being one of the cheapest source of electricity from solar, ⁓ market is very promising. And a true direct reflection of that promising market is to businesses like us. ⁓
+
+Any new candidate who is seeing their career path into renewable job creation obviously would significantly ⁓ link with this market opportunities and one of the one of the challenges that we are seeing in the market and of course you mentioned about great challenges but also skill level that is another biggest challenge in the market to deliver this so in terms of potential for job, it's significantly greater and and
+
+where we're actually listening to these who wanted to pursue their career in renewable, they have a very, very, very bright future. Just us, we are looking into recruiting more people in 2024. And I'm sure other companies are doing similar because, again, like I said, the market landscape is too big. The size of cake is really, really big. And even though if you get a small piece of cake, that small piece of cake with the wider perspective is still a bigger one for you.
+
+Vikram (46:20)
+Absolutely, energy is the largest industry in the world, geopolitics in a tremendous way, especially with what's going on in Ukraine and it could change even more with the issues in the Red Sea with Israel and Palestine and so on. So in terms of why we got into this industry was to make a difference and sometimes, unfortunately, we do see some unethical practices, but for you,
+
+Jyoti (46:22)
+Yeah, exactly.
+
+Vikram (46:46)
+balancing ethics with ambition, you know, especially during development, you know, I hear stories where developers don't really need to care what happens with the final project as long as they get the project over the line and, you know, get their projects sold. They don't need to care if it's actually buildable or not. For you, how do you make sure that you're not compromising on ethics and against ambition?
+
+Jyoti (47:07)
+I mean, very simply, really no compromise on ethics when you build up your ambitious growth plan. ⁓ Because otherwise, what we would compromise is the sustainability of the industry. ⁓ Having said that, mean, obviously post-COVID and post-fitting tariff, ⁓ there are a lot of new build projects. They are under execution phase and we are doing a lot of construction audit. ⁓
+
+It is still frustrating to see some level of good practices has not been followed. In another word, lesson has not been learned. So we do see a lot of bad practices are still in place, whether into development phase or in the execution phase. We as industry stakeholder must address this because otherwise we do not want to repeat the same mistake what we have done in the past in terms of really, like you said, whether when project
+
+is in development, whether they are buildable or I want to develop a project but I know that I will take an exit at COD or even at RTB. building a good project is not my problem. So that level of viewpoint must be removed from the equation.
+
+Vikram (48:23)
+I'm saying more specifically, you know, it's fantastic that there's over 30 gigawatts of projects in planning, probably even more that have not been submitted just yet. I've read some news articles which suggested the national grid may come down on this where they may give people a time limit on grid connections to free up the queue of planning applications because there is an issue where people are getting grid connection days 10, 15 years into the future. Do you have any personal experience on this? Are they?
+
+applications which are not really viable that are tying up the grid capacity.
+
+Jyoti (48:57)
+There are quite a lot of obviously the mixed back what we see while working with different developers. Some early stage development, are getting through some connection data, but some are really waiting for 10, 15 years. ⁓ what we have seen in the market, the national grid was doing some road shows, collecting different feedbacks from the stakeholders in the markets across the country. And I know that they are working on
+
+preparing exactly what you said that how this grid connection bottleneck can be released, relaxed. So that level of working is happening. So we need to see that what would be the outcome, what is the outcome coming out of that and how holistically that has been taken. But in terms of recognition point of view, I think that has been recognized. Question is how holistically that has been ⁓ assessed.
+
+Vikram (49:50)
+fantastic and there's now a big talk about NSIP projects and national significant infrastructure projects. We're talking about 500 megawatt projects with Longfield, there's one in construction, 373 megawatt peak with Cleve Hill in Kent. There's others now, 600 megawatts, even one gigawatt projects. For me, it's hard to pinch myself and accept this as being a reality. We're looking at small nuclear power station level of projects now.
+
+What is your personal view on national significant infrastructure projects? Do you see them being a trend and being built in the next 10 years?
+
+Jyoti (50:24)
+In next 10 years, perhaps yes, but in next four to five years, I have a big question mark on that because it comes with obviously different challenges in terms of development perspective and different landlord, legal procedure, et cetera, et cetera. Those are the longer time taking process for those big infrastructure projects.
+
+There will be some. And like you said, there are few in different stages of execution planning and early stage planning. But I still see large proportion of future development will be going in sort of like 49.9 megawatt scheme.
+
+Vikram (51:12)
+Absolutely, which is why Cleve Hill and Longfield are so unique. They've got shovels in the ground now and I'm personally very excited just to be a fly on the wall to see from Shortwick, 72 megawatts, Lanwerth, 75, to go 373 megawatts with Cleve Hill. And then at the same time we've got a potato farm with Longfield, 400 megawatts of solar, 100 megawatts of battery starting.
+
+You know, so for me it's really hard to believe and if it does happen, know, I was a fantastic, you know, of course I would take care not to interfere with the food supply and so on, but at the same time, you know, more space is taken up by golf clubs.
+
+Jyoti (51:51)
+yeah, very true. mean, that's going back to a ⁓ debate of ⁓ available land or utilization of land for solar. ⁓ They're certainly not taking agricultural land. ⁓ And like you said, there are more golf clubs than solar fields.
+
+Vikram (52:07)
+Absolutely. And, know, in the early podcast, we interviewed actual farmers, know, Matthew and Clive and Guy, these guys are all coming from farming and I asked them straightforward, you know, why did you get into solar and why was farming not attractive? And the simple answer was economics, pure economics. These farms are going bankrupt, you know, because they're not viable anymore. And solar is actually helping them to keep a commercial.
+
+business case to carry on farming but also to farm energy.
+
+Jyoti (52:39)
+And how can we ignore the impact of global warming, climate change? I think we should be actually calling it climate emergency. What is the cost for safeguarding those events that are becoming more frequent these days?
+
+Vikram (52:55)
+Absolutely. But in terms of specifics of the technology, know, do you have a view on on energy storage projects? Do you get involved with battery storage yourself?
+
+Jyoti (53:05)
+Yeah, so all this, whether design or optimization point of view, it was not just solar, solar and battery storage, whether just standard on solar or standard on battery or co-located. So yes, combination of both.
+
+Vikram (53:18)
+And it'll come into the public domain soon that there's a catastrophic level of transformer failure in battery storage. ⁓ We still don't really understand the reasons why. And if some of these asset owners want to work with you to look at the root causes, do you have any experience yourself with respect to this?
+
+Jyoti (53:38)
+So there are obviously fire safety is one of the biggest challenges that for any battery project are considering. And that is where it's still a revolving ⁓ landscape from designing a battery. Obviously there is a fire safety national guidelines are available and then what level of safety measures different manufacturers are offering and how designer designing the system with some level of fire protection system in place. So there's a ⁓ of moving parts in here.
+
+But yes, ⁓ thermal challenge is one of the biggest challenges for solar. But again, I'm very optimistic in terms of solutions that are available, but how we are identifying those problems. I think the main problem of a problem is not identifying that problem to its granular level. As soon as that problem is identified, recognized, solutions are available. Obviously, they would come at a cost. But again, if we do not cut any corner,
+
+Vikram (54:25)
+Thank
+
+Jyoti (54:35)
+where at the development phase or at the execution phase, those catastrophic scenarios will not happen.
+
+Vikram (54:42)
+This is our discussion about planning design being appropriate because unfortunately a lot of good contractors went bankrupt because they guaranteed certain transformer availability and then those transformers were failing and often a lot of installers are putting the name down as an EPC but they're free issued with a specific spec of transformers or PCS or inverter stations or batteries.
+
+and have no control over the equipment but they're taking the EPC liability on connecting.
+
+Jyoti (55:15)
+And that is why D-deligence, owner's engineering, is essential. Whether that product is free, should buy the fund to a contractor because they're not necessarily playing full EPC turnkey because they're just connecting them together with the free component. So D-deligence from selection of material to design to construction phase.
+
+it's absolutely essential to safeguard this problem. So we do get involved at development stage and taking care of all those design parameter to safeguard those fire safety protection systems in the design phase going into planning. So taking those measures from very early stage of development, meaning before submitting a planning application, it's key.
+
+Vikram (56:01)
+Absolutely and to protect client confidentiality I won't mention any specific names but there are you know lots of question marks because you can also see why from a development point of view you invest so much money you put in so many planning applications you pay for all the studies and you're focused on getting your cash back which is you find a funder a funder comes in pays a lot of money for a project they take the project on they subcontract to an EPC probably starts construction and everything is in a sort of mess.
+
+And then that asset owner has to now pick up the ball and somehow put a plan in place to own this site for the next potentially 40 years. So when they try to develop their asset management and O strategy, what sort of advice would you give to these asset owners? know, what should they come to you for and what sort of things should they be thinking about to put an effective asset management strategy in place?
+
+Jyoti (56:55)
+So early stage involvement from a fund who would have long term asset ownership strategy in their plan would be ideal case scenario because they would have visibility in terms of how they will manage their asset and design and implement selection of component etc. would then be decided accordingly. And that would then help in terms of allocating budget for O allocating budget for asset management.
+
+⁓ to maintain those assets for the ⁓ sustainability of the life of the project. So, our list of involvement of those long-term asset owners are essential, but yes, we do have lot of developers. are short-term investors, if you like, and this is where the diligence would be very essential to make sure that the asset that they are buying address those points a long-term asset owner would like to see. ⁓
+
+And I believe also OEM manufacturers also need to be part of the equation. ⁓ What are the guidelines which they are following, but how closely they are following, they need to be probably ⁓ strongly integrated. So it's more of an integrated approach is needed.
+
+Vikram (58:08)
+And do you get involved with some of the jargonistic terms like FAC and PAC? What's FAC I asked on before? It's Final Acceptance Certification.
+
+Jyoti (58:17)
+That's right. so it's back performance acceptance certificate when plant goes over the COD, grid connection stage, commercial operation date. So that back start, let's say from end of the execution phase or connection to the grid. And then depending on the contract, EPC contract, IAC usually happen after one year. So intermediate acceptance certificate or test.
+
+certain level of diligence, visit, etc. and in fact at the end of the contractual period, whether two years or five years period, final acceptance certificate.
+
+Vikram (58:59)
+And do you get involved in preparing the audit statements for...
+
+Jyoti (59:02)
+We do, we do as we speak. Next week we'll be going actually to do an IAC ⁓ audit of a site. So there are different protocols, there are different procedures to follow and that should in line with the contract that is already in place and site audit some level of testing, inspection, etc. Making sure that the intermediate stage has been carried on properly and then when it comes to final acceptance test, similar approach.
+
+protocol guidelines, ⁓ test template, etc. There are different protocols to follow. Yes, we do get involved very regularly with this activity.
+
+Vikram (59:40)
+Fantastic Jyothi and as we come towards the end of our discussion, I've certainly enjoyed this chat and I will be listening back and thinking very carefully about some of the things you said and I'm sure they'll be follow up questions. But for now as a call to action to your listeners, you know, what would be your advice to them?
+
+Jyoti (59:59)
+100 % renewable is possible at an economical level. And market is promising whether from deployment point of view of renewable to get to net zero and also from jobs perspective, anyone trying to pursue their career into this sector, market is promising and that will reflect from business point of view, that will reflect from job creation point of view and ultimately achieving net zero target.
+
+Vikram (1:00:28)
+And one of the objections are which is, know, in the winter we hardly have any sun and of course in the summer we have many hours of daylight and so that looks very attractive. But what is your answer for the winter time? How do you go to 100 % renew?
+
+Jyoti (1:00:43)
+So that is why 100 % renewable, I didn't actually mention about 100 % solar. 100 % renewable. So that will integrate solar, wind and other form of renewable integrated with energy storage because one thing we cannot compromise is not keeping lights on. And that is possible. We have seen in different markets, different scenarios. So one thing to integrate, there's a very good marriage between wind and solar.
+
+Vikram (1:01:01)
+You
+
+Jyoti (1:01:12)
+purely from seasonal point of view, also from day and night point of view. during daytime, obviously, solar is available and during nighttime, wind is more. If you look at summer and winter pattern, it's actually opposite. So during summer, obviously, a high proportion of sunlight is coming. During winter, actually, it's wind. So it's a very good marriage. And during my past life, during...
+
+my time at UV, we integrated a couple of solar and wind projects. And this is another advantage, also integrate with sharing common grid. So there is a project economics there. Around the clock supply is possible, integrated with battery. So when I say 100 % renewable, it's integrating all the sources of renewable.
+
+Vikram (1:02:01)
+And capacity factors, do they play a role? When you combine wind and solar with batteries, do you see an uplift in capacity factor?
+
+Jyoti (1:02:08)
+It will certainly ⁓ increase because ⁓ then you have ⁓ storage which has a source of electricity available for the time when ⁓ generation is not available. ⁓ So yes, capacity factor for each of these different technologies integrated with battery will definitely will go up.
+
+Vikram (1:02:29)
+Fantastic, Jyothi, I've certainly enjoyed this conversation and thanks so much for joining us.
+
+Jyoti (1:02:33)
+Thank you for having me. Lovely. Thank you very much. Great.
 
 ## Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management
 

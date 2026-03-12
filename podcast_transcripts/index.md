@@ -2,9 +2,11 @@
 
 Jump to episode:
 
-• [David Mack – Solar O&M, Rural Growth and Resilience](#david-mack-solar-om-rural-growth-and-resilience)
+Jump to episode
 
-• [Clark Frost – UK’s First Nationally Significant Solar Farm](#uks-first-nationally-significant-solar-farm---clark-frost)
+<a href="#david-mack">David Mack – Solar O&M, Rural Growth and Resilience</a>
+
+<a href="#clark-frost">Clark Frost – UK’s First Nationally Significant Solar Farm</a>
 
 
 ## David Mack: Solar O&M, Rural Growth and Resilience

@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Rob Tippett: Challenges and Opportunities in Solar O&M and RePowering
+
 Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development
 
 Dathan Eldridge: A Fearless Solar Troubleshooter and Builder

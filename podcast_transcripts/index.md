@@ -18,6 +18,7 @@ Clive Cosby: Constructing The Largest Solar Farms
 
 Guy Atherton: Solar PV Expert & Developer
 
+Matthew Xenakis: Perspectives from Solar Panel Manufacturers
 
 ---
 
@@ -4002,6 +4003,212 @@ Fantastic guy. I've certainly enjoyed this conversation. Thanks so much for join
 
 Guy (44:37.501)
 No worries, thanks for the comment.
+
+## Matthew Xenakis: Perspectives from Solar Panel Manufacturers
+
+Vikram (00:01)
+Welcome again to our first episode following the initial introduction. It's Vikram from Ventus Cables and Connectivity. A little bit more about myself. I've been working for Suda Cables AG Switzerland as the agent and global key accounts manager for a long while now coming up to 12 years. ⁓ In this journey, you we worked on over two and half gigawatts of solar projects mostly in the UK but some international as well. I've had enormous pleasure meeting some great people in the industry.
+
+⁓ One of those is Mr. Matthew Zenakis of JSola. Matthew, welcome.
+
+speaker-1 (00:36)
+Thanks very much, Vikram Great to be on here. Yes, so I work for JASOLA as the utility scale sales manager. A bit about JASOLA. We managed to deliver 10 gigawatts of modules to Europe last year, 600 megawatts to the UK in a 1.3 gigawatt market, and yeah, looking to achieve similar sort of numbers in 2023.
+
+Vikram (01:05)
+Tell us a bit more about you as a person Matthew, how did you get into solo?
+
+speaker-1 (01:10)
+So, funnily enough, the reason I got into renewable energy was mainly because I was born and raised in Zimbabwe and we used to endure quite a few power cuts along the way. And then after experiencing that sort of, you know, the level of power cuts that we used to experience, I then studied electrical engineering at Stellenbosch University. I worked for a solar distributor in Zimbabwe.
+
+called One Stop Solar. We designed, installed and sold off-grid systems ⁓ mainly because to assist during blackouts. From there I moved to the UK at the start of 2020. I then worked as a sales engineer for a solar thermal and PVT company called Naked Energy. ⁓ From there I then moved to JA Solar.
+
+Vikram (02:10)
+You've got any LinkedIn profile Matthew, a sales technician at One Stop Solo, tell us a bit about them.
+
+speaker-1 (02:19)
+One
+
+Stop Solar, they were a distributor in Zimbabwe and they sold and installed solar systems.
+
+mainly to residential homes to combat the sort of power cuts that were quite prevalent in Zimbabwe and still are. It was a great job, managed to get my hands dirty a little bit whilst installing a few systems. Went and did some large scale installations on farms, ⁓ worked with some VSDs, variable speed drives to sort of pump water out of rivers into farm dams to help with irrigation.
+
+the lands.
+
+Vikram (03:02)
+And Naked Energy, they make PVT tubes, right?
+
+speaker-1 (03:08)
+That's correct. So they've designed a really unique and fantastic product. ⁓ They have a solar collector that can produce hot water as well as produce electricity.
+
+Vikram (03:23)
+Fantastic and everyone has too much information these days. The first thing we do is we look at people's LinkedIn profiles, check if they've embarrassed themselves on Facebook or Instagram or anything like that. But let's not go off the page too much. What I see on here is you started with Naked Energy almost exactly when we went into lockdown in March 2020. When did you come to the UK and tell us a bit more about your journey? Huge transition coming from Africa to the
+
+UK.
+
+speaker-1 (03:54)
+Yeah,
+
+it was a bit of an interesting experience. I managed to find Naked Energy while I was in Zimbabwe, funnily enough. And as I moved over, I had my last interview with the team based out in Crawley. ⁓ a bit of unfortunate timing, my first day was the 23rd of March. I remember exactly because that was the first day of the UK lockdown.
+
+And yeah, since then it sort of took a little bit of time to get up to speed with the way things work in the UK and this sort of changes. yeah, everyone was very welcoming and naked energy as well as the people in general in the UK.
+
+Vikram (04:36)
+It seems like after two years with Naked Energy, you made the move to work with Alistair at JSola from April 2022. How did that transition happen for you?
+
+speaker-1 (04:49)
+Yeah, so Alistair and I had a few conversations. For those of you that don't know, Alistair Monsi is the sales director for UK, Italy, France and Ireland for JASOLA. We had a few conversations and eventually led to me joining the JASOLA team in April 2022.
+
+Vikram (05:09)
+fantastic and they are almost two years old. Tell us a bit more about what you do now at JSola.
+
+speaker-1 (05:17)
+At
+
+JAA at the moment, there's three of us. So there's myself, Alistair and Alexa Thomas-Derek. We're a dedicated team to help deploy solar modules in the UK and Ireland. At the moment, we are really busy, which is always a good thing.
+
+There's lots of solar to be sold in the UK and at the moment prices are coming down for solar modules which is always fantastic thing especially if we need to transition to net zero in order to meet these net zero targets that have been set.
+
+And yeah, I think it's a really important time for the UK solar industry at the moment to sort of focus on these large scale ground mounted as well as commercial projects. And also for the sort of homeowner to be looking at deploying solar modules on their roofs too.
+
+Vikram (06:13)
+fantastic and uh... what sticks in my mind is ten billion u s dollars you know jay being a fortune china five hundred company and global top five hundred new uh... renewable energy companies ten billion dollars that's a lot of uh... lot of solar panels how how how what is that in terms of megawatts and gigawatts
+
+speaker-1 (06:34)
+It's hard to really know. We started off as a cell manufacturer and ⁓ we then transitioned to a module manufacturer ⁓ in 2009. Since then we've been deploying modules all over the world. We have over 100 gigawatts of cumulative shipments of modules and last year we managed to get a market share of about 16 percent, which kind of just shows how the market's growing in the moment.
+
+⁓ just not even in the UK and Europe globally too.
+
+Vikram (07:09)
+So 100 gigawatt peak is like totally cumulative since J started.
+
+speaker-1 (07:13)
+That is, ⁓ and that's only for numbers at the end of 2021.
+
+Vikram (07:18)
+Fantastic
+
+and interesting that you mentioned that you've got a degree in electrical engineering, if I heard that correct. you know, so I want to know from your opinion, it doesn't need to be correct. You know, it's not an exam. But capacity factors, a lot of naysayers about the industry, know, like Arnold Schwarzenegger says on his podcast, don't listen to the naysayers. A lot of naysayers say solons never going to work, know, capacity factors, almost nothing. But you know, from my own research, you know, I researched about
+
+between 9 and 11 percent in the UK, not a very sunny country. 100 gigawatts, know, even at the low end, you you're looking at what, 10 gigawatt peak? You know, in terms of capacity factors, what is your thought about capacity factors in solar?
+
+speaker-1 (08:04)
+I don't know capacity factors. What do mean by capacity factors?
+
+Vikram (08:08)
+Capacity
+
+factors as in say you got 100 gigawatt peak
+
+solar shipment or say you've got 100 megawatt peak solar plant theoretically you know it's not going to be working 24 hours a day because it doesn't work during the night irradiance is a lot lower in the winter so even if you might have 100 gigawatt solar plant what the academics tell us is we're actually getting 10 percent of the nameplate capacity so 100 megawatt solar farm would actually generate say 10 megawatt
+
+speaker-1 (08:35)
+Thank
+
+Vikram (08:44)
+And so lot of naysayers, ⁓ oil and gas lobbyists, hydrogen, nuclear industry, they tend to say, know, solar's never going to work because there's almost no capacity factors. You know, so is this something you've thought about in your busy life of 100 gigawatts as a company?
+
+speaker-1 (09:03)
+Yeah, so funny enough, everyone when I speak to Zimbabweans back home, they say, I can't believe you're doing solar in the UK. There's no sun there. And to be honest, they are completely wrong. There's a lot of sun and enough to sort of power the UK for sure, especially if we start pairing it with wind and battery storage. This can improve the capacity factor for sure. ⁓
+
+And what a lot of people don't understand is solar modules tend to work better on a cold, sunny winter's day compared to a hot summer's day. PV modules get less effective during a really hot summer's day compared to if they are nicely cooled in the winter as well as absorbing the UV rays.
+
+Vikram (09:50)
+Right, Matthew, I sell cable and engineering services for key accounts. We're working mostly for large scale. I've supplied some rooftops as well, some large ones like Bentley in the past. You know, my interest in talking to module manufacturers, especially ones as reputable as JSO because most of my clients tend to speak very highly of you. It's just really not what's going on in the industry because, know, modules are produced sometimes two years before construction.
+
+And you know, the elephant in the room, of course, you know, we've had a lot of tumultuous times with Brexit, with the pandemic, with the Ukraine war. It's still not concluded. And we've already started another one in the Middle East, you know. So conditions have been fantastic. But if I look back to the conception of the large scale industry, of course, it started in Germany and then Spain and their feed-in tariffs were dramatically reduced. And suddenly ⁓ the exports from Germany, Spain rushed in and the Netherlands with Oscar Mayer have rushed into the UK.
+
+Market we had 50 megawatts in 2011 according to the renewable energy planning database, which you can find online Through the department from net zero each we call be is Then we have 75 megawatts in 2012, know, then we peaked in 2015 at two and a half gigawatts of course the big be were the brexit thing started referendum in 2016 and then we nosedive from there to you know 36 megawatts in 2019 2019 and then even though
+
+In the lockdown year 2020 we did more 96 and then the Ukraine energy crisis, raw material shortage we did 53 megawatts in 2021 and 2022 I'm seeing on the government website operational assets of only 223 megawatts. Of course these databases are rarely up to date and they only count operational solar farms. What is your take on the installation and deployment of Lake?
+
+speaker-1 (11:46)
+So.
+
+I believe that the deployment of solar has been slightly more than that when you obviously include commercial and residential. So as by our numbers we have from PV module tech that in 2021 there was 700 megawatts deployed and in 2022 there was 1.3 gigawatts deployed. This year we're probably looking at about 1.7 gigawatts to be installed in the UK this year and I'd like to
+
+challenge everyone to hopefully get over 2Gb for 2024.
+
+Vikram (12:23)
+Fantastic. ⁓ this is what we are forecasting as well. Of course, our data is a bit out of date compared to yours because we work mostly on the EPC side. Often the module deals are done, you know. So what we are seeing on the official channels, which is a lags a bit and may not include all projects. Some of them may need off-chim accreditation or whatever, you know, to be counted officially. You know, so we're seeing
+
+Yeah, red trend of only 272 megawatts at the moment for 2023 but for second half of 2023 there's 1700 megawatts in construction, you know, that's really exciting because You know, means we should have easily over 2 gigawatts obviously fingers crossed we've gone knows what else can happen more lockdowns of course, we hope we are over The bad luck that we had since break said and then we could start another
+
+boom time but there is a lot of excitement to talk about because the largest solar farms I think the last one was 75 probably Land-Wern with Next and ⁓ one before that was 72 megawatt peak, Shotwick Solar Farm with BSR which is currently owned by Foresight. So we are not only being ambitious but the industries jump from 75 megawatts to 373 megawatts peak in construction only in one solar farm with Cleve Hill.
+
+And then there's also a 400 megawatt peak or probably 500 megawatts with Longfield with the EDF. What is your view on these massive NSIP jobs? Do think they will be a reality one day?
+
+speaker-1 (14:06)
+Yeah, I think Cleve Hill is a great example. It's great to see that the planning has been approved for these other projects such as Longfield, which is a 500 megawatt site. NSIP, for those of you that don't know, is National Significant Infrastructure Projects, and they are large-scale solar farms that tend to be well over 100 megawatts.
+
+I saw recently, Vikram, I don't know what your take on this is, that there's a 1GW that's been, which has gone into planning recently. That's the largest one that I've seen recently. Have you heard anything from it so far?
+
+Vikram (14:46)
+Yes, think it's called Great North Road or something like that. It's something to definitely follow up on later on. The good thing about NSIP or National Significant Infrastructure Projects is it's all public and anyone can go have a look. I want to talk to you a bit about the Solar Task Force, which has just been established because the industry really has been neglected by the current incumbent government since 2016. It's been a boom and bust cycle. The UK has the largest offshore wind resource
+
+potentially in Europe and know solar is there to complement when the winds are blowing you need something to fill the gap. Of course we need a mix of different technologies but you know nuclear is not coming on life fast enough so the government may have busted maybe 20,000 jobs when they dramatically reduced freedom tariffs after offering a policy that was far too generous. Now I see online that there's a solar
+
+task force established by the government which is writing the solar roadmap which aims to deploy 70 gigawatts by 2035. Of course we've been lagging massively so this means four and a half gigawatts a year from 2024. Do you see that anywhere near being plausible considering we haven't got any people to build anything right now?
+
+speaker-1 (16:08)
+think it's going to be very tough. ⁓ We are seeing a of foreign EPCs starting to move into the UK as well. ⁓ I don't think the current... ⁓
+
+infrastructure that the UK has at the moment will facilitate four and a half gigawatts a year unless we are able to to get more traction with local EPCs who are extremely busy at the moment ⁓ and they just don't have the bandwidth to take on these larger projects and multitude of them.
+
+⁓ So I think we will definitely need to increase the number of local EPCs in the UK. As you mentioned, there's a lot of projects in development. It's going to be a long road to achieve that target, but rather be ambitious than not, I guess.
+
+Vikram (16:57)
+absolutely and it's something that will have to happen because
+
+You know, the net zero strategy is very aggressive. In my opinion, I work in this industry. I've spent my life almost in solar and cable. I think it's just far too ambitious what the government's planning. And then the roadmap seems to not be present at the moment. So we'll be looking to see what gets published in February 2024. Obviously, the names on this task force, you know, a lot of people will recognize like Ben Fawcett, who was at EDF Renewables, according to his most recent job title.
+
+Liz McFarlane from Siegen and Ross Greer from Next Energy Capital. So a lot of these names are known. It's a small industry, but You know, we won't go too much into that in this short episode Matthew but what I do want to ask about and a lot of people will be thinking when they think about JS Ola or any major module manufacturer is Is the module pricing right now? I've heard 18 cents of what being quoted I've heard this 40 gigawatts in the warehouse in Rotterdam
+
+What is your view on pricing and capacities and stock?
+
+speaker-1 (18:06)
+So
+
+currently the pricing is obviously quite low, the lowest it's ever been actually and this is attributed to a number of factors. The first one is we mentioned earlier that the installation for 2023 has not been as significant as was anticipated at the beginning of the year. Lots of solo panel manufacturers increased their capacity as well as a lot of new
+
+solar panel manufacturers joining the game. So there was definitely an oversupply of modules with the expectation of it being installed within the UK, Europe, Africa, China, all over the world. This plus a decrease in the raw materials has all sort of caused the price to fall. So within Rotterdam, I don't know the exact number, but there is a number of ⁓ megawatts in stock there.
+
+possibly gigawatts for all different manufacturers. This is a real interesting point though, is that the two different types of technologies are also playing a part in this. We're seeing a bit of a shift in the market from P-type to N-type solar modules. So the P-type is not so much in demand as we had originally anticipated and the transition to N-type has taken
+
+a lot shorter than we had originally expected.
+
+Vikram (19:41)
+And what is your view on these massive modules like 650 watt monofacials and have you had any thoughts about bifacial modules yourself?
+
+speaker-1 (19:51)
+Yeah,
+
+so at JOSOLA we tend to stick with smaller module sizes. our biggest module size is a 630 watt module. The main reason we do this is for shipping. It comes double stacked on a pallet rather than ⁓ vertically with these larger modules. So we tend to get less breakages and less cracking ⁓ after time within the field.
+
+and the technology is advancing so much. as I mentioned, now we're on to N-type Topcon, which has increased the efficiency quite significantly. So there's no need to go bigger in terms of module sizes. I feel like the technology will catch up. Next thing you know, we're going to be doing tandem cells and this could increase the cell efficiency to up to 28%.
+
+Yeah, it's a sort R &D game at the moment and we'll see where we get up to.
+
+Vikram (20:58)
+Thanks very much Matthew. Before we close this podcast, for me people are the most interesting thing about this industry. We've not just had boom and bust cycles with Brexit, with the corona lockdowns, with the Ukraine war, with the labor shortages, now inflation and interest rate rise. one of the good things in the solar industry is, and I've written an article about this before for Leoni, ⁓
+
+⁓ solar magazine in the past is that you know one of the phrases used in this industry is called the solar coaster because we've had boom and bust cycles constantly, continuously. There's one in Germany, then there's retroactive actions in Spain and people lost their businesses and came to this industry. Then we have 41p a kilowatt hour subsidies. don't think they ever predicted that people would install solar farms. I think they were aiming for two kilowatt rooftops.
+
+they withdrew this subsidies and then there was anti-dumping tariffs that was imposed and people had shipments on the water when the tariffs came in you know and then there's also the grid connection deadline so we are used to things changing so the kind of people that stick with this industry it's really takes a lot of guts so Matthew with that in mind and you're relatively new in this industry where do you see yourself in the future what do you think will be the future of the industry in the next
+
+years by 2030 and where do you see yourself most importantly this time next year?
+
+speaker-1 (22:33)
+So
+
+as you mentioned, it's a solar coaster. It tends to happen with newish industries where it's a bit volatile. But hopefully I see a bit of consistency coming through, especially with these ambitious net zero targets and the changes that we're seeing globally, whether it be extreme temperatures, massive storms, there's going to be a particular focus on renewable energy and in particularly solar.
+
+I see that the industry will definitely grow ⁓ exponentially in the next few years and it's going to be a fun ride to go on it.
+
+Vikram (23:16)
+Fantastic, Matthew. Thanks so much for joining us.
+
+speaker-1 (23:20)
+Thank you Vikram.
 
 
 

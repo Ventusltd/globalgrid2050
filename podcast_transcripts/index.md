@@ -10,11 +10,14 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management
+
 Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End
 
 Clive Cosby: Constructing The Largest Solar Farms
 
 Guy Atherton: Solar PV Expert & Developer
+
 
 ---
 
@@ -2453,6 +2456,404 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management
+
+Vikram (00:01)
+Welcome to our fifth installment of this feature of Solar Photovoltaics podcast. I'm Vikram from Ventus Caymans Connectivity. Today we have the absolute pleasure of hosting Mr. Claren. Arnold, welcome.
+
+Arnoud (00:14)
+Hi Vigrum, thanks. Thanks, thank you for having me at this podcast.
+
+Vikram (00:19)
+Fantastic. We first met in the Shard in 2016 during the controversial Brexit referendum, but also towards the end of the first major large-scale solar construction boom in the UK. We always had an intense ambience to our conversations, not only because of the height of your office in the Shard or the triple glazing blocking all phone signals, but also due to the sheer speed at which Foresight were acquiring solar farms in the UK and
+
+your meticulous attention to details such as DC string cables and connectors was putting us in touch. ⁓ honored, are you able to tell us a bit more about your background, about what you do now, know, who you are, before we get into the specific questions?
+
+Arnoud (01:02)
+Sure, of course. ⁓ Well, okay. Well, I mean, first of all, again, it's a real pleasure to be here. And I've been listening to some of the previous episodes, which were really interesting to listen to and to just hear about ⁓ other professionals in the solar sector and how they experienced the solar boom and the period since then. ⁓ About myself, so I am Dutch. I studied electrical engineering in the Netherlands and ⁓
+
+And well, guess, you know, when we talk about solar or renewables, maybe specifically, ⁓ you know, that actually started in a certain way already back then. When I was studying, ⁓ we all had to do a practical assignment at the university where I studied. You know, they were encouraging students to do that abroad. ⁓
+
+You know, of course I could have chosen, you know, Germany or England or the U S but those countries felt like places where it wouldn't be too hard to end up, ⁓ you know, later in life. I looked for an opportunity that was something, you know, special, something that's not so easy to do later on. And it turned out that it was also possible to do the assignment in Kathmandu, Nepal. Wow. Yeah. And
+
+Now, I must admit, I'll tell you a little bit later what it was about. It was about, in a way, it was connected to renewables. That was not, at that moment, the reason to do it. It was just the whole adventure of going there. But the company where I was going to be the next five months was a local company that was doing micro hydro generators to be installed in the Himalayas to give small communities electricity.
+
+And they needed a controller to be designed because otherwise if you don't have that the voltage and frequency will vary ⁓ depending on the amount of water that goes through the turbine or the use or the consumption by the village. So I'm mentioning this because this was actually my first exposure.
+
+renewables but also because I learned a very valuable lesson there. ⁓ previous to me there was a student who had already built the first version of the controller and how this works was surprising to me and to most people which is the following the amount of water that goes into the generator is generally the same so it takes water from the river flowing down the mountains goes through a pipe through a nozzle and then it hits a belt and wheel
+
+that makes turbine spin. Now that's always pretty much the same amount of water. So that doesn't change much, but the people who use the electricity, they may be asleep, they may be awake, they may be using the lights or heating. So the consumption varies all the time. And that made, if you wouldn't have a controller or something that controls the system, that would then ⁓ raise and lower the voltage, which would of course damage the equipment connected to it.
+
+Of course, you can think of many ways to deal with that, very sophisticated ways. But the way how it was done was that they would typically build like a pool, like a swimming pool next to the generator. And then they would put dozens or hundreds of heating elements in there. So the typical spiral heating elements that you could use to heat up, you know, water in a cup if you wanted to. That's very popular in a ball to use and very easy to obtain.
+
+So they wouldn't put those in there and then the controller, all it would do is it would keep the consumption the same. So if the village would be using a lot of electricity, it wouldn't direct much power to the heaters. But in the other way around, if they would use, for example, a lot of, or if they wouldn't use any electricity, then those elements would heat up and it would just heat up the water. Now people ask me, and what would you do with warm water? You do nothing with that. That's not the idea. The idea is just.
+
+that you balance it and that's the cheapest way to do it. so then the question is, people ask me, that's not very efficient, you you're throwing away all that energy. And you know, that's very interesting, right? Because that's not of the requirements for those people. There is no loss of electricity because the water is flowing down the mountain, whether it goes through the turbine or not, it's the same. But for the village, it's very important that
+
+They have an easy, cheap system, so low capex. It's very easy to repair. They only need very easy, sourceable components. So low opex and efficiency has no importance at all in this case. sometimes when you design something, your design requirements may be different to what you first expect. So that's always important to take into account. And I think that's been an important lesson early on in the career that continues to be valuable.
+
+Fritter on.
+
+Vikram (06:19)
+So you have good experience of hydroelectricity or micro hydro, let's say. There is a company in the UK called Dulles that's been doing this since the 80s as well. that's certainly very interesting. You spent quite a long time studying electrical engineering in the University of Twente in the Netherlands. What made you want to choose Nepal and micro hydro as your university project?
+
+Arnoud (06:44)
+Yeah, well, I it really was. must admit it, the napalm part was more important than microhydrogeneration. It was just, you know, to go as far away as possible and the biggest adventure as possible. So that was really the reason. And that's also the reason why it took a bit longer for me to study. I've been traveling quite a bit during my studies. I thought if I don't do it now, will I have the opportunity to do it later? So,
+
+So yeah, I wouldn't call myself at all an expert on the hydro generation because this was the only thing I've done with it. And it was obviously in a very different ⁓ setting than you would do in a developed country or in UK or anywhere else. But it was a very good experience, nevertheless.
+
+Vikram (07:28)
+Fantastic. then you somehow ended up in Spain or doing concentrated solar. You know, this isn't the same as photovoltaics. This is concentrating mirrors and probably melting salt mines. know, are you able to share a bit more details about that experience?
+
+Arnoud (07:44)
+Yeah, of course. Yeah, I did end up in Spain. That was, you know, because of love, because of a woman, which I think is often the reason for people to change a country. and I've never regretted it. I love living in Spain. I'm living there now. So, ⁓ so yeah, through a few steps, I am
+
+I joined in Madrid a company that is a, it was called Sofocus. They were a startup company based in Silicon Valley. And this was when they started, it was about 2005, 2006, I joined in 2008. They had seen back at the time that there was a good business case to do solar in a different way than PV because back in the time,
+
+you and everybody else will know, PV panels, silicon was all very expensive, many, many, many more times than it is now. And ⁓ that was just really stopping it from deploying its large scale. So of course there was concentrated solar power. That's what you just referred to where you heat up in a way, water or liquids and run a turbine. And that's where the salt, et cetera, comes from. But this is slightly different. This is CPV, so concentrated photovoltaics.
+
+Vikram (09:05)
+Right, Not CSP, not the mirrors.
+
+Arnoud (09:09)
+Exactly. Well, there are mirrors. I'll explain it. So what they did is they created a panel which was about 15 centimeters deep. And that was enough to fit in ⁓ mirrors that were, if I can just explain it by comparing it to a car headlights.
+
+So a car headlight, have the bulb in the middle and then the light is reflected onto one mirror in the front, goes back to a second mirror and then it goes out in a very straight beam. Now, if you use the same design in the other way around, then the sun is shining into this mirror system, onto a primary mirror and it shines back out onto a secondary mirror and then back in through a gap in the middle of the primary mirror onto a high ⁓ efficiency cell.
+
+which at that time was a triple junction cell. let's say it was the same kind of technology that they would use in space. That's very expensive, but because you only need one square centimeter because the light is concentrated 500 times or 700 times onto that little bit, as long as you're able to cool it and make it efficient, then that was giving a higher efficiency than normal PV panels at the time. But it had a drawback, of course. It had to be mounted onto a very precise two axis tracker.
+
+And at the time that seems more or less logical. You may remember maybe in Spain in those times there was a very high feed-in tariff of 44 cents per kilowatt hour RPI linked. so, you know, at that time it made sense. It was cheaper to build software like that than with PV. And that was, you know, a great experience. I also learned something else there, which was that
+
+you know, at some point, it did happen that unexpectedly, said we suddenly find I actually found in the fields, you know, that the mirrors were cracking. Now, this was the very first generation of the product. But of course, this was not supposed to And the design, the designers never thought it could happen because they had, you know, they had already obviously thought about the possibility and mitigated it as they thought. now, of course, they fixed it, it was a new
+
+generation and eventually the company doesn't exist anymore because it was overtaken by normal PV solar. But I think it was a very good lesson for me to realize how new technology comes with a risk of not having track records. So this was a good example of how something that has been engineered and very, very thoroughly is still new and still things can happen that nobody expected. This was the case here.
+
+Vikram (11:57)
+Absolutely. I'm looking at your LinkedIn profile. I SoulFocus was January 2008 till October 2011. I personally got into PV because of the financial crisis. You know, I was in industrial sales and typical construction and all of those sectors were, you know, on their knees and PV and wind were the only booming areas that I could find during this period. Did you have any experience of the financial crisis itself? know, did that affect you in any way during your time at SoulFocus?
+
+Arnoud (12:26)
+Yeah, absolutely. you know, when, when that's so focused, the management was seeing how ⁓ PV prices were coming down. Now they kept adjusting their business model to cope with that. But eventually, also because I think in a crisis, people are more risk averse. So as I just mentioned, do a project in solar with a new technology or with proven technology, it became, you you could notice how
+
+the market became a little bit more risk averse and then together with the fact that PV became cheaper and cheaper, it wasn't looking very good. So I was looking to change jobs and I made it clear my LinkedIn profile and I looked around and things weren't looking very good in Spain at all, be honest. And then I was contacted by Headhunter in the UK that made me aware
+
+of this opportunity. should tell you, this is of course, when I moved to Forsyte. Now, Forsyte had an office in Spain back at the time. had just started about a year before there's one person working there. And the idea was to strengthen that team, which I thought was very exciting, because I always enjoyed very much to join startup companies.
+
+I had myself a startup company in earlier years as well. So that was the idea. But I proposed to them to move to London for half a year to really get to know the team and to get the experience and then go back to live in Spain and stay there. And they agreed to that. we moved over there. And during those six months, things were getting worse and worse with the crisis. And Spain was particularly hit.
+
+⁓ you know, badly. And at some point, ⁓ the company decided, ⁓ to shut down the, ⁓ the Madrid office. which obviously then, didn't allow me to, to go, to go to, to back to, ⁓ to, to, to Spain, for Forsythe. So we decided to stay. And that was fine because of course, as we now know, there was, ⁓ there was some big things, there were some big things happening, going to happen.
+
+in the UK. Now when I was there, all we had at the time were a Spanish assets. ⁓ And we just bought a few months before I joined. ⁓ The first 5 megawatt feed project in Kent, Ilseford, Kent was possible and that was the first project I was exposed to. ⁓ So yeah, that's how I ended up in the UK.
+
+Vikram (15:05)
+Mm-hmm.
+
+Arnoud (15:14)
+And from there on, course, that was the first site and I would be ⁓ involved with the next 63 acquisitions that Forsight made from there onwards ⁓ up to 2018.
+
+Vikram (15:29)
+Of course. Before we go deeper into your UK experience, know, what were your, because I remember there was the Spanish embassy and all the Spanish companies were coming over and then they were quite upset about retroactive duties or something like this. Lots of people moved to the UK. I think the Spanish solar boom was one of the early ones together with the Netherlands and Germany. And then everyone seemed to then focus on the UK market. But in terms of context over the last decade or so, what were your memories of
+
+of the cost of PV in terms of pens per watt of modules or construction ⁓ solar projects. know, now that we look at 2023, we're looking at module pricing going below 10 cents a watt for solar panels themselves, but topcon solar panels and type potentially. If you look back at that period with sole focus and just before you shut down the Spain office with Forsyte and moved to the UK, do you have any recollections of what the pricing was then?
+
+Arnoud (16:25)
+Yeah, think EPC, I think was around, it depends on the size of the plant, which are much smaller. So it would be more expensive per megawatt, it was like six, seven, eight euros per watt to install those smaller PV plants. that was obviously, that's now more than 10 times less than that.
+
+Mostly driven of course by the panels as you just mentioned, the cells in the panels, also panels apparently are now in a range of 15 to 20 cents. But also inverters of course have come down very significantly and structure as well. Structure maybe mostly because of the design. When feed-in tiers were still there and there was quite a lot of money.
+
+you wouldn't want to take risk. So you would take a strong structure and you would do things. If you look at the two access trackers, there were some beasts out there with a huge amount of material. also by redesigning, things were made cheaper. But there's also another example that I can give you maybe based on experience, because we talk about EPC and we talk about supply chain. But also, for example, in the O range, people may not, maybe not everybody,
+
+has a view or an idea of what kind of prices there were in O &M. For example, in Spain, when we still had that very high tariff, so 44 cents RPI linked for 25 years. And also, I must admit, it's important to explain that often the EPC and O &M contract were negotiated together and the value was sometimes a little bit mixed, was my experience. So sometimes maybe to make the EPC more attractive.
+
+they would maybe make the O &M more expensive than it needed to be. You could sometimes see that that was being put together in that way by the seller, whether it was accepted or not by the buyer. I'll leave that in the middle. So what I have seen was a site which had a contract from very early days that was at a cost of 50,000.
+
+euros per megawatt, RPI linked, and then there was also a yield-based bonus on top of that. So compare that to nowadays where maybe the range of an O &M would be roughly between 5 and 10k, which depends on the scope and the exclusions. So that's pretty much also a factor 10. So we're also focused on the panels.
+
+But the sector has experienced a vast reduction across the various different parts of the sector, this case O as well.
+
+Vikram (19:24)
+So 50,000, is this 50,000 euros per megawatt for O &M in this time? Yeah.
+
+Arnoud (19:30)
+Yeah, that one's existed.
+
+Vikram (19:34)
+Yeah.
+
+Arnoud (19:35)
+It's crazy. ⁓
+
+Vikram (19:37)
+It's crazy how things have changed so much because now it seems to be a complete reduction in the budget allowed for O &M as the prices have naturally come down. then in 2011 is then as you said the big one where you move to London with Foresight. What were your first early impressions when you moved to the UK?
+
+Arnoud (20:01)
+Well, should correct you there. I didn't actually move to London because when I joined Forsyte, it was a much more modest company than we know now. In fact, a lot of people in the solar sector obviously didn't know Forsyte because they hadn't really entered the sector yet. I was number 40 employee-wise and we were based in Seven Oaks, so just south of London.
+
+I remember that while they were growing, one of the difficulties was to attract people because people were normally used to commute into London, not out of London into Sevenoaks. So it was a very nice company to join. I enjoyed it a lot. I first looked to live in London and...
+
+I made a common mistake that many foreigners make when they come to London, when we asked for what the rent pricing was. And this is already a long time ago, so imagine now. They said, it's this amount, right? And we thought, well, that's actually more or less what we have budgeted for. So, hey, that's great. We can have some very nice places in London. And then it turned out that in London, for some reason, the prices are expressed in
+
+weekly prices, not monthly prices. So it became times four. So about the next very next day, we were taking the train to Sevenoaks to see what kind of nice places we could rent there. And we were able to rent a very nice place. Of course, we didn't so much. And, you know, we're not able to enjoy so much the real London experience. But when Forst had moved to London, we moved to Brighton for another few years.
+
+⁓ The commute was a bit longer, but it was okay. And Brighton is a very exciting place to be as well. I guess moving to England was a really interesting experience. Of course, first we thought we were going to be there six months and then it much longer. that didn't matter. mean, we've done so much. We've really tried to enjoy it as much as possible. And it's true that Save Seven Oaks maybe after a few years becomes a little bit local.
+
+So we solved that by moving to Brighton, which is a lovely city where we also had a great time.
+
+Vikram (22:31)
+One of the unique things about you were that you were already in foresight from October 2011, had background in the PV business. I started full-time with PV in March 2012, so it was refreshing to see that you with the background in electrical engineering, working for an investor, actually taking an interest in the deep technical ⁓ issues because quality is a big thing in PV. I have notes saying that you
+
+you started to focus more on the fact process. What does fact stand for? What is it exactly?
+
+Arnoud (23:06)
+Yeah, so that's the final acceptance certificate or final acceptance test. ⁓ Yeah, so that's a very interesting subject ⁓ that you are raising now. you're right. When I joined, you know, it was difficult at that time to find people with solar experience in the UK. And that may very well have been the reason why ⁓
+
+the recruiter reached out to me while I was actually living in Spain. ⁓ Things have changed so much. you just remind ourselves that Solar in the beginning, the way how funds worked was that they were risk averse and they felt that the best way to deal with Solar was to only actually purchase the site at PEC. So PEC is the Provisional Acceptance
+
+test or certificates, which is something that you do right after the site is connected to see if it's working properly. And then there is a two year period during normally, sometimes there are tests halfway after one year, which the intermediate acceptance test, and then there was the final acceptance test. Now I'll explain a little bit more about that. The idea was that, okay, if we get to the dead points, we're not taking any construction risk. can see that the asset is working.
+
+And you still have another two years to see if it's working. So surely that will then, you know, be a good guarantee that the asset will last for 25 years, because keep in mind that from a fund perspective, from a manager's perspective, you know, there are, you know, no technical people. In Forsythe, there were technical people because they weren't already working with other assets like biomass and things like that. But generally, of course, these are all financial people. So they look at an asset and they just need to know
+
+what will we spend on the asset and what will it generate? Now generation, of course, you know why solar is so popular, especially when there was a feed-in tariff. Because the solar source, the solar radiation, it may change from one day to the other, but from one year to the other, it is nearly identical from year to year. And with the subsidy, it is identical as well. so if your availability is pretty good, the idea was that solar solar plants would run.
+
+basically themselves. So the three factors that could influence the final yield or the final investment, the money that they generate, they were all really, really stable. that of course was the reason why finance, the finance industry really liked solar assets.
+
+they had in mind that they would spend a certain amount of money on an O &M contract, a certain amount of money on the MRA, the maintenance reserve accounts, and then they would know what they would get for that. now turn out of course, that it isn't exactly like that. It has to do with the following. Everybody's trying to make money, that is the way how our world works.
+
+the EPC of course, they are very closely looking at how to design the site and how to build it. And in reality, the O &M or the EPC contract may say that the asset should be built for a 25 year lifetime. They are really on the hook for two years. okay, so every EPC will have a different view on that. Some EPCs
+
+Vikram (26:48)
+But
+
+Arnoud (26:57)
+Maybe we're building sites to keep themselves for longer, or maybe they want to make sure that sites were built really well. But inevitably and completely understandably, when you look at the numbers, you're being asked every time internally, should we build it like this or that? Because this is slightly cheaper, this is slightly cheaper. And in the end, if your liability is two years, you will find that it is very attractive.
+
+to build a site that will work very well, at least for the first few years, but maybe it's not built to that extreme precision and quality that would mean that it doesn't require anything else but normal maintenance for 25 years. It's a real different concept.
+
+we realized those two years that we had were actually really important. That was the moment for us to determine, to try to estimate if the plant would really last 25 years or if it wouldn't. And I think we were very early with realizing this in the sector, maybe earlier than others, maybe not everybody else, but in the frontline, if you like. So we organized
+
+and you panel inspections on sites by laboratories. We were very early with drone inspection ⁓ and you know we were ⁓ we would contact the manufacturers of the inverters for example to make sure that they would come to site to make sure that they were that their devices were maintained properly and they would ⁓ honor
+
+the warranty that was still ongoing. on HV, we were trying to see if partial discharge activity ⁓ measurements could help us there, ⁓ oil samples, visual inspections. I think what's important to explain here is that because we realized the importance of this, ⁓ internally, we thought it was ⁓ a good idea to create a larger technical team. You saw that other companies
+
+we're very more focused on commercial asset managers. But foresight, I was privileged to build up a team. And I think we were in the end, were 10 people. And whenever we hired somebody, we would hire somebody with a specific expertise so that the overall team would have a broader and broader expertise. And in the end, we had a team that was very good at complex to diligence.
+
+asset management, in-depth performance monitoring, construction monitoring. I would really like to take this opportunity to say, and I often say this, that I still feel that by Produs, the cheaper that foresight has actually been building this team, this team that was so good at doing all this.
+
+Vikram (30:00)
+You get to look back on your colleagues and hopefully they are all progressing in their careers. Because of the nature of these big infrastructure projects, always ⁓ a certain amount of risk. We can't really talk about any confidential stuff. Generally speaking, from a risk management point of view, any EBCs or funds that might listen to our podcasts or future managers or engineers or buyers,
+
+I've heard this so often, the EPC is only on the hook for two years, the EPCs themselves have said that we only need to look after this or do O &M for two years for any project that we might do the engineering, procurement and construction for. But from a legal standpoint, did you have any experience that proves otherwise? Once you've done your final acceptance testing at the end of the two years and had a handover, the project, if it should have a 25 year design life and it's completely
+
+turn
+
+Arnoud (31:03)
+Sure. Well, as you said in the beginning, I can't go into any specific detail, but I can explain how the process works. So why is the fact so important? The fact is important because of two reasons. I think the first reason is that it's also the moment when the EPC warranty expires. So let's say on any component defects or issues with design, that is the last moment where you can pick that up.
+
+But more importantly, when we talk about performance ratio, right? So this is a KPI, a key performance indicator, of course, in the solar industry, which is a measure for what the performance is of your plants. And this is contractually fixed. So there would be certain amounts of PR at certain level.
+
+that the site would need to be able to do. And this is measured across those two years. And if it falls short, and this is indeed important, it's not just that the EPC is required to compensate you for the losses that you've suffered in those two years because of the shortage. It's actually calculated going forward as well. there are 25 years, or 23 years left.
+
+So there is of course a bit of net present value involved. So it's not exactly like that. But you would calculate, know, what would I have generated had it done the right PR and it hasn't now. So what are my losses over all of that this time? know, so there will be certain calculation that both parties would have agreed on that moment of signing the EPC. So this is why it's so important because, you know, it can really be a significant amount. Now the good news, of course, that the EPC
+
+It's often also the O during the first two years, so they can monitor the site as well and they have two years time to review this and to mitigate the risk of this happening at the end because it is much better for them, course, to resolve things during those two years than having to be liable for something that is calculated going forward in a way I just explained.
+
+Vikram (33:25)
+Fantastic. And you mentioned, you know, the solar roller coaster or what we say the solar coaster as an abbreviation, you know, and it's just been a boom and bust industry. You know, first there's been changes in freedom tariffs in Germany, in Spain, in other countries, and then we had the grid connection deadlines and we had the MIP and anti-dumping duties. And then we had the UK freedom tariff cost reductions and, you know, lots of high profile company failures. So,
+
+It's been tough for the EPCs to even keep going because ⁓ the margins have reduced and the volumes have picked up. it's an interesting point about the design life and what happens to these projects for the remaining 23 years or now people are talking about 40-year solar farms. then in 2019, you transitioned to another company. Please, again, forgive me if I pronounced this wrong. it Kintess or Quintess?
+
+Arnoud (34:24)
+Both names are often used. So yeah, I call it Quintas energy. ⁓ yes, indeed. So ⁓ I had the opportunity to move back to Spain and then moving to Quintas allowed me to actually work from home on the southern coast of Spain. you know, after my family had been moving around,
+
+quite a few times, this was a great opportunity to settle down. And the other opportunity that was there is that, so it's a little bit about Kintz before I continue. Kintz is an assets manager in solar and storage and started in 2007. But I know them already since 2012 because we took them on board at Forsyte.
+
+as well for some of the services that they provide. they, back at the time, of course, they grew a lot, just like Forsyte did. And today, you know, the great thing is that we have now over eight gigawatts of solar and some storage under management in various countries like Spain, UK, Italy, Australia.
+
+And already a few years ago, our clients, they were often requesting services that were outside of the asset management scope. So in order to provide them with those services in 2019, just when I joined, we started Kintel's advisory. And it has been a really interesting experience because after all the things that I
+
+got involved in over the previous years, I now had the opportunity to, you know, to be involved with all kinds of different clients and portfolios in the country that I just mentioned. And, and, you know, I have been exposed to lots of different things. So if I was already exposed to a lot of interesting, new things every day in foresight, it has only continued or even intensified. ⁓
+
+I would say what has been real change in the sector, logically, is that where, you mentioned earlier with the solar coaster, particularly in the early years, 2013, 14, 15, I was involved in a new acquisition almost on a weekly basis, or maybe every two weeks, that was how things went, just acquire, acquire, acquire. Now, of course, most of the funds
+
+They have a large portfolio and they can't grow that quickly anymore. And so now it's all about performance of what you have, optimizing what you have. ⁓ There is of course, repowering happening. ⁓ There may be some claims, there may be all kinds of issues. yeah, it's all, but there's also the development and construction that's also going on, of course, at the same time. So there's a lot going on.
+
+And that's logical, of course, with the goal of going to net zero 2050 with intermediate goals like the 2030 goal. You can only imagine if first all our electricity should be renewable, but then also all our cars should also be electrical. And eventually we would want to even make cement or steel in a sustainable way. You can only imagine what that means for the solar sector.
+
+So, yeah, very exciting, but also as you just said, the ups and downs are here too. We have so much work ahead, but at the same time, it's so difficult, right? The grid is almost full. There's maybe more opposition to solar plants, especially large ones, because there are more and more. So, now the challenges keep changing. We need to deal with those in one way or another.
+
+Vikram (38:42)
+And you said 8GW of assets under management, is it mostly solar?
+
+Arnoud (38:47)
+Yes, yes, we do solar and storage. ⁓ Yeah, indeed.
+
+Vikram (38:52)
+And in your day to day role, know, what sort of things do you get involved with and what do you expect from potential partners that may look to work
+
+Arnoud (39:01)
+with
+
+you. Yeah. So I mean, again, there are so many different areas. I mean, if I mentioned a few, so obviously if it is about new development or construction, ⁓ then, you know, there's a lot to think about. are, you know, the storage, of course, there is bifacial, ⁓ there is also, you know, how do you work with your contractors, you know, that has changed as well over time.
+
+especially if you want to build a portfolio, it's all about creating teams and creating relationships. So there's a lot going on over there. But also in the operational side, as I mentioned earlier, one thing that has been really interesting is that you can see that clients are moving away from trying to deal
+
+⁓ on an incident by incident basis with their portfolio. Because when an incident happens, of course, ⁓ you can repair things as quickly as possible, but it may still take time. And in the meantime, you have business in interruption, and you're always surprised by something. difficult to manage your cash flow. It's difficult to manage your investors' expectations. So you can see there is an increasing interest in risk management. To which extent can you apply risk management to solar?
+
+many sectors have that, you you wouldn't wait for an airplane to fail, right? You would have a process in place to reduce risk, calculate risk, reduce risk. So you can apply similar things to every sector in this case, solar. So, you know, one thing that we're seeing is, know, how can we, you know, how can clients control and manage their portfolio by having a clear picture of all the type of risks and all the risks that they have in their portfolio. And then
+
+in advance and deal with those that they want to deal with by mitigating in some way or another, and then bringing down the amount of instance. So you are investing more in mitigation, but of course you should be able to pay that by having less costs due to instant repair and particularly business interruption, which is what you would reduce mostly when you mitigate things in advance. Maybe one other thing to mention, which has also been ⁓ something more recent.
+
+security. you know, in the early days, security was an afterthought for most asset owners. It wasn't really affecting the production and there was no real track record of theft. now at Forsight, back in the days, we always insisted on having a ⁓ very good and capable security system. But, you know, sometimes other ⁓ owners were tempted or hadn't really realized or hadn't asked for
+
+something like that. the EPCs were maybe left more free to do whatever they want. So eventually maybe we ended up with just, you know, protection fence. And if the wire was physically cut in the fence, then maybe the alarm would go, but why would, who would, you know, cut deliberately, you know, a wire. So, know, we've seen that kind of things. So I think what we now see is since then there have been more thefts.
+
+Every country where there's already beginning, there tends to be very little and thieves start to realize what solar parks are, where they are, and what they can get there and how to break in. ⁓ We've also dealt with that by, for example, how can you spend your money in the most efficient way? For example, does every park need to have the same type of security or does the park, maybe if it's next to a river,
+
+you really need to have the same kind of investment than another park. one thing that we found, for example, was that if an alarm goes, if there's an alarm, you think, okay, that's it. We now know something is happening, but they normally send the guards, especially if you're not sure you can't send the police, you send the guards. When we looked into this, we realized that the guards
+
+Vikram (43:14)
+Right
+
+Arnoud (43:19)
+These are always different people. There's a very huge amount of people working as guards at night and the chances of the same car being sent out to the same solar park twice are slim. So since they are new to us, they would not have had an induction by the operator and therefore you would expect them not to be allowed to go on to site, especially not at night with all the dangers there as well. the next question is, what is the value of a security system
+
+If all it does, it triggers somebody to go to the front gate shining a torch into a 50 megawatt site, 100 hectares of terrain. What's that going to do? Finding answers to those kinds of questions is, for example, one of the very, very many things that we've been doing lately. It's very interesting to see that after all of those years, in the beginning, especially when people would say solar parks run themselves.
+
+And people couldn't think of any kind of problem. Like panels don't need maintenance. Transformers will last 50 years as they always did until solar. And what could possibly go wrong, right? This was in 2011. And I've seen that every single day I'm learning something new. Every single day I'm addressing a new problem. And it's very exciting. And I hope I'll be doing this until I retire, to be honest.
+
+Vikram (44:44)
+Absolutely, know, solar cost is a very important thing because, know, to solve climate change, need the energy to become very, very competitive. But in terms of the construction quality, you know, and the maintenance, you know, if you buy cheap, you buy twice, you know, and we're learning that, you you talk about transformers, it's even worse in energy storage, the transformer failure rate, and it's something we learn for the future. But in terms of security,
+
+What are the high risk areas? From my own perspective, people love to steal copper because it used to be 5 euros per kilo, now 8 or 9 euros per kilo and it's very easy to calculate from a data sheet how many tons of copper you have. One of the things we did mitigate is trying not to use any copper when we can help it. String cable as well, it's tin copper so it's not that easy to recycle. People don't always know that, they steal it and then you find it dumped somewhere.
+
+But from your actual primary source perspective, what are the high risk areas in terms of security that needs to be guarded against?
+
+Arnoud (45:46)
+Well, you made a very good point. of course, not having copper on site or as minimum as possible, that would be the first step. Of course, that's not always easy when your plant is already built. you know, it starts already as you just very good point out, it starts at the time that you design a plant, make sure that there is as little ⁓ that is worth stealing. So particularly copper wise. ⁓ And but yeah, otherwise, you know, the difficulty of solar plants is that you
+
+You can't, you can really only protect the perimeter around it. So, so it is really very much about detection and then finding a way ⁓ to interrupt any theft going on and minimize your losses. You can do a few things on site. You know, you could, for example, ⁓ fix panels onto the structure, you know, with fixing material that's not easy to undo. ⁓
+
+But ⁓ again, against cabling, what can you do against somebody cutting cables? That is very difficult. So it really is important that you detect and deter and intervene. ⁓ So it is a ⁓ challenge. Solar parks are always built far away on cheaper land. So that's why I'm mentioning it. It is maybe something that still escapes
+
+people's attention. But it is just like you want the site to be available 100 % of the time on a day-to-day basis. So you want to fix quickly an inverter or something like that. But sometimes security is a of an afterthought. But that doesn't affect the day-to-day generation. But if there is suddenly a huge theft, your plans could be down for months to come while it's being repaired. And while you need a source,
+
+you equipment, etc. So it is one of those things that isn't immediately on somebody's radar until it's too late.
+
+Vikram (47:50)
+My opinion of security is there's a lot of solar panels on site so it would be very difficult for to steal all of them. They weigh 20 kilograms so they're quite big like TVs and carrying so many of them is very difficult but on the other side cables are a lower percentage but people can wrap up the whole string cable and your whole site's down suddenly or if they take out a high voltage cable or the main DC or LVAC it affects a massive
+
+volume of sight and one of the things we didn't talk about in 2019 you moved to Spain with the quintest is that 2020 you know whole lives were changed with the pandemic and you know this changed lots of priorities for people you know lots of changes one of the rude things in terms of r &d disruption was you know we were working on ways of eliminating string cable completely
+
+by designing a solar bus system where you can plug the modules directly into a bus collection system and then directly bury the bus cable. It's difficult to steal cable which is directly buried in 900 millimeters or one meter deep in ground. So it's something we have on the radar for the future, you know, to get completely get rid of string cable. know, we sell a high quality string cable but if someone asks you what is the best way to deal with string cable risk, I would say to completely get rid of it because it's...
+
+other word 1500 or 1000 volt DC is susceptible to theft also other issues like moisture ingress and so on but we won't go too much deep into that you know the the goal of this podcast is to discuss the future of of solar photovoltaics as an interesting area as a potential technology to decarbonize and to increase energy security from your perspective you know what what is the future of solar photovoltaics how much energy can we
+
+generate from solar in Europe.
+
+Arnoud (49:40)
+Right. Well, mean, it seems to me clear that, you know, solar has, there will be a lot more solar, but it will be very rocky path. As I mentioned before, know, grid is a problem and every, whole world wants to do it at the same time. but again, if we want to have net zero,
+
+and you know, across everything, then as I mentioned earlier, the amount of solar that you would need to create perhaps hydrogen that would then be necessary, you know, for, know, for other sectors like cement or steel, or maybe, you know, bolts or whatever, you know, that would be just a massive amount. So perhaps, you know, private networks could
+
+be something so perhaps powering directly a hydrogen generation facility with solar, like that. The challenge will be to keep the public happy. Sometimes you see those very large solar parks that I think you mentioned also in an earlier podcast, which from a solar perspective are very exciting. ⁓ But sometimes I worry a little bit how that may affect
+
+uh, know, uh, the acceptability or the acceptance of, of people that live nearby. So, you know, and, know, uh, I think we have to be careful just like wind. Um, you know, people love the idea of renewables, but nobody wants it really in a backyard. Now the benefit of solar is that it is typically only two meters high. And, um, you know, it could still ruin somebody's view who used to be looking on a green meadow and now he's looking at a blue black.
+
+see of solar panels, but at least it's not creating any moving shadows across your property, for example. But yeah, I think it will be very challenging. There is a huge opportunity, of course, and I think that if you want to have a number, it will be very difficult. Now, of course, solar is just a few percent if you look at it worldwide.
+
+You know, logically, if you look at everything at this oil and everything that's gas, you know, and if we keep nuclear in the mix, which is what it looks like that we're going towards, then, you know, it would have to be double digits for sure, right? 10, 20, 30, 40%. And if we are able to every time improve the idea of storage. So of course now with battery storage, now there are other very exciting things with storage, right?
+
+many, many different ways of doing it. I've seen a warehouse with cranes that just lifts ⁓ heavy concrete blocks up and down, and that is also storage, if you like. So if we find ways to solve that, then we can every time increase the percentage of renewables and solar into the mix. So yeah, I think it's going to be a lot, but it's going to be really complicated getting there. So we need a lot of support.
+
+from governments as well and I think to clear the road towards net zero in 2050.
+
+Vikram (53:03)
+Absolutely. I did some research last night in preparation for this podcast. The solar may be small as a percentage overall worldwide, but the numbers in comparison to nuclear are absolutely astronomical. China has the top capacity cumulative in gigawatt peak, 575 gigawatts approximately at the end of this year. Europe, 252 gigawatts. think Germany will install 14 gigawatt peak this year.
+
+USA 161, Japan 90, India 70. In the UK, we are closer to the 15 gigawatt peak mark. This is the mark in which we have most experienced. There is a boom happening in Germany at the moment. Spain 27, I have here written down, I'm not sure if it's correct, but what we are heading towards is a potential, I'm forecasting a potential boom in the UK solar industry because we need to do five or six gigawatts per year until 2035 and there are new roadmaps being published.
+
+but there's massive problems with the grid, know, people are getting for new developments grid connection dates of 10, 15 years into the future. Do you have any any perspective on that yourself? Are you engaging in any kind of project development work?
+
+Arnoud (54:09)
+Well, yes, so Kintas has another arm which is called Kintas CleanTech. So that is our development arm. So I'm definitely up to speed on that to your right. There are grid connections that you can accept now but won't materialize until up to 10, 15 years into the future. So this is very unfortunate that we haven't
+
+been able to foresee this five or 10 years ago, I also recognize that it would have been difficult that you asked me 10 years ago, you know, should we invest billions into upgrading the grid? would probably say, well, maybe the money should be spent somewhere else at the moment. But that is what we should have done really, if we wanted to have a clear road towards those goals. So yeah, it's very exciting, the numbers that you say, and they will continue to grow for sure. But yeah, the real
+
+challenges to develop a site these days can really take a very long time. then if you add to that the time before the grid becomes available, it becomes a very, again, a very strange situation as we're used to in solar. mean, we always, it's never anything similar to a normal average sector out there. And we always have to do things in very extreme ways. And it's just no different this time. But I think, as I said before,
+
+We know this, can't do this on our self by ourselves, right? We can't create a grid. So we can do some private wires. That's not going to solve everything. So we, this needs to be resolved from a government level as well to really be able to meet those, those goals.
+
+Vikram (55:57)
+Absolutely. And then project development, it's an art form in itself. I'm learning as well, you know, and people caught in crazy numbers, like 200,000 pounds per megawatt peak. And now if you put that in perspective to a large heavy industry, use a steel plant. And there's people knocking on their doors, offering to do free project development, which has a bit of a contradiction, you know, because on the one side, you've got this curtailment penalties. If you're a steel plant or a massive factory, concrete, aggregates factory, and you make you bricks, if you're exceeding your
+
+energy allowance, you're getting fined by the DNO or the utility, whoever, because you're going above your grid limitation, which sounds perfect for energy storage and solar. On the other hand, the developers, they tend to focus on projects which are 20 megawatts plus to have a return on investment for spending the money on studies and getting everything together. So it's an area that I would like to explore in more details as we go forward. You know, we're working on software for this basis as well, try to make it
+
+as democratized as possible for people to calculate their own private wires, something that we get into. In terms of the technology, do you have any idea about AC coupled or DC coupled solar farms?
+
+Arnoud (57:10)
+Sure. Well, I think the answer to that is it depends very much on where you are, especially in solar, in every country deals with it in a different way. ⁓ There are different ⁓ schemes that would make ⁓ storage profitable and they can be different depending where you are. So in some countries, AC coupled and having it directly connected to the grid.
+
+would allow you to maybe to connect or to provide services, services ⁓ in certain ways, but in other places where maybe those grid services are not, they don't exist perhaps. So then you rather have a DC couple so you can do some big shaving or things like that. So I don't think there is an answer to, a definite answering as in storage should be AC or DC coupled. think it depends on.
+
+what is available ⁓ to create income from that location where you want to install it. So it's a bit like central or string inverters. Some things just don't seem to ⁓ end up in ⁓ one final ⁓ point, doesn't converge to the final solution everybody's going to adopt. You still see that designs differ.
+
+throughout the world from one country to the other and even from one developer or designer to the other.
+
+Vikram (58:40)
+Absolutely, know, it's a theory is very different to reality as we as we learn being in the industry for more than a decade already, you know, because from from a theoretical point of view, you know, if you're looking at purely for engineering, I would say DC coupled with battery battery and PV makes a lot of sense because you have fewer conversion steps, you can have the same buzz bar for PV as you can for battery circuits. And it seems very nice because we try to focus on energy efficiency.
+
+lowering as much as possible because we hear investors talking about yield of 4 % or 8%. We've seen sites which can have 8 % power losses only in the cables, not considering inverters, not considering transformer losses and so on and other things like, know, earth leakage and so on. So when we say DC coupled, mean purely you lose less energy if you're working on the DC side.
+
+That's why I'm in. But in terms of, because you have such a massive portfolio in terms of the inverter technology, know, lots of people seem to prefer string inverters now. what is your view? Do you prefer central or string? Or do you see a role for both?
+
+Arnoud (59:49)
+That's obviously a very good question that I've discussed many times over the years. And you know what? Now that time has passed, I think there is another element to take into account that maybe wasn't so obvious earlier on. And that is the moment of re-powering. In the early days, you would have your maintenance reserve account.
+
+And that was mostly calculated based on the fact that the inverters would need to be exchanged after 10, 12 or 15 years, depending on which financial base case you're looking at. you know, but we didn't really think about what that would look like. So now that this period, this time has now come and, you know, there are people, are funds and owners out there that now need to replace inverters. And of course, what you find is that things have moved on.
+
+So for example, inverters have changed voltage. ⁓ So on the DC side, for example, you now work with a higher voltage. ⁓ The capacity of central inverters, and well, for both of them have increased. In 2008, for example, I installed the string inverter was a six kilowatts SMA Sunny Boy. That was a string inverter. And now a string inverter is a 250k.
+
+you know, Huawei or Sungrow or whatever. of course with Decentral that has gone from, you know, in Spain because of the tariff, you you need to have a hundred kilowatt inverters. And so that was a central inverter, it a hundred kilowatt inverter. Now, of course you have a four megawatt inverter. so you can't, and of course the other thing is nobody's going to keep.
+
+those old systems in their portfolio, you know, if you are a manufacturer, because you know, you, you can't, that would be means that you need to have every year you make a new system. after 15 years, you would need to have 15 systems in your portfolio for sale. So they are no longer there. So you can't take away one system and put in another system. So for any solution, whether it's, you know, central or string, this is causing a problem. But,
+
+If you don't, you know, so, you will most certainly need to rewire your, your, your, your strings, et cetera. What I think that we've seen happening a few times interesting solution is some to put a string. Inverters, but centralized. So what you do is you don't want to rewire your site. So you don't still want to run all the cables towards a central location. But then because you can't really get, you know, the old one megawatts.
+
+station anymore, you put four 250 kilowatts string inverters and then you hook it all up together. example, know, along these lines, you know, we've seen activity, we've seen repowering being done in this way. So it's an unexpected route, maybe, right? That, you know, to use a string inverter that were obviously distributed, but use them centralized as a answer to the situation that we're in today.
+
+Vikram (1:03:07)
+Absolutely and in terms of modules as well the sizes have completely changed so practically if you need to replace modules you know in terms of repowering what sort of challenges you might face.
+
+Arnoud (1:03:19)
+Yeah, that's also a very good point. Of course, a lot of sites are repowering or maybe they have to deal with, they had maybe an accident, wind accident or theft and they now need new panels. That also happens and you're right, the old panels, they don't exist anymore or they may exist, but it's complicated. So the most logical way forward usually is that you would depopulate part of your site.
+
+Vikram (1:03:36)
+Mm-hmm.
+
+Arnoud (1:03:47)
+Ideally, for example, the area that's connected to one inverter or one MPPT or one inverter. And you would lift those panels and use those in the rest of your site as spares. And then you would repopulate that area with the new panels. So that will lead to maybe a different electrical design. But because it's connected all together to one MPPT or one inverter, that should work. But you may find that you need to make changes to your structure.
+
+So, you know, this is complicated because the manufacturer of the structure may not be there anymore or not be willing to sign off ⁓ a design change. So as an investor where you, you you have to, can't just, you know, make a change in your design and hope for the best. You know, you can't have panels being blown off and hit somebody, you know, and, create. So you need to always know that everything that you do is technically sound. So, you know, the challenges are how can I.
+
+If the panels are of a different size, how do I know that they're really compatible? What do I need to do to the structure? Who can sign it off for me? What do I need to do electrically? But typically, if you can't get the same panels or you can't do like for like, you can't just lift one out and put another one in. If that's not possible anymore, the trick is to depopulate one area of your plant, use those for spares. Those can be popped in any rails on site and then just repopulate that whole area with new panels.
+
+Vikram (1:05:16)
+Fantastic. You know, you raise a very important point, which is lots of the companies that were there in the early days and don't exist anymore, you know, and to have some sort of continuity going forward is lots of new entries. Lots of EPCs don't exist anymore either. And so for me, it's been very exciting talking to you because you've been in the industry from almost the very beginning, working with space-based solar cells with concentrated photovoltaics is the first of.
+
+I've heard about it and I will certainly read more into that. hopefully, when people are working with you and contacting you, they get the experience that you have. And I hope you will stay involved in the PV business for the next few decades at least. And I've certainly enjoyed this podcast and will listen back and think deeply about the things you've said. yeah, any last words for your listeners before we finish our session?
+
+Arnoud (1:06:12)
+Well, I mean, first of all, really enjoyed this session as well, very much. And I enjoyed very much the previous ones that you've done. ⁓ So, and I hope you'll do many more. I'll be listening and I'll be posting them on my LinkedIn page as well. I've heard already from some of my contacts that they were very happy to have found your podcast. So I think this is going to be a big success. And ⁓ well, about speaking or a message to the listeners.
+
+Well, ⁓ you know, ⁓ I can only say that if there's anything that you need, anything that I can help with, you know, feel free to get in touch. I know there a lot of challenges out there. And as I said before, every day we're learning something else. Every day there is another problem that a solution is found for. So, you know, that's ⁓ what I enjoy most. So if, you know,
+
+⁓ any challenges in the solar sector, technical, of nature, I'll be very happy to learn about them and get involved.
+
+Vikram (1:07:23)
+Perfect. Thanks very much for joining us on it.
+
+Arnoud (1:07:26)
+Thank you, Vikram.
 
 ## Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End
 

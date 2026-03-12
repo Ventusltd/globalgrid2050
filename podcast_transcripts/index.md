@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Guy Atherton: Solar PV Expert & Developer
+
 ---
 
 ## David Mack: Solar O&M, Rural Growth and Resilience
@@ -2447,6 +2449,565 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Guy Atherton: Solar PV Expert & Developer
+
+Vikram (00:00.738)
+Good morning, Guy. We are recording now. This is Vikram again from Ventus Cables and Connectivity. This is our second ever episode of our The Future of Solar Folds and Folds of All Takes podcast. Today joining us from Germany is Mr. Guy Atherton, whom I've known for a very long time, perhaps since 2008, before the world went mad with the financial crisis. Guy, welcome.
+
+Guy (00:23.664)
+Hey, Vikram, thanks for having me. It's a pleasure to be here.
+
+Vikram (00:27.594)
+So, um, well, what led you to Germany, Guy? That was, that was a bit of a shock for me in the past.
+
+Guy (00:33.228)
+Crikey, what led me to Germany? Well, that's probably one of the last parts of the story, but I can tell you what led me to Germany. Very simply, it was my wife who is German and who I met in the UK back in 2010. And we moved over here in 2013. So I think in the beginning, our relationship, Vikram, began in the UK where I worked at Solar Century.
+
+Vikram (00:44.16)
+Right? Fantastic.
+
+Guy (01:03.268)
+And I think we met, like you said, first in 2008. So it wasn't long that we were together in the UK. And then I headed off over to Germany. So.
+
+Vikram (01:14.242)
+great and you know so solo is all about the people for me you know you have to like what you do and like the people that you work with you know so I've been working with studio cable Switzerland before they were known as Leoni for the last 12 years almost now you know and my priority is you know to grow the key account relationships to know who are serious about the future you know so if you want to learn if you if we want our network to learn a bit more about you
+
+Guy (01:31.763)
+Mm.
+
+Vikram (01:44.083)
+Tell us a bit more about your background. I remember you telling me you were a farmer's son in Queensland and Australia before.
+
+Guy (01:49.716)
+That's correct. I grew up on the farm. And my dad always said, even when from a young age, don't be a farmer. So I was told, go to high school, make sure you do well at high school. And then if you can go to uni, no one in my, no one in my immediate family, or my uncle, aunts and uncles had been to uni. I think we had an accountant that was about it. So it was, it was a big deal for us kids to go to uni. Speaking of our whole generation now, you know, that's
+
+quite normal for people to go to uni, but I think it was a big deal back then. Anyway, so I got off the farm. I went and joined the air force. I was in the air force for two years where I fixed up airplanes and really enjoyed that and then had a chance to go to the university of New South Wales in Sydney and finish an aerospace engineering degree. And yeah, so that's how I came out of uni with a, in 2002.
+
+Vikram (02:28.983)
+Wow.
+
+Guy (02:49.596)
+Um, was probably one of the biggest low points in history for aerospace engineering, there just wasn't a lot going on. Um, it was before SpaceX, you know, all this exciting stuff with rocket science. It was just after the Airbus three 80 came out. So you had like the sort of big leaps in aviation had been done. And it was just like, okay, we don't really need aerospace engineers anymore. So I was looking around for a job and, um,
+
+Vikram (02:56.858)
+Mm-hmm.
+
+Guy (03:17.024)
+Couldn't find a job in any anywhere in Australia in any Aspects I was working in bars Which was good fun, but still I needed to do have some kind of career so I was backpacking around the world and I was stopped in London for a few months and Found a job at a small South London roofing company Who or there so it seemed who were doing solar installations? And these were very small solar installations like, you know, one or two kilowatts basically on
+
+You can imagine like a granny's house or someone or an architect, someone who's very ecologically aware and wants to do their part and is willing to pay something like, what was it back then? 10,000 pounds per kilowatt, just insane prices. So this was in 2004 and that's, that's how I got started. That's all the century, which at the time was about 20 or 30 people and really just, you know, just getting started.
+
+So that's how I got into Solr basically.
+
+Vikram (04:20.462)
+2004 did you say? Oh wow so It's going to be 20 years next year KIKI
+
+Guy (04:28.634)
+Oh you're right, yeah. Almost 20 years of putting solar panels on roofs or on all sorts of things.
+
+Vikram (04:38.89)
+Right. And, um, you know, for, for me, um, uh, soul century was very exciting. You know, um, I remember wanting to buy my house in London and wondering if I need to leave or move out into the sticks. And, um, you know, as a hardworking sales guy working for lab cable with the head offices in Stuttgart and, you know, I worked my ass off and, uh, well, promoted to field sales.
+
+And the 2008 financial crisis happened. Everyone just went into shutdown. Honda, BMW Mini, everything just went into shutdown. There's a construction slowdown, massive, massive construction slowdown, the times of Lehman Brothers and so on. At one point people were talking about how would the company survive and...
+
+Our idea was to look at solar and to look at wind as technology we will need for the future. And I've come across this great company called Solar Century and I read the story that this was supposed to be the solar century. And so that's where I first heard your name and I was trying to get in touch with you going out giving that catalog to Shahid Rishi who was working in your Chesingto warehouse at the time.
+
+Guy (05:50.528)
+That's right, yeah.
+
+Vikram (05:52.402)
+I knew you cared about quality because you were buying from Hoover and Schooner in Switzerland. We had a relationship with Studer even then and we were coming out to you. For me it was really an exciting time then. We were looking at CIS Tower in Manchester, projects in Berlin.
+
+And at the time, you know, there was a company called Silicon Vinniard. They were talking about megawatt solar farms in England and people used to make jokes. You know, they used to say, well, you have solar in England. How is this possible? We can't even go out and sell calculators with solar cells. You know, no, no one believed that, you know, now we fast forward the clock to 2023. And we've had a lot of for the last seven years that, you know, we would have. Nine gigawatts of solar farms, perhaps 13 to 15 gigawatts altogether of PV installed and, and now the UKEI task force.
+
+Guy (06:23.808)
+Hehehehe
+
+Guy (06:36.725)
+Yeah.
+
+Vikram (06:39.274)
+is talking about 70 gigawatts by 2035. You know, there's of course issues with grid connection that need to be dealt with. Tell us more about your experience of solar sentry. You know, this was when the boom almost started for me personally.
+
+Guy (06:51.924)
+Yeah. Well, yeah, it's like, let's look at 2008. I mean, it's, it's an interesting point because yeah, you're right. That, that was like, you know, the economic downturn. Um, and there was a lot of, uh, uncertainty in the construction industry. Um, but I, I felt like even then in the solar industry, like it still felt like we were on the right track and we were still growing because the module prices were coming down. Um, it was, it was basically getting easier for us to work.
+
+But if you think like what we're working on back then There were small Systems mainly say residential roof say three to four kilowatts maximum on a on a roof in the UK We had a product for that called C 21 which was an integrated roof tile Which would replace the tiles on the roof or could also be used with slate the slate roof so You know, I think we're a bit ahead of the curve in that way that we had like a really good
+
+Vikram (07:38.03)
+Mm-hmm.
+
+Guy (07:51.504)
+understanding and building integrated PV in those early days. So we're also doing the first flat roof installations with a, with a system we invented at Solar Sentry. We, we had a, I have to mention as well, we had a very good engineering manager, Jan Muller, and Jan is still working for Solar Sentry, what's now called Stackcraft, but he's still there and he's the director of engineering.
+
+Vikram (08:12.6)
+Mm-hmm.
+
+Vikram (08:19.072)
+Mm-hmm.
+
+Guy (08:21.508)
+He's a legendary engineer. He's absolutely focused on quality and making sure that, you know, as much of the project is held up to these standards as possible, but not only internally to SolarCentury, you know, he was instrumental in setting up the MCS in the UK, working to define these standards for what a good quality solar installation should be. And that was all happening around that time. And as far as I know, the MCS standards are still used today. I haven't worked in...
+
+for a while in the UK, but, you know, these were very important first steps to try and define the quality of what everyone knew was going to be a big industry. But yeah, we were mainly working on commercial roofs. So also working on commercial roofs. So let's say up like 40, 50 kilowatt on a warehouse or something like that. And that really all changed, I think, with the feed-in tariff.
+
+Vikram (09:00.786)
+Mm-hmm.
+
+Guy (09:20.448)
+So I think 2009, 2010, the first feeding tariff in the UK came in and that really changed. That was really a step up in terms of, in getting work done.
+
+Vikram (09:35.174)
+I must say, you know, I've been lucky to work on over two and a half gigawatts of projects, mostly in the UK. And, you know, if you're in the limelight, you're working on massive contracts, you know, there's bound to be, you know, stress and controversy. You know, you have to have courage to take decisions under pressure. So, you know, we don't want to discuss any confidential, anything that may be sensitive. But at the same time, we want to get to the heart of, you know,
+
+Guy (09:56.085)
+Yeah.
+
+Vikram (10:05.848)
+talk about where we've been, what we do now, where we think the future might go. In those days, 50 kilowatt rooftops were massive. They were huge things, manufacturing solar panels in South Wales as well, that was also very, very exciting. It was also sharp in Wrexham, they used to produce modules. But there was a period where the industry just headed towards exponential growth trajectory. At which point, without mentioning any names or anything,
+
+Guy (10:30.956)
+Hmm.
+
+Vikram (10:33.714)
+sensitive did you realize wow this is these are mega projects you know we're looking at five megawatts 10 megawatts 20 megawatts you know now we're in the world of three four hundred five hundred megawatt projects which is still hard to comprehend you know we haven't got over that year and people are planning gigawatt projects in england believe it or not but at what point did you realize this is massive you know when did you do your first last project
+
+Guy (10:45.397)
+Yeah.
+
+Guy (10:59.164)
+Well, yeah, like I said, there was that step change with the feed-in tariff. So with the feed-in tariff, that basically made solar projects financially viable, instead of something that you did for greenwashing, or, you know, let's call it nicely marketing, or you actually had like, concerns about the environment and wanted to do something for yourself. Or maybe there was some kind of corporate social responsibility for companies.
+
+Vikram (11:22.865)
+Mm-hmm.
+
+Guy (11:28.8)
+So these were all reasons before, after the feed-in tariff, you had big financial players going, well, hang on, if we invest X, we can get Y back. And before, there was no return on investment before. It was just a feel-good factor, you know? So suddenly it became a financial product. And the best example, which I was personally involved with, was Octopus, who obviously everyone knows now, but back then was just a very small player.
+
+Vikram (11:39.295)
+Mm-hmm.
+
+Vikram (11:52.759)
+Mm-hmm.
+
+Guy (11:59.264)
+just getting started out making PurePlay renewables investments. And they were working through a project developer called LightSource. And both of them were very small at that point. Let's say 2009, 2010. And that was, I think the first, like you say, when we noticed that this was happening. So work was for me working with LightSource to build these first round of large scale ground melt projects in the UK in 2010.
+
+Vikram (12:03.531)
+Yep.
+
+Vikram (12:07.254)
+Mm-hmm.
+
+Guy (12:27.892)
+So those were the projects like Wheel Jane, which was a abandoned mine in Cornwall where we placed, I think, one and a half megawatts on top of this mine. There was another project in Cambridgeshire called Wheel Burton, which was five megawatts. At the time, that was the cap of the feeding tariff. So I think it was 4.99 megawatts. And at the time, that was the largest project I'd ever personally worked on.
+
+Vikram (12:36.459)
+Wow.
+
+Vikram (12:47.32)
+Mm-hmm.
+
+Guy (12:55.312)
+And there were things like, we're then worrying about things like building our own grid connection and, you know, uh, fences and, and these sorts of things, which you'd never had to worry about before when you're just putting PV on a roof, you know, you show up and put the panels on the roof. And suddenly there was all these other, other aspects we had to take into account, planning permission and, uh, environmental studies and all this sorts of stuff. So yeah, that was, that was the big step. And to be honest, since then, the process hasn't.
+
+really changed for ground mount? I mean, what we were, the challenges we had then are still the challenges you have now. Planning permission grid connection, getting enough workers to build the thing, quality control, obviously, if you're installing in the middle of winter in the rain and snow, how do you make sure the cables are being laid correctly, all that sort of thing. So these struggles remain constant to this day.
+
+Vikram (13:51.268)
+Fantastic, you know of course I started my business Ventus, it was a connectivity registered as Ventus limited in companies in England and Wales in March 2012 and before then I had a year in Honeywell where I tried to get involved with the wind industry, training people to jump out of wind turbines.
+
+I was scared of height and I was a product manager for safety at high and most of my colleagues worked in the SAS or the military at some point. So I had to do it. We had to go ape and everyone went down the easy track and I'd take the hard track. I'm a product manager for safety at height. At the time I remember visiting Siemens regarding London array offshore wind farm. It was supposed to be over 1.2 gigawatts wind farm.
+
+Vikram (14:38.722)
+wanted to Google company names and the reason why I came up with Ventus is because Ventus means wind in Latin and you know It was available so I registered it and my intention was to go into wind But then I had my eye on the solar industry suddenly the solar is installing more capacity than wind And the period in 2012 was special because it was the year of the London 2012 Olympics You know I worked on the floodlights there as well in the past I'd lap and you know, it was an intense time between March
+
+and November 2012 when I think you've advertised that you put on your LinkedIn profile that's when you left Soul Sentry after eight years and three months. So you know that was a really intense period for me and you know at what point did you decide you need to you know leave Soul Sentry and make the transition to your next challenge?
+
+Guy (15:14.763)
+Yeah.
+
+Guy (15:29.204)
+Good question. I don't, I remember being at Solar Century and I was having, you know, um, uh, I think it was a great time, but like you said, I've been there for eight years and when you've been somewhere for eight years and you've grown with the company and you know, you're not going to really go any further, you start to think about options and, uh, you know, I've, I've done a lot of things in life and I've, I've always been an optimist and I try not to regret anything, but I do think the, I do regret the way I left Solar Century.
+
+Vikram (15:44.383)
+Mm-hmm.
+
+Guy (15:59.496)
+because I've been there for so long and then I was just like, okay, I'm going to go and do something else. And I feel like in retrospect, I wouldn't do that again. But anyway, the reason I left was I wanted to go on, basically work for myself, try and do things myself. I also started a limited company and I worked mainly for OST, now part of Rena, and I was doing consultancy and project development. So...
+
+Vikram (16:24.246)
+Mm-hmm.
+
+Guy (16:28.404)
+working on planning permissions and good connections in the UK from a technical side, helping developers and project developers and small companies to do that. It was interesting, but also a lot of hard work. Lots of traveling around, lots of away from home. And during that time, I also moved to Germany.
+
+I hadn't anticipated that the UK was going to be so hot. Basically, I thought the German market would also be good at that time. Unfortunately, it wasn't the German market had a very big downturn 2013, 2014. So it was a difficult, difficult time. Um, but I was still able to find a job in Germany at BiVar renewable energy. So BiVar then also was quite small. BiVar RE, sorry, was quite small. Um,
+
+Vikram (17:00.718)
+Mm-hmm.
+
+Vikram (17:06.766)
+Remember that. Yep, yep.
+
+Vikram (17:22.722)
+Mm-hmm.
+
+Guy (17:23.772)
+again, like probably 30 or 40 people in the solar branch. And I was basically brought on as the UK solar project expert to help them to build out their projects in the UK. At that time, they'd only been building in Germany and they wanted to move into the UK market. So I was able to help them with the first rock projects, the carbon credits. And yeah, we built.
+
+20, 30, 40 megawatt projects in the UK. I can't remember how many, quite a few. Also going up towards 50 megawatts by the end. And that was also another sort of lesson, coming from a UK company, which was very focused on quality and having the best reputation in the business and trying to make sure that they kept that moral high ground and then coming to a German company and...
+
+where you kind of assume that the quality and everything will be at the highest level, but they're also having to make trade-offs and they're saying, to be financially viable, we have to do this and this. So, I'm not saying that the quality was lower, it was just like the sort of assumption we all have that Germans are known for quality is more, Germans are better at risk management. Let me put it that way. They're very aware of the risks of everything and they talk about, and they make sure that they're.
+
+taking everything into account so but this from my experience not necessarily efficient or Focused on quality, but really risk aware
+
+Vikram (19:03.426)
+There's so many things you raise here, you know, I've just filled up two pages with things I want to ask you. And obviously I want to keep this episode to a manageable number of minutes, but you know, you mentioned so many things I want to ask you about, like OST was mentioned a lot 2012, 2013 onwards. What does OST stand for? It's the names of the founders, right?
+
+Guy (19:06.252)
+Ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha
+
+Guy (19:23.988)
+Yeah, Oli Simon and Oli Soper Simon Turner. That was it. Yeah.
+
+Vikram (19:29.826)
+Thanks. And now that the arena is good for just our memories to keep a timeline of some description. You mentioned the downturn in the German PV industry. I remember the downturn in the Dutch and Spanish PV industry at the same time in Germany. You know, Conergy, SAG, Wurzel were massive, all of them over 300 million euros turnover. I remember precisely in the credit reports.
+
+Guy (19:43.83)
+Yeah.
+
+Vikram (19:55.934)
+I enjoy this time a lot as well because it's a small industry, there's a lot of circles and networks everywhere. Bayoua, REWAR, our exclusive distributor for Leone in the UK, they were stocking our PV cables. It was a great time for me because I hardly lived in London in the past. I did work a lot in Hampshire and London for LAB, but when I was visiting Bayoua on the west coast of Wales, I can never pronounce the name of the town, it's McLeancliffe.
+
+Guy (20:02.197)
+Mm.
+
+Vikram (20:25.782)
+And it's how I want to be murdered. Yeah. So I remember this time, you know, driving past a stone hinge, you know, and, and then go to BSR and then going to the west coast of Wales and, you know, going around with German accents and Snowdonia, you know, it was surreal. And then, and then the following week I was flying to Switzerland and meeting you and taking you to see Wolfgang, you know, he's a very passionate product manager that we have, he spent his life 20 years plus in electrical engineering with ABB. You know, he brings a wealth of experience. Yeah. You didn't meet at the time.
+
+Guy (20:26.219)
+Oh, wait, yeah, sorry.
+
+Guy (20:38.648)
+Hahaha!
+
+Vikram (20:55.37)
+Mr. Furugyogunsoy, who's retired now, he's starting factories in China, next door to Trinna and in Pune and in India. So it was just all going a bit mad, you know? And you are an engineer, you're also very passionate about what you do. You know, at what point did you start to think about the technology in itself, like number of modules in a string, what kind of inverters to use, would you use centrals, would you use strings, you know? What was your perception as a whole century and how did that translate to Bioware?
+
+Guy (21:24.936)
+That's a good one. I mean the dark art we called it at Solicentri the dark art of inverter sizing this Because you're trying to take all of these different factors into account From your cable sizing, you know cable cross-section. What sort of cable using what effect does that have on your string length, you know? All the way down to what inverters are available what panels are available what framework system we're using, you know so there's all of these factors you would take into account for the
+
+Vikram (21:31.723)
+Right.
+
+Vikram (21:51.223)
+Mm-hmm.
+
+Guy (21:54.312)
+Invert a sizing. Now it's a bit easier. The software is easier to use. You know, I can take all of these things into account and sort of just give you, this is the best option. Take this. But back then it was, you know, we had a couple of spreadsheets and we had a couple of people who were like, you know, thinking about these things and then do this. You know, we would come up with the answer and go back to the sales people who were desperately trying to know what components we had so that they could give a price to the customer. And yeah, it was a bit more.
+
+It was a bit more a dark art. Let's put it that way. It was more of a lot of spreadsheets and things. So it was always, always part of the job. String sizing, inverter selection. I think to be honest, it's got less and less so as I've gone along. But when I think of when I started a BiVar, they already had a great system setup. They used prefabricated DC cables. They used
+
+certain, they'd like always a tier one module supplier and maybe a backup. They had a tier one inverter supplier and maybe a backup. It was a very set system. You always use this module. You always use this inverter. So there's much less leeway there in terms of product selection, but you could always come and say, Oh, I've seen this new inverter on the market. I've done the inverter sizing. I've seen like, how does it work with our system that we have now? It could be a possibility. And then the boss would say no.
+
+Vikram (22:57.271)
+Mm-hmm.
+
+Vikram (23:13.538)
+Mm-hmm.
+
+Guy (23:21.024)
+But you know, so the benefit of the set system was you knew exactly how much it cost, you knew exactly how much it worked, how it worked, and you knew that you could replicate it over and over again on each project. So it simplified things. But of course, that system also led later on, you know, coming into the 2016-17 era when the modules were all changing and...
+
+Everyone was, the inverters were the inverter supply problems. Um, that's when it, that's when you're, um, it's sorry, let me start the sentence again. That's when your, um, resilience becomes a problem because you're, you're no longer able to suddenly adapt to market conditions and so on, if you have a very fixed system. So we had, we had some troubles with that at that time.
+
+redesigning projects, spending a lot of time in project design. For like a 30 or 40 megawatt project to change the module is a big deal. And you have to have to do a lot of design work again. So we went very, being an engineer at that time, wasn't a very thankful job.
+
+Vikram (24:38.102)
+You're taking a lot of risk and what Wolfgang says every time we're building a new factory with each solar farm because you know standardization is very difficult when you might get different transformers, different modules turning up, you know the mounting structure might be sourced at the last minute and you know the cable design would be one of the last considerations on a few projects and connectors as well.
+
+Guy (24:55.376)
+Exactly. Yeah. Connectors. Different connectors on different modules. Don't get me started, Vikram. Oh my God.
+
+Vikram (25:03.634)
+Yeah, so you're lucky if you know what connectors you're getting, you know, the modules are already on the ship and you know, we've got anti dumping duties, you know, a lot of that, I think might have busted a few of the big EPCs because you know, they made deals on some pens per watt modules and suddenly you have to deal with the minimum input pricing. So you know, all kinds of new players enter the industry.
+
+Guy (25:15.625)
+Yeah.
+
+Vikram (25:26.05)
+As you said, inverters is a bit of a dark art, cable sizing itself is a bit of a dark art. Anything that makes money, you know, pays people's mortgages and builds livelihoods is a dark art in itself. I never figured out how people do module deals, for example. But for the laypersons, for us people on the outside, it was enormous to see these massive power 1 central inverters appear out of nowhere.
+
+Guy (25:50.22)
+Hmm. The ultras.
+
+Vikram (25:51.454)
+and some people working with string inverters, they are a cult sort of developer, some people would only work with centrals, some people work with SMA centrals, some people only work with Huawei strings. Are you a string inverter person or a central inverter person? What do you see as being the future? For large projects we are talking about not commercial or domestic rooftops.
+
+Guy (26:04.661)
+Mmm.
+
+Guy (26:21.049)
+I'm still leaning towards strings, just to answer your question quickly. I still lean towards strings for one simple reason, and that's it is that they are distributed. So centralized systems are more likely to have problems. If you think your central inverter goes down, you have to swap out a power unit.
+
+Vikram (26:43.277)
+Right.
+
+Guy (26:48.576)
+that can take weeks. You have to have a special arrangement with the central inverter supply to come and swap out that power unit. And then your whole, that whole power unit is out. So let's say 250, 500 kilowatts, whatever, or PV is not working. If you've got a string inverter, 100 kilowatts, 180 kilowatts, let's say, there are bigger ones now, but let's say for a plant in operation. If that inverter drops out and you need to replace it, A, you'll probably have some in stock, in a...
+
+Vikram (26:55.041)
+Mm-hmm.
+
+Guy (27:17.576)
+in a container on site. B, you can get any electrician who works in 400 volt to go and swap that out, because there's nothing special. You just take the old unit out, put the new unit in, plug it in, turn it on. It's a much simpler operational effort. So in terms of operation, there's that huge saving. There's another saving which we don't talk about much and which I think will become bigger in the future. If you look now at the plants we build,
+
+Vikram (27:28.749)
+Mm-hmm.
+
+Guy (27:48.776)
+They're usually on flat land. They're usually quite simple with replicating designs. So it's very like string lengths are almost always exactly the same. You think a central inverter, the strings all have to be the same length and they all have to be facing exactly the same way to maintain that ideal orientation so you don't get mismatch. As soon as you have a mismatch, your PR starts going down, performance ratio of the plant.
+
+Vikram (28:05.376)
+Mm-hmm.
+
+Vikram (28:11.488)
+Right.
+
+Guy (28:17.396)
+So you want to maintain that ideal orientation. A string inverter on the other hand, has a number of PowerPoint trackers, and you can have different string lengths or even orientations on the same string inverter. So every five to 10 kilowatts can be a different orientation. It doesn't matter, the inverter will still happily work. And the important thing is it will maintain your PR. So you'll have a higher PR for the string inverter.
+
+Vikram (28:43.264)
+Mm-hmm.
+
+Guy (28:47.04)
+And when you start to think about bifacial modules, bifacial modules on trackers, trackers which we see now which are terrain following, trackers in difficult terrain, the modules are all pointing different directions at different times of day. Even the normal inclination according to the terrain is all over the place. And that really then benefits the string inverter set up with multiple trackers. It makes it much more difficult for the central inverter.
+
+to maintain that, to work with that amount of mismatch. So again, that's why I lean towards string inverters, operational and performance reasons.
+
+Vikram (29:28.286)
+So fascinating, of course in the future, you know, for impartiality, we'll try to get central inverter people on board and on this podcast and let them talk for themselves. You know, I remember visiting Andy Green in Emerson Control Techniques in the past. He would argue he will have, you know, distributed systems or IGBTs or whatever it is. I'm not a specialist in inverters. In centralized solutions, you know, because the market became crazy and
+
+lot of established players pulled out of the market you know because we were running before we could walk sometimes. It's interesting you mentioned you know the string inverters you know you have low operational costs you know that's already showing how advanced you may have been at Biwa and other places because from where I sit the capex seems to be the main driver.
+
+Guy (30:18.069)
+Yeah.
+
+Vikram (30:18.282)
+because some of the great things I've heard is developers tend to make a lot of the profit by the time the EPC takes on the contract. There's not a lot of fat left and CAPEX seems to be the driver for people's cash flows for survival, so to speak. So from a purely CAPEX point of view, would you say or would you consider rather that central inverters are lower cost per watt than string inverters?
+
+Guy (30:41.942)
+Yeah, sure.
+
+Vikram (30:44.498)
+Okay.
+
+Guy (30:44.86)
+Yeah. It's, but, uh, that's the thing. Um, the, you'll have to have a maintenance contract with a central inverter. You have to pay, um, an annual amount to just to keep that central inverter running. Or as you don't really have that with a string inverter, that's not really necessary. If it fails, swap it out, you know, put a new one in. If it's under warranty, you'll even get that, you know, get the, get the, the swapped out unit back again. So.
+
+Vikram (30:55.456)
+Mm-hmm.
+
+Guy (31:13.648)
+And you see that in the US, like the US market is mainly central because of CapEx, US is still very CapEx focused. They're having problems now with the Opex. They're having problems with cables. All of the things we've seen before, Vikram, they're having problems with the connectors, it's, you know, we've all been there, been there, done that when we were CapEx focused and then, you know, that's why we focus on Opex now. That's why we focus on reducing the operational costs because we know CapEx is once and that's
+
+Vikram (31:21.133)
+Mm-hmm.
+
+Vikram (31:27.262)
+Yeah, yeah, there's no more problem anymore.
+
+Vikram (31:42.944)
+Mm-hmm.
+
+Guy (31:43.636)
+That's the EBC's job, but the operation of the plants for 20, 25 years. So those costs are very important.
+
+Vikram (31:45.868)
+Yeah.
+
+Vikram (31:51.578)
+We're seeing the comeback of that because hardly anyone wants to EPC in the UK anymore. I can't speak much about another market. But you know, without making this conversation too long, you know, for the sake of progress, some of the interesting things I've seen as you hinted at Bifacial modules, Maxin PowerPoint tracking, we could talk a bit more about that. But DC coupling, what's your view on DC coupling, you know?
+
+having uh you know uh do you think that would that would be a comeback for central inverters because you might need a couple batteries with bifacial modules
+
+Guy (32:24.328)
+Possibly. I mean, we've seen that from SMA. At least what I've seen is the DC coupling for the SMA battery system.
+
+Guy (32:37.26)
+It's all about efficiency, isn't it? It's like, how do you, sorry if you're getting that noise in the background. Well, I'll just start again. It seems to me to be about the efficiency. If you're DC-DC, obviously you have less losses. But if you have a good battery system for DC to AC to DC again, and you can still maintain that efficiency, then why not?
+
+Vikram (32:42.25)
+That's why we're busy people. Adds to the ambience.
+
+Guy (33:06.512)
+I don't really know a huge amount of the topic to be honest, but I think there's room for both systems there. From what we've seen now, you see sort of more like the large scale storage is also kind of self contained, right? And it's not necessarily in the field with the panels. It's in a separate, separate area. So that lends itself better to a, um, a non DC system in my understanding. But again, not my area of expertise.
+
+Vikram (33:34.794)
+Absolutely fine, it's something we hint at for the future, you know, we can't predict what may or may not happen, you know. For example, Cleve Hill Solar Farm, which is 373 megawatt peak DC, is in construction with, you know, string inverters, it's in the planning documents, you know, it's all online and you can go have a look. Some of the other things from my own nerdy point of view, you know, I'm heading more and more towards electrical engineering studies, mostly with the help of my...
+
+colleagues, you know, stand on the shoulders of some giants of the past, you know, literally built grids in the Middle East and so on, you know, so I still talk to them, you know, I'm fortunate to still have their, you know, expertise to call on because, you know, some of our work we've done in the past is a lot of water under the bridge. But in terms of system sizing, you know, like DC AC ratios, you know, do you have any views on that at all? You know, you don't need to go into any details. But you know, some people sizing 30%
+
+larger DC arrays overloading this string inverter. So for example you can have a 350 kilowatt string inverter and input almost 624 kilowatts DC arrays onto them. Do you have any thoughts about how the maximum powerpoint trackers work to optimize the system to make sure the inverter is not overloaded?
+
+Guy (34:49.0)
+Yeah, absolutely. I mean, there's tools for this. This is not a, you don't have to make guesses or just say, okay, I'm gonna do 150% DC overload here just because to save money, you can very clearly see what the effect is on the yield. Cable sizing everything, you can take that into account. It's a purely financial decision now. So for example, where I work now, PV case, we make software for this, right? We make...
+
+software for the design for the ground mount projects. So like I mentioned before, if you do have to change the module or something or change the string length, you can make that change very quickly. You don't have to worry about the engineering time for these sorts of changes. It makes the job of the engineer much easier, but also for the yield studies. So for example, being able to send 10 different options of the design you've done.
+
+Vikram (35:18.822)
+Mm-hmm.
+
+Guy (35:45.032)
+the same maybe different string lengths or different orientations, different tracker spacings, send those to the yield tool and see what effect does that have on the output, you know, and you can very quickly then determine what should be the DC AC ratio. Well, let's face it, it's the DC AC risk that you're taking. Do we risk putting more PV on these inverters and then reduce the yield? You know what I mean? Or reduce the performance.
+
+because it basically caps, right? You'll instead of having the nice bell shaped curve, your DC will hit a peak, the inverter can't go any further. So then you basically throw all that into your way. Do you wanna do that? It's in the olden days when we were doing one kilowatt of DC on a granny's roof, we had one to one, we had 100% sizing because you didn't wanna lose a single electron, right? You wanted to get all of that juice into the grid.
+
+Vikram (36:25.186)
+Mm-hmm.
+
+Vikram (36:42.293)
+Yes. Yep.
+
+Guy (36:44.104)
+Whereas now, I mean, when I was working in Japan, we were talking about 200% just to save money. And it was like, yeah, guys, sorry, if, if we do the yield, this doesn't make sense. You know, you basically have a PR of like 75% or something. It's the, you're better off putting in a little bit more money on the inverters.
+
+Vikram (36:47.915)
+Wow.
+
+Vikram (37:02.034)
+For me this is really a dark and fascinating, you know, how these power electronics, maximum power point trackers work, you know. Unfortunately, because of rising tensions worldwide, you know, we've had Huawei leave the market, you know, they used to push a lot, you know, maximum power point tracking and now, you know, some of the work I'm doing, which I can't go into details about NDAs being in place and so on, you know, there seems to be a trend on some projects of moving towards distributed maximum power point trackers.
+
+So for me, I'm not looking at it from purely asset management or developer or energy generate point of view. I'm looking at it from an electrical safety and R&D perspective, and how these maximum PowerPoint trackers work to limit the currents or voltages and to make sure the connectors are not melting and the cables are not failing or going over dangerous voltage limits. How these MPPTs work and how they may be distributed in the field and how they may...
+
+Guy (37:29.771)
+Hmm.
+
+Vikram (37:56.862)
+work together with battery storage, you know, it's an area or a field of research for me, but I won't, you know, make this call too long. You know, for me, the big surprise, let's be honest, was you're leaving as the head of engineering. First, you were project development engineer at Bioware, then head of engineering, and then you're leaving in 2021, you know, still kind of during the lockdown. You know, we didn't even go into that just to limit the time we're spending on this particular episode.
+
+Your jump to PBKs for me was a massive shock, you know? How did that happen for you?
+
+Guy (38:29.164)
+Well, again, I've been a bivouac for eight years. I've been doing projects all over the place. And I was just starting to do the same thing over and over again. And I don't know if you've ever had to do the same thing over and over again. After a while, it gets a bit boring and you feel like you're banging your head against the wall and you want to try something new.
+
+Vikram (38:31.702)
+Mm-hmm.
+
+Vikram (38:42.016)
+Right.
+
+Vikram (38:48.717)
+Mm-hmm.
+
+You want new challenges, you want to stay motivated, you know, you want to get out of bed looking forward to something, you know, I completely get that. You know, that's the reason why I ended up being traveling in China and looking at other markets and, you know, always trying to evolve with the times. And so now we talk about the future. Well, you know, there's a lot of naysayers, they say solar is a joke, you know, it hardly generates any megawatt hours, you know, it only works in the summer.
+
+Guy (38:58.793)
+Yeah.
+
+Guy (39:18.336)
+Who says that?
+
+Vikram (39:20.502)
+A lot of people that want to push oil and gas and nuclear and some people from hydrogen, sometimes they can be an overlap as well. What do you see as the future of solar photovoltaics specifically?
+
+Guy (39:23.785)
+All those guys.
+
+Guy (39:35.36)
+Well, I don't see what is the future of solar. I just see the future is solar. There isn't any question now. The price is so low. The price of energy, the cost of energy, sorry, for solar is so low. I mean, it's a bad time to be in the fossil fuel industry or the nuclear industry because they can't compete. Their days are numbered. I mean, if you look at the cost of BESS as well, energy storage is going down.
+
+Vikram (39:39.083)
+Right.
+
+Mm-hmm.
+
+Vikram (39:55.78)
+Mm-hmm.
+
+Vikram (40:03.008)
+Right.
+
+Guy (40:03.848)
+In five years, this won't even be a conversation. It won't even be like, oh, should we be putting in nuclear or we need to buy gas from somewhere? I'll just be like, we need to put in as much solar as possible, as much as we can afford, as much as we can install, given the physical constraints, the installation constraints and batteries. If you have enough batteries and enough solar, you can empower the whole grid in the middle of winter.
+
+Vikram (40:16.845)
+Mm-hmm.
+
+Guy (40:35.825)
+It's not a question of if, it's a question of when. This is going to happen. It is the cheapest form of energy. And it's really just a matter of how long it's gonna take to get to that point, five, 10 years, whatever. But nothing will stop that march of solar over the next short period.
+
+Vikram (40:54.466)
+Well, I won't mention my sources of who's going to say that, but you'll be surprised. There are seasoned engineers, some of them with PhDs, some of them electric contractors that worked for 40 years in my tennis club. You know, they go, what happens in the middle of winter at 4 p.m. when the sun sets? They argue that solar is almost a cannibalistic technology because when it's working, nothing else can compete. And, you know, those generators stop producing or gas winds down. And suddenly we have a gas crisis, you know, because the prices are uncontrollably high.
+
+What's your solution to energy in the winter then? If there is no sun at 4pm in the UK or...
+
+Guy (41:28.02)
+But I just told you, Vikram, you have to install more solar. Let's say you've got a one kilowatt solar plant. In the middle of winter, it produces 100 watts.
+
+Vikram (41:34.318)
+Mm-hmm. Right.
+
+Vikram (41:39.158)
+Right.
+
+Guy (41:40.584)
+So if your demand is in winter is a hundred Watts problem solved, you have to install as much, so much solar and battery energy storage that it covers the demand at the worst time.
+
+Vikram (41:44.287)
+Mm-hmm.
+
+Guy (41:56.264)
+See what I mean? So if your worst time for solar is the middle of winter, and it's only producing, let's look on a grid scale now. If your worst time for solar is middle of winter, and it's only producing 10 gigawatts in the middle of winter, then you need to install 100 gigawatts. So the 100 gigawatts produces 10 gigawatts in the middle of winter. Then your problem is solved. Then you can be 100% solar plus wind. Yep.
+
+Vikram (42:00.802)
+Mm-hmm.
+
+Vikram (42:10.189)
+Right.
+
+Vikram (42:21.878)
+But interesting you said you said early on that you're a farmer's son, you know, and a lot of people say that if you're going to install more solar, you're competing with food now. So what's your view on that?
+
+Guy (42:32.36)
+The food industry is also going to have a huge change in the next 10 years. We're only just seeing the start of like, uh, what do you call it? Synthetically produced proteins, these sorts of things. Um, the, the meat industry is going to go down. I think the, I don't think you'll even see much pressure on, um, agriculture for producing synthetic fuels. I think the, the number of the amount of food, which is going to be, um, synthetically produced is.
+
+Vikram (42:36.301)
+Right.
+
+Vikram (42:41.058)
+Mm-hmm.
+
+Vikram (42:56.267)
+Right.
+
+Guy (43:01.388)
+is going to grow up and the pressure on the agricultural industry is going to go down.
+
+But also we've seen as well, agri PV is big now. It's quite easy to have PV working very comfortably in conjunction with agriculture. They don't have to compete.
+
+Vikram (43:21.942)
+Fantastic. So we're coming towards the end of our conversation. Last question I want to ask you guys is where do you see yourself this time next year? You know, you don't have a crystal ball. There's so many things going on. There's, you know, two wars happening right now, if not more. Where do you think we will be Christmas time 2024?
+
+Guy (43:37.504)
+Yeah.
+
+Guy (43:43.276)
+To be honest, Vikram, I hope I'm still doing the same thing. I hope I'm still working in software. I hope we're still making it easier to install solar everywhere. And I hope that the numbers keep going up. I hope we hope we get more solar into the grid. And I'm also hoping that the non-renewable energies are further down. I hope that we can see some bankruptcies in oil companies and in car companies that refuse to build electric cars.
+
+Vikram (44:05.974)
+Mm-hmm.
+
+Guy (44:12.448)
+That sort of thing. No, I hope so. I hope the writing's on the wall for these companies already. And you can see already if you look at the share price of Volkswagen and so on, what's gonna happen to them in a year? I don't know the answer, but I'm hoping I'm doing the same thing. I'm hoping I'm still fighting for solar and winning.
+
+Vikram (44:31.49)
+Fantastic guy. I've certainly enjoyed this conversation. Thanks so much for joining us.
+
+Guy (44:37.501)
+No worries, thanks for the comment.
+
 
 
 

@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End
+
 Clive Cosby: Constructing The Largest Solar Farms
 
 Guy Atherton: Solar PV Expert & Developer
@@ -2451,6 +2453,308 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End
+
+Vikram (00:01)
+Hi, welcome again to another episode of the Future of Solar Photovoltaics. My name is Vikram from Ventus Care Wars and Connectivity. Today I'm delighted to have one of my best friends in the industry, Mr. Stefano Girolami, who I met during some hectic times at Solar Sentry. Stefano, welcome.
+
+Stefano (00:22)
+Thank you very much and very good to see you again and have this very interesting chat together. And thanks for the opportunity to participate in your podcast series.
+
+Vikram (00:37)
+Fantastic. You know, we are always busy. You're an engineer and you we are always working to deadlines and we never really get to talk about ⁓ anything about the general context. Stefan, are you able to give us some idea about your background about who you are, where you come from?
+
+Stefano (00:56)
+Okay, I am an engineer. I'm quite mixed up. I have a quite mixed up background also on the engineering studies. I am from Napoli, which is a city in the south of Italy. ⁓ And that's where I started my studies in management engineering, which is some sort of industrial engineering.
+
+course, but it also has more management and ⁓ organizational and risk management sort of activities within the course. At the end of the first three years getting the, it the bachelor, the equivalent to a bachelor, I wasn't very much enthusiast about what will come next ⁓ in the university in Napoli.
+
+I was very fascinated already by renewable energy, not because I actually went through any readings or actually focused on the topic. remember one day just thinking of what will be the topics of the future and among these, which one you want to build a career within. So I to go off the beaten track.
+
+if you like. Renewables, obviously, was the obvious choice for me because it was an international market allowing you to travel and meet people. At the same time, was a market that was proposing something good, resilient. I really wanted to get into this market. However,
+
+In Italy, we didn't have many courses about renewables in universities. And in Naples, there wasn't anything at all. I've got this six month spare and I need to learn English. I need to take the test and get my admission to the University of Milan. said, okay, probably the best way to learn English is go abroad, go to an English speaking country and force yourself in doing that rather
+
+Vikram (03:16)
+jump at the deep end straight away.
+
+Stefano (03:18)
+Exactly. Rather than buy a book and keep talking in Italian with your friends. just literally graduated on probably the 15th of March or something like that. And two days after 17th of March, 2015, I just took off to London. And that was the beginning of, ⁓ call it my adult experience, traveling Europe and traveling the renewable energy markets.
+
+Okay, the first six months, I won't spend much time, but the most important thing, I managed to start learning English, which was the target. But through the time in London, I met new people and talking to some of these, I was exposed to the possibility of doing a master in renewable energy in the UK. So I had these two choices, the master in Milan.
+
+who would last for two years and was very Italian based anyway, or ⁓ keep staying in the UK and get a master in a British university, so also perfection in English and open up also your network of people from different parts of the world. So I decided to stay. I applied to renewable energy system engineering.
+
+Master of Science at the University of Gidford in Zagreb. Very nice place. And that's where I went to study. I completed that master in a year ⁓ at the beginning of 2016. And that's it. I was out on the job market to get my place in the renewable energy industry. Obviously at the very
+
+Vikram (04:48)
+Right.
+
+Stefano (05:13)
+very, very right time. Just the feeding tariff just got canceled probably five days before I graduated. I said, yes, now you're ready to go in the market. So I really struggled. I really struggled to find a job in the industry. It was the time of big redundancies. You definitely remember that time. It wasn't a good time for the industry. All the big players were getting, unfortunately, rid of teams and people.
+
+because of the feeding tariff. So I struggled a little bit, did a lot of small jobs here and there just to keep me searching for a job in renewables. I actually declined any jobs you can think about, like all the consulting, all the more general engineering jobs. I really wanted to get into renewables. I wouldn't compromise, not even as a start.
+
+And that sort of gave me, I was, was recompensated by that. And I eventually landed a job in photon energy, which is at the time was a small EPC and design ⁓ firm for solar rooftop in, based in Reading.
+
+Small company in Redding, so I was commuting every day from London, but it was probably the best first experience in solar I could ask for. I just went there, I started from the basics. Learn how to use AutoCAD, learn how to do a layout, learn how to do a PV system, learn all the small parts. Good thing about rooftops, especially small ones, is that you see the whole thing and it's quite manageable.
+
+So you can actually see all the small details and then slowly but surely you're able to scale them up quite easily. So that was a good experience. I stayed there for eight months almost. the feeding tariff was hitting them as well, even though they were doing some different sort of activity at the time, which was more commercial and residential. yeah, so time wasn't
+
+going very much in their favor. So I could see that they were rejecting some jobs and potentially cutting personnel as well. I started looking under cover for some other job, probably a bit closer to my home in London. And at the end, ⁓ found South Century, which was...
+
+You know, don't win after uni, you go out of uni and you got your best three, you know, that you want to land in. And SolarSentry was definitely my first one, like top of the list. I actually, I even applied for a office management ⁓ desk receptionist role at SolarSentry after uni. said, okay, if that's the way you get into SolarSentry, I'll get through. Yeah, exactly. And then, and then we'll see. But no.
+
+Vikram (08:27)
+I'll get for in the door.
+
+Stefano (08:31)
+I met Anne Martinet, which was the person who hired me and who was my manager for the whole time, most of the time at Solar Century. And there was a very good feeling and connection from the, even from the first interview we done. And I was in Solar Century, was able to, you know that because you've, you know, we've been working together. You've been to the offices so many times. You've been, you know,
+
+cooperating with South Center even a lot earlier than I was in. you you remember that sort of vibe that you could feel entering the office in South Center. was vibrating, it was full of excitement. you you could tell people were really there to make a change, you know, and they really believed that. No one was actually going to work eight hours shift, just saying, you I have to go to work. Everyone was, I could feel that sort of, you know,
+
+excitement on the first interview already. yeah, and I really got along with Anne from the very beginning. So that's where it started, my journey with Solar Century, ⁓ which, you know, looking back, I think I've been probably the most lucky person to get that opportunity because I entered Solar Century in a moment of change. So
+
+I entered our century when they, that you also worked on, ground mounted, but they had recently signed a deal with the IKEA for the PV on rooftops. And it was a set of one megabyte rooftop sites on the IKEA's across the UK. And I was assigned to that. So, you know, I just learned how to do some auto-cutting PV system. And then Le Martin was okay. Here is your.
+
+your project, actually your portfolio of project, you just go. So let's, know, okay, I've never done this, no idea how to do this, but you know, let's try. And that was incredible experience because, you know, when you are a project engineer, you have to design, yes, okay, that's part of the job. So you're the big part of the job you have to design, but what
+
+I really wanted to, which is part of my, probably my character, know, my behavioral tendency is to get in connection with people I work, you know, creating. I don't like working on compartments and this, you will see this is a constant thing throughout my career in the different places I've been. I don't like compartments. I like everyone talking, everyone supporting each other. So my approach was
+
+And I was the youngest, I was the least experienced, but still I was the one going there and saying, okay, I'll come to your office, to the EPC contractor rather than to the project management and say, okay, let's talk. I don't know how to do this. What do you think? And we managed to create this team, project team on the IKEA, which was very exciting. There was this contractor from the North.
+
+very competent, very expert on ⁓ all the electrical connection, very good contractor. The project manager was the project managers because I had a different one on each project. They were very open to discussion as well on all the different topics. So that's very good experience. I think we did a very nice job. I talked to one of the project managers lately and he told me that the projects are, you know...
+
+going well, no particular issues. So it's a very nice experience on rooftops. I loved rooftops, but as we finished the last one, SolarCentury was changing in the meantime, Pan-European IPP developer. a completely ⁓ massive change in the structure because you move from having
+
+50 % of your team in project management and engineering to having probably 10 % of your team there. And then a lot more, you know, huge amount of new people doing different stuff. But the very key thing was that there was a culture shock because obviously when you are an EPC, you work to get things done. So you do them at the best you can. You manage all the risks. You are very conservative sometimes.
+
+You you also want to save on the single pound to make the project do it. And development is a completely different story. Development is, know, let's manage the risk as much as we want now, but then we'll see, you know, because it's down the line. So, Saracen 3 was shifting that way.
+
+But there was a country at the time, which was the Netherlands, where instead there was construction also on top of the betterment. So I was able to jump on a new construction project, which was Black Vede, the 110 megawatt PV project in the Netherlands, which was, I think still is, Solar Century's largest project in the Netherlands. It wasn't a difficult project.
+
+design-wise, know, it's a fixed structure. It was quite, how can you say, it quite, it was replicated, you know, it was blocks of two megawatts with a travel station in string inverters and then replicated 54 times to get to the total capacity because you don't have one project but you actually have 54 projects communicating to each other through a DNO and then through a connection point. So that was a very
+
+tricky one, I learned a lot about PPC, ⁓ compliance and SCADA system and understanding how important that is. We built the first digital twin in solar century history with BlackVedder. We resized cables and it was a very nice experience, very long, obviously, site. ⁓ We started
+
+probably 2019 or end of 2018 and we went through COVID. So an extra challenge was COVID at some point because we couldn't have more than a certain number of contractors on site at the same time. And that obviously happened in the peak of construction. So yeah, that experience was good. And in the meantime, I started being the...
+
+reference point for technical reference point for Italy for developing the Italian pipeline and the UK pipeline. So at some point after probably three years, years and a half, found myself being the engineering manager for Italy, UK and the Netherlands. I've been three teams there and it was a very diverse workload because one side you had construction and pre-construction, on the other side you had
+
+UK development, which is a lot lighter than Italian development, but it's more complex on grid. And then on the other side, Italian development, which is a lot more complex on length, but less on grid. So I was getting a little bit of experience on many things. And then the moment came that Stadcraft completed the acquisition of Solar Century.
+
+First reaction was a little bit of uncertainty in the team because I said, okay, what are we going to do? So essentially it was a very well ⁓ built machine. worked very well also on its international shape. The different countries were communicating to each other. We built a structure which was replicated in each country. we achieved a very nice
+
+structure considering the huge growth we had in less than three years. we, know, a bit of uncertainty then we came into Starcraft, which is completely different, you know, company. It's huge. It's very ⁓ based on energy sale. it was utility. Utility. the real difference between a light IPP and a utility, we could see it from day one.
+
+But still, we were very excited to get into Strat. Not lucky, but we were rewarded for what we built at SolarCentury because essentially, Stratcraft didn't have ⁓ a so well-structured solar unit. They were more focusing on wind and hydro power. they actually bought SolarCentury to fill the gap of solar to become one of Europe's largest solar developers as well.
+
+So we were able to fit with no much struggle. We obviously went through a period of restructuring and adjusting and reshaping a little bit the engineering and the delivery team. But that was relatively quick. They had trust in us from day one. There was very good team collaboration to get things done. And yeah, so that was good.
+
+And then I stayed in Stratcraft. When we moved to Stratcraft, I eventually was moved to Italy only, also because Italy was getting big. We moved from a team of two back in 2017 to a team of now they are about 90 people. you can imagine. By the time I left, they were already 50 people. So there was a huge growth in Stratcraft Italy.
+
+And it was another very nice experience. Eventually I moved to where I am today, which is in Novo Renewables, which is again a light upon European light IPP. Very much like, okay, let's call it the ambition is very much like SolarCentury. That's what we're trying to build. Okay. And it's super exciting because I saw SolarCentury at the end and now I'm able
+
+I was given the opportunity to build something like Solar Sentry from scratch. the Solar Sentry has always been my, know, my light in the dark. know, I say, okay, how do we want to build a company? How do we want to build a team? Okay, let's look at Solar Sentry. What did work and also what didn't work, but, you know, let's try to get to that level of engagement of people to feeling and excitement. And so that's what we are doing now here.
+
+I joined at the very beginning, I was probably the fifth person to join the company, other than the founder and the construction director. Today we are active on three countries and almost 45 people account and looking to probably double up this number next year. So having a lot of fun ⁓ developing in Italy, in the UK and in Spain.
+
+So three countries and also very attached to it comes to work.
+
+Vikram (20:28)
+Fantastic. I remember you coming, you were almost like a voice of calm and reason at Solar Century. I remember the first time I visited Solar Century offices, I think there was two or three of them. There was Waterloo, Sudden, and I think Union Street, and then Southern. And first thing that should hit me when I should visit Solar Century was all the trophies they had won for so many different things. know, first ⁓ projects of many different kinds, they own modules.
+
+Stefano (20:43)
+Thank
+
+Vikram (20:56)
+developing the MCS standards which established the industry. so when you came, think when was this time around 2018 you joined Source Entry?
+
+Stefano (21:05)
+Yeah,
+
+Vikram (21:11)
+So straight after the B-word, straight after Brexit when our lives were turned upside down. At that time, Solstentia was a very hectic environment. were maybe 300 people there and we were delivering to Chile, tense negotiations and first experience of reverse auctions. We were working with you on B &Q and IKEA.
+
+And I think lots of people were having a burnout because they had delivered so much in such a short period of time. Between 2012 and 2016, most of the megawatts were delivered.
+
+Stefano (21:45)
+And then the monsters in Spain, the 500 megawatts in Spain, just to, know, when you think, okay, now we can just gigawatt in construction across Europe.
+
+Vikram (21:51)
+Calm down, it's only a footstep.
+
+So we haven't recovered from Chile, but we have 500 megawatts in Spain and we should do a site visit to B &Q because we need to do some batteries and do some things for IKEA. I think if you don't make any mistakes, it means you don't do any work. so people deliver so much as a whole century and they were almost the industry in itself that when you came, was like everyone had red faces because they were either tired or
+
+worried about what mistakes they don't know about or anything like that and so when we were very happy to start working with you Stefano because at this time we started to integrate a Chartered Electrical Engineer with us as well as Stephen McFadden to focus more on the development conversation to look at the energy values rather than on the pence per meter or pence per watt you know we started to really look at what makes a good string sizing, makes a good
+
+Stefano (22:52)
+I remember the 40p target we gave all those sessions about getting to 40p per what peak the target that obviously we couldn't achieve because after that there was Brexit and shortage and logistics issues. So never achieved that, but we were working towards that.
+
+Vikram (23:14)
+The magic with SolarCentury was we would come and as you said earlier, there would always be a buzz in the office and we would have a whiteboard and everyone would draw ideas on how they can achieve cost reduction without compromising on quality. So we would look at either adding more modules to a string or looking at different inverter technologies. Even we were close to developing a solar bus solution at that time.
+
+From your perspective, at which point did you think solar is serious technology? This is actually serious power plants and not only playing around with few modules.
+
+Stefano (23:49)
+I think I always had the impression, obviously I'm young in this market, call it okay, because it's eight years, yeah, less than eight years now. So I've always had the impression or at least the feeling that we were doing serious stuff. But I agree with you, your question is right because
+
+there is this transition from solar, know, still now, now a little bit less, but especially at the beginning of my career, when people were asking me, know, people like friends or family, say, what's your job? How do you do? And I said, okay, I'm an engineer in renewables. And they were saying, ah, I'd like to install some modules on my rooftop. yeah, but I don't actually do that. I do power plants. And they were, ah.
+
+Why? You can do a power plant. So it's completely off the record that solar was an ⁓ energy source, an electricity source. So obviously now there's a lot of hype around this market because of climate change, because of all the targets and stuff. So people now start to understand that solar is a power plant, but still we're not there yet. But also
+
+In the industry, in the industry, we know that solar is our power plant and it's a serious source of energy, it's a serious technology. But also within the industry, I think we need still to do the step, the next step, which is my belief. it's not just a power plant, it's the future of energy. Like we're now shaping what will be
+
+the equivalent of fossil fuel industry today. We're looking at 10, 15 years timeline and we need to replicate that model, the fossil fuel. So that means we can't still go around and say, no, we're just doing the right things. We want to put modules there. we need to embark on more serious conversations and brainstorming on how we expect.
+
+to make this work and starting from the key aspect, which is the grid, know, you know, we sort of saying, okay, we want to make a nice dinner and we go buy all the fancy stuff, but then we don't have a table. So, you know, for, for dinner, ⁓ what do we do? You know, we, can think that solar is serious as much as you want, but if we don't start talking to.
+
+Talking about the grid, how to change the grid, how to digitalize the grid, how to think of solar in a different network, which is not just connect the project and inject energy. You could do that up to probably now. You can't do it anymore from tomorrow on, just because the grid is not able to take it and it's not the way forward. You have to think, okay, what's going to be in 15 years the electricity?
+
+and energy market and distribution networks. Okay, will be digital. Perfect. That means our solar needs to be digital. Okay, let's focus on digitalization. It needs to be constant. Okay, let's focus on battery storage. You know, we need to think of solar and wind, obviously, in a different scale, as the energy of the future and everything that that brings along.
+
+And that means also lobbying, you know, go and influence governments, go and influence the European Union, go and influence big industry lobbies, because, you know, we can't compete. What is clear now, today, is that we still can't compete with our big competitor, which is the fossil fuel industry. We want to play the same game. We want to get them off the scene.
+
+and get the place, replace them in energy production, but we're not at that level. They have lobbies, they have power, they have all structure, which is energy market. They build and they can control. So we need to get there. That's probably the greatest challenge of solar for becoming really serious, as you said.
+
+technology is that the countries that is great is amazing simple this modular is cheap it's perfect you know nothing more you can ask for more technologies just perfect it's how to in you know integrate the technology into modern world that it's really the challenge I guess
+
+Vikram (28:52)
+And interesting you mentioned earlier that you're young in this market, but you you've delivered 110 megawatt projects. You know, some people have never done that in their entire lives to give you an idea. Some countries don't have 110 megawatts of solar to put things into perspective. know, there's lots of industry terms, you know, because a small industry and it has had a lot of boom and bust cycles.
+
+One of them is the solar coaster, which you experience firsthand with Brexit and with the feeling tariffs. But the other specific ⁓ industry term is relevant to Sol Sentry is if you see somebody at another company, they introduce their colleagues like he was a solar Centurion. This is a respect that Sol Sentry has in the market. And you said some advanced things like a digital twin for Black Wedding.
+
+You know, these are things that people only dream about now because the standards have fallen and...
+
+Stefano (29:55)
+building it by hand, know, with five computers. Today you have software that tries to do that. We were literally building it by hand and it was a nightmare. I don't hide, it was a nightmare, but it was good.
+
+Vikram (30:12)
+I remember seeing very precise drawings and everything was so neat and most of us all century has built a really well performing sites even today You know everybody has issues But generally, you know when you're on a soul century site because everything's clean the roads are nicely made and everything seems very professional You usually there isn't a lot of work to do when it's a repowering because it a soul century site But after soul century decided not EPC anymore
+
+I started to a developer, lots of new companies entered the market and already disappeared because to build up processes which took almost 20 years for source entry and then to do it in the lockdown after Brexit, during an energy war, working remotely, it's fantastic all this technology we have, but it doesn't replicate the buzz we had coming to Farringdon or Southwark or Union Street and going in and
+
+we would have just our little part with the cables or the lugs or connectors and we were very busy with it, but there will be 50 other people having meetings about something different, know, that kind of environment, it hasn't really replicated itself. from your point of view, what were the key, without talking about any confidential, there was also Neostar as well, I think this one might have been a zinc mine or something like this. What was the key learning points from Black Wednesday for you?
+
+Stefano (31:33)
+⁓ Probably looking at construction and design was pay attention to details you are not an expert in. We were very good on SCADA and electrical and structural and mechanical and cables and we had all the right partners including yourself and Steve.
+
+and very good conversations with everyone. We weren't very specialized on sieve, but still we had to do a lot of sieve works there because we have to bury some ditches and redirect them. So bury the existing ditches and then ⁓ open new ones and then build roads across, you know, in between those ditches and we didn't probably take.
+
+seriously into account the impact that humidity and water could have a big learning point because ditches that we buried were completely soaked all the time with water on the surface. So we were having also problems with structures and installation and also storage of modules, pallet and stuff because it was too wet.
+
+not the wet that you know on a solar site was probably lake because essentially the terrain was going down and the water was going up and that was because we didn't give enough time, how do you call it, resting time to the land to compact before actually working on it. And the same happened to the new ditches that we opened, essentially raining, raining, raining and then
+
+all the the length on the two sides where was falling within so blocking the water and we had hydraulic problems and then we also had sea-ville problem because we had to you know reopen the ditch and the roads were just built next to the ditch so as the length would slide from the know from the core from the sides of the ditch then the road will get not stable so most of the issues were on the on the seavill.
+
+side of things and we weren't expert on that. we, instead of, you know, probably hiring a civil person to do the job right and take probably a month more to look into details and stuff, we went quite confident on that and said, okay, you know what, we can do it. And then we had issues. Nothing too...
+
+Too bad, it was manageable, but if you want a perfect site, then you have
+
+Vikram (34:30)
+So the lesson is to hire the right people for the right jobs. know, hindsight is 20-20, know, as a soul, essentially so many things were happening at the same time. was remarkable the speed of the productivity. And then you went to Stackroft, Italy and you've moved on from there. What persuaded you to start your new challenge now? What was the point where you decided you need to make your next career move?
+
+Stefano (34:58)
+⁓ I'm an enthusiastic type of person, so I like challenges and that's the real start of it because that's what makes you consider something while you are in Stadcraft Italy. Because I was in Stadcraft Italy, the company was nice, the people were amazing, I had good friends and amazing colleagues and everything was fine. I was an engineering manager.
+
+of one of the largest company in Europe. so, Stadcraft Italy was is, you know, the destiny of Stadcraft Italy is to be one of the key players in the Italian market on the long term. So everything was, you know, perfect. It's just, why would you even consider something different? Because was...
+
+really something different, know, wasn't the same position on a likewise position in a different company. I would have never looked at anything like that. It was a different experience. was, okay, you've seen good companies built. Let's try and build one from scratch. Okay, let's see, what would you do better? How would you approach, you know, all the things, little things that you didn't love?
+
+you can make them better, can try, you know, and if you don't try, this is the industry of trying, you know, there's no set rules in this industry, everything changes from one day to the next. you really perfect the art of improvising and putting everything to question every day. And so I went, okay, let's try and do it new, know, let's try and do it all the things that I've, you know.
+
+All those little things that I think are right from management style to how a company should work and initiatives within the company, how projects should be designed, how development should be done. Let's ⁓ try. Let's see if I can be right, if I can find out something more interesting and that works better. So that was the big drive. ⁓ And so far so good. I'm having a lot of fun.
+
+I'm doing a lot of good stuff and that's what I try to do. It's come here and try to do development in a different way than what I've seen in the years because I was always coming from a utility or IPP which had both construction and development at the same time, especially in solar sentry.
+
+less in Statcraft, but the approach was still that. So the engineering team is a delivery team. And that means that when you do development, you do development and the development call engineering for support. But engineering is not there. It's not there developing the project. OK, what does that mean? it's a comfort.
+
+It's a compartment, as I was telling you before. There's development and then there is engineering. And what's the main issue with that? Then you get to construction, to delivery of projects, and you have projects which are not able to build. You can't build them costly. It just doesn't work. And it could work in a first wave of development where it was very aggressive and you had nothing to lose. You could create value.
+
+literally out of nothing, know, sign a land, ask for a grid and sell it for 25,000 euro megabit, you chop down, know, make a good amount of money and then you move on to the next one. But then we're moving to a more mature stage of the market, especially in Italy, but also in the UK is way ahead, obviously. You need to do things right, especially if you are an IPP, you know, you need to make sure that what you
+
+think of today, what you develop today, then is the way you want to build it, which does mean you won't have problems because you know very well that doesn't matter what you do, you will have problems in construction. But let's try to minimize them. this way you add it. So it's a project team that starts from origination. So you find a land, sign a land, and request a grid up to
+
+energize the site and you have the same project team going along the way together. And so what comes out of this quality? ⁓
+
+Vikram (39:42)
+And
+
+you say, would you say Innova Renewables, are they a developer, IPP or an EPC? What is their core function?
+
+Stefano (39:50)
+We are a developer. So we originate and develop projects up to ready to build. And when we get to ready to build, also call it a light IPP. So we get a share of the project, depending on the country and the deal we have in place. A little bit like SolarSentry at the time with Encavis, which was a very positive and successful ⁓
+
+sort of partnership, know, and Cavist would finance the project so a century of the asset at the end. ⁓ Something like that. So call it a light IPP. Okay. Probably that's the best definition you can give to Innovo today.
+
+Vikram (40:38)
+Fantastic. And you're in a good position to work as a developer because you've had hands-on APC experience yourself from the start to finish. ⁓ You know what's required, you know, especially your ideas about developing a digital twin. So there's some kind of traceability, tracking, planning, you know, it's something way ahead of what normally goes on when there isn't even a design until the APC contract signed.
+
+and everyone just runs like crazy and then you hope that you end up with something in the end. in terms of the future of autovoltaics and you you're a very talented engineer as well. Do you have some ideas about you know in terms of module technology, n-types or p-types? What would be your ideal solar farm in the future?
+
+Stefano (41:28)
+What I like about Solar is the modularity of it. Okay. So I'm a fan of string inverter, no need to hide. It's definitely my preferred choice for many reasons. It's modular, but it's also, it opens up a series of opportunities ⁓ on site management and SCADA and O ⁓
+
+which you can't have on a central inverter, ⁓ which for me, think, for what I told you before, the digitalization, digital twin, thinking of this solar power plant embedded in the system, communicating to the rest of the different items of the system, for me, stringing in on design. Still, I've designed and I designed something with central inverters sometimes also to diversify
+
+a little bit also the risk of doing always the same thing. ⁓ Module-wise, can see also talking to suppliers, to module suppliers, I can see they were really bad in the future on efficiency. you might expect, I think we've reached the peak.
+
+in terms of dimension, I don't think we will go any bigger than that, or probably not much bigger. If you think of the modules we were installing in Black VEde and look at some of the 700 W peak modules on the market now, there is just double the dimensions. I don't think we will try from that again. I think there will be a lot of work done on the efficiency mostly. But yeah, I like it that it's modular. ⁓
+
+So, you know, easy design, string inverters, SCADA, asset management. I like that. And one important, one nice thing is probably ⁓ thinking of solar because there's one big thing. Solar is built on land. Land is mostly agricultural. And so, you know, it's not either one or the other. There is something called AgriPV.
+
+We actually made the name official when in the work stream with Solar Power Europe back in 2018, 2019. I was in Solar Century at the time. We defined that name. We defined what AgriPB should be looking like. In Italy, I feel quite confident to say we are very much advanced on definition on AgriPB. We have some technical norms, some guidelines.
+
+and et cetera, it's a good definition. Again, when you develop because you want to develop and create value, you say, I'm doing a GIGPD, whatever that means. If you do it in a quality way, then it's not that easy. You really have to think about. So probably one thing that I'm eager to focus on and to learn and to study is structure.
+
+know, structures, how we can adapt mounting structures to agricultural activities. Sometimes, you know, it just means higher structures, sometimes just means wider pitches, but it's, you know, I don't believe it's just that. I believe we can do a lot better than that. So that's probably the evolution in technology.
+
+in equipment for a solopi, and I'm really focusing at the moment.
+
+Vikram (45:24)
+In terms of bifacial modules, do you see that having a positive impact on Agri PV? There are people that have 650-watt monofacials, there's now bifacials in the market. Do you have a view on bifacial modules?
+
+Stefano (45:38)
+It's a win-win in any type of PV. The cost is almost the same now, so there's no brainer. In agriculture especially, because the real downside, which is advertised against ugly PV, is the shading created by the modules. Obviously, with a bifacial, you reduce a little bit of that shading compared to a monofacial.
+
+which is completely blocking light. And at the same time, agriculture ⁓ is a good way to control an important parameter, which is the albedo. So it's a win-win. So you can actually improve and optimize crop selection also based on the reflection of the light and so improve your yield. It's a win-win. You need to start...
+
+Vikram (46:35)
+Albedo is the reflected light power generator from the reflected light, right?
+
+Stefano (46:41)
+Yeah, what gets reflected for whatever the light hits on the ground. So if you have a very nice and dry British grass, then you will have a very high albedo or snow has a very high albedo, water has the worst albedo or anything that is wet has a worse albedo. you can play with that and improve both sides.
+
+Vikram (47:11)
+Fantastic. We're coming towards the end of our conversation. Before we finish, I want to get your view on the market penetration of PV in the Italian market, in the British market, in Spain. What percentage of energy do you think can be provided by solar power by itself? Do you have some ideas about DC coupling or AC coupling of batteries with solar?
+
+Stefano (47:38)
+I think the two questions are very much related because, you know, getting an understanding of the second question on coupled batteries will give you also a specific answer for the first question. So how much can we penetrate solar into the energy mix? They're very much dependent. You can, without battery storage, can penetrate, solar can penetrate the market up to a certain point because otherwise...
+
+It just is not feasible for the grid. So if you look at the targets 54, 55 in Europe or all the targets that you see, it's literally impossible to do without battery storage. I think solar can power up to 60, 70 % of the energy mix at regime. So in 10 years, probably time.
+
+But before we need to make sure that the energy can flow to the grid and that we don't sacrifice the grid. so that's where battery storage comes in. Battery storage is an amazing market today because it's determined to be the market of the next five to 10 years, but still is not clear. So you see a lot of wild investment not regulated.
+
+And that's very interesting. DC, we don't have much DC coupling today in Italy, for example, in the horizon because Terna, the TSO doesn't care about specifically about a flat curve of energy. They much rather prefer having a battery storage standalone that you give to them. So you sign a CPA, a capacity purchase agreement, and they can manage that capacity to adjust the grid. And so they tell you,
+
+with solar, we don't care. Do it the way you like. The energy production curve, it's whatever you like. But you need to give me storage so that I can control that. AC coupling could be interesting to look at today to avoid curtailment for PV sites in Italy, because essentially the grid might not be able to take up all your power. So my curtail you.
+
+And that's where you might benefit from, know, basic coupled battery storage. But it's not necessarily economically feasible, you know, because it has a cost and it's not absorbed by the PV because it's only the PV that you have to look at as a revenue.
+
+Vikram (50:23)
+Yeah, yeah. Fantastic. So batteries are very important for ⁓ lot of change with the TSO or transmission system operator in the UK as well. I think parts of the national grid might have been nationalised by the government to speed up the national significant infrastructure projects. So there's more than 19 gigawatt peak in the planning documents now and there's even one gigawatt peak solar farms being planned. So if you think about working back in the UK, know, the times could get
+
+very, very interesting, but I've certainly enjoyed this conversation, Stefano, and I will listen again to ⁓ your comments and think deeply about it and see how this determines the future for us. so with that, Stefano, thank you very much for joining us today and I hope to talk to you again soon.
+
+Stefano (51:12)
+Thank you very much. This was a very, very nice opportunity to talk about all the interesting topics of this amazing industry. Thank you very much.
+
+Vikram (51:23)
+Perfect, thanks Stefano.
+
+Stefano (51:25)
+Speak soon, bye.
 
 ## Clive Cosby: Constructing The Largest Solar Farms
 

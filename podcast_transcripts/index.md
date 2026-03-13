@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Valerio Pelizzi: Solar Energy Innovation and Leadership
+
 Rob Tippett: Challenges and Opportunities in Solar O&M and RePowering
 
 Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development
@@ -2469,6 +2471,502 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Valerio Pelizzi: Solar Energy Innovation and Leadership
+
+Vikram (00:02)
+Welcome to the Future of Solar Photovoltaics podcast. My name is Vikram Kumar of Ventus K with Connectivity. Today I have the absolute pleasure of hosting Mr. Valerio Polizzi, an Italian engineer. I've known him for probably 11 years, first meeting in Bluefield. Valerio, welcome.
+
+Valerio Pelizzi (00:22)
+Thank you Vikram for inviting me. I'm very delighted to be here and talking to you today.
+
+Vikram (00:28)
+Fantastic and following the theme from previous podcasts, we've done about 12 episodes so far that we listened to in 73 countries, over 500 cities, over half the listeners are in the UK. So keeping with the same theme, would you like to introduce yourself, mention a bit about your early life and paint a color about your education background and so on? Because we feel it builds a strong bond with people in the industry to instill an air of transparency.
+
+Valerio Pelizzi (00:58)
+Yeah, sure. was born in Rome and grew up there. So I did all my ⁓ studies there. I graduated in electrical engineering back there and I was actually working for power distribution in the persistence. And then I came into the solar industry literally by chance because one of my best friends started a company doing renewable energy systems.
+
+And he was telling me, look, I just founded a company that is around you. I say, how come? He say, because we are doing renewable energy systems. So we want to create clean energy for the future. So you are an electrical engineer, you have to be with me. And so I started really. My only experience in renewables at that time was my final dissertation for my MSc in Rome, which was.
+
+how to create energy, electricity really from biomasses in the CCT cycles. And then I started back in 2008.
+
+Vikram (02:10)
+Fantastic. Well, Lerion, I you from a British capacity as a Londoner. I don't ask too much about your background, but you are from Rome, you know, it's a historic place. Are you able to tell us a bit about how it was like growing up there? You've mentioned you were a fanatic Roma fan.
+
+Valerio Pelizzi (02:28)
+Yes, absolutely. Growing up in Rome is ⁓ breathing history, Because it's called the eternal city because you can find from any age in the history, can find evidences, is ⁓ remains, relics, or buildings, whatever. it's something that you just know.
+
+It's something, it's sort of like it's born with you, you know, from the very young age. And it was fine in a way, you know, we have this school as a very important part of my childhood and every Italian child really. We study a lot. The difference to here that I can see with my son is that we had
+
+Homeworks every day, including the weekend. So this is much different from here. We had a different approach. The mornings at school and the afternoon at home. So time for studying and time for having fun. Really.
+
+Vikram (03:44)
+So you spent quite a long time in the University of Roma studying electrical engineering. It's quite interesting because there are not many electrical engineers in the solar photovoltaic industry. For me, I find that very surprising because essentially we're doing electrical engineering, power engineering projects.
+
+Valerio Pelizzi (04:03)
+That's absolutely true. I spent 10 years because I had a break of about 3 years during the ⁓ course of the university. for personal reasons. It took me a little bit more than expected anyway, 7 years for a 5 years degree, which is a sort of ⁓ normal for almost everyone.
+
+I don't see most of, none of my colleagues actually finished in five years time because the final dissertation especially it can take from six months to a year time to do it because ⁓ it's a proper study in the sense that you might do a real project, you might follow a real project so it takes some times to.
+
+to observe, to study and then to put in writing. ⁓ that's one of the reasons why it takes for most of the people more than five years. And I was no exception. Probably I was a little bit also, I can say lazy. I can tell that, I can say that. I was not a great student. I always liked more working rather than studying. ⁓
+
+Then throughout my career, I studied a lot for new technologies, new things. I was always keen to understand them and try to apply them while it was just on books. For me was like, ⁓ I have to do them. And that's it. answering to the second part of your question, yes, technically we are doing, we are creating electrical energy.
+
+So we are generating electrical energy and it's very funny that there few electrical engineers doing that. Especially in Italy, most of the electrical engineers, they stay in the power distribution or power generation normally. So working mostly with TSOs, with the TSO or with the National Grid Operator or DNOs really.
+
+Vikram (06:22)
+TSO's transmission systems operate like National Grid in the UK. In Italy you will have Turner.
+
+Valerio Pelizzi (06:25)
+Yes, correct.
+
+It's Terna, yes. Terna SBA, which is no longer a national company even if it is owned by, I think, 90 % from one of the departments of government.
+
+Vikram (06:43)
+Right, do they have any connection with NL?
+
+Valerio Pelizzi (06:47)
+LL, which is now Edistribuzione, is a pure DNO actually. It was a state-owned company, but ⁓ Therna is, let's say, above Edistribuzione. Edistribuzione is more like local. They are in most parts of Italy, not in all the parts. There are also other DNOs.
+
+Vikram (07:07)
+And going back to your personal background and motivation, what aspects of your childhood or environment influenced your decision to become an engineer?
+
+Valerio Pelizzi (07:17)
+That is a great question. Because to be honest, I was of something different from my parents, from all the other, my cousins and stuff, because I was the only one really, I wouldn't say obsessed with building things, but I like it very, very much. I started with the, also with start small electrical stuff and the final decision. So I was always...
+
+I always wanted to be an engineer. The final decision to be an electrical engineer started when I was in middle school because we started to study electromagnetism and we did a very easy circuit with a battery powering a light bulb. And that was really the final decision. I want to work in that field. And then in the high school,
+
+⁓ the equivalent of the A levels here, I studied in physics, electromagnetism as well, even if in Italy you don't choose the subjects, you keep doing all the subjects until the end. And that was my decision really. I want to be an electrical engineer, building...
+
+Everything. I I didn't know at the time if being like on the generation side, distribution side, but the decision was like, I want to be in that field.
+
+Vikram (08:51)
+Well, I've spent my life so far in cable almost 20 years.
+
+over 12 and a half years in my own business and I've seen projects where you'll have only 50 meters of cable for a variable frequency drive and you'll have a team of 10 electrical engineers discuss about the details. So a small project, lots of technical focus. In solar we can have a 400 megawatt project and sometimes not have a single electrical engineer apart from the grid connection. And so then we can't say we're surprised when you have 40 or 50 transformers fail on a single solar farm.
+
+And so the way I tried to friendship myself is I try to work with chartered electrical engineers Because I'm a sales guy, know, you shouldn't believe what I say anyway But working a cable on my life, you know, I see a value for good good engineers how you can reduce cost in a competent kind of way and So I think we spoke offline a bit about charred engineers and not charred engineers in the UK and in Italy You did a proper degree for five years
+
+electrical engineering degree and would you say you're a chartered engineer in Italy?
+
+Valerio Pelizzi (10:00)
+Yes, I am, even if it's slightly different because in Italy you have to pass a state exam where basically you got your qualification as ⁓ a charter engineer. So I did and actually I did also for every sector. So in Italy the engineering board divided into three main sectors. One is IT, one is civil and the other one is industrial and I passed for all the three.
+
+So, and I did quite a while ago now, it's 14 years ago. And yeah, it's basically, it's the equivalent of being a charter engineer in the UK.
+
+Vikram (10:42)
+rights and do you carry insurance if people want to approach you to develop projects in Italy? ⁓
+
+Valerio Pelizzi (10:46)
+Normally
+
+you did, but I personally am not having it now, just for one reason. Because in Italy when you do any kind of project you have three levels of design. The preliminary one, which normally you started for getting some planning approval. Then you have the ⁓ definitive one, which is the one where you set up the equipment and everything, you make the preliminary electrical calculations.
+
+And then there is the third level, which is the executive one, when you line basically right down the whole project with all the calculation, you choose the equipment and everything, so it's ready to go in construction. And normally when you are doing executive design, you will have insurance because you have legal responsibility, so you are accountable for what you...
+
+what you designed. Exactly. You are always accountable for what you designed, but being in the definitive design, what I'm doing mostly is I have to ⁓ be in compliance with all the regulations and make sure that I apply the right regulation and standards to my calculations. So basically the risk is practically zero because in any case, before going into construction, you should have another engineer or yourself as well.
+
+doing the executive design and basically review everything that's been done ⁓ and do a little bit more detailed calculations.
+
+Vikram (12:18)
+I've got here on our notes to talk about solar but before we get more deeply into that can you describe your experience working on your final dissertation electrical energy generated by biomass in CGT cycles?
+
+Valerio Pelizzi (12:34)
+It was funny. This is the word I would use. Because when my professor really proposed me, I would say, how is that possible? mean, why don't we try to do these things? And even if was already, it was already the time where I actually I was still, I was already working in the renewable energy system because I started before my graduation.
+
+But was funny coming from directly from the professor and from the electrical engineering department because this is something probably I shouldn't say but I will say anyway. ⁓ Electrical engineers, especially at the beginning, were looking at renewables like doing the very easy stuff because there were not a lot of difficult calculations and stuff, especially for
+
+for solar because you don't have a lot of problems with frequency, with harmonics, even if now we have, actually. But they were all focused on managing grids. So all the nodes with software predicting the power fluxes, this kind of stuff. they were really, okay, renewables. Okay, this is an easy task, you can do it. Something like, I'm a big professor.
+
+probably I will do the grid design rather than a small renewable energy system. So that's why I was a little bit surprised. It was funny. It was funny because actually I built up my experience not only on solar and solar thermal, which I was working at that time, but also like in steam systems, biomass systems.
+
+cogeneration because really what my dissertation was was really cogeneration and most importantly I started working on three generation which is the kind of system where you have ⁓ turbine so you can you get generates you know electrical energy but you use the heat dissipated by the turbine to
+
+heat water or using in your heating systems but you can use on the reverse system like the
+
+to do ⁓ cool hair, so like the air conditioning as well. And those systems are, to be honest with you, I thought there would be, there would have been the future, but I didn't see a lot of systems like that. In my experience, at least in Italy, where they know the air conditioning is becoming really important, especially with the climate change now.
+
+is a typical system is like having solar PV for your electrical design and then having heating system and cooling system, two different systems, not just in the same with a code generator or a three generator.
+
+Vikram (15:57)
+We forget in England how important air conditioning is in warmer climates and know my father says you know England is like air conditioning compared to Delhi so
+
+Valerio Pelizzi (16:08)
+It will come, I think it will come, unfortunately. Meaning that if we can fight climate change properly, if the authorities finally recognize that they're doing something practical about that, probably we will not, but I'm a little bit skeptical about that.
+
+Vikram (16:26)
+It is frightening the climate change because for me to see the change in England, how much rain we've had this year is unprecedented. But sticking to some of the priority topics, why did you not become a Chartered Engineer in the UK?
+
+Valerio Pelizzi (16:43)
+Well, because when I moved here, I was already into operations, the operations side of renewable systems. So, and I really didn't see the need of being a charter engineer. To be honest with you, at the beginning, I thought about that and I ⁓ tried to get some information how to get that to be recognized. It would have been fine with me becoming an engineer, but at that time I was more, was really a manager rather than a proper engineer.
+
+So I say, did do this will ⁓ benefit my career now? Say, no, really. ⁓ sort of, you I didn't think ever about that.
+
+Vikram (17:27)
+Why I focused on the chart engineers so much, especially electrical engineers, is because I've ⁓ worked on over two and a half gigawatts of projects in this country. I've done some abroad as well. And the projects that run like a disaster against the projects that run smoothly, I found that the more money you spend on development in specifying a project correctly,
+
+the lower cost your capex and the less headaches you have during grid connection and commissioning because things work.
+
+Valerio Pelizzi (17:59)
+And also less OPEX, which is not really, know, still relevant.
+
+Vikram (18:05)
+And the nature of the industry is because since Brexit, know, lots of changes and a of EPCs disappeared from the market, there's been a glut of too many people doing development. There's far more developers than there are EPCs. And often when they sell these sites, a proper investor takes the site.
+
+they put down, let's say 20 % down deposit and then they need to raise 80 % project finance from a major corporate finance bank, a loyage bank or whoever. And because the project finance is based on milestone payments, once the design is wrong, you are stuck.
+
+Valerio Pelizzi (18:47)
+Yeah, you are suck and you have to redo it again properly.
+
+Vikram (18:50)
+You
+
+can't really do it even because you're worried you lose your project finance and everyone's committed and the lawyers are involved and nobody wins from that kind of situation and so where I try to do things differently is to try to do things correct from the beginning.
+
+Valerio Pelizzi (19:06)
+Which should be the way, right approach really. This is something that, know, I'm a developer myself now at the moment. I'm developing here in the UK and in Italy. And, you know, I have some colleagues, especially in the past, now it's changing a bit. They were doing like, let's do like preliminary design like this and then we'll ask for stuff. say, always like, why? Why I have to do?
+
+twice the job. Because at the end of the day, if you do something like just to get some approval, some planning permission and so on, okay, you got it. Fine. Then you have to change completely the design, maybe, especially I'm talking about the electrical design rather than, for example, the number of panels. But you have to change the design because then you have to do some preliminary real preliminary calculation for the grid connection. So
+
+Vikram (19:37)
+Yep.
+
+Valerio Pelizzi (20:04)
+why on earth you want to do your design twice? So I always start basically directly from day one with definitive design, which means that it's a real project that can work as it is. So the only way is that it's not going to be built in that way.
+
+It's just because of the availability of equipment. Because you start designing with some equipment and maybe the fund of the new owner, the EPCs have framework agreement with another company, so they need to change your design. But what I'm trying to do always when designing a system is something that is real. an EPC can take that design and just build it up.
+
+Vikram (20:52)
+Right and would you consider becoming a child in this country if we wanted to come to you for signing of projects?
+
+Valerio Pelizzi (21:00)
+That is something that I'm thinking of. It depends really on what the future... ⁓ what is expecting me in the future. It's definitely something that I don't discard right away. It can become something. Not at the moment, because I'm pretty busy in developing ⁓ projects, but it is definitely something I will think of.
+
+Vikram (21:28)
+was a young guy when I started in this market and now I'm over middle-aged.
+
+The market moves very much in cycles. So in the beginning you have a domestic boom, you have a commercial PV boom, you have a development boom. Eventually you saturate development and then you need to move into EPC. And we need to do 50 gigawatts in the next 10 years or so. And at the moment the market can't support even 500 to 1000 megawatts a year. And now we are in a strange new reality with artificial intelligence because a lot of the investors are not electrical engineers.
+
+is but now you've got these tools that you can use you know you shouldn't use AI for proper engineering but just to have conversation educated conversations you know we had customers wanted to connect one and a half megawatts to microgrid not appreciating how much power it really is one and a half megawatt PV doesn't sound like a lot then I was asking chat GPT how much power do you need to move a train it's about one and a half megawatts something like that so people don't appreciate what they are plugging in
+
+Valerio Pelizzi (22:34)
+Exactly. is real true. This is interesting. mentioned the AI. mean, it's interesting how it will develop in a sense that people are worried, there will be the AI. We will not have any more people doing the job. Okay. So if something goes wrong, who is accountable for that? A machine?
+
+Vikram (22:59)
+was accountable.
+
+Valerio Pelizzi (23:00)
+Exactly,
+
+first of all. the point is, we need to embrace the future and the new developments in technology because they will definitely help you out. was yesterday, well not yesterday, during the bank call the weekend, I was in the Peak District and I was in a village that there is the Tramway Museum and I saw the project of the trains at the beginning all done on paper.
+
+While now we have AutoCAD, we have personal computer, we basically do the same job, I don't know, 10, 100 times quicker. Meaning that the tools are fundamental, they are crucial because they can really help you out in designing a well-designed project. The main point is you or the people have to guide them because tools themselves
+
+they don't know if they're doing right or wrong. They just do what you ask for. even with the AI, it's important who has the question to the AI to make the right answer.
+
+Vikram (24:12)
+The AI is not reliable, can tell you that it makes elementary mathematical errors. But for me, when I'm working in sales and I just want to paint a picture about something, it's good to have a flavor. But then this is why I asked about chart engineers, because when it gets serious, then I'm going to chart engineers. One, work with Steve McFaddy and he's developing cable engineering software specifically for solar, can be used for electrical engineering in general as well. He says don't use AI as well.
+
+Sometimes we don't know what we don't know. So now we move on to how you got into solar. After you did your degree, you started with... Is it Andhu or Undhu Adinathya?
+
+Valerio Pelizzi (24:48)
+Yeah.
+
+Well, if you talk with Italian people, they will say UNDO ad Unanza, but actually was really UNDO because the idea behind the company was to undo the normal approach to energy, to refresh it in a different way. That's why the company was focused on renewable energy systems, which at that time was solar PV, solar thermal, a little bit of micro wind ⁓ and code generation. ⁓
+
+And there where I built up all my, most of my technical knowledge at the time around the renewable energy systems. And what I added to the company was the ⁓ grid connection part of it, because we started from residential, then it will become CNI, commercial industrial, and then just when I basically I was leaving, we were doing some utility scale. At that time in Italy,
+
+It was under a megawatt because there was a special tariff for those projects with what is called the minimum guaranteed prices from the grid for exporting on top of the incentives. it was a very exciting time of my life because I basically, I started completely a new thing that I never studied before.
+
+Vikram (26:17)
+you're saying on a LinkedIn profile that you actually did some grand mom PV projects all the way back in 2009 where solar was very much a foreign concept in the
+
+Valerio Pelizzi (26:27)
+Yes,
+
+most of most in Italy, mostly they were doing in the South Italy clearly. And there were some in Tuscany. We were one of the few people that did something in around Rome really, because there wasn't at that time not not much of ⁓ of PV there.
+
+There were some Spanish companies, which I cannot mention clearly, they did few 5 megawatt sites at the time, I think some 10 megawatts as well. There was a big one actually, probably 20 or 30, just going by memory, so I might be mistaken. But really few compared to other countries like Sicily or Puglia, where there were massive development of PV.
+
+U3D scale, baby.
+
+Vikram (27:23)
+So you went in ⁓ this first job as a project engineer for two years and two months and you had a couple of gigs in between and then you were at Vector Quattro and then moving on to Ofgem in the UK. What led you to move to the UK? When did the first idea come in your mind?
+
+Valerio Pelizzi (27:44)
+⁓
+
+This is a very interesting question. ⁓ Mainly my move in here was ⁓ work related. I really wanted to explore new things, try to learn as much as I could and also have the chance to build up my career. In Italy at that time I was a little bit ⁓ closed, was a closed way. Especially because there were not a lot of... ⁓
+
+Italian developers at the time because most of the utility scale projects were done by ⁓ foreigners. Spanish companies, German companies, British companies as well because when I was in Vector Quattro actually we were managing some assets from a British company and that was the reason really why I moved.
+
+I decided to move into Vector 4, as in the asset management, into into operations because in 2011 there was like a disaster in a very short-sighted minister of the Italian government that basically shut down all the incentive schemes.
+
+And so basically he destroyed completely the only industry that was growing and doing business in Italy at that time. There was already a sort of recession in Italy and the only real industry that they were doing, they were creating jobs, they were doing great, was the renewable energy ones and it just simply destroyed it. So I say, okay, fine. no new developments probably.
+
+because the costs at that time were still quite high without incentives. So I needed to jump into operations. And that's I moved to Vector 4 in Milan. then with the idea anyway to move something, the Italian borders were a little bit too tight to me. I I want to see something different. I want to see what is the industry in Europe and globally really. And so I moved. And funny enough,
+
+I was, I tried to apply for jobs, public jobs in Italy. I was never called for interview. Actually I was working, I passed the first stage interview at the GSC. Basically at that time was the ⁓ manager of the Italian electrical systems. So, you know, what better than an electrical engineer to work there?
+
+I was never called for the second and final interview to say, okay, fine, it's time to move. And here, I started here with a very broken English, probably I still have a broken English, but at that time it was even ⁓ worse. And I was hired by Ofgem, so a public government agency. And I had the chance to keep developing my knowledge not on Solar PV.
+
+but on the heating systems, so solar thermal, steam, biomass, all those different ⁓ things. And also it was very important because it gave me the perspective from the government side of ⁓ incentive schemes, so generally how to see the ⁓ renewable energy systems. Started for Kintas Energy.
+
+and the Spanish company, which at that time, he had a quite decent portfolio of asset management already. then, know, now they boomed like one of the top company for asset management in the UK, probably the number one, I guess. But yeah, I the chance to basically to see the, to touch
+
+with my hands what was the solar industry in the UK because with them I managed at that time the biggest portfolio in the UK. I was the portfolio manager for a fund, that's kind of name here, now, but at that time it was the biggest portfolio in the UK. They had a mix of very big utility scales, different technology, meaning that also thin film, couple of projects with them.
+
+It was interesting and definitely something that ⁓ opened my views and my knowledge about how to do things differently.
+
+Vikram (32:29)
+you
+
+always with myself, my mind wanders in so many different directions, especially during the lockdown. I was working almost every single day. Sometimes there wasn't any work to do. So just read random history books or listen to audio books and you are Roman and you know, I think in science is this thing called standing on the shoulders of giants or in your case, you know, maybe there are ghosts from the past, you know, because Julius Caesar had involvement in London and you know, reading on Chajibti, Emperor Claudius.
+
+is established about a century later so you know these are just random thoughts that cross my mind and at the same time I was when you were in your first solar job as a project engineer I was working honeywell to training people to jump from wind turbines
+
+as a product manager for safety at height and were chasing London array offshore wind farm which was supposed to be over 1 gig but I think this stopped the construction maybe just over 600 megawatts because of some issues with migratory birds and now it's interesting because the substation for Cleve Hill is also nearby as well the biggest solar project in construction in the country now almost 400 megawatts but I remember that period between 2010-2012 quite well because
+
+you know here we are with offshore wind which is running very slowly and then solar is growing massively which convinced me to start my own business and to get into solar with Leone in Switzerland but also my eye on the Italian market I think there was a year then where Italy may have done 10 gigawatts out of the blue from almost nothing
+
+Valerio Pelizzi (34:02)
+Well, I don't think that much honestly, but yeah, it was a boom really because that actually I ⁓ can add something about, know, that minister shut down the incentive schemes is that because the schemes weren't thought properly. Meaning that ⁓ basically the...
+
+The tariff that the last tariff, you know, the last year was from 200 kilowatts onwards Meaning that if you do if you at the time we were doing like 250 side project you were doing a decent return but if you were doing like 10 megawatts with that tariff basically you
+
+payback return was like two or three years. And then for the rest of 17 years, you were getting a lot of money. And that was the boom, where basically everyone was building up. And in my experience, I saw a lot of very bad projects because they didn't care. They were earning so much money, even the performances of those plants were really poor.
+
+They didn't care. As long as they didn't suffer any force or something like that, basically to stop the production, they were happy because they were earning tons of money. And that was one of the main reasons of the boom in Italy. Clearly being in southern Europe with a high level of radiation helped a lot as well compared to other countries, but there are a few factors that contributed to this boom.
+
+And I think they started in Spain slightly earlier, 2007 and 2008, then 9, 10 Italy, and then 11, 12, 13 maybe in the UK. I consider that the boom here in the UK lasted until 2016, roughly, when they shut down the last rock scheme.
+
+there were, you for those years there were a lot of construction going on, a lot of EPCs coming from Greece, Spain, Italy as well, they were the countries with the most experience in solar at the time. Germany, sorry not to forget Germany as well, because even if they are much more focused on residential and CNI rather than utility scale, they clearly build up a lot of knowledge and experience in solar.
+
+Those were the, I think, probably 90 % of EPCs and companies doing solar in the UK were from those countries.
+
+Vikram (36:49)
+I have to say your English is fantastic and you're adding to the dynamism of London because through you we can be active in Italy because you're fluent in Italian and you're speaking fantastic English and you're in the solar industry. I'm a businessman you see, so you see only opportunities and you've had a very interesting exposure because you've seen what
+
+Valerio Pelizzi (37:03)
+You are too kind.
+
+Vikram (37:15)
+you bad policies can do to the industry, a boom and bust cycle. I remember being at the Valencian embassy and about retroactive duties in Spain and they all coming to this industry because there wasn't much competence. then for yourself after Ofgem and you also had a stint at Quintas, very charismatic Dutch electrical engineer, Arnold Claren, he's he's there at the moment. He's done a podcast with us. But you speak in the notes about your achievements
+
+where you you constructed maybe over 130 megawatts split into 20 projects over 18 months. Was that with Canadian Solar?
+
+Valerio Pelizzi (37:54)
+was with Canadian Solar. That was one of the most amazing experiences in my life. We were literally a bunch of people hired to do something that the company itself really didn't know the real extent because Canadian Solar is a module manufacturer. Then they had in mind because of their experience in Canada doing already O ⁓ okay, we want to build up the energy division.
+
+meaning that providing all the services from development up to O really. So, and we were the first team globally to do that, doing ⁓ development, EPCs, asset management and O And I was hired because of my experience clearly for the asset management and a little bit of O I didn't have really done much at that time, just for more project in.
+
+my experiences in Italy, but I was the only guy in the team, not I was the only guy, generally speaking. And it was an amazing team, amazing professionals. I learned a lot because we, would say apart from myself, we were a team of top class professional. ⁓ mean, if you think of building, not only developing, but building in 18 months,
+
+130 megawatts from scratch is a massive achievement. And it was a great team because everyone was doing everything, a little bit of everything because the development guys were engineers that were doing also bit of construction. They had insight from construction as well. They had insight from me as well, from my own experience.
+
+You know, thinking a little bit further than just, need to build, I need the last two years for the guarantees and then that's it. You know, we were building something more, you know, long sighted, I would say, with the idea of keeping those assets, basically. So they want the assets to work properly, you know, not spending a lot of money because they were bad projects. And then again, it was a...
+
+an amazing experience, amazing people. I was happy to go to the office. It was hard work because we were working long hours most of the days, but still it was rewarding because nice people and then we achieved basically. I remember ⁓ probably on one project we did sort of miracle because we did, thanks also with the...
+
+the EPC team and the subcontractors we had at the time, we did five megawatts in just one month. It was great. was something that ⁓ clearly you have to be, you need a little bit of luck as well. Good weather, good materials, no delay in procurement, this kind of stuff, but still, that was like the gem of the portfolio in terms of quality and...
+
+speed of the construction. It was a great experience. I learned a lot and actually was the first time I moved into management, proper management, because my role there was not only providing my knowledge and building up and looking after assets, but was also building up the procedures, the idea of the company itself for what concerned asset management and O
+
+Clearly I was adapting the O procedures from Canada to Europe, specifically UK. But still I was bringing the European approach, I would say, into something that was done in North America, really, was different. And again, it was the same, probably even more for asset management because they didn't have really a clue of the whole, not total clue, but...
+
+they were only looking after the technical aspects because they weren't involved into the financial management of an asset before. So we did for the first time for Canadian Solar, which is now rebranded as Recurrent Energy because already in my time they acquired Recurrent Energy to basically lead the energy division globally, but it was ⁓ a two-way...
+
+discussion and brainstorming because they were doing only for US, actually at the time, mainly only for California really. ⁓ don't think they were doing, talking about recurrent, I don't think they were doing any projects outside California at the time. But anyway, so it was brainstorming, trying to build up the global culture for asset management and ONM. So I'm very proud of what we achieved.
+
+very proud to have worked with a great professional.
+
+I always have good memories about that.
+
+Vikram (43:17)
+I remember your face being all over the media in this time and hoping one day I will get to meet with you and I remember also with my clients of the time, know, 50 megawatt projects getting built in six weeks. To me, you know, as an Indian immigrant, London is the beating heart of Europe and the biggest own goal, I know it's controversial, but it's fact is the biggest own goal we could have ever scored was to, was the Brexit referendum. We're coming up to almost eight years and you know, we've gone from building 50 megawatt
+
+solar farms in six weeks to...
+
+I mean catastrophic labor shortages, lots of people were alienated by Brexit and you know moved to different countries and I think that's taken something away from us. All at the same time when the US is doing very well in green energy they have massive schemes which is taking the gravity away. China's growing crazily. They've got the biggest electric car manufacturer, they've installed hundreds of gigawatts of PV. India's the largest growing economy in the world and now we have a fragmented Europe with
+
+war going on in Ukraine with political division all over the place and I think that only adds to the economic chaos which we hope we can move away from but one of the big names of the time was Bluefield because it's a footsie 250 London Stock ⁓ Exchange listed solar fund alongside Forsyte and NextEnergy and you know when you're young and you start business you want to work in the stock exchange and you were very much the face of Bluefield for me at the time. I would speak about
+
+⁓ How you got to Bluefield? Why did you leave Canadian and and what was your time like there for a year and five minutes? Five months, sorry
+
+Valerio Pelizzi (44:58)
+Yeah, it was like I was shocked at the beginning because as you see I was looking at BlueFeed like you know one of the best company to work for they were doing great they were the first company to launch a fund into the London exchange so it was like you know it was a target and then ⁓ I wasn't really thinking about leaving Canadian Solar we were actually expanding because
+
+I was, we were opening different countries markets, so Italy, Spain, Israel as well. So we were planning to grow. So from the UK, basically our team, even it was the EMEA team, we were the UK team only at the beginning. When the UK was sort of settled, we started open looking after different countries and we were opening different markets.
+
+So I wasn't really looking to move because there was still a lot of excitement, a lot of new things, new challenges and so on. But then a friend of mine, was like we were at lunch and he was telling me, okay, why don't you come and work with me? I'll say, what are you telling? You're not looking for anything. He said, how do you know? Well, you know.
+
+Bluefield is a company that I always look if there is like an opening or something because even if I'm not thinking about moving from Canadian solar, you know, it's a something, it's a company that you really aspire to in a way. I say, well, you know, I can tell you something. We are creating a new company. You know that we have the investment company, the first one, the partners.
+
+Then we had the asset management company, the services. We are now building, we are now creating, not building, creating the O &M company. Say, why don't you come and work with us? I was like, literally shocked. Say, okay, that would be interesting. Because it would have been the first time in my life where I could have shaped a company from scratch.
+
+giving, know, bringing my ideas, really literally forming and shaping the company on how I was thinking an O company should be. Because at that time, one of the main topics I was discussing in conferences with colleagues was trying to make a new approach to O ⁓ Because O really was always a service that was sort of
+
+I wouldn't say neglected, but something like, okay, we have to do it because we have to not really thinking on how to do it efficiently or properly. I remember back in 2015, I ⁓ was one of the only two people talking about predictive maintenance. Right. And the other guy was Francesco Giordani from Bluefield.
+
+And people were looking at us like, know, show us what they are talking about. Why they have to do this kind of stuff? What does it mean? And we were the only two people, as far as I remember, that were talking about that. We were already thinking, you know, ahead. And the friend was not Francesco because at the time we were just a colleague in the industry. And then basically the opportunity was working with Francesco as a chairman.
+
+as a CEO of the new company and building up this O company where we can put our ideas because at the end we were sharing this new view on how O should have been and we put into it. Clearly it was more like on the operational side, so building up the culture, building up the structure, the business model.
+
+the operation themselves, what was needed, the procedures and processes, it was a big job. It was a big job. And it was exciting because, again, I had the chance to learn a lot because at that time I was working also with the finance department, which clearly they helped me out on building up the business model of the company. So I had really the sense and the touch on how
+
+and where you can make the difference to make a business profitable. And so again, it was great. Clearly my first task was building up all the culture and the management of the company itself. So keep using ⁓ subcontractors for the actual field work. And then second part was, okay, we are ready. Now let's bring engineers into the company. And then I start.
+
+all the, know, health and safety procedures, tools, van, setting up everything. In the meantime, I was building my team around me anyway. We were already seven people, ⁓ clearly only the management, because the first task was to manage in time all the Bluefield portfolio first. And then that was my idea, actually.
+
+don't mix up too many things. So, and the second part was bringing the actual manpower in the field. we, was at that time then I decided to leave because you know, we have different views on how to go, not really different views on how to go ahead, but by my, my...
+
+balance between work and life was a little bit distressed at the time because I was splitting my time between Bristol and London and I was living in London, it was quite hard, I had a ⁓ small child at the time, I was missing a lot of moments and I really, ⁓ because of my family, ⁓ let's say management, we couldn't move to Bristol so I decided it was time for me to leave.
+
+I didn't hide all the manpower we needed, but I basically laid out the plan for the future. So, from now on, it's just a matter of keep going in this direction, because clearly we didn't onboard the whole portfolio in once, but we did project by project, time by time, really area by area, because I built up.
+
+different areas where you have the engineers looking after some...
+
+some assets really. So at that time I decided to leave. It was too much stress for me and really I didn't want to miss out too much of my life. My life is not only work. Even if I enjoyed a lot, I consider myself lucky because I do it for a job, something that I love. But still, there are other parts of my life that I would like to leave, really. ⁓
+
+⁓ But again, was a great moment. I am proud of what we achieved. ⁓
+
+Vikram (52:44)
+Well, I remember that time, Bluefield is a brand, you know, they treat their people with respect and people want to work for them, but they are in Bristol, they recently did a podcast with Mr. Rob Tippett, and there is a buzz about it.
+
+Valerio Pelizzi (53:01)
+That is
+
+one of my guys. I'm so proud he really did that career because as a leader, as a manager, you want all your employees to grow, to learn, to become more and more. So I'm proud that now he's basically doing, he's in my position now. ⁓
+
+Vikram (53:18)
+There is like an artistry about Bristol, Bansky and all of these things but going back to your early comment about Mr Francesco Girardi I looked up to him a lot, I learnt a lot from him. It was a strange time because a lot of projects were built in a rush and some of them went legal and before the disputes were settled they started already new projects. I've signed more NDAs in that time, the period between 20...
+
+2012 to 2016 than any other time in my life. I don't even remember why I signed half the NDS for. so, Francesco, I remember visiting solar farms with him and he had tremendous amounts of knowledge. Like people putting string cables into rails with sharp edges. He, we want a few people to say, you know, we need to separate galvanically DC string copper cables from.
+
+you know, structure which might be steel or aluminium or whatever, you know, there's also safety concerns, so to have somebody from the fund take that level of detail. So on the one side we are too many orders, you know.
+
+My wife ran our printer paper. There were so many orders. On the other side, the industry almost collapsed because of feed-in tariff changes, MIP, because of Brexit. And then you had this O period. And it is a stressful environment because you're carrying the baggage from EPCs that might not exist or terms that might not be appropriate. And so the market almost pretty much died after Brexit, after the Brexit referendum. And the only company that was active from my customer base for subsidy
+
+free in the UK other than an international project in the Netherlands and Chile was grid surf and here I came across you again until then I never heard about string optimizers I knew about module optimizers but from Bluefield you ended up in this place called Ampt are you able to tell us a bit about that your five years working on string optimizers
+
+Valerio Pelizzi (55:22)
+Yeah,
+
+absolutely. ⁓ Actually, at that time, when I left Bluefield, I was thinking about what's next. I did some consultancy because of my experience, but I really didn't know. ⁓ I wouldn't say I didn't know what to do, but sort of I was thinking what to do next. If you know what kind of ⁓ aspect of my experience I would like to push onwards. ⁓
+
+So they came pretty strongly to me. This company say, are the right person working with us and we want you to be part of the team. want to build, to open the European market. We have a strong US market already and so on. And I was intrigued to be honest, because I'm not, ⁓ even if I'm a, consider myself a people person, meaning that, know.
+
+I'm good in dealing with people. I'm not really a salesman. I have some skills, some say skills, but ⁓ completely honest with you, I don't feel too comfortable being a salesman. But being with them, it was another challenge because it was not being a salesman. First of all, was selling a technology, an idea in Europe at the time, rather than an equipment, a device.
+
+So in that specific, for this perspective, it's not really the pure sales. It's something slightly different. And there was the challenge to open a market for someone that for something completely new and innovative that wasn't present in any part in Europe. It was the module ⁓ optimizers, but it was more like...
+
+residential, CNI market rather than scale. Because, know, when we're talking about 10s of 1000s of modules, can imagine as an electrical engineer, the first thing is imagine adding 10s of 1000 of discontinuity points. It's like crazy from an O perspective, from an engineering perspective, it's something like, would you take the risk? Because it involves, it might involve a lot of
+
+O &M efforts. And then I was, these guys came and say, we have a string optimizers. So one device, maintenance free, they can improve a lot of things. And I was like, okay, this can work. The financial were satisfactory, financial, I mean, for the project, for CAPEX and so on.
+
+And I say, that could be interesting. So we started working, I started working with them and I tried to open the market. One of the most innovative companies, as you mentioned, is Gridserv. was one of the first companies. And yeah, so we started with it also with some other major funds, Spain and UK mostly, Italy as well actually.
+
+We were going to ⁓ solve and sort out some issues they have. As you correctly said, there were lot of bad projects when they were built in a rush. So we were more like correcting issues. So, repowering or revamping projects rather than new builds. Even if now is the time where probably it would be important to have them in a new build site.
+
+It was great. was actually, thought I learned another perspective to even to design thinking about something that you normally don't don't or you weren't used to think. There was always this, you know, discussion about what is best, is best strings or central inverters. And I've never been a fan of being like extremistic. It's like
+
+It depends on the project. It depends what you need to achieve. It depends on several factors. Not to disregard the pricing. know, CAPEX is still a very important parameter of a project. It's basically the one that goes the green flag or not to a project. And then you you have a variety of solutions where you can build up, you can design.
+
+sorry, you can design your assets and having the knowledge of string optimizers is one of them as well. Again, it depends. Personally, I think they had a very innovative, a great idea because basically they were moving the electronic part from the converters, so the inverters, into something different. having, it's true that you have two devices, but you have two...
+
+devices that are simpler. When simpler in electrical engineering means more robust and less issues. Because if you have one device trying to do everything, it's always a mess. Because you can always have some issues normally and no, you have the same experience as me. In the O now, a lot of things go wrong. And not just because of bad design, but just because if you overuse something...
+
+you expecting premature... ⁓
+
+premature failures basically, or failures generally speaking. So I think that this can be something to look after the future. And especially now that we are integrating BESS into renewable energy assets, that it can be a game changer.
+
+Vikram (1:01:25)
+battery, energy storage solution. One comment I want to make about Ampt and GridServe is, know, that was a period where there wasn't a lot of construction going on in the UK and suddenly Mr. Michael Vasakis of GridServe, the CTO, phones me up and he has this amazing project. For me it's mind-blowing how you can have the sun generating electricity but then you have also
+
+Valerio Pelizzi (1:01:28)
+Yes, so.
+
+Vikram (1:01:52)
+Reflected generation as well and you have back colocation of batteries There's a nice lovely video by grid serve on YouTube on on York Solar farm and then And you know so all the learning we had from the previous eight or eight years or so we put everything into York Solar farm and still lessons because in the early days you have 250 watt modules now suddenly you got 500 600 watt modules this
+
+Valerio Pelizzi (1:02:18)
+700
+
+even.
+
+Vikram (1:02:19)
+And
+
+so you start to have almost one kilowatt modules in certain fault conditions. How you safely manage that was a very interesting and learning and mind-blowing experience with Michael and then all of the learning from York and Hull Solar Farm was put into Siren Sister Solar Farm. We put all of this together, co-location of batteries on the same buzz bar we're landing, you know, battery circuits as well as the solar circuits doubling the sizes of the combiner box.
+
+And then I'll come mention for legal reasons the names. I'll go to established players in the UK and Europe and they're building sites with just 10 year old designs.
+
+Valerio Pelizzi (1:03:00)
+What do know?
+
+Vikram (1:03:00)
+This is happening even now so this takes us nicely into the future of solar photovoltaics Because you've listed now that you're a sales agent for amped So it looks like they clearly like keeping in touch with you and they trust you But you've also got two of your own companies in Jeb and power GSRL so as we come towards the end of our podcast We've got about five minutes are able to comment a bit about your two new companies What you do as a sales agent for amped and what do you think is the future of solar photovoltaics?
+
+looking at the technology and how you can see the UK hitting 50 gigawatts in the next 10 years
+
+Valerio Pelizzi (1:03:38)
+Well, Egypt is my own company, so and PowerG is not my own company. I'm the technical director for them and we are developing best MPV in Italy as a still as a different project not co-located yet and ⁓ Yeah, so that's it ⁓
+
+basically being back a proper electrical engineer now, a designer making electrical calculation, which I love a lot, and making sort of my own software, ⁓ what probably is to arrogant call it ⁓ software because basically it's an Excel spreadsheet. So where I put all the calculation, try to automatize a little bit. And the future for solar PV to me is bright.
+
+is bright because there are new technologies coming on, coming to the market, perovskite for, perovskite, don't know the extra pronunciation for modules. So they're always thinking something new. And as you correctly said, you know, the design of 10 years ago is not the sign we have now. Even if you use, let's say, old approach, rather than old, I would say a conservative approach. So you...
+
+design what you know best. The ratio when we started designing solar was like 1.1 back 15, 16 years ago. Now you go up to 1.5 even in South Italy because even equipment changed and improved. We have much more experience on everything. are really now even real numbers of what degradation is.
+
+Because since the beginning, everyone was selling modules saying, oh, we guarantee 80 % at 25 years. But basically, now we are 25 years old modules. We know exactly if it was 80 % or more. So we have much more knowledge anyway. And based on that knowledge, we know also where the failure were mostly and where we have to improve. So I'm expecting new things.
+
+like string optimizers, but even different approaches to things. And something that will be important in the future will be also how renewables can ease the pressure on grids, which means storage mostly, but not only storage because we have also hydrogen. And all those are just ⁓ storage of energy, but you need to generate that energy. And this can be the answer for the unpredicted
+
+unpredictability of PV and wind. You can use storage to to level up basically and be available where needed, which is what normally is the first things that people argue against the renewable energies. We are not yet in a point where
+
+⁓ renewables can be the only source of energy. ⁓ I don't know if in the future we will be, I hope so, but again, we don't know yet. But ⁓ I see a lot of interesting challenges in the future and I still see a bright future. are, with just one hard stop, which is the governments. As soon as they acknowledge
+
+something, you know, they can actually we are here not to speak to be shark and you know, to just to make money, but clearly we are we are not working for free. Yes, for sure. Yes. But between completely ignore, you know, climate or ⁓ needs of people is something that the solar industry actually is different from other industries because you can still make a
+
+a good money out of that, but being mindful and be aware of also needs of people, of communities, of environment as well. mean, it's not something that are two different aspects. They are all the same. And it's just a matter of try to find people that are not thinking about their own... ⁓
+
+The problem is, the main problem is, they all...
+
+⁓ cast of people, say in English, interest, know, the lobby of interest, the lobby of interest for, I don't want to change things because I will lose my share of the market. And I still, ⁓ if the moment government or authorities in general, with a knowledge that we want to go that direction,
+
+all those people will understand, okay, we can adapt to a different business model and we can truly embrace also renewables. There is already some companies that is doing it. There are a lot of greenwashing, to be honest with you, just for political reasons, but there are also some giants in the fossil fuel industry that are doing something.
+
+Maybe it's not enough, maybe it's not that much, but still it's a start. Every long journey starts from the first step.
+
+Vikram (1:09:28)
+And ultimately we are solar farming and farming is a difficult occupation in itself. You need to look at the Punjab region in India and the air pollution that's created from the agricultural waste that's burned. And these farmers, are in debt. They need to, you know, generate wheat. Even there's an oversupply in the market. So people say competition with land is actually the opposite because if you keep putting fertilizer and keep extracting all the nutrients from the soil, you damage the
+
+water table, you damage the land, you create deserts.
+
+Valerio Pelizzi (1:10:00)
+It
+
+actually can help agriculture, especially because of the climate change. I just learned because I was speaking to a farmer, an entrepreneur, and said they are making a lot of fuss, especially in Italy, using land for solar, while, for example, I'm growing peppers. I didn't know that. Peppers, to become yellow, orange, and red, they need a lot of hot weather.
+
+They don't need direct sun. So basically, for example, now at the moment, it's illegal having, let's say, a plant, solar PV on agricultural land, know, ground mounted. But actually, people that grow peppers need that because there will be a lot of still hot weather in Italy, but they will be shadowed. So they will grow properly instead of be burned.
+
+This is one of the things and legislators that doesn't know that or don't or they pretend not to know that.
+
+Vikram (1:11:11)
+So as we come towards a close because we are running out of time, there's an infinite number of things we can talk about but there is an important...
+
+we started which was paused for you know numerous reasons which is how to do gigawatt scale solar farms so you know this is the way in India Australia in the US we started a project together with Tyco about insulation piercing completely eliminating string cables and plugging direct and how the string optimizers can have distributed maximum power point tracking and now it's interesting that Hawaii have run into difficulties in the European and Western markets in general which has left a massive
+
+hole in the industry so there's so many things we can follow up on but with respect to a message to your listeners before we close the session do you have any any last words
+
+Valerio Pelizzi (1:12:01)
+Thank you for hosting me. It was a great chat. I hope the reviews will be bigger and bigger and bigger. Thank you.
+
+Vikram (1:12:12)
+Absolutely will be this there's a target of 75 terawatts worldwide so I'll look forward to catching up with you offline and thanks so much for joining us today
+
+Valerio Pelizzi (1:12:22)
+Thank you, Vikram. Thank you.
 
 ## Rob Tippett: Challenges and Opportunities in Solar O&M and RePowering
 

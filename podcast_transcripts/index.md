@@ -10,6 +10,8 @@ Nick Spicer: Your Eco, Commercial Solar Projects
 
 Erin Mahan: Sunspec Alliance
 
+Matthew Xenakis: UK Market Update November 2024
+
 Valerio Pelizzi: Solar Energy Innovation and Leadership
 
 Rob Tippett: Challenges and Opportunities in Solar O&M and RePowering
@@ -2471,6 +2473,302 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
+
+## Matthew Xenakis: UK Market Update November 2024
+
+Vikram (00:02)
+Welcome to the future of solar photo analytics podcast. joined by my co-founder of this podcast who was our first ever guest. We've completed now 12 episodes plus one theme track. This is our 14th installment. Our industry led podcast is now listened to in 83 countries. 45 % of the listeners are in the UK ranking consistently high on Google. I'll start first by
+
+Introducing myself again. My name is Vikram. I've worked on over two and a half gigawatt of UK solar projects. I've cooperated with a Swiss company called Studa who've delivered to over a hundred gigawatts of projects worldwide. Matthew, would you like to start by introducing yourself?
+
+Matthew Xenakis (00:49)
+Yeah, thanks very much Vikram for having me on the podcast again. It's been a year and a lot has happened in a year. It's been great. ⁓ My name is Matthew Zanarkis, the UK and Ireland sales manager for utility scale solar working at J Solar.
+
+Vikram (01:07)
+Fantastic. And Matthew, do you want to tell us a bit about JSOLA, their footprint, their capacity, organization?
+
+Matthew Xenakis (01:19)
+So J-Solar is a ⁓ massive ⁓ solar panel manufacturer, ⁓ global capacity of 100 gigawatts, ⁓ about a 15 % global market share. Install panels globally in over 165 countries. They listed on the Shenzhen Stock Exchange. ⁓ And they've got over 81 billion RMB in revenue from 2023.
+
+Vikram (01:48)
+Well, life is short and...
+
+We have a tragedy to cover one of the key figures in the industry. Mr. Stuart Bradshaw Unfortunately and shockingly passed away this summer it reminds us, know that you don't take anything for granted and and it has shock was through the industry and we try with this voluntary run podcast to uphold standards but also to remember our colleagues and partners that You know were with us in the past and unfortunately no longer with us That aside it's been a very exciting year
+
+very much developer driven. We will talk about the UK pipeline in a bit more detail shortly. But Matthew, how was last year for you at JSolo and personally?
+
+Matthew Xenakis (02:32)
+Yeah, it's been a very busy year, ⁓ I'm sure for everyone in the industry. ⁓ Every time you have a call with someone, it's now customary to say how busy you are, but it's a good thing in the industry. ⁓ And yeah, it just shows the progress that's been made in the solar industry at the moment. There's more conferences, ⁓ the industry's growing, there's ⁓ sort of people moving from different industries.
+
+to solar which sort of shows how the industry is growing which is great to see.
+
+Vikram (03:09)
+What were some of the things you said in the last podcast? You had a forecast about the industry. Would you say your expectations have been met?
+
+Matthew Xenakis (03:17)
+So I think I said that we are likely to hit about two gigawatts of solar in the UK this year. I think we may fall short of that. think in 2022, we did about 1.3 gigawatts. In 2023, probably about 1.7.
+
+it's likely that we'll fall just short of 2GW again ⁓ but I think in the years to come 2GW is going to start becoming 3GW and 3GW, 4GW so I think it's going to grow quite fast.
+
+Vikram (03:56)
+Fantastic and compliance is a huge topic right now and you mentioned you had compliance training earlier today. Do you want to tell us a bit about how JSOLA is making sure they're compliant to UK and European regulations?
+
+Matthew Xenakis (04:10)
+Yeah, so obviously it's become a major topic and righty so. We're obviously trying to ensure that we've got a transparent supply chain, showing the origin of all our raw materials, particularly in the polysilicon sort of side of the supply chain. You would notice now J Solus now.
+
+marketing and ITS strategy which stands for integrated traceability system. If you flip a panel
+
+over, you'll see that it's got an ITS number with sort of four numbers on the back. Each number corresponds to the factory and it shows that it's come from a sort of customized supply chain, which sort of gives the customer a bit of confidence that the panels are ethically sourced and that, you know, J just doesn't stand for any sort of modern slavery or anything of the sort.
+
+Vikram (05:08)
+Fantastic. And now ⁓ when we first recorded our first episode with you, we were talking about a terawatt of PV global cumulative capacity being hit. I think within a year we've now going past two terawatts. It's hard to imagine the figures. What is your view from generally your headquarters about the growing global deployment of PV and what kind of impacts does it have on JSOLA?
+
+Matthew Xenakis (05:35)
+Yeah, mean, Solar's really well poised in the market, being one of the larger manufacturers. They tend to be really conservative, you know, ⁓ especially in the sort of day and age with ⁓ squeezed margins for PV manufacturers. So J's been very conservative, and they're well poised to sort of keep expanding in this forever-growing market. I mentioned that we've got 100-gigawatts capacity
+
+And that's completely all n-type topcon and we think you know like the market's just going to carry on improving So for example the the panels two years ago were 550 watts now We're looking at about 630 640 watt panel, so the technology is getting better Productions increasing qualities improving
+
+markets becoming more standardized as well, which obviously helps developers and EPCs with installs. So it's all looking very positive in the outlook.
+
+Vikram (06:39)
+Fantastic, I've got hair.
+
+Some very specific notes about the UK market. I'm focusing heavily on official government data which were lagged behind. What's really going on in the market? been an enormous developer-focused activity. We've been faced with numerous challenges with rising material costs, labor costs. Solar panels seem to be going in the opposite direction. But if we extrapolate the data from the Department for Net Zero and
+
+energy security, which some of you may know previously as the Department for Business, Energy and Industrial Strategy, and in the early days as the Department for Energy and Climate Change. It's the same government department, just the name's changing. It's the Department for Net Zero now. The UK is a very transparent country. Anyone can go have a look and download the figures, which drives transparency through the market and the sector.
+
+One of the reasons why it makes London a financial powerhouse is the transparency.
+
+which allows investors to have some kind of confidence despite the turbulence we've endured with Brexit, with COVID, with the Ukraine energy crisis and the labor shortages that have come. Some of these are ⁓ replicated through our other European countries as well. So if you look at the overall picture, there's approximately nine and a half gigawatt of solar farms installed in the UK. If we talk only about operational assets, about one megawatt.
+
+not looking at domestic, not looking at private wire which might not be visible behind the meter. The market started almost from nothing. been in this sector for about 20 years, 12 and a half years full time. 2011, we started only with 50 megawatts, 2012, 75 megawatts. Then that jumped to the peak in the UK at two and a half gigawatts in 2015.
+
+Of course, in 2016, we had the B-word Brexit and the pipeline dropped to, you know, one and a half gigawatts in 2017 and almost just falling off a cliff edge in large scale at 36 megawatts in 2019 and, you know, 53 megawatts in 2021. It was a low point, but started to recover after COVID, you know, starting to go to 22 and 23 megawatts operational solar farms in 2022.
+
+240 megawatts in 2023 and at the moment, you know, we had forecasted there was 1.6 gigawatts in construction of live solar farms at large scale. We're forecasting only about 400 megawatts of that might go online this year. This is the official government data. Matthew, you might have a different view on that because you talk a lot earlier to some of the developers and the investors. What is your view? Do you think the figure of 370 megawatts?
+
+By the end of this year it sounds a bit too low.
+
+Matthew Xenakis (09:40)
+think it could be accurate. ⁓ Although it's, as you mentioned, that the information sometimes lags. ⁓ Things may be built but not finished yet. Well, in the process of being built but not finished yet. ⁓ So sometimes the module shipped doesn't equal finished build. So there's definitely lag time there. ⁓ But there are also very clear instances of project delays.
+
+⁓ projects haven't been turned on yet for whatever reason. ⁓
+
+But we do see that quite a bit in the industry at the moment where projects that were going to get built in 2022 are not even built yet. They're still in the process of being built. So for numerous different reasons, each is each one sort of unique. But yeah, so I'm sure that data is pretty accurate. the actual finished built solar projects, that sounds about right.
+
+Vikram (10:41)
+Absolutely, and to separate real projects from a lot of pipeline talk.
+
+We saw this time last year approximately 1.6 gigawatt solar farms were in construction and it looks likely that about 25 % of that will go in operation this year. Some of the data that is lagging may not be covered in the government figures just yet. The report is quarterly so the last report will be out at the end of December. But if you apply the same logic that 25 % of solar farms may go into operation this year from the 1.6 gig in construction, now the Department for Net Zero and Energy Security
+
+shows 2.5GW solar in construction, about 25 % of that will be approximately 600MW. So if you set a conservative forecast of large scale solar by 1MW, not considering ⁓ small rooftops and domestic, then we can conservatively forecast 600MW to go operational next year. That will be the highest number since 2018, which was 627MW.
+
+Now if you put that into perspective, you know, only one solar farm, largest one or the second largest in construction now is Cleve Hill Solar Farm, 373 megawatts peak DC potentially. You know, I'm open to be corrected if I'm wrong, so more than 50 % of next year's pipeline may be Cleve Hill Solar Farm. There's Longfield, which is 400 megawatt solar, 100 megawatt battery potentially, could be another one, but there are, you know, huge...
+
+huge labour challenges and the government target is to hit 70 GW of solar within the next 10 years or so, which means we need to be doing 5 GW per year. We're not getting anywhere close to that. We're approximately 90 % behind budget. So something needs to change. I will leave a link in this podcast to the pipeline data, which is all NDA compliant and public data. At the moment, in
+
+Not considering the 200 gigawatts of grid applications, know, there's going to be pressure now to separate the real projects from the ones that never intend to be built or can't be financed. There's a huge number of, I would say, almost spammy grid applications, which are highly speculative. If you separate those from the real projects that have some meat on the bone, you know, some real investment behind, then we could say approximately 26 gigawatts of solar is in advanced planning stages.
+
+of which 6 gigawatt is about 50 megawatt size projects. If you read off some names, you've got a 600 megawatt project in planning now called Cotton Solar Project, Gate Burt is 531 megawatts, Sunnaker Energy Farm, Eastern West is 500 megawatts, Tillbridge is 500 megawatts, Longfield is 500 megawatts including the batteries, so perhaps that's the grid connection, Heckington Fens another 500 megawatts, but all in all majority of this 26 gigawatts is made up of projects.
+
+that on average 35 megawatts in size. What are your thoughts about the 26 gigawatts in pipeline and clearly not a lot of this is entering construction. So how do you call a spade a spade and identify the real prospects in the market?
+
+Matthew Xenakis (13:59)
+So I think the larger projects come with more risk, obviously. ⁓ And obviously, in some communities, you don't want fields and fields of solar panels surrounding you. So there's more sort of hoops to jump through in order to get those consented and have the communities all agree for those things to happen. The sweet spot does seem to be around the 35 megawatt mark. ⁓ It seems to be easy.
+
+for planning, ⁓ not as much risk and in terms of price you obviously don't need as much upfront capital or know take on that much debt to get these solar farms built. ⁓ So I think that you will consistently see these 35 megawatt farms be built out in the next 10 years just consistently you know. ⁓
+
+of thing and then you will get the odd cleave hill sort of project where these will get installed and yeah obviously it's all a thing to make sure that the UK has energy security given the sort of geopolitical landscape at the moment.
+
+Vikram (15:12)
+One of our early episodes was by a very popular figure in the industry. He's a very nice guy, Mr. Clive Cosby. He was involved in the construction of the previous larger solar farm called Shortwick Solar Farm. Some other large ones called Owl's Hatch. And he was good enough to be one of our early guests because, you know, clearly we've got 26 gigawatts in planning. Not a lot of us actually getting shovel ready or even in construction. And those in construction are not achieving their COD or contract on delivery when they may be generating
+
+in the first energy when it becomes a real project and people can listen to Clive's podcast and my motivation for convincing Clive to come on and he took a considerable risk on himself working for EDF the largest energy trader in the country. You know this is a charity led podcast so you know it's for everyone in the industry that's involved. I asked Clive how did you construct the largest solar farm in the past you know 72 megawatt short wig landward maybe 75 megawatt
+
+commission potentially in 2022. There's hardly been any action happening, you to hit our targets. know, solar may not be the magic bullet, but it's a big part of it. And we need to do volume and we need to do it compliantly, not upsetting landowners, engaging with the community is a huge undertaking. And I asked Clive very bluntly, said, Clive, how were your team, was your team so successful before and why are we struggling now? And...
+
+We have to reflect on the culture because obviously Brexit created a lot of uncertainty. It upset a lot of our European partners. And now there's more uncertainty in Europe. So there's interest again in the UK market. But there was COVID, which was a worldwide pandemic. People doing hybrid working in Delhi now they're asking half the population to work from home because of pollution. So the world has changed. We're not going back to where we were pre 2020. But one of the realities are
+
+If you've got a 50 megawatt solar farm, it's like having 50 million pounds in a suitcase left in a field. And if you haven't got site managers, you haven't got dedicated teams, but people are working in silos, you're not going to get a delivery team effective enough to actually deliver something that has value. What are your thoughts on some of the challenges that we're facing, and what do we need to do to drive a culture towards delivery?
+
+Matthew Xenakis (17:31)
+Yeah, I think you've hit the nail on the head there. One major shortage, I think, at the moment is labor. ⁓ You know, getting good workers in, ⁓ which Brexit obviously hindered quite heavily. ⁓ There's...
+
+some really good UK EPCs out there and also some good European EPCs that are entering the UK market which will, I think will help accelerate the builds of these. And then you've got some companies that are developing and building which are both UK based ⁓ and they're doing really well at the time being just because they develop when they're ready and then they build when they're ready and they're able to get things moving at their own pace where developers looking for EPCs sometimes have to work at the
+
+EPC space. ⁓ yeah, I think one of the major issues is skill and labour, ⁓ trying to get the right people in the right places to make sure that the solar farm gets built properly and up to the right standard ⁓ and in time.
+
+Vikram (18:33)
+Fantastic. J have a strong name in the industry. I've been working as a self-employed ⁓ small business, part of larger manufacturers as an agent. But the reality is profit and loss. You have to hit your sales budget, you have to hit your profit and loss. And unfortunately, there seems to be uptick in redundancies amongst the financial sector now because a lot of these projects that are development heavy.
+
+Ultimately, they need to go into construction to realize their cash flows and you know, the market is extremely volatile because You know people talk about how much does it cost to develop a solar farm? Depending who you talk to some people say it costs 10 to 20 megawatt to develop a greenfield site By the time a shovel ready is a hundred thousand pounds of megawatts Some people had said it costs two hundred thousand pounds of megawatt to get solar farms shovel ready to a stage where it's RTB another acronym people use
+
+ready to build. Whatever way you put it, know, development solar farm is more than modules, you know, selling at a high end at 20 pence a watt. EPC prices are fluctuating on smaller scale, it's a lot more, probably double.
+
+below 5 megawatt sites, large sites, some of the big EPCs and investors, not interested in anything below 20 megawatts. They want scale to justify the economies of scale. So say, for example, you develop very expensively for 20 pence a watt, you EPC very cheaply for 50 pence a watt. You've got 70 pence a watt to have a site that's fully developed and in operation. Of course, there's feed-in tariffs, there's fluctuating energy prices. We are
+
+in the middle of an energy war which seems to be getting worse and worse, hopefully things will stabilize but there is this big transaction where the Toucan portfolio was sold for almost £1.40 a watt. So potentially, in the best case, could be 50 % margin for doing things properly. However, the trend I'm noticing is that the EPCs come under enormous pressure. They don't benefit from owning the asset. They've got, you know...
+
+small margins, know, 8 to 20 percent, you make one mistake, know, this cost overruns, you can easily go under. What is your view on how these projects can be financed given that there is a massive exit strategy but a huge amount of risk between going shovel ready and going into operation?
+
+Matthew Xenakis (21:05)
+Well...
+
+I think there's a lot of money that's going into solar at the moment. ⁓ You've got pension funds, you've got private equity companies, you've got a whole lot of different companies that are providing finance for these solar farms. And I honestly don't think money's the problem because solar are showing the right returns for people that are holding the projects. I think you mentioned the Toucan portfolio got bought for one pound forty. ⁓ And yeah, there's obviously still
+
+⁓ money to be made in solar hence why the industry is growing so fast like we can call a spade a spade again and say that you know the the industry wouldn't be growing unless there people were making money and it's it's really good obviously that it's helping the environment which is why I hope most of us get into it but it helps the industry growing to grow where where where the money is so I think ⁓
+
+A big part of it is also energy security. ⁓ Knowing that with the Ukraine crisis that you mentioned, that once we've got energy security ⁓ and we've built all our solar farms and everything, ⁓ solar will just keep ticking on as the sort of UK grows.
+
+Vikram (22:20)
+Absolutely, the numbers are approximate, anyone can go have a look.
+
+on the shoulders green co-acquisition of two can about approximately 513 megawatts was purchased for 700 million pounds. So my investor friends in the industry would tell us, know, they may be under more lucrative feed and tarot regimes. Now we may have CFD, which may be lower in values. But whatever the case, we need to accelerate towards solar deployment also for other renewable energies. But the focus of this podcast is the future of solar photovoltaics. This is what we are.
+
+here to discuss and with an enormous pipeline, the reality is we've hit two terawatts worldwide, this almost entirely being driven by China. What is your view on that with respect to the volume that's active in China in terms of new solar farms?
+
+Matthew Xenakis (23:13)
+Well, China is the industrial hub of the world at the moment. They have the most energy demand, hence why they're installing the most solar panels. They also produce 90 % of the world's solar panels, so it makes sense for them to use it. They obviously also... ⁓
+
+building out coal fire plants and everything at the moment too. ⁓ But it's good to see that it's going in the right way. They're looking to peak their carbon emissions by 2030. So meaning it's still looking to increase the carbon emissions, but by then it's looking to to be completely kind of net zero by 2050. So with the rate that they're going, ⁓ anything sort of possible, if you think about it, we were talking about two to three gigahertz
+
+in the UK, they're installing 200 gigawatts. ⁓ So it's lucrative.
+
+Vikram (24:12)
+Fantastic. China is just leaving everyone in the shadows with the volumes they are establishing, especially in the renewable energy space. is now a lot of discussions with the unions in Germany about Volkswagen potentially reducing in capacity because in China, not only in solar but also in battery storage, the prices of batteries are collapsing as well and the lithium prices may have come down by 90%. No one would have imagined these kinds of situations.
+
+situations only a year ago and so there is a force, know, which is China has taken its net zero commitment seriously, you know, they are building coal power plants but equally installing more energy than anyone else in terms of solar, in terms of battery storage, in terms of EV they've got now probably the largest EV electric vehicle manufacturer and this has a knock-on effect with our relationship with China and our
+
+colleagues in the industry, there's now a logistical reality where there's an oversupply of solar panels, there's an extreme price pressure on modules, there's of course a lot of anger because if you are a wholesaler or you know a contractor and you've bought in modules and the prices are dropping so enormously, what do you do? So there is a logistical reality and a lot of tension also mentioned on the PV Magazine blogs about the prices.
+
+of solar panels as it stands. What is your, as one of the market leaders in the UK and Europe, you mentioned 100 gigawatts world, that's huge. What is your view on the current pricing situation in modules and how should your colleagues and clients in the industry perceive that?
+
+Matthew Xenakis (25:58)
+So as you mentioned, it's supply versus demand. The whole problem stems from an oversupply of polysilicon in China. If we look back into, let's say, beginning of 2022, the price of polysilicon was 310 RMB per kg. Now it's sitting at 45, which is a massive decrease. And this is because there's excess polysilicon in the market. Excess polysilicon enables more
+
+manufacturing from other other well more players to enter the game of manufacturing ⁓ Which then sort of floods the market there's now over supply of solar panels compared to the demand We also mentioned that people aren't building as fast as they ⁓ were sort of expected to so this has caused a sort of global trend where where panels are in excess so rather than holding panels people are willing to sell them and
+
+at cost price. So what this is doing is forcing the price downward. ⁓ In these sort of situations, it's really important to just make sure that you've got good relationships with manufacturers ⁓ that can sort of help weather the storm. I'm sure as a cable manufacturer, you understand that too.
+
+Vikram (27:28)
+Absolutely. I think the whole market is very exciting. What I've noticed is people that were market leaders in the past working for very big companies such as SoulCentury, Wurzel, and other similar companies. Now the market's changed entirely. There's been mergers and acquisition activity, and there's been entrants of huge companies from the energy sector with EDF,
+
+from the oil and gas sector with Total and BP and so on. And there's also smaller investors that were development heavy but may not have the credit rating to build by themselves. So naturally they look for a large EPC, a large big conglomerate with 100 billion turnover in that region to come in and take on the construction finance risk. And you may get companies that don't have much solar experience but look at the huge sales numbers.
+
+they can achieve from building a solar plant. If you build a 300 megawatt solar farm, 50 pence of what? What is that, 150 million turnover? So it's in one order. Some companies can do more than the entire business unit. But good projects do come at a cost, and this creates a lot of legal tensions. When people go into build, they realize they've got local tensions, community engagement still to do.
+
+a huge logistical challenge, a 300 megawatt project can need a small container ship, a thousand shipping containers of modules, it might collapse the roads. And you know, then you got a human resource issue, you have very small teams, you have to suddenly grow 300 people teams and suddenly you realize your margin is not enough to cover the risk. And so the people who more experienced, they may not want to take on the risk themselves.
+
+So they look for a large company to take on the risk, but we can see from the data that there are no winners if the project doesn't achieve commercial operation. And no one wins from litigation. So in terms of the future ideal project, how do you see that taking shape?
+
+Matthew Xenakis (29:40)
+I think as times...
+
+Progressed we've gotten more experience in delivering solar farms and we look at the freedom tariff How big the projects were then compared to what's getting built up now? so confidence is obviously growing in the in the larger projects and the The norm back in the day was consistent sort of five megawatt farms. We're not talking consistent 35 megawatt farms So I think it's just going to get it's all about experience and that you know upskilling people it all comes
+
+back to labour and skills I think. So the more experience we get the more ⁓ these sort of things will be achieved.
+
+Vikram (30:24)
+If you look at the successes in the past, unlike many other industries, in solar you have to be lean, you have to procure directly, contract with the labour directly. One of the issues with relying on the bank of a party to get your project finance from the bank.
+
+is that they need to then subcontract the same laborers, the same engineers, the same materials. And just the exchange rate can be more than people's margin or the fluctuation in the metal prices or the module prices. Some of the top engineers are getting a thousand pound a day. You can't replace them with laborers. we have to...
+
+think about that in the past, Soul Sentry was successful is because they were managing everything almost directly. When you go through a big company, they might have a great sales team, but then the CFOs will not be happy when they're looking at red figures.
+
+And then the bank wants to come after them because people have got financial models and they need to deliver us a given number of megawatt hours to hit the financial models to return shareholder investment. if you're not able to deliver in the end, if you've got a capex of 250 million...
+
+Plus for a 500-megawatt single site, that's enough to take some companies under. So one of the things I respect about JSO, and I've noticed this over the last 10 years or so, that they have a tremendous name in the market. You seem to have a disproportionate market share. To me, it looks like you're talking to more than half the market if not supplying to them. So it's no wonder that you guys are still around. You seem to have a very stable team with Alistair and Alexa, and also yourself, Matthew.
+
+For me, from my own learning perspective and also for our colleagues in the industry, how did Jaya differentiate themselves in the market given the price situation and how do you keep such a loyal client base?
+
+Matthew Xenakis (32:22)
+Yeah, so I think one big aspect of it is obviously we stay cost competitive. ⁓ It helps being vertically integrated. We manufacture everything from the ingot all the way through to the module, which helps control costs. ⁓ Alistair's been very good at pushing the traceability side of things. ⁓ He came up with the ITS scheme with Alexa, ⁓ and that's really helped show the market that we're not hiding.
+
+to sort of put ourselves out there, show that we're transparent, show that we're compliant. ⁓ So yeah, there's that and then there's the obvious aspect of ⁓ just interaction with clients and making sure that the sale is done right. ⁓ After sales support, pre-sales support. ⁓ And one thing that J.A. has done very well is they tend to be really conservative in the market.
+
+We try to come across knowing that we can deliver ⁓ and don't over promise that way. No one's losing out at the end.
+
+Vikram (33:34)
+Absolute trust is a huge currency because
+
+One of the funny terms people use in the pub is braggowats. know, there's a lot of people that, you know, do talk about huge numbers. It's very easy to go to Google Earth and draw a red line and say, I've got a terawatt pipeline. But to understand the magnitude of what people saying and to separate the serious players from those that are just learning about the market, I wouldn't say anything negative about them. I think they're learning about the market. It takes over 20 years to make another solar century and to bring
+
+up a team like that from scratch is not so easy. need to develop people. A lot of senior people in the industry are retiring.
+
+You know, and now if you face the reality of hybrid working or some people completely working from home or different countries, they're not in team environments where they get to bounce off their colleagues. And with solar, it's a changing game. This leads us nicely to, you know, DC fire safety. You know, because if you look at Sothek Solar Farm from over 10 years ago, we were building a 250 watt J modules and 26 kilowatt string inverters.
+
+Now some of these big national significantly infrastructure projects or NSIPs as they're known, or even the smaller ones, which is like 9 megawatts. Mega means million, so nothing with mega is small. But 9 megawatts is considered a tiny project with respect to the, 6 gigawatt system construction that's over 50 megawatts. Right? So now we have projects with JM and also other modules like Trina and others, Canadian, et cetera. You can have bifacial solar panels.
+
+which are 630 watt peak, double sided modules, the Albedo's a reflector generation, you can have 400 kilowatt string inverters. And you are working in sales now, but I remember from our previous podcasts, is that you did study engineering, electrical background if I'm not mistaken. And one of the known issues in the market is, if you're going only on price, is that it is a power plant. You are dealing...
+
+with a couple of solar panels can be enough to start welding with. And there is an enormous DC fire safety issue because solar panels are current limiting devices. I did cheat a bit, did feed up on this last night. Solar panels are current limiting devices. They're not like AC sources that are fluctuating frequency that can interrupt the circuit if something goes wrong. They're not batteries which can drain the entire capacity so you blow a fuse.
+
+With solar panels, if the fuse rating is 20 amps and the maximum string of solar panels in series can generate, for example, 15 amps, and you have an installation failure on the modules or on the string cables or on the MC4s or anywhere in the system, if the electricity starts to leak to ground, there's no way you can interrupt the circuit. What are your thoughts about the actual engineering side of things?
+
+Matthew Xenakis (36:39)
+No, you're 100 % correct. And that's something that's been highlighted in the industry more and more at the moment. We're seeing fires on rooftops, we're seeing fires on solar farms. I think, you as you know, and as we've talked about is that you got to do things properly. You got to make sure you use the right components, you got to make sure that it's everything's checked. part of the checks and part of the safety parts of it are
+
+⁓ On site you really don't want any casualties on the solar farm when things are being installed let alone five years later Five years later when no one's on sites probably better than when the thing has been built. So Yeah, a lot of thing is about training and making sure that things are done correctly with the the right Certifications like we have to go through very rigid and fire certifications for our modules So if you're using a module without fire certificates, then you're
+
+asking for trouble.
+
+Vikram (37:40)
+Absolutely and people from outside the industry they may not be aware that it is a boom and bust cycle because you know I'm a big believer in a just transition you know oil and gas or energy is the largest sector in the world and if you're changing everyone to electric vehicles to solar panels to wind turbines we have to take people forward with us because you know a badly designed solar farm may not necessarily be better.
+
+than the oil gas asset and now we are facing an energy crisis, there were people queuing up for fuel and so you have to take people forward with you and a lot of things were done very very fast because of the changing nature of the feeding tariffs and other things and now we're in a situation that the market is screaming out for a delivery team that is able to deliver good projects.
+
+And so, you know, I very much respect the work that you do and now if you talk about a few more fun things, less serious topics, actually before we go on to that, there's another thing I do want to say. When we were walking in the gold rush before Brexit, I won't mention any specific names to keep everyone out of any controversy, but we were walking around mountain structures.
+
+And some of the innocent questions people would ask, I'll be one of them. Why do we need earthing on solar mante structures? You've got so many piles deep into the ground. It's natural earthing. Why do we need any earthing? And the thing that's sobering is, if you've got 1,500 volt strings, know, a 373 mega solar farm can have 23,000 plus strings at 1,500 volts.
+
+You can have 26 strings landing into one string inverter. 500 amps could be the potential at 1500 volts. That can't be interrupted. All the inverter can do is switch off if there's insulation failure, but the string carries on generating to ground. And so for example, if you've got insulation failure on a connector or modules or string cable, for example, and you're bleeding 1500 volts to one mounting rail and another mounting rails at zero potential,
+
+and a poor worker that's cleaning that module or installing a new load of solar panels, they can be subject to an enormous electric shock. So people should not underestimate the health of safety undertaking. Because if there is an incident, you know, it's not going to be good for anyone. And so that's, is a heavy part of things that we will cover offline with our engineers and our clients. But the fun part is you are a co-founder of this podcast.
+
+probably 10 years younger than me. He gave me the idea to start this podcast and I think it's been an enormous success. It's been listened to in 83 countries. Our podcast now been transcribed on Apple podcasts for accessibility. So if someone wants to read the transcripts whilst listening, they can do so. Our podcast is also available on other popular platforms like Spotify and Amazon Audible. We've been treated almost like a ebook.
+
+So it's actually enormous and you know now listen to an 83 countries 45 % of listeners are in the UK This podcast is not designed to be a clickbait or some kind of marketing gimmick, but rather to deliver collaboration Within the industry to let people have a voice What has been your feedback on the podcast since you did the first episode?
+
+Matthew Xenakis (41:13)
+Yeah, I think ⁓ you saw yourself short, Vikram. think it's been fantastic and you've really pushed this podcast forward very well. ⁓ yeah, I think the industry loves it. It's good to hear people's opinions and also just to, you know, brush up on some of the information that other people have. Like, for example, you know, listening to John Davies about the quality side of modules and that sort of thing was really good to hear, despite even me being in the
+
+the PV side of things, I definitely learned a lot from John. ⁓ And yeah, from a lot of the other guests as well. yeah, I encourage anyone that wants to come ⁓ and give some information on the podcast to come to put their hand up.
+
+Vikram (41:58)
+Fantastic
+
+and you've designed the logo as well so you should give yourself some credit. Artificial intelligence is another massive topic to get into and I'll be told by a former client of mine now a good friend Mr. David Winnis who was basically to me a chief engineer at Soul Sentry you know that he can have very long drives to site visits and he finds it refreshing listening to you and other guests and reflecting on the past and you know it's all in
+
+Matthew Xenakis (42:02)
+that was sponsored by Chachi BT.
+
+Vikram (42:27)
+positive spirit and because a lot of us are working remotely now, it's a way for us to communicate with each other, to get us back working together on site, in offices, remotely as well. And so before I thank you for participating in another podcast, in a video for the first time, what are your views and what message would you give out to the people listening to this and future participants?
+
+Matthew Xenakis (42:54)
+Well, future participants, looking forward to hearing what you have to say. ⁓ Hopefully we can churn out a few more podcasts this year and make it a monthly thing. ⁓ And yeah, I think the information is king. The more we can share amongst the industry, the less problems we're going to have. We've talked about fire safety that might prevent some accidents happening in the future. So yeah, I think information sharing is really important in the industry, especially
+
+with the way we're about to see the soil industry grow.
+
+Vikram (43:30)
+Fantastic and you I've been asked to write articles for Forbes magazine. I find it daunting how to go about it and it's amazing how the market is changing now because grid connections are a gold rush now. It's hard to get a good connection for people so that can sort of create a bust in the development game and now I think there's going to be a trend for building solar farms. I'm at the moment working on a 110kV grid connection.
+
+itself might be small but it may connect a know 90 megawatt project and there's also an enormous space for power engineers wanting to get into the sector.
+
+because as the feed-in tariffs are reduced and we need to have lower level of cost of electricity, need to our studies about the power studies from the solar cell all the way to high-voltage grid. If you might have, for example, Syracuse is solar farm, your grid is only, connections only 10 megawatts with a 50 megawatt hour battery with Mr. Michael Vasek as a grid serve, he could solve, he connect a 20 megawatt project with a 50 megawatt hour battery. That is real.
+
+genius thinking in my book because some people didn't want to build a project because the grid connection is too small and now with the dropping battery projects we can unlock new grid capacity, we can work with different voltages and also there is an enormous aspect that's gone missing with SoulCentury not building projects anymore which is you know working on product development which makes the whole system work. So I'm very much excited for the next year ahead.
+
+Do you have any forward-looking statements, any forecasts for us to look forward to?
+
+Matthew Xenakis (45:12)
+Maybe we underachieved this year reaching 2 gigawatts, but I think next year we should push for 3 gigawatts, maybe even 4.
+
+Vikram (45:22)
+Fantastic and the positive is the market share for JSOL is very high. So that's a testament to you and thank you for joining another episode. Thanks, Matthew.
+
+Matthew Xenakis (45:31)
+Thanks very much for having me Vikram.
 
 ## Valerio Pelizzi: Solar Energy Innovation and Leadership
 

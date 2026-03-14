@@ -1,8 +1,4 @@
-# Single Line Diagram References
-
-## ABB
-Engineering articles and technical discussions on power systems, substations and grid infrastructure  
-[https://blog.abb.com](https://blog.abb.com)
+# Single Line Diagram 
 
 ## Electrical Engineering Portal
 Independent engineering articles explaining electrical systems and single line diagrams  

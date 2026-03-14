@@ -12,10 +12,6 @@ Engineering blog covering power system modelling and intelligent single line dia
 Reference library of electrical symbols used in single line diagrams  
 [https://symbols.radicasoftware.com/229/single-line-symbols](https://symbols.radicasoftware.com/229/single-line-symbols)
 
-## Infrastructure Power Systems
-Engineering reference material for railway traction power systems and electrification networks  
-[https://www.railbaltica.org/wp-content/uploads/2025/09/RBDG-MAN-018-0103_DG_RailwayEnergyPart1-TractionPowerSystem.pdf](https://www.railbaltica.org/wp-content/uploads/2025/09/RBDG-MAN-018-0103_DG_RailwayEnergyPart1-TractionPowerSystem.pdf)
-
 ## National Grid
 Transmission network power flow diagram of the Great Britain electricity system  
 [https://www.nationalgrid.com/sites/default/files/documents/37785-ETYS%202014%20Appendix%20C%20-%20Power%20Flow%20Diagram.pdf](https://www.nationalgrid.com/sites/default/files/documents/37785-ETYS%202014%20Appendix%20C%20-%20Power%20Flow%20Diagram.pdf)

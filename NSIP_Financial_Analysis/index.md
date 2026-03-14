@@ -58,6 +58,89 @@ Debt financing was provided by:
 
 <p>
 The remaining capital requirement is funded through equity investment from Quinbrook Infrastructure Partners.
+
+<h2>Estimated Capital Allocation Between Solar PV and Battery Storage</h2>
+
+<p>
+Public sources disclose the total project financing but do not publish the detailed allocation of capital between the photovoltaic plant and the battery energy storage system.
+</p>
+
+<p>
+The Cleve Hill project includes a <b>150 MW / 300 MWh battery energy storage system</b> co located with the solar installation.
+</p>
+
+<p>
+Industry cost benchmarks for grid scale battery storage in Great Britain during 2024 suggest total project costs of approximately <b>£580,000 per MW</b> of installed battery capacity.
+</p>
+
+<p>
+Applying this benchmark to the Cleve Hill battery installation provides a reasonable analytical estimate of the BESS capital cost.
+</p>
+
+<table border="1" cellpadding="6">
+<tr>
+<th>Component</th>
+<th>Estimated Capital Cost</th>
+<th>Approximate Share</th>
+</tr>
+
+<tr>
+<td>Battery Energy Storage System (150 MW)</td>
+<td>~ £87 million</td>
+<td>~ 19%</td>
+</tr>
+
+<tr>
+<td>Solar PV Plant and Shared Infrastructure</td>
+<td>~ £363 million</td>
+<td>~ 81%</td>
+</tr>
+
+<tr>
+<td>Total Project Value</td>
+<td>~ £450 million</td>
+<td>100%</td>
+</tr>
+
+</table>
+
+<p>
+These figures are derived from publicly available cost benchmarks and the reported project capacity. Actual capital allocation for the Cleve Hill project has not been publicly disclosed by the lenders or developer.
+</p>
+
+<h3>Sources</h3>
+
+<ul>
+
+<li>
+<a href="https://www.pv-magazine.com/2025/03/17/uks-largest-solar-and-storage-project-secures-financial-close/">
+PV Magazine – UK’s largest solar and storage project secures financial close
+</a>
+</li>
+
+<li>
+<a href="https://www.solarpowerportal.co.uk/solar-investment/quinbrook-closes-uk-s-largest-project-financing-for-cleve-hill-nsip">
+Solar Power Portal – Quinbrook closes UK’s largest project financing for Cleve Hill
+</a>
+</li>
+
+<li>
+<a href="https://www.clevehillsolar.com/s/Battery_Safety_Management_Plan-B.pdf">
+Cleve Hill Solar Park Battery Safety Management Plan
+</a>
+</li>
+
+<li>
+<a href="https://modoenergy.com/research/en/gb-november-2024-research-roundup-battery-energy-storage-capex-long-duration-carbon-emmisions-connections-reform-recycling-clean-power-2030">
+Modo Energy – GB Battery Storage Capital Cost Benchmark
+</a>
+</li>
+
+</ul>
+
+<p>
+This estimate is provided for analytical context only and should not be interpreted as an official disclosure of project financing allocation.
+</p>
 </p>
 
 <hr>

@@ -16,10 +16,6 @@ Reference library of electrical symbols used in single line diagrams
 Transmission network power flow diagram of the Great Britain electricity system  
 [https://www.nationalgrid.com/sites/default/files/documents/37785-ETYS%202014%20Appendix%20C%20-%20Power%20Flow%20Diagram.pdf](https://www.nationalgrid.com/sites/default/files/documents/37785-ETYS%202014%20Appendix%20C%20-%20Power%20Flow%20Diagram.pdf)
 
-## Schneider Electric
-Engineering blog covering electrical infrastructure, power systems and digital energy networks  
-[https://blog.se.com](https://blog.se.com)
-
 ## Siemens
 Engineering blog discussing power grids, energy infrastructure and substation technology  
 [https://www.siemens.com/energy/blog](https://www.siemens.com/energy/blog)

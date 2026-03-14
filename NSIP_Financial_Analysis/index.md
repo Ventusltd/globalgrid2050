@@ -1,157 +1,226 @@
-# Cleve Hill Solar Park
-## Project Financing and Technical Overview
+<!DOCTYPE html>
+<html>
 
-Cleve Hill Solar Park is the first large scale solar project in the United Kingdom approved under the **Nationally Significant Infrastructure Project (NSIP) framework**. The project has a reported installed capacity of **373 megawatt peak DC** and includes a large co located battery energy storage system.
+<head>
+<meta charset="UTF-8">
+<title>Cleve Hill Solar Park – NSIP Financial Analysis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-The project is located on the north Kent coast near Faversham and exports electricity to the national transmission system through a **dedicated 400 kilovolt grid connection substation**.
+<body>
 
----
+<h1>Cleve Hill Solar Park</h1>
+<h2>Project Financing and Technical Overview</h2>
 
-## Disclaimer
+<p>
+Cleve Hill Solar Park is the largest operational solar photovoltaic power station in the United Kingdom with an installed capacity of <b>373 megawatt peak DC</b>. The project is located on the north Kent coast near Faversham and exports electricity directly to the UK transmission network.
+</p>
 
-The information presented on this page has been compiled from publicly available sources including UK planning documentation, developer announcements and independent observation of site layout using satellite imagery such as Google Earth.
+<p>
+The project was the <b>first solar and battery development approved under the UK Nationally Significant Infrastructure Project (NSIP) planning framework</b>.
+</p>
 
-Certain engineering values presented in this document including estimated string counts, inverter quantities, module counts and collection network configuration are **engineering estimates derived from visual interpretation and typical solar plant design practices**.
+<p>
+The solar park is co located with a <b>150 megawatt battery energy storage system</b>.
+</p>
 
-No representation or warranty is made regarding the completeness or absolute accuracy of the information presented. The author accepts **no responsibility or liability for any errors, omissions or interpretations** contained within this analysis.
+<hr>
 
-This page is intended solely as an **independent technical observation and reference document**.
+<h2>Project Financing</h2>
 
----
+<p>
+Cleve Hill Solar Park is widely reported as a <b>£450 million solar and battery storage infrastructure project</b> developed by Quinbrook Infrastructure Partners.
+</p>
 
-## Project Financing
+<p>
+The project financing package includes:
+</p>
 
-Cleve Hill Solar Park is widely reported as a **£450 million solar and battery storage project**.
+<ul>
+<li>£218.5 million term loan facility</li>
+<li>£20 million VAT facility</li>
+</ul>
 
-The project capital structure includes a combination of project finance debt and sponsor equity.
+<p>
+Total project debt:
+</p>
 
-Reported financing components include:
+<p><b>£238.5 million</b></p>
 
-- **£218.5 million term loan facility**
-- **£20 million VAT facility**
+<p>
+Debt financing was provided by:
+</p>
 
-Total reported project debt:
+<ul>
+<li>Lloyds Bank</li>
+<li>NatWest</li>
+</ul>
 
-**£238.5 million**
+<p>
+The remaining capital requirement is funded through equity investment from Quinbrook Infrastructure Partners.
+</p>
 
-Debt providers include major UK infrastructure lenders including **Lloyds Bank and NatWest**.
+<hr>
 
-### Primary sources
+<h2>Financing Structure</h2>
 
-- Quinbrook project announcement  
-  https://quinbrook.com/news/quinbrook-secures-financing-for-cleve-hill-solar-park/
+<p>
+Project financing was arranged in two tranches.
+</p>
 
-- Lloyds Bank financing announcement  
-  https://www.lloydsbankinggroup.com/media/press-releases/2024/lloyds-bank-supports-cleve-hill-solar-project.html
+<p><b>Solar PV financing</b></p>
+<ul>
+<li>Financial close August 2024</li>
+</ul>
 
-- Solar Power Portal industry coverage  
-  https://www.solarpowerportal.co.uk/quinbrook-secures-financing-for-cleve-hill-solar-park/
+<p><b>Battery energy storage financing</b></p>
+<ul>
+<li>Financial close March 2025</li>
+</ul>
 
-The remaining capital requirement is funded through **equity investment from Quinbrook Infrastructure Partners**, the project sponsor and developer.
+<p>
+Both were arranged under the same project finance structure.
+</p>
 
-Public sources confirm the overall financing structure but do not publish a detailed cost breakdown covering all project stages from land acquisition through commissioning.
+<hr>
 
----
+<h2>Revenue Structure</h2>
 
-## System Configuration Overview
+<p>
+The project revenue stack includes several long term agreements:
+</p>
 
-Satellite imagery and layout interpretation indicate the following approximate engineering characteristics.
+<ul>
+<li>15 year Contract for Difference (CfD) awarded in Allocation Round 4</li>
+<li>15 year corporate power purchase agreement with Tesco covering approximately 65 percent of generation</li>
+<li>Route to market agreement with Shell Energy for remaining electricity sales</li>
+</ul>
 
-### Module configuration
+<hr>
 
-The solar arrays appear to use **Trina Solar bifacial photovoltaic modules rated approximately 655 watts**.
+<h2>System Configuration Overview</h2>
+
+<p>
+Cleve Hill Solar Park consists of a large scale photovoltaic installation with integrated battery storage and supporting electrical infrastructure.
+</p>
+
+<p>
+Public project information indicates:
+</p>
+
+<ul>
+<li>More than 550000 photovoltaic modules</li>
+<li>373 megawatt peak DC solar capacity</li>
+<li>150 megawatt battery energy storage system</li>
+<li>Site area of roughly 900 acres (about 360 hectares)</li>
+</ul>
+
+<p>
+Electricity is exported to the UK transmission network through the <b>400 kilovolt Cleve Hill National Grid substation</b>, originally constructed to serve the London Array offshore wind farm.
+</p>
 
-Mounting observations suggest:
+<hr>
+
+<h2>Key System Scale Indicators</h2>
 
-- east west fixed tilt configuration  
-- approximately **5 modules in portrait orientation per mounting table**
-
-Estimated module count:
-
-373000000 W ÷ 655 W ≈ **570000 modules**
-
----
-
-### DC string topology
-
-Typical 1500 volt utility solar systems using modules of this size operate with **26 to 30 modules per string**.
-
-Estimated number of strings:
-
-570000 modules ÷ 30 modules per string ≈ **19000 strings**
-
-Satellite observation suggests the project likely contains **more than 18000 DC strings**.
-
----
-
-### Inverter architecture
-
-The project appears to use **Sungrow 350 kilovolt ampere string inverters**.
-
-Estimated inverter count from aerial observation:
-
-- approximately **900 inverters**
-
-Estimated DC loading per inverter:
-
-373 megawatt peak DC ÷ 900 ≈ **414 kilowatt peak DC per inverter**
-
-Estimated DC AC ratio:
-
-- approximately **1.18**
-
-This ratio is consistent with modern European utility scale solar design practice.
-
----
-
-### Medium voltage collection network
-
-The project contains a distributed medium voltage collection system linking inverter stations to site substations.
-
-Approximate characteristics inferred from layout:
-
-- medium voltage level **33 kilovolts**
-- more than **30 site substations**
-- typical transformer rating **around 10 megavolt ampere**
-
-Estimated capacity:
-
-30 substations × 10 MVA ≈ **300 MVA**
-
-The substations appear interconnected via a **33 kilovolt ring main cable system** across the site.
-
----
-
-### Transmission connection
-
-Electricity generated at the site is exported to the UK transmission system via a **dedicated 400 kilovolt grid connection substation**.
-
-Relevant planning documentation:
-
-- UK Government NSIP decision document  
-  https://assets.publishing.service.gov.uk/media/66013d14a6c0f7f514ef910e/11_Application_for_the_Cleve_Hill_Solar_Park_Order___Decision_Letter__reference_EN010085_.pdf
-
-- Planning Inspectorate project page  
-  https://infrastructure.planninginspectorate.gov.uk/projects/south-east/cleve-hill-solar-park/
-
----
-
-## Key System Scale Indicators
-
-| Parameter | Estimated Value |
-|-----------|----------------|
-| Solar capacity | 373 megawatt peak DC |
-| Battery storage | 150 megawatt |
-| Modules | ~570000 |
-| DC strings | >18000 |
-| String inverters | ~900 |
-| Site substations | >30 |
-| Substation rating | ~10 MVA |
-| Medium voltage network | 33 kilovolt ring main |
-| Transmission export voltage | 400 kilovolt |
-
----
-
-## Purpose of this document
-
-This page provides an independent technical reference for the scale and configuration of Cleve Hill Solar Park and clarifies publicly reported project financing figures using available documentation combined with engineering estimation.
+<table border="1" cellpadding="6">
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+
+<tr>
+<td>Solar PV capacity</td>
+<td>373 megawatt peak DC</td>
+</tr>
+
+<tr>
+<td>Battery storage</td>
+<td>150 megawatt</td>
+</tr>
+
+<tr>
+<td>PV modules</td>
+<td>More than 550000</td>
+</tr>
+
+<tr>
+<td>Site area</td>
+<td>About 900 acres</td>
+</tr>
+
+<tr>
+<td>Grid connection</td>
+<td>400 kilovolt transmission substation</td>
+</tr>
+
+</table>
+
+<hr>
+
+<h2>Disclaimer</h2>
+
+<p>
+Information presented on this page has been compiled from publicly available sources including project announcements, planning documentation and industry reporting.
+</p>
+
+<p>
+Certain engineering observations such as inverter counts, string quantities or internal electrical architecture may be estimated from planning documents or satellite imagery such as Google Earth.
+</p>
+
+<p>
+No representation or warranty is made regarding the completeness or absolute accuracy of all inferred engineering values. This document is intended solely as an independent technical reference and educational analysis.
+</p>
+
+<hr>
+
+<h2>References and Primary Sources</h2>
+
+<ul>
+
+<li>
+<a href="https://www.pv-magazine.com/2025/03/17/uks-largest-solar-and-storage-project-secures-financial-close/">
+PV Magazine – UK’s largest solar and storage project secures financial close
+</a>
+</li>
+
+<li>
+<a href="https://www.pv-magazine.com/2025/07/02/largest-uk-solar-plant-goes-online/">
+PV Magazine – Largest UK solar plant goes online
+</a>
+</li>
+
+<li>
+<a href="https://www.solarpowerportal.co.uk/solar-investment/quinbrook-closes-uk-s-largest-project-financing-for-cleve-hill-nsip">
+Solar Power Portal – Cleve Hill financing
+</a>
+</li>
+
+<li>
+<a href="https://www.quinbrook.com/news-insights/quinbrook-closes-uks-largest-solar-pv-battery-storage-project-financing-for-cleve-hill-solar-park/">
+Quinbrook Infrastructure Partners announcement
+</a>
+</li>
+
+<li>
+<a href="https://www.natwest.com/corporates/about-us/case-studies/natwest-lends-support-for-uks-largest-solar-farm.html">
+NatWest financing case study
+</a>
+</li>
+
+<li>
+<a href="https://www.clevehillsolar.com/">
+Cleve Hill Solar Park official website
+</a>
+</li>
+
+</ul>
+
+<hr>
+
+<p>
+This page provides an independent technical reference for the scale and financing structure of Cleve Hill Solar Park using publicly available information and industry reporting.
+</p>
+
+</body>
+</html>

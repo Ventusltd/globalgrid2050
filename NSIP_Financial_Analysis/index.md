@@ -1,5 +1,6 @@
-Project Overview
-Cleve Hill Solar Park is the largest operational solar photovoltaic power station in the United Kingdom. The project has an installed capacity of 373 megawatt peak DC.
+# Cleve Hill Solar Park 
+
+The the largest operational solar photovoltaic power station in the United Kingdom. The project has an installed capacity of 373 megawatt peak DC.
 
 Location and Grid Connection
 The project is located on the north Kent coast near Faversham. Electricity is exported directly to the United Kingdom transmission network through the 400 kilovolt Cleve Hill National Grid substation, originally built for the London Array offshore wind farm.

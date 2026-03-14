@@ -1,9 +1,5 @@
 # Single Line Diagram References
 
-This page collects reference material for electrical single line diagrams used in the United Kingdom electricity system.
-
-These examples come from transmission operators, distribution network operators, infrastructure systems and engineering software vendors. They provide real engineering diagram conventions that can be reverse engineered for grid modelling, documentation and automation.
-
 ## ABB
 Engineering articles and technical discussions on power systems, substations and grid infrastructure  
 [https://blog.abb.com](https://blog.abb.com)

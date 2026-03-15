@@ -1,7 +1,9 @@
 # Global Solar PV Deployment 2025
 
 Primary reference  
-[DNV Energy Transition Outlook 2025](https://www.dnv.com/energy-transition-outlook/2025/)
+Supporting research  
+
+[Next decade decisive for PV growth on the path to 2050 – Fraunhofer ISE Terawatt Workshop](https://www.ise.fraunhofer.de/en/press-media/press-releases/2023/next-decade-decisive-for-pv-growth-on-the-path-to-2050.html)
 
 DNV indicates that **global solar PV capacity will exceed 3000 gigawatt by the end of 2025**, confirming that global installations are approaching the 3 terrawatt peak milestone.
 

@@ -1,11 +1,13 @@
-# HV Interface Designs, Cables, Sealing Ends and accessories for Grid Connection 132kV, 275kV or 400kV
+# HV Interface Designs
 
 Most HV connections are bespoke and must be designed around the substation interface and foundation design.
 
 ![HV interface](../hv_interface.jpg)
 
-## 11 kV to 33 kV with Umax 36 kV Cables, Accessories and Installation
+## 11 kV to 33 kV MV power cables and accessories with Umax 36 kV
 
-Public or private land ownership and transformer termination type must be verified. If necessary, also confirm distribution network operator specifications and applicable local regulations such as BS 7870 section 4.10.
+Public or private land ownership and transformer termination type must be verified. Where applicable, distribution network operator specifications and relevant standards such as BS 7870 section 4.10 must also be confirmed.
 
-MV cable technology is well established but physical installation parameters must still be agreed with cable and accessory suppliers. There is currently a general supply capacity constraint and lead times must be planned well in advance to secure a viable solution.
+MV power cable technology is well established, however physical installation parameters must still be agreed with cable and accessory suppliers. Cable routing, trench design, thermal environment and termination interfaces must be verified during the design phase.
+
+There is currently a general supply capacity constraint across the MV cable market and manufacturing lead times must be planned well in advance to secure a viable project solution.

@@ -16,7 +16,7 @@ VENTUS Ltd acted as the project management and integration partner responsible f
 
 The cable engineering scope covered multiple voltage levels and systems including:
 
-• 33 kilovolt grid connection cables between the customer substation and site substations  
+• 33 kV grid connection cables between the customer substation and site substations  
 • medium voltage interconnection cables  
 • low voltage distribution cables supplying EV charging systems  
 • high power DC cables connecting charging cabinets and charge points  

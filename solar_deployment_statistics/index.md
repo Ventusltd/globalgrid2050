@@ -10,10 +10,7 @@ DNV indicates that **global solar PV capacity will exceed 3000 gigawatt by the e
 Global solar deployment reached unprecedented scale in 2025 with roughly **650 to 700 gigawatt of new capacity installed worldwide**, according to industry outlooks including SolarPower Europe and BloombergNEF. China dominated expansion, installing **about 315 gigawatt in a single year**, accounting for roughly half of global additions. Ember analysis indicates that **around 380 gigawatt of solar capacity had already been installed during the first half of 2025**, highlighting the acceleration of global deployment. As a result, cumulative installed solar capacity worldwide is now **approaching or exceeding 3 terrawatt peak**. Looking further ahead, research cited by the US National Renewable Energy Laboratory indicates that **around 75 terrawatt of globally deployed solar PV may be required by 2050** to support deep electrification and decarbonisation of the global energy system.
 
 Supporting research  
-[NREL Solar Futures Study](https://www.nrel.gov/analysis/solar-futures.html)
-
-Additional reporting  
-[PV Magazine coverage of global solar projections](https://www.pv-magazine.com/2021/04/13/solar-may-cover-75-of-global-electricity-demand-by-2050/)
+[https://www.ise.fraunhofer.de/en/press-media/press-releases/2023/next-decade-decisive-for-pv-growth-on-the-path-to-2050.html]
 
 ## Global Solar PV – Top 50 Countries
 

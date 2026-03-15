@@ -35,6 +35,8 @@ The guidance addresses:
 • earthing systems and insulation coordination  
 • harmonic behaviour and power quality  
 • cable materials and environmental considerations  
+• thermal performance of cable systems  
+• substation cable interface considerations  
 
 # Contents
 
@@ -51,12 +53,14 @@ The guidance addresses:
 11. [Cable Materials and Fire Behaviour](#13-cable-materials-and-fire-behaviour)  
 12. [Water Blocking of Cable Systems](#14-water-blocking-of-cable-systems)  
 13. [Fault Studies](#15-fault-studies)  
-14. [Engineering Review](#16-engineering-review)  
-15. [Long Term Infrastructure Perspective](#17-long-term-infrastructure-perspective)  
-16. [Observed Failure Modes in Utility Scale Solar Installations](#18-observed-failure-modes-in-utility-scale-solar-installations)  
-17. [Risk Reduction Considerations](#19-risk-reduction-considerations)  
-18. [Normative References](#20-normative-references)  
-19. [Disclaimer](#disclaimer)
+14. [Cable Thermal Rating and Derating Studies](#16-cable-thermal-rating-and-derating-studies)  
+15. [Substation Cable Termination and Interface Engineering](#17-substation-cable-termination-and-interface-engineering)  
+16. [Engineering Review](#18-engineering-review)  
+17. [Long Term Infrastructure Perspective](#19-long-term-infrastructure-perspective)  
+18. [Observed Failure Modes in Utility Scale Solar Installations](#20-observed-failure-modes-in-utility-scale-solar-installations)  
+19. [Risk Reduction Considerations](#21-risk-reduction-considerations)  
+20. [Normative References](#22-normative-references)  
+21. [Disclaimer](#disclaimer)
 
 # 3. System Level Electrical Behaviour
 
@@ -170,59 +174,68 @@ Solar installations often operate in outdoor environments where cables may be ex
 
 Water blocking measures may improve long term reliability of cable systems.
 
+Where cables enter substations, transformers or switchgear buildings, measures should be taken to prevent water migration along the cable structure.
+
+Longitudinal water ingress through conductor strands or armour layers may allow water to travel into sensitive electrical equipment.
+
+Appropriate cable sealing systems, water blocking compounds or sealing accessories should therefore be specified where cables terminate into indoor equipment or sealed enclosures.
+
 # 15. Fault Studies
 
 Electrical fault studies should consider interactions between inverters, cables, transformers and protection devices.
 
 These studies assist in verifying correct coordination of protective equipment.
 
-# 16. Engineering Review
+# 16. Cable Thermal Rating and Derating Studies
 
-Complex electrical systems benefit from collaborative engineering review involving designers, installers and equipment manufacturers.
+Cable systems represent a fundamental part of solar power plant infrastructure and should be studied with the same rigour as power electronic equipment and protection systems.
 
-Early technical oversight can reduce design errors and improve long term system reliability.
+In large photovoltaic installations significant lengths of DC and AC cables may operate continuously near rated current. Thermal performance therefore becomes a critical design parameter.
 
-# 17. Long Term Infrastructure Perspective
+Cable current carrying capacity should be verified using recognised thermal calculation methods including those described in IEC 60287.
 
-Solar power plants represent long life infrastructure assets.
+These calculations consider:
 
-Engineering decisions that prioritise safety, reliability and robust electrical design support long term performance.
+• conductor losses  
+• dielectric losses  
+• thermal resistivity of surrounding soil or installation medium  
+• cable grouping  
+• installation depth  
+• ambient temperature  
+• thermal interaction between adjacent circuits  
 
-# 18. Observed Failure Modes in Utility Scale Solar Installations
+In many installations multiple cables are installed in parallel to carry high currents. If cable lengths, routing geometry or termination resistance differ between parallel conductors, current may not divide equally.
 
-Common failure mechanisms observed in large installations may include:
+Unequal impedance between parallel conductors may result in:
 
-• connector degradation  
-• reverse current between strings  
-• module hotspots  
-• insulation degradation  
-• persistent DC arcs  
-• surge protection miscoordination  
-• electromagnetic coupling between cable bundles
+• overheating of individual cables  
+• unequal current distribution between AC phases  
+• waveform distortion due to differing impedance paths  
+• overheating in DC collector circuits  
 
-# 19. Risk Reduction Considerations
+Short cable runs connecting parallel conductors are particularly sensitive to impedance imbalance. Even small differences in resistance or inductance may cause disproportionate current flow in individual conductors.
 
-Risk reduction measures may include:
+For this reason detailed studies should verify:
 
-• improved cable routing to minimise electromagnetic loops  
-• appropriate spacing of high current conductors  
-• coordinated surge protection design  
-• thermal monitoring of connectors and cable bundles  
-• insulation monitoring for early detection of leakage currents  
-• verification of impedance balance in parallel conductors
+• impedance balance of parallel cable circuits  
+• thermal interaction between grouped cables  
+• electromagnetic coupling between adjacent phases  
+• expected operating temperatures under maximum generation conditions  
 
-# 20. Normative References
+Cable installation geometry therefore forms part of the electrical design rather than being treated solely as a construction activity.
 
-• BS 7671 Requirements for Electrical Installations  
-• IEC 62548 Photovoltaic Arrays Design Requirements  
-• IEC 60364 Low Voltage Electrical Installations  
+Employers Requirements should request cable thermal studies and installation analysis where high current circuits or parallel conductors are present.
 
-# Disclaimer
+In addition, cable products used in utility scale projects should be supplied by reputable manufacturers with demonstrated experience in large infrastructure projects.
 
-This document provides general engineering guidance intended to assist the preparation of Employers Requirements and technical specifications for photovoltaic power installations.
+Given that relatively little power cable manufacturing capacity exists within the United Kingdom, most projects rely on international supply chains. It is therefore prudent for project developers and lenders to ensure that cable products are supported by:
 
-The information reflects commonly recognised electrical engineering principles and observations relating to large scale electrical systems.
+• manufacturer product warranties  
+• recognised international certification  
+• bankable product indemnity insurance  
 
-The guidance is informational in nature and does not constitute project specific engineering advice.
+# 17. Substation Cable Termination and Interface Engineering
 
-Final system design, protection coordination, regulatory compliance and safety verification remain the responsibility of the appointed engineers, designers and contractors involved in each installation.
+The interface between cable systems and primary plant such as transformers and switchgear represents a critical engineering boundary within solar power stations.
+
+Substation cable terminations should be designed to prevent water migration into transformers or switchgear enclosures. Long

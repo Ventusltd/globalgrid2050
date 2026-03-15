@@ -1,10 +1,10 @@
-# HV Interface Designs
+# HV Interface Designs, Cables, Sealing Ends and accessories for Grid Connection 132kV, 275kV or 400kV
 
 Most HV connections are bespoke and must be designed around the substation interface and foundation design.
 
 ![HV interface](../hv_interface.jpg)
 
-## 11 kV to 33 kV with Umax 36 kV
+## 11 kV to 33 kV with Umax 36 kV Cables, Accessories and Installation
 
 Public or private land ownership and transformer termination type must be verified. If necessary, also confirm distribution network operator specifications and applicable local regulations such as BS 7870 section 4.10.
 

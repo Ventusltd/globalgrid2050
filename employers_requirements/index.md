@@ -34,6 +34,7 @@ The guidance addresses:
 • cable routing and parallel conductor effects  
 • earthing systems and insulation coordination  
 • harmonic behaviour and power quality  
+• electromagnetic compatibility and network interaction modelling  
 • cable materials and environmental considerations  
 • thermal performance of cable systems  
 • substation cable interface considerations  
@@ -49,21 +50,22 @@ The guidance addresses:
 6. [Earthing Systems](#8-earthing-systems)  
 7. [Insulation Coordination](#9-insulation-coordination)  
 8. [Harmonic Behaviour and Power Quality](#10-harmonic-behaviour-and-power-quality)  
-9. [Surge Protection](#11-surge-protection)  
-10. [DC Leakage and Infrastructure Corrosion](#12-dc-leakage-and-infrastructure-corrosion)  
-11. [Cable Materials and Fire Behaviour](#13-cable-materials-and-fire-behaviour)  
-12. [Water Blocking of Cable Systems](#14-water-blocking-of-cable-systems)  
-13. [Fault Studies](#15-fault-studies)  
-14. [Cable Thermal Rating and Derating Studies](#16-cable-thermal-rating-and-derating-studies)  
-15. [Protection Coordination and Cable Sizing](#17-protection-coordination-and-cable-sizing)  
-16. [Substation Cable Termination and Interface Engineering](#18-substation-cable-termination-and-interface-engineering)  
-17. [Cable Routing and Bend Radius Considerations](#19-cable-routing-and-bend-radius-considerations)  
-18. [Engineering Review](#20-engineering-review)  
-19. [Long Term Infrastructure Perspective](#21-long-term-infrastructure-perspective)  
-20. [Observed Failure Modes in Utility Scale Solar Installations](#22-observed-failure-modes-in-utility-scale-solar-installations)  
-21. [Risk Reduction Considerations](#23-risk-reduction-considerations)  
-22. [Normative References](#24-normative-references)  
-23. [Disclaimer](#disclaimer)
+9. [Harmonic Interaction and Electromagnetic Compatibility Modelling](#11-harmonic-interaction-and-electromagnetic-compatibility-modelling)  
+10. [Surge Protection](#12-surge-protection)  
+11. [DC Leakage and Infrastructure Corrosion](#13-dc-leakage-and-infrastructure-corrosion)  
+12. [Cable Materials and Fire Behaviour](#14-cable-materials-and-fire-behaviour)  
+13. [Water Blocking of Cable Systems](#15-water-blocking-of-cable-systems)  
+14. [Fault Studies](#16-fault-studies)  
+15. [Cable Thermal Rating and Derating Studies](#17-cable-thermal-rating-and-derating-studies)  
+16. [Protection Coordination and Cable Sizing](#18-protection-coordination-and-cable-sizing)  
+17. [Substation Cable Termination and Interface Engineering](#19-substation-cable-termination-and-interface-engineering)  
+18. [Cable Routing and Bend Radius Considerations](#20-cable-routing-and-bend-radius-considerations)  
+19. [Engineering Review](#21-engineering-review)  
+20. [Long Term Infrastructure Perspective](#22-long-term-infrastructure-perspective)  
+21. [Observed Failure Modes in Utility Scale Solar Installations](#23-observed-failure-modes-in-utility-scale-solar-installations)  
+22. [Risk Reduction Considerations](#24-risk-reduction-considerations)  
+23. [Normative References](#25-normative-references)  
+24. [Disclaimer](#disclaimer)
 
 # 3. System Level Electrical Behaviour
 
@@ -155,23 +157,53 @@ Large numbers of switching inverters operating in parallel may generate harmonic
 
 These interactions may propagate through cables and transformers and influence overall power quality.
 
-# 11. Surge Protection
+# 11. Harmonic Interaction and Electromagnetic Compatibility Modelling
+
+Large photovoltaic power plants should be analysed as distributed electromagnetic systems rather than collections of individual equipment.
+
+The interaction between inverters, transformers, cable networks and reactive components can create frequency dependent electrical behaviour across the installation.
+
+These interactions may influence:
+
+• harmonic propagation through the collector system  
+• resonance conditions created by cable capacitance and transformer impedance  
+• interaction between converter control systems and the network  
+• electromagnetic coupling between parallel conductors and cable screens  
+• harmonic filter loading and operational stability
+
+For this reason, modelling of harmonic behaviour and electromagnetic compatibility should be undertaken at system level.
+
+The analysis should consider the complete electrical network including:
+
+• inverter behaviour and control characteristics  
+• medium voltage cable capacitance and inductance  
+• transformer impedance characteristics  
+• harmonic filters or reactive compensation equipment  
+• grid connection impedance conditions
+
+The objective of the modelling is to verify that no network resonance conditions exist that could lead to amplification of harmonic currents or voltage distortion within the plant or at the grid interface.
+
+Where resonance or interaction risks are identified, mitigation measures should be evaluated as part of the electrical design.
+
+System modelling should therefore extend beyond fundamental frequency power flow studies and include appropriate analysis of harmonic behaviour and electromagnetic interaction across the installation.
+
+# 12. Surge Protection
 
 Surge protection devices should be coordinated throughout the electrical installation to protect equipment from lightning and switching transients.
 
-# 12. DC Leakage and Infrastructure Corrosion
+# 13. DC Leakage and Infrastructure Corrosion
 
 DC leakage currents may arise from insulation degradation, moisture ingress or cable damage.
 
 Persistent leakage currents can contribute to corrosion of buried metallic structures and earthing systems.
 
-# 13. Cable Materials and Fire Behaviour
+# 14. Cable Materials and Fire Behaviour
 
 Cable material selection can influence fire behaviour and environmental impact.
 
 Halogen free low smoke compounds may reduce the release of corrosive gases during fire events.
 
-# 14. Water Blocking of Cable Systems
+# 15. Water Blocking of Cable Systems
 
 Solar installations often operate in outdoor environments where cables may be exposed to moisture or flooding.
 
@@ -183,13 +215,13 @@ Longitudinal water ingress through conductor strands or armour layers may allow 
 
 Appropriate cable sealing systems, water blocking compounds or sealing accessories should therefore be specified where cables terminate into indoor equipment or sealed enclosures.
 
-# 15. Fault Studies
+# 16. Fault Studies
 
 Electrical fault studies should consider interactions between inverters, cables, transformers and protection devices.
 
 These studies assist in verifying correct coordination of protective equipment.
 
-# 16. Cable Thermal Rating and Derating Studies
+# 17. Cable Thermal Rating and Derating Studies
 
 Cable systems represent a fundamental part of solar power plant infrastructure and should be studied with the same rigour as power electronic equipment and protection systems.
 
@@ -237,15 +269,13 @@ Given that relatively little power cable manufacturing capacity exists within th
 • recognised international certification  
 • bankable product indemnity insurance  
 
-# 17. Protection Coordination and Cable Sizing
+# 18. Protection Coordination and Cable Sizing
 
 Cable sizing should be coordinated with the protective devices installed within the electrical system.
 
 Protective devices such as moulded case circuit breakers, air circuit breakers or fuses have defined maximum operating and fault current ratings. Cable sizing must consider the maximum protection device rating to ensure that cables remain protected under all operating and fault conditions.
 
 If cable sizing is not coordinated with the protection settings, the cable conductor may effectively become the weakest element in the circuit during short circuit events or high inrush conditions. In such situations the cable may overheat or fail before the protective device operates.
-
-This condition may result in insulation damage, cable failure or fire risk within the installation.
 
 Protection coordination studies should therefore verify:
 
@@ -257,56 +287,39 @@ Protection coordination studies should therefore verify:
 
 Cable current ratings, short circuit withstand capability and protective device characteristics should be evaluated together during the electrical design stage.
 
-# 18. Substation Cable Termination and Interface Engineering
+# 19. Substation Cable Termination and Interface Engineering
 
 The interface between cable systems and primary plant such as transformers and switchgear represents a critical engineering boundary within solar power stations.
 
-Substation cable terminations should be designed to prevent water migration into transformers or switchgear enclosures. Longitudinal water ingress along cable conductors or armour may introduce moisture into electrical equipment if appropriate sealing systems are not installed.
+Substation cable terminations should be designed to prevent water migration into transformers or switchgear enclosures.
 
-Termination systems should therefore incorporate sealing arrangements appropriate to the cable construction and installation environment.
+Where aluminium conductors are connected to copper busbars or equipment terminals, appropriate bimetallic lugs should be specified.
 
-Where aluminium conductors are connected to copper busbars or equipment terminals, appropriate bimetallic lugs should be specified. Lug design, palm geometry and crimping method must be compatible with both conductor material and equipment interface to prevent galvanic corrosion and overheating.
-
-Armour earthing arrangements must also be coordinated with the cable accessories and termination design. The earthing method selected should be compatible with the cable system design, fault current levels and electromagnetic behaviour of the installation.
+Armour earthing arrangements must also be coordinated with the cable accessories and termination design.
 
 For medium and high voltage installations, cable termination systems should be supplied by specialised accessory manufacturers with demonstrated high voltage engineering experience.
 
-High current parallel cable systems often used in solar collector circuits and inverter connections are not routine installations and require careful engineering coordination between cable manufacturers, accessory suppliers and system designers.
-
-# 19. Cable Routing and Bend Radius Considerations
+# 20. Cable Routing and Bend Radius Considerations
 
 Cable routing and installation geometry should be evaluated during the design stage.
 
-Minimum bend radius requirements specified by cable manufacturers must be respected to prevent conductor damage, insulation stress or deformation of cable layers.
+Minimum bend radius requirements specified by cable manufacturers must be respected to prevent conductor damage or insulation stress.
 
-In complex installations such as substations or inverter stations, cable routing constraints may make it physically difficult to install large cables within confined spaces.
+Three dimensional modelling may be used to verify that cable routing paths and termination geometry are physically achievable before construction begins.
 
-Where multiple parallel cables are present, poor routing design may lead to:
-
-• impractical installation geometry  
-• mechanical stress on cable insulation  
-• unequal spacing between parallel conductors  
-• disruption of symmetrical cable arrangements  
-
-Such conditions may influence impedance balance and current distribution in high current circuits.
-
-Three dimensional design tools or computer aided design modelling may therefore be used to verify that cable routing paths, bend radii and termination geometry are physically achievable before construction begins.
-
-Careful design of cable geometry is particularly important in high current installations where conductor spacing and layout influence electromagnetic behaviour.
-
-# 20. Engineering Review
+# 21. Engineering Review
 
 Complex electrical systems benefit from collaborative engineering review involving designers, installers and equipment manufacturers.
 
 Early technical oversight can reduce design errors and improve long term system reliability.
 
-# 21. Long Term Infrastructure Perspective
+# 22. Long Term Infrastructure Perspective
 
 Solar power plants represent long life infrastructure assets.
 
 Engineering decisions that prioritise safety, reliability and robust electrical design support long term performance.
 
-# 22. Observed Failure Modes in Utility Scale Solar Installations
+# 23. Observed Failure Modes in Utility Scale Solar Installations
 
 Common failure mechanisms observed in large installations may include:
 
@@ -319,7 +332,7 @@ Common failure mechanisms observed in large installations may include:
 • electromagnetic coupling between cable bundles  
 • cable overheating caused by inadequate thermal studies  
 
-# 23. Risk Reduction Considerations
+# 24. Risk Reduction Considerations
 
 Risk reduction measures may include:
 
@@ -333,7 +346,7 @@ Risk reduction measures may include:
 • appropriate sealing of cable entries into substations and equipment  
 • coordination of cable sizing with protective device ratings  
 
-# 24. Normative References
+# 25. Normative References
 
 • BS 7671 Requirements for Electrical Installations  
 • IEC 60287 Electric Cables Calculation of the Current Rating  

@@ -8,7 +8,7 @@ Central inverters represent about **50 to 55 percent of installed utility scale 
 
 String inverters account for roughly **45 to 50 percent and are gaining share in new deployments**.
 
-The shift toward string systems is driven by modular design, redundancy and simpler installation, however, high volume of AC LV phases may cause harmomic instabiltiy on large project which may require a re-think towards central inveters as high current step up to MV can be managed with bus bars instead huge number of LV AC cables, which have limited practice within current standards. 
+The shift toward string systems is driven by modular design, redundancy and simpler installation, however, high volume of AC LV phases may cause harmonic instabiltiy on large projecs which may require a re-think towards central inverters as high current step up to MV can be managed with bus bars instead of a huge number of LV AC cables, which have limited practice within current standards. 
 
 Microinverters remain a small segment mainly used in residential solar systems.
 

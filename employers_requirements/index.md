@@ -2,8 +2,6 @@
 
 ## System Behaviour, Electrical Safety and Long Term Infrastructure Reliability
 
----
-
 # Preface
 
 Solar power plants form a central component of the future electricity system. Electrification of transport, heating and industry powered by renewable electricity has the potential to reduce total primary energy consumption by approximately 70 percent compared with fossil fuel based energy systems.
@@ -16,9 +14,7 @@ This document is written in recognition of the many professionals who contribute
 
 The purpose of this guidance is to translate practical engineering observations into structured considerations that may assist the preparation of Employers Requirements and technical specifications for photovoltaic power plants.
 
----
-
-# 1. Introduction
+# 1 Introduction
 
 Utility scale photovoltaic power plants combine direct current generation, power electronic conversion and alternating current transmission within a single installation.
 
@@ -26,27 +22,23 @@ These systems now operate at very large scale with extensive cable networks, dis
 
 Large photovoltaic installations increasingly behave as distributed electrical systems where electromagnetic interactions, cable geometry, earthing philosophy and inverter switching behaviour can influence safety and reliability.
 
----
-
-# 2. Scope
+# 2 Scope
 
 This document provides engineering guidance relevant to the preparation of Employers Requirements and technical specifications for utility scale solar installations.
 
 The guidance addresses:
 
-- photovoltaic DC system behaviour
-- power electronic inverter interaction
-- distributed electromagnetic behaviour
-- cable routing and parallel conductor effects
-- earthing systems and insulation coordination
-- harmonic behaviour and power quality
-- electromagnetic compatibility and network interaction modelling
-- cable materials and environmental considerations
-- thermal performance of cable systems
-- substation cable interface considerations
-- protection coordination and cable sizing
-
----
+- photovoltaic DC system behaviour  
+- power electronic inverter interaction  
+- distributed electromagnetic behaviour  
+- cable routing and parallel conductor effects  
+- earthing systems and insulation coordination  
+- harmonic behaviour and power quality  
+- electromagnetic compatibility and network interaction modelling  
+- cable materials and environmental considerations  
+- thermal performance of cable systems  
+- substation cable interface considerations  
+- protection coordination and cable sizing  
 
 # Contents
 
@@ -59,25 +51,24 @@ The guidance addresses:
 7. [Insulation Coordination](#9-insulation-coordination)  
 8. [Harmonic Behaviour and Power Quality](#10-harmonic-behaviour-and-power-quality)  
 9. [Harmonic Interaction and Electromagnetic Compatibility Modelling](#11-harmonic-interaction-and-electromagnetic-compatibility-modelling)  
-10. [Surge Protection](#12-surge-protection)  
-11. [DC Leakage and Infrastructure Corrosion](#13-dc-leakage-and-infrastructure-corrosion)  
-12. [Cable Materials and Fire Behaviour](#14-cable-materials-and-fire-behaviour)  
-13. [Water Blocking of Cable Systems](#15-water-blocking-of-cable-systems)  
-14. [Fault Studies](#16-fault-studies)  
-15. [Cable Thermal Rating and Derating Studies](#17-cable-thermal-rating-and-derating-studies)  
-16. [Protection Coordination and Cable Sizing](#18-protection-coordination-and-cable-sizing)  
-17. [Substation Cable Termination and Interface Engineering](#19-substation-cable-termination-and-interface-engineering)  
-18. [Cable Routing and Bend Radius Considerations](#20-cable-routing-and-bend-radius-considerations)  
-19. [Engineering Review](#21-engineering-review)  
-20. [Long Term Infrastructure Perspective](#22-long-term-infrastructure-perspective)  
-21. [Observed Failure Modes in Utility Scale Solar Installations](#23-observed-failure-modes-in-utility-scale-solar-installations)  
-22. [Risk Reduction Considerations](#24-risk-reduction-considerations)  
-23. [Normative References](#25-normative-references)  
-24. [Disclaimer](#disclaimer)
+10. [Transformerless Inverter Behaviour and DC Ground Reference](#12-transformerless-inverter-behaviour-and-dc-ground-reference)  
+11. [Surge Protection](#13-surge-protection)  
+12. [DC Leakage and Infrastructure Corrosion](#14-dc-leakage-and-infrastructure-corrosion)  
+13. [Cable Materials and Fire Behaviour](#15-cable-materials-and-fire-behaviour)  
+14. [Water Blocking of Cable Systems](#16-water-blocking-of-cable-systems)  
+15. [Fault Studies](#17-fault-studies)  
+16. [Cable Thermal Rating and Derating Studies](#18-cable-thermal-rating-and-derating-studies)  
+17. [Protection Coordination and Cable Sizing](#19-protection-coordination-and-cable-sizing)  
+18. [Substation Cable Termination and Interface Engineering](#20-substation-cable-termination-and-interface-engineering)  
+19. [Cable Routing and Bend Radius Considerations](#21-cable-routing-and-bend-radius-considerations)  
+20. [Engineering Review](#22-engineering-review)  
+21. [Long Term Infrastructure Perspective](#23-long-term-infrastructure-perspective)  
+22. [Observed Failure Modes in Utility Scale Solar Installations](#24-observed-failure-modes-in-utility-scale-solar-installations)  
+23. [Risk Reduction Considerations](#25-risk-reduction-considerations)  
+24. [Normative References](#26-normative-references)  
+25. [Disclaimer](#disclaimer)
 
----
-
-# 3. System Level Electrical Behaviour
+# 3 System Level Electrical Behaviour
 
 ## 3.1 Distributed Electrical Systems
 
@@ -99,9 +90,9 @@ Considering individual components in isolation may overlook interactions that ap
 
 Modern photovoltaic plants frequently adopt string inverter architectures where a large number of relatively small inverters operate in parallel across the site.
 
-Under this topology the low voltage AC system may comprise very large populations of phase conductors distributed throughout the installation. In some installations the number of active phase conductors may exceed one thousand and in very large deployments using smaller string inverters the total population may approach several thousand phases across the site.
+Under this topology the low voltage AC system may comprise very large populations of phase conductors distributed throughout the installation.
 
-Although the electrical current in each inverter circuit remains within normal equipment ratings, the overall installation contains a very large distributed population of current carrying conductors. The physical presence of this conductor population creates a large distributed electromagnetic system across the site.
+Although the electrical current in each inverter circuit remains within normal equipment ratings, the overall installation contains a very large distributed population of current carrying conductors.
 
 This topology can influence several engineering aspects including:
 
@@ -112,11 +103,7 @@ This topology can influence several engineering aspects including:
 - current sharing behaviour in parallel circuits  
 - electromagnetic interaction with metallic containment systems  
 
-For this reason photovoltaic power plants using large numbers of string inverters should be treated as distributed electrical systems during engineering design rather than collections of isolated equipment items.
-
----
-
-# 4. Behaviour of Direct Current Systems
+# 4 Behaviour of Direct Current Systems
 
 ## 4.1 Persistence of Electrical Arcs
 
@@ -128,209 +115,98 @@ Power electronic converters introduce ripple currents and harmonic components in
 
 These components may extend into high frequency ranges and influence electromagnetic behaviour throughout the installation.
 
-## 4.3 DC String Layout and Transient Behaviour
-
-DC string conductor arrangements should minimise loop area between positive and negative conductors in order to reduce inductive effects, electromagnetic coupling and transient overvoltage stress during switching or fault conditions.
-
-Close coupled routing of positive and negative conductors should therefore be adopted where practicable.
-
-Large photovoltaic arrays contain many parallel DC circuits connected to a common collector system. Where faults occur in one circuit neighbouring circuits may contribute current to the faulted conductor.
-
-Engineering studies should therefore consider cumulative current contribution from parallel strings and associated transient behaviour.
-
----
-
-# 5. Electromagnetic Behaviour in Large Solar Plants
-
-## 5.1 Distributed Electromagnetic Interactions
+# 5 Electromagnetic Behaviour in Large Solar Plants
 
 Parallel cable routes, switching converters and distributed capacitances create electromagnetic interactions across photovoltaic installations.
 
-## 5.2 Cable Routing and Electromagnetic Loops
-
-Improper cable routing can unintentionally create large electromagnetic loops between forward and return conductors.
-
-Cable routing practices should minimise loop area.
-
-## 5.3 Eddy Currents in Metallic Structures
-
-High current conductors placed near metallic structures may induce circulating currents in mounting structures, cable trays and steel supports.
-
----
-
-# 6. Conductors Connected in Parallel
+# 6 Conductors Connected in Parallel
 
 Parallel conductors share current correctly only when their electrical impedance is substantially equal.
 
-This principle is recognised in BS 7671 Appendix 10 relating to conductors connected in parallel.
-
----
-
-# 7. Magnetic Forces Generated by Current
+# 7 Magnetic Forces Generated by Current
 
 Electric current produces magnetic fields.
 
-High current conductors may therefore experience mechanical forces during normal operation and fault conditions.
-
-Mechanical restraint of conductors should therefore be considered during design.
-
----
-
-# 8. Earthing Systems
-
-## 8.1 Multiple Earthing Networks
+# 8 Earthing Systems
 
 Solar installations may include several earthing networks including DC array earthing, AC earthing, substation earthing and lightning protection earthing.
 
-## 8.2 Definition of IT Systems
-
-An IT system is an earthing arrangement where the power supply has no direct connection to earth or is connected through a high impedance.
-
-IT systems are described within BS 7671 Regulation 411.6.
-
-## 8.3 Comparison with TN S Systems
-
-In TN S systems the supply neutral is solidly connected to earth at the source.
-
-Earth faults typically produce higher fault currents allowing protective devices to disconnect the supply rapidly.
-
----
-
-# 9. Insulation Coordination
+# 9 Insulation Coordination
 
 Large photovoltaic installations combine multiple voltage domains including DC arrays, inverter outputs and medium voltage networks.
 
-Insulation coordination ensures that equipment insulation levels are compatible with system overvoltage conditions.
-
----
-
-# 10. Harmonic Behaviour and Power Quality
+# 10 Harmonic Behaviour and Power Quality
 
 Large numbers of switching inverters operating in parallel may generate harmonic interactions.
 
-These interactions may propagate through cables and transformers and influence overall power quality.
-
----
-
-# 11. Harmonic Interaction and Electromagnetic Compatibility Modelling
+# 11 Harmonic Interaction and Electromagnetic Compatibility Modelling
 
 Large photovoltaic power plants should be analysed as distributed electromagnetic systems rather than collections of individual equipment.
 
-The interaction between inverters, transformers, cable networks and reactive components can create frequency dependent electrical behaviour across the installation.
+# 12 Transformerless Inverter Behaviour and DC Ground Reference
 
-These interactions may influence:
+Modern photovoltaic power plants frequently employ transformerless inverter architectures in order to improve conversion efficiency and reduce equipment mass.
 
-- harmonic propagation through the collector system  
-- resonance conditions created by cable capacitance and transformer impedance  
-- interaction between converter control systems and the network  
-- electromagnetic coupling between parallel conductors and cable screens  
-- harmonic filter loading and operational stability  
+The absence of galvanic isolation introduces electrical coupling between the DC array and the AC system through inverter switching stages and internal filter networks.
 
-System modelling should therefore extend beyond fundamental frequency power flow studies and include appropriate analysis of harmonic behaviour and electromagnetic interaction across the installation.
+Parasitic capacitances within inverter equipment, cable systems and mounting structures create common mode current paths linking the DC array, the inverter and the wider electrical infrastructure.
 
----
+In large photovoltaic installations the physical scale of cable systems and metallic structures can create a substantial distributed capacitance across the site.
 
-# 12. Surge Protection
+Engineering studies should therefore consider:
+
+- distributed capacitance of DC cable systems  
+- common mode current paths through earthing systems  
+- interaction between inverter switching frequencies and cable inductance  
+- electromagnetic compatibility across parallel inverter groups  
+
+# 13 Surge Protection
 
 Surge protection devices should be coordinated throughout the electrical installation to protect equipment from lightning and switching transients.
 
----
-
-# 13. DC Leakage and Infrastructure Corrosion
+# 14 DC Leakage and Infrastructure Corrosion
 
 DC leakage currents may arise from insulation degradation, moisture ingress or cable damage.
 
 Persistent leakage currents can contribute to corrosion of buried metallic structures and earthing systems.
 
-In large photovoltaic installations DC leakage represents an extreme engineering concern and should be modelled carefully during system design.
-
----
-
-# 14. Cable Materials and Fire Behaviour
+# 15 Cable Materials and Fire Behaviour
 
 Cable material selection can influence fire behaviour and environmental impact.
 
-Halogen free low smoke compounds may reduce the release of corrosive gases during fire events.
-
----
-
-# 15. Water Blocking of Cable Systems
+# 16 Water Blocking of Cable Systems
 
 Solar installations often operate in outdoor environments where cables may be exposed to moisture or flooding.
 
-Water blocking measures may improve long term reliability of cable systems.
-
----
-
-# 16. Fault Studies
+# 17 Fault Studies
 
 Electrical fault studies should consider interactions between inverters, cables, transformers and protection devices across the entire installation.
 
-Utility scale photovoltaic plants contain large populations of distributed power electronic converters connected through extensive cable networks.
+# 18 Cable Thermal Rating and Derating Studies
 
-Where large numbers of string inverters operate in parallel the collector network contains many distributed current sources.
+Cable thermal performance should be verified using recognised calculation methods including those described in IEC 60287.
 
-Fault studies should therefore evaluate:
-
-- prospective short circuit current levels  
-- inverter fault current behaviour  
-- current sharing between parallel circuits  
-- earth fault current behaviour  
-- protection device coordination  
-- mechanical forces on conductors during fault events  
-
-Failure modes in distributed inverter systems may differ from conventional generation systems and should be evaluated carefully during system design.
-
----
-
-# 17. Cable Thermal Rating and Derating Studies
-
-Cable systems represent a fundamental part of solar power plant infrastructure and should be studied with the same rigour as power electronic equipment and protection systems.
-
-Thermal performance should be verified using recognised calculation methods including those described in IEC 60287.
-
----
-
-# 18. Protection Coordination and Cable Sizing
+# 19 Protection Coordination and Cable Sizing
 
 Cable sizing should be coordinated with protective devices installed within the electrical system.
 
-Protection coordination studies should verify:
-
-- maximum prospective fault current levels  
-- protective device operating curves  
-- cable thermal withstand capability  
-- discrimination between upstream and downstream protection  
-
----
-
-# 19. Substation Cable Termination and Interface Engineering
+# 20 Substation Cable Termination and Interface Engineering
 
 The interface between cable systems and primary plant such as transformers and switchgear represents a critical engineering boundary.
 
----
-
-# 20. Cable Routing and Bend Radius Considerations
+# 21 Cable Routing and Bend Radius Considerations
 
 Cable routing geometry should be evaluated during design to ensure compliance with manufacturer bend radius requirements.
 
----
-
-# 21. Engineering Review
+# 22 Engineering Review
 
 Complex electrical systems benefit from collaborative engineering review involving designers, installers and equipment manufacturers.
 
----
-
-# 22. Long Term Infrastructure Perspective
+# 23 Long Term Infrastructure Perspective
 
 Solar power plants represent long life infrastructure assets.
 
-Engineering decisions that prioritise safety, reliability and robust electrical design support long term performance.
-
----
-
-# 23. Observed Failure Modes in Utility Scale Solar Installations
+# 24 Observed Failure Modes in Utility Scale Solar Installations
 
 Common failure mechanisms observed in large installations may include:
 
@@ -341,35 +217,21 @@ Common failure mechanisms observed in large installations may include:
 - persistent DC arcs  
 - surge protection miscoordination  
 - electromagnetic coupling between cable bundles  
-- cable overheating caused by inadequate thermal studies  
-- abrasion related faults caused by unstable cable support  
-- leakage related degradation at poorly reviewed connection interfaces  
 
----
-
-# 24. Risk Reduction Considerations
+# 25 Risk Reduction Considerations
 
 Risk reduction measures may include:
 
 - improved cable routing to minimise electromagnetic loops  
-- close coupled routing of positive and negative DC conductors  
 - coordinated surge protection design  
-- thermal monitoring of connectors and cable bundles  
 - insulation monitoring for early detection of leakage currents  
-- verification of impedance balance in parallel conductors  
-- verification of cable thermal performance  
-- critical review of connector systems and containment methods  
 
----
-
-# 25. Normative References
+# 26 Normative References
 
 - BS 7671 Requirements for Electrical Installations  
 - IEC 60287 Electric Cables Calculation of the Current Rating  
 - IEC 62548 Photovoltaic Arrays Design Requirements  
 - IEC 60364 Low Voltage Electrical Installations  
-
----
 
 # Disclaimer
 

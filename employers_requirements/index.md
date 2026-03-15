@@ -37,6 +37,7 @@ The guidance addresses:
 • cable materials and environmental considerations  
 • thermal performance of cable systems  
 • substation cable interface considerations  
+• protection coordination and cable sizing  
 
 # Contents
 
@@ -54,13 +55,15 @@ The guidance addresses:
 12. [Water Blocking of Cable Systems](#14-water-blocking-of-cable-systems)  
 13. [Fault Studies](#15-fault-studies)  
 14. [Cable Thermal Rating and Derating Studies](#16-cable-thermal-rating-and-derating-studies)  
-15. [Substation Cable Termination and Interface Engineering](#17-substation-cable-termination-and-interface-engineering)  
-16. [Engineering Review](#18-engineering-review)  
-17. [Long Term Infrastructure Perspective](#19-long-term-infrastructure-perspective)  
-18. [Observed Failure Modes in Utility Scale Solar Installations](#20-observed-failure-modes-in-utility-scale-solar-installations)  
-19. [Risk Reduction Considerations](#21-risk-reduction-considerations)  
-20. [Normative References](#22-normative-references)  
-21. [Disclaimer](#disclaimer)
+15. [Protection Coordination and Cable Sizing](#17-protection-coordination-and-cable-sizing)  
+16. [Substation Cable Termination and Interface Engineering](#18-substation-cable-termination-and-interface-engineering)  
+17. [Cable Routing and Bend Radius Considerations](#19-cable-routing-and-bend-radius-considerations)  
+18. [Engineering Review](#20-engineering-review)  
+19. [Long Term Infrastructure Perspective](#21-long-term-infrastructure-perspective)  
+20. [Observed Failure Modes in Utility Scale Solar Installations](#22-observed-failure-modes-in-utility-scale-solar-installations)  
+21. [Risk Reduction Considerations](#23-risk-reduction-considerations)  
+22. [Normative References](#24-normative-references)  
+23. [Disclaimer](#disclaimer)
 
 # 3. System Level Electrical Behaviour
 
@@ -234,8 +237,115 @@ Given that relatively little power cable manufacturing capacity exists within th
 • recognised international certification  
 • bankable product indemnity insurance  
 
-# 17. Substation Cable Termination and Interface Engineering
+# 17. Protection Coordination and Cable Sizing
+
+Cable sizing should be coordinated with the protective devices installed within the electrical system.
+
+Protective devices such as moulded case circuit breakers, air circuit breakers or fuses have defined maximum operating and fault current ratings. Cable sizing must consider the maximum protection device rating to ensure that cables remain protected under all operating and fault conditions.
+
+If cable sizing is not coordinated with the protection settings, the cable conductor may effectively become the weakest element in the circuit during short circuit events or high inrush conditions. In such situations the cable may overheat or fail before the protective device operates.
+
+This condition may result in insulation damage, cable failure or fire risk within the installation.
+
+Protection coordination studies should therefore verify:
+
+• maximum prospective fault current levels  
+• protective device operating curves  
+• cable thermal withstand capability  
+• coordination between circuit breakers and fuses  
+• discrimination between upstream and downstream protection  
+
+Cable current ratings, short circuit withstand capability and protective device characteristics should be evaluated together during the electrical design stage.
+
+# 18. Substation Cable Termination and Interface Engineering
 
 The interface between cable systems and primary plant such as transformers and switchgear represents a critical engineering boundary within solar power stations.
 
-Substation cable terminations should be designed to prevent water migration into transformers or switchgear enclosures. Long
+Substation cable terminations should be designed to prevent water migration into transformers or switchgear enclosures. Longitudinal water ingress along cable conductors or armour may introduce moisture into electrical equipment if appropriate sealing systems are not installed.
+
+Termination systems should therefore incorporate sealing arrangements appropriate to the cable construction and installation environment.
+
+Where aluminium conductors are connected to copper busbars or equipment terminals, appropriate bimetallic lugs should be specified. Lug design, palm geometry and crimping method must be compatible with both conductor material and equipment interface to prevent galvanic corrosion and overheating.
+
+Armour earthing arrangements must also be coordinated with the cable accessories and termination design. The earthing method selected should be compatible with the cable system design, fault current levels and electromagnetic behaviour of the installation.
+
+For medium and high voltage installations, cable termination systems should be supplied by specialised accessory manufacturers with demonstrated high voltage engineering experience.
+
+High current parallel cable systems often used in solar collector circuits and inverter connections are not routine installations and require careful engineering coordination between cable manufacturers, accessory suppliers and system designers.
+
+# 19. Cable Routing and Bend Radius Considerations
+
+Cable routing and installation geometry should be evaluated during the design stage.
+
+Minimum bend radius requirements specified by cable manufacturers must be respected to prevent conductor damage, insulation stress or deformation of cable layers.
+
+In complex installations such as substations or inverter stations, cable routing constraints may make it physically difficult to install large cables within confined spaces.
+
+Where multiple parallel cables are present, poor routing design may lead to:
+
+• impractical installation geometry  
+• mechanical stress on cable insulation  
+• unequal spacing between parallel conductors  
+• disruption of symmetrical cable arrangements  
+
+Such conditions may influence impedance balance and current distribution in high current circuits.
+
+Three dimensional design tools or computer aided design modelling may therefore be used to verify that cable routing paths, bend radii and termination geometry are physically achievable before construction begins.
+
+Careful design of cable geometry is particularly important in high current installations where conductor spacing and layout influence electromagnetic behaviour.
+
+# 20. Engineering Review
+
+Complex electrical systems benefit from collaborative engineering review involving designers, installers and equipment manufacturers.
+
+Early technical oversight can reduce design errors and improve long term system reliability.
+
+# 21. Long Term Infrastructure Perspective
+
+Solar power plants represent long life infrastructure assets.
+
+Engineering decisions that prioritise safety, reliability and robust electrical design support long term performance.
+
+# 22. Observed Failure Modes in Utility Scale Solar Installations
+
+Common failure mechanisms observed in large installations may include:
+
+• connector degradation  
+• reverse current between strings  
+• module hotspots  
+• insulation degradation  
+• persistent DC arcs  
+• surge protection miscoordination  
+• electromagnetic coupling between cable bundles  
+• cable overheating caused by inadequate thermal studies  
+
+# 23. Risk Reduction Considerations
+
+Risk reduction measures may include:
+
+• improved cable routing to minimise electromagnetic loops  
+• appropriate spacing of high current conductors  
+• coordinated surge protection design  
+• thermal monitoring of connectors and cable bundles  
+• insulation monitoring for early detection of leakage currents  
+• verification of impedance balance in parallel conductors  
+• verification of cable thermal performance using recognised calculation methods  
+• appropriate sealing of cable entries into substations and equipment  
+• coordination of cable sizing with protective device ratings  
+
+# 24. Normative References
+
+• BS 7671 Requirements for Electrical Installations  
+• IEC 60287 Electric Cables Calculation of the Current Rating  
+• IEC 62548 Photovoltaic Arrays Design Requirements  
+• IEC 60364 Low Voltage Electrical Installations  
+
+# Disclaimer
+
+This document provides general engineering guidance intended to assist the preparation of Employers Requirements and technical specifications for photovoltaic power installations.
+
+The information reflects commonly recognised electrical engineering principles and observations relating to large scale electrical systems.
+
+The guidance is informational in nature and does not constitute project specific engineering advice.
+
+Final system design, protection coordination, regulatory compliance and safety verification remain the responsibility of the appointed engineers, designers and contractors involved in each installation.

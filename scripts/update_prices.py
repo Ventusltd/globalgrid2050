@@ -2,46 +2,37 @@ import requests
 import re
 from pathlib import Path
 
-FILE = Path("33kv_uk_dap_price_estimator/index.md")
+FILE = Path("./33kv_uk_dap_price_estimator/index.md")
 
-# --- Copper price ---
-copper = requests.get(
-    "https://api.metals.live/v1/spot/copper"
-).json()[0]["price"]
+def get_json(url):
+    r = requests.get(url, timeout=20)
+    r.raise_for_status()
+    return r.json()
 
-# --- Aluminium price ---
-aluminium = requests.get(
-    "https://api.metals.live/v1/spot/aluminum"
-).json()[0]["price"]
+# copper
+copper = get_json("https://api.metals.live/v1/spot/copper")[0]["price"]
 
-# --- FX rate ---
-fx = requests.get(
-    "https://api.exchangerate.host/latest?base=GBP&symbols=USD"
-).json()
+# aluminium
+aluminium = get_json("https://api.metals.live/v1/spot/aluminum")[0]["price"]
 
+# FX
+fx = get_json("https://api.exchangerate.host/latest?base=GBP&symbols=USD")
 gbpusd = fx["rates"]["USD"]
 
-# --- Update page ---
 text = FILE.read_text()
 
-text = re.sub(
-    r"LME Copper price .*",
-    f"LME Copper price ${copper} / tonne",
-    text
-)
+text = re.sub(r"LME Copper price .*",
+              f"LME Copper price ${copper} / tonne",
+              text)
 
-text = re.sub(
-    r"LME Aluminium price .*",
-    f"LME Aluminium price ${aluminium} / tonne",
-    text
-)
+text = re.sub(r"LME Aluminium price .*",
+              f"LME Aluminium price ${aluminium} / tonne",
+              text)
 
-text = re.sub(
-    r"FX rate .*",
-    f"FX rate 1 GBP = {gbpusd} USD",
-    text
-)
+text = re.sub(r"FX rate .*",
+              f"FX rate 1 GBP = {gbpusd} USD",
+              text)
 
 FILE.write_text(text)
 
-print("Prices updated")
+print("Prices updated successfully")

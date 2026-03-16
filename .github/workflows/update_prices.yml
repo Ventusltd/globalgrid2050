@@ -1,36 +1,45 @@
-name: update-metal-prices
+import requests
+import re
+from pathlib import Path
+from datetime import datetime, timezone
 
-on:
-  schedule:
-    - cron: '0 6 * * *'
-  workflow_dispatch:
+FILE = Path("33kv_uk_dap_price_estimator/index.md")
 
-permissions:
-  contents: write
+def get_fx():
+    url = "https://query1.finance.yahoo.com/v7/finance/quote?symbols=GBPUSD=X"
 
-jobs:
-  update:
-    runs-on: ubuntu-latest
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    r = requests.get(url, headers=headers, timeout=20)
+    r.raise_for_status()
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+    data = r.json()
 
-      - name: Install dependencies
-        run: pip install requests
+    return float(data["quoteResponse"]["result"][0]["regularMarketPrice"])
 
-      - name: Run price update script
-        run: python scripts/update_prices.py
 
-      - name: Commit changes if needed
-        run: |
-          git config --global user.name "gridbot"
-          git config --global user.email "bot@globalgrid2050.com"
-          git add .
-          git diff --cached --quiet || git commit -m "update metal prices"
-          git push
+gbpusd = get_fx()
+
+timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
+text = FILE.read_text()
+
+# update FX line
+text = re.sub(
+    r"\| FX rate \| .*",
+    f"| FX rate | 1 GBP = {gbpusd:.4f} USD |",
+    text
+)
+
+# update timestamp line
+text = re.sub(
+    r"\| Last update \| .*",
+    f"| Last update | {timestamp} |",
+    text
+)
+
+FILE.write_text(text)
+
+print("FX and timestamp updated successfully")

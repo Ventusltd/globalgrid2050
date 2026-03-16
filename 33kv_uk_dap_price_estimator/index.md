@@ -1,6 +1,6 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
-**Estimate month:** March 2026
+**Initial estimate timestamp:** 2026-03-16 00:00 UTC
 
 Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
 
@@ -17,7 +17,7 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 | FX rate | 1 GBP = 1.3265 USD |
 | Copper price | £9,689 / tonne |
 | Aluminium price | £2,655 / tonne |
-| Last update | March 2026 estimate |
+| Last update | 2026-03-16 00:00 UTC |
 
 ---
 
@@ -89,22 +89,22 @@ Typical global manufacturing lead times for large scale 33 kV cable supply range
 
 This page is automatically updated using GitHub Actions.
 
-Automation workflow:
+Automation workflow
 
 https://github.com/ventusltd/globalgrid2050/blob/main/.github/workflows/update_prices.yml
 
-Price update script:
+Price update script
 
 https://github.com/ventusltd/globalgrid2050/blob/main/scripts/update_prices.py
 
-Repository:
+Repository
 
 https://github.com/ventusltd/globalgrid2050
 
-Updates occur daily at **06:00 UTC** and refresh:
+Updates occur daily at **06:00 UTC** and refresh
 
-- GBP to USD exchange rate
-- copper benchmark price
-- aluminium benchmark price
+GBP to USD exchange rate  
+Copper benchmark price  
+Aluminium benchmark price
 
 The estimator values update automatically when the workflow commits new market data.

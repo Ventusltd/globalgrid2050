@@ -83,25 +83,3 @@ Currency fluctuations
 
 Typical global manufacturing lead times for large scale 33 kV cable supply range between **10 and 30 weeks** depending on conductor size and factory capacity.
 
----
-
-## Automation
-
-This page is automatically updated using GitHub Actions.
-
-Automation workflow  
-https://github.com/ventusltd/globalgrid2050/blob/main/.github/workflows/update_prices.yml
-
-Price update script  
-https://github.com/ventusltd/globalgrid2050/blob/main/scripts/update_prices.py
-
-Repository  
-https://github.com/ventusltd/globalgrid2050
-
-Updates occur daily at **06:00 UTC** and refresh
-
-GBP to USD exchange rate  
-Copper benchmark price  
-Aluminium benchmark price
-
-The estimator values update automatically when the workflow commits new market data.

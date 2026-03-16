@@ -2,18 +2,18 @@ import requests
 import re
 from pathlib import Path
 
-FILE = Path("./33kv_uk_dap_price_estimator/index.md")
+FILE = Path("33kv_uk_dap_price_estimator/index.md")
 
 def get_json(url):
     r = requests.get(url, timeout=20)
     r.raise_for_status()
     return r.json()
 
-# copper
-copper = get_json("https://api.metals.live/v1/spot/copper")[0]["price"]
+# metals from metals-api
+metals = get_json("https://metals-api.com/api/latest?base=USD&symbols=ALU,CU&access_key=demo")
 
-# aluminium
-aluminium = get_json("https://api.metals.live/v1/spot/aluminum")[0]["price"]
+copper = metals["rates"]["CU"]
+aluminium = metals["rates"]["ALU"]
 
 # FX
 fx = get_json("https://api.exchangerate.host/latest?base=GBP&symbols=USD")
@@ -35,4 +35,4 @@ text = re.sub(r"FX rate .*",
 
 FILE.write_text(text)
 
-print("Prices updated successfully")
+print("Prices updated")

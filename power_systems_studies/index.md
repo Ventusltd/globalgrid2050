@@ -51,7 +51,7 @@ Steven McFadyen – lead cable sizing studies and engineering calculations
 
 **Studer Cables Switzerland formerly LEONI**
 
-Mr Andre Avila – completion of cable thermal modelling for the closed trough installation condition  
+Andre Avila – completion of cable thermal modelling for the closed trough installation condition  
 
 Wolfgang Kessler – cable engineering support  
 

@@ -6,7 +6,7 @@
 
 The Braintree Electric Forecourt opened in December 2020 as the world's first purpose built Electric Forecourt, capable of charging 36 vehicles simultaneously. The facility integrates grid connection, high power electric vehicle charging infrastructure, solar photovoltaic generation and battery energy storage into a single energy hub and was later recognised with major industry awards including the What Car Innovation Award for EV infrastructure.
 
-Gridserve acted as the lead client design and procurement engineers for the project.
+GRIDSERVE acted as the lead client design and procurement engineers for the project.
 
 Cable engineering and delivery for the site was carried out through collaboration between Studer Cables Switzerland formerly LEONI, myCableEngineering and VENTUS Ltd.
 
@@ -35,11 +35,11 @@ During installation engineering it was identified that the originally proposed 4
 
 ### Key Contributors
 
-**Gridserve – Lead Client Design and Procurement Engineers**
+**GRIDSERVE – Design & Delivery Engineering Team**
 
-Michael Vassakis  
-Sajun Sathyan  
-Dragan Gavrilov  
+Michael Vassakis - Chief Technology Officer  
+Sajun Sathyan - Engineering Design Manager  
+Dragan Gavrilov - Senior Project Engineer  
 
 **VENTUS Ltd**
 

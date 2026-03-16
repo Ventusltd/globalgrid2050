@@ -9,29 +9,39 @@ def get_json(url):
     r.raise_for_status()
     return r.json()
 
-# metals from metals-api
-metals = get_json("https://metals-api.com/api/latest?base=USD&symbols=ALU,CU&access_key=demo")
+# Copper price (USD/tonne)
+copper = get_json(
+    "https://api.allorigins.win/raw?url=https://www.lme.com/Metals/Non-ferrous/Copper#tabIndex=0"
+)
 
-copper = metals["rates"]["CU"]
-aluminium = metals["rates"]["ALU"]
+# Aluminium price (USD/tonne)
+aluminium = get_json(
+    "https://api.allorigins.win/raw?url=https://www.lme.com/Metals/Non-ferrous/Aluminium#tabIndex=0"
+)
 
-# FX
+# GBP USD FX
 fx = get_json("https://api.exchangerate.host/latest?base=GBP&symbols=USD")
 gbpusd = fx["rates"]["USD"]
 
 text = FILE.read_text()
 
-text = re.sub(r"LME Copper price .*",
-              f"LME Copper price ${copper} / tonne",
-              text)
+text = re.sub(
+    r"LME Copper price .*",
+    f"LME Copper price ${copper} / tonne",
+    text
+)
 
-text = re.sub(r"LME Aluminium price .*",
-              f"LME Aluminium price ${aluminium} / tonne",
-              text)
+text = re.sub(
+    r"LME Aluminium price .*",
+    f"LME Aluminium price ${aluminium} / tonne",
+    text
+)
 
-text = re.sub(r"FX rate .*",
-              f"FX rate 1 GBP = {gbpusd} USD",
-              text)
+text = re.sub(
+    r"FX rate .*",
+    f"FX rate 1 GBP = {gbpusd} USD",
+    text
+)
 
 FILE.write_text(text)
 

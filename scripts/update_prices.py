@@ -16,7 +16,7 @@ def get_fx():
 
     data = r.json()
 
-    return data["quoteResponse"]["result"][0]["regularMarketPrice"]
+    return float(data["quoteResponse"]["result"][0]["regularMarketPrice"])
 
 
 gbpusd = get_fx()
@@ -24,8 +24,8 @@ gbpusd = get_fx()
 text = FILE.read_text()
 
 text = re.sub(
-    r"FX rate .*",
-    f"FX rate | 1 GBP = {gbpusd} USD",
+    r"\| FX rate \| .*",
+    f"| FX rate | 1 GBP = {gbpusd:.4f} USD |",
     text
 )
 

@@ -83,3 +83,4 @@ Currency fluctuations
 
 Typical global manufacturing lead times for large scale 33 kV cable supply range between **10 and 30 weeks** depending on conductor size and factory capacity.
 
+No warranty is given for the accuracy of the data provided and binding offers should be negotiated with suppliers and manufacturers direct.

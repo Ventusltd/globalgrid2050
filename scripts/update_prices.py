@@ -2,19 +2,31 @@ import requests
 import re
 from pathlib import Path
 
-FILE = Path("33kv_uk_dap_price_estimator/index.md")
+FILE = Path("./33kv_uk_dap_price_estimator/index.md")
 
+# --- get metals ---
 metals = requests.get("https://api.metals.live/v1/spot").json()
 
-copper = next(m["price"] for m in metals if m["metal"] == "copper")
-aluminium = next(m["price"] for m in metals if m["metal"] == "aluminum")
+copper = None
+aluminium = None
 
+for m in metals:
+    if "copper" in m:
+        copper = m["copper"]
+    if "aluminum" in m or "aluminium" in m:
+        aluminium = m.get("aluminum") or m.get("aluminium")
+
+if copper is None or aluminium is None:
+    raise Exception("Metal prices not found")
+
+# --- get FX ---
 fx = requests.get(
 "https://api.exchangerate.host/latest?base=GBP&symbols=USD"
 ).json()
 
 gbpusd = fx["rates"]["USD"]
 
+# --- update file ---
 text = FILE.read_text()
 
 text = re.sub(
@@ -37,4 +49,4 @@ text
 
 FILE.write_text(text)
 
-print("prices updated")
+print("Prices updated")

@@ -73,6 +73,18 @@ Cable identification, segregation and routing must be clearly documented to ensu
 
 ---
 
+## Engineering Coordination and Project Delivery
+
+High Voltage cable systems sit at the intersection of electrical engineering, civil design, procurement strategy and grid regulation. Successful delivery therefore requires coordinated engineering across multiple disciplines including cable design, installation engineering, protection coordination and mechanical interface design.
+
+Unlike many electrical components, High Voltage cable systems cannot be treated as catalogue equipment. Each project requires integration between cable manufacturers, accessory suppliers, engineering consultants, installers and grid operators to ensure compatibility between cable systems, termination structures and protection systems.
+
+Early engineering coordination is therefore essential. Projects that engage cable manufacturers and specialist engineers during the early design stages are significantly more likely to achieve reliable installation conditions, realistic procurement schedules and successful commissioning.
+
+Where this coordination is absent, cable systems frequently become the critical path constraint during construction and commissioning of energy infrastructure projects.
+
+---
+
 ## Cable Joints and Terminations
 
 Medium Voltage and High Voltage cable systems require specialist jointing and termination procedures to ensure long term insulation integrity.

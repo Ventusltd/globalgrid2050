@@ -1,5 +1,7 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
+**Estimate date:** March 2026
+
 Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
 
 Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.

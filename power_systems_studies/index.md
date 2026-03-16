@@ -59,6 +59,6 @@ Wolfgang Kessler – cable engineering support
 
 Steve Cooper, REPL supported the project with Ellis Patent cable cleat systems specified to distribution network operator requirements to maintain several high current cables in critical formation.
 
-Peter Robinson, Robinson Lawlor managed the installation of the cable systems on site.
+Peter Robinson, Robinson & Lawlor managed the installation of the cable systems on site.
 
 ![Cable trench installation and high current cable formation](../Braintree-cables1.png)

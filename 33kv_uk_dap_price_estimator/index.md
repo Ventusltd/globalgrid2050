@@ -17,13 +17,14 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 | FX rate | 1 GBP = 1.3265 USD |
 | Copper price | £9,689 / tonne |
 | Aluminium price | £2,655 / tonne |
+| Last update | March 2026 estimate |
 
 ---
 
 ## Weight Formulas
 
-Copper kg/km = mm² × 9.6  
-Aluminium kg/km = mm² × 2.92  
+Copper kg per km = mm² × 9.6  
+Aluminium kg per km = mm² × 2.92  
 
 ---
 
@@ -81,3 +82,29 @@ Utility specifications
 Currency fluctuations
 
 Typical global manufacturing lead times for large scale 33 kV cable supply range between **10 and 30 weeks** depending on conductor size and factory capacity.
+
+---
+
+## Automation
+
+This page is automatically updated using GitHub Actions.
+
+Automation workflow:
+
+https://github.com/ventusltd/globalgrid2050/blob/main/.github/workflows/update_prices.yml
+
+Price update script:
+
+https://github.com/ventusltd/globalgrid2050/blob/main/scripts/update_prices.py
+
+Repository:
+
+https://github.com/ventusltd/globalgrid2050
+
+Updates occur daily at **06:00 UTC** and refresh:
+
+- GBP to USD exchange rate
+- copper benchmark price
+- aluminium benchmark price
+
+The estimator values update automatically when the workflow commits new market data.

@@ -14,17 +14,27 @@ def get_fx():
 
     try:
         r = requests.get(url, headers=headers, timeout=20)
-        r.raise_for_status()
+
+        if r.status_code != 200:
+            print(f"Bad response: {r.status_code}")
+            return 1.25
 
         data = r.json()
-        return float(data["quoteResponse"]["result"][0]["regularMarketPrice"])
+
+        result = data.get("quoteResponse", {}).get("result", [])
+
+        if not result:
+            print("No FX data returned")
+            return 1.25
+
+        return float(result[0]["regularMarketPrice"])
 
     except Exception as e:
         print(f"FX fetch failed: {e}")
-        return 1.25  # fallback value to prevent workflow crash
+        return 1.25
 
 
-# get FX rate
+# ALWAYS resolve FX safely
 gbpusd = get_fx()
 
 # timestamp
@@ -33,19 +43,26 @@ timestamp = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
 # read file
 text = FILE.read_text()
 
-# update FX row
-text = re.sub(
-    r"\| FX rate \| .*",
+# update FX row (robust)
+text, fx_count = re.subn(
+    r"\| FX rate \| .*?\|",
     f"| FX rate | 1 GBP = {gbpusd:.4f} USD |",
     text
 )
 
-# update timestamp
-text = re.sub(
-    r"\| Last update \| .*",
+# update timestamp (robust)
+text, ts_count = re.subn(
+    r"\| Last update \| .*?\|",
     f"| Last update | {timestamp} |",
     text
 )
+
+# safety check
+if fx_count == 0:
+    print("WARNING: FX row not updated")
+
+if ts_count == 0:
+    print("WARNING: Timestamp row not updated")
 
 # write file
 FILE.write_text(text)

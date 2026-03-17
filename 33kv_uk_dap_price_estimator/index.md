@@ -12,6 +12,9 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 | Parameter | Value |
 |---|---|
+| Copper source | Indicative market data |
+| Aluminium source | Indicative market data |
+| FX source | Indicative market data |
 | LME Copper price | $12,850 / tonne |
 | LME Aluminium price | $3,520 / tonne |
 | FX rate | 1 GBP = 1.3265 USD |
@@ -80,6 +83,8 @@ Armouring requirements
 Transport distance  
 Utility specifications  
 Currency fluctuations
+
+These values are indicative and derived from publicly accessible market data sources. They are not licensed exchange settlement prices and should not be used for trading or contractual settlement.
 
 Typical global manufacturing lead times for large scale 33 kV cable supply range between **10 and 30 weeks** depending on conductor size and factory capacity.
 

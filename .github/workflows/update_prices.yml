@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -29,8 +31,8 @@ jobs:
 
       - name: Commit changes if needed
         run: |
-          git config --global user.name "gridbot"
-          git config --global user.email "bot@globalgrid2050.com"
+          git config user.name "gridbot"
+          git config user.email "bot@globalgrid2050.com"
           git add .
           git diff --cached --quiet || git commit -m "update metal prices"
           git push

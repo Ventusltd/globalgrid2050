@@ -1,11 +1,10 @@
 import requests
-import re
 from pathlib import Path
 from datetime import datetime, timezone
 
 FILE = Path("33kv_uk_dap_price_estimator/index.md")
 
-# --- FX SOURCE (stable) ---
+# --- FX SOURCE ---
 def get_fx():
     try:
         r = requests.get(
@@ -14,13 +13,12 @@ def get_fx():
         )
         data = r.json()
         return float(data["rates"]["USD"])
-
     except Exception as e:
-        print(f"FX fetch failed: {e}")
+        print("FX failed:", e)
         return 1.25
 
 
-# --- METALS (optional, safe fallback) ---
+# --- METALS SOURCE ---
 def get_metals():
     try:
         r = requests.get("https://api.metals.live/v1/spot", timeout=20)
@@ -30,81 +28,57 @@ def get_metals():
         al = next(item['price'] for item in data if item['metal'] == 'aluminum')
 
         return cu * 1000, al * 1000
-
     except Exception as e:
-        print("Metal fetch failed:", e)
+        print("Metals failed:", e)
         return 12850, 3520
 
 
-# --- SAFE EXECUTION ---
-try:
-    gbpusd = get_fx()
-except:
-    gbpusd = 1.25
+# --- GET DATA ---
+gbpusd = get_fx()
+copper_usd, aluminium_usd = get_metals()
 
-try:
-    copper_usd, aluminium_usd = get_metals()
-except:
-    copper_usd, aluminium_usd = 12850, 3520
-
-
-# convert to GBP
 copper_gbp = copper_usd / gbpusd
 aluminium_gbp = aluminium_usd / gbpusd
 
-
-# timestamp (always changes → forces commit)
 timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
 
-# read file
+# --- READ FILE ---
 text = FILE.read_text()
+lines = text.splitlines()
 
 
-# --- UPDATE ROWS (robust regex) ---
+# --- UPDATE LINES (NO REGEX) ---
+new_lines = []
 
-text, _ = re.subn(
-    r"\|\s*LME Copper price\s*\|\s*.*?\|",
-    f"| LME Copper price | ${copper_usd:,.0f} / tonne |",
-    text
-)
+for line in lines:
 
-text, _ = re.subn(
-    r"\|\s*LME Aluminium price\s*\|\s*.*?\|",
-    f"| LME Aluminium price | ${aluminium_usd:,.0f} / tonne |",
-    text
-)
+    if line.startswith("| LME Copper price"):
+        line = f"| LME Copper price | ${copper_usd:,.0f} / tonne |"
 
-text, _ = re.subn(
-    r"\|\s*FX rate\s*\|\s*.*?\|",
-    f"| FX rate | 1 GBP = {gbpusd:.4f} USD |",
-    text
-)
+    elif line.startswith("| LME Aluminium price"):
+        line = f"| LME Aluminium price | ${aluminium_usd:,.0f} / tonne |"
 
-text, _ = re.subn(
-    r"\|\s*Copper price\s*\|\s*.*?\|",
-    f"| Copper price | £{copper_gbp:,.0f} / tonne |",
-    text
-)
+    elif line.startswith("| FX rate"):
+        line = f"| FX rate | 1 GBP = {gbpusd:.4f} USD |"
 
-text, _ = re.subn(
-    r"\|\s*Aluminium price\s*\|\s*.*?\|",
-    f"| Aluminium price | £{aluminium_gbp:,.0f} / tonne |",
-    text
-)
+    elif line.startswith("| Copper price"):
+        line = f"| Copper price | £{copper_gbp:,.0f} / tonne |"
 
-text, _ = re.subn(
-    r"\|\s*Last update\s*\|\s*.*?\|",
-    f"| Last update | {timestamp} |",
-    text
-)
+    elif line.startswith("| Aluminium price"):
+        line = f"| Aluminium price | £{aluminium_gbp:,.0f} / tonne |"
+
+    elif line.startswith("| Last update"):
+        line = f"| Last update | {timestamp} |"
+
+    new_lines.append(line)
 
 
-# write file
-FILE.write_text(text)
+# --- WRITE FILE ---
+FILE.write_text("\n".join(new_lines))
 
 
-# debug output (visible in Actions logs)
+# --- DEBUG OUTPUT ---
 print("FX:", gbpusd)
 print("Copper USD:", copper_usd)
 print("Aluminium USD:", aluminium_usd)

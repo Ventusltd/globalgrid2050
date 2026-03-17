@@ -12,38 +12,42 @@ def get_fx():
         "User-Agent": "Mozilla/5.0"
     }
 
-    r = requests.get(url, headers=headers, timeout=20)
-    r.raise_for_status()
+    try:
+        r = requests.get(url, headers=headers, timeout=20)
+        r.raise_for_status()
 
-    data = r.json()
+        data = r.json()
+        return float(data["quoteResponse"]["result"][0]["regularMarketPrice"])
 
-    return float(data["quoteResponse"]["result"][0]["regularMarketPrice"])
+    except Exception as e:
+        print(f"FX fetch failed: {e}")
+        return 1.25  # fallback value to prevent workflow crash
 
 
 # get FX rate
 gbpusd = get_fx()
 
-# create British formatted UTC timestamp
+# timestamp
 timestamp = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
 
-# read page
+# read file
 text = FILE.read_text()
 
-# update FX table row
+# update FX row
 text = re.sub(
     r"\| FX rate \| .*",
     f"| FX rate | 1 GBP = {gbpusd:.4f} USD |",
     text
 )
 
-# update timestamp row
+# update timestamp
 text = re.sub(
     r"\| Last update \| .*",
     f"| Last update | {timestamp} |",
     text
 )
 
-# write updated page
+# write file
 FILE.write_text(text)
 
 print("FX rate and timestamp updated successfully")

@@ -2,11 +2,11 @@ name: update-metal-prices
 
 on:
   schedule:
-    - cron: '0 6 * * *'
-  workflow_dispatch:
+    - cron: '0 6 * * *' # Runs at 06:00 UTC daily
+  workflow_dispatch: # Allows manual trigger from the Actions tab
 
 permissions:
-  contents: write
+  contents: write # Essential for the bot to push changes back to the repo
 
 jobs:
   update:
@@ -29,10 +29,15 @@ jobs:
       - name: Run price update script
         run: python scripts/update_prices.py
 
-      - name: Commit changes if needed
+      - name: Commit and Push changes
         run: |
-          git config user.name "gridbot"
-          git config user.email "bot@globalgrid2050.com"
-          git add .
-          git diff --cached --quiet || git commit -m "update metal prices"
-          git push
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add 33kv_uk_dap_price_estimator/index.md
+          # Check if there are changes before trying to commit
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi

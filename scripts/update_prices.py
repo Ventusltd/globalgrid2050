@@ -4,11 +4,11 @@ from datetime import datetime, timezone
 
 FILE = Path("33kv_uk_dap_price_estimator/index.md")
 
-# ---------------- FX ----------------
+# ---------------- FX (OPEN API) ----------------
 def get_fx():
     try:
         r = requests.get(
-            "https://api.exchangerate.host/latest?base=GBP&symbols=USD",
+            "https://open.er-api.com/v6/latest/GBP",
             timeout=20
         )
         data = r.json()
@@ -18,7 +18,7 @@ def get_fx():
         return 1.25
 
 
-# ---------------- METALS ----------------
+# ---------------- METALS (OPEN API) ----------------
 def get_metals():
     try:
         r = requests.get("https://api.metals.live/v1/spot", timeout=20)

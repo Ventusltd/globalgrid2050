@@ -1,7 +1,5 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
-**Initial estimate timestamp:** Sunday 16 March 2026 00:00 UTC
-
 Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
 
 Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.
@@ -11,7 +9,7 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 ## Market Inputs
 
 | Parameter | Value |
-|---|---|
+| :--- | :--- |
 | Copper source | Indicative market data |
 | Aluminium source | Indicative market data |
 | FX source | Indicative market data |
@@ -26,26 +24,25 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 ## Weight Formulas
 
-Copper kg per km = mm² × 9.6  
-Aluminium kg per km = mm² × 2.92  
+* **Copper kg per km** = mm² × 9.6  
+* **Aluminium kg per km** = mm² × 2.92  
 
 ---
 
 ## Net Price Rule
 
-Net cable price ≈ Metal value ÷ 0.3
+**Net cable price ≈ Metal value ÷ 0.3**
 
-Typical cost structure
-
-Metal content ≈ 30 percent  
-Manufacturing, insulation, logistics and margin ≈ 70 percent
+Typical cost structure:
+* **Metal content:** ≈ 30%
+* **Manufacturing, logistics, and margin:** ≈ 70%
 
 ---
 
 ## Cable Metal and Net Price Estimator
 
 | Conductor mm² | CWS mm² | Aluminium kg/km | Copper kg/km | Aluminium £/km | Copper £/km | Total metal £/km | Net £/km |
-|---|---:|---:|---:|---:|---:|---:|---:|
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 120 | 35 | 350.4 | 336.0 | 930 | 3,255 | 4,185 | 13,950 |
 | 150 | 35 | 438.0 | 336.0 | 1,163 | 3,255 | 4,418 | 14,727 |
 | 185 | 35 | 540.2 | 336.0 | 1,434 | 3,255 | 4,689 | 15,630 |
@@ -67,25 +64,11 @@ Manufacturing, insulation, logistics and margin ≈ 70 percent
 
 ## Notes
 
-This estimator supports rapid early stage cost analysis for
+This estimator supports rapid early-stage cost analysis for:
+* Solar farms  
+* Battery energy storage systems (BESS)  
+* Wind farms  
+* Utility substations  
+* Transmission and distribution connections
 
-Solar farms  
-Battery energy storage systems  
-Wind farms  
-Utility substations  
-Transmission and distribution connections
-
-Actual cable pricing will vary depending on
-
-Project volume  
-Factory loading  
-Armouring requirements  
-Transport distance  
-Utility specifications  
-Currency fluctuations
-
-These values are indicative and derived from publicly accessible market data sources. They are not licensed exchange settlement prices and should not be used for trading or contractual settlement.
-
-Typical global manufacturing lead times for large scale 33 kV cable supply range between 10 and 30 weeks depending on conductor size and factory capacity.
-
-No warranty is given for the accuracy of the data provided and binding offers should be negotiated with suppliers and manufacturers direct.
+**Disclaimer:** These values are indicative and derived from publicly accessible market data. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.

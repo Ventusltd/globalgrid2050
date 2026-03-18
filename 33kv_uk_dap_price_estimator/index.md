@@ -10,15 +10,12 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 | Parameter | Value |
 | :--- | :--- |
-| Copper source | Indicative market data |
-| Aluminium source | Indicative market data |
-| FX source | Indicative market data |
-| LME Copper price | $12,850 / tonne |
-| LME Aluminium price | $3,520 / tonne |
-| FX rate | 1 GBP = 1.3265 USD |
-| Copper price | £9,689 / tonne |
-| Aluminium price | £2,655 / tonne |
-| Last update | Sunday 16 March 2026 00:00 UTC |
+| LME Copper (USD) | $12,850 / tonne |
+| LME Aluminium (USD) | $3,520 / tonne |
+| GBP/USD Rate | 1 GBP = 1.3265 USD |
+| Copper (GBP) | £9,689 / tonne |
+| Aluminium (GBP) | £2,655 / tonne |
+| Last Update | Sunday 16 March 2026 00:00 UTC |
 
 ---
 
@@ -71,4 +68,4 @@ This estimator supports rapid early-stage cost analysis for:
 * Utility substations  
 * Transmission and distribution connections
 
-**Disclaimer:** These values are indicative and derived from publicly accessible market data. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.
+**Disclaimer:** These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.

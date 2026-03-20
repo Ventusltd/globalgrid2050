@@ -113,26 +113,24 @@ No liability is accepted for any use, misinterpretation or application of this i
 
 ---
 
-<sub>
-Formula and symbol definitions:
+<sub><small>
+<strong>Formula and symbol definitions</strong><br><br>
 
-R90 = resistance at 90°C (Ω/km)  
-R20 = resistance at 20°C (Ω/km)  
-α = temperature coefficient of resistance at 20°C (per °C)  
-(90 − 20) = temperature rise of 70°C  
+R90 = resistance at 90°C (Ω/km)<br>
+R20 = resistance at 20°C (Ω/km)<br>
+α = temperature coefficient of resistance at 20°C (per °C)<br>
+(90 − 20) = temperature rise of 70°C<br><br>
 
-Temperature coefficients:  
-Copper α = 0.00393  
-Aluminium α = 0.00403  
+Temperature coefficients:<br>
+Copper α = 0.00393<br>
+Aluminium α = 0.00403<br><br>
 
-Formula:
+Formula:<br>
+R90 = R20 × [1 + α × (90 − 20)]<br><br>
 
-R90 = R20 × [1 + α × (90 − 20)]
-
-Multipliers:
-
-Copper: 1.2751  
-Aluminium: 1.2821  
+Multipliers:<br>
+Copper: 1.2751<br>
+Aluminium: 1.2821<br><br>
 
 This relationship represents the linear increase of DC resistance with temperature and does not include AC effects.
-</sub>
+</small></sub>

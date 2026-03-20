@@ -79,7 +79,7 @@ For smaller sizes, no verified bare conductor diameter has been inserted unless 
 
 For larger sizes, especially 1200 mm² and above, IEC 60228 explicitly allows Class 2 constructions to be made from 4, 5 or 6 equal segments, commonly referred to as Milliken construction. These are not ordinary simple circular conductors and must be treated as manufacturer specific designs.
 
-Large HV aluminium conductors at 1200 mm² and 1600 mm² in the uploaded schedules are explicitly stated as Milliken compacted constructions.
+Large HV aluminium conductors at 1200 mm² and 1600 mm² as Milliken compacted constructions.
 
 Conductor diameter must not be inferred from overall cable diameter.
 
@@ -106,11 +106,3 @@ All values must be independently checked against the relevant standard, the exac
 Where required by project risk, contract, insurer, client or law, manufacturer confirmation and sign off by a suitably qualified Chartered Electrical Engineer should be obtained and retained with project records.
 
 No liability is accepted for any loss, damage, omission, misinterpretation or application of this information. Specifications, constructions and manufacturer data may change without notice.
-
-## Verification Basis
-
-IEC 60228 confirms the Class 2 stranded resistance values from 0.5 mm² to 2500 mm² and notes that 1200 mm² and above may be constructed from equal segments.  [oai_citation:1‡IEC-60228{ed3.0}en_d-1.pdf](sediment://file_000000009fa47246812ceaf6aa2d674c)
-
-LEONI provides verified aluminium conductor diameters for 50 mm² to 500 mm² in the earlier uploaded solar cable datasheet.  [oai_citation:2‡10002 Triplex SOLARpower Alu ATA TRZ-13001-e_SOLARpowe Alu ATA 3L (002).pdf](sediment://file_00000000d1987246acee57b83e522f9e)
-
-UK Power Networks and associated manufacturer schedules provide verified diameters and resistance data for 300 mm², 400 mm², 630 mm², 1000 mm², 1200 mm² and 1600 mm², including explicit Milliken identification for 1200 mm² and 1600 mm². 

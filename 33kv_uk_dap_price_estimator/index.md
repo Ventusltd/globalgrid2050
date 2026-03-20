@@ -35,7 +35,7 @@ LV section below uses single core copper and aluminium conductors with no screen
     <option value="16">16 mm²</option>
   </select>
   <p style="font-size:0.85em; color:#666; margin-top:0; margin-bottom:15px;">
-    Screen size must be selected to meet earth fault requirements. BS 7870 Table 6 provides the validated screen resistance values.  [oai_citation:1‡BS7870.4-10.pdf](sediment://file_000000004c94724699bee7ab29820e0b)
+    Screen size must be selected to meet earth fault requirements. BS 7870 Table 6 provides validated screen resistance values.
   </p>
 
   <label><strong>LV Hollow Price / Attached Target</strong></label><br>
@@ -74,7 +74,7 @@ LV section below uses single core copper and aluminium conductors with no screen
 </table>
 </div>
 
-<h3>LV AC and DC Single Core Sales Model. Hollow Price / Attached Target plus Surge Price Noise</h3>
+<h3>LV AC and DC Single Core Sales Model</h3>
 
 <div style="overflow-x:auto; margin-bottom:25px;">
 <table id="lvTbl" style="border-collapse:collapse;width:100%;font-family:Courier, monospace;font-size:0.95em;">
@@ -91,6 +91,15 @@ LV section below uses single core copper and aluminium conductors with no screen
 <tbody></tbody>
 </table>
 </div>
+
+<h3>Disclaimer</h3>
+<p style="font-size:0.9em; color:#444; line-height:1.5;">
+This model provides general engineering guidance for estimation and comparison only and does not constitute project specific design.<br>
+Outputs are indicative and must be validated through full system studies including fault levels, protection coordination, circuit breaker sizing, installation conditions and system behaviour.<br>
+Solar and storage infrastructure operate within wider economic frameworks where assets can trade above £1.35 per watt peak, energy above £0.30 per kWh and EV charging up to £0.89 per kWh, requiring alignment between engineering integrity and commercial value.<br>
+Final pricing, performance and supply depend on manufacturer design, factory capacity, material availability and network conditions, including behaviour under DC leakage, insulation stress and high current operation.<br>
+Price must never drive decisions ahead of energy efficiency, system stability or long term network integrity across LV, MV, solar and BESS systems.
+</p>
 
 <style>
 table th {
@@ -141,148 +150,69 @@ async function fetchFX() {
     let res = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=GBP,EUR");
     let data = await res.json();
 
-    if (!data.rates || !data.rates.GBP || !data.rates.EUR) throw new Error("Primary FX failed");
-
     document.getElementById("fx_gbp").value = (1 / data.rates.GBP).toFixed(4);
     document.getElementById("fx_eur").value = (1 / data.rates.EUR).toFixed(4);
     updateFXTime();
 
-  } catch (e) {
-    try {
-      let res = await fetch("https://open.er-api.com/v6/latest/USD");
-      let data = await res.json();
-
-      document.getElementById("fx_gbp").value = (1 / data.rates.GBP).toFixed(4);
-      document.getElementById("fx_eur").value = (1 / data.rates.EUR).toFixed(4);
-      updateFXTime();
-
-    } catch (err) {
-      let fxTimeEl = document.getElementById("fx_time");
-      if (fxTimeEl) fxTimeEl.innerHTML = "Live FX unavailable. Using manual inputs";
-    }
-  }
+  } catch (e) {}
 }
 
 function updateFXTime() {
   let now = new Date();
-  let fxTimeEl = document.getElementById("fx_time");
-  if (fxTimeEl) fxTimeEl.innerHTML = "Live FX Timestamp: " + now.toUTCString();
+  document.getElementById("fx_time").innerHTML = "Live FX Timestamp: " + now.toUTCString();
 }
 
-function getPricesInCurrency(cu, al, fx_gbp, fx_eur, currency) {
-  let cu_price, al_price, symbol;
-
-  if (currency === "GBP") {
-    cu_price = cu / fx_gbp;
-    al_price = al / fx_gbp;
-    symbol = "£";
-  } else if (currency === "EUR") {
-    cu_price = cu / fx_eur;
-    al_price = al / fx_eur;
-    symbol = "€";
-  } else {
-    cu_price = cu;
-    al_price = al;
-    symbol = "$";
-  }
-
-  return { cu_price, al_price, symbol };
+function getPrices(cu, al, fx_gbp, fx_eur, currency) {
+  if (currency === "GBP") return { cu: cu / fx_gbp, al: al / fx_gbp, sym: "£" };
+  if (currency === "EUR") return { cu: cu / fx_eur, al: al / fx_eur, sym: "€" };
+  return { cu: cu, al: al, sym: "$" };
 }
 
 function calc() {
-  let cu = parseFloat(document.getElementById("cu").value) || 0;
-  let al = parseFloat(document.getElementById("al").value) || 0;
-  let fx_gbp = parseFloat(document.getElementById("fx_gbp").value) || 1;
-  let fx_eur = parseFloat(document.getElementById("fx_eur").value) || 1;
-  let currency = document.getElementById("currency").value;
-  let target_pct = parseFloat(document.getElementById("metal_pct_target").value) || 30;
-  let selected_cws = parseFloat(document.getElementById("cws_input").value) || 50;
-  let hollow_price = parseFloat(document.getElementById("hollow_price").value) || 0;
-  let surge_price = parseFloat(document.getElementById("surge_price").value) || 0;
+  let cu = parseFloat(cu.value) || 0;
+  let al = parseFloat(al.value) || 0;
+  let fxg = parseFloat(fx_gbp.value) || 1;
+  let fxe = parseFloat(fx_eur.value) || 1;
+  let cur = currency.value;
+  let pct = parseFloat(metal_pct_target.value) || 30;
+  let cws = parseFloat(cws_input.value) || 50;
+  let hollow = parseFloat(hollow_price.value) || 0;
+  let surge = parseFloat(surge_price.value) || 0;
 
-  if (!fx_gbp || !fx_eur || !target_pct) return;
+  let {cu: cuP, al: alP, sym} = getPrices(cu, al, fxg, fxe, cur);
 
-  let gbp_eur = fx_gbp / fx_eur;
-  let eur_gbp = fx_eur / fx_gbp;
-  document.getElementById("gbp_eur").innerHTML = gbp_eur.toFixed(4);
-  document.getElementById("eur_gbp").innerHTML = eur_gbp.toFixed(4);
-
-  let { cu_price, al_price, symbol } = getPricesInCurrency(cu, al, fx_gbp, fx_eur, currency);
-
-  render33kV(cu_price, al_price, symbol, target_pct, selected_cws);
-  renderLV(cu_price, al_price, symbol, hollow_price, surge_price);
-}
-
-function render33kV(cu_price, al_price, symbol, target_pct, selected_cws) {
   let tbody = document.querySelector("#liveTbl33 tbody");
   tbody.innerHTML = "";
 
-  mvConductors.forEach(cond => {
-    let al_kg = cond * 2.92;
-    let cu_kg = selected_cws * 9.6;
-    let res_20 = al_res_20c[cond];
-    let res_90 = res_20 * (1 + 0.00403 * (90 - 20));
-    let cws_r20 = cws_res_20c_bs7870[selected_cws];
+  mvConductors.forEach(s => {
+    let alkg = s * 2.92;
+    let cukg = cws * 9.6;
+    let total = (alkg * alP + cukg * cuP) / 1000;
+    let net = total / (pct/100);
 
-    let al_cost = al_kg * (al_price / 1000);
-    let cu_cost = cu_kg * (cu_price / 1000);
-    let total_metal = al_cost + cu_cost;
-    let net_price = total_metal / (target_pct / 100);
+    tbody.innerHTML += `<tr>
+      <td>${s}</td><td>${cws}</td><td>${cws_res_20c_bs7870[cws]}</td>
+      <td>${alkg.toFixed(0)}</td><td>${cukg.toFixed(0)}</td>
+      <td>${(al_res_20c[s]*(1+0.00403*70)).toFixed(4)}</td>
+      <td>${sym}${total.toFixed(0)}</td><td>${pct}%</td>
+      <td><b>${sym}${net.toFixed(0)}</b></td></tr>`;
+  });
 
-    let row = `<tr>
-      <td><strong>${cond}</strong></td>
-      <td>${selected_cws}</td>
-      <td>${cws_r20.toFixed(3)}</td>
-      <td>${al_kg.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${cu_kg.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${res_90.toFixed(4)}</td>
-      <td>${symbol}${total_metal.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${target_pct.toFixed(1)}%</td>
-      <td><strong>${symbol}${net_price.toLocaleString('en-GB', {maximumFractionDigits:0})}</strong></td>
-    </tr>`;
-    tbody.innerHTML += row;
+  let lv = document.querySelector("#lvTbl tbody");
+  lv.innerHTML = "";
+
+  let sales = hollow + surge;
+
+  lvSizes.forEach(s => {
+    let cuv = (s*9.6*cuP)/1000;
+    let alv = (s*2.92*alP)/1000;
+
+    lv.innerHTML += `<tr><td>${s}</td><td>Copper</td><td>${(s*9.6).toFixed(0)}</td><td>${sym}${cuv.toFixed(0)}</td><td>${sym}${sales.toFixed(0)}</td><td><b>${sym}${(cuv+sales).toFixed(0)}</b></td></tr>`;
+    lv.innerHTML += `<tr><td>${s}</td><td>Aluminium</td><td>${(s*2.92).toFixed(0)}</td><td>${sym}${alv.toFixed(0)}</td><td>${sym}${sales.toFixed(0)}</td><td><b>${sym}${(alv+sales).toFixed(0)}</b></td></tr>`;
   });
 }
 
-function renderLV(cu_price, al_price, symbol, hollow_price, surge_price) {
-  let tbody = document.querySelector("#lvTbl tbody");
-  tbody.innerHTML = "";
-
-  let sales_factor = hollow_price + surge_price;
-
-  lvSizes.forEach(size => {
-    let cu_kg = size * 9.6;
-    let al_kg = size * 2.92;
-
-    let cu_metal = cu_kg * (cu_price / 1000);
-    let al_metal = al_kg * (al_price / 1000);
-
-    let cu_net = cu_metal + sales_factor;
-    let al_net = al_metal + sales_factor;
-
-    let rowCu = `<tr>
-      <td><strong>${size}</strong></td>
-      <td>Copper</td>
-      <td>${cu_kg.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${symbol}${cu_metal.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${symbol}${sales_factor.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td><strong>${symbol}${cu_net.toLocaleString('en-GB', {maximumFractionDigits:0})}</strong></td>
-    </tr>`;
-
-    let rowAl = `<tr>
-      <td><strong>${size}</strong></td>
-      <td>Aluminium</td>
-      <td>${al_kg.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${symbol}${al_metal.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${symbol}${sales_factor.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td><strong>${symbol}${al_net.toLocaleString('en-GB', {maximumFractionDigits:0})}</strong></td>
-    </tr>`;
-
-    tbody.innerHTML += rowCu + rowAl;
-  });
-}
-
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
   await fetchFX();
   calc();
 });

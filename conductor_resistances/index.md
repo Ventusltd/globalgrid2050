@@ -1,6 +1,6 @@
 # Maximum DC Conductor Resistance (IEC 60228)
 
-This reference tool provides Maximum DC Resistance values for Class 2 stranded conductors at 20°C and 90°C.
+This reference provides maximum DC resistance values for Class 2 stranded conductors at 20°C, together with calculated reference values at 90°C.
 
 ---
 
@@ -73,4 +73,48 @@ function filterTable() {
 
 ---
 
-⚠️ Note: JavaScript will not run inside GitHub Markdown. Host via GitHub Pages or HTML file for full functionality.
+## Technical Notes
+
+- Resistance values at 20°C are IEC 60228 Class 2 stranded conductor maximum DC resistance values  
+- Values at 90°C are calculated using standard temperature correction factors  
+- Typical multipliers:
+  - Copper ≈ ×1.275  
+  - Aluminium ≈ ×1.282  
+
+- Values represent DC resistance only  
+- They do not include AC effects such as skin effect, proximity effect or frequency dependent losses  
+
+- Verified conductor diameters are included only where sourced from manufacturer or utility data  
+- IEC does not define exact diameters for smaller Class 2 conductors  
+
+- For larger sizes (typically ≥1200 mm²), conductors may be segmented (Milliken construction) and must be treated as manufacturer specific  
+
+---
+
+## Terminations and Installation Risk
+
+- Termination selection must be based on actual verified conductor diameter and construction  
+- Aluminium conductors require bimetallic terminations  
+- DNO compliant shear bolt connectors are recommended  
+
+- Sectorial, shaped and segmented conductors require specialist termination design  
+- Crimping aluminium and non circular conductors carries elevated installation risk  
+
+---
+
+## Disclaimer
+
+This information is provided for general technical reference only.
+
+All values must be independently verified against:
+- applicable standards  
+- cable manufacturer data  
+- accessory manufacturer data  
+- project specifications  
+- local and international regulations  
+
+DC resistance values do not represent full system behaviour including AC impedance, reactance or transient effects.
+
+No liability is accepted for any loss, damage or application arising from use of this information.
+
+Specifications, conductor constructions and manufacturer data may change without notice.

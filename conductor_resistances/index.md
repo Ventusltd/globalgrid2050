@@ -1,26 +1,82 @@
-# Maximum DC Conductor Resistance Table at 20°C and 90°C for Class 2 Stranded Conductors
+# Maximum DC Conductor Resistance (IEC 60228)
 
-## Scope
-
-This table applies to Class 2 stranded conductors.
-
-Resistance values are based on IEC 60228 Class 2 stranded conductor limits at 20°C. Values shown at 90°C are calculated DC reference values based on temperature adjustment.
-
-Conductor diameter values are shown only where directly verified from manufacturer or utility documentation. Where no verified diameter was available, the field is left blank.
-
-Sectorial, shaped, segmented and Milliken conductor constructions are not equivalent to circular compacted conductors and must not be treated as interchangeable.
+This reference tool provides Maximum DC Resistance values for Class 2 stranded conductors at 20°C and 90°C.
 
 ---
 
-## Basis
+## ⚡ Interactive Resistance Calculator
+*Calculate resistance for custom operating temperatures (e.g. 70°C for PVC or 105°C for high temp XLPE).*
 
-Values shown at 90°C are calculated DC resistance values based on temperature adjustment from 20°C and are consistent with manufacturer voltage drop data at operating temperature.
+<div style="background:#f8f9fa;padding:25px;border:1px solid #e0e0e0;border-radius:10px;margin-bottom:30px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;">
+        
+        <div>
+            <label style="font-weight:bold;display:block;margin-bottom:8px;">Conductor Material</label>
+            <select id="calc-material" style="width:100%;padding:8px;border-radius:4px;border:1px solid #ccc;">
+                <option value="cu">Copper</option>
+                <option value="al">Aluminium</option>
+            </select>
+        </div>
+
+        <div>
+            <label style="font-weight:bold;display:block;margin-bottom:8px;">Target Temp (°C)</label>
+            <input type="number" id="calc-temp" value="90" min="0" style="width:100%;padding:8px;border-radius:4px;border:1px solid #ccc;">
+        </div>
+
+        <div>
+            <label style="font-weight:bold;display:block;margin-bottom:8px;">R20 Value (Ω/km)</label>
+            <input type="number" id="calc-r20" placeholder="e.g. 0.387 Ω/km" step="0.0001" min="0" style="width:100%;padding:8px;border-radius:4px;border:1px solid #ccc;">
+        </div>
+
+    </div>
+
+    <div style="margin-top:20px;border-top:1px solid #e0e0e0;padding-top:15px;display:flex;align-items:center;justify-content:space-between;">
+        <button onclick="calculateResistance()" style="padding:10px 20px;background:#0056b3;color:white;border:none;border-radius:5px;cursor:pointer;font-weight:bold;">
+            Calculate R<sub>t</sub>
+        </button>
+
+        <div id="calc-result" style="font-size:1.1em;font-weight:bold;color:#0056b3;">
+            Result: --
+        </div>
+    </div>
+
+    <div style="font-size:0.85em;color:#666;margin-top:10px;">
+        DC resistance only. Does not include AC effects (skin, proximity, frequency).
+    </div>
+
+</div>
+
+<script>
+function calculateResistance() {
+    const material = document.getElementById('calc-material').value;
+    const alpha = material === "cu" ? 0.00393 : 0.00403;
+
+    const t2 = parseFloat(document.getElementById('calc-temp').value);
+    const r20 = parseFloat(document.getElementById('calc-r20').value);
+
+    const resultDiv = document.getElementById('calc-result');
+
+    if (isNaN(r20) || isNaN(t2) || r20 <= 0) {
+        resultDiv.innerHTML = "Result: Enter valid positive values";
+        return;
+    }
+
+    const t_rise = t2 - 20;
+    const rt = r20 * (1 + (alpha * t_rise));
+
+    resultDiv.innerHTML = `R at ${t2}°C: ${rt.toFixed(4)} Ω/km`;
+}
+</script>
 
 ---
 
-## Table
+## Conductor Data Table
 
-<table>
+*Type a size (e.g. "240") to filter the table:*  
+<input type="text" id="tableSearch" onkeyup="filterTable()" placeholder="Search Nominal Area (mm²)..." style="padding:8px;width:250px;border-radius:4px;border:1px solid #ccc;margin-bottom:15px;">
+
+<table id="resTable">
 <thead>
 <tr>
 <th>Nominal Area (mm²)</th>
@@ -65,72 +121,23 @@ Values shown at 90°C are calculated DC resistance values based on temperature a
 </tbody>
 </table>
 
----
+<script>
+function filterTable() {
+  const input = document.getElementById("tableSearch");
+  const filter = input.value.toUpperCase();
+  const table = document.getElementById("resTable");
+  const tr = table.getElementsByTagName("tr");
 
-## Technical Notes
-
-- Resistance values at 20°C are IEC 60228 Class 2 stranded conductor maximum DC resistance values  
-- Values at 90°C are calculated DC reference values only  
-- They do not represent full AC operating behaviour including skin effect, proximity effect and frequency dependent losses  
-
-- Manufacturer data may present operating resistance via voltage drop at 90°C rather than explicit DC resistance values  
-- These are physically equivalent and consistent  
-
-- Verified conductor diameters are included only where directly sourced from manufacturer or utility documentation  
-- IEC does not define actual conductor diameters for smaller Class 2 sizes  
-
-- For larger sizes, especially 1200 mm² and above, conductors may be constructed from multiple insulated segments known as Milliken construction  
-- These are not simple circular conductors and must be treated as manufacturer specific designs  
-
-- Conductor diameter must not be inferred from overall cable diameter  
-
-- Typical manufacturing tolerances apply to conductor diameters and may vary depending on construction, compaction and manufacturer specification  
+  for (let i = 1; i < tr.length; i++) {
+    const td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      const txtValue = td.textContent || td.innerText;
+      tr[i].style.display = txtValue.toUpperCase().includes(filter) ? "" : "none";
+    }
+  }
+}
+</script>
 
 ---
 
-## Terminations and Installation Risk
-
-- Termination selection must be based on verified conductor diameter and construction  
-- Aluminium conductors require bimetallic terminations  
-- Shear bolt connectors must be type tested and DNO compliant  
-
-- Crimping aluminium and shaped conductors carries elevated installation risk  
-- Milliken and segmented conductors require specialist termination design  
-
----
-
-## Disclaimer
-
-This table is provided for general technical reference only.
-
-Values represent DC conductor resistance only and do not reflect AC system behaviour.
-
-All data must be independently verified against standards, manufacturer data and by qualified engineers.
-
-Manufacturer confirmation and Chartered Engineer sign off may be required depending on project and risk profile.
-
-No liability is accepted for any use, misinterpretation or application of this information. Specifications may change without notice.
-
----
-
-<sub><small>
-<strong>Formula and symbol definitions</strong><br><br>
-
-R90 = resistance at 90°C (Ω/km)<br>
-R20 = resistance at 20°C (Ω/km)<br>
-α = temperature coefficient of resistance at 20°C (per °C)<br>
-(90 − 20) = temperature rise of 70°C<br><br>
-
-Temperature coefficients:<br>
-Copper α = 0.00393<br>
-Aluminium α = 0.00403<br><br>
-
-Formula:<br>
-R90 = R20 × [1 + α × (90 − 20)]<br><br>
-
-Multipliers:<br>
-Copper: 1.2751<br>
-Aluminium: 1.2821<br><br>
-
-This relationship represents the linear increase of DC resistance with temperature and does not include AC effects.
-</small></sub>
+⚠️ Note: JavaScript will not run inside GitHub Markdown. Host via GitHub Pages or HTML file for full functionality.

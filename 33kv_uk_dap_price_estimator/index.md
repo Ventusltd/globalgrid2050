@@ -7,36 +7,35 @@ Use live inputs below, then compare against the fixed reference table.
 
 <div style="margin-bottom:20px;">
 <label>Copper USD/Tonne</label><br>
-<input id="cu" value="12850" style="width:100%;padding:10px;margin-bottom:10px;">
+<input id="cu" value="12850" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;">
 
 <label>Aluminium USD/Tonne</label><br>
-<input id="al" value="3520" style="width:100%;padding:10px;margin-bottom:10px;">
+<input id="al" value="3520" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;">
 
 <label>GBP/USD</label><br>
-<input id="fx_gbp" value="1.3265" style="width:100%;padding:10px;margin-bottom:10px;">
+<input id="fx_gbp" value="1.3265" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;">
 
 <label>EUR/USD</label><br>
-<input id="fx_eur" value="1.0800" style="width:100%;padding:10px;margin-bottom:10px;">
+<input id="fx_eur" value="1.0800" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;">
 
 <label>Display Currency</label><br>
-<select id="currency" style="width:100%;padding:10px;margin-bottom:10px;">
+<select id="currency" onchange="calc()" style="width:100%;padding:10px;margin-bottom:10px;">
   <option value="GBP">GBP (£)</option>
   <option value="USD">USD ($)</option>
   <option value="EUR">EUR (€)</option>
 </select>
-
-<button onclick="calc()" style="padding:10px 20px;">Run</button>
 </div>
 
 <div style="overflow-x:auto; margin-bottom:25px;">
 <table id="liveTbl" style="border-collapse:collapse;width:100%;font-family:Courier, monospace;">
 <thead>
 <tr>
-<th>mm²</th>
+<th>Cond. mm²</th>
+<th>CWS mm²</th>
 <th>Al kg/km</th>
 <th>Cu kg/km</th>
-<th>Total</th>
-<th>Net</th>
+<th>Total Metal</th>
+<th>Net Price</th>
 </tr>
 </thead>
 <tbody></tbody>
@@ -56,11 +55,11 @@ Use live inputs below, then compare against the fixed reference table.
   padding: 8px;
   text-align: left;
 }
-#refTbl {
+.refTbl {
   border-collapse: collapse;
   width: 100%;
 }
-#refTbl th, #refTbl td {
+.refTbl th, .refTbl td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
@@ -74,10 +73,10 @@ Use live inputs below, then compare against the fixed reference table.
 
 <script>
 function calc() {
-  let cu = parseFloat(document.getElementById("cu").value);
-  let al = parseFloat(document.getElementById("al").value);
-  let fx_gbp = parseFloat(document.getElementById("fx_gbp").value);
-  let fx_eur = parseFloat(document.getElementById("fx_eur").value);
+  let cu = parseFloat(document.getElementById("cu").value) || 0;
+  let al = parseFloat(document.getElementById("al").value) || 0;
+  let fx_gbp = parseFloat(document.getElementById("fx_gbp").value) || 1;
+  let fx_eur = parseFloat(document.getElementById("fx_eur").value) || 1;
   let currency = document.getElementById("currency").value;
 
   let cu_price, al_price, symbol;
@@ -118,17 +117,27 @@ function calc() {
     let total = al_cost + cu_cost;
     let net = total / 0.3;
 
+    // Formatting numbers with commas for readability
+    let fmtAlKg = al_kg.toLocaleString('en-GB', {maximumFractionDigits: 0});
+    let fmtCuKg = cu_kg.toLocaleString('en-GB', {maximumFractionDigits: 0});
+    let fmtTotal = total.toLocaleString('en-GB', {maximumFractionDigits: 0});
+    let fmtNet = net.toLocaleString('en-GB', {maximumFractionDigits: 0});
+
     let row = `<tr>
       <td>${cond}</td>
-      <td>${al_kg.toFixed(0)}</td>
-      <td>${cu_kg.toFixed(0)}</td>
-      <td>${symbol}${total.toFixed(0)}</td>
-      <td>${symbol}${net.toFixed(0)}</td>
+      <td>${cws}</td>
+      <td>${fmtAlKg}</td>
+      <td>${fmtCuKg}</td>
+      <td>${symbol}${fmtTotal}</td>
+      <td><strong>${symbol}${fmtNet}</strong></td>
     </tr>`;
 
     tbody.innerHTML += row;
   });
 }
+
+// Automatically run calculation when the page loads
+window.onload = calc;
 </script>
 
 <hr>
@@ -145,7 +154,7 @@ typical manufacturing lead times of 10 to 30 weeks.
 
 <h3>Market Inputs</h3>
 
-<table id="refTbl">
+<table class="refTbl">
 <tr><th>Parameter</th><th>Value</th></tr>
 <tr><td>LME Copper (USD)</td><td>$12,850 / tonne</td></tr>
 <tr><td>LME Aluminium (USD)</td><td>$3,520 / tonne</td></tr>
@@ -175,7 +184,7 @@ typical manufacturing lead times of 10 to 30 weeks.
 <h3>Cable Metal and Net Price Estimator</h3>
 
 <div style="overflow-x:auto;">
-<table id="refTbl">
+<table class="refTbl">
 <tr>
 <th>Conductor mm²</th>
 <th>CWS mm²</th>
@@ -203,20 +212,3 @@ typical manufacturing lead times of 10 to 30 weeks.
 <tr><td>2500</td><td>50</td><td>7,300.0</td><td>480.0</td><td>19,371</td><td>4,650</td><td>24,021</td></tr>
 </table>
 </div>
-
-<h3>Notes</h3>
-
-<p>This estimator supports rapid early stage cost analysis for:</p>
-<ul>
-<li>Solar farms</li>
-<li>Battery energy storage systems (BESS)</li>
-<li>Wind farms</li>
-<li>Utility substations</li>
-<li>Transmission and distribution connections</li>
-</ul>
-
-<p>
-<strong>Disclaimer:</strong> These values are derived from live market data feeds.
-Actual cable pricing varies based on project volume, factory loading, and specific utility
-requirements. No warranty is given for data accuracy.
-</p>

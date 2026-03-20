@@ -9,6 +9,13 @@ Resistance values are based on IEC 60228 Class 2 stranded conductor limits at 20
 Conductor diameter values are shown only where directly verified from manufacturer or utility documentation. Where no verified diameter was available, the field is left blank.
 
 Sectorial, shaped, segmented and Milliken conductor constructions are not equivalent to circular compacted conductors and must not be treated as interchangeable.
+
+---
+
+## Basis
+
+Values shown at 90°C are calculated DC resistance values based on temperature adjustment from 20°C and are consistent with manufacturer voltage drop data at operating temperature.
+
 ---
 
 ## Table
@@ -43,15 +50,15 @@ Sectorial, shaped, segmented and Milliken conductor constructions are not equiva
 <tr><td>150</td><td>13.95</td><td>0.124</td><td>0.158</td><td>0.206</td><td>0.264</td></tr>
 <tr><td>185</td><td>16.40</td><td>0.0991</td><td>0.126</td><td>0.164</td><td>0.210</td></tr>
 <tr><td>240</td><td>17.95</td><td>0.0754</td><td>0.0961</td><td>0.125</td><td>0.160</td></tr>
-<tr><td>300</td><td>20.5 ± 0.2</td><td>0.0601</td><td>0.0766</td><td>0.100</td><td>0.128</td></tr>
-<tr><td>400</td><td>23.5 ± 0.2</td><td>0.0470</td><td>0.0599</td><td>0.0778</td><td>0.0997</td></tr>
+<tr><td>300</td><td>20.5</td><td>0.0601</td><td>0.0766</td><td>0.100</td><td>0.128</td></tr>
+<tr><td>400</td><td>23.5</td><td>0.0470</td><td>0.0599</td><td>0.0778</td><td>0.0997</td></tr>
 <tr><td>500</td><td>26.40</td><td>0.0366</td><td>0.0467</td><td>0.0605</td><td>0.0776</td></tr>
-<tr><td>630</td><td>30.8 ± 0.3</td><td>0.0283</td><td>0.0361</td><td>0.0469</td><td>0.0601</td></tr>
+<tr><td>630</td><td>30.8</td><td>0.0283</td><td>0.0361</td><td>0.0469</td><td>0.0601</td></tr>
 <tr><td>800</td><td></td><td>0.0221</td><td>0.0282</td><td>0.0367</td><td>0.0471</td></tr>
-<tr><td>1000</td><td>38.4 ± 0.4</td><td>0.0176</td><td>0.0224</td><td>0.0291</td><td>0.0373</td></tr>
-<tr><td>1200</td><td>44.0 ± 0.5</td><td>0.0151</td><td>0.0193</td><td>0.0247</td><td>0.0317</td></tr>
+<tr><td>1000</td><td>38.4</td><td>0.0176</td><td>0.0224</td><td>0.0291</td><td>0.0373</td></tr>
+<tr><td>1200</td><td>44.0</td><td>0.0151</td><td>0.0193</td><td>0.0247</td><td>0.0317</td></tr>
 <tr><td>1400</td><td></td><td>0.0129</td><td>0.0164</td><td>0.0212</td><td>0.0272</td></tr>
-<tr><td>1600</td><td>50.3 ± 0.6</td><td>0.0113</td><td>0.0144</td><td>0.0186</td><td>0.0238</td></tr>
+<tr><td>1600</td><td>50.3</td><td>0.0113</td><td>0.0144</td><td>0.0186</td><td>0.0238</td></tr>
 <tr><td>1800</td><td></td><td>0.0101</td><td>0.0129</td><td>0.0165</td><td>0.0212</td></tr>
 <tr><td>2000</td><td></td><td>0.0090</td><td>0.0115</td><td>0.0149</td><td>0.0191</td></tr>
 <tr><td>2500</td><td></td><td>0.0072</td><td>0.0092</td><td>0.0127</td><td>0.0163</td></tr>
@@ -77,6 +84,8 @@ Sectorial, shaped, segmented and Milliken conductor constructions are not equiva
 
 - Conductor diameter must not be inferred from overall cable diameter  
 
+- Typical manufacturing tolerances apply to conductor diameters and may vary depending on construction, compaction and manufacturer specification  
+
 ---
 
 ## Terminations and Installation Risk
@@ -101,3 +110,29 @@ All data must be independently verified against standards, manufacturer data and
 Manufacturer confirmation and Chartered Engineer sign off may be required depending on project and risk profile.
 
 No liability is accepted for any use, misinterpretation or application of this information. Specifications may change without notice.
+
+---
+
+<sub>
+Formula and symbol definitions:
+
+R90 = resistance at 90°C (Ω/km)  
+R20 = resistance at 20°C (Ω/km)  
+α = temperature coefficient of resistance at 20°C (per °C)  
+(90 − 20) = temperature rise of 70°C  
+
+Temperature coefficients:  
+Copper α = 0.00393  
+Aluminium α = 0.00403  
+
+Formula:
+
+R90 = R20 × [1 + α × (90 − 20)]
+
+Multipliers:
+
+Copper: 1.2751  
+Aluminium: 1.2821  
+
+This relationship represents the linear increase of DC resistance with temperature and does not include AC effects.
+</sub>

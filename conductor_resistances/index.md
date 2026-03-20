@@ -9,27 +9,6 @@ Resistance values are based on IEC 60228 Class 2 stranded conductor limits at 20
 Conductor diameter values are shown only where directly verified from manufacturer or utility documentation. Where no verified diameter was available, the field is left blank.
 
 Sectorial, shaped, segmented and Milliken conductor constructions are not equivalent to circular compacted conductors and must not be treated as interchangeable.
-
----
-
-## Basis
-
-Calculated using standard temperature coefficients of resistance at 20°C:
-
-- Copper: 0.00393  
-- Aluminium: 0.00403  
-
-Temperature adjustment formula:
-
-R90 = R20 [1 + α(90 − 20)]
-
-Resulting multipliers:
-
-- Copper: 1.2751  
-- Aluminium: 1.2821  
-
-Values shown at 90°C are calculated DC resistance values based on temperature adjustment from 20°C and are consistent with manufacturer voltage drop data at operating temperature.
-
 ---
 
 ## Table

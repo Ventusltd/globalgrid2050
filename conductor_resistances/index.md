@@ -1,68 +1,121 @@
-<h1>Maximum Conductor Resistance Table</h1>
+# Maximum Conductor Resistance Table
 
-<p><strong>Scope:</strong> This table applies to stranded conductors (Class 2), including aluminium. 
-Solid conductors (Class 1) have higher permissible resistance and must be verified separately against IEC 60228 Table 1.</p>
+## Scope
 
-<p><strong>Basis:</strong> 20°C values align with IEC 60228 limits. 
-90°C values are calculated using standard temperature correction factors.</p>
+This table applies to stranded circular compacted conductors (Class 2), including aluminium.  
+Solid conductors (Class 1) have higher permissible resistance and must be verified separately against IEC 60228 Table 1.  
 
-<h2>Conductor Resistance at 20°C and 90°C</h2>
+Sectorial, Milliken or other non-circular conductor geometries are not directly represented and may vary significantly.
 
-<ul>
-  <li><strong>Copper factor:</strong> 1.2751</li>
-  <li><strong>Aluminium factor:</strong> 1.2821</li>
-</ul>
+---
 
-<table>
-  <thead>
-    <tr>
-      <th>Nominal Area (mm²)</th>
-      <th>Copper @ 20°C (Ω/km)</th>
-      <th>Copper @ 90°C (Ω/km)</th>
-      <th>Aluminium @ 20°C (Ω/km)</th>
-      <th>Aluminium @ 90°C (Ω/km)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>0.5</td><td>36.0</td><td>45.9036</td><td>—</td><td>—</td></tr>
-    <tr><td>0.75</td><td>24.5</td><td>31.2399</td><td>—</td><td>—</td></tr>
-    <tr><td>1.0</td><td>18.1</td><td>23.0793</td><td>—</td><td>—</td></tr>
-    <tr><td>1.5</td><td>12.1</td><td>15.4287</td><td>—</td><td>—</td></tr>
-    <tr><td>2.5</td><td>7.41</td><td>9.4485</td><td>—</td><td>—</td></tr>
-    <tr><td>4</td><td>4.61</td><td>5.8782</td><td>—</td><td>—</td></tr>
-    <tr><td>6</td><td>3.08</td><td>3.9273</td><td>—</td><td>—</td></tr>
-    <tr><td>10</td><td>1.83</td><td>2.3334</td><td>3.08</td><td>3.9489</td></tr>
-    <tr><td>16</td><td>1.15</td><td>1.4664</td><td>1.91</td><td>2.4488</td></tr>
-    <tr><td>25</td><td>0.727</td><td>0.9270</td><td>1.20</td><td>1.5385</td></tr>
-    <tr><td>35</td><td>0.524</td><td>0.6682</td><td>0.868</td><td>1.1129</td></tr>
-    <tr><td>50</td><td>0.387</td><td>0.4935</td><td>0.641</td><td>0.8218</td></tr>
-    <tr><td>70</td><td>0.268</td><td>0.3417</td><td>0.443</td><td>0.5680</td></tr>
-    <tr><td>95</td><td>0.193</td><td>0.2461</td><td>0.320</td><td>0.4103</td></tr>
-    <tr><td>120</td><td>0.153</td><td>0.1951</td><td>0.253</td><td>0.3244</td></tr>
-    <tr><td>150</td><td>0.124</td><td>0.1581</td><td>0.206</td><td>0.2641</td></tr>
-    <tr><td>185</td><td>0.0991</td><td>0.1264</td><td>0.164</td><td>0.2103</td></tr>
-    <tr><td>240</td><td>0.0754</td><td>0.0961</td><td>0.125</td><td>0.1603</td></tr>
-    <tr><td>300</td><td>0.0601</td><td>0.0766</td><td>0.100</td><td>0.1282</td></tr>
-    <tr><td>400</td><td>0.0470</td><td>0.0599</td><td>0.0778</td><td>0.0997</td></tr>
-    <tr><td>500</td><td>0.0366</td><td>0.0467</td><td>0.0605</td><td>0.0776</td></tr>
-    <tr><td>630</td><td>0.0283</td><td>0.0361</td><td>0.0469</td><td>0.0601</td></tr>
-    <tr><td>800</td><td>0.0221</td><td>0.0282</td><td>0.0367</td><td>0.0471</td></tr>
-    <tr><td>1000</td><td>0.0176</td><td>0.0224</td><td>0.0291</td><td>0.0373</td></tr>
-    <tr><td>1200</td><td>0.0151</td><td>0.0193</td><td>0.0247</td><td>0.0317</td></tr>
-    <tr><td>1400</td><td>0.0129</td><td>0.0164</td><td>0.0212</td><td>0.0272</td></tr>
-    <tr><td>1600</td><td>0.0113</td><td>0.0144</td><td>0.0186</td><td>0.0238</td></tr>
-    <tr><td>1800</td><td>0.0101</td><td>0.0129</td><td>0.0165</td><td>0.0212</td></tr>
-    <tr><td>2000</td><td>0.0090</td><td>0.0115</td><td>0.0149</td><td>0.0191</td></tr>
-    <tr><td>2500</td><td>0.0072</td><td>0.0092</td><td>0.0127</td><td>0.0163</td></tr>
-  </tbody>
-</table>
+## Basis
 
-<h2>Technical Notes</h2>
+20°C values align with IEC 60228 limits.  
 
-<ul>
-  <li>Aluminium conductors: minimum 10 mm² (IEC 60228 requirement)</li>
-  <li>Base temperature: 20°C</li>
-  <li>90°C values represent typical full load XLPE operation</li>
-</ul>
+Values at 90°C are consistent with manufacturer published DC resistance at maximum operating temperature and reflect typical operating behaviour of conductors under load.  
 
-<p><small>IEC 60228:2004 reference</small></p>
+Manufacturer and utility datasheets confirm that conductor resistance at maximum operating temperature, approximately 90°C, is typically approximately **1.27 to 1.28 times** the resistance at 20°C.  
+
+The values presented here represent **DC resistance only**.
+
+---
+
+## Conductor Resistance and Diameter
+
+- Copper temperature factor from 20°C to 90°C: **1.2751**  
+- Aluminium temperature factor from 20°C to 90°C: **1.2821**  
+
+| Nominal Area (mm²) | Typical Conductor Diameter (mm)\* | Copper @ 20°C (Ω/km) | Copper @ 90°C (Ω/km) | Aluminium @ 20°C (Ω/km) | Aluminium @ 90°C (Ω/km) |
+|--------------------|-----------------------------------|----------------------|----------------------|--------------------------|--------------------------|
+| 0.5 | — | 36.0 | 45.9036 | — | — |
+| 0.75 | — | 24.5 | 31.2399 | — | — |
+| 1.0 | — | 18.1 | 23.0793 | — | — |
+| 1.5 | — | 12.1 | 15.4287 | — | — |
+| 2.5 | — | 7.41 | 9.4485 | — | — |
+| 4 | — | 4.61 | 5.8782 | — | — |
+| 6 | — | 3.08 | 3.9273 | — | — |
+| 10 | — | 1.83 | 2.3334 | 3.08 | 3.9489 |
+| 16 | — | 1.15 | 1.4664 | 1.91 | 2.4488 |
+| 25 | — | 0.727 | 0.9270 | 1.20 | 1.5385 |
+| 35 | — | 0.524 | 0.6682 | 0.868 | 1.1129 |
+| 50 | 8.2 | 0.387 | 0.4935 | 0.641 | 0.8218 |
+| 70 | 9.9 | 0.268 | 0.3417 | 0.443 | 0.5680 |
+| 95 | 11.4 | 0.193 | 0.2461 | 0.320 | 0.4103 |
+| 120 | 12.9 | 0.153 | 0.1951 | 0.253 | 0.3244 |
+| 150 | 14.0 | 0.124 | 0.1581 | 0.206 | 0.2641 |
+| 185 | 16.4 | 0.0991 | 0.1264 | 0.164 | 0.2103 |
+| 240 | 18.0 | 0.0754 | 0.0961 | 0.125 | 0.1603 |
+| 300 | 20.5 | 0.0601 | 0.0766 | 0.100 | 0.1282 |
+| 400 | 23.7 | 0.0470 | 0.0599 | 0.0778 | 0.0997 |
+| 500 | 26.4 | 0.0366 | 0.0467 | 0.0605 | 0.0776 |
+| 630 | 30.1 | 0.0283 | 0.0361 | 0.0469 | 0.0601 |
+| 800 | — | 0.0221 | 0.0282 | 0.0367 | 0.0471 |
+| 1000 | — | 0.0176 | 0.0224 | 0.0291 | 0.0373 |
+| 1200 | — | 0.0151 | 0.0193 | 0.0247 | 0.0317 |
+| 1400 | — | 0.0129 | 0.0164 | 0.0212 | 0.0272 |
+| 1600 | — | 0.0113 | 0.0144 | 0.0186 | 0.0238 |
+| 1800 | — | 0.0101 | 0.0129 | 0.0165 | 0.0212 |
+| 2000 | — | 0.0090 | 0.0115 | 0.0149 | 0.0191 |
+| 2500 | — | 0.0072 | 0.0092 | 0.0127 | 0.0163 |
+
+\* Typical conductor diameters shown only where manufacturer data has been directly checked.  
+For all other sizes, actual conductor diameter must be taken from the specific manufacturer datasheet for the exact conductor construction.
+
+---
+
+## Technical Notes
+
+- Aluminium conductors: minimum **10 mm²** in IEC 60228  
+- Base temperature: **20°C**  
+- 90°C values represent conductor resistance at maximum continuous operating temperature  
+- Actual operating temperature varies depending on installation method, grouping and loading  
+- Resistance at operating temperature is used implicitly in voltage drop and current rating calculations  
+- Manufacturer data at 90°C may also be expressed as AC resistance including additional effects such as skin and proximity  
+- Temperature correction is based on material behaviour referenced at 20°C  
+
+---
+
+## Conductor Geometry and Application Limits
+
+- Conductor diameters must always be verified against actual manufacturer datasheets prior to design or installation  
+- Sectorial, compacted, shaped or Milliken conductors may differ significantly from circular assumptions  
+- Large conductors, typically **1000 mm² and above**, are commonly of Milliken or segmented construction  
+- Incorrect geometric assumptions can result in termination failure, overheating and fire risk  
+
+---
+
+## Terminations and Installation Risk
+
+- Always confirm compatibility of lugs, glands and accessories with both cable manufacturer and accessory manufacturer  
+- Aluminium conductors require **bimetallic terminations** to reduce galvanic risk  
+- Shear bolt connectors and lugs should be:
+  - type tested
+  - suitable for conductor construction
+  - compliant with relevant distribution network operator requirements
+
+- Crimping aluminium conductors carries elevated risk due to:
+  - oxide layer formation
+  - incorrect tooling
+  - poor compression control
+
+- Sectorial and Milliken conductors further increase termination risk and require specialist handling and design validation  
+
+---
+
+## Disclaimer
+
+The values presented in this table are **DC conductor resistance values only** and are provided for general technical reference.
+
+They do not represent AC resistance, reactance, impedance or full system electrical behaviour.  
+AC electrical parameters must be determined separately using proven calculation software, validated manufacturer data and project specific installation conditions.
+
+All values must be independently verified against applicable standards, manufacturer data and by appropriately qualified professionals prior to use.
+
+Where required by project risk, contract, insurer or regulation, manufacturer confirmation and sign off by a suitably qualified Chartered Electrical Engineer should be obtained. Records of calculations, design responsibility, approvals and relevant professional indemnity insurance should be retained as part of the project documentation.
+
+This table has been cross checked against manufacturer datasheets and utility documentation, including UK Power Networks technical schedules. However, no liability is accepted for the correctness, completeness or application of the data.
+
+---
+
+<sub>Reference basis: IEC 60228 conductor resistance values at 20°C, checked against manufacturer and utility documentation where available.</sub>

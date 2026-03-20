@@ -9,7 +9,8 @@ This reference provides maximum DC resistance values for Class 2 stranded conduc
 *Type a size (e.g. "240") to filter the table:*  
 <input type="text" id="tableSearch" onkeyup="filterTable()" placeholder="Search Nominal Area (mm²)..." style="padding:8px;width:250px;border-radius:4px;border:1px solid #ccc;margin-bottom:15px;">
 
-<table id="resTable">
+<div style="overflow-x:auto;">
+<table id="resTable" style="border-collapse:collapse; width:100%;">
 <thead>
 <tr>
 <th>Nominal Area (mm²)</th>
@@ -53,6 +54,20 @@ This reference provides maximum DC resistance values for Class 2 stranded conduc
 <tr><td>2500</td><td></td><td>0.0072</td><td>0.0092</td><td>0.0127</td><td>0.0163</td></tr>
 </tbody>
 </table>
+</div>
+
+<style>
+#resTable th {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 2;
+}
+#resTable th, #resTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+</style>
 
 <script>
 function filterTable() {
@@ -70,6 +85,16 @@ function filterTable() {
   }
 }
 </script>
+
+<style>
+@media print {
+  #tableSearch,
+  input,
+  script {
+    display: none;
+  }
+}
+</style>
 
 ---
 

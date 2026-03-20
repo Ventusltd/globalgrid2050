@@ -6,6 +6,7 @@ Use live inputs below, then compare against the fixed reference table.
 </p>
 
 <div style="margin-bottom:20px; padding:15px; background:#f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
+  
   <label>Copper USD/Tonne</label><br>
   <input id="cu" value="12850" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
 
@@ -19,7 +20,8 @@ Use live inputs below, then compare against the fixed reference table.
   <input id="fx_eur" value="1.0800" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
 
   <div style="font-size: 0.9em; color: #555; margin-bottom: 15px;">
-    <em>Live Cross Rates: 1 GBP = <span id="gbp_eur">1.2282</span> EUR | 1 EUR = <span id="eur_gbp">0.8142</span> GBP</em>
+    <strong id="fx_time">Fetching live FX...</strong><br>
+    <em>Live Cross Rates: 1 GBP = <span id="gbp_eur">...</span> EUR | 1 EUR = <span id="eur_gbp">...</span> GBP</em>
   </div>
 
   <label>Display Currency</label><br>
@@ -28,6 +30,7 @@ Use live inputs below, then compare against the fixed reference table.
     <option value="USD">USD ($)</option>
     <option value="EUR">EUR (€)</option>
   </select>
+
 </div>
 
 <div style="overflow-x:auto; margin-bottom:25px;">
@@ -69,20 +72,51 @@ Use live inputs below, then compare against the fixed reference table.
 <script>
 async function fetchFX() {
   try {
-    // Fixed API: open.er-api.com is free and does not require an API key
-    const res = await fetch("https://open.er-api.com/v6/latest/USD");
-    const data = await res.json();
+    // PRIMARY API
+    let res = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=GBP,EUR");
+    let data = await res.json();
 
-    if (data && data.rates) {
-        // The API returns rates based on 1 USD. To get GBP/USD (1 GBP = X USD), we invert it.
-        let gbp_usd = 1 / data.rates.GBP;
-        let eur_usd = 1 / data.rates.EUR;
-
-        document.getElementById("fx_gbp").value = gbp_usd.toFixed(4);
-        document.getElementById("fx_eur").value = eur_usd.toFixed(4);
+    // Validate response
+    if (!data.rates || !data.rates.GBP || !data.rates.EUR) {
+      throw new Error("Primary FX failed");
     }
+
+    let gbp_usd = 1 / data.rates.GBP;
+    let eur_usd = 1 / data.rates.EUR;
+
+    document.getElementById("fx_gbp").value = gbp_usd.toFixed(4);
+    document.getElementById("fx_eur").value = eur_usd.toFixed(4);
+
+    updateFXTime();
+
   } catch (e) {
-    console.warn("FX fetch failed, using manual fallback values");
+    console.warn("Primary FX failed, trying fallback");
+
+    try {
+      // FALLBACK API
+      let res = await fetch("https://open.er-api.com/v6/latest/USD");
+      let data = await res.json();
+
+      let gbp_usd = 1 / data.rates.GBP;
+      let eur_usd = 1 / data.rates.EUR;
+
+      document.getElementById("fx_gbp").value = gbp_usd.toFixed(4);
+      document.getElementById("fx_eur").value = eur_usd.toFixed(4);
+
+      updateFXTime();
+
+    } catch (err) {
+      console.warn("All FX sources failed — using manual values");
+      document.getElementById("fx_time").innerHTML = "Live FX unavailable - Using manual inputs";
+    }
+  }
+}
+
+function updateFXTime() {
+  let now = new Date();
+  let fxTimeEl = document.getElementById("fx_time");
+  if (fxTimeEl) {
+      fxTimeEl.innerHTML = "Live FX Timestamp: " + now.toUTCString();
   }
 }
 
@@ -93,15 +127,18 @@ function calc() {
   let fx_eur = parseFloat(document.getElementById("fx_eur").value) || 1;
   let currency = document.getElementById("currency").value;
 
-  // Cross rates (AUTO)
+  // SAFETY CHECK
+  if (!fx_gbp || !fx_eur) return;
+
+  // Cross rates
   let gbp_eur = fx_gbp / fx_eur;
   let eur_gbp = fx_eur / fx_gbp;
 
-  // Safely update DOM if the elements exist
-  let gbp_eur_el = document.getElementById("gbp_eur");
-  let eur_gbp_el = document.getElementById("eur_gbp");
-  if (gbp_eur_el) gbp_eur_el.innerHTML = gbp_eur.toFixed(4);
-  if (eur_gbp_el) eur_gbp_el.innerHTML = eur_gbp.toFixed(4);
+  // Update Cross Rates in UI safely
+  let gbpEurEl = document.getElementById("gbp_eur");
+  let eurGbpEl = document.getElementById("eur_gbp");
+  if (gbpEurEl) gbpEurEl.innerHTML = gbp_eur.toFixed(4);
+  if (eurGbpEl) eurGbpEl.innerHTML = eur_gbp.toFixed(4);
 
   let cu_price, al_price, symbol;
 
@@ -130,7 +167,7 @@ function calc() {
 
   cables.forEach(c => {
     let cond = c[0];
-    let cws = c[1]; // Restored CWS column
+    let cws = c[1];
 
     let al_kg = cond * 2.92;
     let cu_kg = cws * 9.6;
@@ -160,11 +197,9 @@ function calc() {
   });
 }
 
-// SAFE AUTO FLOW (DO NOT BREAK)
+// AUTO FLOW (SAFE)
 document.addEventListener("DOMContentLoaded", async function () {
-  // 1. Fetch FX (auto)
-  await fetchFX();
-  // 2. Run calculation AFTER FX loads so the table populates instantly
-  calc();
+  await fetchFX();  // pull live FX
+  calc();           // run pricing immediately after
 });
 </script>

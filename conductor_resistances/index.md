@@ -6,7 +6,7 @@ This table applies to stranded conductors (Class 2), including aluminium, primar
 
 Solid conductors (Class 1) have higher permissible resistance and must be verified separately against IEC 60228 Table 1.
 
-Sectorial, Milliken or other non-circular conductor geometries are not directly represented and may vary significantly.
+Sectorial, or other non-circular conductor may vary.
 
 ---
 

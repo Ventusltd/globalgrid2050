@@ -1,8 +1,83 @@
-<h2>33 kV Cable Price Estimator & LV Single Core Sales Model</h2>
+<h2>33 kV Aluminium XLPE Cable Price Estimator (Fixed Reference)</h2>
 
 <p>
-33 kV section uses aluminium conductor with copper wire screen and BS 7870 screen resistance references.<br>
-LV section below uses single core copper and aluminium conductors with no screen and a user entered Hollow Price / Attached Target plus Surge Price Noise.
+Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
+</p>
+<p>
+Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.
+</p>
+
+<h3>Market Inputs</h3>
+
+<div style="overflow-x:auto;">
+<table class="refTbl">
+<tr><th>Parameter</th><th>Value</th></tr>
+<tr><td>LME Copper (USD)</td><td>$12,850 / tonne</td></tr>
+<tr><td>LME Aluminium (USD)</td><td>$3,520 / tonne</td></tr>
+<tr><td>GBP/USD Rate</td><td>1 GBP = 1.3265 USD</td></tr>
+<tr><td>Copper (GBP)</td><td>£9,687 / tonne</td></tr>
+<tr><td>Aluminium (GBP)</td><td>£2,654 / tonne</td></tr>
+<tr><td>Last Update</td><td>Friday 20 March 2026 19:05 UTC</td></tr>
+</table>
+</div>
+
+<h3>Weight Formulas</h3>
+<ul>
+<li><strong>Copper kg per km</strong> = mm² × 9.6</li>
+<li><strong>Aluminium kg per km</strong> = mm² × 2.92</li>
+</ul>
+
+<h3>Net Price Rule</h3>
+<p><strong>Net cable price ≈ Metal value ÷ 0.3</strong></p>
+<p>Typical cost structure:</p>
+<ul>
+<li><strong>Metal content:</strong> ≈ 30%</li>
+<li><strong>Manufacturing, logistics, and margin:</strong> ≈ 70%</li>
+</ul>
+
+<h3>Cable Metal and Net Price Estimator</h3>
+
+<div style="overflow-x:auto; margin-bottom: 40px;">
+<table class="refTbl">
+<thead>
+<tr>
+<th>Conductor mm²</th>
+<th>CWS mm²</th>
+<th>Aluminium kg/km</th>
+<th>Copper kg/km</th>
+<th>Aluminium £/km</th>
+<th>Copper £/km</th>
+<th>Total metal £/km</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>120</td><td>35</td><td>350.4</td><td>336.0</td><td>930</td><td>3,255</td><td>4,185</td></tr>
+<tr><td>150</td><td>35</td><td>438.0</td><td>336.0</td><td>1,162</td><td>3,255</td><td>4,417</td></tr>
+<tr><td>185</td><td>35</td><td>540.2</td><td>336.0</td><td>1,433</td><td>3,255</td><td>4,688</td></tr>
+<tr><td>240</td><td>35</td><td>700.8</td><td>336.0</td><td>1,860</td><td>3,255</td><td>5,115</td></tr>
+<tr><td>300</td><td>35</td><td>876.0</td><td>336.0</td><td>2,325</td><td>3,255</td><td>5,579</td></tr>
+<tr><td>400</td><td>35</td><td>1,168.0</td><td>336.0</td><td>3,099</td><td>3,255</td><td>6,354</td></tr>
+<tr><td>500</td><td>35</td><td>1,460.0</td><td>336.0</td><td>3,874</td><td>3,255</td><td>7,129</td></tr>
+<tr><td>630</td><td>35</td><td>1,839.6</td><td>336.0</td><td>4,882</td><td>3,255</td><td>8,136</td></tr>
+<tr><td>800</td><td>50</td><td>2,336.0</td><td>480.0</td><td>6,199</td><td>4,650</td><td>10,849</td></tr>
+<tr><td>1000</td><td>50</td><td>2,920.0</td><td>480.0</td><td>7,749</td><td>4,650</td><td>12,398</td></tr>
+<tr><td>1200</td><td>50</td><td>3,504.0</td><td>480.0</td><td>9,298</td><td>4,650</td><td>13,948</td></tr>
+<tr><td>1400</td><td>50</td><td>4,088.0</td><td>480.0</td><td>10,848</td><td>4,650</td><td>15,498</td></tr>
+<tr><td>1600</td><td>50</td><td>4,672.0</td><td>480.0</td><td>12,398</td><td>4,650</td><td>17,047</td></tr>
+<tr><td>1800</td><td>50</td><td>5,256.0</td><td>480.0</td><td>13,947</td><td>4,650</td><td>18,597</td></tr>
+<tr><td>2000</td><td>50</td><td>5,840.0</td><td>480.0</td><td>15,497</td><td>4,650</td><td>20,147</td></tr>
+<tr><td>2500</td><td>50</td><td>7,300.0</td><td>480.0</td><td>19,371</td><td>4,650</td><td>24,021</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr style="border: 2px solid #333; margin-bottom: 40px;">
+
+<h2>Live Pricing Engine: 33 kV & LV Single Core Models</h2>
+
+<p>
+The 33 kV section models aluminium conductors with a copper wire screen, utilizing BS 7870 screen resistance limits.<br>
+The LV section models single-core copper and aluminium conductors with a user-defined input for all non-metal costs.
 </p>
 
 <div style="margin-bottom:20px; padding:15px; background:#f9f9f9; border:1px solid #ddd; border-radius:8px;">
@@ -38,11 +113,8 @@ LV section below uses single core copper and aluminium conductors with no screen
     Screen size must be selected to meet earth fault requirements. BS 7870 Table 6 provides the validated screen resistance values.
   </p>
 
-  <label><strong>LV Hollow Price / Attached Target</strong></label><br>
-  <input id="hollow_price" type="number" value="0" step="1" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
-
-  <label><strong>LV Surge Price Noise</strong></label><br>
-  <input id="surge_price" type="number" value="0" step="1" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
+  <label><strong>LV Non-Metal Costs (Polymers, Labour, Margin)</strong></label><br>
+  <input id="lv_non_metal" type="number" value="0" step="1" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
 
   <label><strong>Display Currency</strong></label><br>
   <select id="currency" onchange="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
@@ -74,7 +146,7 @@ LV section below uses single core copper and aluminium conductors with no screen
 </table>
 </div>
 
-<h3>LV AC and DC Single Core Sales Model. Hollow Price / Attached Target plus Surge Price Noise</h3>
+<h3>LV AC and DC Single Core Sales Model</h3>
 
 <div style="overflow-x:auto; margin-bottom:25px;">
 <table id="lvTbl" style="border-collapse:collapse;width:100%;font-family:Courier, monospace;font-size:0.95em;">
@@ -84,13 +156,21 @@ LV section below uses single core copper and aluminium conductors with no screen
 <th>Material</th>
 <th>kg/km</th>
 <th>Metal Value</th>
-<th>Sales Factor</th>
+<th>Non-Metal Costs</th>
 <th>Net Price</th>
 </tr>
 </thead>
 <tbody></tbody>
 </table>
 </div>
+
+<h3>Notes & Disclaimer</h3>
+<p>
+This estimator supports rapid early-stage cost analysis for Solar farms, Battery energy storage systems (BESS), Wind farms, Utility substations, and Transmission and distribution connections.
+</p>
+<p>
+<strong>Disclaimer:</strong> These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.
+</p>
 
 <style>
 table th {
@@ -108,6 +188,16 @@ table th, table td {
 }
 table tr:nth-child(even) {
   background: #fafafa;
+}
+.refTbl {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: Courier, monospace;
+  font-size: 0.95em;
+}
+.refTbl th {
+  background: #333;
+  color: #fff;
 }
 @media print {
   select, input {
@@ -197,8 +287,9 @@ function calc() {
   let currency = document.getElementById("currency").value;
   let target_pct = parseFloat(document.getElementById("metal_pct_target").value) || 30;
   let selected_cws = parseFloat(document.getElementById("cws_input").value) || 50;
-  let hollow_price = parseFloat(document.getElementById("hollow_price").value) || 0;
-  let surge_price = parseFloat(document.getElementById("surge_price").value) || 0;
+  
+  // Single variable for LV non-metal costs
+  let lv_non_metal = parseFloat(document.getElementById("lv_non_metal").value) || 0;
 
   if (!fx_gbp || !fx_eur || !target_pct) return;
 
@@ -210,7 +301,7 @@ function calc() {
   let { cu_price, al_price, symbol } = getPricesInCurrency(cu, al, fx_gbp, fx_eur, currency);
 
   render33kV(cu_price, al_price, symbol, target_pct, selected_cws);
-  renderLV(cu_price, al_price, symbol, hollow_price, surge_price);
+  renderLV(cu_price, al_price, symbol, lv_non_metal);
 }
 
 function render33kV(cu_price, al_price, symbol, target_pct, selected_cws) {
@@ -244,11 +335,9 @@ function render33kV(cu_price, al_price, symbol, target_pct, selected_cws) {
   });
 }
 
-function renderLV(cu_price, al_price, symbol, hollow_price, surge_price) {
+function renderLV(cu_price, al_price, symbol, lv_non_metal) {
   let tbody = document.querySelector("#lvTbl tbody");
   tbody.innerHTML = "";
-
-  let sales_factor = hollow_price + surge_price;
 
   lvSizes.forEach(size => {
     let cu_kg = size * 9.6;
@@ -257,15 +346,15 @@ function renderLV(cu_price, al_price, symbol, hollow_price, surge_price) {
     let cu_metal = cu_kg * (cu_price / 1000);
     let al_metal = al_kg * (al_price / 1000);
 
-    let cu_net = cu_metal + sales_factor;
-    let al_net = al_metal + sales_factor;
+    let cu_net = cu_metal + lv_non_metal;
+    let al_net = al_metal + lv_non_metal;
 
     let rowCu = `<tr>
       <td><strong>${size}</strong></td>
       <td>Copper</td>
       <td>${cu_kg.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
       <td>${symbol}${cu_metal.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${symbol}${sales_factor.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
+      <td>${symbol}${lv_non_metal.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
       <td><strong>${symbol}${cu_net.toLocaleString('en-GB', {maximumFractionDigits:0})}</strong></td>
     </tr>`;
 
@@ -274,7 +363,7 @@ function renderLV(cu_price, al_price, symbol, hollow_price, surge_price) {
       <td>Aluminium</td>
       <td>${al_kg.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
       <td>${symbol}${al_metal.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
-      <td>${symbol}${sales_factor.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
+      <td>${symbol}${lv_non_metal.toLocaleString('en-GB', {maximumFractionDigits:0})}</td>
       <td><strong>${symbol}${al_net.toLocaleString('en-GB', {maximumFractionDigits:0})}</strong></td>
     </tr>`;
 

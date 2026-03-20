@@ -1,26 +1,26 @@
-<h1>Maximum Conductor Resistance Table (IEC 60228 Class 2)</h1>
+<h1>Maximum Conductor Resistance Table</h1>
 
-<p><strong>Disclaimer:</strong> This table identifies maximum resistance for Class 2 stranded conductors only. 
-For Class 1 solid conductors, the permissible resistance is higher and must be independently validated against Table 1 of the standard.</p>
+<p><strong>Scope:</strong> This table applies to stranded conductors (Class 2), including aluminium. 
+Solid conductors (Class 1) have higher permissible resistance and must be verified separately against IEC 60228 Table 1.</p>
+
+<p><strong>Basis:</strong> 20°C values align with IEC 60228 limits. 
+90°C values are calculated using standard temperature correction factors.</p>
 
 <h2>Conductor Resistance at 20°C and 90°C</h2>
 
-<p>Values for 20°C are sourced directly from IEC 60228 Table 2.<br>
-Values for 90°C are calculated using the exact formulae from Annex B:</p>
-
 <ul>
-  <li><strong>Copper (Cu) factor at 90°C:</strong> 1.2751 (1 + 0.00393 × 70)</li>
-  <li><strong>Aluminium (Al) factor at 90°C:</strong> 1.2821 (1 + 0.00403 × 70)</li>
+  <li><strong>Copper factor:</strong> 1.2751</li>
+  <li><strong>Aluminium factor:</strong> 1.2821</li>
 </ul>
 
 <table>
   <thead>
     <tr>
       <th>Nominal Area (mm²)</th>
-      <th>Max Resistance: Plain Copper @ 20°C (Ω/km)</th>
-      <th>Calculated Resistance: Plain Copper @ 90°C (Ω/km)</th>
-      <th>Max Resistance: Aluminium @ 20°C (Ω/km)</th>
-      <th>Calculated Resistance: Aluminium @ 90°C (Ω/km)</th>
+      <th>Copper @ 20°C (Ω/km)</th>
+      <th>Copper @ 90°C (Ω/km)</th>
+      <th>Aluminium @ 20°C (Ω/km)</th>
+      <th>Aluminium @ 90°C (Ω/km)</th>
     </tr>
   </thead>
   <tbody>
@@ -57,18 +57,12 @@ Values for 90°C are calculated using the exact formulae from Annex B:</p>
   </tbody>
 </table>
 
-<h2>Technical Notes &amp; Standards Compliance</h2>
+<h2>Technical Notes</h2>
 
 <ul>
-  <li><strong>Aluminium size restriction:</strong> According to IEC 60228 Clause 5.2.1 (b), stranded aluminium or aluminium alloy conductors must have a nominal cross sectional area of not less than 10 mm².</li>
-
-  <li><strong>Reference temperature:</strong> All base resistance values are maximum values defined and tested at a base temperature of 20°C.</li>
-
-  <li><strong>Field measurement correction:</strong> To correct d.c. resistance measured at temperature <em>t</em> back to the standard 20°C, the formula from Annex A applies.</li>
-
-  <li><strong>Operating temperature (90°C):</strong> These calculated values represent the conductor under full load conditions for typical XLPE insulated power cables.</li>
+  <li>Aluminium conductors: minimum 10 mm² (IEC 60228 requirement)</li>
+  <li>Base temperature: 20°C</li>
+  <li>90°C values represent typical full load XLPE operation</li>
 </ul>
 
-<h2>Source Reference</h2>
-
-<p>IEC 60228:2004, Conductors of insulated cables, Third edition.</p>
+<p><small>IEC 60228:2004 reference</small></p>

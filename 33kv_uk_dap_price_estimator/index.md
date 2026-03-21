@@ -16,7 +16,7 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
   <input id="al" value="3520" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
 
   <label><strong>GBP/USD Rate (Live Auto-Fetch)</strong></label><br>
-  <input id="fx_gbp" value="1.3265" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
+  <input id="fx_gbp" value="0.7539" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
 
   <label><strong>EUR/USD Rate (Live Auto-Fetch)</strong></label><br>
   <input id="fx_eur" value="1.0800" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">

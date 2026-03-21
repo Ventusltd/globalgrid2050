@@ -142,4 +142,72 @@ let cu_price, al_price, symbol;
 
 if (currency === "GBP") {
 cu_price = cu / fx_gbp;
-al_price =
+al_price = al / fx_gbp;
+symbol = "£";
+} else if (currency === "EUR") {
+cu_price = cu / fx_eur;
+al_price = al / fx_eur;
+symbol = "€";
+} else {
+cu_price = cu;
+al_price = al;
+symbol = "$";
+}
+
+let tbody = document.querySelector("#liveTbl tbody");
+tbody.innerHTML = "";
+
+mvCables.forEach(c => {
+
+let cond = c[0];
+let cws = c[1];
+
+let al_kg = cond * 2.92;
+let cu_kg = cws * 9.6;
+
+let al_cost = al_kg * (al_price / 1000);
+let cu_cost = cu_kg * (cu_price / 1000);
+
+let total = al_cost + cu_cost;
+let net = total / 0.3;
+
+tbody.innerHTML += `
+<tr>
+<td><strong>${cond}</strong></td>
+<td>${cws}</td>
+<td>${al_kg.toLocaleString()}</td>
+<td>${cu_kg.toLocaleString()}</td>
+<td>${symbol}${Math.round(al_cost).toLocaleString()}</td>
+<td>${symbol}${Math.round(cu_cost).toLocaleString()}</td>
+<td>${symbol}${Math.round(total).toLocaleString()}</td>
+<td style="background:#eef8e5;"><strong>${symbol}${Math.round(net).toLocaleString()}</strong></td>
+</tr>
+`;
+
+});
+
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+await fetchFX();
+calc();
+});
+
+</script>
+
+---
+
+## Notes
+
+This estimator supports rapid early stage cost analysis for:
+- Solar farms
+- Battery energy storage systems (BESS)
+- Wind farms
+- Utility substations
+- Transmission and distribution connections
+
+---
+
+## Disclaimer
+
+Disclaimer: These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.

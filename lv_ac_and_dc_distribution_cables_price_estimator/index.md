@@ -1,17 +1,46 @@
 # LV AC and DC Distribution Cables Price Estimator for Large Projects
 
-**Class II standard circular compacted conductors only, single core cables, other conductor types may vary**  
-**Maximum cross section limited to 800 mm² based on practical LV cable manufacturing and installation constraints**  
-**DC resistance at 20°C per IEC 60228**  
-**LME Copper price: 12021.50 USD per tonne (1000 kg)**  
-**LME Aluminium price: 3329.00 USD per tonne (1000 kg)**  
-**FX: 1 GBP = 1.3341 USD | 1 GBP = 1.1529 EUR | 1 GBP = 1.0513 CHF**  
-**Supply cost factor: 0.3 (adjustable)**  
-**Net price estimate = metal cost ÷ supply cost factor**
+Class II standard circular compacted conductors only, single core cables, other conductor types may vary.  
+Maximum cross section limited to 800 mm² based on practical LV cable manufacturing and installation constraints.  
+DC resistance at 20°C per IEC 60228.
 
 ---
 
-| Cross section mm² | Copper DC resistance at 20°C Ω/km | Aluminium DC resistance at 20°C Ω/km | Copper kg/km | Aluminium kg/km | Copper USD/km | Aluminium USD/km | Copper net USD/km | Aluminium net USD/km | Copper net EUR/km | Aluminium net EUR/km | Copper net CHF/km | Aluminium net CHF/km | Copper net GBP/km | Aluminium net GBP/km |
+## Market Inputs
+
+| Parameter | Value |
+|---|---|
+| LME Copper (USD) | $12,021.50 per tonne |
+| LME Aluminium (USD) | $3,329.00 per tonne |
+| GBP/USD Rate | 1 GBP = 1.3341 USD |
+| GBP/EUR Rate | 1 GBP = 1.1529 EUR |
+| GBP/CHF Rate | 1 GBP = 1.0513 CHF |
+| Supply Cost Factor | 0.3 |
+| Last Update | Saturday 21 March 2026 |
+
+---
+
+## Weight Formulas
+
+- Copper kg per km = mm² × 9.6  
+- Aluminium kg per km = mm² × 2.92  
+
+---
+
+## Net Price Rule
+
+Net cable price ≈ Metal value ÷ 0.3  
+
+Typical cost structure:
+
+- Metal content: ≈ 25–30%  
+- Manufacturing, logistics, and margin: ≈ 70–75%  
+
+---
+
+## Cable Metal and Net Price Estimator
+
+| mm² | Cu Ω/km | Al Ω/km | Cu kg/km | Al kg/km | Cu USD/km | Al USD/km | Cu net USD/km | Al net USD/km | Cu EUR/km | Al EUR/km | Cu CHF/km | Al CHF/km | Cu GBP/km | Al GBP/km |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 0.5 | 36.0 | – | 4.8 | 1.46 | 57.7 | 4.9 | 192.3 | 16.3 | 166.2 | 14.1 | 151.7 | 12.8 | 144.2 | 12.2 |
 | 0.75 | 24.5 | – | 7.2 | 2.19 | 86.6 | 7.3 | 288.7 | 24.3 | 249.6 | 21.0 | 227.5 | 19.1 | 216.4 | 18.2 |
@@ -36,3 +65,22 @@
 | 500 | 0.0366 | 0.0605 | 4800.0 | 1460.00 | 57703.2 | 4859.3 | 192344.0 | 16197.7 | 166240.6 | 14000.0 | 151662.0 | 12760.0 | 144209.3 | 12141.5 |
 | 630 | 0.0283 | 0.0469 | 6048.0 | 1839.60 | 72706.0 | 6122.0 | 242353.3 | 20406.7 | 209412.2 | 17643.6 | 190974.0 | 16080.0 | 181660.3 | 15299.9 |
 | 800 | 0.0221 | 0.0367 | 7680.0 | 2336.00 | 92325.1 | 7775.5 | 307750.3 | 25918.3 | 265993.7 | 22397.7 | 242540.0 | 20440.0 | 230683.0 | 19430.5 |
+
+---
+
+## Notes
+
+This estimator supports early stage cost analysis for:
+
+- Solar farms  
+- Battery energy storage systems  
+- EV infrastructure  
+- Industrial LV distribution systems  
+
+---
+
+## Disclaimer
+
+These values are derived from market assumptions and internal modelling.  
+Actual cable pricing varies based on project volume, factory loading, and procurement strategy.  
+No warranty is given for data accuracy.

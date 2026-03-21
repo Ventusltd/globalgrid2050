@@ -1,61 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>GlobalGrid2050</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+  body {
+    background: black;
+    color: white;
+    font-family: Courier, monospace;
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 1.6;
+  }
 
-body {
-background:black;
-color:white;
-font-family:Courier, monospace;
-padding:40px;
-max-width:900px;
-font-size:20px;
-line-height:1.6;
-}
+  a {
+    color: #66ccff;
+    text-decoration: none;
+  }
 
-a {
-color:#66ccff;
-text-decoration:none;
-}
+  a:hover {
+    text-decoration: underline;
+  }
 
-a:hover {
-text-decoration:underline;
-}
+  /* Search Box Styling */
+  #gridSearch {
+    width: 100%;
+    padding: 12px;
+    background: #111;
+    color: white;
+    border: 1px solid #444;
+    font-family: Courier, monospace;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  #gridSearch:focus {
+    outline: none;
+    border-color: #66ccff;
+  }
 
-table {
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
 
-td {
-padding:10px 0;
-border-bottom:1px solid #444;
-}
+  td {
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+  }
 
-.footer {
-margin-top:60px;
-font-size:16px;
-color:#aaaaaa;
-line-height:1.5;
-}
+  .footer {
+    margin-top: 60px;
+    font-size: 16px;
+    color: #aaaaaa;
+    line-height: 1.5;
+  }
 
-@media (max-width: 600px) {
-body {
-padding:25px;
-font-size:22px;
-}
-.footer {
-font-size:18px;
-}
-}
-
+  @media (max-width: 600px) {
+    body {
+      padding: 25px;
+      font-size: 18px;
+    }
+    .footer {
+      font-size: 14px;
+    }
+  }
 </style>
-
 </head>
 
 <body>
@@ -81,47 +98,62 @@ the physical behaviour of electrical systems, grid stability, solar generation,
 storage integration, transmission infrastructure and electrical safety.
 </p>
 
-<br>
+<input type="text" id="gridSearch" onkeyup="searchTable()" placeholder="Search directory (e.g., 'price', 'solar', 'cables')...">
 
-<table>
-
-<tr><td><a href="33kv_uk_dap_price_estimator/">33 kV UK DAP Price Estimator</a></td></tr>
-<tr><td><a href="ac_cables_knowledge/">AC Cables Knowledge</a></td></tr>
-<tr><td><a href="blog/">Blog</a></td></tr>
-<tr><td><a href="conductor_resistances/">Conductor Resistances</a></td></tr>
-<tr><td><a href="dc_cables_knowledge/">DC Cables Knowledge</a></td></tr>
-<tr><td><a href="definitions/">Definitions</a></td></tr>
-<tr><td><a href="employers_requirements/">Employer Requirements Notes</a></td></tr>
-<tr><td><a href="lv_dc_ac_price_estimator/">LV AC and DC Distribution Cables Price Estimator</a></td></tr>
-<tr><td><a href="mv_and_hv_components/">MV and HV Components</a></td></tr>
-<tr><td><a href="nsip_solar_farms/">NSIP Solar Farms</a></td></tr>
-<tr><td><a href="podcast_transcripts/">Podcast Transcripts</a></td></tr>
-<tr><td><a href="power_systems_studies/">Power Systems Studies</a></td></tr>
-<tr><td><a href="sld_single_diagrams_diagrams_and_grids/">Single Line Diagrams And Grids</a></td></tr>
-<tr><td><a href="solar_components/">Solar Components</a></td></tr>
-<tr><td><a href="solar_deployment_statistics/">Solar Deployment Statistics</a></td></tr>
-
+<table id="directoryTable">
+  <tr><td><a href="33kv_uk_dap_price_estimator/">33 kV UK DAP Price Estimator</a></td></tr>
+  <tr><td><a href="ac_cables_knowledge/">AC Cables Knowledge</a></td></tr>
+  <tr><td><a href="blog/">Blog</a></td></tr>
+  <tr><td><a href="conductor_resistances/">Conductor Resistances</a></td></tr>
+  <tr><td><a href="dc_cables_knowledge/">DC Cables Knowledge</a></td></tr>
+  <tr><td><a href="definitions/">Definitions</a></td></tr>
+  <tr><td><a href="employers_requirements/">Employer Requirements Notes</a></td></tr>
+  <tr><td><a href="lv_ac_dc_price_estimator/">LV AC and DC Distribution Cables Price Estimator</a></td></tr>
+  <tr><td><a href="mv_and_hv_components/">MV and HV Components</a></td></tr>
+  <tr><td><a href="nsip_solar_farms/">NSIP Solar Farms</a></td></tr>
+  <tr><td><a href="podcast_transcripts/">Podcast Transcripts</a></td></tr>
+  <tr><td><a href="power_systems_studies/">Power Systems Studies</a></td></tr>
+  <tr><td><a href="sld_single_diagrams_diagrams_and_grids/">Single Line Diagrams And Grids</a></td></tr>
+  <tr><td><a href="solar_components/">Solar Components</a></td></tr>
+  <tr><td><a href="solar_deployment_statistics/">Solar Deployment Statistics</a></td></tr>
 </table>
 
 <div class="footer">
-
-<p>
-Disclaimer
-</p>
-
-<p>
-The information published on GlobalGrid2050 is provided for general technical documentation,
-research and educational purposes. While reasonable care is taken in preparing the material,
-no representation or warranty is made regarding its completeness or suitability for any
-specific project or application. The content does not constitute engineering advice,
-professional services or regulatory guidance. Any design, construction or operational
-decisions relating to electrical infrastructure must be undertaken by appropriately
-qualified professionals in accordance with applicable laws, standards and regulatory
-requirements. The operators of GlobalGrid2050 accept no liability for any reliance
-placed upon the material.
-</p>
-
+  <p><strong>Disclaimer</strong></p>
+  <p>
+  The information published on GlobalGrid2050 is provided for general technical documentation,
+  research and educational purposes. While reasonable care is taken in preparing the material,
+  no representation or warranty is made regarding its completeness or suitability for any
+  specific project or application. The content does not constitute engineering advice,
+  professional services or regulatory guidance. Any design, construction or operational
+  decisions relating to electrical infrastructure must be undertaken by appropriately
+  qualified professionals in accordance with applicable laws, standards and regulatory
+  requirements. The operators of GlobalGrid2050 accept no liability for any reliance
+  placed upon the material.
+  </p>
 </div>
+
+<script>
+function searchTable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("gridSearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("directoryTable");
+  tr = table.getElementsByTagName("tr");
+  
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 
 </body>
 </html>

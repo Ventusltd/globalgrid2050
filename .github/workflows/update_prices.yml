@@ -35,15 +35,21 @@ jobs:
         run: python scripts/update_prices.py
 
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GRIDBOT_PAT }}
         run: |
           set -e
+          
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
+          
           git add lv_ac_dc_price_estimator/index.md
           git add 33kv_uk_dap_price_estimator/index.md
+          
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push origin HEAD
+            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+            git push origin HEAD:main
           else
             echo "No changes to commit"
           fi

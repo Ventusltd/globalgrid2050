@@ -1,6 +1,6 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
-Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
+[span_0](start_span)[span_1](start_span)Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.[span_0](end_span)[span_1](end_span)
 
 ---
 
@@ -16,15 +16,15 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
 
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 25px;">
         <div style="background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0; text-align:center;">
-            <span style="font-size:0.7em; color:#64748b; font-weight:700; text-transform:uppercase;">Copper (GBP/Tonne)</span>
+            <div style="font-size:0.7em; color:#64748b; font-weight:700;">COPPER (GBP per Tonne)</div>
             <div id="cu_gbp_text" style="font-size:1em; font-weight:700;">£0</div>
         </div>
         <div style="background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0; text-align:center;">
-            <span style="font-size:0.7em; color:#64748b; font-weight:700; text-transform:uppercase;">Aluminium (GBP/Tonne)</span>
+            <div style="font-size:0.7em; color:#64748b; font-weight:700;">ALUMINIUM (GBP per Tonne)</div>
             <div id="al_gbp_text" style="font-size:1em; font-weight:700;">£0</div>
         </div>
         <div style="background:#fffaf0; padding:12px; border-radius:10px; border:1px solid #feebc8; text-align:center;">
-            <span style="font-size:0.7em; color:#c05621; font-weight:700; text-transform:uppercase;">GBP/EUR Cross Rate</span>
+            <div style="font-size:0.7em; color:#c05621; font-weight:700;">GBP to EUR</div>
             <div id="fx_cross" style="font-size:1em; font-weight:700; color:#744210;">0.0000</div>
         </div>
     </div>
@@ -33,8 +33,8 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
         <label style="display:block; font-weight:700; color:#22543d; margin-bottom:10px;">Net Price Rule (Metal Content %)</label>
         <input type="range" id="markup_slider" min="15" max="50" value="30" oninput="updateMarkupText(); calc();" style="width:100%; cursor:pointer;">
         <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-top:10px; font-weight:600;">
-            <span>Metal is <span id="markup_val">30</span>% of Total Price</span>
-            <span style="color:#718096;">Mark-up: <span id="overhead_val">70</span>%</span>
+            <div>Metal is <span id="markup_val">30</span>% of Total Price</div>
+            <div style="color:#718096;">Mark-up: <span id="overhead_val">70</span>%</div>
         </div>
     </div>
 
@@ -49,8 +49,8 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
         </div>
     </div>
 
-    <label style="display:block; font-weight:700; color:#333; margin-bottom:8px;">Pricing Currency</label>
-    <select id="currency" onchange="calc()" style="width:100%; padding:14px; border:2px solid #edf2f7; border-radius:8px; background:#fff; font-size:1em;">
+    <label style="display:block; font-weight:700; color:#333; margin-bottom:8px;">Pricing Currency for Table</label>
+    <select id="currency" onchange="calc()" style="width:100%; padding:14px; border:2px solid #edf2f7; border-radius:8px; background:#fff; font-size:1em; cursor:pointer;">
         <option value="GBP">GBP (£)</option>
         <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
@@ -60,8 +60,8 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
 ---
 
 ## Weight Formulas
-* **[span_3](start_span)Copper kg per km** = Conductor Size (mm²) × 9.6[span_3](end_span)
-* **[span_4](start_span)Aluminium kg per km** = Conductor Size (mm²) × 2.92[span_4](end_span)
+* **[span_2](start_span)Copper kg per km** = Conductor Size (mm²) x 9.6[span_2](end_span)
+* **[span_3](start_span)Aluminium kg per km** = Conductor Size (mm²) x 2.92[span_3](end_span)
 
 ---
 
@@ -85,11 +85,19 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
     </table>
 </div>
 
+<style>
+    /* Styling for the selected row highlight */
+    #liveTbl tbody tr { cursor: pointer; transition: background 0.2s; }
+    #liveTbl tbody tr:hover { background-color: #f7fafc; }
+    #liveTbl tbody tr.selected { background-color: #ebf8ff !important; border-left: 4px solid #3182ce; }
+</style>
+
 <script>
+// MV Cable sizing data: [Conductor mm², Copper Wire Screen mm²]
 const mvCables = [
     [120,35],[150,35],[185,35],[240,35],[300,35],[400,35],[500,35],[630,35],
     [800,50],[1000,50],[1200,50],[1400,50],[1600,50],[1800,50],[2000,50],[2500,50]
-];
+[span_4](start_span)[span_5](start_span)[span_6](start_span)];[span_4](end_span)[span_5](end_span)[span_6](end_span)
 
 function updateMarkupText() {
     const val = document.getElementById("markup_slider").value;
@@ -101,26 +109,35 @@ async function fetchFX() {
     try {
         const res = await fetch("https://api.frankfurter.app/latest?from=USD&symbols=GBP,EUR");
         const data = await res.json();
+        // Calculate "USD per 1 unit of foreign currency"
         document.getElementById("fx_gbp").value = (1 / data.rates.GBP).toFixed(4);
         document.getElementById("fx_eur").value = (1 / data.rates.EUR).toFixed(4);
         calc();
-    } catch (e) { console.log("FX Fetch Failed"); }
+    } catch (e) { 
+        console.log("FX Fetch Error - Using defaults");
+        // Fallback defaults if API fails
+        document.getElementById("fx_gbp").value = "1.3368";
+        document.getElementById("fx_eur").value = "1.1555";
+        calc();
+    }
 }
 
 function calc() {
     const cuUSD = parseFloat(document.getElementById("cu").value) || 0;
     const alUSD = parseFloat(document.getElementById("al").value) || 0;
-    const fxGBP = parseFloat(document.getElementById("fx_gbp").value) || 1.33;
-    const fxEUR = parseFloat(document.getElementById("fx_eur").value) || 1.15;
+    const fxGBP = parseFloat(document.getElementById("fx_gbp").value) || 1.3368;
+    const fxEUR = parseFloat(document.getElementById("fx_eur").value) || 1.1555;
     const metalRatio = parseFloat(document.getElementById("markup_slider").value) / 100;
     const curr = document.getElementById("currency").value;
 
-    // Cross rate calculation
+    // Cross-rate calculation (GBP to EUR)
     document.getElementById("fx_cross").innerText = (fxGBP / fxEUR).toFixed(4);
-
-    // Update informational slave boxes
+    
+    // Tonne conversion displays for the info boxes
     document.getElementById("cu_gbp_text").innerText = "£" + Math.round(cuUSD / fxGBP).toLocaleString();
     document.getElementById("al_gbp_text").innerText = "£" + Math.round(alUSD / fxGBP).toLocaleString();
+    document.getElementById("cu_eur_text").innerText = "€" + Math.round(cuUSD / fxEUR).toLocaleString();
+    document.getElementById("al_eur_text").innerText = "€" + Math.round(alUSD / fxEUR).toLocaleString();
 
     let pCu, pAl, sym;
     if (curr === "GBP") { pCu = cuUSD / fxGBP; pAl = alUSD / fxGBP; sym = "£"; }
@@ -129,36 +146,43 @@ function calc() {
 
     let rows = "";
     mvCables.forEach(c => {
-        const [cond, cws] = c;
+        const cond = c[0];
+        const cws = c[1];
         const al_kg = cond * 2.92;
         const cu_kg = cws * 9.6;
         const totMetal = (al_kg * (pAl/1000)) + (cu_kg * (pCu/1000));
         const netMain = totMetal / metalRatio;
 
-        [span_5](start_span)[span_6](start_span)// Calculate multi-currency sub-info for the Net Price cell[span_5](end_span)[span_6](end_span)
+        // Calculate USD, GBP, and EUR equivalents for sub-text info
         const mUSD = (al_kg * (alUSD/1000) + cu_kg * (cuUSD/1000)) / metalRatio;
         const mGBP = mUSD / fxGBP;
         const mEUR = mUSD / fxEUR;
 
-        let sub = "";
-        if(curr === "GBP") sub = `$${Math.round(mUSD).toLocaleString()} | €${Math.round(mEUR).toLocaleString()}`;
-        else if(curr === "EUR") sub = `$${Math.round(mUSD).toLocaleString()} | £${Math.round(mGBP).toLocaleString()}`;
-        else sub = `£${Math.round(mGBP).toLocaleString()} | €${Math.round(mEUR).toLocaleString()}`;
+        let subText = "";
+        if(curr === "GBP") {
+            subText = "$" + Math.round(mUSD).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
+        } else if(curr === "EUR") {
+            subText = "$" + Math.round(mUSD).toLocaleString() + " | £" + Math.round(mGBP).toLocaleString();
+        } else {
+            subText = "£" + Math.round(mGBP).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
+        }
 
-        rows += `<tr style="border-bottom:1px solid #edf2f7;">
-            <td style="padding:12px 10px;"><strong>${cond}</strong></td>
-            <td style="padding:12px 10px;">${cws}</td>
-            <td style="padding:12px 10px;">${Math.round(al_kg).toLocaleString()}</td>
-            <td style="padding:12px 10px;">${Math.round(cu_kg).toLocaleString()}</td>
-            <td style="padding:12px 10px;">${sym}${Math.round(totMetal).toLocaleString()}</td>
-            <td style="padding:12px 10px; background:#f0fff4; border-left:2px solid #c6f6d5;">
-                <div style="font-weight:bold; color:#22543d;">${sym}${Math.round(netMain).toLocaleString()}</div>
-                <div style="font-size:0.7em; color:#718096;">${sub}</div>
-            </td>
-        </tr>`;
+        // Build HTML string for row
+        rows += "<tr onclick=\"this.classList.toggle('selected')\" style='border-bottom:1px solid #edf2f7;'>" +
+            "<td style='padding:12px 10px;'><strong>" + cond + "</strong></td>" +
+            "<td style='padding:12px 10px;'>" + cws + "</td>" +
+            "<td style='padding:12px 10px;'>" + Math.round(al_kg).toLocaleString() + "</td>" +
+            "<td style='padding:12px 10px;'>" + Math.round(cu_kg).toLocaleString() + "</td>" +
+            "<td style='padding:12px 10px;'>" + sym + Math.round(totMetal).toLocaleString() + "</td>" +
+            "<td style='padding:12px 10px; background:#f0fff4; border-left:2px solid #c6f6d5;'>" +
+                "<div style='font-weight:bold; color:#22543d; font-size:1.1em;'>" + sym + Math.round(netMain).toLocaleString() + "</div>" +
+                "<div style='font-size:0.75em; color:#718096;'>" + subText + "</div>" +
+            "</td>" +
+        "</tr>";
     });
     document.querySelector("#liveTbl tbody").innerHTML = rows;
 }
 
+// Initialize on page load
 document.addEventListener("DOMContentLoaded", fetchFX);
 </script>

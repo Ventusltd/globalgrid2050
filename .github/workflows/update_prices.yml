@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write
 
 jobs:
   update:
@@ -17,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -32,13 +34,6 @@ jobs:
       - name: Run 33kV price update
         run: python scripts/update_prices.py
 
-      - name: Debug Git info
-        run: |
-          echo "Working directory: $(pwd)"
-          echo "Current branch: $(git branch --show-current)"
-          git remote -v
-          git status --short
-
       - name: Commit and push changes
         run: |
           set -e
@@ -50,7 +45,7 @@ jobs:
           git add 33kv_uk_dap_price_estimator/index.md
 
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing to commit"
+            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push origin HEAD
           else
             echo "No changes to commit"

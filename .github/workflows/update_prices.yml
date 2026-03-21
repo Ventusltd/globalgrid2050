@@ -41,6 +41,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          set -e
+
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
 
@@ -48,8 +50,8 @@ jobs:
           git add 33kv_uk_dap_price_estimator/index.md
 
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push
+            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing to commit"
+            git push origin HEAD
           else
             echo "No changes to commit"
           fi

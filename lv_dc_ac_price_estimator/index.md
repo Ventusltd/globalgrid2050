@@ -1,5 +1,6 @@
 # Pricing Estimator: Armoured Water-Blocked LV Distribution Single Cores
 ### For DC and AC Applications: High Current Solar & Distribution Power Collection Circuits (Rigid)
+**Voltage Rating:** 1000/1000V AC | 1500/1500V DC
 
 ---
 
@@ -16,17 +17,17 @@
 | :--- | :--- | :--- |
 | **Market Data** | LME Aluminium (USD) | **$3,520 / tonne** |
 | **Forex Rates** | GBP / USD Rate | **1 GBP = 1.3339 USD** |
-| | EUR / USD Rate | **1 EUR = 1.1586 USD** |
-| | GBP / EUR Rate | **1 GBP = 1.1510 EUR** |
+| **Forex Rates** | EUR / USD Rate | **1 EUR = 1.1586 USD** |
+| **Forex Rates** | GBP / EUR Rate | **1 GBP = 1.1510 EUR** |
 | **Physical Data** | Weight Calculation (Al) | **$mm^2 \times 2.92$** (kg per km) |
 | **Pricing Rule** | Net Cable Price (EUR) | **Metal Value (EUR) ÷ 0.25** |
-| **Timestamp** | Last Market Update | Saturday 21 March 2026 13:15 UTC |
+| **Timestamp** | Last Market Update | Saturday 21 March 2026 13:20 UTC |
 
 ---
 
-## 33 kV Aluminium Cable Price Breakdown (EUR)
+## LV Aluminium Cable Price Breakdown (EUR)
 *Estimates for Class II Stranded Aluminium with Water-Blocking and Armouring.*
-*Calculated using Metal Value (EUR) ÷ 0.25 Pricing Rule.*
+*Application: 1kV AC / 1.5kV DC Single Core Rigid Distribution.*
 
 | Conductor Size ($mm^2$) | Al Weight (kg/km) | Metal Value (EUR/km) | Net Cable Price (EUR/km) |
 | :--- | :---: | :---: | :--- |

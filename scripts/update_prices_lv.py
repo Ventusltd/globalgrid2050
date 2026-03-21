@@ -8,7 +8,14 @@ FILE = Path(__file__).parent.parent / "lv_ac_dc_price_estimator" / "index.md"
 
 def get_market_data():
     # Fallback values
-    data = {"gbp_usd": 1.3339, "eur_usd": 1.1586, "gbp_eur": 1.1510, "cu_usd": 12850.0, "al_usd": 3520.0}
+    data = {
+        "gbp_usd": 1.3339,
+        "eur_usd": 1.1586,
+        "gbp_eur": 1.1510,
+        "cu_usd": 12850.0,
+        "al_usd": 3520.0
+    }
+
     try:
         # FX Rates
         fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=15).json()
@@ -19,20 +26,26 @@ def get_market_data():
         # Metals (USD per Tonne)
         m_api = requests.get("https://api.metals.live/v1/spot", timeout=15).json()
         for m in m_api:
-            if m.get("metal") == "copper": data["cu_usd"] = m.get("price") * 1000
-            if m.get("metal") == "aluminum": data["al_usd"] = m.get("price") * 1000
+            if m.get("metal") == "copper":
+                data["cu_usd"] = m.get("price") * 1000
+            if m.get("metal") == "aluminum":
+                data["al_usd"] = m.get("price") * 1000
+
     except Exception as e:
         print(f"Connection error, using fallbacks: {e}")
+
     return data
+
 
 def main():
     d = get_market_data()
-    ts = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
-    
+    ts_obj = datetime.now(timezone.utc)
+    ts = ts_obj.strftime("%A %d %B %Y %H:%M UTC")
+
     # Configuration
     AL_SIZES = [95, 120, 150, 185, 240, 300, 400, 500, 630]
     CU_SIZES = [10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630]
-    
+
     # Generate Al Rows
     al_rows = ""
     for s in AL_SIZES:
@@ -49,7 +62,7 @@ def main():
         p_eur = v_eur / 0.40
         cu_rows += f"| {s} | {w:.1f} | €{v_eur:,.2f} | **€{round(p_eur):,}** |\n"
 
-    # Assemble Fluid Markdown Template
+    # Assemble Markdown
     md_content = f"""# Pricing Estimator: Armoured Water-Blocked LV Distribution Single Cores
 ### For DC and AC Applications: High Current Solar & Distribution Power Collection Circuits (Rigid)
 **Voltage Rating:** 1000/1000V AC | 1500/1500V DC
@@ -96,10 +109,17 @@ def main():
 
 ## Procurement Disclaimer
 These figures are high-level budgeting estimates. Real procurement prices are subject to negotiation, engineering, and site-specific conditions.
+
+<!-- update: {ts_obj.timestamp()} -->
 """
-    # Ensure directory exists and write
+
+    # Write file
     os.makedirs(FILE.parent, exist_ok=True)
     FILE.write_text(md_content, encoding="utf-8")
+
+    print("LV pricing updated")
+    print(f"Timestamp: {ts}")
+
 
 if __name__ == "__main__":
     main()

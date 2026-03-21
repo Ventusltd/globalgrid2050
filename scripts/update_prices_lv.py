@@ -1,116 +1,59 @@
-# scripts/update_prices_lv.py
-
 import requests
+import re
 from pathlib import Path
 from datetime import datetime, timezone
 
+# Point to the Markdown file
 FILE = Path(__file__).parent.parent / "lv_ac_dc_price_estimator" / "index.md"
 
-SUPPLY_FACTOR = 0.3
-
 def get_data():
-    gbpusd, gbpeur, gbpchf = 1.3341, 1.1529, 1.0513
-    cu_usd, al_usd = 12021.5, 3329.0
+    gbpusd, gbpeur = 1.3341, 1.1529
+    cu_usd, al_usd = 12022.0, 3329.0
 
     try:
+        # Fetch FX Rates
         fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=20).json()
         gbpusd = fx["rates"]["USD"]
         gbpeur = fx["rates"]["EUR"]
-        gbpchf = fx["rates"]["CHF"]
 
+        # Fetch Metal Prices (USD per tonne)
         metals = requests.get("https://api.metals.live/v1/spot", timeout=20).json()
-
         for m in metals:
             if m.get("metal") == "copper":
                 cu_usd = m.get("price") * 1000
             if m.get("metal") == "aluminum":
                 al_usd = m.get("price") * 1000
-
     except Exception as e:
         print(f"Fallback used: {e}")
 
-    return gbpusd, gbpeur, gbpchf, cu_usd, al_usd
-
+    return gbpusd, gbpeur, cu_usd, al_usd
 
 def main():
-    gbpusd, gbpeur, gbpchf, cu_usd, al_usd = get_data()
+    if not FILE.exists():
+        print(f"File not found: {FILE}")
+        return
 
-    cu_usd_per_kg = cu_usd / 1000
-    al_usd_per_kg = al_usd / 1000
-
-    gbp_per_usd = 1 / gbpusd
-    eur_per_gbp = gbpeur
-    chf_per_gbp = gbpchf
-
+    gbpusd, gbpeur, cu_usd, al_usd = get_data()
     timestamp = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
+    
+    content = FILE.read_text()
 
-    lines = FILE.read_text().splitlines()
-    new_lines = []
+    # 1. Update the Markdown Table Text
+    content = re.sub(r"\| LME Copper \(USD\) \| \$[\d,.]+ \/ tonne \|", f"| LME Copper (USD) | ${cu_usd:,.0f} / tonne |", content)
+    content = re.sub(r"\| LME Aluminium \(USD\) \| \$[\d,.]+ \/ tonne \|", f"| LME Aluminium (USD) | ${al_usd:,.0f} / tonne |", content)
+    content = re.sub(r"\| GBP/USD Rate \| 1 GBP = [\d.]+ USD \|", f"| GBP/USD Rate | 1 GBP = {gbpusd:.4f} USD |", content)
+    content = re.sub(r"\| GBP/EUR Rate \| 1 GBP = [\d.]+ EUR \|", f"| GBP/EUR Rate | 1 GBP = {gbpeur:.4f} EUR |", content)
+    content = re.sub(r"\| Last Update \| .*? \|", f"| Last Update | {timestamp} |", content)
 
-    for line in lines:
-        p = [x.strip() for x in line.split("|")]
+    # 2. Update the hidden JavaScript Variables
+    content = re.sub(r"let lme_cu_usd = [\d.]+;", f"let lme_cu_usd = {cu_usd:.2f};", content)
+    content = re.sub(r"let lme_al_usd = [\d.]+;", f"let lme_al_usd = {al_usd:.2f};", content)
+    content = re.sub(r"let gbp_usd = [\d.]+;", f"let gbp_usd = {gbpusd:.4f};", content)
+    content = re.sub(r"let gbp_eur = [\d.]+;", f"let gbp_eur = {gbpeur:.4f};", content)
 
-        if len(p) >= 3:
-            key = p[1]
-
-            if "LME Copper (USD)" in key:
-                line = f"| LME Copper (USD) | ${cu_usd:,.0f} per tonne |"
-
-            elif "LME Aluminium (USD)" in key:
-                line = f"| LME Aluminium (USD) | ${al_usd:,.0f} per tonne |"
-
-            elif "GBP/USD Rate" in key:
-                line = f"| GBP/USD Rate | 1 GBP = {gbpusd:.4f} USD |"
-
-            elif "GBP/EUR Rate" in key:
-                line = f"| GBP/EUR Rate | 1 GBP = {gbpeur:.4f} EUR |"
-
-            elif "GBP/CHF Rate" in key:
-                line = f"| GBP/CHF Rate | 1 GBP = {gbpchf:.4f} CHF |"
-
-            elif "Last Update" in key:
-                line = f"| Last Update | {timestamp} |"
-
-            else:
-                try:
-                    mm2 = float(key.replace(",", ""))
-
-                    cu_kg = mm2 * 9.6
-                    al_kg = mm2 * 2.92
-
-                    cu_usd_km = cu_kg * cu_usd_per_kg
-                    al_usd_km = al_kg * al_usd_per_kg
-
-                    cu_net_usd = cu_usd_km / SUPPLY_FACTOR
-                    al_net_usd = al_usd_km / SUPPLY_FACTOR
-
-                    cu_gbp = cu_net_usd * gbp_per_usd
-                    al_gbp = al_net_usd * gbp_per_usd
-
-                    cu_eur = cu_gbp * eur_per_gbp
-                    al_eur = al_gbp * eur_per_gbp
-
-                    cu_chf = cu_gbp * chf_per_gbp
-                    al_chf = al_gbp * chf_per_gbp
-
-                    line = (
-                        f"| {int(mm2)} | {p[2]} | {p[3]} | "
-                        f"{cu_kg:,.0f} | {al_kg:,.0f} | "
-                        f"{cu_usd_km:,.0f} | {al_usd_km:,.0f} | "
-                        f"{cu_net_usd:,.0f} | {al_net_usd:,.0f} | "
-                        f"{cu_eur:,.0f} | {al_eur:,.0f} | "
-                        f"{cu_chf:,.0f} | {al_chf:,.0f} | "
-                        f"{cu_gbp:,.0f} | {al_gbp:,.0f} |"
-                    )
-
-                except:
-                    pass
-
-        new_lines.append(line)
-
-    FILE.write_text("\n".join(new_lines))
-    print(f"LV table updated: {timestamp}")
-
+    # Save the file
+    FILE.write_text(content)
+    print(f"LV Table Updated Successfully at {timestamp}")
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
-[span_0](start_span)Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.[span_0](end_span)
+Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
 
 ---
 
@@ -59,14 +59,15 @@
 
 ---
 
-
 ## Weight Formulas
-* **[span_1](start_span)Copper kg per km** = Conductor Size (mm²) × 9.6[span_1](end_span)
-* **[span_2](start_span)Aluminium kg per km** = Conductor Size (mm²) × 2.92[span_2](end_span)
+* **[span_3](start_span)Copper kg per km** = Conductor Size (mm²) × 9.6[span_3](end_span)
+* **[span_4](start_span)Aluminium kg per km** = Conductor Size (mm²) × 2.92[span_4](end_span)
 
 ---
 
 ## Cable Metal and Net Price Estimator
+
+
 
 <div style="overflow-x:auto; border-radius: 8px; border: 1px solid #e1e4e8;">
     <table id="liveTbl" style="width:100%; border-collapse:collapse; font-size:0.95em; text-align:left; font-family: sans-serif;">
@@ -114,10 +115,10 @@ function calc() {
     const metalRatio = parseFloat(document.getElementById("markup_slider").value) / 100;
     const curr = document.getElementById("currency").value;
 
-    // Cross rate
+    // Cross rate calculation
     document.getElementById("fx_cross").innerText = (fxGBP / fxEUR).toFixed(4);
 
-    // Slave info boxes
+    // Update informational slave boxes
     document.getElementById("cu_gbp_text").innerText = "£" + Math.round(cuUSD / fxGBP).toLocaleString();
     document.getElementById("al_gbp_text").innerText = "£" + Math.round(alUSD / fxGBP).toLocaleString();
 
@@ -134,7 +135,7 @@ function calc() {
         const totMetal = (al_kg * (pAl/1000)) + (cu_kg * (pCu/1000));
         const netMain = totMetal / metalRatio;
 
-        // Triple currency sub-info
+        [span_5](start_span)[span_6](start_span)// Calculate multi-currency sub-info for the Net Price cell[span_5](end_span)[span_6](end_span)
         const mUSD = (al_kg * (alUSD/1000) + cu_kg * (cuUSD/1000)) / metalRatio;
         const mGBP = mUSD / fxGBP;
         const mEUR = mUSD / fxEUR;
@@ -144,7 +145,7 @@ function calc() {
         else if(curr === "EUR") sub = `$${Math.round(mUSD).toLocaleString()} | £${Math.round(mGBP).toLocaleString()}`;
         else sub = `£${Math.round(mGBP).toLocaleString()} | €${Math.round(mEUR).toLocaleString()}`;
 
-        rows += `<tr onclick="this.classList.toggle('selected')" style="border-bottom:1px solid #edf2f7;">
+        rows += `<tr style="border-bottom:1px solid #edf2f7;">
             <td style="padding:12px 10px;"><strong>${cond}</strong></td>
             <td style="padding:12px 10px;">${cws}</td>
             <td style="padding:12px 10px;">${Math.round(al_kg).toLocaleString()}</td>

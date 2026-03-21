@@ -33,7 +33,9 @@ jobs:
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
+          # Target the specific file path in your repository
           git add 33kv_uk_dap_price_estimator/index.md
+          
           # Check if there are changes before trying to commit
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"

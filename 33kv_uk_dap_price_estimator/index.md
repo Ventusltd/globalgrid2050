@@ -15,7 +15,7 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 | GBP/USD Rate | 1 GBP = 1.3350 USD |
 | Copper (GBP) | £9,626 / tonne |
 | Aluminium (GBP) | £2,637 / tonne |
-| Last Update | Saturday 21 March 2026 03:50 UTC |
+| Last Update | Saturday 21 March 2026 06:37 UTC |
 
 ---
 

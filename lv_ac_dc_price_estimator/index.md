@@ -24,7 +24,7 @@
 | | GBP / EUR | 1.1549 |
 | **Pricing Rules** | Al Pricing Factor | Metal Value (EUR) / 0.25 |
 | | Cu Pricing Factor | Metal Value (EUR) / 0.40 |
-| **Update** | Last Market Sync | Saturday 21 March 2026 14:47 UTC |
+| **Update** | Last Market Sync | Saturday 21 March 2026 20:23 UTC |
 
 ---
 
@@ -68,3 +68,5 @@
 
 ## Procurement Disclaimer
 These figures are high-level budgeting estimates. Real procurement prices are subject to negotiation, engineering, and site-specific conditions.
+
+<!-- update: 1774124636.313459 -->

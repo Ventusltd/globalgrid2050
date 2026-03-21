@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>33 kV Aluminium XLPE Cable Price Estimator</title>
+    <title>33 kV XLPE Cable Price Estimator (Al & Cu)</title>
     <style>
         /* --- CSS: Clean, Extracted Styles --- */
-        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; }
+        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; }
         h1, h2 { color: #1a202c; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; }
+        h2 { margin-top: 40px; }
         
-        /* Market Inputs Section */
-        .market-inputs { background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        /* Input Sections */
+        .input-card { background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .section-label { font-size: 0.78em; font-weight: 700; color: #3182ce; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0; }
         .input-label { display: block; font-weight: 700; color: #333; margin-bottom: 8px; }
         .main-input { width: 100%; padding: 14px; margin-bottom: 18px; border: 2px solid #3182ce; border-radius: 8px; background: #f0f7ff; font-size: 1.1em; font-weight: 700; box-sizing: border-box; }
@@ -41,17 +42,17 @@
         .currency-select { width: 100%; padding: 14px; border: 2px solid #edf2f7; border-radius: 8px; background: #fff; font-size: 1em; cursor: pointer; }
         
         /* Table Styles */
-        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid #e1e4e8; margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.95em; text-align: left; }
-        th { background: #1a202c; color: #ffffff; padding: 15px 10px; }
+        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid #e1e4e8; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9em; text-align: left; }
+        th { background: #1a202c; color: #ffffff; padding: 12px 10px; }
         th span { font-weight: 400; font-size: 0.8em; }
         th.metal-th { background: #2d4a6e; }
-        td { padding: 12px 10px; border-bottom: 1px solid #edf2f7; }
+        td { padding: 10px 10px; border-bottom: 1px solid #edf2f7; }
         tr:hover { background: #f7fafc; }
         .td-metal { background: #eef4fb; color: #1e3a5f; font-weight: 600; }
         .td-net { background: #f0fff4; border-left: 2px solid #c6f6d5; }
         .net-main { font-weight: bold; color: #22543d; font-size: 1.1em; }
-        .net-sub { font-size: 0.7em; color: #718096; }
+        .net-sub { font-size: 0.75em; color: #718096; margin-top: 2px;}
         
         /* Disclaimer */
         .disclaimer { margin-top: 30px; background: #fffbeb; border: 1px solid #f6d860; border-left: 5px solid #d69e2e; border-radius: 8px; padding: 20px 24px; }
@@ -61,10 +62,19 @@
 </head>
 <body>
 
-    <h1>33 kV Aluminium XLPE Cable Price Estimator</h1>
-    <p>Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.</p>
+    <h1>33 kV XLPE Cable Price Estimator</h1>
+    <p>Single core 19/33 kV XLPE insulated cables with MDPE oversheath to BS 7870. Compare Aluminium and Copper main conductors below.</p>
 
-    <div class="market-inputs">
+    <div class="input-card" style="border-color: #3182ce; border-left: 6px solid #3182ce;">
+        <div class="section-label">Cable Screen Configuration</div>
+        <label for="cws_size" class="input-label">Copper Wire Screen (CWS) Size — <span style="font-weight:normal; color:#4a5568;">Set to 0 for un-screened cables</span></label>
+        <div style="display: flex; align-items: center;">
+            <input id="cws_size" type="number" min="0" value="35" class="main-input data-trigger" style="margin-bottom: 0; width: 150px;">
+            <span style="margin-left: 10px; font-weight: bold; color: #4a5568;">mm²</span>
+        </div>
+    </div>
+
+    <div class="input-card">
         <div class="section-label">Metals — USD per Tonne</div>
 
         <label for="cu" class="input-label">LME Copper</label>
@@ -94,7 +104,7 @@
 
         <div class="non-metal-box">
             <label for="non_metal_input" class="non-metal-label">Non-Metal Costs (%)</label>
-            <p class="non-metal-desc">All costs excluding metal values for a DAP delivery estimate. Replace with an official supplier quote for greater accuracy.</p>
+            <p class="non-metal-desc">All costs excluding metal values for a DAP delivery estimate.</p>
             <input id="non_metal_input" type="number" value="70" class="non-metal-input data-trigger">
         </div>
 
@@ -121,29 +131,15 @@
         </select>
     </div>
 
-    <h2>Technical Notes: Net Price Rule</h2>
-    <p>The <strong>Net cable price</strong> is estimated by dividing the total metal value by fixed % after non-metal costs are removed.</p>
-    <p><strong>Formula: Net Price = Metal Value / (1 - Non-Metal Cost %)</strong></p>
-    <ul>
-        <li><strong>Metal content:</strong> approximately 30%</li>
-        <li><strong>Manufacturing, logistics, and margin:</strong> approximately 70%</li>
-    </ul>
-
-    <h2>Weight Formulas</h2>
-    <ul>
-        <li><strong>Copper kg per km</strong> = Conductor Size (mm²) x 9.6</li>
-        <li><strong>Aluminium kg per km</strong> = Conductor Size (mm²) x 2.92</li>
-    </ul>
-
-    <h2>Cable Metal and Net Price Estimator</h2>
+    <h2>1. Aluminium Main Conductor (19/33 kV)</h2>
     <div class="table-container">
-        <table id="liveTbl">
+        <table id="alTable">
             <thead>
                 <tr>
-                    <th>Cond<br><span>mm²</span></th>
-                    <th>CWS<br><span>mm²</span></th>
-                    <th>Al<br><span>kg/km</span></th>
-                    <th>Cu<br><span>kg/km</span></th>
+                    <th>Cond.<br><span>mm²</span></th>
+                    <th>Screen<br><span>mm²</span></th>
+                    <th>Al Cond.<br><span>kg/km</span></th>
+                    <th>Cu Screen<br><span>kg/km</span></th>
                     <th class="metal-th">Al Metal<br><span>value/km</span></th>
                     <th class="metal-th">Cu Metal<br><span>value/km</span></th>
                     <th>Total Metal<br><span>value/km</span></th>
@@ -154,22 +150,36 @@
         </table>
     </div>
 
+    <h2>2. Copper Main Conductor (19/33 kV)</h2>
+    <div class="table-container">
+        <table id="cuTable">
+            <thead>
+                <tr>
+                    <th style="background:#744210;">Cond.<br><span>mm²</span></th>
+                    <th style="background:#744210;">Screen<br><span>mm²</span></th>
+                    <th style="background:#744210;">Cu Cond.<br><span>kg/km</span></th>
+                    <th style="background:#744210;">Cu Screen<br><span>kg/km</span></th>
+                    <th style="background:#744210;">Total Cu<br><span>kg/km</span></th>
+                    <th class="metal-th" style="background:#975a16;">Total Cu<br><span>value/km</span></th>
+                    <th style="background:#744210;">Est. Net Price<br><span>per km</span></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
     <div class="disclaimer">
         <div class="disclaimer-title">⚠ Disclaimer</div>
-        <p class="disclaimer-text">This tool is provided for indicative estimation purposes only. No liability is accepted for any errors, omissions, or losses arising from the use of this estimator, including those resulting from market price fluctuations, currency movements, or inaccuracies in input data. All outputs should be independently validated by qualified professionals, including registered electrical engineers, cable manufacturers, specialist installers, and procurement specialists, before being used for commercial, contractual, or engineering decisions.</p>
+        <p class="disclaimer-text">This tool is provided for indicative estimation purposes only. All outputs should be independently validated by qualified professionals before being used for commercial or engineering decisions.</p>
     </div>
 
     <script>
-        /* --- JS: Separated Logic and Extracted Constants --- */
-        
         // Configuration Constants
         const CU_DENSITY_FACTOR = 9.6;
         const AL_DENSITY_FACTOR = 2.92;
         
-        const mvCables = [
-            [120,35],[150,35],[185,35],[240,35],[300,35],[400,35],[500,35],[630,35],
-            [800,50],[1000,50],[1200,50],[1400,50],[1600,50],[1800,50],[2000,50],[2500,50]
-        ];
+        // Standard Conductor Sizes
+        const condSizes = [120, 150, 185, 240, 300, 400, 500, 630, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2500];
 
         // Fetch Live FX Rates
         async function fetchFX() {
@@ -178,23 +188,24 @@
                 const data = await res.json();
                 document.getElementById("fx_gbp").value = (1 / data.rates.GBP).toFixed(4);
                 document.getElementById("fx_eur").value = (1 / data.rates.EUR).toFixed(4);
-                calculateTable();
+                calculateTables();
             } catch (e) {
-                // Graceful fallback
                 document.getElementById("fx_gbp").value = "1.3368";
                 document.getElementById("fx_eur").value = "1.1555";
-                calculateTable();
+                calculateTables();
             }
         }
 
-        // Main Calculation Engine
-        function calculateTable() {
+        function calculateTables() {
+            // Get inputs
+            let cwsSize = parseFloat(document.getElementById("cws_size").value) || 0;
+            if (cwsSize < 0) cwsSize = 0;
+
             const cuUSD = parseFloat(document.getElementById("cu").value) || 0;
             const alUSD = parseFloat(document.getElementById("al").value) || 0;
             const fxGBP = parseFloat(document.getElementById("fx_gbp").value) || 1.3368;
             const fxEUR = parseFloat(document.getElementById("fx_eur").value) || 1.1555;
 
-            // Prevent Division by Zero & Negative numbers
             let nonMetalPct = parseFloat(document.getElementById("non_metal_input").value) || 0;
             if (nonMetalPct >= 100) nonMetalPct = 99.9; 
             if (nonMetalPct < 0) nonMetalPct = 0;
@@ -202,90 +213,106 @@
 
             const curr = document.getElementById("currency").value;
 
-            // Update Top FX displays
+            // Update UI blocks
             document.getElementById("fx_cross").innerText = (fxGBP / fxEUR).toFixed(4);
             document.getElementById("cu_gbp_text").innerText = "£" + Math.round(cuUSD / fxGBP).toLocaleString();
             document.getElementById("al_gbp_text").innerText = "£" + Math.round(alUSD / fxGBP).toLocaleString();
             document.getElementById("cu_eur_text").innerText = "€" + Math.round(cuUSD / fxEUR).toLocaleString();
             document.getElementById("al_eur_text").innerText = "€" + Math.round(alUSD / fxEUR).toLocaleString();
 
-            // Establish pricing variables based on selected currency
             let pCu, pAl, sym;
             if (curr === "GBP") { pCu = cuUSD / fxGBP; pAl = alUSD / fxGBP; sym = "£"; }
             else if (curr === "EUR") { pCu = cuUSD / fxEUR; pAl = alUSD / fxEUR; sym = "€"; }
             else { pCu = cuUSD; pAl = alUSD; sym = "$"; }
 
-            // Generate Table Rows
-            const tbody = document.querySelector("#liveTbl tbody");
-            tbody.innerHTML = ""; // Clear existing rows
+            // Table Bodys
+            const tbodyAl = document.querySelector("#alTable tbody");
+            const tbodyCu = document.querySelector("#cuTable tbody");
+            tbodyAl.innerHTML = "";
+            tbodyCu.innerHTML = "";
 
-            mvCables.forEach(c => {
-                const cond = c[0];
-                const cws = c[1];
+            // Calculate for each standard size
+            condSizes.forEach(cond => {
                 
-                // Using Extracted Constants
+                // --- 1. ALUMINIUM TABLE LOGIC ---
                 const al_kg = cond * AL_DENSITY_FACTOR;
-                const cu_kg = cws * CU_DENSITY_FACTOR;
+                const cws_kg = cwsSize * CU_DENSITY_FACTOR;
                 
                 const alVal = al_kg * (pAl / 1000);
-                const cuVal = cu_kg * (pCu / 1000);
-                const totMetal = alVal + cuVal;
-                const netMain = totMetal / metalRatio;
+                const cuScreenVal = cws_kg * (pCu / 1000);
+                const totMetalAlTable = alVal + cuScreenVal;
+                const netMainAl = totMetalAlTable / metalRatio;
 
-                const mUSD = (al_kg * (alUSD / 1000) + cu_kg * (cuUSD / 1000)) / metalRatio;
-                const mGBP = mUSD / fxGBP;
-                const mEUR = mUSD / fxEUR;
+                const mUSD_al = (al_kg * (alUSD / 1000) + cws_kg * (cuUSD / 1000)) / metalRatio;
+                const mGBP_al = mUSD_al / fxGBP;
+                const mEUR_al = mUSD_al / fxEUR;
 
-                let subText = "";
-                if (curr === "GBP") subText = "$" + Math.round(mUSD).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
-                else if (curr === "EUR") subText = "$" + Math.round(mUSD).toLocaleString() + " | £" + Math.round(mGBP).toLocaleString();
-                else subText = "£" + Math.round(mGBP).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
+                let subTextAl = "";
+                if (curr === "GBP") subTextAl = "$" + Math.round(mUSD_al).toLocaleString() + " | €" + Math.round(mEUR_al).toLocaleString();
+                else if (curr === "EUR") subTextAl = "$" + Math.round(mUSD_al).toLocaleString() + " | £" + Math.round(mGBP_al).toLocaleString();
+                else subTextAl = "£" + Math.round(mGBP_al).toLocaleString() + " | €" + Math.round(mEUR_al).toLocaleString();
 
-                // Build Row element (cleaner than string concatenation)
-                const tr = document.createElement("tr");
-                tr.style.cursor = "pointer";
-                tr.onclick = function() {
-                    this.style.background = this.style.background ? '' : '#ebf8ff';
-                    this.style.borderLeft = this.style.borderLeft ? '' : '4px solid #3182ce';
-                };
-
-                tr.innerHTML = `
+                const trAl = document.createElement("tr");
+                trAl.style.cursor = "pointer";
+                trAl.onclick = function() { this.style.background = this.style.background ? '' : '#ebf8ff'; };
+                trAl.innerHTML = `
                     <td><strong>${cond}</strong></td>
-                    <td>${cws}</td>
+                    <td>${cwsSize}</td>
                     <td>${Math.round(al_kg).toLocaleString()}</td>
-                    <td>${Math.round(cu_kg).toLocaleString()}</td>
+                    <td>${Math.round(cws_kg).toLocaleString()}</td>
                     <td class='td-metal'>${sym}${Math.round(alVal).toLocaleString()}</td>
-                    <td class='td-metal'>${sym}${Math.round(cuVal).toLocaleString()}</td>
-                    <td>${sym}${Math.round(totMetal).toLocaleString()}</td>
-                    <td class='td-net'>
-                        <div class='net-main'>${sym}${Math.round(netMain).toLocaleString()}</div>
-                        <div class='net-sub'>${subText}</div>
-                    </td>
+                    <td class='td-metal'>${sym}${Math.round(cuScreenVal).toLocaleString()}</td>
+                    <td>${sym}${Math.round(totMetalAlTable).toLocaleString()}</td>
+                    <td class='td-net'><div class='net-main'>${sym}${Math.round(netMainAl).toLocaleString()}</div><div class='net-sub'>${subTextAl}</div></td>
                 `;
-                tbody.appendChild(tr);
+                tbodyAl.appendChild(trAl);
+
+                // --- 2. COPPER TABLE LOGIC ---
+                const main_cu_kg = cond * CU_DENSITY_FACTOR;
+                const tot_cu_kg = main_cu_kg + cws_kg;
+                
+                const cuTotalVal = tot_cu_kg * (pCu / 1000);
+                const netMainCu = cuTotalVal / metalRatio;
+
+                const mUSD_cu = (tot_cu_kg * (cuUSD / 1000)) / metalRatio;
+                const mGBP_cu = mUSD_cu / fxGBP;
+                const mEUR_cu = mUSD_cu / fxEUR;
+
+                let subTextCu = "";
+                if (curr === "GBP") subTextCu = "$" + Math.round(mUSD_cu).toLocaleString() + " | €" + Math.round(mEUR_cu).toLocaleString();
+                else if (curr === "EUR") subTextCu = "$" + Math.round(mUSD_cu).toLocaleString() + " | £" + Math.round(mGBP_cu).toLocaleString();
+                else subTextCu = "£" + Math.round(mGBP_cu).toLocaleString() + " | €" + Math.round(mEUR_cu).toLocaleString();
+
+                const trCu = document.createElement("tr");
+                trCu.style.cursor = "pointer";
+                trCu.onclick = function() { this.style.background = this.style.background ? '' : '#ebf8ff'; };
+                trCu.innerHTML = `
+                    <td><strong>${cond}</strong></td>
+                    <td>${cwsSize}</td>
+                    <td>${Math.round(main_cu_kg).toLocaleString()}</td>
+                    <td>${Math.round(cws_kg).toLocaleString()}</td>
+                    <td><strong>${Math.round(tot_cu_kg).toLocaleString()}</strong></td>
+                    <td class='td-metal' style="background:#fefcbf;">${sym}${Math.round(cuTotalVal).toLocaleString()}</td>
+                    <td class='td-net'><div class='net-main'>${sym}${Math.round(netMainCu).toLocaleString()}</div><div class='net-sub'>${subTextCu}</div></td>
+                `;
+                tbodyCu.appendChild(trCu);
             });
         }
 
-        // Simple Debounce to prevent DOM thrashing on rapid typing
+        // Debounce
         function debounce(func, wait) {
             let timeout;
             return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
+                const later = () => { clearTimeout(timeout); func(...args); };
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait);
             };
         }
 
-        const debouncedCalc = debounce(calculateTable, 150);
+        const debouncedCalc = debounce(calculateTables, 150);
 
-        // Attach Event Listeners programmatically (A11y & Clean Code)
         document.addEventListener("DOMContentLoaded", () => {
-            fetchFX(); // Initial load
-            
-            // Attach event listeners to all inputs/selects with the class 'data-trigger'
+            fetchFX(); 
             const triggers = document.querySelectorAll('.data-trigger');
             triggers.forEach(trigger => {
                 trigger.addEventListener('input', debouncedCalc);

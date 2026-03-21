@@ -28,7 +28,7 @@ title: LV Price Estimator
 | | GBP / EUR | 1.1549 |
 | **Pricing Rules** | Al Pricing Factor | Metal Value (EUR) / 0.25 |
 | | Cu Pricing Factor | Metal Value (EUR) / 0.40 |
-| **Update** | Last Market Sync | Saturday 21 March 2026 21:28 UTC |
+| **Update** | Last Market Sync | Saturday 21 March 2026 22:08 UTC |
 
 ---
 

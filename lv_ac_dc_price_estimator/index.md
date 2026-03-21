@@ -1,3 +1,7 @@
+---
+layout: default
+title: LV Price Estimator
+---
 # Pricing Estimator: Armoured Water-Blocked LV Distribution Single Cores
 ### For DC and AC Applications: High Current Solar & Distribution Power Collection Circuits (Rigid)
 **Voltage Rating:** 1000/1000V AC | 1500/1500V DC
@@ -24,11 +28,12 @@
 | | GBP / EUR | 1.1549 |
 | **Pricing Rules** | Al Pricing Factor | Metal Value (EUR) / 0.25 |
 | | Cu Pricing Factor | Metal Value (EUR) / 0.40 |
-| **Update** | Last Market Sync | Saturday 21 March 2026 21:15 UTC |
+| **Update** | Last Market Sync | Saturday 21 March 2026 21:28 UTC |
 
 ---
 
 ## LV Aluminium Cable Price Breakdown (EUR)
+
 | Size (mm2) | Al Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
 | :--- | :--- | :--- | :--- |
 | 95 | 277.4 | €844.70 | **€3,379** |
@@ -41,10 +46,10 @@
 | 500 | 1460.0 | €4,445.81 | **€17,783** |
 | 630 | 1839.6 | €5,601.73 | **€22,407** |
 
-
 ---
 
 ## LV Copper Cable Price Breakdown (EUR)
+
 | Size (mm2) | Cu Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
 | :--- | :--- | :--- | :--- |
 | 10 | 96.0 | €1,067.16 | **€2,668** |
@@ -63,10 +68,8 @@
 | 500 | 4800.0 | €53,358.08 | **€133,395** |
 | 630 | 6048.0 | €67,231.19 | **€168,078** |
 
-
 ---
 
 ## Procurement Disclaimer
 These figures are high-level budgeting estimates. Real procurement prices are subject to negotiation, engineering, and site-specific conditions.
 
-<!-- update: 1774127701.211116 -->

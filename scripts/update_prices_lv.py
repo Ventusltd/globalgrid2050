@@ -63,7 +63,11 @@ def main():
         cu_rows += f"| {s} | {w:.1f} | €{v_eur:,.2f} | **€{round(p_eur):,}** |\n"
 
     # Assemble Markdown
-    md_content = f"""# Pricing Estimator: Armoured Water-Blocked LV Distribution Single Cores
+    md_content = f"""---
+layout: default
+title: LV Price Estimator
+---
+# Pricing Estimator: Armoured Water-Blocked LV Distribution Single Cores
 ### For DC and AC Applications: High Current Solar & Distribution Power Collection Circuits (Rigid)
 **Voltage Rating:** 1000/1000V AC | 1500/1500V DC
 
@@ -94,23 +98,22 @@ def main():
 ---
 
 ## LV Aluminium Cable Price Breakdown (EUR)
+
 | Size (mm2) | Al Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
 | :--- | :--- | :--- | :--- |
 {al_rows}
-
 ---
 
 ## LV Copper Cable Price Breakdown (EUR)
+
 | Size (mm2) | Cu Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
 | :--- | :--- | :--- | :--- |
 {cu_rows}
-
 ---
 
 ## Procurement Disclaimer
 These figures are high-level budgeting estimates. Real procurement prices are subject to negotiation, engineering, and site-specific conditions.
 
-<!-- update: {ts_obj.timestamp()} -->
 """
 
     # Write file

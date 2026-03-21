@@ -20,51 +20,129 @@ DC resistance at 20°C per IEC 60228.
 
 ---
 
-## Weight Formulas
-
-- Copper kg per km = mm² × 9.6  
-- Aluminium kg per km = mm² × 2.92  
-
----
-
-## Net Price Rule
-
-Net cable price ≈ Metal value ÷ 0.3  
-
-Typical cost structure:
-
-- Metal content: ≈ 25–30%  
-- Manufacturing, logistics, and margin: ≈ 70–75%  
-
----
-
 ## Cable Metal and Net Price Estimator
 
-| mm² | Cu Ω/km | Al Ω/km | Cu kg/km | Al kg/km | Cu USD/km | Al USD/km | Cu net USD/km | Al net USD/km | Cu EUR/km | Al EUR/km | Cu CHF/km | Al CHF/km | Cu GBP/km | Al GBP/km |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 0.5 | 36.0 | – | 4.8 | 1.46 | 57.7 | 4.9 | 192.3 | 16.3 | 166.2 | 14.1 | 151.7 | 12.8 | 144.2 | 12.2 |
-| 0.75 | 24.5 | – | 7.2 | 2.19 | 86.6 | 7.3 | 288.7 | 24.3 | 249.6 | 21.0 | 227.5 | 19.1 | 216.4 | 18.2 |
-| 1 | 18.1 | – | 9.6 | 2.92 | 115.4 | 9.7 | 384.7 | 32.3 | 332.6 | 27.9 | 303.3 | 25.5 | 288.4 | 24.2 |
-| 1.5 | 12.1 | – | 14.4 | 4.38 | 173.1 | 14.6 | 577.0 | 48.7 | 498.6 | 42.1 | 454.9 | 38.4 | 432.6 | 36.5 |
-| 2.5 | 7.41 | – | 24.0 | 7.30 | 288.5 | 24.3 | 961.7 | 81.0 | 831.3 | 70.0 | 758.3 | 63.8 | 721.0 | 60.7 |
-| 4 | 4.61 | – | 38.4 | 11.68 | 461.6 | 38.9 | 1538.7 | 129.7 | 1329.7 | 112.1 | 1213.1 | 102.2 | 1153.6 | 97.2 |
-| 6 | 3.08 | – | 57.6 | 17.52 | 692.4 | 58.3 | 2308.0 | 194.3 | 1995.0 | 167.9 | 1818.9 | 153.1 | 1730.3 | 145.6 |
-| 10 | 1.83 | 3.08 | 96.0 | 29.20 | 1154.1 | 97.2 | 3847.0 | 324.0 | 3325.5 | 280.1 | 3032.7 | 255.5 | 2883.7 | 242.9 |
-| 16 | 1.15 | 1.91 | 153.6 | 46.72 | 1846.5 | 155.5 | 6155.0 | 518.3 | 5319.6 | 447.7 | 4850.7 | 408.5 | 4612.5 | 388.4 |
-| 25 | 0.727 | 1.20 | 240.0 | 73.00 | 2885.2 | 243.0 | 9617.3 | 810.0 | 8313.0 | 700.0 | 7582.6 | 638.4 | 7208.6 | 607.1 |
-| 35 | 0.524 | 0.868 | 336.0 | 102.20 | 4039.2 | 340.2 | 13464.0 | 1134.0 | 11642.1 | 979.7 | 10610.5 | 893.6 | 10094.6 | 850.0 |
-| 50 | 0.387 | 0.641 | 480.0 | 146.00 | 5770.3 | 486.0 | 19234.3 | 1620.0 | 16623.6 | 1400.0 | 15162.0 | 1276.0 | 14417.1 | 1214.3 |
-| 70 | 0.268 | 0.443 | 672.0 | 204.40 | 8078.4 | 680.4 | 26928.0 | 2268.0 | 23278.3 | 1959.9 | 21231.0 | 1787.2 | 20188.9 | 1700.0 |
-| 95 | 0.193 | 0.320 | 912.0 | 277.40 | 10963.6 | 923.3 | 36545.3 | 3077.7 | 31582.0 | 2660.9 | 28809.0 | 2426.7 | 27390.2 | 2307.3 |
-| 120 | 0.153 | 0.253 | 1152.0 | 350.40 | 13848.8 | 1166.4 | 46162.7 | 3888.0 | 39885.9 | 3358.1 | 36387.5 | 3064.7 | 34591.5 | 2913.0 |
-| 150 | 0.124 | 0.206 | 1440.0 | 438.00 | 17310.9 | 1458.1 | 57703.0 | 4860.3 | 49840.6 | 4200.3 | 45484.4 | 3830.0 | 43239.4 | 3643.6 |
-| 185 | 0.0991 | 0.164 | 1776.0 | 540.20 | 21346.2 | 1798.6 | 71154.0 | 5995.3 | 61466.3 | 5178.2 | 56063.5 | 4726.6 | 53327.6 | 4493.6 |
-| 240 | 0.0754 | 0.125 | 2304.0 | 700.80 | 27697.6 | 2332.9 | 92325.3 | 7776.3 | 79786.5 | 6716.6 | 72759.0 | 6129.0 | 69181.7 | 5830.0 |
-| 300 | 0.0601 | 0.100 | 2880.0 | 876.00 | 34621.9 | 2916.2 | 115406.3 | 9720.7 | 99736.6 | 8400.6 | 91004.5 | 7660.0 | 86523.5 | 7287.3 |
-| 400 | 0.0470 | 0.0778 | 3840.0 | 1168.00 | 46162.6 | 3887.1 | 153875.3 | 12957.0 | 132988.5 | 11196.6 | 121331.0 | 10213.0 | 115366.4 | 9713.1 |
-| 500 | 0.0366 | 0.0605 | 4800.0 | 1460.00 | 57703.2 | 4859.3 | 192344.0 | 16197.7 | 166240.6 | 14000.0 | 151662.0 | 12760.0 | 144209.3 | 12141.5 |
-| 630 | 0.0283 | 0.0469 | 6048.0 | 1839.60 | 72706.0 | 6122.0 | 242353.3 | 20406.7 | 209412.2 | 17643.6 | 190974.0 | 16080.0 | 181660.3 | 15299.9 |
-| 800 | 0.0221 | 0.0367 | 7680.0 | 2336.00 | 92325.1 | 7775.5 | 307750.3 | 25918.3 | 265993.7 | 22397.7 | 242540.0 | 20440.0 | 230683.0 | 19430.5 |
+<input id="search" placeholder="Search mm²..." onkeyup="filterTable()" style="margin-bottom:10px; padding:6px; width:200px;">
+
+<style>
+table {
+border-collapse:collapse;
+width:100%;
+}
+
+th, td {
+padding:6px;
+border:1px solid #444;
+text-align:right;
+background:black;
+color:white;
+}
+
+th {
+position:sticky;
+top:0;
+background:#111;
+z-index:2;
+}
+
+td:first-child, th:first-child {
+position:sticky;
+left:0;
+background:#111;
+z-index:3;
+text-align:left;
+}
+
+input.factor {
+background:black;
+color:white;
+border:1px solid #666;
+width:60px;
+text-align:center;
+font-family:Courier, monospace;
+}
+</style>
+
+<script>
+function recalc(row){
+let cu_usd = parseFloat(row.dataset.cu);
+let al_usd = parseFloat(row.dataset.al);
+
+let cu_factor = parseFloat(row.querySelector(".cu_factor").value);
+let al_factor = parseFloat(row.querySelector(".al_factor").value);
+
+row.querySelector(".cu_net").innerText = (cu_usd / cu_factor).toFixed(0);
+row.querySelector(".al_net").innerText = (al_usd / al_factor).toFixed(0);
+}
+
+function filterTable(){
+let input = document.getElementById("search").value.toLowerCase();
+let rows = document.querySelectorAll("tbody tr");
+
+rows.forEach(row=>{
+let mm2 = row.cells[0].innerText;
+row.style.display = mm2.includes(input) ? "" : "none";
+});
+}
+</script>
+
+<table>
+<thead>
+<tr>
+<th>mm²</th>
+<th>Cu USD/km</th>
+<th>Al USD/km</th>
+<th>Cu Factor</th>
+<th>Al Factor</th>
+<th>Cu Net USD/km</th>
+<th>Al Net USD/km</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr data-cu="46163" data-al="3887">
+<td>400</td>
+<td>46163</td>
+<td>3887</td>
+<td><input class="factor cu_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td><input class="factor al_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td class="cu_net">153875</td>
+<td class="al_net">12957</td>
+</tr>
+
+<tr data-cu="57703" data-al="4859">
+<td>500</td>
+<td>57703</td>
+<td>4859</td>
+<td><input class="factor cu_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td><input class="factor al_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td class="cu_net">192344</td>
+<td class="al_net">16198</td>
+</tr>
+
+<tr data-cu="72706" data-al="6122">
+<td>630</td>
+<td>72706</td>
+<td>6122</td>
+<td><input class="factor cu_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td><input class="factor al_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td class="cu_net">242353</td>
+<td class="al_net">20407</td>
+</tr>
+
+<tr data-cu="92325" data-al="7776">
+<td>800</td>
+<td>92325</td>
+<td>7776</td>
+<td><input class="factor cu_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td><input class="factor al_factor" value="0.3" oninput="recalc(this.closest('tr'))"></td>
+<td class="cu_net">307750</td>
+<td class="al_net">25918</td>
+</tr>
+
+</tbody>
+</table>
 
 ---
 

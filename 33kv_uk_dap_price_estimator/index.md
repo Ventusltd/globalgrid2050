@@ -1,37 +1,42 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
-Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
+[span_4](start_span)Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870[span_4](end_span).
 
-Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.
+[span_5](start_span)Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks[span_5](end_span).
 
 ---
 
-## Market Inputs
+## Market Inputs (Active Drivers)
 
 <div style="margin-bottom:20px; padding:15px; background:#f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
+  
+  <p style="font-size:0.85em; color:#666; margin-bottom:15px;">
+    <strong>Correlation:</strong> The green input boxes (Metals & FX) are the primary drivers. [span_6](start_span)[span_7](start_span)Changing these values instantly updates the green <strong>Net Price</strong> column in the table below[span_6](end_span)[span_7](end_span).
+  </p>
+
   <label><strong>LME Copper (USD/Tonne)</strong></label><br>
   <input id="cu" value="12850" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#eef8e5;border:1px solid #999;font-weight:bold;">
 
   <label><strong>LME Aluminium (USD/Tonne)</strong></label><br>
   <input id="al" value="3520" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#eef8e5;border:1px solid #999;font-weight:bold;">
 
-  <label><strong>Copper (GBP/Tonne)</strong></label><br>
-  <input id="cu_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
-
-  <label><strong>Aluminium (GBP/Tonne)</strong></label><br>
-  <input id="al_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
-
-  <label><strong>Copper (EUR/Tonne)</strong></label><br>
-  <input id="cu_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
-
-  <label><strong>Aluminium (EUR/Tonne)</strong></label><br>
-  <input id="al_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
-
   <label><strong>GBP/USD Rate (Live Auto-Fetch)</strong></label><br>
-  <input id="fx_gbp" value="1.3265" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
+  <input id="fx_gbp" value="1.3265" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#eef8e5;border:1px solid #999;font-weight:bold;">
 
   <label><strong>EUR/USD Rate (Live Auto-Fetch)</strong></label><br>
-  <input id="fx_eur" value="1.0800" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
+  <input id="fx_eur" value="1.0800" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#eef8e5;border:1px solid #999;font-weight:bold;">
+
+  <label><strong>Copper (GBP/Tonne)</strong></label><br>
+  <input id="cu_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#ffffff;border:1px solid #ccc;">
+
+  <label><strong>Aluminium (GBP/Tonne)</strong></label><br>
+  <input id="al_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#ffffff;border:1px solid #ccc;">
+
+  <label><strong>Copper (EUR/Tonne)</strong></label><br>
+  <input id="cu_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#ffffff;border:1px solid #ccc;">
+
+  <label><strong>Aluminium (EUR/Tonne)</strong></label><br>
+  <input id="al_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#ffffff;border:1px solid #ccc;">
 
   <div style="font-size: 0.9em; color: #555; margin-bottom: 15px;">
     <strong id="fx_time">Fetching live FX...</strong>
@@ -49,18 +54,18 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 ## Weight Formulas
 
-- **[span_2](start_span)Copper kg per km** = mm² × 9.6[span_2](end_span)
-- **[span_3](start_span)Aluminium kg per km** = mm² × 2.92[span_3](end_span)
+* **[span_8](start_span)Copper kg per km** = mm² × 9.6[span_8](end_span)
+* **[span_9](start_span)Aluminium kg per km** = mm² × 2.92[span_9](end_span)
 
 ---
 
 ## Net Price Rule
 
-**[span_4](start_span)Net cable price ≈ Metal value ÷ 0.3**[span_4](end_span)
+**[span_10](start_span)Net cable price ≈ Metal value ÷ 0.3**[span_10](end_span)
 
 Typical cost structure:
-- **[span_5](start_span)Metal content:** ≈ 30%[span_5](end_span)
-- **[span_6](start_span)Manufacturing, logistics, and margin:** ≈ 70%[span_6](end_span)
+* **[span_11](start_span)Metal content:** ≈ 30%[span_11](end_span)
+* **[span_12](start_span)Manufacturing, logistics, and margin:** ≈ 70%[span_12](end_span)
 
 ---
 
@@ -129,6 +134,7 @@ function calc() {
   let fx_eur = parseFloat(document.getElementById("fx_eur").value) || 1;
   let currency = document.getElementById("currency").value;
 
+  // Derive supporting currency boxes from Active Drivers (Metals & FX)
   document.getElementById("cu_gbp_val").value = "£" + (cu / fx_gbp).toLocaleString('en-GB', {maximumFractionDigits: 0});
   document.getElementById("al_gbp_val").value = "£" + (al / fx_gbp).toLocaleString('en-GB', {maximumFractionDigits: 0});
   document.getElementById("cu_eur_val").value = "€" + (cu / fx_eur).toLocaleString('en-GB', {maximumFractionDigits: 0});
@@ -166,5 +172,17 @@ document.addEventListener("DOMContentLoaded", async function () { await fetchFX(
 
 ---
 
+## Notes
+
+[span_13](start_span)This estimator supports rapid early-stage cost analysis for[span_13](end_span):
+* [span_14](start_span)Solar farms[span_14](end_span)
+* [span_15](start_span)Battery energy storage systems (BESS)[span_15](end_span)
+* [span_16](start_span)Wind farms[span_16](end_span)
+* [span_17](start_span)Utility substations[span_17](end_span)
+* [span_18](start_span)Transmission and distribution connections[span_18](end_span)
+
+---
+
 ## Disclaimer
-[span_7](start_span)These values are derived from live market data feeds[span_7](end_span). [span_8](start_span)Actual cable pricing varies based on project volume, factory loading, and specific utility requirements[span_8](end_span). [span_9](start_span)No warranty is given for data accuracy[span_9](end_span).
+
+[span_19](start_span)These values are derived from live market data feeds[span_19](end_span). [span_20](start_span)Actual cable pricing varies based on project volume, factory loading, and specific utility requirements[span_20](end_span). [span_21](start_span)No warranty is given for data accuracy[span_21](end_span).

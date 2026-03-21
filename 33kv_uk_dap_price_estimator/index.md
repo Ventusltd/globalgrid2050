@@ -142,7 +142,6 @@ function calc() {
     cu_price = cu; al_price = al; symbol = "$";
   }
 
-  // Update table headers with selected symbol
   document.querySelectorAll('.sym').forEach(el => el.innerHTML = symbol);
 
   let tbody = document.querySelector("#liveTbl tbody");

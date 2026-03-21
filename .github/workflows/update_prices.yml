@@ -26,28 +26,30 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      # --- LV UPDATE ---
       - name: Run LV price update
         run: python scripts/update_prices_lv.py
 
-      # --- 33kV UPDATE (SAFE even if already working) ---
       - name: Run 33kV price update
-        run: python scripts/update_prices_33kv.py
+        run: python scripts/update_prices.py
 
-      # --- COMMIT BOTH ---
-      - name: Commit and Push changes
+      - name: Debug Git info
+        run: |
+          echo "Working directory: $(pwd)"
+          echo "Current branch: $(git branch --show-current)"
+          git remote -v
+          git status --short
+
+      - name: Commit and push changes
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
 
-          # Stage BOTH estimators
           git add lv_ac_dc_price_estimator/index.md
           git add 33kv_uk_dap_price_estimator/index.md
 
-          # Only commit if something actually changed
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated metal price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push origin main
+            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
           else
             echo "No changes to commit"
           fi

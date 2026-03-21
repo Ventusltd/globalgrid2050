@@ -15,8 +15,20 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
   <label><strong>LME Aluminium (USD/Tonne)</strong></label><br>
   <input id="al" value="3520" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
 
+  <label><strong>🔒 Copper (GBP/Tonne) - Automated</strong></label><br>
+  <input id="cu_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+
+  <label><strong>🔒 Aluminium (GBP/Tonne) - Automated</strong></label><br>
+  <input id="al_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+
+  <label><strong>🔒 Copper (EUR/Tonne) - Automated</strong></label><br>
+  <input id="cu_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+
+  <label><strong>🔒 Aluminium (EUR/Tonne) - Automated</strong></label><br>
+  <input id="al_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+
   <label><strong>GBP/USD Rate (Live Auto-Fetch)</strong></label><br>
-  <input id="fx_gbp" value="0.7539" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
+  <input id="fx_gbp" value="1.3265" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
 
   <label><strong>EUR/USD Rate (Live Auto-Fetch)</strong></label><br>
   <input id="fx_eur" value="1.0800" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
@@ -25,7 +37,7 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
     <strong id="fx_time">Fetching live FX...</strong>
   </div>
 
-  <label><strong>Display Currency</strong></label><br>
+  <label><strong>Display Currency for Tables</strong></label><br>
   <select id="currency" onchange="calc()" style="width:100%;padding:10px;box-sizing:border-box;">
     <option value="GBP">GBP (£)</option>
     <option value="USD">USD ($)</option>
@@ -37,8 +49,8 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 ## Weight Formulas
 
-- **Copper kg per km** = mm² × 9.6  
-- **Aluminium kg per km** = mm² × 2.92  
+- **Copper kg per km** = mm² × 9.6
+- **Aluminium kg per km** = mm² × 2.92
 
 ---
 
@@ -47,9 +59,8 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 **Net cable price ≈ Metal value ÷ 0.3**
 
 Typical cost structure:
-
-- **Metal content:** ≈ 30%  
-- **Manufacturing, logistics, and margin:** ≈ 70%  
+- **Metal content:** ≈ 30%
+- **Manufacturing, logistics, and margin:** ≈ 70%
 
 ---
 
@@ -74,19 +85,9 @@ Typical cost structure:
 </div>
 
 <style>
-#liveTbl td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-#liveTbl tr:nth-child(even) {
-  background-color: #fafafa;
-}
-@media print {
-  select, input {
-    display: none;
-  }
-}
+#liveTbl td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+#liveTbl tr:nth-child(even) { background-color: #fafafa; }
+@media print { select, input { display: none; } }
 </style>
 
 <script>
@@ -111,16 +112,14 @@ async function fetchFX() {
       document.getElementById("fx_eur").value = (1 / data.rates.EUR).toFixed(4);
       updateFXTime();
     } catch (err) {
-      let fxTimeEl = document.getElementById("fx_time");
-      if (fxTimeEl) fxTimeEl.innerHTML = "Live FX unavailable. Using manual inputs";
+      document.getElementById("fx_time").innerHTML = "Live FX unavailable. Using manual inputs";
     }
   }
 }
 
 function updateFXTime() {
   let now = new Date();
-  let fxTimeEl = document.getElementById("fx_time");
-  if (fxTimeEl) fxTimeEl.innerHTML = "Last Update: " + now.toUTCString();
+  document.getElementById("fx_time").innerHTML = "Last Update: " + now.toUTCString();
 }
 
 function calc() {
@@ -130,77 +129,43 @@ function calc() {
   let fx_eur = parseFloat(document.getElementById("fx_eur").value) || 1;
   let currency = document.getElementById("currency").value;
 
-  if (!fx_gbp || !fx_eur) return;
+  // Read-only intuitive boxes
+  document.getElementById("cu_gbp_val").value = "£" + (cu / fx_gbp).toLocaleString('en-GB', {maximumFractionDigits: 0});
+  document.getElementById("al_gbp_val").value = "£" + (al / fx_gbp).toLocaleString('en-GB', {maximumFractionDigits: 0});
+  document.getElementById("cu_eur_val").value = "€" + (cu / fx_eur).toLocaleString('en-GB', {maximumFractionDigits: 0});
+  document.getElementById("al_eur_val").value = "€" + (al / fx_eur).toLocaleString('en-GB', {maximumFractionDigits: 0});
 
   let cu_price, al_price, symbol;
-
-  if (currency === "GBP") {
-    cu_price = cu / fx_gbp; al_price = al / fx_gbp; symbol = "£";
-  } else if (currency === "EUR") {
-    cu_price = cu / fx_eur; al_price = al / fx_eur; symbol = "€";
-  } else {
-    cu_price = cu; al_price = al; symbol = "$";
-  }
+  if (currency === "GBP") { cu_price = cu / fx_gbp; al_price = al / fx_gbp; symbol = "£"; }
+  else if (currency === "EUR") { cu_price = cu / fx_eur; al_price = al / fx_eur; symbol = "€"; }
+  else { cu_price = cu; al_price = al; symbol = "$"; }
 
   document.querySelectorAll('.sym').forEach(el => el.innerHTML = symbol);
-
   let tbody = document.querySelector("#liveTbl tbody");
   tbody.innerHTML = "";
 
   mvCables.forEach(c => {
-    let cond = c[0];
-    let cws = c[1];
-    
-    let al_kg = cond * 2.92;
-    let cu_kg = cws * 9.6;
+    let cond = c[0], cws = c[1];
+    let al_kg = cond * 2.92, cu_kg = cws * 9.6;
+    let al_cost = al_kg * (al_price / 1000), cu_cost = cu_kg * (cu_price / 1000);
+    let total_metal = al_cost + cu_cost, net_price = total_metal / 0.3;
 
-    let al_cost = al_kg * (al_price / 1000);
-    let cu_cost = cu_kg * (cu_price / 1000);
-    
-    let total_metal = al_cost + cu_cost;
-    let net_price = total_metal / 0.3;
-
-    let fmtAlKg = al_kg.toLocaleString('en-GB', {maximumFractionDigits: 1});
-    let fmtCuKg = cu_kg.toLocaleString('en-GB', {maximumFractionDigits: 1});
-    let fmtAlCost = al_cost.toLocaleString('en-GB', {maximumFractionDigits: 0});
-    let fmtCuCost = cu_cost.toLocaleString('en-GB', {maximumFractionDigits: 0});
-    let fmtTotal = total_metal.toLocaleString('en-GB', {maximumFractionDigits: 0});
-    let fmtNet = net_price.toLocaleString('en-GB', {maximumFractionDigits: 0});
-
-    let row = `<tr>
-      <td><strong>${cond}</strong></td>
-      <td>${cws}</td>
-      <td>${fmtAlKg}</td>
-      <td>${fmtCuKg}</td>
-      <td>${symbol}${fmtAlCost}</td>
-      <td>${symbol}${fmtCuCost}</td>
-      <td>${symbol}${fmtTotal}</td>
-      <td style="background:#eef8e5;"><strong>${symbol}${fmtNet}</strong></td>
+    tbody.innerHTML += `<tr>
+      <td><strong>${cond}</strong></td><td>${cws}</td>
+      <td>${al_kg.toLocaleString('en-GB', {maximumFractionDigits: 1})}</td>
+      <td>${cu_kg.toLocaleString('en-GB', {maximumFractionDigits: 1})}</td>
+      <td>${symbol}${al_cost.toLocaleString('en-GB', {maximumFractionDigits: 0})}</td>
+      <td>${symbol}${cu_cost.toLocaleString('en-GB', {maximumFractionDigits: 0})}</td>
+      <td>${symbol}${total_metal.toLocaleString('en-GB', {maximumFractionDigits: 0})}</td>
+      <td style="background:#eef8e5;"><strong>${symbol}${net_price.toLocaleString('en-GB', {maximumFractionDigits: 0})}</strong></td>
     </tr>`;
-    tbody.innerHTML += row;
   });
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
-  await fetchFX();
-  calc();
-});
+document.addEventListener("DOMContentLoaded", async function () { await fetchFX(); calc(); });
 </script>
 
 ---
 
-## Notes
-
-This estimator supports rapid early-stage cost analysis for:
-
-- Solar farms  
-- Battery energy storage systems (BESS)  
-- Wind farms  
-- Utility substations  
-- Transmission and distribution connections  
-
----
-
 ## Disclaimer
-
 These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.

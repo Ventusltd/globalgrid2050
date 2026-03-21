@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,7 +57,7 @@
 
 <div style="background:#fff5f5; border:2px solid #feb2b2; padding:20px; border-radius:10px; margin-bottom:25px;">
     <label style="display:block; font-weight:800; color:#9b2c2c; margin-bottom:6px; text-transform:uppercase; font-size:0.85em;">Non-Metal Costs (%)</label>
-    <p style="font-size:0.78em; color:#c53030; margin:0 0 10px 0; line-height:1.5;">All costs excluding metal values for a DAP delivery estimate — covering manufacturing, insulation, sheathing, screening, logistics, and margin. Replace with an official supplier quote for greater accuracy.</p>
+    <p style="font-size:0.78em; color:#c53030; margin:0 0 10px 0; line-height:1.5;">All costs excluding metal values for a DAP delivery estimate. Replace with an official supplier quote for greater accuracy.</p>
     <input id="non_metal_input" type="number" value="70" oninput="calc()" style="width:100%; padding:12px; border:1px solid #fc8181; border-radius:6px; font-weight:700; color:#c53030; background:#fff; box-sizing:border-box;">
 </div>
 
@@ -116,6 +118,8 @@
                 <th style="padding:15px 10px;">CWS mm²</th>
                 <th style="padding:15px 10px;">Al kg/km</th>
                 <th style="padding:15px 10px;">Cu kg/km</th>
+                <th style="padding:15px 10px; background:#2d4a6e;">Al Value</th>
+                <th style="padding:15px 10px; background:#2d4a6e;">Cu Value</th>
                 <th style="padding:15px 10px;">Total Metal</th>
                 <th style="padding:15px 10px;">Net Price</th>
             </tr>
@@ -200,6 +204,8 @@ function calc() {
             "<td style='padding:12px 10px;'>" + cws + "</td>" +
             "<td style='padding:12px 10px;'>" + Math.round(al_kg).toLocaleString() + "</td>" +
             "<td style='padding:12px 10px;'>" + Math.round(cu_kg).toLocaleString() + "</td>" +
+            "<td style='padding:12px 10px; background:#eef4fb; color:#1e3a5f; font-weight:600;'>" + sym + Math.round(al_kg * (pAl / 1000)).toLocaleString() + "</td>" +
+            "<td style='padding:12px 10px; background:#eef4fb; color:#1e3a5f; font-weight:600;'>" + sym + Math.round(cu_kg * (pCu / 1000)).toLocaleString() + "</td>" +
             "<td style='padding:12px 10px;'>" + sym + Math.round(totMetal).toLocaleString() + "</td>" +
             "<td style='padding:12px 10px; background:#f0fff4; border-left:2px solid #c6f6d5;'>" +
                 "<div style='font-weight:bold; color:#22543d; font-size:1.1em;'>" + sym + Math.round(netMain).toLocaleString() + "</div>" +

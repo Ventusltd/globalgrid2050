@@ -20,8 +20,8 @@
 | **Forex Rates** | GBP / USD Rate | **1 GBP = 1.3339 USD** |
 | | EUR / USD Rate | **1 EUR = 1.1586 USD** |
 | | GBP / EUR Rate | **1 GBP = 1.1510 EUR** |
-| **Physical Data** | Weight Calculation (Al) | **$mm2 \times 2.92$** (kg per km) |
-| | Weight Calculation (Cu) | **$mm2 \times 9.60$** (kg per km) |
+| **Physical Data** | Weight Calculation (Al) | **mm2 \times 2.92** (kg per km) |
+| | Weight Calculation (Cu) | **mm2 \times 9.60** (kg per km) |
 | **Pricing Rules** | Aluminium Net Price (EUR) | **Metal Value (EUR) ÷ 0.25** |
 | | Copper Net Price (EUR) | **Metal Value (EUR) ÷ 0.40** (0.6 Non-Metal) |
 | **Timestamp** | Last Market Update | Saturday 21 March 2026 13:30 UTC |

@@ -1,8 +1,13 @@
-Going back to the clean, plain Markdown format from the start of this project, here is the complete content for your index.md file. This version removes all interactive HTML and JavaScript, returning to the static reference document.
-33 kV Aluminium XLPE Cable Price Estimator
+# 33 kV Aluminium XLPE Cable Price Estimator
+
 Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
+
 Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.
-Market Inputs
+
+---
+
+## Market Inputs
+
 | Parameter | Value |
 |---|---|
 | LME Copper (USD) | $12,850 / tonne |
@@ -11,15 +16,29 @@ Market Inputs
 | Copper (GBP) | £9,687 / tonne |
 | Aluminium (GBP) | £2,654 / tonne |
 | Last Update | Friday 20 March 2026 19:05 UTC |
-Weight Formulas
- * Copper kg per km = mm² × 9.6
- * Aluminium kg per km = mm² × 2.92
-Net Price Rule
+
+---
+
+## Weight Formulas
+
+- Copper kg per km = mm² × 9.6  
+- Aluminium kg per km = mm² × 2.92  
+
+---
+
+## Net Price Rule
+
 Net cable price ≈ Metal value ÷ 0.3
+
 Typical cost structure:
- * Metal content: ≈ 30%
- * Manufacturing, logistics, and margin: ≈ 70%
-Cable Metal and Net Price Estimator
+
+- Metal content: ≈ 30%  
+- Manufacturing, logistics, and margin: ≈ 70%  
+
+---
+
+## Cable Metal and Net Price Estimator
+
 | Conductor mm² | CWS mm² | Aluminium kg/km | Copper kg/km | Aluminium £/km | Copper £/km | Total metal £/km | Net £/km |
 |---|---|---|---|---|---|---|---|
 | 120 | 35 | 350.4 | 336.0 | 930 | 3,255 | 4,185 | 13,949 |
@@ -38,13 +57,21 @@ Cable Metal and Net Price Estimator
 | 1800 | 50 | 5,256.0 | 480.0 | 13,947 | 4,650 | 18,597 | 61,991 |
 | 2000 | 50 | 5,840.0 | 480.0 | 15,497 | 4,650 | 20,147 | 67,156 |
 | 2500 | 50 | 7,300.0 | 480.0 | 19,371 | 4,650 | 24,021 | 80,070 |
-Notes
-This estimator supports rapid early-stage cost analysis for:
- * Solar farms
- * Battery energy storage systems (BESS)
- * Wind farms
- * Utility substations
- * Transmission and distribution connections
-Disclaimer
+
+---
+
+## Notes
+
+This estimator supports rapid early stage cost analysis for:
+
+- Solar farms  
+- Battery energy storage systems BESS  
+- Wind farms  
+- Utility substations  
+- Transmission and distribution connections  
+
+---
+
+## Disclaimer
+
 These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.
-Would you like me to provide the original automation script that works with this specific table structure?

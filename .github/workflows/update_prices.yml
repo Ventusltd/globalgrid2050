@@ -21,5 +21,5 @@ jobs:
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add 33kv_uk_dap_price_estimator/index.md
+          git add 33kv_uk_dap_price_estimator/index.html
           git diff --quiet && git diff --staged --quiet || (git commit -m "Automated price update" && git push origin main)

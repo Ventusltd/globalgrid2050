@@ -15,8 +15,8 @@
 
 | Category | Parameter | Value / Formula |
 | :--- | :--- | :--- |
-| **Market Data** | LME Aluminium (USD) | **$3,520 / tonne** |
-| | LME Copper (USD) | **$12,850 / tonne** |
+| **Market Data** | LME Aluminium (USD/EUR) | **$3,520 / €3,038 per tonne** |
+| | LME Copper (USD/EUR) | **$12,850 / €11,091 per tonne** |
 | **Forex Rates** | GBP / USD Rate | **1 GBP = 1.3339 USD** |
 | | EUR / USD Rate | **1 EUR = 1.1586 USD** |
 | | GBP / EUR Rate | **1 GBP = 1.1510 EUR** |

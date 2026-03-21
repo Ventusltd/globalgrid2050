@@ -28,20 +28,15 @@
 
 <hr>
 
-<h2>Technical Notes: Net Price Rule</h2>
+<h2>Estimation</h2>
 
-<p>The <strong>net cable price</strong> is estimated by dividing the total metal value by the remaining percentage after non metal costs are removed.</p>
+<p><strong>Default assumption:</strong> set to 70% non metal costs.</p>
 
-<p><strong>Formula</strong></p>
+<p>This means total metal value is divided by 0.3 to estimate final cable price.</p>
 
-<p><code>Net Price = Metal Value ÷ (1 − Non Metal Cost %)</code></p>
+<p>You can adjust this value if you have a formal supplier quote or project specific cost structure.</p>
 
-<p>Typical cost structure for utility grade 33 kV XLPE:</p>
-
-<ul>
-  <li><strong>Metal content:</strong> ≈ 30%</li>
-  <li><strong>Manufacturing, logistics and margin:</strong> ≈ 70%</li>
-</ul>
+<p>This tool is intended for high level estimates only.</p>
 
 <hr>
 

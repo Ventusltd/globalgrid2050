@@ -9,11 +9,14 @@ FILE = Path(__file__).parent.parent / "lv_ac_dc_price_estimator" / "index.md"
 SUPPLY_FACTOR = 0.3
 
 def get_data():
-    gbpusd, cu_usd, al_usd = 1.3341, 12021.5, 3329.0
+    gbpusd, gbpeur, gbpchf = 1.3341, 1.1529, 1.0513
+    cu_usd, al_usd = 12021.5, 3329.0
 
     try:
         fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=20).json()
         gbpusd = fx["rates"]["USD"]
+        gbpeur = fx["rates"]["EUR"]
+        gbpchf = fx["rates"]["CHF"]
 
         metals = requests.get("https://api.metals.live/v1/spot", timeout=20).json()
 
@@ -26,18 +29,18 @@ def get_data():
     except Exception as e:
         print(f"Fallback used: {e}")
 
-    return gbpusd, cu_usd, al_usd
+    return gbpusd, gbpeur, gbpchf, cu_usd, al_usd
 
 
 def main():
-    gbpusd, cu_usd, al_usd = get_data()
+    gbpusd, gbpeur, gbpchf, cu_usd, al_usd = get_data()
 
     cu_usd_per_kg = cu_usd / 1000
     al_usd_per_kg = al_usd / 1000
 
     gbp_per_usd = 1 / gbpusd
-    eur_per_gbp = 1.1529
-    chf_per_gbp = 1.0513
+    eur_per_gbp = gbpeur
+    chf_per_gbp = gbpchf
 
     timestamp = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
 
@@ -58,6 +61,12 @@ def main():
 
             elif "GBP/USD Rate" in key:
                 line = f"| GBP/USD Rate | 1 GBP = {gbpusd:.4f} USD |"
+
+            elif "GBP/EUR Rate" in key:
+                line = f"| GBP/EUR Rate | 1 GBP = {gbpeur:.4f} EUR |"
+
+            elif "GBP/CHF Rate" in key:
+                line = f"| GBP/CHF Rate | 1 GBP = {gbpchf:.4f} CHF |"
 
             elif "Last Update" in key:
                 line = f"| Last Update | {timestamp} |"

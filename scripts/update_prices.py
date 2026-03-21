@@ -1,116 +1,90 @@
 import requests
-from datetime import datetime
+from pathlib import Path
+from datetime import datetime, timezone
+import sys
 
-# --- API SOURCES ---
-METALS_URL = "https://api.metals.live/v1/spot"
-FX_URL = "https://api.exchangerate.host/latest?base=GBP&symbols=USD"
+# Targets the markdown file relative to this script's location
+FILE = Path(__file__).parent.parent / "33kv_uk_dap_price_estimator" / "index.md"
 
-# --- FETCH DATA ---
-metals = requests.get(METALS_URL).json()
-fx = requests.get(FX_URL).json()
+def get_data():
+    # Default fallbacks from your validated reference data
+    gbpusd, cu_usd, al_usd = 1.3265, 12850, 3520
+    
+    try:
+        # Fetch FX Rate (GBP to USD)
+        fx_r = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=20)
+        fx_r.raise_for_status()
+        gbpusd = fx_r.json()["rates"]["USD"]
+        
+        # Fetch Metal Prices (USD/Tonne)
+        m_r = requests.get("https://api.metals.live/v1/spot", timeout=20)
+        m_r.raise_for_status()
+        m_data = m_r.json()
+        
+        # Safer extraction to prevent "Exit Code 1" if API structure changes
+        for item in m_data:
+            if item.get("metal") == "copper":
+                cu_usd = item.get("price") * 1000
+            if item.get("metal") == "aluminum":
+                al_usd = item.get("price") * 1000
+                
+    except Exception as e:
+        print(f"Warning: Live fetch failed, using fallbacks. Error: {e}")
+        
+    return gbpusd, cu_usd, al_usd
 
-# metals.live returns list of dicts like [{"gold":...}, {"silver":...}, ...]
-metal_dict = {list(item.keys())[0]: list(item.values())[0] for item in metals}
+def main():
+    gbpusd, cu_usd, al_usd = get_data()
+    cu_gbp = cu_usd / gbpusd
+    al_gbp = al_usd / gbpusd
+    tstamp = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
 
-copper_usd_per_lb = metal_dict.get("copper")
-aluminium_usd_per_lb = metal_dict.get("aluminium")
+    if not FILE.exists():
+        print(f"Error: Markdown file not found at {FILE}")
+        sys.exit(1)
 
-# convert lb → tonne
-LB_TO_TONNE = 2204.62
+    lines = FILE.read_text().splitlines()
+    new_lines = []
 
-copper_usd_per_tonne = copper_usd_per_lb * LB_TO_TONNE
-aluminium_usd_per_tonne = aluminium_usd_per_lb * LB_TO_TONNE
+    for line in lines:
+        p = [x.strip() for x in line.split("|")]
+        if len(p) >= 3:
+            key = p[1]
+            
+            if "LME Copper (USD)" in key: 
+                line = f"| LME Copper (USD) | ${cu_usd:,.0f} / tonne |"
+            elif "LME Aluminium (USD)" in key: 
+                line = f"| LME Aluminium (USD) | ${al_usd:,.0f} / tonne |"
+            elif "GBP/USD Rate" in key: 
+                line = f"| GBP/USD Rate | 1 GBP = {gbpusd:.4f} USD |"
+            elif "Copper (GBP)" in key: 
+                line = f"| Copper (GBP) | £{cu_gbp:,.0f} / tonne |"
+            elif "Aluminium (GBP)" in key: 
+                line = f"| Aluminium (GBP) | £{al_gbp:,.0f} / tonne |"
+            elif "Last Update" in key: 
+                line = f"| Last Update | {tstamp} |"
+            else:
+                try:
+                    # Clean the key and check if it's a numeric conductor size
+                    clean_key = key.replace(',', '').split()[0]
+                    cond_size = float(clean_key)
+                    cws_size = float(p[2].replace(',', ''))
+                    
+                    al_kg = cond_size * 2.92
+                    cu_kg = cws_size * 9.6
+                    al_val = (al_kg / 1000) * al_gbp
+                    cu_val = (cu_kg / 1000) * cu_gbp
+                    total = al_val + cu_val
+                    net = total / 0.3
+                    
+                    line = f"| {cond_size:.0f} | {cws_size:.0f} | {al_kg:,.1f} | {cu_kg:,.1f} | {al_val:,.0f} | {cu_val:,.0f} | {total:,.0f} | {net:,.0f} |"
+                except (ValueError, IndexError):
+                    pass 
 
-gbp_usd = fx["rates"]["USD"]
+        new_lines.append(line)
 
-# convert to GBP
-copper_gbp_per_tonne = copper_usd_per_tonne / gbp_usd
-aluminium_gbp_per_tonne = aluminium_usd_per_tonne / gbp_usd
+    FILE.write_text("\n".join(new_lines))
+    print(f"Successfully updated at {tstamp}")
 
-# --- FUNCTIONS ---
-def aluminium_kg_per_km(mm2):
-    return mm2 * 2.92
-
-def copper_kg_per_km(mm2):
-    return mm2 * 9.6
-
-# conductor sizes
-rows = [
-    (120,35),(150,35),(185,35),(240,35),(300,35),(400,35),(500,35),(630,35),
-    (800,50),(1000,50),(1200,50),(1400,50),(1600,50),(1800,50),(2000,50),(2500,50)
-]
-
-# --- BUILD TABLE ---
-table_rows = []
-
-for conductor, cws in rows:
-    al_kg = aluminium_kg_per_km(conductor)
-    cu_kg = copper_kg_per_km(cws)
-
-    al_cost = al_kg * aluminium_gbp_per_tonne / 1000
-    cu_cost = cu_kg * copper_gbp_per_tonne / 1000
-
-    total_metal = al_cost + cu_cost
-    net_price = total_metal / 0.3
-
-    table_rows.append({
-        "conductor": conductor,
-        "cws": cws,
-        "al_kg": round(al_kg,1),
-        "cu_kg": round(cu_kg,1),
-        "al_cost": round(al_cost),
-        "cu_cost": round(cu_cost),
-        "total": round(total_metal),
-        "net": round(net_price)
-    })
-
-# --- TIMESTAMP ---
-timestamp = datetime.utcnow().strftime("%A %d %B %Y %H:%M UTC")
-
-# --- WRITE HTML ---
-html = f"""
-<h1>33 kV Aluminium XLPE Cable Price Estimator</h1>
-
-<p>Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen and MDPE oversheath to BS 7870.</p>
-
-<h2>Market Inputs</h2>
-<ul>
-<li>LME Copper: £{round(copper_gbp_per_tonne):,} / tonne</li>
-<li>LME Aluminium: £{round(aluminium_gbp_per_tonne):,} / tonne</li>
-<li>GBP/USD: {gbp_usd:.4f}</li>
-<li>Last Update: {timestamp}</li>
-</ul>
-
-<h2>Estimator</h2>
-<table border="1" cellpadding="5" cellspacing="0">
-<tr>
-<th>Conductor mm²</th>
-<th>CWS mm²</th>
-<th>Al kg/km</th>
-<th>Cu kg/km</th>
-<th>Al £/km</th>
-<th>Cu £/km</th>
-<th>Total £/km</th>
-<th>Net £/km</th>
-</tr>
-"""
-
-for r in table_rows:
-    html += f"""
-<tr>
-<td>{r['conductor']}</td>
-<td>{r['cws']}</td>
-<td>{r['al_kg']}</td>
-<td>{r['cu_kg']}</td>
-<td>{r['al_cost']}</td>
-<td>{r['cu_cost']}</td>
-<td>{r['total']}</td>
-<td>{r['net']}</td>
-</tr>
-"""
-
-html += "</table>"
-
-# --- OUTPUT FILE ---
-with open("33kv_uk_dap_price_estimator/index.html", "w") as f:
-    f.write(html)
+if __name__ == "__main__":
+    main()

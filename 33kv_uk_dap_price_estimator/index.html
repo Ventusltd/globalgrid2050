@@ -137,7 +137,7 @@
             <thead>
                 <tr>
                     <th>Cond.<br><span>mm²</span></th>
-                    <th>Screen<br><span>mm²</span></th>
+                    <th>Screen<br><span id="al_header_screen">35 mm²</span></th>
                     <th>Al Cond.<br><span>kg/km</span></th>
                     <th>Cu Screen<br><span>kg/km</span></th>
                     <th class="metal-th">Al Metal<br><span>value/km</span></th>
@@ -156,7 +156,7 @@
             <thead>
                 <tr>
                     <th style="background:#744210;">Cond.<br><span>mm²</span></th>
-                    <th style="background:#744210;">Screen<br><span>mm²</span></th>
+                    <th style="background:#744210;">Screen<br><span id="cu_header_screen">35 mm²</span></th>
                     <th style="background:#744210;">Cu Cond.<br><span>kg/km</span></th>
                     <th style="background:#744210;">Cu Screen<br><span>kg/km</span></th>
                     <th style="background:#744210;">Total Cu<br><span>kg/km</span></th>
@@ -200,6 +200,10 @@
             // Get inputs
             let cwsSize = parseFloat(document.getElementById("cws_size").value) || 0;
             if (cwsSize < 0) cwsSize = 0;
+
+            // Dynamically update the table headers
+            document.getElementById("al_header_screen").innerText = cwsSize + " mm²";
+            document.getElementById("cu_header_screen").innerText = cwsSize + " mm²";
 
             const cuUSD = parseFloat(document.getElementById("cu").value) || 0;
             const alUSD = parseFloat(document.getElementById("al").value) || 0;
@@ -255,9 +259,10 @@
                 const trAl = document.createElement("tr");
                 trAl.style.cursor = "pointer";
                 trAl.onclick = function() { this.style.background = this.style.background ? '' : '#ebf8ff'; };
+                
+                // Note: We removed the static screen column here because the header now states the screen size globally for the whole table.
                 trAl.innerHTML = `
                     <td><strong>${cond}</strong></td>
-                    <td>${cwsSize}</td>
                     <td>${Math.round(al_kg).toLocaleString()}</td>
                     <td>${Math.round(cws_kg).toLocaleString()}</td>
                     <td class='td-metal'>${sym}${Math.round(alVal).toLocaleString()}</td>
@@ -288,7 +293,6 @@
                 trCu.onclick = function() { this.style.background = this.style.background ? '' : '#ebf8ff'; };
                 trCu.innerHTML = `
                     <td><strong>${cond}</strong></td>
-                    <td>${cwsSize}</td>
                     <td>${Math.round(main_cu_kg).toLocaleString()}</td>
                     <td>${Math.round(cws_kg).toLocaleString()}</td>
                     <td><strong>${Math.round(tot_cu_kg).toLocaleString()}</strong></td>

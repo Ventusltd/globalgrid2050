@@ -14,38 +14,46 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
     <label style="display:block; font-weight:700; color:#333; margin-bottom:8px;">LME Aluminium (USD per Tonne)</label>
     <input id="al" type="number" value="3520" oninput="calc()" style="width:100%; padding:14px; margin-bottom:18px; border:2px solid #3182ce; border-radius:8px; background:#f0f7ff; font-size:1.1em; font-weight:700;">
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 25px;">
-        <div style="background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0; text-align:center;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; pointer-events: none;">
+        <div style="text-align:center; border-bottom: 1px solid #edf2f7; padding-bottom: 10px;">
             <div style="font-size:0.75em; color:#64748b; font-weight:700;">COPPER (GBP per Tonne)</div>
-            <div id="cu_gbp_text" style="font-size:1em; font-weight:700; color:#1a202c;">£0</div>
+            <div id="cu_gbp_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">£0</div>
         </div>
-        <div style="background:#f8fafc; padding:12px; border-radius:10px; border:1px solid #e2e8f0; text-align:center;">
+        <div style="text-align:center; border-bottom: 1px solid #edf2f7; padding-bottom: 10px;">
             <div style="font-size:0.75em; color:#64748b; font-weight:700;">ALUMINIUM (GBP per Tonne)</div>
-            <div id="al_gbp_text" style="font-size:1em; font-weight:700; color:#1a202c;">£0</div>
+            <div id="al_gbp_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">£0</div>
         </div>
-        <div style="background:#fffaf0; padding:12px; border-radius:10px; border:1px solid #feebc8; text-align:center;">
-            <div style="font-size:0.75em; color:#c05621; font-weight:700;">GBP to EUR</div>
-            <div id="fx_cross" style="font-size:1em; font-weight:700; color:#744210;">0.0000</div>
+        <div style="text-align:center; padding-top: 10px;">
+            <div style="font-size:0.75em; color:#64748b; font-weight:700;">COPPER (EUR per Tonne)</div>
+            <div id="cu_eur_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">€0</div>
         </div>
-    </div>
-
-    <div style="background:#f0fff4; border:1px solid #c6f6d5; padding:20px; border-radius:10px; margin-bottom:25px;">
-        <label style="display:block; font-weight:700; color:#22543d; margin-bottom:10px;">Net Price Rule (Metal Content %)</label>
-        <input type="range" id="markup_slider" min="15" max="50" value="30" oninput="updateMarkupText(); calc();" style="width:100%; cursor:pointer;">
-        <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-top:10px; font-weight:600;">
-            <div>Metal is <span id="markup_val">30</span>% of Total Price</div>
-            <div style="color:#718096;">Mark-up: <span id="overhead_val">70</span>%</div>
+        <div style="text-align:center; padding-top: 10px;">
+            <div style="font-size:0.75em; color:#64748b; font-weight:700;">ALUMINIUM (EUR per Tonne)</div>
+            <div id="al_eur_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">€0</div>
         </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom:18px;">
+    <div style="background:#fff5f5; border:2px solid #feb2b2; padding:20px; border-radius:10px; margin-bottom:25px;">
+        <label style="display:block; font-weight:800; color:#9b2c2c; margin-bottom:8px; text-transform:uppercase; font-size:0.85em;">Non-Metal Costs Estimate (%)</label>
+        <input id="non_metal_input" type="number" value="70" oninput="calc()" style="width:100%; padding:12px; border:1px solid #fc8181; border-radius:6px; font-weight:700; color:#c53030; background:#fff;">
+        <div style="font-size:0.8em; color:#e53e3e; margin-top:10px; font-weight:600; line-height:1.4;">
+            Rule: 70% non-metal costs results in Metal being 30% of Total Price.<br>
+            (Total Metal Value is divided by 0.30 to reach Net Price)
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom:18px;">
         <div>
-            <label style="font-size:0.85em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">GBP/USD (Live)</label>
+            <label style="font-size:0.8em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">GBP/USD</label>
             <input id="fx_gbp" oninput="calc()" style="width:100%; padding:10px; border:1px solid #e2e8f0; border-radius:6px;">
         </div>
         <div>
-            <label style="font-size:0.85em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">EUR/USD (Live)</label>
+            <label style="font-size:0.8em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">EUR/USD</label>
             <input id="fx_eur" oninput="calc()" style="width:100%; padding:10px; border:1px solid #e2e8f0; border-radius:6px;">
+        </div>
+        <div style="background:#fffaf0; border:1px solid #feebc8; border-radius:6px; padding:5px; text-align:center;">
+            <label style="font-size:0.75em; font-weight:700; color:#c05621; display:block; margin-bottom:2px;">GBP to EUR</label>
+            <div id="fx_cross" style="font-weight:700; color:#744210; font-size:1.1em;">0.0000</div>
         </div>
     </div>
 
@@ -60,8 +68,8 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
 ---
 
 ## Weight Formulas
-* **Copper kg per km** = Conductor Size (mm²) x 9.6
-* **Aluminium kg per km** = Conductor Size (mm²) x 2.92
+* **[span_0](start_span)Copper kg per km** = Conductor Size (mm²) x 9.6[span_0](end_span)
+* **[span_1](start_span)Aluminium kg per km** = Conductor Size (mm²) x 2.92[span_1](end_span)
 
 ---
 
@@ -84,22 +92,17 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
 </div>
 
 <style>
-    #liveTbl tbody tr { cursor: pointer; transition: background 0.2s; }
+    #liveTbl tbody tr { cursor: pointer; transition: background 0.2s; border-bottom: 1px solid #edf2f7; }
     #liveTbl tbody tr:hover { background-color: #f7fafc; }
     #liveTbl tbody tr.selected { background-color: #ebf8ff !important; border-left: 4px solid #3182ce; }
 </style>
 
 <script>
+// MV Cable sizing data: [Conductor mm², Copper Wire Screen mm²]
 const mvCables = [
     [120,35],[150,35],[185,35],[240,35],[300,35],[400,35],[500,35],[630,35],
     [800,50],[1000,50],[1200,50],[1400,50],[1600,50],[1800,50],[2000,50],[2500,50]
 ];
-
-function updateMarkupText() {
-    const val = document.getElementById("markup_slider").value;
-    document.getElementById("markup_val").innerText = val;
-    document.getElementById("overhead_val").innerText = 100 - val;
-}
 
 async function fetchFX() {
     try {
@@ -120,12 +123,21 @@ function calc() {
     const alUSD = parseFloat(document.getElementById("al").value) || 0;
     const fxGBP = parseFloat(document.getElementById("fx_gbp").value) || 1.3368;
     const fxEUR = parseFloat(document.getElementById("fx_eur").value) || 1.1555;
-    const metalRatio = parseFloat(document.getElementById("markup_slider").value) / 100;
+    
+    // User controlled non-metal cost factor
+    const nonMetalPct = parseFloat(document.getElementById("non_metal_input").value) || 0;
+    const metalRatio = (100 - nonMetalPct) / 100;
+    
     const curr = document.getElementById("currency").value;
 
+    // Cross-rate calculation (GBP to EUR)
     document.getElementById("fx_cross").innerText = (fxGBP / fxEUR).toFixed(4);
+
+    // Update informational slave boxes
     document.getElementById("cu_gbp_text").innerText = "£" + Math.round(cuUSD / fxGBP).toLocaleString();
     document.getElementById("al_gbp_text").innerText = "£" + Math.round(alUSD / fxGBP).toLocaleString();
+    document.getElementById("cu_eur_text").innerText = "€" + Math.round(cuUSD / fxEUR).toLocaleString();
+    document.getElementById("al_eur_text").innerText = "€" + Math.round(alUSD / fxEUR).toLocaleString();
 
     let pCu, pAl, sym;
     if (curr === "GBP") { pCu = cuUSD / fxGBP; pAl = alUSD / fxGBP; sym = "£"; }
@@ -141,20 +153,17 @@ function calc() {
         const totMetal = (al_kg * (pAl/1000)) + (cu_kg * (pCu/1000));
         const netMain = totMetal / metalRatio;
 
+        // Multicurrency sub-info for the Net Price cell
         const mUSD = (al_kg * (alUSD/1000) + cu_kg * (cuUSD/1000)) / metalRatio;
         const mGBP = mUSD / fxGBP;
         const mEUR = mUSD / fxEUR;
 
         let subText = "";
-        if(curr === "GBP") {
-            subText = "$" + Math.round(mUSD).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
-        } else if(curr === "EUR") {
-            subText = "$" + Math.round(mUSD).toLocaleString() + " | £" + Math.round(mGBP).toLocaleString();
-        } else {
-            subText = "£" + Math.round(mGBP).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
-        }
+        if(curr === "GBP") subText = "$" + Math.round(mUSD).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
+        else if(curr === "EUR") subText = "$" + Math.round(mUSD).toLocaleString() + " | £" + Math.round(mGBP).toLocaleString();
+        else subText = "£" + Math.round(mGBP).toLocaleString() + " | €" + Math.round(mEUR).toLocaleString();
 
-        rows += "<tr onclick=\"this.classList.toggle('selected')\" style='border-bottom:1px solid #edf2f7;'>" +
+        rows += "<tr onclick=\"this.classList.toggle('selected')\">" +
             "<td style='padding:12px 10px;'><strong>" + cond + "</strong></td>" +
             "<td style='padding:12px 10px;'>" + cws + "</td>" +
             "<td style='padding:12px 10px;'>" + Math.round(al_kg).toLocaleString() + "</td>" +
@@ -162,7 +171,7 @@ function calc() {
             "<td style='padding:12px 10px;'>" + sym + Math.round(totMetal).toLocaleString() + "</td>" +
             "<td style='padding:12px 10px; background:#f0fff4; border-left:2px solid #c6f6d5;'>" +
                 "<div style='font-weight:bold; color:#22543d; font-size:1.1em;'>" + sym + Math.round(netMain).toLocaleString() + "</div>" +
-                "<div style='font-size:0.75em; color:#718096;'>" + subText + "</div>" +
+                "<div style='font-size:0.7em; color:#718096;'>" + subText + "</div>" +
             "</td>" +
         "</tr>";
     });

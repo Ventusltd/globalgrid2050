@@ -35,6 +35,8 @@ jobs:
         run: python scripts/update_prices.py
 
       - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
           set -e
           
@@ -46,7 +48,7 @@ jobs:
           
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push origin HEAD
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"
           fi

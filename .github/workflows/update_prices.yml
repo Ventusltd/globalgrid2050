@@ -2,21 +2,20 @@ name: update-metal-prices
 
 on:
   schedule:
-    - cron: '0 6 * * *'
-  workflow_dispatch:
+    - cron: '0 6 * * *' # Runs at 06:00 UTC daily
+  workflow_dispatch:    # Lets you click a "Run" button manually
 
 permissions:
-  contents: write
+  contents: write       # Crucial: Allows the bot to push changes
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -26,9 +25,6 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run MV price update
-        run: python scripts/update_prices.py
-
       - name: Run LV price update
         run: python scripts/update_prices_lv.py
 
@@ -36,12 +32,13 @@ jobs:
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-
-          git add 33kv_uk_dap_price_estimator/index.md
+          
+          # Stage the updated file
           git add lv_ac_dc_price_estimator/index.md
-
+          
+          # If there are changes, commit and push them
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "Automated LV price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push origin main
           else
             echo "No changes to commit"

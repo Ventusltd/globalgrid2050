@@ -1,58 +1,116 @@
-import os
-import re
 import requests
-from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime
 
-# Target file path (Updated to target index.html)
-FILE = Path(__file__).parent.parent / "33kv_uk_dap_price_estimator" / "index.html"
+# --- API SOURCES ---
+METALS_URL = "https://api.metals.live/v1/spot"
+FX_URL = "https://api.exchangerate.host/latest?base=GBP&symbols=USD"
 
-def get_data():
-    try:
-        # Fetch Live Metal Prices (USD/Tonne)
-        # --- Make sure this URL is exactly what you had in your original file ---
-        m_r = requests.get("https://api.metals.dev/v1/latest") 
-        m_r.raise_for_status()
-        m_data = m_r.json()
+# --- FETCH DATA ---
+metals = requests.get(METALS_URL).json()
+fx = requests.get(FX_URL).json()
 
-        # Pull Copper and Aluminum, normalize to whole numbers
-        cu_usd = next(i["price"] for i in m_data if "copper" in str(i).lower())
-        al_usd = next(i["price"] for i in m_data if "aluminum" in str(i).lower())
+# metals.live returns list of dicts like [{"gold":...}, {"silver":...}, ...]
+metal_dict = {list(item.keys())[0]: list(item.values())[0] for item in metals}
 
-        return int(cu_usd), int(al_usd)
-    except Exception as e:
-        print(f"Data fetch failed: {e}")
-        return 12850, 3520 # Default fallbacks
+copper_usd_per_lb = metal_dict.get("copper")
+aluminium_usd_per_lb = metal_dict.get("aluminium")
 
-def main():
-    # 1. Get the latest prices
-    cu_usd, al_usd = get_data()
-    print(f"Fetched Prices -> Copper: ${cu_usd}, Aluminium: ${al_usd}")
-    
-    # 2. Open the HTML file
-    try:
-        content = FILE.read_text(encoding="utf-8")
-    except FileNotFoundError:
-        print(f"Error: Could not find {FILE}. Check the file path.")
-        return
+# convert lb → tonne
+LB_TO_TONNE = 2204.62
 
-    # 3. Replace Copper price in the HTML
-    content = re.sub(
-        r'(<input id="cu" type="number" value=")\d+(")', 
-        rf'\g<1>{cu_usd}\g<2>', 
-        content
-    )
+copper_usd_per_tonne = copper_usd_per_lb * LB_TO_TONNE
+aluminium_usd_per_tonne = aluminium_usd_per_lb * LB_TO_TONNE
 
-    # 4. Replace Aluminium price in the HTML
-    content = re.sub(
-        r'(<input id="al" type="number" value=")\d+(")', 
-        rf'\g<1>{al_usd}\g<2>', 
-        content
-    )
+gbp_usd = fx["rates"]["USD"]
 
-    # 5. Save the updated HTML back to the file
-    FILE.write_text(content, encoding="utf-8")
-    print("HTML file successfully updated with new prices.")
+# convert to GBP
+copper_gbp_per_tonne = copper_usd_per_tonne / gbp_usd
+aluminium_gbp_per_tonne = aluminium_usd_per_tonne / gbp_usd
 
-if __name__ == "__main__":
-    main()
+# --- FUNCTIONS ---
+def aluminium_kg_per_km(mm2):
+    return mm2 * 2.92
+
+def copper_kg_per_km(mm2):
+    return mm2 * 9.6
+
+# conductor sizes
+rows = [
+    (120,35),(150,35),(185,35),(240,35),(300,35),(400,35),(500,35),(630,35),
+    (800,50),(1000,50),(1200,50),(1400,50),(1600,50),(1800,50),(2000,50),(2500,50)
+]
+
+# --- BUILD TABLE ---
+table_rows = []
+
+for conductor, cws in rows:
+    al_kg = aluminium_kg_per_km(conductor)
+    cu_kg = copper_kg_per_km(cws)
+
+    al_cost = al_kg * aluminium_gbp_per_tonne / 1000
+    cu_cost = cu_kg * copper_gbp_per_tonne / 1000
+
+    total_metal = al_cost + cu_cost
+    net_price = total_metal / 0.3
+
+    table_rows.append({
+        "conductor": conductor,
+        "cws": cws,
+        "al_kg": round(al_kg,1),
+        "cu_kg": round(cu_kg,1),
+        "al_cost": round(al_cost),
+        "cu_cost": round(cu_cost),
+        "total": round(total_metal),
+        "net": round(net_price)
+    })
+
+# --- TIMESTAMP ---
+timestamp = datetime.utcnow().strftime("%A %d %B %Y %H:%M UTC")
+
+# --- WRITE HTML ---
+html = f"""
+<h1>33 kV Aluminium XLPE Cable Price Estimator</h1>
+
+<p>Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen and MDPE oversheath to BS 7870.</p>
+
+<h2>Market Inputs</h2>
+<ul>
+<li>LME Copper: £{round(copper_gbp_per_tonne):,} / tonne</li>
+<li>LME Aluminium: £{round(aluminium_gbp_per_tonne):,} / tonne</li>
+<li>GBP/USD: {gbp_usd:.4f}</li>
+<li>Last Update: {timestamp}</li>
+</ul>
+
+<h2>Estimator</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+<tr>
+<th>Conductor mm²</th>
+<th>CWS mm²</th>
+<th>Al kg/km</th>
+<th>Cu kg/km</th>
+<th>Al £/km</th>
+<th>Cu £/km</th>
+<th>Total £/km</th>
+<th>Net £/km</th>
+</tr>
+"""
+
+for r in table_rows:
+    html += f"""
+<tr>
+<td>{r['conductor']}</td>
+<td>{r['cws']}</td>
+<td>{r['al_kg']}</td>
+<td>{r['cu_kg']}</td>
+<td>{r['al_cost']}</td>
+<td>{r['cu_cost']}</td>
+<td>{r['total']}</td>
+<td>{r['net']}</td>
+</tr>
+"""
+
+html += "</table>"
+
+# --- OUTPUT FILE ---
+with open("33kv_uk_dap_price_estimator/index.html", "w") as f:
+    f.write(html)

@@ -10,22 +10,22 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 <div style="margin-bottom:20px; padding:15px; background:#f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
   <label><strong>LME Copper (USD/Tonne)</strong></label><br>
-  <input id="cu" value="12850" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
+  <input id="cu" value="12850" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#eef8e5;border:1px solid #999;font-weight:bold;">
 
   <label><strong>LME Aluminium (USD/Tonne)</strong></label><br>
-  <input id="al" value="3520" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
+  <input id="al" value="3520" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#eef8e5;border:1px solid #999;font-weight:bold;">
 
-  <label><strong>🔒 Copper (GBP/Tonne) - Automated</strong></label><br>
-  <input id="cu_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+  <label><strong>Copper (GBP/Tonne)</strong></label><br>
+  <input id="cu_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
 
-  <label><strong>🔒 Aluminium (GBP/Tonne) - Automated</strong></label><br>
-  <input id="al_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+  <label><strong>Aluminium (GBP/Tonne)</strong></label><br>
+  <input id="al_gbp_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
 
-  <label><strong>🔒 Copper (EUR/Tonne) - Automated</strong></label><br>
-  <input id="cu_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+  <label><strong>Copper (EUR/Tonne)</strong></label><br>
+  <input id="cu_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
 
-  <label><strong>🔒 Aluminium (EUR/Tonne) - Automated</strong></label><br>
-  <input id="al_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#e9e9e9;border:1px solid #999;color:#555;font-weight:bold;">
+  <label><strong>Aluminium (EUR/Tonne)</strong></label><br>
+  <input id="al_eur_val" readonly style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;background:#fff;border:1px solid #ccc;">
 
   <label><strong>GBP/USD Rate (Live Auto-Fetch)</strong></label><br>
   <input id="fx_gbp" value="1.3265" oninput="calc()" style="width:100%;padding:10px;margin-bottom:10px;box-sizing:border-box;">
@@ -49,18 +49,18 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 ## Weight Formulas
 
-- **Copper kg per km** = mm² × 9.6
-- **Aluminium kg per km** = mm² × 2.92
+- **[span_2](start_span)Copper kg per km** = mm² × 9.6[span_2](end_span)
+- **[span_3](start_span)Aluminium kg per km** = mm² × 2.92[span_3](end_span)
 
 ---
 
 ## Net Price Rule
 
-**Net cable price ≈ Metal value ÷ 0.3**
+**[span_4](start_span)Net cable price ≈ Metal value ÷ 0.3**[span_4](end_span)
 
 Typical cost structure:
-- **Metal content:** ≈ 30%
-- **Manufacturing, logistics, and margin:** ≈ 70%
+- **[span_5](start_span)Metal content:** ≈ 30%[span_5](end_span)
+- **[span_6](start_span)Manufacturing, logistics, and margin:** ≈ 70%[span_6](end_span)
 
 ---
 
@@ -129,7 +129,6 @@ function calc() {
   let fx_eur = parseFloat(document.getElementById("fx_eur").value) || 1;
   let currency = document.getElementById("currency").value;
 
-  // Read-only intuitive boxes
   document.getElementById("cu_gbp_val").value = "£" + (cu / fx_gbp).toLocaleString('en-GB', {maximumFractionDigits: 0});
   document.getElementById("al_gbp_val").value = "£" + (al / fx_gbp).toLocaleString('en-GB', {maximumFractionDigits: 0});
   document.getElementById("cu_eur_val").value = "€" + (cu / fx_eur).toLocaleString('en-GB', {maximumFractionDigits: 0});
@@ -168,4 +167,4 @@ document.addEventListener("DOMContentLoaded", async function () { await fetchFX(
 ---
 
 ## Disclaimer
-These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.
+[span_7](start_span)These values are derived from live market data feeds[span_7](end_span). [span_8](start_span)Actual cable pricing varies based on project volume, factory loading, and specific utility requirements[span_8](end_span). [span_9](start_span)No warranty is given for data accuracy[span_9](end_span).

@@ -1,6 +1,6 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
-[span_4](start_span)[span_5](start_span)Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870[span_4](end_span)[span_5](end_span).
+Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
 
 ---
 
@@ -64,17 +64,18 @@
 ---
 
 ## Technical Notes: Net Price Rule
-[span_6](start_span)[span_7](start_span)The **Net cable price** is estimated by dividing the total metal value by the remaining percentage after non-metal costs are removed[span_6](end_span)[span_7](end_span).
 
-**[span_8](start_span)Formula:** $Net Price = Metal Value \div (1 - NonMetalCost\%)$[span_8](end_span)
+<span id="span_0"><span id="span_1">The **Net cable price** is estimated by dividing the total metal value by the remaining percentage after non-metal costs are removed.</span></span>
+
+**<span id="span_2">Formula:** Net Price = Metal Value / (1 - Non-Metal Cost %)</span>
 
 Typical cost structure for utility-grade 33 kV XLPE:
-* **[span_9](start_span)Metal content:** ≈ 30%[span_9](end_span)
-* **[span_10](start_span)Manufacturing, logistics, and margin:** ≈ 70%[span_10](end_span)
+* **<span id="span_3">Metal content**: approximately 30%</span>
+* **<span id="span_4">Manufacturing, logistics, and margin**: approximately 70%</span>
 
 ## Weight Formulas
-* **[span_11](start_span)Copper kg per km** = Conductor Size ($mm^2$) x 9.6[span_11](end_span)
-* **[span_12](start_span)Aluminium kg per km** = Conductor Size ($mm^2$) x 2.92[span_12](end_span)
+* **<span id="span_5">Copper kg per km** = Conductor Size (mm2) x 9.6</span>
+* **<span id="span_6">Aluminium kg per km** = Conductor Size (mm2) x 2.92</span>
 
 ---
 
@@ -84,8 +85,8 @@ Typical cost structure for utility-grade 33 kV XLPE:
     <table id="liveTbl" style="width:100%; border-collapse:collapse; font-size:0.95em; text-align:left; font-family: sans-serif;">
         <thead>
             <tr style="background:#1a202c; color:#ffffff;">
-                <th style="padding:15px 10px;">Cond mm²</th>
-                <th style="padding:15px 10px;">CWS mm²</th>
+                <th style="padding:15px 10px;">Cond mm2</th>
+                <th style="padding:15px 10px;">CWS mm2</th>
                 <th style="padding:15px 10px;">Al kg/km</th>
                 <th style="padding:15px 10px;">Cu kg/km</th>
                 <th style="padding:15px 10px;">Total Metal</th>
@@ -128,7 +129,6 @@ function calc() {
     const fxGBP = parseFloat(document.getElementById("fx_gbp").value) || 1.3368;
     const fxEUR = parseFloat(document.getElementById("fx_eur").value) || 1.1555;
     
-    // Logic: Non-metal costs (e.g., 70) defines the metal ratio (0.3)
     const nonMetalPct = parseFloat(document.getElementById("non_metal_input").value) || 0;
     const metalRatio = (100 - nonMetalPct) / 100;
     
@@ -171,7 +171,7 @@ function calc() {
             "<td style='padding:12px 10px;'>" + sym + Math.round(totMetal).toLocaleString() + "</td>" +
             "<td style='padding:12px 10px; background:#f0fff4; border-left:2px solid #c6f6d5;'>" +
                 "<div style='font-weight:bold; color:#22543d; font-size:1.1em;'>" + sym + Math.round(netMain).toLocaleString() + "</div>" +
-                "<div style='font-size:0.75em; color:#718096;'>" + subText + "</div>" +
+                "<div style='font-size:0.7em; color:#718096;'>" + subText + "</div>" +
             "</td>" +
         "</tr>";
     });

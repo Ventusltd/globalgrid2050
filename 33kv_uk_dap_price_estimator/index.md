@@ -8,39 +8,43 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
 
 <div style="background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
     
-    <label style="display:block; font-weight:700; color:#333; margin-bottom:8px;">LME Copper (USD/Tonne)</label>
+    <label style="display:block; font-weight:700; color:#333; margin-bottom:8px;">LME Copper (USD per Tonne)</label>
     <input id="cu" type="number" value="12850" oninput="calc()" style="width:100%; padding:14px; margin-bottom:18px; border:2px solid #3182ce; border-radius:8px; background:#f0f7ff; font-size:1.1em; font-weight:700;">
 
-    <label style="display:block; font-weight:700; color:#333; margin-bottom:8px;">LME Aluminium (USD/Tonne)</label>
+    <label style="display:block; font-weight:700; color:#333; margin-bottom:8px;">LME Aluminium (USD per Tonne)</label>
     <input id="al" type="number" value="3520" oninput="calc()" style="width:100%; padding:14px; margin-bottom:18px; border:2px solid #3182ce; border-radius:8px; background:#f0f7ff; font-size:1.1em; font-weight:700;">
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; pointer-events: none;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; pointer-events: none;">
         <div style="text-align:center;">
-            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Copper (GBP/t)</span>
+            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Copper (GBP per Tonne)</span>
             <div id="cu_gbp_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">£0</div>
         </div>
         <div style="text-align:center;">
-            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Aluminium (GBP/t)</span>
+            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Aluminium (GBP per Tonne)</span>
             <div id="al_gbp_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">£0</div>
         </div>
         <div style="text-align:center;">
-            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Copper (EUR/t)</span>
+            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Copper (EUR per Tonne)</span>
             <div id="cu_eur_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">€0</div>
         </div>
         <div style="text-align:center;">
-            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Aluminium (EUR/t)</span>
+            <span style="font-size:0.75em; color:#64748b; font-weight:700; text-transform:uppercase;">Aluminium (EUR per Tonne)</span>
             <div id="al_eur_text" style="font-size:1.1em; font-weight:700; color:#1a202c;">€0</div>
         </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom:18px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom:18px;">
         <div>
-            <label style="font-size:0.85em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">GBP/USD (Live)</label>
-            <input id="fx_gbp" oninput="calc()" style="width:100%; padding:10px; border:1px solid #e2e8f0; border-radius:6px; background:#fff;">
+            <label style="font-size:0.75em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">GBP/USD</label>
+            <input id="fx_gbp" oninput="calc()" style="width:100%; padding:8px; border:1px solid #e2e8f0; border-radius:6px; background:#fff; font-size:0.9em;">
         </div>
         <div>
-            <label style="font-size:0.85em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">EUR/USD (Live)</label>
-            <input id="fx_eur" oninput="calc()" style="width:100%; padding:10px; border:1px solid #e2e8f0; border-radius:6px; background:#fff;">
+            <label style="font-size:0.75em; font-weight:600; color:#718096; display:block; margin-bottom:4px;">EUR/USD</label>
+            <input id="fx_eur" oninput="calc()" style="width:100%; padding:8px; border:1px solid #e2e8f0; border-radius:6px; background:#fff; font-size:0.9em;">
+        </div>
+        <div style="background:#fffaf0; border:1px solid #feebc8; border-radius:6px; padding:4px; text-align:center;">
+            <label style="font-size:0.7em; font-weight:700; color:#c05621; display:block;">GBP/EUR</label>
+            <div id="fx_cross" style="font-weight:700; color:#744210; font-size:0.9em;">0.0000</div>
         </div>
     </div>
 
@@ -111,7 +115,11 @@ function calc() {
     const fxEUR = parseFloat(document.getElementById("fx_eur").value) || 1.15;
     const curr = document.getElementById("currency").value;
 
-    // UPDATE CONVERSION BOXES
+    // Cross Rate Calculation (GBP to EUR)
+    const gbpEur = (fxGBP / fxEUR).toFixed(4);
+    document.getElementById("fx_cross").innerText = gbpEur;
+
+    // Update Master Info Boxes
     document.getElementById("cu_gbp_text").innerText = "£" + Math.round(cuUSD / fxGBP).toLocaleString();
     document.getElementById("al_gbp_text").innerText = "£" + Math.round(alUSD / fxGBP).toLocaleString();
     document.getElementById("cu_eur_text").innerText = "€" + Math.round(cuUSD / fxEUR).toLocaleString();
@@ -130,7 +138,17 @@ function calc() {
         const al_c = al_kg * (pAl / 1000);
         const cu_c = cu_kg * (pCu / 1000);
         const tot = al_c + cu_c;
-        const net = tot / 0.3;
+        const netMain = tot / 0.3;
+
+        // Multicurrency Net Price Info
+        const netUSD = (al_kg * (alUSD/1000) + cu_kg * (cuUSD/1000)) / 0.3;
+        const netGBP = netUSD / fxGBP;
+        const netEUR = netUSD / fxEUR;
+
+        let subVal = "";
+        if(curr === "GBP") subVal = `<div style="font-size:0.7em; color:#718096; margin-top:2px;">$${Math.round(netUSD).toLocaleString()} | €${Math.round(netEUR).toLocaleString()}</div>`;
+        else if(curr === "EUR") subVal = `<div style="font-size:0.7em; color:#718096; margin-top:2px;">$${Math.round(netUSD).toLocaleString()} | £${Math.round(netGBP).toLocaleString()}</div>`;
+        else subVal = `<div style="font-size:0.7em; color:#718096; margin-top:2px;">£${Math.round(netGBP).toLocaleString()} | €${Math.round(netEUR).toLocaleString()}</div>`;
 
         rows += `<tr style="border-bottom:1px solid #edf2f7;" onclick="this.classList.toggle('selected')">
             <td style="padding:12px 10px;"><strong>${cond}</strong></td>
@@ -140,7 +158,10 @@ function calc() {
             <td style="padding:12px 10px;">${sym}${Math.round(al_c).toLocaleString()}</td>
             <td style="padding:12px 10px;">${sym}${Math.round(cu_c).toLocaleString()}</td>
             <td style="padding:12px 10px;">${sym}${Math.round(tot).toLocaleString()}</td>
-            <td style="padding:12px 10px; background:#f0fff4; color:#22543d; font-weight:bold;">${sym}${Math.round(net).toLocaleString()}</td>
+            <td style="padding:12px 10px; background:#f0fff4; border-left:2px solid #c6f6d5;">
+                <div style="color:#22543d; font-weight:bold; font-size:1.1em;">${sym}${Math.round(netMain).toLocaleString()}</div>
+                ${subVal}
+            </td>
         </tr>`;
     });
     document.querySelector("#liveTbl tbody").innerHTML = rows;

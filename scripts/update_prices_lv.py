@@ -1,74 +1,105 @@
 import requests
-import re
+import os
 from pathlib import Path
 from datetime import datetime, timezone
 
-# Point to the Markdown file relative to the script location
+# Target file path
 FILE = Path(__file__).parent.parent / "lv_ac_dc_price_estimator" / "index.md"
 
-def get_data():
-    # Default Fallbacks (March 2026 Estimates)
-    gbpusd, gbpeur, eurusd = 1.3341, 1.1529, 1.1586
-    cu_usd, al_usd = 12850.0, 3520.0
-
+def get_market_data():
+    # Fallback values
+    data = {"gbp_usd": 1.3339, "eur_usd": 1.1586, "gbp_eur": 1.1510, "cu_usd": 12850.0, "al_usd": 3520.0}
     try:
-        # Fetch FX Rates
-        fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=20).json()
-        gbpusd = fx["rates"]["USD"]
-        gbpeur = fx["rates"]["EUR"]
-        eurusd = gbpusd / gbpeur # Derived EUR/USD rate
+        # FX Rates
+        fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=15).json()
+        data["gbp_usd"] = fx["rates"]["USD"]
+        data["gbp_eur"] = fx["rates"]["EUR"]
+        data["eur_usd"] = data["gbp_usd"] / data["gbp_eur"]
 
-        # Fetch Metal Prices (USD per tonne)
-        # Assuming API returns price per kg, multiplying by 1000 for tonne
-        metals = requests.get("https://api.metals.live/v1/spot", timeout=20).json()
-        for m in metals:
-            if m.get("metal") == "copper":
-                cu_usd = m.get("price") * 1000
-            if m.get("metal") == "aluminum":
-                al_usd = m.get("price") * 1000
+        # Metals (USD per Tonne)
+        m_api = requests.get("https://api.metals.live/v1/spot", timeout=15).json()
+        for m in m_api:
+            if m.get("metal") == "copper": data["cu_usd"] = m.get("price") * 1000
+            if m.get("metal") == "aluminum": data["al_usd"] = m.get("price") * 1000
     except Exception as e:
-        print(f"Market Data Fallback used: {e}")
-
-    return gbpusd, gbpeur, eurusd, cu_usd, al_usd
+        print(f"Connection error, using fallbacks: {e}")
+    return data
 
 def main():
-    if not FILE.exists():
-        print(f"File not found: {FILE}")
-        return
-
-    gbpusd, gbpeur, eurusd, cu_usd, al_usd = get_data()
-    timestamp = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
+    d = get_market_data()
+    ts = datetime.now(timezone.utc).strftime("%A %d %B %Y %H:%M UTC")
     
-    # Calculate EUR values for the parameters table
-    cu_eur = cu_usd / eurusd
-    al_eur = al_usd / eurusd
-
-    content = FILE.read_text(encoding="utf-8")
-
-    # 1. Update the Markdown Parameter Table (Handling the USD/EUR combined strings)
-    content = re.sub(r"\| LME Aluminium \(USD/EUR\) \| .*? \|", 
-                     f"| LME Aluminium (USD/EUR) | **${al_usd:,.0f} / €{al_eur:,.0f} per tonne** |", content)
+    # Configuration
+    AL_SIZES = [95, 120, 150, 185, 240, 300, 400, 500, 630]
+    CU_SIZES = [10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630]
     
-    content = re.sub(r"\| LME Copper \(USD/EUR\) \| .*? \|", 
-                     f"| LME Copper (USD/EUR) | **${cu_usd:,.0f} / €{cu_eur:,.0f} per tonne** |", content)
+    # Generate Al Rows
+    al_rows = ""
+    for s in AL_SIZES:
+        w = s * 2.92
+        v_eur = ((w / 1000) * d["al_usd"]) / d["eur_usd"]
+        p_eur = v_eur / 0.25
+        al_rows += f"| {s} | {w:.1f} | €{v_eur:,.2f} | **€{round(p_eur):,}** |\n"
 
-    # 2. Update Forex Rates
-    content = re.sub(r"\| GBP / USD Rate \| .*? \|", f"| GBP / USD Rate | **1 GBP = {gbpusd:.4f} USD** |", content)
-    content = re.sub(r"\| EUR / USD Rate \| .*? \|", f"| EUR / USD Rate | **1 EUR = {eurusd:.4f} USD** |", content)
-    content = re.sub(r"\| GBP / EUR Rate \| .*? \|", f"| GBP / EUR Rate | **1 GBP = {gbpeur:.4f} EUR** |", content)
+    # Generate Cu Rows
+    cu_rows = ""
+    for s in CU_SIZES:
+        w = s * 9.6
+        v_eur = ((w / 1000) * d["cu_usd"]) / d["eur_usd"]
+        p_eur = v_eur / 0.40
+        cu_rows += f"| {s} | {w:.1f} | €{v_eur:,.2f} | **€{round(p_eur):,}** |\n"
 
-    # 3. Update Timestamp
-    content = re.sub(r"\| Last Market Update \| .*? \|", f"| Last Market Update | {timestamp} |", content)
+    # Assemble Fluid Markdown Template
+    md_content = f"""# Pricing Estimator: Armoured Water-Blocked LV Distribution Single Cores
+### For DC and AC Applications: High Current Solar & Distribution Power Collection Circuits (Rigid)
+**Voltage Rating:** 1000/1000V AC | 1500/1500V DC
 
-    # 4. Update JavaScript Variables (For the interactive calculator if present)
-    content = re.sub(r"let lme_cu_usd = [\d.]+;", f"let lme_cu_usd = {cu_usd:.2f};", content)
-    content = re.sub(r"let lme_al_usd = [\d.]+;", f"let lme_al_usd = {al_usd:.2f};", content)
-    content = re.sub(r"let gbp_usd = [\d.]+;", f"let gbp_usd = {gbpusd:.4f};", content)
-    content = re.sub(r"let gbp_eur = [\d.]+;", f"let gbp_eur = {gbpeur:.4f};", content)
-    content = re.sub(r"let eur_usd = [\d.]+;", f"let eur_usd = {eurusd:.4f};", content)
+---
 
-    FILE.write_text(content, encoding="utf-8")
-    print(f"LV Estimator Parameters Updated Successfully at {timestamp}")
+## ⚠️ Technical Compliance & Safety Notice
+* **Tight Bend Radii:** The manufacturer MUST be consulted for applications requiring tight bends to ensure structural integrity.
+* **Thermal Management:** Professional Power Systems Specialists must be engaged to perform thermal modeling. Incorrect configuration can lead to substation thermal runaway.
+* **Margin for Error:** Bespoke considerations must be negotiated within the Employer’s Requirements for full indemnification.
+
+---
+
+## Integrated Procurement Parameters
+
+| Category | Parameter | Value |
+| :--- | :--- | :--- |
+| **Market Data** | LME Aluminium (USD) | ${d['al_usd']:,.0f} / tonne |
+| | LME Aluminium (EUR) | €{d['al_usd']/d['eur_usd']:,.0f} / tonne |
+| | LME Copper (USD) | ${d['cu_usd']:,.0f} / tonne |
+| | LME Copper (EUR) | €{d['cu_usd']/d['eur_usd']:,.0f} / tonne |
+| **Forex Rates** | GBP / USD | {d['gbp_usd']:.4f} |
+| | EUR / USD | {d['eur_usd']:.4f} |
+| | GBP / EUR | {d['gbp_eur']:.4f} |
+| **Pricing Rules** | Al Pricing Factor | Metal Value (EUR) / 0.25 |
+| | Cu Pricing Factor | Metal Value (EUR) / 0.40 |
+| **Update** | Last Market Sync | {ts} |
+
+---
+
+## LV Aluminium Cable Price Breakdown (EUR)
+| Size (mm2) | Al Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
+| :--- | :--- | :--- | :--- |
+{al_rows}
+
+---
+
+## LV Copper Cable Price Breakdown (EUR)
+| Size (mm2) | Cu Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
+| :--- | :--- | :--- | :--- |
+{cu_rows}
+
+---
+
+## Procurement Disclaimer
+These figures are high-level budgeting estimates. Real procurement prices are subject to negotiation, engineering, and site-specific conditions.
+"""
+    # Ensure directory exists and write
+    os.makedirs(FILE.parent, exist_ok=True)
+    FILE.write_text(md_content, encoding="utf-8")
 
 if __name__ == "__main__":
     main()

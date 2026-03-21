@@ -26,15 +26,20 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run price update script
+      - name: Run MV price update
         run: python scripts/update_prices.py
+
+      - name: Run LV price update
+        run: python scripts/update_prices_lv.py
 
       - name: Commit and Push changes
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
+
           git add 33kv_uk_dap_price_estimator/index.md
-          
+          git add lv_ac_dc_price_estimator/index.md
+
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push origin main

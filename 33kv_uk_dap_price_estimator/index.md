@@ -1,6 +1,6 @@
 # 33 kV Aluminium XLPE Cable Price Estimator
 
-Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
+[span_0](start_span)[span_1](start_span)Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870[span_0](end_span)[span_1](end_span).
 
 ---
 
@@ -36,10 +36,6 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
     <div style="background:#fff5f5; border:2px solid #feb2b2; padding:20px; border-radius:10px; margin-bottom:25px;">
         <label style="display:block; font-weight:800; color:#9b2c2c; margin-bottom:8px; text-transform:uppercase; font-size:0.85em;">Non-Metal Costs Estimate (%)</label>
         <input id="non_metal_input" type="number" value="70" oninput="calc()" style="width:100%; padding:12px; border:1px solid #fc8181; border-radius:6px; font-weight:700; color:#c53030; background:#fff;">
-        <div style="font-size:0.8em; color:#e53e3e; margin-top:10px; font-weight:600; line-height:1.4;">
-            Rule: 70% non-metal costs results in Metal being 30% of Total Price.<br>
-            (Total Metal Value is divided by 0.30 to reach Net Price)
-        </div>
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom:18px;">
@@ -67,9 +63,18 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
 
 ---
 
+## Technical Notes: Net Price Rule
+[span_2](start_span)[span_3](start_span)The **Net cable price** is estimated by dividing the total metal value by the remaining percentage after non-metal costs are removed[span_2](end_span)[span_3](end_span). 
+
+**Formula:** $Net Price = Metal Value \div (1 - NonMetalCost\%)$
+
+Typical cost structure for utility-grade 33 kV XLPE:
+* **[span_4](start_span)[span_5](start_span)Metal content:** ≈ 30%[span_4](end_span)[span_5](end_span)
+* **[span_6](start_span)[span_7](start_span)Manufacturing, logistics, and margin:** ≈ 70%[span_6](end_span)[span_7](end_span)
+
 ## Weight Formulas
-* **[span_0](start_span)Copper kg per km** = Conductor Size (mm²) x 9.6[span_0](end_span)
-* **[span_1](start_span)Aluminium kg per km** = Conductor Size (mm²) x 2.92[span_1](end_span)
+* **[span_8](start_span)[span_9](start_span)Copper kg per km** = Conductor Size ($mm^2$) x 9.6[span_8](end_span)[span_9](end_span)
+* **[span_10](start_span)[span_11](start_span)Aluminium kg per km** = Conductor Size ($mm^2$) x 2.92[span_10](end_span)[span_11](end_span)
 
 ---
 
@@ -98,7 +103,6 @@ Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire s
 </style>
 
 <script>
-// MV Cable sizing data: [Conductor mm², Copper Wire Screen mm²]
 const mvCables = [
     [120,35],[150,35],[185,35],[240,35],[300,35],[400,35],[500,35],[630,35],
     [800,50],[1000,50],[1200,50],[1400,50],[1600,50],[1800,50],[2000,50],[2500,50]
@@ -124,16 +128,13 @@ function calc() {
     const fxGBP = parseFloat(document.getElementById("fx_gbp").value) || 1.3368;
     const fxEUR = parseFloat(document.getElementById("fx_eur").value) || 1.1555;
     
-    // User controlled non-metal cost factor
+    // Logic: Non-metal costs (e.g., 70) subtracted from 100 defines the metal ratio (0.3)
     const nonMetalPct = parseFloat(document.getElementById("non_metal_input").value) || 0;
     const metalRatio = (100 - nonMetalPct) / 100;
     
     const curr = document.getElementById("currency").value;
 
-    // Cross-rate calculation (GBP to EUR)
     document.getElementById("fx_cross").innerText = (fxGBP / fxEUR).toFixed(4);
-
-    // Update informational slave boxes
     document.getElementById("cu_gbp_text").innerText = "£" + Math.round(cuUSD / fxGBP).toLocaleString();
     document.getElementById("al_gbp_text").innerText = "£" + Math.round(alUSD / fxGBP).toLocaleString();
     document.getElementById("cu_eur_text").innerText = "€" + Math.round(cuUSD / fxEUR).toLocaleString();
@@ -153,7 +154,6 @@ function calc() {
         const totMetal = (al_kg * (pAl/1000)) + (cu_kg * (pCu/1000));
         const netMain = totMetal / metalRatio;
 
-        // Multicurrency sub-info for the Net Price cell
         const mUSD = (al_kg * (alUSD/1000) + cu_kg * (cuUSD/1000)) / metalRatio;
         const mGBP = mUSD / fxGBP;
         const mEUR = mUSD / fxEUR;

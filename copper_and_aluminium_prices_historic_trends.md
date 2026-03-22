@@ -28,7 +28,7 @@ Aluminium has also approached multi year highs, trading in the range of €2,600
 
 ---
 
-### Current Working Estimate
+### March 2026 Estimate
 
 | Metal | USD per tonne | EUR per tonne |
 |:---|---:|---:|

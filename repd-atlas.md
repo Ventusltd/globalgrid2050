@@ -68,6 +68,7 @@ permalink: /atlas/
         skipEmptyLines: true,
         complete: function(results) {
             const tableData = [];
+            const allCircleMarkers = []; // Array to track markers for dynamic scaling
             
             results.data.forEach(row => {
                 const x = parseFloat(row['X-coordinate']);
@@ -79,9 +80,11 @@ permalink: /atlas/
                         const isOp = row['Development Status'] === 'Operational';
                         const color = isOp ? '#00f2ff' : '#ff9d00';
                         const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
+                        const baseRadius = Math.max(4, Math.sqrt(capacity) || 4);
                         
                         const marker = L.circleMarker([coords[1], coords[0]], {
-                            radius: Math.max(4, Math.sqrt(capacity) || 4),
+                            radius: baseRadius,
+                            baseRadius: baseRadius, // Store original radius for scaling math
                             fillColor: color,
                             color: "#fff",
                             weight: 0.5,
@@ -97,6 +100,7 @@ permalink: /atlas/
                         `);
 
                         markers.addLayer(marker);
+                        allCircleMarkers.push(marker); // Add to our tracking array
 
                         tableData.push([
                             row['Site Name'],
@@ -110,6 +114,20 @@ permalink: /atlas/
             });
 
             map.addLayer(markers);
+
+            // 🔍 DYNAMIC ZOOM SCALING ENGINE
+            map.on('zoomend', function() {
+                const currentZoom = map.getZoom();
+                // Scale stays at 1x until zoom level 9, then grows exponentially by 35% per zoom level
+                const scaleMultiplier = currentZoom > 9 ? Math.pow(1.35, currentZoom - 9) : 1;
+                
+                allCircleMarkers.forEach(layer => {
+                    layer.setRadius(layer.options.baseRadius * scaleMultiplier);
+                });
+            });
+
+            // Fire once on load to establish correct starting sizes
+            map.fire('zoomend');
 
             $('#repd-table').DataTable({
                 data: tableData,

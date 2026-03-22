@@ -10,17 +10,36 @@ permalink: /grid-batteries/
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
 <style>
-    #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
     .dashboard-container { max-width: 1200px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
+    
+    /* Filter Styling */
+    .filter-panel {
+        background: #111;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #444;
+        margin-bottom: 15px;
+        color: white;
+    }
+    .filter-panel label { display: block; margin-bottom: 10px; font-weight: bold; color: #66ccff; }
+    input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; }
+
+    #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     
-    /* NMS Style Cluster Colors */
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
 </style>
 
 <div class="dashboard-container">
+    
+    <div class="filter-panel">
+        <label for="capacityRange">Minimum Project Size: <span id="capacityVal">0</span> MW</label>
+        <input type="range" id="capacityRange" min="0" max="500" value="0" step="5">
+    </div>
+
     <div id="map"></div>
+
     <div id="repd-table-container">
         <table id="repd-table" class="display" style="width:100%">
             <thead>
@@ -45,26 +64,49 @@ permalink: /grid-batteries/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
-    // 🌍 The Translation Engine
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
     const map = L.map('map').setView([54.5, -2.5], 6);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OSM' }).addTo(map);
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 13 });
     const csvUrl = '{{ site.baseurl }}/repd-grid-batteries.csv';
+    
+    let allData = [];
+    let allMarkers = [];
+    let dataTable;
 
     Papa.parse(csvUrl, {
         download: true,
         header: true,
         skipEmptyLines: true,
         complete: function(results) {
-            const tableData = [];
-            const allCircleMarkers = [];
+            allData = results.data;
+            initDashboard();
+        }
+    });
+
+    function initDashboard() {
+        updateDisplay(0);
+
+        $('#capacityRange').on('input', function() {
+            const minMW = parseFloat($(this).val());
+            $('#capacityVal').text(minMW);
+            updateDisplay(minMW);
+        });
+    }
+
+    function updateDisplay(minMW) {
+        // 1. Clear existing map layers
+        markers.clearLayers();
+        allMarkers = [];
+        const filteredTableData = [];
+
+        allData.forEach(row => {
+            const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
             
-            results.data.forEach(row => {
+            // Apply Filter
+            if (capacity >= minMW) {
                 const x = parseFloat(row['X-coordinate']);
                 const y = parseFloat(row['Y-coordinate']);
                 
@@ -73,7 +115,6 @@ permalink: /grid-batteries/
                         const coords = proj4("EPSG:27700", "WGS84", [x, y]);
                         const isOp = row['Development Status'] === 'Operational';
                         const color = isOp ? '#00f2ff' : '#ff9d00';
-                        const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
                         const baseRadius = Math.max(4, Math.sqrt(capacity) || 4);
                         
                         const marker = L.circleMarker([coords[1], coords[0]], {
@@ -83,20 +124,12 @@ permalink: /grid-batteries/
                             color: "#fff",
                             weight: 0.5,
                             fillOpacity: 0.8
-                        }).bindPopup(`
-                            <div style="min-width:160px">
-                                <b>${row['Site Name']}</b><br>
-                                <hr style="margin:4px 0">
-                                ${row['Technology Type']}<br>
-                                <b>${capacity} MW</b><br>
-                                <i>${row['Development Status']}</i>
-                            </div>
-                        `);
+                        }).bindPopup(`<b>${row['Site Name']}</b><br>${capacity} MW`);
 
                         markers.addLayer(marker);
-                        allCircleMarkers.push(marker);
+                        allMarkers.push(marker);
 
-                        tableData.push([
+                        filteredTableData.push([
                             row['Site Name'],
                             row['Technology Type'],
                             capacity,
@@ -105,28 +138,32 @@ permalink: /grid-batteries/
                         ]);
                     } catch (e) {}
                 }
-            });
+            }
+        });
 
-            map.addLayer(markers);
+        map.addLayer(markers);
+        applyZoomScaling(); // Ensure circles stay fat if zoomed in
 
-            map.on('zoomend', function() {
-                const currentZoom = map.getZoom();
-                const scaleMultiplier = currentZoom > 9 ? Math.pow(1.35, currentZoom - 9) : 1;
-                
-                allCircleMarkers.forEach(layer => {
-                    layer.setRadius(layer.options.baseRadius * scaleMultiplier);
-                });
-            });
-
-            map.fire('zoomend');
-
-            $('#repd-table').DataTable({
-                data: tableData,
+        // 2. Update Table
+        if ($.fn.DataTable.isDataTable('#repd-table')) {
+            dataTable.clear().rows.add(filteredTableData).draw();
+        } else {
+            dataTable = $('#repd-table').DataTable({
+                data: filteredTableData,
                 pageLength: 10,
                 order: [[2, 'desc']],
-                responsive: true,
-                language: { search: "Scan Systems:" }
+                responsive: true
             });
         }
-    });
+    }
+
+    function applyZoomScaling() {
+        const currentZoom = map.getZoom();
+        const scaleMultiplier = currentZoom > 9 ? Math.pow(1.35, currentZoom - 9) : 1;
+        allMarkers.forEach(layer => {
+            layer.setRadius(layer.options.baseRadius * scaleMultiplier);
+        });
+    }
+
+    map.on('zoomend', applyZoomScaling);
 </script>

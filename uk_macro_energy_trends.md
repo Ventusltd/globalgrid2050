@@ -40,10 +40,6 @@ permalink: /uk_macro_energy_trends/
         </div>
     </div>
 
-    <div class="chart-wrapper main-chart">
-        <canvas id="energyChart"></canvas>
-    </div>
-
     <div class="ons-table-container">
         <h3>UK Energy Use by Sector (2019 ONS Data)</h3>
         <table>

@@ -6,7 +6,7 @@ title: Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend 
 # Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend Graphs
 
 ### Indicative annual price ranges in EUR per tonne (1000 kg)  
-### [span_0](start_span)For commercial budgeting, trend analysis and metal risk awareness[span_0](end_span)
+### For commercial budgeting, trend analysis and metal risk awareness
 
 ---
 

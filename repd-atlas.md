@@ -10,52 +10,19 @@ permalink: /atlas/
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
 <style>
-    .controls { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 15px; color: white; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; border: 1px solid #2a2f3a; }
-    #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; }
-    .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
-    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; margin-top: 20px; border: 1px solid #ddd; overflow-x: auto; color: #333; }
+    #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
+    .dashboard-container { max-width: 1200px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
+    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
+    .source-link { margin-top: 20px; font-size: 12px; color: #888; text-align: center; font-family: sans-serif; }
+    .source-link a { color: #66ccff; text-decoration: none; }
     
-    select { padding: 10px; background: #333; color: white; border: 1px solid #555; border-radius: 6px; font-family: 'Courier New', monospace; cursor: pointer; }
-    .legend { display: flex; gap: 15px; flex-wrap: wrap; font-size: 14px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; }
-    .legend-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 1px solid #fff; }
-    
-    .download-btn { background: #00f2ff; color: #000; font-weight: bold; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; text-decoration: none; font-family: 'Courier New', monospace; }
-    .download-btn:hover { background: #fff; }
-
     /* NMS Style Cluster Colors */
-    .marker-cluster-small { background-color: rgba(255, 255, 255, 0.2); }
-    .marker-cluster-small div { background-color: rgba(255, 255, 255, 0.4); color: #fff; }
+    .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
+    .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
 </style>
 
 <div class="dashboard-container">
-    <div class="controls">
-        <div style="display:flex; flex-direction:column; gap:5px;">
-            <label style="font-size:12px; color:#aaa;">TECH BIOME:</label>
-            <select id="techFilter">
-                <option value="ALL">All Systems</option>
-                <option value="Solar Photovoltaics">Solar Only</option>
-                <option value="Battery">Battery/Storage Only</option>
-                <option value="Wind">Wind Only</option>
-            </select>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:5px;">
-            <label style="font-size:12px; color:#aaa;">STATUS:</label>
-            <select id="statusFilter">
-                <option value="ALL">All Statuses</option>
-                <option value="Operational">Operational Only</option>
-                <option value="Planning">Planning/Construction</option>
-            </select>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:5px;">
-            <label style="font-size:12px; color:#aaa;">RAW DATA:</label>
-            <a href="https://assets.publishing.service.gov.uk/media/6985c316d3f57710b50a9b1f/REPD_Publication_Q4_2025.csv" class="download-btn">📥 DOWNLOAD CSV</a>
-        </div>
-        <div id="legend-box" class="legend"></div>
-    </div>
-
     <div id="map"></div>
-
     <div id="repd-table-container">
         <table id="repd-table" class="display" style="width:100%">
             <thead>
@@ -64,11 +31,15 @@ permalink: /atlas/
                     <th>Technology</th>
                     <th>MW</th>
                     <th>Status</th>
-                    <th>Address</th>
+                    <th>County</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
+    </div>
+    
+    <div class="source-link">
+        Data Source: <a href="https://assets.publishing.service.gov.uk/media/6985c316d3f57710b50a9b1f/REPD_Publication_Q4_2025.csv" target="_blank">Official UK Government REPD Q4 2025 (CSV)</a>
     </div>
 </div>
 
@@ -80,90 +51,73 @@ permalink: /atlas/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
+    // 🌍 The Translation Engine: BNG (X/Y) to WGS84 (Lat/Lon)
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
-    const techColors = {
-        'Solar Photovoltaics': '#fff000',
-        'Battery/Storage': '#ff00ff',
-        'Wind': '#00d4ff',
-        'Other': '#cccccc'
-    };
-
     const map = L.map('map').setView([54.5, -2.5], 6);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
 
-    let allMarkers = L.markerClusterGroup({ disableClusteringAtZoom: 13 });
-    let masterData = [];
-    let dataTable;
+    const markers = L.markerClusterGroup({ disableClusteringAtZoom: 13 });
+    const csvUrl = '{{ site.baseurl }}/repd.csv';
 
-    function getMarkerColor(tech) {
-        if (tech.includes('Solar')) return techColors['Solar Photovoltaics'];
-        if (tech.includes('Battery') || tech.includes('Storage')) return techColors['Battery/Storage'];
-        if (tech.includes('Wind')) return techColors['Wind'];
-        return techColors['Other'];
-    }
-
-    Papa.parse('{{ site.baseurl }}/repd.csv', {
+    Papa.parse(csvUrl, {
         download: true,
         header: true,
         skipEmptyLines: true,
         complete: function(results) {
-            masterData = results.data;
-            let legendHtml = '';
-            for (const [name, color] of Object.entries(techColors)) {
-                legendHtml += `<div class="legend-item"><span class="legend-dot" style="background:${color}"></span>${name}</div>`;
-            }
-            $('#legend-box').html(legendHtml);
-            updateDisplay();
+            const tableData = [];
+            
+            results.data.forEach(row => {
+                const x = parseFloat(row['X-coordinate']);
+                const y = parseFloat(row['Y-coordinate']);
+                
+                if (x && y) {
+                    try {
+                        const coords = proj4("EPSG:27700", "WGS84", [x, y]);
+                        const isOp = row['Development Status'] === 'Operational';
+                        const color = isOp ? '#00f2ff' : '#ff9d00';
+                        const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
+                        
+                        const marker = L.circleMarker([coords[1], coords[0]], {
+                            radius: Math.max(4, Math.sqrt(capacity) || 4),
+                            fillColor: color,
+                            color: "#fff",
+                            weight: 0.5,
+                            fillOpacity: 0.8
+                        }).bindPopup(`
+                            <div style="min-width:160px">
+                                <b>${row['Site Name']}</b><br>
+                                <hr style="margin:4px 0">
+                                ${row['Technology Type']}<br>
+                                <b>${capacity} MW</b><br>
+                                <i>${row['Development Status']}</i>
+                            </div>
+                        `);
+
+                        markers.addLayer(marker);
+
+                        tableData.push([
+                            row['Site Name'],
+                            row['Technology Type'],
+                            capacity,
+                            row['Development Status'],
+                            row['County']
+                        ]);
+                    } catch (e) {}
+                }
+            });
+
+            map.addLayer(markers);
+
+            $('#repd-table').DataTable({
+                data: tableData,
+                pageLength: 10,
+                order: [[2, 'desc']],
+                responsive: true,
+                language: { search: "Scan Systems:" }
+            });
         }
     });
-
-    function updateDisplay() {
-        allMarkers.clearLayers();
-        const selectedTech = $('#techFilter').val();
-        const selectedStatus = $('#statusFilter').val();
-        const tableData = [];
-
-        masterData.forEach(row => {
-            const tech = row['Technology Type'] || "";
-            const status = row['Development Status'] || "";
-            const x = parseFloat(row['X-coordinate']);
-            const y = parseFloat(row['Y-coordinate']);
-            
-            if (!x || !y) return;
-
-            const matchTech = (selectedTech === "ALL" || tech.includes(selectedTech));
-            const matchStatus = (selectedStatus === "ALL" || (selectedStatus === "Operational" ? status === "Operational" : status !== "Operational"));
-
-            if (matchTech && matchStatus) {
-                try {
-                    const coords = proj4("EPSG:27700", "WGS84", [x, y]);
-                    const isOp = status === "Operational";
-                    const capacity = row['Installed Capacity (MWelec)'] || "0";
-                    
-                    const marker = L.circleMarker([coords[1], coords[0]], {
-                        radius: Math.max(4, Math.sqrt(parseFloat(capacity)) || 4),
-                        fillColor: getMarkerColor(tech),
-                        color: "#fff",
-                        weight: isOp ? 1.5 : 0.5,
-                        fillOpacity: isOp ? 0.9 : 0.3
-                    }).bindPopup(`<b>${row['Site Name']}</b><br>${row['Address']}<br><b>${capacity} MW</b>`);
-
-                    allMarkers.addLayer(marker);
-                    tableData.push([row['Site Name'], tech, parseFloat(capacity) || 0, status, row['Address'] || "N/A"]);
-                } catch (e) {}
-            }
-        });
-
-        map.addLayer(allMarkers);
-        if (dataTable) dataTable.destroy();
-        dataTable = $('#repd-table').DataTable({
-            data: tableData,
-            order: [[2, 'desc']],
-            pageLength: 10,
-            responsive: true
-        });
-    }
-
-    $('#techFilter, #statusFilter').on('change', updateDisplay);
 </script>

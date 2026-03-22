@@ -25,6 +25,13 @@ title: Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend 
       </tr>
     </thead>
     <tbody>
+      <tr style="border-bottom: 1px solid #333; background-color: #121212;">
+        <td style="padding: 10px;">2026-03-20</td>
+        <td style="padding: 10px;">$12,850</td>
+        <td style="padding: 10px;">€11,118</td>
+        <td style="padding: 10px;">$3,155</td>
+        <td style="padding: 10px;">€2,746</td>
+      </tr>
       </tbody>
   </table>
 </div>
@@ -36,7 +43,6 @@ title: Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend 
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 
 <div id="chartUSD" style="width: 100%; height: 450px; background-color: #1a1a1a; border-radius: 8px; margin-bottom: 30px; border: 1px solid #333;"></div>
-<div id="chartEUR" style="width: 100%; height: 450px; background-color: #1a1a1a; border-radius: 8px; margin-bottom: 40px; border: 1px solid #333;"></div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -50,15 +56,12 @@ title: Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend 
     const alLowUSD = [1400, 1300, 1200, 1200, 1300, 1600, 2000, 2200, 1400, 1300, 1600, 2000, 1700, 1400, 1400, 1500, 1400, 1800, 1900, 1600, 1400, 2100, 2400, 2100, 2200, 2500];
     const alHighUSD = [2000, 1800, 1700, 1800, 2100, 2400, 3000, 3100, 3300, 2000, 2600, 3100, 2300, 2100, 2100, 2000, 1900, 2200, 2400, 2100, 2000, 3100, 4100, 2600, 2900, 3700];
 
-    const cuAvgEUR = [2000, 1900, 1800, 2000, 2800, 3500, 6000, 5500, 5000, 5500, 5500, 6800, 6200, 5500, 5200, 5000, 4300, 5200, 5900, 5800, 5500, 8300, 8500, 7800, 8800, 10500];
-    const cuLowEUR = [1700, 1600, 1500, 1600, 2000, 2500, 3500, 4500, 3000, 4000, 4500, 6000, 5500, 5000, 4800, 4500, 3800, 4500, 5000, 5200, 4500, 6500, 7000, 7200, 7500, 8800];
-    const cuHighEUR = [2500, 2300, 2200, 2500, 3800, 5000, 9000, 7500, 8000, 6500, 7500, 9500, 8000, 7500, 7000, 6000, 5000, 6200, 7200, 6500, 7000, 9800, 10500, 8800, 10200, 12000];
-
     function createTraces(cuAvg, cuLow, cuHigh, alAvg, alLow, alHigh) {
       return [
         { x: years, y: cuHigh, type: 'scatter', mode: 'lines', line: {width: 0}, hoverinfo: 'skip', showlegend: false },
         { x: years, y: cuLow, type: 'scatter', mode: 'lines', fill: 'tonexty', fillcolor: 'rgba(255, 0, 127, 0.2)', line: {width: 0}, name: 'Copper Range' },
         { x: years, y: cuAvg, type: 'scatter', mode: 'lines+markers', line: {color: '#FF007F', width: 2}, marker: {color: '#FF007F', size: 6}, name: 'Copper Avg' },
+        
         { x: years, y: alHigh, type: 'scatter', mode: 'lines', line: {width: 0}, hoverinfo: 'skip', showlegend: false },
         { x: years, y: alLow, type: 'scatter', mode: 'lines', fill: 'tonexty', fillcolor: 'rgba(0, 255, 255, 0.2)', line: {width: 0}, name: 'Aluminium Range' },
         { x: years, y: alAvg, type: 'scatter', mode: 'lines+markers', line: {color: '#00FFFF', width: 2}, marker: {color: '#00FFFF', size: 6}, name: 'Aluminium Avg' }
@@ -84,7 +87,6 @@ title: Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend 
     const config = { responsive: true, displayModeBar: false };
 
     Plotly.newPlot('chartUSD', createTraces(cuAvgUSD, cuLowUSD, cuHighUSD, alAvgUSD, alLowUSD, alHighUSD), Object.assign({ title: 'Historic Metal Prices (USD per tonne)' }, layoutBase), config);
-    Plotly.newPlot('chartEUR', createTraces(cuAvgEUR, cuLowEUR, cuHighEUR, alAvgEUR, alLowEUR, alHighEUR), Object.assign({ title: 'Historic Metal Prices (EUR per tonne)' }, layoutBase), config);
   });
 </script>
 

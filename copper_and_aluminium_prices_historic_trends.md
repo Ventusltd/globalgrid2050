@@ -117,3 +117,9 @@ These figures are indicative annual ranges for budgeting and commercial referenc
 Validate prices against the London Metal Exchange or equivalent sources prior to relying on the data.  
 No liability is accepted for any errors, omissions or reliance placed on this information.  
 Real contract pricing depends on timing, specification, manufacturing route, currency, logistics, project conditions and supplier negotiation.
+
+---
+
+## Historic Price Trends
+
+![Historic Metal Prices with Risk Range](historic_metal_prices.png)

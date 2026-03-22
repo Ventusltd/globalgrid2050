@@ -1,3 +1,26 @@
+<h1>2023 Office of National Statistics data</h1>
+<p>Source: https://www.ons.gov.uk/economy/environmentalaccounts/datasets/ukenvironmentalaccountsenergyusebyindustrysourceandfuel</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Economic Sector</th>
+      <th>SourceName</th>
+      <th>ActivityName</th>
+      <th>Mtoe</th>
+      <th>TWh</th>
+      <th>Percentage of Total UK Energy use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Placeholder: requires full dataset aggregation, ranking, and % calculation -->
+  </tbody>
+</table>
+
+<h1>2019 Office of National Statistics data</h1>
+<p>Source: https://www.ons.gov.uk/economy/environmentalaccounts/datasets/ukenvironmentalaccountsenergyusebyindustrysourceandfuel</p>
+
 <table>
   <thead>
     <tr>

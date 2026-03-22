@@ -1,151 +1,35 @@
----
-layout: page
-title: UK Macro Energy Consumption and Grid Peak Trends
-permalink: /uk_macro_energy_trends/
----
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-    .dashboard-container { 
-        max-width: 1400px; 
-        margin: auto; 
-        padding: 10px; 
-        font-family: 'Courier New', Courier, monospace; 
-    }
-    
-    .chart-wrapper {
-        background: #0b0e14;
-        border: 3px solid #2a2f3a;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-        position: relative;
-    }
-
-    .main-chart { height: 60vh; min-height: 500px; }
-    .sub-chart { height: 40vh; min-height: 350px; }
-
-    .summary-panel {
-        background: #111;
-        padding: 25px;
-        border-radius: 12px;
-        border: 1px solid #444;
-        margin-bottom: 20px;
-        color: #ddd;
-        line-height: 1.6;
-    }
-    
-    .summary-panel h3 { color: #66ccff; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
-    .summary-panel ul { margin-top: 10px; padding-left: 20px; }
-    .summary-panel li { margin-bottom: 10px; }
-
-    .grid-row { display: flex; flex-wrap: wrap; gap: 20px; }
-    .grid-col { flex: 1; min-width: 400px; }
-
-    .technical-footer {
-        margin-top: 30px;
-        font-size: 14px;
-        color: #aaaaaa;
-        border-top: 1px solid #333;
-        padding-top: 15px;
-        line-height: 1.8;
-    }
-    .technical-footer a { color: #66ccff; text-decoration: none; }
-</style>
-
-<div class="dashboard-container">
-    
-    <div class="summary-panel">
-        <h3>Historical System Load: National Fuel Transition (1990–2023)</h3>
-        [span_2](start_span)<p>This dashboard aggregates Office for National Statistics (ONS) data on energy consumption across all UK economic sectors[span_2](end_span). [span_3](start_span)Values are represented in <b>Million tonnes of oil equivalent (Mtoe)</b>[span_3](end_span).</p>
-    </div>
-
-    <div class="chart-wrapper main-chart">
-        <canvas id="energyChart"></canvas>
-    </div>
-
-    <div class="summary-panel">
-        <h3>Engineering Study: The Peak Challenge of Electrification</h3>
-        [span_4](start_span)<p>Transitioning to full electrification fundamentally alters both Primary Energy Demand and Peak Grid Load[span_4](end_span).</p>
-        <ul>
-            [span_5](start_span)<li><b>The Efficiency Dividend:</b> Electrification can reduce total primary energy demand by up to 70%[span_5](end_span). [span_6](start_span)Heat pumps operate at 350% to 500% efficiency (SCOP 3.5 to 5), meaning 3.5 kW of electrical input delivers ~12.25 kW of thermal output[span_6](end_span). [span_7](start_span)Electric vehicles convert 70% of energy to motion, vs. ~25% for internal combustion[span_7](end_span).</li>
-            [span_8](start_span)<li><b>The Peak Load Stress Test:</b> A theoretical scenario with 28 million homes (3.5 kW heat pumps) and 20 million EVs (7.4 kW chargers) creates an unmanaged 246 GW peak[span_8](end_span). [span_9](start_span)The current UK grid is designed for a winter peak of 48.3 GW[span_9](end_span).</li>
-            [span_10](start_span)<li><b>Managed Diversity:</b> Accounting for diversity (1.7 kW per home) and smart charging, the realistic managed peak is projected between 90 and 100 GW[span_10](end_span).</li>
-            [span_11](start_span)<li><b>Infrastructure Resilience:</b> To prevent localized failures like the 2025 Heathrow blackout, grid design must prioritize coincident peaks and protection coordination[span_11](end_span).</li>
-        </ul>
-    </div>
-
-    <div class="grid-row">
-        <div class="grid-col chart-wrapper sub-chart">
-            <canvas id="demandChart"></canvas>
-        </div>
-        <div class="grid-col chart-wrapper sub-chart">
-            <canvas id="peakChart"></canvas>
-        </div>
-    </div>
-
-    <div class="technical-footer">
-        <b>Sources:</b><br>
-        1. [span_12](start_span)ONS UK Environmental Accounts: Energy Use[span_12](end_span)<br>
-        2. [span_13](start_span)Ventus Ltd: The Real Peak Challenge (May 2025)[span_13](end_span)
-    </div>
-</div>
-
-<script>
-    const csvUrl = '{{ site.baseurl }}/ons-energy-fuels-clean.csv';
-    const years = Array.from({length: 34}, (_, i) => (1990 + i).toString());
-
-    Papa.parse(csvUrl, {
-        download: true, header: true, skipEmptyLines: true,
-        transformHeader: h => h.trim(),
-        complete: r => {
-            const fuelData = {};
-            r.data.forEach(row => {
-                const fuel = row['ActivityName'];
-                if (!fuel || fuel.includes('Total')) return;
-                if (!fuelData[fuel]) fuelData[fuel] = new Array(years.length).fill(0);
-                years.forEach((y, i) => {
-                    let val = parseFloat(String(row[y]).replace(/,/g, ''));
-                    if (!isNaN(val)) fuelData[fuel][i] += val;
-                });
-            });
-
-            const topFuels = Object.keys(fuelData).sort((a,b) => 
-                fuelData[b].reduce((s,v)=>s+v,0) - fuelData[a].reduce((s,v)=>s+v,0)).slice(0,7);
-            
-            const colors = ['#00f2ff', '#ff3366', '#ff9d00', '#33cc33', '#cc33ff', '#ffff00', '#ff6600'];
-
-            new Chart(document.getElementById('energyChart'), {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: topFuels.map((f, i) => ({
-                        label: f, data: fuelData[f], borderColor: colors[i],
-                        backgroundColor: colors[i]+'20', fill: true, tension: 0.3
-                    }))
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
-    });
-
-    new Chart(document.getElementById('demandChart'), {
-        type: 'bar',
-        data: {
-            labels: ['2019 Historic', 'Useful Energy', 'Future Electrified'],
-            datasets: [{ label: 'TWh', data: [1644, 1000, 600], backgroundColor: ['#2e86c1', '#f39c12', '#28b463'] }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-    });
-
-    new Chart(document.getElementById('peakChart'), {
-        type: 'bar',
-        data: {
-            labels: ['Unmanaged', 'Managed', 'Current Peak'],
-            datasets: [{ label: 'GW', data: [246, 95, 48.3], backgroundColor: ['#e74c3c', '#e67e22', '#2c3e50'] }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-    });
-</script>
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Economic Sector</th>
+      <th>SourceName</th>
+      <th>ActivityName</th>
+      <th>Mtoe</th>
+      <th>TWh</th>
+      <th>Percentage of Total UK Energy use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Electricity production - gas</td><td>Power stations</td><td>Natural gas</td><td>20.13</td><td>234</td><td>14.24%</td></tr>
+    <tr><td>2</td><td>Consumer expenditure - not travel</td><td>Domestic Space Heater</td><td>Natural gas</td><td>16.518</td><td>192</td><td>11.69%</td></tr>
+    <tr><td>3</td><td>Air transport services</td><td>Aircraft - international cruise</td><td>Aviation turbine fuel</td><td>9.869</td><td>115</td><td>6.98%</td></tr>
+    <tr><td>4</td><td>Water transport services</td><td>Shipping - international IPCC definition</td><td>Fuel oil</td><td>6.013</td><td>70</td><td>4.25%</td></tr>
+    <tr><td>5</td><td>Consumer expenditure - not travel</td><td>Domestic Water Heater</td><td>Natural gas</td><td>4.832</td><td>56</td><td>3.42%</td></tr>
+    <tr><td>6</td><td>Consumer expenditure - travel</td><td>Road transport - cars - urban driving</td><td>Petrol</td><td>4.132</td><td>48</td><td>2.92%</td></tr>
+    <tr><td>7</td><td>Consumer expenditure - travel</td><td>Road transport - cars - rural driving</td><td>Petrol</td><td>3.572</td><td>42</td><td>2.53%</td></tr>
+    <tr><td>8</td><td>Consumer expenditure - travel</td><td>Road transport - cars - rural driving</td><td>DERV</td><td>3.353</td><td>39</td><td>2.37%</td></tr>
+    <tr><td>9</td><td>Consumer expenditure - travel</td><td>Road transport - cars - urban driving</td><td>DERV</td><td>2.901</td><td>34</td><td>2.05%</td></tr>
+    <tr><td>10</td><td>Manufacture of refined petroleum products</td><td>Refineries - combustion</td><td>OPG</td><td>2.682</td><td>31</td><td>1.90%</td></tr>
+    <tr><td>11</td><td>Crude petroleum and natural gas</td><td>Upstream Oil Production - fuel combustion</td><td>Natural gas</td><td>2.203</td><td>26</td><td>1.56%</td></tr>
+    <tr><td>12</td><td>Human health services</td><td>Public sector combustion</td><td>Natural gas</td><td>1.64</td><td>19</td><td>1.16%</td></tr>
+    <tr><td>13</td><td>Products of agriculture, hunting and related services</td><td>NRMM; Agriculture</td><td>Gas oil</td><td>1.587</td><td>18</td><td>1.12%</td></tr>
+    <tr><td>14</td><td>Freight transport by road and removal services</td><td>Road transport - HGV articulated - motorway driving</td><td>DERV</td><td>1.496</td><td>17</td><td>1.06%</td></tr>
+    <tr><td>15</td><td>Consumer expenditure - travel</td><td>Road transport - cars - motorway driving</td><td>Petrol</td><td>1.493</td><td>17</td><td>1.06%</td></tr>
+    <tr><td>16</td><td>Manufacture of basic Iron &amp; Steel</td><td>Blast furnaces</td><td>Coke</td><td>1.475</td><td>17</td><td>1.04%</td></tr>
+    <tr><td>17</td><td>Consumer expenditure - travel</td><td>Road transport - cars - motorway driving</td><td>DERV</td><td>1.448</td><td>17</td><td>1.02%</td></tr>
+    <tr><td>18</td><td>Electricity production - coal</td><td>Power stations</td><td>Coal</td><td>1.376</td><td>16</td><td>0.97%</td></tr>
+    <tr><td>19</td><td>Consumer expenditure - not travel</td><td>Domestic Space Heater</td><td>Burning oil</td><td>1.302</td><td>15</td><td>0.92%</td></tr>
+    <tr><td>20</td><td>Consumer expenditure - travel</td><td>Road transport - cars - cold start</td><td>Petrol</td><td>1.186</td><td>14</td><td>0.84%</td></tr>
+  </tbody>
+</table>

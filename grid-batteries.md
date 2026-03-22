@@ -12,19 +12,19 @@ permalink: /grid-batteries/
 <style>
     .dashboard-container { max-width: 1200px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
     
-    /* Filter Styling */
+    /* Filter Panel Upgrade */
     .filter-panel {
         background: #111;
-        padding: 15px;
+        padding: 20px;
         border-radius: 12px;
         border: 1px solid #444;
         margin-bottom: 15px;
         color: white;
     }
-    .filter-panel label { display: block; margin-bottom: 10px; font-weight: bold; color: #66ccff; }
+    .filter-panel label { display: block; margin-bottom: 10px; font-weight: bold; color: #66ccff; font-size: 18px; }
     input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; }
 
-    #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
+    #map { height: 650px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
@@ -35,7 +35,7 @@ permalink: /grid-batteries/
     
     <div class="filter-panel">
         <label for="capacityRange">Minimum Project Size: <span id="capacityVal">0</span> MW</label>
-        <input type="range" id="capacityRange" min="0" max="500" value="0" step="5">
+        <input type="range" id="capacityRange" min="0" max="1000" value="0" step="10">
     </div>
 
     <div id="map"></div>
@@ -45,7 +45,6 @@ permalink: /grid-batteries/
             <thead>
                 <tr>
                     <th>Site Name</th>
-                    <th>Technology</th>
                     <th>MW</th>
                     <th>Status</th>
                     <th>County</th>
@@ -97,15 +96,14 @@ permalink: /grid-batteries/
     }
 
     function updateDisplay(minMW) {
-        // 1. Clear existing map layers
         markers.clearLayers();
         allMarkers = [];
         const filteredTableData = [];
 
         allData.forEach(row => {
             const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
+            const status = row['Development Status'] || 'Unknown';
             
-            // Apply Filter
             if (capacity >= minMW) {
                 const x = parseFloat(row['X-coordinate']);
                 const y = parseFloat(row['Y-coordinate']);
@@ -113,27 +111,35 @@ permalink: /grid-batteries/
                 if (x && y) {
                     try {
                         const coords = proj4("EPSG:27700", "WGS84", [x, y]);
-                        const isOp = row['Development Status'] === 'Operational';
+                        const isOp = status === 'Operational';
                         const color = isOp ? '#00f2ff' : '#ff9d00';
-                        const baseRadius = Math.max(4, Math.sqrt(capacity) || 4);
+                        const baseRadius = Math.max(5, Math.sqrt(capacity) || 5);
                         
+                        // Updated Popup including Planning Status
                         const marker = L.circleMarker([coords[1], coords[0]], {
                             radius: baseRadius,
                             baseRadius: baseRadius,
                             fillColor: color,
                             color: "#fff",
-                            weight: 0.5,
+                            weight: 1,
                             fillOpacity: 0.8
-                        }).bindPopup(`<b>${row['Site Name']}</b><br>${capacity} MW`);
+                        }).bindPopup(`
+                            <div style="min-width:180px; font-family: Courier, monospace;">
+                                <b style="font-size:14px; color:#000;">${row['Site Name']}</b><br>
+                                <hr style="margin:5px 0; border:0; border-top:1px solid #ccc;">
+                                <span style="font-size:16px;"><b>${capacity} MW</b></span><br>
+                                <span style="color:#555;">Status: <b>${status}</b></span><br>
+                                <small>${row['County']}</small>
+                            </div>
+                        `);
 
                         markers.addLayer(marker);
                         allMarkers.push(marker);
 
                         filteredTableData.push([
                             row['Site Name'],
-                            row['Technology Type'],
                             capacity,
-                            row['Development Status'],
+                            status,
                             row['County']
                         ]);
                     } catch (e) {}
@@ -142,17 +148,17 @@ permalink: /grid-batteries/
         });
 
         map.addLayer(markers);
-        applyZoomScaling(); // Ensure circles stay fat if zoomed in
+        applyZoomScaling();
 
-        // 2. Update Table
         if ($.fn.DataTable.isDataTable('#repd-table')) {
             dataTable.clear().rows.add(filteredTableData).draw();
         } else {
             dataTable = $('#repd-table').DataTable({
                 data: filteredTableData,
                 pageLength: 10,
-                order: [[2, 'desc']],
-                responsive: true
+                order: [[1, 'desc']],
+                responsive: true,
+                language: { search: "Scan Systems:" }
             });
         }
     }

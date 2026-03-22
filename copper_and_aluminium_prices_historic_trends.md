@@ -4,6 +4,7 @@ title: Copper and Aluminium Historic Prices
 ---
 
 # Copper and Aluminium Historic Prices
+## Report Date: 20th March 2026
 
 ### Indicative annual price ranges in EUR per tonne (1000 kg)  
 ### For commercial budgeting, trend analysis and metal risk awareness

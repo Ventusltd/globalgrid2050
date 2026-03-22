@@ -1,7 +1,7 @@
 ---
 layout: page
 title: UK Operational Solar Atlas (>1MWp)
-permalink: /atlas/
+permalink: /repd-uk-operational-solar/
 ---
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -157,4 +157,3 @@ permalink: /atlas/
         }
     });
 </script>
-

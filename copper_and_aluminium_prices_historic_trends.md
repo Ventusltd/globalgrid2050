@@ -86,9 +86,9 @@ title: Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend 
 
 ## Market Context
 
-[span_1](start_span)2026 represents a historic high pricing regime for base metals, with copper exceeding €11,000 per tonne in sustained trading and reaching above €12,000 per tonne equivalent at peak levels, based on London Metal Exchange pricing[span_1](end_span).
+2026 represents a historic high pricing regime for base metals, with copper exceeding €11,000 per tonne in sustained trading and reaching above €12,000 per tonne equivalent at peak levels, based on London Metal Exchange pricing.
 
-[span_2](start_span)Aluminium has also approached multi year highs, trading in the range of €2,600 to €3,000 per tonne with spikes above €3,000 during supply disruptions[span_2](end_span).
+Aluminium has also approached multi year highs, trading in the range of €2,600 to €3,000 per tonne with spikes above €3,000 during supply disruptions.
 
 ---
 
@@ -185,15 +185,15 @@ For up-to-the-minute pricing, please refer to the official London Metal Exchange
 
 ## Commercial Interpretation
 
-* [span_3](start_span)Copper has increased from approximately €2,000 per tonne in the early 2000s to above €10,000 per tonne in the mid 2020s[span_3](end_span).
-* [span_4](start_span)Aluminium shows lower structural growth but remains strongly linked to global energy prices[span_4](end_span).
-* [span_5](start_span)Key volatility and procurement risk periods include 2008, 2009, 2022 and 2025 to 2026[span_5](end_span).
+* Copper has increased from approximately €2,000 per tonne in the early 2000s to above €10,000 per tonne in the mid 2020s.
+* Aluminium shows lower structural growth but remains strongly linked to global energy prices.
+* Key volatility and procurement risk periods include 2008, 2009, 2022 and 2025 to 2026.
 
 ---
 
 ## Disclaimer
 
-* [span_6](start_span)These figures are indicative annual ranges for budgeting and commercial reference only[span_6](end_span).
-* [span_7](start_span)Validate prices against the London Metal Exchange or equivalent sources prior to relying on the data[span_7](end_span).
-* [span_8](start_span)No liability is accepted for any errors, omissions or reliance placed on this information[span_8](end_span).
-* [span_9](start_span)Real contract pricing depends on timing, specification, manufacturing route, currency, logistics, project conditions and supplier negotiation[span_9](end_span).
+* These figures are indicative annual ranges for budgeting and commercial reference only.
+* Validate prices against the London Metal Exchange or equivalent sources prior to relying on the data.
+* No liability is accepted for any errors, omissions or reliance placed on this information.
+* Real contract pricing depends on timing, specification, manufacturing route, currency, logistics, project conditions and supplier negotiation.

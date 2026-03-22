@@ -13,8 +13,6 @@ permalink: /grid-batteries/
     #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
     .dashboard-container { max-width: 1200px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
-    .source-link-container { margin-top: 30px; text-align: center; padding: 20px; border-top: 1px solid #333; font-size: 14px; color: #888; }
-    .source-link-container a { color: #66ccff; text-decoration: none; font-weight: bold; }
     
     /* NMS Style Cluster Colors */
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
@@ -36,10 +34,6 @@ permalink: /grid-batteries/
             </thead>
             <tbody></tbody>
         </table>
-    </div>
-
-    <div class="source-link-container">
-        <p>Data Source: <a href="https://github.com/Ventusltd/globalgrid2050/blob/main/repd-grid-batteries.csv" target="_blank">Download Filtered Grid Batteries CSV (Active Pipeline)</a></p>
     </div>
 </div>
 
@@ -68,7 +62,7 @@ permalink: /grid-batteries/
         skipEmptyLines: true,
         complete: function(results) {
             const tableData = [];
-            const allCircleMarkers = []; // Array to track markers for dynamic scaling
+            const allCircleMarkers = [];
             
             results.data.forEach(row => {
                 const x = parseFloat(row['X-coordinate']);
@@ -84,7 +78,7 @@ permalink: /grid-batteries/
                         
                         const marker = L.circleMarker([coords[1], coords[0]], {
                             radius: baseRadius,
-                            baseRadius: baseRadius, // Store original radius for scaling math
+                            baseRadius: baseRadius,
                             fillColor: color,
                             color: "#fff",
                             weight: 0.5,
@@ -100,7 +94,7 @@ permalink: /grid-batteries/
                         `);
 
                         markers.addLayer(marker);
-                        allCircleMarkers.push(marker); // Add to our tracking array
+                        allCircleMarkers.push(marker);
 
                         tableData.push([
                             row['Site Name'],
@@ -115,10 +109,8 @@ permalink: /grid-batteries/
 
             map.addLayer(markers);
 
-            // 🔍 DYNAMIC ZOOM SCALING ENGINE
             map.on('zoomend', function() {
                 const currentZoom = map.getZoom();
-                // Scale stays at 1x until zoom level 9, then grows exponentially by 35% per zoom level
                 const scaleMultiplier = currentZoom > 9 ? Math.pow(1.35, currentZoom - 9) : 1;
                 
                 allCircleMarkers.forEach(layer => {
@@ -126,7 +118,6 @@ permalink: /grid-batteries/
                 });
             });
 
-            // Fire once on load to establish correct starting sizes
             map.fire('zoomend');
 
             $('#repd-table').DataTable({
@@ -139,4 +130,3 @@ permalink: /grid-batteries/
         }
     });
 </script>
-

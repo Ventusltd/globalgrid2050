@@ -1,6 +1,7 @@
 ---
-layout: default
-title: Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend Graphs
+layout: page
+title: Copper and Aluminium Historic Prices & Trends
+permalink: /copper_and_aluminium_prices_historic_trends/
 ---
 
 # Copper and Aluminium Historic Prices in Euro and USD per tonne and Trend Graphs
@@ -86,4 +87,3 @@ For up-to-the-minute pricing, please refer to the official London Metal Exchange
 |:---|---:|---:|---:|---:|---:|---:|
 | 2025 | 9,600 | 11,500 | 13,200 | 2,500 | 2,900 | 3,700 |
 | 2024 | 8,200 | 9,600 | 11,100 | 2,200 | 2,400 | 2,900 |
-... (rest of table) ...

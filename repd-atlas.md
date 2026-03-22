@@ -13,10 +13,10 @@ permalink: /atlas/
     #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
     .dashboard-container { max-width: 1200px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
-    .source-link { margin-top: 20px; font-size: 12px; color: #888; text-align: center; font-family: sans-serif; }
-    .source-link a { color: #66ccff; text-decoration: none; }
+    .source-link-container { margin-top: 30px; text-align: center; padding: 20px; border-top: 1px solid #333; font-size: 14px; color: #888; }
+    .source-link-container a { color: #66ccff; text-decoration: none; font-weight: bold; }
     
-    /* NMS Style Cluster Colors */
+    /* NMS Style Cluster Colors - Restored */
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
 </style>
@@ -37,21 +37,21 @@ permalink: /atlas/
             <tbody></tbody>
         </table>
     </div>
-    
-    <div class="source-link">
-        Data Source: <a href="https://assets.publishing.service.gov.uk/media/6985c316d3f57710b50a9b1f/REPD_Publication_Q4_2025.csv" target="_blank">Official UK Government REPD Q4 2025 (CSV)</a>
+
+    <div class="source-link-container">
+        <p>Data Source: <a href="https://assets.publishing.service.gov.uk/media/6985c316d3f57710b50a9b1f/REPD_Publication_Q4_2025.csv" target="_blank">Download Official REPD Q4 2025 CSV</a></p>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
-    // 🌍 The Translation Engine: BNG (X/Y) to WGS84 (Lat/Lon)
+    // 🌍 The Translation Engine
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
     const map = L.map('map').setView([54.5, -2.5], 6);

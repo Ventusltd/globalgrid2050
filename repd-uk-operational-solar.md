@@ -10,19 +10,47 @@ permalink: /repd-uk-operational-solar/
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
 <style>
-    #map { height: 600px; width: 100%; border-radius: 12px; background: #0b0e14; border: 2px solid #2a2f3a; margin-bottom: 20px; }
-    .dashboard-container { max-width: 1200px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
-    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
-    .source-link-container { margin-top: 30px; text-align: center; padding: 20px; border-top: 1px solid #333; font-size: 14px; color: #888; }
-    .source-link-container a { color: #66ccff; text-decoration: none; font-weight: bold; }
+    .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
     
-    /* NMS Style Cluster Colors - Restored */
+    /* Massive Map Upgrade */
+    #map { 
+        height: 850px; 
+        min-height: 75vh; 
+        width: 100%; 
+        border-radius: 12px; 
+        background: #0b0e14; 
+        border: 3px solid #2a2f3a; 
+        margin-bottom: 20px; 
+    }
+
+    /* Filter Panel Upgrade */
+    .filter-panel {
+        background: #111;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #444;
+        margin-bottom: 15px;
+        color: white;
+    }
+    .filter-panel label { display: block; margin-bottom: 10px; font-weight: bold; color: #66ccff; font-size: 18px; }
+    input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; }
+
+    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
+    
+    /* NMS Style Cluster Colors */
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
 </style>
 
 <div class="dashboard-container">
+    
+    <div class="filter-panel">
+        <label for="capacityRange">Minimum Project Size: <span id="capacityVal">0</span> MW</label>
+        <input type="range" id="capacityRange" min="0" max="1000" value="0" step="10">
+    </div>
+
     <div id="map"></div>
+
     <div id="repd-table-container">
         <table id="repd-table" class="display" style="width:100%">
             <thead>
@@ -36,10 +64,6 @@ permalink: /repd-uk-operational-solar/
             </thead>
             <tbody></tbody>
         </table>
-    </div>
-
-    <div class="source-link-container">
-        <p>Data Source: <a href="https://github.com/Ventusltd/globalgrid2050/blob/main/repd-solar-operational.csv" target="_blank">Download Filtered Operational Solar CSV (>1MWp)</a></p>
     </div>
 </div>
 
@@ -59,83 +83,111 @@ permalink: /repd-uk-operational-solar/
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
-    const markers = L.markerClusterGroup({ disableClusteringAtZoom: 13 });
+    const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     const csvUrl = '{{ site.baseurl }}/repd-solar-operational.csv';
+
+    let allData = [];
+    let allMarkers = [];
+    let dataTable;
 
     Papa.parse(csvUrl, {
         download: true,
         header: true,
         skipEmptyLines: true,
         complete: function(results) {
-            const tableData = [];
-            const allCircleMarkers = []; // Array to track markers for dynamic scaling
+            allData = results.data;
+            initDashboard();
+        }
+    });
+
+    function initDashboard() {
+        updateDisplay(0);
+
+        $('#capacityRange').on('input', function() {
+            const minMW = parseFloat($(this).val());
+            $('#capacityVal').text(minMW);
+            updateDisplay(minMW);
+        });
+    }
+
+    function updateDisplay(minMW) {
+        markers.clearLayers();
+        allMarkers = [];
+        const filteredTableData = [];
+
+        allData.forEach(row => {
+            const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
+            const status = row['Development Status'] || 'Unknown';
             
-            results.data.forEach(row => {
+            if (capacity >= minMW) {
                 const x = parseFloat(row['X-coordinate']);
                 const y = parseFloat(row['Y-coordinate']);
                 
                 if (x && y) {
                     try {
                         const coords = proj4("EPSG:27700", "WGS84", [x, y]);
-                        const isOp = row['Development Status'] === 'Operational';
+                        const isOp = status === 'Operational';
                         const color = isOp ? '#00f2ff' : '#ff9d00';
-                        const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
-                        const baseRadius = Math.max(4, Math.sqrt(capacity) || 4);
+                        
+                        // FAT PIXEL LOGIC
+                        const baseRadius = Math.max(10, (Math.sqrt(capacity) || 4) * 2);
                         
                         const marker = L.circleMarker([coords[1], coords[0]], {
                             radius: baseRadius,
-                            baseRadius: baseRadius, // Store original radius for scaling math
+                            baseRadius: baseRadius,
                             fillColor: color,
                             color: "#fff",
-                            weight: 0.5,
+                            weight: 2,
                             fillOpacity: 0.8
                         }).bindPopup(`
-                            <div style="min-width:160px">
-                                <b>${row['Site Name']}</b><br>
-                                <hr style="margin:4px 0">
-                                ${row['Technology Type']}<br>
-                                <b>${capacity} MW</b><br>
-                                <i>${row['Development Status']}</i>
+                            <div style="min-width:180px; font-family: Courier, monospace;">
+                                <b style="font-size:14px; color:#000;">${row['Site Name']}</b><br>
+                                <hr style="margin:5px 0; border:0; border-top:1px solid #ccc;">
+                                <span style="font-size:13px;">${row['Technology Type']}</span><br>
+                                <span style="font-size:16px;"><b>${capacity} MW</b></span><br>
+                                <span style="color:#555;">Status: <b>${status}</b></span><br>
+                                <small>${row['County']}</small>
                             </div>
                         `);
 
                         markers.addLayer(marker);
-                        allCircleMarkers.push(marker); // Add to our tracking array
+                        allMarkers.push(marker);
 
-                        tableData.push([
+                        filteredTableData.push([
                             row['Site Name'],
                             row['Technology Type'],
                             capacity,
-                            row['Development Status'],
+                            status,
                             row['County']
                         ]);
                     } catch (e) {}
                 }
-            });
+            }
+        });
 
-            map.addLayer(markers);
+        map.addLayer(markers);
+        applyZoomScaling();
 
-            // 🔍 DYNAMIC ZOOM SCALING ENGINE
-            map.on('zoomend', function() {
-                const currentZoom = map.getZoom();
-                // Scale stays at 1x until zoom level 9, then grows exponentially by 35% per zoom level
-                const scaleMultiplier = currentZoom > 9 ? Math.pow(1.35, currentZoom - 9) : 1;
-                
-                allCircleMarkers.forEach(layer => {
-                    layer.setRadius(layer.options.baseRadius * scaleMultiplier);
-                });
-            });
-
-            // Fire once on load to establish correct starting sizes
-            map.fire('zoomend');
-
-            $('#repd-table').DataTable({
-                data: tableData,
+        if ($.fn.DataTable.isDataTable('#repd-table')) {
+            dataTable.clear().rows.add(filteredTableData).draw();
+        } else {
+            dataTable = $('#repd-table').DataTable({
+                data: filteredTableData,
                 pageLength: 10,
                 order: [[2, 'desc']],
                 responsive: true,
                 language: { search: "Scan Systems:" }
             });
         }
-    });
+    }
+
+    function applyZoomScaling() {
+        const currentZoom = map.getZoom();
+        const scaleMultiplier = currentZoom > 9 ? Math.pow(1.4, currentZoom - 9) : 1;
+        allMarkers.forEach(layer => {
+            layer.setRadius(layer.options.baseRadius * scaleMultiplier);
+        });
+    }
+
+    map.on('zoomend', applyZoomScaling);
 </script>

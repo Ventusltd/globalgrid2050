@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 from datetime import datetime, timezone
 
+# Define the target path (ensuring it targets the correct directory relative to the script)
 FILE = Path(__file__).parent.parent / "33kv_uk_dap_price_estimator" / "index.md"
 
 
@@ -78,9 +79,11 @@ def main():
             f"{al_val:,.0f} | {cu_val:,.0f} | {total_metal:,.0f} | {round(net_price):,} |\n"
         )
 
+    # Note: Closed the f-string correctly at the end of the markdown template
     md_content = f"""---
-layout: default
+layout: page
 title: 33kV Cable Price Estimator
+permalink: /33kv_uk_dap_price_estimator/
 ---
 # 33 kV Aluminium XLPE Cable Price Estimator
 Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm2 or 50 mm2 and MDPE oversheath to BS 7870.
@@ -93,11 +96,11 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 | Parameter | Value |
 |---|---|
-| LME Copper (USD) | USD{d['cu_usd']:,.0f} / tonne |
-| LME Aluminium (USD) | USD{d['al_usd']:,.0f} / tonne |
+| LME Copper (USD) | USD {d['cu_usd']:,.0f} / tonne |
+| LME Aluminium (USD) | USD {d['al_usd']:,.0f} / tonne |
 | GBP/USD Rate | 1 GBP = {d['gbp_usd']:.4f} USD |
-| Copper (GBP) | GBP{cu_gbp:,.0f} / tonne |
-| Aluminium (GBP) | GBP{al_gbp:,.0f} / tonne |
+| Copper (GBP) | GBP {cu_gbp:,.0f} / tonne |
+| Aluminium (GBP) | GBP {al_gbp:,.0f} / tonne |
 | Last Update | {ts} |
 
 ---
@@ -124,6 +127,7 @@ Typical cost structure:
 | Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Aluminium GBP/km | Copper GBP/km | Total metal GBP/km | Net GBP/km |
 |---|---|---|---|---|---|---|---|
 {cable_rows}
+
 ---
 
 ## Notes
@@ -133,4 +137,20 @@ This estimator supports rapid early stage cost analysis for:
 - Battery energy storage systems BESS
 - Wind farms
 - Utility substations
-- Transmission and distribution connections​​​​​​​​​​​​​​​​
+- Transmission and distribution connections
+"""
+
+    # --- Missing logic added here ---
+    
+    # 1. Ensure the target directory exists before trying to write to it
+    FILE.parent.mkdir(parents=True, exist_ok=True)
+    
+    # 2. Open the file and write the generated markdown content
+    with open(FILE, "w", encoding="utf-8") as f:
+        f.write(md_content)
+        
+    print(f"✅ Successfully updated 33kV Price Estimator at: {FILE}")
+
+# 3. Add execution block
+if __name__ == "__main__":
+    main()

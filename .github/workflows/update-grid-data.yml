@@ -37,7 +37,7 @@ jobs:
           git add *.geojson || true
           
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated 400kV grid data fetch"
+            git commit -m "Automated grid data fetch (400kV, 275kV, 132kV)"
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"

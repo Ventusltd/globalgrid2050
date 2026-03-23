@@ -1,75 +1,85 @@
 ---
-layout: default
-title: LV Price Estimator
+layout: page
+title: LV AC and DC Distribution Cables Price Estimator
+permalink: /lv_ac_dc_price_estimator/
 ---
-# Pricing Estimator: Armoured Water-Blocked LV Distribution Single Cores
-### For DC and AC Applications: High Current Solar & Distribution Power Collection Circuits (Rigid)
-**Voltage Rating:** 1000/1000V AC | 1500/1500V DC
+# LV AC and DC Distribution Cables Price Estimator
 
----
-
-## ⚠️ Technical Compliance & Safety Notice
-* **Tight Bend Radii:** The manufacturer MUST be consulted for applications requiring tight bends to ensure structural integrity.
-* **Thermal Management:** Professional Power Systems Specialists must be engaged to perform thermal modeling. Incorrect configuration can lead to substation thermal runaway.
-* **Margin for Error:** Bespoke considerations must be negotiated within the Employer’s Requirements for full indemnification.
+Large scale price estimator for Low Voltage (LV) Alternating Current (AC) and Direct Current (DC) cables. These form the electrical backbone of Solar PV arrays, BESS installations, and standard distribution networks.
 
 ---
 
-## Integrated Procurement Parameters
+## Market Inputs
 
-| Category | Parameter | Value |
-| :--- | :--- | :--- |
-| **Market Data** | LME Aluminium (USD) | $3,520 / tonne |
-| | LME Aluminium (EUR) | €3,045 / tonne |
-| | LME Copper (USD) | $12,850 / tonne |
-| | LME Copper (EUR) | €11,115 / tonne |
-| **Forex Rates** | GBP / USD | 1.3338 |
-| | EUR / USD | 1.1561 |
-| | GBP / EUR | 1.1537 |
-| **Pricing Rules** | Al Pricing Factor | Metal Value (EUR) / 0.25 |
-| | Cu Pricing Factor | Metal Value (EUR) / 0.40 |
-| **Update** | Last Market Sync | Monday 23 March 2026 07:18 UTC |
+| Parameter | Value |
+|---|---|
+| LME Copper (USD) | USD 11,735 / tonne |
+| LME Aluminium (USD) | USD 3,101 / tonne |
+| GBP/USD Rate | 1 GBP = 1.3338 USD |
+| Copper (GBP) | GBP 8,799 / tonne |
+| Aluminium (GBP) | GBP 2,325 / tonne |
+| Last Update | Monday 23 March 2026 09:31 UTC |
 
 ---
 
-## LV Aluminium Cable Price Breakdown (EUR)
+## Weight Formulas & Pricing Rule
 
-| Size (mm2) | Al Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
-| :--- | :--- | :--- | :--- |
-| 95 | 277.4 | €844.60 | **€3,378** |
-| 120 | 350.4 | €1,066.86 | **€4,267** |
-| 150 | 438.0 | €1,333.58 | **€5,334** |
-| 185 | 540.2 | €1,644.75 | **€6,579** |
-| 240 | 700.8 | €2,133.73 | **€8,535** |
-| 300 | 876.0 | €2,667.16 | **€10,669** |
-| 400 | 1168.0 | €3,556.21 | **€14,225** |
-| 500 | 1460.0 | €4,445.26 | **€17,781** |
-| 630 | 1839.6 | €5,601.03 | **€22,404** |
+- **Copper kg per km:** Area (mm²) × 9.6
+- **Aluminium kg per km:** Area (mm²) × 2.92
+- **Net Price:** Metal value ÷ 0.30 (Assuming raw metal constitutes 30% of the final delivered cost)
 
 ---
 
-## LV Copper Cable Price Breakdown (EUR)
+## Solar DC String Cables (Copper)
+Typical single core PV1-F or H1Z2Z2-K tinned copper string cables (1.5kV DC).
 
-| Size (mm2) | Cu Weight (kg/km) | Metal Value (EUR/km) | Net Price (EUR/km) |
-| :--- | :--- | :--- | :--- |
-| 10 | 96.0 | €1,067.03 | **€2,668** |
-| 16 | 153.6 | €1,707.25 | **€4,268** |
-| 25 | 240.0 | €2,667.57 | **€6,669** |
-| 35 | 336.0 | €3,734.60 | **€9,337** |
-| 50 | 480.0 | €5,335.15 | **€13,338** |
-| 70 | 672.0 | €7,469.21 | **€18,673** |
-| 95 | 912.0 | €10,136.78 | **€25,342** |
-| 120 | 1152.0 | €12,804.35 | **€32,011** |
-| 150 | 1440.0 | €16,005.44 | **€40,014** |
-| 185 | 1776.0 | €19,740.04 | **€49,350** |
-| 240 | 2304.0 | €25,608.71 | **€64,022** |
-| 300 | 2880.0 | €32,010.88 | **€80,027** |
-| 400 | 3840.0 | €42,681.18 | **€106,703** |
-| 500 | 4800.0 | €53,351.47 | **€133,379** |
-| 630 | 6048.0 | €67,222.85 | **€168,057** |
+| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
+|---|---|---|---|
+| 4 | 38.4 | 338 | 1,126 |
+| 6 | 57.6 | 507 | 1,689 |
+| 10 | 96.0 | 845 | 2,816 |
+| 16 | 153.6 | 1,351 | 4,505 |
+
 
 ---
 
-## Procurement Disclaimer
-These figures are high-level budgeting estimates. Real procurement prices are subject to negotiation, engineering, and site-specific conditions.
+## LV / DC Main Cables (Aluminium)
+Typical single core aluminium distribution cables.
 
+| Conductor (mm²) | Aluminium (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
+|---|---|---|---|
+| 95 | 277.4 | 645 | 2,150 |
+| 120 | 350.4 | 815 | 2,716 |
+| 150 | 438.0 | 1,018 | 3,395 |
+| 185 | 540.2 | 1,256 | 4,187 |
+| 240 | 700.8 | 1,629 | 5,432 |
+| 300 | 876.0 | 2,037 | 6,790 |
+| 400 | 1,168.0 | 2,716 | 9,053 |
+| 500 | 1,460.0 | 3,395 | 11,316 |
+| 630 | 1,839.6 | 4,277 | 14,258 |
+
+
+---
+
+## LV Distribution Cables (Copper)
+Typical single core copper distribution cables.
+
+| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
+|---|---|---|---|
+| 16 | 153.6 | 1,351 | 4,505 |
+| 25 | 240.0 | 2,112 | 7,039 |
+| 35 | 336.0 | 2,956 | 9,854 |
+| 50 | 480.0 | 4,223 | 14,078 |
+| 70 | 672.0 | 5,913 | 19,709 |
+| 95 | 912.0 | 8,024 | 26,748 |
+| 120 | 1,152.0 | 10,136 | 33,787 |
+| 150 | 1,440.0 | 12,670 | 42,233 |
+| 185 | 1,776.0 | 15,626 | 52,088 |
+| 240 | 2,304.0 | 20,272 | 67,573 |
+| 300 | 2,880.0 | 25,340 | 84,466 |
+| 400 | 3,840.0 | 33,787 | 112,622 |
+
+
+---
+## Notes
+Estimates are DAP (Delivered at Place) for large-scale utility procurement. Values do not represent small-batch wholesale counter prices.

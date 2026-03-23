@@ -40,6 +40,26 @@ permalink: /repd_atlas_grid_model/
     /* NMS Style Cluster Colors */
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
+
+    /* ⚡ NEW: Legend Styling */
+    .info.legend {
+        background: rgba(17, 17, 17, 0.9);
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #444;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        line-height: 24px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .legend i {
+        width: 24px;
+        height: 4px;
+        display: inline-block;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
 </style>
 
 <div class="dashboard-container">
@@ -84,9 +104,9 @@ permalink: /repd_atlas_grid_model/
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
-    // ⚡ NEW: Fetch and draw the 400kV Grid Lines in Blue
-    const gridUrl = '{{ site.baseurl }}/grid_400kv.geojson';
-    fetch(gridUrl)
+    // ⚡ Fetch and draw the 400kV Grid Lines (Blue)
+    const grid400Url = '{{ site.baseurl }}/grid_400kv.geojson';
+    fetch(grid400Url)
         .then(response => response.json())
         .then(data => {
             L.geoJSON(data, {
@@ -98,6 +118,34 @@ permalink: /repd_atlas_grid_model/
             }).addTo(map);
         })
         .catch(error => console.error('Error loading 400kV grid data:', error));
+
+    // ⚡ Fetch and draw the 275kV Grid Lines (Red)
+    const grid275Url = '{{ site.baseurl }}/grid_275kv.geojson';
+    fetch(grid275Url)
+        .then(response => response.json())
+        .then(data => {
+            L.geoJSON(data, {
+                style: {
+                    color: '#ff0000', // National Grid Red
+                    weight: 2,
+                    opacity: 0.6
+                }
+            }).addTo(map);
+        })
+        .catch(error => console.error('Error loading 275kV grid data:', error));
+
+    // ⚡ NEW: Create and add the Map Legend
+    const legend = L.control({position: 'bottomright'});
+    legend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'info legend');
+        div.innerHTML = `
+            <div style="margin-bottom: 5px; color: #66ccff;"><strong>Grid Key</strong></div>
+            <div><i style="background: #0054ff;"></i> 400kV Lines</div>
+            <div><i style="background: #ff0000;"></i> 275kV Lines</div>
+        `;
+        return div;
+    };
+    legend.addTo(map);
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     const csvUrl = '{{ site.baseurl }}/repd.csv';

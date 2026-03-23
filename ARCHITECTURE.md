@@ -23,3 +23,5 @@ A GitHub Action set to workflow_dispatch (Manual trigger).
 Spins up a virtual Ubuntu server, installs Python/Requests, runs the fetcher script, and commits any updated *.geojson files directly back to the main branch.
 
 Committing these files automatically triggers the Jekyll build to update the live GitHub Pages site.
+
+

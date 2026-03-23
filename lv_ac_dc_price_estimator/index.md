@@ -30,19 +30,6 @@ Large scale price estimator for Low Voltage (LV) Alternating Current (AC) and Di
 
 ---
 
-## Solar DC String Cables (Copper)
-Typical single core PV1-F or H1Z2Z2-K tinned copper string cables (1.5kV DC).
-
-| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
-|---|---|---|---|
-| 4 | 38.4 | 337 | 1,124 |
-| 6 | 57.6 | 506 | 1,686 |
-| 10 | 96.0 | 843 | 2,811 |
-| 16 | 153.6 | 1,349 | 4,497 |
-
-
----
-
 ## LV / DC Main Cables (Aluminium)
 Typical single core aluminium distribution cables.
 
@@ -83,3 +70,4 @@ Typical single core copper distribution cables.
 ---
 ## Notes
 Estimates are DAP (Delivered at Place) for large-scale utility procurement. Values do not represent small-batch wholesale counter prices.
+Final prices vary based on formal manufacturer negotiations and hedging contracts against copper, aluminium, polymers, energy costs, shipping, currency exchange rates and engineering sign off on appropriate materials selection. 

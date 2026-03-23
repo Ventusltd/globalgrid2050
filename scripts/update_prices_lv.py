@@ -37,7 +37,6 @@ def get_market_data():
         print(f"::warning::Copper fetch failed, using fallback: {e}")
         data["used_fallback"] = True
 
-    # --- ADDED: Aluminium Fetch Block ---
     try:
         r = requests.get(
             "https://query1.finance.yahoo.com/v8/finance/chart/ALI=F",
@@ -60,42 +59,35 @@ def main():
     if d["used_fallback"]:
         print("::warning::One or more prices are fallback values - verify API sources")
 
+    # Currency Math
     cu_gbp = d["cu_usd"] / d["gbp_usd"]
     al_gbp = d["al_usd"] / d["gbp_usd"]
+    
+    cu_eur = cu_gbp * d["gbp_eur"]
+    al_eur = al_gbp * d["gbp_eur"]
 
-    # --- ADDED: Cable Size Definitions ---
-    # DC String Cables (Copper PV Cable)
-    DC_CU_CABLES = [4, 6, 10, 16]
-    
-    # Standard LV Mains (Aluminium Single Core)
+    # --- UPDATED: Cable Size Definitions (DC Strings Removed) ---
     LV_AL_CABLES = [95, 120, 150, 185, 240, 300, 400, 500, 630]
-    
-    # Standard LV Mains (Copper Single Core)
     LV_CU_CABLES = [16, 25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400]
 
-    # --- ADDED: Calculation Engine ---
-    dc_cu_rows = ""
-    for mm2 in DC_CU_CABLES:
-        weight = mm2 * 9.6
-        metal_val = (weight / 1000) * cu_gbp
-        net_price = metal_val / 0.3  # 30% metal value rule
-        dc_cu_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price:,.0f} |\n"
-
+    # --- UPDATED: Calculation Engine (EUR added, Al changed to 20%) ---
     lv_al_rows = ""
     for mm2 in LV_AL_CABLES:
         weight = mm2 * 2.92
         metal_val = (weight / 1000) * al_gbp
-        net_price = metal_val / 0.3
-        lv_al_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price:,.0f} |\n"
+        net_price_gbp = metal_val / 0.20  # Aluminium changed to 20%
+        net_price_eur = net_price_gbp * d["gbp_eur"]
+        lv_al_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price_gbp:,.0f} | {net_price_eur:,.0f} |\n"
 
     lv_cu_rows = ""
     for mm2 in LV_CU_CABLES:
         weight = mm2 * 9.6
         metal_val = (weight / 1000) * cu_gbp
-        net_price = metal_val / 0.3
-        lv_cu_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price:,.0f} |\n"
+        net_price_gbp = metal_val / 0.30  # Copper stays at 30%
+        net_price_eur = net_price_gbp * d["gbp_eur"]
+        lv_cu_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price_gbp:,.0f} | {net_price_eur:,.0f} |\n"
 
-    # --- ADDED: Markdown Generation ---
+    # --- UPDATED: Markdown Generation ---
     md_content = f"""---
 layout: page
 title: LV AC and DC Distribution Cables Price Estimator
@@ -113,9 +105,11 @@ Large scale price estimator for Low Voltage (LV) Alternating Current (AC) and Di
 |---|---|
 | LME Copper (USD) | USD {d['cu_usd']:,.0f} / tonne |
 | LME Aluminium (USD) | USD {d['al_usd']:,.0f} / tonne |
-| GBP/USD Rate | 1 GBP = {d['gbp_usd']:.4f} USD |
+| Exchange Rates | 1 GBP = {d['gbp_usd']:.4f} USD <br> 1 GBP = {d['gbp_eur']:.4f} EUR |
 | Copper (GBP) | GBP {cu_gbp:,.0f} / tonne |
 | Aluminium (GBP) | GBP {al_gbp:,.0f} / tonne |
+| Copper (EUR) | EUR {cu_eur:,.0f} / tonne |
+| Aluminium (EUR) | EUR {al_eur:,.0f} / tonne |
 | Last Update | {ts} |
 
 ---
@@ -124,41 +118,32 @@ Large scale price estimator for Low Voltage (LV) Alternating Current (AC) and Di
 
 - **Copper kg per km:** Area (mm²) × 9.6
 - **Aluminium kg per km:** Area (mm²) × 2.92
-- **Net Price:** Metal value ÷ 0.30 (Assuming raw metal constitutes 30% of the final delivered cost)
-
----
-
-## Solar DC String Cables (Copper)
-Typical single core PV1-F or H1Z2Z2-K tinned copper string cables (1.5kV DC).
-
-| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
-|---|---|---|---|
-{dc_cu_rows}
+- **Copper Net Price:** Metal value ÷ 0.30 (Assuming raw metal constitutes 30% of the final delivered cost)
+- **Aluminium Net Price:** Metal value ÷ 0.20 (Assuming raw metal constitutes 20% of the final delivered cost)
 
 ---
 
 ## LV / DC Main Cables (Aluminium)
 Typical single core aluminium distribution cables.
 
-| Conductor (mm²) | Aluminium (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
-|---|---|---|---|
+| Conductor (mm²) | Aluminium (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) | Net Price (EUR/km) |
+|---|---|---|---|---|
 {lv_al_rows}
-
 ---
 
 ## LV Distribution Cables (Copper)
 Typical single core copper distribution cables.
 
-| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
-|---|---|---|---|
+| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) | Net Price (EUR/km) |
+|---|---|---|---|---|
 {lv_cu_rows}
-
 ---
 ## Notes
 Estimates are DAP (Delivered at Place) for large-scale utility procurement. Values do not represent small-batch wholesale counter prices.
+Final prices vary based on formal manufacturer negotiations and hedging contracts against copper, aluminium, polymers, energy costs, shipping, currency exchange rates and engineering sign off on appropriate materials selection.
+Price is inflated slightly to counter procurement risks but nothing is guaranteed until contract signature and payment terms agreement with suppliers and appropriate insurance against force majeure.
 """
 
-    # --- ADDED: File Save Logic ---
     FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(FILE, "w", encoding="utf-8") as f:
         f.write(md_content)

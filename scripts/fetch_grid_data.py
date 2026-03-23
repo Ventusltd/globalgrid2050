@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import time  # ⚡ NEW: Imported to handle our safety pauses
 
 def fetch_and_convert(voltage, filename):
     print(f"Fetching {voltage}V data from Overpass API...")
@@ -41,5 +42,12 @@ def fetch_and_convert(voltage, filename):
     print(f"✅ Saved {len(geojson['features'])} power lines to {filename}")
 
 if __name__ == "__main__":
-    # Fetching ONLY the 400kV data for now to ensure stability
+    # Fetch the 400kV data
     fetch_and_convert("400000", "grid_400kv.geojson")
+    
+    # ⚡ NEW: Pause for 60 seconds to respect Overpass API limits
+    print("⏳ Pausing for 60 seconds to prevent Overpass API overload...")
+    time.sleep(60)
+    
+    # ⚡ NEW: Fetch the 275kV data
+    fetch_and_convert("275000", "grid_275kv.geojson")

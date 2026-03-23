@@ -11,7 +11,7 @@ permalink: /copper_and_aluminium_prices_historic_trends/
 
 ---
 
-## Historic Price Trends
+## Historic Price Trends (Interactive)
 
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 
@@ -73,12 +73,12 @@ For up-to-the-minute pricing, please refer to the official London Metal Exchange
 ---
 
 ### Live Daily Market Prices (API Sync)
-*Last Sync: Monday 23 March 2026 09:52 UTC*
+*Last Sync: Monday 23 March 2026 15:11 UTC*
 
 | Metal | Live USD per tonne | Live EUR per tonne | Live GBP per tonne |
 |:---|---:|---:|---:|
-| **Copper** | $11,715 | €10,133 | £8,784 |
-| **Aluminium** | $3,096 | €2,678 | £2,321 |
+| **Copper** | $12,134 | €10,496 | £9,098 |
+| **Aluminium** | $3,127 | €2,705 | £2,344 |
 
 ---
 

@@ -41,7 +41,7 @@ permalink: /repd_atlas_grid_model/
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
 
-    /* ⚡ NEW: Legend Styling */
+    /* Legend Styling */
     .info.legend {
         background: rgba(17, 17, 17, 0.9);
         color: white;
@@ -134,7 +134,22 @@ permalink: /repd_atlas_grid_model/
         })
         .catch(error => console.error('Error loading 275kV grid data:', error));
 
-    // ⚡ NEW: Create and add the Map Legend
+    // ⚡ NEW: Fetch and draw the 132kV Grid Lines (Green)
+    const grid132Url = '{{ site.baseurl }}/grid_132kv.geojson';
+    fetch(grid132Url)
+        .then(response => response.json())
+        .then(data => {
+            L.geoJSON(data, {
+                style: {
+                    color: '#00cc00', // DNO Green
+                    weight: 1.5, // Slightly thinner for distribution lines
+                    opacity: 0.5
+                }
+            }).addTo(map);
+        })
+        .catch(error => console.error('Error loading 132kV grid data:', error));
+
+    // ⚡ Create and add the Map Legend (Updated)
     const legend = L.control({position: 'bottomright'});
     legend.onAdd = function (map) {
         const div = L.DomUtil.create('div', 'info legend');
@@ -142,6 +157,7 @@ permalink: /repd_atlas_grid_model/
             <div style="margin-bottom: 5px; color: #66ccff;"><strong>Grid Key</strong></div>
             <div><i style="background: #0054ff;"></i> 400kV Lines</div>
             <div><i style="background: #ff0000;"></i> 275kV Lines</div>
+            <div><i style="background: #00cc00;"></i> 132kV Lines</div>
         `;
         return div;
     };

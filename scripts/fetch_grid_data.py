@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-import time  # ⚡ NEW: Imported to handle our safety pauses
+import time
 
 def fetch_and_convert(voltage, filename):
     print(f"Fetching {voltage}V data from Overpass API...")
@@ -45,9 +45,16 @@ if __name__ == "__main__":
     # Fetch the 400kV data
     fetch_and_convert("400000", "grid_400kv.geojson")
     
-    # ⚡ NEW: Pause for 60 seconds to respect Overpass API limits
+    # Pause for 60 seconds
     print("⏳ Pausing for 60 seconds to prevent Overpass API overload...")
     time.sleep(60)
     
-    # ⚡ NEW: Fetch the 275kV data
+    # Fetch the 275kV data
     fetch_and_convert("275000", "grid_275kv.geojson")
+    
+    # Pause for another 60 seconds
+    print("⏳ Pausing for another 60 seconds...")
+    time.sleep(60)
+    
+    # ⚡ NEW: Fetch the 132kV data
+    fetch_and_convert("132000", "grid_132kv.geojson")

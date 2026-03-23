@@ -55,3 +55,20 @@ Typical single core copper distribution cables.
 
 | Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) | Net Price (EUR/km) |
 |---|---|---|---|---|
+| 16 | 153.6 | 1,349 | 4,497 | 5,176 |
+| 25 | 240.0 | 2,108 | 7,027 | 8,088 |
+| 35 | 336.0 | 2,951 | 9,838 | 11,324 |
+| 50 | 480.0 | 4,216 | 14,054 | 16,176 |
+| 70 | 672.0 | 5,903 | 19,675 | 22,646 |
+| 95 | 912.0 | 8,011 | 26,702 | 30,734 |
+| 120 | 1,152.0 | 10,119 | 33,729 | 38,822 |
+| 150 | 1,440.0 | 12,649 | 42,162 | 48,528 |
+| 185 | 1,776.0 | 15,600 | 52,000 | 59,852 |
+| 240 | 2,304.0 | 20,238 | 67,459 | 77,645 |
+| 300 | 2,880.0 | 25,297 | 84,324 | 97,057 |
+| 400 | 3,840.0 | 33,729 | 112,431 | 129,408 |
+
+---
+## Notes
+Estimates are DAP (Delivered at Place) for large-scale utility procurement. Values do not represent small-batch wholesale counter prices.
+Final prices vary based on formal manufacturer negotiations and hedging contracts against copper, aluminium, polymers, energy costs, shipping, currency exchange rates and engineering sign off on appropriate materials selection.

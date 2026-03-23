@@ -72,3 +72,5 @@ It requires a shared, open and evolving engineering system where design logic, f
 **Conclusion**
 
 GlobalGrid2050 represents a shift from projects to systems, from documents to infrastructure, and from private knowledge to open engineering reality. It is not simply an information platform. It is an intervention in how the grid is designed, built and maintained.
+
+The solution is empirical. Electrification of UK energy reduces 1144TWh when some end users pay £300million/TWh pa at £0.30/kWh. This requires an immense effort towards power systems studies, LV and HV procurment and engineering knowledge and cross-sector collaboration with civil, mechanical, electrical engineers and strong dialogue with financial markets and government. Its time to accelerate into half century with vigor and moderntiy.  

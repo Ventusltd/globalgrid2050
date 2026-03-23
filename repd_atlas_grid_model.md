@@ -84,16 +84,16 @@ permalink: /repd_atlas_grid_model/
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
-    // ⚡ NEW: Fetch and draw the 400kV Grid Lines
+    // ⚡ NEW: Fetch and draw the 400kV Grid Lines in Blue
     const gridUrl = '{{ site.baseurl }}/grid_400kv.geojson';
     fetch(gridUrl)
         .then(response => response.json())
         .then(data => {
             L.geoJSON(data, {
                 style: {
-                    color: '#ffea00', // Electric yellow
+                    color: '#0054ff', // National Grid Blue
                     weight: 2,
-                    opacity: 0.5
+                    opacity: 0.6
                 }
             }).addTo(map);
         })
@@ -134,79 +134,4 @@ permalink: /repd_atlas_grid_model/
         const filteredTableData = [];
 
         allData.forEach(row => {
-            const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
-            const status = row['Development Status'] || 'Unknown';
-            
-            if (capacity >= minMW) {
-                const x = parseFloat(row['X-coordinate']);
-                const y = parseFloat(row['Y-coordinate']);
-                
-                if (x && y) {
-                    try {
-                        const coords = proj4("EPSG:27700", "WGS84", [x, y]);
-                        const isOp = status === 'Operational';
-                        const color = isOp ? '#00f2ff' : '#ff9d00';
-                        
-                        // FAT PIXEL LOGIC
-                        const baseRadius = Math.max(10, (Math.sqrt(capacity) || 4) * 2);
-                        
-                        const marker = L.circleMarker([coords[1], coords[0]], {
-                            radius: baseRadius,
-                            baseRadius: baseRadius,
-                            fillColor: color,
-                            color: "#fff",
-                            weight: 2,
-                            fillOpacity: 0.8
-                        }).bindPopup(`
-                            <div style="min-width:180px; font-family: Courier, monospace;">
-                                <b style="font-size:14px; color:#000;">${row['Site Name']}</b><br>
-                                <hr style="margin:5px 0; border:0; border-top:1px solid #ccc;">
-                                <span style="font-size:13px;">${row['Technology Type']}</span><br>
-                                <span style="font-size:16px;"><b>${capacity} MW</b></span><br>
-                                <span style="color:#555;">Status: <b>${status}</b></span><br>
-                                <small>${row['County']}</small>
-                            </div>
-                        `);
-
-                        markers.addLayer(marker);
-                        allMarkers.push(marker);
-
-                        filteredTableData.push([
-                            row['Site Name'],
-                            row['Technology Type'],
-                            capacity,
-                            status,
-                            row['County']
-                        ]);
-                    } catch (e) {}
-                }
-            }
-        });
-
-        map.addLayer(markers);
-        applyZoomScaling();
-
-        // Sync Data Table
-        if ($.fn.DataTable.isDataTable('#repd-table')) {
-            dataTable.clear().rows.add(filteredTableData).draw();
-        } else {
-            dataTable = $('#repd-table').DataTable({
-                data: filteredTableData,
-                pageLength: 10,
-                order: [[2, 'desc']],
-                responsive: true,
-                language: { search: "Scan Systems:" }
-            });
-        }
-    }
-
-    function applyZoomScaling() {
-        const currentZoom = map.getZoom();
-        const scaleMultiplier = currentZoom > 9 ? Math.pow(1.4, currentZoom - 9) : 1;
-        allMarkers.forEach(layer => {
-            layer.setRadius(layer.options.baseRadius * scaleMultiplier);
-        });
-    }
-
-    map.on('zoomend', applyZoomScaling);
-</script>
+            const capacity = parseFloat(row['Installed Capacity (MWelec

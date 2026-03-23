@@ -3,172 +3,79 @@ import os
 from pathlib import Path
 from datetime import datetime, timezone
 
-# Target file path
+FILE = Path(__file__).parent.parent / "33kv_uk_dap_price_estimator" / "index.md"
 
-FILE = Path(**file**).parent.parent / “33kv_uk_dap_price_estimator” / “index.md”
 
 def get_market_data():
-data = {
-“gbp_usd”: 1.3339,
-“cu_usd”: 12850.0,
-“al_usd”: 3520.0,
-“used_fallback”: False
-}
+    data = {
+        "gbp_usd": 1.3339,
+        "cu_usd": 12850.0,
+        "al_usd": 3520.0,
+        "used_fallback": False
+    }
 
-```
-try:
-    # FX Rates — base in GBP as 33kV table is priced in GBP
-    fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=15).json()
-    data["gbp_usd"] = fx["rates"]["USD"]
-except Exception as e:
-    print(f"::warning::FX fetch failed, using fallback rates: {e}")
-    data["used_fallback"] = True
+    try:
+        fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=15).json()
+        data["gbp_usd"] = fx["rates"]["USD"]
+    except Exception as e:
+        print(f"::warning::FX fetch failed, using fallback rates: {e}")
+        data["used_fallback"] = True
 
-try:
-    # Copper: HG=F quoted in USD/lb → convert to USD/tonne
-    r = requests.get(
-        "https://query1.finance.yahoo.com/v8/finance/chart/HG=F",
-        timeout=10,
-        headers={"User-Agent": "Mozilla/5.0"}
-    )
-    cu_lb = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
-    data["cu_usd"] = cu_lb * 2204.62
-except Exception as e:
-    print(f"::warning::Copper fetch failed, using fallback: {e}")
-    data["used_fallback"] = True
+    try:
+        r = requests.get(
+            "https://query1.finance.yahoo.com/v8/finance/chart/HG=F",
+            timeout=10,
+            headers={"User-Agent": "Mozilla/5.0"}
+        )
+        cu_lb = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
+        data["cu_usd"] = cu_lb * 2204.62
+    except Exception as e:
+        print(f"::warning::Copper fetch failed, using fallback: {e}")
+        data["used_fallback"] = True
 
-try:
-    # Aluminium: ALI=F quoted in USD/tonne
-    r = requests.get(
-        "https://query1.finance.yahoo.com/v8/finance/chart/ALI=F",
-        timeout=10,
-        headers={"User-Agent": "Mozilla/5.0"}
-    )
-    data["al_usd"] = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
-except Exception as e:
-    print(f"::warning::Aluminium fetch failed, using fallback: {e}")
-    data["used_fallback"] = True
+    try:
+        r = requests.get(
+            "https://query1.finance.yahoo.com/v8/finance/chart/ALI=F",
+            timeout=10,
+            headers={"User-Agent": "Mozilla/5.0"}
+        )
+        data["al_usd"] = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
+    except Exception as e:
+        print(f"::warning::Aluminium fetch failed, using fallback: {e}")
+        data["used_fallback"] = True
 
-return data
-```
+    return data
+
 
 def main():
-d = get_market_data()
-ts_obj = datetime.now(timezone.utc)
-ts = ts_obj.strftime(”%A %d %B %Y %H:%M UTC”)
+    d = get_market_data()
+    ts_obj = datetime.now(timezone.utc)
+    ts = ts_obj.strftime("%A %d %B %Y %H:%M UTC")
 
-```
-if d["used_fallback"]:
-    print("::warning::One or more prices are fallback values — verify API sources")
+    if d["used_fallback"]:
+        print("::warning::One or more prices are fallback values - verify API sources")
 
-# Derived GBP prices per tonne
-cu_gbp = d["cu_usd"] / d["gbp_usd"]
-al_gbp = d["al_usd"] / d["gbp_usd"]
+    cu_gbp = d["cu_usd"] / d["gbp_usd"]
+    al_gbp = d["al_usd"] / d["gbp_usd"]
 
-# Cable configurations: (conductor mm², CWS mm²)
-CABLES = [
-    (120, 35), (150, 35), (185, 35), (240, 35), (300, 35),
-    (400, 35), (500, 35), (630, 35),
-    (800, 50), (1000, 50), (1200, 50), (1400, 50),
-    (1600, 50), (1800, 50), (2000, 50), (2500, 50)
-]
+    CABLES = [
+        (120, 35), (150, 35), (185, 35), (240, 35), (300, 35),
+        (400, 35), (500, 35), (630, 35),
+        (800, 50), (1000, 50), (1200, 50), (1400, 50),
+        (1600, 50), (1800, 50), (2000, 50), (2500, 50)
+    ]
 
-# Generate cable rows
-cable_rows = ""
-for cond_mm2, cws_mm2 in CABLES:
-    al_kg = cond_mm2 * 2.92
-    cu_kg = cws_mm2 * 9.6
-    al_val = (al_kg / 1000) * al_gbp
-    cu_val = (cu_kg / 1000) * cu_gbp
-    total_metal = al_val + cu_val
-    net_price = total_metal / 0.3
-    cable_rows += (
-        f"| {cond_mm2:,} | {cws_mm2} | {al_kg:,.1f} | {cu_kg:,.1f} | "
-        f"{al_val:,.0f} | {cu_val:,.0f} | {total_metal:,.0f} | {round(net_price):,} |\n"
-    )
+    cable_rows = ""
+    for cond_mm2, cws_mm2 in CABLES:
+        al_kg = cond_mm2 * 2.92
+        cu_kg = cws_mm2 * 9.6
+        al_val = (al_kg / 1000) * al_gbp
+        cu_val = (cu_kg / 1000) * cu_gbp
+        total_metal = al_val + cu_val
+        net_price = total_metal / 0.3
+        cable_rows += (
+            f"| {cond_mm2:,} | {cws_mm2} | {al_kg:,.1f} | {cu_kg:,.1f} | "
+            f"{al_val:,.0f} | {cu_val:,.0f} | {total_metal:,.0f} | {round(net_price):,} |\n"
+        )
 
-# Assemble Markdown
-md_content = f"""---
-```
-
-## layout: default
-title: 33kV Cable Price Estimator
-
-# 33 kV Aluminium XLPE Cable Price Estimator
-
-Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
-
-Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.
-
------
-
-## Market Inputs
-
-|Parameter          |Value                         |
-|-------------------|------------------------------|
-|LME Copper (USD)   |${d[‘cu_usd’]:,.0f} / tonne   |
-|LME Aluminium (USD)|${d[‘al_usd’]:,.0f} / tonne   |
-|GBP/USD Rate       |1 GBP = {d[‘gbp_usd’]:.4f} USD|
-|Copper (GBP)       |£{cu_gbp:,.0f} / tonne        |
-|Aluminium (GBP)    |£{al_gbp:,.0f} / tonne        |
-|Last Update        |{ts}                          |
-
------
-
-## Weight Formulas
-
-- Copper kg per km = mm² × 9.6
-- Aluminium kg per km = mm² × 2.92
-
------
-
-## Net Price Rule
-
-Net cable price ≈ Metal value ÷ 0.3
-
-Typical cost structure:
-
-- Metal content: ≈ 30%
-- Manufacturing, logistics, and margin: ≈ 70%
-
------
-
-## Cable Metal and Net Price Estimator
-
-|Conductor mm²|CWS mm²|Aluminium kg/km|Copper kg/km|Aluminium £/km|Copper £/km|Total metal £/km|Net £/km|
-|-------------|-------|---------------|------------|--------------|-----------|----------------|--------|
-|{cable_rows} |       |               |            |              |           |                |        |
-
------
-
-## Notes
-
-This estimator supports rapid early stage cost analysis for:
-
-- Solar farms
-- Battery energy storage systems BESS
-- Wind farms
-- Utility substations
-- Transmission and distribution connections
-
------
-
-## Disclaimer
-
-These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.
-
-<!-- update: {ts_obj.timestamp()} -->
-
-“””
-
-```
-os.makedirs(FILE.parent, exist_ok=True)
-FILE.write_text(md_content, encoding="utf-8")
-
-print("33kV pricing updated")
-print(f"  Cu: ${d['cu_usd']:,.0f}/t (£{cu_gbp:,.0f}/t) | Al: ${d['al_usd']:,.0f}/t (£{al_gbp:,.0f}/t)")
-print(f"  Timestamp: {ts}")
-```
-
-if **name** == “**main**”:
-main()
+    md​​​​​​​​​​​​​​​​

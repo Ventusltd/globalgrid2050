@@ -1,101 +1,4 @@
-import requests
-import os
-from pathlib import Path
-from datetime import datetime, timezone
-
-# From /scripts/ up to Root, then into the 33kV folder
-FILE = Path(__file__).parent.parent / "33kv_uk_dap_price_estimator" / "index.md"
-
-
-def get_market_data():
-    data = {
-        "gbp_usd": 1.3339,
-        "gbp_eur": 1.1510,
-        "gbp_inr": 111.50, # Added INR fallback
-        "cu_usd": 12850.0,
-        "al_usd": 3520.0,
-        "used_fallback": False
-    }
-
-    try:
-        fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=15).json()
-        data["gbp_usd"] = fx["rates"]["USD"]
-        data["gbp_eur"] = fx["rates"]["EUR"]
-        data["gbp_inr"] = fx["rates"]["INR"] # Fetching live INR
-    except Exception as e:
-        print(f"::warning::FX fetch failed, using fallback rates: {e}")
-        data["used_fallback"] = True
-
-    try:
-        r = requests.get(
-            "https://query1.finance.yahoo.com/v8/finance/chart/HG=F",
-            timeout=10,
-            headers={"User-Agent": "Mozilla/5.0"}
-        )
-        cu_lb = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
-        data["cu_usd"] = cu_lb * 2204.62
-    except Exception as e:
-        print(f"::warning::Copper fetch failed, using fallback: {e}")
-        data["used_fallback"] = True
-
-    try:
-        r = requests.get(
-            "https://query1.finance.yahoo.com/v8/finance/chart/ALI=F",
-            timeout=10,
-            headers={"User-Agent": "Mozilla/5.0"}
-        )
-        data["al_usd"] = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
-    except Exception as e:
-        print(f"::warning::Aluminium fetch failed, using fallback: {e}")
-        data["used_fallback"] = True
-
-    return data
-
-
-def main():
-    d = get_market_data()
-    ts_obj = datetime.now(timezone.utc)
-    ts = ts_obj.strftime("%A %d %B %Y %H:%M UTC")
-
-    if d["used_fallback"]:
-        print("::warning::One or more prices are fallback values - verify API sources")
-
-    # Currency Math
-    cu_gbp = d["cu_usd"] / d["gbp_usd"]
-    al_gbp = d["al_usd"] / d["gbp_usd"]
-    
-    cu_eur = cu_gbp * d["gbp_eur"]
-    al_eur = al_gbp * d["gbp_eur"]
-    
-    cu_inr = cu_gbp * d["gbp_inr"]
-    al_inr = al_gbp * d["gbp_inr"]
-
-    # 33kV Cable Definitions: (Main Conductor mm2, Copper Screen mm2)
-    CABLES = [
-        (120, 35), (150, 35), (185, 35), (240, 35), (300, 35), 
-        (400, 35), (500, 35), (630, 35), (800, 50), (1000, 50), 
-        (1200, 50), (1400, 50), (1600, 50), (1800, 50), (2000, 50), (2500, 50)
-    ]
-
-    # Calculation Engine
-    table_rows = ""
-    for mm2, cws in CABLES:
-        al_kg = mm2 * 2.92
-        cu_kg = cws * 9.6
-        
-        al_gbp_val = (al_kg / 1000) * al_gbp
-        cu_gbp_val = (cu_kg / 1000) * cu_gbp
-        
-        total_metal_gbp = al_gbp_val + cu_gbp_val
-        net_price_gbp = total_metal_gbp / 0.30
-        
-        net_price_eur = net_price_gbp * d["gbp_eur"]
-        net_price_inr = net_price_gbp * d["gbp_inr"]
-        
-        table_rows += f"| {mm2} | {cws} | {al_kg:,.1f} | {cu_kg:,.1f} | {al_gbp_val:,.0f} | {cu_gbp_val:,.0f} | {total_metal_gbp:,.0f} | {net_price_gbp:,.0f} | {net_price_eur:,.0f} | {net_price_inr:,.0f} |\n"
-
-    # Markdown Generation
-    md_content = f"""---
+---
 layout: page
 title: 33kV Cable Price Estimator
 permalink: /33kv_uk_dap_price_estimator/
@@ -111,16 +14,14 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 
 | Parameter | Value |
 |---|---|
-| LME Copper (USD) | USD {d['cu_usd']:,.0f} / tonne |
-| LME Aluminium (USD) | USD {d['al_usd']:,.0f} / tonne |
-| Exchange Rates | 1 GBP = {d['gbp_usd']:.4f} USD <br> 1 GBP = {d['gbp_eur']:.4f} EUR <br> 1 GBP = {d['gbp_inr']:.2f} INR |
-| Copper (GBP) | GBP {cu_gbp:,.0f} / tonne |
-| Aluminium (GBP) | GBP {al_gbp:,.0f} / tonne |
-| Copper (EUR) | EUR {cu_eur:,.0f} / tonne |
-| Aluminium (EUR) | EUR {al_eur:,.0f} / tonne |
-| Copper (INR) | INR {cu_inr:,.0f} / tonne |
-| Aluminium (INR) | INR {al_inr:,.0f} / tonne |
-| Last Update | {ts} |
+| LME Copper (USD) | USD 12,134 / tonne |
+| LME Aluminium (USD) | USD 3,127 / tonne |
+| Exchange Rates | 1 GBP = 1.3338 USD <br> 1 GBP = 1.1510 EUR |
+| Copper (GBP) | GBP 9,098 / tonne |
+| Aluminium (GBP) | GBP 2,344 / tonne |
+| Copper (EUR) | EUR 10,472 / tonne |
+| Aluminium (EUR) | EUR 2,698 / tonne |
+| Last Update | Monday 23 March 2026 15:11 UTC |
 
 ---
 
@@ -143,9 +44,25 @@ Typical cost structure:
 
 ## Cable Metal and Net Price Estimator
 
-| Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Aluminium GBP/km | Copper GBP/km | Total metal GBP/km | Net GBP/km | Net EUR/km | Net INR/km |
-|---|---|---|---|---|---|---|---|---|---|
-{table_rows}
+| Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Aluminium GBP/km | Copper GBP/km | Total metal GBP/km | Net GBP/km | Net EUR/km |
+|---|---|---|---|---|---|---|---|---|
+| 120 | 35 | 350.4 | 336.0 | 822 | 3,057 | 3,878 | 12,928 | 14,880 |
+| 150 | 35 | 438.0 | 336.0 | 1,027 | 3,057 | 4,084 | 13,612 | 15,667 |
+| 185 | 35 | 540.2 | 336.0 | 1,266 | 3,057 | 4,323 | 14,411 | 16,587 |
+| 240 | 35 | 700.8 | 336.0 | 1,643 | 3,057 | 4,700 | 15,666 | 18,032 |
+| 300 | 35 | 876.0 | 336.0 | 2,054 | 3,057 | 5,111 | 17,035 | 19,607 |
+| 400 | 35 | 1,168.0 | 336.0 | 2,738 | 3,057 | 5,795 | 19,317 | 22,234 |
+| 500 | 35 | 1,460.0 | 336.0 | 3,423 | 3,057 | 6,480 | 21,599 | 24,860 |
+| 630 | 35 | 1,839.6 | 336.0 | 4,313 | 3,057 | 7,370 | 24,566 | 28,275 |
+| 800 | 50 | 2,336.0 | 480.0 | 5,477 | 4,367 | 9,844 | 32,812 | 37,767 |
+| 1,000 | 50 | 2,920.0 | 480.0 | 6,846 | 4,367 | 11,213 | 37,376 | 43,020 |
+| 1,200 | 50 | 3,504.0 | 480.0 | 8,215 | 4,367 | 12,582 | 41,940 | 48,273 |
+| 1,400 | 50 | 4,088.0 | 480.0 | 9,584 | 4,367 | 13,951 | 46,504 | 53,526 |
+| 1,600 | 50 | 4,672.0 | 480.0 | 10,954 | 4,367 | 15,320 | 51,068 | 58,779 |
+| 1,800 | 50 | 5,256.0 | 480.0 | 12,323 | 4,367 | 16,690 | 55,632 | 64,032 |
+| 2,000 | 50 | 5,840.0 | 480.0 | 13,692 | 4,367 | 18,059 | 60,196 | 69,286 |
+| 2,500 | 50 | 7,300.0 | 480.0 | 17,115 | 4,367 | 21,482 | 71,606 | 82,419 |
+
 ---
 
 ## Notes
@@ -156,14 +73,3 @@ This estimator supports rapid early stage cost analysis for:
 - Wind farms
 - Utility substations
 - Transmission and distribution connections
-"""
-
-    FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(FILE, "w", encoding="utf-8") as f:
-        f.write(md_content)
-
-    print(f"✅ Successfully updated 33kV Price Estimator at: {FILE}")
-
-
-if __name__ == "__main__":
-    main()

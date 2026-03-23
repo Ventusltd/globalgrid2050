@@ -1,123 +1,174 @@
 import requests
+import os
 from pathlib import Path
 from datetime import datetime, timezone
-import sys
 
-# Target markdown file
-FILE = Path(__file__).parent.parent / "33kv_uk_dap_price_estimator" / "index.md"
+# Target file path
 
-def get_data():
-    # Fallback values
-    gbpusd, cu_usd, al_usd = 1.3265, 12850, 3520
+FILE = Path(**file**).parent.parent / “33kv_uk_dap_price_estimator” / “index.md”
 
-    try:
-        # FX
-        fx_r = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=20)
-        fx_r.raise_for_status()
-        gbpusd = fx_r.json()["rates"]["USD"]
+def get_market_data():
+data = {
+“gbp_usd”: 1.3339,
+“cu_usd”: 12850.0,
+“al_usd”: 3520.0,
+“used_fallback”: False
+}
 
-        # Metals
-        m_r = requests.get("https://api.metals.live/v1/spot", timeout=20)
-        m_r.raise_for_status()
-        m_data = m_r.json()
+```
+try:
+    # FX Rates — base in GBP as 33kV table is priced in GBP
+    fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=15).json()
+    data["gbp_usd"] = fx["rates"]["USD"]
+except Exception as e:
+    print(f"::warning::FX fetch failed, using fallback rates: {e}")
+    data["used_fallback"] = True
 
-        for item in m_data:
-            if item.get("metal") == "copper":
-                cu_usd = item.get("price") * 1000
-            if item.get("metal") == "aluminum":
-                al_usd = item.get("price") * 1000
+try:
+    # Copper: HG=F quoted in USD/lb → convert to USD/tonne
+    r = requests.get(
+        "https://query1.finance.yahoo.com/v8/finance/chart/HG=F",
+        timeout=10,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+    cu_lb = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
+    data["cu_usd"] = cu_lb * 2204.62
+except Exception as e:
+    print(f"::warning::Copper fetch failed, using fallback: {e}")
+    data["used_fallback"] = True
 
-    except Exception as e:
-        print(f"Warning: Using fallback data. Error: {e}")
+try:
+    # Aluminium: ALI=F quoted in USD/tonne
+    r = requests.get(
+        "https://query1.finance.yahoo.com/v8/finance/chart/ALI=F",
+        timeout=10,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+    data["al_usd"] = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
+except Exception as e:
+    print(f"::warning::Aluminium fetch failed, using fallback: {e}")
+    data["used_fallback"] = True
 
-    return gbpusd, cu_usd, al_usd
-
+return data
+```
 
 def main():
-    gbpusd, cu_usd, al_usd = get_data()
+d = get_market_data()
+ts_obj = datetime.now(timezone.utc)
+ts = ts_obj.strftime(”%A %d %B %Y %H:%M UTC”)
 
-    cu_gbp = cu_usd / gbpusd
-    al_gbp = al_usd / gbpusd
+```
+if d["used_fallback"]:
+    print("::warning::One or more prices are fallback values — verify API sources")
 
-    tstamp_obj = datetime.now(timezone.utc)
-    tstamp = tstamp_obj.strftime("%A %d %B %Y %H:%M UTC")
+# Derived GBP prices per tonne
+cu_gbp = d["cu_usd"] / d["gbp_usd"]
+al_gbp = d["al_usd"] / d["gbp_usd"]
 
-    if not FILE.exists():
-        print(f"Error: Markdown file not found at {FILE}")
-        return   # do NOT crash workflow
+# Cable configurations: (conductor mm², CWS mm²)
+CABLES = [
+    (120, 35), (150, 35), (185, 35), (240, 35), (300, 35),
+    (400, 35), (500, 35), (630, 35),
+    (800, 50), (1000, 50), (1200, 50), (1400, 50),
+    (1600, 50), (1800, 50), (2000, 50), (2500, 50)
+]
 
-    lines = FILE.read_text().splitlines()
-    new_lines = []
+# Generate cable rows
+cable_rows = ""
+for cond_mm2, cws_mm2 in CABLES:
+    al_kg = cond_mm2 * 2.92
+    cu_kg = cws_mm2 * 9.6
+    al_val = (al_kg / 1000) * al_gbp
+    cu_val = (cu_kg / 1000) * cu_gbp
+    total_metal = al_val + cu_val
+    net_price = total_metal / 0.3
+    cable_rows += (
+        f"| {cond_mm2:,} | {cws_mm2} | {al_kg:,.1f} | {cu_kg:,.1f} | "
+        f"{al_val:,.0f} | {cu_val:,.0f} | {total_metal:,.0f} | {round(net_price):,} |\n"
+    )
 
-    for line in lines:
-        parts = [x.strip() for x in line.split("|")]
+# Assemble Markdown
+md_content = f"""---
+```
 
-        # Only process valid table rows
-        if len(parts) >= 3:
-            key = parts[1]
+## layout: default
+title: 33kV Cable Price Estimator
 
-            # --- Market rows ---
-            if "LME Copper (USD)" in key:
-                line = f"| LME Copper (USD) | ${cu_usd:,.0f} / tonne |"
+# 33 kV Aluminium XLPE Cable Price Estimator
 
-            elif "LME Aluminium (USD)" in key:
-                line = f"| LME Aluminium (USD) | ${al_usd:,.0f} / tonne |"
+Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm² or 50 mm² and MDPE oversheath to BS 7870.
 
-            elif "GBP/USD Rate" in key:
-                line = f"| GBP/USD Rate | 1 GBP = {gbpusd:.4f} USD |"
+Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.
 
-            elif "Copper (GBP)" in key:
-                line = f"| Copper (GBP) | £{cu_gbp:,.0f} / tonne |"
+-----
 
-            elif "Aluminium (GBP)" in key:
-                line = f"| Aluminium (GBP) | £{al_gbp:,.0f} / tonne |"
+## Market Inputs
 
-            elif "Last Update" in key:
-                line = f"| Last Update | {tstamp} |"
+|Parameter          |Value                         |
+|-------------------|------------------------------|
+|LME Copper (USD)   |${d[‘cu_usd’]:,.0f} / tonne   |
+|LME Aluminium (USD)|${d[‘al_usd’]:,.0f} / tonne   |
+|GBP/USD Rate       |1 GBP = {d[‘gbp_usd’]:.4f} USD|
+|Copper (GBP)       |£{cu_gbp:,.0f} / tonne        |
+|Aluminium (GBP)    |£{al_gbp:,.0f} / tonne        |
+|Last Update        |{ts}                          |
 
-            else:
-                # --- Try numeric rows safely ---
-                try:
-                    clean_key = key.replace(",", "").split()[0]
+-----
 
-                    # Skip headers / separators
-                    if not clean_key.replace(".", "").isdigit():
-                        new_lines.append(line)
-                        continue
+## Weight Formulas
 
-                    cond_size = float(clean_key)
+- Copper kg per km = mm² × 9.6
+- Aluminium kg per km = mm² × 2.92
 
-                    try:
-                        cws_size = float(parts[2].replace(",", ""))
-                    except:
-                        new_lines.append(line)
-                        continue
+-----
 
-                    al_kg = cond_size * 2.92
-                    cu_kg = cws_size * 9.6
+## Net Price Rule
 
-                    al_val = (al_kg / 1000) * al_gbp
-                    cu_val = (cu_kg / 1000) * cu_gbp
+Net cable price ≈ Metal value ÷ 0.3
 
-                    total = al_val + cu_val
-                    net = total / 0.3
+Typical cost structure:
 
-                    line = f"| {cond_size:.0f} | {cws_size:.0f} | {al_kg:,.1f} | {cu_kg:,.1f} | {al_val:,.0f} | {cu_val:,.0f} | {total:,.0f} | {net:,.0f} |"
+- Metal content: ≈ 30%
+- Manufacturing, logistics, and margin: ≈ 70%
 
-                except Exception:
-                    # Never crash
-                    pass
+-----
 
-        new_lines.append(line)
+## Cable Metal and Net Price Estimator
 
-    # --- Force change to guarantee commit ---
-    new_lines.append(f"\n<!-- update: {tstamp_obj.timestamp()} -->")
+|Conductor mm²|CWS mm²|Aluminium kg/km|Copper kg/km|Aluminium £/km|Copper £/km|Total metal £/km|Net £/km|
+|-------------|-------|---------------|------------|--------------|-----------|----------------|--------|
+|{cable_rows} |       |               |            |              |           |                |        |
 
-    FILE.write_text("\n".join(new_lines))
+-----
 
-    print("33kV pricing updated successfully")
-    print(f"Timestamp: {tstamp}")
+## Notes
 
+This estimator supports rapid early stage cost analysis for:
 
-if __name__ == "__main__":
-    main()
+- Solar farms
+- Battery energy storage systems BESS
+- Wind farms
+- Utility substations
+- Transmission and distribution connections
+
+-----
+
+## Disclaimer
+
+These values are derived from live market data feeds. Actual cable pricing varies based on project volume, factory loading, and specific utility requirements. No warranty is given for data accuracy.
+
+<!-- update: {ts_obj.timestamp()} -->
+
+“””
+
+```
+os.makedirs(FILE.parent, exist_ok=True)
+FILE.write_text(md_content, encoding="utf-8")
+
+print("33kV pricing updated")
+print(f"  Cu: ${d['cu_usd']:,.0f}/t (£{cu_gbp:,.0f}/t) | Al: ${d['al_usd']:,.0f}/t (£{al_gbp:,.0f}/t)")
+print(f"  Timestamp: {ts}")
+```
+
+if **name** == “**main**”:
+main()

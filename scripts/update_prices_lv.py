@@ -36,3 +36,135 @@ def get_market_data():
     except Exception as e:
         print(f"::warning::Copper fetch failed, using fallback: {e}")
         data["used_fallback"] = True
+
+    # --- ADDED: Aluminium Fetch Block ---
+    try:
+        r = requests.get(
+            "https://query1.finance.yahoo.com/v8/finance/chart/ALI=F",
+            timeout=10,
+            headers={"User-Agent": "Mozilla/5.0"}
+        )
+        data["al_usd"] = r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"]
+    except Exception as e:
+        print(f"::warning::Aluminium fetch failed, using fallback: {e}")
+        data["used_fallback"] = True
+
+    return data
+
+
+def main():
+    d = get_market_data()
+    ts_obj = datetime.now(timezone.utc)
+    ts = ts_obj.strftime("%A %d %B %Y %H:%M UTC")
+
+    if d["used_fallback"]:
+        print("::warning::One or more prices are fallback values - verify API sources")
+
+    cu_gbp = d["cu_usd"] / d["gbp_usd"]
+    al_gbp = d["al_usd"] / d["gbp_usd"]
+
+    # --- ADDED: Cable Size Definitions ---
+    # DC String Cables (Copper PV Cable)
+    DC_CU_CABLES = [4, 6, 10, 16]
+    
+    # Standard LV Mains (Aluminium Single Core)
+    LV_AL_CABLES = [95, 120, 150, 185, 240, 300, 400, 500, 630]
+    
+    # Standard LV Mains (Copper Single Core)
+    LV_CU_CABLES = [16, 25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400]
+
+    # --- ADDED: Calculation Engine ---
+    dc_cu_rows = ""
+    for mm2 in DC_CU_CABLES:
+        weight = mm2 * 9.6
+        metal_val = (weight / 1000) * cu_gbp
+        net_price = metal_val / 0.3  # 30% metal value rule
+        dc_cu_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price:,.0f} |\n"
+
+    lv_al_rows = ""
+    for mm2 in LV_AL_CABLES:
+        weight = mm2 * 2.92
+        metal_val = (weight / 1000) * al_gbp
+        net_price = metal_val / 0.3
+        lv_al_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price:,.0f} |\n"
+
+    lv_cu_rows = ""
+    for mm2 in LV_CU_CABLES:
+        weight = mm2 * 9.6
+        metal_val = (weight / 1000) * cu_gbp
+        net_price = metal_val / 0.3
+        lv_cu_rows += f"| {mm2} | {weight:,.1f} | {metal_val:,.0f} | {net_price:,.0f} |\n"
+
+    # --- ADDED: Markdown Generation ---
+    md_content = f"""---
+layout: page
+title: LV AC and DC Distribution Cables Price Estimator
+permalink: /lv_ac_dc_price_estimator/
+---
+# LV AC and DC Distribution Cables Price Estimator
+
+Large scale price estimator for Low Voltage (LV) Alternating Current (AC) and Direct Current (DC) cables. These form the electrical backbone of Solar PV arrays, BESS installations, and standard distribution networks.
+
+---
+
+## Market Inputs
+
+| Parameter | Value |
+|---|---|
+| LME Copper (USD) | USD {d['cu_usd']:,.0f} / tonne |
+| LME Aluminium (USD) | USD {d['al_usd']:,.0f} / tonne |
+| GBP/USD Rate | 1 GBP = {d['gbp_usd']:.4f} USD |
+| Copper (GBP) | GBP {cu_gbp:,.0f} / tonne |
+| Aluminium (GBP) | GBP {al_gbp:,.0f} / tonne |
+| Last Update | {ts} |
+
+---
+
+## Weight Formulas & Pricing Rule
+
+- **Copper kg per km:** Area (mm²) × 9.6
+- **Aluminium kg per km:** Area (mm²) × 2.92
+- **Net Price:** Metal value ÷ 0.30 (Assuming raw metal constitutes 30% of the final delivered cost)
+
+---
+
+## Solar DC String Cables (Copper)
+Typical single core PV1-F or H1Z2Z2-K tinned copper string cables (1.5kV DC).
+
+| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
+|---|---|---|---|
+{dc_cu_rows}
+
+---
+
+## LV / DC Main Cables (Aluminium)
+Typical single core aluminium distribution cables.
+
+| Conductor (mm²) | Aluminium (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
+|---|---|---|---|
+{lv_al_rows}
+
+---
+
+## LV Distribution Cables (Copper)
+Typical single core copper distribution cables.
+
+| Conductor (mm²) | Copper (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
+|---|---|---|---|
+{lv_cu_rows}
+
+---
+## Notes
+Estimates are DAP (Delivered at Place) for large-scale utility procurement. Values do not represent small-batch wholesale counter prices.
+"""
+
+    # --- ADDED: File Save Logic ---
+    FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(FILE, "w", encoding="utf-8") as f:
+        f.write(md_content)
+
+    print(f"✅ Successfully updated LV AC/DC Price Estimator at: {FILE}")
+
+
+if __name__ == "__main__":
+    main()

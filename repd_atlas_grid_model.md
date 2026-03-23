@@ -12,7 +12,6 @@ permalink: /repd_atlas_grid_model/
 <style>
     .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
     
-    /* Massive Map Upgrade */
     #map { 
         height: 850px; 
         min-height: 75vh; 
@@ -23,7 +22,6 @@ permalink: /repd_atlas_grid_model/
         margin-bottom: 20px; 
     }
 
-    /* Filter Panel Upgrade */
     .filter-panel {
         background: #111;
         padding: 20px;
@@ -37,11 +35,10 @@ permalink: /repd_atlas_grid_model/
 
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     
-    /* NMS Style Cluster Colors */
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* Custom style for the layer control box to match the dark theme */
+    /* Custom style for the layer control box */
     .leaflet-control-layers {
         background: rgba(17, 17, 17, 0.9) !important;
         border: 1px solid #444 !important;
@@ -84,7 +81,6 @@ permalink: /repd_atlas_grid_model/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
-    // 🌍 The Translation Engine
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
     const map = L.map('map').setView([54.5, -2.5], 6);
@@ -93,12 +89,12 @@ permalink: /repd_atlas_grid_model/
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
-    // ⚡ NEW: Create empty layer groups and add them to the map IMMEDIATELY (so they are ON by default)
+    // Create layer groups and add them to the map immediately
     const grid400Layer = L.layerGroup().addTo(map);
     const grid275Layer = L.layerGroup().addTo(map);
     const grid132Layer = L.layerGroup().addTo(map);
 
-    // ⚡ NEW: Add the interactive toggle box
+    // Add the interactive toggle box
     const overlayMaps = {
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
@@ -106,7 +102,7 @@ permalink: /repd_atlas_grid_model/
     };
     L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
 
-    // Fetch and draw 400kV (add to grid400Layer)
+    // Fetch 400kV
     fetch('{{ site.baseurl }}/grid_400kv.geojson')
         .then(response => response.json())
         .then(data => {
@@ -114,7 +110,7 @@ permalink: /repd_atlas_grid_model/
         })
         .catch(error => console.error('Error loading 400kV:', error));
 
-    // Fetch and draw 275kV (add to grid275Layer)
+    // Fetch 275kV
     fetch('{{ site.baseurl }}/grid_275kv.geojson')
         .then(response => response.json())
         .then(data => {
@@ -122,7 +118,7 @@ permalink: /repd_atlas_grid_model/
         })
         .catch(error => console.error('Error loading 275kV:', error));
 
-    // Fetch and draw 132kV (add to grid132Layer)
+    // Fetch 132kV
     fetch('{{ site.baseurl }}/grid_132kv.geojson')
         .then(response => response.json())
         .then(data => {

@@ -79,9 +79,25 @@ permalink: /repd_atlas_grid_model/
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
     const map = L.map('map').setView([54.5, -2.5], 6);
+    
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
+
+    // ⚡ NEW: Fetch and draw the 400kV Grid Lines
+    const gridUrl = '{{ site.baseurl }}/grid_400kv.geojson';
+    fetch(gridUrl)
+        .then(response => response.json())
+        .then(data => {
+            L.geoJSON(data, {
+                style: {
+                    color: '#ffea00', // Electric yellow
+                    weight: 2,
+                    opacity: 0.5
+                }
+            }).addTo(map);
+        })
+        .catch(error => console.error('Error loading 400kV grid data:', error));
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     const csvUrl = '{{ site.baseurl }}/repd.csv';

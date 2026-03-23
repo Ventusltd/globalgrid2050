@@ -11,7 +11,7 @@ permalink: /copper_and_aluminium_prices_historic_trends/
 
 ---
 
-## Historic Price Trends (Interactive)
+## Historic Price Trends
 
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 

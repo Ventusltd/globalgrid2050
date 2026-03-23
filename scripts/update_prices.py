@@ -78,4 +78,47 @@ def main():
             f"{al_val:,.0f} | {cu_val:,.0f} | {total_metal:,.0f} | {round(net_price):,} |\n"
         )
 
-    md​​​​​​​​​​​​​​​​
+    md_content = f"""---
+layout: default
+title: 33kV Cable Price Estimator
+---
+# 33 kV Aluminium XLPE Cable Price Estimator
+Single core 19/33 kV aluminium conductor XLPE insulated cable with copper wire screen 35 mm2 or 50 mm2 and MDPE oversheath to BS 7870.
+
+Large scale price estimator for global 33 kV cable supply delivered to site with typical manufacturing lead times of 10 to 30 weeks.
+
+---
+
+## Market Inputs
+
+| Parameter | Value |
+|---|---|
+| LME Copper (USD) | USD{d['cu_usd']:,.0f} / tonne |
+| LME Aluminium (USD) | USD{d['al_usd']:,.0f} / tonne |
+| GBP/USD Rate | 1 GBP = {d['gbp_usd']:.4f} USD |
+| Copper (GBP) | GBP{cu_gbp:,.0f} / tonne |
+| Aluminium (GBP) | GBP{al_gbp:,.0f} / tonne |
+| Last Update | {ts} |
+
+---
+
+## Weight Formulas
+
+- Copper kg per km = mm2 x 9.6
+- Aluminium kg per km = mm2 x 2.92
+
+---
+
+## Net Price Rule
+
+Net cable price = Metal value divided by 0.3
+
+Typical cost structure:
+- Metal content: 30 percent
+- Manufacturing, logistics, and margin: 70 percent
+
+---
+
+## Cable Metal and Net Price Estimator
+
+| Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Alum​​​​​​​​​​​​​​​​

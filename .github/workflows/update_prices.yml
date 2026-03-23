@@ -34,6 +34,10 @@ jobs:
       - name: Run 33kV price update
         run: python scripts/update_prices.py
 
+      # --- NEW STEP ADDED HERE ---
+      - name: Run Historic Metal Trends update
+        run: python scripts/update_metal_trends.py
+
       - name: Commit and push changes
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
@@ -45,6 +49,8 @@ jobs:
           
           git add lv_ac_dc_price_estimator/index.md
           git add 33kv_uk_dap_price_estimator/index.md
+          # --- NEW GIT ADD COMMAND HERE ---
+          git add copper_and_aluminium_prices_historic_trends.md
           
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"

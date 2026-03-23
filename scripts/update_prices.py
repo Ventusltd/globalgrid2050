@@ -10,6 +10,7 @@ FILE = Path(__file__).parent.parent / "33kv_uk_dap_price_estimator" / "index.md"
 def get_market_data():
     data = {
         "gbp_usd": 1.3339,
+        "gbp_eur": 1.1510,
         "cu_usd": 12850.0,
         "al_usd": 3520.0,
         "used_fallback": False
@@ -18,6 +19,7 @@ def get_market_data():
     try:
         fx = requests.get("https://open.er-api.com/v6/latest/GBP", timeout=15).json()
         data["gbp_usd"] = fx["rates"]["USD"]
+        data["gbp_eur"] = fx["rates"]["EUR"]
     except Exception as e:
         print(f"::warning::FX fetch failed, using fallback rates: {e}")
         data["used_fallback"] = True
@@ -58,6 +60,9 @@ def main():
 
     cu_gbp = d["cu_usd"] / d["gbp_usd"]
     al_gbp = d["al_usd"] / d["gbp_usd"]
+    
+    cu_eur = cu_gbp * d["gbp_eur"]
+    al_eur = al_gbp * d["gbp_eur"]
 
     CABLES = [
         (120, 35), (150, 35), (185, 35), (240, 35), (300, 35),
@@ -73,13 +78,14 @@ def main():
         al_val = (al_kg / 1000) * al_gbp
         cu_val = (cu_kg / 1000) * cu_gbp
         total_metal = al_val + cu_val
-        net_price = total_metal / 0.3
+        net_price_gbp = total_metal / 0.3
+        net_price_eur = net_price_gbp * d["gbp_eur"]
+        
         cable_rows += (
             f"| {cond_mm2:,} | {cws_mm2} | {al_kg:,.1f} | {cu_kg:,.1f} | "
-            f"{al_val:,.0f} | {cu_val:,.0f} | {total_metal:,.0f} | {round(net_price):,} |\n"
+            f"{al_val:,.0f} | {cu_val:,.0f} | {total_metal:,.0f} | {round(net_price_gbp):,} | {round(net_price_eur):,} |\n"
         )
 
-    # Note: Closed the f-string correctly at the end of the markdown template
     md_content = f"""---
 layout: page
 title: 33kV Cable Price Estimator
@@ -98,9 +104,11 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 |---|---|
 | LME Copper (USD) | USD {d['cu_usd']:,.0f} / tonne |
 | LME Aluminium (USD) | USD {d['al_usd']:,.0f} / tonne |
-| GBP/USD Rate | 1 GBP = {d['gbp_usd']:.4f} USD |
+| Exchange Rates | 1 GBP = {d['gbp_usd']:.4f} USD <br> 1 GBP = {d['gbp_eur']:.4f} EUR |
 | Copper (GBP) | GBP {cu_gbp:,.0f} / tonne |
 | Aluminium (GBP) | GBP {al_gbp:,.0f} / tonne |
+| Copper (EUR) | EUR {cu_eur:,.0f} / tonne |
+| Aluminium (EUR) | EUR {al_eur:,.0f} / tonne |
 | Last Update | {ts} |
 
 ---
@@ -124,8 +132,8 @@ Typical cost structure:
 
 ## Cable Metal and Net Price Estimator
 
-| Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Aluminium GBP/km | Copper GBP/km | Total metal GBP/km | Net GBP/km |
-|---|---|---|---|---|---|---|---|
+| Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Aluminium GBP/km | Copper GBP/km | Total metal GBP/km | Net GBP/km | Net EUR/km |
+|---|---|---|---|---|---|---|---|---|
 {cable_rows}
 
 ---
@@ -140,17 +148,14 @@ This estimator supports rapid early stage cost analysis for:
 - Transmission and distribution connections
 """
 
-    # --- Missing logic added here ---
-    
-    # 1. Ensure the target directory exists before trying to write to it
+    # Ensure the target directory exists before trying to write to it
     FILE.parent.mkdir(parents=True, exist_ok=True)
     
-    # 2. Open the file and write the generated markdown content
+    # Open the file and write the generated markdown content
     with open(FILE, "w", encoding="utf-8") as f:
         f.write(md_content)
         
     print(f"✅ Successfully updated 33kV Price Estimator at: {FILE}")
 
-# 3. Add execution block
 if __name__ == "__main__":
     main()

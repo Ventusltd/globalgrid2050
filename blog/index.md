@@ -1,5 +1,5 @@
 # Global Grid 2050 Vision
-  ## March 2026
+  **March 2026**
 
 GlobalGrid2050 is an open engineering, procurement, construction and operations platform designed to document, analyse and improve the worlds electrical energy systems as they undergo rapid electrification. Its ambition is structural rather than informational. It is intended to become the open infrastructure layer of the grid, starting in the UK and scaling globally as a shared system of engineering truth.
 

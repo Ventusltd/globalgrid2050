@@ -121,4 +121,16 @@ Typical cost structure:
 
 ## Cable Metal and Net Price Estimator
 
-| Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Alum​​​​​​​​​​​​​​​​
+| Conductor mm2 | CWS mm2 | Aluminium kg/km | Copper kg/km | Aluminium GBP/km | Copper GBP/km | Total metal GBP/km | Net GBP/km |
+|---|---|---|---|---|---|---|---|
+{cable_rows}
+---
+
+## Notes
+
+This estimator supports rapid early stage cost analysis for:
+- Solar farms
+- Battery energy storage systems BESS
+- Wind farms
+- Utility substations
+- Transmission and distribution connections​​​​​​​​​​​​​​​​

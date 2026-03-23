@@ -40,25 +40,14 @@ permalink: /repd_atlas_grid_model/
     /* NMS Style Cluster Colors */
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
-
-    /* Legend Styling */
-    .info.legend {
-        background: rgba(17, 17, 17, 0.9);
-        color: white;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #444;
+    
+    /* Custom style for the layer control box to match the dark theme */
+    .leaflet-control-layers {
+        background: rgba(17, 17, 17, 0.9) !important;
+        border: 1px solid #444 !important;
+        color: white !important;
+        border-radius: 8px !important;
         font-family: 'Courier New', Courier, monospace;
-        font-size: 14px;
-        line-height: 24px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    }
-    .legend i {
-        width: 24px;
-        height: 4px;
-        display: inline-block;
-        margin-right: 8px;
-        vertical-align: middle;
     }
 </style>
 
@@ -104,64 +93,42 @@ permalink: /repd_atlas_grid_model/
         attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
-    // ⚡ Fetch and draw the 400kV Grid Lines (Blue)
-    const grid400Url = '{{ site.baseurl }}/grid_400kv.geojson';
-    fetch(grid400Url)
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data, {
-                style: {
-                    color: '#0054ff', // National Grid Blue
-                    weight: 2,
-                    opacity: 0.6
-                }
-            }).addTo(map);
-        })
-        .catch(error => console.error('Error loading 400kV grid data:', error));
+    // ⚡ NEW: Create empty layer groups and add them to the map IMMEDIATELY (so they are ON by default)
+    const grid400Layer = L.layerGroup().addTo(map);
+    const grid275Layer = L.layerGroup().addTo(map);
+    const grid132Layer = L.layerGroup().addTo(map);
 
-    // ⚡ Fetch and draw the 275kV Grid Lines (Red)
-    const grid275Url = '{{ site.baseurl }}/grid_275kv.geojson';
-    fetch(grid275Url)
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data, {
-                style: {
-                    color: '#ff0000', // National Grid Red
-                    weight: 2,
-                    opacity: 0.6
-                }
-            }).addTo(map);
-        })
-        .catch(error => console.error('Error loading 275kV grid data:', error));
-
-    // ⚡ NEW: Fetch and draw the 132kV Grid Lines (Green)
-    const grid132Url = '{{ site.baseurl }}/grid_132kv.geojson';
-    fetch(grid132Url)
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data, {
-                style: {
-                    color: '#00cc00', // DNO Green
-                    weight: 1.5, // Slightly thinner for distribution lines
-                    opacity: 0.5
-                }
-            }).addTo(map);
-        })
-        .catch(error => console.error('Error loading 132kV grid data:', error));
-
-    // ⚡ Create and add the Map Legend (Updated)
-    const legend = L.control({position: 'bottomright'});
-    legend.onAdd = function (map) {
-        const div = L.DomUtil.create('div', 'info legend');
-        div.innerHTML = `
-            <div style="margin-bottom: 5px; color: #66ccff;"><strong>Grid Key</strong></div>
-            <div><i style="background: #0054ff;"></i> 400kV Lines</div>
-            <div><i style="background: #ff0000;"></i> 275kV Lines</div>
-            <div><i style="background: #00cc00;"></i> 132kV Lines</div>
-        `;
-        return div;
+    // ⚡ NEW: Add the interactive toggle box
+    const overlayMaps = {
+        "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
+        "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
+        "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer
     };
-    legend.addTo(map);
+    L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
+    // Fetch and draw 400kV (add to grid400Layer)
+    fetch('{{ site.baseurl }}/grid_400kv.geojson')
+        .then(response => response.json())
+        .then(data => {
+            L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer);
+        })
+        .catch(error => console.error('Error loading 400kV:', error));
+
+    // Fetch and draw 275kV (add to grid275Layer)
+    fetch('{{ site.baseurl }}/grid_275kv.geojson')
+        .then(response => response.json())
+        .then(data => {
+            L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer);
+        })
+        .catch(error => console.error('Error loading 275kV:', error));
+
+    // Fetch and draw 132kV (add to grid132Layer)
+    fetch('{{ site.baseurl }}/grid_132kv.geojson')
+        .then(response => response.json())
+        .then(data => {
+            L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer);
+        })
+        .catch(error => console.error('Error loading 132kV:', error));
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     const csvUrl = '{{ site.baseurl }}/repd.csv';
@@ -181,10 +148,8 @@ permalink: /repd_atlas_grid_model/
     });
 
     function initDashboard() {
-        // Load initial state
         updateDisplay(0);
 
-        // Slider Event
         $('#capacityRange').on('input', function() {
             const minMW = parseFloat($(this).val());
             $('#capacityVal').text(minMW);
@@ -211,7 +176,6 @@ permalink: /repd_atlas_grid_model/
                         const isOp = status === 'Operational';
                         const color = isOp ? '#00f2ff' : '#ff9d00';
                         
-                        // FAT PIXEL LOGIC
                         const baseRadius = Math.max(10, (Math.sqrt(capacity) || 4) * 2);
                         
                         const marker = L.circleMarker([coords[1], coords[0]], {
@@ -250,7 +214,6 @@ permalink: /repd_atlas_grid_model/
         map.addLayer(markers);
         applyZoomScaling();
 
-        // Sync Data Table
         if ($.fn.DataTable.isDataTable('#repd-table')) {
             dataTable.clear().rows.add(filteredTableData).draw();
         } else {

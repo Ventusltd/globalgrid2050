@@ -1,7 +1,7 @@
 name: fetch-national-grid-data
 
 on:
-  workflow_dispatch: # This allows you to run it manually
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -32,11 +32,12 @@ jobs:
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add grid_400kv.geojson
-          git add grid_275kv.geojson
+          
+          # Safely stage any geojson files created
+          git add *.geojson || true
           
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated grid data fetch from Overpass API"
+            git commit -m "Automated 400kV grid data fetch"
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"

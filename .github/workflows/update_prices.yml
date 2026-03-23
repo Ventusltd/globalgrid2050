@@ -34,7 +34,6 @@ jobs:
       - name: Run 33kV price update
         run: python scripts/update_prices.py
 
-      # --- THIS TELLS GITHUB TO RUN YOUR NEW SCRIPT ---
       - name: Run Historic Metal Trends update
         run: python scripts/update_metal_trends.py
 
@@ -49,8 +48,6 @@ jobs:
           
           git add lv_ac_dc_price_estimator/index.md
           git add 33kv_uk_dap_price_estimator/index.md
-          
-          # --- THIS TELLS GITHUB TO SAVE THE NEW PAGE ---
           git add copper_and_aluminium_prices_historic_trends.md
           
           if [ -n "$(git status --porcelain)" ]; then

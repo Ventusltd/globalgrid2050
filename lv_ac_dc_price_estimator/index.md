@@ -72,3 +72,4 @@ Typical single core copper distribution cables.
 ## Notes
 Estimates are DAP (Delivered at Place) for large-scale utility procurement. Values do not represent small-batch wholesale counter prices.
 Final prices vary based on formal manufacturer negotiations and hedging contracts against copper, aluminium, polymers, energy costs, shipping, currency exchange rates and engineering sign off on appropriate materials selection.
+Price is inflated slightly to counter procurment risks but nothing is gauranteed until contract signature and payment terms agreement with suppliers and appropriate insurance against force majeure.

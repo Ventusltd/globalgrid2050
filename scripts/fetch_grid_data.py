@@ -41,6 +41,5 @@ def fetch_and_convert(voltage, filename):
     print(f"✅ Saved {len(geojson['features'])} power lines to {filename}")
 
 if __name__ == "__main__":
-    # Save directly to the root of the repository
+    # Fetching ONLY the 400kV data for now to ensure stability
     fetch_and_convert("400000", "grid_400kv.geojson")
-    fetch_and_convert("275000", "grid_275kv.geojson")

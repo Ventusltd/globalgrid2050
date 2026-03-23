@@ -1,4 +1,5 @@
-# GlobalGrid2050 March 2026 Blog
+# Global Grid 2050 Vision
+  ## March 2026
 
 GlobalGrid2050 is an open engineering, procurement, construction and operations platform designed to document, analyse and improve the worlds electrical energy systems as they undergo rapid electrification. Its ambition is structural rather than informational. It is intended to become the open infrastructure layer of the grid, starting in the UK and scaling globally as a shared system of engineering truth.
 
@@ -6,7 +7,7 @@ GlobalGrid2050 is an open engineering, procurement, construction and operations 
 
 The transition to net zero is widely misunderstood as a simple replacement of fossil fuels with renewable generation. The underlying physics tells a very different story. The UK currently consumes approximately 1644 TWh of primary energy each year across transport, heating and industry. However, a large proportion of this energy is lost during conversion. Internal combustion vehicles lose between 70 and 75 percent of their energy as heat. Thermal power stations lose between 50 and 65 percent. Conventional heating systems also operate at relatively low efficiency.
 
-Electrification fundamentally changes this equation. Electric vehicles convert roughly 70 percent of energy into motion, and heat pumps deliver between 3.5 and 5 units of heat for every unit of electricity consumed. The implication is profound. A fully electrified UK would likely require only 500 to 700 TWh per year, rather than 1644 TWh. This is not a reduction driven by behavioural change. It is a direct consequence of improved system efficiency.
+Electrification fundamentally changes this equation. Electric vehicles convert roughly 70 percent of energy into motion and heat pumps deliver between 3.5 and 5 units of heat for every unit of electricity consumed. The implication is profound. A fully electrified UK would likely require only 500 to 700 TWh per year, rather than 1644 TWh. This is not a reduction driven by behavioural change. It is a direct consequence of improved system efficiency.
 
 This efficiency creates a new constraint. The electricity grid becomes the limiting system. Connection queues are now extending to 10 to 15 years, and the existing network remains largely centralised and analogue in structure. The challenge is no longer generation capacity. It is system design, integration and execution at scale.
 
@@ -14,7 +15,7 @@ This efficiency creates a new constraint. The electricity grid becomes the limit
 
 The UK is now transitioning from megawatt scale solar developments to gigawatt scale infrastructure. These projects are no longer simple generation assets. They behave as distributed power stations with integrated storage and direct transmission network interfaces.
 
-At this scale, new engineering realities emerge. Large populations of distributed inverters create complex electrical environments. Parallel conductor systems extend across hundreds of metres and begin to exhibit coupling effects that are not adequately captured in simplified models. Civil works, drainage, and high voltage interface design become dominant constraints rather than secondary considerations.
+At this scale, new engineering realities emerge. Large populations of distributed inverters create complex electrical environments. Parallel conductor systems extend across hundreds of metres and begin to exhibit coupling effects that are not adequately captured in simplified models. Civil works, drainage and high voltage interface design become dominant constraints rather than secondary considerations.
 
 This is no longer a renewables sector in the conventional sense. It is national infrastructure engineering with the same level of consequence and complexity as conventional power stations.
 
@@ -40,7 +41,7 @@ Infrastructure decisions are ultimately constrained by cost, yet cost itself is 
 
 For example, in medium voltage cable systems, raw metal content represents approximately 30 percent of the total delivered cost. The remaining 70 percent consists of manufacturing, logistics and margin. This allows a first principle approximation where net cable price can be derived from metal value. Conductor weight relationships further enable accurate estimation, with copper and aluminium weights directly proportional to cross sectional area.
 
-This level of transparency allows developers to make early stage feasibility decisions with clarity, benchmark procurement strategies, and reduce asymmetry in pricing information. It transforms engineering from a process dependent on quotations into a system that can be analysed and understood.
+This level of transparency allows developers to make early stage feasibility decisions with clarity, benchmark procurement strategies and reduce asymmetry in pricing information. It transforms engineering from a process dependent on quotations into a system that can be analysed and understood.
 
 **The Structural Problem in Delivery**
 

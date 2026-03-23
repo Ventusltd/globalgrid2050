@@ -26,7 +26,8 @@ Large scale price estimator for Low Voltage (LV) Alternating Current (AC) and Di
 
 - **Copper kg per km:** Area (mm²) × 9.6
 - **Aluminium kg per km:** Area (mm²) × 2.92
-- **Net Price:** Metal value ÷ 0.30 (Assuming raw metal constitutes 30% of the final delivered cost)
+- **Copper Net Price:** Metal value ÷ 0.30 (Assuming raw metal constitutes 30% of the final delivered cost)
+- **Aluminium Net Price:** Metal value ÷ 0.25 (Assuming raw metal constitutes 25% of the final delivered cost)
 
 ---
 
@@ -35,16 +36,15 @@ Typical single core aluminium distribution cables.
 
 | Conductor (mm²) | Aluminium (kg/km) | Metal Value (GBP/km) | Net Price (GBP/km) |
 |---|---|---|---|
-| 95 | 277.4 | 644 | 2,147 |
-| 120 | 350.4 | 813 | 2,711 |
-| 150 | 438.0 | 1,017 | 3,389 |
-| 185 | 540.2 | 1,254 | 4,180 |
-| 240 | 700.8 | 1,627 | 5,423 |
-| 300 | 876.0 | 2,034 | 6,779 |
-| 400 | 1,168.0 | 2,711 | 9,038 |
-| 500 | 1,460.0 | 3,389 | 11,298 |
-| 630 | 1,839.6 | 4,271 | 14,235 |
-
+| 95 | 277.4 | 644 | 2,576 |
+| 120 | 350.4 | 813 | 3,252 |
+| 150 | 438.0 | 1,017 | 4,068 |
+| 185 | 540.2 | 1,254 | 5,016 |
+| 240 | 700.8 | 1,627 | 6,508 |
+| 300 | 876.0 | 2,034 | 8,136 |
+| 400 | 1,168.0 | 2,711 | 10,844 |
+| 500 | 1,460.0 | 3,389 | 13,556 |
+| 630 | 1,839.6 | 4,271 | 17,084 |
 
 ---
 
@@ -66,8 +66,7 @@ Typical single core copper distribution cables.
 | 300 | 2,880.0 | 25,297 | 84,324 |
 | 400 | 3,840.0 | 33,729 | 112,431 |
 
-
 ---
 ## Notes
 Estimates are DAP (Delivered at Place) for large-scale utility procurement. Values do not represent small-batch wholesale counter prices.
-Final prices vary based on formal manufacturer negotiations and hedging contracts against copper, aluminium, polymers, energy costs, shipping, currency exchange rates and engineering sign off on appropriate materials selection. 
+Final prices vary based on formal manufacturer negotiations and hedging contracts against copper, aluminium, polymers, energy costs, shipping, currency exchange rates and engineering sign off on appropriate materials selection.

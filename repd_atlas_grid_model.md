@@ -76,10 +76,10 @@ permalink: /repd_atlas_grid_model/
         </select>
 
         <label for="minCapacityRange">Minimum Size: <span id="minCapacityVal">0</span> MW</label>
-        <input type="range" id="minCapacityRange" min="0" max="4000" value="0" step="1">
+        <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
         
-        <label for="maxCapacityRange">Maximum Size: <span id="maxCapacityVal">4000</span> MW</label>
-        <input type="range" id="maxCapacityRange" min="0" max="4000" value="4000" step="1">
+        <label for="maxCapacityRange">Maximum Size: <span id="maxCapacityVal">10000</span> MW</label>
+        <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
     </div>
 
     <div id="map"></div>
@@ -158,7 +158,7 @@ permalink: /repd_atlas_grid_model/
     let dataTable;
 
     let currentMin = 0;
-    let currentMax = 4000;
+    let currentMax = 10000;
     let currentTech = 'all';
 
     Papa.parse(csvUrl, {

@@ -30,15 +30,29 @@ permalink: /repd_atlas_grid_model/
         margin-bottom: 15px;
         color: white;
     }
-    .filter-panel label { display: block; margin-bottom: 10px; font-weight: bold; color: #66ccff; font-size: 18px; }
-    input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; }
+    .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
+    .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
+    input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; margin-bottom: 15px; }
+    
+    /* Styling for the new dropdown menu */
+    select#techSelect {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        background: #222;
+        color: white;
+        border: 1px solid #66ccff;
+        border-radius: 5px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* Custom style for the layer control box */
     .leaflet-control-layers {
         background: rgba(17, 17, 17, 0.9) !important;
         border: 1px solid #444 !important;
@@ -51,8 +65,22 @@ permalink: /repd_atlas_grid_model/
 <div class="dashboard-container">
     
     <div class="filter-panel">
-        <label for="capacityRange">Minimum Project Size: <span id="capacityVal">0</span> MW</label>
-        <input type="range" id="capacityRange" min="0" max="1000" value="0" step="10">
+        <h3>🔍 Map Filters</h3>
+        
+        <label for="techSelect">Technology Type:</label>
+        <select id="techSelect">
+            <option value="all">All Technologies</option>
+            <option value="solar">Solar Photovoltaics</option>
+            <option value="wind_onshore">Wind (Onshore)</option>
+            <option value="wind_offshore">Wind (Offshore)</option>
+            <option value="battery">Battery / Storage</option>
+        </select>
+
+        <label for="minCapacityRange">Minimum Size: <span id="minCapacityVal">0</span> MW</label>
+        <input type="range" id="minCapacityRange" min="0" max="4000" value="0" step="1">
+        
+        <label for="maxCapacityRange">Maximum Size: <span id="maxCapacityVal">4000</span> MW</label>
+        <input type="range" id="maxCapacityRange" min="0" max="4000" value="4000" step="1">
     </div>
 
     <div id="map"></div>
@@ -83,7 +111,6 @@ permalink: /repd_atlas_grid_model/
 <script>
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
-    // 1. Define our two base layers
     const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
     });
@@ -92,19 +119,16 @@ permalink: /repd_atlas_grid_model/
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
 
-    // 2. Initialize the map with Dark Mode set as the default
     const map = L.map('map', {
         center: [54.5, -2.5],
         zoom: 6,
-        layers: [darkMap] // This makes dark mode load first
+        layers: [darkMap]
     });
 
-    // Create layer groups and add them to the map immediately
     const grid400Layer = L.layerGroup().addTo(map);
     const grid275Layer = L.layerGroup().addTo(map);
     const grid132Layer = L.layerGroup().addTo(map);
 
-    // 3. Create the menu for the top-right box
     const baseMaps = {
         "🌑 Dark Mode": darkMap,
         "🌍 Satellite View": satelliteMap
@@ -116,32 +140,12 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer
     };
     
-    // Add BOTH the base maps and the overlay lines to the control box
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
-    // Fetch 400kV
-    fetch('{{ site.baseurl }}/grid_400kv.geojson')
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer);
-        })
-        .catch(error => console.error('Error loading 400kV:', error));
-
-    // Fetch 275kV
-    fetch('{{ site.baseurl }}/grid_275kv.geojson')
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer);
-        })
-        .catch(error => console.error('Error loading 275kV:', error));
-
-    // Fetch 132kV
-    fetch('{{ site.baseurl }}/grid_132kv.geojson')
-        .then(response => response.json())
-        .then(data => {
-            L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer);
-        })
-        .catch(error => console.error('Error loading 132kV:', error));
+    // Fetch grid data
+    fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
+    fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer)).catch(e => console.error(e));
+    fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     const csvUrl = '{{ site.baseurl }}/repd.csv';
@@ -149,6 +153,11 @@ permalink: /repd_atlas_grid_model/
     let allData = [];
     let allMarkers = [];
     let dataTable;
+
+    // Filter State Variables
+    let currentMin = 0;
+    let currentMax = 4000;
+    let currentTech = 'all';
 
     Papa.parse(csvUrl, {
         download: true,
@@ -161,16 +170,40 @@ permalink: /repd_atlas_grid_model/
     });
 
     function initDashboard() {
-        updateDisplay(0);
+        updateDisplay(currentMin, currentMax, currentTech);
 
-        $('#capacityRange').on('input', function() {
-            const minMW = parseFloat($(this).val());
-            $('#capacityVal').text(minMW);
-            updateDisplay(minMW);
+        // Technology Dropdown Listener
+        $('#techSelect').on('change', function() {
+            currentTech = $(this).val();
+            updateDisplay(currentMin, currentMax, currentTech);
+        });
+
+        // Min Slider Listener
+        $('#minCapacityRange').on('input', function() {
+            currentMin = parseFloat($(this).val());
+            if (currentMin > currentMax) {
+                currentMax = currentMin;
+                $('#maxCapacityRange').val(currentMax);
+                $('#maxCapacityVal').text(currentMax);
+            }
+            $('#minCapacityVal').text(currentMin);
+            updateDisplay(currentMin, currentMax, currentTech);
+        });
+
+        // Max Slider Listener
+        $('#maxCapacityRange').on('input', function() {
+            currentMax = parseFloat($(this).val());
+            if (currentMax < currentMin) {
+                currentMin = currentMax;
+                $('#minCapacityRange').val(currentMin);
+                $('#minCapacityVal').text(currentMin);
+            }
+            $('#maxCapacityVal').text(currentMax);
+            updateDisplay(currentMin, currentMax, currentTech);
         });
     }
 
-    function updateDisplay(minMW) {
+    function updateDisplay(minMW, maxMW, techFilter) {
         markers.clearLayers();
         allMarkers = [];
         const filteredTableData = [];
@@ -178,16 +211,37 @@ permalink: /repd_atlas_grid_model/
         allData.forEach(row => {
             const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
             const status = row['Development Status'] || 'Unknown';
+            const techType = (row['Technology Type'] || '').toLowerCase();
             
-            if (capacity >= minMW) {
+            // 1. Check Technology Match
+            let matchTech = false;
+            if (techFilter === 'all') {
+                matchTech = true;
+            } else if (techFilter === 'solar' && techType.includes('solar')) {
+                matchTech = true;
+            } else if (techFilter === 'wind_onshore' && techType.includes('wind') && techType.includes('onshore')) {
+                matchTech = true;
+            } else if (techFilter === 'wind_offshore' && techType.includes('wind') && techType.includes('offshore')) {
+                matchTech = true;
+            } else if (techFilter === 'battery' && (techType.includes('battery') || techType.includes('storage'))) {
+                matchTech = true;
+            }
+
+            // 2. Check Capacity Match
+            const inRange = capacity >= minMW && capacity <= maxMW;
+
+            // 3. Draw if both pass
+            if (matchTech && inRange) {
                 const x = parseFloat(row['X-coordinate']);
                 const y = parseFloat(row['Y-coordinate']);
                 
                 if (x && y) {
                     try {
                         const coords = proj4("EPSG:27700", "WGS84", [x, y]);
+                        
+                        // Blue for Operational, Orange for everything else (Planning/Construction)
                         const isOp = status === 'Operational';
-                        const color = isOp ? '#00f2ff' : '#ff9d00';
+                        const color = isOp ? '#00f2ff' : '#ff9d00'; 
                         
                         const baseRadius = Math.max(10, (Math.sqrt(capacity) || 4) * 2);
                         

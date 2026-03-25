@@ -83,24 +83,41 @@ permalink: /repd_atlas_grid_model/
 <script>
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
-    const map = L.map('map').setView([54.5, -2.5], 6);
-    
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
+    // 1. Define our two base layers
+    const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    });
+
+    const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    // 2. Initialize the map with Dark Mode set as the default
+    const map = L.map('map', {
+        center: [54.5, -2.5],
+        zoom: 6,
+        layers: [darkMap] // This makes dark mode load first
+    });
 
     // Create layer groups and add them to the map immediately
     const grid400Layer = L.layerGroup().addTo(map);
     const grid275Layer = L.layerGroup().addTo(map);
     const grid132Layer = L.layerGroup().addTo(map);
 
-    // Add the interactive toggle box
+    // 3. Create the menu for the top-right box
+    const baseMaps = {
+        "🌑 Dark Mode": darkMap,
+        "🌍 Satellite View": satelliteMap
+    };
+
     const overlayMaps = {
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
         "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer
     };
-    L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+    
+    // Add BOTH the base maps and the overlay lines to the control box
+    L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
     // Fetch 400kV
     fetch('{{ site.baseurl }}/grid_400kv.geojson')

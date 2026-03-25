@@ -34,7 +34,6 @@ permalink: /repd_atlas_grid_model/
     .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
     input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; margin-bottom: 15px; }
     
-    /* Styling for the new dropdown menu */
     select#techSelect {
         width: 100%;
         padding: 10px;
@@ -128,6 +127,10 @@ permalink: /repd_atlas_grid_model/
     const grid400Layer = L.layerGroup().addTo(map);
     const grid275Layer = L.layerGroup().addTo(map);
     const grid132Layer = L.layerGroup().addTo(map);
+    
+    // Create the markers layer early so we can add it to the menu!
+    const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
+    map.addLayer(markers); // Turn it on by default
 
     const baseMaps = {
         "🌑 Dark Mode": darkMap,
@@ -135,6 +138,7 @@ permalink: /repd_atlas_grid_model/
     };
 
     const overlayMaps = {
+        "⚡ Energy Projects": markers, // Added to the toggle box!
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
         "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer
@@ -147,14 +151,12 @@ permalink: /repd_atlas_grid_model/
     fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
 
-    const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     const csvUrl = '{{ site.baseurl }}/repd.csv';
 
     let allData = [];
     let allMarkers = [];
     let dataTable;
 
-    // Filter State Variables
     let currentMin = 0;
     let currentMax = 4000;
     let currentTech = 'all';
@@ -172,13 +174,11 @@ permalink: /repd_atlas_grid_model/
     function initDashboard() {
         updateDisplay(currentMin, currentMax, currentTech);
 
-        // Technology Dropdown Listener
         $('#techSelect').on('change', function() {
             currentTech = $(this).val();
             updateDisplay(currentMin, currentMax, currentTech);
         });
 
-        // Min Slider Listener
         $('#minCapacityRange').on('input', function() {
             currentMin = parseFloat($(this).val());
             if (currentMin > currentMax) {
@@ -190,7 +190,6 @@ permalink: /repd_atlas_grid_model/
             updateDisplay(currentMin, currentMax, currentTech);
         });
 
-        // Max Slider Listener
         $('#maxCapacityRange').on('input', function() {
             currentMax = parseFloat($(this).val());
             if (currentMax < currentMin) {
@@ -204,6 +203,9 @@ permalink: /repd_atlas_grid_model/
     }
 
     function updateDisplay(minMW, maxMW, techFilter) {
+        // Smart Logic: Check if the user has manually turned the projects off in the menu
+        let markersCurrentlyVisible = map.hasLayer(markers) || allMarkers.length === 0;
+
         markers.clearLayers();
         allMarkers = [];
         const filteredTableData = [];
@@ -213,7 +215,6 @@ permalink: /repd_atlas_grid_model/
             const status = row['Development Status'] || 'Unknown';
             const techType = (row['Technology Type'] || '').toLowerCase();
             
-            // 1. Check Technology Match
             let matchTech = false;
             if (techFilter === 'all') {
                 matchTech = true;
@@ -227,10 +228,8 @@ permalink: /repd_atlas_grid_model/
                 matchTech = true;
             }
 
-            // 2. Check Capacity Match
             const inRange = capacity >= minMW && capacity <= maxMW;
 
-            // 3. Draw if both pass
             if (matchTech && inRange) {
                 const x = parseFloat(row['X-coordinate']);
                 const y = parseFloat(row['Y-coordinate']);
@@ -239,7 +238,6 @@ permalink: /repd_atlas_grid_model/
                     try {
                         const coords = proj4("EPSG:27700", "WGS84", [x, y]);
                         
-                        // Blue for Operational, Orange for everything else (Planning/Construction)
                         const isOp = status === 'Operational';
                         const color = isOp ? '#00f2ff' : '#ff9d00'; 
                         
@@ -278,7 +276,11 @@ permalink: /repd_atlas_grid_model/
             }
         });
 
-        map.addLayer(markers);
+        // Only redraw them on the map if the user hasn't hidden them via the top right menu
+        if (markersCurrentlyVisible) {
+            map.addLayer(markers);
+        }
+        
         applyZoomScaling();
 
         if ($.fn.DataTable.isDataTable('#repd-table')) {

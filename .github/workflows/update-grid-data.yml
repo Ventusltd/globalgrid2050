@@ -29,6 +29,9 @@ jobs:
       - name: Run 220kV Fetcher
         run: python scripts/fetch_220kv_data.py
 
+      - name: Run 66kV Fetcher
+        run: python scripts/fetch_66kv_data.py
+
       - name: Commit and push changes
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
@@ -40,7 +43,7 @@ jobs:
           git add *.geojson || true
           
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated grid data fetch (400kV, 275kV, 220kV, 132kV)"
+            git commit -m "Automated grid data fetch (400kV, 275kV, 220kV, 132kV, 66kV)"
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"

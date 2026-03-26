@@ -32,8 +32,28 @@ permalink: /repd_atlas_grid_model/
     }
     .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
     .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
-    input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; margin-bottom: 15px; }
     
+    .slider-container {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    input[type=range] { flex-grow: 1; cursor: pointer; accent-color: #66ccff; }
+    
+    .number-input {
+        width: 90px;
+        padding: 8px;
+        background: #222;
+        color: #66ccff;
+        border: 1px solid #66ccff;
+        border-radius: 5px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+        text-align: center;
+    }
+
     select.filter-select {
         width: 100%;
         padding: 10px;
@@ -84,11 +104,17 @@ permalink: /repd_atlas_grid_model/
             <option value="planning">In Planning / Submitted</option>
         </select>
 
-        <label for="minCapacityRange">Minimum Size: <span id="minCapacityVal">0</span> MW</label>
-        <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
+        <label for="minCapacityRange">Minimum Size (MW):</label>
+        <div class="slider-container">
+            <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
+            <input type="number" id="minCapacityInput" value="0" min="0" max="10000" class="number-input">
+        </div>
         
-        <label for="maxCapacityRange">Maximum Size: <span id="maxCapacityVal">10000</span> MW</label>
-        <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
+        <label for="maxCapacityRange">Maximum Size (MW):</label>
+        <div class="slider-container">
+            <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
+            <input type="number" id="maxCapacityInput" value="10000" min="0" max="10000" class="number-input">
+        </div>
     </div>
 
     <div id="map"></div>
@@ -139,9 +165,8 @@ permalink: /repd_atlas_grid_model/
     const grid132Layer = L.layerGroup().addTo(map);
     const grid66Layer = L.layerGroup().addTo(map);
     
-    // Create the markers layer early so we can add it to the menu!
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
-    map.addLayer(markers); // Turn it on by default
+    map.addLayer(markers); 
 
     const baseMaps = {
         "🌑 Dark Mode": darkMap,
@@ -159,7 +184,6 @@ permalink: /repd_atlas_grid_model/
     
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
-    // Fetch grid data
     fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_220kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff9900', weight: 2, opacity: 0.8 } }).addTo(grid220Layer)).catch(e => console.error(e));
@@ -200,14 +224,15 @@ permalink: /repd_atlas_grid_model/
             updateDisplay();
         });
 
+        // Sync Slider to Input
         $('#minCapacityRange').on('input', function() {
             currentMin = parseFloat($(this).val());
             if (currentMin > currentMax) {
                 currentMax = currentMin;
                 $('#maxCapacityRange').val(currentMax);
-                $('#maxCapacityVal').text(currentMax);
+                $('#maxCapacityInput').val(currentMax);
             }
-            $('#minCapacityVal').text(currentMin);
+            $('#minCapacityInput').val(currentMin);
             updateDisplay();
         });
 
@@ -216,9 +241,34 @@ permalink: /repd_atlas_grid_model/
             if (currentMax < currentMin) {
                 currentMin = currentMax;
                 $('#minCapacityRange').val(currentMin);
-                $('#minCapacityVal').text(currentMin);
+                $('#minCapacityInput').val(currentMin);
             }
-            $('#maxCapacityVal').text(currentMax);
+            $('#maxCapacityInput').val(currentMax);
+            updateDisplay();
+        });
+
+        // Sync Input to Slider
+        $('#minCapacityInput').on('input', function() {
+            let val = parseFloat($(this).val()) || 0;
+            if (val > currentMax) {
+                currentMax = val;
+                $('#maxCapacityInput').val(val);
+                $('#maxCapacityRange').val(val);
+            }
+            currentMin = val;
+            $('#minCapacityRange').val(val);
+            updateDisplay();
+        });
+
+        $('#maxCapacityInput').on('input', function() {
+            let val = parseFloat($(this).val()) || 0;
+            if (val < currentMin) {
+                currentMin = val;
+                $('#minCapacityInput').val(val);
+                $('#minCapacityRange').val(val);
+            }
+            currentMax = val;
+            $('#maxCapacityRange').val(val);
             updateDisplay();
         });
     }
@@ -236,7 +286,6 @@ permalink: /repd_atlas_grid_model/
             const statusLower = status.toLowerCase();
             const techType = (row['Technology Type'] || '').toLowerCase();
             
-            // Technology Filter Logic
             let matchTech = false;
             if (currentTech === 'all') {
                 matchTech = true;
@@ -250,7 +299,6 @@ permalink: /repd_atlas_grid_model/
                 matchTech = true;
             }
 
-            // Status Filter Logic
             let matchStatus = false;
             if (currentStatus === 'all') {
                 matchStatus = true;

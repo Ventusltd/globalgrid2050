@@ -9,7 +9,8 @@ permalink: /employers_requirements_BESS/
 
 ![PCS to BESS cable installation](50MW_BESS_to_PCS.jpg)
 
-*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* *Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)*
+*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* 
+*Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)*
 
 ---
 

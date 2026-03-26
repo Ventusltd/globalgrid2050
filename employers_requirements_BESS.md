@@ -11,7 +11,9 @@ Typical PCS to BESS cable interface illustrating parallel cable routing, groupin
 
 ![PCS to BESS cable installation](50MW_BESS_to_PCS.jpg)
 
-*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* *Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)* ---
+*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* *Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)* 
+
+---
 
 ## Table of Contents
 * [The Baseline Requirement](#the-baseline-requirement)

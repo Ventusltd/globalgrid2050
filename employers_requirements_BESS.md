@@ -11,6 +11,30 @@ permalink: /employers_requirements_BESS/
 
 *Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* *Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)* ---
 
+## Table of Contents
+* [Scope Context](#scope-context)
+* [Purpose](#purpose)
+* [System Overview](#system-overview)
+* [Engineering Definition Framework](#engineering-definition-framework)
+* [Engineering Scope Breakdown](#engineering-scope-breakdown)
+  * [1. Core Electrical Definition (SLD and Grid Interface)](#1-core-electrical-definition-sld-and-grid-interface)
+  * [2. Power System Studies](#2-power-system-studies)
+  * [3. Medium Voltage Cable System Definition](#3-medium-voltage-cable-system-definition)
+  * [4. DC Cable System (Battery to PCS)](#4-dc-cable-system-battery-to-pcs)
+  * [5. Low Voltage Distribution Design](#5-low-voltage-distribution-design)
+  * [6. Earthing and Bonding Design](#6-earthing-and-bonding-design)
+  * [7. Protection and Control Philosophy](#7-protection-and-control-philosophy)
+  * [8. Substation and Switchgear Definition](#8-substation-and-switchgear-definition)
+  * [9. System Integration](#9-system-integration)
+  * [10. Civil and Cable Installation Interface](#10-civil-and-cable-installation-interface)
+* [Total Engineering Effort](#total-engineering-effort)
+* [Compliance Position](#compliance-position)
+* [Engineering Reality](#engineering-reality)
+* [Professional Validation Requirement](#professional-validation-requirement)
+* [Disclaimer](#disclaimer)
+
+---
+
 ## Scope Context
 
 This example focuses on the cable interface between the Power Conversion System and the Battery Energy Storage System.

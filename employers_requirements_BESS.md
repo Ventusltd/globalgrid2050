@@ -1,10 +1,15 @@
+---
+layout: page
+title: 50 MW / 100 MWh Battery Energy Storage System, UK
+permalink: /50mw_100mwh_bess_uk/
+---
+
 ## 50 MW / 100 MWh Battery Energy Storage System, UK  
 ### Project: Pelham Battery Energy Storage System
 
 ![PCS to BESS cable installation](50MW_BESS_to_PCS.jpg)
 
-*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)*  
-*Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)*
+*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* *Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)*
 
 ---
 

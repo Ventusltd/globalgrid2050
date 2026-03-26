@@ -4,35 +4,54 @@ title: Employer Requirements BESS Notes
 permalink: /employers_requirements_BESS/
 ---
 
-## 50 MW / 100 MWh Battery Energy Storage System, UK  
+## 50 MW / 50 MWh Battery Energy Storage System, UK  
 ### Project: Pelham Battery Energy Storage System
 
 ![PCS to BESS cable installation](50MW_BESS_to_PCS.jpg)
 
-*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* 
-*Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)*
+Installation: https://www.sphereelectrical.co.uk  
+Cable engineering support: https://www.ventusltd.com  
 
 ---
 
-### Scope Context
+## Scope Context
 
-This example focuses on the **cable interface between the Power Conversion System and the Battery Energy Storage System**.
+This example focuses on the cable interface between the Power Conversion System and the Battery Energy Storage System.
 
-Refer to the [Pelham Battery Energy Storage System project video](https://vimeo.com/263759551) for context of the PCS to BESS installation.
+Refer to the Pelham Battery Energy Storage System project video for installation context.
 
-The sections below provide **generalised guidance for defining full project scope, engineering effort, competence and commercial structure** required for utility scale battery storage systems.
+Pelham represents an early generation 1 hour duration system and is used here as a reference for electrical architecture rather than modern storage duration.
+
+The sections below define the minimum engineering scope required to achieve:
+
+- compliant Single Line Diagrams  
+- validated power system studies  
+- bankable electrical design  
+
+for utility scale battery storage systems.
 
 ---
 
 ## Purpose
 
-The purpose of this guidance is to assist in **defining project scope to reach compliant Single Line Diagrams and Power Systems Studies**, supporting long term performance, reliability and safety from an electrical design perspective.
+To define the engineering scope required to move from concept design to verified electrical system, ensuring:
+
+- compliance with BS 7671 and applicable IEC standards  
+- correct protection and fault behaviour  
+- thermally and electrically valid cable systems  
+- long term reliability and safety  
 
 ---
 
 ## System Overview
 
-A grid connected battery energy storage system integrated with medium voltage infrastructure, power conversion systems and auxiliary electrical and control systems.
+Grid connected battery energy storage system including:
+
+- medium voltage grid interface  
+- power conversion systems  
+- DC battery systems  
+- auxiliary LV systems  
+- control and protection systems  
 
 ---
 
@@ -42,192 +61,289 @@ A grid connected battery energy storage system integrated with medium voltage in
 
 Engineering rate: £95 per hour  
 
-All rates, hours and costs stated below are **indicative only** and may vary depending on project scope, technical complexity and the level of engineering already completed as part of the planning and development process.
+All values are indicative and depend on:
 
-Governance requirements:  
-- Named Engineer of Record for each discipline  
-- Independent Checking Engineer on client side with equivalent competence and experience  
+- project maturity  
+- data availability  
+- complexity of grid interface  
+- level of prior engineering  
+
+Governance requirements:
+
+- Named Engineer of Record per discipline  
+- Independent Checking Engineer with equivalent competence  
+- Full traceability of all assumptions and calculations  
 
 ---
+
+## Engineering Scope Breakdown
 
 ### 1. Core Electrical Definition (SLD and Grid Interface)
 
+Defines system architecture and compliance basis.
+
+Includes:
+- supply characteristics and earthing system  
+- SLD reflecting protection, isolation and distribution  
+- grid interface definition  
+
 Competence  
-- Senior Electrical Engineer (33 kV to 132 kV, grid compliance)
+Senior Electrical Engineer (33 kV to 132 kV)
 
 Hours  
-- 120 to 250  
+120 to 250  
 
 Cost  
-- £11,400 to £23,750  
+£11,400 to £23,750  
 
 ---
 
-### 2. System Studies
+### 2. Power System Studies
+
+Defines electrical behaviour of the system.
+
+Includes:
+- load flow  
+- short circuit (IEC basis)  
+- voltage profile  
+- harmonic analysis  
+- power quality assessment  
+
+Output must align with protection and equipment ratings.
 
 Competence  
-- Power Systems Engineer (load flow, short circuit, harmonics)
+Power Systems Engineer  
 
 Hours  
-- 250 to 600  
+250 to 600  
 
 Cost  
-- £23,750 to £57,000  
+£23,750 to £57,000  
 
 ---
 
 ### 3. Medium Voltage Cable System Definition
 
+Defines physical and electrical performance of MV network.
+
+Includes:
+- routing and installation method  
+- current carrying capacity  
+- short circuit withstand  
+- thermal environment assumptions  
+
 Competence  
-- HV Cable Engineer  
+HV Cable Engineer  
 
 Hours  
-- 150 to 400  
+150 to 400  
 
 Cost  
-- £14,250 to £38,000  
+£14,250 to £38,000  
 
 ---
 
 ### 4. DC Cable System (Battery to PCS)
 
-Competence  
-- DC Systems Engineer (battery systems experience)
+Defines high current DC behaviour and fault response.
 
-Hours  
-- 100 to 250  
-
-Cost  
-- £9,500 to £23,750  
+Includes:
+- cable sizing based on load and fault conditions  
+- thermal verification using IEC 60287  
+- consideration of parallel cable interaction  
 
 Position  
-- Advisory DC cable sizing may be provided at early stage based on available data  
-- Formal IEC 60287 thermal verification study: £8,000  
+- Early stage sizing is indicative only  
+- Verified study is required for bankability  
 
-Notes  
-- Advisory sizing is non bankable  
-- Verified study provides thermally validated and traceable design  
+Formal thermal study  
+£8,000  
+
+Competence  
+DC Systems Engineer  
+
+Hours  
+100 to 250  
+
+Cost  
+£9,500 to £23,750  
 
 ---
 
 ### 5. Low Voltage Distribution Design
 
+Defines auxiliary and control power systems.
+
+Includes:
+- LV distribution architecture  
+- protection and discrimination  
+- voltage drop compliance  
+
 Competence  
-- LV Electrical Engineer  
+LV Electrical Engineer  
 
 Hours  
-- 80 to 200  
+80 to 200  
 
 Cost  
-- £7,600 to £19,000  
+£7,600 to £19,000  
 
 ---
 
 ### 6. Earthing and Bonding Design
 
+Defines fault current return paths and safety limits.
+
+Includes:
+- earthing system modelling  
+- touch and step voltage assessment  
+- bonding strategy across the installation  
+
 Competence  
-- Earthing Specialist (substation and utility scale systems)
+Earthing Specialist  
 
 Hours  
-- 200 to 500  
+200 to 500  
 
 Cost  
-- £19,000 to £47,500  
+£19,000 to £47,500  
 
 ---
 
 ### 7. Protection and Control Philosophy
 
+Defines system protection behaviour under fault conditions.
+
+Includes:
+- relay coordination and discrimination  
+- fault clearance times  
+- interface with grid protection requirements  
+
 Competence  
-- Protection Engineer (grid interface and relay coordination)
+Protection Engineer  
 
 Hours  
-- 150 to 350  
+150 to 350  
 
 Cost  
-- £14,250 to £33,250  
+£14,250 to £33,250  
 
 ---
 
 ### 8. Substation and Switchgear Definition
 
+Defines primary equipment and fault handling capability.
+
+Includes:
+- switchgear ratings and configuration  
+- transformer specification  
+- fault level compatibility  
+
 Competence  
-- Substation Design Engineer  
+Substation Design Engineer  
 
 Hours  
-- 150 to 300  
+150 to 300  
 
 Cost  
-- £14,250 to £28,500  
+£14,250 to £28,500  
 
 ---
 
 ### 9. System Integration
 
+Defines interaction between PCS, battery and grid.
+
+Includes:
+- control philosophy  
+- system stability considerations  
+- interaction between electrical subsystems  
+
 Competence  
-- System Integration Engineer (power conversion and controls)
+System Integration Engineer  
 
 Hours  
-- 100 to 200  
+100 to 200  
 
 Cost  
-- £9,500 to £19,000  
+£9,500 to £19,000  
 
 ---
 
 ### 10. Civil and Cable Installation Interface
 
+Defines physical installation constraints.
+
+Includes:
+- trenching and routing  
+- cable grouping and spacing  
+- thermal and mechanical installation conditions  
+
 Competence  
-- Civil Electrical Interface Engineer  
+Civil Electrical Interface Engineer  
 
 Hours  
-- 80 to 200  
+80 to 200  
 
 Cost  
-- £7,600 to £19,000  
+£7,600 to £19,000  
 
 ---
 
 ## Total Engineering Effort
 
 Total hours  
-→ 1,380 to 3,250  
+1,380 to 3,250  
 
 Total cost  
-→ £131,100 to £308,750  
+£131,100 to £308,750  
 
 ---
 
-## Commercial and Technical Position
+## Compliance Position
 
-- Outsourcing may reduce cost  
-- Design accountability remains with the named Engineer of Record  
-- All outputs must be:
-  - Reviewed  
-  - Signed  
-  - Traceable to recognised standards  
+A compliant design requires:
+
+- SLD reflecting full system architecture  
+- calculations validating protection, thermal and fault behaviour  
+- studies confirming real system performance  
+
+Alignment with BS 7671 requires compliance with:
+
+- Part 1 and Part 3 to 5  
+- earthing and bonding requirements  
+- verification and certification requirements  
 
 ---
 
 ## Engineering Reality
 
-Until this level of definition exists:
+Without full definition:
 
-- Cable sizing remains assumption  
-- Earthing remains a risk  
-- Protection remains undefined  
-- Pricing remains non bankable  
+- SLD is schematic only  
+- cable sizing is assumption  
+- earthing is unverified  
+- protection is not coordinated  
+- system behaviour is unknown  
+
+This results in:
+
+- non bankable design  
+- construction risk  
+- long term failure exposure  
 
 ---
 
 ## Professional Validation Requirement
 
-All engineering scope used for tendering, procurement or construction should be validated by **appropriately qualified Chartered Engineers** holding relevant experience and **professional indemnity insurance**.
+All engineering used for procurement or construction must be:
 
-Designers and contractors should not rely on unverified or preliminary information when preparing quotations or technical submissions.
+- produced or verified by qualified Chartered Engineers  
+- supported by traceable calculations  
+- covered by professional indemnity insurance  
 
 ---
 
 ## Disclaimer
 
-This content is provided for general guidance only. No liability is accepted and no warranty is given for the accuracy, completeness or applicability of the information presented. All parties should undertake their own independent technical due diligence, verification and design validation prior to any reliance, procurement or construction activity.
+This content is provided for general guidance only. No liability is accepted and no warranty is given for accuracy or completeness. Independent verification and technical due diligence are required prior to any reliance, procurement or construction activity.

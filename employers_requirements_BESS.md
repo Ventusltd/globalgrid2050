@@ -111,11 +111,6 @@ There is no single UK BESS design standard, therefore multiple standards apply:
 * **BS EN 50549:** Requirements for generation connected to distribution networks.
 * **ENA G99 / G100:** UK grid connection, protection and export limitation requirements.
 
-**IET Guidance (Important Clarification):**
-* There is no dedicated IET Code of Practice *solely* for BESS design.
-* Relevant guidance is distributed across the IET Wiring Regulations (BS 7671), IET guidance on energy storage and grid integration, and ENA engineering recommendations.
-* *Note: BESS design requires the structured integration of multiple standards, not reliance on a single code.*
-
 ### 3. Power System Study Standards
 * **IEC 60909:** Short circuit calculation methodology (UK and Europe).
 * **ANSI C37 series:** Alternative short circuit methods (US based, only where specified).

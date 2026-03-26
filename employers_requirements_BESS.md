@@ -9,16 +9,13 @@ permalink: /employers_requirements_BESS/
 
 ![PCS to BESS cable installation](50MW_BESS_to_PCS.jpg)
 
-Installation: https://www.sphereelectrical.co.uk  
-Cable engineering support: https://www.ventusltd.com  
-
----
+*Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* *Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)* ---
 
 ## Scope Context
 
 This example focuses on the cable interface between the Power Conversion System and the Battery Energy Storage System.
 
-Refer to the Pelham Battery Energy Storage System project video for installation context.
+Refer to the [Pelham Battery Energy Storage System project video](https://vimeo.com/263759551) for installation context.
 
 Pelham represents an early generation 1 hour duration system and is used here as a reference for electrical architecture rather than modern storage duration.
 

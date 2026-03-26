@@ -1,7 +1,7 @@
 ---
 layout: page
-title: 50 MW / 100 MWh Battery Energy Storage System, UK
-permalink: /50mw_100mwh_bess_uk/
+title: Employer Requirements BESS Notes
+permalink: /employers_requirements_BESS/
 ---
 
 ## 50 MW / 100 MWh Battery Energy Storage System, UK  

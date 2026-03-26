@@ -100,7 +100,7 @@ To ensure consistency, traceability and compliance across all engineering output
 The following standards define the technical basis of design:
 * **BS 7671:** Requirements for Electrical Installations. Governs electrical safety, protection, earthing, cable selection and verification.
 * **IEC 60364 series:** International basis for low voltage electrical installations and system design principles.
-* **BS 7671 Section 712 / IEC 60364-7-712:** Specific requirements for photovoltaic systems where applicable.
+
 
 ### 2. Battery Energy Storage System Standards
 There is no single UK BESS design standard, therefore multiple standards apply:

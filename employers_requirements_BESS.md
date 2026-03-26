@@ -119,7 +119,6 @@ There is no single UK BESS design standard, therefore multiple standards apply:
 ### 4. Cable Design and Thermal Standards
 * **BS 7671 Chapter 52:** Cable selection and installation.
 * **IEC 60287:** Cable current rating and thermal calculation.
-* **Neher McGrath method:** Alternative thermal calculation approach (US).
 
 ### 5. Earthing and Safety Standards
 * **BS 7671 Chapter 41 and 54:** Protection against electric shock and earthing systems.

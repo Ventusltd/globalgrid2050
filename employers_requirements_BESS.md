@@ -160,7 +160,9 @@ All outputs must be aligned with the above standards, internally consistent acro
 
 ---
 
-## Engineering Definition Framework
+## Engineering Definition Framework 
+
+Indicative. costs may vary according to negotiated scope and number of hours needed
 
 ### Engineering Basis
 

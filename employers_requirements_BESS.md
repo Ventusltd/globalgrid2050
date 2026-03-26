@@ -32,9 +32,9 @@ permalink: /employers_requirements_BESS/
 
 ## The Baseline Requirement
 
-Utility scale battery systems are routinely brought to construction with incomplete electrical definition. This creates latent failure risk across cable systems, protection, and system behaviour.
+Utility scale battery systems are routinely brought to construction with incomplete electrical definition. This creates latent failure risk across cable systems, protection and system behaviour.
 
-This document defines the minimum engineering scope required to move from concept to a bankable, safe, and operable system.
+This page defines the minimum engineering scope required to move from concept to a bankable, safe, and operable system.
 
 ---
 
@@ -73,9 +73,10 @@ Failure to execute the engineering scope defined below routinely results in seve
 
 - **Delayed energisation** due to failed protection coordination or grid compliance.
 - **Cable system overheating** and premature failure.
-- **Inverter instability** due to unverified system interaction and harmonics.
+- **Inverter/PCS instability** due to unverified system interaction and harmonics.
 - **Rework** of installed infrastructure during the commissioning phase.
 - **Loss of lender confidence** and delayed financial close.
+- **transformer failures** - unexpected system behaviours, harmonics, waveform distortion, moisture ingress etc frequently causes transformer strain or catastrophic failure in the worst case
 
 **These risks originate from incomplete engineering definition, not construction error.**
 

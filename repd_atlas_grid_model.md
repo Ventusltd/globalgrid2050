@@ -34,7 +34,7 @@ permalink: /repd_atlas_grid_model/
     .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
     input[type=range] { width: 100%; cursor: pointer; accent-color: #66ccff; margin-bottom: 15px; }
     
-    select#techSelect {
+    select.filter-select {
         width: 100%;
         padding: 10px;
         margin-bottom: 20px;
@@ -67,12 +67,21 @@ permalink: /repd_atlas_grid_model/
         <h3>🔍 Map Filters</h3>
         
         <label for="techSelect">Technology Type:</label>
-        <select id="techSelect">
+        <select id="techSelect" class="filter-select">
             <option value="all">All Technologies</option>
             <option value="solar">Solar Photovoltaics</option>
             <option value="wind_onshore">Wind (Onshore)</option>
             <option value="wind_offshore">Wind (Offshore)</option>
             <option value="battery">Battery / Storage</option>
+        </select>
+
+        <label for="statusSelect">Project Status:</label>
+        <select id="statusSelect" class="filter-select">
+            <option value="all">All Statuses</option>
+            <option value="operational">Operational</option>
+            <option value="construction">Under Construction</option>
+            <option value="consented">Consented / Awaiting Construction</option>
+            <option value="planning">In Planning / Submitted</option>
         </select>
 
         <label for="minCapacityRange">Minimum Size: <span id="minCapacityVal">0</span> MW</label>
@@ -126,7 +135,9 @@ permalink: /repd_atlas_grid_model/
 
     const grid400Layer = L.layerGroup().addTo(map);
     const grid275Layer = L.layerGroup().addTo(map);
+    const grid220Layer = L.layerGroup().addTo(map);
     const grid132Layer = L.layerGroup().addTo(map);
+    const grid66Layer = L.layerGroup().addTo(map);
     
     // Create the markers layer early so we can add it to the menu!
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
@@ -138,10 +149,12 @@ permalink: /repd_atlas_grid_model/
     };
 
     const overlayMaps = {
-        "⚡ Energy Projects": markers, // Added to the toggle box!
+        "⚡ Energy Projects": markers,
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
-        "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer
+        "<span style='color: #ff9900; font-weight: bold;'>220kV Cables</span>": grid220Layer,
+        "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer,
+        "<span style='color: #b200ff; font-weight: bold;'>66kV Cables</span>": grid66Layer
     };
     
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
@@ -149,7 +162,9 @@ permalink: /repd_atlas_grid_model/
     // Fetch grid data
     fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer)).catch(e => console.error(e));
+    fetch('{{ site.baseurl }}/grid_220kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff9900', weight: 2, opacity: 0.8 } }).addTo(grid220Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
+    fetch('{{ site.baseurl }}/grid_66kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#b200ff', weight: 1.5, opacity: 0.7 } }).addTo(grid66Layer)).catch(e => console.error(e));
 
     const csvUrl = '{{ site.baseurl }}/repd.csv';
 
@@ -160,6 +175,7 @@ permalink: /repd_atlas_grid_model/
     let currentMin = 0;
     let currentMax = 10000;
     let currentTech = 'all';
+    let currentStatus = 'all';
 
     Papa.parse(csvUrl, {
         download: true,
@@ -172,11 +188,16 @@ permalink: /repd_atlas_grid_model/
     });
 
     function initDashboard() {
-        updateDisplay(currentMin, currentMax, currentTech);
+        updateDisplay();
 
         $('#techSelect').on('change', function() {
             currentTech = $(this).val();
-            updateDisplay(currentMin, currentMax, currentTech);
+            updateDisplay();
+        });
+
+        $('#statusSelect').on('change', function() {
+            currentStatus = $(this).val();
+            updateDisplay();
         });
 
         $('#minCapacityRange').on('input', function() {
@@ -187,7 +208,7 @@ permalink: /repd_atlas_grid_model/
                 $('#maxCapacityVal').text(currentMax);
             }
             $('#minCapacityVal').text(currentMin);
-            updateDisplay(currentMin, currentMax, currentTech);
+            updateDisplay();
         });
 
         $('#maxCapacityRange').on('input', function() {
@@ -198,12 +219,11 @@ permalink: /repd_atlas_grid_model/
                 $('#minCapacityVal').text(currentMin);
             }
             $('#maxCapacityVal').text(currentMax);
-            updateDisplay(currentMin, currentMax, currentTech);
+            updateDisplay();
         });
     }
 
-    function updateDisplay(minMW, maxMW, techFilter) {
-        // Smart Logic: Check if the user has manually turned the projects off in the menu
+    function updateDisplay() {
         let markersCurrentlyVisible = map.hasLayer(markers) || allMarkers.length === 0;
 
         markers.clearLayers();
@@ -213,24 +233,40 @@ permalink: /repd_atlas_grid_model/
         allData.forEach(row => {
             const capacity = parseFloat(row['Installed Capacity (MWelec)']) || 0;
             const status = row['Development Status'] || 'Unknown';
+            const statusLower = status.toLowerCase();
             const techType = (row['Technology Type'] || '').toLowerCase();
             
+            // Technology Filter Logic
             let matchTech = false;
-            if (techFilter === 'all') {
+            if (currentTech === 'all') {
                 matchTech = true;
-            } else if (techFilter === 'solar' && techType.includes('solar')) {
+            } else if (currentTech === 'solar' && techType.includes('solar')) {
                 matchTech = true;
-            } else if (techFilter === 'wind_onshore' && techType.includes('wind') && techType.includes('onshore')) {
+            } else if (currentTech === 'wind_onshore' && techType.includes('wind') && techType.includes('onshore')) {
                 matchTech = true;
-            } else if (techFilter === 'wind_offshore' && techType.includes('wind') && techType.includes('offshore')) {
+            } else if (currentTech === 'wind_offshore' && techType.includes('wind') && techType.includes('offshore')) {
                 matchTech = true;
-            } else if (techFilter === 'battery' && (techType.includes('battery') || techType.includes('storage'))) {
+            } else if (currentTech === 'battery' && (techType.includes('battery') || techType.includes('storage'))) {
                 matchTech = true;
             }
 
-            const inRange = capacity >= minMW && capacity <= maxMW;
+            // Status Filter Logic
+            let matchStatus = false;
+            if (currentStatus === 'all') {
+                matchStatus = true;
+            } else if (currentStatus === 'operational' && statusLower === 'operational') {
+                matchStatus = true;
+            } else if (currentStatus === 'construction' && statusLower.includes('construction')) {
+                matchStatus = true;
+            } else if (currentStatus === 'consented' && (statusLower.includes('granted') || statusLower.includes('consented') || statusLower === 'awaiting construction')) {
+                matchStatus = true;
+            } else if (currentStatus === 'planning' && (statusLower.includes('submitted') || statusLower.includes('planning') || statusLower.includes('scoping'))) {
+                matchStatus = true;
+            }
 
-            if (matchTech && inRange) {
+            const inRange = capacity >= currentMin && capacity <= currentMax;
+
+            if (matchTech && matchStatus && inRange) {
                 const x = parseFloat(row['X-coordinate']);
                 const y = parseFloat(row['Y-coordinate']);
                 
@@ -276,7 +312,6 @@ permalink: /repd_atlas_grid_model/
             }
         });
 
-        // Only redraw them on the map if the user hasn't hidden them via the top right menu
         if (markersCurrentlyVisible) {
             map.addLayer(markers);
         }

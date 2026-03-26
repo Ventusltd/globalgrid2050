@@ -4,8 +4,8 @@ title: Employer Requirements BESS Notes
 permalink: /employers_requirements_BESS/
 ---
 
-## 50 MW / 50 MWh Battery Energy Storage System, UK  
-### Project: Pelham Battery Energy Storage System
+## Grid Scale Battery Energy Storage System  
+### Project reference: Pelham Battery Energy Storage System - PCS to BESS 
 
 ![PCS to BESS cable installation](50MW_BESS_to_PCS.jpg)
 

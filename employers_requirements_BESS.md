@@ -7,6 +7,8 @@ permalink: /employers_requirements_BESS/
 ## Grid Scale Battery Energy Storage Systems  
 ### Project reference: Pelham Battery Energy Storage System - PCS to BESS 
 
+Typical PCS to BESS cable interface illustrating parallel cable routing, grouping, and installation constraints
+
 ![PCS to BESS cable installation](50MW_BESS_to_PCS.jpg)
 
 *Installation: [Sphere Electrical](https://www.sphereelectrical.co.uk)* *Cable engineering support: [VENTUS Ltd](https://www.ventusltd.com)* ---

@@ -36,7 +36,7 @@ A grid connected battery energy storage system integrated with medium voltage in
 
 ---
 
-## Engineering Definition Framework (Anonymised Guidance)
+## Engineering Definition Framework
 
 ### Engineering Basis
 

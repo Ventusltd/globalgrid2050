@@ -35,6 +35,9 @@ jobs:
       - name: Run Substation Fetcher
         run: python scripts/fetch_substations.py
 
+      - name: Run 33kV Fetcher
+        run: python scripts/fetch_33kv_data.py
+
       - name: Commit and push changes
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
@@ -46,7 +49,7 @@ jobs:
           git add *.geojson || true
           
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated grid data fetch (Cables + Substations)"
+            git commit -m "Automated grid data fetch (Added 33kV)"
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"

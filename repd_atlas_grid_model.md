@@ -31,98 +31,52 @@ permalink: /repd_atlas_grid_model/
         color: white;
     }
     .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
-    .filter-panel h4 { margin-top: 25px; color: #e6e600; font-size: 18px; margin-bottom: 15px; border-top: 1px solid #444; padding-top: 20px; }
     .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
     
-    .slider-container {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    
+    .slider-container { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
     input[type=range] { flex-grow: 1; cursor: pointer; accent-color: #66ccff; }
     
     .number-input {
-        width: 90px;
-        padding: 8px;
-        background: #222;
-        color: #66ccff;
-        border: 1px solid #66ccff;
-        border-radius: 5px;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 16px;
-        text-align: center;
+        width: 90px; padding: 8px; background: #222; color: #66ccff; border: 1px solid #66ccff;
+        border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; text-align: center;
     }
 
     select.filter-select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        background: #222;
-        color: white;
-        border: 1px solid #66ccff;
-        border-radius: 5px;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 16px;
-        cursor: pointer;
+        width: 100%; padding: 10px; margin-bottom: 20px; background: #222; color: white; border: 1px solid #66ccff;
+        border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
     }
     
-    /* 33kV Regional Grid Styles */
-    .toggle-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-        gap: 12px;
-    }
-    .toggle-grid label {
-        font-size: 15px;
-        font-weight: normal;
-        color: #ccc;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        margin: 0;
-    }
-    .toggle-grid input {
-        margin-right: 10px;
-        transform: scale(1.6);
-        accent-color: #e6e600;
-        cursor: pointer;
-    }
-
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
+    
+    /* Force table to stay on one line per row so scrollbar triggers */
+    table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
+    /* --- UPGRADED MAP KEY --- */
     .leaflet-control-layers {
-        background: rgba(17, 17, 17, 0.9) !important;
+        background: rgba(17, 17, 17, 0.9) !important; 
         border: 1px solid #444 !important;
-        color: white !important;
-        border-radius: 8px !important;
-        font-family: 'Courier New', Courier, monospace;
-        padding: 15px;
+        color: white !important; 
+        border-radius: 8px !important; 
+        font-family: 'Courier New', Courier, monospace; 
+        padding: 10px 15px !important;
+        
+        /* The Magic Scroll Logic */
+        max-height: 250px; 
+        overflow-y: auto; 
     }
     
-    .leaflet-control-layers-overlays input[type="checkbox"] {
-        transform: scale(2.0);
-        margin-right: 15px;
-        margin-left: 5px;
-        cursor: pointer;
-    }
+    /* Custom Scrollbar for the Map Key */
+    .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
+    .leaflet-control-layers::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
+    .leaflet-control-layers::-webkit-scrollbar-thumb { background: #66ccff; border-radius: 4px; }
     
-    .leaflet-control-layers-overlays label {
-        margin-bottom: 12px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-    }
+    .leaflet-control-layers-overlays input[type="checkbox"] { transform: scale(1.5); margin-right: 12px; margin-left: 5px; cursor: pointer; }
+    .leaflet-control-layers-overlays label { margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; font-size: 14px; }
     
-    .substation-marker {
-        background-color: #ffffff;
-        border: 2px solid #000;
-        border-radius: 2px;
-    }
+    .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
 </style>
 
 <div class="dashboard-container">
@@ -159,35 +113,21 @@ permalink: /repd_atlas_grid_model/
             <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
             <input type="number" id="maxCapacityInput" value="10000" min="0" max="10000" class="number-input">
         </div>
-
-        <h4>⚡ 33kV Regional Networks</h4>
-        <div class="toggle-grid">
-            <label><input type="checkbox" class="region-cb" value="Scotland_North"> Scotland North</label>
-            <label><input type="checkbox" class="region-cb" value="Scotland_South"> Scotland South</label>
-            <label><input type="checkbox" class="region-cb" value="North_East_England"> North East England</label>
-            <label><input type="checkbox" class="region-cb" value="North_West_England"> North West England</label>
-            <label><input type="checkbox" class="region-cb" value="Yorkshire"> Yorkshire</label>
-            <label><input type="checkbox" class="region-cb" value="Wales_North"> Wales North</label>
-            <label><input type="checkbox" class="region-cb" value="Wales_South"> Wales South</label>
-            <label><input type="checkbox" class="region-cb" value="Midlands"> Midlands</label>
-            <label><input type="checkbox" class="region-cb" value="East_of_England"> East of England</label>
-            <label><input type="checkbox" class="region-cb" value="South_West_England"> South West England</label>
-            <label><input type="checkbox" class="region-cb" value="South_East_England"> South East England</label>
-            <label><input type="checkbox" class="region-cb" value="London_Area"> London Area</label>
-        </div>
     </div>
 
     <div id="map"></div>
 
     <div id="repd-table-container">
-        <table id="repd-table" class="display" style="width:100%">
+        <table id="repd-table" class="display nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>Site Name</th>
+                    <th>Operator</th>
                     <th>Technology</th>
                     <th>MW</th>
                     <th>Status</th>
                     <th>County</th>
+                    <th>Address</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -205,40 +145,19 @@ permalink: /repd_atlas_grid_model/
 <script>
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
-    const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-    });
+    const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
+    const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri' });
 
-    const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri'
-    });
+    const map = L.map('map', { center: [54.5, -2.5], zoom: 6, preferCanvas: true, layers: [darkMap] });
 
-    // I kept preferCanvas: true because it stops the browser from lagging, but everything else is reverted!
-    const map = L.map('map', {
-        center: [54.5, -2.5],
-        zoom: 6,
-        preferCanvas: true,
-        layers: [darkMap]
-    });
-
-    const grid400Layer = L.layerGroup();
-    const grid275Layer = L.layerGroup();
-    const grid220Layer = L.layerGroup();
-    const grid132Layer = L.layerGroup();
-    const grid66Layer = L.layerGroup();
-    const subsLayer = L.layerGroup();
-    
-    // Object to hold our lazily-loaded regional 33kV layers
-    const regional33Layers = {};
+    const grid400Layer = L.layerGroup(); const grid275Layer = L.layerGroup(); const grid220Layer = L.layerGroup();
+    const grid132Layer = L.layerGroup(); const grid66Layer = L.layerGroup(); const subsLayer = L.layerGroup();
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 
 
-    const baseMaps = {
-        "🌑 Dark Mode": darkMap,
-        "🌍 Satellite View": satelliteMap
-    };
-
+    const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
+    
     const overlayMaps = {
         "⚡ Energy Projects": markers,
         "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
@@ -248,10 +167,8 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer,
         "<span style='color: #b200ff; font-weight: bold;'>66kV Cables</span>": grid66Layer
     };
-    
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
-    // Fetch major grid and substation data
     fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_220kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff9900', weight: 2, opacity: 0.8 } }).addTo(grid220Layer)).catch(e => console.error(e));
@@ -260,118 +177,34 @@ permalink: /repd_atlas_grid_model/
     
     fetch('{{ site.baseurl }}/grid_substations.geojson').then(r => r.json()).then(data => {
         L.geoJSON(data, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: L.divIcon({
-                        className: 'substation-marker',
-                        iconSize: [8, 8]
-                    })
-                });
-            },
-            onEachFeature: function (feature, layer) {
-                const name = feature.properties.name || "Substation";
-                const voltage = feature.properties.voltage || "Unknown Voltage";
-                const operator = feature.properties.operator || "Unknown Operator";
-                layer.bindPopup(`<div style="font-family: Courier, monospace;"><b>${name}</b><br>Voltage: ${voltage} V<br>Operator: ${operator}</div>`);
-            }
+            pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'substation-marker', iconSize: [8, 8] }) }); },
+            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Substation"}</b><br>Voltage: ${f.properties.voltage || "Unknown"} V<br>Operator: ${f.properties.operator || "Unknown"}</div>`); }
         }).addTo(subsLayer);
     }).catch(e => console.error(e));
 
-    // --- 33kV REGIONAL LAZY LOADING LOGIC ---
-    $('.region-cb').on('change', function() {
-        const regionName = $(this).val();
-        const isChecked = $(this).is(':checked');
-        
-        if (isChecked) {
-            // If we haven't downloaded this region yet, fetch it!
-            if (!regional33Layers[regionName]) {
-                const url = `{{ site.baseurl }}/grid_33kv_${regionName}.geojson`;
-                fetch(url)
-                    .then(r => {
-                        if (!r.ok) throw new Error("File not found or still generating");
-                        return r.json();
-                    })
-                    .then(data => {
-                        regional33Layers[regionName] = L.geoJSON(data, { 
-                            style: { color: '#e6e600', weight: 1.2, opacity: 0.7 } 
-                        }).addTo(map);
-                    })
-                    .catch(e => {
-                        console.error(`Failed to load ${regionName}:`, e);
-                        alert(`Could not load ${regionName} yet. The GitHub Action might still be running!`);
-                        $(this).prop('checked', false); 
-                    });
-            } else {
-                map.addLayer(regional33Layers[regionName]);
-            }
-        } else {
-            if (regional33Layers[regionName]) {
-                map.removeLayer(regional33Layers[regionName]);
-            }
-        }
-    });
-
     const csvUrl = '{{ site.baseurl }}/repd.csv';
-
-    let allData = [];
-    let allMarkers = [];
-    let dataTable;
-
-    let currentMin = 0;
-    let currentMax = 10000;
-    let currentTech = 'all';
-    let currentStatus = 'all';
+    let allData = []; let allMarkers = []; let dataTable;
+    let currentMin = 0; let currentMax = 10000;
+    let currentTech = 'all'; let currentStatus = 'all';
 
     Papa.parse(csvUrl, {
-        download: true,
-        header: true,
-        skipEmptyLines: true,
-        complete: function(results) {
-            allData = results.data;
-            initDashboard();
-        }
+        download: true, header: true, skipEmptyLines: true,
+        complete: function(results) { allData = results.data; initDashboard(); }
     });
 
     function initDashboard() {
         updateDisplay();
-
         $('#techSelect').on('change', function() { currentTech = $(this).val(); updateDisplay(); });
         $('#statusSelect').on('change', function() { currentStatus = $(this).val(); updateDisplay(); });
-
-        $('#minCapacityRange').on('input', function() {
-            currentMin = parseFloat($(this).val());
-            if (currentMin > currentMax) { currentMax = currentMin; $('#maxCapacityRange').val(currentMax); $('#maxCapacityInput').val(currentMax); }
-            $('#minCapacityInput').val(currentMin);
-            updateDisplay();
-        });
-
-        $('#maxCapacityRange').on('input', function() {
-            currentMax = parseFloat($(this).val());
-            if (currentMax < currentMin) { currentMin = currentMax; $('#minCapacityRange').val(currentMin); $('#minCapacityInput').val(currentMin); }
-            $('#maxCapacityInput').val(currentMax);
-            updateDisplay();
-        });
-
-        $('#minCapacityInput').on('input', function() {
-            let val = parseFloat($(this).val()) || 0;
-            if (val > currentMax) { currentMax = val; $('#maxCapacityInput').val(val); $('#maxCapacityRange').val(val); }
-            currentMin = val; $('#minCapacityRange').val(val);
-            updateDisplay();
-        });
-
-        $('#maxCapacityInput').on('input', function() {
-            let val = parseFloat($(this).val()) || 0;
-            if (val < currentMin) { currentMin = val; $('#minCapacityInput').val(val); $('#minCapacityRange').val(val); }
-            currentMax = val; $('#maxCapacityRange').val(val);
-            updateDisplay();
-        });
+        $('#minCapacityRange').on('input', function() { currentMin = parseFloat($(this).val()); if(currentMin>currentMax){currentMax=currentMin;$('#maxCapacityRange').val(currentMax);$('#maxCapacityInput').val(currentMax);}$('#minCapacityInput').val(currentMin); updateDisplay(); });
+        $('#maxCapacityRange').on('input', function() { currentMax = parseFloat($(this).val()); if(currentMax<currentMin){currentMin=currentMax;$('#minCapacityRange').val(currentMin);$('#minCapacityInput').val(currentMin);}$('#maxCapacityInput').val(currentMax); updateDisplay(); });
+        $('#minCapacityInput').on('input', function() { let val = parseFloat($(this).val())||0; if(val>currentMax){currentMax=val;$('#maxCapacityInput').val(val);$('#maxCapacityRange').val(val);}currentMin=val;$('#minCapacityRange').val(val); updateDisplay(); });
+        $('#maxCapacityInput').on('input', function() { let val = parseFloat($(this).val())||0; if(val<currentMin){currentMin=val;$('#minCapacityInput').val(val);$('#minCapacityRange').val(val);}currentMax=val;$('#maxCapacityRange').val(val); updateDisplay(); });
     }
 
     function updateDisplay() {
         let markersCurrentlyVisible = map.hasLayer(markers) || allMarkers.length === 0;
-
-        markers.clearLayers();
-        allMarkers = [];
+        markers.clearLayers(); allMarkers = [];
         const filteredTableData = [];
 
         allData.forEach(row => {
@@ -380,26 +213,15 @@ permalink: /repd_atlas_grid_model/
             const statusLower = status.toLowerCase();
             const techType = (row['Technology Type'] || '').toLowerCase();
             
-            let matchTech = false;
-            if (currentTech === 'all') { matchTech = true; } 
-            else if (currentTech === 'solar' && techType.includes('solar')) { matchTech = true; } 
-            else if (currentTech === 'wind_onshore' && techType.includes('wind') && techType.includes('onshore')) { matchTech = true; } 
-            else if (currentTech === 'wind_offshore' && techType.includes('wind') && techType.includes('offshore')) { matchTech = true; } 
-            else if (currentTech === 'battery' && (techType.includes('battery') || techType.includes('storage'))) { matchTech = true; }
-
-            let matchStatus = false;
-            if (currentStatus === 'all') { matchStatus = true; } 
-            else if (currentStatus === 'operational' && statusLower === 'operational') { matchStatus = true; } 
-            else if (currentStatus === 'construction' && statusLower.includes('construction')) { matchStatus = true; } 
-            else if (currentStatus === 'consented' && (statusLower.includes('granted') || statusLower.includes('consented') || statusLower === 'awaiting construction')) { matchStatus = true; } 
-            else if (currentStatus === 'planning' && (statusLower.includes('submitted') || statusLower.includes('planning') || statusLower.includes('scoping'))) { matchStatus = true; }
-
-            const inRange = capacity >= currentMin && capacity <= currentMax;
+            const operator = row['Operator (or Applicant)'] || row['Developer'] || 'Unknown';
+            const address = row['Address'] || 'Not Provided';
+            
+            let matchTech = currentTech==='all' || (currentTech==='solar' && techType.includes('solar')) || (currentTech==='wind_onshore' && techType.includes('wind') && techType.includes('onshore')) || (currentTech==='wind_offshore' && techType.includes('wind') && techType.includes('offshore')) || (currentTech==='battery' && (techType.includes('battery') || techType.includes('storage')));
+            let matchStatus = currentStatus==='all' || (currentStatus==='operational' && statusLower==='operational') || (currentStatus==='construction' && statusLower.includes('construction')) || (currentStatus==='consented' && (statusLower.includes('granted') || statusLower.includes('consented') || statusLower==='awaiting construction')) || (currentStatus==='planning' && (statusLower.includes('submitted') || statusLower.includes('planning') || statusLower.includes('scoping')));
+            let inRange = capacity >= currentMin && capacity <= currentMax;
 
             if (matchTech && matchStatus && inRange) {
-                const x = parseFloat(row['X-coordinate']);
-                const y = parseFloat(row['Y-coordinate']);
-                
+                const x = parseFloat(row['X-coordinate']); const y = parseFloat(row['Y-coordinate']);
                 if (x && y) {
                     try {
                         const coords = proj4("EPSG:27700", "WGS84", [x, y]);
@@ -408,15 +230,11 @@ permalink: /repd_atlas_grid_model/
                         const baseRadius = Math.max(10, (Math.sqrt(capacity) || 4) * 2);
                         
                         const marker = L.circleMarker([coords[1], coords[0]], {
-                            radius: baseRadius,
-                            baseRadius: baseRadius,
-                            fillColor: color,
-                            color: "#fff",
-                            weight: 2,
-                            fillOpacity: 0.8
+                            radius: baseRadius, baseRadius: baseRadius, fillColor: color, color: "#fff", weight: 2, fillOpacity: 0.8
                         }).bindPopup(`
                             <div style="min-width:180px; font-family: Courier, monospace;">
                                 <b style="font-size:14px; color:#000;">${row['Site Name']}</b><br>
+                                <span style="font-size:12px; color:#555;">${operator}</span>
                                 <hr style="margin:5px 0; border:0; border-top:1px solid #ccc;">
                                 <span style="font-size:13px;">${row['Technology Type']}</span><br>
                                 <span style="font-size:16px;"><b>${capacity} MW</b></span><br>
@@ -425,16 +243,8 @@ permalink: /repd_atlas_grid_model/
                             </div>
                         `);
 
-                        markers.addLayer(marker);
-                        allMarkers.push(marker);
-
-                        filteredTableData.push([
-                            row['Site Name'],
-                            row['Technology Type'],
-                            capacity,
-                            status,
-                            row['County']
-                        ]);
+                        markers.addLayer(marker); allMarkers.push(marker);
+                        filteredTableData.push([row['Site Name'], operator, row['Technology Type'], capacity, status, row['County'], address]);
                     } catch (e) {}
                 }
             }
@@ -447,11 +257,7 @@ permalink: /repd_atlas_grid_model/
             dataTable.clear().rows.add(filteredTableData).draw();
         } else {
             dataTable = $('#repd-table').DataTable({
-                data: filteredTableData,
-                pageLength: 10,
-                order: [[2, 'desc']],
-                responsive: true,
-                language: { search: "Scan Systems:" }
+                data: filteredTableData, pageLength: 10, order: [[3, 'desc']], responsive: true, scrollX: true, language: { search: "Scan Systems:" }
             });
         }
     }
@@ -459,10 +265,7 @@ permalink: /repd_atlas_grid_model/
     function applyZoomScaling() {
         const currentZoom = map.getZoom();
         const scaleMultiplier = currentZoom > 9 ? Math.pow(1.4, currentZoom - 9) : 1;
-        allMarkers.forEach(layer => {
-            layer.setRadius(layer.options.baseRadius * scaleMultiplier);
-        });
+        allMarkers.forEach(layer => { layer.setRadius(layer.options.baseRadius * scaleMultiplier); });
     }
-
     map.on('zoomend', applyZoomScaling);
 </script>

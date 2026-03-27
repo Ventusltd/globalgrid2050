@@ -38,6 +38,12 @@ jobs:
       - name: Run Data Centre Fetcher
         run: python scripts/fetch_datacentres.py
 
+      - name: Run Airport Fetcher
+        run: python scripts/fetch_airports.py
+
+      - name: Run Railway Fetcher
+        run: python scripts/fetch_railways.py
+
       - name: Commit and push changes
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
@@ -49,7 +55,7 @@ jobs:
           git add *.geojson || true
           
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated grid data & datacentre fetch"
+            git commit -m "Automated grid, datacentre, airport, and railway fetch"
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"

@@ -79,6 +79,12 @@ permalink: /repd_atlas_grid_model/
         border-radius: 8px !important;
         font-family: 'Courier New', Courier, monospace;
     }
+    
+    .substation-marker {
+        background-color: #ffffff;
+        border: 2px solid #000;
+        border-radius: 2px;
+    }
 </style>
 
 <div class="dashboard-container">
@@ -164,6 +170,7 @@ permalink: /repd_atlas_grid_model/
     const grid220Layer = L.layerGroup().addTo(map);
     const grid132Layer = L.layerGroup().addTo(map);
     const grid66Layer = L.layerGroup().addTo(map);
+    const subsLayer = L.layerGroup().addTo(map);
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 
@@ -175,6 +182,7 @@ permalink: /repd_atlas_grid_model/
 
     const overlayMaps = {
         "⚡ Energy Projects": markers,
+        "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
         "<span style='color: #ff9900; font-weight: bold;'>220kV Cables</span>": grid220Layer,
@@ -184,11 +192,31 @@ permalink: /repd_atlas_grid_model/
     
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
+    // Fetch grid and substation data
     fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_220kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff9900', weight: 2, opacity: 0.8 } }).addTo(grid220Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_66kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#b200ff', weight: 1.5, opacity: 0.7 } }).addTo(grid66Layer)).catch(e => console.error(e));
+    
+    fetch('{{ site.baseurl }}/grid_substations.geojson').then(r => r.json()).then(data => {
+        L.geoJSON(data, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        className: 'substation-marker',
+                        iconSize: [8, 8]
+                    })
+                });
+            },
+            onEachFeature: function (feature, layer) {
+                const name = feature.properties.name || "Substation";
+                const voltage = feature.properties.voltage || "Unknown Voltage";
+                const operator = feature.properties.operator || "Unknown Operator";
+                layer.bindPopup(`<div style="font-family: Courier, monospace;"><b>${name}</b><br>Voltage: ${voltage} V<br>Operator: ${operator}</div>`);
+            }
+        }).addTo(subsLayer);
+    }).catch(e => console.error(e));
 
     const csvUrl = '{{ site.baseurl }}/repd.csv';
 

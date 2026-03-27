@@ -31,6 +31,7 @@ permalink: /repd_atlas_grid_model/
         color: white;
     }
     .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
+    .filter-panel h4 { margin-top: 25px; color: #e6e600; font-size: 18px; margin-bottom: 15px; border-top: 1px solid #444; padding-top: 20px; }
     .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
     
     .slider-container { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
@@ -45,16 +46,13 @@ permalink: /repd_atlas_grid_model/
         width: 100%; padding: 10px; margin-bottom: 20px; background: #222; color: white; border: 1px solid #66ccff;
         border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
     }
-
-    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     
-    /* Force table to stay on one line per row so scrollbar triggers */
+    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* --- COMPACT, SCROLLABLE MAP KEY --- */
     .leaflet-control-layers {
         background: rgba(17, 17, 17, 0.9) !important; 
         border: 1px solid #444 !important;
@@ -74,6 +72,9 @@ permalink: /repd_atlas_grid_model/
     .leaflet-control-layers-overlays label { margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; font-size: 14px; }
     
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
+    
+    /* NEW: Styling for the Substation Throttle Instruction */
+    .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 15px; font-style: italic; }
 </style>
 
 <div class="dashboard-container">
@@ -81,34 +82,47 @@ permalink: /repd_atlas_grid_model/
     <div class="filter-panel">
         <h3>🔍 Map Filters</h3>
         
-        <label for="techSelect">Technology Type:</label>
-        <select id="techSelect" class="filter-select">
-            <option value="all">All Technologies</option>
-            <option value="solar">Solar Photovoltaics</option>
-            <option value="wind_onshore">Wind (Onshore)</option>
-            <option value="wind_offshore">Wind (Offshore)</option>
-            <option value="battery">Battery / Storage</option>
-        </select>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div>
+                <label for="techSelect">Technology Type:</label>
+                <select id="techSelect" class="filter-select">
+                    <option value="all">All Technologies</option>
+                    <option value="solar">Solar Photovoltaics</option>
+                    <option value="wind_onshore">Wind (Onshore)</option>
+                    <option value="wind_offshore">Wind (Offshore)</option>
+                    <option value="battery">Battery / Storage</option>
+                </select>
 
-        <label for="statusSelect">Project Status:</label>
-        <select id="statusSelect" class="filter-select">
-            <option value="all">All Statuses</option>
-            <option value="operational">Operational</option>
-            <option value="construction">Under Construction</option>
-            <option value="consented">Consented / Awaiting Construction</option>
-            <option value="planning">In Planning / Submitted</option>
-        </select>
+                <label for="minCapacityRange">Minimum Size (MW):</label>
+                <div class="slider-container">
+                    <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
+                    <input type="number" id="minCapacityInput" value="0" min="0" max="10000" class="number-input">
+                </div>
+                
+                <label for="maxCapacityRange">Maximum Size (MW):</label>
+                <div class="slider-container">
+                    <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
+                    <input type="number" id="maxCapacityInput" value="10000" min="0" max="10000" class="number-input">
+                </div>
+            </div>
+            
+            <div>
+                <label for="statusSelect">Project Status:</label>
+                <select id="statusSelect" class="filter-select">
+                    <option value="all">All Statuses</option>
+                    <option value="operational">Operational</option>
+                    <option value="construction">Under Construction</option>
+                    <option value="consented">Consented / Awaiting Construction</option>
+                    <option value="planning">In Planning / Submitted</option>
+                </select>
 
-        <label for="minCapacityRange">Minimum Size (MW):</label>
-        <div class="slider-container">
-            <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
-            <input type="number" id="minCapacityInput" value="0" min="0" max="10000" class="number-input">
-        </div>
-        
-        <label for="maxCapacityRange">Maximum Size (MW):</label>
-        <div class="slider-container">
-            <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
-            <input type="number" id="maxCapacityInput" value="10000" min="0" max="10000" class="number-input">
+                <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Throttle (South to North):</label>
+                <div class="throttle-instruction">*Adjust density based on your device's processing power.</div>
+                <div class="slider-container">
+                    <input type="range" id="substationDensityRange" min="0" max="100" value="10" step="5">
+                    <input type="text" id="substationDensityInput" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -148,7 +162,12 @@ permalink: /repd_atlas_grid_model/
     const map = L.map('map', { center: [54.5, -2.5], zoom: 6, preferCanvas: true, layers: [darkMap] });
 
     const grid400Layer = L.layerGroup(); const grid275Layer = L.layerGroup(); const grid220Layer = L.layerGroup();
-    const grid132Layer = L.layerGroup(); const grid66Layer = L.layerGroup(); const subsLayer = L.layerGroup();
+    const grid132Layer = L.layerGroup(); const grid66Layer = L.layerGroup(); 
+    
+    // Substation layer setup
+    const subsLayer = L.layerGroup();
+    let allSubstationFeatures = []; // Will hold the raw, sorted GeoJSON features
+    let currentSubstationPercentage = 10; // Default load is 10%
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 
@@ -157,7 +176,7 @@ permalink: /repd_atlas_grid_model/
     
     const overlayMaps = {
         "⚡ Energy Projects": markers,
-        "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
+        "<span style='color: #ffffff; font-weight: bold;'>■ Substations (Throttled)</span>": subsLayer,
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
         "<span style='color: #ff9900; font-weight: bold;'>220kV Cables</span>": grid220Layer,
@@ -172,12 +191,42 @@ permalink: /repd_atlas_grid_model/
     fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_66kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#b200ff', weight: 1.5, opacity: 0.7 } }).addTo(grid66Layer)).catch(e => console.error(e));
     
-    fetch('{{ site.baseurl }}/grid_substations.geojson').then(r => r.json()).then(data => {
-        L.geoJSON(data, {
+    // --- NEW: Substation Throttle Logic ---
+    fetch('{{ site.baseurl }}/grid_substations.geojson')
+        .then(r => r.json())
+        .then(data => {
+            // Sort features by Latitude (South to North)
+            allSubstationFeatures = data.features.sort((a, b) => {
+                const latA = a.geometry.coordinates[1];
+                const latB = b.geometry.coordinates[1];
+                return latA - latB;
+            });
+            renderSubstations(currentSubstationPercentage);
+        })
+        .catch(e => console.error(e));
+
+    function renderSubstations(percentage) {
+        subsLayer.clearLayers();
+        if (allSubstationFeatures.length === 0) return;
+        
+        const numToLoad = Math.floor((percentage / 100) * allSubstationFeatures.length);
+        const featuresToRender = allSubstationFeatures.slice(0, numToLoad);
+        
+        L.geoJSON({"type": "FeatureCollection", "features": featuresToRender}, {
             pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'substation-marker', iconSize: [8, 8] }) }); },
-            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Substation"}</b><br>Voltage: ${f.properties.voltage || "Unknown"} V<br>Operator: ${f.properties.operator || "Unknown"}</div>`); }
+            onEachFeature: function (f, l) { 
+                const v = f.properties.voltage || "Unknown";
+                l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Substation"}</b><br>Voltage: ${v} V<br>Operator: ${f.properties.operator || "Unknown"}</div>`); 
+            }
         }).addTo(subsLayer);
-    }).catch(e => console.error(e));
+    }
+
+    // Substation Slider Event Listener
+    $('#substationDensityRange').on('input', function() {
+        const val = parseInt($(this).val());
+        $('#substationDensityInput').val(val + "%");
+        renderSubstations(val);
+    });
 
     const csvUrl = '{{ site.baseurl }}/repd.csv';
     let allData = []; let allMarkers = []; let dataTable;

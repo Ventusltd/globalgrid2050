@@ -78,6 +78,23 @@ permalink: /repd_atlas_grid_model/
         color: white !important;
         border-radius: 8px !important;
         font-family: 'Courier New', Courier, monospace;
+        padding: 15px;
+    }
+    
+    /* Make checkboxes twice as big */
+    .leaflet-control-layers-overlays input[type="checkbox"] {
+        transform: scale(2.0);
+        margin-right: 15px;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+    
+    /* Give the labels some breathing room */
+    .leaflet-control-layers-overlays label {
+        margin-bottom: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
     }
     
     .substation-marker {
@@ -165,12 +182,12 @@ permalink: /repd_atlas_grid_model/
         layers: [darkMap]
     });
 
-    const grid400Layer = L.layerGroup().addTo(map);
-    const grid275Layer = L.layerGroup().addTo(map);
-    const grid220Layer = L.layerGroup().addTo(map);
-    const grid132Layer = L.layerGroup().addTo(map);
-    const grid66Layer = L.layerGroup().addTo(map);
-    const subsLayer = L.layerGroup().addTo(map);
+    const grid400Layer = L.layerGroup();
+    const grid275Layer = L.layerGroup();
+    const grid220Layer = L.layerGroup();
+    const grid132Layer = L.layerGroup();
+    const grid66Layer = L.layerGroup();
+    const subsLayer = L.layerGroup();
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 

@@ -82,7 +82,7 @@ Failure to execute the engineering scope defined below routinely results in seve
 - **Inverter/PCS instability** due to unverified system interaction and harmonics.
 - **Rework** of installed infrastructure during the commissioning phase.
 - **Loss of lender confidence** and delayed financial close.
-- **transformer failures** - unexpected system behaviours, harmonics, waveform distortion, moisture ingress etc frequently causes transformer strain or catastrophic failure in the worst case
+- **Transformer failures** - unexpected system behaviours, harmonics, waveform distortion, moisture ingress etc frequently causes transformer strain or catastrophic failure in the worst case
 
 **These risks originate from incomplete engineering definition, not construction error.**
 

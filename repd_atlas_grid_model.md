@@ -11,75 +11,35 @@ permalink: /repd_atlas_grid_model/
 
 <style>
     /* =======================================================
-       --- NEW: LARGE, NEUTRAL CUSTOM PAGE SCROLLBAR ---
+       --- LARGE, NEUTRAL CUSTOM PAGE SCROLLBAR ---
        ======================================================= */
     html {
-        overflow-y: scroll; /* Force vertical scrollbar to always show */
-        scrollbar-color: #555 #111; /* Firefox fallback */
+        overflow-y: scroll;
+        scrollbar-color: #555 #111;
         scrollbar-width: auto;
     }
 
-    ::-webkit-scrollbar {
-        width: 26px; /* Very large and grabbable */
-        background-color: #111; 
-    }
+    ::-webkit-scrollbar { width: 26px; background-color: #111; }
+    ::-webkit-scrollbar-track { background: #111; border-left: 1px solid #333; }
+    ::-webkit-scrollbar-thumb { background-color: #444; border: 2px solid #111; border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background-color: #666; }
+    ::-webkit-scrollbar-button:single-button { background-color: #222; display: block; height: 26px; width: 26px; border-left: 1px solid #333; }
+    ::-webkit-scrollbar-button:single-button:hover { background-color: #444; }
 
-    ::-webkit-scrollbar-track {
-        background: #111;
-        border-left: 1px solid #333;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: #444; /* Neutral grey */
-        border: 2px solid #111; /* Gives it some breathing room */
-        border-radius: 8px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background-color: #666; /* Lighter grey on hover */
-    }
-
-    /* Scrollbar Up/Down Arrow Buttons */
-    ::-webkit-scrollbar-button:single-button {
-        background-color: #222;
-        display: block;
-        height: 26px;
-        width: 26px;
-        border-left: 1px solid #333;
-    }
-
-    ::-webkit-scrollbar-button:single-button:hover {
-        background-color: #444;
-    }
-
-    /* Up Arrow SVG Background */
     ::-webkit-scrollbar-button:single-button:vertical:decrement {
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>');
-        background-size: 16px;
-        background-position: center;
-        background-repeat: no-repeat;
+        background-size: 16px; background-position: center; background-repeat: no-repeat;
     }
 
-    /* Down Arrow SVG Background */
     ::-webkit-scrollbar-button:single-button:vertical:increment {
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
-        background-size: 16px;
-        background-position: center;
-        background-repeat: no-repeat;
+        background-size: 16px; background-position: center; background-repeat: no-repeat;
     }
     
     /* --- Standard Dashboard Styles --- */
     .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; position: relative; }
-    
     #map-wrapper { width: 100%; margin-bottom: 20px; position: relative; }
-
-    #map { 
-        height: 850px; 
-        width: 100%; 
-        border-radius: 12px; 
-        background: #0b0e14; 
-        border: 3px solid #2a2f3a; 
-    }
+    #map { height: 850px; width: 100%; border-radius: 12px; background: #0b0e14; border: 3px solid #2a2f3a; }
 
     .filter-panel { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #444; margin-bottom: 15px; color: white; }
     .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
@@ -89,15 +49,8 @@ permalink: /repd_atlas_grid_model/
     .slider-container { display: flex; gap: 15px; align-items: center; margin-bottom: 10px; }
     input[type=range] { flex-grow: 1; cursor: pointer; accent-color: #66ccff; }
     
-    .number-input {
-        width: 90px; padding: 8px; background: #222; color: #66ccff; border: 1px solid #66ccff;
-        border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; text-align: center;
-    }
-
-    select.filter-select {
-        width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: white; border: 1px solid #66ccff;
-        border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
-    }
+    .number-input { width: 90px; padding: 8px; background: #222; color: #66ccff; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; text-align: center; }
+    select.filter-select { width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: white; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer; }
     
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; }
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
@@ -105,13 +58,7 @@ permalink: /repd_atlas_grid_model/
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    .leaflet-control-layers {
-        background: rgba(17, 17, 17, 0.9) !important; border: 1px solid #444 !important;
-        color: white !important; border-radius: 6px !important; font-family: 'Courier New', Courier, monospace; 
-        padding: 5px 8px !important; max-height: 250px; overflow-y: auto; 
-    }
-    
-    /* Make the tiny scrollbar inside the map key match our new neutral aesthetic */
+    .leaflet-control-layers { background: rgba(17, 17, 17, 0.9) !important; border: 1px solid #444 !important; color: white !important; border-radius: 6px !important; font-family: 'Courier New', Courier, monospace; padding: 5px 8px !important; max-height: 250px; overflow-y: auto; }
     .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
     .leaflet-control-layers::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
     .leaflet-control-layers::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
@@ -121,12 +68,28 @@ permalink: /repd_atlas_grid_model/
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
     .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 10px; font-style: italic; }
 
-    /* --- DATA CENTRE MARKER STYLE --- */
+    /* --- DATA CENTRE MARKER --- */
     .dc-marker {
         background-color: #00ffff; 
         border: 1px solid #ffffff; 
         border-radius: 0; 
         box-shadow: 0 0 8px #00ffff; 
+    }
+
+    /* --- AIRPORT MARKER --- */
+    .airport-marker {
+        background-color: #ff00ff; 
+        border: 1px solid #ffffff;
+        border-radius: 50%; 
+        box-shadow: 0 0 8px #ff00ff;
+    }
+
+    /* --- RAILWAY MARKER --- */
+    .railway-marker {
+        background-color: #ffd700; /* Yellow */
+        border: 1px solid #ffffff;
+        border-radius: 50%; 
+        box-shadow: 0 0 8px #ffd700;
     }
 </style>
 
@@ -227,9 +190,10 @@ permalink: /repd_atlas_grid_model/
     let allSubstationFeatures = []; 
     let currentSubstationPercentage = 10; 
     
-    // --- NEW: DATA CENTRE LAYER ---
     const dataCentreLayer = L.layerGroup();
-
+    const airportLayer = L.layerGroup();
+    const railwayLayer = L.layerGroup(); // --- NEW: RAILWAY LAYER ---
+    
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 
 
@@ -237,7 +201,9 @@ permalink: /repd_atlas_grid_model/
     
     const overlayMaps = {
         "⚡ Energy Projects": markers,
+        "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer,
         "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
+        "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
         "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
@@ -256,15 +222,28 @@ permalink: /repd_atlas_grid_model/
     // --- FETCH DATA CENTRES ---
     fetch('{{ site.baseurl }}/datacentres.geojson').then(r => r.json()).then(data => {
         L.geoJSON(data, {
-            pointToLayer: function (f, ll) { 
-                return L.marker(ll, { icon: L.divIcon({ className: 'dc-marker', iconSize: [12, 12] }) }); 
-            },
-            onEachFeature: function (f, l) { 
-                l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Data Centre"}</b><br>Operator: ${f.properties.operator || "Unknown"}</div>`); 
-            }
+            pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'dc-marker', iconSize: [12, 12] }) }); },
+            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Data Centre"}</b><br>Operator: ${f.properties.operator || "Unknown"}</div>`); }
         }).addTo(dataCentreLayer);
     }).catch(e => console.error(e));
 
+    // --- FETCH AIRPORTS ---
+    fetch('{{ site.baseurl }}/airports.geojson').then(r => r.json()).then(data => {
+        L.geoJSON(data, {
+            pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'airport-marker', iconSize: [12, 12] }) }); },
+            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Airport"}</b><br>IATA: ${f.properties.iata || "N/A"}<br>ICAO: ${f.properties.icao || "N/A"}</div>`); }
+        }).addTo(airportLayer);
+    }).catch(e => console.error(e));
+
+    // --- FETCH RAILWAYS ---
+    fetch('{{ site.baseurl }}/railways.geojson').then(r => r.json()).then(data => {
+        L.geoJSON(data, {
+            pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'railway-marker', iconSize: [10, 10] }) }); },
+            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Railway Station"}</b><br>Network: ${f.properties.network || "National Rail / TFL"}</div>`); }
+        }).addTo(railwayLayer);
+    }).catch(e => console.error(e));
+
+    // --- FETCH SUBSTATIONS ---
     fetch('{{ site.baseurl }}/grid_substations.geojson')
         .then(r => r.json())
         .then(data => {

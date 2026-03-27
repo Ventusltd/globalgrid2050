@@ -31,10 +31,13 @@ permalink: /repd_atlas_grid_model/
         color: white;
     }
     .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
-    .filter-panel h4 { margin-top: 25px; color: #e6e600; font-size: 18px; margin-bottom: 15px; border-top: 1px solid #444; padding-top: 20px; }
+    
+    /* Removed the grid layout so everything stacks vertically */
+    .filter-group { margin-bottom: 20px; }
+    
     .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
     
-    .slider-container { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
+    .slider-container { display: flex; gap: 15px; align-items: center; margin-bottom: 10px; }
     input[type=range] { flex-grow: 1; cursor: pointer; accent-color: #66ccff; }
     
     .number-input {
@@ -43,7 +46,7 @@ permalink: /repd_atlas_grid_model/
     }
 
     select.filter-select {
-        width: 100%; padding: 10px; margin-bottom: 20px; background: #222; color: white; border: 1px solid #66ccff;
+        width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: white; border: 1px solid #66ccff;
         border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
     }
     
@@ -53,28 +56,41 @@ permalink: /repd_atlas_grid_model/
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
+    /* --- 50% SMALLER MAP KEY --- */
     .leaflet-control-layers {
         background: rgba(17, 17, 17, 0.9) !important; 
         border: 1px solid #444 !important;
         color: white !important; 
-        border-radius: 8px !important; 
+        border-radius: 6px !important; 
         font-family: 'Courier New', Courier, monospace; 
-        padding: 10px 15px !important;
+        padding: 5px 8px !important; /* Reduced padding */
         max-height: 250px; 
         overflow-y: auto; 
     }
     
-    .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
+    .leaflet-control-layers::-webkit-scrollbar { width: 4px; }
     .leaflet-control-layers::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
     .leaflet-control-layers::-webkit-scrollbar-thumb { background: #66ccff; border-radius: 4px; }
     
-    .leaflet-control-layers-overlays input[type="checkbox"] { transform: scale(1.5); margin-right: 12px; margin-left: 5px; cursor: pointer; }
-    .leaflet-control-layers-overlays label { margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; font-size: 14px; }
+    .leaflet-control-layers-overlays input[type="checkbox"] { 
+        transform: scale(1.0); /* Scaled down checkbox */
+        margin-right: 6px; 
+        margin-left: 2px; 
+        cursor: pointer; 
+    }
+    
+    .leaflet-control-layers-overlays label { 
+        margin-bottom: 4px; /* Tighter spacing between items */
+        cursor: pointer; 
+        display: flex; 
+        align-items: center; 
+        font-size: 11px; /* Smaller font size */
+        line-height: 1.1; /* Tighter line height */
+    }
     
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
     
-    /* NEW: Styling for the Substation Throttle Instruction */
-    .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 15px; font-style: italic; }
+    .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 10px; font-style: italic; }
 </style>
 
 <div class="dashboard-container">
@@ -82,46 +98,50 @@ permalink: /repd_atlas_grid_model/
     <div class="filter-panel">
         <h3>🔍 Map Filters</h3>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-            <div>
-                <label for="techSelect">Technology Type:</label>
-                <select id="techSelect" class="filter-select">
-                    <option value="all">All Technologies</option>
-                    <option value="solar">Solar Photovoltaics</option>
-                    <option value="wind_onshore">Wind (Onshore)</option>
-                    <option value="wind_offshore">Wind (Offshore)</option>
-                    <option value="battery">Battery / Storage</option>
-                </select>
+        <div class="filter-group">
+            <label for="techSelect">Technology Type:</label>
+            <select id="techSelect" class="filter-select">
+                <option value="all">All Technologies</option>
+                <option value="solar">Solar Photovoltaics</option>
+                <option value="wind_onshore">Wind (Onshore)</option>
+                <option value="wind_offshore">Wind (Offshore)</option>
+                <option value="battery">Battery / Storage</option>
+            </select>
+        </div>
 
-                <label for="minCapacityRange">Minimum Size (MW):</label>
-                <div class="slider-container">
-                    <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
-                    <input type="number" id="minCapacityInput" value="0" min="0" max="10000" class="number-input">
-                </div>
-                
-                <label for="maxCapacityRange">Maximum Size (MW):</label>
-                <div class="slider-container">
-                    <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
-                    <input type="number" id="maxCapacityInput" value="10000" min="0" max="10000" class="number-input">
-                </div>
+        <div class="filter-group">
+            <label for="statusSelect">Project Status:</label>
+            <select id="statusSelect" class="filter-select">
+                <option value="all">All Statuses</option>
+                <option value="operational">Operational</option>
+                <option value="construction">Under Construction</option>
+                <option value="consented">Consented / Awaiting Construction</option>
+                <option value="planning">In Planning / Submitted</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="minCapacityRange">Minimum Size (MW):</label>
+            <div class="slider-container">
+                <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
+                <input type="number" id="minCapacityInput" value="0" min="0" max="10000" class="number-input">
             </div>
-            
-            <div>
-                <label for="statusSelect">Project Status:</label>
-                <select id="statusSelect" class="filter-select">
-                    <option value="all">All Statuses</option>
-                    <option value="operational">Operational</option>
-                    <option value="construction">Under Construction</option>
-                    <option value="consented">Consented / Awaiting Construction</option>
-                    <option value="planning">In Planning / Submitted</option>
-                </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="maxCapacityRange">Maximum Size (MW):</label>
+            <div class="slider-container">
+                <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
+                <input type="number" id="maxCapacityInput" value="10000" min="0" max="10000" class="number-input">
+            </div>
+        </div>
 
-                <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Throttle (South to North):</label>
-                <div class="throttle-instruction">*Adjust density based on your device's processing power.</div>
-                <div class="slider-container">
-                    <input type="range" id="substationDensityRange" min="0" max="100" value="10" step="5">
-                    <input type="text" id="substationDensityInput" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
-                </div>
+        <div class="filter-group" style="margin-top: 25px; border-top: 1px solid #444; padding-top: 15px;">
+            <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Throttle (South to North):</label>
+            <div class="throttle-instruction">*Adjust density based on your device's processing power.</div>
+            <div class="slider-container">
+                <input type="range" id="substationDensityRange" min="0" max="100" value="10" step="5">
+                <input type="text" id="substationDensityInput" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
             </div>
         </div>
     </div>
@@ -166,8 +186,8 @@ permalink: /repd_atlas_grid_model/
     
     // Substation layer setup
     const subsLayer = L.layerGroup();
-    let allSubstationFeatures = []; // Will hold the raw, sorted GeoJSON features
-    let currentSubstationPercentage = 10; // Default load is 10%
+    let allSubstationFeatures = []; 
+    let currentSubstationPercentage = 10; 
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 
@@ -191,11 +211,9 @@ permalink: /repd_atlas_grid_model/
     fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_66kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#b200ff', weight: 1.5, opacity: 0.7 } }).addTo(grid66Layer)).catch(e => console.error(e));
     
-    // --- NEW: Substation Throttle Logic ---
     fetch('{{ site.baseurl }}/grid_substations.geojson')
         .then(r => r.json())
         .then(data => {
-            // Sort features by Latitude (South to North)
             allSubstationFeatures = data.features.sort((a, b) => {
                 const latA = a.geometry.coordinates[1];
                 const latB = b.geometry.coordinates[1];
@@ -221,7 +239,6 @@ permalink: /repd_atlas_grid_model/
         }).addTo(subsLayer);
     }
 
-    // Substation Slider Event Listener
     $('#substationDensityRange').on('input', function() {
         const val = parseInt($(this).val());
         $('#substationDensityInput').val(val + "%");

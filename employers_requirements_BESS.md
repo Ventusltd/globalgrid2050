@@ -272,7 +272,7 @@ Execution of the scope defined above will yield the following verified deliverab
 
 ## Total Engineering Effort
 
-Total hours: **1,380 to 3,250** Total cost: **£131,100 to £308,750** ---
+Total hours: **1,380 to 3,250** Total cost: **£131,100 to £308,750** 
 
 ## Compliance Position
 

@@ -12,14 +12,21 @@ permalink: /repd_atlas_grid_model/
 <style>
     .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; position: relative; }
     
+    /* --- NEW: STICKY MAP WRAPPER --- */
+    #map-wrapper {
+        position: sticky;
+        top: 10px; /* Space from top of screen */
+        z-index: 999; /* Ensure it stays above the table */
+        margin-bottom: 20px;
+    }
+
     #map { 
-        height: 850px; 
-        min-height: 75vh; 
+        height: 800px; /* Slightly reduced to fit sticky behavior nicely */
         width: 100%; 
         border-radius: 12px; 
         background: #0b0e14; 
         border: 3px solid #2a2f3a; 
-        margin-bottom: 20px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Add shadow to look elevated */
     }
 
     .filter-panel { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #444; margin-bottom: 15px; color: white; }
@@ -40,7 +47,11 @@ permalink: /repd_atlas_grid_model/
         border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
     }
     
-    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; /* Required for JS scrolling */}
+    #repd-table-container { 
+        background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; 
+        margin-top: 20px; /* Space from sticky map */
+    }
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
@@ -62,52 +73,43 @@ permalink: /repd_atlas_grid_model/
     .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 10px; font-style: italic; }
 
     /* =======================================================
-       --- NEW: GAMEPAD (RETRO D-PAD) STYLING ---
+       --- UPDATED: RED VERTICAL SCROLL PAD (OVER IRELAND) ---
        ======================================================= */
     #gamepad-container {
         position: absolute;
-        bottom: 50px;
-        right: 30px;
-        z-index: 1000; /* Ensure it floats above the map */
-        width: 120px;
-        height: 120px;
-        background-color: #333; /* D-pad gray */
-        border-radius: 12px;
-        border: 4px solid #111;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        top: 50%; /* Center vertically on the map */
+        transform: translateY(-50%);
+        left: 20px; /* Hovering over Northern Ireland */
+        z-index: 1000; 
+        width: 50px;
+        height: 110px;
+        background-color: #aa0000; /* Retro Nintendo Red */
+        border-radius: 25px;
+        border: 4px solid #333;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5px 0;
+        align-items: center;
     }
 
     .dpad-btn {
-        position: absolute;
-        background-color: #1a1a1a; /* Arrow button black */
-        border: 1px solid #000;
-        cursor: pointer;
-        color: #66ccff; /* Glow color */
-        font-size: 24px;
-        line-height: 1;
-        text-align: center;
-        transition: background 0.1s;
-        border-radius: 4px;
-    }
-    
-    .dpad-btn:hover { background-color: #333; color: #fff; }
-    .dpad-btn:active { background-color: #000; color: #ff9d00; transform: scale(0.95); }
-
-    /* Vertical buttons */
-    #btn-up    { top: 5px;   left: 40px; width: 40px; height: 35px; }
-    #btn-down  { bottom: 5px; left: 40px; width: 40px; height: 35px; }
-    
-    /* Horizontal buttons */
-    #btn-left  { top: 40px;  left: 5px;  width: 35px; height: 40px; }
-    #btn-right { top: 40px;  right: 5px; width: 35px; height: 40px; }
-
-    /* The central non-clickable part */
-    .dpad-center {
-        position: absolute;
-        top: 40px; left: 40px; width: 40px; height: 40px;
         background-color: #1a1a1a;
-        border: 1px solid #000;
+        border: 2px solid #000;
+        cursor: pointer;
+        color: #fff; 
+        font-size: 20px;
+        width: 36px;
+        height: 40px;
+        border-radius: 8px;
+        transition: background 0.1s;
+        box-shadow: inset 0 -2px 5px rgba(0,0,0,0.8), inset 0 2px 2px rgba(255,255,255,0.2);
     }
+    
+    .dpad-btn:hover { background-color: #333; }
+    .dpad-btn:active { background-color: #000; color: #ff9d00; transform: scale(0.95); box-shadow: inset 0 2px 5px rgba(0,0,0,0.8); }
+
 </style>
 
 <div class="dashboard-container">
@@ -163,15 +165,12 @@ permalink: /repd_atlas_grid_model/
         </div>
     </div>
 
-    <div style="position: relative;">
+    <div id="map-wrapper">
         <div id="map"></div>
         
         <div id="gamepad-container">
-            <div class="dpad-center"></div>
             <button class="dpad-btn" id="btn-up">▲</button>
             <button class="dpad-btn" id="btn-down">▼</button>
-            <button class="dpad-btn" id="btn-left">◀</button>
-            <button class="dpad-btn" id="btn-right">▶</button>
         </div>
     </div>
 
@@ -211,7 +210,6 @@ permalink: /repd_atlas_grid_model/
     const grid400Layer = L.layerGroup(); const grid275Layer = L.layerGroup(); const grid220Layer = L.layerGroup();
     const grid132Layer = L.layerGroup(); const grid66Layer = L.layerGroup(); 
     
-    // Substation layer setup
     const subsLayer = L.layerGroup();
     let allSubstationFeatures = []; 
     let currentSubstationPercentage = 10; 
@@ -221,7 +219,6 @@ permalink: /repd_atlas_grid_model/
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
-    // UPDATED: "Throttled" removed from key
     const overlayMaps = {
         "⚡ Energy Projects": markers,
         "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
@@ -362,22 +359,11 @@ permalink: /repd_atlas_grid_model/
     map.on('zoomend', applyZoomScaling);
 
     // =======================================================
-    // --- NEW: GAMEPAD (D-PAD) SCROLLING LOGIC ---
+    // --- VERTICAL SCROLLING LOGIC ---
     // =======================================================
-    const SCROLL_STEP = 200; // Amount to scroll in pixels
+    const SCROLL_STEP = window.innerHeight * 0.5; // Scroll half a screen at a time
 
-    // Handle Page Scrolling (UP / DOWN)
     $('#btn-up').on('click',   function() { window.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' }); });
     $('#btn-down').on('click', function() { window.scrollBy({ top: SCROLL_STEP,  behavior: 'smooth' }); });
 
-    // Handle Data Table Horizontal Scrolling (LEFT / RIGHT)
-    $('#btn-left').on('click', function() {
-        const tableContainer = $('#repd-table-container');
-        tableContainer.animate({ scrollLeft: tableContainer.scrollLeft() - SCROLL_STEP }, 200);
-    });
-    
-    $('#btn-right').on('click', function() {
-        const tableContainer = $('#repd-table-container');
-        tableContainer.animate({ scrollLeft: tableContainer.scrollLeft() + SCROLL_STEP }, 200);
-    });
 </script>

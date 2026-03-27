@@ -38,9 +38,10 @@ Typical PCS to BESS cable interface illustrating parallel cable routing, groupin
 
 ## The Baseline Requirement
 
-Utility scale battery systems are routinely brought to construction with incomplete electrical definition. This creates latent failure risk across cable systems, protection and system behaviour.
+Utility scale battery systems routinely 
+start construction with incomplete electrical definition. This creates latent failure risk across cable systems, protection and system behaviour.
 
-This page defines the minimum engineering scope required to move from concept to a bankable, safe, and operable system.
+This page defines the minimum engineering scope required to move from concept to a bankable, safe and operable system.
 
 ---
 
@@ -94,7 +95,7 @@ A grid connected utility scale battery energy storage system requires precise de
 
 ### System Architecture and Interfaces
 - **Block architecture:** Containerised vs centralised Power Conversion Systems (PCS) and transformer units.
-- **Electrical interfaces:** Clear demarcation at the grid connection point, PCS to transformer (LV/MV), PCS to battery (DC), and auxiliary LV supplies.
+- **Electrical interfaces:** Clear demarcation at the grid connection point, PCS to transformer (LV/MV), PCS to battery (DC) and auxiliary LV supplies.
 - **Redundancy and aggregation:** Number of parallel circuits and aggregation methodology at the MV level.
 
 ### Power Flow and Control Philosophy
@@ -102,12 +103,12 @@ A grid connected utility scale battery energy storage system requires precise de
 - **Control mode:** Grid-following versus grid-forming inverter operation, including frequency response and voltage support capability.
 
 ### Fault and Transient Behaviour
-- **Fault current paths:** Expected magnitude, duration, and routing of fault contributions from the grid, inverter (PCS), and battery systems.
+- **Fault current paths:** Expected magnitude, duration, and routing of fault contributions from the grid, inverter (PCS) and battery systems.
 - **Transient response:** Transformer energisation (inrush), switching transients from MV equipment, and DC-side behaviour during faults or disconnection.
-- **Harmonics and power quality:** Expected harmonic injection from power conversion systems, interaction with grid impedance, and requirement for harmonic filtering.
+- **Harmonics and power quality:** Expected harmonic injection from power conversion systems, interaction with grid impedance and requirement for harmonic filtering.
 
 ### Cable System and Thermal Environment
-- **Cable behaviour:** Parallel cable operation, current sharing, electromagnetic coupling between circuits, and installation geometry impact on inductance. *Cable system behaviour, particularly under parallel operation and thermal interaction, is one of the least understood and highest risk elements in BESS design.*
+- **Cable behaviour:** Parallel cable operation, current sharing, electromagnetic coupling between circuits and installation geometry impact on inductance. *Cable system behaviour, particularly under parallel operation and thermal interaction, is one of the least understood and highest risk elements in BESS design.*
 - **Thermal environment:** Precise definition of installation conditions (buried, ducted, air), factoring in ambient temperature assumptions and the impact of grouping and load diversity.
 - **Failure considerations:** Loss of PCS block, cable failure and isolation strategy, protection misoperation scenarios, and thermal overload conditions.
 

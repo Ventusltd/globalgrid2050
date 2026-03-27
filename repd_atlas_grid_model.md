@@ -120,6 +120,14 @@ permalink: /repd_atlas_grid_model/
     .leaflet-control-layers-overlays label { margin-bottom: 4px; cursor: pointer; display: flex; align-items: center; font-size: 11px; line-height: 1.1; }
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
     .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 10px; font-style: italic; }
+
+    /* --- DATA CENTRE MARKER STYLE --- */
+    .dc-marker {
+        background-color: #00ffff; 
+        border: 1px solid #ffffff; 
+        border-radius: 0; 
+        box-shadow: 0 0 8px #00ffff; 
+    }
 </style>
 
 <div class="dashboard-container">
@@ -219,6 +227,9 @@ permalink: /repd_atlas_grid_model/
     let allSubstationFeatures = []; 
     let currentSubstationPercentage = 10; 
     
+    // --- NEW: DATA CENTRE LAYER ---
+    const dataCentreLayer = L.layerGroup();
+
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 
 
@@ -226,6 +237,7 @@ permalink: /repd_atlas_grid_model/
     
     const overlayMaps = {
         "⚡ Energy Projects": markers,
+        "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
         "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
@@ -241,6 +253,18 @@ permalink: /repd_atlas_grid_model/
     fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_66kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#b200ff', weight: 1.5, opacity: 0.7 } }).addTo(grid66Layer)).catch(e => console.error(e));
     
+    // --- FETCH DATA CENTRES ---
+    fetch('{{ site.baseurl }}/datacentres.geojson').then(r => r.json()).then(data => {
+        L.geoJSON(data, {
+            pointToLayer: function (f, ll) { 
+                return L.marker(ll, { icon: L.divIcon({ className: 'dc-marker', iconSize: [12, 12] }) }); 
+            },
+            onEachFeature: function (f, l) { 
+                l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Data Centre"}</b><br>Operator: ${f.properties.operator || "Unknown"}</div>`); 
+            }
+        }).addTo(dataCentreLayer);
+    }).catch(e => console.error(e));
+
     fetch('{{ site.baseurl }}/grid_substations.geojson')
         .then(r => r.json())
         .then(data => {

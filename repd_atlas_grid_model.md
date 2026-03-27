@@ -10,7 +10,7 @@ permalink: /repd_atlas_grid_model/
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
 <style>
-    .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; }
+    .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; position: relative; }
     
     #map { 
         height: 850px; 
@@ -22,19 +22,9 @@ permalink: /repd_atlas_grid_model/
         margin-bottom: 20px; 
     }
 
-    .filter-panel {
-        background: #111;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #444;
-        margin-bottom: 15px;
-        color: white;
-    }
+    .filter-panel { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #444; margin-bottom: 15px; color: white; }
     .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
-    
-    /* Removed the grid layout so everything stacks vertically */
     .filter-group { margin-bottom: 20px; }
-    
     .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
     
     .slider-container { display: flex; gap: 15px; align-items: center; margin-bottom: 10px; }
@@ -50,47 +40,74 @@ permalink: /repd_atlas_grid_model/
         border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
     }
     
-    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
+    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; /* Required for JS scrolling */}
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* --- 50% SMALLER MAP KEY --- */
     .leaflet-control-layers {
-        background: rgba(17, 17, 17, 0.9) !important; 
-        border: 1px solid #444 !important;
-        color: white !important; 
-        border-radius: 6px !important; 
-        font-family: 'Courier New', Courier, monospace; 
-        padding: 5px 8px !important; /* Reduced padding */
-        max-height: 250px; 
-        overflow-y: auto; 
+        background: rgba(17, 17, 17, 0.9) !important; border: 1px solid #444 !important;
+        color: white !important; border-radius: 6px !important; font-family: 'Courier New', Courier, monospace; 
+        padding: 5px 8px !important; max-height: 250px; overflow-y: auto; 
     }
     
     .leaflet-control-layers::-webkit-scrollbar { width: 4px; }
     .leaflet-control-layers::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
     .leaflet-control-layers::-webkit-scrollbar-thumb { background: #66ccff; border-radius: 4px; }
     
-    .leaflet-control-layers-overlays input[type="checkbox"] { 
-        transform: scale(1.0); /* Scaled down checkbox */
-        margin-right: 6px; 
-        margin-left: 2px; 
-        cursor: pointer; 
-    }
-    
-    .leaflet-control-layers-overlays label { 
-        margin-bottom: 4px; /* Tighter spacing between items */
-        cursor: pointer; 
-        display: flex; 
-        align-items: center; 
-        font-size: 11px; /* Smaller font size */
-        line-height: 1.1; /* Tighter line height */
-    }
-    
+    .leaflet-control-layers-overlays input[type="checkbox"] { transform: scale(1.0); margin-right: 6px; margin-left: 2px; cursor: pointer; }
+    .leaflet-control-layers-overlays label { margin-bottom: 4px; cursor: pointer; display: flex; align-items: center; font-size: 11px; line-height: 1.1; }
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
-    
     .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 10px; font-style: italic; }
+
+    /* =======================================================
+       --- NEW: GAMEPAD (RETRO D-PAD) STYLING ---
+       ======================================================= */
+    #gamepad-container {
+        position: absolute;
+        bottom: 50px;
+        right: 30px;
+        z-index: 1000; /* Ensure it floats above the map */
+        width: 120px;
+        height: 120px;
+        background-color: #333; /* D-pad gray */
+        border-radius: 12px;
+        border: 4px solid #111;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .dpad-btn {
+        position: absolute;
+        background-color: #1a1a1a; /* Arrow button black */
+        border: 1px solid #000;
+        cursor: pointer;
+        color: #66ccff; /* Glow color */
+        font-size: 24px;
+        line-height: 1;
+        text-align: center;
+        transition: background 0.1s;
+        border-radius: 4px;
+    }
+    
+    .dpad-btn:hover { background-color: #333; color: #fff; }
+    .dpad-btn:active { background-color: #000; color: #ff9d00; transform: scale(0.95); }
+
+    /* Vertical buttons */
+    #btn-up    { top: 5px;   left: 40px; width: 40px; height: 35px; }
+    #btn-down  { bottom: 5px; left: 40px; width: 40px; height: 35px; }
+    
+    /* Horizontal buttons */
+    #btn-left  { top: 40px;  left: 5px;  width: 35px; height: 40px; }
+    #btn-right { top: 40px;  right: 5px; width: 35px; height: 40px; }
+
+    /* The central non-clickable part */
+    .dpad-center {
+        position: absolute;
+        top: 40px; left: 40px; width: 40px; height: 40px;
+        background-color: #1a1a1a;
+        border: 1px solid #000;
+    }
 </style>
 
 <div class="dashboard-container">
@@ -137,7 +154,7 @@ permalink: /repd_atlas_grid_model/
         </div>
 
         <div class="filter-group" style="margin-top: 25px; border-top: 1px solid #444; padding-top: 15px;">
-            <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Throttle (South to North):</label>
+            <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Density (South to North):</label>
             <div class="throttle-instruction">*Adjust density based on your device's processing power.</div>
             <div class="slider-container">
                 <input type="range" id="substationDensityRange" min="0" max="100" value="10" step="5">
@@ -146,7 +163,17 @@ permalink: /repd_atlas_grid_model/
         </div>
     </div>
 
-    <div id="map"></div>
+    <div style="position: relative;">
+        <div id="map"></div>
+        
+        <div id="gamepad-container">
+            <div class="dpad-center"></div>
+            <button class="dpad-btn" id="btn-up">▲</button>
+            <button class="dpad-btn" id="btn-down">▼</button>
+            <button class="dpad-btn" id="btn-left">◀</button>
+            <button class="dpad-btn" id="btn-right">▶</button>
+        </div>
+    </div>
 
     <div id="repd-table-container">
         <table id="repd-table" class="display nowrap" style="width:100%">
@@ -194,9 +221,10 @@ permalink: /repd_atlas_grid_model/
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
+    // UPDATED: "Throttled" removed from key
     const overlayMaps = {
         "⚡ Energy Projects": markers,
-        "<span style='color: #ffffff; font-weight: bold;'>■ Substations (Throttled)</span>": subsLayer,
+        "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
         "<span style='color: #ff9900; font-weight: bold;'>220kV Cables</span>": grid220Layer,
@@ -288,11 +316,12 @@ permalink: /repd_atlas_grid_model/
                 if (x && y) {
                     try {
                         const coords = proj4("EPSG:27700", "WGS84", [x, y]);
+                        const lat = coords[1]; const lon = coords[0];
                         const isOp = status === 'Operational';
                         const color = isOp ? '#00f2ff' : '#ff9d00'; 
                         const baseRadius = Math.max(10, (Math.sqrt(capacity) || 4) * 2);
                         
-                        const marker = L.circleMarker([coords[1], coords[0]], {
+                        const marker = L.circleMarker([lat, lon], {
                             radius: baseRadius, baseRadius: baseRadius, fillColor: color, color: "#fff", weight: 2, fillOpacity: 0.8
                         }).bindPopup(`
                             <div style="min-width:180px; font-family: Courier, monospace;">
@@ -331,4 +360,24 @@ permalink: /repd_atlas_grid_model/
         allMarkers.forEach(layer => { layer.setRadius(layer.options.baseRadius * scaleMultiplier); });
     }
     map.on('zoomend', applyZoomScaling);
+
+    // =======================================================
+    // --- NEW: GAMEPAD (D-PAD) SCROLLING LOGIC ---
+    // =======================================================
+    const SCROLL_STEP = 200; // Amount to scroll in pixels
+
+    // Handle Page Scrolling (UP / DOWN)
+    $('#btn-up').on('click',   function() { window.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' }); });
+    $('#btn-down').on('click', function() { window.scrollBy({ top: SCROLL_STEP,  behavior: 'smooth' }); });
+
+    // Handle Data Table Horizontal Scrolling (LEFT / RIGHT)
+    $('#btn-left').on('click', function() {
+        const tableContainer = $('#repd-table-container');
+        tableContainer.animate({ scrollLeft: tableContainer.scrollLeft() - SCROLL_STEP }, 200);
+    });
+    
+    $('#btn-right').on('click', function() {
+        const tableContainer = $('#repd-table-container');
+        tableContainer.animate({ scrollLeft: tableContainer.scrollLeft() + SCROLL_STEP }, 200);
+    });
 </script>

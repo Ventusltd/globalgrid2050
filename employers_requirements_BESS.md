@@ -320,10 +320,10 @@ All engineering used for procurement or construction must be:
 - supported by traceable calculations  
 - covered by professional indemnity insurance  
 
-**This level of engineering definition is required for any project seeking reliable operation, regulatory compliance, and financial close.**
+**This level of engineering definition is required for any project seeking reliable operation, regulatory compliance and financial close.**
 
 ---
 
 ## Disclaimer
 
-This document defines engineering principles only. Project-specific validation is required prior to design, procurement, or construction.
+This document defines engineering principles only. Project-specific validation is required prior to design, procurement or construction.

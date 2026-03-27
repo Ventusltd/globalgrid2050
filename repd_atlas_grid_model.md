@@ -45,7 +45,7 @@ permalink: /repd_atlas_grid_model/
         width: 100%; padding: 10px; margin-bottom: 20px; background: #222; color: white; border: 1px solid #66ccff;
         border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
     }
-    
+
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     
     /* Force table to stay on one line per row so scrollbar triggers */
@@ -54,7 +54,7 @@ permalink: /repd_atlas_grid_model/
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* --- UPGRADED MAP KEY --- */
+    /* --- COMPACT, SCROLLABLE MAP KEY --- */
     .leaflet-control-layers {
         background: rgba(17, 17, 17, 0.9) !important; 
         border: 1px solid #444 !important;
@@ -62,13 +62,10 @@ permalink: /repd_atlas_grid_model/
         border-radius: 8px !important; 
         font-family: 'Courier New', Courier, monospace; 
         padding: 10px 15px !important;
-        
-        /* The Magic Scroll Logic */
         max-height: 250px; 
         overflow-y: auto; 
     }
     
-    /* Custom Scrollbar for the Map Key */
     .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
     .leaflet-control-layers::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
     .leaflet-control-layers::-webkit-scrollbar-thumb { background: #66ccff; border-radius: 4px; }

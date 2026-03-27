@@ -10,23 +10,75 @@ permalink: /repd_atlas_grid_model/
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
 <style>
-    .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; position: relative; }
-    
-    /* --- NEW: STICKY MAP WRAPPER --- */
-    #map-wrapper {
-        position: sticky;
-        top: 10px; /* Space from top of screen */
-        z-index: 999; /* Ensure it stays above the table */
-        margin-bottom: 20px;
+    /* =======================================================
+       --- NEW: LARGE, NEUTRAL CUSTOM PAGE SCROLLBAR ---
+       ======================================================= */
+    html {
+        overflow-y: scroll; /* Force vertical scrollbar to always show */
+        scrollbar-color: #555 #111; /* Firefox fallback */
+        scrollbar-width: auto;
     }
 
+    ::-webkit-scrollbar {
+        width: 26px; /* Very large and grabbable */
+        background-color: #111; 
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #111;
+        border-left: 1px solid #333;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #444; /* Neutral grey */
+        border: 2px solid #111; /* Gives it some breathing room */
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #666; /* Lighter grey on hover */
+    }
+
+    /* Scrollbar Up/Down Arrow Buttons */
+    ::-webkit-scrollbar-button:single-button {
+        background-color: #222;
+        display: block;
+        height: 26px;
+        width: 26px;
+        border-left: 1px solid #333;
+    }
+
+    ::-webkit-scrollbar-button:single-button:hover {
+        background-color: #444;
+    }
+
+    /* Up Arrow SVG Background */
+    ::-webkit-scrollbar-button:single-button:vertical:decrement {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>');
+        background-size: 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /* Down Arrow SVG Background */
+    ::-webkit-scrollbar-button:single-button:vertical:increment {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
+        background-size: 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+    /* --- Standard Dashboard Styles --- */
+    .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; position: relative; }
+    
+    #map-wrapper { width: 100%; margin-bottom: 20px; position: relative; }
+
     #map { 
-        height: 800px; /* Slightly reduced to fit sticky behavior nicely */
+        height: 850px; 
         width: 100%; 
         border-radius: 12px; 
         background: #0b0e14; 
         border: 3px solid #2a2f3a; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Add shadow to look elevated */
     }
 
     .filter-panel { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #444; margin-bottom: 15px; color: white; }
@@ -47,11 +99,7 @@ permalink: /repd_atlas_grid_model/
         border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer;
     }
     
-    #repd-table-container { 
-        background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; 
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; 
-        margin-top: 20px; /* Space from sticky map */
-    }
+    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; }
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
@@ -63,53 +111,15 @@ permalink: /repd_atlas_grid_model/
         padding: 5px 8px !important; max-height: 250px; overflow-y: auto; 
     }
     
-    .leaflet-control-layers::-webkit-scrollbar { width: 4px; }
+    /* Make the tiny scrollbar inside the map key match our new neutral aesthetic */
+    .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
     .leaflet-control-layers::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
-    .leaflet-control-layers::-webkit-scrollbar-thumb { background: #66ccff; border-radius: 4px; }
+    .leaflet-control-layers::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
     
     .leaflet-control-layers-overlays input[type="checkbox"] { transform: scale(1.0); margin-right: 6px; margin-left: 2px; cursor: pointer; }
     .leaflet-control-layers-overlays label { margin-bottom: 4px; cursor: pointer; display: flex; align-items: center; font-size: 11px; line-height: 1.1; }
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
     .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 10px; font-style: italic; }
-
-    /* =======================================================
-       --- UPDATED: RED VERTICAL SCROLL PAD (OVER IRELAND) ---
-       ======================================================= */
-    #gamepad-container {
-        position: absolute;
-        top: 50%; /* Center vertically on the map */
-        transform: translateY(-50%);
-        left: 20px; /* Hovering over Northern Ireland */
-        z-index: 1000; 
-        width: 50px;
-        height: 110px;
-        background-color: #aa0000; /* Retro Nintendo Red */
-        border-radius: 25px;
-        border: 4px solid #333;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.3);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 5px 0;
-        align-items: center;
-    }
-
-    .dpad-btn {
-        background-color: #1a1a1a;
-        border: 2px solid #000;
-        cursor: pointer;
-        color: #fff; 
-        font-size: 20px;
-        width: 36px;
-        height: 40px;
-        border-radius: 8px;
-        transition: background 0.1s;
-        box-shadow: inset 0 -2px 5px rgba(0,0,0,0.8), inset 0 2px 2px rgba(255,255,255,0.2);
-    }
-    
-    .dpad-btn:hover { background-color: #333; }
-    .dpad-btn:active { background-color: #000; color: #ff9d00; transform: scale(0.95); box-shadow: inset 0 2px 5px rgba(0,0,0,0.8); }
-
 </style>
 
 <div class="dashboard-container">
@@ -167,11 +177,6 @@ permalink: /repd_atlas_grid_model/
 
     <div id="map-wrapper">
         <div id="map"></div>
-        
-        <div id="gamepad-container">
-            <button class="dpad-btn" id="btn-up">▲</button>
-            <button class="dpad-btn" id="btn-down">▼</button>
-        </div>
     </div>
 
     <div id="repd-table-container">
@@ -357,13 +362,5 @@ permalink: /repd_atlas_grid_model/
         allMarkers.forEach(layer => { layer.setRadius(layer.options.baseRadius * scaleMultiplier); });
     }
     map.on('zoomend', applyZoomScaling);
-
-    // =======================================================
-    // --- VERTICAL SCROLLING LOGIC ---
-    // =======================================================
-    const SCROLL_STEP = window.innerHeight * 0.5; // Scroll half a screen at a time
-
-    $('#btn-up').on('click',   function() { window.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' }); });
-    $('#btn-down').on('click', function() { window.scrollBy({ top: SCROLL_STEP,  behavior: 'smooth' }); });
 
 </script>

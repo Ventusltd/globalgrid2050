@@ -1,21 +1,26 @@
 name: Fetch London Underground Stations
 
 on:
-  workflow_dispatch: # This allows you to manually click a "Run" button!
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *' # Automatically runs once a month (stations rarely move)
+    - cron: '0 0 1 * *'
+
+permissions:
+  contents: write
 
 jobs:
   update-tube-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: pip install requests
@@ -24,9 +29,16 @@ jobs:
         run: python scripts/fetch_london_underground.py
 
       - name: Commit and Push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
           git add london_underground.geojson
-          git commit -m "Automated update: London Underground geojson" || echo "No changes to commit"
-          git push
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated update: London Underground geojson"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

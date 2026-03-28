@@ -70,12 +70,12 @@ permalink: /repd_atlas_grid_model/
         align-items: center;
         width: 100%;
         flex-wrap: wrap; 
-        gap: 18px; 
+        gap: 12px; /* Tightened gap for 17 items */
     }
     .world-clock-item {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 5px;
         font-size: 11px; 
     }
     .world-city { color: #666; letter-spacing: 1px; font-weight: bold; text-transform: uppercase; }
@@ -226,17 +226,19 @@ permalink: /repd_atlas_grid_model/
             <div class="world-clock-item"><span class="world-city">Houston</span> <span class="world-time" id="time-hou">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">New York</span> <span class="world-time" id="time-nyc">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Santo Domingo</span> <span class="world-time" id="time-sdo">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Santiago</span> <span class="world-time" id="time-scl">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">São Paulo</span> <span class="world-time" id="time-sao">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Zurich / EU</span> <span class="world-time" id="time-zur">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Athens / Kyiv / Tel Aviv</span> <span class="world-time" id="time-ath">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Cape Town</span> <span class="world-time" id="time-cpt">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Moscow / Istanbul</span> <span class="world-time" id="time-mos">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Tehran</span> <span class="world-time" id="time-thr">--:--</span></div>
-            <div class="world-clock-item"><span class="world-city">Dubai</span> <span class="world-time" id="time-dxb">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Dubai / Mauritius</span> <span class="world-time" id="time-dxb">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Delhi / Bangalore</span> <span class="world-time" id="time-del">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Beijing / Perth / Manila</span> <span class="world-time" id="time-bei">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Tokyo</span> <span class="world-time" id="time-tyo">--:--</span></div>
             <div class="world-clock-item"><span class="world-city">Sydney</span> <span class="world-time" id="time-syd">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Auckland</span> <span class="world-time" id="time-akl">--:--</span></div>
         </div>
     </div>
 
@@ -346,7 +348,7 @@ permalink: /repd_atlas_grid_model/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
-    // --- CLOCK SCRIPT (NO JARGON, GROUPED CITIES) ---
+    // --- CLOCK SCRIPT (NO JARGON, GROUPED CITIES, WEST TO EAST) ---
     function updateMissionClock() {
         const now = new Date();
         const target = new Date("2050-01-01T00:00:00Z");
@@ -372,13 +374,14 @@ permalink: /repd_atlas_grid_model/
             document.getElementById('countdown-display').innerText = "TARGET REACHED";
         }
 
-        // Global Ticker Timezones (Grouped to avoid duplication)
+        // Global Ticker Timezones
         const opts = { hour: '2-digit', minute: '2-digit', hour12: false };
         
         document.getElementById('time-sfo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Los_Angeles' });
         document.getElementById('time-hou').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Chicago' });
         document.getElementById('time-nyc').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/New_York' });
         document.getElementById('time-sdo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Santo_Domingo' });
+        document.getElementById('time-scl').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Santiago' });
         document.getElementById('time-sao').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Sao_Paulo' });
         document.getElementById('time-zur').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Europe/Zurich' });
         document.getElementById('time-ath').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Europe/Athens' }); 
@@ -390,6 +393,7 @@ permalink: /repd_atlas_grid_model/
         document.getElementById('time-bei').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Asia/Shanghai' }); 
         document.getElementById('time-tyo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Asia/Tokyo' });
         document.getElementById('time-syd').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Australia/Sydney' });
+        document.getElementById('time-akl').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Pacific/Auckland' });
     }
     setInterval(updateMissionClock, 1000);
     updateMissionClock();

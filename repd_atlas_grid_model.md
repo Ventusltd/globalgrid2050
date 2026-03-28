@@ -44,7 +44,7 @@ permalink: /repd_atlas_grid_model/
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* --- COMPACT MAP KEY BOX --- */
+    /* --- MAP KEY BOX --- */
     .leaflet-control-layers { 
         background: rgba(17, 17, 17, 0.9) !important; 
         border: 1px solid #444 !important; 
@@ -52,7 +52,7 @@ permalink: /repd_atlas_grid_model/
         border-radius: 6px !important; 
         font-family: 'Courier New', Courier, monospace; 
         padding: 5px 8px !important; 
-        max-height: 250px; /* REVERTED TO COMPACT SCROLLING SIZE */
+        max-height: 400px; /* Increased to fit the new sub-heading */
         overflow-y: auto; 
     }
     .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
@@ -69,6 +69,7 @@ permalink: /repd_atlas_grid_model/
     .airport-marker { background-color: #ff00ff; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #ff00ff; }
     .railway-marker { background-color: #ffd700; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #ffd700; }
     .industry-marker { background-color: #ff6600; border: 1px solid #ffffff; border-radius: 3px; transform: rotate(45deg); box-shadow: 0 0 8px #ff6600; }
+    .water-marker { background-color: #0088ff; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #0088ff; }
     .nuclear-marker { background-color: #39ff14; border: 2px solid #000; border-radius: 50%; box-shadow: 0 0 10px #39ff14; }
     .gas-marker { background-color: #ff4500; border: 1px solid #fff; border-radius: 50%; box-shadow: 0 0 8px #ff4500; }
     .hs2-marker { background-color: #8a2be2; border: 1px solid #fff; transform: rotate(45deg); box-shadow: 0 0 8px #8a2be2; }
@@ -182,16 +183,20 @@ permalink: /repd_atlas_grid_model/
     const airportLayer = L.layerGroup();
     const railwayLayer = L.layerGroup();
     const industryLayer = L.layerGroup();
+    const waterLayer = L.layerGroup(); 
     const nuclearLayer = L.layerGroup();
     const gasLayer = L.layerGroup();
     const hs2Layer = L.layerGroup();
+    
+    // Empty layer just to act as a non-clickable header in the control box
+    const dummyHeaderLayer = L.layerGroup(); 
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
     map.addLayer(markers); 
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
-    // --- REORDERED OVERLAY MAPS (Lines at top, then generation, then demand) ---
+    // --- REORDERED OVERLAY MAPS WITH SUB-TITLE ---
     const overlayMaps = {
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
@@ -202,12 +207,18 @@ permalink: /repd_atlas_grid_model/
         "⚡ Energy Projects": markers,
         "<span style='color: #39ff14; font-weight: bold;'>☢️ Nuclear Plants</span>": nuclearLayer,
         "<span style='color: #ff4500; font-weight: bold;'>🔥 Gas Plants</span>": gasLayer,
+        
+        // --- THE SUB-TITLE DIVIDER ---
+        "<div style='margin-top:8px; margin-bottom:4px; border-bottom:1px solid #555; padding-bottom:4px; color:#aaa; font-weight:bold; font-size:10px; pointer-events:none;'>HEAVY ENERGY USERS<br>(Potential PPA/Offtakers)</div>": dummyHeaderLayer,
+        
         "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
+        "<span style='color: #0088ff; font-weight: bold;'>💧 Water Utilities</span>": waterLayer,
         "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
         "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
         "<span style='color: #8a2be2; font-weight: bold;'>🚄 HS2 Stations</span>": hs2Layer,
         "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer
     };
+    
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 
     // --- FETCH GRID DATA ---
@@ -240,10 +251,22 @@ permalink: /repd_atlas_grid_model/
     }).catch(e => console.error(e));
 
     fetch('{{ site.baseurl }}/industrial_offtakers.geojson').then(r => r.json()).then(data => {
-        L.geoJSON(data, {
-            pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'industry-marker', iconSize: [10, 10] }) }); },
-            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`); }
-        }).addTo(industryLayer);
+        data.features.forEach(f => {
+            const typeLower = (f.properties.type || "").toLowerCase();
+            const isWater = typeLower.includes('water');
+            const lat = f.geometry.coordinates[1];
+            const lon = f.geometry.coordinates[0];
+            
+            const markerClass = isWater ? 'water-marker' : 'industry-marker';
+            const marker = L.marker([lat, lon], { icon: L.divIcon({ className: markerClass, iconSize: [10, 10] }) });
+            marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`);
+            
+            if (isWater) {
+                waterLayer.addLayer(marker);
+            } else {
+                industryLayer.addLayer(marker);
+            }
+        });
     }).catch(e => console.error(e));
 
     fetch('{{ site.baseurl }}/power_plants.geojson').then(r => r.json()).then(data => {
@@ -387,5 +410,16 @@ permalink: /repd_atlas_grid_model/
         allMarkers.forEach(layer => { layer.setRadius(layer.options.baseRadius * scaleMultiplier); });
     }
     map.on('zoomend', applyZoomScaling);
+
+    // --- HIDE THE CHECKBOX FOR THE DUMMY HEADER ---
+    setTimeout(() => {
+        const labels = document.querySelectorAll('.leaflet-control-layers-overlays label');
+        labels.forEach(label => {
+            if (label.innerHTML.includes('HEAVY ENERGY USERS')) {
+                const checkbox = label.querySelector('input');
+                if (checkbox) checkbox.style.display = 'none';
+            }
+        });
+    }, 500);
 
 </script>

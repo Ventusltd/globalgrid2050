@@ -1,6 +1,14 @@
+This is an excellent step for transforming this from a "web widget" into a true, professional-grade, full-screen command center.
+By removing the max-width restriction, expanding the map vertically, and pinning the map key (legend) horizontally across the bottom, we free up maximum real estate for the visual data.
+What’s Changed:
+ * Full-Screen Width: Changed .dashboard-container max-width from 1400px to 98%. Your map and table will now stretch to fill your entire monitor.
+ * Taller Map / France Coverage: The map height is now set to 85vh (85% of your screen height, so it's massive). I also shifted the default center coordinate south to the English Channel [49.0, 1.0] and adjusted the zoom so it perfectly captures both the UK and France.
+ * Horizontal, Expanded Map Key: I grabbed the Leaflet control box, ripped it out of the map corner, and injected it into a new #custom-legend-container placed exactly below the map. It is completely unrolled, uses Flexbox to span horizontally, and requires zero scrolling.
+ * Wider, Shorter Table: The table naturally stretches to fill the new 98% width. To make it "less vertical," I added a rigid 300px scroll window inside the DataTables configuration.
+Here is your fully updated, widescreen master file. Replace everything in your repd_atlas_grid_model.md with this:
 ---
 layout: page
-title: UK Energy Atlas (REPD)
+title: UK & France Energy Atlas
 permalink: /repd_atlas_grid_model/
 ---
 
@@ -23,47 +31,111 @@ permalink: /repd_atlas_grid_model/
     ::-webkit-scrollbar-button:single-button:vertical:decrement { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>'); background-size: 16px; background-position: center; background-repeat: no-repeat; }
     ::-webkit-scrollbar-button:single-button:vertical:increment { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'); background-size: 16px; background-position: center; background-repeat: no-repeat; }
     
-    /* --- Standard Dashboard Styles --- */
-    .dashboard-container { max-width: 1400px; margin: auto; padding: 10px; font-family: 'Courier New', Courier, monospace; position: relative; }
+    /* --- FULL WIDTH DASHBOARD --- */
+    .dashboard-container { 
+        max-width: 98%; /* Replaced 1400px constraint to span full monitor */
+        margin: auto; 
+        padding: 10px 1%; 
+        font-family: 'Courier New', Courier, monospace; 
+        position: relative; 
+    }
+    
     #map-wrapper { width: 100%; margin-bottom: 20px; position: relative; }
-    #map { height: 850px; width: 100%; border-radius: 12px; background: #0b0e14; border: 3px solid #2a2f3a; }
+    
+    /* --- VERTICALLY EXPANDED MAP --- */
+    #map { 
+        height: 85vh; /* Massive vertical space */
+        min-height: 800px;
+        width: 100%; 
+        border-radius: 12px; 
+        background: #0b0e14; 
+        border: 3px solid #2a2f3a; 
+    }
 
-    .filter-panel { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #444; margin-bottom: 15px; color: white; }
-    .filter-panel h3 { margin-top: 0; color: #66ccff; font-size: 22px; margin-bottom: 15px; }
-    .filter-group { margin-bottom: 20px; }
-    .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 16px; }
+    .filter-panel { background: #111; padding: 20px; border-radius: 12px; border: 1px solid #444; margin-bottom: 15px; color: white; display: flex; flex-wrap: wrap; gap: 20px; }
+    .filter-panel h3 { margin-top: 0; flex-basis: 100%; color: #66ccff; font-size: 22px; margin-bottom: 5px; }
+    .filter-group { flex: 1 1 200px; min-width: 250px; }
+    .filter-panel label { display: block; margin-bottom: 5px; font-weight: bold; color: #66ccff; font-size: 14px; }
     
-    .slider-container { display: flex; gap: 15px; align-items: center; margin-bottom: 10px; }
+    .slider-container { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
     input[type=range] { flex-grow: 1; cursor: pointer; accent-color: #66ccff; }
-    .number-input { width: 90px; padding: 8px; background: #222; color: #66ccff; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; text-align: center; }
-    select.filter-select { width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: white; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer; }
-    .slider-label-small { font-size:13px; color:#ccc; margin-bottom:2px; display:block; }
+    .number-input { width: 70px; padding: 6px; background: #222; color: #66ccff; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 14px; text-align: center; }
+    select.filter-select { width: 100%; padding: 8px; background: #222; color: white; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 14px; cursor: pointer; }
+    .slider-label-small { font-size:12px; color:#ccc; margin-bottom:2px; display:block; }
     
-    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; }
+    /* --- WIDE, LESS VERTICAL TABLE --- */
+    #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
     
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* --- MAP KEY BOX --- */
-    .leaflet-control-layers { 
-        background: rgba(17, 17, 17, 0.9) !important; 
+    /* =======================================================
+       --- HORIZONTAL EXTERNAL MAP KEY (BELOW MAP) ---
+       ======================================================= */
+    #custom-legend-container {
+        margin-bottom: 25px;
+        width: 100%;
+    }
+    #custom-legend-container .leaflet-control-layers {
+        position: static !important; /* Forces it out of map layout */
+        background: #111 !important; 
         border: 1px solid #444 !important; 
         color: white !important; 
-        border-radius: 6px !important; 
-        font-family: 'Courier New', Courier, monospace; 
-        padding: 5px 8px !important; 
-        max-height: 400px; 
-        overflow-y: auto; 
+        border-radius: 12px !important; 
+        padding: 20px !important; 
+        max-height: none !important; /* No scrolling */
+        width: 100%;
+        box-sizing: border-box;
+        box-shadow: none !important;
     }
-    .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
-    .leaflet-control-layers::-webkit-scrollbar-track { background: #222; border-radius: 4px; }
-    .leaflet-control-layers::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
-    .leaflet-control-layers-overlays input[type="checkbox"] { transform: scale(1.0); margin-right: 6px; margin-left: 2px; cursor: pointer; }
-    .leaflet-control-layers-overlays label { margin-bottom: 4px; cursor: pointer; display: flex; align-items: center; font-size: 11px; line-height: 1.1; }
-    
+    #custom-legend-container .leaflet-control-layers-list { display: block; }
+    #custom-legend-container .leaflet-control-layers-base,
+    #custom-legend-container .leaflet-control-layers-overlays {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 30px;
+        row-gap: 15px;
+        align-items: center;
+    }
+    #custom-legend-container .leaflet-control-layers-separator {
+        display: block;
+        flex-basis: 100%;
+        height: 1px;
+        background: #333;
+        margin: 10px 0;
+    }
+    #custom-legend-container .leaflet-control-layers label {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        margin: 0 !important;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    #custom-legend-container input[type="checkbox"], 
+    #custom-legend-container input[type="radio"] {
+        transform: scale(1.2);
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    /* --- THEMED SECTION BREAKS IN THE KEY --- */
+    .legend-break {
+        flex-basis: 100%; /* Forces a line break in Flexbox */
+        width: 100%;
+        margin-top: 15px;
+        border-bottom: 1px solid #555;
+        padding-bottom: 5px;
+        color: #aaa;
+        font-weight: bold;
+        font-size: 13px;
+        letter-spacing: 1px;
+        pointer-events: none;
+    }
+
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
-    .throttle-instruction { font-size: 13px; color: #aaa; margin-bottom: 10px; font-style: italic; }
+    .throttle-instruction { font-size: 12px; color: #aaa; margin-bottom: 8px; font-style: italic; }
 
     /* --- INFRASTRUCTURE MARKER STYLES --- */
     .dc-marker { background-color: #00ffff; border: 1px solid #ffffff; border-radius: 0; box-shadow: 0 0 8px #00ffff; }
@@ -127,31 +199,41 @@ permalink: /repd_atlas_grid_model/
                 <input type="range" id="minCapacityRange" min="0" max="10000" value="0" step="1">
                 <input type="number" id="minCapacityInput" value="0" min="0" max="10000" class="number-input">
             </div>
-        </div>
-        
-        <div class="filter-group">
-            <label for="maxCapacityRange">Maximum Size (MW):</label>
+            
+            <label for="maxCapacityRange" style="margin-top:10px;">Maximum Size (MW):</label>
             <div class="slider-container">
                 <input type="range" id="maxCapacityRange" min="0" max="10000" value="10000" step="1">
                 <input type="number" id="maxCapacityInput" value="10000" min="0" max="10000" class="number-input">
             </div>
         </div>
 
-        <div class="filter-group" style="margin-top: 25px; border-top: 1px solid #444; padding-top: 15px;">
-            <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Density (Midlands Outwards):</label>
-            <div class="throttle-instruction">*Expands outwards from Central England to manage RAM.</div>
+        <div class="filter-group" style="border-left: 1px solid #444; padding-left: 20px;">
+            <label style="color:#ffffff;">■ Substation Density:</label>
+            <div class="throttle-instruction">*Manage RAM (Midlands Outwards)</div>
+            <span class="slider-label-small">South ➔ North</span>
             <div class="slider-container">
-                <input type="range" id="substationDensityRange" min="0" max="100" value="10" step="5">
-                <input type="text" id="substationDensityInput" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
+                <input type="range" id="substationDensityRangeSN" min="0" max="100" value="10" step="5">
+                <input type="text" id="substationDensityInputSN" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
+            </div>
+            <span class="slider-label-small" style="margin-top:5px;">North ➔ South</span>
+            <div class="slider-container">
+                <input type="range" id="substationDensityRangeNS" min="0" max="100" value="0" step="5">
+                <input type="text" id="substationDensityInputNS" value="0%" readonly class="number-input" style="color:#fff; border-color:#fff;">
             </div>
         </div>
 
-        <div class="filter-group" style="margin-top: 15px;">
-            <label for="waterDensityRange" style="color:#ffffff;">💧 Water Utilities Density (Midlands Outwards):</label>
-            <div class="throttle-instruction">*Expands outwards from Central England to manage RAM.</div>
+        <div class="filter-group">
+            <label style="color:#ffffff;">💧 Water Utilities Density:</label>
+            <div class="throttle-instruction">*Manage RAM (Midlands Outwards)</div>
+            <span class="slider-label-small">South ➔ North</span>
             <div class="slider-container">
-                <input type="range" id="waterDensityRange" min="0" max="100" value="10" step="5">
-                <input type="text" id="waterDensityInput" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
+                <input type="range" id="waterDensityRangeSN" min="0" max="100" value="10" step="5">
+                <input type="text" id="waterDensityInputSN" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
+            </div>
+            <span class="slider-label-small" style="margin-top:5px;">North ➔ South</span>
+            <div class="slider-container">
+                <input type="range" id="waterDensityRangeNS" min="0" max="100" value="0" step="5">
+                <input type="text" id="waterDensityInputNS" value="0%" readonly class="number-input" style="color:#fff; border-color:#fff;">
             </div>
         </div>
     </div>
@@ -159,6 +241,8 @@ permalink: /repd_atlas_grid_model/
     <div id="map-wrapper">
         <div id="map"></div>
     </div>
+
+    <div id="custom-legend-container"></div>
 
     <div id="repd-table-container">
         <table id="repd-table" class="display nowrap" style="width:100%">
@@ -195,9 +279,9 @@ permalink: /repd_atlas_grid_model/
     const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri' });
 
-    const map = L.map('map', { center: [52.7, -1.5], zoom: 6, preferCanvas: true, layers: [darkMap] });
+    // --- RECENTERED TO COVER UK & FRANCE ---
+    const map = L.map('map', { center: [49.5, -1.0], zoom: 5.5, preferCanvas: true, layers: [darkMap] }); 
 
-    // Base Latitude for expanding "Midlands Outwards"
     const MIDLANDS_LAT = 52.7; 
 
     // Grid Layers
@@ -205,23 +289,26 @@ permalink: /repd_atlas_grid_model/
     const grid132Layer = L.layerGroup(); const grid66Layer = L.layerGroup(); 
     
     const subsLayer = L.layerGroup();
-    let allSubstationFeatures = []; let currentSubstationPercentage = 10; 
+    let allSubstationFeatures = []; 
+    let currentSubstationPercentageSN = 10; 
+    let currentSubstationPercentageNS = 0; 
     
     // Infrastructure Layers
     const dataCentreLayer = L.layerGroup();
     const airportLayer = L.layerGroup();
     const railwayLayer = L.layerGroup();
     
-    // Industrial Split Layers
     const industryLayer = L.layerGroup();
     const oilLayer = L.layerGroup();
+    
     const waterLayer = L.layerGroup(); 
-    let allWaterFeatures = []; let currentWaterPercentage = 10;
+    let allWaterFeatures = []; 
+    let currentWaterPercentageSN = 10;
+    let currentWaterPercentageNS = 0;
 
     const nuclearLayer = L.layerGroup();
     const gasLayer = L.layerGroup();
     const hs2Layer = L.layerGroup();
-    
     const dummyHeaderLayer = L.layerGroup(); 
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
@@ -241,7 +328,7 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #39ff14; font-weight: bold;'>☢️ Nuclear Plants</span>": nuclearLayer,
         "<span style='color: #ff4500; font-weight: bold;'>🔥 Gas Plants</span>": gasLayer,
         
-        "<div style='margin-top:8px; margin-bottom:4px; border-bottom:1px solid #555; padding-bottom:4px; color:#aaa; font-weight:bold; font-size:10px; pointer-events:none;'>HEAVY ENERGY USERS<br>(Potential PPA/Offtakers)</div>": dummyHeaderLayer,
+        "<div class='legend-break'>HEAVY ENERGY USERS (Potential PPA/Offtakers)</div>": dummyHeaderLayer,
         
         "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
         "<span style='color: #cccccc; font-weight: bold;'>🛢️ Oil Sites</span>": oilLayer,
@@ -252,7 +339,11 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer
     };
     
-    L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+    // --- EXTRACT LEAFLET CONTROL AND MOVE IT OUTSIDE ---
+    const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+    const legendHtml = layerControl.getContainer();
+    document.getElementById('custom-legend-container').appendChild(legendHtml);
+    L.DomEvent.disableClickPropagation(legendHtml); // Prevents map interaction when clicking the key
 
     // --- FETCH GRID DATA ---
     fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
@@ -295,7 +386,6 @@ permalink: /repd_atlas_grid_model/
                 const lat = f.geometry.coordinates[1];
                 const lon = f.geometry.coordinates[0];
                 const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'oil-marker', iconSize: [40, 40], iconAnchor: [20, 20] }) });
-                // Note: The popup overrides the exact script label so it says "Oil Site" smoothly
                 marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: Oil Site<br>Operator: ${f.properties.operator}</div>`);
                 oilLayer.addLayer(marker);
             } else {
@@ -307,24 +397,28 @@ permalink: /repd_atlas_grid_model/
             }
         });
         
-        // Sort water features by Absolute Distance from Midlands
         allWaterFeatures.sort((a, b) => {
             const distA = Math.abs(a.geometry.coordinates[1] - MIDLANDS_LAT);
             const distB = Math.abs(b.geometry.coordinates[1] - MIDLANDS_LAT);
             return distA - distB;
         });
-        renderWater(currentWaterPercentage);
+        renderWater();
         
     }).catch(e => console.error(e));
 
-    function renderWater(percentage) {
+    function renderWater() {
         waterLayer.clearLayers();
         if (allWaterFeatures.length === 0) return;
         
-        const numToLoad = Math.floor((percentage / 100) * allWaterFeatures.length);
-        const featuresToRender = allWaterFeatures.slice(0, numToLoad);
+        const total = allWaterFeatures.length;
+        const numSN = Math.floor((currentWaterPercentageSN / 100) * total);
+        const numNS = Math.floor((currentWaterPercentageNS / 100) * total);
         
-        featuresToRender.forEach(f => {
+        let featuresToRender = new Set();
+        if (numSN > 0) allWaterFeatures.slice(0, numSN).forEach(f => featuresToRender.add(f));
+        if (numNS > 0) allWaterFeatures.slice(total - numNS).forEach(f => featuresToRender.add(f));
+        
+        Array.from(featuresToRender).forEach(f => {
             const lat = f.geometry.coordinates[1];
             const lon = f.geometry.coordinates[0];
             const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'water-marker', iconSize: [10, 10] }) });
@@ -333,10 +427,18 @@ permalink: /repd_atlas_grid_model/
         });
     }
 
-    $('#waterDensityRange').on('input', function() {
+    $('#waterDensityRangeSN').on('input', function() {
         const val = parseInt($(this).val());
-        $('#waterDensityInput').val(val + "%");
-        renderWater(val);
+        $('#waterDensityInputSN').val(val + "%");
+        currentWaterPercentageSN = val;
+        renderWater();
+    });
+
+    $('#waterDensityRangeNS').on('input', function() {
+        const val = parseInt($(this).val());
+        $('#waterDensityInputNS').val(val + "%");
+        currentWaterPercentageNS = val;
+        renderWater();
     });
 
     fetch('{{ site.baseurl }}/power_plants.geojson').then(r => r.json()).then(data => {
@@ -358,28 +460,32 @@ permalink: /repd_atlas_grid_model/
         }).addTo(hs2Layer);
     }).catch(e => console.error(e));
 
-    // --- FETCH SUBSTATIONS & MIDLANDS OUTWARDS THROTTLE ---
+    // --- FETCH SUBSTATIONS & DUAL THROTTLE ---
     fetch('{{ site.baseurl }}/grid_substations.geojson')
         .then(r => r.json())
         .then(data => {
-            // Sort by Absolute Distance from Midlands
             allSubstationFeatures = data.features.sort((a, b) => {
                 const distA = Math.abs(a.geometry.coordinates[1] - MIDLANDS_LAT);
                 const distB = Math.abs(b.geometry.coordinates[1] - MIDLANDS_LAT);
                 return distA - distB;
             });
-            renderSubstations(currentSubstationPercentage);
+            renderSubstations();
         })
         .catch(e => console.error(e));
 
-    function renderSubstations(percentage) {
+    function renderSubstations() {
         subsLayer.clearLayers();
         if (allSubstationFeatures.length === 0) return;
         
-        const numToLoad = Math.floor((percentage / 100) * allSubstationFeatures.length);
-        const featuresToRender = allSubstationFeatures.slice(0, numToLoad);
+        const total = allSubstationFeatures.length;
+        const numSN = Math.floor((currentSubstationPercentageSN / 100) * total);
+        const numNS = Math.floor((currentSubstationPercentageNS / 100) * total);
         
-        L.geoJSON({"type": "FeatureCollection", "features": featuresToRender}, {
+        let featuresToRender = new Set();
+        if (numSN > 0) allSubstationFeatures.slice(0, numSN).forEach(f => featuresToRender.add(f));
+        if (numNS > 0) allSubstationFeatures.slice(total - numNS).forEach(f => featuresToRender.add(f));
+        
+        L.geoJSON({"type": "FeatureCollection", "features": Array.from(featuresToRender)}, {
             pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'substation-marker', iconSize: [8, 8] }) }); },
             onEachFeature: function (f, l) { 
                 const v = f.properties.voltage || "Unknown";
@@ -388,10 +494,18 @@ permalink: /repd_atlas_grid_model/
         }).addTo(subsLayer);
     }
 
-    $('#substationDensityRange').on('input', function() {
+    $('#substationDensityRangeSN').on('input', function() {
         const val = parseInt($(this).val());
-        $('#substationDensityInput').val(val + "%");
-        renderSubstations(val);
+        $('#substationDensityInputSN').val(val + "%");
+        currentSubstationPercentageSN = val;
+        renderSubstations();
+    });
+
+    $('#substationDensityRangeNS').on('input', function() {
+        const val = parseInt($(this).val());
+        $('#substationDensityInputNS').val(val + "%");
+        currentSubstationPercentageNS = val;
+        renderSubstations();
     });
 
     const csvUrl = '{{ site.baseurl }}/repd.csv';
@@ -469,8 +583,16 @@ permalink: /repd_atlas_grid_model/
         if ($.fn.DataTable.isDataTable('#repd-table')) {
             dataTable.clear().rows.add(filteredTableData).draw();
         } else {
+            // --- NEW: WIDE, LESS VERTICAL TABLE CONFIG ---
             dataTable = $('#repd-table').DataTable({
-                data: filteredTableData, pageLength: 10, order: [[3, 'desc']], responsive: true, scrollX: true, language: { search: "Scan Systems:" }
+                data: filteredTableData, 
+                pageLength: 10, 
+                order: [[3, 'desc']], 
+                responsive: true, 
+                scrollX: true, 
+                scrollY: "300px", // Constrains vertical height
+                scrollCollapse: true,
+                language: { search: "Scan Systems:" }
             });
         }
     }
@@ -482,15 +604,17 @@ permalink: /repd_atlas_grid_model/
     }
     map.on('zoomend', applyZoomScaling);
 
-    // --- HIDE THE CHECKBOX FOR THE DUMMY HEADER ---
+    // --- HIDE THE CHECKBOX FOR THE DUMMY HEADER & FORCE LINE BREAK ---
     setTimeout(() => {
-        const labels = document.querySelectorAll('.leaflet-control-layers-overlays label');
+        const labels = document.querySelectorAll('#custom-legend-container label');
         labels.forEach(label => {
             if (label.innerHTML.includes('HEAVY ENERGY USERS')) {
                 const checkbox = label.querySelector('input');
                 if (checkbox) checkbox.style.display = 'none';
+                label.style.flexBasis = "100%"; // Ensures it takes the full row
             }
         });
     }, 500);
 
 </script>
+

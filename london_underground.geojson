@@ -1,0 +1,4085 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Shepherd's Bush Market",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2263134,
+          51.50607
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Finchley Central",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.192318,
+          51.6008355
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sloane Square",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1558767,
+          51.4922264
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wimbledon",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2052107,
+          51.4220252
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mansion House",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0952228,
+          51.5118924
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Harrow",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3631762,
+          51.5851618
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Harrow & Wealdstone",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3348748,
+          51.5922178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Ealing",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2887523,
+          51.5174885
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ruislip Gardens",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4104614,
+          51.5606573
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Kenton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3085107,
+          51.5703076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Wembley",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3038698,
+          51.5624017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tooting Bec",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1597188,
+          51.4356228
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Clapham North",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1296388,
+          51.4653034
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oval",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1123953,
+          51.4818339
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kennington",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1058829,
+          51.4882861
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. James's Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1345942,
+          51.4992816
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Westminster",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1249302,
+          51.5013562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Brixton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.114705,
+          51.4626097
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blackhorse Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0416453,
+          51.5867174
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Clapham South",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1475523,
+          51.4528372
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Balham",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1528977,
+          51.4433857
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tooting Broadway",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1682905,
+          51.4277387
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Colliers Wood",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1778626,
+          51.4182747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Wimbledon",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1926457,
+          51.4151759
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Redbridge",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0454097,
+          51.5763203
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Old Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0876094,
+          51.5256284
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kenton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3166378,
+          51.5815255
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "King's Cross St Pancras",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1239491,
+          51.530609
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stockwell",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1225014,
+          51.472211
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Arsenal",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1074866,
+          51.5583839
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pimlico",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1353308,
+          51.4891579
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Victoria",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1431522,
+          51.4963688
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Upminster",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.2516815,
+          51.5589708
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wembley Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2800532,
+          51.5636297
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Finsbury Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1064144,
+          51.5648345
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Baker Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1567431,
+          51.5225853
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paddington",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.175365,
+          51.5154795
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Archway",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1348189,
+          51.5653116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Acton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.248137,
+          51.5173451
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Snaresbrook",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0215864,
+          51.5808033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bank",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0893749,
+          51.5131048
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Heathrow Terminal 4",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4454717,
+          51.4588093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barons Court",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2144055,
+          51.4903477
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Arnos Grove",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1330981,
+          51.6164256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Angel",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1060356,
+          51.5324874
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Camden Town",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1426957,
+          51.5394397
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Finchley",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1648137,
+          51.5871881
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Highgate",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1458316,
+          51.5776825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tufnell Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.138457,
+          51.5568005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hendon Central",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2265541,
+          51.5834006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Barnet",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1938826,
+          51.650399
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Brent Cross",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2139731,
+          51.5768177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Greenford",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3447996,
+          51.5421177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mill Hill East",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2101451,
+          51.6082746
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Finchley",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1883313,
+          51.6094298
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Woodside Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.185523,
+          51.617938
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Epping",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1139888,
+          51.6936318
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Harrow",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3522211,
+          51.5646517
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sudbury Town",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3156202,
+          51.550751
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sudbury Hill",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3362525,
+          51.5568815
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Edgware Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1667636,
+          51.5201935
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Whitechapel",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0600874,
+          51.5197615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barbican",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0986342,
+          51.5201797
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barkingside",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0886245,
+          51.5858181
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bond Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1494231,
+          51.5139808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Buckhurst Hill",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0468161,
+          51.6259439
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chancery Lane",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1117642,
+          51.5181738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chigwell",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0757204,
+          51.6176444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Debden",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.083583,
+          51.6452814
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fairlop",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0911302,
+          51.5959477
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gants Hill",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0648799,
+          51.576525
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grange Hill",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0925025,
+          51.613134
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hainault",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0933827,
+          51.6033138
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mile End",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.033435,
+          51.5253378
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Monument",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0861271,
+          51.5106328
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Roding Valley",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0437553,
+          51.6170812
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Farringdon",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.104555,
+          51.519964
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Leicester Square",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1282641,
+          51.5114642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Amersham",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.6073643,
+          51.6740875
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chalfont & Latimer",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.5611671,
+          51.6681019
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liverpool Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0825205,
+          51.5176777
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cannon Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0903632,
+          51.5113812
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Piccadilly Circus",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1345484,
+          51.5098192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Waterloo",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1139812,
+          51.5030015
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Charing Cross",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1263945,
+          51.5079664
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Elephant & Castle",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1005731,
+          51.4948884
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Euston",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1338745,
+          51.5282865
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Holborn",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1200657,
+          51.5171149
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wimbledon Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1990432,
+          51.4340563
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ravenscourt Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2357932,
+          51.4941293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Blackfriars",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1037671,
+          51.5115854
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lambeth North",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1120142,
+          51.4989328
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aldgate",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0757186,
+          51.5142477
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Seven Sisters",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0749325,
+          51.5824738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Southfields",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2066142,
+          51.4457751
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vauxhall",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1248604,
+          51.4860091
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Ealing",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3076815,
+          51.5008623
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Upton Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0339842,
+          51.5351062
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Clapham Common",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1373589,
+          51.4620748
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "White City",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2242361,
+          51.5119347
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paddington (Circle and Hammersmith & City lines)",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1787546,
+          51.5185075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chesham",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.6110784,
+          51.705012
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Woodford",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0274276,
+          51.5917798
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Ruislip",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4370447,
+          51.5695047
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aldgate East",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.070839,
+          51.5156185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parsons Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.201549,
+          51.4750837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fulham Broadway",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1943493,
+          51.4808834
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Plaistow",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0166833,
+          51.5311544
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bow Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.024789,
+          51.5268535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stepney Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0467147,
+          51.5217026
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oakwood",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1312548,
+          51.6473302
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Kensington",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2059442,
+          51.4907023
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Brompton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1951854,
+          51.4869765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Boston Manor",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3254399,
+          51.4953386
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Heathrow Terminals 2 & 3",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.452483,
+          51.4713416
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Heathrow Terminal 5",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4877331,
+          51.472515
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knightsbridge",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.160937,
+          51.5015961
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hounslow West",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3858181,
+          51.4735822
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mornington Crescent",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1380918,
+          51.5340608
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hounslow East",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3558944,
+          51.4734727
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hounslow Central",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3662332,
+          51.471307
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Southgate",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1277858,
+          51.6323183
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cockfosters",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1485149,
+          51.651366
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Burnt Oak",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2640125,
+          51.6028082
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Putney Bridge",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2087947,
+          51.4682995
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northfields",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.312979,
+          51.4996647
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "London Bridge",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0886993,
+          51.5054118
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chorleywood",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.5183913,
+          51.6542186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hyde Park Corner",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1543249,
+          51.5027264
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lancaster Gate",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.175387,
+          51.511824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Newbury Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0899693,
+          51.5754985
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Moor Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4321576,
+          51.6297793
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rickmansworth",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4736305,
+          51.6402275
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ealing Common",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2881658,
+          51.5097107
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kingsbury",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2787137,
+          51.5843174
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queensbury",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.286181,
+          51.5941903
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northwick Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3176997,
+          51.578491
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Preston Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2958081,
+          51.5722732
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Finchley Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1806964,
+          51.5472307
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Harrow",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3531364,
+          51.5795991
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Eastcote",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3965092,
+          51.5766614
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ickenham",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4423513,
+          51.5615698
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pinner",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.380635,
+          51.5926589
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northwood Hills",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4084575,
+          51.6001534
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northwood",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4237072,
+          51.6107965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Croxley",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4410785,
+          51.6475825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Watford",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4183683,
+          51.6570048
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Leytonstone",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0086166,
+          51.5688027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Harrow-on-the-Hill",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3366561,
+          51.5792702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Acton Town",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2799643,
+          51.5027051
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Kensington",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1729072,
+          51.4940799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Edgware Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1702993,
+          51.5204575
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Marylebone",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1635046,
+          51.5222363
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Embankment",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1222409,
+          51.5072143
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Notting Hill Gate",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1961978,
+          51.5089252
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Ham",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0045685,
+          51.5280966
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stratford",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0035472,
+          51.541289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Southwark",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1049663,
+          51.503925
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Edgware",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2749555,
+          51.6136623
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kentish Town",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1388654,
+          51.5501727
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Warwick Avenue",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1833083,
+          51.5229834
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tottenham Court Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1305125,
+          51.5159715
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bounds Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1249047,
+          51.607376
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hammersmith (Circle and Hammersmith & City lines)",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2250607,
+          51.494109
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. Paul's",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0975883,
+          51.5149144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hampstead",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1784251,
+          51.5565973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Belsize Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1646146,
+          51.5503088
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Holloway Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1130095,
+          51.5528674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Swiss Cottage",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.174982,
+          51.543722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Park Royal",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2839348,
+          51.5264341
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wood Lane",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2237557,
+          51.5101068
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Turnpike Lane",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1027442,
+          51.5901482
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Morden",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1947552,
+          51.4027615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canning Town",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0082987,
+          51.5139887
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ealing Broadway",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3004067,
+          51.5149803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Russell Square",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1242529,
+          51.5230529
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Caledonian Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1183585,
+          51.548482
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Totteridge & Whetstone",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1791837,
+          51.6307163
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chalk Farm",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1534811,
+          51.5441141
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oxford Circus",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1419563,
+          51.5154418
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Greenwich",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0043201,
+          51.500574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canada Water",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0498405,
+          51.4979299
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Moorgate",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0890625,
+          51.5182516
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kensington (Olympia)",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2094954,
+          51.497437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Ruislip",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3990635,
+          51.5569909
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Acton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2597818,
+          51.5235769
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hammersmith (District and Piccadilly lines)",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.223247,
+          51.4921603
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tower Hill",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0766986,
+          51.5098481
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Colindale",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2499296,
+          51.5954091
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Golders Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.194027,
+          51.5723003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ruislip",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4213375,
+          51.5714026
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rayners Lane",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3714658,
+          51.5752109
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Neasden",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.250749,
+          51.5543358
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hatton Cross",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4239942,
+          51.4665357
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Osterley",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3518348,
+          51.4815507
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stamford Brook",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2458881,
+          51.4949692
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Turnham Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2546948,
+          51.4951314
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chiswick Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2678739,
+          51.4945622
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Earl's Court",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.193903,
+          51.4916123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Becontree",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1265241,
+          51.5403111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ruislip Manor",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4117997,
+          51.5733973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northolt",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3695247,
+          51.5484582
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Perivale",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3225887,
+          51.5364952
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Theydon Bois",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1033213,
+          51.6717759
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Loughton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0553234,
+          51.6412266
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Woodford",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0340219,
+          51.6068074
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hanger Lane",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2936453,
+          51.5303098
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Upminster Bridge",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.2347689,
+          51.5582655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hornchurch",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.2181092,
+          51.5538747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dagenham East",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1649496,
+          51.544018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dagenham Heathway",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1456377,
+          51.5415534
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stanmore",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3026271,
+          51.6188526
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canons Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2947453,
+          51.6080065
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Elm Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1974303,
+          51.549579
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Leyton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0051322,
+          51.5568183
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Putney",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2112429,
+          51.4586138
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Temple",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1143345,
+          51.5109659
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Walthamstow Central",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0199941,
+          51.582893
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Alperton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3000963,
+          51.5408036
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Covent Garden",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1242695,
+          51.5130942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. John's Wood",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1742097,
+          51.5353523
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Ham",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0526042,
+          51.5394005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bromley-by-Bow",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0123189,
+          51.5246287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Canary Wharf",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0186272,
+          51.5035036
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kensal Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2244449,
+          51.5306063
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Harlesden",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.257833,
+          51.5363567
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Hampstead",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1899646,
+          51.5468194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bermondsey",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0643453,
+          51.4977004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Green Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1429437,
+          51.5066244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Uxbridge",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4775114,
+          51.546655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hillingdon",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.4504637,
+          51.5536028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Goldhawk Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2265662,
+          51.5017564
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Shepherd's Bush",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2183251,
+          51.5043576
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Latimer Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2177873,
+          51.5134749
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kilburn Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1943721,
+          51.5350704
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Royal Oak",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1874439,
+          51.5190222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bayswater",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1883854,
+          51.5122764
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Street Kensington",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1921096,
+          51.5002995
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gloucester Road",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1837696,
+          51.4945266
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Marble Arch",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1582531,
+          51.513435
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Great Portland Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1437048,
+          51.5238146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Warren Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1385303,
+          51.5247178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Goodge Street",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1343573,
+          51.5205978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Highbury & Islington",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1036544,
+          51.5463679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Willesden Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.222223,
+          51.5493524
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kilburn",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2053385,
+          51.5469889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Acton",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.280413,
+          51.5183524
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Richmond",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.3004127,
+          51.4632072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gunnersbury",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2755244,
+          51.4913757
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stonebridge Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2762285,
+          51.5441099
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Willesden Junction",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2435041,
+          51.5321956
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dollis Hill",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2390026,
+          51.5519333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Westbourne Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2014098,
+          51.5209265
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kew Gardens",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.284962,
+          51.4771341
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Barking",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0793235,
+          51.5402677
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ladbroke Grove",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2111019,
+          51.5172639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Upney",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.099626,
+          51.538266
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queen's Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2054958,
+          51.533873
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tottenham Hale",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0599442,
+          51.588123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Holland Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2054639,
+          51.507192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Euston Square",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1355703,
+          51.5256866
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wanstead",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0286373,
+          51.575646
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Queensway",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1872329,
+          51.5104729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Regent's Park",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1466357,
+          51.5236277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maida Vale",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1857447,
+          51.5298672
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wood Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1097795,
+          51.597416
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Manor House",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0963971,
+          51.5703208
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Borough",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0932926,
+          51.5011444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bethnal Green",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.054752,
+          51.5272449
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wembley Central",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2966751,
+          51.5523278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nine Elms",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1296937,
+          51.4801837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Battersea Power Station",
+        "type": "Tube Station",
+        "operator": "Transport for London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1429709,
+          51.4796154
+        ]
+      }
+    }
+  ]
+}

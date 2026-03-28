@@ -1,11 +1,3 @@
-This is an excellent step for transforming this from a "web widget" into a true, professional-grade, full-screen command center.
-By removing the max-width restriction, expanding the map vertically, and pinning the map key (legend) horizontally across the bottom, we free up maximum real estate for the visual data.
-What’s Changed:
- * Full-Screen Width: Changed .dashboard-container max-width from 1400px to 98%. Your map and table will now stretch to fill your entire monitor.
- * Taller Map / France Coverage: The map height is now set to 85vh (85% of your screen height, so it's massive). I also shifted the default center coordinate south to the English Channel [49.0, 1.0] and adjusted the zoom so it perfectly captures both the UK and France.
- * Horizontal, Expanded Map Key: I grabbed the Leaflet control box, ripped it out of the map corner, and injected it into a new #custom-legend-container placed exactly below the map. It is completely unrolled, uses Flexbox to span horizontally, and requires zero scrolling.
- * Wider, Shorter Table: The table naturally stretches to fill the new 98% width. To make it "less vertical," I added a rigid 300px scroll window inside the DataTables configuration.
-Here is your fully updated, widescreen master file. Replace everything in your repd_atlas_grid_model.md with this:
 ---
 layout: page
 title: UK & France Energy Atlas
@@ -617,4 +609,3 @@ permalink: /repd_atlas_grid_model/
     }, 500);
 
 </script>
-

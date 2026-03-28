@@ -54,29 +54,31 @@ permalink: /repd_atlas_grid_model/
     .clock-block { display: flex; flex-direction: column; flex: 1; }
     .clock-block.right { text-align: right; }
     .clock-label { font-size: 11px; color: #888; letter-spacing: 2px; margin-bottom: 4px; text-transform: uppercase; }
-    .clock-value { font-size: 22px; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px rgba(0, 255, 255, 0.4); white-space: nowrap; }
+    .clock-value { font-size: 22px; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px rgba(0, 255, 255, 0.4); white-space: nowrap; line-height: 1.2; }
     .clock-value-alt { font-size: 22px; font-weight: bold; color: #ff9d00; text-shadow: 0 0 8px rgba(255, 157, 0, 0.4); white-space: nowrap; }
 
-    /* NEW: WORLD CLOCKS TIER */
+    /* --- WORLD CLOCKS TIER --- */
     .clock-divider {
         width: 100%;
         height: 1px;
         background: #222;
-        margin: 12px 0 8px 0;
+        margin: 12px 0 10px 0;
     }
     .world-clock-row {
         display: flex;
-        justify-content: space-between;
+        justify-content: center; 
         align-items: center;
         width: 100%;
+        flex-wrap: wrap; 
+        gap: 18px; 
     }
     .world-clock-item {
         display: flex;
         align-items: center;
-        gap: 8px;
-        font-size: 13px;
+        gap: 6px;
+        font-size: 11px; 
     }
-    .world-city { color: #666; letter-spacing: 1px; font-weight: bold; }
+    .world-city { color: #666; letter-spacing: 1px; font-weight: bold; text-transform: uppercase; }
     .world-time { color: #aaa; font-family: 'Courier New', Courier, monospace; }
     
     #map-wrapper { width: 100%; margin-bottom: 20px; position: relative; }
@@ -210,8 +212,8 @@ permalink: /repd_atlas_grid_model/
     <div class="mission-clock-container">
         <div class="clock-main-row">
             <div class="clock-block">
-                <span class="clock-label">Current System Time (UK)</span>
-                <span class="clock-value" id="current-time-display">--:--:--</span>
+                <span class="clock-label">London / Lisbon</span>
+                <span class="clock-value" id="current-time-display">--<br>--:--:--</span>
             </div>
             <div class="clock-block right">
                 <span class="clock-label">Time to 2050 Net Zero Target</span>
@@ -220,18 +222,21 @@ permalink: /repd_atlas_grid_model/
         </div>
         <div class="clock-divider"></div>
         <div class="world-clock-row">
-            <div class="world-clock-item">
-                <span class="world-city">SFO</span> <span class="world-time" id="time-sfo">--:--</span>
-            </div>
-            <div class="world-clock-item">
-                <span class="world-city">NYC</span> <span class="world-time" id="time-nyc">--:--</span>
-            </div>
-            <div class="world-clock-item">
-                <span class="world-city">TYO</span> <span class="world-time" id="time-tyo">--:--</span>
-            </div>
-            <div class="world-clock-item">
-                <span class="world-city">SYD</span> <span class="world-time" id="time-syd">--:--</span>
-            </div>
+            <div class="world-clock-item"><span class="world-city">San Francisco</span> <span class="world-time" id="time-sfo">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Houston</span> <span class="world-time" id="time-hou">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">New York</span> <span class="world-time" id="time-nyc">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Santo Domingo</span> <span class="world-time" id="time-sdo">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">São Paulo</span> <span class="world-time" id="time-sao">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Zurich / EU</span> <span class="world-time" id="time-zur">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Athens / Kyiv / Tel Aviv</span> <span class="world-time" id="time-ath">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Cape Town</span> <span class="world-time" id="time-cpt">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Moscow / Istanbul</span> <span class="world-time" id="time-mos">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Tehran</span> <span class="world-time" id="time-thr">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Dubai</span> <span class="world-time" id="time-dxb">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Delhi / Bangalore</span> <span class="world-time" id="time-del">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Beijing / Perth / Manila</span> <span class="world-time" id="time-bei">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Tokyo</span> <span class="world-time" id="time-tyo">--:--</span></div>
+            <div class="world-clock-item"><span class="world-city">Sydney</span> <span class="world-time" id="time-syd">--:--</span></div>
         </div>
     </div>
 
@@ -341,19 +346,20 @@ permalink: /repd_atlas_grid_model/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
-    // --- CLOCK SCRIPT (UPDATED TO BRITISH TIME + WORLD HUBS) ---
+    // --- CLOCK SCRIPT (NO JARGON, GROUPED CITIES) ---
     function updateMissionClock() {
         const now = new Date();
         const target = new Date("2050-01-01T00:00:00Z");
         const diffMs = target - now;
 
-        // Force UK Timezone (handles both GMT and BST automatically)
-        const currentOptions = { 
-            weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
-            hour: '2-digit', minute: '2-digit', second: '2-digit', 
-            timeZone: 'Europe/London', timeZoneName: 'short' 
-        };
-        document.getElementById('current-time-display').innerText = now.toLocaleString('en-GB', currentOptions);
+        // Force Europe/London Timezone and strip all acronyms
+        const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Europe/London' };
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/London' }; 
+        
+        const dateStr = now.toLocaleDateString('en-GB', dateOptions);
+        const timeStr = now.toLocaleTimeString('en-GB', timeOptions);
+        
+        document.getElementById('current-time-display').innerHTML = `${dateStr}<br>${timeStr}`;
 
         // Format Countdown
         if (diffMs > 0) {
@@ -366,16 +372,24 @@ permalink: /repd_atlas_grid_model/
             document.getElementById('countdown-display').innerText = "TARGET REACHED";
         }
 
-        // World Clocks
-        const optSFO = { timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', hour12: false };
-        const optNYC = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false };
-        const optTYO = { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hour12: false };
-        const optSYD = { timeZone: 'Australia/Sydney', hour: '2-digit', minute: '2-digit', hour12: false };
-
-        document.getElementById('time-sfo').innerText = now.toLocaleTimeString('en-GB', optSFO);
-        document.getElementById('time-nyc').innerText = now.toLocaleTimeString('en-GB', optNYC);
-        document.getElementById('time-tyo').innerText = now.toLocaleTimeString('en-GB', optTYO);
-        document.getElementById('time-syd').innerText = now.toLocaleTimeString('en-GB', optSYD);
+        // Global Ticker Timezones (Grouped to avoid duplication)
+        const opts = { hour: '2-digit', minute: '2-digit', hour12: false };
+        
+        document.getElementById('time-sfo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Los_Angeles' });
+        document.getElementById('time-hou').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Chicago' });
+        document.getElementById('time-nyc').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/New_York' });
+        document.getElementById('time-sdo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Santo_Domingo' });
+        document.getElementById('time-sao').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Sao_Paulo' });
+        document.getElementById('time-zur').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Europe/Zurich' });
+        document.getElementById('time-ath').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Europe/Athens' }); 
+        document.getElementById('time-cpt').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Africa/Johannesburg' }); 
+        document.getElementById('time-mos').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Europe/Istanbul' }); 
+        document.getElementById('time-thr').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Asia/Tehran' });
+        document.getElementById('time-dxb').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Asia/Dubai' });
+        document.getElementById('time-del').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Asia/Kolkata' }); 
+        document.getElementById('time-bei').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Asia/Shanghai' }); 
+        document.getElementById('time-tyo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Asia/Tokyo' });
+        document.getElementById('time-syd').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'Australia/Sydney' });
     }
     setInterval(updateMissionClock, 1000);
     updateMissionClock();
@@ -420,11 +434,10 @@ permalink: /repd_atlas_grid_model/
     const dummyHeaderDemand = L.layerGroup(); 
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
-    // Energy Projects are OFF by default.
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
-    // --- MAP KEY OVERLAYS (WITH BOTH HEADERS) ---
+    // --- MAP KEY OVERLAYS ---
     const overlayMaps = {
         "<div class='legend-break' style='margin-top:0;'>NATIONAL GRID & GENERATION</div>": dummyHeaderGrid,
         

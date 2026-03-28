@@ -25,18 +25,36 @@ permalink: /repd_atlas_grid_model/
     
     /* --- FULL WIDTH DASHBOARD --- */
     .dashboard-container { 
-        max-width: 98%; /* Replaced 1400px constraint to span full monitor */
+        max-width: 98%; 
         margin: auto; 
         padding: 10px 1%; 
         font-family: 'Courier New', Courier, monospace; 
         position: relative; 
     }
     
+    /* --- NEW: TACTICAL MISSION CLOCK HUD --- */
+    .mission-clock-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0a0a0a;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 12px 25px;
+        margin-bottom: 20px;
+        color: #fff;
+        box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+    }
+    .clock-block { display: flex; flex-direction: column; }
+    .clock-label { font-size: 11px; color: #888; letter-spacing: 2px; margin-bottom: 4px; text-transform: uppercase; }
+    .clock-value { font-size: 22px; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px rgba(0, 255, 255, 0.4); }
+    .clock-value-alt { font-size: 22px; font-weight: bold; color: #ff9d00; text-shadow: 0 0 8px rgba(255, 157, 0, 0.4); }
+    
     #map-wrapper { width: 100%; margin-bottom: 20px; position: relative; }
     
     /* --- VERTICALLY EXPANDED MAP --- */
     #map { 
-        height: 85vh; /* Massive vertical space */
+        height: 85vh; 
         min-height: 800px;
         width: 100%; 
         border-radius: 12px; 
@@ -70,13 +88,13 @@ permalink: /repd_atlas_grid_model/
         width: 100%;
     }
     #custom-legend-container .leaflet-control-layers {
-        position: static !important; /* Forces it out of map layout */
+        position: static !important; 
         background: #111 !important; 
         border: 1px solid #444 !important; 
         color: white !important; 
         border-radius: 12px !important; 
         padding: 20px !important; 
-        max-height: none !important; /* No scrolling */
+        max-height: none !important; 
         width: 100%;
         box-sizing: border-box;
         box-shadow: none !important;
@@ -114,7 +132,7 @@ permalink: /repd_atlas_grid_model/
 
     /* --- THEMED SECTION BREAKS IN THE KEY --- */
     .legend-break {
-        flex-basis: 100%; /* Forces a line break in Flexbox */
+        flex-basis: 100%; 
         width: 100%;
         margin-top: 15px;
         border-bottom: 1px solid #555;
@@ -160,6 +178,17 @@ permalink: /repd_atlas_grid_model/
 
 <div class="dashboard-container">
     
+    <div class="mission-clock-container">
+        <div class="clock-block">
+            <span class="clock-label">Current System Time (UTC)</span>
+            <span class="clock-value" id="current-time-display">--:--:--</span>
+        </div>
+        <div class="clock-block" style="text-align: right;">
+            <span class="clock-label">Time to 2050 Net Zero Target</span>
+            <span class="clock-value-alt" id="countdown-display">-- D : -- H : -- M : -- S</span>
+        </div>
+    </div>
+
     <div class="filter-panel">
         <h3>🔍 Map Filters</h3>
         
@@ -266,6 +295,30 @@ permalink: /repd_atlas_grid_model/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
+    // --- NEW: CLOCK SCRIPT ---
+    function updateMissionClock() {
+        const now = new Date();
+        const target = new Date("2050-01-01T00:00:00Z");
+        const diffMs = target - now;
+
+        // Format Current Time
+        const currentOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'UTC', timeZoneName: 'short' };
+        document.getElementById('current-time-display').innerText = now.toLocaleString('en-GB', currentOptions);
+
+        // Format Countdown
+        if (diffMs > 0) {
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diffMs / 1000 / 60) % 60);
+            const secs = Math.floor((diffMs / 1000) % 60);
+            document.getElementById('countdown-display').innerText = `${days}D : ${hours.toString().padStart(2, '0')}H : ${mins.toString().padStart(2, '0')}M : ${secs.toString().padStart(2, '0')}S`;
+        } else {
+            document.getElementById('countdown-display').innerText = "TARGET REACHED";
+        }
+    }
+    setInterval(updateMissionClock, 1000);
+    updateMissionClock();
+
     proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
 
     const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
@@ -304,7 +357,7 @@ permalink: /repd_atlas_grid_model/
     const dummyHeaderLayer = L.layerGroup(); 
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
-    map.addLayer(markers); 
+    // IMPORTANT FIX: Removed `map.addLayer(markers);` so Energy Projects are OFF by default.
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
@@ -335,7 +388,7 @@ permalink: /repd_atlas_grid_model/
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     const legendHtml = layerControl.getContainer();
     document.getElementById('custom-legend-container').appendChild(legendHtml);
-    L.DomEvent.disableClickPropagation(legendHtml); // Prevents map interaction when clicking the key
+    L.DomEvent.disableClickPropagation(legendHtml); 
 
     // --- FETCH GRID DATA ---
     fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
@@ -521,7 +574,7 @@ permalink: /repd_atlas_grid_model/
     }
 
     function updateDisplay() {
-        let markersCurrentlyVisible = map.hasLayer(markers) || allMarkers.length === 0;
+        // Removed forced rendering logic. Layers handle themselves entirely through Leaflet Control.
         markers.clearLayers(); allMarkers = [];
         const filteredTableData = [];
 
@@ -569,20 +622,18 @@ permalink: /repd_atlas_grid_model/
             }
         });
 
-        if (markersCurrentlyVisible) { map.addLayer(markers); }
         applyZoomScaling();
 
         if ($.fn.DataTable.isDataTable('#repd-table')) {
             dataTable.clear().rows.add(filteredTableData).draw();
         } else {
-            // --- NEW: WIDE, LESS VERTICAL TABLE CONFIG ---
             dataTable = $('#repd-table').DataTable({
                 data: filteredTableData, 
                 pageLength: 10, 
                 order: [[3, 'desc']], 
                 responsive: true, 
                 scrollX: true, 
-                scrollY: "300px", // Constrains vertical height
+                scrollY: "300px", 
                 scrollCollapse: true,
                 language: { search: "Scan Systems:" }
             });
@@ -603,7 +654,7 @@ permalink: /repd_atlas_grid_model/
             if (label.innerHTML.includes('HEAVY ENERGY USERS')) {
                 const checkbox = label.querySelector('input');
                 if (checkbox) checkbox.style.display = 'none';
-                label.style.flexBasis = "100%"; // Ensures it takes the full row
+                label.style.flexBasis = "100%"; 
             }
         });
     }, 500);

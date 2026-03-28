@@ -70,7 +70,7 @@ permalink: /repd_atlas_grid_model/
         align-items: center;
         width: 100%;
         flex-wrap: wrap; 
-        gap: 12px; /* Tightened gap for 17 items */
+        gap: 12px;
     }
     .world-clock-item {
         display: flex;
@@ -186,6 +186,7 @@ permalink: /repd_atlas_grid_model/
     .nuclear-marker { background-color: #39ff14; border: 2px solid #000; border-radius: 50%; box-shadow: 0 0 10px #39ff14; }
     .gas-marker { background-color: #ff4500; border: 1px solid #fff; border-radius: 50%; box-shadow: 0 0 8px #ff4500; }
     .hs2-marker { background-color: #8a2be2; border: 1px solid #fff; transform: rotate(45deg); box-shadow: 0 0 8px #8a2be2; }
+    .tube-marker { background-color: #e32017; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #e32017; }
 
     /* --- GLOWING HEATMAP-STYLE MARKERS --- */
     .industry-marker { 
@@ -354,7 +355,6 @@ permalink: /repd_atlas_grid_model/
         const target = new Date("2050-01-01T00:00:00Z");
         const diffMs = target - now;
 
-        // Force Europe/London Timezone and strip all acronyms
         const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Europe/London' };
         const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/London' }; 
         
@@ -363,7 +363,6 @@ permalink: /repd_atlas_grid_model/
         
         document.getElementById('current-time-display').innerHTML = `${dateStr}<br>${timeStr}`;
 
-        // Format Countdown
         if (diffMs > 0) {
             const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
@@ -374,7 +373,6 @@ permalink: /repd_atlas_grid_model/
             document.getElementById('countdown-display').innerText = "TARGET REACHED";
         }
 
-        // Global Ticker Timezones
         const opts = { hour: '2-digit', minute: '2-digit', hour12: false };
         
         document.getElementById('time-sfo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Los_Angeles' });
@@ -403,7 +401,6 @@ permalink: /repd_atlas_grid_model/
     const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri' });
 
-    // --- RECENTERED TO COVER UK & FRANCE ---
     const map = L.map('map', { center: [49.5, -1.0], zoom: 5.5, preferCanvas: true, layers: [darkMap] }); 
 
     const MIDLANDS_LAT = 52.7; 
@@ -421,6 +418,7 @@ permalink: /repd_atlas_grid_model/
     const dataCentreLayer = L.layerGroup();
     const airportLayer = L.layerGroup();
     const railwayLayer = L.layerGroup();
+    const tubeLayer = L.layerGroup(); // Added Tube Layer
     
     const industryLayer = L.layerGroup();
     const oilLayer = L.layerGroup();
@@ -463,10 +461,10 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
         "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
         "<span style='color: #8a2be2; font-weight: bold;'>🚄 HS2 Stations</span>": hs2Layer,
-        "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer
+        "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer,
+        "<span style='color: #e32017; font-weight: bold;'>🚇 London Underground</span>": tubeLayer
     };
     
-    // --- EXTRACT LEAFLET CONTROL AND MOVE IT OUTSIDE ---
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     const legendHtml = layerControl.getContainer();
     document.getElementById('custom-legend-container').appendChild(legendHtml);
@@ -499,6 +497,14 @@ permalink: /repd_atlas_grid_model/
             pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'railway-marker', iconSize: [10, 10] }) }); },
             onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Railway Station"}</b><br>Network: ${f.properties.network || "National Rail / TFL"}</div>`); }
         }).addTo(railwayLayer);
+    }).catch(e => console.error(e));
+
+    // --- FETCH LONDON UNDERGROUND ---
+    fetch('{{ site.baseurl }}/london_underground.geojson').then(r => r.json()).then(data => {
+        L.geoJSON(data, {
+            pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'tube-marker', iconSize: [8, 8] }) }); },
+            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Station"}</b><br>Network: ${f.properties.operator || "TfL"}</div>`); }
+        }).addTo(tubeLayer);
     }).catch(e => console.error(e));
 
     fetch('{{ site.baseurl }}/industrial_offtakers.geojson').then(r => r.json()).then(data => {

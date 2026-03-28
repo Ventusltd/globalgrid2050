@@ -32,11 +32,10 @@ permalink: /repd_atlas_grid_model/
         position: relative; 
     }
     
-    /* --- NEW: TACTICAL MISSION CLOCK HUD --- */
+    /* --- TACTICAL MISSION CLOCK HUD --- */
     .mission-clock-container {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
         background: #0a0a0a;
         border: 1px solid #333;
         border-radius: 8px;
@@ -45,10 +44,40 @@ permalink: /repd_atlas_grid_model/
         color: #fff;
         box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
     }
-    .clock-block { display: flex; flex-direction: column; }
+    .clock-main-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .clock-block { display: flex; flex-direction: column; flex: 1; }
+    .clock-block.right { text-align: right; }
     .clock-label { font-size: 11px; color: #888; letter-spacing: 2px; margin-bottom: 4px; text-transform: uppercase; }
-    .clock-value { font-size: 22px; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px rgba(0, 255, 255, 0.4); }
-    .clock-value-alt { font-size: 22px; font-weight: bold; color: #ff9d00; text-shadow: 0 0 8px rgba(255, 157, 0, 0.4); }
+    .clock-value { font-size: 22px; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px rgba(0, 255, 255, 0.4); white-space: nowrap; }
+    .clock-value-alt { font-size: 22px; font-weight: bold; color: #ff9d00; text-shadow: 0 0 8px rgba(255, 157, 0, 0.4); white-space: nowrap; }
+
+    /* NEW: WORLD CLOCKS TIER */
+    .clock-divider {
+        width: 100%;
+        height: 1px;
+        background: #222;
+        margin: 12px 0 8px 0;
+    }
+    .world-clock-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .world-clock-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+    }
+    .world-city { color: #666; letter-spacing: 1px; font-weight: bold; }
+    .world-time { color: #aaa; font-family: 'Courier New', Courier, monospace; }
     
     #map-wrapper { width: 100%; margin-bottom: 20px; position: relative; }
     
@@ -179,13 +208,30 @@ permalink: /repd_atlas_grid_model/
 <div class="dashboard-container">
     
     <div class="mission-clock-container">
-        <div class="clock-block">
-            <span class="clock-label">Current System Time (UTC)</span>
-            <span class="clock-value" id="current-time-display">--:--:--</span>
+        <div class="clock-main-row">
+            <div class="clock-block">
+                <span class="clock-label">Current System Time (UK)</span>
+                <span class="clock-value" id="current-time-display">--:--:--</span>
+            </div>
+            <div class="clock-block right">
+                <span class="clock-label">Time to 2050 Net Zero Target</span>
+                <span class="clock-value-alt" id="countdown-display">-- D : -- H : -- M : -- S</span>
+            </div>
         </div>
-        <div class="clock-block" style="text-align: right;">
-            <span class="clock-label">Time to 2050 Net Zero Target</span>
-            <span class="clock-value-alt" id="countdown-display">-- D : -- H : -- M : -- S</span>
+        <div class="clock-divider"></div>
+        <div class="world-clock-row">
+            <div class="world-clock-item">
+                <span class="world-city">SFO</span> <span class="world-time" id="time-sfo">--:--</span>
+            </div>
+            <div class="world-clock-item">
+                <span class="world-city">NYC</span> <span class="world-time" id="time-nyc">--:--</span>
+            </div>
+            <div class="world-clock-item">
+                <span class="world-city">TYO</span> <span class="world-time" id="time-tyo">--:--</span>
+            </div>
+            <div class="world-clock-item">
+                <span class="world-city">SYD</span> <span class="world-time" id="time-syd">--:--</span>
+            </div>
         </div>
     </div>
 
@@ -295,14 +341,18 @@ permalink: /repd_atlas_grid_model/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
-    // --- NEW: CLOCK SCRIPT ---
+    // --- CLOCK SCRIPT (UPDATED TO BRITISH TIME + WORLD HUBS) ---
     function updateMissionClock() {
         const now = new Date();
         const target = new Date("2050-01-01T00:00:00Z");
         const diffMs = target - now;
 
-        // Format Current Time
-        const currentOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'UTC', timeZoneName: 'short' };
+        // Force UK Timezone (handles both GMT and BST automatically)
+        const currentOptions = { 
+            weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
+            hour: '2-digit', minute: '2-digit', second: '2-digit', 
+            timeZone: 'Europe/London', timeZoneName: 'short' 
+        };
         document.getElementById('current-time-display').innerText = now.toLocaleString('en-GB', currentOptions);
 
         // Format Countdown
@@ -315,6 +365,17 @@ permalink: /repd_atlas_grid_model/
         } else {
             document.getElementById('countdown-display').innerText = "TARGET REACHED";
         }
+
+        // World Clocks
+        const optSFO = { timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', hour12: false };
+        const optNYC = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false };
+        const optTYO = { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hour12: false };
+        const optSYD = { timeZone: 'Australia/Sydney', hour: '2-digit', minute: '2-digit', hour12: false };
+
+        document.getElementById('time-sfo').innerText = now.toLocaleTimeString('en-GB', optSFO);
+        document.getElementById('time-nyc').innerText = now.toLocaleTimeString('en-GB', optNYC);
+        document.getElementById('time-tyo').innerText = now.toLocaleTimeString('en-GB', optTYO);
+        document.getElementById('time-syd').innerText = now.toLocaleTimeString('en-GB', optSYD);
     }
     setInterval(updateMissionClock, 1000);
     updateMissionClock();
@@ -354,15 +415,19 @@ permalink: /repd_atlas_grid_model/
     const nuclearLayer = L.layerGroup();
     const gasLayer = L.layerGroup();
     const hs2Layer = L.layerGroup();
-    const dummyHeaderLayer = L.layerGroup(); 
+    
+    const dummyHeaderGrid = L.layerGroup(); 
+    const dummyHeaderDemand = L.layerGroup(); 
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
-    // IMPORTANT FIX: Removed `map.addLayer(markers);` so Energy Projects are OFF by default.
+    // Energy Projects are OFF by default.
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
-    // --- MAP KEY OVERLAYS ---
+    // --- MAP KEY OVERLAYS (WITH BOTH HEADERS) ---
     const overlayMaps = {
+        "<div class='legend-break' style='margin-top:0;'>NATIONAL GRID & GENERATION</div>": dummyHeaderGrid,
+        
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
         "<span style='color: #ff9900; font-weight: bold;'>220kV Cables</span>": grid220Layer,
@@ -373,7 +438,7 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #39ff14; font-weight: bold;'>☢️ Nuclear Plants</span>": nuclearLayer,
         "<span style='color: #ff4500; font-weight: bold;'>🔥 Gas Plants</span>": gasLayer,
         
-        "<div class='legend-break'>HEAVY ENERGY USERS (Potential PPA/Offtakers)</div>": dummyHeaderLayer,
+        "<div class='legend-break'>HEAVY ENERGY USERS (Potential PPA/Offtakers)</div>": dummyHeaderDemand,
         
         "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
         "<span style='color: #cccccc; font-weight: bold;'>🛢️ Oil Sites</span>": oilLayer,
@@ -574,7 +639,6 @@ permalink: /repd_atlas_grid_model/
     }
 
     function updateDisplay() {
-        // Removed forced rendering logic. Layers handle themselves entirely through Leaflet Control.
         markers.clearLayers(); allMarkers = [];
         const filteredTableData = [];
 
@@ -647,11 +711,11 @@ permalink: /repd_atlas_grid_model/
     }
     map.on('zoomend', applyZoomScaling);
 
-    // --- HIDE THE CHECKBOX FOR THE DUMMY HEADER & FORCE LINE BREAK ---
+    // --- HIDE THE CHECKBOX FOR THE DUMMY HEADERS & FORCE LINE BREAK ---
     setTimeout(() => {
         const labels = document.querySelectorAll('#custom-legend-container label');
         labels.forEach(label => {
-            if (label.innerHTML.includes('HEAVY ENERGY USERS')) {
+            if (label.innerHTML.includes('HEAVY ENERGY USERS') || label.innerHTML.includes('NATIONAL GRID')) {
                 const checkbox = label.querySelector('input');
                 if (checkbox) checkbox.style.display = 'none';
                 label.style.flexBasis = "100%"; 

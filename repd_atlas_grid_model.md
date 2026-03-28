@@ -44,7 +44,7 @@ permalink: /repd_atlas_grid_model/
     .marker-cluster-small { background-color: rgba(0, 242, 255, 0.6); }
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
-    /* --- EXTENDED MAP KEY BOX --- */
+    /* --- COMPACT MAP KEY BOX --- */
     .leaflet-control-layers { 
         background: rgba(17, 17, 17, 0.9) !important; 
         border: 1px solid #444 !important; 
@@ -52,7 +52,7 @@ permalink: /repd_atlas_grid_model/
         border-radius: 6px !important; 
         font-family: 'Courier New', Courier, monospace; 
         padding: 5px 8px !important; 
-        max-height: 450px; /* Increased from 250px so all layers fit */
+        max-height: 250px; /* REVERTED TO COMPACT SCROLLING SIZE */
         overflow-y: auto; 
     }
     .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
@@ -191,21 +191,22 @@ permalink: /repd_atlas_grid_model/
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
+    // --- REORDERED OVERLAY MAPS (Lines at top, then generation, then demand) ---
     const overlayMaps = {
-        "⚡ Energy Projects": markers,
-        "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
-        "<span style='color: #8a2be2; font-weight: bold;'>🚄 HS2 Stations</span>": hs2Layer,
-        "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer,
-        "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
-        "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
-        "<span style='color: #39ff14; font-weight: bold;'>☢️ Nuclear Plants</span>": nuclearLayer,
-        "<span style='color: #ff4500; font-weight: bold;'>🔥 Gas Plants</span>": gasLayer,
-        "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
         "<span style='color: #ff9900; font-weight: bold;'>220kV Cables</span>": grid220Layer,
         "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer,
-        "<span style='color: #b200ff; font-weight: bold;'>66kV Cables</span>": grid66Layer
+        "<span style='color: #b200ff; font-weight: bold;'>66kV Cables</span>": grid66Layer,
+        "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
+        "⚡ Energy Projects": markers,
+        "<span style='color: #39ff14; font-weight: bold;'>☢️ Nuclear Plants</span>": nuclearLayer,
+        "<span style='color: #ff4500; font-weight: bold;'>🔥 Gas Plants</span>": gasLayer,
+        "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
+        "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
+        "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
+        "<span style='color: #8a2be2; font-weight: bold;'>🚄 HS2 Stations</span>": hs2Layer,
+        "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer
     };
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 

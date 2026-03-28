@@ -37,6 +37,7 @@ permalink: /repd_atlas_grid_model/
     input[type=range] { flex-grow: 1; cursor: pointer; accent-color: #66ccff; }
     .number-input { width: 90px; padding: 8px; background: #222; color: #66ccff; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; text-align: center; }
     select.filter-select { width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: white; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer; }
+    .slider-label-small { font-size:13px; color:#ccc; margin-bottom:2px; display:block; }
     
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; }
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
@@ -243,7 +244,7 @@ permalink: /repd_atlas_grid_model/
         "<div style='margin-top:8px; margin-bottom:4px; border-bottom:1px solid #555; padding-bottom:4px; color:#aaa; font-weight:bold; font-size:10px; pointer-events:none;'>HEAVY ENERGY USERS<br>(Potential PPA/Offtakers)</div>": dummyHeaderLayer,
         
         "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
-        "<span style='color: #cccccc; font-weight: bold;'>🛢️ Oil Refineries</span>": oilLayer,
+        "<span style='color: #cccccc; font-weight: bold;'>🛢️ Oil Sites</span>": oilLayer,
         "<span style='color: #0088ff; font-weight: bold;'>💧 Water Utilities</span>": waterLayer,
         "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
         "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
@@ -294,7 +295,8 @@ permalink: /repd_atlas_grid_model/
                 const lat = f.geometry.coordinates[1];
                 const lon = f.geometry.coordinates[0];
                 const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'oil-marker', iconSize: [40, 40], iconAnchor: [20, 20] }) });
-                marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`);
+                // Note: The popup overrides the exact script label so it says "Oil Site" smoothly
+                marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: Oil Site<br>Operator: ${f.properties.operator}</div>`);
                 oilLayer.addLayer(marker);
             } else {
                 const lat = f.geometry.coordinates[1];

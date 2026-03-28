@@ -1,0 +1,32 @@
+name: Fetch London Underground Stations
+
+on:
+  workflow_dispatch: # This allows you to manually click a "Run" button!
+  schedule:
+    - cron: '0 0 1 * *' # Automatically runs once a month (stations rarely move)
+
+jobs:
+  update-tube-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Tube Station Script
+        run: python scripts/fetch_london_underground.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add london_underground.geojson
+          git commit -m "Automated update: London Underground geojson" || echo "No changes to commit"
+          git push

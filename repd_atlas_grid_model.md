@@ -52,7 +52,7 @@ permalink: /repd_atlas_grid_model/
         border-radius: 6px !important; 
         font-family: 'Courier New', Courier, monospace; 
         padding: 5px 8px !important; 
-        max-height: 400px; /* Increased to fit the new sub-heading */
+        max-height: 400px; 
         overflow-y: auto; 
     }
     .leaflet-control-layers::-webkit-scrollbar { width: 6px; }
@@ -122,11 +122,20 @@ permalink: /repd_atlas_grid_model/
         </div>
 
         <div class="filter-group" style="margin-top: 25px; border-top: 1px solid #444; padding-top: 15px;">
-            <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Density (South to North):</label>
-            <div class="throttle-instruction">*Adjust density based on your device's processing power.</div>
+            <label for="substationDensityRange" style="color:#ffffff;">■ Substation Data Density (Midlands Outwards):</label>
+            <div class="throttle-instruction">*Expands outwards from Central England to manage RAM.</div>
             <div class="slider-container">
                 <input type="range" id="substationDensityRange" min="0" max="100" value="10" step="5">
                 <input type="text" id="substationDensityInput" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
+            </div>
+        </div>
+
+        <div class="filter-group" style="margin-top: 15px;">
+            <label for="waterDensityRange" style="color:#ffffff;">💧 Water Utilities Density (Midlands Outwards):</label>
+            <div class="throttle-instruction">*Expands outwards from Central England to manage RAM.</div>
+            <div class="slider-container">
+                <input type="range" id="waterDensityRange" min="0" max="100" value="10" step="5">
+                <input type="text" id="waterDensityInput" value="10%" readonly class="number-input" style="color:#fff; border-color:#fff;">
             </div>
         </div>
     </div>
@@ -170,11 +179,15 @@ permalink: /repd_atlas_grid_model/
     const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri' });
 
-    const map = L.map('map', { center: [54.5, -2.5], zoom: 6, preferCanvas: true, layers: [darkMap] });
+    const map = L.map('map', { center: [52.7, -1.5], zoom: 6, preferCanvas: true, layers: [darkMap] }); // Centered slightly closer to Midlands
+
+    // Base Latitude for expanding "Midlands Outwards"
+    const MIDLANDS_LAT = 52.7; 
 
     // Grid Layers
     const grid400Layer = L.layerGroup(); const grid275Layer = L.layerGroup(); const grid220Layer = L.layerGroup();
     const grid132Layer = L.layerGroup(); const grid66Layer = L.layerGroup(); 
+    
     const subsLayer = L.layerGroup();
     let allSubstationFeatures = []; let currentSubstationPercentage = 10; 
     
@@ -183,12 +196,14 @@ permalink: /repd_atlas_grid_model/
     const airportLayer = L.layerGroup();
     const railwayLayer = L.layerGroup();
     const industryLayer = L.layerGroup();
+    
     const waterLayer = L.layerGroup(); 
+    let allWaterFeatures = []; let currentWaterPercentage = 10;
+
     const nuclearLayer = L.layerGroup();
     const gasLayer = L.layerGroup();
     const hs2Layer = L.layerGroup();
     
-    // Empty layer just to act as a non-clickable header in the control box
     const dummyHeaderLayer = L.layerGroup(); 
     
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
@@ -196,7 +211,7 @@ permalink: /repd_atlas_grid_model/
 
     const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
     
-    // --- REORDERED OVERLAY MAPS WITH SUB-TITLE ---
+    // --- MAP KEY OVERLAYS ---
     const overlayMaps = {
         "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
         "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
@@ -208,7 +223,6 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #39ff14; font-weight: bold;'>☢️ Nuclear Plants</span>": nuclearLayer,
         "<span style='color: #ff4500; font-weight: bold;'>🔥 Gas Plants</span>": gasLayer,
         
-        // --- THE SUB-TITLE DIVIDER ---
         "<div style='margin-top:8px; margin-bottom:4px; border-bottom:1px solid #555; padding-bottom:4px; color:#aaa; font-weight:bold; font-size:10px; pointer-events:none;'>HEAVY ENERGY USERS<br>(Potential PPA/Offtakers)</div>": dummyHeaderLayer,
         
         "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
@@ -254,20 +268,49 @@ permalink: /repd_atlas_grid_model/
         data.features.forEach(f => {
             const typeLower = (f.properties.type || "").toLowerCase();
             const isWater = typeLower.includes('water');
-            const lat = f.geometry.coordinates[1];
-            const lon = f.geometry.coordinates[0];
-            
-            const markerClass = isWater ? 'water-marker' : 'industry-marker';
-            const marker = L.marker([lat, lon], { icon: L.divIcon({ className: markerClass, iconSize: [10, 10] }) });
-            marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`);
             
             if (isWater) {
-                waterLayer.addLayer(marker);
+                allWaterFeatures.push(f);
             } else {
+                const lat = f.geometry.coordinates[1];
+                const lon = f.geometry.coordinates[0];
+                const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'industry-marker', iconSize: [10, 10] }) });
+                marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`);
                 industryLayer.addLayer(marker);
             }
         });
+        
+        // Sort water features by Absolute Distance from Midlands
+        allWaterFeatures.sort((a, b) => {
+            const distA = Math.abs(a.geometry.coordinates[1] - MIDLANDS_LAT);
+            const distB = Math.abs(b.geometry.coordinates[1] - MIDLANDS_LAT);
+            return distA - distB;
+        });
+        renderWater(currentWaterPercentage);
+        
     }).catch(e => console.error(e));
+
+    function renderWater(percentage) {
+        waterLayer.clearLayers();
+        if (allWaterFeatures.length === 0) return;
+        
+        const numToLoad = Math.floor((percentage / 100) * allWaterFeatures.length);
+        const featuresToRender = allWaterFeatures.slice(0, numToLoad);
+        
+        featuresToRender.forEach(f => {
+            const lat = f.geometry.coordinates[1];
+            const lon = f.geometry.coordinates[0];
+            const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'water-marker', iconSize: [10, 10] }) });
+            marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`);
+            waterLayer.addLayer(marker);
+        });
+    }
+
+    $('#waterDensityRange').on('input', function() {
+        const val = parseInt($(this).val());
+        $('#waterDensityInput').val(val + "%");
+        renderWater(val);
+    });
 
     fetch('{{ site.baseurl }}/power_plants.geojson').then(r => r.json()).then(data => {
         data.features.forEach(f => {
@@ -288,14 +331,15 @@ permalink: /repd_atlas_grid_model/
         }).addTo(hs2Layer);
     }).catch(e => console.error(e));
 
-    // --- FETCH SUBSTATIONS ---
+    // --- FETCH SUBSTATIONS & MIDLANDS OUTWARDS THROTTLE ---
     fetch('{{ site.baseurl }}/grid_substations.geojson')
         .then(r => r.json())
         .then(data => {
+            // Sort by Absolute Distance from Midlands
             allSubstationFeatures = data.features.sort((a, b) => {
-                const latA = a.geometry.coordinates[1];
-                const latB = b.geometry.coordinates[1];
-                return latA - latB;
+                const distA = Math.abs(a.geometry.coordinates[1] - MIDLANDS_LAT);
+                const distB = Math.abs(b.geometry.coordinates[1] - MIDLANDS_LAT);
+                return distA - distB;
             });
             renderSubstations(currentSubstationPercentage);
         })

@@ -70,7 +70,7 @@ permalink: /repd_atlas_grid_model/
         align-items: center;
         width: 100%;
         flex-wrap: wrap; 
-        gap: 12px; /* Tightened gap for 17 items */
+        gap: 12px;
     }
     .world-clock-item {
         display: flex;
@@ -130,42 +130,62 @@ permalink: /repd_atlas_grid_model/
         box-sizing: border-box;
         box-shadow: none !important;
     }
+    
     #custom-legend-container .leaflet-control-layers-list { display: block; }
+    
+    /* Flexbox grid for the items */
     #custom-legend-container .leaflet-control-layers-base,
     #custom-legend-container .leaflet-control-layers-overlays {
         display: flex;
         flex-wrap: wrap;
-        column-gap: 30px;
+        column-gap: 25px;
         row-gap: 15px;
         align-items: center;
     }
-    #custom-legend-container .leaflet-control-layers-separator {
-        display: block;
-        flex-basis: 100%;
-        height: 1px;
-        background: #333;
-        margin: 10px 0;
-    }
+    
+    /* Standardize Leaflet's injected labels */
     #custom-legend-container .leaflet-control-layers label {
         display: flex;
         align-items: center;
-        font-size: 15px;
+        font-size: 14px;
         margin: 0 !important;
         white-space: nowrap;
         cursor: pointer;
     }
+    
+    /* Fix alignment of input and text container inside the label */
+    #custom-legend-container .leaflet-control-layers label > div,
+    #custom-legend-container .leaflet-control-layers label > span {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
     #custom-legend-container input[type="checkbox"], 
     #custom-legend-container input[type="radio"] {
         transform: scale(1.2);
-        margin-right: 10px;
+        margin-right: 8px;
         cursor: pointer;
+        flex-shrink: 0;
     }
 
     /* --- THEMED SECTION BREAKS IN THE KEY --- */
-    .legend-break {
+    
+    /* Target the parent label natively to force full width without a JS flash */
+    #custom-legend-container label:has(.legend-break) {
         flex-basis: 100%; 
         width: 100%;
-        margin-top: 15px;
+        cursor: default;
+    }
+    
+    /* Instantly hide the checkbox for the headers */
+    #custom-legend-container label:has(.legend-break) input {
+        display: none !important;
+    }
+
+    .legend-break {
+        width: 100%;
+        margin-top: 10px;
         border-bottom: 1px solid #555;
         padding-bottom: 5px;
         color: #aaa;
@@ -173,6 +193,7 @@ permalink: /repd_atlas_grid_model/
         font-size: 13px;
         letter-spacing: 1px;
         pointer-events: none;
+        text-transform: uppercase;
     }
 
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
@@ -727,17 +748,5 @@ permalink: /repd_atlas_grid_model/
         allMarkers.forEach(layer => { layer.setRadius(layer.options.baseRadius * scaleMultiplier); });
     }
     map.on('zoomend', applyZoomScaling);
-
-    // --- HIDE THE CHECKBOX FOR THE DUMMY HEADERS & FORCE LINE BREAK ---
-    setTimeout(() => {
-        const labels = document.querySelectorAll('#custom-legend-container label');
-        labels.forEach(label => {
-            if (label.innerHTML.includes('HEAVY ENERGY USERS') || label.innerHTML.includes('NATIONAL GRID')) {
-                const checkbox = label.querySelector('input');
-                if (checkbox) checkbox.style.display = 'none';
-                label.style.flexBasis = "100%"; 
-            }
-        });
-    }, 500);
 
 </script>

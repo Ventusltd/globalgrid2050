@@ -37,6 +37,7 @@ permalink: /repd_atlas_grid_model/
     input[type=range] { flex-grow: 1; cursor: pointer; accent-color: #66ccff; }
     .number-input { width: 90px; padding: 8px; background: #222; color: #66ccff; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; text-align: center; }
     select.filter-select { width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: white; border: 1px solid #66ccff; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 16px; cursor: pointer; }
+    .slider-label-small { font-size:13px; color:#ccc; margin-bottom:2px; display:block; }
     
     #repd-table-container { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; overflow-x: auto; }
     table.dataTable.nowrap th, table.dataTable.nowrap td { white-space: nowrap; }
@@ -68,11 +69,26 @@ permalink: /repd_atlas_grid_model/
     .dc-marker { background-color: #00ffff; border: 1px solid #ffffff; border-radius: 0; box-shadow: 0 0 8px #00ffff; }
     .airport-marker { background-color: #ff00ff; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #ff00ff; }
     .railway-marker { background-color: #ffd700; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #ffd700; }
-    .industry-marker { background-color: #ff6600; border: 1px solid #ffffff; border-radius: 3px; transform: rotate(45deg); box-shadow: 0 0 8px #ff6600; }
     .water-marker { background-color: #0088ff; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #0088ff; }
     .nuclear-marker { background-color: #39ff14; border: 2px solid #000; border-radius: 50%; box-shadow: 0 0 10px #39ff14; }
     .gas-marker { background-color: #ff4500; border: 1px solid #fff; border-radius: 50%; box-shadow: 0 0 8px #ff4500; }
     .hs2-marker { background-color: #8a2be2; border: 1px solid #fff; transform: rotate(45deg); box-shadow: 0 0 8px #8a2be2; }
+
+    /* --- GLOWING HEATMAP-STYLE MARKERS --- */
+    .industry-marker { 
+        background: radial-gradient(circle, rgba(255, 69, 0, 0.9) 15%, rgba(255, 100, 0, 0.5) 45%, rgba(255, 100, 0, 0) 80%);
+        border-radius: 50%; 
+        border: none; 
+        box-shadow: none; 
+        pointer-events: auto;
+    }
+    .oil-marker { 
+        background: radial-gradient(circle, rgba(200, 200, 200, 0.9) 15%, rgba(100, 100, 100, 0.5) 45%, rgba(0, 0, 0, 0) 80%);
+        border-radius: 50%; 
+        border: none; 
+        box-shadow: none; 
+        pointer-events: auto;
+    }
 
     /* --- LEGAL DISCLAIMER --- */
     .legal-disclaimer { text-align: center; font-size: 12px; color: #888; margin-top: 25px; padding-bottom: 15px; font-family: 'Courier New', Courier, monospace; }
@@ -179,7 +195,7 @@ permalink: /repd_atlas_grid_model/
     const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri' });
 
-    const map = L.map('map', { center: [52.7, -1.5], zoom: 6, preferCanvas: true, layers: [darkMap] }); // Centered slightly closer to Midlands
+    const map = L.map('map', { center: [52.7, -1.5], zoom: 6, preferCanvas: true, layers: [darkMap] });
 
     // Base Latitude for expanding "Midlands Outwards"
     const MIDLANDS_LAT = 52.7; 
@@ -195,8 +211,10 @@ permalink: /repd_atlas_grid_model/
     const dataCentreLayer = L.layerGroup();
     const airportLayer = L.layerGroup();
     const railwayLayer = L.layerGroup();
-    const industryLayer = L.layerGroup();
     
+    // Industrial Split Layers
+    const industryLayer = L.layerGroup();
+    const oilLayer = L.layerGroup();
     const waterLayer = L.layerGroup(); 
     let allWaterFeatures = []; let currentWaterPercentage = 10;
 
@@ -226,6 +244,7 @@ permalink: /repd_atlas_grid_model/
         "<div style='margin-top:8px; margin-bottom:4px; border-bottom:1px solid #555; padding-bottom:4px; color:#aaa; font-weight:bold; font-size:10px; pointer-events:none;'>HEAVY ENERGY USERS<br>(Potential PPA/Offtakers)</div>": dummyHeaderLayer,
         
         "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
+        "<span style='color: #cccccc; font-weight: bold;'>🛢️ Oil Refineries</span>": oilLayer,
         "<span style='color: #0088ff; font-weight: bold;'>💧 Water Utilities</span>": waterLayer,
         "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
         "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
@@ -268,13 +287,20 @@ permalink: /repd_atlas_grid_model/
         data.features.forEach(f => {
             const typeLower = (f.properties.type || "").toLowerCase();
             const isWater = typeLower.includes('water');
+            const isOil = typeLower.includes('oil');
             
             if (isWater) {
                 allWaterFeatures.push(f);
+            } else if (isOil) {
+                const lat = f.geometry.coordinates[1];
+                const lon = f.geometry.coordinates[0];
+                const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'oil-marker', iconSize: [40, 40], iconAnchor: [20, 20] }) });
+                marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`);
+                oilLayer.addLayer(marker);
             } else {
                 const lat = f.geometry.coordinates[1];
                 const lon = f.geometry.coordinates[0];
-                const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'industry-marker', iconSize: [10, 10] }) });
+                const marker = L.marker([lat, lon], { icon: L.divIcon({ className: 'industry-marker', iconSize: [40, 40], iconAnchor: [20, 20] }) });
                 marker.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name}</b><br>Type: ${f.properties.type}<br>Operator: ${f.properties.operator}</div>`);
                 industryLayer.addLayer(marker);
             }

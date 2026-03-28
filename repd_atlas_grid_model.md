@@ -20,8 +20,6 @@ permalink: /repd_atlas_grid_model/
     ::-webkit-scrollbar-thumb:hover { background-color: #666; }
     ::-webkit-scrollbar-button:single-button { background-color: #222; display: block; height: 26px; width: 26px; border-left: 1px solid #333; }
     ::-webkit-scrollbar-button:single-button:hover { background-color: #444; }
-    ::-webkit-scrollbar-button:single-button:vertical:decrement { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>'); background-size: 16px; background-position: center; background-repeat: no-repeat; }
-    ::-webkit-scrollbar-button:single-button:vertical:increment { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'); background-size: 16px; background-position: center; background-repeat: no-repeat; }
     
     /* --- FULL WIDTH DASHBOARD --- */
     .dashboard-container { 
@@ -186,7 +184,7 @@ permalink: /repd_atlas_grid_model/
     .nuclear-marker { background-color: #39ff14; border: 2px solid #000; border-radius: 50%; box-shadow: 0 0 10px #39ff14; }
     .gas-marker { background-color: #ff4500; border: 1px solid #fff; border-radius: 50%; box-shadow: 0 0 8px #ff4500; }
     .hs2-marker { background-color: #8a2be2; border: 1px solid #fff; transform: rotate(45deg); box-shadow: 0 0 8px #8a2be2; }
-    .tube-marker { background-color: #e32017; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #e32017; }
+    .tube-marker { background-color: #e32017; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #e32017; } /* TfL Red */
 
     /* --- GLOWING HEATMAP-STYLE MARKERS --- */
     .industry-marker { 
@@ -349,7 +347,7 @@ permalink: /repd_atlas_grid_model/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 
 <script>
-    // --- CLOCK SCRIPT (NO JARGON, GROUPED CITIES, WEST TO EAST) ---
+    // --- CLOCK SCRIPT ---
     function updateMissionClock() {
         const now = new Date();
         const target = new Date("2050-01-01T00:00:00Z");
@@ -418,7 +416,7 @@ permalink: /repd_atlas_grid_model/
     const dataCentreLayer = L.layerGroup();
     const airportLayer = L.layerGroup();
     const railwayLayer = L.layerGroup();
-    const tubeLayer = L.layerGroup(); // Added Tube Layer
+    const tubeLayer = L.layerGroup(); // Added strictly for London Underground
     
     const industryLayer = L.layerGroup();
     const oilLayer = L.layerGroup();
@@ -462,7 +460,7 @@ permalink: /repd_atlas_grid_model/
         "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
         "<span style='color: #8a2be2; font-weight: bold;'>🚄 HS2 Stations</span>": hs2Layer,
         "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer,
-        "<span style='color: #e32017; font-weight: bold;'>🚇 London Underground</span>": tubeLayer
+        "<span style='color: #e32017; font-weight: bold;'>🚇 London Underground</span>": tubeLayer // Mapped specifically to the tube layer
     };
     
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
@@ -499,11 +497,15 @@ permalink: /repd_atlas_grid_model/
         }).addTo(railwayLayer);
     }).catch(e => console.error(e));
 
-    // --- FETCH LONDON UNDERGROUND ---
+    // --- FETCH LONDON UNDERGROUND (STANDALONE) ---
     fetch('{{ site.baseurl }}/london_underground.geojson').then(r => r.json()).then(data => {
         L.geoJSON(data, {
-            pointToLayer: function (f, ll) { return L.marker(ll, { icon: L.divIcon({ className: 'tube-marker', iconSize: [8, 8] }) }); },
-            onEachFeature: function (f, l) { l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Station"}</b><br>Network: ${f.properties.operator || "TfL"}</div>`); }
+            pointToLayer: function (f, ll) { 
+                return L.marker(ll, { icon: L.divIcon({ className: 'tube-marker', iconSize: [8, 8] }) }); 
+            },
+            onEachFeature: function (f, l) { 
+                l.bindPopup(`<div style="font-family: Courier, monospace;"><b>${f.properties.name || "Station"}</b><br>Network: ${f.properties.operator || "TfL"}</div>`); 
+            }
         }).addTo(tubeLayer);
     }).catch(e => console.error(e));
 

@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://basemaps.cartocdn.com https://server.arcgisonline.com; connect-src 'self' *;">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>GlobalGrid2050 | Ventus Core</title>
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
@@ -28,11 +25,6 @@
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
         .quantum-footnote { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 8px; line-height: 1.4; color: #444; margin-top: 10px; padding-top: 8px; border-top: 1px solid #111; user-select: none; pointer-events: none; flex-shrink: 0; }
-        
-        /* Quantum ODbL Compliance Styling */
-        .maplibregl-ctrl-attrib { background: rgba(5, 5, 5, 0.7) !important; color: #888 !important; font-family: 'Courier New', monospace !important; font-size: 9px !important; border-top-left-radius: 4px; }
-        .maplibregl-ctrl-attrib a { color: #00ffff !important; text-decoration: none; }
-        .maplibregl-ctrl-attrib a:hover { text-decoration: underline; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -56,7 +48,8 @@
     </div>
 
     <div class="scada-wrapper">
-        <div class="scada-keys" id="scada-ui-container"></div>
+        <div class="scada-keys" id="scada-ui-container">
+            </div>
         <div class="quantum-footnote">
             Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture. // NOTE: This system is not powered by quantum computing. This is VENTUS, working in the spirit of 1990s pre-internet optimism. We feel this optimism is absolutely needed to accelerate net zero efforts, and for this, we must build energy grids.
         </div>
@@ -115,6 +108,7 @@ const GRID_CONFIG = deepFreeze([
     }
 ]);
 
+// Mutable runtime memory (Tracks Load States, Failures, etc.)
 const RUNTIME_STATE = {};
 GRID_CONFIG.forEach(group => {
     group.layers.forEach(layer => {
@@ -136,9 +130,7 @@ const map = new maplibregl.Map({
     style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     center: [-3.5, 54.0],
     zoom: 4.2,
-    attributionControl: true,
-    // HARDENED: rel="noopener noreferrer" added to attribution link
-    customAttribution: 'Data <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>'
+    attributionControl: false
 });
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
@@ -172,9 +164,9 @@ class FetchQueue {
     }
 }
 
-const networkQueue = new FetchQueue(4);
-const urlCache = {}; 
-let globalSubsData = null; 
+const networkQueue = new FetchQueue(4); // Strictly limit to 4 parallel connections
+const urlCache = {}; // Prevents parsing massive identical files twice (e.g., power_plants shared by Nuc/Gas)
+let globalSubsData = null; // Master reference for spatial snapping
 
 async function fetchWithTimeout(url, ms = 8000) {
     const controller = new AbortController();
@@ -190,17 +182,10 @@ async function fetchWithTimeout(url, ms = 8000) {
     }
 }
 
-// HARDENED: GeoJSON Parser now drops null/invalid geometries
+// Data Parsers that cache their results
 async function fetchAndParseGeoJSON(url) {
     if (urlCache[url]) return await urlCache[url];
-    const promise = fetchWithTimeout(url).then(res => res.json()).then(data => {
-        if (!Array.isArray(data.features)) return [];
-        return data.features.filter(f => 
-            f.geometry && 
-            Array.isArray(f.geometry.coordinates) && 
-            f.geometry.coordinates.length >= 2
-        );
-    });
+    const promise = fetchWithTimeout(url).then(res => res.json()).then(data => Array.isArray(data.features) ? data.features : []);
     urlCache[url] = promise;
     return promise;
 }
@@ -230,6 +215,7 @@ async function fetchAndParseCSV(url) {
     return promise;
 }
 
+// Math Correction for Earth Curvature
 function snapLines(features, subs) {
     if (!subs || !subs.length) return features;
     const tol = 0.05, rad = Math.PI / 180;
@@ -286,6 +272,7 @@ function buildDOM() {
         fragment.appendChild(groupDiv);
     });
 
+    // Inject Basemap Controls
     const bmGroup = document.createElement('div');
     bmGroup.className = 'key-group';
     bmGroup.innerHTML = `
@@ -295,8 +282,9 @@ function buildDOM() {
     `;
     fragment.appendChild(bmGroup);
     
-    container.appendChild(fragment); 
+    container.appendChild(fragment); // Single DOM reflow
 
+    // Event Delegation (One listener rules them all)
     container.addEventListener('change', e => {
         if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
             const layerId = e.target.dataset.layerId;
@@ -344,9 +332,11 @@ async function hydrateLayer(layerId) {
 map.on('load', () => {
     buildDOM();
 
+    // 1. Add Satellite Basemap
     map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
+    // 2. Provision Empty Sources & MapLibre Layers
     const allLayerIds = [];
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
@@ -368,31 +358,16 @@ map.on('load', () => {
         });
     });
 
-    // HARDENED: Bulletproof DOM popups replacing vulnerable .setHTML()
+    // 3. Bind Universal Click/Popup Logic
     map.on('click', e => {
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
         const p = features[0].properties;
         const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
         const info = p.operator || p.capacity || p['Installed Capacity (MWelec)'] || p.voltage || 'Data Node';
-        
-        const popupContainer = document.createElement('div');
-        popupContainer.style.cssText = "font-family:monospace;color:#000";
-        
-        const boldName = document.createElement('b');
-        boldName.textContent = name;
-        
-        const spanInfo = document.createElement('span');
-        spanInfo.style.color = '#444';
-        spanInfo.textContent = info;
-        
-        popupContainer.appendChild(boldName);
-        popupContainer.appendChild(document.createElement('br'));
-        popupContainer.appendChild(spanInfo);
-
         new maplibregl.Popup({ maxWidth: '250px' })
             .setLngLat(e.lngLat)
-            .setDOMContent(popupContainer)
+            .setHTML(`<div style="font-family:monospace;color:#000"><b>${name}</b><br><span style="color:#444">${info}</span></div>`)
             .addTo(map);
     });
     
@@ -401,6 +376,7 @@ map.on('load', () => {
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
     });
 
+    // 4. Trigger Initialization for Preload Layers
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             if (layer.preload) hydrateLayer(layer.id);

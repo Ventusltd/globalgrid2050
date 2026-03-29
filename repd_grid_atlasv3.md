@@ -13,12 +13,14 @@ permalink: /repd_grid_atlasv3/
         body { margin: 0; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; }
         .dashboard { display: flex; flex-direction: column; height: 100vh; padding: 8px; box-sizing: border-box; }
         
+        /* --- HUD HEADER --- */
         .hud-header { background: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 8px 15px; margin-bottom: 6px; display: flex; justify-content: space-between; flex-shrink: 0; }
         .hud-val { font-size: 16px; font-weight: bold; color: #00ffff; text-shadow: 0 0 5px #00ffff; }
         
+        /* --- MAP AREA --- */
         #map { flex-grow: 1; max-height: 55vh; border: 2px solid #222; border-radius: 6px; background: #0b0e14; }
 
-        /* SCADA WRAPPER */
+        /* --- SCADA WRAPPER --- */
         .scada-wrapper {
             background: #050505; border: 1px solid #444; border-radius: 6px; padding: 15px; margin-top: 8px;
             display: flex; flex-direction: column; flex-shrink: 0; max-height: 35vh;
@@ -35,16 +37,18 @@ permalink: /repd_grid_atlasv3/
         
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; }
 
-        /* --- THE SUBTLE QUANTUM FOOTNOTE --- */
+        /* --- THE MINIMALIST QUANTUM FOOTNOTE --- */
         .quantum-footnote {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             text-align: justify;
-            font-size: 9px;
-            line-height: 1.4;
-            color: #444; /* Dark grey, barely visible against the black */
+            font-size: 10px;
+            line-height: 1.5;
+            color: #ffffff; /* Crisp white */
+            opacity: 0.6; /* Slightly muted so it stays a footnote */
             margin-top: 15px;
             padding-top: 10px;
-            border-top: 1px dashed #222;
-            user-select: none; /* Unclickable/Unselectable */
+            border-top: 1px solid #222;
+            user-select: none;
             pointer-events: none;
         }
     </style>
@@ -96,7 +100,7 @@ permalink: /repd_grid_atlasv3/
         </div>
         
         <div class="quantum-footnote">
-            * Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture.
+            Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture.
         </div>
     </div>
 </div>
@@ -185,7 +189,7 @@ permalink: /repd_grid_atlasv3/
         addPoint('air', 'air', '#ff00ff');
         addPoint('rail', 'rail', '#ffd700');
 
-        // --- FETCH EXACT FILES FROM YOUR REPO ---
+        // --- FETCH EXACT FILES ---
         const subsData = await fetchAndSet('/grid_substations.geojson', 'src-subs');
         
         fetchAndSet('/grid_400kv.geojson', 'src-400', subsData);

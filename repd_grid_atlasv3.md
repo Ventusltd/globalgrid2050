@@ -35,20 +35,17 @@ permalink: /repd_grid_atlasv3/
         
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; }
 
-        /* --- THE QUANTUM EMBOSS --- */
+        /* --- THE SUBTLE QUANTUM FOOTNOTE --- */
         .quantum-footnote {
-            text-align: center;
-            font-size: 12px;
-            letter-spacing: 5px;
+            text-align: justify;
+            font-size: 9px;
+            line-height: 1.4;
+            color: #444; /* Dark grey, barely visible against the black */
             margin-top: 15px;
-            padding-top: 12px;
+            padding-top: 10px;
             border-top: 1px dashed #222;
-            text-transform: uppercase;
-            font-weight: bold;
-            user-select: none;
-            /* Embossed CSS Magic */
-            color: #151515; 
-            text-shadow: -1px -1px 1px #000, 1px 1px 1px #2a2a2a;
+            user-select: none; /* Unclickable/Unselectable */
+            pointer-events: none;
         }
     </style>
 </head>
@@ -98,7 +95,9 @@ permalink: /repd_grid_atlasv3/
             </div>
         </div>
         
-        <div class="quantum-footnote">AWAITING QUANTUM CLICK</div>
+        <div class="quantum-footnote">
+            * Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture.
+        </div>
     </div>
 </div>
 

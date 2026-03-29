@@ -112,133 +112,105 @@ permalink: /repd_atlas_grid_model/
     .marker-cluster-small div { background-color: rgba(0, 242, 255, 0.9); color: #000; }
     
     /* =======================================================
-       --- HORIZONTAL EXTERNAL MAP KEY (BELOW MAP) ---
+       --- CUSTOM SCADA LEGEND PANEL ---
        ======================================================= */
     #custom-legend-container {
         margin-bottom: 25px;
         width: 100%;
     }
-
-    #custom-legend-container .leaflet-control-layers {
-        position: static !important;
-        background: #111 !important;
-        border: 1px solid #444 !important;
-        color: white !important;
-        border-radius: 12px !important;
-        padding: 20px !important;
-        width: 100%;
+    
+    .custom-legend-panel {
+        background: #111;
+        border: 1px solid #444;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+        max-height: 220px;
+        overflow-y: auto;
+        overflow-x: hidden;
         box-sizing: border-box;
-        box-shadow: none !important;
-        
-        /* User's explicitly requested scroll bounds */
-        max-height: 220px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
+        scrollbar-color: #555 #111;
+        scrollbar-width: thin;
     }
 
-    #custom-legend-container .leaflet-control-layers-list {
-        display: block;
+    .legend-section-title {
+        font-size: 11px;
+        color: #888;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .legend-divider {
+        width: 100%;
+        height: 1px;
+        background: #333;
+        margin: 14px 0;
+    }
+
+    .legend-header {
+        grid-column: 1 / -1;
+        font-size: 12px;
+        color: #aaa;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-bottom: 1px solid #555;
+        padding-bottom: 6px;
+        margin-top: 4px;
         width: 100%;
     }
 
-    /* Desktop: 2 columns */
-    #custom-legend-container .leaflet-control-layers-base,
-    #custom-legend-container .leaflet-control-layers-overlays {
+    .legend-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        column-gap: 24px;
-        row-gap: 14px;
+        gap: 10px 24px;
         align-items: start;
         width: 100%;
     }
 
-    /* Every label behaves properly */
-    #custom-legend-container .leaflet-control-layers label {
+    .legend-item {
         display: flex;
         align-items: flex-start;
-        gap: 10px;
-        margin: 0 !important;
+        gap: 8px;
         font-size: 14px;
+        font-family: 'Courier New', Courier, monospace;
         line-height: 1.35;
-        white-space: normal !important;
-        overflow-wrap: anywhere;
-        word-break: break-word;
         cursor: pointer;
-    }
-
-    /* Inner spans must also wrap */
-    #custom-legend-container .leaflet-control-layers label span,
-    #custom-legend-container .leaflet-control-layers label div {
-        display: block;
-        white-space: normal !important;
-        overflow-wrap: anywhere;
-        word-break: break-word;
         min-width: 0;
-    }
-
-    /* Checkbox alignment */
-    #custom-legend-container input[type="checkbox"],
-    #custom-legend-container input[type="radio"] {
-        transform: scale(1.15);
-        margin: 3px 0 0 0;
-        flex-shrink: 0;
-    }
-
-    /* Section headers must span full width */
-    #custom-legend-container label:has(.legend-break) {
-        grid-column: 1 / -1;
-        width: 100%;
-        cursor: default;
-    }
-
-    #custom-legend-container label:has(.legend-break) input {
-        display: none !important;
-    }
-
-    .legend-break {
-        display: block;
-        width: 100%;
-        border-bottom: 1px solid #555;
-        padding-bottom: 6px;
-        margin-top: 8px;
-        color: #aaa;
-        font-weight: bold;
-        font-size: 13px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        white-space: normal !important;
-        overflow-wrap: anywhere;
+        white-space: normal;
         word-break: break-word;
-        line-height: 1.35;
+        color: white;
     }
 
-    /* Mobile: force 1 column */
+    .legend-item input[type="checkbox"],
+    .legend-item input[type="radio"] {
+        flex-shrink: 0;
+        margin-top: 3px;
+        transform: scale(1.15);
+        cursor: pointer;
+        accent-color: #66ccff;
+    }
+
+    .legend-item span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
     @media (max-width: 768px) {
-        #custom-legend-container .leaflet-control-layers {
-            padding: 16px !important;
-        }
-
-        #custom-legend-container .leaflet-control-layers-base,
-        #custom-legend-container .leaflet-control-layers-overlays {
+        .legend-grid {
             grid-template-columns: 1fr;
-            column-gap: 0;
-            row-gap: 12px;
+            gap: 10px 0;
         }
-
-        #custom-legend-container .leaflet-control-layers label {
+        .legend-item {
             font-size: 13px;
         }
-
-        .legend-break {
-            font-size: 12px;
-            letter-spacing: 0.5px;
-        }
     }
 
+    /* --- INFRASTRUCTURE MARKER STYLES --- */
     .substation-marker { background-color: #ffffff; border: 2px solid #000; border-radius: 2px; }
     .throttle-instruction { font-size: 12px; color: #aaa; margin-bottom: 8px; font-style: italic; }
 
-    /* --- INFRASTRUCTURE MARKER STYLES --- */
     .dc-marker { background-color: #00ffff; border: 1px solid #ffffff; border-radius: 0; box-shadow: 0 0 8px #00ffff; }
     .airport-marker { background-color: #ff00ff; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #ff00ff; }
     .railway-marker { background-color: #ffd700; border: 1px solid #ffffff; border-radius: 50%; box-shadow: 0 0 8px #ffd700; }
@@ -414,7 +386,6 @@ permalink: /repd_atlas_grid_model/
         const target = new Date("2050-01-01T00:00:00Z");
         const diffMs = target - now;
 
-        // Force Europe/London Timezone and strip all acronyms
         const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Europe/London' };
         const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/London' }; 
         
@@ -423,7 +394,6 @@ permalink: /repd_atlas_grid_model/
         
         document.getElementById('current-time-display').innerHTML = `${dateStr}<br>${timeStr}`;
 
-        // Format Countdown
         if (diffMs > 0) {
             const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
@@ -434,7 +404,6 @@ permalink: /repd_atlas_grid_model/
             document.getElementById('countdown-display').innerText = "TARGET REACHED";
         }
 
-        // Global Ticker Timezones
         const opts = { hour: '2-digit', minute: '2-digit', hour12: false };
         
         document.getElementById('time-sfo').innerText = now.toLocaleTimeString('en-GB', { ...opts, timeZone: 'America/Los_Angeles' });
@@ -469,8 +438,11 @@ permalink: /repd_atlas_grid_model/
     const MIDLANDS_LAT = 52.7; 
 
     // Grid Layers
-    const grid400Layer = L.layerGroup(); const grid275Layer = L.layerGroup(); const grid220Layer = L.layerGroup();
-    const grid132Layer = L.layerGroup(); const grid66Layer = L.layerGroup(); 
+    const grid400Layer = L.layerGroup(); 
+    const grid275Layer = L.layerGroup(); 
+    const grid220Layer = L.layerGroup();
+    const grid132Layer = L.layerGroup(); 
+    const grid66Layer = L.layerGroup(); 
     
     const subsLayer = L.layerGroup();
     let allSubstationFeatures = []; 
@@ -494,55 +466,14 @@ permalink: /repd_atlas_grid_model/
     const gasLayer = L.layerGroup();
     const hs2Layer = L.layerGroup();
     
-    const dummyHeaderGrid = L.layerGroup(); 
-    const dummyHeaderDemand = L.layerGroup(); 
-    
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
 
-    // --- ATTACH DEFAULT LAYERS TO MAP SO THEY ACTUALLY RENDER ---
-    grid400Layer.addTo(map);
-    markers.addTo(map);
-    subsLayer.addTo(map);
-
-    const baseMaps = { "🌑 Dark Mode": darkMap, "🌍 Satellite View": satelliteMap };
-    
-    // --- MAP KEY OVERLAYS ---
-    const overlayMaps = {
-        "<div class='legend-break' style='margin-top:0;'>NATIONAL GRID & GENERATION</div>": dummyHeaderGrid,
-        
-        "<span style='color: #0054ff; font-weight: bold;'>400kV Lines</span>": grid400Layer,
-        "<span style='color: #ff0000; font-weight: bold;'>275kV Lines</span>": grid275Layer,
-        "<span style='color: #ff9900; font-weight: bold;'>220kV Cables</span>": grid220Layer,
-        "<span style='color: #00cc00; font-weight: bold;'>132kV Lines</span>": grid132Layer,
-        "<span style='color: #b200ff; font-weight: bold;'>66kV Cables</span>": grid66Layer,
-        "<span style='color: #ffffff; font-weight: bold;'>■ Substations</span>": subsLayer,
-        "⚡ Energy Projects": markers,
-        "<span style='color: #39ff14; font-weight: bold;'>☢️ Nuclear Plants</span>": nuclearLayer,
-        "<span style='color: #ff4500; font-weight: bold;'>🔥 Gas Plants</span>": gasLayer,
-        
-        "<div class='legend-break'>HEAVY ENERGY USERS (Potential PPA/Offtakers)</div>": dummyHeaderDemand,
-        
-        "<span style='color: #ff6600; font-weight: bold;'>🏭 Heavy Industry</span>": industryLayer,
-        "<span style='color: #cccccc; font-weight: bold;'>🛢️ Oil Sites</span>": oilLayer,
-        "<span style='color: #0088ff; font-weight: bold;'>💧 Water Utilities</span>": waterLayer,
-        "<span style='color: #00ffff; font-weight: bold;'>🖥️ Data Centres</span>": dataCentreLayer,
-        "<span style='color: #ff00ff; font-weight: bold;'>✈️ Airports</span>": airportLayer,
-        "<span style='color: #8a2be2; font-weight: bold;'>🚄 HS2 Stations</span>": hs2Layer,
-        "<span style='color: #ffd700; font-weight: bold;'>🚆 Railways</span>": railwayLayer
-    };
-    
-    // --- EXTRACT LEAFLET CONTROL AND MOVE IT OUTSIDE ---
-    const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
-    const legendHtml = layerControl.getContainer();
-    document.getElementById('custom-legend-container').appendChild(legendHtml);
-    L.DomEvent.disableClickPropagation(legendHtml); 
-
-    // --- FETCH GRID DATA ---
-    fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 2, opacity: 0.6 } }).addTo(grid400Layer)).catch(e => console.error(e));
-    fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2, opacity: 0.6 } }).addTo(grid275Layer)).catch(e => console.error(e));
+    // --- FETCH GRID DATA WITH SCADA HIERARCHY STYLES ---
+    fetch('{{ site.baseurl }}/grid_400kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#0054ff', weight: 3, opacity: 0.9 } }).addTo(grid400Layer)).catch(e => console.error(e));
+    fetch('{{ site.baseurl }}/grid_275kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff0000', weight: 2.5, opacity: 0.85 } }).addTo(grid275Layer)).catch(e => console.error(e));
     fetch('{{ site.baseurl }}/grid_220kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#ff9900', weight: 2, opacity: 0.8 } }).addTo(grid220Layer)).catch(e => console.error(e));
-    fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.5 } }).addTo(grid132Layer)).catch(e => console.error(e));
-    fetch('{{ site.baseurl }}/grid_66kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#b200ff', weight: 1.5, opacity: 0.7 } }).addTo(grid66Layer)).catch(e => console.error(e));
+    fetch('{{ site.baseurl }}/grid_132kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#00cc00', weight: 1.5, opacity: 0.7 } }).addTo(grid132Layer)).catch(e => console.error(e));
+    fetch('{{ site.baseurl }}/grid_66kv.geojson').then(r => r.json()).then(data => L.geoJSON(data, { style: { color: '#b200ff', weight: 1.2, opacity: 0.6 } }).addTo(grid66Layer)).catch(e => console.error(e));
     
     // --- FETCH INFRASTRUCTURE DATA ---
     fetch('{{ site.baseurl }}/datacentres.geojson').then(r => r.json()).then(data => {
@@ -652,7 +583,6 @@ permalink: /repd_atlas_grid_model/
         }).addTo(hs2Layer);
     }).catch(e => console.error(e));
 
-    // --- FETCH SUBSTATIONS & DUAL THROTTLE ---
     fetch('{{ site.baseurl }}/grid_substations.geojson')
         .then(r => r.json())
         .then(data => {
@@ -699,6 +629,105 @@ permalink: /repd_atlas_grid_model/
         currentSubstationPercentageNS = val;
         renderSubstations();
     });
+
+    // =======================================================
+    // --- CUSTOM DATA-DRIVEN SCADA CONTROL PANEL ---
+    // =======================================================
+    
+    const baseMapConfig = [
+        { id: 'dark',      label: '🌑 Dark Mode',      layer: darkMap,      default: true },
+        { id: 'satellite', label: '🌍 Satellite View',  layer: satelliteMap, default: false },
+    ];
+
+    const layerConfig = [
+        { type: 'header', label: 'NATIONAL GRID & GENERATION' },
+        { id: 'grid400',   label: '400kV Lines',       color: '#0054ff', layer: grid400Layer,   default: true },
+        { id: 'grid275',   label: '275kV Lines',       color: '#ff0000', layer: grid275Layer,   default: false },
+        { id: 'grid220',   label: '220kV Cables',      color: '#ff9900', layer: grid220Layer,   default: false },
+        { id: 'grid132',   label: '132kV Lines',       color: '#00cc00', layer: grid132Layer,   default: false },
+        { id: 'grid66',    label: '66kV Cables',       color: '#b200ff', layer: grid66Layer,    default: false },
+        { id: 'subs',      label: '■ Substations',     color: '#ffffff', layer: subsLayer,      default: true },
+        { id: 'energy',    label: '⚡ Energy Projects', color: '#00f2ff', layer: markers,        default: true },
+        { id: 'nuclear',   label: '☢️ Nuclear Plants',  color: '#39ff14', layer: nuclearLayer,   default: false },
+        { id: 'gas',       label: '🔥 Gas Plants',      color: '#ff4500', layer: gasLayer,       default: false },
+        { type: 'header', label: 'HEAVY ENERGY USERS (Potential PPA/Offtakers)' },
+        { id: 'industry',  label: '🏭 Heavy Industry',  color: '#ff6600', layer: industryLayer,  default: false },
+        { id: 'oil',       label: '🛢️ Oil Sites',        color: '#cccccc', layer: oilLayer,       default: false },
+        { id: 'water',     label: '💧 Water Utilities',  color: '#0088ff', layer: waterLayer,     default: false },
+        { id: 'dc',        label: '🖥️ Data Centres',     color: '#00ffff', layer: dataCentreLayer,default: false },
+        { id: 'airports',  label: '✈️ Airports',          color: '#ff00ff', layer: airportLayer,   default: false },
+        { id: 'hs2',       label: '🚄 HS2 Stations',     color: '#8a2be2', layer: hs2Layer,       default: false },
+        { id: 'rail',      label: '🚆 Railways',          color: '#ffd700', layer: railwayLayer,   default: false },
+    ];
+
+    function buildLegendPanel() {
+        const container = document.getElementById('custom-legend-container');
+
+        const baseHtml = baseMapConfig.map(b => `
+            <label class="legend-item">
+                <input type="radio" name="basemap" value="${b.id}" ${b.default ? 'checked' : ''}>
+                <span style="color: #aaa;">${b.label}</span>
+            </label>
+        `).join('');
+
+        const overlayHtml = layerConfig.map(item => {
+            if (item.type === 'header') {
+                return `<div class="legend-header">${item.label}</div>`;
+            }
+            return `
+                <label class="legend-item">
+                    <input type="checkbox" data-layer-id="${item.id}" ${item.default ? 'checked' : ''}>
+                    <span style="color: ${item.color};">${item.label}</span>
+                </label>
+            `;
+        }).join('');
+
+        container.innerHTML = `
+            <div class="custom-legend-panel">
+                <div class="legend-section-title">BASE MAP</div>
+                <div class="legend-grid legend-basemaps">${baseHtml}</div>
+                <div class="legend-divider"></div>
+                <div class="legend-grid legend-overlays">${overlayHtml}</div>
+            </div>
+        `;
+
+        container.querySelectorAll('input[name="basemap"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                baseMapConfig.forEach(b => map.removeLayer(b.layer));
+                const selected = baseMapConfig.find(b => b.id === this.value);
+                if (selected) map.addLayer(selected.layer);
+            });
+        });
+
+        container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', function() {
+                const cfg = layerConfig.find(l => l.id === this.dataset.layerId);
+                if (!cfg) return;
+                
+                if (this.checked) { 
+                    map.addLayer(cfg.layer); 
+                    // Re-render throttled layers when re-enabled to match slider state
+                    if (cfg.id === 'water') renderWater();
+                    if (cfg.id === 'subs') renderSubstations();
+                } else { 
+                    map.removeLayer(cfg.layer); 
+                }
+            });
+        });
+
+        // Initialize default map layers based on config
+        layerConfig.forEach(item => {
+            if (item.type === 'header') return;
+            if (item.default) { map.addLayer(item.layer); }
+            else { map.removeLayer(item.layer); }
+        });
+    }
+
+    buildLegendPanel();
+
+    // =======================================================
+    // --- REPD CSV DATA & TABLE ENGINE ---
+    // =======================================================
 
     const csvUrl = '{{ site.baseurl }}/repd.csv';
     let allData = []; let allMarkers = []; let dataTable;

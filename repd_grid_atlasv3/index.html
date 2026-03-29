@@ -8,45 +8,23 @@
     <style>
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; }
         .dashboard { display: flex; flex-direction: column; height: 100vh; height: 100dvh; width: 100vw; padding: 4px; gap: 4px; box-sizing: border-box; }
-        
         #fatal-banner { display: none; position: fixed; top: 0; left: 0; width: 100%; background: #ff0000; color: #fff; text-align: center; padding: 10px; font-weight: bold; z-index: 9999; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
-
         .hud-header { background: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
         .hud-val { font-size: 16px; font-weight: bold; color: #00ffff; text-shadow: 0 0 5px #00ffff; }
-        
         .ventus-brand { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; }
         .ventus-main { font-family: -apple-system, sans-serif; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 2px; }
         .ventus-sub  { font-family: -apple-system, sans-serif; font-size: 6.5px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
-
         .map-container { position: relative; flex-grow: 1; min-height: 0; border: 1px solid #222; border-radius: 6px; overflow: hidden; background: #0b0e14; }
         #map { width: 100%; height: 100%; }
-        
         .podcast-shoutout { position: absolute; bottom: 6px; right: 8px; font-family: -apple-system, sans-serif; font-size: 8px; color: #fff; opacity: 0.5; text-align: right; text-transform: uppercase; letter-spacing: 1px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
-
         .scada-wrapper { background: #050505; border: 1px solid #444; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; max-height: 36vh; }
         .scada-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; overflow-y: auto; padding-bottom: 5px; }
-        
         .key-group { border-left: 2px solid #333; padding-left: 10px; margin-bottom: 4px; }
         .key-title { font-size: 10px; color: #66ccff; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
         .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
-        
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
-
-        /* EASTER EGG: Ultra dark grey, small font, practically invisible until inspected closely */
-        .quantum-footnote { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            text-align: justify; 
-            font-size: 8px; 
-            line-height: 1.4; 
-            color: #444; 
-            margin-top: 10px; 
-            padding-top: 8px; 
-            border-top: 1px solid #111; 
-            user-select: none; 
-            pointer-events: none; 
-            flex-shrink: 0; 
-        }
+        .quantum-footnote { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 8px; line-height: 1.4; color: #444; margin-top: 10px; padding-top: 8px; border-top: 1px solid #111; user-select: none; pointer-events: none; flex-shrink: 0; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -70,37 +48,8 @@
     </div>
 
     <div class="scada-wrapper">
-        <div class="scada-keys">
-            <div class="key-group">
-                <div class="key-title">Topology (GeoJSON)</div>
-                <label class="key-item"><input type="checkbox" id="check-400"> <span id="lbl-400" style="color:#0054ff">400kV [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-275"> <span id="lbl-275" style="color:#ff0000">275kV [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-220"> <span id="lbl-220" style="color:#ff9900">220kV [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-132"> <span id="lbl-132" style="color:#00cc00">132kV [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-66">  <span id="lbl-66"  style="color:#b200ff">66kV [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-subs"><span id="lbl-subs" style="color:#fff">Subs [WAIT]</span></label>
+        <div class="scada-keys" id="scada-ui-container">
             </div>
-            <div class="key-group">
-                <div class="key-title">Assets (GeoJSON)</div>
-                <label class="key-item"><input type="checkbox" id="check-nuc"> <span id="lbl-nuc"  style="color:#39ff14">Nuclear [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-gas"> <span id="lbl-gas"  style="color:#ff4500">Gas [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-ind"> <span id="lbl-ind"  style="color:#ff6600">Industry [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-dc">  <span id="lbl-dc"   style="color:#00ffff">Data Centres [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-air"> <span id="lbl-air"  style="color:#ff00ff">Airports [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-rail"><span id="lbl-rail" style="color:#ffd700">Railways [WAIT]</span></label>
-            </div>
-            <div class="key-group">
-                <div class="key-title">REPD (CSV Parser Active)</div>
-                <label class="key-item"><input type="checkbox" id="check-solar"><span id="lbl-solar" style="color:#ffff00">Solar PV [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-wind"> <span id="lbl-wind"  style="color:#00ffff">Wind Farm [WAIT]</span></label>
-                <label class="key-item"><input type="checkbox" id="check-bess"> <span id="lbl-bess"  style="color:#ffae00">BESS Storage [WAIT]</span></label>
-            </div>
-            <div class="key-group">
-                <div class="key-title">Basemap</div>
-                <label class="key-item"><input type="radio" name="bm" id="btn-dark" checked> Dark</label>
-                <label class="key-item"><input type="radio" name="bm" id="btn-sat"> Satellite</label>
-            </div>
-        </div>
         <div class="quantum-footnote">
             Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture. // NOTE: This system is not powered by quantum computing. This is VENTUS, working in the spirit of 1990s pre-internet optimism. We feel this optimism is absolutely needed to accelerate net zero efforts, and for this, we must build energy grids.
         </div>
@@ -115,53 +64,161 @@ if (typeof maplibregl === 'undefined' || typeof Papa === 'undefined') {
     document.getElementById('fatal-banner').style.display = 'block';
     throw new Error('CRITICAL: Core scripts failed to load.');
 }
-const mapContainer = document.getElementById('map');
-if (!mapContainer) {
-    const b = document.getElementById('fatal-banner');
-    b.innerText = 'CRITICAL: #map DOM node missing.';
-    b.style.display = 'block';
-    throw new Error('CRITICAL: #map DOM node missing.');
+
+// ============================================================================
+// V10: THE CONFIGURATION ENGINE (Immutable Source of Truth)
+// ============================================================================
+function deepFreeze(obj) {
+    Object.keys(obj).forEach(prop => {
+        if (typeof obj[prop] === 'object' && obj[prop] !== null) deepFreeze(obj[prop]);
+    });
+    return Object.freeze(obj);
 }
 
-const MAP_STYLE_URL = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
-const SAT_TILE_URL  = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+const GRID_CONFIG = deepFreeze([
+    {
+        group: "Topology (GeoJSON)",
+        layers: [
+            { id: "400",  label: "400kV", color: "#0054ff", type: "line", width: 2.5, url: "/grid_400kv.geojson", snap: true, preload: true },
+            { id: "275",  label: "275kV", color: "#ff0000", type: "line", width: 2.0, url: "/grid_275kv.geojson", snap: true, preload: true },
+            { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "/grid_220kv.geojson", snap: true, preload: true },
+            { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "/grid_132kv.geojson", snap: true, preload: true },
+            { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "/grid_66kv.geojson", snap: true, preload: true },
+            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: 4.5, url: "/grid_substations.geojson", isSubs: true, preload: true }
+        ]
+    },
+    {
+        group: "Assets (GeoJSON)",
+        layers: [
+            { id: "nuc",  label: "Nuclear",  color: "#39ff14", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['==', ['get','source'], 'nuclear'], preload: true },
+            { id: "gas",  label: "Gas",      color: "#ff4500", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['!=', ['get','source'], 'nuclear'], preload: true },
+            { id: "ind",  label: "Industry", color: "#ff6600", type: "point", radius: 4.5, url: "/industrial_offtakers.geojson", preload: true },
+            { id: "dc",   label: "Data Ctrs",color: "#00ffff", type: "point", radius: 4.5, url: "/datacentres.geojson", preload: true },
+            { id: "air",  label: "Airports", color: "#ff00ff", type: "point", radius: 4.5, url: "/airports.geojson", preload: true },
+            { id: "rail", label: "Railways", color: "#ffd700", type: "point", radius: 4.5, url: "/railways.geojson", preload: true }
+        ]
+    },
+    {
+        group: "REPD (CSV Parser Active)",
+        layers: [
+            { id: "solar", label: "Solar PV",     color: "#ffff00", type: "csv", radius: 4.5, url: "/repd-solar-operational.csv", preload: false },
+            { id: "wind",  label: "Wind Farm",    color: "#00ffff", type: "csv", radius: 4.5, url: "/repd.csv", preload: false },
+            { id: "bess",  label: "BESS Storage", color: "#ffae00", type: "csv", radius: 4.5, url: "/repd-grid-batteries.csv", preload: false }
+        ]
+    }
+]);
 
-// Clock and Countdown
+// Mutable runtime memory (Tracks Load States, Failures, etc.)
+const RUNTIME_STATE = {};
+GRID_CONFIG.forEach(group => {
+    group.layers.forEach(layer => {
+        RUNTIME_STATE[layer.id] = { status: 'WAIT', loading: false, loaded: false };
+    });
+});
+
+// ============================================================================
+// CORE INFRASTRUCTURE
+// ============================================================================
 setInterval(() => {
     const now = new Date();
     document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
     document.getElementById('days').innerText  = Math.floor((new Date('2050-01-01') - now) / 86400000) + ' DAYS';
 }, 1000);
 
-// UI State Manager
-function updateDataState(id, state) {
-    const el = document.getElementById('lbl-' + id);
-    if (!el) return;
-    const base = el.innerText.split('[')[0].trim();
-    el.innerText    = base + ' [' + state + ']';
-    el.style.opacity = state === 'FAIL' ? '0.5' : '1';
-}
-
-// Map Initialization (MapLibre handles high-DPI/Retina internally)
 const map = new maplibregl.Map({
     container: 'map',
-    style: MAP_STYLE_URL,
+    style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     center: [-3.5, 54.0],
     zoom: 4.2,
     attributionControl: false
 });
+new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
-// Explicit Resize Observer to ensure perfect scaling if the iPad is rotated
-const resizeObserver = new ResizeObserver(() => {
-    map.resize();
-});
-resizeObserver.observe(mapContainer);
+function updateUIState(id, state) {
+    RUNTIME_STATE[id].status = state;
+    const span = document.getElementById(`lbl-${id}`);
+    if (span) {
+        const baseText = span.getAttribute('data-base-label');
+        span.innerText = `${baseText} [${state}]`;
+        span.style.opacity = state === 'FAIL' ? '0.5' : '1';
+    }
+}
 
-// Spherical coordinate correction for grid topology snapping
+// ============================================================================
+// NETWORK CONCURRENCY & CACHING
+// ============================================================================
+class FetchQueue {
+    constructor(concurrency) {
+        this.concurrency = concurrency;
+        this.active = 0;
+        this.queue = [];
+    }
+    async add(task) {
+        if (this.active >= this.concurrency) await new Promise(resolve => this.queue.push(resolve));
+        this.active++;
+        try { return await task(); } 
+        finally {
+            this.active--;
+            if (this.queue.length > 0) this.queue.shift()();
+        }
+    }
+}
+
+const networkQueue = new FetchQueue(4); // Strictly limit to 4 parallel connections
+const urlCache = {}; // Prevents parsing massive identical files twice (e.g., power_plants shared by Nuc/Gas)
+let globalSubsData = null; // Master reference for spatial snapping
+
+async function fetchWithTimeout(url, ms = 8000) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), ms);
+    try {
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(id);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response;
+    } catch (err) {
+        clearTimeout(id);
+        throw err;
+    }
+}
+
+// Data Parsers that cache their results
+async function fetchAndParseGeoJSON(url) {
+    if (urlCache[url]) return await urlCache[url];
+    const promise = fetchWithTimeout(url).then(res => res.json()).then(data => Array.isArray(data.features) ? data.features : []);
+    urlCache[url] = promise;
+    return promise;
+}
+
+async function fetchAndParseCSV(url) {
+    if (urlCache[url]) return await urlCache[url];
+    const promise = fetchWithTimeout(url).then(res => res.text()).then(csvText => {
+        return new Promise((resolve, reject) => {
+            Papa.parse(csvText, {
+                header: true, skipEmptyLines: true, dynamicTyping: true,
+                complete: res => {
+                    const features = [];
+                    res.data.forEach(row => {
+                        const lat = row.Lat || row.lat || row.Latitude || row.latitude || row.Y || row.y;
+                        const lon = row.Lon || row.lon || row.Longitude || row.longitude || row.X || row.x;
+                        if (lat && lon && isFinite(lat) && isFinite(lon)) {
+                            features.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [+lon, +lat] }, properties: row });
+                        }
+                    });
+                    resolve(features);
+                },
+                error: err => reject(err)
+            });
+        });
+    });
+    urlCache[url] = promise;
+    return promise;
+}
+
+// Math Correction for Earth Curvature
 function snapLines(features, subs) {
     if (!subs || !subs.length) return features;
-    const tol = 0.05;
-    const rad = Math.PI / 180;
+    const tol = 0.05, rad = Math.PI / 180;
     features.forEach(f => {
         const c = f.geometry && f.geometry.coordinates;
         if (!c || c.length < 2) return;
@@ -170,8 +227,7 @@ function snapLines(features, subs) {
             const latCos = Math.cos(c[i][1] * rad);
             subs.forEach(s => {
                 const sc = s.geometry.coordinates;
-                const dx = (c[i][0] - sc[0]) * latCos;
-                const dy = (c[i][1] - sc[1]);
+                const dx = (c[i][0] - sc[0]) * latCos, dy = (c[i][1] - sc[1]);
                 const d  = (dx * dx) + (dy * dy);
                 if (d < min && d < tol * tol) { min = d; best = sc; }
             });
@@ -181,147 +237,149 @@ function snapLines(features, subs) {
     return features;
 }
 
-// Network Resilience against hanging threads (8-second timeout)
-async function fetchWithTimeout(url, ms = 8000) {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), ms);
-    try {
-        const response = await fetch(url, { signal: controller.signal });
-        clearTimeout(id);
-        return response;
-    } catch (err) {
-        clearTimeout(id);
-        throw err;
-    }
+// ============================================================================
+// DOM GENERATOR & HYDRATION LOGIC
+// ============================================================================
+function buildDOM() {
+    const container = document.getElementById('scada-ui-container');
+    container.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+
+    GRID_CONFIG.forEach(group => {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'key-group';
+        groupDiv.innerHTML = `<div class="key-title">${group.group}</div>`;
+        
+        group.layers.forEach(layer => {
+            const label = document.createElement('label');
+            label.className = 'key-item';
+            
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.dataset.layerId = layer.id;
+            
+            const span = document.createElement('span');
+            span.id = `lbl-${layer.id}`;
+            span.setAttribute('data-base-label', layer.label);
+            span.style.color = layer.color;
+            span.innerText = `${layer.label} [WAIT]`;
+            
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(' '));
+            label.appendChild(span);
+            groupDiv.appendChild(label);
+        });
+        fragment.appendChild(groupDiv);
+    });
+
+    // Inject Basemap Controls
+    const bmGroup = document.createElement('div');
+    bmGroup.className = 'key-group';
+    bmGroup.innerHTML = `
+        <div class="key-title">Basemap</div>
+        <label class="key-item"><input type="radio" name="bm" value="dark" checked> Dark</label>
+        <label class="key-item"><input type="radio" name="bm" value="sat"> Satellite</label>
+    `;
+    fragment.appendChild(bmGroup);
+    
+    container.appendChild(fragment); // Single DOM reflow
+
+    // Event Delegation (One listener rules them all)
+    container.addEventListener('change', e => {
+        if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
+            const layerId = e.target.dataset.layerId;
+            const isVisible = e.target.checked;
+            map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
+            if (isVisible) hydrateLayer(layerId);
+        } else if (e.target.name === 'bm') {
+            map.setLayoutProperty('l-sat', 'visibility', e.target.value === 'sat' ? 'visible' : 'none');
+        }
+    });
 }
 
-map.on('load', async () => {
+async function hydrateLayer(layerId) {
+    const state = RUNTIME_STATE[layerId];
+    if (state.loaded || state.loading) return;
+    state.loading = true;
 
-    async function fetchAndSet(url, sourceId, uiId, snapSubs = null) {
+    const layerConfig = GRID_CONFIG.flatMap(g => g.layers).find(l => l.id === layerId);
+    
+    await networkQueue.add(async () => {
         try {
-            const res      = await fetchWithTimeout(url);
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const data     = await res.json();
-            const features = Array.isArray(data.features) ? data.features : [];
-            if (features.length === 0) { updateDataState(uiId, 'EMPTY'); return []; }
-            const payload  = snapSubs
-                ? { type: 'FeatureCollection', features: snapLines(features, snapSubs) }
-                : { type: 'FeatureCollection', features };
-            map.getSource(sourceId).setData(payload);
-            updateDataState(uiId, 'OK');
-            return features;
-        } catch (e) {
-            console.error('[LOAD FAILED]', url, e.message);
-            updateDataState(uiId, 'FAIL');
-            return [];
+            let features = layerConfig.type === 'csv' ? await fetchAndParseCSV(layerConfig.url) : await fetchAndParseGeoJSON(layerConfig.url);
+            
+            if (features.length === 0) {
+                updateUIState(layerId, 'EMPTY');
+                return;
+            }
+            
+            if (layerConfig.isSubs) globalSubsData = features;
+            if (layerConfig.snap && globalSubsData) features = snapLines(features, globalSubsData);
+            
+            map.getSource(`src-${layerId}`).setData({ type: 'FeatureCollection', features });
+            state.loaded = true;
+            updateUIState(layerId, 'OK');
+        } catch (err) {
+            console.error(`[LAYER FAILED] ${layerId}:`, err);
+            updateUIState(layerId, 'FAIL');
         }
-    }
+    });
+}
 
-    async function fetchCSVToGeoJSON(url, sourceId, uiId) {
-        try {
-            const res = await fetchWithTimeout(url);
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const csvText = await res.text();
-            Papa.parse(csvText, {
-                header: true, skipEmptyLines: true, dynamicTyping: true,
-                complete(results) {
-                    const features = [];
-                    results.data.forEach(row => {
-                        const lat = row.Lat || row.lat || row.Latitude || row.latitude || row.Y || row.y;
-                        const lon = row.Lon || row.lon || row.Longitude || row.longitude || row.X || row.x;
-                        if (lat && lon && isFinite(lat) && isFinite(lon)) {
-                            features.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [+lon, +lat] }, properties: row });
-                        }
-                    });
-                    if (features.length === 0) { updateDataState(uiId, 'EMPTY'); return; }
-                    if (map.getSource(sourceId)) map.getSource(sourceId).setData({ type: 'FeatureCollection', features });
-                    updateDataState(uiId, 'OK');
-                },
-                error(err) {
-                    console.error('[CSV PARSE FAILED]', url, err.message);
-                    updateDataState(uiId, 'FAIL');
-                }
-            });
-        } catch (e) {
-            console.error('[CSV LOAD FAILED]', url, e.message);
-            updateDataState(uiId, 'FAIL');
-        }
-    }
+// ============================================================================
+// MAP BOOTSTRAP
+// ============================================================================
+map.on('load', () => {
+    buildDOM();
 
-    // Set up Data Sources
-    map.addSource('sat-s', { type: 'raster', tiles: [SAT_TILE_URL], tileSize: 256 });
-    ['subs','400','275','220','132','66','power','ind','dc','air','rail','solar','wind','bess']
-        .forEach(s => map.addSource('src-' + s, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } }));
-
-    // Set up Map Layers
+    // 1. Add Satellite Basemap
+    map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
-    
-    const addLine = (id, col, w) => map.addLayer({ id: 'l-' + id, type: 'line', source: 'src-' + id, layout: { visibility: 'none' }, paint: { 'line-color': col, 'line-width': w } });
-    addLine('400','#0054ff',2.5); addLine('275','#ff0000',2); addLine('220','#ff9900',1.8); addLine('132','#00cc00',1.5); addLine('66','#b200ff',1.2);
-    
-    const addPoint = (id, src, col, filter) => {
-        const cfg = { id: 'l-' + id, type: 'circle', source: 'src-' + src, layout: { visibility: 'none' }, paint: { 'circle-color': col, 'circle-radius': 4.5, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' } };
-        if (filter) cfg.filter = filter;
-        map.addLayer(cfg);
-    };
-    addPoint('subs',  'subs',  '#ffffff');
-    addPoint('nuc',   'power', '#39ff14', ['==', ['get','source'], 'nuclear']);
-    addPoint('gas',   'power', '#ff4500', ['!=', ['get','source'], 'nuclear']);
-    addPoint('ind',   'ind',   '#ff6600');
-    addPoint('dc',    'dc',    '#00ffff');
-    addPoint('air',   'air',   '#ff00ff');
-    addPoint('rail',  'rail',  '#ffd700');
-    addPoint('solar', 'solar', '#ffff00');
-    addPoint('wind',  'wind',  '#00ffff');
-    addPoint('bess',  'bess',  '#ffae00');
 
-    // Fetch and Snap Grid Topology
-    const subsData = await fetchAndSet('/grid_substations.geojson', 'src-subs', 'subs');
-    fetchAndSet('/grid_400kv.geojson',  'src-400',  '400', subsData);
-    fetchAndSet('/grid_275kv.geojson',  'src-275',  '275', subsData);
-    fetchAndSet('/grid_220kv.geojson',  'src-220',  '220', subsData);
-    fetchAndSet('/grid_132kv.geojson',  'src-132',  '132', subsData);
-    fetchAndSet('/grid_66kv.geojson',   'src-66',   '66',  subsData);
-    
-    // Decoupled Logic parsing for Power Plants
-    fetchAndSet('/power_plants.geojson', 'src-power', 'nuc').then(features => {
-        if (!features || features.length === 0) {
-            updateDataState('gas', 'FAIL');
-            return;
-        }
-        const hasGas = features.some(f => f.properties && f.properties.source && String(f.properties.source).toLowerCase() !== 'nuclear');
-        updateDataState('gas', hasGas ? 'OK' : 'EMPTY');
+    // 2. Provision Empty Sources & MapLibre Layers
+    const allLayerIds = [];
+    GRID_CONFIG.forEach(group => {
+        group.layers.forEach(layer => {
+            map.addSource(`src-${layer.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+            
+            const layerObject = {
+                id: `l-${layer.id}`,
+                type: layer.type === 'line' ? 'line' : 'circle',
+                source: `src-${layer.id}`,
+                layout: { visibility: 'none' },
+                paint: layer.type === 'line' 
+                    ? { 'line-color': layer.color, 'line-width': layer.width } 
+                    : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
+            };
+            if (layer.filter) layerObject.filter = layer.filter;
+            
+            map.addLayer(layerObject);
+            allLayerIds.push(`l-${layer.id}`);
+        });
     });
 
-    // Fetch Assets and CSV Data
-    fetchAndSet('/industrial_offtakers.geojson', 'src-ind',  'ind');
-    fetchAndSet('/datacentres.geojson',           'src-dc',   'dc');
-    fetchAndSet('/airports.geojson',              'src-air',  'air');
-    fetchAndSet('/railways.geojson',              'src-rail', 'rail');
-    fetchCSVToGeoJSON('/repd-solar-operational.csv', 'src-solar', 'solar');
-    fetchCSVToGeoJSON('/repd-grid-batteries.csv',    'src-bess',  'bess');
-    fetchCSVToGeoJSON('/repd.csv',                   'src-wind',  'wind');
-
-    // Bind UI Checkboxes to Layers
-    ['400','275','220','132','66','subs','nuc','gas','ind','dc','air','rail','solar','wind','bess'].forEach(id => {
-        const el = document.getElementById('check-' + id);
-        if (el) el.addEventListener('change', e => map.setLayoutProperty('l-' + id, 'visibility', e.target.checked ? 'visible' : 'none'));
+    // 3. Bind Universal Click/Popup Logic
+    map.on('click', e => {
+        const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
+        if (!features.length) return;
+        const p = features[0].properties;
+        const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
+        const info = p.operator || p.capacity || p['Installed Capacity (MWelec)'] || p.voltage || 'Data Node';
+        new maplibregl.Popup({ maxWidth: '250px' })
+            .setLngLat(e.lngLat)
+            .setHTML(`<div style="font-family:monospace;color:#000"><b>${name}</b><br><span style="color:#444">${info}</span></div>`)
+            .addTo(map);
     });
     
-    // Basemap Toggles
-    document.getElementById('btn-sat').onchange  = () => map.setLayoutProperty('l-sat', 'visibility', 'visible');
-    document.getElementById('btn-dark').onchange = () => map.setLayoutProperty('l-sat', 'visibility', 'none');
+    map.on('mousemove', e => {
+        const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
+        map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+    });
 
-    // Click Events for Popups
-    ['l-400','l-275','l-subs','l-nuc','l-gas','l-ind','l-dc','l-solar','l-wind','l-bess'].forEach(layer => {
-        map.on('click', layer, e => {
-            const p    = e.features[0].properties;
-            const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
-            const info = p.operator || p.capacity || p['Installed Capacity (MWelec)'] || p.voltage || 'Data Node';
-            new maplibregl.Popup({ maxWidth: '250px' })
-                .setLngLat(e.lngLat)
-                .setHTML('<div style="font-family:monospace;color:#000"><b>' + name + '</b><br><span style="color:#444">' + info + '</span></div>')
-                .addTo(map);
+    // 4. Trigger Initialization for Preload Layers
+    GRID_CONFIG.forEach(group => {
+        group.layers.forEach(layer => {
+            if (layer.preload) hydrateLayer(layer.id);
         });
     });
 });

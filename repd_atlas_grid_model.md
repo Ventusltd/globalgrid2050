@@ -127,7 +127,7 @@ permalink: /repd_atlas_grid_model/
     </div>
 
     <div class="legal-disclaimer">
-        Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors | openstreetmap.org</a>. 
+       This interface is based on publicly available and open source infrastructure data, including public energy datasets such as REPD where applicable. It is presented for analytical and visualisation purposes only and does not include live operational or other non public operational data. Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors | openstreetmap.org</a>. 
         Powered by MapLibre GL JS.
     </div>
 </div>

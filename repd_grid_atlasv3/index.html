@@ -8,23 +8,45 @@
     <style>
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; }
         .dashboard { display: flex; flex-direction: column; height: 100vh; height: 100dvh; width: 100vw; padding: 4px; gap: 4px; box-sizing: border-box; }
+        
         #fatal-banner { display: none; position: fixed; top: 0; left: 0; width: 100%; background: #ff0000; color: #fff; text-align: center; padding: 10px; font-weight: bold; z-index: 9999; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+
         .hud-header { background: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
         .hud-val { font-size: 16px; font-weight: bold; color: #00ffff; text-shadow: 0 0 5px #00ffff; }
+        
         .ventus-brand { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; }
         .ventus-main { font-family: -apple-system, sans-serif; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 2px; }
         .ventus-sub  { font-family: -apple-system, sans-serif; font-size: 6.5px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+
         .map-container { position: relative; flex-grow: 1; min-height: 0; border: 1px solid #222; border-radius: 6px; overflow: hidden; background: #0b0e14; }
         #map { width: 100%; height: 100%; }
+        
         .podcast-shoutout { position: absolute; bottom: 6px; right: 8px; font-family: -apple-system, sans-serif; font-size: 8px; color: #fff; opacity: 0.5; text-align: right; text-transform: uppercase; letter-spacing: 1px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
+
         .scada-wrapper { background: #050505; border: 1px solid #444; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; max-height: 36vh; }
         .scada-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; overflow-y: auto; padding-bottom: 5px; }
+        
         .key-group { border-left: 2px solid #333; padding-left: 10px; margin-bottom: 4px; }
         .key-title { font-size: 10px; color: #66ccff; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
         .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
+        
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
-        .quantum-footnote { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.4; color: #fff; opacity: 0.5; margin-top: 10px; padding-top: 8px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; }
+
+        /* EASTER EGG: Ultra dark grey, small font, practically invisible until inspected closely */
+        .quantum-footnote { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            text-align: justify; 
+            font-size: 8px; 
+            line-height: 1.4; 
+            color: #444; 
+            margin-top: 10px; 
+            padding-top: 8px; 
+            border-top: 1px solid #111; 
+            user-select: none; 
+            pointer-events: none; 
+            flex-shrink: 0; 
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -80,7 +102,7 @@
             </div>
         </div>
         <div class="quantum-footnote">
-            Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture.
+            Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture. // NOTE: This system is not powered by quantum computing. This is VENTUS, working in the spirit of 1990s pre-internet optimism. We feel this optimism is absolutely needed to accelerate net zero efforts, and for this, we must build energy grids.
         </div>
     </div>
 </div>
@@ -104,12 +126,14 @@ if (!mapContainer) {
 const MAP_STYLE_URL = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 const SAT_TILE_URL  = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 
+// Clock and Countdown
 setInterval(() => {
     const now = new Date();
     document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
     document.getElementById('days').innerText  = Math.floor((new Date('2050-01-01') - now) / 86400000) + ' DAYS';
 }, 1000);
 
+// UI State Manager
 function updateDataState(id, state) {
     const el = document.getElementById('lbl-' + id);
     if (!el) return;
@@ -118,6 +142,7 @@ function updateDataState(id, state) {
     el.style.opacity = state === 'FAIL' ? '0.5' : '1';
 }
 
+// Map Initialization (MapLibre handles high-DPI/Retina internally)
 const map = new maplibregl.Map({
     container: 'map',
     style: MAP_STYLE_URL,
@@ -125,6 +150,12 @@ const map = new maplibregl.Map({
     zoom: 4.2,
     attributionControl: false
 });
+
+// Explicit Resize Observer to ensure perfect scaling if the iPad is rotated
+const resizeObserver = new ResizeObserver(() => {
+    map.resize();
+});
+resizeObserver.observe(mapContainer);
 
 // Spherical coordinate correction for grid topology snapping
 function snapLines(features, subs) {
@@ -150,7 +181,7 @@ function snapLines(features, subs) {
     return features;
 }
 
-// Network Resilience against hanging threads
+// Network Resilience against hanging threads (8-second timeout)
 async function fetchWithTimeout(url, ms = 8000) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), ms);
@@ -217,13 +248,17 @@ map.on('load', async () => {
         }
     }
 
+    // Set up Data Sources
     map.addSource('sat-s', { type: 'raster', tiles: [SAT_TILE_URL], tileSize: 256 });
     ['subs','400','275','220','132','66','power','ind','dc','air','rail','solar','wind','bess']
         .forEach(s => map.addSource('src-' + s, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } }));
 
+    // Set up Map Layers
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
+    
     const addLine = (id, col, w) => map.addLayer({ id: 'l-' + id, type: 'line', source: 'src-' + id, layout: { visibility: 'none' }, paint: { 'line-color': col, 'line-width': w } });
     addLine('400','#0054ff',2.5); addLine('275','#ff0000',2); addLine('220','#ff9900',1.8); addLine('132','#00cc00',1.5); addLine('66','#b200ff',1.2);
+    
     const addPoint = (id, src, col, filter) => {
         const cfg = { id: 'l-' + id, type: 'circle', source: 'src-' + src, layout: { visibility: 'none' }, paint: { 'circle-color': col, 'circle-radius': 4.5, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' } };
         if (filter) cfg.filter = filter;
@@ -240,6 +275,7 @@ map.on('load', async () => {
     addPoint('wind',  'wind',  '#00ffff');
     addPoint('bess',  'bess',  '#ffae00');
 
+    // Fetch and Snap Grid Topology
     const subsData = await fetchAndSet('/grid_substations.geojson', 'src-subs', 'subs');
     fetchAndSet('/grid_400kv.geojson',  'src-400',  '400', subsData);
     fetchAndSet('/grid_275kv.geojson',  'src-275',  '275', subsData);
@@ -247,7 +283,7 @@ map.on('load', async () => {
     fetchAndSet('/grid_132kv.geojson',  'src-132',  '132', subsData);
     fetchAndSet('/grid_66kv.geojson',   'src-66',   '66',  subsData);
     
-    // Decoupled Logic parsing.
+    // Decoupled Logic parsing for Power Plants
     fetchAndSet('/power_plants.geojson', 'src-power', 'nuc').then(features => {
         if (!features || features.length === 0) {
             updateDataState('gas', 'FAIL');
@@ -257,6 +293,7 @@ map.on('load', async () => {
         updateDataState('gas', hasGas ? 'OK' : 'EMPTY');
     });
 
+    // Fetch Assets and CSV Data
     fetchAndSet('/industrial_offtakers.geojson', 'src-ind',  'ind');
     fetchAndSet('/datacentres.geojson',           'src-dc',   'dc');
     fetchAndSet('/airports.geojson',              'src-air',  'air');
@@ -265,13 +302,17 @@ map.on('load', async () => {
     fetchCSVToGeoJSON('/repd-grid-batteries.csv',    'src-bess',  'bess');
     fetchCSVToGeoJSON('/repd.csv',                   'src-wind',  'wind');
 
+    // Bind UI Checkboxes to Layers
     ['400','275','220','132','66','subs','nuc','gas','ind','dc','air','rail','solar','wind','bess'].forEach(id => {
         const el = document.getElementById('check-' + id);
         if (el) el.addEventListener('change', e => map.setLayoutProperty('l-' + id, 'visibility', e.target.checked ? 'visible' : 'none'));
     });
+    
+    // Basemap Toggles
     document.getElementById('btn-sat').onchange  = () => map.setLayoutProperty('l-sat', 'visibility', 'visible');
     document.getElementById('btn-dark').onchange = () => map.setLayoutProperty('l-sat', 'visibility', 'none');
 
+    // Click Events for Popups
     ['l-400','l-275','l-subs','l-nuc','l-gas','l-ind','l-dc','l-solar','l-wind','l-bess'].forEach(layer => {
         map.on('click', layer, e => {
             const p    = e.features[0].properties;

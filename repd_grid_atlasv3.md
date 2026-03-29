@@ -1,96 +1,33 @@
 ---
 layout: null
-title: GlobalGrid2050 Tactical HUD | Optimized Controls
+title: GlobalGrid2050 Tactical HUD | Strict Asset Mapping
 permalink: /repd_grid_atlasv3/
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>GlobalGrid2050 | Reborn HUD</title>
+    <title>GlobalGrid2050 | Tactical HUD</title>
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
-        /* --- RESET & LAYOUT --- */
         body { margin: 0; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; }
+        .dashboard { display: flex; flex-direction: column; height: 100vh; padding: 8px; box-sizing: border-box; }
         
-        .dashboard { 
-            display: flex; 
-            flex-direction: column; 
-            height: 100vh; 
-            padding: 8px; 
-            box-sizing: border-box; 
-        }
-        
-        /* --- HUD HEADER --- */
-        .hud-header { 
-            background: #0a0a0a; 
-            border: 1px solid #333; 
-            border-radius: 6px; 
-            padding: 8px 15px; 
-            margin-bottom: 6px; 
-            display: flex; 
-            justify-content: space-between; 
-            flex-shrink: 0; 
-        }
+        .hud-header { background: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 8px 15px; margin-bottom: 6px; display: flex; justify-content: space-between; flex-shrink: 0; }
         .hud-val { font-size: 16px; font-weight: bold; color: #00ffff; text-shadow: 0 0 5px #00ffff; }
         
-        /* --- MAP AREA (REDUCED AREA FOR REACHABILITY) --- */
-        #map { 
-            flex-grow: 1; 
-            max-height: 55vh; /* Reduced from 75vh to bring controls up */
-            border: 2px solid #222; 
-            border-radius: 6px; 
-            background: #0b0e14; 
-        }
+        #map { flex-grow: 1; max-height: 55vh; border: 2px solid #222; border-radius: 6px; background: #0b0e14; }
 
-        /* --- SCADA COMMAND INTERFACE (INCREASED RESOLUTION) --- */
         .scada-keys { 
-            background: #050505; 
-            border: 1px solid #444; 
-            border-radius: 6px; 
-            padding: 15px; 
-            margin-top: 8px;
-            display: grid; 
-            grid-template-columns: 1fr 1fr; /* Two clear columns for mobile */
-            gap: 12px; 
-            overflow-y: auto;
-            flex-shrink: 0;
+            background: #050505; border: 1px solid #444; border-radius: 6px; padding: 15px; margin-top: 8px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; overflow-y: auto; flex-shrink: 0;
         }
+        .key-group { border-left: 2px solid #333; padding-left: 12px; }
+        .key-title { font-size: 11px; color: #66ccff; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
+        .key-item { display: flex; align-items: center; gap: 10px; font-size: 14px; margin-bottom: 10px; cursor: pointer; }
+        input[type="checkbox"], input[type="radio"] { transform: scale(1.4); margin-right: 8px; accent-color: #00ffff; }
         
-        .key-group { 
-            border-left: 2px solid #333; 
-            padding-left: 12px; 
-            margin-bottom: 5px;
-        }
-        
-        .key-title { 
-            font-size: 11px; 
-            color: #66ccff; 
-            text-transform: uppercase; 
-            margin-bottom: 8px; 
-            letter-spacing: 1.5px; 
-            font-weight: bold;
-        }
-        
-        /* Bigger touch targets for mobile "Control Resolution" */
-        .key-item { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            font-size: 14px; /* Increased font size */
-            margin-bottom: 10px; 
-            cursor: pointer;
-            padding: 4px 0;
-        }
-        
-        /* Scale up checkboxes for fat-finger safety */
-        input[type="checkbox"], input[type="radio"] { 
-            transform: scale(1.4); 
-            margin-right: 8px;
-            accent-color: #66ccff; 
-        }
-
-        .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; }
+        .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; }
     </style>
 </head>
 <body>
@@ -105,24 +42,30 @@ permalink: /repd_grid_atlasv3/
 
     <div class="scada-keys">
         <div class="key-group">
-            <div class="key-title">Topology</div>
-            <label class="key-item"><input type="checkbox" id="check-400" checked> <span style="color:#0054ff">400kV</span></label>
-            <label class="key-item"><input type="checkbox" id="check-275" checked> <span style="color:#ff0000">275kV</span></label>
-            <label class="key-item"><input type="checkbox" id="check-subs" checked> <span style="color:#fff">Subs</span></label>
+            <div class="key-title">Topology (GeoJSON)</div>
+            <label class="key-item"><input type="checkbox" id="check-400"> <span style="color:#0054ff">400kV</span></label>
+            <label class="key-item"><input type="checkbox" id="check-275"> <span style="color:#ff0000">275kV</span></label>
+            <label class="key-item"><input type="checkbox" id="check-220"> <span style="color:#ff9900">220kV</span></label>
+            <label class="key-item"><input type="checkbox" id="check-132"> <span style="color:#00cc00">132kV</span></label>
+            <label class="key-item"><input type="checkbox" id="check-66"> <span style="color:#b200ff">66kV</span></label>
+            <label class="key-item"><input type="checkbox" id="check-subs"> <span style="color:#fff">Subs</span></label>
         </div>
 
         <div class="key-group">
-            <div class="key-title">Assets</div>
-            <label class="key-item"><input type="checkbox" id="check-solar"> <span style="color:#ffff00">Solar</span></label>
-            <label class="key-item"><input type="checkbox" id="check-wind"> <span style="color:#00ffff">Wind</span></label>
-            <label class="key-item"><input type="checkbox" id="check-bess"> <span style="color:#ffae00">BESS</span></label>
-        </div>
-
-        <div class="key-group">
-            <div class="key-title">Infra</div>
+            <div class="key-title">Assets (GeoJSON)</div>
             <label class="key-item"><input type="checkbox" id="check-nuc"> <span style="color:#39ff14">Nuclear</span></label>
+            <label class="key-item"><input type="checkbox" id="check-gas"> <span style="color:#ff4500">Gas</span></label>
             <label class="key-item"><input type="checkbox" id="check-ind"> <span style="color:#ff6600">Industry</span></label>
-            <label class="key-item"><input type="checkbox" id="check-dc"> <span style="color:#00ffff">DC's</span></label>
+            <label class="key-item"><input type="checkbox" id="check-dc"> <span style="color:#00ffff">Data Centres</span></label>
+            <label class="key-item"><input type="checkbox" id="check-air"> <span style="color:#ff00ff">Airports</span></label>
+            <label class="key-item"><input type="checkbox" id="check-rail"> <span style="color:#ffd700">Railways</span></label>
+        </div>
+
+        <div class="key-group">
+            <div class="key-title">REPD (CSV - Pending)</div>
+            <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">Solar (Wait)</span></label>
+            <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">Wind (Wait)</span></label>
+            <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">BESS (Wait)</span></label>
         </div>
 
         <div class="key-group">
@@ -135,7 +78,7 @@ permalink: /repd_grid_atlasv3/
 
 <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script>
-    // HUD CLOCKS
+    // CLOCKS
     setInterval(() => {
         const now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
@@ -149,53 +92,114 @@ permalink: /repd_grid_atlasv3/
         zoom: 5.8
     });
 
+    // SNAPPING ENGINE
+    function snapLines(features, subs) {
+        if (!subs || subs.length === 0) return features;
+        const tol = 0.05;
+        features.forEach(f => {
+            const c = f.geometry.coordinates;
+            if (c && c.length > 1) {
+                [0, c.length - 1].forEach(i => {
+                    let best = c[i], min = Infinity;
+                    subs.forEach(s => {
+                        const sc = s.geometry.coordinates;
+                        const d = Math.pow(c[i][0]-sc[0],2) + Math.pow(c[i][1]-sc[1],2);
+                        if (d < min && d < tol * tol) { min = d; best = sc; }
+                    });
+                    c[i] = best;
+                });
+            }
+        });
+        return features;
+    }
+
     map.on('load', async () => {
-        // SOURCES
+        // --- SAFE DATA LOADER ---
+        async function fetchAndSet(url, sourceId, snapSubs = null) {
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                
+                if (snapSubs) {
+                    map.getSource(sourceId).setData({ type: 'FeatureCollection', features: snapLines(data.features, snapSubs) });
+                } else {
+                    map.getSource(sourceId).setData(data);
+                }
+                return data.features;
+            } catch (e) {
+                console.warn(`Asset missing or failed: ${url}`, e);
+                return [];
+            }
+        }
+
+        // --- SOURCES ---
         map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
-        map.addSource('subs-s', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('repd-s', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('assets-s', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('g400-s', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('g275-s', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-
-        // LAYERS
-        map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
-        map.addLayer({ id: 'l-400', type: 'line', source: 'g400-s', paint: { 'line-color': '#0054ff', 'line-width': 2.5 } });
-        map.addLayer({ id: 'l-275', type: 'line', source: 'g275-s', paint: { 'line-color': '#ff0000', 'line-width': 2 } });
-        map.addLayer({ id: 'l-subs', type: 'circle', source: 'subs-s', paint: { 'circle-color': '#fff', 'circle-radius': 3.5 } });
-
-        const addAsset = (id, color, type, src='assets-s') => {
-            map.addLayer({ id, type: 'circle', source: src, filter: ['==', ['get', 'type'], type], layout: { visibility: 'none' }, paint: { 'circle-color': color, 'circle-radius': 6, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' } });
-        };
-        addAsset('l-solar', '#ffff00', 'solar', 'repd-s');
-        addAsset('l-wind', '#00ffff', 'wind', 'repd-s');
-        addAsset('l-bess', '#ffae00', 'battery', 'repd-s');
-        addAsset('l-nuc', '#39ff14', 'nuclear');
-        addAsset('l-ind', '#ff6600', 'industry');
-        addAsset('l-dc', '#00ffff', 'datacentre');
-
-        // DATA INGEST
-        try {
-            const [sR, g4R, g2R, rR, aR] = await Promise.all([
-                fetch('/grid_substations.geojson'), fetch('/grid_400kv.geojson'), 
-                fetch('/grid_275kv.geojson'), fetch('/repd_assets.geojson'),
-                fetch('/industrial_offtakers.geojson')
-            ]);
-            map.getSource('subs-s').setData(await sR.json());
-            map.getSource('repd-s').setData(await rR.json());
-            map.getSource('assets-s').setData(await aR.json());
-            map.getSource('g400-s').setData(await g4R.json());
-            map.getSource('g275-s').setData(await g2R.json());
-        } catch (e) { console.error(e); }
-
-        // BINDINGS
-        const b = (id, l) => document.getElementById(id).addEventListener('change', e => map.setLayoutProperty(l, 'visibility', e.target.checked ? 'visible' : 'none'));
-        b('check-400', 'l-400'); b('check-275', 'l-275'); b('check-subs', 'l-subs');
-        b('check-solar', 'l-solar'); b('check-wind', 'l-wind'); b('check-bess', 'l-bess');
-        b('check-nuc', 'l-nuc'); b('check-ind', 'l-ind'); b('check-dc', 'l-dc');
         
+        const sources = ['subs', '400', '275', '220', '132', '66', 'power', 'ind', 'dc', 'air', 'rail'];
+        sources.forEach(s => map.addSource(`src-${s}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } }));
+
+        // --- LAYERS ---
+        map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
+        
+        // Lines
+        const addLine = (id, color, w) => map.addLayer({ id: `l-${id}`, type: 'line', source: `src-${id}`, layout: { visibility: 'none' }, paint: { 'line-color': color, 'line-width': w } });
+        addLine('400', '#0054ff', 2.5); addLine('275', '#ff0000', 2); addLine('220', '#ff9900', 1.8); addLine('132', '#00cc00', 1.5); addLine('66', '#b200ff', 1.2);
+        
+        // Points
+        const addPoint = (id, src, color, filter=null) => {
+            let config = { id: `l-${id}`, type: 'circle', source: `src-${src}`, layout: { visibility: 'none' }, paint: { 'circle-color': color, 'circle-radius': 5, 'circle-stroke-width': 1 } };
+            if (filter) config.filter = filter;
+            map.addLayer(config);
+        };
+        addPoint('subs', 'subs', '#fff');
+        addPoint('nuc', 'power', '#39ff14', ['==', ['get', 'source'], 'nuclear']);
+        addPoint('gas', 'power', '#ff4500', ['!=', ['get', 'source'], 'nuclear']);
+        addPoint('ind', 'ind', '#ff6600');
+        addPoint('dc', 'dc', '#00ffff');
+        addPoint('air', 'air', '#ff00ff');
+        addPoint('rail', 'rail', '#ffd700');
+
+        // --- FETCH EXACT FILES FROM YOUR REPO ---
+        const subsData = await fetchAndSet('/grid_substations.geojson', 'src-subs');
+        
+        fetchAndSet('/grid_400kv.geojson', 'src-400', subsData);
+        fetchAndSet('/grid_275kv.geojson', 'src-275', subsData);
+        fetchAndSet('/grid_220kv.geojson', 'src-220', subsData);
+        fetchAndSet('/grid_132kv.geojson', 'src-132', subsData);
+        fetchAndSet('/grid_66kv.geojson', 'src-66', subsData);
+        
+        fetchAndSet('/power_plants.geojson', 'src-power');
+        fetchAndSet('/industrial_offtakers.geojson', 'src-ind');
+        fetchAndSet('/datacentres.geojson', 'src-dc');
+        fetchAndSet('/airports.geojson', 'src-air');
+        fetchAndSet('/railways.geojson', 'src-rail');
+
+        // --- BIND HTML TO LAYERS ---
+        const bind = (btnId, layerId) => {
+            const el = document.getElementById(btnId);
+            if(el) el.addEventListener('change', e => map.setLayoutProperty(layerId, 'visibility', e.target.checked ? 'visible' : 'none'));
+        };
+        
+        bind('check-400', 'l-400'); bind('check-275', 'l-275'); bind('check-220', 'l-220'); 
+        bind('check-132', 'l-132'); bind('check-66', 'l-66'); bind('check-subs', 'l-subs');
+        bind('check-nuc', 'l-nuc'); bind('check-gas', 'l-gas'); bind('check-ind', 'l-ind'); 
+        bind('check-dc', 'l-dc'); bind('check-air', 'l-air'); bind('check-rail', 'l-rail');
+
         document.getElementById('btn-sat').onchange = () => map.setLayoutProperty('l-sat', 'visibility', 'visible');
         document.getElementById('btn-dark').onchange = () => map.setLayoutProperty('l-sat', 'visibility', 'none');
+
+        // --- CLICK INSPECTOR ---
+        const clickable = ['l-400', 'l-275', 'l-subs', 'l-nuc', 'l-gas', 'l-ind', 'l-dc', 'l-air', 'l-rail'];
+        clickable.forEach(layer => {
+            map.on('click', layer, (e) => {
+                const p = e.features[0].properties;
+                new maplibregl.Popup({maxWidth: '250px'})
+                    .setLngLat(e.lngLat)
+                    .setHTML(`<div style="font-family:monospace; color:#000;"><b>${p.name || 'Unnamed Asset'}</b><br>Info: ${p.operator || p.voltage || 'N/A'}</div>`)
+                    .addTo(map);
+            });
+        });
     });
 </script>
 </body>

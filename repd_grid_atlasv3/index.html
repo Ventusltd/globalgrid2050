@@ -25,6 +25,11 @@
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
         .quantum-footnote { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 8px; line-height: 1.4; color: #444; margin-top: 10px; padding-top: 8px; border-top: 1px solid #111; user-select: none; pointer-events: none; flex-shrink: 0; }
+        
+        /* Quantum ODbL Compliance Styling */
+        .maplibregl-ctrl-attrib { background: rgba(5, 5, 5, 0.7) !important; color: #888 !important; font-family: 'Courier New', monospace !important; font-size: 9px !important; border-top-left-radius: 4px; }
+        .maplibregl-ctrl-attrib a { color: #00ffff !important; text-decoration: none; }
+        .maplibregl-ctrl-attrib a:hover { text-decoration: underline; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -48,8 +53,7 @@
     </div>
 
     <div class="scada-wrapper">
-        <div class="scada-keys" id="scada-ui-container">
-            </div>
+        <div class="scada-keys" id="scada-ui-container"></div>
         <div class="quantum-footnote">
             Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture. // NOTE: This system is not powered by quantum computing. This is VENTUS, working in the spirit of 1990s pre-internet optimism. We feel this optimism is absolutely needed to accelerate net zero efforts, and for this, we must build energy grids.
         </div>
@@ -130,7 +134,8 @@ const map = new maplibregl.Map({
     style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     center: [-3.5, 54.0],
     zoom: 4.2,
-    attributionControl: false
+    attributionControl: true,
+    customAttribution: 'Data <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>'
 });
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
@@ -165,7 +170,7 @@ class FetchQueue {
 }
 
 const networkQueue = new FetchQueue(4); // Strictly limit to 4 parallel connections
-const urlCache = {}; // Prevents parsing massive identical files twice (e.g., power_plants shared by Nuc/Gas)
+const urlCache = {}; // Prevents parsing massive identical files twice
 let globalSubsData = null; // Master reference for spatial snapping
 
 async function fetchWithTimeout(url, ms = 8000) {
@@ -284,7 +289,7 @@ function buildDOM() {
     
     container.appendChild(fragment); // Single DOM reflow
 
-    // Event Delegation (One listener rules them all)
+    // Event Delegation
     container.addEventListener('change', e => {
         if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
             const layerId = e.target.dataset.layerId;

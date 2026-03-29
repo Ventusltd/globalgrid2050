@@ -17,14 +17,20 @@
         .map-container { position: relative; flex-grow: 1; min-height: 0; border: 1px solid #222; border-radius: 6px; overflow: hidden; background: #0b0e14; }
         #map { width: 100%; height: 100%; }
         .podcast-shoutout { position: absolute; bottom: 6px; right: 8px; font-family: -apple-system, sans-serif; font-size: 8px; color: #fff; opacity: 0.5; text-align: right; text-transform: uppercase; letter-spacing: 1px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
-        .scada-wrapper { background: #050505; border: 1px solid #444; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; max-height: 36vh; }
+        .scada-wrapper { background: #050505; border: 1px solid #444; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; max-height: 38vh; }
         .scada-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; overflow-y: auto; padding-bottom: 5px; }
         .key-group { border-left: 2px solid #333; padding-left: 10px; margin-bottom: 4px; }
         .key-title { font-size: 10px; color: #66ccff; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
         .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
-        .quantum-footnote { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 8px; line-height: 1.4; color: #444; margin-top: 10px; padding-top: 8px; border-top: 1px solid #111; user-select: none; pointer-events: none; flex-shrink: 0; }
+        
+        .quantum-footnote { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 8px; line-height: 1.4; color: #444; margin-top: 10px; padding-top: 8px; border-top: 1px solid #111; user-select: none; pointer-events: none; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px; }
+        
+        /* Quantum ODbL Compliance Styling */
+        .maplibregl-ctrl-attrib { background: rgba(5, 5, 5, 0.7) !important; color: #888 !important; font-family: 'Courier New', monospace !important; font-size: 9px !important; border-radius: 4px; margin: 10px !important; }
+        .maplibregl-ctrl-attrib a { color: #00ffff !important; text-decoration: none; }
+        .maplibregl-ctrl-attrib a:hover { text-decoration: underline; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -48,10 +54,16 @@
     </div>
 
     <div class="scada-wrapper">
-        <div class="scada-keys" id="scada-ui-container">
-            </div>
+        <div class="scada-keys" id="scada-ui-container"></div>
         <div class="quantum-footnote">
-            Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture. // NOTE: This system is not powered by quantum computing. This is VENTUS, working in the spirit of 1990s pre-internet optimism. We feel this optimism is absolutely needed to accelerate net zero efforts, and for this, we must build energy grids.
+            <div>
+                Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture. // NOTE: This system is not powered by quantum computing. This is VENTUS, working in the spirit of 1990s pre-internet optimism. We feel this optimism is absolutely needed to accelerate net zero efforts, and for this, we must build energy grids.
+            </div>
+            <div>
+                <strong style="color: #888; font-size: 9px;">DATA COMPLIANCE DIRECTIVE:</strong><br> 
+                Operating under the UK Energy Data Taskforce (EDTF) 2019 <em>"Presumed Open"</em> mandate.<br>
+                <span style="color:#ff0055; font-weight:bold;">RESTRICTED (NPSA CLASSIFIED):</span> Live SCADA telemetry & physical vulnerability nodes strictly prohibited.
+            </div>
         </div>
     </div>
 </div>
@@ -130,9 +142,14 @@ const map = new maplibregl.Map({
     style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     center: [-3.5, 54.0],
     zoom: 4.2,
-    attributionControl: false
+    attributionControl: false // Disabled default bottom-right placement
 });
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
+
+// Inject custom ODbL compliance attribution into the top left (with visible URL)
+map.addControl(new maplibregl.AttributionControl({
+    customAttribution: 'Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors | openstreetmap.org</a>'
+}), 'top-left');
 
 function updateUIState(id, state) {
     RUNTIME_STATE[id].status = state;
@@ -165,7 +182,7 @@ class FetchQueue {
 }
 
 const networkQueue = new FetchQueue(4); // Strictly limit to 4 parallel connections
-const urlCache = {}; // Prevents parsing massive identical files twice (e.g., power_plants shared by Nuc/Gas)
+const urlCache = {}; // Prevents parsing massive identical files twice
 let globalSubsData = null; // Master reference for spatial snapping
 
 async function fetchWithTimeout(url, ms = 8000) {

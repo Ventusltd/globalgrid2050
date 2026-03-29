@@ -18,16 +18,38 @@ permalink: /repd_grid_atlasv3/
         
         #map { flex-grow: 1; max-height: 55vh; border: 2px solid #222; border-radius: 6px; background: #0b0e14; }
 
-        .scada-keys { 
+        /* SCADA WRAPPER */
+        .scada-wrapper {
             background: #050505; border: 1px solid #444; border-radius: 6px; padding: 15px; margin-top: 8px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; overflow-y: auto; flex-shrink: 0;
+            display: flex; flex-direction: column; flex-shrink: 0; max-height: 35vh;
         }
+
+        .scada-keys { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; overflow-y: auto; 
+        }
+        
         .key-group { border-left: 2px solid #333; padding-left: 12px; }
         .key-title { font-size: 11px; color: #66ccff; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
         .key-item { display: flex; align-items: center; gap: 10px; font-size: 14px; margin-bottom: 10px; cursor: pointer; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.4); margin-right: 8px; accent-color: #00ffff; }
         
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; }
+
+        /* --- THE QUANTUM EMBOSS --- */
+        .quantum-footnote {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 5px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed #222;
+            text-transform: uppercase;
+            font-weight: bold;
+            user-select: none;
+            /* Embossed CSS Magic */
+            color: #151515; 
+            text-shadow: -1px -1px 1px #000, 1px 1px 1px #2a2a2a;
+        }
     </style>
 </head>
 <body>
@@ -40,39 +62,43 @@ permalink: /repd_grid_atlasv3/
 
     <div id="map"></div>
 
-    <div class="scada-keys">
-        <div class="key-group">
-            <div class="key-title">Topology (GeoJSON)</div>
-            <label class="key-item"><input type="checkbox" id="check-400"> <span style="color:#0054ff">400kV</span></label>
-            <label class="key-item"><input type="checkbox" id="check-275"> <span style="color:#ff0000">275kV</span></label>
-            <label class="key-item"><input type="checkbox" id="check-220"> <span style="color:#ff9900">220kV</span></label>
-            <label class="key-item"><input type="checkbox" id="check-132"> <span style="color:#00cc00">132kV</span></label>
-            <label class="key-item"><input type="checkbox" id="check-66"> <span style="color:#b200ff">66kV</span></label>
-            <label class="key-item"><input type="checkbox" id="check-subs"> <span style="color:#fff">Subs</span></label>
-        </div>
+    <div class="scada-wrapper">
+        <div class="scada-keys">
+            <div class="key-group">
+                <div class="key-title">Topology (GeoJSON)</div>
+                <label class="key-item"><input type="checkbox" id="check-400"> <span style="color:#0054ff">400kV</span></label>
+                <label class="key-item"><input type="checkbox" id="check-275"> <span style="color:#ff0000">275kV</span></label>
+                <label class="key-item"><input type="checkbox" id="check-220"> <span style="color:#ff9900">220kV</span></label>
+                <label class="key-item"><input type="checkbox" id="check-132"> <span style="color:#00cc00">132kV</span></label>
+                <label class="key-item"><input type="checkbox" id="check-66"> <span style="color:#b200ff">66kV</span></label>
+                <label class="key-item"><input type="checkbox" id="check-subs"> <span style="color:#fff">Subs</span></label>
+            </div>
 
-        <div class="key-group">
-            <div class="key-title">Assets (GeoJSON)</div>
-            <label class="key-item"><input type="checkbox" id="check-nuc"> <span style="color:#39ff14">Nuclear</span></label>
-            <label class="key-item"><input type="checkbox" id="check-gas"> <span style="color:#ff4500">Gas</span></label>
-            <label class="key-item"><input type="checkbox" id="check-ind"> <span style="color:#ff6600">Industry</span></label>
-            <label class="key-item"><input type="checkbox" id="check-dc"> <span style="color:#00ffff">Data Centres</span></label>
-            <label class="key-item"><input type="checkbox" id="check-air"> <span style="color:#ff00ff">Airports</span></label>
-            <label class="key-item"><input type="checkbox" id="check-rail"> <span style="color:#ffd700">Railways</span></label>
-        </div>
+            <div class="key-group">
+                <div class="key-title">Assets (GeoJSON)</div>
+                <label class="key-item"><input type="checkbox" id="check-nuc"> <span style="color:#39ff14">Nuclear</span></label>
+                <label class="key-item"><input type="checkbox" id="check-gas"> <span style="color:#ff4500">Gas</span></label>
+                <label class="key-item"><input type="checkbox" id="check-ind"> <span style="color:#ff6600">Industry</span></label>
+                <label class="key-item"><input type="checkbox" id="check-dc"> <span style="color:#00ffff">Data Centres</span></label>
+                <label class="key-item"><input type="checkbox" id="check-air"> <span style="color:#ff00ff">Airports</span></label>
+                <label class="key-item"><input type="checkbox" id="check-rail"> <span style="color:#ffd700">Railways</span></label>
+            </div>
 
-        <div class="key-group">
-            <div class="key-title">REPD (CSV - Pending)</div>
-            <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">Solar (Wait)</span></label>
-            <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">Wind (Wait)</span></label>
-            <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">BESS (Wait)</span></label>
-        </div>
+            <div class="key-group">
+                <div class="key-title">REPD (CSV - Pending)</div>
+                <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">Solar (Wait)</span></label>
+                <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">Wind (Wait)</span></label>
+                <label class="key-item"><input type="checkbox" disabled> <span style="color:#555">BESS (Wait)</span></label>
+            </div>
 
-        <div class="key-group">
-            <div class="key-title">Basemap</div>
-            <label class="key-item"><input type="radio" name="bm" id="btn-dark" checked> Dark</label>
-            <label class="key-item"><input type="radio" name="bm" id="btn-sat"> Satellite</label>
+            <div class="key-group">
+                <div class="key-title">Basemap</div>
+                <label class="key-item"><input type="radio" name="bm" id="btn-dark" checked> Dark</label>
+                <label class="key-item"><input type="radio" name="bm" id="btn-sat"> Satellite</label>
+            </div>
         </div>
+        
+        <div class="quantum-footnote">AWAITING QUANTUM CLICK</div>
     </div>
 </div>
 

@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://basemaps.cartocdn.com https://server.arcgisonline.com; connect-src 'self' *;">
+
     <title>GlobalGrid2050 | Ventus Core</title>
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
@@ -112,7 +115,6 @@ const GRID_CONFIG = deepFreeze([
     }
 ]);
 
-// Mutable runtime memory (Tracks Load States, Failures, etc.)
 const RUNTIME_STATE = {};
 GRID_CONFIG.forEach(group => {
     group.layers.forEach(layer => {
@@ -135,7 +137,8 @@ const map = new maplibregl.Map({
     center: [-3.5, 54.0],
     zoom: 4.2,
     attributionControl: true,
-    customAttribution: 'Data <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>'
+    // HARDENED: rel="noopener noreferrer" added to attribution link
+    customAttribution: 'Data <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>'
 });
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
@@ -169,9 +172,9 @@ class FetchQueue {
     }
 }
 
-const networkQueue = new FetchQueue(4); // Strictly limit to 4 parallel connections
-const urlCache = {}; // Prevents parsing massive identical files twice
-let globalSubsData = null; // Master reference for spatial snapping
+const networkQueue = new FetchQueue(4);
+const urlCache = {}; 
+let globalSubsData = null; 
 
 async function fetchWithTimeout(url, ms = 8000) {
     const controller = new AbortController();
@@ -187,10 +190,17 @@ async function fetchWithTimeout(url, ms = 8000) {
     }
 }
 
-// Data Parsers that cache their results
+// HARDENED: GeoJSON Parser now drops null/invalid geometries
 async function fetchAndParseGeoJSON(url) {
     if (urlCache[url]) return await urlCache[url];
-    const promise = fetchWithTimeout(url).then(res => res.json()).then(data => Array.isArray(data.features) ? data.features : []);
+    const promise = fetchWithTimeout(url).then(res => res.json()).then(data => {
+        if (!Array.isArray(data.features)) return [];
+        return data.features.filter(f => 
+            f.geometry && 
+            Array.isArray(f.geometry.coordinates) && 
+            f.geometry.coordinates.length >= 2
+        );
+    });
     urlCache[url] = promise;
     return promise;
 }
@@ -220,7 +230,6 @@ async function fetchAndParseCSV(url) {
     return promise;
 }
 
-// Math Correction for Earth Curvature
 function snapLines(features, subs) {
     if (!subs || !subs.length) return features;
     const tol = 0.05, rad = Math.PI / 180;
@@ -277,7 +286,6 @@ function buildDOM() {
         fragment.appendChild(groupDiv);
     });
 
-    // Inject Basemap Controls
     const bmGroup = document.createElement('div');
     bmGroup.className = 'key-group';
     bmGroup.innerHTML = `
@@ -287,9 +295,8 @@ function buildDOM() {
     `;
     fragment.appendChild(bmGroup);
     
-    container.appendChild(fragment); // Single DOM reflow
+    container.appendChild(fragment); 
 
-    // Event Delegation
     container.addEventListener('change', e => {
         if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
             const layerId = e.target.dataset.layerId;
@@ -337,11 +344,9 @@ async function hydrateLayer(layerId) {
 map.on('load', () => {
     buildDOM();
 
-    // 1. Add Satellite Basemap
     map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
-    // 2. Provision Empty Sources & MapLibre Layers
     const allLayerIds = [];
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
@@ -363,16 +368,31 @@ map.on('load', () => {
         });
     });
 
-    // 3. Bind Universal Click/Popup Logic
+    // HARDENED: Bulletproof DOM popups replacing vulnerable .setHTML()
     map.on('click', e => {
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
         const p = features[0].properties;
         const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
         const info = p.operator || p.capacity || p['Installed Capacity (MWelec)'] || p.voltage || 'Data Node';
+        
+        const popupContainer = document.createElement('div');
+        popupContainer.style.cssText = "font-family:monospace;color:#000";
+        
+        const boldName = document.createElement('b');
+        boldName.textContent = name;
+        
+        const spanInfo = document.createElement('span');
+        spanInfo.style.color = '#444';
+        spanInfo.textContent = info;
+        
+        popupContainer.appendChild(boldName);
+        popupContainer.appendChild(document.createElement('br'));
+        popupContainer.appendChild(spanInfo);
+
         new maplibregl.Popup({ maxWidth: '250px' })
             .setLngLat(e.lngLat)
-            .setHTML(`<div style="font-family:monospace;color:#000"><b>${name}</b><br><span style="color:#444">${info}</span></div>`)
+            .setDOMContent(popupContainer)
             .addTo(map);
     });
     
@@ -381,7 +401,6 @@ map.on('load', () => {
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
     });
 
-    // 4. Trigger Initialization for Preload Layers
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             if (layer.preload) hydrateLayer(layer.id);

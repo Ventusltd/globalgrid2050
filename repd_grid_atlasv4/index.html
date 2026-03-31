@@ -17,14 +17,21 @@
         .map-container { position: relative; flex-grow: 1; min-height: 0; border: 1px solid #222; border-radius: 6px; overflow: hidden; background: #0b0e14; }
         #map { width: 100%; height: 100%; }
         .podcast-shoutout { position: absolute; bottom: 6px; right: 8px; font-family: -apple-system, sans-serif; font-size: 8px; color: #fff; opacity: 0.5; text-align: right; text-transform: uppercase; letter-spacing: 1px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
-        .scada-wrapper { background: #050505; border: 1px solid #444; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; max-height: 36vh; }
+        .scada-wrapper { background: #050505; border: 1px solid #444; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; max-height: 38vh; }
         .scada-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; overflow-y: auto; padding-bottom: 5px; }
         .key-group { border-left: 2px solid #333; padding-left: 10px; margin-bottom: 4px; }
         .key-title { font-size: 10px; color: #66ccff; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
         .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
-        .quantum-footnote { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 8px; line-height: 1.4; color: #444; margin-top: 10px; padding-top: 8px; border-top: 1px solid #111; user-select: none; pointer-events: none; flex-shrink: 0; }
+        
+        /* Updated Disclaimer Styling */
+        .disclaimer-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.5; color: #666; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; }
+        
+        /* Custom UI Overlay Attribution */
+        .custom-map-attrib { position: absolute; top: 10px; left: 10px; background: rgba(5, 5, 5, 0.7); color: #888; font-family: 'Courier New', monospace; font-size: 9px; border-radius: 4px; padding: 4px 8px; z-index: 10; border: 1px solid #333; pointer-events: auto; }
+        .custom-map-attrib a { color: #00ffff; text-decoration: none; }
+        .custom-map-attrib a:hover { text-decoration: underline; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -44,14 +51,16 @@
 
     <div class="map-container">
         <div id="map"></div>
+        <div class="custom-map-attrib">
+            Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors | openstreetmap.org</a> | © CARTO
+        </div>
         <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
     </div>
 
     <div class="scada-wrapper">
-        <div class="scada-keys" id="scada-ui-container">
-            </div>
-        <div class="quantum-footnote">
-            Quantum computing harnesses superposition and entanglement to process multi-variable problems exponentially faster than classical binary systems. For global energy grids, this enables the solving of hyper-complex optimization, routing, and load-balancing equations in seconds, paving the way for a perfectly efficient, net-zero architecture. // NOTE: This system is not powered by quantum computing. This is VENTUS, working in the spirit of 1990s pre-internet optimism. We feel this optimism is absolutely needed to accelerate net zero efforts, and for this, we must build energy grids.
+        <div class="scada-keys" id="scada-ui-container"></div>
+        <div class="disclaimer-box">
+            This interface is based on publicly available and open source infrastructure data, including public energy datasets such as REPD where applicable. It is presented for analytical and visualisation purposes only and does not include live operational or other non public operational data.
         </div>
     </div>
 </div>
@@ -65,9 +74,6 @@ if (typeof maplibregl === 'undefined' || typeof Papa === 'undefined') {
     throw new Error('CRITICAL: Core scripts failed to load.');
 }
 
-// ============================================================================
-// V10: THE CONFIGURATION ENGINE (Immutable Source of Truth)
-// ============================================================================
 function deepFreeze(obj) {
     Object.keys(obj).forEach(prop => {
         if (typeof obj[prop] === 'object' && obj[prop] !== null) deepFreeze(obj[prop]);
@@ -108,7 +114,6 @@ const GRID_CONFIG = deepFreeze([
     }
 ]);
 
-// Mutable runtime memory (Tracks Load States, Failures, etc.)
 const RUNTIME_STATE = {};
 GRID_CONFIG.forEach(group => {
     group.layers.forEach(layer => {
@@ -116,9 +121,6 @@ GRID_CONFIG.forEach(group => {
     });
 });
 
-// ============================================================================
-// CORE INFRASTRUCTURE
-// ============================================================================
 setInterval(() => {
     const now = new Date();
     document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
@@ -130,7 +132,7 @@ const map = new maplibregl.Map({
     style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     center: [-3.5, 54.0],
     zoom: 4.2,
-    attributionControl: false
+    attributionControl: false 
 });
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
@@ -144,9 +146,6 @@ function updateUIState(id, state) {
     }
 }
 
-// ============================================================================
-// NETWORK CONCURRENCY & CACHING
-// ============================================================================
 class FetchQueue {
     constructor(concurrency) {
         this.concurrency = concurrency;
@@ -164,9 +163,9 @@ class FetchQueue {
     }
 }
 
-const networkQueue = new FetchQueue(4); // Strictly limit to 4 parallel connections
-const urlCache = {}; // Prevents parsing massive identical files twice (e.g., power_plants shared by Nuc/Gas)
-let globalSubsData = null; // Master reference for spatial snapping
+const networkQueue = new FetchQueue(4);
+const urlCache = {}; 
+let globalSubsData = null; 
 
 async function fetchWithTimeout(url, ms = 8000) {
     const controller = new AbortController();
@@ -182,7 +181,6 @@ async function fetchWithTimeout(url, ms = 8000) {
     }
 }
 
-// Data Parsers that cache their results
 async function fetchAndParseGeoJSON(url) {
     if (urlCache[url]) return await urlCache[url];
     const promise = fetchWithTimeout(url).then(res => res.json()).then(data => Array.isArray(data.features) ? data.features : []);
@@ -215,7 +213,6 @@ async function fetchAndParseCSV(url) {
     return promise;
 }
 
-// Math Correction for Earth Curvature
 function snapLines(features, subs) {
     if (!subs || !subs.length) return features;
     const tol = 0.05, rad = Math.PI / 180;
@@ -237,9 +234,6 @@ function snapLines(features, subs) {
     return features;
 }
 
-// ============================================================================
-// DOM GENERATOR & HYDRATION LOGIC
-// ============================================================================
 function buildDOM() {
     const container = document.getElementById('scada-ui-container');
     container.innerHTML = '';
@@ -272,7 +266,6 @@ function buildDOM() {
         fragment.appendChild(groupDiv);
     });
 
-    // Inject Basemap Controls
     const bmGroup = document.createElement('div');
     bmGroup.className = 'key-group';
     bmGroup.innerHTML = `
@@ -282,9 +275,8 @@ function buildDOM() {
     `;
     fragment.appendChild(bmGroup);
     
-    container.appendChild(fragment); // Single DOM reflow
+    container.appendChild(fragment); 
 
-    // Event Delegation (One listener rules them all)
     container.addEventListener('change', e => {
         if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
             const layerId = e.target.dataset.layerId;
@@ -326,17 +318,12 @@ async function hydrateLayer(layerId) {
     });
 }
 
-// ============================================================================
-// MAP BOOTSTRAP
-// ============================================================================
 map.on('load', () => {
     buildDOM();
 
-    // 1. Add Satellite Basemap
     map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
-    // 2. Provision Empty Sources & MapLibre Layers
     const allLayerIds = [];
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
@@ -358,7 +345,6 @@ map.on('load', () => {
         });
     });
 
-    // 3. Bind Universal Click/Popup Logic
     map.on('click', e => {
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
@@ -376,7 +362,6 @@ map.on('load', () => {
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
     });
 
-    // 4. Trigger Initialization for Preload Layers
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             if (layer.preload) hydrateLayer(layer.id);

@@ -2269,36 +2269,6 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Edgware Road",
-        "type": "Tube Station",
-        "operator": "Transport for London"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.1702993,
-          51.5204575
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Marylebone",
-        "type": "Tube Station",
-        "operator": "Transport for London"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.1635046,
-          51.5222363
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "name": "Embankment",
         "type": "Tube Station",
         "operator": "Transport for London"
@@ -3613,21 +3583,6 @@
         "coordinates": [
           -0.1437048,
           51.5238146
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Warren Street",
-        "type": "Tube Station",
-        "operator": "Transport for London"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -0.1385303,
-          51.5247178
         ]
       }
     },

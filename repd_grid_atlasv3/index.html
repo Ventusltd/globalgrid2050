@@ -41,7 +41,11 @@
 
 <div class="dashboard">
     <div class="hud-header">
-        <div><small style="color:#888">SYSTEM TIME</small><br><span class="hud-val" id="clock">--:--:--</span></div>
+        <div>
+            <small style="color:#888">SYSTEM TIME</small><br>
+            <span class="hud-val" id="clock">--:--:--</span><br>
+            <span id="date" style="font-size: 11px; color: #888;">--/--/----</span>
+        </div>
         <div class="ventus-brand">
             <div class="ventus-main">Ventus</div>
             <div class="ventus-sub">Cables &amp; Connectivity&reg;</div>
@@ -124,6 +128,7 @@ GRID_CONFIG.forEach(group => {
 setInterval(() => {
     const now = new Date();
     document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
+    document.getElementById('date').innerText = now.toLocaleDateString('en-GB');
     document.getElementById('days').innerText  = Math.floor((new Date('2050-01-01') - now) / 86400000) + ' DAYS';
 }, 1000);
 

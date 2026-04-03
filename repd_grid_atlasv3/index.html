@@ -24,11 +24,7 @@
         .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
-        
-        /* Updated Disclaimer Styling */
         .disclaimer-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.5; color: #666; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; }
-        
-        /* Custom UI Overlay Attribution */
         .custom-map-attrib { position: absolute; top: 10px; left: 10px; background: rgba(5, 5, 5, 0.7); color: #888; font-family: 'Courier New', monospace; font-size: 9px; border-radius: 4px; padding: 4px 8px; z-index: 10; border: 1px solid #333; pointer-events: auto; }
         .custom-map-attrib a { color: #00ffff; text-decoration: none; }
         .custom-map-attrib a:hover { text-decoration: underline; }
@@ -109,11 +105,11 @@ const GRID_CONFIG = deepFreeze([
         ]
     },
     {
-        group: "REPD (CSV Parser Active)",
+        group: "REPD (GeoJSON)",
         layers: [
-            { id: "solar", label: "Solar PV",     color: "#ffff00", type: "csv", radius: 4.5, url: "/repd-solar-operational.csv", preload: false },
-            { id: "wind",  label: "Wind Farm",    color: "#00ffff", type: "csv", radius: 4.5, url: "/repd.csv", preload: false },
-            { id: "bess",  label: "BESS Storage", color: "#ffae00", type: "csv", radius: 4.5, url: "/repd-grid-batteries.csv", preload: false }
+            { id: "solar", label: "Solar PV",     color: "#ffff00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get','tech'], 'solar'], preload: false },
+            { id: "wind",  label: "Wind Farm",    color: "#00ffff", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get','tech'], 'wind'],  preload: false },
+            { id: "bess",  label: "BESS Storage", color: "#ffae00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get','tech'], 'bess'],  preload: false }
         ]
     }
 ]);
@@ -169,8 +165,8 @@ class FetchQueue {
 }
 
 const networkQueue = new FetchQueue(4);
-const urlCache = {}; 
-let globalSubsData = null; 
+const urlCache = {};
+let globalSubsData = null;
 
 async function fetchWithTimeout(url, ms = 8000) {
     const controller = new AbortController();
@@ -189,31 +185,6 @@ async function fetchWithTimeout(url, ms = 8000) {
 async function fetchAndParseGeoJSON(url) {
     if (urlCache[url]) return await urlCache[url];
     const promise = fetchWithTimeout(url).then(res => res.json()).then(data => Array.isArray(data.features) ? data.features : []);
-    urlCache[url] = promise;
-    return promise;
-}
-
-async function fetchAndParseCSV(url) {
-    if (urlCache[url]) return await urlCache[url];
-    const promise = fetchWithTimeout(url).then(res => res.text()).then(csvText => {
-        return new Promise((resolve, reject) => {
-            Papa.parse(csvText, {
-                header: true, skipEmptyLines: true, dynamicTyping: true,
-                complete: res => {
-                    const features = [];
-                    res.data.forEach(row => {
-                        const lat = row.Lat || row.lat || row.Latitude || row.latitude || row.Y || row.y;
-                        const lon = row.Lon || row.lon || row.Longitude || row.longitude || row.X || row.x;
-                        if (lat && lon && isFinite(lat) && isFinite(lon)) {
-                            features.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [+lon, +lat] }, properties: row });
-                        }
-                    });
-                    resolve(features);
-                },
-                error: err => reject(err)
-            });
-        });
-    });
     urlCache[url] = promise;
     return promise;
 }
@@ -280,7 +251,7 @@ function buildDOM() {
     `;
     fragment.appendChild(bmGroup);
     
-    container.appendChild(fragment); 
+    container.appendChild(fragment);
 
     container.addEventListener('change', e => {
         if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
@@ -303,8 +274,13 @@ async function hydrateLayer(layerId) {
     
     await networkQueue.add(async () => {
         try {
-            let features = layerConfig.type === 'csv' ? await fetchAndParseCSV(layerConfig.url) : await fetchAndParseGeoJSON(layerConfig.url);
-            
+            let features = await fetchAndParseGeoJSON(layerConfig.url);
+
+            if (layerConfig.filter) {
+                const [op, expr, val] = layerConfig.filter;
+                features = features.filter(f => f.properties[expr[1]] === val);
+            }
+
             if (features.length === 0) {
                 updateUIState(layerId, 'EMPTY');
                 return;

@@ -1,17 +1,14 @@
 version: "4.2"
 description: "Ventus Industrial Data Registry"
 global_compliance: "EDTF_2019_PRESUMED_OPEN"
-
 layers:
   - id: "repd_master"
     name: "REPD Renewable Inventory"
-    url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/REPD_EXTRACT_FEB_2026.csv"
+    url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1114586/repd-october-2022.csv"
     type: "csv"
     tags: ["generation", "renewables"]
-
   - id: "substations_core"
     name: "National Grid Substations"
     url: "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/main/grid_substations.geojson"
     type: "geojson"
     tags: ["transmission", "nodes"]
-

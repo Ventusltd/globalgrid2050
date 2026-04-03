@@ -38,6 +38,17 @@
         .popup-btn-news:hover { background: #ffae00; color: #000; }
         .popup-btn-images { background: #0a0a0a; color: #00ffff; border-color: #00ffff; }
         .popup-btn-images:hover { background: #00ffff; color: #000; }
+        .search-bar-wrapper { position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 6px; }
+        .search-input { background: rgba(5,5,5,0.85); border: 1px solid #444; border-radius: 4px; color: #00ffff; font-family: 'Courier New', monospace; font-size: 11px; padding: 5px 10px; width: 220px; outline: none; }
+        .search-input::placeholder { color: #444; }
+        .search-input:focus { border-color: #00ffff; }
+        .search-btn { background: #0a0a0a; border: 1px solid #00ffff; border-radius: 4px; color: #00ffff; font-family: 'Courier New', monospace; font-size: 11px; padding: 5px 10px; cursor: pointer; }
+        .search-btn:hover { background: #00ffff; color: #000; }
+        .search-results { position: absolute; top: 36px; right: 0; background: #050505; border: 1px solid #333; border-radius: 4px; width: 300px; max-height: 220px; overflow-y: auto; z-index: 21; display: none; }
+        .search-result-item { padding: 7px 10px; font-family: 'Courier New', monospace; font-size: 10px; color: #888; cursor: pointer; border-bottom: 1px solid #111; line-height: 1.5; }
+        .search-result-item:hover { background: #111; color: #00ffff; }
+        .search-result-item b { color: #ffcc00; }
+        .search-no-results { padding: 8px 10px; font-family: 'Courier New', monospace; font-size: 10px; color: #444; }
     </style>
 </head>
 <body>
@@ -62,6 +73,13 @@
         <div id="map"></div>
         <div class="custom-map-attrib">
             Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors | openstreetmap.org</a> | © CARTO
+        </div>
+        <div class="search-bar-wrapper">
+            <div style="position:relative">
+                <input class="search-input" id="search-input" type="text" placeholder="Search project name..." autocomplete="off" />
+                <div class="search-results" id="search-results"></div>
+            </div>
+            <button class="search-btn" id="search-btn">GO</button>
         </div>
         <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
     </div>
@@ -289,6 +307,87 @@ function buildSearchButtons(name, capacity, tech) {
         </div>`;
 }
 
+function flyToProject(feature) {
+    const [lon, lat] = feature.geometry.coordinates;
+    const p = feature.properties;
+    const cap = p.capacity ? `${p.capacity} MW` : '';
+    const mounting = p.mounting ? ` | ${p.mounting}` : '';
+
+    map.flyTo({
+        center: [lon, lat],
+        zoom: 12,
+        duration: 1800,
+        essential: true
+    });
+
+    setTimeout(() => {
+        new maplibregl.Popup({ maxWidth: '300px' })
+            .setLngLat([lon, lat])
+            .setHTML(`
+                <div style="font-family:monospace;background:#000;padding:6px">
+                    <b style="color:#00ffff;font-size:13px">${p.name}</b><br>
+                    <span style="color:#888">${p.raw_tech || p.tech}${mounting}</span><br>
+                    <span style="color:#ffae00">${cap}</span>
+                    <span style="color:#666"> | ${p.status}</span><br>
+                    <span style="color:#555;font-size:10px">${p.operator}</span>
+                    ${REPD_IDS.includes(p.tech) ? buildSearchButtons(p.name, parseFloat(p.capacity)||0, p.tech) : ''}
+                </div>`)
+            .addTo(map);
+    }, 1900);
+}
+
+function searchProjects(query) {
+    const resultsEl = document.getElementById('search-results');
+    if (!query || query.length < 2) {
+        resultsEl.style.display = 'none';
+        return;
+    }
+
+    const source = map.getSource('src-repd');
+    if (!source || !source._data || !source._data.features || !source._data.features.length) {
+        resultsEl.innerHTML = '<div class="search-no-results">Load a REPD layer first to enable search</div>';
+        resultsEl.style.display = 'block';
+        return;
+    }
+
+    const q = query.toLowerCase();
+    const matches = source._data.features
+        .filter(f => f.properties.name && f.properties.name.toLowerCase().includes(q))
+        .sort((a, b) => (b.properties.capacity || 0) - (a.properties.capacity || 0))
+        .slice(0, 12);
+
+    if (!matches.length) {
+        resultsEl.innerHTML = '<div class="search-no-results">No projects found</div>';
+        resultsEl.style.display = 'block';
+        return;
+    }
+
+    resultsEl.innerHTML = matches.map((f, i) => {
+        const p = f.properties;
+        const cap = p.capacity ? ` — ${p.capacity} MW` : '';
+        const techColour = {
+            'solar': '#ffff00', 'solar_roof': '#ffcc00', 'wind': '#00ffff',
+            'bess': '#ffae00', 'biomass': '#39ff14', 'tidal': '#00bfff',
+            'hydrogen': '#ffffff', 'flywheel': '#ff69b4', 'hydro': '#00aaff'
+        }[p.tech] || '#888';
+        return `<div class="search-result-item" data-idx="${i}">
+            <b>${p.name}</b><span style="color:#555">${cap}</span><br>
+            <span style="color:${techColour};font-size:9px">${p.raw_tech || p.tech}</span>
+            <span style="color:#444;font-size:9px"> | ${p.status}</span>
+        </div>`;
+    }).join('');
+
+    resultsEl.querySelectorAll('.search-result-item').forEach((el, i) => {
+        el.addEventListener('click', () => {
+            flyToProject(matches[i]);
+            resultsEl.style.display = 'none';
+            document.getElementById('search-input').value = matches[i].properties.name;
+        });
+    });
+
+    resultsEl.style.display = 'block';
+}
+
 function buildDOM() {
     const container = document.getElementById('scada-ui-container');
     container.innerHTML = '';
@@ -341,6 +440,21 @@ function buildDOM() {
         } else if (e.target.name === 'bm') {
             map.setLayoutProperty('l-sat', 'visibility', e.target.value === 'sat' ? 'visible' : 'none');
         }
+    });
+
+    // Search bar events
+    const input = document.getElementById('search-input');
+    const btn   = document.getElementById('search-btn');
+    const resultsEl = document.getElementById('search-results');
+
+    input.addEventListener('input', () => searchProjects(input.value));
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') searchProjects(input.value);
+        if (e.key === 'Escape') resultsEl.style.display = 'none';
+    });
+    btn.addEventListener('click', () => searchProjects(input.value));
+    document.getElementById('map').addEventListener('click', () => {
+        resultsEl.style.display = 'none';
     });
 }
 
@@ -491,10 +605,10 @@ map.on('load', () => {
                     'circle-color': [
                         'interpolate', ['linear'],
                         ['coalesce', ['get', 'capacity'], 0],
-                        4.0,   '#ffff00',   // yellow — 4MW+
-                        20.0,  '#ffaa00',   // hot amber — 20MW+
-                        50.0,  '#ff4400',   // very hot — 50MW+
-                        200.0, '#ff0000'    // incandescent — 200MW+
+                        4.0,   '#ffff00',
+                        20.0,  '#ffaa00',
+                        50.0,  '#ff4400',
+                        200.0, '#ff0000'
                     ],
                     'circle-radius': [
                         'interpolate', ['linear'],
@@ -558,11 +672,11 @@ map.on('load', () => {
                 'circle-color': [
                     'interpolate', ['linear'],
                     ['coalesce', ['get', 'capacity'], 0],
-                    0,     '#ffff00',   // yellow — small
-                    20.0,  '#ffcc00',   // warm yellow — 20MW
-                    50.0,  '#ffaa00',   // amber — 50MW
-                    200.0, '#ff6600',   // orange — 200MW
-                    500.0, '#ff2200'    // red-hot — 500MW+
+                    0,     '#ffff00',
+                    20.0,  '#ffcc00',
+                    50.0,  '#ffaa00',
+                    200.0, '#ff6600',
+                    500.0, '#ff2200'
                 ],
                 'circle-radius': [
                     'interpolate', ['linear'],

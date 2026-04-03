@@ -10,10 +10,8 @@ from bs4 import BeautifulSoup
 
 class REPDUpdater:
     """
-    VENTUS REPD UPDATER v5.7 | MASTER UNIFIED GEOJSON
-    Hardened: correct Mounting Type column name, schema validation,
-    dynamic URL fetching, UK bounds check, case-safe status filter,
-    EfW/Hydro/AD classification, biomass unit sanity.
+    VENTUS REPD UPDATER v5.8 | MASTER UNIFIED GEOJSON
+    Fixed: hydrogen/hydro substring collision — now uses complete term matching.
     """
 
     REPD_PAGE = "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract"
@@ -46,8 +44,15 @@ class REPDUpdater:
         'Mounting Type for Solar'
     ]
 
+    # Complete term sets — no substring collisions
+    BIOMASS_TERMS = [
+        'biomass', 'energy from waste', 'efw incineration', 'incineration',
+        'anaerobic digestion', 'landfill gas', 'sewage sludge digestion',
+        'co-firing', 'advanced conversion technology', 'gasification', 'pyrolysis'
+    ]
+
     def __init__(self, registry_path="config/registry.yaml"):
-        print("📡 VENTUS REPD UPDATER v5.7 | BOOTING SYSTEM...")
+        print("📡 VENTUS REPD UPDATER v5.8 | BOOTING SYSTEM...")
         try:
             with open(registry_path, 'r') as f:
                 self.config = yaml.safe_load(f)
@@ -60,27 +65,19 @@ class REPDUpdater:
         os.makedirs(self.raw_data_dir, exist_ok=True)
         self.transformer = Transformer.from_crs("epsg:27700", "epsg:4326", always_xy=True)
 
-    # ------------------------------------------------------------------
-    # Schema validation
-    # ------------------------------------------------------------------
     def validate_schema(self, df):
         cols = set(df.columns)
         missing_required = [c for c in self.REQUIRED_COLUMNS if c not in cols]
         missing_optional = [c for c in self.OPTIONAL_COLUMNS if c not in cols]
-
         if missing_required:
             print(f"❌ SCHEMA ERROR — missing required columns: {missing_required}")
             print(f"   Available columns: {sorted(cols)}")
             exit(1)
-
         if missing_optional:
             print(f"⚠️  Missing optional columns (degraded output): {missing_optional}")
         else:
             print(f"✅ Schema valid — all required and optional columns present")
 
-    # ------------------------------------------------------------------
-    # Dynamic URL discovery
-    # ------------------------------------------------------------------
     def discover_latest_url(self):
         print("🔍 Discovering latest REPD URL from Gov.uk...")
         try:
@@ -99,9 +96,6 @@ class REPDUpdater:
             print(f"⚠️ Discovery failed: {e} — falling back to registry URL")
             return None
 
-    # ------------------------------------------------------------------
-    # Change detection
-    # ------------------------------------------------------------------
     def already_current(self, url):
         manifest_path = f"{self.output_dir}/manifest_v4.json"
         if not os.path.exists(manifest_path):
@@ -116,9 +110,6 @@ class REPDUpdater:
             pass
         return False
 
-    # ------------------------------------------------------------------
-    # Fetch
-    # ------------------------------------------------------------------
     def fetch_data(self, url):
         print(f"📥 FETCHING: {url}")
         try:
@@ -132,18 +123,65 @@ class REPDUpdater:
             print(f"⚠️ FETCH FAILED: {e}")
             return None
 
-    # ------------------------------------------------------------------
-    # Refine
-    # ------------------------------------------------------------------
+    def classify_tech(self, tech_lower, mounting):
+        """
+        Complete term matching — no substring collisions.
+        Order matters: specific terms before general ones.
+        """
+
+        # Solar — mounting type drives rooftop split
+        if 'solar photovoltaics' in tech_lower or 'solar pv' in tech_lower or 'photovoltaic' in tech_lower:
+            return 'solar_roof' if mounting == 'roof' else 'solar'
+
+        # Wind — complete terms only
+        if tech_lower in ('wind onshore', 'wind offshore', 'wind'):
+            return 'wind'
+        if tech_lower.startswith('wind'):
+            return 'wind'
+
+        # Battery storage — complete terms
+        if tech_lower in ('battery', 'battery storage', 'storage'):
+            return 'bess'
+        if 'battery' in tech_lower and 'hydrogen' not in tech_lower:
+            return 'bess'
+
+        # Hydrogen — must come BEFORE hydro check
+        if 'hydrogen' in tech_lower:
+            return 'hydrogen'
+
+        # Hydro — complete terms, hydrogen already caught above
+        if tech_lower in (
+            'hydro', 'hydroelectric', 'hydro electric',
+            'run of river', 'pumped storage', 'pumped storage hydroelectricity',
+            'large hydro', 'small hydro'
+        ):
+            return 'hydro'
+        if tech_lower.startswith('hydro') and 'hydrogen' not in tech_lower:
+            return 'hydro'
+
+        # Biomass family — complete terms
+        for term in self.BIOMASS_TERMS:
+            if term in tech_lower:
+                return 'biomass'
+
+        # Tidal and wave
+        if 'tidal' in tech_lower or 'wave' in tech_lower:
+            return 'tidal'
+
+        # Flywheel
+        if 'flywheel' in tech_lower:
+            return 'flywheel'
+
+        return 'other'
+
     def refine_dataset(self, csv_path):
         print("🧪 REFINING MASTER DATASET...")
         df = pd.read_csv(csv_path, encoding='unicode_escape', on_bad_lines='skip', engine='python')
         df.columns = [c.strip() for c in df.columns]
 
-        # Schema validation
         self.validate_schema(df)
 
-        # Detect mounting column — handle both known variants
+        # Detect mounting column
         if 'Mounting Type for Solar' in df.columns:
             mounting_col = 'Mounting Type for Solar'
         elif 'Mounting Type' in df.columns:
@@ -170,7 +208,6 @@ class REPDUpdater:
 
         for _, row in df.iterrows():
             try:
-                # --- Coordinate sanity ---
                 e = float(row['X-coordinate'])
                 n = float(row['Y-coordinate'])
                 if not e or not n or e == 0 or n == 0:
@@ -182,60 +219,23 @@ class REPDUpdater:
                     skipped += 1
                     continue
 
-                # UK bounding box
                 if not (self.UK_LON_MIN < lon < self.UK_LON_MAX and
                         self.UK_LAT_MIN < lat < self.UK_LAT_MAX):
                     skipped += 1
                     continue
 
-                # --- Technology classification ---
                 tech_raw   = str(row.get('Technology Type', '')).strip()
                 tech_lower = tech_raw.lower()
-
-                # Mounting — strip whitespace and lowercase
-                mounting = ''
+                mounting   = ''
                 if mounting_col:
                     mounting = str(row.get(mounting_col, '')).strip().lower()
 
-                tech_map = 'other'
+                tech_map = self.classify_tech(tech_lower, mounting)
 
-                if 'solar' in tech_lower or 'photovoltaic' in tech_lower:
-                    # 'roof' only → solar_roof
-                    # 'ground & roof', 'ground', 'floating', blank → solar
-                    tech_map = 'solar_roof' if mounting == 'roof' else 'solar'
-
-                elif 'wind' in tech_lower:
-                    tech_map = 'wind'
-
-                elif 'battery' in tech_lower or 'storage' in tech_lower:
-                    tech_map = 'bess'
-
-                elif any(x in tech_lower for x in [
-                    'biomass', 'energy from waste', 'efw', 'incineration',
-                    'anaerobic', 'landfill gas', 'sewage sludge',
-                    'co-firing', 'advanced conversion', 'gasification',
-                    'pyrolysis'
-                ]):
-                    tech_map = 'biomass'
-
-                elif 'hydro' in tech_lower:
-                    tech_map = 'hydro'
-
-                elif 'tidal' in tech_lower or 'wave' in tech_lower:
-                    tech_map = 'tidal'
-
-                elif 'hydrogen' in tech_lower:
-                    tech_map = 'hydrogen'
-
-                elif 'flywheel' in tech_lower:
-                    tech_map = 'flywheel'
-
-                # --- Capacity with unit sanity ---
                 try:
                     capacity = float(row.get('Installed Capacity (MWelec)', 0))
                     if not isfinite(capacity):
                         capacity = 0.0
-                    # Physics sanity checks
                     if tech_map == 'solar_roof' and capacity > 50:
                         capacity = round(capacity / 1000, 4)
                     if tech_map == 'biomass' and capacity > 100:
@@ -271,28 +271,22 @@ class REPDUpdater:
             tech_counts[t] = tech_counts.get(t, 0) + 1
         print(f"📊 Tech distribution: {tech_counts}")
 
-        # Warn on 'other' — show what we're dropping
         other_count = tech_counts.get('other', 0)
         if other_count > 0:
             other_techs = set(
                 f['properties']['raw_tech'] for f in features
                 if f['properties']['tech'] == 'other'
             )
-            print(f"⚠️  {other_count} features unmapped — raw tech values: {other_techs}")
+            print(f"⚠️  {other_count} unmapped features — raw tech values: {other_techs}")
 
         return {"type": "FeatureCollection", "features": features}
 
-    # ------------------------------------------------------------------
-    # Execute
-    # ------------------------------------------------------------------
     def execute(self):
         for layer in self.config['layers']:
             if layer['id'] == 'repd' or layer['type'] == 'csv':
 
-                # Dynamic discovery — fall back to registry URL
                 url = self.discover_latest_url() or layer['url']
 
-                # Skip if unchanged
                 if self.already_current(url):
                     return
 

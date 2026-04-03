@@ -38,7 +38,7 @@
         .popup-btn-news:hover { background: #ffae00; color: #000; }
         .popup-btn-images { background: #0a0a0a; color: #00ffff; border-color: #00ffff; }
         .popup-btn-images:hover { background: #00ffff; color: #000; }
-        .search-bar-wrapper { position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 6px; }
+        .search-bar-wrapper { position: absolute; top: 46px; right: 10px; z-index: 20; display: flex; gap: 6px; }
         .search-input { background: rgba(5,5,5,0.85); border: 1px solid #444; border-radius: 4px; color: #00ffff; font-family: 'Courier New', monospace; font-size: 11px; padding: 5px 10px; width: 220px; outline: none; }
         .search-input::placeholder { color: #444; }
         .search-input:focus { border-color: #00ffff; }
@@ -141,20 +141,26 @@ const GRID_CONFIG = deepFreeze([
     {
         group: "REPD (GeoJSON)",
         layers: [
-            { id: "solar",      label: "Solar PV",   color: "#ffff00", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],      preload: false },
-            { id: "solar_roof", label: "Solar Roof", color: "#ffcc00", type: "point", radius: 14, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar_roof'], preload: false },
-            { id: "wind",       label: "Wind",       color: "#00ffff", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],       preload: false },
-            { id: "bess",       label: "BESS",       color: "#ffae00", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],       preload: false },
-            { id: "biomass",    label: "Biomass",    color: "#39ff14", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],    preload: false },
-            { id: "tidal",      label: "Tidal/Wave", color: "#00bfff", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],      preload: false },
-            { id: "hydrogen",   label: "Hydrogen",   color: "#ffffff", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'],   preload: false },
-            { id: "flywheel",   label: "Flywheel",   color: "#ff69b4", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'],   preload: false },
-            { id: "hydro",      label: "Hydro",      color: "#00aaff", type: "point", radius: 8,  url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydro'],      preload: false }
+            { id: "solar",      label: "Solar PV",       color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],      preload: false },
+            { id: "solar_roof", label: "Solar Roof",     color: "#ffcc00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar_roof'], preload: false },
+            { id: "wind",       label: "Wind",           color: "#00ffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],       preload: false },
+            { id: "bess",       label: "BESS",           color: "#ffae00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],       preload: false },
+            { id: "biomass",    label: "Biomass",        color: "#39ff14", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],    preload: false },
+            { id: "tidal",      label: "Tidal/Wave",     color: "#00bfff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],      preload: false },
+            { id: "hydrogen",   label: "Hydrogen",       color: "#ffffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'],   preload: false },
+            { id: "hydro",      label: "Hydro",          color: "#00aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydro'],      preload: false },
+            { id: "flywheel",   label: "Flywheel",       color: "#ff69b4", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'],   preload: false },
+            { id: "act",        label: "Adv.Conversion", color: "#ff6600", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'act'],        preload: false },
+            { id: "geothermal", label: "Geothermal",     color: "#ff3300", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'geothermal'], preload: false },
+            { id: "caes",       label: "CAES",           color: "#88aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'caes'],       preload: false }
         ]
     }
 ]);
 
-const REPD_IDS = ['solar', 'solar_roof', 'wind', 'bess', 'biomass', 'tidal', 'hydrogen', 'flywheel', 'hydro'];
+const REPD_IDS = [
+    'solar', 'solar_roof', 'wind', 'bess', 'biomass', 'tidal',
+    'hydrogen', 'hydro', 'flywheel', 'act', 'geothermal', 'caes'
+];
 
 const SEARCH_THRESHOLD = {
     'solar':      50,
@@ -162,10 +168,13 @@ const SEARCH_THRESHOLD = {
     'wind':       50,
     'bess':       50,
     'biomass':    50,
-    'tidal':      50,
-    'hydrogen':   50,
-    'flywheel':   50,
-    'hydro':      10
+    'tidal':      10,
+    'hydrogen':   10,
+    'hydro':      10,
+    'flywheel':    1,
+    'act':        10,
+    'geothermal':  1,
+    'caes':        1
 };
 
 const RUNTIME_STATE = {};
@@ -293,8 +302,11 @@ function buildSearchButtons(name, capacity, tech) {
         'biomass':    'biomass plant',
         'tidal':      'tidal energy',
         'hydrogen':   'hydrogen plant',
+        'hydro':      'hydro power',
         'flywheel':   'flywheel storage',
-        'hydro':      'hydro power'
+        'act':        'advanced conversion energy',
+        'geothermal': 'geothermal energy',
+        'caes':       'compressed air energy storage'
     };
     const term = techTerms[tech] || 'energy project';
     const q = encodeURIComponent(`${name} ${term} UK`);
@@ -312,14 +324,7 @@ function flyToProject(feature) {
     const p = feature.properties;
     const cap = p.capacity ? `${p.capacity} MW` : '';
     const mounting = p.mounting ? ` | ${p.mounting}` : '';
-
-    map.flyTo({
-        center: [lon, lat],
-        zoom: 12,
-        duration: 1800,
-        essential: true
-    });
-
+    map.flyTo({ center: [lon, lat], zoom: 12, duration: 1800, essential: true });
     setTimeout(() => {
         new maplibregl.Popup({ maxWidth: '300px' })
             .setLngLat([lon, lat])
@@ -338,45 +343,39 @@ function flyToProject(feature) {
 
 function searchProjects(query) {
     const resultsEl = document.getElementById('search-results');
-    if (!query || query.length < 2) {
-        resultsEl.style.display = 'none';
-        return;
-    }
-
+    if (!query || query.length < 2) { resultsEl.style.display = 'none'; return; }
     const source = map.getSource('src-repd');
     if (!source || !source._data || !source._data.features || !source._data.features.length) {
         resultsEl.innerHTML = '<div class="search-no-results">Load a REPD layer first to enable search</div>';
         resultsEl.style.display = 'block';
         return;
     }
-
     const q = query.toLowerCase();
     const matches = source._data.features
         .filter(f => f.properties.name && f.properties.name.toLowerCase().includes(q))
         .sort((a, b) => (b.properties.capacity || 0) - (a.properties.capacity || 0))
         .slice(0, 12);
-
     if (!matches.length) {
         resultsEl.innerHTML = '<div class="search-no-results">No projects found</div>';
         resultsEl.style.display = 'block';
         return;
     }
-
+    const techColours = {
+        'solar': '#ffff00', 'solar_roof': '#ffcc00', 'wind': '#00ffff',
+        'bess': '#ffae00', 'biomass': '#39ff14', 'tidal': '#00bfff',
+        'hydrogen': '#ffffff', 'hydro': '#00aaff', 'flywheel': '#ff69b4',
+        'act': '#ff6600', 'geothermal': '#ff3300', 'caes': '#88aaff'
+    };
     resultsEl.innerHTML = matches.map((f, i) => {
         const p = f.properties;
         const cap = p.capacity ? ` — ${p.capacity} MW` : '';
-        const techColour = {
-            'solar': '#ffff00', 'solar_roof': '#ffcc00', 'wind': '#00ffff',
-            'bess': '#ffae00', 'biomass': '#39ff14', 'tidal': '#00bfff',
-            'hydrogen': '#ffffff', 'flywheel': '#ff69b4', 'hydro': '#00aaff'
-        }[p.tech] || '#888';
+        const col = techColours[p.tech] || '#888';
         return `<div class="search-result-item" data-idx="${i}">
             <b>${p.name}</b><span style="color:#555">${cap}</span><br>
-            <span style="color:${techColour};font-size:9px">${p.raw_tech || p.tech}</span>
+            <span style="color:${col};font-size:9px">${p.raw_tech || p.tech}</span>
             <span style="color:#444;font-size:9px"> | ${p.status}</span>
         </div>`;
     }).join('');
-
     resultsEl.querySelectorAll('.search-result-item').forEach((el, i) => {
         el.addEventListener('click', () => {
             flyToProject(matches[i]);
@@ -384,7 +383,6 @@ function searchProjects(query) {
             document.getElementById('search-input').value = matches[i].properties.name;
         });
     });
-
     resultsEl.style.display = 'block';
 }
 
@@ -392,7 +390,6 @@ function buildDOM() {
     const container = document.getElementById('scada-ui-container');
     container.innerHTML = '';
     const fragment = document.createDocumentFragment();
-
     GRID_CONFIG.forEach(group => {
         const groupDiv = document.createElement('div');
         groupDiv.className = 'key-group';
@@ -415,7 +412,6 @@ function buildDOM() {
         });
         fragment.appendChild(groupDiv);
     });
-
     const bmGroup = document.createElement('div');
     bmGroup.className = 'key-group';
     bmGroup.innerHTML = `
@@ -442,20 +438,16 @@ function buildDOM() {
         }
     });
 
-    // Search bar events
     const input = document.getElementById('search-input');
     const btn   = document.getElementById('search-btn');
     const resultsEl = document.getElementById('search-results');
-
     input.addEventListener('input', () => searchProjects(input.value));
     input.addEventListener('keydown', e => {
         if (e.key === 'Enter') searchProjects(input.value);
         if (e.key === 'Escape') resultsEl.style.display = 'none';
     });
     btn.addEventListener('click', () => searchProjects(input.value));
-    document.getElementById('map').addEventListener('click', () => {
-        resultsEl.style.display = 'none';
-    });
+    document.getElementById('map').addEventListener('click', () => { resultsEl.style.display = 'none'; });
 }
 
 function getLayerConfig(layerId) {
@@ -472,39 +464,21 @@ async function hydrateLayer(layerId) {
     if (!state || state.loaded || state.loading) return;
     state.loading = true;
     updateUIState(layerId, 'LOAD');
-
     const layerConfig = getLayerConfig(layerId);
-    if (!layerConfig) {
-        updateUIState(layerId, 'FAIL');
-        state.loading = false;
-        return;
-    }
-
+    if (!layerConfig) { updateUIState(layerId, 'FAIL'); state.loading = false; return; }
     await networkQueue.add(async () => {
         try {
             let features = await fetchAndParseGeoJSON(layerConfig.url);
-            if (features.length === 0) {
-                updateUIState(layerId, 'EMPTY');
-                state.loading = false;
-                return;
-            }
+            if (features.length === 0) { updateUIState(layerId, 'EMPTY'); state.loading = false; return; }
             if (layerConfig.isSubs) globalSubsData = features;
             if (layerConfig.snap && globalSubsData) features = snapLines(features, globalSubsData);
-
             const sourceId = getSourceIdForLayer(layerId);
             const source = map.getSource(sourceId);
-            if (!source) {
-                console.error(`[SOURCE MISSING] ${sourceId}`);
-                updateUIState(layerId, 'FAIL');
-                state.loading = false;
-                return;
-            }
-
+            if (!source) { console.error(`[SOURCE MISSING] ${sourceId}`); updateUIState(layerId, 'FAIL'); state.loading = false; return; }
             source.setData({ type: 'FeatureCollection', features });
             state.loaded = true;
             state.loading = false;
             updateUIState(layerId, 'OK');
-
             if (REPD_IDS.includes(layerId)) {
                 REPD_IDS.forEach(id => {
                     if (RUNTIME_STATE[id]) {
@@ -524,7 +498,6 @@ async function hydrateLayer(layerId) {
 
 map.on('load', () => {
     buildDOM();
-
     map.addSource('sat-s', {
         type: 'raster',
         tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
@@ -533,7 +506,6 @@ map.on('load', () => {
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
     const allLayerIds = [];
-
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             if (REPD_IDS.includes(layer.id)) return;
@@ -553,169 +525,73 @@ map.on('load', () => {
         });
     });
 
-    map.addSource('src-repd', {
-        type: 'geojson',
-        data: { type: 'FeatureCollection', features: [] }
-    });
+    map.addSource('src-repd', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
 
     REPD_IDS.forEach(id => {
         const layer = getLayerConfig(id);
 
-        // --- SOLAR ROOF GLOW — over 1MW ---
         if (id === 'solar_roof') {
             map.addLayer({
-                id: `l-${id}-glow`,
-                type: 'circle',
-                source: 'src-repd',
+                id: `l-${id}-glow`, type: 'circle', source: 'src-repd',
                 filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 1.0]],
                 layout: { visibility: 'none' },
                 paint: {
-                    'circle-color': [
-                        'interpolate', ['linear'],
-                        ['coalesce', ['get', 'capacity'], 0],
-                        1.0,  '#ff8c00',
-                        5.0,  '#ff6600',
-                        10.0, '#ff4400'
-                    ],
-                    'circle-radius': [
-                        'interpolate', ['linear'],
-                        ['coalesce', ['get', 'capacity'], 0],
-                        1.0,  26,
-                        2.0,  30,
-                        5.0,  36,
-                        10.0, 44
-                    ],
-                    'circle-opacity': 0.15,
-                    'circle-blur': 1.0,
-                    'circle-stroke-width': 0
+                    'circle-color': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                        1.0, '#ff8c00', 5.0, '#ff6600', 10.0, '#ff4400'],
+                    'circle-radius': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                        1.0, 26, 2.0, 30, 5.0, 36, 10.0, 44],
+                    'circle-opacity': 0.15, 'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
             allLayerIds.push(`l-${id}-glow`);
         }
 
-        // --- SOLAR PV GLOW — over 4MW, heat scales with size ---
         if (id === 'solar') {
             map.addLayer({
-                id: `l-${id}-glow`,
-                type: 'circle',
-                source: 'src-repd',
+                id: `l-${id}-glow`, type: 'circle', source: 'src-repd',
                 filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 4.0]],
                 layout: { visibility: 'none' },
                 paint: {
-                    'circle-color': [
-                        'interpolate', ['linear'],
-                        ['coalesce', ['get', 'capacity'], 0],
-                        4.0,   '#ffff00',
-                        20.0,  '#ffaa00',
-                        50.0,  '#ff4400',
-                        200.0, '#ff0000'
-                    ],
-                    'circle-radius': [
-                        'interpolate', ['linear'],
-                        ['coalesce', ['get', 'capacity'], 0],
-                        4.0,   22,
-                        20.0,  32,
-                        50.0,  44,
-                        200.0, 60,
-                        500.0, 80
-                    ],
-                    'circle-opacity': [
-                        'interpolate', ['linear'],
-                        ['coalesce', ['get', 'capacity'], 0],
-                        4.0,   0.12,
-                        20.0,  0.18,
-                        50.0,  0.25,
-                        200.0, 0.35
-                    ],
-                    'circle-blur': 1.0,
-                    'circle-stroke-width': 0
+                    'circle-color': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                        4.0, '#ffff00', 20.0, '#ffaa00', 50.0, '#ff4400', 200.0, '#ff0000'],
+                    'circle-radius': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                        4.0, 22, 20.0, 32, 50.0, 44, 200.0, 60, 500.0, 80],
+                    'circle-opacity': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                        4.0, 0.12, 20.0, 0.18, 50.0, 0.25, 200.0, 0.35],
+                    'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
             allLayerIds.push(`l-${id}-glow`);
         }
 
-        // --- MAIN CIRCLE PAINT ---
         const circlePaint = id === 'solar_roof'
             ? {
-                'circle-color': [
-                    'interpolate', ['linear'],
-                    ['coalesce', ['get', 'capacity'], 0],
-                    0,    '#ffcc00',
-                    0.99, '#ffcc00',
-                    1.0,  '#ff8c00',
-                    5.0,  '#ff6600',
-                    10.0, '#ff4400'
-                ],
-                'circle-radius': [
-                    'interpolate', ['linear'],
-                    ['coalesce', ['get', 'capacity'], 0],
-                    0,    7,
-                    0.5,  7,
-                    0.99, 8,
-                    1.0,  16,
-                    2.0,  18,
-                    5.0,  22,
-                    10.0, 28
-                ],
-                'circle-stroke-width': [
-                    'interpolate', ['linear'],
-                    ['coalesce', ['get', 'capacity'], 0],
-                    0,    1,
-                    0.99, 1,
-                    1.0,  2
-                ],
-                'circle-stroke-color': '#000',
-                'circle-opacity': 0.9
+                'circle-color': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, '#ffcc00', 0.99, '#ffcc00', 1.0, '#ff8c00', 5.0, '#ff6600', 10.0, '#ff4400'],
+                'circle-radius': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, 7, 0.5, 7, 0.99, 8, 1.0, 16, 2.0, 18, 5.0, 22, 10.0, 28],
+                'circle-stroke-width': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, 1, 0.99, 1, 1.0, 2],
+                'circle-stroke-color': '#000', 'circle-opacity': 0.9
             }
             : id === 'solar'
             ? {
-                'circle-color': [
-                    'interpolate', ['linear'],
-                    ['coalesce', ['get', 'capacity'], 0],
-                    0,     '#ffff00',
-                    20.0,  '#ffcc00',
-                    50.0,  '#ffaa00',
-                    200.0, '#ff6600',
-                    500.0, '#ff2200'
-                ],
-                'circle-radius': [
-                    'interpolate', ['linear'],
-                    ['coalesce', ['get', 'capacity'], 0],
-                    0,    8,
-                    10,   10,
-                    50,   13,
-                    200,  17,
-                    500,  22,
-                    1000, 28
-                ],
-                'circle-stroke-width': 1.5,
-                'circle-stroke-color': '#000',
-                'circle-opacity': 0.85
+                'circle-color': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, '#ffff00', 20.0, '#ffcc00', 50.0, '#ffaa00', 200.0, '#ff6600', 500.0, '#ff2200'],
+                'circle-radius': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, 8, 10, 10, 50, 13, 200, 17, 500, 22, 1000, 28],
+                'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85
             }
             : {
                 'circle-color': layer.color,
-                'circle-radius': [
-                    'interpolate', ['linear'],
-                    ['coalesce', ['get', 'capacity'], 0],
-                    0,    8,
-                    10,   10,
-                    50,   13,
-                    200,  17,
-                    500,  22,
-                    1000, 28
-                ],
-                'circle-stroke-width': 1.5,
-                'circle-stroke-color': '#000',
-                'circle-opacity': 0.85
+                'circle-radius': ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, 8, 10, 10, 50, 13, 200, 17, 500, 22, 1000, 28],
+                'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85
             };
 
         map.addLayer({
-            id: `l-${id}`,
-            type: 'circle',
-            source: 'src-repd',
-            filter: layer.filter,
-            layout: { visibility: 'none' },
-            paint: circlePaint
+            id: `l-${id}`, type: 'circle', source: 'src-repd',
+            filter: layer.filter, layout: { visibility: 'none' }, paint: circlePaint
         });
         allLayerIds.push(`l-${id}`);
     });
@@ -732,11 +608,7 @@ map.on('load', () => {
         const operator = p.operator || '';
         const mounting = p.mounting ? ` | ${p.mounting}` : '';
         const capStr   = capacity ? `${capacity} MW` : '';
-
-        const searchBtns = REPD_IDS.includes(tech)
-            ? buildSearchButtons(name, capacity, tech)
-            : '';
-
+        const searchBtns = REPD_IDS.includes(tech) ? buildSearchButtons(name, capacity, tech) : '';
         new maplibregl.Popup({ maxWidth: '300px' })
             .setLngLat(e.lngLat)
             .setHTML(`
@@ -757,9 +629,7 @@ map.on('load', () => {
     });
 
     GRID_CONFIG.forEach(group => {
-        group.layers.forEach(layer => {
-            if (layer.preload) hydrateLayer(layer.id);
-        });
+        group.layers.forEach(layer => { if (layer.preload) hydrateLayer(layer.id); });
     });
 });
 </script>

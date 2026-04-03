@@ -29,7 +29,6 @@
         .custom-map-attrib a { color: #00ffff; text-decoration: none; }
         .custom-map-attrib a:hover { text-decoration: underline; }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
@@ -69,9 +68,9 @@
 <script>
 'use strict';
 
-if (typeof maplibregl === 'undefined' || typeof Papa === 'undefined') {
+if (typeof maplibregl === 'undefined') {
     document.getElementById('fatal-banner').style.display = 'block';
-    throw new Error('CRITICAL: Core scripts failed to load.');
+    throw new Error('CRITICAL: MapLibre failed to load.');
 }
 
 function deepFreeze(obj) {
@@ -133,7 +132,7 @@ const map = new maplibregl.Map({
     style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     center: [-3.5, 54.0],
     zoom: 4.2,
-    attributionControl: false 
+    attributionControl: false
 });
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
@@ -156,7 +155,7 @@ class FetchQueue {
     async add(task) {
         if (this.active >= this.concurrency) await new Promise(resolve => this.queue.push(resolve));
         this.active++;
-        try { return await task(); } 
+        try { return await task(); }
         finally {
             this.active--;
             if (this.queue.length > 0) this.queue.shift()();
@@ -168,7 +167,7 @@ const networkQueue = new FetchQueue(4);
 const urlCache = {};
 let globalSubsData = null;
 
-async function fetchWithTimeout(url, ms = 8000) {
+async function fetchWithTimeout(url, ms = 15000) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), ms);
     try {
@@ -184,7 +183,9 @@ async function fetchWithTimeout(url, ms = 8000) {
 
 async function fetchAndParseGeoJSON(url) {
     if (urlCache[url]) return await urlCache[url];
-    const promise = fetchWithTimeout(url).then(res => res.json()).then(data => Array.isArray(data.features) ? data.features : []);
+    const promise = fetchWithTimeout(url)
+        .then(res => res.json())
+        .then(data => Array.isArray(data.features) ? data.features : []);
     urlCache[url] = promise;
     return promise;
 }
@@ -219,21 +220,21 @@ function buildDOM() {
         const groupDiv = document.createElement('div');
         groupDiv.className = 'key-group';
         groupDiv.innerHTML = `<div class="key-title">${group.group}</div>`;
-        
+
         group.layers.forEach(layer => {
             const label = document.createElement('label');
             label.className = 'key-item';
-            
+
             const input = document.createElement('input');
             input.type = 'checkbox';
             input.dataset.layerId = layer.id;
-            
+
             const span = document.createElement('span');
             span.id = `lbl-${layer.id}`;
             span.setAttribute('data-base-label', layer.label);
             span.style.color = layer.color;
             span.innerText = `${layer.label} [WAIT]`;
-            
+
             label.appendChild(input);
             label.appendChild(document.createTextNode(' '));
             label.appendChild(span);
@@ -250,7 +251,6 @@ function buildDOM() {
         <label class="key-item"><input type="radio" name="bm" value="sat"> Satellite</label>
     `;
     fragment.appendChild(bmGroup);
-    
     container.appendChild(fragment);
 
     container.addEventListener('change', e => {
@@ -271,24 +271,19 @@ async function hydrateLayer(layerId) {
     state.loading = true;
 
     const layerConfig = GRID_CONFIG.flatMap(g => g.layers).find(l => l.id === layerId);
-    
+
     await networkQueue.add(async () => {
         try {
             let features = await fetchAndParseGeoJSON(layerConfig.url);
-
-            if (layerConfig.filter) {
-                const [op, expr, val] = layerConfig.filter;
-                features = features.filter(f => f.properties[expr[1]] === val);
-            }
 
             if (features.length === 0) {
                 updateUIState(layerId, 'EMPTY');
                 return;
             }
-            
+
             if (layerConfig.isSubs) globalSubsData = features;
             if (layerConfig.snap && globalSubsData) features = snapLines(features, globalSubsData);
-            
+
             map.getSource(`src-${layerId}`).setData({ type: 'FeatureCollection', features });
             state.loaded = true;
             updateUIState(layerId, 'OK');
@@ -309,18 +304,18 @@ map.on('load', () => {
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             map.addSource(`src-${layer.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-            
+
             const layerObject = {
                 id: `l-${layer.id}`,
                 type: layer.type === 'line' ? 'line' : 'circle',
                 source: `src-${layer.id}`,
                 layout: { visibility: 'none' },
-                paint: layer.type === 'line' 
-                    ? { 'line-color': layer.color, 'line-width': layer.width } 
+                paint: layer.type === 'line'
+                    ? { 'line-color': layer.color, 'line-width': layer.width }
                     : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
             };
             if (layer.filter) layerObject.filter = layer.filter;
-            
+
             map.addLayer(layerObject);
             allLayerIds.push(`l-${layer.id}`);
         });
@@ -337,7 +332,7 @@ map.on('load', () => {
             .setHTML(`<div style="font-family:monospace;color:#000"><b>${name}</b><br><span style="color:#444">${info}</span></div>`)
             .addTo(map);
     });
-    
+
     map.on('mousemove', e => {
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';

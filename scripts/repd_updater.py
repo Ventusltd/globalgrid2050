@@ -26,7 +26,6 @@ class REPDUpdater:
         os.makedirs(self.output_dir, exist_ok=True)
         os.makedirs(self.raw_data_dir, exist_ok=True)
             
-        # PROJ: British National Grid (27700) to standard GPS (4326)
         self.transformer = Transformer.from_crs("epsg:27700", "epsg:4326", always_xy=True)
 
     def fetch_data(self, url):
@@ -44,10 +43,9 @@ class REPDUpdater:
 
     def refine_dataset(self, csv_path):
         print("🧪 REFINING MASTER DATASET...")
-        df = pd.read_csv(csv_path, encoding='unicode_escape', low_memory=False, on_bad_lines='skip', engine='python')
+        df = pd.read_csv(csv_path, encoding='unicode_escape', on_bad_lines='skip', engine='python')
         df.columns = [c.strip() for c in df.columns]
 
-        # FILTER: Keep only viable projects to reduce payload size
         viability_mask = ['Operational', 'Under Construction', 'Awaiting Construction', 'Consented']
         df = df[df['Development Status (short)'].isin(viability_mask)]
         

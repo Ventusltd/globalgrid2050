@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 
 class REPDUpdater:
     """
-    VENTUS REPD UPDATER v5.9 | MASTER UNIFIED GEOJSON
-    Fixed: hydrogen classification. Added: geothermal, act, caes layers.
+    VENTUS REPD UPDATER v5.10 | MASTER UNIFIED GEOJSON
+    Fixed: substring matching for all tech types — no encoding collisions.
     """
 
     REPD_PAGE = "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract"
@@ -44,19 +44,8 @@ class REPDUpdater:
         'Mounting Type for Solar'
     ]
 
-    BIOMASS_TERMS = [
-        'biomass (dedicated)',
-        'biomass (co-firing)',
-        'energy from waste',
-        'efw incineration',
-        'anaerobic digestion',
-        'landfill gas',
-        'sewage sludge digestion',
-        'co-firing'
-    ]
-
     def __init__(self, registry_path="config/registry.yaml"):
-        print("📡 VENTUS REPD UPDATER v5.9 | BOOTING SYSTEM...")
+        print("📡 VENTUS REPD UPDATER v5.10 | BOOTING SYSTEM...")
         try:
             with open(registry_path, 'r') as f:
                 self.config = yaml.safe_load(f)
@@ -129,81 +118,67 @@ class REPDUpdater:
 
     def classify_tech(self, tech_raw, mounting):
         """
-        Exact REPD Technology Type matching.
-        Complete strings first — no substring collisions.
+        Substring matching throughout — immune to encoding artifacts.
+        Hydrogen checked before hydro — no collision possible.
         """
-        t = tech_raw.strip()
+        t  = tech_raw.strip()
         tl = t.lower()
 
         # --- Solar — mounting drives rooftop split ---
-        if t in ('Solar Photovoltaics',):
+        if 'solar photovoltaic' in tl or 'solar pv' in tl:
             return 'solar_roof' if mounting == 'roof' else 'solar'
 
         # --- Wind ---
-        if t in ('Wind Onshore', 'Wind Offshore'):
+        if 'wind onshore' in tl or 'wind offshore' in tl or tl == 'wind':
             return 'wind'
 
-        # --- Battery / BESS ---
-        if t in ('Battery',):
-            return 'bess'
-
-        # --- Compressed / Liquid Air Energy Storage → bess family ---
-        if t in ('Compressed Air Energy Storage', 'Liquid Air Energy Storage'):
-            return 'caes'
-
-        # --- Hydrogen — EXACT match, before any hydro check ---
-        if t in ('Hydrogen', 'Fuel Cell (Hydrogen)'):
+        # --- Hydrogen — MUST be before hydro ---
+        if tl == 'hydrogen' or 'fuel cell (hydrogen)' in tl:
             return 'hydrogen'
 
-        # --- Hydro — exact REPD terms ---
-        if t in ('Large Hydro', 'Small Hydro', 'Pumped Storage Hydroelectricity'):
+        # --- Hydro ---
+        if 'large hydro' in tl or 'small hydro' in tl or 'pumped storage hydro' in tl:
             return 'hydro'
 
+        # --- Compressed / Liquid Air Energy Storage ---
+        if 'compressed air energy storage' in tl or 'liquid air energy storage' in tl:
+            return 'caes'
+
+        # --- Battery ---
+        if tl == 'battery' or tl == 'battery storage':
+            return 'bess'
+
         # --- Biomass family ---
-        if t in (
-            'Biomass (dedicated)', 'Biomass (co-firing)',
-            'EfW Incineration', 'Anaerobic Digestion',
-            'Landfill Gas', 'Sewage Sludge Digestion'
-        ):
+        if any(x in tl for x in [
+            'biomass', 'efw incineration', 'anaerobic digestion',
+            'landfill gas', 'sewage sludge', 'co-firing',
+            'energy from waste', 'incineration'
+        ]):
             return 'biomass'
 
         # --- Advanced Conversion Technologies ---
-        if t in ('Advanced Conversion Technologies',):
+        if 'advanced conversion' in tl or 'gasification' in tl or 'pyrolysis' in tl:
             return 'act'
 
         # --- Geothermal ---
-        if t in ('Geothermal', 'Hot Dry Rocks (HDR)'):
+        if 'geothermal' in tl or 'hot dry rocks' in tl:
             return 'geothermal'
 
         # --- Tidal / Wave ---
-        if t in ('Tidal Stream', 'Tidal Lagoon', 'Shoreline Wave'):
+        if 'tidal' in tl or 'shoreline wave' in tl:
             return 'tidal'
 
         # --- Flywheel ---
-        if t in ('Flywheels',):
-            return 'flywheel'
-
-        # --- Fallback substring safety net ---
-        if 'solar' in tl or 'photovoltaic' in tl:
-            return 'solar_roof' if mounting == 'roof' else 'solar'
-        if 'wind' in tl:
-            return 'wind'
-        if 'hydrogen' in tl:
-            return 'hydrogen'
-        if tl.startswith('hydro'):
-            return 'hydro'
-        if 'battery' in tl or 'storage' in tl:
-            return 'bess'
-        if 'biomass' in tl or 'digestion' in tl or 'landfill' in tl:
-            return 'biomass'
-        if 'tidal' in tl or 'wave' in tl:
-            return 'tidal'
         if 'flywheel' in tl:
             return 'flywheel'
-        if 'geothermal' in tl or 'hot dry' in tl:
-            return 'geothermal'
-        if 'advanced conversion' in tl or 'gasification' in tl or 'pyrolysis' in tl:
-            return 'act'
+
+        # --- Generic storage fallback ---
+        if 'storage' in tl or 'battery' in tl:
+            return 'bess'
+
+        # --- Generic wind fallback ---
+        if 'wind' in tl:
+            return 'wind'
 
         return 'other'
 

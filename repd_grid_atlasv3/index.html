@@ -26,6 +26,7 @@
         .key-group { border-left: 2px solid #333; padding-left: 10px; margin-bottom: 4px; }
         .key-title { font-size: 10px; color: #66ccff; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
         .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
+        .key-item-meta { font-size: 8px; color: #444; margin-left: 2px; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
         .disclaimer-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.5; color: #666; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; }
@@ -49,6 +50,19 @@
         .search-result-item:hover { background: #111; color: #00ffff; }
         .search-result-item b { color: #ffcc00; }
         .search-no-results { padding: 8px 10px; font-family: 'Courier New', monospace; font-size: 10px; color: #444; }
+        /* Map control buttons */
+        .map-controls { position: absolute; bottom: 30px; left: 10px; z-index: 20; display: flex; flex-direction: column; gap: 4px; }
+        .map-ctrl-btn { background: rgba(5,5,5,0.85); border: 1px solid #333; border-radius: 4px; color: #888; font-family: 'Courier New', monospace; font-size: 9px; padding: 5px 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+        .map-ctrl-btn:hover { border-color: #00ffff; color: #00ffff; }
+        .map-ctrl-btn.active { border-color: #00ffff; color: #00ffff; background: rgba(0,255,255,0.08); }
+        /* Radius popup */
+        .radius-popup { position: absolute; bottom: 30px; left: 120px; z-index: 20; background: #050505; border: 1px solid #444; border-radius: 4px; padding: 8px 12px; display: none; }
+        .radius-popup label { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+        .radius-popup select { background: #0a0a0a; border: 1px solid #333; color: #00ffff; font-family: 'Courier New', monospace; font-size: 10px; padding: 3px 6px; border-radius: 3px; }
+        /* Status legend */
+        .status-legend { display: flex; gap: 8px; flex-wrap: wrap; padding: 4px 0 6px 0; border-bottom: 1px solid #222; margin-bottom: 6px; flex-shrink: 0; }
+        .status-dot { display: inline-flex; align-items: center; gap: 4px; font-size: 8px; color: #555; }
+        .status-dot span { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
     </style>
 </head>
 <body>
@@ -81,6 +95,20 @@
             </div>
             <button class="search-btn" id="search-btn">GO</button>
         </div>
+        <div class="map-controls">
+            <button class="map-ctrl-btn" id="btn-export">⬇ Export CSV</button>
+            <button class="map-ctrl-btn" id="btn-radius">◎ Radius Search</button>
+            <button class="map-ctrl-btn" id="btn-status">◑ Status Colours</button>
+        </div>
+        <div class="radius-popup" id="radius-popup">
+            <label>Radius from click</label>
+            <select id="radius-select">
+                <option value="5">5 km</option>
+                <option value="10" selected>10 km</option>
+                <option value="25">25 km</option>
+                <option value="50">50 km</option>
+            </select>
+        </div>
         <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
     </div>
 
@@ -91,6 +119,12 @@
                 <div class="scada-brand-sub">Cables &amp; Connectivity&reg;</div>
             </div>
             <div class="scada-brand-tag">globalgrid2050.com | open infrastructure intelligence</div>
+        </div>
+        <div class="status-legend">
+            <div class="status-dot"><span style="background:#00ff88"></span>Operational</div>
+            <div class="status-dot"><span style="background:#ffcc00"></span>Under Construction</div>
+            <div class="status-dot"><span style="background:#ff8800"></span>Consented</div>
+            <div class="status-dot"><span style="background:#8888ff"></span>Applied</div>
         </div>
         <div class="scada-keys" id="scada-ui-container"></div>
         <div class="disclaimer-box">
@@ -141,18 +175,18 @@ const GRID_CONFIG = deepFreeze([
     {
         group: "REPD (GeoJSON)",
         layers: [
-            { id: "solar",      label: "Solar PV",                color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],      preload: false },
-            { id: "solar_roof", label: "Solar Roof",              color: "#ffcc00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar_roof'], preload: false },
-            { id: "wind",       label: "Wind",                    color: "#00ffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],       preload: false },
-            { id: "bess",       label: "Battery Storage",         color: "#ffae00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],       preload: false },
-            { id: "biomass",    label: "Biomass & EfW",           color: "#39ff14", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],    preload: false },
-            { id: "tidal",      label: "Tidal & Wave",            color: "#00bfff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],      preload: false },
-            { id: "hydrogen",   label: "Hydrogen",                color: "#ffffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'],   preload: false },
-            { id: "hydro",      label: "Hydro & Pumped Storage",  color: "#00aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydro'],      preload: false },
-            { id: "flywheel",   label: "Flywheel",                color: "#ff69b4", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'],   preload: false },
-            { id: "act",        label: "Advanced Conversion",     color: "#ff6600", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'act'],        preload: false },
-            { id: "geothermal", label: "Geothermal",              color: "#ff3300", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'geothermal'], preload: false },
-            { id: "caes",       label: "Compressed Air Storage",  color: "#88aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'caes'],       preload: false }
+            { id: "solar",      label: "Solar PV",               color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],      preload: false },
+            { id: "solar_roof", label: "Solar Roof",             color: "#ffcc00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar_roof'], preload: false },
+            { id: "wind",       label: "Wind",                   color: "#00ffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],       preload: false },
+            { id: "bess",       label: "Battery Storage",        color: "#ffae00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],       preload: false },
+            { id: "biomass",    label: "Biomass & EfW",          color: "#39ff14", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],    preload: false },
+            { id: "tidal",      label: "Tidal & Wave",           color: "#00bfff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],      preload: false },
+            { id: "hydrogen",   label: "Hydrogen",               color: "#ffffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'],   preload: false },
+            { id: "hydro",      label: "Hydro & Pumped Storage", color: "#00aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydro'],      preload: false },
+            { id: "flywheel",   label: "Flywheel",               color: "#ff69b4", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'],   preload: false },
+            { id: "act",        label: "Advanced Conversion",    color: "#ff6600", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'act'],        preload: false },
+            { id: "geothermal", label: "Geothermal",             color: "#ff3300", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'geothermal'], preload: false },
+            { id: "caes",       label: "Compressed Air Storage", color: "#88aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'caes'],       preload: false }
         ]
     }
 ]);
@@ -163,19 +197,30 @@ const REPD_IDS = [
 ];
 
 const SEARCH_THRESHOLD = {
-    'solar':      50,
-    'solar_roof':  0.5,
-    'wind':       50,
-    'bess':       50,
-    'biomass':    50,
-    'tidal':      10,
-    'hydrogen':   10,
-    'hydro':      10,
-    'flywheel':    1,
-    'act':        10,
-    'geothermal':  1,
-    'caes':        1
+    'solar': 50, 'solar_roof': 0.5, 'wind': 50, 'bess': 50,
+    'biomass': 50, 'tidal': 10, 'hydrogen': 10, 'hydro': 10,
+    'flywheel': 1, 'act': 10, 'geothermal': 1, 'caes': 1
 };
+
+// Status colour mapping
+const STATUS_COLOURS = {
+    'operational':              '#00ff88',
+    'under construction':       '#ffcc00',
+    'awaiting construction':    '#ffaa00',
+    'consented':                '#ff8800',
+    'planning permission granted': '#ff8800',
+    'planning approved':        '#ff8800',
+    'application submitted':    '#8888ff',
+    'pre-construction':         '#aaaaff'
+};
+
+const LAYER_BASE_COLOURS = {};
+GRID_CONFIG.forEach(g => g.layers.forEach(l => { LAYER_BASE_COLOURS[l.id] = l.color; }));
+
+let statusMode = false;
+let radiusMode = false;
+let radiusMarker = null;
+const layerStats = {};
 
 const RUNTIME_STATE = {};
 GRID_CONFIG.forEach(group => {
@@ -201,12 +246,19 @@ const map = new maplibregl.Map({
 
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
-function updateUIState(id, state) {
+function updateUIState(id, state, stats) {
     RUNTIME_STATE[id].status = state;
     const span = document.getElementById(`lbl-${id}`);
     if (span) {
         const baseText = span.getAttribute('data-base-label');
-        span.innerText = `${baseText} [${state}]`;
+        if (stats && stats.count > 0) {
+            const mw = stats.mw >= 1000
+                ? `${(stats.mw/1000).toFixed(1)}GW`
+                : `${Math.round(stats.mw)}MW`;
+            span.innerText = `${baseText} [${stats.count} | ${mw}]`;
+        } else {
+            span.innerText = `${baseText} [${state}]`;
+        }
         span.style.opacity = state === 'FAIL' ? '0.5' : '1';
     }
 }
@@ -233,6 +285,7 @@ class FetchQueue {
 const networkQueue = new FetchQueue(4);
 const urlCache = {};
 let globalSubsData = null;
+let allREPDFeatures = [];
 
 async function fetchWithTimeout(url, ms = 15000) {
     const controller = new AbortController();
@@ -291,31 +344,30 @@ function snapLines(features, subs) {
     return features;
 }
 
+// Haversine distance in km
+function haversine(lon1, lat1, lon2, lat2) {
+    const R = 6371, r = Math.PI/180;
+    const dLat = (lat2-lat1)*r, dLon = (lon2-lon1)*r;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin(dLon/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
 function buildSearchButtons(name, capacity, tech) {
     const threshold = SEARCH_THRESHOLD[tech] !== undefined ? SEARCH_THRESHOLD[tech] : 50;
     if (capacity < threshold) return '';
     const techTerms = {
-        'solar':      'solar farm',
-        'solar_roof': 'rooftop solar',
-        'wind':       'wind farm',
-        'bess':       'battery storage',
-        'biomass':    'biomass plant',
-        'tidal':      'tidal energy',
-        'hydrogen':   'hydrogen plant',
-        'hydro':      'hydro power',
-        'flywheel':   'flywheel storage',
-        'act':        'advanced conversion energy',
-        'geothermal': 'geothermal energy',
-        'caes':       'compressed air energy storage'
+        'solar': 'solar farm', 'solar_roof': 'rooftop solar', 'wind': 'wind farm',
+        'bess': 'battery storage', 'biomass': 'biomass plant', 'tidal': 'tidal energy',
+        'hydrogen': 'hydrogen plant', 'hydro': 'hydro power', 'flywheel': 'flywheel storage',
+        'act': 'advanced conversion energy', 'geothermal': 'geothermal energy',
+        'caes': 'compressed air energy storage'
     };
     const term = techTerms[tech] || 'energy project';
     const q = encodeURIComponent(`${name} ${term} UK`);
-    const newsUrl = `https://news.google.com/search?q=${q}`;
-    const imgsUrl = `https://www.google.com/search?q=${q}&tbm=isch`;
     return `
         <div class="popup-search-btns">
-            <a class="popup-btn popup-btn-news"   href="${newsUrl}" target="_blank" rel="noopener noreferrer">📰 NEWS</a>
-            <a class="popup-btn popup-btn-images" href="${imgsUrl}" target="_blank" rel="noopener noreferrer">🖼 IMAGES</a>
+            <a class="popup-btn popup-btn-news" href="https://news.google.com/search?q=${q}" target="_blank" rel="noopener noreferrer">📰 NEWS</a>
+            <a class="popup-btn popup-btn-images" href="https://www.google.com/search?q=${q}&tbm=isch" target="_blank" rel="noopener noreferrer">🖼 IMAGES</a>
         </div>`;
 }
 
@@ -344,14 +396,13 @@ function flyToProject(feature) {
 function searchProjects(query) {
     const resultsEl = document.getElementById('search-results');
     if (!query || query.length < 2) { resultsEl.style.display = 'none'; return; }
-    const source = map.getSource('src-repd');
-    if (!source || !source._data || !source._data.features || !source._data.features.length) {
+    if (!allREPDFeatures.length) {
         resultsEl.innerHTML = '<div class="search-no-results">Load a REPD layer first to enable search</div>';
         resultsEl.style.display = 'block';
         return;
     }
     const q = query.toLowerCase();
-    const matches = source._data.features
+    const matches = allREPDFeatures
         .filter(f => f.properties.name && f.properties.name.toLowerCase().includes(q))
         .sort((a, b) => (b.properties.capacity || 0) - (a.properties.capacity || 0))
         .slice(0, 12);
@@ -386,6 +437,142 @@ function searchProjects(query) {
     resultsEl.style.display = 'block';
 }
 
+// Export visible REPD features to CSV
+function exportCSV() {
+    if (!allREPDFeatures.length) {
+        alert('Load a REPD layer first');
+        return;
+    }
+    const visibleTechs = REPD_IDS.filter(id => {
+        const cb = document.querySelector(`input[data-layer-id="${id}"]`);
+        return cb && cb.checked;
+    });
+    const rows = allREPDFeatures.filter(f => visibleTechs.includes(f.properties.tech));
+    if (!rows.length) {
+        alert('No visible REPD layers to export — tick some layers first');
+        return;
+    }
+    const headers = ['name', 'tech', 'raw_tech', 'capacity_mw', 'status', 'operator', 'mounting', 'longitude', 'latitude'];
+    const csv = [
+        headers.join(','),
+        ...rows.map(f => {
+            const p = f.properties;
+            const [lon, lat] = f.geometry.coordinates;
+            return [
+                `"${(p.name||'').replace(/"/g,'""')}"`,
+                p.tech, p.raw_tech,
+                p.capacity, p.status,
+                `"${(p.operator||'').replace(/"/g,'""')}"`,
+                p.mounting, lon, lat
+            ].join(',');
+        })
+    ].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `globalgrid2050_export_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+}
+
+// Toggle status colour mode
+function toggleStatusMode() {
+    statusMode = !statusMode;
+    document.getElementById('btn-status').classList.toggle('active', statusMode);
+    REPD_IDS.forEach(id => {
+        if (!map.getLayer(`l-${id}`)) return;
+        if (statusMode) {
+            map.setPaintProperty(`l-${id}`, 'circle-color', [
+                'match', ['get', 'status'],
+                'operational',              '#00ff88',
+                'under construction',       '#ffcc00',
+                'awaiting construction',    '#ffaa00',
+                'consented',                '#ff8800',
+                'planning permission granted', '#ff8800',
+                'planning approved',        '#ff8800',
+                'application submitted',    '#8888ff',
+                'pre-construction',         '#aaaaff',
+                '#444'
+            ]);
+        } else {
+            const layer = GRID_CONFIG.flatMap(g => g.layers).find(l => l.id === id);
+            if (id === 'solar_roof') {
+                map.setPaintProperty(`l-${id}`, 'circle-color', [
+                    'interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, '#ffcc00', 0.99, '#ffcc00', 1.0, '#ff8c00', 5.0, '#ff6600', 10.0, '#ff4400'
+                ]);
+            } else if (id === 'solar') {
+                map.setPaintProperty(`l-${id}`, 'circle-color', [
+                    'interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
+                    0, '#ffff00', 20.0, '#ffcc00', 50.0, '#ffaa00', 200.0, '#ff6600', 500.0, '#ff2200'
+                ]);
+            } else {
+                map.setPaintProperty(`l-${id}`, 'circle-color', layer.color);
+            }
+        }
+    });
+}
+
+// Radius search
+function toggleRadiusMode() {
+    radiusMode = !radiusMode;
+    document.getElementById('btn-radius').classList.toggle('active', radiusMode);
+    document.getElementById('radius-popup').style.display = radiusMode ? 'block' : 'none';
+    map.getCanvas().style.cursor = radiusMode ? 'crosshair' : '';
+    if (!radiusMode && radiusMarker) { radiusMarker.remove(); radiusMarker = null; }
+}
+
+function doRadiusSearch(lon, lat) {
+    const km = parseFloat(document.getElementById('radius-select').value);
+    const nearby = allREPDFeatures.filter(f => {
+        const [flon, flat] = f.geometry.coordinates;
+        return haversine(lon, lat, flon, flat) <= km;
+    }).sort((a, b) => (b.properties.capacity||0) - (a.properties.capacity||0));
+
+    if (radiusMarker) radiusMarker.remove();
+    radiusMarker = new maplibregl.Marker({ color: '#00ffff' })
+        .setLngLat([lon, lat])
+        .addTo(map);
+
+    if (!nearby.length) {
+        new maplibregl.Popup({ maxWidth: '280px' })
+            .setLngLat([lon, lat])
+            .setHTML('<div style="font-family:monospace;background:#000;padding:6px;color:#888">No REPD assets within radius</div>')
+            .addTo(map);
+        return;
+    }
+
+    const totalMW = nearby.reduce((s, f) => s + (parseFloat(f.properties.capacity)||0), 0);
+    const byTech = {};
+    nearby.forEach(f => {
+        const t = f.properties.tech;
+        byTech[t] = (byTech[t]||0) + 1;
+    });
+    const techSummary = Object.entries(byTech)
+        .sort((a,b) => b[1]-a[1])
+        .map(([t,n]) => `<span style="color:#888">${t}: ${n}</span>`)
+        .join('<br>');
+
+    const topAssets = nearby.slice(0,5).map(f => {
+        const p = f.properties;
+        return `<div style="border-top:1px solid #222;padding-top:4px;margin-top:4px">
+            <b style="color:#ffcc00;font-size:11px">${p.name}</b><br>
+            <span style="color:#888;font-size:10px">${p.raw_tech}</span>
+            <span style="color:#ffae00;font-size:10px"> ${p.capacity||'?'} MW</span>
+        </div>`;
+    }).join('');
+
+    new maplibregl.Popup({ maxWidth: '300px' })
+        .setLngLat([lon, lat])
+        .setHTML(`
+            <div style="font-family:monospace;background:#000;padding:6px">
+                <b style="color:#00ffff">◎ ${km}km Radius — ${nearby.length} assets</b><br>
+                <span style="color:#ffae00">${totalMW.toFixed(1)} MW total</span><br><br>
+                ${techSummary}
+                ${topAssets}
+            </div>`)
+        .addTo(map);
+}
+
 function buildDOM() {
     const container = document.getElementById('scada-ui-container');
     container.innerHTML = '';
@@ -400,6 +587,7 @@ function buildDOM() {
             const input = document.createElement('input');
             input.type = 'checkbox';
             input.dataset.layerId = layer.id;
+            input.setAttribute('data-layer-id', layer.id);
             const span = document.createElement('span');
             span.id = `lbl-${layer.id}`;
             span.setAttribute('data-base-label', layer.label);
@@ -448,6 +636,10 @@ function buildDOM() {
     });
     btn.addEventListener('click', () => searchProjects(input.value));
     document.getElementById('map').addEventListener('click', () => { resultsEl.style.display = 'none'; });
+
+    document.getElementById('btn-export').addEventListener('click', exportCSV);
+    document.getElementById('btn-status').addEventListener('click', toggleStatusMode);
+    document.getElementById('btn-radius').addEventListener('click', toggleRadiusMode);
 }
 
 function getLayerConfig(layerId) {
@@ -478,15 +670,29 @@ async function hydrateLayer(layerId) {
             source.setData({ type: 'FeatureCollection', features });
             state.loaded = true;
             state.loading = false;
-            updateUIState(layerId, 'OK');
+
             if (REPD_IDS.includes(layerId)) {
+                // Store all features for search + export + radius
+                allREPDFeatures = features;
+                // Compute per-tech stats
+                const stats = {};
+                features.forEach(f => {
+                    const t = f.properties.tech;
+                    if (!stats[t]) stats[t] = { count: 0, mw: 0 };
+                    stats[t].count++;
+                    stats[t].mw += parseFloat(f.properties.capacity) || 0;
+                });
                 REPD_IDS.forEach(id => {
                     if (RUNTIME_STATE[id]) {
                         RUNTIME_STATE[id].loaded = true;
                         RUNTIME_STATE[id].loading = false;
-                        updateUIState(id, 'OK');
+                        updateUIState(id, 'OK', stats[id]);
                     }
                 });
+                // Re-apply status mode if active
+                if (statusMode) toggleStatusMode(); toggleStatusMode();
+            } else {
+                updateUIState(layerId, 'OK');
             }
         } catch (err) {
             console.error(`[LAYER FAILED] ${layerId}:`, err);
@@ -597,6 +803,11 @@ map.on('load', () => {
     });
 
     map.on('click', e => {
+        // Radius search mode
+        if (radiusMode) {
+            doRadiusSearch(e.lngLat.lng, e.lngLat.lat);
+            return;
+        }
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
         const p = features[0].properties || {};
@@ -608,6 +819,7 @@ map.on('load', () => {
         const operator = p.operator || '';
         const mounting = p.mounting ? ` | ${p.mounting}` : '';
         const capStr   = capacity ? `${capacity} MW` : '';
+        const statusCol = STATUS_COLOURS[status] || '#888';
         const searchBtns = REPD_IDS.includes(tech) ? buildSearchButtons(name, capacity, tech) : '';
         new maplibregl.Popup({ maxWidth: '300px' })
             .setLngLat(e.lngLat)
@@ -616,7 +828,7 @@ map.on('load', () => {
                     <b style="color:#00ffff;font-size:13px">${name}</b><br>
                     <span style="color:#888">${rawTech}${mounting}</span><br>
                     <span style="color:#ffae00">${capStr}</span>
-                    <span style="color:#666"> | ${status}</span><br>
+                    <span style="color:${statusCol};font-size:10px"> ● ${status}</span><br>
                     <span style="color:#555;font-size:10px">${operator}</span>
                     ${searchBtns}
                 </div>`)
@@ -624,6 +836,7 @@ map.on('load', () => {
     });
 
     map.on('mousemove', e => {
+        if (radiusMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
     });

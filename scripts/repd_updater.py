@@ -9,8 +9,9 @@ from pyproj import Transformer
 
 class REPDUpdater:
     """
-    VENTUS REPD UPDATER v5.4 | MASTER UNIFIED GEOJSON
-    Optimized for GPU-Accelerated UI filtering.
+    VENTUS REPD UPDATER v5.5 | MASTER UNIFIED GEOJSON
+    Hardened: Mounting Type classification, unit normalisation,
+    status tiering, biomass family grouping, coordinate sanity.
     """
     def __init__(self, registry_path="config/registry.yaml"):
         print(f"📡 VENTUS REPD UPDATER | BOOTING SYSTEM...")
@@ -25,6 +26,21 @@ class REPDUpdater:
         os.makedirs(self.output_dir, exist_ok=True)
         os.makedirs(self.raw_data_dir, exist_ok=True)
         self.transformer = Transformer.from_crs("epsg:27700", "epsg:4326", always_xy=True)
+
+    # ------------------------------------------------------------------
+    # Status tiering — normalise REPD's inconsistent status strings
+    # ------------------------------------------------------------------
+    TIER1 = {'operational', 'under construction', 'awaiting construction'}
+    TIER2 = {'consented', 'planning permission granted', 'planning approved'}
+    TIER3 = {'application submitted', 'pre-construction'}
+
+    @staticmethod
+    def normalise_status(raw):
+        s = str(raw).strip().lower()
+        if s in REPDUpdater.TIER1: return raw.strip()
+        if s in REPDUpdater.TIER2: return raw.strip()
+        if s in REPDUpdater.TIER3: return raw.strip()
+        return None  # drop everything else
 
     def fetch_data(self, url):
         print(f"📥 FETCHING SOURCE: {url}")
@@ -43,60 +59,94 @@ class REPDUpdater:
         print("🧪 REFINING MASTER DATASET...")
         df = pd.read_csv(csv_path, encoding='unicode_escape', on_bad_lines='skip', engine='python')
         df.columns = [c.strip() for c in df.columns]
-        viability_mask = ['Operational', 'Under Construction', 'Awaiting Construction', 'Consented']
-        df = df[df['Development Status (short)'].isin(viability_mask)]
 
-        # Debug: print unique Technology Type and Mounting Type values
-        print("🔍 Technology Types:", df['Technology Type'].dropna().unique()[:20])
+        # Tier 1 + 2 + 3 — all viable statuses
+        viable = (
+            self.TIER1 |
+            self.TIER2 |
+            self.TIER3
+        )
+        # Match against the short status column case-insensitively
+        df = df[df['Development Status (short)'].str.strip().str.lower().isin(viable)]
+
+        # Debug
+        print(f"🔍 Rows after status filter: {len(df)}")
         if 'Mounting Type' in df.columns:
-            print("🔍 Mounting Types:", df['Mounting Type'].dropna().unique())
+            print(f"🔍 Mounting Types: {df['Mounting Type'].dropna().unique()}")
         else:
-            print("⚠️ No 'Mounting Type' column found")
+            print("⚠️ No 'Mounting Type' column — rooftop split unavailable")
+        print(f"🔍 Tech Types (sample): {df['Technology Type'].dropna().unique()[:20]}")
 
         features = []
         skipped = 0
+
         for _, row in df.iterrows():
             try:
-                e, n = float(row['X-coordinate']), float(row['Y-coordinate'])
+                # --- Coordinate sanity ---
+                e = float(row['X-coordinate'])
+                n = float(row['Y-coordinate'])
+                if not e or not n or e == 0 or n == 0:
+                    skipped += 1
+                    continue
                 lon, lat = self.transformer.transform(e, n)
                 if not (isfinite(lon) and isfinite(lat)):
                     skipped += 1
                     continue
 
-                tech_raw = str(row.get('Technology Type', '')).strip()
-                tech_raw_lower = tech_raw.lower()
-                mounting = str(row.get('Mounting Type', '')).strip().lower()
+                # --- Technology classification ---
+                tech_raw   = str(row.get('Technology Type', '')).strip()
+                tech_lower = tech_raw.lower()
+                mounting   = str(row.get('Mounting Type', '')).strip().lower()
 
                 tech_map = 'other'
 
-                if 'solar' in tech_raw_lower or 'photovoltaic' in tech_raw_lower:
-                    # Use Mounting Type to split rooftop vs ground
-                    if 'roof' in mounting:
+                if 'solar' in tech_lower or 'photovoltaic' in tech_lower:
+                    # Mounting Type drives the split — NOT Technology Type
+                    # "Ground & Roof" → utility scale → solar
+                    # "Roof" only → solar_roof
+                    if mounting == 'roof':
                         tech_map = 'solar_roof'
                     else:
                         tech_map = 'solar'
-                elif 'wind' in tech_raw_lower:
+
+                elif 'wind' in tech_lower:
                     tech_map = 'wind'
-                elif 'battery' in tech_raw_lower or 'storage' in tech_raw_lower:
+
+                elif 'battery' in tech_lower or 'storage' in tech_lower:
                     tech_map = 'bess'
-                elif 'biomass' in tech_raw_lower or 'energy from waste' in tech_raw_lower:
+
+                elif any(x in tech_lower for x in [
+                    'biomass', 'energy from waste', 'efw',
+                    'anaerobic', 'landfill gas',
+                    'sewage sludge', 'co-firing', 'incineration'
+                ]):
                     tech_map = 'biomass'
-                elif 'tidal' in tech_raw_lower or 'wave' in tech_raw_lower:
+
+                elif 'tidal' in tech_lower or 'wave' in tech_lower:
                     tech_map = 'tidal'
-                elif 'hydrogen' in tech_raw_lower:
+
+                elif 'hydrogen' in tech_lower:
                     tech_map = 'hydrogen'
-                elif 'flywheel' in tech_raw_lower:
+
+                elif 'flywheel' in tech_lower:
                     tech_map = 'flywheel'
 
+                # --- Capacity with unit sanity ---
                 try:
                     capacity = float(row.get('Installed Capacity (MWelec)', 0))
                     if not isfinite(capacity):
                         capacity = 0.0
-                    # Unit fix: rooftop entries >100 are almost certainly kW not MW
-                    if tech_map == 'solar_roof' and capacity > 100:
+                    # Physics sanity — rooftop >50 and biomass >100
+                    # are almost certainly kW mislabelled as MW
+                    if tech_map == 'solar_roof' and capacity > 50:
+                        capacity = round(capacity / 1000, 4)
+                    if tech_map == 'biomass' and capacity > 100:
                         capacity = round(capacity / 1000, 4)
                 except (ValueError, TypeError):
                     capacity = 0.0
+
+                # --- Status normalisation ---
+                status = str(row.get('Development Status (short)', '')).strip()
 
                 features.append({
                     "type": "Feature",
@@ -104,7 +154,7 @@ class REPDUpdater:
                         "name":     str(row.get('Site Name', 'Unknown')),
                         "operator": str(row.get('Operator (or Applicant)', 'Unknown')).upper(),
                         "capacity": capacity,
-                        "status":   row['Development Status (short)'],
+                        "status":   status,
                         "tech":     tech_map,
                         "raw_tech": tech_raw,
                         "mounting": str(row.get('Mounting Type', ''))
@@ -114,11 +164,13 @@ class REPDUpdater:
                         "coordinates": [round(lon, 6), round(lat, 6)]
                     }
                 })
+
             except (ValueError, TypeError):
                 skipped += 1
                 continue
 
-        print(f"⚠️ Skipped {skipped} features with invalid data.")
+        # --- Distribution report ---
+        print(f"⚠️  Skipped: {skipped}")
         tech_counts = {}
         for f in features:
             t = f['properties']['tech']

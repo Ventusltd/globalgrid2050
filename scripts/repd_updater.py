@@ -11,18 +11,17 @@ from bs4 import BeautifulSoup
 
 class REPDUpdater:
     """
-    VENTUS REPD UPDATER v5.6 | MASTER UNIFIED GEOJSON
-    Hardened: dynamic URL fetching, UK bounds check, case-safe status
-    filter, EfW/Hydro/AD classification, biomass unit sanity.
+    VENTUS REPD UPDATER v5.7 | MASTER UNIFIED GEOJSON
+    Hardened: correct Mounting Type column name, schema validation,
+    dynamic URL fetching, UK bounds check, case-safe status filter,
+    EfW/Hydro/AD classification, biomass unit sanity.
     """
 
     REPD_PAGE = "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract"
 
-    # UK bounding box (WGS84)
     UK_LON_MIN, UK_LON_MAX = -9.0,  2.5
     UK_LAT_MIN, UK_LAT_MAX = 49.0, 61.0
 
-    # Status tiers — all lower-cased for case-insensitive match
     VIABLE_STATUSES = {
         'operational',
         'under construction',
@@ -34,25 +33,59 @@ class REPDUpdater:
         'pre-construction'
     }
 
+    # Required columns — pipeline warns loudly if any are missing
+    REQUIRED_COLUMNS = [
+        'Site Name',
+        'Technology Type',
+        'Development Status (short)',
+        'Installed Capacity (MWelec)',
+        'X-coordinate',
+        'Y-coordinate',
+        'Operator (or Applicant)'
+    ]
+
+    # Optional but critical — warn if absent, don't crash
+    OPTIONAL_COLUMNS = [
+        'Mounting Type for Solar'
+    ]
+
     def __init__(self, registry_path="config/registry.yaml"):
-        print("📡 VENTUS REPD UPDATER v5.6 | BOOTING SYSTEM...")
+        print("📡 VENTUS REPD UPDATER v5.7 | BOOTING SYSTEM...")
         try:
             with open(registry_path, 'r') as f:
                 self.config = yaml.safe_load(f)
         except FileNotFoundError:
             print(f"❌ ERROR: {registry_path} not found.")
             exit(1)
-        self.output_dir  = "dist"
+        self.output_dir   = "dist"
         self.raw_data_dir = "data"
         os.makedirs(self.output_dir,   exist_ok=True)
         os.makedirs(self.raw_data_dir, exist_ok=True)
         self.transformer = Transformer.from_crs("epsg:27700", "epsg:4326", always_xy=True)
 
     # ------------------------------------------------------------------
-    # Dynamic URL discovery — scrape Gov.uk for latest REPD CSV link
+    # Schema validation — fail fast on missing required columns
+    # ------------------------------------------------------------------
+    def validate_schema(self, df):
+        cols = set(df.columns)
+        missing_required = [c for c in self.REQUIRED_COLUMNS if c not in cols]
+        missing_optional = [c for c in self.OPTIONAL_COLUMNS if c not in cols]
+
+        if missing_required:
+            print(f"❌ SCHEMA ERROR — missing required columns: {missing_required}")
+            print(f"   Available columns: {sorted(cols)}")
+            exit(1)
+
+        if missing_optional:
+            print(f"⚠️  Missing optional columns (degraded output): {missing_optional}")
+        else:
+            print(f"✅ Schema valid — all required and optional columns present")
+
+    # ------------------------------------------------------------------
+    # Dynamic URL discovery
     # ------------------------------------------------------------------
     def discover_latest_url(self):
-        print(f"🔍 Discovering latest REPD URL from Gov.uk...")
+        print("🔍 Discovering latest REPD URL from Gov.uk...")
         try:
             r = requests.get(self.REPD_PAGE, timeout=30)
             r.raise_for_status()
@@ -70,7 +103,7 @@ class REPDUpdater:
             return None
 
     # ------------------------------------------------------------------
-    # Change detection — skip pipeline if URL unchanged since last sync
+    # Change detection
     # ------------------------------------------------------------------
     def already_current(self, url):
         manifest_path = f"{self.output_dir}/manifest_v4.json"
@@ -80,7 +113,7 @@ class REPDUpdater:
             with open(manifest_path) as f:
                 manifest = json.load(f)
             if manifest.get('source_url') == url:
-                print(f"✅ REPD unchanged since last sync — skipping pipeline.")
+                print("✅ REPD unchanged since last sync — skipping pipeline.")
                 return True
         except Exception:
             pass
@@ -110,19 +143,30 @@ class REPDUpdater:
         df = pd.read_csv(csv_path, encoding='unicode_escape', on_bad_lines='skip', engine='python')
         df.columns = [c.strip() for c in df.columns]
 
-        # Case-safe status normalisation — strip whitespace, title-case
+        # Schema validation — fail fast if columns missing
+        self.validate_schema(df)
+
+        # Detect correct mounting column name
+        if 'Mounting Type for Solar' in df.columns:
+            mounting_col = 'Mounting Type for Solar'
+        elif 'Mounting Type' in df.columns:
+            mounting_col = 'Mounting Type'
+        else:
+            mounting_col = None
+            print("⚠️ No mounting type column found — all solar mapped to 'solar'")
+
+        print(f"🔍 Mounting column: '{mounting_col}'")
+        if mounting_col:
+            print(f"🔍 Mounting values: {df[mounting_col].dropna().unique()}")
+        print(f"🔍 Tech Types (sample): {df['Technology Type'].dropna().unique()[:20]}")
+
+        # Case-safe status filter
         df['Development Status (short)'] = (
             df['Development Status (short)']
             .astype(str).str.strip().str.lower()
         )
         df = df[df['Development Status (short)'].isin(self.VIABLE_STATUSES)]
         print(f"🔍 Rows after status filter: {len(df)}")
-
-        if 'Mounting Type' in df.columns:
-            print(f"🔍 Mounting Types: {df['Mounting Type'].dropna().unique()}")
-        else:
-            print("⚠️ No 'Mounting Type' column")
-        print(f"🔍 Tech Types (sample): {df['Technology Type'].dropna().unique()[:20]}")
 
         features = []
         skipped  = 0
@@ -141,7 +185,7 @@ class REPDUpdater:
                     skipped += 1
                     continue
 
-                # UK bounding box — catches Atlantic/Africa outliers
+                # UK bounding box
                 if not (self.UK_LON_MIN < lon < self.UK_LON_MAX and
                         self.UK_LAT_MIN < lat < self.UK_LAT_MAX):
                     skipped += 1
@@ -150,11 +194,12 @@ class REPDUpdater:
                 # --- Technology classification ---
                 tech_raw   = str(row.get('Technology Type', '')).strip()
                 tech_lower = tech_raw.lower()
-                mounting   = str(row.get('Mounting Type', '')).strip().lower()
+                mounting   = str(row.get(mounting_col, '') if mounting_col else '').strip().lower()
 
                 tech_map = 'other'
 
                 if 'solar' in tech_lower or 'photovoltaic' in tech_lower:
+                    # 'Roof' only → solar_roof. 'Ground & Roof' / 'Ground' / blank → solar
                     tech_map = 'solar_roof' if mounting == 'roof' else 'solar'
 
                 elif 'wind' in tech_lower:
@@ -204,7 +249,7 @@ class REPDUpdater:
                         "status":   str(row.get('Development Status (short)', '')).strip(),
                         "tech":     tech_map,
                         "raw_tech": tech_raw,
-                        "mounting": str(row.get('Mounting Type', ''))
+                        "mounting": str(row.get(mounting_col, '') if mounting_col else '')
                     },
                     "geometry": {
                         "type": "Point",
@@ -222,6 +267,16 @@ class REPDUpdater:
             t = f['properties']['tech']
             tech_counts[t] = tech_counts.get(t, 0) + 1
         print(f"📊 Tech distribution: {tech_counts}")
+
+        # Warn on anything falling into 'other'
+        other_count = tech_counts.get('other', 0)
+        if other_count > 0:
+            other_techs = set(
+                f['properties']['raw_tech'] for f in features
+                if f['properties']['tech'] == 'other'
+            )
+            print(f"⚠️  {other_count} features unmapped — raw tech values: {other_techs}")
+
         return {"type": "FeatureCollection", "features": features}
 
     # ------------------------------------------------------------------
@@ -231,10 +286,8 @@ class REPDUpdater:
         for layer in self.config['layers']:
             if layer['id'] == 'repd' or layer['type'] == 'csv':
 
-                # Try dynamic discovery first, fall back to registry URL
                 url = self.discover_latest_url() or layer['url']
 
-                # Skip if unchanged
                 if self.already_current(url):
                     return
 
@@ -248,7 +301,6 @@ class REPDUpdater:
                     json.dump(geojson, f)
                 print(f"✅ MASTER SYNC: {len(geojson['features'])} assets.")
 
-                # Write manifest with source URL for change detection
                 manifest = {
                     "system":     "VENTUS_CORE",
                     "last_sync":  datetime.now().isoformat(),

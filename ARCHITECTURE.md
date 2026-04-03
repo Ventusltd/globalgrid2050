@@ -1,180 +1,137 @@
-GlobalGrid2050 Map Architecture 3rd April 2026 19:42 Claude AI Summary 
-
 # GlobalGrid2050 | Ventus Core — Architecture
 
-*Last updated: 2026-04-03 | v5.7 | Q4 2025 REPD data live*
+*Last updated: 2026-04-03 | REPD v5.7 | Q4 2025 data live*
 
 ---
 
-## 1. Map Frontend (`repd_grid_atlasv4/index.html`)
+## System 1 — Grid Topology Pipeline
 
-Built using **MapLibre GL JS v3.6.2** — GPU-accelerated WebGL rendering.
+### 1a. Grid Data Fetcher (`scripts/fetch_grid_data.py`)
 
-Single-page dashboard with HUD header (system time, 2050 countdown), full-screen map canvas, and SCADA-style layer control panel.
+A Python script that queries the **OpenStreetMap Overpass API** for UK power 
+lines (`power=line` and `power=cable`).
 
-All REPD technology layers share a **single `src-repd` GeoJSON source**. MapLibre filters natively per tech type — no manual JS filtering, no duplicate data loads.
+Fetches 400kV, 275kV, and 132kV transmission lines sequentially.
 
-Non-REPD layers (topology, assets) each have their own source, loaded on-demand via checkbox.
+Includes 60-second `time.sleep(60)` pauses between requests to prevent 
+Overpass API rate-limiting.
 
-**Layer architecture:**
-- Topology: 400kV, 275kV, 220kV, 132kV, 66kV transmission lines + substations
-- Assets: Nuclear, Gas, Industry, Data Centres, Airports, Railways
-- REPD: Solar PV, Solar Roof, Wind, BESS, Biomass, Tidal/Wave, Hydrogen, Flywheel, Hydro
+### 1b. Grid Topology Automation (`.github/workflows/update-grid-data.yml`)
 
-**Rendering:**
-- Capacity-scaled circle radius for all REPD layers (interpolate expression)
-- Solar Roof uses zoom-based radius — every asset visible at national zoom regardless of MW
-- Satellite basemap toggle (ArcGIS World Imagery)
+GitHub Action set to `workflow_dispatch` — manual trigger only.
 
-**Popup intelligence:**
-- Click any REPD asset ≥ 50MW → 📰 NEWS + 🖼 IMAGES buttons
-- Solar Roof threshold lowered to 0.5MW
-- Buttons open targeted Google News + Images searches in new tab
-- Zero API calls, zero ToS risk
+Spins up Ubuntu, installs Python/Requests, runs the fetcher script, commits 
+updated `*.geojson` files to main. Jekyll auto-deploys on commit.
 
-**Network:**
-- All fetches via `FetchQueue` (max 4 concurrent)
-- 15000ms timeout with AbortController
-- `cache: 'no-cache'` on all fetches
-- URL-level caching prevents duplicate downloads
-- All URLs require leading `/` prefix for GitHub Pages
+### 1c. Grid GeoJSON files (repo root)
+
+Static GeoJSON files for:
+- `grid_400kv.geojson`
+- `grid_275kv.geojson`
+- `grid_220kv.geojson`
+- `grid_132kv.geojson`
+- `grid_66kv.geojson`
+- `grid_substations.geojson`
 
 ---
 
-## 2. REPD ETL Pipeline (`scripts/repd_updater.py`)
+## System 2 — REPD Asset Intelligence Pipeline
+
+### 2a. REPD ETL Pipeline (`scripts/repd_updater.py`)
 
 **Version:** v5.7
 
-Python pipeline that transforms the UK Government REPD CSV into a clean GeoJSON master file for the map frontend.
+Transforms the UK Government REPD CSV into a clean master GeoJSON for the 
+map frontend.
 
-**Dynamic URL discovery:**
-Scrapes the official DESNZ REPD publication page at Gov.uk using BeautifulSoup to find the latest CSV href. Falls back to registry URL if scrape fails. No hardcoded stale URLs.
+**Dynamic URL discovery** — scrapes DESNZ Gov.uk page via BeautifulSoup 
+to find the latest REPD CSV. No hardcoded URLs.
 
-**Change detection:**
-Compares discovered URL against `source_url` stored in `manifest_v4.json`. If identical, pipeline exits immediately — no wasted compute, no redundant commits.
+**Change detection** — compares discovered URL against `source_url` in 
+manifest. Exits immediately if unchanged. No wasted compute.
 
-**Schema validation:**
-Validates all required columns on load. Fails fast with full column list if required columns missing. Warns on missing optional columns without crashing.
+**Schema validation** — fails fast on missing required columns. Full column 
+list printed on error.
 
-**Technology classification:**
-Driven by `Technology Type` field with `Mounting Type for Solar` column used to split solar:
-- `Mounting Type for Solar == 'roof'` → `solar_roof`
-- All other solar → `solar`
-- `'Ground & Roof'`, `'Floating'`, blank → `solar`
-
-Full tech family groupings:
-- `solar` / `solar_roof` — Solar Photovoltaics split by mounting
-- `wind` — all wind (onshore and offshore unified)
+**Technology classification** — driven by `Technology Type` + 
+`Mounting Type for Solar`:
+- `solar_roof` — Mounting Type == 'roof' only
+- `solar` — ground, floating, ground & roof, blank
+- `wind` — all wind unified
 - `bess` — battery / storage
-- `biomass` — biomass, EfW incineration, anaerobic digestion, landfill gas, sewage sludge, co-firing, gasification, pyrolysis
+- `biomass` — biomass, EfW, AD, landfill gas, sewage sludge, co-firing, 
+  gasification, pyrolysis
 - `hydro` — hydro and pumped storage
 - `tidal` — tidal and wave
 - `hydrogen` — hydrogen
 - `flywheel` — flywheel
 
 **Data hardening:**
-- Coordinate sanity: zero/null eastings/northings skipped
-- `isfinite()` check on all transformed coordinates
-- UK bounding box enforcement: lon (-9.0 to 2.5), lat (49.0 to 61.0) — Atlantic outliers dropped
-- Unit sanity: `solar_roof > 50MW` → divide by 1000 (kW mislabelled as MW). `biomass > 100MW` → same
-- Case-safe status filter: strip + lowercase before `.isin()` — trailing spaces and case variants handled
+- Zero/null coordinate filter
+- `isfinite()` on all transformed coordinates
+- UK bounding box: lon (-9.0 to 2.5), lat (49.0 to 61.0)
+- Unit sanity: solar_roof >50MW → ÷1000, biomass >100MW → ÷1000
+- Case-safe status filter: strip + lowercase
 
-**Status tiers included:**
+**Status tiers:**
 - Tier 1: Operational, Under Construction, Awaiting Construction
 - Tier 2: Consented, Planning Permission Granted, Planning Approved
 - Tier 3: Application Submitted, Pre-Construction
 
-**Debug output every run:**
-- Mounting type values found
-- Tech type sample
-- Row count after status filter
-- Final tech distribution counts
-- Unmapped `other` features with raw tech values listed
+**Output:** `dist/repd_master.json` + `dist/manifest_v4.json`
 
-**Output:** `dist/repd_master.json` — GeoJSON FeatureCollection
-**Manifest:** `dist/manifest_v4.json` — includes `last_sync`, `source_url`, `status`
-
----
-
-## 3. Automation (`.github/workflows/repd_sync.yml`)
-
-**Name:** Ventus REPD Master Sync
+### 2b. REPD Automation (`.github/workflows/repd_sync.yml`)
 
 **Triggers:**
-- `schedule`: cron `0 0 1 * *` — 1st of every month at midnight
-- `workflow_dispatch` — manual trigger from Actions tab
+- `schedule`: cron `0 0 1 * *` — 1st of every month
+- `workflow_dispatch` — manual trigger
 
-**Steps:**
-1. Checkout repository
-2. Setup Python 3.10 with pip cache
-3. Install dependencies: `pandas pyyaml requests pyproj beautifulsoup4`
-4. Execute `scripts/repd_updater.py` with `PYTHONPATH: .`
-5. Commit `dist/repd_master.json` and `dist/manifest_v4.json` only — no repo bloat
+**Dependencies:** `pandas pyyaml requests pyproj beautifulsoup4`
 
-**Idempotency:** Pipeline self-terminates if source URL unchanged since last sync.
-
-**Jekyll auto-deploy:** Triggered automatically on every commit to main via standard GitHub Pages workflow.
+Idempotent — self-terminates if source URL unchanged since last sync.
 
 ---
 
-## 4. Data Source
+## System 3 — Map Frontend (`repd_grid_atlasv4/index.html`)
 
-**REPD — Renewable Energy Planning Database**
-Published by DESNZ (Department for Energy Security and Net Zero)
-Quarterly release. Dynamic URL discovered at runtime.
-Current data: Q4 2025
+**Built with:** MapLibre GL JS v3.6.2 — GPU-accelerated WebGL rendering.
 
-**Grid topology GeoJSON** — OpenStreetMap contributors
-**Basemap** — CARTO Dark Matter + ArcGIS World Imagery (satellite)
+Both System 1 and System 2 data rendered in the same map canvas.
+
+**Single shared `src-repd` source** — all REPD layers filter natively in 
+MapLibre. No duplicate data loads.
+
+**Layer groups:**
+- Topology (System 1): transmission lines + substations
+- Assets: Nuclear, Gas, Industry, Data Centres, Airports, Railways
+- REPD (System 2): Solar PV, Solar Roof, Wind, BESS, Biomass, Tidal, 
+  Hydrogen, Flywheel, Hydro
+
+**Popup intelligence:**
+- REPD assets ≥50MW → 📰 NEWS + 🖼 IMAGES buttons
+- Solar Roof threshold: 0.5MW
+- Targeted Google News + Images search, opens in new tab
+
+**Network:** FetchQueue (4 concurrent), 15000ms timeout, `cache: 'no-cache'`
 
 ---
 
-## 5. Hosting
+## Hosting
 
-**GitHub Pages** — free, global CDN, auto-deploys on commit to main
+**GitHub Pages** — globalgrid2050.com
 **Repo:** Ventusltd/globalgrid2050
-**Live:** globalgrid2050.com
+Auto-deploys on every commit to main.
 
 ---
 
-## 6. Design Principles
+## Design Principles
 
-- Knowledge freely given — no paywall, no login, no ads
 - Open data only — REPD, OSM, public GeoJSON
-- Defensive programming — distrust the CSV, validate the schema, enforce physical reality
-- Test don't assume — every fix verified against real data before commit
-- Persistence over perfection — ship working code, iterate fast
+- Knowledge freely given — no paywall, no login
+- Test don't assume — every fix verified against real data
+- Defensive programming — distrust the CSV, validate the schema
 - The human is the architect — AIs execute, human signs off
 
 ---
 
-*Built in the spirit of the Gita. One layer at a time. One dataset at a time.*
-
-
-GlobalGrid2050 Map Architecture
-
-1. The Map Frontend (repd_atlas_grid_model.md)
-
-Built using Leaflet.js, Leaflet MarkerCluster, and Proj4js (for OSGB36 to WGS84 coordinate translation).
-
-Reads project data from repd.csv and scales marker sizes based on MW capacity.
-
-Uses interactive Layer Controls to overlay National Grid infrastructure (400kV, 275kV, 132kV) pulled from local GeoJSON files.
-
-2. The Data Fetcher (scripts/fetch_grid_data.py)
-
-A Python script that queries the OpenStreetMap Overpass API for UK power lines (power=line and power=cable).
-
-It fetches 400kV, 275kV, and 132kV data sequentially.
-
-Crucial: It includes 60-second time.sleep(60) pauses between requests to prevent the Overpass API from blocking our IP for rate-limiting.
-
-3. The Automation (.github/workflows/update-grid-data.yml)
-
-A GitHub Action set to workflow_dispatch (Manual trigger).
-
-Spins up a virtual Ubuntu server, installs Python/Requests, runs the fetcher script, and commits any updated *.geojson files directly back to the main branch.
-
-Committing these files automatically triggers the Jekyll build to update the live GitHub Pages site.
-
-
+*Built in the spirit of the Gita. One layer at a time.*

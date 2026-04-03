@@ -1,3 +1,463 @@
+NEW working back up 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>GlobalGrid2050 | Ventus Core</title>
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; }
+        .dashboard { display: flex; flex-direction: column; height: 100vh; height: 100dvh; width: 100vw; padding: 4px; gap: 4px; box-sizing: border-box; }
+        #fatal-banner { display: none; position: fixed; top: 0; left: 0; width: 100%; background: #ff0000; color: #fff; text-align: center; padding: 10px; font-weight: bold; z-index: 9999; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+        .hud-header { background: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .hud-val { font-size: 16px; font-weight: bold; color: #00ffff; text-shadow: 0 0 5px #00ffff; }
+        .ventus-brand { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; }
+        .ventus-main { font-family: -apple-system, sans-serif; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 2px; }
+        .ventus-sub { font-family: -apple-system, sans-serif; font-size: 6.5px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .map-container { position: relative; flex-grow: 1; min-height: 0; border: 1px solid #222; border-radius: 6px; overflow: hidden; background: #0b0e14; }
+        #map { width: 100%; height: 100%; }
+        .podcast-shoutout { position: absolute; bottom: 6px; right: 8px; font-family: -apple-system, sans-serif; font-size: 8px; color: #fff; opacity: 0.5; text-align: right; text-transform: uppercase; letter-spacing: 1px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
+        .scada-wrapper { background: #050505; border: 1px solid #444; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; max-height: 38vh; }
+        .scada-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; overflow-y: auto; padding-bottom: 5px; }
+        .key-group { border-left: 2px solid #333; padding-left: 10px; margin-bottom: 4px; }
+        .key-title { font-size: 10px; color: #66ccff; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
+        .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
+        input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
+        .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
+        .disclaimer-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.5; color: #666; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; }
+        .custom-map-attrib { position: absolute; top: 10px; left: 10px; background: rgba(5, 5, 5, 0.7); color: #888; font-family: 'Courier New', monospace; font-size: 9px; border-radius: 4px; padding: 4px 8px; z-index: 10; border: 1px solid #333; pointer-events: auto; }
+        .custom-map-attrib a { color: #00ffff; text-decoration: none; }
+        .custom-map-attrib a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div id="fatal-banner">CRITICAL ERROR: SYSTEM DEPENDENCIES FAILED TO LOAD</div>
+
+<div class="dashboard">
+    <div class="hud-header">
+        <div>
+            <small style="color:#888">SYSTEM TIME</small><br>
+            <span class="hud-val" id="clock">--:--:--</span><br>
+            <span id="date" style="font-size: 11px; color: #888;">--/--/----</span>
+        </div>
+        <div class="ventus-brand">
+            <div class="ventus-main">Ventus</div>
+            <div class="ventus-sub">Cables &amp; Connectivity&reg;</div>
+        </div>
+        <div style="text-align:right"><small style="color:#888">2050 TARGET</small><br><span class="hud-val" id="days" style="color:#ff9d00">-- DAYS</span></div>
+    </div>
+
+    <div class="map-container">
+        <div id="map"></div>
+        <div class="custom-map-attrib">
+            Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors | openstreetmap.org</a> | © CARTO
+        </div>
+        <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
+    </div>
+
+    <div class="scada-wrapper">
+        <div class="scada-keys" id="scada-ui-container"></div>
+        <div class="disclaimer-box">
+            This interface is based on publicly available and open source infrastructure data, including public energy datasets such as REPD where applicable. It is presented for analytical and visualisation purposes only and does not include live operational or other non public operational data.
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+<script>
+'use strict';
+
+if (typeof maplibregl === 'undefined') {
+    document.getElementById('fatal-banner').style.display = 'block';
+    throw new Error('CRITICAL: MapLibre failed to load.');
+}
+
+function deepFreeze(obj) {
+    Object.keys(obj).forEach(prop => {
+        if (typeof obj[prop] === 'object' && obj[prop] !== null) deepFreeze(obj[prop]);
+    });
+    return Object.freeze(obj);
+}
+
+const GRID_CONFIG = deepFreeze([
+    {
+        group: "Topology (GeoJSON)",
+        layers: [
+            { id: "400",  label: "400kV", color: "#0054ff", type: "line", width: 2.5, url: "/grid_400kv.geojson", snap: true, preload: true },
+            { id: "275",  label: "275kV", color: "#ff0000", type: "line", width: 2.0, url: "/grid_275kv.geojson", snap: true, preload: true },
+            { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "/grid_220kv.geojson", snap: true, preload: true },
+            { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "/grid_132kv.geojson", snap: true, preload: true },
+            { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "/grid_66kv.geojson", snap: true, preload: true },
+            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: 4.5, url: "/grid_substations.geojson", isSubs: true, preload: true }
+        ]
+    },
+    {
+        group: "Assets (GeoJSON)",
+        layers: [
+            { id: "nuc",  label: "Nuclear",   color: "#39ff14", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['==', ['get', 'source'], 'nuclear'], preload: true },
+            { id: "gas",  label: "Gas",       color: "#ff4500", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['!=', ['get', 'source'], 'nuclear'], preload: true },
+            { id: "ind",  label: "Industry",  color: "#ff6600", type: "point", radius: 4.5, url: "/industrial_offtakers.geojson", preload: true },
+            { id: "dc",   label: "Data Ctrs", color: "#00ffff", type: "point", radius: 4.5, url: "/datacentres.geojson", preload: true },
+            { id: "air",  label: "Airports",  color: "#ff00ff", type: "point", radius: 4.5, url: "/airports.geojson", preload: true },
+            { id: "rail", label: "Railways",  color: "#ffd700", type: "point", radius: 4.5, url: "/railways.geojson", preload: true }
+        ]
+    },
+    {
+        group: "REPD (GeoJSON)",
+        layers: [
+            { id: "solar",    label: "Solar PV",   color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],    preload: false },
+            { id: "wind",     label: "Wind Farm",  color: "#00ffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],     preload: false },
+            { id: "bess",     label: "BESS",       color: "#ffae00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],     preload: false },
+            { id: "biomass",  label: "Biomass",    color: "#39ff14", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],  preload: false },
+            { id: "tidal",    label: "Tidal/Wave", color: "#00bfff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],    preload: false },
+            { id: "hydrogen", label: "Hydrogen",   color: "#ffffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'], preload: false },
+            { id: "flywheel", label: "Flywheel",   color: "#ff69b4", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'], preload: false }
+        ]
+    }
+]);
+
+const REPD_IDS = ['solar', 'wind', 'bess', 'biomass', 'tidal', 'hydrogen', 'flywheel'];
+
+const RUNTIME_STATE = {};
+GRID_CONFIG.forEach(group => {
+    group.layers.forEach(layer => {
+        RUNTIME_STATE[layer.id] = { status: 'WAIT', loading: false, loaded: false };
+    });
+});
+
+setInterval(() => {
+    const now = new Date();
+    document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
+    document.getElementById('date').innerText = now.toLocaleDateString('en-GB');
+    document.getElementById('days').innerText = Math.floor((new Date('2050-01-01') - now) / 86400000) + ' DAYS';
+}, 1000);
+
+const map = new maplibregl.Map({
+    container: 'map',
+    style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+    center: [-3.5, 54.0],
+    zoom: 4.2,
+    attributionControl: false
+});
+
+new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
+
+function updateUIState(id, state) {
+    RUNTIME_STATE[id].status = state;
+    const span = document.getElementById(`lbl-${id}`);
+    if (span) {
+        const baseText = span.getAttribute('data-base-label');
+        span.innerText = `${baseText} [${state}]`;
+        span.style.opacity = state === 'FAIL' ? '0.5' : '1';
+    }
+}
+
+class FetchQueue {
+    constructor(concurrency) {
+        this.concurrency = concurrency;
+        this.active = 0;
+        this.queue = [];
+    }
+    async add(task) {
+        if (this.active >= this.concurrency) {
+            await new Promise(resolve => this.queue.push(resolve));
+        }
+        this.active++;
+        try { return await task(); }
+        finally {
+            this.active--;
+            if (this.queue.length > 0) this.queue.shift()();
+        }
+    }
+}
+
+const networkQueue = new FetchQueue(4);
+const urlCache = {};
+let globalSubsData = null;
+
+async function fetchWithTimeout(url, ms = 15000) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), ms);
+    try {
+        const response = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
+        clearTimeout(id);
+        if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
+        return response;
+    } catch (err) {
+        clearTimeout(id);
+        throw err;
+    }
+}
+
+async function fetchAndParseGeoJSON(url) {
+    if (urlCache[url]) return await urlCache[url];
+    const promise = fetchWithTimeout(url)
+        .then(res => res.json())
+        .then(data => {
+            if (!data || !Array.isArray(data.features)) {
+                console.error(`[INVALID GEOJSON] ${url}`, data);
+                return [];
+            }
+            console.log(`[DATA LOADED] ${url}: ${data.features.length} features`);
+            return data.features;
+        })
+        .catch(err => {
+            console.error(`[FETCH ERROR] ${url}`, err);
+            throw err;
+        });
+    urlCache[url] = promise;
+    return promise;
+}
+
+function snapLines(features, subs) {
+    if (!subs || !subs.length) return features;
+    const tol = 0.05, rad = Math.PI / 180;
+    features.forEach(f => {
+        const c = f.geometry && f.geometry.coordinates;
+        if (!c || c.length < 2) return;
+        [0, c.length - 1].forEach(i => {
+            let best = c[i], min = Infinity;
+            const latCos = Math.cos(c[i][1] * rad);
+            subs.forEach(s => {
+                const sc = s.geometry && s.geometry.coordinates;
+                if (!sc) return;
+                const dx = (c[i][0] - sc[0]) * latCos;
+                const dy = (c[i][1] - sc[1]);
+                const d = (dx * dx) + (dy * dy);
+                if (d < min && d < tol * tol) { min = d; best = sc; }
+            });
+            c[i] = best;
+        });
+    });
+    return features;
+}
+
+function buildDOM() {
+    const container = document.getElementById('scada-ui-container');
+    container.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+
+    GRID_CONFIG.forEach(group => {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'key-group';
+        groupDiv.innerHTML = `<div class="key-title">${group.group}</div>`;
+        group.layers.forEach(layer => {
+            const label = document.createElement('label');
+            label.className = 'key-item';
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.dataset.layerId = layer.id;
+            const span = document.createElement('span');
+            span.id = `lbl-${layer.id}`;
+            span.setAttribute('data-base-label', layer.label);
+            span.style.color = layer.color;
+            span.innerText = `${layer.label} [WAIT]`;
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(' '));
+            label.appendChild(span);
+            groupDiv.appendChild(label);
+        });
+        fragment.appendChild(groupDiv);
+    });
+
+    const bmGroup = document.createElement('div');
+    bmGroup.className = 'key-group';
+    bmGroup.innerHTML = `
+        <div class="key-title">Basemap</div>
+        <label class="key-item"><input type="radio" name="bm" value="dark" checked> Dark</label>
+        <label class="key-item"><input type="radio" name="bm" value="sat"> Satellite</label>
+    `;
+    fragment.appendChild(bmGroup);
+    container.appendChild(fragment);
+
+    container.addEventListener('change', e => {
+        if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
+            const layerId = e.target.dataset.layerId;
+            const isVisible = e.target.checked;
+            if (map.getLayer(`l-${layerId}`)) {
+                map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
+            }
+            if (isVisible) hydrateLayer(layerId);
+        } else if (e.target.name === 'bm') {
+            map.setLayoutProperty('l-sat', 'visibility', e.target.value === 'sat' ? 'visible' : 'none');
+        }
+    });
+}
+
+function getLayerConfig(layerId) {
+    return GRID_CONFIG.flatMap(g => g.layers).find(l => l.id === layerId);
+}
+
+function getSourceIdForLayer(layerId) {
+    if (REPD_IDS.includes(layerId)) return 'src-repd';
+    return `src-${layerId}`;
+}
+
+async function hydrateLayer(layerId) {
+    const state = RUNTIME_STATE[layerId];
+    if (!state || state.loaded || state.loading) return;
+    state.loading = true;
+    updateUIState(layerId, 'LOAD');
+
+    const layerConfig = getLayerConfig(layerId);
+    if (!layerConfig) {
+        updateUIState(layerId, 'FAIL');
+        state.loading = false;
+        return;
+    }
+
+    await networkQueue.add(async () => {
+        try {
+            let features = await fetchAndParseGeoJSON(layerConfig.url);
+            if (features.length === 0) {
+                updateUIState(layerId, 'EMPTY');
+                state.loading = false;
+                return;
+            }
+            if (layerConfig.isSubs) globalSubsData = features;
+            if (layerConfig.snap && globalSubsData) features = snapLines(features, globalSubsData);
+
+            const sourceId = getSourceIdForLayer(layerId);
+            const source = map.getSource(sourceId);
+            if (!source) {
+                console.error(`[SOURCE MISSING] ${sourceId}`);
+                updateUIState(layerId, 'FAIL');
+                state.loading = false;
+                return;
+            }
+
+            source.setData({ type: 'FeatureCollection', features });
+            state.loaded = true;
+            state.loading = false;
+            updateUIState(layerId, 'OK');
+
+            if (REPD_IDS.includes(layerId)) {
+                REPD_IDS.forEach(id => {
+                    if (RUNTIME_STATE[id] && !RUNTIME_STATE[id].loaded) {
+                        RUNTIME_STATE[id].loaded = true;
+                        updateUIState(id, 'OK');
+                    }
+                });
+            }
+        } catch (err) {
+            console.error(`[LAYER FAILED] ${layerId}:`, err);
+            state.loading = false;
+            updateUIState(layerId, 'FAIL');
+        }
+    });
+}
+
+map.on('load', () => {
+    buildDOM();
+
+    map.addSource('sat-s', {
+        type: 'raster',
+        tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+        tileSize: 256
+    });
+    map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
+
+    const allLayerIds = [];
+
+    // Non-REPD layers
+    GRID_CONFIG.forEach(group => {
+        group.layers.forEach(layer => {
+            if (REPD_IDS.includes(layer.id)) return;
+            map.addSource(`src-${layer.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+            const layerObject = {
+                id: `l-${layer.id}`,
+                type: layer.type === 'line' ? 'line' : 'circle',
+                source: `src-${layer.id}`,
+                layout: { visibility: 'none' },
+                paint: layer.type === 'line'
+                    ? { 'line-color': layer.color, 'line-width': layer.width }
+                    : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
+            };
+            if (layer.filter) layerObject.filter = layer.filter;
+            map.addLayer(layerObject);
+            allLayerIds.push(`l-${layer.id}`);
+        });
+    });
+
+    // Single shared REPD source — same pattern as subs
+    map.addSource('src-repd', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] }
+    });
+
+    // One layer per tech — exactly like subs
+    REPD_IDS.forEach(id => {
+        const layer = getLayerConfig(id);
+        map.addLayer({
+            id: `l-${id}`,
+            type: 'circle',
+            source: 'src-repd',
+            filter: layer.filter,
+            layout: { visibility: 'none' },
+            paint: {
+                'circle-color': layer.color,
+                'circle-radius': [
+                    'interpolate', ['linear'],
+                    ['coalesce', ['get', 'capacity'], 0],
+                    0,    8,
+                    10,   10,
+                    50,   13,
+                    200,  17,
+                    500,  22,
+                    1000, 28
+                ],
+                'circle-stroke-width': 1.5,
+                'circle-stroke-color': '#000',
+                'circle-opacity': 0.85
+            }
+        });
+        allLayerIds.push(`l-${id}`);
+    });
+
+    map.on('click', e => {
+        const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
+        if (!features.length) return;
+        const p = features[0].properties || {};
+        const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
+        const tech = p.raw_tech || p.tech || '';
+        const capacity = p.capacity ? `${p.capacity} MW` : '';
+        const status = p.status || '';
+        const operator = p.operator || '';
+        new maplibregl.Popup({ maxWidth: '280px' })
+            .setLngLat(e.lngLat)
+            .setHTML(`
+                <div style="font-family:monospace;background:#000;padding:6px">
+                    <b style="color:#00ffff;font-size:13px">${name}</b><br>
+                    <span style="color:#888">${tech}</span><br>
+                    <span style="color:#ffae00">${capacity}</span>
+                    <span style="color:#666"> | ${status}</span><br>
+                    <span style="color:#555;font-size:10px">${operator}</span>
+                </div>`)
+            .addTo(map);
+    });
+
+    map.on('mousemove', e => {
+        const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
+        map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+    });
+
+    GRID_CONFIG.forEach(group => {
+        group.layers.forEach(layer => {
+            if (layer.preload) hydrateLayer(layer.id);
+        });
+    });
+});
+</script>
+</body>
+</html>
+
+
+
+Old stable code 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

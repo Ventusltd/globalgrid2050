@@ -63,11 +63,7 @@ class REPDUpdater:
                         tech_map = 'solar_roof'
                     else:
                         tech_map = 'solar'
-                elif 'wind' in tech_raw:
-                    if 'offshore' in tech_raw:
-                        tech_map = 'wind_offshore'
-                    else:
-                        tech_map = 'wind'
+                elif 'wind' in tech_raw: tech_map = 'wind'
                 elif 'battery' in tech_raw or 'storage' in tech_raw: tech_map = 'bess'
                 elif 'biomass' in tech_raw or 'energy from waste' in tech_raw: tech_map = 'biomass'
                 elif 'tidal' in tech_raw or 'wave' in tech_raw: tech_map = 'tidal'

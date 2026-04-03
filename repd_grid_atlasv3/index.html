@@ -13,7 +13,7 @@
         .hud-val { font-size: 16px; font-weight: bold; color: #00ffff; text-shadow: 0 0 5px #00ffff; }
         .ventus-brand { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; }
         .ventus-main { font-family: -apple-system, sans-serif; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 2px; }
-        .ventus-sub  { font-family: -apple-system, sans-serif; font-size: 6.5px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .ventus-sub { font-family: -apple-system, sans-serif; font-size: 6.5px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
         .map-container { position: relative; flex-grow: 1; min-height: 0; border: 1px solid #222; border-radius: 6px; overflow: hidden; background: #0b0e14; }
         #map { width: 100%; height: 100%; }
         .podcast-shoutout { position: absolute; bottom: 6px; right: 8px; font-family: -apple-system, sans-serif; font-size: 8px; color: #fff; opacity: 0.5; text-align: right; text-transform: uppercase; letter-spacing: 1px; pointer-events: none; z-index: 10; text-shadow: 1px 1px 2px #000; }
@@ -84,31 +84,31 @@ const GRID_CONFIG = deepFreeze([
     {
         group: "Topology (GeoJSON)",
         layers: [
-            { id: "400",  label: "400kV", color: "#0054ff", type: "line", width: 2.5, url: "/grid_400kv.geojson", snap: true, preload: true },
-            { id: "275",  label: "275kV", color: "#ff0000", type: "line", width: 2.0, url: "/grid_275kv.geojson", snap: true, preload: true },
-            { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "/grid_220kv.geojson", snap: true, preload: true },
-            { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "/grid_132kv.geojson", snap: true, preload: true },
-            { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "/grid_66kv.geojson", snap: true, preload: true },
-            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: 4.5, url: "/grid_substations.geojson", isSubs: true, preload: true }
+            { id: "400",  label: "400kV", color: "#0054ff", type: "line", width: 2.5, url: "grid_400kv.geojson", snap: true, preload: true },
+            { id: "275",  label: "275kV", color: "#ff0000", type: "line", width: 2.0, url: "grid_275kv.geojson", snap: true, preload: true },
+            { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "grid_220kv.geojson", snap: true, preload: true },
+            { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "grid_132kv.geojson", snap: true, preload: true },
+            { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "grid_66kv.geojson", snap: true, preload: true },
+            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: 4.5, url: "grid_substations.geojson", isSubs: true, preload: true }
         ]
     },
     {
         group: "Assets (GeoJSON)",
         layers: [
-            { id: "nuc",  label: "Nuclear",  color: "#39ff14", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['==', ['get','source'], 'nuclear'], preload: true },
-            { id: "gas",  label: "Gas",      color: "#ff4500", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['!=', ['get','source'], 'nuclear'], preload: true },
-            { id: "ind",  label: "Industry", color: "#ff6600", type: "point", radius: 4.5, url: "/industrial_offtakers.geojson", preload: true },
-            { id: "dc",   label: "Data Ctrs",color: "#00ffff", type: "point", radius: 4.5, url: "/datacentres.geojson", preload: true },
-            { id: "air",  label: "Airports", color: "#ff00ff", type: "point", radius: 4.5, url: "/airports.geojson", preload: true },
-            { id: "rail", label: "Railways", color: "#ffd700", type: "point", radius: 4.5, url: "/railways.geojson", preload: true }
+            { id: "nuc",  label: "Nuclear",   color: "#39ff14", type: "point", radius: 4.5, url: "power_plants.geojson", filter: ['==', ['get', 'source'], 'nuclear'], preload: true },
+            { id: "gas",  label: "Gas",       color: "#ff4500", type: "point", radius: 4.5, url: "power_plants.geojson", filter: ['!=', ['get', 'source'], 'nuclear'], preload: true },
+            { id: "ind",  label: "Industry",  color: "#ff6600", type: "point", radius: 4.5, url: "industrial_offtakers.geojson", preload: true },
+            { id: "dc",   label: "Data Ctrs", color: "#00ffff", type: "point", radius: 4.5, url: "datacentres.geojson", preload: true },
+            { id: "air",  label: "Airports",  color: "#ff00ff", type: "point", radius: 4.5, url: "airports.geojson", preload: true },
+            { id: "rail", label: "Railways",  color: "#ffd700", type: "point", radius: 4.5, url: "railways.geojson", preload: true }
         ]
     },
     {
         group: "REPD (GeoJSON)",
         layers: [
-            { id: "solar", label: "Solar PV",     color: "#ffff00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get','tech'], 'solar'], preload: false },
-            { id: "wind",  label: "Wind Farm",    color: "#00ffff", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get','tech'], 'wind'],  preload: false },
-            { id: "bess",  label: "BESS Storage", color: "#ffae00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get','tech'], 'bess'],  preload: false }
+            { id: "solar", label: "Solar PV",     color: "#ffff00", type: "point", radius: 4.5, url: "dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'], preload: false },
+            { id: "wind",  label: "Wind Farm",    color: "#00ffff", type: "point", radius: 4.5, url: "dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],  preload: false },
+            { id: "bess",  label: "BESS Storage", color: "#ffae00", type: "point", radius: 4.5, url: "dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],  preload: false }
         ]
     }
 ]);
@@ -124,7 +124,7 @@ setInterval(() => {
     const now = new Date();
     document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
     document.getElementById('date').innerText = now.toLocaleDateString('en-GB');
-    document.getElementById('days').innerText  = Math.floor((new Date('2050-01-01') - now) / 86400000) + ' DAYS';
+    document.getElementById('days').innerText = Math.floor((new Date('2050-01-01') - now) / 86400000) + ' DAYS';
 }, 1000);
 
 const map = new maplibregl.Map({
@@ -134,6 +134,7 @@ const map = new maplibregl.Map({
     zoom: 4.2,
     attributionControl: false
 });
+
 new ResizeObserver(() => map.resize()).observe(document.getElementById('map'));
 
 function updateUIState(id, state) {
@@ -153,10 +154,13 @@ class FetchQueue {
         this.queue = [];
     }
     async add(task) {
-        if (this.active >= this.concurrency) await new Promise(resolve => this.queue.push(resolve));
+        if (this.active >= this.concurrency) {
+            await new Promise(resolve => this.queue.push(resolve));
+        }
         this.active++;
-        try { return await task(); }
-        finally {
+        try {
+            return await task();
+        } finally {
             this.active--;
             if (this.queue.length > 0) this.queue.shift()();
         }
@@ -171,9 +175,9 @@ async function fetchWithTimeout(url, ms = 15000) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), ms);
     try {
-        const response = await fetch(url, { signal: controller.signal });
+        const response = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
         clearTimeout(id);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
         return response;
     } catch (err) {
         clearTimeout(id);
@@ -183,31 +187,56 @@ async function fetchWithTimeout(url, ms = 15000) {
 
 async function fetchAndParseGeoJSON(url) {
     if (urlCache[url]) return await urlCache[url];
+
     const promise = fetchWithTimeout(url)
         .then(res => res.json())
-        .then(data => Array.isArray(data.features) ? data.features : []);
+        .then(data => {
+            if (!data || !Array.isArray(data.features)) {
+                console.error(`[INVALID GEOJSON] ${url}`, data);
+                return [];
+            }
+            console.log(`[DATA LOADED] ${url}: ${data.features.length} features`);
+            return data.features;
+        })
+        .catch(err => {
+            console.error(`[FETCH ERROR] ${url}`, err);
+            throw err;
+        });
+
     urlCache[url] = promise;
     return promise;
 }
 
 function snapLines(features, subs) {
     if (!subs || !subs.length) return features;
-    const tol = 0.05, rad = Math.PI / 180;
+    const tol = 0.05;
+    const rad = Math.PI / 180;
+
     features.forEach(f => {
         const c = f.geometry && f.geometry.coordinates;
         if (!c || c.length < 2) return;
+
         [0, c.length - 1].forEach(i => {
-            let best = c[i], min = Infinity;
+            let best = c[i];
+            let min = Infinity;
             const latCos = Math.cos(c[i][1] * rad);
+
             subs.forEach(s => {
-                const sc = s.geometry.coordinates;
-                const dx = (c[i][0] - sc[0]) * latCos, dy = (c[i][1] - sc[1]);
-                const d  = (dx * dx) + (dy * dy);
-                if (d < min && d < tol * tol) { min = d; best = sc; }
+                const sc = s.geometry && s.geometry.coordinates;
+                if (!sc) return;
+                const dx = (c[i][0] - sc[0]) * latCos;
+                const dy = (c[i][1] - sc[1]);
+                const d = (dx * dx) + (dy * dy);
+                if (d < min && d < tol * tol) {
+                    min = d;
+                    best = sc;
+                }
             });
+
             c[i] = best;
         });
     });
+
     return features;
 }
 
@@ -240,6 +269,7 @@ function buildDOM() {
             label.appendChild(span);
             groupDiv.appendChild(label);
         });
+
         fragment.appendChild(groupDiv);
     });
 
@@ -257,7 +287,11 @@ function buildDOM() {
         if (e.target.type === 'checkbox' && e.target.dataset.layerId) {
             const layerId = e.target.dataset.layerId;
             const isVisible = e.target.checked;
-            map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
+
+            if (map.getLayer(`l-${layerId}`)) {
+                map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
+            }
+
             if (isVisible) hydrateLayer(layerId);
         } else if (e.target.name === 'bm') {
             map.setLayoutProperty('l-sat', 'visibility', e.target.value === 'sat' ? 'visible' : 'none');
@@ -265,12 +299,30 @@ function buildDOM() {
     });
 }
 
+function getLayerConfig(layerId) {
+    return GRID_CONFIG.flatMap(g => g.layers).find(l => l.id === layerId);
+}
+
+function getSourceIdForLayer(layerId) {
+    const layerConfig = getLayerConfig(layerId);
+    if (!layerConfig) return null;
+    if (layerConfig.url === "dist/repd_master.json") return 'src-repd';
+    return `src-${layerId}`;
+}
+
 async function hydrateLayer(layerId) {
     const state = RUNTIME_STATE[layerId];
-    if (state.loaded || state.loading) return;
-    state.loading = true;
+    if (!state || state.loaded || state.loading) return;
 
-    const layerConfig = GRID_CONFIG.flatMap(g => g.layers).find(l => l.id === layerId);
+    state.loading = true;
+    updateUIState(layerId, 'LOAD');
+
+    const layerConfig = getLayerConfig(layerId);
+    if (!layerConfig) {
+        updateUIState(layerId, 'FAIL');
+        state.loading = false;
+        return;
+    }
 
     await networkQueue.add(async () => {
         try {
@@ -278,17 +330,30 @@ async function hydrateLayer(layerId) {
 
             if (features.length === 0) {
                 updateUIState(layerId, 'EMPTY');
+                state.loading = false;
                 return;
             }
 
             if (layerConfig.isSubs) globalSubsData = features;
             if (layerConfig.snap && globalSubsData) features = snapLines(features, globalSubsData);
 
-            map.getSource(`src-${layerId}`).setData({ type: 'FeatureCollection', features });
+            const sourceId = getSourceIdForLayer(layerId);
+            const source = map.getSource(sourceId);
+
+            if (!source) {
+                console.error(`[SOURCE MISSING] ${sourceId}`);
+                updateUIState(layerId, 'FAIL');
+                state.loading = false;
+                return;
+            }
+
+            source.setData({ type: 'FeatureCollection', features });
             state.loaded = true;
+            state.loading = false;
             updateUIState(layerId, 'OK');
         } catch (err) {
             console.error(`[LAYER FAILED] ${layerId}:`, err);
+            state.loading = false;
             updateUIState(layerId, 'FAIL');
         }
     });
@@ -297,13 +362,28 @@ async function hydrateLayer(layerId) {
 map.on('load', () => {
     buildDOM();
 
-    map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
-    map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
+    map.addSource('sat-s', {
+        type: 'raster',
+        tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'l-sat',
+        type: 'raster',
+        source: 'sat-s',
+        layout: { visibility: 'none' }
+    });
 
     const allLayerIds = [];
+
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
-            map.addSource(`src-${layer.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+            if (layer.url === "dist/repd_master.json") return;
+
+            map.addSource(`src-${layer.id}`, {
+                type: 'geojson',
+                data: { type: 'FeatureCollection', features: [] }
+            });
 
             const layerObject = {
                 id: `l-${layer.id}`,
@@ -311,9 +391,18 @@ map.on('load', () => {
                 source: `src-${layer.id}`,
                 layout: { visibility: 'none' },
                 paint: layer.type === 'line'
-                    ? { 'line-color': layer.color, 'line-width': layer.width }
-                    : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
+                    ? {
+                        'line-color': layer.color,
+                        'line-width': layer.width
+                    }
+                    : {
+                        'circle-color': layer.color,
+                        'circle-radius': layer.radius,
+                        'circle-stroke-width': 1,
+                        'circle-stroke-color': '#000'
+                    }
             };
+
             if (layer.filter) layerObject.filter = layer.filter;
 
             map.addLayer(layerObject);
@@ -321,12 +410,37 @@ map.on('load', () => {
         });
     });
 
+    map.addSource('src-repd', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] }
+    });
+
+    ['solar', 'wind', 'bess'].forEach(id => {
+        const layer = getLayerConfig(id);
+        map.addLayer({
+            id: `l-${id}`,
+            type: 'circle',
+            source: 'src-repd',
+            filter: layer.filter,
+            layout: { visibility: 'none' },
+            paint: {
+                'circle-color': layer.color,
+                'circle-radius': layer.radius,
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#000'
+            }
+        });
+        allLayerIds.push(`l-${id}`);
+    });
+
     map.on('click', e => {
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
-        const p = features[0].properties;
+
+        const p = features[0].properties || {};
         const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
-        const info = p.operator || p.capacity || p['Installed Capacity (MWelec)'] || p.voltage || 'Data Node';
+        const info = p.operator || p.capacity || p['Installed Capacity (MWelec)'] || p.voltage || p.raw_tech || 'Data Node';
+
         new maplibregl.Popup({ maxWidth: '250px' })
             .setLngLat(e.lngLat)
             .setHTML(`<div style="font-family:monospace;color:#000"><b>${name}</b><br><span style="color:#444">${info}</span></div>`)

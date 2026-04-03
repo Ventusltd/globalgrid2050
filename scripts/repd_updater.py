@@ -8,25 +8,18 @@ from math import isfinite
 from pyproj import Transformer
 
 class REPDUpdater:
-    """
-    VENTUS REPD UPDATER v5.1 | MASTER UNIFIED GEOJSON
-    Optimized for GPU-Accelerated UI filtering.
-    """
     def __init__(self, registry_path="config/registry.yaml"):
         print(f"📡 VENTUS REPD UPDATER | BOOTING SYSTEM...")
-        
         try:
             with open(registry_path, 'r') as f:
                 self.config = yaml.safe_load(f)
         except FileNotFoundError:
             print(f"❌ ERROR: {registry_path} not found.")
             exit(1)
-            
         self.output_dir = "dist"
         self.raw_data_dir = "data"
         os.makedirs(self.output_dir, exist_ok=True)
         os.makedirs(self.raw_data_dir, exist_ok=True)
-            
         self.transformer = Transformer.from_crs("epsg:27700", "epsg:4326", always_xy=True)
 
     def fetch_data(self, url):
@@ -46,38 +39,41 @@ class REPDUpdater:
         print("🧪 REFINING MASTER DATASET...")
         df = pd.read_csv(csv_path, encoding='unicode_escape', on_bad_lines='skip', engine='python')
         df.columns = [c.strip() for c in df.columns]
-
         viability_mask = ['Operational', 'Under Construction', 'Awaiting Construction', 'Consented']
         df = df[df['Development Status (short)'].isin(viability_mask)]
-        
+
         features = []
         skipped = 0
         for _, row in df.iterrows():
             try:
                 e, n = float(row['X-coordinate']), float(row['Y-coordinate'])
                 lon, lat = self.transformer.transform(e, n)
-
-                # Skip invalid coordinates
                 if not (isfinite(lon) and isfinite(lat)):
                     skipped += 1
                     continue
 
                 tech_raw = str(row.get('Technology Type', '')).lower()
-                
                 tech_map = 'other'
                 if 'solar' in tech_raw: tech_map = 'solar'
                 elif 'wind' in tech_raw: tech_map = 'wind'
                 elif 'battery' in tech_raw or 'storage' in tech_raw: tech_map = 'bess'
 
+                try:
+                    capacity = float(row.get('Installed Capacity (MWelec)', 0))
+                    if not isfinite(capacity):
+                        capacity = 0.0
+                except (ValueError, TypeError):
+                    capacity = 0.0
+
                 features.append({
                     "type": "Feature",
                     "properties": {
-                        "name": row['Site Name'],
+                        "name": str(row.get('Site Name', 'Unknown')),
                         "operator": str(row.get('Operator (or Applicant)', 'Unknown')).upper(),
-                        "capacity": float(row.get('Installed Capacity (MWelec)', 0)),
+                        "capacity": capacity,
                         "status": row['Development Status (short)'],
                         "tech": tech_map,
-                        "raw_tech": row['Technology Type']
+                        "raw_tech": str(row.get('Technology Type', ''))
                     },
                     "geometry": {
                         "type": "Point",
@@ -87,8 +83,8 @@ class REPDUpdater:
             except (ValueError, TypeError):
                 skipped += 1
                 continue
-        
-        print(f"⚠️ Skipped {skipped} features with invalid coordinates.")
+
+        print(f"⚠️ Skipped {skipped} features with invalid data.")
         return {"type": "FeatureCollection", "features": features}
 
     def execute(self):
@@ -97,11 +93,9 @@ class REPDUpdater:
                 local_csv = self.fetch_data(layer['url'])
                 if local_csv:
                     geojson = self.refine_dataset(local_csv)
-                    
                     output = f"{self.output_dir}/repd_master.json"
                     with open(output, 'w') as f:
                         json.dump(geojson, f)
-                    
                     print(f"✅ MASTER SYNC: {len(geojson['features'])} Assets optimized for GPU.")
 
         manifest = {

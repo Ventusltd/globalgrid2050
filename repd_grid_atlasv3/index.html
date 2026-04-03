@@ -200,14 +200,14 @@ const SEARCH_THRESHOLD = {
 };
 
 const STATUS_COLOURS = {
-    'operational':              '#00ff88',
-    'under construction':       '#ffcc00',
-    'awaiting construction':    '#ffaa00',
-    'consented':                '#ff8800',
+    'operational':                 '#00ff88',
+    'under construction':          '#ffcc00',
+    'awaiting construction':       '#ffaa00',
+    'consented':                   '#ff8800',
     'planning permission granted': '#ff8800',
-    'planning approved':        '#ff8800',
-    'application submitted':    '#8888ff',
-    'pre-construction':         '#aaaaff'
+    'planning approved':           '#ff8800',
+    'application submitted':       '#8888ff',
+    'pre-construction':            '#aaaaff'
 };
 
 const LAYER_BASE_COLOURS = {};
@@ -216,7 +216,6 @@ GRID_CONFIG.forEach(g => g.layers.forEach(l => { LAYER_BASE_COLOURS[l.id] = l.co
 let statusMode = false;
 let radiusMode = false;
 let radiusMarker = null;
-const layerStats = {};
 
 const RUNTIME_STATE = {};
 GRID_CONFIG.forEach(group => {
@@ -432,6 +431,7 @@ function searchProjects(query) {
     resultsEl.style.display = 'block';
 }
 
+// FIX 2: All string fields quoted to prevent CSV comma bomb from raw_tech values like "Biomass, dedicated"
 function exportCSV() {
     if (!allREPDFeatures.length) {
         alert('Load a REPD layer first');
@@ -454,10 +454,13 @@ function exportCSV() {
             const [lon, lat] = f.geometry.coordinates;
             return [
                 `"${(p.name||'').replace(/"/g,'""')}"`,
-                p.tech, p.raw_tech,
-                p.capacity, p.status,
+                `"${(p.tech||'')}"`,
+                `"${(p.raw_tech||'').replace(/"/g,'""')}"`,
+                p.capacity,
+                `"${(p.status||'').replace(/"/g,'""')}"`,
                 `"${(p.operator||'').replace(/"/g,'""')}"`,
-                p.mounting, lon, lat
+                `"${(p.mounting||'').replace(/"/g,'""')}"`,
+                lon, lat
             ].join(',');
         })
     ].join('\n');
@@ -468,22 +471,34 @@ function exportCSV() {
     a.click();
 }
 
+// FIX 3: Hide/show glow layers when toggling status mode to prevent colour clash
 function toggleStatusMode() {
     statusMode = !statusMode;
     document.getElementById('btn-status').classList.toggle('active', statusMode);
     REPD_IDS.forEach(id => {
         if (!map.getLayer(`l-${id}`)) return;
+
+        // Handle glow layer visibility for solar layers
+        if (id === 'solar' || id === 'solar_roof') {
+            if (map.getLayer(`l-${id}-glow`)) {
+                const isBaseVisible = document.querySelector(`input[data-layer-id="${id}"]`).checked;
+                map.setLayoutProperty(`l-${id}-glow`, 'visibility',
+                    statusMode ? 'none' : (isBaseVisible ? 'visible' : 'none')
+                );
+            }
+        }
+
         if (statusMode) {
             map.setPaintProperty(`l-${id}`, 'circle-color', [
                 'match', ['get', 'status'],
-                'operational',              '#00ff88',
-                'under construction',       '#ffcc00',
-                'awaiting construction',    '#ffaa00',
-                'consented',                '#ff8800',
+                'operational',                 '#00ff88',
+                'under construction',          '#ffcc00',
+                'awaiting construction',       '#ffaa00',
+                'consented',                   '#ff8800',
                 'planning permission granted', '#ff8800',
-                'planning approved',        '#ff8800',
-                'application submitted',    '#8888ff',
-                'pre-construction',         '#aaaaff',
+                'planning approved',           '#ff8800',
+                'application submitted',       '#8888ff',
+                'pre-construction',            '#aaaaff',
                 '#444'
             ]);
         } else {
@@ -610,7 +625,10 @@ function buildDOM() {
                 map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
             }
             if (map.getLayer(`l-${layerId}-glow`)) {
-                map.setLayoutProperty(`l-${layerId}-glow`, 'visibility', isVisible ? 'visible' : 'none');
+                // Only show glow if status mode is not active
+                map.setLayoutProperty(`l-${layerId}-glow`, 'visibility',
+                    (isVisible && !statusMode) ? 'visible' : 'none'
+                );
             }
             if (isVisible) hydrateLayer(layerId);
         } else if (e.target.name === 'bm') {
@@ -672,11 +690,13 @@ async function hydrateLayer(layerId) {
                     stats[t].count++;
                     stats[t].mw += parseFloat(f.properties.capacity) || 0;
                 });
+                // FIX 1: Correctly report EMPTY for techs with zero assets rather than false OK
                 REPD_IDS.forEach(id => {
                     if (RUNTIME_STATE[id]) {
                         RUNTIME_STATE[id].loaded = true;
                         RUNTIME_STATE[id].loading = false;
-                        updateUIState(id, 'OK', stats[id]);
+                        const actualState = stats[id] && stats[id].count > 0 ? 'OK' : 'EMPTY';
+                        updateUIState(id, actualState, stats[id]);
                     }
                 });
                 if (statusMode) { toggleStatusMode(); toggleStatusMode(); }
@@ -738,7 +758,7 @@ map.on('load', () => {
                     'circle-opacity': 0.15, 'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
-            allLayerIds.push(`l-${id}-glow`);
+            // FIX 4: Glow layers are cosmetic only — NOT added to allLayerIds to avoid double hit-testing
         }
 
         if (id === 'solar') {
@@ -756,7 +776,7 @@ map.on('load', () => {
                     'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
-            allLayerIds.push(`l-${id}-glow`);
+            // FIX 4: Glow layers are cosmetic only — NOT added to allLayerIds to avoid double hit-testing
         }
 
         const circlePaint = id === 'solar_roof'

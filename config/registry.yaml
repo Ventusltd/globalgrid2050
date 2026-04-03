@@ -2,13 +2,149 @@ version: "4.2"
 description: "Ventus Industrial Data Registry"
 global_compliance: "EDTF_2019_PRESUMED_OPEN"
 layers:
+
   - id: "repd_master"
     name: "REPD Renewable Inventory"
     url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1114586/repd-october-2022.csv"
     type: "csv"
     tags: ["generation", "renewables"]
+    refresh: "monthly"
+    output: "dist/repd_master.json"
+    script: "scripts/repd_updater.py"
+
   - id: "substations_core"
     name: "National Grid Substations"
     url: "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/main/grid_substations.geojson"
     type: "geojson"
     tags: ["transmission", "nodes"]
+    refresh: "manual"
+    output: "grid_substations.geojson"
+    script: "scripts/fetch_substations.py"
+
+  - id: "grid_400kv"
+    name: "400kV Transmission Lines"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transmission", "topology"]
+    refresh: "manual"
+    output: "grid_400kv.geojson"
+    script: "scripts/fetch_grid_data.py"
+
+  - id: "grid_275kv"
+    name: "275kV Transmission Lines"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transmission", "topology"]
+    refresh: "manual"
+    output: "grid_275kv.geojson"
+    script: "scripts/fetch_grid_data.py"
+
+  - id: "grid_220kv"
+    name: "220kV Transmission Lines"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transmission", "topology"]
+    refresh: "manual"
+    output: "grid_220kv.geojson"
+    script: "scripts/fetch_220kv_data.py"
+
+  - id: "grid_132kv"
+    name: "132kV Transmission Lines"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transmission", "topology"]
+    refresh: "manual"
+    output: "grid_132kv.geojson"
+    script: "scripts/fetch_grid_data.py"
+
+  - id: "grid_66kv"
+    name: "66kV Transmission Lines"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transmission", "topology"]
+    refresh: "manual"
+    output: "grid_66kv.geojson"
+    script: "scripts/fetch_66kv_data.py"
+
+  - id: "power_plants"
+    name: "UK Power Plants"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["generation", "assets"]
+    refresh: "manual"
+    output: "power_plants.geojson"
+    script: "scripts/fetch_power_plants.py"
+
+  - id: "industrial_offtakers"
+    name: "UK Industrial Offtakers"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["consumption", "industry"]
+    refresh: "manual"
+    output: "industrial_offtakers.geojson"
+    script: "scripts/fetch_industrial_offtakers.py"
+
+  - id: "datacentres"
+    name: "UK Data Centres"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["consumption", "digital"]
+    refresh: "manual"
+    output: "datacentres.geojson"
+    script: "scripts/fetch_datacentres.py"
+
+  - id: "airports"
+    name: "UK Airports"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transport", "assets"]
+    refresh: "manual"
+    output: "airports.geojson"
+    script: "scripts/fetch_airports.py"
+
+  - id: "railways"
+    name: "UK Railways"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transport", "assets"]
+    refresh: "manual"
+    output: "railways.geojson"
+    script: "scripts/fetch_railways.py"
+
+  - id: "london_underground"
+    name: "London Underground Stations"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transport", "transit"]
+    refresh: "manual"
+    output: "london_underground.geojson"
+    script: "scripts/fetch_london_underground.py"
+
+  - id: "uk_metros_trams"
+    name: "UK Metro and Tram Stations"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transport", "transit"]
+    refresh: "manual"
+    output: "uk_metros_trams.geojson"
+    script: "scripts/fetch_metros_trams.py"
+
+  - id: "hs2"
+    name: "HS2 Infrastructure"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["transport", "rail", "infrastructure"]
+    refresh: "manual"
+    output: "hs2.geojson"
+    script: "scripts/fetch_hs2.py"
+
+  - id: "ev_chargers"
+    name: "UK EV Rapid Chargers (100kW+)"
+    url: "https://api.openchargemap.io/v3/poi/"
+    type: "api"
+    tags: ["ev", "charging", "transport", "infrastructure"]
+    refresh: "fortnightly"
+    min_power_kw: 100
+    source: "Open Charge Map"
+    output: "ev_chargers.geojson"
+    script: "scripts/fetch_ev_chargers.py"

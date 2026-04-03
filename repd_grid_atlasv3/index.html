@@ -106,13 +106,13 @@ const GRID_CONFIG = deepFreeze([
     {
         group: "REPD (GeoJSON)",
         layers: [
-            { id: "solar",    label: "Solar PV",   color: "#ffff00", type: "point", radius: 6, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],    preload: false },
-            { id: "wind",     label: "Wind Farm",  color: "#00ffff", type: "point", radius: 6, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],     preload: false },
-            { id: "bess",     label: "BESS",       color: "#ffae00", type: "point", radius: 6, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],     preload: false },
-            { id: "biomass",  label: "Biomass",    color: "#39ff14", type: "point", radius: 6, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],  preload: false },
-            { id: "tidal",    label: "Tidal/Wave", color: "#00bfff", type: "point", radius: 6, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],    preload: false },
-            { id: "hydrogen", label: "Hydrogen",   color: "#ffffff", type: "point", radius: 6, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'], preload: false },
-            { id: "flywheel", label: "Flywheel",   color: "#ff69b4", type: "point", radius: 6, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'], preload: false }
+            { id: "solar",    label: "Solar PV",   color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],    preload: false },
+            { id: "wind",     label: "Wind Farm",  color: "#00ffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],     preload: false },
+            { id: "bess",     label: "BESS",       color: "#ffae00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],     preload: false },
+            { id: "biomass",  label: "Biomass",    color: "#39ff14", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],  preload: false },
+            { id: "tidal",    label: "Tidal/Wave", color: "#00bfff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],    preload: false },
+            { id: "hydrogen", label: "Hydrogen",   color: "#ffffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'], preload: false },
+            { id: "flywheel", label: "Flywheel",   color: "#ff69b4", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'], preload: false }
         ]
     }
 ]);
@@ -360,6 +360,7 @@ map.on('load', () => {
 
     const allLayerIds = [];
 
+    // Non-REPD layers
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             if (REPD_IDS.includes(layer.id)) return;
@@ -379,102 +380,46 @@ map.on('load', () => {
         });
     });
 
-    // REPD — single shared source with clustering
-    // 80km ≈ 50 miles
+    // Single shared REPD source — same pattern as subs
     map.addSource('src-repd', {
         type: 'geojson',
-        data: { type: 'FeatureCollection', features: [] },
-        cluster: true,
-        clusterMaxZoom: 12,
-        clusterRadius: 80
+        data: { type: 'FeatureCollection', features: [] }
     });
 
-    // Cluster circles — sized by count
-    map.addLayer({
-        id: 'repd-clusters',
-        type: 'circle',
-        source: 'src-repd',
-        filter: ['has', 'point_count'],
-        layout: { visibility: 'none' },
-        paint: {
-            'circle-color': '#00ffff',
-            'circle-opacity': 0.75,
-            'circle-stroke-width': 2,
-            'circle-stroke-color': '#ffffff',
-            'circle-radius': [
-                'step', ['get', 'point_count'],
-                15,    // < 10 projects
-                10,  20,  // 10-49
-                50,  30,  // 50-199
-                200, 45,  // 200-999
-                1000, 60  // 1000+
-            ]
-        }
-    });
-
-    // Cluster count labels
-    map.addLayer({
-        id: 'repd-cluster-count',
-        type: 'symbol',
-        source: 'src-repd',
-        filter: ['has', 'point_count'],
-        layout: {
-            visibility: 'none',
-            'text-field': '{point_count_abbreviated}',
-            'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-            'text-size': 13
-        },
-        paint: { 'text-color': '#000' }
-    });
-
-    // Individual unclustered points — sized by capacity
+    // One layer per tech — exactly like subs
     REPD_IDS.forEach(id => {
         const layer = getLayerConfig(id);
         map.addLayer({
             id: `l-${id}`,
             type: 'circle',
             source: 'src-repd',
-            filter: ['all', ['!', ['has', 'point_count']], layer.filter],
+            filter: layer.filter,
             layout: { visibility: 'none' },
             paint: {
                 'circle-color': layer.color,
-                'circle-opacity': 0.9,
+                'circle-radius': [
+                    'interpolate', ['linear'],
+                    ['coalesce', ['get', 'capacity'], 0],
+                    0,    8,
+                    10,   10,
+                    50,   13,
+                    200,  17,
+                    500,  22,
+                    1000, 28
+                ],
                 'circle-stroke-width': 1.5,
                 'circle-stroke-color': '#000',
-                'circle-radius': [
-                    'interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0],
-                    0,   8,    // minimum size — always clickable
-                    10,  10,
-                    50,  14,
-                    200, 20,
-                    500, 28,
-                    1000, 38
-                ]
+                'circle-opacity': 0.85
             }
         });
         allLayerIds.push(`l-${id}`);
     });
 
-    allLayerIds.push('repd-clusters');
-    allLayerIds.push('repd-cluster-count');
-
-    // Click cluster → zoom in to expand
-    map.on('click', 'repd-clusters', e => {
-        const features = map.queryRenderedFeatures(e.point, { layers: ['repd-clusters'] });
-        if (!features.length) return;
-        const clusterId = features[0].properties.cluster_id;
-        map.getSource('src-repd').getClusterExpansionZoom(clusterId, (err, zoom) => {
-            if (err) return;
-            map.easeTo({ center: features[0].geometry.coordinates, zoom: zoom + 1 });
-        });
-    });
-
-    // Click individual point → popup
     map.on('click', e => {
-        const features = map.queryRenderedFeatures(e.point, { layers: REPD_IDS.map(id => `l-${id}`) });
+        const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
         const p = features[0].properties || {};
-        const name = p.name || 'Unnamed Asset';
+        const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
         const tech = p.raw_tech || p.tech || '';
         const capacity = p.capacity ? `${p.capacity} MW` : '';
         const status = p.status || '';
@@ -482,8 +427,8 @@ map.on('load', () => {
         new maplibregl.Popup({ maxWidth: '280px' })
             .setLngLat(e.lngLat)
             .setHTML(`
-                <div style="font-family:monospace;color:#00ffff;background:#000;padding:4px">
-                    <b style="font-size:13px">${name}</b><br>
+                <div style="font-family:monospace;background:#000;padding:6px">
+                    <b style="color:#00ffff;font-size:13px">${name}</b><br>
                     <span style="color:#888">${tech}</span><br>
                     <span style="color:#ffae00">${capacity}</span>
                     <span style="color:#666"> | ${status}</span><br>
@@ -492,22 +437,8 @@ map.on('load', () => {
             .addTo(map);
     });
 
-    // Click non-REPD layers
-    map.on('click', e => {
-        const nonRepdLayers = allLayerIds.filter(id => !REPD_IDS.map(i => `l-${i}`).includes(id) && id !== 'repd-clusters' && id !== 'repd-cluster-count');
-        const features = map.queryRenderedFeatures(e.point, { layers: nonRepdLayers });
-        if (!features.length) return;
-        const p = features[0].properties || {};
-        const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
-        const info = p.operator || p.capacity || p.voltage || 'Data Node';
-        new maplibregl.Popup({ maxWidth: '250px' })
-            .setLngLat(e.lngLat)
-            .setHTML(`<div style="font-family:monospace;color:#000"><b>${name}</b><br><span style="color:#444">${info}</span></div>`)
-            .addTo(map);
-    });
-
     map.on('mousemove', e => {
-        const features = map.queryRenderedFeatures(e.point, { layers: [...allLayerIds, 'repd-clusters'] });
+        const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
     });
 
@@ -516,24 +447,6 @@ map.on('load', () => {
             if (layer.preload) hydrateLayer(layer.id);
         });
     });
-});
-
-// Toggle cluster + label visibility with REPD layers
-const originalHydrate = hydrateLayer;
-function syncClusterVisibility() {
-    const anyRepdVisible = REPD_IDS.some(id => {
-        const cb = document.querySelector(`input[data-layer-id="${id}"]`);
-        return cb && cb.checked;
-    });
-    const vis = anyRepdVisible ? 'visible' : 'none';
-    if (map.getLayer('repd-clusters')) map.setLayoutProperty('repd-clusters', 'visibility', vis);
-    if (map.getLayer('repd-cluster-count')) map.setLayoutProperty('repd-cluster-count', 'visibility', vis);
-}
-
-document.addEventListener('change', e => {
-    if (e.target.dataset && REPD_IDS.includes(e.target.dataset.layerId)) {
-        syncClusterVisibility();
-    }
 });
 </script>
 </body>

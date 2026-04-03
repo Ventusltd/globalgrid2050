@@ -1,34 +1,36 @@
 name: Ventus REPD Master Sync
 on:
   schedule:
-    # Runs at 00:00 on the 1st of every month (Matching Gov.uk release cycle)
     - cron: '0 0 1 * *'
-  workflow_dispatch: # Allows you to trigger a manual sync from the Actions tab
+  workflow_dispatch:
 jobs:
   update-repd:
     name: Generate Master GeoJSON
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
+
       - name: 🐍 Setup Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: 'pip'
+
       - name: 📦 Install Spatial Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pandas pyyaml requests pyproj beautifulsoup4
+
       - name: ⚡ Execute REPD Master Updater
         run: python scripts/repd_updater.py
         env:
           PYTHONPATH: .
+
       - name: 🛡️ Commit Optimized Data
         run: |
           git config --global user.name "Ventus-Bot"
           git config --global user.email "bot@ventus.ltd"
-          # Target only the distribution folder to prevent repo bloat
           git add dist/repd_master.json dist/manifest_v4.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "REPD Master Update: $(date +'%Y-%m-%d')" && git push)

@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 
 class REPDUpdater:
     """
-    VENTUS REPD UPDATER v5.8 | MASTER UNIFIED GEOJSON
-    Fixed: hydrogen/hydro substring collision — now uses complete term matching.
+    VENTUS REPD UPDATER v5.9 | MASTER UNIFIED GEOJSON
+    Fixed: hydrogen classification. Added: geothermal, act, caes layers.
     """
 
     REPD_PAGE = "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract"
@@ -44,15 +44,19 @@ class REPDUpdater:
         'Mounting Type for Solar'
     ]
 
-    # Complete term sets — no substring collisions
     BIOMASS_TERMS = [
-        'biomass', 'energy from waste', 'efw incineration', 'incineration',
-        'anaerobic digestion', 'landfill gas', 'sewage sludge digestion',
-        'co-firing', 'advanced conversion technology', 'gasification', 'pyrolysis'
+        'biomass (dedicated)',
+        'biomass (co-firing)',
+        'energy from waste',
+        'efw incineration',
+        'anaerobic digestion',
+        'landfill gas',
+        'sewage sludge digestion',
+        'co-firing'
     ]
 
     def __init__(self, registry_path="config/registry.yaml"):
-        print("📡 VENTUS REPD UPDATER v5.8 | BOOTING SYSTEM...")
+        print("📡 VENTUS REPD UPDATER v5.9 | BOOTING SYSTEM...")
         try:
             with open(registry_path, 'r') as f:
                 self.config = yaml.safe_load(f)
@@ -123,54 +127,83 @@ class REPDUpdater:
             print(f"⚠️ FETCH FAILED: {e}")
             return None
 
-    def classify_tech(self, tech_lower, mounting):
+    def classify_tech(self, tech_raw, mounting):
         """
-        Complete term matching — no substring collisions.
-        Order matters: specific terms before general ones.
+        Exact REPD Technology Type matching.
+        Complete strings first — no substring collisions.
         """
+        t = tech_raw.strip()
+        tl = t.lower()
 
-        # Solar — mounting type drives rooftop split
-        if 'solar photovoltaics' in tech_lower or 'solar pv' in tech_lower or 'photovoltaic' in tech_lower:
+        # --- Solar — mounting drives rooftop split ---
+        if t in ('Solar Photovoltaics',):
             return 'solar_roof' if mounting == 'roof' else 'solar'
 
-        # Wind — complete terms only
-        if tech_lower in ('wind onshore', 'wind offshore', 'wind'):
-            return 'wind'
-        if tech_lower.startswith('wind'):
+        # --- Wind ---
+        if t in ('Wind Onshore', 'Wind Offshore'):
             return 'wind'
 
-        # Battery storage — complete terms
-        if tech_lower in ('battery', 'battery storage', 'storage'):
-            return 'bess'
-        if 'battery' in tech_lower and 'hydrogen' not in tech_lower:
+        # --- Battery / BESS ---
+        if t in ('Battery',):
             return 'bess'
 
-        # Hydrogen — must come BEFORE hydro check
-        if 'hydrogen' in tech_lower:
+        # --- Compressed / Liquid Air Energy Storage → bess family ---
+        if t in ('Compressed Air Energy Storage', 'Liquid Air Energy Storage'):
+            return 'caes'
+
+        # --- Hydrogen — EXACT match, before any hydro check ---
+        if t in ('Hydrogen', 'Fuel Cell (Hydrogen)'):
             return 'hydrogen'
 
-        # Hydro — complete terms, hydrogen already caught above
-        if tech_lower in (
-            'hydro', 'hydroelectric', 'hydro electric',
-            'run of river', 'pumped storage', 'pumped storage hydroelectricity',
-            'large hydro', 'small hydro'
+        # --- Hydro — exact REPD terms ---
+        if t in ('Large Hydro', 'Small Hydro', 'Pumped Storage Hydroelectricity'):
+            return 'hydro'
+
+        # --- Biomass family ---
+        if t in (
+            'Biomass (dedicated)', 'Biomass (co-firing)',
+            'EfW Incineration', 'Anaerobic Digestion',
+            'Landfill Gas', 'Sewage Sludge Digestion'
         ):
-            return 'hydro'
-        if tech_lower.startswith('hydro') and 'hydrogen' not in tech_lower:
-            return 'hydro'
+            return 'biomass'
 
-        # Biomass family — complete terms
-        for term in self.BIOMASS_TERMS:
-            if term in tech_lower:
-                return 'biomass'
+        # --- Advanced Conversion Technologies ---
+        if t in ('Advanced Conversion Technologies',):
+            return 'act'
 
-        # Tidal and wave
-        if 'tidal' in tech_lower or 'wave' in tech_lower:
+        # --- Geothermal ---
+        if t in ('Geothermal', 'Hot Dry Rocks (HDR)'):
+            return 'geothermal'
+
+        # --- Tidal / Wave ---
+        if t in ('Tidal Stream', 'Tidal Lagoon', 'Shoreline Wave'):
             return 'tidal'
 
-        # Flywheel
-        if 'flywheel' in tech_lower:
+        # --- Flywheel ---
+        if t in ('Flywheels',):
             return 'flywheel'
+
+        # --- Fallback substring safety net ---
+        if 'solar' in tl or 'photovoltaic' in tl:
+            return 'solar_roof' if mounting == 'roof' else 'solar'
+        if 'wind' in tl:
+            return 'wind'
+        if 'hydrogen' in tl:
+            return 'hydrogen'
+        if tl.startswith('hydro'):
+            return 'hydro'
+        if 'battery' in tl or 'storage' in tl:
+            return 'bess'
+        if 'biomass' in tl or 'digestion' in tl or 'landfill' in tl:
+            return 'biomass'
+        if 'tidal' in tl or 'wave' in tl:
+            return 'tidal'
+        if 'flywheel' in tl:
+            return 'flywheel'
+        if 'geothermal' in tl or 'hot dry' in tl:
+            return 'geothermal'
+        if 'advanced conversion' in tl or 'gasification' in tl or 'pyrolysis' in tl:
+            return 'act'
 
         return 'other'
 
@@ -181,7 +214,6 @@ class REPDUpdater:
 
         self.validate_schema(df)
 
-        # Detect mounting column
         if 'Mounting Type for Solar' in df.columns:
             mounting_col = 'Mounting Type for Solar'
         elif 'Mounting Type' in df.columns:
@@ -193,9 +225,8 @@ class REPDUpdater:
         print(f"🔍 Mounting column: '{mounting_col}'")
         if mounting_col:
             print(f"🔍 Mounting values: {df[mounting_col].dropna().unique()}")
-        print(f"🔍 Tech Types (sample): {df['Technology Type'].dropna().unique()[:20]}")
+        print(f"🔍 Tech Types (all): {sorted(df['Technology Type'].dropna().unique())}")
 
-        # Case-safe status filter
         df['Development Status (short)'] = (
             df['Development Status (short)']
             .astype(str).str.strip().str.lower()
@@ -224,13 +255,12 @@ class REPDUpdater:
                     skipped += 1
                     continue
 
-                tech_raw   = str(row.get('Technology Type', '')).strip()
-                tech_lower = tech_raw.lower()
-                mounting   = ''
+                tech_raw = str(row.get('Technology Type', '')).strip()
+                mounting = ''
                 if mounting_col:
                     mounting = str(row.get(mounting_col, '')).strip().lower()
 
-                tech_map = self.classify_tech(tech_lower, mounting)
+                tech_map = self.classify_tech(tech_raw, mounting)
 
                 try:
                     capacity = float(row.get('Installed Capacity (MWelec)', 0))
@@ -277,7 +307,7 @@ class REPDUpdater:
                 f['properties']['raw_tech'] for f in features
                 if f['properties']['tech'] == 'other'
             )
-            print(f"⚠️  {other_count} unmapped features — raw tech values: {other_techs}")
+            print(f"⚠️  {other_count} unmapped — raw tech values: {other_techs}")
 
         return {"type": "FeatureCollection", "features": features}
 

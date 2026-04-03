@@ -334,6 +334,9 @@ function buildDOM() {
             if (map.getLayer(`l-${layerId}`)) {
                 map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
             }
+            if (map.getLayer(`l-${layerId}-glow`)) {
+                map.setLayoutProperty(`l-${layerId}-glow`, 'visibility', isVisible ? 'visible' : 'none');
+            }
             if (isVisible) hydrateLayer(layerId);
         } else if (e.target.name === 'bm') {
             map.setLayoutProperty('l-sat', 'visibility', e.target.value === 'sat' ? 'visible' : 'none');
@@ -444,20 +447,136 @@ map.on('load', () => {
     REPD_IDS.forEach(id => {
         const layer = getLayerConfig(id);
 
+        // --- SOLAR ROOF GLOW — over 1MW ---
+        if (id === 'solar_roof') {
+            map.addLayer({
+                id: `l-${id}-glow`,
+                type: 'circle',
+                source: 'src-repd',
+                filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 1.0]],
+                layout: { visibility: 'none' },
+                paint: {
+                    'circle-color': [
+                        'interpolate', ['linear'],
+                        ['coalesce', ['get', 'capacity'], 0],
+                        1.0,  '#ff8c00',
+                        5.0,  '#ff6600',
+                        10.0, '#ff4400'
+                    ],
+                    'circle-radius': [
+                        'interpolate', ['linear'],
+                        ['coalesce', ['get', 'capacity'], 0],
+                        1.0,  26,
+                        2.0,  30,
+                        5.0,  36,
+                        10.0, 44
+                    ],
+                    'circle-opacity': 0.15,
+                    'circle-blur': 1.0,
+                    'circle-stroke-width': 0
+                }
+            });
+            allLayerIds.push(`l-${id}-glow`);
+        }
+
+        // --- SOLAR PV GLOW — over 4MW, heat scales with size ---
+        if (id === 'solar') {
+            map.addLayer({
+                id: `l-${id}-glow`,
+                type: 'circle',
+                source: 'src-repd',
+                filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 4.0]],
+                layout: { visibility: 'none' },
+                paint: {
+                    'circle-color': [
+                        'interpolate', ['linear'],
+                        ['coalesce', ['get', 'capacity'], 0],
+                        4.0,   '#ffff00',   // yellow — 4MW+
+                        20.0,  '#ffaa00',   // hot amber — 20MW+
+                        50.0,  '#ff4400',   // very hot — 50MW+
+                        200.0, '#ff0000'    // incandescent — 200MW+
+                    ],
+                    'circle-radius': [
+                        'interpolate', ['linear'],
+                        ['coalesce', ['get', 'capacity'], 0],
+                        4.0,   22,
+                        20.0,  32,
+                        50.0,  44,
+                        200.0, 60,
+                        500.0, 80
+                    ],
+                    'circle-opacity': [
+                        'interpolate', ['linear'],
+                        ['coalesce', ['get', 'capacity'], 0],
+                        4.0,   0.12,
+                        20.0,  0.18,
+                        50.0,  0.25,
+                        200.0, 0.35
+                    ],
+                    'circle-blur': 1.0,
+                    'circle-stroke-width': 0
+                }
+            });
+            allLayerIds.push(`l-${id}-glow`);
+        }
+
+        // --- MAIN CIRCLE PAINT ---
         const circlePaint = id === 'solar_roof'
             ? {
-                'circle-color': layer.color,
+                'circle-color': [
+                    'interpolate', ['linear'],
+                    ['coalesce', ['get', 'capacity'], 0],
+                    0,    '#ffcc00',
+                    0.99, '#ffcc00',
+                    1.0,  '#ff8c00',
+                    5.0,  '#ff6600',
+                    10.0, '#ff4400'
+                ],
                 'circle-radius': [
-                    'interpolate', ['linear'], ['zoom'],
-                    4,  8,
-                    6,  10,
-                    8,  13,
-                    10, 16,
-                    12, 20
+                    'interpolate', ['linear'],
+                    ['coalesce', ['get', 'capacity'], 0],
+                    0,    7,
+                    0.5,  7,
+                    0.99, 8,
+                    1.0,  16,
+                    2.0,  18,
+                    5.0,  22,
+                    10.0, 28
+                ],
+                'circle-stroke-width': [
+                    'interpolate', ['linear'],
+                    ['coalesce', ['get', 'capacity'], 0],
+                    0,    1,
+                    0.99, 1,
+                    1.0,  2
+                ],
+                'circle-stroke-color': '#000',
+                'circle-opacity': 0.9
+            }
+            : id === 'solar'
+            ? {
+                'circle-color': [
+                    'interpolate', ['linear'],
+                    ['coalesce', ['get', 'capacity'], 0],
+                    0,     '#ffff00',   // yellow — small
+                    20.0,  '#ffcc00',   // warm yellow — 20MW
+                    50.0,  '#ffaa00',   // amber — 50MW
+                    200.0, '#ff6600',   // orange — 200MW
+                    500.0, '#ff2200'    // red-hot — 500MW+
+                ],
+                'circle-radius': [
+                    'interpolate', ['linear'],
+                    ['coalesce', ['get', 'capacity'], 0],
+                    0,    8,
+                    10,   10,
+                    50,   13,
+                    200,  17,
+                    500,  22,
+                    1000, 28
                 ],
                 'circle-stroke-width': 1.5,
                 'circle-stroke-color': '#000',
-                'circle-opacity': 0.9
+                'circle-opacity': 0.85
             }
             : {
                 'circle-color': layer.color,

@@ -26,7 +26,6 @@
         .key-group { border-left: 2px solid #333; padding-left: 10px; margin-bottom: 4px; }
         .key-title { font-size: 10px; color: #66ccff; text-transform: uppercase; margin-bottom: 6px; font-weight: bold; }
         .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
-        .key-item-meta { font-size: 8px; color: #444; margin-left: 2px; }
         input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
         .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
         .disclaimer-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.5; color: #666; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; }
@@ -170,6 +169,35 @@ const GRID_CONFIG = deepFreeze([
         ]
     },
     {
+        group: "Transit (GeoJSON)",
+        layers: [
+            { id: "lu",     label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "/london_underground.geojson", preload: false },
+            { id: "dlr",    label: "DLR",                color: "#00afad", type: "point", radius: 5, url: "/uk_metros_trams.geojson",   preload: false,
+              filter: ['all',
+                ['in', 'Docklands', ['get', 'operator']],
+                ['!', ['in', 'London Underground', ['get', 'operator']]]
+              ]
+            },
+            { id: "metro",  label: "UK Metro",           color: "#f3a712", type: "point", radius: 5, url: "/uk_metros_trams.geojson",   preload: false,
+              filter: ['any',
+                ['in', 'Tyne', ['get', 'operator']],
+                ['in', 'Metrolink', ['get', 'operator']],
+                ['in', 'Supertram', ['get', 'operator']],
+                ['in', 'Nottingham', ['get', 'operator']],
+                ['in', 'Edinburgh', ['get', 'operator']],
+                ['in', 'Midland Metro', ['get', 'operator']]
+              ]
+            },
+            { id: "tram",   label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "/uk_metros_trams.geojson",   preload: false,
+              filter: ['all',
+                ['==', ['get', 'type'], 'Tram / Light Rail'],
+                ['!', ['in', 'London Underground', ['get', 'operator']]]
+              ]
+            },
+            { id: "hs2",    label: "HS2",                color: "#2c6fad", type: "point", radius: 4, url: "/hs2.geojson",               preload: false }
+        ]
+    },
+    {
         group: "REPD (GeoJSON)",
         layers: [
             { id: "solar",      label: "Solar PV",               color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],      preload: false },
@@ -193,6 +221,23 @@ const REPD_IDS = [
     'hydrogen', 'hydro', 'flywheel', 'act', 'geothermal', 'caes'
 ];
 
+const TRANSIT_IDS = ['lu', 'dlr', 'metro', 'tram', 'hs2'];
+
+// Transit layers share sources — map layer id to source id
+const TRANSIT_SOURCE_MAP = {
+    'lu':    'src-lu',
+    'dlr':   'src-metros',
+    'metro': 'src-metros',
+    'tram':  'src-metros',
+    'hs2':   'src-hs2'
+};
+
+const TRANSIT_URLS = {
+    'src-lu':     '/london_underground.geojson',
+    'src-metros': '/uk_metros_trams.geojson',
+    'src-hs2':    '/hs2.geojson'
+};
+
 const SEARCH_THRESHOLD = {
     'solar': 50, 'solar_roof': 0.5, 'wind': 50, 'bess': 50,
     'biomass': 50, 'tidal': 10, 'hydrogen': 10, 'hydro': 10,
@@ -209,9 +254,6 @@ const STATUS_COLOURS = {
     'application submitted':       '#8888ff',
     'pre-construction':            '#aaaaff'
 };
-
-const LAYER_BASE_COLOURS = {};
-GRID_CONFIG.forEach(g => g.layers.forEach(l => { LAYER_BASE_COLOURS[l.id] = l.color; }));
 
 let statusMode = false;
 let radiusMode = false;
@@ -431,7 +473,6 @@ function searchProjects(query) {
     resultsEl.style.display = 'block';
 }
 
-// FIX 2: All string fields quoted to prevent CSV comma bomb from raw_tech values like "Biomass, dedicated"
 function exportCSV() {
     if (!allREPDFeatures.length) {
         alert('Load a REPD layer first');
@@ -471,14 +512,11 @@ function exportCSV() {
     a.click();
 }
 
-// FIX 3: Hide/show glow layers when toggling status mode to prevent colour clash
 function toggleStatusMode() {
     statusMode = !statusMode;
     document.getElementById('btn-status').classList.toggle('active', statusMode);
     REPD_IDS.forEach(id => {
         if (!map.getLayer(`l-${id}`)) return;
-
-        // Handle glow layer visibility for solar layers
         if (id === 'solar' || id === 'solar_roof') {
             if (map.getLayer(`l-${id}-glow`)) {
                 const isBaseVisible = document.querySelector(`input[data-layer-id="${id}"]`).checked;
@@ -487,7 +525,6 @@ function toggleStatusMode() {
                 );
             }
         }
-
         if (statusMode) {
             map.setPaintProperty(`l-${id}`, 'circle-color', [
                 'match', ['get', 'status'],
@@ -625,7 +662,6 @@ function buildDOM() {
                 map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
             }
             if (map.getLayer(`l-${layerId}-glow`)) {
-                // Only show glow if status mode is not active
                 map.setLayoutProperty(`l-${layerId}-glow`, 'visibility',
                     (isVisible && !statusMode) ? 'visible' : 'none'
                 );
@@ -658,6 +694,7 @@ function getLayerConfig(layerId) {
 
 function getSourceIdForLayer(layerId) {
     if (REPD_IDS.includes(layerId)) return 'src-repd';
+    if (TRANSIT_IDS.includes(layerId)) return TRANSIT_SOURCE_MAP[layerId];
     return `src-${layerId}`;
 }
 
@@ -668,6 +705,19 @@ async function hydrateLayer(layerId) {
     updateUIState(layerId, 'LOAD');
     const layerConfig = getLayerConfig(layerId);
     if (!layerConfig) { updateUIState(layerId, 'FAIL'); state.loading = false; return; }
+
+    // Transit layers sharing a source — if source already loaded just mark done
+    if (TRANSIT_IDS.includes(layerId)) {
+        const sourceId = TRANSIT_SOURCE_MAP[layerId];
+        const source = map.getSource(sourceId);
+        if (source && source._data && source._data.features && source._data.features.length > 0) {
+            state.loaded = true;
+            state.loading = false;
+            updateUIState(layerId, 'OK');
+            return;
+        }
+    }
+
     await networkQueue.add(async () => {
         try {
             let features = await fetchAndParseGeoJSON(layerConfig.url);
@@ -690,7 +740,6 @@ async function hydrateLayer(layerId) {
                     stats[t].count++;
                     stats[t].mw += parseFloat(f.properties.capacity) || 0;
                 });
-                // FIX 1: Correctly report EMPTY for techs with zero assets rather than false OK
                 REPD_IDS.forEach(id => {
                     if (RUNTIME_STATE[id]) {
                         RUNTIME_STATE[id].loaded = true;
@@ -700,6 +749,15 @@ async function hydrateLayer(layerId) {
                     }
                 });
                 if (statusMode) { toggleStatusMode(); toggleStatusMode(); }
+            } else if (TRANSIT_IDS.includes(layerId)) {
+                // Mark sibling transit layers sharing same source as loaded too
+                TRANSIT_IDS.forEach(tid => {
+                    if (TRANSIT_SOURCE_MAP[tid] === TRANSIT_SOURCE_MAP[layerId] && RUNTIME_STATE[tid]) {
+                        RUNTIME_STATE[tid].loaded = true;
+                        RUNTIME_STATE[tid].loading = false;
+                        updateUIState(tid, 'OK');
+                    }
+                });
             } else {
                 updateUIState(layerId, 'OK');
             }
@@ -721,9 +779,12 @@ map.on('load', () => {
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
     const allLayerIds = [];
+
+    // Non-REPD, non-transit layers
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             if (REPD_IDS.includes(layer.id)) return;
+            if (TRANSIT_IDS.includes(layer.id)) return;
             map.addSource(`src-${layer.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
             const layerObject = {
                 id: `l-${layer.id}`,
@@ -740,6 +801,34 @@ map.on('load', () => {
         });
     });
 
+    // Transit sources — one per URL, shared across layers
+    Object.entries(TRANSIT_URLS).forEach(([sourceId, url]) => {
+        map.addSource(sourceId, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    });
+
+    // Transit layers
+    TRANSIT_IDS.forEach(id => {
+        const layer = getLayerConfig(id);
+        const sourceId = TRANSIT_SOURCE_MAP[id];
+        const layerObject = {
+            id: `l-${id}`,
+            type: 'circle',
+            source: sourceId,
+            layout: { visibility: 'none' },
+            paint: {
+                'circle-color': layer.color,
+                'circle-radius': layer.radius,
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#000',
+                'circle-opacity': 0.9
+            }
+        };
+        if (layer.filter) layerObject.filter = layer.filter;
+        map.addLayer(layerObject);
+        allLayerIds.push(`l-${id}`);
+    });
+
+    // REPD source
     map.addSource('src-repd', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
 
     REPD_IDS.forEach(id => {
@@ -758,7 +847,7 @@ map.on('load', () => {
                     'circle-opacity': 0.15, 'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
-            // FIX 4: Glow layers are cosmetic only — NOT added to allLayerIds to avoid double hit-testing
+            // Cosmetic only — not in allLayerIds
         }
 
         if (id === 'solar') {
@@ -776,7 +865,7 @@ map.on('load', () => {
                     'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
-            // FIX 4: Glow layers are cosmetic only — NOT added to allLayerIds to avoid double hit-testing
+            // Cosmetic only — not in allLayerIds
         }
 
         const circlePaint = id === 'solar_roof'
@@ -821,7 +910,7 @@ map.on('load', () => {
         const p = features[0].properties || {};
         const name     = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
         const tech     = p.tech || '';
-        const rawTech  = p.raw_tech || tech;
+        const rawTech  = p.raw_tech || p.type || tech;
         const capacity = parseFloat(p.capacity) || 0;
         const status   = p.status || '';
         const operator = p.operator || '';
@@ -835,9 +924,9 @@ map.on('load', () => {
                 <div style="font-family:monospace;background:#000;padding:6px">
                     <b style="color:#00ffff;font-size:13px">${name}</b><br>
                     <span style="color:#888">${rawTech}${mounting}</span><br>
-                    <span style="color:#ffae00">${capStr}</span>
-                    <span style="color:${statusCol};font-size:10px"> ● ${status}</span><br>
-                    <span style="color:#555;font-size:10px">${operator}</span>
+                    ${capStr ? `<span style="color:#ffae00">${capStr}</span>` : ''}
+                    ${status ? `<span style="color:${statusCol};font-size:10px"> ● ${status}</span>` : ''}<br>
+                    ${operator ? `<span style="color:#555;font-size:10px">${operator}</span>` : ''}
                     ${searchBtns}
                 </div>`)
             .addTo(map);

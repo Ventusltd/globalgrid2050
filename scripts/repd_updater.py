@@ -4,11 +4,12 @@ import yaml
 import os
 import requests
 from datetime import datetime
+from math import isfinite
 from pyproj import Transformer
 
 class REPDUpdater:
     """
-    VENTUS REPD UPDATER v5.0 | MASTER UNIFIED GEOJSON
+    VENTUS REPD UPDATER v5.1 | MASTER UNIFIED GEOJSON
     Optimized for GPU-Accelerated UI filtering.
     """
     def __init__(self, registry_path="config/registry.yaml"):
@@ -50,10 +51,16 @@ class REPDUpdater:
         df = df[df['Development Status (short)'].isin(viability_mask)]
         
         features = []
+        skipped = 0
         for _, row in df.iterrows():
             try:
                 e, n = float(row['X-coordinate']), float(row['Y-coordinate'])
                 lon, lat = self.transformer.transform(e, n)
+
+                # Skip invalid coordinates
+                if not (isfinite(lon) and isfinite(lat)):
+                    skipped += 1
+                    continue
 
                 tech_raw = str(row.get('Technology Type', '')).lower()
                 
@@ -78,8 +85,10 @@ class REPDUpdater:
                     }
                 })
             except (ValueError, TypeError):
+                skipped += 1
                 continue
         
+        print(f"⚠️ Skipped {skipped} features with invalid coordinates.")
         return {"type": "FeatureCollection", "features": features}
 
     def execute(self):

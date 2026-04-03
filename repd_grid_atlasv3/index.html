@@ -1,6 +1,3 @@
-Here's the fix — just the URLs with `/` added back. Full file:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,12 +106,18 @@ const GRID_CONFIG = deepFreeze([
     {
         group: "REPD (GeoJSON)",
         layers: [
-            { id: "solar", label: "Solar PV",     color: "#ffff00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'], preload: false },
-            { id: "wind",  label: "Wind Farm",    color: "#00ffff", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],  preload: false },
-            { id: "bess",  label: "BESS Storage", color: "#ffae00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],  preload: false }
+            { id: "solar",    label: "Solar PV",    color: "#ffff00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],    preload: false },
+            { id: "wind",     label: "Wind Farm",   color: "#00ffff", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],     preload: false },
+            { id: "bess",     label: "BESS",        color: "#ffae00", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],     preload: false },
+            { id: "biomass",  label: "Biomass",     color: "#39ff14", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],  preload: false },
+            { id: "tidal",    label: "Tidal/Wave",  color: "#00bfff", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],    preload: false },
+            { id: "hydrogen", label: "Hydrogen",    color: "#ffffff", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'], preload: false },
+            { id: "flywheel", label: "Flywheel",    color: "#ff69b4", type: "point", radius: 4.5, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'], preload: false }
         ]
     }
 ]);
+
+const REPD_IDS = ['solar', 'wind', 'bess', 'biomass', 'tidal', 'hydrogen', 'flywheel'];
 
 const RUNTIME_STATE = {};
 GRID_CONFIG.forEach(group => {
@@ -190,7 +193,6 @@ async function fetchWithTimeout(url, ms = 15000) {
 
 async function fetchAndParseGeoJSON(url) {
     if (urlCache[url]) return await urlCache[url];
-
     const promise = fetchWithTimeout(url)
         .then(res => res.json())
         .then(data => {
@@ -205,7 +207,6 @@ async function fetchAndParseGeoJSON(url) {
             console.error(`[FETCH ERROR] ${url}`, err);
             throw err;
         });
-
     urlCache[url] = promise;
     return promise;
 }
@@ -214,32 +215,24 @@ function snapLines(features, subs) {
     if (!subs || !subs.length) return features;
     const tol = 0.05;
     const rad = Math.PI / 180;
-
     features.forEach(f => {
         const c = f.geometry && f.geometry.coordinates;
         if (!c || c.length < 2) return;
-
         [0, c.length - 1].forEach(i => {
             let best = c[i];
             let min = Infinity;
             const latCos = Math.cos(c[i][1] * rad);
-
             subs.forEach(s => {
                 const sc = s.geometry && s.geometry.coordinates;
                 if (!sc) return;
                 const dx = (c[i][0] - sc[0]) * latCos;
                 const dy = (c[i][1] - sc[1]);
                 const d = (dx * dx) + (dy * dy);
-                if (d < min && d < tol * tol) {
-                    min = d;
-                    best = sc;
-                }
+                if (d < min && d < tol * tol) { min = d; best = sc; }
             });
-
             c[i] = best;
         });
     });
-
     return features;
 }
 
@@ -252,27 +245,22 @@ function buildDOM() {
         const groupDiv = document.createElement('div');
         groupDiv.className = 'key-group';
         groupDiv.innerHTML = `<div class="key-title">${group.group}</div>`;
-
         group.layers.forEach(layer => {
             const label = document.createElement('label');
             label.className = 'key-item';
-
             const input = document.createElement('input');
             input.type = 'checkbox';
             input.dataset.layerId = layer.id;
-
             const span = document.createElement('span');
             span.id = `lbl-${layer.id}`;
             span.setAttribute('data-base-label', layer.label);
             span.style.color = layer.color;
             span.innerText = `${layer.label} [WAIT]`;
-
             label.appendChild(input);
             label.appendChild(document.createTextNode(' '));
             label.appendChild(span);
             groupDiv.appendChild(label);
         });
-
         fragment.appendChild(groupDiv);
     });
 
@@ -307,14 +295,13 @@ function getLayerConfig(layerId) {
 function getSourceIdForLayer(layerId) {
     const layerConfig = getLayerConfig(layerId);
     if (!layerConfig) return null;
-    if (layerConfig.url === "/dist/repd_master.json") return 'src-repd';
+    if (REPD_IDS.includes(layerId)) return 'src-repd';
     return `src-${layerId}`;
 }
 
 async function hydrateLayer(layerId) {
     const state = RUNTIME_STATE[layerId];
     if (!state || state.loaded || state.loading) return;
-
     state.loading = true;
     updateUIState(layerId, 'LOAD');
 
@@ -328,19 +315,16 @@ async function hydrateLayer(layerId) {
     await networkQueue.add(async () => {
         try {
             let features = await fetchAndParseGeoJSON(layerConfig.url);
-
             if (features.length === 0) {
                 updateUIState(layerId, 'EMPTY');
                 state.loading = false;
                 return;
             }
-
             if (layerConfig.isSubs) globalSubsData = features;
             if (layerConfig.snap && globalSubsData) features = snapLines(features, globalSubsData);
 
             const sourceId = getSourceIdForLayer(layerId);
             const source = map.getSource(sourceId);
-
             if (!source) {
                 console.error(`[SOURCE MISSING] ${sourceId}`);
                 updateUIState(layerId, 'FAIL');
@@ -352,6 +336,16 @@ async function hydrateLayer(layerId) {
             state.loaded = true;
             state.loading = false;
             updateUIState(layerId, 'OK');
+
+            // Mark all REPD layers as loaded when master file is fetched
+            if (REPD_IDS.includes(layerId)) {
+                REPD_IDS.forEach(id => {
+                    if (RUNTIME_STATE[id] && !RUNTIME_STATE[id].loaded) {
+                        RUNTIME_STATE[id].loaded = true;
+                        updateUIState(id, 'OK');
+                    }
+                });
+            }
         } catch (err) {
             console.error(`[LAYER FAILED] ${layerId}:`, err);
             state.loading = false;
@@ -368,24 +362,17 @@ map.on('load', () => {
         tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
         tileSize: 256
     });
-    map.addLayer({
-        id: 'l-sat',
-        type: 'raster',
-        source: 'sat-s',
-        layout: { visibility: 'none' }
-    });
+    map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
     const allLayerIds = [];
 
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
-            if (layer.url === "/dist/repd_master.json") return;
-
+            if (REPD_IDS.includes(layer.id)) return;
             map.addSource(`src-${layer.id}`, {
                 type: 'geojson',
                 data: { type: 'FeatureCollection', features: [] }
             });
-
             const layerObject = {
                 id: `l-${layer.id}`,
                 type: layer.type === 'line' ? 'line' : 'circle',
@@ -395,7 +382,6 @@ map.on('load', () => {
                     ? { 'line-color': layer.color, 'line-width': layer.width }
                     : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
             };
-
             if (layer.filter) layerObject.filter = layer.filter;
             map.addLayer(layerObject);
             allLayerIds.push(`l-${layer.id}`);
@@ -407,7 +393,7 @@ map.on('load', () => {
         data: { type: 'FeatureCollection', features: [] }
     });
 
-    ['solar', 'wind', 'bess'].forEach(id => {
+    REPD_IDS.forEach(id => {
         const layer = getLayerConfig(id);
         map.addLayer({
             id: `l-${id}`,
@@ -451,4 +437,3 @@ map.on('load', () => {
 </script>
 </body>
 </html>
-```

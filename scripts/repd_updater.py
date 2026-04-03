@@ -2,7 +2,6 @@ import pandas as pd
 import json
 import yaml
 import os
-import re
 import requests
 from datetime import datetime
 from math import isfinite
@@ -33,7 +32,6 @@ class REPDUpdater:
         'pre-construction'
     }
 
-    # Required columns — pipeline warns loudly if any are missing
     REQUIRED_COLUMNS = [
         'Site Name',
         'Technology Type',
@@ -44,7 +42,6 @@ class REPDUpdater:
         'Operator (or Applicant)'
     ]
 
-    # Optional but critical — warn if absent, don't crash
     OPTIONAL_COLUMNS = [
         'Mounting Type for Solar'
     ]
@@ -64,7 +61,7 @@ class REPDUpdater:
         self.transformer = Transformer.from_crs("epsg:27700", "epsg:4326", always_xy=True)
 
     # ------------------------------------------------------------------
-    # Schema validation — fail fast on missing required columns
+    # Schema validation
     # ------------------------------------------------------------------
     def validate_schema(self, df):
         cols = set(df.columns)
@@ -143,10 +140,10 @@ class REPDUpdater:
         df = pd.read_csv(csv_path, encoding='unicode_escape', on_bad_lines='skip', engine='python')
         df.columns = [c.strip() for c in df.columns]
 
-        # Schema validation — fail fast if columns missing
+        # Schema validation
         self.validate_schema(df)
 
-        # Detect correct mounting column name
+        # Detect mounting column — handle both known variants
         if 'Mounting Type for Solar' in df.columns:
             mounting_col = 'Mounting Type for Solar'
         elif 'Mounting Type' in df.columns:
@@ -194,12 +191,17 @@ class REPDUpdater:
                 # --- Technology classification ---
                 tech_raw   = str(row.get('Technology Type', '')).strip()
                 tech_lower = tech_raw.lower()
-                mounting   = str(row.get(mounting_col, '') if mounting_col else '').strip().lower()
+
+                # Mounting — strip whitespace and lowercase
+                mounting = ''
+                if mounting_col:
+                    mounting = str(row.get(mounting_col, '')).strip().lower()
 
                 tech_map = 'other'
 
                 if 'solar' in tech_lower or 'photovoltaic' in tech_lower:
-                    # 'Roof' only → solar_roof. 'Ground & Roof' / 'Ground' / blank → solar
+                    # 'roof' only → solar_roof
+                    # 'ground & roof', 'ground', 'floating', blank → solar
                     tech_map = 'solar_roof' if mounting == 'roof' else 'solar'
 
                 elif 'wind' in tech_lower:
@@ -233,6 +235,7 @@ class REPDUpdater:
                     capacity = float(row.get('Installed Capacity (MWelec)', 0))
                     if not isfinite(capacity):
                         capacity = 0.0
+                    # Physics sanity checks
                     if tech_map == 'solar_roof' and capacity > 50:
                         capacity = round(capacity / 1000, 4)
                     if tech_map == 'biomass' and capacity > 100:
@@ -249,7 +252,7 @@ class REPDUpdater:
                         "status":   str(row.get('Development Status (short)', '')).strip(),
                         "tech":     tech_map,
                         "raw_tech": tech_raw,
-                        "mounting": str(row.get(mounting_col, '') if mounting_col else '')
+                        "mounting": mounting
                     },
                     "geometry": {
                         "type": "Point",
@@ -268,7 +271,7 @@ class REPDUpdater:
             tech_counts[t] = tech_counts.get(t, 0) + 1
         print(f"📊 Tech distribution: {tech_counts}")
 
-        # Warn on anything falling into 'other'
+        # Warn on 'other' — show what we're dropping
         other_count = tech_counts.get('other', 0)
         if other_count > 0:
             other_techs = set(
@@ -286,8 +289,10 @@ class REPDUpdater:
         for layer in self.config['layers']:
             if layer['id'] == 'repd' or layer['type'] == 'csv':
 
+                # Dynamic discovery — fall back to registry URL
                 url = self.discover_latest_url() or layer['url']
 
+                # Skip if unchanged
                 if self.already_current(url):
                     return
 

@@ -145,6 +145,19 @@ function deepFreeze(obj) {
     return Object.freeze(obj);
 }
 
+function escapeHTML(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function normalizeStatus(status) {
+    return String(status ?? '').trim().toLowerCase();
+}
+
 const GRID_CONFIG = deepFreeze([
     {
         group: "Topology (GeoJSON)",
@@ -171,14 +184,11 @@ const GRID_CONFIG = deepFreeze([
     {
         group: "Transit (GeoJSON)",
         layers: [
-            { id: "lu",     label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "/london_underground.geojson", preload: false },
-            { id: "dlr",    label: "DLR",                color: "#00afad", type: "point", radius: 5, url: "/uk_metros_trams.geojson",   preload: false,
-              filter: ['all',
-                ['in', 'Docklands', ['get', 'operator']],
-                ['!', ['in', 'London Underground', ['get', 'operator']]]
-              ]
+            { id: "lu",    label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "/london_underground.geojson", preload: false },
+            { id: "dlr",   label: "DLR",                color: "#00afad", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
+              filter: ['all', ['in', 'Docklands', ['get', 'operator']], ['!', ['in', 'London Underground', ['get', 'operator']]]]
             },
-            { id: "metro",  label: "UK Metro",           color: "#f3a712", type: "point", radius: 5, url: "/uk_metros_trams.geojson",   preload: false,
+            { id: "metro", label: "UK Metro",           color: "#f3a712", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
               filter: ['any',
                 ['in', 'Tyne', ['get', 'operator']],
                 ['in', 'Metrolink', ['get', 'operator']],
@@ -188,13 +198,10 @@ const GRID_CONFIG = deepFreeze([
                 ['in', 'Midland Metro', ['get', 'operator']]
               ]
             },
-            { id: "tram",   label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "/uk_metros_trams.geojson",   preload: false,
-              filter: ['all',
-                ['==', ['get', 'type'], 'Tram / Light Rail'],
-                ['!', ['in', 'London Underground', ['get', 'operator']]]
-              ]
+            { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
+              filter: ['all', ['==', ['get', 'type'], 'Tram / Light Rail'], ['!', ['in', 'London Underground', ['get', 'operator']]]]
             },
-            { id: "hs2",    label: "HS2",                color: "#2c6fad", type: "point", radius: 4, url: "/hs2.geojson",               preload: false }
+            { id: "hs2",   label: "HS2",                color: "#2c6fad", type: "point", radius: 4, url: "/hs2.geojson", preload: false }
         ]
     },
     {
@@ -223,7 +230,6 @@ const REPD_IDS = [
 
 const TRANSIT_IDS = ['lu', 'dlr', 'metro', 'tram', 'hs2'];
 
-// Transit layers share sources — map layer id to source id
 const TRANSIT_SOURCE_MAP = {
     'lu':    'src-lu',
     'dlr':   'src-metros',
@@ -258,6 +264,8 @@ const STATUS_COLOURS = {
 let statusMode = false;
 let radiusMode = false;
 let radiusMarker = null;
+// NEW: track current radius centre for dropdown-change re-draw
+let radiusCenter = null;
 
 const RUNTIME_STATE = {};
 GRID_CONFIG.forEach(group => {
@@ -266,11 +274,17 @@ GRID_CONFIG.forEach(group => {
     });
 });
 
+const urlCache = {};
+let globalSubsData = null;
+let allREPDFeatures = [];
+let searchIndex = [];
+
 setInterval(() => {
     const now = new Date();
+    const target = new Date(Date.UTC(2050, 0, 1, 0, 0, 0));
     document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
     document.getElementById('date').innerText = now.toLocaleDateString('en-GB');
-    document.getElementById('days').innerText = Math.floor((new Date('2050-01-01') - now) / 86400000) + ' DAYS';
+    document.getElementById('days').innerText = Math.floor((target - now) / 86400000) + ' DAYS';
 }, 1000);
 
 const map = new maplibregl.Map({
@@ -320,9 +334,6 @@ class FetchQueue {
 }
 
 const networkQueue = new FetchQueue(4);
-const urlCache = {};
-let globalSubsData = null;
-let allREPDFeatures = [];
 
 async function fetchWithTimeout(url, ms = 15000) {
     const controller = new AbortController();
@@ -388,6 +399,41 @@ function haversine(lon1, lat1, lon2, lat2) {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
+// NEW: generate a GeoJSON circle polygon from a centre point and radius
+function createGeoJSONCircle(lon, lat, radiusKm, points = 64) {
+    const coords = [];
+    const distX = radiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
+    const distY = radiusKm / 110.574;
+    for (let i = 0; i < points; i++) {
+        const theta = (i / points) * (2 * Math.PI);
+        coords.push([
+            lon + distX * Math.cos(theta),
+            lat + distY * Math.sin(theta)
+        ]);
+    }
+    coords.push(coords[0]); // close the ring
+    return {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            geometry: { type: 'Polygon', coordinates: [coords] }
+        }]
+    };
+}
+
+// NEW: draw or redraw the radius circle on the map
+function drawRadiusCircle(lon, lat, radiusKm) {
+    const circleData = createGeoJSONCircle(lon, lat, radiusKm);
+    map.getSource('src-radius-circle').setData(circleData);
+}
+
+// NEW: clear the radius circle
+function clearRadiusCircle() {
+    map.getSource('src-radius-circle').setData({
+        type: 'FeatureCollection', features: []
+    });
+}
+
 function buildSearchButtons(name, capacity, tech) {
     const threshold = SEARCH_THRESHOLD[tech] !== undefined ? SEARCH_THRESHOLD[tech] : 50;
     if (capacity < threshold) return '';
@@ -407,22 +453,32 @@ function buildSearchButtons(name, capacity, tech) {
         </div>`;
 }
 
+function buildSearchIndex() {
+    searchIndex = allREPDFeatures
+        .filter(f => f && f.properties && f.properties.name)
+        .map(f => ({
+            feature: f,
+            nameLower: String(f.properties.name).toLowerCase(),
+            capacity: Number(f.properties.capacity) || 0
+        }));
+}
+
 function flyToProject(feature) {
     const [lon, lat] = feature.geometry.coordinates;
     const p = feature.properties;
     const cap = p.capacity ? `${p.capacity} MW` : '';
-    const mounting = p.mounting ? ` | ${p.mounting}` : '';
+    const mounting = p.mounting ? ` | ${escapeHTML(p.mounting)}` : '';
     map.flyTo({ center: [lon, lat], zoom: 12, duration: 1800, essential: true });
     setTimeout(() => {
         new maplibregl.Popup({ maxWidth: '300px' })
             .setLngLat([lon, lat])
             .setHTML(`
                 <div style="font-family:monospace;background:#000;padding:6px">
-                    <b style="color:#00ffff;font-size:13px">${p.name}</b><br>
-                    <span style="color:#888">${p.raw_tech || p.tech}${mounting}</span><br>
-                    <span style="color:#ffae00">${cap}</span>
-                    <span style="color:#666"> | ${p.status}</span><br>
-                    <span style="color:#555;font-size:10px">${p.operator}</span>
+                    <b style="color:#00ffff;font-size:13px">${escapeHTML(p.name)}</b><br>
+                    <span style="color:#888">${escapeHTML(p.raw_tech || p.tech)}${mounting}</span><br>
+                    <span style="color:#ffae00">${escapeHTML(cap)}</span>
+                    <span style="color:#666"> | ${escapeHTML(p.status)}</span><br>
+                    <span style="color:#555;font-size:10px">${escapeHTML(p.operator)}</span>
                     ${REPD_IDS.includes(p.tech) ? buildSearchButtons(p.name, parseFloat(p.capacity)||0, p.tech) : ''}
                 </div>`)
             .addTo(map);
@@ -438,10 +494,12 @@ function searchProjects(query) {
         return;
     }
     const q = query.toLowerCase();
-    const matches = allREPDFeatures
-        .filter(f => f.properties.name && f.properties.name.toLowerCase().includes(q))
-        .sort((a, b) => (b.properties.capacity || 0) - (a.properties.capacity || 0))
-        .slice(0, 12);
+    const matches = searchIndex
+        .filter(item => item.nameLower.includes(q))
+        .sort((a, b) => b.capacity - a.capacity)
+        .slice(0, 12)
+        .map(item => item.feature);
+
     if (!matches.length) {
         resultsEl.innerHTML = '<div class="search-no-results">No projects found</div>';
         resultsEl.style.display = 'block';
@@ -458,9 +516,9 @@ function searchProjects(query) {
         const cap = p.capacity ? ` — ${p.capacity} MW` : '';
         const col = techColours[p.tech] || '#888';
         return `<div class="search-result-item" data-idx="${i}">
-            <b>${p.name}</b><span style="color:#555">${cap}</span><br>
-            <span style="color:${col};font-size:9px">${p.raw_tech || p.tech}</span>
-            <span style="color:#444;font-size:9px"> | ${p.status}</span>
+            <b>${escapeHTML(p.name)}</b><span style="color:#555">${escapeHTML(cap)}</span><br>
+            <span style="color:${col};font-size:9px">${escapeHTML(p.raw_tech || p.tech)}</span>
+            <span style="color:#444;font-size:9px"> | ${escapeHTML(p.status || '')}</span>
         </div>`;
     }).join('');
     resultsEl.querySelectorAll('.search-result-item').forEach((el, i) => {
@@ -474,19 +532,13 @@ function searchProjects(query) {
 }
 
 function exportCSV() {
-    if (!allREPDFeatures.length) {
-        alert('Load a REPD layer first');
-        return;
-    }
+    if (!allREPDFeatures.length) { alert('Load a REPD layer first'); return; }
     const visibleTechs = REPD_IDS.filter(id => {
         const cb = document.querySelector(`input[data-layer-id="${id}"]`);
         return cb && cb.checked;
     });
     const rows = allREPDFeatures.filter(f => visibleTechs.includes(f.properties.tech));
-    if (!rows.length) {
-        alert('No visible REPD layers to export — tick some layers first');
-        return;
-    }
+    if (!rows.length) { alert('No visible REPD layers to export — tick some layers first'); return; }
     const headers = ['name', 'tech', 'raw_tech', 'capacity_mw', 'status', 'operator', 'mounting', 'longitude', 'latitude'];
     const csv = [
         headers.join(','),
@@ -495,7 +547,7 @@ function exportCSV() {
             const [lon, lat] = f.geometry.coordinates;
             return [
                 `"${(p.name||'').replace(/"/g,'""')}"`,
-                `"${(p.tech||'')}"`,
+                `"${(p.tech||'').replace(/"/g,'""')}"`,
                 `"${(p.raw_tech||'').replace(/"/g,'""')}"`,
                 p.capacity,
                 `"${(p.status||'').replace(/"/g,'""')}"`,
@@ -506,10 +558,14 @@ function exportCSV() {
         })
     ].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
+    const objectUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = objectUrl;
     a.download = `globalgrid2050_export_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a);
     a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 }
 
 function toggleStatusMode() {
@@ -527,7 +583,7 @@ function toggleStatusMode() {
         }
         if (statusMode) {
             map.setPaintProperty(`l-${id}`, 'circle-color', [
-                'match', ['get', 'status'],
+                'match', ['downcase', ['coalesce', ['get', 'status'], '']],
                 'operational',                 '#00ff88',
                 'under construction',          '#ffcc00',
                 'awaiting construction',       '#ffaa00',
@@ -562,45 +618,53 @@ function toggleRadiusMode() {
     document.getElementById('btn-radius').classList.toggle('active', radiusMode);
     document.getElementById('radius-popup').style.display = radiusMode ? 'block' : 'none';
     map.getCanvas().style.cursor = radiusMode ? 'crosshair' : '';
-    if (!radiusMode && radiusMarker) { radiusMarker.remove(); radiusMarker = null; }
+    if (!radiusMode) {
+        // NEW: clear circle and state on exit
+        clearRadiusCircle();
+        radiusCenter = null;
+        if (radiusMarker) { radiusMarker.remove(); radiusMarker = null; }
+    }
 }
 
 function doRadiusSearch(lon, lat) {
     const km = parseFloat(document.getElementById('radius-select').value);
+
+    // NEW: store centre, draw circle, remove old marker
+    radiusCenter = { lon, lat };
+    drawRadiusCircle(lon, lat, km);
+    if (radiusMarker) radiusMarker.remove();
+    radiusMarker = null;
+
     const nearby = allREPDFeatures.filter(f => {
         const [flon, flat] = f.geometry.coordinates;
         return haversine(lon, lat, flon, flat) <= km;
     }).sort((a, b) => (b.properties.capacity||0) - (a.properties.capacity||0));
 
-    if (radiusMarker) radiusMarker.remove();
-    radiusMarker = new maplibregl.Marker({ color: '#00ffff' })
-        .setLngLat([lon, lat])
-        .addTo(map);
-
     if (!nearby.length) {
-        new maplibregl.Popup({ maxWidth: '280px' })
+        new maplibregl.Popup({ maxWidth: '300px' })
             .setLngLat([lon, lat])
-            .setHTML('<div style="font-family:monospace;background:#000;padding:6px;color:#888">No REPD assets within radius</div>')
+            .setHTML(`
+                <div style="font-family:monospace;background:#000;padding:8px">
+                    <b style="color:#00ffff">◎ ${km}km radius active</b><br><br>
+                    <span style="color:#888;font-size:10px">No REPD assets found in this area.</span><br>
+                    <span style="color:#555;font-size:9px;line-height:1.6">Tick layers in the panel below<br>to explore assets within this circle.</span>
+                </div>`)
             .addTo(map);
         return;
     }
 
     const totalMW = nearby.reduce((s, f) => s + (parseFloat(f.properties.capacity)||0), 0);
     const byTech = {};
-    nearby.forEach(f => {
-        const t = f.properties.tech;
-        byTech[t] = (byTech[t]||0) + 1;
-    });
+    nearby.forEach(f => { const t = f.properties.tech; byTech[t] = (byTech[t]||0) + 1; });
     const techSummary = Object.entries(byTech)
         .sort((a,b) => b[1]-a[1])
-        .map(([t,n]) => `<span style="color:#888">${t}: ${n}</span>`)
+        .map(([t,n]) => `<span style="color:#888">${escapeHTML(t)}: ${n}</span>`)
         .join('<br>');
-
     const topAssets = nearby.slice(0,5).map(f => {
         const p = f.properties;
         return `<div style="border-top:1px solid #222;padding-top:4px;margin-top:4px">
-            <b style="color:#ffcc00;font-size:11px">${p.name}</b><br>
-            <span style="color:#888;font-size:10px">${p.raw_tech}</span>
+            <b style="color:#ffcc00;font-size:11px">${escapeHTML(p.name)}</b><br>
+            <span style="color:#888;font-size:10px">${escapeHTML(p.raw_tech)}</span>
             <span style="color:#ffae00;font-size:10px"> ${p.capacity||'?'} MW</span>
         </div>`;
     }).join('');
@@ -609,8 +673,8 @@ function doRadiusSearch(lon, lat) {
         .setLngLat([lon, lat])
         .setHTML(`
             <div style="font-family:monospace;background:#000;padding:6px">
-                <b style="color:#00ffff">◎ ${km}km Radius — ${nearby.length} assets</b><br>
-                <span style="color:#ffae00">${totalMW.toFixed(1)} MW total</span><br><br>
+                <b style="color:#00ffff">◎ ${km}km — ${nearby.length} assets | ${totalMW.toFixed(1)} MW</b><br>
+                <span style="color:#555;font-size:9px;line-height:1.8">Tick layers in the panel to explore this area</span><br><br>
                 ${techSummary}
                 ${topAssets}
             </div>`)
@@ -682,10 +746,16 @@ function buildDOM() {
     });
     btn.addEventListener('click', () => searchProjects(input.value));
     document.getElementById('map').addEventListener('click', () => { resultsEl.style.display = 'none'; });
-
     document.getElementById('btn-export').addEventListener('click', exportCSV);
     document.getElementById('btn-status').addEventListener('click', toggleStatusMode);
     document.getElementById('btn-radius').addEventListener('click', toggleRadiusMode);
+
+    // Gemini: re-run radius search when dropdown changes if circle already placed
+    document.getElementById('radius-select').addEventListener('change', () => {
+        if (radiusCenter) {
+            doRadiusSearch(radiusCenter.lon, radiusCenter.lat);
+        }
+    });
 }
 
 function getLayerConfig(layerId) {
@@ -706,11 +776,10 @@ async function hydrateLayer(layerId) {
     const layerConfig = getLayerConfig(layerId);
     if (!layerConfig) { updateUIState(layerId, 'FAIL'); state.loading = false; return; }
 
-    // Transit layers sharing a source — if source already loaded just mark done
     if (TRANSIT_IDS.includes(layerId)) {
         const sourceId = TRANSIT_SOURCE_MAP[layerId];
-        const source = map.getSource(sourceId);
-        if (source && source._data && source._data.features && source._data.features.length > 0) {
+        const siblings = TRANSIT_IDS.filter(id => TRANSIT_SOURCE_MAP[id] === sourceId && id !== layerId);
+        if (siblings.some(id => RUNTIME_STATE[id] && RUNTIME_STATE[id].loaded)) {
             state.loaded = true;
             state.loading = false;
             updateUIState(layerId, 'OK');
@@ -733,6 +802,7 @@ async function hydrateLayer(layerId) {
 
             if (REPD_IDS.includes(layerId)) {
                 allREPDFeatures = features;
+                buildSearchIndex();
                 const stats = {};
                 features.forEach(f => {
                     const t = f.properties.tech;
@@ -750,7 +820,6 @@ async function hydrateLayer(layerId) {
                 });
                 if (statusMode) { toggleStatusMode(); toggleStatusMode(); }
             } else if (TRANSIT_IDS.includes(layerId)) {
-                // Mark sibling transit layers sharing same source as loaded too
                 TRANSIT_IDS.forEach(tid => {
                     if (TRANSIT_SOURCE_MAP[tid] === TRANSIT_SOURCE_MAP[layerId] && RUNTIME_STATE[tid]) {
                         RUNTIME_STATE[tid].loaded = true;
@@ -771,6 +840,7 @@ async function hydrateLayer(layerId) {
 
 map.on('load', () => {
     buildDOM();
+
     map.addSource('sat-s', {
         type: 'raster',
         tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
@@ -778,9 +848,34 @@ map.on('load', () => {
     });
     map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
+    // NEW: radius circle source + layers — added first so they render beneath all data dots
+    map.addSource('src-radius-circle', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] }
+    });
+    map.addLayer({
+        id: 'l-radius-circle-fill',
+        type: 'fill',
+        source: 'src-radius-circle',
+        paint: {
+            'fill-color': '#00ffff',
+            'fill-opacity': 0.04
+        }
+    });
+    map.addLayer({
+        id: 'l-radius-circle-stroke',
+        type: 'line',
+        source: 'src-radius-circle',
+        paint: {
+            'line-color': '#00ffff',
+            'line-width': 1.5,
+            'line-opacity': 0.7,
+            'line-dasharray': [4, 3]
+        }
+    });
+
     const allLayerIds = [];
 
-    // Non-REPD, non-transit layers
     GRID_CONFIG.forEach(group => {
         group.layers.forEach(layer => {
             if (REPD_IDS.includes(layer.id)) return;
@@ -801,12 +896,10 @@ map.on('load', () => {
         });
     });
 
-    // Transit sources — one per URL, shared across layers
-    Object.entries(TRANSIT_URLS).forEach(([sourceId, url]) => {
+    Object.entries(TRANSIT_URLS).forEach(([sourceId]) => {
         map.addSource(sourceId, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     });
 
-    // Transit layers
     TRANSIT_IDS.forEach(id => {
         const layer = getLayerConfig(id);
         const sourceId = TRANSIT_SOURCE_MAP[id];
@@ -828,7 +921,6 @@ map.on('load', () => {
         allLayerIds.push(`l-${id}`);
     });
 
-    // REPD source
     map.addSource('src-repd', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
 
     REPD_IDS.forEach(id => {
@@ -847,7 +939,6 @@ map.on('load', () => {
                     'circle-opacity': 0.15, 'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
-            // Cosmetic only — not in allLayerIds
         }
 
         if (id === 'solar') {
@@ -865,7 +956,6 @@ map.on('load', () => {
                     'circle-blur': 1.0, 'circle-stroke-width': 0
                 }
             });
-            // Cosmetic only — not in allLayerIds
         }
 
         const circlePaint = id === 'solar_roof'
@@ -901,10 +991,7 @@ map.on('load', () => {
     });
 
     map.on('click', e => {
-        if (radiusMode) {
-            doRadiusSearch(e.lngLat.lng, e.lngLat.lat);
-            return;
-        }
+        if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
         const p = features[0].properties || {};
@@ -914,19 +1001,19 @@ map.on('load', () => {
         const capacity = parseFloat(p.capacity) || 0;
         const status   = p.status || '';
         const operator = p.operator || '';
-        const mounting = p.mounting ? ` | ${p.mounting}` : '';
+        const mounting = p.mounting ? ` | ${escapeHTML(p.mounting)}` : '';
         const capStr   = capacity ? `${capacity} MW` : '';
-        const statusCol = STATUS_COLOURS[status] || '#888';
+        const statusCol = STATUS_COLOURS[normalizeStatus(status)] || '#888';
         const searchBtns = REPD_IDS.includes(tech) ? buildSearchButtons(name, capacity, tech) : '';
         new maplibregl.Popup({ maxWidth: '300px' })
             .setLngLat(e.lngLat)
             .setHTML(`
                 <div style="font-family:monospace;background:#000;padding:6px">
-                    <b style="color:#00ffff;font-size:13px">${name}</b><br>
-                    <span style="color:#888">${rawTech}${mounting}</span><br>
-                    ${capStr ? `<span style="color:#ffae00">${capStr}</span>` : ''}
-                    ${status ? `<span style="color:${statusCol};font-size:10px"> ● ${status}</span>` : ''}<br>
-                    ${operator ? `<span style="color:#555;font-size:10px">${operator}</span>` : ''}
+                    <b style="color:#00ffff;font-size:13px">${escapeHTML(name)}</b><br>
+                    <span style="color:#888">${escapeHTML(rawTech)}${mounting}</span><br>
+                    ${capStr ? `<span style="color:#ffae00">${escapeHTML(capStr)}</span>` : ''}
+                    ${status ? `<span style="color:${statusCol};font-size:10px"> ● ${escapeHTML(status)}</span>` : ''}<br>
+                    ${operator ? `<span style="color:#555;font-size:10px">${escapeHTML(operator)}</span>` : ''}
                     ${searchBtns}
                 </div>`)
             .addTo(map);

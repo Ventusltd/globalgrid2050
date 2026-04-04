@@ -32,6 +32,7 @@
         .custom-map-attrib { position: absolute; top: 10px; left: 10px; background: rgba(5, 5, 5, 0.7); color: #888; font-family: 'Courier New', monospace; font-size: 9px; border-radius: 4px; padding: 4px 8px; z-index: 10; border: 1px solid #333; pointer-events: auto; max-width: calc(100% - 60px); line-height: 1.6; }
         .custom-map-attrib a { color: #00ffff; text-decoration: none; }
         .custom-map-attrib a:hover { text-decoration: underline; }
+        body.fs-active .custom-map-attrib { top: 36px; }
         .popup-search-btns { display: flex; gap: 6px; margin-top: 8px; }
         .popup-btn { flex: 1; padding: 5px 0; font-family: monospace; font-size: 11px; font-weight: bold; border: 1px solid #444; border-radius: 3px; cursor: pointer; text-align: center; text-decoration: none; display: block; transition: border-color 0.15s, color 0.15s; }
         .popup-btn-news { background: #0a0a0a; color: #ffae00; border-color: #ffae00; }
@@ -90,6 +91,7 @@
         #fs-curtain-tab { display: none; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 510; background: rgba(5,5,5,0.9); border: 1px solid #333; border-top: none; border-radius: 0 0 6px 6px; color: #555; font-family: 'Courier New', monospace; font-size: 9px; padding: 4px 16px 5px 16px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; transition: color 0.15s, border-color 0.15s; }
         #fs-curtain-tab:hover { color: #00ffff; border-color: #00ffff; }
         body.fs-active #fs-curtain-tab { display: block; }
+        .map-container.is-fullscreen #fs-curtain-tab { display: block; }
         #fs-curtain-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
     </style>
 </head>
@@ -201,6 +203,7 @@ let curtainOpen = false;
 function enterFullscreen() {
     fsActive = true;
     document.body.classList.add('fs-active');
+    document.documentElement.classList.add('fs-active');
     document.getElementById('map-container').classList.add('is-fullscreen');
     document.getElementById('btn-fullscreen').style.display = 'none';
     const el = document.getElementById('map-container');
@@ -213,6 +216,7 @@ function exitFullscreen() {
     fsActive = false;
     curtainOpen = false;
     document.body.classList.remove('fs-active');
+    document.documentElement.classList.remove('fs-active');
     document.getElementById('map-container').classList.remove('is-fullscreen');
     document.getElementById('btn-fullscreen').style.display = '';
     document.getElementById('fs-curtain').classList.remove('curtain-open');
@@ -471,7 +475,6 @@ async function fetchAndParseGeoJSON(url) {
     return promise;
 }
 
-// FULLY UPDATED: Supports MultiLineString geometry for snapping correctly
 function snapLines(features, subs) {
     if (!subs || !subs.length) return features;
     const tol = 0.05, rad = Math.PI / 180;
@@ -493,7 +496,6 @@ function snapLines(features, subs) {
     features.forEach(f => {
         const geom = f.geometry;
         if (!geom || !geom.coordinates) return;
-
         if (geom.type === 'LineString') {
             const c = geom.coordinates;
             if (c.length > 0) {
@@ -898,9 +900,7 @@ function buildDOM() {
     document.getElementById('btn-radius').addEventListener('click', toggleRadiusMode);
 
     const radiusInput = document.getElementById('radius-input');
-    radiusInput.addEventListener('input', () => {
-        validateRadiusInput();
-    });
+    radiusInput.addEventListener('input', () => { validateRadiusInput(); });
     radiusInput.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -941,7 +941,6 @@ function getSourceIdForLayer(layerId) {
     return `src-${layerId}`;
 }
 
-// FULLY UPDATED: Awaits substation data before running line snapping
 async function hydrateLayer(layerId) {
     const state = RUNTIME_STATE[layerId];
     if (!state || state.loaded || state.loading) return;
@@ -966,11 +965,11 @@ async function hydrateLayer(layerId) {
             let features = await fetchAndParseGeoJSON(layerConfig.url);
             if (features.length === 0) { updateUIState(layerId, 'EMPTY'); state.loading = false; return; }
             if (layerConfig.isSubs) globalSubsData = features;
-            
+
             if (layerConfig.snap) {
                 if (!globalSubsData) {
                     const subsLayer = getLayerConfig('subs');
-                    globalSubsData = await fetchAndParseGeoJSON(subsLayer.url); 
+                    globalSubsData = await fetchAndParseGeoJSON(subsLayer.url);
                 }
                 features = snapLines(features, globalSubsData);
             }
@@ -1048,7 +1047,7 @@ map.on('load', () => {
                     : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
             };
             if (layer.filter) layerObject.filter = layer.filter;
-            if (layer.minzoom) layerObject.minzoom = layer.minzoom; // MapLibre Minzoom support
+            if (layer.minzoom) layerObject.minzoom = layer.minzoom;
             map.addLayer(layerObject);
             allLayerIds.push(`l-${layer.id}`);
         });
@@ -1130,20 +1129,20 @@ map.on('load', () => {
         const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
         if (!features.length) return;
         const p = features[0].properties || {};
-        const name     = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
-        const tech     = p.tech || '';
-        const rawTech  = p.raw_tech || p.type || tech;
-        const voltage  = p.voltage || ''; 
-        const capacity = parseFloat(p.capacity) || 0;
-        const powerKw  = p.power_kw || null;
+        const name      = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
+        const tech      = p.tech || '';
+        const rawTech   = p.raw_tech || p.type || tech;
+        const voltage   = p.voltage || '';
+        const capacity  = parseFloat(p.capacity) || 0;
+        const powerKw   = p.power_kw || null;
         const connectors = p.connectors || '';
-        const status   = p.status || '';
-        const operator = p.operator || '';
-        const mounting = p.mounting ? ` | ${escapeHTML(p.mounting)}` : '';
-        const capStr   = capacity ? `${capacity} MW` : '';
+        const status    = p.status || '';
+        const operator  = p.operator || '';
+        const mounting  = p.mounting ? ` | ${escapeHTML(p.mounting)}` : '';
+        const capStr    = capacity ? `${capacity} MW` : '';
         const statusCol = STATUS_COLOURS[normalizeStatus(status)] || '#888';
         const searchBtns = REPD_IDS.includes(tech) ? buildSearchButtons(name, capacity, tech) : '';
-        const evFields = powerKw ? `<span style="color:#00ff88;font-size:10px">${powerKw} kW</span>${connectors ? `<span style="color:#555;font-size:10px"> | ${escapeHTML(connectors)}</span>` : ''}<br>` : '';
+        const evFields  = powerKw ? `<span style="color:#00ff88;font-size:10px">${powerKw} kW</span>${connectors ? `<span style="color:#555;font-size:10px"> | ${escapeHTML(connectors)}</span>` : ''}<br>` : '';
         new maplibregl.Popup({ maxWidth: '300px' })
             .setLngLat(e.lngLat)
             .setHTML(`

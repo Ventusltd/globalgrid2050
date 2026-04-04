@@ -1,6 +1,7 @@
-version: "4.2"
+version: "4.3"
 description: "Ventus Industrial Data Registry"
 global_compliance: "EDTF_2019_PRESUMED_OPEN"
+
 layers:
 
   - id: "repd_master"
@@ -20,6 +21,25 @@ layers:
     refresh: "manual"
     output: "grid_substations.geojson"
     script: "scripts/fetch_substations.py"
+
+  # ⚡ NEW — 11kV DNO LAYER (UKPN ONLY)
+  - id: "grid_11kv_ukpn"
+    name: "11kV Distribution Substations (UKPN)"
+    url: "https://overpass-api.de/api/interpreter"
+    type: "osm"
+    tags: ["distribution", "11kv", "substations", "dno", "ukpn"]
+    refresh: "monthly"
+    output: "grid_11kv_ukpn.geojson"
+    script: "scripts/fetch_11kv_ukpn.py"
+    dno: "UKPN"
+    voltage: "11000"
+    geometry: "point"
+    zoom_min: 11          # 👈 critical for frontend logic
+    zoom_max: 18
+    discipline:
+      filter: "power=substation AND NOT line"
+      scope: "distribution_only"
+      rate_limit_safe: true
 
   - id: "grid_400kv"
     name: "400kV Transmission Lines"

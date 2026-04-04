@@ -414,6 +414,25 @@ const GRID_CONFIG = deepFreeze([
         ]
     },
     {
+        group: "Supermarkets (GeoJSON)",
+        layers: [
+            { id: "tesco",      label: "Tesco",       color: "#ee1c2e", type: "point", radius: 4.5, url: "/supermarkets_tesco.geojson", preload: false },
+            { id: "sainsburys", label: "Sainsbury's", color: "#ff8200", type: "point", radius: 4.5, url: "/supermarkets_sainsburys.geojson", preload: false },
+            { id: "asda",       label: "Asda",        color: "#78be20", type: "point", radius: 4.5, url: "/supermarkets_asda.geojson", preload: false },
+            { id: "morrisons",  label: "Morrisons",   color: "#ffd700", type: "point", radius: 4.5, url: "/supermarkets_morrisons.geojson", preload: false },
+            { id: "aldi",       label: "Aldi",        color: "#003087", type: "point", radius: 4.5, url: "/supermarkets_aldi.geojson", preload: false },
+            { id: "lidl",       label: "Lidl",        color: "#0050aa", type: "point", radius: 4.5, url: "/supermarkets_lidl.geojson", preload: false },
+            { id: "waitrose",   label: "Waitrose",    color: "#7ab800", type: "point", radius: 4.5, url: "/supermarkets_waitrose.geojson", preload: false },
+            { id: "ms",         label: "M&S Food",    color: "#009b77", type: "point", radius: 4.5, url: "/supermarkets_ms.geojson", preload: false },
+            { id: "coop",       label: "Co-op",       color: "#00b1a9", type: "point", radius: 4.5, url: "/supermarkets_coop.geojson", preload: false },
+            { id: "iceland",    label: "Iceland",     color: "#c8102e", type: "point", radius: 4.5, url: "/supermarkets_iceland.geojson", preload: false },
+            { id: "farmfoods",  label: "Farmfoods",   color: "#e30613", type: "point", radius: 4.5, url: "/supermarkets_farmfoods.geojson", preload: false },
+            { id: "costco",     label: "Costco",      color: "#005daa", type: "point", radius: 4.5, url: "/supermarkets_costco.geojson", preload: false },
+            { id: "booths",     label: "Booths",      color: "#6d2077", type: "point", radius: 4.5, url: "/supermarkets_booths.geojson", preload: false },
+            { id: "spar",       label: "Spar",        color: "#00a650", type: "point", radius: 4.5, url: "/supermarkets_spar.geojson", preload: false }
+        ]
+    },
+    {
         group: "Transit (GeoJSON)",
         layers: [
             { id: "lu",    label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "/london_underground.geojson", preload: false },
@@ -1087,6 +1106,22 @@ map.on('load', () => {
         if (!features.length) return;
         const p = features[0].properties || {};
         const name      = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
+
+        // Supermarket Specific Popup
+        if (p.type === 'supermarket') {
+            const address = [p.street, p.city, p.postcode].filter(Boolean).join(', ');
+            const area = p.area_m2 ? `${p.area_m2.toLocaleString()} m²` : '';
+            new maplibregl.Popup({ maxWidth: '300px' }).setLngLat(e.lngLat).setHTML(`
+                <div style="font-family:monospace;background:#000;padding:6px">
+                    <b style="color:${p.colour || '#00ffff'};font-size:13px">${escapeHTML(p.brand || name)}</b><br>
+                    ${p.name && p.name !== p.brand ? `<span style="color:#fff">${escapeHTML(p.name)}</span><br>` : ''}
+                    <span style="color:#888">${escapeHTML(address)}</span><br>
+                    ${area ? `<span style="color:#ffae00">Area: ${escapeHTML(area)}</span>` : ''}
+                </div>`).addTo(map);
+            return;
+        }
+
+        // Standard Asset Popup
         const tech      = p.tech || '';
         const rawTech   = p.raw_tech || p.type || tech;
         const voltage   = p.voltage || '';

@@ -3,102 +3,55 @@ import json
 import math
 import time
 
-OUTPUT_FILE = "supermarkets.geojson"
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-
 MIN_AREA_M2 = 1500
 BBOX = "49.5,-10.8,61.0,2.2"
+DELAY_SECONDS = 45
 
 BRANDS = [
-    "Tesco",
-    "Sainsbury's",
-    "Asda",
-    "Morrisons",
-    "Aldi",
-    "Lidl",
-    "Waitrose",
-    "Marks and Spencer",
-    "M&S",
-    "Co-op",
-    "Iceland",
-    "Farmfoods",
-    "Costco",
-    "Booths",
-    "Spar",
+    {"name": "Tesco",              "canonical": "Tesco",        "file": "supermarkets_tesco.geojson",        "colour": "#ee1c2e"},
+    {"name": "Sainsbury's",        "canonical": "Sainsbury's",  "file": "supermarkets_sainsburys.geojson",   "colour": "#ff8200"},
+    {"name": "Asda",               "canonical": "Asda",         "file": "supermarkets_asda.geojson",         "colour": "#78be20"},
+    {"name": "Morrisons",          "canonical": "Morrisons",    "file": "supermarkets_morrisons.geojson",    "colour": "#ffd700"},
+    {"name": "Aldi",               "canonical": "Aldi",         "file": "supermarkets_aldi.geojson",         "colour": "#003087"},
+    {"name": "Lidl",               "canonical": "Lidl",         "file": "supermarkets_lidl.geojson",         "colour": "#0050aa"},
+    {"name": "Waitrose",           "canonical": "Waitrose",     "file": "supermarkets_waitrose.geojson",     "colour": "#7ab800"},
+    {"name": "Marks and Spencer",  "canonical": "M&S Food",     "file": "supermarkets_ms.geojson",           "colour": "#009b77"},
+    {"name": "Co-op",              "canonical": "Co-op",        "file": "supermarkets_coop.geojson",         "colour": "#00b1a9"},
+    {"name": "Iceland",            "canonical": "Iceland",      "file": "supermarkets_iceland.geojson",      "colour": "#c8102e"},
+    {"name": "Farmfoods",          "canonical": "Farmfoods",    "file": "supermarkets_farmfoods.geojson",    "colour": "#e30613"},
+    {"name": "Costco",             "canonical": "Costco",       "file": "supermarkets_costco.geojson",       "colour": "#005daa"},
+    {"name": "Booths",             "canonical": "Booths",       "file": "supermarkets_booths.geojson",       "colour": "#6d2077"},
+    {"name": "Spar",               "canonical": "Spar",         "file": "supermarkets_spar.geojson",         "colour": "#00a650"},
 ]
 
-BRAND_CANONICAL = {
-    "tesco":             "Tesco",
-    "sainsbury":         "Sainsbury's",
-    "asda":              "Asda",
-    "morrisons":         "Morrisons",
-    "aldi":              "Aldi",
-    "lidl":              "Lidl",
-    "waitrose":          "Waitrose",
-    "marks and spencer": "M&S Food",
-    "m&s":               "M&S Food",
-    "co-op":             "Co-op",
-    "coop":              "Co-op",
-    "cooperative":       "Co-op",
-    "iceland":           "Iceland",
-    "farmfoods":         "Farmfoods",
-    "costco":            "Costco",
-    "booths":            "Booths",
-    "spar":              "Spar",
-}
 
-BRAND_COLOURS = {
-    "Tesco":       "#ee1c2e",
-    "Sainsbury's": "#ff8200",
-    "Asda":        "#78be20",
-    "Morrisons":   "#ffd700",
-    "Aldi":        "#003087",
-    "Lidl":        "#0050aa",
-    "Waitrose":    "#7ab800",
-    "M&S Food":    "#009b77",
-    "Co-op":       "#00b1a9",
-    "Iceland":     "#c8102e",
-    "Farmfoods":   "#e30613",
-    "Costco":      "#005daa",
-    "Booths":      "#6d2077",
-    "Spar":        "#00a650",
-}
-
-
-def build_query() -> str:
-    blocks = ""
-    for brand in BRANDS:
-        b = brand.replace("'", "\\'").replace("&", "\\&")
-        blocks += (
-            f'way["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
-            f'way["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
-            f'way["shop"="convenience"]["brand"~"{b}",i]({BBOX});\n'
-            f'way["shop"="wholesale"]["brand"~"{b}",i]({BBOX});\n'
-            f'relation["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
-            f'relation["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
-        )
-    return (
-        f"[out:json][timeout:180];\n"
-        f"(\n{blocks});\n"
-        f"out body;\n>;\nout skel qt;\n"
+def build_query(brand_name: str) -> str:
+    b = brand_name.replace("'", "\\'").replace("&", "\\&")
+    blocks = (
+        f'way["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
+        f'way["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
+        f'way["shop"="convenience"]["brand"~"{b}",i]({BBOX});\n'
+        f'way["shop"="wholesale"]["brand"~"{b}",i]({BBOX});\n'
+        f'relation["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
+        f'relation["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
     )
+    return f"[out:json][timeout:90];\n(\n{blocks});\nout body;\n>;\nout skel qt;\n"
 
 
 def fetch_overpass(query: str) -> dict:
-    print("Fetching UK supermarkets from OpenStreetMap via Overpass API...")
     for attempt in range(3):
         try:
             response = requests.post(
                 OVERPASS_URL,
                 data={"data": query},
-                timeout=240,
+                timeout=120,
                 headers={"User-Agent": "GlobalGrid2050-SupermarketFetcher/1.0"}
             )
             if response.status_code == 200:
-                print("  Download successful!")
                 return response.json()
             elif response.status_code == 429:
-                print("  Rate limited, sleeping 60s...")
+                print(f"  Rate limited, sleeping 60s...")
                 time.sleep(60)
             else:
                 print(f"  HTTP error: {response.status_code}")
@@ -111,10 +64,7 @@ def fetch_overpass(query: str) -> dict:
 
 
 def node_map(elements: list) -> dict:
-    return {
-        el["id"]: (el["lon"], el["lat"])
-        for el in elements if el["type"] == "node"
-    }
+    return {el["id"]: (el["lon"], el["lat"]) for el in elements if el["type"] == "node"}
 
 
 def polygon_area_m2(coords: list) -> float:
@@ -135,17 +85,11 @@ def polygon_area_m2(coords: list) -> float:
 
 
 def centroid(coords: list) -> tuple:
-    lons = [c[0] for c in coords]
-    lats = [c[1] for c in coords]
-    return (sum(lons) / len(lons), sum(lats) / len(lats))
+    return (sum(c[0] for c in coords) / len(coords), sum(c[1] for c in coords) / len(coords))
 
 
 def way_to_ring(way: dict, nodes: dict):
-    coords = []
-    for nid in way.get("nodes", []):
-        if nid not in nodes:
-            return None
-        coords.append(nodes[nid])
+    coords = [nodes[nid] for nid in way.get("nodes", []) if nid in nodes]
     if len(coords) < 3:
         return None
     if coords[0] != coords[-1]:
@@ -153,22 +97,11 @@ def way_to_ring(way: dict, nodes: dict):
     return coords
 
 
-def canonical_brand(tags: dict) -> str:
-    combined = (tags.get("brand", "") + " " + tags.get("name", "")).lower()
-    for fragment, label in BRAND_CANONICAL.items():
-        if fragment in combined:
-            return label
-    return tags.get("brand") or tags.get("name") or "Unknown"
-
-
-def process(data: dict) -> list:
+def process(data: dict, brand: dict) -> list:
     elements = data.get("elements", [])
     nodes = node_map(elements)
     ways = {el["id"]: el for el in elements if el["type"] == "way" and "tags" in el}
     relations = [el for el in elements if el["type"] == "relation" and "tags" in el]
-
-    print(f"  Received {len(elements)} elements ({len(ways)} tagged ways, {len(relations)} relations)")
-
     features = []
     seen = set()
 
@@ -183,7 +116,7 @@ def process(data: dict) -> list:
             continue
         seen.add(way["id"])
         lon, lat = centroid(ring)
-        features.append(_feature(lon, lat, way["tags"], area, way["id"], "way"))
+        features.append(_feature(lon, lat, way["tags"], area, way["id"], "way", brand))
 
     for rel in relations:
         if rel["id"] in seen:
@@ -203,19 +136,18 @@ def process(data: dict) -> list:
             continue
         seen.add(rel["id"])
         lon, lat = centroid(outer_coords)
-        features.append(_feature(lon, lat, rel["tags"], area, rel["id"], "relation"))
+        features.append(_feature(lon, lat, rel["tags"], area, rel["id"], "relation", brand))
 
     return features
 
 
-def _feature(lon, lat, tags, area, osm_id, osm_type) -> dict:
-    brand = canonical_brand(tags)
+def _feature(lon, lat, tags, area, osm_id, osm_type, brand) -> dict:
     return {
         "type": "Feature",
         "properties": {
             "name":     tags.get("name", ""),
-            "brand":    brand,
-            "colour":   BRAND_COLOURS.get(brand, "#ffffff"),
+            "brand":    brand["canonical"],
+            "colour":   brand["colour"],
             "street":   tags.get("addr:street", ""),
             "city":     tags.get("addr:city", ""),
             "postcode": tags.get("addr:postcode", ""),
@@ -225,10 +157,7 @@ def _feature(lon, lat, tags, area, osm_id, osm_type) -> dict:
             "osm_type": osm_type,
             "type":     "supermarket",
         },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [round(lon, 6), round(lat, 6)]
-        }
+        "geometry": {"type": "Point", "coordinates": [round(lon, 6), round(lat, 6)]}
     }
 
 
@@ -237,54 +166,42 @@ def deduplicate(features: list, tol_m: float = 80.0) -> list:
     kept = []
     for f in features:
         lon, lat = f["geometry"]["coordinates"]
-        brand = f["properties"]["brand"]
         dup = False
         for k in kept:
             klon, klat = k["geometry"]["coordinates"]
-            if k["properties"]["brand"] == brand:
-                if abs(lon - klon) < tol and abs(lat - klat) < tol:
-                    if f["properties"]["area_m2"] > k["properties"]["area_m2"]:
-                        kept.remove(k)
-                    else:
-                        dup = True
-                    break
+            if abs(lon - klon) < tol and abs(lat - klat) < tol:
+                if f["properties"]["area_m2"] > k["properties"]["area_m2"]:
+                    kept.remove(k)
+                else:
+                    dup = True
+                break
         if not dup:
             kept.append(f)
     return kept
 
 
-def summary(features: list):
-    from collections import Counter
-    counts = Counter(f["properties"]["brand"] for f in features)
-    print("\n  Stores by brand:")
-    for brand, n in sorted(counts.items(), key=lambda x: -x[1]):
-        print(f"    {brand:<22} {n:>4}")
-    print(f"    {'TOTAL':<22} {len(features):>4}")
-
-
 def fetch_supermarkets():
-    query = build_query()
-    print(f"  Query built ({len(query)} chars, {len(BRANDS)} brands)")
+    total = 0
+    for i, brand in enumerate(BRANDS):
+        print(f"\n[{i+1}/{len(BRANDS)}] Fetching {brand['canonical']}...")
+        query = build_query(brand["name"])
+        raw = fetch_overpass(query)
+        if not raw:
+            print(f"  No data — skipping.")
+        else:
+            features = process(raw, brand)
+            features = deduplicate(features)
+            geojson = {"type": "FeatureCollection", "features": features}
+            with open(brand["file"], "w", encoding="utf-8") as f:
+                json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
+            print(f"  Saved {len(features)} stores to {brand['file']}")
+            total += len(features)
 
-    raw = fetch_overpass(query)
-    if not raw:
-        print("No data returned - aborting.")
-        return
+        if i < len(BRANDS) - 1:
+            print(f"  Sleeping {DELAY_SECONDS}s before next brand...")
+            time.sleep(DELAY_SECONDS)
 
-    features = process(raw)
-    print(f"  Valid features before dedup: {len(features)}")
-
-    features = deduplicate(features)
-    print(f"  Features after dedup:        {len(features)}")
-
-    summary(features)
-
-    geojson = {"type": "FeatureCollection", "features": features}
-
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
-
-    print(f"\nSaved {len(features)} supermarkets to {OUTPUT_FILE}")
+    print(f"\nDone. {total} stores total across {len(BRANDS)} brands.")
 
 
 if __name__ == "__main__":

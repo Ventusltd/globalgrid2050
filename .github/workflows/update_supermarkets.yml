@@ -36,7 +36,7 @@ jobs:
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
 
-          git add supermarkets.geojson || true
+          git add supermarkets_*.geojson || true
 
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated supermarket update: $(date -u +'%Y-%m-%d %H:%M UTC')"

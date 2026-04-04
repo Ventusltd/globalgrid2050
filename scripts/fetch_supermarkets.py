@@ -1,23 +1,27 @@
 import requests
 import json
 import math
-import time
+from collections import defaultdict
 
-OVERPASS_URL = "https://overpass.kumi.systems/api/interpreter"
+# Use the primary, fast Overpass API endpoint
+OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 MIN_AREA_M2 = 2500
 BBOX = "49.5,-10.8,61.0,2.2"
-DELAY_SECONDS = 30
 
+# Added a few aliases to the search logic below to catch messy OSM tags
 BRANDS = [
     {"name": "Tesco",             "canonical": "Tesco",       "file": "supermarkets_tesco.geojson",      "colour": "#ee1c2e"},
     {"name": "Sainsbury's",       "canonical": "Sainsbury's", "file": "supermarkets_sainsburys.geojson", "colour": "#ff8200"},
+    {"name": "Sainsbury",         "canonical": "Sainsbury's", "file": "supermarkets_sainsburys.geojson", "colour": "#ff8200"},
     {"name": "Asda",              "canonical": "Asda",        "file": "supermarkets_asda.geojson",       "colour": "#78be20"},
     {"name": "Morrisons",         "canonical": "Morrisons",   "file": "supermarkets_morrisons.geojson",  "colour": "#ffd700"},
     {"name": "Aldi",              "canonical": "Aldi",        "file": "supermarkets_aldi.geojson",       "colour": "#003087"},
     {"name": "Lidl",              "canonical": "Lidl",        "file": "supermarkets_lidl.geojson",       "colour": "#0050aa"},
     {"name": "Waitrose",          "canonical": "Waitrose",    "file": "supermarkets_waitrose.geojson",   "colour": "#7ab800"},
     {"name": "Marks and Spencer", "canonical": "M&S Food",    "file": "supermarkets_ms.geojson",         "colour": "#009b77"},
+    {"name": "M&S",               "canonical": "M&S Food",    "file": "supermarkets_ms.geojson",         "colour": "#009b77"},
     {"name": "Co-op",             "canonical": "Co-op",       "file": "supermarkets_coop.geojson",       "colour": "#00b1a9"},
+    {"name": "Coop",              "canonical": "Co-op",       "file": "supermarkets_coop.geojson",       "colour": "#00b1a9"},
     {"name": "Iceland",           "canonical": "Iceland",     "file": "supermarkets_iceland.geojson",    "colour": "#c8102e"},
     {"name": "Farmfoods",         "canonical": "Farmfoods",   "file": "supermarkets_farmfoods.geojson",  "colour": "#e30613"},
     {"name": "Costco",            "canonical": "Costco",      "file": "supermarkets_costco.geojson",     "colour": "#005daa"},
@@ -25,53 +29,31 @@ BRANDS = [
     {"name": "Spar",              "canonical": "Spar",        "file": "supermarkets_spar.geojson",       "colour": "#00a650"},
 ]
 
-
-def build_query(brand_name: str) -> str:
-    b = brand_name.replace("'", "\\'").replace("&", "\\&")
+def build_bulk_query() -> str:
+    # ONE query to pull every supermarket & wholesale store in the UK
     blocks = (
-        f'way["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
-        f'way["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
-        f'way["shop"="wholesale"]["brand"~"{b}",i]({BBOX});\n'
-        f'relation["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
-        f'relation["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
+        f'way["shop"="supermarket"]({BBOX});\n'
+        f'way["shop"="wholesale"]({BBOX});\n'
+        f'relation["shop"="supermarket"]({BBOX});\n'
+        f'relation["shop"="wholesale"]({BBOX});\n'
     )
-    return f"[out:json][timeout:90];\n(\n{blocks});\nout body;\n>;\nout skel qt;\n"
-
+    return f"[out:json][timeout:180];\n(\n{blocks});\nout body;\n>;\nout skel qt;\n"
 
 def fetch_overpass(query: str) -> dict:
-    for attempt in range(5):
-        try:
-            response = requests.post(
-                OVERPASS_URL,
-                data={"data": query},
-                timeout=120,
-                headers={"User-Agent": "GlobalGrid2050-SupermarketFetcher/1.0"}
-            )
-            if response.status_code == 200:
-                return response.json()
-            elif response.status_code == 429:
-                print(f"  Rate limited, sleeping 60s...")
-                time.sleep(60)
-            elif response.status_code == 504:
-                print(f"  504 timeout (attempt {attempt+1}/5), sleeping 30s...")
-                time.sleep(30)
-            else:
-                print(f"  HTTP error: {response.status_code}")
-                return {}
-        except Exception as e:
-            print(f"  Connection error: {e}")
-            time.sleep(30)
-    print(f"  Failed after 5 attempts — skipping.")
-    return {}
-
+    print("Fetching all supermarkets from Overpass... (This takes ~10 seconds)")
+    try:
+        response = requests.post(OVERPASS_URL, data={"data": query}, timeout=180)
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        print(f"CRITICAL ERROR fetching Overpass data: {e}")
+        return {}
 
 def node_map(elements: list) -> dict:
     return {el["id"]: (el["lon"], el["lat"]) for el in elements if el["type"] == "node"}
 
-
 def polygon_area_m2(coords: list) -> float:
-    if not coords or len(coords) < 3:
-        return 0.0
+    if not coords or len(coords) < 3: return 0.0
     lat_c = sum(c[1] for c in coords) / len(coords)
     mlat = 111_320.0
     mlon = 111_320.0 * math.cos(math.radians(lat_c))
@@ -85,63 +67,75 @@ def polygon_area_m2(coords: list) -> float:
         area += x1 * y2 - x2 * y1
     return abs(area) / 2.0
 
-
 def centroid(coords: list) -> tuple:
     return (sum(c[0] for c in coords) / len(coords), sum(c[1] for c in coords) / len(coords))
 
-
 def way_to_ring(way: dict, nodes: dict):
     coords = [nodes[nid] for nid in way.get("nodes", []) if nid in nodes]
-    if len(coords) < 3:
-        return None
-    if coords[0] != coords[-1]:
-        coords.append(coords[0])
+    if len(coords) < 3: return None
+    if coords[0] != coords[-1]: coords.append(coords[0])
     return coords
 
+def match_brand(tags: dict) -> dict:
+    # Mash relevant tags together to catch messy OpenStreetMap data
+    search_string = f"{tags.get('brand', '')} {tags.get('name', '')} {tags.get('operator', '')}".lower()
+    
+    for b in BRANDS:
+        if b["name"].lower() in search_string:
+            return b
+    return None
 
-def process(data: dict, brand: dict) -> list:
+def process_bulk_data(data: dict) -> dict:
+    print("Processing geometries and filtering by brand...")
     elements = data.get("elements", [])
     nodes = node_map(elements)
     ways = {el["id"]: el for el in elements if el["type"] == "way" and "tags" in el}
     relations = [el for el in elements if el["type"] == "relation" and "tags" in el]
-    features = []
+    
+    brand_features = defaultdict(list)
     seen = set()
 
+    # Process Ways
     for way in ways.values():
-        if way["id"] in seen:
-            continue
+        if way["id"] in seen: continue
+        brand_match = match_brand(way["tags"])
+        if not brand_match: continue
+        
         ring = way_to_ring(way, nodes)
-        if not ring:
-            continue
+        if not ring: continue
+        
         area = polygon_area_m2(ring)
-        if area < MIN_AREA_M2:
-            continue
+        if area < MIN_AREA_M2: continue
+        
         seen.add(way["id"])
         lon, lat = centroid(ring)
-        features.append(_feature(lon, lat, way["tags"], area, way["id"], "way", brand))
+        feature = _feature(lon, lat, way["tags"], area, way["id"], "way", brand_match)
+        brand_features[brand_match["canonical"]].append(feature)
 
+    # Process Relations
     for rel in relations:
-        if rel["id"] in seen:
-            continue
+        if rel["id"] in seen: continue
+        brand_match = match_brand(rel["tags"])
+        if not brand_match: continue
+
         outer_coords = []
         for member in rel.get("members", []):
             if member["type"] == "way" and member.get("role") in ("outer", ""):
                 way = ways.get(member["ref"])
                 if way:
                     ring = way_to_ring(way, nodes)
-                    if ring:
-                        outer_coords.extend(ring)
-        if not outer_coords:
-            continue
+                    if ring: outer_coords.extend(ring)
+        if not outer_coords: continue
+        
         area = polygon_area_m2(outer_coords)
-        if area < MIN_AREA_M2:
-            continue
+        if area < MIN_AREA_M2: continue
+        
         seen.add(rel["id"])
         lon, lat = centroid(outer_coords)
-        features.append(_feature(lon, lat, rel["tags"], area, rel["id"], "relation", brand))
+        feature = _feature(lon, lat, rel["tags"], area, rel["id"], "relation", brand_match)
+        brand_features[brand_match["canonical"]].append(feature)
 
-    return features
-
+    return brand_features
 
 def _feature(lon, lat, tags, area, osm_id, osm_type, brand) -> dict:
     return {
@@ -162,7 +156,6 @@ def _feature(lon, lat, tags, area, osm_id, osm_type, brand) -> dict:
         "geometry": {"type": "Point", "coordinates": [round(lon, 6), round(lat, 6)]}
     }
 
-
 def deduplicate(features: list, tol_m: float = 80.0) -> list:
     tol = tol_m / 111_320.0
     kept = []
@@ -177,34 +170,34 @@ def deduplicate(features: list, tol_m: float = 80.0) -> list:
                 else:
                     dup = True
                 break
-        if not dup:
-            kept.append(f)
+        if not dup: kept.append(f)
     return kept
 
-
-def fetch_supermarkets():
+def main():
+    query = build_bulk_query()
+    raw_data = fetch_overpass(query)
+    
+    if not raw_data:
+        return
+        
+    brand_features_map = process_bulk_data(raw_data)
+    
     total = 0
-    for i, brand in enumerate(BRANDS):
-        print(f"\n[{i+1}/{len(BRANDS)}] Fetching {brand['canonical']}...")
-        query = build_query(brand["name"])
-        raw = fetch_overpass(query)
-        if not raw:
-            print(f"  No data — skipping.")
-        else:
-            features = process(raw, brand)
-            features = deduplicate(features)
-            geojson = {"type": "FeatureCollection", "features": features}
-            with open(brand["file"], "w", encoding="utf-8") as f:
-                json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
-            print(f"  Saved {len(features)} stores to {brand['file']}")
-            total += len(features)
+    # Create an output file based on the unique canon names in our config
+    unique_brands = {b["canonical"]: b for b in BRANDS}.values()
+    
+    for brand in unique_brands:
+        raw_features = brand_features_map.get(brand["canonical"], [])
+        cleaned_features = deduplicate(raw_features)
+        
+        geojson = {"type": "FeatureCollection", "features": cleaned_features}
+        with open(brand["file"], "w", encoding="utf-8") as f:
+            json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
+            
+        print(f"  Saved {len(cleaned_features)} stores to {brand['file']}")
+        total += len(cleaned_features)
 
-        if i < len(BRANDS) - 1:
-            print(f"  Sleeping {DELAY_SECONDS}s before next brand...")
-            time.sleep(DELAY_SECONDS)
-
-    print(f"\nDone. {total} stores total across {len(BRANDS)} brands.")
-
+    print(f"\nBOOM. Done. {total} total stores generated instantly.")
 
 if __name__ == "__main__":
-    fetch_supermarkets()
+    main()

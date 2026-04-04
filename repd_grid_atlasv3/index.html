@@ -261,8 +261,10 @@ const GRID_CONFIG = deepFreeze([
             { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "/grid_220kv.geojson", snap: true, preload: true },
             { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "/grid_132kv.geojson", snap: true, preload: true },
             { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "/grid_66kv.geojson", snap: true, preload: true },
-            { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: 3.5, url: "/grid_11kv_ukpn.geojson", minzoom: 11, preload: false },
-            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: 4.5, url: "/grid_substations.geojson", isSubs: true, preload: true }
+            // UPDATED: 11kV radius interpolation based on zoom
+            { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 1.5, 10, 3, 14, 6, 18, 12], url: "/grid_11kv_ukpn.geojson", preload: false },
+            // UPDATED: Main Subs radius interpolation based on zoom
+            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 2, 10, 4.5, 14, 8, 18, 14], url: "/grid_substations.geojson", isSubs: true, preload: true }
         ]
     },
     {
@@ -1021,7 +1023,7 @@ map.on('load', () => {
                     : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
             };
             if (layer.filter) layerObject.filter = layer.filter;
-            if (layer.minzoom) layerObject.minzoom = layer.minzoom; // ADDED THIS: MapLibre Minzoom support
+            if (layer.minzoom) layerObject.minzoom = layer.minzoom; // MapLibre Minzoom support
             map.addLayer(layerObject);
             allLayerIds.push(`l-${layer.id}`);
         });
@@ -1106,7 +1108,7 @@ map.on('load', () => {
         const name     = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
         const tech     = p.tech || '';
         const rawTech  = p.raw_tech || p.type || tech;
-        const voltage  = p.voltage || ''; // ADDED THIS: Extracts 11kV voltage string
+        const voltage  = p.voltage || ''; 
         const capacity = parseFloat(p.capacity) || 0;
         const powerKw  = p.power_kw || null;
         const connectors = p.connectors || '';

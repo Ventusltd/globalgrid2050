@@ -261,10 +261,10 @@ const GRID_CONFIG = deepFreeze([
             { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "/grid_220kv.geojson", snap: true, preload: true },
             { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "/grid_132kv.geojson", snap: true, preload: true },
             { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "/grid_66kv.geojson", snap: true, preload: true },
-            // UPDATED: 11kV radius interpolation based on zoom
-            { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 1.5, 10, 3, 14, 6, 18, 12], url: "/grid_11kv_ukpn.geojson", preload: false },
-            // UPDATED: Main Subs radius interpolation based on zoom
-            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 2, 10, 4.5, 14, 8, 18, 14], url: "/grid_substations.geojson", isSubs: true, preload: true }
+            // RE-ADDED minzoom: 11, AND increased high-zoom radius to 18px
+            { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 11, 4, 14, 8, 18, 18], url: "/grid_11kv_ukpn.geojson", minzoom: 11, preload: false },
+            // INCREASED high-zoom radius to 22px
+            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 3, 10, 5, 14, 10, 18, 22], url: "/grid_substations.geojson", isSubs: true, preload: true }
         ]
     },
     {

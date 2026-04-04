@@ -3,26 +3,26 @@ import json
 import math
 import time
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-MIN_AREA_M2 = 1500
+OVERPASS_URL = "https://overpass.kumi.systems/api/interpreter"
+MIN_AREA_M2 = 2500
 BBOX = "49.5,-10.8,61.0,2.2"
-DELAY_SECONDS = 45
+DELAY_SECONDS = 30
 
 BRANDS = [
-    {"name": "Tesco",              "canonical": "Tesco",        "file": "supermarkets_tesco.geojson",        "colour": "#ee1c2e"},
-    {"name": "Sainsbury's",        "canonical": "Sainsbury's",  "file": "supermarkets_sainsburys.geojson",   "colour": "#ff8200"},
-    {"name": "Asda",               "canonical": "Asda",         "file": "supermarkets_asda.geojson",         "colour": "#78be20"},
-    {"name": "Morrisons",          "canonical": "Morrisons",    "file": "supermarkets_morrisons.geojson",    "colour": "#ffd700"},
-    {"name": "Aldi",               "canonical": "Aldi",         "file": "supermarkets_aldi.geojson",         "colour": "#003087"},
-    {"name": "Lidl",               "canonical": "Lidl",         "file": "supermarkets_lidl.geojson",         "colour": "#0050aa"},
-    {"name": "Waitrose",           "canonical": "Waitrose",     "file": "supermarkets_waitrose.geojson",     "colour": "#7ab800"},
-    {"name": "Marks and Spencer",  "canonical": "M&S Food",     "file": "supermarkets_ms.geojson",           "colour": "#009b77"},
-    {"name": "Co-op",              "canonical": "Co-op",        "file": "supermarkets_coop.geojson",         "colour": "#00b1a9"},
-    {"name": "Iceland",            "canonical": "Iceland",      "file": "supermarkets_iceland.geojson",      "colour": "#c8102e"},
-    {"name": "Farmfoods",          "canonical": "Farmfoods",    "file": "supermarkets_farmfoods.geojson",    "colour": "#e30613"},
-    {"name": "Costco",             "canonical": "Costco",       "file": "supermarkets_costco.geojson",       "colour": "#005daa"},
-    {"name": "Booths",             "canonical": "Booths",       "file": "supermarkets_booths.geojson",       "colour": "#6d2077"},
-    {"name": "Spar",               "canonical": "Spar",         "file": "supermarkets_spar.geojson",         "colour": "#00a650"},
+    {"name": "Tesco",             "canonical": "Tesco",       "file": "supermarkets_tesco.geojson",      "colour": "#ee1c2e"},
+    {"name": "Sainsbury's",       "canonical": "Sainsbury's", "file": "supermarkets_sainsburys.geojson", "colour": "#ff8200"},
+    {"name": "Asda",              "canonical": "Asda",        "file": "supermarkets_asda.geojson",       "colour": "#78be20"},
+    {"name": "Morrisons",         "canonical": "Morrisons",   "file": "supermarkets_morrisons.geojson",  "colour": "#ffd700"},
+    {"name": "Aldi",              "canonical": "Aldi",        "file": "supermarkets_aldi.geojson",       "colour": "#003087"},
+    {"name": "Lidl",              "canonical": "Lidl",        "file": "supermarkets_lidl.geojson",       "colour": "#0050aa"},
+    {"name": "Waitrose",          "canonical": "Waitrose",    "file": "supermarkets_waitrose.geojson",   "colour": "#7ab800"},
+    {"name": "Marks and Spencer", "canonical": "M&S Food",    "file": "supermarkets_ms.geojson",         "colour": "#009b77"},
+    {"name": "Co-op",             "canonical": "Co-op",       "file": "supermarkets_coop.geojson",       "colour": "#00b1a9"},
+    {"name": "Iceland",           "canonical": "Iceland",     "file": "supermarkets_iceland.geojson",    "colour": "#c8102e"},
+    {"name": "Farmfoods",         "canonical": "Farmfoods",   "file": "supermarkets_farmfoods.geojson",  "colour": "#e30613"},
+    {"name": "Costco",            "canonical": "Costco",      "file": "supermarkets_costco.geojson",     "colour": "#005daa"},
+    {"name": "Booths",            "canonical": "Booths",      "file": "supermarkets_booths.geojson",     "colour": "#6d2077"},
+    {"name": "Spar",              "canonical": "Spar",        "file": "supermarkets_spar.geojson",       "colour": "#00a650"},
 ]
 
 
@@ -31,7 +31,6 @@ def build_query(brand_name: str) -> str:
     blocks = (
         f'way["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
         f'way["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
-        f'way["shop"="convenience"]["brand"~"{b}",i]({BBOX});\n'
         f'way["shop"="wholesale"]["brand"~"{b}",i]({BBOX});\n'
         f'relation["shop"="supermarket"]["brand"~"{b}",i]({BBOX});\n'
         f'relation["shop"="supermarket"]["name"~"{b}",i]({BBOX});\n'
@@ -40,7 +39,7 @@ def build_query(brand_name: str) -> str:
 
 
 def fetch_overpass(query: str) -> dict:
-    for attempt in range(3):
+    for attempt in range(5):
         try:
             response = requests.post(
                 OVERPASS_URL,
@@ -53,13 +52,16 @@ def fetch_overpass(query: str) -> dict:
             elif response.status_code == 429:
                 print(f"  Rate limited, sleeping 60s...")
                 time.sleep(60)
+            elif response.status_code == 504:
+                print(f"  504 timeout (attempt {attempt+1}/5), sleeping 30s...")
+                time.sleep(30)
             else:
                 print(f"  HTTP error: {response.status_code}")
                 return {}
         except Exception as e:
             print(f"  Connection error: {e}")
-            if attempt < 2:
-                time.sleep(15)
+            time.sleep(30)
+    print(f"  Failed after 5 attempts — skipping.")
     return {}
 
 

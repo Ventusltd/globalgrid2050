@@ -77,6 +77,11 @@ window.initVentusMap = function({ config, center, zoom }) {
     let radiusMode  = false;
     let radiusMarker  = null;
     let radiusCenter  = null;
+    
+    // NEW RADIUS AREA STATE
+    let radiusAreaMode = false;
+    let radiusAreaMarker = null;
+    let radiusAreaCenter = null;
 
     const urlCache = {};
     let globalSubsData  = null;
@@ -224,8 +229,79 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.getCanvas().style.cursor = measureMode ? 'crosshair' : '';
         if (!measureMode) { clearMeasure(); } else {
             if (radiusMode) toggleRadiusMode();
+            if (radiusAreaMode) toggleRadiusAreaMode();
             document.getElementById('measure-display').style.display = 'block'; updateMeasureDisplay();
         }
+    }
+
+    // ── Radius Area Tool ──────────────────────────────────────────────────────────
+    function toggleRadiusAreaMode() {
+        radiusAreaMode = !radiusAreaMode;
+        const btn = document.getElementById('btn-radius-area');
+        if(btn) {
+            btn.classList.toggle('active', radiusAreaMode); 
+            btn.setAttribute('aria-pressed', radiusAreaMode);
+        }
+        const popupEl = document.getElementById('radius-area-popup');
+        if(popupEl) popupEl.style.display = radiusAreaMode ? 'block' : 'none';
+        
+        map.getCanvas().style.cursor = radiusAreaMode ? 'crosshair' : '';
+        
+        if (radiusAreaMode && radiusMode) toggleRadiusMode();
+        if (radiusAreaMode && measureMode) toggleMeasureMode();
+        
+        if (!radiusAreaMode) { 
+            if(map.getSource('src-radius-area')) {
+                map.getSource('src-radius-area').setData({ type: 'FeatureCollection', features: [] });
+            }
+            radiusAreaCenter = null; 
+            if (radiusAreaMarker) { radiusAreaMarker.remove(); radiusAreaMarker = null; } 
+            // Close any maplibregl popups related to it
+            const popups = document.getElementsByClassName('maplibregl-popup');
+            if (popups.length) popups[0].remove();
+        }
+    }
+
+    function doRadiusAreaMeasure(lon, lat) {
+        const input = document.getElementById('radius-area-input');
+        if(!input) return;
+        const km = parseFloat(input.value);
+        if (isNaN(km) || km <= 0 || km > 160) {
+            input.classList.add('invalid');
+            return;
+        }
+        input.classList.remove('invalid');
+        radiusAreaCenter = { lon, lat };
+        
+        // Draw the visual circle
+        if(map.getSource('src-radius-area')) {
+            map.getSource('src-radius-area').setData(createGeoJSONCircle(lon, lat, km));
+        }
+        if (radiusAreaMarker) radiusAreaMarker.remove(); radiusAreaMarker = null;
+
+        // Calculate Geodesic Spherical Cap Area
+        const R = 6371; // Earth's mean radius in km
+        const areaKm2 = 2 * Math.PI * R * R * (1 - Math.cos(km / R));
+        const areaM2 = areaKm2 * 1000000;
+        const areaHa = areaM2 / 10000;
+        const areaAc = areaM2 / 4046.85642;
+        const pitches = areaM2 / 7140; // FIFA standard pitch = 105m x 68m
+
+        // Close existing popups first
+        const popups = document.getElementsByClassName('maplibregl-popup');
+        if (popups.length) popups[0].remove();
+
+        new maplibregl.Popup({ maxWidth: '300px' }).setLngLat([lon, lat]).setHTML(`
+            <div style="font-family:monospace;background:#000;padding:8px; border: 1px solid #ff00ff; border-radius: 4px;">
+                <b style="color:#ff00ff">◵ Area: ${km}km radius</b><br><br>
+                <span style="color:#888">Square Metres:</span> <span style="color:#fff">${fmt(areaM2, 0)} m²</span><br>
+                <span style="color:#888">Hectares:</span> <span style="color:#fff">${fmt(areaHa, 2)} ha</span><br>
+                <span style="color:#888">Acres:</span> <span style="color:#fff">${fmt(areaAc, 2)} ac</span><br>
+                <span style="color:#888">Square Kilometres:</span> <span style="color:#fff">${fmt(areaKm2, 3)} km²</span><br>
+                <div style="border-top:1px solid #333; margin-top:6px; padding-top:6px;">
+                    <span style="color:#ffae00">⚽ Football Pitches: ${fmt(pitches, 1)}</span>
+                </div>
+            </div>`).addTo(map);
     }
 
     // ── Clock ─────────────────────────────────────────────────────────────────────
@@ -486,6 +562,10 @@ window.initVentusMap = function({ config, center, zoom }) {
         btn.classList.toggle('active', radiusMode); btn.setAttribute('aria-pressed', radiusMode);
         document.getElementById('radius-popup').style.display = radiusMode ? 'block' : 'none';
         map.getCanvas().style.cursor = radiusMode ? 'crosshair' : '';
+        
+        if (radiusMode && measureMode) toggleMeasureMode();
+        if (radiusMode && radiusAreaMode) toggleRadiusAreaMode();
+
         if (!radiusMode) { clearRadiusCircle(); radiusCenter = null; if (radiusMarker) { radiusMarker.remove(); radiusMarker = null; } }
     }
 
@@ -595,13 +675,36 @@ window.initVentusMap = function({ config, center, zoom }) {
         document.getElementById('btn-measure-undo').addEventListener('click', undoLastMeasurePoint);
 
         const radiusInput = document.getElementById('radius-input');
-        radiusInput.addEventListener('input', () => validateRadiusInput());
-        radiusInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (validateRadiusInput() && radiusCenter) doRadiusSearch(radiusCenter.lon, radiusCenter.lat); } e.stopPropagation(); });
-        radiusInput.addEventListener('blur', () => {
-            const raw = parseFloat(radiusInput.value);
-            if (isNaN(raw) || raw < RADIUS_MIN) radiusInput.value = RADIUS_MIN; else if (raw > RADIUS_MAX) radiusInput.value = RADIUS_MAX;
-            radiusInput.classList.remove('invalid'); if (radiusCenter) doRadiusSearch(radiusCenter.lon, radiusCenter.lat);
-        });
+        if(radiusInput) {
+            radiusInput.addEventListener('input', () => validateRadiusInput());
+            radiusInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (validateRadiusInput() && radiusCenter) doRadiusSearch(radiusCenter.lon, radiusCenter.lat); } e.stopPropagation(); });
+            radiusInput.addEventListener('blur', () => {
+                const raw = parseFloat(radiusInput.value);
+                if (isNaN(raw) || raw < RADIUS_MIN) radiusInput.value = RADIUS_MIN; else if (raw > RADIUS_MAX) radiusInput.value = RADIUS_MAX;
+                radiusInput.classList.remove('invalid'); if (radiusCenter) doRadiusSearch(radiusCenter.lon, radiusCenter.lat);
+            });
+        }
+
+        // BIND NEW RADIUS AREA EVENTS
+        const btnRadiusArea = document.getElementById('btn-radius-area');
+        if (btnRadiusArea) btnRadiusArea.addEventListener('click', toggleRadiusAreaMode);
+
+        const rAreaInput = document.getElementById('radius-area-input');
+        if (rAreaInput) {
+            rAreaInput.addEventListener('keydown', e => { 
+                if (e.key === 'Enter') { 
+                    e.preventDefault(); 
+                    if (radiusAreaCenter) doRadiusAreaMeasure(radiusAreaCenter.lon, radiusAreaCenter.lat); 
+                } 
+                e.stopPropagation(); 
+            });
+            rAreaInput.addEventListener('blur', () => {
+                const raw = parseFloat(rAreaInput.value);
+                if (isNaN(raw) || raw <= 0) rAreaInput.value = 1; else if (raw > 160) rAreaInput.value = 160;
+                rAreaInput.classList.remove('invalid'); 
+                if (radiusAreaCenter) doRadiusAreaMeasure(radiusAreaCenter.lon, radiusAreaCenter.lat);
+            });
+        }
     }
 
     // ── Layer Hydration ───────────────────────────────────────────────────────────
@@ -670,6 +773,11 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.addLayer({ id: 'l-radius-circle-fill',   type: 'fill', source: 'src-radius-circle', paint: { 'fill-color': '#00ffff', 'fill-opacity': 0.04 } });
         map.addLayer({ id: 'l-radius-circle-stroke', type: 'line', source: 'src-radius-circle', paint: { 'line-color': '#00ffff', 'line-width': 1.5, 'line-opacity': 0.7, 'line-dasharray': [4, 3] } });
 
+        // NEW RADIUS AREA LAYERS
+        map.addSource('src-radius-area', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({ id: 'l-radius-area-fill',   type: 'fill', source: 'src-radius-area', paint: { 'fill-color': '#ff00ff', 'fill-opacity': 0.08 } });
+        map.addLayer({ id: 'l-radius-area-stroke', type: 'line', source: 'src-radius-area', paint: { 'line-color': '#ff00ff', 'line-width': 1.5, 'line-opacity': 0.8, 'line-dasharray': [2, 2] } });
+
         map.addSource('src-measure-line',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
         map.addSource('src-measure-fill',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
         map.addSource('src-measure-points', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
@@ -730,6 +838,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.on('click', e => {
             if (measureMode) { measurePoints.push([e.lngLat.lng, e.lngLat.lat]); measureClosed = false; updateMeasureLayers(); updateMeasureDisplay(); return; }
             if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
+            if (radiusAreaMode) { doRadiusAreaMeasure(e.lngLat.lng, e.lngLat.lat); return; } // NEW INTERCEPTOR
 
             const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
             if (!features.length) return;
@@ -756,7 +865,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.on('dblclick', e => { if (!measureMode || measurePoints.length < 2) return; e.preventDefault(); measureClosed = true; updateMeasureLayers(); updateMeasureDisplay(); });
 
         map.on('mousemove', e => {
-            if (measureMode || radiusMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
+            if (measureMode || radiusMode || radiusAreaMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
             if (_lastMouseMoveRaf) return;
             _lastMouseMoveRaf = requestAnimationFrame(() => { _lastMouseMoveRaf = null; const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds }); map.getCanvas().style.cursor = features.length ? 'pointer' : ''; });
         });

@@ -496,7 +496,7 @@ window.initVentusMap = function({ config, center, zoom }) {
                 const dot = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
                 const dpx = map.project(dot);
                 const dx = px.x - dpx.x, dy = px.y - dpx.y;
-                if (Math.sqrt(dx * dx + dy * dy) < 16) return { insertIdx: j, dot };
+                if (Math.sqrt(dx * dx + dy * dy) < 22) return { insertIdx: j, dot };
             }
         }
         return null;
@@ -507,7 +507,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         for (let i = 0; i < polyZonePoints.length; i++) {
             const vpx = map.project(polyZonePoints[i]);
             const dx = px.x - vpx.x, dy = px.y - vpx.y;
-            if (Math.sqrt(dx * dx + dy * dy) < 14) return i;
+            if (Math.sqrt(dx * dx + dy * dy) < 18) return i;
         }
         return -1;
     }
@@ -1117,7 +1117,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.addSource('src-polyzone-points', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
         map.addLayer({ id: 'l-polyzone-fill',   type: 'fill',   source: 'src-polyzone-fill',   paint: { 'fill-color': '#ff00ff', 'fill-opacity': 0.10 } });
         map.addLayer({ id: 'l-polyzone-line',   type: 'line',   source: 'src-polyzone-line',   paint: { 'line-color': '#ff00ff', 'line-width': 2, 'line-dasharray': [4, 2] } });
-        map.addLayer({ id: 'l-polyzone-points', type: 'circle', source: 'src-polyzone-points', paint: { 'circle-color': '#ff00ff', 'circle-radius': 5, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000' } });
+        map.addLayer({ id: 'l-polyzone-points', type: 'circle', source: 'src-polyzone-points', paint: { 'circle-color': ['case', ['==', ['get', 'kind'], 'vertex'], '#ff00ff', '#cc00cc'], 'circle-radius': ['case', ['==', ['get', 'kind'], 'vertex'], 7, 5], 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': ['case', ['==', ['get', 'kind'], 'vertex'], 1, 0.7] } });
 
         const allLayerIds = [];
 

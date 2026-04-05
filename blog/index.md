@@ -17,13 +17,11 @@ How We Built a Production GIS Platform for UK Energy Infrastructure in 17 Days
 
 ## The Problem We Were Solving
 
-The United Kingdom has a publicly available dataset called REPD — the Renewable Energy Planning Database. It contains every solar farm, wind turbine, battery storage facility, hydrogen plant and offshore tidal project in the country, along with their capacity in megawatts, planning status, operator, and GPS coordinates. It is updated quarterly by the Department for Energy Security and Net Zero.
-
-Nobody was visualising it properly.
+The United Kingdom has a publicly available dataset called REPD, the Renewable Energy Planning Database. It contains every solar farm, wind turbine, battery storage facility, hydrogen plant and offshore tidal project in the country, along with their capacity in megawatts, planning status, operator, and GPS coordinates. It is updated quarterly by the Department for Energy Security and Net Zero.
 
 The same was true of the National Grid topology — the 400kV, 275kV, 132kV and 66kV transmission lines that form the physical backbone of UK electricity. Open data. Publicly available as GeoJSON. Sitting there, underused.
 
-The electrification of everything — heat pumps, EV charging, industrial processes, data centres — is fundamentally constrained by where cables exist and what capacity they carry. That is the hidden bottleneck. Not the solar panels, not the batteries, not the planning system. The wires.
+The electrification of everything — heat pumps, EV charging, industrial processes, data centres is fundamentally constrained by where cables exist and what capacity they carry. That is the hidden bottleneck. Not the solar panels, not the batteries, not the planning system. The wires.
 
 GlobalGrid2050 exists to make that constraint visible.
 
@@ -31,7 +29,7 @@ GlobalGrid2050 exists to make that constraint visible.
 
 ## What the Platform Is
 
-GlobalGrid2050 is a browser-based GIS intelligence platform. It runs entirely in the frontend — no login, no backend API, no database queries at runtime. Everything the user sees is rendered from static GeoJSON files served over HTTPS, processed by MapLibre GL JS in the browser.
+GlobalGrid2050 is a browser-based GIS intelligence platform. It runs entirely in the frontend, no login, no backend API, no database queries at runtime. Everything the user sees is rendered from static GeoJSON files served over HTTPS, processed by MapLibre GL JS in the browser.
 
 The live version is at **globalgrid2050.com/repd_grid_atlasv5/**
 

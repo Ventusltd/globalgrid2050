@@ -87,12 +87,11 @@ window.initVentusMap = function({ config, center, zoom }) {
     // Drag-handle polygon editor. Click to place a starting triangle,
     // drag any vertex to reshape freely into any polygon.
     // Click any edge midpoint to add a new vertex and split that edge.
-    let polyZoneMode      = false;
-    let polyZonePoints    = [];   // array of [lon, lat]
-    let polyZoneDragging  = false;
-    let polyZoneDragIdx   = -1;   // index of vertex being dragged
-    let polyZoneHoverIdx  = -1;   // index of vertex under cursor (-1 = none)
-    let polyZonePopupHidden = false; // user hit ✕ — keep shape, hide popup
+    let polyZoneMode        = false;
+    let polyZonePoints      = [];
+    let polyZoneDragging    = false;
+    let polyZoneDragIdx     = -1;
+    let polyZoneJustDragged = false;
 
     const urlCache = {};
     let globalSubsData  = null;
@@ -365,12 +364,9 @@ window.initVentusMap = function({ config, center, zoom }) {
         return { areaKm2, areaHa: areaM2 / 10000, areaAc: areaM2 / 4046.85642, areaMi2: areaKm2 * 0.386102, areaM2, perimKm, pitches: areaM2 / 7140 };
     }
 
-    function _polyZoneUpdateLayers() {
+    function _polyZoneUpdateLayers(dragOnly) {
         if (!map.getSource('src-polyzone-fill')) return;
         const n = polyZonePoints.length;
-        // Clear old boundary/centre sources from previous tool version
-        if (map.getSource('src-polyzone-boundary')) map.getSource('src-polyzone-boundary').setData({ type: 'FeatureCollection', features: [] });
-        if (map.getSource('src-polyzone-centre'))   map.getSource('src-polyzone-centre').setData({ type: 'FeatureCollection', features: [] });
         if (n < 3) {
             map.getSource('src-polyzone-fill').setData({ type: 'FeatureCollection', features: [] });
             map.getSource('src-polyzone-line').setData({ type: 'FeatureCollection', features: [] });
@@ -380,22 +376,27 @@ window.initVentusMap = function({ config, center, zoom }) {
         const ring = [...polyZonePoints, polyZonePoints[0]];
         map.getSource('src-polyzone-fill').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: [ring] } }] });
         map.getSource('src-polyzone-line').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: ring } }] });
-        // Vertex dots — main drag handles
-        const vFeatures = polyZonePoints.map((c, i) => ({ type: 'Feature', properties: { kind: 'vertex', idx: i }, geometry: { type: 'Point', coordinates: c } }));
-        // Edge sub-dots — 3 per edge at 25%, 50%, 75% positions for denser grab points
-        const mFeatures = [];
-        polyZonePoints.forEach((c, i) => {
-            const j = (i + 1) % n;
-            const b = polyZonePoints[j];
-            [0.25, 0.5, 0.75].forEach(t => {
-                mFeatures.push({ type: 'Feature', properties: { kind: 'mid', edgeIdx: i, t }, geometry: { type: 'Point', coordinates: [c[0] + (b[0] - c[0]) * t, c[1] + (b[1] - c[1]) * t] } });
+
+        if (dragOnly) {
+            // Lightweight drag update — only move vertex dots, skip edge midpoints
+            const vFeatures = polyZonePoints.map((c, i) => ({ type: 'Feature', properties: { kind: 'vertex', idx: i }, geometry: { type: 'Point', coordinates: c } }));
+            map.getSource('src-polyzone-points').setData({ type: 'FeatureCollection', features: vFeatures });
+        } else {
+            // Full rebuild — vertices + all edge sub-dots
+            const vFeatures = polyZonePoints.map((c, i) => ({ type: 'Feature', properties: { kind: 'vertex', idx: i }, geometry: { type: 'Point', coordinates: c } }));
+            const mFeatures = [];
+            polyZonePoints.forEach((c, i) => {
+                const j = (i + 1) % n;
+                const b = polyZonePoints[j];
+                [0.25, 0.5, 0.75].forEach(t => {
+                    mFeatures.push({ type: 'Feature', properties: { kind: 'mid', edgeIdx: i, t }, geometry: { type: 'Point', coordinates: [c[0] + (b[0] - c[0]) * t, c[1] + (b[1] - c[1]) * t] } });
+                });
             });
-        });
-        map.getSource('src-polyzone-points').setData({ type: 'FeatureCollection', features: [...vFeatures, ...mFeatures] });
+            map.getSource('src-polyzone-points').setData({ type: 'FeatureCollection', features: [...vFeatures, ...mFeatures] });
+        }
     }
 
-    let _polyZonePopupRaf = null;
-    let _polyZoneCollapsed = false; // true = showing mini label only
+    let _polyZoneCollapsed = false;
 
     function _polyZoneShowPopup() {
         if (polyZonePoints.length < 3) return;
@@ -433,15 +434,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         }
     }
 
-    function _polyZoneShowPopupDebounced() {
-        // During drag, throttle popup redraws to once per RAF to prevent flicker
-        if (_polyZonePopupRaf) return;
-        _polyZonePopupRaf = requestAnimationFrame(() => {
-            _polyZonePopupRaf = null;
-            _polyZoneShowPopup();
-        });
-    }
-
     function _polyZoneUpdateDisplay() {
         const undoBtn = document.getElementById('btn-polyzone-undo');
         const hint    = document.getElementById('pz-hint');
@@ -457,13 +449,12 @@ window.initVentusMap = function({ config, center, zoom }) {
         polyZonePoints      = [];
         polyZoneDragging    = false;
         polyZoneDragIdx     = -1;
-        polyZoneHoverIdx    = -1;
-        polyZonePopupHidden = false;
+        polyZoneJustDragged = false;
         _polyZoneCollapsed  = false;
         window._pzExpand    = null;
         window._pzCollapse  = null;
         closeActivePopup();
-        _polyZoneUpdateLayers();
+        _polyZoneUpdateLayers(false);
         _polyZoneUpdateDisplay();
         const el = document.getElementById('polyzone-display');
         if (el) el.style.display = 'none';
@@ -472,7 +463,7 @@ window.initVentusMap = function({ config, center, zoom }) {
     function polyZoneUndo() {
         if (polyZonePoints.length <= 3) { _polyZoneClear(); return; }
         polyZonePoints.pop();
-        _polyZoneUpdateLayers();
+        _polyZoneUpdateLayers(false);
         _polyZoneShowPopup();
         _polyZoneUpdateDisplay();
     }
@@ -481,8 +472,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         polyZoneMode = !polyZoneMode;
         const btn = document.getElementById('btn-polyzone');
         if (btn) { btn.classList.toggle('active', polyZoneMode); btn.setAttribute('aria-pressed', polyZoneMode); }
-        const panel = document.getElementById('polyzone-panel');
-        if (panel) panel.style.display = 'none';
         map.getCanvas().style.cursor = polyZoneMode ? 'crosshair' : '';
         if (polyZoneMode) {
             if (radiusMode)     toggleRadiusMode();
@@ -497,17 +486,9 @@ window.initVentusMap = function({ config, center, zoom }) {
     }
 
     // ── Poly Zone mouse handlers — wired into map events below ────────────────────
-    function _polyZoneOnClick(e) {
-        if (polyZoneDragging) return;
-        const lon = e.lngLat.lng, lat = e.lngLat.lat;
-        if (polyZonePoints.length === 0) {
-            polyZonePoints      = _polyZoneDefaultTriangle(lon, lat);
-            polyZonePopupHidden = false;
-            _polyZoneUpdateLayers(); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
-            return;
-        }
-        // Check for click near any edge sub-dot — insert vertex at that position
-        const px = map.project([lon, lat]);
+
+    function _polyZoneNearEdgeDot(px) {
+        // Returns {edgeIdx, insertIdx} if click is near an edge sub-dot, else null
         for (let i = 0; i < polyZonePoints.length; i++) {
             const j = (i + 1) % polyZonePoints.length;
             const a = polyZonePoints[i], b = polyZonePoints[j];
@@ -515,57 +496,92 @@ window.initVentusMap = function({ config, center, zoom }) {
                 const dot = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
                 const dpx = map.project(dot);
                 const dx = px.x - dpx.x, dy = px.y - dpx.y;
-                if (Math.sqrt(dx * dx + dy * dy) < 14) {
-                    polyZonePoints.splice(j, 0, [lon, lat]);
-                    _polyZoneUpdateLayers(); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
-                    return;
-                }
+                if (Math.sqrt(dx * dx + dy * dy) < 16) return { insertIdx: j, dot };
             }
         }
-        // Click on empty space — reset with new triangle
+        return null;
+    }
+
+    function _polyZoneNearVertex(px) {
+        // Returns vertex index if click is near a main vertex, else -1
+        for (let i = 0; i < polyZonePoints.length; i++) {
+            const vpx = map.project(polyZonePoints[i]);
+            const dx = px.x - vpx.x, dy = px.y - vpx.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 14) return i;
+        }
+        return -1;
+    }
+
+    function _polyZoneOnClick(e) {
+        if (polyZoneDragging) return;
+        if (polyZoneJustDragged) { polyZoneJustDragged = false; return; }
+        const lon = e.lngLat.lng, lat = e.lngLat.lat;
+
+        if (polyZonePoints.length === 0) {
+            polyZonePoints      = _polyZoneDefaultTriangle(lon, lat);
+            _polyZoneCollapsed  = false;
+            _polyZoneUpdateLayers(false); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
+            return;
+        }
+
+        const px = map.project([lon, lat]);
+
+        // Check vertex dots first — if near a vertex, do nothing (drag handles those)
+        if (_polyZoneNearVertex(px) >= 0) return;
+
+        // Check edge sub-dots — insert vertex
+        const edgeHit = _polyZoneNearEdgeDot(px);
+        if (edgeHit) {
+            polyZonePoints.splice(edgeHit.insertIdx, 0, [edgeHit.dot[0], edgeHit.dot[1]]);
+            _polyZoneUpdateLayers(false); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
+            return;
+        }
+
+        // Truly empty space — reset with new triangle
         polyZonePoints      = _polyZoneDefaultTriangle(lon, lat);
-        polyZonePopupHidden = false;
-        _polyZoneUpdateLayers(); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
+        _polyZoneCollapsed  = false;
+        _polyZoneUpdateLayers(false); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
     }
 
     function _polyZoneOnMouseDown(e) {
         if (!polyZoneMode || polyZonePoints.length < 3) return;
         const px = map.project(e.lngLat);
-        for (let i = 0; i < polyZonePoints.length; i++) {
-            const vpx = map.project(polyZonePoints[i]);
-            const dx = px.x - vpx.x, dy = px.y - vpx.y;
-            if (Math.sqrt(dx * dx + dy * dy) < 14) {
-                polyZoneDragging = true; polyZoneDragIdx = i;
-                map.dragPan.disable();
-                map.getCanvas().style.cursor = 'grabbing';
-                e.preventDefault(); return;
-            }
+
+        // Don't start drag if clicking near an edge dot — let click handler insert vertex
+        if (_polyZoneNearEdgeDot(px)) return;
+
+        const vi = _polyZoneNearVertex(px);
+        if (vi >= 0) {
+            polyZoneDragging = true; polyZoneDragIdx = vi;
+            map.dragPan.disable();
+            map.getCanvas().style.cursor = 'grabbing';
+            e.preventDefault();
         }
     }
 
     function _polyZoneOnMouseMove(e) {
         if (!polyZoneMode || polyZonePoints.length < 3) return;
         if (polyZoneDragging && polyZoneDragIdx >= 0) {
+            // Lightweight drag: update geometry only, no popup rebuild
             polyZonePoints[polyZoneDragIdx] = [e.lngLat.lng, e.lngLat.lat];
-            polyZonePopupHidden = false;
-            _polyZoneUpdateLayers(); _polyZoneShowPopupDebounced(); return;
+            _polyZoneUpdateLayers(true); // dragOnly — skip edge midpoints
+            return;
         }
         const px = map.project(e.lngLat);
-        let found = -1;
-        for (let i = 0; i < polyZonePoints.length; i++) {
-            const vpx = map.project(polyZonePoints[i]);
-            const dx = px.x - vpx.x, dy = px.y - vpx.y;
-            if (Math.sqrt(dx * dx + dy * dy) < 14) { found = i; break; }
-        }
-        if (found !== polyZoneHoverIdx) { polyZoneHoverIdx = found; _polyZoneUpdateLayers(); }
-        map.getCanvas().style.cursor = found >= 0 ? 'grab' : 'crosshair';
+        const vi = _polyZoneNearVertex(px);
+        const edgeHit = vi < 0 ? _polyZoneNearEdgeDot(px) : null;
+        map.getCanvas().style.cursor = vi >= 0 ? 'grab' : (edgeHit ? 'copy' : 'crosshair');
     }
 
     function _polyZoneOnMouseUp() {
         if (!polyZoneDragging) return;
-        polyZoneDragging = false; polyZoneDragIdx = -1;
+        polyZoneDragging    = false;
+        polyZoneDragIdx     = -1;
+        polyZoneJustDragged = true; // cleared when next click is swallowed in _polyZoneOnClick
         map.dragPan.enable();
         map.getCanvas().style.cursor = 'crosshair';
+        _polyZoneUpdateLayers(false);
+        _polyZoneShowPopup();
     }
 
     // ── Clock ─────────────────────────────────────────────────────────────────────
@@ -986,18 +1002,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         const btnPolyZoneUndo = document.getElementById('btn-polyzone-undo');
         if (btnPolyZoneUndo) btnPolyZoneUndo.addEventListener('click', polyZoneUndo);
 
-        const polyZoneRadiusInput = document.getElementById('polyzone-radius-input');
-        if (polyZoneRadiusInput) {
-            polyZoneRadiusInput.addEventListener('keydown', e => { e.stopPropagation(); });
-            polyZoneRadiusInput.addEventListener('blur', () => {
-                const raw = parseFloat(polyZoneRadiusInput.value);
-                if (isNaN(raw) || raw < 0.1) polyZoneRadiusInput.value = '0.1';
-                else if (raw > POLY_ZONE_MAX_KM) polyZoneRadiusInput.value = String(POLY_ZONE_MAX_KM);
-                // If we haven't placed a centre yet, update the radius live
-                polyZoneRadiusKm = parseFloat(polyZoneRadiusInput.value);
-            });
-        }
-
         const rAreaInput = document.getElementById('radius-area-input');
         if (rAreaInput) {
             rAreaInput.addEventListener('keydown', e => { 
@@ -1107,21 +1111,13 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.addLayer({ id: 'l-measure-line',   type: 'line',   source: 'src-measure-line',   paint: { 'line-color': '#ffff00', 'line-width': 2, 'line-dasharray': [3, 2] } });
         map.addLayer({ id: 'l-measure-points', type: 'circle', source: 'src-measure-points', paint: { 'circle-color': '#ffff00', 'circle-radius': 5, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000' } });
 
-        // ── Poly Zone layers (orange accent) ──────────────────────────────────────
-        map.addSource('src-polyzone-boundary', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('src-polyzone-centre',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('src-polyzone-line',     { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('src-polyzone-fill',     { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addSource('src-polyzone-points',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        // Boundary guide circle — dashed orange
-        map.addLayer({ id: 'l-polyzone-boundary-fill',   type: 'fill',   source: 'src-polyzone-boundary', paint: { 'fill-color': '#ff6600', 'fill-opacity': 0.04 } });
-        map.addLayer({ id: 'l-polyzone-boundary-stroke', type: 'line',   source: 'src-polyzone-boundary', paint: { 'line-color': '#ff6600', 'line-width': 1.5, 'line-opacity': 0.7, 'line-dasharray': [3, 3] } });
-        // Centre crosshair dot
-        map.addLayer({ id: 'l-polyzone-centre', type: 'circle', source: 'src-polyzone-centre', paint: { 'circle-color': '#ff6600', 'circle-radius': 5, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.9 } });
-        // Drawn polygon
-        map.addLayer({ id: 'l-polyzone-fill',   type: 'fill',   source: 'src-polyzone-fill',   paint: { 'fill-color': '#ff6600', 'fill-opacity': 0.12 } });
-        map.addLayer({ id: 'l-polyzone-line',   type: 'line',   source: 'src-polyzone-line',   paint: { 'line-color': '#ff6600', 'line-width': 2, 'line-dasharray': [4, 2] } });
-        map.addLayer({ id: 'l-polyzone-points', type: 'circle', source: 'src-polyzone-points', paint: { 'circle-color': '#ff6600', 'circle-radius': 5, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000' } });
+        // ── Poly Zone layers ───────────────────────────────────────────────────────
+        map.addSource('src-polyzone-line',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addSource('src-polyzone-fill',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addSource('src-polyzone-points', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({ id: 'l-polyzone-fill',   type: 'fill',   source: 'src-polyzone-fill',   paint: { 'fill-color': '#ff00ff', 'fill-opacity': 0.10 } });
+        map.addLayer({ id: 'l-polyzone-line',   type: 'line',   source: 'src-polyzone-line',   paint: { 'line-color': '#ff00ff', 'line-width': 2, 'line-dasharray': [4, 2] } });
+        map.addLayer({ id: 'l-polyzone-points', type: 'circle', source: 'src-polyzone-points', paint: { 'circle-color': '#ff00ff', 'circle-radius': 5, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000' } });
 
         const allLayerIds = [];
 
@@ -1231,6 +1227,7 @@ window.initVentusMap = function({ config, center, zoom }) {
 
         map.on('dblclick', e => {
             if (_pendingToolClick) { clearTimeout(_pendingToolClick); _pendingToolClick = null; }
+            if (polyZoneMode) { e.preventDefault(); return; }
             if (!measureMode || measurePoints.length < 2) return;
             e.preventDefault();
             measureClosed = true;

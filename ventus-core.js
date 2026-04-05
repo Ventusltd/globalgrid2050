@@ -298,7 +298,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         }
         input.classList.remove('invalid');
         radiusAreaCenter = { lon, lat };
-        
+
         if(map.getSource('src-radius-area')) {
             map.getSource('src-radius-area').setData(createGeoJSONCircle(lon, lat, km));
         }
@@ -313,30 +313,21 @@ window.initVentusMap = function({ config, center, zoom }) {
         const areaMi2  = areaKm2 * 0.386102;
         const pitches  = areaM2 / 7140;
 
-        // Compact popup: headline + pitches visible immediately.
-        // Full breakdown hidden behind a toggle so the map stays visible.
-        const popupId = `ra-${Date.now()}`;
+        // Full expanded popup — all units always visible.
+        // ✕ closes the popup but keeps the circle on the map for browsing.
         openPopup([lon, lat], `
-            <div style="font-family:monospace;background:#000;padding:8px;border:1px solid #ff00ff;border-radius:4px;min-width:200px;">
-                <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                    <b style="color:#ff00ff">◵ ${km}km &nbsp;·&nbsp; ${fmt(areaKm2, 2)} km²</b>
-                    <span id="${popupId}-tog" onclick="
-                        var d=document.getElementById('${popupId}-detail');
-                        var t=document.getElementById('${popupId}-tog');
-                        var open=d.style.display==='block';
-                        d.style.display=open?'none':'block';
-                        t.innerText=open?'▾ more':'▴ less';
-                    " style="color:#555;font-size:9px;cursor:pointer;margin-left:8px;user-select:none;">▾ more</span>
+            <div style="font-family:monospace;background:#000;padding:10px 12px;border:1px solid #ff00ff;border-radius:4px;min-width:220px;position:relative;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <b style="color:#ff00ff;font-size:13px;">◵ ${km}km radius</b>
+                    <span onclick="(function(){var p=document.querySelector('.maplibregl-popup');if(p)p.style.display='none';})()" style="color:#555;font-size:14px;cursor:pointer;line-height:1;padding:0 2px;user-select:none;" title="Close popup, keep circle">✕</span>
                 </div>
-                <div style="margin-top:4px;">
-                    <span style="color:#ffae00">⚽ ${fmt(pitches, 1)} football pitches</span>
-                </div>
-                <div id="${popupId}-detail" style="display:none;margin-top:8px;border-top:1px solid #222;padding-top:8px;">
-                    <span style="color:#888">m²</span> <span style="color:#fff">${fmt(areaM2, 0)}</span><br>
-                    <span style="color:#888">ha</span> <span style="color:#fff">${fmt(areaHa, 2)}</span><br>
-                    <span style="color:#888">ac</span> <span style="color:#fff">${fmt(areaAc, 2)}</span><br>
-                    <span style="color:#888">km²</span> <span style="color:#fff">${fmt(areaKm2, 3)}</span><br>
-                    <span style="color:#888">mi²</span> <span style="color:#fff">${fmt(areaMi2, 3)}</span>
+                <div style="color:#ffae00;font-size:13px;margin-bottom:10px;">⚽ ${fmt(pitches, 1)} football pitches</div>
+                <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:12px;">
+                    <span style="color:#888;">m²</span><span style="color:#fff;">${fmt(areaM2, 0)}</span>
+                    <span style="color:#888;">ha</span><span style="color:#fff;">${fmt(areaHa, 2)}</span>
+                    <span style="color:#888;">ac</span><span style="color:#fff;">${fmt(areaAc, 2)}</span>
+                    <span style="color:#888;">km²</span><span style="color:#fff;">${fmt(areaKm2, 3)}</span>
+                    <span style="color:#888;">mi²</span><span style="color:#fff;">${fmt(areaMi2, 3)}</span>
                 </div>
             </div>`);
     }
@@ -404,56 +395,80 @@ window.initVentusMap = function({ config, center, zoom }) {
             map.getSource('src-polyzone-centre').setData({ type: 'FeatureCollection', features: [] });
         }
 
-        // Drawn polygon
+        // Drawn polygon — show closing line preview while drawing (3+ points)
         const lineCoords = [...polyZonePoints];
-        if (polyZoneClosed && polyZonePoints.length > 2) lineCoords.push(polyZonePoints[0]);
+        if (polyZoneClosed && polyZonePoints.length > 2) {
+            lineCoords.push(polyZonePoints[0]);
+        } else if (!polyZoneClosed && polyZonePoints.length >= 3) {
+            lineCoords.push(polyZonePoints[0]); // preview closing edge
+        }
         map.getSource('src-polyzone-line').setData({ type: 'FeatureCollection', features: lineCoords.length > 1 ? [{ type: 'Feature', geometry: { type: 'LineString', coordinates: lineCoords } }] : [] });
-        map.getSource('src-polyzone-fill').setData({ type: 'FeatureCollection', features: polyZoneClosed && polyZonePoints.length > 2 ? [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: [[...polyZonePoints, polyZonePoints[0]]] } }] : [] });
+        map.getSource('src-polyzone-fill').setData({ type: 'FeatureCollection', features: polyZonePoints.length >= 3 ? [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: [[...polyZonePoints, polyZonePoints[0]]] } }] : [] });
         map.getSource('src-polyzone-points').setData({ type: 'FeatureCollection', features: polyZonePoints.map(c => ({ type: 'Feature', geometry: { type: 'Point', coordinates: c } })) });
     }
 
     function _polyZoneUpdateDisplay() {
-        const el     = document.getElementById('polyzone-display');
-        const hint   = document.getElementById('pz-hint');
-        const lineEl = document.getElementById('pz-line');
-        const areaEl = document.getElementById('pz-area');
+        const el      = document.getElementById('polyzone-display');
+        const hint    = document.getElementById('pz-hint');
+        const areaEl  = document.getElementById('pz-area');
+        const perimEl = document.getElementById('pz-perim');
         const undoBtn = document.getElementById('btn-polyzone-undo');
         if (!el) return;
 
         undoBtn.style.display = (polyZonePhase === 'DRAW' && polyZonePoints.length > 0 && !polyZoneClosed) ? 'inline-block' : 'none';
 
         if (polyZonePhase === 'SET_CENTRE') {
-            lineEl.style.display = 'none'; areaEl.style.display = 'none';
+            areaEl.style.display = 'none'; perimEl.style.display = 'none';
             hint.innerText = 'Click map to set centre point';
             return;
         }
 
         if (polyZonePoints.length < 2) {
-            lineEl.style.display = 'none'; areaEl.style.display = 'none';
-            hint.innerText = `Centre set · Click to add vertices · Double-click to close`;
+            areaEl.style.display = 'none'; perimEl.style.display = 'none';
+            hint.innerText = 'Centre set · Click to add vertices';
             return;
         }
 
-        if (!polyZoneClosed) {
-            // Show running perimeter only
-            let runKm = 0;
-            for (let i = 1; i < polyZonePoints.length; i++) runKm += haversine(polyZonePoints[i-1][0], polyZonePoints[i-1][1], polyZonePoints[i][0], polyZonePoints[i][1]);
-            lineEl.style.display = 'block'; areaEl.style.display = 'none';
-            document.getElementById('pz-km').innerText  = fmt(runKm, 2);
-            document.getElementById('pz-m').innerText   = fmt(runKm * 1000, 0);
-            hint.innerText = 'Double-click to close polygon';
-        } else {
-            const { areaKm2, areaHa, areaAc, perimKm } = _polyZoneCalcArea(polyZonePoints);
-            const areaM2   = areaKm2 * 1000000;
-            const pitches  = areaM2 / 7140;
-            lineEl.style.display = 'none'; areaEl.style.display = 'block';
-            document.getElementById('pz-pkm').innerText  = fmt(perimKm, 2);
-            document.getElementById('pz-km2').innerText  = fmt(areaKm2, 4);
-            document.getElementById('pz-ha').innerText   = fmt(areaHa, 2);
-            document.getElementById('pz-ac').innerText   = fmt(areaAc, 2);
-            document.getElementById('pz-m2').innerText   = fmt(areaM2, 0);
-            document.getElementById('pz-pitch').innerText = fmt(pitches, 1);
-            hint.innerText = 'Click ⬡ Poly Zone again to reset';
+        if (polyZonePoints.length === 2) {
+            areaEl.style.display = 'none'; perimEl.style.display = 'none';
+            hint.innerText = 'Add at least one more vertex for area';
+            return;
+        }
+
+        // 3+ points — calculate live area
+        const { areaKm2, areaHa, areaAc, perimKm } = _polyZoneCalcArea(polyZonePoints);
+        const areaM2  = areaKm2 * 1000000;
+        const areaMi2 = areaKm2 * 0.386102;
+        const pitches = areaM2 / 7140;
+        const statusLine = polyZoneClosed
+            ? 'Click ⬡ Poly Zone again to reset'
+            : 'Double-click or click near start to close';
+
+        // Update bottom panel for undo hint only
+        areaEl.style.display  = 'none';
+        perimEl.style.display = 'none';
+        hint.innerText = statusLine;
+
+        // Show full result as map popup anchored to centre — matches radius area style
+        // ✕ hides popup but keeps polygon drawn on map
+        if (polyZoneCentre) {
+            openPopup([polyZoneCentre.lon, polyZoneCentre.lat], `
+                <div style="font-family:monospace;background:#000;padding:10px 12px;border:1px solid #ff6600;border-radius:4px;min-width:220px;position:relative;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <b style="color:#ff6600;font-size:13px;">⬡ Poly Zone</b>
+                        <span onclick="(function(){var p=document.querySelector('.maplibregl-popup');if(p)p.style.display='none';})()" style="color:#555;font-size:14px;cursor:pointer;line-height:1;padding:0 2px;user-select:none;" title="Close popup, keep polygon">✕</span>
+                    </div>
+                    <div style="color:#ffae00;font-size:13px;margin-bottom:10px;">⚽ ${fmt(pitches, 1)} football pitches</div>
+                    <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:12px;">
+                        <span style="color:#888;">m²</span><span style="color:#fff;">${fmt(areaM2, 0)}</span>
+                        <span style="color:#888;">ha</span><span style="color:#fff;">${fmt(areaHa, 2)}</span>
+                        <span style="color:#888;">ac</span><span style="color:#fff;">${fmt(areaAc, 2)}</span>
+                        <span style="color:#888;">km²</span><span style="color:#fff;">${fmt(areaKm2, 4)}</span>
+                        <span style="color:#888;">mi²</span><span style="color:#fff;">${fmt(areaMi2, 3)}</span>
+                        <span style="color:#888;">perim</span><span style="color:#fff;">${fmt(perimKm, 2)} km</span>
+                    </div>
+                    ${!polyZoneClosed ? `<div style="color:#555;font-size:9px;margin-top:8px;border-top:1px solid #222;padding-top:6px;">${statusLine}</div>` : ''}
+                </div>`);
         }
     }
 
@@ -462,6 +477,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         polyZoneCentre  = null;
         polyZonePoints  = [];
         polyZoneClosed  = false;
+        closeActivePopup();
         _polyZoneUpdateLayers();
         _polyZoneUpdateDisplay();
         const el = document.getElementById('polyzone-display');
@@ -510,6 +526,16 @@ window.initVentusMap = function({ config, center, zoom }) {
             _polyZoneUpdateLayers();
             _polyZoneUpdateDisplay();
         } else {
+            // Auto-snap close: if 3+ points exist and click is within 400m of first point, close
+            if (polyZonePoints.length >= 3) {
+                const distToFirst = haversine(lon, lat, polyZonePoints[0][0], polyZonePoints[0][1]);
+                if (distToFirst <= 0.4) {
+                    polyZoneClosed = true;
+                    _polyZoneUpdateLayers();
+                    _polyZoneUpdateDisplay();
+                    return;
+                }
+            }
             // Clamp point to boundary and add
             const clamped = _polyZoneClampToRadius(lon, lat);
             polyZonePoints.push(clamped);

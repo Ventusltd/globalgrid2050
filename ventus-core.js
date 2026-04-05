@@ -84,16 +84,15 @@ window.initVentusMap = function({ config, center, zoom }) {
     let radiusAreaCenter = null;
 
     // ── POLY ZONE STATE ───────────────────────────────────────────────────────────
-    // Free-draw polygon constrained within a user-defined radius (max 5km).
-    // Phase 1: user clicks to set centre + boundary circle.
-    // Phase 2: user draws vertices; any point outside the radius is clamped to it.
-    const POLY_ZONE_MAX_KM = 5;
-    let polyZoneMode       = false;
-    let polyZonePhase      = 'SET_CENTRE'; // 'SET_CENTRE' | 'DRAW'
-    let polyZoneCentre     = null;         // { lon, lat }
-    let polyZoneRadiusKm   = 1;            // user-configurable, 0.1–5
-    let polyZonePoints     = [];
-    let polyZoneClosed     = false;
+    // Drag-handle polygon editor. Click to place a starting triangle,
+    // drag any vertex to reshape freely into any polygon.
+    // Click any edge midpoint to add a new vertex and split that edge.
+    let polyZoneMode      = false;
+    let polyZonePoints    = [];   // array of [lon, lat]
+    let polyZoneDragging  = false;
+    let polyZoneDragIdx   = -1;   // index of vertex being dragged
+    let polyZoneHoverIdx  = -1;   // index of vertex under cursor (-1 = none)
+    let polyZonePopupHidden = false; // user hit ✕ — keep shape, hide popup
 
     const urlCache = {};
     let globalSubsData  = null;
@@ -334,44 +333,26 @@ window.initVentusMap = function({ config, center, zoom }) {
 
     // ── Poly Zone Tool ────────────────────────────────────────────────────────────
     // Free-draw polygon constrained within a configurable radius (0.1–5km).
-    // Phase 1 — SET_CENTRE: first click drops the centre and draws the boundary guide.
-    // Phase 2 — DRAW: subsequent clicks add vertices clamped inside the boundary.
-    //           Double-click closes and shows the area result.
+    // Click to place triangle → drag vertices → click edge to add vertex.
 
-    function _polyZoneClampToRadius(lon, lat) {
-        // If the point is inside the radius, return it unchanged.
-        // If outside, project it back to the boundary along the bearing from centre.
-        const d = haversine(polyZoneCentre.lon, polyZoneCentre.lat, lon, lat);
-        if (d <= polyZoneRadiusKm) return [lon, lat];
-
-        // Bearing from centre to clicked point (radians)
-        const R = Math.PI / 180;
-        const dLon = (lon - polyZoneCentre.lon) * R;
-        const lat1 = polyZoneCentre.lat * R;
-        const lat2 = lat * R;
-        const y = Math.sin(dLon) * Math.cos(lat2);
-        const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-        const bearing = Math.atan2(y, x); // radians
-
-        // Project centre outward by exactly polyZoneRadiusKm along that bearing
-        const earthR = 6371;
-        const angDist = polyZoneRadiusKm / earthR;
-        const newLat = Math.asin(Math.sin(lat1) * Math.cos(angDist) + Math.cos(lat1) * Math.sin(angDist) * Math.cos(bearing));
-        const newLon = polyZoneCentre.lon * R + Math.atan2(
-            Math.sin(bearing) * Math.sin(angDist) * Math.cos(lat1),
-            Math.cos(angDist) - Math.sin(lat1) * Math.sin(newLat)
-        );
-        return [newLon / R, newLat / R];
+    function _polyZoneDefaultTriangle(lon, lat) {
+        const earthR = 6371, d = 0.7, deg = Math.PI / 180;
+        return [0, 120, 240].map(bearingDeg => {
+            const b = bearingDeg * deg, lat1 = lat * deg, ad = d / earthR;
+            const lat2 = Math.asin(Math.sin(lat1) * Math.cos(ad) + Math.cos(lat1) * Math.sin(ad) * Math.cos(b));
+            const lon2 = lon * deg + Math.atan2(Math.sin(b) * Math.sin(ad) * Math.cos(lat1), Math.cos(ad) - Math.sin(lat1) * Math.sin(lat2));
+            return [lon2 / deg, lat2 / deg];
+        });
     }
 
     function _polyZoneCalcArea(pts) {
-        if (pts.length < 3) return { areaKm2: 0, areaHa: 0, areaAc: 0, perimKm: 0 };
+        if (pts.length < 3) return { areaKm2: 0, areaHa: 0, areaAc: 0, areaMi2: 0, areaM2: 0, perimKm: 0, pitches: 0 };
         let area = 0;
         const R = 6371;
         for (let i = 0; i < pts.length; i++) {
             const j  = (i + 1) % pts.length;
-            const xi = pts[i][0] * Math.PI / 180; const yi = pts[i][1] * Math.PI / 180;
-            const xj = pts[j][0] * Math.PI / 180; const yj = pts[j][1] * Math.PI / 180;
+            const xi = pts[i][0] * Math.PI / 180, yi = pts[i][1] * Math.PI / 180;
+            const xj = pts[j][0] * Math.PI / 180, yj = pts[j][1] * Math.PI / 180;
             area += (xj - xi) * (2 + Math.sin(yi) + Math.sin(yj));
         }
         const areaKm2 = Math.abs(area) * R * R / 2;
@@ -380,103 +361,76 @@ window.initVentusMap = function({ config, center, zoom }) {
             const j = (i + 1) % pts.length;
             perimKm += haversine(pts[i][0], pts[i][1], pts[j][0], pts[j][1]);
         }
-        return { areaKm2, areaHa: areaKm2 * 100, areaAc: areaKm2 * 247.105, perimKm };
+        const areaM2 = areaKm2 * 1000000;
+        return { areaKm2, areaHa: areaM2 / 10000, areaAc: areaM2 / 4046.85642, areaMi2: areaKm2 * 0.386102, areaM2, perimKm, pitches: areaM2 / 7140 };
     }
 
     function _polyZoneUpdateLayers() {
-        if (!map.getSource('src-polyzone-boundary')) return;
-
-        // Boundary guide circle
-        if (polyZoneCentre) {
-            map.getSource('src-polyzone-boundary').setData(createGeoJSONCircle(polyZoneCentre.lon, polyZoneCentre.lat, polyZoneRadiusKm));
-            map.getSource('src-polyzone-centre').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [polyZoneCentre.lon, polyZoneCentre.lat] } }] });
-        } else {
-            map.getSource('src-polyzone-boundary').setData({ type: 'FeatureCollection', features: [] });
-            map.getSource('src-polyzone-centre').setData({ type: 'FeatureCollection', features: [] });
+        if (!map.getSource('src-polyzone-fill')) return;
+        const n = polyZonePoints.length;
+        // Clear old boundary/centre sources from previous tool version
+        if (map.getSource('src-polyzone-boundary')) map.getSource('src-polyzone-boundary').setData({ type: 'FeatureCollection', features: [] });
+        if (map.getSource('src-polyzone-centre'))   map.getSource('src-polyzone-centre').setData({ type: 'FeatureCollection', features: [] });
+        if (n < 3) {
+            map.getSource('src-polyzone-fill').setData({ type: 'FeatureCollection', features: [] });
+            map.getSource('src-polyzone-line').setData({ type: 'FeatureCollection', features: [] });
+            map.getSource('src-polyzone-points').setData({ type: 'FeatureCollection', features: [] });
+            return;
         }
+        const ring = [...polyZonePoints, polyZonePoints[0]];
+        map.getSource('src-polyzone-fill').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: [ring] } }] });
+        map.getSource('src-polyzone-line').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: ring } }] });
+        // Vertex dots
+        const vFeatures = polyZonePoints.map((c, i) => ({ type: 'Feature', properties: { kind: 'vertex', idx: i }, geometry: { type: 'Point', coordinates: c } }));
+        // Edge midpoint dots (dimmer — affordance for adding vertices)
+        const mFeatures = polyZonePoints.map((c, i) => {
+            const j = (i + 1) % n;
+            return { type: 'Feature', properties: { kind: 'mid', edgeIdx: i }, geometry: { type: 'Point', coordinates: [(c[0] + polyZonePoints[j][0]) / 2, (c[1] + polyZonePoints[j][1]) / 2] } };
+        });
+        map.getSource('src-polyzone-points').setData({ type: 'FeatureCollection', features: [...vFeatures, ...mFeatures] });
+    }
 
-        // Drawn polygon — show closing line preview while drawing (3+ points)
-        const lineCoords = [...polyZonePoints];
-        if (polyZoneClosed && polyZonePoints.length > 2) {
-            lineCoords.push(polyZonePoints[0]);
-        } else if (!polyZoneClosed && polyZonePoints.length >= 3) {
-            lineCoords.push(polyZonePoints[0]); // preview closing edge
-        }
-        map.getSource('src-polyzone-line').setData({ type: 'FeatureCollection', features: lineCoords.length > 1 ? [{ type: 'Feature', geometry: { type: 'LineString', coordinates: lineCoords } }] : [] });
-        map.getSource('src-polyzone-fill').setData({ type: 'FeatureCollection', features: polyZonePoints.length >= 3 ? [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: [[...polyZonePoints, polyZonePoints[0]]] } }] : [] });
-        map.getSource('src-polyzone-points').setData({ type: 'FeatureCollection', features: polyZonePoints.map(c => ({ type: 'Feature', geometry: { type: 'Point', coordinates: c } })) });
+    function _polyZoneShowPopup() {
+        if (polyZonePoints.length < 3 || polyZonePopupHidden) return;
+        const { areaKm2, areaHa, areaAc, areaMi2, areaM2, perimKm, pitches } = _polyZoneCalcArea(polyZonePoints);
+        const centLon = polyZonePoints.reduce((s, p) => s + p[0], 0) / polyZonePoints.length;
+        const centLat = polyZonePoints.reduce((s, p) => s + p[1], 0) / polyZonePoints.length;
+        openPopup([centLon, centLat], `
+            <div style="font-family:monospace;background:#000;padding:10px 12px;border:1px solid #ff6600;border-radius:4px;min-width:220px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <b style="color:#ff6600;font-size:13px;">⬡ Poly Zone</b>
+                    <span onclick="(function(){var p=document.querySelector('.maplibregl-popup');if(p)p.style.display='none';})()" style="color:#555;font-size:14px;cursor:pointer;padding:0 2px;user-select:none;" title="Close popup, keep polygon">✕</span>
+                </div>
+                <div style="color:#ffae00;font-size:13px;margin-bottom:10px;">⚽ ${fmt(pitches, 1)} football pitches</div>
+                <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:12px;">
+                    <span style="color:#888;">m²</span><span style="color:#fff;">${fmt(areaM2, 0)}</span>
+                    <span style="color:#888;">ha</span><span style="color:#fff;">${fmt(areaHa, 2)}</span>
+                    <span style="color:#888;">ac</span><span style="color:#fff;">${fmt(areaAc, 2)}</span>
+                    <span style="color:#888;">km²</span><span style="color:#fff;">${fmt(areaKm2, 4)}</span>
+                    <span style="color:#888;">mi²</span><span style="color:#fff;">${fmt(areaMi2, 3)}</span>
+                    <span style="color:#888;">perim</span><span style="color:#fff;">${fmt(perimKm, 2)} km</span>
+                </div>
+                <div style="color:#555;font-size:9px;margin-top:8px;">Drag vertices · Click edge midpoint to add</div>
+            </div>`);
     }
 
     function _polyZoneUpdateDisplay() {
-        const el      = document.getElementById('polyzone-display');
+        const undoBtn = document.getElementById('btn-polyzone-undo');
         const hint    = document.getElementById('pz-hint');
         const areaEl  = document.getElementById('pz-area');
         const perimEl = document.getElementById('pz-perim');
-        const undoBtn = document.getElementById('btn-polyzone-undo');
-        if (!el) return;
-
-        undoBtn.style.display = (polyZonePhase === 'DRAW' && polyZonePoints.length > 0 && !polyZoneClosed) ? 'inline-block' : 'none';
-
-        if (polyZonePhase === 'SET_CENTRE') {
-            areaEl.style.display = 'none'; perimEl.style.display = 'none';
-            hint.innerText = 'Click map to set centre point';
-            return;
-        }
-
-        if (polyZonePoints.length < 2) {
-            areaEl.style.display = 'none'; perimEl.style.display = 'none';
-            hint.innerText = 'Centre set · Click to add vertices';
-            return;
-        }
-
-        if (polyZonePoints.length === 2) {
-            areaEl.style.display = 'none'; perimEl.style.display = 'none';
-            hint.innerText = 'Add at least one more vertex for area';
-            return;
-        }
-
-        // 3+ points — calculate live area
-        const { areaKm2, areaHa, areaAc, perimKm } = _polyZoneCalcArea(polyZonePoints);
-        const areaM2  = areaKm2 * 1000000;
-        const areaMi2 = areaKm2 * 0.386102;
-        const pitches = areaM2 / 7140;
-        const statusLine = polyZoneClosed
-            ? 'Click ⬡ Poly Zone again to reset'
-            : 'Double-click or click near start to close';
-
-        // Update bottom panel for undo hint only
-        areaEl.style.display  = 'none';
-        perimEl.style.display = 'none';
-        hint.innerText = statusLine;
-
-        // Show full result as map popup anchored to centre — matches radius area style
-        // ✕ hides popup but keeps polygon drawn on map
-        if (polyZoneCentre) {
-            openPopup([polyZoneCentre.lon, polyZoneCentre.lat], `
-                <div style="font-family:monospace;background:#000;padding:10px 12px;border:1px solid #ff6600;border-radius:4px;min-width:220px;position:relative;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                        <b style="color:#ff6600;font-size:13px;">⬡ Poly Zone</b>
-                        <span onclick="(function(){var p=document.querySelector('.maplibregl-popup');if(p)p.style.display='none';})()" style="color:#555;font-size:14px;cursor:pointer;line-height:1;padding:0 2px;user-select:none;" title="Close popup, keep polygon">✕</span>
-                    </div>
-                    <div style="color:#ffae00;font-size:13px;margin-bottom:10px;">⚽ ${fmt(pitches, 1)} football pitches</div>
-                    <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:12px;">
-                        <span style="color:#888;">m²</span><span style="color:#fff;">${fmt(areaM2, 0)}</span>
-                        <span style="color:#888;">ha</span><span style="color:#fff;">${fmt(areaHa, 2)}</span>
-                        <span style="color:#888;">ac</span><span style="color:#fff;">${fmt(areaAc, 2)}</span>
-                        <span style="color:#888;">km²</span><span style="color:#fff;">${fmt(areaKm2, 4)}</span>
-                        <span style="color:#888;">mi²</span><span style="color:#fff;">${fmt(areaMi2, 3)}</span>
-                        <span style="color:#888;">perim</span><span style="color:#fff;">${fmt(perimKm, 2)} km</span>
-                    </div>
-                    ${!polyZoneClosed ? `<div style="color:#555;font-size:9px;margin-top:8px;border-top:1px solid #222;padding-top:6px;">${statusLine}</div>` : ''}
-                </div>`);
-        }
+        if (areaEl)  areaEl.style.display  = 'none';
+        if (perimEl) perimEl.style.display = 'none';
+        if (undoBtn) undoBtn.style.display = polyZonePoints.length > 3 ? 'inline-block' : 'none';
+        if (hint) hint.innerText = polyZonePoints.length === 0 ? 'Click map to place triangle' : 'Drag vertices · Click edge to add vertex · ↩ removes last';
     }
 
     function _polyZoneClear() {
-        polyZonePhase   = 'SET_CENTRE';
-        polyZoneCentre  = null;
-        polyZonePoints  = [];
-        polyZoneClosed  = false;
+        polyZonePoints      = [];
+        polyZoneDragging    = false;
+        polyZoneDragIdx     = -1;
+        polyZoneHoverIdx    = -1;
+        polyZonePopupHidden = false;
         closeActivePopup();
         _polyZoneUpdateLayers();
         _polyZoneUpdateDisplay();
@@ -485,9 +439,10 @@ window.initVentusMap = function({ config, center, zoom }) {
     }
 
     function polyZoneUndo() {
-        if (polyZonePhase !== 'DRAW' || polyZonePoints.length === 0 || polyZoneClosed) return;
+        if (polyZonePoints.length <= 3) { _polyZoneClear(); return; }
         polyZonePoints.pop();
         _polyZoneUpdateLayers();
+        _polyZoneShowPopup();
         _polyZoneUpdateDisplay();
     }
 
@@ -496,59 +451,87 @@ window.initVentusMap = function({ config, center, zoom }) {
         const btn = document.getElementById('btn-polyzone');
         if (btn) { btn.classList.toggle('active', polyZoneMode); btn.setAttribute('aria-pressed', polyZoneMode); }
         const panel = document.getElementById('polyzone-panel');
-        if (panel) panel.style.display = polyZoneMode ? 'block' : 'none';
+        if (panel) panel.style.display = 'none';
         map.getCanvas().style.cursor = polyZoneMode ? 'crosshair' : '';
-
         if (polyZoneMode) {
-            // Deactivate other tools
             if (radiusMode)     toggleRadiusMode();
             if (radiusAreaMode) toggleRadiusAreaMode();
             if (measureMode)    toggleMeasureMode();
             const el = document.getElementById('polyzone-display');
-            if (el) { el.style.display = 'block'; }
+            if (el) el.style.display = 'block';
             _polyZoneUpdateDisplay();
         } else {
             _polyZoneClear();
         }
     }
 
-    function _polyZoneHandleClick(lon, lat) {
-        if (polyZoneClosed) { _polyZoneClear(); return; } // reset on click after close
-
-        if (polyZonePhase === 'SET_CENTRE') {
-            // Read radius from input
-            const inp = document.getElementById('polyzone-radius-input');
-            const raw = inp ? parseFloat(inp.value) : 1;
-            polyZoneRadiusKm = (!isNaN(raw) && raw >= 0.1 && raw <= POLY_ZONE_MAX_KM) ? raw : 1;
-            polyZoneCentre = { lon, lat };
-            polyZonePhase  = 'DRAW';
-            polyZonePoints = [];
-            _polyZoneUpdateLayers();
-            _polyZoneUpdateDisplay();
-        } else {
-            // Auto-snap close: if 3+ points exist and click is within 400m of first point, close
-            if (polyZonePoints.length >= 3) {
-                const distToFirst = haversine(lon, lat, polyZonePoints[0][0], polyZonePoints[0][1]);
-                if (distToFirst <= 0.4) {
-                    polyZoneClosed = true;
-                    _polyZoneUpdateLayers();
-                    _polyZoneUpdateDisplay();
-                    return;
-                }
+    // ── Poly Zone mouse handlers — wired into map events below ────────────────────
+    function _polyZoneOnClick(e) {
+        if (polyZoneDragging) return;
+        const lon = e.lngLat.lng, lat = e.lngLat.lat;
+        if (polyZonePoints.length === 0) {
+            polyZonePoints      = _polyZoneDefaultTriangle(lon, lat);
+            polyZonePopupHidden = false;
+            _polyZoneUpdateLayers(); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
+            return;
+        }
+        // Check for click near edge midpoint — insert vertex
+        const px = map.project([lon, lat]);
+        for (let i = 0; i < polyZonePoints.length; i++) {
+            const j   = (i + 1) % polyZonePoints.length;
+            const mid = [(polyZonePoints[i][0] + polyZonePoints[j][0]) / 2, (polyZonePoints[i][1] + polyZonePoints[j][1]) / 2];
+            const mpx = map.project(mid);
+            const dx = px.x - mpx.x, dy = px.y - mpx.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 14) {
+                polyZonePoints.splice(j, 0, [lon, lat]);
+                _polyZoneUpdateLayers(); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
+                return;
             }
-            // Clamp point to boundary and add
-            const clamped = _polyZoneClampToRadius(lon, lat);
-            polyZonePoints.push(clamped);
-            _polyZoneUpdateLayers();
-            _polyZoneUpdateDisplay();
+        }
+        // Click on empty space — reset with new triangle
+        polyZonePoints      = _polyZoneDefaultTriangle(lon, lat);
+        polyZonePopupHidden = false;
+        _polyZoneUpdateLayers(); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
+    }
+
+    function _polyZoneOnMouseDown(e) {
+        if (!polyZoneMode || polyZonePoints.length < 3) return;
+        const px = map.project(e.lngLat);
+        for (let i = 0; i < polyZonePoints.length; i++) {
+            const vpx = map.project(polyZonePoints[i]);
+            const dx = px.x - vpx.x, dy = px.y - vpx.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 14) {
+                polyZoneDragging = true; polyZoneDragIdx = i;
+                map.dragPan.disable();
+                map.getCanvas().style.cursor = 'grabbing';
+                e.preventDefault(); return;
+            }
         }
     }
 
-    function _polyZoneHandleDblClick() {
-        if (polyZonePhase !== 'DRAW' || polyZonePoints.length < 3) return;
-        polyZoneClosed = true;
-        _polyZoneUpdateLayers();
-        _polyZoneUpdateDisplay();
+    function _polyZoneOnMouseMove(e) {
+        if (!polyZoneMode || polyZonePoints.length < 3) return;
+        if (polyZoneDragging && polyZoneDragIdx >= 0) {
+            polyZonePoints[polyZoneDragIdx] = [e.lngLat.lng, e.lngLat.lat];
+            polyZonePopupHidden = false;
+            _polyZoneUpdateLayers(); _polyZoneShowPopup(); return;
+        }
+        const px = map.project(e.lngLat);
+        let found = -1;
+        for (let i = 0; i < polyZonePoints.length; i++) {
+            const vpx = map.project(polyZonePoints[i]);
+            const dx = px.x - vpx.x, dy = px.y - vpx.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 14) { found = i; break; }
+        }
+        if (found !== polyZoneHoverIdx) { polyZoneHoverIdx = found; _polyZoneUpdateLayers(); }
+        map.getCanvas().style.cursor = found >= 0 ? 'grab' : 'crosshair';
+    }
+
+    function _polyZoneOnMouseUp() {
+        if (!polyZoneDragging) return;
+        polyZoneDragging = false; polyZoneDragIdx = -1;
+        map.dragPan.enable();
+        map.getCanvas().style.cursor = 'crosshair';
     }
 
     // ── Clock ─────────────────────────────────────────────────────────────────────
@@ -1160,10 +1143,16 @@ window.initVentusMap = function({ config, center, zoom }) {
 
         // ── Map Events ────────────────────────────────────────────────────────────
 
-        // BUG FIX: shared deferred-click guard for all polygon drawing tools.
-        // Both measureMode and polyZoneMode use a 220ms timeout so that a
-        // double-click cancel can clear it before a ghost vertex is committed.
+        // BUG FIX: shared deferred-click guard for measure tool.
+        // 220ms timeout so dblclick can cancel before ghost vertex is committed.
         let _pendingToolClick = null;
+
+        // Poly Zone drag — needs mousedown on canvas before map click
+        map.getCanvas().addEventListener('mousedown', e => {
+            if (!polyZoneMode) return;
+            const lngLat = map.unproject([e.offsetX, e.offsetY]);
+            _polyZoneOnMouseDown({ lngLat, preventDefault: () => e.preventDefault() });
+        });
 
         map.on('click', e => {
             if (measureMode) {
@@ -1177,13 +1166,7 @@ window.initVentusMap = function({ config, center, zoom }) {
                 }, 220);
                 return;
             }
-            if (polyZoneMode) {
-                _pendingToolClick = setTimeout(() => {
-                    _pendingToolClick = null;
-                    _polyZoneHandleClick(e.lngLat.lng, e.lngLat.lat);
-                }, 220);
-                return;
-            }
+            if (polyZoneMode) { _polyZoneOnClick(e); return; }
             if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
             if (radiusAreaMode) { doRadiusAreaMeasure(e.lngLat.lng, e.lngLat.lat); return; }
 
@@ -1214,7 +1197,6 @@ window.initVentusMap = function({ config, center, zoom }) {
 
         map.on('dblclick', e => {
             if (_pendingToolClick) { clearTimeout(_pendingToolClick); _pendingToolClick = null; }
-            if (polyZoneMode) { e.preventDefault(); _polyZoneHandleDblClick(); return; }
             if (!measureMode || measurePoints.length < 2) return;
             e.preventDefault();
             measureClosed = true;
@@ -1222,8 +1204,14 @@ window.initVentusMap = function({ config, center, zoom }) {
             updateMeasureDisplay();
         });
 
+        // Global mouseup to end poly zone drag anywhere on page
+        window.addEventListener('mouseup', () => { if (polyZoneMode) _polyZoneOnMouseUp(); });
+
         map.on('mousemove', e => {
-            if (measureMode || radiusMode || radiusAreaMode || polyZoneMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
+            // Poly zone drag takes priority
+            if (polyZoneMode) { _polyZoneOnMouseMove(e); return; }
+
+            if (measureMode || radiusMode || radiusAreaMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
 
             // PERF: hard-exit if nothing is visible — zero query cost
             if (!_visibleHoverIds.length) { map.getCanvas().style.cursor = ''; return; }
@@ -1236,10 +1224,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (_lastMouseMoveRaf) return;
             _lastMouseMoveRaf = requestAnimationFrame(() => {
                 _lastMouseMoveRaf = null;
-                // All visible interactive layers tested for hover — includes line layers
-                // which carry clickable popup data (voltage, topology etc.)
-                // Uses _visibleHoverIds (not _visibleInteractiveIds) so cosmetic-only
-                // layers can be excluded from hover without affecting click behaviour.
                 const features = map.queryRenderedFeatures(e.point, { layers: _visibleHoverIds });
                 map.getCanvas().style.cursor = features.length ? 'pointer' : '';
             });

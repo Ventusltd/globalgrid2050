@@ -7,7 +7,8 @@ description: GlobalGrid2050 is an open engineering and procurement platform. Rea
 
 # Geodesic Maps and More 
 
-# GlobalGrid2050 — How We Built a Production GIS Platform for UK Energy Infrastructure in 17 Days
+## GlobalGrid2050
+How We Built a Production GIS Platform for UK Energy Infrastructure in 17 Days
 
 **By Ventus Cables & Connectivity**  
 **Published: April 2026**

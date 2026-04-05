@@ -1,19 +1,23 @@
 import requests
 import json
-import math
 
 # Use the primary, fast Overpass API endpoint
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
 def build_query() -> str:
-    # 1. Target all Eurostar route relations (train lines)
-    # 2. Extract the specific stops, entry-only, and exit-only nodes from those routes
-    # This ensures we get Eurostar stations across all of Europe without needing a bounding box.
+    # 1. Target all Eurostar route relations
+    # 2. Ask for the full line geometry (out geom)
+    # 3. Ask for the station nodes/platforms
     return """[out:json][timeout:90];
     (
       relation["route"="train"]["network"~"Eurostar",i];
       relation["route"="train"]["operator"~"Eurostar",i];
     )->.eurostar_routes;
+    
+    // Output the physical track geometries!
+    .eurostar_routes out geom;
+    
+    // Output the station footprint geometries
     (
       node(r.eurostar_routes:"stop");
       node(r.eurostar_routes:"stop_entry_only");
@@ -49,11 +53,10 @@ def process_data(data: dict) -> list:
     features = []
     seen = set()
 
-    def handle_element(el_id, tags, lon, lat):
+    def handle_station(el_id, tags, lon, lat):
         if el_id in seen: return
         seen.add(el_id)
         
-        # Fallback gracefully if the station name tag is missing (common on platform ways)
         name = tags.get("name", tags.get("description", "Eurostar Station"))
         operator = tags.get("operator", "Eurostar")
         
@@ -63,40 +66,69 @@ def process_data(data: dict) -> list:
                 "name": name,
                 "operator": operator,
                 "osm_id": el_id,
-                "type": "eurostar_station"
+                "type": "eurostar_station" # Matches point layer config
             },
             "geometry": {"type": "Point", "coordinates": [round(lon, 6), round(lat, 6)]}
         })
 
-    # Process Nodes
+    # Process Nodes (Stations)
     for node in nodes.values():
         if "tags" in node:
-            handle_element(node["id"], node["tags"], node["lon"], node["lat"])
+            handle_station(node["id"], node["tags"], node["lon"], node["lat"])
 
     # Process Ways (Station platforms/buildings)
     for way in ways.values():
-        ring = way_to_ring(way, nodes)
-        if ring:
-            c_lon, c_lat = centroid(ring)
-            handle_element(way["id"], way["tags"], c_lon, c_lat)
+        if way.get("tags", {}).get("public_transport") in ("platform", "station") or way.get("tags", {}).get("railway") == "platform":
+            ring = way_to_ring(way, nodes)
+            if ring:
+                c_lon, c_lat = centroid(ring)
+                handle_station(way["id"], way["tags"], c_lon, c_lat)
 
-    # Process Relations (Complex station layouts)
+    # Process Relations (Routes vs Complex Stations)
     for rel in relations:
-        outer_coords = []
-        for member in rel.get("members", []):
-            if member["type"] == "way" and member.get("role") in ("outer", ""):
-                w = ways.get(member["ref"])
-                if w:
-                    ring = way_to_ring(w, nodes)
-                    if ring: outer_coords.extend(ring)
-        if outer_coords:
-            c_lon, c_lat = centroid(outer_coords)
-            handle_element(rel["id"], rel["tags"], c_lon, c_lat)
+        tags = rel.get("tags", {})
+        
+        # 1. EXTRACT THE TRACK ROUTE GEOMETRIES
+        if tags.get("route") == "train":
+            multiline = []
+            for member in rel.get("members", []):
+                if member["type"] == "way" and "geometry" in member:
+                    line = [[pt["lon"], pt["lat"]] for pt in member["geometry"]]
+                    if len(line) >= 2:
+                        multiline.append(line)
+            
+            if multiline:
+                features.append({
+                    "type": "Feature",
+                    "properties": {
+                        "name": tags.get("name", "Eurostar Route"),
+                        "operator": tags.get("operator", "Eurostar"),
+                        "osm_id": rel["id"],
+                        "type": "route" # Matches line layer config!
+                    },
+                    "geometry": {
+                        "type": "MultiLineString",
+                        "coordinates": multiline
+                    }
+                })
+        
+        # 2. Extract MultiPolygon Stations
+        else:
+            outer_coords = []
+            for member in rel.get("members", []):
+                if member["type"] == "way" and member.get("role") in ("outer", ""):
+                    w = ways.get(member["ref"])
+                    if w:
+                        ring = way_to_ring(w, nodes)
+                        if ring: outer_coords.extend(ring)
+            if outer_coords:
+                c_lon, c_lat = centroid(outer_coords)
+                handle_station(rel["id"], rel["tags"], c_lon, c_lat)
 
     return features
 
 def main():
-    print("Fetching Eurostar stations across Europe...")
+    print("Fetching Eurostar routes and stations across Europe...")
     query = build_query()
     try:
         res = requests.post(OVERPASS_URL, data={"data": query}, timeout=90)
@@ -109,24 +141,30 @@ def main():
     features = process_data(raw_data)
     
     # Deduplicate overlapping nodes and platforms (within ~200m)
-    # Increased tolerance slightly because major international terminals are massive
     tol = 200.0 / 111320.0
     kept = []
+    
     for f in features:
+        # Do not attempt to deduplicate or modify LineStrings!
+        if f["geometry"]["type"] == "MultiLineString":
+            kept.append(f)
+            continue
+            
         lon, lat = f["geometry"]["coordinates"]
         dup = False
         for k in kept:
-            klon, klat = k["geometry"]["coordinates"]
-            if abs(lon - klon) < tol and abs(lat - klat) < tol:
-                dup = True
-                break
+            if k["geometry"]["type"] == "Point":
+                klon, klat = k["geometry"]["coordinates"]
+                if abs(lon - klon) < tol and abs(lat - klat) < tol:
+                    dup = True
+                    break
         if not dup: kept.append(f)
 
     geojson = {"type": "FeatureCollection", "features": kept}
     with open("eurostar.geojson", "w", encoding="utf-8") as f:
         json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
         
-    print(f"Saved {len(kept)} Eurostar locations to eurostar.geojson")
+    print(f"Saved {len(kept)} Eurostar features (routes and stations) to eurostar.geojson")
 
 if __name__ == "__main__":
     main()

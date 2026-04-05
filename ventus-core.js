@@ -84,14 +84,16 @@ window.initVentusMap = function({ config, center, zoom }) {
     let radiusAreaCenter = null;
 
     // ── POLY ZONE STATE ───────────────────────────────────────────────────────────
-    // Drag-handle polygon editor. Click to place a starting triangle,
-    // drag any vertex to reshape freely into any polygon.
-    // Click any edge midpoint to add a new vertex and split that edge.
+    // Editable rubber-band polygon. Initializes as a 24-point circle based on 
+    // the radius input, then nodes can be dragged to perfectly trace assets.
+    const POLY_ZONE_MAX_KM  = 160;
     let polyZoneMode        = false;
     let polyZonePoints      = [];
     let polyZoneDragging    = false;
     let polyZoneDragIdx     = -1;
+    let polyZoneHoverIdx    = -1;
     let polyZoneJustDragged = false;
+    let polyZoneRadiusKm    = 1;
 
     const urlCache = {};
     let globalSubsData  = null;
@@ -255,6 +257,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         if (!measureMode) { clearMeasure(); } else {
             if (radiusMode) toggleRadiusMode();
             if (radiusAreaMode) toggleRadiusAreaMode();
+            if (polyZoneMode) togglePolyZoneMode();
             document.getElementById('measure-display').style.display = 'block'; updateMeasureDisplay();
         }
     }
@@ -274,6 +277,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         
         if (radiusAreaMode && radiusMode) toggleRadiusMode();
         if (radiusAreaMode && measureMode) toggleMeasureMode();
+        if (radiusAreaMode && polyZoneMode) togglePolyZoneMode();
         
         if (!radiusAreaMode) { 
             if(map.getSource('src-radius-area')) {
@@ -281,7 +285,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             }
             radiusAreaCenter = null; 
             if (radiusAreaMarker) { radiusAreaMarker.remove(); radiusAreaMarker = null; }
-            // BUG FIX: close only the tracked popup, not a random first popup in DOM
             closeActivePopup();
         }
     }
@@ -311,8 +314,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         const areaMi2  = areaKm2 * 0.386102;
         const pitches  = areaM2 / 7140;
 
-        // Full expanded popup — all units always visible.
-        // ✕ closes the popup but keeps the circle on the map for browsing.
         openPopup([lon, lat], `
             <div style="font-family:monospace;background:#000;padding:10px 12px;border:1px solid #ff00ff;border-radius:4px;min-width:220px;position:relative;">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -331,17 +332,19 @@ window.initVentusMap = function({ config, center, zoom }) {
     }
 
     // ── Poly Zone Tool ────────────────────────────────────────────────────────────
-    // Free-draw polygon constrained within a configurable radius (0.1–5km).
-    // Click to place triangle → drag vertices → click edge to add vertex.
+    // Generates an initial editable 24-point circle. Users can drag nodes to 
+    // exactly trace real-world assets. Edge clicks split boundaries.
 
-    function _polyZoneDefaultTriangle(lon, lat) {
-        const earthR = 6371, d = 0.7, deg = Math.PI / 180;
-        return [0, 120, 240].map(bearingDeg => {
-            const b = bearingDeg * deg, lat1 = lat * deg, ad = d / earthR;
-            const lat2 = Math.asin(Math.sin(lat1) * Math.cos(ad) + Math.cos(lat1) * Math.sin(ad) * Math.cos(b));
-            const lon2 = lon * deg + Math.atan2(Math.sin(b) * Math.sin(ad) * Math.cos(lat1), Math.cos(ad) - Math.sin(lat1) * Math.sin(lat2));
-            return [lon2 / deg, lat2 / deg];
-        });
+    function _polyZoneInitialCircle(lon, lat, radiusKm) {
+        const points = 24; // Dense enough to approximate a circle, sparse enough to manually edit
+        const coords = [];
+        const distX = radiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
+        const distY = radiusKm / 110.574;
+        for (let i = 0; i < points; i++) {
+            const theta = (i / points) * (2 * Math.PI);
+            coords.push([lon + distX * Math.cos(theta), lat + distY * Math.sin(theta)]);
+        }
+        return coords;
     }
 
     function _polyZoneCalcArea(pts) {
@@ -405,14 +408,12 @@ window.initVentusMap = function({ config, center, zoom }) {
         const centLat = polyZonePoints.reduce((s, p) => s + p[1], 0) / polyZonePoints.length;
 
         if (_polyZoneCollapsed) {
-            // Collapsed mini label — click to expand
             openPopup([centLon, centLat], `
                 <div onclick="window._pzExpand && window._pzExpand()" style="font-family:monospace;background:#000;padding:5px 10px;border:1px solid #ff00ff;border-radius:4px;cursor:pointer;color:#ff00ff;font-size:11px;white-space:nowrap;">
                     ⬡ ${fmt(areaKm2, 3)} km² · ⚽ ${fmt(pitches, 0)} pitches &nbsp;▾
                 </div>`);
             window._pzExpand = () => { _polyZoneCollapsed = false; _polyZoneShowPopup(); };
         } else {
-            // Full expanded popup — magenta to match radius area, full unit names
             openPopup([centLon, centLat], `
                 <div style="font-family:monospace;background:#000;padding:10px 12px;border:1px solid #ff00ff;border-radius:4px;min-width:230px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -442,7 +443,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         if (areaEl)  areaEl.style.display  = 'none';
         if (perimEl) perimEl.style.display = 'none';
         if (undoBtn) undoBtn.style.display = polyZonePoints.length > 3 ? 'inline-block' : 'none';
-        if (hint) hint.innerText = polyZonePoints.length === 0 ? 'Click map to place triangle' : 'Drag vertices · Click edge to add vertex · ↩ removes last';
+        if (hint) hint.innerText = polyZonePoints.length === 0 ? 'Click map to drop circle' : 'Drag vertices · Click edge to add vertex · ↩ removes last';
     }
 
     function _polyZoneClear() {
@@ -472,7 +473,11 @@ window.initVentusMap = function({ config, center, zoom }) {
         polyZoneMode = !polyZoneMode;
         const btn = document.getElementById('btn-polyzone');
         if (btn) { btn.classList.toggle('active', polyZoneMode); btn.setAttribute('aria-pressed', polyZoneMode); }
+        const panel = document.getElementById('polyzone-panel');
+        if (panel) panel.style.display = polyZoneMode ? 'block' : 'none';
+        
         map.getCanvas().style.cursor = polyZoneMode ? 'crosshair' : '';
+        
         if (polyZoneMode) {
             if (radiusMode)     toggleRadiusMode();
             if (radiusAreaMode) toggleRadiusAreaMode();
@@ -488,7 +493,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     // ── Poly Zone mouse handlers — wired into map events below ────────────────────
 
     function _polyZoneNearEdgeDot(px) {
-        // Returns {edgeIdx, insertIdx} if click is near an edge sub-dot, else null
         for (let i = 0; i < polyZonePoints.length; i++) {
             const j = (i + 1) % polyZonePoints.length;
             const a = polyZonePoints[i], b = polyZonePoints[j];
@@ -503,7 +507,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     }
 
     function _polyZoneNearVertex(px) {
-        // Returns vertex index if click is near a main vertex, else -1
         for (let i = 0; i < polyZonePoints.length; i++) {
             const vpx = map.project(polyZonePoints[i]);
             const dx = px.x - vpx.x, dy = px.y - vpx.y;
@@ -518,18 +521,15 @@ window.initVentusMap = function({ config, center, zoom }) {
         const lon = e.lngLat.lng, lat = e.lngLat.lat;
 
         if (polyZonePoints.length === 0) {
-            polyZonePoints      = _polyZoneDefaultTriangle(lon, lat);
+            polyZonePoints      = _polyZoneInitialCircle(lon, lat, polyZoneRadiusKm);
             _polyZoneCollapsed  = false;
             _polyZoneUpdateLayers(false); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
             return;
         }
 
         const px = map.project([lon, lat]);
-
-        // Check vertex dots first — if near a vertex, do nothing (drag handles those)
         if (_polyZoneNearVertex(px) >= 0) return;
 
-        // Check edge sub-dots — insert vertex
         const edgeHit = _polyZoneNearEdgeDot(px);
         if (edgeHit) {
             polyZonePoints.splice(edgeHit.insertIdx, 0, [edgeHit.dot[0], edgeHit.dot[1]]);
@@ -537,8 +537,7 @@ window.initVentusMap = function({ config, center, zoom }) {
             return;
         }
 
-        // Truly empty space — reset with new triangle
-        polyZonePoints      = _polyZoneDefaultTriangle(lon, lat);
+        polyZonePoints      = _polyZoneInitialCircle(lon, lat, polyZoneRadiusKm);
         _polyZoneCollapsed  = false;
         _polyZoneUpdateLayers(false); _polyZoneShowPopup(); _polyZoneUpdateDisplay();
     }
@@ -546,10 +545,7 @@ window.initVentusMap = function({ config, center, zoom }) {
     function _polyZoneOnMouseDown(e) {
         if (!polyZoneMode || polyZonePoints.length < 3) return;
         const px = map.project(e.lngLat);
-
-        // Don't start drag if clicking near an edge dot — let click handler insert vertex
         if (_polyZoneNearEdgeDot(px)) return;
-
         const vi = _polyZoneNearVertex(px);
         if (vi >= 0) {
             polyZoneDragging = true; polyZoneDragIdx = vi;
@@ -562,9 +558,8 @@ window.initVentusMap = function({ config, center, zoom }) {
     function _polyZoneOnMouseMove(e) {
         if (!polyZoneMode || polyZonePoints.length < 3) return;
         if (polyZoneDragging && polyZoneDragIdx >= 0) {
-            // Lightweight drag: update geometry only, no popup rebuild
             polyZonePoints[polyZoneDragIdx] = [e.lngLat.lng, e.lngLat.lat];
-            _polyZoneUpdateLayers(true); // dragOnly — skip edge midpoints
+            _polyZoneUpdateLayers(true); 
             return;
         }
         const px = map.project(e.lngLat);
@@ -577,7 +572,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         if (!polyZoneDragging) return;
         polyZoneDragging    = false;
         polyZoneDragIdx     = -1;
-        polyZoneJustDragged = true; // cleared when next click is swallowed in _polyZoneOnClick
+        polyZoneJustDragged = true; 
         map.dragPan.enable();
         map.getCanvas().style.cursor = 'crosshair';
         _polyZoneUpdateLayers(false);
@@ -662,14 +657,7 @@ window.initVentusMap = function({ config, center, zoom }) {
     function snapLines(features, subs) {
         if (!subs || !subs.length) return features;
 
-        // INTENTIONAL TRADEOFF: planar squared-distance with latitude cosine correction,
-        // not haversine. This is a deliberate runtime performance decision — haversine
-        // inside a nested loop of ~5800 substations × all line endpoints × 5 topology
-        // layers firing simultaneously on load is measurably expensive.
-        // Accuracy: error is <0.1% at UK latitudes for a 100m snap tolerance.
-        // This is acceptable for visual grid topology snapping.
-        // TECH DEBT: move to build pipeline to remove runtime cost entirely.
-        const TOLERANCE_DEG_SQ = 0.001 * 0.001; // ~111m at equator, tighter at UK latitudes
+        const TOLERANCE_DEG_SQ = 0.001 * 0.001; 
         const RAD = Math.PI / 180;
 
         const snapCoordinate = (coord) => {
@@ -728,11 +716,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     function clearRadiusCircle() { map.getSource('src-radius-circle').setData({ type: 'FeatureCollection', features: [] }); }
 
     // ── PERF: Twin visible layer caches ──────────────────────────────────────────
-    // _visibleInteractiveIds — used by click handler (all interactive layers)
-    // _visibleHoverIds       — used by mousemove handler (currently same set, but
-    //                          kept separate so purely cosmetic layers can be
-    //                          excluded from hover hit-testing without touching
-    //                          click logic)
     let _visibleInteractiveIds = [];
     let _visibleHoverIds = [];
 
@@ -741,16 +724,9 @@ window.initVentusMap = function({ config, center, zoom }) {
             try { return map.getLayoutProperty(id, 'visibility') === 'visible'; }
             catch(e) { return false; }
         });
-        // Hover cache currently mirrors interactive cache — line layers included.
-        // Rationale: transmission line layers are clickable engineering assets and
-        // users need the pointer cursor to discover them.
-        // If hover lag becomes measurable with topology layers active, narrow this
-        // by filtering type !== 'line' — the twin-cache structure makes that a
-        // one-line change without touching click behaviour.
         _visibleHoverIds = [..._visibleInteractiveIds];
     }
 
-    // PERF: throttle timestamp for hover hit-testing (target ~100ms cadence)
     let _lastHoverMs = 0;
 
     // ── Popup / Search ────────────────────────────────────────────────────────────
@@ -873,6 +849,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         
         if (radiusMode && measureMode) toggleMeasureMode();
         if (radiusMode && radiusAreaMode) toggleRadiusAreaMode();
+        if (radiusMode && polyZoneMode) togglePolyZoneMode();
 
         if (!radiusMode) { clearRadiusCircle(); radiusCenter = null; if (radiusMarker) { radiusMarker.remove(); radiusMarker = null; } }
     }
@@ -910,7 +887,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             </div>`);
     }
 
-    // ── DOM Builder ───────────────────────────────────────────────────────────────
     function buildLayerRow(layer, idPrefix) {
         const label = document.createElement('label'); label.className = 'key-item';
         const input = document.createElement('input'); input.type = 'checkbox'; input.dataset.layerId = layer.id; input.setAttribute('data-layer-id', layer.id);
@@ -1002,6 +978,17 @@ window.initVentusMap = function({ config, center, zoom }) {
         const btnPolyZoneUndo = document.getElementById('btn-polyzone-undo');
         if (btnPolyZoneUndo) btnPolyZoneUndo.addEventListener('click', polyZoneUndo);
 
+        const polyZoneRadiusInput = document.getElementById('polyzone-radius-input');
+        if (polyZoneRadiusInput) {
+            polyZoneRadiusInput.addEventListener('keydown', e => { e.stopPropagation(); });
+            polyZoneRadiusInput.addEventListener('blur', () => {
+                const raw = parseFloat(polyZoneRadiusInput.value);
+                if (isNaN(raw) || raw < 0.1) polyZoneRadiusInput.value = '0.1';
+                else if (raw > POLY_ZONE_MAX_KM) polyZoneRadiusInput.value = String(POLY_ZONE_MAX_KM);
+                polyZoneRadiusKm = parseFloat(polyZoneRadiusInput.value);
+            });
+        }
+
         const rAreaInput = document.getElementById('radius-area-input');
         if (rAreaInput) {
             rAreaInput.addEventListener('keydown', e => { 
@@ -1024,7 +1011,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     function handleLayerToggle(layerId, isVisible) {
         if (map.getLayer(`l-${layerId}`)) map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
         if (map.getLayer(`l-${layerId}-glow`)) map.setLayoutProperty(`l-${layerId}-glow`, 'visibility', (isVisible && !statusMode) ? 'visible' : 'none');
-        // PERF: keep both visible layer caches in sync on every toggle
         const mapId = `l-${layerId}`;
         if (isVisible) {
             if (!_visibleInteractiveIds.includes(mapId)) _visibleInteractiveIds.push(mapId);
@@ -1063,10 +1049,6 @@ window.initVentusMap = function({ config, center, zoom }) {
                 if (features.length === 0) { updateUIState(layerId, 'EMPTY'); state.loading = false; return; }
                 if (layerConfig.isSubs) globalSubsData = features;
                 if (layerConfig.snap) {
-                    // ── TECH DEBT: snapLines() runs in the browser at runtime.
-                    // This should be moved to the build pipeline (pre-processed GeoJSON)
-                    // so the browser receives already-snapped topology.
-                    // Retained here temporarily to preserve physical grid truth.
                     if (!globalSubsData) { const subsLayer = getLayerConfig('subs'); globalSubsData = await fetchAndParseGeoJSON(subsLayer.url); }
                     console.warn(`[SNAP] Runtime snapping active for "${layerId}" — ${features.length} features. Move to build pipeline when possible.`);
                     features = snapLines(features, globalSubsData);
@@ -1090,7 +1072,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         });
     }
 
-    // ── Map Load ──────────────────────────────────────────────────────────────────
     map.on('load', () => {
         buildDOM();
         map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
@@ -1168,16 +1149,10 @@ window.initVentusMap = function({ config, center, zoom }) {
             allLayerIds.push(`l-${id}`);
         });
 
-        // ── PERF: seed the visible layer cache from actual map state after all layers are added
         _rebuildVisibleCache(allLayerIds);
 
-        // ── Map Events ────────────────────────────────────────────────────────────
-
-        // BUG FIX: shared deferred-click guard for measure tool.
-        // 220ms timeout so dblclick can cancel before ghost vertex is committed.
         let _pendingToolClick = null;
 
-        // Poly Zone drag — needs mousedown on canvas before map click
         map.getCanvas().addEventListener('mousedown', e => {
             if (!polyZoneMode) return;
             const lngLat = map.unproject([e.offsetX, e.offsetY]);
@@ -1196,11 +1171,16 @@ window.initVentusMap = function({ config, center, zoom }) {
                 }, 220);
                 return;
             }
-            if (polyZoneMode) { _polyZoneOnClick(e); return; }
+            if (polyZoneMode) {
+                _pendingToolClick = setTimeout(() => {
+                    _pendingToolClick = null;
+                    _polyZoneOnClick(e);
+                }, 220);
+                return;
+            }
             if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
             if (radiusAreaMode) { doRadiusAreaMeasure(e.lngLat.lng, e.lngLat.lat); return; }
 
-            // PERF: use cached visible layer ids — no per-click property lookups
             if (!_visibleInteractiveIds.length) return;
             const features = map.queryRenderedFeatures(e.point, { layers: _visibleInteractiveIds });
 
@@ -1235,19 +1215,14 @@ window.initVentusMap = function({ config, center, zoom }) {
             updateMeasureDisplay();
         });
 
-        // Global mouseup to end poly zone drag anywhere on page
         window.addEventListener('mouseup', () => { if (polyZoneMode) _polyZoneOnMouseUp(); });
 
         map.on('mousemove', e => {
-            // Poly zone drag takes priority
             if (polyZoneMode) { _polyZoneOnMouseMove(e); return; }
-
             if (measureMode || radiusMode || radiusAreaMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
 
-            // PERF: hard-exit if nothing is visible — zero query cost
             if (!_visibleHoverIds.length) { map.getCanvas().style.cursor = ''; return; }
 
-            // PERF: throttle hover hit-testing to ~100ms cadence.
             const now = Date.now();
             if (now - _lastHoverMs < 100) return;
             _lastHoverMs = now;

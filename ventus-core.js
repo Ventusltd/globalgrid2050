@@ -391,19 +391,23 @@ window.initVentusMap = function({ config, center, zoom }) {
     // ── Geometry ──────────────────────────────────────────────────────────────────
     function snapLines(features, subs) {
         if (!subs || !subs.length) return features;
-        
-        const TOLERANCE_KM = 0.1;
+
+        // PERF: use fast planar squared-distance with latitude cosine correction
+        // rather than haversine. Tolerance ~100m. Haversine inside a nested loop
+        // over 5800 substations × all line endpoints is unnecessarily expensive.
+        const TOLERANCE_DEG_SQ = 0.001 * 0.001; // ~111m at equator, tighter at UK latitudes
+        const RAD = Math.PI / 180;
 
         const snapCoordinate = (coord) => {
             let best = coord, min = Infinity;
+            const latCos = Math.cos(coord[1] * RAD);
             subs.forEach(s => {
                 const sc = s.geometry && s.geometry.coordinates;
                 if (!sc) return;
-                const d = haversine(coord[0], coord[1], sc[0], sc[1]);
-                if (d < min && d <= TOLERANCE_KM) { 
-                    min = d; 
-                    best = sc; 
-                }
+                const dx = (coord[0] - sc[0]) * latCos;
+                const dy = (coord[1] - sc[1]);
+                const d = dx * dx + dy * dy;
+                if (d < min && d <= TOLERANCE_DEG_SQ) { min = d; best = sc; }
             });
             return best;
         };
@@ -449,13 +453,28 @@ window.initVentusMap = function({ config, center, zoom }) {
     function drawRadiusCircle(lon, lat, radiusKm) { map.getSource('src-radius-circle').setData(createGeoJSONCircle(lon, lat, radiusKm)); }
     function clearRadiusCircle() { map.getSource('src-radius-circle').setData({ type: 'FeatureCollection', features: [] }); }
 
-    // ── INP FIX: Helper to get only currently visible layer IDs ──────────────────
-    function getVisibleLayerIds(layerIds) {
-        return layerIds.filter(id => {
+    // ── PERF: Twin visible layer caches ──────────────────────────────────────────
+    // _visibleInteractiveIds — used by click handler (all interactive layers)
+    // _visibleHoverIds       — used by mousemove handler (currently same set, but
+    //                          kept separate so purely cosmetic layers can be
+    //                          excluded from hover hit-testing without touching
+    //                          click logic)
+    let _visibleInteractiveIds = [];
+    let _visibleHoverIds = [];
+
+    function _rebuildVisibleCache(allLayerIds) {
+        _visibleInteractiveIds = allLayerIds.filter(id => {
             try { return map.getLayoutProperty(id, 'visibility') === 'visible'; }
             catch(e) { return false; }
         });
+        // Hover cache mirrors interactive cache for now.
+        // To exclude a layer from hover cursor (e.g. a decorative overlay) without
+        // removing its click handler, filter it out here only.
+        _visibleHoverIds = [..._visibleInteractiveIds];
     }
+
+    // PERF: throttle timestamp for hover hit-testing (target ~100ms cadence)
+    let _lastHoverMs = 0;
 
     // ── Popup / Search ────────────────────────────────────────────────────────────
     function buildSearchButtons(name, capacity, tech) {
@@ -722,6 +741,15 @@ window.initVentusMap = function({ config, center, zoom }) {
     function handleLayerToggle(layerId, isVisible) {
         if (map.getLayer(`l-${layerId}`)) map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
         if (map.getLayer(`l-${layerId}-glow`)) map.setLayoutProperty(`l-${layerId}-glow`, 'visibility', (isVisible && !statusMode) ? 'visible' : 'none');
+        // PERF: keep both visible layer caches in sync on every toggle
+        const mapId = `l-${layerId}`;
+        if (isVisible) {
+            if (!_visibleInteractiveIds.includes(mapId)) _visibleInteractiveIds.push(mapId);
+            if (!_visibleHoverIds.includes(mapId)) _visibleHoverIds.push(mapId);
+        } else {
+            _visibleInteractiveIds = _visibleInteractiveIds.filter(id => id !== mapId);
+            _visibleHoverIds = _visibleHoverIds.filter(id => id !== mapId);
+        }
         if (isVisible) hydrateLayer(layerId);
     }
 
@@ -752,7 +780,12 @@ window.initVentusMap = function({ config, center, zoom }) {
                 if (features.length === 0) { updateUIState(layerId, 'EMPTY'); state.loading = false; return; }
                 if (layerConfig.isSubs) globalSubsData = features;
                 if (layerConfig.snap) {
+                    // ── TECH DEBT: snapLines() runs in the browser at runtime.
+                    // This should be moved to the build pipeline (pre-processed GeoJSON)
+                    // so the browser receives already-snapped topology.
+                    // Retained here temporarily to preserve physical grid truth.
                     if (!globalSubsData) { const subsLayer = getLayerConfig('subs'); globalSubsData = await fetchAndParseGeoJSON(subsLayer.url); }
+                    console.warn(`[SNAP] Runtime snapping active for "${layerId}" — ${features.length} features. Move to build pipeline when possible.`);
                     features = snapLines(features, globalSubsData);
                 }
                 const sourceId = getSourceIdForLayer(layerId);
@@ -844,6 +877,9 @@ window.initVentusMap = function({ config, center, zoom }) {
             allLayerIds.push(`l-${id}`);
         });
 
+        // ── PERF: seed the visible layer cache from actual map state after all layers are added
+        _rebuildVisibleCache(allLayerIds);
+
         // ── Map Events ────────────────────────────────────────────────────────────
 
         // BUG FIX: track whether the last click was part of a dblclick, so the
@@ -866,11 +902,9 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
             if (radiusAreaMode) { doRadiusAreaMeasure(e.lngLat.lng, e.lngLat.lat); return; }
 
-            // ── INP FIX: only query layers that are currently visible ─────────────
-            const visibleLayerIds = getVisibleLayerIds(allLayerIds);
-            if (!visibleLayerIds.length) return;
-            const features = map.queryRenderedFeatures(e.point, { layers: visibleLayerIds });
-            // ─────────────────────────────────────────────────────────────────────
+            // PERF: use cached visible layer ids — no per-click property lookups
+            if (!_visibleInteractiveIds.length) return;
+            const features = map.queryRenderedFeatures(e.point, { layers: _visibleInteractiveIds });
 
             if (!features.length) return;
             const p    = features[0].properties || {}; const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
@@ -905,14 +939,23 @@ window.initVentusMap = function({ config, center, zoom }) {
 
         map.on('mousemove', e => {
             if (measureMode || radiusMode || radiusAreaMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
+
+            // PERF: hard-exit if nothing is visible — zero query cost
+            if (!_visibleHoverIds.length) { map.getCanvas().style.cursor = ''; return; }
+
+            // PERF: throttle hover hit-testing to ~100ms cadence.
+            const now = Date.now();
+            if (now - _lastHoverMs < 100) return;
+            _lastHoverMs = now;
+
             if (_lastMouseMoveRaf) return;
             _lastMouseMoveRaf = requestAnimationFrame(() => {
                 _lastMouseMoveRaf = null;
-                // ── INP FIX: only query layers that are currently visible ─────────
-                const visibleLayerIds = getVisibleLayerIds(allLayerIds);
-                if (!visibleLayerIds.length) { map.getCanvas().style.cursor = ''; return; }
-                const features = map.queryRenderedFeatures(e.point, { layers: visibleLayerIds });
-                // ─────────────────────────────────────────────────────────────────
+                // All visible interactive layers tested for hover — includes line layers
+                // which carry clickable popup data (voltage, topology etc.)
+                // Uses _visibleHoverIds (not _visibleInteractiveIds) so cosmetic-only
+                // layers can be excluded from hover without affecting click behaviour.
+                const features = map.queryRenderedFeatures(e.point, { layers: _visibleHoverIds });
                 map.getCanvas().style.cursor = features.length ? 'pointer' : '';
             });
         });

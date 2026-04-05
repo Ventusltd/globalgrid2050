@@ -45,13 +45,18 @@
             </div>
             <button class="search-btn" id="search-btn">GO</button>
         </div>
+
+        <!-- Map control buttons -->
         <div class="map-controls">
             <button class="map-ctrl-btn" id="btn-export">⬇ Export CSV</button>
             <button class="map-ctrl-btn" id="btn-radius">◎ Radius Search</button>
             <button class="map-ctrl-btn" id="btn-radius-area">◵ Radius Area</button>
+            <button class="map-ctrl-btn" id="btn-polyzone">⬡ Poly Zone</button>
             <button class="map-ctrl-btn" id="btn-status">◑ Status Colours</button>
             <button class="map-ctrl-btn" id="btn-measure">📏 Measure</button>
         </div>
+
+        <!-- Radius search popup -->
         <div class="radius-popup" id="radius-popup">
             <label>Radius from click</label>
             <div class="radius-input-row">
@@ -60,7 +65,9 @@
             </div>
             <div class="radius-hint">1 – 160 km (100 mi) · press Enter to apply</div>
         </div>
-        <div class="radius-popup" id="radius-area-popup" style="bottom: 60px;">
+
+        <!-- Radius area popup -->
+        <div class="radius-popup" id="radius-area-popup">
             <label>Measure Area from click</label>
             <div class="radius-input-row">
                 <input type="number" id="radius-area-input" value="1" min="0.001" max="160" step="0.001" />
@@ -68,6 +75,18 @@
             </div>
             <div class="radius-hint">Input radius: 0.001 (1m) to 160 km</div>
         </div>
+
+        <!-- Poly Zone panel -->
+        <div class="radius-popup" id="polyzone-panel">
+            <label class="polyzone-label">Poly Zone radius limit</label>
+            <div class="radius-input-row">
+                <input type="number" id="polyzone-radius-input" value="1" min="0.1" max="5" step="0.1" />
+                <span class="radius-unit">km</span>
+            </div>
+            <div class="radius-hint">0.1 – 5 km · Click map to set centre</div>
+        </div>
+
+        <!-- Measure display -->
         <div id="measure-display">
             <div class="m-row" id="m-line" style="display:none">━━ <span id="m-km"></span> km | <span id="m-m"></span> m | <span id="m-mi"></span> mi</div>
             <div class="m-row" id="m-perim" style="display:none">Perimeter: <span id="m-pkm"></span> km | <span id="m-pm"></span> m</div>
@@ -75,6 +94,19 @@
             <div class="m-hint" id="m-hint">Click to add points · Double-click to close polygon</div>
             <button id="btn-measure-undo" title="Undo last point">↩ Undo Point</button>
         </div>
+
+        <!-- Poly Zone display -->
+        <div id="polyzone-display">
+            <div class="m-row" id="pz-line" style="display:none">━━ <span id="pz-km"></span> km | <span id="pz-m"></span> m</div>
+            <div class="m-row" id="pz-area" style="display:none">
+                Perimeter: <span id="pz-pkm"></span> km<br>
+                Area: <span id="pz-km2"></span> km² | <span id="pz-ha"></span> ha | <span id="pz-ac"></span> ac<br>
+                <span id="pz-m2"></span> m² · <span style="color:#ffae00">⚽ <span id="pz-pitch"></span> pitches</span>
+            </div>
+            <div class="m-hint" id="pz-hint">Click map to set centre point</div>
+            <button id="btn-polyzone-undo" title="Undo last vertex">↩ Undo Vertex</button>
+        </div>
+
         <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
     </div>
 
@@ -103,7 +135,6 @@
 <script src="../ventus-core.js"></script>
 
 <script>
-    // The Seed: Configuration array for the UK dataset
     const ukConfig = [
         {
             group: "Topology (GeoJSON)",
@@ -189,10 +220,9 @@
         }
     ];
 
-    // Boot the map OS with this specific data payload
     window.initVentusMap({
         config: ukConfig,
-        center: [-3.5, 54.0], // Centered on the UK
+        center: [-3.5, 54.0],
         zoom: 4.2
     });
 </script>

@@ -143,6 +143,7 @@ The core engine (`/ventus-core.js` & `/ventus.css`) built on **MapLibre GL JS v3
 | **Single shared source** | All REPD layers filter natively in MapLibre. No duplicate data loads. |
 | **Concurrency** | `FetchQueue` (max 4 concurrent, 15,000ms timeout) to prevent browser network lockup. |
 | **Performance** | `requestAnimationFrame` throttles `mousemove` events. |
+| **Fetch Fallback** | Failed layers display `[ERROR]` not silent `[WAIT]`. Pipeline failures are visible on the map, not only in the Actions log. |
 
 #### Mathematical Integrity
 
@@ -218,7 +219,7 @@ box-sizing: border-box;
 
 | Component | Specification |
 |-----------|--------------|
-| **Layer Toggles** | Labels dynamically update to append `[WAIT]`, `[OK]`, or `[Count \| MW]` |
+| **Layer Toggles** | Labels dynamically update to append `[WAIT]`, `[OK]`, `[ERROR]`, or `[Count \| MW]` |
 | **Map Controls** | Stacked column (`bottom: 30px; left: 10px; z-index: 20`). Hover → neon cyan border. Active → faint cyan background tint. |
 | **Popups** | Dark background (`#000`), monospace font. Format: Title (Cyan, bold) → Tech/Mounting (Grey) → Capacity (Amber) → Status → Operator |
 | **Search Bar** | Type 2+ chars for live dropdown, top 12 results by MW. Click to fly with 1.8s animation. |
@@ -320,6 +321,7 @@ fetch('/dist/repd_master.json')
 - **Test, don't assume** — every fix verified against real data.
 - **Defensive programming** — distrust the CSV, validate the schema.
 - **Physical accuracy over computational shortcuts** — snap in metres, measure in Haversine.
+- **Regression is forbidden by test** — CI must fail if Haversine tolerance reverts to decimal degrees.
 - **The human is the architect** — AIs execute, human signs off.
 - **3 × AI + Human = AGI** — Claude builds, ChatGPT audits, Gemini reviews architecture.
 
@@ -332,4 +334,12 @@ fetch('/dist/repd_master.json')
 
 ---
 
-Actions guided by truth outlive the actor. 
+### CHANGELOG
+
+| Date | Version | Change |
+|------|---------|--------|
+| 2026-04-05 | V5.10 | Current production state. Modular OS architecture, geodesic snapping, asynchronous hydration, mobile sharding. |
+
+---
+
+*Actions guided by truth outlive the actor.*

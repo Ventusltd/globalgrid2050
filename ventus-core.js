@@ -302,19 +302,26 @@ window.initVentusMap = function({ config, center, zoom }) {
         return promise;
     }
 
-    // ── Geometry ──────────────────────────────────────────────────────────────────
+    // ── Geometry (Updated for real-world meters snapping) ─────────────────────────
     function snapLines(features, subs) {
         if (!subs || !subs.length) return features;
-        const tol = 0.05, rad = Math.PI / 180;
+        
+        // Strict real-world tolerance: 0.1 km (100 meters)
+        const TOLERANCE_KM = 0.1;
+
         const snapCoordinate = (coord) => {
             let best = coord, min = Infinity;
-            const latCos = Math.cos(coord[1] * rad);
             subs.forEach(s => {
                 const sc = s.geometry && s.geometry.coordinates;
                 if (!sc) return;
-                const dx = (coord[0] - sc[0]) * latCos; const dy = (coord[1] - sc[1]);
-                const d  = (dx * dx) + (dy * dy);
-                if (d < min && d < tol * tol) { min = d; best = sc; }
+                
+                // Use true geodesic distance (haversine) rather than distorted coordinate degrees
+                const d = haversine(coord[0], coord[1], sc[0], sc[1]);
+                
+                if (d < min && d <= TOLERANCE_KM) { 
+                    min = d; 
+                    best = sc; 
+                }
             });
             return best;
         };
@@ -324,13 +331,19 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (!geom || !geom.coordinates) return f;
             if (geom.type === 'LineString') {
                 const c = [...geom.coordinates];
-                if (c.length > 0) { c[0] = snapCoordinate(c[0]); c[c.length - 1] = snapCoordinate(c[c.length - 1]); }
+                if (c.length > 0) { 
+                    c[0] = snapCoordinate(c[0]); 
+                    c[c.length - 1] = snapCoordinate(c[c.length - 1]); 
+                }
                 return { ...f, geometry: { ...geom, coordinates: c } };
             }
             if (geom.type === 'MultiLineString') {
                 const coords = geom.coordinates.map(line => {
                     const l = [...line];
-                    if (l.length > 0) { l[0] = snapCoordinate(l[0]); l[l.length - 1] = snapCoordinate(l[l.length - 1]); }
+                    if (l.length > 0) { 
+                        l[0] = snapCoordinate(l[0]); 
+                        l[l.length - 1] = snapCoordinate(l[l.length - 1]); 
+                    }
                     return l;
                 });
                 return { ...f, geometry: { ...geom, coordinates: coords } };

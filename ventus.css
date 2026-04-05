@@ -20,7 +20,10 @@ html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000;
 .key-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
 input[type="checkbox"], input[type="radio"] { transform: scale(1.3); margin-right: 4px; accent-color: #00ffff; }
 .maplibregl-popup-content { background: #000; color: #00ffff; border: 1px solid #444; font-family: monospace; font-size: 12px; padding: 8px; }
-.disclaimer-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.5; color: #666; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; }
+
+/* LCP fix: disclaimer box is the largest paint element — push it off the critical path */
+.disclaimer-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: justify; font-size: 9px; line-height: 1.5; color: #666; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; user-select: none; pointer-events: none; flex-shrink: 0; content-visibility: auto; }
+
 .custom-map-attrib { position: absolute; top: 10px; left: 10px; background: rgba(5, 5, 5, 0.7); color: #888; font-family: 'Courier New', monospace; font-size: 9px; border-radius: 4px; padding: 4px 8px; z-index: 10; border: 1px solid #333; pointer-events: auto; max-width: calc(100% - 60px); line-height: 1.6; }
 .custom-map-attrib a { color: #00ffff; text-decoration: none; }
 .custom-map-attrib a:hover { text-decoration: underline; }
@@ -47,6 +50,8 @@ body.fs-active .search-bar-wrapper { top: 100px; }
 .map-ctrl-btn { background: rgba(5,5,5,0.85); border: 1px solid #333; border-radius: 4px; color: #888; font-family: 'Courier New', monospace; font-size: 9px; padding: 5px 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
 .map-ctrl-btn:hover { border-color: #00ffff; color: #00ffff; }
 .map-ctrl-btn.active { border-color: #00ffff; color: #00ffff; background: rgba(0,255,255,0.08); }
+
+/* Radius search popup */
 .radius-popup { position: absolute; bottom: 30px; left: 120px; z-index: 20; background: #050505; border: 1px solid #444; border-radius: 4px; padding: 8px 12px; display: none; }
 .radius-popup label { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
 .radius-input-row { display: flex; align-items: center; gap: 4px; }
@@ -54,31 +59,58 @@ body.fs-active .search-bar-wrapper { top: 100px; }
 #radius-input::-webkit-outer-spin-button, #radius-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 #radius-input:focus { border-color: #00ffff; }
 #radius-input.invalid { border-color: #ff4444; color: #ff4444; }
+
+/* Radius area input — matches radius-input style, magenta accent */
+#radius-area-input { background: #0a0a0a; border: 1px solid #333; color: #ff00ff; font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; padding: 3px 6px; border-radius: 3px; width: 72px; outline: none; text-align: right; -moz-appearance: textfield; }
+#radius-area-input::-webkit-outer-spin-button, #radius-area-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+#radius-area-input:focus { border-color: #ff00ff; }
+#radius-area-input.invalid { border-color: #ff4444; color: #ff4444; }
+
 .radius-unit { font-size: 10px; color: #555; font-family: 'Courier New', monospace; white-space: nowrap; }
 .radius-hint { font-size: 8px; color: #444; margin-top: 4px; letter-spacing: 0.5px; }
+
+/* Measure display panel */
 #measure-display { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 20; background: rgba(5,5,5,0.92); border: 1px solid #00ffff; border-radius: 4px; padding: 8px 14px; display: none; font-family: 'Courier New', monospace; font-size: 10px; color: #00ffff; text-align: center; white-space: nowrap; pointer-events: none; }
 #measure-display .m-row { margin-bottom: 2px; color: #888; }
 #measure-display .m-row span { color: #00ffff; }
 #measure-display .m-hint { font-size: 8px; color: #444; margin-top: 4px; }
 #btn-measure-undo { pointer-events: auto; background: #0a0a0a; border: 1px solid #555; border-radius: 3px; color: #888; font-family: 'Courier New', monospace; font-size: 8px; padding: 2px 6px; cursor: pointer; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; display: none; }
 #btn-measure-undo:hover { border-color: #ffff00; color: #ffff00; }
+
+/* Fullscreen letterhead */
 #fs-letterhead { display: none; position: fixed; top: 8px; right: 12px; z-index: 512; text-align: right; pointer-events: none; }
 #fs-letterhead .ventus-main { font-family: -apple-system, sans-serif; font-size: 15px; font-weight: 800; color: #fff; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 1px; }
 #fs-letterhead .ventus-sub { font-family: -apple-system, sans-serif; font-size: 6px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
 body.fs-active #fs-letterhead { display: block; }
+
+/* Status legend */
 .status-legend { display: flex; gap: 8px; flex-wrap: wrap; padding: 4px 0 6px 0; border-bottom: 1px solid #222; margin-bottom: 6px; flex-shrink: 0; }
 .status-dot { display: inline-flex; align-items: center; gap: 4px; font-size: 8px; color: #555; }
 .status-dot span { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+
+/* Fullscreen map */
 .map-container.is-fullscreen { position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; border-radius: 0; border: none; z-index: 500; }
 #btn-fullscreen { position: absolute; top: 10px; right: 10px; z-index: 25; background: rgba(5,5,5,0.85); border: 1px solid #333; border-radius: 4px; color: #888; font-family: 'Courier New', monospace; font-size: 11px; padding: 5px 8px; cursor: pointer; letter-spacing: 1px; line-height: 1; }
 #btn-fullscreen:hover { border-color: #00ffff; color: #00ffff; }
 #btn-fullscreen-exit { display: none; position: fixed; top: 8px; left: 12px; z-index: 510; background: rgba(5,5,5,0.9); border: 1px solid #00ffff; border-radius: 4px; color: #00ffff; font-family: 'Courier New', monospace; font-size: 10px; padding: 5px 10px; cursor: pointer; letter-spacing: 1px; }
-.is-fullscreen ~ #btn-fullscreen-exit, body.fs-active #btn-fullscreen-exit { display: block; }
+body.fs-active #btn-fullscreen-exit { display: block; }
+
+/* Fullscreen curtain (layer panel slide-down) */
 #fs-curtain { display: none; position: fixed; top: 0; left: 0; width: 100vw; z-index: 505; background: rgba(5, 5, 5, 0.96); border-bottom: 1px solid #333; transform: translateY(-100%); transition: transform 0.3s ease; max-height: 70dvh; overflow-y: auto; padding: 48px 16px 16px 16px; box-sizing: border-box; }
 #fs-curtain.curtain-open { transform: translateY(0); }
 body.fs-active #fs-curtain { display: block; }
 #fs-curtain-tab { display: none; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 510; background: rgba(5,5,5,0.9); border: 1px solid #333; border-top: none; border-radius: 0 0 6px 6px; color: #555; font-family: 'Courier New', monospace; font-size: 9px; padding: 4px 16px 5px 16px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; transition: color 0.15s, border-color 0.15s; }
 #fs-curtain-tab:hover { color: #00ffff; border-color: #00ffff; }
 body.fs-active #fs-curtain-tab { display: block; }
-.map-container.is-fullscreen #fs-curtain-tab { display: block; }
 #fs-curtain-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+
+/* Responsive: single column on very narrow screens (iPhone SE etc.) */
+@media (max-width: 480px) {
+    .scada-keys, #fs-curtain-keys { grid-template-columns: 1fr; }
+}
+
+/* Custom scrollbars — prevents jarring default grey on dark SCADA theme */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00ffff; }

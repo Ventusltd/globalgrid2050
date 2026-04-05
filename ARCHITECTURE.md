@@ -1,4 +1,4 @@
-# GlobalGrid2050 | Ventus Core — Architecture
+# GlobalGrid2050 | Ventus Core Architecture
 
 *Last updated: 2026-04-05 | REPD v5.10 | Ventus OS Modular Pipeline*
 

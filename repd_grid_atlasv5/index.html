@@ -48,6 +48,7 @@
         <div class="map-controls">
             <button class="map-ctrl-btn" id="btn-export">⬇ Export CSV</button>
             <button class="map-ctrl-btn" id="btn-radius">◎ Radius Search</button>
+            <button class="map-ctrl-btn" id="btn-radius-area">◵ Radius Area</button>
             <button class="map-ctrl-btn" id="btn-status">◑ Status Colours</button>
             <button class="map-ctrl-btn" id="btn-measure">📏 Measure</button>
         </div>
@@ -58,6 +59,14 @@
                 <span class="radius-unit">km</span>
             </div>
             <div class="radius-hint">1 – 160 km (100 mi) · press Enter to apply</div>
+        </div>
+        <div class="radius-popup" id="radius-area-popup" style="bottom: 60px;">
+            <label>Measure Area from click</label>
+            <div class="radius-input-row">
+                <input type="number" id="radius-area-input" value="1" min="0.001" max="160" step="0.001" />
+                <span class="radius-unit">km</span>
+            </div>
+            <div class="radius-hint">Input radius: 0.001 (1m) to 160 km</div>
         </div>
         <div id="measure-display">
             <div class="m-row" id="m-line" style="display:none">━━ <span id="m-km"></span> km | <span id="m-m"></span> m | <span id="m-mi"></span> mi</div>
@@ -189,4 +198,3 @@
 </script>
 </body>
 </html>
-

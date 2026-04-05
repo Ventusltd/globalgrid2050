@@ -78,7 +78,7 @@ window.initVentusMap = function({ config, center, zoom }) {
     let radiusMarker  = null;
     let radiusCenter  = null;
     
-    // NEW RADIUS AREA STATE
+    // RADIUS AREA STATE
     let radiusAreaMode = false;
     let radiusAreaMarker = null;
     let radiusAreaCenter = null;
@@ -87,6 +87,21 @@ window.initVentusMap = function({ config, center, zoom }) {
     let globalSubsData  = null;
     let allREPDFeatures = [];
     let searchIndex     = [];
+
+    // ── Single popup instance — prevents accumulation ────────────────────────────
+    let activePopup = null;
+    function openPopup(lngLat, html, maxWidth) {
+        if (activePopup) { activePopup.remove(); activePopup = null; }
+        activePopup = new maplibregl.Popup({ maxWidth: maxWidth || '300px' })
+            .setLngLat(lngLat)
+            .setHTML(html)
+            .addTo(map);
+        activePopup.on('close', () => { activePopup = null; });
+        return activePopup;
+    }
+    function closeActivePopup() {
+        if (activePopup) { activePopup.remove(); activePopup = null; }
+    }
 
     // ── Fullscreen ───────────────────────────────────────────────────────────────
     let fsActive = false;
@@ -255,10 +270,9 @@ window.initVentusMap = function({ config, center, zoom }) {
                 map.getSource('src-radius-area').setData({ type: 'FeatureCollection', features: [] });
             }
             radiusAreaCenter = null; 
-            if (radiusAreaMarker) { radiusAreaMarker.remove(); radiusAreaMarker = null; } 
-            // Close any maplibregl popups related to it
-            const popups = document.getElementsByClassName('maplibregl-popup');
-            if (popups.length) popups[0].remove();
+            if (radiusAreaMarker) { radiusAreaMarker.remove(); radiusAreaMarker = null; }
+            // BUG FIX: close only the tracked popup, not a random first popup in DOM
+            closeActivePopup();
         }
     }
 
@@ -273,25 +287,21 @@ window.initVentusMap = function({ config, center, zoom }) {
         input.classList.remove('invalid');
         radiusAreaCenter = { lon, lat };
         
-        // Draw the visual circle
         if(map.getSource('src-radius-area')) {
             map.getSource('src-radius-area').setData(createGeoJSONCircle(lon, lat, km));
         }
         if (radiusAreaMarker) radiusAreaMarker.remove(); radiusAreaMarker = null;
 
         // Calculate Geodesic Spherical Cap Area
-        const R = 6371; // Earth's mean radius in km
+        const R = 6371;
         const areaKm2 = 2 * Math.PI * R * R * (1 - Math.cos(km / R));
         const areaM2 = areaKm2 * 1000000;
         const areaHa = areaM2 / 10000;
         const areaAc = areaM2 / 4046.85642;
-        const pitches = areaM2 / 7140; // FIFA standard pitch = 105m x 68m
+        const pitches = areaM2 / 7140;
 
-        // Close existing popups first
-        const popups = document.getElementsByClassName('maplibregl-popup');
-        if (popups.length) popups[0].remove();
-
-        new maplibregl.Popup({ maxWidth: '300px' }).setLngLat([lon, lat]).setHTML(`
+        // BUG FIX: use tracked openPopup() — removes previous popup correctly
+        openPopup([lon, lat], `
             <div style="font-family:monospace;background:#000;padding:8px; border: 1px solid #ff00ff; border-radius: 4px;">
                 <b style="color:#ff00ff">◵ Area: ${km}km radius</b><br><br>
                 <span style="color:#888">Square Metres:</span> <span style="color:#fff">${fmt(areaM2, 0)} m²</span><br>
@@ -301,7 +311,7 @@ window.initVentusMap = function({ config, center, zoom }) {
                 <div style="border-top:1px solid #333; margin-top:6px; padding-top:6px;">
                     <span style="color:#ffae00">⚽ Football Pitches: ${fmt(pitches, 1)}</span>
                 </div>
-            </div>`).addTo(map);
+            </div>`);
     }
 
     // ── Clock ─────────────────────────────────────────────────────────────────────
@@ -378,11 +388,10 @@ window.initVentusMap = function({ config, center, zoom }) {
         return promise;
     }
 
-    // ── Geometry (Updated for real-world meters snapping) ─────────────────────────
+    // ── Geometry ──────────────────────────────────────────────────────────────────
     function snapLines(features, subs) {
         if (!subs || !subs.length) return features;
         
-        // Strict real-world tolerance: 0.1 km (100 meters)
         const TOLERANCE_KM = 0.1;
 
         const snapCoordinate = (coord) => {
@@ -390,10 +399,7 @@ window.initVentusMap = function({ config, center, zoom }) {
             subs.forEach(s => {
                 const sc = s.geometry && s.geometry.coordinates;
                 if (!sc) return;
-                
-                // Use true geodesic distance (haversine) rather than distorted coordinate degrees
                 const d = haversine(coord[0], coord[1], sc[0], sc[1]);
-                
                 if (d < min && d <= TOLERANCE_KM) { 
                     min = d; 
                     best = sc; 
@@ -443,6 +449,14 @@ window.initVentusMap = function({ config, center, zoom }) {
     function drawRadiusCircle(lon, lat, radiusKm) { map.getSource('src-radius-circle').setData(createGeoJSONCircle(lon, lat, radiusKm)); }
     function clearRadiusCircle() { map.getSource('src-radius-circle').setData({ type: 'FeatureCollection', features: [] }); }
 
+    // ── INP FIX: Helper to get only currently visible layer IDs ──────────────────
+    function getVisibleLayerIds(layerIds) {
+        return layerIds.filter(id => {
+            try { return map.getLayoutProperty(id, 'visibility') === 'visible'; }
+            catch(e) { return false; }
+        });
+    }
+
     // ── Popup / Search ────────────────────────────────────────────────────────────
     function buildSearchButtons(name, capacity, tech) {
         const threshold = SEARCH_THRESHOLD[tech] !== undefined ? SEARCH_THRESHOLD[tech] : 50;
@@ -470,16 +484,14 @@ window.initVentusMap = function({ config, center, zoom }) {
         const mounting = p.mounting ? ` | ${escapeHTML(p.mounting)}` : '';
         map.flyTo({ center: [lon, lat], zoom: 12, duration: 1800, essential: true });
         setTimeout(() => {
-            new maplibregl.Popup({ maxWidth: '300px' })
-                .setLngLat([lon, lat])
-                .setHTML(`<div style="font-family:monospace;background:#000;padding:6px">
+            openPopup([lon, lat], `<div style="font-family:monospace;background:#000;padding:6px">
                     <b style="color:#00ffff;font-size:13px">${escapeHTML(p.name)}</b><br>
                     <span style="color:#888">${escapeHTML(p.raw_tech || p.tech)}${mounting}</span><br>
                     <span style="color:#ffae00">${escapeHTML(cap)}</span>
                     <span style="color:#666"> | ${escapeHTML(p.status)}</span><br>
                     <span style="color:#555;font-size:10px">${escapeHTML(p.operator)}</span>
                     ${REPD_IDS.includes(p.tech) ? buildSearchButtons(p.name, parseFloat(p.capacity) || 0, p.tech) : ''}
-                </div>`).addTo(map);
+                </div>`);
         }, 1900);
     }
 
@@ -575,12 +587,12 @@ window.initVentusMap = function({ config, center, zoom }) {
         if (radiusMarker) radiusMarker.remove(); radiusMarker = null;
         const nearby = allREPDFeatures.filter(f => { const [flon, flat] = f.geometry.coordinates; return haversine(lon, lat, flon, flat) <= km; }).sort((a, b) => (b.properties.capacity || 0) - (a.properties.capacity || 0));
         if (!nearby.length) {
-            new maplibregl.Popup({ maxWidth: '300px' }).setLngLat([lon, lat]).setHTML(`
+            openPopup([lon, lat], `
                 <div style="font-family:monospace;background:#000;padding:8px">
                     <b style="color:#00ffff">◎ ${km}km radius active</b><br><br>
                     <span style="color:#888;font-size:10px">No REPD assets found in this area.</span><br>
                     <span style="color:#555;font-size:9px;line-height:1.6">Tick layers in the panel below<br>to explore assets within this circle.</span>
-                </div>`).addTo(map);
+                </div>`);
             return;
         }
         const totalMW = nearby.reduce((s, f) => s + (parseFloat(f.properties.capacity) || 0), 0);
@@ -594,12 +606,12 @@ window.initVentusMap = function({ config, center, zoom }) {
                 <span style="color:#888;font-size:10px">${escapeHTML(p.raw_tech)}</span>
                 <span style="color:#ffae00;font-size:10px"> ${p.capacity || '?'} MW</span></div>`;
         }).join('');
-        new maplibregl.Popup({ maxWidth: '300px' }).setLngLat([lon, lat]).setHTML(`
+        openPopup([lon, lat], `
             <div style="font-family:monospace;background:#000;padding:6px">
                 <b style="color:#00ffff">◎ ${km}km — ${nearby.length} assets | ${totalMW.toFixed(1)} MW</b><br>
                 <span style="color:#555;font-size:9px;line-height:1.8">Tick layers in the panel to explore this area</span><br><br>
                 ${techSummary}${topAssets}
-            </div>`).addTo(map);
+            </div>`);
     }
 
     // ── DOM Builder ───────────────────────────────────────────────────────────────
@@ -685,7 +697,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             });
         }
 
-        // BIND NEW RADIUS AREA EVENTS
         const btnRadiusArea = document.getElementById('btn-radius-area');
         if (btnRadiusArea) btnRadiusArea.addEventListener('click', toggleRadiusAreaMode);
 
@@ -773,7 +784,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.addLayer({ id: 'l-radius-circle-fill',   type: 'fill', source: 'src-radius-circle', paint: { 'fill-color': '#00ffff', 'fill-opacity': 0.04 } });
         map.addLayer({ id: 'l-radius-circle-stroke', type: 'line', source: 'src-radius-circle', paint: { 'line-color': '#00ffff', 'line-width': 1.5, 'line-opacity': 0.7, 'line-dasharray': [4, 3] } });
 
-        // NEW RADIUS AREA LAYERS
         map.addSource('src-radius-area', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
         map.addLayer({ id: 'l-radius-area-fill',   type: 'fill', source: 'src-radius-area', paint: { 'fill-color': '#ff00ff', 'fill-opacity': 0.08 } });
         map.addLayer({ id: 'l-radius-area-stroke', type: 'line', source: 'src-radius-area', paint: { 'line-color': '#ff00ff', 'line-width': 1.5, 'line-opacity': 0.8, 'line-dasharray': [2, 2] } });
@@ -835,39 +845,76 @@ window.initVentusMap = function({ config, center, zoom }) {
         });
 
         // ── Map Events ────────────────────────────────────────────────────────────
-        map.on('click', e => {
-            if (measureMode) { measurePoints.push([e.lngLat.lng, e.lngLat.lat]); measureClosed = false; updateMeasureLayers(); updateMeasureDisplay(); return; }
-            if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
-            if (radiusAreaMode) { doRadiusAreaMeasure(e.lngLat.lng, e.lngLat.lat); return; } // NEW INTERCEPTOR
 
-            const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds });
+        // BUG FIX: track whether the last click was part of a dblclick, so the
+        // measure tool does not add a ghost point when the user double-clicks to close.
+        let _pendingMeasureClick = null;
+
+        map.on('click', e => {
+            if (measureMode) {
+                // Defer the point addition by one frame so dblclick can cancel it
+                _pendingMeasureClick = setTimeout(() => {
+                    _pendingMeasureClick = null;
+                    if (!measureClosed) {
+                        measurePoints.push([e.lngLat.lng, e.lngLat.lat]);
+                        updateMeasureLayers();
+                        updateMeasureDisplay();
+                    }
+                }, 220);
+                return;
+            }
+            if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
+            if (radiusAreaMode) { doRadiusAreaMeasure(e.lngLat.lng, e.lngLat.lat); return; }
+
+            // ── INP FIX: only query layers that are currently visible ─────────────
+            const visibleLayerIds = getVisibleLayerIds(allLayerIds);
+            if (!visibleLayerIds.length) return;
+            const features = map.queryRenderedFeatures(e.point, { layers: visibleLayerIds });
+            // ─────────────────────────────────────────────────────────────────────
+
             if (!features.length) return;
             const p    = features[0].properties || {}; const name = p.name || p.SiteName || p['Site Name'] || 'Unnamed Asset';
 
             if (p.type === 'supermarket') {
                 const address = [p.street, p.city, p.postcode].filter(Boolean).join(', '); const area = p.area_m2 ? `${p.area_m2.toLocaleString()} m²` : '';
-                new maplibregl.Popup({ maxWidth: '300px' }).setLngLat(e.lngLat).setHTML(`<div style="font-family:monospace;background:#000;padding:6px"><b style="color:${p.colour || '#00ffff'};font-size:13px">${escapeHTML(p.brand || name)}</b><br>${p.name && p.name !== p.brand ? `<span style="color:#fff">${escapeHTML(p.name)}</span><br>` : ''}<span style="color:#888">${escapeHTML(address)}</span><br>${area ? `<span style="color:#ffae00">Area: ${escapeHTML(area)}</span>` : ''}</div>`).addTo(map); return;
+                openPopup(e.lngLat, `<div style="font-family:monospace;background:#000;padding:6px"><b style="color:${p.colour || '#00ffff'};font-size:13px">${escapeHTML(p.brand || name)}</b><br>${p.name && p.name !== p.brand ? `<span style="color:#fff">${escapeHTML(p.name)}</span><br>` : ''}<span style="color:#888">${escapeHTML(address)}</span><br>${area ? `<span style="color:#ffae00">Area: ${escapeHTML(area)}</span>` : ''}</div>`); return;
             }
 
             if (p.type === 'elizabeth_line_station') {
-                new maplibregl.Popup({ maxWidth: '300px' }).setLngLat(e.lngLat).setHTML(`<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#60399E;font-size:13px">${escapeHTML(name)}</b><br><span style="color:#888">Elizabeth Line Station</span><br><span style="color:#555;font-size:10px">${escapeHTML(p.operator)}</span></div>`).addTo(map); return;
+                openPopup(e.lngLat, `<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#60399E;font-size:13px">${escapeHTML(name)}</b><br><span style="color:#888">Elizabeth Line Station</span><br><span style="color:#555;font-size:10px">${escapeHTML(p.operator)}</span></div>`); return;
             }
 
             if (p.type === 'stadium') {
                 const club = p.club ? `<span style="color:#fff">${escapeHTML(p.club)}</span><br>` : ''; const cap = p.capacity && p.capacity !== "Unknown" ? `Capacity: ${Number(p.capacity).toLocaleString()}` : 'Capacity: Unknown';
-                new maplibregl.Popup({ maxWidth: '300px' }).setLngLat(e.lngLat).setHTML(`<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#e5ff00;font-size:13px">${escapeHTML(name)}</b><br>${club}<span style="color:#888">${escapeHTML(p.sport)}</span><br><span style="color:#ffae00">${escapeHTML(cap)}</span></div>`).addTo(map); return;
+                openPopup(e.lngLat, `<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#e5ff00;font-size:13px">${escapeHTML(name)}</b><br>${club}<span style="color:#888">${escapeHTML(p.sport)}</span><br><span style="color:#ffae00">${escapeHTML(cap)}</span></div>`); return;
             }
 
             const tech = p.tech || ''; const rawTech = p.raw_tech || p.type || tech; const voltage = p.voltage || ''; const capacity = parseFloat(p.capacity) || 0; const powerKw = p.power_kw || null; const connectors = p.connectors || ''; const status = p.status || ''; const operator = p.operator || ''; const mounting = p.mounting ? ` | ${escapeHTML(p.mounting)}` : ''; const capStr = capacity ? `${capacity} MW` : ''; const statusCol = STATUS_COLOURS[normalizeStatus(status)] || '#888'; const searchBtns = REPD_IDS.includes(tech) ? buildSearchButtons(name, capacity, tech) : ''; const evFields = powerKw ? `<span style="color:#00ff88;font-size:10px">${powerKw} kW</span>${connectors ? `<span style="color:#555;font-size:10px"> | ${escapeHTML(connectors)}</span>` : ''}<br>` : '';
-            new maplibregl.Popup({ maxWidth: '300px' }).setLngLat(e.lngLat).setHTML(`<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#00ffff;font-size:13px">${escapeHTML(name)}</b><br><span style="color:#888">${escapeHTML(rawTech)}${voltage ? ` | ${escapeHTML(voltage)}` : ''}${mounting}</span><br>${evFields}${capStr ? `<span style="color:#ffae00">${escapeHTML(capStr)}</span>` : ''}${status ? `<span style="color:${statusCol};font-size:10px"> ● ${escapeHTML(status)}</span>` : ''}<br>${operator ? `<span style="color:#555;font-size:10px">${escapeHTML(operator)}</span>` : ''}${searchBtns}</div>`).addTo(map);
+            openPopup(e.lngLat, `<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#00ffff;font-size:13px">${escapeHTML(name)}</b><br><span style="color:#888">${escapeHTML(rawTech)}${voltage ? ` | ${escapeHTML(voltage)}` : ''}${mounting}</span><br>${evFields}${capStr ? `<span style="color:#ffae00">${escapeHTML(capStr)}</span>` : ''}${status ? `<span style="color:${statusCol};font-size:10px"> ● ${escapeHTML(status)}</span>` : ''}<br>${operator ? `<span style="color:#555;font-size:10px">${escapeHTML(operator)}</span>` : ''}${searchBtns}</div>`);
         });
 
-        map.on('dblclick', e => { if (!measureMode || measurePoints.length < 2) return; e.preventDefault(); measureClosed = true; updateMeasureLayers(); updateMeasureDisplay(); });
+        map.on('dblclick', e => {
+            // BUG FIX: cancel the pending single-click point before closing the polygon
+            if (_pendingMeasureClick) { clearTimeout(_pendingMeasureClick); _pendingMeasureClick = null; }
+            if (!measureMode || measurePoints.length < 2) return;
+            e.preventDefault();
+            measureClosed = true;
+            updateMeasureLayers();
+            updateMeasureDisplay();
+        });
 
         map.on('mousemove', e => {
             if (measureMode || radiusMode || radiusAreaMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
             if (_lastMouseMoveRaf) return;
-            _lastMouseMoveRaf = requestAnimationFrame(() => { _lastMouseMoveRaf = null; const features = map.queryRenderedFeatures(e.point, { layers: allLayerIds }); map.getCanvas().style.cursor = features.length ? 'pointer' : ''; });
+            _lastMouseMoveRaf = requestAnimationFrame(() => {
+                _lastMouseMoveRaf = null;
+                // ── INP FIX: only query layers that are currently visible ─────────
+                const visibleLayerIds = getVisibleLayerIds(allLayerIds);
+                if (!visibleLayerIds.length) { map.getCanvas().style.cursor = ''; return; }
+                const features = map.queryRenderedFeatures(e.point, { layers: visibleLayerIds });
+                // ─────────────────────────────────────────────────────────────────
+                map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+            });
         });
 
         GRID_CONFIG.forEach(group => { group.layers.forEach(layer => { if (layer.preload) hydrateLayer(layer.id); }); });

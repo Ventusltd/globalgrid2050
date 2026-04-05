@@ -183,7 +183,9 @@
                   filter: ['any', ['in', 'Tyne', ['get', 'operator']], ['in', 'Metrolink', ['get', 'operator']], ['in', 'Supertram', ['get', 'operator']], ['in', 'Nottingham', ['get', 'operator']], ['in', 'Edinburgh', ['get', 'operator']], ['in', 'Midland Metro', ['get', 'operator']]] },
                 { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
                   filter: ['all', ['==', ['get', 'type'], 'Tram / Light Rail'], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
-                { id: "hs2",   label: "HS2", color: "#2c6fad", type: "point", radius: 4, url: "/hs2.geojson", preload: false }
+                { id: "hs2",   label: "HS2", color: "#2c6fad", type: "point", radius: 4, url: "/hs2.geojson", preload: false },
+                { id: "eurostar_route", label: "Eurostar (inc. HS1)", color: "#001489", type: "line", width: 2.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'route'], preload: false },
+                { id: "eurostar_station", label: "Eurostar Stations", color: "#ffd700", type: "point", radius: 5.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'eurostar_station'], preload: false }
             ]
         },
         {

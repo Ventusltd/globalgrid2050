@@ -398,8 +398,8 @@ const GRID_CONFIG = deepFreeze([
             { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "/grid_220kv.geojson", snap: true, preload: true },
             { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "/grid_132kv.geojson", snap: true, preload: true },
             { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "/grid_66kv.geojson", snap: true, preload: true },
-            { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: 4, url: "/grid_11kv_ukpn.geojson", minzoom: 13.5, preload: false },
-            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: 3, url: "/grid_substations.geojson", isSubs: true, preload: true }
+            { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 13.5, 4, 15, 8, 18, 18], url: "/grid_11kv_ukpn.geojson", minzoom: 13.5, preload: false },
+            { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 3, 10, 5, 14, 10, 18, 22], url: "/grid_substations.geojson", isSubs: true, preload: true }
         ]
     },
     {
@@ -1020,37 +1020,14 @@ map.on('load', () => {
             if (TRANSIT_IDS.includes(layer.id)) return;
             if (layer.id === 'ev') return;
             map.addSource(`src-${layer.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-
-            // Dynamic zooming logic applied to base standard points and lines
-            let dynamicRadius = layer.radius;
-            if (typeof layer.radius === 'number') {
-                dynamicRadius = [
-                    'interpolate', ['linear'], ['zoom'],
-                    5, layer.radius,
-                    11, layer.radius * 1.5,
-                    16, layer.radius * 3,
-                    20, layer.radius * 5
-                ];
-            }
-            let dynamicWidth = layer.width;
-            if (typeof layer.width === 'number') {
-                dynamicWidth = [
-                    'interpolate', ['linear'], ['zoom'],
-                    5, layer.width,
-                    11, layer.width * 1.5,
-                    16, layer.width * 3,
-                    20, layer.width * 5
-                ];
-            }
-
             const layerObject = {
                 id: `l-${layer.id}`,
                 type: layer.type === 'line' ? 'line' : 'circle',
                 source: `src-${layer.id}`,
                 layout: { visibility: 'none' },
                 paint: layer.type === 'line'
-                    ? { 'line-color': layer.color, 'line-width': dynamicWidth }
-                    : { 'circle-color': layer.color, 'circle-radius': dynamicRadius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
+                    ? { 'line-color': layer.color, 'line-width': layer.width }
+                    : { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000' }
             };
             if (layer.filter) layerObject.filter = layer.filter;
             if (layer.minzoom) layerObject.minzoom = layer.minzoom;
@@ -1066,22 +1043,10 @@ map.on('load', () => {
     TRANSIT_IDS.forEach(id => {
         const layer = getLayerConfig(id);
         const sourceId = TRANSIT_SOURCE_MAP[id];
-        
-        let dynamicRadius = layer.radius;
-        if (typeof layer.radius === 'number') {
-            dynamicRadius = [
-                'interpolate', ['linear'], ['zoom'],
-                5, layer.radius,
-                11, layer.radius * 1.5,
-                16, layer.radius * 3,
-                20, layer.radius * 5
-            ];
-        }
-
         const layerObject = {
             id: `l-${id}`, type: 'circle', source: sourceId,
             layout: { visibility: 'none' },
-            paint: { 'circle-color': layer.color, 'circle-radius': dynamicRadius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000', 'circle-opacity': 0.9 }
+            paint: { 'circle-color': layer.color, 'circle-radius': layer.radius, 'circle-stroke-width': 1, 'circle-stroke-color': '#000', 'circle-opacity': 0.9 }
         };
         if (layer.filter) layerObject.filter = layer.filter;
         if (layer.minzoom) layerObject.minzoom = layer.minzoom;
@@ -1091,7 +1056,7 @@ map.on('load', () => {
 
     map.addSource('src-ev', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     map.addLayer({ id: 'l-ev', type: 'circle', source: 'src-ev', layout: { visibility: 'none' },
-        paint: { 'circle-color': '#00ff88', 'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 5, 11, 7.5, 16, 15, 20, 25], 'circle-stroke-width': 1, 'circle-stroke-color': '#000', 'circle-opacity': 0.9 } });
+        paint: { 'circle-color': '#00ff88', 'circle-radius': 5, 'circle-stroke-width': 1, 'circle-stroke-color': '#000', 'circle-opacity': 0.9 } });
     allLayerIds.push('l-ev');
 
     map.addSource('src-repd', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
@@ -1115,20 +1080,17 @@ map.on('load', () => {
                     'circle-opacity': ['interpolate',['linear'],['coalesce',['get','capacity'],0],4.0,0.12,20.0,0.18,50.0,0.25,200.0,0.35],
                     'circle-blur': 1.0, 'circle-stroke-width': 0 } });
         }
-
-        const zoomMultiplier = ['interpolate', ['linear'], ['zoom'], 5, 1, 11, 1.2, 16, 2, 20, 3.5];
-
         const circlePaint = id === 'solar_roof'
             ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffcc00',0.99,'#ffcc00',1.0,'#ff8c00',5.0,'#ff6600',10.0,'#ff4400'],
-                'circle-radius': ['*', zoomMultiplier, ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,7,0.5,7,0.99,8,1.0,16,2.0,18,5.0,22,10.0,28]],
+                'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,7,0.5,7,0.99,8,1.0,16,2.0,18,5.0,22,10.0,28],
                 'circle-stroke-width': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,1,0.99,1,1.0,2],
                 'circle-stroke-color': '#000', 'circle-opacity': 0.9 }
             : id === 'solar'
             ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffff00',20.0,'#ffcc00',50.0,'#ffaa00',200.0,'#ff6600',500.0,'#ff2200'],
-                'circle-radius': ['*', zoomMultiplier, ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28]],
+                'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28],
                 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85 }
             : { 'circle-color': layer.color,
-                'circle-radius': ['*', zoomMultiplier, ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28]],
+                'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28],
                 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85 };
 
         map.addLayer({ id: `l-${id}`, type: 'circle', source: 'src-repd', filter: layer.filter, layout: { visibility: 'none' }, paint: circlePaint });

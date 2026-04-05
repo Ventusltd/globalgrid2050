@@ -51,7 +51,14 @@ body.fs-active .search-bar-wrapper { top: 100px; }
 .map-ctrl-btn:hover { border-color: #00ffff; color: #00ffff; }
 .map-ctrl-btn.active { border-color: #00ffff; color: #00ffff; background: rgba(0,255,255,0.08); }
 
-/* Radius search popup */
+/* Radius area popup — stacked above radius search popup */
+#radius-area-popup { bottom: 60px; }
+
+/* Poly Zone panel — stacked above radius area popup, orange accent */
+#polyzone-panel { bottom: 90px; border-color: #ff6600; }
+.polyzone-label { color: #ff6600 !important; }
+
+/* Radius search popup base */
 .radius-popup { position: absolute; bottom: 30px; left: 120px; z-index: 20; background: #050505; border: 1px solid #444; border-radius: 4px; padding: 8px 12px; display: none; }
 .radius-popup label { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
 .radius-input-row { display: flex; align-items: center; gap: 4px; }
@@ -70,12 +77,27 @@ body.fs-active .search-bar-wrapper { top: 100px; }
 .radius-hint { font-size: 8px; color: #444; margin-top: 4px; letter-spacing: 0.5px; }
 
 /* Measure display panel */
-#measure-display { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 20; background: rgba(5,5,5,0.92); border: 1px solid #00ffff; border-radius: 4px; padding: 8px 14px; display: none; font-family: 'Courier New', monospace; font-size: 10px; color: #00ffff; text-align: center; white-space: nowrap; pointer-events: none; }
+#measure-display { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 20; background: rgba(5,5,5,0.92); border: 1px solid #00ffff; border-radius: 4px; padding: 8px 14px; display: none; font-family: 'Courier New', monospace; font-size: 10px; color: #00ffff; text-align: center; white-space: nowrap; pointer-events: none; max-width: calc(100vw - 40px); box-sizing: border-box; }
+@media (max-width: 480px) {
+    #measure-display { white-space: normal; font-size: 9px; }
+}
 #measure-display .m-row { margin-bottom: 2px; color: #888; }
 #measure-display .m-row span { color: #00ffff; }
 #measure-display .m-hint { font-size: 8px; color: #444; margin-top: 4px; }
 #btn-measure-undo { pointer-events: auto; background: #0a0a0a; border: 1px solid #555; border-radius: 3px; color: #888; font-family: 'Courier New', monospace; font-size: 8px; padding: 2px 6px; cursor: pointer; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; display: none; }
 #btn-measure-undo:hover { border-color: #ffff00; color: #ffff00; }
+
+/* Poly Zone display panel — orange accent, mirrors measure-display */
+#polyzone-display { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 20; background: rgba(5,5,5,0.92); border: 1px solid #ff6600; border-radius: 4px; padding: 8px 14px; display: none; font-family: 'Courier New', monospace; font-size: 10px; color: #ff6600; text-align: center; white-space: nowrap; pointer-events: none; max-width: calc(100vw - 40px); box-sizing: border-box; }
+#polyzone-display .m-row { margin-bottom: 2px; color: #888; }
+#polyzone-display .m-row span { color: #ff6600; }
+#polyzone-display .m-hint { font-size: 8px; color: #444; margin-top: 4px; }
+#btn-polyzone-undo { pointer-events: auto; background: #0a0a0a; border: 1px solid #555; border-radius: 3px; color: #888; font-family: 'Courier New', monospace; font-size: 8px; padding: 2px 6px; cursor: pointer; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; display: none; }
+#btn-polyzone-undo:hover { border-color: #ff6600; color: #ff6600; }
+#btn-polyzone-undo:focus-visible { outline: 1px solid #ff6600; outline-offset: 2px; }
+@media (max-width: 480px) {
+    #polyzone-display { white-space: normal; font-size: 9px; }
+}
 
 /* Fullscreen letterhead */
 #fs-letterhead { display: none; position: fixed; top: 8px; right: 12px; z-index: 512; text-align: right; pointer-events: none; }
@@ -114,3 +136,22 @@ body.fs-active #fs-curtain-tab { display: block; }
 ::-webkit-scrollbar-track { background: #050505; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #00ffff; }
+
+/* Firefox scrollbar */
+* { scrollbar-width: thin; scrollbar-color: #333 #050505; }
+
+/* Focus-visible states — keyboard accessibility without affecting mouse users */
+.map-ctrl-btn:focus-visible,
+.search-btn:focus-visible,
+#btn-fullscreen:focus-visible,
+#btn-fullscreen-exit:focus-visible,
+#btn-measure-undo:focus-visible { outline: 1px solid #00ffff; outline-offset: 2px; }
+
+/* Short viewport — landscape mobile or compact laptop screens */
+@media (max-height: 600px) {
+    .scada-wrapper { max-height: 28vh; }
+    .hud-header { padding: 3px 10px; }
+    .hud-val { font-size: 13px; }
+    .ventus-main { font-size: 13px; }
+    .key-item { margin-bottom: 4px; font-size: 11px; }
+}

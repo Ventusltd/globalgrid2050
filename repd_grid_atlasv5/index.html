@@ -76,16 +76,6 @@
             <div class="radius-hint">Input radius: 0.001 (1m) to 160 km</div>
         </div>
 
-        <!-- Poly Zone panel -->
-        <div class="radius-popup" id="polyzone-panel">
-            <label class="polyzone-label">Poly Zone radius limit</label>
-            <div class="radius-input-row">
-                <input type="number" id="polyzone-radius-input" value="1" min="0.1" max="5" step="0.1" />
-                <span class="radius-unit">km</span>
-            </div>
-            <div class="radius-hint">0.1 – 5 km · Click map to set centre</div>
-        </div>
-
         <!-- Measure display -->
         <div id="measure-display">
             <div class="m-row" id="m-line" style="display:none">━━ <span id="m-km"></span> km | <span id="m-m"></span> m | <span id="m-mi"></span> mi</div>
@@ -97,11 +87,14 @@
 
         <!-- Poly Zone display -->
         <div id="polyzone-display">
-            <div class="m-row" id="pz-line" style="display:none">━━ <span id="pz-km"></span> km | <span id="pz-m"></span> m</div>
             <div class="m-row" id="pz-area" style="display:none">
-                Perimeter: <span id="pz-pkm"></span> km<br>
-                Area: <span id="pz-km2"></span> km² | <span id="pz-ha"></span> ha | <span id="pz-ac"></span> ac<br>
-                <span id="pz-m2"></span> m² · <span style="color:#ffae00">⚽ <span id="pz-pitch"></span> pitches</span>
+                <span id="pz-km2"></span> km² · <span id="pz-ha"></span> ha<br>
+                <span id="pz-ac"></span> ac · <span id="pz-mi2"></span> mi²<br>
+                <span id="pz-m2"></span> m²<br>
+                <span style="color:#ffae00">⚽ <span id="pz-pitch"></span> pitches</span>
+            </div>
+            <div class="m-row" id="pz-perim" style="display:none">
+                <span style="color:#555;font-size:9px">perimeter <span id="pz-pkm"></span> km</span>
             </div>
             <div class="m-hint" id="pz-hint">Click map to set centre point</div>
             <button id="btn-polyzone-undo" title="Undo last vertex">↩ Undo Vertex</button>

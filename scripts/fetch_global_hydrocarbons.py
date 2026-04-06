@@ -5,12 +5,14 @@ import os
 import sys
 import csv
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-# The script will look for this file in the root directory where the Action runs
-GEM_CSV_PATH = "gem_hydrocarbons_master.csv"  
-DEDUPLICATION_RADIUS_M = 3000.0  # 3km deduplication zone
+# Calculate the absolute path of the repository root
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..'))
 
-# Stripped the leading newline
+OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+GEM_CSV_FILENAME = "gem_hydrocarbons_master.csv"  
+DEDUPLICATION_RADIUS_M = 3000.0  
+
 OVERPASS_QUERY = """[out:json][timeout:900];
 (
   way["man_made"="petroleum_works"];
@@ -36,7 +38,6 @@ OVERPASS_QUERY = """[out:json][timeout:900];
 out center bb;"""
 
 def haversine_distance(lat1, lon1, lat2, lon2):
-    """Calculates true physical distance in geodesic metres."""
     R = 6371000
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
@@ -45,15 +46,14 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1-a))
 
 def parse_gem_data():
-    """Ingests the Gold Standard GEM/Fossil Fuel Atlas CSV."""
     gem_features = []
-    filepath = os.path.join(os.getcwd(), GEM_CSV_PATH)
+    filepath = os.path.join(REPO_ROOT, GEM_CSV_FILENAME)
     
     if not os.path.exists(filepath):
-        print(f"WARNING: Gold Standard file '{GEM_CSV_PATH}' not found. Defaulting strictly to OSM.")
+        print(f"WARNING: Gold Standard file '{GEM_CSV_FILENAME}' not found in root. Defaulting strictly to OSM.")
         return gem_features
         
-    print(f"Ingesting Gold Standard data from {GEM_CSV_PATH}...")
+    print(f"Ingesting Gold Standard data from {filepath}...")
     with open(filepath, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         headers = [h.lower() for h in reader.fieldnames]
@@ -99,19 +99,15 @@ def parse_gem_data():
     return gem_features
 
 def fetch_osm_data():
-    """Fetches open-source fallback data."""
     print("Initiating global Overpass API extraction for secondary infrastructure...")
     
-    # Custom User-Agent to prevent 400 Bad Request / 403 Forbidden
     headers = {
         'User-Agent': 'GlobalGrid2050-Pipeline/5.0 (Automated Spatial Extraction)'
     }
     
     try:
-        # Raw UTF-8 bytes to bypass URL-encoding corruption
         response = requests.post(OVERPASS_URL, data=OVERPASS_QUERY.encode('utf-8'), headers=headers)
         
-        # Intercept API errors
         if response.status_code != 200:
             print(f"OVERPASS API ERROR [{response.status_code}]:\n{response.text}")
             
@@ -122,7 +118,6 @@ def fetch_osm_data():
         sys.exit(1)
 
 def deduplicate_and_merge(gem_features, osm_raw):
-    """Merges datasets, stripping OSM assets that fall within the GEM Haversine radius."""
     final_features = list(gem_features)
     if not osm_raw:
         return {"type": "FeatureCollection", "features": final_features}
@@ -208,8 +203,7 @@ def deduplicate_and_merge(gem_features, osm_raw):
     }
 
 def save_geojson(geojson_data, filename="global_hydrocarbons.geojson"):
-    # Saves directly to the repository root
-    filepath = os.path.join(os.getcwd(), filename)
+    filepath = os.path.join(REPO_ROOT, filename)
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(geojson_data, f, separators=(',', ':'))
     print(f"SUCCESS: Wrote {len(geojson_data['features'])} unified facilities to {filepath}")

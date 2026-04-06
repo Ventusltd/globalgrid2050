@@ -1,98 +1,83 @@
 import requests
 import json
+import os
+import sys
 
+# Define the Overpass API endpoint
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
-def build_query() -> str:
-    # A planetary query targeting major commercial, cargo, and industrial ports.
-    return """[out:json][timeout:180];
-    (
-      node["industrial"="port"];
-      way["industrial"="port"];
-      relation["industrial"="port"];
-      
-      node["landuse"="port"];
-      way["landuse"="port"];
-      relation["landuse"="port"];
-      
-      node["harbour"="yes"]["seamark:harbour:category"~"commercial|cargo",i];
-    );
-    out center tags;
-    """
+# We query globally for seamark harbours and industrial ports.
+# The [timeout:900] ensures the API doesn't drop the connection for this global pull.
+# Using 'out center;' guarantees we get a single mathematical point (geodesic node) 
+# even if the port is mapped as a complex polygon.
+OVERPASS_QUERY = """
+[out:json][timeout:900];
+(
+  nwr["seamark:type"="harbour"];
+  nwr["industrial"="port"];
+);
+out center;
+"""
 
-def process_data(data: dict) -> list:
+def fetch_ports():
+    print("Initiating global port extraction from Overpass API...")
+    try:
+        response = requests.post(OVERPASS_URL, data={'data': OVERPASS_QUERY})
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"CRITICAL: Failed to fetch data from Overpass API: {e}")
+        sys.exit(1)
+
+def convert_to_geojson(osm_data):
     features = []
-    seen = set()
-
-    for el in data.get("elements", []):
-        el_id = el["id"]
-        if el_id in seen:
+    elements = osm_data.get('elements', [])
+    
+    print(f"Processing {len(elements)} raw spatial nodes...")
+    
+    for el in elements:
+        # Extract coordinates depending on whether it's a node or the center of a way/relation
+        if el['type'] == 'node':
+            lon, lat = el.get('lon'), el.get('lat')
+        else:
+            center = el.get('center', {})
+            lon, lat = center.get('lon'), center.get('lat')
+            
+        if not lon or not lat:
             continue
             
-        tags = el.get("tags", {})
+        tags = el.get('tags', {})
+        name = tags.get('name', tags.get('name:en', 'Unnamed Port / Facility'))
+        port_type = tags.get('seamark:type', tags.get('industrial', 'Unknown'))
         
-        # Determine coordinates (nodes use lat/lon, areas use center)
-        lat = el.get("lat")
-        lon = el.get("lon")
-        if "center" in el:
-            lat = el["center"]["lat"]
-            lon = el["center"]["lon"]
-            
-        if lat is not None and lon is not None:
-            # Filter out unnamed/minor local docks to keep the global map strategic
-            name = tags.get("name")
-            if not name:
-                name = tags.get("seamark:name", tags.get("description"))
-                
-            if name:
-                seen.add(el_id)
-                operator = tags.get("operator", tags.get("brand", "Port Authority"))
-                
-                features.append({
-                    "type": "Feature",
-                    "properties": {
-                        "name": name,
-                        "operator": operator,
-                        "osm_id": el_id,
-                        "type": "global_port"
-                    },
-                    "geometry": {"type": "Point", "coordinates": [round(lon, 6), round(lat, 6)]}
-                })
-
-    return features
-
-def main():
-    print("Fetching Global Ports and Maritime Infrastructure...")
-    query = build_query()
-    try:
-        res = requests.post(OVERPASS_URL, data={"data": query}, timeout=180)
-        res.raise_for_status()
-        raw_data = res.json()
-    except Exception as e:
-        print(f"Error fetching data: {e}")
-        return
+        feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [lon, lat]
+            },
+            "properties": {
+                "name": name,
+                "type": port_type,
+                "operator": tags.get('operator', 'Unknown'),
+                "osm_id": el['id']
+            }
+        }
+        features.append(feature)
         
-    features = process_data(raw_data)
-    
-    # Deduplicate overlapping port terminals (within ~1.5km)
-    # Ports are massive; this prevents 10 dots clustering over a single harbor
-    tol = 1500.0 / 111320.0
-    kept = []
-    for f in features:
-        lon, lat = f["geometry"]["coordinates"]
-        dup = False
-        for k in kept:
-            klon, klat = k["geometry"]["coordinates"]
-            if abs(lon - klon) < tol and abs(lat - klat) < tol:
-                dup = True
-                break
-        if not dup: kept.append(f)
+    return {
+        "type": "FeatureCollection",
+        "features": features
+    }
 
-    geojson = {"type": "FeatureCollection", "features": kept}
-    with open("global_ports.geojson", "w", encoding="utf-8") as f:
-        json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
-        
-    print(f"Saved {len(kept)} Major Global Ports to global_ports.geojson")
+def save_geojson(geojson_data, filename="global_ports.geojson"):
+    # Ensure it saves to the root directory where the HTML expects it
+    filepath = os.path.join(os.getcwd(), filename)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(geojson_data, f, separators=(',', ':'))
+    print(f"SUCCESS: Wrote {len(geojson_data['features'])} ports to {filepath}")
 
 if __name__ == "__main__":
-    main()
+    raw_data = fetch_ports()
+    geojson = convert_to_geojson(raw_data)
+    save_geojson(geojson)

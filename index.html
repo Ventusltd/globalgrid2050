@@ -4,102 +4,22 @@
 <meta charset="UTF-8">
 <title>GlobalGrid2050</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-  body {
-    background: black;
-    color: white;
-    font-family: Courier, monospace;
-    padding: 40px;
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 20px;
-    line-height: 1.6;
-  }
-
-  a {
-    color: #66ccff;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  /* Search Box Styling */
-  #gridSearch {
-    width: 100%;
-    padding: 12px;
-    background: #111;
-    color: white;
-    border: 1px solid #444;
-    font-family: Courier, monospace;
-    font-size: 18px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-  }
-  
-  #gridSearch:focus {
-    outline: none;
-    border-color: #66ccff;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-
-  td {
-    padding: 12px 0;
-    border-bottom: 1px solid #333;
-  }
-
-  .footer {
-    margin-top: 60px;
-    font-size: 16px;
-    color: #aaaaaa;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 600px) {
-    body {
-      padding: 25px;
-      font-size: 18px;
-    }
-    .footer {
-      font-size: 14px;
-    }
-  }
+  body { background: black; color: white; font-family: Courier, monospace; padding: 40px; max-width: 900px; margin: 0 auto; font-size: 20px; line-height: 1.6; }
+  a { color: #66ccff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  #gridSearch { width: 100%; padding: 12px; background: #111; color: white; border: 1px solid #444; font-family: Courier, monospace; font-size: 18px; margin-top: 20px; margin-bottom: 10px; box-sizing: border-box; }
+  #gridSearch:focus { outline: none; border-color: #66ccff; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  td { padding: 12px 0; border-bottom: 1px solid #333; }
+  .footer { margin-top: 60px; font-size: 16px; color: #aaaaaa; line-height: 1.5; }
+  @media (max-width: 600px) { body { padding: 25px; font-size: 18px; } .footer { font-size: 14px; } }
 </style>
 </head>
-
 <body>
-
 <h1>GlobalGrid2050</h1>
-
-<p>
-An open grid development, engineering, procurement, construction and
-operations platform dedicated to documenting, analysing and improving
-the world's electrical energy systems as they undergo rapid
-electrification.
-</p>
-
-<p>
-The transition towards solar power, energy storage and expanded
-electrical infrastructure will reshape the operation of modern power
-networks and requires careful engineering understanding.
-</p>
-
-<p>
-The project aims to build a publicly accessible body of knowledge focused on
-the physical behaviour of electrical systems, grid stability, solar generation,
-storage integration, transmission infrastructure and electrical safety.
-</p>
-
-<input type="text" id="gridSearch" onkeyup="searchTable()" placeholder="Search directory (e.g., 'atlas', 'wind', 'copper')...">
-
+<p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
+<input type="text" id="gridSearch" onkeyup="searchTable()" placeholder="Search directory...">
 <table id="directoryTable">
   <tr><td><a href="/33kv_uk_dap_price_estimator/">33 kV UK DAP Price Estimator</a></td></tr>
   <tr><td><a href="/ac_cables_knowledge/">AC Cables Knowledge</a></td></tr>
@@ -108,7 +28,7 @@ storage integration, transmission infrastructure and electrical safety.
   <tr><td><a href="/copper_and_aluminium_prices_historic_trends/">Copper and Aluminium Historic Prices & Trends</a></td></tr>
   <tr><td><a href="/dc_cables_knowledge/">DC Cables Knowledge</a></td></tr>
   <tr><td><a href="/definitions/">Definitions</a></td></tr>
-  <tr><td><a href="/marketing/earth.html">EARTH (Hardcore 3D Digital Twin)</a></td></tr>
+  <tr><td><a href="/marketing/earth.html">Earth Digital Twin (Planetary Infrastructure Model)</a></td></tr>
   <tr><td><a href="/employers_requirements_BESS/">Employer Requirements BESS Notes</a></td></tr>
   <tr><td><a href="/employers_requirements/">Employer Requirements Notes</a></td></tr>
   <tr><td><a href="/lv_ac_dc_price_estimator/">LV AC and DC Distribution Cables Price Estimator</a></td></tr>
@@ -132,43 +52,15 @@ storage integration, transmission infrastructure and electrical safety.
   <tr><td><a href="/repd_solar_pipeline/">UK Solar Pipeline (1-50MW)</a></td></tr>
   <tr><td><a href="/marketing/showcase.html">VENTUS Global Data Backbone (3D WebGL Engine)</a></td></tr>
 </table>
-
-<div class="footer">
-  <p><strong>Disclaimer</strong></p>
-  <p>
-  The information published on GlobalGrid2050 is provided for general technical documentation,
-  research and educational purposes. While reasonable care is taken in preparing the material,
-  no representation or warranty is made regarding its completeness or suitability for any
-  specific project or application. The content does not constitute engineering advice,
-  professional services or regulatory guidance. Any design, construction or operational
-  decisions relating to electrical infrastructure must be undertaken by appropriately
-  qualified professionals in accordance with applicable laws, standards and regulatory
-  requirements. The operators of GlobalGrid2050 accept no liability for any reliance
-  placed upon the material.
-  </p>
-</div>
-
+<div class="footer"><p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p></div>
 <script>
 function searchTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("gridSearch");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("directoryTable");
-  tr = table.getElementsByTagName("tr");
-  
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
+  var input = document.getElementById("gridSearch"), filter = input.value.toUpperCase(), table = document.getElementById("directoryTable"), tr = table.getElementsByTagName("tr");
+  for (var i = 0; i < tr.length; i++) {
+    var td = tr[i].getElementsByTagName("td")[0];
+    if (td) { tr[i].style.display = (td.textContent || td.innerText).toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
   }
 }
 </script>
-
 </body>
 </html>

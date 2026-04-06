@@ -4,47 +4,71 @@ import json
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
 def build_query() -> str:
-    # BBOX COMPLETELY REMOVED. 
-    # This executes a planetary-scale query for data/telecom cables, explicitly excluding power.
+    # 1. Ask for individual ways (local links, smaller cables)
+    # 2. Ask for RELATIONS (The massive trans-oceanic global backbones)
     return """[out:json][timeout:180];
     (
       way["telecom"="cable"]["submarine"="yes"];
       way["telecom"="communication_cable"]["location"="underwater"];
-      way["man_made"="submarine_cable"]["cable"="telecommunication"];
-      way["man_made"="submarine_cable"][!"power"];
       way["seamark:type"="cable_submarine"]["seamark:cable_submarine:category"="optical_fibre"];
-      way["seamark:type"="cable_submarine"][!"power"];
+      
+      relation["telecom"="cable"]["submarine"="yes"];
+      relation["telecom"="communication_cable"]["location"="underwater"];
+      relation["route"="telecom"]["submarine"="yes"];
     );
     out geom;
     """
 
 def process_data(data: dict) -> list:
     features = []
-    seen = set()
+    seen_ways = set()
 
+    # 1. FIRST PASS: Unpack the massive trans-oceanic Relations
     for el in data.get("elements", []):
-        el_id = el["id"]
-        if el_id in seen:
-            continue
+        if el["type"] == "relation":
+            tags = el.get("tags", {})
+            name = tags.get("name", tags.get("seamark:name", "Global Subsea Route"))
+            operator = tags.get("operator", "Telecom Operator")
             
-        tags = el.get("tags", {})
-        
-        # We only want the physical geometry lines
-        if el["type"] == "way" and "geometry" in el:
-            seen.add(el_id)
+            multiline = []
+            for member in el.get("members", []):
+                if member["type"] == "way" and "geometry" in member:
+                    line = [[pt["lon"], pt["lat"]] for pt in member["geometry"]]
+                    if len(line) >= 2:
+                        multiline.append(line)
+                        # Mark this way as seen so we don't duplicate it in step 2
+                        seen_ways.add(member["ref"]) 
             
-            line = [[pt["lon"], pt["lat"]] for pt in el["geometry"]]
-            
-            if len(line) >= 2:
-                name = tags.get("name", tags.get("seamark:name", "Global Subsea Data Cable"))
-                operator = tags.get("operator", "Telecom Operator")
-                
+            if multiline:
                 features.append({
                     "type": "Feature",
                     "properties": {
                         "name": name,
                         "operator": operator,
-                        "osm_id": el_id,
+                        "osm_id": el["id"],
+                        "type": "subsea_data_cable"
+                    },
+                    "geometry": {
+                        "type": "MultiLineString",
+                        "coordinates": multiline
+                    }
+                })
+
+    # 2. SECOND PASS: Grab individual ways (that weren't part of a larger relation)
+    for el in data.get("elements", []):
+        if el["type"] == "way" and el["id"] not in seen_ways and "geometry" in el:
+            tags = el.get("tags", {})
+            name = tags.get("name", tags.get("seamark:name", "Subsea Data Cable"))
+            operator = tags.get("operator", "Telecom Operator")
+            
+            line = [[pt["lon"], pt["lat"]] for pt in el["geometry"]]
+            if len(line) >= 2:
+                features.append({
+                    "type": "Feature",
+                    "properties": {
+                        "name": name,
+                        "operator": operator,
+                        "osm_id": el["id"],
                         "type": "subsea_data_cable"
                     },
                     "geometry": {
@@ -56,10 +80,9 @@ def process_data(data: dict) -> list:
     return features
 
 def main():
-    print("Fetching Global Subsea Data Cables (Fibre Optics) for the entire planet...")
+    print("Fetching Global Subsea Data Cables (Including trans-oceanic relations)...")
     query = build_query()
     try:
-        # 180 second timeout because a global geometric query is heavy
         res = requests.post(OVERPASS_URL, data={"data": query}, timeout=180)
         res.raise_for_status()
         raw_data = res.json()
@@ -71,10 +94,9 @@ def main():
     
     geojson = {"type": "FeatureCollection", "features": features}
     with open("subsea_data_cables.geojson", "w", encoding="utf-8") as f:
-        # Minified to keep the file size tight for WebGL
         json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
         
-    print(f"Saved {len(features)} Global Subsea Data Cable segments to subsea_data_cables.geojson")
+    print(f"Saved {len(features)} global data cable structures to subsea_data_cables.geojson")
 
 if __name__ == "__main__":
     main()

@@ -10,16 +10,16 @@ REPO_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..'))
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
-# Added 'bb' to request physical spatial bounding boxes
+# Added amenity=ferry_terminal to explicitly catch P&O/Stena Line style hubs
 OVERPASS_QUERY = """[out:json][timeout:900];
 (
   nwr["seamark:type"="harbour"];
   nwr["industrial"="port"];
+  nwr["amenity"="ferry_terminal"];
 );
 out center bb;"""
 
 def haversine_distance(lat1, lon1, lat2, lon2):
-    """Calculates true physical distance in geodesic metres."""
     R = 6371000
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
@@ -28,11 +28,8 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1-a))
 
 def fetch_ports():
-    print("Initiating global port extraction from Overpass API...")
-    
-    headers = {
-        'User-Agent': 'GlobalGrid2050-Pipeline/5.0 (Automated Spatial Extraction)'
-    }
+    print("Initiating global port & ferry extraction from Overpass API...")
+    headers = {'User-Agent': 'GlobalGrid2050-Pipeline/5.0'}
     
     try:
         response = requests.post(OVERPASS_URL, data=OVERPASS_QUERY.encode('utf-8'), headers=headers)
@@ -48,45 +45,39 @@ def convert_to_geojson(osm_data):
     features = []
     elements = osm_data.get('elements', [])
     
-    print(f"Processing {len(elements)} raw spatial nodes and calculating footprints...")
-    
     for el in elements:
         lon = el.get('lon') or el.get('center', {}).get('lon')
         lat = el.get('lat') or el.get('center', {}).get('lat')
-            
-        if not lon or not lat:
-            continue
+        if not lon or not lat: continue
             
         tags = el.get('tags', {})
-        name = tags.get('name', tags.get('name:en', 'Unnamed Port / Facility'))
+        name = tags.get('name', tags.get('name:en', 'Unnamed Port / Terminal'))
         
-        # Classification Engine
+        # Strict logic for Deep Water, Containers, and Ro-Ro Ferries
         is_industrial = tags.get('industrial') == 'port'
+        is_ferry_terminal = tags.get('amenity') == 'ferry_terminal'
+        
         category = tags.get('seamark:harbour:category', '').lower()
-        cargo_tags = ['cargo', 'container', 'industrial', 'ro-ro', 'commercial', 'military']
-        is_major = is_industrial or any(c in category for c in cargo_tags)
+        cargo_tags = ['cargo', 'container', 'industrial', 'ro-ro', 'commercial', 'military', 'ferry', 'passenger', 'cruise', 'deep_water']
+        
+        is_major = is_industrial or is_ferry_terminal or any(c in category for c in cargo_tags)
         port_class = 'Major Cargo/Container Port' if is_major else 'Minor/Local Harbour'
         
-        # --- NEW SPATIAL SIZING ENGINE ---
-        area_ha = 1.0 # Default tiny baseline
+        area_ha = 1.0 
         bounds = el.get('bounds')
         
         if bounds:
-            # Calculate physical width and height using geodesic math
             width_m = haversine_distance(lat, bounds['minlon'], lat, bounds['maxlon'])
             height_m = haversine_distance(bounds['minlat'], lon, bounds['maxlat'], lon)
             area_ha = (width_m * height_m) / 10000.0
         
-        # If it's a massive container port but OSM only mapped it as a point, enforce a heavy baseline size
-        if is_major and area_ha < 20.0:
-            area_ha = 20.0
+        # If it's a major deep-water/ferry port but only mapped as a point, force a massive 80-hectare fallback
+        if is_major and area_ha < 80.0:
+            area_ha = 80.0
             
         feature = {
             "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [lon, lat]
-            },
+            "geometry": {"type": "Point", "coordinates": [lon, lat]},
             "properties": {
                 "name": name,
                 "type": port_class,
@@ -97,10 +88,7 @@ def convert_to_geojson(osm_data):
         }
         features.append(feature)
         
-    return {
-        "type": "FeatureCollection",
-        "features": features
-    }
+    return {"type": "FeatureCollection", "features": features}
 
 def save_geojson(geojson_data, filename="global_ports.geojson"):
     filepath = os.path.join(REPO_ROOT, filename)

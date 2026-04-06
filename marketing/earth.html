@@ -2,107 +2,127 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>EARTH | VENTUS SURPRISE</title>
+    <title>EARTH DIGITAL TWIN | VENTUS</title>
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
-        #container { width: 100vw; height: 100vh; filter: blur(0.4px) contrast(1.1) brightness(1.2); }
+        #container { width: 100vw; height: 100vh; transition: opacity 1s ease-in; }
         .hud {
             position: absolute; bottom: 40px; left: 40px; color: #00ffff; pointer-events: none;
-            text-shadow: 0 0 15px #00ffff; border-left: 3px solid #00ffff; padding-left: 20px;
-            animation: pulse 2s infinite ease-in-out;
+            text-shadow: 0 0 15px #00ffff; border-left: 3px solid #00ffff; padding-left: 20px; z-index: 10;
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .label { font-size: 32px; font-weight: bold; letter-spacing: 8px; text-transform: uppercase; }
-        .tagline { font-size: 10px; letter-spacing: 2px; margin-top: 5px; color: #fff; }
+        .label { font-size: 28px; font-weight: bold; letter-spacing: 5px; text-transform: uppercase; }
+        .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 5px; color: #fff; opacity: 0.8; }
+        .meta { font-size: 9px; opacity: 0.5; margin-top: 10px; line-height: 1.4; }
+        #loader { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #00ffff; font-size: 12px; letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
 
+<div id="loader">SYNCHRONIZING DIGITAL TWIN...</div>
+
 <div class="hud">
-    <div class="label">Earth</div>
-    <div class="tagline">PLANETARY CONNECTIVITY MESH // 2050 PROJECTION</div>
+    <div class="label">Earth Digital Twin</div>
+    <div class="tagline">VENTUS PLANETARY INFRASTRUCTURE ARCHITECTURE // 2050</div>
+    <div class="meta">
+        COORDINATE SYSTEM: WGS 84 / EPSG:4326<br>
+        DATA SOURCE: OPEN INFRASTRUCTURE INTELLIGENCE<br>
+        VISUALIZATION: GPU-ACCELERATED SPHERICAL MESH
+    </div>
 </div>
 
-<div id="container"></div>
+<div id="container" style="opacity: 0;"></div>
 
-<script type="importmap">
-    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
-</script>
+<script type="importmap"> { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } } </script>
 
 <script type="module">
     import * as THREE from 'three';
 
+    const container = document.getElementById('container');
+    const loaderEl = document.getElementById('loader');
+    
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+    
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('container').appendChild(renderer.domElement);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Cap pixel ratio for performance
+    container.appendChild(renderer.domElement);
 
     const earthGroup = new THREE.Group();
     scene.add(earthGroup);
 
-    const loader = new THREE.TextureLoader();
+    // Texture Loading Manager
+    const loadingManager = new THREE.LoadingManager(() => {
+        loaderEl.style.display = 'none';
+        container.style.opacity = '1';
+    });
+
+    const texLoader = new THREE.TextureLoader(loadingManager);
     
-    // THE PLANET
     const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
     const earthMaterial = new THREE.MeshPhongMaterial({
-        map: loader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
-        bumpMap: loader.load('https://unpkg.com/three-globe/example/img/earth-topology.png'),
-        bumpScale: 0.05,
-        shininess: 10
+        map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
+        bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png'),
+        bumpScale: 0.05, 
+        shininess: 8
     });
+    
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     earthGroup.add(earth);
 
-    // THE GLOW (Inner)
-    const glowGeom = new THREE.SphereGeometry(5.01, 64, 64);
-    const glowMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.05 });
-    earthGroup.add(new THREE.Mesh(glowGeom, glowMat));
+    // Global Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    const sun = new THREE.DirectionalLight(0xffffff, 1.2);
+    sun.position.set(5, 3, 5);
+    scene.add(sun);
 
-    // LIGHTING
-    scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-    const sunlight = new THREE.DirectionalLight(0xffffff, 1.5);
-    sunlight.position.set(5, 3, 5);
-    scene.add(sunlight);
+    // Initial Camera Position for Portrait Mobile
+    camera.position.z = window.innerHeight > window.innerWidth ? 20 : 15;
 
-    camera.position.z = 15;
-
-    // PROJECT DATA INTO 3D SPACE
+    // GPS to 3D Conversion
     function latLngToV3(lat, lng, r) {
         const phi = (90 - lat) * (Math.PI / 180);
         const theta = (lng + 180) * (Math.PI / 180);
         return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
     }
 
-    async function addDataLayer(url, color, thickness) {
-        const res = await fetch(url);
-        const data = await res.json();
-        data.features.forEach(f => {
-            if (f.geometry.type === 'LineString') {
-                const points = f.geometry.coordinates.map(c => latLngToV3(c[1], c[0], 5.03));
-                const curve = new THREE.CatmullRomCurve3(points);
-                const tube = new THREE.TubeGeometry(curve, 64, thickness, 8, false);
-                const mat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.7 });
-                earthGroup.add(new THREE.Mesh(tube, mat));
-            }
-        });
+    // Geometry Optimization: Low radial segments (4) for mobile performance
+    async function addLayer(url, color, size) {
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            data.features.forEach(f => {
+                if (f.geometry.type === 'LineString') {
+                    const points = f.geometry.coordinates.map(c => latLngToV3(c[1], c[0], 5.03));
+                    const curve = new THREE.CatmullRomCurve3(points);
+                    const tubeGeom = new THREE.TubeGeometry(curve, 48, size, 4, false);
+                    const tubeMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.7 });
+                    earthGroup.add(new THREE.Mesh(tubeGeom, tubeMat));
+                }
+            });
+        } catch (err) { console.warn("Layer data not found:", url); }
     }
 
-    addDataLayer('../subsea_data_cables.geojson', 0x00ffff, 0.015);
-    addDataLayer('../unification_deep_subsea_estimates.geojson', 0xff00ff, 0.02);
-
-    // INTERACTION ENGINE
-    let targetRotation = 0.0015;
-    window.addEventListener('mousemove', (e) => {
-        targetRotation = (e.clientX / window.innerWidth - 0.5) * 0.01;
-    });
+    // Load Data
+    addLayer('../subsea_data_cables.geojson', 0x00ffff, 0.012);
+    addLayer('../unification_deep_subsea_estimates.geojson', 0xff00ff, 0.018);
 
     function animate() {
         requestAnimationFrame(animate);
-        earthGroup.rotation.y += targetRotation;
+        earthGroup.rotation.y += 0.0012; // Slow professional rotation
         renderer.render(scene, camera);
     }
     animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.position.z = window.innerHeight > window.innerWidth ? 20 : 15;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 </script>
 </body>
 </html>

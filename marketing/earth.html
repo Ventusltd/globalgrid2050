@@ -4,19 +4,16 @@
     <meta charset="utf-8">
     <title>VENTUS | SYSTEM INTERFACE</title>
     
-    <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
-
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
         
+        /* View Panel */
         .view-panel {
             position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
-            transition: opacity 0.8s ease-in-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            opacity: 0; transform: scale(1.02); pointer-events: none; z-index: 1;
+            opacity: 1; pointer-events: auto; z-index: 1;
         }
-        .view-panel.active { opacity: 1; transform: scale(1); pointer-events: auto; }
 
+        /* Instrument-Grade HUD */
         .hud {
             position: absolute; bottom: 40px; left: 20px; color: #00ffff; pointer-events: none;
             text-shadow: 0 0 6px rgba(0, 255, 255, 0.5); border-left: 3px solid #00ffff; padding-left: 15px; z-index: 10;
@@ -25,55 +22,48 @@
         .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 10px; color: #fff; opacity: 0.8; font-weight: bold; }
         .meta { font-size: 9px; opacity: 0.5; margin-top: 10px; line-height: 1.4; transition: color 0.2s; }
         
+        /* Clickable Override Alert */
         .status-alert { color: #ffae00; font-weight: bold; opacity: 0.8; pointer-events: auto; cursor: pointer; }
         .status-alert:hover { opacity: 1; text-decoration: underline; }
         .status-alert::after { content: " ↩ RESUME"; font-size: 8px; opacity: 0.7; }
         
+        /* Data Credits / Sourcing */
+        .credits {
+            position: absolute; bottom: 15px; right: 20px; color: #fff; opacity: 0.4;
+            font-size: 8px; letter-spacing: 1px; text-align: right; z-index: 10; pointer-events: none; text-transform: uppercase;
+        }
+
+        /* Pulsing Loader */
         #loader { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             color: #00ffff; font-size: 12px; letter-spacing: 2px; z-index: 20;
             transition: opacity 0.5s; animation: pulse 1.2s infinite;
         }
         @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
-
-        .controls { margin-top: 15px; pointer-events: auto; display: flex; gap: 10px; }
-        
-        .btn-ventus {
-            background: rgba(0, 0, 0, 0.5); border: 1px solid #00ffff; color: #00ffff;
-            padding: 6px 12px; font-family: 'Courier New', Courier, monospace; font-size: 10px;
-            letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
-            transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
-            box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
-        }
-        .btn-ventus:hover { background: rgba(0, 255, 255, 0.2); }
-        .btn-ventus.active { background: #00ffff; color: #000; box-shadow: 0 0 10px rgba(0, 255, 255, 0.6); }
-        .btn-ventus:active { transform: scale(0.95); }
-        .btn-ventus:focus { outline: 1px solid #00ffff; outline-offset: 2px; }
-        
-        .btn-ventus.secondary { opacity: 0.6; border-style: dashed; }
-        .btn-ventus.secondary:hover { opacity: 1; }
-        .btn-ventus.secondary.active { opacity: 1; border-style: solid; }
-
-        .maplibregl-canvas { outline: none; }
     </style>
 </head>
 <body>
 
 <div id="loader">INITIALIZING SYSTEM...</div>
 
-<div id="globe-view" class="view-panel active"></div>
-<div id="map-view" class="view-panel"></div>
+<div id="globe-view" class="view-panel"></div>
 
 <div class="hud">
     <div class="label" id="timeDisplay"></div>
     <div class="tagline" id="modeIndicator">GLOBAL SYSTEM VIEW</div>
     <div class="meta" id="interactionState">[AUTO ROTATION ACTIVE]</div>
-    <div class="meta" id="metaDisplay"></div>
-    
-    <div class="controls">
-        <button id="btn-toggle-engine" class="btn-ventus">SWITCH TO 2D ATLAS [2]</button>
-        <button id="btn-toggle-basemap" class="btn-ventus secondary" style="display: none;">SATELLITE HYBRID</button>
+    <div class="meta" id="metaDisplay">
+        ENGINE: THREE.JS (SYSTEM GLOBE)<br>
+        IMAGERY: PBR SATELLITE + EMISSIVE NIGHT<br>
+        DYNAMICS: UTC SYNCHRONIZED ROTATION
     </div>
+</div>
+
+<div class="credits">
+    DATA & IMAGERY SOURCES<br>
+    SATELLITE & TOPOLOGY: NASA / VISIBLE EARTH<br>
+    TEXTURE CURATION: THREE-GLOBE<br>
+    RENDERING ENGINE: THREE.JS WebGL
 </div>
 
 <script type="importmap"> 
@@ -91,12 +81,10 @@
 
     // ── SYSTEM STATE ────────────────────────────────────────────────────────────
     const State = {
-        mode: 'globe', 
-        basemap: 'dark', 
         rotating: true,
         targetDate: new Date('2050-01-01T00:00:00Z').getTime(),
         currentTime: new Date(),
-        enginesReady: { three: false, atlas: false }
+        enginesReady: { three: false }
     };
 
     // ── TIME MODULE ─────────────────────────────────────────────────────────────
@@ -137,51 +125,15 @@
 
     // ── UI CONTROLLER ───────────────────────────────────────────────────────────
     const UI = {
-        isSwitching: false,
-
         init() {
-            this.globeView = document.getElementById('globe-view');
-            this.mapView = document.getElementById('map-view');
-            this.modeIndicator = document.getElementById('modeIndicator');
             this.interactionState = document.getElementById('interactionState');
-            this.metaDisplay = document.getElementById('metaDisplay');
-            this.btnEngine = document.getElementById('btn-toggle-engine');
-            this.btnBasemap = document.getElementById('btn-toggle-basemap');
             this.loaderEl = document.getElementById('loader');
 
-            this.btnEngine.addEventListener('click', () => this.setMode(State.mode === 'globe' ? 'atlas' : 'globe'));
-            this.btnBasemap.addEventListener('click', () => this.setBasemap(State.basemap === 'dark' ? 'satellite' : 'dark'));
-            
+            // Allow user to resume rotation after manual override
             this.interactionState.addEventListener('click', () => {
                 if (!State.rotating) this.setRotation(true);
             });
 
-            window.addEventListener('keydown', (e) => {
-                if (e.key === '1' && State.mode !== 'globe') this.setMode('globe');
-                if (e.key === '2' && State.mode !== 'atlas') this.setMode('atlas');
-            });
-
-            this.render();
-        },
-
-        setMode(newMode) {
-            // Guard against rapid mode switching race conditions
-            if (this.isSwitching || State.mode === newMode) return;
-            this.isSwitching = true;
-            setTimeout(() => this.isSwitching = false, 800);
-
-            State.mode = newMode;
-            if (newMode === 'atlas') {
-                AtlasEngine.init();
-                setTimeout(() => { if (AtlasEngine.map) AtlasEngine.map.resize(); }, 100);
-            }
-            this.checkReadiness();
-            this.render();
-        },
-
-        setBasemap(newBasemap) {
-            State.basemap = newBasemap;
-            AtlasEngine.setBasemap(State.basemap);
             this.render();
         },
 
@@ -191,52 +143,15 @@
         },
 
         checkReadiness() {
-            const isReady = State.mode === 'globe' 
-                ? State.enginesReady.three 
-                : (State.enginesReady.three && State.enginesReady.atlas);
-
-            if (isReady) {
+            if (State.enginesReady.three) {
                 this.loaderEl.style.opacity = '0';
                 setTimeout(() => { if (this.loaderEl.style.opacity === '0') this.loaderEl.style.display = 'none'; }, 500);
-            } else {
-                this.loaderEl.style.display = 'block';
-                requestAnimationFrame(() => this.loaderEl.style.opacity = '1');
             }
         },
 
         render() {
-            if (State.mode === 'globe') {
-                this.mapView.classList.remove('active');
-                this.globeView.classList.add('active');
-            } else {
-                this.globeView.classList.remove('active');
-                this.mapView.classList.add('active');
-            }
-
-            this.modeIndicator.innerText = State.mode === 'globe' ? 'GLOBAL SYSTEM VIEW' : 'ATLAS DETAIL VIEW';
-            
-            if (State.mode === 'globe') {
-                this.interactionState.innerText = State.rotating ? '[AUTO ROTATION ACTIVE]' : '[MANUAL OVERRIDE]';
-                this.interactionState.className = State.rotating ? 'meta' : 'meta status-alert';
-                this.interactionState.style.display = 'block';
-                
-                this.metaDisplay.innerHTML = `
-                    ENGINE: THREE.JS (SYSTEM GLOBE)<br>
-                    IMAGERY: PBR SATELLITE + EMISSIVE NIGHT<br>
-                    DYNAMICS: UTC SYNCHRONIZED ROTATION
-                `;
-            } else {
-                this.interactionState.style.display = 'none';
-                this.metaDisplay.innerHTML = `
-                    ENGINE: MAPLIBRE GL JS (SYSTEM ATLAS)<br>
-                    IMAGERY: CARTO DARK / SATELLITE + 3D TERRAIN<br>
-                    DYNAMICS: 2D/3D GEOSPATIAL VIEW
-                `;
-            }
-
-            this.btnEngine.innerText = State.mode === 'globe' ? 'SWITCH TO 2D ATLAS [2]' : 'SWITCH TO 3D GLOBE [1]';
-            this.btnBasemap.style.display = State.mode === 'atlas' ? 'block' : 'none';
-            this.btnBasemap.classList.toggle('active', State.basemap === 'satellite');
+            this.interactionState.innerText = State.rotating ? '[AUTO ROTATION ACTIVE]' : '[MANUAL OVERRIDE]';
+            this.interactionState.className = State.rotating ? 'meta' : 'meta status-alert';
         }
     };
 
@@ -266,22 +181,31 @@
             const texLoader = new THREE.TextureLoader();
             this.earthGeometry = new THREE.SphereGeometry(5, 64, 64);
             
+            let texturesLoaded = 0;
+            const requiredTextures = 3;
+            
             const handleTextureLoad = () => {
-                State.enginesReady.three = true;
-                UI.checkReadiness();
+                texturesLoaded++;
+                if (texturesLoaded >= requiredTextures) {
+                    State.enginesReady.three = true;
+                    UI.checkReadiness();
+                }
             };
 
             const handleTexError = () => {
                 this.earthMaterial.color = new THREE.Color(0x0a1a2a);
-                State.enginesReady.three = true;
-                UI.checkReadiness();
+                texturesLoaded++; // Prevent loader hanging if CDN fails
+                if (texturesLoaded >= requiredTextures) {
+                    State.enginesReady.three = true;
+                    UI.checkReadiness();
+                }
             };
 
             // PBR Material with Night Emissive Glow
             this.earthMaterial = new THREE.MeshStandardMaterial({
                 map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg', handleTextureLoad, undefined, handleTexError),
-                bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png', undefined, undefined, handleTexError),
-                emissiveMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg', undefined, undefined, handleTexError),
+                bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png', handleTextureLoad, undefined, handleTexError),
+                emissiveMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg', handleTextureLoad, undefined, handleTexError),
                 emissive: new THREE.Color(0xffffff),
                 emissiveIntensity: 0.8,
                 bumpScale: 0.1,
@@ -312,7 +236,8 @@
             this.controls.minDistance = 5.2; 
             this.controls.maxDistance = 150;
             this.controls.enablePan = false;
-            // Camera Inertia updates
+            
+            // Camera Inertia
             this.controls.rotateSpeed = 0.4;
             this.controls.zoomSpeed = 0.6;
             
@@ -397,68 +322,6 @@
         }
     };
 
-    // ── MAPLIBRE ENGINE ─────────────────────────────────────────────────────────
-    const AtlasEngine = {
-        map: null,
-        
-        init() {
-            if (this.map) return;
-
-            this.map = new maplibregl.Map({
-                container: 'map-view',
-                style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-                center: [-3.5, 54.0],
-                zoom: 4.2,
-                maxZoom: 19,
-                pitch: 60,
-                bearing: -20,
-                attributionControl: false
-            });
-
-            this.map.on('load', () => {
-                // Terrain
-                this.map.addSource('terrain', {
-                    type: 'raster-dem',
-                    tiles: ['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png'],
-                    tileSize: 256
-                });
-                this.map.setTerrain({ source: 'terrain', exaggeration: 1.5 });
-
-                // Satellite Hybrid
-                this.map.addSource('sat-s', { 
-                    type: 'raster', 
-                    tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], 
-                    tileSize: 256, maxzoom: 19
-                });
-                this.map.addLayer({ 
-                    id: 'l-sat', 
-                    type: 'raster', 
-                    source: 'sat-s', 
-                    layout: { visibility: 'none' } 
-                });
-                
-                State.enginesReady.atlas = true;
-                UI.checkReadiness();
-            });
-
-            this.map.on('error', (e) => {
-                console.warn('[MapLibre Error]', e);
-                State.enginesReady.atlas = false;
-                if (State.mode === 'atlas') UI.setMode('globe');
-            });
-        },
-
-        setBasemap(type) {
-            if (!this.map) return;
-            const isVisible = type === 'satellite' ? 'visible' : 'none';
-            this.map.setLayoutProperty('l-sat', 'visibility', isVisible);
-        },
-
-        resize() {
-            if (this.map) this.map.resize();
-        }
-    };
-
     // ── BOOT SEQUENCE ───────────────────────────────────────────────────────────
     function initSystem() {
         TimeModule.init();
@@ -467,9 +330,7 @@
         
         function animate() {
             requestAnimationFrame(animate);
-            if (State.mode === 'globe') {
-                ThreeEngine.update();
-            }
+            ThreeEngine.update();
         }
         animate();
     }

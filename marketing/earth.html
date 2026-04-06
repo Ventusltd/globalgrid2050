@@ -3,9 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>EARTH | VENTUS</title>
+    
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
         #container { width: 100vw; height: 100vh; transition: opacity 1s ease-in; }
+        
+        /* Custom HUD over the Cesium canvas */
         .hud {
             position: absolute; bottom: 40px; left: 40px; color: #00ffff; pointer-events: none;
             text-shadow: 0 0 15px #00ffff; border-left: 3px solid #00ffff; padding-left: 20px; z-index: 10;
@@ -13,33 +19,26 @@
         .label { font-size: 20px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; line-height: 1.4; }
         .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 10px; color: #fff; opacity: 0.8; }
         .meta { font-size: 9px; opacity: 0.5; margin-top: 10px; line-height: 1.4; }
-        #loader { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: #00ffff; font-size: 12px; letter-spacing: 2px;
-        }
+        
+        /* Hide default Cesium credits for clean UI */
+        .cesium-viewer-bottom { display: none !important; }
     </style>
 </head>
 <body>
-
-<div id="loader">INITIALIZING VISUALIZATION...</div>
 
 <div class="hud">
     <div class="label" id="timeDisplay"></div>
     <div class="tagline">VENTUS PLANETARY INFRASTRUCTURE ARCHITECTURE // 2050</div>
     <div class="meta">
-        RENDERING: WEBGL SPHERICAL MESH<br>
-        DYNAMICS: 23.5° TILT<br>
-        ATMOSPHERE: PROCEDURAL LIGHTNING FX
+        ENGINE: CESIUMJS GEOSPATIAL PLATFORM<br>
+        IMAGERY: SATELLITE TILE STREAMING (LOD 19)<br>
+        DYNAMICS: INTERACTIVE WITH AUTO-SUSPEND ROTATION
     </div>
 </div>
 
-<div id="container" style="opacity: 0;"></div>
+<div id="container"></div>
 
-<script type="importmap"> { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } } </script>
-
-<script type="module">
-    import * as THREE from 'three';
-
+<script>
     // --- TIME & COUNTDOWN LOGIC ---
     const timeDisplay = document.getElementById('timeDisplay');
     const targetDate = new Date('2050-01-01T00:00:00Z').getTime();
@@ -47,7 +46,6 @@
     function updateTime() {
         const now = new Date();
         
-        // Format Current Date/Time
         const year = now.getUTCFullYear();
         const month = String(now.getUTCMonth() + 1).padStart(2, '0');
         const date = String(now.getUTCDate()).padStart(2, '0');
@@ -56,7 +54,6 @@
         const currSecs = String(now.getUTCSeconds()).padStart(2, '0');
         const currentStr = `${year}-${month}-${date} ${currHours}:${currMins}:${currSecs} UTC`;
 
-        // Calculate Countdown
         const distance = targetDate - now.getTime();
         
         if (distance < 0) {
@@ -75,111 +72,59 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // --- THREE.JS SETUP ---
-    const container = document.getElementById('container');
-    const loaderEl = document.getElementById('loader');
-    
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
-    container.appendChild(renderer.domElement);
+    // --- CESIUMJS ENGINE INITIALIZATION ---
+    Cesium.Ion.defaultAccessToken = ''; 
 
-    const earthGroup = new THREE.Group();
-    scene.add(earthGroup);
-
-    // Earth's 23.5-degree axial tilt
-    earthGroup.rotation.z = 23.5 * (Math.PI / 180);
-
-    // Texture Loading Manager
-    const loadingManager = new THREE.LoadingManager(() => {
-        loaderEl.style.display = 'none';
-        container.style.opacity = '1';
+    const viewer = new Cesium.Viewer('container', {
+        imageryProvider: new Cesium.UrlTemplateImageryProvider({
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            maximumLevel: 19 
+        }),
+        baseLayerPicker: false,
+        geocoder: false,
+        homeButton: false,
+        infoBox: false,
+        selectionIndicator: false,
+        sceneModePicker: false,
+        navigationHelpButton: false,
+        animation: false,
+        timeline: false,
+        fullscreenButton: false,
+        requestRenderMode: false // Must be false for continuous programmatic rotation
     });
 
-    const texLoader = new THREE.TextureLoader(loadingManager);
-    
-    const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
-    const earthMaterial = new THREE.MeshPhongMaterial({
-        map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
-        bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png'),
-        bumpScale: 0.15,
-        shininess: 5
+    viewer.scene.globe.enableLighting = true;
+
+    // Set initial camera view
+    viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(-0.1276, 51.5072, 20000000) 
     });
-    
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earthGroup.add(earth);
 
-    // Lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-    
-    const moonlight = new THREE.DirectionalLight(0xccddff, 0.6);
-    moonlight.position.set(-10, 5, 5);
-    scene.add(moonlight);
+    // --- AUTO-ROTATION & INTERACTION LOGIC ---
+    let isRotating = true;
 
-    // Camera Position
-    camera.position.z = window.innerHeight > window.innerWidth ? 22 : 14;
-
-    // --- LIGHTNING SIMULATION ---
-    const flashes = [];
-    const flashGeom = new THREE.SphereGeometry(0.03, 8, 8);
-    
-    function createLightning() {
-        if (Math.random() > 0.15) return; 
-
-        const u = Math.random();
-        const v = Math.random();
-        const theta = u * 2.0 * Math.PI;
-        const phi = Math.acos(2.0 * v - 1.0);
-        const radius = 5.01;
-
-        const x = radius * Math.sin(phi) * Math.cos(theta);
-        const y = radius * Math.sin(phi) * Math.sin(theta);
-        const z = radius * Math.cos(phi);
-
-        const flashMat = new THREE.MeshBasicMaterial({ 
-            color: 0xeef2ff,
-            transparent: true, 
-            opacity: 1 
-        });
-        
-        const flash = new THREE.Mesh(flashGeom, flashMat);
-        flash.position.set(x, y, z);
-        earth.add(flash); 
-        
-        flashes.push({ mesh: flash, life: 1.0, decay: 0.05 + Math.random() * 0.15 });
-    }
-
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        earth.rotation.y += 0.0025; 
-        
-        createLightning();
-        for (let i = flashes.length - 1; i >= 0; i--) {
-            let f = flashes[i];
-            f.life -= f.decay;
-            f.mesh.material.opacity = f.life;
-            
-            if (f.life <= 0) {
-                earth.remove(f.mesh);
-                f.mesh.material.dispose();
-                flashes.splice(i, 1);
-            }
+    // Rotate the camera around the Z-axis (Earth's poles) every frame
+    viewer.scene.preUpdate.addEventListener(function(scene, time) {
+        if (isRotating) {
+            viewer.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.0005); 
         }
-
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.position.z = window.innerHeight > window.innerWidth ? 22 : 14; 
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
     });
+
+    // Listen for user input to stop the rotation
+    const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+
+    function stopRotation() {
+        isRotating = false;
+        // Re-enable requestRenderMode to save CPU/GPU now that continuous animation has stopped
+        viewer.scene.requestRenderMode = true; 
+    }
+
+    // Stop rotation on click, drag, or scroll/zoom
+    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.LEFT_DOWN);
+    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.MIDDLE_DOWN);
+    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.RIGHT_DOWN);
+    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.WHEEL);
+    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.PINCH_START);
 </script>
 </body>
 </html>

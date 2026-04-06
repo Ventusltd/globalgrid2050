@@ -6,23 +6,30 @@ import sys
 # Define the Overpass API endpoint
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
-# We query globally for seamark harbours and industrial ports.
-# The [timeout:900] ensures the API doesn't drop the connection for this global pull.
-# Using 'out center;' guarantees we get a single mathematical point (geodesic node) 
-# even if the port is mapped as a complex polygon.
-OVERPASS_QUERY = """
-[out:json][timeout:900];
+# Stripped the leading newline just in case the Overpass parser gets tripped up
+OVERPASS_QUERY = """[out:json][timeout:900];
 (
   nwr["seamark:type"="harbour"];
   nwr["industrial"="port"];
 );
-out center;
-"""
+out center;"""
 
 def fetch_ports():
     print("Initiating global port extraction from Overpass API...")
+    
+    # 1. Provide a custom User-Agent so Overpass doesn't block the request as a generic bot
+    headers = {
+        'User-Agent': 'GlobalGrid2050-Pipeline/5.0 (Automated Spatial Extraction)'
+    }
+    
     try:
-        response = requests.post(OVERPASS_URL, data={'data': OVERPASS_QUERY})
+        # 2. Send the query as raw UTF-8 bytes to prevent URL-encoding corruption
+        response = requests.post(OVERPASS_URL, data=OVERPASS_QUERY.encode('utf-8'), headers=headers)
+        
+        # 3. Intercept API errors to print the EXACT reason Overpass rejected it
+        if response.status_code != 200:
+            print(f"OVERPASS API ERROR [{response.status_code}]:\n{response.text}")
+            
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -71,7 +78,6 @@ def convert_to_geojson(osm_data):
     }
 
 def save_geojson(geojson_data, filename="global_ports.geojson"):
-    # Ensure it saves to the root directory where the HTML expects it
     filepath = os.path.join(os.getcwd(), filename)
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(geojson_data, f, separators=(',', ':'))
@@ -79,5 +85,7 @@ def save_geojson(geojson_data, filename="global_ports.geojson"):
 
 if __name__ == "__main__":
     raw_data = fetch_ports()
-    geojson = convert_to_geojson(raw_data)
-    save_geojson(geojson)
+    # Safely convert and save only if data was actually returned
+    if raw_data:
+        geojson = convert_to_geojson(raw_data)
+        save_geojson(geojson)

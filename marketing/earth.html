@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>EARTH DIGITAL TWIN | VENTUS</title>
+    <title>NOCTURNAL EARTH MODEL | VENTUS</title>
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
         #container { width: 100vw; height: 100vh; transition: opacity 1s ease-in; }
@@ -21,15 +21,15 @@
 </head>
 <body>
 
-<div id="loader">SYNCHRONIZING DIGITAL TWIN...</div>
+<div id="loader">INITIALIZING VISUALIZATION...</div>
 
 <div class="hud">
-    <div class="label">Earth Digital Twin</div>
+    <div class="label">Nocturnal Earth Model</div>
     <div class="tagline">VENTUS PLANETARY INFRASTRUCTURE ARCHITECTURE // 2050</div>
     <div class="meta">
         COORDINATE SYSTEM: WGS 84 / EPSG:4326<br>
-        VISUALIZATION: GPU-ACCELERATED SPHERICAL MESH<br>
-        DYNAMICS: 23.5° TILT & DAY/NIGHT CYCLE
+        DYNAMICS: NOCTURNAL CYCLE, 23.5° TILT<br>
+        ATMOSPHERE: LIVE LIGHTNING SIMULATION
     </div>
 </div>
 
@@ -54,7 +54,7 @@
     const earthGroup = new THREE.Group();
     scene.add(earthGroup);
 
-    // Apply Earth's 23.5-degree axial tilt to the container group
+    // Earth's 23.5-degree axial tilt
     earthGroup.rotation.z = 23.5 * (Math.PI / 180);
 
     // Texture Loading Manager
@@ -67,42 +67,90 @@
     
     const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
     const earthMaterial = new THREE.MeshPhongMaterial({
-        // Swapped to a standard daytime texture so the light creates the "night"
-        map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'),
+        map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
         bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png'),
-        bumpScale: 0.05, 
-        shininess: 8
+        bumpScale: 0.15, // Increased scale to make mountains pop more
+        shininess: 5
     });
     
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     earthGroup.add(earth);
 
-    // Global Lighting (Day/Night setup)
-    // Very dim ambient light so the dark side of the earth looks like deep night
-    scene.add(new THREE.AmbientLight(0xffffff, 0.05));
+    // Lighting setup specifically tuned for night-time topography
+    // Dim ambient light so the night texture isn't washed out
+    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
     
-    // The "Sun" shining from a fixed direction
-    const sun = new THREE.DirectionalLight(0xffffff, 1.5);
-    sun.position.set(10, 0, 10);
-    scene.add(sun);
+    // A grazing "moonlight" direction to cast shadows on the bump map
+    const moonlight = new THREE.DirectionalLight(0xccddff, 0.6);
+    moonlight.position.set(-10, 5, 5);
+    scene.add(moonlight);
 
-    // Initial Camera Position for Portrait Mobile (Zoomed out)
-    camera.position.z = window.innerHeight > window.innerWidth ? 35 : 25;
+    // Initial Camera Position (Zoomed back in from the previous step)
+    camera.position.z = window.innerHeight > window.innerWidth ? 22 : 14;
+
+    // --- LIGHTNING SIMULATION ---
+    const flashes = [];
+    const flashGeom = new THREE.SphereGeometry(0.03, 8, 8);
+    
+    function createLightning() {
+        // Controls how frequently lightning spawns
+        if (Math.random() > 0.15) return; 
+
+        // Generate a random position on the sphere
+        const u = Math.random();
+        const v = Math.random();
+        const theta = u * 2.0 * Math.PI;
+        const phi = Math.acos(2.0 * v - 1.0);
+        const radius = 5.01; // Positioned just above the surface
+
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.sin(phi) * Math.sin(theta);
+        const z = radius * Math.cos(phi);
+
+        // Individual material so we can fade out opacity independently
+        const flashMat = new THREE.MeshBasicMaterial({ 
+            color: 0xeef2ff, // Cold white/blue storm color
+            transparent: true, 
+            opacity: 1 
+        });
+        
+        const flash = new THREE.Mesh(flashGeom, flashMat);
+        flash.position.set(x, y, z);
+        earth.add(flash); // Attach to earth so the storms spin with the planet
+        
+        // Random decay rate makes some flashes quick and others linger slightly
+        flashes.push({ mesh: flash, life: 1.0, decay: 0.05 + Math.random() * 0.15 });
+    }
 
     function animate() {
         requestAnimationFrame(animate);
         
-        // Spin the Earth mesh inside the tilted group. 
-        // This spins the planet through the fixed sunlight, creating day and night.
-        earth.rotation.y += 0.008; 
+        // Slowed down the spin (previously 0.008)
+        earth.rotation.y += 0.0025; 
         
+        // Handle lightning lifecycle
+        createLightning();
+        for (let i = flashes.length - 1; i >= 0; i--) {
+            let f = flashes[i];
+            f.life -= f.decay;
+            f.mesh.material.opacity = f.life;
+            
+            // Remove when faded out to save memory
+            if (f.life <= 0) {
+                earth.remove(f.mesh);
+                f.mesh.material.dispose();
+                flashes.splice(i, 1);
+            }
+        }
+
         renderer.render(scene, camera);
     }
     animate();
 
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
-        camera.position.z = window.innerHeight > window.innerWidth ? 35 : 25; 
+        // Keep zoomed-in level consistent on resize
+        camera.position.z = window.innerHeight > window.innerWidth ? 22 : 14; 
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });

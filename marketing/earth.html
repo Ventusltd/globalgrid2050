@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>NOCTURNAL EARTH MODEL | VENTUS</title>
+    <title>EARTH | VENTUS</title>
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
         #container { width: 100vw; height: 100vh; transition: opacity 1s ease-in; }
@@ -10,8 +10,8 @@
             position: absolute; bottom: 40px; left: 40px; color: #00ffff; pointer-events: none;
             text-shadow: 0 0 15px #00ffff; border-left: 3px solid #00ffff; padding-left: 20px; z-index: 10;
         }
-        .label { font-size: 28px; font-weight: bold; letter-spacing: 5px; text-transform: uppercase; }
-        .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 5px; color: #fff; opacity: 0.8; }
+        .label { font-size: 20px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; line-height: 1.4; }
+        .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 10px; color: #fff; opacity: 0.8; }
         .meta { font-size: 9px; opacity: 0.5; margin-top: 10px; line-height: 1.4; }
         #loader { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -24,11 +24,11 @@
 <div id="loader">INITIALIZING VISUALIZATION...</div>
 
 <div class="hud">
-    <div class="label">Nocturnal Earth Model</div>
+    <div class="label" id="timeDisplay"></div>
     <div class="tagline">VENTUS PLANETARY INFRASTRUCTURE ARCHITECTURE // 2050</div>
     <div class="meta">
         RENDERING: WEBGL SPHERICAL MESH<br>
-        DYNAMICS: NOCTURNAL CYCLE, 23.5° TILT<br>
+        DYNAMICS: 23.5° TILT<br>
         ATMOSPHERE: PROCEDURAL LIGHTNING FX
     </div>
 </div>
@@ -40,6 +40,42 @@
 <script type="module">
     import * as THREE from 'three';
 
+    // --- TIME & COUNTDOWN LOGIC ---
+    const timeDisplay = document.getElementById('timeDisplay');
+    const targetDate = new Date('2050-01-01T00:00:00Z').getTime();
+
+    function updateTime() {
+        const now = new Date();
+        
+        // Format Current Date/Time
+        const year = now.getUTCFullYear();
+        const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+        const date = String(now.getUTCDate()).padStart(2, '0');
+        const currHours = String(now.getUTCHours()).padStart(2, '0');
+        const currMins = String(now.getUTCMinutes()).padStart(2, '0');
+        const currSecs = String(now.getUTCSeconds()).padStart(2, '0');
+        const currentStr = `${year}-${month}-${date} ${currHours}:${currMins}:${currSecs} UTC`;
+
+        // Calculate Countdown
+        const distance = targetDate - now.getTime();
+        
+        if (distance < 0) {
+            timeDisplay.innerHTML = `${currentStr}<br>TARGET 2050 REACHED`;
+            return;
+        }
+
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        const m = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        const s = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+
+        timeDisplay.innerHTML = `${currentStr}<br>T-MINUS: ${d}D ${h}:${m}:${s}`;
+    }
+    
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // --- THREE.JS SETUP ---
     const container = document.getElementById('container');
     const loaderEl = document.getElementById('loader');
     
@@ -69,23 +105,21 @@
     const earthMaterial = new THREE.MeshPhongMaterial({
         map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
         bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png'),
-        bumpScale: 0.15, // Increased scale to make mountains pop more
+        bumpScale: 0.15,
         shininess: 5
     });
     
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     earthGroup.add(earth);
 
-    // Lighting setup specifically tuned for night-time topography
-    // Dim ambient light so the night texture isn't washed out
+    // Lighting
     scene.add(new THREE.AmbientLight(0xffffff, 0.4));
     
-    // A grazing "moonlight" direction to cast shadows on the bump map
     const moonlight = new THREE.DirectionalLight(0xccddff, 0.6);
     moonlight.position.set(-10, 5, 5);
     scene.add(moonlight);
 
-    // Initial Camera Position (Zoomed back in from the previous step)
+    // Camera Position
     camera.position.z = window.innerHeight > window.innerWidth ? 22 : 14;
 
     // --- LIGHTNING SIMULATION ---
@@ -93,49 +127,42 @@
     const flashGeom = new THREE.SphereGeometry(0.03, 8, 8);
     
     function createLightning() {
-        // Controls how frequently lightning spawns
         if (Math.random() > 0.15) return; 
 
-        // Generate a random position on the sphere
         const u = Math.random();
         const v = Math.random();
         const theta = u * 2.0 * Math.PI;
         const phi = Math.acos(2.0 * v - 1.0);
-        const radius = 5.01; // Positioned just above the surface
+        const radius = 5.01;
 
         const x = radius * Math.sin(phi) * Math.cos(theta);
         const y = radius * Math.sin(phi) * Math.sin(theta);
         const z = radius * Math.cos(phi);
 
-        // Individual material so we can fade out opacity independently
         const flashMat = new THREE.MeshBasicMaterial({ 
-            color: 0xeef2ff, // Cold white/blue storm color
+            color: 0xeef2ff,
             transparent: true, 
             opacity: 1 
         });
         
         const flash = new THREE.Mesh(flashGeom, flashMat);
         flash.position.set(x, y, z);
-        earth.add(flash); // Attach to earth so the storms spin with the planet
+        earth.add(flash); 
         
-        // Random decay rate makes some flashes quick and others linger slightly
         flashes.push({ mesh: flash, life: 1.0, decay: 0.05 + Math.random() * 0.15 });
     }
 
     function animate() {
         requestAnimationFrame(animate);
         
-        // Slowed down the spin (previously 0.008)
         earth.rotation.y += 0.0025; 
         
-        // Handle lightning lifecycle
         createLightning();
         for (let i = flashes.length - 1; i >= 0; i--) {
             let f = flashes[i];
             f.life -= f.decay;
             f.mesh.material.opacity = f.life;
             
-            // Remove when faded out to save memory
             if (f.life <= 0) {
                 earth.remove(f.mesh);
                 f.mesh.material.dispose();
@@ -149,7 +176,6 @@
 
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
-        // Keep zoomed-in level consistent on resize
         camera.position.z = window.innerHeight > window.innerWidth ? 22 : 14; 
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);

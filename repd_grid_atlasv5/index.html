@@ -184,8 +184,8 @@
                 { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
                   filter: ['all', ['==', ['get', 'type'], 'Tram / Light Rail'], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
                 { id: "hs2",   label: "HS2", color: "#2c6fad", type: "point", radius: 4, url: "/hs2.geojson", preload: false },
-                { id: "eurostar_route", label: "Eurostar (inc. HS1)", color: "#001489", type: "line", width: 2.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'route'], preload: false },
-                { id: "eurostar_station", label: "Eurostar Stations", color: "#ffd700", type: "point", radius: 5.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'eurostar_station'], preload: false }
+                { id: "eurostar_route", label: "Eurostar (HS1) UK & Europe", color: "#001489", type: "line", width: 2.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'route'], preload: false },
+                { id: "eurostar_station", label: "Eurostar Stations UK & Europe", color: "#ffd700", type: "point", radius: 5.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'eurostar_station'], preload: false }
             ]
         },
         {
@@ -198,6 +198,12 @@
             group: "EV (GeoJSON)",
             layers: [
                 { id: "ev", label: "EV Rapid (100kW+)", color: "#00ff88", type: "point", radius: 5, url: "/ev_chargers.geojson", preload: false }
+            ]
+        },
+        {
+            group: "Highway Infrastructure",
+            layers: [
+                { id: "motorway_services", label: "Motorway Services", color: "#ff00ff", type: "point", radius: 5.5, url: "/motorway_services.geojson", preload: false }
             ]
         },
         {

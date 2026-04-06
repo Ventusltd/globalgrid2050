@@ -1,0 +1,161 @@
+.
+├── 33kv_uk_dap_price_estimator
+│   └── index.md
+├── 50MW_BESS_to_PCS.jpg
+├── ARCHITECTURE.md
+├── Braintree-cables1.png
+├── Braintree.jpg
+├── CNAME
+├── DEV_NOTES.md
+├── LICENSE.txt
+├── README.md
+├── REPO_STRUCTURE.txt
+├── _layouts
+│   └── default.html
+├── ac_cables_knowledge
+│   └── index.md
+├── airports.geojson
+├── backup270326_ repd_atlas_grid_model.md
+├── blog
+│   └── index.md
+├── conductor_resistances
+│   └── index.md
+├── config
+│   └── registry.yaml
+├── conversions.md
+├── copper_and_aluminium_prices_historic_trends.md
+├── datacentres.geojson
+├── dc_cables_knowledge
+│   └── index.md
+├── deep_subsea_illustrative.geojson
+├── definitions
+│   └── index.md
+├── dist
+│   ├── manifest_v4.json
+│   └── repd_master.json
+├── elizabeth_line.geojson
+├── employers_requirements
+│   └── index.md
+├── employers_requirements_BESS.md
+├── eurostar.geojson
+├── ev_chargers.geojson
+├── global_hydrocarbons.geojson
+├── global_ports.geojson
+├── grid_11kv_ukpn.geojson
+├── grid_132kv.geojson
+├── grid_220kv.geojson
+├── grid_275kv.geojson
+├── grid_33kv_East_of_England.geojson
+├── grid_33kv_London_Area.geojson
+├── grid_33kv_North_East_England.geojson
+├── grid_33kv_North_West_England.geojson
+├── grid_33kv_Scotland_North.geojson
+├── grid_33kv_Scotland_South.geojson
+├── grid_33kv_South_East_England.geojson
+├── grid_33kv_South_West_England.geojson
+├── grid_33kv_Wales_North.geojson
+├── grid_33kv_Wales_South.geojson
+├── grid_33kv_Yorkshire.geojson
+├── grid_400kv.geojson
+├── grid_66kv.geojson
+├── grid_substations.geojson
+├── hs2.geojson
+├── hv_interface.jpg
+├── index.html
+├── industrial_offtakers.geojson
+├── london_underground.geojson
+├── lv_ac_dc_price_estimator
+│   └── index.md
+├── marketing
+│   ├── earth.html
+│   └── showcase.html
+├── motorway_services.geojson
+├── mv_and_hv_components
+│   └── index.md
+├── nsip_solar_farms
+│   └── index.md
+├── ons-energy-fuels-clean.csv
+├── podcast_transcripts
+│   └── index.md
+├── power_plants.geojson
+├── power_systems_studies
+│   └── index.md
+├── railways.geojson
+├── repd-atlas.md
+├── repd-grid-batteries.csv
+├── repd-solar-operational-over-4mw.csv
+├── repd-solar-operational.csv
+├── repd-uk-operational-solar.md
+├── repd.csv
+├── repd_atlas_grid_model.md
+├── repd_atlas_grid_model_v1backup.md
+├── repd_grid_atlasv3
+│   └── index.html
+├── repd_grid_atlasv4
+│   └── index.html
+├── repd_grid_atlasv5
+│   └── index.html
+├── scripts
+│   ├── fetch_11kv_ukpn.py
+│   ├── fetch_220kv_data.py
+│   ├── fetch_33kv_data.py
+│   ├── fetch_66kv_data.py
+│   ├── fetch_airports.py
+│   ├── fetch_datacentres.py
+│   ├── fetch_elizabeth_line.py
+│   ├── fetch_eurostar.py
+│   ├── fetch_ev_chargers.py
+│   ├── fetch_global_hydrocarbons.py
+│   ├── fetch_global_ports.py
+│   ├── fetch_grid_data.py
+│   ├── fetch_hs2.py
+│   ├── fetch_industrial_offtakers.py
+│   ├── fetch_london_underground.py
+│   ├── fetch_metros_trams.py
+│   ├── fetch_motorway_services.py
+│   ├── fetch_power_plants.py
+│   ├── fetch_railways.py
+│   ├── fetch_stadiums.py
+│   ├── fetch_subsea_data_cables.py
+│   ├── fetch_substations.py
+│   ├── fetch_supermarkets.py
+│   ├── generate_deep_subsea.py
+│   ├── generate_unification_estimates.py
+│   ├── repd_updater.py
+│   ├── requirements.txt
+│   ├── update_metal_trends.py
+│   ├── update_prices.py
+│   └── update_prices_lv.py
+├── sld_single_diagrams_diagrams_and_grids
+│   └── index.md
+├── solar_components
+│   └── index.md
+├── solar_deployment_statistics
+│   └── index.md
+├── stadiums.geojson
+├── subsea_data_cables.geojson
+├── supermarkets_aldi.geojson
+├── supermarkets_asda.geojson
+├── supermarkets_booths.geojson
+├── supermarkets_coop.geojson
+├── supermarkets_costco.geojson
+├── supermarkets_farmfoods.geojson
+├── supermarkets_iceland.geojson
+├── supermarkets_lidl.geojson
+├── supermarkets_morrisons.geojson
+├── supermarkets_ms.geojson
+├── supermarkets_sainsburys.geojson
+├── supermarkets_spar.geojson
+├── supermarkets_tesco.geojson
+├── supermarkets_waitrose.geojson
+├── uk_grid-batteries.md
+├── uk_macro_energy_trends.md
+├── uk_metros_trams.geojson
+├── uk_offshore_wind_atlas.md
+├── uk_onshore_wind_atlas.md
+├── uk_operating_large_solar_farms.md
+├── uk_solar_in-planning-1-50mw.md
+├── ventus-core.js
+└── ventus.css
+
+24 directories, 135 files

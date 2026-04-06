@@ -2,129 +2,479 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>EARTH | VENTUS</title>
+    <title>VENTUS | SYSTEM INTERFACE</title>
     
-    <script src="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js"></script>
-    <link href="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
-        #container { width: 100vw; height: 100vh; transition: opacity 1s ease-in; }
         
-        /* Custom HUD over the Cesium canvas */
-        .hud {
-            position: absolute; bottom: 40px; left: 40px; color: #00ffff; pointer-events: none;
-            text-shadow: 0 0 15px #00ffff; border-left: 3px solid #00ffff; padding-left: 20px; z-index: 10;
+        .view-panel {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            transition: opacity 0.8s ease-in-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            opacity: 0; transform: scale(1.02); pointer-events: none; z-index: 1;
         }
-        .label { font-size: 20px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; line-height: 1.4; }
-        .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 10px; color: #fff; opacity: 0.8; }
-        .meta { font-size: 9px; opacity: 0.5; margin-top: 10px; line-height: 1.4; }
+        .view-panel.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+        .hud {
+            position: absolute; bottom: 40px; left: 20px; color: #00ffff; pointer-events: none;
+            text-shadow: 0 0 6px rgba(0, 255, 255, 0.5); border-left: 3px solid #00ffff; padding-left: 15px; z-index: 10;
+        }
+        .label { font-size: 18px; font-weight: bold; letter-spacing: 2px; line-height: 1.5; }
+        .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 10px; color: #fff; opacity: 0.8; font-weight: bold; }
+        .meta { font-size: 9px; opacity: 0.5; margin-top: 10px; line-height: 1.4; transition: color 0.2s; }
         
-        /* Hide default Cesium credits for clean UI */
-        .cesium-viewer-bottom { display: none !important; }
+        .status-alert { color: #ffae00; font-weight: bold; opacity: 0.8; pointer-events: auto; cursor: pointer; }
+        .status-alert:hover { opacity: 1; text-decoration: underline; }
+        .status-alert::after { content: " ↩ RESUME"; font-size: 8px; opacity: 0.7; }
+        
+        #loader { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #00ffff; font-size: 12px; letter-spacing: 2px; z-index: 20;
+            transition: opacity 0.5s; animation: pulse 1.2s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+
+        .controls { margin-top: 15px; pointer-events: auto; display: flex; gap: 10px; }
+        
+        .btn-ventus {
+            background: rgba(0, 0, 0, 0.5); border: 1px solid #00ffff; color: #00ffff;
+            padding: 6px 12px; font-family: 'Courier New', Courier, monospace; font-size: 10px;
+            letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+        }
+        .btn-ventus:hover { background: rgba(0, 255, 255, 0.2); }
+        .btn-ventus.active { background: #00ffff; color: #000; box-shadow: 0 0 10px rgba(0, 255, 255, 0.6); }
+        .btn-ventus:active { transform: scale(0.95); }
+        .btn-ventus:focus { outline: 1px solid #00ffff; outline-offset: 2px; }
+        
+        .btn-ventus.secondary { opacity: 0.6; border-style: dashed; }
+        .btn-ventus.secondary:hover { opacity: 1; }
+        .btn-ventus.secondary.active { opacity: 1; border-style: solid; }
+
+        .maplibregl-canvas { outline: none; }
     </style>
 </head>
 <body>
 
+<div id="loader">INITIALIZING SYSTEM...</div>
+
+<div id="globe-view" class="view-panel active"></div>
+<div id="map-view" class="view-panel"></div>
+
 <div class="hud">
     <div class="label" id="timeDisplay"></div>
-    <div class="tagline">VENTUS PLANETARY INFRASTRUCTURE ARCHITECTURE // 2050</div>
-    <div class="meta">
-        ENGINE: CESIUMJS GEOSPATIAL PLATFORM<br>
-        IMAGERY: SATELLITE TILE STREAMING (LOD 19)<br>
-        DYNAMICS: INTERACTIVE WITH AUTO-SUSPEND ROTATION
+    <div class="tagline" id="modeIndicator">GLOBAL SYSTEM VIEW</div>
+    <div class="meta" id="interactionState">[AUTO ROTATION ACTIVE]</div>
+    <div class="meta" id="metaDisplay"></div>
+    
+    <div class="controls">
+        <button id="btn-toggle-engine" class="btn-ventus">SWITCH TO 2D ATLAS [2]</button>
+        <button id="btn-toggle-basemap" class="btn-ventus secondary" style="display: none;">SATELLITE HYBRID</button>
     </div>
 </div>
 
-<div id="container"></div>
+<script type="importmap"> 
+{ 
+    "imports": { 
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    } 
+} 
+</script>
 
-<script>
-    // --- TIME & COUNTDOWN LOGIC ---
-    const timeDisplay = document.getElementById('timeDisplay');
-    const targetDate = new Date('2050-01-01T00:00:00Z').getTime();
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    function updateTime() {
-        const now = new Date();
-        
-        const year = now.getUTCFullYear();
-        const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-        const date = String(now.getUTCDate()).padStart(2, '0');
-        const currHours = String(now.getUTCHours()).padStart(2, '0');
-        const currMins = String(now.getUTCMinutes()).padStart(2, '0');
-        const currSecs = String(now.getUTCSeconds()).padStart(2, '0');
-        const currentStr = `${year}-${month}-${date} ${currHours}:${currMins}:${currSecs} UTC`;
+    // ── SYSTEM STATE ────────────────────────────────────────────────────────────
+    const State = {
+        mode: 'globe', 
+        basemap: 'dark', 
+        rotating: true,
+        targetDate: new Date('2050-01-01T00:00:00Z').getTime(),
+        currentTime: new Date(),
+        enginesReady: { three: false, atlas: false }
+    };
 
-        const distance = targetDate - now.getTime();
-        
-        if (distance < 0) {
-            timeDisplay.innerHTML = `${currentStr}<br>TARGET 2050 REACHED`;
-            return;
+    // ── TIME MODULE ─────────────────────────────────────────────────────────────
+    const TimeModule = {
+        init() {
+            this.displayEl = document.getElementById('timeDisplay');
+            this.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            this.tick();
+            setInterval(() => this.tick(), 1000);
+        },
+        tick() {
+            State.currentTime = new Date();
+            const now = State.currentTime;
+            
+            const year = now.getUTCFullYear();
+            const month = this.monthNames[now.getUTCMonth()];
+            const date = now.getUTCDate();
+            const h = String(now.getUTCHours()).padStart(2, '0');
+            const m = String(now.getUTCMinutes()).padStart(2, '0');
+            const s = String(now.getUTCSeconds()).padStart(2, '0');
+            
+            const currentStr = `${date} ${month} ${year} ${h}:${m}:${s} UTC`;
+            const distance = State.targetDate - now.getTime();
+            
+            if (distance < 0) {
+                this.displayEl.innerHTML = `${currentStr}<br>TARGET 2050 REACHED`;
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            const mins = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            const secs = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+
+            this.displayEl.innerHTML = `${currentStr}<br>${days} days, ${hours}:${mins}:${secs} to 2050!`;
         }
+    };
 
-        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const h = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-        const m = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-        const s = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+    // ── UI CONTROLLER ───────────────────────────────────────────────────────────
+    const UI = {
+        isSwitching: false,
 
-        timeDisplay.innerHTML = `${currentStr}<br>T-MINUS: ${d}D ${h}:${m}:${s}`;
-    }
-    
-    setInterval(updateTime, 1000);
-    updateTime();
+        init() {
+            this.globeView = document.getElementById('globe-view');
+            this.mapView = document.getElementById('map-view');
+            this.modeIndicator = document.getElementById('modeIndicator');
+            this.interactionState = document.getElementById('interactionState');
+            this.metaDisplay = document.getElementById('metaDisplay');
+            this.btnEngine = document.getElementById('btn-toggle-engine');
+            this.btnBasemap = document.getElementById('btn-toggle-basemap');
+            this.loaderEl = document.getElementById('loader');
 
-    // --- CESIUMJS ENGINE INITIALIZATION ---
-    Cesium.Ion.defaultAccessToken = ''; 
+            this.btnEngine.addEventListener('click', () => this.setMode(State.mode === 'globe' ? 'atlas' : 'globe'));
+            this.btnBasemap.addEventListener('click', () => this.setBasemap(State.basemap === 'dark' ? 'satellite' : 'dark'));
+            
+            this.interactionState.addEventListener('click', () => {
+                if (!State.rotating) this.setRotation(true);
+            });
 
-    const viewer = new Cesium.Viewer('container', {
-        imageryProvider: new Cesium.UrlTemplateImageryProvider({
-            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            maximumLevel: 19 
-        }),
-        baseLayerPicker: false,
-        geocoder: false,
-        homeButton: false,
-        infoBox: false,
-        selectionIndicator: false,
-        sceneModePicker: false,
-        navigationHelpButton: false,
-        animation: false,
-        timeline: false,
-        fullscreenButton: false,
-        requestRenderMode: false // Must be false for continuous programmatic rotation
-    });
+            window.addEventListener('keydown', (e) => {
+                if (e.key === '1' && State.mode !== 'globe') this.setMode('globe');
+                if (e.key === '2' && State.mode !== 'atlas') this.setMode('atlas');
+            });
 
-    viewer.scene.globe.enableLighting = true;
+            this.render();
+        },
 
-    // Set initial camera view
-    viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(-0.1276, 51.5072, 20000000) 
-    });
+        setMode(newMode) {
+            // Guard against rapid mode switching race conditions
+            if (this.isSwitching || State.mode === newMode) return;
+            this.isSwitching = true;
+            setTimeout(() => this.isSwitching = false, 800);
 
-    // --- AUTO-ROTATION & INTERACTION LOGIC ---
-    let isRotating = true;
+            State.mode = newMode;
+            if (newMode === 'atlas') {
+                AtlasEngine.init();
+                setTimeout(() => { if (AtlasEngine.map) AtlasEngine.map.resize(); }, 100);
+            }
+            this.checkReadiness();
+            this.render();
+        },
 
-    // Rotate the camera around the Z-axis (Earth's poles) every frame
-    viewer.scene.preUpdate.addEventListener(function(scene, time) {
-        if (isRotating) {
-            viewer.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.0005); 
+        setBasemap(newBasemap) {
+            State.basemap = newBasemap;
+            AtlasEngine.setBasemap(State.basemap);
+            this.render();
+        },
+
+        setRotation(isRotating) {
+            State.rotating = isRotating;
+            this.render();
+        },
+
+        checkReadiness() {
+            const isReady = State.mode === 'globe' 
+                ? State.enginesReady.three 
+                : (State.enginesReady.three && State.enginesReady.atlas);
+
+            if (isReady) {
+                this.loaderEl.style.opacity = '0';
+                setTimeout(() => { if (this.loaderEl.style.opacity === '0') this.loaderEl.style.display = 'none'; }, 500);
+            } else {
+                this.loaderEl.style.display = 'block';
+                requestAnimationFrame(() => this.loaderEl.style.opacity = '1');
+            }
+        },
+
+        render() {
+            if (State.mode === 'globe') {
+                this.mapView.classList.remove('active');
+                this.globeView.classList.add('active');
+            } else {
+                this.globeView.classList.remove('active');
+                this.mapView.classList.add('active');
+            }
+
+            this.modeIndicator.innerText = State.mode === 'globe' ? 'GLOBAL SYSTEM VIEW' : 'ATLAS DETAIL VIEW';
+            
+            if (State.mode === 'globe') {
+                this.interactionState.innerText = State.rotating ? '[AUTO ROTATION ACTIVE]' : '[MANUAL OVERRIDE]';
+                this.interactionState.className = State.rotating ? 'meta' : 'meta status-alert';
+                this.interactionState.style.display = 'block';
+                
+                this.metaDisplay.innerHTML = `
+                    ENGINE: THREE.JS (SYSTEM GLOBE)<br>
+                    IMAGERY: PBR SATELLITE + EMISSIVE NIGHT<br>
+                    DYNAMICS: UTC SYNCHRONIZED ROTATION
+                `;
+            } else {
+                this.interactionState.style.display = 'none';
+                this.metaDisplay.innerHTML = `
+                    ENGINE: MAPLIBRE GL JS (SYSTEM ATLAS)<br>
+                    IMAGERY: CARTO DARK / SATELLITE + 3D TERRAIN<br>
+                    DYNAMICS: 2D/3D GEOSPATIAL VIEW
+                `;
+            }
+
+            this.btnEngine.innerText = State.mode === 'globe' ? 'SWITCH TO 2D ATLAS [2]' : 'SWITCH TO 3D GLOBE [1]';
+            this.btnBasemap.style.display = State.mode === 'atlas' ? 'block' : 'none';
+            this.btnBasemap.classList.toggle('active', State.basemap === 'satellite');
         }
-    });
+    };
 
-    // Listen for user input to stop the rotation
-    const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    // ── THREE.JS ENGINE ─────────────────────────────────────────────────────────
+    const ThreeEngine = {
+        scene: null, camera: null, renderer: null, earth: null, controls: null, stars: null, sunLight: null,
+        clock: new THREE.Clock(),
+        
+        init() {
+            const container = document.getElementById('globe-view');
+            this.scene = new THREE.Scene();
+            
+            this.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
+            this.camera.position.z = window.innerHeight > window.innerWidth ? 30 : 20;
 
-    function stopRotation() {
-        isRotating = false;
-        // Re-enable requestRenderMode to save CPU/GPU now that continuous animation has stopped
-        viewer.scene.requestRenderMode = true; 
+            this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance", alpha: true });
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(this.renderer.domElement);
+
+            this.buildStarfield();
+
+            const earthGroup = new THREE.Group();
+            earthGroup.rotation.z = 23.5 * (Math.PI / 180);
+            this.scene.add(earthGroup);
+
+            const texLoader = new THREE.TextureLoader();
+            this.earthGeometry = new THREE.SphereGeometry(5, 64, 64);
+            
+            const handleTextureLoad = () => {
+                State.enginesReady.three = true;
+                UI.checkReadiness();
+            };
+
+            const handleTexError = () => {
+                this.earthMaterial.color = new THREE.Color(0x0a1a2a);
+                State.enginesReady.three = true;
+                UI.checkReadiness();
+            };
+
+            // PBR Material with Night Emissive Glow
+            this.earthMaterial = new THREE.MeshStandardMaterial({
+                map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg', handleTextureLoad, undefined, handleTexError),
+                bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png', undefined, undefined, handleTexError),
+                emissiveMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg', undefined, undefined, handleTexError),
+                emissive: new THREE.Color(0xffffff),
+                emissiveIntensity: 0.8,
+                bumpScale: 0.1,
+                roughness: 1.0,
+                metalness: 0.0
+            });
+
+            this.earth = new THREE.Mesh(this.earthGeometry, this.earthMaterial);
+            earthGroup.add(this.earth);
+
+            // Subtle Atmospheric Rim
+            const atmosphereGeometry = new THREE.SphereGeometry(5.05, 64, 64);
+            const atmosphereMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00ffff,
+                transparent: true,
+                opacity: 0.05
+            });
+            const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+            earthGroup.add(atmosphere);
+
+            this.scene.add(new THREE.AmbientLight(0xffffff, 0.02)); 
+            this.sunLight = new THREE.DirectionalLight(0xffffff, 2.5);
+            this.scene.add(this.sunLight);
+
+            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+            this.controls.enableDamping = true;
+            this.controls.dampingFactor = 0.05;
+            this.controls.minDistance = 5.2; 
+            this.controls.maxDistance = 150;
+            this.controls.enablePan = false;
+            // Camera Inertia updates
+            this.controls.rotateSpeed = 0.4;
+            this.controls.zoomSpeed = 0.6;
+            
+            this.controls.addEventListener('start', () => { if(State.rotating) UI.setRotation(false); });
+
+            window.addEventListener('resize', () => this.onWindowResize());
+            window.addEventListener('beforeunload', () => this.dispose());
+        },
+
+        buildStarfield() {
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({ color: 0xFFFFFF, size: 0.05, opacity: 0.8, transparent: true });
+            const starVertices = [];
+            const radius = 300;
+            
+            // True spherical distribution
+            for(let i = 0; i < 3000; i++) {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos((Math.random() * 2) - 1);
+                const x = radius * Math.sin(phi) * Math.cos(theta);
+                const y = radius * Math.sin(phi) * Math.sin(theta);
+                const z = radius * Math.cos(phi);
+                starVertices.push(x, y, z);
+            }
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+            this.stars = new THREE.Points(starsGeometry, starsMaterial);
+            this.scene.add(this.stars);
+        },
+
+        update() {
+            const delta = this.clock.getDelta();
+            
+            // Dynamic Sun locked to UTC
+            const now = State.currentTime;
+            const t = (now.getUTCHours() + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600) / 24;
+            this.sunLight.position.set(
+                Math.cos(t * Math.PI * 2) * 20,
+                0,
+                Math.sin(t * Math.PI * 2) * 20
+            );
+
+            if (State.rotating && this.earth) {
+                const rotationSpeed = (Math.PI * 2) / 86400 * 1000; 
+                this.earth.rotation.y += rotationSpeed * delta;
+            }
+            
+            this.controls.update(); 
+            
+            // Subtle cinematic camera drift when idle
+            if (State.rotating) {
+                this.camera.position.x += Math.sin(performance.now() * 0.0001) * 0.002;
+            }
+            
+            this.renderer.render(this.scene, this.camera);
+        },
+
+        onWindowResize() {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        },
+
+        dispose() {
+            if (this.controls) this.controls.dispose();
+            if (this.renderer) {
+                this.renderer.dispose();
+                if (this.renderer.domElement && this.renderer.domElement.parentNode) {
+                    this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+                }
+            }
+            if (this.earthGeometry) this.earthGeometry.dispose();
+            if (this.earthMaterial) {
+                this.earthMaterial.dispose();
+                if (this.earthMaterial.map) this.earthMaterial.map.dispose();
+                if (this.earthMaterial.bumpMap) this.earthMaterial.bumpMap.dispose();
+                if (this.earthMaterial.emissiveMap) this.earthMaterial.emissiveMap.dispose();
+            }
+            if (this.stars) {
+                this.stars.geometry.dispose();
+                this.stars.material.dispose();
+            }
+        }
+    };
+
+    // ── MAPLIBRE ENGINE ─────────────────────────────────────────────────────────
+    const AtlasEngine = {
+        map: null,
+        
+        init() {
+            if (this.map) return;
+
+            this.map = new maplibregl.Map({
+                container: 'map-view',
+                style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+                center: [-3.5, 54.0],
+                zoom: 4.2,
+                maxZoom: 19,
+                pitch: 60,
+                bearing: -20,
+                attributionControl: false
+            });
+
+            this.map.on('load', () => {
+                // Terrain
+                this.map.addSource('terrain', {
+                    type: 'raster-dem',
+                    tiles: ['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png'],
+                    tileSize: 256
+                });
+                this.map.setTerrain({ source: 'terrain', exaggeration: 1.5 });
+
+                // Satellite Hybrid
+                this.map.addSource('sat-s', { 
+                    type: 'raster', 
+                    tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], 
+                    tileSize: 256, maxzoom: 19
+                });
+                this.map.addLayer({ 
+                    id: 'l-sat', 
+                    type: 'raster', 
+                    source: 'sat-s', 
+                    layout: { visibility: 'none' } 
+                });
+                
+                State.enginesReady.atlas = true;
+                UI.checkReadiness();
+            });
+
+            this.map.on('error', (e) => {
+                console.warn('[MapLibre Error]', e);
+                State.enginesReady.atlas = false;
+                if (State.mode === 'atlas') UI.setMode('globe');
+            });
+        },
+
+        setBasemap(type) {
+            if (!this.map) return;
+            const isVisible = type === 'satellite' ? 'visible' : 'none';
+            this.map.setLayoutProperty('l-sat', 'visibility', isVisible);
+        },
+
+        resize() {
+            if (this.map) this.map.resize();
+        }
+    };
+
+    // ── BOOT SEQUENCE ───────────────────────────────────────────────────────────
+    function initSystem() {
+        TimeModule.init();
+        UI.init();
+        ThreeEngine.init();
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            if (State.mode === 'globe') {
+                ThreeEngine.update();
+            }
+        }
+        animate();
     }
 
-    // Stop rotation on click, drag, or scroll/zoom
-    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.LEFT_DOWN);
-    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.MIDDLE_DOWN);
-    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.RIGHT_DOWN);
-    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.WHEEL);
-    handler.setInputAction(stopRotation, Cesium.ScreenSpaceEventType.PINCH_START);
+    initSystem();
 </script>
 </body>
 </html>

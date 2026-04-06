@@ -3,7 +3,11 @@ name: Generate Global Ports Data
 on:
   workflow_dispatch: # Allows manual trigger from GitHub UI
   schedule:
-    - cron: '0 2 1 * *' # Runs at 02:00 on the 1st of every month to capture new infrastructure
+    - cron: '0 2 1 * *' # Runs at 02:00 on the 1st of every month
+
+# Explicitly grant permission to push the generated file back to the repo
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -25,7 +29,6 @@ jobs:
 
       - name: Execute Global Ports ETL Pipeline
         run: python fetch_global_ports.py
-        # Adjust the path above if you put the python script in a specific 'scripts/' folder
 
       - name: Commit and Push GeoJSON Cartridge
         env:
@@ -34,5 +37,4 @@ jobs:
           git config --global user.name "Ventus-OS-Agent"
           git config --global user.email "actions@github.com"
           git add global_ports.geojson
-          # Only commit if there are actual changes to prevent empty commits
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): automated update of global_ports.geojson" && git push)

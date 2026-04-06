@@ -1,49 +1,38 @@
-name: Fetch Global Ports
+name: Generate Global Ports Data
 
 on:
+  workflow_dispatch: # Allows manual trigger from GitHub UI
   schedule:
-    - cron: '0 5 2 * *'   # 2nd of every month at 05:00 UTC
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    - cron: '0 2 1 * *' # Runs at 02:00 on the 1st of every month to capture new infrastructure
 
 jobs:
-  fetch-global-ports:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          token: ${{ secrets.GRIDBOT_PAT }}
+          python-version: '3.10'
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install requests
-
-      - name: Run Global Ports Fetcher
-        run: python scripts/fetch_global_ports.py
-
-      - name: Commit and push changes
-        env:
-          PAT: ${{ secrets.GRIDBOT_PAT }}
+      - name: Install Dependencies
         run: |
-          git config --global user.name "gridbot"
-          git config --global user.email "bot@globalgrid2050.com"
-          
-          git add global_ports.geojson || true
-          
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Global Ports update: $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
-          else
-            echo "No changes to commit"
-          fi
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Execute Global Ports ETL Pipeline
+        run: python fetch_global_ports.py
+        # Adjust the path above if you put the python script in a specific 'scripts/' folder
+
+      - name: Commit and Push GeoJSON Cartridge
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "Ventus-OS-Agent"
+          git config --global user.email "actions@github.com"
+          git add global_ports.geojson
+          # Only commit if there are actual changes to prevent empty commits
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): automated update of global_ports.geojson" && git push)

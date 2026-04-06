@@ -1,40 +1,36 @@
-name: Generate Global Ports Data
+name: Generate Global Ports Gridbot
 
 on:
-  workflow_dispatch: # Allows manual trigger from GitHub UI
   schedule:
     - cron: '0 2 1 * *' # Runs at 02:00 on the 1st of every month
-
-# Explicitly grant permission to push the generated file back to the repo
-permissions:
-  contents: write
+  workflow_dispatch: # Allows manual trigger
 
 jobs:
-  build-and-deploy:
+  update-data:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
 
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
+    - name: Install dependencies
+      run: |
+        pip install requests
 
-      - name: Execute Global Ports ETL Pipeline
-        run: python fetch_global_ports.py
+    - name: Run Python script
+      run: python fetch_global_ports.py
 
-      - name: Commit and Push GeoJSON Cartridge
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "Ventus-OS-Agent"
-          git config --global user.email "actions@github.com"
-          git add global_ports.geojson
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): automated update of global_ports.geojson" && git push)
+    - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.name "Gridbot"
+        git config --global user.email "gridbot@ventus.com"
+        git add global_ports.geojson
+        git diff --quiet && git diff --staged --quiet || git commit -m "Automated global ports update by Gridbot"
+        git push

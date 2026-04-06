@@ -195,15 +195,21 @@
             ]
         },
         {
-            group: "EV (GeoJSON)",
+            group: "Global Data Backbone",
             layers: [
-                { id: "ev", label: "EV Rapid (100kW+)", color: "#00ff88", type: "point", radius: 5, url: "/ev_chargers.geojson", preload: false }
+                { id: "subsea_data_cables", label: "Subsea Data Cables (Fibre)", color: "#00e5ff", type: "line", width: 1.5, url: "/subsea_data_cables.geojson", preload: false }
             ]
         },
         {
             group: "Highway Infrastructure",
             layers: [
                 { id: "motorway_services", label: "Motorway Services", color: "#ff00ff", type: "point", radius: 5.5, url: "/motorway_services.geojson", preload: false }
+            ]
+        },
+        {
+            group: "EV (GeoJSON)",
+            layers: [
+                { id: "ev", label: "EV Rapid (100kW+)", color: "#00ff88", type: "point", radius: 5, url: "/ev_chargers.geojson", preload: false }
             ]
         },
         {

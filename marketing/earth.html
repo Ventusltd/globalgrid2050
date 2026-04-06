@@ -19,7 +19,6 @@
             text-shadow: 0 0 6px rgba(0, 255, 255, 0.5); border-left: 3px solid #00ffff; padding-left: 15px; z-index: 10;
         }
         .label { font-size: 18px; font-weight: bold; letter-spacing: 2px; line-height: 1.5; }
-        .tagline { font-size: 10px; letter-spacing: 1px; margin-top: 10px; color: #fff; opacity: 0.8; font-weight: bold; }
         .meta { font-size: 9px; opacity: 0.5; margin-top: 10px; line-height: 1.4; transition: color 0.2s; }
         
         /* Clickable Override Alert */
@@ -27,10 +26,11 @@
         .status-alert:hover { opacity: 1; text-decoration: underline; }
         .status-alert::after { content: " ↩ RESUME"; font-size: 8px; opacity: 0.7; }
         
-        /* Data Credits / Sourcing */
+        /* Data Credits / Sourcing (Enlarged) */
         .credits {
-            position: absolute; bottom: 15px; right: 20px; color: #fff; opacity: 0.4;
-            font-size: 8px; letter-spacing: 1px; text-align: right; z-index: 10; pointer-events: none; text-transform: uppercase;
+            position: absolute; bottom: 25px; right: 25px; color: #fff; opacity: 0.7;
+            font-size: 11px; letter-spacing: 1px; text-align: right; z-index: 10; 
+            pointer-events: none; text-transform: uppercase; line-height: 1.6;
         }
 
         /* Pulsing Loader */
@@ -50,7 +50,6 @@
 
 <div class="hud">
     <div class="label" id="timeDisplay"></div>
-    <div class="tagline" id="modeIndicator">GLOBAL SYSTEM VIEW</div>
     <div class="meta" id="interactionState">[AUTO ROTATION ACTIVE]</div>
     <div class="meta" id="metaDisplay">
         ENGINE: THREE.JS (SYSTEM GLOBE)<br>
@@ -60,7 +59,7 @@
 </div>
 
 <div class="credits">
-    DATA & IMAGERY SOURCES<br>
+    <strong>DATA & IMAGERY SOURCES</strong><br>
     SATELLITE & TOPOLOGY: NASA / VISIBLE EARTH<br>
     TEXTURE CURATION: THREE-GLOBE<br>
     RENDERING ENGINE: THREE.JS WebGL

@@ -3,20 +3,17 @@ import json
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
-# Massive Bounding Box: Mid-Atlantic to Eastern Europe, North Africa to Iceland.
-BBOX = "35.0,-30.0,65.0,20.0"
-
 def build_query() -> str:
-    # Explicitly targets telecom/data cables. 
-    # Where generic submarine tags are used, we explicitly EXCLUDE power cables ([!"power"]).
-    return f"""[out:json][timeout:180];
+    # BBOX COMPLETELY REMOVED. 
+    # This executes a planetary-scale query for data/telecom cables, explicitly excluding power.
+    return """[out:json][timeout:180];
     (
-      way["telecom"="cable"]["submarine"="yes"]({BBOX});
-      way["telecom"="communication_cable"]["location"="underwater"]({BBOX});
-      way["man_made"="submarine_cable"]["cable"="telecommunication"]({BBOX});
-      way["man_made"="submarine_cable"][!"power"]({BBOX});
-      way["seamark:type"="cable_submarine"]["seamark:cable_submarine:category"="optical_fibre"]({BBOX});
-      way["seamark:type"="cable_submarine"][!"power"]({BBOX});
+      way["telecom"="cable"]["submarine"="yes"];
+      way["telecom"="communication_cable"]["location"="underwater"];
+      way["man_made"="submarine_cable"]["cable"="telecommunication"];
+      way["man_made"="submarine_cable"][!"power"];
+      way["seamark:type"="cable_submarine"]["seamark:cable_submarine:category"="optical_fibre"];
+      way["seamark:type"="cable_submarine"][!"power"];
     );
     out geom;
     """
@@ -39,7 +36,7 @@ def process_data(data: dict) -> list:
             line = [[pt["lon"], pt["lat"]] for pt in el["geometry"]]
             
             if len(line) >= 2:
-                name = tags.get("name", tags.get("seamark:name", "Subsea Data Cable"))
+                name = tags.get("name", tags.get("seamark:name", "Global Subsea Data Cable"))
                 operator = tags.get("operator", "Telecom Operator")
                 
                 features.append({
@@ -59,10 +56,10 @@ def process_data(data: dict) -> list:
     return features
 
 def main():
-    print("Fetching Subsea Data Cables (Fibre Optics) across the Atlantic and Europe...")
+    print("Fetching Global Subsea Data Cables (Fibre Optics) for the entire planet...")
     query = build_query()
     try:
-        # 180 second timeout because this is a heavy geographic query
+        # 180 second timeout because a global geometric query is heavy
         res = requests.post(OVERPASS_URL, data={"data": query}, timeout=180)
         res.raise_for_status()
         raw_data = res.json()
@@ -77,7 +74,7 @@ def main():
         # Minified to keep the file size tight for WebGL
         json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
         
-    print(f"Saved {len(features)} Subsea Data Cable segments to subsea_data_cables.geojson")
+    print(f"Saved {len(features)} Global Subsea Data Cable segments to subsea_data_cables.geojson")
 
 if __name__ == "__main__":
     main()

@@ -1,102 +1,72 @@
 import requests
 import json
+import sys
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+# We use the raw GitHub user content URLs to bypass any API limits.
+# Primary: The official (archived) TeleGeography repository.
+# Fallback: A permanent open-source fork in case the official repo is taken offline.
+SOURCES = [
+    "https://raw.githubusercontent.com/telegeography/www.submarinecablemap.com/master/public/api/v3/cable/cable-geo.json",
+    "https://raw.githubusercontent.com/delusan/www.submarinecablemap.com/master/public/api/v3/cable/cable-geo.json",
+    "https://raw.githubusercontent.com/telegeography/www.submarinecablemap.com/master/public/api/v2/cable/cable-geo.json"
+]
 
-def build_query() -> str:
-    # 1. Ask for individual ways (local links, smaller cables)
-    # 2. Ask for RELATIONS (The massive trans-oceanic global backbones)
-    return """[out:json][timeout:180];
-    (
-      way["telecom"="cable"]["submarine"="yes"];
-      way["telecom"="communication_cable"]["location"="underwater"];
-      way["seamark:type"="cable_submarine"]["seamark:cable_submarine:category"="optical_fibre"];
-      
-      relation["telecom"="cable"]["submarine"="yes"];
-      relation["telecom"="communication_cable"]["location"="underwater"];
-      relation["route"="telecom"]["submarine"="yes"];
-    );
-    out geom;
-    """
+def fetch_telegeography_data():
+    for url in SOURCES:
+        print(f"Attempting to fetch global telecom backbone from: {url}")
+        try:
+            res = requests.get(url, timeout=30)
+            res.raise_for_status()
+            print("Success! Hijacked the TeleGeography dataset.")
+            return res.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Failed to fetch from {url}: {e}")
+            continue
+            
+    print("CRITICAL ERROR: All TeleGeography archives failed.")
+    sys.exit(1)
 
-def process_data(data: dict) -> list:
+def process_data(raw_data: dict) -> list:
     features = []
-    seen_ways = set()
-
-    # 1. FIRST PASS: Unpack the massive trans-oceanic Relations
-    for el in data.get("elements", []):
-        if el["type"] == "relation":
-            tags = el.get("tags", {})
-            name = tags.get("name", tags.get("seamark:name", "Global Subsea Route"))
-            operator = tags.get("operator", "Telecom Operator")
-            
-            multiline = []
-            for member in el.get("members", []):
-                if member["type"] == "way" and "geometry" in member:
-                    line = [[pt["lon"], pt["lat"]] for pt in member["geometry"]]
-                    if len(line) >= 2:
-                        multiline.append(line)
-                        # Mark this way as seen so we don't duplicate it in step 2
-                        seen_ways.add(member["ref"]) 
-            
-            if multiline:
-                features.append({
-                    "type": "Feature",
-                    "properties": {
-                        "name": name,
-                        "operator": operator,
-                        "osm_id": el["id"],
-                        "type": "subsea_data_cable"
-                    },
-                    "geometry": {
-                        "type": "MultiLineString",
-                        "coordinates": multiline
-                    }
-                })
-
-    # 2. SECOND PASS: Grab individual ways (that weren't part of a larger relation)
-    for el in data.get("elements", []):
-        if el["type"] == "way" and el["id"] not in seen_ways and "geometry" in el:
-            tags = el.get("tags", {})
-            name = tags.get("name", tags.get("seamark:name", "Subsea Data Cable"))
-            operator = tags.get("operator", "Telecom Operator")
-            
-            line = [[pt["lon"], pt["lat"]] for pt in el["geometry"]]
-            if len(line) >= 2:
-                features.append({
-                    "type": "Feature",
-                    "properties": {
-                        "name": name,
-                        "operator": operator,
-                        "osm_id": el["id"],
-                        "type": "subsea_data_cable"
-                    },
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": line
-                    }
-                })
+    
+    # TeleGeography natively uses a GeoJSON FeatureCollection
+    for feature in raw_data.get("features", []):
+        props = feature.get("properties", {})
+        geom = feature.get("geometry", {})
+        
+        # Extract the commercial name, default to "Global Telecom Route"
+        name = props.get("name", "Global Telecom Route")
+        
+        # We enforce our Ventus OS standard properties so the map styling recognizes it
+        features.append({
+            "type": "Feature",
+            "properties": {
+                "name": name,
+                "operator": "Commercial Telecom Backbone", 
+                "source": "TeleGeography Archive",
+                "type": "subsea_data_cable"
+            },
+            "geometry": geom
+        })
 
     return features
 
 def main():
-    print("Fetching Global Subsea Data Cables (Including trans-oceanic relations)...")
-    query = build_query()
-    try:
-        res = requests.post(OVERPASS_URL, data={"data": query}, timeout=180)
-        res.raise_for_status()
-        raw_data = res.json()
-    except Exception as e:
-        print(f"Error fetching data: {e}")
-        return
-        
+    print("Initiating TeleGeography Archive Hijack...")
+    
+    # 1. Fetch the raw proprietary GeoJSON
+    raw_data = fetch_telegeography_data()
+    
+    # 2. Process and standardize the data for Ventus OS
     features = process_data(raw_data)
     
+    # 3. Compile and save
     geojson = {"type": "FeatureCollection", "features": features}
     with open("subsea_data_cables.geojson", "w", encoding="utf-8") as f:
+        # Minify to ensure lightning-fast WebGL rendering
         json.dump(geojson, f, ensure_ascii=False, separators=(",", ":"))
         
-    print(f"Saved {len(features)} global data cable structures to subsea_data_cables.geojson")
+    print(f"Saved {len(features)} massive trans-oceanic telecom routes to subsea_data_cables.geojson")
 
 if __name__ == "__main__":
     main()

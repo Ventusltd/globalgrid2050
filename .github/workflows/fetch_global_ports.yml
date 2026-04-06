@@ -2,8 +2,8 @@ name: Generate Global Ports Gridbot
 
 on:
   schedule:
-    - cron: '0 2 1 * *' # Runs at 02:00 on the 1st of every month
-  workflow_dispatch: # Allows manual trigger
+    - cron: '0 2 1 * *' 
+  workflow_dispatch: 
 
 jobs:
   update-data:
@@ -22,8 +22,9 @@ jobs:
       run: |
         pip install requests
 
+    # Pointing to the scripts folder
     - name: Run Python script
-      run: python fetch_global_ports.py
+      run: python scripts/fetch_global_ports.py
 
     - name: Commit and push changes
       env:

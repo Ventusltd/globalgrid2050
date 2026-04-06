@@ -203,7 +203,8 @@
         {
             group: "Global Supply Chain & Chokepoints",
             layers: [
-                { id: "global_ports", label: "Major Ports (UK, Hormuz & Global)", color: "#00bfff", type: "point", radius: 5, url: "/global_ports.geojson", preload: false },
+                { id: "global_ports_major", label: "Major Ports (Cargo/Container)", color: "#00bfff", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 3, 50, 5.5, 500, 11], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Major Cargo/Container Port'], preload: false },
+                { id: "global_ports_minor", label: "Inland / Minor Harbours", color: "#0055aa", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 1.5, 20, 3, 100, 5], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Minor/Local Harbour'], preload: false },
                 { id: "global_hydrocarbons", label: "Global Hydrocarbons (Oil, Gas, LNG)", color: "#ff3300", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 3.5, 100, 7, 1000, 14], url: "/global_hydrocarbons.geojson", preload: false }
             ]
         },

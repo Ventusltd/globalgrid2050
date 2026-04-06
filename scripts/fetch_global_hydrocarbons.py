@@ -6,11 +6,12 @@ import sys
 import csv
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-GEM_CSV_PATH = "gem_hydrocarbons_master.csv"  # The file you will drop into the repo
+# The script will look for this file in the root directory where the Action runs
+GEM_CSV_PATH = "gem_hydrocarbons_master.csv"  
 DEDUPLICATION_RADIUS_M = 3000.0  # 3km deduplication zone
 
-OVERPASS_QUERY = """
-[out:json][timeout:900];
+# Stripped the leading newline
+OVERPASS_QUERY = """[out:json][timeout:900];
 (
   way["man_made"="petroleum_works"];
   relation["man_made"="petroleum_works"];
@@ -32,8 +33,7 @@ OVERPASS_QUERY = """
   way["man_made"="offshore_platform"];
   relation["man_made"="offshore_platform"];
 );
-out center bb;
-"""
+out center bb;"""
 
 def haversine_distance(lat1, lon1, lat2, lon2):
     """Calculates true physical distance in geodesic metres."""
@@ -58,7 +58,6 @@ def parse_gem_data():
         reader = csv.DictReader(f)
         headers = [h.lower() for h in reader.fieldnames]
         
-        # Fuzzy matching for common GEM CSV headers
         lat_col = next((h for h in headers if 'lat' in h), None)
         lon_col = next((h for h in headers if 'lon' in h or 'lng' in h), None)
         name_col = next((h for h in headers if 'name' in h or 'project' in h), None)
@@ -70,7 +69,6 @@ def parse_gem_data():
 
         for row in reader:
             try:
-                # Need original case keys to extract from the row
                 lat_key = reader.fieldnames[headers.index(lat_col)]
                 lon_key = reader.fieldnames[headers.index(lon_col)]
                 name_key = reader.fieldnames[headers.index(name_col)] if name_col else None
@@ -91,11 +89,11 @@ def parse_gem_data():
                         "name": name,
                         "type": facility_type,
                         "source": "Global Energy Monitor",
-                        "area_ha": 30.0 # Baseline visual weight for GEM assets
+                        "area_ha": 30.0
                     }
                 })
             except (ValueError, TypeError):
-                continue # Skip rows with missing or corrupted coordinates
+                continue
                 
     print(f"SUCCESS: Ingested {len(gem_features)} Gold Standard assets.")
     return gem_features
@@ -103,8 +101,20 @@ def parse_gem_data():
 def fetch_osm_data():
     """Fetches open-source fallback data."""
     print("Initiating global Overpass API extraction for secondary infrastructure...")
+    
+    # Custom User-Agent to prevent 400 Bad Request / 403 Forbidden
+    headers = {
+        'User-Agent': 'GlobalGrid2050-Pipeline/5.0 (Automated Spatial Extraction)'
+    }
+    
     try:
-        response = requests.post(OVERPASS_URL, data={'data': OVERPASS_QUERY})
+        # Raw UTF-8 bytes to bypass URL-encoding corruption
+        response = requests.post(OVERPASS_URL, data=OVERPASS_QUERY.encode('utf-8'), headers=headers)
+        
+        # Intercept API errors
+        if response.status_code != 200:
+            print(f"OVERPASS API ERROR [{response.status_code}]:\n{response.text}")
+            
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -114,6 +124,9 @@ def fetch_osm_data():
 def deduplicate_and_merge(gem_features, osm_raw):
     """Merges datasets, stripping OSM assets that fall within the GEM Haversine radius."""
     final_features = list(gem_features)
+    if not osm_raw:
+        return {"type": "FeatureCollection", "features": final_features}
+        
     elements = osm_raw.get('elements', [])
     
     print(f"Cross-referencing {len(elements)} OSM assets against Gold Standard data...")
@@ -128,7 +141,6 @@ def deduplicate_and_merge(gem_features, osm_raw):
         if not lon or not lat:
             continue
 
-        # DEDUPLICATION ENGINE
         is_duplicate = False
         for gem in gem_features:
             gem_lon, gem_lat = gem['geometry']['coordinates']
@@ -141,7 +153,6 @@ def deduplicate_and_merge(gem_features, osm_raw):
             osm_dropped += 1
             continue
 
-        # If it survives deduplication, process it normally
         tags = el.get('tags', {})
         is_offshore_platform = tags.get('man_made') == 'offshore_platform'
         is_field = tags.get('industrial') in ['gas_field', 'oil_field']
@@ -197,6 +208,7 @@ def deduplicate_and_merge(gem_features, osm_raw):
     }
 
 def save_geojson(geojson_data, filename="global_hydrocarbons.geojson"):
+    # Saves directly to the repository root
     filepath = os.path.join(os.getcwd(), filename)
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(geojson_data, f, separators=(',', ':'))

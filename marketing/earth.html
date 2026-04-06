@@ -79,8 +79,8 @@
     sun.position.set(5, 3, 5);
     scene.add(sun);
 
-    // Initial Camera Position for Portrait Mobile
-    camera.position.z = window.innerHeight > window.innerWidth ? 20 : 15;
+    // Initial Camera Position for Portrait Mobile (Zoomed out)
+    camera.position.z = window.innerHeight > window.innerWidth ? 35 : 25;
 
     // GPS to 3D Conversion
     function latLngToV3(lat, lng, r) {
@@ -112,14 +112,16 @@
 
     function animate() {
         requestAnimationFrame(animate);
-        earthGroup.rotation.y += 0.0012; // Slow professional rotation
+        // Sped up rotation (previously 0.0012)
+        earthGroup.rotation.y += 0.008; 
         renderer.render(scene, camera);
     }
     animate();
 
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
-        camera.position.z = window.innerHeight > window.innerWidth ? 20 : 15;
+        // Keep zoom level consistent on resize
+        camera.position.z = window.innerHeight > window.innerWidth ? 35 : 25; 
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });

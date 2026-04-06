@@ -28,8 +28,8 @@
     <div class="tagline">VENTUS PLANETARY INFRASTRUCTURE ARCHITECTURE // 2050</div>
     <div class="meta">
         COORDINATE SYSTEM: WGS 84 / EPSG:4326<br>
-        DATA SOURCE: OPEN INFRASTRUCTURE INTELLIGENCE<br>
-        VISUALIZATION: GPU-ACCELERATED SPHERICAL MESH
+        VISUALIZATION: GPU-ACCELERATED SPHERICAL MESH<br>
+        DYNAMICS: 23.5° TILT & DAY/NIGHT CYCLE
     </div>
 </div>
 
@@ -48,11 +48,14 @@
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
     
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Cap pixel ratio for performance
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
     container.appendChild(renderer.domElement);
 
     const earthGroup = new THREE.Group();
     scene.add(earthGroup);
+
+    // Apply Earth's 23.5-degree axial tilt to the container group
+    earthGroup.rotation.z = 23.5 * (Math.PI / 180);
 
     // Texture Loading Manager
     const loadingManager = new THREE.LoadingManager(() => {
@@ -64,7 +67,8 @@
     
     const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
     const earthMaterial = new THREE.MeshPhongMaterial({
-        map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
+        // Swapped to a standard daytime texture so the light creates the "night"
+        map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'),
         bumpMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-topology.png'),
         bumpScale: 0.05, 
         shininess: 8
@@ -73,54 +77,31 @@
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     earthGroup.add(earth);
 
-    // Global Lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const sun = new THREE.DirectionalLight(0xffffff, 1.2);
-    sun.position.set(5, 3, 5);
+    // Global Lighting (Day/Night setup)
+    // Very dim ambient light so the dark side of the earth looks like deep night
+    scene.add(new THREE.AmbientLight(0xffffff, 0.05));
+    
+    // The "Sun" shining from a fixed direction
+    const sun = new THREE.DirectionalLight(0xffffff, 1.5);
+    sun.position.set(10, 0, 10);
     scene.add(sun);
 
     // Initial Camera Position for Portrait Mobile (Zoomed out)
     camera.position.z = window.innerHeight > window.innerWidth ? 35 : 25;
 
-    // GPS to 3D Conversion
-    function latLngToV3(lat, lng, r) {
-        const phi = (90 - lat) * (Math.PI / 180);
-        const theta = (lng + 180) * (Math.PI / 180);
-        return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
-    }
-
-    // Geometry Optimization: Low radial segments (4) for mobile performance
-    async function addLayer(url, color, size) {
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            data.features.forEach(f => {
-                if (f.geometry.type === 'LineString') {
-                    const points = f.geometry.coordinates.map(c => latLngToV3(c[1], c[0], 5.03));
-                    const curve = new THREE.CatmullRomCurve3(points);
-                    const tubeGeom = new THREE.TubeGeometry(curve, 48, size, 4, false);
-                    const tubeMat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.7 });
-                    earthGroup.add(new THREE.Mesh(tubeGeom, tubeMat));
-                }
-            });
-        } catch (err) { console.warn("Layer data not found:", url); }
-    }
-
-    // Load Data
-    addLayer('../subsea_data_cables.geojson', 0x00ffff, 0.012);
-    addLayer('../unification_deep_subsea_estimates.geojson', 0xff00ff, 0.018);
-
     function animate() {
         requestAnimationFrame(animate);
-        // Sped up rotation (previously 0.0012)
-        earthGroup.rotation.y += 0.008; 
+        
+        // Spin the Earth mesh inside the tilted group. 
+        // This spins the planet through the fixed sunlight, creating day and night.
+        earth.rotation.y += 0.008; 
+        
         renderer.render(scene, camera);
     }
     animate();
 
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
-        // Keep zoom level consistent on resize
         camera.position.z = window.innerHeight > window.innerWidth ? 35 : 25; 
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);

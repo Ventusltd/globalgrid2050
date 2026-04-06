@@ -2,137 +2,112 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>VENTUS Cables & Connectivity | Global Showcase 2050</title>
+    <title>VENTUS | Global 3D Showcase</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    
     <script src="https://unpkg.com/maplibre-gl@^3.0.0/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@^3.0.0/dist/maplibre-gl.css" rel="stylesheet" />
-    
     <style>
-        /* Minimalist "Black Box" aesthetic */
         body { margin: 0; padding: 0; background: #000; overflow: hidden; }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-        
-        /* Floating Marketing Header (pointer-events: none is critical) */
         .showcase-overlay {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            pointer-events: none;
-            color: #fff;
-            font-family: sans-serif;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            position: absolute; top: 20px; left: 20px; pointer-events: none;
+            color: #fff; font-family: sans-serif; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
         .main-logo { font-size: 24px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
         .sub-logo { font-size: 11px; opacity: 0.7; letter-spacing: 1px; }
-        
-        /* Interactive Toggle (keeps pointer-events) */
         #toggle-rotation {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            position: absolute; bottom: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 12px;
+            cursor: pointer; font-size: 10px; text-transform: uppercase; border-radius: 4px;
         }
-        #toggle-rotation:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
     </style>
 </head>
 <body>
 
 <div id="map"></div>
-
 <div class="showcase-overlay">
     <div class="main-logo">Ventus</div>
-    <div class="sub-logo">Cables & Connectivity&reg;<br>PLANETARY DATA BACKBONE 2050</div>
+    <div class="sub-logo">Cables &amp; Connectivity&reg;<br>GLOBAL INFRASTRUCTURE UNIFICATION 2050</div>
 </div>
-
 <button id="toggle-rotation">⏸ PAUSE SPIN</button>
 
 <script>
-    // Configuration
-    const ROTATION_SPEED = 4; // Higher is slower (it is seconds-per-revolution-at-zoom-1)
+    const ROTATION_SPEED = 4; 
     let isUserInteracting = false;
     let spinEnabled = true;
 
     const map = new maplibregl.Map({
         container: 'map',
-        // Minimalist style using free Carto DarkMatter base tiles
         style: {
             version: 8,
             sources: {
                 'carto-dark': {
                     type: 'raster',
                     tiles: ['https://basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png'],
-                    tileSize: 256,
-                    attribution: '© CARTO, © OSM'
+                    tileSize: 256
                 }
             },
-            layers: [
-                { id: 'background', type: 'raster', source: 'carto-dark', minzoom: 0, maxzoom: 22 }
-            ]
+            layers: [{ id: 'background', type: 'raster', source: 'carto-dark' }]
         },
-        center: [0, 15], // Initial position
-        zoom: 1.5, // Space-level zoom for the full globe
-        projection: 'globe', // THIS ACTIVATES THE 3D SPHERE
-        attributionControl: false // Minimalist marketing feel
+        center: [-3.5, 54.5], // Center on UK heart
+        zoom: 3.5,
+        projection: 'globe',
+        attributionControl: false
     });
 
-    // Performance optimized spinning engine
     function rotateGlobe() {
-        const zoom = map.getZoom();
-        if (spinEnabled && !isUserInteracting && zoom < 5) {
+        if (spinEnabled && !isUserInteracting && map.getZoom() < 5) {
             let center = map.getCenter();
             center.lng += ROTATION_SPEED;
-            
-            // Perform the rotation without animation easing (Easiest calculation)
             map.easeTo({ center, duration: 1000, easing: (n) => n });
         }
     }
 
-    // Load data and setup interaction
     map.on('load', () => {
-        
-        // 1. Point directly to your existing global asset file (Relative Pathing)
-        map.addSource('subsea-data-cables', {
-            type: 'geojson',
-            data: '../subsea_data_cables.geojson'
+        // --- 1. THE UK HV GRID (66kV and Above) ---
+        const gridLayers = [
+            { id: 'grid-400', url: '../grid_400kv.geojson', color: '#ff9d00', width: 2 },
+            { id: 'grid-275', url: '../grid_275kv.geojson', color: '#ff9d00', width: 1.5 },
+            { id: 'grid-132', url: '../grid_132kv.geojson', color: '#ff9d00', width: 1 },
+            { id: 'grid-66',  url: '../grid_66kv.geojson',  color: '#ff9d00', width: 0.8 }
+        ];
+
+        gridLayers.forEach(layer => {
+            map.addSource(layer.id, { type: 'geojson', data: layer.url });
+            map.addLayer({
+                id: layer.id, type: 'line', source: layer.id,
+                paint: { 'line-color': layer.color, 'line-width': layer.width, 'line-opacity': 0.8 }
+            });
         });
 
-        // 2. Map styling using the "Neon Aesthetic"
+        // --- 2. GLOBAL SUBSEA FIBRE (The Ground Truth) ---
+        map.addSource('subsea-live', { type: 'geojson', data: '../subsea_data_cables.geojson' });
         map.addLayer({
-            id: 'cables-line-marketing',
-            type: 'line',
-            source: 'subsea-data-cables',
-            filter: ['==', ['get', 'type'], 'subsea_data_cable'], // Crucial filter
-            paint: {
-                // High brightness Cyan for max contrast
-                'line-color': '#00ffff', 
-                // Thicker lines for marketing pop
-                'line-width': ['interpolate', ['linear'], ['zoom'], 1, 1.5, 5, 3], 
-                'line-opacity': 0.8
-            }
+            id: 'subsea-live-layer', type: 'line', source: 'subsea-live',
+            paint: { 'line-color': '#00ffff', 'line-width': 1.2, 'line-opacity': 0.6 }
         });
 
-        // 3. Start the rotation engine
+        // --- 3. DEEP SUBSEA ILLUSTRATIVE (Dashed Cyan) ---
+        map.addSource('deep-subsea', { type: 'geojson', data: '../deep_subsea_illustrative.geojson' });
+        map.addLayer({
+            id: 'deep-subsea-layer', type: 'line', source: 'deep-subsea',
+            paint: { 'line-color': '#00ffff', 'line-width': 1.5, 'line-dasharray': [2, 2] }
+        });
+
+        // --- 4. UNIFICATION ESTIMATES (The Global Macro-Web) ---
+        map.addSource('unification', { type: 'geojson', data: '../unification_deep_subsea_estimates.geojson' });
+        map.addLayer({
+            id: 'unification-layer', type: 'line', source: 'unification',
+            paint: { 'line-color': '#b200ff', 'line-width': 2, 'line-dasharray': [4, 4] }
+        });
+
         map.on('moveend', rotateGlobe);
         rotateGlobe();
     });
 
-    // 4. Interaction Handlers: Pause spin on touch/drag, resume on moveend
     map.on('mousedown', () => isUserInteracting = true);
     map.on('mouseup', () => isUserInteracting = false);
-    map.on('touchstart', () => isUserInteracting = true);
-    map.on('touchend', () => isUserInteracting = false);
-
-    // Manual Override Button
     const toggleBtn = document.getElementById('toggle-rotation');
     toggleBtn.addEventListener('click', () => {
         spinEnabled = !spinEnabled;
@@ -140,6 +115,5 @@
         if (spinEnabled) rotateGlobe();
     });
 </script>
-
 </body>
 </html>

@@ -3,265 +3,815 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ventus OS | Civil Routing CAD</title>
+    <title>Ventus OS | Derating Geometry Visualiser</title>
     <style>
-        body { margin: 0; padding: 20px; background: #050505; color: white; font-family: 'Courier New', monospace; box-sizing: border-box; display: flex; justify-content: center; }
-        
-        .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1200px; }
-        
-        .panel { background: rgba(10,10,10,0.95); border: 1px solid #333; border-radius: 4px; padding: 20px; display: flex; flex-direction: column; }
-        .panel-left { width: 350px; flex-shrink: 0; }
-        .panel-right { flex-grow: 1; display: flex; flex-direction: column; gap: 20px; }
-        
-        h2 { margin: 0 0 15px 0; color: #00ffff; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px;}
-        h3 { margin: 0 0 10px 0; color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .input-group { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; color: #aaa; align-items: center;}
-        input, select { width: 110px; background: #111; color: #00ffff; border: 1px solid #444; padding: 6px; font-family: monospace; text-align: right; }
-        input:focus, select:focus { border-color: #00ffff; outline: none; }
-        input[type="text"] { text-align: left; }
-        
-        .btn { width: 100%; padding: 12px; margin-top: 15px; background: #050505; color: #00ff88; border: 1px solid #00ff88; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; transition: all 0.2s;}
-        .btn:hover { background: #00ff88; color: #000; }
-        
-        .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; color: #888; padding: 4px 0;}
-        .stat-val { color: #fff; font-weight: bold; }
+        * { box-sizing: border-box; }
 
-        .canvas-container { background: #0b0e14; border: 1px solid #222; border-radius: 4px; padding: 15px; display: flex; flex-direction: column; align-items: center; }
-        canvas { background: #000; border: 1px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.5); max-width: 100%; }
-        
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #050505;
+            color: #ffffff;
+            font-family: "Courier New", monospace;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1320px;
+            align-items: flex-start;
+        }
+
+        .panel {
+            background: rgba(10,10,10,0.96);
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel_left {
+            width: 390px;
+            flex-shrink: 0;
+        }
+
+        .panel_right {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            margin: 0 0 15px 0;
+            color: #00ffff;
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            margin: 0 0 10px 0;
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subtle_note {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.45;
+            margin: 0 0 14px 0;
+        }
+
+        .warning_box {
+            border: 1px solid #5a3d00;
+            background: rgba(80, 50, 0, 0.18);
+            color: #ffcc66;
+            padding: 12px;
+            font-size: 11px;
+            line-height: 1.45;
+            margin-bottom: 18px;
+            border-radius: 3px;
+        }
+
+        .input_group {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #aaa;
+            align-items: center;
+        }
+
+        .input_group label {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .input_group input,
+        .input_group select {
+            width: 155px;
+            background: #111;
+            color: #00ffff;
+            border: 1px solid #444;
+            padding: 6px;
+            font-family: monospace;
+        }
+
+        .input_group input[type="number"] {
+            text-align: right;
+        }
+
+        .input_group input[type="text"] {
+            text-align: left;
+        }
+
+        .input_group input:focus,
+        .input_group select:focus {
+            border-color: #00ffff;
+            outline: none;
+        }
+
+        .stat_block {
+            margin-top: 18px;
+            border-top: 1px solid #333;
+            padding-top: 14px;
+        }
+
+        .stat_row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #888;
+            padding: 4px 0;
+        }
+
+        .stat_val {
+            color: #fff;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .canvas_container {
+            background: #0b0e14;
+            border: 1px solid #222;
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        canvas {
+            background: #000;
+            border: 1px solid #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+
+        .button_row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn {
+            flex: 1 1 auto;
+            padding: 12px;
+            background: #050505;
+            color: #00ff88;
+            border: 1px solid #00ff88;
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .btn_alt {
+            color: #ff00ff;
+            border-color: #ff00ff;
+        }
+
+        .btn_alt:hover {
+            background: #ff00ff;
+            color: #000;
+        }
+
+        .snapshot_box {
+            margin-top: 16px;
+            border: 1px solid #222;
+            background: #07090d;
+            padding: 12px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #cfcfcf;
+            white-space: pre-wrap;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 1080px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .panel_left {
+                width: 100%;
+            }
+
+            .input_group input,
+            .input_group select {
+                width: 170px;
+            }
+        }
     </style>
 </head>
 <body>
-
     <div class="dashboard">
-        
-        <div class="panel panel-left">
-            <h2>Routing Parameters</h2>
-            
-            <h3>Route Identification</h3>
-            <div class="input-group">Circuit ID: <input type="text" id="r-name" value="Feeder-01" oninput="renderCAD()"></div>
-            <div class="input-group">Route Length (m): <input type="number" id="r-len" value="250" step="1" oninput="renderCAD()"></div>
-            
-            <h3 style="margin-top: 20px;">Civil & Thermal Specs</h3>
-            <div class="input-group">Route Type: 
-                <select id="route-type" onchange="renderCAD()">
-                    <option value="mv">33kV Grid (Trefoil)</option>
-                    <option value="lv">LV AC (Trefoil)</option>
-                    <option value="dc">BESS DC (Flat Pair)</option>
+        <div class="panel panel_left">
+            <h2>Derating Geometry Inputs</h2>
+
+            <div class="warning_box">
+                This tool captures worst case cable formation and bend geometry for derating assessment only.
+                It does not verify current rating, voltage drop, fault withstand, segregation, installation compliance or civil design.
+            </div>
+
+            <h3>Route Identity</h3>
+            <div class="input_group">
+                <label for="route_name">Route ID</label>
+                <input type="text" id="route_name" value="M_W3_BESS_to_PCS" />
+            </div>
+            <div class="input_group">
+                <label for="section_length">Worst Case Section Length m</label>
+                <input type="number" id="section_length" value="30" step="1" min="0" />
+            </div>
+
+            <h3 style="margin-top: 18px;">Installation Basis</h3>
+            <div class="input_group">
+                <label for="installation_condition">Installation Condition</label>
+                <select id="installation_condition">
+                    <option value="buried_duct">Buried Duct</option>
+                    <option value="direct_buried">Direct Buried</option>
+                    <option value="open_trough">Open Trough</option>
+                    <option value="free_air">Free Air on Cleats</option>
+                    <option value="metallic_enclosure">Metallic Enclosure</option>
                 </select>
             </div>
-            <div class="input-group">Burial Depth (m): 
-                <select id="t-depth" onchange="renderCAD()">
-                    <option value="0.8">0.8m (Standard)</option>
-                    <option value="1.0">1.0m (Deep)</option>
-                    <option value="1.2">1.2m (Road Xing)</option>
+            <div class="input_group">
+                <label for="service_type">Service Type</label>
+                <select id="service_type">
+                    <option value="mv">33kV Grid</option>
+                    <option value="lv">LV AC</option>
+                    <option value="dc">DC</option>
                 </select>
             </div>
-            <div class="input-group">No. of Circuits: <input type="number" id="c-qty" value="4" step="1" oninput="renderCAD()"></div>
-            <div class="input-group">Cable OD (mm): <input type="number" id="c-dia" value="45" step="1" oninput="renderCAD()"></div>
-            <div class="input-group">Thermal Spacing (mm): <input type="number" id="c-space" value="150" step="10" oninput="renderCAD()"></div>
-            <div class="input-group">Max Trench W (mm): <input type="number" id="t-max-w" value="1200" step="100" oninput="renderCAD()"></div>
-            <div class="input-group">Bend Radius (x OD): <input type="number" id="c-bend" value="15" step="1" oninput="renderCAD()"></div>
-
-            <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
-                <div class="stat-row">Req. Trough Width: <span class="stat-val" id="out-tw" style="color:#00ffff;">0 mm</span></div>
-                <div class="stat-row">Req. Trough Depth: <span class="stat-val" id="out-td" style="color:#00ffff;">0 mm</span></div>
-                <div class="stat-row">Min Bend Radius: <span class="stat-val" id="out-mbr" style="color:#ff00ff;">0 mm</span></div>
-                <div class="stat-row">Excavation Volume: <span class="stat-val" id="out-vol" style="color:#00ff88;">0 m³</span></div>
-                <div style="font-size:9px; color:#555; margin-top: 10px;">*Soil Thermal Resistivity locked to 1.2 K·m/W</div>
+            <div class="input_group">
+                <label for="grouping_basis">Grouping Basis</label>
+                <select id="grouping_basis">
+                    <option value="same_circuit">Same Circuit</option>
+                    <option value="same_service">Same Service</option>
+                    <option value="mixed_service">Mixed Service</option>
+                </select>
             </div>
 
-            <button class="btn" onclick="exportData()">⬇ Export Engineering JSON</button>
+            <h3 style="margin-top: 18px;">Formation</h3>
+            <div class="input_group">
+                <label for="formation_type">Formation Type</label>
+                <select id="formation_type">
+                    <option value="trefoil_single_row">Trefoil Single Row</option>
+                    <option value="trefoil_two_row">Trefoil Two Row</option>
+                    <option value="flat_single_row">Flat Single Row</option>
+                    <option value="flat_two_row">Flat Two Row</option>
+                    <option value="stacked_two_high">Stacked 2 High</option>
+                    <option value="dc_pair_horizontal">DC Pair Horizontal</option>
+                    <option value="dc_pair_vertical">DC Pair Vertical</option>
+                </select>
+            </div>
+            <div class="input_group">
+                <label for="circuit_qty">Number of Circuit Groups</label>
+                <input type="number" id="circuit_qty" value="4" step="1" min="1" />
+            </div>
+            <div class="input_group">
+                <label for="max_per_row">Max Groups per Row</label>
+                <input type="number" id="max_per_row" value="2" step="1" min="1" />
+            </div>
+            <div class="input_group">
+                <label for="cable_od">Cable Outer Diameter mm</label>
+                <input type="number" id="cable_od" value="45" step="1" min="1" />
+            </div>
+            <div class="input_group">
+                <label for="spacing_basis">Spacing Basis</label>
+                <select id="spacing_basis">
+                    <option value="clear_gap">Clear Gap</option>
+                    <option value="touching">Touching</option>
+                    <option value="centre_to_centre">Centre to Centre</option>
+                </select>
+            </div>
+            <div class="input_group">
+                <label for="spacing_h">Horizontal Spacing mm</label>
+                <input type="number" id="spacing_h" value="150" step="5" min="0" />
+            </div>
+            <div class="input_group">
+                <label for="spacing_v">Vertical Spacing mm</label>
+                <input type="number" id="spacing_v" value="150" step="5" min="0" />
+            </div>
+
+            <h3 style="margin-top: 18px;">Bend Geometry</h3>
+            <div class="input_group">
+                <label for="bend_factor">Bend Radius x OD</label>
+                <input type="number" id="bend_factor" value="15" step="1" min="1" />
+            </div>
+
+            <div class="stat_block">
+                <div class="stat_row">
+                    <span>Formation Width</span>
+                    <span class="stat_val" id="out_width">0 mm</span>
+                </div>
+                <div class="stat_row">
+                    <span>Formation Depth</span>
+                    <span class="stat_val" id="out_depth">0 mm</span>
+                </div>
+                <div class="stat_row">
+                    <span>Minimum Bend Radius</span>
+                    <span class="stat_val" id="out_mbr" style="color:#ff00ff;">0 mm</span>
+                </div>
+                <div class="stat_row">
+                    <span>Group Count per Row</span>
+                    <span class="stat_val" id="out_rows">0</span>
+                </div>
+                <div class="stat_row">
+                    <span>Formation Note</span>
+                    <span class="stat_val" id="out_note" style="color:#00ff88;">OK</span>
+                </div>
+            </div>
+
+            <div class="button_row">
+                <button class="btn" id="export_btn">Export JSON</button>
+                <button class="btn btn_alt" id="copy_btn">Copy Snapshot</button>
+            </div>
+
+            <div class="snapshot_box" id="snapshot_box"></div>
         </div>
 
-        <div class="panel panel-right">
-            <div class="canvas-container">
-                <h3 style="align-self: flex-start; color: #00ffff;">Civil Trench Cross-Section</h3>
-                <canvas id="troughCanvas" width="800" height="350"></canvas>
+        <div class="panel panel_right">
+            <div class="canvas_container">
+                <h3 style="align-self:flex-start; color:#00ffff;">Worst Case Formation Cross Section</h3>
+                <p class="subtle_note" style="align-self:flex-start;">
+                    Visual envelope of cable groups and spacing submitted for derating assessment.
+                </p>
+                <canvas id="formation_canvas" width="900" height="380"></canvas>
             </div>
-            
-            <div class="canvas-container">
-                <h3 style="align-self: flex-start; color: #ff00ff;">Entry Plinth & Bend Radius Sweep</h3>
-                <canvas id="bendCanvas" width="800" height="350"></canvas>
+
+            <div class="canvas_container">
+                <h3 style="align-self:flex-start; color:#ff00ff;">Worst Case Bend Radius Sweep</h3>
+                <p class="subtle_note" style="align-self:flex-start;">
+                    Bend geometry only. Not a termination design or civil entry detail.
+                </p>
+                <canvas id="bend_canvas" width="900" height="360"></canvas>
             </div>
         </div>
-
     </div>
 
-<script>
-    let currentTroughW = 0;
-    let currentTroughD = 0;
-    let currentMBR = 0;
-    let currentVol = 0;
+    <script>
+        let currentFormationWidth = 0;
+        let currentFormationDepth = 0;
+        let currentMBR = 0;
+        let currentRows = 0;
+        let currentSnapshot = "";
+        let currentFormationNote = "OK";
 
-    function renderCAD() {
-        drawTrough();
-        drawBendRadius();
-        calculateVolume();
-    }
-
-    function calculateVolume() {
-        const length = parseFloat(document.getElementById('r-len').value) || 0;
-        const widthM = currentTroughW / 1000;
-        const depthM = parseFloat(document.getElementById('t-depth').value);
-        
-        currentVol = length * widthM * depthM;
-        document.getElementById('out-vol').innerText = currentVol.toFixed(1) + " m³";
-    }
-
-    function drawTrough() {
-        const canvas = document.getElementById('troughCanvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        const routeType = document.getElementById('route-type').value;
-        const cQty = parseInt(document.getElementById('c-qty').value) || 1;
-        const cDia = parseFloat(document.getElementById('c-dia').value) || 45;
-        const cSpace = parseFloat(document.getElementById('c-space').value) || 0;
-        const maxW = parseFloat(document.getElementById('t-max-w').value) || 1200;
-
-        const r = cDia / 2;
-        const trefoilW = cDia * 2; 
-        const trefoilH = cDia * (1 + Math.sqrt(3)/2);
-        const flatW = cDia * 2; 
-        const flatH = cDia;
-
-        let curX = cSpace; let curY = cSpace; let maxY = 0; let maxX = 0;
-        let layoutData = [];
-
-        for(let i=0; i<cQty; i++) {
-            const blockW = routeType === 'dc' ? flatW : trefoilW;
-            const blockH = routeType === 'dc' ? flatH : trefoilH;
-            
-            if (curX + blockW + cSpace > maxW) {
-                curX = cSpace; curY += blockH + cSpace;
-            }
-            layoutData.push({ x: curX, y: curY });
-            curX += blockW + cSpace;
-            if (curY + blockH > maxY) maxY = curY + blockH;
-            if (curX > maxX) maxX = curX;
+        function byId(id) {
+            return document.getElementById(id);
         }
 
-        const reqW = maxX + cSpace;
-        const reqH = maxY + cSpace;
-        
-        currentTroughW = reqW;
-        currentTroughD = reqH;
-        document.getElementById('out-tw').innerText = reqW.toFixed(0) + " mm";
-        document.getElementById('out-td').innerText = reqH.toFixed(0) + " mm";
+        function clampNumber(value, fallback, minValue) {
+            const num = Number(value);
+            if (!Number.isFinite(num)) return fallback;
+            return Math.max(num, minValue);
+        }
 
-        const PADDING = 30;
-        const scale = Math.min((canvas.width - PADDING*2) / reqW, (canvas.height - PADDING*2) / reqH);
-        
-        ctx.save();
-        const offsetX = (canvas.width - (reqW * scale)) / 2;
-        const offsetY = (canvas.height - (reqH * scale)) / 2;
-        ctx.translate(offsetX, offsetY);
-        ctx.scale(scale, scale);
+        function getInputs() {
+            const serviceType = byId("service_type").value;
+            const formationType = byId("formation_type").value;
 
-        ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0, 0, reqW, reqH);
-        ctx.strokeStyle = '#444'; ctx.lineWidth = 4 / scale; ctx.strokeRect(0, 0, reqW, reqH);
+            return {
+                route_name: byId("route_name").value.trim() || "Unnamed_Route",
+                section_length_m: clampNumber(byId("section_length").value, 0, 0),
+                installation_condition: byId("installation_condition").value,
+                service_type: serviceType,
+                grouping_basis: byId("grouping_basis").value,
+                formation_type: formationType,
+                circuit_qty: clampNumber(byId("circuit_qty").value, 1, 1),
+                max_per_row: clampNumber(byId("max_per_row").value, 1, 1),
+                cable_od_mm: clampNumber(byId("cable_od").value, 45, 1),
+                spacing_basis: byId("spacing_basis").value,
+                spacing_h_mm: clampNumber(byId("spacing_h").value, 0, 0),
+                spacing_v_mm: clampNumber(byId("spacing_v").value, 0, 0),
+                bend_factor: clampNumber(byId("bend_factor").value, 15, 1)
+            };
+        }
 
-        layoutData.forEach(item => {
-            if(routeType !== 'dc') { 
-                const coords = [
-                    { cx: item.x + r, cy: item.y + trefoilH - r },
-                    { cx: item.x + r + cDia, cy: item.y + trefoilH - r },
-                    { cx: item.x + cDia, cy: item.y + r }
-                ];
-                coords.forEach(pt => {
-                    ctx.beginPath(); ctx.arc(pt.cx, pt.cy, r, 0, 2*Math.PI);
-                    ctx.fillStyle = routeType === 'mv' ? '#b87333' : '#888'; ctx.fill();
-                    ctx.strokeStyle = routeType === 'mv' ? '#ff4444' : '#00ffff'; ctx.lineWidth = 2/scale; ctx.stroke();
-                });
-            } else { 
-                const coords = [{ cx: item.x + r, cy: item.y + r }, { cx: item.x + r + cDia, cy: item.y + r }];
-                coords.forEach(pt => {
-                    ctx.beginPath(); ctx.arc(pt.cx, pt.cy, r, 0, 2*Math.PI);
-                    ctx.fillStyle = '#666'; ctx.fill(); 
-                    ctx.strokeStyle = '#ff00ff'; ctx.lineWidth = 2/scale; ctx.stroke();
-                });
+        function effectiveGap(spacingBasis, spacingValue, cableOD) {
+            if (spacingBasis === "touching") return 0;
+            if (spacingBasis === "centre_to_centre") return Math.max(spacingValue - cableOD, 0);
+            return spacingValue;
+        }
+
+        function getGroupGeometry(inputs) {
+            const d = inputs.cable_od_mm;
+            const r = d / 2;
+            const sqrt3 = Math.sqrt(3);
+
+            switch (inputs.formation_type) {
+                case "trefoil_single_row":
+                case "trefoil_two_row":
+                    return {
+                        width: d * 2,
+                        depth: d * (1 + sqrt3 / 2),
+                        drawType: "trefoil",
+                        note: "Trefoil circuit groups"
+                    };
+
+                case "flat_single_row":
+                case "flat_two_row":
+                    return {
+                        width: d * 3,
+                        depth: d,
+                        drawType: "flat_3",
+                        note: "Flat 3 phase circuit groups"
+                    };
+
+                case "stacked_two_high":
+                    return {
+                        width: d * 3,
+                        depth: d * 2,
+                        drawType: "stacked_2x3",
+                        note: "Stacked 2 high formation"
+                    };
+
+                case "dc_pair_horizontal":
+                    return {
+                        width: d * 2,
+                        depth: d,
+                        drawType: "dc_pair_h",
+                        note: "DC positive and negative horizontal pair"
+                    };
+
+                case "dc_pair_vertical":
+                    return {
+                        width: d,
+                        depth: d * 2,
+                        drawType: "dc_pair_v",
+                        note: "DC positive above negative vertical pair"
+                    };
+
+                default:
+                    return {
+                        width: d * 2,
+                        depth: d * (1 + sqrt3 / 2),
+                        drawType: "trefoil",
+                        note: "Trefoil circuit groups"
+                    };
             }
-        });
-        ctx.restore();
-    }
+        }
 
-    function drawBendRadius() {
-        const canvas = document.getElementById('bendCanvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function validateCombination(inputs) {
+            const isDcFormation = inputs.formation_type === "dc_pair_horizontal" || inputs.formation_type === "dc_pair_vertical";
+            const isTrefoilOrFlat = inputs.formation_type.includes("trefoil") || inputs.formation_type.includes("flat") || inputs.formation_type === "stacked_two_high";
 
-        const cDia = parseFloat(document.getElementById('c-dia').value) || 45;
-        const bendFactor = parseFloat(document.getElementById('c-bend').value) || 15;
-        currentMBR = cDia * bendFactor; 
-
-        document.getElementById('out-mbr').innerText = currentMBR.toFixed(0) + " mm";
-
-        const PADDING = 40;
-        const scale = (canvas.height - PADDING*2) / (currentMBR * 1.5);
-        
-        ctx.save();
-        ctx.translate(canvas.width / 2, canvas.height - PADDING); 
-        
-        ctx.fillStyle = '#222'; ctx.fillRect(0, -currentMBR*scale - 50, 180, currentMBR*scale + 50);
-        ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.strokeRect(0, -currentMBR*scale - 50, 180, currentMBR*scale + 50);
-        ctx.fillStyle = '#00ff88'; ctx.font = '14px monospace'; ctx.fillText("PLINTH / RMU", 20, -currentMBR*scale - 20);
-
-        ctx.fillStyle = '#111'; ctx.fillRect(-canvas.width/2, -cDia*scale, canvas.width/2, cDia*scale*2);
-        
-        ctx.beginPath();
-        ctx.arc(0, -currentMBR*scale, currentMBR*scale, Math.PI/2, 0, true);
-        ctx.strokeStyle = '#00ffff'; ctx.lineWidth = cDia * scale; ctx.stroke();
-
-        ctx.beginPath(); ctx.moveTo(-canvas.width/2, 0); ctx.lineTo(0, 0); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(currentMBR*scale, -currentMBR*scale); ctx.lineTo(currentMBR*scale, -currentMBR*scale - 50); ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(0, -currentMBR*scale);
-        ctx.lineTo(currentMBR*scale * Math.cos(Math.PI/4), -currentMBR*scale + currentMBR*scale * Math.sin(Math.PI/4));
-        ctx.strokeStyle = '#ff00ff'; ctx.lineWidth = 1.5; ctx.setLineDash([5, 5]); ctx.stroke();
-        
-        ctx.setLineDash([]); ctx.fillStyle = '#ff00ff'; ctx.textAlign = 'center'; ctx.font = '12px monospace';
-        ctx.fillText(`MBR: ${currentMBR.toFixed(0)}mm`, currentMBR*scale * 0.4, -currentMBR*scale * 0.6);
-
-        ctx.restore();
-    }
-
-    function exportData() {
-        const data = {
-            project: "Civil Routing Export",
-            timestamp: new Date().toISOString(),
-            circuit_id: document.getElementById('r-name').value,
-            route_length_m: parseFloat(document.getElementById('r-len').value),
-            system_type: document.getElementById('route-type').value,
-            target_depth_m: parseFloat(document.getElementById('t-depth').value),
-            number_of_circuits: parseInt(document.getElementById('c-qty').value),
-            cable_outer_diameter_mm: parseFloat(document.getElementById('c-dia').value),
-            thermal_spacing_mm: parseFloat(document.getElementById('c-space').value),
-            minimum_bend_radius_mm: currentMBR,
-            required_trough_width_mm: currentTroughW,
-            required_trough_depth_mm: currentTroughD,
-            excavation_volume_m3: currentVol,
-            environmental_constants: {
-                soil_thermal_resistivity_K_mW: 1.2,
-                ambient_ground_temp_C: 20
+            if (inputs.service_type === "dc" && isTrefoilOrFlat) {
+                return "Check formation";
             }
-        };
 
-        const blob = new Blob([JSON.stringify(data, null, 4)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${data.circuit_id}_Routing_Params.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
+            if ((inputs.service_type === "mv" || inputs.service_type === "lv") && isDcFormation) {
+                return "Check formation";
+            }
 
-    window.onload = renderCAD;
+            if (inputs.grouping_basis === "mixed_service") {
+                return "Mixed service review";
+            }
 
-</script>
+            return "OK";
+        }
+
+        function computeLayout(inputs) {
+            const gapH = effectiveGap(inputs.spacing_basis, inputs.spacing_h_mm, inputs.cable_od_mm);
+            const gapV = effectiveGap(inputs.spacing_basis, inputs.spacing_v_mm, inputs.cable_od_mm);
+
+            const geom = getGroupGeometry(inputs);
+            const perRow = Math.max(1, Math.floor(inputs.max_per_row));
+            const rows = Math.ceil(inputs.circuit_qty / perRow);
+
+            const rowCounts = [];
+            let remaining = inputs.circuit_qty;
+            for (let i = 0; i < rows; i += 1) {
+                const count = Math.min(perRow, remaining);
+                rowCounts.push(count);
+                remaining -= count;
+            }
+
+            const maxRowCount = Math.max(...rowCounts);
+            const formationWidth = (maxRowCount * geom.width) + ((maxRowCount - 1) * gapH);
+            const formationDepth = (rows * geom.depth) + ((rows - 1) * gapV);
+
+            return {
+                rows,
+                rowCounts,
+                groupWidth: geom.width,
+                groupDepth: geom.depth,
+                drawType: geom.drawType,
+                groupNote: geom.note,
+                gapH,
+                gapV,
+                formationWidth,
+                formationDepth
+            };
+        }
+
+        function renderAll() {
+            const inputs = getInputs();
+            const layout = computeLayout(inputs);
+
+            currentFormationWidth = layout.formationWidth;
+            currentFormationDepth = layout.formationDepth;
+            currentMBR = inputs.cable_od_mm * inputs.bend_factor;
+            currentRows = layout.rows;
+            currentFormationNote = validateCombination(inputs);
+
+            byId("out_width").textContent = `${currentFormationWidth.toFixed(0)} mm`;
+            byId("out_depth").textContent = `${currentFormationDepth.toFixed(0)} mm`;
+            byId("out_mbr").textContent = `${currentMBR.toFixed(0)} mm`;
+            byId("out_rows").textContent = `${layout.rows} row${layout.rows === 1 ? "" : "s"}`;
+            byId("out_note").textContent = currentFormationNote;
+
+            drawFormation(inputs, layout);
+            drawBend(inputs);
+            updateSnapshot(inputs, layout);
+        }
+
+        function drawFormation(inputs, layout) {
+            const canvas = byId("formation_canvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const padding = 30;
+            const usableW = canvas.width - padding * 2;
+            const usableH = canvas.height - padding * 2;
+
+            const scaleX = usableW / Math.max(layout.formationWidth, 1);
+            const scaleY = usableH / Math.max(layout.formationDepth, 1);
+            const scale = Math.min(scaleX, scaleY);
+
+            const offsetX = (canvas.width - layout.formationWidth * scale) / 2;
+            const offsetY = (canvas.height - layout.formationDepth * scale) / 2;
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(scale, scale);
+
+            ctx.fillStyle = "#11161f";
+            ctx.fillRect(0, 0, layout.formationWidth, layout.formationDepth);
+
+            ctx.strokeStyle = "#444";
+            ctx.lineWidth = 3 / scale;
+            ctx.strokeRect(0, 0, layout.formationWidth, layout.formationDepth);
+
+            let y = 0;
+            for (let rowIndex = 0; rowIndex < layout.rowCounts.length; rowIndex += 1) {
+                const count = layout.rowCounts[rowIndex];
+                let x = 0;
+
+                for (let i = 0; i < count; i += 1) {
+                    drawGroup(ctx, x, y, inputs.cable_od_mm, layout.drawType, inputs.service_type, scale);
+                    x += layout.groupWidth + layout.gapH;
+                }
+
+                y += layout.groupDepth + layout.gapV;
+            }
+
+            ctx.restore();
+
+            ctx.fillStyle = "#00ffff";
+            ctx.font = "12px monospace";
+            ctx.textAlign = "left";
+            ctx.fillText(`Envelope: ${currentFormationWidth.toFixed(0)} mm x ${currentFormationDepth.toFixed(0)} mm`, 14, 20);
+        }
+
+        function drawGroup(ctx, x, y, d, drawType, serviceType, scale) {
+            const r = d / 2;
+            const copperFill = serviceType === "mv" ? "#b87333" : "#666";
+            const acStroke = serviceType === "mv" ? "#ff5555" : "#00ffff";
+            const dcStroke = "#ff00ff";
+
+            function drawCable(cx, cy, fill, stroke) {
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.fillStyle = fill;
+                ctx.fill();
+                ctx.strokeStyle = stroke;
+                ctx.lineWidth = 2 / scale;
+                ctx.stroke();
+            }
+
+            if (drawType === "trefoil") {
+                const h = d * (1 + Math.sqrt(3) / 2);
+                drawCable(x + r, y + h - r, copperFill, acStroke);
+                drawCable(x + d + r, y + h - r, copperFill, acStroke);
+                drawCable(x + d, y + r, copperFill, acStroke);
+                return;
+            }
+
+            if (drawType === "flat_3") {
+                drawCable(x + r, y + r, copperFill, acStroke);
+                drawCable(x + d + r, y + r, copperFill, acStroke);
+                drawCable(x + (2 * d) + r, y + r, copperFill, acStroke);
+                return;
+            }
+
+            if (drawType === "stacked_2x3") {
+                drawCable(x + r, y + r, copperFill, acStroke);
+                drawCable(x + d + r, y + r, copperFill, acStroke);
+                drawCable(x + (2 * d) + r, y + r, copperFill, acStroke);
+
+                drawCable(x + r, y + d + r, copperFill, acStroke);
+                drawCable(x + d + r, y + d + r, copperFill, acStroke);
+                drawCable(x + (2 * d) + r, y + d + r, copperFill, acStroke);
+                return;
+            }
+
+            if (drawType === "dc_pair_h") {
+                drawCable(x + r, y + r, "#555", dcStroke);
+                drawCable(x + d + r, y + r, "#777", dcStroke);
+                return;
+            }
+
+            if (drawType === "dc_pair_v") {
+                drawCable(x + r, y + r, "#555", dcStroke);
+                drawCable(x + r, y + d + r, "#777", dcStroke);
+            }
+        }
+
+        function drawBend(inputs) {
+            const canvas = byId("bend_canvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const padding = 40;
+            const radius = currentMBR;
+            const scaleX = (canvas.width - padding * 2) / Math.max(radius * 2.2, 1);
+            const scaleY = (canvas.height - padding * 2) / Math.max(radius * 1.8, 1);
+            const scale = Math.min(scaleX, scaleY);
+
+            const cableThickness = Math.max(inputs.cable_od_mm * scale, 2);
+
+            ctx.save();
+            ctx.translate(canvas.width * 0.28, canvas.height - padding);
+
+            ctx.fillStyle = "#111";
+            ctx.fillRect(-canvas.width * 0.24, -cableThickness / 2, canvas.width * 0.24, cableThickness);
+
+            ctx.beginPath();
+            ctx.arc(0, -radius * scale, radius * scale, Math.PI / 2, 0, true);
+            ctx.strokeStyle = "#00ffff";
+            ctx.lineWidth = cableThickness;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(radius * scale, -radius * scale);
+            ctx.lineTo(radius * scale, -radius * scale - 90);
+            ctx.strokeStyle = "#00ffff";
+            ctx.lineWidth = cableThickness;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(0, -radius * scale, radius * scale, 0, Math.PI / 2, false);
+            ctx.strokeStyle = "#ff00ff";
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 5]);
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+            ctx.fillStyle = "#ff00ff";
+            ctx.textAlign = "left";
+            ctx.font = "12px monospace";
+            ctx.fillText(`MBR = ${radius.toFixed(0)} mm`, radius * scale * 0.25, -radius * scale * 0.55);
+
+            ctx.restore();
+
+            ctx.fillStyle = "#00ffff";
+            ctx.font = "12px monospace";
+            ctx.textAlign = "left";
+            ctx.fillText(`Cable OD: ${inputs.cable_od_mm.toFixed(0)} mm`, 14, 18);
+        }
+
+        function updateSnapshot(inputs, layout) {
+            const snapshot = {
+                tool_scope: "Worst case cable formation and bend geometry capture for derating assessment only",
+                route_id: inputs.route_name,
+                worst_case_section_length_m: inputs.section_length_m,
+                installation_condition: inputs.installation_condition,
+                service_type: inputs.service_type,
+                grouping_basis: inputs.grouping_basis,
+                formation_type: inputs.formation_type,
+                number_of_circuit_groups: inputs.circuit_qty,
+                max_groups_per_row: inputs.max_per_row,
+                cable_outer_diameter_mm: inputs.cable_od_mm,
+                spacing_basis: inputs.spacing_basis,
+                horizontal_spacing_input_mm: inputs.spacing_h_mm,
+                vertical_spacing_input_mm: inputs.spacing_v_mm,
+                effective_horizontal_clear_gap_mm: layout.gapH,
+                effective_vertical_clear_gap_mm: layout.gapV,
+                group_count_rows: layout.rows,
+                group_geometry_note: layout.groupNote,
+                worst_case_formation_width_mm: currentFormationWidth,
+                worst_case_formation_depth_mm: currentFormationDepth,
+                minimum_bend_radius_mm: currentMBR,
+                formation_note: currentFormationNote
+            };
+
+            currentSnapshot = JSON.stringify(snapshot, null, 4);
+            byId("snapshot_box").textContent = currentSnapshot;
+        }
+
+        function exportJson() {
+            const fileNameBase = (byId("route_name").value.trim() || "Derating_Geometry")
+                .replace(/[^a-z0-9_]/gi, "_");
+
+            const blob = new Blob([currentSnapshot], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${fileNameBase}_Derating_Geometry.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        async function copySnapshot() {
+            try {
+                await navigator.clipboard.writeText(currentSnapshot);
+                byId("copy_btn").textContent = "Copied";
+                setTimeout(() => {
+                    byId("copy_btn").textContent = "Copy Snapshot";
+                }, 1000);
+            } catch (err) {
+                byId("copy_btn").textContent = "Copy Failed";
+                setTimeout(() => {
+                    byId("copy_btn").textContent = "Copy Snapshot";
+                }, 1200);
+            }
+        }
+
+        function syncFormationOptions() {
+            const serviceType = byId("service_type").value;
+            const formationType = byId("formation_type");
+
+            if (serviceType === "dc") {
+                if (!formationType.value.startsWith("dc_")) {
+                    formationType.value = "dc_pair_horizontal";
+                }
+            } else {
+                if (formationType.value.startsWith("dc_")) {
+                    formationType.value = "trefoil_single_row";
+                }
+            }
+        }
+
+        function bindEvents() {
+            const controls = [
+                "route_name",
+                "section_length",
+                "installation_condition",
+                "service_type",
+                "grouping_basis",
+                "formation_type",
+                "circuit_qty",
+                "max_per_row",
+                "cable_od",
+                "spacing_basis",
+                "spacing_h",
+                "spacing_v",
+                "bend_factor"
+            ];
+
+            controls.forEach(id => {
+                byId(id).addEventListener("input", () => {
+                    if (id === "service_type") syncFormationOptions();
+                    renderAll();
+                });
+                byId(id).addEventListener("change", () => {
+                    if (id === "service_type") syncFormationOptions();
+                    renderAll();
+                });
+            });
+
+            byId("export_btn").addEventListener("click", exportJson);
+            byId("copy_btn").addEventListener("click", copySnapshot);
+        }
+
+        bindEvents();
+        syncFormationOptions();
+        renderAll();
+    </script>
 </body>
 </html>

@@ -3,6 +3,7 @@ import json
 import math
 import os
 import sys
+import time
 
 # Calculate the absolute path of the repository root
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -10,8 +11,8 @@ REPO_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..'))
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
-# Added amenity=ferry_terminal to explicitly catch P&O/Stena Line style hubs
-OVERPASS_QUERY = """[out:json][timeout:900];
+# Added [maxsize:2000000000] to explicitly prevent Overpass memory crashes on global bounding boxes
+OVERPASS_QUERY = """[out:json][timeout:900][maxsize:2000000000];
 (
   nwr["seamark:type"="harbour"];
   nwr["industrial"="port"];
@@ -29,21 +30,35 @@ def haversine_distance(lat1, lon1, lat2, lon2):
 
 def fetch_ports():
     print("Initiating global port & ferry extraction from Overpass API...")
-    headers = {'User-Agent': 'GlobalGrid2050-Pipeline/5.0'}
+    headers = {'User-Agent': 'GlobalGrid2050-Pipeline/5.1'}
     
-    try:
-        response = requests.post(OVERPASS_URL, data=OVERPASS_QUERY.encode('utf-8'), headers=headers)
-        if response.status_code != 200:
-            print(f"OVERPASS API ERROR [{response.status_code}]:\n{response.text}")
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"CRITICAL: Failed to fetch data: {e}")
-        sys.exit(1)
+    # Built-in resilience: Retry loop for memory drops or rate limits
+    for attempt in range(3):
+        try:
+            # Switched to safe form-data payload, explicitly matching the timeout length
+            response = requests.post(OVERPASS_URL, data={'data': OVERPASS_QUERY}, headers=headers, timeout=900)
+            
+            if response.status_code == 200:
+                print("SUCCESS: Data downloaded from Overpass!")
+                return response.json()
+            elif response.status_code == 429:
+                print(f"WARNING: API Rate Limited (429). Retrying in 60s... (Attempt {attempt+1}/3)")
+                time.sleep(60)
+            else:
+                print(f"OVERPASS API ERROR [{response.status_code}]:\n{response.text}")
+                sys.exit(1)
+                
+        except requests.exceptions.RequestException as e:
+            print(f"CRITICAL: Failed to fetch data: {e}")
+            if attempt == 2:
+                sys.exit(1)
+            print("Retrying in 30 seconds...")
+            time.sleep(30)
 
 def convert_to_geojson(osm_data):
     features = []
     elements = osm_data.get('elements', [])
+    print(f"Processing {len(elements)} spatial nodes and calculating physical footprints...")
     
     for el in elements:
         lon = el.get('lon') or el.get('center', {}).get('lon')

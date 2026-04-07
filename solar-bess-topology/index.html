@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ventus OS | Pre-ETAP Civil Routing</title>
+    <title>Ventus OS | Civil Routing CAD</title>
     <style>
         body { margin: 0; padding: 20px; background: #050505; color: white; font-family: 'Courier New', monospace; box-sizing: border-box; display: flex; justify-content: center; }
         
@@ -37,13 +37,13 @@
     <div class="dashboard">
         
         <div class="panel panel-left">
-            <h2>Pre-ETAP Parameters</h2>
+            <h2>Routing Parameters</h2>
             
             <h3>Route Identification</h3>
             <div class="input-group">Circuit ID: <input type="text" id="r-name" value="Feeder-01" oninput="renderCAD()"></div>
             <div class="input-group">Route Length (m): <input type="number" id="r-len" value="250" step="1" oninput="renderCAD()"></div>
             
-            <h3 style="margin-top: 20px;">Braintree Target Specs</h3>
+            <h3 style="margin-top: 20px;">Civil & Thermal Specs</h3>
             <div class="input-group">Route Type: 
                 <select id="route-type" onchange="renderCAD()">
                     <option value="mv">33kV Grid (Trefoil)</option>
@@ -72,7 +72,7 @@
                 <div style="font-size:9px; color:#555; margin-top: 10px;">*Soil Thermal Resistivity locked to 1.2 K·m/W</div>
             </div>
 
-            <button class="btn" onclick="exportETAPData()">⬇ Export ETAP JSON</button>
+            <button class="btn" onclick="exportData()">⬇ Export Engineering JSON</button>
         </div>
 
         <div class="panel panel-right">
@@ -155,19 +155,16 @@
         const scale = Math.min((canvas.width - PADDING*2) / reqW, (canvas.height - PADDING*2) / reqH);
         
         ctx.save();
-        // Center the drawing in the canvas
         const offsetX = (canvas.width - (reqW * scale)) / 2;
         const offsetY = (canvas.height - (reqH * scale)) / 2;
         ctx.translate(offsetX, offsetY);
         ctx.scale(scale, scale);
 
-        // Concrete Trench Base
         ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0, 0, reqW, reqH);
         ctx.strokeStyle = '#444'; ctx.lineWidth = 4 / scale; ctx.strokeRect(0, 0, reqW, reqH);
 
-        // Draw Cables
         layoutData.forEach(item => {
-            if(routeType !== 'dc') { // AC Trefoil
+            if(routeType !== 'dc') { 
                 const coords = [
                     { cx: item.x + r, cy: item.y + trefoilH - r },
                     { cx: item.x + r + cDia, cy: item.y + trefoilH - r },
@@ -178,7 +175,7 @@
                     ctx.fillStyle = routeType === 'mv' ? '#b87333' : '#888'; ctx.fill();
                     ctx.strokeStyle = routeType === 'mv' ? '#ff4444' : '#00ffff'; ctx.lineWidth = 2/scale; ctx.stroke();
                 });
-            } else { // DC Flat Pair
+            } else { 
                 const coords = [{ cx: item.x + r, cy: item.y + r }, { cx: item.x + r + cDia, cy: item.y + r }];
                 coords.forEach(pt => {
                     ctx.beginPath(); ctx.arc(pt.cx, pt.cy, r, 0, 2*Math.PI);
@@ -207,24 +204,19 @@
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height - PADDING); 
         
-        // RMU Plinth
         ctx.fillStyle = '#222'; ctx.fillRect(0, -currentMBR*scale - 50, 180, currentMBR*scale + 50);
         ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.strokeRect(0, -currentMBR*scale - 50, 180, currentMBR*scale + 50);
         ctx.fillStyle = '#00ff88'; ctx.font = '14px monospace'; ctx.fillText("PLINTH / RMU", 20, -currentMBR*scale - 20);
 
-        // Trench approach
         ctx.fillStyle = '#111'; ctx.fillRect(-canvas.width/2, -cDia*scale, canvas.width/2, cDia*scale*2);
         
-        // MBR Sweep
         ctx.beginPath();
         ctx.arc(0, -currentMBR*scale, currentMBR*scale, Math.PI/2, 0, true);
         ctx.strokeStyle = '#00ffff'; ctx.lineWidth = cDia * scale; ctx.stroke();
 
-        // Lines connecting sweep
         ctx.beginPath(); ctx.moveTo(-canvas.width/2, 0); ctx.lineTo(0, 0); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(currentMBR*scale, -currentMBR*scale); ctx.lineTo(currentMBR*scale, -currentMBR*scale - 50); ctx.stroke();
 
-        // MBR Guide line & Text
         ctx.beginPath();
         ctx.moveTo(0, -currentMBR*scale);
         ctx.lineTo(currentMBR*scale * Math.cos(Math.PI/4), -currentMBR*scale + currentMBR*scale * Math.sin(Math.PI/4));
@@ -236,9 +228,9 @@
         ctx.restore();
     }
 
-    function exportETAPData() {
+    function exportData() {
         const data = {
-            project: "Pre-ETAP Export",
+            project: "Civil Routing Export",
             timestamp: new Date().toISOString(),
             circuit_id: document.getElementById('r-name').value,
             route_length_m: parseFloat(document.getElementById('r-len').value),
@@ -261,14 +253,13 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${data.circuit_id}_ETAP_Params.json`;
+        a.download = `${data.circuit_id}_Routing_Params.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }
 
-    // Initial render
     window.onload = renderCAD;
 
 </script>

@@ -18,40 +18,43 @@
 
 GlobalGrid2050 was originated by **Ventus Ltd**, the UK agent for **Studer Cables AG Switzerland**, formerly **LEONI AG**.
 
-This platform is not a software experiment. It is the strict codification of 2 decades of hard-won physical engineering experience into a digital twin. The architecture is grounded in understanding physical chokepoints, cable engineering, and real-world infrastructure constraints.
+This platform is not a software experiment. It is the strict codification of 2 decades of hard-won physical engineering experience (spanning 15 countries, 100k+ miles, 3GWp of solar, EV, BESS, and HV/LV cables) into a digital twin. The architecture is grounded in understanding physical chokepoints, cable engineering, and real-world infrastructure constraints.
 
 *Perfect data is not required. Structured data reveals reality.*
 
 ---
 
-## II. The Four Core Systems
+## II. The Archetype: Serverless Spatial Digital Twin
 
-The GlobalGrid2050 architecture is strictly separated into four decoupled systems. Data flows in one direction: from raw intelligence (1), through automated scheduling (2), into the client browser memory (3), and is painted to the screen via the DOM (4).
+Most traditional Geographic Information Systems (GIS) and corporate digital twins are sluggish. They rely on massive, expensive backend databases. When a user zooms, the browser asks the server, the server runs a heavy database query, and streams it back. This creates lag, jitter, and massive load times.
+
+Ventus OS bypasses this entirely. It is designed more like a **high-performance video game engine** than a traditional web app. By applying JAMstack principles to heavy industrial SCADA, Ventus OS operates as a **Serverless Spatial Digital Twin** based on four strict pillars:
+
+1. **The "Pre-Baked" Physics (Gridbot):** The browser is explicitly banned from doing heavy math. The Python pipeline calculates all Haversine distances, bounding boxes, and complex spatial logic in the background while the user is offline. The browser simply reads a flat, highly optimized `.geojson` text file. Zero database queries = instant load times.
+2. **GPU-Accelerated WebGL:** Drawing tens of thousands of HTML elements crashes the DOM. Ventus OS uses MapLibre GL JS to bypass the browser's normal drawing engine, sending geometry directly to the user's Graphics Processing Unit (GPU). This allows tens of thousands of wind turbines, substations, and ports to render at 60 frames per second.
+3. **Zero Framework Bloat:** Modern web development is obsessed with massive frameworks (React, Angular, Vue). Ventus OS rejects them. The `ventus-core.js` and `ventus.css` files are pure, vanilla code. There is no middleman slowing down the translation between the data and the screen.
+4. **GPU Layer Splitting:** Ventus OS downloads massive datasets *once*. It then uses WebGL `filter` and `interpolate` expressions to dynamically split, color, and resize the dots on the graphics card instantly based on UI toggles.
+
+---
+
+## III. The Four Core Systems
+
+The architecture is strictly separated into four decoupled systems. Data flows in one direction: from raw intelligence (1), through automated scheduling (2), into the client browser memory (3), and is painted to the screen via the DOM (4).
 
 ### System 1: The Python ETL Engine (Data Ingestion)
-Located in `scripts/`. These scripts extract spatial intelligence (primarily from Overpass API or trusted NGO datasets like GEM) and compile them into `.geojson` files in the repository root.
-* **The Spatial Sizing Rule:** For physical infrastructure (Ports, Hydrocarbons, Solar), scripts must request bounding boxes (`out center bb;`), calculate the true physical footprint in hectares using geodesic Haversine distance (`area_ha`), and inject this into the GeoJSON properties. 
+Located in `scripts/`. These scripts extract spatial intelligence (Overpass API or trusted NGO datasets) and compile them into `.geojson` files.
+* **The Spatial Sizing Rule:** For physical infrastructure, scripts must request bounding boxes (`out center bb;`), calculate the true physical footprint in hectares using geodesic Haversine distance (`area_ha`), and inject this into the GeoJSON properties. 
 * **Deduplication:** Spatial deduplication happens here, in the backend, never in the browser. 
 
 ### System 2: Gridbot Automation (YAML Actions)
 Located in `.github/workflows/`. "Gridbot" is the automated custodian of the platform.
-* **The Gridbot Auth Standard:** All YAML files pushing data back to the repository must bypass default token protections using a Personal Access Token (`GRIDBOT_PAT`).
-* **YAML Template:** All data-fetching workflows must execute `actions/checkout@v4` with the `GRIDBOT_PAT`, run Python 3.11, and use the strict push block:
-    ```bash
-    git config --global user.name "gridbot"
-    git config --global user.email "bot@globalgrid2050.com"
-    git add <file>.geojson || true
-    if [ -n "$(git status --porcelain)" ]; then
-      git commit -m "Automated update"
-      git push https://${PAT}@[github.com/$](https://github.com/$){{ github.repository }}.git HEAD:main
-    fi
-    ```
-* **Repository Truth:** Gridbot automatically maps the entire repository. The file `REPO_STRUCTURE.txt` in the root directory is the live, automated source of truth for the codebase layout.
+* **The Gridbot Auth Standard:** All YAML files pushing data back to the repository must bypass default protections using a Personal Access Token (`GRIDBOT_PAT`).
+* **Repository Truth:** Gridbot automatically maps the entire repository. The file `REPO_STRUCTURE.txt` is the live, automated source of truth for the codebase layout.
 
 ### System 3: Ventus OS (`ventus-core.js` & MapLibre)
-The WebGL rendering engine. It consumes the GeoJSON files generated by System 1.
-* **Dynamic Visual Scaling:** UI nodes must scale based on physical reality. We use MapLibre's `interpolate` expression tied to the `area_ha` property to dynamically size circles (e.g., massive container ports render huge, local river docks render tiny).
-* **UI Layer Splitting:** To prevent visual noise, a single backend `.geojson` dataset should be split into multiple toggleable layers in the UI using MapLibre's `filter` property (e.g., separating Major Ports from Minor Harbours, or Solar PV from Solar Roof). *Never download the same dataset twice.*
+The WebGL rendering engine consuming the GeoJSON files.
+* **Rendering Haversine Math:** The frontend *must* render physical sizing exactly as dictated by the backend. We use MapLibre's `interpolate` expression tied to the pre-calculated `area_ha` property to dynamically size circles. (e.g., A deep-water ferry port mapped at 80 hectares renders as a 10px-16px beacon, while a 2-hectare river dock renders as a 2.5px dust mote).
+* **UI Layer Splitting:** A single backend `.geojson` dataset is split into multiple toggleable layers using MapLibre's `filter` property.
 
 ### System 4: SCADA UI (`ventus.css`)
 The DOM overlay. A strict, dark-mode, high-contrast SCADA (Supervisory Control and Data Acquisition) aesthetic. 
@@ -60,18 +63,18 @@ The DOM overlay. A strict, dark-mode, high-contrast SCADA (Supervisory Control a
 
 ---
 
-## III. Spatial Geometry is the Foundation of Truth
+## IV. Spatial Geometry is the Foundation of Truth
 
 All system calculations are grounded in:
 * Haversine distance
 * Geodesic snapping
 * Real-world metres
 
-This is not an implementation detail. It is a constraint. Any regression to coordinate shortcuts, pixel-based radius assumptions, or degree-based approximations will corrupt system integrity. Geometry is the foundation of electrical truth.
+This is not an implementation detail. It is a constraint. Any regression to coordinate shortcuts, pixel-based radius assumptions without physical backing, or degree-based approximations will corrupt system integrity. Geometry is the foundation of electrical truth.
 
 ---
 
-## IV. What the System Has Already Proven
+## V. What the System Has Already Proven
 
 From combined backend data and system behaviour:
 * Energy transition is spatial, not abstract.
@@ -85,7 +88,7 @@ From combined backend data and system behaviour:
 
 ---
 
-## V. Final Directive for Interpretation
+## VI. Final Directive for Interpretation
 
 This system must not be treated as:
 * A map

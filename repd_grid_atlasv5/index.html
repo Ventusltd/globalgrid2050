@@ -203,9 +203,9 @@
         {
             group: "Global Supply Chain & Chokepoints",
             layers: [
-                { id: "global_ports_major", label: "Major Ports (Cargo/Container)", color: "#00bfff", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 3, 50, 5.5, 500, 11], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Major Cargo/Container Port'], preload: false },
-                { id: "global_ports_minor", label: "Inland / Minor Harbours", color: "#0055aa", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 1.5, 20, 3, 100, 5], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Minor/Local Harbour'], preload: false },
-                { id: "global_hydrocarbons", label: "Global Hydrocarbons (Oil, Gas, LNG)", color: "#ff3300", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 3.5, 100, 7, 1000, 14], url: "/global_hydrocarbons.geojson", preload: false }
+                { id: "global_ports_major", label: "Major Ports (Deep Water/Ferry)", color: "#00bfff", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 8, 80, 10, 500, 16], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Major Cargo/Container Port'], preload: false },
+                { id: "global_ports_minor", label: "Inland / Minor Harbours", color: "#0055aa", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 2.5, 50, 4.5, 200, 6], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Minor/Local Harbour'], preload: false },
+                { id: "global_hydrocarbons", label: "Global Hydrocarbons (Oil, Gas, LNG)", color: "#ff3300", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 4, 100, 8, 1000, 15], url: "/global_hydrocarbons.geojson", preload: false }
             ]
         },
         {

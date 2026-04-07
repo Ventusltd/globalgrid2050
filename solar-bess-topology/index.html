@@ -3,35 +3,31 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Ventus OS | Procedural CAD Engine</title>
+    <title>Ventus OS | 2D Cable Routing CAD</title>
     <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; }
         #map { width: 100%; height: 100vh; background: #0b0e14; }
         
-        .ui-panel { position: absolute; top: 10px; left: 10px; z-index: 10; background: rgba(5,5,5,0.95); border: 1px solid #333; border-radius: 4px; padding: 12px; width: 300px; max-height: 95vh; overflow-y: auto; }
-        .hud-header { border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 8px; }
-        .ventus-main { font-family: -apple-system, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
-        .ventus-sub { font-family: -apple-system, sans-serif; font-size: 8px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .ui-panel { position: absolute; top: 10px; left: 10px; z-index: 10; background: rgba(5,5,5,0.95); border: 1px solid #333; border-radius: 4px; padding: 15px; width: 280px; }
+        .hud-header { border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 12px; }
+        .ventus-main { font-family: -apple-system, sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
+        .ventus-sub { font-family: -apple-system, sans-serif; font-size: 9px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
         
-        .btn { background: #0a0a0a; border: 1px solid #444; color: #888; font-family: 'Courier New', monospace; font-size: 11px; padding: 8px; width: 100%; cursor: pointer; text-transform: uppercase; border-radius: 3px; font-weight: bold; margin-bottom: 6px; transition: all 0.2s; }
+        .btn { background: #0a0a0a; border: 1px solid #444; color: #888; font-family: 'Courier New', monospace; font-size: 12px; padding: 10px; width: 100%; cursor: pointer; text-transform: uppercase; border-radius: 3px; font-weight: bold; margin-bottom: 8px; transition: all 0.2s; }
         .btn:hover { border-color: #fff; color: #fff; }
-        .btn.active-zone { border-color: #ffff00; color: #ffff00; background: rgba(255,255,0,0.1); }
-        .btn.active-bess { border-color: #00ffff; color: #00ffff; background: rgba(0,255,255,0.1); }
-        .btn.active-trench { border-color: #ff00ff; color: #ff00ff; background: rgba(255,0,255,0.1); }
-        .btn-export { border-color: #00ff88; color: #00ff88; margin-top: 10px; }
+        .btn.active-trench { border-color: #00ffff; color: #00ffff; background: rgba(0,255,255,0.1); }
+        .btn-export { border-color: #00ff88; color: #00ff88; margin-top: 15px; }
         .btn-export:hover { background: #00ff88; color: #000; }
         
-        .stats-panel { background: #050505; border: 1px solid #444; border-radius: 3px; padding: 10px; margin-top: 10px; }
-        .stat-title { font-size: 9px; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; }
-        .stat-row { display: flex; justify-content: space-between; align-items: center; font-size: 10px; margin-bottom: 6px; color: #888; }
+        .stats-panel { background: #050505; border: 1px solid #00ffff; border-radius: 3px; padding: 12px; margin-top: 10px; }
+        .stat-title { font-size: 10px; margin-bottom: 10px; text-transform: uppercase; font-weight: bold; color: #00ffff; }
+        .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 8px; color: #888; }
         .stat-val { color: #fff; font-weight: bold; }
         .stat-val.warn { color: #ff4444; }
-
-        .param-input { background: #111; border: 1px solid #555; color: #fff; font-family: monospace; font-size: 10px; padding: 3px; width: 45px; text-align: right; outline: none; }
-        .param-input:focus { border-color: #ffff00; }
         
-        .instructions { font-size: 9px; color: #555; margin-top: 10px; line-height: 1.5; }
+        .instructions { font-size: 10px; color: #666; margin-top: 15px; line-height: 1.6; border-top: 1px solid #333; padding-top: 10px; }
+        .instructions span { color: #00ffff; }
     </style>
 </head>
 <body>
@@ -41,102 +37,61 @@
     <div class="ui-panel">
         <div class="hud-header">
             <div class="ventus-main">Ventus CAD</div>
-            <div class="ventus-sub">Procedural Layout Engine</div>
+            <div class="ventus-sub">2D Cable Routing Engine</div>
         </div>
         
-        <button id="btn-zone" class="btn">⬡ Draw Array Zone</button>
-        <button id="btn-bess" class="btn">Deploy BESS Container</button>
-        <button id="btn-trench" class="btn">Route Trench</button>
-
-        <div class="stats-panel" id="panel-params" style="border-color: #ffff00; display: block;">
-            <div class="stat-title" style="color:#ffff00;">Procedural Parameters (Live)</div>
-            <div class="stat-row">Azimuth (Deg): <input type="number" id="inp-rot" class="param-input" value="0" step="5"></div>
-            <div class="stat-row">E-W Pitch (m): <input type="number" id="inp-pitch-x" class="param-input" value="25.5" step="0.5"></div>
-            <div class="stat-row">N-S Pitch (m): <input type="number" id="inp-pitch-y" class="param-input" value="9.5" step="0.5"></div>
-            <div style="font-size: 8px; color: #555; margin-top: 4px;">Changes auto-populate drawn zones instantly.</div>
-        </div>
+        <button id="btn-trench" class="btn">⚡ Route Cable / Trench</button>
         
-        <div class="stats-panel" style="border-color: #ffff00;">
-            <div class="stat-title" style="color:#ffff00;">Generation & Storage Data</div>
-            <div class="stat-row">Trina 660W Modules: <span class="stat-val" id="stat-mods">0</span></div>
-            <div class="stat-row">Total DC Capacity: <span class="stat-val" id="stat-kwp">0.00 MWp</span></div>
-            <div class="stat-row">SG350HX Inverters: <span class="stat-val" id="stat-inv">0</span></div>
-            <div class="stat-row" style="margin-top:8px;">BESS Units: <span class="stat-val" id="stat-bess-count">0</span></div>
-        </div>
-
-        <div class="stats-panel" style="border-color: #ff00ff;">
-            <div class="stat-title" style="color:#ff00ff;">Trenching & Civil Constraints</div>
-            <div class="stat-row">Total Trench: <span class="stat-val" id="stat-trench-m">0 m</span></div>
-            <div class="stat-row">Excavation Vol: <span class="stat-val" id="stat-excavation">0 m³</span></div>
+        <div class="stats-panel">
+            <div class="stat-title">Civil Routing Data</div>
+            <div class="stat-row">Total Length: <span class="stat-val" id="stat-trench-m">0.0 m</span></div>
+            <div class="stat-row">Excavation Vol: <span class="stat-val" id="stat-excavation">0.0 m³</span></div>
             <div class="stat-row">Sharpest Bend: <span class="stat-val" id="stat-bend-angle">N/A</span></div>
-            <div class="stat-row">Radius Check (>110°): <span class="stat-val" id="stat-bend-status">PASS</span></div>
+            <div class="stat-row">Radius Constraint: <span class="stat-val" id="stat-bend-status">PASS</span></div>
         </div>
 
         <button id="btn-export" class="btn btn-export">⬇ Export GeoJSON Data</button>
 
         <div class="instructions">
-            <b>ZONE CONTROLS:</b><br>
-            • Click map to draw field boundary.<br>
-            • <b>Right-Click</b> to close boundary and Auto-Fill.<br>
-            • Type in parameters above to live-update arrays.<br><br>
-            <b>GENERAL:</b> [S] Satellite | [ESC] Cancel
+            <b>2D CAD CONTROLS:</b><br>
+            • <span>Left-Click</span> to plot cable nodes.<br>
+            • <span>Right-Click</span> to finish current route.<br>
+            • <span>[ S ]</span> Toggle Satellite Base.<br>
+            • <span>[ ESC ]</span> Cancel drawing tool.
         </div>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script>
-    // --- 1. INITIALIZE ENGINE ---
+    // --- 1. INITIALIZE 2D ENGINE ---
     const map = new maplibregl.Map({
         container: 'map',
         style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-        center: [-0.979, 52.882], // Generic UK Field
-        zoom: 16.5,
+        center: [-0.979, 52.882], 
+        zoom: 17.5,
+        pitch: 0,           // Lock to top-down 2D
+        bearing: 0,         // Lock rotation
+        dragRotate: false,  // Disable user rotation
+        touchPitch: false,  // Disable 3D tilt
         attributionControl: false
     });
 
-    // --- 2. ENGINEERING PARAMETERS ---
-    const SOLAR_W = 24.0; // Cleve Hill E-W table approx width
-    const SOLAR_H = 8.0;
-    const SOLAR_MWP = 0.0198; // 30 * 660W = 19.8 kWp per table
-    
-    const BESS_W = 12.2; 
-    const BESS_H = 2.5;
-
-    const TRENCH_W = 1.2; 
-    const TRENCH_D = 0.8; 
+    // --- 2. CIVIL CONSTRAINTS ---
+    const TRENCH_W = 1.2; // meters
+    const TRENCH_D = 0.8; // meters
+    // Strict bend radius constraint to prevent micro-bending or cable stress
     const MIN_BEND_ANGLE_DEG = 110; 
 
     // --- 3. STATE ---
-    let mode = null; 
-    let rotation = 0;
-    let ghostCenter = null;
-    
+    let routingMode = false; 
     const data = {
-        zones: [],         // Stores user drawn field boundaries
-        solar: [],         // Auto-generated tables
-        bess: [],
-        trenches: [],
-        currentPolygon: [] // Active drawing (zone or trench)
+        routes: [],
+        currentRoute: []
     };
 
-    // --- 4. PROCEDURAL GEOMETRY MATH ---
-    function getPolygon(lon, lat, widthM, heightM, angleDeg) {
-        const rEarth = 6378137.0; 
-        const dLat = (heightM / 2) / rEarth;
-        const dLon = (widthM / 2) / (rEarth * Math.cos(Math.PI * lat / 180));
-
-        const corners = [ [-dLon, dLat], [dLon, dLat], [dLon, -dLat], [-dLon, -dLat], [-dLon, dLat] ];
-        const rad = angleDeg * Math.PI / 180;
-        const cosA = Math.cos(rad), sinA = Math.sin(rad);
-
-        return [corners.map(c => [
-            lon + ((c[0] * cosA - c[1] * sinA) * 180 / Math.PI),
-            lat + ((c[0] * sinA + c[1] * cosA) * 180 / Math.PI)
-        ])];
-    }
-
+    // --- 4. GEOMETRY MATH ---
     function calcDistance(lon1, lat1, lon2, lat2) {
-        const R = 6371e3;
+        const R = 6371e3; // Earth radius in meters
         const f1 = lat1 * Math.PI/180, f2 = lat2 * Math.PI/180;
         const df = (lat2-lat1) * Math.PI/180, dl = (lon2-lon1) * Math.PI/180;
         const a = Math.sin(df/2)*Math.sin(df/2) + Math.cos(f1)*Math.cos(f2) * Math.sin(dl/2)*Math.sin(dl/2);
@@ -150,240 +105,155 @@
         return Math.acos((a + b - c) / Math.sqrt(4 * a * b)) * (180 / Math.PI);
     }
 
-    // Ray-casting algorithm to check if center of table is inside drawn zone
-    function pointInPolygon(point, vs) {
-        let x = point[0], y = point[1];
-        let inside = false;
-        for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-            let xi = vs[i][0], yi = vs[i][1];
-            let xj = vs[j][0], yj = vs[j][1];
-            let intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-            if (intersect) inside = !inside;
-        }
-        return inside;
-    }
-
-    // --- 5. THE PROCEDURAL AUTO-FILL ALGORITHM ---
-    function populateZones() {
-        data.solar = [];
-        if (data.zones.length === 0) return;
-
-        const pitchX = parseFloat(document.getElementById('inp-pitch-x').value) || 25.5;
-        const pitchY = parseFloat(document.getElementById('inp-pitch-y').value) || 9.5;
-        const angle = parseFloat(document.getElementById('inp-rot').value) || 0;
-
-        const cosA = Math.cos(angle * Math.PI/180);
-        const sinA = Math.sin(angle * Math.PI/180);
-
-        data.zones.forEach(zone => {
-            // Find Bounding Box
-            let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-            zone.forEach(p => {
-                if(p[0] < minX) minX = p[0]; if(p[0] > maxX) maxX = p[0];
-                if(p[1] < minY) minY = p[1]; if(p[1] > maxY) maxY = p[1];
-            });
-
-            const latToM = 111320;
-            const lonToM = 111320 * Math.cos(minY * Math.PI / 180);
-            
-            const widthM = (maxX - minX) * lonToM;
-            const heightM = (maxY - minY) * latToM;
-            const cx = (minX + maxX) / 2;
-            const cy = (minY + maxY) / 2;
-
-            const diag = Math.sqrt(widthM*widthM + heightM*heightM);
-            
-            // Generate grid and rotate to azimuth
-            for(let x = -diag/2; x < diag/2; x += pitchX) {
-                for(let y = -diag/2; y < diag/2; y += pitchY) {
-                    const rx = x * cosA - y * sinA;
-                    const ry = x * sinA + y * cosA;
-                    
-                    const ptLon = cx + (rx / lonToM);
-                    const ptLat = cy + (ry / latToM);
-                    
-                    // If point falls inside drawn zone, generate the table!
-                    if (pointInPolygon([ptLon, ptLat], zone)) {
-                        data.solar.push(getPolygon(ptLon, ptLat, SOLAR_W, SOLAR_H, angle));
-                    }
-                }
-            }
-        });
-
-        renderLayers();
-        updateTelemetry();
-    }
-
-    // Bind inputs to auto-populate function
-    ['inp-pitch-x', 'inp-pitch-y', 'inp-rot'].forEach(id => {
-        document.getElementById(id).addEventListener('input', populateZones);
-    });
-
-    // --- 6. TELEMETRY & RENDERING ---
+    // --- 5. TELEMETRY UPDATES ---
     function updateTelemetry() {
-        document.getElementById('stat-mods').innerText = data.solar.length * 30;
-        document.getElementById('stat-kwp').innerText = (data.solar.length * SOLAR_MWP).toFixed(3) + " MWp";
-        document.getElementById('stat-inv').innerText = data.solar.length;
-        document.getElementById('stat-bess-count').innerText = data.bess.length;
-
-        let lenM = 0; let sharpestBend = 180;
-        const checkBends = (trench) => {
-            for(let i=0; i<trench.length-2; i++) {
-                const ang = calculateAngle(trench[i], trench[i+1], trench[i+2]);
+        let lenM = 0;
+        let sharpestBend = 180;
+        
+        const checkBends = (route) => {
+            for(let i=0; i<route.length-2; i++) {
+                const ang = calculateAngle(route[i], route[i+1], route[i+2]);
                 if(!isNaN(ang) && ang < sharpestBend) sharpestBend = ang;
             }
         };
 
-        data.trenches.forEach(t => {
-            for(let i=0; i<t.length-1; i++) { lenM += calcDistance(t[i][0], t[i][1], t[i+1][0], t[i+1][1]); }
-            checkBends(t);
+        data.routes.forEach(r => {
+            for(let i=0; i<r.length-1; i++) { lenM += calcDistance(r[i][0], r[i][1], r[i+1][0], r[i+1][1]); }
+            checkBends(r);
         });
-        for(let i=0; i<data.currentPolygon.length-1; i++) {
-            if(mode === 'trench') lenM += calcDistance(data.currentPolygon[i][0], data.currentPolygon[i][1], data.currentPolygon[i+1][0], data.currentPolygon[i+1][1]);
+        
+        for(let i=0; i<data.currentRoute.length-1; i++) {
+            lenM += calcDistance(data.currentRoute[i][0], data.currentRoute[i][1], data.currentRoute[i+1][0], data.currentRoute[i+1][1]);
         }
-        if(mode === 'trench') checkBends(data.currentPolygon);
+        checkBends(data.currentRoute);
 
-        document.getElementById('stat-trench-m').innerText = Math.round(lenM) + " m";
-        document.getElementById('stat-excavation').innerText = Math.round(lenM * TRENCH_W * TRENCH_D) + " m³";
+        document.getElementById('stat-trench-m').innerText = lenM.toFixed(1) + " m";
+        document.getElementById('stat-excavation').innerText = (lenM * TRENCH_W * TRENCH_D).toFixed(1) + " m³";
 
         const bendEl = document.getElementById('stat-bend-angle');
         const statusEl = document.getElementById('stat-bend-status');
         
         if (sharpestBend === 180) {
-            bendEl.innerText = "N/A"; statusEl.innerText = "PASS"; statusEl.className = "stat-val";
+            bendEl.innerText = "N/A";
+            statusEl.innerText = "PASS";
+            statusEl.className = "stat-val";
         } else {
             bendEl.innerText = Math.round(sharpestBend) + "°";
             if (sharpestBend < MIN_BEND_ANGLE_DEG) {
-                statusEl.innerText = "FAIL (RADIUS)"; statusEl.className = "stat-val warn"; bendEl.className = "stat-val warn";
+                statusEl.innerText = "FAIL (RADIUS)";
+                statusEl.className = "stat-val warn";
+                bendEl.className = "stat-val warn";
             } else {
-                statusEl.innerText = "PASS"; statusEl.className = "stat-val"; bendEl.className = "stat-val";
+                statusEl.innerText = "PASS";
+                statusEl.className = "stat-val";
+                bendEl.className = "stat-val";
             }
         }
     }
 
     function renderLayers() {
-        map.getSource('src-solar').setData({ type: 'FeatureCollection', features: data.solar.map(poly => ({ type: 'Feature', geometry: { type: 'Polygon', coordinates: poly } })) });
-        map.getSource('src-bess').setData({ type: 'FeatureCollection', features: data.bess.map(poly => ({ type: 'Feature', geometry: { type: 'Polygon', coordinates: poly } })) });
+        const lineFeatures = data.routes.map(r => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: r } }));
+        if (data.currentRoute.length > 1) {
+            lineFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: data.currentRoute } });
+        }
         
-        // Active Zone Lines
-        const zFeatures = data.zones.map(z => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: [...z, z[0]] } }));
-        if (mode === 'zone' && data.currentPolygon.length > 0) zFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: data.currentPolygon } });
-        map.getSource('src-zone').setData({ type: 'FeatureCollection', features: zFeatures });
+        const ptFeatures = [];
+        data.routes.forEach(r => r.forEach(pt => ptFeatures.push({ type: 'Feature', geometry: { type: 'Point', coordinates: pt } })));
+        data.currentRoute.forEach(pt => ptFeatures.push({ type: 'Feature', geometry: { type: 'Point', coordinates: pt } }));
 
-        // Trenches
-        const tFeatures = data.trenches.map(t => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: t } }));
-        if (mode === 'trench' && data.currentPolygon.length > 1) tFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: data.currentPolygon } });
-        map.getSource('src-trench').setData({ type: 'FeatureCollection', features: tFeatures });
+        map.getSource('src-route-line').setData({ type: 'FeatureCollection', features: lineFeatures });
+        map.getSource('src-route-pts').setData({ type: 'FeatureCollection', features: ptFeatures });
     }
+
+    // --- 6. EXPORT FUNCTION ---
+    document.getElementById('btn-export').addEventListener('click', () => {
+        if(data.routes.length === 0) { alert("No routes drawn to export."); return; }
+        const fc = { type: "FeatureCollection", features: [] };
+        data.routes.forEach(line => fc.features.push({ 
+            type: "Feature", 
+            properties: { infrastructure: "Cable Route", trench_width_m: TRENCH_W, trench_depth_m: TRENCH_D }, 
+            geometry: { type: "LineString", coordinates: line }
+        }));
+
+        const blob = new Blob([JSON.stringify(fc, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ventus-2d-cable-routes-${new Date().toISOString().slice(0,10)}.geojson`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
 
     // --- 7. MAP INIT ---
     map.on('load', () => {
         map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
         map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
 
-        map.addSource('src-zone', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-zone-stroke', type: 'line', source: 'src-zone', paint: { 'line-color': '#ffff00', 'line-width': 2, 'line-dasharray': [2, 2] } });
+        map.addSource('src-route-line', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({ id: 'l-route-line', type: 'line', source: 'src-route-line', paint: { 'line-color': '#00ffff', 'line-width': 3 } });
 
-        map.addSource('src-solar', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-solar-fill', type: 'fill', source: 'src-solar', paint: { 'fill-color': '#ffff00', 'fill-opacity': 0.4 } });
-        map.addLayer({ id: 'l-solar-stroke', type: 'line', source: 'src-solar', paint: { 'line-color': '#ffff00', 'line-width': 1 } });
-
-        map.addSource('src-bess', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-bess-fill', type: 'fill', source: 'src-bess', paint: { 'fill-color': '#00ffff', 'fill-opacity': 0.5 } });
-        map.addLayer({ id: 'l-bess-stroke', type: 'line', source: 'src-bess', paint: { 'line-color': '#00ffff', 'line-width': 1 } });
-
-        map.addSource('src-trench', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-trench-line', type: 'line', source: 'src-trench', paint: { 'line-color': '#ff00ff', 'line-width': 3 } });
-
-        map.addSource('src-ghost', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-ghost-fill', type: 'fill', source: 'src-ghost', paint: { 'fill-color': '#ffffff', 'fill-opacity': 0.3 } });
+        map.addSource('src-route-pts', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({ id: 'l-route-pts', type: 'circle', source: 'src-route-pts', paint: { 'circle-color': '#ffffff', 'circle-radius': 4, 'circle-stroke-width': 1, 'circle-stroke-color': '#00ffff' } });
     });
 
     // --- 8. CONTROLS ---
-    function setMode(newMode) {
-        mode = newMode;
-        document.getElementById('btn-zone').className = mode === 'zone' ? 'btn active-zone' : 'btn';
-        document.getElementById('btn-bess').className = mode === 'bess' ? 'btn active-bess' : 'btn';
-        document.getElementById('btn-trench').className = mode === 'trench' ? 'btn active-trench' : 'btn';
+    document.getElementById('btn-trench').onclick = () => {
+        routingMode = !routingMode;
+        document.getElementById('btn-trench').className = routingMode ? 'btn active-trench' : 'btn';
+        document.getElementById('btn-trench').innerText = routingMode ? "Finish Route" : "⚡ Route Cable / Trench";
+        map.getCanvas().style.cursor = routingMode ? 'crosshair' : '';
         
-        map.getCanvas().style.cursor = mode ? 'crosshair' : '';
-        map.getSource('src-ghost').setData({ type: 'FeatureCollection', features: [] });
-        data.currentPolygon = [];
-        renderLayers();
-    }
-
-    document.getElementById('btn-zone').onclick = () => setMode(mode === 'zone' ? null : 'zone');
-    document.getElementById('btn-bess').onclick = () => setMode(mode === 'bess' ? null : 'bess');
-    document.getElementById('btn-trench').onclick = () => setMode(mode === 'trench' ? null : 'trench');
+        if (!routingMode && data.currentRoute.length > 1) {
+            data.routes.push([...data.currentRoute]);
+            data.currentRoute = [];
+            renderLayers();
+        } else if (!routingMode) {
+            data.currentRoute = [];
+            renderLayers();
+        }
+    };
 
     window.addEventListener('keydown', (e) => {
         if (e.key.toLowerCase() === 's') {
             const isSat = map.getLayoutProperty('l-sat', 'visibility') === 'visible';
             map.setLayoutProperty('l-sat', 'visibility', isSat ? 'none' : 'visible');
         }
-        if (e.key.toLowerCase() === 'r' && mode === 'bess') {
-            rotation = (rotation + 15) % 360;
-            if (ghostCenter) {
-                const poly = getPolygon(ghostCenter.lng, ghostCenter.lat, BESS_W, BESS_H, rotation);
-                map.getSource('src-ghost').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: poly } }] });
-            }
+        if (e.key === 'Escape') {
+            routingMode = false;
+            document.getElementById('btn-trench').className = 'btn';
+            document.getElementById('btn-trench').innerText = "⚡ Route Cable / Trench";
+            map.getCanvas().style.cursor = '';
+            data.currentRoute = [];
+            renderLayers();
+            updateTelemetry();
         }
-        if (e.key === 'Escape') setMode(null);
     });
 
     map.on('mousemove', (e) => {
-        if (mode === 'bess') {
-            ghostCenter = e.lngLat;
-            const poly = getPolygon(e.lngLat.lng, e.lngLat.lat, BESS_W, BESS_H, rotation);
-            map.getSource('src-ghost').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: poly } }] });
-        } else if (mode === 'zone' || mode === 'trench') {
-            // Live draw line
-            if (data.currentPolygon.length > 0) {
-                const tempCoords = [...data.currentPolygon, [e.lngLat.lng, e.lngLat.lat]];
-                if (mode === 'zone') tempCoords.push(data.currentPolygon[0]); // close loop visually
-                const sourceId = mode === 'zone' ? 'src-zone' : 'src-trench';
-                map.getSource(sourceId).setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: tempCoords } }] });
-            }
+        if (routingMode && data.currentRoute.length > 0) {
+            const tempCoords = [...data.currentRoute, [e.lngLat.lng, e.lngLat.lat]];
+            map.getSource('src-route-line').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: tempCoords } }, ...data.routes.map(r => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: r } }))] });
         }
     });
 
     map.on('click', (e) => {
-        if (mode === 'bess') {
-            data.bess.push(getPolygon(e.lngLat.lng, e.lngLat.lat, BESS_W, BESS_H, rotation));
-            renderLayers(); updateTelemetry();
-        } else if (mode === 'zone' || mode === 'trench') {
-            data.currentPolygon.push([e.lngLat.lng, e.lngLat.lat]);
-            renderLayers(); updateTelemetry();
+        if (routingMode) {
+            data.currentRoute.push([e.lngLat.lng, e.lngLat.lat]);
+            renderLayers(); 
+            updateTelemetry();
         }
     });
 
-    // Right-Click to Finish Boundary/Trench
     map.on('contextmenu', (e) => {
-        if (mode === 'zone' && data.currentPolygon.length > 2) {
+        if (routingMode && data.currentRoute.length > 1) {
             e.preventDefault();
-            data.zones.push([...data.currentPolygon]);
-            data.currentPolygon = [];
-            populateZones(); // Auto-fill the newly completed zone!
-        } else if (mode === 'trench' && data.currentPolygon.length > 1) {
-            e.preventDefault();
-            data.trenches.push([...data.currentPolygon]);
-            data.currentPolygon = [];
-            renderLayers(); updateTelemetry();
+            data.routes.push([...data.currentRoute]);
+            data.currentRoute = [];
+            renderLayers(); 
+            updateTelemetry();
         }
-    });
-
-    // --- 9. EXPORT ---
-    document.getElementById('btn-export').addEventListener('click', () => {
-        const fc = { type: "FeatureCollection", features: [] };
-        data.zones.forEach(poly => fc.features.push({ type: "Feature", properties: { infrastructure: "Field Boundary" }, geometry: { type: "Polygon", coordinates: [poly] }}));
-        data.solar.forEach(poly => fc.features.push({ type: "Feature", properties: { infrastructure: "Solar Table" }, geometry: { type: "Polygon", coordinates: poly }}));
-        data.bess.forEach(poly => fc.features.push({ type: "Feature", properties: { infrastructure: "BESS Container" }, geometry: { type: "Polygon", coordinates: poly }}));
-        data.trenches.forEach(line => fc.features.push({ type: "Feature", properties: { infrastructure: "Cable Trench" }, geometry: { type: "LineString", coordinates: line }}));
-
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([JSON.stringify(fc, null, 2)], { type: "application/json" }));
-        a.download = `ventus-procedural-export-${new Date().toISOString().slice(0,10)}.geojson`;
-        a.click();
     });
 </script>
 </body>

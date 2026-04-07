@@ -1,66 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>GlobalGrid2050</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-  body { background: black; color: white; font-family: Courier, monospace; padding: 40px; max-width: 900px; margin: 0 auto; font-size: 20px; line-height: 1.6; }
-  a { color: #66ccff; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  #gridSearch { width: 100%; padding: 12px; background: #111; color: white; border: 1px solid #444; font-family: Courier, monospace; font-size: 18px; margin-top: 20px; margin-bottom: 10px; box-sizing: border-box; }
-  #gridSearch:focus { outline: none; border-color: #66ccff; }
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-  td { padding: 12px 0; border-bottom: 1px solid #333; }
-  .footer { margin-top: 60px; font-size: 16px; color: #aaaaaa; line-height: 1.5; }
-  @media (max-width: 600px) { body { padding: 25px; font-size: 18px; } .footer { font-size: 14px; } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalGrid2050 | Ventus OS</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            background: #0a0a0a;
+        }
+
+        h1 {
+            font-family: -apple-system, sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+            color: #fff;
+        }
+
+        .subtitle {
+            font-size: 10px;
+            color: #00ffff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tool-card {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 24px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            border-color: #00ffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.05);
+        }
+
+        .tool-card h2 {
+            font-family: -apple-system, sans-serif;
+            font-size: 16px;
+            margin: 0 0 12px 0;
+            color: #00ffff;
+            letter-spacing: 1px;
+        }
+
+        .tool-card p {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .status {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid #444;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .status.highlight {
+            color: #00ff88;
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 10px;
+            color: #444;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-<h1>GlobalGrid2050</h1>
-<p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
-<input type="text" id="gridSearch" onkeyup="searchTable()" placeholder="Search directory...">
-<table id="directoryTable">
-  <tr><td><a href="/33kv_uk_dap_price_estimator/">33 kV UK DAP Price Estimator</a></td></tr>
-  <tr><td><a href="/ac_cables_knowledge/">AC Cables Knowledge</a></td></tr>
-  <tr><td><a href="/blog/">Blog</a></td></tr>
-  <tr><td><a href="/conductor_resistances/">Conductor Resistances</a></td></tr>
-  <tr><td><a href="/copper_and_aluminium_prices_historic_trends/">Copper and Aluminium Historic Prices & Trends</a></td></tr>
-  <tr><td><a href="/dc_cables_knowledge/">DC Cables Knowledge</a></td></tr>
-  <tr><td><a href="/definitions/">Definitions</a></td></tr>
-  <tr><td><a href="/marketing/earth.html">Earth</a></td></tr>
-  <tr><td><a href="/employers_requirements_BESS/">Employer Requirements BESS Notes</a></td></tr>
-  <tr><td><a href="/employers_requirements/">Employer Requirements Notes</a></td></tr>
-  <tr><td><a href="/lv_ac_dc_price_estimator/">LV AC and DC Distribution Cables Price Estimator</a></td></tr>
-  <tr><td><a href="/mv_and_hv_components/">MV and HV Components</a></td></tr>
-  <tr><td><a href="/nsip_solar_farms/">NSIP Solar Farms</a></td></tr>
-  <tr><td><a href="/podcast_transcripts/">Podcast Transcripts</a></td></tr>
-  <tr><td><a href="/power_systems_studies/">Power Systems Studies</a></td></tr>
-  <tr><td><a href="/sld_single_diagrams_diagrams_and_grids/">Single Line Diagrams And Grids</a></td></tr>
-  <tr><td><a href="/solar_components/">Solar Components</a></td></tr>
-  <tr><td><a href="/solar_deployment_statistics/">Solar Deployment Statistics</a></td></tr>
-  <tr><td><a href="/repd_atlas_grid_model/">UK Energy Atlas (Grid Overlay V1)</a></td></tr>
-  <tr><td><a href="/repd_grid_atlasv3/">UK Energy Atlas (Grid Overlay V3)</a></td></tr>
-  <tr><td><a href="/repd_grid_atlasv5/">UK Energy Atlas (Grid Overlay V5)</a></td></tr>
-  <tr><td><a href="/atlas/">UK Energy Atlas (REPD)</a></td></tr>
-  <tr><td><a href="/uk_grid-batteries/">UK Grid Scale Batteries (BESS) Atlas</a></td></tr>
-  <tr><td><a href="/uk_macro_energy_trends/">UK Macro Energy Consumption Trends (ONS)</a></td></tr>
-  <tr><td><a href="/uk_offshore_wind_atlas/">UK Offshore Wind Atlas</a></td></tr>
-  <tr><td><a href="/uk_onshore_wind_atlas/">UK Onshore Wind Atlas</a></td></tr>
-  <tr><td><a href="/uk_operating_large_solar_farms/">UK Operational Large Solar Farms Above 4MWp</a></td></tr>
-  <tr><td><a href="/repd-uk-operational-solar/">UK Operational Solar Atlas (>1MWp)</a></td></tr>
-  <tr><td><a href="/repd_solar_pipeline/">UK Solar Pipeline (1-50MW)</a></td></tr>
-  <tr><td><a href="/marketing/showcase.html">VENTUS Global Data Backbone (3D WebGL Engine)</a></td></tr>
-</table>
-<div class="footer"><p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p></div>
-<script>
-function searchTable() {
-  var input = document.getElementById("gridSearch"), filter = input.value.toUpperCase(), table = document.getElementById("directoryTable"), tr = table.getElementsByTagName("tr");
-  for (var i = 0; i < tr.length; i++) {
-    var td = tr[i].getElementsByTagName("td")[0];
-    if (td) { tr[i].style.display = (td.textContent || td.innerText).toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
-  }
-}
-</script>
+
+    <header>
+        <h1>Ventus OS</h1>
+        <div class="subtitle">GlobalGrid2050 Infrastructure Intelligence</div>
+    </header>
+
+    <div class="container">
+        <div class="tools-grid">
+            <a href="scada.html" class="tool-card">
+                <span class="status highlight">LIVE</span>
+                <h2>Ventus Gridbot</h2>
+                <p>Interactive WebGL digital twin of the UK transmission network. Real-time REPD capacity tracking, radial constraints, and measurement tools.</p>
+            </a>
+
+            <a href="solar-bess-topology/index.html" class="tool-card">
+                <span class="status" style="border-color: #ff00ff; color: #ff00ff; background: rgba(255,0,255,0.05);">EXPERIMENTAL</span>
+                <h2 style="color: #ff00ff;">Solar & BESS CAD</h2>
+                <p>Procedural topology engine. Auto-generate Utility-Scale PV arrays, deploy BESS container footprints, and route civil trenches.<br><br><strong style="color:#ff00ff;">* Beta Testing Phase</strong></p>
+            </a>
+
+            <a href="t1.html" class="tool-card">
+                <span class="status">STATIC</span>
+                <h2>Capacity Market (T-1)</h2>
+                <p>Historical map visualization for Delivery Year 2025/26. Shows baseline capacity distribution across the grid.</p>
+            </a>
+
+            <a href="t4.html" class="tool-card">
+                <span class="status">STATIC</span>
+                <h2>T-4 Delivery Year</h2>
+                <p>Historical map visualization for Delivery Year 2028/29. Long-term capacity market projection.</p>
+            </a>
+            
+            <a href="storage.html" class="tool-card">
+                <span class="status">STATIC</span>
+                <h2>Storage Map</h2>
+                <p>Legacy BESS visualization. Superceded by Ventus Gridbot dynamic filtering.</p>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2050 GlobalGrid. Strictly strictly confidential.
+    </footer>
+
 </body>
 </html>

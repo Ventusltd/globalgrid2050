@@ -2,32 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Ventus OS | 2D Cable Routing CAD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ventus 3D Trench Viewer</title>
     <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; }
-        #map { width: 100%; height: 100vh; background: #0b0e14; }
+        body { margin: 0; padding: 0; background: #000; color: white; font-family: 'Courier New', monospace; overflow: hidden; }
+        #map { width: 100%; height: 100vh; }
         
-        .ui-panel { position: absolute; top: 10px; left: 10px; z-index: 10; background: rgba(5,5,5,0.95); border: 1px solid #333; border-radius: 4px; padding: 15px; width: 280px; }
-        .hud-header { border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 12px; }
-        .ventus-main { font-family: -apple-system, sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
-        .ventus-sub { font-family: -apple-system, sans-serif; font-size: 9px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+        .ui-panel { 
+            position: absolute; top: 20px; left: 20px; background: rgba(10,10,10,0.95); 
+            border: 1px solid #444; padding: 15px; width: 250px; border-radius: 4px; z-index: 10;
+        }
         
-        .btn { background: #0a0a0a; border: 1px solid #444; color: #888; font-family: 'Courier New', monospace; font-size: 12px; padding: 10px; width: 100%; cursor: pointer; text-transform: uppercase; border-radius: 3px; font-weight: bold; margin-bottom: 8px; transition: all 0.2s; }
-        .btn:hover { border-color: #fff; color: #fff; }
-        .btn.active-trench { border-color: #00ffff; color: #00ffff; background: rgba(0,255,255,0.1); }
-        .btn-export { border-color: #00ff88; color: #00ff88; margin-top: 15px; }
-        .btn-export:hover { background: #00ff88; color: #000; }
+        h2 { margin: 0 0 15px 0; color: #ff00ff; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;}
         
-        .stats-panel { background: #050505; border: 1px solid #00ffff; border-radius: 3px; padding: 12px; margin-top: 10px; }
-        .stat-title { font-size: 10px; margin-bottom: 10px; text-transform: uppercase; font-weight: bold; color: #00ffff; }
-        .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 8px; color: #888; }
-        .stat-val { color: #fff; font-weight: bold; }
-        .stat-val.warn { color: #ff4444; }
+        .input-group { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; color: #888; align-items: center;}
+        input { width: 60px; background: #111; color: #00ffff; border: 1px solid #555; padding: 4px; font-family: monospace; text-align: center; }
+        input:focus { border-color: #00ffff; outline: none; }
         
-        .instructions { font-size: 10px; color: #666; margin-top: 15px; line-height: 1.6; border-top: 1px solid #333; padding-top: 10px; }
-        .instructions span { color: #00ffff; }
+        button { 
+            width: 100%; padding: 10px; margin-top: 15px; background: #000; color: #ff00ff; 
+            border: 1px solid #ff00ff; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase;
+        }
+        button:hover { background: #ff00ff; color: #000; }
+        
+        .instructions { font-size: 10px; color: #555; margin-top: 15px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -35,226 +34,161 @@
     <div id="map"></div>
 
     <div class="ui-panel">
-        <div class="hud-header">
-            <div class="ventus-main">Ventus CAD</div>
-            <div class="ventus-sub">2D Cable Routing Engine</div>
-        </div>
+        <h2>3D Trench Builder</h2>
         
-        <button id="btn-trench" class="btn">⚡ Route Cable / Trench</button>
+        <div class="input-group">Length (m): <input type="number" id="t-len" value="10.0" step="1"></div>
+        <div class="input-group">Width (m): <input type="number" id="t-wid" value="1.2" step="0.1"></div>
+        <div class="input-group">Depth (m): <input type="number" id="t-dep" value="0.8" step="0.1"></div>
+        <div class="input-group">No. of Pipes: <input type="number" id="t-pipes" value="4" step="1"></div>
         
-        <div class="stats-panel">
-            <div class="stat-title">Civil Routing Data</div>
-            <div class="stat-row">Total Length: <span class="stat-val" id="stat-trench-m">0.0 m</span></div>
-            <div class="stat-row">Excavation Vol: <span class="stat-val" id="stat-excavation">0.0 m³</span></div>
-            <div class="stat-row">Sharpest Bend: <span class="stat-val" id="stat-bend-angle">N/A</span></div>
-            <div class="stat-row">Radius Constraint: <span class="stat-val" id="stat-bend-status">PASS</span></div>
-        </div>
-
-        <button id="btn-export" class="btn btn-export">⬇ Export GeoJSON Data</button>
-
+        <button onclick="drawTrench()">Render 3D</button>
+        
         <div class="instructions">
-            <b>2D CAD CONTROLS:</b><br>
-            • <span>Left-Click</span> to plot cable nodes.<br>
-            • <span>Right-Click</span> to finish current route.<br>
-            • <span>[ S ]</span> Toggle Satellite Base.<br>
-            • <span>[ ESC ]</span> Cancel drawing tool.
+            <b>CONTROLS:</b><br>
+            • Right-Click & Drag to rotate and tilt the 3D camera.<br>
+            • Scroll to zoom in/out.
         </div>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script>
-    // --- 1. INITIALIZE 2D ENGINE ---
     const map = new maplibregl.Map({
         container: 'map',
         style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
         center: [-0.979, 52.882], 
-        zoom: 17.5,
-        pitch: 0,           // Lock to top-down 2D
-        bearing: 0,         // Lock rotation
-        dragRotate: false,  // Disable user rotation
-        touchPitch: false,  // Disable 3D tilt
+        zoom: 20,
+        pitch: 60,    // Tilt the camera 60 degrees to show 3D
+        bearing: 45,  // Rotate slightly
         attributionControl: false
     });
 
-    // --- 2. CIVIL CONSTRAINTS ---
-    const TRENCH_W = 1.2; // meters
-    const TRENCH_D = 0.8; // meters
-    // Strict bend radius constraint to prevent micro-bending or cable stress
-    const MIN_BEND_ANGLE_DEG = 110; 
+    map.on('load', () => {
+        // Source and Layer for the Trench Dirt Walls
+        map.addSource('src-walls', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({
+            id: 'l-walls', type: 'fill-extrusion', source: 'src-walls',
+            paint: { 
+                'fill-extrusion-color': '#3e2723', // Dirt brown
+                'fill-extrusion-height': ['get', 'height'], 
+                'fill-extrusion-base': 0, 
+                'fill-extrusion-opacity': 0.8 
+            }
+        });
 
-    // --- 3. STATE ---
-    let routingMode = false; 
-    const data = {
-        routes: [],
-        currentRoute: []
-    };
+        // Source and Layer for the Pipes
+        map.addSource('src-pipes', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({
+            id: 'l-pipes', type: 'fill-extrusion', source: 'src-pipes',
+            paint: { 
+                'fill-extrusion-color': '#111111', // Black pipes
+                'fill-extrusion-height': 0.15,     // Pipe top height
+                'fill-extrusion-base': 0.05,       // Pipe bottom height (floating slightly off trench floor)
+                'fill-extrusion-opacity': 1.0 
+            }
+        });
 
-    // --- 4. GEOMETRY MATH ---
-    function calcDistance(lon1, lat1, lon2, lat2) {
-        const R = 6371e3; // Earth radius in meters
-        const f1 = lat1 * Math.PI/180, f2 = lat2 * Math.PI/180;
-        const df = (lat2-lat1) * Math.PI/180, dl = (lon2-lon1) * Math.PI/180;
-        const a = Math.sin(df/2)*Math.sin(df/2) + Math.cos(f1)*Math.cos(f2) * Math.sin(dl/2)*Math.sin(dl/2);
-        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    }
+        // Source and Layer for Red Warning Tape (Optional)
+        map.addSource('src-tape', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({
+            id: 'l-tape', type: 'fill-extrusion', source: 'src-tape',
+            paint: { 
+                'fill-extrusion-color': '#ff0000', 
+                'fill-extrusion-height': 0.5, // 0.5m off the bottom
+                'fill-extrusion-base': 0.49,  // Super thin tape
+                'fill-extrusion-opacity': 0.9 
+            }
+        });
 
-    function calculateAngle(p1, p2, p3) {
-        const a = Math.pow(p2[0]-p1[0], 2) + Math.pow(p2[1]-p1[1], 2);
-        const b = Math.pow(p2[0]-p3[0], 2) + Math.pow(p2[1]-p3[1], 2);
-        const c = Math.pow(p3[0]-p1[0], 2) + Math.pow(p3[1]-p1[1], 2);
-        return Math.acos((a + b - c) / Math.sqrt(4 * a * b)) * (180 / Math.PI);
-    }
+        // Draw the initial default trench
+        drawTrench();
+    });
 
-    // --- 5. TELEMETRY UPDATES ---
-    function updateTelemetry() {
-        let lenM = 0;
-        let sharpestBend = 180;
+    function drawTrench() {
+        const L = parseFloat(document.getElementById('t-len').value);
+        const W = parseFloat(document.getElementById('t-wid').value);
+        const D = parseFloat(document.getElementById('t-dep').value);
+        const P = parseInt(document.getElementById('t-pipes').value);
+
+        const center = [-0.979, 52.882];
         
-        const checkBends = (route) => {
-            for(let i=0; i<route.length-2; i++) {
-                const ang = calculateAngle(route[i], route[i+1], route[i+2]);
-                if(!isNaN(ang) && ang < sharpestBend) sharpestBend = ang;
+        // Math to convert meters to map degrees
+        const latToM = 111320;
+        const lonToM = 111320 * Math.cos(center[1] * Math.PI / 180);
+
+        const dLonL = (L/2) / lonToM;
+        const dLatW = (W/2) / latToM;
+        const wallThickness = 0.15 / latToM; // 15cm dirt wall thickness for visual rendering
+
+        // 1. CREATE THE HOLLOW TRENCH WALLS
+        const walls = {
+            type: 'Feature',
+            properties: { height: D },
+            geometry: {
+                type: 'Polygon',
+                coordinates: [
+                    [ // Outer Boundary
+                        [center[0]-dLonL, center[1]-dLatW],
+                        [center[0]+dLonL, center[1]-dLatW],
+                        [center[0]+dLonL, center[1]+dLatW],
+                        [center[0]-dLonL, center[1]+dLatW],
+                        [center[0]-dLonL, center[1]-dLatW]
+                    ],
+                    [ // Inner Hole (The dug-out trench)
+                        [center[0]-dLonL+wallThickness, center[1]-dLatW+wallThickness],
+                        [center[0]-dLonL+wallThickness, center[1]+dLatW-wallThickness],
+                        [center[0]+dLonL-wallThickness, center[1]+dLatW-wallThickness],
+                        [center[0]+dLonL-wallThickness, center[1]-dLatW+wallThickness],
+                        [center[0]-dLonL+wallThickness, center[1]-dLatW+wallThickness]
+                    ]
+                ]
             }
         };
+        map.getSource('src-walls').setData(walls);
 
-        data.routes.forEach(r => {
-            for(let i=0; i<r.length-1; i++) { lenM += calcDistance(r[i][0], r[i][1], r[i+1][0], r[i+1][1]); }
-            checkBends(r);
-        });
-        
-        for(let i=0; i<data.currentRoute.length-1; i++) {
-            lenM += calcDistance(data.currentRoute[i][0], data.currentRoute[i][1], data.currentRoute[i+1][0], data.currentRoute[i+1][1]);
+        // 2. CREATE THE PIPES
+        const pipesData = { type: 'FeatureCollection', features: [] };
+        // Calculate even spacing for the pipes across the width
+        const spacing = W / (P + 1);
+
+        for(let i=1; i<=P; i++) {
+            // Offset from the center of the trench
+            const offsetM = -(W/2) + (spacing * i);
+            const offsetLat = offsetM / latToM;
+            const pipeRadius = 0.06 / latToM; // 120mm diameter pipe
+
+            pipesData.features.push({
+                type: 'Feature',
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [[
+                        [center[0]-dLonL, center[1]+offsetLat-pipeRadius],
+                        [center[0]+dLonL, center[1]+offsetLat-pipeRadius],
+                        [center[0]+dLonL, center[1]+offsetLat+pipeRadius],
+                        [center[0]-dLonL, center[1]+offsetLat+pipeRadius],
+                        [center[0]-dLonL, center[1]+offsetLat-pipeRadius]
+                    ]]
+                }
+            });
         }
-        checkBends(data.currentRoute);
+        map.getSource('src-pipes').setData(pipesData);
 
-        document.getElementById('stat-trench-m').innerText = lenM.toFixed(1) + " m";
-        document.getElementById('stat-excavation').innerText = (lenM * TRENCH_W * TRENCH_D).toFixed(1) + " m³";
-
-        const bendEl = document.getElementById('stat-bend-angle');
-        const statusEl = document.getElementById('stat-bend-status');
-        
-        if (sharpestBend === 180) {
-            bendEl.innerText = "N/A";
-            statusEl.innerText = "PASS";
-            statusEl.className = "stat-val";
-        } else {
-            bendEl.innerText = Math.round(sharpestBend) + "°";
-            if (sharpestBend < MIN_BEND_ANGLE_DEG) {
-                statusEl.innerText = "FAIL (RADIUS)";
-                statusEl.className = "stat-val warn";
-                bendEl.className = "stat-val warn";
-            } else {
-                statusEl.innerText = "PASS";
-                statusEl.className = "stat-val";
-                bendEl.className = "stat-val";
+        // 3. CREATE THE RED WARNING TAPE (Running down the middle)
+        const tapeWidth = 0.15 / latToM;
+        const tapeFeature = {
+            type: 'Feature',
+            geometry: {
+                type: 'Polygon',
+                coordinates: [[
+                    [center[0]-dLonL, center[1]-tapeWidth],
+                    [center[0]+dLonL, center[1]-tapeWidth],
+                    [center[0]+dLonL, center[1]+tapeWidth],
+                    [center[0]-dLonL, center[1]+tapeWidth],
+                    [center[0]-dLonL, center[1]-tapeWidth]
+                ]]
             }
-        }
+        };
+        map.getSource('src-tape').setData(tapeFeature);
     }
-
-    function renderLayers() {
-        const lineFeatures = data.routes.map(r => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: r } }));
-        if (data.currentRoute.length > 1) {
-            lineFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: data.currentRoute } });
-        }
-        
-        const ptFeatures = [];
-        data.routes.forEach(r => r.forEach(pt => ptFeatures.push({ type: 'Feature', geometry: { type: 'Point', coordinates: pt } })));
-        data.currentRoute.forEach(pt => ptFeatures.push({ type: 'Feature', geometry: { type: 'Point', coordinates: pt } }));
-
-        map.getSource('src-route-line').setData({ type: 'FeatureCollection', features: lineFeatures });
-        map.getSource('src-route-pts').setData({ type: 'FeatureCollection', features: ptFeatures });
-    }
-
-    // --- 6. EXPORT FUNCTION ---
-    document.getElementById('btn-export').addEventListener('click', () => {
-        if(data.routes.length === 0) { alert("No routes drawn to export."); return; }
-        const fc = { type: "FeatureCollection", features: [] };
-        data.routes.forEach(line => fc.features.push({ 
-            type: "Feature", 
-            properties: { infrastructure: "Cable Route", trench_width_m: TRENCH_W, trench_depth_m: TRENCH_D }, 
-            geometry: { type: "LineString", coordinates: line }
-        }));
-
-        const blob = new Blob([JSON.stringify(fc, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `ventus-2d-cable-routes-${new Date().toISOString().slice(0,10)}.geojson`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    });
-
-    // --- 7. MAP INIT ---
-    map.on('load', () => {
-        map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
-        map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
-
-        map.addSource('src-route-line', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-route-line', type: 'line', source: 'src-route-line', paint: { 'line-color': '#00ffff', 'line-width': 3 } });
-
-        map.addSource('src-route-pts', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-route-pts', type: 'circle', source: 'src-route-pts', paint: { 'circle-color': '#ffffff', 'circle-radius': 4, 'circle-stroke-width': 1, 'circle-stroke-color': '#00ffff' } });
-    });
-
-    // --- 8. CONTROLS ---
-    document.getElementById('btn-trench').onclick = () => {
-        routingMode = !routingMode;
-        document.getElementById('btn-trench').className = routingMode ? 'btn active-trench' : 'btn';
-        document.getElementById('btn-trench').innerText = routingMode ? "Finish Route" : "⚡ Route Cable / Trench";
-        map.getCanvas().style.cursor = routingMode ? 'crosshair' : '';
-        
-        if (!routingMode && data.currentRoute.length > 1) {
-            data.routes.push([...data.currentRoute]);
-            data.currentRoute = [];
-            renderLayers();
-        } else if (!routingMode) {
-            data.currentRoute = [];
-            renderLayers();
-        }
-    };
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 's') {
-            const isSat = map.getLayoutProperty('l-sat', 'visibility') === 'visible';
-            map.setLayoutProperty('l-sat', 'visibility', isSat ? 'none' : 'visible');
-        }
-        if (e.key === 'Escape') {
-            routingMode = false;
-            document.getElementById('btn-trench').className = 'btn';
-            document.getElementById('btn-trench').innerText = "⚡ Route Cable / Trench";
-            map.getCanvas().style.cursor = '';
-            data.currentRoute = [];
-            renderLayers();
-            updateTelemetry();
-        }
-    });
-
-    map.on('mousemove', (e) => {
-        if (routingMode && data.currentRoute.length > 0) {
-            const tempCoords = [...data.currentRoute, [e.lngLat.lng, e.lngLat.lat]];
-            map.getSource('src-route-line').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: tempCoords } }, ...data.routes.map(r => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: r } }))] });
-        }
-    });
-
-    map.on('click', (e) => {
-        if (routingMode) {
-            data.currentRoute.push([e.lngLat.lng, e.lngLat.lat]);
-            renderLayers(); 
-            updateTelemetry();
-        }
-    });
-
-    map.on('contextmenu', (e) => {
-        if (routingMode && data.currentRoute.length > 1) {
-            e.preventDefault();
-            data.routes.push([...data.currentRoute]);
-            data.currentRoute = [];
-            renderLayers(); 
-            updateTelemetry();
-        }
-    });
 </script>
 </body>
 </html>

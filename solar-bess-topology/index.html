@@ -2,71 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ventus OS | Pre-ETAP Civil Routing</title>
-    <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Courier New', monospace; color: white; overflow: hidden; display: flex; }
+        body { margin: 0; padding: 20px; background: #050505; color: white; font-family: 'Courier New', monospace; box-sizing: border-box; display: flex; justify-content: center; }
         
-        #map-container { flex-grow: 1; position: relative; }
-        #map { width: 100%; height: 100%; background: #0b0e14; }
+        .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1200px; }
         
-        .side-panel { 
-            width: 400px; background: #0a0a0a; border-left: 1px solid #333; display: flex; flex-direction: column; overflow-y: auto; box-sizing: border-box;
-        }
-
-        .panel-section { padding: 15px; border-bottom: 1px solid #222; }
+        .panel { background: rgba(10,10,10,0.95); border: 1px solid #333; border-radius: 4px; padding: 20px; display: flex; flex-direction: column; }
+        .panel-left { width: 350px; flex-shrink: 0; }
+        .panel-right { flex-grow: 1; display: flex; flex-direction: column; gap: 20px; }
         
-        h2 { margin: 0 0 10px 0; color: #00ffff; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; }
-        h3 { margin: 0 0 10px 0; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { margin: 0 0 15px 0; color: #00ffff; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px;}
+        h3 { margin: 0 0 10px 0; color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
         
-        .input-group { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px; color: #aaa; align-items: center;}
-        input, select { width: 90px; background: #111; color: #00ffff; border: 1px solid #444; padding: 4px; font-family: monospace; text-align: right; }
+        .input-group { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; color: #aaa; align-items: center;}
+        input, select { width: 110px; background: #111; color: #00ffff; border: 1px solid #444; padding: 6px; font-family: monospace; text-align: right; }
         input:focus, select:focus { border-color: #00ffff; outline: none; }
+        input[type="text"] { text-align: left; }
         
-        .btn { width: 100%; padding: 10px; margin-top: 10px; background: #050505; color: #888; border: 1px solid #444; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; transition: all 0.2s;}
-        .btn:hover { border-color: #fff; color: #fff; }
-        .btn.active-trench { border-color: #ff00ff; color: #ff00ff; background: rgba(255,0,255,0.1); }
-        .btn-export { border-color: #00ff88; color: #00ff88; }
-        .btn-export:hover { background: #00ff88; color: #000; }
+        .btn { width: 100%; padding: 12px; margin-top: 15px; background: #050505; color: #00ff88; border: 1px solid #00ff88; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; transition: all 0.2s;}
+        .btn:hover { background: #00ff88; color: #000; }
         
-        .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; color: #888; }
+        .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; color: #888; padding: 4px 0;}
         .stat-val { color: #fff; font-weight: bold; }
-        .stat-val.warn { color: #ff4444; }
 
-        canvas { background: #000; border: 1px solid #333; border-radius: 3px; width: 100%; max-height: 220px; margin-bottom: 10px; }
+        .canvas-container { background: #0b0e14; border: 1px solid #222; border-radius: 4px; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        canvas { background: #000; border: 1px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.5); max-width: 100%; }
         
-        .instructions { font-size: 10px; color: #666; line-height: 1.6; }
-        .instructions span { color: #00ffff; }
     </style>
 </head>
 <body>
 
-    <div id="map-container">
-        <div id="map"></div>
-        <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); border: 1px solid #444; padding: 10px; border-radius: 4px; z-index: 10; pointer-events: none;">
-            <div class="instructions">
-                <b>PRE-ETAP ROUTING:</b><br>
-                • <span>Left-Click</span> to plot trench nodes.<br>
-                • <span>Right-Click</span> to finish route.<br>
-                • <span>[ S ]</span> Toggle Satellite.<br>
-                • <span>[ ESC ]</span> Cancel tool.
-            </div>
-        </div>
-    </div>
-
-    <div class="side-panel">
-        <div class="panel-section">
-            <h2>Ventus CAD</h2>
-            <h3>Civil Routing Parameters</h3>
-            <button id="btn-trench" class="btn">⚡ Draw Cable Route</button>
-            <div class="stat-row" style="margin-top: 15px;">Total Route Length: <span class="stat-val" id="stat-trench-m">0.0 m</span></div>
-            <div class="stat-row">Sharpest Bend Angle: <span class="stat-val" id="stat-bend-angle">N/A</span></div>
-            <div class="stat-row">MBR Civil Compliance: <span class="stat-val" id="stat-bend-status">PASS</span></div>
-        </div>
-
-        <div class="panel-section">
-            <h3>Braintree Target Parameters</h3>
+    <div class="dashboard">
+        
+        <div class="panel panel-left">
+            <h2>Pre-ETAP Parameters</h2>
+            
+            <h3>Route Identification</h3>
+            <div class="input-group">Circuit ID: <input type="text" id="r-name" value="Feeder-01" oninput="renderCAD()"></div>
+            <div class="input-group">Route Length (m): <input type="number" id="r-len" value="250" step="1" oninput="renderCAD()"></div>
+            
+            <h3 style="margin-top: 20px;">Braintree Target Specs</h3>
             <div class="input-group">Route Type: 
                 <select id="route-type" onchange="renderCAD()">
                     <option value="mv">33kV Grid (Trefoil)</option>
@@ -81,203 +58,56 @@
                     <option value="1.2">1.2m (Road Xing)</option>
                 </select>
             </div>
-            <div class="input-group">Circuits: <input type="number" id="c-qty" value="4" step="1" oninput="renderCAD()"></div>
+            <div class="input-group">No. of Circuits: <input type="number" id="c-qty" value="4" step="1" oninput="renderCAD()"></div>
             <div class="input-group">Cable OD (mm): <input type="number" id="c-dia" value="45" step="1" oninput="renderCAD()"></div>
             <div class="input-group">Thermal Spacing (mm): <input type="number" id="c-space" value="150" step="10" oninput="renderCAD()"></div>
             <div class="input-group">Max Trench W (mm): <input type="number" id="t-max-w" value="1200" step="100" oninput="renderCAD()"></div>
-            
-            <div style="margin-top: 15px;">
-                <canvas id="troughCanvas" width="700" height="350"></canvas>
-                <div class="stat-row">Req. Trough Width: <span class="stat-val" id="out-tw">0 mm</span></div>
-                <div style="font-size:9px; color:#555;">*Soil Thermal Resistivity locked to 1.2 K·m/W</div>
-            </div>
-        </div>
-
-        <div class="panel-section">
-            <h3>Entry Plinth MBR Sweep</h3>
             <div class="input-group">Bend Radius (x OD): <input type="number" id="c-bend" value="15" step="1" oninput="renderCAD()"></div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
+                <div class="stat-row">Req. Trough Width: <span class="stat-val" id="out-tw" style="color:#00ffff;">0 mm</span></div>
+                <div class="stat-row">Req. Trough Depth: <span class="stat-val" id="out-td" style="color:#00ffff;">0 mm</span></div>
+                <div class="stat-row">Min Bend Radius: <span class="stat-val" id="out-mbr" style="color:#ff00ff;">0 mm</span></div>
+                <div class="stat-row">Excavation Volume: <span class="stat-val" id="out-vol" style="color:#00ff88;">0 m³</span></div>
+                <div style="font-size:9px; color:#555; margin-top: 10px;">*Soil Thermal Resistivity locked to 1.2 K·m/W</div>
+            </div>
+
+            <button class="btn" onclick="exportETAPData()">⬇ Export ETAP JSON</button>
+        </div>
+
+        <div class="panel panel-right">
+            <div class="canvas-container">
+                <h3 style="align-self: flex-start; color: #00ffff;">Civil Trench Cross-Section</h3>
+                <canvas id="troughCanvas" width="800" height="350"></canvas>
+            </div>
             
-            <div style="margin-top: 15px;">
-                <canvas id="bendCanvas" width="700" height="350"></canvas>
-                <div class="stat-row">Minimum Bend Radius: <span class="stat-val" id="out-mbr" style="color:#00ff88;">0 mm</span></div>
+            <div class="canvas-container">
+                <h3 style="align-self: flex-start; color: #ff00ff;">Entry Plinth & Bend Radius Sweep</h3>
+                <canvas id="bendCanvas" width="800" height="350"></canvas>
             </div>
         </div>
 
-        <div class="panel-section" style="border-bottom: none;">
-            <button id="btn-export" class="btn btn-export">⬇ Export Pre-ETAP GeoJSON</button>
-        </div>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script>
-    // --- 1. MAP INIT (STRICT 2D) ---
-    const map = new maplibregl.Map({
-        container: 'map',
-        style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-        center: [0.551, 51.875], // Centered near Braintree
-        zoom: 17.5,
-        pitch: 0,           
-        bearing: 0,         
-        dragRotate: false,  
-        touchPitch: false,  
-        attributionControl: false
-    });
+    let currentTroughW = 0;
+    let currentTroughD = 0;
+    let currentMBR = 0;
+    let currentVol = 0;
 
-    // --- 2. STATE & CONSTRAINTS ---
-    let routingMode = false; 
-    let currentTroughW = 1.2;
-    const data = { routes: [], currentRoute: [] };
-    const MIN_BEND_ANGLE_DEG = 110; 
-
-    // --- 3. GEOMETRY MATH ---
-    function calcDistance(lon1, lat1, lon2, lat2) {
-        const R = 6371e3; 
-        const f1 = lat1 * Math.PI/180, f2 = lat2 * Math.PI/180;
-        const df = (lat2-lat1) * Math.PI/180, dl = (lon2-lon1) * Math.PI/180;
-        const a = Math.sin(df/2)*Math.sin(df/2) + Math.cos(f1)*Math.cos(f2) * Math.sin(dl/2)*Math.sin(dl/2);
-        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    }
-
-    function calculateAngle(p1, p2, p3) {
-        const a = Math.pow(p2[0]-p1[0], 2) + Math.pow(p2[1]-p1[1], 2);
-        const b = Math.pow(p2[0]-p3[0], 2) + Math.pow(p2[1]-p3[1], 2);
-        const c = Math.pow(p3[0]-p1[0], 2) + Math.pow(p3[1]-p1[1], 2);
-        return Math.acos((a + b - c) / Math.sqrt(4 * a * b)) * (180 / Math.PI);
-    }
-
-    // --- 4. MAP DRAWING LOGIC ---
-    map.on('load', () => {
-        map.addSource('sat-s', { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256 });
-        map.addLayer({ id: 'l-sat', type: 'raster', source: 'sat-s', layout: { visibility: 'none' } });
-
-        map.addSource('src-route', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-route-line', type: 'line', source: 'src-route', paint: { 'line-color': '#ff00ff', 'line-width': 4 } });
-        map.addLayer({ id: 'l-route-pts', type: 'circle', source: 'src-route', paint: { 'circle-color': '#fff', 'circle-radius': 4, 'circle-stroke-width': 2, 'circle-stroke-color': '#ff00ff' } });
-        
-        renderCAD(); // Initial canvas render
-    });
-
-    document.getElementById('btn-trench').onclick = () => {
-        routingMode = !routingMode;
-        document.getElementById('btn-trench').className = routingMode ? 'btn active-trench' : 'btn';
-        document.getElementById('btn-trench').innerText = routingMode ? "Finish Route" : "⚡ Draw Cable Route";
-        map.getCanvas().style.cursor = routingMode ? 'crosshair' : '';
-        
-        if (!routingMode && data.currentRoute.length > 1) {
-            saveRoute();
-        } else if (!routingMode) {
-            data.currentRoute = [];
-            renderMap();
-        }
-    };
-
-    function saveRoute() {
-        // Save the route with the currently selected engineering properties
-        data.routes.push({
-            coords: [...data.currentRoute],
-            props: {
-                type: document.getElementById('route-type').value,
-                depth_m: parseFloat(document.getElementById('t-depth').value),
-                circuits: parseInt(document.getElementById('c-qty').value),
-                trough_width_mm: currentTroughW
-            }
-        });
-        data.currentRoute = [];
-        renderMap();
-    }
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 's') {
-            const isSat = map.getLayoutProperty('l-sat', 'visibility') === 'visible';
-            map.setLayoutProperty('l-sat', 'visibility', isSat ? 'none' : 'visible');
-        }
-        if (e.key === 'Escape') {
-            routingMode = false;
-            document.getElementById('btn-trench').className = 'btn';
-            document.getElementById('btn-trench').innerText = "⚡ Draw Cable Route";
-            map.getCanvas().style.cursor = '';
-            data.currentRoute = [];
-            renderMap();
-            updateMapTelemetry();
-        }
-    });
-
-    map.on('mousemove', (e) => {
-        if (routingMode && data.currentRoute.length > 0) {
-            const tempCoords = [...data.currentRoute, [e.lngLat.lng, e.lngLat.lat]];
-            const lineFeatures = data.routes.map(r => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: r.coords } }));
-            lineFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: tempCoords } });
-            map.getSource('src-route').setData({ type: 'FeatureCollection', features: lineFeatures });
-        }
-    });
-
-    map.on('click', (e) => {
-        if (routingMode) {
-            data.currentRoute.push([e.lngLat.lng, e.lngLat.lat]);
-            renderMap(); 
-            updateMapTelemetry();
-        }
-    });
-
-    map.on('contextmenu', (e) => {
-        if (routingMode && data.currentRoute.length > 1) {
-            e.preventDefault();
-            saveRoute();
-            updateMapTelemetry();
-        }
-    });
-
-    function renderMap() {
-        const lineFeatures = data.routes.map(r => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: r.coords } }));
-        if (data.currentRoute.length > 1) lineFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: data.currentRoute } });
-        
-        const ptFeatures = [];
-        data.routes.forEach(r => r.coords.forEach(pt => ptFeatures.push({ type: 'Feature', geometry: { type: 'Point', coordinates: pt } })));
-        data.currentRoute.forEach(pt => ptFeatures.push({ type: 'Feature', geometry: { type: 'Point', coordinates: pt } }));
-
-        map.getSource('src-route').setData({ type: 'FeatureCollection', features: [...lineFeatures, ...ptFeatures] });
-    }
-
-    function updateMapTelemetry() {
-        let lenM = 0; let sharpestBend = 180;
-        
-        const checkBends = (route) => {
-            for(let i=0; i<route.length-2; i++) {
-                const ang = calculateAngle(route[i], route[i+1], route[i+2]);
-                if(!isNaN(ang) && ang < sharpestBend) sharpestBend = ang;
-            }
-        };
-
-        data.routes.forEach(r => {
-            for(let i=0; i<r.coords.length-1; i++) lenM += calcDistance(r.coords[i][0], r.coords[i][1], r.coords[i+1][0], r.coords[i+1][1]);
-            checkBends(r.coords);
-        });
-        for(let i=0; i<data.currentRoute.length-1; i++) {
-            lenM += calcDistance(data.currentRoute[i][0], data.currentRoute[i][1], data.currentRoute[i+1][0], data.currentRoute[i+1][1]);
-        }
-        checkBends(data.currentRoute);
-
-        document.getElementById('stat-trench-m').innerText = lenM.toFixed(1) + " m";
-
-        const bendEl = document.getElementById('stat-bend-angle');
-        const statusEl = document.getElementById('stat-bend-status');
-        
-        if (sharpestBend === 180) {
-            bendEl.innerText = "N/A"; statusEl.innerText = "PASS"; statusEl.className = "stat-val";
-        } else {
-            bendEl.innerText = Math.round(sharpestBend) + "°";
-            if (sharpestBend < MIN_BEND_ANGLE_DEG) {
-                statusEl.innerText = "FAIL (<110°)"; statusEl.className = "stat-val warn"; bendEl.className = "stat-val warn";
-            } else {
-                statusEl.innerText = "PASS"; statusEl.className = "stat-val"; bendEl.className = "stat-val";
-            }
-        }
-    }
-
-    // --- 5. CANVAS CAD RENDERERS ---
     function renderCAD() {
         drawTrough();
         drawBendRadius();
+        calculateVolume();
+    }
+
+    function calculateVolume() {
+        const length = parseFloat(document.getElementById('r-len').value) || 0;
+        const widthM = currentTroughW / 1000;
+        const depthM = parseFloat(document.getElementById('t-depth').value);
+        
+        currentVol = length * widthM * depthM;
+        document.getElementById('out-vol').innerText = currentVol.toFixed(1) + " m³";
     }
 
     function drawTrough() {
@@ -286,14 +116,16 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         const routeType = document.getElementById('route-type').value;
-        const cQty = parseInt(document.getElementById('c-qty').value);
-        const cDia = parseFloat(document.getElementById('c-dia').value);
-        const cSpace = parseFloat(document.getElementById('c-space').value);
-        const maxW = parseFloat(document.getElementById('t-max-w').value);
+        const cQty = parseInt(document.getElementById('c-qty').value) || 1;
+        const cDia = parseFloat(document.getElementById('c-dia').value) || 45;
+        const cSpace = parseFloat(document.getElementById('c-space').value) || 0;
+        const maxW = parseFloat(document.getElementById('t-max-w').value) || 1200;
 
         const r = cDia / 2;
-        const trefoilW = cDia * 2; const trefoilH = cDia * (1 + Math.sqrt(3)/2);
-        const flatW = cDia * 2; const flatH = cDia;
+        const trefoilW = cDia * 2; 
+        const trefoilH = cDia * (1 + Math.sqrt(3)/2);
+        const flatW = cDia * 2; 
+        const flatH = cDia;
 
         let curX = cSpace; let curY = cSpace; let maxY = 0; let maxX = 0;
         let layoutData = [];
@@ -315,18 +147,23 @@
         const reqH = maxY + cSpace;
         
         currentTroughW = reqW;
+        currentTroughD = reqH;
         document.getElementById('out-tw').innerText = reqW.toFixed(0) + " mm";
+        document.getElementById('out-td').innerText = reqH.toFixed(0) + " mm";
 
-        const PADDING = 20;
+        const PADDING = 30;
         const scale = Math.min((canvas.width - PADDING*2) / reqW, (canvas.height - PADDING*2) / reqH);
         
         ctx.save();
-        ctx.translate(PADDING, PADDING);
+        // Center the drawing in the canvas
+        const offsetX = (canvas.width - (reqW * scale)) / 2;
+        const offsetY = (canvas.height - (reqH * scale)) / 2;
+        ctx.translate(offsetX, offsetY);
         ctx.scale(scale, scale);
 
-        // Concrete Trench
-        ctx.fillStyle = '#222'; ctx.fillRect(0, 0, reqW, reqH);
-        ctx.strokeStyle = '#555'; ctx.lineWidth = 5 / scale; ctx.strokeRect(0, 0, reqW, reqH);
+        // Concrete Trench Base
+        ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0, 0, reqW, reqH);
+        ctx.strokeStyle = '#444'; ctx.lineWidth = 4 / scale; ctx.strokeRect(0, 0, reqW, reqH);
 
         // Draw Cables
         layoutData.forEach(item => {
@@ -338,14 +175,14 @@
                 ];
                 coords.forEach(pt => {
                     ctx.beginPath(); ctx.arc(pt.cx, pt.cy, r, 0, 2*Math.PI);
-                    ctx.fillStyle = routeType === 'mv' ? '#b87333' : '#aaa'; ctx.fill();
-                    ctx.strokeStyle = routeType === 'mv' ? '#ff0000' : '#00ffff'; ctx.lineWidth = 2/scale; ctx.stroke();
+                    ctx.fillStyle = routeType === 'mv' ? '#b87333' : '#888'; ctx.fill();
+                    ctx.strokeStyle = routeType === 'mv' ? '#ff4444' : '#00ffff'; ctx.lineWidth = 2/scale; ctx.stroke();
                 });
             } else { // DC Flat Pair
                 const coords = [{ cx: item.x + r, cy: item.y + r }, { cx: item.x + r + cDia, cy: item.y + r }];
                 coords.forEach(pt => {
                     ctx.beginPath(); ctx.arc(pt.cx, pt.cy, r, 0, 2*Math.PI);
-                    ctx.fillStyle = '#888'; ctx.fill(); 
+                    ctx.fillStyle = '#666'; ctx.fill(); 
                     ctx.strokeStyle = '#ff00ff'; ctx.lineWidth = 2/scale; ctx.stroke();
                 });
             }
@@ -358,67 +195,82 @@
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        const cDia = parseFloat(document.getElementById('c-dia').value);
-        const bendFactor = parseFloat(document.getElementById('c-bend').value);
-        const MBR = cDia * bendFactor; 
+        const cDia = parseFloat(document.getElementById('c-dia').value) || 45;
+        const bendFactor = parseFloat(document.getElementById('c-bend').value) || 15;
+        currentMBR = cDia * bendFactor; 
 
-        document.getElementById('out-mbr').innerText = MBR.toFixed(0) + " mm";
+        document.getElementById('out-mbr').innerText = currentMBR.toFixed(0) + " mm";
 
-        const PADDING = 30;
-        const scale = (canvas.height - PADDING*2) / (MBR * 1.5);
+        const PADDING = 40;
+        const scale = (canvas.height - PADDING*2) / (currentMBR * 1.5);
         
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height - PADDING); 
         
-        ctx.fillStyle = '#333'; ctx.fillRect(0, -MBR*scale - 50, 150, MBR*scale + 50);
-        ctx.strokeStyle = '#666'; ctx.lineWidth = 2; ctx.strokeRect(0, -MBR*scale - 50, 150, MBR*scale + 50);
-        ctx.fillStyle = '#00ff88'; ctx.font = '12px monospace'; ctx.fillText("PLINTH", 20, -MBR*scale - 20);
+        // RMU Plinth
+        ctx.fillStyle = '#222'; ctx.fillRect(0, -currentMBR*scale - 50, 180, currentMBR*scale + 50);
+        ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.strokeRect(0, -currentMBR*scale - 50, 180, currentMBR*scale + 50);
+        ctx.fillStyle = '#00ff88'; ctx.font = '14px monospace'; ctx.fillText("PLINTH / RMU", 20, -currentMBR*scale - 20);
 
+        // Trench approach
         ctx.fillStyle = '#111'; ctx.fillRect(-canvas.width/2, -cDia*scale, canvas.width/2, cDia*scale*2);
         
+        // MBR Sweep
         ctx.beginPath();
-        ctx.arc(0, -MBR*scale, MBR*scale, Math.PI/2, 0, true);
+        ctx.arc(0, -currentMBR*scale, currentMBR*scale, Math.PI/2, 0, true);
         ctx.strokeStyle = '#00ffff'; ctx.lineWidth = cDia * scale; ctx.stroke();
 
+        // Lines connecting sweep
         ctx.beginPath(); ctx.moveTo(-canvas.width/2, 0); ctx.lineTo(0, 0); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(MBR*scale, -MBR*scale); ctx.lineTo(MBR*scale, -MBR*scale - 50); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(currentMBR*scale, -currentMBR*scale); ctx.lineTo(currentMBR*scale, -currentMBR*scale - 50); ctx.stroke();
 
+        // MBR Guide line & Text
         ctx.beginPath();
-        ctx.moveTo(0, -MBR*scale);
-        ctx.lineTo(MBR*scale * Math.cos(Math.PI/4), -MBR*scale + MBR*scale * Math.sin(Math.PI/4));
-        ctx.strokeStyle = '#ff00ff'; ctx.lineWidth = 1; ctx.setLineDash([5, 5]); ctx.stroke();
+        ctx.moveTo(0, -currentMBR*scale);
+        ctx.lineTo(currentMBR*scale * Math.cos(Math.PI/4), -currentMBR*scale + currentMBR*scale * Math.sin(Math.PI/4));
+        ctx.strokeStyle = '#ff00ff'; ctx.lineWidth = 1.5; ctx.setLineDash([5, 5]); ctx.stroke();
         
-        ctx.setLineDash([]); ctx.fillStyle = '#ff00ff'; ctx.textAlign = 'center';
-        ctx.fillText(`MBR: ${MBR.toFixed(0)}mm`, MBR*scale * 0.4, -MBR*scale * 0.6);
+        ctx.setLineDash([]); ctx.fillStyle = '#ff00ff'; ctx.textAlign = 'center'; ctx.font = '12px monospace';
+        ctx.fillText(`MBR: ${currentMBR.toFixed(0)}mm`, currentMBR*scale * 0.4, -currentMBR*scale * 0.6);
 
         ctx.restore();
     }
 
-    // --- 6. EXPORT PRE-ETAP ---
-    document.getElementById('btn-export').addEventListener('click', () => {
-        if(data.routes.length === 0) { alert("Draw a route on the map first."); return; }
-        const fc = { type: "FeatureCollection", features: [] };
-        data.routes.forEach(route => fc.features.push({ 
-            type: "Feature", 
-            properties: { 
-                infrastructure: "ETAP Cable Route", 
-                route_type: route.props.type,
-                target_depth_m: route.props.depth_m,
-                circuits: route.props.circuits,
-                trough_width_mm: route.props.trough_width_mm,
-                soil_thermal_resistivity: "1.2 K·m/W",
-                ambient_ground_temp: "20C"
-            }, 
-            geometry: { type: "LineString", coordinates: route.coords }
-        }));
+    function exportETAPData() {
+        const data = {
+            project: "Pre-ETAP Export",
+            timestamp: new Date().toISOString(),
+            circuit_id: document.getElementById('r-name').value,
+            route_length_m: parseFloat(document.getElementById('r-len').value),
+            system_type: document.getElementById('route-type').value,
+            target_depth_m: parseFloat(document.getElementById('t-depth').value),
+            number_of_circuits: parseInt(document.getElementById('c-qty').value),
+            cable_outer_diameter_mm: parseFloat(document.getElementById('c-dia').value),
+            thermal_spacing_mm: parseFloat(document.getElementById('c-space').value),
+            minimum_bend_radius_mm: currentMBR,
+            required_trough_width_mm: currentTroughW,
+            required_trough_depth_mm: currentTroughD,
+            excavation_volume_m3: currentVol,
+            environmental_constants: {
+                soil_thermal_resistivity_K_mW: 1.2,
+                ambient_ground_temp_C: 20
+            }
+        };
 
+        const blob = new Blob([JSON.stringify(data, null, 4)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([JSON.stringify(fc, null, 2)], { type: "application/json" }));
-        a.download = `ventus-preetap-export-${new Date().toISOString().slice(0,10)}.geojson`;
+        a.href = url;
+        a.download = `${data.circuit_id}_ETAP_Params.json`;
+        document.body.appendChild(a);
         a.click();
-    });
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
 
-    renderCAD();
+    // Initial render
+    window.onload = renderCAD;
+
 </script>
 </body>
 </html>

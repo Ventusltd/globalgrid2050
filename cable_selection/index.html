@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cable Selection</title>
+<style>
+  body {
+    background: #000;
+    color: #fff;
+    font-family: Courier, monospace;
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  h1 {
+    margin: 0 0 10px 0;
+    font-size: 34px;
+  }
+
+  p {
+    color: #bbb;
+    margin: 0 0 20px 0;
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr 180px 180px 220px 120px;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  input, select, button {
+    background: #111;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 12px;
+    font-family: Courier, monospace;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: #66ccff;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:hover {
+    border-color: #66ccff;
+    color: #66ccff;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 18px;
+  }
+
+  .panel {
+    border: 1px solid #333;
+    background: #050505;
+    padding: 14px;
+  }
+
+  .panel h2 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    color: #66ccff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid #222;
+    vertical-align: top;
+    font-size: 15px;
+  }
+
+  th {
+    color: #66ccff;
+    font-weight: normal;
+  }
+
+  tr:hover {
+    background: #0d0d0d;
+    cursor: pointer;
+  }
+
+  tr.selected {
+    background: #101820;
+  }
+
+  .detail-box {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 14px;
+    color: #ddd;
+    min-height: 420px;
+  }
+
+  .muted {
+    color: #999;
+  }
+
+  .footer {
+    margin-top: 28px;
+    color: #888;
+    font-size: 14px;
+  }
+
+  @media (max-width: 1100px) {
+    .toolbar {
+      grid-template-columns: 1fr;
+    }
+
+    .layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Cable Selection</h1>
+<p>Standards led cable selection table with bend radius and physical record data. No electrical calculations are performed.</p>
+
+<div class="toolbar">
+  <input type="text" id="searchBox" placeholder="Search record ID, type, standard, notes...">
+  <select id="voltageFilter">
+    <option value="All">All Voltage</option>
+  </select>
+  <select id="armourFilter">
+    <option value="All">All Armour</option>
+  </select>
+  <select id="familyFilter">
+    <option value="All">All Source Families</option>
+  </select>
+  <button id="exportBtn">Export Selected</button>
+</div>
+
+<div class="layout">
+  <div class="panel">
+    <h2>Records</h2>
+    <table id="recordsTable">
+      <thead>
+        <tr>
+          <th>Record ID</th>
+          <th>Generic Type</th>
+          <th>Voltage</th>
+          <th>Armour</th>
+          <th>OD mm</th>
+          <th>Bend mm</th>
+          <th>Verified</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>Record Detail</h2>
+    <div id="detailBox" class="detail-box muted">Loading...</div>
+  </div>
+</div>
+
+<div class="footer">
+  Uses <code>data.json</code> in the same folder. Put this file beside your existing <code>data.json</code>.
+</div>
+
+<script>
+let allRecords = [];
+let filteredRecords = [];
+let selectedRecord = null;
+
+const tbody = document.querySelector("#recordsTable tbody");
+const detailBox = document.getElementById("detailBox");
+const searchBox = document.getElementById("searchBox");
+const voltageFilter = document.getElementById("voltageFilter");
+const armourFilter = document.getElementById("armourFilter");
+const familyFilter = document.getElementById("familyFilter");
+const exportBtn = document.getElementById("exportBtn");
+
+async function loadData() {
+  try {
+    const response = await fetch("./data.json");
+    if (!response.ok) throw new Error("Could not load data.json");
+    allRecords = await response.json();
+
+    populateFilters();
+    applyFilters();
+  } catch (error) {
+    detailBox.classList.remove("muted");
+    detailBox.textContent = "Failed to load data.json\n\n" + error.message;
+  }
+}
+
+function populateFilters() {
+  const voltages = [...new Set(allRecords.map(r => r.voltage_class).filter(Boolean))].sort();
+  const armours = [...new Set(allRecords.map(r => r.armour).filter(Boolean))].sort();
+  const families = [...new Set(allRecords.map(r => r.source_family).filter(Boolean))].sort();
+
+  addOptions(voltageFilter, voltages);
+  addOptions(armourFilter, armours);
+  addOptions(familyFilter, families);
+}
+
+function addOptions(select, values) {
+  values.forEach(value => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  });
+}
+
+function applyFilters() {
+  const query = searchBox.value.trim().toLowerCase();
+  const voltage = voltageFilter.value;
+  const armour = armourFilter.value;
+  const family = familyFilter.value;
+
+  filteredRecords = allRecords.filter(record => {
+    if (voltage !== "All" && record.voltage_class !== voltage) return false;
+    if (armour !== "All" && record.armour !== armour) return false;
+    if (family !== "All" && record.source_family !== family) return false;
+
+    const haystack = [
+      record.record_id,
+      record.generic_type,
+      record.standard_reference,
+      record.application_note,
+      record.source_document,
+      record.notes
+    ].join(" ").toLowerCase();
+
+    if (query && !haystack.includes(query)) return false;
+
+    return true;
+  });
+
+  renderTable();
+
+  if (filteredRecords.length > 0) {
+    const stillExists = selectedRecord && filteredRecords.find(r => r.record_id === selectedRecord.record_id);
+    selectRecord(stillExists || filteredRecords[0]);
+  } else {
+    selectedRecord = null;
+    detailBox.classList.add("muted");
+    detailBox.textContent = "No records match the current filter.";
+  }
+}
+
+function renderTable() {
+  tbody.innerHTML = "";
+
+  filteredRecords.forEach(record => {
+    const tr = document.createElement("tr");
+    tr.dataset.recordId = record.record_id;
+
+    tr.innerHTML = `
+      <td>${escapeHtml(record.record_id)}</td>
+      <td>${escapeHtml(record.generic_type)}</td>
+      <td>${escapeHtml(record.voltage_class || "")}</td>
+      <td>${escapeHtml(record.armour || "")}</td>
+      <td>${record.outer_diameter_mm ?? ""}</td>
+      <td>${record.minimum_bend_radius_mm ?? ""}</td>
+      <td>${record.verified ? "Yes" : "No"}</td>
+    `;
+
+    tr.addEventListener("click", () => selectRecord(record));
+    tbody.appendChild(tr);
+  });
+}
+
+function selectRecord(record) {
+  selectedRecord = record;
+
+  document.querySelectorAll("#recordsTable tbody tr").forEach(row => {
+    row.classList.toggle("selected", row.dataset.recordId === record.record_id);
+  });
+
+  detailBox.classList.remove("muted");
+  detailBox.textContent = JSON.stringify(record, null, 4);
+}
+
+function exportSelected() {
+  if (!selectedRecord) return;
+
+  const blob = new Blob([JSON.stringify(selectedRecord, null, 4)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${selectedRecord.record_id}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+searchBox.addEventListener("input", applyFilters);
+voltageFilter.addEventListener("change", applyFilters);
+armourFilter.addEventListener("change", applyFilters);
+familyFilter.addEventListener("change", applyFilters);
+exportBtn.addEventListener("click", exportSelected);
+
+loadData();
+</script>
+
+</body>
+</html>

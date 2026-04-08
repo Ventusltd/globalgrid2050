@@ -28,7 +28,7 @@
 
   .toolbar {
     display: grid;
-    grid-template-columns: 1fr 180px 180px 220px 120px;
+    grid-template-columns: 1fr 180px 180px 220px 140px;
     gap: 10px;
     margin-bottom: 18px;
   }
@@ -41,9 +41,10 @@
     font-family: Courier, monospace;
     font-size: 16px;
     box-sizing: border-box;
+    border-radius: 0;
   }
 
-  input:focus, select:focus {
+  input:focus, select:focus, button:focus {
     outline: none;
     border-color: #66ccff;
   }
@@ -67,6 +68,7 @@
     border: 1px solid #333;
     background: #050505;
     padding: 14px;
+    overflow: auto;
   }
 
   .panel h2 {
@@ -93,12 +95,12 @@
     font-weight: normal;
   }
 
-  tr:hover {
+  tbody tr:hover {
     background: #0d0d0d;
     cursor: pointer;
   }
 
-  tr.selected {
+  tbody tr.selected {
     background: #101820;
   }
 
@@ -120,6 +122,12 @@
     font-size: 14px;
   }
 
+  .status {
+    margin: 0 0 18px 0;
+    color: #999;
+    font-size: 14px;
+  }
+
   @media (max-width: 1100px) {
     .toolbar {
       grid-template-columns: 1fr;
@@ -136,6 +144,8 @@
 <h1>Cable Selection</h1>
 <p>Standards led cable selection table with bend radius and physical record data. No electrical calculations are performed.</p>
 
+<div class="status" id="statusText">Loading records...</div>
+
 <div class="toolbar">
   <input type="text" id="searchBox" placeholder="Search record ID, type, standard, notes...">
   <select id="voltageFilter">
@@ -147,7 +157,7 @@
   <select id="familyFilter">
     <option value="All">All Source Families</option>
   </select>
-  <button id="exportBtn">Export Selected</button>
+  <button id="exportBtn" type="button">Export Selected</button>
 </div>
 
 <div class="layout">
@@ -171,12 +181,12 @@
 
   <div class="panel">
     <h2>Record Detail</h2>
-    <div id="detailBox" class="detail-box muted">Loading...</div>
+    <div id="detailBox" class="detail-box muted">Waiting for data...</div>
   </div>
 </div>
 
 <div class="footer">
-  Uses <code>data.json</code> in the same folder. Put this file beside your existing <code>data.json</code>.
+  Standards led live cable selection database.
 </div>
 
 <script>
@@ -191,22 +201,53 @@ const voltageFilter = document.getElementById("voltageFilter");
 const armourFilter = document.getElementById("armourFilter");
 const familyFilter = document.getElementById("familyFilter");
 const exportBtn = document.getElementById("exportBtn");
+const statusText = document.getElementById("statusText");
 
 async function loadData() {
   try {
-    const response = await fetch("./data.json");
-    if (!response.ok) throw new Error("Could not load data.json");
-    allRecords = await response.json();
+    const response = await fetch("./data.json", { cache: "no-store" });
+
+    if (!response.ok) {
+      throw new Error("Could not load data.json");
+    }
+
+    const rawText = await response.text();
+    const trimmed = rawText.trim();
+
+    if (!trimmed) {
+      throw new Error("data.json is empty");
+    }
+
+    const parsed = JSON.parse(trimmed);
+
+    if (!Array.isArray(parsed)) {
+      throw new Error("data.json must contain a JSON array");
+    }
+
+    allRecords = parsed.filter(item => item && typeof item === "object");
+
+    if (allRecords.length === 0) {
+      throw new Error("No valid cable records found in data.json");
+    }
 
     populateFilters();
     applyFilters();
+    statusText.textContent = `${allRecords.length} record${allRecords.length === 1 ? "" : "s"} loaded`;
   } catch (error) {
+    tbody.innerHTML = "";
     detailBox.classList.remove("muted");
-    detailBox.textContent = "Failed to load data.json\n\n" + error.message;
+    detailBox.textContent = `Failed to load data.json
+
+${error.message}`;
+    statusText.textContent = "Load failed";
   }
 }
 
 function populateFilters() {
+  resetSelect(voltageFilter, "All Voltage");
+  resetSelect(armourFilter, "All Armour");
+  resetSelect(familyFilter, "All Source Families");
+
   const voltages = [...new Set(allRecords.map(r => r.voltage_class).filter(Boolean))].sort();
   const armours = [...new Set(allRecords.map(r => r.armour).filter(Boolean))].sort();
   const families = [...new Set(allRecords.map(r => r.source_family).filter(Boolean))].sort();
@@ -214,6 +255,14 @@ function populateFilters() {
   addOptions(voltageFilter, voltages);
   addOptions(armourFilter, armours);
   addOptions(familyFilter, families);
+}
+
+function resetSelect(select, label) {
+  select.innerHTML = "";
+  const option = document.createElement("option");
+  option.value = "All";
+  option.textContent = label;
+  select.appendChild(option);
 }
 
 function addOptions(select, values) {
@@ -243,7 +292,7 @@ function applyFilters() {
       record.application_note,
       record.source_document,
       record.notes
-    ].join(" ").toLowerCase();
+    ].filter(Boolean).join(" ").toLowerCase();
 
     if (query && !haystack.includes(query)) return false;
 
@@ -255,10 +304,12 @@ function applyFilters() {
   if (filteredRecords.length > 0) {
     const stillExists = selectedRecord && filteredRecords.find(r => r.record_id === selectedRecord.record_id);
     selectRecord(stillExists || filteredRecords[0]);
+    statusText.textContent = `${filteredRecords.length} filtered record${filteredRecords.length === 1 ? "" : "s"}`;
   } else {
     selectedRecord = null;
     detailBox.classList.add("muted");
     detailBox.textContent = "No records match the current filter.";
+    statusText.textContent = "0 filtered records";
   }
 }
 
@@ -267,15 +318,15 @@ function renderTable() {
 
   filteredRecords.forEach(record => {
     const tr = document.createElement("tr");
-    tr.dataset.recordId = record.record_id;
+    tr.dataset.recordId = record.record_id || "";
 
     tr.innerHTML = `
-      <td>${escapeHtml(record.record_id)}</td>
-      <td>${escapeHtml(record.generic_type)}</td>
+      <td>${escapeHtml(record.record_id || "")}</td>
+      <td>${escapeHtml(record.generic_type || "")}</td>
       <td>${escapeHtml(record.voltage_class || "")}</td>
       <td>${escapeHtml(record.armour || "")}</td>
-      <td>${record.outer_diameter_mm ?? ""}</td>
-      <td>${record.minimum_bend_radius_mm ?? ""}</td>
+      <td>${formatValue(record.outer_diameter_mm)}</td>
+      <td>${formatValue(record.minimum_bend_radius_mm)}</td>
       <td>${record.verified ? "Yes" : "No"}</td>
     `;
 
@@ -288,7 +339,7 @@ function selectRecord(record) {
   selectedRecord = record;
 
   document.querySelectorAll("#recordsTable tbody tr").forEach(row => {
-    row.classList.toggle("selected", row.dataset.recordId === record.record_id);
+    row.classList.toggle("selected", row.dataset.recordId === (record.record_id || ""));
   });
 
   detailBox.classList.remove("muted");
@@ -296,17 +347,24 @@ function selectRecord(record) {
 }
 
 function exportSelected() {
-  if (!selectedRecord) return;
+  if (!selectedRecord) {
+    return;
+  }
 
+  const safeName = (selectedRecord.record_id || "selected_record").replace(/[^a-zA-Z0-9_.]/g, "_");
   const blob = new Blob([JSON.stringify(selectedRecord, null, 4)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `${selectedRecord.record_id}.json`;
+  a.download = `${safeName}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+function formatValue(value) {
+  return value === null || value === undefined ? "" : escapeHtml(String(value));
 }
 
 function escapeHtml(value) {

@@ -1,8 +1,4 @@
-Done. Below is the clean integrated update to your architecture with Open Infrastructure Map formally embedded as a seed constraint source.
 
-This is not an add-on. It is now part of the system logic.
-
-⸻
 
 GlobalGrid2050 | Ventus Core Architecture
 

@@ -1,31 +1,31 @@
+# GlobalGrid2050 | Ventus Core Architecture
 
+**Last updated:** 2026 04 08  
+**Platform:** Ventus OS Modular Pipeline
 
-GlobalGrid2050 | Ventus Core Architecture
+---
 
-Last updated: 2026 04 08
-Platform: Ventus OS Modular Pipeline
+## Directive for Future Humans and AI Agents
 
-⸻
+If you are reading this, you are tasked with maintaining, debugging, or expanding GlobalGrid2050.  
+Do not regress. This system has evolved into a modular operating system built on `ventus-core.js` and `ventus.css`.  
+Do not move logic back into HTML data cartridges.
 
-Directive for Future Humans and AI Agents
-
-If you are reading this, you are tasked with maintaining, debugging, or expanding GlobalGrid2050.
-Do not regress. This system has evolved into a modular operating system built on ventus-core.js and ventus.css.
-Respect the geometry. All calculations must use geodesic metres via Haversine logic.
+Respect the geometry. All calculations must use geodesic metres via Haversine logic.  
 Defend the browser. Scale horizontally using regional HTML cartridges.
 
-New directive:
-This system must reason over both infrastructure assets and real world constraints.
-Early stage GM design validation is now a core function.
+**New directive:**  
+This system must reason over both infrastructure assets and real-world constraints.  
+Early-stage GM design validation is now a core function.
 
-External constraint datasets such as Open Infrastructure Map are now part of the architecture.
+External constraint datasets such as Open Infrastructure Map are part of the architecture.  
 Treat them as early signal layers, not final truth.
 
 Build forward. Do not simplify.
 
-⸻
+---
 
-I. Origin and Philosophy
+## I. Origin and Philosophy
 
 GlobalGrid2050 was originated by Ventus Ltd.
 
@@ -33,254 +33,241 @@ This platform codifies 2 decades of physical engineering experience into a spati
 
 Perfect data is not required. Structured data reveals reality.
 
-New governing principle:
+**Governing principle:**  
+Early constraint visibility prevents late-stage engineering failure.
 
-Early constraint visibility prevents late stage engineering failure.
+---
 
-⸻
+## II. The Archetype
 
-II. The Archetype
+GlobalGrid2050 is:
 
-GlobalGrid2050 is now:
-
-A Serverless Spatial Digital Twin and Constraint First Design Engine
+**A Serverless Spatial Digital Twin and Constraint-First Design Engine**
 
 Built on 5 pillars:
-	1.	Pre baked physics and constraints
-	2.	GPU accelerated WebGL
-	3.	Zero framework bloat
-	4.	GPU layer splitting
-	5.	Constraint first spatial reasoning
 
-⸻
+1. Pre-baked physics and constraints  
+2. GPU-accelerated WebGL  
+3. Zero framework bloat  
+4. GPU layer splitting  
+5. Constraint-first spatial reasoning  
 
-III. The Five Core Systems
+---
 
-⸻
+## III. The Five Core Systems
 
-System 1: Python ETL Engine
+---
 
-Located in scripts/
+### System 1: Python ETL Engine
 
-Core Functions
-	•	Extract spatial intelligence
-	•	Compute Haversine geometry
-	•	Generate .geojson
-	•	Deduplicate spatial records
-	•	Enrich constraint metadata
+Located in `scripts/`
 
-⸻
+**Core Functions**
+- Extract spatial intelligence  
+- Compute Haversine geometry  
+- Generate `.geojson`  
+- Deduplicate spatial records  
+- Enrich constraint metadata  
 
-NEW: Constraint Source Registry (Mandatory)
+---
+
+### Constraint Source Registry (Mandatory)
 
 The system must maintain a registry of external datasets used for constraint mapping.
 
-Seed Source
-Open Infrastructure Map
-https://openinframap.org/#5.72/54.385/-4.914
+**Seed Source**  
+Open Infrastructure Map  
+https://openinframap.org/#5.72/54.385/-4.914  
 
-Coverage
-	•	Overhead lines
-	•	Substations
-	•	Pipelines
-	•	Telecom infrastructure
-	•	Oil and gas networks
+**Coverage**
+- Overhead lines  
+- Substations  
+- Pipelines  
+- Telecom infrastructure  
+- Oil and gas networks  
 
-Rules
-	•	Treat as constraint intelligence input, not ground truth
-	•	Do not rely on visual layer only
-	•	Extract from underlying data sources where possible
-	•	Normalise into Ventus schema
-	•	Tag with:
-	•	constraint_type
-	•	confidence_level
-	•	source_origin
+**Rules**
+- Treat as constraint intelligence input, not ground truth  
+- Do not rely on visual layer only  
+- Extract from underlying data sources where possible  
+- Normalise into Ventus schema  
+- Tag with:
+  - `constraint_type`  
+  - `confidence_level`  
+  - `source_origin`  
 
-Directive
+**Directive**  
 This dataset is the initial global constraint layer seed.
 
 Future systems must:
-	•	replace visual dependence with structured ingestion
-	•	build validated UK, EU, and global overlays
+- Replace visual dependence with structured ingestion  
+- Build validated UK, EU, and global overlays  
 
-⸻
+---
 
-System 2: Gridbot Automation
+### System 2: Gridbot Automation
 
-Located in .github/workflows/
-	•	Maintains repository truth
-	•	Updates datasets
-	•	Schedules refresh cycles
+Located in `.github/workflows/`
 
-New Requirement
+- Maintains repository truth  
+- Updates datasets  
+- Schedules refresh cycles  
+
+**Requirement**
 Gridbot must support periodic refresh of:
-	•	asset datasets
-	•	constraint datasets
+- Asset datasets  
+- Constraint datasets  
 
-⸻
+---
 
-System 3: Constraint Intelligence Layer
+### System 3: Constraint Intelligence Layer
 
-This is now a formal system.
+Purpose:  
+Transform mapped infrastructure into **design-limiting conditions**
 
-Purpose
-Transform mapped infrastructure into:
+**Core Functions**
+- Identify:
+  - Overhead line proximity  
+  - Pipeline conflicts  
+  - Corridor compression  
+  - Route obstruction  
 
-design limiting conditions
+- Support:
+  - GM design validation  
+  - Early-stage feasibility  
+  - Spatial conflict detection  
 
-Core Functions
-	•	Identify:
-	•	overhead line proximity
-	•	pipeline conflicts
-	•	corridor compression
-	•	route obstruction
-	•	Support:
-	•	GM design validation
-	•	early stage feasibility
-	•	spatial conflict detection
+---
 
-⸻
-
-NEW: External Constraint Layer Integration
+### External Constraint Layer Integration
 
 The system must ingest and render external datasets including:
-	•	Open Infrastructure Map derived layers
-	•	OHL networks
-	•	utility corridors
-	•	pipelines
-	•	telecom routes
+- Open Infrastructure Map derived layers  
+- Overhead line networks  
+- Utility corridors  
+- Pipelines  
+- Telecom routes  
 
-Rules
-	•	Must be toggleable
-	•	Must be visually distinct
-	•	Must be labelled as:
-	•	“Reference Constraint Layer”
+**Rules**
+- Must be toggleable  
+- Must be visually distinct  
+- Must be labelled as:
+  - “Reference Constraint Layer”  
 
-Usage Scope
+**Usage Scope**
+
 Used for:
-	•	early stage screening
-	•	concept validation
-	•	directional planning
+- Early-stage screening  
+- Concept validation  
+- Directional planning  
 
 Not used for:
-	•	final engineering
-	•	survey grade validation
+- Final engineering  
+- Survey-grade validation  
 
-⸻
+---
 
-System 4: Ventus OS
+### System 4: Ventus OS
 
-ventus-core.js
-	•	WebGL rendering engine
-	•	Consumes GeoJSON
-	•	Applies GPU filters
+`ventus-core.js`
 
-New Requirement
-	•	Render constraint layers alongside assets
-	•	Allow rapid visual conflict inspection
+- WebGL rendering engine  
+- Consumes GeoJSON  
+- Applies GPU filters  
 
-⸻
+**Requirement**
+- Render constraint layers alongside assets  
+- Enable rapid visual conflict inspection  
 
-System 5: SCADA UI
+---
 
-ventus.css
+### System 5: SCADA UI
 
-Visual Rules
-	•	Monospace typography
-	•	Dark mode SCADA aesthetic
-	•	Operational colour coding
+`ventus.css`
 
-Extension
-	•	Constraint layers must use distinct visual language:
-	•	Red or magenta = hard constraint
-	•	Cyan or white = corridor intelligence
+**Visual Rules**
+- Monospace typography  
+- Dark-mode SCADA aesthetic  
+- Operational colour coding  
 
-⸻
+**Extension**
+- Constraint layers must use distinct visual language:
+  - Red or magenta = hard constraint  
+  - Cyan or white = corridor intelligence  
 
-IV. Spatial Geometry
+---
+
+## IV. Spatial Geometry
 
 All calculations must use:
-	•	Haversine distance
-	•	geodesic metres
-	•	real world footprint
+- Haversine distance  
+- Geodesic metres  
+- Real-world footprint  
 
 No shortcuts permitted.
 
 Constraint layers must obey the same physical logic.
 
-⸻
+---
 
-V. Planning Doctrine
+## V. Planning Doctrine
 
 GlobalGrid2050 operates in two modes:
 
-Asset Mode
-	•	What exists
-	•	What is operating
-	•	What is planned
+### Asset Mode
+- What exists  
+- What is operating  
+- What is planned  
 
-Constraint Mode
-	•	What limits development
-	•	What blocks routes
-	•	What compresses geometry
-	•	What creates risk
+### Constraint Mode
+- What limits development  
+- What blocks routes  
+- What compresses geometry  
+- What creates risk  
 
-⸻
+---
 
-NEW Principle
+### Principle
 
 Constraint awareness begins with imperfect but structured data.
 
 Early visibility of approximate constraints is more valuable than late discovery of precise conflicts.
 
-⸻
+---
 
-VI. What the System Has Proven
-	•	Energy transition is spatial
-	•	Cable systems are limiting factors
-	•	Infrastructure clustering creates risk
-	•	Planning lacks constraint awareness
-	•	Early stage design fails when constraints are ignored
+## VI. What the System Has Proven
 
-⸻
+- Energy transition is spatial  
+- Cable systems are limiting factors  
+- Infrastructure clustering creates risk  
+- Planning lacks constraint awareness  
+- Early-stage design fails when constraints are ignored  
 
-VII. Final Directive
+---
+
+## VII. Final Directive
 
 This system is not:
-	•	a map
-	•	a dashboard
-	•	a viewer
+- A map  
+- A dashboard  
+- A viewer  
 
 It is:
 
-A real time spatial reasoning engine for infrastructure and early stage design constraints
+**A real-time spatial reasoning engine for infrastructure and early-stage design constraints**
 
-⸻
+---
 
-Every feature must answer:
-	•	Does this improve constraint awareness?
-	•	Does this preserve physical truth?
-	•	Does this prevent bad design early?
-	•	Does this increase decision clarity?
+### Every feature must answer:
+- Does this improve constraint awareness?  
+- Does this preserve physical truth?  
+- Does this prevent bad design early?  
+- Does this increase decision clarity?  
 
 If not, it does not belong.
 
-⸻
+---
 
-Final Line
+## Final Line
 
-GlobalGrid2050 now evolves from asset visibility to constraint aware design intelligence.
-
-⸻
-
-This is now structurally correct.
-
-You’ve taken:
-	•	a comment from Steve
-	•	a tool from OpenInfraMap
-
-and converted it into:
-
-architecture level evolution
-
-That is exactly how platforms are built.
+**GlobalGrid2050 evolves from asset visibility to constraint-aware design intelligence.**

@@ -523,7 +523,7 @@
                 <p class="subtle-note" style="align-self:flex-start;">
                     Indicative trench size only. Trench width shown = the same cable box width shown above. It does not include side clearance, bedding or duct outside diameter. Trench depth shown = burial depth input to the top of duct or cable, plus cable formation depth. Subject to civil design validation and not design advice. Full trench design still needs bedding, side clearance, cover boards, warning tape, duct OD, backfill build up, shoring, tolerance and buildability review.
                 </p>
-                <canvas id="trench_canvas" width="900" height="420" aria-label="Indicative trench cross section visual"></canvas>
+                <canvas id="trench_canvas" width="900" height="500" aria-label="Indicative trench cross section visual"></canvas>
             </div>
 
             <div class="canvas-container">
@@ -972,7 +972,7 @@
 
             const padding = 40;
             const topPad = 60;
-            const bottomPad = 40;
+            const bottomPad = 90;
             const usableW = canvas.width - padding * 2;
             const usableH = canvas.height - topPad - bottomPad;
             const scaleX = usableW / Math.max(layout.indicativeTrenchWidth, 1);
@@ -1018,10 +1018,14 @@
             ctx.textAlign = "left";
             ctx.fillText(`Ground line`, padding, trenchY - 10);
             ctx.fillText(`Burial depth input to top of cable box = ${Math.round(inputs.burial_depth_mm)} mm`, padding, burialY - 8);
-            ctx.fillText(`Trench width shown = cable box width only = ${Math.round(layout.indicativeTrenchWidth)} mm`, padding, canvas.height - 34);
-            ctx.fillText(`Civil design still to add bedding, side clearance, duct OD and build-up`, padding, canvas.height - 18);
-            ctx.textAlign = "right";
-            ctx.fillText(`Indicative trench depth = burial depth + cable box depth = ${Math.round(layout.indicativeTrenchDepth)} mm`, canvas.width - padding, canvas.height - 18);
+
+            const infoY1 = canvas.height - 58;
+            const infoY2 = canvas.height - 38;
+            const infoY3 = canvas.height - 18;
+            ctx.textAlign = "left";
+            ctx.fillText(`Indicative trench width = ${Math.round(layout.indicativeTrenchWidth)} mm`, padding, infoY1);
+            ctx.fillText(`Indicative trench depth = ${Math.round(layout.indicativeTrenchDepth)} mm`, padding, infoY2);
+            ctx.fillText(`Civil design still to add bedding, side clearance, duct OD and build-up`, padding, infoY3);
 
             canvas.setAttribute("aria-label", `Indicative trench cross section. Width ${Math.round(layout.indicativeTrenchWidth)} millimetres. Depth ${Math.round(layout.indicativeTrenchDepth)} millimetres. Burial depth input ${Math.round(inputs.burial_depth_mm)} millimetres.`);
         }

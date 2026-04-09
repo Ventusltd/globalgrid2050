@@ -1,153 +1,157 @@
 const DEFAULT_BURIAL_DEPTHS = { lv: 900, mv: 900, ehv: 900, dc: 900 };
-const MIN_BURIAL_DEPTHS     = { lv: 450, mv: 900, ehv: 900, dc: 600 };
 
-const FORMATION_LIBRARY = {
-    lv:  [
-        { value: "trefoil_single_row",  label: "Trefoil Single Row (1c×3ph)" },
-        { value: "flat_single_row",     label: "Flat Single Row (1c×3ph)" },
-        { value: "stacked_two_high",    label: "Stacked 2 High (1c×3ph)" },
-        { value: "multicore_3c",        label: "Three Core Cable (3c)" },
-        { value: "multicore_4c",        label: "Four Core Cable (4c)" },
-        { value: "multicore_5c",        label: "Five Core Cable (5c)" }
-    ],
-    mv:  [
-        { value: "trefoil_single_row",  label: "Trefoil Single Row (1c×3ph)" },
-        { value: "flat_single_row",     label: "Flat Single Row (1c×3ph)" },
-        { value: "stacked_two_high",    label: "Stacked 2 High (1c×3ph)" },
-        { value: "multicore_3c",        label: "Three Core Cable (3c)" },
-        { value: "multicore_4c",        label: "Four Core Cable (4c)" },
-        { value: "multicore_5c",        label: "Five Core Cable (5c)" }
-    ],
-    ehv: [
-        { value: "trefoil_single_row",  label: "Trefoil Single Row (1c×3ph)" },
-        { value: "flat_single_row",     label: "Flat Single Row (1c×3ph)" }
-    ],
-    dc:  [
-        { value: "dc_pair_horizontal",  label: "DC Pair Horizontal" },
-        { value: "dc_pair_vertical",    label: "DC Pair Vertical" }
-    ]
+// Removed enforced minimums — system will not block lower or higher values
+const MIN_BURIAL_DEPTHS = null;
+
+const CONDUCTOR_SHAPE_LABELS = {
+    circular_stranded: "Stranded circular conductor",
+    sector_stranded:   "Stranded sector conductor",
+    compacted_round:   "Compacted round conductor",
+    solid_round:       "Solid round conductor",
+    flexible_round:    "Flexible round conductor"
 };
 
 const VOLTAGE_CLASSES = {
-    "lv_cu_sc": { label: "0.6/1kV Cu XLPE single core (fixed install.)", Uo: 0, mbr_factor: 15, cores: ["single"] },
-    "lv_al_sc": { label: "0.6/1kV Al XLPE single core (fixed install.)", Uo: 0, mbr_factor: 15, cores: ["single"] },
-    "lv_cu_2c": { label: "0.6/1kV Cu XLPE 2-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["two"]    },
-    "lv_cu_3c": { label: "0.6/1kV Cu XLPE 3-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["three"]  },
-    "lv_cu_4c": { label: "0.6/1kV Cu XLPE 4-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["four"]   },
-    "lv_cu_5c": { label: "0.6/1kV Cu XLPE 5-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["five"]   },
-    "lv_al_3c": { label: "0.6/1kV Al XLPE 3-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["three"]  },
-    "lv_al_4c": { label: "0.6/1kV Al XLPE 4-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["four"]   },
-    "lv_al_5c": { label: "0.6/1kV Al XLPE 5-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["five"]   },
-    "lv3": { label: "LV Power 0.6/1kV 3-core (fixed install.)",          Uo: 0, mbr_factor: 5,  cores: ["three"]  },
-    "pv_string": { label: "PV DC string — 1500V DC, Class II (flexible, fixed install.)", Uo: 0, mbr_factor: 4, cores: ["single"] },
-    "flex_hv_ac": { label: "Flexible screened — 1000/1000V AC, IT system (fixed/occasional)", Uo: 0, mbr_factor: 3, cores: ["single"] },
-    "flex_hv_dc": { label: "Flexible screened — 1500V DC (Um=1800V, fixed/occasional)",           Uo: 0, mbr_factor: 3, cores: ["single"] },
-    "al_ata_ac": { label: "Rigid Al solar — 1000/1000V AC, Al tube armour (non-mag, fixed)", Uo: 0, mbr_factor: 12, cores: ["single"] },
-    "al_ata_dc": { label: "Rigid Al solar — 1500/1500V DC (Um=1800V), Al tube armour (fixed)",    Uo: 0, mbr_factor: 12, cores: ["single"] },
-    "6":   { label: "6 kV (3.6/6 kV)",   Uo: 3.6,  mbr_factor: 15, cores: ["single","three"] },
-    "10":  { label: "10 kV (5.8/10 kV)",  Uo: 5.8,  mbr_factor: 15, cores: ["single","three"] },
-    "15":  { label: "15 kV (8.7/15 kV)",  Uo: 8.7,  mbr_factor: 15, cores: ["single","three"] },
-    "20":  { label: "20 kV (12/20 kV)",   Uo: 12,   mbr_factor: 15, cores: ["single","three"] },
-    "33":  { label: "33 kV (19/33 kV) — Al", Uo: 18, mbr_factor: 15, cores: ["single","three"] },
-    "33cu": { label: "33 kV (19/33 kV) — Cu 3-core", Uo: 18, mbr_factor: 15, cores: ["three"] },
-    "66":  { label: "66 kV (38/66 kV) ★",   Uo: 38,  mbr_factor: 15, cores: ["single"] },
-    "110": { label: "110 kV (64/110 kV) ★",  Uo: 64,  mbr_factor: 25, cores: ["single"] },
-    "132": { label: "132 kV (76/132 kV) ★",  Uo: 76,  mbr_factor: 15, cores: ["single"] },
+
+    // =========================
+    // LV
+    // =========================
+    "lv_cu_sc": {
+        label: "0.6/1 kV Cu XLPE single core",
+        display_short: "0.6/1 kV Cu 1c",
+        service_family: "lv",
+        cores: ["single"],
+        conductor_material: "Cu",
+        conductor_shape: "compacted_round"
+    },
+
+    "lv_cu_3c": {
+        label: "0.6/1 kV Cu XLPE 3 core",
+        display_short: "0.6/1 kV Cu 3c",
+        service_family: "lv",
+        cores: ["three"],
+        conductor_material: "Cu",
+        conductor_shape: "sector_stranded",
+        sectorial: true
+    },
+
+    // =========================
+    // BRITISH MV ONLY
+    // =========================
+
+    "uk_11kv_sc": {
+        label: "6.35/11 kV single core XLPE",
+        display_short: "11 kV 1c",
+        service_family: "mv",
+        cores: ["single"],
+        conductor_material: "Al",
+        conductor_shape: "compacted_round",
+        british_system_voltage: "6.35/11 kV",
+        standard_basis: "BS 7870-4.10"
+    },
+
+    "uk_11kv_3c": {
+        label: "6.35/11 kV 3 core XLPE",
+        display_short: "11 kV 3c",
+        service_family: "mv",
+        cores: ["three"],
+        conductor_material: "Cu",
+        conductor_shape: "sector_stranded",
+        british_system_voltage: "6.35/11 kV",
+        standard_basis: "BS 7870-4.10",
+        sectorial: true
+    },
+
+    "uk_33kv_sc": {
+        label: "19/33 kV single core XLPE",
+        display_short: "33 kV 1c",
+        service_family: "mv",
+        cores: ["single"],
+        conductor_material: "Al",
+        conductor_shape: "compacted_round",
+        british_system_voltage: "19/33 kV"
+    },
+
+    "uk_33kv_3c": {
+        label: "19/33 kV 3 core XLPE",
+        display_short: "33 kV 3c",
+        service_family: "mv",
+        cores: ["three"],
+        conductor_material: "Cu",
+        conductor_shape: "sector_stranded",
+        british_system_voltage: "19/33 kV",
+        sectorial: true
+    },
+
+    // =========================
+    // IEC HV — TENNET ALIGNED
+    // =========================
+
+    "iec_110kv_sc": {
+        label: "64/110 kV single core XLPE (IEC 60840 system)",
+        display_short: "110 kV 1c IEC",
+        service_family: "ehv",
+        cores: ["single"],
+        conductor_material: "Al",
+        conductor_shape: "compacted_round",
+        system_type: "IEC 60840",
+        grid_reference: "TenneT typical specification",
+        locked_csa: 630,
+        metallic_screen: 95
+    }
 };
 
-const SC_CSAS_LV  = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
-const TC_CSAS_LV  = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
-const SC_CSAS_STR = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
-const SC_CSAS_FLX = [4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185];
-const SC_CSAS_ATA = [50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630];
-const SC_CSAS_MV  = [35, 50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630];
-const TC_CSAS_MV  = [35, 50, 70, 95, 120, 150, 185, 240, 300, 400];
-const SC_CSAS_HV  = [300, 400, 500, 630, 800, 1000, 1200, 1600, 2000];
+// =========================
+// CSA LOCKING
+// =========================
 
-const SC_CSAS_LV_CU_PWR = [50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630];
-const SC_CSAS_LV_AL_PWR = [50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630];
-const MC2_CSAS_CU_LV    = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400];
-const MC_CSAS_CU_LV     = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400];
-const MC5_CSAS_CU_LV    = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70];
-const MC_CSAS_AL_LV     = [35, 50, 70, 95, 120, 150, 185, 240, 300];
-const MC5_CSAS_AL_LV    = [35, 50, 70, 95, 120, 150, 185, 240];
+const CSA_BY_VOLTAGE_KEY = {
 
-const SC_CSAS = [...new Set([...SC_CSAS_LV, ...SC_CSAS_MV, ...SC_CSAS_HV])];
-const TC_CSAS = TC_CSAS_MV;
+    "lv_cu_sc":  [50, 70, 95, 120, 150, 185, 240, 300],
+    "lv_cu_3c":  [50, 70, 95, 120, 150, 185, 240],
 
-const OD_A = 21.408, OD_B = 1.3736, OD_C = 0.353;
+    "uk_11kv_sc": [70, 95, 120, 150, 185, 240, 300, 400, 500, 630],
+    "uk_11kv_3c": [70, 95, 120, 150, 185, 240, 300],
 
-// Dynamic dropdown map (Connects Service Type to specific cables)
+    "uk_33kv_sc": [95, 120, 150, 185, 240, 300, 400, 500, 630],
+    "uk_33kv_3c": [95, 120, 150, 185, 240, 300],
+
+    "iec_110kv_sc": [630]
+};
+
+// =========================
+// DROPDOWN
+// =========================
+
 const VOLTAGE_DROPDOWN_GROUPS = {
+
     lv: [
         {
-            label: "LV Power — 0.6/1kV XLPE, Cu conductor",
+            label: "Low voltage 0.6/1 kV",
             options: [
-                { value: "lv_cu_sc", text: "0.6/1kV Cu XLPE single core (AWA)" },
-                { value: "lv_cu_2c", text: "0.6/1kV Cu XLPE 2-core SWA" },
-                { value: "lv_cu_3c", text: "0.6/1kV Cu XLPE 3-core SWA" },
-                { value: "lv_cu_4c", text: "0.6/1kV Cu XLPE 4-core SWA" },
-                { value: "lv_cu_5c", text: "0.6/1kV Cu XLPE 5-core SWA" }
-            ]
-        },
-        {
-            label: "LV Power — 0.6/1kV XLPE, Al conductor",
-            options: [
-                { value: "lv_al_sc", text: "0.6/1kV Al XLPE single core (AWA)" },
-                { value: "lv_al_3c", text: "0.6/1kV Al XLPE 3-core SWA" },
-                { value: "lv_al_4c", text: "0.6/1kV Al XLPE 4-core SWA" },
-                { value: "lv_al_5c", text: "0.6/1kV Al XLPE 5-core SWA" }
-            ]
-        },
-        {
-            label: "LV Power — Multicore, fixed installation",
-            options: [
-                { value: "lv3", text: "LV Power 0.6/1kV 3-core" }
+                { value: "lv_cu_sc", text: "0.6/1 kV single core Cu XLPE" },
+                { value: "lv_cu_3c", text: "0.6/1 kV 3 core Cu XLPE (sector conductors)" }
             ]
         }
     ],
+
     mv: [
         {
-            label: "MV XLPE — fixed installation",
+            label: "British medium voltage",
             options: [
-                { value: "6", text: "6 kV (3.6/6 kV)" },
-                { value: "10", text: "10 kV (5.8/10 kV)" },
-                { value: "15", text: "15 kV (8.7/15 kV)" },
-                { value: "20", text: "20 kV (12/20 kV)" },
-                { value: "33", text: "33 kV (19/33 kV) — Al" },
-                { value: "33cu", text: "33 kV (19/33 kV) — Cu 3-core" }
+                { value: "uk_11kv_sc", text: "6.35/11 kV single core XLPE" },
+                { value: "uk_11kv_3c", text: "6.35/11 kV 3 core XLPE (sector conductors)" },
+                { value: "uk_33kv_sc", text: "19/33 kV single core XLPE" },
+                { value: "uk_33kv_3c", text: "19/33 kV 3 core XLPE (sector conductors)" }
             ]
         }
     ],
+
     ehv: [
         {
-            label: "HV XLPE — fixed installation ★ confirmed datasheets",
+            label: "IEC high voltage transmission",
             options: [
-                { value: "66", text: "66 kV (38/66 kV) ★" },
-                { value: "110", text: "110 kV (64/110 kV) ★" },
-                { value: "132", text: "132 kV (76/132 kV) ★" }
-            ]
-        }
-    ],
-    dc: [
-        {
-            label: "Solar PV — DC string (flexible Cu, 1500V DC only)",
-            options: [
-                { value: "pv_string", text: "1500V DC string — BS EN 50618 Class II" }
-            ]
-        },
-        {
-            label: "Solar PV — Flexible screened (Cu screened, fixed/occasional)",
-            options: [
-                { value: "flex_hv_ac", text: "1000/1000V AC — IT system (Uo=1000V ≥ inverter Vac)" },
-                { value: "flex_hv_dc", text: "1500V DC — flexible screened" }
-            ]
-        },
-        {
-            label: "Solar PV — Rigid Al, Al tube armour (non-magnetic, fixed only)",
-            options: [
-                { value: "al_ata_ac", text: "1000/1000V AC — Al tube armour, IT system" },
-                { value: "al_ata_dc", text: "1500/1500V DC — Al tube armour" }
+                { value: "iec_110kv_sc", text: "64/110 kV single core XLPE (IEC 60840, TenneT system)" }
             ]
         }
     ]

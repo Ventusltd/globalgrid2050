@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Geometry Visualiser v1.5.3</title>
+    <title>Geometry Visualiser v1.5.4d.3</title>
     <style>
         :root {
             --bg: #050505;
@@ -492,7 +492,7 @@
                 <strong>Indicative burial depth guidance only</strong><br>
                 Use this for early geometry capture only, not final design advice.
                 <ul>
-                    <li>Primary source for LV to 132kV burial depth guidance in this tool is <a href="https://media.umbraco.io/uk-power-networks/t5bbpsj2/ecs-02-0019-installation-of-underground-cables-lv-to-132kv.pdf" target="_blank" rel="noopener noreferrer">UKPN ECS 02 0019 Installation of Underground Cables LV to 132kV v14.2</a>.</li>
+                    <li>Primary source for LV to 132kV burial depth guidance in this tool is <a href="https://g81.ukpowernetworks.co.uk/library/installation/cables/ecs-02-0019-installation-of-underground-cables-lv-to-132kv" target="_blank" rel="noopener noreferrer">UKPN ECS 02 0019 Installation of Underground Cables LV to 132kV v14.2</a>.</li>
                     <li>For this tool, burial depth should be read as depth to the top of duct or cable as applicable and then verified for the actual installation basis.</li>
                     <li>BS 7671 and ERA 69 30 give thermal rating reference depths, not utility minimum cover requirements. See the official <a href="https://electrical.theiet.org/bs-7671-18th-edition-wiring-regulations/" target="_blank" rel="noopener noreferrer">IET BS 7671 page</a>.</li>
                     <li>Street authority and underground apparatus context should be checked at the official <a href="https://www.gov.uk/government/publications/recording-of-underground-apparatus-in-streets-code-of-practice" target="_blank" rel="noopener noreferrer">GOV.UK underground apparatus code page</a>.</li>
@@ -521,7 +521,7 @@
             <div class="canvas-container">
                 <h3 style="align-self:flex-start; color: #8fd3ff;">Indicative Trench Cross Section</h3>
                 <p class="subtle-note" style="align-self:flex-start;">
-                    Indicative trench size only. In plain English, trench depth shown = burial depth input (cover to top of duct or cable as applicable) plus cable formation depth, and trench width shown = worst case formation envelope width. Subject to civil design validation and not design advice.
+                    Indicative trench size only. Trench depth shown = burial depth input (cover to top of duct or cable as applicable) plus cable formation depth, and trench width shown = worst case formation envelope width. Subject to civil design validation and not design advice.
                 </p>
                 <canvas id="trench_canvas" width="900" height="420" aria-label="Indicative trench cross section visual"></canvas>
             </div>
@@ -688,6 +688,8 @@
             const approxGroupCtcV = inputs.spacing_basis === "centre_to_centre"
                 ? inputs.spacing_v_mm
                 : geom.depth + gapV;
+            const indicativeTrenchWidth = formationWidth;
+            const indicativeTrenchDepth = inputs.burial_depth_mm + formationDepth;
 
             return {
                 rows,
@@ -704,6 +706,8 @@
                 singleCableOuterSweepRadius,
                 approxGroupCtcH,
                 approxGroupCtcV,
+                indicativeTrenchWidth,
+                indicativeTrenchDepth,
                 hasUnevenLastRow: rowCounts.length > 1 && rowCounts[rowCounts.length - 1] !== maxRowCount
             };
         }
@@ -885,7 +889,7 @@
             const ctx = canvas.getContext("2d");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const topInfoHeight = 34;
+            const topInfoHeight = 50;
             const bottomInfoHeight = 26;
             const padding = 34;
             const usableW = canvas.width - padding * 2;
@@ -923,6 +927,7 @@
             ctx.font = "12px monospace";
             ctx.textAlign = "left";
             ctx.fillText(`Worst-case envelope: ${Math.round(layout.formationWidth)} mm x ${Math.round(layout.formationDepth)} mm`, 14, 20);
+            ctx.fillText(`Indicative trench size: ${Math.round(layout.indicativeTrenchWidth)} mm x ${Math.round(layout.indicativeTrenchDepth)} mm`, 14, 36);
             ctx.fillText(`Formation: ${layout.groupNote}`, 14, canvas.height - 10);
             ctx.textAlign = "right";
             ctx.fillStyle = "#9fa8b7";

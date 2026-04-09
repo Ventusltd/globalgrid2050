@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Geometry Visualiser v1.5.4h</title>
+    <title>Geometry Visualiser v1.5.5.4h</title>
     <style>
         :root {
             --bg: #050505;
@@ -339,6 +339,64 @@
             border: 1px solid #666;
         }
 
+        body.drawing-view .panel-left {
+            display: none;
+        }
+
+        body.drawing-view .dashboard {
+            max-width: 100%;
+        }
+
+        body.drawing-view .panel-right {
+            width: 100%;
+        }
+
+        body.drawing-view .canvas-container {
+            padding: 12px;
+        }
+
+        body.drawing-view .subtle-note {
+            margin-bottom: 8px;
+        }
+
+        body.drawing-view .panel-right .canvas-container:not(:nth-child(-n+3)) {
+            display: none;
+        }
+
+        body.drawing-view #formation_canvas,
+        body.drawing-view #trench_canvas,
+        body.drawing-view #bend_canvas {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (orientation: landscape) and (max-width: 1200px) {
+            body.landscape-mobile .panel-left {
+                display: none;
+            }
+
+            body.landscape-mobile .dashboard {
+                max-width: 100%;
+            }
+
+            body.landscape-mobile .panel-right {
+                width: 100%;
+            }
+
+            body.landscape-mobile .panel-right .canvas-container:not(:nth-child(-n+3)) {
+                display: none;
+            }
+
+            body.landscape-mobile .canvas-container {
+                padding: 10px;
+            }
+
+            body.landscape-mobile .subtle-note {
+                margin-bottom: 8px;
+                font-size: 10px;
+            }
+        }
+
         @media (max-width: 1080px) {
             .dashboard { flex-direction: column; }
             .panel-left { width: 100%; }
@@ -464,6 +522,7 @@
             <div class="button-row">
                 <button class="btn" id="export_btn" type="button">Export JSON</button>
                 <button class="btn btn-alt" id="copy_btn" type="button">Copy Snapshot</button>
+                <button class="btn" id="drawing_view_btn" type="button">Drawing View</button>
             </div>
 
             <div class="conflict-box" id="conflict_box" aria-live="polite" hidden>
@@ -1351,6 +1410,21 @@
             });
         }
 
+        function updateViewportMode() {
+            const isLandscapeMobile = window.matchMedia("(orientation: landscape) and (max-width: 1200px)").matches;
+            document.body.classList.toggle("landscape-mobile", isLandscapeMobile);
+        }
+
+        function toggleDrawingView() {
+            const isOn = document.body.classList.toggle("drawing-view");
+            const btn = byId("drawing_view_btn");
+            if (btn) {
+                btn.textContent = isOn ? "Exit Drawing View" : "Drawing View";
+            }
+            updateViewportMode();
+            renderAll();
+        }
+
         function bindEvents() {
             const ids = [
                 "route_name",
@@ -1381,7 +1455,12 @@
 
             byId("export_btn").addEventListener("click", exportJson);
             byId("copy_btn").addEventListener("click", copySnapshot);
-            window.addEventListener("resize", debouncedResize);
+            const drawingBtn = byId("drawing_view_btn");
+            if (drawingBtn) drawingBtn.addEventListener("click", toggleDrawingView);
+            window.addEventListener("resize", debounce(() => {
+                updateViewportMode();
+                renderAll();
+            }, 80));
         }
 
         function init() {
@@ -1390,6 +1469,7 @@
             syncBurialDepthDefault(true);
             normaliseIntegerFields();
             bindEvents();
+            updateViewportMode();
             renderAll();
         }
 

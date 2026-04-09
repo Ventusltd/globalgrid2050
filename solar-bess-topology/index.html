@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Geometry Visualiser</title>
+    <title>Geometry Visualiser v1.5</title>
     <style>
         :root {
             --bg: #050505;
@@ -21,1082 +22,1254 @@
             --warn-bg: rgba(80, 50, 0, 0.18);
             --warn-line: #5a3d00;
             --error: #ff6666;
+            --error-bg: rgba(80, 10, 10, 0.18);
+            --error-line: #5a1f1f;
+            --info: #8fb2d9;
+            --info-bg: rgba(14, 32, 48, 0.28);
+            --info-line: #28455d;
             --input-bg: #111;
             --canvas-bg: #000;
             --shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
 
-        * { box-sizing: border-box; }
+```
+    * { box-sizing: border-box; }
 
-        body {
-            margin: 0;
-            padding: 20px;
-            background: var(--bg);
-            color: var(--text);
-            font-family: "Courier New", monospace;
-            display: flex;
-            justify-content: center;
-        }
+    body {
+        margin: 0;
+        padding: 20px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Courier New", monospace;
+        display: flex;
+        justify-content: center;
+    }
 
-        .dashboard {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            max-width: 1380px;
-            align-items: flex-start;
-        }
+    .dashboard {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        max-width: 1480px;
+        align-items: flex-start;
+    }
 
-        .panel {
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 4px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
+    .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
 
-        .panel-left {
-            width: 410px;
-            flex-shrink: 0;
-        }
+    .panel-left {
+        width: 470px;
+        flex-shrink: 0;
+    }
 
-        .panel-right {
-            flex: 1 1 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+    .panel-right {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 
-        h2 {
-            margin: 0 0 15px 0;
-            color: var(--accent);
-            font-size: 18px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 10px;
-        }
+    h2 {
+        margin: 0 0 15px 0;
+        color: var(--accent);
+        font-size: 18px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 10px;
+    }
 
-        h3 {
-            margin: 0 0 10px 0;
-            color: var(--muted-soft);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    h3 {
+        margin: 0 0 10px 0;
+        color: var(--muted-soft);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-        .section-title {
-            margin-top: 18px;
-        }
+    .section-title { margin-top: 18px; }
 
-        .subtle-note {
-            font-size: 11px;
-            color: #999;
-            line-height: 1.45;
-            margin: 0 0 14px 0;
-        }
+    .subtle-note {
+        font-size: 11px;
+        color: #999;
+        line-height: 1.45;
+        margin: 0 0 14px 0;
+    }
 
-        .warning-box,
-        .status-box {
-            padding: 12px;
-            font-size: 11px;
-            line-height: 1.45;
-            border-radius: 3px;
-        }
+    .warning-box,
+    .status-box,
+    .guidance-box,
+    .assumption-box,
+    .review-box,
+    .conflict-box {
+        padding: 12px;
+        font-size: 11px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
 
-        .warning-box {
-            border: 1px solid var(--warn-line);
-            background: var(--warn-bg);
-            color: var(--warn);
-            margin-bottom: 18px;
-        }
+    .warning-box {
+        border: 1px solid var(--warn-line);
+        background: var(--warn-bg);
+        color: var(--warn);
+        margin-bottom: 18px;
+    }
 
-        .status-box {
-            margin: 0 0 16px 0;
-            border: 1px solid var(--line);
-            background: #090c11;
-            color: var(--muted);
-        }
+    .guidance-box {
+        border: 1px solid #30455a;
+        background: #08101a;
+        color: #bed1e2;
+        margin-top: 16px;
+    }
 
-        .status-box.ok {
-            border-color: rgba(0, 255, 136, 0.35);
-            color: #aef7d1;
-        }
+    .guidance-box strong,
+    .assumption-box strong,
+    .review-box strong,
+    .conflict-box strong { color: #fff; }
 
-        .status-box.warn {
-            border-color: rgba(255, 204, 102, 0.35);
-            color: #ffd98a;
-        }
+    .guidance-box a {
+        color: #8fd3ff;
+        text-decoration: underline;
+    }
 
-        .status-box.error {
-            border-color: rgba(255, 102, 102, 0.35);
-            color: #ffb0b0;
-        }
+    .guidance-box a:hover { color: #c5e7ff; }
 
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 10px;
-            font-size: 12px;
-            color: var(--muted);
-            align-items: center;
-        }
+    .guidance-box ul,
+    .review-box ul,
+    .conflict-box ul,
+    .assumption-box ul {
+        margin: 8px 0 0 18px;
+        padding: 0;
+    }
 
-        .input-group label {
-            flex: 1 1 auto;
-            min-width: 0;
-        }
+    .guidance-box li + li,
+    .review-box li + li,
+    .conflict-box li + li,
+    .assumption-box li + li { margin-top: 4px; }
 
-        .input-group input,
-        .input-group select {
-            width: 165px;
-            background: var(--input-bg);
-            color: var(--accent);
-            border: 1px solid #444;
-            padding: 7px 8px;
-            font-family: monospace;
-            border-radius: 3px;
-        }
+    .assumption-box {
+        margin-top: 16px;
+        border: 1px solid var(--info-line);
+        background: var(--info-bg);
+        color: var(--info);
+    }
 
-        .input-group input[type="number"] {
-            text-align: right;
-        }
+    .review-box {
+        margin-top: 16px;
+        border: 1px solid var(--warn-line);
+        background: var(--warn-bg);
+        color: var(--warn);
+    }
 
-        .input-group input[type="text"] {
-            text-align: left;
-        }
+    .conflict-box {
+        margin-top: 16px;
+        border: 1px solid var(--error-line);
+        background: var(--error-bg);
+        color: #ffb0b0;
+    }
 
-        .input-group input:focus,
-        .input-group select:focus {
-            border-color: var(--accent);
-            outline: none;
-        }
+    .status-box {
+        margin: 0 0 16px 0;
+        border: 1px solid var(--line);
+        background: #090c11;
+        color: var(--muted);
+    }
 
-        .input-group input[disabled] {
-            opacity: 0.55;
-            cursor: not-allowed;
-        }
+    .status-box.ok {
+        border-color: rgba(0, 255, 136, 0.35);
+        color: #aef7d1;
+    }
 
-        .inline-note {
-            margin: -2px 0 10px 0;
-            font-size: 10px;
-            color: var(--muted-soft);
-        }
+    .status-box.warn {
+        border-color: rgba(255, 204, 102, 0.35);
+        color: #ffd98a;
+    }
 
-        .stat-block {
-            margin-top: 18px;
-            border-top: 1px solid var(--line);
-            padding-top: 14px;
-        }
+    .status-box.error {
+        border-color: rgba(255, 102, 102, 0.35);
+        color: #ffb0b0;
+    }
 
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            font-size: 12px;
-            margin-bottom: 8px;
-            color: var(--muted-soft);
-            padding: 4px 0;
-        }
+    .input-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: var(--muted);
+        align-items: center;
+    }
 
-        .stat-val {
-            color: var(--text);
-            font-weight: bold;
-            text-align: right;
-        }
+    .input-group label {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
 
-        .canvas-container {
-            background: var(--panel-soft);
-            border: 1px solid var(--line-soft);
-            border-radius: 4px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .input-group input,
+    .input-group select {
+        width: 190px;
+        background: var(--input-bg);
+        color: var(--accent);
+        border: 1px solid #444;
+        padding: 7px 8px;
+        font-family: monospace;
+        border-radius: 3px;
+    }
 
-        canvas {
-            background: var(--canvas-bg);
-            border: 1px solid #333;
-            box-shadow: var(--shadow);
-            max-width: 100%;
-            width: 100%;
-            height: auto;
-        }
+    .input-group input[type="number"] { text-align: right; }
+    .input-group input[type="text"] { text-align: left; }
 
-        .button-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 14px;
-        }
+    .input-group input:focus,
+    .input-group select:focus {
+        border-color: var(--accent);
+        outline: none;
+    }
 
-        .btn {
-            flex: 1 1 auto;
-            padding: 12px;
-            background: var(--bg);
-            color: var(--ok);
-            border: 1px solid var(--ok);
-            cursor: pointer;
-            font-family: monospace;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 3px;
-            transition: all 0.2s;
-        }
+    .input-group input[disabled] {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
 
-        .btn:hover {
-            background: var(--ok);
-            color: #000;
-        }
+    .inline-note {
+        margin: -2px 0 10px 0;
+        font-size: 10px;
+        color: var(--muted-soft);
+    }
 
-        .btn-alt {
-            color: var(--accent-2);
-            border-color: var(--accent-2);
-        }
+    .stat-block {
+        margin-top: 18px;
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+    }
 
-        .btn-alt:hover {
-            background: var(--accent-2);
-            color: #000;
-        }
+    .stat-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 12px;
+        margin-bottom: 8px;
+        color: var(--muted-soft);
+        padding: 4px 0;
+    }
 
-        .snapshot-box,
-        .issues-box {
-            margin-top: 16px;
-            border: 1px solid var(--line-soft);
-            background: #07090d;
-            padding: 12px;
-            border-radius: 3px;
-            font-size: 11px;
-            color: #cfcfcf;
-            line-height: 1.45;
-        }
+    .stat-val {
+        color: var(--text);
+        font-weight: bold;
+        text-align: right;
+    }
 
-        .snapshot-box {
-            white-space: pre-wrap;
-        }
+    .canvas-container {
+        background: var(--panel-soft);
+        border: 1px solid var(--line-soft);
+        border-radius: 4px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-        .issues-box {
-            padding-left: 18px;
-        }
+    canvas {
+        background: var(--canvas-bg);
+        border: 1px solid #333;
+        box-shadow: var(--shadow);
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+    }
 
-        .issues-box li + li {
-            margin-top: 6px;
-        }
+    .button-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+    }
 
-        .legend {
-            display: flex;
-            gap: 14px;
-            align-self: flex-start;
-            font-size: 11px;
-            color: var(--muted);
-            margin: 0 0 10px 0;
-            flex-wrap: wrap;
-        }
+    .btn {
+        flex: 1 1 auto;
+        padding: 12px;
+        background: var(--bg);
+        color: var(--ok);
+        border: 1px solid var(--ok);
+        cursor: pointer;
+        font-family: monospace;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 3px;
+        transition: all 0.2s;
+    }
 
-        .legend-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
+    .btn:hover { background: var(--ok); color: #000; }
+    .btn-alt { color: var(--accent-2); border-color: var(--accent-2); }
+    .btn-alt:hover { background: var(--accent-2); color: #000; }
 
-        .legend-swatch {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 1px solid #666;
-        }
+    .snapshot-box {
+        margin-top: 16px;
+        border: 1px solid var(--line-soft);
+        background: #07090d;
+        padding: 12px;
+        border-radius: 3px;
+        font-size: 11px;
+        color: #cfcfcf;
+        line-height: 1.45;
+        white-space: pre-wrap;
+    }
 
-        @media (max-width: 1080px) {
-            .dashboard {
-                flex-direction: column;
-            }
+    .legend {
+        display: flex;
+        gap: 14px;
+        align-self: flex-start;
+        font-size: 11px;
+        color: var(--muted);
+        margin: 0 0 10px 0;
+        flex-wrap: wrap;
+    }
 
-            .panel-left {
-                width: 100%;
-            }
-        }
-    </style>
+    .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .legend-swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 1px solid #666;
+    }
+
+    @media (max-width: 1080px) {
+        .dashboard { flex-direction: column; }
+        .panel-left { width: 100%; }
+    }
+</style>
+```
+
 </head>
 <body>
     <div class="dashboard">
         <div class="panel panel-left">
             <h2>Geometry Inputs</h2>
 
-            <div class="warning-box">
-                This tool captures worst case cable formation and bend geometry only.
-                No electrical calculations are performed.
-                No compliance verdict is produced.
-                Group geometry assumes cables within each group are touching unless separately noted.
-            </div>
-
-            <div id="status_box" class="status-box ok">Geometry only. Ready for capture.</div>
-
-            <h3>Route Identity</h3>
-            <div class="input-group">
-                <label for="route_name">Route ID</label>
-                <input type="text" id="route_name" value="M_W3_BESS_to_PCS" />
-            </div>
-            <div class="input-group">
-                <label for="section_length">Worst Case Section Length m</label>
-                <input type="number" id="section_length" value="30" step="1" min="0" />
-            </div>
-
-            <h3 class="section-title">Installation Basis</h3>
-            <div class="input-group">
-                <label for="installation_condition">Installation Condition</label>
-                <select id="installation_condition">
-                    <option value="buried_duct">Buried Duct</option>
-                    <option value="direct_buried">Direct Buried</option>
-                    <option value="open_trough">Open Trough</option>
-                    <option value="free_air">Free Air on Cleats</option>
-                    <option value="metallic_enclosure">Metallic Enclosure</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label for="service_type">Service Type</label>
-                <select id="service_type">
-                    <option value="mv">33kV AC</option>
-                    <option value="lv">LV AC</option>
-                    <option value="dc">DC</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label for="grouping_basis">Grouping Basis</label>
-                <select id="grouping_basis">
-                    <option value="same_circuit">Same Circuit</option>
-                    <option value="same_service">Same Service</option>
-                    <option value="mixed_service">Mixed Service</option>
-                </select>
-            </div>
-
-            <h3 class="section-title">Formation</h3>
-            <div class="input-group">
-                <label for="formation_type">Formation Type</label>
-                <select id="formation_type"></select>
-            </div>
-            <div class="input-group">
-                <label for="circuit_qty">Number of Circuit Groups</label>
-                <input type="number" id="circuit_qty" value="4" step="1" min="1" />
-            </div>
-            <div class="input-group">
-                <label for="max_per_row">Max Groups per Row</label>
-                <input type="number" id="max_per_row" value="2" step="1" min="1" />
-            </div>
-            <div class="input-group">
-                <label for="cable_od">Cable Outer Diameter mm</label>
-                <input type="number" id="cable_od" value="45" step="1" min="1" />
-            </div>
-            <div class="input-group">
-                <label for="spacing_basis">Spacing Basis</label>
-                <select id="spacing_basis">
-                    <option value="clear_gap">Clear Gap</option>
-                    <option value="touching">Touching</option>
-                    <option value="centre_to_centre">Centre to Centre</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label for="spacing_h">Horizontal Spacing mm</label>
-                <input type="number" id="spacing_h" value="150" step="5" min="0" />
-            </div>
-            <div class="input-group">
-                <label for="spacing_v">Vertical Spacing mm</label>
-                <input type="number" id="spacing_v" value="150" step="5" min="0" />
-            </div>
-            <div class="inline-note" id="spacing_note">Spacing inputs are active.</div>
-            <div class="inline-note" id="group_spacing_note">Within group cable spacing is assumed touching.</div>
-            <div class="inline-note" id="bend_limitation_note">Bend output is single cable based and does not represent full formation sweep for multi cable bends.</div>
-
-            <h3 class="section-title">Bend Geometry</h3>
-            <div class="input-group">
-                <label for="bend_factor">Bend Radius x OD</label>
-                <input type="number" id="bend_factor" value="15" step="1" min="1" />
-            </div>
-
-            <div class="stat-block">
-                <div class="stat-row">
-                    <span>Formation Width</span>
-                    <span class="stat-val" id="out_width">0 mm</span>
-                </div>
-                <div class="stat-row">
-                    <span>Formation Depth</span>
-                    <span class="stat-val" id="out_depth">0 mm</span>
-                </div>
-                <div class="stat-row">
-                    <span>Minimum Bend Radius</span>
-                    <span class="stat-val" id="out_mbr" style="color: var(--accent-2);">0 mm</span>
-                </div>
-                <div class="stat-row">
-                    <span>Rows</span>
-                    <span class="stat-val" id="out_rows">0</span>
-                </div>
-                <div class="stat-row">
-                    <span>Clear Gap H</span>
-                    <span class="stat-val" id="out_gap_h">0 mm</span>
-                </div>
-                <div class="stat-row">
-                    <span>Clear Gap V</span>
-                    <span class="stat-val" id="out_gap_v">0 mm</span>
-                </div>
-                <div class="stat-row">
-                    <span>Review Status</span>
-                    <span class="stat-val" id="out_note" style="color: var(--ok);">OK</span>
-                </div>
-            </div>
-
-            <div class="button-row">
-                <button class="btn" id="export_btn" type="button">Export JSON</button>
-                <button class="btn btn-alt" id="copy_btn" type="button">Copy Snapshot</button>
-            </div>
-
-            <ul class="issues-box" id="issues_box"></ul>
-            <div class="snapshot-box" id="snapshot_box"></div>
+```
+        <div class="warning-box">
+            This tool produces indicative geometry records only and must not be used for trench design, duct sizing, burial depth specification, electrical design or any construction document without independent verification by a competent engineer with responsibility for the project.<br>
+            No electrical calculation is performed.<br>
+            No thermal rating is performed.<br>
+            No compliance verdict is produced.<br>
+            No burial depth design advice is produced.<br>
+            The user must verify safety, installation depth, protection, rating and utility compliance with a competent person in accordance with local law, site conditions and the relevant power utility or infrastructure owner requirements.
         </div>
 
-        <div class="panel panel-right">
-            <div class="canvas-container">
-                <h3 style="align-self:flex-start; color: var(--accent);">Worst Case Formation Cross Section</h3>
-                <p class="subtle-note" style="align-self:flex-start;">
-                    Visual envelope of group arrangement, spacing and route capture geometry.
-                </p>
-                <div class="legend">
-                    <span class="legend-item"><span class="legend-swatch" style="background:#b87333;"></span>MV</span>
-                    <span class="legend-item"><span class="legend-swatch" style="background:#666;"></span>LV</span>
-                    <span class="legend-item"><span class="legend-swatch" style="background:#777; border-color: var(--accent-2);"></span>DC</span>
-                </div>
-                <canvas id="formation_canvas" width="900" height="420"></canvas>
-            </div>
+        <div id="status_box" class="status-box ok" aria-live="polite">Geometry only. Ready for capture.</div>
 
-            <div class="canvas-container">
-                <h3 style="align-self:flex-start; color: var(--accent-2);">Worst Case Bend Sweep</h3>
-                <p class="subtle-note" style="align-self:flex-start;">
-                    Centre line bend envelope only. Not a termination or civil detail.
-                </p>
-                <canvas id="bend_canvas" width="900" height="380"></canvas>
-            </div>
+        <h3>Route Identity</h3>
+        <div class="input-group">
+            <label for="route_name">Route ID</label>
+            <input type="text" id="route_name" value="M_W3_BESS_to_PCS" />
+        </div>
+        <div class="input-group">
+            <label for="section_length">Worst Case Section Length m</label>
+            <input type="number" id="section_length" value="30" step="1" min="0" />
+        </div>
+
+        <h3 class="section-title">Installation Basis</h3>
+        <div class="input-group">
+            <label for="installation_condition">Installation Condition</label>
+            <select id="installation_condition">
+                <option value="buried_duct">Buried Duct</option>
+                <option value="direct_buried">Direct Buried</option>
+                <option value="open_trough">Open Trough</option>
+                <option value="free_air">Free Air on Cleats</option>
+                <option value="metallic_enclosure">Metallic Enclosure</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="service_type">Service Type</label>
+            <select id="service_type">
+                <option value="lv" selected>LV AC</option>
+                <option value="mv">33kV AC</option>
+                <option value="ehv">132kV AC</option>
+                <option value="dc">DC</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="grouping_basis">Grouping Basis</label>
+            <select id="grouping_basis">
+                <option value="same_circuit">Same Circuit</option>
+                <option value="same_service">Same Service</option>
+                <option value="mixed_service">Mixed Service</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="burial_depth">Burial Depth mm</label>
+            <input type="number" id="burial_depth" value="900" step="10" min="0" />
+        </div>
+        <div class="inline-note" id="burial_note">Indicative cover or depth input only. Verify with competent person and utility standard.</div>
+
+        <h3 class="section-title">Formation</h3>
+        <div class="input-group">
+            <label for="formation_type">Formation Type</label>
+            <select id="formation_type"></select>
+        </div>
+        <div class="input-group">
+            <label for="circuit_qty">Number of Circuit Groups</label>
+            <input type="number" id="circuit_qty" value="4" step="1" min="1" />
+        </div>
+        <div class="input-group">
+            <label for="max_per_row">Max Groups per Row</label>
+            <input type="number" id="max_per_row" value="2" step="1" min="1" />
+        </div>
+        <div class="input-group">
+            <label for="cable_od">Cable Outer Diameter mm</label>
+            <input type="number" id="cable_od" value="45" step="1" min="1" />
+        </div>
+        <div class="input-group">
+            <label for="spacing_basis">Spacing Basis</label>
+            <select id="spacing_basis">
+                <option value="clear_gap">Clear Gap</option>
+                <option value="touching">Touching</option>
+                <option value="centre_to_centre">Centre to Centre</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="spacing_h">Horizontal Spacing mm</label>
+            <input type="number" id="spacing_h" value="150" step="5" min="0" />
+        </div>
+        <div class="input-group">
+            <label for="spacing_v">Vertical Spacing mm</label>
+            <input type="number" id="spacing_v" value="150" step="5" min="0" />
+        </div>
+        <div class="inline-note" id="spacing_note">Spacing inputs are active.</div>
+
+        <h3 class="section-title">Bend Geometry</h3>
+        <div class="input-group">
+            <label for="bend_factor">Bend Radius x OD</label>
+            <input type="number" id="bend_factor" value="15" step="1" min="1" />
+        </div>
+
+        <div class="stat-block">
+            <div class="stat-row"><span>Formation Width</span><span class="stat-val" id="out_width">0 mm</span></div>
+            <div class="stat-row"><span>Formation Depth</span><span class="stat-val" id="out_depth">0 mm</span></div>
+            <div class="stat-row"><span>Burial Depth Input</span><span class="stat-val" id="out_burial">0 mm</span></div>
+            <div class="stat-row"><span>Applied Bend Radius</span><span class="stat-val" id="out_mbr" style="color: var(--accent-2);">0 mm</span></div>
+            <div class="stat-row"><span>Rows</span><span class="stat-val" id="out_rows">0</span></div>
+            <div class="stat-row"><span>Clear Gap H</span><span class="stat-val" id="out_gap_h">0 mm</span></div>
+            <div class="stat-row"><span>Clear Gap V</span><span class="stat-val" id="out_gap_v">0 mm</span></div>
+            <div class="stat-row"><span>Approx Group CTC H</span><span class="stat-val" id="out_ctc_h">0 mm</span></div>
+            <div class="stat-row"><span>Approx Group CTC V</span><span class="stat-val" id="out_ctc_v">0 mm</span></div>
+            <div class="stat-row"><span>Review Status</span><span class="stat-val" id="out_note" style="color: var(--ok);">OK</span></div>
+        </div>
+
+        <div class="button-row">
+            <button class="btn" id="export_btn" type="button">Export JSON</button>
+            <button class="btn btn-alt" id="copy_btn" type="button">Copy Snapshot</button>
+        </div>
+
+        <div class="conflict-box" id="conflict_box" aria-live="polite" hidden>
+            <strong>Input conflicts</strong>
+            <ul id="conflict_list"></ul>
+        </div>
+
+        <div class="review-box" id="review_box" aria-live="polite" hidden>
+            <strong>Review points</strong>
+            <ul id="review_list"></ul>
+        </div>
+
+        <div class="assumption-box">
+            <strong>Standing assumptions</strong>
+            <ul>
+                <li>Within group cable spacing is assumed touching unless separately modelled.</li>
+                <li>Mixed service visual uses one worst case OD for all shown services and is schematic only.</li>
+                <li>Bend visual shows a single cable body sweep only and does not model full multi cable sweep, trench profile, duct entry, pull path or installation forces.</li>
+                <li>Burial depth is recorded as an indicative input only and is not design advice.</li>
+            </ul>
+        </div>
+
+        <div class="snapshot-box" id="snapshot_box"></div>
+
+        <div class="guidance-box">
+            <strong>Indicative burial depth guidance only</strong><br>
+            Use this for early geometry capture only, not final design advice.
+            <ul>
+                <li>Primary source for LV to 132kV burial depth guidance in this tool is <a href="https://media.umbraco.io/uk-power-networks/t5bbpsj2/ecs-02-0019-installation-of-underground-cables-lv-to-132kv.pdf" target="_blank" rel="noopener noreferrer">UKPN ECS 02 0019 Installation of Underground Cables LV to 132kV v14.2</a>.</li>
+                <li>For this tool, burial depth should be read as depth to the top of duct or cable as applicable and then verified for the actual installation basis.</li>
+                <li>BS 7671 and ERA 69 30 give thermal rating reference depths, not utility minimum cover requirements. See the official <a href="https://electrical.theiet.org/bs-7671-18th-edition-wiring-regulations/" target="_blank" rel="noopener noreferrer">IET BS 7671 page</a>.</li>
+                <li>Street authority and underground apparatus context should be checked at the official <a href="https://www.gov.uk/government/publications/recording-of-underground-apparatus-in-streets-code-of-practice" target="_blank" rel="noopener noreferrer">GOV.UK underground apparatus code page</a>.</li>
+                <li>Street Works UK should be used as coordination context only, not as the source of the burial depth figures in this tool. See the official <a href="https://streetworks.org.uk/resources/publications/" target="_blank" rel="noopener noreferrer">Street Works UK publications page</a>.</li>
+                <li>DC minimum burial depth in this tool is a project default assumption only and has no normative source embedded in this release.</li>
+            </ul>
+            The user must verify safety, cover, backfill, duct arrangement, rating, separation, highway loading and protection with a competent person in accordance with the appropriate local regulation and the relevant power utility, infrastructure owner, highway authority or site designer requirements before use.
         </div>
     </div>
 
-    <script>
-        const FORMATION_LIBRARY = {
-            mv: [
-                { value: "trefoil_single_row", label: "Trefoil Single Row" },
-                { value: "trefoil_two_row", label: "Trefoil Two Row" },
-                { value: "flat_single_row", label: "Flat Single Row" },
-                { value: "flat_two_row", label: "Flat Two Row" },
-                { value: "stacked_two_high", label: "Stacked 2 High" }
+    <div class="panel panel-right">
+        <div class="canvas-container">
+            <h3 style="align-self:flex-start; color: var(--accent);">Worst Case Formation Cross Section</h3>
+            <p class="subtle-note" style="align-self:flex-start;">
+                Visual envelope of group arrangement, spacing and route capture geometry.
+            </p>
+            <div class="legend">
+                <span class="legend-item"><span class="legend-swatch" style="background:#666; border-color:#00ffff;"></span>LV AC</span>
+                <span class="legend-item"><span class="legend-swatch" style="background:#b87333; border-color:#ff5555;"></span>33kV AC</span>
+                <span class="legend-item"><span class="legend-swatch" style="background:#ffd700; border-color:#ff8800;"></span>132kV AC</span>
+                <span class="legend-item"><span class="legend-swatch" style="background:#777; border-color: var(--accent-2);"></span>DC</span>
+            </div>
+            <canvas id="formation_canvas" width="900" height="420" aria-label="Formation cross section visual"></canvas>
+        </div>
+
+        <div class="canvas-container">
+            <h3 style="align-self:flex-start; color: var(--accent-2);">Single Cable Bend Sweep</h3>
+            <p class="subtle-note" style="align-self:flex-start;">
+                Single cable body sweep only. Not multi cable sweep, trench profile, duct entry or civil detail.
+            </p>
+            <canvas id="bend_canvas" width="900" height="380" aria-label="Single cable bend sweep visual"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const DEFAULT_BURIAL_DEPTHS = { lv: 900, mv: 900, ehv: 900, dc: 900 };
+    const MIN_BURIAL_DEPTHS = { lv: 450, mv: 900, ehv: 900, dc: 600 };
+    const FORMATION_LIBRARY = {
+        lv: [
+            { value: "trefoil_single_row", label: "Trefoil Single Row" },
+            { value: "flat_single_row", label: "Flat Single Row" },
+            { value: "stacked_two_high", label: "Stacked 2 High" }
+        ],
+        mv: [
+            { value: "trefoil_single_row", label: "Trefoil Single Row" },
+            { value: "flat_single_row", label: "Flat Single Row" },
+            { value: "stacked_two_high", label: "Stacked 2 High" }
+        ],
+        ehv: [
+            { value: "trefoil_single_row", label: "Trefoil Single Row" },
+            { value: "flat_single_row", label: "Flat Single Row" }
+        ],
+        dc: [
+            { value: "dc_pair_horizontal", label: "DC Pair Horizontal" },
+            { value: "dc_pair_vertical", label: "DC Pair Vertical" }
+        ]
+    };
+
+    const appState = {
+        inputs: null,
+        layout: null,
+        review: null,
+        snapshotText: "",
+        previousSpacing: { h: 150, v: 150 }
+    };
+
+    function byId(id) {
+        return document.getElementById(id);
+    }
+
+    function clampNumber(value, fallback, minValue) {
+        const num = Number(value);
+        if (!Number.isFinite(num)) return fallback;
+        return Math.max(num, minValue);
+    }
+
+    function clampInteger(value, fallback, minValue) {
+        const num = Number(value);
+        if (!Number.isFinite(num)) return fallback;
+        return Math.max(Math.round(num), minValue);
+    }
+
+    function formatMm(value) {
+        return `${Math.round(value)} mm`;
+    }
+
+    function effectiveGap(spacingBasis, spacingValue, cableOD) {
+        if (spacingBasis === "touching") return 0;
+        if (spacingBasis === "centre_to_centre") return Math.max(spacingValue - cableOD, 0);
+        return spacingValue;
+    }
+
+    function normaliseBurialDepthField() {
+        const burial = byId("burial_depth");
+        const serviceType = byId("service_type").value;
+        const minDepth = MIN_BURIAL_DEPTHS[serviceType] || 0;
+        const current = Number(burial.value);
+        const fallback = DEFAULT_BURIAL_DEPTHS[serviceType] || minDepth;
+        const normalised = clampInteger(current, fallback, minDepth);
+        burial.value = String(normalised);
+        burial.min = String(minDepth);
+        return normalised;
+    }
+
+    function normaliseIntegerFields() {
+        [
+            { id: "circuit_qty", fallback: 1, min: 1 },
+            { id: "max_per_row", fallback: 1, min: 1 },
+            { id: "section_length", fallback: 0, min: 0 },
+            { id: "cable_od", fallback: 45, min: 1 },
+            { id: "spacing_h", fallback: appState.previousSpacing.h || 0, min: 0 },
+            { id: "spacing_v", fallback: appState.previousSpacing.v || 0, min: 0 },
+            { id: "bend_factor", fallback: 15, min: 1 }
+        ].forEach(item => {
+            const el = byId(item.id);
+            el.value = String(clampInteger(el.value, item.fallback, item.min));
+        });
+        normaliseBurialDepthField();
+    }
+
+    function getInputs() {
+        const serviceType = byId("service_type").value;
+        return {
+            route_name: byId("route_name").value.trim() || "Unnamed_Route",
+            section_length_m: clampInteger(byId("section_length").value, 0, 0),
+            installation_condition: byId("installation_condition").value,
+            service_type: serviceType,
+            grouping_basis: byId("grouping_basis").value,
+            burial_depth_mm: normaliseBurialDepthField(),
+            formation_type: byId("formation_type").value,
+            circuit_qty: clampInteger(byId("circuit_qty").value, 1, 1),
+            max_per_row: clampInteger(byId("max_per_row").value, 1, 1),
+            cable_od_mm: clampInteger(byId("cable_od").value, 45, 1),
+            spacing_basis: byId("spacing_basis").value,
+            spacing_h_mm: clampInteger(byId("spacing_h").value, appState.previousSpacing.h || 0, 0),
+            spacing_v_mm: clampInteger(byId("spacing_v").value, appState.previousSpacing.v || 0, 0),
+            bend_factor: clampInteger(byId("bend_factor").value, 15, 1)
+        };
+    }
+
+    function getGroupGeometry(inputs) {
+        const d = inputs.cable_od_mm;
+        const sqrt3 = Math.sqrt(3);
+        switch (inputs.formation_type) {
+            case "trefoil_single_row":
+                return { width: d * 2, depth: d * (1 + sqrt3 / 2), drawType: "trefoil", note: "Trefoil circuit groups" };
+            case "flat_single_row":
+                return { width: d * 3, depth: d, drawType: "flat_3", note: "Flat 3 phase circuit groups" };
+            case "stacked_two_high":
+                return { width: d * 3, depth: d * 2, drawType: "stacked_2x3", note: "Stacked 2 high formation" };
+            case "dc_pair_horizontal":
+                return { width: d * 2, depth: d, drawType: "dc_pair_h", note: "DC horizontal pair" };
+            case "dc_pair_vertical":
+                return { width: d, depth: d * 2, drawType: "dc_pair_v", note: "DC vertical pair" };
+            default:
+                return { width: d * 2, depth: d * (1 + sqrt3 / 2), drawType: "trefoil", note: "Trefoil circuit groups" };
+        }
+    }
+
+    function computeLayout(inputs) {
+        const gapH = effectiveGap(inputs.spacing_basis, inputs.spacing_h_mm, inputs.cable_od_mm);
+        const gapV = effectiveGap(inputs.spacing_basis, inputs.spacing_v_mm, inputs.cable_od_mm);
+        const geom = getGroupGeometry(inputs);
+        const perRow = Math.max(1, inputs.max_per_row);
+        const groupCount = Math.max(1, inputs.circuit_qty);
+        const rows = Math.ceil(groupCount / perRow);
+        const rowCounts = [];
+        let remaining = groupCount;
+
+        for (let i = 0; i < rows; i += 1) {
+            const count = Math.min(perRow, remaining);
+            rowCounts.push(count);
+            remaining -= count;
+        }
+
+        const maxRowCount = rowCounts.length ? Math.max(...rowCounts) : 1;
+        const formationWidth = (maxRowCount * geom.width) + (Math.max(maxRowCount - 1, 0) * gapH);
+        const formationDepth = (rows * geom.depth) + (Math.max(rows - 1, 0) * gapV);
+        const appliedBendRadius = inputs.cable_od_mm * inputs.bend_factor;
+        const singleCableOuterSweepRadius = appliedBendRadius + inputs.cable_od_mm / 2;
+        const approxGroupCtcH = inputs.spacing_basis === "centre_to_centre"
+            ? inputs.spacing_h_mm
+            : geom.width + gapH;
+        const approxGroupCtcV = inputs.spacing_basis === "centre_to_centre"
+            ? inputs.spacing_v_mm
+            : geom.depth + gapV;
+
+        return {
+            rows,
+            rowCounts,
+            groupWidth: geom.width,
+            groupDepth: geom.depth,
+            drawType: geom.drawType,
+            groupNote: geom.note,
+            gapH,
+            gapV,
+            formationWidth,
+            formationDepth,
+            appliedBendRadius,
+            singleCableOuterSweepRadius,
+            approxGroupCtcH,
+            approxGroupCtcV,
+            hasUnevenLastRow: rowCounts.length > 1 && rowCounts[rowCounts.length - 1] !== maxRowCount
+        };
+    }
+
+    function buildReview(inputs, layout) {
+        const inputConflicts = [];
+        const reviewPoints = [];
+        const standingAssumptions = [
+            "Within group cable spacing is assumed touching unless separately modelled.",
+            "Mixed service visual uses one worst case OD for all shown services and is schematic only.",
+            "Bend model is a single cable body sweep only.",
+            "Burial depth is recorded as an indicative input only."
+        ];
+
+        if (inputs.grouping_basis === "mixed_service") {
+            reviewPoints.push("Mixed service grouping selected. Visual remains schematic and uses one worst case OD for all shown services.");
+        }
+
+        if (inputs.spacing_basis === "centre_to_centre") {
+            if (inputs.spacing_h_mm <= inputs.cable_od_mm) {
+                inputConflicts.push("Horizontal centre to centre spacing is less than or equal to cable outer diameter. This collapses to touching or overlap risk.");
+            }
+            if (inputs.spacing_v_mm <= inputs.cable_od_mm) {
+                inputConflicts.push("Vertical centre to centre spacing is less than or equal to cable outer diameter. This collapses to touching or overlap risk.");
+            }
+        }
+
+        if (inputs.spacing_basis === "touching" && inputs.grouping_basis !== "same_circuit") {
+            reviewPoints.push("Touching groups outside a single circuit basis should be reviewed.");
+        }
+
+        if (layout.formationWidth >= 3000) {
+            reviewPoints.push("Formation width is at or above 3000 mm and may need corridor review.");
+        }
+
+        if (layout.formationDepth > 2000) {
+            reviewPoints.push("Formation depth is above 2000 mm and may need trench or enclosure review.");
+        }
+
+        if (inputs.burial_depth_mm > 3000) {
+            reviewPoints.push("Burial depth input is unusually deep. Confirm civil, thermal and utility basis.");
+        }
+
+        if (inputs.bend_factor < 12) {
+            reviewPoints.push("Low bend factor entered. Confirm against manufacturer installation data. This is not a generic limit.");
+        }
+
+        if (inputs.service_type === "mv" && inputs.formation_type === "trefoil_single_row" && layout.approxGroupCtcH < (inputs.cable_od_mm * 3)) {
+            reviewPoints.push("33kV trefoil group spacing is tight. Check separation against the relevant rating and installation standard before use.");
+        }
+
+        if (layout.hasUnevenLastRow) {
+            reviewPoints.push("Worst case envelope is based on the fullest row. The final row is shallower or narrower than the plotted maximum envelope.");
+        }
+
+        const worstSeverity = inputConflicts.length ? "error" : reviewPoints.length ? "warn" : "ok";
+        const summary = worstSeverity === "ok"
+            ? "Geometry capture complete. No active conflicts or review points detected."
+            : worstSeverity === "warn"
+                ? "Geometry capture complete with review points."
+                : "Input conflict detected. Review before using output.";
+
+        return { inputConflicts, reviewPoints, standingAssumptions, worstSeverity, summary };
+    }
+
+    function renderStatus(review) {
+        const box = byId("status_box");
+        box.className = `status-box ${review.worstSeverity}`;
+        box.textContent = review.summary;
+    }
+
+    function renderIssues(review) {
+        const conflictBox = byId("conflict_box");
+        const reviewBox = byId("review_box");
+        const conflictList = byId("conflict_list");
+        const reviewList = byId("review_list");
+
+        conflictList.innerHTML = "";
+        reviewList.innerHTML = "";
+
+        if (review.inputConflicts.length) {
+            conflictBox.hidden = false;
+            review.inputConflicts.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = item;
+                conflictList.appendChild(li);
+            });
+        } else {
+            conflictBox.hidden = true;
+        }
+
+        if (review.reviewPoints.length) {
+            reviewBox.hidden = false;
+            review.reviewPoints.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = item;
+                reviewList.appendChild(li);
+            });
+        } else {
+            reviewBox.hidden = true;
+        }
+    }
+
+    function renderStats(layout, review, inputs) {
+        byId("out_width").textContent = formatMm(layout.formationWidth);
+        byId("out_depth").textContent = formatMm(layout.formationDepth);
+        byId("out_burial").textContent = formatMm(inputs.burial_depth_mm);
+        byId("out_mbr").textContent = formatMm(layout.appliedBendRadius);
+        byId("out_rows").textContent = `${layout.rows} row${layout.rows === 1 ? "" : "s"}`;
+        byId("out_gap_h").textContent = formatMm(layout.gapH);
+        byId("out_gap_v").textContent = formatMm(layout.gapV);
+        byId("out_ctc_h").textContent = formatMm(layout.approxGroupCtcH);
+        byId("out_ctc_v").textContent = formatMm(layout.approxGroupCtcV);
+        byId("out_note").textContent = review.worstSeverity.toUpperCase();
+        byId("out_note").style.color = review.worstSeverity === "error" ? "#ff6666" : review.worstSeverity === "warn" ? "#ffcc66" : "#00ff88";
+    }
+
+    function getServiceColours(serviceType) {
+        if (serviceType === "mv") return { fill: "#b87333", stroke: "#ff5555" };
+        if (serviceType === "ehv") return { fill: "#ffd700", stroke: "#ff8800" };
+        if (serviceType === "lv") return { fill: "#666", stroke: "#00ffff" };
+        return { fill: "#777", stroke: "#ff00ff" };
+    }
+
+    function drawGroup(ctx, x, y, d, drawType, serviceType, scale) {
+        const r = d / 2;
+        const colours = getServiceColours(serviceType);
+        function drawCable(cx, cy, cableFill, cableStroke) {
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.fillStyle = cableFill;
+            ctx.fill();
+            ctx.strokeStyle = cableStroke;
+            ctx.lineWidth = 2 / scale;
+            ctx.stroke();
+        }
+
+        if (drawType === "trefoil") {
+            const h = d * (1 + Math.sqrt(3) / 2);
+            drawCable(x + r, y + h - r, colours.fill, colours.stroke);
+            drawCable(x + d + r, y + h - r, colours.fill, colours.stroke);
+            drawCable(x + d, y + r, colours.fill, colours.stroke);
+            return;
+        }
+
+        if (drawType === "flat_3") {
+            drawCable(x + r, y + r, colours.fill, colours.stroke);
+            drawCable(x + d + r, y + r, colours.fill, colours.stroke);
+            drawCable(x + (2 * d) + r, y + r, colours.fill, colours.stroke);
+            return;
+        }
+
+        if (drawType === "stacked_2x3") {
+            drawCable(x + r, y + r, colours.fill, colours.stroke);
+            drawCable(x + d + r, y + r, colours.fill, colours.stroke);
+            drawCable(x + (2 * d) + r, y + r, colours.fill, colours.stroke);
+            drawCable(x + r, y + d + r, colours.fill, colours.stroke);
+            drawCable(x + d + r, y + d + r, colours.fill, colours.stroke);
+            drawCable(x + (2 * d) + r, y + d + r, colours.fill, colours.stroke);
+            return;
+        }
+
+        if (drawType === "dc_pair_h") {
+            drawCable(x + r, y + r, "#555", "#ff00ff");
+            drawCable(x + d + r, y + r, "#777", "#ff00ff");
+            return;
+        }
+
+        if (drawType === "dc_pair_v") {
+            drawCable(x + r, y + r, "#555", "#ff00ff");
+            drawCable(x + r, y + d + r, "#777", "#ff00ff");
+        }
+    }
+
+    function drawFormation(inputs, layout, review) {
+        const canvas = byId("formation_canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const topInfoHeight = 34;
+        const bottomInfoHeight = 26;
+        const padding = 34;
+        const usableW = canvas.width - padding * 2;
+        const usableH = canvas.height - padding * 2 - topInfoHeight - bottomInfoHeight;
+        const scaleX = usableW / Math.max(layout.formationWidth, 1);
+        const scaleY = usableH / Math.max(layout.formationDepth, 1);
+        const scale = Math.min(scaleX, scaleY);
+        const drawingWidth = layout.formationWidth * scale;
+        const drawingHeight = layout.formationDepth * scale;
+        const offsetX = (canvas.width - drawingWidth) / 2;
+        const offsetY = topInfoHeight + ((usableH - drawingHeight) / 2) + 12;
+
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(scale, scale);
+        ctx.fillStyle = "#11161f";
+        ctx.fillRect(0, 0, layout.formationWidth, layout.formationDepth);
+        ctx.strokeStyle = review.worstSeverity === "error" ? "#ff6666" : "#444";
+        ctx.lineWidth = 3 / scale;
+        ctx.strokeRect(0, 0, layout.formationWidth, layout.formationDepth);
+
+        let y = 0;
+        for (let rowIndex = 0; rowIndex < layout.rowCounts.length; rowIndex += 1) {
+            const count = layout.rowCounts[rowIndex];
+            let x = 0;
+            for (let i = 0; i < count; i += 1) {
+                drawGroup(ctx, x, y, inputs.cable_od_mm, layout.drawType, inputs.service_type, scale);
+                x += layout.groupWidth + layout.gapH;
+            }
+            y += layout.groupDepth + layout.gapV;
+        }
+        ctx.restore();
+
+        ctx.fillStyle = "#00ffff";
+        ctx.font = "12px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText(`Worst-case envelope: ${Math.round(layout.formationWidth)} mm x ${Math.round(layout.formationDepth)} mm`, 14, 20);
+        ctx.fillText(`Formation: ${layout.groupNote}`, 14, canvas.height - 10);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#9fa8b7";
+        ctx.fillText(`Rows: ${layout.rows}  |  Gap H: ${Math.round(layout.gapH)} mm  |  Gap V: ${Math.round(layout.gapV)} mm`, canvas.width - 14, 20);
+        canvas.setAttribute("aria-label", `Worst case formation envelope showing ${layout.rows} rows. Width ${Math.round(layout.formationWidth)} millimetres. Depth ${Math.round(layout.formationDepth)} millimetres.`);
+    }
+
+    function drawBend(inputs, layout) {
+        const canvas = byId("bend_canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const padding = 40;
+        const radius = layout.appliedBendRadius;
+        const outerRadius = layout.singleCableOuterSweepRadius;
+        const usableW = canvas.width - padding * 2;
+        const usableH = canvas.height - padding * 2;
+        const scaleX = usableW / Math.max(outerRadius * 2.4, 1);
+        const scaleY = usableH / Math.max(outerRadius * 1.9, 1);
+        const scale = Math.min(scaleX, scaleY);
+        const cableThickness = Math.max(inputs.cable_od_mm * scale, 2);
+        const xOrigin = Math.max(radius * scale * 0.95, canvas.width * 0.28);
+        const straightLead = Math.max(radius * scale * 0.8, canvas.width * 0.24);
+        const topLead = Math.max(radius * scale * 0.45, 90);
+
+        ctx.save();
+        ctx.translate(xOrigin, canvas.height - padding);
+        ctx.fillStyle = "#111";
+        ctx.fillRect(-straightLead, -cableThickness / 2, straightLead, cableThickness);
+
+        ctx.beginPath();
+        ctx.arc(0, -radius * scale, radius * scale, Math.PI / 2, 0, true);
+        ctx.strokeStyle = "#00ffff";
+        ctx.lineWidth = cableThickness;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(radius * scale, -radius * scale);
+        ctx.lineTo(radius * scale, -radius * scale - topLead);
+        ctx.strokeStyle = "#00ffff";
+        ctx.lineWidth = cableThickness;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(0, -radius * scale, radius * scale, 0, Math.PI / 2, false);
+        ctx.strokeStyle = "#ff00ff";
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([5, 5]);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(0, -radius * scale, outerRadius * scale, Math.PI / 2, 0, true);
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([7, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = "#ff00ff";
+        ctx.textAlign = "left";
+        ctx.font = "12px monospace";
+        ctx.fillText(`Applied bend radius = ${Math.round(radius)} mm`, radius * scale * 0.2, -radius * scale * 0.52);
+        ctx.fillStyle = "#9fa8b7";
+        ctx.fillText(`Single cable outer sweep = ${Math.round(outerRadius)} mm`, radius * scale * 0.2, -radius * scale * 0.38);
+        ctx.restore();
+
+        ctx.fillStyle = "#00ffff";
+        ctx.font = "12px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText(`Cable OD: ${Math.round(inputs.cable_od_mm)} mm`, 14, 18);
+        ctx.fillText(`Bend factor: ${Math.round(inputs.bend_factor)} x OD`, 14, 34);
+        ctx.fillText(`Burial depth input: ${Math.round(inputs.burial_depth_mm)} mm`, 14, 50);
+        canvas.setAttribute("aria-label", `Single cable bend sweep. Applied bend radius ${Math.round(radius)} millimetres. Single cable outer sweep ${Math.round(outerRadius)} millimetres.`);
+    }
+
+    function buildSnapshot(inputs, layout, review) {
+        const snapshot = {
+            captured_at: new Date().toISOString(),
+            schema_version: "1.5.2",
+            tool_scope: "Worst case cable formation, indicative burial depth and single cable bend geometry capture only",
+            assumptions: {
+                within_group_cable_spacing: "touching",
+                bend_model_basis: "single_cable_body_sweep_only",
+                burial_depth_basis: "user_input_guidance_only_not_design_advice",
+                mixed_service_visual_basis: "single_worst_case_od_for_all_services"
+            },
+            calculations_performed: false,
+            not_for_construction: true,
+            route_id: inputs.route_name,
+            inputs: {
+                worst_case_section_length_m: inputs.section_length_m,
+                installation_condition: inputs.installation_condition,
+                service_type: inputs.service_type,
+                grouping_basis: inputs.grouping_basis,
+                burial_depth_mm: inputs.burial_depth_mm,
+                formation_type: inputs.formation_type,
+                number_of_circuit_groups: inputs.circuit_qty,
+                max_groups_per_row: inputs.max_per_row,
+                cable_outer_diameter_mm: inputs.cable_od_mm,
+                spacing_basis: inputs.spacing_basis,
+                horizontal_spacing_input_mm: inputs.spacing_h_mm,
+                vertical_spacing_input_mm: inputs.spacing_v_mm,
+                bend_factor_x_od: inputs.bend_factor
+            },
+            derived_geometry: {
+                effective_horizontal_clear_gap_mm: layout.gapH,
+                effective_vertical_clear_gap_mm: layout.gapV,
+                approx_horizontal_group_ctc_mm: layout.approxGroupCtcH,
+                approx_vertical_group_ctc_mm: layout.approxGroupCtcV,
+                group_count_rows: layout.rows,
+                row_group_counts: layout.rowCounts,
+                group_geometry_note: layout.groupNote,
+                worst_case_formation_width_mm: layout.formationWidth,
+                worst_case_formation_depth_mm: layout.formationDepth,
+                applied_bend_radius_mm: layout.appliedBendRadius,
+                single_cable_outer_sweep_radius_mm: layout.singleCableOuterSweepRadius
+            },
+            outside_scope: [
+                "thermal rating and derating",
+                "ambient and soil correction factors",
+                "pulling tension and installation forces",
+                "duct entry and trench profile design",
+                "utility compliance check",
+                "highway loading and civil protection design",
+                "joint bay and termination geometry",
+                "full multi cable bend sweep"
             ],
-            lv: [
-                { value: "trefoil_single_row", label: "Trefoil Single Row" },
-                { value: "trefoil_two_row", label: "Trefoil Two Row" },
-                { value: "flat_single_row", label: "Flat Single Row" },
-                { value: "flat_two_row", label: "Flat Two Row" },
-                { value: "stacked_two_high", label: "Stacked 2 High" }
-            ],
-            dc: [
-                { value: "dc_pair_horizontal", label: "DC Pair Horizontal" },
-                { value: "dc_pair_vertical", label: "DC Pair Vertical" }
-            ]
+            reliance_statement: "Indicative geometry only. Must be independently verified by a competent engineer before use in any design, specification or construction document.",
+            disclaimer: {
+                design_advice: false,
+                safety_verification_required: true,
+                verification_route: "competent_person_plus_local_regulation_plus_power_utility_requirement"
+            },
+            review: {
+                status: review.worstSeverity,
+                input_conflicts: review.inputConflicts,
+                review_points: review.reviewPoints,
+                standing_assumptions: review.standingAssumptions
+            }
         };
 
-        const appState = {
-            inputs: null,
-            layout: null,
-            review: null,
-            snapshotText: ""
+        appState.snapshotText = JSON.stringify(snapshot, null, 4);
+        byId("snapshot_box").textContent = appState.snapshotText;
+    }
+
+    function exportJson() {
+        if (!appState.snapshotText) return;
+        const fileNameBase = (byId("route_name").value.trim() || "geometry_capture").replace(/[^a-z0-9_]/gi, "_");
+        const blob = new Blob([appState.snapshotText], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${fileNameBase}_geometry_capture_NOT_FOR_CONSTRUCTION.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    async function copySnapshot() {
+        const button = byId("copy_btn");
+        if (!appState.snapshotText) return;
+        try {
+            await navigator.clipboard.writeText(appState.snapshotText);
+            button.textContent = "Copied";
+            setTimeout(() => { button.textContent = "Copy Snapshot"; }, 1000);
+        } catch (error) {
+            button.textContent = "Copy Failed";
+            setTimeout(() => { button.textContent = "Copy Snapshot"; }, 1200);
+        }
+    }
+
+    function populateFormationOptions(serviceType, preferredValue) {
+        const select = byId("formation_type");
+        const options = FORMATION_LIBRARY[serviceType] || FORMATION_LIBRARY.lv;
+        select.innerHTML = "";
+        options.forEach(option => {
+            const node = document.createElement("option");
+            node.value = option.value;
+            node.textContent = option.label;
+            select.appendChild(node);
+        });
+        const isAllowed = options.some(option => option.value === preferredValue);
+        select.value = isAllowed ? preferredValue : options[0].value;
+    }
+
+    function syncSpacingInputs() {
+        const basis = byId("spacing_basis").value;
+        const touching = basis === "touching";
+        const h = byId("spacing_h");
+        const v = byId("spacing_v");
+        const note = byId("spacing_note");
+
+        if (!touching) {
+            const hVal = Number(h.value);
+            const vVal = Number(v.value);
+            if (Number.isFinite(hVal) && hVal > 0) appState.previousSpacing.h = hVal;
+            if (Number.isFinite(vVal) && vVal > 0) appState.previousSpacing.v = vVal;
+        }
+
+        h.disabled = touching;
+        v.disabled = touching;
+
+        if (touching) {
+            h.value = 0;
+            v.value = 0;
+            note.textContent = "Touching selected. Spacing inputs are locked to zero clear gap.";
+            return;
+        }
+
+        if (Number(h.value) === 0 && appState.previousSpacing.h > 0) h.value = appState.previousSpacing.h;
+        if (Number(v.value) === 0 && appState.previousSpacing.v > 0) v.value = appState.previousSpacing.v;
+
+        if (basis === "centre_to_centre") {
+            note.textContent = "Centre to centre selected. Clear gap is derived by subtracting cable outer diameter.";
+            return;
+        }
+
+        note.textContent = "Clear gap selected. Enter direct clear spacing between group envelopes.";
+    }
+
+    function syncBurialDepthDefault(force = false) {
+        const serviceType = byId("service_type").value;
+        const burial = byId("burial_depth");
+        const note = byId("burial_note");
+        const defaultDepth = DEFAULT_BURIAL_DEPTHS[serviceType] || 900;
+        const minDepth = MIN_BURIAL_DEPTHS[serviceType] || 0;
+        burial.min = String(minDepth);
+
+        if (force || !Number.isFinite(Number(burial.value)) || burial.value === "") {
+            burial.value = String(defaultDepth);
+        }
+        const shownDepth = normaliseBurialDepthField();
+
+        if (serviceType === "lv") {
+            note.textContent = `Default input = 900 mm. Minimum allowed guidance value for LV AC = ${minDepth} mm under UKPN ECS 02 0019 footway or private property guidance. Verify locally.`;
+        } else if (serviceType === "mv") {
+            note.textContent = `Default input = 900 mm. Minimum allowed guidance value for 33kV AC = ${minDepth} mm under UKPN ECS 02 0019 footway or private property guidance. Verify locally.`;
+        } else if (serviceType === "ehv") {
+            note.textContent = `Default input = 900 mm. Minimum allowed guidance value for 132kV AC = ${minDepth} mm under UKPN ECS 02 0019 footway or private property guidance. Verify locally.`;
+        } else {
+            note.textContent = `Default input = 900 mm. Minimum allowed guidance value for DC = ${minDepth} mm. This DC minimum is a project assumption only and not a normative standard value in this release.`;
+        }
+        return shownDepth;
+    }
+
+    function renderAll() {
+        const inputs = getInputs();
+        const layout = computeLayout(inputs);
+        const review = buildReview(inputs, layout);
+        appState.inputs = inputs;
+        appState.layout = layout;
+        appState.review = review;
+        renderStatus(review);
+        renderIssues(review);
+        renderStats(layout, review, inputs);
+        drawFormation(inputs, layout, review);
+        drawBend(inputs, layout);
+        buildSnapshot(inputs, layout, review);
+    }
+
+    function debounce(fn, delay) {
+        let timer = null;
+        return function (...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn.apply(this, args), delay);
         };
+    }
 
-        function byId(id) {
-            return document.getElementById(id);
+    const debouncedRenderAll = debounce(renderAll, 80);
+    const debouncedResize = debounce(renderAll, 120);
+
+    function handleInput(event) {
+        const id = event.target.id;
+        if (id === "service_type") {
+            populateFormationOptions(byId("service_type").value, byId("formation_type").value);
+            syncBurialDepthDefault(true);
         }
-
-        function clampNumber(value, fallback, minValue) {
-            const num = Number(value);
-            if (!Number.isFinite(num)) return fallback;
-            return Math.max(num, minValue);
-        }
-
-        function formatMm(value) {
-            return `${Math.round(value)} mm`;
-        }
-
-        function getInputs() {
-            return {
-                route_name: byId("route_name").value.trim() || "Unnamed_Route",
-                section_length_m: clampNumber(byId("section_length").value, 0, 0),
-                installation_condition: byId("installation_condition").value,
-                service_type: byId("service_type").value,
-                grouping_basis: byId("grouping_basis").value,
-                formation_type: byId("formation_type").value,
-                circuit_qty: clampNumber(byId("circuit_qty").value, 1, 1),
-                max_per_row: clampNumber(byId("max_per_row").value, 1, 1),
-                cable_od_mm: clampNumber(byId("cable_od").value, 45, 1),
-                spacing_basis: byId("spacing_basis").value,
-                spacing_h_mm: clampNumber(byId("spacing_h").value, 0, 0),
-                spacing_v_mm: clampNumber(byId("spacing_v").value, 0, 0),
-                bend_factor: clampNumber(byId("bend_factor").value, 15, 1)
-            };
-        }
-
-        function effectiveGap(spacingBasis, spacingValue, cableOD) {
-            if (spacingBasis === "touching") return 0;
-            if (spacingBasis === "centre_to_centre") return Math.max(spacingValue - cableOD, 0);
-            return spacingValue;
-        }
-
-        function getGroupGeometry(inputs) {
-            const d = inputs.cable_od_mm;
-            const sqrt3 = Math.sqrt(3);
-
-            switch (inputs.formation_type) {
-                case "trefoil_single_row":
-                case "trefoil_two_row":
-                    return {
-                        width: d * 2,
-                        depth: d * (1 + sqrt3 / 2),
-                        drawType: "trefoil",
-                        note: "Trefoil circuit groups"
-                    };
-
-                case "flat_single_row":
-                case "flat_two_row":
-                    return {
-                        width: d * 3,
-                        depth: d,
-                        drawType: "flat_3",
-                        note: "Flat 3 phase circuit groups"
-                    };
-
-                case "stacked_two_high":
-                    return {
-                        width: d * 3,
-                        depth: d * 2,
-                        drawType: "stacked_2x3",
-                        note: "Stacked 2 high formation"
-                    };
-
-                case "dc_pair_horizontal":
-                    return {
-                        width: d * 2,
-                        depth: d,
-                        drawType: "dc_pair_h",
-                        note: "DC horizontal pair"
-                    };
-
-                case "dc_pair_vertical":
-                    return {
-                        width: d,
-                        depth: d * 2,
-                        drawType: "dc_pair_v",
-                        note: "DC vertical pair"
-                    };
-
-                default:
-                    return {
-                        width: d * 2,
-                        depth: d * (1 + sqrt3 / 2),
-                        drawType: "trefoil",
-                        note: "Trefoil circuit groups"
-                    };
-            }
-        }
-
-        function computeLayout(inputs) {
-            const gapH = effectiveGap(inputs.spacing_basis, inputs.spacing_h_mm, inputs.cable_od_mm);
-            const gapV = effectiveGap(inputs.spacing_basis, inputs.spacing_v_mm, inputs.cable_od_mm);
-            const geom = getGroupGeometry(inputs);
-            const perRow = Math.max(1, Math.floor(inputs.max_per_row));
-            const rows = Math.ceil(inputs.circuit_qty / perRow);
-
-            const rowCounts = [];
-            let remaining = inputs.circuit_qty;
-            for (let i = 0; i < rows; i += 1) {
-                const count = Math.min(perRow, remaining);
-                rowCounts.push(count);
-                remaining -= count;
-            }
-
-            const maxRowCount = rowCounts.length ? Math.max(...rowCounts) : 0;
-            const formationWidth = (maxRowCount * geom.width) + (Math.max(maxRowCount - 1, 0) * gapH);
-            const formationDepth = (rows * geom.depth) + (Math.max(rows - 1, 0) * gapV);
-            const bendRadius = inputs.cable_od_mm * inputs.bend_factor;
-            const bendOuterRadius = bendRadius + inputs.cable_od_mm / 2;
-
-            return {
-                rows,
-                rowCounts,
-                groupWidth: geom.width,
-                groupDepth: geom.depth,
-                drawType: geom.drawType,
-                groupNote: geom.note,
-                gapH,
-                gapV,
-                formationWidth,
-                formationDepth,
-                bendRadius,
-                bendOuterRadius
-            };
-        }
-
-        function buildReview(inputs, layout) {
-            const issues = [];
-
-            if (inputs.grouping_basis === "mixed_service") {
-                issues.push({ severity: "warn", text: "Mixed service grouping needs manual engineering review." });
-            }
-
-            if (inputs.spacing_basis === "centre_to_centre") {
-                if (inputs.spacing_h_mm < inputs.cable_od_mm) {
-                    issues.push({ severity: "error", text: "Horizontal centre to centre spacing is less than cable outer diameter." });
-                }
-                if (inputs.spacing_v_mm < inputs.cable_od_mm) {
-                    issues.push({ severity: "error", text: "Vertical centre to centre spacing is less than cable outer diameter." });
-                }
-            }
-
-            if (inputs.spacing_basis === "touching" && inputs.grouping_basis !== "same_circuit") {
-                issues.push({ severity: "warn", text: "Touching groups outside a single circuit basis should be reviewed." });
-            }
-
-            if (inputs.max_per_row > inputs.circuit_qty) {
-                issues.push({ severity: "warn", text: "Max groups per row is greater than total groups. Layout collapses to a single row." });
-            }
-
-            if (layout.formationWidth > 3000) {
-                issues.push({ severity: "warn", text: "Formation width is large and may need corridor review." });
-            }
-
-            if (layout.formationDepth > 2000) {
-                issues.push({ severity: "warn", text: "Formation depth is large and may need trench or enclosure review." });
-            }
-
-            if (inputs.bend_factor < 12) {
-                issues.push({ severity: "warn", text: "Low bend factor entered. Confirm against manufacturer installation data. This is not a generic limit." });
-            }
-
-            if (inputs.formation_type.includes("trefoil") || inputs.formation_type.includes("flat") || inputs.formation_type === "stacked_two_high") {
-                issues.push({ severity: "warn", text: "Group dimensions assume touching cables within each group. Internal phase spacing is not modelled." });
-            }
-
-            if (inputs.circuit_qty > 1) {
-                issues.push({ severity: "warn", text: "Bend output is based on a single cable radius and does not model differing radii across a full multi cable formation." });
-            }
-
-            const worstSeverity = issues.some(i => i.severity === "error")
-                ? "error"
-                : issues.some(i => i.severity === "warn")
-                    ? "warn"
-                    : "ok";
-
-            const summary = worstSeverity === "ok"
-                ? "Geometry only. No obvious input conflict detected."
-                : worstSeverity === "warn"
-                    ? "Geometry capture complete with review points."
-                    : "Input conflict detected. Review before using output.";
-
-            return { issues, worstSeverity, summary };
-        }
-
-        function renderStatus(review) {
-            const box = byId("status_box");
-            box.className = `status-box ${review.worstSeverity}`;
-            box.textContent = review.summary;
-        }
-
-        function renderIssues(review) {
-            const box = byId("issues_box");
-            box.innerHTML = "";
-
-            if (!review.issues.length) {
-                const li = document.createElement("li");
-                li.textContent = "No geometry review issues detected.";
-                box.appendChild(li);
-                return;
-            }
-
-            review.issues.forEach(issue => {
-                const li = document.createElement("li");
-                li.textContent = `${issue.severity.toUpperCase()}: ${issue.text}`;
-                li.style.color = issue.severity === "error" ? "#ffb0b0" : "#ffd98a";
-                box.appendChild(li);
-            });
-        }
-
-        function renderStats(layout, review) {
-            byId("out_width").textContent = formatMm(layout.formationWidth);
-            byId("out_depth").textContent = formatMm(layout.formationDepth);
-            byId("out_mbr").textContent = formatMm(layout.bendRadius);
-            byId("out_rows").textContent = `${layout.rows} row${layout.rows === 1 ? "" : "s"}`;
-            byId("out_gap_h").textContent = formatMm(layout.gapH);
-            byId("out_gap_v").textContent = formatMm(layout.gapV);
-            byId("out_note").textContent = review.worstSeverity.toUpperCase();
-            byId("out_note").style.color = review.worstSeverity === "error"
-                ? "#ff6666"
-                : review.worstSeverity === "warn"
-                    ? "#ffcc66"
-                    : "#00ff88";
-        }
-
-        function drawFormation(inputs, layout, review) {
-            const canvas = byId("formation_canvas");
-            const ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const topInfoHeight = 34;
-            const bottomInfoHeight = 26;
-            const padding = 34;
-            const usableW = canvas.width - padding * 2;
-            const usableH = canvas.height - padding * 2 - topInfoHeight - bottomInfoHeight;
-
-            const scaleX = usableW / Math.max(layout.formationWidth, 1);
-            const scaleY = usableH / Math.max(layout.formationDepth, 1);
-            const scale = Math.min(scaleX, scaleY);
-
-            const drawingWidth = layout.formationWidth * scale;
-            const drawingHeight = layout.formationDepth * scale;
-            const offsetX = (canvas.width - drawingWidth) / 2;
-            const offsetY = topInfoHeight + ((usableH - drawingHeight) / 2) + 12;
-
-            ctx.save();
-            ctx.translate(offsetX, offsetY);
-            ctx.scale(scale, scale);
-
-            ctx.fillStyle = "#11161f";
-            ctx.fillRect(0, 0, layout.formationWidth, layout.formationDepth);
-
-            ctx.strokeStyle = review.worstSeverity === "error" ? "#ff6666" : "#444";
-            ctx.lineWidth = 3 / scale;
-            ctx.strokeRect(0, 0, layout.formationWidth, layout.formationDepth);
-
-            let y = 0;
-            for (let rowIndex = 0; rowIndex < layout.rowCounts.length; rowIndex += 1) {
-                const count = layout.rowCounts[rowIndex];
-                let x = 0;
-
-                for (let i = 0; i < count; i += 1) {
-                    drawGroup(ctx, x, y, inputs.cable_od_mm, layout.drawType, inputs.service_type, scale);
-                    x += layout.groupWidth + layout.gapH;
-                }
-
-                y += layout.groupDepth + layout.gapV;
-            }
-
-            ctx.restore();
-
-            ctx.fillStyle = "#00ffff";
-            ctx.font = "12px monospace";
-            ctx.textAlign = "left";
-            ctx.fillText(`Envelope: ${Math.round(layout.formationWidth)} mm x ${Math.round(layout.formationDepth)} mm`, 14, 20);
-            ctx.fillText(`Formation: ${layout.groupNote}`, 14, canvas.height - 10);
-
-            ctx.textAlign = "right";
-            ctx.fillStyle = "#9fa8b7";
-            ctx.fillText(`Rows: ${layout.rows}  |  Gap H: ${Math.round(layout.gapH)} mm  |  Gap V: ${Math.round(layout.gapV)} mm`, canvas.width - 14, 20);
-        }
-
-        function drawGroup(ctx, x, y, d, drawType, serviceType, scale) {
-            const r = d / 2;
-            const fill = serviceType === "mv" ? "#b87333" : serviceType === "lv" ? "#666" : "#777";
-            const stroke = serviceType === "mv" ? "#ff5555" : serviceType === "lv" ? "#00ffff" : "#ff00ff";
-
-            function drawCable(cx, cy, cableFill, cableStroke) {
-                ctx.beginPath();
-                ctx.arc(cx, cy, r, 0, Math.PI * 2);
-                ctx.fillStyle = cableFill;
-                ctx.fill();
-                ctx.strokeStyle = cableStroke;
-                ctx.lineWidth = 2 / scale;
-                ctx.stroke();
-            }
-
-            if (drawType === "trefoil") {
-                const h = d * (1 + Math.sqrt(3) / 2);
-                drawCable(x + r, y + h - r, fill, stroke);
-                drawCable(x + d + r, y + h - r, fill, stroke);
-                drawCable(x + d, y + r, fill, stroke);
-                return;
-            }
-
-            if (drawType === "flat_3") {
-                drawCable(x + r, y + r, fill, stroke);
-                drawCable(x + d + r, y + r, fill, stroke);
-                drawCable(x + (2 * d) + r, y + r, fill, stroke);
-                return;
-            }
-
-            if (drawType === "stacked_2x3") {
-                drawCable(x + r, y + r, fill, stroke);
-                drawCable(x + d + r, y + r, fill, stroke);
-                drawCable(x + (2 * d) + r, y + r, fill, stroke);
-                drawCable(x + r, y + d + r, fill, stroke);
-                drawCable(x + d + r, y + d + r, fill, stroke);
-                drawCable(x + (2 * d) + r, y + d + r, fill, stroke);
-                return;
-            }
-
-            if (drawType === "dc_pair_h") {
-                drawCable(x + r, y + r, "#555", "#ff00ff");
-                drawCable(x + d + r, y + r, "#777", "#ff00ff");
-                return;
-            }
-
-            if (drawType === "dc_pair_v") {
-                drawCable(x + r, y + r, "#555", "#ff00ff");
-                drawCable(x + r, y + d + r, "#777", "#ff00ff");
-            }
-        }
-
-        function drawBend(inputs, layout) {
-            const canvas = byId("bend_canvas");
-            const ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const padding = 40;
-            const radius = layout.bendRadius;
-            const outerRadius = layout.bendOuterRadius;
-            const usableW = canvas.width - padding * 2;
-            const usableH = canvas.height - padding * 2;
-            const scaleX = usableW / Math.max(outerRadius * 2.4, 1);
-            const scaleY = usableH / Math.max(outerRadius * 1.9, 1);
-            const scale = Math.min(scaleX, scaleY);
-            const cableThickness = Math.max(inputs.cable_od_mm * scale, 2);
-
-            ctx.save();
-            ctx.translate(canvas.width * 0.28, canvas.height - padding);
-
-            ctx.fillStyle = "#111";
-            ctx.fillRect(-canvas.width * 0.24, -cableThickness / 2, canvas.width * 0.24, cableThickness);
-
-            ctx.beginPath();
-            ctx.arc(0, -radius * scale, radius * scale, Math.PI / 2, 0, true);
-            ctx.strokeStyle = "#00ffff";
-            ctx.lineWidth = cableThickness;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.moveTo(radius * scale, -radius * scale);
-            ctx.lineTo(radius * scale, -radius * scale - 90);
-            ctx.strokeStyle = "#00ffff";
-            ctx.lineWidth = cableThickness;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(0, -radius * scale, radius * scale, 0, Math.PI / 2, false);
-            ctx.strokeStyle = "#ff00ff";
-            ctx.lineWidth = 1.5;
-            ctx.setLineDash([5, 5]);
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(0, -radius * scale, outerRadius * scale, Math.PI / 2, 0, true);
-            ctx.strokeStyle = "#666";
-            ctx.lineWidth = 1;
-            ctx.setLineDash([7, 4]);
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            ctx.fillStyle = "#ff00ff";
-            ctx.textAlign = "left";
-            ctx.font = "12px monospace";
-            ctx.fillText(`Centre line bend radius = ${Math.round(radius)} mm`, radius * scale * 0.2, -radius * scale * 0.52);
-            ctx.fillStyle = "#9fa8b7";
-            ctx.fillText(`Outer sweep radius = ${Math.round(outerRadius)} mm`, radius * scale * 0.2, -radius * scale * 0.38);
-
-            ctx.restore();
-
-            ctx.fillStyle = "#00ffff";
-            ctx.font = "12px monospace";
-            ctx.textAlign = "left";
-            ctx.fillText(`Cable OD: ${Math.round(inputs.cable_od_mm)} mm`, 14, 18);
-            ctx.fillText(`Bend factor: ${Math.round(inputs.bend_factor)} x OD`, 14, 34);
-        }
-
-        function buildSnapshot(inputs, layout, review) {
-            const snapshot = {
-                captured_at: new Date().toISOString(),
-                schema_version: "1.2",
-                tool_scope: "Worst case cable formation and bend geometry capture only",
-                assumptions: {
-                    within_group_cable_spacing: "touching",
-                    bend_model_basis: "single_cable_radius_only"
-                },
-                calculations_performed: false,
-                route_id: inputs.route_name,
-                inputs: {
-                    worst_case_section_length_m: inputs.section_length_m,
-                    installation_condition: inputs.installation_condition,
-                    service_type: inputs.service_type,
-                    grouping_basis: inputs.grouping_basis,
-                    formation_type: inputs.formation_type,
-                    number_of_circuit_groups: inputs.circuit_qty,
-                    max_groups_per_row: inputs.max_per_row,
-                    cable_outer_diameter_mm: inputs.cable_od_mm,
-                    spacing_basis: inputs.spacing_basis,
-                    horizontal_spacing_input_mm: inputs.spacing_h_mm,
-                    vertical_spacing_input_mm: inputs.spacing_v_mm,
-                    bend_factor_x_od: inputs.bend_factor
-                },
-                derived_geometry: {
-                    effective_horizontal_clear_gap_mm: layout.gapH,
-                    effective_vertical_clear_gap_mm: layout.gapV,
-                    group_count_rows: layout.rows,
-                    row_group_counts: layout.rowCounts,
-                    group_geometry_note: layout.groupNote,
-                    worst_case_formation_width_mm: layout.formationWidth,
-                    worst_case_formation_depth_mm: layout.formationDepth,
-                    minimum_bend_radius_mm: layout.bendRadius,
-                    bend_outer_sweep_radius_mm: layout.bendOuterRadius
-                },
-                review: {
-                    status: review.worstSeverity,
-                    summary: review.summary,
-                    issues: review.issues
-                }
-            };
-
-            appState.snapshotText = JSON.stringify(snapshot, null, 4);
-            byId("snapshot_box").textContent = appState.snapshotText;
-        }
-
-        function exportJson() {
-            const fileNameBase = (byId("route_name").value.trim() || "geometry_capture")
-                .replace(/[^a-z0-9_]/gi, "_");
-
-            const blob = new Blob([appState.snapshotText], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `${fileNameBase}_geometry_capture.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        async function copySnapshot() {
-            const button = byId("copy_btn");
-            try {
-                await navigator.clipboard.writeText(appState.snapshotText);
-                button.textContent = "Copied";
-                setTimeout(() => {
-                    button.textContent = "Copy Snapshot";
-                }, 1000);
-            } catch (error) {
-                button.textContent = "Copy Failed";
-                setTimeout(() => {
-                    button.textContent = "Copy Snapshot";
-                }, 1200);
-            }
-        }
-
-        function populateFormationOptions(serviceType, preferredValue) {
-            const select = byId("formation_type");
-            const options = FORMATION_LIBRARY[serviceType] || FORMATION_LIBRARY.mv;
-            select.innerHTML = "";
-
-            options.forEach(option => {
-                const node = document.createElement("option");
-                node.value = option.value;
-                node.textContent = option.label;
-                select.appendChild(node);
-            });
-
-            const isAllowed = options.some(option => option.value === preferredValue);
-            select.value = isAllowed ? preferredValue : options[0].value;
-        }
-
-        function syncSpacingInputs() {
-            const basis = byId("spacing_basis").value;
-            const touching = basis === "touching";
-            const h = byId("spacing_h");
-            const v = byId("spacing_v");
-            const note = byId("spacing_note");
-
-            h.disabled = touching;
-            v.disabled = touching;
-
-            if (touching) {
-                h.value = 0;
-                v.value = 0;
-                note.textContent = "Touching selected. Spacing inputs are locked to zero clear gap.";
-                return;
-            }
-
-            if (basis === "centre_to_centre") {
-                note.textContent = "Centre to centre selected. Clear gap is derived by subtracting cable outer diameter.";
-                return;
-            }
-
-            note.textContent = "Clear gap selected. Enter direct clear spacing between group envelopes.";
-        }
-
-        function renderAll() {
-            const inputs = getInputs();
-            const layout = computeLayout(inputs);
-            const review = buildReview(inputs, layout);
-
-            appState.inputs = inputs;
-            appState.layout = layout;
-            appState.review = review;
-
-            renderStatus(review);
-            renderIssues(review);
-            renderStats(layout, review);
-            drawFormation(inputs, layout, review);
-            drawBend(inputs, layout);
-            buildSnapshot(inputs, layout, review);
-        }
-
-        function bindEvents() {
-            const controls = [
-                "route_name",
-                "section_length",
-                "installation_condition",
-                "service_type",
-                "grouping_basis",
-                "formation_type",
-                "circuit_qty",
-                "max_per_row",
-                "cable_od",
-                "spacing_basis",
-                "spacing_h",
-                "spacing_v",
-                "bend_factor"
-            ];
-
-            controls.forEach(id => {
-                const element = byId(id);
-                element.addEventListener("input", handleControlChange);
-                element.addEventListener("change", handleControlChange);
-            });
-
-            byId("export_btn").addEventListener("click", exportJson);
-            byId("copy_btn").addEventListener("click", copySnapshot);
-            window.addEventListener("resize", renderAll);
-        }
-
-        function handleControlChange(event) {
-            const id = event.target.id;
-
-            if (id === "service_type") {
-                populateFormationOptions(byId("service_type").value, byId("formation_type").value);
-            }
-
-            if (id === "spacing_basis") {
-                syncSpacingInputs();
-            }
-
-            renderAll();
-        }
-
-        function init() {
-            populateFormationOptions(byId("service_type").value, "trefoil_single_row");
+        if (id === "spacing_basis") {
             syncSpacingInputs();
-            bindEvents();
+        }
+        if (id === "burial_depth") {
+            normaliseBurialDepthField();
+        }
+        debouncedRenderAll();
+    }
+
+    function handleChange(event) {
+        const id = event.target.id;
+        if (id === "service_type") {
+            populateFormationOptions(byId("service_type").value, byId("formation_type").value);
+            syncBurialDepthDefault(true);
+        }
+        if (id === "spacing_basis") {
+            syncSpacingInputs();
+        }
+        if (id === "burial_depth") {
+            normaliseBurialDepthField();
+        }
+        renderAll();
+    }
+
+    function handleBlur(event) {
+        if (["section_length", "circuit_qty", "max_per_row", "cable_od", "spacing_h", "spacing_v", "bend_factor", "burial_depth"].includes(event.target.id)) {
+            normaliseIntegerFields();
             renderAll();
         }
+    }
 
-        init();
-    </script>
+    function bindEvents() {
+        const ids = [
+            "route_name",
+            "section_length",
+            "installation_condition",
+            "service_type",
+            "grouping_basis",
+            "burial_depth",
+            "formation_type",
+            "circuit_qty",
+            "max_per_row",
+            "cable_od",
+            "spacing_basis",
+            "spacing_h",
+            "spacing_v",
+            "bend_factor"
+        ];
+
+        ids.forEach(id => {
+            const element = byId(id);
+            if (element.tagName === "SELECT") {
+                element.addEventListener("change", handleChange);
+            } else {
+                element.addEventListener("input", handleInput);
+                element.addEventListener("blur", handleBlur);
+            }
+        });
+
+        byId("export_btn").addEventListener("click", exportJson);
+        byId("copy_btn").addEventListener("click", copySnapshot);
+        window.addEventListener("resize", debouncedResize);
+    }
+
+    function init() {
+        populateFormationOptions(byId("service_type").value, "trefoil_single_row");
+        syncSpacingInputs();
+        syncBurialDepthDefault(true);
+        normaliseIntegerFields();
+        bindEvents();
+        renderAll();
+    }
+
+    init();
+</script>
+```
+
 </body>
 </html>

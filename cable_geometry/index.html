@@ -538,7 +538,7 @@
                 <strong>Indicative burial depth guidance only</strong><br>
                 Use this for early geometry capture only, not final design advice.
                 <ul>
-                    <li>Primary source for LV to 132kV burial depth guidance in this tool is <a href="https://g81.ukpowernetworks.co.uk/library/installation/cables/ecs-02-0019-installation-of-underground-cables-lv-to-132kv" target="_blank" rel="noopener noreferrer">UKPN ECS 02 0019 Installation of Underground Cables LV to 132kV v14.2</a>.</li>
+                    <li>Primary source for LV to 132kV burial depth guidance in this tool is based on generic UK utility standards.</li>
                     <li>For this tool, burial depth should be read as depth to the top of duct or cable as applicable and then verified for the actual installation basis.</li>
                     <li>BS 7671 and ERA 69 30 give thermal rating reference depths, not utility minimum cover requirements. See the official <a href="https://electrical.theiet.org/bs-7671-18th-edition-wiring-regulations/" target="_blank" rel="noopener noreferrer">IET BS 7671 page</a>.</li>
                     <li>Street authority and underground apparatus context should be checked at the official <a href="https://www.gov.uk/government/publications/recording-of-underground-apparatus-in-streets-code-of-practice" target="_blank" rel="noopener noreferrer">GOV.UK underground apparatus code page</a>.</li>
@@ -1312,7 +1312,7 @@
         const labels = { lv: "LV AC", mv: "33kV AC", ehv: "132kV AC", dc: "DC" };
         const src    = serviceType === "dc"
             ? "Project assumption only — no normative source in this release."
-            : "UKPN ECS 02 0019 footway/private. Verify locally.";
+            : "Utility footway/private. Verify locally.";
         note.textContent = `Default = ${defaultDepth} mm. Guidance min for ${labels[serviceType] || serviceType} = ${minDepth} mm. ${src}`;
     }
 
@@ -1374,9 +1374,9 @@
 
         if (vk === "33cu" && !isThree) {
             sel.innerHTML = '<option value="">Three core only for this category</option>';
-            noteEl.innerHTML = "<strong>33 kV Cu 3-core:</strong> This entry is for three-core copper conductor cables only (N2XSEY / YXC8V-R). " +
+            noteEl.innerHTML = "<strong>33 kV Cu 3-core:</strong> This entry is for three-core copper conductor cables only. " +
                 "For single-core 33 kV entries use the <em>33 kV (19/33 kV) — Al</em> category (which also uses the model for single-core). " +
-                "ODs from HES Power Cable Catalogue, IEC 60502-2 / VDE 0276-620.";
+                "ODs from generic power cable catalogue, IEC 60502-2 / VDE 0276-620.";
             return;
         }
 
@@ -1405,16 +1405,16 @@
                 "Steel wire armour must NEVER be used on single-core AC cables (eddy current losses). " +
                 "MBR = 12× OD — rigid, fixed installation only. Direct burial capable. " +
                 "Uo=1000V — correct for 800V IT inverter systems. " +
-                "TÜV Rheinland 2PfG2642/11.17 approved. Confirm with manufacturer.";
+                "Confirm with manufacturer.";
         } else if (vk === "al_ata_dc") {
             noteEl.innerHTML = "<strong>Rigid Al solar — 1500/1500V DC (Um=1800V), aluminium tube armour.</strong> " +
                 "Same cable as the 1000/1000V AC version — compacted Al class 2, XLPE, halogen-free. " +
                 "Aluminium tube armour, non-magnetic. MBR = 12× OD — rigid, fixed installation only. " +
-                "Direct burial capable. TÜV Rheinland 2PfG2642/11.17 approved. Confirm with manufacturer.";
+                "Direct burial capable. Confirm with manufacturer.";
         } else if (vk === "33cu") {
-            noteEl.innerHTML = "<strong>33 kV Cu 3-core unarmoured (N2XSEY).</strong> " +
+            noteEl.innerHTML = "<strong>33 kV Cu 3-core unarmoured.</strong> " +
                 "Stranded Cu conductor, XLPE insulation, copper screen, PVC outer jacket. " +
-                "ODs from HES KABLO Power Cable Catalogue, IEC 60502-2 / VDE 0276-620. " +
+                "ODs from generic power cable catalogue, IEC 60502-2 / VDE 0276-620. " +
                 "MBR = 15× OD. Fixed installation. Confirm with cable manufacturer.";
         }
 
@@ -1488,7 +1488,7 @@
                 `Steel wire armour must never be used on single-core AC cables. ` +
                 `Rigid fixed installation only — no occasional-move rating. Confirm with manufacturer.`;
         } else if (vk === "33cu") {
-            noteEl.innerHTML = `<strong>33 kV Cu 3-core (N2XSEY) — ${csa}mm²:</strong> OD = ${result.od}mm. ` +
+            noteEl.innerHTML = `<strong>33 kV Cu 3-core unarmoured — ${csa}mm²:</strong> OD = ${result.od}mm. ` +
                 `Fixed installation MBR = ${result.mbr}mm (15× OD)${srcTag}. ` +
                 `IEC 60502-2 / VDE 0276-620. Fixed installation only. Confirm with manufacturer.`;
         } else if (["lv_cu_sc","lv_al_sc","lv_cu_2c","lv_cu_3c","lv_cu_4c","lv_cu_5c",

@@ -76,3 +76,79 @@ const SC_CSAS = [...new Set([...SC_CSAS_LV, ...SC_CSAS_MV, ...SC_CSAS_HV])];
 const TC_CSAS = TC_CSAS_MV;
 
 const OD_A = 21.408, OD_B = 1.3736, OD_C = 0.353;
+
+// Dynamic dropdown map (Connects Service Type to specific cables)
+const VOLTAGE_DROPDOWN_GROUPS = {
+    lv: [
+        {
+            label: "LV Power — 0.6/1kV XLPE, Cu conductor",
+            options: [
+                { value: "lv_cu_sc", text: "0.6/1kV Cu XLPE single core (AWA)" },
+                { value: "lv_cu_2c", text: "0.6/1kV Cu XLPE 2-core SWA" },
+                { value: "lv_cu_3c", text: "0.6/1kV Cu XLPE 3-core SWA" },
+                { value: "lv_cu_4c", text: "0.6/1kV Cu XLPE 4-core SWA" },
+                { value: "lv_cu_5c", text: "0.6/1kV Cu XLPE 5-core SWA" }
+            ]
+        },
+        {
+            label: "LV Power — 0.6/1kV XLPE, Al conductor",
+            options: [
+                { value: "lv_al_sc", text: "0.6/1kV Al XLPE single core (AWA)" },
+                { value: "lv_al_3c", text: "0.6/1kV Al XLPE 3-core SWA" },
+                { value: "lv_al_4c", text: "0.6/1kV Al XLPE 4-core SWA" },
+                { value: "lv_al_5c", text: "0.6/1kV Al XLPE 5-core SWA" }
+            ]
+        },
+        {
+            label: "LV Power — Multicore, fixed installation",
+            options: [
+                { value: "lv3", text: "LV Power 0.6/1kV 3-core" }
+            ]
+        }
+    ],
+    mv: [
+        {
+            label: "MV XLPE — fixed installation",
+            options: [
+                { value: "6", text: "6 kV (3.6/6 kV)" },
+                { value: "10", text: "10 kV (5.8/10 kV)" },
+                { value: "15", text: "15 kV (8.7/15 kV)" },
+                { value: "20", text: "20 kV (12/20 kV)" },
+                { value: "33", text: "33 kV (19/33 kV) — Al" },
+                { value: "33cu", text: "33 kV (19/33 kV) — Cu 3-core" }
+            ]
+        }
+    ],
+    ehv: [
+        {
+            label: "HV XLPE — fixed installation ★ confirmed datasheets",
+            options: [
+                { value: "66", text: "66 kV (38/66 kV) ★" },
+                { value: "110", text: "110 kV (64/110 kV) ★" },
+                { value: "132", text: "132 kV (76/132 kV) ★" }
+            ]
+        }
+    ],
+    dc: [
+        {
+            label: "Solar PV — DC string (flexible Cu, 1500V DC only)",
+            options: [
+                { value: "pv_string", text: "1500V DC string — BS EN 50618 Class II" }
+            ]
+        },
+        {
+            label: "Solar PV — Flexible screened (Cu screened, fixed/occasional)",
+            options: [
+                { value: "flex_hv_ac", text: "1000/1000V AC — IT system (Uo=1000V ≥ inverter Vac)" },
+                { value: "flex_hv_dc", text: "1500V DC — flexible screened" }
+            ]
+        },
+        {
+            label: "Solar PV — Rigid Al, Al tube armour (non-magnetic, fixed only)",
+            options: [
+                { value: "al_ata_ac", text: "1000/1000V AC — Al tube armour, IT system" },
+                { value: "al_ata_dc", text: "1500/1500V DC — Al tube armour" }
+            ]
+        }
+    ]
+};

@@ -594,6 +594,17 @@
             return spacingValue;
         }
 
+        function getBurialDepthInputValue() {
+            const burial = byId("burial_depth");
+            const serviceType = byId("service_type").value;
+            const minDepth = MIN_BURIAL_DEPTHS[serviceType] || 0;
+            const fallback = DEFAULT_BURIAL_DEPTHS[serviceType] || minDepth;
+            const current = Number(burial.value);
+            burial.min = String(minDepth);
+            if (!Number.isFinite(current)) return fallback;
+            return Math.max(Math.round(current), 0);
+        }
+
         function normaliseBurialDepthField() {
             const burial = byId("burial_depth");
             const serviceType = byId("service_type").value;
@@ -630,7 +641,7 @@
                 installation_condition: byId("installation_condition").value,
                 service_type: serviceType,
                 grouping_basis: byId("grouping_basis").value,
-                burial_depth_mm: normaliseBurialDepthField(),
+                burial_depth_mm: getBurialDepthInputValue(),
                 formation_type: byId("formation_type").value,
                 circuit_qty: clampInteger(byId("circuit_qty").value, 1, 1),
                 max_per_row: clampInteger(byId("max_per_row").value, 1, 1),
@@ -926,8 +937,8 @@
             ctx.fillStyle = "#00ffff";
             ctx.font = "12px monospace";
             ctx.textAlign = "left";
-            ctx.fillText(`Worst-case envelope width = ${Math.round(layout.formationWidth)} mm  |  depth = ${Math.round(layout.formationDepth)} mm`, 14, 20);
-            ctx.fillText(`Indicative trench width = same as envelope width = ${Math.round(layout.indicativeTrenchWidth)} mm`, 14, 36);
+            ctx.fillText(`Worst-case envelope width = ${Math.round(layout.formationWidth)} mm  |  envelope depth = ${Math.round(layout.formationDepth)} mm`, 14, 20);
+            ctx.fillText(`Indicative trench width = ${Math.round(layout.indicativeTrenchWidth)} mm  |  indicative trench depth = ${Math.round(layout.indicativeTrenchDepth)} mm`, 14, 36);
             ctx.fillText(`Formation: ${layout.groupNote}`, 14, canvas.height - 10);
             ctx.textAlign = "right";
             ctx.fillStyle = "#9fa8b7";
@@ -1290,9 +1301,6 @@
             }
             if (id === "spacing_basis") {
                 syncSpacingInputs();
-            }
-            if (id === "burial_depth") {
-                normaliseBurialDepthField();
             }
             debouncedRenderAll();
         }

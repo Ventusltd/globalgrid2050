@@ -507,7 +507,7 @@
             <div class="canvas-container">
                 <h3 style="align-self:flex-start; color: var(--accent);">Worst Case Formation Cross Section</h3>
                 <p class="subtle-note" style="align-self:flex-start;">
-                    Visual envelope of group arrangement, spacing and route capture geometry.
+                    Visual cable group box only. Width = the horizontal size of the contained cable formation shown. Depth = the vertical size of the contained cable formation shown.
                 </p>
                 <div class="legend">
                     <span class="legend-item"><span class="legend-swatch" style="background:#666; border-color:#00ffff;"></span>LV AC</span>
@@ -521,7 +521,7 @@
             <div class="canvas-container">
                 <h3 style="align-self:flex-start; color: #8fd3ff;">Indicative Trench Cross Section</h3>
                 <p class="subtle-note" style="align-self:flex-start;">
-                    Indicative trench size only. Trench depth shown = burial depth input (cover to top of duct or cable as applicable) plus cable formation depth, and trench width shown = worst case formation envelope width. Subject to civil design validation and not design advice.
+                    Indicative trench size only. Trench width shown = worst case formation envelope width, so this is the same horizontal cable box width shown above and does not include side clearance, bedding or duct outside diameter. Trench depth shown = burial depth input (cover to top of duct or cable as applicable) plus cable formation depth. Subject to civil design validation and not design advice. Civil works still need full trench design, including bedding, side clearance, cover boards, warning tape, duct OD, backfill build up, shoring, tolerance and buildability review.
                 </p>
                 <canvas id="trench_canvas" width="900" height="420" aria-label="Indicative trench cross section visual"></canvas>
             </div>
@@ -926,12 +926,22 @@
             ctx.fillStyle = "#00ffff";
             ctx.font = "12px monospace";
             ctx.textAlign = "left";
-            ctx.fillText(`Worst-case envelope: ${Math.round(layout.formationWidth)} mm x ${Math.round(layout.formationDepth)} mm`, 14, 20);
-            ctx.fillText(`Indicative trench size: ${Math.round(layout.indicativeTrenchWidth)} mm x ${Math.round(layout.indicativeTrenchDepth)} mm`, 14, 36);
+            ctx.fillText(`Worst-case envelope width = ${Math.round(layout.formationWidth)} mm  |  depth = ${Math.round(layout.formationDepth)} mm`, 14, 20);
+            ctx.fillText(`Indicative trench width = same as envelope width = ${Math.round(layout.indicativeTrenchWidth)} mm`, 14, 36);
             ctx.fillText(`Formation: ${layout.groupNote}`, 14, canvas.height - 10);
             ctx.textAlign = "right";
             ctx.fillStyle = "#9fa8b7";
             ctx.fillText(`Rows: ${layout.rows}  |  Gap H: ${Math.round(layout.gapH)} mm  |  Gap V: ${Math.round(layout.gapV)} mm`, canvas.width - 14, 20);
+
+            ctx.fillStyle = "#8fd3ff";
+            ctx.textAlign = "center";
+            ctx.fillText(`WIDTH`, offsetX + drawingWidth / 2, offsetY + drawingHeight + 18);
+            ctx.save();
+            ctx.translate(offsetX + drawingWidth + 18, offsetY + drawingHeight / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(`DEPTH`, 0, 0);
+            ctx.restore();
+
             canvas.setAttribute("aria-label", `Worst case formation envelope showing ${layout.rows} rows. Width ${Math.round(layout.formationWidth)} millimetres. Depth ${Math.round(layout.formationDepth)} millimetres.`);
         }
 
@@ -996,10 +1006,11 @@
             ctx.font = "12px monospace";
             ctx.textAlign = "left";
             ctx.fillText(`Ground line`, padding, trenchY - 10);
-            ctx.fillText(`Burial depth input to top of envelope = ${Math.round(inputs.burial_depth_mm)} mm`, padding, burialY - 8);
-            ctx.fillText(`Indicative trench width = ${Math.round(layout.indicativeTrenchWidth)} mm`, padding, canvas.height - 18);
+            ctx.fillText(`Burial depth input to top of cable box = ${Math.round(inputs.burial_depth_mm)} mm`, padding, burialY - 8);
+            ctx.fillText(`Trench width shown = cable box width only = ${Math.round(layout.indicativeTrenchWidth)} mm`, padding, canvas.height - 34);
+            ctx.fillText(`Civil design still to add bedding, side clearance, duct OD and build-up`, padding, canvas.height - 18);
             ctx.textAlign = "right";
-            ctx.fillText(`Indicative trench depth = ${Math.round(layout.indicativeTrenchDepth)} mm`, canvas.width - padding, canvas.height - 18);
+            ctx.fillText(`Indicative trench depth = burial depth + cable box depth = ${Math.round(layout.indicativeTrenchDepth)} mm`, canvas.width - padding, canvas.height - 18);
 
             canvas.setAttribute("aria-label", `Indicative trench cross section. Width ${Math.round(layout.indicativeTrenchWidth)} millimetres. Depth ${Math.round(layout.indicativeTrenchDepth)} millimetres. Burial depth input ${Math.round(inputs.burial_depth_mm)} millimetres.`);
         }

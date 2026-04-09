@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cable Geometry Visualiser v1.5.18</title>
+    <style>
+        /* ... existing styles remain unchanged ... */
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        </div>
+
+<script src="cable-data.js"></script>
+
+<script>
+    /* ── The data constants are no longer here ── */
+
+    function lookupOD(voltageKey, csaMm2, isThreeCore) {
+        // 33kV Cu three-core: dedicated key prefix, no single-core option
+        if (voltageKey === "33cu") {
+            if (!isThreeCore) return null;
+            const key = "3c_cu18_" + csaMm2;
+            if (OD_CONFIRMED[key]) return { ...OD_CONFIRMED[key], estimated: false };
+            return null;
+        }
+
+        // ... rest of your existing application functions remain exactly the same ...
 

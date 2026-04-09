@@ -1,5 +1,26 @@
-// Merge the separated databases into one master object
 const OD_CONFIRMED = { ...OD_LV, ...OD_MV_HV, ...OD_SOLAR };
+
+function populateVoltageOptions() {
+    const serviceType = byId("service_type").value;
+    const sel = byId("lookup_voltage");
+    sel.innerHTML = '<option value="">— manual OD entry —</option>';
+
+    const groups = VOLTAGE_DROPDOWN_GROUPS[serviceType] || [];
+    groups.forEach(group => {
+        const optgroup = document.createElement("optgroup");
+        optgroup.label = group.label;
+        group.options.forEach(optData => {
+            const opt = document.createElement("option");
+            opt.value = optData.value;
+            opt.textContent = optData.text;
+            optgroup.appendChild(opt);
+        });
+        sel.appendChild(optgroup);
+    });
+
+    populateLookupCSA();
+    applyLookup();
+}
 
 function lookupOD(voltageKey, csaMm2, isThreeCore) {
     if (voltageKey === "33cu") {
@@ -974,6 +995,7 @@ function handleInput(event) {
     const id = event.target.id;
     if (id === "service_type") {
         populateFormationOptions(byId("service_type").value, byId("formation_type").value);
+        populateVoltageOptions();
         syncBurialDepthNote(true);
     }
     if (id === "spacing_basis" || id === "circuit_qty") syncSpacingInputs();
@@ -984,6 +1006,7 @@ function handleChange(event) {
     const id = event.target.id;
     if (id === "service_type") {
         populateFormationOptions(byId("service_type").value, byId("formation_type").value);
+        populateVoltageOptions();
         syncBurialDepthNote(true);
     }
     if (id === "spacing_basis" || id === "circuit_qty") syncSpacingInputs();
@@ -1054,6 +1077,7 @@ function bindEvents() {
 
 function init() {
     populateFormationOptions(byId("service_type").value, "trefoil_single_row");
+    populateVoltageOptions();
     syncSpacingInputs();
     syncBurialDepthNote(true);
     normaliseIntegerFields();

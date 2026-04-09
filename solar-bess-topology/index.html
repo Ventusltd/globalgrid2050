@@ -32,561 +32,556 @@
             --shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
 
-```
-    * { box-sizing: border-box; }
+        * { box-sizing: border-box; }
 
-    body {
-        margin: 0;
-        padding: 20px;
-        background: var(--bg);
-        color: var(--text);
-        font-family: "Courier New", monospace;
-        display: flex;
-        justify-content: center;
-    }
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Courier New", monospace;
+            display: flex;
+            justify-content: center;
+        }
 
-    .dashboard {
-        display: flex;
-        gap: 20px;
-        width: 100%;
-        max-width: 1480px;
-        align-items: flex-start;
-    }
+        .dashboard {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1480px;
+            align-items: flex-start;
+        }
 
-    .panel {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 4px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-    }
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .panel-left {
-        width: 470px;
-        flex-shrink: 0;
-    }
+        .panel-left {
+            width: 470px;
+            flex-shrink: 0;
+        }
 
-    .panel-right {
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+        .panel-right {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    h2 {
-        margin: 0 0 15px 0;
-        color: var(--accent);
-        font-size: 18px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        border-bottom: 1px solid var(--line);
-        padding-bottom: 10px;
-    }
+        h2 {
+            margin: 0 0 15px 0;
+            color: var(--accent);
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 10px;
+        }
 
-    h3 {
-        margin: 0 0 10px 0;
-        color: var(--muted-soft);
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+        h3 {
+            margin: 0 0 10px 0;
+            color: var(--muted-soft);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .section-title { margin-top: 18px; }
+        .section-title { margin-top: 18px; }
 
-    .subtle-note {
-        font-size: 11px;
-        color: #999;
-        line-height: 1.45;
-        margin: 0 0 14px 0;
-    }
+        .subtle-note {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.45;
+            margin: 0 0 14px 0;
+        }
 
-    .warning-box,
-    .status-box,
-    .guidance-box,
-    .assumption-box,
-    .review-box,
-    .conflict-box {
-        padding: 12px;
-        font-size: 11px;
-        line-height: 1.5;
-        border-radius: 3px;
-    }
+        .warning-box,
+        .status-box,
+        .guidance-box,
+        .assumption-box,
+        .review-box,
+        .conflict-box {
+            padding: 12px;
+            font-size: 11px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
 
-    .warning-box {
-        border: 1px solid var(--warn-line);
-        background: var(--warn-bg);
-        color: var(--warn);
-        margin-bottom: 18px;
-    }
+        .warning-box {
+            border: 1px solid var(--warn-line);
+            background: var(--warn-bg);
+            color: var(--warn);
+            margin-bottom: 18px;
+        }
 
-    .guidance-box {
-        border: 1px solid #30455a;
-        background: #08101a;
-        color: #bed1e2;
-        margin-top: 16px;
-    }
+        .guidance-box {
+            border: 1px solid #30455a;
+            background: #08101a;
+            color: #bed1e2;
+            margin-top: 16px;
+        }
 
-    .guidance-box strong,
-    .assumption-box strong,
-    .review-box strong,
-    .conflict-box strong { color: #fff; }
+        .guidance-box strong,
+        .assumption-box strong,
+        .review-box strong,
+        .conflict-box strong { color: #fff; }
 
-    .guidance-box a { color: #8fd3ff; text-decoration: underline; }
-    .guidance-box a:hover { color: #c5e7ff; }
+        .guidance-box a { color: #8fd3ff; text-decoration: underline; }
+        .guidance-box a:hover { color: #c5e7ff; }
 
-    .guidance-box ul,
-    .review-box ul,
-    .conflict-box ul,
-    .assumption-box ul { margin: 8px 0 0 18px; padding: 0; }
+        .guidance-box ul,
+        .review-box ul,
+        .conflict-box ul,
+        .assumption-box ul { margin: 8px 0 0 18px; padding: 0; }
 
-    .guidance-box li + li,
-    .review-box li + li,
-    .conflict-box li + li,
-    .assumption-box li + li { margin-top: 4px; }
+        .guidance-box li + li,
+        .review-box li + li,
+        .conflict-box li + li,
+        .assumption-box li + li { margin-top: 4px; }
 
-    .assumption-box {
-        margin-top: 16px;
-        border: 1px solid var(--info-line);
-        background: var(--info-bg);
-        color: var(--info);
-    }
+        .assumption-box {
+            margin-top: 16px;
+            border: 1px solid var(--info-line);
+            background: var(--info-bg);
+            color: var(--info);
+        }
 
-    .review-box {
-        margin-top: 16px;
-        border: 1px solid var(--warn-line);
-        background: var(--warn-bg);
-        color: var(--warn);
-    }
+        .review-box {
+            margin-top: 16px;
+            border: 1px solid var(--warn-line);
+            background: var(--warn-bg);
+            color: var(--warn);
+        }
 
-    .conflict-box {
-        margin-top: 16px;
-        border: 1px solid var(--error-line);
-        background: var(--error-bg);
-        color: #ffb0b0;
-    }
+        .conflict-box {
+            margin-top: 16px;
+            border: 1px solid var(--error-line);
+            background: var(--error-bg);
+            color: #ffb0b0;
+        }
 
-    .status-box {
-        margin: 0 0 16px 0;
-        border: 1px solid var(--line);
-        background: #090c11;
-        color: var(--muted);
-    }
+        .status-box {
+            margin: 0 0 16px 0;
+            border: 1px solid var(--line);
+            background: #090c11;
+            color: var(--muted);
+        }
 
-    .status-box.ok    { border-color: rgba(0,255,136,0.35);  color: #aef7d1; }
-    .status-box.warn  { border-color: rgba(255,204,102,0.35); color: #ffd98a; }
-    .status-box.error { border-color: rgba(255,102,102,0.35); color: #ffb0b0; }
+        .status-box.ok    { border-color: rgba(0,255,136,0.35);  color: #aef7d1; }
+        .status-box.warn  { border-color: rgba(255,204,102,0.35); color: #ffd98a; }
+        .status-box.error { border-color: rgba(255,102,102,0.35); color: #ffb0b0; }
 
-    .input-group {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 10px;
-        font-size: 12px;
-        color: var(--muted);
-        align-items: center;
-    }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--muted);
+            align-items: center;
+        }
 
-    .input-group label { flex: 1 1 auto; min-width: 0; }
+        .input-group label { flex: 1 1 auto; min-width: 0; }
 
-    .input-group input,
-    .input-group select {
-        width: 190px;
-        background: var(--input-bg);
-        color: var(--accent);
-        border: 1px solid #444;
-        padding: 7px 8px;
-        font-family: monospace;
-        border-radius: 3px;
-    }
+        .input-group input,
+        .input-group select {
+            width: 190px;
+            background: var(--input-bg);
+            color: var(--accent);
+            border: 1px solid #444;
+            padding: 7px 8px;
+            font-family: monospace;
+            border-radius: 3px;
+        }
 
-    .input-group input[data-numeric="true"] { text-align: right; }
-    .input-group input[type="text"]:not([data-numeric]) { text-align: left; }
+        .input-group input[data-numeric="true"] { text-align: right; }
+        .input-group input[type="text"]:not([data-numeric]) { text-align: left; }
 
-    .input-group input:focus,
-    .input-group select:focus { border-color: var(--accent); outline: none; }
+        .input-group input:focus,
+        .input-group select:focus { border-color: var(--accent); outline: none; }
 
-    .input-group input[disabled] { opacity: 0.55; cursor: not-allowed; }
+        .input-group input[disabled] { opacity: 0.55; cursor: not-allowed; }
 
-    .inline-note {
-        margin: -2px 0 10px 0;
-        font-size: 10px;
-        color: var(--muted-soft);
-    }
+        .inline-note {
+            margin: -2px 0 10px 0;
+            font-size: 10px;
+            color: var(--muted-soft);
+        }
 
-    .stat-block {
-        margin-top: 18px;
-        border-top: 1px solid var(--line);
-        padding-top: 14px;
-    }
+        .stat-block {
+            margin-top: 18px;
+            border-top: 1px solid var(--line);
+            padding-top: 14px;
+        }
 
-    .stat-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        font-size: 12px;
-        margin-bottom: 8px;
-        color: var(--muted-soft);
-        padding: 4px 0;
-    }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: var(--muted-soft);
+            padding: 4px 0;
+        }
 
-    .stat-val { color: var(--text); font-weight: bold; text-align: right; }
+        .stat-val { color: var(--text); font-weight: bold; text-align: right; }
 
-    .canvas-container {
-        background: var(--panel-soft);
-        border: 1px solid var(--line-soft);
-        border-radius: 4px;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        .canvas-container {
+            background: var(--panel-soft);
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    canvas {
-        background: var(--canvas-bg);
-        border: 1px solid #333;
-        box-shadow: var(--shadow);
-        display: block;
-        max-width: 100%;
-        height: auto;
-    }
+        canvas {
+            background: var(--canvas-bg);
+            border: 1px solid #333;
+            box-shadow: var(--shadow);
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
 
-    .button-row {
-        display: flex;
-        gap: 10px;
-        margin-top: 14px;
-    }
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
 
-    .btn {
-        flex: 1 1 auto;
-        padding: 12px;
-        background: var(--bg);
-        color: var(--ok);
-        border: 1px solid var(--ok);
-        cursor: pointer;
-        font-family: monospace;
-        font-weight: bold;
-        text-transform: uppercase;
-        border-radius: 3px;
-        transition: all 0.2s;
-    }
+        .btn {
+            flex: 1 1 auto;
+            padding: 12px;
+            background: var(--bg);
+            color: var(--ok);
+            border: 1px solid var(--ok);
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
 
-    .btn:hover { background: var(--ok); color: #000; }
-    .btn-alt { color: var(--accent-2); border-color: var(--accent-2); }
-    .btn-alt:hover { background: var(--accent-2); color: #000; }
+        .btn:hover { background: var(--ok); color: #000; }
+        .btn-alt { color: var(--accent-2); border-color: var(--accent-2); }
+        .btn-alt:hover { background: var(--accent-2); color: #000; }
 
-    .snapshot-box {
-        margin-top: 16px;
-        border: 1px solid var(--line-soft);
-        background: #07090d;
-        padding: 12px;
-        border-radius: 3px;
-        font-size: 11px;
-        color: #cfcfcf;
-        line-height: 1.45;
-        white-space: pre-wrap;
-    }
+        .snapshot-box {
+            margin-top: 16px;
+            border: 1px solid var(--line-soft);
+            background: #07090d;
+            padding: 12px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #cfcfcf;
+            line-height: 1.45;
+            white-space: pre-wrap;
+        }
 
-    .legend {
-        display: flex;
-        gap: 14px;
-        align-self: flex-start;
-        font-size: 11px;
-        color: var(--muted);
-        margin: 0 0 10px 0;
-        flex-wrap: wrap;
-    }
+        .legend {
+            display: flex;
+            gap: 14px;
+            align-self: flex-start;
+            font-size: 11px;
+            color: var(--muted);
+            margin: 0 0 10px 0;
+            flex-wrap: wrap;
+        }
 
-    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+        .legend-item { display: inline-flex; align-items: center; gap: 6px; }
 
-    .legend-swatch {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        border: 1px solid #666;
-    }
+        .legend-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #666;
+        }
 
-    /* Drawing view: hide left panel, maximise canvases */
-    body.drawing-view .panel-left { display: none; }
-    body.drawing-view .dashboard { max-width: 100%; }
-    body.drawing-view .panel-right { width: 100%; }
-    body.drawing-view .canvas-container { padding: 12px; }
-    body.drawing-view .subtle-note { margin-bottom: 8px; }
+        /* Drawing view: hide left panel, maximise canvases */
+        body.drawing-view .panel-left { display: none; }
+        body.drawing-view .dashboard { max-width: 100%; }
+        body.drawing-view .panel-right { width: 100%; }
+        body.drawing-view .canvas-container { padding: 12px; }
+        body.drawing-view .subtle-note { margin-bottom: 8px; }
 
-    /* Landscape mobile */
-    @media (orientation: landscape) and (max-width: 1200px) {
-        body.landscape-mobile .panel-left { display: none; }
-        body.landscape-mobile .dashboard { max-width: 100%; }
-        body.landscape-mobile .panel-right { width: 100%; }
-        body.landscape-mobile .canvas-container { padding: 10px; }
-        body.landscape-mobile .subtle-note { margin-bottom: 8px; font-size: 10px; }
-    }
+        /* Landscape mobile */
+        @media (orientation: landscape) and (max-width: 1200px) {
+            body.landscape-mobile .panel-left { display: none; }
+            body.landscape-mobile .dashboard { max-width: 100%; }
+            body.landscape-mobile .panel-right { width: 100%; }
+            body.landscape-mobile .canvas-container { padding: 10px; }
+            body.landscape-mobile .subtle-note { margin-bottom: 8px; font-size: 10px; }
+        }
 
-    @media (max-width: 1080px) {
-        .dashboard { flex-direction: column; }
-        .panel-left { width: 100%; }
-    }
-</style>
-```
-
+        @media (max-width: 1080px) {
+            .dashboard { flex-direction: column; }
+            .panel-left { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard">
         <div class="panel panel-left">
             <h2>Geometry Inputs</h2>
 
-```
-        <div class="warning-box">
-            This tool produces indicative geometry records only and must not be used for trench design, duct sizing, burial depth specification, electrical design or any construction document without independent verification by a competent engineer with responsibility for the project.<br>
-            No electrical calculation is performed.<br>
-            No thermal rating is performed.<br>
-            No compliance verdict is produced.<br>
-            No burial depth design advice is produced.<br>
-            The user must verify safety, installation depth, protection, rating and utility compliance with a competent person in accordance with local law, site conditions and the relevant power utility or infrastructure owner requirements.
-        </div>
-
-        <div id="status_box" class="status-box ok" aria-live="polite">Geometry only. Ready for capture.</div>
-
-        <h3>Route Identity</h3>
-        <div class="input-group">
-            <label for="route_name">Route ID</label>
-            <input type="text" id="route_name" value="M_W3_BESS_to_PCS" />
-        </div>
-        <div class="input-group">
-            <label for="section_length">Worst Case Section Length m</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="section_length" value="30" />
-        </div>
-
-        <h3 class="section-title">Installation Basis</h3>
-        <div class="input-group">
-            <label for="installation_condition">Installation Condition</label>
-            <select id="installation_condition">
-                <option value="buried_duct">Buried Duct</option>
-                <option value="direct_buried">Direct Buried</option>
-                <option value="open_trough">Open Trough</option>
-                <option value="free_air">Free Air on Cleats</option>
-                <option value="metallic_enclosure">Metallic Enclosure</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="service_type">Service Type</label>
-            <select id="service_type">
-                <option value="lv" selected>LV AC</option>
-                <option value="mv">33kV AC</option>
-                <option value="ehv">132kV AC</option>
-                <option value="dc">DC</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="grouping_basis">Grouping Basis</label>
-            <select id="grouping_basis">
-                <option value="same_circuit">Same Circuit</option>
-                <option value="same_service">Same Service</option>
-                <option value="mixed_service">Mixed Service</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="burial_depth">Burial Depth mm</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="burial_depth" value="900" />
-        </div>
-        <div class="inline-note" id="burial_note">Indicative cover or depth input only. Verify with competent person and utility standard.</div>
-
-        <h3 class="section-title">Cable OD Lookup</h3>
-        <div class="input-group">
-            <label for="lookup_cores">Cores</label>
-            <select id="lookup_cores">
-                <option value="single">Single Core</option>
-                <option value="three">Three Core</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="lookup_voltage">Voltage Class</label>
-            <select id="lookup_voltage">
-                <option value="">— manual OD entry —</option>
-                <optgroup label="LV Power — 0.6/1kV XLPE, Cu conductor">
-                  <option value="lv_cu_sc">0.6/1kV Cu XLPE single core (AWA)</option>
-                  <option value="lv_cu_2c">0.6/1kV Cu XLPE 2-core SWA</option>
-                  <option value="lv_cu_3c">0.6/1kV Cu XLPE 3-core SWA</option>
-                  <option value="lv_cu_4c">0.6/1kV Cu XLPE 4-core SWA</option>
-                  <option value="lv_cu_5c">0.6/1kV Cu XLPE 5-core SWA</option>
-                </optgroup>
-                <optgroup label="LV Power — 0.6/1kV XLPE, Al conductor">
-                  <option value="lv_al_sc">0.6/1kV Al XLPE single core (AWA)</option>
-                  <option value="lv_al_3c">0.6/1kV Al XLPE 3-core SWA</option>
-                  <option value="lv_al_4c">0.6/1kV Al XLPE 4-core SWA</option>
-                  <option value="lv_al_5c">0.6/1kV Al XLPE 5-core SWA</option>
-                </optgroup>
-                <optgroup label="LV — Multicore, fixed installation">
-                  <option value="lv3">LV 0.6/1kV 3-core</option>
-                </optgroup>
-                <optgroup label="Solar PV — DC string (flexible Cu, 1500V DC only)">
-                  <option value="pv_string">1500V DC string — BS EN 50618 Class II</option>
-                </optgroup>
-                <optgroup label="Solar PV — Flexible screened (Cu screened, fixed/occasional)">
-                  <option value="flex_hv_ac">1000/1000V AC — IT system (Uo=1000V ≥ inverter Vac)</option>
-                  <option value="flex_hv_dc">1500V DC — flexible screened</option>
-                </optgroup>
-                <optgroup label="Solar PV — Rigid Al, Al tube armour (non-magnetic, fixed only)">
-                  <option value="al_ata_ac">1000/1000V AC — Al tube armour, IT system</option>
-                  <option value="al_ata_dc">1500/1500V DC — Al tube armour</option>
-                </optgroup>
-                <optgroup label="MV XLPE — fixed installation">
-                  <option value="6">6 kV (3.6/6 kV)</option>
-                  <option value="10">10 kV (5.8/10 kV)</option>
-                  <option value="15">15 kV (8.7/15 kV)</option>
-                  <option value="20">20 kV (12/20 kV)</option>
-                  <option value="33">33 kV (19/33 kV) — Al</option>
-                  <option value="33cu">33 kV (19/33 kV) — Cu 3-core</option>
-                </optgroup>
-                <optgroup label="HV XLPE — fixed installation ★ confirmed datasheets">
-                  <option value="66">66 kV (38/66 kV) ★</option>
-                  <option value="110">110 kV (64/110 kV) ★</option>
-                  <option value="132">132 kV (76/132 kV) ★</option>
-                </optgroup>
-              </select>
-        </div>
-        <div class="input-group">
-            <label for="lookup_csa">Conductor CSA mm²</label>
-            <select id="lookup_csa">
-                <option value="">— select voltage first —</option>
-            </select>
-        </div>
-        <div class="inline-note" id="lookup_note">Select voltage and CSA to auto-populate OD and bend factor. All values are for <strong>fixed installation</strong> only. Flexible applications, very tight bend radii, cleats and terminations must be verified with the cable manufacturer. ★ = anchored on confirmed datasheets. Others from catalogue model. Indicative only.</div>
-
-        <h3 class="section-title">Formation</h3>
-        <div class="input-group">
-            <label for="formation_type">Formation Type</label>
-            <select id="formation_type"></select>
-        </div>
-        <div class="input-group">
-            <label for="circuit_qty">Number of Circuit Groups</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="circuit_qty" value="4" />
-        </div>
-        <div class="input-group">
-            <label for="max_per_row">Max Groups per Row</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="max_per_row" value="2" />
-        </div>
-        <div class="input-group">
-            <label for="cable_od">Cable Outer Diameter mm</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="cable_od" value="45" />
-        </div>
-        <div class="inline-note" id="od_source_note">OD entered manually.</div>
-        <div class="input-group">
-            <label for="spacing_basis">Spacing Basis</label>
-            <select id="spacing_basis">
-                <option value="clear_gap">Clear Gap</option>
-                <option value="touching">Touching</option>
-                <option value="centre_to_centre">Centre to Centre</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="spacing_h">Horizontal Spacing mm</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_h" value="150" />
-        </div>
-        <div class="input-group">
-            <label for="spacing_v">Vertical Spacing mm</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_v" value="150" />
-        </div>
-        <div class="inline-note" id="spacing_note">Spacing inputs are active.</div>
-
-        <h3 class="section-title">Bend Geometry</h3>
-        <div class="input-group">
-            <label for="bend_factor">Bend Radius x OD</label>
-            <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="bend_factor" value="15" />
-        </div>
-
-        <div class="stat-block">
-            <div class="stat-row"><span>Formation Width</span><span class="stat-val" id="out_width">0 mm</span></div>
-            <div class="stat-row"><span>Formation Depth</span><span class="stat-val" id="out_depth">0 mm</span></div>
-            <div class="stat-row"><span>Burial Depth Input</span><span class="stat-val" id="out_burial">0 mm</span></div>
-            <div class="stat-row"><span>Indicative Trench Width</span><span class="stat-val" id="out_trench_width">0 mm</span></div>
-            <div class="stat-row"><span>Indicative Trench Depth</span><span class="stat-val" id="out_trench_depth">0 mm</span></div>
-            <div class="stat-row"><span>Applied Bend Radius</span><span class="stat-val" id="out_mbr" style="color: var(--accent-2);">0 mm</span></div>
-            <div class="stat-row"><span>Rows</span><span class="stat-val" id="out_rows">0</span></div>
-            <div class="stat-row"><span>Clear Gap Horizontal</span><span class="stat-val" id="out_gap_h">0 mm</span></div>
-            <div class="stat-row"><span>Clear Gap Vertical</span><span class="stat-val" id="out_gap_v">0 mm</span></div>
-            <div class="stat-row"><span>Approx Group CTC Horizontal</span><span class="stat-val" id="out_ctc_h">0 mm</span></div>
-            <div class="stat-row"><span>Approx Group CTC Vertical</span><span class="stat-val" id="out_ctc_v">0 mm</span></div>
-            <div class="stat-row"><span>Review Status</span><span class="stat-val" id="out_note" style="color: var(--ok);">OK</span></div>
-        </div>
-
-        <div class="button-row">
-            <button class="btn" id="export_btn" type="button">Export JSON</button>
-            <button class="btn btn-alt" id="copy_btn" type="button">Copy Snapshot</button>
-            <button class="btn" id="drawing_view_btn" type="button">Drawing View</button>
-        </div>
-
-        <div class="conflict-box" id="conflict_box" aria-live="polite" hidden>
-            <strong>Input conflicts</strong>
-            <ul id="conflict_list"></ul>
-        </div>
-
-        <div class="review-box" id="review_box" aria-live="polite" hidden>
-            <strong>Review points</strong>
-            <ul id="review_list"></ul>
-        </div>
-
-        <div class="assumption-box">
-            <strong>Standing assumptions</strong>
-            <ul>
-                <li>Within group cable spacing is assumed touching unless separately modelled.</li>
-                <li>Mixed service visual uses one worst case OD for all shown services and is schematic only.</li>
-                <li>Bend visual shows a single cable body sweep only and does not model full multi cable sweep, trench profile, duct entry, pull path or installation forces.</li>
-                <li>Burial depth is recorded as an indicative input only and is not design advice.</li>
-                <li>4-core and 5-core multicore formations are drawn as a single cable OD. Within-cable core arrangement is not modelled.</li>
-            </ul>
-        </div>
-
-        <div class="snapshot-box" id="snapshot_box"></div>
-
-        <div class="guidance-box">
-            <strong>Indicative burial depth guidance only</strong><br>
-            Use this for early geometry capture only, not final design advice.
-            <ul>
-                <li>Primary source for LV to 132kV burial depth guidance in this tool is <a href="https://g81.ukpowernetworks.co.uk/library/installation/cables/ecs-02-0019-installation-of-underground-cables-lv-to-132kv" target="_blank" rel="noopener noreferrer">UKPN ECS 02 0019 Installation of Underground Cables LV to 132kV v14.2</a>.</li>
-                <li>For this tool, burial depth should be read as depth to the top of duct or cable as applicable and then verified for the actual installation basis.</li>
-                <li>BS 7671 and ERA 69 30 give thermal rating reference depths, not utility minimum cover requirements. See the official <a href="https://electrical.theiet.org/bs-7671-18th-edition-wiring-regulations/" target="_blank" rel="noopener noreferrer">IET BS 7671 page</a>.</li>
-                <li>Street authority and underground apparatus context should be checked at the official <a href="https://www.gov.uk/government/publications/recording-of-underground-apparatus-in-streets-code-of-practice" target="_blank" rel="noopener noreferrer">GOV.UK underground apparatus code page</a>.</li>
-                <li>Street Works UK should be used as coordination context only, not as the source of the burial depth figures in this tool. See the official <a href="https://streetworks.org.uk/resources/publications/" target="_blank" rel="noopener noreferrer">Street Works UK publications page</a>.</li>
-                <li>DC minimum burial depth in this tool is a project default assumption only and has no normative source embedded in this release.</li>
-            </ul>
-            The user must verify safety, cover, backfill, duct arrangement, rating, separation, highway loading and protection with a competent person in accordance with the appropriate local regulation and the relevant power utility, infrastructure owner, highway authority or site designer requirements before use.
-        </div>
-    </div>
-
-    <div class="panel panel-right">
-        <div class="canvas-container">
-            <h3 style="align-self:flex-start; color: var(--accent);">Worst Case Formation Cross Section</h3>
-            <p class="subtle-note" style="align-self:flex-start;">
-                Cable group box only. Envelope width = the horizontal size of the cable group shown. Envelope depth = the vertical size of the cable group shown.
-            </p>
-            <div class="legend">
-                <span class="legend-item"><span class="legend-swatch" style="background:#666; border-color:#00ffff;"></span>LV AC</span>
-                <span class="legend-item"><span class="legend-swatch" style="background:#b87333; border-color:#ff5555;"></span>33kV AC</span>
-                <span class="legend-item"><span class="legend-swatch" style="background:#ffd700; border-color:#ff8800;"></span>132kV AC</span>
-                <span class="legend-item"><span class="legend-swatch" style="background:#777; border-color: var(--accent-2);"></span>DC</span>
+            <div class="warning-box">
+                This tool produces indicative geometry records only and must not be used for trench design, duct sizing, burial depth specification, electrical design or any construction document without independent verification by a competent engineer with responsibility for the project.<br>
+                No electrical calculation is performed.<br>
+                No thermal rating is performed.<br>
+                No compliance verdict is produced.<br>
+                No burial depth design advice is produced.<br>
+                The user must verify safety, installation depth, protection, rating and utility compliance with a competent person in accordance with local law, site conditions and the relevant power utility or infrastructure owner requirements.
             </div>
-            <canvas id="formation_canvas" width="900" height="420" aria-label="Formation cross section visual"></canvas>
+
+            <div id="status_box" class="status-box ok" aria-live="polite">Geometry only. Ready for capture.</div>
+
+            <h3>Route Identity</h3>
+            <div class="input-group">
+                <label for="route_name">Route ID</label>
+                <input type="text" id="route_name" value="M_W3_BESS_to_PCS" />
+            </div>
+            <div class="input-group">
+                <label for="section_length">Worst Case Section Length m</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="section_length" value="30" />
+            </div>
+
+            <h3 class="section-title">Installation Basis</h3>
+            <div class="input-group">
+                <label for="installation_condition">Installation Condition</label>
+                <select id="installation_condition">
+                    <option value="buried_duct">Buried Duct</option>
+                    <option value="direct_buried">Direct Buried</option>
+                    <option value="open_trough">Open Trough</option>
+                    <option value="free_air">Free Air on Cleats</option>
+                    <option value="metallic_enclosure">Metallic Enclosure</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="service_type">Service Type</label>
+                <select id="service_type">
+                    <option value="lv" selected>LV AC</option>
+                    <option value="mv">33kV AC</option>
+                    <option value="ehv">132kV AC</option>
+                    <option value="dc">DC</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="grouping_basis">Grouping Basis</label>
+                <select id="grouping_basis">
+                    <option value="same_circuit">Same Circuit</option>
+                    <option value="same_service">Same Service</option>
+                    <option value="mixed_service">Mixed Service</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="burial_depth">Burial Depth mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="burial_depth" value="900" />
+            </div>
+            <div class="inline-note" id="burial_note">Indicative cover or depth input only. Verify with competent person and utility standard.</div>
+
+            <h3 class="section-title">Cable OD Lookup</h3>
+            <div class="input-group">
+                <label for="lookup_cores">Cores</label>
+                <select id="lookup_cores">
+                    <option value="single">Single Core</option>
+                    <option value="three">Three Core</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="lookup_voltage">Voltage Class</label>
+                <select id="lookup_voltage">
+                    <option value="">— manual OD entry —</option>
+                    <optgroup label="LV Power — 0.6/1kV XLPE, Cu conductor">
+                      <option value="lv_cu_sc">0.6/1kV Cu XLPE single core (AWA)</option>
+                      <option value="lv_cu_2c">0.6/1kV Cu XLPE 2-core SWA</option>
+                      <option value="lv_cu_3c">0.6/1kV Cu XLPE 3-core SWA</option>
+                      <option value="lv_cu_4c">0.6/1kV Cu XLPE 4-core SWA</option>
+                      <option value="lv_cu_5c">0.6/1kV Cu XLPE 5-core SWA</option>
+                    </optgroup>
+                    <optgroup label="LV Power — 0.6/1kV XLPE, Al conductor">
+                      <option value="lv_al_sc">0.6/1kV Al XLPE single core (AWA)</option>
+                      <option value="lv_al_3c">0.6/1kV Al XLPE 3-core SWA</option>
+                      <option value="lv_al_4c">0.6/1kV Al XLPE 4-core SWA</option>
+                      <option value="lv_al_5c">0.6/1kV Al XLPE 5-core SWA</option>
+                    </optgroup>
+                    <optgroup label="LV — Multicore, fixed installation">
+                      <option value="lv3">LV 0.6/1kV 3-core</option>
+                    </optgroup>
+                    <optgroup label="Solar PV — DC string (flexible Cu, 1500V DC only)">
+                      <option value="pv_string">1500V DC string — BS EN 50618 Class II</option>
+                    </optgroup>
+                    <optgroup label="Solar PV — Flexible screened (Cu screened, fixed/occasional)">
+                      <option value="flex_hv_ac">1000/1000V AC — IT system (Uo=1000V ≥ inverter Vac)</option>
+                      <option value="flex_hv_dc">1500V DC — flexible screened</option>
+                    </optgroup>
+                    <optgroup label="Solar PV — Rigid Al, Al tube armour (non-magnetic, fixed only)">
+                      <option value="al_ata_ac">1000/1000V AC — Al tube armour, IT system</option>
+                      <option value="al_ata_dc">1500/1500V DC — Al tube armour</option>
+                    </optgroup>
+                    <optgroup label="MV XLPE — fixed installation">
+                      <option value="6">6 kV (3.6/6 kV)</option>
+                      <option value="10">10 kV (5.8/10 kV)</option>
+                      <option value="15">15 kV (8.7/15 kV)</option>
+                      <option value="20">20 kV (12/20 kV)</option>
+                      <option value="33">33 kV (19/33 kV) — Al</option>
+                      <option value="33cu">33 kV (19/33 kV) — Cu 3-core</option>
+                    </optgroup>
+                    <optgroup label="HV XLPE — fixed installation ★ confirmed datasheets">
+                      <option value="66">66 kV (38/66 kV) ★</option>
+                      <option value="110">110 kV (64/110 kV) ★</option>
+                      <option value="132">132 kV (76/132 kV) ★</option>
+                    </optgroup>
+                  </select>
+            </div>
+            <div class="input-group">
+                <label for="lookup_csa">Conductor CSA mm²</label>
+                <select id="lookup_csa">
+                    <option value="">— select voltage first —</option>
+                </select>
+            </div>
+            <div class="inline-note" id="lookup_note">Select voltage and CSA to auto-populate OD and bend factor. All values are for <strong>fixed installation</strong> only. Flexible applications, very tight bend radii, cleats and terminations must be verified with the cable manufacturer. ★ = anchored on confirmed datasheets. Others from catalogue model. Indicative only.</div>
+
+            <h3 class="section-title">Formation</h3>
+            <div class="input-group">
+                <label for="formation_type">Formation Type</label>
+                <select id="formation_type"></select>
+            </div>
+            <div class="input-group">
+                <label for="circuit_qty">Number of Circuit Groups</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="circuit_qty" value="4" />
+            </div>
+            <div class="input-group">
+                <label for="max_per_row">Max Groups per Row</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="max_per_row" value="2" />
+            </div>
+            <div class="input-group">
+                <label for="cable_od">Cable Outer Diameter mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="cable_od" value="45" />
+            </div>
+            <div class="inline-note" id="od_source_note">OD entered manually.</div>
+            <div class="input-group">
+                <label for="spacing_basis">Spacing Basis</label>
+                <select id="spacing_basis">
+                    <option value="clear_gap">Clear Gap</option>
+                    <option value="touching">Touching</option>
+                    <option value="centre_to_centre">Centre to Centre</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="spacing_h">Horizontal Spacing mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_h" value="150" />
+            </div>
+            <div class="input-group">
+                <label for="spacing_v">Vertical Spacing mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_v" value="150" />
+            </div>
+            <div class="inline-note" id="spacing_note">Spacing inputs are active.</div>
+
+            <h3 class="section-title">Bend Geometry</h3>
+            <div class="input-group">
+                <label for="bend_factor">Bend Radius x OD</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="bend_factor" value="15" />
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-row"><span>Formation Width</span><span class="stat-val" id="out_width">0 mm</span></div>
+                <div class="stat-row"><span>Formation Depth</span><span class="stat-val" id="out_depth">0 mm</span></div>
+                <div class="stat-row"><span>Burial Depth Input</span><span class="stat-val" id="out_burial">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Width</span><span class="stat-val" id="out_trench_width">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Depth</span><span class="stat-val" id="out_trench_depth">0 mm</span></div>
+                <div class="stat-row"><span>Applied Bend Radius</span><span class="stat-val" id="out_mbr" style="color: var(--accent-2);">0 mm</span></div>
+                <div class="stat-row"><span>Rows</span><span class="stat-val" id="out_rows">0</span></div>
+                <div class="stat-row"><span>Clear Gap Horizontal</span><span class="stat-val" id="out_gap_h">0 mm</span></div>
+                <div class="stat-row"><span>Clear Gap Vertical</span><span class="stat-val" id="out_gap_v">0 mm</span></div>
+                <div class="stat-row"><span>Approx Group CTC Horizontal</span><span class="stat-val" id="out_ctc_h">0 mm</span></div>
+                <div class="stat-row"><span>Approx Group CTC Vertical</span><span class="stat-val" id="out_ctc_v">0 mm</span></div>
+                <div class="stat-row"><span>Review Status</span><span class="stat-val" id="out_note" style="color: var(--ok);">OK</span></div>
+            </div>
+
+            <div class="button-row">
+                <button class="btn" id="export_btn" type="button">Export JSON</button>
+                <button class="btn btn-alt" id="copy_btn" type="button">Copy Snapshot</button>
+                <button class="btn" id="drawing_view_btn" type="button">Drawing View</button>
+            </div>
+
+            <div class="conflict-box" id="conflict_box" aria-live="polite" hidden>
+                <strong>Input conflicts</strong>
+                <ul id="conflict_list"></ul>
+            </div>
+
+            <div class="review-box" id="review_box" aria-live="polite" hidden>
+                <strong>Review points</strong>
+                <ul id="review_list"></ul>
+            </div>
+
+            <div class="assumption-box">
+                <strong>Standing assumptions</strong>
+                <ul>
+                    <li>Within group cable spacing is assumed touching unless separately modelled.</li>
+                    <li>Mixed service visual uses one worst case OD for all shown services and is schematic only.</li>
+                    <li>Bend visual shows a single cable body sweep only and does not model full multi cable sweep, trench profile, duct entry, pull path or installation forces.</li>
+                    <li>Burial depth is recorded as an indicative input only and is not design advice.</li>
+                    <li>4-core and 5-core multicore formations are drawn as a single cable OD. Within-cable core arrangement is not modelled.</li>
+                </ul>
+            </div>
+
+            <div class="snapshot-box" id="snapshot_box"></div>
+
+            <div class="guidance-box">
+                <strong>Indicative burial depth guidance only</strong><br>
+                Use this for early geometry capture only, not final design advice.
+                <ul>
+                    <li>Primary source for LV to 132kV burial depth guidance in this tool is <a href="https://g81.ukpowernetworks.co.uk/library/installation/cables/ecs-02-0019-installation-of-underground-cables-lv-to-132kv" target="_blank" rel="noopener noreferrer">UKPN ECS 02 0019 Installation of Underground Cables LV to 132kV v14.2</a>.</li>
+                    <li>For this tool, burial depth should be read as depth to the top of duct or cable as applicable and then verified for the actual installation basis.</li>
+                    <li>BS 7671 and ERA 69 30 give thermal rating reference depths, not utility minimum cover requirements. See the official <a href="https://electrical.theiet.org/bs-7671-18th-edition-wiring-regulations/" target="_blank" rel="noopener noreferrer">IET BS 7671 page</a>.</li>
+                    <li>Street authority and underground apparatus context should be checked at the official <a href="https://www.gov.uk/government/publications/recording-of-underground-apparatus-in-streets-code-of-practice" target="_blank" rel="noopener noreferrer">GOV.UK underground apparatus code page</a>.</li>
+                    <li>Street Works UK should be used as coordination context only, not as the source of the burial depth figures in this tool. See the official <a href="https://streetworks.org.uk/resources/publications/" target="_blank" rel="noopener noreferrer">Street Works UK publications page</a>.</li>
+                    <li>DC minimum burial depth in this tool is a project default assumption only and has no normative source embedded in this release.</li>
+                </ul>
+                The user must verify safety, cover, backfill, duct arrangement, rating, separation, highway loading and protection with a competent person in accordance with the appropriate local regulation and the relevant power utility, infrastructure owner, highway authority or site designer requirements before use.
+            </div>
         </div>
 
-        <div class="canvas-container">
-            <h3 style="align-self:flex-start; color: #8fd3ff;">Indicative Trench Cross Section</h3>
-            <p class="subtle-note" style="align-self:flex-start;">
-                Indicative trench size only. Trench width shown = worst case formation envelope width only. Trench depth shown = burial depth input to the top of duct or cable, plus cable formation depth. No bedding, side clearance, cover boards, duct OD, shoring or civil design is modelled.
-            </p>
-            <canvas id="trench_canvas" width="900" height="500" aria-label="Indicative trench cross section visual"></canvas>
-        </div>
+        <div class="panel panel-right">
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: var(--accent);">Worst Case Formation Cross Section</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Cable group box only. Envelope width = the horizontal size of the cable group shown. Envelope depth = the vertical size of the cable group shown.
+                </p>
+                <div class="legend">
+                    <span class="legend-item"><span class="legend-swatch" style="background:#666; border-color:#00ffff;"></span>LV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#b87333; border-color:#ff5555;"></span>33kV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#ffd700; border-color:#ff8800;"></span>132kV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#777; border-color: var(--accent-2);"></span>DC</span>
+                </div>
+                <canvas id="formation_canvas" width="900" height="420" aria-label="Formation cross section visual"></canvas>
+            </div>
 
-        <div class="canvas-container">
-            <h3 style="align-self:flex-start; color: var(--accent-2);">Single Cable Bend Sweep</h3>
-            <p class="subtle-note" style="align-self:flex-start;">
-                Single cable body sweep only. Not multi cable sweep, trench profile, duct entry or civil detail.
-            </p>
-            <canvas id="bend_canvas" width="900" height="380" aria-label="Single cable bend sweep visual"></canvas>
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: #8fd3ff;">Indicative Trench Cross Section</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Indicative trench size only. Trench width shown = worst case formation envelope width only. Trench depth shown = burial depth input to the top of duct or cable, plus cable formation depth. No bedding, side clearance, cover boards, duct OD, shoring or civil design is modelled.
+                </p>
+                <canvas id="trench_canvas" width="900" height="500" aria-label="Indicative trench cross section visual"></canvas>
+            </div>
+
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: var(--accent-2);">Single Cable Bend Sweep</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Single cable body sweep only. Not multi cable sweep, trench profile, duct entry or civil detail.
+                </p>
+                <canvas id="bend_canvas" width="900" height="380" aria-label="Single cable bend sweep visual"></canvas>
+            </div>
         </div>
     </div>
-</div>
-```
 
 <script>
     /* ── constants ──────────────────────────────────────────────────────────── */
@@ -622,74 +617,74 @@
 
     /* ── OD lookup database ───────────────────────────────────────────────────
      * Single-core: model OD = 21.408 + 1.3736·√CSA + 0.3530·Uo  (RMSE 0.64mm)
-     * Anchored on: UKPN 66kV (300,400mm²), UKPN 132kV (300,630,1000,1200,1600mm²),
-     *              TF Kable 110kV (630mm²), HES 33kV full series.
-     * Three-core Al: HES catalogue direct values (33kV unarmoured Al).
-     * Three-core Cu: HES catalogue direct values (33kV unarmoured Cu, N2XSEY).
-     * Lower voltages from HES catalogue; 66kV+ single-core only —
-     *   three-core cables do not exist at 66 kV and above.
-     * MBR: actual datasheet values where confirmed; 15×OD otherwise (UKPN standard).
-     *      TF Kable 110kV uses 25×OD (laying MBR per their datasheet).
+     * Anchored on: Utility 66kV (300,400mm²), Utility 132kV (300,630,1000,1200,1600mm²),
+     * Manufacturer 110kV (630mm²), Catalogue 33kV full series.
+     * Three-core Al: Catalogue direct values (33kV unarmoured Al).
+     * Three-core Cu: Catalogue direct values (33kV unarmoured Cu).
+     * Lower voltages from catalogue; 66kV+ single-core only —
+     * three-core cables do not exist at 66 kV and above.
+     * MBR: actual datasheet values where confirmed; 15×OD otherwise (Utility standard).
+     * 110kV uses 25×OD (laying MBR per their datasheet).
      * All values indicative for routing/civils planning only.
      * Verify against manufacturer datasheet before any design or procurement.
      */
 
-    // Model coefficients (single core, fitted to UKPN+HES+TF Kable data)
+    // Model coefficients (single core, fitted to Utility/Manufacturer data)
     const OD_A = 21.408, OD_B = 1.3736, OD_C = 0.353;
 
     const OD_CONFIRMED = {
-        // UKPN 66kV (Uo=38)
-        "sc_38_300":  { od: 59,   mbr: 885,  src: "UKPN schedule" },
-        "sc_38_400":  { od: 62,   mbr: 930,  src: "UKPN schedule" },
-        // UKPN 132kV (Uo=76)
-        "sc_76_300":  { od: 72,   mbr: 1080, src: "UKPN schedule" },
-        "sc_76_630":  { od: 83,   mbr: 1245, src: "UKPN schedule" },
-        "sc_76_1000": { od: 91,   mbr: 1365, src: "UKPN schedule" },
-        "sc_76_1200": { od: 97,   mbr: 1455, src: "UKPN schedule" },
-        "sc_76_1600": { od: 104,  mbr: 1560, src: "UKPN schedule" },
-        // TF Kable 110kV (Uo=64)
-        "sc_64_630":  { od: 76.4, mbr: 1910, src: "TF Kable datasheet" },
-        // HES 33kV single core (Uo=18) — catalogue values
-        "sc_18_35":   { od: 36.5, mbr: 548,  src: "HES catalogue" },
-        "sc_18_50":   { od: 37.5, mbr: 563,  src: "HES catalogue" },
-        "sc_18_70":   { od: 39.5, mbr: 593,  src: "HES catalogue" },
-        "sc_18_95":   { od: 41.0, mbr: 615,  src: "HES catalogue" },
-        "sc_18_120":  { od: 43.0, mbr: 645,  src: "HES catalogue" },
-        "sc_18_150":  { od: 44.5, mbr: 668,  src: "HES catalogue" },
-        "sc_18_185":  { od: 46.5, mbr: 698,  src: "HES catalogue" },
-        "sc_18_240":  { od: 49.5, mbr: 743,  src: "HES catalogue" },
-        "sc_18_300":  { od: 51.5, mbr: 773,  src: "HES catalogue" },
-        "sc_18_400":  { od: 55.0, mbr: 825,  src: "HES catalogue" },
-        "sc_18_500":  { od: 58.0, mbr: 870,  src: "HES catalogue" },
-        "sc_18_630":  { od: 62.0, mbr: 930,  src: "HES catalogue" },
-        // HES 33kV three core ALUMINIUM unarmoured (Uo=18) — catalogue values
-        "3c_18_35":   { od: 42.0, mbr: 630,  src: "HES catalogue" },
-        "3c_18_50":   { od: 45.0, mbr: 675,  src: "HES catalogue" },
-        "3c_18_70":   { od: 48.5, mbr: 728,  src: "HES catalogue" },
-        "3c_18_95":   { od: 53.0, mbr: 795,  src: "HES catalogue" },
-        "3c_18_120":  { od: 57.0, mbr: 855,  src: "HES catalogue" },
-        "3c_18_150":  { od: 60.5, mbr: 908,  src: "HES catalogue" },
-        "3c_18_185":  { od: 64.5, mbr: 968,  src: "HES catalogue" },
-        "3c_18_240":  { od: 71.0, mbr: 1065, src: "HES catalogue" },
-        "3c_18_300":  { od: 77.5, mbr: 1163, src: "HES catalogue" },
-        "3c_18_400":  { od: 86.0, mbr: 1290, src: "HES catalogue" },
-        // HES 33kV three core COPPER unarmoured (N2XSEY, Uo=18) — HES Power Cable Catalogue
-        // ODs confirmed from HES KABLO Power Cable Catalogue (292 pp, 2017 edition)
-        // Code: N2XSEY / YXC8V-R, CU/XLPE/CTS/PVC, IEC 60502-2 / VDE 0276-620
-        // MBR = 15×OD per HES catalogue (Min. bending radius: 15 x D)
-        "3c_cu18_35":   { od: 68.0,  mbr: 1020, src: "HES catalogue Cu" },
-        "3c_cu18_50":   { od: 71.5,  mbr: 1073, src: "HES catalogue Cu" },
-        "3c_cu18_70":   { od: 75.0,  mbr: 1125, src: "HES catalogue Cu" },
-        "3c_cu18_95":   { od: 79.0,  mbr: 1185, src: "HES catalogue Cu" },
-        "3c_cu18_120":  { od: 83.0,  mbr: 1245, src: "HES catalogue Cu" },
-        "3c_cu18_150":  { od: 86.0,  mbr: 1290, src: "HES catalogue Cu" },
-        "3c_cu18_185":  { od: 90.0,  mbr: 1350, src: "HES catalogue Cu" },
-        "3c_cu18_240":  { od: 97.0,  mbr: 1455, src: "HES catalogue Cu" },
-        "3c_cu18_300":  { od: 102.0, mbr: 1530, src: "HES catalogue Cu" },
-        "3c_cu18_400":  { od: 110.0, mbr: 1650, src: "HES catalogue Cu" },
+        // 66kV (Uo=38)
+        "sc_38_300":  { od: 59,   mbr: 885,  src: "Utility schedule" },
+        "sc_38_400":  { od: 62,   mbr: 930,  src: "Utility schedule" },
+        // 132kV (Uo=76)
+        "sc_76_300":  { od: 72,   mbr: 1080, src: "Utility schedule" },
+        "sc_76_630":  { od: 83,   mbr: 1245, src: "Utility schedule" },
+        "sc_76_1000": { od: 91,   mbr: 1365, src: "Utility schedule" },
+        "sc_76_1200": { od: 97,   mbr: 1455, src: "Utility schedule" },
+        "sc_76_1600": { od: 104,  mbr: 1560, src: "Utility schedule" },
+        // 110kV (Uo=64)
+        "sc_64_630":  { od: 76.4, mbr: 1910, src: "Manufacturer datasheet" },
+        // 33kV single core (Uo=18) — catalogue values
+        "sc_18_35":   { od: 36.5, mbr: 548,  src: "Generic catalogue" },
+        "sc_18_50":   { od: 37.5, mbr: 563,  src: "Generic catalogue" },
+        "sc_18_70":   { od: 39.5, mbr: 593,  src: "Generic catalogue" },
+        "sc_18_95":   { od: 41.0, mbr: 615,  src: "Generic catalogue" },
+        "sc_18_120":  { od: 43.0, mbr: 645,  src: "Generic catalogue" },
+        "sc_18_150":  { od: 44.5, mbr: 668,  src: "Generic catalogue" },
+        "sc_18_185":  { od: 46.5, mbr: 698,  src: "Generic catalogue" },
+        "sc_18_240":  { od: 49.5, mbr: 743,  src: "Generic catalogue" },
+        "sc_18_300":  { od: 51.5, mbr: 773,  src: "Generic catalogue" },
+        "sc_18_400":  { od: 55.0, mbr: 825,  src: "Generic catalogue" },
+        "sc_18_500":  { od: 58.0, mbr: 870,  src: "Generic catalogue" },
+        "sc_18_630":  { od: 62.0, mbr: 930,  src: "Generic catalogue" },
+        // 33kV three core ALUMINIUM unarmoured (Uo=18) — catalogue values
+        "3c_18_35":   { od: 42.0, mbr: 630,  src: "Generic catalogue" },
+        "3c_18_50":   { od: 45.0, mbr: 675,  src: "Generic catalogue" },
+        "3c_18_70":   { od: 48.5, mbr: 728,  src: "Generic catalogue" },
+        "3c_18_95":   { od: 53.0, mbr: 795,  src: "Generic catalogue" },
+        "3c_18_120":  { od: 57.0, mbr: 855,  src: "Generic catalogue" },
+        "3c_18_150":  { od: 60.5, mbr: 908,  src: "Generic catalogue" },
+        "3c_18_185":  { od: 64.5, mbr: 968,  src: "Generic catalogue" },
+        "3c_18_240":  { od: 71.0, mbr: 1065, src: "Generic catalogue" },
+        "3c_18_300":  { od: 77.5, mbr: 1163, src: "Generic catalogue" },
+        "3c_18_400":  { od: 86.0, mbr: 1290, src: "Generic catalogue" },
+        // 33kV three core COPPER unarmoured (Uo=18) — Power Cable Catalogue
+        // ODs confirmed from Power Cable Catalogue
+        // IEC 60502-2 / VDE 0276-620
+        // MBR = 15×OD per catalogue (Min. bending radius: 15 x D)
+        "3c_cu18_35":   { od: 68.0,  mbr: 1020, src: "Generic catalogue Cu" },
+        "3c_cu18_50":   { od: 71.5,  mbr: 1073, src: "Generic catalogue Cu" },
+        "3c_cu18_70":   { od: 75.0,  mbr: 1125, src: "Generic catalogue Cu" },
+        "3c_cu18_95":   { od: 79.0,  mbr: 1185, src: "Generic catalogue Cu" },
+        "3c_cu18_120":  { od: 83.0,  mbr: 1245, src: "Generic catalogue Cu" },
+        "3c_cu18_150":  { od: 86.0,  mbr: 1290, src: "Generic catalogue Cu" },
+        "3c_cu18_185":  { od: 90.0,  mbr: 1350, src: "Generic catalogue Cu" },
+        "3c_cu18_240":  { od: 97.0,  mbr: 1455, src: "Generic catalogue Cu" },
+        "3c_cu18_300":  { od: 102.0, mbr: 1530, src: "Generic catalogue Cu" },
+        "3c_cu18_400":  { od: 110.0, mbr: 1650, src: "Generic catalogue Cu" },
 
         // ── LV POWER 0.6/1kV XLPE — catalogue model values ──────────────────
-        // Source: Prysmian Waveform / Draka / Nexans UK catalogue constructions
+        // Source: Generic UK catalogue constructions
         // Standard: BS EN 60502-1, BS 5467, XLPE insulation, PVC bedding, SWA/AWA, PVC oversheath
         // MBR: 15×OD single core, 12×OD multicore — BS 8434 / manufacturer standard
         // ALL VALUES ARE ESTIMATES (±1–2mm). Flag: estimated: true
@@ -698,153 +693,153 @@
         // Key format: sc/2c/3c/4c/5c _ cu/al _ lv _ {csa}
         //
         // Single core Cu — solid below 16mm², stranded above
-        "sc_cu_lv_1.5":  { od:  8.2, mbr: 123, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_2.5":  { od:  8.7, mbr: 131, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_4":    { od:  9.3, mbr: 140, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_6":    { od:  9.9, mbr: 149, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_10":   { od: 11.2, mbr: 168, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_16":   { od: 12.3, mbr: 185, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_25":   { od: 14.0, mbr: 210, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_35":   { od: 15.3, mbr: 230, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_50":   { od: 17.0, mbr: 255, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_70":   { od: 19.3, mbr: 290, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_95":   { od: 21.5, mbr: 323, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_120":  { od: 23.5, mbr: 353, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_150":  { od: 25.7, mbr: 386, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_185":  { od: 28.2, mbr: 423, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_240":  { od: 31.5, mbr: 473, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_300":  { od: 34.5, mbr: 518, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_400":  { od: 38.5, mbr: 578, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_500":  { od: 42.5, mbr: 638, src: "Prysmian/Draka catalogue model" },
-        "sc_cu_lv_630":  { od: 47.5, mbr: 713, src: "Prysmian/Draka catalogue model" },
+        "sc_cu_lv_1.5":  { od:  8.2, mbr: 123, src: "Generic catalogue model" },
+        "sc_cu_lv_2.5":  { od:  8.7, mbr: 131, src: "Generic catalogue model" },
+        "sc_cu_lv_4":    { od:  9.3, mbr: 140, src: "Generic catalogue model" },
+        "sc_cu_lv_6":    { od:  9.9, mbr: 149, src: "Generic catalogue model" },
+        "sc_cu_lv_10":   { od: 11.2, mbr: 168, src: "Generic catalogue model" },
+        "sc_cu_lv_16":   { od: 12.3, mbr: 185, src: "Generic catalogue model" },
+        "sc_cu_lv_25":   { od: 14.0, mbr: 210, src: "Generic catalogue model" },
+        "sc_cu_lv_35":   { od: 15.3, mbr: 230, src: "Generic catalogue model" },
+        "sc_cu_lv_50":   { od: 17.0, mbr: 255, src: "Generic catalogue model" },
+        "sc_cu_lv_70":   { od: 19.3, mbr: 290, src: "Generic catalogue model" },
+        "sc_cu_lv_95":   { od: 21.5, mbr: 323, src: "Generic catalogue model" },
+        "sc_cu_lv_120":  { od: 23.5, mbr: 353, src: "Generic catalogue model" },
+        "sc_cu_lv_150":  { od: 25.7, mbr: 386, src: "Generic catalogue model" },
+        "sc_cu_lv_185":  { od: 28.2, mbr: 423, src: "Generic catalogue model" },
+        "sc_cu_lv_240":  { od: 31.5, mbr: 473, src: "Generic catalogue model" },
+        "sc_cu_lv_300":  { od: 34.5, mbr: 518, src: "Generic catalogue model" },
+        "sc_cu_lv_400":  { od: 38.5, mbr: 578, src: "Generic catalogue model" },
+        "sc_cu_lv_500":  { od: 42.5, mbr: 638, src: "Generic catalogue model" },
+        "sc_cu_lv_630":  { od: 47.5, mbr: 713, src: "Generic catalogue model" },
         // Single core Al
-        "sc_al_lv_16":   { od: 11.5, mbr: 173, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_25":   { od: 13.0, mbr: 195, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_35":   { od: 14.3, mbr: 215, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_50":   { od: 15.8, mbr: 237, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_70":   { od: 18.0, mbr: 270, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_95":   { od: 20.0, mbr: 300, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_120":  { od: 22.0, mbr: 330, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_150":  { od: 24.0, mbr: 360, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_185":  { od: 26.5, mbr: 398, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_240":  { od: 29.5, mbr: 443, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_300":  { od: 32.5, mbr: 488, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_400":  { od: 36.5, mbr: 548, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_500":  { od: 40.5, mbr: 608, src: "Prysmian/Draka catalogue model" },
-        "sc_al_lv_630":  { od: 45.5, mbr: 683, src: "Prysmian/Draka catalogue model" },
+        "sc_al_lv_16":   { od: 11.5, mbr: 173, src: "Generic catalogue model" },
+        "sc_al_lv_25":   { od: 13.0, mbr: 195, src: "Generic catalogue model" },
+        "sc_al_lv_35":   { od: 14.3, mbr: 215, src: "Generic catalogue model" },
+        "sc_al_lv_50":   { od: 15.8, mbr: 237, src: "Generic catalogue model" },
+        "sc_al_lv_70":   { od: 18.0, mbr: 270, src: "Generic catalogue model" },
+        "sc_al_lv_95":   { od: 20.0, mbr: 300, src: "Generic catalogue model" },
+        "sc_al_lv_120":  { od: 22.0, mbr: 330, src: "Generic catalogue model" },
+        "sc_al_lv_150":  { od: 24.0, mbr: 360, src: "Generic catalogue model" },
+        "sc_al_lv_185":  { od: 26.5, mbr: 398, src: "Generic catalogue model" },
+        "sc_al_lv_240":  { od: 29.5, mbr: 443, src: "Generic catalogue model" },
+        "sc_al_lv_300":  { od: 32.5, mbr: 488, src: "Generic catalogue model" },
+        "sc_al_lv_400":  { od: 36.5, mbr: 548, src: "Generic catalogue model" },
+        "sc_al_lv_500":  { od: 40.5, mbr: 608, src: "Generic catalogue model" },
+        "sc_al_lv_630":  { od: 45.5, mbr: 683, src: "Generic catalogue model" },
         // 2-core Cu SWA
-        "2c_cu_lv_1.5":  { od: 15.5, mbr: 186, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_2.5":  { od: 16.5, mbr: 198, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_4":    { od: 18.0, mbr: 216, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_6":    { od: 19.5, mbr: 234, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_10":   { od: 22.5, mbr: 270, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_16":   { od: 25.5, mbr: 306, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_25":   { od: 29.5, mbr: 354, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_35":   { od: 32.5, mbr: 390, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_50":   { od: 36.5, mbr: 438, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_70":   { od: 42.0, mbr: 504, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_95":   { od: 47.0, mbr: 564, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_120":  { od: 52.0, mbr: 624, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_150":  { od: 57.0, mbr: 684, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_185":  { od: 63.0, mbr: 756, src: "Prysmian/Draka catalogue model" },
-        "2c_cu_lv_240":  { od: 71.0, mbr: 852, src: "Prysmian/Draka catalogue model" },
+        "2c_cu_lv_1.5":  { od: 15.5, mbr: 186, src: "Generic catalogue model" },
+        "2c_cu_lv_2.5":  { od: 16.5, mbr: 198, src: "Generic catalogue model" },
+        "2c_cu_lv_4":    { od: 18.0, mbr: 216, src: "Generic catalogue model" },
+        "2c_cu_lv_6":    { od: 19.5, mbr: 234, src: "Generic catalogue model" },
+        "2c_cu_lv_10":   { od: 22.5, mbr: 270, src: "Generic catalogue model" },
+        "2c_cu_lv_16":   { od: 25.5, mbr: 306, src: "Generic catalogue model" },
+        "2c_cu_lv_25":   { od: 29.5, mbr: 354, src: "Generic catalogue model" },
+        "2c_cu_lv_35":   { od: 32.5, mbr: 390, src: "Generic catalogue model" },
+        "2c_cu_lv_50":   { od: 36.5, mbr: 438, src: "Generic catalogue model" },
+        "2c_cu_lv_70":   { od: 42.0, mbr: 504, src: "Generic catalogue model" },
+        "2c_cu_lv_95":   { od: 47.0, mbr: 564, src: "Generic catalogue model" },
+        "2c_cu_lv_120":  { od: 52.0, mbr: 624, src: "Generic catalogue model" },
+        "2c_cu_lv_150":  { od: 57.0, mbr: 684, src: "Generic catalogue model" },
+        "2c_cu_lv_185":  { od: 63.0, mbr: 756, src: "Generic catalogue model" },
+        "2c_cu_lv_240":  { od: 71.0, mbr: 852, src: "Generic catalogue model" },
         // 3-core Cu SWA
-        "3c_cu_lv_1.5":  { od: 16.5, mbr: 198, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_2.5":  { od: 18.0, mbr: 216, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_4":    { od: 19.5, mbr: 234, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_6":    { od: 21.5, mbr: 258, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_10":   { od: 25.0, mbr: 300, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_16":   { od: 28.5, mbr: 342, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_25":   { od: 33.5, mbr: 402, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_35":   { od: 37.0, mbr: 444, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_50":   { od: 42.0, mbr: 504, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_70":   { od: 48.5, mbr: 582, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_95":   { od: 55.0, mbr: 660, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_120":  { od: 60.5, mbr: 726, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_150":  { od: 66.5, mbr: 798, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_185":  { od: 73.5, mbr: 882, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_240":  { od: 83.0, mbr: 996, src: "Prysmian/Draka catalogue model" },
-        "3c_cu_lv_300":  { od: 91.0, mbr:1092, src: "Prysmian/Draka catalogue model" },
+        "3c_cu_lv_1.5":  { od: 16.5, mbr: 198, src: "Generic catalogue model" },
+        "3c_cu_lv_2.5":  { od: 18.0, mbr: 216, src: "Generic catalogue model" },
+        "3c_cu_lv_4":    { od: 19.5, mbr: 234, src: "Generic catalogue model" },
+        "3c_cu_lv_6":    { od: 21.5, mbr: 258, src: "Generic catalogue model" },
+        "3c_cu_lv_10":   { od: 25.0, mbr: 300, src: "Generic catalogue model" },
+        "3c_cu_lv_16":   { od: 28.5, mbr: 342, src: "Generic catalogue model" },
+        "3c_cu_lv_25":   { od: 33.5, mbr: 402, src: "Generic catalogue model" },
+        "3c_cu_lv_35":   { od: 37.0, mbr: 444, src: "Generic catalogue model" },
+        "3c_cu_lv_50":   { od: 42.0, mbr: 504, src: "Generic catalogue model" },
+        "3c_cu_lv_70":   { od: 48.5, mbr: 582, src: "Generic catalogue model" },
+        "3c_cu_lv_95":   { od: 55.0, mbr: 660, src: "Generic catalogue model" },
+        "3c_cu_lv_120":  { od: 60.5, mbr: 726, src: "Generic catalogue model" },
+        "3c_cu_lv_150":  { od: 66.5, mbr: 798, src: "Generic catalogue model" },
+        "3c_cu_lv_185":  { od: 73.5, mbr: 882, src: "Generic catalogue model" },
+        "3c_cu_lv_240":  { od: 83.0, mbr: 996, src: "Generic catalogue model" },
+        "3c_cu_lv_300":  { od: 91.0, mbr:1092, src: "Generic catalogue model" },
         // 4-core Cu SWA
-        "4c_cu_lv_1.5":  { od: 18.0, mbr: 216, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_2.5":  { od: 19.5, mbr: 234, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_4":    { od: 21.5, mbr: 258, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_6":    { od: 23.5, mbr: 282, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_10":   { od: 27.5, mbr: 330, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_16":   { od: 31.5, mbr: 378, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_25":   { od: 37.0, mbr: 444, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_35":   { od: 41.0, mbr: 492, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_50":   { od: 46.5, mbr: 558, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_70":   { od: 54.0, mbr: 648, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_95":   { od: 61.0, mbr: 732, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_120":  { od: 67.5, mbr: 810, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_150":  { od: 74.5, mbr: 894, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_185":  { od: 82.5, mbr: 990, src: "Prysmian/Draka catalogue model" },
-        "4c_cu_lv_240":  { od: 93.5, mbr:1122, src: "Prysmian/Draka catalogue model" },
+        "4c_cu_lv_1.5":  { od: 18.0, mbr: 216, src: "Generic catalogue model" },
+        "4c_cu_lv_2.5":  { od: 19.5, mbr: 234, src: "Generic catalogue model" },
+        "4c_cu_lv_4":    { od: 21.5, mbr: 258, src: "Generic catalogue model" },
+        "4c_cu_lv_6":    { od: 23.5, mbr: 282, src: "Generic catalogue model" },
+        "4c_cu_lv_10":   { od: 27.5, mbr: 330, src: "Generic catalogue model" },
+        "4c_cu_lv_16":   { od: 31.5, mbr: 378, src: "Generic catalogue model" },
+        "4c_cu_lv_25":   { od: 37.0, mbr: 444, src: "Generic catalogue model" },
+        "4c_cu_lv_35":   { od: 41.0, mbr: 492, src: "Generic catalogue model" },
+        "4c_cu_lv_50":   { od: 46.5, mbr: 558, src: "Generic catalogue model" },
+        "4c_cu_lv_70":   { od: 54.0, mbr: 648, src: "Generic catalogue model" },
+        "4c_cu_lv_95":   { od: 61.0, mbr: 732, src: "Generic catalogue model" },
+        "4c_cu_lv_120":  { od: 67.5, mbr: 810, src: "Generic catalogue model" },
+        "4c_cu_lv_150":  { od: 74.5, mbr: 894, src: "Generic catalogue model" },
+        "4c_cu_lv_185":  { od: 82.5, mbr: 990, src: "Generic catalogue model" },
+        "4c_cu_lv_240":  { od: 93.5, mbr:1122, src: "Generic catalogue model" },
         // 5-core Cu SWA
-        "5c_cu_lv_1.5":  { od: 20.0, mbr: 240, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_2.5":  { od: 21.5, mbr: 258, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_4":    { od: 23.5, mbr: 282, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_6":    { od: 26.0, mbr: 312, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_10":   { od: 30.5, mbr: 366, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_16":   { od: 35.0, mbr: 420, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_25":   { od: 41.5, mbr: 498, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_35":   { od: 46.0, mbr: 552, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_50":   { od: 52.5, mbr: 630, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_70":   { od: 60.5, mbr: 726, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_95":   { od: 68.5, mbr: 822, src: "Prysmian/Draka catalogue model" },
-        "5c_cu_lv_120":  { od: 76.0, mbr: 912, src: "Prysmian/Draka catalogue model" },
+        "5c_cu_lv_1.5":  { od: 20.0, mbr: 240, src: "Generic catalogue model" },
+        "5c_cu_lv_2.5":  { od: 21.5, mbr: 258, src: "Generic catalogue model" },
+        "5c_cu_lv_4":    { od: 23.5, mbr: 282, src: "Generic catalogue model" },
+        "5c_cu_lv_6":    { od: 26.0, mbr: 312, src: "Generic catalogue model" },
+        "5c_cu_lv_10":   { od: 30.5, mbr: 366, src: "Generic catalogue model" },
+        "5c_cu_lv_16":   { od: 35.0, mbr: 420, src: "Generic catalogue model" },
+        "5c_cu_lv_25":   { od: 41.5, mbr: 498, src: "Generic catalogue model" },
+        "5c_cu_lv_35":   { od: 46.0, mbr: 552, src: "Generic catalogue model" },
+        "5c_cu_lv_50":   { od: 52.5, mbr: 630, src: "Generic catalogue model" },
+        "5c_cu_lv_70":   { od: 60.5, mbr: 726, src: "Generic catalogue model" },
+        "5c_cu_lv_95":   { od: 68.5, mbr: 822, src: "Generic catalogue model" },
+        "5c_cu_lv_120":  { od: 76.0, mbr: 912, src: "Generic catalogue model" },
         // 3-core Al SWA
-        "3c_al_lv_16":   { od: 27.0, mbr: 324, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_25":   { od: 31.0, mbr: 372, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_35":   { od: 34.5, mbr: 414, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_50":   { od: 39.0, mbr: 468, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_70":   { od: 45.5, mbr: 546, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_95":   { od: 51.5, mbr: 618, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_120":  { od: 57.0, mbr: 684, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_150":  { od: 63.0, mbr: 756, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_185":  { od: 69.5, mbr: 834, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_240":  { od: 78.5, mbr: 942, src: "Prysmian/Draka catalogue model" },
-        "3c_al_lv_300":  { od: 86.5, mbr:1038, src: "Prysmian/Draka catalogue model" },
+        "3c_al_lv_16":   { od: 27.0, mbr: 324, src: "Generic catalogue model" },
+        "3c_al_lv_25":   { od: 31.0, mbr: 372, src: "Generic catalogue model" },
+        "3c_al_lv_35":   { od: 34.5, mbr: 414, src: "Generic catalogue model" },
+        "3c_al_lv_50":   { od: 39.0, mbr: 468, src: "Generic catalogue model" },
+        "3c_al_lv_70":   { od: 45.5, mbr: 546, src: "Generic catalogue model" },
+        "3c_al_lv_95":   { od: 51.5, mbr: 618, src: "Generic catalogue model" },
+        "3c_al_lv_120":  { od: 57.0, mbr: 684, src: "Generic catalogue model" },
+        "3c_al_lv_150":  { od: 63.0, mbr: 756, src: "Generic catalogue model" },
+        "3c_al_lv_185":  { od: 69.5, mbr: 834, src: "Generic catalogue model" },
+        "3c_al_lv_240":  { od: 78.5, mbr: 942, src: "Generic catalogue model" },
+        "3c_al_lv_300":  { od: 86.5, mbr:1038, src: "Generic catalogue model" },
         // 4-core Al SWA
-        "4c_al_lv_16":   { od: 29.5, mbr: 354, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_25":   { od: 34.5, mbr: 414, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_35":   { od: 38.5, mbr: 462, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_50":   { od: 43.5, mbr: 522, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_70":   { od: 50.5, mbr: 606, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_95":   { od: 57.5, mbr: 690, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_120":  { od: 63.5, mbr: 762, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_150":  { od: 70.0, mbr: 840, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_185":  { od: 77.5, mbr: 930, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_240":  { od: 87.5, mbr:1050, src: "Prysmian/Draka catalogue model" },
-        "4c_al_lv_300":  { od: 96.5, mbr:1158, src: "Prysmian/Draka catalogue model" },
+        "4c_al_lv_16":   { od: 29.5, mbr: 354, src: "Generic catalogue model" },
+        "4c_al_lv_25":   { od: 34.5, mbr: 414, src: "Generic catalogue model" },
+        "4c_al_lv_35":   { od: 38.5, mbr: 462, src: "Generic catalogue model" },
+        "4c_al_lv_50":   { od: 43.5, mbr: 522, src: "Generic catalogue model" },
+        "4c_al_lv_70":   { od: 50.5, mbr: 606, src: "Generic catalogue model" },
+        "4c_al_lv_95":   { od: 57.5, mbr: 690, src: "Generic catalogue model" },
+        "4c_al_lv_120":  { od: 63.5, mbr: 762, src: "Generic catalogue model" },
+        "4c_al_lv_150":  { od: 70.0, mbr: 840, src: "Generic catalogue model" },
+        "4c_al_lv_185":  { od: 77.5, mbr: 930, src: "Generic catalogue model" },
+        "4c_al_lv_240":  { od: 87.5, mbr:1050, src: "Generic catalogue model" },
+        "4c_al_lv_300":  { od: 96.5, mbr:1158, src: "Generic catalogue model" },
         // 5-core Al SWA
-        "5c_al_lv_16":   { od: 33.0, mbr: 396, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_25":   { od: 38.5, mbr: 462, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_35":   { od: 43.0, mbr: 516, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_50":   { od: 49.0, mbr: 588, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_70":   { od: 57.0, mbr: 684, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_95":   { od: 64.5, mbr: 774, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_120":  { od: 71.5, mbr: 858, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_150":  { od: 79.0, mbr: 948, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_185":  { od: 87.5, mbr:1050, src: "Prysmian/Draka catalogue model" },
-        "5c_al_lv_240":  { od: 99.0, mbr:1188, src: "Prysmian/Draka catalogue model" },
-        // LV 0.6/1kV 3-core — Helukabel H07RN-F Ed.27
-        "3c_lv3_1.5": { od: 10.6, mbr: 53,  src: "Helukabel H07RN-F" },
-        "3c_lv3_2.5": { od: 12.4, mbr: 62,  src: "Helukabel H07RN-F" },
-        "3c_lv3_4":   { od: 14.4, mbr: 72,  src: "Helukabel H07RN-F" },
-        "3c_lv3_6":   { od: 16.1, mbr: 80,  src: "Helukabel H07RN-F" },
-        "3c_lv3_10":  { od: 21.6, mbr: 108, src: "Helukabel H07RN-F" },
-        "3c_lv3_16":  { od: 24.7, mbr: 124, src: "Helukabel H07RN-F" },
-        "3c_lv3_25":  { od: 29.6, mbr: 148, src: "Helukabel H07RN-F" },
-        "3c_lv3_35":  { od: 33.2, mbr: 166, src: "Helukabel H07RN-F" },
-        "3c_lv3_50":  { od: 38.5, mbr: 193, src: "Helukabel H07RN-F" },
-        "3c_lv3_70":  { od: 43.3, mbr: 217, src: "Helukabel H07RN-F" },
-        "3c_lv3_95":  { od: 48.6, mbr: 243, src: "Helukabel H07RN-F" },
-        "3c_lv3_120": { od: 53.7, mbr: 269, src: "Helukabel H07RN-F" },
-        "3c_lv3_150": { od: 59.0, mbr: 295, src: "Helukabel H07RN-F" },
-        "3c_lv3_185": { od: 64.5, mbr: 323, src: "Helukabel H07RN-F" },
-        "3c_lv3_240": { od: 73.5, mbr: 368, src: "Helukabel H07RN-F" },
+        "5c_al_lv_16":   { od: 33.0, mbr: 396, src: "Generic catalogue model" },
+        "5c_al_lv_25":   { od: 38.5, mbr: 462, src: "Generic catalogue model" },
+        "5c_al_lv_35":   { od: 43.0, mbr: 516, src: "Generic catalogue model" },
+        "5c_al_lv_50":   { od: 49.0, mbr: 588, src: "Generic catalogue model" },
+        "5c_al_lv_70":   { od: 57.0, mbr: 684, src: "Generic catalogue model" },
+        "5c_al_lv_95":   { od: 64.5, mbr: 774, src: "Generic catalogue model" },
+        "5c_al_lv_120":  { od: 71.5, mbr: 858, src: "Generic catalogue model" },
+        "5c_al_lv_150":  { od: 79.0, mbr: 948, src: "Generic catalogue model" },
+        "5c_al_lv_185":  { od: 87.5, mbr:1050, src: "Generic catalogue model" },
+        "5c_al_lv_240":  { od: 99.0, mbr:1188, src: "Generic catalogue model" },
+        // LV 0.6/1kV 3-core — H07RN-F
+        "3c_lv3_1.5": { od: 10.6, mbr: 53,  src: "H07RN-F type" },
+        "3c_lv3_2.5": { od: 12.4, mbr: 62,  src: "H07RN-F type" },
+        "3c_lv3_4":   { od: 14.4, mbr: 72,  src: "H07RN-F type" },
+        "3c_lv3_6":   { od: 16.1, mbr: 80,  src: "H07RN-F type" },
+        "3c_lv3_10":  { od: 21.6, mbr: 108, src: "H07RN-F type" },
+        "3c_lv3_16":  { od: 24.7, mbr: 124, src: "H07RN-F type" },
+        "3c_lv3_25":  { od: 29.6, mbr: 148, src: "H07RN-F type" },
+        "3c_lv3_35":  { od: 33.2, mbr: 166, src: "H07RN-F type" },
+        "3c_lv3_50":  { od: 38.5, mbr: 193, src: "H07RN-F type" },
+        "3c_lv3_70":  { od: 43.3, mbr: 217, src: "H07RN-F type" },
+        "3c_lv3_95":  { od: 48.6, mbr: 243, src: "H07RN-F type" },
+        "3c_lv3_120": { od: 53.7, mbr: 269, src: "H07RN-F type" },
+        "3c_lv3_150": { od: 59.0, mbr: 295, src: "H07RN-F type" },
+        "3c_lv3_185": { od: 64.5, mbr: 323, src: "H07RN-F type" },
+        "3c_lv3_240": { od: 73.5, mbr: 368, src: "H07RN-F type" },
         // PV DC STRING — BS EN 50618 H1Z2Z2-K
         "sc_pv_string_1.5": { od:  4.0, mbr:  16, src: "BS EN 50618 (typical)" },
         "sc_pv_string_2.5": { od:  4.7, mbr:  19, src: "BS EN 50618 (typical)" },
@@ -861,54 +856,54 @@
         "sc_pv_string_150": { od: 23.5, mbr:  94, src: "BS EN 50618 (typical)" },
         "sc_pv_string_185": { od: 26.1, mbr: 104, src: "BS EN 50618 (typical)" },
         "sc_pv_string_240": { od: 29.5, mbr: 118, src: "BS EN 50618 (typical)" },
-        // ── FLEXIBLE SCREENED SOLAR MV — BETAtron T150 type (FHLR4GC4G) ────────
-        "sc_flex_hv_ac_4":   { od:  4.90, mbr:  15, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_6":   { od:  5.80, mbr:  17, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_10":  { od:  7.80, mbr:  23, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_16":  { od:  9.30, mbr:  28, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_25":  { od: 11.00, mbr:  33, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_35":  { od: 12.90, mbr:  39, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_50":  { od: 14.90, mbr:  45, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_70":  { od: 17.00, mbr:  51, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_95":  { od: 19.50, mbr:  59, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_120": { od: 22.60, mbr:  68, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_150": { od: 25.00, mbr:  75, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_ac_185": { od: 26.60, mbr:  80, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_4":   { od:  4.90, mbr:  15, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_6":   { od:  5.80, mbr:  17, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_10":  { od:  7.80, mbr:  23, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_16":  { od:  9.30, mbr:  28, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_25":  { od: 11.00, mbr:  33, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_35":  { od: 12.90, mbr:  39, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_50":  { od: 14.90, mbr:  45, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_70":  { od: 17.00, mbr:  51, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_95":  { od: 19.50, mbr:  59, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_120": { od: 22.60, mbr:  68, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_150": { od: 25.00, mbr:  75, src: "Studer BETAtron T150 (0001050 V05)" },
-        "sc_flex_hv_dc_185": { od: 26.60, mbr:  80, src: "Studer BETAtron T150 (0001050 V05)" },
-        // RIGID AL SOLAR — Alu-ATA XS — Studer 0000007 V1
-        "sc_al_ata_ac_50":  { od: 17.10, mbr: 205, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_70":  { od: 18.80, mbr: 226, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_95":  { od: 20.90, mbr: 251, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_120": { od: 22.40, mbr: 269, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_150": { od: 24.10, mbr: 289, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_185": { od: 27.70, mbr: 332, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_240": { od: 29.90, mbr: 359, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_300": { od: 33.00, mbr: 396, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_400": { od: 37.40, mbr: 449, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_500": { od: 40.10, mbr: 481, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_ac_630": { od: 44.80, mbr: 538, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_50":  { od: 17.10, mbr: 205, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_70":  { od: 18.80, mbr: 226, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_95":  { od: 20.90, mbr: 251, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_120": { od: 22.40, mbr: 269, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_150": { od: 24.10, mbr: 289, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_185": { od: 27.70, mbr: 332, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_240": { od: 29.90, mbr: 359, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_300": { od: 33.00, mbr: 396, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_400": { od: 37.40, mbr: 449, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_500": { od: 40.10, mbr: 481, src: "Studer Alu-ATA XS (0000007 V1)" },
-        "sc_al_ata_dc_630": { od: 44.80, mbr: 538, src: "Studer Alu-ATA XS (0000007 V1)" },
+        // ── FLEXIBLE SCREENED SOLAR MV ────────
+        "sc_flex_hv_ac_4":   { od:  4.90, mbr:  15, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_6":   { od:  5.80, mbr:  17, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_10":  { od:  7.80, mbr:  23, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_16":  { od:  9.30, mbr:  28, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_25":  { od: 11.00, mbr:  33, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_35":  { od: 12.90, mbr:  39, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_50":  { od: 14.90, mbr:  45, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_70":  { od: 17.00, mbr:  51, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_95":  { od: 19.50, mbr:  59, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_120": { od: 22.60, mbr:  68, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_150": { od: 25.00, mbr:  75, src: "Manufacturer datasheet" },
+        "sc_flex_hv_ac_185": { od: 26.60, mbr:  80, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_4":   { od:  4.90, mbr:  15, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_6":   { od:  5.80, mbr:  17, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_10":  { od:  7.80, mbr:  23, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_16":  { od:  9.30, mbr:  28, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_25":  { od: 11.00, mbr:  33, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_35":  { od: 12.90, mbr:  39, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_50":  { od: 14.90, mbr:  45, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_70":  { od: 17.00, mbr:  51, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_95":  { od: 19.50, mbr:  59, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_120": { od: 22.60, mbr:  68, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_150": { od: 25.00, mbr:  75, src: "Manufacturer datasheet" },
+        "sc_flex_hv_dc_185": { od: 26.60, mbr:  80, src: "Manufacturer datasheet" },
+        // RIGID AL SOLAR
+        "sc_al_ata_ac_50":  { od: 17.10, mbr: 205, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_70":  { od: 18.80, mbr: 226, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_95":  { od: 20.90, mbr: 251, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_120": { od: 22.40, mbr: 269, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_150": { od: 24.10, mbr: 289, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_185": { od: 27.70, mbr: 332, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_240": { od: 29.90, mbr: 359, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_300": { od: 33.00, mbr: 396, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_400": { od: 37.40, mbr: 449, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_500": { od: 40.10, mbr: 481, src: "Manufacturer datasheet" },
+        "sc_al_ata_ac_630": { od: 44.80, mbr: 538, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_50":  { od: 17.10, mbr: 205, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_70":  { od: 18.80, mbr: 226, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_95":  { od: 20.90, mbr: 251, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_120": { od: 22.40, mbr: 269, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_150": { od: 24.10, mbr: 289, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_185": { od: 27.70, mbr: 332, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_240": { od: 29.90, mbr: 359, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_300": { od: 33.00, mbr: 396, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_400": { od: 37.40, mbr: 449, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_500": { od: 40.10, mbr: 481, src: "Manufacturer datasheet" },
+        "sc_al_ata_dc_630": { od: 44.80, mbr: 538, src: "Manufacturer datasheet" },
     };
 
     // Voltage class definitions
@@ -925,7 +920,7 @@
         "lv_al_3c": { label: "0.6/1kV Al XLPE 3-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["three"]  },
         "lv_al_4c": { label: "0.6/1kV Al XLPE 4-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["four"]   },
         "lv_al_5c": { label: "0.6/1kV Al XLPE 5-core SWA (fixed install.)",  Uo: 0, mbr_factor: 12, cores: ["five"]   },
-        // ── LV flexible multicore (H07RN-F type) ────────────────────────────
+        // ── LV flexible multicore ────────────────────────────
         "lv3": { label: "LV 0.6/1kV 3-core (fixed install.)",                    Uo: 0, mbr_factor: 5,  cores: ["three"]  },
         "pv_string": { label: "PV DC string — 1500V DC, Class II (flexible, fixed install.)", Uo: 0, mbr_factor: 4, cores: ["single"] },
         "flex_hv_ac": { label: "Flexible screened — 1000/1000V AC, IT system (fixed/occasional)", Uo: 0, mbr_factor: 3, cores: ["single"] },
@@ -936,11 +931,8 @@
         "10":  { label: "10 kV (5.8/10 kV)",  Uo: 5.8,  mbr_factor: 15, cores: ["single","three"] },
         "15":  { label: "15 kV (8.7/15 kV)",  Uo: 8.7,  mbr_factor: 15, cores: ["single","three"] },
         "20":  { label: "20 kV (12/20 kV)",   Uo: 12,   mbr_factor: 15, cores: ["single","three"] },
-        // 33kV Al: single-core model + confirmed; three-core Al confirmed (HES)
         "33":  { label: "33 kV (19/33 kV) — Al", Uo: 18, mbr_factor: 15, cores: ["single","three"] },
-        // 33kV Cu three-core only — confirmed ODs from HES N2XSEY Cu catalogue
         "33cu": { label: "33 kV (19/33 kV) — Cu 3-core", Uo: 18, mbr_factor: 15, cores: ["three"] },
-        // HV XLPE: single-core only — three-core cables are not used at 66 kV and above
         "66":  { label: "66 kV (38/66 kV) ★",   Uo: 38,  mbr_factor: 15, cores: ["single"] },
         "110": { label: "110 kV (64/110 kV) ★",  Uo: 64,  mbr_factor: 25, cores: ["single"] },
         "132": { label: "132 kV (76/132 kV) ★",  Uo: 76,  mbr_factor: 15, cores: ["single"] },
@@ -966,7 +958,6 @@
     const TC_CSAS = TC_CSAS_MV;
 
     function lookupOD(voltageKey, csaMm2, isThreeCore) {
-        // 33kV Cu three-core: dedicated key prefix, no single-core option
         if (voltageKey === "33cu") {
             if (!isThreeCore) return null;
             const key = "3c_cu18_" + csaMm2;
@@ -985,7 +976,6 @@
 
         let key;
         if (isLVpwr) {
-            // Key format: sc_cu_lv_{csa}, 3c_cu_lv_{csa}, 4c_cu_lv_{csa} etc.
             const coreMap = { "lv_cu_sc":"sc_cu_lv", "lv_al_sc":"sc_al_lv",
                               "lv_cu_2c":"2c_cu_lv", "lv_cu_3c":"3c_cu_lv",
                               "lv_cu_4c":"4c_cu_lv", "lv_cu_5c":"5c_cu_lv",
@@ -1001,11 +991,9 @@
         }
 
         if (OD_CONFIRMED[key]) {
-            // LV power cable entries are model estimates pending datasheet confirmation
             const isEstimated = key.includes("_cu_lv_") || key.includes("_al_lv_");
             return { ...OD_CONFIRMED[key], estimated: isEstimated };
         }
-        // Model estimate for MV/HV single core only
         if (!isThreeCore && isMV_HV) {
             const od = OD_A + OD_B * Math.sqrt(csaMm2) + OD_C * vc.Uo;
             const od_r = Math.round(od / 2.5) * 2.5;
@@ -1015,7 +1003,6 @@
         return null;
     }
 
-    /* ── app state ──────────────────────────────────────────────────────────── */
     const appState = {
         inputs:          null,
         layout:          null,
@@ -1024,7 +1011,6 @@
         previousSpacing: { h: 150, v: 150 }
     };
 
-    /* ── helpers ────────────────────────────────────────────────────────────── */
     function byId(id) { return document.getElementById(id); }
 
     function clampInteger(value, fallback, minValue) {
@@ -1041,7 +1027,6 @@
         return spacing;
     }
 
-    /* ── burial depth ───────────────────────────────────────────────────────── */
     function getBurialDepthForComputation() {
         const raw = Number(byId("burial_depth").value);
         if (!Number.isFinite(raw) || raw <= 0) {
@@ -1075,7 +1060,6 @@
         });
     }
 
-    /* ── inputs ─────────────────────────────────────────────────────────────── */
     function getInputs() {
         return {
             route_name:             byId("route_name").value.trim() || "Unnamed_Route",
@@ -1095,7 +1079,6 @@
         };
     }
 
-    /* ── geometry ───────────────────────────────────────────────────────────── */
     function getGroupGeometry(inputs) {
         const d = inputs.cable_od_mm;
         const sqrt3 = Math.sqrt(3);
@@ -1147,7 +1130,6 @@
         };
     }
 
-    /* ── review ─────────────────────────────────────────────────────────────── */
     function buildReview(inputs, layout) {
         const inputConflicts = [];
         const reviewPoints   = [];
@@ -1194,7 +1176,6 @@
         return { inputConflicts, reviewPoints, standingAssumptions, worstSeverity, summary };
     }
 
-    /* ── render: status / issues / stats ────────────────────────────────────── */
     function renderStatus(review) {
         const box = byId("status_box");
         box.className = `status-box ${review.worstSeverity}`;
@@ -1235,7 +1216,6 @@
                                              : review.worstSeverity === "warn"  ? "#ffcc66" : "#00ff88";
     }
 
-    /* ── draw helpers ───────────────────────────────────────────────────────── */
     function getServiceColours(serviceType) {
         if (serviceType === "mv")  return { fill: "#b87333", stroke: "#ff5555" };
         if (serviceType === "ehv") return { fill: "#ffd700", stroke: "#ff8800" };
@@ -1287,10 +1267,8 @@
             circle(x+r, y+d+r, "#777", "#ff00ff");
             return;
         }
-        // Multicore cables: 3c, 4c, 5c — outer sheath + inner core dot ring
         if (drawType === "multicore_3c" || drawType === "multicore_4c" || drawType === "multicore_5c") {
             const coreCount = drawType === "multicore_3c" ? 3 : drawType === "multicore_4c" ? 4 : 5;
-            // Outer sheath circle
             ctx.beginPath();
             ctx.arc(x+r, y+r, r, 0, Math.PI*2);
             ctx.fillStyle   = col.fill;
@@ -1298,7 +1276,6 @@
             ctx.strokeStyle = col.stroke;
             ctx.lineWidth   = 2/scale;
             ctx.stroke();
-            // Inner dashed ring (represents conductor screen / bedding)
             ctx.beginPath();
             ctx.arc(x+r, y+r, r*0.62, 0, Math.PI*2);
             ctx.strokeStyle = col.stroke;
@@ -1306,7 +1283,6 @@
             ctx.setLineDash([3/scale, 3/scale]);
             ctx.stroke();
             ctx.setLineDash([]);
-            // Small filled dots representing individual cores, arranged in a ring
             const dotR  = r * 0.13;
             const ringR = r * 0.38;
             for (let k = 0; k < coreCount; k++) {
@@ -1322,7 +1298,6 @@
         }
     }
 
-    /* ── draw: formation ────────────────────────────────────────────────────── */
     function drawFormation(inputs, layout, review) {
         const canvas = byId("formation_canvas");
         const W = canvas.width;
@@ -1340,7 +1315,6 @@
         const scale      = Math.min(scaleX, scaleY);
         const dW         = layout.formationWidth  * scale;
         const dH         = layout.formationDepth * scale;
-        // Clamp offsets: never let the drawing render outside the pad zone
         const offX       = Math.max(pad, (W - dW) / 2);
         const offY       = Math.max(topInfo + 6, topInfo + ((usableH - dH) / 2) + 12);
 
@@ -1388,7 +1362,6 @@
             `Worst case formation envelope showing ${layout.rows} rows. Width ${Math.round(layout.formationWidth)} mm. Depth ${Math.round(layout.formationDepth)} mm.`);
     }
 
-    /* ── draw: trench ───────────────────────────────────────────────────────── */
     function drawTrench(inputs, layout) {
         const canvas = byId("trench_canvas");
         const W = canvas.width;
@@ -1477,7 +1450,6 @@
             `Indicative trench cross section. Width ${Math.round(tw)} mm. Depth ${Math.round(td)} mm. Burial depth ${Math.round(bd)} mm.`);
     }
 
-    /* ── draw: bend ─────────────────────────────────────────────────────────── */
     function drawBend(inputs, layout) {
         const canvas = byId("bend_canvas");
         const W = canvas.width;
@@ -1551,7 +1523,6 @@
             `Single cable bend sweep. Applied bend radius ${Math.round(radius)} mm. Outer sweep ${Math.round(outerRadius)} mm.`);
     }
 
-    /* ── snapshot ───────────────────────────────────────────────────────────── */
     function buildSnapshot(inputs, layout, review) {
         const snap = {
             captured_at:    new Date().toISOString(),
@@ -1620,7 +1591,6 @@
         byId("snapshot_box").textContent = appState.snapshotText;
     }
 
-    /* ── export / copy ──────────────────────────────────────────────────────── */
     function exportJson() {
         if (!appState.snapshotText) return;
         const base = (byId("route_name").value.trim() || "geometry_capture").replace(/[^a-z0-9_]/gi, "_");
@@ -1648,7 +1618,6 @@
         }
     }
 
-    /* ── formation options ──────────────────────────────────────────────────── */
     function populateFormationOptions(serviceType, preferredValue) {
         const sel  = byId("formation_type");
         const opts = FORMATION_LIBRARY[serviceType] || FORMATION_LIBRARY.lv;
@@ -1662,7 +1631,6 @@
         sel.value = opts.some(o => o.value === preferredValue) ? preferredValue : opts[0].value;
     }
 
-    /* ── spacing sync ───────────────────────────────────────────────────────── */
     function syncSpacingInputs() {
         const basis    = byId("spacing_basis").value;
         const touching = basis === "touching";
@@ -1671,7 +1639,6 @@
         const note = byId("spacing_note");
         const qty  = clampInteger(byId("circuit_qty").value, 1, 1);
 
-        // Single circuit group — inter-group spacing is not applicable
         if (qty <= 1) {
             h.disabled = true;
             v.disabled = true;
@@ -1704,7 +1671,6 @@
             : "Clear gap selected. Enter direct clear spacing between group envelopes.";
     }
 
-    /* ── burial depth note ──────────────────────────────────────────────────── */
     function syncBurialDepthNote(force = false) {
         const serviceType  = byId("service_type").value;
         const burial       = byId("burial_depth");
@@ -1719,11 +1685,10 @@
         const labels = { lv: "LV AC", mv: "33kV AC", ehv: "132kV AC", dc: "DC" };
         const src    = serviceType === "dc"
             ? "Project assumption only — no normative source in this release."
-            : "UKPN ECS 02 0019 footway/private. Verify locally.";
+            : "Utility footway/private. Verify locally.";
         note.textContent = `Default = ${defaultDepth} mm. Guidance min for ${labels[serviceType] || serviceType} = ${minDepth} mm. ${src}`;
     }
 
-    /* ── OD lookup UI ──────────────────────────────────────────────────────── */
     function populateLookupCSA() {
         const vk = byId("lookup_voltage").value;
         const isThree = byId("lookup_cores").value === "three";
@@ -1748,7 +1713,6 @@
         const isLVpwr  = ["lv_cu_sc","lv_al_sc","lv_cu_2c","lv_cu_3c","lv_cu_4c","lv_cu_5c",
                           "lv_al_3c","lv_al_4c","lv_al_5c"].includes(vk);
 
-        // LV power cables: core count is fixed by the category — Cores dropdown is not applicable
         if (isLVpwr) {
             const coreLabel = { "lv_cu_sc":"single core", "lv_al_sc":"single core",
                                 "lv_cu_2c":"2-core", "lv_cu_3c":"3-core",
@@ -1762,7 +1726,6 @@
                 (vk === "lv_cu_sc" || vk === "lv_al_sc"
                     ? " Single-core AC circuits: use AWA (aluminium wire armour). SWA (steel wire armour) must NOT be used on single-core AC cables due to eddy current losses."
                     : "");
-            // Populate CSA directly — cores dropdown ignored for fixed-core categories
         }
 
         if (isThree && !vc.cores.includes("three")) {
@@ -1782,16 +1745,14 @@
             return;
         }
 
-        // 33cu is three-core only
         if (vk === "33cu" && !isThree) {
             sel.innerHTML = '<option value="">Three core only for this category</option>';
-            noteEl.innerHTML = "<strong>33 kV Cu 3-core:</strong> This entry is for three-core copper conductor cables only (N2XSEY / YXC8V-R). " +
+            noteEl.innerHTML = "<strong>33 kV Cu 3-core:</strong> This entry is for three-core copper conductor cables only. " +
                 "For single-core 33 kV entries use the <em>33 kV (19/33 kV) — Al</em> category (which also uses the model for single-core). " +
-                "ODs from HES Power Cable Catalogue, IEC 60502-2 / VDE 0276-620.";
+                "ODs from generic power cable catalogue, IEC 60502-2 / VDE 0276-620.";
             return;
         }
 
-        // Per-category warnings on voltage selection
         if (vk === "pv_string") {
             noteEl.innerHTML = "<strong>PV DC string cable — 1500V DC only.</strong> " +
                 "Flexible tinned Cu, XLPE Class II, UV/ozone resistant (BS EN 50618 H1Z2Z2-K type). " +
@@ -1817,20 +1778,19 @@
                 "Steel wire armour must NEVER be used on single-core AC cables (eddy current losses). " +
                 "MBR = 12× OD — rigid, fixed installation only. Direct burial capable. " +
                 "Uo=1000V — correct for 800V IT inverter systems. " +
-                "TÜV Rheinland 2PfG2642/11.17 approved. Confirm with manufacturer.";
+                "Confirm with manufacturer.";
         } else if (vk === "al_ata_dc") {
             noteEl.innerHTML = "<strong>Rigid Al solar — 1500/1500V DC (Um=1800V), aluminium tube armour.</strong> " +
                 "Same cable as the 1000/1000V AC version — compacted Al class 2, XLPE, halogen-free. " +
                 "Aluminium tube armour, non-magnetic. MBR = 12× OD — rigid, fixed installation only. " +
-                "Direct burial capable. TÜV Rheinland 2PfG2642/11.17 approved. Confirm with manufacturer.";
+                "Direct burial capable. Confirm with manufacturer.";
         } else if (vk === "33cu") {
-            noteEl.innerHTML = "<strong>33 kV Cu 3-core unarmoured (N2XSEY).</strong> " +
+            noteEl.innerHTML = "<strong>33 kV Cu 3-core unarmoured.</strong> " +
                 "Stranded Cu conductor, XLPE insulation, copper screen, PVC outer jacket. " +
-                "ODs from HES KABLO Power Cable Catalogue, IEC 60502-2 / VDE 0276-620. " +
+                "ODs from generic power cable catalogue, IEC 60502-2 / VDE 0276-620. " +
                 "MBR = 15× OD. Fixed installation. Confirm with cable manufacturer.";
         }
 
-        // Choose CSA list
         let csas;
         if      (vk === "lv_cu_sc")            csas = SC_CSAS_LV_CU_PWR;
         else if (vk === "lv_al_sc")            csas = SC_CSAS_LV_AL_PWR;
@@ -1901,7 +1861,7 @@
                 `Steel wire armour must never be used on single-core AC cables. ` +
                 `Rigid fixed installation only — no occasional-move rating. Confirm with manufacturer.`;
         } else if (vk === "33cu") {
-            noteEl.innerHTML = `<strong>33 kV Cu 3-core (N2XSEY) — ${csa}mm²:</strong> OD = ${result.od}mm. ` +
+            noteEl.innerHTML = `<strong>33 kV Cu 3-core unarmoured — ${csa}mm²:</strong> OD = ${result.od}mm. ` +
                 `Fixed installation MBR = ${result.mbr}mm (15× OD)${srcTag}. ` +
                 `IEC 60502-2 / VDE 0276-620. Fixed installation only. Confirm with manufacturer.`;
         } else if (["lv_cu_sc","lv_al_sc","lv_cu_2c","lv_cu_3c","lv_cu_4c","lv_cu_5c",
@@ -1945,7 +1905,6 @@
         renderAll();
     }
 
-    /* ── render all ─────────────────────────────────────────────────────────── */
     function renderAll() {
         const inputs = getInputs();
         const layout = computeLayout(inputs);
@@ -1962,14 +1921,12 @@
         buildSnapshot(inputs, layout, review);
     }
 
-    /* ── debounce ───────────────────────────────────────────────────────────── */
     function debounce(fn, delay) {
         let t = null;
         return function (...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), delay); };
     }
     const debouncedRenderAll = debounce(renderAll, 80);
 
-    /* ── event handlers ─────────────────────────────────────────────────────── */
     function handleInput(event) {
         const id = event.target.id;
         if (id === "service_type") {
@@ -2003,7 +1960,6 @@
         }
     }
 
-    /* ── drawing view / landscape ────────────────────────────────────────────── */
     function updateViewportMode() {
         const isLM = window.matchMedia("(orientation: landscape) and (max-width: 1200px)").matches;
         document.body.classList.toggle("landscape-mobile", isLM);
@@ -2016,7 +1972,6 @@
         renderAll();
     }
 
-    /* ── numeric UX: select-all on focus ────────────────────────────────────── */
     function bindNumericFieldUX() {
         document.querySelectorAll('input[data-numeric="true"]').forEach(el => {
             const sel = () => { window.setTimeout(() => { try { el.select(); el.setSelectionRange && el.setSelectionRange(0, el.value.length); } catch(_) {} }, 0); };
@@ -2026,7 +1981,6 @@
         });
     }
 
-    /* ── bind all events ────────────────────────────────────────────────────── */
     function bindEvents() {
         ["installation_condition","service_type","grouping_basis","formation_type","spacing_basis"]
             .forEach(id => byId(id).addEventListener("change", handleChange));
@@ -2055,7 +2009,6 @@
         window.addEventListener("resize", debounce(() => { updateViewportMode(); renderAll(); }, 80));
     }
 
-    /* ── init ───────────────────────────────────────────────────────────────── */
     function init() {
         populateFormationOptions(byId("service_type").value, "trefoil_single_row");
         syncSpacingInputs();

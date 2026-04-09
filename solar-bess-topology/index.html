@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Geometry Visualiser v1.5.7r1</title>
+    <title>Geometry Visualiser v1.5.9</title>
     <style>
         :root {
             --bg: #050505;
@@ -398,6 +398,47 @@
         </div>
         <div class="inline-note" id="burial_note">Indicative cover or depth input only. Verify with competent person and utility standard.</div>
 
+        <h3 class="section-title">Cable OD Lookup</h3>
+        <div class="input-group">
+            <label for="lookup_cores">Cores</label>
+            <select id="lookup_cores">
+                <option value="single">Single Core</option>
+                <option value="three">Three Core</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="lookup_voltage">Voltage Class</label>
+            <select id="lookup_voltage">
+                <option value="">— manual OD entry —</option>
+                <optgroup label="LV Single Core">
+                <option value="lv1">LV 450/750V — H07V-K PVC</option>
+                <option value="lv2">LV 0.6/1kV — TOPFLEX 300 oil-res.</option>
+                </optgroup>
+                <optgroup label="LV Multicore">
+                <option value="lv3">LV 0.6/1kV — H07RN-F rubber 3G</option>
+                </optgroup>
+                <optgroup label="MV XLPE">
+                <option value="6">6 kV (3.6/6 kV)</option>
+                <option value="10">10 kV (5.8/10 kV)</option>
+                <option value="15">15 kV (8.7/15 kV)</option>
+                <option value="20">20 kV (12/20 kV)</option>
+                <option value="33">33 kV (19/33 kV)</option>
+                </optgroup>
+                <optgroup label="HV XLPE — confirmed datasheets ★">
+                <option value="66">66 kV (38/66 kV) ★</option>
+                <option value="110">110 kV (64/110 kV) ★</option>
+                <option value="132">132 kV (76/132 kV) ★</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="lookup_csa">Conductor CSA mm²</label>
+            <select id="lookup_csa">
+                <option value="">— select voltage first —</option>
+            </select>
+        </div>
+        <div class="inline-note" id="lookup_note">Select voltage and CSA to auto-populate OD and bend factor. ★ = anchored on confirmed datasheets. Others from HES catalogue model. Indicative only — verify against manufacturer datasheet.</div>
+
         <h3 class="section-title">Formation</h3>
         <div class="input-group">
             <label for="formation_type">Formation Type</label>
@@ -415,6 +456,7 @@
             <label for="cable_od">Cable Outer Diameter mm</label>
             <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="cable_od" value="45" />
         </div>
+        <div class="inline-note" id="od_source_note">OD entered manually.</div>
         <div class="input-group">
             <label for="spacing_basis">Spacing Basis</label>
             <select id="spacing_basis">
@@ -537,24 +579,178 @@
 
     const FORMATION_LIBRARY = {
         lv:  [
-            { value: "trefoil_single_row", label: "Trefoil Single Row" },
-            { value: "flat_single_row",    label: "Flat Single Row" },
-            { value: "stacked_two_high",   label: "Stacked 2 High" }
+            { value: "trefoil_single_row",  label: "Trefoil Single Row (1c×3ph)" },
+            { value: "flat_single_row",     label: "Flat Single Row (1c×3ph)" },
+            { value: "stacked_two_high",    label: "Stacked 2 High (1c×3ph)" },
+            { value: "multicore_3c",        label: "Three Core Cable (3c)" }
         ],
         mv:  [
-            { value: "trefoil_single_row", label: "Trefoil Single Row" },
-            { value: "flat_single_row",    label: "Flat Single Row" },
-            { value: "stacked_two_high",   label: "Stacked 2 High" }
+            { value: "trefoil_single_row",  label: "Trefoil Single Row (1c×3ph)" },
+            { value: "flat_single_row",     label: "Flat Single Row (1c×3ph)" },
+            { value: "stacked_two_high",    label: "Stacked 2 High (1c×3ph)" },
+            { value: "multicore_3c",        label: "Three Core Cable (3c)" }
         ],
         ehv: [
-            { value: "trefoil_single_row", label: "Trefoil Single Row" },
-            { value: "flat_single_row",    label: "Flat Single Row" }
+            { value: "trefoil_single_row",  label: "Trefoil Single Row (1c×3ph)" },
+            { value: "flat_single_row",     label: "Flat Single Row (1c×3ph)" }
         ],
         dc:  [
-            { value: "dc_pair_horizontal", label: "DC Pair Horizontal" },
-            { value: "dc_pair_vertical",   label: "DC Pair Vertical" }
+            { value: "dc_pair_horizontal",  label: "DC Pair Horizontal" },
+            { value: "dc_pair_vertical",    label: "DC Pair Vertical" }
         ]
     };
+
+    /* ── OD lookup database ───────────────────────────────────────────────────
+     * Single-core: model OD = 21.408 + 1.3736·√CSA + 0.3530·Uo  (RMSE 0.64mm)
+     * Anchored on: UKPN 66kV (300,400mm²), UKPN 132kV (300,630,1000,1200,1600mm²),
+     *              TF Kable 110kV (630mm²), HES 33kV full series.
+     * Three-core:  HES catalogue direct values (33kV unarmoured Al).
+     *              Lower voltages from HES catalogue; 66kV+ single-core only.
+     * MBR: actual datasheet values where confirmed; 15×OD otherwise (UKPN standard).
+     *      TF Kable 110kV uses 25×OD (laying MBR per their datasheet).
+     * All values indicative for routing/civils planning only.
+     * Verify against manufacturer datasheet before any design or procurement.
+     */
+
+    // Model coefficients (single core, fitted to UKPN+HES+TF Kable data)
+    const OD_A = 21.408, OD_B = 1.3736, OD_C = 0.353;
+
+    // Confirmed datasheet ODs: { key: {od, mbr, src} }
+    // key = "sc_Uo_csa"  or  "3c_Uo_csa"
+    const OD_CONFIRMED = {
+        // UKPN 66kV (Uo=38)
+        "sc_38_300":  { od: 59,   mbr: 885,  src: "UKPN schedule" },
+        "sc_38_400":  { od: 62,   mbr: 930,  src: "UKPN schedule" },
+        // UKPN 132kV (Uo=76)
+        "sc_76_300":  { od: 72,   mbr: 1080, src: "UKPN schedule" },
+        "sc_76_630":  { od: 83,   mbr: 1245, src: "UKPN schedule" },
+        "sc_76_1000": { od: 91,   mbr: 1365, src: "UKPN schedule" },
+        "sc_76_1200": { od: 97,   mbr: 1455, src: "UKPN schedule" },
+        "sc_76_1600": { od: 104,  mbr: 1560, src: "UKPN schedule" },
+        // TF Kable 110kV (Uo=64)
+        "sc_64_630":  { od: 76.4, mbr: 1910, src: "TF Kable datasheet" },
+        // HES 33kV single core (Uo=18) — catalogue values
+        "sc_18_35":   { od: 36.5, mbr: 548,  src: "HES catalogue" },
+        "sc_18_50":   { od: 37.5, mbr: 563,  src: "HES catalogue" },
+        "sc_18_70":   { od: 39.5, mbr: 593,  src: "HES catalogue" },
+        "sc_18_95":   { od: 41.0, mbr: 615,  src: "HES catalogue" },
+        "sc_18_120":  { od: 43.0, mbr: 645,  src: "HES catalogue" },
+        "sc_18_150":  { od: 44.5, mbr: 668,  src: "HES catalogue" },
+        "sc_18_185":  { od: 46.5, mbr: 698,  src: "HES catalogue" },
+        "sc_18_240":  { od: 49.5, mbr: 743,  src: "HES catalogue" },
+        "sc_18_300":  { od: 51.5, mbr: 773,  src: "HES catalogue" },
+        "sc_18_400":  { od: 55.0, mbr: 825,  src: "HES catalogue" },
+        "sc_18_500":  { od: 58.0, mbr: 870,  src: "HES catalogue" },
+        "sc_18_630":  { od: 62.0, mbr: 930,  src: "HES catalogue" },
+        // HES 33kV three core aluminium unarmoured (Uo=18) — catalogue values
+        "3c_18_35":   { od: 42.0, mbr: 630,  src: "HES catalogue" },
+        "3c_18_50":   { od: 45.0, mbr: 675,  src: "HES catalogue" },
+        "3c_18_70":   { od: 48.5, mbr: 728,  src: "HES catalogue" },
+        "3c_18_95":   { od: 53.0, mbr: 795,  src: "HES catalogue" },
+        "3c_18_120":  { od: 57.0, mbr: 855,  src: "HES catalogue" },
+        "3c_18_150":  { od: 60.5, mbr: 908,  src: "HES catalogue" },
+        "3c_18_185":  { od: 64.5, mbr: 968,  src: "HES catalogue" },
+        "3c_18_240":  { od: 71.0, mbr: 1065, src: "HES catalogue" },
+        "3c_18_300":  { od: 77.5, mbr: 1163, src: "HES catalogue" },
+        "3c_18_400":  { od: 86.0, mbr: 1290, src: "HES catalogue" },
+        // LV H07V-K PVC single core 450/750V — Helukabel Ed.27 (OD=mid of min-max range)
+        // Uo key = 0 (LV), prefix lv1_
+        "sc_lv1_1.5": { od: 3.1,  mbr: 19,  src: "Helukabel H07V-K" },
+        "sc_lv1_2.5": { od: 3.8,  mbr: 23,  src: "Helukabel H07V-K" },
+        "sc_lv1_4":   { od: 4.3,  mbr: 26,  src: "Helukabel H07V-K" },
+        "sc_lv1_6":   { od: 4.8,  mbr: 29,  src: "Helukabel H07V-K" },
+        "sc_lv1_10":  { od: 6.2,  mbr: 37,  src: "Helukabel H07V-K" },
+        "sc_lv1_16":  { od: 7.4,  mbr: 44,  src: "Helukabel H07V-K" },
+        "sc_lv1_25":  { od: 9.3,  mbr: 56,  src: "Helukabel H07V-K" },
+        "sc_lv1_35":  { od: 10.7, mbr: 64,  src: "Helukabel H07V-K" },
+        "sc_lv1_50":  { od: 12.7, mbr: 76,  src: "Helukabel H07V-K" },
+        "sc_lv1_70":  { od: 14.6, mbr: 88,  src: "Helukabel H07V-K" },
+        "sc_lv1_95":  { od: 16.6, mbr: 100, src: "Helukabel H07V-K" },
+        "sc_lv1_120": { od: 18.4, mbr: 110, src: "Helukabel H07V-K" },
+        "sc_lv1_150": { od: 20.6, mbr: 124, src: "Helukabel H07V-K" },
+        "sc_lv1_185": { od: 22.8, mbr: 137, src: "Helukabel H07V-K" },
+        "sc_lv1_240": { od: 25.9, mbr: 155, src: "Helukabel H07V-K" },
+        // LV TOPFLEX 300 PVC single core 0.6/1kV oil-resistant — Helukabel Ed.27
+        "sc_lv2_2.5": { od: 4.2,  mbr: 34,  src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_4":   { od: 5.1,  mbr: 41,  src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_6":   { od: 6.0,  mbr: 48,  src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_10":  { od: 7.4,  mbr: 59,  src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_16":  { od: 8.8,  mbr: 70,  src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_25":  { od: 10.7, mbr: 86,  src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_35":  { od: 12.1, mbr: 97,  src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_50":  { od: 14.0, mbr: 112, src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_70":  { od: 16.3, mbr: 130, src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_95":  { od: 18.3, mbr: 146, src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_120": { od: 20.0, mbr: 160, src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_150": { od: 23.0, mbr: 184, src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_185": { od: 24.8, mbr: 198, src: "Helukabel TOPFLEX 300" },
+        "sc_lv2_240": { od: 28.7, mbr: 230, src: "Helukabel TOPFLEX 300" },
+        // LV H07RN-F rubber 0.6/1kV 3-core (3G) — Helukabel Ed.27 (mid of range)
+        "3c_lv3_1.5": { od: 10.6, mbr: 53,  src: "Helukabel H07RN-F" },
+        "3c_lv3_2.5": { od: 12.4, mbr: 62,  src: "Helukabel H07RN-F" },
+        "3c_lv3_4":   { od: 14.4, mbr: 72,  src: "Helukabel H07RN-F" },
+        "3c_lv3_6":   { od: 16.1, mbr: 80,  src: "Helukabel H07RN-F" },
+        "3c_lv3_10":  { od: 21.6, mbr: 108, src: "Helukabel H07RN-F" },
+        "3c_lv3_16":  { od: 24.7, mbr: 124, src: "Helukabel H07RN-F" },
+        "3c_lv3_25":  { od: 29.6, mbr: 148, src: "Helukabel H07RN-F" },
+        "3c_lv3_35":  { od: 33.2, mbr: 166, src: "Helukabel H07RN-F" },
+        "3c_lv3_50":  { od: 38.5, mbr: 193, src: "Helukabel H07RN-F" },
+        "3c_lv3_70":  { od: 43.3, mbr: 217, src: "Helukabel H07RN-F" },
+        "3c_lv3_95":  { od: 48.6, mbr: 243, src: "Helukabel H07RN-F" },
+        "3c_lv3_120": { od: 53.7, mbr: 269, src: "Helukabel H07RN-F" },
+        "3c_lv3_150": { od: 59.0, mbr: 295, src: "Helukabel H07RN-F" },
+        "3c_lv3_185": { od: 64.5, mbr: 323, src: "Helukabel H07RN-F" },
+        "3c_lv3_240": { od: 73.5, mbr: 368, src: "Helukabel H07RN-F" },
+    };
+
+    // Voltage class definitions
+    const VOLTAGE_CLASSES = {
+        // LV single cores (H07V-K / TOPFLEX 300 / H07RN-F — Helukabel Ed.27)
+        "lv1":  { label: "LV 450/750V (H07V-K)", Uo: 0,  mbr_factor: 6,  cores: ["single"] },
+        "lv2":  { label: "LV 0.6/1kV (TOPFLEX 300)", Uo: 0, mbr_factor: 8, cores: ["single"] },
+        "lv3":  { label: "LV 0.6/1kV rubber (H07RN-F 3G)", Uo: 0, mbr_factor: 5, cores: ["three"] },
+        // MV XLPE (HES catalogue + model)
+        "6":   { label: "6 kV (3.6/6 kV)",   Uo: 3.6,  mbr_factor: 15, cores: ["single","three"] },
+        "10":  { label: "10 kV (5.8/10 kV)",  Uo: 5.8,  mbr_factor: 15, cores: ["single","three"] },
+        "15":  { label: "15 kV (8.7/15 kV)",  Uo: 8.7,  mbr_factor: 15, cores: ["single","three"] },
+        "20":  { label: "20 kV (12/20 kV)",   Uo: 12,   mbr_factor: 15, cores: ["single","three"] },
+        "33":  { label: "33 kV (19/33 kV)",   Uo: 18,   mbr_factor: 15, cores: ["single","three"] },
+        // HV XLPE (UKPN / TF Kable)
+        "66":  { label: "66 kV (38/66 kV) ★",  Uo: 38,   mbr_factor: 15, cores: ["single"] },
+        "110": { label: "110 kV (64/110 kV) ★", Uo: 64,   mbr_factor: 25, cores: ["single"] },
+        "132": { label: "132 kV (76/132 kV) ★", Uo: 76,   mbr_factor: 15, cores: ["single"] },
+    };
+
+    const SC_CSAS_LV  = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
+    const SC_CSAS_MV  = [35, 50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630];
+    const SC_CSAS_HV  = [300, 400, 500, 630, 800, 1000, 1200, 1600, 2000];
+    const SC_CSAS = [...SC_CSAS_LV, ...SC_CSAS_MV.filter(c => !SC_CSAS_LV.includes(c)), ...SC_CSAS_HV.filter(c => !SC_CSAS_MV.includes(c))];
+    const TC_CSAS_LV  = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
+    const TC_CSAS_MV  = [35, 50, 70, 95, 120, 150, 185, 240, 300, 400];
+    const TC_CSAS = TC_CSAS_MV; // default fallback
+
+    function lookupOD(voltageKey, csaMm2, isThreeCore) {
+        if (!voltageKey || !csaMm2) return null;
+        const vc = VOLTAGE_CLASSES[voltageKey];
+        if (!vc) return null;
+        const prefix = isThreeCore ? "3c" : "sc";
+        // LV voltage keys use their own key directly (lv1, lv2, lv3)
+        const isLV = voltageKey.startsWith("lv");
+        const key = isLV
+            ? `${prefix}_${voltageKey}_${csaMm2}`
+            : `${prefix}_${vc.Uo}_${csaMm2}`;
+        if (OD_CONFIRMED[key]) {
+            return { ...OD_CONFIRMED[key], estimated: false };
+        }
+        // Model estimate for MV/HV single core only
+        if (!isThreeCore && !isLV) {
+            const od = OD_A + OD_B * Math.sqrt(csaMm2) + OD_C * vc.Uo;
+            const od_r = Math.round(od / 2.5) * 2.5;
+            const mbr = vc.mbr_factor * od_r;
+            return { od: od_r, mbr: mbr, src: "model estimate ±3mm", estimated: true };
+        }
+        return null;
+    }
 
     /* ── app state ──────────────────────────────────────────────────────────── */
     const appState = {
@@ -651,12 +847,13 @@
         const d = inputs.cable_od_mm;
         const sqrt3 = Math.sqrt(3);
         switch (inputs.formation_type) {
-            case "trefoil_single_row": return { width: d*2,   depth: d*(1+sqrt3/2), drawType: "trefoil",     note: "Trefoil circuit groups" };
-            case "flat_single_row":    return { width: d*3,   depth: d,             drawType: "flat_3",      note: "Flat 3 phase circuit groups" };
-            case "stacked_two_high":   return { width: d*3,   depth: d*2,           drawType: "stacked_2x3", note: "Stacked 2 high formation" };
-            case "dc_pair_horizontal": return { width: d*2,   depth: d,             drawType: "dc_pair_h",   note: "DC horizontal pair" };
-            case "dc_pair_vertical":   return { width: d,     depth: d*2,           drawType: "dc_pair_v",   note: "DC vertical pair" };
-            default:                   return { width: d*2,   depth: d*(1+sqrt3/2), drawType: "trefoil",     note: "Trefoil circuit groups" };
+            case "trefoil_single_row": return { width: d*2, depth: d*(1+sqrt3/2), drawType: "trefoil",     note: "Trefoil 1c groups" };
+            case "flat_single_row":    return { width: d*3, depth: d,             drawType: "flat_3",      note: "Flat 1c groups" };
+            case "stacked_two_high":   return { width: d*3, depth: d*2,           drawType: "stacked_2x3", note: "Stacked 2 high 1c groups" };
+            case "multicore_3c":       return { width: d,   depth: d,             drawType: "multicore_3c",note: "Three core cable groups" };
+            case "dc_pair_horizontal": return { width: d*2, depth: d,             drawType: "dc_pair_h",   note: "DC horizontal pair" };
+            case "dc_pair_vertical":   return { width: d,   depth: d*2,           drawType: "dc_pair_v",   note: "DC vertical pair" };
+            default:                   return { width: d*2, depth: d*(1+sqrt3/2), drawType: "trefoil",     note: "Trefoil 1c groups" };
         }
     }
 
@@ -832,6 +1029,25 @@
         if (drawType === "dc_pair_v") {
             circle(x+r, y+r,   "#555", "#ff00ff");
             circle(x+r, y+d+r, "#777", "#ff00ff");
+            return;
+        }
+        if (drawType === "multicore_3c") {
+            // Single multicore cable drawn as one circle with inner detail
+            ctx.beginPath();
+            ctx.arc(x+r, y+r, r, 0, Math.PI*2);
+            ctx.fillStyle = col.fill;
+            ctx.fill();
+            ctx.strokeStyle = col.stroke;
+            ctx.lineWidth = 2/scale;
+            ctx.stroke();
+            // Inner ring to indicate multicore
+            ctx.beginPath();
+            ctx.arc(x+r, y+r, r*0.55, 0, Math.PI*2);
+            ctx.strokeStyle = col.stroke;
+            ctx.lineWidth = 1.5/scale;
+            ctx.setLineDash([3/scale, 3/scale]);
+            ctx.stroke();
+            ctx.setLineDash([]);
         }
     }
 
@@ -1083,6 +1299,7 @@
             calculations_performed: false,
             not_for_construction:   true,
             route_id: inputs.route_name,
+            cable_od_source: byId("od_source_note") ? byId("od_source_note").textContent : "manual",
             inputs: {
                 worst_case_section_length_m:             inputs.section_length_m,
                 installation_condition:                  inputs.installation_condition,
@@ -1312,9 +1529,102 @@
     }
 
     /* ── bind all events ────────────────────────────────────────────────────── */
+    /* ── OD lookup UI ──────────────────────────────────────────────────────── */
+    function populateLookupCSA() {
+        const vk = byId("lookup_voltage").value;
+        const isThree = byId("lookup_cores").value === "three";
+        const sel = byId("lookup_csa");
+        sel.innerHTML = "";
+        if (!vk) {
+            sel.innerHTML = '<option value="">— select voltage first —</option>';
+            byId("lookup_note").textContent = "Select voltage and CSA to auto-populate OD and bend factor. ★ = anchored on confirmed datasheets. Others from HES catalogue model. Indicative only.";
+            return;
+        }
+        const vc = VOLTAGE_CLASSES[vk];
+        if (!vc) return;
+        // Check if three-core is supported for this voltage
+        if (isThree && !vc.cores.includes("three")) {
+            sel.innerHTML = '<option value="">Three core not in dataset for this voltage</option>';
+            byId("lookup_note").textContent = "Three core OD data only available for LV rubber (H07RN-F) and up to 33 kV (HES catalogue). Use single core for higher voltages.";
+            return;
+        }
+        // Choose CSA list based on voltage key
+        let csas;
+        if (vk.startsWith("lv")) {
+            csas = isThree ? TC_CSAS_LV : SC_CSAS_LV;
+        } else if (["66","110","132"].includes(vk)) {
+            csas = SC_CSAS_HV;
+        } else {
+            csas = isThree ? TC_CSAS_MV : SC_CSAS_MV;
+        }
+        const blank = document.createElement("option");
+        blank.value = "";
+        blank.textContent = "— select CSA —";
+        sel.appendChild(blank);
+        csas.forEach(csa => {
+            const result = lookupOD(vk, csa, isThree);
+            if (!result) return; // skip if no data at all
+            const opt = document.createElement("option");
+            opt.value = csa;
+            const tag = result.estimated ? " ~" : " ✓";
+            opt.textContent = `${csa} mm²  →  OD ${result.od} mm${tag}`;
+            sel.appendChild(opt);
+        });
+    }
+
+    function applyLookup() {
+        const vk = byId("lookup_voltage").value;
+        const csaVal = byId("lookup_csa").value;
+        const isThree = byId("lookup_cores").value === "three";
+        const noteEl = byId("od_source_note");
+        const lookNoteEl = byId("lookup_note");
+
+        if (!vk || !csaVal) {
+            noteEl.textContent = "OD entered manually.";
+            noteEl.style.color = "var(--muted-soft)";
+            return;
+        }
+
+        const csa = parseInt(csaVal, 10);
+        const result = lookupOD(vk, csa, isThree);
+        if (!result) {
+            noteEl.textContent = "No OD data for this combination. Enter OD manually.";
+            noteEl.style.color = "var(--warn)";
+            return;
+        }
+
+        // Set OD
+        byId("cable_od").value = String(result.od);
+
+        // Set bend factor from MBR
+        const mbr_factor = Math.round(result.mbr / result.od);
+        byId("bend_factor").value = String(mbr_factor);
+
+        const srcTag = result.estimated ? " (model estimate ±3 mm)" : " (confirmed datasheet)";
+        noteEl.textContent = `OD from ${result.src}${srcTag}. MBR = ${result.mbr} mm = ${mbr_factor}× OD. Override manually if needed.`;
+        noteEl.style.color = result.estimated ? "var(--warn)" : "var(--ok)";
+
+        lookNoteEl.textContent = `${VOLTAGE_CLASSES[vk].label} ${csa} mm²: OD = ${result.od} mm | MBR = ${result.mbr} mm | Source: ${result.src}`;
+        renderAll();
+    }
+
     function bindEvents() {
         ["installation_condition","service_type","grouping_basis","formation_type","spacing_basis"]
             .forEach(id => byId(id).addEventListener("change", handleChange));
+
+        // OD lookup wiring
+        byId("lookup_cores").addEventListener("change", () => { populateLookupCSA(); applyLookup(); });
+        byId("lookup_voltage").addEventListener("change", () => { populateLookupCSA(); applyLookup(); });
+        byId("lookup_csa").addEventListener("change", applyLookup);
+        // Manual OD edit clears lookup source note
+        byId("cable_od").addEventListener("input", () => {
+            const vk = byId("lookup_voltage").value;
+            const csa = byId("lookup_csa").value;
+            if (!vk || !csa) {
+                byId("od_source_note").textContent = "OD entered manually.";
+                byId("od_source_note").style.color = "var(--muted-soft)";
+            }
+        });
 
         ["route_name","section_length","burial_depth","circuit_qty","max_per_row","cable_od","spacing_h","spacing_v","bend_factor"]
             .forEach(id => {
@@ -1335,6 +1645,7 @@
         syncBurialDepthNote(true);
         normaliseIntegerFields();
         bindNumericFieldUX();
+        populateLookupCSA();
         bindEvents();
         updateViewportMode();
         renderAll();

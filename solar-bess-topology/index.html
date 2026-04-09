@@ -450,6 +450,8 @@
                 <div class="stat-row"><span>Formation Width</span><span class="stat-val" id="out_width">0 mm</span></div>
                 <div class="stat-row"><span>Formation Depth</span><span class="stat-val" id="out_depth">0 mm</span></div>
                 <div class="stat-row"><span>Burial Depth Input</span><span class="stat-val" id="out_burial">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Width</span><span class="stat-val" id="out_trench_width">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Depth</span><span class="stat-val" id="out_trench_depth">0 mm</span></div>
                 <div class="stat-row"><span>Applied Bend Radius</span><span class="stat-val" id="out_mbr" style="color: var(--accent-2);">0 mm</span></div>
                 <div class="stat-row"><span>Rows</span><span class="stat-val" id="out_rows">0</span></div>
                 <div class="stat-row"><span>Clear Gap H</span><span class="stat-val" id="out_gap_h">0 mm</span></div>
@@ -514,6 +516,14 @@
                     <span class="legend-item"><span class="legend-swatch" style="background:#777; border-color: var(--accent-2);"></span>DC</span>
                 </div>
                 <canvas id="formation_canvas" width="900" height="420" aria-label="Formation cross section visual"></canvas>
+            </div>
+
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: #8fd3ff;">Indicative Trench Cross Section</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Width uses worst case formation envelope only. Depth uses burial depth input to top of duct or cable as applicable plus formation depth. No bedding, side clearance, cover boards, duct OD, shoring or civil design is modelled.
+                </p>
+                <canvas id="trench_canvas" width="900" height="420" aria-label="Indicative trench cross section visual"></canvas>
             </div>
 
             <div class="canvas-container">
@@ -801,6 +811,8 @@
             byId("out_width").textContent = formatMm(layout.formationWidth);
             byId("out_depth").textContent = formatMm(layout.formationDepth);
             byId("out_burial").textContent = formatMm(inputs.burial_depth_mm);
+            byId("out_trench_width").textContent = formatMm(layout.indicativeTrenchWidth);
+            byId("out_trench_depth").textContent = formatMm(layout.indicativeTrenchDepth);
             byId("out_mbr").textContent = formatMm(layout.appliedBendRadius);
             byId("out_rows").textContent = `${layout.rows} row${layout.rows === 1 ? "" : "s"}`;
             byId("out_gap_h").textContent = formatMm(layout.gapH);
@@ -918,6 +930,75 @@
             canvas.setAttribute("aria-label", `Worst case formation envelope showing ${layout.rows} rows. Width ${Math.round(layout.formationWidth)} millimetres. Depth ${Math.round(layout.formationDepth)} millimetres.`);
         }
 
+        function drawTrench(inputs, layout) {
+            const canvas = byId("trench_canvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const applicable = ["buried_duct", "direct_buried", "open_trough"].includes(inputs.installation_condition);
+            if (!applicable) {
+                ctx.fillStyle = "#9fa8b7";
+                ctx.font = "16px monospace";
+                ctx.textAlign = "center";
+                ctx.fillText("Trench cross section not applicable to selected installation condition.", canvas.width / 2, canvas.height / 2);
+                return;
+            }
+
+            const padding = 40;
+            const topPad = 60;
+            const bottomPad = 40;
+            const usableW = canvas.width - padding * 2;
+            const usableH = canvas.height - topPad - bottomPad;
+            const scaleX = usableW / Math.max(layout.indicativeTrenchWidth, 1);
+            const scaleY = usableH / Math.max(layout.indicativeTrenchDepth, 1);
+            const scale = Math.min(scaleX, scaleY);
+
+            const trenchW = layout.indicativeTrenchWidth * scale;
+            const trenchD = layout.indicativeTrenchDepth * scale;
+            const trenchX = (canvas.width - trenchW) / 2;
+            const trenchY = topPad;
+            const burialY = trenchY + (inputs.burial_depth_mm * scale);
+            const formationW = layout.formationWidth * scale;
+            const formationD = layout.formationDepth * scale;
+            const formationX = trenchX + (trenchW - formationW) / 2;
+
+            ctx.strokeStyle = "#8fd3ff";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding / 2, trenchY);
+            ctx.lineTo(canvas.width - padding / 2, trenchY);
+            ctx.stroke();
+
+            ctx.fillStyle = "#11161f";
+            ctx.fillRect(trenchX, trenchY, trenchW, trenchD);
+            ctx.strokeStyle = "#444";
+            ctx.strokeRect(trenchX, trenchY, trenchW, trenchD);
+
+            ctx.strokeStyle = "#8fd3ff";
+            ctx.setLineDash([6, 6]);
+            ctx.beginPath();
+            ctx.moveTo(trenchX, burialY);
+            ctx.lineTo(trenchX + trenchW, burialY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = "rgba(0,255,255,0.08)";
+            ctx.fillRect(formationX, burialY, formationW, formationD);
+            ctx.strokeStyle = "#00ffff";
+            ctx.strokeRect(formationX, burialY, formationW, formationD);
+
+            ctx.fillStyle = "#8fd3ff";
+            ctx.font = "12px monospace";
+            ctx.textAlign = "left";
+            ctx.fillText(`Ground line`, padding, trenchY - 10);
+            ctx.fillText(`Burial depth input to top of envelope = ${Math.round(inputs.burial_depth_mm)} mm`, padding, burialY - 8);
+            ctx.fillText(`Indicative trench width = ${Math.round(layout.indicativeTrenchWidth)} mm`, padding, canvas.height - 18);
+            ctx.textAlign = "right";
+            ctx.fillText(`Indicative trench depth = ${Math.round(layout.indicativeTrenchDepth)} mm`, canvas.width - padding, canvas.height - 18);
+
+            canvas.setAttribute("aria-label", `Indicative trench cross section. Width ${Math.round(layout.indicativeTrenchWidth)} millimetres. Depth ${Math.round(layout.indicativeTrenchDepth)} millimetres. Burial depth input ${Math.round(inputs.burial_depth_mm)} millimetres.`);
+        }
+
         function drawBend(inputs, layout) {
             const canvas = byId("bend_canvas");
             const ctx = canvas.getContext("2d");
@@ -1007,6 +1088,7 @@
                     grouping_basis: inputs.grouping_basis,
                     burial_depth_mm: inputs.burial_depth_mm,
                     formation_type: inputs.formation_type,
+                    indicative_trench_cross_section_enabled: ["buried_duct", "direct_buried", "open_trough"].includes(inputs.installation_condition),
                     number_of_circuit_groups: inputs.circuit_qty,
                     max_groups_per_row: inputs.max_per_row,
                     cable_outer_diameter_mm: inputs.cable_od_mm,
@@ -1168,6 +1250,7 @@
             renderIssues(review);
             renderStats(layout, review, inputs);
             drawFormation(inputs, layout, review);
+            drawTrench(inputs, layout);
             drawBend(inputs, layout);
             buildSnapshot(inputs, layout, review);
         }

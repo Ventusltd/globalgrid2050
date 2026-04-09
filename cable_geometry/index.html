@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cable Geometry Visualiser v1.5.18</title>
+    <title>Cable Geometry Visualiser v1.6.0</title>
     <style>
         :root {
             --bg: #050505;
@@ -60,8 +60,17 @@
             flex-direction: column;
         }
 
-        .panel-left { width: 470px; flex-shrink: 0; }
-        .panel-right { flex: 1 1 auto; display: flex; flex-direction: column; gap: 20px; }
+        .panel-left {
+            width: 470px;
+            flex-shrink: 0;
+        }
+
+        .panel-right {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
         h2 {
             margin: 0 0 15px 0;
@@ -83,6 +92,86 @@
 
         .section-title { margin-top: 18px; }
 
+        .subtle-note {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.45;
+            margin: 0 0 14px 0;
+        }
+
+        .warning-box,
+        .status-box,
+        .guidance-box,
+        .assumption-box,
+        .review-box,
+        .conflict-box {
+            padding: 12px;
+            font-size: 11px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
+
+        .warning-box {
+            border: 1px solid var(--warn-line);
+            background: var(--warn-bg);
+            color: var(--warn);
+            margin-bottom: 18px;
+        }
+
+        .guidance-box {
+            border: 1px solid #30455a;
+            background: #08101a;
+            color: #bed1e2;
+            margin-top: 16px;
+        }
+
+        .guidance-box strong,
+        .assumption-box strong,
+        .review-box strong,
+        .conflict-box strong { color: #fff; }
+
+        .guidance-box ul,
+        .review-box ul,
+        .conflict-box ul,
+        .assumption-box ul { margin: 8px 0 0 18px; padding: 0; }
+
+        .guidance-box li + li,
+        .review-box li + li,
+        .conflict-box li + li,
+        .assumption-box li + li { margin-top: 4px; }
+
+        .assumption-box {
+            margin-top: 16px;
+            border: 1px solid var(--info-line);
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .review-box {
+            margin-top: 16px;
+            border: 1px solid var(--warn-line);
+            background: var(--warn-bg);
+            color: var(--warn);
+        }
+
+        .conflict-box {
+            margin-top: 16px;
+            border: 1px solid var(--error-line);
+            background: var(--error-bg);
+            color: #ffb0b0;
+        }
+
+        .status-box {
+            margin: 0 0 16px 0;
+            border: 1px solid var(--line);
+            background: #090c11;
+            color: var(--muted);
+        }
+
+        .status-box.ok    { border-color: rgba(0,255,136,0.35); color: #aef7d1; }
+        .status-box.warn  { border-color: rgba(255,204,102,0.35); color: #ffd98a; }
+        .status-box.error { border-color: rgba(255,102,102,0.35); color: #ffb0b0; }
+
         .input-group {
             display: flex;
             justify-content: space-between;
@@ -93,7 +182,7 @@
             align-items: center;
         }
 
-        .input-group label { flex: 1; }
+        .input-group label { flex: 1 1 auto; min-width: 0; }
 
         .input-group input,
         .input-group select {
@@ -106,77 +195,360 @@
             border-radius: 3px;
         }
 
+        .input-group input[data-numeric="true"] { text-align: right; }
+        .input-group input[type="text"]:not([data-numeric]) { text-align: left; }
+
+        .input-group input:focus,
+        .input-group select:focus { border-color: var(--accent); outline: none; }
+
+        .input-group input[disabled],
+        .input-group select[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+        .inline-note {
+            margin: -2px 0 10px 0;
+            font-size: 10px;
+            color: var(--muted-soft);
+            line-height: 1.45;
+        }
+
+        .stat-block {
+            margin-top: 18px;
+            border-top: 1px solid var(--line);
+            padding-top: 14px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: var(--muted-soft);
+            padding: 4px 0;
+        }
+
+        .stat-val {
+            color: var(--text);
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .canvas-container {
+            background: var(--panel-soft);
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         canvas {
             background: var(--canvas-bg);
             border: 1px solid #333;
             box-shadow: var(--shadow);
             display: block;
             max-width: 100%;
+            height: auto;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn {
+            flex: 1 1 auto;
+            padding: 12px;
+            background: var(--bg);
+            color: var(--ok);
+            border: 1px solid var(--ok);
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover { background: var(--ok); color: #000; }
+        .btn-alt { color: var(--accent-2); border-color: var(--accent-2); }
+        .btn-alt:hover { background: var(--accent-2); color: #000; }
+
+        .snapshot-box {
+            margin-top: 16px;
+            border: 1px solid var(--line-soft);
+            background: #07090d;
+            padding: 12px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #cfcfcf;
+            line-height: 1.45;
+            white-space: pre-wrap;
+        }
+
+        .legend {
+            display: flex;
+            gap: 14px;
+            align-self: flex-start;
+            font-size: 11px;
+            color: var(--muted);
+            margin: 0 0 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+
+        .legend-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #666;
+        }
+
+        body.drawing-view .panel-left { display: none; }
+        body.drawing-view .dashboard { max-width: 100%; }
+        body.drawing-view .panel-right { width: 100%; }
+        body.drawing-view .canvas-container { padding: 12px; }
+        body.drawing-view .subtle-note { margin-bottom: 8px; }
+
+        @media (orientation: landscape) and (max-width: 1200px) {
+            body.landscape-mobile .panel-left { display: none; }
+            body.landscape-mobile .dashboard { max-width: 100%; }
+            body.landscape-mobile .panel-right { width: 100%; }
+            body.landscape-mobile .canvas-container { padding: 10px; }
+            body.landscape-mobile .subtle-note { margin-bottom: 8px; font-size: 10px; }
+        }
+
+        @media (max-width: 1080px) {
+            .dashboard { flex-direction: column; }
+            .panel-left { width: 100%; }
         }
     </style>
 </head>
-
 <body>
-<div class="dashboard">
+    <div class="dashboard">
+        <div class="panel panel-left">
+            <h2>Geometry Inputs</h2>
 
-<div class="panel panel-left">
-<h2>Geometry Inputs</h2>
+            <div class="warning-box">
+                This tool produces indicative geometry records only and must not be used for trench design, duct sizing, burial depth specification, electrical design or any construction document without independent verification by a competent engineer with responsibility for the project.<br>
+                No electrical calculation is performed.<br>
+                No thermal rating is performed.<br>
+                No compliance verdict is produced.<br>
+                The user must verify safety, protection, rating and utility compliance with a competent person in accordance with local law, site conditions and the relevant infrastructure owner requirements.
+            </div>
 
-<h3>Installation Basis</h3>
+            <div id="status_box" class="status-box ok" aria-live="polite">Geometry only. Ready for capture.</div>
 
-<div class="input-group">
-    <label for="service_type">Service Type</label>
-    <select id="service_type">
-        <option value="lv" selected>LV AC</option>
-        <option value="mv">33kV AC</option>
-        <option value="ehv">132kV AC</option>
-        <option value="dc">DC</option>
-    </select>
-</div>
+            <h3>Route Identity</h3>
+            <div class="input-group">
+                <label for="route_name">Route ID</label>
+                <input type="text" id="route_name" value="M_W3_BESS_to_PCS" />
+            </div>
+            <div class="input-group">
+                <label for="section_length">Worst Case Section Length m</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="section_length" value="30" />
+            </div>
 
-<h3 class="section-title">Cable OD Lookup</h3>
+            <h3 class="section-title">Installation Basis</h3>
+            <div class="input-group">
+                <label for="installation_condition">Installation Condition</label>
+                <select id="installation_condition">
+                    <option value="buried_duct">Buried Duct</option>
+                    <option value="direct_buried">Direct Buried</option>
+                    <option value="open_trough">Open Trough</option>
+                    <option value="free_air">Free Air on Cleats</option>
+                    <option value="metallic_enclosure">Metallic Enclosure</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="service_type">Service Type</label>
+                <select id="service_type">
+                    <option value="lv" selected>LV Power AC</option>
+                    <option value="mv">MV AC</option>
+                    <option value="ehv">HV AC</option>
+                    <option value="dc">DC</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="grouping_basis">Grouping Basis</label>
+                <select id="grouping_basis">
+                    <option value="same_circuit">Same Circuit</option>
+                    <option value="same_service">Same Service</option>
+                    <option value="mixed_service">Mixed Service</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="burial_depth">Burial Depth mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="burial_depth" value="900" />
+            </div>
+            <div class="inline-note" id="burial_note">Default burial depth shown. Verify project basis separately.</div>
 
-<div class="input-group">
-    <label for="lookup_cores">Cores</label>
+            <h3 class="section-title">Cable OD Lookup</h3>
+            <div class="input-group">
+                <label for="lookup_cores">Cores</label>
+                <select id="lookup_cores">
+                    <option value="any">All Core Types</option>
+                    <option value="single">Single Core</option>
+                    <option value="two">2 Core</option>
+                    <option value="three">3 Core</option>
+                    <option value="four">4 Core</option>
+                    <option value="five">5 Core</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="lookup_voltage">Voltage Class</label>
+                <select id="lookup_voltage">
+                    <option value="">— manual OD entry —</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="lookup_csa">Conductor CSA mm²</label>
+                <select id="lookup_csa">
+                    <option value="">— select voltage first —</option>
+                </select>
+            </div>
+            <div class="inline-note" id="lookup_note">
+                Select voltage class and CSA to auto populate OD and bend radius. Conductor shape and system notes appear here.
+            </div>
 
-    <!-- ✅ FIXED SECTION -->
-    <select id="lookup_cores">
-        <option value="any">All Core Types</option>
-        <option value="single">Single Core</option>
-        <option value="two">2 Core</option>
-        <option value="three">3 Core</option>
-        <option value="four">4 Core</option>
-        <option value="five">5 Core</option>
-    </select>
-</div>
+            <h3 class="section-title">Formation</h3>
+            <div class="input-group">
+                <label for="formation_type">Formation Type</label>
+                <select id="formation_type"></select>
+            </div>
+            <div class="input-group">
+                <label for="circuit_qty">Number of Circuit Groups</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="circuit_qty" value="4" />
+            </div>
+            <div class="input-group">
+                <label for="max_per_row">Max Groups per Row</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="max_per_row" value="2" />
+            </div>
+            <div class="input-group">
+                <label for="cable_od">Cable Outer Diameter mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="cable_od" value="45" />
+            </div>
+            <div class="inline-note" id="od_source_note">OD entered manually.</div>
+            <div class="input-group">
+                <label for="spacing_basis">Spacing Basis</label>
+                <select id="spacing_basis">
+                    <option value="clear_gap">Clear Gap</option>
+                    <option value="touching">Touching</option>
+                    <option value="centre_to_centre">Centre to Centre</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="spacing_h">Horizontal Spacing mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_h" value="150" />
+            </div>
+            <div class="input-group">
+                <label for="spacing_v">Vertical Spacing mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_v" value="150" />
+            </div>
+            <div class="inline-note" id="spacing_note">Spacing inputs are active.</div>
 
-<div class="input-group">
-    <label for="lookup_voltage">Voltage Class</label>
-    <select id="lookup_voltage">
-        <option value="">— manual OD entry —</option>
-    </select>
-</div>
+            <h3 class="section-title">Bend Geometry</h3>
+            <div class="input-group">
+                <label for="bend_factor">Bend Radius x OD</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="bend_factor" value="15" />
+            </div>
 
-<div class="input-group">
-    <label for="lookup_csa">CSA mm²</label>
-    <select id="lookup_csa">
-        <option value="">— select voltage first —</option>
-    </select>
-</div>
+            <div class="stat-block">
+                <div class="stat-row"><span>Formation Width</span><span class="stat-val" id="out_width">0 mm</span></div>
+                <div class="stat-row"><span>Formation Depth</span><span class="stat-val" id="out_depth">0 mm</span></div>
+                <div class="stat-row"><span>Burial Depth Input</span><span class="stat-val" id="out_burial">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Width</span><span class="stat-val" id="out_trench_width">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Depth</span><span class="stat-val" id="out_trench_depth">0 mm</span></div>
+                <div class="stat-row"><span>Applied Bend Radius</span><span class="stat-val" id="out_mbr" style="color: var(--accent-2);">0 mm</span></div>
+                <div class="stat-row"><span>Rows</span><span class="stat-val" id="out_rows">0</span></div>
+                <div class="stat-row"><span>Clear Gap Horizontal</span><span class="stat-val" id="out_gap_h">0 mm</span></div>
+                <div class="stat-row"><span>Clear Gap Vertical</span><span class="stat-val" id="out_gap_v">0 mm</span></div>
+                <div class="stat-row"><span>Approx Group CTC Horizontal</span><span class="stat-val" id="out_ctc_h">0 mm</span></div>
+                <div class="stat-row"><span>Approx Group CTC Vertical</span><span class="stat-val" id="out_ctc_v">0 mm</span></div>
+                <div class="stat-row"><span>Review Status</span><span class="stat-val" id="out_note" style="color: var(--ok);">OK</span></div>
+            </div>
 
-</div>
+            <div class="button-row">
+                <button class="btn" id="export_btn" type="button">Export JSON</button>
+                <button class="btn btn-alt" id="copy_btn" type="button">Copy Snapshot</button>
+                <button class="btn" id="drawing_view_btn" type="button">Drawing View</button>
+            </div>
 
-<div class="panel panel-right">
-    <canvas id="formation_canvas" width="900" height="420"></canvas>
-</div>
+            <div class="conflict-box" id="conflict_box" aria-live="polite" hidden>
+                <strong>Input conflicts</strong>
+                <ul id="conflict_list"></ul>
+            </div>
 
-</div>
+            <div class="review-box" id="review_box" aria-live="polite" hidden>
+                <strong>Review points</strong>
+                <ul id="review_list"></ul>
+            </div>
 
-<script src="data-core.js"></script>
-<script src="data-lv.js"></script>
-<script src="data-mv-hv.js"></script>
-<script src="data-solar.js"></script>
-<script src="app.js"></script>
+            <div class="assumption-box">
+                <strong>Standing assumptions</strong>
+                <ul>
+                    <li>Within group cable spacing is assumed touching unless separately modelled.</li>
+                    <li>Mixed service visual uses one worst case OD for all shown services and is schematic only.</li>
+                    <li>Bend visual shows a single cable body sweep only and does not model full multi cable sweep, trench profile, duct entry, pull path or installation forces.</li>
+                    <li>Burial depth is recorded as an indicative input only.</li>
+                    <li>4 core and 5 core multicore formations are drawn as a single cable OD. Within cable core arrangement is not modelled.</li>
+                </ul>
+            </div>
 
+            <div class="snapshot-box" id="snapshot_box"></div>
+
+            <div class="guidance-box">
+                <strong>Open cable knowledge basis</strong><br>
+                This interface is intended to expose geometry assumptions clearly and separate them from catalogue driven product selection.
+                <ul>
+                    <li>British MV classes retained here are 6.35/11 kV and 19/33 kV.</li>
+                    <li>Transmission class retained here is 64/110 kV IEC system.</li>
+                    <li>Sector conductors are called out because they affect OD and terminations.</li>
+                    <li>Stored ODs and bend data must still be verified before any formal design issue.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-right">
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: var(--accent);">Worst Case Formation Cross Section</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Cable group box only. Envelope width is the horizontal size of the cable group shown. Envelope depth is the vertical size of the cable group shown.
+                </p>
+                <div class="legend">
+                    <span class="legend-item"><span class="legend-swatch" style="background:#666; border-color:#00ffff;"></span>LV Power AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#b87333; border-color:#ff5555;"></span>MV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#ffd700; border-color:#ff8800;"></span>HV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#777; border-color: var(--accent-2);"></span>DC</span>
+                </div>
+                <canvas id="formation_canvas" width="900" height="420" aria-label="Formation cross section visual"></canvas>
+            </div>
+
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: #8fd3ff;">Indicative Trench Cross Section</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Indicative trench size only. Trench width shown is worst case formation envelope width only. Trench depth shown is burial depth input to the top of duct or cable plus cable formation depth. No bedding, side clearance, cover boards, duct OD, shoring or civil design is modelled.
+                </p>
+                <canvas id="trench_canvas" width="900" height="500" aria-label="Indicative trench cross section visual"></canvas>
+            </div>
+
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: var(--accent-2);">Single Cable Bend Sweep</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Single cable body sweep only. Not multi cable sweep, trench profile, duct entry or civil detail.
+                </p>
+                <canvas id="bend_canvas" width="900" height="380" aria-label="Single cable bend sweep visual"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="data-core.js"></script>
+    <script src="data-lv.js"></script>
+    <script src="data-mv-hv.js"></script>
+    <script src="data-solar.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

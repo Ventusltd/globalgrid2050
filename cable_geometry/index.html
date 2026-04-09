@@ -99,50 +99,210 @@
             margin: 0 0 14px 0;
         }
 
-        .warning-box, .status-box, .guidance-box, .assumption-box, .review-box, .conflict-box {
-            padding: 12px; font-size: 11px; line-height: 1.5; border-radius: 3px;
+        .warning-box,
+        .status-box,
+        .guidance-box,
+        .assumption-box,
+        .review-box,
+        .conflict-box {
+            padding: 12px;
+            font-size: 11px;
+            line-height: 1.5;
+            border-radius: 3px;
         }
 
-        .warning-box { border: 1px solid var(--warn-line); background: var(--warn-bg); color: var(--warn); margin-bottom: 18px; }
-        .guidance-box { border: 1px solid #30455a; background: #08101a; color: #bed1e2; margin-top: 16px; }
-        .guidance-box strong, .assumption-box strong, .review-box strong, .conflict-box strong { color: #fff; }
+        .warning-box {
+            border: 1px solid var(--warn-line);
+            background: var(--warn-bg);
+            color: var(--warn);
+            margin-bottom: 18px;
+        }
+
+        .guidance-box {
+            border: 1px solid #30455a;
+            background: #08101a;
+            color: #bed1e2;
+            margin-top: 16px;
+        }
+
+        .guidance-box strong,
+        .assumption-box strong,
+        .review-box strong,
+        .conflict-box strong { color: #fff; }
+
         .guidance-box a { color: #8fd3ff; text-decoration: underline; }
         .guidance-box a:hover { color: #c5e7ff; }
-        .guidance-box ul, .review-box ul, .conflict-box ul, .assumption-box ul { margin: 8px 0 0 18px; padding: 0; }
-        .guidance-box li + li, .review-box li + li, .conflict-box li + li, .assumption-box li + li { margin-top: 4px; }
-        .assumption-box { margin-top: 16px; border: 1px solid var(--info-line); background: var(--info-bg); color: var(--info); }
-        .review-box { margin-top: 16px; border: 1px solid var(--warn-line); background: var(--warn-bg); color: var(--warn); }
-        .conflict-box { margin-top: 16px; border: 1px solid var(--error-line); background: var(--error-bg); color: #ffb0b0; }
-        .status-box { margin: 0 0 16px 0; border: 1px solid var(--line); background: #090c11; color: var(--muted); }
-        .status-box.ok { border-color: rgba(0,255,136,0.35); color: #aef7d1; }
-        .status-box.warn { border-color: rgba(255,204,102,0.35); color: #ffd98a; }
+
+        .guidance-box ul,
+        .review-box ul,
+        .conflict-box ul,
+        .assumption-box ul { margin: 8px 0 0 18px; padding: 0; }
+
+        .guidance-box li + li,
+        .review-box li + li,
+        .conflict-box li + li,
+        .assumption-box li + li { margin-top: 4px; }
+
+        .assumption-box {
+            margin-top: 16px;
+            border: 1px solid var(--info-line);
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .review-box {
+            margin-top: 16px;
+            border: 1px solid var(--warn-line);
+            background: var(--warn-bg);
+            color: var(--warn);
+        }
+
+        .conflict-box {
+            margin-top: 16px;
+            border: 1px solid var(--error-line);
+            background: var(--error-bg);
+            color: #ffb0b0;
+        }
+
+        .status-box {
+            margin: 0 0 16px 0;
+            border: 1px solid var(--line);
+            background: #090c11;
+            color: var(--muted);
+        }
+
+        .status-box.ok    { border-color: rgba(0,255,136,0.35);  color: #aef7d1; }
+        .status-box.warn  { border-color: rgba(255,204,102,0.35); color: #ffd98a; }
         .status-box.error { border-color: rgba(255,102,102,0.35); color: #ffb0b0; }
 
-        .input-group { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-size: 12px; color: var(--muted); align-items: center; }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--muted);
+            align-items: center;
+        }
+
         .input-group label { flex: 1 1 auto; min-width: 0; }
-        .input-group input, .input-group select { width: 190px; background: var(--input-bg); color: var(--accent); border: 1px solid #444; padding: 7px 8px; font-family: monospace; border-radius: 3px; }
+
+        .input-group input,
+        .input-group select {
+            width: 190px;
+            background: var(--input-bg);
+            color: var(--accent);
+            border: 1px solid #444;
+            padding: 7px 8px;
+            font-family: monospace;
+            border-radius: 3px;
+        }
+
         .input-group input[data-numeric="true"] { text-align: right; }
         .input-group input[type="text"]:not([data-numeric]) { text-align: left; }
-        .input-group input:focus, .input-group select:focus { border-color: var(--accent); outline: none; }
-        .input-group input[disabled] { opacity: 0.55; cursor: not-allowed; }
-        .inline-note { margin: -2px 0 10px 0; font-size: 10px; color: var(--muted-soft); }
 
-        .stat-block { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; }
-        .stat-row { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; margin-bottom: 8px; color: var(--muted-soft); padding: 4px 0; }
+        .input-group input:focus,
+        .input-group select:focus { border-color: var(--accent); outline: none; }
+
+        .input-group input[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+        .inline-note {
+            margin: -2px 0 10px 0;
+            font-size: 10px;
+            color: var(--muted-soft);
+        }
+
+        .stat-block {
+            margin-top: 18px;
+            border-top: 1px solid var(--line);
+            padding-top: 14px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: var(--muted-soft);
+            padding: 4px 0;
+        }
+
         .stat-val { color: var(--text); font-weight: bold; text-align: right; }
 
-        .canvas-container { background: var(--panel-soft); border: 1px solid var(--line-soft); border-radius: 4px; padding: 15px; display: flex; flex-direction: column; align-items: center; }
-        canvas { background: var(--canvas-bg); border: 1px solid #333; box-shadow: var(--shadow); display: block; max-width: 100%; height: auto; }
-        .button-row { display: flex; gap: 10px; margin-top: 14px; }
-        .btn { flex: 1 1 auto; padding: 12px; background: var(--bg); color: var(--ok); border: 1px solid var(--ok); cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; transition: all 0.2s; }
+        .canvas-container {
+            background: var(--panel-soft);
+            border: 1px solid var(--line-soft);
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        canvas {
+            background: var(--canvas-bg);
+            border: 1px solid #333;
+            box-shadow: var(--shadow);
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn {
+            flex: 1 1 auto;
+            padding: 12px;
+            background: var(--bg);
+            color: var(--ok);
+            border: 1px solid var(--ok);
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
         .btn:hover { background: var(--ok); color: #000; }
         .btn-alt { color: var(--accent-2); border-color: var(--accent-2); }
         .btn-alt:hover { background: var(--accent-2); color: #000; }
-        .snapshot-box { margin-top: 16px; border: 1px solid var(--line-soft); background: #07090d; padding: 12px; border-radius: 3px; font-size: 11px; color: #cfcfcf; line-height: 1.45; white-space: pre-wrap; }
 
-        .legend { display: flex; gap: 14px; align-self: flex-start; font-size: 11px; color: var(--muted); margin: 0 0 10px 0; flex-wrap: wrap; }
+        .snapshot-box {
+            margin-top: 16px;
+            border: 1px solid var(--line-soft);
+            background: #07090d;
+            padding: 12px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #cfcfcf;
+            line-height: 1.45;
+            white-space: pre-wrap;
+        }
+
+        .legend {
+            display: flex;
+            gap: 14px;
+            align-self: flex-start;
+            font-size: 11px;
+            color: var(--muted);
+            margin: 0 0 10px 0;
+            flex-wrap: wrap;
+        }
+
         .legend-item { display: inline-flex; align-items: center; gap: 6px; }
-        .legend-swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #666; }
+
+        .legend-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #666;
+        }
 
         /* Drawing view: hide left panel, maximise canvases */
         body.drawing-view .panel-left { display: none; }
@@ -238,47 +398,7 @@
                 <label for="lookup_voltage">Voltage Class</label>
                 <select id="lookup_voltage">
                     <option value="">— manual OD entry —</option>
-                    <optgroup label="LV Power — 0.6/1kV XLPE, Cu conductor">
-                      <option value="lv_cu_sc">0.6/1kV Cu XLPE single core (AWA)</option>
-                      <option value="lv_cu_2c">0.6/1kV Cu XLPE 2-core SWA</option>
-                      <option value="lv_cu_3c">0.6/1kV Cu XLPE 3-core SWA</option>
-                      <option value="lv_cu_4c">0.6/1kV Cu XLPE 4-core SWA</option>
-                      <option value="lv_cu_5c">0.6/1kV Cu XLPE 5-core SWA</option>
-                    </optgroup>
-                    <optgroup label="LV Power — 0.6/1kV XLPE, Al conductor">
-                      <option value="lv_al_sc">0.6/1kV Al XLPE single core (AWA)</option>
-                      <option value="lv_al_3c">0.6/1kV Al XLPE 3-core SWA</option>
-                      <option value="lv_al_4c">0.6/1kV Al XLPE 4-core SWA</option>
-                      <option value="lv_al_5c">0.6/1kV Al XLPE 5-core SWA</option>
-                    </optgroup>
-                    <optgroup label="LV Power — Multicore, fixed installation">
-                      <option value="lv3">LV Power 0.6/1kV 3-core</option>
-                    </optgroup>
-                    <optgroup label="Solar PV — DC string (flexible Cu, 1500V DC only)">
-                      <option value="pv_string">1500V DC string — BS EN 50618 Class II</option>
-                    </optgroup>
-                    <optgroup label="Solar PV — Flexible screened (Cu screened, fixed/occasional)">
-                      <option value="flex_hv_ac">1000/1000V AC — IT system (Uo=1000V ≥ inverter Vac)</option>
-                      <option value="flex_hv_dc">1500V DC — flexible screened</option>
-                    </optgroup>
-                    <optgroup label="Solar PV — Rigid Al, Al tube armour (non-magnetic, fixed only)">
-                      <option value="al_ata_ac">1000/1000V AC — Al tube armour, IT system</option>
-                      <option value="al_ata_dc">1500/1500V DC — Al tube armour</option>
-                    </optgroup>
-                    <optgroup label="MV XLPE — fixed installation">
-                      <option value="6">6 kV (3.6/6 kV)</option>
-                      <option value="10">10 kV (5.8/10 kV)</option>
-                      <option value="15">15 kV (8.7/15 kV)</option>
-                      <option value="20">20 kV (12/20 kV)</option>
-                      <option value="33">33 kV (19/33 kV) — Al</option>
-                      <option value="33cu">33 kV (19/33 kV) — Cu 3-core</option>
-                    </optgroup>
-                    <optgroup label="HV XLPE — fixed installation ★ confirmed datasheets">
-                      <option value="66">66 kV (38/66 kV) ★</option>
-                      <option value="110">110 kV (64/110 kV) ★</option>
-                      <option value="132">132 kV (76/132 kV) ★</option>
-                    </optgroup>
-                  </select>
+                </select>
             </div>
             <div class="input-group">
                 <label for="lookup_csa">Conductor CSA mm²</label>

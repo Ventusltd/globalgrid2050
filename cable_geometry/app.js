@@ -143,44 +143,45 @@ const sel = byId(“lookup_voltage”);
 const selectedCore = getSelectedCore();
 const previousValue = sel.value;
 
-```
-sel.innerHTML = '<option value="">— manual OD entry —</option>';
+sel.innerHTML = ‘<option value="">— manual OD entry —</option>’;
 
 const groups = VOLTAGE_DROPDOWN_GROUPS[serviceType] || [];
 let appendedAny = false;
 
 groups.forEach(group => {
-    const optgroup = document.createElement("optgroup");
-    optgroup.label = group.label;
+const optgroup = document.createElement(“optgroup”);
+optgroup.label = group.label;
 
-    group.options.forEach(optData => {
-        const runtime = getVoltageRuntimeMeta(optData.value);
-        const cores = runtime.cores || [];
-        if (selectedCore !== "any" && cores.length && !cores.includes(selectedCore)) return;
+```
+group.options.forEach(optData => {
+    const runtime = getVoltageRuntimeMeta(optData.value);
+    const cores = runtime.cores || [];
+    if (selectedCore !== "any" && cores.length && !cores.includes(selectedCore)) return;
 
-        const opt = document.createElement("option");
-        opt.value = optData.value;
-        opt.textContent = optData.text;
-        optgroup.appendChild(opt);
-        appendedAny = true;
-    });
-
-    if (optgroup.children.length) sel.appendChild(optgroup);
+    const opt = document.createElement("option");
+    opt.value = optData.value;
+    opt.textContent = optData.text;
+    optgroup.appendChild(opt);
+    appendedAny = true;
 });
 
-if (previousValue && [...sel.options].some(o => o.value === previousValue)) {
-    sel.value = previousValue;
+if (optgroup.children.length) sel.appendChild(optgroup);
+```
+
+});
+
+if (previousValue && […sel.options].some(o => o.value === previousValue)) {
+sel.value = previousValue;
 } else {
-    sel.selectedIndex = 0;
+sel.selectedIndex = 0;
 }
 
 if (!appendedAny) {
-    sel.innerHTML = '<option value="">— no voltage classes for selected core —</option>';
+sel.innerHTML = ‘<option value="">— no voltage classes for selected core —</option>’;
 }
 
 populateLookupCSA();
 applyLookup();
-```
 
 }
 
@@ -190,30 +191,28 @@ applyLookup();
 function getLookupKey(voltageKey, csaMm2, selectedCore) {
 if (!voltageKey || !csaMm2) return null;
 
-```
 const directMap = {
-    // LV
-    lv_cu_sc:     csa => `sc_cu_lv_${csa}`,
-    lv_cu_3c:     csa => `3c_cu_lv_${csa}`,
-    // UK MV
-    uk_11kv_sc:   csa => `sc_6.35_${csa}`,
-    uk_11kv_3c:   csa => `3c_6.35_${csa}`,
-    uk_33kv_sc:   csa => `sc_19_${csa}`,
-    uk_33kv_3c:   csa => `3c_cu18_${csa}`,
-    // HV
-    iec_110kv_sc: csa => `sc_64_${csa}`,
-    // Solar / DC
-    pv_string:    csa => `sc_pv_string_${csa}`,
-    flex_hv_ac:   csa => `sc_flex_hv_ac_${csa}`,
-    flex_hv_dc:   csa => `sc_flex_hv_dc_${csa}`,
-    al_ata_ac:    csa => `sc_al_ata_ac_${csa}`,
-    al_ata_dc:    csa => `sc_al_ata_dc_${csa}`
+// LV
+lv_cu_sc:     csa => `sc_cu_lv_${csa}`,
+lv_cu_3c:     csa => `3c_cu_lv_${csa}`,
+// UK MV
+uk_11kv_sc:   csa => `sc_6.35_${csa}`,
+uk_11kv_3c:   csa => `3c_6.35_${csa}`,
+uk_33kv_sc:   csa => `sc_19_${csa}`,
+uk_33kv_3c:   csa => `3c_cu18_${csa}`,
+// HV
+iec_110kv_sc: csa => `sc_64_${csa}`,
+// Solar / DC
+pv_string:    csa => `sc_pv_string_${csa}`,
+flex_hv_ac:   csa => `sc_flex_hv_ac_${csa}`,
+flex_hv_dc:   csa => `sc_flex_hv_dc_${csa}`,
+al_ata_ac:    csa => `sc_al_ata_ac_${csa}`,
+al_ata_dc:    csa => `sc_al_ata_dc_${csa}`
 };
 
 if (directMap[voltageKey]) return directMap[voltageKey](csaMm2);
 
 return null;
-```
 
 }
 
@@ -223,20 +222,18 @@ return null;
 function lookupOD(voltageKey, csaMm2, selectedCore) {
 if (!voltageKey || !csaMm2) return null;
 
-```
 const runtime = getVoltageRuntimeMeta(voltageKey);
 const key = getLookupKey(voltageKey, csaMm2, selectedCore);
 
 if (key && OD_CONFIRMED[key]) {
-    const entry = OD_CONFIRMED[key];
-    return {
-        ...entry,
-        estimated: /Generic|catalogue|model/i.test(entry.src || "")
-    };
+const entry = OD_CONFIRMED[key];
+return {
+…entry,
+estimated: /Generic|catalogue|model/i.test(entry.src || “”)
+};
 }
 
 return null;
-```
 
 }
 
@@ -257,43 +254,42 @@ const sel = byId(“lookup_csa”);
 const noteEl = byId(“lookup_note”);
 sel.innerHTML = “”;
 
-```
 if (!vk) {
-    sel.innerHTML = '<option value="">— select voltage first —</option>';
-    noteEl.innerHTML =
-        "Select voltage class and CSA to auto populate OD and bend radius. " +
-        "All values are for <strong>fixed installation</strong> only. " +
-        "Flexible applications, very tight bend radii, cleats and terminations must be verified separately.";
-    return;
+sel.innerHTML = ‘<option value="">— select voltage first —</option>’;
+noteEl.innerHTML =
+“Select voltage class and CSA to auto populate OD and bend radius. “ +
+“All values are for <strong>fixed installation</strong> only. “ +
+“Flexible applications, very tight bend radii, cleats and terminations must be verified separately.”;
+return;
 }
 
 const runtime = getVoltageRuntimeMeta(vk);
 const allowedCores = runtime.cores || [];
-if (selectedCore !== "any" && allowedCores.length && !allowedCores.includes(selectedCore)) {
-    sel.innerHTML = '<option value="">— no CSA for selected core —</option>';
-    noteEl.innerHTML =
-        `<strong>${getVoltageDisplayName(vk)}</strong><br>` +
-        `This voltage class is not available for the selected core arrangement.`;
-    return;
+if (selectedCore !== “any” && allowedCores.length && !allowedCores.includes(selectedCore)) {
+sel.innerHTML = ‘<option value="">— no CSA for selected core —</option>’;
+noteEl.innerHTML =
+`<strong>${getVoltageDisplayName(vk)}</strong><br>` +
+`This voltage class is not available for the selected core arrangement.`;
+return;
 }
 
 const csas = CSA_BY_VOLTAGE_KEY[vk] || [];
 if (!csas.length) {
-    sel.innerHTML = '<option value="">— no CSA data —</option>';
-    noteEl.innerHTML =
-        `<strong>${getVoltageDisplayName(vk)}</strong><br>` +
-        `No CSA range is configured for this entry.`;
-    return;
+sel.innerHTML = ‘<option value="">— no CSA data —</option>’;
+noteEl.innerHTML =
+`<strong>${getVoltageDisplayName(vk)}</strong><br>` +
+`No CSA range is configured for this entry.`;
+return;
 }
 
 csas.forEach(csa => {
-    const res = lookupOD(vk, csa, selectedCore);
-    const opt = document.createElement("option");
-    opt.value = csa;
-    opt.textContent = res
-        ? `${csa} mm²  —  OD ${res.od} mm  |  MBR ${Math.round(res.mbr)} mm${res.estimated ? " (est.)" : ""}`
-        : `${csa} mm²  —  no OD data`;
-    sel.appendChild(opt);
+const res = lookupOD(vk, csa, selectedCore);
+const opt = document.createElement(“option”);
+opt.value = csa;
+opt.textContent = res
+? `${csa} mm²  —  OD ${res.od} mm  |  MBR ${Math.round(res.mbr)} mm${res.estimated ? " (est.)" : ""}`
+: `${csa} mm²  —  no OD data`;
+sel.appendChild(opt);
 });
 
 sel.selectedIndex = 0;
@@ -301,24 +297,23 @@ sel.disabled = !!runtime.locked_csa;
 
 const shapeText = getConductorShapeText(vk);
 const sectorNote = runtime.sectorial
-    ? " Sector conductors are indicated here because they affect OD, termination selection and accessory fit."
-    : "";
+? “ Sector conductors are indicated here because they affect OD, termination selection and accessory fit.”
+: “”;
 const systemNote = runtime.standard_basis
-    ? ` Standard basis: ${runtime.standard_basis}.`
-    : runtime.system_type
-        ? ` System basis: ${runtime.system_type}.`
-        : "";
+? ` Standard basis: ${runtime.standard_basis}.`
+: runtime.system_type
+? ` System basis: ${runtime.system_type}.`
+: “”;
 const lockedNote = runtime.locked_csa
-    ? ` CSA is fixed at ${runtime.locked_csa} mm² for this entry.`
-    : "";
+? ` CSA is fixed at ${runtime.locked_csa} mm² for this entry.`
+: “”;
 const screenNote = runtime.metallic_screen
-    ? ` Metallic screen reference: ${runtime.metallic_screen} mm².`
-    : "";
+? ` Metallic screen reference: ${runtime.metallic_screen} mm².`
+: “”;
 
 noteEl.innerHTML =
-    `<strong>${getVoltageDisplayName(vk)}</strong><br>` +
-    `${shapeText}.${sectorNote}${systemNote}${lockedNote}${screenNote}`;
-```
+`<strong>${getVoltageDisplayName(vk)}</strong><br>` +
+`${shapeText}.${sectorNote}${systemNote}${lockedNote}${screenNote}`;
 
 }
 
@@ -328,38 +323,36 @@ const csa = byId(“lookup_csa”).value;
 const selectedCore = getSelectedCore();
 if (!vk || !csa) return;
 
-```
 const result = lookupOD(vk, parseFloat(csa), selectedCore);
 if (!result) return;
 
 const runtime = getVoltageRuntimeMeta(vk);
 
-byId("cable_od").value = String(Math.round(result.od * 10) / 10);
-byId("bend_factor").value = String(runtime.mbr_factor || Math.max(1, Math.round(result.mbr / result.od)));
+byId(“cable_od”).value = String(Math.round(result.od * 10) / 10);
+byId(“bend_factor”).value = String(runtime.mbr_factor || Math.max(1, Math.round(result.mbr / result.od)));
 
-const srcEl = byId("od_source_note");
+const srcEl = byId(“od_source_note”);
 srcEl.textContent = result.estimated
-    ? `OD from model or generic schedule. Verify before use.`
-    : `OD from stored dataset.`;
-srcEl.style.color = result.estimated ? "var(--warn)" : "var(--ok)";
+? `OD from model or generic schedule. Verify before use.`
+: `OD from stored dataset.`;
+srcEl.style.color = result.estimated ? “var(–warn)” : “var(–ok)”;
 
-const noteEl = byId("lookup_note");
+const noteEl = byId(“lookup_note”);
 const shapeText = getConductorShapeText(vk);
-const sectorText = runtime.sectorial ? " Sector conductors affect OD and terminations." : "";
+const sectorText = runtime.sectorial ? “ Sector conductors affect OD and terminations.” : “”;
 const systemText = runtime.system_type
-    ? ` ${runtime.system_type}.`
-    : runtime.standard_basis
-        ? ` ${runtime.standard_basis}.`
-        : "";
+? ` ${runtime.system_type}.`
+: runtime.standard_basis
+? ` ${runtime.standard_basis}.`
+: “”;
 
 noteEl.innerHTML =
-    `<strong>${getVoltageDisplayName(vk)} — ${csa} mm²</strong><br>` +
-    `OD = ${result.od} mm. Fixed installation MBR = ${Math.round(result.mbr)} mm.${systemText} ` +
-    `${shapeText}.${sectorText} ` +
-    `${result.estimated ? "Estimated value. Verify before design use." : "Stored dataset value."}`;
+`<strong>${getVoltageDisplayName(vk)} — ${csa} mm²</strong><br>` +
+`OD = ${result.od} mm. Fixed installation MBR = ${Math.round(result.mbr)} mm.${systemText} ` +
+`${shapeText}.${sectorText} ` +
+`${result.estimated ? "Estimated value. Verify before design use." : "Stored dataset value."}`;
 
 renderAll();
-```
 
 }
 
@@ -369,18 +362,16 @@ const csa = byId(“lookup_csa”).value;
 const selectedCore = getSelectedCore();
 const srcEl = byId(“od_source_note”);
 
-```
 if (vk && csa) {
-    const res = lookupOD(vk, parseFloat(csa), selectedCore);
-    if (res) {
-        srcEl.textContent = res.estimated
-            ? "OD from model or generic schedule. Verify before use."
-            : "OD from stored dataset.";
-        srcEl.style.color = res.estimated ? "var(--warn)" : "var(--ok)";
-    }
+const res = lookupOD(vk, parseFloat(csa), selectedCore);
+if (res) {
+srcEl.textContent = res.estimated
+? “OD from model or generic schedule. Verify before use.”
+: “OD from stored dataset.”;
+srcEl.style.color = res.estimated ? “var(–warn)” : “var(–ok)”;
+}
 }
 renderAll();
-```
 
 }
 
@@ -410,41 +401,39 @@ const rows = Math.ceil(groupCount / perRow);
 const rowCounts = [];
 let remaining = groupCount;
 
-```
 for (let i = 0; i < rows; i++) {
-    const c = Math.min(perRow, remaining);
-    rowCounts.push(c);
-    remaining -= c;
+const c = Math.min(perRow, remaining);
+rowCounts.push(c);
+remaining -= c;
 }
 
-const maxRowCount = Math.max(...rowCounts);
+const maxRowCount = Math.max(…rowCounts);
 const formationWidth = (maxRowCount * geom.width) + (Math.max(maxRowCount - 1, 0) * gapH);
 const formationDepth = (rows * geom.depth) + (Math.max(rows - 1, 0) * gapV);
 const appliedBendRadius = inputs.cable_od_mm * inputs.bend_factor;
 const singleCableOuterSweepRadius = appliedBendRadius + inputs.cable_od_mm / 2;
-const approxGroupCtcH = inputs.spacing_basis === "centre_to_centre" ? inputs.spacing_h_mm : geom.width + gapH;
-const approxGroupCtcV = inputs.spacing_basis === "centre_to_centre" ? inputs.spacing_v_mm : geom.depth + gapV;
+const approxGroupCtcH = inputs.spacing_basis === “centre_to_centre” ? inputs.spacing_h_mm : geom.width + gapH;
+const approxGroupCtcV = inputs.spacing_basis === “centre_to_centre” ? inputs.spacing_v_mm : geom.depth + gapV;
 
 return {
-    rows,
-    rowCounts,
-    groupWidth: geom.width,
-    groupDepth: geom.depth,
-    drawType: geom.drawType,
-    groupNote: geom.note,
-    gapH,
-    gapV,
-    formationWidth,
-    formationDepth,
-    appliedBendRadius,
-    singleCableOuterSweepRadius,
-    approxGroupCtcH,
-    approxGroupCtcV,
-    indicativeTrenchWidth: formationWidth,
-    indicativeTrenchDepth: inputs.burial_depth_mm + formationDepth,
-    hasUnevenLastRow: rowCounts.length > 1 && rowCounts[rowCounts.length - 1] !== maxRowCount
+rows,
+rowCounts,
+groupWidth: geom.width,
+groupDepth: geom.depth,
+drawType: geom.drawType,
+groupNote: geom.note,
+gapH,
+gapV,
+formationWidth,
+formationDepth,
+appliedBendRadius,
+singleCableOuterSweepRadius,
+approxGroupCtcH,
+approxGroupCtcV,
+indicativeTrenchWidth: formationWidth,
+indicativeTrenchDepth: inputs.burial_depth_mm + formationDepth,
+hasUnevenLastRow: rowCounts.length > 1 && rowCounts[rowCounts.length - 1] !== maxRowCount
 };
-```
 
 }
 
@@ -459,45 +448,43 @@ const standingAssumptions = [
 “4 core and 5 core multicore formations are drawn as a single cable OD.”
 ];
 
-```
-const vk = byId("lookup_voltage").value;
+const vk = byId(“lookup_voltage”).value;
 const runtime = getVoltageRuntimeMeta(vk);
 
-if (inputs.grouping_basis === "mixed_service") {
-    reviewPoints.push("Mixed service grouping selected. Visual remains schematic and uses one worst case OD for all shown services.");
+if (inputs.grouping_basis === “mixed_service”) {
+reviewPoints.push(“Mixed service grouping selected. Visual remains schematic and uses one worst case OD for all shown services.”);
 }
 
-if (inputs.spacing_basis === "centre_to_centre") {
-    if (inputs.spacing_h_mm <= inputs.cable_od_mm) {
-        inputConflicts.push("Horizontal centre to centre spacing is less than or equal to cable outer diameter.");
-    }
-    if (inputs.spacing_v_mm <= inputs.cable_od_mm) {
-        inputConflicts.push("Vertical centre to centre spacing is less than or equal to cable outer diameter.");
-    }
+if (inputs.spacing_basis === “centre_to_centre”) {
+if (inputs.spacing_h_mm <= inputs.cable_od_mm) {
+inputConflicts.push(“Horizontal centre to centre spacing is less than or equal to cable outer diameter.”);
+}
+if (inputs.spacing_v_mm <= inputs.cable_od_mm) {
+inputConflicts.push(“Vertical centre to centre spacing is less than or equal to cable outer diameter.”);
+}
 }
 
 if (runtime.sectorial) {
-    reviewPoints.push("Sector conductor entry selected. Check termination and accessory compatibility against the intended conductor shape.");
+reviewPoints.push(“Sector conductor entry selected. Check termination and accessory compatibility against the intended conductor shape.”);
 }
 
 if (runtime.system_type) {
-    reviewPoints.push(`Transmission entry selected. Check installation basis against the stated system standard before use.`);
+reviewPoints.push(`Transmission entry selected. Check installation basis against the stated system standard before use.`);
 }
 
-if (layout.formationWidth >= 3000) reviewPoints.push("Formation width is at or above 3000 mm and may need corridor review.");
-if (layout.formationDepth > 2000) reviewPoints.push("Formation depth is above 2000 mm and may need trench or enclosure review.");
-if (inputs.bend_factor < 12 && inputs.service_type !== "dc") reviewPoints.push("Low bend factor entered. Confirm against cable data.");
-if (layout.hasUnevenLastRow) reviewPoints.push("Worst case envelope is based on the fullest row.");
+if (layout.formationWidth >= 3000) reviewPoints.push(“Formation width is at or above 3000 mm and may need corridor review.”);
+if (layout.formationDepth > 2000) reviewPoints.push(“Formation depth is above 2000 mm and may need trench or enclosure review.”);
+if (inputs.bend_factor < 12 && inputs.service_type !== “dc”) reviewPoints.push(“Low bend factor entered. Confirm against cable data.”);
+if (layout.hasUnevenLastRow) reviewPoints.push(“Worst case envelope is based on the fullest row.”);
 
-const worstSeverity = inputConflicts.length ? "error" : reviewPoints.length ? "warn" : "ok";
-const summary = worstSeverity === "ok"
-    ? "Geometry capture complete. No active conflicts or review points detected."
-    : worstSeverity === "warn"
-        ? "Geometry capture complete with review points."
-        : "Input conflict detected. Review before using output.";
+const worstSeverity = inputConflicts.length ? “error” : reviewPoints.length ? “warn” : “ok”;
+const summary = worstSeverity === “ok”
+? “Geometry capture complete. No active conflicts or review points detected.”
+: worstSeverity === “warn”
+? “Geometry capture complete with review points.”
+: “Input conflict detected. Review before using output.”;
 
 return { inputConflicts, reviewPoints, standingAssumptions, worstSeverity, summary };
-```
 
 }
 
@@ -513,32 +500,30 @@ const reviewBox = byId(“review_box”);
 const conflictList = byId(“conflict_list”);
 const reviewList = byId(“review_list”);
 
-```
-conflictList.innerHTML = "";
-reviewList.innerHTML = "";
+conflictList.innerHTML = “”;
+reviewList.innerHTML = “”;
 
 if (review.inputConflicts.length) {
-    conflictBox.hidden = false;
-    review.inputConflicts.forEach(msg => {
-        const li = document.createElement("li");
-        li.textContent = msg;
-        conflictList.appendChild(li);
-    });
+conflictBox.hidden = false;
+review.inputConflicts.forEach(msg => {
+const li = document.createElement(“li”);
+li.textContent = msg;
+conflictList.appendChild(li);
+});
 } else {
-    conflictBox.hidden = true;
+conflictBox.hidden = true;
 }
 
 if (review.reviewPoints.length) {
-    reviewBox.hidden = false;
-    review.reviewPoints.forEach(msg => {
-        const li = document.createElement("li");
-        li.textContent = msg;
-        reviewList.appendChild(li);
-    });
+reviewBox.hidden = false;
+review.reviewPoints.forEach(msg => {
+const li = document.createElement(“li”);
+li.textContent = msg;
+reviewList.appendChild(li);
+});
 } else {
-    reviewBox.hidden = true;
+reviewBox.hidden = true;
 }
-```
 
 }
 
@@ -570,86 +555,87 @@ function drawGroup(ctx, x, y, d, drawType, serviceType, scale) {
 const r = d / 2;
 const col = getServiceColours(serviceType);
 
-```
 function circle(cx, cy, fill, stroke) {
+ctx.beginPath();
+ctx.arc(cx, cy, r, 0, Math.PI * 2);
+ctx.fillStyle = fill;
+ctx.fill();
+ctx.strokeStyle = stroke;
+ctx.lineWidth = 2 / scale;
+ctx.stroke();
+}
+
+if (drawType === “trefoil”) {
+const h = d * (1 + Math.sqrt(3) / 2);
+circle(x + r, y + h - r, col.fill, col.stroke);
+circle(x + d + r, y + h - r, col.fill, col.stroke);
+circle(x + d, y + r, col.fill, col.stroke);
+return;
+}
+
+if (drawType === “flat_3”) {
+circle(x + r, y + r, col.fill, col.stroke);
+circle(x + d + r, y + r, col.fill, col.stroke);
+circle(x + (2 * d) + r, y + r, col.fill, col.stroke);
+return;
+}
+
+if (drawType === “stacked_2x3”) {
+circle(x + r, y + r, col.fill, col.stroke);
+circle(x + d + r, y + r, col.fill, col.stroke);
+circle(x + (2 * d) + r, y + r, col.fill, col.stroke);
+circle(x + r, y + d + r, col.fill, col.stroke);
+circle(x + d + r, y + d + r, col.fill, col.stroke);
+circle(x + (2 * d) + r, y + d + r, col.fill, col.stroke);
+return;
+}
+
+if (drawType === “dc_pair_h”) {
+circle(x + r, y + r, “#555”, “#ff00ff”);
+circle(x + d + r, y + r, “#777”, “#ff00ff”);
+return;
+}
+
+if (drawType === “dc_pair_v”) {
+circle(x + r, y + r, “#555”, “#ff00ff”);
+circle(x + r, y + d + r, “#777”, “#ff00ff”);
+return;
+}
+
+if (drawType === “multicore_3c” || drawType === “multicore_4c” || drawType === “multicore_5c”) {
+const coreCount = drawType === “multicore_3c” ? 3 : drawType === “multicore_4c” ? 4 : 5;
+
+```
+ctx.beginPath();
+ctx.arc(x + r, y + r, r, 0, Math.PI * 2);
+ctx.fillStyle = col.fill;
+ctx.fill();
+ctx.strokeStyle = col.stroke;
+ctx.lineWidth = 2 / scale;
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(x + r, y + r, r * 0.62, 0, Math.PI * 2);
+ctx.strokeStyle = col.stroke;
+ctx.lineWidth = 1.2 / scale;
+ctx.setLineDash([3 / scale, 3 / scale]);
+ctx.stroke();
+ctx.setLineDash([]);
+
+const dotR = r * 0.13;
+const ringR = r * 0.38;
+for (let k = 0; k < coreCount; k++) {
+    const ang = (2 * Math.PI * k / coreCount) - Math.PI / 2;
+    const cx2 = x + r + ringR * Math.cos(ang);
+    const cy2 = y + r + ringR * Math.sin(ang);
     ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fillStyle = fill;
+    ctx.arc(cx2, cy2, dotR, 0, Math.PI * 2);
+    ctx.fillStyle = col.stroke;
     ctx.fill();
-    ctx.strokeStyle = stroke;
-    ctx.lineWidth = 2 / scale;
-    ctx.stroke();
-}
-
-if (drawType === "trefoil") {
-    const h = d * (1 + Math.sqrt(3) / 2);
-    circle(x + r, y + h - r, col.fill, col.stroke);
-    circle(x + d + r, y + h - r, col.fill, col.stroke);
-    circle(x + d, y + r, col.fill, col.stroke);
-    return;
-}
-
-if (drawType === "flat_3") {
-    circle(x + r, y + r, col.fill, col.stroke);
-    circle(x + d + r, y + r, col.fill, col.stroke);
-    circle(x + (2 * d) + r, y + r, col.fill, col.stroke);
-    return;
-}
-
-if (drawType === "stacked_2x3") {
-    circle(x + r, y + r, col.fill, col.stroke);
-    circle(x + d + r, y + r, col.fill, col.stroke);
-    circle(x + (2 * d) + r, y + r, col.fill, col.stroke);
-    circle(x + r, y + d + r, col.fill, col.stroke);
-    circle(x + d + r, y + d + r, col.fill, col.stroke);
-    circle(x + (2 * d) + r, y + d + r, col.fill, col.stroke);
-    return;
-}
-
-if (drawType === "dc_pair_h") {
-    circle(x + r, y + r, "#555", "#ff00ff");
-    circle(x + d + r, y + r, "#777", "#ff00ff");
-    return;
-}
-
-if (drawType === "dc_pair_v") {
-    circle(x + r, y + r, "#555", "#ff00ff");
-    circle(x + r, y + d + r, "#777", "#ff00ff");
-    return;
-}
-
-if (drawType === "multicore_3c" || drawType === "multicore_4c" || drawType === "multicore_5c") {
-    const coreCount = drawType === "multicore_3c" ? 3 : drawType === "multicore_4c" ? 4 : 5;
-
-    ctx.beginPath();
-    ctx.arc(x + r, y + r, r, 0, Math.PI * 2);
-    ctx.fillStyle = col.fill;
-    ctx.fill();
-    ctx.strokeStyle = col.stroke;
-    ctx.lineWidth = 2 / scale;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(x + r, y + r, r * 0.62, 0, Math.PI * 2);
-    ctx.strokeStyle = col.stroke;
-    ctx.lineWidth = 1.2 / scale;
-    ctx.setLineDash([3 / scale, 3 / scale]);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    const dotR = r * 0.13;
-    const ringR = r * 0.38;
-    for (let k = 0; k < coreCount; k++) {
-        const ang = (2 * Math.PI * k / coreCount) - Math.PI / 2;
-        const cx2 = x + r + ringR * Math.cos(ang);
-        const cy2 = y + r + ringR * Math.sin(ang);
-        ctx.beginPath();
-        ctx.arc(cx2, cy2, dotR, 0, Math.PI * 2);
-        ctx.fillStyle = col.stroke;
-        ctx.fill();
-    }
 }
 ```
+
+}
 
 }
 
@@ -660,7 +646,6 @@ const H = canvas.height;
 const ctx = canvas.getContext(“2d”);
 ctx.clearRect(0, 0, W, H);
 
-```
 const topInfo = 50;
 const botInfo = 26;
 const pad = 34;
@@ -678,45 +663,44 @@ ctx.save();
 ctx.translate(offX, offY);
 ctx.scale(scale, scale);
 
-ctx.fillStyle = "#11161f";
+ctx.fillStyle = “#11161f”;
 ctx.fillRect(0, 0, layout.formationWidth, layout.formationDepth);
-ctx.strokeStyle = review.worstSeverity === "error" ? "#ff6666" : "#444";
+ctx.strokeStyle = review.worstSeverity === “error” ? “#ff6666” : “#444”;
 ctx.lineWidth = 3 / scale;
 ctx.strokeRect(0, 0, layout.formationWidth, layout.formationDepth);
 
 let y = 0;
 for (let r = 0; r < layout.rowCounts.length; r++) {
-    let x = 0;
-    for (let i = 0; i < layout.rowCounts[r]; i++) {
-        drawGroup(ctx, x, y, inputs.cable_od_mm, layout.drawType, inputs.service_type, scale);
-        x += layout.groupWidth + layout.gapH;
-    }
-    y += layout.groupDepth + layout.gapV;
+let x = 0;
+for (let i = 0; i < layout.rowCounts[r]; i++) {
+drawGroup(ctx, x, y, inputs.cable_od_mm, layout.drawType, inputs.service_type, scale);
+x += layout.groupWidth + layout.gapH;
+}
+y += layout.groupDepth + layout.gapV;
 }
 ctx.restore();
 
-ctx.fillStyle = "#00ffff";
-ctx.font = "12px monospace";
-ctx.textAlign = "left";
+ctx.fillStyle = “#00ffff”;
+ctx.font = “12px monospace”;
+ctx.textAlign = “left”;
 ctx.fillText(`Worst case envelope width = ${Math.round(layout.formationWidth)} mm  |  envelope depth = ${Math.round(layout.formationDepth)} mm`, 14, 20);
 ctx.fillText(`Indicative trench width = ${Math.round(layout.indicativeTrenchWidth)} mm  |  indicative trench depth = ${Math.round(layout.indicativeTrenchDepth)} mm`, 14, 36);
 ctx.fillText(`Formation: ${layout.groupNote}`, 14, H - 10);
-ctx.textAlign = "right";
-ctx.fillStyle = "#9fa8b7";
+ctx.textAlign = “right”;
+ctx.fillStyle = “#9fa8b7”;
 ctx.fillText(`Rows: ${layout.rows}  |  Gap Horiz: ${Math.round(layout.gapH)} mm  |  Gap Vert: ${Math.round(layout.gapV)} mm`, W - 14, 20);
 
-ctx.fillStyle = "#8fd3ff";
-ctx.textAlign = "center";
-ctx.fillText("WIDTH", offX + dW / 2, offY + dH + 18);
+ctx.fillStyle = “#8fd3ff”;
+ctx.textAlign = “center”;
+ctx.fillText(“WIDTH”, offX + dW / 2, offY + dH + 18);
 ctx.save();
 ctx.translate(offX + dW + 18, offY + dH / 2);
 ctx.rotate(-Math.PI / 2);
-ctx.fillText("DEPTH", 0, 0);
+ctx.fillText(“DEPTH”, 0, 0);
 ctx.restore();
 
-canvas.setAttribute("aria-label",
-    `Worst case formation envelope showing ${layout.rows} rows. Width ${Math.round(layout.formationWidth)} mm. Depth ${Math.round(layout.formationDepth)} mm.`);
-```
+canvas.setAttribute(“aria-label”,
+`Worst case formation envelope showing ${layout.rows} rows. Width ${Math.round(layout.formationWidth)} mm. Depth ${Math.round(layout.formationDepth)} mm.`);
 
 }
 
@@ -727,14 +711,13 @@ const H = canvas.height;
 const ctx = canvas.getContext(“2d”);
 ctx.clearRect(0, 0, W, H);
 
-```
-const applicable = ["buried_duct", "direct_buried", "open_trough"].includes(inputs.installation_condition);
+const applicable = [“buried_duct”, “direct_buried”, “open_trough”].includes(inputs.installation_condition);
 if (!applicable) {
-    ctx.fillStyle = "#9fa8b7";
-    ctx.font = "16px monospace";
-    ctx.textAlign = "center";
-    ctx.fillText("Trench cross section not applicable to selected installation condition.", W / 2, H / 2);
-    return;
+ctx.fillStyle = “#9fa8b7”;
+ctx.font = “16px monospace”;
+ctx.textAlign = “center”;
+ctx.fillText(“Trench cross section not applicable to selected installation condition.”, W / 2, H / 2);
+return;
 }
 
 const pad = 40;
@@ -748,11 +731,11 @@ const td = layout.indicativeTrenchDepth;
 const tw = layout.indicativeTrenchWidth;
 
 if (!Number.isFinite(bd) || !Number.isFinite(td) || !Number.isFinite(tw) || tw <= 0 || td <= 0) {
-    ctx.fillStyle = "#9fa8b7";
-    ctx.font = "14px monospace";
-    ctx.textAlign = "center";
-    ctx.fillText("Waiting for valid burial depth input.", W / 2, H / 2);
-    return;
+ctx.fillStyle = “#9fa8b7”;
+ctx.font = “14px monospace”;
+ctx.textAlign = “center”;
+ctx.fillText(“Waiting for valid burial depth input.”, W / 2, H / 2);
+return;
 }
 
 const scaleX = usableW / tw;
@@ -768,20 +751,20 @@ const formationW = layout.formationWidth * scale;
 const formationD = layout.formationDepth * scale;
 const formationX = trenchX + (trenchW - formationW) / 2;
 
-ctx.strokeStyle = "#8fd3ff";
+ctx.strokeStyle = “#8fd3ff”;
 ctx.lineWidth = 2;
 ctx.beginPath();
 ctx.moveTo(pad / 2, trenchY);
 ctx.lineTo(W - pad / 2, trenchY);
 ctx.stroke();
 
-ctx.fillStyle = "#11161f";
+ctx.fillStyle = “#11161f”;
 ctx.fillRect(trenchX, trenchY, trenchW, trenchD);
-ctx.strokeStyle = "#444";
+ctx.strokeStyle = “#444”;
 ctx.lineWidth = 1;
 ctx.strokeRect(trenchX, trenchY, trenchW, trenchD);
 
-ctx.strokeStyle = "#8fd3ff";
+ctx.strokeStyle = “#8fd3ff”;
 ctx.lineWidth = 1;
 ctx.setLineDash([6, 6]);
 ctx.beginPath();
@@ -790,24 +773,23 @@ ctx.lineTo(trenchX + trenchW, burialY);
 ctx.stroke();
 ctx.setLineDash([]);
 
-ctx.fillStyle = "rgba(0,255,255,0.08)";
+ctx.fillStyle = “rgba(0,255,255,0.08)”;
 ctx.fillRect(formationX, burialY, formationW, formationD);
-ctx.strokeStyle = "#00ffff";
+ctx.strokeStyle = “#00ffff”;
 ctx.lineWidth = 1.5;
 ctx.strokeRect(formationX, burialY, formationW, formationD);
 
-ctx.fillStyle = "#8fd3ff";
-ctx.font = "12px monospace";
-ctx.textAlign = "left";
-ctx.fillText("Ground line", pad, trenchY - 10);
+ctx.fillStyle = “#8fd3ff”;
+ctx.font = “12px monospace”;
+ctx.textAlign = “left”;
+ctx.fillText(“Ground line”, pad, trenchY - 10);
 ctx.fillText(`Burial depth input to top of cable box = ${Math.round(bd)} mm`, pad, burialY - 8);
 ctx.fillText(`Indicative trench width = ${Math.round(tw)} mm`, pad, H - 58);
 ctx.fillText(`Indicative trench depth = ${Math.round(td)} mm`, pad, H - 38);
-ctx.fillText("Civil design still to add bedding, side clearance, duct OD and build up", pad, H - 18);
+ctx.fillText(“Civil design still to add bedding, side clearance, duct OD and build up”, pad, H - 18);
 
-canvas.setAttribute("aria-label",
-    `Indicative trench cross section. Width ${Math.round(tw)} mm. Depth ${Math.round(td)} mm. Burial depth ${Math.round(bd)} mm.`);
-```
+canvas.setAttribute(“aria-label”,
+`Indicative trench cross section. Width ${Math.round(tw)} mm. Depth ${Math.round(td)} mm. Burial depth ${Math.round(bd)} mm.`);
 
 }
 
@@ -818,7 +800,6 @@ const H = canvas.height;
 const ctx = canvas.getContext(“2d”);
 ctx.clearRect(0, 0, W, H);
 
-```
 const pad = 40;
 const radius = layout.appliedBendRadius;
 const outerRadius = layout.singleCableOuterSweepRadius;
@@ -835,55 +816,54 @@ const topL = Math.max(radius * scale * 0.45, 90);
 ctx.save();
 ctx.translate(xOrigin, H - pad);
 
-ctx.fillStyle = "#111";
+ctx.fillStyle = “#111”;
 ctx.fillRect(-straightL, -ct / 2, straightL, ct);
 
 ctx.beginPath();
 ctx.arc(0, -radius * scale, radius * scale, Math.PI / 2, 0, true);
-ctx.strokeStyle = "#00ffff";
+ctx.strokeStyle = “#00ffff”;
 ctx.lineWidth = ct;
 ctx.stroke();
 
 ctx.beginPath();
 ctx.moveTo(radius * scale, -radius * scale);
 ctx.lineTo(radius * scale, -radius * scale - topL);
-ctx.strokeStyle = "#00ffff";
+ctx.strokeStyle = “#00ffff”;
 ctx.lineWidth = ct;
 ctx.stroke();
 
 ctx.beginPath();
 ctx.arc(0, -radius * scale, radius * scale, 0, Math.PI / 2, false);
-ctx.strokeStyle = "#ff00ff";
+ctx.strokeStyle = “#ff00ff”;
 ctx.lineWidth = 1.5;
 ctx.setLineDash([5, 5]);
 ctx.stroke();
 
 ctx.beginPath();
 ctx.arc(0, -radius * scale, outerRadius * scale, Math.PI / 2, 0, true);
-ctx.strokeStyle = "#666";
+ctx.strokeStyle = “#666”;
 ctx.lineWidth = 1;
 ctx.setLineDash([7, 4]);
 ctx.stroke();
 ctx.setLineDash([]);
 
-ctx.fillStyle = "#ff00ff";
-ctx.textAlign = "left";
-ctx.font = "12px monospace";
+ctx.fillStyle = “#ff00ff”;
+ctx.textAlign = “left”;
+ctx.font = “12px monospace”;
 ctx.fillText(`Applied bend radius = ${Math.round(radius)} mm`, radius * scale * 0.2, -radius * scale * 0.52);
-ctx.fillStyle = "#9fa8b7";
+ctx.fillStyle = “#9fa8b7”;
 ctx.fillText(`Single cable outer sweep = ${Math.round(outerRadius)} mm`, radius * scale * 0.2, -radius * scale * 0.38);
 ctx.restore();
 
-ctx.fillStyle = "#00ffff";
-ctx.font = "12px monospace";
-ctx.textAlign = "left";
+ctx.fillStyle = “#00ffff”;
+ctx.font = “12px monospace”;
+ctx.textAlign = “left”;
 ctx.fillText(`Cable OD: ${Math.round(inputs.cable_od_mm)} mm`, 14, 18);
 ctx.fillText(`Bend factor: ${Math.round(inputs.bend_factor)} x OD`, 14, 34);
 ctx.fillText(`Burial depth input: ${Math.round(inputs.burial_depth_mm)} mm`, 14, 50);
 
-canvas.setAttribute("aria-label",
-    `Single cable bend sweep. Applied bend radius ${Math.round(radius)} mm. Outer sweep ${Math.round(outerRadius)} mm.`);
-```
+canvas.setAttribute(“aria-label”,
+`Single cable bend sweep. Applied bend radius ${Math.round(radius)} mm. Outer sweep ${Math.round(outerRadius)} mm.`);
 
 }
 
@@ -892,84 +872,82 @@ const vk = byId(“lookup_voltage”).value;
 const runtime = getVoltageRuntimeMeta(vk);
 const csa = byId(“lookup_csa”).value;
 
-```
 const snap = {
-    captured_at: new Date().toISOString(),
-    schema_version: "1.6.0",
-    tool_scope: "Worst case cable formation, indicative burial depth and single cable bend geometry capture only",
-    assumptions: {
-        within_group_cable_spacing: "touching",
-        bend_model_basis: "single_cable_body_sweep_only",
-        burial_depth_basis: "user_input_only",
-        mixed_service_visual_basis: "single_worst_case_od_for_all_services",
-        multicore_4c_5c_basis: "single_od_envelope_only"
-    },
-    calculations_performed: false,
-    not_for_construction: true,
-    route_id: inputs.route_name,
-    cable_od_source: byId("od_source_note") ? byId("od_source_note").textContent : "manual",
-    cable_selection: {
-        voltage_key: vk || null,
-        voltage_label: vk ? getVoltageDisplayName(vk) : null,
-        csa_mm2: csa ? Number(csa) : null,
-        conductor_shape: vk ? getConductorShapeText(vk) : null,
-        sectorial: !!runtime.sectorial,
-        standard_basis: runtime.standard_basis || null,
-        system_type: runtime.system_type || null,
-        metallic_screen_mm2: runtime.metallic_screen || null
-    },
-    inputs: {
-        worst_case_section_length_m: inputs.section_length_m,
-        installation_condition: inputs.installation_condition,
-        service_type: inputs.service_type,
-        grouping_basis: inputs.grouping_basis,
-        burial_depth_mm: inputs.burial_depth_mm,
-        formation_type: inputs.formation_type,
-        indicative_trench_cross_section_enabled: ["buried_duct", "direct_buried", "open_trough"].includes(inputs.installation_condition),
-        number_of_circuit_groups: inputs.circuit_qty,
-        max_groups_per_row: inputs.max_per_row,
-        cable_outer_diameter_mm: inputs.cable_od_mm,
-        spacing_basis: inputs.spacing_basis,
-        horizontal_spacing_input_mm: inputs.spacing_h_mm,
-        vertical_spacing_input_mm: inputs.spacing_v_mm,
-        bend_factor_x_od: inputs.bend_factor
-    },
-    derived_geometry: {
-        effective_horizontal_clear_gap_mm: layout.gapH,
-        effective_vertical_clear_gap_mm: layout.gapV,
-        approx_horizontal_group_ctc_mm: layout.approxGroupCtcH,
-        approx_vertical_group_ctc_mm: layout.approxGroupCtcV,
-        group_count_rows: layout.rows,
-        row_group_counts: layout.rowCounts,
-        group_geometry_note: layout.groupNote,
-        worst_case_formation_width_mm: layout.formationWidth,
-        worst_case_formation_depth_mm: layout.formationDepth,
-        applied_bend_radius_mm: layout.appliedBendRadius,
-        single_cable_outer_sweep_radius_mm: layout.singleCableOuterSweepRadius
-    },
-    outside_scope: [
-        "thermal rating and derating",
-        "ambient and soil correction factors",
-        "pulling tension and installation forces",
-        "duct entry and trench profile design",
-        "utility compliance check",
-        "highway loading and civil protection design",
-        "joint bay and termination geometry",
-        "full multi cable bend sweep",
-        "internal core arrangement within multicore cables"
-    ],
-    reliance_statement: "Indicative geometry only. Must be independently verified before design use.",
-    review: {
-        status: review.worstSeverity,
-        input_conflicts: review.inputConflicts,
-        review_points: review.reviewPoints,
-        standing_assumptions: review.standingAssumptions
-    }
+captured_at: new Date().toISOString(),
+schema_version: “1.6.0”,
+tool_scope: “Worst case cable formation, indicative burial depth and single cable bend geometry capture only”,
+assumptions: {
+within_group_cable_spacing: “touching”,
+bend_model_basis: “single_cable_body_sweep_only”,
+burial_depth_basis: “user_input_only”,
+mixed_service_visual_basis: “single_worst_case_od_for_all_services”,
+multicore_4c_5c_basis: “single_od_envelope_only”
+},
+calculations_performed: false,
+not_for_construction: true,
+route_id: inputs.route_name,
+cable_od_source: byId(“od_source_note”) ? byId(“od_source_note”).textContent : “manual”,
+cable_selection: {
+voltage_key: vk || null,
+voltage_label: vk ? getVoltageDisplayName(vk) : null,
+csa_mm2: csa ? Number(csa) : null,
+conductor_shape: vk ? getConductorShapeText(vk) : null,
+sectorial: !!runtime.sectorial,
+standard_basis: runtime.standard_basis || null,
+system_type: runtime.system_type || null,
+metallic_screen_mm2: runtime.metallic_screen || null
+},
+inputs: {
+worst_case_section_length_m: inputs.section_length_m,
+installation_condition: inputs.installation_condition,
+service_type: inputs.service_type,
+grouping_basis: inputs.grouping_basis,
+burial_depth_mm: inputs.burial_depth_mm,
+formation_type: inputs.formation_type,
+indicative_trench_cross_section_enabled: [“buried_duct”, “direct_buried”, “open_trough”].includes(inputs.installation_condition),
+number_of_circuit_groups: inputs.circuit_qty,
+max_groups_per_row: inputs.max_per_row,
+cable_outer_diameter_mm: inputs.cable_od_mm,
+spacing_basis: inputs.spacing_basis,
+horizontal_spacing_input_mm: inputs.spacing_h_mm,
+vertical_spacing_input_mm: inputs.spacing_v_mm,
+bend_factor_x_od: inputs.bend_factor
+},
+derived_geometry: {
+effective_horizontal_clear_gap_mm: layout.gapH,
+effective_vertical_clear_gap_mm: layout.gapV,
+approx_horizontal_group_ctc_mm: layout.approxGroupCtcH,
+approx_vertical_group_ctc_mm: layout.approxGroupCtcV,
+group_count_rows: layout.rows,
+row_group_counts: layout.rowCounts,
+group_geometry_note: layout.groupNote,
+worst_case_formation_width_mm: layout.formationWidth,
+worst_case_formation_depth_mm: layout.formationDepth,
+applied_bend_radius_mm: layout.appliedBendRadius,
+single_cable_outer_sweep_radius_mm: layout.singleCableOuterSweepRadius
+},
+outside_scope: [
+“thermal rating and derating”,
+“ambient and soil correction factors”,
+“pulling tension and installation forces”,
+“duct entry and trench profile design”,
+“utility compliance check”,
+“highway loading and civil protection design”,
+“joint bay and termination geometry”,
+“full multi cable bend sweep”,
+“internal core arrangement within multicore cables”
+],
+reliance_statement: “Indicative geometry only. Must be independently verified before design use.”,
+review: {
+status: review.worstSeverity,
+input_conflicts: review.inputConflicts,
+review_points: review.reviewPoints,
+standing_assumptions: review.standingAssumptions
+}
 };
 
 appState.snapshotText = JSON.stringify(snap, null, 4);
-byId("snapshot_box").textContent = appState.snapshotText;
-```
+byId(“snapshot_box”).textContent = appState.snapshotText;
 
 }
 
@@ -1008,38 +986,36 @@ const v = byId(“spacing_v”);
 const note = byId(“spacing_note”);
 const qty = clampInteger(byId(“circuit_qty”).value, 1, 1);
 
-```
 if (qty <= 1) {
-    h.disabled = true;
-    v.disabled = true;
-    note.textContent = "Spacing not applicable for a single circuit group.";
-    return;
+h.disabled = true;
+v.disabled = true;
+note.textContent = “Spacing not applicable for a single circuit group.”;
+return;
 }
 
 if (!touching) {
-    const hv = Number(h.value);
-    const vv = Number(v.value);
-    if (Number.isFinite(hv) && hv > 0) appState.previousSpacing.h = hv;
-    if (Number.isFinite(vv) && vv > 0) appState.previousSpacing.v = vv;
+const hv = Number(h.value);
+const vv = Number(v.value);
+if (Number.isFinite(hv) && hv > 0) appState.previousSpacing.h = hv;
+if (Number.isFinite(vv) && vv > 0) appState.previousSpacing.v = vv;
 }
 
 h.disabled = touching;
 v.disabled = touching;
 
 if (touching) {
-    h.value = 0;
-    v.value = 0;
-    note.textContent = "Touching selected. Spacing inputs are locked to zero clear gap.";
-    return;
+h.value = 0;
+v.value = 0;
+note.textContent = “Touching selected. Spacing inputs are locked to zero clear gap.”;
+return;
 }
 
 if (Number(h.value) === 0 && appState.previousSpacing.h > 0) h.value = appState.previousSpacing.h;
 if (Number(v.value) === 0 && appState.previousSpacing.v > 0) v.value = appState.previousSpacing.v;
 
-note.textContent = basis === "centre_to_centre"
-    ? "Centre to centre selected. Clear gap is derived by subtracting cable outer diameter."
-    : "Clear gap selected. Enter direct clear spacing between group envelopes.";
-```
+note.textContent = basis === “centre_to_centre”
+? “Centre to centre selected. Clear gap is derived by subtracting cable outer diameter.”
+: “Clear gap selected. Enter direct clear spacing between group envelopes.”;
 
 }
 
@@ -1050,15 +1026,13 @@ const note = byId(“burial_note”);
 const defaultDepth = DEFAULT_BURIAL_DEPTHS[serviceType] || 900;
 const minDepth = getMinBurialDepth(serviceType);
 
-```
-if (force || !Number.isFinite(Number(burial.value)) || burial.value.trim() === "") {
-    burial.value = String(defaultDepth);
+if (force || !Number.isFinite(Number(burial.value)) || burial.value.trim() === “”) {
+burial.value = String(defaultDepth);
 }
 
-const labels = { lv: "LV Power AC", mv: "MV AC", ehv: "HV AC", dc: "DC" };
-const minText = minDepth > 0 ? ` Guidance floor used internally = ${minDepth} mm.` : "";
+const labels = { lv: “LV Power AC”, mv: “MV AC”, ehv: “HV AC”, dc: “DC” };
+const minText = minDepth > 0 ? ` Guidance floor used internally = ${minDepth} mm.` : “”;
 note.textContent = `Default = ${defaultDepth} mm. ${labels[serviceType] || serviceType}.${minText}`;
-```
 
 }
 
@@ -1069,21 +1043,22 @@ function enforceDCRules() {
 const serviceType = byId(“service_type”).value;
 const formation = byId(“formation_type”);
 
-```
-if (serviceType === "dc") {
-    alert(
-        "DC SYSTEM WARNING\n\n" +
-        "DC cables behave differently to AC.\n" +
-        "Class II insulation and insulation monitoring required.\n\n" +
-        "1500V DC cables MUST be single core.\n" +
-        "Multicore DC cables are NOT permitted."
-    );
+if (serviceType === “dc”) {
+alert(
+“DC SYSTEM WARNING\n\n” +
+“DC cables behave differently to AC.\n” +
+“Class II insulation and insulation monitoring required.\n\n” +
+“1500V DC cables MUST be single core.\n” +
+“Multicore DC cables are NOT permitted.”
+);
 
-    if (formation.value.includes("multicore")) {
-        formation.value = "dc_pair_horizontal";
-    }
+```
+if (formation.value.includes("multicore")) {
+    formation.value = "dc_pair_horizontal";
 }
 ```
+
+}
 
 }
 
@@ -1116,45 +1091,41 @@ const debouncedRenderAll = debounce(renderAll, 80);
 function handleInput(event) {
 const id = event.target.id;
 
-```
-if (id === "service_type") {
-    populateFormationOptions(byId("service_type").value, byId("formation_type").value);
-    populateVoltageOptions();
-    syncBurialDepthNote(true);
+if (id === “service_type”) {
+populateFormationOptions(byId(“service_type”).value, byId(“formation_type”).value);
+populateVoltageOptions();
+syncBurialDepthNote(true);
 }
 
-if (id === "formation_type") {
-    syncFormationToLookupCore();
-    populateVoltageOptions();
+if (id === “formation_type”) {
+syncFormationToLookupCore();
+populateVoltageOptions();
 }
 
-if (id === "spacing_basis" || id === "circuit_qty") syncSpacingInputs();
+if (id === “spacing_basis” || id === “circuit_qty”) syncSpacingInputs();
 
 debouncedRenderAll();
-```
 
 }
 
 function handleChange(event) {
 const id = event.target.id;
 
-```
-if (id === "service_type") {
-    populateFormationOptions(byId("service_type").value, byId("formation_type").value);
-    populateVoltageOptions();
-    syncBurialDepthNote(true);
-    enforceDCRules();
+if (id === “service_type”) {
+populateFormationOptions(byId(“service_type”).value, byId(“formation_type”).value);
+populateVoltageOptions();
+syncBurialDepthNote(true);
+enforceDCRules();
 }
 
-if (id === "formation_type") {
-    syncFormationToLookupCore();
-    populateVoltageOptions();
+if (id === “formation_type”) {
+syncFormationToLookupCore();
+populateVoltageOptions();
 }
 
-if (id === "spacing_basis" || id === "circuit_qty") syncSpacingInputs();
+if (id === “spacing_basis” || id === “circuit_qty”) syncSpacingInputs();
 
 renderAll();
-```
 
 }
 
@@ -1162,16 +1133,14 @@ function handleBlur(event) {
 const id = event.target.id;
 const otherNumerics = [“section_length”, “circuit_qty”, “max_per_row”, “cable_od”, “spacing_h”, “spacing_v”, “bend_factor”];
 
-```
 if (otherNumerics.includes(id)) {
-    normaliseIntegerFields();
-    if (id === "circuit_qty") syncSpacingInputs();
-    renderAll();
-} else if (id === "burial_depth") {
-    normaliseBurialDepthFieldOnBlur();
-    renderAll();
+normaliseIntegerFields();
+if (id === “circuit_qty”) syncSpacingInputs();
+renderAll();
+} else if (id === “burial_depth”) {
+normaliseBurialDepthFieldOnBlur();
+renderAll();
 }
-```
 
 }
 
@@ -1207,31 +1176,29 @@ function bindEvents() {
 [“installation_condition”, “service_type”, “grouping_basis”, “formation_type”, “spacing_basis”]
 .forEach(id => byId(id).addEventListener(“change”, handleChange));
 
-```
-byId("lookup_cores").addEventListener("change", () => { populateVoltageOptions(); });
-byId("lookup_voltage").addEventListener("change", () => { populateLookupCSA(); applyLookup(); });
-byId("lookup_csa").addEventListener("change", applyLookup);
+byId(“lookup_cores”).addEventListener(“change”, () => { populateVoltageOptions(); });
+byId(“lookup_voltage”).addEventListener(“change”, () => { populateLookupCSA(); applyLookup(); });
+byId(“lookup_csa”).addEventListener(“change”, applyLookup);
 
-byId("cable_od").addEventListener("input", () => {
-    const vk = byId("lookup_voltage").value;
-    const csa = byId("lookup_csa").value;
-    if (!vk || !csa) {
-        byId("od_source_note").textContent = "OD entered manually.";
-        byId("od_source_note").style.color = "var(--muted-soft)";
-    }
+byId(“cable_od”).addEventListener(“input”, () => {
+const vk = byId(“lookup_voltage”).value;
+const csa = byId(“lookup_csa”).value;
+if (!vk || !csa) {
+byId(“od_source_note”).textContent = “OD entered manually.”;
+byId(“od_source_note”).style.color = “var(–muted-soft)”;
+}
 });
 
-["route_name", "section_length", "burial_depth", "circuit_qty", "max_per_row", "cable_od", "spacing_h", "spacing_v", "bend_factor", "formation_type"]
-    .forEach(id => {
-        byId(id).addEventListener("input", handleInput);
-        byId(id).addEventListener("blur", handleBlur);
-    });
+[“route_name”, “section_length”, “burial_depth”, “circuit_qty”, “max_per_row”, “cable_od”, “spacing_h”, “spacing_v”, “bend_factor”, “formation_type”]
+.forEach(id => {
+byId(id).addEventListener(“input”, handleInput);
+byId(id).addEventListener(“blur”, handleBlur);
+});
 
-byId("export_btn").addEventListener("click", exportJson);
-byId("copy_btn").addEventListener("click", copySnapshot);
-byId("drawing_view_btn").addEventListener("click", toggleDrawingView);
-window.addEventListener("resize", debounce(() => { updateViewportMode(); renderAll(); }, 80));
-```
+byId(“export_btn”).addEventListener(“click”, exportJson);
+byId(“copy_btn”).addEventListener(“click”, copySnapshot);
+byId(“drawing_view_btn”).addEventListener(“click”, toggleDrawingView);
+window.addEventListener(“resize”, debounce(() => { updateViewportMode(); renderAll(); }, 80));
 
 }
 

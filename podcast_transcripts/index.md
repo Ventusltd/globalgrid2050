@@ -1,5 +1,7 @@
 # Podcast Episodes
 
+Martin Heathcote: from Cleve Hill to Major Solar Delivery
+
 David Mack: Solar O&M, Rural Growth and Resilience
 
 UK’s First Nationally Significant Solar Farm - Clark Frost
@@ -37,6 +39,267 @@ Guy Atherton: Solar PV Expert & Developer
 Matthew Xenakis: Perspectives from Solar Panel Manufacturers
 
 ---
+
+## Martin Heathcote: from Cleve Hill to Major Solar Delivery
+
+Vikram (00:00)
+Welcome again to the Future of Solar Photovoltaics podcast. We've got now Mr. Martin Heathcote with us introduce yourself and mention a bit about your early background, your interests and a bit about Heathcote Holdings?
+
+Martin (00:14)
+Heathcote Holdings is a family business. suppose we've been around for 35 years, 40 years, something like that. The business was started originally through farming. My old man, Dad, he lived on a small farm and all the family would be on that farm. So it would be your cousins, your uncles, your aunties, nothing big.
+
+40 acres something like that, down in Kent. I suppose he was a bit different. He was always looking for opportunities, Dad, and he used to take eggs to school and sell them to the teachers. I can imagine if anyone missed on their payment, he'd have a list and he'd make sure he'd get the money out of them in the end. He was from a young age, he was very entrepreneurial and worked very hard. He was all around farming, so wanted to
+
+get on and started to build up quite a network and relationship going and helping farmers and stuff like that. And then sort of one day, interestingly, a chap and a farmer bought a round baler and no one had round balers then. It square balers, little square bales. And I think his dad, my grandpa said, you're mad. Why are you buying that? And you don't have the money for it. I think dad agreed a bit of a deal to
+
+pay it off over a few months or whatever or years and his mum and dad helped him anyway, he made it work and it was hard, know really hard and even I think his dad thought blimey, know, he's not giving up on this and went from there really built I built up a good contract in business. So back then it was a lot of small farms a lot of livestock farms in Kent
+
+Vikram (02:06)
+Clark says that you started with one tractor.
+
+Martin (02:08)
+Yeah, yeah, yeah. So we had one tractor. Yeah, I mean, we didn't have any tractor. He didn't have any tractor. So we had nothing big enough for the round baler anyway. I think it was more borrowing from farmers and doing like that. but yeah, I think that growing then... ⁓
+
+Lots of them small farms couldn't afford the equipment or whatever so you would go around contracting for all the farmers. Right. And that sort of worked well and we grew and were baling and spreading and all these things. And then I suppose you look at how, if you look to the business and we have lots of different companies, they all are, a lot of them started through relating to farming or land.
+
+We had all these bits of equipment, tractors, trailers, and somehow by networking, dad managed to get on the M20, building the M20. ⁓ wow. Yeah, so that was a big...
+
+Vikram (03:00)
+That's motorway that comes off the M25 to Kent isn't it?
+
+Martin (03:02)
+That's it, yeah.
+
+And the channel tunnel. So these are like big projects and where we were supplying the same machinery that we would use in the farming. But of course in the winter when it's wet and horrible, not as much work going on. So you might be gritting, you might be moving stuff around on site. And I suppose that mentality for farming, which was 24 hours a day, seven days a week, you're on call. The customer says jump, you say how high. And I suppose that mentality.
+
+going into a different sector was appealing and through one job going well we then managed to get on multiple of these jobs and interestingly it is all about people and it's all about network so
+
+and obviously delivering what you say you're going to do for sure. But dad sort of looked at it and thought, okay, I've got a customer now. So if I buy 10 diggers, I'm going to rent you them diggers. How's that sound? Yeah. Yeah. All right. You've never let us down on this. Now that business today has a lot of machines. That's a plant hire business that we have. It's got depots all over the country. And it's that.
+
+looking for the opportunity, trying to solve a problem, trying to add value to the customer, which is sort of how lots of these businesses have evolved, is the same situation with waste and recycling. know, dad wanted the compost for the farm, you know, for our sort of farming operation and realised that green waste was going to landfill at the time. And you're dealing with a council, so Kent County Council and their contractors, you know, the waste industry,
+
+to be frank, they'd be down the pub at three o'clock. We were that farming mentality. it was like, they pick up the phone, yeah, no worries, we do it. And then you think, how are we going to make that happen? And that is how the business was built, really. And of course, then you've got a customer that's got a waste. So then it's going, OK, what else can we do in that sector? I suppose that.
+
+problem solving mentality, always looking for the opportunities and suppose sweating our assets as well is probably how we've been able to get into these different areas. And that same thing has gone on in many, many situations. Yeah, I think we had same with We had a small civils business which...
+
+obviously why we're on this
+
+has turned into something a bit different now. And that was all built around.
+
+So we wanted to build a shed or concrete. And ⁓ so we got the contractors down and we had a few guys. One still works for us now, Dave Holmes, one of our first staff. have probably two or three of our first people who have ever worked for Dad, still work for us now. And he says, all right, watch what they're doing. And then when they go away, right, we won't get them back now. We do it ourselves. that's how we sort of built up.
+
+What?
+
+Vikram (06:00)
+Mm-hmm.
+
+Martin (06:02)
+a lot of people see is lots of different companies that aren't connected. And I think for me, that's been my biggest thing to try and join the whole business up and try and get the best out of the cross-selling opportunities because there's so many areas where three of our companies would touch one customer and be solving multiple problems. And you said something earlier when you were talking to Clark around the fourth emergency service. Right. And we love that. You can't build your business
+
+just doing that but when that customer rings and they got a serious problem we love solving the problem you know it don't matter whether it's Friday Saturday Sunday whatever time of day we have it across multiple businesses and making sure we keep that that culture and that passion and hunger to deliver that is very important as we get bigger
+
+We're not a small business anymore and we've had to learn a lot around growing pains, governance and things like that. we don't want to lose that passion and the nimbleness of being a smaller family business as well.
+
+Vikram (07:09)
+So you guys from farming background and there can be a hell of a lot of NIMBYism as well. We don't want it in our backyard. know, coal power plants are not necessarily any cleaner. I did a lot of reading about farming in a majority of our country's land is used for growing ... feed for livestock. And so tell us a bit about your own personal history with Cleve Hill. Are you local and your views on people saying solar is blotting the countryside with
+
+panels. How do feel about that coming from the actual farming world itself?
+
+Martin (07:44)
+Yeah, I think you've got to get, it's got to be a balance, isn't it? Because if you look at our business, you we're farming, we're waste, you know, we obviously have a lot of going on with energy from waste as well. So things like that, which, you know, sometimes people look at that as bad. Some people look at it as good. But I think like with everything, you've got to get balance. It's where you do it. It's something that doesn't happen enough in the UK, which is proper planning of where do you need the
+
+energy, where do we need to put the infrastructure in to allow more of these green energy and also where's the balance of things like data centres. We've seen it in our own business. We've got a chap who works for us in marketing and what he does through AI is incredible. It's my mind. It's amazing how the speed and the creativeness of what you can produce.
+
+That's all electric, it's all energy. And people want things and once they've got a taste for it, you've got to be able to produce the energy on the back end to make that sustainable. mean, my history started in farming, never really got on well at school. I went to a good school, very fortunate of it, especially looking back now. But I wanted to be at work on the farm, really. And was ⁓ when we were leaving home to go to school,
+
+It was sometimes a battle to get me out of the drive when I could see they were machines working on the farm. And I would always say that's my job, you know, even at probably 12. And so I drove machines from a young age and I suppose my whole life really. mean, we started, like I say, whether it's, and actually I said this to a big customer of ours the other day, growing up on a farm is very...
+
+Vikram (09:20)
+How long have you been with the business?
+
+Martin (09:35)
+is an amazing upbringing. Right. And especially when you go into business because you're dealing with high pressure, you got with animals, got death, disease, carving, responsibility, you're dealing with lots of farmers, you're in the market, you're trading. So from a young age, you're seeing a lot go on.
+
+Vikram (09:57)
+so you know how to multitask. ⁓
+
+Martin (09:59)
+Maybe I'm a bit scattergun, I'd say. More than that, and I've got good people behind me to put it all together. But no, I think it's just an understanding more of what goes on. so growing up on a farm was fantastic. But also having, you know...
+
+my old man would never ever hide anything from us, from me and Nathan ever. If he was on the phone to a customer, it was on hands free. If he was going to a meeting and it was with an A-star customer, we were there. Like he never hid it. It was all waltz and all as it comes. And so you don't realise at the time, you you're learning, constantly learning. I remember making notes in a meeting. think, don't know what they just said. But actually when you look back, it's more the networking.
+
+relationships, communication. So I went farming, working and contracting. I started managing a few guys there. Decided that that was wrong timing for me. So I went and worked in New Zealand when I was 18. It was the best, worst job I ever had. It was the first time working away from home and I went on my own out there and the guy I worked for
+
+was tough, yeah, it really tough. I'm a very open person, there was times where I was on the phone home and weren't enjoying it at all. But we'd always been brought up, don't let people down. So I stayed there for six months and when we got to the end of Harvest, just shook the guys hand and said, right, I'm off and...
+
+made it quite clear all the things I thought that weren't right and it was the best job I ever had actually because probably at 18 I was quite cocky and you learn how not to treat people and I've been a big advocate in our business of treat people right and make sure that of course you've got to make people accountable but if you don't have your people you've got no business. I then travelled like worked in Australia for eight months same thing and then when I come home I was ready to
+
+get stuck in and went a different route, suppose. I'd sell my own little business and for a while, and a lot of family businesses, and this is a much wider topic that we won't go on too much, but family business, you got...
+
+Lots of history repeats itself, I reckon, in nearly every family business. And I pushed Dad away a lot, probably for a few years, because I'm quite driven and it's a bit like, no, you don't know Dad, you know. But one day I sort of sat there was like, ⁓ this is ridiculous. ⁓ He's always said he built the business for his boys and it's hard. We've got to just put our spin on it and take it to another level. yeah, then got stuck in and...
+
+I went more down the waste and recycling route, but I'm heavily involved in the whole group. it was sort of me that's been driving the trying to bring everyone together as one and make the most of each other and rather than having it all separate. And we've definitely started seeing huge benefits from that with in the last year with some new people coming in as well. But also I think Nathan,
+
+has now found his place in the business and he's driving exactly the same as what I am and interestingly you're seeing dad behind it as well now which is good so you're seeing this people cross-fertilising and helping each other so yeah it's an amazing business and we have such a lot of fantastic people and yeah I said to you earlier that we have opportunities every day every week and
+
+we're a bit mad because we're like 100 mile an hour, we can do this, this, this and this. Problem is you can't do it all. And sometimes it's what you don't do that makes you successful. And I think we're at that point now where we have to be eyes wide open, whether it's a solar contract, whether it's a big waste contract, whether it's buying a business in a certain sector, we've got to be very eyes wide open and have good governance of how we're going to really take the business forward.
+
+Vikram (14:12)
+And in terms of, know, for me, the big eye opener was 14 years ago when I first started, a five megawatt solar farm was considered huge. Larger solar farms were in the 70 megawatt range before the first NSIP, National Significant Infrastructure Project, kicked off. And, you know, the industry has had loads of boom and bust cycles. So you mentioned, I think, offline, you've got 1200 people working in the business. Do you want to introduce, you know, how you
+
+look after your colleagues and tell us a bit more about the other group companies and your vision for the family going forward.
+
+Martin (14:50)
+Yeah, okay, so yeah, mean, funny that...
+
+Dad's always got, we always got turkeys for people at Christmas, still do now. It's a fair old turkey bill. But we have two things we do on that front, which are nice things, but when you employ someone, you don't just employ them, you employ their family. At the end of the day, we do expect people to work hard and our teams and people get rewarded for it. But we have a summer barbecue, which started off as a, know, oil drum with
+
+a few logs in it, a football goal which now is a fairground and kids come along, the food and it's fantastic, it's nice to see and we do things like they say the turkey at Christmas which goes down well for everyone or a veg box now, some people don't want to eat turkey ⁓ but all that stuff's nice but really I think you've got to have clear management, you've got to clear ⁓
+
+probably goals and direction for people and good management. Something that we probably have lacked a little bit in some places where...
+
+every family business does it, think as you're growing, you you probably put people higher because they're a good person and they're loyal and you trust them. You're probably sometimes not doing them any favors because you haven't given them the training to be that manager or whatever it is to step up. People talk about, know, making the mechanic in charge of the workshop. They might be the best mechanic, but they might not be able to manage the people. And I think that's something that we've learned a lot. So probably doing more training and development. But I think value in
+
+people. In our business, Dad's always taught us.
+
+you know, go and talk to people, walk around. It don't matter whether you're the man sweeping the yard. know, if that yard isn't swept on that morning and an A-star customer comes in and they've got their fancy shoes, they might have fancy shoes and they step in the mud, first impressions aren't very good. I think it means that everyone is valued. Whether it's a banksman, whether it's the person processing invoices, everyone's important. And we definitely try and get around as much as we can to talk to people.
+
+as a family and value people because you're nothing without the business. It's probably something that we've definitely now in the last couple of years really are trying to focus on more around development, clarity of roles, a little bit more structure because although we probably are quite happy to run with not much structure, your staff do need it and they do want it. yeah, I think...
+
+treating people as they're meant to be treated and we want people to follow them. And I suppose when people do step out of line, I think it's being quite frank with them and being straight to the point around things that we do and don't accept as a business.
+
+Vikram (17:48)
+Discipline is very important, Otherwise health and safety goes out the window. And to keep people safe there has to be discipline and for things to be working out in the way that you intend. The reason why we're here today is because we run a monthly networking which is getting very popular because people are getting bored of sitting at home. They want to get out and see real human beings. And last year solar storage at the ExCel near the Docklands, we ran into Andy Nicholson who came.
+
+Waxie O'Connor's its quite popuar because is a big pub down in Soho. So my first impression of you was from Andy Nicholson and so because he left a good impression on our colleagues this is the reason why we're here today. you know tell us a bit more about the business you know the different group of companies and how do you support Clark and Andy because to me Heathcote Holdings was Andy and Clark because they were the face to us when we first got involved.
+
+Martin (18:42)
+percent.
+
+Yeah, I think it's very much every person is a salesperson in the business, aren't they? if everyone's an advocate. we definitely do it definitely like you said about discipline. That is very important. If things are, you know, for example, if you had a person out there and you know, they've done something that's not acceptable in our eyes to a customer or been a bit rude, like we're very there's no non-negotiable like we'll bring people in and have a word with them.
+
+that because every person we want to have passion, want to value the customer and it's definitely hard as you get bigger. When we had 100 staff, it started to get hard then but now we've got 1200, the culture bit comes even more of a thing and I think probably making sure that the team know like Clark, he's got total ownership, he knows that that's his baby, he's accountable for it and probably by giving
+
+that to him, he then passes that down to his team. So I do think leading by example is the one thing that is very important and like I say we got a contract where we do domestic collections for a million wheelie bin lifts a month. It's completely different business but they're dealing with the public every day. It's very important that they give the right message about our business and that will win us more work to be honest with you.
+
+important we want people looking smart, being polite and supporting each other and actually supporting the customer. So yeah, I mean the business now has I would say three or four key areas. So I'd say we've got like a waste sector and
+
+we collect all the way through to process. we started off as a processing recycling business. So we take things like plasterboard, we've got the biggest recycling plant in the country. We turn that back into powder and paper. So from a sustainability point of view, that board is all being reused ⁓ and the customers love it. It's innovative. ⁓ And for us, it's quality. If we are producing quality product, quality solutions, it don't matter how bad the market is,
+
+we're going to keep surviving and keep picking up more work and keep moving on. the waste sector deals with compost, green waste, wood, dry mix recycling. mean, relating it to solar, we handle huge volumes of cardboard. And last year we bought a business that is a compaction and bailing business. So it's a solutions led approach. So with our A-Star customers, what I wanted to do is try and offer a solution where they're
+
+save money rather than just keep lifting a bin up that might have some air in it. So if we can get more weight in the bin or we can make a bail, that's saving the customer money. For us, that's a long term relationship. We're in it for the long run as a business. Every bit of profit we make gets reinvested back in. I think if you look back on our customer range, whether it's on the farm, whether it's on the waste or the plant, we've still got customers that we had when we first started. And some of them
+
+are major clients, big companies and some are small companies. know and that I suppose a bit of our unique selling point is even them small companies, some of them have our number and I have a guy who once had a problem and got hold of me and he'll ring and say this has happened or that's happened. He don't call me anymore because it's the service and the quality is exactly where it needs to be. So it's just that personal touch I think.
+
+and then we've got a rental group.
+
+which is supplying machines to construction, ground works, events. then in the last couple of years, we've done quite a few acquisitions in there. So we cover the whole of the UK. We supply toilets and welfare, temporary trackway, is used, all these things are used on the solar. about four or five months ago, we also got involved in a business that sells and rents specialist equipment for
+
+tree surgeons, vegetation management, things like tool carriers, so quite nimble bits of equipment and that's been a bit of a random one, came out of nowhere but definitely one for the future and things like robotic mowers and things so actually it relates again back to the solar. so you are willing to invest in equipment, if you need robots for cutting grass
+
+Vikram (23:18)
+willing to invest in equipment if you need robots
+
+or cutting grass or...
+
+Martin (23:22)
+If it's going to save money and be efficient and innovative, then in our eyes, that's going to help our customers. So we're going to win more customers or win more long term relationships. So it's very important for us on that end. The other part of the business would be the more environmental side of the business, which is come from sort of the farming, some of the biodiversity net gain environmental type works, which again, using similar equipment from civils to do different type of work.
+
+and taking more of a segment approach. Things like spreading organic manure and sludges to land. So we spread six, seven hundred thousand tonne of organic matter to land, again for the farm. But it's a waste product which is good for the crops. Obviously there's a lot in the news at the minute around sewage and things and we're interested to see where that goes and we've got a lot of projects underway with using sewage
+
+in a different way. So that's a sort of different part of the business.
+
+Vikram (24:26)
+You actually take care of land, you do drainage, you work in water works, you work in recycling and that's why I was interested in this conversation because people that are not in from farming, not from the solar business, they don't really know the ins and outs of what's going on. tell us, how did you get involved with solar? Why is it important to you? And how do you see its environmental credentials going forward? Because you don't just do solar, you do many other things.
+
+Martin (24:55)
+Yeah, so how we got involved firstly is similar to every other business. We got called to do a job down in Cleve Hill. I as a kid, I spent a lot of time at Cleve Hill when I was working on the farm there for another farm and we were baling the straw. So I spent a lot of hours down there and it's funny how it sort of come full turn and then we were helping on the solar. But basically we went down there to clear the fields of straw and
+
+then being there, okay, what about that? know, what about this? What about that? And building that relationship with the customer, we managed to sort of sell the whole group. And that was the first big project that we went in from a group perspective. And especially the team involved on our side were definitely team players, you know, so they were all about, we don't just do this, we see the benefit of all these different things that the group can offer. And I remember going down themself and they said, we don't really understand how you can do
+
+that, that, that, that, and that. And it's definitely has been a negative sometimes where we don't probably sell ourselves in a good enough way.
+
+Vikram (26:02)
+There's
+
+a whole industry around in people get paid a million pounds for writing employer's requirements Yeah, that sounds like a lot of money. But when you've got quarter of a billion pounds worth of capex if your employees requirements are not good or they're not realistic to the capability available then that's a lot more pain afterwards so before a single digger gets to a site or you know shovels picked up There's a lot of work that happens to secure the grid connections to model the power flows
+
+to get the financing in place and I would say the most key area the industry needs to improve on and we only sell ourselves a bit better on is on the employer's requirements, the division of labour. So what sort of work is interesting to you because they need to know that before they do the finance because by that point the contracts are awarded, you can't change much.
+
+Martin (26:53)
+Yeah,
+
+it comes back to probably what I said earlier, we're definitely, we're not trying to be the biggest in the world on solar. Yeah. We see it as a key segment for us and a key time because it involves all of our types of businesses offering one solution through one point of contact. And I think that's what people like, that problem solving mentality and the one point of contact is easy to use, easy to understand and you get quality. that's why we like the solar.
+
+With staff, everyone has this same issue around workforce and we...
+
+tend to try and work with the right type of people. think it comes back to what Clark said, it's all about your onboarding as well. know, understanding who you're working with pretty quickly and understanding our values and what we expect, but not just then walking away, holding people to account on what we expect. As you said earlier, you know, when you're dealing with cables, when you're dealing with working at high and all these things, health and safety is number
+
+one and interestingly we are looking at a bit of a program at the minute where there's a certain country that we can sponsor people from as well who for another part of the business skilled labor bringing these these people over and
+
+They speak the language, they're hardworking, they want to work. And I think that's another good way of giving opportunities to them people. Currently, most of our staff are from a mix of the UK and everything, but you've got to try and find them specialist people because if we've had it on some tree planting, you get the right people who are hungry. You know, the throughput and the efficiency is way more. Obviously, you have to use the equipment.
+
+We bought some specialist equipment over for the screw piling. It's made a big difference. If we need to invest in more of that equipment, that's no problem. If we see the benefit and it makes us more efficient, happy days. Automation's coming for many, many industries and where we deal with lots of different types of equipment, we're definitely open-minded to try and... And I suppose that's how we got in the screw piling. Being a bit open-minded to go, well, how are we going to solve this problem for the customer?
+
+Yeah, I think it's a good opportunity at the minute as well. It's a big growth area for us as a group. The key thing that we, and we're not...
+
+blind to this is the more of these types of projects we pick up, the more we have to build our own management team, our own project management team, our own health and safety in that division. Because the more you get, the bigger you get, the more staff you have in that division, the more problems or potential risks there is. So it's all about having good people and people that are valued and take responsibility.
+
+Vikram (29:52)
+What's interesting is, you know, even Crossrail, which is the Elizabeth Line, 15 billion pounds plus project, it wasn't delivered by one EPC. was Balfour's, Keir, Ferrovial. had to do a JV because on large infrastructure projects there is a huge capex risk, capital expenditure, there's cash flow issues, and you work for many of the EPCs yourself. And so how do you deal with the issue with
+
+managing conflicts of interest, who would be your ideal customer, would you do joint ventures with other EPC companies, what is your strategy in terms of going to market? Because right now we don't have enough people to build the amount of projects that coming up.
+
+Martin (30:38)
+Yeah, I think it's interesting. So we have done JVs. We've done successful JVs and not successful JVs probably in our history. And successful JVs work when everyone is aligned to the same outcome. building a solar farm, you can see how that could work quite nicely because it's quite clear what the strategy is. It's quite clear what's got to be done, where you would have an issue. it's about for us picking the right partners is if
+
+you've got a contractor or an EPC that doesn't take health and safety seriously like we do, that'd be a problem for us. I think most EPCs take it seriously, but we're certainly one of our big KPIs in our solar and renewables businesses who we're working with because there's lots of work out there, as everyone knows, and we need to pick the people that are going to work with us rather than putting us in a contract that tries to sort of tie us in knots.
+
+Of course, Clark said, we understand we deal with contracts every day. We're dealing with many, many council, government contracts, big EPCs already. It's working with the ones who are honourable, trustworthy, and that we can get in, crack on, and deliver a good product. So, yeah, I think JVs can work very well, basically, but everyone's got to be aligned. Very important. The end goal has got to be clear.
+
+everyone what we all getting out of this.
+
+Vikram (32:10)
+And I think trust is a big issue because there's been so many boom and busts in the industry, not only in the UK, in Germany, in Spain. There was a grid collapse in Iberia. It was just still under study. these are not one or two year undertakings. The sites of 400 megawatt scale in nature takes a couple of years to develop, and it takes three years to build and finish. And then still you have issues during commissioning.
+
+and so on. But the point being, these are 25 to 40 year investments. Youngsters nowadays, know, such as my brother, they've got 35 year mortgages now. So do you expect to be there for the long term to see how it all evolves?
+
+Martin (32:55)
+Yeah, for us.
+
+we see this as 20 years worth of work because part of our business is managing the vegetation and come out of the farming again. So we like to manage the land. We've got equipment that is being used for building woodlands, new woodland creations and things like that that can also be used in managing the solar projects. So if we can guarantee ourselves long-term work, that's fantastic.
+
+things like managing the vegetation, cleaning panels we're looking at. We've been looking at some innovative new equipment that we've designed on whether we can speed things up when it comes to cleaning solar panels. also things like monitoring of the panels, know, like surely, and I don't know enough detail about it, but of course you want them making as much energy as you possibly can. So if there's a problem with a panel, we want to be able to help and assist.
+
+in the future with finding that and solving a problem. We've got a new part of the business which is doing stuff with drones, is sort of drone and camera, AI cameras are unbelievable what they can do. And this is monitoring vegetation habitat. And we've done some big testing with some decent size customers. And that's something that we're definitely
+
+looking to expand on. So using that technology and we've done it similarly in the waste side with our logistics. We run a lot of HGVs. We've used a system where it's 360 degree cameras monitoring 24 hours and in real time. And if a driver so much as picks their phone up, we're monitored on that straight away. Now, this is an innovation that's reduced our accidents by 50%.
+
+which this year has given us after three years of hard work on our compliance, a huge amount of saving on our insurance. So using that technology in the right way, having the technology is one thing. Making sure that from the top level all the way down that culture is driven through the business is the other thing that is as important, probably more important than just having that bit of software that's going to help you.
+
+Vikram (35:25)
+And then finally before we talk to your colleagues, what do you think is the future of solar photovoltaics? Where do you see the industry in the next five years?
+
+Martin (35:33)
+Yeah, think probably, I think the way the world is at the minute and look at what's going on in the news, know, energy security is going to be really important. The key for the industry is infrastructure because building solar farms on land that is beneficial, obviously we spoke a little bit about the farming, know, we want to be building the solar farms where farming isn't as viable
+
+another revenue stream for a farmer. They can invest in their areas that are more profitable and actually try and go for better quality But I think the infrastructure is going to be the key one of how the energy gets where it needs to get to.
+
+there will be lots of twists and turns on the way. But I think for our point of view, we will just continue to gear up and deliver to the quality that we are at the minute. And we don't want to run before we can walk. So we're to take on enough incrementally and try and keep with some key partners on it and just keep plodding away, I suppose, try and do what we're doing there. And look, it's
+
+exciting times for us. was a market that wasn't there for us two years ago and we see a big increase over the next few years so that's exciting.
+
+Vikram (36:57)
+Fantastic, you know it takes a lot of courage to jump on a podcast, initiative we are trying to undertake, is to educate the industry, to bring in new youngsters to the market, but also to show people around the world that we do have good intentions and we are in it for the long haul. So Martin, thanks very much for joining us today talk to your colleagues after lunch.
+
+Martin (37:16)
+Yeah, no, thank you because this wouldn't happen without you. So we appreciate coming here and talking to you and hopefully we can get our message out there. And you're right, it's all about the youngsters. It's all about the next generation coming through. So thank you very much.
+
+Vikram (37:31)
+You're welcome absolutely and if you're long enough in the industry you get to see who the good guys are and I'm glad to meet you guys so thanks very much. Thanks.
+
+
 
 ## David Mack: Solar O&M, Rural Growth and Resilience
 Vikram (00:01.742)

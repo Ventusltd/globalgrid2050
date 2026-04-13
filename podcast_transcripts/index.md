@@ -36,7 +36,6 @@
 <li><a href="#guy-atherton-solar-pv-expert-developer">Guy Atherton: Solar PV Expert &amp; Developer</a></li>
 <li><a href="#matthew-xenakis-perspectives-solar-panel-manufacturers">Matthew Xenakis: Perspectives from Solar Panel Manufacturers</a></li>
 
-Then replace each transcript title with matching headings like these:
 ---
 
 <h2 id="martin-heathcote-cleve-hill-major-solar-delivery">Martin Heathcote: from Cleve Hill to Major Solar Delivery</h2>

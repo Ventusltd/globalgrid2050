@@ -16,47 +16,30 @@
 
 # Contents: 
 
-Martin Heathcote: from Cleve Hill to Major Solar Delivery
+<li><a href="#martin-heathcote-cleve-hill-major-solar-delivery">Martin Heathcote: from Cleve Hill to Major Solar Delivery</a></li>
+<li><a href="#david-mack-solar-om-rural-growth-resilience">David Mack: Solar O&amp;M, Rural Growth and Resilience</a></li>
+<li><a href="#clark-frost-uk-first-nationally-significant-solar-farm">UK’s First Nationally Significant Solar Farm - Clark Frost</a></li>
+<li><a href="#valerio-pelizzi-agrivoltaics-ci-grid">Valerio Pelizzi: Agrivoltaics, C&amp;I and Grid</a></li>
+<li><a href="#nick-spicer-your-eco-commercial-solar-projects">Nick Spicer: Your Eco, Commercial Solar Projects</a></li>
+<li><a href="#erin-mahan-sunspec-alliance">Erin Mahan: Sunspec Alliance</a></li>
+<li><a href="#matthew-xenakis-uk-market-update-november-2024">Matthew Xenakis: UK Market Update November 2024</a></li>
+<li><a href="#valerio-pelizzi-solar-energy-innovation-leadership">Valerio Pelizzi: Solar Energy Innovation and Leadership</a></li>
+<li><a href="#rob-tippett-challenges-opportunities-solar-om-repowering">Rob Tippett: Challenges and Opportunities in Solar O&amp;M and RePowering</a></li>
+<li><a href="#vince-barnes-polaris-nuclear-submarines-solar-project-development">Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development</a></li>
+<li><a href="#dathan-eldridge-fearless-solar-troubleshooter-builder">Dathan Eldridge: A Fearless Solar Troubleshooter and Builder</a></li>
+<li><a href="#john-davies-mission-establish-solar-excellence">John Davies: On a Mission to Establish Solar Excellence</a></li>
+<li><a href="#brett-baber-army-award-winning-leadership-solar-energy">Brett Baber: From the Army to Award-Winning Leadership in Solar Energy</a></li>
+<li><a href="#dr-jyoti-roy-humble-beginnings-solar-visionary-technical-advisor-industrial-large-scale-solar">Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar</a></li>
+<li><a href="#arnoud-klaren-unlocking-solar-success-insights-seasoned-technical-director-investment-asset-management">Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management</a></li>
+<li><a href="#stefano-girolami-inspiring-journey-pv-jumping-straight-deep-end">Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End</a></li>
+<li><a href="#clive-cosby-constructing-largest-solar-farms">Clive Cosby: Constructing The Largest Solar Farms</a></li>
+<li><a href="#guy-atherton-solar-pv-expert-developer">Guy Atherton: Solar PV Expert &amp; Developer</a></li>
+<li><a href="#matthew-xenakis-perspectives-solar-panel-manufacturers">Matthew Xenakis: Perspectives from Solar Panel Manufacturers</a></li>
 
-David Mack: Solar O&M, Rural Growth and Resilience
-
-UK’s First Nationally Significant Solar Farm - Clark Frost
-
-Valerio Pelizzi: Agrivoltaics, C&I and Grid
-
-Nick Spicer: Your Eco, Commercial Solar Projects
-
-Erin Mahan: Sunspec Alliance
-
-Matthew Xenakis: UK Market Update November 2024
-
-Valerio Pelizzi: Solar Energy Innovation and Leadership
-
-Rob Tippett: Challenges and Opportunities in Solar O&M and RePowering
-
-Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development
-
-Dathan Eldridge: A Fearless Solar Troubleshooter and Builder
-
-John Davies: On a Mission to Establish Solar Excellence
-
-Brett Baber: From the Army to Award-Winning Leadership in Solar Energy
-
-Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar
-
-Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management
-
-Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End
-
-Clive Cosby: Constructing The Largest Solar Farms
-
-Guy Atherton: Solar PV Expert & Developer
-
-Matthew Xenakis: Perspectives from Solar Panel Manufacturers
-
+Then replace each transcript title with matching headings like these:
 ---
 
-## Martin Heathcote: from Cleve Hill to Major Solar Delivery
+<h2 id="martin-heathcote-cleve-hill-major-solar-delivery">Martin Heathcote: from Cleve Hill to Major Solar Delivery</h2>
 
 Vikram (00:00)
 Welcome again to the Future of Solar Photovoltaics podcast. We've got now Mr. Martin Heathcote with us introduce yourself and mention a bit about your early background, your interests and a bit about Heathcote Holdings?
@@ -317,7 +300,8 @@ You're welcome absolutely and if you're long enough in the industry you get to s
 
 
 
-## David Mack: Solar O&M, Rural Growth and Resilience
+<h2 id="david-mack-solar-om-rural-growth-resilience">David Mack: Solar O&amp;M, Rural Growth and Resilience</h2>
+
 Vikram (00:01.742)
 Welcome to the Future of Solar Photovoltaics podcast. My name is Vikram Kumar. We are now being listened to in over 91 countries. We're getting a tremendous following in the utility scale and engineering sector in solar, in batteries, in EVs, in grid connection, specifically in solar, EPC, O&M and development. Today, I've got the absolute pleasure of having
 
@@ -773,7 +757,7 @@ Time flies.
 David (01:06:23.406)
 Sounds good. Yeah, good to see you. Thank you very much. Thanks. Thanks, David.
 
-## UK’s First Nationally Significant Solar Farm - Clark Frost
+<h2 id="clark-frost-uk-first-nationally-significant-solar-farm">UK’s First Nationally Significant Solar Farm - Clark Frost</h2>
 
 Vikram (00:02)
 Welcome to the Future of Solar Photovoltaics Podcast, my name is Vikram Kumar. Today I've got the absolute pleasure of having Mr. Clark Frost from Heathcote Holdings with us today. Welcome Clark
@@ -1110,7 +1094,7 @@ So, thank you.
 Vikram (41:40)
 So.
 
-## Valerio Pelizzi: Agrivoltaics, C&I and Grid
+<h2 id="valerio-pelizzi-agrivoltaics-ci-grid">Valerio Pelizzi: Agrivoltaics, C&amp;I and Grid</h2>
 
 Vikram Kumar (00:00)
 Welcome to the Future of Solar Photovoltaics podcast. My name is Vic Ramkumar. I have the absolute pleasure of welcoming again Mr. Valerio Polizzi. ⁓ Valerio, welcome.
@@ -1997,7 +1981,7 @@ Thank you very much for inviting me again. be my pleasure.
 Vikram Kumar (1:55:48)
 You're welcome. Thank you.
 
-## Nick Spicer: Your Eco, Commercial Solar Projects
+<h2 id="nick-spicer-your-eco-commercial-solar-projects">Nick Spicer: Your Eco, Commercial Solar Projects</h2>
 
 Vikram Kumar (00:01.774)
 Welcome to the future of solar photovoltaics. We are on our 15th guest now. I've got the absolute pleasure of welcoming Mr Nick Spicer from Your Eco Nick, welcome. Hey, how are we doing? You're right. Thank you for having me. It's great to be here. I'm very excited to be here. Our podcast is a voluntary run initiative to bring some ethics back into the industry.
@@ -2340,7 +2324,7 @@ You know, we've got a 25 year passive income potential, you know, through these 
 
 listening back to this podcast to reflect on my thoughts and thank you very much for joining us today. No really thank you very much thanks for having me it's been great and hopefully it's resonated with some of you. perfect and hopefully we'll have your wife Amanda on the next podcast. Yeah that'd be great another insight that side. Thank you. Cheers.
 
-## Erin Mahan: Sunspec Alliance
+<h2 id="erin-mahan-sunspec-alliance">Erin Mahan: Sunspec Alliance</h2>
 
 Vikram Kumar (00:00)
 Welcome to the Future of Solar Photovoltaics podcast. My name is Vikram Kumar. We are being listened to now in 85 countries and today I have the absolute pleasure of welcoming Erin Mahan from the Sunspec Alliance. Erin, welcome.
@@ -2753,7 +2737,7 @@ Thanks Vikram, this might be the most comprehensive conversation I've had about 
 Vikram Kumar (58:41)
 You're welcome, Erin. Thank you.
 
-## Matthew Xenakis: UK Market Update November 2024
+<h2 id="matthew-xenakis-uk-market-update-november-2024">Matthew Xenakis: UK Market Update November 2024</h2>
 
 Vikram (00:02)
 Welcome to the future of solar photo analytics podcast. joined by my co-founder of this podcast who was our first ever guest. We've completed now 12 episodes plus one theme track. This is our 14th installment. Our industry led podcast is now listened to in 83 countries. 45 % of the listeners are in the UK ranking consistently high on Google. I'll start first by
@@ -3049,7 +3033,7 @@ Fantastic and the positive is the market share for JSOL is very high. So that's 
 Matthew Xenakis (45:31)
 Thanks very much for having me Vikram.
 
-## Valerio Pelizzi: Solar Energy Innovation and Leadership
+<h2 id="valerio-pelizzi-solar-energy-innovation-leadership">Valerio Pelizzi: Solar Energy Innovation and Leadership</h2>
 
 Vikram (00:02)
 Welcome to the Future of Solar Photovoltaics podcast. My name is Vikram Kumar of Ventus K with Connectivity. Today I have the absolute pleasure of hosting Mr. Valerio Polizzi, an Italian engineer. I've known him for probably 11 years, first meeting in Bluefield. Valerio, welcome.
@@ -3545,7 +3529,7 @@ Absolutely will be this there's a target of 75 terawatts worldwide so I'll look 
 Valerio Pelizzi (1:12:22)
 Thank you, Vikram. Thank you.
 
-## Rob Tippett: Challenges and Opportunities in Solar O&M and RePowering
+<h2 id="rob-tippett-challenges-opportunities-solar-om-repowering">Rob Tippett: Challenges and Opportunities in Solar O&amp;M and RePowering</h2>
 
 Vikram (00:02)
 Welcome to the future of solar photovoltaics podcast today. I have the absolute pleasure of being joined by mr. Rob Tippett of bluefield operations managing director of a footsie 250 listed solar fund and also one of the up-and-coming major contractors in the industry mr. Liam Hicks co-founder of dynamic energy solutions Our first stop is Rob. Rob, welcome. Are you able to introduce yourself and
@@ -3936,7 +3920,7 @@ Liam and you can't take all the credit because you're only as good as the people
 Rob Tippett (1:06:02)
 No problem, thanks very much.
 
-## Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development
+<h2 id="vince-barnes-polaris-nuclear-submarines-solar-project-development">Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development</h2>
 
 Vince Barnes (00:00)
 you
@@ -4437,7 +4421,7 @@ you very much Vikram, it's been an absolute pleasure as always.
 
 You have been listening to the Future of Solar podcast with Vikram Kumar. Thank you very much for listening.
 
-## Dathan Eldridge: A Fearless Solar Troubleshooter and Builder
+<h2 id="dathan-eldridge-fearless-solar-troubleshooter-builder">Dathan Eldridge: A Fearless Solar Troubleshooter and Builder</h2>
 
 Vikram (00:00)
 Welcome to our ninth podcast of the future of solar photovoltaics. It's with absolute pleasure today we are joined by Mr. Dathan Elbridge, an up to 33,000 volt SAP and HV designated person. For those of you who are not in the industry, it means a senior authorized person with a health and safety responsibility. can work in high voltage environments, what we call in the cable industry, medium voltage.
@@ -4995,7 +4979,7 @@ Several times I think deeply about the things you've said and I will have follow
 Dathan Eldridge (1:09:58)
 I thank you, it's been great. Thanks for the opportunity.
 
-## John Davies: On a Mission to Establish Solar Excellence
+<h2 id="john-davies-mission-establish-solar-excellence">John Davies: On a Mission to Establish Solar Excellence</h2>
 
 Vikram (00:02)
 Welcome again to the Future of Solar Photovoltaics podcast. We're getting enormous interest from our colleagues in the industry, now being listened to in 43 countries. Today I have the absolute pleasure of welcoming Mr. John Davis, a good friend of mine from the industry, a chartered mechanical engineer, 20 years experience in the energy business, and CEO of 2 degrees Kelvin. John, welcome.
@@ -5367,7 +5351,7 @@ Fantastic, John. Lots of work to do. I've certainly enjoyed this podcast. We'll 
 John Davies 2DK (1:06:27)
 Thank you, Vikram. An absolute pleasure. ⁓ yeah, just thanks to Victor and really to all of the listeners of bringing this podcast to the sector. And I certainly, you know, distribute links to this podcast far and wide with my network. Thank you, Vikram.
 
-## Brett Baber: From the Army to Award-Winning Leadership in Solar Energy
+<h2 id="brett-baber-army-award-winning-leadership-solar-energy">Brett Baber: From the Army to Award-Winning Leadership in Solar Energy</h2>
 
 Vikram (00:02)
 Welcome to the Future of Photovoltaics podcast. We are already on our seventh episode, getting immense interest from our colleagues in the industry. Today, I'm very excited to have Mr. Brett Baber, head of ONM at Belectric UK join us. Brett, welcome.
@@ -5832,7 +5816,7 @@ Perfect. Thanks. Thanks, bro.
 
 
 
-## Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar
+<h2 id="dr-jyoti-roy-humble-beginnings-solar-visionary-technical-advisor-industrial-large-scale-solar">Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar</h2>
 
 Vikram (00:01)
 Welcome to the future of solar photovoltaics podcast. This is our sixth episode in the series today. have the absolute pleasure of welcoming welcoming Jyothi Roy a former visiting professor from Loughborough University who holds a PhD in the solar related field Jyothi welcome
@@ -6332,7 +6316,8 @@ Fantastic, Jyothi, I've certainly enjoyed this conversation and thanks so much f
 Jyoti (1:02:33)
 Thank you for having me. Lovely. Thank you very much. Great.
 
-## Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management
+<h2 id="arnoud-klaren-unlocking-solar-success-insights-seasoned-technical-director-investment-asset-management">Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management</h2>
+
 
 Vikram (00:01)
 Welcome to our fifth installment of this feature of Solar Photovoltaics podcast. I'm Vikram from Ventus Caymans Connectivity. Today we have the absolute pleasure of hosting Mr. Claren. Arnold, welcome.
@@ -6730,7 +6715,7 @@ Perfect. Thanks very much for joining us on it.
 Arnoud (1:07:26)
 Thank you, Vikram.
 
-## Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End
+<h2 id="stefano-girolami-inspiring-journey-pv-jumping-straight-deep-end">Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End</h2>
 
 Vikram (00:01)
 Hi, welcome again to another episode of the Future of Solar Photovoltaics. My name is Vikram from Ventus Care Wars and Connectivity. Today I'm delighted to have one of my best friends in the industry, Mr. Stefano Girolami, who I met during some hectic times at Solar Sentry. Stefano, welcome.
@@ -7032,7 +7017,7 @@ Perfect, thanks Stefano.
 Stefano (51:25)
 Speak soon, bye.
 
-## Clive Cosby: Constructing The Largest Solar Farms
+<h2 id="clive-cosby-constructing-largest-solar-farms">Clive Cosby: Constructing The Largest Solar Farms</h2>
 
 Vikram (00:00)
 Welcome to another podcast, another episode of the future of solar photovoltaics. Today I'm very excited to have Mr Clive Cosby join us from EDF as a senior project manager who I've known from 2014 going back to Canada farm. But the most exciting time was during Shotwick solar farm, which was 72 megawatt peak. The biggest solar farm to be constructed ever at the time. Received a letter from
@@ -7319,8 +7304,7 @@ Clive (47:34)
 No, great to see you again, Vikram. Thank you.
 
 
-
-## Guy Atherton: Solar PV Expert & Developer
+<h2 id="guy-atherton-solar-pv-expert-developer">Guy Atherton: Solar PV Expert &amp; Developer</h2>
 
 Vikram (00:00.738)
 Good morning, Guy. We are recording now. This is Vikram again from Ventus Cables and Connectivity. This is our second ever episode of our The Future of Solar Folds and Folds of All Takes podcast. Today joining us from Germany is Mr. Guy Atherton, whom I've known for a very long time, perhaps since 2008, before the world went mad with the financial crisis. Guy, welcome.
@@ -7878,7 +7862,7 @@ Fantastic guy. I've certainly enjoyed this conversation. Thanks so much for join
 Guy (44:37.501)
 No worries, thanks for the comment.
 
-## Matthew Xenakis: Perspectives from Solar Panel Manufacturers
+<h2 id="matthew-xenakis-perspectives-solar-panel-manufacturers">Matthew Xenakis: Perspectives from Solar Panel Manufacturers</h2>
 
 Vikram (00:01)
 Welcome again to our first episode following the initial introduction. It's Vikram from Ventus Cables and Connectivity. A little bit more about myself. I've been working for Suda Cables AG Switzerland as the agent and global key accounts manager for a long while now coming up to 12 years. ⁓ In this journey, you we worked on over two and half gigawatts of solar projects mostly in the UK but some international as well. I've had enormous pleasure meeting some great people in the industry.

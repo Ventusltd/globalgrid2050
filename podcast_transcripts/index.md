@@ -14,27 +14,29 @@
 
 ---
 
-# Contents: 
+<h2>Contents</h2>
 
-<li><a href="#martin-heathcote-cleve-hill-major-solar-delivery">Martin Heathcote: from Cleve Hill to Major Solar Delivery</a></li>
-<li><a href="#david-mack-solar-om-rural-growth-resilience">David Mack: Solar O&amp;M, Rural Growth and Resilience</a></li>
-<li><a href="#clark-frost-uk-first-nationally-significant-solar-farm">UK’s First Nationally Significant Solar Farm - Clark Frost</a></li>
-<li><a href="#valerio-pelizzi-agrivoltaics-ci-grid">Valerio Pelizzi: Agrivoltaics, C&amp;I and Grid</a></li>
-<li><a href="#nick-spicer-your-eco-commercial-solar-projects">Nick Spicer: Your Eco, Commercial Solar Projects</a></li>
-<li><a href="#erin-mahan-sunspec-alliance">Erin Mahan: Sunspec Alliance</a></li>
-<li><a href="#matthew-xenakis-uk-market-update-november-2024">Matthew Xenakis: UK Market Update November 2024</a></li>
-<li><a href="#valerio-pelizzi-solar-energy-innovation-leadership">Valerio Pelizzi: Solar Energy Innovation and Leadership</a></li>
-<li><a href="#rob-tippett-challenges-opportunities-solar-om-repowering">Rob Tippett: Challenges and Opportunities in Solar O&amp;M and RePowering</a></li>
-<li><a href="#vince-barnes-polaris-nuclear-submarines-solar-project-development">Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development</a></li>
-<li><a href="#dathan-eldridge-fearless-solar-troubleshooter-builder">Dathan Eldridge: A Fearless Solar Troubleshooter and Builder</a></li>
-<li><a href="#john-davies-mission-establish-solar-excellence">John Davies: On a Mission to Establish Solar Excellence</a></li>
-<li><a href="#brett-baber-army-award-winning-leadership-solar-energy">Brett Baber: From the Army to Award-Winning Leadership in Solar Energy</a></li>
-<li><a href="#dr-jyoti-roy-humble-beginnings-solar-visionary-technical-advisor-industrial-large-scale-solar">Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar</a></li>
-<li><a href="#arnoud-klaren-unlocking-solar-success-insights-seasoned-technical-director-investment-asset-management">Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management</a></li>
-<li><a href="#stefano-girolami-inspiring-journey-pv-jumping-straight-deep-end">Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End</a></li>
-<li><a href="#clive-cosby-constructing-largest-solar-farms">Clive Cosby: Constructing The Largest Solar Farms</a></li>
-<li><a href="#guy-atherton-solar-pv-expert-developer">Guy Atherton: Solar PV Expert &amp; Developer</a></li>
-<li><a href="#matthew-xenakis-perspectives-solar-panel-manufacturers">Matthew Xenakis: Perspectives from Solar Panel Manufacturers</a></li>
+<ul style="padding-left: 20px; margin-left: 0; list-style-position: inside;">
+  <li><a href="#martin-heathcote-cleve-hill-major-solar-delivery">Martin Heathcote: from Cleve Hill to Major Solar Delivery</a></li>
+  <li><a href="#david-mack-solar-om-rural-growth-resilience">David Mack: Solar O&amp;M, Rural Growth and Resilience</a></li>
+  <li><a href="#clark-frost-uk-first-nationally-significant-solar-farm">UK’s First Nationally Significant Solar Farm - Clark Frost</a></li>
+  <li><a href="#valerio-pelizzi-agrivoltaics-ci-grid">Valerio Pelizzi: Agrivoltaics, C&amp;I and Grid</a></li>
+  <li><a href="#nick-spicer-your-eco-commercial-solar-projects">Nick Spicer: Your Eco, Commercial Solar Projects</a></li>
+  <li><a href="#erin-mahan-sunspec-alliance">Erin Mahan: Sunspec Alliance</a></li>
+  <li><a href="#matthew-xenakis-uk-market-update-november-2024">Matthew Xenakis: UK Market Update November 2024</a></li>
+  <li><a href="#valerio-pelizzi-solar-energy-innovation-leadership">Valerio Pelizzi: Solar Energy Innovation and Leadership</a></li>
+  <li><a href="#rob-tippett-challenges-opportunities-solar-om-repowering">Rob Tippett: Challenges and Opportunities in Solar O&amp;M and RePowering</a></li>
+  <li><a href="#vince-barnes-polaris-nuclear-submarines-solar-project-development">Vince Barnes: From Polaris Nuclear Submarines to Solar Project Development</a></li>
+  <li><a href="#dathan-eldridge-fearless-solar-troubleshooter-builder">Dathan Eldridge: A Fearless Solar Troubleshooter and Builder</a></li>
+  <li><a href="#john-davies-mission-establish-solar-excellence">John Davies: On a Mission to Establish Solar Excellence</a></li>
+  <li><a href="#brett-baber-army-award-winning-leadership-solar-energy">Brett Baber: From the Army to Award-Winning Leadership in Solar Energy</a></li>
+  <li><a href="#dr-jyoti-roy-humble-beginnings-solar-visionary-technical-advisor-industrial-large-scale-solar">Dr. Jyoti Roy: From Humble Beginnings to Solar Visionary, Technical Advisor for Industrial and Large-Scale Solar</a></li>
+  <li><a href="#arnoud-klaren-unlocking-solar-success-insights-seasoned-technical-director-investment-asset-management">Arnoud Klaren: Unlocking Solar Success, Insights from a Seasoned Technical Director in Investment and Asset Management</a></li>
+  <li><a href="#stefano-girolami-inspiring-journey-pv-jumping-straight-deep-end">Stefano Girolami: An Inspiring Journey in PV, Jumping Straight into the Deep End</a></li>
+  <li><a href="#clive-cosby-constructing-largest-solar-farms">Clive Cosby: Constructing The Largest Solar Farms</a></li>
+  <li><a href="#guy-atherton-solar-pv-expert-developer">Guy Atherton: Solar PV Expert &amp; Developer</a></li>
+  <li><a href="#matthew-xenakis-perspectives-solar-panel-manufacturers">Matthew Xenakis: Perspectives from Solar Panel Manufacturers</a></li>
+</ul>
 
 ---
 

@@ -14,7 +14,7 @@
 
 ---
 
-Contents: 
+# Contents: 
 
 Martin Heathcote: from Cleve Hill to Major Solar Delivery
 

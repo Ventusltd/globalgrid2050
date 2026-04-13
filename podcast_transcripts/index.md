@@ -1,5 +1,35 @@
 # Podcast Episodes
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Future of Solar Photovoltaics</title>
+</head>
+<body>
+  <h1>Podcast Episodes</h1>
+
+  <iframe
+    id="player_iframe"
+    src="https://www.buzzsprout.com/2272772?client_source=large_player&iframe=true"
+    loading="lazy"
+    width="100%"
+    height="375"
+    frameborder="0"
+    scrolling="no"
+    title="The Future of Solar Photovoltaics">
+  </iframe>
+
+  <h2>Episode Transcript</h2>
+
+  <p>Welcome to The Future of Solar Photovoltaics...</p>
+  <p>This episode explores...</p>
+  <p>Further transcript text here...</p>
+
+</body>
+</html>
+
 Martin Heathcote: from Cleve Hill to Major Solar Delivery
 
 David Mack: Solar O&M, Rural Growth and Resilience

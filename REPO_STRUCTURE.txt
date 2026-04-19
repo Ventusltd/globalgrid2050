@@ -122,7 +122,6 @@
 │   ├── fetch_hs2.py
 │   ├── fetch_industrial_offtakers.py
 │   ├── fetch_london_underground.py
-│   ├── fetch_marine_traffic.py
 │   ├── fetch_metros_trams.py
 │   ├── fetch_motorway_services.py
 │   ├── fetch_power_plants.py
@@ -172,4 +171,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-27 directories, 146 files
+27 directories, 145 files

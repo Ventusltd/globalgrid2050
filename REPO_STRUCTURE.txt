@@ -130,6 +130,7 @@
 │   ├── fetch_subsea_data_cables.py
 │   ├── fetch_substations.py
 │   ├── fetch_supermarkets.py
+│   ├── fetch_tanker_density.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_unification_estimates.py
 │   ├── repd_updater.py
@@ -171,4 +172,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-27 directories, 145 files
+27 directories, 146 files

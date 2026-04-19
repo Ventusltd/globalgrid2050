@@ -1,51 +1,49 @@
 name: Fetch Marine Traffic
 
 on:
-schedule:
-- cron: ‘0 3 1 * *’
-workflow_dispatch:
+  schedule:
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
 
 permissions:
-contents: write
+  contents: write
 
 env:
-FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-fetch-marine:
-runs-on: ubuntu-latest
+  fetch-marine:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
-    with:
-      token: ${{ secrets.GRIDBOT_PAT }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
 
-  - name: Setup Python
-    uses: actions/setup-python@v5
-    with:
-      python-version: '3.11'
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-  - name: Install dependencies
-    run: pip install requests
+      - name: Install dependencies
+        run: pip install requests
 
-  - name: Run Marine Traffic Fetcher
-    run: python scripts/fetch_marine_traffic.py
+      - name: Run Marine Traffic Fetcher
+        run: python scripts/fetch_marine_traffic.py
 
-  - name: Commit and push changes
-    env:
-      PAT: ${{ secrets.GRIDBOT_PAT }}
-    run: |
-      git config --global user.name "gridbot"
-      git config --global user.email "bot@globalgrid2050.com"
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
 
-      git add marine_traffic.geojson || true
+          git add marine_traffic.geojson || true
 
-      if [ -n "$(git status --porcelain)" ]; then
-        git commit -m "Automated marine traffic update: $(date -u +'%Y-%m-%d %H:%M UTC')"
-        git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
-      else
-        echo "No changes to commit"
-      fi
-```
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated marine traffic update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

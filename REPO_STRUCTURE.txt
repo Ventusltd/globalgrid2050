@@ -3,6 +3,7 @@
 │   └── index.md
 ├── 50MW_BESS_to_PCS.jpg
 ├── ARCHITECTURE.md
+├── ARCHITECTURE_V2.md
 ├── Braintree-cables1.png
 ├── Braintree.jpg
 ├── CNAME
@@ -169,7 +170,76 @@
 ├── uk_onshore_wind_atlas.md
 ├── uk_operating_large_solar_farms.md
 ├── uk_solar_in-planning-1-50mw.md
+├── ventus-core-v2
+│   ├── README.md
+│   ├── package.json
+│   ├── src
+│   │   ├── core
+│   │   │   ├── VentusMap.js
+│   │   │   ├── boot.js
+│   │   │   └── context.js
+│   │   ├── export
+│   │   │   └── csv.js
+│   │   ├── geometry
+│   │   │   ├── area.js
+│   │   │   ├── circle.js
+│   │   │   ├── constants.js
+│   │   │   └── haversine.js
+│   │   ├── layers
+│   │   │   ├── hydration.js
+│   │   │   ├── registry.js
+│   │   │   └── visibility.js
+│   │   ├── map
+│   │   │   ├── adapter.js
+│   │   │   ├── sources.js
+│   │   │   └── styles.js
+│   │   ├── network
+│   │   │   ├── abort.js
+│   │   │   ├── cache.js
+│   │   │   ├── geojson.js
+│   │   │   └── queue.js
+│   │   ├── plugins
+│   │   │   └── api.js
+│   │   ├── search
+│   │   │   ├── index.js
+│   │   │   ├── query.js
+│   │   │   └── results.js
+│   │   ├── state
+│   │   │   ├── actions.js
+│   │   │   ├── selectors.js
+│   │   │   ├── store.js
+│   │   │   └── types.js
+│   │   ├── tools
+│   │   │   ├── MeasureTool.js
+│   │   │   ├── RadiusTool.js
+│   │   │   ├── ToolBase.js
+│   │   │   ├── ZoneDrawTool.js
+│   │   │   └── registry.js
+│   │   ├── ui
+│   │   │   ├── controls.js
+│   │   │   ├── dom.js
+│   │   │   ├── legend.js
+│   │   │   ├── popup.js
+│   │   │   ├── render.js
+│   │   │   └── stats.js
+│   │   └── utils
+│   │       ├── cleanup.js
+│   │       ├── format.js
+│   │       ├── listeners.js
+│   │       ├── sanitize.js
+│   │       └── validators.js
+│   └── test
+│       └── unit
+│           ├── geometry
+│           │   ├── area.test.js
+│           │   ├── circle.test.js
+│           │   └── haversine.test.js
+│           ├── network
+│           │   ├── abort.test.js
+│           │   └── cache.test.js
+│           └── state
+│               └── store.test.js
 ├── ventus-core.js
 └── ventus.css
 
-27 directories, 146 files
+46 directories, 197 files

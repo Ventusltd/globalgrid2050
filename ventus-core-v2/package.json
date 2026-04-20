@@ -1,0 +1,19 @@
+{
+  "name": "@ventus/core-v2",
+  "version": "2.0.0-alpha.1",
+  "type": "module",
+  "description": "Ventus Core V2 - Phase 1 Foundation",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "testMatch": ["**/test/**/*.test.js"]
+  }
+}

@@ -1,4 +1,5 @@
 import { EARTH_RADIUS_KM, DEG_TO_RAD } from './constants.js';
+import { validateCoordinates } from '../utils/validators.js';
 
 /**
  * Calculate Haversine distance between two points on Earth
@@ -14,6 +15,9 @@ import { EARTH_RADIUS_KM, DEG_TO_RAD } from './constants.js';
  * haversine(-0.1278, 51.5074, 2.3522, 48.8566); // ~344 km
  */
 export function haversine(lon1, lat1, lon2, lat2) {
+  validateCoordinates(lon1, lat1);
+  validateCoordinates(lon2, lat2);
+
   const dLat = (lat2 - lat1) * DEG_TO_RAD;
   const dLon = (lon2 - lon1) * DEG_TO_RAD;
   const lat1Rad = lat1 * DEG_TO_RAD;

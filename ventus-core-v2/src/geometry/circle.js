@@ -1,4 +1,5 @@
 import { EARTH_RADIUS_KM, DEG_TO_RAD, RAD_TO_DEG } from './constants.js';
+import { validateCoordinates, validateRadius } from '../utils/validators.js';
 
 /**
  * Generate geodesic circle using bearing projection method
@@ -14,6 +15,9 @@ import { EARTH_RADIUS_KM, DEG_TO_RAD, RAD_TO_DEG } from './constants.js';
  * createCircle(-0.1278, 51.5074, 10, 32);
  */
 export function createCircle(lon, lat, radiusKm, numPoints = 64) {
+  validateCoordinates(lon, lat);
+  validateRadius(radiusKm);
+
   const coords = [];
   const angularDistance = radiusKm / EARTH_RADIUS_KM;
   const latRad = lat * DEG_TO_RAD;

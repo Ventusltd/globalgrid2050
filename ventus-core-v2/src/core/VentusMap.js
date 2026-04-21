@@ -3,6 +3,9 @@ import { CleanupRegistry } from '../utils/cleanup.js';
 import { ListenerRegistry } from '../utils/listeners.js';
 import { URLCache } from '../network/cache.js';
 import { AbortManager } from '../network/abort.js';
+import { Logger } from '../utils/logger.js';
+import { validateOptions } from '../utils/validators.js';
+import { MapAdapterError } from './errors.js';
 
 /**
  * VentusMap - Main class for Phase 1
@@ -23,11 +26,20 @@ export class VentusMap {
   constructor(container, options = {}) {
     // Validate container
     if (!container) {
-      throw new Error('VentusMap: container element required');
+      throw new MapAdapterError('VentusMap: container element required');
     }
+
+    // Validate options
+    validateOptions(options);
 
     this.container = container;
     this.options = options;
+
+    // Initialize logger
+    this.logger = new Logger({ 
+      prefix: 'VentusMap',
+      level: options.logLevel || 1 // INFO by default
+    });
 
     // Initialize state store
     this.state = new StateStore();
@@ -44,15 +56,11 @@ export class VentusMap {
     // Destroyed flag
     this.destroyed = false;
 
-    // Debug mode
-    this.debug = options.debug || false;
-
-    if (this.debug) {
-      console.log('[VentusMap] Initialized', {
-        container: container.id || container.className,
-        options
-      });
-    }
+    this.logger.info('Initialized', {
+      container: container.id || container.className,
+      center: options.center,
+      zoom: options.zoom
+    });
 
     // Phase 1: Setup basic lifecycle
     this._setupLifecycle();
@@ -67,10 +75,10 @@ export class VentusMap {
     // Prevents Gemini's crash scenario
     this.listeners.register(document, 'visibilitychange', () => {
       if (document.hidden) {
-        if (this.debug) console.log('[VentusMap] Tab hidden - pausing updates');
+        this.logger.debug('Tab hidden - pausing updates');
         // Future: pause animation loops, network requests, etc.
       } else {
-        if (this.debug) console.log('[VentusMap] Tab visible - resuming');
+        this.logger.debug('Tab visible - resuming');
         // Future: resume updates
       }
     });
@@ -79,8 +87,8 @@ export class VentusMap {
     const evictionInterval = setInterval(() => {
       if (!this.destroyed) {
         const evicted = this.urlCache.evictStale();
-        if (this.debug && evicted > 0) {
-          console.log(`[VentusMap] Evicted ${evicted} stale cache entries`);
+        if (evicted > 0) {
+          this.logger.debug(`Evicted ${evicted} stale cache entries`);
         }
       }
     }, 60000);
@@ -131,7 +139,7 @@ export class VentusMap {
         try {
           handler(data);
         } catch (err) {
-          console.error(`[VentusMap] Error in ${event} handler:`, err);
+          this.logger.error(`Error in ${event} handler:`, { error: err.message, stack: err.stack });
         }
       });
     }
@@ -158,18 +166,16 @@ export class VentusMap {
    */
   destroy() {
     if (this.destroyed) {
-      console.warn('[VentusMap] Already destroyed');
+      this.logger.warn('Already destroyed');
       return;
     }
 
-    if (this.debug) {
-      console.log('[VentusMap] Destroying...', {
-        rafCount: this.cleanup.getStats().rafCount,
-        listenerCount: this.listeners.getCount(),
-        cacheSize: this.urlCache.cache.size,
-        activeRequests: this.abortManager.getActiveCount()
-      });
-    }
+    this.logger.info('Destroying...', {
+      rafCount: this.cleanup.getStats().rafCount,
+      listenerCount: this.listeners.getCount(),
+      cacheSize: this.urlCache.cache.size,
+      activeRequests: this.abortManager.getActiveCount()
+    });
 
     // 1. Abort all network requests
     this.abortManager.abortAll();
@@ -192,9 +198,7 @@ export class VentusMap {
     // 7. Emit destroy event
     this.emit('destroy', { timestamp: Date.now() });
 
-    if (this.debug) {
-      console.log('[VentusMap] Destroyed successfully');
-    }
+    this.logger.info('Destroyed successfully');
   }
 
   /**

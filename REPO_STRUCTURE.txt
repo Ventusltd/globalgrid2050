@@ -2,12 +2,9 @@
 ├── 33kv_uk_dap_price_estimator
 │   └── index.md
 ├── 50MW_BESS_to_PCS.jpg
-├── ARCHITECTURE.md
-├── ARCHITECTURE_V2.md
 ├── Braintree-cables1.png
 ├── Braintree.jpg
 ├── CNAME
-├── DEV_NOTES.md
 ├── LICENSE.txt
 ├── README.md
 ├── REPO_STRUCTURE.txt
@@ -16,6 +13,11 @@
 ├── ac_cables_knowledge
 │   └── index.md
 ├── airports.geojson
+├── architecture
+│   ├── ARCHITECTURE.md
+│   ├── ARCHITECTURE_V2.md
+│   ├── DEV_NOTES.md
+│   └── VENTUS_CORE_V2_README.md
 ├── backup270326_ repd_atlas_grid_model.md
 ├── blog
 │   └── index.md
@@ -173,13 +175,14 @@
 ├── uk_operating_large_solar_farms.md
 ├── uk_solar_in-planning-1-50mw.md
 ├── ventus-core-v2
-│   ├── README.md
+│   ├── package-lock.json
 │   ├── package.json
 │   ├── src
 │   │   ├── core
 │   │   │   ├── VentusMap.js
 │   │   │   ├── boot.js
-│   │   │   └── context.js
+│   │   │   ├── context.js
+│   │   │   └── errors.js
 │   │   ├── export
 │   │   │   └── csv.js
 │   │   ├── geometry
@@ -228,10 +231,13 @@
 │   │       ├── cleanup.js
 │   │       ├── format.js
 │   │       ├── listeners.js
+│   │       ├── logger.js
 │   │       ├── sanitize.js
 │   │       └── validators.js
 │   └── test
 │       └── unit
+│           ├── core
+│           │   └── errors.test.js
 │           ├── geometry
 │           │   ├── area.test.js
 │           │   ├── circle.test.js
@@ -239,9 +245,12 @@
 │           ├── network
 │           │   ├── abort.test.js
 │           │   └── cache.test.js
-│           └── state
-│               └── store.test.js
+│           ├── state
+│           │   └── store.test.js
+│           └── utils
+│               ├── logger.test.js
+│               └── validators.test.js
 ├── ventus-core.js
 └── ventus.css
 
-47 directories, 198 files
+50 directories, 204 files

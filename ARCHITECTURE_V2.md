@@ -1,19 +1,41 @@
 # GlobalGrid2050 | Ventus Core V2 Architecture
 
 **Version:** 2.0.0-blueprint  
-**Status:** Design Phase  
-**Last Updated:** 2025-01-14  
-**Approved By:** Pending Senior Review
+**Status:** PARKED - Incremental approach adopted instead  
+**Last Updated:** 2025-01-21  
+**Decision:** Build V6 from V5 clone, iterate incrementally
 
 ---
 
 ## Directive
 
-**DO NOT IMPLEMENT THIS UNTIL APPROVED.**
+**THIS BLUEPRINT IS PARKED.**
 
-This document replaces the v1 monolith architecture (ventus-core.js, 1,170 lines) with a modular, lifecycle-aware, testable foundation.
+After completing Phase 1 (51 files, 78 passing tests) and reflecting on the 7-hour session documented in Section 17, the decision was made to abandon the full V2 rebuild in favor of an incremental approach:
 
-V2 is not a feature addition. V2 is a **systems engineering correction** to enable safe embedding, plugin architecture, and constraint-first spatial reasoning at scale.
+- **V5 remains untouched** - working production atlas
+- **V6 is a clone of V5** - safe sandbox for experimentation
+- **V7 evolves from proven V6 changes** - incremental graduation of features
+- **No 6-week black box rewrites** - small, visible, shippable changes only
+
+This document remains as:
+1. A record of what was attempted
+2. A reference for specific technical solutions (AbortController strategy, render patterns, accessibility baseline)
+3. A cautionary tale about scope drift (see Section 17)
+
+The V2 foundation code (ventus-core-v2/) sits in the repository as a reference implementation but will not be integrated into production atlases. Future improvements will be built directly in V6 using the existing 1,170-line monolith as the starting point.
+
+**Lesson learned:** Working code beats theoretical architecture. Incremental beats wholesale replacement.
+
+---
+
+## Original V2 Vision (For Reference Only)
+
+This document originally proposed replacing the v1 monolith architecture (ventus-core.js, 1,170 lines) with a modular, lifecycle-aware, testable foundation.
+
+V2 was positioned as a **systems engineering correction** to enable safe embedding, plugin architecture, and constraint-first spatial reasoning at scale.
+
+**That vision is now superseded by the incremental V6 approach.**
 
 ---
 

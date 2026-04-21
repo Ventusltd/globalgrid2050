@@ -1,3 +1,4 @@
+import { describe, test, expect, jest } from '@jest/globals';
 import { StateStore } from '../../../src/state/store.js';
 import { setMapCenter, toggleLayer, setActiveTool } from '../../../src/state/actions.js';
 

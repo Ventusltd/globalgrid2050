@@ -39,17 +39,17 @@ def process_osm_data(osm_data, geojson_features, seen):
     for element in osm_data.get("elements", []):
         tags = element.get("tags", {})
 
-        # We need the center coordinates to place the point on the map
-        if "center" not in element:
-            continue
-
-        lat = element["center"].get("lat")
-        lon = element["center"].get("lon")
+        lat = element.get("lat")
+        lon = element.get("lon")
+        
+        # Ways and relations return center coordinates via 'out center'
+        if "center" in element:
+            lat = element["center"].get("lat")
+            lon = element["center"].get("lon")
 
         if lat is None or lon is None:
             continue
 
-        # Extract the specific type of industry or power source
         ind_type = (
             tags.get("plant:source") or 
             tags.get("product") or 
@@ -61,7 +61,7 @@ def process_osm_data(osm_data, geojson_features, seen):
         name = tags.get("name", "").strip()
         operator = (tags.get("operator", "") or tags.get("brand", "")).strip()
 
-        # Fallback naming: If the OSM user didn't provide a name, generate one
+        # Fallback naming if the OSM mapper didn't provide a name
         if not name:
             if operator:
                 name = f"{operator} {ind_type} Facility"
@@ -88,14 +88,8 @@ def process_osm_data(osm_data, geojson_features, seen):
             area_sq_m = lat_dist * lon_dist
             area_ha = round(area_sq_m / 10000, 1) # Convert to Hectares
 
-        # Strict area filter: Only keep sites larger than 2 hectares
-        # This acts as our primary filter for "Heavy" industry, discarding small sheds
-        if area_ha < 2.0:
-            continue
-
-        # Proxy Math: Multiply hectares by an intensity factor to simulate emissions (kt CO2)
-        # We bump the multiplier up slightly so the biggest sites hit the 10,000+ kt range
-        emissions_proxy = round(area_ha * 65, 1)
+        # Proxy Math: Base value of 50kt so nothing is lost, plus area scaling for the massive sites
+        emissions_proxy = round(50 + (area_ha * 85), 1)
 
         feature = {
             "type": "Feature",
@@ -115,7 +109,7 @@ def process_osm_data(osm_data, geojson_features, seen):
         geojson_features.append(feature)
 
 def fetch_heavy_industry():
-    print("🚀 Fetching UK heavy industry sites...")
+    print("🚀 Fetching UK heavy emitters...")
 
     geojson = {
         "type": "FeatureCollection",
@@ -124,19 +118,19 @@ def fetch_heavy_industry():
 
     seen = set()
 
-    # The query includes Steel, Cement, Chemical, Oil, Glass, and Fossil Fuel Power Plants
+    # Query targets power plants (gas/coal/oil), works (steel/cement/chemical), and refineries
     query_heavy_industry = """
     [out:json][timeout:180];
     area(3600062149)->.uk;
     (
-      way["industrial"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
-      relation["industrial"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
-
-      way["man_made"="works"]["product"~"steel|cement|chemical"](area.uk);
-      relation["man_made"="works"]["product"~"steel|cement|chemical"](area.uk);
+      way["man_made"="works"]["product"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
+      relation["man_made"="works"]["product"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
 
       way["power"="plant"]["plant:source"~"gas|coal|oil"](area.uk);
       relation["power"="plant"]["plant:source"~"gas|coal|oil"](area.uk);
+      
+      way["industrial"~"oil|refinery|chemical|steel|cement"](area.uk);
+      relation["industrial"~"oil|refinery|chemical|steel|cement"](area.uk);
     );
     out center bb;
     """
@@ -151,3 +145,4 @@ def fetch_heavy_industry():
 
 if __name__ == "__main__":
     fetch_heavy_industry()
+

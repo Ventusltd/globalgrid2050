@@ -106,6 +106,91 @@
 │   └── index.html
 ├── repd_grid_atlasv5
 │   └── index.html
+├── repd_grid_atlasv6
+│   ├── data
+│   │   ├── airports.geojson
+│   │   ├── datacentres.geojson
+│   │   ├── deep_subsea_illustrative.geojson
+│   │   ├── elizabeth_line.geojson
+│   │   ├── eurostar.geojson
+│   │   ├── ev_chargers.geojson
+│   │   ├── global_hydrocarbons.geojson
+│   │   ├── global_ports.geojson
+│   │   ├── grid_11kv_ukpn.geojson
+│   │   ├── grid_132kv.geojson
+│   │   ├── grid_220kv.geojson
+│   │   ├── grid_275kv.geojson
+│   │   ├── grid_33kv_East_of_England.geojson
+│   │   ├── grid_33kv_London_Area.geojson
+│   │   ├── grid_33kv_North_East_England.geojson
+│   │   ├── grid_33kv_North_West_England.geojson
+│   │   ├── grid_33kv_Scotland_North.geojson
+│   │   ├── grid_33kv_Scotland_South.geojson
+│   │   ├── grid_33kv_South_East_England.geojson
+│   │   ├── grid_33kv_South_West_England.geojson
+│   │   ├── grid_33kv_Wales_North.geojson
+│   │   ├── grid_33kv_Wales_South.geojson
+│   │   ├── grid_33kv_Yorkshire.geojson
+│   │   ├── grid_400kv.geojson
+│   │   ├── grid_66kv.geojson
+│   │   ├── grid_substations.geojson
+│   │   ├── hs2.geojson
+│   │   ├── industrial_offtakers.geojson
+│   │   ├── london_underground.geojson
+│   │   ├── motorway_services.geojson
+│   │   ├── power_plants.geojson
+│   │   ├── railways.geojson
+│   │   ├── stadiums.geojson
+│   │   ├── subsea_data_cables.geojson
+│   │   ├── supermarkets_aldi.geojson
+│   │   ├── supermarkets_asda.geojson
+│   │   ├── supermarkets_booths.geojson
+│   │   ├── supermarkets_coop.geojson
+│   │   ├── supermarkets_costco.geojson
+│   │   ├── supermarkets_farmfoods.geojson
+│   │   ├── supermarkets_iceland.geojson
+│   │   ├── supermarkets_lidl.geojson
+│   │   ├── supermarkets_morrisons.geojson
+│   │   ├── supermarkets_ms.geojson
+│   │   ├── supermarkets_sainsburys.geojson
+│   │   ├── supermarkets_spar.geojson
+│   │   ├── supermarkets_tesco.geojson
+│   │   ├── supermarkets_waitrose.geojson
+│   │   └── uk_metros_trams.geojson
+│   ├── index.html
+│   ├── scripts
+│   │   ├── fetch_11kv_ukpnv6.py
+│   │   ├── fetch_220kv_datav6.py
+│   │   ├── fetch_33kv_datav6.py
+│   │   ├── fetch_66kv_datav6.py
+│   │   ├── fetch_airportsv6.py
+│   │   ├── fetch_datacentresv6.py
+│   │   ├── fetch_elizabeth_linev6.py
+│   │   ├── fetch_eurostarv6.py
+│   │   ├── fetch_ev_chargersv6.py
+│   │   ├── fetch_global_hydrocarbonsv6.py
+│   │   ├── fetch_global_portsv6.py
+│   │   ├── fetch_grid_datav6.py
+│   │   ├── fetch_hs2v6.py
+│   │   ├── fetch_industrial_offtakersv6.py
+│   │   ├── fetch_london_undergroundv6.py
+│   │   ├── fetch_metros_tramsv6.py
+│   │   ├── fetch_motorway_servicesv6.py
+│   │   ├── fetch_power_plantsv6.py
+│   │   ├── fetch_railwaysv6.py
+│   │   ├── fetch_stadiumsv6.py
+│   │   ├── fetch_subsea_data_cablesv6.py
+│   │   ├── fetch_substationsv6.py
+│   │   ├── fetch_supermarketsv6.py
+│   │   ├── generate_deep_subseav6.py
+│   │   ├── generate_unification_estimatesv6.py
+│   │   ├── repd_updaterv6.py
+│   │   ├── requirements.txt
+│   │   ├── update_metal_trendsv6.py
+│   │   ├── update_prices_lvv6.py
+│   │   └── update_pricesv6.py
+│   ├── ventus-corev6engine.js
+│   └── ventusv6.css
 ├── scripts
 │   ├── fetch_11kv_ukpn.py
 │   ├── fetch_220kv_data.py
@@ -171,4 +256,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-27 directories, 145 files
+30 directories, 227 files

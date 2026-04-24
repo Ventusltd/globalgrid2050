@@ -1,0 +1,31 @@
+name: NAEI Point Sources Sync
+on:
+  schedule:
+    - cron: '0 6 1 10 *'
+  workflow_dispatch:
+jobs:
+  update-naei:
+    name: Fetch and Parse NAEI Point Sources
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      - name: 🐍 Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas requests openpyxl
+      - name: 🏭 Fetch NAEI Point Sources
+        run: python repd_grid_atlasv7/scripts/fetch_naei_point_sourcesv7.py
+        env:
+          PYTHONPATH: .
+      - name: 🛡️ Commit GeoJSON
+        run: |
+          git config --global user.name "Ventus-Bot"
+          git config --global user.email "bot@ventus.ltd"
+          git add dist/naei_point_sources.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "NAEI Point Sources Update: $(date +'%Y-%m-%d')" && git push)

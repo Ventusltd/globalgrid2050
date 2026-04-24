@@ -1,15 +1,16 @@
-name: Update Heaviest Carbon Emitters
+name: Update Heavy Emitters & Private-Wire Consumers
 
 on:
   schedule:
-    - cron: '0 0 1 * *' 
-  workflow_dispatch: 
+    - cron: '0 0 1 */3 *'  # Quarterly — 1st of Jan/Apr/Jul/Oct at 00:00 UTC
+  workflow_dispatch:
 
 permissions:
-  contents: write 
+  contents: write
+  issues: write
 
 jobs:
-  update-emissions-data:
+  update-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -30,15 +31,29 @@ jobs:
       - name: Run Emissions Fetcher
         run: python scripts/fetch_heavy_emitters.py
 
+      - name: Run Consumer Fetcher
+        run: python scripts/fetch_heavy_consumers.py
+
       - name: Commit and Push via Gridbot
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "gridbot@users.noreply.github.com"
-          
-          # Force add the file to bypass any .gitignore rules
-          git add -f heaviest_emitters.geojson
-          
+
+          git add -f heaviest_emitters.geojson heaviest_consumers.geojson
+
           git status
-          
-          git commit -m "🤖 Gridbot: Updated heaviest carbon emitters GeoJSON" || echo "No changes to commit"
+
+          git commit -m "🤖 Gridbot: Updated heavy emitters + private-wire consumers" || echo "No changes to commit"
           git push || echo "No changes to push"
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Gridbot: heavy emitters/consumers fetch failed`,
+              body: `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}\n\nOne of the fetcher scripts failed or Overpass returned below the minimum feature threshold. Check the logs and investigate before the next scheduled run.`
+            })

@@ -29,21 +29,18 @@ window.initVentusMap = function({ config, center, zoom }) {
     }
 
     // ── Earth model ───────────────────────────────────────────────────────────────
-    // WGS84 equatorial radius — used consistently throughout all geometry,
-    // area calculations, and the geodesic cap limit.
-    // MAX_RADIUS_KM = π × R = 20,037.508 km (equatorial half-circumference).
     const EARTH_RADIUS_KM = 6378.137;
     const MAX_RADIUS_KM   = Math.PI * EARTH_RADIUS_KM; // 20037.508 km
 
-    // ── V5.1: Named constants — single source of truth for tunable values ────────
+    // ── V5.1: Named constants ────────────────────────────────────────────────────
     const DEG_TO_RAD          = Math.PI / 180;
-    const HIT_RADIUS_VERTEX_PX = 18;   // px — vertex grab target radius
-    const HIT_RADIUS_EDGE_PX   = 22;   // px — edge midpoint grab target radius
-    const CLICK_DEBOUNCE_MS    = 220;  // ms — dblclick ghost-vertex guard
-    const HOVER_THROTTLE_MS    = 100;  // ms — mousemove query cadence
+    const HIT_RADIUS_VERTEX_PX = 18;   
+    const HIT_RADIUS_EDGE_PX   = 22;   
+    const CLICK_DEBOUNCE_MS    = 220;  
+    const HOVER_THROTTLE_MS    = 100;  
     const POPUP_MAX_WIDTH      = '300px';
-    const ZONE_DRAW_VERTICES   = 24;   // vertices in initial circle
-    const ZONE_DRAW_DEFAULT_KM = 0.337; // ~50 football pitches starting radius
+    const ZONE_DRAW_VERTICES   = 24;   
+    const ZONE_DRAW_DEFAULT_KM = 0.337; 
 
     function haversine(lon1, lat1, lon2, lat2) {
         const R = EARTH_RADIUS_KM, r = Math.PI / 180;
@@ -61,12 +58,12 @@ window.initVentusMap = function({ config, center, zoom }) {
         });
     });
 
-    // V5.1: O(1) layer config lookup — replaces repeated flatMap(…).find(…) calls
     const layerConfigById = new Map(
         GRID_CONFIG.flatMap(g => g.layers).map(l => [l.id, l])
     );
 
-    const REPD_IDS    = ['solar','solar_operational','solar_roof','wind','wind_onshore_operational','wind_offshore_operational','bess','bess_operational','biomass','tidal','hydrogen','hydro','flywheel','act','geothermal','caes'];
+    // Added naei_co2 to the REPD VIP list
+    const REPD_IDS    = ['solar','solar_operational','solar_roof','wind','wind_onshore_operational','wind_offshore_operational','bess','bess_operational','biomass','tidal','hydrogen','hydro','flywheel','act','geothermal','caes', 'naei_co2'];
     const TRANSIT_IDS = ['elizabeth','lu','dlr','metro','tram','hs2'];
     const TRANSIT_SOURCE_MAP = { 'elizabeth':'src-elizabeth','lu':'src-lu','dlr':'src-metros','metro':'src-metros','tram':'src-metros','hs2':'src-hs2' };
     const TRANSIT_URLS = { 'src-elizabeth':'/elizabeth_line.geojson','src-lu':'/london_underground.geojson','src-metros':'/uk_metros_trams.geojson','src-hs2':'/hs2.geojson' };
@@ -106,13 +103,9 @@ window.initVentusMap = function({ config, center, zoom }) {
     let radiusAreaCenter = null;
 
     // ── ZONE DRAW STATE ───────────────────────────────────────────────────────────
-    // Circle → draggable polygon tool.
-    // Click places a 24-vertex circle at 50-pitch radius. Drag any vertex to deform.
-    // Radius input (up to 20,037.508 km — WGS84 equatorial half-circumference) sets circle size before first click.
-    // Auto-zooms on placement so the shape fills the viewport.
     const ZONE_DRAW_MAX_KM      = MAX_RADIUS_KM;
     let zoneDrawMode      = false;
-    let zoneDrawPoints    = [];   // [lon, lat] vertices
+    let zoneDrawPoints    = [];   
     let zoneDrawDragging  = false;
     let zoneDrawDragIdx   = -1;
     let zoneDrawJustDragged = false;
@@ -128,7 +121,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     }
 
     function _zoneDrawCirclePoints(lon, lat, radiusKm, n) {
-        // Generate n evenly-spaced vertices on a geodesic circle
         const R = EARTH_RADIUS_KM, DEG = Math.PI / 180;
         const ad = radiusKm / R;
         const lat1 = lat * DEG;
@@ -168,12 +160,10 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.getSource('src-zonedraw-fill').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Polygon', coordinates: [ring] } }] });
         map.getSource('src-zonedraw-line').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: ring } }] });
         if (dragOnly) {
-            // Lightweight path — only move vertex dots
             map.getSource('src-zonedraw-points').setData({ type: 'FeatureCollection', features:
                 zoneDrawPoints.map((c, i) => ({ type: 'Feature', properties: { kind: 'vertex', idx: i }, geometry: { type: 'Point', coordinates: c } }))
             });
         } else {
-            // Full rebuild — vertices + edge midpoints
             const vFeatures = zoneDrawPoints.map((c, i) => ({ type: 'Feature', properties: { kind: 'vertex', idx: i }, geometry: { type: 'Point', coordinates: c } }));
             const mFeatures = [];
             zoneDrawPoints.forEach((c, i) => {
@@ -297,13 +287,11 @@ window.initVentusMap = function({ config, center, zoom }) {
         if (zoneDrawJustDragged) { zoneDrawJustDragged = false; return; }
         const lon = e.lngLat.lng, lat = e.lngLat.lat;
 
-        // First click — place circle, auto-zoom
         if (zoneDrawPoints.length === 0) {
             const km = _zoneDrawGetRadius();
             zoneDrawPoints = _zoneDrawCirclePoints(lon, lat, km, ZONE_DRAW_VERTICES);
             _zoneDrawCollapsed = false;
 
-            // Auto-zoom: derive zoom so circle diameter fills ~60% of viewport
             const mpp = (km * 2000) / (window.innerWidth * 0.6);
             const lat1 = lat * Math.PI / 180;
             const targetZoom = Math.log2(156543 * Math.cos(lat1) / mpp);
@@ -324,7 +312,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             return;
         }
 
-        // Click on empty space — place new circle
         const km = _zoneDrawGetRadius();
         zoneDrawPoints = _zoneDrawCirclePoints(lon, lat, km, ZONE_DRAW_VERTICES);
         _zoneDrawCollapsed = false;
@@ -394,7 +381,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     function closeActivePopup() {
         if (activePopup) { activePopup.remove(); activePopup = null; }
     }
-    // V5.1: exposed for inline popup buttons — closes tracked popup, keeps map shape visible
     window._closePopupKeepShape = () => closeActivePopup();
 
     // ── Fullscreen ───────────────────────────────────────────────────────────────
@@ -441,7 +427,7 @@ window.initVentusMap = function({ config, center, zoom }) {
 
     // ── Radius Tool ───────────────────────────────────────────────────────────────
     const RADIUS_MIN = 1;
-    const RADIUS_MAX = MAX_RADIUS_KM; // WGS84 equatorial half-circumference — full hemisphere
+    const RADIUS_MAX = MAX_RADIUS_KM; 
 
     function getRadiusValue() {
         const raw = parseFloat(document.getElementById('radius-input').value);
@@ -567,7 +553,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             }
             radiusAreaCenter = null; 
             if (radiusAreaMarker) { radiusAreaMarker.remove(); radiusAreaMarker = null; }
-            // BUG FIX: close only the tracked popup, not a random first popup in DOM
             closeActivePopup();
         }
     }
@@ -597,8 +582,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         const areaMi2  = areaKm2 * 0.386102;
         const pitches  = areaM2 / 7140;
 
-        // Full expanded popup — all units always visible.
-        // ✕ closes the popup but keeps the circle on the map for browsing.
         openPopup([lon, lat], `
             <div style="font-family:monospace;background:#000;padding:10px 12px;border:1px solid #ff00ff;border-radius:4px;min-width:220px;position:relative;">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -615,8 +598,6 @@ window.initVentusMap = function({ config, center, zoom }) {
                 </div>
             </div>`);
     }
-
-    // ── Poly Zone Tool ────────────────────────────────────────────────────────────
 
     // ── Clock ─────────────────────────────────────────────────────────────────────
     setInterval(() => {
@@ -646,8 +627,13 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (span) {
                 const baseText = span.getAttribute('data-base-label');
                 if (stats && stats.count > 0) {
-                    const mw = stats.mw >= 1000 ? `${(stats.mw / 1000).toFixed(1)}GW` : `${Math.round(stats.mw)}MW`;
-                    span.innerText = `${baseText} [${stats.count} | ${mw}]`;
+                    let unitStr = '';
+                    if (id === 'naei_co2') {
+                        unitStr = `${fmt(stats.mw, 0)} tCO₂e`;
+                    } else {
+                        unitStr = stats.mw >= 1000 ? `${(stats.mw / 1000).toFixed(1)}GW` : `${Math.round(stats.mw)}MW`;
+                    }
+                    span.innerText = `${baseText} [${stats.count} | ${unitStr}]`;
                 } else {
                     span.innerText = `${baseText} [${state}]`;
                 }
@@ -696,14 +682,7 @@ window.initVentusMap = function({ config, center, zoom }) {
     function snapLines(features, subs) {
         if (!subs || !subs.length) return features;
 
-        // INTENTIONAL TRADEOFF: planar squared-distance with latitude cosine correction,
-        // not haversine. This is a deliberate runtime performance decision — haversine
-        // inside a nested loop of ~5800 substations × all line endpoints × 5 topology
-        // layers firing simultaneously on load is measurably expensive.
-        // Accuracy: error is <0.1% at UK latitudes for a 100m snap tolerance.
-        // This is acceptable for visual grid topology snapping.
-        // TECH DEBT: move to build pipeline to remove runtime cost entirely.
-        const TOLERANCE_DEG_SQ = 0.001 * 0.001; // ~111m at equator, tighter at UK latitudes
+        const TOLERANCE_DEG_SQ = 0.001 * 0.001; 
         const RAD = Math.PI / 180;
 
         const snapCoordinate = (coord) => {
@@ -746,9 +725,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         });
     }
 
-    // Geodesic circle — uses bearing projection (same method as _zoneDrawCirclePoints).
-    // Correct at all radii up to the full half-circumference (20,037.508 km).
-    // At large radii more points are used so the polygon stays smooth in projection.
     function createGeoJSONCircle(lon, lat, radiusKm) {
         const points = radiusKm > 5000 ? 128 : radiusKm > 500 ? 96 : 64;
         const R = EARTH_RADIUS_KM, DEG = Math.PI / 180;
@@ -767,12 +743,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     function drawRadiusCircle(lon, lat, radiusKm) { map.getSource('src-radius-circle').setData(createGeoJSONCircle(lon, lat, radiusKm)); }
     function clearRadiusCircle() { map.getSource('src-radius-circle').setData({ type: 'FeatureCollection', features: [] }); }
 
-    // ── PERF: Twin visible layer caches ──────────────────────────────────────────
-    // _visibleInteractiveIds — used by click handler (all interactive layers)
-    // _visibleHoverIds       — used by mousemove handler (currently same set, but
-    //                          kept separate so purely cosmetic layers can be
-    //                          excluded from hover hit-testing without touching
-    //                          click logic)
     let _visibleInteractiveIds = [];
     let _visibleHoverIds = [];
 
@@ -781,16 +751,9 @@ window.initVentusMap = function({ config, center, zoom }) {
             try { return map.getLayoutProperty(id, 'visibility') === 'visible'; }
             catch(e) { return false; }
         });
-        // Hover cache currently mirrors interactive cache — line layers included.
-        // Rationale: transmission line layers are clickable engineering assets and
-        // users need the pointer cursor to discover them.
-        // If hover lag becomes measurable with topology layers active, narrow this
-        // by filtering type !== 'line' — the twin-cache structure makes that a
-        // one-line change without touching click behaviour.
         _visibleHoverIds = [..._visibleInteractiveIds];
     }
 
-    // PERF: throttle timestamp for hover hit-testing (target ~100ms cadence)
     let _lastHoverMs = 0;
 
     // ── Popup / Search ────────────────────────────────────────────────────────────
@@ -880,7 +843,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         btn.classList.toggle('active', statusMode); btn.setAttribute('aria-pressed', statusMode);
         REPD_IDS.forEach(id => {
             if (!map.getLayer(`l-${id}`)) return;
-            if (id === 'solar' || id === 'solar_roof') {
+            if (id === 'solar' || id === 'solar_roof' || id === 'naei_co2') {
                 if (map.getLayer(`l-${id}-glow`)) {
                     const isBaseVisible = document.querySelector(`input[data-layer-id="${id}"]`).checked;
                     map.setLayoutProperty(`l-${id}-glow`, 'visibility', statusMode ? 'none' : (isBaseVisible ? 'visible' : 'none'));
@@ -897,6 +860,8 @@ window.initVentusMap = function({ config, center, zoom }) {
                     map.setPaintProperty(`l-${id}`, 'circle-color', ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffcc00',0.99,'#ffcc00',1.0,'#ff8c00',5.0,'#ff6600',10.0,'#ff4400']);
                 } else if (id === 'solar') {
                     map.setPaintProperty(`l-${id}`, 'circle-color', ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffff00',20.0,'#ffcc00',50.0,'#ffaa00',200.0,'#ff6600',500.0,'#ff2200']);
+                } else if (id === 'naei_co2') {
+                    map.setPaintProperty(`l-${id}`, 'circle-color', ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,'#ffcc00',50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000']);
                 } else {
                     map.setPaintProperty(`l-${id}`, 'circle-color', layer.color);
                 }
@@ -1075,7 +1040,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     function handleLayerToggle(layerId, isVisible) {
         if (map.getLayer(`l-${layerId}`)) map.setLayoutProperty(`l-${layerId}`, 'visibility', isVisible ? 'visible' : 'none');
         if (map.getLayer(`l-${layerId}-glow`)) map.setLayoutProperty(`l-${layerId}-glow`, 'visibility', (isVisible && !statusMode) ? 'visible' : 'none');
-        // PERF: keep both visible layer caches in sync on every toggle
         const mapId = `l-${layerId}`;
         if (isVisible) {
             if (!_visibleInteractiveIds.includes(mapId)) _visibleInteractiveIds.push(mapId);
@@ -1114,10 +1078,6 @@ window.initVentusMap = function({ config, center, zoom }) {
                 if (features.length === 0) { updateUIState(layerId, 'EMPTY'); state.loading = false; return; }
                 if (layerConfig.isSubs) globalSubsData = features;
                 if (layerConfig.snap) {
-                    // ── TECH DEBT: snapLines() runs in the browser at runtime.
-                    // This should be moved to the build pipeline (pre-processed GeoJSON)
-                    // so the browser receives already-snapped topology.
-                    // Retained here temporarily to preserve physical grid truth.
                     if (!globalSubsData) { const subsLayer = getLayerConfig('subs'); globalSubsData = await fetchAndParseGeoJSON(subsLayer.url); }
                     console.warn(`[SNAP] Runtime snapping active for "${layerId}" — ${features.length} features. Move to build pipeline when possible.`);
                     features = snapLines(features, globalSubsData);
@@ -1130,9 +1090,6 @@ window.initVentusMap = function({ config, center, zoom }) {
 
                 if (REPD_IDS.includes(layerId)) {
                     allREPDFeatures = features; buildSearchIndex();
-                    // Evaluate each layer's filter against all features so that
-                    // sub-layers (e.g. solar_operational, bess_operational) get
-                    // correct counts/MW rather than showing [EMPTY].
                     function evalFilter(filter, props) {
                         if (!filter) return true;
                         const op = filter[0];
@@ -1146,7 +1103,11 @@ window.initVentusMap = function({ config, center, zoom }) {
                         RUNTIME_STATE[id].loaded = true; RUNTIME_STATE[id].loading = false;
                         const lCfg = getLayerConfig(id);
                         const filtered = lCfg && lCfg.filter ? features.filter(f => evalFilter(lCfg.filter, f.properties)) : features.filter(f => f.properties.tech === id);
-                        const idStats = filtered.reduce((acc, f) => { acc.count++; acc.mw += parseFloat(f.properties.capacity) || 0; return acc; }, { count: 0, mw: 0 });
+                        const idStats = filtered.reduce((acc, f) => { 
+                            acc.count++; 
+                            acc.mw += parseFloat(f.properties.capacity) || parseFloat(f.properties.emission_tco2e) || 0; 
+                            return acc; 
+                        }, { count: 0, mw: 0 });
                         updateUIState(id, idStats.count > 0 ? 'OK' : 'EMPTY', idStats.count > 0 ? idStats : null);
                     });
                     if (statusMode) { toggleStatusMode(); toggleStatusMode(); }
@@ -1242,6 +1203,22 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (id === 'wind_offshore_operational') {
                 map.addLayer({ id: `l-${id}-glow`, type: 'circle', source: 'src-repd', filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 10.0]], layout: { visibility: 'none' }, paint: { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,'#99ccff',50.0,'#3399ff',200.0,'#0055dd',350.0,'#003399'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,24,50.0,32,200.0,50,350.0,62,500.0,78], 'circle-opacity': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,0.15,50.0,0.22,200.0,0.30,350.0,0.38], 'circle-blur': 1.0, 'circle-stroke-width': 0 } });
             }
+            if (id === 'naei_co2') {
+                map.addLayer({ 
+                    id: `l-${id}-glow`, 
+                    type: 'circle', 
+                    source: 'src-repd', 
+                    filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'emission_tco2e'], 0], 50000]], 
+                    layout: { visibility: 'none' }, 
+                    paint: { 
+                        'circle-color': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000'], 
+                        'circle-radius': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,20,200000,40,1000000,60,5000000,90], 
+                        'circle-opacity': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,0.15,200000,0.25,1000000,0.35], 
+                        'circle-blur': 1.0, 
+                        'circle-stroke-width': 0 
+                    } 
+                });
+            }
             const circlePaint = id === 'solar_roof'
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffcc00',0.99,'#ffcc00',1.0,'#ff8c00',5.0,'#ff6600',10.0,'#ff4400'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,7,0.5,7,0.99,8,1.0,16,2.0,18,5.0,22,10.0,28], 'circle-stroke-width': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,1,0.99,1,1.0,2], 'circle-stroke-color': '#000', 'circle-opacity': 0.9 }
                 : id === 'solar'
@@ -1254,6 +1231,14 @@ window.initVentusMap = function({ config, center, zoom }) {
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ccfff5',10,'#99ffee',50,'#00ffcc',100,'#00ddaa',200,'#00aa88',350,'#007766',500,'#004433'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,12,50,16,100,20,200,26,350,32,500,38], 'circle-stroke-width': 2, 'circle-stroke-color': '#000', 'circle-opacity': 0.90 }
                 : id === 'wind_offshore_operational'
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#cce5ff',10,'#99ccff',50,'#3399ff',100,'#0066ee',200,'#0044bb',350,'#003399',500,'#001166'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,12,50,16,100,20,200,26,350,32,500,38], 'circle-stroke-width': 2, 'circle-stroke-color': '#000', 'circle-opacity': 0.90 }
+                : id === 'naei_co2'
+                ? { 
+                    'circle-color': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,'#ffcc00',50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000'], 
+                    'circle-radius': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,6,50000,10,200000,14,1000000,20,5000000,28], 
+                    'circle-stroke-width': 1.5, 
+                    'circle-stroke-color': '#000', 
+                    'circle-opacity': 0.85 
+                }
                 : { 'circle-color': layer.color, 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28], 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85 };
 
             map.addLayer({ id: `l-${id}`, type: 'circle', source: 'src-repd', filter: layer.filter, layout: { visibility: 'none' }, paint: circlePaint });
@@ -1265,11 +1250,8 @@ window.initVentusMap = function({ config, center, zoom }) {
 
         // ── Map Events ────────────────────────────────────────────────────────────
 
-        // BUG FIX: shared deferred-click guard for measure tool.
-        // 220ms timeout so dblclick can cancel before ghost vertex is committed.
         let _pendingToolClick = null;
 
-        // Zone Draw drag — needs mousedown on canvas before map click
         map.getCanvas().addEventListener('mousedown', e => {
             if (!zoneDrawMode) return;
             const lngLat = map.unproject([e.offsetX, e.offsetY]);
@@ -1313,6 +1295,12 @@ window.initVentusMap = function({ config, center, zoom }) {
                 openPopup(e.lngLat, `<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#e5ff00;font-size:13px">${escapeHTML(name)}</b><br>${club}<span style="color:#888">${escapeHTML(p.sport)}</span><br><span style="color:#ffae00">${escapeHTML(cap)}</span></div>`); return;
             }
 
+            if (p.type === 'naei_emitter') {
+                const tonnes = p.emission_tco2e ? Number(p.emission_tco2e).toLocaleString('en-GB', { maximumFractionDigits: 0 }) : 'Unknown';
+                const dataLabel = p.datatype === 'O' ? 'Self-reported by the company' : p.datatype === 'M' ? 'Estimated by the government' : 'Official figures';
+                openPopup(e.lngLat, `<div style="font-family:monospace;background:#000;padding:8px 10px;border:1px solid #ff4400;border-radius:4px;min-width:220px;max-width:280px"><b style="color:#ff4400;font-size:13px">🏭 ${escapeHTML(name)}</b><br><span style="color:#888;font-size:10px">Run by: ${escapeHTML(p.operator || 'Unknown')}</span><br><span style="color:#aaa;font-size:10px">Industry: ${escapeHTML(p.sector || 'Unknown')}</span><br><span style="color:#aaa;font-size:10px">Country: ${escapeHTML(p.country || 'UK')}</span><br><br><span style="color:#ff4400;font-size:12px">Greenhouse gases pumped into the air in 2023:</span><br><b style="color:#fff;font-size:13px">${tonnes} tonnes</b><br><span style="color:#555;font-size:9px">Carbon dioxide and nitrous oxide combined — measured in CO₂ equivalent tonnes</span><br><br><span style="color:#444;font-size:9px">${escapeHTML(dataLabel)} · UK Government emissions database</span></div>`); return;
+            }
+
             const tech = p.tech || ''; const rawTech = p.raw_tech || p.type || tech; const voltage = p.voltage || ''; const capacity = parseFloat(p.capacity) || 0; const powerKw = p.power_kw || null; const connectors = p.connectors || ''; const status = p.status || ''; const operator = p.operator || ''; const mounting = (p.mounting && p.mounting !== 'nan') ? ` | ${escapeHTML(p.mounting)}` : ''; const capStr = capacity ? `${capacity} MW` : ''; const statusCol = STATUS_COLOURS[normalizeStatus(status)] || '#888'; const searchBtns = REPD_IDS.includes(tech) ? buildSearchButtons(name, capacity, tech) : ''; const evFields = powerKw ? `<span style="color:#00ff88;font-size:10px">${powerKw} kW</span>${connectors ? `<span style="color:#555;font-size:10px"> | ${escapeHTML(connectors)}</span>` : ''}<br>` : '';
             openPopup(e.lngLat, `<div style="font-family:monospace;background:#000;padding:6px"><b style="color:#00ffff;font-size:13px">${escapeHTML(name)}</b><br><span style="color:#888">${escapeHTML(rawTech)}${voltage ? ` | ${escapeHTML(voltage)}` : ''}${mounting}</span><br>${evFields}${capStr ? `<span style="color:#ffae00">${escapeHTML(capStr)}</span>` : ''}${status ? `<span style="color:${statusCol};font-size:10px"> ● ${escapeHTML(status)}</span>` : ''}<br>${operator ? `<span style="color:#555;font-size:10px">${escapeHTML(operator)}</span>` : ''}${searchBtns}</div>`);
         });
@@ -1327,19 +1315,15 @@ window.initVentusMap = function({ config, center, zoom }) {
             updateMeasureDisplay();
         });
 
-        // Global mouseup to end zone draw drag anywhere on page
         window.addEventListener('mouseup', () => { if (zoneDrawMode) _zoneDrawOnMouseUp(); });
 
         map.on('mousemove', e => {
-            // Zone draw drag takes priority
             if (zoneDrawMode) { _zoneDrawOnMouseMove(e); return; }
 
             if (measureMode || radiusMode || radiusAreaMode) { map.getCanvas().style.cursor = 'crosshair'; return; }
 
-            // PERF: hard-exit if nothing is visible — zero query cost
             if (!_visibleHoverIds.length) { map.getCanvas().style.cursor = ''; return; }
 
-            // PERF: throttle hover hit-testing to ~100ms cadence.
             const now = Date.now();
             if (now - _lastHoverMs < HOVER_THROTTLE_MS) return;
             _lastHoverMs = now;

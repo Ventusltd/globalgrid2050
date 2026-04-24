@@ -1,0 +1,47 @@
+name: Fetch Elizabeth Line
+
+on:
+  schedule:
+    - cron: '0 4 1 * *'   # 1st of every month at 04:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-crossrail:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Elizabeth Line Fetcher
+        run: python scripts/fetch_elizabeth_line.py
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          
+          # Safely stage the geojson file
+          git add elizabeth_line.geojson || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated Elizabeth Line update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

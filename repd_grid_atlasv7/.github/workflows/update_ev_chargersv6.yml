@@ -1,0 +1,49 @@
+name: Update EV Chargers
+
+on:
+  schedule:
+    - cron: '0 1 1 * *'   # 1st of every month
+    - cron: '0 1 15 * *'  # 15th of every month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-ev-chargers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run EV Charger Fetcher
+        env:
+          OCM_API_KEY: ${{ secrets.OCM_API_KEY }}
+        run: python scripts/fetch_ev_chargers.py
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git add ev_chargers.geojson || true
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated EV charger update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

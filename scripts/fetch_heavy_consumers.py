@@ -219,7 +219,7 @@ def process_osm_data(osm_data, geojson_features, seen):
             continue
 
         # Calculate area from bounding box
-        area_ha = 0
+        area_ha = 0.0
         bounds = element.get("bounds")
         if bounds:
             minlat, minlon = bounds["minlat"], bounds["minlon"]

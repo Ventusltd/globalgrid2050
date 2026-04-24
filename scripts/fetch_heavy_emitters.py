@@ -57,12 +57,14 @@ def classify_emitter(tags):
     name = tags.get("name", "").lower()
 
     # Fossil fuel power plants — highest emitters
+    # plant:source may contain semicolon-separated values (e.g. "coal;gas")
     if power == "plant":
-        if any(s in plant_source for s in ("coal", "oil")):
+        sources = {s.strip() for s in plant_source.split(";")}
+        if sources & {"coal", "oil"}:
             return "power_plant_fossil", 10
-        if "gas" in plant_source:
+        if "gas" in sources:
             return "power_plant_gas", 7
-        if any(s in plant_source for s in ("biomass", "waste", "biogas")):
+        if sources & {"biomass", "waste", "biogas"}:
             return "power_plant_biomass_waste", 4
         # Unknown source — still map it
         return "power_plant_other", 3
@@ -74,8 +76,9 @@ def classify_emitter(tags):
         return "steel_ironworks", 9
 
     # Cement / lime kilns — very high process CO2 (calcination)
+    # Exclude generic quarries; only include where cement/lime is the product or industrial tag
     if ("cement" in industrial or "cement" in works or "cement" in product or
-            "lime" in product or industrial == "quarry"):
+            "lime" in product or "lime" in works):
         return "cement_lime", 8
 
     # Aluminium smelters / electrolysis — very high electrical + process emissions

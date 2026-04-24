@@ -136,88 +136,88 @@
         {
             group: "Topology (GeoJSON)",
             layers: [
-                { id: "400",  label: "400kV", color: "#0054ff", type: "line", width: 2.5, url: "/grid_400kv.geojson", snap: true, preload: true },
-                { id: "275",  label: "275kV", color: "#ff0000", type: "line", width: 2.0, url: "/grid_275kv.geojson", snap: true, preload: true },
-                { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "/grid_220kv.geojson", snap: true, preload: true },
-                { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "/grid_132kv.geojson", snap: true, preload: true },
-                { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "/grid_66kv.geojson", snap: true, preload: true },
-                { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 13.5, 4, 15, 8, 18, 18], url: "/grid_11kv_ukpn.geojson", minzoom: 13.5, preload: false },
-                { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 3, 10, 5, 14, 10, 18, 22], url: "/grid_substations.geojson", isSubs: true, preload: true }
+                { id: "400",  label: "400kV", color: "#0054ff", type: "line", width: 2.5, url: "data/grid_400kv.geojson", snap: true, preload: true },
+                { id: "275",  label: "275kV", color: "#ff0000", type: "line", width: 2.0, url: "data/grid_275kv.geojson", snap: true, preload: true },
+                { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "data/grid_220kv.geojson", snap: true, preload: true },
+                { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "data/grid_132kv.geojson", snap: true, preload: true },
+                { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "data/grid_66kv.geojson", snap: true, preload: true },
+                { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 13.5, 4, 15, 8, 18, 18], url: "data/grid_11kv_ukpn.geojson", minzoom: 13.5, preload: false },
+                { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 3, 10, 5, 14, 10, 18, 22], url: "data/grid_substations.geojson", isSubs: true, preload: true }
             ]
         },
         {
             group: "Assets (GeoJSON)",
             layers: [
-                { id: "nuc",  label: "Nuclear",   color: "#39ff14", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['==', ['get', 'source'], 'nuclear'], preload: true },
-                { id: "gas",  label: "Gas",       color: "#ff4500", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['!=', ['get', 'source'], 'nuclear'], preload: true },
-                { id: "ind",  label: "Industry",  color: "#ff6600", type: "point", radius: 4.5, url: "/industrial_offtakers.geojson", preload: true },
-                { id: "dc",   label: "Data Ctrs", color: "#00ffff", type: "point", radius: 4.5, url: "/datacentres.geojson", preload: true },
-                { id: "air",  label: "Airports",  color: "#ff00ff", type: "point", radius: 4.5, url: "/airports.geojson", preload: true },
-                { id: "rail", label: "Railways",  color: "#ffd700", type: "point", radius: 4.5, url: "/railways.geojson", preload: true }
+                { id: "nuc",  label: "Nuclear",   color: "#39ff14", type: "point", radius: 4.5, url: "data/power_plants.geojson", filter: ['==', ['get', 'source'], 'nuclear'], preload: true },
+                { id: "gas",  label: "Gas",       color: "#ff4500", type: "point", radius: 4.5, url: "data/power_plants.geojson", filter: ['!=', ['get', 'source'], 'nuclear'], preload: true },
+                { id: "ind",  label: "Industry",  color: "#ff6600", type: "point", radius: 4.5, url: "data/industrial_offtakers.geojson", preload: true },
+                { id: "dc",   label: "Data Ctrs", color: "#00ffff", type: "point", radius: 4.5, url: "data/datacentres.geojson", preload: true },
+                { id: "air",  label: "Airports",  color: "#ff00ff", type: "point", radius: 4.5, url: "data/airports.geojson", preload: true },
+                { id: "rail", label: "Railways",  color: "#ffd700", type: "point", radius: 4.5, url: "data/railways.geojson", preload: true }
             ]
         },
         {
             group: "Supermarkets (GeoJSON)",
             layers: [
-                { id: "tesco",      label: "Tesco",       color: "#ee1c2e", type: "point", radius: 4.5, url: "/supermarkets_tesco.geojson", preload: false },
-                { id: "sainsburys", label: "Sainsbury's", color: "#ff8200", type: "point", radius: 4.5, url: "/supermarkets_sainsburys.geojson", preload: false },
-                { id: "asda",       label: "Asda",        color: "#78be20", type: "point", radius: 4.5, url: "/supermarkets_asda.geojson", preload: false },
-                { id: "morrisons",  label: "Morrisons",   color: "#ffd700", type: "point", radius: 4.5, url: "/supermarkets_morrisons.geojson", preload: false },
-                { id: "aldi",       label: "Aldi",        color: "#003087", type: "point", radius: 4.5, url: "/supermarkets_aldi.geojson", preload: false },
-                { id: "lidl",       label: "Lidl",        color: "#0050aa", type: "point", radius: 4.5, url: "/supermarkets_lidl.geojson", preload: false },
-                { id: "waitrose",   label: "Waitrose",    color: "#7ab800", type: "point", radius: 4.5, url: "/supermarkets_waitrose.geojson", preload: false },
-                { id: "ms",         label: "M&S Food",    color: "#009b77", type: "point", radius: 4.5, url: "/supermarkets_ms.geojson", preload: false },
-                { id: "coop",       label: "Co-op",       color: "#00b1a9", type: "point", radius: 4.5, url: "/supermarkets_coop.geojson", preload: false },
-                { id: "costco",     label: "Costco",      color: "#005daa", type: "point", radius: 4.5, url: "/supermarkets_costco.geojson", preload: false },
-                { id: "booths",     label: "Booths",      color: "#6d2077", type: "point", radius: 4.5, url: "/supermarkets_booths.geojson", preload: false }
+                { id: "tesco",      label: "Tesco",       color: "#ee1c2e", type: "point", radius: 4.5, url: "data/supermarkets_tesco.geojson", preload: false },
+                { id: "sainsburys", label: "Sainsbury's", color: "#ff8200", type: "point", radius: 4.5, url: "data/supermarkets_sainsburys.geojson", preload: false },
+                { id: "asda",       label: "Asda",        color: "#78be20", type: "point", radius: 4.5, url: "data/supermarkets_asda.geojson", preload: false },
+                { id: "morrisons",  label: "Morrisons",   color: "#ffd700", type: "point", radius: 4.5, url: "data/supermarkets_morrisons.geojson", preload: false },
+                { id: "aldi",       label: "Aldi",        color: "#003087", type: "point", radius: 4.5, url: "data/supermarkets_aldi.geojson", preload: false },
+                { id: "lidl",       label: "Lidl",        color: "#0050aa", type: "point", radius: 4.5, url: "data/supermarkets_lidl.geojson", preload: false },
+                { id: "waitrose",   label: "Waitrose",    color: "#7ab800", type: "point", radius: 4.5, url: "data/supermarkets_waitrose.geojson", preload: false },
+                { id: "ms",         label: "M&S Food",    color: "#009b77", type: "point", radius: 4.5, url: "data/supermarkets_ms.geojson", preload: false },
+                { id: "coop",       label: "Co-op",       color: "#00b1a9", type: "point", radius: 4.5, url: "data/supermarkets_coop.geojson", preload: false },
+                { id: "costco",     label: "Costco",      color: "#005daa", type: "point", radius: 4.5, url: "data/supermarkets_costco.geojson", preload: false },
+                { id: "booths",     label: "Booths",      color: "#6d2077", type: "point", radius: 4.5, url: "data/supermarkets_booths.geojson", preload: false }
             ]
         },
         {
             group: "Transit (GeoJSON)",
             layers: [
-                { id: "elizabeth", label: "Elizabeth Line", color: "#60399E", type: "point", radius: 5, url: "/elizabeth_line.geojson", preload: false },
-                { id: "lu",    label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "/london_underground.geojson", preload: false },
-                { id: "dlr",   label: "DLR", color: "#00afad", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
+                { id: "elizabeth", label: "Elizabeth Line", color: "#60399E", type: "point", radius: 5, url: "data/elizabeth_line.geojson", preload: false },
+                { id: "lu",    label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "data/london_underground.geojson", preload: false },
+                { id: "dlr",   label: "DLR", color: "#00afad", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
                   filter: ['all', ['in', 'Docklands', ['get', 'operator']], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
-                { id: "metro", label: "UK Metro", color: "#f3a712", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
+                { id: "metro", label: "UK Metro", color: "#f3a712", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
                   filter: ['any', ['in', 'Tyne', ['get', 'operator']], ['in', 'Metrolink', ['get', 'operator']], ['in', 'Supertram', ['get', 'operator']], ['in', 'Nottingham', ['get', 'operator']], ['in', 'Edinburgh', ['get', 'operator']], ['in', 'Midland Metro', ['get', 'operator']]] },
-                { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
+                { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
                   filter: ['all', ['==', ['get', 'type'], 'Tram / Light Rail'], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
-                { id: "hs2",   label: "HS2", color: "#2c6fad", type: "point", radius: 4, url: "/hs2.geojson", preload: false },
-                { id: "eurostar_route", label: "Eurostar (HS1) UK & Europe", color: "#001489", type: "line", width: 2.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'route'], preload: false },
-                { id: "eurostar_station", label: "Eurostar Stations UK & Europe", color: "#ffd700", type: "point", radius: 5.5, url: "/eurostar.geojson", filter: ['==', ['get', 'type'], 'eurostar_station'], preload: false }
+                { id: "hs2",   label: "HS2", color: "#2c6fad", type: "point", radius: 4, url: "data/hs2.geojson", preload: false },
+                { id: "eurostar_route", label: "Eurostar (HS1) UK & Europe", color: "#001489", type: "line", width: 2.5, url: "data/eurostar.geojson", filter: ['==', ['get', 'type'], 'route'], preload: false },
+                { id: "eurostar_station", label: "Eurostar Stations UK & Europe", color: "#ffd700", type: "point", radius: 5.5, url: "data/eurostar.geojson", filter: ['==', ['get', 'type'], 'eurostar_station'], preload: false }
             ]
         },
         {
             group: "Leisure & Sports (GeoJSON)",
             layers: [
-                { id: "stadiums", label: "Major Stadiums", color: "#e5ff00", type: "point", radius: 5.5, url: "/stadiums.geojson", preload: false }
+                { id: "stadiums", label: "Major Stadiums", color: "#e5ff00", type: "point", radius: 5.5, url: "data/stadiums.geojson", preload: false }
             ]
         },
         {
             group: "Global Data Backbone",
             layers: [
-                { id: "subsea_data_cables", label: "Subsea Data Cables (Fibre) (not all connections available yet)", color: "#00e5ff", type: "line", width: 1.5, url: "/subsea_data_cables.geojson", preload: false }
+                { id: "subsea_data_cables", label: "Subsea Data Cables (Fibre) (not all connections available yet)", color: "#00e5ff", type: "line", width: 1.5, url: "data/subsea_data_cables.geojson", preload: false }
             ]
         },
         {
             group: "Global Supply Chain & Chokepoints",
             layers: [
-                { id: "global_ports_major", label: "Major Ports (Deep Water/Ferry)", color: "#00bfff", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 8, 80, 10, 500, 16], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Major Cargo/Container Port'], preload: false },
-                { id: "global_ports_minor", label: "Inland / Minor Harbours", color: "#0055aa", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 2.5, 50, 4.5, 200, 6], url: "/global_ports.geojson", filter: ['==', ['get', 'type'], 'Minor/Local Harbour'], preload: false },
-                { id: "global_hydrocarbons", label: "Global Hydrocarbons (Oil, Gas, LNG)", color: "#ff3300", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 4, 100, 8, 1000, 15], url: "/global_hydrocarbons.geojson", preload: false }
+                { id: "global_ports_major", label: "Major Ports (Deep Water/Ferry)", color: "#00bfff", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 8, 80, 10, 500, 16], url: "data/global_ports.geojson", filter: ['==', ['get', 'type'], 'Major Cargo/Container Port'], preload: false },
+                { id: "global_ports_minor", label: "Inland / Minor Harbours", color: "#0055aa", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 2.5, 50, 4.5, 200, 6], url: "data/global_ports.geojson", filter: ['==', ['get', 'type'], 'Minor/Local Harbour'], preload: false },
+                { id: "global_hydrocarbons", label: "Global Hydrocarbons (Oil, Gas, LNG)", color: "#ff3300", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 4, 100, 8, 1000, 15], url: "data/global_hydrocarbons.geojson", preload: false }
             ]
         },
         {
             group: "Highway Infrastructure",
             layers: [
-                { id: "motorway_services", label: "Motorway Services", color: "#ff00ff", type: "point", radius: 5.5, url: "/motorway_services.geojson", preload: false }
+                { id: "motorway_services", label: "Motorway Services", color: "#ff00ff", type: "point", radius: 5.5, url: "data/motorway_services.geojson", preload: false }
             ]
         },
         {
             group: "EV (GeoJSON)",
             layers: [
-                { id: "ev", label: "EV Rapid (100kW+)", color: "#00ff88", type: "point", radius: 5, url: "/ev_chargers.geojson", preload: false }
+                { id: "ev", label: "EV Rapid (100kW+)", color: "#00ff88", type: "point", radius: 5, url: "data/ev_chargers.geojson", preload: false }
             ]
         },
         {

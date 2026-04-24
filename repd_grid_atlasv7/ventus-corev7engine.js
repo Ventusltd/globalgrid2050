@@ -1130,9 +1130,25 @@ window.initVentusMap = function({ config, center, zoom }) {
 
                 if (REPD_IDS.includes(layerId)) {
                     allREPDFeatures = features; buildSearchIndex();
-                    const stats = {};
-                    features.forEach(f => { const t = f.properties.tech; if (!stats[t]) stats[t] = { count: 0, mw: 0 }; stats[t].count++; stats[t].mw += parseFloat(f.properties.capacity) || 0; });
-                    REPD_IDS.forEach(id => { if (RUNTIME_STATE[id]) { RUNTIME_STATE[id].loaded = true; RUNTIME_STATE[id].loading = false; updateUIState(id, stats[id] && stats[id].count > 0 ? 'OK' : 'EMPTY', stats[id]); } });
+                    // Evaluate each layer's filter against all features so that
+                    // sub-layers (e.g. solar_operational, bess_operational) get
+                    // correct counts/MW rather than showing [EMPTY].
+                    function evalFilter(filter, props) {
+                        if (!filter) return true;
+                        const op = filter[0];
+                        if (op === '==') { const v = filter[1][0] === 'get' ? props[filter[1][1]] : null; return String(v).toLowerCase() === String(filter[2]).toLowerCase(); }
+                        if (op === 'all') { return filter.slice(1).every(f => evalFilter(f, props)); }
+                        if (op === '>=') { const v = filter[1][0] === 'coalesce' ? (parseFloat(props[filter[1][1][1]]) || 0) : 0; return v >= filter[2]; }
+                        return true;
+                    }
+                    REPD_IDS.forEach(id => {
+                        if (!RUNTIME_STATE[id]) return;
+                        RUNTIME_STATE[id].loaded = true; RUNTIME_STATE[id].loading = false;
+                        const lCfg = getLayerConfig(id);
+                        const filtered = lCfg && lCfg.filter ? features.filter(f => evalFilter(lCfg.filter, f.properties)) : features.filter(f => f.properties.tech === id);
+                        const idStats = filtered.reduce((acc, f) => { acc.count++; acc.mw += parseFloat(f.properties.capacity) || 0; return acc; }, { count: 0, mw: 0 });
+                        updateUIState(id, idStats.count > 0 ? 'OK' : 'EMPTY', idStats.count > 0 ? idStats : null);
+                    });
                     if (statusMode) { toggleStatusMode(); toggleStatusMode(); }
                 } else if (TRANSIT_IDS.includes(layerId)) {
                     TRANSIT_IDS.forEach(tid => { if (TRANSIT_SOURCE_MAP[tid] === TRANSIT_SOURCE_MAP[layerId] && RUNTIME_STATE[tid]) { RUNTIME_STATE[tid].loaded = true; RUNTIME_STATE[tid].loading = false; updateUIState(tid, 'OK'); } });

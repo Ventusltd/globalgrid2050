@@ -1,0 +1,9 @@
+{
+  "source_url": "https://naei.energysecurity.gov.uk/sites/default/files/2025-09/NAEIPointsSources_2023.xlsx",
+  "processed_at": "2026-04-24T22:53:59.789718Z",
+  "year_filtered": 2023,
+  "feature_count": 2458,
+  "sheet": "GHGs",
+  "output": "heavy_emitters_uk.json",
+  "physics": "tCO2e: CO2x(44/12) + N2Ox(44/12)x298 GWP-100 AR5"
+}

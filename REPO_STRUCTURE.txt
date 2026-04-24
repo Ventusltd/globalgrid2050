@@ -119,6 +119,7 @@
 │   ├── fetch_global_hydrocarbons.py
 │   ├── fetch_global_ports.py
 │   ├── fetch_grid_data.py
+│   ├── fetch_heavy_emitters.py
 │   ├── fetch_hs2.py
 │   ├── fetch_industrial_offtakers.py
 │   ├── fetch_london_underground.py
@@ -172,4 +173,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-27 directories, 146 files
+27 directories, 147 files

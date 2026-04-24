@@ -1,0 +1,45 @@
+name: Update Heaviest Carbon Emitters
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # Runs at midnight on the 1st of every month
+  workflow_dispatch: # Adds a button in the Actions tab to run it manually
+
+# CRITICAL: This permission block ensures gridbot is authorised to push to your repo
+permissions:
+  contents: write 
+
+jobs:
+  update-emissions-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Uses the default Github Actions token. 
+          # If gridbot has a dedicated Personal Access Token, uncomment the line below and use that.
+          # token: ${{ secrets.GRIDBOT_TOKEN }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        # Installs pandas for data handling and pyproj for the Easting/Northing coordinate conversion
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas requests pyproj
+
+      - name: Run Emissions Fetcher
+        run: python scripts/fetch_heavy_emitters.py
+
+      - name: Commit and Push via Gridbot
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "gridbot@users.noreply.github.com"
+          git add heaviest_emitters.geojson
+          
+          # This command checks if the file actually changed. If it did, gridbot commits and pushes.
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Gridbot: Updated heaviest carbon emitters GeoJSON" && git push)

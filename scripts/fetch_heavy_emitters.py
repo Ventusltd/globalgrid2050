@@ -5,19 +5,21 @@ import math
 import sys
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-OUTPUT_GEOJSON = "heaviest_consumers.geojson"
-MIN_EXPECTED_FEATURES = 100
+OUTPUT_GEOJSON = "heaviest_emitters.geojson"
+MIN_EXPECTED_FEATURES = 50
+HEADERS = {"User-Agent": "GlobalGrid2050-Pipeline/1.0 (https://globalgrid2050.com)"}
 
-# Minimum site area (hectares) to be considered private-wire viable.
-# Below this, the roof/land is too small to host meaningful behind-the-meter generation
-# or the load is too small to justify the connection engineering.
-MIN_AREA_HA = 2.0
 
 def fetch_overpass_data(query):
     for attempt in range(3):
         try:
             print(f"  -> Requesting data from Overpass (attempt {attempt + 1})...")
-            response = requests.post(OVERPASS_URL, data={"data": query}, timeout=300)
+            response = requests.post(
+                OVERPASS_URL,
+                data={"data": query},
+                headers=HEADERS,
+                timeout=300,
+            )
 
             if response.status_code == 200:
                 data = response.json()
@@ -40,144 +42,76 @@ def fetch_overpass_data(query):
     return None
 
 
-def estimate_load_mw(category, area_ha, tags):
+def classify_emitter(tags):
     """
-    Rough load proxies (MW continuous-equivalent) calibrated for private-wire viability.
-    These are intentionally conservative order-of-magnitude estimates — refine with
-    real half-hourly data once a site is shortlisted.
+    Map OSM tags to an emitter category.
+    Returns (category, emission_intensity) or None to skip.
+    Emission intensity is a rough relative scale: higher = more CO2-intensive.
     """
-    if category == "data_centre":
-        # Data centres: ~5–15 MW per hectare of building footprint is typical hyperscale density.
-        # Use 8 MW/ha as midpoint.
-        return round(max(5, area_ha * 8), 1)
-
-    if category == "smelter_electrolysis":
-        # Aluminium/electrolysis: massive continuous load, 20+ MW per ha of process area.
-        return round(max(20, area_ha * 20), 1)
-
-    if category == "steel_furnace":
-        # EAF steel: highly variable but large. 10 MW/ha process area.
-        return round(max(10, area_ha * 10), 1)
-
-    if category == "cold_storage_logistics":
-        # Refrigerated warehousing: ~0.3–0.8 MW per ha. Ambient warehousing much lower
-        # but roof area is the private-wire asset (solar host).
-        refrigerated = any(k in tags.get("name", "").lower()
-                           for k in ["cold", "frozen", "chill", "ocado", "iceland"])
-        mw_per_ha = 0.6 if refrigerated else 0.15
-        return round(max(0.5, area_ha * mw_per_ha), 1)
-
-    if category == "hospital":
-        # Major hospitals: 5–20 MW. Scale by area as rough proxy for size.
-        return round(max(3, area_ha * 1.5), 1)
-
-    if category == "university":
-        # Large campuses: 2–15 MW. Area is a decent proxy for estate size.
-        return round(max(2, area_ha * 0.8), 1)
-
-    if category == "water_treatment":
-        # Large STWs / water works: 1–10 MW continuous pumping load.
-        return round(max(1, area_ha * 0.5), 1)
-
-    if category == "cement_kiln":
-        # Cement: ~5–15 MW electrical (thermal is gas, not addressable by private wire).
-        return round(max(5, area_ha * 2), 1)
-
-    if category == "paper_glass_ceramics":
-        # Paper mills, glass works, brick/ceramics: 2–20 MW.
-        return round(max(2, area_ha * 1.5), 1)
-
-    if category == "chemical_works":
-        return round(max(3, area_ha * 2), 1)
-
-    if category == "airport":
-        # Airports: major ones are 20–130 MW. Area-scale.
-        return round(max(5, area_ha * 0.3), 1)
-
-    if category == "large_industrial":
-        # Generic large industrial estate / unknown works. Conservative.
-        return round(max(1, area_ha * 0.4), 1)
-
-    return round(max(0.5, area_ha * 0.3), 1)
-
-
-def classify(tags):
-    """Map OSM tags to a private-wire customer category, or None to skip."""
-    man_made = tags.get("man_made", "")
     industrial = tags.get("industrial", "")
-    works = tags.get("works", "").lower()
-    product = tags.get("product", "").lower()
-    plant_source = tags.get("plant:source", "")
-    landuse = tags.get("landuse", "")
-    amenity = tags.get("amenity", "")
-    building = tags.get("building", "")
-    telecom = tags.get("telecom", "")
-    office = tags.get("office", "")
+    man_made = tags.get("man_made", "")
     power = tags.get("power", "")
-    aeroway = tags.get("aeroway", "")
+    plant_source = tags.get("plant:source", "").lower()
+    product = tags.get("product", "").lower()
+    works = tags.get("works", "").lower()
     name = tags.get("name", "").lower()
 
-    # Exclude power plants — we don't want to private-wire a power station.
-    if power == "plant" or plant_source:
-        return None
+    # Fossil fuel power plants — highest emitters
+    if power == "plant":
+        if any(s in plant_source for s in ("coal", "oil")):
+            return "power_plant_fossil", 10
+        if "gas" in plant_source:
+            return "power_plant_gas", 7
+        if any(s in plant_source for s in ("biomass", "waste", "biogas")):
+            return "power_plant_biomass_waste", 4
+        # Unknown source — still map it
+        return "power_plant_other", 3
 
-    # Data centres (multiple tagging conventions in OSM)
-    if (telecom == "data_center" or
-        office == "data_center" or
-        building == "data_center" or
-        "data centre" in name or "data center" in name):
-        return "data_centre"
+    # Steel / iron / EAF — very high process emissions
+    if ("steel" in industrial or "steel" in works or "steel" in product or
+            industrial in ("iron_works", "rolling_mill") or
+            "blast furnace" in name or "steel" in name):
+        return "steel_ironworks", 9
 
-    # Electrolysis / aluminium smelters
-    if ("aluminium" in works or "aluminum" in works or
-        "aluminium" in product or "smelter" in industrial or
-        "electrolysis" in works):
-        return "smelter_electrolysis"
+    # Cement / lime kilns — very high process CO2 (calcination)
+    if ("cement" in industrial or "cement" in works or "cement" in product or
+            "lime" in product or industrial == "quarry"):
+        return "cement_lime", 8
 
-    # Steel / EAF / furnaces
-    if ("steel" in works or "steel" in industrial or
-        "steel" in product or "furnace" in industrial or
-        industrial == "rolling_mill"):
-        return "steel_furnace"
+    # Aluminium smelters / electrolysis — very high electrical + process emissions
+    if ("aluminium" in industrial or "aluminium" in works or "aluminium" in product or
+            "aluminum" in works or "smelter" in industrial or "electrolysis" in works):
+        return "smelter_electrolysis", 8
 
-    # Cement
-    if "cement" in works or "cement" in industrial or "cement" in product:
-        return "cement_kiln"
+    # Oil refineries and petrochemical plants
+    if (industrial in ("oil", "refinery", "petrochemical") or
+            "refinery" in works or "petrochemical" in works or
+            "refinery" in name):
+        return "refinery_petrochemical", 8
 
-    # Chemical
-    if ("chemical" in works or "chemical" in industrial or
-        "petrochemical" in industrial or industrial == "oil"):
-        return "chemical_works"
+    # Chemical works
+    if ("chemical" in industrial or "chemical" in works or
+            industrial == "chemical"):
+        return "chemical_works", 6
 
-    # Paper / glass / ceramics
-    if (industrial in ("paper_mill", "brickyard") or
-        "paper" in works or "glass" in works or "brick" in works or
-        "ceramic" in works):
-        return "paper_glass_ceramics"
+    # Glass and ceramics — high-temperature kilns
+    if ("glass" in industrial or "glass" in works or
+            "ceramic" in works or industrial == "brickyard"):
+        return "glass_ceramics", 5
 
-    # Cold storage / large logistics (roof-as-asset for solar PPA, BESS siting)
-    if building in ("warehouse", "industrial") or landuse == "industrial":
-        return "cold_storage_logistics"
+    # Paper and pulp mills
+    if industrial == "paper_mill" or "paper" in works or "pulp" in works:
+        return "paper_pulp", 4
 
-    # Hospitals
-    if amenity == "hospital":
-        return "hospital"
+    # Waste-to-energy / incineration
+    if (man_made in ("waste_incinerator",) or
+            industrial == "waste" or "incinerator" in name or
+            "waste" in plant_source):
+        return "waste_incineration", 5
 
-    # Universities
-    if amenity == "university":
-        return "university"
-
-    # Water treatment
-    if man_made in ("water_works", "wastewater_plant", "pumping_station"):
-        return "water_treatment"
-
-    # Airports
-    if aeroway == "aerodrome":
-        return "airport"
-
-    # Generic catch-all for large industrial works
-    if man_made == "works" or industrial:
-        return "large_industrial"
+    # Generic heavy industry — works with no specific classification
+    if man_made == "works" and (industrial or product or works):
+        return "heavy_industry", 3
 
     return None
 
@@ -187,7 +121,6 @@ def process_osm_data(osm_data, geojson_features, seen):
         return
 
     elements = osm_data.get("elements", [])
-    skipped_small = 0
     skipped_no_coords = 0
     skipped_unclassified = 0
 
@@ -196,10 +129,12 @@ def process_osm_data(osm_data, geojson_features, seen):
         if not tags:
             continue
 
-        category = classify(tags)
-        if category is None:
+        result = classify_emitter(tags)
+        if result is None:
             skipped_unclassified += 1
             continue
+
+        category, intensity = result
 
         lat = element.get("lat")
         lon = element.get("lon")
@@ -212,7 +147,7 @@ def process_osm_data(osm_data, geojson_features, seen):
             continue
 
         # Calculate area from bounding box
-        area_ha = 0
+        area_ha = 0.0
         bounds = element.get("bounds")
         if bounds:
             minlat, minlon = bounds["minlat"], bounds["minlon"]
@@ -220,12 +155,6 @@ def process_osm_data(osm_data, geojson_features, seen):
             lat_dist = (maxlat - minlat) * 111000
             lon_dist = (maxlon - minlon) * 111000 * math.cos(math.radians((maxlat + minlat) / 2))
             area_ha = round((lat_dist * lon_dist) / 10000, 1)
-
-        # Filter out sites too small for private-wire viability.
-        # Hospitals/data centres are kept even if small because load density can be high.
-        if category not in ("data_centre", "hospital") and area_ha < MIN_AREA_HA:
-            skipped_small += 1
-            continue
 
         name = tags.get("name", "").strip()
         operator = (tags.get("operator", "") or tags.get("brand", "")).strip()
@@ -241,11 +170,8 @@ def process_osm_data(osm_data, geojson_features, seen):
             continue
         seen.add(key)
 
-        load_mw = estimate_load_mw(category, area_ha, tags)
-
-        # Private-wire viability score: combines load size with land/roof availability.
-        # Higher = better candidate for co-located solar/wind/BESS.
-        pw_score = round(load_mw * math.log1p(area_ha), 1)
+        # Emission proxy score: intensity * log(area+1) — larger high-intensity sites score highest
+        emission_score = round(intensity * math.log1p(area_ha), 2)
 
         feature = {
             "type": "Feature",
@@ -253,26 +179,28 @@ def process_osm_data(osm_data, geojson_features, seen):
                 "name": name,
                 "operator": operator if operator else "Unknown",
                 "category": category,
+                "emission_intensity": intensity,
                 "area_ha": area_ha,
-                "load_mw_estimate": load_mw,
-                "pw_score": pw_score,
+                "emission_score": emission_score,
+                "plant_source": tags.get("plant:source", ""),
                 "osm_type": element.get("type"),
                 "osm_id": element.get("id"),
             },
             "geometry": {
                 "type": "Point",
-                "coordinates": [lon, lat]
-            }
+                "coordinates": [lon, lat],
+            },
         }
         geojson_features.append(feature)
 
-    print(f"  🔍 Kept {len(geojson_features)} features "
-          f"(skipped: {skipped_small} too small, {skipped_no_coords} no coords, "
-          f"{skipped_unclassified} unclassified).")
+    print(
+        f"  🔍 Kept {len(geojson_features)} features "
+        f"(skipped: {skipped_no_coords} no coords, {skipped_unclassified} unclassified)."
+    )
 
 
-def fetch_heavy_consumers():
-    print("🚀 Fetching UK private-wire customer candidates...")
+def fetch_heavy_emitters():
+    print("🚀 Fetching UK heavy industrial emitters...")
 
     geojson = {"type": "FeatureCollection", "features": []}
     seen = set()
@@ -283,32 +211,34 @@ def fetch_heavy_consumers():
     query = f"""
     [out:json][timeout:300];
     (
-      // Industrial works — the heavy process loads
-      nwr["man_made"="works"]({bbox});
-      nwr["industrial"]({bbox});
+      // Fossil fuel and thermal power plants
+      nwr["power"="plant"]({bbox});
 
-      // Data centres — multiple tagging conventions
-      nwr["telecom"="data_center"]({bbox});
-      nwr["office"="data_center"]({bbox});
-      nwr["building"="data_center"]({bbox});
+      // Steel, iron and metalworks
+      nwr["industrial"~"steel|iron|smelter|rolling_mill|iron_works"]({bbox});
+      nwr["man_made"="works"]["product"~"steel|iron|aluminium|aluminum"]({bbox});
+      nwr["works"~"steel|aluminium"]({bbox});
 
-      // Large logistics / cold storage (roof-as-asset targets)
-      way["building"="warehouse"]({bbox});
-      way["landuse"="industrial"]["name"]({bbox});
+      // Cement, lime and quarry operations
+      nwr["industrial"~"cement|lime|quarry"]({bbox});
+      nwr["man_made"="works"]["product"~"cement|lime"]({bbox});
 
-      // Hospitals — continuous load, resilience-motivated PPA buyers
-      nwr["amenity"="hospital"]["name"]({bbox});
+      // Oil refineries and petrochemical plants
+      nwr["industrial"~"oil|refinery|petrochemical"]({bbox});
+      nwr["man_made"="works"]["works"~"refinery|petrochemical"]({bbox});
 
-      // Universities — large estates, sustainability mandates
-      nwr["amenity"="university"]["name"]({bbox});
+      // Chemical works
+      nwr["industrial"="chemical"]({bbox});
 
-      // Water/wastewater — continuous pumping load
-      nwr["man_made"="water_works"]({bbox});
-      nwr["man_made"="wastewater_plant"]({bbox});
-      nwr["man_made"="pumping_station"]["name"]({bbox});
+      // Glass, ceramics, brickworks
+      nwr["industrial"~"glass|brickyard|ceramics"]({bbox});
 
-      // Airports
-      nwr["aeroway"="aerodrome"]["name"]({bbox});
+      // Paper and pulp mills
+      nwr["industrial"="paper_mill"]({bbox});
+
+      // Waste incineration
+      nwr["man_made"="waste_incinerator"]({bbox});
+      nwr["industrial"="waste"]({bbox});
     );
     out tags center bb;
     """
@@ -320,33 +250,37 @@ def fetch_heavy_consumers():
 
     process_osm_data(data, geojson["features"], seen)
 
-    # Sort by private-wire score descending — biggest opportunities first
-    geojson["features"].sort(key=lambda f: f["properties"]["pw_score"], reverse=True)
+    # Sort by emission score descending — highest-impact sites first
+    geojson["features"].sort(
+        key=lambda f: f["properties"]["emission_score"], reverse=True
+    )
 
     count = len(geojson["features"])
     if count < MIN_EXPECTED_FEATURES:
-        print(f"❌ Only {count} features (expected >= {MIN_EXPECTED_FEATURES}). "
-              f"Refusing to overwrite. Investigate query or API.")
+        print(
+            f"❌ Only {count} features (expected >= {MIN_EXPECTED_FEATURES}). "
+            f"Refusing to overwrite. Investigate query or API."
+        )
         sys.exit(1)
 
     with open(OUTPUT_GEOJSON, "w", encoding="utf-8") as f:
         json.dump(geojson, f, ensure_ascii=False, indent=2)
 
-    # Summary by category
     from collections import Counter
     cats = Counter(f["properties"]["category"] for f in geojson["features"])
-    print(f"\n🎉 Saved {count} private-wire candidates to {OUTPUT_GEOJSON}")
+    print(f"\n🎉 Saved {count} heavy emitter sites to {OUTPUT_GEOJSON}")
     print("   Breakdown by category:")
     for cat, n in cats.most_common():
         print(f"     {cat}: {n}")
 
-    # Top 10 by score
-    print("\n   Top 10 by private-wire score:")
+    print("\n   Top 10 by emission score:")
     for f in geojson["features"][:10]:
         p = f["properties"]
-        print(f"     {p['pw_score']:>7.1f}  {p['load_mw_estimate']:>6.1f} MW  "
-              f"{p['category']:<25s}  {p['name'][:50]}")
+        print(
+            f"     {p['emission_score']:>7.2f}  intensity={p['emission_intensity']}  "
+            f"{p['category']:<30s}  {p['name'][:50]}"
+        )
 
 
 if __name__ == "__main__":
-    fetch_heavy_consumers()
+    fetch_heavy_emitters()

@@ -14,8 +14,9 @@ def fetch_overpass_data(query):
             response = requests.post(OVERPASS_URL, data={"data": query}, timeout=120)
 
             if response.status_code == 200:
-                print("  ✅ Data downloaded!")
-                return response.json()
+                data = response.json()
+                print(f"  ✅ Data downloaded! Overpass returned {len(data.get('elements', []))} raw elements.")
+                return data
 
             if response.status_code == 429:
                 print("  ⚠️ Server busy, sleeping 60s...")
@@ -36,24 +37,30 @@ def process_osm_data(osm_data, geojson_features, seen):
     if not osm_data:
         return
 
-    for element in osm_data.get("elements", []):
+    elements = osm_data.get("elements", [])
+    skipped_no_coords = 0
+    
+    for element in elements:
         tags = element.get("tags", {})
 
+        # Nodes use lat/lon directly. Ways/Relations use center.
         lat = element.get("lat")
         lon = element.get("lon")
         
-        # Ways and relations return center coordinates via 'out center'
         if "center" in element:
             lat = element["center"].get("lat")
             lon = element["center"].get("lon")
 
         if lat is None or lon is None:
+            skipped_no_coords += 1
             continue
 
         ind_type = (
+            tags.get("works") or
             tags.get("plant:source") or 
             tags.get("product") or 
             tags.get("industrial") or 
+            tags.get("man_made") or
             tags.get("power") or 
             "Heavy Industry"
         ).replace("_", " ").title()
@@ -61,7 +68,7 @@ def process_osm_data(osm_data, geojson_features, seen):
         name = tags.get("name", "").strip()
         operator = (tags.get("operator", "") or tags.get("brand", "")).strip()
 
-        # Fallback naming if the OSM mapper didn't provide a name
+        # Fallback naming
         if not name:
             if operator:
                 name = f"{operator} {ind_type} Facility"
@@ -81,12 +88,11 @@ def process_osm_data(osm_data, geojson_features, seen):
             minlat, minlon = bounds["minlat"], bounds["minlon"]
             maxlat, maxlon = bounds["maxlat"], bounds["maxlon"]
             
-            # 1 degree of latitude is ~111,000 meters
             lat_dist = (maxlat - minlat) * 111000
             lon_dist = (maxlon - minlon) * 111000 * math.cos(math.radians((maxlat + minlat) / 2))
             
             area_sq_m = lat_dist * lon_dist
-            area_ha = round(area_sq_m / 10000, 1) # Convert to Hectares
+            area_ha = round(area_sq_m / 10000, 1)
 
         # Proxy Math: Base value of 50kt so nothing is lost, plus area scaling for the massive sites
         emissions_proxy = round(50 + (area_ha * 85), 1)
@@ -107,6 +113,8 @@ def process_osm_data(osm_data, geojson_features, seen):
         }
 
         geojson_features.append(feature)
+        
+    print(f"  🔍 Processed {len(geojson_features)} valid features (Skipped {skipped_no_coords} missing coords).")
 
 def fetch_heavy_industry():
     print("🚀 Fetching UK heavy emitters...")
@@ -118,21 +126,20 @@ def fetch_heavy_industry():
 
     seen = set()
 
-    # Query targets power plants (gas/coal/oil), works (steel/cement/chemical), and refineries
+    # Bulletproof query: 
+    # 1. Uses dynamic ISO code for the UK instead of a hardcoded area ID
+    # 2. Uses nwr (nodes, ways, relations) to catch everything
+    # 3. Uses `out tags center bb;` to absolutely force tags to be downloaded
     query_heavy_industry = """
     [out:json][timeout:180];
-    area(3600062149)->.uk;
+    area["ISO3166-1"="GB"][admin_level=2]->.uk;
     (
-      way["man_made"="works"]["product"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
-      relation["man_made"="works"]["product"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
-
-      way["power"="plant"]["plant:source"~"gas|coal|oil"](area.uk);
-      relation["power"="plant"]["plant:source"~"gas|coal|oil"](area.uk);
-      
-      way["industrial"~"oil|refinery|chemical|steel|cement"](area.uk);
-      relation["industrial"~"oil|refinery|chemical|steel|cement"](area.uk);
+      nwr["man_made"="works"]["works"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
+      nwr["man_made"="petroleum_refinery"](area.uk);
+      nwr["power"="plant"]["plant:source"~"gas|coal|oil"](area.uk);
+      nwr["industrial"~"oil|refinery|chemical|steel|cement"](area.uk);
     );
-    out center bb;
+    out tags center bb;
     """
 
     data = fetch_overpass_data(query_heavy_industry)
@@ -145,4 +152,3 @@ def fetch_heavy_industry():
 
 if __name__ == "__main__":
     fetch_heavy_industry()
-

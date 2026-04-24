@@ -1,101 +1,146 @@
-import pandas as pd
-import json
-import os
 import requests
-from pyproj import Transformer
+import json
+import time
+import math
+import os
 
-# --- CONFIGURATION ---
-# Replace this with the direct URL to the latest NAEI Point Source CSV when published,
-# OR place a downloaded CSV in your data folder and point this to local path (e.g., "data/naei_emissions.csv")
-DATA_URL = "https://naei.energysecurity.gov.uk/data/YOUR_DATASET_URL.csv" 
+OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 OUTPUT_GEOJSON = "heaviest_emitters.geojson"
 
-def fetch_and_process_emitters():
-    print("🚀 Starting Heavy Emitters data pipeline...")
-    
-    # Set up coordinate transformer: British National Grid (EPSG:27700) -> WGS84 Lat/Lon (EPSG:4326)
-    transformer = Transformer.from_crs("EPSG:27700", "EPSG:4326", always_xy=True)
-    
-    try:
-        # 1. Load the data
-        print(f"📥 Loading data from {DATA_URL}...")
-        
-        # If using a URL, requests gets it. If using a local file, pandas reads it directly.
-        if DATA_URL.startswith("http"):
-            df = pd.read_csv(DATA_URL)
-        else:
-            df = pd.read_csv(DATA_URL)
+HEAVY_OPERATORS = [
+    "tata", "british steel", "cemex", "heidelberg", "tarmac", 
+    "aggregate industries", "ineos", "shell", "bp", "total", 
+    "phillips 66", "sabic", "dow", "valero", "exxon"
+]
 
-        # 2. Standardise column names (Update these to match the exact headers in your CSV)
-        # NAEI typically uses 'Pollutant', 'Emission', 'Easting', 'Northing', 'SiteName', 'Operator'
-        df.columns = [col.strip().lower() for col in df.columns]
-        
-        # 3. Filter for Carbon Dioxide / Greenhouse Gases
-        # Adjust 'pollutant' to match the exact column name in the NAEI data
-        if 'pollutant' in df.columns:
-            df = df[df['pollutant'].astype(str).str.contains('carbon', case=False, na=False)]
-            
-        # 4. Sort by heaviest emitters (descending)
-        # Adjust 'emission' to match the column containing the tonnes of CO2
-        if 'emission' in df.columns:
-            df = df.sort_values(by='emission', ascending=False)
+def fetch_overpass_data(query):
+    for attempt in range(3):
+        try:
+            print(f"  -> Requesting data from Overpass (attempt {attempt + 1})...")
+            response = requests.post(OVERPASS_URL, data={"data": query}, timeout=120)
 
-        features = []
-        
-        # 5. Process coordinates and build GeoJSON
-        print("🗺️ Converting Eastings/Northings to Lat/Lon...")
-        for index, row in df.iterrows():
-            try:
-                # Extract coordinates
-                easting = float(row.get('easting', 0))
-                northing = float(row.get('northing', 0))
-                
-                if easting == 0 or northing == 0:
-                    continue
-                
-                # Transform to Lat/Lon
-                lon, lat = transformer.transform(easting, northing)
-                
-                # Extract emissions and convert to Kilotonnes for cleaner mapping
-                emissions_tonnes = float(row.get('emission', 0))
-                emissions_kt = round(emissions_tonnes / 1000, 2)
-                
-                if emissions_kt < 1: # Optional: skip tiny emitters to keep the map clean
-                    continue
+            if response.status_code == 200:
+                print("  ✅ Data downloaded!")
+                return response.json()
 
-                # Build the GeoJSON feature
-                features.append({
-                    "type": "Feature",
-                    "properties": {
-                        "name": str(row.get('sitename', 'Unknown Facility')),
-                        "operator": str(row.get('operator', 'Unknown Operator')),
-                        "emissions_kt": emissions_kt,
-                        "type": "Heavy Emitter"
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [round(lon, 5), round(lat, 5)]
-                    }
-                })
-            except Exception as row_err:
-                print(f"⚠️ Skipping row due to error: {row_err}")
+            if response.status_code == 429:
+                print("  ⚠️ Server busy, sleeping 60s...")
+                time.sleep(60)
                 continue
 
-        # 6. Construct final GeoJSON structure
-        geojson_output = {
-            "type": "FeatureCollection",
-            "features": features
+            print(f"  ⚠️ Error: {response.status_code}, retrying...")
+            time.sleep(10)
+
+        except Exception as e:
+            print(f"  ⚠️ Connection error: {e}, retrying...")
+            time.sleep(10)
+
+    print("  ❌ Failed to fetch data from Overpass.")
+    return None
+
+def process_osm_data(osm_data, geojson_features, seen):
+    if not osm_data:
+        return
+
+    for element in osm_data.get("elements", []):
+        tags = element.get("tags", {})
+
+        if "center" not in element:
+            continue
+
+        lat = element["center"].get("lat")
+        lon = element["center"].get("lon")
+
+        if lat is None or lon is None:
+            continue
+
+        name = tags.get("name", "").strip()
+        operator = (tags.get("operator", "") or tags.get("brand", "")).strip()
+
+        if not name:
+            continue
+
+        # Filter to ensure we are only mapping major heavy industry players
+        searchable_text = f"{name} {operator}".lower()
+        if not any(op in searchable_text for op in HEAVY_OPERATORS):
+            continue
+
+        key = (round(lat, 4), round(lon, 4), name.lower())
+        if key in seen:
+            continue
+        seen.add(key)
+
+        ind_type = (
+            tags.get("industrial") or tags.get("man_made") or 
+            tags.get("power") or "Heavy Industry"
+        ).replace("_", " ").title()
+
+        # Calculate approximate area using the bounding box
+        area_ha = 0
+        bounds = element.get("bounds")
+        if bounds:
+            minlat, minlon = bounds["minlat"], bounds["minlon"]
+            maxlat, maxlon = bounds["maxlat"], bounds["maxlon"]
+            
+            # 1 degree of latitude is ~111,000 meters
+            lat_dist = (maxlat - minlat) * 111000
+            lon_dist = (maxlon - minlon) * 111000 * math.cos(math.radians((maxlat + minlat) / 2))
+            
+            area_sq_m = lat_dist * lon_dist
+            area_ha = round(area_sq_m / 10000, 1) # Convert to Hectares
+
+        # Proxy Math: Multiply hectares by an intensity factor to simulate emissions (kt CO2)
+        # This allows the frontend interpolation array to render size dynamically
+        emissions_proxy = round(area_ha * 45, 1)
+
+        feature = {
+            "type": "Feature",
+            "properties": {
+                "name": name,
+                "operator": operator if operator else "Unknown",
+                "type": ind_type,
+                "area_ha": area_ha,
+                "emissions_kt": emissions_proxy # Our automated proxy metric
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [lon, lat]
+            }
         }
 
-        # 7. Save to the root directory (matching your other data files)
-        with open(OUTPUT_GEOJSON, "w", encoding="utf-8") as f:
-            json.dump(geojson_output, f, ensure_ascii=False, indent=2)
-            
-        print(f"🎉 Successfully converted and saved {len(features)} heavy emitters to {OUTPUT_GEOJSON}!")
+        geojson_features.append(feature)
 
-    except Exception as e:
-        print(f"❌ Pipeline failed: {e}")
-        exit(1)
+def fetch_heavy_industry():
+    print("🚀 Fetching UK heavy industry sites...")
+
+    geojson = {
+        "type": "FeatureCollection",
+        "features": []
+    }
+
+    seen = set()
+
+    query_heavy_industry = """
+    [out:json][timeout:180];
+    area(3600062149)->.uk;
+    (
+      way["industrial"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
+      relation["industrial"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
+
+      way["man_made"="works"]["product"~"steel|cement|chemical"](area.uk);
+      relation["man_made"="works"]["product"~"steel|cement|chemical"](area.uk);
+    );
+    out center bb;
+    """
+
+    data = fetch_overpass_data(query_heavy_industry)
+    process_osm_data(data, geojson["features"], seen)
+
+    # Save to the root directory
+    with open(OUTPUT_GEOJSON, "w", encoding="utf-8") as f:
+        json.dump(geojson, f, ensure_ascii=False, indent=2)
+
+    print(f"🎉 Successfully saved {len(geojson['features'])} heavy emitters to {OUTPUT_GEOJSON}!")
 
 if __name__ == "__main__":
-    fetch_and_process_emitters()
+    fetch_heavy_industry()

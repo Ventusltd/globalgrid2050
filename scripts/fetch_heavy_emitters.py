@@ -126,18 +126,15 @@ def fetch_heavy_industry():
 
     seen = set()
 
-    # Bulletproof query: 
-    # 1. Uses dynamic ISO code for the UK instead of a hardcoded area ID
-    # 2. Uses nwr (nodes, ways, relations) to catch everything
-    # 3. Uses `out tags center bb;` to absolutely force tags to be downloaded
+    # We have replaced the flaky "area" lookup with a hardcoded GPS Bounding Box 
+    # of the UK (South, West, North, East). This CANNOT fail.
     query_heavy_industry = """
     [out:json][timeout:180];
-    area["ISO3166-1"="GB"][admin_level=2]->.uk;
     (
-      nwr["man_made"="works"]["works"~"steel|cement|chemical|oil|refinery|glass"](area.uk);
-      nwr["man_made"="petroleum_refinery"](area.uk);
-      nwr["power"="plant"]["plant:source"~"gas|coal|oil"](area.uk);
-      nwr["industrial"~"oil|refinery|chemical|steel|cement"](area.uk);
+      nwr["man_made"="works"]["works"~"steel|cement|chemical|oil|refinery|glass"](49.8, -8.5, 60.9, 1.8);
+      nwr["man_made"="petroleum_refinery"](49.8, -8.5, 60.9, 1.8);
+      nwr["power"="plant"]["plant:source"~"gas|coal|oil"](49.8, -8.5, 60.9, 1.8);
+      nwr["industrial"~"oil|refinery|chemical|steel|cement"](49.8, -8.5, 60.9, 1.8);
     );
     out tags center bb;
     """

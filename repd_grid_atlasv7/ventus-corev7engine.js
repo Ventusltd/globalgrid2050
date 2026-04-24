@@ -62,8 +62,8 @@ window.initVentusMap = function({ config, center, zoom }) {
         GRID_CONFIG.flatMap(g => g.layers).map(l => [l.id, l])
     );
 
-    // Added naei_co2 to the REPD VIP list
-    const REPD_IDS    = ['solar','solar_operational','solar_roof','wind','wind_onshore_operational','wind_offshore_operational','bess','bess_operational','biomass','tidal','hydrogen','hydro','flywheel','act','geothermal','caes', 'naei_co2'];
+    // Removed naei_co2 from here so it gets its own dedicated source
+    const REPD_IDS    = ['solar','solar_operational','solar_roof','wind','wind_onshore_operational','wind_offshore_operational','bess','bess_operational','biomass','tidal','hydrogen','hydro','flywheel','act','geothermal','caes'];
     const TRANSIT_IDS = ['elizabeth','lu','dlr','metro','tram','hs2'];
     const TRANSIT_SOURCE_MAP = { 'elizabeth':'src-elizabeth','lu':'src-lu','dlr':'src-metros','metro':'src-metros','tram':'src-metros','hs2':'src-hs2' };
     const TRANSIT_URLS = { 'src-elizabeth':'/elizabeth_line.geojson','src-lu':'/london_underground.geojson','src-metros':'/uk_metros_trams.geojson','src-hs2':'/hs2.geojson' };
@@ -97,7 +97,6 @@ window.initVentusMap = function({ config, center, zoom }) {
     let radiusMarker  = null;
     let radiusCenter  = null;
     
-    // RADIUS AREA STATE
     let radiusAreaMode = false;
     let radiusAreaMarker = null;
     let radiusAreaCenter = null;
@@ -841,9 +840,15 @@ window.initVentusMap = function({ config, center, zoom }) {
         statusMode = !statusMode;
         const btn = document.getElementById('btn-status');
         btn.classList.toggle('active', statusMode); btn.setAttribute('aria-pressed', statusMode);
+        
+        if (map.getLayer('l-naei_co2-glow')) {
+            const isBaseVisible = document.querySelector('input[data-layer-id="naei_co2"]')?.checked;
+            map.setLayoutProperty('l-naei_co2-glow', 'visibility', statusMode ? 'none' : (isBaseVisible ? 'visible' : 'none'));
+        }
+
         REPD_IDS.forEach(id => {
             if (!map.getLayer(`l-${id}`)) return;
-            if (id === 'solar' || id === 'solar_roof' || id === 'naei_co2') {
+            if (id === 'solar' || id === 'solar_roof') {
                 if (map.getLayer(`l-${id}-glow`)) {
                     const isBaseVisible = document.querySelector(`input[data-layer-id="${id}"]`).checked;
                     map.setLayoutProperty(`l-${id}-glow`, 'visibility', statusMode ? 'none' : (isBaseVisible ? 'visible' : 'none'));
@@ -860,8 +865,6 @@ window.initVentusMap = function({ config, center, zoom }) {
                     map.setPaintProperty(`l-${id}`, 'circle-color', ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffcc00',0.99,'#ffcc00',1.0,'#ff8c00',5.0,'#ff6600',10.0,'#ff4400']);
                 } else if (id === 'solar') {
                     map.setPaintProperty(`l-${id}`, 'circle-color', ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffff00',20.0,'#ffcc00',50.0,'#ffaa00',200.0,'#ff6600',500.0,'#ff2200']);
-                } else if (id === 'naei_co2') {
-                    map.setPaintProperty(`l-${id}`, 'circle-color', ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,'#ffcc00',50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000']);
                 } else {
                     map.setPaintProperty(`l-${id}`, 'circle-color', layer.color);
                 }
@@ -1056,6 +1059,7 @@ window.initVentusMap = function({ config, center, zoom }) {
     function getSourceIdForLayer(layerId) {
         if (REPD_IDS.includes(layerId)) return 'src-repd';
         if (TRANSIT_IDS.includes(layerId)) return TRANSIT_SOURCE_MAP[layerId];
+        if (layerId === 'naei_co2') return 'src-naei_co2';
         return `src-${layerId}`;
     }
 
@@ -1105,15 +1109,24 @@ window.initVentusMap = function({ config, center, zoom }) {
                         const filtered = lCfg && lCfg.filter ? features.filter(f => evalFilter(lCfg.filter, f.properties)) : features.filter(f => f.properties.tech === id);
                         const idStats = filtered.reduce((acc, f) => { 
                             acc.count++; 
-                            acc.mw += parseFloat(f.properties.capacity) || parseFloat(f.properties.emission_tco2e) || 0; 
+                            acc.mw += parseFloat(f.properties.capacity) || 0; 
                             return acc; 
                         }, { count: 0, mw: 0 });
                         updateUIState(id, idStats.count > 0 ? 'OK' : 'EMPTY', idStats.count > 0 ? idStats : null);
                     });
                     if (statusMode) { toggleStatusMode(); toggleStatusMode(); }
+                } else if (layerId === 'naei_co2') {
+                    const stats = features.reduce((acc, f) => { 
+                        acc.count++; 
+                        acc.mw += parseFloat(f.properties.emission_tco2e) || 0; 
+                        return acc; 
+                    }, { count: 0, mw: 0 });
+                    updateUIState(layerId, stats.count > 0 ? 'OK' : 'EMPTY', stats.count > 0 ? stats : null);
                 } else if (TRANSIT_IDS.includes(layerId)) {
                     TRANSIT_IDS.forEach(tid => { if (TRANSIT_SOURCE_MAP[tid] === TRANSIT_SOURCE_MAP[layerId] && RUNTIME_STATE[tid]) { RUNTIME_STATE[tid].loaded = true; RUNTIME_STATE[tid].loading = false; updateUIState(tid, 'OK'); } });
-                } else { updateUIState(layerId, 'OK'); }
+                } else { 
+                    updateUIState(layerId, 'OK'); 
+                }
             } catch (err) { console.error(`[LAYER FAILED] ${layerId}:`, err); state.loading = false; updateUIState(layerId, 'FAIL'); }
         });
     }
@@ -1156,7 +1169,7 @@ window.initVentusMap = function({ config, center, zoom }) {
 
         GRID_CONFIG.forEach(group => {
             group.layers.forEach(layer => {
-                if (REPD_IDS.includes(layer.id) || TRANSIT_IDS.includes(layer.id) || layer.id === 'ev') return;
+                if (REPD_IDS.includes(layer.id) || TRANSIT_IDS.includes(layer.id) || layer.id === 'ev' || layer.id === 'naei_co2') return;
                 map.addSource(`src-${layer.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
                 const layerObject = {
                     id: `l-${layer.id}`, type: layer.type === 'line' ? 'line' : 'circle', source: `src-${layer.id}`, layout: { visibility: 'none' },
@@ -1166,6 +1179,37 @@ window.initVentusMap = function({ config, center, zoom }) {
                 map.addLayer(layerObject); allLayerIds.push(`l-${layer.id}`);
             });
         });
+
+        // ── Heavy Industry (Custom VIP styling) ──
+        map.addSource('src-naei_co2', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({ 
+            id: `l-naei_co2-glow`, 
+            type: 'circle', 
+            source: 'src-naei_co2', 
+            filter: ['>=', ['coalesce', ['get', 'emission_tco2e'], 0], 50000], 
+            layout: { visibility: 'none' }, 
+            paint: { 
+                'circle-color': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000'], 
+                'circle-radius': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,20,200000,40,1000000,60,5000000,90], 
+                'circle-opacity': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,0.15,200000,0.25,1000000,0.35], 
+                'circle-blur': 1.0, 
+                'circle-stroke-width': 0 
+            } 
+        });
+        map.addLayer({
+            id: 'l-naei_co2',
+            type: 'circle',
+            source: 'src-naei_co2',
+            layout: { visibility: 'none' },
+            paint: {
+                'circle-color': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,'#ffcc00',50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000'], 
+                'circle-radius': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,6,50000,10,200000,14,1000000,20,5000000,28], 
+                'circle-stroke-width': 1.5, 
+                'circle-stroke-color': '#000', 
+                'circle-opacity': 0.85
+            }
+        });
+        allLayerIds.push('l-naei_co2-glow', 'l-naei_co2');
 
         Object.keys(TRANSIT_URLS).forEach(sourceId => { map.addSource(sourceId, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } }); });
         TRANSIT_IDS.forEach(id => {
@@ -1203,22 +1247,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (id === 'wind_offshore_operational') {
                 map.addLayer({ id: `l-${id}-glow`, type: 'circle', source: 'src-repd', filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 10.0]], layout: { visibility: 'none' }, paint: { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,'#99ccff',50.0,'#3399ff',200.0,'#0055dd',350.0,'#003399'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,24,50.0,32,200.0,50,350.0,62,500.0,78], 'circle-opacity': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,0.15,50.0,0.22,200.0,0.30,350.0,0.38], 'circle-blur': 1.0, 'circle-stroke-width': 0 } });
             }
-            if (id === 'naei_co2') {
-                map.addLayer({ 
-                    id: `l-${id}-glow`, 
-                    type: 'circle', 
-                    source: 'src-repd', 
-                    filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'emission_tco2e'], 0], 50000]], 
-                    layout: { visibility: 'none' }, 
-                    paint: { 
-                        'circle-color': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000'], 
-                        'circle-radius': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,20,200000,40,1000000,60,5000000,90], 
-                        'circle-opacity': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],50000,0.15,200000,0.25,1000000,0.35], 
-                        'circle-blur': 1.0, 
-                        'circle-stroke-width': 0 
-                    } 
-                });
-            }
             const circlePaint = id === 'solar_roof'
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffcc00',0.99,'#ffcc00',1.0,'#ff8c00',5.0,'#ff6600',10.0,'#ff4400'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,7,0.5,7,0.99,8,1.0,16,2.0,18,5.0,22,10.0,28], 'circle-stroke-width': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,1,0.99,1,1.0,2], 'circle-stroke-color': '#000', 'circle-opacity': 0.9 }
                 : id === 'solar'
@@ -1231,14 +1259,6 @@ window.initVentusMap = function({ config, center, zoom }) {
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ccfff5',10,'#99ffee',50,'#00ffcc',100,'#00ddaa',200,'#00aa88',350,'#007766',500,'#004433'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,12,50,16,100,20,200,26,350,32,500,38], 'circle-stroke-width': 2, 'circle-stroke-color': '#000', 'circle-opacity': 0.90 }
                 : id === 'wind_offshore_operational'
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#cce5ff',10,'#99ccff',50,'#3399ff',100,'#0066ee',200,'#0044bb',350,'#003399',500,'#001166'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,12,50,16,100,20,200,26,350,32,500,38], 'circle-stroke-width': 2, 'circle-stroke-color': '#000', 'circle-opacity': 0.90 }
-                : id === 'naei_co2'
-                ? { 
-                    'circle-color': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,'#ffcc00',50000,'#ffaa00',200000,'#ff6600',1000000,'#ff0000'], 
-                    'circle-radius': ['interpolate',['linear'],['coalesce',['get','emission_tco2e'],0],0,6,50000,10,200000,14,1000000,20,5000000,28], 
-                    'circle-stroke-width': 1.5, 
-                    'circle-stroke-color': '#000', 
-                    'circle-opacity': 0.85 
-                }
                 : { 'circle-color': layer.color, 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28], 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85 };
 
             map.addLayer({ id: `l-${id}`, type: 'circle', source: 'src-repd', filter: layer.filter, layout: { visibility: 'none' }, paint: circlePaint });
@@ -1274,7 +1294,6 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (radiusMode) { doRadiusSearch(e.lngLat.lng, e.lngLat.lat); return; }
             if (radiusAreaMode) { doRadiusAreaMeasure(e.lngLat.lng, e.lngLat.lat); return; }
 
-            // PERF: use cached visible layer ids — no per-click property lookups
             if (!_visibleInteractiveIds.length) return;
             const features = map.queryRenderedFeatures(e.point, { layers: _visibleInteractiveIds });
 

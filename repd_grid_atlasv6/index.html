@@ -224,7 +224,7 @@
             group: "REPD (GeoJSON)",
             layers: [
                 { id: "solar",      label: "Solar PV",               color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],      preload: false },
-                { id: "solar_operational", label: "Solar PV (Operational Only)", color: "#00ff88", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['all', ['==', ['get', 'tech'], 'solar'], ['==', ['get', 'status'], 'operational']], preload: false },
+                { id: "solar_operational", label: "Solar PV (Operational Only)", color: "#00ff88", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0], 0, 10, 10, 14, 50, 18, 100, 22, 200, 28, 350, 35, 500, 42], url: "/dist/repd_master.json", filter: ['all', ['==', ['get', 'tech'], 'solar'], ['==', ['get', 'status'], 'operational']], preload: false },
                 { id: "solar_roof", label: "Solar Roof",             color: "#ffcc00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar_roof'], preload: false },
                 { id: "wind",       label: "Wind",                   color: "#00ffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],       preload: false },
                 { id: "bess",       label: "Battery Storage",        color: "#ffae00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],       preload: false },

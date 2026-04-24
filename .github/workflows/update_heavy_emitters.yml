@@ -2,11 +2,11 @@ name: Update Heaviest Carbon Emitters
 
 on:
   schedule:
-    - cron: '0 0 1 * *' # Runs at midnight on the 1st of every month
-  workflow_dispatch: # Allows manual triggering
+    - cron: '0 0 1 * *' 
+  workflow_dispatch: 
 
 permissions:
-  contents: write # Essential for Gridbot to push changes
+  contents: write 
 
 jobs:
   update-emissions-data:
@@ -35,14 +35,10 @@ jobs:
           git config --global user.name "gridbot"
           git config --global user.email "gridbot@users.noreply.github.com"
           
-          # 1. Force add the file (bypasses .gitignore completely)
+          # Force add the file to bypass any .gitignore rules
           git add -f heaviest_emitters.geojson
           
-          # 2. Print the git status to the logs so we can see exactly what Git sees
           git status
           
-          # 3. Commit the file. If there are no changes, echo a message instead of failing
           git commit -m "🤖 Gridbot: Updated heaviest carbon emitters GeoJSON" || echo "No changes to commit"
-          
-          # 4. Push to the main branch
           git push || echo "No changes to push"

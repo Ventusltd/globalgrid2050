@@ -73,13 +73,14 @@
             <div class="radius-hint">Input radius: 0.001 (1m) to 160 km</div>
         </div>
 
-        <div class="radius-popup" id="polyzone-panel">
-            <label class="polyzone-label">Poly Zone Initial Radius</label>
+        <div class="radius-popup" id="zonedraw-display">
+            <label class="polyzone-label">🔶 Poly Zone Tool</label>
             <div class="radius-input-row">
-                <input type="number" id="polyzone-radius-input" value="1" min="0.1" max="160" step="0.1" />
+                <input type="number" id="zonedraw-radius-input" value="2" min="0.1" max="160" step="0.1" />
                 <span class="radius-unit">km</span>
             </div>
-            <div class="radius-hint">0.1 – 160 km · Click map to drop circle</div>
+            <div class="radius-hint">Set starting radius, then click map to create zone</div>
+            <button id="btn-zonedraw-undo" title="Undo last vertex" style="margin-top:8px;background:#ff6600;color:#000;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:bold;font-size:12px;">↩ Undo Point</button>
         </div>
 
         <div id="measure-display">

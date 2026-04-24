@@ -66,7 +66,7 @@ window.initVentusMap = function({ config, center, zoom }) {
         GRID_CONFIG.flatMap(g => g.layers).map(l => [l.id, l])
     );
 
-    const REPD_IDS    = ['solar','solar_roof','wind','bess','biomass','tidal','hydrogen','hydro','flywheel','act','geothermal','caes'];
+    const REPD_IDS    = ['solar','solar_operational','solar_roof','wind','bess','biomass','tidal','hydrogen','hydro','flywheel','act','geothermal','caes'];
     const TRANSIT_IDS = ['elizabeth','lu','dlr','metro','tram','hs2'];
     const TRANSIT_SOURCE_MAP = { 'elizabeth':'src-elizabeth','lu':'src-lu','dlr':'src-metros','metro':'src-metros','tram':'src-metros','hs2':'src-hs2' };
     const TRANSIT_URLS = { 'src-elizabeth':'/elizabeth_line.geojson','src-lu':'/london_underground.geojson','src-metros':'/uk_metros_trams.geojson','src-hs2':'/hs2.geojson' };
@@ -215,7 +215,13 @@ window.initVentusMap = function({ config, center, zoom }) {
                         <span style="color:#888;">Square Miles</span><span style="color:#fff;">${fmt(areaMi2,3)}</span>
                         <span style="color:#888;">Perimeter</span><span style="color:#fff;">${fmt(perimKm,2)} km</span>
                     </div>
-                    <div style="color:#555;font-size:9px;margin-top:8px;">Drag vertices to reshape · Click edge dot to add point</div>
+                    <div style="color:#555;font-size:10px;margin-top:8px;line-height:1.4;">
+                        <b style="color:#ff6600;">HOW TO USE:</b><br>
+                        • <b>Drag orange dots</b> to reshape polygon<br>
+                        • <b>Click light dots</b> on edges to add points<br>
+                        • <b>Undo button</b> in top-left removes last point<br>
+                        • <b>Click elsewhere</b> to start new zone
+                    </div>
                 </div>`);
             window._zdCollapse = () => { _zoneDrawCollapsed = true; _zoneDrawShowPopup(); };
         }
@@ -1160,13 +1166,13 @@ window.initVentusMap = function({ config, center, zoom }) {
         map.addSource('src-zonedraw-fill',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
         map.addSource('src-zonedraw-line',   { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
         map.addSource('src-zonedraw-points', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-        map.addLayer({ id: 'l-zonedraw-fill',   type: 'fill',   source: 'src-zonedraw-fill',   paint: { 'fill-color': '#ff6600', 'fill-opacity': 0.12 } });
-        map.addLayer({ id: 'l-zonedraw-line',   type: 'line',   source: 'src-zonedraw-line',   paint: { 'line-color': '#ff6600', 'line-width': 2, 'line-dasharray': [4, 2] } });
+        map.addLayer({ id: 'l-zonedraw-fill',   type: 'fill',   source: 'src-zonedraw-fill',   paint: { 'fill-color': '#ff6600', 'fill-opacity': 0.18 } });
+        map.addLayer({ id: 'l-zonedraw-line',   type: 'line',   source: 'src-zonedraw-line',   paint: { 'line-color': '#ff6600', 'line-width': 3, 'line-dasharray': [4, 2] } });
         map.addLayer({ id: 'l-zonedraw-points', type: 'circle', source: 'src-zonedraw-points', paint: {
-            'circle-color':   ['case', ['==', ['get', 'kind'], 'vertex'], '#ff6600', '#cc4400'],
-            'circle-radius':  ['case', ['==', ['get', 'kind'], 'vertex'], 7, 5],
-            'circle-stroke-width': 1.5, 'circle-stroke-color': '#000',
-            'circle-opacity': ['case', ['==', ['get', 'kind'], 'vertex'], 1, 0.7]
+            'circle-color':   ['case', ['==', ['get', 'kind'], 'vertex'], '#ff6600', '#ffaa44'],
+            'circle-radius':  ['case', ['==', ['get', 'kind'], 'vertex'], 9, 6],
+            'circle-stroke-width': 2, 'circle-stroke-color': '#000',
+            'circle-opacity': ['case', ['==', ['get', 'kind'], 'vertex'], 1, 0.85]
         } });
 
         const allLayerIds = [];
@@ -1211,12 +1217,17 @@ window.initVentusMap = function({ config, center, zoom }) {
             if (id === 'solar_operational') {
                 map.addLayer({ id: `l-${id}-glow`, type: 'circle', source: 'src-repd', filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 10.0]], layout: { visibility: 'none' }, paint: { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,'#00ff88',50.0,'#00cc66',200.0,'#009944',350.0,'#006622'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,28,50.0,36,200.0,56,350.0,70,500.0,88], 'circle-opacity': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,0.15,50.0,0.22,200.0,0.30,350.0,0.38], 'circle-blur': 1.0, 'circle-stroke-width': 0 } });
             }
+            if (id === 'bess_operational') {
+                map.addLayer({ id: `l-${id}-glow`, type: 'circle', source: 'src-repd', filter: ['all', layer.filter, ['>=', ['coalesce', ['get', 'capacity'], 0], 10.0]], layout: { visibility: 'none' }, paint: { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,'#00ff88',50.0,'#00cc66',200.0,'#009944',350.0,'#006622'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,24,50.0,32,200.0,50,350.0,62,500.0,78], 'circle-opacity': ['interpolate',['linear'],['coalesce',['get','capacity'],0],10.0,0.15,50.0,0.22,200.0,0.30,350.0,0.38], 'circle-blur': 1.0, 'circle-stroke-width': 0 } });
+            }
             const circlePaint = id === 'solar_roof'
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffcc00',0.99,'#ffcc00',1.0,'#ff8c00',5.0,'#ff6600',10.0,'#ff4400'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,7,0.5,7,0.99,8,1.0,16,2.0,18,5.0,22,10.0,28], 'circle-stroke-width': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,1,0.99,1,1.0,2], 'circle-stroke-color': '#000', 'circle-opacity': 0.9 }
                 : id === 'solar'
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#ffff00',20.0,'#ffcc00',50.0,'#ffaa00',200.0,'#ff6600',500.0,'#ff2200'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28], 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85 }
                 : id === 'solar_operational'
                 ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#66ff99',10,'#33ff77',50,'#00dd55',100,'#00bb44',200,'#008833',350,'#006622',500,'#004411'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,10,10,14,50,18,100,22,200,28,350,35,500,42], 'circle-stroke-width': 2, 'circle-stroke-color': '#000', 'circle-opacity': 0.90 }
+                : id === 'bess_operational'
+                ? { 'circle-color': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,'#66ff99',10,'#33ff77',50,'#00dd55',100,'#00bb44',200,'#008833',350,'#006622',500,'#004411'], 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,12,50,16,100,20,200,26,350,32,500,38], 'circle-stroke-width': 2, 'circle-stroke-color': '#000', 'circle-opacity': 0.90 }
                 : { 'circle-color': layer.color, 'circle-radius': ['interpolate',['linear'],['coalesce',['get','capacity'],0],0,8,10,10,50,13,200,17,500,22,1000,28], 'circle-stroke-width': 1.5, 'circle-stroke-color': '#000', 'circle-opacity': 0.85 };
 
             map.addLayer({ id: `l-${id}`, type: 'circle', source: 'src-repd', filter: layer.filter, layout: { visibility: 'none' }, paint: circlePaint });

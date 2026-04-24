@@ -150,9 +150,11 @@
             layers: [
                 { id: "nuc",  label: "Nuclear",   color: "#39ff14", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['==', ['get', 'source'], 'nuclear'], preload: true },
                 { id: "gas",  label: "Gas",       color: "#ff4500", type: "point", radius: 4.5, url: "/power_plants.geojson", filter: ['!=', ['get', 'source'], 'nuclear'], preload: true },
-                { id: "ind",  label: "Industry",  color: "#ff6600", type: "point", radius: 4.5, url: "/industrial_offtakers.geojson", preload: true },
+                { id: "ind",  label: "Heavy Industry",  color: "#ff6600", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0], 0, 5, 10, 10, 50, 13, 200, 17, 500, 22, 1000, 28], url: "/industrial_offtakers.geojson", filter: ['!', ['in', ['get', 'type'], ['literal', ['Wastewater Plant', 'Water Works', 'Water Treatment', 'Sewage Plant']]]], preload: true },
+                { id: "water",label: "Water Treatment", color: "#00bfff", type: "point", radius: 4.5, url: "/industrial_offtakers.geojson", filter: ['in', ['get', 'type'], ['literal', ['Wastewater Plant', 'Water Works', 'Water Treatment', 'Sewage Plant']]], preload: false },
                 { id: "dc",   label: "Data Ctrs", color: "#00ffff", type: "point", radius: 4.5, url: "/datacentres.geojson", preload: true },
-                { id: "air",  label: "Airports",  color: "#ff00ff", type: "point", radius: 4.5, url: "/airports.geojson", preload: true },
+                { id: "air_major", label: "Major Airports", color: "#ff00ff", type: "point", radius: 9, url: "/airports.geojson", filter: ['!=', ['get', 'iata'], 'N/A'], preload: true },
+                { id: "air_other", label: "Airfields & Strips", color: "#e680ff", type: "point", radius: 4, url: "/airports.geojson", filter: ['==', ['get', 'iata'], 'N/A'], preload: false },
                 { id: "rail", label: "Railways",  color: "#ffd700", type: "point", radius: 4.5, url: "/railways.geojson", preload: true }
             ]
         },
@@ -212,6 +214,27 @@
             group: "Highway Infrastructure",
             layers: [
                 { id: "motorway_services", label: "Motorway Services", color: "#ff00ff", type: "point", radius: 5.5, url: "/motorway_services.geojson", preload: false }
+            ]
+        },
+        {
+            group: "Decarbonisation Targets",
+            layers: [
+                { 
+                    id: "heavy_emitters",  
+                    label: "Heaviest Carbon Emitters",  
+                    color: "#ff0044", 
+                    type: "point", 
+                    radius: [
+                        'interpolate', ['linear'], ['coalesce', ['get', 'emissions_kt'], 0], 
+                        0, 6,
+                        100, 10,
+                        1000, 16,
+                        5000, 26,
+                        10000, 40
+                    ], 
+                    url: "/heaviest_emitters.geojson", 
+                    preload: false 
+                }
             ]
         },
         {

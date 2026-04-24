@@ -34,6 +34,15 @@ jobs:
         run: |
           git config --global user.name "gridbot"
           git config --global user.email "gridbot@users.noreply.github.com"
-          git add heaviest_emitters.geojson
           
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Gridbot: Updated heaviest carbon emitters GeoJSON" && git push)
+          # 1. Force add the file (bypasses .gitignore completely)
+          git add -f heaviest_emitters.geojson
+          
+          # 2. Print the git status to the logs so we can see exactly what Git sees
+          git status
+          
+          # 3. Commit the file. If there are no changes, echo a message instead of failing
+          git commit -m "🤖 Gridbot: Updated heaviest carbon emitters GeoJSON" || echo "No changes to commit"
+          
+          # 4. Push to the main branch
+          git push || echo "No changes to push"

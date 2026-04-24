@@ -7,6 +7,7 @@
 ├── Braintree.jpg
 ├── CNAME
 ├── DEV_NOTES.md
+├── GlobalGrid2050 -CoPilot report.pdf
 ├── LICENSE.txt
 ├── README.md
 ├── REPO_STRUCTURE.txt
@@ -193,7 +194,11 @@
 │   └── ventusv6.css
 ├── repd_grid_atlasv7
 │   ├── captains_log
-│   │   └── test_report_20260424.md
+│   │   ├── ARCHITECTURE_V7.md
+│   │   ├── bug_tracker.md
+│   │   ├── captains_log_20260501.md
+│   │   ├── test_report_20260424.md
+│   │   └── version_control.md
 │   ├── data
 │   │   ├── airports.geojson
 │   │   ├── datacentres.geojson
@@ -258,6 +263,7 @@
 │   │   ├── fetch_global_hydrocarbonsv6.py
 │   │   ├── fetch_global_portsv6.py
 │   │   ├── fetch_grid_datav6.py
+│   │   ├── fetch_heavy_emitters_ukv7.py
 │   │   ├── fetch_hs2v6.py
 │   │   ├── fetch_industrial_offtakersv6.py
 │   │   ├── fetch_london_undergroundv6.py
@@ -344,4 +350,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-34 directories, 311 files
+34 directories, 317 files

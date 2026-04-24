@@ -238,6 +238,23 @@
             ]
         },
         {
+            group: "Private Wire Opportunities",
+            layers: [
+                { id: "pw_data_centre",          label: "Data Centres",             color: "#00d4ff", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'data_centre'],          preload: false },
+                { id: "pw_smelter_electrolysis",  label: "Smelters & Electrolysis",  color: "#ff6600", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'smelter_electrolysis'],  preload: false },
+                { id: "pw_steel_furnace",         label: "Steel Furnaces",           color: "#ff4400", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'steel_furnace'],         preload: false },
+                { id: "pw_cement_kiln",           label: "Cement Kilns",             color: "#ccaa00", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'cement_kiln'],           preload: false },
+                { id: "pw_chemical_works",        label: "Chemical Works",           color: "#ff00aa", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'chemical_works'],        preload: false },
+                { id: "pw_paper_glass_ceramics",  label: "Paper, Glass & Ceramics",  color: "#88ff44", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'paper_glass_ceramics'],  preload: false },
+                { id: "pw_cold_storage_logistics",label: "Cold Storage & Logistics", color: "#66ccff", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'cold_storage_logistics'],preload: false },
+                { id: "pw_hospital",              label: "Hospitals",                color: "#ff69b4", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'hospital'],              preload: false },
+                { id: "pw_university",            label: "Universities",             color: "#9966ff", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'university'],            preload: false },
+                { id: "pw_water_treatment",       label: "Water & Wastewater",       color: "#00ff99", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'water_treatment'],       preload: false },
+                { id: "pw_airport",               label: "Airports",                 color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'airport'],               preload: false },
+                { id: "pw_large_industrial",      label: "Large Industrial",         color: "#ffaa00", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'load_mw_estimate'], 0], 0, 5, 5, 7, 50, 12, 200, 18, 500, 28], url: "/heaviest_consumers.geojson", filter: ['==', ['get', 'category'], 'large_industrial'],      preload: false }
+            ]
+        },
+        {
             group: "EV (GeoJSON)",
             layers: [
                 { id: "ev", label: "EV Rapid (100kW+)", color: "#00ff88", type: "point", radius: 5, url: "/ev_chargers.geojson", preload: false }

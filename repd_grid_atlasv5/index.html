@@ -234,6 +234,22 @@
                     ], 
                     url: "/heaviest_emitters.geojson", 
                     preload: false 
+                },
+                {
+                    id: "private_wire_consumers",
+                    label: "Private-Wire Consumers (MW)",
+                    color: "#ff8800",
+                    type: "point",
+                    radius: [
+                        'interpolate', ['linear'], ['coalesce', ['get', 'pw_score'], 0],
+                        0, 4,
+                        10, 6,
+                        50, 9,
+                        200, 13,
+                        500, 18
+                    ],
+                    url: "/heaviest_consumers.geojson",
+                    preload: false
                 }
             ]
         },

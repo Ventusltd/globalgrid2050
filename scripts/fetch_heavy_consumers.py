@@ -5,7 +5,7 @@ import math
 import sys
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-OUTPUT_GEOJSON = "heaviest_emitters.geojson"
+OUTPUT_GEOJSON = "heaviest_consumers.geojson"
 MIN_EXPECTED_FEATURES = 100
 
 # Minimum site area (hectares) to be considered private-wire viable.
@@ -271,6 +271,72 @@ def process_osm_data(osm_data, geojson_features, seen):
           f"{skipped_unclassified} unclassified).")
 
 
+def build_queries(bbox):
+    """
+    Return a list of targeted Overpass queries.
+    Splitting by category keeps each query well within the 300 s timeout.
+    The broad "industrial" wildcard is replaced with an explicit regex that
+    only matches heavy-load categories, avoiding the millions of minor
+    industrial=* tags that caused previous timeouts.
+    """
+    return [
+        # ── Heavy process industry ──────────────────────────────────────────
+        f"""
+        [out:json][timeout:180];
+        (
+          nwr["man_made"="works"]({bbox});
+          nwr["industrial"~"aluminium|aluminum|steel|cement|chemical|petrochemical|oil|
+              paper_mill|glass|ceramics|smelter|foundry|rolling_mill|brickyard|copper|
+              zinc|refinery|rubber|fertiliser|fertilizer|explosives|dye|paint|
+              resin|plastics|pharmaceutical|distillery|brewery|sugar|
+              lime|plasterboard|mineral_wool|insulation"]({bbox});
+        );
+        out tags center bb;
+        """,
+        # ── Data centres ───────────────────────────────────────────────────
+        f"""
+        [out:json][timeout:120];
+        (
+          nwr["telecom"="data_center"]({bbox});
+          nwr["office"="data_center"]({bbox});
+          nwr["building"="data_center"]({bbox});
+        );
+        out tags center bb;
+        """,
+        # ── Named logistics / cold storage ─────────────────────────────────
+        # Require ["name"] to exclude the vast number of un-named sheds that
+        # would otherwise cause a timeout.
+        f"""
+        [out:json][timeout:180];
+        (
+          way["building"="warehouse"]["name"]({bbox});
+          way["landuse"="industrial"]["name"]({bbox});
+        );
+        out tags center bb;
+        """,
+        # ── Hospitals & universities ────────────────────────────────────────
+        f"""
+        [out:json][timeout:120];
+        (
+          nwr["amenity"="hospital"]["name"]({bbox});
+          nwr["amenity"="university"]["name"]({bbox});
+        );
+        out tags center bb;
+        """,
+        # ── Water / wastewater & airports ──────────────────────────────────
+        f"""
+        [out:json][timeout:120];
+        (
+          nwr["man_made"="water_works"]({bbox});
+          nwr["man_made"="wastewater_plant"]({bbox});
+          nwr["man_made"="pumping_station"]["name"]({bbox});
+          nwr["aeroway"="aerodrome"]["name"]({bbox});
+        );
+        out tags center bb;
+        """,
+    ]
+
+
 def fetch_heavy_consumers():
     print("🚀 Fetching UK private-wire customer candidates...")
 
@@ -280,45 +346,18 @@ def fetch_heavy_consumers():
     # UK bounding box: South, West, North, East
     bbox = "49.8,-8.5,60.9,1.8"
 
-    query = f"""
-    [out:json][timeout:300];
-    (
-      // Industrial works — the heavy process loads
-      nwr["man_made"="works"]({bbox});
-      nwr["industrial"]({bbox});
-
-      // Data centres — multiple tagging conventions
-      nwr["telecom"="data_center"]({bbox});
-      nwr["office"="data_center"]({bbox});
-      nwr["building"="data_center"]({bbox});
-
-      // Large logistics / cold storage (roof-as-asset targets)
-      way["building"="warehouse"]({bbox});
-      way["landuse"="industrial"]["name"]({bbox});
-
-      // Hospitals — continuous load, resilience-motivated PPA buyers
-      nwr["amenity"="hospital"]["name"]({bbox});
-
-      // Universities — large estates, sustainability mandates
-      nwr["amenity"="university"]["name"]({bbox});
-
-      // Water/wastewater — continuous pumping load
-      nwr["man_made"="water_works"]({bbox});
-      nwr["man_made"="wastewater_plant"]({bbox});
-      nwr["man_made"="pumping_station"]["name"]({bbox});
-
-      // Airports
-      nwr["aeroway"="aerodrome"]["name"]({bbox});
-    );
-    out tags center bb;
-    """
-
-    data = fetch_overpass_data(query)
-    if data is None:
-        print("❌ Overpass returned nothing. Refusing to overwrite existing file.")
-        sys.exit(1)
-
-    process_osm_data(data, geojson["features"], seen)
+    queries = build_queries(bbox)
+    for i, query in enumerate(queries, 1):
+        print(f"\n📡 Query {i}/{len(queries)}...")
+        data = fetch_overpass_data(query)
+        if data is None:
+            print(f"  ⚠️ Query {i} returned nothing — continuing with remaining queries.")
+            time.sleep(15)
+            continue
+        process_osm_data(data, geojson["features"], seen)
+        # Brief pause between queries to be polite to the Overpass server.
+        if i < len(queries):
+            time.sleep(10)
 
     # Sort by private-wire score descending — biggest opportunities first
     geojson["features"].sort(key=lambda f: f["properties"]["pw_score"], reverse=True)

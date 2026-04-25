@@ -287,6 +287,99 @@
 │   │   └── update_pricesv6.py
 │   ├── ventus-corev7engine.js
 │   └── ventusv7.css
+├── repd_grid_atlasv8
+│   ├── captains_log
+│   │   ├── ARCHITECTURE_V8.md
+│   │   ├── bug_tracker.md
+│   │   ├── captains_log_20260501.md
+│   │   ├── test_report_20260424.md
+│   │   └── version_control.md
+│   ├── data
+│   │   ├── airports.geojson
+│   │   ├── datacentres.geojson
+│   │   ├── deep_subsea_illustrative.geojson
+│   │   ├── elizabeth_line.geojson
+│   │   ├── eurostar.geojson
+│   │   ├── ev_chargers.geojson
+│   │   ├── global_hydrocarbons.geojson
+│   │   ├── global_ports.geojson
+│   │   ├── grid_11kv_ukpn.geojson
+│   │   ├── grid_132kv.geojson
+│   │   ├── grid_220kv.geojson
+│   │   ├── grid_275kv.geojson
+│   │   ├── grid_33kv_East_of_England.geojson
+│   │   ├── grid_33kv_London_Area.geojson
+│   │   ├── grid_33kv_North_East_England.geojson
+│   │   ├── grid_33kv_North_West_England.geojson
+│   │   ├── grid_33kv_Scotland_North.geojson
+│   │   ├── grid_33kv_Scotland_South.geojson
+│   │   ├── grid_33kv_South_East_England.geojson
+│   │   ├── grid_33kv_South_West_England.geojson
+│   │   ├── grid_33kv_Wales_North.geojson
+│   │   ├── grid_33kv_Wales_South.geojson
+│   │   ├── grid_33kv_Yorkshire.geojson
+│   │   ├── grid_400kv.geojson
+│   │   ├── grid_66kv.geojson
+│   │   ├── grid_substations.geojson
+│   │   ├── hs2.geojson
+│   │   ├── industrial_offtakers.geojson
+│   │   ├── london_underground.geojson
+│   │   ├── motorway_services.geojson
+│   │   ├── power_plants.geojson
+│   │   ├── railways.geojson
+│   │   ├── stadiums.geojson
+│   │   ├── subsea_data_cables.geojson
+│   │   ├── supermarkets_aldi.geojson
+│   │   ├── supermarkets_asda.geojson
+│   │   ├── supermarkets_booths.geojson
+│   │   ├── supermarkets_coop.geojson
+│   │   ├── supermarkets_costco.geojson
+│   │   ├── supermarkets_farmfoods.geojson
+│   │   ├── supermarkets_iceland.geojson
+│   │   ├── supermarkets_lidl.geojson
+│   │   ├── supermarkets_morrisons.geojson
+│   │   ├── supermarkets_ms.geojson
+│   │   ├── supermarkets_sainsburys.geojson
+│   │   ├── supermarkets_spar.geojson
+│   │   ├── supermarkets_tesco.geojson
+│   │   ├── supermarkets_waitrose.geojson
+│   │   └── uk_metros_trams.geojson
+│   ├── index.html
+│   ├── scripts
+│   │   ├── fetch_11kv_ukpnv8.py
+│   │   ├── fetch_220kv_datav8.py
+│   │   ├── fetch_33kv_datav8.py
+│   │   ├── fetch_66kv_datav8.py
+│   │   ├── fetch_airportsv8.py
+│   │   ├── fetch_datacentresv8.py
+│   │   ├── fetch_elizabeth_linev8.py
+│   │   ├── fetch_eurostarv8.py
+│   │   ├── fetch_ev_chargersv8.py
+│   │   ├── fetch_global_hydrocarbonsv8.py
+│   │   ├── fetch_global_portsv8.py
+│   │   ├── fetch_grid_datav8.py
+│   │   ├── fetch_heavy_emitters_ukv8.py
+│   │   ├── fetch_hs2v8.py
+│   │   ├── fetch_industrial_offtakersv8.py
+│   │   ├── fetch_london_undergroundv8.py
+│   │   ├── fetch_metros_tramsv8.py
+│   │   ├── fetch_motorway_servicesv8.py
+│   │   ├── fetch_naei_point_sourcesv8.py
+│   │   ├── fetch_power_plantsv8.py
+│   │   ├── fetch_railwaysv8.py
+│   │   ├── fetch_stadiumsv8.py
+│   │   ├── fetch_subsea_data_cablesv8.py
+│   │   ├── fetch_substationsv8.py
+│   │   ├── fetch_supermarketsv8.py
+│   │   ├── generate_deep_subseav8.py
+│   │   ├── generate_unification_estimatesv8.py
+│   │   ├── repd_updaterv8.py
+│   │   ├── requirements.txt
+│   │   ├── update_metal_trendsv8.py
+│   │   ├── update_prices_lvv8.py
+│   │   └── update_pricesv8.py
+│   ├── ventus-corev8engine.js
+│   └── ventusv8.css
 ├── scripts
 │   ├── fetch_11kv_ukpn.py
 │   ├── fetch_220kv_data.py
@@ -352,4 +445,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-34 directories, 319 files
+38 directories, 408 files

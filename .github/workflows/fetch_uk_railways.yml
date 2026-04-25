@@ -2,7 +2,7 @@ name: Fetch UK Railways Network
 
 on:
   schedule:
-    - cron: '0 5 1 * *'   # 1st of every month at 05:00 UTC (Staggered 1hr after Elizabeth Line)
+    - cron: '0 5 1 * *'   # 1st of every month at 05:00 UTC
   workflow_dispatch:
 
 permissions:
@@ -27,7 +27,8 @@ jobs:
         run: pip install requests
 
       - name: Run UK Railways Fetcher
-        run: python scripts/fetch_uk_railways.py
+        # UPDATED PATH: Points to the v8 folder where the script actually lives
+        run: python repd_grid_atlasv8/scripts/fetch_uk_railways.py
 
       - name: Commit and push changes
         env:
@@ -36,7 +37,7 @@ jobs:
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
           
-          # Safely stage the new geojson files
+          # Safely stage the new geojson files (they will be generated in the root)
           git add uk_mainline_railways.geojson uk_metros_trams.geojson || true
           
           if [ -n "$(git status --porcelain)" ]; then

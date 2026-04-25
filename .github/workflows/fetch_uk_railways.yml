@@ -1,0 +1,47 @@
+name: Fetch UK Railways Network
+
+on:
+  schedule:
+    - cron: '0 5 1 * *'   # 1st of every month at 05:00 UTC (Staggered 1hr after Elizabeth Line)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-railways:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run UK Railways Fetcher
+        run: python scripts/fetch_uk_railways.py
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          
+          # Safely stage the new geojson files
+          git add uk_mainline_railways.geojson uk_metros_trams.geojson || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated UK Railways update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

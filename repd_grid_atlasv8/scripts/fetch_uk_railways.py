@@ -1,7 +1,7 @@
 import requests
 import json
-import os
 import time
+import sys
 
 def fetch_uk_railways(rail_types, filename, timeout_secs=900):
     print(f"\n--- Fetching railway types: {', '.join(rail_types)} ---")
@@ -20,10 +20,16 @@ def fetch_uk_railways(rail_types, filename, timeout_secs=900):
     
     url = "https://overpass-api.de/api/interpreter"
     
+    # NEW: Custom headers to prevent HTTP 406 blocks
+    headers = {
+        'User-Agent': 'GlobalGrid2050-Bot/1.0 (bot@globalgrid2050.com)',
+        'Accept': '*/*'
+    }
+    
     max_retries = 3
     for attempt in range(max_retries):
         print(f"Attempt {attempt + 1} of {max_retries}...")
-        response = requests.post(url, data={'data': query})
+        response = requests.post(url, data={'data': query}, headers=headers)
         
         if response.status_code == 429:
             print("⚠️ Overpass server is busy (Status 429: Too Many Requests).")
@@ -32,20 +38,20 @@ def fetch_uk_railways(rail_types, filename, timeout_secs=900):
             continue
         elif response.status_code != 200:
             print(f"❌ Error (Status {response.status_code}):\n", response.text[:500])
-            return
+            sys.exit(1) # NEW: Tells GitHub Actions the script actually failed
         else:
             print("✅ Data successfully downloaded from server!")
             break  # Success! Break out of the retry loop.
             
     if response.status_code != 200:
         print(f"❌ Giving up on {', '.join(rail_types)} after {max_retries} attempts.")
-        return
+        sys.exit(1) # NEW: Tells GitHub Actions the script actually failed
 
     try:
         osm_data = response.json()
     except ValueError:
         print(f"❌ Failed to parse JSON. Server returned:\n", response.text[:500])
-        return
+        sys.exit(1) # NEW: Tells GitHub Actions the script actually failed
 
     geojson = {"type": "FeatureCollection", "features": []}
     
@@ -73,9 +79,3 @@ if __name__ == "__main__":
     
     # 🚇 Fetching underground, light rail, and trams
     fetch_uk_railways(["subway", "light_rail", "tram"], "uk_metros_trams.geojson", 300)
-    
-    # Optional: If you want sidings, yards, and narrow gauge, uncomment the below, 
-    # but be aware these add significant weight to the payload.
-    # print("⏳ Pausing for another 60 seconds...")
-    # time.sleep(60)
-    # fetch_uk_railways(["narrow_gauge", "preserved", "funicular", "monorail"], "uk_special_railways.geojson", 300)

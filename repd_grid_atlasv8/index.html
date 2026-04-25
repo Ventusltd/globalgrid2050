@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>GlobalGrid2050 | UK Region v8 (Experimental)</title>
+    <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <link href="ventusv8.css" rel="stylesheet" />
+</head>
+<body>
+
+<div id="fatal-banner">CRITICAL ERROR: SYSTEM DEPENDENCIES FAILED TO LOAD</div>
+<button id="btn-fullscreen-exit" onclick="exitFullscreen()">✕ Exit</button>
+<div id="fs-curtain-tab">⬇ Layers</div>
+<div id="fs-curtain"><div id="fs-curtain-keys"></div></div>
+<div id="fs-letterhead">
+    <div class="ventus-main">Ventus</div>
+    <div class="ventus-sub">Cables &amp; Connectivity&reg;</div>
+</div>
+
+<div class="dashboard">
+    <div class="hud-header">
+        <div>
+            <small style="color:#888">SYSTEM TIME</small><br>
+            <span class="hud-val" id="clock">--:--:--</span><br>
+            <span id="date" style="font-size: 11px; color: #888;">--/--/----</span>
+        </div>
+        <div class="ventus-brand">
+            <div class="ventus-main">Ventus</div>
+            <div class="ventus-sub">Cables &amp; Connectivity&reg;</div>
+        </div>
+        <div style="text-align:right"><small style="color:#888">2050 TARGET</small><br><span class="hud-val" id="days" style="color:#ff9d00">-- DAYS</span></div>
+    </div>
+
+```
+<div class="map-container" id="map-container">
+    <div id="map"></div>
+    <div class="custom-map-attrib">
+        Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> | © CARTO | EV data © <a href="https://openchargemap.org" target="_blank" rel="noopener noreferrer">Open Charge Map</a>
+    </div>
+    <button id="btn-fullscreen" onclick="enterFullscreen()" title="Fullscreen">⛶</button>
+    <div class="search-bar-wrapper">
+        <div style="position:relative">
+            <input class="search-input" id="search-input" type="text" placeholder="Search project name..." autocomplete="off" />
+            <div class="search-results" id="search-results"></div>
+        </div>
+        <button class="search-btn" id="search-btn">GO</button>
+    </div>
+
+    <div class="map-controls">
+        <button class="map-ctrl-btn" id="btn-export">⬇ Export CSV</button>
+        <button class="map-ctrl-btn" id="btn-radius">◎ Radius Search</button>
+        <button class="map-ctrl-btn" id="btn-radius-area">◵ Radius Area</button>
+        <button class="map-ctrl-btn" id="btn-zonedraw">⬡ Poly Zone</button>
+        <button class="map-ctrl-btn" id="btn-status">◑ Status Colours</button>
+        <button class="map-ctrl-btn" id="btn-measure">📏 Measure</button>
+    </div>
+
+    <div class="radius-popup" id="radius-popup">
+        <label>Radius from click</label>
+        <div class="radius-input-row">
+            <input type="number" id="radius-input" value="10" min="1" max="160" step="1" />
+            <span class="radius-unit">km</span>
+        </div>
+        <div class="radius-hint">1 – 160 km (100 mi) · press Enter to apply</div>
+    </div>
+
+    <div class="radius-popup" id="radius-area-popup">
+        <label>Measure Area from click</label>
+        <div class="radius-input-row">
+            <input type="number" id="radius-area-input" value="1" min="0.001" max="160" step="0.001" />
+            <span class="radius-unit">km</span>
+        </div>
+        <div class="radius-hint">Input radius: 0.001 (1m) to 160 km</div>
+    </div>
+
+    <div class="radius-popup" id="zonedraw-display">
+        <label class="polyzone-label">🔶 Poly Zone Tool</label>
+        <div class="radius-input-row">
+            <input type="number" id="zonedraw-radius-input" value="2" min="0.1" max="160" step="0.1" />
+            <span class="radius-unit">km</span>
+        </div>
+        <div class="radius-hint">Set starting radius, then click map to create zone</div>
+        <button id="btn-zonedraw-undo" title="Undo last vertex" style="margin-top:8px;background:#ff6600;color:#000;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:bold;font-size:12px;">↩ Undo Point</button>
+    </div>
+
+    <div id="measure-display">
+        <div class="m-row" id="m-line" style="display:none">━━ <span id="m-km"></span> km | <span id="m-m"></span> m | <span id="m-mi"></span> mi</div>
+        <div class="m-row" id="m-perim" style="display:none">Perimeter: <span id="m-pkm"></span> km | <span id="m-pm"></span> m</div>
+        <div class="m-row" id="m-area" style="display:none">Area: <span id="m-km2"></span> km² | <span id="m-ha"></span> ha | <span id="m-ac"></span> ac</div>
+        <div class="m-hint" id="m-hint">Click to add points · Double-click to close polygon</div>
+        <button id="btn-measure-undo" title="Undo last point">↩ Undo Point</button>
+    </div>
+
+    <div id="polyzone-display">
+        <div class="m-row" id="pz-area" style="display:none">
+            <span id="pz-km2"></span> km² · <span id="pz-ha"></span> ha<br>
+            <span id="pz-ac"></span> ac · <span id="pz-mi2"></span> mi²<br>
+            <span id="pz-m2"></span> m²<br>
+            <span style="color:#ffae00">⚽ <span id="pz-pitch"></span> pitches</span>
+        </div>
+        <div class="m-row" id="pz-perim" style="display:none">
+            <span style="color:#555;font-size:9px">perimeter <span id="pz-pkm"></span> km</span>
+        </div>
+        <div class="m-hint" id="pz-hint">Click map to drop circle</div>
+        <button id="btn-polyzone-undo" title="Undo last vertex">↩ Undo Vertex</button>
+    </div>
+
+    <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
+</div>
+
+<div class="scada-wrapper">
+    <div class="scada-brand">
+        <div>
+            <div class="scada-brand-main">Ventus</div>
+            <div class="scada-brand-sub">Cables &amp; Connectivity&reg;</div>
+        </div>
+        <div class="scada-brand-tag">globalgrid2050.com | open infrastructure intelligence</div>
+    </div>
+    <div class="status-legend">
+        <div class="status-dot"><span style="background:#00ff88"></span>Operational</div>
+        <div class="status-dot"><span style="background:#ffcc00"></span>Under Construction</div>
+        <div class="status-dot"><span style="background:#ff8800"></span>Consented</div>
+        <div class="status-dot"><span style="background:#8888ff"></span>Applied</div>
+    </div>
+    <div class="scada-keys" id="scada-ui-container"></div>
+    <div class="disclaimer-box">
+        This interface is based on publicly available and open source infrastructure data, including public energy datasets such as REPD where applicable. It is presented for analytical and visualisation purposes only and does not include live operational or other non public operational data.
+    </div>
+</div>
+```
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+<script src="ventus-corev8engine.js"></script>
+
+<script>
+    const ukConfig = [
+        {
+            group: "Topology (GeoJSON)",
+            layers: [
+                { id: "400",  label: "400kV", color: "#0054ff", type: "line", width: 2.5, url: "data/grid_400kv.geojson", snap: true, preload: true },
+                { id: "275",  label: "275kV", color: "#ff0000", type: "line", width: 2.0, url: "data/grid_275kv.geojson", snap: true, preload: true },
+                { id: "220",  label: "220kV", color: "#ff9900", type: "line", width: 1.8, url: "data/grid_220kv.geojson", snap: true, preload: true },
+                { id: "132",  label: "132kV", color: "#00cc00", type: "line", width: 1.5, url: "data/grid_132kv.geojson", snap: true, preload: true },
+                { id: "66",   label: "66kV",  color: "#b200ff", type: "line", width: 1.2, url: "data/grid_66kv.geojson", snap: true, preload: true },
+                { id: "11kv", label: "11kV (UKPN)", color: "#ff00ff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 13.5, 4, 15, 8, 18, 18], url: "data/grid_11kv_ukpn.geojson", minzoom: 13.5, preload: false },
+                { id: "subs", label: "Subs",  color: "#ffffff", type: "point", radius: ['interpolate', ['linear'], ['zoom'], 5, 3, 10, 5, 14, 10, 18, 22], url: "data/grid_substations.geojson", isSubs: true, preload: true }
+            ]
+        },
+        {
+            group: "Assets (GeoJSON)",
+            layers: [
+                { id: "nuc",  label: "Nuclear",   color: "#39ff14", type: "point", radius: 4.5, url: "data/power_plants.geojson", filter: ['==', ['get', 'source'], 'nuclear'], preload: true },
+                { id: "gas",  label: "Gas",       color: "#ff4500", type: "point", radius: 4.5, url: "data/power_plants.geojson", filter: ['!=', ['get', 'source'], 'nuclear'], preload: true },
+                { id: "ind",  label: "Industry",  color: "#ff6600", type: "point", radius: 4.5, url: "data/industrial_offtakers.geojson", preload: true },
+                { id: "dc",   label: "Data Ctrs", color: "#00ffff", type: "point", radius: 4.5, url: "data/datacentres.geojson", preload: true },
+                { id: "air",  label: "Airports",  color: "#ff00ff", type: "point", radius: 4.5, url: "data/airports.geojson", preload: true },
+                { id: "rail", label: "Railways",  color: "#ffd700", type: "point", radius: 4.5, url: "data/railways.geojson", preload: true }
+            ]
+        },
+        {
+            group: "Supermarkets (GeoJSON)",
+            layers: [
+                { id: "tesco",      label: "Tesco",       color: "#ee1c2e", type: "point", radius: 4.5, url: "data/supermarkets_tesco.geojson", preload: false },
+                { id: "sainsburys", label: "Sainsbury's", color: "#ff8200", type: "point", radius: 4.5, url: "data/supermarkets_sainsburys.geojson", preload: false },
+                { id: "asda",       label: "Asda",        color: "#78be20", type: "point", radius: 4.5, url: "data/supermarkets_asda.geojson", preload: false },
+                { id: "morrisons",  label: "Morrisons",   color: "#ffd700", type: "point", radius: 4.5, url: "data/supermarkets_morrisons.geojson", preload: false },
+                { id: "aldi",       label: "Aldi",        color: "#003087", type: "point", radius: 4.5, url: "data/supermarkets_aldi.geojson", preload: false },
+                { id: "lidl",       label: "Lidl",        color: "#0050aa", type: "point", radius: 4.5, url: "data/supermarkets_lidl.geojson", preload: false },
+                { id: "waitrose",   label: "Waitrose",    color: "#7ab800", type: "point", radius: 4.5, url: "data/supermarkets_waitrose.geojson", preload: false },
+                { id: "ms",         label: "M&S Food",    color: "#009b77", type: "point", radius: 4.5, url: "data/supermarkets_ms.geojson", preload: false },
+                { id: "coop",       label: "Co-op",       color: "#00b1a9", type: "point", radius: 4.5, url: "data/supermarkets_coop.geojson", preload: false },
+                { id: "costco",     label: "Costco",      color: "#005daa", type: "point", radius: 4.5, url: "data/supermarkets_costco.geojson", preload: false },
+                { id: "booths",     label: "Booths",      color: "#6d2077", type: "point", radius: 4.5, url: "data/supermarkets_booths.geojson", preload: false }
+            ]
+        },
+        {
+            group: "Transit (GeoJSON)",
+            layers: [
+                { id: "elizabeth", label: "Elizabeth Line", color: "#60399E", type: "point", radius: 5, url: "data/elizabeth_line.geojson", preload: false },
+                { id: "lu",    label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "data/london_underground.geojson", preload: false },
+                { id: "dlr",   label: "DLR", color: "#00afad", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
+                  filter: ['all', ['in', 'Docklands', ['get', 'operator']], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
+                { id: "metro", label: "UK Metro", color: "#f3a712", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
+                  filter: ['any', ['in', 'Tyne', ['get', 'operator']], ['in', 'Metrolink', ['get', 'operator']], ['in', 'Supertram', ['get', 'operator']], ['in', 'Nottingham', ['get', 'operator']], ['in', 'Edinburgh', ['get', 'operator']], ['in', 'Midland Metro', ['get', 'operator']]] },
+                { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
+                  filter: ['all', ['==', ['get', 'type'], 'Tram / Light Rail'], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
+                { id: "hs2",   label: "HS2", color: "#2c6fad", type: "point", radius: 4, url: "data/hs2.geojson", preload: false },
+                { id: "eurostar_route", label: "Eurostar (HS1) UK & Europe", color: "#001489", type: "line", width: 2.5, url: "data/eurostar.geojson", filter: ['==', ['get', 'type'], 'route'], preload: false },
+                { id: "eurostar_station", label: "Eurostar Stations UK & Europe", color: "#ffd700", type: "point", radius: 5.5, url: "data/eurostar.geojson", filter: ['==', ['get', 'type'], 'eurostar_station'], preload: false }
+            ]
+        },
+        {
+            group: "Leisure & Sports (GeoJSON)",
+            layers: [
+                { id: "stadiums", label: "Major Stadiums", color: "#e5ff00", type: "point", radius: 5.5, url: "data/stadiums.geojson", preload: false }
+            ]
+        },
+        {
+            group: "Global Data Backbone",
+            layers: [
+                { id: "subsea_data_cables", label: "Subsea Data Cables (Fibre) (not all connections available yet)", color: "#00e5ff", type: "line", width: 1.5, url: "data/subsea_data_cables.geojson", preload: false }
+            ]
+        },
+        {
+            group: "Global Supply Chain & Chokepoints",
+            layers: [
+                { id: "global_ports_major", label: "Major Ports (Deep Water/Ferry)", color: "#00bfff", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 8, 80, 10, 500, 16], url: "data/global_ports.geojson", filter: ['==', ['get', 'type'], 'Major Cargo/Container Port'], preload: false },
+                { id: "global_ports_minor", label: "Inland / Minor Harbours", color: "#0055aa", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 2.5, 50, 4.5, 200, 6], url: "data/global_ports.geojson", filter: ['==', ['get', 'type'], 'Minor/Local Harbour'], preload: false },
+                { id: "global_hydrocarbons", label: "Global Hydrocarbons (Oil, Gas, LNG)", color: "#ff3300", type: "point", radius: ['interpolate', ['linear'], ['get', 'area_ha'], 0, 4, 100, 8, 1000, 15], url: "data/global_hydrocarbons.geojson", preload: false }
+            ]
+        },
+        {
+            group: "Highway Infrastructure",
+            layers: [
+                { id: "motorway_services", label: "Motorway Services", color: "#ff00ff", type: "point", radius: 5.5, url: "data/motorway_services.geojson", preload: false }
+            ]
+        },
+        {
+            group: "EV (GeoJSON)",
+            layers: [
+                { id: "ev", label: "EV Rapid (100kW+)", color: "#00ff88", type: "point", radius: 5, url: "data/ev_chargers.geojson", preload: false }
+            ]
+        },
+        {
+            group: "Heavy Industry",
+            layers: [
+                { id: "naei_co2", label: "Major Industrial Sites", color: "#ff4400", type: "point", url: "/heavy_emitters_uk.json", preload: false }
+            ]
+        },
+        {
+            group: "REPD (GeoJSON)",
+            layers: [
+                { id: "solar",      label: "Solar PV",               color: "#ffff00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar'],      preload: false },
+                { id: "solar_operational", label: "Solar PV (Operational Only)", color: "#00ff88", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0], 0, 10, 10, 14, 50, 18, 100, 22, 200, 28, 350, 35, 500, 42], url: "/dist/repd_master.json", filter: ['all', ['==', ['get', 'tech'], 'solar'], ['==', ['get', 'status'], 'operational']], preload: false },
+                { id: "solar_roof", label: "Solar Roof",             color: "#ffcc00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'solar_roof'], preload: false },
+                { id: "wind",       label: "Wind",                   color: "#00ffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'wind'],       preload: false },
+                { id: "wind_onshore_operational",  label: "Onshore Wind (Operational Only)",  color: "#00ffcc", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0], 0, 8, 10, 12, 50, 16, 100, 20, 200, 26, 350, 32, 500, 38], url: "/dist/repd_master.json", filter: ['all', ['==', ['get', 'raw_tech'], 'Wind Onshore'], ['==', ['get', 'status'], 'operational']], preload: false },
+                { id: "wind_offshore_operational", label: "Offshore Wind (Operational Only)", color: "#0066ff", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0], 0, 8, 10, 12, 50, 16, 100, 20, 200, 26, 350, 32, 500, 38], url: "/dist/repd_master.json", filter: ['all', ['==', ['get', 'raw_tech'], 'Wind Offshore'], ['==', ['get', 'status'], 'operational']], preload: false },
+                { id: "bess",       label: "Battery Storage",        color: "#ffae00", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'bess'],       preload: false },
+                { id: "bess_operational", label: "Battery Storage (Operational Only)", color: "#ff69b4", type: "point", radius: ['interpolate', ['linear'], ['coalesce', ['get', 'capacity'], 0], 0, 8, 10, 12, 50, 16, 100, 20, 200, 26, 350, 32, 500, 38], url: "/dist/repd_master.json", filter: ['all', ['==', ['get', 'tech'], 'bess'], ['==', ['get', 'status'], 'operational']], preload: false },
+                { id: "biomass",    label: "Biomass & EfW",          color: "#39ff14", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'biomass'],    preload: false },
+                { id: "tidal",      label: "Tidal & Wave",           color: "#00bfff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'tidal'],      preload: false },
+                { id: "hydrogen",   label: "Hydrogen",               color: "#ffffff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydrogen'],   preload: false },
+                { id: "hydro",      label: "Hydro & Pumped Storage", color: "#00aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'hydro'],      preload: false },
+                { id: "flywheel",   label: "Flywheel",               color: "#ff69b4", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'flywheel'],   preload: false },
+                { id: "act",        label: "Advanced Conversion",    color: "#ff6600", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'act'],        preload: false },
+                { id: "geothermal", label: "Geothermal",             color: "#ff3300", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'geothermal'], preload: false },
+                { id: "caes",       label: "Compressed Air Storage", color: "#88aaff", type: "point", radius: 8, url: "/dist/repd_master.json", filter: ['==', ['get', 'tech'], 'caes'],       preload: false }
+            ]
+        }
+    ];
+
+    window.initVentusMap({
+        config: ukConfig,
+        center: [-3.5, 54.0],
+        zoom: 4.2
+    });
+</script>
+
+</body>
+</html>

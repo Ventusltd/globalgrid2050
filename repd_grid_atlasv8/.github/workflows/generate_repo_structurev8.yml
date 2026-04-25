@@ -1,0 +1,37 @@
+name: Generate Repo Structure Gridbot
+
+on:
+  workflow_dispatch: # Run it manually whenever you want a fresh report
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.py'
+      - '**/*.html'
+      - '**/*.js'
+      # Automatically updates the report if you add new code files
+
+jobs:
+  generate-tree:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Tree Utility
+      run: sudo apt-get install tree -y
+
+    - name: Generate Structure Report
+      # This ignores messy folders like .git and creates the text file
+      run: tree -I '.git|__pycache__|node_modules|.github' > REPO_STRUCTURE.txt
+
+    - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.name "Gridbot"
+        git config --global user.email "gridbot@ventus.com"
+        git add REPO_STRUCTURE.txt
+        git diff --quiet && git diff --staged --quiet || git commit -m "docs: Automated repository structure update by Gridbot"
+        git push

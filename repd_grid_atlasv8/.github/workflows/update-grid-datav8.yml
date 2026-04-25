@@ -1,0 +1,73 @@
+name: fetch-national-grid-data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-grid:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Grid Fetcher
+        run: python scripts/fetch_grid_data.py
+
+      - name: Run 220kV Fetcher
+        run: python scripts/fetch_220kv_data.py
+
+      - name: Run 66kV Fetcher
+        run: python scripts/fetch_66kv_data.py
+
+      - name: Run Substation Fetcher
+        run: python scripts/fetch_substations.py
+
+      - name: Run Data Centre Fetcher
+        run: python scripts/fetch_datacentres.py
+
+      - name: Run Airport Fetcher
+        run: python scripts/fetch_airports.py
+
+      - name: Run Railway Fetcher
+        run: python scripts/fetch_railways.py
+
+      - name: Run Industrial Offtaker Fetcher
+        run: python scripts/fetch_industrial_offtakers.py
+
+      - name: Run Power Plants Fetcher
+        run: python scripts/fetch_power_plants.py
+
+      - name: Run HS2 Fetcher
+        run: python scripts/fetch_hs2.py
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          
+          # Safely stage any geojson files created
+          git add *.geojson || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated grid, datacentre, airport, railway, industry, power plants, and hs2 fetch"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi
+
+  

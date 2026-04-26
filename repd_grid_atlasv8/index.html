@@ -33,104 +33,101 @@
         <div style="text-align:right"><small style="color:#888">2050 TARGET</small><br><span class="hud-val" id="days" style="color:#ff9d00">-- DAYS</span></div>
     </div>
 
-```
-<div class="map-container" id="map-container">
-    <div id="map"></div>
-    <div class="custom-map-attrib">
-        Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> | © CARTO | EV data © <a href="https://openchargemap.org" target="_blank" rel="noopener noreferrer">Open Charge Map</a>
-    </div>
-    <button id="btn-fullscreen" onclick="enterFullscreen()" title="Fullscreen">⛶</button>
-    <div class="search-bar-wrapper">
-        <div style="position:relative">
-            <input class="search-input" id="search-input" type="text" placeholder="Search project name..." autocomplete="off" />
-            <div class="search-results" id="search-results"></div>
+    <div class="map-container" id="map-container">
+        <div id="map"></div>
+        <div class="custom-map-attrib">
+            Data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a> | © CARTO | EV data © <a href="https://openchargemap.org" target="_blank" rel="noopener noreferrer">Open Charge Map</a>
         </div>
-        <button class="search-btn" id="search-btn">GO</button>
-    </div>
-
-    <div class="map-controls">
-        <button class="map-ctrl-btn" id="btn-export">⬇ Export CSV</button>
-        <button class="map-ctrl-btn" id="btn-radius">◎ Radius Search</button>
-        <button class="map-ctrl-btn" id="btn-radius-area">◵ Radius Area</button>
-        <button class="map-ctrl-btn" id="btn-zonedraw">⬡ Poly Zone</button>
-        <button class="map-ctrl-btn" id="btn-status">◑ Status Colours</button>
-        <button class="map-ctrl-btn" id="btn-measure">📏 Measure</button>
-    </div>
-
-    <div class="radius-popup" id="radius-popup">
-        <label>Radius from click</label>
-        <div class="radius-input-row">
-            <input type="number" id="radius-input" value="10" min="1" max="160" step="1" />
-            <span class="radius-unit">km</span>
+        <button id="btn-fullscreen" onclick="enterFullscreen()" title="Fullscreen">⛶</button>
+        <div class="search-bar-wrapper">
+            <div style="position:relative">
+                <input class="search-input" id="search-input" type="text" placeholder="Search project name..." autocomplete="off" />
+                <div class="search-results" id="search-results"></div>
+            </div>
+            <button class="search-btn" id="search-btn">GO</button>
         </div>
-        <div class="radius-hint">1 – 160 km (100 mi) · press Enter to apply</div>
-    </div>
 
-    <div class="radius-popup" id="radius-area-popup">
-        <label>Measure Area from click</label>
-        <div class="radius-input-row">
-            <input type="number" id="radius-area-input" value="1" min="0.001" max="160" step="0.001" />
-            <span class="radius-unit">km</span>
+        <div class="map-controls">
+            <button class="map-ctrl-btn" id="btn-export">⬇ Export CSV</button>
+            <button class="map-ctrl-btn" id="btn-radius">◎ Radius Search</button>
+            <button class="map-ctrl-btn" id="btn-radius-area">◵ Radius Area</button>
+            <button class="map-ctrl-btn" id="btn-zonedraw">⬡ Poly Zone</button>
+            <button class="map-ctrl-btn" id="btn-status">◑ Status Colours</button>
+            <button class="map-ctrl-btn" id="btn-measure">📏 Measure</button>
         </div>
-        <div class="radius-hint">Input radius: 0.001 (1m) to 160 km</div>
-    </div>
 
-    <div class="radius-popup" id="zonedraw-display">
-        <label class="polyzone-label">🔶 Poly Zone Tool</label>
-        <div class="radius-input-row">
-            <input type="number" id="zonedraw-radius-input" value="2" min="0.1" max="160" step="0.1" />
-            <span class="radius-unit">km</span>
+        <div class="radius-popup" id="radius-popup">
+            <label>Radius from click</label>
+            <div class="radius-input-row">
+                <input type="number" id="radius-input" value="10" min="1" max="160" step="1" />
+                <span class="radius-unit">km</span>
+            </div>
+            <div class="radius-hint">1 – 160 km (100 mi) · press Enter to apply</div>
         </div>
-        <div class="radius-hint">Set starting radius, then click map to create zone</div>
-        <button id="btn-zonedraw-undo" title="Undo last vertex" style="margin-top:8px;background:#ff6600;color:#000;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:bold;font-size:12px;">↩ Undo Point</button>
-    </div>
 
-    <div id="measure-display">
-        <div class="m-row" id="m-line" style="display:none">━━ <span id="m-km"></span> km | <span id="m-m"></span> m | <span id="m-mi"></span> mi</div>
-        <div class="m-row" id="m-perim" style="display:none">Perimeter: <span id="m-pkm"></span> km | <span id="m-pm"></span> m</div>
-        <div class="m-row" id="m-area" style="display:none">Area: <span id="m-km2"></span> km² | <span id="m-ha"></span> ha | <span id="m-ac"></span> ac</div>
-        <div class="m-hint" id="m-hint">Click to add points · Double-click to close polygon</div>
-        <button id="btn-measure-undo" title="Undo last point">↩ Undo Point</button>
-    </div>
-
-    <div id="polyzone-display">
-        <div class="m-row" id="pz-area" style="display:none">
-            <span id="pz-km2"></span> km² · <span id="pz-ha"></span> ha<br>
-            <span id="pz-ac"></span> ac · <span id="pz-mi2"></span> mi²<br>
-            <span id="pz-m2"></span> m²<br>
-            <span style="color:#ffae00">⚽ <span id="pz-pitch"></span> pitches</span>
+        <div class="radius-popup" id="radius-area-popup">
+            <label>Measure Area from click</label>
+            <div class="radius-input-row">
+                <input type="number" id="radius-area-input" value="1" min="0.001" max="160" step="0.001" />
+                <span class="radius-unit">km</span>
+            </div>
+            <div class="radius-hint">Input radius: 0.001 (1m) to 160 km</div>
         </div>
-        <div class="m-row" id="pz-perim" style="display:none">
-            <span style="color:#555;font-size:9px">perimeter <span id="pz-pkm"></span> km</span>
+
+        <div class="radius-popup" id="zonedraw-display">
+            <label class="polyzone-label">🔶 Poly Zone Tool</label>
+            <div class="radius-input-row">
+                <input type="number" id="zonedraw-radius-input" value="2" min="0.1" max="160" step="0.1" />
+                <span class="radius-unit">km</span>
+            </div>
+            <div class="radius-hint">Set starting radius, then click map to create zone</div>
+            <button id="btn-zonedraw-undo" title="Undo last vertex" style="margin-top:8px;background:#ff6600;color:#000;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:bold;font-size:12px;">↩ Undo Point</button>
         </div>
-        <div class="m-hint" id="pz-hint">Click map to drop circle</div>
-        <button id="btn-polyzone-undo" title="Undo last vertex">↩ Undo Vertex</button>
-    </div>
 
-    <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
-</div>
-
-<div class="scada-wrapper">
-    <div class="scada-brand">
-        <div>
-            <div class="scada-brand-main">Ventus</div>
-            <div class="scada-brand-sub">Cables &amp; Connectivity&reg;</div>
+        <div id="measure-display">
+            <div class="m-row" id="m-line" style="display:none">━━ <span id="m-km"></span> km | <span id="m-m"></span> m | <span id="m-mi"></span> mi</div>
+            <div class="m-row" id="m-perim" style="display:none">Perimeter: <span id="m-pkm"></span> km | <span id="m-pm"></span> m</div>
+            <div class="m-row" id="m-area" style="display:none">Area: <span id="m-km2"></span> km² | <span id="m-ha"></span> ha | <span id="m-ac"></span> ac</div>
+            <div class="m-hint" id="m-hint">Click to add points · Double-click to close polygon</div>
+            <button id="btn-measure-undo" title="Undo last point">↩ Undo Point</button>
         </div>
-        <div class="scada-brand-tag">globalgrid2050.com | open infrastructure intelligence</div>
-    </div>
-    <div class="status-legend">
-        <div class="status-dot"><span style="background:#00ff88"></span>Operational</div>
-        <div class="status-dot"><span style="background:#ffcc00"></span>Under Construction</div>
-        <div class="status-dot"><span style="background:#ff8800"></span>Consented</div>
-        <div class="status-dot"><span style="background:#8888ff"></span>Applied</div>
-    </div>
-    <div class="scada-keys" id="scada-ui-container"></div>
-    <div class="disclaimer-box">
-        This interface is based on publicly available and open source infrastructure data, including public energy datasets such as REPD where applicable. It is presented for analytical and visualisation purposes only and does not include live operational or other non public operational data.
-    </div>
-</div>
-```
 
+        <div id="polyzone-display">
+            <div class="m-row" id="pz-area" style="display:none">
+                <span id="pz-km2"></span> km² · <span id="pz-ha"></span> ha<br>
+                <span id="pz-ac"></span> ac · <span id="pz-mi2"></span> mi²<br>
+                <span id="pz-m2"></span> m²<br>
+                <span style="color:#ffae00">⚽ <span id="pz-pitch"></span> pitches</span>
+            </div>
+            <div class="m-row" id="pz-perim" style="display:none">
+                <span style="color:#555;font-size:9px">perimeter <span id="pz-pkm"></span> km</span>
+            </div>
+            <div class="m-hint" id="pz-hint">Click map to drop circle</div>
+            <button id="btn-polyzone-undo" title="Undo last vertex">↩ Undo Vertex</button>
+        </div>
+
+        <div class="podcast-shoutout">In support of The Future of Solar Photovoltaics podcast<br>&amp; all participants to date</div>
+    </div>
+
+    <div class="scada-wrapper">
+        <div class="scada-brand">
+            <div>
+                <div class="scada-brand-main">Ventus</div>
+                <div class="scada-brand-sub">Cables &amp; Connectivity&reg;</div>
+            </div>
+            <div class="scada-brand-tag">globalgrid2050.com | open infrastructure intelligence</div>
+        </div>
+        <div class="status-legend">
+            <div class="status-dot"><span style="background:#00ff88"></span>Operational</div>
+            <div class="status-dot"><span style="background:#ffcc00"></span>Under Construction</div>
+            <div class="status-dot"><span style="background:#ff8800"></span>Consented</div>
+            <div class="status-dot"><span style="background:#8888ff"></span>Applied</div>
+        </div>
+        <div class="scada-keys" id="scada-ui-container"></div>
+        <div class="disclaimer-box">
+            This interface is based on publicly available and open source infrastructure data, including public energy datasets such as REPD where applicable. It is presented for analytical and visualisation purposes only and does not include live operational or other non public operational data.
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
@@ -183,12 +180,13 @@
             layers: [
                 { id: "elizabeth", label: "Elizabeth Line", color: "#60399E", type: "point", radius: 5, url: "data/elizabeth_line.geojson", preload: false },
                 { id: "lu",    label: "London Underground", color: "#e32017", type: "point", radius: 5, url: "data/london_underground.geojson", preload: false },
-                { id: "dlr",   label: "DLR", color: "#00afad", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
+                { id: "dlr",   label: "DLR", color: "#00afad", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
                   filter: ['all', ['in', 'Docklands', ['get', 'operator']], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
-                { id: "metro", label: "UK Metro", color: "#f3a712", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
+                { id: "metro", label: "UK Metro", color: "#f3a712", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
                   filter: ['any', ['in', 'Tyne', ['get', 'operator']], ['in', 'Metrolink', ['get', 'operator']], ['in', 'Supertram', ['get', 'operator']], ['in', 'Nottingham', ['get', 'operator']], ['in', 'Edinburgh', ['get', 'operator']], ['in', 'Midland Metro', ['get', 'operator']]] },
-                { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "data/uk_metros_trams.geojson", preload: false,
+                { id: "tram",  label: "Trams & Light Rail", color: "#84329b", type: "point", radius: 5, url: "/uk_metros_trams.geojson", preload: false,
                   filter: ['all', ['==', ['get', 'type'], 'Tram / Light Rail'], ['!', ['in', 'London Underground', ['get', 'operator']]]] },
+                { id: "mainline_rail", label: "UK Mainline Railways", color: "#ff8800", type: "line", width: 1.5, url: "/uk_mainline_railways.geojson", preload: false },
                 { id: "hs2",   label: "HS2", color: "#2c6fad", type: "point", radius: 4, url: "data/hs2.geojson", preload: false },
                 { id: "eurostar_route", label: "Eurostar (HS1) UK & Europe", color: "#001489", type: "line", width: 2.5, url: "data/eurostar.geojson", filter: ['==', ['get', 'type'], 'route'], preload: false },
                 { id: "eurostar_station", label: "Eurostar Stations UK & Europe", color: "#ffd700", type: "point", radius: 5.5, url: "data/eurostar.geojson", filter: ['==', ['get', 'type'], 'eurostar_station'], preload: false }

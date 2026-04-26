@@ -1,0 +1,20 @@
+name: Generate Deep Subsea Illustrative
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - run: python scripts/generate_deep_subsea.py
+      - run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add deep_subsea_illustrative.geojson
+          git commit -m "Update Deep Subsea" || exit 0
+          git push

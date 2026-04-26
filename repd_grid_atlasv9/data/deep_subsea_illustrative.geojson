@@ -1,0 +1,149 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Trans-Pacific Deep Subsea (Illustrative)",
+        "operator": "Strategic Corridor",
+        "type": "deep_subsea_illustrative",
+        "source": "Ventus Deep Subsea (Illustrative)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            151.2,
+            -33.86
+          ],
+          [
+            174.76,
+            -36.84
+          ],
+          [
+            -157.85,
+            21.3
+          ],
+          [
+            -118.24,
+            34.05
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oceania-Asia Deep Subsea (Illustrative)",
+        "operator": "Strategic Corridor",
+        "type": "deep_subsea_illustrative",
+        "source": "Ventus Deep Subsea (Illustrative)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            115.86,
+            -31.95
+          ],
+          [
+            106.84,
+            -6.2
+          ],
+          [
+            103.81,
+            1.35
+          ],
+          [
+            114.16,
+            22.28
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Africa-Europe-Asia Deep Subsea (Illustrative)",
+        "operator": "Strategic Corridor",
+        "type": "deep_subsea_illustrative",
+        "source": "Ventus Deep Subsea (Illustrative)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            5.36,
+            43.29
+          ],
+          [
+            32.3,
+            31.2
+          ],
+          [
+            39.19,
+            21.48
+          ],
+          [
+            43.33,
+            11.58
+          ],
+          [
+            39.66,
+            -4.04
+          ],
+          [
+            32.58,
+            -25.96
+          ],
+          [
+            18.42,
+            -33.92
+          ],
+          [
+            13.23,
+            -8.83
+          ],
+          [
+            3.37,
+            6.52
+          ],
+          [
+            -17.46,
+            14.71
+          ],
+          [
+            -9.13,
+            38.72
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Atlantic Deep Subsea (Illustrative)",
+        "operator": "Strategic Corridor",
+        "type": "deep_subsea_illustrative",
+        "source": "Ventus Deep Subsea (Illustrative)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.23,
+            -8.83
+          ],
+          [
+            -38.52,
+            -3.73
+          ],
+          [
+            -80.19,
+            25.76
+          ]
+        ]
+      }
+    }
+  ]
+}

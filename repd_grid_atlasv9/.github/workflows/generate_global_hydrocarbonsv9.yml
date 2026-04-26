@@ -1,0 +1,37 @@
+name: Generate Global Hydrocarbons Gridbot
+
+on:
+  schedule:
+    - cron: '0 4 4 * *' 
+  workflow_dispatch: 
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install requests
+
+    # Pointing to the scripts folder
+    - name: Run Python script
+      run: python scripts/fetch_global_hydrocarbons.py
+
+    - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.name "Gridbot"
+        git config --global user.email "gridbot@ventus.com"
+        git add global_hydrocarbons.geojson
+        git diff --quiet && git diff --staged --quiet || git commit -m "Automated global hydrocarbons update by Gridbot"
+        git push

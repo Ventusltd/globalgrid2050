@@ -215,6 +215,9 @@
         {
             group: "Highway Infrastructure",
             layers: [
+                { id: "motorways", label: "Motorways", color: "#0054ff", type: "line", width: 2.5, url: "/uk_motorways.geojson", preload: false },
+                { id: "trunk_roads", label: "Major A-Roads (Trunk)", color: "#00cc00", type: "line", width: 1.8, url: "/uk_trunk_roads.geojson", preload: false },
+                { id: "primary_roads", label: "A-Roads (Primary)", color: "#ff4400", type: "line", width: 1.2, url: "/uk_primary_roads.geojson", preload: false },
                 { id: "motorway_services", label: "Motorway Services", color: "#ff00ff", type: "point", radius: 5.5, url: "data/motorway_services.geojson", preload: false }
             ]
         },

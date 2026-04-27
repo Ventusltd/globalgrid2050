@@ -1,12 +1,11 @@
-‘use strict’;
+'use strict';
 
 window.initVentusMap = function({ config, center, zoom }) {
-if (typeof maplibregl === ‘undefined’) {
-document.getElementById(‘fatal-banner’).style.display = ‘block’;
-throw new Error(‘CRITICAL: MapLibre failed to load.’);
+if (typeof maplibregl === 'undefined') {
+document.getElementById('fatal-banner').style.display = 'block';
+throw new Error('CRITICAL: MapLibre failed to load.');
 }
 
-```
 // ── PMTiles protocol registration ────────────────────────────────────────────
 // Allows MapLibre to consume `pmtiles://path/to/file.pmtiles` URLs as vector
 // tile sources. Streams only the tiles in the current viewport at the current
@@ -1422,6 +1421,5 @@ map.on('load', () => {
 
     GRID_CONFIG.forEach(group => { group.layers.forEach(layer => { if (layer.preload) hydrateLayer(layer.id); }); });
 });
-```
 
 };

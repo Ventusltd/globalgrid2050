@@ -1,9 +1,9 @@
-‘use strict’;
+'use strict';
 
 window.initVentusMap = function({ config, center, zoom }) {
-if (typeof maplibregl === ‘undefined’) {
-document.getElementById(‘fatal-banner’).style.display = ‘block’;
-throw new Error(‘CRITICAL: MapLibre failed to load.’);
+if (typeof maplibregl === 'undefined') {
+document.getElementById('fatal-banner').style.display = 'block';
+throw new Error('CRITICAL: MapLibre failed to load.');
 }
 
 // ── PMTiles protocol registration ────────────────────────────────────────────

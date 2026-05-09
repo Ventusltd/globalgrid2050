@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            /* GlobalGrid2050 SCADA Theme Variables */
+            /* GlobalGrid2050 Dashboard Theme Variables */
             --bg: #000000;
             --panel: rgba(10, 10, 10, 0.96);
             --panel-soft: #0b0e14;
@@ -17,7 +17,7 @@
             --muted: #a6adbb;
             --muted-soft: #8d95a3;
             
-            /* SCADA Accents */
+            /* Accents */
             --accent: #00ffff;
             --accent-2: #ff00ff;
             --ok: #00ff88;
@@ -140,17 +140,6 @@
             color: var(--accent);
             background: rgba(0, 255, 255, 0.08);
             border-left: 3px solid var(--accent);
-        }
-
-        .logout {
-            margin-top: auto;
-            border-top: 1px solid var(--line-soft);
-            color: var(--error);
-        }
-        .logout:hover {
-            color: var(--error);
-            background: rgba(255, 102, 102, 0.1);
-            border-left-color: var(--error);
         }
 
         /* --- MAIN CONTENT --- */
@@ -346,12 +335,20 @@
             .gauges-container { grid-template-columns: 1fr; }
             .sidebar { width: 200px; }
         }
+
+        /* Mobile specific fixes so MW shows up in portrait mode */
         @media (max-width: 768px) {
             body { flex-direction: column; overflow: auto; }
             .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--line-soft); padding: 10px; flex-direction: row; align-items: center; justify-content: space-between; }
             .user-profile, .nav-menu { display: none; }
             .ventus-brand { border: none; margin: 0; padding: 0; }
-            .main-content { overflow: visible; }
+            .main-content { overflow: visible; padding: 10px; }
+            
+            /* Table adjustments for mobile */
+            .hide-mobile { display: none; }
+            th, td { padding: 8px 6px; font-size: 10px; }
+            .tech-badge { font-size: 8px; padding: 2px 4px; }
+            .val-mw { font-size: 12px; }
         }
     </style>
 </head>
@@ -366,15 +363,14 @@
             <div class="avatar">GG</div>
             <div class="user-info">
                 <p>System Admin</p>
-                <span>Scada Access</span>
+                <span>SYSTEM ACCESS</span>
             </div>
         </div>
         <nav class="nav-menu">
             <a href="#" class="nav-item active">UK REPD DASH</a>
             <a href="../index.html" class="nav-item">DIRECTORY</a>
-            <a href="../repd_grid_atlasv9/index.html" class="nav-item">MAP ATLAS</a>
+            <a href="https://globalgrid2050.com/repd_grid_atlasv8/" class="nav-item">MAP ATLAS</a>
             <a href="#" class="nav-item">EXPORT CSV</a>
-            <a href="#" class="nav-item logout">LOGOUT</a>
         </nav>
     </aside>
 
@@ -425,7 +421,6 @@
             <button class="btn status-btn" data-status="Operational">OPERATIONAL</button>
             <button class="btn status-btn" data-status="Under Construction">CONSTRUCTING</button>
             <button class="btn status-btn" data-status="Awaiting Construction">AWAITING</button>
-            <button class="btn status-btn" data-status="Consented">CONSENTED</button>
             <button class="btn status-btn" data-status="Application Submitted">SUBMITTED</button>
         </div>
 
@@ -434,7 +429,7 @@
                 <thead>
                     <tr>
                         <th>Site Name</th>
-                        <th>Operator</th>
+                        <th class="hide-mobile">Operator</th>
                         <th>Technology</th>
                         <th>Status</th>
                         <th>Capacity (MW)</th>
@@ -516,7 +511,7 @@
                 
                 tr.innerHTML = `
                     <td class="site-name">${item['Site Name']}</td>
-                    <td>${item['Operator']}</td>
+                    <td class="hide-mobile">${item['Operator']}</td>
                     <td><span class="tech-badge" style="background:${bgColor}; color:${fontColor}">${item['Tech Category']}</span></td>
                     <td style="font-size:10px">${item['Status']}</td>
                     <td class="val-mw">${item.Capacity_MW.toFixed(1)}</td>
@@ -535,14 +530,7 @@
 
             // Filter by Pipeline Status
             if (currentStatus !== 'All') {
-                filtered = filtered.filter(d => {
-                    const stat = d['Status'];
-                    // Group similar granted/approved statuses into "Consented" for sales pipeline clarity
-                    if (currentStatus === 'Consented') {
-                        return stat.includes('Consented') || stat.includes('Granted') || stat.includes('Approved');
-                    }
-                    return stat.includes(currentStatus);
-                });
+                filtered = filtered.filter(d => d['Status'].includes(currentStatus));
             }
 
             updateGauges(filtered);

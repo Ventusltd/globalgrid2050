@@ -277,11 +277,16 @@
 
         .btn:hover { border-color: var(--accent); color: var(--accent); }
         
-        .btn.active[data-tech="All"] { background: rgba(255,255,255,0.1); color: #fff; border-color: #fff; }
-        .btn.active[data-tech="Solar"] { background: rgba(255,255,0,0.1); color: var(--tech-solar); border-color: var(--tech-solar); }
-        .btn.active[data-tech="Battery Storage"] { background: rgba(255,174,0,0.1); color: var(--tech-battery); border-color: var(--tech-battery); }
-        .btn.active[data-tech="Onshore Wind"] { background: rgba(0,255,255,0.1); color: var(--tech-onshore); border-color: var(--tech-onshore); }
-        .btn.active[data-tech="Offshore Wind"] { background: rgba(0,102,255,0.2); color: var(--tech-offshore); border-color: var(--tech-offshore); }
+        /* Tech Button Colors */
+        .btn.tech-btn.active[data-tech="All"] { background: rgba(255,255,255,0.1); color: #fff; border-color: #fff; }
+        .btn.tech-btn.active[data-tech="Solar"] { background: rgba(255,255,0,0.1); color: var(--tech-solar); border-color: var(--tech-solar); }
+        .btn.tech-btn.active[data-tech="Battery Storage"] { background: rgba(255,174,0,0.1); color: var(--tech-battery); border-color: var(--tech-battery); }
+        .btn.tech-btn.active[data-tech="Onshore Wind"] { background: rgba(0,255,255,0.1); color: var(--tech-onshore); border-color: var(--tech-onshore); }
+        .btn.tech-btn.active[data-tech="Offshore Wind"] { background: rgba(0,102,255,0.2); color: var(--tech-offshore); border-color: var(--tech-offshore); }
+
+        /* Status Button Colors */
+        .btn.status-btn.active { background: rgba(0, 255, 136, 0.1); color: var(--ok); border-color: var(--ok); }
+        .btn.status-btn.active[data-status="All"] { background: rgba(255,255,255,0.1); color: #fff; border-color: #fff; }
 
         /* Table */
         .table-wrapper {
@@ -385,14 +390,14 @@
 
         <div class="gauges-container">
             <div class="gauge-card">
-                <h3>Total Capacity (MW)</h3>
+                <h3>Filtered Capacity (MW)</h3>
                 <div class="chart-wrapper">
                     <canvas id="gaugeTotal"></canvas>
                     <div class="gauge-value" id="valTotal">0</div>
                 </div>
             </div>
             <div class="gauge-card">
-                <h3>Active Projects</h3>
+                <h3>Filtered Projects</h3>
                 <div class="chart-wrapper">
                     <canvas id="gaugeCount"></canvas>
                     <div class="gauge-value" id="valCount">0</div>
@@ -408,11 +413,20 @@
         </div>
 
         <div class="filters-container" id="tech-filters">
-            <button class="btn active" data-tech="All">ALL TECH</button>
-            <button class="btn" data-tech="Solar">SOLAR</button>
-            <button class="btn" data-tech="Battery Storage">BATTERY</button>
-            <button class="btn" data-tech="Onshore Wind">ONSHORE</button>
-            <button class="btn" data-tech="Offshore Wind">OFFSHORE</button>
+            <button class="btn tech-btn active" data-tech="All">ALL TECH</button>
+            <button class="btn tech-btn" data-tech="Solar">SOLAR</button>
+            <button class="btn tech-btn" data-tech="Battery Storage">BATTERY</button>
+            <button class="btn tech-btn" data-tech="Onshore Wind">ONSHORE</button>
+            <button class="btn tech-btn" data-tech="Offshore Wind">OFFSHORE</button>
+        </div>
+
+        <div class="filters-container" id="status-filters" style="margin-bottom: 25px;">
+            <button class="btn status-btn active" data-status="All">ALL STATUS</button>
+            <button class="btn status-btn" data-status="Operational">OPERATIONAL</button>
+            <button class="btn status-btn" data-status="Under Construction">CONSTRUCTING</button>
+            <button class="btn status-btn" data-status="Awaiting Construction">AWAITING</button>
+            <button class="btn status-btn" data-status="Consented">CONSENTED</button>
+            <button class="btn status-btn" data-status="Application Submitted">SUBMITTED</button>
         </div>
 
         <div class="table-wrapper">
@@ -436,6 +450,7 @@
     <script>
         let allData = [];
         let currentTech = 'All';
+        let currentStatus = 'All';
         let chartTotal, chartCount, chartMax;
 
         const techColors = {
@@ -474,6 +489,7 @@
             document.getElementById('valCount').innerText = count.toLocaleString();
             document.getElementById('valMax').innerText = maxMW.toLocaleString(undefined, {maximumFractionDigits: 1});
 
+            // Adjust ring capacity dynamically so it looks meaningful when heavily filtered
             const globalTotal = allData.reduce((sum, item) => sum + item.Capacity_MW, 0) || 100000;
             const globalCount = allData.length || 1000;
             const globalMax = Math.max(...allData.map(d => d.Capacity_MW)) || 5000;
@@ -511,18 +527,44 @@
 
         function applyFilters() {
             let filtered = allData;
+            
+            // Filter by Technology
             if (currentTech !== 'All') {
                 filtered = filtered.filter(d => d['Tech Category'] === currentTech);
             }
+
+            // Filter by Pipeline Status
+            if (currentStatus !== 'All') {
+                filtered = filtered.filter(d => {
+                    const stat = d['Status'];
+                    // Group similar granted/approved statuses into "Consented" for sales pipeline clarity
+                    if (currentStatus === 'Consented') {
+                        return stat.includes('Consented') || stat.includes('Granted') || stat.includes('Approved');
+                    }
+                    return stat.includes(currentStatus);
+                });
+            }
+
             updateGauges(filtered);
             updateTable(filtered);
         }
 
-        document.querySelectorAll('.btn').forEach(btn => {
+        // Tech Listeners
+        document.querySelectorAll('.tech-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tech-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
                 currentTech = e.target.getAttribute('data-tech');
+                applyFilters();
+            });
+        });
+
+        // Status Listeners
+        document.querySelectorAll('.status-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentStatus = e.target.getAttribute('data-status');
                 applyFilters();
             });
         });

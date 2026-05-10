@@ -323,6 +323,7 @@
             font-weight: bold;
             color: #000;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .val-mw {
@@ -342,12 +343,22 @@
             transform: scale(1.2);
         }
 
+        .mobile-extra {
+            display: none;
+            font-size: 9px;
+            color: #888;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: normal;
+        }
+
         @media (max-width: 1024px) {
             .gauges-container { grid-template-columns: 1fr; }
             .sidebar { width: 200px; }
         }
 
-        /* Mobile specific fixes so MW shows up in portrait mode */
+        /* Mobile specific fixes */
         @media (max-width: 768px) {
             body { flex-direction: column; overflow: auto; }
             .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--line-soft); padding: 10px; flex-direction: row; align-items: center; justify-content: space-between; }
@@ -355,8 +366,12 @@
             .ventus-brand { border: none; margin: 0; padding: 0; }
             .main-content { overflow: visible; padding: 10px; }
             
-            /* Table adjustments for mobile */
+            /* Hide the dedicated columns on mobile */
             .hide-mobile { display: none; }
+            
+            /* Show the stacked data under Site Name */
+            .mobile-extra { display: block; }
+
             th, td { padding: 8px 6px; font-size: 10px; }
             .tech-badge { font-size: 8px; padding: 2px 4px; }
             .val-mw { font-size: 12px; }
@@ -515,18 +530,19 @@
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
 
-            // Render top 150 to keep the browser snappy
             filteredData.slice(0, 150).forEach(item => {
                 const tr = document.createElement('tr');
                 const bgColor = techColors[item['Tech Category']] || '#888';
                 const fontColor = item['Tech Category'] === 'Offshore Wind' ? '#fff' : '#000';
                 
-                // Construct the Google News search URL
                 const searchQuery = encodeURIComponent(`${item['Site Name']} ${item['Tech Category']}`);
                 const newsUrl = `https://www.google.com/search?q=${searchQuery}&tbm=nws`;
                 
                 tr.innerHTML = `
-                    <td class="site-name">${item['Site Name']}</td>
+                    <td class="site-name">
+                        ${item['Site Name']}
+                        <div class="mobile-extra">${item['County']} | ${item['Operator']}</div>
+                    </td>
                     <td class="hide-mobile" style="color: #888; font-size: 11px;">${item['County']}</td>
                     <td class="hide-mobile">${item['Operator']}</td>
                     <td><span class="tech-badge" style="background:${bgColor}; color:${fontColor}">${item['Tech Category']}</span></td>

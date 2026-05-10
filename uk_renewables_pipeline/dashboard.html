@@ -247,6 +247,7 @@
             gap: 10px;
             margin-bottom: 15px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .btn {
@@ -276,6 +277,22 @@
         /* Status Button Colors */
         .btn.status-btn.active { background: rgba(0, 255, 136, 0.1); color: var(--ok); border-color: var(--ok); }
         .btn.status-btn.active[data-status="All"] { background: rgba(255,255,255,0.1); color: #fff; border-color: #fff; }
+
+        /* Dropdown Styling */
+        .dropdown-btn {
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2300ffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 10px auto;
+            padding-right: 30px;
+        }
+
+        .dropdown-btn option {
+            background: var(--bg);
+            color: #fff;
+        }
 
         /* Table */
         .table-wrapper {
@@ -419,7 +436,7 @@
                 </div>
             </div>
             <div class="gauge-card">
-                <h3>Filtered Projects</h3>
+                <h3>Filtered Projects (>1MW)</h3>
                 <div class="chart-wrapper">
                     <canvas id="gaugeCount"></canvas>
                     <div class="gauge-value" id="valCount">0</div>
@@ -442,12 +459,18 @@
             <button class="btn tech-btn" data-tech="Offshore Wind">OFFSHORE</button>
         </div>
 
-        <div class="filters-container" id="status-filters" style="margin-bottom: 25px;">
+        <div class="filters-container" id="status-filters">
             <button class="btn status-btn active" data-status="All">ALL STATUS</button>
             <button class="btn status-btn" data-status="Operational">OPERATIONAL</button>
             <button class="btn status-btn" data-status="Under Construction">CONSTRUCTING</button>
             <button class="btn status-btn" data-status="Awaiting Construction">AWAITING</button>
             <button class="btn status-btn" data-status="Application Submitted">SUBMITTED</button>
+        </div>
+        
+        <div class="filters-container" style="margin-bottom: 25px;">
+            <select id="county-dropdown" class="btn dropdown-btn">
+                <option value="All">🌍 ALL COUNTIES</option>
+                </select>
         </div>
 
         <div class="table-wrapper">
@@ -474,6 +497,7 @@
         let allData = [];
         let currentTech = 'All';
         let currentStatus = 'All';
+        let currentCounty = 'All';
         let chartTotal, chartCount, chartMax;
 
         const techColors = {
@@ -530,7 +554,8 @@
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
 
-            filteredData.slice(0, 150).forEach(item => {
+            // REMOVED THE .slice(0, 150) LIMIT - NOW RENDERS EVERY ROW
+            filteredData.forEach(item => {
                 const tr = document.createElement('tr');
                 const bgColor = techColors[item['Tech Category']] || '#888';
                 const fontColor = item['Tech Category'] === 'Offshore Wind' ? '#fff' : '#000';
@@ -538,13 +563,11 @@
                 const searchQuery = encodeURIComponent(`${item['Site Name']} ${item['Tech Category']}`);
                 const newsUrl = `https://www.google.com/search?q=${searchQuery}&tbm=nws`;
                 
-                // Build the mobile subtitle dynamically
                 let subtextArray = [];
                 if (item['County']) subtextArray.push(item['County']);
                 if (item['Operator']) subtextArray.push(item['Operator']);
                 let subtext = subtextArray.length > 0 ? subtextArray.join(' | ') : '';
                 
-                // Desktop row displays
                 let countyDisplay = item['County'] || '-';
                 let opDisplay = item['Operator'] || '-';
 
@@ -576,11 +599,30 @@
             if (currentStatus !== 'All') {
                 filtered = filtered.filter(d => d['Status'].includes(currentStatus));
             }
+            
+            // Apply the new County Filter
+            if (currentCounty !== 'All') {
+                filtered = filtered.filter(d => d['County'] === currentCounty);
+            }
 
             updateGauges(filtered);
             updateTable(filtered);
         }
 
+        function populateCountyDropdown(countiesSet) {
+            const dropdown = document.getElementById('county-dropdown');
+            // Sort alphabetically
+            const sortedCounties = Array.from(countiesSet).sort();
+            
+            sortedCounties.forEach(county => {
+                const option = document.createElement('option');
+                option.value = county;
+                option.text = `📍 ${county}`;
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Listeners
         document.querySelectorAll('.tech-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.tech-btn').forEach(b => b.classList.remove('active'));
@@ -599,6 +641,11 @@
             });
         });
 
+        document.getElementById('county-dropdown').addEventListener('change', (e) => {
+            currentCounty = e.target.value;
+            applyFilters();
+        });
+
         function titleCase(str) {
             if (!str) return '';
             return str.toLowerCase().split(' ').map(function(word) {
@@ -609,16 +656,21 @@
         window.onload = () => {
             initGauges();
             
-            // CACHE BUSTER ADDED HERE
+            // CACHE BUSTER ACTIVE
             fetch('../dist/repd_master.json?v=' + new Date().getTime())
                 .then(response => response.json())
                 .then(geojson => {
                     let parsedData = [];
+                    let uniqueCounties = new Set();
 
                     (geojson.features || []).forEach(f => {
                         const props = f.properties || {};
                         const tech = props.tech || '';
                         const raw_tech = String(props.raw_tech || '').toLowerCase();
+                        const capacityMW = parseFloat(props.capacity) || 0;
+                        
+                        // 1MW MINIMUM FILTER
+                        if (capacityMW < 1.0) return;
                         
                         let cat = 'Other';
                         if (tech === 'solar' || tech === 'solar_roof') {
@@ -629,14 +681,17 @@
                             cat = raw_tech.includes('offshore') ? 'Offshore Wind' : 'Onshore Wind';
                         }
 
-                        // Grab the location data, stripping out Pandas "nan" or "None"
                         let rawCounty = props.county || props.County || props.lpa || props.local_planning_authority || props.region || '';
-                        let cleanCounty = String(rawCounty).trim();
+                        let cleanCounty = titleCase(String(rawCounty).trim());
                         if (cleanCounty.toLowerCase() === 'nan' || cleanCounty.toLowerCase() === 'none') {
                             cleanCounty = '';
                         }
+                        
+                        // Add valid counties to the set for the dropdown
+                        if (cleanCounty && cleanCounty !== '') {
+                            uniqueCounties.add(cleanCounty);
+                        }
 
-                        // Grab the Operator, stripping out Pandas "nan"
                         let rawOperator = props.operator || props.Operator || '';
                         let cleanOperator = String(rawOperator).trim().toUpperCase();
                         if (cleanOperator === 'NAN' || cleanOperator === 'NONE') {
@@ -650,13 +705,18 @@
                                 'Operator': cleanOperator,
                                 'Tech Category': cat,
                                 'Status': titleCase(props.status || 'Unknown'),
-                                'Capacity_MW': parseFloat(props.capacity) || 0
+                                'Capacity_MW': capacityMW
                             });
                         }
                     });
 
                     parsedData.sort((a, b) => b.Capacity_MW - a.Capacity_MW);
                     allData = parsedData;
+                    
+                    // Populate the dropdown menu
+                    populateCountyDropdown(uniqueCounties);
+                    
+                    // Run initial filter
                     applyFilters();
                 })
                 .catch(err => {

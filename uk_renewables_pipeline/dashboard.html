@@ -538,13 +538,23 @@
                 const searchQuery = encodeURIComponent(`${item['Site Name']} ${item['Tech Category']}`);
                 const newsUrl = `https://www.google.com/search?q=${searchQuery}&tbm=nws`;
                 
+                // Build the mobile subtitle dynamically to avoid empty values or "Unknown"
+                let subtextArray = [];
+                if (item['County']) subtextArray.push(item['County']);
+                if (item['Operator']) subtextArray.push(item['Operator']);
+                let subtext = subtextArray.length > 0 ? subtextArray.join(' | ') : '';
+                
+                // Desktop row displays
+                let countyDisplay = item['County'] || '-';
+                let opDisplay = item['Operator'] || '-';
+
                 tr.innerHTML = `
                     <td class="site-name">
                         ${item['Site Name']}
-                        <div class="mobile-extra">${item['County']} | ${item['Operator']}</div>
+                        ${subtext ? `<div class="mobile-extra">${subtext}</div>` : ''}
                     </td>
-                    <td class="hide-mobile" style="color: #888; font-size: 11px;">${item['County']}</td>
-                    <td class="hide-mobile">${item['Operator']}</td>
+                    <td class="hide-mobile" style="color: #888; font-size: 11px;">${countyDisplay}</td>
+                    <td class="hide-mobile">${opDisplay}</td>
                     <td><span class="tech-badge" style="background:${bgColor}; color:${fontColor}">${item['Tech Category']}</span></td>
                     <td style="font-size:10px">${item['Status']}</td>
                     <td class="val-mw">${item.Capacity_MW.toFixed(1)}</td>
@@ -590,6 +600,7 @@
         });
 
         function titleCase(str) {
+            if (!str) return '';
             return str.toLowerCase().split(' ').map(function(word) {
                 return (word.charAt(0).toUpperCase() + word.slice(1));
             }).join(' ');
@@ -617,11 +628,19 @@
                             cat = raw_tech.includes('offshore') ? 'Offshore Wind' : 'Onshore Wind';
                         }
 
+                        // Aggressively check multiple possible keys for county/region
+                        let rawCounty = props.county || props.County || props.lpa || props.local_planning_authority || props['Local Planning Authority'] || props.region || props.Region || '';
+                        let cleanCounty = rawCounty.trim();
+
+                        // Grab the Operator
+                        let rawOperator = props.operator || props.Operator || props['Operator (or Applicant)'] || '';
+                        let cleanOperator = rawOperator.trim();
+
                         if (cat !== 'Other') {
                             parsedData.push({
-                                'Site Name': props.name || 'Unknown Site',
-                                'County': props.county || props.local_planning_authority || props.region || 'Unknown',
-                                'Operator': props.operator || 'Unknown Operator',
+                                'Site Name': props.name || props['Site Name'] || 'Unknown Site',
+                                'County': cleanCounty,
+                                'Operator': cleanOperator,
                                 'Tech Category': cat,
                                 'Status': titleCase(props.status || 'Unknown'),
                                 'Capacity_MW': parseFloat(props.capacity) || 0

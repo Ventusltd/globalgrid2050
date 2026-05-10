@@ -287,6 +287,7 @@
             background-position: right 10px top 50%;
             background-size: 10px auto;
             padding-right: 30px;
+            max-width: 250px;
         }
 
         .dropdown-btn option {
@@ -392,6 +393,7 @@
             th, td { padding: 8px 6px; font-size: 10px; }
             .tech-badge { font-size: 8px; padding: 2px 4px; }
             .val-mw { font-size: 12px; }
+            .dropdown-btn { max-width: 100%; width: 100%; margin-bottom: 10px; }
         }
     </style>
 </head>
@@ -471,6 +473,10 @@
             <select id="county-dropdown" class="btn dropdown-btn">
                 <option value="All">🌍 ALL COUNTIES</option>
                 </select>
+            
+            <select id="operator-dropdown" class="btn dropdown-btn">
+                <option value="All">🏢 ALL OPERATORS</option>
+                </select>
         </div>
 
         <div class="table-wrapper">
@@ -498,6 +504,7 @@
         let currentTech = 'All';
         let currentStatus = 'All';
         let currentCounty = 'All';
+        let currentOperator = 'All';
         let chartTotal, chartCount, chartMax;
 
         const techColors = {
@@ -554,7 +561,6 @@
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
 
-            // REMOVED THE .slice(0, 150) LIMIT - NOW RENDERS EVERY ROW
             filteredData.forEach(item => {
                 const tr = document.createElement('tr');
                 const bgColor = techColors[item['Tech Category']] || '#888';
@@ -600,25 +606,39 @@
                 filtered = filtered.filter(d => d['Status'].includes(currentStatus));
             }
             
-            // Apply the new County Filter
             if (currentCounty !== 'All') {
                 filtered = filtered.filter(d => d['County'] === currentCounty);
+            }
+
+            if (currentOperator !== 'All') {
+                filtered = filtered.filter(d => d['Operator'] === currentOperator);
             }
 
             updateGauges(filtered);
             updateTable(filtered);
         }
 
-        function populateCountyDropdown(countiesSet) {
-            const dropdown = document.getElementById('county-dropdown');
-            // Sort alphabetically
+        function populateDropdowns(countiesSet, operatorsSet) {
+            const countyDropdown = document.getElementById('county-dropdown');
+            const operatorDropdown = document.getElementById('operator-dropdown');
+            
             const sortedCounties = Array.from(countiesSet).sort();
+            const sortedOperators = Array.from(operatorsSet).sort();
             
             sortedCounties.forEach(county => {
                 const option = document.createElement('option');
                 option.value = county;
                 option.text = `📍 ${county}`;
-                dropdown.appendChild(option);
+                countyDropdown.appendChild(option);
+            });
+
+            sortedOperators.forEach(op => {
+                const option = document.createElement('option');
+                option.value = op;
+                // Truncate massively long operator names for the dropdown
+                let displayName = op.length > 40 ? op.substring(0, 40) + '...' : op;
+                option.text = `🏢 ${displayName}`;
+                operatorDropdown.appendChild(option);
             });
         }
 
@@ -646,6 +666,11 @@
             applyFilters();
         });
 
+        document.getElementById('operator-dropdown').addEventListener('change', (e) => {
+            currentOperator = e.target.value;
+            applyFilters();
+        });
+
         function titleCase(str) {
             if (!str) return '';
             return str.toLowerCase().split(' ').map(function(word) {
@@ -662,6 +687,7 @@
                 .then(geojson => {
                     let parsedData = [];
                     let uniqueCounties = new Set();
+                    let uniqueOperators = new Set();
 
                     (geojson.features || []).forEach(f => {
                         const props = f.properties || {};
@@ -687,7 +713,6 @@
                             cleanCounty = '';
                         }
                         
-                        // Add valid counties to the set for the dropdown
                         if (cleanCounty && cleanCounty !== '') {
                             uniqueCounties.add(cleanCounty);
                         }
@@ -696,6 +721,10 @@
                         let cleanOperator = String(rawOperator).trim().toUpperCase();
                         if (cleanOperator === 'NAN' || cleanOperator === 'NONE') {
                             cleanOperator = '';
+                        }
+
+                        if (cleanOperator && cleanOperator !== '' && cleanOperator !== 'UNKNOWN') {
+                            uniqueOperators.add(cleanOperator);
                         }
 
                         if (cat !== 'Other') {
@@ -713,8 +742,8 @@
                     parsedData.sort((a, b) => b.Capacity_MW - a.Capacity_MW);
                     allData = parsedData;
                     
-                    // Populate the dropdown menu
-                    populateCountyDropdown(uniqueCounties);
+                    // Populate both dropdown menus
+                    populateDropdowns(uniqueCounties, uniqueOperators);
                     
                     // Run initial filter
                     applyFilters();

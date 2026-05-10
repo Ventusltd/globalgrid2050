@@ -331,6 +331,17 @@
             font-size: 14px;
         }
 
+        .news-link {
+            text-decoration: none;
+            font-size: 16px;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        
+        .news-link:hover {
+            transform: scale(1.2);
+        }
+
         @media (max-width: 1024px) {
             .gauges-container { grid-template-columns: 1fr; }
             .sidebar { width: 200px; }
@@ -429,10 +440,12 @@
                 <thead>
                     <tr>
                         <th>Site Name</th>
+                        <th class="hide-mobile">County</th>
                         <th class="hide-mobile">Operator</th>
                         <th>Technology</th>
                         <th>Status</th>
                         <th>Capacity (MW)</th>
+                        <th>News</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -484,7 +497,6 @@
             document.getElementById('valCount').innerText = count.toLocaleString();
             document.getElementById('valMax').innerText = maxMW.toLocaleString(undefined, {maximumFractionDigits: 1});
 
-            // Adjust ring capacity dynamically so it looks meaningful when heavily filtered
             const globalTotal = allData.reduce((sum, item) => sum + item.Capacity_MW, 0) || 100000;
             const globalCount = allData.length || 1000;
             const globalMax = Math.max(...allData.map(d => d.Capacity_MW)) || 5000;
@@ -509,12 +521,20 @@
                 const bgColor = techColors[item['Tech Category']] || '#888';
                 const fontColor = item['Tech Category'] === 'Offshore Wind' ? '#fff' : '#000';
                 
+                // Construct the Google News search URL
+                const searchQuery = encodeURIComponent(`${item['Site Name']} ${item['Tech Category']}`);
+                const newsUrl = `https://www.google.com/search?q=${searchQuery}&tbm=nws`;
+                
                 tr.innerHTML = `
                     <td class="site-name">${item['Site Name']}</td>
+                    <td class="hide-mobile" style="color: #888; font-size: 11px;">${item['County']}</td>
                     <td class="hide-mobile">${item['Operator']}</td>
                     <td><span class="tech-badge" style="background:${bgColor}; color:${fontColor}">${item['Tech Category']}</span></td>
                     <td style="font-size:10px">${item['Status']}</td>
                     <td class="val-mw">${item.Capacity_MW.toFixed(1)}</td>
+                    <td style="text-align:center;">
+                        <a href="${newsUrl}" target="_blank" class="news-link" title="Search Google News for ${item['Site Name']}">📰</a>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -523,12 +543,10 @@
         function applyFilters() {
             let filtered = allData;
             
-            // Filter by Technology
             if (currentTech !== 'All') {
                 filtered = filtered.filter(d => d['Tech Category'] === currentTech);
             }
 
-            // Filter by Pipeline Status
             if (currentStatus !== 'All') {
                 filtered = filtered.filter(d => d['Status'].includes(currentStatus));
             }
@@ -537,7 +555,6 @@
             updateTable(filtered);
         }
 
-        // Tech Listeners
         document.querySelectorAll('.tech-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.tech-btn').forEach(b => b.classList.remove('active'));
@@ -547,7 +564,6 @@
             });
         });
 
-        // Status Listeners
         document.querySelectorAll('.status-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
@@ -557,7 +573,6 @@
             });
         });
 
-        // Convert raw status to Title Case
         function titleCase(str) {
             return str.toLowerCase().split(' ').map(function(word) {
                 return (word.charAt(0).toUpperCase() + word.slice(1));
@@ -567,19 +582,16 @@
         window.onload = () => {
             initGauges();
             
-            // FETCH DIRECTLY FROM THE MASTER MAP REPD SOURCE!
             fetch('../dist/repd_master.json')
                 .then(response => response.json())
                 .then(geojson => {
                     let parsedData = [];
 
-                    // Loop over the map features
                     (geojson.features || []).forEach(f => {
                         const props = f.properties || {};
                         const tech = props.tech || '';
                         const raw_tech = String(props.raw_tech || '').toLowerCase();
                         
-                        // Map the technical tags to Dashboard Categories
                         let cat = 'Other';
                         if (tech === 'solar' || tech === 'solar_roof') {
                             cat = 'Solar';
@@ -589,10 +601,10 @@
                             cat = raw_tech.includes('offshore') ? 'Offshore Wind' : 'Onshore Wind';
                         }
 
-                        // Only push the categories we care about to the dashboard
                         if (cat !== 'Other') {
                             parsedData.push({
                                 'Site Name': props.name || 'Unknown Site',
+                                'County': props.county || props.local_planning_authority || props.region || 'Unknown',
                                 'Operator': props.operator || 'Unknown Operator',
                                 'Tech Category': cat,
                                 'Status': titleCase(props.status || 'Unknown'),
@@ -601,15 +613,13 @@
                         }
                     });
 
-                    // Sort by largest capacity descending
                     parsedData.sort((a, b) => b.Capacity_MW - a.Capacity_MW);
-                    
                     allData = parsedData;
                     applyFilters();
                 })
                 .catch(err => {
                     console.error("Error loading REPD data:", err);
-                    document.getElementById('table-body').innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--error);">Error loading ../dist/repd_master.json. Are you running a local server?</td></tr>`;
+                    document.getElementById('table-body').innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--error);">Error loading ../dist/repd_master.json. Are you running a local server?</td></tr>`;
                 });
         };
     </script>

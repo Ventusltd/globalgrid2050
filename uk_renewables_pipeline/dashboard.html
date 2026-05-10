@@ -278,7 +278,7 @@
         .btn.status-btn.active { background: rgba(0, 255, 136, 0.1); color: var(--ok); border-color: var(--ok); }
         .btn.status-btn.active[data-status="All"] { background: rgba(255,255,255,0.1); color: #fff; border-color: #fff; }
 
-        /* Dropdown Styling */
+        /* Dropdown & Input Styling */
         .dropdown-btn {
             outline: none;
             appearance: none;
@@ -293,6 +293,19 @@
         .dropdown-btn option {
             background: var(--bg);
             color: #fff;
+        }
+
+        .search-input {
+            cursor: text;
+            text-align: left;
+            min-width: 280px;
+            outline: none;
+            color: #fff;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
         }
 
         /* Table */
@@ -394,6 +407,7 @@
             .tech-badge { font-size: 8px; padding: 2px 4px; }
             .val-mw { font-size: 12px; }
             .dropdown-btn { max-width: 100%; width: 100%; margin-bottom: 10px; }
+            .search-input { min-width: 100%; width: 100%; margin-bottom: 10px; }
         }
     </style>
 </head>
@@ -472,11 +486,11 @@
         <div class="filters-container" style="margin-bottom: 25px;">
             <select id="county-dropdown" class="btn dropdown-btn">
                 <option value="All">🌍 ALL COUNTIES</option>
-                </select>
+            </select>
             
-            <select id="operator-dropdown" class="btn dropdown-btn">
-                <option value="All">🏢 ALL OPERATORS</option>
-                </select>
+            <input type="text" id="universal-search" list="operator-list" class="btn search-input" placeholder="🔍 SEARCH OPERATOR OR SITE..." autocomplete="off">
+            <datalist id="operator-list">
+                </datalist>
         </div>
 
         <div class="table-wrapper">
@@ -504,7 +518,7 @@
         let currentTech = 'All';
         let currentStatus = 'All';
         let currentCounty = 'All';
-        let currentOperator = 'All';
+        let currentSearch = '';
         let chartTotal, chartCount, chartMax;
 
         const techColors = {
@@ -610,21 +624,26 @@
                 filtered = filtered.filter(d => d['County'] === currentCounty);
             }
 
-            if (currentOperator !== 'All') {
-                filtered = filtered.filter(d => d['Operator'] === currentOperator);
+            // Universal Search filter (Matches Operator OR Site Name)
+            if (currentSearch !== '') {
+                filtered = filtered.filter(d => 
+                    d['Operator'].includes(currentSearch) || 
+                    d['Site Name'].toUpperCase().includes(currentSearch)
+                );
             }
 
             updateGauges(filtered);
             updateTable(filtered);
         }
 
-        function populateDropdowns(countiesSet, operatorsSet) {
+        function populateFilters(countiesSet, operatorsSet) {
             const countyDropdown = document.getElementById('county-dropdown');
-            const operatorDropdown = document.getElementById('operator-dropdown');
+            const operatorList = document.getElementById('operator-list');
             
             const sortedCounties = Array.from(countiesSet).sort();
             const sortedOperators = Array.from(operatorsSet).sort();
             
+            // Populate County Dropdown
             sortedCounties.forEach(county => {
                 const option = document.createElement('option');
                 option.value = county;
@@ -632,13 +651,11 @@
                 countyDropdown.appendChild(option);
             });
 
+            // Populate Operator Datalist for Autocomplete
             sortedOperators.forEach(op => {
                 const option = document.createElement('option');
-                option.value = op;
-                // Truncate massively long operator names for the dropdown
-                let displayName = op.length > 40 ? op.substring(0, 40) + '...' : op;
-                option.text = `🏢 ${displayName}`;
-                operatorDropdown.appendChild(option);
+                option.value = op; // This allows them to type "EDF" and autocomplete to "EDF ENERGY"
+                operatorList.appendChild(option);
             });
         }
 
@@ -666,8 +683,9 @@
             applyFilters();
         });
 
-        document.getElementById('operator-dropdown').addEventListener('change', (e) => {
-            currentOperator = e.target.value;
+        // Trigger filter immediately as the user types
+        document.getElementById('universal-search').addEventListener('input', (e) => {
+            currentSearch = e.target.value.trim().toUpperCase();
             applyFilters();
         });
 
@@ -742,8 +760,8 @@
                     parsedData.sort((a, b) => b.Capacity_MW - a.Capacity_MW);
                     allData = parsedData;
                     
-                    // Populate both dropdown menus
-                    populateDropdowns(uniqueCounties, uniqueOperators);
+                    // Populate filters
+                    populateFilters(uniqueCounties, uniqueOperators);
                     
                     // Run initial filter
                     applyFilters();

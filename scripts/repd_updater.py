@@ -12,6 +12,7 @@ class REPDUpdater:
     """
     VENTUS REPD UPDATER v5.10 | MASTER UNIFIED GEOJSON
     Fixed: substring matching for all tech types — no encoding collisions.
+    Added: Geographic data extraction (County, Region, LPA) for dashboard mapping.
     """
 
     REPD_PAGE = "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract"
@@ -40,8 +41,12 @@ class REPDUpdater:
         'Operator (or Applicant)'
     ]
 
+    # Added geographic location columns here so the schema validator knows about them
     OPTIONAL_COLUMNS = [
-        'Mounting Type for Solar'
+        'Mounting Type for Solar',
+        'County',
+        'Region',
+        'Local Planning Authority'
     ]
 
     def __init__(self, registry_path="config/registry.yaml"):
@@ -251,8 +256,11 @@ class REPDUpdater:
                 features.append({
                     "type": "Feature",
                     "properties": {
-                        "name":     str(row.get('Site Name', 'Unknown')),
-                        "operator": str(row.get('Operator (or Applicant)', 'Unknown')).upper(),
+                        "name":     str(row.get('Site Name', 'Unknown')).strip(),
+                        "county":   str(row.get('County', '')).strip(),
+                        "region":   str(row.get('Region', '')).strip(),
+                        "local_planning_authority": str(row.get('Local Planning Authority', '')).strip(),
+                        "operator": str(row.get('Operator (or Applicant)', 'Unknown')).strip().upper(),
                         "capacity": capacity,
                         "status":   str(row.get('Development Status (short)', '')).strip(),
                         "tech":     tech_map,
@@ -292,8 +300,9 @@ class REPDUpdater:
 
                 url = self.discover_latest_url() or layer['url']
 
-                if self.already_current(url):
-                    return
+                # Temporarily bypass the already_current check to force a rebuild with the new county data
+                # if self.already_current(url):
+                #     return
 
                 local_csv = self.fetch_data(url)
                 if not local_csv:

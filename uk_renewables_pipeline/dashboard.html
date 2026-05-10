@@ -538,7 +538,7 @@
                 const searchQuery = encodeURIComponent(`${item['Site Name']} ${item['Tech Category']}`);
                 const newsUrl = `https://www.google.com/search?q=${searchQuery}&tbm=nws`;
                 
-                // Build the mobile subtitle dynamically to avoid empty values or "Unknown"
+                // Build the mobile subtitle dynamically
                 let subtextArray = [];
                 if (item['County']) subtextArray.push(item['County']);
                 if (item['Operator']) subtextArray.push(item['Operator']);
@@ -609,7 +609,8 @@
         window.onload = () => {
             initGauges();
             
-            fetch('../dist/repd_master.json')
+            // CACHE BUSTER ADDED HERE
+            fetch('../dist/repd_master.json?v=' + new Date().getTime())
                 .then(response => response.json())
                 .then(geojson => {
                     let parsedData = [];
@@ -628,17 +629,23 @@
                             cat = raw_tech.includes('offshore') ? 'Offshore Wind' : 'Onshore Wind';
                         }
 
-                        // Aggressively check multiple possible keys for county/region
-                        let rawCounty = props.county || props.County || props.lpa || props.local_planning_authority || props['Local Planning Authority'] || props.region || props.Region || '';
-                        let cleanCounty = rawCounty.trim();
+                        // Grab the location data, stripping out Pandas "nan" or "None"
+                        let rawCounty = props.county || props.County || props.lpa || props.local_planning_authority || props.region || '';
+                        let cleanCounty = String(rawCounty).trim();
+                        if (cleanCounty.toLowerCase() === 'nan' || cleanCounty.toLowerCase() === 'none') {
+                            cleanCounty = '';
+                        }
 
-                        // Grab the Operator
-                        let rawOperator = props.operator || props.Operator || props['Operator (or Applicant)'] || '';
-                        let cleanOperator = rawOperator.trim();
+                        // Grab the Operator, stripping out Pandas "nan"
+                        let rawOperator = props.operator || props.Operator || '';
+                        let cleanOperator = String(rawOperator).trim().toUpperCase();
+                        if (cleanOperator === 'NAN' || cleanOperator === 'NONE') {
+                            cleanOperator = '';
+                        }
 
                         if (cat !== 'Other') {
                             parsedData.push({
-                                'Site Name': props.name || props['Site Name'] || 'Unknown Site',
+                                'Site Name': props.name || 'Unknown Site',
                                 'County': cleanCounty,
                                 'Operator': cleanOperator,
                                 'Tech Category': cat,

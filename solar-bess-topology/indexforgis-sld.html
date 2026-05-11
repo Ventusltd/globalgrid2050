@@ -3,130 +3,60 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GIS-SLD Topology Engine | Blank Canvas</title>
+    <title>GIS-SLD Topology Engine | Real-World Dimensions</title>
     
     <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
-    
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
     
     <style>
         :root {
-            --bg: #050505;
-            --panel: rgba(10, 10, 10, 0.96);
-            --line: #2f343d;
-            --text: #ffffff;
-            --muted: #a6adbb;
-            --accent: #00ffff;
-            --ok: #00ff88;
-            --substation: #ff3333;
-            --inverter: #ffff00;
+            --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
+            --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --ok: #00ff88;
+            --substation: #ff3333; --inverter: #ffff00; --footprint: rgba(0, 255, 255, 0.15);
         }
-
         * { box-sizing: border-box; }
-
-        body { 
-            margin: 0; padding: 20px; 
-            background: var(--bg); color: var(--text); 
-            font-family: "Courier New", monospace; 
-            display: flex; justify-content: center; 
-            height: 100vh; overflow: hidden; 
-        }
-
-        .dashboard { 
-            display: flex; gap: 20px; width: 100%; max-width: 1600px; height: 100%; 
-        }
-
-        .panel { 
-            background: var(--panel); border: 1px solid var(--line); 
-            border-radius: 4px; display: flex; flex-direction: column; 
-        }
-
-        .panel-left { 
-            width: 380px; padding: 20px; flex-shrink: 0; overflow-y: auto; 
-        }
-
-        .panel-right { 
-            flex: 1 1 auto; position: relative; border-radius: 4px; overflow: hidden;
-            border: 1px solid var(--line);
-        }
-
-        h2 { 
-            margin: 0 0 10px 0; color: var(--accent); font-size: 18px; 
-            text-transform: uppercase; border-bottom: 1px solid var(--line); 
-            padding-bottom: 10px; 
-        }
-
-        h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 12px; text-transform: uppercase; }
-
-        .input-group { 
-            display: flex; justify-content: space-between; align-items: center; 
-            font-size: 12px; color: var(--muted); margin-bottom: 8px; 
-        }
-
-        .input-group input { 
-            width: 90px; background: #111; color: var(--accent); 
-            border: 1px solid #444; padding: 6px; text-align: right; 
-            border-radius: 3px; font-family: monospace; 
-        }
-
-        .input-group input:focus { border-color: var(--accent); outline: none; }
-
-        .search-box {
-            display: flex; gap: 5px; margin-bottom: 15px;
-        }
-
-        .search-box input {
-            flex: 1; background: #111; color: #fff; border: 1px solid #444; 
-            padding: 8px; border-radius: 3px; font-family: monospace; font-size: 12px;
-        }
-
-        .search-box button {
-            background: #222; color: var(--accent); border: 1px solid var(--accent); 
-            padding: 8px 12px; border-radius: 3px; cursor: pointer; font-family: monospace; font-weight: bold;
-        }
-
+        body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        
+        .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1600px; height: 100%; }
+        .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; display: flex; flex-direction: column; }
+        .panel-left { width: 380px; padding: 20px; flex-shrink: 0; overflow-y: auto; }
+        .panel-right { flex: 1 1 auto; position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+        
+        h2 { margin: 0 0 10px 0; color: var(--accent); font-size: 18px; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+        h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform: uppercase; border-bottom: 1px dashed #333; padding-bottom: 3px; }
+        
+        .input-group { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+        .input-group input, .input-group select { width: 95px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
+        .input-group select { text-align: left; }
+        .input-group input:focus, .input-group select:focus { border-color: var(--accent); outline: none; }
+        
+        .search-box { display: flex; gap: 5px; margin-bottom: 15px; }
+        .search-box input { flex: 1; background: #111; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 3px; font-family: monospace; font-size: 12px; }
+        .search-box button { background: #222; color: var(--accent); border: 1px solid var(--accent); padding: 8px 12px; border-radius: 3px; cursor: pointer; font-family: monospace; font-weight: bold; }
         .search-box button:hover { background: var(--accent); color: #000; }
-
-        .stat-box { 
-            background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); 
-            padding: 15px; border-radius: 3px; margin-top: 15px; 
-        }
-
-        .stat-row { 
-            display: flex; justify-content: space-between; 
-            font-size: 12px; margin-bottom: 8px; color: var(--muted); 
-        }
-
+        
+        .stat-box { background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); padding: 12px; border-radius: 3px; margin-top: 15px; }
+        .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; color: var(--muted); }
         .stat-val { color: var(--text); font-weight: bold; }
-        .stat-val.cyan { color: var(--accent); font-size: 16px; }
-
-        .btn { 
-            padding: 12px; background: #000; color: var(--ok); 
-            border: 1px solid var(--ok); cursor: pointer; font-family: monospace; 
-            font-weight: bold; text-transform: uppercase; border-radius: 3px; 
-            margin-top: 15px; width: 100%; transition: 0.2s;
-        }
-
+        .stat-val.cyan { color: var(--accent); font-size: 14px; }
+        
+        .btn { padding: 10px; background: #000; color: var(--ok); border: 1px solid var(--ok); cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; margin-top: 10px; width: 100%; transition: 0.2s; }
         .btn:hover { background: var(--ok); color: #000; }
-
+        
         #map { width: 100%; height: 100%; }
-
-        .crosshair {
-            position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); 
-            color: var(--accent); font-size: 24px; pointer-events: none; 
-            z-index: 10; text-shadow: 0 0 5px #000;
-        }
-
-        .legend { 
-            position: absolute; bottom: 20px; left: 20px; 
-            background: var(--panel); border: 1px solid var(--line); 
-            padding: 10px; font-size: 11px; z-index: 1; border-radius: 4px; 
-        }
-
+        .crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--accent); font-size: 24px; pointer-events: none; z-index: 10; text-shadow: 0 0 5px #000; }
+        
+        .legend { position: absolute; bottom: 20px; left: 20px; background: var(--panel); border: 1px solid var(--line); padding: 10px; font-size: 10px; z-index: 1; border-radius: 4px; }
         .legend-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
         .swatch { width: 12px; height: 12px; border: 1px solid #666; }
+
+        @media (max-width: 800px) {
+            .dashboard { flex-direction: column; overflow-y: auto; }
+            .panel-left { width: 100%; max-height: 50vh; flex-shrink: 0; }
+            .panel-right { min-height: 50vh; flex: 1 1 auto; }
+            body { overflow: auto; }
+        }
     </style>
 </head>
 <body>
@@ -134,17 +64,33 @@
 <div class="dashboard">
     <div class="panel panel-left">
         <h2>GIS-SLD Engine</h2>
-        <p style="font-size: 11px; color: var(--muted); margin-top: 0;">Parametric Substrate Generator.</p>
+        <p style="font-size: 10px; color: var(--muted); margin-top: 0;">Parametric Real-World Footprint Generator.</p>
 
         <div class="search-box">
-            <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." onkeydown="if(event.key === 'Enter') searchLocation()">
+            <input type="text" id="loc_search" placeholder="Enter location..." onkeydown="if(event.key === 'Enter') searchLocation()">
             <button onclick="searchLocation()">FLY</button>
         </div>
 
-        <h3>Module Specs</h3>
+        <h3>Physical Dimensions (Trina 660Wp Base)</h3>
         <div class="input-group">
-            <label>Module (Wp)</label>
-            <input type="number" id="mod_wp" value="600" />
+            <label>Module Rating (Wp)</label>
+            <input type="number" id="mod_wp" value="660" />
+        </div>
+        <div class="input-group">
+            <label>Mod Length (m)</label>
+            <input type="number" id="mod_l" value="2.38" step="0.01" />
+        </div>
+        <div class="input-group">
+            <label>Mod Width (m)</label>
+            <input type="number" id="mod_w" value="1.30" step="0.01" />
+        </div>
+        <div class="input-group">
+            <label>Mounting & GCR</label>
+            <select id="mounting_type" onchange="updateGCR()">
+                <option value="0.75">East-West Dome (~75% GCR)</option>
+                <option value="0.45">Fixed Tilt South (~45% GCR)</option>
+                <option value="0.35">Tracker (~35% GCR)</option>
+            </select>
         </div>
 
         <h3>Array Hierarchy</h3>
@@ -154,7 +100,7 @@
         </div>
         <div class="input-group">
             <label>Strings / Inverter (z)</label>
-            <input type="number" id="z_strings" value="180" />
+            <input type="number" id="z_strings" value="220" />
         </div>
         <div class="input-group">
             <label>Inverters / Sub (y)</label>
@@ -170,17 +116,15 @@
         </div>
 
         <div class="stat-box">
-            <h3 style="margin-top:0; color: var(--accent);">Site Aggregates</h3>
             <div class="stat-row"><span>Total Skids:</span><span class="stat-val" id="out_invs">0</span></div>
-            <div class="stat-row"><span>Substations:</span><span class="stat-val" id="out_subs">0</span></div>
-            <hr style="border-top: 1px solid #333; margin: 10px 0;">
-            <div class="stat-row" style="align-items: center;">
-                <span>System DC Cap:</span><span class="stat-val cyan" id="out_mw">0.00 MWp</span>
-            </div>
+            <div class="stat-row"><span>System DC Cap:</span><span class="stat-val cyan" id="out_mw">0.00 MWp</span></div>
+            <hr style="border-top: 1px solid #333; margin: 8px 0;">
+            <div class="stat-row"><span>Footprint per Skid:</span><span class="stat-val" id="out_skid_acre">0 Acres</span></div>
+            <div class="stat-row"><span>Total Array Area:</span><span class="stat-val cyan" id="out_total_acre">0 Acres</span></div>
         </div>
 
         <button class="btn" style="color: var(--accent); border-color: var(--accent);" onclick="triggerDrawAtCenter()">⌖ DRAW AT CROSSHAIR</button>
-        <button class="btn" style="margin-top: 8px;" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
+        <button class="btn" style="margin-top: 6px; background: #111; color: #aaa; border-color: #444;" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
     </div>
 
     <div class="panel panel-right">
@@ -189,174 +133,172 @@
         
         <div class="legend">
             <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
-            <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> Inverter Skid</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--footprint); border-color:var(--accent);"></div> Physical Skid Footprint (Acres)</div>
             <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring</div>
         </div>
     </div>
 </div>
 
 <script>
-    // Initialize Carto Dark Matter Map - Centered on London by Default
     const map = new maplibregl.Map({
         container: 'map',
         style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-        center: [-0.1276, 51.5072], // London
-        zoom: 12
+        center: [-0.1276, 51.5072], // Default London
+        zoom: 13
     });
 
     let currentGeoJSON = { type: "FeatureCollection", features: [] };
-    let activeDrawCenter = null; // Stores the coordinate where the array is currently anchored
+    let activeDrawCenter = null; 
 
     map.on('load', () => {
         map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
 
-        // Draw 33kV Rings (Lines)
+        // 1. Draw Physical Skid Footprints (Polygons)
+        map.addLayer({
+            id: 'skid_footprints', type: 'fill', source: 'topology',
+            filter: ['==', 'type', 'skid_footprint'],
+            paint: { 'fill-color': '#00ffff', 'fill-opacity': 0.15 }
+        });
+        map.addLayer({
+            id: 'skid_footprints_outline', type: 'line', source: 'topology',
+            filter: ['==', 'type', 'skid_footprint'],
+            paint: { 'line-color': '#00ffff', 'line-width': 1 }
+        });
+
+        // 2. Draw 33kV Rings (Lines)
         map.addLayer({
             id: 'rings', type: 'line', source: 'topology',
             filter: ['==', 'type', '33kv_ring'],
             paint: { 'line-color': '#00ffff', 'line-width': 2, 'line-dasharray': [2, 2] }
         });
 
-        // Draw Inverter Skids (Points)
+        // 3. Draw Nodes (Points)
         map.addLayer({
             id: 'inverters', type: 'circle', source: 'topology',
             filter: ['==', 'type', 'inverter'],
-            paint: { 'circle-color': '#ffff00', 'circle-radius': 5, 'circle-stroke-color': '#000', 'circle-stroke-width': 1 }
+            paint: { 'circle-color': '#ffff00', 'circle-radius': 3, 'circle-stroke-color': '#000', 'circle-stroke-width': 1 }
         });
-
-        // Draw Primary Substation (Point)
         map.addLayer({
             id: 'substation', type: 'circle', source: 'topology',
             filter: ['==', 'type', 'primary_sub'],
-            paint: { 'circle-color': '#ff3333', 'circle-radius': 9, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 }
+            paint: { 'circle-color': '#ff3333', 'circle-radius': 7, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 }
         });
 
-        // Update the numbers on load, but don't draw until user clicks the button
         updateAggregatesOnly();
     });
 
-    // --- GEOCODER FUNCTION ---
+    function updateGCR() { computeAndDraw(); }
+
     async function searchLocation() {
         const query = document.getElementById('loc_search').value;
         if (!query) return;
         try {
-            // Using OpenStreetMap's free Nominatim API
             const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`);
             const data = await res.json();
             if (data && data.length > 0) {
-                const lon = parseFloat(data[0].lon);
-                const lat = parseFloat(data[0].lat);
-                map.flyTo({ center: [lon, lat], zoom: 14 });
+                map.flyTo({ center: [parseFloat(data[0].lon), parseFloat(data[0].lat)], zoom: 14 });
             } else {
-                alert("Location not found. Try a broader search term.");
+                alert("Location not found.");
             }
-        } catch (e) {
-            console.error("Geocoding error:", e);
-        }
+        } catch (e) { console.error("Geocoding error:", e); }
     }
 
-    // --- DRAWING LOGIC ---
     function triggerDrawAtCenter() {
-        // Grab the exact lat/lon sitting under the crosshair
         activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
         computeAndDraw();
     }
 
     function updateAggregatesOnly() {
+        // Module Physics
         const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
+        const mod_l = parseFloat(document.getElementById('mod_l').value) || 0;
+        const mod_w = parseFloat(document.getElementById('mod_w').value) || 0;
+        const gcr = parseFloat(document.getElementById('mounting_type').value) || 0.75;
+        
+        // Hierarchy
         const x = parseInt(document.getElementById('x_mods').value) || 0;
         const z = parseInt(document.getElementById('z_strings').value) || 0;
         const y = parseInt(document.getElementById('y_invs').value) || 0;
         const s = parseInt(document.getElementById('s_subs').value) || 0;
         const rings = parseInt(document.getElementById('b_cols').value) || 0;
 
+        // Math
         const total_invs = rings * s * y;
         const total_mw = (total_invs * z * x * mod_wp) / 1000000;
 
+        // Spatial Math (Area)
+        const single_mod_area = mod_l * mod_w; 
+        const mods_per_skid = x * z * y;
+        const skid_mod_area = mods_per_skid * single_mod_area;
+        
+        // Convert to ground footprint using GCR
+        const skid_ground_area_m2 = skid_mod_area / gcr;
+        const skid_ground_area_acres = skid_ground_area_m2 / 4046.86;
+        const total_array_acres = skid_ground_area_acres * total_invs;
+
+        // Update UI
         document.getElementById('out_invs').textContent = total_invs;
-        document.getElementById('out_subs').textContent = rings * s;
         document.getElementById('out_mw').textContent = total_mw.toFixed(2) + " MWp";
+        document.getElementById('out_skid_acre').textContent = skid_ground_area_acres.toFixed(1) + " Ac";
+        document.getElementById('out_total_acre').textContent = total_array_acres.toFixed(0) + " Ac";
+
+        return { skid_ground_area_m2, rings, s, z, x, mod_wp };
     }
 
     function computeAndDraw() {
-        updateAggregatesOnly();
-
-        // If user hasn't clicked "DRAW" yet, don't draw anything.
+        const stats = updateAggregatesOnly();
         if (!activeDrawCenter) return;
-
-        const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
-        const x = parseInt(document.getElementById('x_mods').value) || 0;
-        const z = parseInt(document.getElementById('z_strings').value) || 0;
-        const y = parseInt(document.getElementById('y_invs').value) || 0;
-        const s = parseInt(document.getElementById('s_subs').value) || 0;
-        const rings = parseInt(document.getElementById('b_cols').value) || 0;
 
         let features = [];
         
-        // 1. Drop Primary Substation Node at the locked center
-        features.push(turf.point(activeDrawCenter, { 
-            type: 'primary_sub', 
-            name: 'Primary Grid Connection'
-        }));
+        // Primary Substation
+        features.push(turf.point(activeDrawCenter, { type: 'primary_sub', name: 'Grid Connection' }));
 
-        const radiusStep = 0.25; // Base radial expansion step in km
-        const capacityPerSkid = ((z * x * mod_wp)/1000000).toFixed(2);
+        // Calculate the radius of the physical footprint circle for Turf.js
+        const skid_radius_km = Math.sqrt(stats.skid_ground_area_m2 / Math.PI) / 1000;
         
-        // 2. Build the radial arrays
-        for (let r = 0; r < rings; r++) {
+        // To prevent blocks from overlapping, we space the rings out dynamically based on footprint size
+        const radiusStep = skid_radius_km * 4; 
+        const capacityPerSkid = ((stats.z * stats.x * stats.mod_wp)/1000000).toFixed(2);
+        
+        for (let r = 0; r < stats.rings; r++) {
             let ringCoords = [activeDrawCenter];
             
-            for (let sub = 0; sub < s; sub++) {
-                const angle = (r * (360 / rings)) + (sub * (120 / s));
-                const distance = radiusStep * (sub + 1);
+            for (let sub = 0; sub < stats.s; sub++) {
+                const angle = (r * (360 / stats.rings)) + (sub * (120 / stats.s));
+                const distance = radiusStep * (sub + 1) + 0.1; // Add 100m buffer from sub
                 
-                // Turf.js coordinate generation based on the activeDrawCenter
                 const destination = turf.destination(turf.point(activeDrawCenter), distance, angle, {units: 'kilometers'});
                 const coords = destination.geometry.coordinates;
                 
-                features.push(turf.point(coords, { 
-                    type: 'inverter', 
-                    ring_id: `Ring-${r+1}`,
-                    skid_id: `Skid-${r+1}-${sub+1}`,
-                    capacity_mw: capacityPerSkid
-                }));
-                
+                // Draw the physical land footprint consumed by this skid
+                const footprint = turf.circle(coords, skid_radius_km, {steps: 32, units: 'kilometers'});
+                footprint.properties = { type: 'skid_footprint' };
+                features.push(footprint);
+
+                // Add Inverter Skid Node
+                features.push(turf.point(coords, { type: 'inverter', capacity_mw: capacityPerSkid }));
                 ringCoords.push(coords);
             }
-            ringCoords.push(activeDrawCenter); // Close the ring
+            ringCoords.push(activeDrawCenter);
             
-            features.push(turf.lineString(ringCoords, { 
-                type: '33kv_ring', 
-                ring_id: `Ring-${r+1}` 
-            }));
+            features.push(turf.lineString(ringCoords, { type: '33kv_ring' }));
         }
 
         currentGeoJSON = turf.featureCollection(features);
-        
-        if (map.getSource('topology')) {
-            map.getSource('topology').setData(currentGeoJSON);
-        }
+        if (map.getSource('topology')) map.getSource('topology').setData(currentGeoJSON);
     }
 
     function exportGeoJSON() {
-        if (currentGeoJSON.features.length === 0) {
-            alert("Nothing to export. Click 'DRAW AT CROSSHAIR' first.");
-            return;
-        }
+        if (currentGeoJSON.features.length === 0) return;
         const blob = new Blob([JSON.stringify(currentGeoJSON, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
-        a.href = url;
-        a.download = "gis_sld_topology.geojson";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        a.href = url; a.download = "gis_sld_footprints.geojson";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
     }
 
-    // Bind event listeners to input fields so the MWp updates instantly, 
-    // and if a shape is drawn, it resizes instantly in place.
-    document.querySelectorAll('.input-group input').forEach(input => {
+    document.querySelectorAll('.input-group input, .input-group select').forEach(input => {
         input.addEventListener('input', computeAndDraw);
     });
 </script>

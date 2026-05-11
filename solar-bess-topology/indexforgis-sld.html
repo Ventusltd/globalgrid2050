@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GIS-SLD Topology Engine | Interactive Drag & Drop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>GIS-SLD Topology Engine | Touch & Heatmap</title>
     
     <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
@@ -13,11 +13,11 @@
         :root {
             --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
             --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --accent-alt: #ff9900;
-            --ok: #00ff88; --substation: #ff3333; 
+            --ok: #00ff88; --substation: #ff3333; --array-blue: #0066ff;
             --warn: #ff4444;
         }
         * { box-sizing: border-box; }
-        body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; height: 100vh; overflow: hidden; touch-action: none; }
         
         .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1600px; height: 100%; }
         .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; display: flex; flex-direction: column; }
@@ -235,7 +235,7 @@
             </div>
 
         <div class="engineering-note">
-            <strong>DRAG & DROP ENABLED:</strong> Click and drag any Inverter Block or MV Station to fit site boundaries. Trenching distances and voltage drops will recalculate automatically in real-time.
+            <strong>DRAG & DROP ENABLED (TOUCH & MOUSE):</strong> Click/Touch and drag any Inverter Block or MV Station to fit site boundaries. Trenching distances and topology recalculate automatically.
         </div>
 
         <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ GENERATE BASELINE ARRAY</button>
@@ -253,7 +253,6 @@
     let activeTab = 'string';
     let currentGeoJSON = { type: "FeatureCollection", features: [] };
     
-    // Topology State Object to manage drag-and-drop
     let topologyState = {
         nodes: [],
         rings: [],
@@ -273,25 +272,25 @@
     map.on('load', () => {
         map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
 
-        // Polygons
+        // Polygons (Solar Array Blue Heatmap)
         map.addLayer({
             id: 'footprints', type: 'fill', source: 'topology',
             filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
             paint: { 
-                'fill-color': ['match', ['get', 'type'], 'skid_footprint', '#00ffff', 'central_footprint', '#ff9900', '#000'], 
-                'fill-opacity': 0.12 
+                'fill-color': 'var(--array-blue)', 
+                'fill-opacity': 0.45 
             }
         });
         map.addLayer({
             id: 'footprints_outline', type: 'line', source: 'topology',
             filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
             paint: { 
-                'line-color': ['match', ['get', 'type'], 'skid_footprint', '#00ffff', 'central_footprint', '#ff9900', '#000'], 
-                'line-width': 1 
+                'line-color': 'var(--accent)', 
+                'line-width': 2 
             }
         });
 
-        // Lines
+        // Lines (Orthogonal 33kV Rings)
         map.addLayer({
             id: 'rings', type: 'line', source: 'topology',
             filter: ['==', 'type', '33kv_ring'],
@@ -315,36 +314,68 @@
             }
         });
 
-        // --- DRAG AND DROP LOGIC ---
-        map.on('mousedown', 'nodes', (e) => {
+        // MapLibre Popups
+        map.on('click', 'nodes', function (e) {
+            if(isDragging) return; // Don't popup if we are dragging
+            const prop = e.features[0].properties;
+            const coords = e.features[0].geometry.coordinates.slice();
+            
+            if (prop.type === 'central_inverter') {
+                const html = `
+                    <div style="margin-bottom: 5px; color:#ff9900; font-weight:bold; font-size: 13px; text-transform:uppercase;">Central Block</div>
+                    <div class="popup-row"><span>ID:</span> <span class="popup-val">${prop.inv_id}</span></div>
+                    <div class="popup-row"><span>AC Rating:</span> <span class="popup-val">${prop.mwac} MWac</span></div>
+                    <div class="popup-row"><span>DC Capacity:</span> <span class="popup-val">${prop.mwp} MWp</span></div>
+                    <div class="popup-row"><span>DC/AC Ratio:</span> <span class="popup-val">${prop.dc_ac_ratio}</span></div>
+                    <div class="popup-row"><span>Req. Strings:</span> <span class="popup-val">${prop.req_strings}</span></div>
+                    <div class="popup-row"><span>Req. Combiners:</span> <span class="popup-val">${prop.req_cbs}</span></div>
+                `;
+                new maplibregl.Popup().setLngLat(coords).setHTML(html).addTo(map);
+            }
+        });
+
+        // --- DRAG AND DROP EVENT LISTENERS (Mouse + Touch) ---
+        function startDrag(e) {
             if (!e.features || e.features.length === 0) return;
-            e.preventDefault(); // Prevent default map panning
+            if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches.length > 1) return; // Ignore multi-touch
+            
+            e.preventDefault(); 
             isDragging = true;
             draggedNodeId = e.features[0].properties.id;
             map.getCanvas().style.cursor = 'grabbing';
             map.dragPan.disable();
-        });
+        }
 
-        map.on('mousemove', (e) => {
+        function onDrag(e) {
             if (!isDragging || !draggedNodeId) return;
             
-            // Find the node in state and update its coordinates
             const node = topologyState.nodes.find(n => n.id === draggedNodeId);
             if (node) {
                 node.coords = [e.lngLat.lng, e.lngLat.lat];
-                renderTopology(); // Instantly redraw everything attached to it
+                renderTopology(); 
             }
-        });
+        }
 
-        map.on('mouseup', () => {
+        function stopDrag() {
             if (!isDragging) return;
             isDragging = false;
             draggedNodeId = null;
             map.getCanvas().style.cursor = '';
             map.dragPan.enable();
-        });
+        }
 
-        // Change cursor on hover to indicate interactability
+        // Mouse Events
+        map.on('mousedown', 'nodes', startDrag);
+        map.on('mousemove', onDrag);
+        map.on('mouseup', stopDrag);
+        
+        // Mobile Touch Events
+        map.on('touchstart', 'nodes', startDrag);
+        map.on('touchmove', onDrag);
+        map.on('touchend', stopDrag);
+        map.on('touchcancel', stopDrag);
+
+        // Hover styling
         map.on('mouseenter', 'nodes', () => { if(!isDragging) map.getCanvas().style.cursor = 'grab'; });
         map.on('mouseleave', 'nodes', () => { if(!isDragging) map.getCanvas().style.cursor = ''; });
 
@@ -380,7 +411,7 @@
             legend.innerHTML = `
                 <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
                 <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> String Inverter Skid</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--footprint); border-color:var(--accent);"></div> Physical Substation Footprint</div>
+                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Solar Array Footprint</div>
                 <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring (Rubber Band)</div>
             `;
         } else {
@@ -388,7 +419,8 @@
                 <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
                 <div class="legend-item"><div class="swatch" style="background:#aa00ff;"></div> MV Station</div>
                 <div class="legend-item"><div class="swatch" style="background:var(--accent-alt);"></div> Central Inverter Block</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--footprint-alt); border-color:var(--accent-alt);"></div> Rectangular Block Footprint</div>
+                <div class="legend-item"><div class="swatch" style="background:#ccc; width:6px; height:6px; border-radius:50%;"></div> Combiner Box</div>
+                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Solar Array Footprint</div>
                 <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring (Rubber Band)</div>
             `;
         }
@@ -564,7 +596,7 @@
                         
                         let invId = `cinv-${r}-${mv}-${inv}`;
                         topologyState.nodes.push({
-                            id: invId, type: 'central_inverter', coords: inv_coord, props: { area: stats.footprint_ground_m2 }
+                            id: invId, type: 'central_inverter', coords: inv_coord, props: { area: stats.footprint_ground_m2, mwac: stats.inv_ac_mw, mwp: stats.inv_dc_mwp.toFixed(2), dc_ac_ratio: stats.dc_ac_ratio, req_strings: stats.req_strings, req_cbs: stats.req_cbs, mv_id: `MV-${r+1}-${mv+1}`, ring_id: `Ring-${r+1}` }
                         });
                     }
                 }
@@ -603,7 +635,7 @@
 
         // 3. Draw the Nodes last so they sit on top and are easily draggable
         topologyState.nodes.forEach(node => {
-            let props = { id: node.id, type: node.type };
+            let props = { id: node.id, type: node.type, ...node.props };
             features.push(turf.point(node.coords, props));
         });
 

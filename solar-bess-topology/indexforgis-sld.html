@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GIS-SLD Topology Engine</title>
+    <title>GIS-SLD Topology Engine | Blank Canvas</title>
     
     <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
@@ -72,6 +72,22 @@
 
         .input-group input:focus { border-color: var(--accent); outline: none; }
 
+        .search-box {
+            display: flex; gap: 5px; margin-bottom: 15px;
+        }
+
+        .search-box input {
+            flex: 1; background: #111; color: #fff; border: 1px solid #444; 
+            padding: 8px; border-radius: 3px; font-family: monospace; font-size: 12px;
+        }
+
+        .search-box button {
+            background: #222; color: var(--accent); border: 1px solid var(--accent); 
+            padding: 8px 12px; border-radius: 3px; cursor: pointer; font-family: monospace; font-weight: bold;
+        }
+
+        .search-box button:hover { background: var(--accent); color: #000; }
+
         .stat-box { 
             background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); 
             padding: 15px; border-radius: 3px; margin-top: 15px; 
@@ -86,7 +102,7 @@
         .stat-val.cyan { color: var(--accent); font-size: 16px; }
 
         .btn { 
-            padding: 12px; background: var(--bg); color: var(--ok); 
+            padding: 12px; background: #000; color: var(--ok); 
             border: 1px solid var(--ok); cursor: pointer; font-family: monospace; 
             font-weight: bold; text-transform: uppercase; border-radius: 3px; 
             margin-top: 15px; width: 100%; transition: 0.2s;
@@ -95,6 +111,13 @@
         .btn:hover { background: var(--ok); color: #000; }
 
         #map { width: 100%; height: 100%; }
+
+        .crosshair {
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); 
+            color: var(--accent); font-size: 24px; pointer-events: none; 
+            z-index: 10; text-shadow: 0 0 5px #000;
+        }
 
         .legend { 
             position: absolute; bottom: 20px; left: 20px; 
@@ -112,6 +135,11 @@
     <div class="panel panel-left">
         <h2>GIS-SLD Engine</h2>
         <p style="font-size: 11px; color: var(--muted); margin-top: 0;">Parametric Substrate Generator.</p>
+
+        <div class="search-box">
+            <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." onkeydown="if(event.key === 'Enter') searchLocation()">
+            <button onclick="searchLocation()">FLY</button>
+        </div>
 
         <h3>Module Specs</h3>
         <div class="input-group">
@@ -151,80 +179,90 @@
             </div>
         </div>
 
-        <button class="btn" onclick="exportGeoJSON()">Export GeoJSON</button>
+        <button class="btn" style="color: var(--accent); border-color: var(--accent);" onclick="triggerDrawAtCenter()">⌖ DRAW AT CROSSHAIR</button>
+        <button class="btn" style="margin-top: 8px;" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
     </div>
 
     <div class="panel panel-right">
+        <div class="crosshair">⌖</div>
         <div id="map"></div>
+        
         <div class="legend">
-            <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> 400kV Primary Sub</div>
-            <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> Inverter Skid (5MW)</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> Inverter Skid</div>
             <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring</div>
         </div>
     </div>
 </div>
 
 <script>
-    // Initialize Carto Dark Matter Map
+    // Initialize Carto Dark Matter Map - Centered on London by Default
     const map = new maplibregl.Map({
         container: 'map',
         style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-        center: [0.9350, 51.3340], // Cleve Hill coordinates
-        zoom: 14.5
+        center: [-0.1276, 51.5072], // London
+        zoom: 12
     });
 
     let currentGeoJSON = { type: "FeatureCollection", features: [] };
+    let activeDrawCenter = null; // Stores the coordinate where the array is currently anchored
 
     map.on('load', () => {
         map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
 
         // Draw 33kV Rings (Lines)
         map.addLayer({
-            id: 'rings',
-            type: 'line',
-            source: 'topology',
+            id: 'rings', type: 'line', source: 'topology',
             filter: ['==', 'type', '33kv_ring'],
-            paint: {
-                'line-color': '#00ffff',
-                'line-width': 2,
-                'line-dasharray': [2, 2]
-            }
+            paint: { 'line-color': '#00ffff', 'line-width': 2, 'line-dasharray': [2, 2] }
         });
 
         // Draw Inverter Skids (Points)
         map.addLayer({
-            id: 'inverters',
-            type: 'circle',
-            source: 'topology',
+            id: 'inverters', type: 'circle', source: 'topology',
             filter: ['==', 'type', 'inverter'],
-            paint: {
-                'circle-color': '#ffff00',
-                'circle-radius': 5,
-                'circle-stroke-color': '#000',
-                'circle-stroke-width': 1
-            }
+            paint: { 'circle-color': '#ffff00', 'circle-radius': 5, 'circle-stroke-color': '#000', 'circle-stroke-width': 1 }
         });
 
         // Draw Primary Substation (Point)
         map.addLayer({
-            id: 'substation',
-            type: 'circle',
-            source: 'topology',
+            id: 'substation', type: 'circle', source: 'topology',
             filter: ['==', 'type', 'primary_sub'],
-            paint: {
-                'circle-color': '#ff3333',
-                'circle-radius': 9,
-                'circle-stroke-color': '#fff',
-                'circle-stroke-width': 2
-            }
+            paint: { 'circle-color': '#ff3333', 'circle-radius': 9, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 }
         });
 
-        // Initialize math and drawing
-        computeAndDraw();
+        // Update the numbers on load, but don't draw until user clicks the button
+        updateAggregatesOnly();
     });
 
-    function computeAndDraw() {
-        // Parse inputs
+    // --- GEOCODER FUNCTION ---
+    async function searchLocation() {
+        const query = document.getElementById('loc_search').value;
+        if (!query) return;
+        try {
+            // Using OpenStreetMap's free Nominatim API
+            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`);
+            const data = await res.json();
+            if (data && data.length > 0) {
+                const lon = parseFloat(data[0].lon);
+                const lat = parseFloat(data[0].lat);
+                map.flyTo({ center: [lon, lat], zoom: 14 });
+            } else {
+                alert("Location not found. Try a broader search term.");
+            }
+        } catch (e) {
+            console.error("Geocoding error:", e);
+        }
+    }
+
+    // --- DRAWING LOGIC ---
+    function triggerDrawAtCenter() {
+        // Grab the exact lat/lon sitting under the crosshair
+        activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
+        computeAndDraw();
+    }
+
+    function updateAggregatesOnly() {
         const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
         const x = parseInt(document.getElementById('x_mods').value) || 0;
         const z = parseInt(document.getElementById('z_strings').value) || 0;
@@ -232,24 +270,33 @@
         const s = parseInt(document.getElementById('s_subs').value) || 0;
         const rings = parseInt(document.getElementById('b_cols').value) || 0;
 
-        // Calculate aggregates
         const total_invs = rings * s * y;
         const total_mw = (total_invs * z * x * mod_wp) / 1000000;
 
-        // Update UI
         document.getElementById('out_invs').textContent = total_invs;
         document.getElementById('out_subs').textContent = rings * s;
         document.getElementById('out_mw').textContent = total_mw.toFixed(2) + " MWp";
+    }
 
-        // Generate GeoJSON Features
+    function computeAndDraw() {
+        updateAggregatesOnly();
+
+        // If user hasn't clicked "DRAW" yet, don't draw anything.
+        if (!activeDrawCenter) return;
+
+        const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
+        const x = parseInt(document.getElementById('x_mods').value) || 0;
+        const z = parseInt(document.getElementById('z_strings').value) || 0;
+        const y = parseInt(document.getElementById('y_invs').value) || 0;
+        const s = parseInt(document.getElementById('s_subs').value) || 0;
+        const rings = parseInt(document.getElementById('b_cols').value) || 0;
+
         let features = [];
-        const center = [0.9350, 51.3340]; // Base coordinate
-
-        // 1. Primary Substation Node
-        features.push(turf.point(center, { 
+        
+        // 1. Drop Primary Substation Node at the locked center
+        features.push(turf.point(activeDrawCenter, { 
             type: 'primary_sub', 
-            name: 'Primary Grid Connection',
-            system_capacity_mwp: total_mw.toFixed(2)
+            name: 'Primary Grid Connection'
         }));
 
         const radiusStep = 0.25; // Base radial expansion step in km
@@ -257,18 +304,16 @@
         
         // 2. Build the radial arrays
         for (let r = 0; r < rings; r++) {
-            let ringCoords = [center];
+            let ringCoords = [activeDrawCenter];
             
             for (let sub = 0; sub < s; sub++) {
-                // Radial math to space nodes out for schematic visibility
                 const angle = (r * (360 / rings)) + (sub * (120 / s));
                 const distance = radiusStep * (sub + 1);
                 
-                // Turf.js coordinate generation
-                const destination = turf.destination(turf.point(center), distance, angle, {units: 'kilometers'});
+                // Turf.js coordinate generation based on the activeDrawCenter
+                const destination = turf.destination(turf.point(activeDrawCenter), distance, angle, {units: 'kilometers'});
                 const coords = destination.geometry.coordinates;
                 
-                // Add Inverter Skid Node
                 features.push(turf.point(coords, { 
                     type: 'inverter', 
                     ring_id: `Ring-${r+1}`,
@@ -278,10 +323,8 @@
                 
                 ringCoords.push(coords);
             }
-            // Close the collection ring back to the substation
-            ringCoords.push(center);
+            ringCoords.push(activeDrawCenter); // Close the ring
             
-            // Add the 33kV Trench Route
             features.push(turf.lineString(ringCoords, { 
                 type: '33kv_ring', 
                 ring_id: `Ring-${r+1}` 
@@ -290,13 +333,16 @@
 
         currentGeoJSON = turf.featureCollection(features);
         
-        // Push updates to MapLibre
         if (map.getSource('topology')) {
             map.getSource('topology').setData(currentGeoJSON);
         }
     }
 
     function exportGeoJSON() {
+        if (currentGeoJSON.features.length === 0) {
+            alert("Nothing to export. Click 'DRAW AT CROSSHAIR' first.");
+            return;
+        }
         const blob = new Blob([JSON.stringify(currentGeoJSON, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -308,8 +354,9 @@
         URL.revokeObjectURL(url);
     }
 
-    // Bind event listeners to input fields
-    document.querySelectorAll('input').forEach(input => {
+    // Bind event listeners to input fields so the MWp updates instantly, 
+    // and if a shape is drawn, it resizes instantly in place.
+    document.querySelectorAll('.input-group input').forEach(input => {
         input.addEventListener('input', computeAndDraw);
     });
 </script>

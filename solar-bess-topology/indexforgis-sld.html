@@ -77,7 +77,7 @@
         .popup-val { font-weight: bold; color: var(--accent-alt); }
 
         @media (max-width: 800px) {
-            body { height: auto; overflow: auto; padding: 10px; }
+            body { height: auto; overflow: auto; padding: 10px; touch-action: auto; }
             .dashboard { flex-direction: column; height: auto; }
             .panel-left { width: 100%; max-height: none; flex-shrink: 0; }
             .panel-right { min-height: 80vh; flex-shrink: 0; } 
@@ -272,12 +272,12 @@
     map.on('load', () => {
         map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
 
-        // Polygons (Solar Array Blue Heatmap)
+        // Polygons (Solar Array Blue Heatmap - Hardcoded Hex for WebGL support)
         map.addLayer({
             id: 'footprints', type: 'fill', source: 'topology',
             filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
             paint: { 
-                'fill-color': 'var(--array-blue)', 
+                'fill-color': '#0066ff', 
                 'fill-opacity': 0.45 
             }
         });
@@ -285,7 +285,7 @@
             id: 'footprints_outline', type: 'line', source: 'topology',
             filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
             paint: { 
-                'line-color': 'var(--accent)', 
+                'line-color': '#00ffff', 
                 'line-width': 2 
             }
         });
@@ -297,33 +297,34 @@
             paint: { 'line-color': '#00ffff', 'line-width': 2, 'line-dasharray': [2, 2] }
         });
 
-        // Nodes
+        // Nodes (Combiner Boxes)
         map.addLayer({
             id: 'combiner_boxes', type: 'circle', source: 'topology',
             filter: ['==', 'type', 'combiner_box'],
-            paint: { 'circle-color': '#cccccc', 'circle-radius': 2 }
+            paint: { 'circle-color': '#cccccc', 'circle-radius': 3 }
         });
 
+        // Enlarged node radiuses for easier touch grabbing
         map.addLayer({
             id: 'nodes', type: 'circle', source: 'topology',
             filter: ['in', 'type', 'inverter', 'central_inverter', 'mv_station', 'primary_sub'],
             paint: { 
                 'circle-color': ['match', ['get', 'type'], 'inverter', '#ffff00', 'central_inverter', '#ff9900', 'mv_station', '#aa00ff', 'primary_sub', '#ff3333', '#fff'], 
-                'circle-radius': ['match', ['get', 'type'], 'inverter', 4, 'central_inverter', 6, 'mv_station', 5, 'primary_sub', 8, 4], 
+                'circle-radius': ['match', ['get', 'type'], 'inverter', 8, 'central_inverter', 10, 'mv_station', 8, 'primary_sub', 10, 8], 
                 'circle-stroke-color': '#fff', 'circle-stroke-width': 1 
             }
         });
 
         // MapLibre Popups
         map.on('click', 'nodes', function (e) {
-            if(isDragging) return; // Don't popup if we are dragging
+            if(isDragging) return; 
             const prop = e.features[0].properties;
             const coords = e.features[0].geometry.coordinates.slice();
             
             if (prop.type === 'central_inverter') {
                 const html = `
                     <div style="margin-bottom: 5px; color:#ff9900; font-weight:bold; font-size: 13px; text-transform:uppercase;">Central Block</div>
-                    <div class="popup-row"><span>ID:</span> <span class="popup-val">${prop.inv_id}</span></div>
+                    <div class="popup-row"><span>ID:</span> <span class="popup-val">${prop.id}</span></div>
                     <div class="popup-row"><span>AC Rating:</span> <span class="popup-val">${prop.mwac} MWac</span></div>
                     <div class="popup-row"><span>DC Capacity:</span> <span class="popup-val">${prop.mwp} MWp</span></div>
                     <div class="popup-row"><span>DC/AC Ratio:</span> <span class="popup-val">${prop.dc_ac_ratio}</span></div>
@@ -337,7 +338,7 @@
         // --- DRAG AND DROP EVENT LISTENERS (Mouse + Touch) ---
         function startDrag(e) {
             if (!e.features || e.features.length === 0) return;
-            if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches.length > 1) return; // Ignore multi-touch
+            if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches.length > 1) return; 
             
             e.preventDefault(); 
             isDragging = true;
@@ -364,18 +365,15 @@
             map.dragPan.enable();
         }
 
-        // Mouse Events
         map.on('mousedown', 'nodes', startDrag);
         map.on('mousemove', onDrag);
         map.on('mouseup', stopDrag);
         
-        // Mobile Touch Events
         map.on('touchstart', 'nodes', startDrag);
         map.on('touchmove', onDrag);
         map.on('touchend', stopDrag);
         map.on('touchcancel', stopDrag);
 
-        // Hover styling
         map.on('mouseenter', 'nodes', () => { if(!isDragging) map.getCanvas().style.cursor = 'grab'; });
         map.on('mouseleave', 'nodes', () => { if(!isDragging) map.getCanvas().style.cursor = ''; });
 
@@ -443,7 +441,6 @@
         generateTopology();
     }
 
-    // Abstract Rectangular Footprint Generator
     function getRectFootprint(centerCoord, area_m2, propType) {
         const area_km2 = area_m2 / 1000000;
         const aspect = 1.4; 
@@ -464,7 +461,6 @@
         return poly;
     }
 
-    // Calculate electrical inputs, return stats, and inject HTML into the global box
     function updateAggregatesOnly() {
         const statBox = document.getElementById('global_stat_box');
         
@@ -542,7 +538,6 @@
         }
     }
 
-    // Populate the State Arrays so they can be manipulated
     function generateTopology() {
         if (!topologyState.center) return;
         const stats = updateAggregatesOnly();
@@ -608,12 +603,10 @@
         renderTopology();
     }
 
-    // Build GeoJSON from State and measure lines dynamically
     function renderTopology() {
         let features = [];
         let totalTrenchLengthKm = 0;
 
-        // 1. Draw Bounding Footprints for Inverters first so they sit under the nodes
         topologyState.nodes.forEach(node => {
             if (node.type === 'inverter' || node.type === 'central_inverter') {
                 let propType = node.type === 'inverter' ? 'skid_footprint' : 'central_footprint';
@@ -621,19 +614,15 @@
             }
         });
 
-        // 2. Draw 33kV Rings directly between the nodes
         topologyState.rings.forEach(ring => {
             let lineCoords = ring.nodes.map(id => {
                 return topologyState.nodes.find(n => n.id === id).coords;
             });
             let lineString = turf.lineString(lineCoords, { type: '33kv_ring', ring_id: ring.id });
             features.push(lineString);
-            
-            // Auto-estimate new cable distance!
             totalTrenchLengthKm += turf.length(lineString, { units: 'kilometers' });
         });
 
-        // 3. Draw the Nodes last so they sit on top and are easily draggable
         topologyState.nodes.forEach(node => {
             let props = { id: node.id, type: node.type, ...node.props };
             features.push(turf.point(node.coords, props));
@@ -642,7 +631,6 @@
         currentGeoJSON = turf.featureCollection(features);
         if (map.getSource('topology')) map.getSource('topology').setData(currentGeoJSON);
 
-        // Update the Trench Length live on the HUD
         let trenchElem = document.getElementById('hud_trench');
         if (trenchElem) {
             trenchElem.textContent = (totalTrenchLengthKm * 1000).toFixed(0) + " m";

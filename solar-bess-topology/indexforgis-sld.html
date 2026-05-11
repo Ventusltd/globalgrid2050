@@ -14,7 +14,7 @@
             --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
             --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --accent-alt: #ff9900;
             --ok: #00ff88; --substation: #ff3333; --inverter: #ffff00; 
-            --footprint: rgba(0, 255, 255, 0.15); --footprint-alt: rgba(255, 153, 0, 0.15);
+            --footprint: rgba(0, 255, 255, 0.12); --footprint-alt: rgba(255, 153, 0, 0.12);
             --warn: #ff4444;
         }
         * { box-sizing: border-box; }
@@ -71,7 +71,7 @@
         .legend-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
         .swatch { width: 12px; height: 12px; border: 1px solid #666; }
 
-        /* MapLibre Popup Styling override */
+        /* MapLibre Popup */
         .maplibregl-popup-content { background: #111; color: #fff; border: 1px solid #444; border-radius: 4px; font-family: "Courier New", monospace; padding: 12px; font-size: 11px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .maplibregl-popup-close-button { color: #888; padding: 4px; }
         .maplibregl-popup-close-button:hover { color: #fff; }
@@ -83,7 +83,8 @@
             body { height: auto; overflow: auto; padding: 10px; }
             .dashboard { flex-direction: column; height: auto; }
             .panel-left { width: 100%; max-height: none; flex-shrink: 0; }
-            .panel-right { min-height: 75vh; flex-shrink: 0; } 
+            /* Force the map to be large enough to read the attribution */
+            .panel-right { min-height: 80vh; flex-shrink: 0; } 
         }
     </style>
 </head>
@@ -245,7 +246,7 @@
                 </div>
             </div>
             <div class="input-group">
-                <label>Draw Combiner Boxes (Map)</label>
+                <label>Draw Combiner Boxes</label>
                 <input type="checkbox" id="show_cb_c" />
             </div>
 
@@ -290,13 +291,13 @@
     map.on('load', () => {
         map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
 
-        // Polygons (Footprints)
+        // Polygons (Rectangular Footprints)
         map.addLayer({
             id: 'footprints', type: 'fill', source: 'topology',
             filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
             paint: { 
                 'fill-color': ['match', ['get', 'type'], 'skid_footprint', '#00ffff', 'central_footprint', '#ff9900', '#000'], 
-                'fill-opacity': 0.15 
+                'fill-opacity': 0.12 
             }
         });
         map.addLayer({
@@ -308,7 +309,7 @@
             }
         });
 
-        // Lines (33kV Rings)
+        // Lines (Orthogonal 33kV Rings)
         map.addLayer({
             id: 'rings', type: 'line', source: 'topology',
             filter: ['==', 'type', '33kv_ring'],
@@ -340,7 +341,7 @@
             paint: { 'circle-color': '#ff3333', 'circle-radius': 8, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 }
         });
 
-        // MapLibre Popups for Central Inverter nodes
+        // Popups
         map.on('click', 'inverters', function (e) {
             const prop = e.features[0].properties;
             const coords = e.features[0].geometry.coordinates.slice();
@@ -361,7 +362,6 @@
             }
         });
 
-        // Change cursor on hover
         map.on('mouseenter', 'inverters', () => { map.getCanvas().style.cursor = 'pointer'; });
         map.on('mouseleave', 'inverters', () => { map.getCanvas().style.cursor = ''; });
 
@@ -377,11 +377,8 @@
         document.getElementById('central_tab').classList.toggle('active', tab === 'central');
         
         const btnDraw = document.getElementById('btn_draw');
-        if (tab === 'central') {
-            btnDraw.classList.add('central');
-        } else {
-            btnDraw.classList.remove('central');
-        }
+        if (tab === 'central') { btnDraw.classList.add('central'); } 
+        else { btnDraw.classList.remove('central'); }
         
         updateLegend();
         computeAndDraw();
@@ -393,8 +390,8 @@
             legend.innerHTML = `
                 <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
                 <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> String Inverter Skid</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--footprint); border-color:var(--accent);"></div> Physical Substation Footprint (Acres)</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring</div>
+                <div class="legend-item"><div class="swatch" style="background:var(--footprint); border-color:var(--accent);"></div> Physical Substation Footprint</div>
+                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> Orthogonal 33kV Collection Ring</div>
             `;
         } else {
             legend.innerHTML = `
@@ -402,8 +399,8 @@
                 <div class="legend-item"><div class="swatch" style="background:#aa00ff;"></div> MV Station</div>
                 <div class="legend-item"><div class="swatch" style="background:var(--accent-alt);"></div> Central Inverter Block</div>
                 <div class="legend-item"><div class="swatch" style="background:#ccc; width:6px; height:6px; border-radius:50%;"></div> Combiner Box</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--footprint-alt); border-color:var(--accent-alt);"></div> Approx. Block Footprint</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring</div>
+                <div class="legend-item"><div class="swatch" style="background:var(--footprint-alt); border-color:var(--accent-alt);"></div> Rectangular Block Footprint</div>
+                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> Orthogonal 33kV Collection Ring</div>
             `;
         }
     }
@@ -430,7 +427,6 @@
         return updateCentralAggregates();
     }
 
-    // --- STRING MATH ---
     function updateStringAggregates() {
         const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
         const x = parseInt(document.getElementById('x_mods').value) || 0;
@@ -471,7 +467,6 @@
         return { sub_ground_area_m2, rings, s, z, x, y, mod_wp };
     }
 
-    // --- CENTRAL MATH ---
     function updateCentralAggregates() {
         const mod_wp = parseFloat(document.getElementById('mod_wp_c').value) || 0;
         const mod_l = parseFloat(document.getElementById('mod_l_c').value) || 0;
@@ -487,7 +482,6 @@
         const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
         const rings = parseInt(document.getElementById('rings_c').value) || 0;
 
-        // Core Physics
         const str_dc_kwp = (x_mods * mod_wp) / 1000;
         const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
         const req_strings = Math.round((inv_dc_mwp * 1000) / str_dc_kwp);
@@ -505,7 +499,6 @@
         const footprint_acres = footprint_ground_m2 / 4046.86;
         const total_array_acres = footprint_acres * total_invs;
 
-        // Update UI
         document.getElementById('out_c_invs').textContent = total_invs;
         document.getElementById('out_c_mwac').textContent = total_ac_mwac.toFixed(2) + " MWac";
         document.getElementById('out_c_mwp').textContent = total_dc_mwp.toFixed(2) + " MWp";
@@ -517,7 +510,27 @@
         return { footprint_ground_m2, rings, mv_per_ring, inv_per_mv, req_cbs, req_strings, inv_ac_mw, inv_dc_mwp, dc_ac_ratio };
     }
 
-    // --- DRAWING LOGIC ---
+    // Generate oriented rectangular footprint
+    function getRectFootprint(centerCoord, area_m2, propType) {
+        const area_km2 = area_m2 / 1000000;
+        const aspect = 1.4; // L:W ratio for realism
+        const width_km = Math.sqrt(area_km2 / aspect);
+        const length_km = width_km * aspect;
+        
+        const pt = turf.point(centerCoord);
+        const n = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
+        const s = turf.destination(pt, length_km/2, 180, {units: 'kilometers'}).geometry.coordinates;
+        
+        const nw = turf.destination(turf.point(n), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
+        const ne = turf.destination(turf.point(n), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
+        const se = turf.destination(turf.point(s), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
+        const sw = turf.destination(turf.point(s), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
+        
+        const poly = turf.polygon([[nw, ne, se, sw, nw]]);
+        poly.properties = { type: propType };
+        return poly;
+    }
+
     function computeAndDraw() {
         if (activeTab === 'string') drawString();
         else drawCentral();
@@ -536,20 +549,26 @@
         
         for (let r = 0; r < stats.rings; r++) {
             let ringCoords = [activeDrawCenter];
+            let prevCoord = activeDrawCenter;
+
             for (let sub = 0; sub < stats.s; sub++) {
                 const angle = (r * (360 / stats.rings)) + (sub * (120 / stats.s));
                 const distance = radiusStep * (sub + 1) + 0.1; 
+                const coords = turf.destination(turf.point(activeDrawCenter), distance, angle, {units: 'kilometers'}).geometry.coordinates;
                 
-                const destination = turf.destination(turf.point(activeDrawCenter), distance, angle, {units: 'kilometers'});
-                const coords = destination.geometry.coordinates;
-                
-                const footprint = turf.circle(coords, sub_radius_km, {steps: 32, units: 'kilometers'});
-                footprint.properties = { type: 'skid_footprint' };
-                features.push(footprint);
-
+                // Draw Rectangular Block
+                features.push(getRectFootprint(coords, stats.sub_ground_area_m2, 'skid_footprint'));
                 features.push(turf.point(coords, { type: 'inverter', capacity_mw: capacityPerSub }));
+                
+                // Orthogonal Routing (Fishbone)
+                let corner1 = [prevCoord[0], coords[1]]; 
+                ringCoords.push(corner1);
                 ringCoords.push(coords);
+                prevCoord = coords;
             }
+            
+            let cornerEnd = [prevCoord[0], activeDrawCenter[1]];
+            ringCoords.push(cornerEnd);
             ringCoords.push(activeDrawCenter);
             features.push(turf.lineString(ringCoords, { type: '33kv_ring' }));
         }
@@ -566,41 +585,36 @@
         const export_kv = document.getElementById('export_kv_c').value;
 
         let features = [];
-        // Primary Sub
-        features.push(turf.point(activeDrawCenter, { 
-            type: 'primary_sub', 
-            name: `Primary Substation (${export_kv}kV)` 
-        }));
+        features.push(turf.point(activeDrawCenter, { type: 'primary_sub', name: `Primary Substation (${export_kv}kV)` }));
 
         const footprint_radius_km = Math.sqrt(stats.footprint_ground_m2 / Math.PI) / 1000;
-        const radiusStep = footprint_radius_km * 4; // Space out rings
+        const radiusStep = footprint_radius_km * 3.5; 
         
         for (let r = 0; r < stats.rings; r++) {
             let ringCoords = [activeDrawCenter];
+            let prevCoord = activeDrawCenter;
             
             for (let mv = 0; mv < stats.mv_per_ring; mv++) {
                 const angle_mv = (r * (360 / stats.rings)) + (mv * (360 / stats.mv_per_ring) / stats.rings);
                 const dist_mv = radiusStep * (mv + 1) + 0.2; 
-                
                 const mv_coord = turf.destination(turf.point(activeDrawCenter), dist_mv, angle_mv, {units: 'kilometers'}).geometry.coordinates;
                 
-                // Add MV Station
                 features.push(turf.point(mv_coord, { type: 'mv_station', name: `MV Station ${r+1}-${mv+1}` }));
+                
+                // Orthogonal Routing
+                let corner1 = [prevCoord[0], mv_coord[1]]; 
+                ringCoords.push(corner1);
                 ringCoords.push(mv_coord);
+                prevCoord = mv_coord;
 
-                // Cluster Central Inverters around the MV Station
                 for (let inv = 0; inv < stats.inv_per_mv; inv++) {
                     const angle_inv = inv * (360 / stats.inv_per_mv);
                     const dist_inv = (stats.inv_per_mv > 1) ? (footprint_radius_km * 1.5) : 0;
-                    
                     const inv_coord = turf.destination(turf.point(mv_coord), dist_inv, angle_inv, {units: 'kilometers'}).geometry.coordinates;
 
-                    // Footprint Polygon
-                    const footprint = turf.circle(inv_coord, footprint_radius_km, {steps: 32, units: 'kilometers'});
-                    footprint.properties = { type: 'central_footprint' };
-                    features.push(footprint);
+                    // Draw Rectangular Block
+                    features.push(getRectFootprint(inv_coord, stats.footprint_ground_m2, 'central_footprint'));
 
-                    // Central Inverter Node (Populated for Popup)
                     features.push(turf.point(inv_coord, { 
                         type: 'central_inverter', 
                         inv_id: `CINV-R${r+1}-M${mv+1}-I${inv+1}`,
@@ -613,17 +627,18 @@
                         ring_id: `Ring-${r+1}`
                     }));
 
-                    // Combiner Boxes (Optional map clutter)
                     if (show_cb) {
                         for(let cb=0; cb < stats.req_cbs; cb++) {
                             const angle_cb = cb * (360 / stats.req_cbs);
-                            const dist_cb = footprint_radius_km * 0.7; // inside footprint
+                            const dist_cb = footprint_radius_km * 0.7; 
                             const cb_coord = turf.destination(turf.point(inv_coord), dist_cb, angle_cb, {units: 'kilometers'}).geometry.coordinates;
                             features.push(turf.point(cb_coord, { type: 'combiner_box' }));
                         }
                     }
                 }
             }
+            let cornerEnd = [prevCoord[0], activeDrawCenter[1]];
+            ringCoords.push(cornerEnd);
             ringCoords.push(activeDrawCenter);
             features.push(turf.lineString(ringCoords, { type: '33kv_ring', ring_id: `Ring-${r+1}` }));
         }
@@ -641,7 +656,6 @@
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
     }
 
-    // Attach listeners
     document.querySelectorAll('.input-group input, .input-group select').forEach(el => {
         el.addEventListener('input', computeAndDraw);
     });

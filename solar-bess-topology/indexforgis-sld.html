@@ -78,11 +78,12 @@
         .popup-row { display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid #222; padding-bottom: 2px; gap: 15px; }
         .popup-val { font-weight: bold; color: var(--accent-alt); }
 
+        /* UPDATED MOBILE/PORTRAIT CSS */
         @media (max-width: 800px) {
-            .dashboard { flex-direction: column; overflow-y: auto; }
-            .panel-left { width: 100%; max-height: 50vh; flex-shrink: 0; }
-            .panel-right { min-height: 50vh; flex: 1 1 auto; }
-            body { overflow: auto; }
+            body { height: auto; overflow: auto; padding: 10px; }
+            .dashboard { flex-direction: column; height: auto; }
+            .panel-left { width: 100%; max-height: none; flex-shrink: 0; }
+            .panel-right { min-height: 75vh; flex-shrink: 0; } 
         }
     </style>
 </head>

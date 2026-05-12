@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>GIS-SLD Topology Engine | Touch & Heatmap</title>
+    <title>GIS-SLD Topology Engine | Techno-Commercial Scoping</title>
     
     <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
@@ -14,20 +14,23 @@
             --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
             --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --accent-alt: #ff9900;
             --ok: #00ff88; --substation: #ff3333; --array-blue: #0066ff;
-            --warn: #ff4444;
+            --warn: #ff4444; --finance: #00ff88;
         }
         * { box-sizing: border-box; }
         body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; height: 100vh; overflow: hidden; touch-action: none; }
         
         .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1600px; height: 100%; }
         .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; display: flex; flex-direction: column; }
-        .panel-left { width: 420px; padding: 20px; flex-shrink: 0; overflow-y: auto; }
+        .panel-left { width: 440px; padding: 20px; flex-shrink: 0; overflow-y: auto; }
         .panel-right { flex: 1 1 auto; position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
         
         h2 { margin: 0 0 10px 0; color: var(--text); font-size: 18px; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
         h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform: uppercase; border-bottom: 1px dashed #333; padding-bottom: 3px; }
         
-        /* Tabs */
+        details { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 3px; background: rgba(255,255,255,0.02); }
+        summary { padding: 10px; font-size: 12px; font-weight: bold; cursor: pointer; color: var(--accent); text-transform: uppercase; outline: none; }
+        .details-content { padding: 10px; border-top: 1px solid var(--line); }
+
         .tab-container { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 15px; }
         .tab-btn { flex: 1; padding: 10px 5px; background: transparent; color: var(--muted); border: none; cursor: pointer; font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
         .tab-btn:hover { color: var(--text); }
@@ -35,9 +38,8 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* Inputs & Stats */
         .input-group { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-        .input-group input, .input-group select { width: 100px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
+        .input-group input, .input-group select { width: 90px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
         .tab-content#central_tab .input-group input, .tab-content#central_tab .input-group select { color: var(--accent-alt); }
         .input-group select { text-align: left; }
         .input-group input:focus, .input-group select:focus { border-color: var(--text); outline: none; }
@@ -46,7 +48,6 @@
         .search-box { display: flex; gap: 5px; margin-bottom: 15px; }
         .search-box input { flex: 1; background: #111; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 3px; font-family: monospace; font-size: 12px; }
         .search-box button { background: #222; color: var(--text); border: 1px solid #555; padding: 8px 12px; border-radius: 3px; cursor: pointer; font-family: monospace; font-weight: bold; }
-        .search-box button:hover { background: #444; color: #fff; }
         
         .stat-box { background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); padding: 12px; border-radius: 3px; margin-top: 15px; }
         .stat-box.central { background: rgba(255, 153, 0, 0.05); border-color: var(--accent-alt); }
@@ -54,12 +55,12 @@
         .stat-val { color: var(--text); font-weight: bold; }
         .stat-val.cyan { color: var(--accent); font-size: 13px; }
         .stat-val.orange { color: var(--accent-alt); font-size: 13px; }
+        .stat-val.finance { color: var(--finance); font-size: 13px; }
         .stat-val.alert { color: #ffcc00; }
 
         .engineering-note { background: rgba(255, 68, 68, 0.1); border: 1px solid var(--warn); padding: 10px; border-radius: 3px; margin-top: 15px; font-size: 10px; color: #ff9999; line-height: 1.4; }
         
         .btn { padding: 10px; background: #000; color: var(--text); border: 1px solid #555; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; margin-top: 10px; width: 100%; transition: 0.2s; }
-        .btn:hover { background: #222; color: #fff; }
         .btn.draw-btn { color: var(--bg); background: var(--accent); border-color: var(--accent); }
         .btn.draw-btn.central { background: var(--accent-alt); border-color: var(--accent-alt); }
         
@@ -70,11 +71,9 @@
         .legend-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
         .swatch { width: 12px; height: 12px; border: 1px solid #666; }
 
-        .maplibregl-popup-content { background: #111; color: #fff; border: 1px solid #444; border-radius: 4px; font-family: "Courier New", monospace; padding: 12px; font-size: 11px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .maplibregl-popup-content { background: #111; color: #fff; border: 1px solid #444; border-radius: 4px; font-family: "Courier New", monospace; padding: 12px; font-size: 11px; }
         .maplibregl-popup-close-button { color: #888; padding: 4px; }
-        .maplibregl-popup-close-button:hover { color: #fff; }
         .popup-row { display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid #222; padding-bottom: 2px; gap: 15px; }
-        .popup-val { font-weight: bold; color: var(--accent-alt); }
 
         @media (max-width: 800px) {
             body { height: auto; overflow: auto; padding: 10px; touch-action: auto; }
@@ -101,141 +100,48 @@
         </div>
 
         <div id="string_tab" class="tab-content active">
-            <h3>Dimensions & Physics</h3>
-            <div class="input-group">
-                <label>Module Rating (Wp)</label>
-                <input type="number" id="mod_wp" value="660" />
-            </div>
-            <div class="input-group">
-                <label>Mod L x W (m)</label>
-                <div style="display: flex; gap: 4px;">
-                    <input type="number" id="mod_l" value="2.38" step="0.01" style="width: 45px;" />
-                    <input type="number" id="mod_w" value="1.30" step="0.01" style="width: 45px;" />
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Mounting & GCR</label>
-                <select id="mounting_type">
-                    <option value="0.75">East-West Dome (~75%)</option>
-                    <option value="0.45">Fixed Tilt South (~45%)</option>
-                    <option value="0.35">Tracker (~35%)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Power Factor (PF)</label>
-                <input type="number" id="pf_val" value="0.95" step="0.01" />
-            </div>
-
+            <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp" value="660" /></div>
+            <div class="input-group"><label>Mod L x W (m)</label><div style="display: flex; gap: 4px;"><input type="number" id="mod_l" value="2.38" step="0.01" style="width: 42px;" /><input type="number" id="mod_w" value="1.30" step="0.01" style="width: 42px;" /></div></div>
+            <div class="input-group"><label>Mounting & GCR</label><select id="mounting_type"><option value="0.75">East-West Dome (~75%)</option><option value="0.45">Fixed Tilt South (~45%)</option><option value="0.35">Tracker (~35%)</option></select></div>
+            <div class="input-group"><label>Power Factor (PF)</label><input type="number" id="pf_val" value="0.95" step="0.01" /></div>
             <h3>Array Hierarchy (String)</h3>
-            <div class="input-group">
-                <label>Mods / String</label>
-                <input type="number" id="x_mods" value="28" />
-            </div>
-            <div class="input-group">
-                <label>Strings / Inverter</label>
-                <input type="number" id="z_strings" value="18" />
-            </div>
-            <div class="input-group">
-                <label>Inverters / Sub</label>
-                <input type="number" id="y_invs" value="28" />
-            </div>
-            <div class="input-group">
-                <label>Subs / Ring</label>
-                <input type="number" id="s_subs" value="5" />
-            </div>
-            <div class="input-group">
-                <label>33kV Rings</label>
-                <input type="number" id="b_cols" value="6" />
-            </div>
+            <div class="input-group"><label>Mods / String</label><input type="number" id="x_mods" value="28" /></div>
+            <div class="input-group"><label>Strings / Inverter</label><input type="number" id="z_strings" value="18" /></div>
+            <div class="input-group"><label>Inverters / Sub</label><input type="number" id="y_invs" value="28" /></div>
+            <div class="input-group"><label>Subs / Ring</label><input type="number" id="s_subs" value="5" /></div>
+            <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" /></div>
         </div>
 
         <div id="central_tab" class="tab-content">
-            <h3>Dimensions & Physics</h3>
-            <div class="input-group">
-                <label>Module Rating (Wp)</label>
-                <input type="number" id="mod_wp_c" value="660" />
-            </div>
-            <div class="input-group">
-                <label>Mod L x W (m)</label>
-                <div style="display: flex; gap: 4px;">
-                    <input type="number" id="mod_l_c" value="2.38" step="0.01" style="width: 45px;" />
-                    <input type="number" id="mod_w_c" value="1.30" step="0.01" style="width: 45px;" />
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Mounting & GCR</label>
-                <select id="mounting_type_c">
-                    <option value="0.75">East-West Dome (~75%)</option>
-                    <option value="0.45" selected>Fixed Tilt South (~45%)</option>
-                    <option value="0.35">Tracker (~35%)</option>
-                </select>
-            </div>
-
+            <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp_c" value="660" /></div>
+            <div class="input-group"><label>Mod L x W (m)</label><div style="display: flex; gap: 4px;"><input type="number" id="mod_l_c" value="2.38" step="0.01" style="width: 42px;" /><input type="number" id="mod_w_c" value="1.30" step="0.01" style="width: 42px;" /></div></div>
+            <div class="input-group"><label>Mounting & GCR</label><select id="mounting_type_c"><option value="0.75">East-West Dome (~75%)</option><option value="0.45" selected>Fixed Tilt South (~45%)</option><option value="0.35">Tracker (~35%)</option></select></div>
             <h3>Array Hierarchy (Central)</h3>
-            <div class="input-group">
-                <label>Central AC Rating MWac</label>
-                <select id="inv_ac_mw_c">
-                    <option value="3.15">3.15 MWac</option>
-                    <option value="4.4" selected>4.40 MWac</option>
-                    <option value="4.6">4.60 MVA</option>
-                    <option value="5.0">5.00 MWac</option>
-                    <option value="6.25">6.25 MWac</option>
-                    <option value="6.8">6.80 MWac</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>DC/AC Ratio</label>
-                <input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" />
-            </div>
-            <div class="input-group">
-                <label>Modules / String</label>
-                <input type="number" id="x_mods_c" value="28" />
-            </div>
-            <div class="input-group">
-                <label>Strings / Combiner Box</label>
-                <input type="number" id="str_per_cb_c" value="24" />
-            </div>
-            <div class="input-group">
-                <label>Central Invs / MV Station</label>
-                <input type="number" id="inv_per_mv_c" value="1" />
-            </div>
-            <div class="input-group">
-                <label>MV Stations / 33kV Ring</label>
-                <input type="number" id="mv_per_ring_c" value="4" />
-            </div>
-            <div class="input-group">
-                <label>33kV Rings</label>
-                <input type="number" id="rings_c" value="4" />
-            </div>
-
-            <h3>Grid & Storage</h3>
-            <div class="input-group">
-                <label>Export Voltage (kV)</label>
-                <select id="export_kv_c">
-                    <option value="33">33 kV</option>
-                    <option value="132" selected>132 kV</option>
-                    <option value="275">275 kV</option>
-                    <option value="400">400 kV</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Optional BESS (MW / MWh)</label>
-                <div style="display: flex; gap: 4px;">
-                    <input type="number" id="bess_mw_c" placeholder="MW" style="width: 45px;" />
-                    <input type="number" id="bess_mwh_c" placeholder="MWh" style="width: 45px;" />
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Draw Combiners</label>
-                <input type="checkbox" id="show_cb_c" />
-            </div>
+            <div class="input-group"><label>Central AC Rating MWac</label><select id="inv_ac_mw_c"><option value="3.15">3.15 MWac</option><option value="4.4" selected>4.40 MWac</option><option value="4.6">4.60 MVA</option><option value="5.0">5.00 MWac</option><option value="6.25">6.25 MWac</option><option value="6.8">6.80 MWac</option></select></div>
+            <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" /></div>
+            <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" /></div>
+            <div class="input-group"><label>Strings / Combiner Box</label><input type="number" id="str_per_cb_c" value="24" /></div>
+            <div class="input-group"><label>Central Invs / MV Station</label><input type="number" id="inv_per_mv_c" value="1" /></div>
+            <div class="input-group"><label>MV Stations / 33kV Ring</label><input type="number" id="mv_per_ring_c" value="4" /></div>
+            <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" /></div>
+            <div class="input-group"><label>Draw Combiners</label><input type="checkbox" id="show_cb_c" /></div>
         </div>
+
+        <details>
+            <summary>► Electrical & Financial Model Inputs</summary>
+            <div class="details-content">
+                <div class="input-group"><label>Energy Price (£/MWh)</label><input type="number" id="price_mwh" value="55" /></div>
+                <div class="input-group"><label>Annual Yield (kWh/kWp)</label><input type="number" id="yield_kwp" value="1050" /></div>
+                <div class="input-group"><label>Cable+Trench Cost (£/m)</label><input type="number" id="trench_cost" value="120" /></div>
+                <div class="input-group"><label>Cable Res. (Ω/km) [300mm² Al]</label><input type="number" id="cable_res" value="0.100" step="0.01" /></div>
+            </div>
+        </details>
 
         <div class="stat-box" id="global_stat_box">
             </div>
 
         <div class="engineering-note">
-            <strong>DRAG & DROP ENABLED (TOUCH & MOUSE):</strong> Click/Touch and drag any Inverter Block or MV Station to fit site boundaries. Trenching distances and topology recalculate automatically.
+            <strong>DRAG & DROP ENABLED:</strong> Move any block to recalculate cable routing, electrical $I^2R$ thermal losses, and CAPEX impact in real-time. Estimates are indicative pre-FEED only.
         </div>
 
         <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ GENERATE BASELINE ARRAY</button>
@@ -252,59 +158,39 @@
 <script>
     let activeTab = 'string';
     let currentGeoJSON = { type: "FeatureCollection", features: [] };
-    
-    let topologyState = {
-        nodes: [],
-        rings: [],
-        center: null
-    };
-
+    let topologyState = { nodes: [], rings: [], center: null };
     let isDragging = false;
     let draggedNodeId = null;
 
     const map = new maplibregl.Map({
         container: 'map',
         style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-        center: [-0.1276, 51.5072], 
-        zoom: 13
+        center: [-0.1276, 51.5072], zoom: 13
     });
 
     map.on('load', () => {
         map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
 
-        // Polygons (Solar Array Blue Heatmap - Hardcoded Hex for WebGL support)
         map.addLayer({
             id: 'footprints', type: 'fill', source: 'topology',
             filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
-            paint: { 
-                'fill-color': '#0066ff', 
-                'fill-opacity': 0.45 
-            }
+            paint: { 'fill-color': '#0066ff', 'fill-opacity': 0.45 }
         });
         map.addLayer({
             id: 'footprints_outline', type: 'line', source: 'topology',
             filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
-            paint: { 
-                'line-color': '#00ffff', 
-                'line-width': 2 
-            }
+            paint: { 'line-color': '#00ffff', 'line-width': 2 }
         });
-
-        // Lines (Orthogonal 33kV Rings)
         map.addLayer({
             id: 'rings', type: 'line', source: 'topology',
             filter: ['==', 'type', '33kv_ring'],
             paint: { 'line-color': '#00ffff', 'line-width': 2, 'line-dasharray': [2, 2] }
         });
-
-        // Nodes (Combiner Boxes)
         map.addLayer({
             id: 'combiner_boxes', type: 'circle', source: 'topology',
             filter: ['==', 'type', 'combiner_box'],
             paint: { 'circle-color': '#cccccc', 'circle-radius': 3 }
         });
-
-        // Enlarged node radiuses for easier touch grabbing
         map.addLayer({
             id: 'nodes', type: 'circle', source: 'topology',
             filter: ['in', 'type', 'inverter', 'central_inverter', 'mv_station', 'primary_sub'],
@@ -315,31 +201,9 @@
             }
         });
 
-        // MapLibre Popups
-        map.on('click', 'nodes', function (e) {
-            if(isDragging) return; 
-            const prop = e.features[0].properties;
-            const coords = e.features[0].geometry.coordinates.slice();
-            
-            if (prop.type === 'central_inverter') {
-                const html = `
-                    <div style="margin-bottom: 5px; color:#ff9900; font-weight:bold; font-size: 13px; text-transform:uppercase;">Central Block</div>
-                    <div class="popup-row"><span>ID:</span> <span class="popup-val">${prop.id}</span></div>
-                    <div class="popup-row"><span>AC Rating:</span> <span class="popup-val">${prop.mwac} MWac</span></div>
-                    <div class="popup-row"><span>DC Capacity:</span> <span class="popup-val">${prop.mwp} MWp</span></div>
-                    <div class="popup-row"><span>DC/AC Ratio:</span> <span class="popup-val">${prop.dc_ac_ratio}</span></div>
-                    <div class="popup-row"><span>Req. Strings:</span> <span class="popup-val">${prop.req_strings}</span></div>
-                    <div class="popup-row"><span>Req. Combiners:</span> <span class="popup-val">${prop.req_cbs}</span></div>
-                `;
-                new maplibregl.Popup().setLngLat(coords).setHTML(html).addTo(map);
-            }
-        });
-
-        // --- DRAG AND DROP EVENT LISTENERS (Mouse + Touch) ---
         function startDrag(e) {
             if (!e.features || e.features.length === 0) return;
             if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches.length > 1) return; 
-            
             e.preventDefault(); 
             isDragging = true;
             draggedNodeId = e.features[0].properties.id;
@@ -349,7 +213,6 @@
 
         function onDrag(e) {
             if (!isDragging || !draggedNodeId) return;
-            
             const node = topologyState.nodes.find(n => n.id === draggedNodeId);
             if (node) {
                 node.coords = [e.lngLat.lng, e.lngLat.lat];
@@ -368,14 +231,10 @@
         map.on('mousedown', 'nodes', startDrag);
         map.on('mousemove', onDrag);
         map.on('mouseup', stopDrag);
-        
         map.on('touchstart', 'nodes', startDrag);
         map.on('touchmove', onDrag);
         map.on('touchend', stopDrag);
         map.on('touchcancel', stopDrag);
-
-        map.on('mouseenter', 'nodes', () => { if(!isDragging) map.getCanvas().style.cursor = 'grab'; });
-        map.on('mouseleave', 'nodes', () => { if(!isDragging) map.getCanvas().style.cursor = ''; });
 
         updateLegend();
         updateAggregatesOnly();
@@ -389,15 +248,8 @@
         document.getElementById('central_tab').classList.toggle('active', tab === 'central');
         
         const btnDraw = document.getElementById('btn_draw');
-        const statBox = document.getElementById('global_stat_box');
-        
-        if (tab === 'central') { 
-            btnDraw.classList.add('central'); 
-            statBox.classList.add('central');
-        } else { 
-            btnDraw.classList.remove('central'); 
-            statBox.classList.remove('central');
-        }
+        if (tab === 'central') { btnDraw.classList.add('central'); } 
+        else { btnDraw.classList.remove('central'); }
         
         updateLegend();
         updateAggregatesOnly();
@@ -409,8 +261,8 @@
             legend.innerHTML = `
                 <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
                 <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> String Inverter Skid</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Solar Array Footprint</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring (Rubber Band)</div>
+                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Array Footprint</div>
+                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Trench</div>
             `;
         } else {
             legend.innerHTML = `
@@ -418,8 +270,8 @@
                 <div class="legend-item"><div class="swatch" style="background:#aa00ff;"></div> MV Station</div>
                 <div class="legend-item"><div class="swatch" style="background:var(--accent-alt);"></div> Central Inverter Block</div>
                 <div class="legend-item"><div class="swatch" style="background:#ccc; width:6px; height:6px; border-radius:50%;"></div> Combiner Box</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Solar Array Footprint</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Collection Ring (Rubber Band)</div>
+                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Array Footprint</div>
+                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Trench</div>
             `;
         }
     }
@@ -432,8 +284,8 @@
             const data = await res.json();
             if (data && data.length > 0) {
                 map.flyTo({ center: [parseFloat(data[0].lon), parseFloat(data[0].lat)], zoom: 14 });
-            } else { alert("Location not found."); }
-        } catch (e) { console.error("Geocoding error:", e); }
+            }
+        } catch (e) { console.error(e); }
     }
 
     function triggerDrawAtCenter() {
@@ -443,99 +295,99 @@
 
     function getRectFootprint(centerCoord, area_m2, propType) {
         const area_km2 = area_m2 / 1000000;
-        const aspect = 1.4; 
-        const width_km = Math.sqrt(area_km2 / aspect);
-        const length_km = width_km * aspect;
-        
+        const width_km = Math.sqrt(area_km2 / 1.4);
+        const length_km = width_km * 1.4;
         const pt = turf.point(centerCoord);
         const n = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
         const s = turf.destination(pt, length_km/2, 180, {units: 'kilometers'}).geometry.coordinates;
-        
         const nw = turf.destination(turf.point(n), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
         const ne = turf.destination(turf.point(n), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
         const se = turf.destination(turf.point(s), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
         const sw = turf.destination(turf.point(s), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
-        
-        const poly = turf.polygon([[nw, ne, se, sw, nw]]);
-        poly.properties = { type: propType };
-        return poly;
+        return turf.polygon([[nw, ne, se, sw, nw]], { type: propType });
     }
 
-    function updateAggregatesOnly() {
+    function updateAggregatesOnly(totalTrenchLengthKm = 0) {
         const statBox = document.getElementById('global_stat_box');
+        const price_mwh = parseFloat(document.getElementById('price_mwh').value) || 55;
+        const yield_kwp = parseFloat(document.getElementById('yield_kwp').value) || 1050;
+        const trench_cost = parseFloat(document.getElementById('trench_cost').value) || 120;
+        const cable_res = parseFloat(document.getElementById('cable_res').value) || 0.100;
         
+        let total_p_mw = 0, total_s_mva = 0, sub_s_mva = 0, total_array_acres = 0;
+        let footprint_m2 = 0, rings = 0, mv_per_ring = 0, inv_per_mv = 0;
+
         if (activeTab === 'string') {
             const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
             const x = parseInt(document.getElementById('x_mods').value) || 0;
             const z = parseInt(document.getElementById('z_strings').value) || 0;
             const y = parseInt(document.getElementById('y_invs').value) || 0;
             const s = parseInt(document.getElementById('s_subs').value) || 0;
-            const rings = parseInt(document.getElementById('b_cols').value) || 0;
+            rings = parseInt(document.getElementById('b_cols').value) || 0;
             const pf = parseFloat(document.getElementById('pf_val').value) || 0.95;
             const mod_l = parseFloat(document.getElementById('mod_l').value) || 0;
             const mod_w = parseFloat(document.getElementById('mod_w').value) || 0;
             const gcr = parseFloat(document.getElementById('mounting_type').value) || 0.75;
             
             const total_subs = rings * s;
-            const total_invs = total_subs * y;
-            const total_p_mw = (total_invs * z * x * mod_wp) / 1000000;
-            const total_s_mva = total_p_mw / pf;
-            const total_q_mvar = Math.sqrt(Math.pow(total_s_mva, 2) - Math.pow(total_p_mw, 2));
-            const sub_s_mva = total_s_mva / total_subs;
-            
-            const sub_ground_area_m2 = (x * z * y * mod_l * mod_w) / gcr;
-            const total_array_acres = (sub_ground_area_m2 / 4046.86) * total_subs;
-
-            statBox.innerHTML = `
-                <div class="stat-row"><span>System Active Power (P):</span><span class="stat-val cyan">${total_p_mw.toFixed(2)} MW</span></div>
-                <div class="stat-row"><span>System Apparent Power (S):</span><span class="stat-val">${total_s_mva.toFixed(2)} MVA</span></div>
-                <div class="stat-row"><span>System Reactive Power (Q):</span><span class="stat-val">${total_q_mvar.toFixed(2)} MVAr</span></div>
-                <div class="stat-row"><span>Substation Rating (S):</span><span class="stat-val alert">${sub_s_mva.toFixed(2)} MVA</span></div>
-                <hr style="border-top: 1px solid #333; margin: 8px 0;">
-                <div class="stat-row"><span>Total Array Area:</span><span class="stat-val">${total_array_acres.toFixed(0)} Acres</span></div>
-                <div class="stat-row"><span>Est. 33kV Trenching Length:</span><span class="stat-val cyan" id="hud_trench">0 m</span></div>
-            `;
-            return { sub_ground_area_m2, rings, s, z, x, y, mod_wp };
-
+            total_p_mw = (total_subs * y * z * x * mod_wp) / 1000000;
+            total_s_mva = total_p_mw / pf;
+            sub_s_mva = total_s_mva / total_subs;
+            footprint_m2 = (x * z * y * mod_l * mod_w) / gcr;
+            total_array_acres = (footprint_m2 / 4046.86) * total_subs;
         } else {
             const mod_wp = parseFloat(document.getElementById('mod_wp_c').value) || 0;
             const mod_l = parseFloat(document.getElementById('mod_l_c').value) || 0;
             const mod_w = parseFloat(document.getElementById('mod_w_c').value) || 0;
             const gcr = parseFloat(document.getElementById('mounting_type_c').value) || 0.45;
-            
             const x_mods = parseInt(document.getElementById('x_mods_c').value) || 0;
-            const str_per_cb = parseInt(document.getElementById('str_per_cb_c').value) || 0;
             const inv_ac_mw = parseFloat(document.getElementById('inv_ac_mw_c').value) || 0;
             const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio_c').value) || 0;
-            
-            const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
-            const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
-            const rings = parseInt(document.getElementById('rings_c').value) || 0;
+            inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
+            mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
+            rings = parseInt(document.getElementById('rings_c').value) || 0;
 
             const str_dc_kwp = (x_mods * mod_wp) / 1000;
             const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
             const req_strings = Math.round((inv_dc_mwp * 1000) / str_dc_kwp);
-            const req_cbs = Math.ceil(req_strings / str_per_cb);
-
+            
             const total_invs = inv_per_mv * mv_per_ring * rings;
-            const total_dc_mwp = total_invs * inv_dc_mwp;
-            const total_ac_mwac = total_invs * inv_ac_mw;
-
-            const footprint_mod_area = req_strings * x_mods * mod_l * mod_w;
-            const footprint_ground_m2 = footprint_mod_area / gcr;
-            const total_array_acres = (footprint_ground_m2 / 4046.86) * total_invs;
-
-            statBox.innerHTML = `
-                <div class="stat-row"><span>Total AC Capacity:</span><span class="stat-val orange">${total_ac_mwac.toFixed(2)} MWac</span></div>
-                <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val orange">${total_dc_mwp.toFixed(2)} MWp</span></div>
-                <div class="stat-row"><span>Total Central Inverters:</span><span class="stat-val">${total_invs}</span></div>
-                <div class="stat-row"><span>Required Combiners / Block:</span><span class="stat-val">${req_cbs}</span></div>
-                <hr style="border-top: 1px solid #333; margin: 8px 0;">
-                <div class="stat-row"><span>Total Array Area:</span><span class="stat-val orange">${total_array_acres.toFixed(0)} Acres</span></div>
-                <div class="stat-row"><span>Est. 33kV Trenching Length:</span><span class="stat-val orange" id="hud_trench">0 m</span></div>
-            `;
-            return { footprint_ground_m2, rings, mv_per_ring, inv_per_mv, req_cbs, req_strings, inv_ac_mw, inv_dc_mwp, dc_ac_ratio };
+            total_p_mw = total_invs * inv_dc_mwp;
+            total_s_mva = total_invs * inv_ac_mw; // approx MVA = MWac
+            
+            footprint_m2 = (req_strings * x_mods * mod_l * mod_w) / gcr;
+            total_array_acres = (footprint_m2 / 4046.86) * total_invs;
         }
+
+        // --- Electrical & Financial Math ---
+        const total_yield_mwh = total_p_mw * yield_kwp;
+        const gross_rev = total_yield_mwh * price_mwh;
+        
+        // 3-Phase Loss = 3 * I^2 * R * L (Simplified estimation for the whole ring layout)
+        const mv_current_a = (total_s_mva * 1000000) / (Math.sqrt(3) * 33000 * rings); // Current per ring
+        const peak_loss_mw = (3 * Math.pow(mv_current_a, 2) * cable_res * (totalTrenchLengthKm/rings)) / 1000000 * rings; 
+        
+        // Load Loss Factor ~ 0.3 for solar profile
+        const annual_loss_mwh = peak_loss_mw * 8760 * 0.3; 
+        const annual_loss_gbp = annual_loss_mwh * price_mwh;
+        const total_trench_gbp = (totalTrenchLengthKm * 1000) * trench_cost;
+
+        const themeClass = activeTab === 'string' ? 'cyan' : 'orange';
+
+        statBox.innerHTML = `
+            <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val ${themeClass}">${total_p_mw.toFixed(2)} MWp</span></div>
+            <div class="stat-row"><span>Total Array Area:</span><span class="stat-val">${total_array_acres.toFixed(0)} Acres</span></div>
+            <hr style="border-top: 1px dashed #444; margin: 8px 0;">
+            <div class="stat-row"><span>Est. 33kV Trench Route:</span><span class="stat-val ${themeClass}">${(totalTrenchLengthKm*1000).toFixed(0)} m</span></div>
+            <div class="stat-row"><span>Est. Cable+Trench CAPEX:</span><span class="stat-val finance">£${total_trench_gbp.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <hr style="border-top: 1px dashed #444; margin: 8px 0;">
+            <div class="stat-row"><span>Peak $I^2R$ Cable Loss:</span><span class="stat-val alert">${(peak_loss_mw*1000).toFixed(1)} kW</span></div>
+            <div class="stat-row"><span>Annual Thermal Loss Val:</span><span class="stat-val alert">£${annual_loss_gbp.toLocaleString(undefined, {maximumFractionDigits:0})} / yr</span></div>
+            <hr style="border-top: 1px solid #333; margin: 8px 0;">
+            <div class="stat-row"><span>Gross Annual Rev (No Loss):</span><span class="stat-val finance">£${gross_rev.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+        `;
+
+        return { footprint_m2, rings, mv_per_ring, inv_per_mv };
     }
 
     function generateTopology() {
@@ -545,40 +397,35 @@
         topologyState.nodes = [];
         topologyState.rings = [];
 
-        topologyState.nodes.push({ 
-            id: 'sub', type: 'primary_sub', coords: topologyState.center, props: {} 
-        });
+        topologyState.nodes.push({ id: 'sub', type: 'primary_sub', coords: topologyState.center, props: {} });
 
         if (activeTab === 'string') {
-            const sub_radius_km = Math.sqrt(stats.sub_ground_area_m2 / Math.PI) / 1000;
+            const s = parseInt(document.getElementById('s_subs').value) || 0;
+            const sub_radius_km = Math.sqrt(stats.footprint_m2 / Math.PI) / 1000;
             const radiusStep = sub_radius_km * 3; 
 
             for (let r = 0; r < stats.rings; r++) {
                 let ringNodeIds = ['sub'];
-                for (let sub = 0; sub < stats.s; sub++) {
-                    const angle = (r * (360 / stats.rings)) + (sub * (120 / stats.s));
-                    const distance = radiusStep * (sub + 1) + 0.1; 
-                    const coords = turf.destination(turf.point(topologyState.center), distance, angle, {units: 'kilometers'}).geometry.coordinates;
+                for (let sub = 0; sub < s; sub++) {
+                    const angle = (r * (360 / stats.rings)) + (sub * (120 / s));
+                    const coords = turf.destination(turf.point(topologyState.center), radiusStep * (sub + 1) + 0.1, angle, {units: 'kilometers'}).geometry.coordinates;
                     
                     let id = `inv-${r}-${sub}`;
-                    topologyState.nodes.push({
-                        id: id, type: 'inverter', coords: coords, props: { area: stats.sub_ground_area_m2 }
-                    });
+                    topologyState.nodes.push({ id: id, type: 'inverter', coords: coords, props: { area: stats.footprint_m2 } });
                     ringNodeIds.push(id);
                 }
                 ringNodeIds.push('sub');
                 topologyState.rings.push({ id: `ring-${r}`, nodes: ringNodeIds });
             }
         } else {
-            const footprint_radius_km = Math.sqrt(stats.footprint_ground_m2 / Math.PI) / 1000;
+            const footprint_radius_km = Math.sqrt(stats.footprint_m2 / Math.PI) / 1000;
             const radiusStep = footprint_radius_km * 3.5; 
 
             for (let r = 0; r < stats.rings; r++) {
                 let ringNodeIds = ['sub'];
                 for (let mv = 0; mv < stats.mv_per_ring; mv++) {
                     const angle_mv = (r * (360 / stats.rings)) + (mv * (360 / stats.mv_per_ring) / stats.rings);
-                    const dist_mv = radiusStep * (mv + 1) + 0.2; 
-                    const mv_coord = turf.destination(turf.point(topologyState.center), dist_mv, angle_mv, {units: 'kilometers'}).geometry.coordinates;
+                    const mv_coord = turf.destination(turf.point(topologyState.center), radiusStep * (mv + 1) + 0.2, angle_mv, {units: 'kilometers'}).geometry.coordinates;
                     
                     let mvId = `mv-${r}-${mv}`;
                     topologyState.nodes.push({ id: mvId, type: 'mv_station', coords: mv_coord, props: {} });
@@ -586,13 +433,10 @@
 
                     for (let inv = 0; inv < stats.inv_per_mv; inv++) {
                         const angle_inv = inv * (360 / stats.inv_per_mv);
-                        const dist_inv = (stats.inv_per_mv > 1) ? (footprint_radius_km * 1.5) : 0;
-                        const inv_coord = turf.destination(turf.point(mv_coord), dist_inv, angle_inv, {units: 'kilometers'}).geometry.coordinates;
+                        const inv_coord = turf.destination(turf.point(mv_coord), (stats.inv_per_mv > 1) ? (footprint_radius_km * 1.5) : 0, angle_inv, {units: 'kilometers'}).geometry.coordinates;
                         
                         let invId = `cinv-${r}-${mv}-${inv}`;
-                        topologyState.nodes.push({
-                            id: invId, type: 'central_inverter', coords: inv_coord, props: { area: stats.footprint_ground_m2, mwac: stats.inv_ac_mw, mwp: stats.inv_dc_mwp.toFixed(2), dc_ac_ratio: stats.dc_ac_ratio, req_strings: stats.req_strings, req_cbs: stats.req_cbs, mv_id: `MV-${r+1}-${mv+1}`, ring_id: `Ring-${r+1}` }
-                        });
+                        topologyState.nodes.push({ id: invId, type: 'central_inverter', coords: inv_coord, props: { area: stats.footprint_m2 } });
                     }
                 }
                 ringNodeIds.push('sub');
@@ -615,37 +459,34 @@
         });
 
         topologyState.rings.forEach(ring => {
-            let lineCoords = ring.nodes.map(id => {
-                return topologyState.nodes.find(n => n.id === id).coords;
-            });
+            let lineCoords = ring.nodes.map(id => topologyState.nodes.find(n => n.id === id).coords);
             let lineString = turf.lineString(lineCoords, { type: '33kv_ring', ring_id: ring.id });
             features.push(lineString);
             totalTrenchLengthKm += turf.length(lineString, { units: 'kilometers' });
         });
 
         topologyState.nodes.forEach(node => {
-            let props = { id: node.id, type: node.type, ...node.props };
-            features.push(turf.point(node.coords, props));
+            features.push(turf.point(node.coords, { id: node.id, type: node.type, ...node.props }));
         });
 
         currentGeoJSON = turf.featureCollection(features);
         if (map.getSource('topology')) map.getSource('topology').setData(currentGeoJSON);
 
-        let trenchElem = document.getElementById('hud_trench');
-        if (trenchElem) {
-            trenchElem.textContent = (totalTrenchLengthKm * 1000).toFixed(0) + " m";
-        }
+        // Update electrical/financial stats with the new trench length
+        updateAggregatesOnly(totalTrenchLengthKm);
     }
 
-    function exportGeoJSON() {
-        if (currentGeoJSON.features.length === 0) return;
-        const blob = new Blob([JSON.stringify(currentGeoJSON, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url; a.download = `gis_sld_${activeTab}_topology.geojson`;
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    }
-
+    // Attach listeners
+    document.querySelectorAll('.input-group input, .input-group select').forEach(el => {
+        el.addEventListener('input', () => {
+            if (topologyState.center) {
+                // If inputs change, redraw the baseline based on current center
+                generateTopology();
+            } else {
+                updateAggregatesOnly();
+            }
+        });
+    });
 </script>
 
 </body>

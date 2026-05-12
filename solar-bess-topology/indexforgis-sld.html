@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -136,7 +136,7 @@
             <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" min="1" /></div>
 
             <details class="finance-box" open>
-                <summary>Baseline Financials</summary>
+                <summary>Baseline Project Economics</summary>
                 <div class="finance-headline">
                     <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_string_annual_rev">£0</span></div>
                     <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_string_25_rev">£0</span></div>
@@ -237,7 +237,7 @@
             <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" min="1" /></div>
 
             <details class="finance-box" open>
-                <summary>Baseline Financials</summary>
+                <summary>Baseline Project Economics</summary>
                 <div class="finance-headline">
                     <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_central_annual_rev">£0</span></div>
                     <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_central_25_rev">£0</span></div>
@@ -335,7 +335,7 @@
 
         map.addLayer({
             id: 'footprints', type: 'fill', source: 'topology',
-            filter: ['match', ['get', 'type'], ['skid_footprint', 'central_footprint', 'bess_footprint'], true, false],
+            filter: ['in', ['get', 'type'], ['literal', ['skid_footprint', 'central_footprint', 'bess_footprint']]],
             paint: { 
                 'fill-color': [
                     'match', ['get', 'type'], 
@@ -349,7 +349,7 @@
         });
         map.addLayer({
             id: 'footprints_outline', type: 'line', source: 'topology',
-            filter: ['match', ['get', 'type'], ['skid_footprint', 'central_footprint', 'bess_footprint'], true, false],
+            filter: ['in', ['get', 'type'], ['literal', ['skid_footprint', 'central_footprint', 'bess_footprint']]],
             paint: { 
                 'line-color': [
                     'match', ['get', 'type'], 
@@ -370,7 +370,7 @@
 
         map.addLayer({
             id: 'inverters', type: 'circle', source: 'topology',
-            filter: ['match', ['get', 'type'], ['string_substation', 'central_inverter', 'mv_station', 'bess_compound'], true, false],
+            filter: ['in', ['get', 'type'], ['literal', ['string_substation', 'central_inverter', 'mv_station', 'bess_compound']]],
             paint: { 
                 'circle-color': [
                     'match', ['get', 'type'], 
@@ -545,10 +545,11 @@
 
         const str_dc_kwp = (x_mods * mod_wp) / 1000;
         const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
-        const req_strings = str_dc_kwp > 0 ? Math.floor((inv_dc_mwp * 1000) / str_dc_kwp) : 0;
+        const req_strings = str_dc_kwp > 0 ? Math.ceil((inv_dc_mwp * 1000) / str_dc_kwp) : 0;
 
+        const actual_inv_dc_mwp = (req_strings * str_dc_kwp) / 1000;
         const total_blocks = inv_per_mv * mv_per_ring * rings;
-        const total_dc_mwp = total_blocks * inv_dc_mwp;
+        const total_dc_mwp = total_blocks * actual_inv_dc_mwp;
 
         const block_ground_area_m2 = req_strings > 0 && gcr > 0
             ? (req_strings * x_mods * mod_l * mod_w) / gcr
@@ -854,6 +855,8 @@
                 fin_total_capex: document.getElementById(prefix + "_capex").textContent,
                 fin_capex_per_wp: document.getElementById(prefix + "_capex_wp").textContent,
                 fin_annual_rev: document.getElementById(prefix + "_annual_rev").textContent,
+                fin_25yr_revenue: document.getElementById(prefix + "_25_rev").textContent,
+                fin_35yr_revenue: document.getElementById(prefix + "_35_rev").textContent,
                 fin_25yr_surplus: document.getElementById(prefix + "_surplus_25").textContent,
                 fin_35yr_surplus: document.getElementById(prefix + "_surplus_35").textContent,
                 fin_energy_price_gbp_mwh: n(prefix + "_price"),
@@ -868,7 +871,13 @@
                 fin_modules_gbp_wp: n(prefix + "_modules"),
                 fin_other_capex_gbp_wp: n(prefix + "_other_capex"),
                 fin_fixed_capex_gbp: n(prefix + "_fixed_capex"),
-                fin_contingency_percent: n(prefix + "_cont")
+                fin_contingency_percent: n(prefix + "_cont"),
+                fin_bess_mw: n(prefix + "_bess_mw"),
+                fin_bess_mwh: n(prefix + "_bess_mwh"),
+                fin_bess_capex_gbp_mwh: n(prefix + "_bess_capex"),
+                fin_bess_cycles_year: n(prefix + "_bess_cycles"),
+                fin_bess_spread_gbp_mwh: n(prefix + "_bess_spread"),
+                fin_bess_efficiency_percent: n(prefix + "_bess_eff")
             };
         }
 

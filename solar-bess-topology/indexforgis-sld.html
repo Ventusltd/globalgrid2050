@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>GIS-SLD Topology Engine | Financial Sandbox</title>
+    <title>GIS-SLD Topology Engine | Top-Down Density Packing</title>
     
     <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
@@ -14,7 +14,7 @@
             --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
             --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --accent-alt: #ff9900;
             --ok: #00ff88; --substation: #ff3333; --array-blue: #0066ff;
-            --warn: #ff4444; --finance: #00ff88;
+            --warn: #ff4444; --finance: #00ff88; --boundary: #ff3333;
         }
         * { box-sizing: border-box; }
         body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; height: 100vh; overflow: hidden; touch-action: none; }
@@ -46,27 +46,23 @@
         
         .input-group select { text-align: left; }
         .input-group input:focus, .input-group select:focus { border-color: var(--text); outline: none; }
-        .input-group input[type="checkbox"] { width: auto; accent-color: var(--accent-alt); transform: scale(1.2); }
         
         .search-box { display: flex; gap: 5px; margin-bottom: 15px; }
         .search-box input { flex: 1; background: #111; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 3px; font-family: monospace; font-size: 12px; }
         .search-box button { background: #222; color: var(--text); border: 1px solid #555; padding: 8px 12px; border-radius: 3px; cursor: pointer; font-family: monospace; font-weight: bold; }
         
         .stat-box { background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); padding: 12px; border-radius: 3px; margin-top: 15px; }
-        .stat-box.central { background: rgba(255, 153, 0, 0.05); border-color: var(--accent-alt); }
         .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; color: var(--muted); }
         .stat-val { color: var(--text); font-weight: bold; text-align: right; }
         .stat-val.cyan { color: var(--accent); }
-        .stat-val.orange { color: var(--accent-alt); }
         .stat-val.finance { color: var(--finance); font-size: 12px; }
         .stat-val.alert { color: #ffcc00; }
 
         .engineering-note { background: rgba(255, 68, 68, 0.1); border: 1px solid var(--warn); padding: 10px; border-radius: 3px; margin-top: 15px; font-size: 10px; color: #ff9999; line-height: 1.4; }
-        .finance-note { background: rgba(0, 255, 136, 0.05); border: 1px dashed var(--finance); padding: 8px; border-radius: 3px; margin-bottom: 10px; font-size: 10px; color: var(--finance); line-height: 1.3; }
+        .finance-note { background: rgba(0, 255, 136, 0.05); border: 1px solid var(--finance); padding: 8px; border-radius: 3px; margin-bottom: 10px; font-size: 11px; color: var(--finance); line-height: 1.4; text-align: center;}
         
         .btn { padding: 10px; background: #000; color: var(--text); border: 1px solid #555; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; margin-top: 10px; width: 100%; transition: 0.2s; }
         .btn.draw-btn { color: var(--bg); background: var(--accent); border-color: var(--accent); }
-        .btn.draw-btn.central { background: var(--accent-alt); border-color: var(--accent-alt); }
         
         #map { width: 100%; height: 100%; }
         .crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 24px; pointer-events: none; z-index: 10; text-shadow: 0 0 5px #000; }
@@ -98,55 +94,51 @@
             <button onclick="searchLocation()">FLY</button>
         </div>
 
-        <div class="tab-container">
-            <button class="tab-btn active" id="tabbtn_string" onclick="switchTab('string')">String</button>
-            <button class="tab-btn" id="tabbtn_central" onclick="switchTab('central')">Central</button>
+        <div class="input-group" style="margin-bottom: 15px; background: rgba(255,51,51,0.1); padding: 10px; border: 1px dashed var(--boundary); border-radius: 3px; flex-direction: column; align-items: flex-start;">
+            <label style="color: var(--boundary); font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">Top-Down Geofence Packing</label>
+            <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <label style="color:var(--text);">Target Capacity (MWp)</label>
+                <input type="number" id="target_mwp" value="400" step="10" style="color: var(--boundary); border-color: var(--boundary);" />
+            </div>
+            <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <label style="color:var(--text);">Density (Acres / MWp)</label>
+                <input type="number" id="density_ac" value="2.5" step="0.1" style="color: var(--boundary); border-color: var(--boundary);" title="Typically 2.5 - 4.0 acres per MWp" />
+            </div>
+            <div style="width: 100%; display: flex; justify-content: space-between;">
+                <label style="color:var(--text);">Site Aspect Ratio (L:W)</label>
+                <input type="number" id="aspect_ratio" value="1.5" step="0.1" style="color: var(--boundary); border-color: var(--boundary);" title="1.0 = Square, 2.0 = Long Rectangle" />
+            </div>
         </div>
 
         <div id="string_tab" class="tab-content active">
+            <h3>String Inverter Architecture</h3>
             <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp" value="660" /></div>
-            <div class="input-group"><label>Mod L x W (m)</label><div style="display: flex; gap: 4px;"><input type="number" id="mod_l" value="2.38" step="0.01" style="width: 42px;" /><input type="number" id="mod_w" value="1.30" step="0.01" style="width: 42px;" /></div></div>
-            <div class="input-group"><label>Mounting & GCR</label><select id="mounting_type"><option value="0.75">East-West Dome (~75%)</option><option value="0.45">Fixed Tilt South (~45%)</option><option value="0.35">Tracker (~35%)</option></select></div>
             <div class="input-group"><label>Power Factor (PF)</label><input type="number" id="pf_val" value="0.95" step="0.01" /></div>
-            <h3>Array Hierarchy (String)</h3>
+            <div class="input-group"><label>Mod L x W (m)</label><div style="display: flex; gap: 4px;"><input type="number" id="mod_l" value="2.38" step="0.01" style="width: 42px;" /><input type="number" id="mod_w" value="1.30" step="0.01" style="width: 42px;" /></div></div>
+            <div class="input-group"><label>Mounting & GCR</label><select id="mounting_type"><option value="0.75">East-West Dome (~75%)</option><option value="0.45" selected>Fixed Tilt South (~45%)</option><option value="0.35">Tracker (~35%)</option></select></div>
+            
+            <h3>Transformer Skid Sizing</h3>
             <div class="input-group"><label>Mods / String</label><input type="number" id="x_mods" value="28" /></div>
             <div class="input-group"><label>Strings / Inverter</label><input type="number" id="z_strings" value="18" /></div>
-            <div class="input-group"><label>Inverters / Sub</label><input type="number" id="y_invs" value="28" /></div>
-            <div class="input-group"><label>Subs / Ring</label><input type="number" id="s_subs" value="5" /></div>
-            <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" /></div>
-        </div>
-
-        <div id="central_tab" class="tab-content">
-            <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp_c" value="660" /></div>
-            <div class="input-group"><label>Mod L x W (m)</label><div style="display: flex; gap: 4px;"><input type="number" id="mod_l_c" value="2.38" step="0.01" style="width: 42px;" /><input type="number" id="mod_w_c" value="1.30" step="0.01" style="width: 42px;" /></div></div>
-            <div class="input-group"><label>Mounting & GCR</label><select id="mounting_type_c"><option value="0.75">East-West Dome (~75%)</option><option value="0.45" selected>Fixed Tilt South (~45%)</option><option value="0.35">Tracker (~35%)</option></select></div>
-            <h3>Array Hierarchy (Central)</h3>
-            <div class="input-group"><label>Central AC Rating MWac</label><select id="inv_ac_mw_c"><option value="3.15">3.15 MWac</option><option value="4.4" selected>4.40 MWac</option><option value="4.6">4.60 MVA</option><option value="5.0">5.00 MWac</option><option value="6.25">6.25 MWac</option><option value="6.8">6.80 MWac</option></select></div>
-            <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" /></div>
-            <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" /></div>
-            <div class="input-group"><label>Strings / Combiner Box</label><input type="number" id="str_per_cb_c" value="24" /></div>
-            <div class="input-group"><label>Central Invs / MV Station</label><input type="number" id="inv_per_mv_c" value="1" /></div>
-            <div class="input-group"><label>MV Stations / 33kV Ring</label><input type="number" id="mv_per_ring_c" value="4" /></div>
-            <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" /></div>
-            <div class="input-group"><label>Draw Combiners</label><input type="checkbox" id="show_cb_c" /></div>
+            <div class="input-group"><label>Inverters / Transformer</label><input type="number" id="y_invs" value="28" /></div>
         </div>
 
         <details id="finance_inputs" open>
             <summary>► Commercial & CAPEX Assumptions</summary>
             <div class="details-content">
                 <div class="finance-note">
-                    <strong>DISCLAIMER:</strong> Default £0.50/Wp EPC values and study fees are indicative high-level estimates. Update with real confirmed pricing if known.
+                    <strong>** FIGURES ARE FOR ILLUSTRATION PURPOSES ONLY. USERS MUST VERIFY ACTUALS. **</strong>
                 </div>
                 <h3>Market & Yield</h3>
                 <div class="input-group"><label>Project Life (Years)</label><input type="number" id="proj_life" value="25" /></div>
                 <div class="input-group"><label>Wholesale (p/kWh)</label><input type="number" id="price_p_kwh" value="3.0" step="0.1" /></div>
-                <div class="input-group"><label>PPA/CfD/Subsidy (p/kWh)</label><input type="number" id="subsidy_p_kwh" value="0.0" step="0.1" title="Feed-in Tariff, CfD, CO2 Credits, etc." /></div>
+                <div class="input-group"><label>PPA/CfD/Subsidy (p/kWh)</label><input type="number" id="subsidy_p_kwh" value="0.0" step="0.1" /></div>
                 <div class="input-group"><label>UK Capacity Factor (%)</label><input type="number" id="cap_factor" value="10" step="0.1" /></div>
                 
                 <h3>Storage (BESS)</h3>
                 <div class="input-group"><label>Max BESS Cap (MW/MWh)</label><div style="display: flex; gap: 4px;"><input type="number" id="bess_mw" placeholder="MW" style="width: 42px;" /><input type="number" id="bess_mwh" placeholder="MWh" style="width: 42px;" /></div></div>
                 <div class="input-group"><label>BESS CAPEX (£/MWh)</label><input type="number" id="c_bess_mwh" value="200000" step="5000" /></div>
-                <div class="input-group"><label>Est. Arbitrage (£/MWh/cyc)</label><input type="number" id="bess_arb" value="50" step="1" title="Estimated profit per MWh per cycle" /></div>
+                <div class="input-group"><label>Est. Arbitrage (£/MWh/cyc)</label><input type="number" id="bess_arb" value="50" step="1" /></div>
 
                 <h3>Hardware CAPEX (£/Wp)</h3>
                 <div class="input-group"><label>Module Cost</label><input type="number" id="c_mod" value="0.15" step="0.01" /></div>
@@ -162,7 +154,7 @@
                 <h3>Fixed / Routing Costs</h3>
                 <div class="input-group"><label>Substation Build (£)</label><input type="number" id="c_sub" value="1500000" step="10000" /></div>
                 <div class="input-group"><label>Cable+Trench (£/m)</label><input type="number" id="trench_cost" value="120" /></div>
-                <div class="input-group"><label>Cable Res. (Ω/km)</label><input type="number" id="cable_res" value="0.100" step="0.01" title="Default 300mm2 Al XLPE" /></div>
+                <div class="input-group"><label>Cable Res. (Ω/km)</label><input type="number" id="cable_res" value="0.100" step="0.01" /></div>
             </div>
         </details>
 
@@ -170,11 +162,11 @@
             </div>
 
         <div class="engineering-note">
-            <strong>DRAG & DROP ENABLED (TOUCH & MOUSE):</strong> Move any block to recalculate cable routing, electrical $I^2R$ thermal losses, and CAPEX/NAV impact in real-time. Estimates are indicative pre-FEED only.
+            <strong>DRAG & DROP ENABLED:</strong> Move any block inside the Geofence. Blocks dragged outside the red boundary are excluded from generation. Trenching connects orthogonally to the main spine.
         </div>
 
-        <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ GENERATE BASELINE ARRAY</button>
-        <button class="btn" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
+        <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ GENERATE GEOFENCED ARRAY</button>
+        <button class="btn" style="background:#111; color:#fff; border: 1px solid #444;" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
     </div>
 
     <div class="panel panel-right">
@@ -185,9 +177,8 @@
 </div>
 
 <script>
-    let activeTab = 'string';
     let currentGeoJSON = { type: "FeatureCollection", features: [] };
-    let topologyState = { nodes: [], rings: [], center: null };
+    let topologyState = { nodes: [], rings: [], center: null, boundary: null };
     let isDragging = false;
     let draggedNodeId = null;
 
@@ -200,36 +191,69 @@
     map.on('load', () => {
         map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
 
+        // Rectangular Geofence Layer
+        map.addLayer({
+            id: 'boundary_fill', type: 'fill', source: 'topology',
+            filter: ['==', 'type', 'boundary'],
+            paint: { 'fill-color': 'var(--boundary)', 'fill-opacity': 0.05 }
+        });
+        map.addLayer({
+            id: 'boundary_line', type: 'line', source: 'topology',
+            filter: ['==', 'type', 'boundary'],
+            paint: { 'line-color': 'var(--boundary)', 'line-width': 2, 'line-dasharray': [4, 4] }
+        });
+
+        // Array Polygons
         map.addLayer({
             id: 'footprints', type: 'fill', source: 'topology',
-            filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
-            paint: { 'fill-color': '#0066ff', 'fill-opacity': 0.45 }
+            filter: ['==', 'type', 'skid_footprint'],
+            paint: { 'fill-color': 'var(--array-blue)', 'fill-opacity': 0.45 }
         });
         map.addLayer({
             id: 'footprints_outline', type: 'line', source: 'topology',
-            filter: ['in', 'type', 'skid_footprint', 'central_footprint'],
-            paint: { 'line-color': '#00ffff', 'line-width': 2 }
+            filter: ['==', 'type', 'skid_footprint'],
+            paint: { 'line-color': 'var(--accent)', 'line-width': 2 }
         });
+
+        // Orthogonal Trench Lines
         map.addLayer({
             id: 'rings', type: 'line', source: 'topology',
             filter: ['==', 'type', '33kv_ring'],
             paint: { 'line-color': '#00ffff', 'line-width': 2, 'line-dasharray': [2, 2] }
         });
-        map.addLayer({
-            id: 'combiner_boxes', type: 'circle', source: 'topology',
-            filter: ['==', 'type', 'combiner_box'],
-            paint: { 'circle-color': '#cccccc', 'circle-radius': 3 }
-        });
+
+        // Transformer / Substation Nodes
         map.addLayer({
             id: 'nodes', type: 'circle', source: 'topology',
-            filter: ['in', 'type', 'inverter', 'central_inverter', 'mv_station', 'primary_sub'],
+            filter: ['in', 'type', 'inverter', 'primary_sub'],
             paint: { 
-                'circle-color': ['match', ['get', 'type'], 'inverter', '#ffff00', 'central_inverter', '#ff9900', 'mv_station', '#aa00ff', 'primary_sub', '#ff3333', '#fff'], 
-                'circle-radius': ['match', ['get', 'type'], 'inverter', 8, 'central_inverter', 10, 'mv_station', 8, 'primary_sub', 10, 8], 
+                'circle-color': ['match', ['get', 'type'], 'inverter', '#ffff00', 'primary_sub', '#ff3333', '#fff'], 
+                'circle-radius': ['match', ['get', 'type'], 'inverter', 6, 'primary_sub', 10, 6], 
                 'circle-stroke-color': '#fff', 'circle-stroke-width': 1 
             }
         });
 
+        // MapLibre Popups
+        map.on('click', 'nodes', function (e) {
+            if(isDragging) return; 
+            const prop = e.features[0].properties;
+            const coords = e.features[0].geometry.coordinates.slice();
+            
+            if (prop.type === 'inverter') {
+                const html = `
+                    <div style="margin-bottom: 5px; color:var(--accent); font-weight:bold; font-size: 13px; text-transform:uppercase;">Transformer Skid</div>
+                    <div class="popup-row"><span>ID:</span> <span class="popup-val" style="color:#fff;">${prop.id}</span></div>
+                    <div class="popup-row"><span>Apparent Pwr:</span> <span class="popup-val" style="color:#fff;">${prop.mva} MVA</span></div>
+                    <div class="popup-row"><span>Reactive Pwr:</span> <span class="popup-val" style="color:#fff;">${prop.mvar} MVAr</span></div>
+                    <div class="popup-row"><span>DC Capacity:</span> <span class="popup-val" style="color:#fff;">${prop.mwp} MWp</span></div>
+                    <div class="popup-row"><span>LV Bus (800V):</span> <span class="popup-val" style="color:#fff;">${prop.lv_amps} A</span></div>
+                    <div class="popup-row"><span>MV Bus (33kV):</span> <span class="popup-val" style="color:#fff;">${prop.mv_amps} A</span></div>
+                `;
+                new maplibregl.Popup().setLngLat(coords).setHTML(html).addTo(map);
+            }
+        });
+
+        // Drag & Drop Mechanics
         function startDrag(e) {
             if (!e.features || e.features.length === 0) return;
             if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches.length > 1) return; 
@@ -269,47 +293,14 @@
         updateAggregatesOnly();
     });
 
-    function switchTab(tab) {
-        activeTab = tab;
-        document.getElementById('tabbtn_string').classList.toggle('active', tab === 'string');
-        document.getElementById('tabbtn_central').classList.toggle('active', tab === 'central');
-        document.getElementById('string_tab').classList.toggle('active', tab === 'string');
-        document.getElementById('central_tab').classList.toggle('active', tab === 'central');
-        
-        const btnDraw = document.getElementById('btn_draw');
-        const statBox = document.getElementById('global_stat_box');
-        
-        if (tab === 'central') { 
-            btnDraw.classList.add('central'); 
-            statBox.classList.add('central');
-        } else { 
-            btnDraw.classList.remove('central'); 
-            statBox.classList.remove('central');
-        }
-        
-        updateLegend();
-        updateAggregatesOnly();
-    }
-
     function updateLegend() {
-        const legend = document.getElementById('map_legend');
-        if (activeTab === 'string') {
-            legend.innerHTML = `
-                <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> String Inverter Skid</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Array Footprint</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Trench</div>
-            `;
-        } else {
-            legend.innerHTML = `
-                <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
-                <div class="legend-item"><div class="swatch" style="background:#aa00ff;"></div> MV Station</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--accent-alt);"></div> Central Inverter Block</div>
-                <div class="legend-item"><div class="swatch" style="background:#ccc; width:6px; height:6px; border-radius:50%;"></div> Combiner Box</div>
-                <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Array Footprint</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> 33kV Trench</div>
-            `;
-        }
+        document.getElementById('map_legend').innerHTML = `
+            <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--boundary); opacity:0.3; border-style: dashed;"></div> Geofence Boundary</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> Transformer Skid</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--array-blue); border-color:var(--accent);"></div> Array Footprint</div>
+            <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px dashed var(--accent);"></div> Orthogonal 33kV Trench</div>
+        `;
     }
 
     async function searchLocation() {
@@ -329,10 +320,8 @@
         generateTopology();
     }
 
-    function getRectFootprint(centerCoord, area_m2, propType) {
-        const area_km2 = area_m2 / 1000000;
-        const width_km = Math.sqrt(area_km2 / 1.4);
-        const length_km = width_km * 1.4;
+    // Calculates generic rectangular polygon
+    function getRectPolygon(centerCoord, width_km, length_km, propType) {
         const pt = turf.point(centerCoord);
         const n = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
         const s = turf.destination(pt, length_km/2, 180, {units: 'kilometers'}).geometry.coordinates;
@@ -343,15 +332,21 @@
         return turf.polygon([[nw, ne, se, sw, nw]], { type: propType });
     }
 
-    function updateAggregatesOnly(totalTrenchLengthKm = 0) {
+    // Calculate core stats
+    function updateAggregatesOnly(totalTrenchLengthKm = 0, placedInvs = null) {
         const statBox = document.getElementById('global_stat_box');
         
-        // Market & Yield
+        // Target Geofence Inputs
+        const target_mwp = parseFloat(document.getElementById('target_mwp').value) || 400;
+        const density_ac = parseFloat(document.getElementById('density_ac').value) || 2.5;
+        const aspect_ratio = parseFloat(document.getElementById('aspect_ratio').value) || 1.5;
+        const target_acres = target_mwp * density_ac;
+        
+        // Revenue Stacking
         const proj_life = parseInt(document.getElementById('proj_life').value) || 25;
         const price_p = parseFloat(document.getElementById('price_p_kwh').value) || 3.0;
         const subsidy_p = parseFloat(document.getElementById('subsidy_p_kwh').value) || 0.0;
-        const total_price_mwh = (price_p + subsidy_p) * 10; // p/kWh to £/MWh
-        
+        const total_price_mwh = (price_p + subsidy_p) * 10; 
         const cap_factor = parseFloat(document.getElementById('cap_factor').value) || 10;
         const yield_kwp = 8760 * (cap_factor / 100); 
         
@@ -373,69 +368,50 @@
         const c_hv = parseFloat(document.getElementById('c_hv').value) || 0;
         const total_epc_wp = c_mod + c_str + c_inv + c_mech + c_civil + c_elec + c_hv;
         
-        // Fixed/Routing Costs
         const c_sub = parseFloat(document.getElementById('c_sub').value) || 0;
         const trench_cost = parseFloat(document.getElementById('trench_cost').value) || 120;
         const cable_res = parseFloat(document.getElementById('cable_res').value) || 0.100;
         
-        let total_p_mw = 0, total_s_mva = 0, total_array_acres = 0;
-        let footprint_m2 = 0, rings = 0;
+        // Block Physics (String)
+        const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
+        const x = parseInt(document.getElementById('x_mods').value) || 0;
+        const z = parseInt(document.getElementById('z_strings').value) || 0;
+        const y = parseInt(document.getElementById('y_invs').value) || 0;
+        const pf = parseFloat(document.getElementById('pf_val').value) || 0.95;
+        const mod_l = parseFloat(document.getElementById('mod_l').value) || 0;
+        const mod_w = parseFloat(document.getElementById('mod_w').value) || 0;
+        const gcr = parseFloat(document.getElementById('mounting_type').value) || 0.45;
+        
+        const block_p_mwp = (y * z * x * mod_wp) / 1000000;
+        const block_s_mva = block_p_mwp / pf;
+        const block_q_mvar = Math.sqrt(Math.pow(block_s_mva, 2) - Math.pow(block_p_mwp, 2));
+        
+        const req_blocks = Math.ceil(target_mwp / block_p_mwp);
+        const effective_blocks = placedInvs !== null ? placedInvs : req_blocks;
+        
+        const total_p_mw = effective_blocks * block_p_mwp;
+        const total_s_mva = effective_blocks * block_s_mva;
+        
+        const block_ground_area_m2 = (x * z * y * mod_l * mod_w) / gcr;
+        const total_array_acres = (block_ground_area_m2 / 4046.86) * effective_blocks;
 
-        if (activeTab === 'string') {
-            const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
-            const x = parseInt(document.getElementById('x_mods').value) || 0;
-            const z = parseInt(document.getElementById('z_strings').value) || 0;
-            const y = parseInt(document.getElementById('y_invs').value) || 0;
-            const s = parseInt(document.getElementById('s_subs').value) || 0;
-            rings = parseInt(document.getElementById('b_cols').value) || 0;
-            const pf = parseFloat(document.getElementById('pf_val').value) || 0.95;
-            const mod_l = parseFloat(document.getElementById('mod_l').value) || 0;
-            const mod_w = parseFloat(document.getElementById('mod_w').value) || 0;
-            const gcr = parseFloat(document.getElementById('mounting_type').value) || 0.75;
-            
-            const total_subs = rings * s;
-            total_p_mw = (total_subs * y * z * x * mod_wp) / 1000000;
-            total_s_mva = total_p_mw / pf;
-            footprint_m2 = (x * z * y * mod_l * mod_w) / gcr;
-            total_array_acres = (footprint_m2 / 4046.86) * total_subs;
-        } else {
-            const mod_wp = parseFloat(document.getElementById('mod_wp_c').value) || 0;
-            const mod_l = parseFloat(document.getElementById('mod_l_c').value) || 0;
-            const mod_w = parseFloat(document.getElementById('mod_w_c').value) || 0;
-            const gcr = parseFloat(document.getElementById('mounting_type_c').value) || 0.45;
-            const x_mods = parseInt(document.getElementById('x_mods_c').value) || 0;
-            const inv_ac_mw = parseFloat(document.getElementById('inv_ac_mw_c').value) || 0;
-            const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio_c').value) || 0;
-            const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
-            const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
-            rings = parseInt(document.getElementById('rings_c').value) || 0;
-
-            const str_dc_kwp = (x_mods * mod_wp) / 1000;
-            const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
-            const req_strings = Math.round((inv_dc_mwp * 1000) / str_dc_kwp);
-            const total_invs = inv_per_mv * mv_per_ring * rings;
-            
-            total_p_mw = total_invs * inv_dc_mwp;
-            total_s_mva = total_invs * inv_ac_mw; 
-            
-            footprint_m2 = (req_strings * x_mods * mod_l * mod_w) / gcr;
-            total_array_acres = (footprint_m2 / 4046.86) * total_invs;
-        }
+        // Current Sizing per block
+        const lv_amps = (block_s_mva * 1000000) / (Math.sqrt(3) * 800);
+        const mv_amps = (block_s_mva * 1000000) / (Math.sqrt(3) * 33000);
 
         // --- Electrical & Financial Math ---
         const total_yield_mwh = total_p_mw * yield_kwp;
         const gross_rev = total_yield_mwh * total_price_mwh;
-        
         const study_fee = total_p_mw < 5 ? (total_p_mw * 1000000 * 0.05) : (total_p_mw * 1000000 * 0.025);
-
         const total_epc_cost = total_p_mw * 1000000 * total_epc_wp;
         const total_trench_gbp = (totalTrenchLengthKm * 1000) * trench_cost;
         const gross_capex = total_epc_cost + c_sub + total_trench_gbp + study_fee + bess_capex;
 
         let peak_loss_mw = 0, annual_loss_gbp = 0;
-        if (rings > 0 && totalTrenchLengthKm > 0) {
-            const mv_current_a = (total_s_mva * 1000000) / (Math.sqrt(3) * 33000 * rings); 
-            peak_loss_mw = (3 * Math.pow(mv_current_a, 2) * cable_res * (totalTrenchLengthKm/rings)) / 1000000 * rings; 
+        if (effective_blocks > 0 && totalTrenchLengthKm > 0) {
+            // Simplified approximation for radial tree load flow
+            const total_mv_current = (total_s_mva * 1000000) / (Math.sqrt(3) * 33000); 
+            peak_loss_mw = (3 * Math.pow(total_mv_current/2, 2) * cable_res * totalTrenchLengthKm) / 1000000; 
             const annual_loss_mwh = peak_loss_mw * 8760 * 0.3; 
             annual_loss_gbp = annual_loss_mwh * total_price_mwh;
         }
@@ -444,11 +420,15 @@
         const lifetime_rev = net_annual_rev * proj_life;
         const nav = lifetime_rev - gross_capex;
 
-        const themeClass = activeTab === 'string' ? 'cyan' : 'orange';
-
         statBox.innerHTML = `
-            <h3 style="margin-top:0; color:var(--accent);">CAPEX & INFRASTRUCTURE</h3>
-            <div class="stat-row"><span>Total DC / AC Cap:</span><span class="stat-val ${themeClass}">${total_p_mw.toFixed(2)} MWp / ${total_s_mva.toFixed(2)} MWac</span></div>
+            <h3 style="margin-top:0; color:var(--accent);">ELECTRICAL ARCHITECTURE</h3>
+            <div class="stat-row"><span>Inverter Skids Required:</span><span class="stat-val cyan">${effective_blocks}</span></div>
+            <div class="stat-row"><span>Skid Rating (S / Q):</span><span class="stat-val">${block_s_mva.toFixed(2)} MVA / ${block_q_mvar.toFixed(2)} MVAr</span></div>
+            <div class="stat-row"><span>Skid Bus (800V / 33kV):</span><span class="stat-val">${lv_amps.toFixed(0)}A / ${mv_amps.toFixed(0)}A</span></div>
+            <div class="stat-row"><span>GEOFENCED Total Cap:</span><span class="stat-val cyan">${total_p_mw.toFixed(2)} MWp</span></div>
+            <div class="stat-row"><span>Target Total Acres:</span><span class="stat-val">${total_array_acres.toFixed(0)} / ${target_acres.toFixed(0)}</span></div>
+
+            <h3 style="margin-top:10px; color:var(--accent);">CAPEX & INFRASTRUCTURE</h3>
             <div class="stat-row"><span>Est. 33kV Trenching:</span><span class="stat-val">${(totalTrenchLengthKm*1000).toFixed(0)} m</span></div>
             <div class="stat-row"><span>Solar EPC CAPEX:</span><span class="stat-val">£${total_epc_cost.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
             <div class="stat-row"><span>BESS CAPEX:</span><span class="stat-val">£${bess_capex.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
@@ -465,85 +445,102 @@
             <div class="stat-row"><span>Net Asset Value (NAV):</span><span class="stat-val finance">£${nav.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
         `;
 
-        return { footprint_m2, rings };
+        return { 
+            target_acres, aspect_ratio, req_blocks, block_ground_area_m2, 
+            mva: block_s_mva.toFixed(2), mvar: block_q_mvar.toFixed(2), mwp: block_p_mwp.toFixed(2),
+            lv: lv_amps.toFixed(0), mv: mv_amps.toFixed(0)
+        };
     }
 
     function generateTopology() {
         if (!topologyState.center) return;
+        
         const stats = updateAggregatesOnly();
         
-        topologyState.nodes = [];
-        topologyState.rings = [];
+        // Generate Rectangular Geofence
+        const area_km2 = stats.target_acres * 0.00404686;
+        const width_km = Math.sqrt(area_km2 / stats.aspect_ratio);
+        const length_km = width_km * stats.aspect_ratio;
+        topologyState.boundary = getRectPolygon(topologyState.center, width_km, length_km, 'boundary');
 
+        topologyState.nodes = [];
         topologyState.nodes.push({ id: 'sub', type: 'primary_sub', coords: topologyState.center, props: {} });
 
-        if (activeTab === 'string') {
-            const s = parseInt(document.getElementById('s_subs').value) || 0;
-            const sub_radius_km = Math.sqrt(stats.footprint_m2 / Math.PI) / 1000;
-            const radiusStep = sub_radius_km * 3; 
+        // Grid Packing Algorithm
+        const cols = Math.ceil(Math.sqrt(stats.req_blocks / stats.aspect_ratio));
+        const rows = Math.ceil(stats.req_blocks / cols);
+        
+        const spacing_x = width_km / cols;
+        const spacing_y = length_km / rows;
 
-            for (let r = 0; r < stats.rings; r++) {
-                let ringNodeIds = ['sub'];
-                for (let sub = 0; sub < s; sub++) {
-                    const angle = (r * (360 / stats.rings)) + (sub * (120 / s));
-                    const coords = turf.destination(turf.point(topologyState.center), radiusStep * (sub + 1) + 0.1, angle, {units: 'kilometers'}).geometry.coordinates;
-                    
-                    let id = `inv-${r}-${sub}`;
-                    topologyState.nodes.push({ id: id, type: 'inverter', coords: coords, props: { area: stats.footprint_m2 } });
-                    ringNodeIds.push(id);
+        // Top-left starting point
+        const pt = turf.point(topologyState.center);
+        const n = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
+        const nw = turf.destination(turf.point(n), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
+
+        let blockCount = 0;
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                if (blockCount >= stats.req_blocks) break;
+
+                // Move East, then South
+                let pos = turf.destination(turf.point(nw), (c * spacing_x) + (spacing_x/2), 90, {units: 'kilometers'}).geometry.coordinates;
+                pos = turf.destination(turf.point(pos), (r * spacing_y) + (spacing_y/2), 180, {units: 'kilometers'}).geometry.coordinates;
+
+                // Only drop the block if it fits inside the geofence
+                if (turf.booleanPointInPolygon(turf.point(pos), topologyState.boundary)) {
+                    topologyState.nodes.push({ 
+                        id: `inv-${blockCount}`, type: 'inverter', coords: pos, 
+                        props: { area: stats.block_ground_area_m2, mva: stats.mva, mvar: stats.mvar, mwp: stats.mwp, lv_amps: stats.lv, mv_amps: stats.mv } 
+                    });
+                    blockCount++;
                 }
-                ringNodeIds.push('sub');
-                topologyState.rings.push({ id: `ring-${r}`, nodes: ringNodeIds });
-            }
-        } else {
-            const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
-            const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
-            const footprint_radius_km = Math.sqrt(stats.footprint_m2 / Math.PI) / 1000;
-            const radiusStep = footprint_radius_km * 3.5; 
-
-            for (let r = 0; r < stats.rings; r++) {
-                let ringNodeIds = ['sub'];
-                for (let mv = 0; mv < mv_per_ring; mv++) {
-                    const angle_mv = (r * (360 / stats.rings)) + (mv * (360 / mv_per_ring) / stats.rings);
-                    const mv_coord = turf.destination(turf.point(topologyState.center), radiusStep * (mv + 1) + 0.2, angle_mv, {units: 'kilometers'}).geometry.coordinates;
-                    
-                    let mvId = `mv-${r}-${mv}`;
-                    topologyState.nodes.push({ id: mvId, type: 'mv_station', coords: mv_coord, props: {} });
-                    ringNodeIds.push(mvId);
-
-                    for (let inv = 0; inv < inv_per_mv; inv++) {
-                        const angle_inv = inv * (360 / inv_per_mv);
-                        const inv_coord = turf.destination(turf.point(mv_coord), (inv_per_mv > 1) ? (footprint_radius_km * 1.5) : 0, angle_inv, {units: 'kilometers'}).geometry.coordinates;
-                        
-                        let invId = `cinv-${r}-${mv}-${inv}`;
-                        topologyState.nodes.push({ id: invId, type: 'central_inverter', coords: inv_coord, props: { area: stats.footprint_m2 } });
-                    }
-                }
-                ringNodeIds.push('sub');
-                topologyState.rings.push({ id: `ring-${r}`, nodes: ringNodeIds });
             }
         }
 
-        renderTopology();
+        renderTopology(blockCount);
     }
 
-    function renderTopology() {
+    function renderTopology(forcePlacedInvs = null) {
         let features = [];
         let totalTrenchLengthKm = 0;
 
+        if (topologyState.boundary) {
+            features.push(topologyState.boundary);
+        }
+
+        let inverters = [];
+
         topologyState.nodes.forEach(node => {
-            if (node.type === 'inverter' || node.type === 'central_inverter') {
-                let propType = node.type === 'inverter' ? 'skid_footprint' : 'central_footprint';
-                features.push(getRectFootprint(node.coords, node.props.area, propType));
+            if (node.type === 'inverter') {
+                inverters.push(node);
+                features.push(getRectFootprint(node.coords, node.props.area, 'skid_footprint'));
             }
         });
 
-        topologyState.rings.forEach(ring => {
-            let lineCoords = ring.nodes.map(id => topologyState.nodes.find(n => n.id === id).coords);
-            let lineString = turf.lineString(lineCoords, { type: '33kv_ring', ring_id: ring.id });
-            features.push(lineString);
-            totalTrenchLengthKm += turf.length(lineString, { units: 'kilometers' });
-        });
+        // Orthogonal Trunk and Branch Routing
+        if (inverters.length > 0) {
+            // Main spine goes North/South through the Substation
+            let spineN = inverters[0].coords[1];
+            let spineS = inverters[inverters.length-1].coords[1];
+            
+            inverters.forEach(inv => {
+                if (inv.coords[1] > spineN) spineN = inv.coords[1];
+                if (inv.coords[1] < spineS) spineS = inv.coords[1];
+                
+                // Branch to spine
+                let branch = [inv.coords, [topologyState.center[0], inv.coords[1]]];
+                let lineString = turf.lineString(branch, { type: '33kv_ring' });
+                features.push(lineString);
+                totalTrenchLengthKm += turf.length(lineString, { units: 'kilometers' });
+            });
+
+            // Spine
+            let spine = [[topologyState.center[0], spineN], topologyState.center, [topologyState.center[0], spineS]];
+            let spineString = turf.lineString(spine, { type: '33kv_ring' });
+            features.push(spineString);
+            totalTrenchLengthKm += turf.length(spineString, { units: 'kilometers' });
+        }
 
         topologyState.nodes.forEach(node => {
             features.push(turf.point(node.coords, { id: node.id, type: node.type, ...node.props }));
@@ -552,22 +549,24 @@
         currentGeoJSON = turf.featureCollection(features);
         if (map.getSource('topology')) map.getSource('topology').setData(currentGeoJSON);
 
-        updateAggregatesOnly(totalTrenchLengthKm);
+        let count = forcePlacedInvs !== null ? forcePlacedInvs : inverters.length;
+        updateAggregatesOnly(totalTrenchLengthKm, count);
     }
 
     document.querySelectorAll('.input-group input, .input-group select').forEach(el => {
         el.addEventListener('input', () => {
             if (topologyState.center) {
                 if(el.closest('#finance_inputs')) {
+                    // Update finance without redrawing
                     let totalTrenchLengthKm = 0;
                     if(currentGeoJSON.features.length > 0) {
                         currentGeoJSON.features.forEach(f => {
-                            if(f.properties.type === '33kv_ring') {
-                                totalTrenchLengthKm += turf.length(f, { units: 'kilometers' });
-                            }
+                            if(f.properties.type === '33kv_ring') totalTrenchLengthKm += turf.length(f, { units: 'kilometers' });
                         });
                     }
-                    updateAggregatesOnly(totalTrenchLengthKm);
+                    // Count inverters inside geofence
+                    let validCount = topologyState.nodes.filter(n => n.type === 'inverter' && turf.booleanPointInPolygon(turf.point(n.coords), topologyState.boundary)).length;
+                    updateAggregatesOnly(totalTrenchLengthKm, validCount);
                 } else {
                     generateTopology();
                 }

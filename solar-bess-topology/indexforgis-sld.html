@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>GIS-SLD Topology Engine | Techno-Commercial Scoping</title>
+    <title>GIS-SLD Topology Engine | Financial Sandbox</title>
     
     <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform: uppercase; border-bottom: 1px dashed #333; padding-bottom: 3px; }
         
         details { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 3px; background: rgba(255,255,255,0.02); }
-        summary { padding: 10px; font-size: 12px; font-weight: bold; cursor: pointer; color: var(--accent); text-transform: uppercase; outline: none; }
+        summary { padding: 10px; font-size: 12px; font-weight: bold; cursor: pointer; color: var(--finance); text-transform: uppercase; outline: none; }
         .details-content { padding: 10px; border-top: 1px solid var(--line); }
 
         .tab-container { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 15px; }
@@ -41,6 +41,9 @@
         .input-group { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
         .input-group input, .input-group select { width: 90px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
         .tab-content#central_tab .input-group input, .tab-content#central_tab .input-group select { color: var(--accent-alt); }
+        
+        #finance_inputs .input-group input { color: var(--finance); }
+        
         .input-group select { text-align: left; }
         .input-group input:focus, .input-group select:focus { border-color: var(--text); outline: none; }
         .input-group input[type="checkbox"] { width: auto; accent-color: var(--accent-alt); transform: scale(1.2); }
@@ -52,13 +55,14 @@
         .stat-box { background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); padding: 12px; border-radius: 3px; margin-top: 15px; }
         .stat-box.central { background: rgba(255, 153, 0, 0.05); border-color: var(--accent-alt); }
         .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; color: var(--muted); }
-        .stat-val { color: var(--text); font-weight: bold; }
-        .stat-val.cyan { color: var(--accent); font-size: 13px; }
-        .stat-val.orange { color: var(--accent-alt); font-size: 13px; }
-        .stat-val.finance { color: var(--finance); font-size: 13px; }
+        .stat-val { color: var(--text); font-weight: bold; text-align: right; }
+        .stat-val.cyan { color: var(--accent); }
+        .stat-val.orange { color: var(--accent-alt); }
+        .stat-val.finance { color: var(--finance); font-size: 12px; }
         .stat-val.alert { color: #ffcc00; }
 
         .engineering-note { background: rgba(255, 68, 68, 0.1); border: 1px solid var(--warn); padding: 10px; border-radius: 3px; margin-top: 15px; font-size: 10px; color: #ff9999; line-height: 1.4; }
+        .finance-note { background: rgba(0, 255, 136, 0.05); border: 1px dashed var(--finance); padding: 8px; border-radius: 3px; margin-bottom: 10px; font-size: 10px; color: var(--finance); line-height: 1.3; }
         
         .btn { padding: 10px; background: #000; color: var(--text); border: 1px solid #555; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; margin-top: 10px; width: 100%; transition: 0.2s; }
         .btn.draw-btn { color: var(--bg); background: var(--accent); border-color: var(--accent); }
@@ -127,13 +131,38 @@
             <div class="input-group"><label>Draw Combiners</label><input type="checkbox" id="show_cb_c" /></div>
         </div>
 
-        <details>
-            <summary>► Electrical & Financial Model Inputs</summary>
+        <details id="finance_inputs" open>
+            <summary>► Commercial & CAPEX Assumptions</summary>
             <div class="details-content">
-                <div class="input-group"><label>Energy Price (£/MWh)</label><input type="number" id="price_mwh" value="55" /></div>
-                <div class="input-group"><label>Annual Yield (kWh/kWp)</label><input type="number" id="yield_kwp" value="1050" /></div>
-                <div class="input-group"><label>Cable+Trench Cost (£/m)</label><input type="number" id="trench_cost" value="120" /></div>
-                <div class="input-group"><label>Cable Res. (Ω/km) [300mm² Al]</label><input type="number" id="cable_res" value="0.100" step="0.01" /></div>
+                <div class="finance-note">
+                    <strong>DISCLAIMER:</strong> Default £0.50/Wp EPC values and study fees are indicative high-level estimates. Update with real confirmed pricing if known.
+                </div>
+                <h3>Market & Yield</h3>
+                <div class="input-group"><label>Project Life (Years)</label><input type="number" id="proj_life" value="25" /></div>
+                <div class="input-group"><label>Wholesale (p/kWh)</label><input type="number" id="price_p_kwh" value="3.0" step="0.1" /></div>
+                <div class="input-group"><label>PPA/CfD/Subsidy (p/kWh)</label><input type="number" id="subsidy_p_kwh" value="0.0" step="0.1" title="Feed-in Tariff, CfD, CO2 Credits, etc." /></div>
+                <div class="input-group"><label>UK Capacity Factor (%)</label><input type="number" id="cap_factor" value="10" step="0.1" /></div>
+                
+                <h3>Storage (BESS)</h3>
+                <div class="input-group"><label>Max BESS Cap (MW/MWh)</label><div style="display: flex; gap: 4px;"><input type="number" id="bess_mw" placeholder="MW" style="width: 42px;" /><input type="number" id="bess_mwh" placeholder="MWh" style="width: 42px;" /></div></div>
+                <div class="input-group"><label>BESS CAPEX (£/MWh)</label><input type="number" id="c_bess_mwh" value="200000" step="5000" /></div>
+                <div class="input-group"><label>Est. Arbitrage (£/MWh/cyc)</label><input type="number" id="bess_arb" value="50" step="1" title="Estimated profit per MWh per cycle" /></div>
+
+                <h3>Hardware CAPEX (£/Wp)</h3>
+                <div class="input-group"><label>Module Cost</label><input type="number" id="c_mod" value="0.15" step="0.01" /></div>
+                <div class="input-group"><label>Structure Cost</label><input type="number" id="c_str" value="0.08" step="0.01" /></div>
+                <div class="input-group"><label>Inverter Cost</label><input type="number" id="c_inv" value="0.05" step="0.01" /></div>
+                
+                <h3>BOP & Install CAPEX (£/Wp)</h3>
+                <div class="input-group"><label>Mechanical Install</label><input type="number" id="c_mech" value="0.04" step="0.01" /></div>
+                <div class="input-group"><label>Civil Install</label><input type="number" id="c_civil" value="0.04" step="0.01" /></div>
+                <div class="input-group"><label>Electrical Install</label><input type="number" id="c_elec" value="0.07" step="0.01" /></div>
+                <div class="input-group"><label>HV Services</label><input type="number" id="c_hv" value="0.07" step="0.01" /></div>
+                
+                <h3>Fixed / Routing Costs</h3>
+                <div class="input-group"><label>Substation Build (£)</label><input type="number" id="c_sub" value="1500000" step="10000" /></div>
+                <div class="input-group"><label>Cable+Trench (£/m)</label><input type="number" id="trench_cost" value="120" /></div>
+                <div class="input-group"><label>Cable Res. (Ω/km)</label><input type="number" id="cable_res" value="0.100" step="0.01" title="Default 300mm2 Al XLPE" /></div>
             </div>
         </details>
 
@@ -141,7 +170,7 @@
             </div>
 
         <div class="engineering-note">
-            <strong>DRAG & DROP ENABLED:</strong> Move any block to recalculate cable routing, electrical $I^2R$ thermal losses, and CAPEX impact in real-time. Estimates are indicative pre-FEED only.
+            <strong>DRAG & DROP ENABLED (TOUCH & MOUSE):</strong> Move any block to recalculate cable routing, electrical $I^2R$ thermal losses, and CAPEX/NAV impact in real-time. Estimates are indicative pre-FEED only.
         </div>
 
         <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ GENERATE BASELINE ARRAY</button>
@@ -248,8 +277,15 @@
         document.getElementById('central_tab').classList.toggle('active', tab === 'central');
         
         const btnDraw = document.getElementById('btn_draw');
-        if (tab === 'central') { btnDraw.classList.add('central'); } 
-        else { btnDraw.classList.remove('central'); }
+        const statBox = document.getElementById('global_stat_box');
+        
+        if (tab === 'central') { 
+            btnDraw.classList.add('central'); 
+            statBox.classList.add('central');
+        } else { 
+            btnDraw.classList.remove('central'); 
+            statBox.classList.remove('central');
+        }
         
         updateLegend();
         updateAggregatesOnly();
@@ -309,13 +345,41 @@
 
     function updateAggregatesOnly(totalTrenchLengthKm = 0) {
         const statBox = document.getElementById('global_stat_box');
-        const price_mwh = parseFloat(document.getElementById('price_mwh').value) || 55;
-        const yield_kwp = parseFloat(document.getElementById('yield_kwp').value) || 1050;
+        
+        // Market & Yield
+        const proj_life = parseInt(document.getElementById('proj_life').value) || 25;
+        const price_p = parseFloat(document.getElementById('price_p_kwh').value) || 3.0;
+        const subsidy_p = parseFloat(document.getElementById('subsidy_p_kwh').value) || 0.0;
+        const total_price_mwh = (price_p + subsidy_p) * 10; // p/kWh to £/MWh
+        
+        const cap_factor = parseFloat(document.getElementById('cap_factor').value) || 10;
+        const yield_kwp = 8760 * (cap_factor / 100); 
+        
+        // BESS
+        const bess_mw = parseFloat(document.getElementById('bess_mw').value) || 0;
+        const bess_mwh = parseFloat(document.getElementById('bess_mwh').value) || 0;
+        const c_bess_mwh = parseFloat(document.getElementById('c_bess_mwh').value) || 200000;
+        const bess_arb = parseFloat(document.getElementById('bess_arb').value) || 50;
+        const bess_capex = bess_mwh * c_bess_mwh;
+        const bess_annual_rev = bess_mwh * 365 * bess_arb;
+
+        // EPC Unit Costs (£/Wp)
+        const c_mod = parseFloat(document.getElementById('c_mod').value) || 0;
+        const c_str = parseFloat(document.getElementById('c_str').value) || 0;
+        const c_inv = parseFloat(document.getElementById('c_inv').value) || 0;
+        const c_mech = parseFloat(document.getElementById('c_mech').value) || 0;
+        const c_civil = parseFloat(document.getElementById('c_civil').value) || 0;
+        const c_elec = parseFloat(document.getElementById('c_elec').value) || 0;
+        const c_hv = parseFloat(document.getElementById('c_hv').value) || 0;
+        const total_epc_wp = c_mod + c_str + c_inv + c_mech + c_civil + c_elec + c_hv;
+        
+        // Fixed/Routing Costs
+        const c_sub = parseFloat(document.getElementById('c_sub').value) || 0;
         const trench_cost = parseFloat(document.getElementById('trench_cost').value) || 120;
         const cable_res = parseFloat(document.getElementById('cable_res').value) || 0.100;
         
-        let total_p_mw = 0, total_s_mva = 0, sub_s_mva = 0, total_array_acres = 0;
-        let footprint_m2 = 0, rings = 0, mv_per_ring = 0, inv_per_mv = 0;
+        let total_p_mw = 0, total_s_mva = 0, total_array_acres = 0;
+        let footprint_m2 = 0, rings = 0;
 
         if (activeTab === 'string') {
             const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
@@ -332,7 +396,6 @@
             const total_subs = rings * s;
             total_p_mw = (total_subs * y * z * x * mod_wp) / 1000000;
             total_s_mva = total_p_mw / pf;
-            sub_s_mva = total_s_mva / total_subs;
             footprint_m2 = (x * z * y * mod_l * mod_w) / gcr;
             total_array_acres = (footprint_m2 / 4046.86) * total_subs;
         } else {
@@ -343,17 +406,17 @@
             const x_mods = parseInt(document.getElementById('x_mods_c').value) || 0;
             const inv_ac_mw = parseFloat(document.getElementById('inv_ac_mw_c').value) || 0;
             const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio_c').value) || 0;
-            inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
-            mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
+            const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
+            const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
             rings = parseInt(document.getElementById('rings_c').value) || 0;
 
             const str_dc_kwp = (x_mods * mod_wp) / 1000;
             const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
             const req_strings = Math.round((inv_dc_mwp * 1000) / str_dc_kwp);
-            
             const total_invs = inv_per_mv * mv_per_ring * rings;
+            
             total_p_mw = total_invs * inv_dc_mwp;
-            total_s_mva = total_invs * inv_ac_mw; // approx MVA = MWac
+            total_s_mva = total_invs * inv_ac_mw; 
             
             footprint_m2 = (req_strings * x_mods * mod_l * mod_w) / gcr;
             total_array_acres = (footprint_m2 / 4046.86) * total_invs;
@@ -361,33 +424,48 @@
 
         // --- Electrical & Financial Math ---
         const total_yield_mwh = total_p_mw * yield_kwp;
-        const gross_rev = total_yield_mwh * price_mwh;
+        const gross_rev = total_yield_mwh * total_price_mwh;
         
-        // 3-Phase Loss = 3 * I^2 * R * L (Simplified estimation for the whole ring layout)
-        const mv_current_a = (total_s_mva * 1000000) / (Math.sqrt(3) * 33000 * rings); // Current per ring
-        const peak_loss_mw = (3 * Math.pow(mv_current_a, 2) * cable_res * (totalTrenchLengthKm/rings)) / 1000000 * rings; 
-        
-        // Load Loss Factor ~ 0.3 for solar profile
-        const annual_loss_mwh = peak_loss_mw * 8760 * 0.3; 
-        const annual_loss_gbp = annual_loss_mwh * price_mwh;
+        const study_fee = total_p_mw < 5 ? (total_p_mw * 1000000 * 0.05) : (total_p_mw * 1000000 * 0.025);
+
+        const total_epc_cost = total_p_mw * 1000000 * total_epc_wp;
         const total_trench_gbp = (totalTrenchLengthKm * 1000) * trench_cost;
+        const gross_capex = total_epc_cost + c_sub + total_trench_gbp + study_fee + bess_capex;
+
+        let peak_loss_mw = 0, annual_loss_gbp = 0;
+        if (rings > 0 && totalTrenchLengthKm > 0) {
+            const mv_current_a = (total_s_mva * 1000000) / (Math.sqrt(3) * 33000 * rings); 
+            peak_loss_mw = (3 * Math.pow(mv_current_a, 2) * cable_res * (totalTrenchLengthKm/rings)) / 1000000 * rings; 
+            const annual_loss_mwh = peak_loss_mw * 8760 * 0.3; 
+            annual_loss_gbp = annual_loss_mwh * total_price_mwh;
+        }
+
+        const net_annual_rev = gross_rev + bess_annual_rev - annual_loss_gbp;
+        const lifetime_rev = net_annual_rev * proj_life;
+        const nav = lifetime_rev - gross_capex;
 
         const themeClass = activeTab === 'string' ? 'cyan' : 'orange';
 
         statBox.innerHTML = `
-            <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val ${themeClass}">${total_p_mw.toFixed(2)} MWp</span></div>
-            <div class="stat-row"><span>Total Array Area:</span><span class="stat-val">${total_array_acres.toFixed(0)} Acres</span></div>
-            <hr style="border-top: 1px dashed #444; margin: 8px 0;">
-            <div class="stat-row"><span>Est. 33kV Trench Route:</span><span class="stat-val ${themeClass}">${(totalTrenchLengthKm*1000).toFixed(0)} m</span></div>
-            <div class="stat-row"><span>Est. Cable+Trench CAPEX:</span><span class="stat-val finance">£${total_trench_gbp.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
-            <hr style="border-top: 1px dashed #444; margin: 8px 0;">
-            <div class="stat-row"><span>Peak $I^2R$ Cable Loss:</span><span class="stat-val alert">${(peak_loss_mw*1000).toFixed(1)} kW</span></div>
-            <div class="stat-row"><span>Annual Thermal Loss Val:</span><span class="stat-val alert">£${annual_loss_gbp.toLocaleString(undefined, {maximumFractionDigits:0})} / yr</span></div>
-            <hr style="border-top: 1px solid #333; margin: 8px 0;">
-            <div class="stat-row"><span>Gross Annual Rev (No Loss):</span><span class="stat-val finance">£${gross_rev.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <h3 style="margin-top:0; color:var(--accent);">CAPEX & INFRASTRUCTURE</h3>
+            <div class="stat-row"><span>Total DC / AC Cap:</span><span class="stat-val ${themeClass}">${total_p_mw.toFixed(2)} MWp / ${total_s_mva.toFixed(2)} MWac</span></div>
+            <div class="stat-row"><span>Est. 33kV Trenching:</span><span class="stat-val">${(totalTrenchLengthKm*1000).toFixed(0)} m</span></div>
+            <div class="stat-row"><span>Solar EPC CAPEX:</span><span class="stat-val">£${total_epc_cost.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <div class="stat-row"><span>BESS CAPEX:</span><span class="stat-val">£${bess_capex.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <div class="stat-row"><span>Total Est. CAPEX:</span><span class="stat-val finance">£${gross_capex.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+
+            <h3 style="margin-top:10px; color:var(--accent);">ANNUAL REVENUE & LOSSES</h3>
+            <div class="stat-row"><span>Solar Gen Value:</span><span class="stat-val">£${gross_rev.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <div class="stat-row"><span>BESS Arb. Value:</span><span class="stat-val">£${bess_annual_rev.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <div class="stat-row"><span>Thermal Cable Loss:</span><span class="stat-val alert">- £${annual_loss_gbp.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <div class="stat-row"><span>Net Annual Rev:</span><span class="stat-val finance">£${net_annual_rev.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+
+            <h3 style="margin-top:10px; color:var(--accent);">LIFETIME VALUE (${proj_life} YRS)</h3>
+            <div class="stat-row"><span>Lifetime Revenue:</span><span class="stat-val">£${lifetime_rev.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
+            <div class="stat-row"><span>Net Asset Value (NAV):</span><span class="stat-val finance">£${nav.toLocaleString(undefined, {maximumFractionDigits:0})}</span></div>
         `;
 
-        return { footprint_m2, rings, mv_per_ring, inv_per_mv };
+        return { footprint_m2, rings };
     }
 
     function generateTopology() {
@@ -418,22 +496,24 @@
                 topologyState.rings.push({ id: `ring-${r}`, nodes: ringNodeIds });
             }
         } else {
+            const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
+            const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
             const footprint_radius_km = Math.sqrt(stats.footprint_m2 / Math.PI) / 1000;
             const radiusStep = footprint_radius_km * 3.5; 
 
             for (let r = 0; r < stats.rings; r++) {
                 let ringNodeIds = ['sub'];
-                for (let mv = 0; mv < stats.mv_per_ring; mv++) {
-                    const angle_mv = (r * (360 / stats.rings)) + (mv * (360 / stats.mv_per_ring) / stats.rings);
+                for (let mv = 0; mv < mv_per_ring; mv++) {
+                    const angle_mv = (r * (360 / stats.rings)) + (mv * (360 / mv_per_ring) / stats.rings);
                     const mv_coord = turf.destination(turf.point(topologyState.center), radiusStep * (mv + 1) + 0.2, angle_mv, {units: 'kilometers'}).geometry.coordinates;
                     
                     let mvId = `mv-${r}-${mv}`;
                     topologyState.nodes.push({ id: mvId, type: 'mv_station', coords: mv_coord, props: {} });
                     ringNodeIds.push(mvId);
 
-                    for (let inv = 0; inv < stats.inv_per_mv; inv++) {
-                        const angle_inv = inv * (360 / stats.inv_per_mv);
-                        const inv_coord = turf.destination(turf.point(mv_coord), (stats.inv_per_mv > 1) ? (footprint_radius_km * 1.5) : 0, angle_inv, {units: 'kilometers'}).geometry.coordinates;
+                    for (let inv = 0; inv < inv_per_mv; inv++) {
+                        const angle_inv = inv * (360 / inv_per_mv);
+                        const inv_coord = turf.destination(turf.point(mv_coord), (inv_per_mv > 1) ? (footprint_radius_km * 1.5) : 0, angle_inv, {units: 'kilometers'}).geometry.coordinates;
                         
                         let invId = `cinv-${r}-${mv}-${inv}`;
                         topologyState.nodes.push({ id: invId, type: 'central_inverter', coords: inv_coord, props: { area: stats.footprint_m2 } });
@@ -472,16 +552,25 @@
         currentGeoJSON = turf.featureCollection(features);
         if (map.getSource('topology')) map.getSource('topology').setData(currentGeoJSON);
 
-        // Update electrical/financial stats with the new trench length
         updateAggregatesOnly(totalTrenchLengthKm);
     }
 
-    // Attach listeners
     document.querySelectorAll('.input-group input, .input-group select').forEach(el => {
         el.addEventListener('input', () => {
             if (topologyState.center) {
-                // If inputs change, redraw the baseline based on current center
-                generateTopology();
+                if(el.closest('#finance_inputs')) {
+                    let totalTrenchLengthKm = 0;
+                    if(currentGeoJSON.features.length > 0) {
+                        currentGeoJSON.features.forEach(f => {
+                            if(f.properties.type === '33kv_ring') {
+                                totalTrenchLengthKm += turf.length(f, { units: 'kilometers' });
+                            }
+                        });
+                    }
+                    updateAggregatesOnly(totalTrenchLengthKm);
+                } else {
+                    generateTopology();
+                }
             } else {
                 updateAggregatesOnly();
             }

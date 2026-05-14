@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -12,17 +11,14 @@
 
 <style>
 :root {
-    --bg: #050505;
-    --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
+    --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
     --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --accent-alt: #ff9900;
-    --ok: #00ff88; --substation: #ff3333;
-    --private-sub: #00ff88; --inverter: #ffff00;
+    --ok: #00ff88; --substation: #ff3333; --private-sub: #00ff88; --inverter: #ffff00;
     --mv: #6633ff; --bess: #ff00aa; --array-blue: #0066ff; --warn: #ff4444;
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace;
-display: flex; justify-content: center; overflow: hidden; }
+body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; overflow: hidden; }
 
 .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1600px; height: 100%; }
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; display: flex; flex-direction: column; }
@@ -68,8 +64,6 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
 
 .btn { padding: 10px; background: #000; color: var(--text); border: 1px solid #555; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; margin-top: 10px; width: 100%; transition: 0.2s; }
 .btn:hover { background: #222; color: #fff; }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn:disabled:hover { background: #000; color: var(--text); }
 .btn.draw-btn { color: var(--bg); background: var(--accent); border-color: var(--accent); }
 .btn.draw-btn.central { background: var(--accent-alt); border-color: var(--accent-alt); }
 
@@ -99,8 +93,6 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
 #fetch_status { position: absolute; top: 10px; left: 10px; z-index: 20; background: rgba(5,5,5,0.9); border: 1px solid #555; padding: 6px 10px; border-radius: 3px; font-size: 10px; color: var(--muted); display: none; }
 #fetch_status.error { color: #ff6666; border-color: #ff4444; display: block; }
 
-#toast { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); z-index: 200; background: rgba(5,5,5,0.95); border: 1px solid var(--warn); color: #ffcccc; padding: 10px 18px; border-radius: 4px; font-family: monospace; font-size: 12px; font-weight: bold; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
-
 @media (max-width: 800px) {
     html, body { height: auto; }
     body { overflow: auto; padding: 10px; }
@@ -117,328 +109,300 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
     <div class="panel panel-left">
         <h2>GIS-SLD Sandbox</h2>
 
-```
-<div class="search-box">
-    <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." />
-    <button id="btn_search">FLY</button>
-</div>
-
-<div class="tab-container">
-    <button class="tab-btn active" id="tabbtn_string" data-tab="string">String</button>
-    <button class="tab-btn" id="tabbtn_central" data-tab="central">Central</button>
-</div>
-
-<div id="string_tab" class="tab-content active">
-    
-    <h3>Dimensions & Physics</h3>
-    <div class="input-group"><label>Grid Distance (km)</label><input type="number" id="grid_offset_km" value="0.2" step="0.1" min="0.1" max="50" /></div>
-    <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp" value="660" min="1" /></div>
-    <div class="input-group">
-        <label>Mod L x W (m)</label>
-        <div style="display: flex; gap: 4px;">
-            <input type="number" id="mod_l" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
-            <input type="number" id="mod_w" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
-        </div>
+    <div class="search-box">
+        <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." />
+        <button id="btn_search">FLY</button>
     </div>
-    <div class="input-group">
-        <label>Mounting & GCR</label>
-        <select id="mounting_type">
-            <option value="0.75">East-West Dome (~75%)</option>
-            <option value="0.45" selected>Fixed Tilt South (~45%)</option>
-            <option value="0.35">Tracker (~35%)</option>
-        </select>
+
+    <div class="tab-container">
+        <button class="tab-btn active" id="tabbtn_string" data-tab="string">String</button>
+        <button class="tab-btn" id="tabbtn_central" data-tab="central">Central</button>
     </div>
-    <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor" value="1.35" step="0.05" min="1.0" /></div>
 
-    <h3>Array Hierarchy (String)</h3>
-    <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
-    <div class="input-group"><label>Mods / String</label><input type="number" id="x_mods" value="28" min="1" /></div>
-    <div class="input-group"><label>Strings / Inverter</label><input type="number" id="z_strings" value="18" min="1" /></div>
-    <div class="input-group"><label>Inverters / Sub</label><input type="number" id="y_invs" value="28" min="1" /></div>
-    <div class="input-group"><label>Subs / Ring</label><input type="number" id="s_subs" value="5" min="1" /></div>
-    <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" min="1" /></div>
-
-    <h3>Module Logistics</h3>
-    <div class="input-group">
-        <label>Packaging Preset</label>
-        <select id="logistics_preset" data-suffix="">
-            <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
-            <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
-            <option value="manual">Manual Entry</option>
-        </select>
-    </div>
-    <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet" value="33" min="1" /></div>
-    <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container" value="594" min="1" /></div>
-    <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct" value="1.0" step="0.1" min="0" /></div>
-
-    <details class="finance-box">
-        <summary>Baseline Project Economics</summary>
-        <div class="finance-headline">
-            <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_string_annual_rev">£0</span></div>
-            <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_string_25_rev">£0</span></div>
-            <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_string_35_rev">£0</span></div>
-            <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_string_capex">£0</span></div>
-            <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_string_capex_wp">£0.00/Wp</span></div>
-            <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_string_surplus_25">£0</span></div>
-            <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_string_surplus_35">£0</span></div>
-        </div>
-
-        <h3>Revenue</h3>
-        <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_string_price" value="65" step="1" min="0"></div>
-        <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_string_other" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_string_yield" value="1000" step="10" min="0"></div>
-        <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_string_bifacial" value="5" step="0.5" min="0" max="15"></div>
-        <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_string_losses" value="2" step="0.1" min="0"></div>
-        <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_string_deg" value="0.4" step="0.01" min="0"></div>
-        <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_string_opex" value="25000" step="1000" min="0"></div>
-
-        <h3>CAPEX</h3>
-        <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
+    <div id="string_tab" class="tab-content active">
+        <h3>Dimensions & Physics</h3>
+        <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp" value="660" min="1" /></div>
         <div class="input-group">
-            <label>Flood Resilience</label>
-            <div style="display: flex; gap: 4px; align-items: center;">
-                <input type="checkbox" id="fin_string_flood" />
-                <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+            <label>Mod L x W (m)</label>
+            <div style="display: flex; gap: 4px;">
+                <input type="number" id="mod_l" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
+                <input type="number" id="mod_w" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
             </div>
         </div>
-        <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
-        <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
-        <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
-        <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
-
-        <h3>Loss Allowances</h3>
-        <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_string_loss_dc_string" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_string_loss_lv_dc" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_string_loss_lv_ac" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_string_loss_tx" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_string_loss_other" value="0" step="0.1" min="0"></div>
-
-        <h3>BESS Optional</h3>
-        <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_string_bess_mw" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_string_bess_mwh" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_string_bess_capex" value="0" step="10000" min="0"></div>
-        <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_string_bess_cycles" value="0" step="10" min="0"></div>
-        <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_string_bess_spread" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_string_bess_eff" value="88" step="1" min="0" max="100"></div>
-
-        <div class="warning-box" id="fin_string_warnings"></div>
-    </details>
-</div>
-
-<div id="central_tab" class="tab-content">
-    <h3>Dimensions & Physics</h3>
-    <div class="input-group"><label>Grid Distance (km)</label><input type="number" id="grid_offset_km_c" value="0.2" step="0.1" min="0.1" max="50" /></div>
-    <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp_c" value="660" min="1" /></div>
-    <div class="input-group">
-        <label>Mod L x W (m)</label>
-        <div style="display: flex; gap: 4px;">
-            <input type="number" id="mod_l_c" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
-            <input type="number" id="mod_w_c" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
-        </div>
-    </div>
-    <div class="input-group">
-        <label>Mounting & GCR</label>
-        <select id="mounting_type_c">
-            <option value="0.75">East-West Dome (~75%)</option>
-            <option value="0.45" selected>Fixed Tilt South (~45%)</option>
-            <option value="0.35">Tracker (~35%)</option>
-        </select>
-    </div>
-    <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor_c" value="1.35" step="0.05" min="1.0" /></div>
-
-    <h3>Array Hierarchy (Central)</h3>
-    <div class="input-group">
-        <label>Central AC Rating MWac</label>
-        <select id="inv_ac_mw_c">
-            <option value="3.15">3.15 MWac</option>
-            <option value="4.4" selected>4.40 MWac</option>
-            <option value="4.6">4.60 MWac</option>
-            <option value="5.0">5.00 MWac</option>
-            <option value="6.25">6.25 MWac</option>
-            <option value="6.8">6.80 MWac</option>
-        </select>
-    </div>
-    <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" min="0.01" /></div>
-    <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" min="1" /></div>
-    <div class="input-group"><label>Strings / Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>
-    <div class="input-group"><label>Central Invs / MV Station</label><input type="number" id="inv_per_mv_c" value="1" min="1" /></div>
-    <div class="input-group"><label>MV Stations / 33kV Ring</label><input type="number" id="mv_per_ring_c" value="4" min="1" /></div>
-    <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" min="1" /></div>
-
-    <h3>Module Logistics</h3>
-    <div class="input-group">
-        <label>Packaging Preset</label>
-        <select id="logistics_preset_c" data-suffix="_c">
-            <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
-            <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
-            <option value="manual">Manual Entry</option>
-        </select>
-    </div>
-    <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet_c" value="33" min="1" /></div>
-    <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container_c" value="594" min="1" /></div>
-    <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct_c" value="1.0" step="0.1" min="0" /></div>
-
-    <details class="finance-box">
-        <summary>Baseline Project Economics</summary>
-        <div class="finance-headline">
-            <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_central_annual_rev">£0</span></div>
-            <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_central_25_rev">£0</span></div>
-            <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_central_35_rev">£0</span></div>
-            <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_central_capex">£0</span></div>
-            <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_central_capex_wp">£0.00/Wp</span></div>
-            <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_central_surplus_25">£0</span></div>
-            <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_central_surplus_35">£0</span></div>
-        </div>
-
-        <h3>Revenue</h3>
-        <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_central_price" value="65" step="1" min="0"></div>
-        <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_central_other" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_central_yield" value="1000" step="10" min="0"></div>
-        <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_central_bifacial" value="5" step="0.5" min="0" max="15"></div>
-        <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_central_losses" value="2" step="0.1" min="0"></div>
-        <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_central_deg" value="0.4" step="0.01" min="0"></div>
-        <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_central_opex" value="25000" step="1000" min="0"></div>
-
-        <h3>CAPEX</h3>
-        <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
         <div class="input-group">
-            <label>Flood Resilience</label>
-            <div style="display: flex; gap: 4px; align-items: center;">
-                <input type="checkbox" id="fin_central_flood" />
-                <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+            <label>Mounting & GCR</label>
+            <select id="mounting_type">
+                <option value="0.75">East-West Dome (~75%)</option>
+                <option value="0.45" selected>Fixed Tilt South (~45%)</option>
+                <option value="0.35">Tracker (~35%)</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor" value="1.35" step="0.05" min="1.0" /></div>
+
+        <h3>Array Hierarchy (String)</h3>
+        <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
+        <div class="input-group"><label>Mods / String</label><input type="number" id="x_mods" value="28" min="1" /></div>
+        <div class="input-group"><label>Strings / Inverter</label><input type="number" id="z_strings" value="18" min="1" /></div>
+        <div class="input-group"><label>Inverters / Sub</label><input type="number" id="y_invs" value="28" min="1" /></div>
+        <div class="input-group"><label>Subs / Ring</label><input type="number" id="s_subs" value="5" min="1" /></div>
+        <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" min="1" /></div>
+
+        <h3>Module Logistics</h3>
+        <div class="input-group">
+            <label>Packaging Preset</label>
+            <select id="logistics_preset" data-suffix="">
+                <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
+                <option value="manual">Manual Entry</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet" value="33" min="1" /></div>
+        <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container" value="594" min="1" /></div>
+        <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct" value="1.0" step="0.1" min="0" /></div>
+
+        <details class="finance-box">
+            <summary>Baseline Project Economics</summary>
+            <div class="finance-headline">
+                <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_string_annual_rev">£0</span></div>
+                <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_string_25_rev">£0</span></div>
+                <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_string_35_rev">£0</span></div>
+                <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_string_capex">£0</span></div>
+                <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_string_capex_wp">£0.00/Wp</span></div>
+                <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_string_surplus_25">£0</span></div>
+                <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_string_surplus_35">£0</span></div>
+            </div>
+
+            <h3>Revenue</h3>
+            <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_string_price" value="65" step="1" min="0"></div>
+            <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_string_other" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_string_yield" value="1000" step="10" min="0"></div>
+            <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_string_bifacial" value="5" step="0.5" min="0" max="15"></div>
+            <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_string_losses" value="2" step="0.1" min="0"></div>
+            <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_string_deg" value="0.4" step="0.01" min="0"></div>
+            <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_string_opex" value="25000" step="1000" min="0"></div>
+
+            <h3>CAPEX</h3>
+            <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
+            <div class="input-group">
+                <label>Flood Resilience</label>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                    <input type="checkbox" id="fin_string_flood" />
+                    <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+                </div>
+            </div>
+            <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
+            <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
+            <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
+            <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
+
+            <h3>Loss Allowances</h3>
+            <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_string_loss_dc_string" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_string_loss_lv_dc" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_string_loss_lv_ac" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_string_loss_tx" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_string_loss_other" value="0" step="0.1" min="0"></div>
+
+            <h3>BESS Optional</h3>
+            <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_string_bess_mw" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_string_bess_mwh" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_string_bess_capex" value="0" step="10000" min="0"></div>
+            <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_string_bess_cycles" value="0" step="10" min="0"></div>
+            <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_string_bess_spread" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_string_bess_eff" value="88" step="1" min="0" max="100"></div>
+
+            <div class="warning-box" id="fin_string_warnings"></div>
+        </details>
+    </div>
+
+    <div id="central_tab" class="tab-content">
+        <h3>Dimensions & Physics</h3>
+        <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp_c" value="660" min="1" /></div>
+        <div class="input-group">
+            <label>Mod L x W (m)</label>
+            <div style="display: flex; gap: 4px;">
+                <input type="number" id="mod_l_c" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
+                <input type="number" id="mod_w_c" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
             </div>
         </div>
-        <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
-        <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
-        <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
-        <div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
+        <div class="input-group">
+            <label>Mounting & GCR</label>
+            <select id="mounting_type_c">
+                <option value="0.75">East-West Dome (~75%)</option>
+                <option value="0.45" selected>Fixed Tilt South (~45%)</option>
+                <option value="0.35">Tracker (~35%)</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor_c" value="1.35" step="0.05" min="1.0" /></div>
 
-        <h3>Loss Allowances</h3>
-        <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_central_loss_dc_string" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_central_loss_lv_dc" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_central_loss_lv_ac" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_central_loss_tx" value="0" step="0.1" min="0"></div>
-        <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_central_loss_other" value="0" step="0.1" min="0"></div>
+        <h3>Array Hierarchy (Central)</h3>
+        <div class="input-group">
+            <label>Central AC Rating MWac</label>
+            <select id="inv_ac_mw_c">
+                <option value="3.15">3.15 MWac</option>
+                <option value="4.4" selected>4.40 MWac</option>
+                <option value="4.6">4.60 MWac</option>
+                <option value="5.0">5.00 MWac</option>
+                <option value="6.25">6.25 MWac</option>
+                <option value="6.8">6.80 MWac</option>
+            </select>
+        </div>
+        <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" min="0.01" /></div>
+        <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" min="1" /></div>
+        <div class="input-group"><label>Strings / Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>
+        <div class="input-group"><label>Central Invs / MV Station</label><input type="number" id="inv_per_mv_c" value="1" min="1" /></div>
+        <div class="input-group"><label>MV Stations / 33kV Ring</label><input type="number" id="mv_per_ring_c" value="4" min="1" /></div>
+        <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" min="1" /></div>
 
-        <h3>BESS Optional</h3>
-        <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_central_bess_mw" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_central_bess_mwh" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_central_bess_capex" value="0" step="10000" min="0"></div>
-        <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_central_bess_cycles" value="0" step="10" min="0"></div>
-        <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_central_bess_spread" value="0" step="1" min="0"></div>
-        <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_central_bess_eff" value="88" step="1" min="0" max="100"></div>
+        <h3>Module Logistics</h3>
+        <div class="input-group">
+            <label>Packaging Preset</label>
+            <select id="logistics_preset_c" data-suffix="_c">
+                <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
+                <option value="manual">Manual Entry</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet_c" value="33" min="1" /></div>
+        <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container_c" value="594" min="1" /></div>
+        <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct_c" value="1.0" step="0.1" min="0" /></div>
 
-        <div class="warning-box" id="fin_central_warnings"></div>
-    </details>
-</div>
+        <details class="finance-box">
+            <summary>Baseline Project Economics</summary>
+            <div class="finance-headline">
+                <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_central_annual_rev">£0</span></div>
+                <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_central_25_rev">£0</span></div>
+                <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_central_35_rev">£0</span></div>
+                <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_central_capex">£0</span></div>
+                <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_central_capex_wp">£0.00/Wp</span></div>
+                <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_central_surplus_25">£0</span></div>
+                <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_central_surplus_35">£0</span></div>
+            </div>
 
-<div class="stat-box" style="border-color: #ff3333; background: rgba(255, 51, 51, 0.05); margin-bottom: 15px;">
-    <h3 style="margin-top: 0; color: #ff3333; border-bottom-color: #ff3333;">Selected Grid Node</h3>
-    <div class="stat-row"><span>Substation:</span><span class="stat-val" id="out_selected_sub_name">None selected</span></div>
-    <div class="stat-row"><span>Voltage:</span><span class="stat-val" id="out_selected_sub_voltage">Unknown</span></div>
-    <div class="stat-row"><span>Longitude:</span><span class="stat-val" id="out_selected_sub_lon">n/a</span></div>
-    <div class="stat-row"><span>Latitude:</span><span class="stat-val" id="out_selected_sub_lat">n/a</span></div>
-</div>
+            <h3>Revenue</h3>
+            <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_central_price" value="65" step="1" min="0"></div>
+            <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_central_other" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_central_yield" value="1000" step="10" min="0"></div>
+            <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_central_bifacial" value="5" step="0.5" min="0" max="15"></div>
+            <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_central_losses" value="2" step="0.1" min="0"></div>
+            <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_central_deg" value="0.4" step="0.01" min="0"></div>
+            <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_central_opex" value="25000" step="1000" min="0"></div>
 
-<div class="stat-box" id="tech_summary_box">
-    <h3>Technical Quantity Summary</h3>
-    <div class="stat-row"><span>Total Module Count:</span><span class="stat-val" id="out_module_count">0</span></div>
-    <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val cyan" id="out_dc_capacity">0.00 MWp</span></div>
-    <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
-    <div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
-    <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes / Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
-    <div class="stat-row central-only" style="display: none;"><span>Total Central Combiner Boxes:</span><span class="stat-val" id="out_total_cb">0</span></div>
-    <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
-    <div class="stat-row"><span>Net Module Surface Area:</span><span class="stat-val" id="out_net_mod_area">0 Acres</span></div>
-    <div class="stat-row"><span>Net Array Area at GCR:</span><span class="stat-val" id="out_net_array_area">0 Acres</span></div>
-    <div class="stat-row"><span>Indicative Gross Site Area:</span><span class="stat-val orange" id="out_gross_area">0 Acres</span></div>
-    <div class="stat-row"><span>Export Cable Length:</span><span class="stat-val" id="out_export_cable_km">0.00 km</span></div>
-    <div class="stat-row"><span>Cable Route Type:</span><span class="stat-val" id="out_cable_type">Straight line</span></div>
-    <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
-    <div class="stat-row"><span>Modules per Packing Unit:</span><span class="stat-val" id="out_mod_per_pallet">0</span></div>
-    <div class="stat-row"><span>Total Packing Units:</span><span class="stat-val" id="out_pallets">0</span></div>
-    <div class="stat-row"><span>Modules per Container:</span><span class="stat-val" id="out_mod_per_cont">0</span></div>
-    <div class="stat-row"><span>Total Base Containers:</span><span class="stat-val" id="out_containers">0</span></div>
-    <div class="stat-row"><span>Spare Module Allowance:</span><span class="stat-val" id="out_spare_pct">0%</span></div>
-    <div class="stat-row"><span>Containers (Inc. Spares):</span><span class="stat-val cyan" id="out_containers_spares">0</span></div>
-    <div class="stat-row"><span>Containers per MWp:</span><span class="stat-val cyan" id="out_cont_per_mwp">0.00</span></div>
-</div>
+            <h3>CAPEX</h3>
+            <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
+            <div class="input-group">
+                <label>Flood Resilience</label>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                    <input type="checkbox" id="fin_central_flood" />
+                    <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+                </div>
+            </div>
+            <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
+            <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
+            <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
+            <div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
 
-<div class="benchmark-box">
-    <h3 style="margin-top: 0;">Custom Reference Benchmark</h3>
-    <div class="input-group"><label>Reference Project</label><input type="text" id="ref_name" value="Custom Project X" style="width: 140px; text-align: left;"/></div>
-    <div class="input-group"><label>Reference Capacity (MW)</label><input type="number" id="ref_mw" value="100" min="1" /></div>
-    <div class="input-group"><label>Reference Module Count</label><input type="number" id="ref_modules" value="150000" min="1" /></div>
-    <div class="stat-row" style="margin-top: 8px; border-top: 1px dashed #333; padding-top: 8px;">
-        <span>Implied Benchmark:</span><span class="stat-val" id="out_ref_implied">~ 1,500 modules/MW</span>
+            <h3>Loss Allowances</h3>
+            <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_central_loss_dc_string" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_central_loss_lv_dc" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_central_loss_lv_ac" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_central_loss_tx" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_central_loss_other" value="0" step="0.1" min="0"></div>
+
+            <h3>BESS Optional</h3>
+            <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_central_bess_mw" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_central_bess_mwh" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_central_bess_capex" value="0" step="10000" min="0"></div>
+            <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_central_bess_cycles" value="0" step="10" min="0"></div>
+            <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_central_bess_spread" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_central_bess_eff" value="88" step="1" min="0" max="100"></div>
+
+            <div class="warning-box" id="fin_central_warnings"></div>
+        </details>
     </div>
-</div>
 
-<button class="btn draw-btn" id="btn_draw">⌖ DRAW NEAT GRID</button>
-<button class="btn" id="btn_route_cable" style="background: #113322; border-color: var(--ok); color: var(--ok);" disabled title="Draw a grid first">〰 ROUTE CABLE</button>
-<button class="btn" id="btn_export">⬇ Export GeoJSON</button>
+    <div class="stat-box" style="border-color: #ff3333; background: rgba(255, 51, 51, 0.05); margin-bottom: 15px;">
+        <h3 style="margin-top: 0; color: #ff3333; border-bottom-color: #ff3333;">Selected Grid Node</h3>
+        <div class="stat-row"><span>Substation:</span><span class="stat-val" id="out_selected_sub_name">None selected</span></div>
+        <div class="stat-row"><span>Voltage:</span><span class="stat-val" id="out_selected_sub_voltage">Unknown</span></div>
+        <div class="stat-row"><span>Longitude:</span><span class="stat-val" id="out_selected_sub_lon">n/a</span></div>
+        <div class="stat-row"><span>Latitude:</span><span class="stat-val" id="out_selected_sub_lat">n/a</span></div>
+    </div>
 
-<div class="disclaimer-box">
-    <strong>ENGINEERING SCREENING OUTPUT</strong><br><br>
-    These outputs are indicative screening values only. They are not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. All quantities, packaging, site area, cable routes, container loads, module specifications and financial assumptions must be verified against current manufacturer datasheets, project specific drawings, EPC scope, grid requirements and competent engineering review.
-</div>
+    <div class="stat-box" id="tech_summary_box">
+        <h3>Technical Quantity Summary</h3>
+        <div class="stat-row"><span>Total Module Count:</span><span class="stat-val" id="out_module_count">0</span></div>
+        <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val cyan" id="out_dc_capacity">0.00 MWp</span></div>
+        <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
+        <div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
+        <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes / Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
+        <div class="stat-row central-only" style="display: none;"><span>Total Central Combiner Boxes:</span><span class="stat-val" id="out_total_cb">0</span></div>
+        <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+        <div class="stat-row"><span>Net Module Surface Area:</span><span class="stat-val" id="out_net_mod_area">0 Acres</span></div>
+        <div class="stat-row"><span>Net Array Area at GCR:</span><span class="stat-val" id="out_net_array_area">0 Acres</span></div>
+        <div class="stat-row"><span>Indicative Gross Site Area:</span><span class="stat-val orange" id="out_gross_area">0 Acres</span></div>
+        <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+        <div class="stat-row"><span>Modules per Packing Unit:</span><span class="stat-val" id="out_mod_per_pallet">0</span></div>
+        <div class="stat-row"><span>Total Packing Units:</span><span class="stat-val" id="out_pallets">0</span></div>
+        <div class="stat-row"><span>Modules per Container:</span><span class="stat-val" id="out_mod_per_cont">0</span></div>
+        <div class="stat-row"><span>Total Base Containers:</span><span class="stat-val" id="out_containers">0</span></div>
+        <div class="stat-row"><span>Spare Module Allowance:</span><span class="stat-val" id="out_spare_pct">0%</span></div>
+        <div class="stat-row"><span>Containers (Inc. Spares):</span><span class="stat-val cyan" id="out_containers_spares">0</span></div>
+        <div class="stat-row"><span>Containers per MWp:</span><span class="stat-val cyan" id="out_cont_per_mwp">0.00</span></div>
+    </div>
 
-<div class="explainer-box">
-    <h3>About the VENTUS GIS SLD Sandbox</h3>
-    <p>VENTUS GIS SLD Sandbox is a working engineering screening tool for utility scale solar, storage and grid connection analysis.</p>
-    <p>The tool helps users explore the relationship between land, grid proximity, solar topology, module count, inverter architecture, logistics, BESS assumptions and baseline project economics in one visual interface.</p>
-    <p>Users can enter a location, view UK substation reference data, select a grid node and generate an indicative solar layout using either string inverter or central inverter topology. The tool can estimate module count, DC capacity, AC capacity, site area, packing units, container loads, baseline revenue, CAPEX assumptions and simple long term financial outputs.</p>
-    <p>This is a real engineering screening tool. It is not a final construction design package, grid offer, connection approval, EPC quotation or financial advice. It is designed to support early stage project assessment by making technical, spatial, logistics and financial assumptions visible before deeper engineering, grid, planning, procurement and financial studies begin.</p>
-    <p>A key feature of the sandbox is that technical and commercial assumptions are shown together. In real projects, module count becomes logistics. Cable routing becomes electrical loss. Grid proximity becomes interface risk. BESS assumptions affect land, CAPEX and revenue logic. Financial outputs only become useful when the physical assumptions behind them are visible.</p>
-    <p>The tool also includes GeoJSON export so that generated layouts and assumptions can be carried into external GIS workflows, reports, internal review or further engineering discussion. The exported data is intended to preserve context, including topology mode, technical assumptions, logistics assumptions, financial assumptions and warnings.</p>
-    <p>The public substation layer is reference data only. A visible substation point does not confirm available capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval. Any real project must still be reviewed by competent engineers, grid specialists, planners, EPC teams, legal advisers and project finance professionals before real world decisions are made.</p>
-    <p>VENTUS created this sandbox to support better early stage thinking in solar and storage deployment. The aim is to help developers, engineers, suppliers, investors and commercial teams ask better questions before committing time, capital and contractual responsibility.</p>
-    <p>Use the sandbox as a thinking tool. Use it to test scale. Use it to compare assumptions. Use it to understand where deeper engineering begins.</p>
-</div>
-```
+    <div class="benchmark-box">
+        <h3 style="margin-top: 0;">Custom Reference Benchmark</h3>
+        <div class="input-group"><label>Reference Project</label><input type="text" id="ref_name" value="Custom Project X" style="width: 140px; text-align: left;"/></div>
+        <div class="input-group"><label>Reference Capacity (MW)</label><input type="number" id="ref_mw" value="100" min="1" /></div>
+        <div class="input-group"><label>Reference Module Count</label><input type="number" id="ref_modules" value="150000" min="1" /></div>
+        <div class="stat-row" style="margin-top: 8px; border-top: 1px dashed #333; padding-top: 8px;">
+            <span>Implied Benchmark:</span><span class="stat-val" id="out_ref_implied">~ 1,500 modules/MW</span>
+        </div>
+    </div>
 
+    <button class="btn draw-btn" id="btn_draw">⌖ DRAW NEAT GRID</button>
+    <button class="btn" id="btn_export">⬇ Export GeoJSON</button>
+
+    <div class="disclaimer-box">
+        <strong>ENGINEERING SCREENING OUTPUT</strong><br><br>
+        These outputs are indicative screening values only. They are not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. All quantities, packaging, site area, cable routes, container loads, module specifications and financial assumptions must be verified against current manufacturer datasheets, project specific drawings, EPC scope, grid requirements and competent engineering review.
+    </div>
+
+    <div class="explainer-box">
+        <h3>About the VENTUS GIS SLD Sandbox</h3>
+        <p>VENTUS GIS SLD Sandbox is a working engineering screening tool for utility scale solar, storage and grid connection analysis.</p>
+        <p>The tool helps users explore the relationship between land, grid proximity, solar topology, module count, inverter architecture, logistics, BESS assumptions and baseline project economics in one visual interface.</p>
+        <p>Users can enter a location, view UK substation reference data, select a grid node and generate an indicative solar layout using either string inverter or central inverter topology. The tool can estimate module count, DC capacity, AC capacity, site area, packing units, container loads, baseline revenue, CAPEX assumptions and simple long term financial outputs.</p>
+        <p>This is a real engineering screening tool. It is not a final construction design package, grid offer, connection approval, EPC quotation or financial advice. It is designed to support early stage project assessment by making technical, spatial, logistics and financial assumptions visible before deeper engineering, grid, planning, procurement and financial studies begin.</p>
+        <p>A key feature of the sandbox is that technical and commercial assumptions are shown together. In real projects, module count becomes logistics. Cable routing becomes electrical loss. Grid proximity becomes interface risk. BESS assumptions affect land, CAPEX and revenue logic. Financial outputs only become useful when the physical assumptions behind them are visible.</p>
+        <p>The tool also includes GeoJSON export so that generated layouts and assumptions can be carried into external GIS workflows, reports, internal review or further engineering discussion. The exported data is intended to preserve context, including topology mode, technical assumptions, logistics assumptions, financial assumptions and warnings.</p>
+        <p>The public substation layer is reference data only. A visible substation point does not confirm available capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval. Any real project must still be reviewed by competent engineers, grid specialists, planners, EPC teams, legal advisers and project finance professionals before real world decisions are made.</p>
+        <p>VENTUS created this sandbox to support better early stage thinking in solar and storage deployment. The aim is to help developers, engineers, suppliers, investors and commercial teams ask better questions before committing time, capital and contractual responsibility.</p>
+        <p>Use the sandbox as a thinking tool. Use it to test scale. Use it to compare assumptions. Use it to understand where deeper engineering begins.</p>
+    </div>
 </div>
 
 <div class="panel panel-right">
     <div id="fetch_status"></div>
-    <div id="toast"></div>
     <div style="position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 8px;">
         <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
         <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
     </div>
-
-```
-<div id="route_hint_box" style="display: none; position: absolute; top: 60px; left: 50%; transform: translateX(-50%); background: rgba(5,5,5,0.95); border: 1px solid var(--ok); padding: 15px; border-radius: 4px; z-index: 100; color: #fff; font-family: monospace; font-size: 12px; width: 340px; box-shadow: 0 4px 15px rgba(0,0,0,0.8);">
-    <div style="text-align: center; margin-bottom: 10px;">
-        <b style="color: var(--ok); font-size: 14px;">🛣️ CUSTOM CABLE ROUTING</b>
-    </div>
-    <div style="color: var(--muted); line-height: 1.5; margin-bottom: 10px;">
-        <b>1.</b> Route starts automatically from the Customer Substation.<br>
-        <b>2.</b> Single-click along roads or terrain to drop waypoints.<br>
-        <b>3.</b> <b>Double-click</b> or press <b>FINISH</b> to end the route.<br>
-    </div>
-    <div style="text-align: center; color: var(--accent-alt); font-size: 10px; margin-bottom: 10px;">
-        Line auto-snaps to the selected Grid Node at the end.
-    </div>
-    <div style="display: flex; gap: 6px;">
-        <button id="btn_finish_route" style="flex: 1; background: var(--ok); color: #000; border: 1px solid var(--ok); padding: 8px; cursor: pointer; border-radius: 3px; font-weight: bold;">FINISH</button>
-        <button id="btn_cancel_route" style="flex: 1; background: #222; color: #fff; border: 1px solid #555; padding: 8px; cursor: pointer; border-radius: 3px; font-weight: bold;">CANCEL</button>
-    </div>
-</div>
-
-<div class="crosshair">⌖</div>
-<div id="map"></div>
-<div class="legend" id="map_legend"></div>
-```
-
+    <div class="crosshair">⌖</div>
+    <div id="map"></div>
+    <div class="legend" id="map_legend"></div>
 </div>
 </div>
 
 <script>
 "use strict";
+
 // ============================================================
 // CONFIGURATION
 // ============================================================
+// Absolute path from domain root. Works at globalgrid2050.com/grid_substations.geojson
+// regardless of which subfolder this HTML lives in.
+// If you ever move the geojson somewhere else, change this single line.
 const SUBSTATIONS_URL = "/grid_substations.geojson";
 
 const CONSTANTS = {
@@ -451,7 +415,6 @@ const CONSTANTS = {
     DEFAULT_CENTER: [-0.1276, 51.5072],
     DEFAULT_ZOOM: 13,
     RECALC_DEBOUNCE_MS: 80,
-    DBLCLICK_GAP_MS: 280,
     BIFACIAL_BY_GCR: { "0.35": 8, "0.45": 5, "0.75": 2 },
     LOGISTICS_PRESETS: {
         high_density: { pallet: 33, container: 594 },
@@ -471,97 +434,8 @@ const state = {
     satActive: false,
     activePopup: null,
     lastStats: null,
-    lastFinance: { fin_string: null, fin_central: null },
-    lastCableKm: 0,
-    cableIsCustom: false
+    lastFinance: { fin_string: null, fin_central: null }
 };
-
-// ============================================================
-// CUSTOM CABLE ROUTING
-// ============================================================
-let routeMode = false;
-let customCablePoints = [];
-let pendingRouteClick = null;
-
-function showToast(msg, ms = 2500) {
-    const el = $("toast");
-    if (!el) return;
-    el.textContent = msg;
-    el.style.display = "block";
-    clearTimeout(el._t);
-    el._t = setTimeout(() => { el.style.display = "none"; }, ms);
-}
-
-function setRouteButtonEnabled(enabled) {
-    const btn = $("btn_route_cable");
-    if (!btn) return;
-    btn.disabled = !enabled;
-    btn.title = enabled ? "Draw a custom export-cable route" : "Draw a grid first";
-}
-
-function toggleRouteMode() {
-    if (!routeMode && !state.activeDrawCenter) {
-        showToast("Draw the grid first.");
-        return;
-    }
-    routeMode = !routeMode;
-    const btn = $("btn_route_cable");
-    const hintBox = $("route_hint_box");
-
-    if (routeMode) {
-        if (map && map.doubleClickZoom) map.doubleClickZoom.disable();
-        btn.style.background = "var(--ok)";
-        btn.style.color = "#000";
-        btn.textContent = "〰 ROUTING… (click to add, dbl-click to finish)";
-        hintBox.style.display = "block";
-        map.getCanvas().style.cursor = "crosshair";
-        customCablePoints = [];
-        if (map.getSource("src-custom-cable")) {
-            map.getSource("src-custom-cable").setData({ type: "FeatureCollection", features: [] });
-        }
-    } else {
-        if (map && map.doubleClickZoom) map.doubleClickZoom.enable();
-        btn.style.background = "#113322";
-        btn.style.color = "var(--ok)";
-        btn.textContent = "〰 ROUTE CABLE";
-        hintBox.style.display = "none";
-        map.getCanvas().style.cursor = "";
-    }
-}
-
-function finishRoute() {
-    if (!routeMode) return;
-    if (customCablePoints.length < 1) {
-        showToast("Drop at least one waypoint before finishing.");
-        return;
-    }
-    if (map.getSource("src-custom-cable")) {
-        map.getSource("src-custom-cable").setData({ type: "FeatureCollection", features: [] });
-    }
-    state.cableIsCustom = true;
-    toggleRouteMode();
-    computeAndDraw();
-}
-
-function clearCustomRoute() {
-    customCablePoints = [];
-    state.cableIsCustom = false;
-    if (map && map.getSource("src-custom-cable")) {
-        map.getSource("src-custom-cable").setData({ type: "FeatureCollection", features: [] });
-    }
-    if (routeMode) toggleRouteMode();
-    computeAndDraw();
-}
-
-function updateCustomCableLayer() {
-    if (!map.getSource("src-custom-cable")) return;
-    const features = [];
-    if (customCablePoints.length > 1) {
-        features.push(turf.lineString(customCablePoints, { type: "export_cable_preview" }));
-    }
-    customCablePoints.forEach(pt => features.push(turf.point(pt)));
-    map.getSource("src-custom-cable").setData(turf.featureCollection(features));
-}
 
 // ============================================================
 // SMALL UTILITIES
@@ -613,6 +487,7 @@ function setFetchStatus(msg, isError) {
 // MAP
 // ============================================================
 let map = null;
+
 function initMap() {
     if (typeof maplibregl === "undefined") {
         setFetchStatus("MapLibre failed to load. Check network.", true);
@@ -631,6 +506,7 @@ function initMap() {
         center: CONSTANTS.DEFAULT_CENTER,
         zoom: CONSTANTS.DEFAULT_ZOOM
     });
+
     map.on("error", (e) => console.error("MapLibre error:", e && e.error ? e.error : e));
     map.on("load", onMapLoad);
 }
@@ -714,54 +590,18 @@ function onMapLoad() {
         }
     });
 
-    map.addSource("src-custom-cable", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-    map.addLayer({
-        id: "l-custom-cable-line", type: "line", source: "src-custom-cable",
-        filter: ["==", "$type", "LineString"],
-        paint: { "line-color": "#00ff88", "line-width": 3, "line-dasharray": [2, 2] }
-    });
-    map.addLayer({
-        id: "l-custom-cable-points", type: "circle", source: "src-custom-cable",
-        filter: ["==", "$type", "Point"],
-        paint: { "circle-color": "#00ff88", "circle-radius": 4, "circle-stroke-width": 1, "circle-stroke-color": "#000" }
-    });
-
-    map.on("click", (e) => {
-        if (!routeMode) return;
-        if (pendingRouteClick) return;
-        pendingRouteClick = setTimeout(() => {
-            pendingRouteClick = null;
-            customCablePoints.push([e.lngLat.lng, e.lngLat.lat]);
-            updateCustomCableLayer();
-        }, CONSTANTS.DBLCLICK_GAP_MS);
-    });
-
-    map.on("dblclick", (e) => {
-        if (!routeMode) return;
-        e.preventDefault();
-        if (pendingRouteClick) {
-            clearTimeout(pendingRouteClick);
-            pendingRouteClick = null;
-        }
-        customCablePoints.push([e.lngLat.lng, e.lngLat.lat]);
-        finishRoute();
-    });
-
+    // Map clicks
     map.on("click", "l-subs", onSubstationClick);
-    map.on("mouseenter", "l-subs", () => { if (!routeMode) map.getCanvas().style.cursor = "pointer"; });
-    map.on("mouseleave", "l-subs", () => { if (!routeMode) map.getCanvas().style.cursor = ""; });
+    map.on("mouseenter", "l-subs", () => map.getCanvas().style.cursor = "pointer");
+    map.on("mouseleave", "l-subs", () => map.getCanvas().style.cursor = "");
 
     map.on("click", "inverters", onInverterClick);
-    map.on("mouseenter", "inverters", () => { if (!routeMode) map.getCanvas().style.cursor = "pointer"; });
-    map.on("mouseleave", "inverters", () => { if (!routeMode) map.getCanvas().style.cursor = ""; });
+    map.on("mouseenter", "inverters", () => map.getCanvas().style.cursor = "pointer");
+    map.on("mouseleave", "inverters", () => map.getCanvas().style.cursor = "");
 
     map.on("click", "substation", onPoiClick);
-    map.on("mouseenter", "substation", () => { if (!routeMode) map.getCanvas().style.cursor = "pointer"; });
-    map.on("mouseleave", "substation", () => { if (!routeMode) map.getCanvas().style.cursor = ""; });
-
-    document.addEventListener("keydown", (ev) => {
-        if (ev.key === "Escape" && routeMode) clearCustomRoute();
-    });
+    map.on("mouseenter", "substation", () => map.getCanvas().style.cursor = "pointer");
+    map.on("mouseleave", "substation", () => map.getCanvas().style.cursor = "");
 
     loadSubstations();
     updateLegend();
@@ -812,6 +652,7 @@ function normaliseSubstations(raw) {
             };
         })
         .filter(Boolean);
+
     return { type: "FeatureCollection", features: cleaned };
 }
 
@@ -838,11 +679,11 @@ async function loadSubstations() {
 // MAP CLICK HANDLERS
 // ============================================================
 function onSubstationClick(e) {
-    if (routeMode) return;
     const f = e.features && e.features[0];
     if (!f || !f.geometry) return;
     const coords = f.geometry.coordinates.slice();
     const p = f.properties || {};
+
     state.selectedSubstation = {
         name: p.name_clean || pickProp(p, ["name","Name","SiteName","Site Name","substation","Substation"], "Selected Substation"),
         voltage: p.voltage_clean || pickProp(p, ["voltage","Voltage","kv","kV","KV"], "Unknown"),
@@ -850,9 +691,6 @@ function onSubstationClick(e) {
         coordinates: coords
     };
     state.activeDrawCenter = coords;
-    customCablePoints = [];
-    state.cableIsCustom = false;
-    setRouteButtonEnabled(true);
     updateSelectedSubstationDisplay();
     computeAndDraw();
 
@@ -866,7 +704,6 @@ function onSubstationClick(e) {
 }
 
 function onInverterClick(e) {
-    if (routeMode) return;
     const prop = e.features[0].properties;
     const coords = e.features[0].geometry.coordinates.slice();
     const colourMap = {
@@ -883,7 +720,6 @@ function onInverterClick(e) {
 }
 
 function onPoiClick(e) {
-    if (routeMode) return;
     const prop = e.features[0].properties;
     const coords = e.features[0].geometry.coordinates.slice();
     const title = prop.type === "poi" ? "Point of Interconnection" : "Customer Substation";
@@ -895,7 +731,7 @@ function onPoiClick(e) {
 }
 
 // ============================================================
-// AGGREGATE STATS
+// AGGREGATE STATS  (single unified function)
 // ============================================================
 function readPhysicalInputs(suffix) {
     return {
@@ -924,6 +760,7 @@ function zeroStats(dc_ac_ratio, mods_pallet, mods_container) {
 function buildStats(opts) {
     const { total_blocks, module_count, ac_mw_direct, dc_ac_ratio, physical, combiner_boxes_per_inverter, total_combiner_boxes } = opts;
     const { mod_wp, mod_l, mod_w, gcr, gross_factor, mods_pallet, mods_container, spare_pct } = physical;
+
     const dc_mwp = (module_count * mod_wp) / 1_000_000;
     const ac_mw = ac_mw_direct != null ? ac_mw_direct : (dc_ac_ratio > 0 ? dc_mwp / dc_ac_ratio : 0);
 
@@ -937,6 +774,7 @@ function buildStats(opts) {
     const modules_inc_spares = Math.ceil(module_count * (1 + spare_pct / 100));
     const pallets_inc_spares = Math.ceil(modules_inc_spares / mods_pallet);
     const containers_inc_spares = Math.ceil(modules_inc_spares / mods_container);
+
     return {
         total_blocks, block_ground_area_m2, dc_mwp, ac_mw, module_count,
         net_mod_area_m2, net_array_area_m2, gross_site_area_m2, dc_ac_ratio,
@@ -971,6 +809,7 @@ function computeCentralStats() {
     const inv_per_mv = intVal("inv_per_mv_c");
     const mv_per_ring = intVal("mv_per_ring_c");
     const rings = intVal("rings_c");
+
     if (physical.mod_wp <= 0 || physical.mod_l <= 0 || physical.mod_w <= 0 || x_mods <= 0) {
         return zeroStats(dc_ac_ratio, physical.mods_pallet, physical.mods_container);
     }
@@ -983,6 +822,7 @@ function computeCentralStats() {
     const total_combiner_boxes = combiner_boxes_per_inverter * total_blocks;
     const module_count = req_strings * x_mods * total_blocks;
     const ac_mw_direct = total_blocks * inv_ac_mw;
+
     return buildStats({
         total_blocks, module_count, ac_mw_direct, dc_ac_ratio, physical,
         combiner_boxes_per_inverter, total_combiner_boxes
@@ -998,6 +838,7 @@ function computeStats() {
 // ============================================================
 function computeFinance(prefix, stats) {
     const dc_mwp = stats.dc_mwp, ac_mw = stats.ac_mw;
+
     const price = num(prefix + "_price");
     const other = num(prefix + "_other");
     const yieldVal = num(prefix + "_yield");
@@ -1012,6 +853,7 @@ function computeFinance(prefix, stats) {
     const otherCapex = num(prefix + "_other_capex");
     const fixedCapex = num(prefix + "_fixed_capex");
     const cont = num(prefix + "_cont");
+
     const lossExtras = num(prefix + "_loss_dc_string") + num(prefix + "_loss_lv_dc") +
                        num(prefix + "_loss_lv_ac") + num(prefix + "_loss_tx") + num(prefix + "_loss_other");
     const totalLoss = baseLoss + lossExtras;
@@ -1026,7 +868,10 @@ function computeFinance(prefix, stats) {
     const safeLoss = Math.min(Math.max(totalLoss, 0), 100);
     const safeBessEff = Math.min(Math.max(bessEff, 0), 1);
     const effectiveYield = yieldVal * (1 + bifacial / 100);
+
     const year1Gen = dc_mwp * effectiveYield * (1 - safeLoss / 100);
+
+    // Cumulative generation
     let gen25 = 0, gen35 = 0;
     for (let y = 1; y <= 35; y++) {
         const yr = year1Gen * Math.pow(1 - deg / 100, y - 1);
@@ -1041,6 +886,7 @@ function computeFinance(prefix, stats) {
     const revenue35 = gen35 * (price + other) + bessAnnualValue * 35;
 
     const annualOpex = ac_mw * opexRate;
+
     const baseCapexWp = epcEx + modules + otherCapex + floodAdder;
     const baseCapex = dc_mwp * 1_000_000 * baseCapexWp;
     const contingency = baseCapex * (cont / 100);
@@ -1050,12 +896,15 @@ function computeFinance(prefix, stats) {
 
     const surplus25 = revenue25 - annualOpex * 25 - totalCapex;
     const surplus35 = revenue35 - annualOpex * 35 - totalCapex;
+
     return {
         annualRevenue, revenue25, revenue35, totalCapex, capexPerWp, surplus25, surplus35,
+        // raw inputs for export
         price, other, yieldVal, bifacial, baseLoss, deg, opexRate,
         epcEx, floodActive: checked(prefix + "_flood"), floodRate: num(prefix + "_flood_rate"),
         modules, otherCapex, fixedCapex, cont, totalLoss,
         bessMw, bessMwh, bessCapexRate, bessCycles, bessSpread, bessEff: num(prefix + "_bess_eff"),
+        // for warnings
         epcIncModules: epcEx + modules
     };
 }
@@ -1070,7 +919,7 @@ function renderFinance(prefix, fin) {
     setText(prefix + "_surplus_35", money(fin.surplus35));
 }
 
-function renderFinanceWarnings(prefix, fin, stats, grossFactor) {
+function renderFinanceWarnings(prefix, fin, stats) {
     const w = [];
     if (fin.price < 0) w.push("Energy price cannot be negative.");
     if (fin.opexRate < 0) w.push("OPEX cannot be negative.");
@@ -1078,7 +927,7 @@ function renderFinanceWarnings(prefix, fin, stats, grossFactor) {
     if (fin.epcIncModules < 0) w.push("EPC cannot be negative.");
     if (fin.capexPerWp < 0) w.push("CAPEX cannot be negative.");
     if (fin.bessMwh < 0 || fin.bessMw < 0) w.push("BESS size cannot be negative.");
-    if (fin.bessMwh > 0 && (!fin.bessEff || fin.bessEff <= 0)) w.push("BESS efficiency missing or zero.");
+    if (fin.bessMwh > 0 && fin.bessEff / 100 <= 0) w.push("BESS efficiency missing.");
     if (fin.bessEff / 100 > 1) w.push("BESS efficiency above 100 percent.");
 
     if (fin.price < 50) w.push("Low energy price case.");
@@ -1096,7 +945,9 @@ function renderFinanceWarnings(prefix, fin, stats, grossFactor) {
     const elecZero = num(prefix + "_loss_dc_string") + num(prefix + "_loss_lv_dc") +
                      num(prefix + "_loss_lv_ac") + num(prefix + "_loss_tx") + num(prefix + "_loss_other");
     if (elecZero === 0) w.push("Specialist electrical loss fields are blank or zero. Revenue may be overstated until verified.");
-    if (Number.isFinite(grossFactor) && grossFactor < 1.15) w.push("Gross site factor may be too low for roads, buffers, substations, drainage and ecology.");
+
+    const gf = state.activeTab === "string" ? num("gross_factor") : num("gross_factor_c");
+    if (gf < 1.15) w.push("Gross site factor may be too low for roads, buffers, substations, drainage and ecology.");
     if (stats.mods_pallet <= 0 || stats.mods_container <= 0) w.push("Module logistics assumptions are missing.");
 
     const el = $(prefix + "_warnings");
@@ -1126,12 +977,10 @@ function renderTechSummary(stats) {
     const tabClass = state.activeTab === "central" ? "stat-val orange" : "stat-val cyan";
     setClass("out_dc_capacity", tabClass);
     setClass("out_containers_spares", tabClass);
+
     const cpm = stats.dc_mwp > 0 ? stats.containers_inc_spares / stats.dc_mwp : 0;
     setText("out_cont_per_mwp", cpm.toFixed(2));
     setClass("out_cont_per_mwp", tabClass);
-
-    setText("out_export_cable_km", state.lastCableKm.toFixed(2) + " km");
-    setText("out_cable_type", state.cableIsCustom ? "Custom routed" : "Straight line");
 }
 
 function renderBenchmark() {
@@ -1167,8 +1016,7 @@ function recalcAll() {
     const fin = computeFinance(prefix, stats);
     state.lastFinance[prefix] = fin;
     renderFinance(prefix, fin);
-    const grossFactor = state.activeTab === "string" ? num("gross_factor") : num("gross_factor_c");
-    renderFinanceWarnings(prefix, fin, stats, grossFactor);
+    renderFinanceWarnings(prefix, fin, stats);
 
     renderBenchmark();
     updateSelectedSubstationDisplay();
@@ -1220,12 +1068,11 @@ function getBlockAspect() {
     return 1.4;
 }
 
-function computeAndDraw(opts) {
-    opts = opts || {};
-    const fit = opts.fit !== false;
+function computeAndDraw() {
     if (!state.activeDrawCenter || !map) return;
     const stats = computeStats();
     state.lastStats = stats;
+
     if (stats.total_blocks === 0) {
         recalcAll();
         return;
@@ -1236,32 +1083,17 @@ function computeAndDraw(opts) {
     const rows = Math.ceil(N / cols);
     const block_area_km2 = stats.block_ground_area_m2 / 1_000_000;
 
-    if (!Number.isFinite(block_area_km2) || block_area_km2 <= 0) {
-        showToast("Invalid block area. Check module size and topology inputs.");
-        return;
-    }
-
     const aspect = getBlockAspect();
     const block_w = Math.sqrt(block_area_km2 / aspect);
     const block_l = block_w * aspect;
-
-    if (!Number.isFinite(block_w) || block_w <= 0 || !Number.isFinite(block_l) || block_l <= 0) {
-        showToast("Invalid block dimensions. Check module size and topology inputs.");
-        return;
-    }
-
     const spacing = CONSTANTS.BLOCK_SPACING_KM;
+
     const grid_w = cols * block_w + (cols - 1) * spacing;
     const grid_l = rows * block_l + (rows - 1) * spacing;
 
     const features = [];
     const publicSubCoord = state.activeDrawCenter;
-
-    const userOffsetKm = state.activeTab === "string" ? num("grid_offset_km") : num("grid_offset_km_c");
-    let validOffsetKm = userOffsetKm > 0 ? userOffsetKm : CONSTANTS.ARRAY_OFFSET_KM;
-    if (validOffsetKm > 100) validOffsetKm = 100;
-    const arrayOffsetKm = grid_l / 2 + validOffsetKm;
-
+    const arrayOffsetKm = grid_l / 2 + CONSTANTS.ARRAY_OFFSET_KM;
     const gridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, 0, { units: "kilometers" }).geometry.coordinates;
     const privateSubCoord = turf.destination(turf.point(gridCenter), grid_l / 2, 180, { units: "kilometers" }).geometry.coordinates;
 
@@ -1275,22 +1107,9 @@ function computeAndDraw(opts) {
         selected_substation_name: "Customer Substation",
         selected_substation_voltage: "Local Voltage"
     }));
-
-    let cableCoords;
-    if (state.cableIsCustom && customCablePoints.length >= 1) {
-        cableCoords = [privateSubCoord, ...customCablePoints, publicSubCoord];
-    } else {
-        cableCoords = [privateSubCoord, publicSubCoord];
-        state.cableIsCustom = false;
-    }
-    features.push(turf.lineString(cableCoords, {
-        type: "export_cable",
-        is_custom_route: state.cableIsCustom,
-        waypoint_count: state.cableIsCustom ? customCablePoints.length : 0
-    }));
-    state.lastCableKm = turf.length(turf.lineString(cableCoords), { units: "kilometers" });
-
+    features.push(turf.lineString([privateSubCoord, publicSubCoord], { type: "export_cable" }));
     features.push(getRectPolygon(gridCenter, grid_w + CONSTANTS.BOUNDARY_BUFFER_KM, grid_l + CONSTANTS.BOUNDARY_BUFFER_KM, "array_boundary"));
+
     const ptN = turf.destination(turf.point(gridCenter), grid_l / 2, 0, { units: "kilometers" }).geometry.coordinates;
     const ptNW = turf.destination(turf.point(ptN), grid_w / 2, -90, { units: "kilometers" }).geometry.coordinates;
 
@@ -1310,6 +1129,7 @@ function computeAndDraw(opts) {
         }
     }
 
+    // BESS
     const prefix = state.activeTab === "string" ? "fin_string" : "fin_central";
     const bess_mwh = num(prefix + "_bess_mwh");
     if (bess_mwh > 0) {
@@ -1322,6 +1142,7 @@ function computeAndDraw(opts) {
         features.push(turf.lineString([bessCenter, privateSubCoord], { type: "33kv_radial" }));
     }
 
+    // Spine
     if (inverters.length > 0) {
         let spineN = -90, spineS = 90;
         inverters.forEach(inv => {
@@ -1339,20 +1160,19 @@ function computeAndDraw(opts) {
     state.currentGeoJSON = turf.featureCollection(features);
     const src = map.getSource("topology");
     if (src) src.setData(state.currentGeoJSON);
-    if (fit && features.length > 0) {
+
+    if (features.length > 0) {
         const bbox = turf.bbox(state.currentGeoJSON);
         map.fitBounds(bbox, { padding: 60, duration: 800 });
     }
 
+    // Refresh side-panel values
     renderTechSummary(stats);
     const fin = computeFinance(prefix, stats);
     state.lastFinance[prefix] = fin;
     renderFinance(prefix, fin);
-    const grossFactor = state.activeTab === "string" ? num("gross_factor") : num("gross_factor_c");
-    renderFinanceWarnings(prefix, fin, stats, grossFactor);
+    renderFinanceWarnings(prefix, fin, stats);
 }
-
-const computeAndDrawDebounced = debounce(() => computeAndDraw({ fit: false }), CONSTANTS.RECALC_DEBOUNCE_MS);
 
 // ============================================================
 // EXPORT
@@ -1366,12 +1186,13 @@ function exportGeoJSON() {
     const stats = state.lastStats || computeStats();
     const prefix = state.activeTab === "string" ? "fin_string" : "fin_central";
     const fin = state.lastFinance[prefix] || computeFinance(prefix, stats);
+
     const suffix = state.activeTab === "string" ? "" : "_c";
     const logisticsPreset = $("logistics_preset" + suffix)?.value || "manual";
     const grossFactor = num("gross_factor" + suffix);
     const gcr = parseFloat($("mounting_type" + suffix)?.value) || 0;
     const moduleRatingWp = num("mod_wp" + suffix);
-    const gridOffsetKm = num("grid_offset_km" + suffix);
+
     const topologyProps = state.activeTab === "string" ? {
         tech_modules_per_string: intVal("x_mods"),
         tech_strings_per_inverter: intVal("z_strings"),
@@ -1388,6 +1209,7 @@ function exportGeoJSON() {
         tech_combiner_boxes_per_inverter: stats.combiner_boxes_per_inverter,
         tech_total_combiner_boxes: stats.total_combiner_boxes
     };
+
     boundary.properties = {
         ...boundary.properties,
         fin_active_tab: state.activeTab,
@@ -1398,7 +1220,6 @@ function exportGeoJSON() {
         grid_selected_substation_lon: state.selectedSubstation?.coordinates?.[0] ?? null,
         grid_selected_substation_lat: state.selectedSubstation?.coordinates?.[1] ?? null,
         grid_selected_substation_properties: state.selectedSubstation?.properties || null,
-        grid_array_offset_km: gridOffsetKm,
 
         tech_module_rating_wp: moduleRatingWp,
         tech_module_length_m: num("mod_l" + suffix),
@@ -1426,10 +1247,7 @@ function exportGeoJSON() {
         tech_net_array_area_m2: stats.net_array_area_m2,
         tech_gross_site_area_m2: stats.gross_site_area_m2,
 
-        tech_export_cable_distance_km: Number(state.lastCableKm.toFixed(3)),
-        tech_export_cable_is_custom_route: state.cableIsCustom,
-        tech_export_cable_waypoint_count: state.cableIsCustom ? customCablePoints.length : 0,
-
+        // Finance — numbers, not formatted strings
         fin_total_capex_gbp: Math.round(fin.totalCapex),
         fin_capex_per_wp_gbp: Number(fin.capexPerWp.toFixed(4)),
         fin_annual_rev_gbp: Math.round(fin.annualRevenue),
@@ -1465,6 +1283,7 @@ function exportGeoJSON() {
         fin_bess_spread_gbp_mwh: fin.bessSpread,
         fin_bess_efficiency_percent: fin.bessEff
     };
+
     triggerDownload(exportData);
 }
 
@@ -1494,7 +1313,7 @@ function switchTab(tab) {
         el.style.display = tab === "central" ? "flex" : "none";
     });
     updateLegend();
-    if (state.activeDrawCenter) computeAndDraw({ fit: false });
+    if (state.activeDrawCenter) computeAndDraw();
     else recalcAll();
 }
 
@@ -1547,9 +1366,6 @@ function triggerDrawAtCenter() {
     if (!map) return;
     state.selectedSubstation = null;
     state.activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
-    customCablePoints = [];
-    state.cableIsCustom = false;
-    setRouteButtonEnabled(true);
     computeAndDraw();
     updateSelectedSubstationDisplay();
 }
@@ -1583,47 +1399,36 @@ function toggleSubs() {
 // WIRE EVERYTHING UP
 // ============================================================
 function wireEvents() {
+    // Tab buttons
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.addEventListener("click", () => switchTab(btn.dataset.tab));
     });
 
+    // Map toggles
     $("btn_basemap")?.addEventListener("click", toggleBasemap);
     $("btn_subs_toggle")?.addEventListener("click", toggleSubs);
 
+    // Draw / Export
     $("btn_draw")?.addEventListener("click", triggerDrawAtCenter);
-    $("btn_route_cable")?.addEventListener("click", toggleRouteMode);
-    $("btn_finish_route")?.addEventListener("click", finishRoute);
-    $("btn_cancel_route")?.addEventListener("click", clearCustomRoute);
     $("btn_export")?.addEventListener("click", exportGeoJSON);
 
+    // Search
     $("btn_search")?.addEventListener("click", searchLocation);
     $("loc_search")?.addEventListener("keydown", (e) => { if (e.key === "Enter") searchLocation(); });
 
+    // Logistics presets
     document.querySelectorAll("[data-suffix]").forEach(sel => {
         sel.addEventListener("change", () => applyLogisticsPreset(sel.value, sel.dataset.suffix));
     });
 
+    // Bifacial auto-fill
     $("mounting_type")?.addEventListener("change", (e) => autoFillBifacial(e.target.value, "fin_string_bifacial"));
     $("mounting_type_c")?.addEventListener("change", (e) => autoFillBifacial(e.target.value, "fin_central_bifacial"));
 
-    const layoutInputIds = new Set([
-        "grid_offset_km","mod_wp","mod_l","mod_w","mounting_type","gross_factor",
-        "dc_ac_ratio","x_mods","z_strings","y_invs","s_subs","b_cols",
-        "grid_offset_km_c","mod_wp_c","mod_l_c","mod_w_c","mounting_type_c","gross_factor_c",
-        "inv_ac_mw_c","dc_ac_ratio_c","x_mods_c","str_per_cb_c","inv_per_mv_c","mv_per_ring_c","rings_c",
-        "fin_string_bess_mwh","fin_central_bess_mwh"
-    ]);
-
+    // Global recalc on input changes (debounced)
     document.querySelectorAll("input, select").forEach(el => {
-        const handler = () => {
-            if (state.activeDrawCenter && layoutInputIds.has(el.id)) {
-                computeAndDrawDebounced();
-            } else {
-                recalcDebounced();
-            }
-        };
-        el.addEventListener("input", handler);
-        el.addEventListener("change", handler);
+        el.addEventListener("input", recalcDebounced);
+        el.addEventListener("change", recalcDebounced);
     });
 }
 
@@ -1633,11 +1438,11 @@ function wireEvents() {
 function boot() {
     wireEvents();
     initMap();
-    setRouteButtonEnabled(false);
     updateSelectedSubstationDisplay();
     renderBenchmark();
 }
 
+// Libraries loaded via defer, so DOMContentLoaded is the right signal.
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot);
 } else {

@@ -388,12 +388,10 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
 // ============================================================
 // CONFIGURATION
 // ============================================================
-// CHANGE THIS LINE if your geojson lives somewhere else.
-// Examples:
-//   "grid_substations.geojson"  -> same folder as this HTML
-//   "data/grid_substations.geojson" -> in a /data subfolder
-//   "https://raw.githubusercontent.com/owner/repo/main/file.geojson" -> cross-repo
-const SUBSTATIONS_URL = "grid_substations.geojson";
+// Absolute path from domain root. Works at globalgrid2050.com/grid_substations.geojson
+// regardless of which subfolder this HTML lives in.
+// If you ever move the geojson somewhere else, change this single line.
+const SUBSTATIONS_URL = "/grid_substations.geojson";
 
 const CONSTANTS = {
     M2_PER_ACRE: 4046.86,

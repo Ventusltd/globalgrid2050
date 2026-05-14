@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -83,6 +82,9 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
 
 .benchmark-box { background: rgba(17, 17, 17, 0.8); border: 1px solid #444; border-radius: 3px; padding: 10px; margin-top: 15px; }
 .disclaimer-box { background: rgba(255, 68, 68, 0.05); border: 1px solid #ff4444; color: #ff9999; font-size: 10px; padding: 12px; border-radius: 3px; margin-top: 15px; line-height: 1.5; text-align: justify; }
+.explainer-box { background: rgba(0, 255, 255, 0.04); border: 1px solid var(--accent); color: var(--muted); font-size: 10px; padding: 12px; border-radius: 3px; margin-top: 15px; line-height: 1.55; text-align: justify; }
+.explainer-box strong { color: var(--text); }
+.explainer-box h3 { color: var(--accent); margin-top: 0; }
 
 .map-toggle-btn { background: rgba(5,5,5,0.85); color: var(--muted); border: 1px solid #444; padding: 6px 12px; border-radius: 3px; font-family: monospace; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; }
 .map-toggle-btn:hover { background: #222; border-color: #888; }
@@ -107,7 +109,6 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
     <div class="panel panel-left">
         <h2>GIS-SLD Sandbox</h2>
 
-```
     <div class="search-box">
         <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." />
         <button id="btn_search">FLY</button>
@@ -363,8 +364,21 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
     <button class="btn" id="btn_export">⬇ Export GeoJSON</button>
 
     <div class="disclaimer-box">
-        <strong>EXPERIMENTAL SCREENING OUTPUT</strong><br><br>
+        <strong>ENGINEERING SCREENING OUTPUT</strong><br><br>
         These outputs are indicative screening values only. They are not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. All quantities, packaging, site area, cable routes, container loads, module specifications and financial assumptions must be verified against current manufacturer datasheets, project specific drawings, EPC scope, grid requirements and competent engineering review.
+    </div>
+
+    <div class="explainer-box">
+        <h3>About the VENTUS GIS SLD Sandbox</h3>
+        <p>VENTUS GIS SLD Sandbox is a working engineering screening tool for utility scale solar, storage and grid connection analysis.</p>
+        <p>The tool helps users explore the relationship between land, grid proximity, solar topology, module count, inverter architecture, logistics, BESS assumptions and baseline project economics in one visual interface.</p>
+        <p>Users can enter a location, view UK substation reference data, select a grid node and generate an indicative solar layout using either string inverter or central inverter topology. The tool can estimate module count, DC capacity, AC capacity, site area, packing units, container loads, baseline revenue, CAPEX assumptions and simple long term financial outputs.</p>
+        <p>This is a real engineering screening tool. It is not a final construction design package, grid offer, connection approval, EPC quotation or financial advice. It is designed to support early stage project assessment by making technical, spatial, logistics and financial assumptions visible before deeper engineering, grid, planning, procurement and financial studies begin.</p>
+        <p>A key feature of the sandbox is that technical and commercial assumptions are shown together. In real projects, module count becomes logistics. Cable routing becomes electrical loss. Grid proximity becomes interface risk. BESS assumptions affect land, CAPEX and revenue logic. Financial outputs only become useful when the physical assumptions behind them are visible.</p>
+        <p>The tool also includes GeoJSON export so that generated layouts and assumptions can be carried into external GIS workflows, reports, internal review or further engineering discussion. The exported data is intended to preserve context, including topology mode, technical assumptions, logistics assumptions, financial assumptions and warnings.</p>
+        <p>The public substation layer is reference data only. A visible substation point does not confirm available capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval. Any real project must still be reviewed by competent engineers, grid specialists, planners, EPC teams, legal advisers and project finance professionals before real world decisions are made.</p>
+        <p>VENTUS created this sandbox to support better early stage thinking in solar and storage deployment. The aim is to help developers, engineers, suppliers, investors and commercial teams ask better questions before committing time, capital and contractual responsibility.</p>
+        <p>Use the sandbox as a thinking tool. Use it to test scale. Use it to compare assumptions. Use it to understand where deeper engineering begins.</p>
     </div>
 </div>
 
@@ -378,8 +392,6 @@ h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform:
     <div id="map"></div>
     <div class="legend" id="map_legend"></div>
 </div>
-```
-
 </div>
 
 <script>
@@ -1201,7 +1213,7 @@ function exportGeoJSON() {
     boundary.properties = {
         ...boundary.properties,
         fin_active_tab: state.activeTab,
-        fin_export_note: "Experimental screening output only. Not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. Electrical loss fields are assumption fields and require competent project specific verification. Selected substation is a public dataset reference point and does not confirm available capacity, connection rights, voltage suitability or grid acceptance.",
+        fin_export_note: "Engineering screening output only. Not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. Electrical loss fields are assumption fields and require competent project specific verification. Selected substation is a public dataset reference point and does not confirm available capacity, connection rights, voltage suitability or grid acceptance.",
 
         grid_selected_substation_name: state.selectedSubstation?.name || null,
         grid_selected_substation_voltage: state.selectedSubstation?.voltage || null,

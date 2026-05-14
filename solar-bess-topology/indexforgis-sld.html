@@ -681,6 +681,14 @@ function onSubstationClick(e) {
     state.activeDrawCenter = coords;
     updateSelectedSubstationDisplay();
     computeAndDraw();
+
+    showPopup(coords, `
+        <div style="margin-bottom:5px;color:#ff3333;font-weight:bold;font-size:13px;text-transform:uppercase;">Grid Node</div>
+        <div class="popup-row"><span>Name:</span><span class="popup-val" style="color:#fff;">${state.selectedSubstation.name}</span></div>
+        <div class="popup-row"><span>Voltage:</span><span class="popup-val" style="color:#fff;">${state.selectedSubstation.voltage}</span></div>
+        <div class="popup-row"><span>Lon:</span><span class="popup-val" style="color:#fff;">${Number(coords[0]).toFixed(6)}</span></div>
+        <div class="popup-row"><span>Lat:</span><span class="popup-val" style="color:#fff;">${Number(coords[1]).toFixed(6)}</span></div>
+    `);
 }
 
 function onInverterClick(e) {

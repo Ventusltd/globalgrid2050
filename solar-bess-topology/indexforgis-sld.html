@@ -1,760 +1,1367 @@
-# Executive Summary
-
-This document presents a comprehensive **anonymised training report** for the GIS-SLD (Synthetic Landscape Design) sandbox and financial screening tool, and its interface with the GlobalGrid2050 atlas. It consolidates the full working context into a single reference, structured as an engineering analysis and developer guide. The aim is to ensure consistency, clarity and completeness for all future iterations. The report covers:
-
-- **Purpose and scope:** Separation of the sandbox application from the atlas, the shared use of public GeoJSON infrastructure datasets, UI/UX rules (including the *Draw Neat Grid* behavior and selected-substation logic), and the strategic aim of preventing false certainty.  
-- **Data model & sources:** Specifications for the public substation GeoJSON (schema expectations, FeatureCollection validation【3†L139-L144】), plus all required input, assumption and output fields for the export data. Unspecified data fields are explicitly noted as such.  
-- **Map & layer rules:** Exact layer order, visual styles and IDs for public substation points versus generated topologies. Toggling, popup control, MapLibre error handling, and layer reordering rules (e.g. moving buried layers) are detailed.  
-- **Topology modes (String & Central):** Full parameter lists and formulas (e.g. combiner-box calculations, DC/AC conversions) for both modes. The handling of MV stations and the current UI limitation are documented.  
-- **Geometry semantics:** Definition of *Net Array Boundary at GCR* (Ground Coverage Ratio) versus gross site area, plus explanation of how `block_ground_area_m2` is derived. Guidance on how gross site area is used only as a screening factor and not drawn, with an export field (`tech_drawn_boundary_basis/area`) to record the basis of the drawn boundary.  
-- **Financial model:** Outline of the *screening* approach, key inputs and calculated outputs (Year 1, 25, 35 revenue; CAPEX; CAPEX per Wp; surplus), and the treatment of specialist loss fields (user-defined only). A warning is shown if all loss fields are zero, since that overstates revenue. Flood resilience “adder” is handled with separate rate and applied values. Export field names and formats are specified.  
-- **Logistics & packaging:** Generic containerization and freight calculations (modules per pack, TEU, ships) with high-density and legacy presets. Tables summarise preset values and derived calculations.  
-- **Runtime hardening & testing:** Instructions for robust data loading (using HTTP, manual fetch, no-cache, checking status, validating FeatureCollection)【3†L139-L144】. Handling of toggles (only changing visibility of existing layers), single-popup control, MapLibre error logging, and a comprehensive test checklist (server setup, console checks, toggles, clicking, drawing, export fields).  
-- **UI text & disclaimers:** Exact wording for all disclaimers and notes (in popups, the *Selected Grid Node* panel, warning boxes, etc.) to maintain clarity.  
-- **Export schema:** Detailed JSON/GeoJSON export format, including the boundary feature’s properties. A table lists every exported field (name, description, units/formats). Special attention is given to selected-substation metadata and flood adder fields.  
-- **Code examples:** Key implementation snippets are included for illustration (hardened substation loader, click handler, selected-substation display, safe toggle, error handler). These are **excerpts**, not full files, to guide developers. They show where the core logic resides.  
-- **Visual aids:** Mermaid diagrams and tables are provided to summarise workflows and data flows. A **timeline** chart outlines the testing steps, and a **flowchart** shows data exchange between atlas and sandbox. Tables compare String vs Central parameters and list layer orders and export fields.
-
-This document is written for engineers and developers: it emphasises precise requirements, robust practices, and does **not** presume any specific project names. All references to sites, clients or manufacturers have been anonymised (e.g. “Site A”, “Module X”). Primary technical sources (official GeoJSON and mapping specs, public PV module datasheets, Grid Code guidance) have been used where appropriate, cited below for completeness. Wherever possible, English-language and authoritative references are preferred.
-
-# Purpose and Scope
-
-This section clarifies the **intent of the sandbox and atlas**, and the rules governing their separation and interaction.
-
-- **Separate apps, shared data:** The **GlobalGrid2050 Atlas** is the “infrastructure intelligence” layer, while the **GIS-SLD Sandbox** is the project topology, finance and logistics engine. They must remain **decoupled at runtime**: no atlas code (e.g. `initVentusMap`, fetch queue, etc.) should be imported into the sandbox, and vice versa. The only linkage is via *shared public data files* (GeoJSON).  
-- **Public GeoJSON bridge:** Both applications use the same publicly available infrastructure datasets (e.g. substations, cables). In practice, the sandbox loads **`data/grid_substations.geojson`** via its own code, rather than relying on atlas runtime. This one-way data sharing (atlas → sandbox) uses static files, not live inter-process calls.  
-- **Non-runtime coupling:** Under no circumstances should the sandbox use any dynamic functions or services of the atlas. For example, do *not* call or invoke the atlas’s `initVentusMap`, hydration queue, layer caching, or SCADA layers from the sandbox code. The sandbox runs independently after the atlas has published its data files.  
-- **DRAW NEAT GRID behaviour:** The sandbox has one special action button: **“DRAW NEAT GRID”**. This triggers a geometry redraw at the current map center. Crucial UX rule: pressing this clears any *selectedSubstation* (i.e. it removes attribution to a real public substation), because drawing from a random point should not keep old node info. Only clicking a public substation (below) reactivates the selected-substation mode.  
-- **Selected substation rules:** The sandbox must clearly differentiate between a **public dataset substation** (white circle, red outline) and a **generated primary substation** (red circle, white stroke). Selecting a public substation stores its coordinates and updates the **Selected Grid Node** panel, but also shows a warning: *“Public dataset reference only. Does not confirm capacity, connection rights, ...”*. The primary substation (from `turf.point(activeDrawCenter, {type: 'primary_sub'})`) is always drawn in front.  
-- **UI/UX context:** The user interface is deliberately simplified. Both modes (String and Central) use the same layout, with tab switches. Inputs recalc values live, but the map only updates on *Draw Neat Grid* or substation click. This is emphasized to the user to avoid false certainty: the map depiction is merely an indicative topology. All disclaimers (in popups, panels, warnings) stress that nothing is guaranteed (no legal boundaries, no confirmed grid acceptance, etc.).  
-
-In summary, this sandbox is a **screening tool**, not a final design. Its purpose is to quickly scope feasibility: combining GIS location, simplified topology (SLD style), module logistics and high-level finance in one interface. It must preserve the boundary between **“what we computed”** and **“what needs detailed engineering”**. Every key assumption or simplification (module count, losses, boundary basis, etc.) is documented or labeled, ensuring users know when they need deeper design work.  
-
-# Data Model and Sources
-
-This section details all data inputs, schemas, and exported fields. It also notes any unspecified or placeholder fields.
-
-## Public Data (atlas → sandbox)
-
-- **Substation GeoJSON:** The atlas publishes `data/grid_substations.geojson`, a standard GeoJSON FeatureCollection of point features. Each feature represents a substation (grid node) from an open dataset. Schema expectation:  
-  - The root **type** must be **"FeatureCollection"** with a `features` array【3†L139-L142】【3†L197-L199】.  
-  - Each feature should have `type: "Feature"`, a `geometry: { type: "Point", coordinates: [lon, lat] }`, and a `properties` object with substation metadata (e.g. name, voltage).  
-- **Validation:** Sandbox code must **validate** this GeoJSON (see Implementation Snippets). If `data.type !== 'FeatureCollection'` or `!Array.isArray(data.features)`, throw an error【3†L139-L144】. This ensures data is well-formed.  
-- **Loading:** The data is fetched with `fetch('data/grid_substations.geojson', {cache:'no-cache'})`. On success, if the map source `src-subs` exists, `.setData()` is used; otherwise a new GeoJSON source is added. This mirrors atlas practice but with manual handling (status check, JSON parse, etc.) rather than MapLibre’s direct URL load.  
-
-## User Inputs and Assumptions
-
-The sandbox uses a variety of **user inputs** for PV design, finance and logistics. These must be exported (as shown in **Export Schema**). Key groups include:
-
-- **Module parameters:** Rating (Wp), dimensions (length * width in m), and mounting/GCR factors. Example values (anonymised) come from typical module datasheets (e.g. 2.38m x 1.30m, 660 Wp).  
-- **String mode parameters:** DC/AC ratio, modules per string, strings per inverter, inverters per substation, substations per 33kV ring, 33kV rings. These define the PV “blocks” count: total_blocks = (rings * subs_per_ring).  
-- **Central mode parameters:** DC/AC ratio, module-string details, strings per combiner, inverters per MV station, MV per 33kV ring, rings. Also central inverter rating (MW). Combiner box calculations are derived from these (see Topology Modes).  
-- **Financial inputs:** These include energy price (£/MWh), other income, base yield (kWh/kWp), bifacial %, base losses %, degradation %, OPEX rate (£/MWac·yr).  
-  - CAPEX inputs: EPC (exc modules, £/Wp), modules (£/Wp), other capex (£/Wp), fixed capex (£), contingency (%).  
-  - Flood resilience: a checkbox and an adder rate (£/Wp).  
-  - BESS (optional): MW, MWh, capex (£/MWh), cycles, spread (£/MWh), efficiency%.  
-- **Loss allowances (specialist fields):** DC string loss %, LV DC loss %, LV AC loss %, transformer loss %, other electrical loss %. These **must remain user-entered only**. The system uses them in revenue calc but **never populates them**. If all are zero, a warning is shown (since this likely overstates revenue).  
-- **Logistics presets:** Packaging uses two sets of defaults: *High density* (33 modules per pallet, 594 per 40ft container) and *Legacy* (31 per pallet, 620 per container), plus manual override. Only preset data is given; container counts are computed.  
-
-## Export Fields
-
-When exporting the designed topology to GeoJSON, a standardized schema is used, combining both topology features and summary data. The **boundary polygon** feature holds most metadata in its `properties`. Required export fields include:
-
-- **Tech assumptions:** `module_rating_wp`, `module_area_m2` (L×W), `mounting_type`, `gross_site_factor` (if used). If not explicitly set, mark as null.  
-- **Drawn boundary:** `tech_drawn_boundary_basis` (should be `"Net Array Boundary at GCR"`) and `tech_drawn_boundary_area_m2` (the area of the array boundary polygon in m²). These explain why and how the boundary was drawn.  
-- **Selected substation:** If a public substation was selected, export its name, voltage, lon/lat:  
-  - `grid_selected_substation_name`, `grid_selected_substation_voltage`, `grid_selected_substation_longitude`, `grid_selected_substation_latitude`.  
-  - Also `grid_selected_substation_note`: if selected, use `"Public dataset reference"`; if none, `"Grid node not selected from public dataset"`.  
-- **String-mode topology:** (if active) `modules_per_string`, `strings_per_inverter`, etc., and `strings_per_substation` (total blocks and inverter count are derived, but exports can include total blocks).  
-- **Central-mode topology:** `central_ac_rating_mw`, `modules_per_string`, `strings_per_combiner_box`, `inverters_per_mv`, `mv_per_ring`, `combiner_boxes_per_inverter`, `total_combiner_boxes`. These last two come from formulas:  
-  ```
-  req_strings = ceil((inv_AC*1000) / (module_rating*strings_per_combiner/1000))
-  combiner_boxes_per_inverter = ceil(req_strings / strings_per_combiner)
-  total_combiner_boxes = combiner_boxes_per_inverter * total_inverters
-  ```  
-  (See **Topology Modes**.)  
-- **Logistics:** `packing_units_highdensity`, `containers_highdensity`, `packing_units_legacy`, `containers_legacy`, etc., along with `teu_total` and `ships_approx`. These confirm the selected mode and results.  
-- **Financial outputs:** Annual, 25yr, 35yr revenue and surplus (as numbers). CAPEX (total and per Wp) as numbers or strings. Also input assumptions:  
-  - `price_gbp_per_mwh`, `other_income_gbp_per_mwh`, `yield_kwh_kwp`, `bifacial_gain_pct`, `losses_pct`, `degradation_pct`, `opex_gbp_mwac_yr`.  
-  - CAPEX rates: `epc_gbp_wp`, `modules_gbp_wp`, `other_capex_gbp_wp`, `fixed_capex_gbp`, `contingency_pct`.  
-  - Flood: `flood_resilience_applied (boolean)`, `flood_rate_gbp_wp`, `flood_adder_applied_gbp_wp` (only non-zero if applied).  
-  - BESS: `bess_mw`, `bess_mwh`, `bess_capex_gbp_mwh`, `bess_cycles_year`, `bess_spread_gbp_mwh`, `bess_efficiency_pct`.  
-
-Every exported field is documented in a final **Export Schema Table** (see the end of this report). Fields with no meaningful value are exported as `null`. Unspecified or derived-only fields are clearly labeled in the table.
-
-*Sources:* GeoJSON format specification【3†L139-L144】【3†L197-L199】 guides FeatureCollection requirements. Typical module dimensions and ratings were drawn from anonymised PV datasheets. 
-
-# Map and Layer Rules
-
-This section specifies the map layers, styling, and interaction logic. All layer names and IDs follow the sandbox code conventions. 
-
-## Base Layers
-
-- **Dark matter basemap:** The background style is from Carto’s Dark Matter (vector tiles).  
-- **Satellite imagery layer:** A satellite raster exists but is **hidden by default** (toggled off).  
-- **Legend/crosshair:** Static UI elements (crosshair icon at map center, legend box) on top.
-
-## Infrastructure Layers (public dataset)
-
-- **Public substation points:** 
-  - **Source ID:** `src-subs` (GeoJSON source loaded by `loadSubstations()`).
-  - **Layer ID:** `l-subs`.  
-  - **Style:** White fill (`circle-color: #ffffff`), red outline (`circle-stroke-color: #ff3333`), stroke width 1, opacity 0.85.  
-  - **Zoom scaling:** Radius interpolates (at zoom 5: r=2px, at z10: 4px, z14:7px, z18:14px).  
-  - **Visibility:** Shown by default, can be toggled (but toggle function checks `map.getLayer('l-subs')`).  
-- **Subsea cables / others:** If any (not detailed here), they follow similar addSource/addLayer logic as needed.  
-
-**Note:** The public substation points must always be **under** the generated primary substation symbol. Therefore, after topology layers are drawn, if public points are hidden or appear beneath, the code does:
-```js
-if (map.getLayer('l-subs') && map.getLayer('substation')) {
-    map.moveLayer('l-subs', 'substation');
-}
-```
-This moves `l-subs` just below the `substation` layer, ensuring the red primary sub wins visually. 
-
-## Generated Topology Layers
-
-All topology features (built by `computeAndDraw()`) come from a single GeoJSON source `topology`. The layers (with IDs) are:
-
-1. **Net Array Boundary fill (`overall_boundary_fill`):** 
-   - Filter: `type == 'array_boundary'`.  
-   - Paint: semi-transparent blue fill (`#0066ff` at 25% opacity).  
-2. **Net Array Boundary line (`overall_boundary_line`):** 
-   - Filter: same.  
-   - Paint: solid blue dashed line (`#0066ff`, width 2, dash [4,4]).  
-   - *Label in legend changed to "Net Array Boundary at GCR"* to reflect semantics (not “Total Array Boundary”).  
-3. **Module Block Footprints (`footprints` fill):** 
-   - Filter: `type` in `['skid_footprint','central_footprint','bess_footprint']`.  
-   - Paint color matches block type:  
-     - Skid (string) → cyan fill (`#00ffff`).  
-     - Central → orange fill (`#ff9900`).  
-     - BESS → magenta fill (`#ff00aa`).  
-   - Opacity 0.15.  
-4. **Footprint Outlines (`footprints_outline` line):** 
-   - Same filter as fill.  
-   - Line color matches fill color, width 1.  
-5. **33kV Radial Spine (`radial_spine`):** 
-   - Filter: `type == '33kv_radial'`.  
-   - Paint: cyan line (`#00ffff`), width 2.  
-6. **String/Central Substation Blocks (`inverters` circle):** 
-   - Filter: `type` in `['string_substation','central_inverter','mv_station','bess_compound']`.  
-   - Paint (`circle-color`) is matched:  
-     - String substation blocks: yellow (`#ffff00`), radius 4px.  
-     - Central inverters: orange (`#ff9900`), radius 6px.  
-     - MV stations: purple (`#6633ff`), radius 4px.  
-     - BESS compound: magenta (`#ff00aa`), radius 6px.  
-     (Defaults to white/3px if type is unexpected.)  
-   - Stroke: black, width 1.  
-7. **Generated Primary Substation (`substation` circle):** 
-   - Filter: `type == 'primary_sub'` (added as point at draw center).  
-   - Paint: red fill (`#ff3333`), radius 8px, white stroke 2px.  
-   - This symbol must visually dominate the map.  
-
-## Toggles and Visibility
-
-- **Satellite toggle:** The code checks if the satellite layer exists before toggling. If the UI tries to toggle it too early, skip with a warning. Same for **SUBS toggle**: only toggle `l-subs` when it has been added. Use a helper like `setLayerVisibilitySafe(id,visible)` to avoid errors【5†L19-L24】.  
-- **Layer ordering:** Public points `l-subs` should never be beneath topology lines. If necessary, after all layers are added (in `computeAndDraw`), call `map.moveLayer('l-subs','substation')` as shown above. This ensures the red primary sub icon (on `substation` layer) is always on top.  
-- **Active popup:** Only one popup can be open at a time. We maintain a single `activePopup` and a `closeActivePopup()` function to remove it before opening a new one. This prevents multiple overlapping popups.  
-
-## Event Handlers
-
-- **MapLibre error logging:** Listen to `map.on('error', ...)` and log errors to the console with context【2†L0-L3】 (e.g. `console.error('[MAPLIBRE ERROR]', ...)`). This catches any loading or rendering errors.  
-- **Substation clicks:** The layer `l-subs` has a `click` handler. It reads the feature’s properties (fallbacks for different key names), stores `selectedSubstation = {name,voltage,lon,lat,properties}`, sets `activeDrawCenter` to that point, closes any existing popup, and creates a new popup with name, voltage and the disclaimer paragraph. Then it triggers `computeAndDraw()` and updates the UI panel (`updateSelectedSubstationDisplay`).  
-- **Substation hover:** On `'mouseenter','mouseleave'` for `l-subs`, change the cursor to pointer or default.  
-- **Topology clicks:** Clicking on `inverters` layer shows a popup with block type (and MWh if BESS). This uses a similar approach (popup per block).  
-
-## Legend and UX
-
-- The legend box in the map has static items: Primary Substation (red swatch), BESS (magenta), “Net Array Boundary at GCR” (blue dashed), plus mode-specific items (String vs Central highlights). The code builds this HTML on tab switch【5†L126-L136】 to reflect the active topology mode.  
-- The text **“Net Array Boundary at GCR”** replaces the old “Total Array Boundary”, clarifying the drawn boundary is net array coverage.  
-
-*Sources:* MapLibre and Turf documentation for layer setup. The chosen colors and layer orders derive from best practices (e.g. using higher-z symbols for critical features). The GeoJSON spec assures correct layer filtering by `properties.type`. For example, drawing lines for `33kv_radial` and filtering by type is a common approach in MapLibre (see many examples【1†L0-L4】). (Layer IDs used here come from the sandbox code.)
-
-# Topology Modes (String vs Central)
-
-The sandbox supports two distinct PV array topology modes: **String** (decentralized) and **Central** (central inverters). Each mode has its own parameters and flow. We define all relevant variables and their roles.
-
-## Shared parameters
-
-- **Module rating (Wp)**, **length (m)**, **width (m)**: Physical panel specs (imported from module datasheet).  
-- **Mounting type (GCR)**: A factor (0 to 1) representing ground coverage. Values used: 0.75 (East-West dome), 0.45 (fixed tilt south), 0.35 (tracker). These imply different aspect ratios (square vs elongated blocks) for the block ground area.  
-- **Gross site factor (if any)**: Used to compute *indicative gross site area* internally (e.g. for roads), but not drawn. Only the net array area (scaled by GCR) is drawn as the blue polygon. We export the gross-site factor numerically for reference.
-
-## String mode parameters
-
-These define a hierarchy: Modules → Strings → Inverters → Substations → Rings.
-
-- **DC/AC ratio**: E.g. 1.2 (20% DC oversizing).  
-- **Modules per string (x_mods)**: E.g. 28 (28 panels in each DC string).  
-- **Strings per inverter (z_strings)**: E.g. 18.  
-- **Inverters per substation (y_invs)**: E.g. 28 (substation = field substation, each has y_invs inverters).  
-- **Substations per 33kV ring (s_subs)**: E.g. 5. (A ring is like a cluster of field substations around one connection point.)  
-- **33kV rings (b_cols)**: Number of rings (e.g. 6).  
-- **Total blocks (`total_blocks`)**: = rings × sub per ring (e.g. 6 * 5 = 30).  
-- **Total inverters** = total_blocks * y_invs.  
-- **Active Power (MW)**: If `mod_wp` in W, then total DC capacity = `(total_inverters * z_strings * x_mods * mod_wp) / 1e6`. AC power = DC / (DC/AC ratio). These are displayed in the stats box.  
-- **Block ground area (m²)**: `block_ground_area_m2 = (x_mods * z_strings * y_invs * mod_l * mod_w) / GCR`. (Each “block” is one field inverter plus its strings.)  
-- **Total array area (acres)**: = (block area / 4046.86) * total_blocks. Shown in UI.  
-- **Container count:** Total modules = total_DC/Wp * 1e6 / mod_wp (the same formula). TEU = ceil(total_modules / 310). Ships ~ TEU/1000. Shown in UI.  
-
-*Combiner boxes:* Not used in string mode (only central mode). The code uses simple String → Inverter stacking.
-
-## Central mode parameters
-
-Here we have larger central inverters & combiners, so hierarchy: Modules → Strings → Combiner → Inverters → MV stations → Rings.
-
-- **Central AC rating (MWac)**: The chosen size of central inverter (e.g. 4.4 MWac).  
-- **DC/AC ratio**, **Modules per string (x_mods)**: As above.  
-- **Strings per combiner box (str_per_cb_c)**: E.g. 24.  
-- **Inverters per MV station (inv_per_mv_c)**: Usually 1 (one central inverter per collector).  
-- **MV stations per 33kV ring (mv_per_ring_c)**: E.g. 4. (For central arrays, each field inverter block has several MV racks per ring.)  
-- **33kV rings (rings_c)**: E.g. 4.  
-
-From these:
-
-1. **Calculating strings required per inverter:**  
-   ```
-   str_dc_kwp = x_mods * mod_wp / 1000   // DC kWp per string
-   inv_dc_mwp = inv_ac_mw * dc_ac_ratio   // DC MWp per inverter
-   req_strings = ceil((inv_dc_mwp * 1000) / (str_dc_kwp))   // strings per inverter
-   ```
-   E.g. if inv_ac=4.4, ratio=1.2 → inv_dc=5.28 MW, str_dc=28*mod_wp/1000, then req_strings = ceil(5280 / (28*mod_wp)).  
-2. **Actual inverter DC (MWp):** = (req_strings * str_dc_kW) / 1000.  
-3. **Total inverters (blocks):** = inv_per_mv * mv_per_ring * rings. (E.g. 1 * 4 * 4 = 16 inverters total).  
-4. **Total DC capacity:** = total_blocks * actual_inv_dc_mwp.  
-5. **Block ground area:** `= (req_strings * x_mods * mod_l * mod_w) / GCR` (area for one inverter’s strings).  
-6. **Total array area:** = (block_area/4046.86)*total_blocks.  
-7. **Combiner boxes (central only):**  
-   - **Combiner boxes per inverter:** `combiner_boxes_per_inverter = ceil(req_strings / str_per_cb_c)`【user code】.  
-   - **Total combiner boxes:** `combiner_boxes_per_inverter * total_blocks`. Export these values.  
-
-BESS is handled identically in both modes (see BESS section below).
-
-All these parameters and formulas are implemented in the code (functions `updateStringAggregates()` and `updateCentralAggregates()`). They must match the export schema and user inputs.  
-
-*A note on MV stations:* Currently the sandbox calculates `total_blocks = inv_per_mv * mv_per_ring * rings`, but **does not draw separate MV station symbols**. The UI should indicate this limitation: “MV station nodes not drawn”. This is a placeholder until actual MV substations are generated.  
-
-*Sources:* Solar array design fundamentals and the provided module contract (anonymised) informed these hierarchies. The combiner-box math is given in the instructions and code comments. Typical values (e.g. 30 modules/string) came from module specs (listed as examples).  
-
-# Geometry Semantics
-
-This section explains how boundaries and areas are defined and labelled.
-
-## Net Array Boundary (at GCR)
-
-- **Definition:** The blue polygon drawn by the sandbox represents the **net PV array area** under the chosen GCR (Ground Coverage Ratio). It covers the actual module footprints plus inverter blocks, not including wide buffers.  
-- **Calculation:** The code computes a rectangle polygon around the blocks. Roughly, it sets `block_area_km2 = block_ground_area_m2 / 1e6`, arranges blocks in a grid of `cols × rows`, adds small spacing (0.01 km) between blocks, and draws a bounding polygon offset by 0.02 km in each direction for margin. The function `getRectPolygon(center,width_km,length_km,'array_boundary')` is used.  
-- **Labelling:** In the UI and legend, we call this *“Net Array Boundary at GCR”*【5†L132-L136】. We **do not** call it “Total site boundary” or “legal boundary”. It is explicitly not a planning or property line. It’s labelled in the export as `tech_drawn_boundary_basis: "Net Array Boundary at GCR"`.  
-- **Reason:** Using `block_ground_area_m2` ensures it’s the area *occupied by modules/inverters at GCR*, not including extra roads or unusable land. The model separately computes an *indicative gross site area* (usually `net_array_area / GCR` plus allowances), but **that is not drawn**. Instead, gross area is used internally for screening (roads, buffers). It is export-only: e.g. `gross_site_area` is numeric but no geometry. The GCR *effective* area *is* the polygon.  
-
-## Gross Site Area
-
-- **Not drawn:** The model internally multiplies net array area by (1 + some factor) to get gross site area for infrastructure sizing. But we **explicitly do not draw** this. No “Total site boundary” is displayed unless a real site polygon is provided.  
-- **Export:** We export `tech_drawn_boundary_area_m2` = area of the drawn boundary polygon, and note in text that *gross site area is an indicative screening multiplier only*.  
-- **Export field:** `tech_drawn_boundary_basis = "Net Array Boundary at GCR"`.  
-- **Rationale:** Labelling ensures users do not mistake the drawn polygon for a legal site fence or planning limit. It’s purely computational, based on module count and GCR【5†L130-L136】.
-
-## Coordinate precision
-
-- Export coordinates (longitude, latitude) in JSON are limited to high precision (e.g. 6 decimals) in the `selectedSubstation` fields.  
-- Polygon coordinates can be left as full precision (they come from Turf, but the exact values are not usually critical to cite).
-
-*Sources:* The concept of net vs gross PV area is standard in PV planning (see solar engineering texts), though no direct external citation is needed here. The use of GCR is borrowed from mounting type proxies (common in PV literature). The exporting of basis/area was defined in the project spec.
-
-# Financial Model
-
-The sandbox includes a **screening financial model** to quickly estimate revenues, CAPEX and surplus over 25-35 years. It is **not** a detailed finance tool, but a high-level calculator. 
-
-## Approach
-
-- **Screening scope:** We use **Year-1 generation** and simple growth assumptions to project revenue over 25 and 35 years【deep research guidelines】. No financing costs or NPV calculations are included. Contingency is added to CAPEX instead of risk reserves.  
-- **Variables:** The user inputs (see **Data Model**) include all revenue and cost factors. These feed into revenue and CAPEX calculations. Loss allowances reflect technical margins (higher losses → lower revenue).  
-- **Export:** The following aggregated financial outputs are exported on the boundary feature:  
-  - `fin_annual_rev` (year-1 £, i.e. *Year 1 revenue projection*), `fin_25yr_revenue`, `fin_35yr_revenue`.  
-  - `fin_total_capex` and `fin_capex_per_wp`.  
-  - `fin_25yr_surplus`, `fin_35yr_surplus` (Revenue minus OPEX minus total CAPEX).  
-
-## Revenue calculation
-
-1. **Effective yield (year 1):** 
-   ```
-   effective_yield = base_yield * (1 + bifacial_gain/100).
-   ```
-   Bifacial panels get more kWh/kWp. Base yield is e.g. 1000 kWh/kWp.  
-2. **Losses:** Sum of `base_losses` + all specialist losses. Let `total_loss_pct = min(max(total_loss,0),100)`.  
-3. **Year-1 Gen (kWh):** = `DC_MWp * effective_yield * (1 - total_loss_pct/100)`.  
-4. **Year-1 revenue:** = `year1Gen * (price + other)`. Price is £/MWh, other income adds to it.  
-5. **Degradation:** Assume 0.4% per year (for years 2+).  
-6. **Cumulative Gen:** Use `calcCumulativeGeneration(dc_mwp, effective_yield, total_loss_pct, degradation_pct, years)` to sum up kWh over 25 or 35 years, as given in code.  
-7. **Revenue 25yr/35yr:** = `(cumulativeGen * (price + other)) + (BESS25or35)`. BESS returns (if any) are added after solar.  
-8. **BESS revenue:** If BESS >0, its annual value = `BESS_MWh * cycles * spread * efficiency`. Then `bessAnnual*25` and *35 are added to revenue25 and revenue35.  
-
-## CAPEX calculation
-
-1. **Core CAPEX (Wp):** = `EPC_ex + module_cost + other_capex + (floodAdder if applied)`, all in £/Wp.  
-2. **Base CAPEX (£):** = `DC_MWp * 1e6 * core_CAPEX_Wp`.  
-3. **Contingency:** = `baseCapex * (contingency_pct/100)`.  
-4. **Fixed CAPEX:** Add fixed CAPEX (site costs, etc.).  
-5. **BESS CAPEX:** = `BESS_MWh * bess_capex_rate`.  
-6. **Total CAPEX:** sum of above (base+contingency+fixed+BESS). Exported in £.  
-7. **CAPEX per Wp:** = `totalCapex / (DC_MWp * 1e6)`. Exported in £/Wp.  
-
-## Loss fields (warnings)
-
-The fields **DC string loss, LV DC loss, LV AC loss, transformer loss, other loss** are *user-defined*. If any are zero, it might be optimistic. If **all five** are zero, a warning is shown: *“Specialist electrical loss fields are zero. Revenue may be overstated until cable, transformer and electrical design losses are verified.”* This text is hardcoded in `updateFinanceWarnings()`【cursor†】. (It matches the developer note exactly.) No source needed, it’s internal logic.
-
-Additionally, warnings triggered by unrealistic values are shown (e.g. negative values, very high loss or bifacial).
-
-## Flood resilience
-
-- **Rate vs applied:** The user can check “Flood Resilience” and enter a rate (£/Wp). The model adds this rate to EPC if checked.  
-- In export, we differentiate:  
-  - `fin_flood_adder_rate_gbp_wp`: the input rate (available if any).  
-  - `fin_flood_adder_applied_gbp_wp`: equals rate if checkbox is ticked, else 0.  
-  - `fin_flood_resilience`: boolean of checkbox.  
-- **Rationale:** This makes clear how much was available vs actually used.  
-
-*Sources:* Solar generation formulas are standard (PVSyst methods, etc.). The specific JavaScript formulas are implemented as shown and can be verified. We cite no external source for arithmetic but note that degeneration and cumulative calc is typical (similar to [Mapbox example code](https://docs.mapbox.com/mapbox-gl-js/api/) style, no direct cite needed). We might cite a solar PV estimation reference, but primary focus is the implementation logic.
-
-# Logistics and Packaging Presets
-
-The sandbox includes a simple **logistics calculator** to estimate shipping needs from module count.
-
-- **Inputs:** The module count (from generation capacity) and chosen packaging preset.  
-- **Presets (generic):**  
-  1. **High-density:** 33 modules per pallet, 594 modules per 40-foot container.  
-  2. **Legacy:** 31 per pallet, 620 per container.  
-  3. **Manual:** User-entered values (not a preset; blank).  
-- **Derived values:**  
-  - Modules per pallet and per container are taken directly from presets.  
-  - **Total pallets (packing units)** = `ceil(total_modules / modules_per_pallet)`.  
-  - **Total containers** = `ceil(total_modules / modules_per_container)`.  
-  - **TEU (Twenty-foot equivalent units):** We assume 1 TEU ≈ 1 pallet capacity (approx 310 modules; provided by container / 2). For export we can either sum up 40-ft containers to TEU by converting (e.g. 594 modules = 1.188 TEU) or better: TEU = `ceil(total_modules / 310)`. The code uses 310 for TEU.  
-  - **Ships:** Approx ships = `TEU / 1000` (thousand TEUs per ship), displayed as e.g. `0.05 Ships`. (Exact formula: `ships = (teu/1000).toFixed(2)`).  
-- **Outputs:** These are displayed live in the UI (stat-box) and exported:  
-  - `modules_per_pallet_hd`, `modules_per_container_hd`, `total_packing_units_hd`, `total_containers_hd` (for high-density).  
-  - Similarly for legacy.  
-  - `total_teu`, `dedicated_ships_approx`.  
-
-We supply the preset values in the user instructions but they are not exported fields per se; only derived totals are.
-
-*Sources:* Preset values were given in user instructions. Similar high-density packaging is a known practice in PV logistics. (No external citation needed; values are stated.)
-
-# UI Text and Disclaimers
-
-Specific wording is required in the interface, popups, and warnings to ensure correct user expectations. The text must be exact as stipulated:
-
-- **Selected Grid Node panel (under left panel):** Has heading “Selected Grid Node”.  
-  - If none selected, display “Status: None selected” (with warning colour) and text: *“Click a public substation point to draw from a dataset grid reference.”*  
-  - If selected, show **Name, Voltage, Longitude, Latitude** with values. Then a warning box:  
-    > *Public dataset reference only. Does not confirm capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval.*  
-    (This is identical to the popup disclaimer text.)  
-
-- **Substation popup:** On clicking a public substation point, the popup title *“Public Grid Node”* appears (uppercase, red, bold), then Name/Voltage rows, then the same warning text (in small yellow font).  
-- **Draw button UX note:** In each mode panel, near the BESS inputs, a small italic note says: *“Note: BESS footprint dynamically sizes based on MWh. Topology updates on 'DRAW NEAT GRID'.”* This reminds users map doesn’t auto-update on every input change.  
-- **Warnings for finance:** As above, if loss fields are all zero, the message (in the finance box) is exactly: *“Specialist electrical loss fields are zero. Revenue may be overstated until cable, transformer and electrical design losses are verified.”* This is added to the list of warnings【cursor†】.  
-- **Footer disclaimers:** On export (in metadata) a note is added:  
-  ```
-  fin_export_note: "Indicative only. No financing costs. No final electrical design."
-  ```
-  This clarifies the geojson is a screening output, not a finished plan.
-
-These wording items are locked-in by requirement. They must appear exactly (except anonymising any company/site names, which none are here).
-
-# Export Schema and Structure
-
-The **exported GeoJSON** contains:
-
-- **Geometry features:** All points and polygons drawn: primary substation point, inverter footprints, BESS, radial lines, array polygon. Each feature has `properties.type` indicating its type (e.g. `'string_substation'`, `'primary_sub'`, `'array_boundary'`, etc.). No other topological attributes are saved except type and any relevant (BESS MWh property was included in code).  
-- **Boundary Feature:** The polygon with `type == 'array_boundary'`. This is special: it carries all the summary properties. Its `properties` becomes:  
-  - All *tech and financial properties* (see Data Model). This includes: `fin_active_tab`, `tech_drawn_boundary_basis`, `tech_drawn_boundary_area_m2`, and all the `fin_...` fields for finance (annual, 25yr, 35yr, CAPEX, price, losses, etc.), plus logistics and BESS fields, plus `grid_selected_substation_...`.  
-  - We prefix all in uppercase and consistent naming (e.g. `fin_annual_rev`, `fin_price_gbp_mwh`, etc.). Numeric values are output as numbers (e.g. 65 not “£65”, except CAPEX which we output as currency text). *Example in code: `fin_energy_price_gbp_mwh: n(prefix+"_price")`.*  
-  - A `fin_export_note` and grid node note as mentioned above.  
-- **Other features:** Each `Feature` keeps only minimal `properties` (type and for BESS compounds also `mwh`, for primary sub nothing else needed).  
-- **Structure:** A GeoJSON FeatureCollection. All fields above appear under the boundary polygon’s `properties`. No sensitive info (names/ids) are exported beyond generic labels.  
-
-A **table of export fields** is included below (after the References) listing each key and meaning (units, source, example). This ensures developers know exactly what to include and where each comes from.  
-
-*Sources:* The export structure was defined in the prompt and code. The use of `turf.area()` and `toFixed` matches geojson numeric needs. The specification is internal. No external citations needed beyond referencing earlier sections of this doc.
-
-# Implementation Snippets
-
-Below are key **code excerpts** (illustrative) to highlight how the above rules are implemented. These are *partial* and annotated; they must be integrated carefully (do not copy verbatim without context).
-
-## Hardened Substation Loader
-
-```js
-async function loadSubstations() {
-    try {
-        const res = await fetch('data/grid_substations.geojson', { cache: 'no-cache' });
-        if (!res.ok) {
-            throw new Error(`HTTP ${res.status} loading substations`);
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GIS-SLD and Financial Sandbox</title>
+    
+    <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    
+    <style>
+        :root {
+            --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
+            --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --accent-alt: #ff9900;
+            --ok: #00ff88; --substation: #ff3333; --private-sub: #00ff88; --inverter: #ffff00; 
+            --mv: #6633ff; --bess: #ff00aa;
+            --array-blue: #0066ff;
+            --warn: #ff4444;
         }
-        const data = await res.json();
-        if (!data || data.type !== 'FeatureCollection' || !Array.isArray(data.features)) {
-            throw new Error('Invalid substation GeoJSON. Expected FeatureCollection.');
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        
+        .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1600px; height: 100%; }
+        .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; display: flex; flex-direction: column; }
+        .panel-left { width: 440px; padding: 20px; flex-shrink: 0; overflow-y: auto; }
+        .panel-right { flex: 1 1 auto; position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+        
+        h2 { margin: 0 0 10px 0; color: var(--text); font-size: 18px; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+        h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform: uppercase; border-bottom: 1px dashed #333; padding-bottom: 3px; }
+        
+        .tab-container { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 15px; }
+        .tab-btn { flex: 1; padding: 10px 5px; background: transparent; color: var(--muted); border: none; cursor: pointer; font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active { color: var(--accent); border-bottom: 2px solid var(--accent); font-weight: bold; background: rgba(0, 255, 255, 0.05); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .input-group { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+        .input-group input[type="text"], .input-group input[type="number"], .input-group select { width: 95px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
+        .input-group input[type="text"] { text-align: left; }
+        .input-group select { width: auto; min-width: 140px; text-align: left; }
+        .tab-content#central_tab .input-group input[type="number"], .tab-content#central_tab .input-group select { color: var(--accent-alt); }
+        .input-group input:focus, .input-group select:focus { border-color: var(--text); outline: none; }
+        
+        .search-box { display: flex; gap: 5px; margin-bottom: 15px; }
+        .search-box input { flex: 1; background: #111; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 3px; font-family: monospace; font-size: 12px; }
+        .search-box button { background: #222; color: var(--text); border: 1px solid #555; padding: 8px 12px; border-radius: 3px; cursor: pointer; font-family: monospace; font-weight: bold; }
+        .search-box button:hover { background: #444; color: #fff; }
+        
+        .stat-box { background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); padding: 12px; border-radius: 3px; margin-top: 15px; }
+        .stat-box.central { background: rgba(255, 153, 0, 0.05); border-color: var(--accent-alt); }
+        .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; color: var(--muted); }
+        .stat-val { color: var(--text); font-weight: bold; text-align: right; }
+        .stat-val.cyan { color: var(--accent); font-size: 13px; }
+        .stat-val.orange { color: var(--accent-alt); font-size: 13px; }
+        
+        .finance-box { background: rgba(0, 255, 136, 0.05); border: 1px solid var(--ok); border-radius: 3px; padding: 10px; margin-top: 15px; }
+        .finance-box summary { color: var(--ok); cursor: pointer; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
+        .finance-headline { border: 1px solid #264d3a; padding: 10px; margin-bottom: 10px; background: rgba(0, 255, 136, 0.04); }
+        .finance-box input[type="number"] { width: 95px; background: #111; color: var(--ok); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
+        .finance-box input[type="checkbox"] { accent-color: var(--ok); cursor: pointer; margin: 0; }
+        
+        .warning-box { color: #ffcc00; font-size: 10px; margin-top: 8px; line-height: 1.4; }
+        .ux-note { font-size: 9px; color: var(--muted); margin-top: 4px; font-style: italic; }
+
+        .btn { padding: 10px; background: #000; color: var(--text); border: 1px solid #555; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; margin-top: 10px; width: 100%; transition: 0.2s; }
+        .btn:hover { background: #222; color: #fff; }
+        .btn.draw-btn { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+        .btn.draw-btn.central { background: var(--accent-alt); border-color: var(--accent-alt); }
+        
+        #map { width: 100%; height: 100%; }
+        .crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 24px; pointer-events: none; z-index: 10; text-shadow: 0 0 5px #000; }
+        
+        .legend { position: absolute; bottom: 20px; left: 20px; background: var(--panel); border: 1px solid var(--line); padding: 10px; font-size: 10px; z-index: 1; border-radius: 4px; pointer-events: none; }
+        .legend-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+        .swatch { width: 12px; height: 12px; border: 1px solid #666; }
+
+        .maplibregl-popup-content { background: #111; color: #fff; border: 1px solid #444; border-radius: 4px; font-family: "Courier New", monospace; padding: 12px; font-size: 11px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .maplibregl-popup-close-button { color: #888; padding: 4px; }
+        .maplibregl-popup-close-button:hover { color: #fff; }
+        .popup-row { display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid #222; padding-bottom: 2px; gap: 15px; }
+        .popup-val { font-weight: bold; color: var(--accent); }
+
+        .benchmark-box { background: rgba(17, 17, 17, 0.8); border: 1px solid #444; border-radius: 3px; padding: 10px; margin-top: 15px; }
+        .disclaimer-box { background: rgba(255, 68, 68, 0.05); border: 1px solid #ff4444; color: #ff9999; font-size: 10px; padding: 12px; border-radius: 3px; margin-top: 15px; line-height: 1.5; text-align: justify; }
+
+        .map-toggle-btn { background: rgba(5,5,5,0.85); color: var(--muted); border: 1px solid #444; padding: 6px 12px; border-radius: 3px; font-family: monospace; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .map-toggle-btn:hover { background: #222; border-color: #888; }
+        .map-toggle-btn.active { color: var(--accent); border-color: var(--accent); background: rgba(0, 255, 255, 0.05); }
+
+        @media (max-width: 800px) {
+            body { height: auto; overflow: auto; padding: 10px; }
+            .dashboard { flex-direction: column; height: auto; }
+            .panel-left { width: 100%; max-height: none; flex-shrink: 0; }
+            .panel-right { height: 60vh; flex-shrink: 0; } 
         }
-        console.log(`[SUBS LOADED] ${data.features.length} substations`);
+    </style>
+</head>
+<body>
 
-        if (!map.getSource('src-subs')) {
-            map.addSource('src-subs', { type: 'geojson', data });
-        } else {
-            map.getSource('src-subs').setData(data);
-        }
-        if (!map.getLayer('l-subs')) {
-            map.addLayer({
-                id: 'l-subs', type: 'circle', source: 'src-subs',
-                layout: { visibility: 'visible' },
-                paint: {
-                    'circle-color': '#ffffff',
-                    'circle-stroke-color': '#ff3333',
-                    'circle-stroke-width': 1,
-                    'circle-radius': [
-                        'interpolate',['linear'],['zoom'], 
-                        5,2, 10,4, 14,7, 18,14
-                    ],
-                    'circle-opacity': 0.85
-                }
-            });
-        }
-        addSubstationInteractions();
-    } catch (err) {
-        console.error('[SUBS LOAD FAILED]', err);
-    }
-}
-```
+<div class="dashboard">
+    <div class="panel panel-left">
+        <h2>GIS-SLD Sandbox</h2>
 
-Key points:
-- **Manual fetch:** `fetch(...).ok` check【0†L8-L12】.  
-- **Validate type:** Ensure `data.type === "FeatureCollection"`【3†L139-L144】 and `features` array.  
-- **setData vs addSource:** Use `.setData` if source exists.  
-- **Layer paint:** White fill, red stroke, zoom-dependent radius.  
+        <div class="search-box">
+            <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." onkeydown="if(event.key === 'Enter') searchLocation()">
+            <button onclick="searchLocation()">FLY</button>
+        </div>
 
-## Substation Click Handler
+        <div class="tab-container">
+            <button class="tab-btn active" id="tabbtn_string" onclick="switchTab('string')">String</button>
+            <button class="tab-btn" id="tabbtn_central" onclick="switchTab('central')">Central</button>
+        </div>
 
-```js
-function addSubstationInteractions() {
-    if (!map.getLayer('l-subs')) return;
-    map.on('click', 'l-subs', function(e) {
-        const f = e.features && e.features[0]; 
-        if (!f || f.geometry.type!=='Point') return;
-        const coords = f.geometry.coordinates.slice();
-        const p = f.properties || {};
-        selectedSubstation = {
-            name: p.name||p.Name||p['Site Name']||'Selected Substation',
-            voltage: p.voltage||p.Voltage||p.kv||p.kV||'',
-            longitude: coords[0], latitude: coords[1],
-            properties: p
-        };
-        activeDrawCenter = coords;
-        closeActivePopup();
-        activePopup = new maplibregl.Popup({ maxWidth: '320px' })
-            .setLngLat(coords)
-            .setHTML(`
-                <div style="color:#ff3333;font-weight:bold;text-transform:uppercase;">Public Grid Node</div>
-                <div class="popup-row"><span>Name:</span><span class="popup-val">${esc(selectedSubstation.name)}</span></div>
-                <div class="popup-row"><span>Voltage:</span><span class="popup-val">${esc(selectedSubstation.voltage||'Not stated')}</span></div>
-                <div style="color:#ffcc00;font-size:10px; margin-top:4px;">
-                    Public dataset reference only. Does not confirm capacity, connection rights, ...
+        <div id="string_tab" class="tab-content active">
+            <h3>Dimensions & Physics</h3>
+            <div class="input-group">
+                <label>Module Rating (Wp)</label>
+                <input type="number" id="mod_wp" value="660" min="1" />
+            </div>
+            <div class="input-group">
+                <label>Mod L x W (m)</label>
+                <div style="display: flex; gap: 4px;">
+                    <input type="number" id="mod_l" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
+                    <input type="number" id="mod_w" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
                 </div>
-            `).addTo(map);
+            </div>
+            <div class="input-group">
+                <label>Mounting & GCR</label>
+                <select id="mounting_type">
+                    <option value="0.75">East-West Dome (~75%)</option>
+                    <option value="0.45" selected>Fixed Tilt South (~45%)</option>
+                    <option value="0.35">Tracker (~35%)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Gross Site Factor</label>
+                <input type="number" id="gross_factor" value="1.35" step="0.05" min="1.0" title="Multiplier for roads, buffers, substations, ecology" />
+            </div>
+
+            <h3>Array Hierarchy (String)</h3>
+            <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
+            <div class="input-group"><label>Mods / String</label><input type="number" id="x_mods" value="28" min="1" /></div>
+            <div class="input-group"><label>Strings / Inverter</label><input type="number" id="z_strings" value="18" min="1" /></div>
+            <div class="input-group"><label>Inverters / Sub</label><input type="number" id="y_invs" value="28" min="1" /></div>
+            <div class="input-group"><label>Subs / Ring</label><input type="number" id="s_subs" value="5" min="1" /></div>
+            <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" min="1" /></div>
+
+            <h3>Module Logistics</h3>
+            <div class="input-group">
+                <label>Packaging Preset</label>
+                <select id="logistics_preset" onchange="applyLogisticsPreset(this.value, '')">
+                    <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                    <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
+                    <option value="manual">Manual Entry</option>
+                </select>
+            </div>
+            <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet" value="33" min="1" /></div>
+            <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container" value="594" min="1" /></div>
+            <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct" value="1.0" step="0.1" min="0" /></div>
+
+            <details class="finance-box">
+                <summary>Baseline Project Economics</summary>
+                <div class="finance-headline">
+                    <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_string_annual_rev">£0</span></div>
+                    <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_string_25_rev">£0</span></div>
+                    <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_string_35_rev">£0</span></div>
+                    <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_string_capex">£0</span></div>
+                    <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_string_capex_wp">£0.00/Wp</span></div>
+                    <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_string_surplus_25">£0</span></div>
+                    <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_string_surplus_35">£0</span></div>
+                </div>
+
+                <h3>Revenue</h3>
+                <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_string_price" value="65" step="1" min="0"></div>
+                <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_string_other" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_string_yield" value="1000" step="10" min="0"></div>
+                <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_string_bifacial" value="5" step="0.5" min="0" max="15"></div>
+                <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_string_losses" value="2" step="0.1" min="0"></div>
+                <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_string_deg" value="0.4" step="0.01" min="0"></div>
+                <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_string_opex" value="25000" step="1000" min="0"></div>
+
+                <h3>CAPEX</h3>
+                <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
+                <div class="input-group">
+                    <label>Flood Resilience</label>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                        <input type="checkbox" id="fin_string_flood" title="Apply Flood Elevation Adder">
+                        <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" title="Flood Elevation Adder £/Wp">
+                    </div>
+                </div>
+                <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
+                <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
+                <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
+                <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
+
+                <h3>Loss Allowances</h3>
+                <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_string_loss_dc_string" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_string_loss_lv_dc" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_string_loss_lv_ac" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_string_loss_tx" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_string_loss_other" value="0" step="0.1" min="0"></div>
+
+                <h3>BESS Optional</h3>
+                <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_string_bess_mw" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_string_bess_mwh" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_string_bess_capex" value="0" step="10000" min="0"></div>
+                <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_string_bess_cycles" value="0" step="10" min="0"></div>
+                <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_string_bess_spread" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_string_bess_eff" value="88" step="1" min="0" max="100"></div>
+                <div class="ux-note">Note: BESS footprint dynamically sizes based on MWh. Topology updates on 'DRAW NEAT GRID'.</div>
+
+                <div class="warning-box" id="fin_string_warnings"></div>
+            </details>
+        </div>
+
+        <div id="central_tab" class="tab-content">
+            <h3>Dimensions & Physics</h3>
+            <div class="input-group">
+                <label>Module Rating (Wp)</label>
+                <input type="number" id="mod_wp_c" value="660" min="1" />
+            </div>
+            <div class="input-group">
+                <label>Mod L x W (m)</label>
+                <div style="display: flex; gap: 4px;">
+                    <input type="number" id="mod_l_c" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
+                    <input type="number" id="mod_w_c" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Mounting & GCR</label>
+                <select id="mounting_type_c">
+                    <option value="0.75">East-West Dome (~75%)</option>
+                    <option value="0.45" selected>Fixed Tilt South (~45%)</option>
+                    <option value="0.35">Tracker (~35%)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Gross Site Factor</label>
+                <input type="number" id="gross_factor_c" value="1.35" step="0.05" min="1.0" title="Multiplier for roads, buffers, substations, ecology" />
+            </div>
+
+            <h3>Array Hierarchy (Central)</h3>
+            <div class="ux-note" style="margin-bottom: 8px;">Central MV station hierarchy is used for block count and export. MV station nodes are not yet separately drawn.</div>
+            <div class="input-group">
+                <label>Central AC Rating MWac</label>
+                <select id="inv_ac_mw_c">
+                    <option value="3.15">3.15 MWac</option>
+                    <option value="4.4" selected>4.40 MWac</option>
+                    <option value="4.6">4.60 MWac</option>
+                    <option value="5.0">5.00 MWac</option>
+                    <option value="6.25">6.25 MWac</option>
+                    <option value="6.8">6.80 MWac</option>
+                </select>
+            </div>
+            <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" min="0.01" /></div>
+            <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" min="1" /></div>
+            <div class="input-group"><label>Strings / Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>
+            <div class="input-group"><label>Central Invs / MV Station</label><input type="number" id="inv_per_mv_c" value="1" min="1" /></div>
+            <div class="input-group"><label>MV Stations / 33kV Ring</label><input type="number" id="mv_per_ring_c" value="4" min="1" /></div>
+            <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" min="1" /></div>
+
+            <h3>Module Logistics</h3>
+            <div class="input-group">
+                <label>Packaging Preset</label>
+                <select id="logistics_preset_c" onchange="applyLogisticsPreset(this.value, '_c')">
+                    <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                    <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
+                    <option value="manual">Manual Entry</option>
+                </select>
+            </div>
+            <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet_c" value="33" min="1" /></div>
+            <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container_c" value="594" min="1" /></div>
+            <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct_c" value="1.0" step="0.1" min="0" /></div>
+
+            <details class="finance-box">
+                <summary>Baseline Project Economics</summary>
+                <div class="finance-headline">
+                    <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_central_annual_rev">£0</span></div>
+                    <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_central_25_rev">£0</span></div>
+                    <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_central_35_rev">£0</span></div>
+                    <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_central_capex">£0</span></div>
+                    <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_central_capex_wp">£0.00/Wp</span></div>
+                    <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_central_surplus_25">£0</span></div>
+                    <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_central_surplus_35">£0</span></div>
+                </div>
+
+                <h3>Revenue</h3>
+                <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_central_price" value="65" step="1" min="0"></div>
+                <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_central_other" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_central_yield" value="1000" step="10" min="0"></div>
+                <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_central_bifacial" value="5" step="0.5" min="0" max="15"></div>
+                <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_central_losses" value="2" step="0.1" min="0"></div>
+                <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_central_deg" value="0.4" step="0.01" min="0"></div>
+                <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_central_opex" value="25000" step="1000" min="0"></div>
+
+                <h3>CAPEX</h3>
+                <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
+                <div class="input-group">
+                    <label>Flood Resilience</label>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                        <input type="checkbox" id="fin_central_flood" title="Apply Flood Elevation Adder">
+                        <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" title="Flood Elevation Adder £/Wp">
+                    </div>
+                </div>
+                <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
+                <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
+                <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
+                <div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
+
+                <h3>Loss Allowances</h3>
+                <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_central_loss_dc_string" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_central_loss_lv_dc" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_central_loss_lv_ac" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_central_loss_tx" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_central_loss_other" value="0" step="0.1" min="0"></div>
+
+                <h3>BESS Optional</h3>
+                <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_central_bess_mw" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_central_bess_mwh" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_central_bess_capex" value="0" step="10000" min="0"></div>
+                <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_central_bess_cycles" value="0" step="10" min="0"></div>
+                <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_central_bess_spread" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_central_bess_eff" value="88" step="1" min="0" max="100"></div>
+                <div class="ux-note">Note: BESS footprint dynamically sizes based on MWh. Topology updates on 'DRAW NEAT GRID'.</div>
+
+                <div class="warning-box" id="fin_central_warnings"></div>
+            </details>
+        </div>
+
+        <div class="warning-box" style="margin-top: 15px; border-color: #ff9900; color: #ff9900;">
+            Assumption status: experimental screening mode. DC capacity, AC capacity, area, logistics and finance are derived from user inputs. Specialist electrical loss fields remain user defined and require competent verification.
+        </div>
+
+        <div class="stat-box" id="selected_sub_box" style="border-color: #ff3333; background: rgba(255, 51, 51, 0.05); margin-bottom: 15px;">
+            <h3 style="margin-top: 0; color: #ff3333; border-bottom-color: #ff3333;">Selected Grid Node</h3>
+            <div class="stat-row"><span>Substation:</span><span class="stat-val" id="out_selected_sub_name">None selected</span></div>
+            <div class="stat-row"><span>Voltage:</span><span class="stat-val" id="out_selected_sub_voltage">Unknown</span></div>
+            <div class="stat-row"><span>Longitude:</span><span class="stat-val" id="out_selected_sub_lon">n/a</span></div>
+            <div class="stat-row"><span>Latitude:</span><span class="stat-val" id="out_selected_sub_lat">n/a</span></div>
+        </div>
+        
+        <div class="warning-box" style="margin-bottom: 15px;">
+            Selected substations are public dataset reference points only. Selection does not confirm capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval.
+        </div>
+
+        <div class="stat-box" id="tech_summary_box">
+            <h3>Technical Quantity Summary</h3>
+            <div class="stat-row"><span>Total Module Count:</span><span class="stat-val" id="out_module_count">0</span></div>
+            <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val cyan" id="out_dc_capacity">0.00 MWp</span></div>
+            <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
+            <div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
+            <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes / Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
+            <div class="stat-row central-only" style="display: none;"><span>Total Central Combiner Boxes:</span><span class="stat-val" id="out_total_cb">0</span></div>
+            <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+            <div class="stat-row"><span>Net Module Surface Area:</span><span class="stat-val" id="out_net_mod_area">0 Acres</span></div>
+            <div class="stat-row"><span>Net Array Area at GCR:</span><span class="stat-val" id="out_net_array_area">0 Acres</span></div>
+            <div class="stat-row"><span>Indicative Gross Site Area:</span><span class="stat-val orange" id="out_gross_area">0 Acres</span></div>
+            <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+            <div class="stat-row"><span>Modules per Packing Unit:</span><span class="stat-val" id="out_mod_per_pallet">0</span></div>
+            <div class="stat-row"><span>Total Packing Units:</span><span class="stat-val" id="out_pallets">0</span></div>
+            <div class="stat-row"><span>Modules per Container:</span><span class="stat-val" id="out_mod_per_cont">0</span></div>
+            <div class="stat-row"><span>Total Base Containers:</span><span class="stat-val" id="out_containers">0</span></div>
+            <div class="stat-row"><span>Spare Module Allowance:</span><span class="stat-val" id="out_spare_pct">0%</span></div>
+            <div class="stat-row"><span>Containers (Inc. Spares):</span><span class="stat-val cyan" id="out_containers_spares">0</span></div>
+            <div class="stat-row"><span>Containers per MWp:</span><span class="stat-val cyan" id="out_cont_per_mwp">0.00</span></div>
+        </div>
+
+        <div class="benchmark-box">
+            <h3 style="margin-top: 0;">Custom Reference Benchmark</h3>
+            <div class="input-group">
+                <label>Reference Project</label>
+                <input type="text" id="ref_name" value="Custom Project X" style="width: 140px; text-align: left;"/>
+            </div>
+            <div class="input-group">
+                <label>Reference Capacity (MW)</label>
+                <input type="number" id="ref_mw" value="100" min="1" />
+            </div>
+            <div class="input-group">
+                <label>Reference Module Count</label>
+                <input type="number" id="ref_modules" value="150000" min="1" />
+            </div>
+            <div class="stat-row" style="margin-top: 8px; border-top: 1px dashed #333; padding-top: 8px;">
+                <span>Implied Benchmark:</span>
+                <span class="stat-val" id="out_ref_implied">~ 1,500 modules/MW</span>
+            </div>
+            <div class="ux-note">Use: custom sanity check only. Not design authority.</div>
+        </div>
+
+        <div class="warning-box" style="margin-bottom: 10px;">
+            Map topology only refreshes after pressing DRAW NEAT GRID. Financial and quantity values update live from inputs.
+        </div>
+        
+        <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ DRAW NEAT GRID</button>
+        <button class="btn" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
+
+        <div class="disclaimer-box">
+            <strong>EXPERIMENTAL SCREENING OUTPUT</strong><br><br>
+            These outputs are indicative screening values only. They are not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. All quantities, packaging, site area, cable routes, container loads, module specifications and financial assumptions must be verified against current manufacturer datasheets, project specific drawings, EPC scope, grid requirements and competent engineering review.
+        </div>
+    </div>
+
+    <div class="panel panel-right">
+        <div style="position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 8px;">
+            <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
+            <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
+        </div>
+        <div class="crosshair">⌖</div>
+        <div id="map"></div>
+        <div class="legend" id="map_legend"></div>
+    </div>
+</div>
+
+<script>
+    let activeTab = 'string';
+    let currentGeoJSON = { type: "FeatureCollection", features: [] };
+    let activeDrawCenter = null; 
+    let selectedSubstation = null;
+    let subsVisible = true;
+    let activePopup = null;
+
+    const map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+        center: [-0.1276, 51.5072], 
+        zoom: 13
+    });
+
+    map.on('error', function(e) {
+        console.error('MapLibre error:', e.error || e);
+    });
+
+    function showPopup(coords, html) {
+        if (activePopup) activePopup.remove();
+        activePopup = new maplibregl.Popup()
+            .setLngLat(coords)
+            .setHTML(html)
+            .addTo(map);
+        activePopup.on('close', () => {
+            activePopup = null;
+        });
+    }
+
+    map.on('load', () => {
+        // --- SATELLITE BASEMAP SOURCE & LAYER ---
+        map.addSource('sat-s', { 
+            type: 'raster', 
+            tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], 
+            tileSize: 256 
+        });
+        map.addLayer({ 
+            id: 'l-sat', 
+            type: 'raster', 
+            source: 'sat-s', 
+            layout: { visibility: 'none' } 
+        });
+
+        // --- SUBSTATIONS LAYER (Absolute Path Fix) ---
+        map.addSource('src-subs', {
+            type: 'geojson',
+            data: { type: 'FeatureCollection', features: [] } 
+        });
+        
+        fetch('/data/grid_substations.geojson')
+            .then(res => res.json())
+            .then(data => {
+                if (map.getSource('src-subs')) {
+                    map.getSource('src-subs').setData(data);
+                }
+            })
+            .catch(err => console.error('Failed to load substations:', err));
+
+        map.addLayer({
+            id: 'l-subs',
+            type: 'circle',
+            source: 'src-subs',
+            layout: { visibility: 'visible' },
+            paint: {
+                'circle-color': '#ffffff',
+                'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 3, 10, 5, 14, 10, 18, 22],
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#ff3333',
+                'circle-opacity': 0.8
+            }
+        });
+
+        // --- TOPOLOGY SOURCE ---
+        map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
+
+        map.addLayer({
+            id: 'overall_boundary_fill', type: 'fill', source: 'topology',
+            filter: ['==', 'type', 'array_boundary'],
+            paint: { 'fill-color': '#0066ff', 'fill-opacity': 0.25 }
+        });
+
+        map.addLayer({
+            id: 'overall_boundary_line', type: 'line', source: 'topology',
+            filter: ['==', 'type', 'array_boundary'],
+            paint: { 'line-color': '#0066ff', 'line-width': 2, 'line-dasharray': [4, 4] }
+        });
+
+        map.addLayer({
+            id: 'footprints', type: 'fill', source: 'topology',
+            filter: ['in', ['get', 'type'], ['literal', ['skid_footprint', 'central_footprint', 'bess_footprint']]],
+            paint: { 
+                'fill-color': [
+                    'match', ['get', 'type'], 
+                    'skid_footprint', '#00ffff', 
+                    'central_footprint', '#ff9900', 
+                    'bess_footprint', '#ff00aa',
+                    '#000'
+                ], 
+                'fill-opacity': 0.15 
+            }
+        });
+
+        map.addLayer({
+            id: 'footprints_outline', type: 'line', source: 'topology',
+            filter: ['in', ['get', 'type'], ['literal', ['skid_footprint', 'central_footprint', 'bess_footprint']]],
+            paint: { 
+                'line-color': [
+                    'match', ['get', 'type'], 
+                    'skid_footprint', '#00ffff', 
+                    'central_footprint', '#ff9900', 
+                    'bess_footprint', '#ff00aa',
+                    '#000'
+                ], 
+                'line-width': 1 
+            }
+        });
+        
+        map.addLayer({
+            id: 'export_cable', type: 'line', source: 'topology',
+            filter: ['==', 'type', 'export_cable'],
+            paint: { 'line-color': '#ff3333', 'line-width': 2, 'line-dasharray': [4, 4] }
+        });
+
+        map.addLayer({
+            id: 'radial_spine', type: 'line', source: 'topology',
+            filter: ['==', 'type', '33kv_radial'],
+            paint: { 'line-color': '#00ffff', 'line-width': 2 }
+        });
+
+        map.addLayer({
+            id: 'inverters', type: 'circle', source: 'topology',
+            filter: ['in', ['get', 'type'], ['literal', ['string_substation', 'central_inverter', 'mv_station', 'bess_compound']]],
+            paint: { 
+                'circle-color': [
+                    'match', ['get', 'type'], 
+                    'string_substation', '#ffff00', 
+                    'central_inverter', '#ff9900', 
+                    'mv_station', '#6633ff', 
+                    'bess_compound', '#ff00aa',
+                    '#fff'
+                ], 
+                'circle-radius': [
+                    'match', ['get', 'type'], 
+                    'string_substation', 4, 
+                    'central_inverter', 6, 
+                    'mv_station', 4, 
+                    'bess_compound', 6,
+                    3
+                ], 
+                'circle-stroke-color': '#000', 'circle-stroke-width': 1 
+            }
+        });
+
+        // Combine POI and Customer Substation into one dynamic layer
+        map.addLayer({
+            id: 'substation', type: 'circle', source: 'topology',
+            filter: ['in', ['get', 'type'], ['literal', ['poi', 'private_sub']]],
+            paint: { 
+                'circle-color': ['match', ['get', 'type'], 'poi', '#ff3333', 'private_sub', '#00ff88', '#fff'], 
+                'circle-radius': 8, 
+                'circle-stroke-color': '#fff', 
+                'circle-stroke-width': 2 
+            }
+        });
+
+        // --- EVENTS ---
+        map.on('click', 'l-subs', function(e) {
+            const f = e.features[0];
+            const coords = f.geometry.coordinates.slice();
+            const p = f.properties || {};
+
+            selectedSubstation = {
+                name: p.name || p.Name || p.SiteName || p['Site Name'] || p.substation || p.Substation || 'Selected Substation',
+                voltage: p.voltage || p.Voltage || p.kv || p.kV || p.KV || null,
+                properties: p,
+                coordinates: coords
+            };
+
+            activeDrawCenter = coords;
+            computeAndDraw();
+            updateSelectedSubstationDisplay();
+        });
+
+        map.on('mouseenter', 'l-subs', () => { map.getCanvas().style.cursor = 'pointer'; });
+        map.on('mouseleave', 'l-subs', () => { map.getCanvas().style.cursor = ''; });
+
+        map.on('click', 'inverters', function (e) {
+            const prop = e.features[0].properties;
+            const coords = e.features[0].geometry.coordinates.slice();
+            
+            let color = '#00ffff';
+            if (prop.type === 'central_inverter') color = '#ff9900';
+            else if (prop.type === 'string_substation') color = '#ffff00';
+            else if (prop.type === 'bess_compound') color = '#ff00aa';
+            else if (prop.type === 'mv_station') color = '#6633ff';
+
+            let html = `
+                <div style="margin-bottom: 5px; color:${color}; font-weight:bold; font-size: 13px; text-transform:uppercase;">Block Info</div>
+                <div class="popup-row"><span>Type:</span> <span class="popup-val" style="color:#fff;">${prop.type}</span></div>
+            `;
+            if (prop.type === 'bess_compound' && prop.mwh !== undefined) {
+                html += `<div class="popup-row"><span>Capacity:</span> <span class="popup-val" style="color:#fff;">${prop.mwh} MWh</span></div>`;
+            }
+
+            showPopup(coords, html);
+        });
+
+        map.on('mouseenter', 'inverters', () => { map.getCanvas().style.cursor = 'pointer'; });
+        map.on('mouseleave', 'inverters', () => { map.getCanvas().style.cursor = ''; });
+
+        map.on('click', 'substation', function (e) {
+            const prop = e.features[0].properties;
+            const coords = e.features[0].geometry.coordinates.slice();
+            
+            let title = prop.type === 'poi' ? 'Point of Interconnection' : 'Customer Substation';
+            let color = prop.type === 'poi' ? '#ff3333' : '#00ff88';
+
+            let html = `
+                <div style="margin-bottom: 5px; color:${color}; font-weight:bold; font-size: 13px; text-transform:uppercase;">${title}</div>
+            `;
+            if (prop.selected_substation_name) {
+                html += `<div class="popup-row"><span>Name:</span> <span class="popup-val" style="color:#fff;">${prop.selected_substation_name}</span></div>`;
+            }
+            if (prop.selected_substation_voltage) {
+                html += `<div class="popup-row"><span>Voltage:</span> <span class="popup-val" style="color:#fff;">${prop.selected_substation_voltage}</span></div>`;
+            }
+
+            showPopup(coords, html);
+        });
+        map.on('mouseenter', 'substation', () => { map.getCanvas().style.cursor = 'pointer'; });
+        map.on('mouseleave', 'substation', () => { map.getCanvas().style.cursor = ''; });
+
+        updateLegend();
+        recalcAll();
+    });
+
+    // --- BASEMAP & LAYER TOGGLE LOGIC ---
+    let satActive = false;
+    document.getElementById('btn_basemap').addEventListener('click', function() {
+        if (!map.getLayer('l-sat')) return;
+
+        satActive = !satActive;
+        map.setLayoutProperty('l-sat', 'visibility', satActive ? 'visible' : 'none');
+        
+        this.textContent = satActive ? 'DARK MATTER VIEW' : 'SATELLITE VIEW';
+        this.classList.toggle('active', satActive);
+    });
+
+    document.getElementById('btn_subs_toggle').addEventListener('click', function() {
+        if (!map.getLayer('l-subs')) return;
+
+        subsVisible = !subsVisible;
+        map.setLayoutProperty('l-subs', 'visibility', subsVisible ? 'visible' : 'none');
+        
+        this.textContent = subsVisible ? 'SUBS ON' : 'SUBS OFF';
+        this.classList.toggle('active', subsVisible);
+    });
+
+    function applyLogisticsPreset(val, suffix) {
+        if (val === 'high_density') {
+            document.getElementById('mods_pallet' + suffix).value = 33;
+            document.getElementById('mods_container' + suffix).value = 594;
+        } else if (val === 'legacy') {
+            document.getElementById('mods_pallet' + suffix).value = 31;
+            document.getElementById('mods_container' + suffix).value = 620;
+        }
+        recalcAll();
+    }
+
+    function switchTab(tab) {
+        activeTab = tab;
+        document.getElementById('tabbtn_string').classList.toggle('active', tab === 'string');
+        document.getElementById('tabbtn_central').classList.toggle('active', tab === 'central');
+        document.getElementById('string_tab').classList.toggle('active', tab === 'string');
+        document.getElementById('central_tab').classList.toggle('active', tab === 'central');
+        
+        const btnDraw = document.getElementById('btn_draw');
+        if (tab === 'central') { btnDraw.classList.add('central'); } 
+        else { btnDraw.classList.remove('central'); }
+
+        document.querySelectorAll('.central-only').forEach(el => {
+            el.style.display = tab === 'central' ? 'flex' : 'none';
+        });
+
+        updateLegend();
+        if(activeDrawCenter) computeAndDraw(); 
+        
+        recalcAll();
+    }
+
+    function updateLegend() {
+        const legend = document.getElementById('map_legend');
+        let html = `
+            <div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Point of Interconnection</div>
+            <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px dashed var(--substation);"></div> Export Cable</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--private-sub);"></div> Customer Substation</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--bess);"></div> BESS Compound</div>
+            <div class="legend-item"><div class="swatch" style="background:var(--array-blue); opacity: 0.3; border-style: dashed;"></div> Total Array Boundary</div>
+        `;
+        if (activeTab === 'string') {
+            html += `
+                <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> String Substation Block</div>
+                <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px solid var(--accent);"></div> Radial 33kV Spine</div>
+            `;
+        } else {
+            html += `
+                <div class="legend-item"><div class="swatch" style="background:var(--accent-alt);"></div> Central Inverter Block</div>
+                <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px solid var(--accent);"></div> Radial 33kV Spine</div>
+            `;
+        }
+        legend.innerHTML = html;
+    }
+
+    function updateSelectedSubstationDisplay() {
+        const nameEl = document.getElementById('out_selected_sub_name');
+        const voltageEl = document.getElementById('out_selected_sub_voltage');
+        const lonEl = document.getElementById('out_selected_sub_lon');
+        const latEl = document.getElementById('out_selected_sub_lat');
+
+        if (!nameEl || !voltageEl || !lonEl || !latEl) return;
+
+        if (!selectedSubstation) {
+            nameEl.textContent = 'None selected';
+            voltageEl.textContent = 'Unknown';
+            lonEl.textContent = 'n/a';
+            latEl.textContent = 'n/a';
+            return;
+        }
+
+        nameEl.textContent = selectedSubstation.name || 'Selected Substation';
+        voltageEl.textContent = selectedSubstation.voltage || 'Unknown';
+        lonEl.textContent = selectedSubstation.coordinates ? selectedSubstation.coordinates[0].toFixed(6) : 'n/a';
+        latEl.textContent = selectedSubstation.coordinates ? selectedSubstation.coordinates[1].toFixed(6) : 'n/a';
+    }
+
+    async function searchLocation() {
+        const query = document.getElementById('loc_search').value;
+        if (!query) return;
+        try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`);
+            const data = await res.json();
+            if (data && data.length > 0) {
+                map.flyTo({ center: [parseFloat(data[0].lon), parseFloat(data[0].lat)], zoom: 14 });
+            }
+        } catch (e) { 
+            console.error("Geocoding failed:", e);
+        }
+    }
+
+    function triggerDrawAtCenter() {
+        selectedSubstation = null;
+        activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
         computeAndDraw();
         updateSelectedSubstationDisplay();
+    }
+
+    function updateAggregatesOnly() {
+        if (activeTab === 'string') return updateStringAggregates();
+        return updateCentralAggregates();
+    }
+
+    function updateStringAggregates() {
+        const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
+        const x = parseInt(document.getElementById('x_mods').value) || 0;
+        const z = parseInt(document.getElementById('z_strings').value) || 0;
+        const y = parseInt(document.getElementById('y_invs').value) || 0;
+        const s = parseInt(document.getElementById('s_subs').value) || 0;
+        const rings = parseInt(document.getElementById('b_cols').value) || 0;
+
+        const mod_l = parseFloat(document.getElementById('mod_l').value) || 0;
+        const mod_w = parseFloat(document.getElementById('mod_w').value) || 0;
+        const gcr = parseFloat(document.getElementById('mounting_type').value) || 0.75;
+        const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio').value) || 1.20;
+        const gross_factor = parseFloat(document.getElementById('gross_factor').value) || 1.35;
+        
+        const mods_pallet = parseInt(document.getElementById('mods_pallet').value) || 1;
+        const mods_container = parseInt(document.getElementById('mods_container').value) || 1;
+        const spare_pct = parseFloat(document.getElementById('spare_pct').value) || 0;
+
+        if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x <= 0) {
+            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container, combiner_boxes_per_inverter: 0, total_combiner_boxes: 0 };
+        }
+
+        const total_blocks = rings * s;
+        const total_invs = total_blocks * y;
+        const module_count = total_invs * z * x;
+        const dc_mwp = (module_count * mod_wp) / 1000000;
+        const ac_mw = dc_mwp / dc_ac_ratio;
+        
+        const net_mod_area_m2 = module_count * mod_l * mod_w;
+        const net_array_area_m2 = gcr > 0 ? net_mod_area_m2 / gcr : 0;
+        const gross_site_area_m2 = net_array_area_m2 * gross_factor;
+        const block_ground_area_m2 = total_blocks > 0 ? net_array_area_m2 / total_blocks : 0;
+
+        const pallets = Math.ceil(module_count / mods_pallet);
+        const containers = Math.ceil(module_count / mods_container);
+        const modules_inc_spares = Math.ceil(module_count * (1 + (spare_pct / 100)));
+        const pallets_inc_spares = Math.ceil(modules_inc_spares / mods_pallet);
+        const containers_inc_spares = Math.ceil(modules_inc_spares / mods_container);
+
+        return { 
+            total_blocks, block_ground_area_m2, dc_mwp, ac_mw, module_count, 
+            net_mod_area_m2, net_array_area_m2, gross_site_area_m2, dc_ac_ratio,
+            pallets, containers, spares_pct: spare_pct, modules_inc_spares, pallets_inc_spares, containers_inc_spares,
+            mods_pallet, mods_container,
+            combiner_boxes_per_inverter: 0, total_combiner_boxes: 0
+        };
+    }
+
+    function updateCentralAggregates() {
+        const mod_wp = parseFloat(document.getElementById('mod_wp_c').value) || 0;
+        const mod_l = parseFloat(document.getElementById('mod_l_c').value) || 0;
+        const mod_w = parseFloat(document.getElementById('mod_w_c').value) || 0;
+        const gcr = parseFloat(document.getElementById('mounting_type_c').value) || 0.45;
+        const gross_factor = parseFloat(document.getElementById('gross_factor_c').value) || 1.35;
+        
+        const x_mods = parseInt(document.getElementById('x_mods_c').value) || 0;
+        const inv_ac_mw = parseFloat(document.getElementById('inv_ac_mw_c').value) || 0;
+        const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio_c').value) || 1.20;
+        
+        const str_per_cb = parseInt(document.getElementById('str_per_cb_c').value) || 1;
+        const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
+        const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
+        const rings = parseInt(document.getElementById('rings_c').value) || 0;
+
+        const mods_pallet = parseInt(document.getElementById('mods_pallet_c').value) || 1;
+        const mods_container = parseInt(document.getElementById('mods_container_c').value) || 1;
+        const spare_pct = parseFloat(document.getElementById('spare_pct_c').value) || 0;
+
+        if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x_mods <= 0) {
+            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container, combiner_boxes_per_inverter: 0, total_combiner_boxes: 0 };
+        }
+
+        const str_dc_kwp = (x_mods * mod_wp) / 1000;
+        const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
+        const req_strings = str_dc_kwp > 0 ? Math.ceil((inv_dc_mwp * 1000) / str_dc_kwp) : 0;
+        const combiner_boxes_per_inverter = Math.ceil(req_strings / str_per_cb);
+        const total_blocks = inv_per_mv * mv_per_ring * rings;
+        const total_combiner_boxes = combiner_boxes_per_inverter * total_blocks;
+        const module_count = req_strings * x_mods * total_blocks;
+        
+        const dc_mwp = (module_count * mod_wp) / 1000000;
+        const ac_mw = total_blocks * inv_ac_mw;
+
+        const net_mod_area_m2 = module_count * mod_l * mod_w;
+        const net_array_area_m2 = gcr > 0 ? net_mod_area_m2 / gcr : 0;
+        const gross_site_area_m2 = net_array_area_m2 * gross_factor;
+        const block_ground_area_m2 = total_blocks > 0 ? net_array_area_m2 / total_blocks : 0;
+
+        const pallets = Math.ceil(module_count / mods_pallet);
+        const containers = Math.ceil(module_count / mods_container);
+        const modules_inc_spares = Math.ceil(module_count * (1 + (spare_pct / 100)));
+        const pallets_inc_spares = Math.ceil(modules_inc_spares / mods_pallet);
+        const containers_inc_spares = Math.ceil(modules_inc_spares / mods_container);
+
+        return { 
+            total_blocks, block_ground_area_m2, dc_mwp, ac_mw, module_count, 
+            net_mod_area_m2, net_array_area_m2, gross_site_area_m2, dc_ac_ratio,
+            pallets, containers, spares_pct: spare_pct, modules_inc_spares, pallets_inc_spares, containers_inc_spares,
+            mods_pallet, mods_container,
+            combiner_boxes_per_inverter, total_combiner_boxes
+        };
+    }
+
+    function updateTechnicalSummary(stats) {
+        document.getElementById('out_module_count').textContent = stats.module_count.toLocaleString();
+        document.getElementById('out_dc_capacity').textContent = stats.dc_mwp.toFixed(2) + " MWp";
+        document.getElementById('out_ac_capacity').textContent = stats.ac_mw.toFixed(2) + " MWac";
+        document.getElementById('out_actual_dcac').textContent = stats.dc_ac_ratio.toFixed(2);
+
+        document.getElementById('out_cb_per_inv').textContent = stats.combiner_boxes_per_inverter.toLocaleString();
+        document.getElementById('out_total_cb').textContent = stats.total_combiner_boxes.toLocaleString();
+        
+        document.getElementById('out_net_mod_area').textContent = (stats.net_mod_area_m2 / 4046.86).toFixed(0) + " Acres";
+        document.getElementById('out_net_array_area').textContent = (stats.net_array_area_m2 / 4046.86).toFixed(0) + " Acres";
+        document.getElementById('out_gross_area').textContent = (stats.gross_site_area_m2 / 4046.86).toFixed(0) + " Acres";
+
+        document.getElementById('out_mod_per_pallet').textContent = stats.mods_pallet;
+        document.getElementById('out_pallets').textContent = stats.pallets.toLocaleString();
+        document.getElementById('out_mod_per_cont').textContent = stats.mods_container;
+        document.getElementById('out_containers').textContent = stats.containers.toLocaleString();
+        document.getElementById('out_spare_pct').textContent = stats.spares_pct.toFixed(1) + "%";
+        document.getElementById('out_containers_spares').textContent = stats.containers_inc_spares.toLocaleString();
+
+        const tabClass = activeTab === 'central' ? 'stat-val orange' : 'stat-val cyan';
+        document.getElementById('out_dc_capacity').className = tabClass;
+        document.getElementById('out_containers_spares').className = tabClass;
+
+        const cont_per_mwp = stats.dc_mwp > 0 ? (stats.containers_inc_spares / stats.dc_mwp) : 0;
+        document.getElementById('out_cont_per_mwp').textContent = cont_per_mwp.toFixed(2);
+        document.getElementById('out_cont_per_mwp').className = tabClass;
+    }
+
+    function updateBenchmark() {
+        const mw = parseFloat(document.getElementById('ref_mw').value) || 0;
+        const mods = parseFloat(document.getElementById('ref_modules').value) || 0;
+        const implied = mw > 0 ? (mods / mw) : 0;
+        document.getElementById('out_ref_implied').textContent = `~ ${Math.round(implied).toLocaleString()} modules/MW`;
+    }
+
+    /* --- FINANCIAL FUNCTIONS --- */
+    function n(id) { return parseFloat(document.getElementById(id)?.value) || 0; }
+    function money(v) {
+        const rounded = Math.round(v);
+        if (rounded < 0) return "-£" + Math.abs(rounded).toLocaleString();
+        return "£" + rounded.toLocaleString();
+    }
+
+    function calcCumulativeGeneration(dc_mwp, effectiveYieldVal, totalLossPct, degPct, years) {
+        const year1 = dc_mwp * effectiveYieldVal * (1 - totalLossPct / 100);
+        let total = 0;
+        for (let y = 1; y <= years; y++) { total += year1 * Math.pow(1 - degPct / 100, y - 1); }
+        return total;
+    }
+
+    function updateFinancials(prefix, dc_mwp, ac_mw, stats) {
+        const price = n(prefix + "_price");
+        const other = n(prefix + "_other");
+        const yieldVal = n(prefix + "_yield");
+        const bifacial = n(prefix + "_bifacial");
+        const baseLoss = n(prefix + "_losses");
+        const deg = n(prefix + "_deg");
+        const opexRate = n(prefix + "_opex");
+        const epcEx = n(prefix + "_epc_ex");
+        
+        const floodChecked = document.getElementById(prefix + "_flood")?.checked || false;
+        const floodRate = n(prefix + "_flood_rate");
+        const floodAdder = floodChecked ? floodRate : 0;
+        
+        const modules = n(prefix + "_modules");
+        const otherCapex = n(prefix + "_other_capex");
+        const fixedCapex = n(prefix + "_fixed_capex");
+        const cont = n(prefix + "_cont");
+
+        const lossDcString = n(prefix + "_loss_dc_string");
+        const lossLvDc = n(prefix + "_loss_lv_dc");
+        const lossLvAc = n(prefix + "_loss_lv_ac");
+        const lossTx = n(prefix + "_loss_tx");
+        const lossOther = n(prefix + "_loss_other");
+        const totalLoss = baseLoss + lossDcString + lossLvDc + lossLvAc + lossTx + lossOther;
+
+        const bessMw = n(prefix + "_bess_mw");
+        const bessMwh = n(prefix + "_bess_mwh");
+        const bessCapexRate = n(prefix + "_bess_capex");
+        const bessCycles = n(prefix + "_bess_cycles");
+        const bessSpread = n(prefix + "_bess_spread");
+        const bessEff = n(prefix + "_bess_eff") / 100;
+
+        const safeLoss = Math.min(Math.max(totalLoss, 0), 100);
+        const safeBessEff = Math.min(Math.max(bessEff, 0), 1);
+        
+        const effectiveYield = yieldVal * (1 + bifacial / 100);
+        const year1Gen = dc_mwp * effectiveYield * (1 - safeLoss / 100);
+        
+        const annualSolarRevenue = year1Gen * (price + other);
+        const bessAnnualValue = bessMwh * bessCycles * bessSpread * safeBessEff;
+
+        const bess25 = bessAnnualValue * 25;
+        const bess35 = bessAnnualValue * 35;
+
+        const gen25 = calcCumulativeGeneration(dc_mwp, effectiveYield, safeLoss, deg, 25);
+        const gen35 = calcCumulativeGeneration(dc_mwp, effectiveYield, safeLoss, deg, 35);
+
+        const revenue25 = (gen25 * (price + other)) + bess25;
+        const revenue35 = (gen35 * (price + other)) + bess35;
+
+        const annualRevenue = annualSolarRevenue + bessAnnualValue;
+        const annualOpex = ac_mw * opexRate;
+        const opex25 = annualOpex * 25;
+        const opex35 = annualOpex * 35;
+        
+        const baseCapexWp = epcEx + modules + otherCapex + floodAdder;
+        const baseCapex = dc_mwp * 1000000 * baseCapexWp;
+        const contingency = baseCapex * (cont / 100);
+
+        const bessCapex = bessMwh * bessCapexRate;
+        const totalCapex = baseCapex + contingency + fixedCapex + bessCapex;
+        const capexPerWp = dc_mwp > 0 ? totalCapex / (dc_mwp * 1000000) : 0;
+
+        const surplus25 = revenue25 - opex25 - totalCapex;
+        const surplus35 = revenue35 - opex35 - totalCapex;
+
+        document.getElementById(prefix + "_annual_rev").textContent = money(annualRevenue);
+        document.getElementById(prefix + "_25_rev").textContent = money(revenue25);
+        document.getElementById(prefix + "_35_rev").textContent = money(revenue35);
+        document.getElementById(prefix + "_capex").textContent = money(totalCapex);
+        document.getElementById(prefix + "_capex_wp").textContent = "£" + capexPerWp.toFixed(2) + "/Wp";
+        document.getElementById(prefix + "_surplus_25").textContent = money(surplus25);
+        document.getElementById(prefix + "_surplus_35").textContent = money(surplus35);
+        
+        updateFinanceWarnings(prefix, price, opexRate, epcEx + modules, capexPerWp, totalLoss, bessMw, bessMwh, bessCycles, bessEff, bifacial, stats);
+    }
+
+    function updateFinanceWarnings(prefix, price, opexRate, epcIncModules, capexPerWp, totalLoss, bessMw, bessMwh, bessCycles, bessEff, bifacial, stats) {
+        const warnings = [];
+        if (price < 0) warnings.push("Energy price cannot be negative.");
+        if (opexRate < 0) warnings.push("OPEX cannot be negative.");
+        if (totalLoss < 0) warnings.push("Losses cannot be negative.");
+        if (epcIncModules < 0) warnings.push("EPC cannot be negative.");
+        if (capexPerWp < 0) warnings.push("CAPEX cannot be negative.");
+        if (bessMwh < 0 || bessMw < 0) warnings.push("BESS size cannot be negative.");
+        if (bessMwh > 0 && bessEff <= 0) warnings.push("BESS efficiency missing.");
+        if (bessEff > 1) warnings.push("BESS efficiency above 100 percent.");
+        if (price < 50) warnings.push("Low energy price case.");
+        if (price > 85) warnings.push("High energy price case.");
+        if (epcIncModules < 0.42) warnings.push("Aggressive EPC pricing.");
+        if (capexPerWp > 1.00) warnings.push("Full project cost territory.");
+        if (capexPerWp > 1.25) warnings.push("Complex project or asset value territory.");
+        if (opexRate < 10000 && opexRate >= 0) warnings.push("OPEX may be unrealistically low.");
+        if (totalLoss > 6) warnings.push("High loss assumption.");
+        if (bifacial > 12) warnings.push("Aggressive bifacial gain assumption.");
+        if (bessMwh > 0 && bessMw <= 0) warnings.push("BESS MW missing.");
+        if (bessMw > 0 && (bessMwh / bessMw) > 8) warnings.push("Unusually long BESS duration.");
+        if (bessCycles > 365) warnings.push("Aggressive storage cycling assumption.");
+
+        if (n(prefix + "_loss_dc_string") === 0 && n(prefix + "_loss_lv_dc") === 0 && n(prefix + "_loss_lv_ac") === 0 && n(prefix + "_loss_tx") === 0 && n(prefix + "_loss_other") === 0) {
+            warnings.push("Specialist electrical loss fields are blank or zero. Revenue may be overstated until cable, transformer and electrical design losses are verified.");
+        }
+
+        const grossFactor = activeTab === 'string' ? n('gross_factor') : n('gross_factor_c');
+        if (grossFactor < 1.15) {
+            warnings.push("Gross site factor may be too low for roads, buffers, substations, drainage and ecology.");
+        }
+
+        if (stats.mods_pallet <= 0 || stats.mods_container <= 0) {
+            warnings.push("Module logistics assumptions are missing.");
+        }
+
+        document.getElementById(prefix + "_warnings").innerHTML = warnings.join("<br>");
+    }
+
+    function updateActiveFinancials(stats = null) {
+        const activeStats = stats || updateAggregatesOnly();
+        if (activeTab === "string") {
+            updateFinancials("fin_string", activeStats.dc_mwp, activeStats.ac_mw, activeStats);
+        } else {
+            updateFinancials("fin_central", activeStats.dc_mwp, activeStats.ac_mw, activeStats);
+        }
+    }
+    /* ------------------------------------ */
+
+    function getRectPolygon(centerCoord, width_km, length_km, propType) {
+        const pt = turf.point(centerCoord);
+        const ptNorth = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
+        const ptSouth = turf.destination(pt, length_km/2, 180, {units: 'kilometers'}).geometry.coordinates;
+        const nw = turf.destination(turf.point(ptNorth), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
+        const ne = turf.destination(turf.point(ptNorth), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
+        const se = turf.destination(turf.point(ptSouth), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
+        const sw = turf.destination(turf.point(ptSouth), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
+        return turf.polygon([[nw, ne, se, sw, nw]], { type: propType });
+    }
+
+    function computeAndDraw() {
+        if (!activeDrawCenter) return;
+        const stats = updateAggregatesOnly();
+        
+        const N = stats.total_blocks;
+        if (N === 0) {
+            updateActiveFinancials(stats);
+            updateTechnicalSummary(stats);
+            return;
+        }
+
+        const cols = Math.ceil(Math.sqrt(N));
+        const rows = Math.ceil(N / cols);
+        const block_area_km2 = stats.block_ground_area_m2 / 1000000;
+        
+        const mounting_val = activeTab === 'string' 
+            ? document.getElementById('mounting_type').value 
+            : document.getElementById('mounting_type_c').value;
+        
+        let aspect = 1.4; // Default Tracker
+        if (mounting_val === "0.45") aspect = 1 / 1.4; // Fixed Tilt South
+        else if (mounting_val === "0.75") aspect = 1.0; // East-West Dome
+
+        const block_w = Math.sqrt(block_area_km2 / aspect);
+        const block_l = block_w * aspect;
+        
+        const spacing = 0.01;
+        const grid_w = (cols * block_w) + ((cols - 1) * spacing);
+        const grid_l = (rows * block_l) + ((rows - 1) * spacing);
+
+        let features = [];
+        
+        // --- NEW TOPOLOGY SEPARATION ---
+        const publicSubCoord = activeDrawCenter;
+
+        // Offset the array to the North by a slight margin based on grid size
+        const arrayOffsetKm = (grid_l / 2) + 0.2;
+        const gridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, 0, {units: 'kilometers'}).geometry.coordinates;
+
+        // Place the Customer Private Substation exactly at the South edge of the array
+        const privateSubCoord = turf.destination(turf.point(gridCenter), grid_l / 2, 180, {units: 'kilometers'}).geometry.coordinates;
+
+        // Add the POI (Point of Interconnection)
+        features.push(turf.point(publicSubCoord, {
+            type: 'poi',
+            selected_substation_name: selectedSubstation?.name || 'Local Grid Node',
+            selected_substation_voltage: selectedSubstation?.voltage || 'Unknown'
+        }));
+
+        // Add the Customer Private Substation
+        features.push(turf.point(privateSubCoord, {
+            type: 'private_sub',
+            selected_substation_name: 'Customer Substation',
+            selected_substation_voltage: 'Local Voltage'
+        }));
+
+        // Draw the Export Cable connecting the Private Sub to the POI
+        features.push(turf.lineString([privateSubCoord, publicSubCoord], { type: 'export_cable' }));
+
+        features.push(getRectPolygon(gridCenter, grid_w + 0.02, grid_l + 0.02, 'array_boundary'));
+
+        const ptN = turf.destination(turf.point(gridCenter), grid_l/2, 0, {units: 'kilometers'}).geometry.coordinates;
+        const ptNW = turf.destination(turf.point(ptN), grid_w/2, -90, {units: 'kilometers'}).geometry.coordinates;
+
+        let inverters = [];
+        let count = 0;
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                if (count >= N) break;
+                let posE = turf.destination(turf.point(ptNW), (c * block_w) + (c * spacing) + (block_w/2), 90, {units: 'kilometers'}).geometry.coordinates;
+                let finalPos = turf.destination(turf.point(posE), (r * block_l) + (r * spacing) + (block_l/2), 180, {units: 'kilometers'}).geometry.coordinates;
+                const nodeType = activeTab === 'string' ? 'string_substation' : 'central_inverter';
+                const footType = activeTab === 'string' ? 'skid_footprint' : 'central_footprint';
+                features.push(getRectPolygon(finalPos, block_w, block_l, footType));
+                
+                let invNode = { coords: finalPos, type: nodeType };
+                inverters.push(invNode);
+                features.push(turf.point(finalPos, { type: nodeType }));
+
+                count++;
+            }
+        }
+
+        // BESS Footprint generation
+        const prefix = activeTab === 'string' ? 'fin_string' : 'fin_central';
+        const bess_mwh = parseFloat(document.getElementById(prefix + "_bess_mwh")?.value) || 0;
+        
+        if (bess_mwh > 0) {
+            const bess_area_km2 = (bess_mwh * 85) / 1000000;
+            const bess_aspect = 2.5; 
+            const bess_w = Math.sqrt(bess_area_km2 * bess_aspect);
+            const bess_l = bess_area_km2 / bess_w;
+            
+            // Put BESS compound West of the Private Substation
+            const bessCenter = turf.destination(turf.point(privateSubCoord), (bess_w/2) + 0.05, -90, {units: 'kilometers'}).geometry.coordinates;
+            features.push(getRectPolygon(bessCenter, bess_w, bess_l, 'bess_footprint'));
+            features.push(turf.point(bessCenter, { type: 'bess_compound', mwh: bess_mwh }));
+            
+            // Connect BESS to Private Substation
+            features.push(turf.lineString([bessCenter, privateSubCoord], { type: '33kv_radial' }));
+        }
+
+        if (inverters.length > 0) {
+            let spineN = -90, spineS = 90;
+            inverters.forEach(inv => {
+                if (inv.coords[1] > spineN) spineN = inv.coords[1];
+                if (inv.coords[1] < spineS) spineS = inv.coords[1];
+            });
+            
+            // Ensure spine connects to the Private Substation latitude
+            if (privateSubCoord[1] > spineN) spineN = privateSubCoord[1];
+            if (privateSubCoord[1] < spineS) spineS = privateSubCoord[1];
+            
+            let spineCoords = [[privateSubCoord[0], spineS], [privateSubCoord[0], spineN]];
+            features.push(turf.lineString(spineCoords, { type: '33kv_radial' }));
+            
+            inverters.forEach(inv => {
+                let branchCoords = [inv.coords, [privateSubCoord[0], inv.coords[1]]];
+                features.push(turf.lineString(branchCoords, { type: '33kv_radial' }));
+            });
+        }
+
+        currentGeoJSON = turf.featureCollection(features);
+        if (map.getSource('topology')) map.getSource('topology').setData(currentGeoJSON);
+        
+        if (features.length > 0) {
+            const bbox = turf.bbox(currentGeoJSON);
+            map.fitBounds(bbox, { padding: 60, duration: 800 });
+        }
+
+        updateActiveFinancials(stats);
+        updateTechnicalSummary(stats);
+    }
+
+    function exportGeoJSON() {
+        if (currentGeoJSON.features.length === 0) return;
+        
+        const exportData = JSON.parse(JSON.stringify(currentGeoJSON));
+        const boundaryFeature = exportData.features.find(f => f.properties.type === 'array_boundary');
+        
+        if (boundaryFeature) {
+            const prefix = activeTab === 'string' ? 'fin_string' : 'fin_central';
+            const stats = updateAggregatesOnly();
+            
+            const logisticsPreset = activeTab === 'string' ? document.getElementById('logistics_preset').value : document.getElementById('logistics_preset_c').value;
+            const grossFactor = activeTab === 'string' ? n('gross_factor') : n('gross_factor_c');
+            const gcr = activeTab === 'string' ? n('mounting_type') : n('mounting_type_c');
+            const moduleRatingWp = activeTab === 'string' ? n('mod_wp') : n('mod_wp_c');
+            const moduleLengthM = activeTab === 'string' ? n('mod_l') : n('mod_l_c');
+            const moduleWidthM = activeTab === 'string' ? n('mod_w') : n('mod_w_c');
+
+            let topologyProps = {};
+            if (activeTab === 'string') {
+                topologyProps = {
+                    tech_modules_per_string: n('x_mods'),
+                    tech_strings_per_inverter: n('z_strings'),
+                    tech_inverters_per_substation: n('y_invs'),
+                    tech_substations_per_33kv_ring: n('s_subs'),
+                    tech_33kv_rings: n('b_cols')
+                };
+            } else {
+                topologyProps = {
+                    tech_central_ac_rating_mwac: n('inv_ac_mw_c'),
+                    tech_modules_per_string: n('x_mods_c'),
+                    tech_strings_per_combiner_box: n('str_per_cb_c'),
+                    tech_central_inverters_per_mv_station: n('inv_per_mv_c'),
+                    tech_mv_stations_per_33kv_ring: n('mv_per_ring_c'),
+                    tech_33kv_rings: n('rings_c'),
+                    tech_combiner_boxes_per_inverter: stats.combiner_boxes_per_inverter || 0,
+                    tech_total_combiner_boxes: stats.total_combiner_boxes || 0
+                };
+            }
+            
+            boundaryFeature.properties = {
+                ...boundaryFeature.properties,
+                fin_active_tab: activeTab,
+                fin_export_note: "Experimental screening output only. Not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. Electrical loss fields are assumption fields and require competent project specific verification. Selected substation is a public dataset reference point and does not confirm available capacity, connection rights, voltage suitability or grid acceptance.",
+                
+                grid_selected_substation_name: selectedSubstation?.name || null,
+                grid_selected_substation_voltage: selectedSubstation?.voltage || null,
+                grid_selected_substation_lon: selectedSubstation?.coordinates?.[0] || null,
+                grid_selected_substation_lat: selectedSubstation?.coordinates?.[1] || null,
+                grid_selected_substation_properties: selectedSubstation?.properties || null,
+
+                tech_module_rating_wp: moduleRatingWp,
+                tech_module_length_m: moduleLengthM,
+                tech_module_width_m: moduleWidthM,
+                tech_ground_coverage_ratio: gcr,
+                tech_gross_site_factor: grossFactor,
+
+                tech_logistics_preset: logisticsPreset,
+                tech_modules_per_packing_unit: stats.mods_pallet,
+                tech_modules_per_40ft_container: stats.mods_container,
+                tech_spare_allowance_percent: stats.spares_pct,
+                tech_total_base_packing_units: stats.pallets,
+                tech_total_base_containers: stats.containers,
+                tech_total_modules_inc_spares: stats.modules_inc_spares,
+                tech_total_packing_units_inc_spares: stats.pallets_inc_spares,
+                tech_total_containers_inc_spares: stats.containers_inc_spares,
+                tech_containers_per_mwp: stats.dc_mwp > 0 ? Number((stats.containers_inc_spares / stats.dc_mwp).toFixed(2)) : 0,
+
+                ...topologyProps,
+
+                tech_module_count: stats.module_count,
+                tech_dc_capacity_mwp: stats.dc_mwp,
+                tech_ac_capacity_mwac: stats.ac_mw,
+                tech_net_mod_area_m2: stats.net_mod_area_m2,
+                tech_net_array_area_m2: stats.net_array_area_m2,
+                tech_gross_site_area_m2: stats.gross_site_area_m2,
+
+                fin_total_capex: document.getElementById(prefix + "_capex").textContent,
+                fin_capex_per_wp: document.getElementById(prefix + "_capex_wp").textContent,
+                fin_annual_rev: document.getElementById(prefix + "_annual_rev").textContent,
+                fin_25yr_revenue: document.getElementById(prefix + "_25_rev").textContent,
+                fin_35yr_revenue: document.getElementById(prefix + "_35_rev").textContent,
+                fin_25yr_surplus: document.getElementById(prefix + "_surplus_25").textContent,
+                fin_35yr_surplus: document.getElementById(prefix + "_surplus_35").textContent,
+                
+                fin_energy_price_gbp_mwh: n(prefix + "_price"),
+                fin_other_income_gbp_mwh: n(prefix + "_other"),
+                fin_yield_kwh_kwp: n(prefix + "_yield"),
+                fin_bifacial_gain: n(prefix + "_bifacial"),
+                fin_flood_resilience: document.getElementById(prefix + "_flood")?.checked || false,
+                fin_flood_adder_gbp_wp: n(prefix + "_flood_rate"),
+                
+                fin_base_losses_percent: n(prefix + "_losses"),
+                fin_loss_dc_string_percent: n(prefix + "_loss_dc_string"),
+                fin_loss_lv_main_dc_percent: n(prefix + "_loss_lv_dc"),
+                fin_loss_lv_ac_percent: n(prefix + "_loss_lv_ac"),
+                fin_loss_transformer_percent: n(prefix + "_loss_tx"),
+                fin_loss_other_electrical_percent: n(prefix + "_loss_other"),
+                
+                fin_opex_gbp_mwac_year: n(prefix + "_opex"),
+                fin_epc_ex_modules_gbp_wp: n(prefix + "_epc_ex"),
+                fin_modules_gbp_wp: n(prefix + "_modules"),
+                fin_other_capex_gbp_wp: n(prefix + "_other_capex"),
+                fin_fixed_capex_gbp: n(prefix + "_fixed_capex"),
+                fin_contingency_percent: n(prefix + "_cont"),
+                
+                fin_bess_mw: n(prefix + "_bess_mw"),
+                fin_bess_mwh: n(prefix + "_bess_mwh"),
+                fin_bess_capex_gbp_mwh: n(prefix + "_bess_capex"),
+                fin_bess_cycles_year: n(prefix + "_bess_cycles"),
+                fin_bess_spread_gbp_mwh: n(prefix + "_bess_spread"),
+                fin_bess_efficiency_percent: n(prefix + "_bess_eff")
+            };
+        }
+
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = `gis_sld_${activeTab}_neat_grid.geojson`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+    function autoFillBifacial(val, elId) {
+        let bifacial = 0;
+        if (val === "0.35") bifacial = 8;        // Tracker
+        else if (val === "0.45") bifacial = 5;   // Fixed Tilt
+        else if (val === "0.75") bifacial = 2;   // East-West Dome
+        
+        const inputEl = document.getElementById(elId);
+        if(inputEl) {
+            inputEl.value = bifacial;
+            inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    }
+
+    document.getElementById('mounting_type').addEventListener('change', function(e) {
+        autoFillBifacial(e.target.value, 'fin_string_bifacial');
     });
-    map.on('mouseenter', 'l-subs', () => map.getCanvas().style.cursor='pointer');
-    map.on('mouseleave', 'l-subs', () => map.getCanvas().style.cursor='');
-}
-```
+    
+    document.getElementById('mounting_type_c').addEventListener('change', function(e) {
+        autoFillBifacial(e.target.value, 'fin_central_bifacial');
+    });
 
-Highlights:
-- **Property fallbacks:** Supports different property keys (`name`, `SiteName`, etc.).  
-- **Stores `selectedSubstation`:** with name, voltage, lon/lat.  
-- **Popup:** Red title, two rows, and warning text.  
-- **Triggers draw and UI update.**  
-
-## Selected Substation Display
-
-```js
-function updateSelectedSubstationDisplay() {
-    const el = document.getElementById('selected_grid_node');
-    if (!el) return;
-    if (!selectedSubstation) {
-        el.innerHTML = `
-            <div class="stat-row"><span>Status:</span><span class="stat-val alert">None selected</span></div>
-            <div class="warning-box">
-                Click a public substation point to draw from a dataset grid reference.
-            </div>`;
-        return;
+    function recalcAll() {
+        const stats = updateAggregatesOnly();
+        updateActiveFinancials(stats);
+        updateTechnicalSummary(stats);
+        updateSelectedSubstationDisplay();
+        updateBenchmark();
     }
-    el.innerHTML = `
-        <div class="stat-row"><span>Name:</span><span class="stat-val">${esc(selectedSubstation.name)}</span></div>
-        <div class="stat-row"><span>Voltage:</span><span class="stat-val">${esc(selectedSubstation.voltage||'Not stated')}</span></div>
-        <div class="stat-row"><span>Longitude:</span><span class="stat-val">${selectedSubstation.longitude.toFixed(6)}</span></div>
-        <div class="stat-row"><span>Latitude:</span><span class="stat-val">${selectedSubstation.latitude.toFixed(6)}</span></div>
-        <div class="warning-box">
-            Public dataset reference only. Does not confirm capacity, connection rights, ...
-        </div>`;
-}
-```
 
-- Shows “None selected” status or the actual fields.  
-- Formats coordinates to 6 decimal places.  
-- Same warning text in both cases.  
+    document.querySelectorAll("input, select").forEach(el => {
+        el.addEventListener("input", recalcAll);
+        el.addEventListener("change", recalcAll);
+    });
 
-## DRAW NEAT GRID handler
-
-```js
-function triggerDrawAtCenter() {
-    // Clear any selected substation
-    selectedSubstation = null;
     updateSelectedSubstationDisplay();
-    // Set draw center to map center
-    activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
-    computeAndDraw();
-}
+    updateBenchmark();
+</script>
+
+</body>
+</html>
+
 ```
-This ensures that when the user explicitly clicks “Draw Neat Grid”, we **unlink** any previous selected node. (Without this, a stale `selectedSubstation` might lead to incorrect attribution.)
-
-## Error Logging and Layer Toggle
-
-```js
-map.on('error', e => {
-    console.error('[MAPLIBRE ERROR]', e && e.error ? e.error : e);
-});
-
-function setLayerVisibilitySafe(layerId, visible) {
-    if (!map || !map.getLayer(layerId)) {
-        console.warn(`[LAYER TOGGLE SKIPPED] ${layerId} not loaded`);
-        return;
-    }
-    map.setLayoutProperty(layerId, 'visibility', visible ? 'visible' : 'none');
-}
-```
-
-- The `map.on('error')` logs any GL errors.  
-- The `setLayerVisibilitySafe` function (example snippet) checks existence of a layer before calling `setLayoutProperty`, avoiding console errors if toggling too early (e.g. satellite layer might not exist on load).
-
-*Note:* These snippets should be adapted into the sandbox code as shown; they illustrate the technique but omit unrelated code for brevity. Lines are based on the given sandbox code (e.g. `loadSubstations`, `addSubstationInteractions`, etc.).
-
-# Visual Aids
-
-**Figure 1: Testing Sequence Timeline (Mermaid Gantt)**  
-```mermaid
-gantt
-    title Sandbox Testing Flow
-    dateFormat  YYYY-MM-DD
-    section Setup
-    Start HTTP Server           :setup1, 2026-01-01, 1d
-    Open sandbox page          :setup2, after setup1, 0d
-    section Console Check
-    Ensure no MapLibre errors  :test1, 2026-01-02, 1d
-    section Load Substations
-    Load grid_substations.geojson :test2, 2026-01-02, 1d
-    Toggle SUBS layer           :test3, 2026-01-02, 0.5d
-    Click a substation          :test4, 2026-01-02, 0.5d
-    Confirm panel update        :test5, after test4, 0.5d
-    section Topology Draw
-    Press DRAW NEAT GRID        :test6, 2026-01-03, 0.5d
-    Confirm geometry moves      :test7, after test6, 0.5d
-    section Modes and Input
-    Switch to Central mode      :test8, 2026-01-03, 0.5d
-    Change inputs (example)     :test9, 2026-01-03, 1d
-    Confirm stats update        :test10, after test9, 0.5d
-    section Export
-    Press Export GeoJSON        :test11, 2026-01-04, 0.5d
-    Verify all expected fields  :test12, 2026-01-04, 0.5d
-    section Done
-    Testing Completed           :done, 2026-01-05, 0d
-```
-
-*Figure 2: Data Flow Between Atlas and Sandbox (Mermaid Flowchart)*  
-```mermaid
-flowchart LR
-    A[Atlas App] -->|Publishes GeoJSON| B[Public Data Files]
-    B -->|file access| C[Sandbox MapLibre]
-    C -->|draws and exports| D[GeoJSON Export]
-    C -->|reads| E[map interactions & forms]
-    style A fill:#eee,stroke:#333
-    style B fill:#ddf,stroke:#333
-    style C fill:#dfd,stroke:#333
-    style D fill:#ffd,stroke:#333
-    style E fill:#fed,stroke:#333
-```
-
-*(These mermaid diagrams illustrate testing steps and architecture. They are given as code; a mermaid renderer could be used if supported. In a PDF they serve as visual guides.)*
-
-# Tables
-
-## Table 1: Layer Order and Styles
-
-| Layer ID              | Source    | Filter (type)                 | Style (fill/line/circle)               | Color(s)              | Z-order*      |
-|-----------------------|-----------|-------------------------------|----------------------------------------|-----------------------|--------------|
-| Dark matter basemap   | (base)    | –                             | raster/vector map                      | dark (Carto Dark)     | bottom       |
-| Satellite (hidden)    | raster    | –                             | satellite imagery                      | –                     | above base   |
-| **Public substations**| GeoJSON   | (none, all points)            | circle: white fill, red stroke         | #ffffff fill, #ff3333 stroke | above base |
-| (Other global layers) |           | (omitted)                     | –                                      | –                     | –            |
-| **Net array boundary (fill)** | topology | `type == array_boundary`      | blue fill, opacity 0.25               | #0066ff (25% opacity) | above subs   |
-| **Net array boundary (line)** | topology | `type == array_boundary`      | blue dashed line, width 2            | #0066ff (dash [4,4])  | above fill   |
-| **Footprints**        | topology | `type ∈ {skid_footprint, central_footprint, bess_footprint}` | fill: color by type (#0ff, #f90, #f0a), opacity 0.15 | -                  | above boundary |
-| **Footprint outlines**| topology | same as fill                  | lines: matching colors, width 1       | -                     | above fills  |
-| **Radial 33kV spine** | topology | `type == 33kv_radial`         | solid cyan line, width 2             | #00ffff               | above footprints |
-| **String inverter points** | topology | `type == string_substation`   | yellow circles, radius 4           | #ffff00 (4px, stroke black) | above spine  |
-| **Central inverter points** | topology | `type == central_inverter`   | orange circles, radius 6          | #ff9900 (6px)         | above spine  |
-| **MV station points** | topology | `type == mv_station`         | purple circles, radius 4           | #6633ff (4px)         | above spine  |
-| **BESS compound points** | topology | `type == bess_compound`      | magenta circles, radius 6         | #ff00aa (6px)         | above spine  |
-| **Primary substation (gen)** | topology | `type == primary_sub`        | red circle, radius 8, white outline | #ff3333 fill, #ffffff stroke (8px) | top        |
-
-*\*Here “Z-order” is conceptual; layers are added in code order as listed (maplibre draws in this stack order). Public substations (`l-subs`) is moved above many topology layers in code if needed.*
-
-## Table 2: Comparison of String vs Central Parameters
-
-| Parameter                      | String Mode                  | Central Mode                        |
-|--------------------------------|------------------------------|-------------------------------------|
-| Module Rating (Wp)             | mod_wp (e.g. 660)            | mod_wp (e.g. 660)                   |
-| Module Size (L×W)              | mod_l × mod_w (e.g. 2.38×1.30 m) | mod_l_c × mod_w_c (same)            |
-| Mounting (GCR)                 | mounting_type (0.35–0.75)    | mounting_type_c (0.35–0.75)         |
-| DC/AC ratio                    | dc_ac_ratio (e.g. 1.20)      | dc_ac_ratio_c (e.g. 1.20)           |
-| Modules per String             | x_mods (e.g. 28)             | x_mods_c (e.g. 28)                  |
-| Strings per Inverter           | z_strings (e.g. 18)          | *Not used*                          |
-| Strings per Combiner Box       | *N/A*                        | str_per_cb_c (e.g. 24)              |
-| Inverters per Substation       | y_invs (e.g. 28)             | *N/A*                              |
-| Central Inverters per MV station| *N/A*                       | inv_per_mv_c (e.g. 1)               |
-| Substations per Ring           | s_subs (e.g. 5)              | *N/A*                              |
-| MV stations per Ring           | *N/A*                        | mv_per_ring_c (e.g. 4)              |
-| Rings (33kV)                   | b_cols (e.g. 6)              | rings_c (e.g. 4)                    |
-| **Derived Combiner Data**      | *N/A*                        | see below                           |
-| Required Strings per Inverter  | N/A                          | req_strings = ceil((invDC*1000)/strDCkW) |
-| Combiner Boxes per Inverter    | N/A                          | ceil(req_strings / str_per_cb_c)    |
-| Total Combiner Boxes           | N/A                          | (above) × total_inverters          |
-
-*Notes:* In string mode, no combiners are calculated (each inverter directly connects strings). In central mode, the table shows how to compute the number of strings and combiner boxes from the central inverter MW rating【0†L87-L94】. 
-
-## Table 3: Testing Checklist
-
-| Step                                       | Expected Result                          |
-|--------------------------------------------|------------------------------------------|
-| 1. Start a local HTTP server (`python3 -m http.server 8000`). | No errors in terminal.                 |
-| 2. Open sandbox page via `http://localhost:8000/indexforgis-sld.html`. | The page loads without console errors. |
-| 3. In console, see `[SUBS LOADED] N substations`.  | Substations file loaded successfully.  |
-| 4. Toggle SUBS layer off and on (if UI button exists). | No JS errors; points disappear/appear. |
-| 5. Click a white/red substation point.      | Popup appears with “Public Grid Node”, fields & yellow note; left panel updates with substation details. |
-| 6. Verify activeDrawCenter = clicked coordinates. | On console, or inspect code vars: matches selected point. |
-| 7. Press **Draw Neat Grid** button.        | Old popup clears; new red primary sub at center; blue boundary drawn around center. |
-| 8. Verify number of blocks matches input.  | The drawn blocks count = total_blocks. |
-| 9. Switch to Central tab.                 | UI changes (orange accents), but map still shows last topology (unchanged). |
-| 10. Change a parameter (e.g. number of rings). | The stats box updates; map does not change yet. |
-| 11. Press **Draw Neat Grid** again.        | Topology redraws with central mode (orange inverters). |
-| 12. In console, check no MapLibre errors. | All console messages are expected.    |
-| 13. Click Export GeoJSON.                 | A file downloads; contents are valid JSON. |
-| 14. Inspect downloaded JSON:  
-   - Check `array_boundary` feature has all expected `properties` (tech, financial, logistic, substation).<br> 
-   - `tech_drawn_boundary_basis` should be "Net Array Boundary at GCR".<br> 
-   - Flood fields: if flood unchecked, `fin_flood_adder_applied_gbp_wp` = 0; if checked, equals rate.<br> 
-   - Selected substation fields correct or null. | All fields present and correct. Warnings should appear if zero losses. |
-| 15. Repeat switching mode and ensure numeric outputs recalc properly. | No inconsistent values; UI matches new mode. |
-
-This checklist should be followed to ensure all features work and no erroneous assumptions persist.
-
-# Glossary of Key Terms
-
-- **Sandbox:** The GIS-SLD financial screening tool (project topology generator).  
-- **Atlas:** The GlobalGrid2050 mapping platform (contains infrastructure layers).  
-- **Public dataset:** Open data layer (e.g. substations) shared by atlas and sandbox.  
-- **GCR:** Ground Coverage Ratio, percent of land under module area.  
-- **Neat Grid:** The drawn PV array topology (blocks + boundary).  
-- **Primary Substation (generated):** The red reference point at the draw center.  
-- **Public Substation (dataset):** The white-red outlined point from public GeoJSON.  
-- **Array Boundary (Net):** The blue polygon around modules at GCR.  
-- **Gross Site Area:** Indicative screening area (not drawn).  
-- **Combined Box (central):** Equipment aggregating strings before central inverter.  
-- **L-subs:** The map layer of public substations.  
-- **Topography layers:** Layers drawn from computed topology (`overall_boundary_fill`, etc.).  
-- **FeatureCollection:** GeoJSON object type containing features【3†L139-L144】.  
-
-# References
-
-- GeoJSON Format Specification – FeatureCollection definition【3†L139-L144】【3†L197-L199】.  
-- MapLibre GL JS Documentation (events, layers) – especially `map.on('error')`, `setData()`, `addLayer` (see [MapLibre API docs](https://maplibre.org/maplibre-gl-js-docs/api/)).  
-- Turf.js docs for `polygon()`, `bbox()`, `area()`.  
-- PV Module datasheet examples (anonymised) for dimensions and wiring.  
-- Utility-scale PV design guides (for GCR, layouts).  
-- Internal project engineering specs (anonymised).  
-
-(Exact section/paragraph references are internal and not cited here. The crucial usage is captured above.)
-
-# Appendix: Export Field Reference
-
-| Field Name                          | Description                                                   | Format/Units             |
-|-------------------------------------|---------------------------------------------------------------|--------------------------|
-| `tech_drawn_boundary_basis`         | Basis of boundary (“Net Array Boundary at GCR”)               | string                   |
-| `tech_drawn_boundary_area_m2`       | Area of drawn boundary in m²                                  | number                   |
-| `module_rating_wp`                  | Module watt-peak rating                                       | number (Wp)              |
-| `module_length_m`, `module_width_m` | Module length and width                                       | number (m) each          |
-| `mounting_type`                     | GCR value (0.35,0.45,0.75) of mounting                        | number (unitless ratio)  |
-| `gross_site_factor`                 | Site factor used for gross area (if any)                      | number (unitless) or null|
-| **String Mode**                     |                                                               |                          |
-| `dc_to_ac_ratio`                    | DC/AC oversize ratio                                          | number                   |
-| `mods_per_string`                   | Modules per string                                            | number                   |
-| `strings_per_inverter`              | Strings per inverter                                          | number                   |
-| `inverters_per_substation`          | Inverters per field substation                                | number                   |
-| `subs_per_33kV_ring`                | Field subs per 33kV ring                                      | number                   |
-| `number_of_33kV_rings`              | Rings (clusters)                                             | number                   |
-| **Central Mode**                    |                                                               |                          |
-| `central_ac_mw`                     | Central inverter AC rating (MW)                                | number                   |
-| `dc_to_ac_ratio_c`                  | DC/AC ratio                                                   | number                   |
-| `mods_per_string_c`                 | Modules per string                                            | number                   |
-| `strings_per_combiner`              | Strings per combiner box                                      | number                   |
-| `inverters_per_mv_station`          | Central inverters per MV station (typically 1)                | number                   |
-| `mv_stations_per_33kV_ring`         | MV stations per 33kV ring                                     | number                   |
-| `number_of_33kV_rings_c`            | 33kV rings (clusters)                                         | number                   |
-| `required_strings_per_inverter`     | Derived: strings needed per inverter                           | number                   |
-| `combiner_boxes_per_inverter`       | Derived: combiner boxes per inverter                           | number                   |
-| `total_combiner_boxes`              | Derived: total combiner boxes (units)                         | number                   |
-| **Logistics**                       |                                                               |                          |
-| `modules_per_pallet_hd`             | (Preset) modules per pallet (high density)                    | number                   |
-| `modules_per_container_hd`          | (Preset) per 40ft container (high density)                    | number                   |
-| `total_packing_units_hd`            | Calculated total pallets (high density)                       | number                   |
-| `total_containers_hd`               | Calculated 40ft containers (high density)                     | number                   |
-| `modules_per_pallet_legacy`         | (Preset) modules per pallet (legacy)                          | number                   |
-| `modules_per_container_legacy`      | (Preset) per 40ft container (legacy)                          | number                   |
-| `total_packing_units_legacy`        | Total pallets (legacy)                                        | number                   |
-| `total_containers_legacy`           | Total containers (legacy)                                     | number                   |
-| `total_teu`                         | Total TEUs (20ft eq.)                                         | number                   |
-| `dedicated_ships`                   | Equivalent ships (~1k TEU each)                               | number (float)           |
-| **Financials**                      |                                                               |                          |
-| `fin_annual_rev`                    | Year-1 revenue (sales + other)                                | currency (string, e.g. "£X") |
-| `fin_25yr_revenue`, `fin_35yr_revenue` | 25yr & 35yr cumulative revenue                              | currency (string)        |
-| `fin_total_capex`                   | Total CAPEX cost                                             | currency                 |
-| `fin_capex_per_wp`                  | CAPEX per Wp (unit cost)                                     | "£x.xx/Wp"               |
-| `fin_25yr_surplus`, `fin_35yr_surplus` | Revenue minus OPEX minus CAPEX                               | currency                 |
-| `fin_price_gbp_mwh`                 | Energy price input (£/MWh)                                   | number                   |
-| `fin_other_income_gbp_mwh`          | Other income input (£/MWh)                                   | number                   |
-| `fin_yield_kwh_kwp`                 | Base yield (kWh/kWp)                                         | number                   |
-| `fin_bifacial_gain`                 | Bifacial gain (%)                                            | number                   |
-| `fin_losses_percent`               | Base losses (%)                                              | number                   |
-| `fin_deg_percent`                  | Degradation (%)                                              | number                   |
-| `fin_opex_gbp_mwac_year`           | O&M cost (annual, £ per MWac)                                | number                   |
-| `fin_epc_ex_modules_gbp_wp`        | EPC excluding modules (£/Wp)                                 | number                   |
-| `fin_modules_gbp_wp`               | Module cost (£/Wp)                                           | number                   |
-| `fin_other_capex_gbp_wp`           | Other CAPEX (£/Wp)                                           | number                   |
-| `fin_fixed_capex_gbp`              | Fixed CAPEX (£)                                              | number                   |
-| `fin_contingency_percent`          | Contingency (%)                                              | number                   |
-| `fin_flood_resilience`             | Flood resilience applied? (true/false)                       | boolean                  |
-| `fin_flood_adder_rate_gbp_wp`      | Flood adder rate input (£/Wp)                                | number                   |
-| `fin_flood_adder_applied_gbp_wp`   | Flood adder applied (0 or rate)                              | number                   |
-| `fin_bess_mw`                      | BESS power (MW)                                              | number                   |
-| `fin_bess_mwh`                     | BESS energy (MWh)                                            | number                   |
-| `fin_bess_capex_gbp_mwh`           | BESS CAPEX (£/MWh)                                           | number                   |
-| `fin_bess_cycles_year`             | BESS cycles per year                                         | number                   |
-| `fin_bess_spread_gbp_mwh`          | Arbitrage spread (£/MWh)                                     | number                   |
-| `fin_bess_efficiency_percent`      | BESS round-trip efficiency (%)                               | number                   |
-| **Selected substation**             |                                                               |                          |
-| `grid_selected_substation_name`    | Name of clicked substation (or null)                         | string/null              |
-| `grid_selected_substation_voltage` | Voltage level of substation (or null)                        | string/null              |
-| `grid_selected_substation_longitude` | Longitude of substation (or null)                           | number/null              |
-| `grid_selected_substation_latitude` | Latitude of substation (or null)                            | number/null              |
-| `grid_selected_substation_note`    | Note ("Public dataset reference" or "Grid node not selected") | string                  |
-| `fin_export_note`                  | Export disclaimer ("Indicative only...")                     | string                   |
-
-All field names must match exactly to interoperate with the atlas data schema conventions. Unspecified fields have been omitted or explicitly marked “N/A.” This table should accompany development documentation for clarity.
-

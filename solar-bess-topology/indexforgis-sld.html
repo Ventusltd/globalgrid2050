@@ -1,1389 +1,1328 @@
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GIS-SLD and Financial Sandbox</title>
-    
-    <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
-    <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-    
-    <style>
-        :root {
-            --bg: #050505; --panel: rgba(10, 10, 10, 0.96); --line: #2f343d;
-            --text: #ffffff; --muted: #a6adbb; --accent: #00ffff; --accent-alt: #ff9900;
-            --ok: #00ff88; --substation: #ff3333; --inverter: #ffff00; 
-            --mv: #6633ff; --bess: #ff00aa;
-            --array-blue: #0066ff;
-            --warn: #ff4444;
-        }
-        * { box-sizing: border-box; }
-        body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font-family: "Courier New", monospace; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
-        
-        .dashboard { display: flex; gap: 20px; width: 100%; max-width: 1600px; height: 100%; }
-        .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; display: flex; flex-direction: column; }
-        .panel-left { width: 440px; padding: 20px; flex-shrink: 0; overflow-y: auto; }
-        .panel-right { flex: 1 1 auto; position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
-        
-        h2 { margin: 0 0 10px 0; color: var(--text); font-size: 18px; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
-        h3 { margin: 15px 0 5px 0; color: var(--muted); font-size: 11px; text-transform: uppercase; border-bottom: 1px dashed #333; padding-bottom: 3px; }
-        
-        .tab-container { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 15px; }
-        .tab-btn { flex: 1; padding: 10px 5px; background: transparent; color: var(--muted); border: none; cursor: pointer; font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
-        .tab-btn:hover { color: var(--text); }
-        .tab-btn.active { color: var(--accent); border-bottom: 2px solid var(--accent); font-weight: bold; background: rgba(0, 255, 255, 0.05); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        .input-group { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-        .input-group input[type="text"], .input-group input[type="number"], .input-group select { width: 95px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
-        .input-group input[type="text"] { text-align: left; }
-        .input-group select { width: auto; min-width: 140px; text-align: left; }
-        .tab-content#central_tab .input-group input[type="number"], .tab-content#central_tab .input-group select { color: var(--accent-alt); }
-        .input-group input:focus, .input-group select:focus { border-color: var(--text); outline: none; }
-        
-        .search-box { display: flex; gap: 5px; margin-bottom: 15px; }
-        .search-box input { flex: 1; background: #111; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 3px; font-family: monospace; font-size: 12px; }
-        .search-box button { background: #222; color: var(--text); border: 1px solid #555; padding: 8px 12px; border-radius: 3px; cursor: pointer; font-family: monospace; font-weight: bold; }
-        .search-box button:hover { background: #444; color: #fff; }
-        
-        .stat-box { background: rgba(0, 255, 255, 0.05); border: 1px solid var(--accent); padding: 12px; border-radius: 3px; margin-top: 15px; }
-        .stat-box.central { background: rgba(255, 153, 0, 0.05); border-color: var(--accent-alt); }
-        .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; color: var(--muted); }
-        .stat-val { color: var(--text); font-weight: bold; text-align: right; }
-        .stat-val.cyan { color: var(--accent); font-size: 13px; }
-        .stat-val.orange { color: var(--accent-alt); font-size: 13px; }
-        
-        .finance-box { background: rgba(0, 255, 136, 0.05); border: 1px solid var(--ok); border-radius: 3px; padding: 10px; margin-top: 15px; }
-        .finance-box summary { color: var(--ok); cursor: pointer; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
-        .finance-headline { border: 1px solid #264d3a; padding: 10px; margin-bottom: 10px; background: rgba(0, 255, 136, 0.04); }
-        .finance-box input[type="number"] { width: 95px; background: #111; color: var(--ok); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
-        .finance-box input[type="checkbox"] { accent-color: var(--ok); cursor: pointer; margin: 0; }
-        .warning-box { color: #ffcc00; font-size: 10px; margin-top: 8px; line-height: 1.4; }
-        .ux-note { font-size: 9px; color: var(--muted); margin-top: 4px; font-style: italic; }
-
-        .btn { padding: 10px; background: #000; color: var(--text); border: 1px solid #555; cursor: pointer; font-family: monospace; font-weight: bold; text-transform: uppercase; border-radius: 3px; margin-top: 10px; width: 100%; transition: 0.2s; }
-        .btn:hover { background: #222; color: #fff; }
-        .btn.draw-btn { color: var(--bg); background: var(--accent); border-color: var(--accent); }
-        .btn.draw-btn.central { background: var(--accent-alt); border-color: var(--accent-alt); }
-        
-        #map { width: 100%; height: 100%; }
-        .crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 24px; pointer-events: none; z-index: 10; text-shadow: 0 0 5px #000; }
-        
-        .legend { position: absolute; bottom: 20px; left: 20px; background: var(--panel); border: 1px solid var(--line); padding: 10px; font-size: 10px; z-index: 1; border-radius: 4px; pointer-events: none; }
-        .legend-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
-        .swatch { width: 12px; height: 12px; border: 1px solid #666; }
-
-        .maplibregl-popup-content { background: #111; color: #fff; border: 1px solid #444; border-radius: 4px; font-family: "Courier New", monospace; padding: 12px; font-size: 11px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .maplibregl-popup-close-button { color: #888; padding: 4px; }
-        .maplibregl-popup-close-button:hover { color: #fff; }
-        .popup-row { display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid #222; padding-bottom: 2px; gap: 15px; }
-        .popup-val { font-weight: bold; color: var(--accent); }
-
-        .benchmark-box { background: rgba(17, 17, 17, 0.8); border: 1px solid #444; border-radius: 3px; padding: 10px; margin-top: 15px; }
-        .disclaimer-box { background: rgba(255, 68, 68, 0.05); border: 1px solid #ff4444; color: #ff9999; font-size: 10px; padding: 12px; border-radius: 3px; margin-top: 15px; line-height: 1.5; text-align: justify; }
-
-        .map-toggle-btn { background: rgba(5,5,5,0.85); color: var(--muted); border: 1px solid #444; padding: 6px 12px; border-radius: 3px; font-family: monospace; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .map-toggle-btn:hover { background: #222; border-color: #888; }
-        .map-toggle-btn.active { color: var(--accent); border-color: var(--accent); background: rgba(0, 255, 255, 0.05); }
-
-        @media (max-width: 800px) {
-            body { height: auto; overflow: auto; padding: 10px; }
-            .dashboard { flex-direction: column; height: auto; }
-            .panel-left { width: 100%; max-height: none; flex-shrink: 0; }
-            .panel-right { height: 60vh; flex-shrink: 0; } 
-        }
-    </style>
-</head>
-<body>
-
-<div class="dashboard">
-    <div class="panel panel-left">
-        <h2>GIS-SLD and Financial Sandbox</h2>
-
-        <div class="search-box">
-            <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." onkeydown="if(event.key === 'Enter') searchLocation()">
-            <button onclick="searchLocation()">FLY</button>
-        </div>
-
-        <div class="tab-container">
-            <button class="tab-btn active" id="tabbtn_string" onclick="switchTab('string')">String</button>
-            <button class="tab-btn" id="tabbtn_central" onclick="switchTab('central')">Central</button>
-        </div>
-
-        <div id="string_tab" class="tab-content active">
-            <h3>Dimensions & Physics</h3>
-            <div class="input-group">
-                <label>Module Rating (Wp)</label>
-                <input type="number" id="mod_wp" value="660" min="1" />
-            </div>
-            <div class="input-group">
-                <label>Mod L x W (m)</label>
-                <div style="display: flex; gap: 4px;">
-                    <input type="number" id="mod_l" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
-                    <input type="number" id="mod_w" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Mounting & GCR</label>
-                <select id="mounting_type">
-                    <option value="0.75">East-West Dome (~75%)</option>
-                    <option value="0.45" selected>Fixed Tilt South (~45%)</option>
-                    <option value="0.35">Tracker (~35%)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Gross Site Factor</label>
-                <input type="number" id="gross_factor" value="1.35" step="0.05" min="1.0" title="Multiplier for roads, buffers, substations, ecology" />
-            </div>
-
-            <h3>Array Hierarchy (String)</h3>
-            <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
-            <div class="input-group"><label>Mods / String</label><input type="number" id="x_mods" value="28" min="1" /></div>
-            <div class="input-group"><label>Strings / Inverter</label><input type="number" id="z_strings" value="18" min="1" /></div>
-            <div class="input-group"><label>Inverters / Sub</label><input type="number" id="y_invs" value="28" min="1" /></div>
-            <div class="input-group"><label>Subs / Ring</label><input type="number" id="s_subs" value="5" min="1" /></div>
-            <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" min="1" /></div>
-
-            <h3>Module Logistics</h3>
-            <div class="input-group">
-                <label>Packaging Preset</label>
-                <select id="logistics_preset" onchange="applyLogisticsPreset(this.value, '')">
-                    <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
-                    <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
-                    <option value="manual">Manual Entry</option>
-                </select>
-            </div>
-            <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet" value="33" min="1" /></div>
-            <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container" value="594" min="1" /></div>
-            <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct" value="1.0" step="0.1" min="0" /></div>
-
-            <details class="finance-box">
-                <summary>Baseline Project Economics</summary>
-                <div class="finance-headline">
-                    <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_string_annual_rev">£0</span></div>
-                    <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_string_25_rev">£0</span></div>
-                    <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_string_35_rev">£0</span></div>
-                    <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_string_capex">£0</span></div>
-                    <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_string_capex_wp">£0.00/Wp</span></div>
-                    <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_string_surplus_25">£0</span></div>
-                    <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_string_surplus_35">£0</span></div>
-                </div>
-
-                <h3>Revenue</h3>
-                <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_string_price" value="65" step="1" min="0"></div>
-                <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_string_other" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_string_yield" value="1000" step="10" min="0"></div>
-                <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_string_bifacial" value="5" step="0.5" min="0" max="15"></div>
-                <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_string_losses" value="2" step="0.1" min="0"></div>
-                <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_string_deg" value="0.4" step="0.01" min="0"></div>
-                <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_string_opex" value="25000" step="1000" min="0"></div>
-
-                <h3>CAPEX</h3>
-                <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
-                <div class="input-group">
-                    <label>Flood Resilience</label>
-                    <div style="display: flex; gap: 4px; align-items: center;">
-                        <input type="checkbox" id="fin_string_flood" title="Apply Flood Elevation Adder">
-                        <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" title="Flood Elevation Adder £/Wp">
-                    </div>
-                </div>
-                <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
-                <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
-                <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
-                <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
-
-                <h3>Loss Allowances</h3>
-                <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_string_loss_dc_string" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_string_loss_lv_dc" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_string_loss_lv_ac" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_string_loss_tx" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_string_loss_other" value="0" step="0.1" min="0"></div>
-
-                <h3>BESS Optional</h3>
-                <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_string_bess_mw" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_string_bess_mwh" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_string_bess_capex" value="0" step="10000" min="0"></div>
-                <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_string_bess_cycles" value="0" step="10" min="0"></div>
-                <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_string_bess_spread" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_string_bess_eff" value="88" step="1" min="0" max="100"></div>
-                <div class="ux-note">Note: BESS footprint dynamically sizes based on MWh. Topology updates on 'DRAW NEAT GRID'.</div>
-
-                <div class="warning-box" id="fin_string_warnings"></div>
-            </details>
-        </div>
-
-        <div id="central_tab" class="tab-content">
-            <h3>Dimensions & Physics</h3>
-            <div class="input-group">
-                <label>Module Rating (Wp)</label>
-                <input type="number" id="mod_wp_c" value="660" min="1" />
-            </div>
-            <div class="input-group">
-                <label>Mod L x W (m)</label>
-                <div style="display: flex; gap: 4px;">
-                    <input type="number" id="mod_l_c" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
-                    <input type="number" id="mod_w_c" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Mounting & GCR</label>
-                <select id="mounting_type_c">
-                    <option value="0.75">East-West Dome (~75%)</option>
-                    <option value="0.45" selected>Fixed Tilt South (~45%)</option>
-                    <option value="0.35">Tracker (~35%)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Gross Site Factor</label>
-                <input type="number" id="gross_factor_c" value="1.35" step="0.05" min="1.0" title="Multiplier for roads, buffers, substations, ecology" />
-            </div>
-
-            <h3>Array Hierarchy (Central)</h3>
-            <div class="ux-note" style="margin-bottom: 8px;">Central MV station hierarchy is used for block count and export. MV station nodes are not yet separately drawn.</div>
-            <div class="input-group">
-                <label>Central AC Rating MWac</label>
-                <select id="inv_ac_mw_c">
-                    <option value="3.15">3.15 MWac</option>
-                    <option value="4.4" selected>4.40 MWac</option>
-                    <option value="4.6">4.60 MWac</option>
-                    <option value="5.0">5.00 MWac</option>
-                    <option value="6.25">6.25 MWac</option>
-                    <option value="6.8">6.80 MWac</option>
-                </select>
-            </div>
-            <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" min="0.01" /></div>
-            <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" min="1" /></div>
-            <div class="input-group"><label>Strings / Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>
-            <div class="input-group"><label>Central Invs / MV Station</label><input type="number" id="inv_per_mv_c" value="1" min="1" /></div>
-            <div class="input-group"><label>MV Stations / 33kV Ring</label><input type="number" id="mv_per_ring_c" value="4" min="1" /></div>
-            <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" min="1" /></div>
-
-            <h3>Module Logistics</h3>
-            <div class="input-group">
-                <label>Packaging Preset</label>
-                <select id="logistics_preset_c" onchange="applyLogisticsPreset(this.value, '_c')">
-                    <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
-                    <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
-                    <option value="manual">Manual Entry</option>
-                </select>
-            </div>
-            <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet_c" value="33" min="1" /></div>
-            <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container_c" value="594" min="1" /></div>
-            <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct_c" value="1.0" step="0.1" min="0" /></div>
-
-            <details class="finance-box">
-                <summary>Baseline Project Economics</summary>
-                <div class="finance-headline">
-                    <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_central_annual_rev">£0</span></div>
-                    <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_central_25_rev">£0</span></div>
-                    <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_central_35_rev">£0</span></div>
-                    <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_central_capex">£0</span></div>
-                    <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_central_capex_wp">£0.00/Wp</span></div>
-                    <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_central_surplus_25">£0</span></div>
-                    <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_central_surplus_35">£0</span></div>
-                </div>
-
-                <h3>Revenue</h3>
-                <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_central_price" value="65" step="1" min="0"></div>
-                <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_central_other" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_central_yield" value="1000" step="10" min="0"></div>
-                <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_central_bifacial" value="5" step="0.5" min="0" max="15"></div>
-                <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_central_losses" value="2" step="0.1" min="0"></div>
-                <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_central_deg" value="0.4" step="0.01" min="0"></div>
-                <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_central_opex" value="25000" step="1000" min="0"></div>
-
-                <h3>CAPEX</h3>
-                <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
-                <div class="input-group">
-                    <label>Flood Resilience</label>
-                    <div style="display: flex; gap: 4px; align-items: center;">
-                        <input type="checkbox" id="fin_central_flood" title="Apply Flood Elevation Adder">
-                        <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" title="Flood Elevation Adder £/Wp">
-                    </div>
-                </div>
-                <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
-                <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
-                <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
-                <div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
-
-                <h3>Loss Allowances</h3>
-                <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_central_loss_dc_string" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_central_loss_lv_dc" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_central_loss_lv_ac" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_central_loss_tx" value="0" step="0.1" min="0"></div>
-                <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_central_loss_other" value="0" step="0.1" min="0"></div>
-
-                <h3>BESS Optional</h3>
-                <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_central_bess_mw" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_central_bess_mwh" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_central_bess_capex" value="0" step="10000" min="0"></div>
-                <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_central_bess_cycles" value="0" step="10" min="0"></div>
-                <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_central_bess_spread" value="0" step="1" min="0"></div>
-                <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_central_bess_eff" value="88" step="1" min="0" max="100"></div>
-                <div class="ux-note">Note: BESS footprint dynamically sizes based on MWh. Topology updates on 'DRAW NEAT GRID'.</div>
-
-                <div class="warning-box" id="fin_central_warnings"></div>
-            </details>
-        </div>
-
-        <div class="warning-box" style="margin-top: 15px; border-color: #ff9900; color: #ff9900;">
-            Assumption status: experimental screening mode. DC capacity, AC capacity, area, logistics and finance are derived from user inputs. Specialist electrical loss fields remain user defined and require competent verification.
-        </div>
-
-        <div id="fetch_warning" class="warning-box" style="display: none; border-color: #ff4444; color: #ff4444; font-weight: bold; margin-bottom: 15px;"></div>
-
-        <div class="stat-box" id="selected_sub_box" style="border-color: #ff3333; background: rgba(255, 51, 51, 0.05); margin-bottom: 15px;">
-            <h3 style="margin-top: 0; color: #ff3333; border-bottom-color: #ff3333;">Selected Grid Node</h3>
-            <div class="stat-row"><span>Substation:</span><span class="stat-val" id="out_selected_sub_name">None selected</span></div>
-            <div class="stat-row"><span>Voltage:</span><span class="stat-val" id="out_selected_sub_voltage">Unknown</span></div>
-            <div class="stat-row"><span>Longitude:</span><span class="stat-val" id="out_selected_sub_lon">n/a</span></div>
-            <div class="stat-row"><span>Latitude:</span><span class="stat-val" id="out_selected_sub_lat">n/a</span></div>
-        </div>
-        <div class="warning-box" style="margin-bottom: 15px;">
-            Selected substations are public dataset reference points only. Selection does not confirm capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval.
-        </div>
-
-        <div class="stat-box" id="tech_summary_box">
-            <h3>Technical Quantity Summary</h3>
-            <div class="stat-row"><span>Total Module Count:</span><span class="stat-val" id="out_module_count">0</span></div>
-            <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val cyan" id="out_dc_capacity">0.00 MWp</span></div>
-            <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
-            <div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
-            <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes / Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
-            <div class="stat-row central-only" style="display: none;"><span>Total Central Combiner Boxes:</span><span class="stat-val" id="out_total_cb">0</span></div>
-            <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
-            <div class="stat-row"><span>Net Module Surface Area:</span><span class="stat-val" id="out_net_mod_area">0 Acres</span></div>
-            <div class="stat-row"><span>Net Array Area at GCR:</span><span class="stat-val" id="out_net_array_area">0 Acres</span></div>
-            <div class="stat-row"><span>Indicative Gross Site Area:</span><span class="stat-val orange" id="out_gross_area">0 Acres</span></div>
-            <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
-            <div class="stat-row"><span>Modules per Packing Unit:</span><span class="stat-val" id="out_mod_per_pallet">0</span></div>
-            <div class="stat-row"><span>Total Packing Units:</span><span class="stat-val" id="out_pallets">0</span></div>
-            <div class="stat-row"><span>Modules per Container:</span><span class="stat-val" id="out_mod_per_cont">0</span></div>
-            <div class="stat-row"><span>Total Base Containers:</span><span class="stat-val" id="out_containers">0</span></div>
-            <div class="stat-row"><span>Spare Module Allowance:</span><span class="stat-val" id="out_spare_pct">0%</span></div>
-            <div class="stat-row"><span>Containers (Inc. Spares):</span><span class="stat-val cyan" id="out_containers_spares">0</span></div>
-            <div class="stat-row"><span>Containers per MWp:</span><span class="stat-val cyan" id="out_cont_per_mwp">0.00</span></div>
-        </div>
-
-        <div class="benchmark-box">
-            <h3 style="margin-top: 0;">Custom Reference Benchmark</h3>
-            <div class="input-group">
-                <label>Reference Project</label>
-                <input type="text" id="ref_name" value="Custom Project X" style="width: 140px; text-align: left;"/>
-            </div>
-            <div class="input-group">
-                <label>Reference Capacity (MW)</label>
-                <input type="number" id="ref_mw" value="100" min="1" />
-            </div>
-            <div class="input-group">
-                <label>Reference Module Count</label>
-                <input type="number" id="ref_modules" value="150000" min="1" />
-            </div>
-            <div class="stat-row" style="margin-top: 8px; border-top: 1px dashed #333; padding-top: 8px;">
-                <span>Implied Benchmark:</span>
-                <span class="stat-val" id="out_ref_implied">~ 1,500 modules/MW</span>
-            </div>
-            <div class="ux-note">Use: custom sanity check only. Not design authority.</div>
-        </div>
-
-        <div class="warning-box" style="margin-bottom: 10px;">
-            Map topology only refreshes after pressing DRAW NEAT GRID. Financial and quantity values update live from inputs.
-        </div>
-        <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ DRAW NEAT GRID</button>
-        <button class="btn" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
-
-        <div class="disclaimer-box">
-            <strong>EXPERIMENTAL SCREENING OUTPUT</strong><br><br>
-            These outputs are indicative screening values only. They are not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. All quantities, packaging, site area, cable routes, container loads, module specifications and financial assumptions must be verified against current manufacturer datasheets, project specific drawings, EPC scope, grid requirements and competent engineering review.
-        </div>
-    </div>
-
-    <div class="panel panel-right">
-        <div style="position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 8px;">
-            <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
-            <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
-        </div>
-        <div class="crosshair">⌖</div>
-        <div id="map"></div>
-        <div class="legend" id="map_legend"></div>
-    </div>
-</div>
-
 <script>
-    let activeTab = 'string';
-    let currentGeoJSON = { type: "FeatureCollection", features: [] };
-    let activeDrawCenter = null; 
-    let selectedSubstation = null;
-    let subsVisible = true;
-    let activePopup = null;
+let activeTab = "string";
+let currentGeoJSON = { type: "FeatureCollection", features: [] };
+let activeDrawCenter = null;
+let selectedSubstation = null;
+let subsVisible = true;
+let activePopup = null;
+let satActive = false;
 
-    const map = new maplibregl.Map({
-        container: 'map',
-        style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-        center: [-0.1276, 51.5072], 
-        zoom: 13
+const map = new maplibregl.Map({
+    container: "map",
+    style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+    center: [-0.1276, 51.5072],
+    zoom: 13
+});
+
+map.on("error", function(e) {
+    console.error("MapLibre error:", e.error || e);
+});
+
+function showPopup(coords, html) {
+    if (activePopup) activePopup.remove();
+
+    activePopup = new maplibregl.Popup()
+        .setLngLat(coords)
+        .setHTML(html)
+        .addTo(map);
+
+    activePopup.on("close", () => {
+        activePopup = null;
     });
+}
 
-    map.on('error', function(e) {
-        console.error('MapLibre error:', e.error || e);
-    });
+function getProp(obj, keys, fallback = null) {
+    for (const key of keys) {
+        if (obj && obj[key] !== undefined && obj[key] !== null && obj[key] !== "") {
+            return obj[key];
+        }
+    }
+    return fallback;
+}
 
-    function showPopup(coords, html) {
-        if (activePopup) activePopup.remove();
-        activePopup = new maplibregl.Popup()
-            .setLngLat(coords)
-            .setHTML(html)
-            .addTo(map);
+function isValidLngLat(coords) {
+    return Array.isArray(coords) &&
+        coords.length >= 2 &&
+        Number.isFinite(Number(coords[0])) &&
+        Number.isFinite(Number(coords[1])) &&
+        Number(coords[0]) >= -180 &&
+        Number(coords[0]) <= 180 &&
+        Number(coords[1]) >= -90 &&
+        Number(coords[1]) <= 90;
+}
 
-        activePopup.on('close', () => {
-            activePopup = null;
-        });
+function normaliseSubstationsGeoJSON(raw) {
+    if (!raw) {
+        throw new Error("Substation dataset is empty.");
     }
 
-    map.on('load', () => {
-        // --- SATELLITE BASEMAP SOURCE & LAYER ---
-        map.addSource('sat-s', { 
-            type: 'raster', 
-            tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], 
-            tileSize: 256 
-        });
-        map.addLayer({ 
-            id: 'l-sat', 
-            type: 'raster', 
-            source: 'sat-s', 
-            layout: { visibility: 'none' } 
-        });
+    let features = [];
 
-        // --- SUBSTATIONS LAYER (From Atlas Dataset) ---
-        // This path assumes indexforgis-sld.html is served from the project root beside /data.
-        // Test through HTTP, for example: python3 -m http.server 8000
-        map.addSource('src-subs', {
-            type: 'geojson',
-            data: { type: 'FeatureCollection', features: [] } // Init empty, explicitly fetch to avoid local server MIME type errors
-        });
-        
-        fetch('data/grid_substations.geojson')
-            .then(res => {
-                console.log(`Fetch response status for substations: ${res.status} ${res.statusText}`);
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-                return res.json();
-            })
-            .then(data => {
-                if (!data || data.type !== 'FeatureCollection') {
-                    throw new Error("Parsed data is not a valid FeatureCollection.");
-                }
-                if (!Array.isArray(data.features)) {
-                    throw new Error("Parsed FeatureCollection missing 'features' array.");
-                }
-                if (data.features.length === 0) {
-                    throw new Error("FeatureCollection 'features' array is empty.");
-                }
-                
-                console.log(`Successfully fetched ${data.features.length} substation features.`);
-                
-                if (map.getSource('src-subs')) {
-                    map.getSource('src-subs').setData(data);
-                    console.log(`Source 'src-subs' updated. Final feature count in source:`, map.getSource('src-subs')._data.features.length);
-                }
-            })
-            .catch(err => {
-                console.error('Failed to load substations:', err);
-                const warnEl = document.getElementById('fetch_warning');
-                if (warnEl) {
-                    warnEl.style.display = 'block';
-                    warnEl.innerText = `Substation Data Error: ${err.message}. Map nodes will not load.`;
-                }
-            });
+    if (raw.type === "FeatureCollection" && Array.isArray(raw.features)) {
+        features = raw.features;
+    } else if (Array.isArray(raw)) {
+        features = raw.map(item => ({
+            type: "Feature",
+            geometry: item.geometry || {
+                type: "Point",
+                coordinates: [
+                    item.lon ?? item.lng ?? item.longitude ?? item.Longitude ?? item.X,
+                    item.lat ?? item.latitude ?? item.Latitude ?? item.Y
+                ]
+            },
+            properties: item.properties || item
+        }));
+    } else {
+        throw new Error("Dataset is not a GeoJSON FeatureCollection or array.");
+    }
 
-        map.addLayer({
-            id: 'l-subs',
-            type: 'circle',
-            source: 'src-subs',
-            layout: { visibility: 'visible' },
-            paint: {
-                'circle-color': '#ffffff',
-                'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 2, 10, 4, 14, 7, 18, 14],
-                'circle-stroke-width': 1,
-                'circle-stroke-color': '#ff3333',
-                'circle-opacity': 0.65
-            }
-        });
+    const cleaned = features
+        .filter(f => f && f.geometry && f.geometry.type === "Point")
+        .map(f => {
+            const coords = f.geometry.coordinates.map(Number);
+            if (!isValidLngLat(coords)) return null;
 
-        // --- TOPOLOGY SOURCE ---
-        map.addSource('topology', { type: 'geojson', data: currentGeoJSON });
-
-        map.addLayer({
-            id: 'overall_boundary_fill', type: 'fill', source: 'topology',
-            filter: ['==', 'type', 'array_boundary'],
-            paint: { 'fill-color': '#0066ff', 'fill-opacity': 0.25 }
-        });
-        map.addLayer({
-            id: 'overall_boundary_line', type: 'line', source: 'topology',
-            filter: ['==', 'type', 'array_boundary'],
-            paint: { 'line-color': '#0066ff', 'line-width': 2, 'line-dasharray': [4, 4] }
-        });
-
-        map.addLayer({
-            id: 'footprints', type: 'fill', source: 'topology',
-            filter: ['in', ['get', 'type'], ['literal', ['skid_footprint', 'central_footprint', 'bess_footprint']]],
-            paint: { 
-                'fill-color': [
-                    'match', ['get', 'type'], 
-                    'skid_footprint', '#00ffff', 
-                    'central_footprint', '#ff9900', 
-                    'bess_footprint', '#ff00aa',
-                    '#000'
-                ], 
-                'fill-opacity': 0.15 
-            }
-        });
-        map.addLayer({
-            id: 'footprints_outline', type: 'line', source: 'topology',
-            filter: ['in', ['get', 'type'], ['literal', ['skid_footprint', 'central_footprint', 'bess_footprint']]],
-            paint: { 
-                'line-color': [
-                    'match', ['get', 'type'], 
-                    'skid_footprint', '#00ffff', 
-                    'central_footprint', '#ff9900', 
-                    'bess_footprint', '#ff00aa',
-                    '#000'
-                ], 
-                'line-width': 1 
-            }
-        });
-
-        map.addLayer({
-            id: 'radial_spine', type: 'line', source: 'topology',
-            filter: ['==', 'type', '33kv_radial'],
-            paint: { 'line-color': '#00ffff', 'line-width': 2 }
-        });
-
-        map.addLayer({
-            id: 'inverters', type: 'circle', source: 'topology',
-            filter: ['in', ['get', 'type'], ['literal', ['string_substation', 'central_inverter', 'mv_station', 'bess_compound']]],
-            paint: { 
-                'circle-color': [
-                    'match', ['get', 'type'], 
-                    'string_substation', '#ffff00', 
-                    'central_inverter', '#ff9900', 
-                    'mv_station', '#6633ff', 
-                    'bess_compound', '#ff00aa',
-                    '#fff'
-                ], 
-                'circle-radius': [
-                    'match', ['get', 'type'], 
-                    'string_substation', 4, 
-                    'central_inverter', 6, 
-                    'mv_station', 4, 
-                    'bess_compound', 6,
-                    3
-                ], 
-                'circle-stroke-color': '#000', 'circle-stroke-width': 1 
-            }
-        });
-
-        map.addLayer({
-            id: 'substation', type: 'circle', source: 'topology',
-            filter: ['==', 'type', 'primary_sub'],
-            paint: { 'circle-color': '#ff3333', 'circle-radius': 8, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 }
-        });
-
-        // --- EVENTS ---
-        map.on('click', 'l-subs', function(e) {
-            const f = e.features[0];
-            const coords = f.geometry.coordinates.slice();
             const p = f.properties || {};
 
-            selectedSubstation = {
-                name: p.name || p.Name || p.SiteName || p['Site Name'] || p.substation || p.Substation || 'Selected Substation',
-                voltage: p.voltage || p.Voltage || p.kv || p.kV || p.KV || null,
-                properties: p,
-                coordinates: coords
+            return {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [coords[0], coords[1]]
+                },
+                properties: {
+                    ...p,
+                    name_clean: getProp(p, [
+                        "name",
+                        "Name",
+                        "site_name",
+                        "SiteName",
+                        "Site Name",
+                        "substation",
+                        "Substation",
+                        "substation_name",
+                        "Substation Name"
+                    ], "Substation"),
+                    voltage_clean: getProp(p, [
+                        "voltage",
+                        "Voltage",
+                        "kv",
+                        "kV",
+                        "KV",
+                        "voltage_kv",
+                        "Voltage kV"
+                    ], "Unknown")
+                }
             };
+        })
+        .filter(Boolean);
 
-            activeDrawCenter = coords;
-            computeAndDraw();
-            updateSelectedSubstationDisplay();
-        });
-
-        map.on('mouseenter', 'l-subs', () => { map.getCanvas().style.cursor = 'pointer'; });
-        map.on('mouseleave', 'l-subs', () => { map.getCanvas().style.cursor = ''; });
-
-        map.on('click', 'inverters', function (e) {
-            const prop = e.features[0].properties;
-            const coords = e.features[0].geometry.coordinates.slice();
-            
-            let color = '#00ffff';
-            if (prop.type === 'central_inverter') color = '#ff9900';
-            else if (prop.type === 'string_substation') color = '#ffff00';
-            else if (prop.type === 'bess_compound') color = '#ff00aa';
-            else if (prop.type === 'mv_station') color = '#6633ff';
-
-            let html = `
-                <div style="margin-bottom: 5px; color:${color}; font-weight:bold; font-size: 13px; text-transform:uppercase;">Block Info</div>
-                <div class="popup-row"><span>Type:</span> <span class="popup-val" style="color:#fff;">${prop.type}</span></div>
-            `;
-            if (prop.type === 'bess_compound' && prop.mwh !== undefined) {
-                html += `<div class="popup-row"><span>Capacity:</span> <span class="popup-val" style="color:#fff;">${prop.mwh} MWh</span></div>`;
-            }
-
-            showPopup(coords, html);
-        });
-
-        map.on('mouseenter', 'inverters', () => { map.getCanvas().style.cursor = 'pointer'; });
-        map.on('mouseleave', 'inverters', () => { map.getCanvas().style.cursor = ''; });
-
-        updateLegend();
-        recalcAll();
-    });
-
-    // --- BASEMAP & LAYER TOGGLE LOGIC ---
-    let satActive = false;
-    document.getElementById('btn_basemap').addEventListener('click', function() {
-        if (!map.getLayer('l-sat')) return;
-
-        satActive = !satActive;
-        map.setLayoutProperty('l-sat', 'visibility', satActive ? 'visible' : 'none');
-        
-        this.textContent = satActive ? 'DARK MATTER VIEW' : 'SATELLITE VIEW';
-        this.classList.toggle('active', satActive);
-    });
-
-    document.getElementById('btn_subs_toggle').addEventListener('click', function() {
-        if (!map.getLayer('l-subs')) return;
-
-        subsVisible = !subsVisible;
-        map.setLayoutProperty('l-subs', 'visibility', subsVisible ? 'visible' : 'none');
-        
-        this.textContent = subsVisible ? 'SUBS ON' : 'SUBS OFF';
-        this.classList.toggle('active', subsVisible);
-    });
-
-    function applyLogisticsPreset(val, suffix) {
-        if (val === 'high_density') {
-            document.getElementById('mods_pallet' + suffix).value = 33;
-            document.getElementById('mods_container' + suffix).value = 594;
-        } else if (val === 'legacy') {
-            document.getElementById('mods_pallet' + suffix).value = 31;
-            document.getElementById('mods_container' + suffix).value = 620;
-        }
-        recalcAll();
+    if (cleaned.length === 0) {
+        throw new Error("No valid point substations found after cleaning.");
     }
 
-    function switchTab(tab) {
-        activeTab = tab;
-        document.getElementById('tabbtn_string').classList.toggle('active', tab === 'string');
-        document.getElementById('tabbtn_central').classList.toggle('active', tab === 'central');
-        document.getElementById('string_tab').classList.toggle('active', tab === 'string');
-        document.getElementById('central_tab').classList.toggle('active', tab === 'central');
-        
-        const btnDraw = document.getElementById('btn_draw');
-        if (tab === 'central') { btnDraw.classList.add('central'); } 
-        else { btnDraw.classList.remove('central'); }
+    return {
+        type: "FeatureCollection",
+        features: cleaned
+    };
+}
 
-        document.querySelectorAll('.central-only').forEach(el => {
-            el.style.display = tab === 'central' ? 'flex' : 'none';
-        });
-        
-        updateLegend();
-        if(activeDrawCenter) computeAndDraw(); 
-        
-        recalcAll();
-    }
+async function loadSubstationsIntoMap() {
+    const candidatePaths = [
+        "../grid_substations.geojson",
+        "grid_substations.geojson",
+        "./grid_substations.geojson",
+        "../data/grid_substations.geojson",
+        "data/grid_substations.geojson",
+        "./data/grid_substations.geojson",
+        "../data/atlas_v8/grid_substations.geojson",
+        "data/atlas_v8/grid_substations.geojson",
+        "./data/atlas_v8/grid_substations.geojson",
+        "../data/grid_substations_v8.geojson",
+        "data/grid_substations_v8.geojson",
+        "./data/grid_substations_v8.geojson"
+    ];
 
-    function updateLegend() {
-        const legend = document.getElementById('map_legend');
-        let html = `
-            <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
-            <div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>
-            <div class="legend-item"><div class="swatch" style="background:var(--bess);"></div> BESS Compound</div>
-            <div class="legend-item"><div class="swatch" style="background:var(--array-blue); opacity: 0.3; border-style: dashed;"></div> Total Array Boundary</div>
-        `;
-        if (activeTab === 'string') {
-            html += `
-                <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> String Substation Block</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px solid var(--accent);"></div> Radial 33kV Spine</div>
-            `;
-        } else {
-            html += `
-                <div class="legend-item"><div class="swatch" style="background:var(--accent-alt);"></div> Central Inverter Block</div>
-                <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px solid var(--accent);"></div> Radial 33kV Spine</div>
-            `;
-        }
-        legend.innerHTML = html;
-    }
+    const warnEl = document.getElementById("fetch_warning");
+    const errors = [];
 
-    function updateSelectedSubstationDisplay() {
-        const nameEl = document.getElementById('out_selected_sub_name');
-        const voltageEl = document.getElementById('out_selected_sub_voltage');
-        const lonEl = document.getElementById('out_selected_sub_lon');
-        const latEl = document.getElementById('out_selected_sub_lat');
-
-        if (!nameEl || !voltageEl || !lonEl || !latEl) return;
-
-        if (!selectedSubstation) {
-            nameEl.textContent = 'None selected';
-            voltageEl.textContent = 'Unknown';
-            lonEl.textContent = 'n/a';
-            latEl.textContent = 'n/a';
-            return;
-        }
-
-        nameEl.textContent = selectedSubstation.name || 'Selected Substation';
-        voltageEl.textContent = selectedSubstation.voltage || 'Unknown';
-        lonEl.textContent = selectedSubstation.coordinates ? selectedSubstation.coordinates[0].toFixed(6) : 'n/a';
-        latEl.textContent = selectedSubstation.coordinates ? selectedSubstation.coordinates[1].toFixed(6) : 'n/a';
-    }
-
-    async function searchLocation() {
-        const query = document.getElementById('loc_search').value;
-        if (!query) return;
+    for (const path of candidatePaths) {
         try {
-            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`);
-            const data = await res.json();
-            if (data && data.length > 0) {
-                map.flyTo({ center: [parseFloat(data[0].lon), parseFloat(data[0].lat)], zoom: 14 });
+            const res = await fetch(path, { cache: "no-store" });
+
+            if (!res.ok) {
+                errors.push(`${path}: HTTP ${res.status}`);
+                continue;
             }
-        } catch (e) { 
-            console.error("Geocoding failed:", e); 
+
+            const text = await res.text();
+
+            if (!text.trim()) {
+                errors.push(`${path}: empty file`);
+                continue;
+            }
+
+            let raw;
+            try {
+                raw = JSON.parse(text);
+            } catch (jsonErr) {
+                errors.push(`${path}: invalid JSON`);
+                continue;
+            }
+
+            const cleaned = normaliseSubstationsGeoJSON(raw);
+
+            const src = map.getSource("src-subs");
+            if (!src) {
+                throw new Error("Map source src-subs does not exist.");
+            }
+
+            src.setData(cleaned);
+
+            console.log("Substations loaded:", {
+                path,
+                count: cleaned.features.length,
+                sample: cleaned.features[0]
+            });
+
+            if (warnEl) {
+                warnEl.style.display = "none";
+                warnEl.innerText = "";
+            }
+
+            return cleaned;
+        } catch (err) {
+            errors.push(`${path}: ${err.message}`);
         }
     }
 
-    function triggerDrawAtCenter() {
-        selectedSubstation = null;
-        activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
-        computeAndDraw();
+    console.error("All substation load attempts failed:", errors);
+
+    if (warnEl) {
+        warnEl.style.display = "block";
+        warnEl.innerText =
+            "Substation Data Error: no valid dataset loaded. Check file name, folder path and whether the page is being served through HTTP.";
+    }
+
+    return null;
+}
+
+map.on("load", () => {
+    map.addSource("sat-s", {
+        type: "raster",
+        tiles: [
+            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        ],
+        tileSize: 256
+    });
+
+    map.addLayer({
+        id: "l-sat",
+        type: "raster",
+        source: "sat-s",
+        layout: { visibility: "none" }
+    });
+
+    map.addSource("src-subs", {
+        type: "geojson",
+        data: {
+            type: "FeatureCollection",
+            features: []
+        }
+    });
+
+    map.addLayer({
+        id: "l-subs",
+        type: "circle",
+        source: "src-subs",
+        layout: { visibility: "visible" },
+        paint: {
+            "circle-color": "#ffffff",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5, 2,
+                10, 4,
+                14, 7,
+                18, 14
+            ],
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "#ff3333",
+            "circle-opacity": 0.75
+        }
+    });
+
+    loadSubstationsIntoMap();
+
+    map.addSource("topology", {
+        type: "geojson",
+        data: currentGeoJSON
+    });
+
+    map.addLayer({
+        id: "overall_boundary_fill",
+        type: "fill",
+        source: "topology",
+        filter: ["==", "type", "array_boundary"],
+        paint: {
+            "fill-color": "#0066ff",
+            "fill-opacity": 0.25
+        }
+    });
+
+    map.addLayer({
+        id: "overall_boundary_line",
+        type: "line",
+        source: "topology",
+        filter: ["==", "type", "array_boundary"],
+        paint: {
+            "line-color": "#0066ff",
+            "line-width": 2,
+            "line-dasharray": [4, 4]
+        }
+    });
+
+    map.addLayer({
+        id: "footprints",
+        type: "fill",
+        source: "topology",
+        filter: [
+            "in",
+            ["get", "type"],
+            ["literal", ["skid_footprint", "central_footprint", "bess_footprint"]]
+        ],
+        paint: {
+            "fill-color": [
+                "match",
+                ["get", "type"],
+                "skid_footprint", "#00ffff",
+                "central_footprint", "#ff9900",
+                "bess_footprint", "#ff00aa",
+                "#000000"
+            ],
+            "fill-opacity": 0.15
+        }
+    });
+
+    map.addLayer({
+        id: "footprints_outline",
+        type: "line",
+        source: "topology",
+        filter: [
+            "in",
+            ["get", "type"],
+            ["literal", ["skid_footprint", "central_footprint", "bess_footprint"]]
+        ],
+        paint: {
+            "line-color": [
+                "match",
+                ["get", "type"],
+                "skid_footprint", "#00ffff",
+                "central_footprint", "#ff9900",
+                "bess_footprint", "#ff00aa",
+                "#000000"
+            ],
+            "line-width": 1
+        }
+    });
+
+    map.addLayer({
+        id: "radial_spine",
+        type: "line",
+        source: "topology",
+        filter: ["==", "type", "33kv_radial"],
+        paint: {
+            "line-color": "#00ffff",
+            "line-width": 2
+        }
+    });
+
+    map.addLayer({
+        id: "inverters",
+        type: "circle",
+        source: "topology",
+        filter: [
+            "in",
+            ["get", "type"],
+            ["literal", ["string_substation", "central_inverter", "mv_station", "bess_compound"]]
+        ],
+        paint: {
+            "circle-color": [
+                "match",
+                ["get", "type"],
+                "string_substation", "#ffff00",
+                "central_inverter", "#ff9900",
+                "mv_station", "#6633ff",
+                "bess_compound", "#ff00aa",
+                "#ffffff"
+            ],
+            "circle-radius": [
+                "match",
+                ["get", "type"],
+                "string_substation", 4,
+                "central_inverter", 6,
+                "mv_station", 4,
+                "bess_compound", 6,
+                3
+            ],
+            "circle-stroke-color": "#000000",
+            "circle-stroke-width": 1
+        }
+    });
+
+    map.addLayer({
+        id: "substation",
+        type: "circle",
+        source: "topology",
+        filter: ["==", "type", "primary_sub"],
+        paint: {
+            "circle-color": "#ff3333",
+            "circle-radius": 8,
+            "circle-stroke-color": "#ffffff",
+            "circle-stroke-width": 2
+        }
+    });
+
+    map.on("click", "l-subs", function(e) {
+        const f = e.features && e.features[0];
+        if (!f || !f.geometry || !Array.isArray(f.geometry.coordinates)) return;
+
+        const coords = f.geometry.coordinates.slice();
+        const p = f.properties || {};
+
+        selectedSubstation = {
+            name: p.name_clean || p.name || p.Name || p.SiteName || p["Site Name"] || p.substation || p.Substation || "Selected Substation",
+            voltage: p.voltage_clean || p.voltage || p.Voltage || p.kv || p.kV || p.KV || "Unknown",
+            properties: p,
+            coordinates: coords
+        };
+
+        activeDrawCenter = coords;
+
         updateSelectedSubstationDisplay();
-    }
+        computeAndDraw();
 
-    function updateAggregatesOnly() {
-        if (activeTab === 'string') return updateStringAggregates();
-        return updateCentralAggregates();
-    }
+        showPopup(coords, `
+            <div style="margin-bottom: 5px; color:#ff3333; font-weight:bold; font-size: 13px; text-transform:uppercase;">Grid Node</div>
+            <div class="popup-row"><span>Name:</span><span class="popup-val" style="color:#fff;">${selectedSubstation.name}</span></div>
+            <div class="popup-row"><span>Voltage:</span><span class="popup-val" style="color:#fff;">${selectedSubstation.voltage}</span></div>
+            <div class="popup-row"><span>Longitude:</span><span class="popup-val" style="color:#fff;">${Number(coords[0]).toFixed(6)}</span></div>
+            <div class="popup-row"><span>Latitude:</span><span class="popup-val" style="color:#fff;">${Number(coords[1]).toFixed(6)}</span></div>
+        `);
+    });
 
-    function updateStringAggregates() {
-        const mod_wp = parseFloat(document.getElementById('mod_wp').value) || 0;
-        const x = parseInt(document.getElementById('x_mods').value) || 0;
-        const z = parseInt(document.getElementById('z_strings').value) || 0;
-        const y = parseInt(document.getElementById('y_invs').value) || 0;
-        const s = parseInt(document.getElementById('s_subs').value) || 0;
-        const rings = parseInt(document.getElementById('b_cols').value) || 0;
+    map.on("mouseenter", "l-subs", () => {
+        map.getCanvas().style.cursor = "pointer";
+    });
 
-        const mod_l = parseFloat(document.getElementById('mod_l').value) || 0;
-        const mod_w = parseFloat(document.getElementById('mod_w').value) || 0;
-        const gcr = parseFloat(document.getElementById('mounting_type').value) || 0.75;
-        const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio').value) || 1.20;
-        const gross_factor = parseFloat(document.getElementById('gross_factor').value) || 1.35;
-        
-        const mods_pallet = parseInt(document.getElementById('mods_pallet').value) || 1;
-        const mods_container = parseInt(document.getElementById('mods_container').value) || 1;
-        const spare_pct = parseFloat(document.getElementById('spare_pct').value) || 0;
+    map.on("mouseleave", "l-subs", () => {
+        map.getCanvas().style.cursor = "";
+    });
 
-        if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x <= 0) {
-            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container, combiner_boxes_per_inverter: 0, total_combiner_boxes: 0 };
+    map.on("click", "inverters", function(e) {
+        const prop = e.features[0].properties;
+        const coords = e.features[0].geometry.coordinates.slice();
+
+        let color = "#00ffff";
+        if (prop.type === "central_inverter") color = "#ff9900";
+        else if (prop.type === "string_substation") color = "#ffff00";
+        else if (prop.type === "bess_compound") color = "#ff00aa";
+        else if (prop.type === "mv_station") color = "#6633ff";
+
+        let html = `
+            <div style="margin-bottom: 5px; color:${color}; font-weight:bold; font-size: 13px; text-transform:uppercase;">Block Info</div>
+            <div class="popup-row"><span>Type:</span><span class="popup-val" style="color:#fff;">${prop.type}</span></div>
+        `;
+
+        if (prop.type === "bess_compound" && prop.mwh !== undefined) {
+            html += `<div class="popup-row"><span>Capacity:</span><span class="popup-val" style="color:#fff;">${prop.mwh} MWh</span></div>`;
         }
 
-        const total_blocks = rings * s;
-        const total_invs = total_blocks * y;
-        const module_count = total_invs * z * x;
-        const dc_mwp = (module_count * mod_wp) / 1000000;
-        const ac_mw = dc_mwp / dc_ac_ratio;
-        
-        const net_mod_area_m2 = module_count * mod_l * mod_w;
-        const net_array_area_m2 = gcr > 0 ? net_mod_area_m2 / gcr : 0;
-        const gross_site_area_m2 = net_array_area_m2 * gross_factor;
-        const block_ground_area_m2 = total_blocks > 0 ? net_array_area_m2 / total_blocks : 0;
+        showPopup(coords, html);
+    });
 
-        // Logistics
-        const pallets = Math.ceil(module_count / mods_pallet);
-        const containers = Math.ceil(module_count / mods_container);
-        const modules_inc_spares = Math.ceil(module_count * (1 + (spare_pct / 100)));
-        const pallets_inc_spares = Math.ceil(modules_inc_spares / mods_pallet);
-        const containers_inc_spares = Math.ceil(modules_inc_spares / mods_container);
+    map.on("mouseenter", "inverters", () => {
+        map.getCanvas().style.cursor = "pointer";
+    });
 
-        return { 
-            total_blocks, block_ground_area_m2, dc_mwp, ac_mw, module_count, 
-            net_mod_area_m2, net_array_area_m2, gross_site_area_m2, dc_ac_ratio,
-            pallets, containers, spares_pct: spare_pct, modules_inc_spares, pallets_inc_spares, containers_inc_spares,
-            mods_pallet, mods_container,
-            combiner_boxes_per_inverter: 0, total_combiner_boxes: 0
-        };
+    map.on("mouseleave", "inverters", () => {
+        map.getCanvas().style.cursor = "";
+    });
+
+    updateLegend();
+    recalcAll();
+});
+
+document.getElementById("btn_basemap").addEventListener("click", function() {
+    if (!map.getLayer("l-sat")) return;
+
+    satActive = !satActive;
+
+    map.setLayoutProperty("l-sat", "visibility", satActive ? "visible" : "none");
+
+    this.textContent = satActive ? "DARK MATTER VIEW" : "SATELLITE VIEW";
+    this.classList.toggle("active", satActive);
+});
+
+document.getElementById("btn_subs_toggle").addEventListener("click", function() {
+    if (!map.getLayer("l-subs")) return;
+
+    subsVisible = !subsVisible;
+
+    map.setLayoutProperty("l-subs", "visibility", subsVisible ? "visible" : "none");
+
+    this.textContent = subsVisible ? "SUBS ON" : "SUBS OFF";
+    this.classList.toggle("active", subsVisible);
+});
+
+function applyLogisticsPreset(val, suffix) {
+    if (val === "high_density") {
+        document.getElementById("mods_pallet" + suffix).value = 33;
+        document.getElementById("mods_container" + suffix).value = 594;
+    } else if (val === "legacy") {
+        document.getElementById("mods_pallet" + suffix).value = 31;
+        document.getElementById("mods_container" + suffix).value = 620;
     }
 
-    function updateCentralAggregates() {
-        const mod_wp = parseFloat(document.getElementById('mod_wp_c').value) || 0;
-        const mod_l = parseFloat(document.getElementById('mod_l_c').value) || 0;
-        const mod_w = parseFloat(document.getElementById('mod_w_c').value) || 0;
-        const gcr = parseFloat(document.getElementById('mounting_type_c').value) || 0.45;
-        const gross_factor = parseFloat(document.getElementById('gross_factor_c').value) || 1.35;
-        
-        const x_mods = parseInt(document.getElementById('x_mods_c').value) || 0;
-        const inv_ac_mw = parseFloat(document.getElementById('inv_ac_mw_c').value) || 0;
-        const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio_c').value) || 1.20;
-        
-        const str_per_cb = parseInt(document.getElementById('str_per_cb_c').value) || 1;
-        const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
-        const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
-        const rings = parseInt(document.getElementById('rings_c').value) || 0;
+    recalcAll();
+}
 
-        const mods_pallet = parseInt(document.getElementById('mods_pallet_c').value) || 1;
-        const mods_container = parseInt(document.getElementById('mods_container_c').value) || 1;
-        const spare_pct = parseFloat(document.getElementById('spare_pct_c').value) || 0;
+function switchTab(tab) {
+    activeTab = tab;
 
-        if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x_mods <= 0) {
-            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container, combiner_boxes_per_inverter: 0, total_combiner_boxes: 0 };
-        }
+    document.getElementById("tabbtn_string").classList.toggle("active", tab === "string");
+    document.getElementById("tabbtn_central").classList.toggle("active", tab === "central");
+    document.getElementById("string_tab").classList.toggle("active", tab === "string");
+    document.getElementById("central_tab").classList.toggle("active", tab === "central");
 
-        const str_dc_kwp = (x_mods * mod_wp) / 1000;
-        const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
-        const req_strings = str_dc_kwp > 0 ? Math.ceil((inv_dc_mwp * 1000) / str_dc_kwp) : 0;
+    const btnDraw = document.getElementById("btn_draw");
 
-        const combiner_boxes_per_inverter = Math.ceil(req_strings / str_per_cb);
-        const total_blocks = inv_per_mv * mv_per_ring * rings;
-        const total_combiner_boxes = combiner_boxes_per_inverter * total_blocks;
-
-        const module_count = req_strings * x_mods * total_blocks;
-        
-        const dc_mwp = (module_count * mod_wp) / 1000000;
-        const ac_mw = total_blocks * inv_ac_mw;
-
-        const net_mod_area_m2 = module_count * mod_l * mod_w;
-        const net_array_area_m2 = gcr > 0 ? net_mod_area_m2 / gcr : 0;
-        const gross_site_area_m2 = net_array_area_m2 * gross_factor;
-        const block_ground_area_m2 = total_blocks > 0 ? net_array_area_m2 / total_blocks : 0;
-
-        // Logistics
-        const pallets = Math.ceil(module_count / mods_pallet);
-        const containers = Math.ceil(module_count / mods_container);
-        const modules_inc_spares = Math.ceil(module_count * (1 + (spare_pct / 100)));
-        const pallets_inc_spares = Math.ceil(modules_inc_spares / mods_pallet);
-        const containers_inc_spares = Math.ceil(modules_inc_spares / mods_container);
-
-        return { 
-            total_blocks, block_ground_area_m2, dc_mwp, ac_mw, module_count, 
-            net_mod_area_m2, net_array_area_m2, gross_site_area_m2, dc_ac_ratio,
-            pallets, containers, spares_pct: spare_pct, modules_inc_spares, pallets_inc_spares, containers_inc_spares,
-            mods_pallet, mods_container,
-            combiner_boxes_per_inverter, total_combiner_boxes
-        };
+    if (tab === "central") {
+        btnDraw.classList.add("central");
+    } else {
+        btnDraw.classList.remove("central");
     }
 
-    function updateTechnicalSummary(stats) {
-        document.getElementById('out_module_count').textContent = stats.module_count.toLocaleString();
-        document.getElementById('out_dc_capacity').textContent = stats.dc_mwp.toFixed(2) + " MWp";
-        document.getElementById('out_ac_capacity').textContent = stats.ac_mw.toFixed(2) + " MWac";
-        document.getElementById('out_actual_dcac').textContent = stats.dc_ac_ratio.toFixed(2);
+    document.querySelectorAll(".central-only").forEach(el => {
+        el.style.display = tab === "central" ? "flex" : "none";
+    });
 
-        document.getElementById('out_cb_per_inv').textContent = stats.combiner_boxes_per_inverter.toLocaleString();
-        document.getElementById('out_total_cb').textContent = stats.total_combiner_boxes.toLocaleString();
-        
-        document.getElementById('out_net_mod_area').textContent = (stats.net_mod_area_m2 / 4046.86).toFixed(0) + " Acres";
-        document.getElementById('out_net_array_area').textContent = (stats.net_array_area_m2 / 4046.86).toFixed(0) + " Acres";
-        document.getElementById('out_gross_area').textContent = (stats.gross_site_area_m2 / 4046.86).toFixed(0) + " Acres";
+    updateLegend();
 
-        document.getElementById('out_mod_per_pallet').textContent = stats.mods_pallet;
-        document.getElementById('out_pallets').textContent = stats.pallets.toLocaleString();
-        document.getElementById('out_mod_per_cont').textContent = stats.mods_container;
-        document.getElementById('out_containers').textContent = stats.containers.toLocaleString();
-        document.getElementById('out_spare_pct').textContent = stats.spares_pct.toFixed(1) + "%";
-        document.getElementById('out_containers_spares').textContent = stats.containers_inc_spares.toLocaleString();
-
-        const tabClass = activeTab === 'central' ? 'stat-val orange' : 'stat-val cyan';
-        document.getElementById('out_dc_capacity').className = tabClass;
-        document.getElementById('out_containers_spares').className = tabClass;
-
-        // Container per MWp metric
-        const cont_per_mwp = stats.dc_mwp > 0 ? (stats.containers_inc_spares / stats.dc_mwp) : 0;
-        document.getElementById('out_cont_per_mwp').textContent = cont_per_mwp.toFixed(2);
-        document.getElementById('out_cont_per_mwp').className = tabClass;
+    if (activeDrawCenter) {
+        computeAndDraw();
     }
 
-    function updateBenchmark() {
-        const mw = parseFloat(document.getElementById('ref_mw').value) || 0;
-        const mods = parseFloat(document.getElementById('ref_modules').value) || 0;
-        const implied = mw > 0 ? (mods / mw) : 0;
-        document.getElementById('out_ref_implied').textContent = `~ ${Math.round(implied).toLocaleString()} modules/MW`;
+    recalcAll();
+}
+
+function updateLegend() {
+    const legend = document.getElementById("map_legend");
+
+    let html = `
+        <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Primary Substation</div>
+        <div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>
+        <div class="legend-item"><div class="swatch" style="background:var(--bess);"></div> BESS Compound</div>
+        <div class="legend-item"><div class="swatch" style="background:var(--array-blue); opacity: 0.3; border-style: dashed;"></div> Total Array Boundary</div>
+    `;
+
+    if (activeTab === "string") {
+        html += `
+            <div class="legend-item"><div class="swatch" style="background:var(--inverter);"></div> String Substation Block</div>
+            <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px solid var(--accent);"></div> Radial 33kV Spine</div>
+        `;
+    } else {
+        html += `
+            <div class="legend-item"><div class="swatch" style="background:var(--accent-alt);"></div> Central Inverter Block</div>
+            <div class="legend-item"><div class="swatch" style="background:transparent; border-color:var(--accent); border-bottom: 2px solid var(--accent);"></div> Radial 33kV Spine</div>
+        `;
     }
 
-    /* --- FINANCIAL FUNCTIONS --- */
-    function n(id) {
-        return parseFloat(document.getElementById(id)?.value) || 0;
+    legend.innerHTML = html;
+}
+
+function updateSelectedSubstationDisplay() {
+    const nameEl = document.getElementById("out_selected_sub_name");
+    const voltageEl = document.getElementById("out_selected_sub_voltage");
+    const lonEl = document.getElementById("out_selected_sub_lon");
+    const latEl = document.getElementById("out_selected_sub_lat");
+
+    if (!nameEl || !voltageEl || !lonEl || !latEl) return;
+
+    if (!selectedSubstation) {
+        nameEl.textContent = "None selected";
+        voltageEl.textContent = "Unknown";
+        lonEl.textContent = "n/a";
+        latEl.textContent = "n/a";
+        return;
     }
 
-    function money(v) {
-        const rounded = Math.round(v);
-        if (rounded < 0) return "-£" + Math.abs(rounded).toLocaleString();
-        return "£" + rounded.toLocaleString();
-    }
+    nameEl.textContent = selectedSubstation.name || "Selected Substation";
+    voltageEl.textContent = selectedSubstation.voltage || "Unknown";
+    lonEl.textContent = selectedSubstation.coordinates ? Number(selectedSubstation.coordinates[0]).toFixed(6) : "n/a";
+    latEl.textContent = selectedSubstation.coordinates ? Number(selectedSubstation.coordinates[1]).toFixed(6) : "n/a";
+}
 
-    // Helper to extract raw numbers back from the formatted UI display for export
-    function parseFormattedMoney(str) {
-        if (!str) return 0;
-        const isNegative = str.includes("-");
-        const numericVal = parseFloat(str.replace(/[^\d.]/g, '')) || 0;
-        return isNegative ? -numericVal : numericVal;
-    }
+async function searchLocation() {
+    const query = document.getElementById("loc_search").value;
+    if (!query) return;
 
-    function calcCumulativeGeneration(dc_mwp, effectiveYieldVal, totalLossPct, degPct, years) {
-        const year1 = dc_mwp * effectiveYieldVal * (1 - totalLossPct / 100);
-        let total = 0;
-        for (let y = 1; y <= years; y++) {
-            total += year1 * Math.pow(1 - degPct / 100, y - 1);
-        }
-        return total;
-    }
+    try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`);
+        const data = await res.json();
 
-    function updateFinancials(prefix, dc_mwp, ac_mw, stats) {
-        const price = n(prefix + "_price");
-        const other = n(prefix + "_other");
-        const yieldVal = n(prefix + "_yield");
-        const bifacial = n(prefix + "_bifacial");
-        const baseLoss = n(prefix + "_losses");
-        const deg = n(prefix + "_deg");
-        const opexRate = n(prefix + "_opex");
-
-        const epcEx = n(prefix + "_epc_ex");
-        
-        // Handle Flood Resilience Capex Adder
-        const floodChecked = document.getElementById(prefix + "_flood")?.checked || false;
-        const floodRate = n(prefix + "_flood_rate");
-        const floodAdder = floodChecked ? floodRate : 0;
-        
-        const modules = n(prefix + "_modules");
-        const otherCapex = n(prefix + "_other_capex");
-        const fixedCapex = n(prefix + "_fixed_capex");
-        const cont = n(prefix + "_cont");
-
-        const lossDcString = n(prefix + "_loss_dc_string");
-        const lossLvDc = n(prefix + "_loss_lv_dc");
-        const lossLvAc = n(prefix + "_loss_lv_ac");
-        const lossTx = n(prefix + "_loss_tx");
-        const lossOther = n(prefix + "_loss_other");
-
-        const totalLoss = baseLoss + lossDcString + lossLvDc + lossLvAc + lossTx + lossOther;
-
-        const bessMw = n(prefix + "_bess_mw");
-        const bessMwh = n(prefix + "_bess_mwh");
-        const bessCapexRate = n(prefix + "_bess_capex");
-        const bessCycles = n(prefix + "_bess_cycles");
-        const bessSpread = n(prefix + "_bess_spread");
-        const bessEff = n(prefix + "_bess_eff") / 100;
-
-        const safeLoss = Math.min(Math.max(totalLoss, 0), 100);
-        const safeBessEff = Math.min(Math.max(bessEff, 0), 1);
-        
-        const effectiveYield = yieldVal * (1 + bifacial / 100);
-
-        const year1Gen = dc_mwp * effectiveYield * (1 - safeLoss / 100);
-        
-        const annualSolarRevenue = year1Gen * (price + other);
-        const bessAnnualValue = bessMwh * bessCycles * bessSpread * safeBessEff;
-
-        const bess25 = bessAnnualValue * 25;
-        const bess35 = bessAnnualValue * 35;
-
-        const gen25 = calcCumulativeGeneration(dc_mwp, effectiveYield, safeLoss, deg, 25);
-        const gen35 = calcCumulativeGeneration(dc_mwp, effectiveYield, safeLoss, deg, 35);
-
-        const revenue25 = (gen25 * (price + other)) + bess25;
-        const revenue35 = (gen35 * (price + other)) + bess35;
-
-        const annualRevenue = annualSolarRevenue + bessAnnualValue;
-
-        const annualOpex = ac_mw * opexRate;
-        const opex25 = annualOpex * 25;
-        const opex35 = annualOpex * 35;
-
-        const baseCapexWp = epcEx + modules + otherCapex + floodAdder;
-        const baseCapex = dc_mwp * 1000000 * baseCapexWp;
-        const contingency = baseCapex * (cont / 100);
-
-        const bessCapex = bessMwh * bessCapexRate;
-
-        const totalCapex = baseCapex + contingency + fixedCapex + bessCapex;
-        const capexPerWp = dc_mwp > 0 ? totalCapex / (dc_mwp * 1000000) : 0;
-
-        const surplus25 = revenue25 - opex25 - totalCapex;
-        const surplus35 = revenue35 - opex35 - totalCapex;
-
-        document.getElementById(prefix + "_annual_rev").textContent = money(annualRevenue);
-        document.getElementById(prefix + "_25_rev").textContent = money(revenue25);
-        document.getElementById(prefix + "_35_rev").textContent = money(revenue35);
-        document.getElementById(prefix + "_capex").textContent = money(totalCapex);
-        document.getElementById(prefix + "_capex_wp").textContent = "£" + capexPerWp.toFixed(2) + "/Wp";
-        document.getElementById(prefix + "_surplus_25").textContent = money(surplus25);
-        document.getElementById(prefix + "_surplus_35").textContent = money(surplus35);
-
-        updateFinanceWarnings(prefix, price, opexRate, epcEx + modules, capexPerWp, totalLoss, bessMw, bessMwh, bessCycles, bessEff, bifacial, stats);
-    }
-
-    function updateFinanceWarnings(prefix, price, opexRate, epcIncModules, capexPerWp, totalLoss, bessMw, bessMwh, bessCycles, bessEff, bifacial, stats) {
-        const warnings = [];
-
-        if (price < 0) warnings.push("Energy price cannot be negative.");
-        if (opexRate < 0) warnings.push("OPEX cannot be negative.");
-        if (totalLoss < 0) warnings.push("Losses cannot be negative.");
-        if (epcIncModules < 0) warnings.push("EPC cannot be negative.");
-        if (capexPerWp < 0) warnings.push("CAPEX cannot be negative.");
-        if (bessMwh < 0 || bessMw < 0) warnings.push("BESS size cannot be negative.");
-        if (bessMwh > 0 && bessEff <= 0) warnings.push("BESS efficiency missing.");
-        if (bessEff > 1) warnings.push("BESS efficiency above 100 percent.");
-
-        if (price < 50) warnings.push("Low energy price case.");
-        if (price > 85) warnings.push("High energy price case.");
-        if (epcIncModules < 0.42) warnings.push("Aggressive EPC pricing.");
-        if (capexPerWp > 1.00) warnings.push("Full project cost territory.");
-        if (capexPerWp > 1.25) warnings.push("Complex project or asset value territory.");
-        if (opexRate < 10000 && opexRate >= 0) warnings.push("OPEX may be unrealistically low.");
-        if (totalLoss > 6) warnings.push("High loss assumption.");
-        if (bifacial > 12) warnings.push("Aggressive bifacial gain assumption.");
-        if (bessMwh > 0 && bessMw <= 0) warnings.push("BESS MW missing.");
-        if (bessMw > 0 && (bessMwh / bessMw) > 8) warnings.push("Unusually long BESS duration.");
-        if (bessCycles > 365) warnings.push("Aggressive storage cycling assumption.");
-
-        if (n(prefix + "_loss_dc_string") === 0 && n(prefix + "_loss_lv_dc") === 0 && n(prefix + "_loss_lv_ac") === 0 && n(prefix + "_loss_tx") === 0 && n(prefix + "_loss_other") === 0) {
-            warnings.push("Specialist electrical loss fields are blank or zero. Revenue may be overstated until cable, transformer and electrical design losses are verified.");
-        }
-
-        const grossFactor = activeTab === 'string' ? n('gross_factor') : n('gross_factor_c');
-        if (grossFactor < 1.15) {
-            warnings.push("Gross site factor may be too low for roads, buffers, substations, drainage and ecology.");
-        }
-
-        if (stats.mods_pallet <= 0 || stats.mods_container <= 0) {
-            warnings.push("Module logistics assumptions are missing.");
-        }
-
-        document.getElementById(prefix + "_warnings").innerHTML = warnings.join("<br>");
-    }
-
-    function updateActiveFinancials(stats = null) {
-        const activeStats = stats || updateAggregatesOnly();
-        if (activeTab === "string") {
-            updateFinancials("fin_string", activeStats.dc_mwp, activeStats.ac_mw, activeStats);
-        } else {
-            updateFinancials("fin_central", activeStats.dc_mwp, activeStats.ac_mw, activeStats);
-        }
-    }
-    /* ------------------------------------ */
-
-    function getRectPolygon(centerCoord, width_km, length_km, propType) {
-        const pt = turf.point(centerCoord);
-        const ptNorth = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
-        const ptSouth = turf.destination(pt, length_km/2, 180, {units: 'kilometers'}).geometry.coordinates;
-        
-        const nw = turf.destination(turf.point(ptNorth), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
-        const ne = turf.destination(turf.point(ptNorth), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
-        const se = turf.destination(turf.point(ptSouth), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
-        const sw = turf.destination(turf.point(ptSouth), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
-        
-        return turf.polygon([[nw, ne, se, sw, nw]], { type: propType });
-    }
-
-    function computeAndDraw() {
-        if (!activeDrawCenter) return;
-        const stats = updateAggregatesOnly();
-        
-        const N = stats.total_blocks;
-        if (N === 0) {
-            updateActiveFinancials(stats);
-            updateTechnicalSummary(stats);
-            return;
-        }
-
-        const cols = Math.ceil(Math.sqrt(N));
-        const rows = Math.ceil(N / cols);
-
-        const block_area_km2 = stats.block_ground_area_m2 / 1000000;
-        
-        const mounting_val = activeTab === 'string' 
-            ? document.getElementById('mounting_type').value 
-            : document.getElementById('mounting_type_c').value;
-        
-        let aspect = 1.4; // Default Tracker (Long N-S)
-        if (mounting_val === "0.45") aspect = 1 / 1.4; // Fixed Tilt South (Wide E-W)
-        else if (mounting_val === "0.75") aspect = 1.0; // East-West Dome (Square)
-
-        const block_w = Math.sqrt(block_area_km2 / aspect);
-        const block_l = block_w * aspect;
-        
-        const spacing = 0.01; 
-
-        const grid_w = (cols * block_w) + ((cols - 1) * spacing);
-        const grid_l = (rows * block_l) + ((rows - 1) * spacing);
-
-        let features = [];
-        const subPt = turf.point(activeDrawCenter);
-        
-        features.push(turf.point(activeDrawCenter, {
-            type: 'primary_sub',
-            selected_substation_name: selectedSubstation?.name || null,
-            selected_substation_voltage: selectedSubstation?.voltage || null
-        }));
-
-        const gridCenter = turf.destination(subPt, (grid_l/2) + 0.05, 0, {units: 'kilometers'}).geometry.coordinates;
-
-        features.push(getRectPolygon(gridCenter, grid_w + 0.02, grid_l + 0.02, 'array_boundary'));
-
-        const ptN = turf.destination(turf.point(gridCenter), grid_l/2, 0, {units: 'kilometers'}).geometry.coordinates;
-        const ptNW = turf.destination(turf.point(ptN), grid_w/2, -90, {units: 'kilometers'}).geometry.coordinates;
-
-        let inverters = [];
-        let count = 0;
-
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
-                if (count >= N) break;
-
-                let posE = turf.destination(turf.point(ptNW), (c * block_w) + (c * spacing) + (block_w/2), 90, {units: 'kilometers'}).geometry.coordinates;
-                let finalPos = turf.destination(turf.point(posE), (r * block_l) + (r * spacing) + (block_l/2), 180, {units: 'kilometers'}).geometry.coordinates;
-
-                const nodeType = activeTab === 'string' ? 'string_substation' : 'central_inverter';
-                const footType = activeTab === 'string' ? 'skid_footprint' : 'central_footprint';
-
-                features.push(getRectPolygon(finalPos, block_w, block_l, footType));
-                
-                let invNode = { coords: finalPos, type: nodeType };
-                inverters.push(invNode);
-                features.push(turf.point(finalPos, { type: nodeType }));
-
-                count++;
-            }
-        }
-
-        // BESS Footprint generation
-        const prefix = activeTab === 'string' ? 'fin_string' : 'fin_central';
-        const bess_mwh = parseFloat(document.getElementById(prefix + "_bess_mwh")?.value) || 0;
-
-        if (bess_mwh > 0) {
-            // Approx 85 sq meters per MWh (typical for 2h+ LFP systems)
-            const bess_area_km2 = (bess_mwh * 85) / 1000000;
-            const bess_aspect = 2.5; // Fixed 2.5:1 aspect ratio for long rows of BESS containers
-            
-            const bess_w = Math.sqrt(bess_area_km2 * bess_aspect);
-            const bess_l = bess_area_km2 / bess_w;
-            
-            // Position BESS compound 50 meters West of the Primary Substation
-            const bessCenter = turf.destination(subPt, (bess_w/2) + 0.05, -90, {units: 'kilometers'}).geometry.coordinates;
-            
-            features.push(getRectPolygon(bessCenter, bess_w, bess_l, 'bess_footprint'));
-            features.push(turf.point(bessCenter, { type: 'bess_compound', mwh: bess_mwh }));
-            
-            // Connect BESS to Primary Substation
-            features.push(turf.lineString([bessCenter, activeDrawCenter], { type: '33kv_radial' }));
-        }
-
-        if (inverters.length > 0) {
-            let spineN = -90, spineS = 90;
-            
-            inverters.forEach(inv => {
-                if (inv.coords[1] > spineN) spineN = inv.coords[1];
-                if (inv.coords[1] < spineS) spineS = inv.coords[1];
-            });
-
-            if (activeDrawCenter[1] > spineN) spineN = activeDrawCenter[1];
-            if (activeDrawCenter[1] < spineS) spineS = activeDrawCenter[1];
-
-            let spineCoords = [[activeDrawCenter[0], spineS], [activeDrawCenter[0], spineN]];
-            features.push(turf.lineString(spineCoords, { type: '33kv_radial' }));
-
-            inverters.forEach(inv => {
-                let branchCoords = [inv.coords, [activeDrawCenter[0], inv.coords[1]]];
-                features.push(turf.lineString(branchCoords, { type: '33kv_radial' }));
+        if (data && data.length > 0) {
+            map.flyTo({
+                center: [parseFloat(data[0].lon), parseFloat(data[0].lat)],
+                zoom: 14
             });
         }
+    } catch (e) {
+        console.error("Geocoding failed:", e);
+    }
+}
 
-        currentGeoJSON = turf.featureCollection(features);
-        if (map.getSource('topology')) map.getSource('topology').setData(currentGeoJSON);
+function triggerDrawAtCenter() {
+    selectedSubstation = null;
+    activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
 
-        if (features.length > 0) {
-            const bbox = turf.bbox(currentGeoJSON);
-            map.fitBounds(bbox, { padding: 60, duration: 800 });
-        }
+    computeAndDraw();
+    updateSelectedSubstationDisplay();
+}
 
+function updateAggregatesOnly() {
+    if (activeTab === "string") return updateStringAggregates();
+    return updateCentralAggregates();
+}
+
+function zeroStats(dc_ac_ratio, mods_pallet, mods_container) {
+    return {
+        total_blocks: 0,
+        block_ground_area_m2: 0,
+        dc_mwp: 0,
+        ac_mw: 0,
+        module_count: 0,
+        net_mod_area_m2: 0,
+        net_array_area_m2: 0,
+        gross_site_area_m2: 0,
+        dc_ac_ratio,
+        pallets: 0,
+        containers: 0,
+        spares_pct: 0,
+        modules_inc_spares: 0,
+        pallets_inc_spares: 0,
+        containers_inc_spares: 0,
+        mods_pallet,
+        mods_container,
+        combiner_boxes_per_inverter: 0,
+        total_combiner_boxes: 0
+    };
+}
+
+function updateStringAggregates() {
+    const mod_wp = parseFloat(document.getElementById("mod_wp").value) || 0;
+    const x = parseInt(document.getElementById("x_mods").value) || 0;
+    const z = parseInt(document.getElementById("z_strings").value) || 0;
+    const y = parseInt(document.getElementById("y_invs").value) || 0;
+    const s = parseInt(document.getElementById("s_subs").value) || 0;
+    const rings = parseInt(document.getElementById("b_cols").value) || 0;
+
+    const mod_l = parseFloat(document.getElementById("mod_l").value) || 0;
+    const mod_w = parseFloat(document.getElementById("mod_w").value) || 0;
+    const gcr = parseFloat(document.getElementById("mounting_type").value) || 0.75;
+    const dc_ac_ratio = parseFloat(document.getElementById("dc_ac_ratio").value) || 1.20;
+    const gross_factor = parseFloat(document.getElementById("gross_factor").value) || 1.35;
+
+    const mods_pallet = parseInt(document.getElementById("mods_pallet").value) || 1;
+    const mods_container = parseInt(document.getElementById("mods_container").value) || 1;
+    const spare_pct = parseFloat(document.getElementById("spare_pct").value) || 0;
+
+    if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x <= 0) {
+        return zeroStats(dc_ac_ratio, mods_pallet, mods_container);
+    }
+
+    const total_blocks = rings * s;
+    const total_invs = total_blocks * y;
+    const module_count = total_invs * z * x;
+    const dc_mwp = (module_count * mod_wp) / 1000000;
+    const ac_mw = dc_ac_ratio > 0 ? dc_mwp / dc_ac_ratio : 0;
+
+    const net_mod_area_m2 = module_count * mod_l * mod_w;
+    const net_array_area_m2 = gcr > 0 ? net_mod_area_m2 / gcr : 0;
+    const gross_site_area_m2 = net_array_area_m2 * gross_factor;
+    const block_ground_area_m2 = total_blocks > 0 ? net_array_area_m2 / total_blocks : 0;
+
+    const pallets = Math.ceil(module_count / mods_pallet);
+    const containers = Math.ceil(module_count / mods_container);
+    const modules_inc_spares = Math.ceil(module_count * (1 + spare_pct / 100));
+    const pallets_inc_spares = Math.ceil(modules_inc_spares / mods_pallet);
+    const containers_inc_spares = Math.ceil(modules_inc_spares / mods_container);
+
+    return {
+        total_blocks,
+        block_ground_area_m2,
+        dc_mwp,
+        ac_mw,
+        module_count,
+        net_mod_area_m2,
+        net_array_area_m2,
+        gross_site_area_m2,
+        dc_ac_ratio,
+        pallets,
+        containers,
+        spares_pct: spare_pct,
+        modules_inc_spares,
+        pallets_inc_spares,
+        containers_inc_spares,
+        mods_pallet,
+        mods_container,
+        combiner_boxes_per_inverter: 0,
+        total_combiner_boxes: 0
+    };
+}
+
+function updateCentralAggregates() {
+    const mod_wp = parseFloat(document.getElementById("mod_wp_c").value) || 0;
+    const mod_l = parseFloat(document.getElementById("mod_l_c").value) || 0;
+    const mod_w = parseFloat(document.getElementById("mod_w_c").value) || 0;
+    const gcr = parseFloat(document.getElementById("mounting_type_c").value) || 0.45;
+    const gross_factor = parseFloat(document.getElementById("gross_factor_c").value) || 1.35;
+
+    const x_mods = parseInt(document.getElementById("x_mods_c").value) || 0;
+    const inv_ac_mw = parseFloat(document.getElementById("inv_ac_mw_c").value) || 0;
+    const dc_ac_ratio = parseFloat(document.getElementById("dc_ac_ratio_c").value) || 1.20;
+
+    const str_per_cb = parseInt(document.getElementById("str_per_cb_c").value) || 1;
+    const inv_per_mv = parseInt(document.getElementById("inv_per_mv_c").value) || 0;
+    const mv_per_ring = parseInt(document.getElementById("mv_per_ring_c").value) || 0;
+    const rings = parseInt(document.getElementById("rings_c").value) || 0;
+
+    const mods_pallet = parseInt(document.getElementById("mods_pallet_c").value) || 1;
+    const mods_container = parseInt(document.getElementById("mods_container_c").value) || 1;
+    const spare_pct = parseFloat(document.getElementById("spare_pct_c").value) || 0;
+
+    if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x_mods <= 0) {
+        return zeroStats(dc_ac_ratio, mods_pallet, mods_container);
+    }
+
+    const str_dc_kwp = (x_mods * mod_wp) / 1000;
+    const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
+    const req_strings = str_dc_kwp > 0 ? Math.ceil((inv_dc_mwp * 1000) / str_dc_kwp) : 0;
+
+    const combiner_boxes_per_inverter = Math.ceil(req_strings / str_per_cb);
+    const total_blocks = inv_per_mv * mv_per_ring * rings;
+    const total_combiner_boxes = combiner_boxes_per_inverter * total_blocks;
+
+    const module_count = req_strings * x_mods * total_blocks;
+
+    const dc_mwp = (module_count * mod_wp) / 1000000;
+    const ac_mw = total_blocks * inv_ac_mw;
+
+    const net_mod_area_m2 = module_count * mod_l * mod_w;
+    const net_array_area_m2 = gcr > 0 ? net_mod_area_m2 / gcr : 0;
+    const gross_site_area_m2 = net_array_area_m2 * gross_factor;
+    const block_ground_area_m2 = total_blocks > 0 ? net_array_area_m2 / total_blocks : 0;
+
+    const pallets = Math.ceil(module_count / mods_pallet);
+    const containers = Math.ceil(module_count / mods_container);
+    const modules_inc_spares = Math.ceil(module_count * (1 + spare_pct / 100));
+    const pallets_inc_spares = Math.ceil(modules_inc_spares / mods_pallet);
+    const containers_inc_spares = Math.ceil(modules_inc_spares / mods_container);
+
+    return {
+        total_blocks,
+        block_ground_area_m2,
+        dc_mwp,
+        ac_mw,
+        module_count,
+        net_mod_area_m2,
+        net_array_area_m2,
+        gross_site_area_m2,
+        dc_ac_ratio,
+        pallets,
+        containers,
+        spares_pct: spare_pct,
+        modules_inc_spares,
+        pallets_inc_spares,
+        containers_inc_spares,
+        mods_pallet,
+        mods_container,
+        combiner_boxes_per_inverter,
+        total_combiner_boxes
+    };
+}
+
+function updateTechnicalSummary(stats) {
+    document.getElementById("out_module_count").textContent = stats.module_count.toLocaleString();
+    document.getElementById("out_dc_capacity").textContent = stats.dc_mwp.toFixed(2) + " MWp";
+    document.getElementById("out_ac_capacity").textContent = stats.ac_mw.toFixed(2) + " MWac";
+    document.getElementById("out_actual_dcac").textContent = stats.dc_ac_ratio.toFixed(2);
+
+    document.getElementById("out_cb_per_inv").textContent = stats.combiner_boxes_per_inverter.toLocaleString();
+    document.getElementById("out_total_cb").textContent = stats.total_combiner_boxes.toLocaleString();
+
+    document.getElementById("out_net_mod_area").textContent = (stats.net_mod_area_m2 / 4046.86).toFixed(0) + " Acres";
+    document.getElementById("out_net_array_area").textContent = (stats.net_array_area_m2 / 4046.86).toFixed(0) + " Acres";
+    document.getElementById("out_gross_area").textContent = (stats.gross_site_area_m2 / 4046.86).toFixed(0) + " Acres";
+
+    document.getElementById("out_mod_per_pallet").textContent = stats.mods_pallet;
+    document.getElementById("out_pallets").textContent = stats.pallets.toLocaleString();
+    document.getElementById("out_mod_per_cont").textContent = stats.mods_container;
+    document.getElementById("out_containers").textContent = stats.containers.toLocaleString();
+    document.getElementById("out_spare_pct").textContent = stats.spares_pct.toFixed(1) + "%";
+    document.getElementById("out_containers_spares").textContent = stats.containers_inc_spares.toLocaleString();
+
+    const tabClass = activeTab === "central" ? "stat-val orange" : "stat-val cyan";
+
+    document.getElementById("out_dc_capacity").className = tabClass;
+    document.getElementById("out_containers_spares").className = tabClass;
+
+    const cont_per_mwp = stats.dc_mwp > 0 ? stats.containers_inc_spares / stats.dc_mwp : 0;
+
+    document.getElementById("out_cont_per_mwp").textContent = cont_per_mwp.toFixed(2);
+    document.getElementById("out_cont_per_mwp").className = tabClass;
+}
+
+function updateBenchmark() {
+    const mw = parseFloat(document.getElementById("ref_mw").value) || 0;
+    const mods = parseFloat(document.getElementById("ref_modules").value) || 0;
+    const implied = mw > 0 ? mods / mw : 0;
+
+    document.getElementById("out_ref_implied").textContent =
+        `~ ${Math.round(implied).toLocaleString()} modules/MW`;
+}
+
+function n(id) {
+    return parseFloat(document.getElementById(id)?.value) || 0;
+}
+
+function money(v) {
+    const rounded = Math.round(v);
+    if (rounded < 0) return "-£" + Math.abs(rounded).toLocaleString();
+    return "£" + rounded.toLocaleString();
+}
+
+function parseFormattedMoney(str) {
+    if (!str) return 0;
+
+    const isNegative = str.includes("-");
+    const numericVal = parseFloat(str.replace(/[^\d.]/g, "")) || 0;
+
+    return isNegative ? -numericVal : numericVal;
+}
+
+function calcCumulativeGeneration(dc_mwp, effectiveYieldVal, totalLossPct, degPct, years) {
+    const year1 = dc_mwp * effectiveYieldVal * (1 - totalLossPct / 100);
+
+    let total = 0;
+
+    for (let y = 1; y <= years; y++) {
+        total += year1 * Math.pow(1 - degPct / 100, y - 1);
+    }
+
+    return total;
+}
+
+function updateFinancials(prefix, dc_mwp, ac_mw, stats) {
+    const price = n(prefix + "_price");
+    const other = n(prefix + "_other");
+    const yieldVal = n(prefix + "_yield");
+    const bifacial = n(prefix + "_bifacial");
+    const baseLoss = n(prefix + "_losses");
+    const deg = n(prefix + "_deg");
+    const opexRate = n(prefix + "_opex");
+
+    const epcEx = n(prefix + "_epc_ex");
+
+    const floodChecked = document.getElementById(prefix + "_flood")?.checked || false;
+    const floodRate = n(prefix + "_flood_rate");
+    const floodAdder = floodChecked ? floodRate : 0;
+
+    const modules = n(prefix + "_modules");
+    const otherCapex = n(prefix + "_other_capex");
+    const fixedCapex = n(prefix + "_fixed_capex");
+    const cont = n(prefix + "_cont");
+
+    const lossDcString = n(prefix + "_loss_dc_string");
+    const lossLvDc = n(prefix + "_loss_lv_dc");
+    const lossLvAc = n(prefix + "_loss_lv_ac");
+    const lossTx = n(prefix + "_loss_tx");
+    const lossOther = n(prefix + "_loss_other");
+
+    const totalLoss = baseLoss + lossDcString + lossLvDc + lossLvAc + lossTx + lossOther;
+
+    const bessMw = n(prefix + "_bess_mw");
+    const bessMwh = n(prefix + "_bess_mwh");
+    const bessCapexRate = n(prefix + "_bess_capex");
+    const bessCycles = n(prefix + "_bess_cycles");
+    const bessSpread = n(prefix + "_bess_spread");
+    const bessEff = n(prefix + "_bess_eff") / 100;
+
+    const safeLoss = Math.min(Math.max(totalLoss, 0), 100);
+    const safeBessEff = Math.min(Math.max(bessEff, 0), 1);
+
+    const effectiveYield = yieldVal * (1 + bifacial / 100);
+
+    const year1Gen = dc_mwp * effectiveYield * (1 - safeLoss / 100);
+
+    const annualSolarRevenue = year1Gen * (price + other);
+    const bessAnnualValue = bessMwh * bessCycles * bessSpread * safeBessEff;
+
+    const bess25 = bessAnnualValue * 25;
+    const bess35 = bessAnnualValue * 35;
+
+    const gen25 = calcCumulativeGeneration(dc_mwp, effectiveYield, safeLoss, deg, 25);
+    const gen35 = calcCumulativeGeneration(dc_mwp, effectiveYield, safeLoss, deg, 35);
+
+    const revenue25 = gen25 * (price + other) + bess25;
+    const revenue35 = gen35 * (price + other) + bess35;
+
+    const annualRevenue = annualSolarRevenue + bessAnnualValue;
+
+    const annualOpex = ac_mw * opexRate;
+    const opex25 = annualOpex * 25;
+    const opex35 = annualOpex * 35;
+
+    const baseCapexWp = epcEx + modules + otherCapex + floodAdder;
+    const baseCapex = dc_mwp * 1000000 * baseCapexWp;
+    const contingency = baseCapex * (cont / 100);
+
+    const bessCapex = bessMwh * bessCapexRate;
+
+    const totalCapex = baseCapex + contingency + fixedCapex + bessCapex;
+    const capexPerWp = dc_mwp > 0 ? totalCapex / (dc_mwp * 1000000) : 0;
+
+    const surplus25 = revenue25 - opex25 - totalCapex;
+    const surplus35 = revenue35 - opex35 - totalCapex;
+
+    document.getElementById(prefix + "_annual_rev").textContent = money(annualRevenue);
+    document.getElementById(prefix + "_25_rev").textContent = money(revenue25);
+    document.getElementById(prefix + "_35_rev").textContent = money(revenue35);
+    document.getElementById(prefix + "_capex").textContent = money(totalCapex);
+    document.getElementById(prefix + "_capex_wp").textContent = "£" + capexPerWp.toFixed(2) + "/Wp";
+    document.getElementById(prefix + "_surplus_25").textContent = money(surplus25);
+    document.getElementById(prefix + "_surplus_35").textContent = money(surplus35);
+
+    updateFinanceWarnings(
+        prefix,
+        price,
+        opexRate,
+        epcEx + modules,
+        capexPerWp,
+        totalLoss,
+        bessMw,
+        bessMwh,
+        bessCycles,
+        bessEff,
+        bifacial,
+        stats
+    );
+}
+
+function updateFinanceWarnings(prefix, price, opexRate, epcIncModules, capexPerWp, totalLoss, bessMw, bessMwh, bessCycles, bessEff, bifacial, stats) {
+    const warnings = [];
+
+    if (price < 0) warnings.push("Energy price cannot be negative.");
+    if (opexRate < 0) warnings.push("OPEX cannot be negative.");
+    if (totalLoss < 0) warnings.push("Losses cannot be negative.");
+    if (epcIncModules < 0) warnings.push("EPC cannot be negative.");
+    if (capexPerWp < 0) warnings.push("CAPEX cannot be negative.");
+    if (bessMwh < 0 || bessMw < 0) warnings.push("BESS size cannot be negative.");
+    if (bessMwh > 0 && bessEff <= 0) warnings.push("BESS efficiency missing.");
+    if (bessEff > 1) warnings.push("BESS efficiency above 100 percent.");
+
+    if (price < 50) warnings.push("Low energy price case.");
+    if (price > 85) warnings.push("High energy price case.");
+    if (epcIncModules < 0.42) warnings.push("Aggressive EPC pricing.");
+    if (capexPerWp > 1.00) warnings.push("Full project cost territory.");
+    if (capexPerWp > 1.25) warnings.push("Complex project or asset value territory.");
+    if (opexRate < 10000 && opexRate >= 0) warnings.push("OPEX may be unrealistically low.");
+    if (totalLoss > 6) warnings.push("High loss assumption.");
+    if (bifacial > 12) warnings.push("Aggressive bifacial gain assumption.");
+    if (bessMwh > 0 && bessMw <= 0) warnings.push("BESS MW missing.");
+    if (bessMw > 0 && bessMwh / bessMw > 8) warnings.push("Unusually long BESS duration.");
+    if (bessCycles > 365) warnings.push("Aggressive storage cycling assumption.");
+
+    if (
+        n(prefix + "_loss_dc_string") === 0 &&
+        n(prefix + "_loss_lv_dc") === 0 &&
+        n(prefix + "_loss_lv_ac") === 0 &&
+        n(prefix + "_loss_tx") === 0 &&
+        n(prefix + "_loss_other") === 0
+    ) {
+        warnings.push("Specialist electrical loss fields are blank or zero. Revenue may be overstated until cable, transformer and electrical design losses are verified.");
+    }
+
+    const grossFactor = activeTab === "string" ? n("gross_factor") : n("gross_factor_c");
+
+    if (grossFactor < 1.15) {
+        warnings.push("Gross site factor may be too low for roads, buffers, substations, drainage and ecology.");
+    }
+
+    if (stats.mods_pallet <= 0 || stats.mods_container <= 0) {
+        warnings.push("Module logistics assumptions are missing.");
+    }
+
+    document.getElementById(prefix + "_warnings").innerHTML = warnings.join("<br>");
+}
+
+function updateActiveFinancials(stats = null) {
+    const activeStats = stats || updateAggregatesOnly();
+
+    if (activeTab === "string") {
+        updateFinancials("fin_string", activeStats.dc_mwp, activeStats.ac_mw, activeStats);
+    } else {
+        updateFinancials("fin_central", activeStats.dc_mwp, activeStats.ac_mw, activeStats);
+    }
+}
+
+function getRectPolygon(centerCoord, width_km, length_km, propType) {
+    const pt = turf.point(centerCoord);
+
+    const ptNorth = turf.destination(pt, length_km / 2, 0, { units: "kilometers" }).geometry.coordinates;
+    const ptSouth = turf.destination(pt, length_km / 2, 180, { units: "kilometers" }).geometry.coordinates;
+
+    const nw = turf.destination(turf.point(ptNorth), width_km / 2, -90, { units: "kilometers" }).geometry.coordinates;
+    const ne = turf.destination(turf.point(ptNorth), width_km / 2, 90, { units: "kilometers" }).geometry.coordinates;
+    const se = turf.destination(turf.point(ptSouth), width_km / 2, 90, { units: "kilometers" }).geometry.coordinates;
+    const sw = turf.destination(turf.point(ptSouth), width_km / 2, -90, { units: "kilometers" }).geometry.coordinates;
+
+    return turf.polygon([[nw, ne, se, sw, nw]], { type: propType });
+}
+
+function computeAndDraw() {
+    if (!activeDrawCenter) return;
+
+    const stats = updateAggregatesOnly();
+
+    const N = stats.total_blocks;
+
+    if (N === 0) {
         updateActiveFinancials(stats);
         updateTechnicalSummary(stats);
+        return;
     }
 
-    function exportGeoJSON() {
-        if (currentGeoJSON.features.length === 0) return;
-        
-        const exportData = JSON.parse(JSON.stringify(currentGeoJSON));
-        const boundaryFeature = exportData.features.find(f => f.properties.type === 'array_boundary');
-        
-        if (boundaryFeature) {
-            const prefix = activeTab === 'string' ? 'fin_string' : 'fin_central';
-            const stats = updateAggregatesOnly();
-            
-            const logisticsPreset = activeTab === 'string' ? document.getElementById('logistics_preset').value : document.getElementById('logistics_preset_c').value;
-            const grossFactor = activeTab === 'string' ? n('gross_factor') : n('gross_factor_c');
-            const gcr = activeTab === 'string' ? n('mounting_type') : n('mounting_type_c');
-            const moduleRatingWp = activeTab === 'string' ? n('mod_wp') : n('mod_wp_c');
-            const moduleLengthM = activeTab === 'string' ? n('mod_l') : n('mod_l_c');
-            const moduleWidthM = activeTab === 'string' ? n('mod_w') : n('mod_w_c');
+    const cols = Math.ceil(Math.sqrt(N));
+    const rows = Math.ceil(N / cols);
 
-            let topologyProps = {};
-            if (activeTab === 'string') {
-                topologyProps = {
-                    tech_modules_per_string: n('x_mods'),
-                    tech_strings_per_inverter: n('z_strings'),
-                    tech_inverters_per_substation: n('y_invs'),
-                    tech_substations_per_33kv_ring: n('s_subs'),
-                    tech_33kv_rings: n('b_cols')
-                };
-            } else {
-                topologyProps = {
-                    tech_central_ac_rating_mwac: n('inv_ac_mw_c'),
-                    tech_modules_per_string: n('x_mods_c'),
-                    tech_strings_per_combiner_box: n('str_per_cb_c'),
-                    tech_central_inverters_per_mv_station: n('inv_per_mv_c'),
-                    tech_mv_stations_per_33kv_ring: n('mv_per_ring_c'),
-                    tech_33kv_rings: n('rings_c'),
-                    tech_combiner_boxes_per_inverter: stats.combiner_boxes_per_inverter || 0,
-                    tech_total_combiner_boxes: stats.total_combiner_boxes || 0
-                };
-            }
-            
-            boundaryFeature.properties = {
-                ...boundaryFeature.properties,
-                fin_active_tab: activeTab,
-                fin_export_note: "Experimental screening output only. Not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. Electrical loss fields are assumption fields and require competent project specific verification. Selected substation is a public dataset reference point and does not confirm available capacity, connection rights, voltage suitability or grid acceptance.",
-                
-                grid_selected_substation_name: selectedSubstation?.name || null,
-                grid_selected_substation_voltage: selectedSubstation?.voltage || null,
-                grid_selected_substation_lon: selectedSubstation?.coordinates?.[0] || null,
-                grid_selected_substation_lat: selectedSubstation?.coordinates?.[1] || null,
-                grid_selected_substation_properties: selectedSubstation?.properties || null,
+    const block_area_km2 = stats.block_ground_area_m2 / 1000000;
 
-                tech_module_rating_wp: moduleRatingWp,
-                tech_module_length_m: moduleLengthM,
-                tech_module_width_m: moduleWidthM,
-                tech_ground_coverage_ratio: gcr,
-                tech_gross_site_factor: grossFactor,
+    const mounting_val = activeTab === "string"
+        ? document.getElementById("mounting_type").value
+        : document.getElementById("mounting_type_c").value;
 
-                tech_logistics_preset: logisticsPreset,
-                tech_modules_per_packing_unit: stats.mods_pallet,
-                tech_modules_per_40ft_container: stats.mods_container,
-                tech_spare_allowance_percent: stats.spares_pct,
-                tech_total_base_packing_units: stats.pallets,
-                tech_total_base_containers: stats.containers,
-                tech_total_modules_inc_spares: stats.modules_inc_spares,
-                tech_total_packing_units_inc_spares: stats.pallets_inc_spares,
-                tech_total_containers_inc_spares: stats.containers_inc_spares,
-                tech_containers_per_mwp: stats.dc_mwp > 0 ? Number((stats.containers_inc_spares / stats.dc_mwp).toFixed(2)) : 0,
+    let aspect = 1.4;
 
-                ...topologyProps,
+    if (mounting_val === "0.45") aspect = 1 / 1.4;
+    else if (mounting_val === "0.75") aspect = 1.0;
 
-                tech_module_count: stats.module_count,
-                tech_dc_capacity_mwp: stats.dc_mwp,
-                tech_ac_capacity_mwac: stats.ac_mw,
-                tech_net_mod_area_m2: stats.net_mod_area_m2,
-                tech_net_array_area_m2: stats.net_array_area_m2,
-                tech_gross_site_area_m2: stats.gross_site_area_m2,
+    const block_w = Math.sqrt(block_area_km2 / aspect);
+    const block_l = block_w * aspect;
 
-                // Added raw numeric properties alongside formatted outputs to comply with Priority 2 of the Training Doctrine
-                fin_total_capex_formatted: document.getElementById(prefix + "_capex").textContent,
-                fin_total_capex_raw: parseFormattedMoney(document.getElementById(prefix + "_capex").textContent),
-                
-                fin_capex_per_wp_formatted: document.getElementById(prefix + "_capex_wp").textContent,
-                fin_capex_per_wp_raw: parseFormattedMoney(document.getElementById(prefix + "_capex_wp").textContent),
-                
-                fin_annual_rev_formatted: document.getElementById(prefix + "_annual_rev").textContent,
-                fin_annual_rev_raw: parseFormattedMoney(document.getElementById(prefix + "_annual_rev").textContent),
-                
-                fin_25yr_revenue_formatted: document.getElementById(prefix + "_25_rev").textContent,
-                fin_25yr_revenue_raw: parseFormattedMoney(document.getElementById(prefix + "_25_rev").textContent),
-                
-                fin_35yr_revenue_formatted: document.getElementById(prefix + "_35_rev").textContent,
-                fin_35yr_revenue_raw: parseFormattedMoney(document.getElementById(prefix + "_35_rev").textContent),
-                
-                fin_25yr_surplus_formatted: document.getElementById(prefix + "_surplus_25").textContent,
-                fin_25yr_surplus_raw: parseFormattedMoney(document.getElementById(prefix + "_surplus_25").textContent),
-                
-                fin_35yr_surplus_formatted: document.getElementById(prefix + "_surplus_35").textContent,
-                fin_35yr_surplus_raw: parseFormattedMoney(document.getElementById(prefix + "_surplus_35").textContent),
+    const spacing = 0.01;
 
-                fin_energy_price_gbp_mwh: n(prefix + "_price"),
-                fin_other_income_gbp_mwh: n(prefix + "_other"),
-                fin_yield_kwh_kwp: n(prefix + "_yield"),
-                fin_bifacial_gain: n(prefix + "_bifacial"),
-                fin_flood_resilience: document.getElementById(prefix + "_flood")?.checked || false,
-                fin_flood_adder_gbp_wp: n(prefix + "_flood_rate"),
-                
-                fin_base_losses_percent: n(prefix + "_losses"),
-                fin_loss_dc_string_percent: n(prefix + "_loss_dc_string"),
-                fin_loss_lv_main_dc_percent: n(prefix + "_loss_lv_dc"),
-                fin_loss_lv_ac_percent: n(prefix + "_loss_lv_ac"),
-                fin_loss_transformer_percent: n(prefix + "_loss_tx"),
-                fin_loss_other_electrical_percent: n(prefix + "_loss_other"),
-                
-                fin_opex_gbp_mwac_year: n(prefix + "_opex"),
-                fin_epc_ex_modules_gbp_wp: n(prefix + "_epc_ex"),
-                fin_modules_gbp_wp: n(prefix + "_modules"),
-                fin_other_capex_gbp_wp: n(prefix + "_other_capex"),
-                fin_fixed_capex_gbp: n(prefix + "_fixed_capex"),
-                fin_contingency_percent: n(prefix + "_cont"),
-                fin_bess_mw: n(prefix + "_bess_mw"),
-                fin_bess_mwh: n(prefix + "_bess_mwh"),
-                fin_bess_capex_gbp_mwh: n(prefix + "_bess_capex"),
-                fin_bess_cycles_year: n(prefix + "_bess_cycles"),
-                fin_bess_spread_gbp_mwh: n(prefix + "_bess_spread"),
-                fin_bess_efficiency_percent: n(prefix + "_bess_eff")
+    const grid_w = cols * block_w + (cols - 1) * spacing;
+    const grid_l = rows * block_l + (rows - 1) * spacing;
+
+    const features = [];
+    const subPt = turf.point(activeDrawCenter);
+
+    features.push(turf.point(activeDrawCenter, {
+        type: "primary_sub",
+        selected_substation_name: selectedSubstation?.name || null,
+        selected_substation_voltage: selectedSubstation?.voltage || null
+    }));
+
+    const gridCenter = turf.destination(subPt, grid_l / 2 + 0.05, 0, { units: "kilometers" }).geometry.coordinates;
+
+    features.push(getRectPolygon(gridCenter, grid_w + 0.02, grid_l + 0.02, "array_boundary"));
+
+    const ptN = turf.destination(turf.point(gridCenter), grid_l / 2, 0, { units: "kilometers" }).geometry.coordinates;
+    const ptNW = turf.destination(turf.point(ptN), grid_w / 2, -90, { units: "kilometers" }).geometry.coordinates;
+
+    const inverters = [];
+    let count = 0;
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            if (count >= N) break;
+
+            const posE = turf.destination(
+                turf.point(ptNW),
+                c * block_w + c * spacing + block_w / 2,
+                90,
+                { units: "kilometers" }
+            ).geometry.coordinates;
+
+            const finalPos = turf.destination(
+                turf.point(posE),
+                r * block_l + r * spacing + block_l / 2,
+                180,
+                { units: "kilometers" }
+            ).geometry.coordinates;
+
+            const nodeType = activeTab === "string" ? "string_substation" : "central_inverter";
+            const footType = activeTab === "string" ? "skid_footprint" : "central_footprint";
+
+            features.push(getRectPolygon(finalPos, block_w, block_l, footType));
+
+            inverters.push({ coords: finalPos, type: nodeType });
+            features.push(turf.point(finalPos, { type: nodeType }));
+
+            count++;
+        }
+    }
+
+    const prefix = activeTab === "string" ? "fin_string" : "fin_central";
+    const bess_mwh = parseFloat(document.getElementById(prefix + "_bess_mwh")?.value) || 0;
+
+    if (bess_mwh > 0) {
+        const bess_area_km2 = bess_mwh * 85 / 1000000;
+        const bess_aspect = 2.5;
+
+        const bess_w = Math.sqrt(bess_area_km2 * bess_aspect);
+        const bess_l = bess_area_km2 / bess_w;
+
+        const bessCenter = turf.destination(subPt, bess_w / 2 + 0.05, -90, { units: "kilometers" }).geometry.coordinates;
+
+        features.push(getRectPolygon(bessCenter, bess_w, bess_l, "bess_footprint"));
+        features.push(turf.point(bessCenter, { type: "bess_compound", mwh: bess_mwh }));
+        features.push(turf.lineString([bessCenter, activeDrawCenter], { type: "33kv_radial" }));
+    }
+
+    if (inverters.length > 0) {
+        let spineN = -90;
+        let spineS = 90;
+
+        inverters.forEach(inv => {
+            if (inv.coords[1] > spineN) spineN = inv.coords[1];
+            if (inv.coords[1] < spineS) spineS = inv.coords[1];
+        });
+
+        if (activeDrawCenter[1] > spineN) spineN = activeDrawCenter[1];
+        if (activeDrawCenter[1] < spineS) spineS = activeDrawCenter[1];
+
+        const spineCoords = [
+            [activeDrawCenter[0], spineS],
+            [activeDrawCenter[0], spineN]
+        ];
+
+        features.push(turf.lineString(spineCoords, { type: "33kv_radial" }));
+
+        inverters.forEach(inv => {
+            const branchCoords = [
+                inv.coords,
+                [activeDrawCenter[0], inv.coords[1]]
+            ];
+
+            features.push(turf.lineString(branchCoords, { type: "33kv_radial" }));
+        });
+    }
+
+    currentGeoJSON = turf.featureCollection(features);
+
+    if (map.getSource("topology")) {
+        map.getSource("topology").setData(currentGeoJSON);
+    }
+
+    if (features.length > 0) {
+        const bbox = turf.bbox(currentGeoJSON);
+        map.fitBounds(bbox, {
+            padding: 60,
+            duration: 800
+        });
+    }
+
+    updateActiveFinancials(stats);
+    updateTechnicalSummary(stats);
+}
+
+function exportGeoJSON() {
+    if (currentGeoJSON.features.length === 0) return;
+
+    const exportData = JSON.parse(JSON.stringify(currentGeoJSON));
+    const boundaryFeature = exportData.features.find(f => f.properties.type === "array_boundary");
+
+    if (boundaryFeature) {
+        const prefix = activeTab === "string" ? "fin_string" : "fin_central";
+        const stats = updateAggregatesOnly();
+
+        const logisticsPreset = activeTab === "string"
+            ? document.getElementById("logistics_preset").value
+            : document.getElementById("logistics_preset_c").value;
+
+        const grossFactor = activeTab === "string" ? n("gross_factor") : n("gross_factor_c");
+        const gcr = activeTab === "string" ? n("mounting_type") : n("mounting_type_c");
+        const moduleRatingWp = activeTab === "string" ? n("mod_wp") : n("mod_wp_c");
+        const moduleLengthM = activeTab === "string" ? n("mod_l") : n("mod_l_c");
+        const moduleWidthM = activeTab === "string" ? n("mod_w") : n("mod_w_c");
+
+        let topologyProps = {};
+
+        if (activeTab === "string") {
+            topologyProps = {
+                tech_modules_per_string: n("x_mods"),
+                tech_strings_per_inverter: n("z_strings"),
+                tech_inverters_per_substation: n("y_invs"),
+                tech_substations_per_33kv_ring: n("s_subs"),
+                tech_33kv_rings: n("b_cols")
+            };
+        } else {
+            topologyProps = {
+                tech_central_ac_rating_mwac: n("inv_ac_mw_c"),
+                tech_modules_per_string: n("x_mods_c"),
+                tech_strings_per_combiner_box: n("str_per_cb_c"),
+                tech_central_inverters_per_mv_station: n("inv_per_mv_c"),
+                tech_mv_stations_per_33kv_ring: n("mv_per_ring_c"),
+                tech_33kv_rings: n("rings_c"),
+                tech_combiner_boxes_per_inverter: stats.combiner_boxes_per_inverter || 0,
+                tech_total_combiner_boxes: stats.total_combiner_boxes || 0
             };
         }
 
-        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url; a.download = `gis_sld_${activeTab}_neat_grid.geojson`;
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        boundaryFeature.properties = {
+            ...boundaryFeature.properties,
+            fin_active_tab: activeTab,
+            fin_export_note: "Experimental screening output only. Not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. Electrical loss fields are assumption fields and require competent project specific verification. Selected substation is a public dataset reference point and does not confirm available capacity, connection rights, voltage suitability or grid acceptance.",
+
+            grid_selected_substation_name: selectedSubstation?.name || null,
+            grid_selected_substation_voltage: selectedSubstation?.voltage || null,
+            grid_selected_substation_lon: selectedSubstation?.coordinates?.[0] || null,
+            grid_selected_substation_lat: selectedSubstation?.coordinates?.[1] || null,
+            grid_selected_substation_properties: selectedSubstation?.properties || null,
+
+            tech_module_rating_wp: moduleRatingWp,
+            tech_module_length_m: moduleLengthM,
+            tech_module_width_m: moduleWidthM,
+            tech_ground_coverage_ratio: gcr,
+            tech_gross_site_factor: grossFactor,
+
+            tech_logistics_preset: logisticsPreset,
+            tech_modules_per_packing_unit: stats.mods_pallet,
+            tech_modules_per_40ft_container: stats.mods_container,
+            tech_spare_allowance_percent: stats.spares_pct,
+            tech_total_base_packing_units: stats.pallets,
+            tech_total_base_containers: stats.containers,
+            tech_total_modules_inc_spares: stats.modules_inc_spares,
+            tech_total_packing_units_inc_spares: stats.pallets_inc_spares,
+            tech_total_containers_inc_spares: stats.containers_inc_spares,
+            tech_containers_per_mwp: stats.dc_mwp > 0 ? Number((stats.containers_inc_spares / stats.dc_mwp).toFixed(2)) : 0,
+
+            ...topologyProps,
+
+            tech_module_count: stats.module_count,
+            tech_dc_capacity_mwp: stats.dc_mwp,
+            tech_ac_capacity_mwac: stats.ac_mw,
+            tech_net_mod_area_m2: stats.net_mod_area_m2,
+            tech_net_array_area_m2: stats.net_array_area_m2,
+            tech_gross_site_area_m2: stats.gross_site_area_m2,
+
+            fin_total_capex_formatted: document.getElementById(prefix + "_capex").textContent,
+            fin_total_capex_raw: parseFormattedMoney(document.getElementById(prefix + "_capex").textContent),
+
+            fin_capex_per_wp_formatted: document.getElementById(prefix + "_capex_wp").textContent,
+            fin_capex_per_wp_raw: parseFormattedMoney(document.getElementById(prefix + "_capex_wp").textContent),
+
+            fin_annual_rev_formatted: document.getElementById(prefix + "_annual_rev").textContent,
+            fin_annual_rev_raw: parseFormattedMoney(document.getElementById(prefix + "_annual_rev").textContent),
+
+            fin_25yr_revenue_formatted: document.getElementById(prefix + "_25_rev").textContent,
+            fin_25yr_revenue_raw: parseFormattedMoney(document.getElementById(prefix + "_25_rev").textContent),
+
+            fin_35yr_revenue_formatted: document.getElementById(prefix + "_35_rev").textContent,
+            fin_35yr_revenue_raw: parseFormattedMoney(document.getElementById(prefix + "_35_rev").textContent),
+
+            fin_25yr_surplus_formatted: document.getElementById(prefix + "_surplus_25").textContent,
+            fin_25yr_surplus_raw: parseFormattedMoney(document.getElementById(prefix + "_surplus_25").textContent),
+
+            fin_35yr_surplus_formatted: document.getElementById(prefix + "_surplus_35").textContent,
+            fin_35yr_surplus_raw: parseFormattedMoney(document.getElementById(prefix + "_surplus_35").textContent),
+
+            fin_energy_price_gbp_mwh: n(prefix + "_price"),
+            fin_other_income_gbp_mwh: n(prefix + "_other"),
+            fin_yield_kwh_kwp: n(prefix + "_yield"),
+            fin_bifacial_gain: n(prefix + "_bifacial"),
+            fin_flood_resilience: document.getElementById(prefix + "_flood")?.checked || false,
+            fin_flood_adder_gbp_wp: n(prefix + "_flood_rate"),
+
+            fin_base_losses_percent: n(prefix + "_losses"),
+            fin_loss_dc_string_percent: n(prefix + "_loss_dc_string"),
+            fin_loss_lv_main_dc_percent: n(prefix + "_loss_lv_dc"),
+            fin_loss_lv_ac_percent: n(prefix + "_loss_lv_ac"),
+            fin_loss_transformer_percent: n(prefix + "_loss_tx"),
+            fin_loss_other_electrical_percent: n(prefix + "_loss_other"),
+
+            fin_opex_gbp_mwac_year: n(prefix + "_opex"),
+            fin_epc_ex_modules_gbp_wp: n(prefix + "_epc_ex"),
+            fin_modules_gbp_wp: n(prefix + "_modules"),
+            fin_other_capex_gbp_wp: n(prefix + "_other_capex"),
+            fin_fixed_capex_gbp: n(prefix + "_fixed_capex"),
+            fin_contingency_percent: n(prefix + "_cont"),
+            fin_bess_mw: n(prefix + "_bess_mw"),
+            fin_bess_mwh: n(prefix + "_bess_mwh"),
+            fin_bess_capex_gbp_mwh: n(prefix + "_bess_capex"),
+            fin_bess_cycles_year: n(prefix + "_bess_cycles"),
+            fin_bess_spread_gbp_mwh: n(prefix + "_bess_spread"),
+            fin_bess_efficiency_percent: n(prefix + "_bess_eff")
+        };
     }
 
-    // Attach listener for dynamic bifacial updates on mounting type changes
-    function autoFillBifacial(val, elId) {
-        let bifacial = 0;
-        if (val === "0.35") bifacial = 8;        // Tracker
-        else if (val === "0.45") bifacial = 5;   // Fixed Tilt
-        else if (val === "0.75") bifacial = 2;   // East-West Dome
-        
-        const inputEl = document.getElementById(elId);
-        if(inputEl) {
-            inputEl.value = bifacial;
-            inputEl.dispatchEvent(new Event('input', { bubbles: true }));
-        }
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+        type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = `gis_sld_${activeTab}_neat_grid.geojson`;
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+}
+
+function autoFillBifacial(val, elId) {
+    let bifacial = 0;
+
+    if (val === "0.35") bifacial = 8;
+    else if (val === "0.45") bifacial = 5;
+    else if (val === "0.75") bifacial = 2;
+
+    const inputEl = document.getElementById(elId);
+
+    if (inputEl) {
+        inputEl.value = bifacial;
+        inputEl.dispatchEvent(new Event("input", { bubbles: true }));
     }
+}
 
-    document.getElementById('mounting_type').addEventListener('change', function(e) {
-        autoFillBifacial(e.target.value, 'fin_string_bifacial');
-    });
+document.getElementById("mounting_type").addEventListener("change", function(e) {
+    autoFillBifacial(e.target.value, "fin_string_bifacial");
+});
 
-    document.getElementById('mounting_type_c').addEventListener('change', function(e) {
-        autoFillBifacial(e.target.value, 'fin_central_bifacial');
-    });
+document.getElementById("mounting_type_c").addEventListener("change", function(e) {
+    autoFillBifacial(e.target.value, "fin_central_bifacial");
+});
 
-    function recalcAll() {
-        const stats = updateAggregatesOnly();
-        updateActiveFinancials(stats);
-        updateTechnicalSummary(stats);
-        updateSelectedSubstationDisplay();
-        updateBenchmark();
-    }
+function recalcAll() {
+    const stats = updateAggregatesOnly();
 
-    document.querySelectorAll("input, select").forEach(el => {
-        el.addEventListener("input", recalcAll);
-        el.addEventListener("change", recalcAll);
-    });
-
-    // Initialize display with default "None selected"
+    updateActiveFinancials(stats);
+    updateTechnicalSummary(stats);
     updateSelectedSubstationDisplay();
     updateBenchmark();
+}
+
+document.querySelectorAll("input, select").forEach(el => {
+    el.addEventListener("input", recalcAll);
+    el.addEventListener("change", recalcAll);
+});
+
+updateSelectedSubstationDisplay();
+updateBenchmark();
 </script>
-
-</body>
-</html>
-
-
-```

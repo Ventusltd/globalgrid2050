@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -332,6 +333,8 @@
             Assumption status: experimental screening mode. DC capacity, AC capacity, area, logistics and finance are derived from user inputs. Specialist electrical loss fields remain user defined and require competent verification.
         </div>
 
+        <div id="fetch_warning" class="warning-box" style="display: none; border-color: #ff4444; color: #ff4444; font-weight: bold; margin-bottom: 15px;"></div>
+
         <div class="stat-box" id="selected_sub_box" style="border-color: #ff3333; background: rgba(255, 51, 51, 0.05); margin-bottom: 15px;">
             <h3 style="margin-top: 0; color: #ff3333; border-bottom-color: #ff3333;">Selected Grid Node</h3>
             <div class="stat-row"><span>Substation:</span><span class="stat-val" id="out_selected_sub_name">None selected</span></div>
@@ -463,13 +466,37 @@
         });
         
         fetch('data/grid_substations.geojson')
-            .then(res => res.json())
+            .then(res => {
+                console.log(`Fetch response status for substations: ${res.status} ${res.statusText}`);
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
             .then(data => {
+                if (!data || data.type !== 'FeatureCollection') {
+                    throw new Error("Parsed data is not a valid FeatureCollection.");
+                }
+                if (!Array.isArray(data.features)) {
+                    throw new Error("Parsed FeatureCollection missing 'features' array.");
+                }
+                if (data.features.length === 0) {
+                    throw new Error("FeatureCollection 'features' array is empty.");
+                }
+                
+                console.log(`Successfully fetched ${data.features.length} substation features.`);
+                
                 if (map.getSource('src-subs')) {
                     map.getSource('src-subs').setData(data);
+                    console.log(`Source 'src-subs' updated. Final feature count in source:`, map.getSource('src-subs')._data.features.length);
                 }
             })
-            .catch(err => console.error('Failed to load substations:', err));
+            .catch(err => {
+                console.error('Failed to load substations:', err);
+                const warnEl = document.getElementById('fetch_warning');
+                if (warnEl) {
+                    warnEl.style.display = 'block';
+                    warnEl.innerText = `Substation Data Error: ${err.message}. Map nodes will not load.`;
+                }
+            });
 
         map.addLayer({
             id: 'l-subs',
@@ -892,6 +919,14 @@
         return "£" + rounded.toLocaleString();
     }
 
+    // Helper to extract raw numbers back from the formatted UI display for export
+    function parseFormattedMoney(str) {
+        if (!str) return 0;
+        const isNegative = str.includes("-");
+        const numericVal = parseFloat(str.replace(/[^\d.]/g, '')) || 0;
+        return isNegative ? -numericVal : numericVal;
+    }
+
     function calcCumulativeGeneration(dc_mwp, effectiveYieldVal, totalLossPct, degPct, years) {
         const year1 = dc_mwp * effectiveYieldVal * (1 - totalLossPct / 100);
         let total = 0;
@@ -1249,13 +1284,28 @@
                 tech_net_array_area_m2: stats.net_array_area_m2,
                 tech_gross_site_area_m2: stats.gross_site_area_m2,
 
-                fin_total_capex: document.getElementById(prefix + "_capex").textContent,
-                fin_capex_per_wp: document.getElementById(prefix + "_capex_wp").textContent,
-                fin_annual_rev: document.getElementById(prefix + "_annual_rev").textContent,
-                fin_25yr_revenue: document.getElementById(prefix + "_25_rev").textContent,
-                fin_35yr_revenue: document.getElementById(prefix + "_35_rev").textContent,
-                fin_25yr_surplus: document.getElementById(prefix + "_surplus_25").textContent,
-                fin_35yr_surplus: document.getElementById(prefix + "_surplus_35").textContent,
+                // Added raw numeric properties alongside formatted outputs to comply with Priority 2 of the Training Doctrine
+                fin_total_capex_formatted: document.getElementById(prefix + "_capex").textContent,
+                fin_total_capex_raw: parseFormattedMoney(document.getElementById(prefix + "_capex").textContent),
+                
+                fin_capex_per_wp_formatted: document.getElementById(prefix + "_capex_wp").textContent,
+                fin_capex_per_wp_raw: parseFormattedMoney(document.getElementById(prefix + "_capex_wp").textContent),
+                
+                fin_annual_rev_formatted: document.getElementById(prefix + "_annual_rev").textContent,
+                fin_annual_rev_raw: parseFormattedMoney(document.getElementById(prefix + "_annual_rev").textContent),
+                
+                fin_25yr_revenue_formatted: document.getElementById(prefix + "_25_rev").textContent,
+                fin_25yr_revenue_raw: parseFormattedMoney(document.getElementById(prefix + "_25_rev").textContent),
+                
+                fin_35yr_revenue_formatted: document.getElementById(prefix + "_35_rev").textContent,
+                fin_35yr_revenue_raw: parseFormattedMoney(document.getElementById(prefix + "_35_rev").textContent),
+                
+                fin_25yr_surplus_formatted: document.getElementById(prefix + "_surplus_25").textContent,
+                fin_25yr_surplus_raw: parseFormattedMoney(document.getElementById(prefix + "_surplus_25").textContent),
+                
+                fin_35yr_surplus_formatted: document.getElementById(prefix + "_surplus_35").textContent,
+                fin_35yr_surplus_raw: parseFormattedMoney(document.getElementById(prefix + "_surplus_35").textContent),
+
                 fin_energy_price_gbp_mwh: n(prefix + "_price"),
                 fin_other_income_gbp_mwh: n(prefix + "_other"),
                 fin_yield_kwh_kwp: n(prefix + "_yield"),
@@ -1334,3 +1384,6 @@
 
 </body>
 </html>
+
+
+```

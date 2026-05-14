@@ -37,7 +37,8 @@
         .tab-content.active { display: block; }
         
         .input-group { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-        .input-group input[type="number"], .input-group select { width: 95px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
+        .input-group input[type="text"], .input-group input[type="number"], .input-group select { width: 95px; background: #111; color: var(--accent); border: 1px solid #444; padding: 5px; text-align: right; border-radius: 3px; font-family: monospace; font-size: 11px; }
+        .input-group input[type="text"] { text-align: left; }
         .input-group select { width: auto; min-width: 140px; text-align: left; }
         .tab-content#central_tab .input-group input[type="number"], .tab-content#central_tab .input-group select { color: var(--accent-alt); }
         .input-group input:focus, .input-group select:focus { border-color: var(--text); outline: none; }
@@ -149,8 +150,8 @@
             <div class="input-group">
                 <label>Packaging Preset</label>
                 <select id="logistics_preset" onchange="applyLogisticsPreset(this.value, '')">
-                    <option value="trina_current" selected>Trina Current (33/box, 594/40ft)</option>
-                    <option value="trina_legacy">Trina Legacy (31/box, 620/40ft)</option>
+                    <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                    <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
                     <option value="manual">Manual Entry</option>
                 </select>
             </div>
@@ -240,6 +241,7 @@
             </div>
 
             <h3>Array Hierarchy (Central)</h3>
+            <div class="ux-note" style="margin-bottom: 8px;">Central MV station hierarchy is used for block count and export. MV station nodes are not yet separately drawn.</div>
             <div class="input-group">
                 <label>Central AC Rating MWac</label>
                 <select id="inv_ac_mw_c">
@@ -262,8 +264,8 @@
             <div class="input-group">
                 <label>Packaging Preset</label>
                 <select id="logistics_preset_c" onchange="applyLogisticsPreset(this.value, '_c')">
-                    <option value="trina_current" selected>Trina Current (33/box, 594/40ft)</option>
-                    <option value="trina_legacy">Trina Legacy (31/box, 620/40ft)</option>
+                    <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                    <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
                     <option value="manual">Manual Entry</option>
                 </select>
             </div>
@@ -347,6 +349,8 @@
             <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val cyan" id="out_dc_capacity">0.00 MWp</span></div>
             <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
             <div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
+            <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes / Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
+            <div class="stat-row central-only" style="display: none;"><span>Total Central Combiner Boxes:</span><span class="stat-val" id="out_total_cb">0</span></div>
             <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
             <div class="stat-row"><span>Net Module Surface Area:</span><span class="stat-val" id="out_net_mod_area">0 Acres</span></div>
             <div class="stat-row"><span>Net Array Area at GCR:</span><span class="stat-val" id="out_net_array_area">0 Acres</span></div>
@@ -358,17 +362,33 @@
             <div class="stat-row"><span>Total Base Containers:</span><span class="stat-val" id="out_containers">0</span></div>
             <div class="stat-row"><span>Spare Module Allowance:</span><span class="stat-val" id="out_spare_pct">0%</span></div>
             <div class="stat-row"><span>Containers (Inc. Spares):</span><span class="stat-val cyan" id="out_containers_spares">0</span></div>
+            <div class="stat-row"><span>Containers per MWp:</span><span class="stat-val cyan" id="out_cont_per_mwp">0.00</span></div>
         </div>
 
         <div class="benchmark-box">
-            <h3 style="margin-top: 0;">Reference Project Benchmark</h3>
-            <div class="stat-row"><span>Reference:</span><span class="stat-val" style="color:#fff;">Cleve Hill Solar Park</span></div>
-            <div class="stat-row"><span>Public Reference Capacity:</span><span class="stat-val" style="color:#fff;">373 MW</span></div>
-            <div class="stat-row"><span>Public Reference Module Count:</span><span class="stat-val" style="color:#fff;">&gt; 550,000</span></div>
-            <div class="stat-row"><span>Implied Public Benchmark:</span><span class="stat-val" style="color:#fff;">~ 1,475 modules/MW</span></div>
-            <div class="ux-note">Use: public sanity check only, not design authority, not module specification, not logistics authority</div>
+            <h3 style="margin-top: 0;">Custom Reference Benchmark</h3>
+            <div class="input-group">
+                <label>Reference Project</label>
+                <input type="text" id="ref_name" value="Custom Project X" style="width: 140px; text-align: left;"/>
+            </div>
+            <div class="input-group">
+                <label>Reference Capacity (MW)</label>
+                <input type="number" id="ref_mw" value="100" min="1" />
+            </div>
+            <div class="input-group">
+                <label>Reference Module Count</label>
+                <input type="number" id="ref_modules" value="150000" min="1" />
+            </div>
+            <div class="stat-row" style="margin-top: 8px; border-top: 1px dashed #333; padding-top: 8px;">
+                <span>Implied Benchmark:</span>
+                <span class="stat-val" id="out_ref_implied">~ 1,500 modules/MW</span>
+            </div>
+            <div class="ux-note">Use: custom sanity check only. Not design authority.</div>
         </div>
 
+        <div class="warning-box" style="margin-bottom: 10px;">
+            Map topology only refreshes after pressing DRAW NEAT GRID. Financial and quantity values update live from inputs.
+        </div>
         <button class="btn draw-btn" id="btn_draw" onclick="triggerDrawAtCenter()">⌖ DRAW NEAT GRID</button>
         <button class="btn" onclick="exportGeoJSON()">⬇ Export GeoJSON</button>
 
@@ -395,6 +415,7 @@
     let activeDrawCenter = null; 
     let selectedSubstation = null;
     let subsVisible = true;
+    let activePopup = null;
 
     const map = new maplibregl.Map({
         container: 'map',
@@ -402,6 +423,22 @@
         center: [-0.1276, 51.5072], 
         zoom: 13
     });
+
+    map.on('error', function(e) {
+        console.error('MapLibre error:', e.error || e);
+    });
+
+    function showPopup(coords, html) {
+        if (activePopup) activePopup.remove();
+        activePopup = new maplibregl.Popup()
+            .setLngLat(coords)
+            .setHTML(html)
+            .addTo(map);
+
+        activePopup.on('close', () => {
+            activePopup = null;
+        });
+    }
 
     map.on('load', () => {
         // --- SATELLITE BASEMAP SOURCE & LAYER ---
@@ -418,10 +455,21 @@
         });
 
         // --- SUBSTATIONS LAYER (From Atlas Dataset) ---
+        // This path assumes indexforgis-sld.html is served from the project root beside /data.
+        // Test through HTTP, for example: python3 -m http.server 8000
         map.addSource('src-subs', {
             type: 'geojson',
-            data: 'data/grid_substations.geojson'
+            data: { type: 'FeatureCollection', features: [] } // Init empty, explicitly fetch to avoid local server MIME type errors
         });
+        
+        fetch('data/grid_substations.geojson')
+            .then(res => res.json())
+            .then(data => {
+                if (map.getSource('src-subs')) {
+                    map.getSource('src-subs').setData(data);
+                }
+            })
+            .catch(err => console.error('Failed to load substations:', err));
 
         map.addLayer({
             id: 'l-subs',
@@ -555,7 +603,7 @@
                 html += `<div class="popup-row"><span>Capacity:</span> <span class="popup-val" style="color:#fff;">${prop.mwh} MWh</span></div>`;
             }
 
-            new maplibregl.Popup().setLngLat(coords).setHTML(html).addTo(map);
+            showPopup(coords, html);
         });
 
         map.on('mouseenter', 'inverters', () => { map.getCanvas().style.cursor = 'pointer'; });
@@ -568,6 +616,8 @@
     // --- BASEMAP & LAYER TOGGLE LOGIC ---
     let satActive = false;
     document.getElementById('btn_basemap').addEventListener('click', function() {
+        if (!map.getLayer('l-sat')) return;
+
         satActive = !satActive;
         map.setLayoutProperty('l-sat', 'visibility', satActive ? 'visible' : 'none');
         
@@ -586,10 +636,10 @@
     });
 
     function applyLogisticsPreset(val, suffix) {
-        if (val === 'trina_current') {
+        if (val === 'high_density') {
             document.getElementById('mods_pallet' + suffix).value = 33;
             document.getElementById('mods_container' + suffix).value = 594;
-        } else if (val === 'trina_legacy') {
+        } else if (val === 'legacy') {
             document.getElementById('mods_pallet' + suffix).value = 31;
             document.getElementById('mods_container' + suffix).value = 620;
         }
@@ -606,6 +656,10 @@
         const btnDraw = document.getElementById('btn_draw');
         if (tab === 'central') { btnDraw.classList.add('central'); } 
         else { btnDraw.classList.remove('central'); }
+
+        document.querySelectorAll('.central-only').forEach(el => {
+            el.style.display = tab === 'central' ? 'flex' : 'none';
+        });
         
         updateLegend();
         if(activeDrawCenter) computeAndDraw(); 
@@ -702,7 +756,7 @@
         const spare_pct = parseFloat(document.getElementById('spare_pct').value) || 0;
 
         if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x <= 0) {
-            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container };
+            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container, combiner_boxes_per_inverter: 0, total_combiner_boxes: 0 };
         }
 
         const total_blocks = rings * s;
@@ -727,7 +781,8 @@
             total_blocks, block_ground_area_m2, dc_mwp, ac_mw, module_count, 
             net_mod_area_m2, net_array_area_m2, gross_site_area_m2, dc_ac_ratio,
             pallets, containers, spares_pct: spare_pct, modules_inc_spares, pallets_inc_spares, containers_inc_spares,
-            mods_pallet, mods_container
+            mods_pallet, mods_container,
+            combiner_boxes_per_inverter: 0, total_combiner_boxes: 0
         };
     }
 
@@ -742,6 +797,7 @@
         const inv_ac_mw = parseFloat(document.getElementById('inv_ac_mw_c').value) || 0;
         const dc_ac_ratio = parseFloat(document.getElementById('dc_ac_ratio_c').value) || 1.20;
         
+        const str_per_cb = parseInt(document.getElementById('str_per_cb_c').value) || 1;
         const inv_per_mv = parseInt(document.getElementById('inv_per_mv_c').value) || 0;
         const mv_per_ring = parseInt(document.getElementById('mv_per_ring_c').value) || 0;
         const rings = parseInt(document.getElementById('rings_c').value) || 0;
@@ -751,14 +807,17 @@
         const spare_pct = parseFloat(document.getElementById('spare_pct_c').value) || 0;
 
         if (mod_wp <= 0 || mod_l <= 0 || mod_w <= 0 || x_mods <= 0) {
-            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container };
+            return { total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0, net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0, dc_ac_ratio, pallets: 0, containers: 0, spares_pct: 0, modules_inc_spares: 0, pallets_inc_spares: 0, containers_inc_spares: 0, mods_pallet, mods_container, combiner_boxes_per_inverter: 0, total_combiner_boxes: 0 };
         }
 
         const str_dc_kwp = (x_mods * mod_wp) / 1000;
         const inv_dc_mwp = inv_ac_mw * dc_ac_ratio;
         const req_strings = str_dc_kwp > 0 ? Math.ceil((inv_dc_mwp * 1000) / str_dc_kwp) : 0;
 
+        const combiner_boxes_per_inverter = Math.ceil(req_strings / str_per_cb);
         const total_blocks = inv_per_mv * mv_per_ring * rings;
+        const total_combiner_boxes = combiner_boxes_per_inverter * total_blocks;
+
         const module_count = req_strings * x_mods * total_blocks;
         
         const dc_mwp = (module_count * mod_wp) / 1000000;
@@ -780,7 +839,8 @@
             total_blocks, block_ground_area_m2, dc_mwp, ac_mw, module_count, 
             net_mod_area_m2, net_array_area_m2, gross_site_area_m2, dc_ac_ratio,
             pallets, containers, spares_pct: spare_pct, modules_inc_spares, pallets_inc_spares, containers_inc_spares,
-            mods_pallet, mods_container
+            mods_pallet, mods_container,
+            combiner_boxes_per_inverter, total_combiner_boxes
         };
     }
 
@@ -789,6 +849,9 @@
         document.getElementById('out_dc_capacity').textContent = stats.dc_mwp.toFixed(2) + " MWp";
         document.getElementById('out_ac_capacity').textContent = stats.ac_mw.toFixed(2) + " MWac";
         document.getElementById('out_actual_dcac').textContent = stats.dc_ac_ratio.toFixed(2);
+
+        document.getElementById('out_cb_per_inv').textContent = stats.combiner_boxes_per_inverter.toLocaleString();
+        document.getElementById('out_total_cb').textContent = stats.total_combiner_boxes.toLocaleString();
         
         document.getElementById('out_net_mod_area').textContent = (stats.net_mod_area_m2 / 4046.86).toFixed(0) + " Acres";
         document.getElementById('out_net_array_area').textContent = (stats.net_array_area_m2 / 4046.86).toFixed(0) + " Acres";
@@ -804,6 +867,18 @@
         const tabClass = activeTab === 'central' ? 'stat-val orange' : 'stat-val cyan';
         document.getElementById('out_dc_capacity').className = tabClass;
         document.getElementById('out_containers_spares').className = tabClass;
+
+        // Container per MWp metric
+        const cont_per_mwp = stats.dc_mwp > 0 ? (stats.containers_inc_spares / stats.dc_mwp) : 0;
+        document.getElementById('out_cont_per_mwp').textContent = cont_per_mwp.toFixed(2);
+        document.getElementById('out_cont_per_mwp').className = tabClass;
+    }
+
+    function updateBenchmark() {
+        const mw = parseFloat(document.getElementById('ref_mw').value) || 0;
+        const mods = parseFloat(document.getElementById('ref_modules').value) || 0;
+        const implied = mw > 0 ? (mods / mw) : 0;
+        document.getElementById('out_ref_implied').textContent = `~ ${Math.round(implied).toLocaleString()} modules/MW`;
     }
 
     /* --- FINANCIAL FUNCTIONS --- */
@@ -962,13 +1037,13 @@
 
     function getRectPolygon(centerCoord, width_km, length_km, propType) {
         const pt = turf.point(centerCoord);
-        const n = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
-        const s = turf.destination(pt, length_km/2, 180, {units: 'kilometers'}).geometry.coordinates;
+        const ptNorth = turf.destination(pt, length_km/2, 0, {units: 'kilometers'}).geometry.coordinates;
+        const ptSouth = turf.destination(pt, length_km/2, 180, {units: 'kilometers'}).geometry.coordinates;
         
-        const nw = turf.destination(turf.point(n), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
-        const ne = turf.destination(turf.point(n), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
-        const se = turf.destination(turf.point(s), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
-        const sw = turf.destination(turf.point(s), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
+        const nw = turf.destination(turf.point(ptNorth), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
+        const ne = turf.destination(turf.point(ptNorth), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
+        const se = turf.destination(turf.point(ptSouth), width_km/2, 90, {units: 'kilometers'}).geometry.coordinates;
+        const sw = turf.destination(turf.point(ptSouth), width_km/2, -90, {units: 'kilometers'}).geometry.coordinates;
         
         return turf.polygon([[nw, ne, se, sw, nw]], { type: propType });
     }
@@ -1131,7 +1206,9 @@
                     tech_strings_per_combiner_box: n('str_per_cb_c'),
                     tech_central_inverters_per_mv_station: n('inv_per_mv_c'),
                     tech_mv_stations_per_33kv_ring: n('mv_per_ring_c'),
-                    tech_33kv_rings: n('rings_c')
+                    tech_33kv_rings: n('rings_c'),
+                    tech_combiner_boxes_per_inverter: stats.combiner_boxes_per_inverter || 0,
+                    tech_total_combiner_boxes: stats.total_combiner_boxes || 0
                 };
             }
             
@@ -1161,6 +1238,7 @@
                 tech_total_modules_inc_spares: stats.modules_inc_spares,
                 tech_total_packing_units_inc_spares: stats.pallets_inc_spares,
                 tech_total_containers_inc_spares: stats.containers_inc_spares,
+                tech_containers_per_mwp: stats.dc_mwp > 0 ? Number((stats.containers_inc_spares / stats.dc_mwp).toFixed(2)) : 0,
 
                 ...topologyProps,
 
@@ -1241,6 +1319,7 @@
         updateActiveFinancials(stats);
         updateTechnicalSummary(stats);
         updateSelectedSubstationDisplay();
+        updateBenchmark();
     }
 
     document.querySelectorAll("input, select").forEach(el => {
@@ -1250,6 +1329,7 @@
 
     // Initialize display with default "None selected"
     updateSelectedSubstationDisplay();
+    updateBenchmark();
 </script>
 
 </body>

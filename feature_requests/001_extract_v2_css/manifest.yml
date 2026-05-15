@@ -2,15 +2,16 @@ name: Extract GIS SLD V2 CSS
 description: Move inline CSS from the V2 GIS SLD Financial Sandbox into an external CSS file and connect it from the HTML head.
 
 operations:
-
-* type: regex_replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    pattern: ‘[\s\S]*?’
-    replace: ‘’
+    pattern: '<style[^>]*>[\s\S]*?<\/style>'
+    replace: '<link rel="stylesheet" href="gis-sld-v2.css">'
     count: 1
-* type: assert_contains
+    
+  - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    text: ‘’
-* type: assert_contains
+    text: '<link rel="stylesheet"'
+    
+  - type: assert_contains
     file: solar-bess-topology-v2/gis-sld-v2.css
-    text: ‘:root’
+    text: ':root'

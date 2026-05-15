@@ -1,0 +1,84 @@
+name: GridBot Feature Install
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: Source version folder
+        required: true
+        default: solar-bess-topology-v2
+
+      target:
+        description: Target version folder
+        required: true
+        default: solar-bess-topology-v2
+
+      feature:
+        description: Optional single feature folder name
+        required: false
+        default: ""
+
+      overwrite:
+        description: Overwrite target folder if target is different from source
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  gridbot-feature-install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Run GridBot Feature Installer
+        shell: bash
+        run: |
+          EXTRA_ARGS=""
+
+          if [ -n "${{ github.event.inputs.feature }}" ]; then
+            EXTRA_ARGS="$EXTRA_ARGS --feature ${{ github.event.inputs.feature }}"
+          fi
+
+          if [ "${{ github.event.inputs.overwrite }}" = "true" ]; then
+            EXTRA_ARGS="$EXTRA_ARGS --overwrite"
+          fi
+
+          python scripts/gridbot_feature_installer.py \
+            --source "${{ github.event.inputs.source }}" \
+            --target "${{ github.event.inputs.target }}" \
+            --features-root feature_requests \
+            $EXTRA_ARGS \
+            --run-tests
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git add .
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "GridBot feature install: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

@@ -1,0 +1,25 @@
+name: V2 identity update
+summary: Updates visible V2 heading and adds a V2 working clone note.
+
+operations:
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: "<h2>GIS-SLD Sandbox</h2>"
+    replace: "<h2>GIS SLD Sandbox V2</h2>"
+    count: 1
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      </div>
+
+          <div class="explainer-box">
+    insert: |
+
+          <div class="ux-note">
+              V2 working clone. This version is used for incremental modularisation and feature testing. Outputs remain indicative screening values only.
+          </div>
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: "GIS SLD Sandbox V2"

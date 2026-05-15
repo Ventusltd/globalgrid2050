@@ -52,7 +52,12 @@
 ├── eurostar.geojson
 ├── ev_chargers.geojson
 ├── feature_requests
-│   └── 000_v2_identity
+│   ├── 000_v2_identity
+│   │   └── manifest.yml
+│   └── 001_extract_v2_css
+│       ├── files
+│       │   └── solar-bess-topology-v2
+│       │       └── gis-sld-v2.css
 │       └── manifest.yml
 ├── global_hydrocarbons.geojson
 ├── global_ports.geojson
@@ -75,7 +80,8 @@
 ├── grid_66kv.geojson
 ├── grid_substations.geojson
 ├── gridbot_reports
-│   └── gridbot_install_20260515_101208.md
+│   ├── gridbot_install_20260515_101208.md
+│   └── gridbot_install_20260515_231448.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -419,6 +425,7 @@
 │   ├── index.html
 │   └── indexforgis-sld.html
 ├── solar-bess-topology-v2
+│   ├── gis-sld-v2.css
 │   └── indexforgis-sld-v2.html
 ├── solar_components
 │   └── index.md
@@ -456,4 +463,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-42 directories, 415 files
+45 directories, 419 files

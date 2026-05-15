@@ -402,6 +402,7 @@
 │   ├── fetch_supermarkets.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_unification_estimates.py
+│   ├── gridbot_feature_installer.py
 │   ├── repd_updater.py
 │   ├── requirements.txt
 │   ├── update_metal_trends.py
@@ -450,4 +451,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-39 directories, 412 files
+39 directories, 413 files

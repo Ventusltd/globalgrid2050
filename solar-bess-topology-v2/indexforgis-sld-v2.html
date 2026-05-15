@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GIS SLD Financial Sandbox V2</title>
 
+<link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+<link href="./gis-sld-v2.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js" defer></script>
+<script type="module" src="./gis-sld-v2-app.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard">
+    <div class="panel panel-left">
+        <h2>GIS SLD Sandbox V2</h2>
+
+        <div class="search-box">
+            <input type="text" id="loc_search" placeholder="Enter location, for example London" />
+            <button id="btn_search">FLY</button>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-btn active" id="tabbtn_string" data-tab="string">String</button>
+            <button class="tab-btn" id="tabbtn_central" data-tab="central">Central</button>
+        </div>
+
+        <div id="string_tab" class="tab-content active">
+            <h3>Dimensions and Physics</h3>
+            <div class="input-group"><label>Grid Distance km</label><input type="number" id="grid_offset_km" value="0.2" step="0.1" min="0.1" max="50" /></div>
+            <div class="input-group"><label>Module Rating Wp</label><input type="number" id="mod_wp" value="660" min="1" /></div>
+
+            <div class="input-group">
+                <label>Module L x W m</label>
+                <div style="display: flex; gap: 4px;">
+                    <input type="number" id="mod_l" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
+                    <input type="number" id="mod_w" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Mounting and GCR</label>
+                <select id="mounting_type">
+                    <option value="0.75">East West Dome about 75%</option>
+                    <option value="0.45" selected>Fixed Tilt South about 45%</option>
+                    <option value="0.35">Tracker about 35%</option>
+                </select>
+            </div>
+
+            <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor" value="1.35" step="0.05" min="1.0" /></div>
+
+            <h3>Array Hierarchy String</h3>
+            <div class="input-group"><label>DC AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
+            <div class="input-group"><label>Modules per String</label><input type="number" id="x_mods" value="28" min="1" /></div>
+            <div class="input-group"><label>Strings per Inverter</label><input type="number" id="z_strings" value="18" min="1" /></div>
+            <div class="input-group"><label>Inverters per Sub</label><input type="number" id="y_invs" value="28" min="1" /></div>
+            <div class="input-group"><label>Subs per Ring</label><input type="number" id="s_subs" value="5" min="1" /></div>
+            <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" min="1" /></div>
+
+            <h3>Module Logistics</h3>
+            <div class="input-group">
+                <label>Packaging Preset</label>
+                <select id="logistics_preset" data-suffix="">
+                    <option value="high_density" selected>High Density 33 box 594 40ft</option>
+                    <option value="legacy">Standard Legacy 31 box 620 40ft</option>
+                    <option value="manual">Manual Entry</option>
+                </select>
+            </div>
+            <div class="input-group"><label>Modules per Packing Unit</label><input type="number" id="mods_pallet" value="33" min="1" /></div>
+            <div class="input-group"><label>Modules per 40ft Container</label><input type="number" id="mods_container" value="594" min="1" /></div>
+            <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct" value="1.0" step="0.1" min="0" /></div>
+
+            <details class="finance-box">
+                <summary>Baseline Project Economics</summary>
+                <div class="finance-headline">
+                    <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_string_annual_rev">£0</span></div>
+                    <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_string_25_rev">£0</span></div>
+                    <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_string_35_rev">£0</span></div>
+                    <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_string_capex">£0</span></div>
+                    <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_string_capex_wp">£0.00/Wp</span></div>
+                    <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_string_surplus_25">£0</span></div>
+                    <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_string_surplus_35">£0</span></div>
+                </div>
+
+                <h3>Revenue</h3>
+                <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_string_price" value="75" step="1" min="0"></div>
+                <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_string_other" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_string_yield" value="1050" step="10" min="0"></div>
+                <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_string_bifacial" value="5" step="0.5" min="0" max="15"></div>
+                <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_string_losses" value="2" step="0.1" min="0"></div>
+                <div class="input-group"><label>Degradation % Yr 2 Plus</label><input type="number" id="fin_string_deg" value="0.7" step="0.01" min="0"></div>
+                <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_string_opex" value="15000" step="1000" min="0"></div>
+
+                <h3>CAPEX</h3>
+                <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
+                <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.12" step="0.01" min="0"></div>
+                <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
+                <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
+                <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
+
+                <h3>Loss Allowances</h3>
+                <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_string_loss_dc_string" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_string_loss_lv_dc" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_string_loss_lv_ac" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_string_loss_tx" value="0" step="0.1" min="0"></div>
+                <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_string_loss_other" value="0" step="0.1" min="0"></div>
+
+                <h3>BESS Optional</h3>
+                <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_string_bess_mw" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_string_bess_mwh" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_string_bess_capex" value="325000" step="10000" min="0"></div>
+                <div class="input-group"><label>BESS Cycles per Year</label><input type="number" id="fin_string_bess_cycles" value="0" step="10" min="0"></div>
+                <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_string_bess_spread" value="0" step="1" min="0"></div>
+                <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_string_bess_eff" value="88" step="1" min="0" max="100"></div>
+
+                <div class="warning-box" id="fin_string_warnings"></div>
+            </details>
+        </div>
+
+        <div id="central_tab" class="tab-content">
+            <h3>Central Mode</h3>
+            <p class="ux-note">Central mode controls will be copied in the next step after V2 shell is stable.</p>
+        </div>
+
+        <div class="stat-box" style="border-color: #ff3333; background: rgba(255, 51, 51, 0.05); margin-bottom: 15px;">
+            <h3 style="margin-top: 0; color: #ff3333; border-bottom-color: #ff3333;">Selected Grid Node</h3>
+            <div class="stat-row"><span>Substation:</span><span class="stat-val" id="out_selected_sub_name">None selected</span></div>
+            <div class="stat-row"><span>Voltage:</span><span class="stat-val" id="out_selected_sub_voltage">Unknown</span></div>
+            <div class="stat-row"><span>Longitude:</span><span class="stat-val" id="out_selected_sub_lon">n/a</span></div>
+            <div class="stat-row"><span>Latitude:</span><span class="stat-val" id="out_selected_sub_lat">n/a</span></div>
+        </div>
+
+        <div class="stat-box" id="tech_summary_box">
+            <h3>Technical Quantity Summary</h3>
+            <div class="stat-row"><span>Total Module Count:</span><span class="stat-val" id="out_module_count">0</span></div>
+            <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val cyan" id="out_dc_capacity">0.00 MWp</span></div>
+            <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
+            <div class="stat-row"><span>DC AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
+            <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes per Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
+            <div class="stat-row central-only" style="display: none;"><span>Total Central Combiner Boxes:</span><span class="stat-val" id="out_total_cb">0</span></div>
+
+            <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+
+            <div class="stat-row"><span>Net Module Surface Area:</span><span class="stat-val" id="out_net_mod_area">0 Acres</span></div>
+            <div class="stat-row"><span>Net Array Area at GCR:</span><span class="stat-val" id="out_net_array_area">0 Acres</span></div>
+            <div class="stat-row"><span>Indicative Gross Site Area:</span><span class="stat-val orange" id="out_gross_area">0 Acres</span></div>
+            <div class="stat-row"><span>Export Cable Length:</span><span class="stat-val" id="out_export_cable_km">0.00 km</span></div>
+            <div class="stat-row"><span>Cable Route Type:</span><span class="stat-val" id="out_cable_type">Straight line</span></div>
+
+            <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+
+            <div class="stat-row"><span>Modules per Packing Unit:</span><span class="stat-val" id="out_mod_per_pallet">0</span></div>
+            <div class="stat-row"><span>Total Packing Units:</span><span class="stat-val" id="out_pallets">0</span></div>
+            <div class="stat-row"><span>Modules per Container:</span><span class="stat-val" id="out_mod_per_cont">0</span></div>
+            <div class="stat-row"><span>Total Base Containers:</span><span class="stat-val" id="out_containers">0</span></div>
+            <div class="stat-row"><span>Spare Module Allowance:</span><span class="stat-val" id="out_spare_pct">0%</span></div>
+            <div class="stat-row"><span>Containers Inc Spares:</span><span class="stat-val cyan" id="out_containers_spares">0</span></div>
+            <div class="stat-row"><span>Containers per MWp:</span><span class="stat-val cyan" id="out_cont_per_mwp">0.00</span></div>
+        </div>
+
+        <div class="benchmark-box">
+            <h3 style="margin-top: 0;">Custom Reference Benchmark</h3>
+            <div class="input-group"><label>Reference Project</label><input type="text" id="ref_name" value="Custom Project X" style="width: 140px; text-align: left;"/></div>
+            <div class="input-group"><label>Reference Capacity MW</label><input type="number" id="ref_mw" value="100" min="1" /></div>
+            <div class="input-group"><label>Reference Module Count</label><input type="number" id="ref_modules" value="150000" min="1" /></div>
+            <div class="stat-row" style="margin-top: 8px; border-top: 1px dashed #333; padding-top: 8px;">
+                <span>Implied Benchmark:</span><span class="stat-val" id="out_ref_implied">~ 1,500 modules/MW</span>
+            </div>
+        </div>
+
+        <button class="btn draw-btn" id="btn_draw">⌖ DRAW NEAT GRID</button>
+        <button class="btn" id="btn_route_cable" disabled>〰 ROUTE CABLE</button>
+        <button class="btn" id="btn_export">⬇ Export GeoJSON</button>
+
+        <div class="disclaimer-box">
+            <strong>ENGINEERING SCREENING OUTPUT</strong><br><br>
+            These outputs are indicative screening values only. They are not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. All quantities, packaging, site area, cable routes, container loads, module specifications and financial assumptions must be verified against current datasheets, project drawings, EPC scope, grid requirements and competent engineering review.
+        </div>
+    </div>
+
+    <div class="panel panel-right">
+        <div id="fetch_status"></div>
+        <div id="toast"></div>
+
+        <div style="position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 8px;">
+            <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
+            <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
+        </div>
+
+        <div class="crosshair">⌖</div>
+        <div id="map"></div>
+        <div class="legend" id="map_legend"></div>
+    </div>
+</div>
+
+</body>
+</html>

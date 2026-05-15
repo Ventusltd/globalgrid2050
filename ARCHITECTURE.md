@@ -962,6 +962,163 @@ It is also the foundation for a future full infrastructure operating system buil
 
 ⸻
 
+X. GridBot Modularisation Log
+
+This section records the first live modularisation work on the GIS SLD Financial Sandbox V2.
+
+The working application is:
+
+solar-bess-topology-v2/indexforgis-sld-v2.html
+
+The purpose of this phase is to split the large working HTML cartridge into clearly labelled files without breaking the live browser application.
+
+The target modular structure is:
+
+solar-bess-topology-v2/indexforgis-sld-v2.html
+solar-bess-topology-v2/gis-sld-v2.css
+solar-bess-topology-v2/gis-sld-v2-config.js
+solar-bess-topology-v2/gis-sld-v2-helpers.js
+solar-bess-topology-v2/gis-sld-v2-map.js
+solar-bess-topology-v2/gis-sld-v2-finance.js
+solar-bess-topology-v2/gis-sld-v2-topology.js
+solar-bess-topology-v2/gis-sld-v2-export.js
+solar-bess-topology-v2/gis-sld-v2-main.js
+
+The rule is simple:
+
+One feature.
+One manifest.
+One controlled change.
+One GridBot run.
+One browser test.
+Then continue.
+
+Completed Feature 000
+
+Feature folder:
+
+feature_requests/000_v2_identity/
+
+Purpose:
+
+Confirm the V2 identity of the working sandbox.
+
+Important lesson:
+
+This feature originally failed when re run because the old text had already been replaced. The old manifest searched for:
+
+<h2>GIS-SLD Sandbox</h2>
+
+But the live file already contained:
+
+<h2>GIS SLD Sandbox V2</h2>
+
+The fix was to change the manifest into a safe assertion only.
+
+Correct final behaviour:
+
+The feature now checks that the V2 heading exists. It no longer tries to replace text that has already been replaced.
+
+Completed Feature 001
+
+Feature folder:
+
+feature_requests/001_extract_v2_css/
+
+Purpose:
+
+Extract inline CSS from the V2 HTML file into an external CSS file.
+
+Created file:
+
+solar-bess-topology-v2/gis-sld-v2.css
+
+Modified file:
+
+solar-bess-topology-v2/indexforgis-sld-v2.html
+
+Result:
+
+The HTML now loads the external CSS file using:
+
+<link rel="stylesheet" href="gis-sld-v2.css">
+
+The live page was tested after the extraction and continued to render correctly.
+
+Important lesson:
+
+After CSS extraction, feature 001 must not be run again as part of a blank all feature run because the original <style> block no longer exists.
+
+If the workflow feature field is blank, GridBot runs every feature folder.
+
+If the workflow feature field contains a specific folder name, GridBot runs only that feature.
+
+Therefore, after a one time extraction feature has succeeded, future test runs should use a specific feature name unless older features have been made repeat safe.
+
+Current Feature 002
+
+Feature folder:
+
+feature_requests/002_extract_v2_config/
+
+Current purpose:
+
+Safe placeholder test for the next modularisation step.
+
+Current behaviour:
+
+The manifest only checks that the V2 heading exists.
+
+It does not yet extract JavaScript.
+
+It does not yet create gis-sld-v2-config.js.
+
+It is a controlled test to prove that feature 002 can run independently.
+
+Next intended step:
+
+Update feature 002 so that it creates:
+
+solar-bess-topology-v2/gis-sld-v2-config.js
+
+Then connect it into the HTML before any heavier logic extraction begins.
+
+Do not extract map logic, finance logic, topology logic or export logic until the config split is proven live in the browser.
+
+Operational Lessons From First GridBot Runs
+
+1. Blank feature field means run all features.
+
+2. Specific feature field means run only that feature.
+
+3. One time replacement features must be converted into assertion only features after success.
+
+4. Extraction features must become repeat safe or must not be included in blank all feature runs.
+
+5. GridBot failures are useful when they stop on missing text or missing regex matches.
+
+6. A failed run does not mean the architecture is broken. It usually means the manifest no longer matches the already modified file.
+
+7. Every successful run must produce a gridbot_reports file.
+
+8. Every successful browser test must be treated as proof that the modularisation step preserved the working application.
+
+9. Do not move JavaScript logic until CSS and config structure are stable.
+
+10. The purpose is not speed. The purpose is safe expansion of a large working application.
+
+Standing Rule For Future AI Agents
+
+Never advise wholesale manual splitting of the V2 sandbox.
+
+Never rewrite the full HTML file unless explicitly instructed and backed by a rollback plan.
+
+Use GridBot feature folders, YAML manifests, overlay files, reports and browser tests.
+
+The correct path is controlled modularisation, not uncontrolled refactoring.
+
+---
+
 Final Line
 
 GlobalGrid2050 evolves from asset visibility to constraint aware design intelligence, powered by human intent, AI reasoning, Python processing, YAML instruction, GitHub execution and the GIS SLD Financial Sandbox breakthrough.

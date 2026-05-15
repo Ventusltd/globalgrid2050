@@ -1,1 +1,7 @@
+name: Extract V2 config placeholder
+summary: Creates a placeholder config file for the V2 sandbox.
 
+operations:
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: "GIS SLD Sandbox V2"

@@ -8,6 +8,8 @@ Operating model: Human origin, AI reasoning, Python processing, YAML instruction
 
 Directive for Future Humans and AI Agents
 
+Before modifying this repository, read PHILOSOPHY.md, GIS_SLD_APP_ADDRESS_MAP.md and GRIDBOT_FEATURE_INSTALL_INSTRUCTIONS.md.
+
 If you are reading this, you are tasked with maintaining, debugging or expanding GlobalGrid2050.
 
 Do not regress.

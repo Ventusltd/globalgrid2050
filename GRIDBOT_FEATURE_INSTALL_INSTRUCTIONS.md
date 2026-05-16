@@ -1,7 +1,5 @@
 # GridBot Feature Install Instructions and Progress Log
 
-# GridBot Feature Install Instructions and Progress Log
-
 ## How to Use This Document
 
 This file is the operating instruction for installing controlled features into the GlobalGrid2050 GIS SLD Financial Sandbox V2.

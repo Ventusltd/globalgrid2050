@@ -1,0 +1,394 @@
+name: Convert Development Financials to GBP per Wp
+summary: Converts Development Financials from large £/MW values to user-friendly £/Wp decimals, updates JavaScript math, warning thresholds, stage option values, success probability map, export fields, and refines CSS wrapping in the external stylesheet.
+
+operations:
+  # ---------------------------------------------------------
+  # STRING INPUT REPLACEMENTS
+  # ---------------------------------------------------------
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_string_dev_cost_mw" value="100000" step="5000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Development Cost £/Wp</label><input type="number" id="fin_string_dev_cost_mw" value="0.10" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_string_dev_module_mwp" value="150000" step="10000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Module Supply Cost £/Wp</label><input type="number" id="fin_string_dev_module_mwp" value="0.15" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_string_dev_epc_mw" value="500000" step="25000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>EPC / Balance of Plant excluding Modules £/Wp</label><input type="number" id="fin_string_dev_epc_mw" value="0.30" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_string_dev_owner_mw" value="100000" step="25000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Other Owner Costs £/Wp</label><input type="number" id="fin_string_dev_owner_mw" value="0.10" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_string_dev_grid_mw" value="100000" step="25000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Grid Connection Cost £/Wp</label><input type="number" id="fin_string_dev_grid_mw" value="0.10" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_string_dev_exit_mwp" value="1350000" step="50000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Target Exit Value £/Wp</label><input type="number" id="fin_string_dev_exit_mwp" value="1.35" step="0.05" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_string_dev_npv_mwp" value="1200000" step="50000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Operating Asset Net Present Value (NPV) £/Wp</label><input type="number" id="fin_string_dev_npv_mwp" value="1.20" step="0.05" min="0"></div>'
+
+  # ---------------------------------------------------------
+  # CENTRAL INPUT REPLACEMENTS
+  # ---------------------------------------------------------
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_central_dev_cost_mw" value="100000" step="5000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Development Cost £/Wp</label><input type="number" id="fin_central_dev_cost_mw" value="0.10" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_central_dev_module_mwp" value="150000" step="10000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Module Supply Cost £/Wp</label><input type="number" id="fin_central_dev_module_mwp" value="0.15" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="500000" step="25000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>EPC / Balance of Plant excluding Modules £/Wp</label><input type="number" id="fin_central_dev_epc_mw" value="0.30" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_central_dev_owner_mw" value="100000" step="25000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Other Owner Costs £/Wp</label><input type="number" id="fin_central_dev_owner_mw" value="0.10" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_central_dev_grid_mw" value="100000" step="25000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Grid Connection Cost £/Wp</label><input type="number" id="fin_central_dev_grid_mw" value="0.10" step="0.01" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Target Exit Value £/Wp</label><input type="number" id="fin_central_dev_exit_mwp" value="1.35" step="0.05" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_central_dev_npv_mwp" value="1200000" step="50000" min="0"></div>'
+    replace: '<div class="input-group fin-group"><label>Operating Asset Net Present Value (NPV) £/Wp</label><input type="number" id="fin_central_dev_npv_mwp" value="1.20" step="0.05" min="0"></div>'
+
+  # ---------------------------------------------------------
+  # DROPDOWN OPTION VALUE REPLACEMENTS
+  # ---------------------------------------------------------
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="3000">Land Option Signed</option>'
+    replace: '<option value="0.003">Land Option Signed</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="3000">Land Option Signed</option>'
+    replace: '<option value="0.003">Land Option Signed</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="15000">Grid Connection Application Accepted</option>'
+    replace: '<option value="0.015">Grid Connection Application Accepted</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="15000">Grid Connection Application Accepted</option>'
+    replace: '<option value="0.015">Grid Connection Application Accepted</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="35000">Planning Application Submitted</option>'
+    replace: '<option value="0.035">Planning Application Submitted</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="35000">Planning Application Submitted</option>'
+    replace: '<option value="0.035">Planning Application Submitted</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="55000">Planning Permission Granted</option>'
+    replace: '<option value="0.055">Planning Permission Granted</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="55000">Planning Permission Granted</option>'
+    replace: '<option value="0.055">Planning Permission Granted</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="70000">Grid Connection Terms Reviewed and Agreed</option>'
+    replace: '<option value="0.070">Grid Connection Terms Reviewed and Agreed</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="70000">Grid Connection Terms Reviewed and Agreed</option>'
+    replace: '<option value="0.070">Grid Connection Terms Reviewed and Agreed</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
+    replace: '<option value="0.080">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
+    replace: '<option value="0.080">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
+    replace: '<option value="0.100" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
+    replace: '<option value="0.100" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
+
+  # ---------------------------------------------------------
+  # SUCCESS BY STAGE MAP UPDATE
+  # ---------------------------------------------------------
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: |
+          const successByStage = {
+              "3000": 10,
+              "15000": 15,
+              "35000": 30,
+              "55000": 55,
+              "70000": 70,
+              "80000": 80,
+              "100000": 95
+          };
+    replace: |
+          const successByStage = {
+              "0.003": 10,
+              "0.015": 15,
+              "0.035": 30,
+              "0.055": 55,
+              "0.070": 70,
+              "0.080": 80,
+              "0.100": 95
+          };
+
+  # ---------------------------------------------------------
+  # COMPUTE FINANCE MATH UPDATE
+  # ---------------------------------------------------------
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devCapitalAtRisk = dc_mwp * devCostPerMw;'
+    replace: 'const devCapitalAtRisk = dc_mwp * 1000000 * devCostPerMw;'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devModuleCost = dc_mwp * devModulePerMwp;'
+    replace: 'const devModuleCost = dc_mwp * 1000000 * devModulePerMwp;'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devEpcCost = dc_mwp * devEpcPerMw;'
+    replace: 'const devEpcCost = dc_mwp * 1000000 * devEpcPerMw;'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devOwnerCost = dc_mwp * devOwnerPerMw;'
+    replace: 'const devOwnerCost = dc_mwp * 1000000 * devOwnerPerMw;'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devGridCost = dc_mwp * devGridPerMw;'
+    replace: 'const devGridCost = dc_mwp * 1000000 * devGridPerMw;'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devExitValue = dc_mwp * devExitPerMwp;'
+    replace: 'const devExitValue = dc_mwp * 1000000 * devExitPerMwp;'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devOperatingNpv = dc_mwp * devNpvPerMwp;'
+    replace: 'const devOperatingNpv = dc_mwp * 1000000 * devNpvPerMwp;'
+
+  # ---------------------------------------------------------
+  # WARNING THRESHOLD REPLACEMENTS
+  # ---------------------------------------------------------
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devCostPerMw > 100000) w.push("Development cost is above typical EPC signature range.");'
+    replace: 'if (fin.devCostPerMw > 0.12) w.push("Development cost is above typical EPC signature screening range.");'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devModulePerMwp < 100000 && fin.devModulePerMwp > 0) w.push("Module supply cost may be aggressive.");'
+    replace: 'if (fin.devModulePerMwp < 0.10 && fin.devModulePerMwp > 0) w.push("Module supply cost may be aggressive.");'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devEpcPerMw < 550000 && fin.devEpcPerMw > 0) w.push("EPC cost may be aggressive against UK benchmark range.");'
+    replace: 'if (fin.devEpcPerMw < 0.25 && fin.devEpcPerMw > 0) w.push("EPC / Balance of Plant excluding Modules cost may be aggressive.");'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devEpcPerMw > 850000) w.push("EPC cost is above typical non BESS UK benchmark range.");'
+    replace: 'if (fin.devEpcPerMw > 0.45) w.push("EPC / Balance of Plant excluding Modules cost is above the normal screening range.");'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devNpvPerMwp < 900000 && fin.devNpvPerMwp > 0) w.push("Operating asset Net Present Value (NPV) assumption is below current screening range.");'
+    replace: 'if (fin.devNpvPerMwp < 0.90 && fin.devNpvPerMwp > 0) w.push("Operating asset Net Present Value (NPV) assumption is below current screening range.");'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devNpvPerMwp > 1400000) w.push("Operating asset Net Present Value (NPV) assumption is above current screening range and may require strong evidence.");'
+    replace: 'if (fin.devNpvPerMwp > 1.40) w.push("Operating asset Net Present Value (NPV) assumption is above current screening range and may require strong evidence.");'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devGridPerMw > 1000000) w.push("Grid connection cost assumption is very high and may indicate major reinforcement, transmission interface or abnormal connection risk.");'
+    replace: 'if (fin.devGridPerMw > 1.00) w.push("Grid connection cost assumption is very high and may indicate major reinforcement, transmission interface or abnormal connection risk.");'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'if (fin.devGridPerMw < 100000 && fin.devGridPerMw > 0) w.push("Grid connection cost assumption is low and should be checked against the project specific connection scope.");'
+    replace: 'if (fin.devGridPerMw < 0.10 && fin.devGridPerMw > 0) w.push("Grid connection cost assumption is low and should be checked against the project specific connection scope.");'
+
+  # ---------------------------------------------------------
+  # GEOJSON EXPORT ADDITIONS
+  # ---------------------------------------------------------
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: "fin_development_operating_npv_gbp: Math.round(fin.devOperatingNpv),"
+    insert: |
+        fin_development_cost_gbp_wp: fin.devCostPerMw,
+        fin_development_module_supply_cost_gbp_wp: fin.devModulePerMwp,
+        fin_development_epc_bop_excluding_modules_gbp_wp: fin.devEpcPerMw,
+        fin_development_owner_cost_gbp_wp: fin.devOwnerPerMw,
+        fin_development_grid_connection_cost_gbp_wp: fin.devGridPerMw,
+        fin_development_exit_value_gbp_wp: fin.devExitPerMwp,
+        fin_development_operating_npv_gbp_wp: fin.devNpvPerMwp,
+
+  # ---------------------------------------------------------
+  # CSS STYLING ADDITIONS (EXTERNAL FILE)
+  # ---------------------------------------------------------
+  - type: regex_replace
+    file: solar-bess-topology-v2/gis-sld-v2.css
+    pattern: |
+      ([\s\S]+)
+    replace: |
+      $1
+
+      .fin-group {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) 180px;
+          column-gap: 18px;
+          align-items: center;
+          margin-bottom: 8px;
+      }
+
+      .fin-group label {
+          white-space: normal;
+          overflow-wrap: anywhere;
+          line-height: 1.25;
+          padding-right: 12px;
+          margin-bottom: 0;
+      }
+
+      .fin-group input,
+      .fin-group select {
+          width: 100%;
+          box-sizing: border-box;
+      }
+    flags: ms
+
+  # ---------------------------------------------------------
+  # ASSERTIONS
+  # ---------------------------------------------------------
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Development Cost £/Wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Module Supply Cost £/Wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'EPC / Balance of Plant excluding Modules £/Wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Other Owner Costs £/Wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Grid Connection Cost £/Wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Target Exit Value £/Wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Operating Asset Net Present Value (NPV) £/Wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_epc_mw" value="0.30"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_epc_mw" value="0.30"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_module_mwp" value="0.15"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_module_mwp" value="0.15"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_grid_mw" value="0.10"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_grid_mw" value="0.10"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'dc_mwp * 1000000 * devEpcPerMw'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'dc_mwp * 1000000 * devModulePerMwp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'dc_mwp * 1000000 * devGridPerMw'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_development_epc_bop_excluding_modules_gbp_wp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: '<option value="0.003">Land Option Signed</option>'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: '<option value="0.100" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: '"0.100": 95'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2.css
+    text: '.fin-group'

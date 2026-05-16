@@ -2,19 +2,19 @@ name: Add V2 development financials
 summary: Adds user modifiable UK solar development stage financial inputs and outputs before CAPEX, with Modules shown before EPC.
 
 operations:
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: |
-              <h3>CAPEX</h3>
-              <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
-              <div class="input-group">
-                  <label>Flood Resilience</label>
-                  <div style="display: flex; gap: 4px; align-items: center;">
-                      <input type="checkbox" id="fin_string_flood" />
-                      <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
-                  </div>
-              </div>
-              <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
+    pattern: |
+      \s*<h3>CAPEX</h3>\s*
+      <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>\s*
+      <div class="input-group">\s*
+      <label>Flood Resilience</label>\s*
+      <div style="display: flex; gap: 4px; align-items: center;">\s*
+      <input type="checkbox" id="fin_string_flood" />\s*
+      <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />\s*
+      </div>\s*
+      </div>\s*
+      <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
     replace: |
               <h3>Development Financials</h3>
               <div class="finance-headline">
@@ -59,20 +59,21 @@ operations:
                       <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
                   </div>
               </div>
+    flags: ms
 
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: |
-              <h3>CAPEX</h3>
-              <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
-              <div class="input-group">
-                  <label>Flood Resilience</label>
-                  <div style="display: flex; gap: 4px; align-items: center;">
-                      <input type="checkbox" id="fin_central_flood" />
-                      <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
-                  </div>
-              </div>
-              <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
+    pattern: |
+      \s*<h3>CAPEX</h3>\s*
+      <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>\s*
+      <div class="input-group">\s*
+      <label>Flood Resilience</label>\s*
+      <div style="display: flex; gap: 4px; align-items: center;">\s*
+      <input type="checkbox" id="fin_central_flood" />\s*
+      <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />\s*
+      </div>\s*
+      </div>\s*
+      <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
     replace: |
               <h3>Development Financials</h3>
               <div class="finance-headline">
@@ -117,6 +118,7 @@ operations:
                       <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
                   </div>
               </div>
+    flags: ms
 
   - type: insert_before
     file: solar-bess-topology-v2/indexforgis-sld-v2.html

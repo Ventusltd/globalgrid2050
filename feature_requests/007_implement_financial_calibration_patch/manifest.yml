@@ -1,0 +1,157 @@
+name: Implement Financial Calibration Patch
+summary: Implements the financial calibration patch based on independent validation, including dynamic success probability, grid connection cost integration, and NSIP/DCO planning warnings.
+
+operations:
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      function applyDevelopmentStageDefaults\(prefix\) \{[\s\S]{0,500}?cost\.value = stage\.value;\s*\}
+    replace: |
+      function applyDevelopmentStageDefaults(prefix) {
+          const stage = $(prefix + "_dev_stage");
+          const cost = $(prefix + "_dev_cost_mw");
+          if (!stage || !cost) return;
+          cost.value = stage.value;
+
+          const success = $(prefix + "_dev_success");
+          const successByStage = {
+              "3000": 10,
+              "15000": 15,
+              "35000": 30,
+              "55000": 55,
+              "70000": 70,
+              "80000": 80,
+              "100000": 95
+          };
+          if (success && successByStage[stage.value] !== undefined) {
+              success.value = successByStage[stage.value];
+          }
+      }
+    flags: ms
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_string_dev_owner_mw" value="200000" step="25000" min="0"></div>
+    insert: |
+      <div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_string_dev_grid_mw" value="200000" step="25000" min="0"></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_central_dev_owner_mw" value="200000" step="25000" min="0"></div>
+    insert: |
+      <div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_central_dev_grid_mw" value="200000" step="25000" min="0"></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_string_dev_owner_cost">£0</span></div>
+    insert: |
+      <div class="stat-row"><span>Grid Connection Cost</span><span class="stat-val" id="fin_string_dev_grid_cost">£0</span></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_central_dev_owner_cost">£0</span></div>
+    insert: |
+      <div class="stat-row"><span>Grid Connection Cost</span><span class="stat-val" id="fin_central_dev_grid_cost">£0</span></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      const devOwnerPerMw = num(prefix + "_dev_owner_mw");
+    insert: |
+      const devGridPerMw = num(prefix + "_dev_grid_mw");
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      const devOwnerCost = dc_mwp * devOwnerPerMw;
+    insert: |
+      const devGridCost = dc_mwp * devGridPerMw;
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost;'
+    replace: 'const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost + devGridCost;'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devExitPerMwp,'
+    replace: 'devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devGridPerMw, devExitPerMwp,'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: 'devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devTotalBuildCost,'
+    replace: 'devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devGridCost, devTotalBuildCost,'
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      setText(prefix + "_dev_owner_cost", money(fin.devOwnerCost));
+    insert: |
+      setText(prefix + "_dev_grid_cost", money(fin.devGridCost));
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      if (fin.devEpcPerMw > 850000) w.push("EPC cost is above typical non BESS UK benchmark range.");
+    insert: |
+      if (stats.dc_mwp > 100) w.push("Project capacity is above 100 megawatts peak. Nationally Significant Infrastructure Project (NSIP) and Development Consent Order (DCO) planning assumptions may apply and development cost, timescale and owner cost defaults may be too low.");
+      if (fin.devGridPerMw > 1000000) w.push("Grid connection cost assumption is very high and may indicate major reinforcement, transmission interface or abnormal connection risk.");
+      if (fin.devGridPerMw < 100000 && fin.devGridPerMw > 0) w.push("Grid connection cost assumption is low and should be checked against the project specific connection scope.");
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      fin_development_owner_cost_gbp_mw: fin.devOwnerPerMw,
+    insert: |
+      fin_development_grid_connection_cost_gbp_mw: fin.devGridPerMw,
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      fin_development_owner_cost_gbp: Math.round(fin.devOwnerCost),
+    insert: |
+      fin_development_grid_connection_cost_gbp: Math.round(fin.devGridCost),
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_grid_mw'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_grid_mw'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_grid_cost'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_grid_cost'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'devGridPerMw'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'devGridCost'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_development_grid_connection_cost_gbp_mw'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Nationally Significant Infrastructure Project (NSIP)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Development Consent Order (DCO)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Grid Connection Cost £ per Megawatt (MW)'

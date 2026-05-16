@@ -54,10 +54,15 @@
 ├── feature_requests
 │   ├── 000_v2_identity
 │   │   └── manifest.yml
-│   └── 001_extract_v2_css
+│   ├── 001_extract_v2_css
+│   │   ├── files
+│   │   │   └── solar-bess-topology-v2
+│   │   │       └── gis-sld-v2.css
+│   │   └── manifest.yml
+│   └── 002_extract_v2_config
 │       ├── files
 │       │   └── solar-bess-topology-v2
-│       │       └── gis-sld-v2.css
+│       │       └── gis-sld-v2-config.js
 │       └── manifest.yml
 ├── global_hydrocarbons.geojson
 ├── global_ports.geojson
@@ -81,7 +86,8 @@
 ├── grid_substations.geojson
 ├── gridbot_reports
 │   ├── gridbot_install_20260515_101208.md
-│   └── gridbot_install_20260515_231448.md
+│   ├── gridbot_install_20260515_231448.md
+│   └── gridbot_install_20260515_233241.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -463,4 +469,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-45 directories, 419 files
+48 directories, 422 files

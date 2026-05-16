@@ -11,6 +11,7 @@
 ├── GRIDBOT_FEATURE_INSTALL_INSTRUCTIONS.md
 ├── GlobalGrid2050 -CoPilot report.pdf
 ├── LICENSE.txt
+├── PHILOSOPHY.md
 ├── README.md
 ├── REPO_STRUCTURE.txt
 ├── _layouts
@@ -68,11 +69,18 @@
 │   │   └── manifest.yml
 │   ├── 002a_fix_config_load_order
 │   │   └── manifest.yml
-│   └── 003_extract_v2_helpers
-│       ├── files
-│       │   └── solar-bess-topology-v2
-│       │       └── gis-sld-v2-helpers.js
-│       └── manifest.yml
+│   ├── 003_extract_v2_helpers
+│   │   ├── files
+│   │   │   └── solar-bess-topology-v2
+│   │   │       └── gis-sld-v2-helpers.js
+│   │   └── manifest.yml
+│   ├── 003a_hide_number_arrows
+│   │   └── manifest.yml
+│   └── 004_create_test_fixtures
+│       └── files
+│           └── solar-bess-topology-v2
+│               └── test_fixtures
+│                   └── fixture_001_default_string.geojson
 ├── global_hydrocarbons.geojson
 ├── global_ports.geojson
 ├── grid_11kv_ukpn.geojson
@@ -100,7 +108,8 @@
 │   ├── gridbot_install_20260516_083220.md
 │   ├── gridbot_install_20260516_091747.md
 │   ├── gridbot_install_20260516_095506.md
-│   └── gridbot_install_20260516_103352.md
+│   ├── gridbot_install_20260516_103352.md
+│   └── gridbot_install_20260516_111225.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -444,6 +453,10 @@
 │   ├── index.html
 │   └── indexforgis-sld.html
 ├── solar-bess-topology-v2
+│   ├── 004_extract_v2_state
+│   │   └── files
+│   │       └── solar-bess-topology-v2
+│   │           └── gis-sld-v2-state.js
 │   ├── gis-sld-v2-config.js
 │   ├── gis-sld-v2-helpers.js
 │   ├── gis-sld-v2.css
@@ -484,4 +497,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-52 directories, 433 files
+60 directories, 438 files

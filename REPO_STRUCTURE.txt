@@ -95,7 +95,9 @@
 │   │   └── manifest.yml
 │   ├── 006b_clean_development_financials
 │   │   └── manifest.yml
-│   └── 007_implement_financial_calibration_patch
+│   ├── 007_implement_financial_calibration_patch
+│   │   └── manifest.yml
+│   └── 008_polish_financial_defaults_and_layout
 │       └── manifest.yml
 ├── global_hydrocarbons.geojson
 ├── global_ports.geojson
@@ -129,7 +131,8 @@
 │   ├── gridbot_install_20260516_115051.md
 │   ├── gridbot_install_20260516_133024.md
 │   ├── gridbot_install_20260516_183703.md
-│   └── gridbot_install_20260516_201759.md
+│   ├── gridbot_install_20260516_201759.md
+│   └── gridbot_install_20260516_204935.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -483,6 +486,12 @@
 │   ├── gis-sld-v2-substations.js
 │   ├── gis-sld-v2.css
 │   └── indexforgis-sld-v2.html
+├── solar-bess-topology-v3
+│   ├── gis-sld-v3-config.js
+│   ├── gis-sld-v3-helpers.js
+│   ├── gis-sld-v3-state.js
+│   ├── gis-sld-v3-substations.js
+│   └── gis-sld-v3.css
 ├── solar_components
 │   └── index.md
 ├── solar_deployment_statistics
@@ -520,4 +529,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-69 directories, 452 files
+71 directories, 459 files

@@ -2,55 +2,55 @@ name: Add V2 development financials
 summary: Adds user modifiable UK solar development stage financial inputs and outputs before CAPEX, with Modules shown before EPC.
 
 operations:
-   - type: regex_replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     pattern: |
       <h3>CAPEX</h3>[\s\S]*?<div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
     replace: |
-              <h3>Development Financials</h3>
-              <div class="finance-headline">
-                  <div class="stat-row"><span>Development Capital at Risk</span><span class="stat-val" id="fin_string_dev_capital">£0</span></div>
-                  <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_string_dev_module_cost">£0</span></div>
-                  <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_string_dev_epc_cost">£0</span></div>
-                  <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_string_dev_owner_cost">£0</span></div>
-                  <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_string_dev_total_cost">£0</span></div>
-                  <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_string_dev_exit_value">£0</span></div>
-                  <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_string_dev_margin">£0</span></div>
-                  <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_string_dev_risk_value">£0</span></div>
-                  <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_string_dev_multiple">0.00x</span></div>
-              </div>
+      <h3>Development Financials</h3>
+      <div class="finance-headline">
+          <div class="stat-row"><span>Development Capital at Risk</span><span class="stat-val" id="fin_string_dev_capital">£0</span></div>
+          <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_string_dev_module_cost">£0</span></div>
+          <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_string_dev_epc_cost">£0</span></div>
+          <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_string_dev_owner_cost">£0</span></div>
+          <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_string_dev_total_cost">£0</span></div>
+          <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_string_dev_exit_value">£0</span></div>
+          <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_string_dev_margin">£0</span></div>
+          <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_string_dev_risk_value">£0</span></div>
+          <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_string_dev_multiple">0.00x</span></div>
+      </div>
 
-              <div class="input-group">
-                  <label>Development Stage</label>
-                  <select id="fin_string_dev_stage" data-dev-stage-prefix="fin_string">
-                      <option value="3000">Option Signed</option>
-                      <option value="15000">Grid Application Accepted</option>
-                      <option value="35000">Planning Application Submitted</option>
-                      <option value="55000">Planning Consent Granted</option>
-                      <option value="70000">Gate 2 Offer Accepted</option>
-                      <option value="80000">Offtake Secured</option>
-                      <option value="100000" selected>EPC Signature / Financial Close</option>
-                  </select>
-              </div>
-              <div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_string_dev_cost_mw" value="100000" step="5000" min="0"></div>
-              <div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_string_dev_module_mwp" value="150000" step="10000" min="0"></div>
-              <div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_string_dev_epc_mw" value="600000" step="25000" min="0"></div>
-              <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_string_dev_owner_mw" value="200000" step="25000" min="0"></div>
-              <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_string_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
-              <div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_string_dev_success" value="15" step="1" min="0" max="100"></div>
-              <div class="input-group"><label>Development Years</label><input type="number" id="fin_string_dev_years" value="4" step="0.5" min="0"></div>
+      <div class="input-group">
+          <label>Development Stage</label>
+          <select id="fin_string_dev_stage" data-dev-stage-prefix="fin_string">
+              <option value="3000">Option Signed</option>
+              <option value="15000">Grid Application Accepted</option>
+              <option value="35000">Planning Application Submitted</option>
+              <option value="55000">Planning Consent Granted</option>
+              <option value="70000">Gate 2 Offer Accepted</option>
+              <option value="80000">Offtake Secured</option>
+              <option value="100000" selected>EPC Signature / Financial Close</option>
+          </select>
+      </div>
+      <div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_string_dev_cost_mw" value="100000" step="5000" min="0"></div>
+      <div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_string_dev_module_mwp" value="150000" step="10000" min="0"></div>
+      <div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_string_dev_epc_mw" value="600000" step="25000" min="0"></div>
+      <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_string_dev_owner_mw" value="200000" step="25000" min="0"></div>
+      <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_string_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+      <div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_string_dev_success" value="15" step="1" min="0" max="100"></div>
+      <div class="input-group"><label>Development Years</label><input type="number" id="fin_string_dev_years" value="4" step="0.5" min="0"></div>
 
-              <h3>CAPEX</h3>
-              <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
-              <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
-              <div class="input-group">
-                  <label>Flood Resilience</label>
-                  <div style="display: flex; gap: 4px; align-items: center;">
-                      <input type="checkbox" id="fin_string_flood" />
-                      <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
-                  </div>
-              </div>
-              <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
+      <h3>CAPEX</h3>
+      <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
+      <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
+      <div class="input-group">
+          <label>Flood Resilience</label>
+          <div style="display: flex; gap: 4px; align-items: center;">
+              <input type="checkbox" id="fin_string_flood" />
+              <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+          </div>
+      </div>
+      <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
     flags: ms
 
   - type: regex_replace
@@ -58,108 +58,50 @@ operations:
     pattern: |
       <h3>CAPEX</h3>[\s\S]*?<div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
     replace: |
-              <h3>Development Financials</h3>
-              <div class="finance-headline">
-                  <div class="stat-row"><span>Development Capital at Risk</span><span class="stat-val" id="fin_central_dev_capital">£0</span></div>
-                  <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_central_dev_module_cost">£0</span></div>
-                  <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_central_dev_epc_cost">£0</span></div>
-                  <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_central_dev_owner_cost">£0</span></div>
-                  <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_central_dev_total_cost">£0</span></div>
-                  <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_central_dev_exit_value">£0</span></div>
-                  <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_central_dev_margin">£0</span></div>
-                  <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_central_dev_risk_value">£0</span></div>
-                  <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_central_dev_multiple">0.00x</span></div>
-              </div>
+      <h3>Development Financials</h3>
+      <div class="finance-headline">
+          <div class="stat-row"><span>Development Capital at Risk</span><span class="stat-val" id="fin_central_dev_capital">£0</span></div>
+          <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_central_dev_module_cost">£0</span></div>
+          <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_central_dev_epc_cost">£0</span></div>
+          <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_central_dev_owner_cost">£0</span></div>
+          <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_central_dev_total_cost">£0</span></div>
+          <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_central_dev_exit_value">£0</span></div>
+          <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_central_dev_margin">£0</span></div>
+          <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_central_dev_risk_value">£0</span></div>
+          <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_central_dev_multiple">0.00x</span></div>
+      </div>
 
-              <div class="input-group">
-                  <label>Development Stage</label>
-                  <select id="fin_central_dev_stage" data-dev-stage-prefix="fin_central">
-                      <option value="3000">Option Signed</option>
-                      <option value="15000">Grid Application Accepted</option>
-                      <option value="35000">Planning Application Submitted</option>
-                      <option value="55000">Planning Consent Granted</option>
-                      <option value="70000">Gate 2 Offer Accepted</option>
-                      <option value="80000">Offtake Secured</option>
-                      <option value="100000" selected>EPC Signature / Financial Close</option>
-                  </select>
-              </div>
-              <div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_central_dev_cost_mw" value="100000" step="5000" min="0"></div>
-              <div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_central_dev_module_mwp" value="150000" step="10000" min="0"></div>
-              <div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="600000" step="25000" min="0"></div>
-              <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_central_dev_owner_mw" value="200000" step="25000" min="0"></div>
-              <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
-              <div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_central_dev_success" value="15" step="1" min="0" max="100"></div>
-              <div class="input-group"><label>Development Years</label><input type="number" id="fin_central_dev_years" value="4" step="0.5" min="0"></div>
+      <div class="input-group">
+          <label>Development Stage</label>
+          <select id="fin_central_dev_stage" data-dev-stage-prefix="fin_central">
+              <option value="3000">Option Signed</option>
+              <option value="15000">Grid Application Accepted</option>
+              <option value="35000">Planning Application Submitted</option>
+              <option value="55000">Planning Consent Granted</option>
+              <option value="70000">Gate 2 Offer Accepted</option>
+              <option value="80000">Offtake Secured</option>
+              <option value="100000" selected>EPC Signature / Financial Close</option>
+          </select>
+      </div>
+      <div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_central_dev_cost_mw" value="100000" step="5000" min="0"></div>
+      <div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_central_dev_module_mwp" value="150000" step="10000" min="0"></div>
+      <div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="600000" step="25000" min="0"></div>
+      <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_central_dev_owner_mw" value="200000" step="25000" min="0"></div>
+      <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+      <div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_central_dev_success" value="15" step="1" min="0" max="100"></div>
+      <div class="input-group"><label>Development Years</label><input type="number" id="fin_central_dev_years" value="4" step="0.5" min="0"></div>
 
-              <h3>CAPEX</h3>
-              <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
-              <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
-              <div class="input-group">
-                  <label>Flood Resilience</label>
-                  <div style="display: flex; gap: 4px; align-items: center;">
-                      <input type="checkbox" id="fin_central_flood" />
-                      <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
-                  </div>
-              </div>
-              <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
-    flags: ms
-  - type: regex_replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    pattern: |
-      \s*<h3>CAPEX</h3>\s*
-      <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>\s*
-      <div class="input-group">\s*
-      <label>Flood Resilience</label>\s*
-      <div style="display: flex; gap: 4px; align-items: center;">\s*
-      <input type="checkbox" id="fin_central_flood" />\s*
-      <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />\s*
-      </div>\s*
-      </div>\s*
+      <h3>CAPEX</h3>
       <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
-    replace: |
-              <h3>Development Financials</h3>
-              <div class="finance-headline">
-                  <div class="stat-row"><span>Development Capital at Risk</span><span class="stat-val" id="fin_central_dev_capital">£0</span></div>
-                  <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_central_dev_module_cost">£0</span></div>
-                  <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_central_dev_epc_cost">£0</span></div>
-                  <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_central_dev_owner_cost">£0</span></div>
-                  <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_central_dev_total_cost">£0</span></div>
-                  <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_central_dev_exit_value">£0</span></div>
-                  <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_central_dev_margin">£0</span></div>
-                  <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_central_dev_risk_value">£0</span></div>
-                  <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_central_dev_multiple">0.00x</span></div>
-              </div>
-
-              <div class="input-group">
-                  <label>Development Stage</label>
-                  <select id="fin_central_dev_stage" data-dev-stage-prefix="fin_central">
-                      <option value="3000">Option Signed</option>
-                      <option value="15000">Grid Application Accepted</option>
-                      <option value="35000">Planning Application Submitted</option>
-                      <option value="55000">Planning Consent Granted</option>
-                      <option value="70000">Gate 2 Offer Accepted</option>
-                      <option value="80000">Offtake Secured</option>
-                      <option value="100000" selected>EPC Signature / Financial Close</option>
-                  </select>
-              </div>
-              <div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_central_dev_cost_mw" value="100000" step="5000" min="0"></div>
-              <div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_central_dev_module_mwp" value="150000" step="10000" min="0"></div>
-              <div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="600000" step="25000" min="0"></div>
-              <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_central_dev_owner_mw" value="200000" step="25000" min="0"></div>
-              <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
-              <div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_central_dev_success" value="15" step="1" min="0" max="100"></div>
-              <div class="input-group"><label>Development Years</label><input type="number" id="fin_central_dev_years" value="4" step="0.5" min="0"></div>
-
-              <h3>CAPEX</h3>
-              <div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
-              <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
-              <div class="input-group">
-                  <label>Flood Resilience</label>
-                  <div style="display: flex; gap: 4px; align-items: center;">
-                      <input type="checkbox" id="fin_central_flood" />
-                      <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
-                  </div>
-              </div>
+      <div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
+      <div class="input-group">
+          <label>Flood Resilience</label>
+          <div style="display: flex; gap: 4px; align-items: center;">
+              <input type="checkbox" id="fin_central_flood" />
+              <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+          </div>
+      </div>
+      <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
     flags: ms
 
   - type: insert_before
@@ -256,25 +198,25 @@ operations:
   - type: insert_after
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     marker: |
-              fin_35yr_surplus_gbp: Math.round(fin.surplus35),
+                  fin_35yr_surplus_gbp: Math.round(fin.surplus35),
     insert: |
-              fin_development_stage: fin.devStage,
-              fin_development_cost_gbp_mw: fin.devCostPerMw,
-              fin_development_module_supply_cost_gbp_mwp: fin.devModulePerMwp,
-              fin_development_epc_cost_gbp_mw: fin.devEpcPerMw,
-              fin_development_owner_cost_gbp_mw: fin.devOwnerPerMw,
-              fin_development_exit_value_gbp_mwp: fin.devExitPerMwp,
-              fin_development_success_probability_percent: fin.devSuccessPct,
-              fin_development_years: fin.devYears,
-              fin_development_capital_at_risk_gbp: Math.round(fin.devCapitalAtRisk),
-              fin_development_module_supply_cost_gbp: Math.round(fin.devModuleCost),
-              fin_development_epc_cost_gbp: Math.round(fin.devEpcCost),
-              fin_development_owner_cost_gbp: Math.round(fin.devOwnerCost),
-              fin_development_total_build_cost_gbp: Math.round(fin.devTotalBuildCost),
-              fin_development_target_exit_value_gbp: Math.round(fin.devExitValue),
-              fin_development_gross_margin_gbp: Math.round(fin.devGrossMargin),
-              fin_development_risk_adjusted_value_gbp: Math.round(fin.devRiskAdjustedValue),
-              fin_development_return_multiple: Number(fin.devReturnMultiple.toFixed(4)),
+                  fin_development_stage: fin.devStage,
+                  fin_development_cost_gbp_mw: fin.devCostPerMw,
+                  fin_development_module_supply_cost_gbp_mwp: fin.devModulePerMwp,
+                  fin_development_epc_cost_gbp_mw: fin.devEpcPerMw,
+                  fin_development_owner_cost_gbp_mw: fin.devOwnerPerMw,
+                  fin_development_exit_value_gbp_mwp: fin.devExitPerMwp,
+                  fin_development_success_probability_percent: fin.devSuccessPct,
+                  fin_development_years: fin.devYears,
+                  fin_development_capital_at_risk_gbp: Math.round(fin.devCapitalAtRisk),
+                  fin_development_module_supply_cost_gbp: Math.round(fin.devModuleCost),
+                  fin_development_epc_cost_gbp: Math.round(fin.devEpcCost),
+                  fin_development_owner_cost_gbp: Math.round(fin.devOwnerCost),
+                  fin_development_total_build_cost_gbp: Math.round(fin.devTotalBuildCost),
+                  fin_development_target_exit_value_gbp: Math.round(fin.devExitValue),
+                  fin_development_gross_margin_gbp: Math.round(fin.devGrossMargin),
+                  fin_development_risk_adjusted_value_gbp: Math.round(fin.devRiskAdjustedValue),
+                  fin_development_return_multiple: Number(fin.devReturnMultiple.toFixed(4)),
 
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html

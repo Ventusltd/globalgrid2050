@@ -1,7 +1,39 @@
-name: Extract V2 config placeholder
-summary: Creates a placeholder config file for the V2 sandbox.
+name: Extract V2 config
+summary: Moves SUBSTATIONS_URL and CONSTANTS into gis-sld-v2-config.js and loads it before the inline application script.
 
 operations:
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js" defer></script>
+    insert: |
+
+      <script src="gis-sld-v2-config.js" defer></script>
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      // ============================================================
+      // CONFIGURATION
+      // ============================================================
+      [\s\S]*?
+      // ============================================================
+      // STATE
+      // ============================================================
+    replace: |
+      // ============================================================
+      // STATE
+      // ============================================================
+    flags: ms
+
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    text: "GIS SLD Sandbox V2"
+    text: 'gis-sld-v2-config.js'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2-config.js
+    text: 'M2_PER_ACRE: 4046.86'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2-config.js
+    text: '/grid_substations.geojson'

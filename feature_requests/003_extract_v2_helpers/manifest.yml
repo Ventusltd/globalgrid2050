@@ -1,0 +1,39 @@
+name: Extract V2 helpers
+summary: Moves small DOM, formatting, validation and status helpers into gis-sld-v2-helpers.js.
+
+operations:
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <script src="gis-sld-v2-config.js"></script>
+    insert: |
+      
+      <script src="gis-sld-v2-helpers.js"></script>
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      // ============================================================
+      // SMALL UTILITIES
+      // ============================================================
+      [\s\S]*?
+      // ============================================================
+      // MAP
+      // ============================================================
+    replace: |
+      // ============================================================
+      // MAP
+      // ============================================================
+    flags: ms
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'gis-sld-v2-helpers.js'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2-helpers.js
+    text: 'function money'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2-helpers.js
+    text: 'function setFetchStatus'

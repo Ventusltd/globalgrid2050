@@ -86,10 +86,12 @@
 │   │   │   └── solar-bess-topology-v2
 │   │   │       └── gis-sld-v2-state.js
 │   │   └── manifest.yml
-│   └── 005_extract_v2_substation_data
-│       ├── files
-│       │   └── solar-bess-topology-v2
-│       │       └── gis-sld-v2-substations.js
+│   ├── 005_extract_v2_substation_data
+│   │   ├── files
+│   │   │   └── solar-bess-topology-v2
+│   │   │       └── gis-sld-v2-substations.js
+│   │   └── manifest.yml
+│   └── 006_add_v2_development_financials
 │       └── manifest.yml
 ├── global_hydrocarbons.geojson
 ├── global_ports.geojson
@@ -121,7 +123,8 @@
 │   ├── gridbot_install_20260516_103352.md
 │   ├── gridbot_install_20260516_111225.md
 │   ├── gridbot_install_20260516_115051.md
-│   └── gridbot_install_20260516_133024.md
+│   ├── gridbot_install_20260516_133024.md
+│   └── gridbot_install_20260516_183703.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -508,7 +511,8 @@
 │   └── dashboard.html
 ├── uk_solar_in-planning-1-50mw.md
 ├── uk_trunk_roads.geojson
+├── uk_utility_scale_solar_development_greenfield_to_epc_signature.md
 ├── ventus-core.js
 └── ventus.css
 
-66 directories, 446 files
+67 directories, 449 files

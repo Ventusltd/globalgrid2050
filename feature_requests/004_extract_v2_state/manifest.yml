@@ -1,0 +1,46 @@
+name: Extract V2 state
+summary: Moves the small shared V2 state object into gis-sld-v2-state.js without changing app logic.
+
+operations:
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <script src="gis-sld-v2-helpers.js"></script>
+    insert: |
+      
+      <script src="gis-sld-v2-state.js"></script>
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      // ============================================================
+      // STATE
+      // ============================================================
+      const state = \{
+          activeTab: "string",
+          currentGeoJSON: \{ type: "FeatureCollection", features: \[\] \},
+          activeDrawCenter: null,
+          selectedSubstation: null,
+          subsVisible: true,
+          satActive: false,
+          activePopup: null,
+          lastStats: null,
+          lastFinance: \{ fin_string: null, fin_central: null \}
+      \};
+
+      
+    replace: |
+      
+    flags: ms
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'gis-sld-v2-state.js'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2-state.js
+    text: 'const state = {'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: '// MAP'

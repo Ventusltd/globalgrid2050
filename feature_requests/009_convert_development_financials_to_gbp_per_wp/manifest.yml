@@ -1,5 +1,5 @@
 name: Convert Development Financials to GBP per Wp
-summary: Converts Development Financials from large £/MW values to user-friendly £/Wp decimals, updates JavaScript math, warning thresholds, stage option values, success probability map, export fields, and refines CSS wrapping in the external stylesheet.
+summary: Converts Development Financials from large £/MW values to user-friendly £/Wp decimals, updates JavaScript math, warning thresholds, stage option values, export fields, and refines CSS wrapping in the external stylesheet.
 
 operations:
   # ---------------------------------------------------------
@@ -122,32 +122,6 @@ operations:
     pattern: '<option value="100000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.100" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
     flags: ms
-
-  # ---------------------------------------------------------
-  # SUCCESS BY STAGE MAP UPDATE
-  # ---------------------------------------------------------
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: |
-          const successByStage = {
-              "3000": 10,
-              "15000": 15,
-              "35000": 30,
-              "55000": 55,
-              "70000": 70,
-              "80000": 80,
-              "100000": 95
-          };
-    replace: |
-          const successByStage = {
-              "0.003": 10,
-              "0.015": 15,
-              "0.035": 30,
-              "0.055": 55,
-              "0.070": 70,
-              "0.080": 80,
-              "0.100": 95
-          };
 
   # ---------------------------------------------------------
   # COMPUTE FINANCE MATH UPDATE
@@ -342,10 +316,6 @@ operations:
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     text: '<option value="0.100" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
-
-  - type: assert_contains
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    text: '"0.100": 95'
 
   - type: assert_contains
     file: solar-bess-topology-v2/gis-sld-v2.css

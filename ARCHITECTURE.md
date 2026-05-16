@@ -1119,6 +1119,126 @@ The correct path is controlled modularisation, not uncontrolled refactoring.
 
 ---
 
+GridBot Modularisation 
+
+Corrected V2 Modularisation Sequence
+
+After Deep Research, Claude review and Gemini review, the V2 modularisation sequence has been corrected against the actual structure of indexforgis-sld-v2.html.
+
+The original generic split plan was useful, but it treated all JavaScript extraction steps as similar. That is not accurate for this codebase.
+
+The actual sequence is:
+
+002_extract_v2_config
+
+Move only SUBSTATIONS_URL and CONSTANTS into gis-sld-v2-config.js.
+
+This is a small extraction. It must load before the inline application script.
+
+The config file should remain a plain script for now. It should include a TODO note to migrate config into the shared namespace when state ownership is decided.
+
+003_extract_v2_helpers
+
+Move only the small DOM and formatting helpers.
+
+This includes simple helpers such as $, num, intVal, checked, setText, setClass, money, debounce, isValidLngLat, pickProp and setFetchStatus.
+
+Do not move Turf geometry functions into helpers. Geometry belongs later in topology.
+
+004_create_test_fixtures
+
+Capture known good GeoJSON outputs before finance, topology or export logic is changed.
+
+The fixture set should include:
+
+1. Empty or zero case
+2. Default string case
+3. Default central case
+4. BESS active case
+5. Edge case with minimum module and ring assumptions
+
+004a_fixture_harness
+
+Create a simple runner to compare future outputs against committed fixtures.
+
+Fixtures alone are not enough. The harness must provide a green or red signal after future GridBot installs.
+
+005_decouple_finance_inputs
+
+Do not simply move computeFinance.
+
+The current finance function reads DOM inputs directly. First create readFinanceInputs(prefix). This should return a plain input object.
+
+Then update computeFinance so it accepts plain inputs and stats.
+
+BESS efficiency unit handling should be corrected here so the input object uses one consistent representation.
+
+006_extract_v2_finance
+
+Move finance calculation only after input decoupling is proven.
+
+The calculation should not depend directly on document elements.
+
+007_extract_v2_state
+
+Create clear state ownership before map, topology and export are split.
+
+This feature should decide whether state remains as a single shared object or moves into a namespace such as window.GISSLD.
+
+008_extract_v2_map
+
+Move MapLibre setup, layer setup, popups, substation loading, basemap toggles and map click handlers.
+
+Map should read and write state through the agreed state model.
+
+009_extract_v2_topology
+
+Move Turf geometry and layout logic.
+
+Topology should produce a FeatureCollection. It should not own the map.
+
+010_extract_v2_export
+
+Move GeoJSON export after finance, state and topology are stable.
+
+Export must preserve assumptions and must remain compatible with fixture checks.
+
+011_extract_v2_main
+
+Leave boot, event wiring and orchestration last.
+
+Main should coordinate modules rather than contain heavy logic.
+
+Hard Guardrails
+
+Do not extract topology before state ownership is clear.
+
+Do not extract finance before finance input reading is decoupled.
+
+Do not touch duplicated string and central UI panels before fixtures exist.
+
+Do not treat a visual file split as true modularity.
+
+Do not run blank all-feature GridBot installs while one-time extraction features remain non-repeat-safe.
+
+Immediate Next Patch
+
+Feature 002 is the next patch.
+
+It must:
+
+1. Add solar-bess-topology-v2/gis-sld-v2-config.js through feature_requests/002_extract_v2_config/files/.
+2. Insert the config script tag after the Turf script tag.
+3. Remove only the existing CONFIGURATION block from the inline script.
+4. Assert that indexforgis-sld-v2.html contains gis-sld-v2-config.js.
+5. Assert that gis-sld-v2-config.js contains M2_PER_ACRE: 4046.86.
+6. Assert that gis-sld-v2-config.js contains /grid_substations.geojson.
+
+No helpers, finance, map, topology, export or UI duplication should be touched in Feature 002.
+
+
+---
+
 Final Line
 
 GlobalGrid2050 evolves from asset visibility to constraint aware design intelligence, powered by human intent, AI reasoning, Python processing, YAML instruction, GitHub execution and the GIS SLD Financial Sandbox breakthrough.

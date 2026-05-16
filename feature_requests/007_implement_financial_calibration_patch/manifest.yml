@@ -1,7 +1,82 @@
-name: Implement Financial Calibration Patch
-summary: Implements the financial calibration patch based on independent validation, including dynamic success probability, grid connection cost integration, and NSIP/DCO planning warnings.
+name: Combined Financial Calibration and UI Wording Update (Feature 007)
+summary: Single canonical manifest combining all outstanding financial model updates, development phase terminology, NPV/Grid Cost logic, dynamic success probability, and NSIP/DCO planning warnings.
 
 operations:
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<h2>GIS SLD Sandbox V2</h2>'
+    replace: '<h2>Solar Photovoltaic (PV) Development, Engineering, Procurement and Construction (EPC) and Grid Analysis</h2>'
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>\s*<div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>\s*<div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>\s*<div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>\s*<h3>Loss Allowances</h3>
+    replace: |
+      <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
+      <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
+
+                  <h3>Loss Allowances</h3>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>\s*<div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>\s*<div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>\s*<div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>\s*<h3>Loss Allowances</h3>
+    replace: |
+      <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
+      <div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
+
+                  <h3>Loss Allowances</h3>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="3000">Option Signed</option>
+    replace: |
+      <option value="3000">Land Option Signed</option>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="15000">Grid Application Accepted</option>
+    replace: |
+      <option value="15000">Grid Connection Application Accepted</option>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="55000">Planning Consent Granted</option>
+    replace: |
+      <option value="55000">Planning Permission Granted</option>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="70000">Gate 2 Offer Accepted</option>
+    replace: |
+      <option value="70000">Grid Connection Terms Reviewed and Agreed</option>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="80000">Offtake Secured</option>
+    replace: |
+      <option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="100000" selected>EPC Signature / Financial Close</option>
+    replace: |
+      <option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>
+    flags: ms
+
   - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     pattern: |
@@ -28,6 +103,34 @@ operations:
           }
       }
     flags: ms
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_string_dev_exit_value">£0</span></div>
+    insert: |
+      <div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_string_dev_operating_npv">£0</span></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_central_dev_exit_value">£0</span></div>
+    insert: |
+      <div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_central_dev_operating_npv">£0</span></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_string_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+    insert: |
+      <div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_string_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+    insert: |
+      <div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_central_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
 
   - type: insert_after
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
@@ -60,6 +163,20 @@ operations:
   - type: insert_after
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     marker: |
+          const devExitPerMwp = num(prefix + "_dev_exit_mwp");
+    insert: |
+          const devNpvPerMwp = num(prefix + "_dev_npv_mwp");
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+          const devExitValue = dc_mwp * devExitPerMwp;
+    insert: |
+          const devOperatingNpv = dc_mwp * devNpvPerMwp;
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
       const devOwnerPerMw = num(prefix + "_dev_owner_mw");
     insert: |
       const devGridPerMw = num(prefix + "_dev_grid_mw");
@@ -78,13 +195,20 @@ operations:
 
   - type: replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devExitPerMwp,'
-    replace: 'devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devGridPerMw, devExitPerMwp,'
+    find: 'devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devExitPerMwp, devSuccessPct, devYears,'
+    replace: 'devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devGridPerMw, devExitPerMwp, devNpvPerMwp, devSuccessPct, devYears,'
 
   - type: replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devTotalBuildCost,'
-    replace: 'devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devGridCost, devTotalBuildCost,'
+    find: 'devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devTotalBuildCost, devExitValue,'
+    replace: 'devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devGridCost, devTotalBuildCost, devExitValue, devOperatingNpv,'
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+          setText(prefix + "_dev_exit_value", money(fin.devExitValue));
+    insert: |
+          setText(prefix + "_dev_operating_npv", money(fin.devOperatingNpv));
 
   - type: insert_after
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
@@ -98,6 +222,8 @@ operations:
     marker: |
       if (fin.devEpcPerMw > 850000) w.push("EPC cost is above typical non BESS UK benchmark range.");
     insert: |
+      if (fin.devNpvPerMwp < 900000 && fin.devNpvPerMwp > 0) w.push("Operating asset Net Present Value (NPV) assumption is below current screening range.");
+      if (fin.devNpvPerMwp > 1400000) w.push("Operating asset Net Present Value (NPV) assumption is above current screening range and may require strong evidence.");
       if (stats.dc_mwp > 100) w.push("Project capacity is above 100 megawatts peak. Nationally Significant Infrastructure Project (NSIP) and Development Consent Order (DCO) planning assumptions may apply and development cost, timescale and owner cost defaults may be too low.");
       if (fin.devGridPerMw > 1000000) w.push("Grid connection cost assumption is very high and may indicate major reinforcement, transmission interface or abnormal connection risk.");
       if (fin.devGridPerMw < 100000 && fin.devGridPerMw > 0) w.push("Grid connection cost assumption is low and should be checked against the project specific connection scope.");
@@ -105,16 +231,104 @@ operations:
   - type: insert_after
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     marker: |
-      fin_development_owner_cost_gbp_mw: fin.devOwnerPerMw,
+        fin_development_owner_cost_gbp_mw: fin.devOwnerPerMw,
     insert: |
-      fin_development_grid_connection_cost_gbp_mw: fin.devGridPerMw,
+        fin_development_grid_connection_cost_gbp_mw: fin.devGridPerMw,
 
   - type: insert_after
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     marker: |
-      fin_development_owner_cost_gbp: Math.round(fin.devOwnerCost),
+        fin_development_exit_value_gbp_mwp: fin.devExitPerMwp,
     insert: |
-      fin_development_grid_connection_cost_gbp: Math.round(fin.devGridCost),
+        fin_development_operating_npv_gbp_mwp: fin.devNpvPerMwp,
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+        fin_development_owner_cost_gbp: Math.round(fin.devOwnerCost),
+    insert: |
+        fin_development_grid_connection_cost_gbp: Math.round(fin.devGridCost),
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+        fin_development_target_exit_value_gbp: Math.round(fin.devExitValue),
+    insert: |
+        fin_development_operating_npv_gbp: Math.round(fin.devOperatingNpv),
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <p>Use the sandbox as a thinking tool. Use it to test scale. Use it to compare assumptions. Use it to understand where deeper engineering begins.</p>
+    insert: |
+
+        <h3>Financial Model Logic</h3>
+        <p>The financial model is a screening layer for Solar Photovoltaic (PV) development, grid connection, Engineering, Procurement and Construction (EPC) readiness and operating asset value. It is designed to make the main commercial assumptions visible beside the physical layout, not to replace a full valuation report or investment committee model.</p>
+        <p>The energy price input is a blended screening assumption. It may represent government backed price stabilisation, a private buyer contract, merchant power exposure or a blended revenue case. Users should enter the expected captured electricity price that best reflects the project route to market.</p>
+        <p>The Operating Asset Net Present Value (NPV) input is user editable because operational value changes with contract quality, revenue certainty, merchant exposure, grid status, asset maturity, inflation, debt assumptions and investor return requirements. A project with stable long term revenue may justify a higher value assumption than a project with greater merchant exposure.</p>
+        <p>The development cost per Megawatt (MW) input is user editable because development capital at risk rises as a project moves from site identification through grid review, planning, buyer or revenue agreement review, technical design and Engineering, Procurement and Construction (EPC) readiness.</p>
+        <p>The Target Exit Value input is a screening assumption, not a promised sale value or formal valuation. It helps users test whether there may be development margin after development cost, module supply cost, Engineering, Procurement and Construction (EPC) cost, grid connection cost and owner costs.</p>
+        <p>The model deliberately avoids pretending to be a full discounted cash flow model. It is a fast comparison tool for early stage decision making. Real projects still require competent engineering, grid studies, planning review, legal review, tax review, debt sizing, revenue analysis and investment committee approval.</p>
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Solar Photovoltaic (PV) Development, Engineering, Procurement and Construction (EPC) and Grid Analysis'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Land Option Signed'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Grid Connection Application Accepted'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Planning Permission Granted'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Grid Connection Terms Reviewed and Agreed'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Construction Contract Signed and Finance Committed (Financial Close)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_npv_mwp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_npv_mwp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_operating_npv'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_operating_npv'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'devOperatingNpv'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_development_operating_npv_gbp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Financial Model Logic'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'full discounted cash flow model'
 
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
@@ -155,3 +369,7 @@ operations:
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     text: 'Grid Connection Cost £ per Megawatt (MW)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'successByStage'

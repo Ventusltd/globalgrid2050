@@ -187,11 +187,10 @@ operations:
   - type: insert_after
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     marker: |
-          document.querySelectorAll("[data-suffix]").forEach(sel => {
-              sel.addEventListener("change", () => applyLogisticsPreset(sel.value, sel.dataset.suffix));
-          });
+          // Bifacial auto-fill
     insert: |
 
+          // Development stage defaults
           document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
               sel.addEventListener("change", () => {
                   applyDevelopmentStageDefaults(sel.dataset.devStagePrefix);

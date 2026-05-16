@@ -1,5 +1,5 @@
-name: Clean Development Financials and Add NPV
-summary: Removes duplicated CAPEX fields, renames the Gate 2 stage, updates the main header to clarify tool purpose, and introduces user-modifiable Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp) inputs, outputs, and export fields.
+name: Clean Development Financials, Add NPV, and Financial Logic Explanation
+summary: Removes duplicated CAPEX fields, renames the Gate 2 stage, updates the main header to clarify tool purpose, introduces user-modifiable Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp) inputs/outputs, and adds a public-facing explanation of the financial screening model's logic.
 
 operations:
   - type: replace
@@ -36,7 +36,7 @@ operations:
     pattern: |
       <option value="80000">Offtake Secured</option>
     replace: |
-      <option value="80000">Buyer or Revenue Agreement Reviewed (PPA / Offtaker)</option>
+      <option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>
     flags: ms
 
   - type: insert_after
@@ -126,6 +126,20 @@ operations:
     insert: |
         fin_development_operating_npv_gbp: Math.round(fin.devOperatingNpv),
 
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <p>Use the sandbox as a thinking tool. Use it to test scale. Use it to compare assumptions. Use it to understand where deeper engineering begins.</p>
+    insert: |
+
+        <h3>Financial Model Logic</h3>
+        <p>The financial model is a screening layer for Solar Photovoltaic (PV) development, grid connection, Engineering, Procurement and Construction (EPC) readiness and operating asset value. It is designed to make the main commercial assumptions visible beside the physical layout, not to replace a full valuation report or investment committee model.</p>
+        <p>The energy price input is a blended screening assumption. It may represent government backed price stabilisation, a private buyer contract, merchant power exposure or a blended revenue case. Users should enter the expected captured electricity price that best reflects the project route to market.</p>
+        <p>The Operating Asset Net Present Value (NPV) input is user editable because operational value changes with contract quality, revenue certainty, merchant exposure, grid status, asset maturity, inflation, debt assumptions and investor return requirements. A project with stable long term revenue may justify a higher value assumption than a project with greater merchant exposure.</p>
+        <p>The development cost per Megawatt (MW) input is user editable because development capital at risk rises as a project moves from site identification through grid review, planning, buyer or revenue agreement review, technical design and Engineering, Procurement and Construction (EPC) readiness.</p>
+        <p>The Target Exit Value input is a screening assumption, not a promised sale value or formal valuation. It helps users test whether there may be development margin after development cost, module supply cost, Engineering, Procurement and Construction (EPC) cost and owner costs.</p>
+        <p>The model deliberately avoids pretending to be a full discounted cash flow model. It is a fast comparison tool for early stage decision making. Real projects still require competent engineering, grid studies, planning review, legal review, tax review, debt sizing, revenue analysis and investment committee approval.</p>
+
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
     text: '<h2>Solar Photovoltaic (PV) Development, Engineering Procurement Construction (EPC) and Grid Analysis</h2>'
@@ -164,4 +178,20 @@ operations:
 
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    text: 'Buyer or Revenue Agreement Reviewed (PPA / Offtaker)'
+    text: 'Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Financial Model Logic'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Operating Asset Net Present Value (NPV) input is user editable'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'The Target Exit Value input is a screening assumption'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'full discounted cash flow model'

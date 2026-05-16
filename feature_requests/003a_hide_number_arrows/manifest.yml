@@ -1,0 +1,33 @@
+name: Hide V2 number input arrows
+summary: Hides native browser number input spinner arrows in the V2 modular app while preserving typed numeric input.
+
+operations:
+  - type: insert_after
+    file: solar-bess-topology-v2/gis-sld-v2.css
+    marker: |
+      .input-group input:focus, 
+      .input-group select:focus {
+        border-color: var(--text);
+        outline: none;
+      }
+    insert: |
+
+      /* Hide native number input arrows while preserving numeric typing */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2.css
+    text: 'Hide native number input arrows'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2.css
+    text: '-moz-appearance: textfield'

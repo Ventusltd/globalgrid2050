@@ -7,6 +7,7 @@
 ├── Braintree.jpg
 ├── CNAME
 ├── DEV_NOTES.md
+├── GRIDBOT_FEATURE_INSTALL_INSTRUCTIONS.md
 ├── GlobalGrid2050 -CoPilot report.pdf
 ├── LICENSE.txt
 ├── README.md
@@ -87,7 +88,8 @@
 ├── gridbot_reports
 │   ├── gridbot_install_20260515_101208.md
 │   ├── gridbot_install_20260515_231448.md
-│   └── gridbot_install_20260515_233241.md
+│   ├── gridbot_install_20260515_233241.md
+│   └── gridbot_install_20260516_083220.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -431,6 +433,7 @@
 │   ├── index.html
 │   └── indexforgis-sld.html
 ├── solar-bess-topology-v2
+│   ├── gis-sld-v2-config.js
 │   ├── gis-sld-v2.css
 │   └── indexforgis-sld-v2.html
 ├── solar_components
@@ -469,4 +472,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-48 directories, 422 files
+48 directories, 425 files

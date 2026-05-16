@@ -13,6 +13,8 @@
 
 <script src="gis-sld-v2-helpers.js"></script>
 
+<script src="gis-sld-v2-state.js"></script>
+
 <link rel="stylesheet" href="gis-sld-v2.css">
 
 </head>
@@ -314,20 +316,6 @@
 <script>
 "use strict";
 
-// ============================================================
-// STATE
-// ============================================================
-const state = {
-    activeTab: "string",
-    currentGeoJSON: { type: "FeatureCollection", features: [] },
-    activeDrawCenter: null,
-    selectedSubstation: null,
-    subsVisible: true,
-    satActive: false,
-    activePopup: null,
-    lastStats: null,
-    lastFinance: { fin_string: null, fin_central: null }
-};
 
 // ============================================================
 // MAP

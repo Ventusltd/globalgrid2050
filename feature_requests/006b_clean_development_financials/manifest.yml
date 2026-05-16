@@ -1,0 +1,167 @@
+name: Clean Development Financials and Add NPV
+summary: Removes duplicated CAPEX fields, renames the Gate 2 stage, updates the main header to clarify tool purpose, and introduces user-modifiable Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp) inputs, outputs, and export fields.
+
+operations:
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<h2>GIS SLD Sandbox V2</h2>'
+    replace: '<h2>Solar Photovoltaic (PV) Development, Engineering Procurement Construction (EPC) and Grid Analysis</h2>'
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>[\s\S]{0,500}?<div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>[\s\S]{0,500}?<h3>Loss Allowances</h3>
+    replace: |
+      <h3>Loss Allowances</h3>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>[\s\S]{0,500}?<div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>[\s\S]{0,500}?<h3>Loss Allowances</h3>
+    replace: |
+      <h3>Loss Allowances</h3>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="70000">Gate 2 Offer Accepted</option>
+    replace: |
+      <option value="70000">Grid Connection Terms Reviewed and Agreed</option>
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      <option value="80000">Offtake Secured</option>
+    replace: |
+      <option value="80000">Buyer or Revenue Agreement Reviewed (PPA / Offtaker)</option>
+    flags: ms
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_string_dev_exit_value">£0</span></div>
+    insert: |
+      <div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_string_dev_operating_npv">£0</span></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_central_dev_exit_value">£0</span></div>
+    insert: |
+      <div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_central_dev_operating_npv">£0</span></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_string_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+    insert: |
+      <div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_string_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+    insert: |
+      <div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_central_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+          const devExitPerMwp = num(prefix + "_dev_exit_mwp");
+    insert: |
+          const devNpvPerMwp = num(prefix + "_dev_npv_mwp");
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+          const devExitValue = dc_mwp * devExitPerMwp;
+    insert: |
+          const devOperatingNpv = dc_mwp * devNpvPerMwp;
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devExitPerMwp, devSuccessPct, devYears,
+    replace: |
+      devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devExitPerMwp, devNpvPerMwp, devSuccessPct, devYears,
+    flags: ms
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devTotalBuildCost, devExitValue,
+    replace: |
+      devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devTotalBuildCost, devExitValue, devOperatingNpv,
+    flags: ms
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+          setText(prefix + "_dev_exit_value", money(fin.devExitValue));
+    insert: |
+          setText(prefix + "_dev_operating_npv", money(fin.devOperatingNpv));
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+          if (fin.devEpcPerMw > 850000) w.push("EPC cost is above typical non BESS UK benchmark range.");
+    insert: |
+          if (fin.devNpvPerMwp < 900000 && fin.devNpvPerMwp > 0) w.push("Operating asset Net Present Value (NPV) assumption is below current screening range.");
+          if (fin.devNpvPerMwp > 1400000) w.push("Operating asset Net Present Value (NPV) assumption is above current screening range and may require strong evidence.");
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+        fin_development_exit_value_gbp_mwp: fin.devExitPerMwp,
+    insert: |
+        fin_development_operating_npv_gbp_mwp: fin.devNpvPerMwp,
+
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+        fin_development_target_exit_value_gbp: Math.round(fin.devExitValue),
+    insert: |
+        fin_development_operating_npv_gbp: Math.round(fin.devOperatingNpv),
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: '<h2>Solar Photovoltaic (PV) Development, Engineering Procurement Construction (EPC) and Grid Analysis</h2>'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Grid Connection Terms Reviewed and Agreed'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_npv_mwp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_npv_mwp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_operating_npv'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_operating_npv'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'devOperatingNpv'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_development_operating_npv_gbp'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'Buyer or Revenue Agreement Reviewed (PPA / Offtaker)'

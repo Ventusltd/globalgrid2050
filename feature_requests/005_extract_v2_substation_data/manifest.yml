@@ -1,0 +1,39 @@
+name: Extract V2 substation data
+summary: Moves substation normalisation and loading into gis-sld-v2-substations.js without changing map, finance, topology or export logic.
+
+operations:
+  - type: insert_after
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    marker: |
+      <script src="gis-sld-v2-state.js"></script>
+    insert: |
+      
+      <script src="gis-sld-v2-substations.js"></script>
+
+  - type: regex_replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    pattern: |
+      // ============================================================
+      // SUBSTATION DATA LOAD
+      // ============================================================
+      function normaliseSubstations\(raw\) \{[\s\S]*?async function loadSubstations\(\) \{[\s\S]*?\n\}
+      
+    replace: |
+      
+    flags: ms
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'gis-sld-v2-substations.js'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2-substations.js
+    text: 'function normaliseSubstations(raw)'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/gis-sld-v2-substations.js
+    text: 'async function loadSubstations()'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: '// MAP CLICK HANDLERS'

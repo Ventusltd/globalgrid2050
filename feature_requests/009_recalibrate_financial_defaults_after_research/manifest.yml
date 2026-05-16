@@ -1,0 +1,43 @@
+name: Recalibrate Financial Defaults After Research
+summary: Updates financial defaults after research validation by setting EPC to 550k/MW, Grid Connection Cost to 150k/MW, preserving Owner Costs at 100k/MW and clarifying EPC wording.
+
+operations:
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_string_dev_epc_mw" value="500000" step="25000" min="0"></div>'
+    replace: '<div class="input-group"><label>EPC Cost excluding Modules £/MW</label><input type="number" id="fin_string_dev_epc_mw" value="550000" step="25000" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="500000" step="25000" min="0"></div>'
+    replace: '<div class="input-group"><label>EPC Cost excluding Modules £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="550000" step="25000" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_string_dev_grid_mw" value="100000" step="25000" min="0"></div>'
+    replace: '<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_string_dev_grid_mw" value="150000" step="25000" min="0"></div>'
+
+  - type: replace
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    find: '<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_central_dev_grid_mw" value="100000" step="25000" min="0"></div>'
+    replace: '<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_central_dev_grid_mw" value="150000" step="25000" min="0"></div>'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_epc_mw" value="550000"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_epc_mw" value="550000"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_string_dev_grid_mw" value="150000"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'fin_central_dev_grid_mw" value="150000"'
+
+  - type: assert_contains
+    file: solar-bess-topology-v2/indexforgis-sld-v2.html
+    text: 'EPC Cost excluding Modules £/MW'

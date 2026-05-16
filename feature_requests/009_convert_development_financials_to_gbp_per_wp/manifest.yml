@@ -79,77 +79,49 @@ operations:
     replace: '<div class="input-group fin-group"><label>Operating Asset Net Present Value (NPV) £/Wp</label><input type="number" id="fin_central_dev_npv_mwp" value="1.20" step="0.05" min="0"></div>'
 
   # ---------------------------------------------------------
-  # DROPDOWN OPTION VALUE REPLACEMENTS
+  # DROPDOWN OPTION VALUE REPLACEMENTS (ROBUST REGEX)
   # ---------------------------------------------------------
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="3000">Land Option Signed</option>'
+    pattern: '<option value="3000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.003">Land Option Signed</option>'
+    flags: ms
 
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="3000">Land Option Signed</option>'
-    replace: '<option value="0.003">Land Option Signed</option>'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="15000">Grid Connection Application Accepted</option>'
+    pattern: '<option value="15000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.015">Grid Connection Application Accepted</option>'
+    flags: ms
 
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="15000">Grid Connection Application Accepted</option>'
-    replace: '<option value="0.015">Grid Connection Application Accepted</option>'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="35000">Planning Application Submitted</option>'
+    pattern: '<option value="35000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.035">Planning Application Submitted</option>'
+    flags: ms
 
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="35000">Planning Application Submitted</option>'
-    replace: '<option value="0.035">Planning Application Submitted</option>'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="55000">Planning Permission Granted</option>'
+    pattern: '<option value="55000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.055">Planning Permission Granted</option>'
+    flags: ms
 
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="55000">Planning Permission Granted</option>'
-    replace: '<option value="0.055">Planning Permission Granted</option>'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="70000">Grid Connection Terms Reviewed and Agreed</option>'
+    pattern: '<option value="70000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.070">Grid Connection Terms Reviewed and Agreed</option>'
+    flags: ms
 
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="70000">Grid Connection Terms Reviewed and Agreed</option>'
-    replace: '<option value="0.070">Grid Connection Terms Reviewed and Agreed</option>'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
+    pattern: '<option value="80000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.080">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
+    flags: ms
 
-  - type: replace
+  - type: regex_replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
-    replace: '<option value="0.080">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
+    pattern: '<option value="100000"[^>]*>[\s\S]*?</option>'
     replace: '<option value="0.100" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: '<option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
-    replace: '<option value="0.100" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>'
+    flags: ms
 
   # ---------------------------------------------------------
   # SUCCESS BY STAGE MAP UPDATE
@@ -182,38 +154,24 @@ operations:
   # ---------------------------------------------------------
   - type: replace
     file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'const devCapitalAtRisk = dc_mwp * devCostPerMw;'
-    replace: 'const devCapitalAtRisk = dc_mwp * 1000000 * devCostPerMw;'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'const devModuleCost = dc_mwp * devModulePerMwp;'
-    replace: 'const devModuleCost = dc_mwp * 1000000 * devModulePerMwp;'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'const devEpcCost = dc_mwp * devEpcPerMw;'
-    replace: 'const devEpcCost = dc_mwp * 1000000 * devEpcPerMw;'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'const devOwnerCost = dc_mwp * devOwnerPerMw;'
-    replace: 'const devOwnerCost = dc_mwp * 1000000 * devOwnerPerMw;'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'const devGridCost = dc_mwp * devGridPerMw;'
-    replace: 'const devGridCost = dc_mwp * 1000000 * devGridPerMw;'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'const devExitValue = dc_mwp * devExitPerMwp;'
-    replace: 'const devExitValue = dc_mwp * 1000000 * devExitPerMwp;'
-
-  - type: replace
-    file: solar-bess-topology-v2/indexforgis-sld-v2.html
-    find: 'const devOperatingNpv = dc_mwp * devNpvPerMwp;'
-    replace: 'const devOperatingNpv = dc_mwp * 1000000 * devNpvPerMwp;'
+    find: |
+      const devCapitalAtRisk = dc_mwp * devCostPerMw;
+      const devModuleCost = dc_mwp * devModulePerMwp;
+      const devEpcCost = dc_mwp * devEpcPerMw;
+      const devOwnerCost = dc_mwp * devOwnerPerMw;
+      const devGridCost = dc_mwp * devGridPerMw;
+      const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost + devGridCost;
+      const devExitValue = dc_mwp * devExitPerMwp;
+      const devOperatingNpv = dc_mwp * devNpvPerMwp;
+    replace: |
+      const devCapitalAtRisk = dc_mwp * 1000000 * devCostPerMw;
+      const devModuleCost = dc_mwp * 1000000 * devModulePerMwp;
+      const devEpcCost = dc_mwp * 1000000 * devEpcPerMw;
+      const devOwnerCost = dc_mwp * 1000000 * devOwnerPerMw;
+      const devGridCost = dc_mwp * 1000000 * devGridPerMw;
+      const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost + devGridCost;
+      const devExitValue = dc_mwp * 1000000 * devExitPerMwp;
+      const devOperatingNpv = dc_mwp * 1000000 * devNpvPerMwp;
 
   # ---------------------------------------------------------
   # WARNING THRESHOLD REPLACEMENTS
@@ -307,7 +265,7 @@ operations:
     flags: ms
 
   # ---------------------------------------------------------
-  # ASSERTIONS
+  # FINAL ASSERTIONS
   # ---------------------------------------------------------
   - type: assert_contains
     file: solar-bess-topology-v2/indexforgis-sld-v2.html

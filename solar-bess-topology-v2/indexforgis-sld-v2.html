@@ -24,7 +24,7 @@
 
 <div class="dashboard">
     <div class="panel panel-left">
-        <h2>GIS SLD Sandbox V2</h2>
+        <h2>Solar Photovoltaic (PV) Development, Engineering, Procurement and Construction (EPC) and Grid Analysis</h2>
 
     <div class="search-box">
         <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." />
@@ -104,8 +104,10 @@
     <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_string_dev_module_cost">£0</span></div>
     <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_string_dev_epc_cost">£0</span></div>
     <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_string_dev_owner_cost">£0</span></div>
+<div class="stat-row"><span>Grid Connection Cost</span><span class="stat-val" id="fin_string_dev_grid_cost">£0</span></div>
     <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_string_dev_total_cost">£0</span></div>
     <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_string_dev_exit_value">£0</span></div>
+<div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_string_dev_operating_npv">£0</span></div>
     <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_string_dev_margin">£0</span></div>
     <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_string_dev_risk_value">£0</span></div>
     <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_string_dev_multiple">0.00x</span></div>
@@ -114,20 +116,22 @@
 <div class="input-group">
     <label>Development Stage</label>
     <select id="fin_string_dev_stage" data-dev-stage-prefix="fin_string">
-        <option value="3000">Option Signed</option>
-        <option value="15000">Grid Application Accepted</option>
+        <option value="3000">Land Option Signed</option>
+        <option value="15000">Grid Connection Application Accepted</option>
         <option value="35000">Planning Application Submitted</option>
-        <option value="55000">Planning Consent Granted</option>
-        <option value="70000">Gate 2 Offer Accepted</option>
-        <option value="80000">Offtake Secured</option>
-        <option value="100000" selected>EPC Signature / Financial Close</option>
+        <option value="55000">Planning Permission Granted</option>
+        <option value="70000">Grid Connection Terms Reviewed and Agreed</option>
+        <option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>
+        <option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>
     </select>
 </div>
 <div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_string_dev_cost_mw" value="100000" step="5000" min="0"></div>
 <div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_string_dev_module_mwp" value="150000" step="10000" min="0"></div>
 <div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_string_dev_epc_mw" value="600000" step="25000" min="0"></div>
 <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_string_dev_owner_mw" value="200000" step="25000" min="0"></div>
+<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_string_dev_grid_mw" value="200000" step="25000" min="0"></div>
 <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_string_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+<div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_string_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
 <div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_string_dev_success" value="15" step="1" min="0" max="100"></div>
 <div class="input-group"><label>Development Years</label><input type="number" id="fin_string_dev_years" value="4" step="0.5" min="0"></div>
 
@@ -144,8 +148,6 @@
 <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
 <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
 <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
-            <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
-            <div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
 
             <h3>Loss Allowances</h3>
             <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_string_loss_dc_string" value="0" step="0.1" min="0"></div>
@@ -245,8 +247,10 @@
     <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_central_dev_module_cost">£0</span></div>
     <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_central_dev_epc_cost">£0</span></div>
     <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_central_dev_owner_cost">£0</span></div>
+<div class="stat-row"><span>Grid Connection Cost</span><span class="stat-val" id="fin_central_dev_grid_cost">£0</span></div>
     <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_central_dev_total_cost">£0</span></div>
     <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_central_dev_exit_value">£0</span></div>
+<div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_central_dev_operating_npv">£0</span></div>
     <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_central_dev_margin">£0</span></div>
     <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_central_dev_risk_value">£0</span></div>
     <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_central_dev_multiple">0.00x</span></div>
@@ -255,20 +259,22 @@
 <div class="input-group">
     <label>Development Stage</label>
     <select id="fin_central_dev_stage" data-dev-stage-prefix="fin_central">
-        <option value="3000">Option Signed</option>
-        <option value="15000">Grid Application Accepted</option>
+        <option value="3000">Land Option Signed</option>
+        <option value="15000">Grid Connection Application Accepted</option>
         <option value="35000">Planning Application Submitted</option>
-        <option value="55000">Planning Consent Granted</option>
-        <option value="70000">Gate 2 Offer Accepted</option>
-        <option value="80000">Offtake Secured</option>
-        <option value="100000" selected>EPC Signature / Financial Close</option>
+        <option value="55000">Planning Permission Granted</option>
+        <option value="70000">Grid Connection Terms Reviewed and Agreed</option>
+        <option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>
+        <option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>
     </select>
 </div>
 <div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_central_dev_cost_mw" value="100000" step="5000" min="0"></div>
 <div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_central_dev_module_mwp" value="150000" step="10000" min="0"></div>
 <div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="600000" step="25000" min="0"></div>
 <div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_central_dev_owner_mw" value="200000" step="25000" min="0"></div>
+<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_central_dev_grid_mw" value="200000" step="25000" min="0"></div>
 <div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+<div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_central_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
 <div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_central_dev_success" value="15" step="1" min="0" max="100"></div>
 <div class="input-group"><label>Development Years</label><input type="number" id="fin_central_dev_years" value="4" step="0.5" min="0"></div>
 
@@ -285,8 +291,6 @@
 <div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
 <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
 <div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
-            <div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
-            <div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
 
             <h3>Loss Allowances</h3>
             <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_central_loss_dc_string" value="0" step="0.1" min="0"></div>
@@ -367,6 +371,14 @@
         <p>The public substation layer is reference data only. A visible substation point does not confirm available capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval. Any real project must still be reviewed by competent engineers, grid specialists, planners, EPC teams, legal advisers and project finance professionals before real world decisions are made.</p>
         <p>VENTUS created this sandbox to support better early stage thinking in solar and storage deployment. The aim is to help developers, engineers, suppliers, investors and commercial teams ask better questions before committing time, capital and contractual responsibility.</p>
         <p>Use the sandbox as a thinking tool. Use it to test scale. Use it to compare assumptions. Use it to understand where deeper engineering begins.</p>
+
+<h3>Financial Model Logic</h3>
+<p>The financial model is a screening layer for Solar Photovoltaic (PV) development, grid connection, Engineering, Procurement and Construction (EPC) readiness and operating asset value. It is designed to make the main commercial assumptions visible beside the physical layout, not to replace a full valuation report or investment committee model.</p>
+<p>The energy price input is a blended screening assumption. It may represent government backed price stabilisation, a private buyer contract, merchant power exposure or a blended revenue case. Users should enter the expected captured electricity price that best reflects the project route to market.</p>
+<p>The Operating Asset Net Present Value (NPV) input is user editable because operational value changes with contract quality, revenue certainty, merchant exposure, grid status, asset maturity, inflation, debt assumptions and investor return requirements. A project with stable long term revenue may justify a higher value assumption than a project with greater merchant exposure.</p>
+<p>The development cost per Megawatt (MW) input is user editable because development capital at risk rises as a project moves from site identification through grid review, planning, buyer or revenue agreement review, technical design and Engineering, Procurement and Construction (EPC) readiness.</p>
+<p>The Target Exit Value input is a screening assumption, not a promised sale value or formal valuation. It helps users test whether there may be development margin after development cost, module supply cost, Engineering, Procurement and Construction (EPC) cost, grid connection cost and owner costs.</p>
+<p>The model deliberately avoids pretending to be a full discounted cash flow model. It is a fast comparison tool for early stage decision making. Real projects still require competent engineering, grid studies, planning review, legal review, tax review, debt sizing, revenue analysis and investment committee approval.</p>
     </div>
 </div>
 
@@ -683,6 +695,20 @@ function applyDevelopmentStageDefaults(prefix) {
     const cost = $(prefix + "_dev_cost_mw");
     if (!stage || !cost) return;
     cost.value = stage.value;
+
+    const success = $(prefix + "_dev_success");
+    const successByStage = {
+        "3000": 10,
+        "15000": 15,
+        "35000": 30,
+        "55000": 55,
+        "70000": 70,
+        "80000": 80,
+        "100000": 95
+    };
+    if (success && successByStage[stage.value] !== undefined) {
+        success.value = successByStage[stage.value];
+    }
 }
 function computeFinance(prefix, stats) {
     const dc_mwp = stats.dc_mwp, ac_mw = stats.ac_mw;
@@ -749,7 +775,9 @@ const devCostPerMw = num(prefix + "_dev_cost_mw");
 const devModulePerMwp = num(prefix + "_dev_module_mwp");
 const devEpcPerMw = num(prefix + "_dev_epc_mw");
 const devOwnerPerMw = num(prefix + "_dev_owner_mw");
+const devGridPerMw = num(prefix + "_dev_grid_mw");
 const devExitPerMwp = num(prefix + "_dev_exit_mwp");
+const devNpvPerMwp = num(prefix + "_dev_npv_mwp");
 const devSuccessPct = num(prefix + "_dev_success");
 const devYears = num(prefix + "_dev_years");
 const devStageEl = $(prefix + "_dev_stage");
@@ -759,16 +787,18 @@ const devCapitalAtRisk = dc_mwp * devCostPerMw;
 const devModuleCost = dc_mwp * devModulePerMwp;
 const devEpcCost = dc_mwp * devEpcPerMw;
 const devOwnerCost = dc_mwp * devOwnerPerMw;
-const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost;
+const devGridCost = dc_mwp * devGridPerMw;
+const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost + devGridCost;
 const devExitValue = dc_mwp * devExitPerMwp;
+const devOperatingNpv = dc_mwp * devNpvPerMwp;
 const devGrossMargin = devExitValue - devTotalBuildCost;
 const devRiskAdjustedValue = devGrossMargin * (devSuccessPct / 100);
 const devReturnMultiple = devCapitalAtRisk > 0 ? devGrossMargin / devCapitalAtRisk : 0;
 
     return {
         annualRevenue, revenue25, revenue35, totalCapex, capexPerWp, surplus25, surplus35,
-        devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devExitPerMwp, devSuccessPct, devYears,
-        devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devTotalBuildCost, devExitValue,
+        devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devGridPerMw, devExitPerMwp, devNpvPerMwp, devSuccessPct, devYears,
+        devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devGridCost, devTotalBuildCost, devExitValue, devOperatingNpv,
         devGrossMargin, devRiskAdjustedValue, devReturnMultiple,
         // raw inputs for export
         price, other, yieldVal, bifacial, baseLoss, deg, opexRate,
@@ -792,8 +822,10 @@ setText(prefix + "_dev_capital", money(fin.devCapitalAtRisk));
 setText(prefix + "_dev_module_cost", money(fin.devModuleCost));
 setText(prefix + "_dev_epc_cost", money(fin.devEpcCost));
 setText(prefix + "_dev_owner_cost", money(fin.devOwnerCost));
+setText(prefix + "_dev_grid_cost", money(fin.devGridCost));
 setText(prefix + "_dev_total_cost", money(fin.devTotalBuildCost));
 setText(prefix + "_dev_exit_value", money(fin.devExitValue));
+setText(prefix + "_dev_operating_npv", money(fin.devOperatingNpv));
 setText(prefix + "_dev_margin", money(fin.devGrossMargin));
 setText(prefix + "_dev_risk_value", money(fin.devRiskAdjustedValue));
 setText(prefix + "_dev_multiple", fin.devReturnMultiple.toFixed(2) + "x");
@@ -819,6 +851,11 @@ if (fin.devCostPerMw > 100000) w.push("Development cost is above typical EPC sig
 if (fin.devModulePerMwp < 100000 && fin.devModulePerMwp > 0) w.push("Module supply cost may be aggressive.");
 if (fin.devEpcPerMw < 550000 && fin.devEpcPerMw > 0) w.push("EPC cost may be aggressive against UK benchmark range.");
 if (fin.devEpcPerMw > 850000) w.push("EPC cost is above typical non BESS UK benchmark range.");
+if (fin.devNpvPerMwp < 900000 && fin.devNpvPerMwp > 0) w.push("Operating asset Net Present Value (NPV) assumption is below current screening range.");
+if (fin.devNpvPerMwp > 1400000) w.push("Operating asset Net Present Value (NPV) assumption is above current screening range and may require strong evidence.");
+if (stats.dc_mwp > 100) w.push("Project capacity is above 100 megawatts peak. Nationally Significant Infrastructure Project (NSIP) and Development Consent Order (DCO) planning assumptions may apply and development cost, timescale and owner cost defaults may be too low.");
+if (fin.devGridPerMw > 1000000) w.push("Grid connection cost assumption is very high and may indicate major reinforcement, transmission interface or abnormal connection risk.");
+if (fin.devGridPerMw < 100000 && fin.devGridPerMw > 0) w.push("Grid connection cost assumption is low and should be checked against the project specific connection scope.");
 if (fin.devSuccessPct < 8) w.push("Development success probability is below typical greenfield to EPC outcome range.");
 if (fin.devSuccessPct > 25) w.push("Development success probability may be optimistic unless project is already materially de risked.");
     if (fin.opexRate < 10000 && fin.opexRate >= 0) w.push("OPEX may be unrealistically low.");
@@ -1146,15 +1183,19 @@ fin_development_cost_gbp_mw: fin.devCostPerMw,
 fin_development_module_supply_cost_gbp_mwp: fin.devModulePerMwp,
 fin_development_epc_cost_gbp_mw: fin.devEpcPerMw,
 fin_development_owner_cost_gbp_mw: fin.devOwnerPerMw,
+fin_development_grid_connection_cost_gbp_mw: fin.devGridPerMw,
 fin_development_exit_value_gbp_mwp: fin.devExitPerMwp,
+fin_development_operating_npv_gbp_mwp: fin.devNpvPerMwp,
 fin_development_success_probability_percent: fin.devSuccessPct,
 fin_development_years: fin.devYears,
 fin_development_capital_at_risk_gbp: Math.round(fin.devCapitalAtRisk),
 fin_development_module_supply_cost_gbp: Math.round(fin.devModuleCost),
 fin_development_epc_cost_gbp: Math.round(fin.devEpcCost),
 fin_development_owner_cost_gbp: Math.round(fin.devOwnerCost),
+fin_development_grid_connection_cost_gbp: Math.round(fin.devGridCost),
 fin_development_total_build_cost_gbp: Math.round(fin.devTotalBuildCost),
 fin_development_target_exit_value_gbp: Math.round(fin.devExitValue),
+fin_development_operating_npv_gbp: Math.round(fin.devOperatingNpv),
 fin_development_gross_margin_gbp: Math.round(fin.devGrossMargin),
 fin_development_risk_adjusted_value_gbp: Math.round(fin.devRiskAdjustedValue),
 fin_development_return_multiple: Number(fin.devReturnMultiple.toFixed(4)),

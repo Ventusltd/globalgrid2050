@@ -95,13 +95,7 @@
 │   │   └── manifest.yml
 │   ├── 006b_clean_development_financials
 │   │   └── manifest.yml
-│   ├── 007_implement_financial_calibration_patch
-│   │   └── manifest.yml
-│   ├── 008_polish_financial_defaults_and_layout
-│   │   └── manifest.yml
-│   ├── 009_convert_development_financials_to_gbp_per_wp
-│   │   └── manifest.yml
-│   └── 009_recalibrate_financial_defaults_after_research
+│   └── 007_implement_financial_calibration_patch
 │       └── manifest.yml
 ├── global_hydrocarbons.geojson
 ├── global_ports.geojson
@@ -135,9 +129,7 @@
 │   ├── gridbot_install_20260516_115051.md
 │   ├── gridbot_install_20260516_133024.md
 │   ├── gridbot_install_20260516_183703.md
-│   ├── gridbot_install_20260516_201759.md
-│   ├── gridbot_install_20260516_204935.md
-│   └── gridbot_install_20260516_230612.md
+│   └── gridbot_install_20260516_201759.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -528,4 +520,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-72 directories, 457 files
+69 directories, 452 files

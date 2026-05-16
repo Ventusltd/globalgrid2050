@@ -177,6 +177,18 @@ h3 {
   outline: none;
 }
 
+/* Hide native number input arrows while preserving numeric typing */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 /* Search Box */
 .search-box {
   display: flex;

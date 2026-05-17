@@ -1,0 +1,25 @@
+name: V5 Geometry Visualiser Migration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Migrate cable geometry visualiser into V5
+        run: python solar-bess-topology-v5/install_geometry_visualiser_migration_v5.py
+
+      - name: Commit V5 geometry visualiser migration
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Migrate cable geometry visualiser into V5
+          file_pattern: solar-bess-topology-v5/cable-geometry-visualiser-v5.html solar-bess-topology-v5/module-layout-v5.html gridbot_reports/v5_geometry_visualiser_migration.md

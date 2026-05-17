@@ -142,7 +142,8 @@
 │   ├── v3_export_cable_waypoint_route_rollback.md
 │   ├── v3_module_layout_app_rollback.md
 │   ├── v3_pick_up_array_tool_rollback.md
-│   └── v3_topology_abstraction_layers_rollback.md
+│   ├── v3_topology_abstraction_layers_rollback.md
+│   └── v4_clone_from_v3_report.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -516,6 +517,24 @@
 │   ├── module-layout-v3.css
 │   ├── module-layout-v3.html
 │   └── module-layout-v3.js
+├── solar-bess-topology-v4
+│   ├── gis-sld-v4-calculations.js
+│   ├── gis-sld-v4-config.js
+│   ├── gis-sld-v4-drawing.js
+│   ├── gis-sld-v4-export.js
+│   ├── gis-sld-v4-finance.js
+│   ├── gis-sld-v4-helpers.js
+│   ├── gis-sld-v4-map.js
+│   ├── gis-sld-v4-state.js
+│   ├── gis-sld-v4-substations.js
+│   ├── gis-sld-v4-ui-core.js
+│   ├── gis-sld-v4-ui.js
+│   ├── gis-sld-v4.css
+│   ├── index.html
+│   ├── indexforgis-sld-v4.html
+│   ├── module-layout-v4.css
+│   ├── module-layout-v4.html
+│   └── module-layout-v4.js
 ├── solar_components
 │   └── index.md
 ├── solar_deployment_statistics
@@ -553,4 +572,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-73 directories, 481 files
+74 directories, 499 files

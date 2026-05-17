@@ -146,14 +146,36 @@ function computeAndDraw() {
         features.push(turf.lineString([bessCenter, privateSubCoord], { type: "33kv_radial" }));
     }
 
-    // Internal 33kV radial links only. Do not draw a visible trunk spine beyond the customer substation.
+    // Internal 33kV radial links with a clipped visible trunk back to the customer substation.
     if (inverters.length > 0) {
-        const spineStart = privateSubCoord;
-        const spineEnd = turf.destination(turf.point(privateSubCoord), grid_l, axis, { units: "kilometers" }).geometry.coordinates;
-        const spineLine = turf.lineString([spineStart, spineEnd], { type: "33kv_projection_only" });
+        const projectionLine = turf.lineString([
+            privateSubCoord,
+            turf.destination(turf.point(privateSubCoord), grid_l, axis, { units: "kilometers" }).geometry.coordinates
+        ], { type: "33kv_projection_only" });
+
+        let maxTrunkDistanceKm = 0;
+        const projectedBranches = [];
         inverters.forEach(inv => {
-            const projected = turf.nearestPointOnLine(spineLine, turf.point(inv.coords), { units: "kilometers" }).geometry.coordinates;
-            features.push(turf.lineString([inv.coords, projected], { type: "33kv_radial" }));
+            const projected = turf.nearestPointOnLine(projectionLine, turf.point(inv.coords), { units: "kilometers" }).geometry.coordinates;
+            const distanceFromCustomerSub = turf.length(turf.lineString([privateSubCoord, projected]), { units: "kilometers" });
+            if (distanceFromCustomerSub > maxTrunkDistanceKm) maxTrunkDistanceKm = distanceFromCustomerSub;
+            projectedBranches.push({ inverter: inv.coords, projected });
+        });
+
+        if (maxTrunkDistanceKm > 0) {
+            const clippedTrunkEnd = turf.destination(turf.point(privateSubCoord), maxTrunkDistanceKm, axis, { units: "kilometers" }).geometry.coordinates;
+            features.push(turf.lineString([privateSubCoord, clippedTrunkEnd], {
+                type: "33kv_radial",
+                role: "collector_trunk",
+                clipped_to_inverter_extent: true
+            }));
+        }
+
+        projectedBranches.forEach(branch => {
+            features.push(turf.lineString([branch.inverter, branch.projected], {
+                type: "33kv_radial",
+                role: "block_branch"
+            }));
         });
     }
 

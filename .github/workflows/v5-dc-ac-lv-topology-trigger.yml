@@ -7,25 +7,28 @@ permissions:
   contents: write
 
 jobs:
-  html:
-    uses: ./.github/workflows/v5-dc-ac-lv-01-html.yml
-    permissions:
-      contents: write
+  install-all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  css:
-    needs: html
-    uses: ./.github/workflows/v5-dc-ac-lv-02-css.yml
-    permissions:
-      contents: write
+      - name: Install DC AC LV HTML
+        run: python solar-bess-topology-v5/install_dc_ac_lv_01_html.py
 
-  js:
-    needs: css
-    uses: ./.github/workflows/v5-dc-ac-lv-03-js.yml
-    permissions:
-      contents: write
+      - name: Install DC AC LV CSS
+        run: python solar-bess-topology-v5/install_dc_ac_lv_02_css.py
 
-  link:
-    needs: js
-    uses: ./.github/workflows/v5-dc-ac-lv-04-link.yml
-    permissions:
-      contents: write
+      - name: Install DC AC LV JS
+        run: python solar-bess-topology-v5/install_dc_ac_lv_03_js.py
+
+      - name: Install DC AC LV link
+        run: python solar-bess-topology-v5/install_dc_ac_lv_04_link.py
+
+      - name: Commit DC AC LV topology app
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Install DC AC LV topology review app
+          file_pattern: solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html solar-bess-topology-v5/dc-ac-lv-topology-review-v5.css solar-bess-topology-v5/dc-ac-lv-topology-review-v5.js solar-bess-topology-v5/module-layout-v5.html

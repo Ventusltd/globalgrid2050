@@ -54,7 +54,8 @@ function computeAndDraw() {
     const publicSubCoord = state.activeDrawCenter;
     const safeExtraOffsetKm = Math.max(-CONSTANTS.ARRAY_OFFSET_KM, getExportCableExtraKm());
     const arrayOffsetKm = grid_l / 2 + CONSTANTS.ARRAY_OFFSET_KM + safeExtraOffsetKm;
-    const gridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, 0, { units: "kilometers" }).geometry.coordinates;
+    const defaultGridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, 0, { units: "kilometers" }).geometry.coordinates;
+    const gridCenter = state.arrayOverrideCenter || defaultGridCenter;
     const privateSubCoord = turf.destination(turf.point(gridCenter), grid_l / 2, 180, { units: "kilometers" }).geometry.coordinates;
 
     features.push(turf.point(publicSubCoord, {
@@ -66,11 +67,13 @@ function computeAndDraw() {
         type: "private_sub",
         selected_substation_name: "Customer Substation",
         selected_substation_voltage: "Local Voltage",
-        export_cable_extra_km: safeExtraOffsetKm
+        export_cable_extra_km: safeExtraOffsetKm,
+        array_moved_manually: Boolean(state.arrayOverrideCenter)
     }));
     features.push(turf.lineString([privateSubCoord, publicSubCoord], {
         type: "export_cable",
-        export_cable_extra_km: safeExtraOffsetKm
+        export_cable_extra_km: safeExtraOffsetKm,
+        array_moved_manually: Boolean(state.arrayOverrideCenter)
     }));
     features.push(getRectPolygon(gridCenter, grid_w + CONSTANTS.BOUNDARY_BUFFER_KM, grid_l + CONSTANTS.BOUNDARY_BUFFER_KM, "array_boundary"));
 

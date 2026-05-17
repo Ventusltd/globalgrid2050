@@ -57,12 +57,14 @@ function updateArrayRotationDisplay() {
     if (!el) return;
     const deg = Number.isFinite(state.arrayRotationDeg) ? state.arrayRotationDeg : 0;
     el.textContent = (((deg % 360) + 360) % 360).toFixed(0) + "°";
-}\n
+}
+
 function rotateArrayBy(deltaDeg) {
     state.arrayRotationDeg = (((state.arrayRotationDeg || 0) + deltaDeg) % 360 + 360) % 360;
     state.cableRoutePins = [];
     state.cableRouteCommitted = false;
     state.cableRouteWaypoints = [];
+    state.suppressNextMapFit = true;
     updateArrayRotationDisplay();
     redrawIfTopologyExists();
 }
@@ -72,6 +74,7 @@ function resetArrayRotation() {
     state.cableRoutePins = [];
     state.cableRouteCommitted = false;
     state.cableRouteWaypoints = [];
+    state.suppressNextMapFit = true;
     updateArrayRotationDisplay();
     redrawIfTopologyExists();
 }
@@ -115,6 +118,7 @@ function nudgeArray(bearingDeg) {
     const moved = turf.destination(turf.point(center), getArrayNudgeStepKm(), bearingDeg, { units: "kilometers" }).geometry.coordinates;
     state.arrayOverrideCenter = moved;
     state.arrayMoveMode = false;
+    state.suppressNextMapFit = true;
     clearRouteAfterArrayShift();
     setArrayMoveStatus("Array nudged. Grid point stayed fixed. Route pins cleared because the customer substation moved.", false);
     redrawIfTopologyExists();
@@ -231,6 +235,7 @@ function resetArrayLocation() {
     state.arrayMoveMode = false;
     state.arrayOverrideCenter = null;
     clearRouteAfterArrayShift();
+    state.suppressNextMapFit = true;
     setArrayMoveStatus("Array reset to calculated default position.", false);
     redrawIfTopologyExists();
 }
@@ -240,6 +245,7 @@ function placeArrayAtMapPoint(e) {
     if (!e || !e.lngLat) return;
     state.arrayOverrideCenter = [e.lngLat.lng, e.lngLat.lat];
     state.arrayMoveMode = false;
+    state.suppressNextMapFit = true;
     clearRouteAfterArrayShift();
     setArrayMoveStatus("Array moved. Grid point stayed fixed and export cable length recalculated.", false);
     computeAndDraw();

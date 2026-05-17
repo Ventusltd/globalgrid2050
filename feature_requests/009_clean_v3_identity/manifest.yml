@@ -1,0 +1,52 @@
+name: Clean GIS SLD V3 identity
+
+description: Rename the V3 clone identity so the V3 entry file loads V3 local support files and displays V3 in the browser title. V2 remains untouched.
+
+operations:
+  - type: replace
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    find: 'GIS SLD Financial Sandbox V2'
+    replace: 'GIS SLD Financial Sandbox V3'
+    count: 1
+
+  - type: regex_replace
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    pattern: 'gis-sld-v2-config\.js'
+    replace: 'gis-sld-v3-config.js'
+    count: 1
+
+  - type: regex_replace
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    pattern: 'gis-sld-v2-helpers\.js'
+    replace: 'gis-sld-v3-helpers.js'
+    count: 1
+
+  - type: regex_replace
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    pattern: 'gis-sld-v2-state\.js'
+    replace: 'gis-sld-v3-state.js'
+    count: 1
+
+  - type: regex_replace
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    pattern: 'gis-sld-v2-substations\.js'
+    replace: 'gis-sld-v3-substations.js'
+    count: 1
+
+  - type: regex_replace
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    pattern: 'gis-sld-v2\.css'
+    replace: 'gis-sld-v3.css'
+    count: 1
+
+  - type: assert_contains
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    text: 'GIS SLD Financial Sandbox V3'
+
+  - type: assert_contains
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    text: 'gis-sld-v3-config.js'
+
+  - type: assert_contains
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    text: 'gis-sld-v3.css'

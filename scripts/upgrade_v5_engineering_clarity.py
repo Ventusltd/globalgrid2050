@@ -1,6 +1,5 @@
 from pathlib import Path
 from datetime import datetime, timezone
-import re
 
 ROOT = Path(__file__).resolve().parents[1]
 V5 = ROOT / "solar-bess-topology-v5"
@@ -18,12 +17,44 @@ def replace_once(text, old, new, label, actions):
     return text.replace(old, new, 1)
 
 
-def replace_between(text, pattern, replacement, label, actions):
-    new_text, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
-    if count:
-        actions.append(f"OK: {label}")
-        return new_text
-    actions.append(f"SKIP: {label} pattern not found")
+def replace_js_function(text, fn_name, replacement, label, actions):
+    marker = f"function {fn_name}"
+    start = text.find(marker)
+    if start < 0:
+        actions.append(f"SKIP: {label} function not found")
+        return text
+    brace_start = text.find("{", start)
+    if brace_start < 0:
+        actions.append(f"SKIP: {label} opening brace not found")
+        return text
+    depth = 0
+    in_single = False
+    in_double = False
+    in_backtick = False
+    escape = False
+    for i in range(brace_start, len(text)):
+        ch = text[i]
+        if escape:
+            escape = False
+            continue
+        if ch == "\\":
+            escape = True
+            continue
+        if ch == "'" and not in_double and not in_backtick:
+            in_single = not in_single
+        elif ch == '"' and not in_single and not in_backtick:
+            in_double = not in_double
+        elif ch == "`" and not in_single and not in_double:
+            in_backtick = not in_backtick
+        elif not in_single and not in_double and not in_backtick:
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    actions.append(f"OK: {label}")
+                    return text[:start] + replacement + text[i + 1:]
+    actions.append(f"SKIP: {label} closing brace not found")
     return text
 
 
@@ -48,10 +79,10 @@ def patch_html(actions):
             html = html.replace(old, new)
             actions.append(f"OK: label {old} -> {new}")
 
-    string_insert_after = '<div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>'
-    string_inverter_input = string_insert_after + '\n        <div class="input-group"><label>String Inverter Rating kVA</label><input type="number" id="string_inv_kva" value="352" step="1" min="1" /></div>'
+    anchor = '<div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>'
+    addition = anchor + '\n        <div class="input-group"><label>String Inverter Rating kVA</label><input type="number" id="string_inv_kva" value="352" step="1" min="1" /></div>'
     if 'id="string_inv_kva"' not in html:
-        html = replace_once(html, string_insert_after, string_inverter_input, "add string inverter kVA input", actions)
+        html = replace_once(html, anchor, addition, "add string inverter kVA input", actions)
 
     central_old = '''<div class="input-group">
             <label>Central AC Rating MWac</label>
@@ -89,10 +120,10 @@ def patch_html(actions):
     if 'id="central_rating_mode"' not in html:
         html = replace_once(html, central_old, central_new, "add central preset/custom rating controls", actions)
 
-    combiner_after = '<div class="input-group"><label>Strings per Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>'
-    combiner_new = combiner_after + '\n        <div class="input-group"><label>Combiner Box Design Limit kWdc</label><input type="number" id="combiner_limit_kwdc_c" value="500" step="10" min="1" /></div>'
+    cb_anchor = '<div class="input-group"><label>Strings per Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>'
+    cb_addition = cb_anchor + '\n        <div class="input-group"><label>Combiner Box Design Limit kWdc</label><input type="number" id="combiner_limit_kwdc_c" value="500" step="10" min="1" /></div>'
     if 'id="combiner_limit_kwdc_c"' not in html:
-        html = replace_once(html, combiner_after, combiner_new, "add central combiner design limit", actions)
+        html = replace_once(html, cb_anchor, cb_addition, "add central combiner design limit", actions)
 
     summary_anchor = '<div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>'
     summary_extra = summary_anchor + '''
@@ -126,7 +157,7 @@ def patch_html(actions):
 def patch_calculations(actions):
     calc = CALC.read_text(encoding="utf-8")
 
-    calc = replace_between(calc, r"function zeroStats\(dc_ac_ratio, mods_pallet, mods_container\) \{.*?\n\}", '''function zeroStats(dc_ac_ratio, mods_pallet, mods_container) {
+    zero_stats = '''function zeroStats(dc_ac_ratio, mods_pallet, mods_container) {
     return {
         total_blocks: 0, block_ground_area_m2: 0, dc_mwp: 0, ac_mw: 0, module_count: 0,
         net_mod_area_m2: 0, net_array_area_m2: 0, gross_site_area_m2: 0,
@@ -138,9 +169,10 @@ def patch_calculations(actions):
         central_inverter_mwac: 0, combiner_box_dc_kw: 0, combiner_design_limit_kwdc: 0,
         engineering_warning: "Check assumptions"
     };
-}''', "replace zeroStats", actions)
+}'''
+    calc = replace_js_function(calc, "zeroStats", zero_stats, "replace zeroStats", actions)
 
-    calc = replace_between(calc, r"function buildStats\(opts\) \{.*?\n\}", '''function buildStats(opts) {
+    build_stats = '''function buildStats(opts) {
     const {
         total_blocks, module_count, ac_mw_direct, dc_ac_ratio, physical,
         combiner_boxes_per_inverter, total_combiner_boxes,
@@ -181,10 +213,11 @@ def patch_calculations(actions):
         combiner_design_limit_kwdc: combiner_design_limit_kwdc || 0,
         engineering_warning: engineering_warning || "Check assumptions"
     };
-}''', "replace buildStats", actions)
+}'''
+    calc = replace_js_function(calc, "buildStats", build_stats, "replace buildStats", actions)
 
     if 'function getCentralInverterMwac()' not in calc:
-        calc = calc.replace('function computeStringStats() {', '''function getCentralInverterMwac() {
+        helper = '''function getCentralInverterMwac() {
     const mode = $("central_rating_mode")?.value || "preset";
     const preset = num("inv_ac_mw_c") || 4.4;
     const customRaw = num("inv_ac_mw_custom_c") || preset;
@@ -192,10 +225,11 @@ def patch_calculations(actions):
     return mode === "custom" ? custom : preset;
 }
 
-function computeStringStats() {''')
+'''
+        calc = calc.replace('function computeStringStats() {', helper + 'function computeStringStats() {')
         actions.append("OK: add getCentralInverterMwac")
 
-    calc = replace_between(calc, r"function computeStringStats\(\) \{.*?\n\}", '''function computeStringStats() {
+    string_stats = '''function computeStringStats() {
     const physical = readPhysicalInputs("");
     const x = intVal("x_mods"), z = intVal("z_strings"), y = intVal("y_invs"), s = intVal("s_subs"), rings = intVal("b_cols");
     const dc_ac_ratio = num("dc_ac_ratio") || 1.2;
@@ -218,9 +252,10 @@ function computeStringStats() {''')
         string_inverter_kva, production_substation_ac_mva, ring_main_ac_mva,
         engineering_warning
     });
-}''', "replace computeStringStats", actions)
+}'''
+    calc = replace_js_function(calc, "computeStringStats", string_stats, "replace computeStringStats", actions)
 
-    calc = replace_between(calc, r"function computeCentralStats\(\) \{.*?\n\}", '''function computeCentralStats() {
+    central_stats = '''function computeCentralStats() {
     const physical = readPhysicalInputs("_c");
     const x_mods = intVal("x_mods_c");
     const inv_ac_mw = getCentralInverterMwac();
@@ -258,14 +293,15 @@ function computeStringStats() {''')
         central_inverter_mwac: inv_ac_mw, combiner_box_dc_kw, combiner_design_limit_kwdc,
         engineering_warning
     });
-}''', "replace computeCentralStats", actions)
+}'''
+    calc = replace_js_function(calc, "computeCentralStats", central_stats, "replace computeCentralStats", actions)
 
     CALC.write_text(calc, encoding="utf-8")
 
 
 def patch_ui_core(actions):
     ui = UI_CORE.read_text(encoding="utf-8")
-    ui = replace_between(ui, r"function renderTechSummary\(stats\) \{.*?\n\}", '''function renderTechSummary(stats) {
+    render = '''function renderTechSummary(stats) {
     setText("out_module_count", stats.module_count.toLocaleString());
     setText("out_dc_capacity", stats.dc_mwp.toFixed(2) + " MWp");
     setText("out_ac_capacity", stats.ac_mw.toFixed(2) + " MWac");
@@ -295,7 +331,8 @@ def patch_ui_core(actions):
     const cpm = stats.dc_mwp > 0 ? stats.containers_inc_spares / stats.dc_mwp : 0;
     setText("out_cont_per_mwp", cpm.toFixed(2));
     setClass("out_cont_per_mwp", tabClass);
-}''', "replace renderTechSummary", actions)
+}'''
+    ui = replace_js_function(ui, "renderTechSummary", render, "replace renderTechSummary", actions)
     UI_CORE.write_text(ui, encoding="utf-8")
 
 

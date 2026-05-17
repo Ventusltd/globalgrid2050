@@ -36,6 +36,15 @@ function getExportCableExtraKm() {
     return Number.isFinite(value) ? value : 0;
 }
 
+function getImpliedStringInverterKva() {
+    const modulesPerString = intVal("x_mods", 0);
+    const stringsPerInverter = intVal("z_strings", 0);
+    const moduleWp = num("mod_wp");
+    const ratio = num("dc_ac_ratio") || 1.2;
+    if (modulesPerString <= 0 || stringsPerInverter <= 0 || moduleWp <= 0 || ratio <= 0) return 0;
+    return (modulesPerString * stringsPerInverter * moduleWp / 1000) / ratio;
+}
+
 function buildExportCableLine(privateSubCoord, publicSubCoord, safeExtraOffsetKm) {
     const routePoints = Array.isArray(state.cableRouteWaypoints) ? state.cableRouteWaypoints : [];
     const coords = [privateSubCoord, ...routePoints, publicSubCoord];
@@ -58,6 +67,29 @@ function addCableRouteWaypointMarkers(features) {
             waypoint_index: idx + 1
         }));
     });
+}
+
+function addTopologyDetailCluster(features, centerCoord, count, type, props, axis, spacingKm) {
+    const n = Math.max(0, Math.min(120, Math.floor(count || 0)));
+    if (n <= 0) return;
+    const cols = Math.ceil(Math.sqrt(n));
+    const rows = Math.ceil(n / cols);
+    const step = Math.max(0.012, spacingKm || 0.035);
+    for (let i = 0; i < n; i++) {
+        const c = i % cols;
+        const r = Math.floor(i / cols);
+        const across = (c - (cols - 1) / 2) * step;
+        const along = (r - (rows - 1) / 2) * step;
+        const p1 = turf.destination(turf.point(centerCoord), across, axis + 90, { units: "kilometers" }).geometry.coordinates;
+        const p2 = turf.destination(turf.point(p1), along, axis, { units: "kilometers" }).geometry.coordinates;
+        features.push(turf.point(p2, {
+            ...props,
+            type,
+            symbol_index: i + 1,
+            displayed_count: n,
+            actual_count: count
+        }));
+    }
 }
 
 function computeAndDraw() {
@@ -118,6 +150,8 @@ function computeAndDraw() {
     const ptNW = turf.destination(turf.point(ptN), grid_w / 2, axis - 90, { units: "kilometers" }).geometry.coordinates;
 
     const inverters = [];
+    const stringInvCount = intVal("y_invs", 0);
+    const impliedStringKva = getImpliedStringInverterKva();
     let count = 0;
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -129,6 +163,28 @@ function computeAndDraw() {
             features.push(getRectPolygon(finalPos, block_w, block_l, footType, axis));
             inverters.push({ coords: finalPos, type: nodeType });
             features.push(turf.point(finalPos, { type: nodeType }));
+
+            if (state.activeTab === "string" && state.showStringInverterLayer) {
+                addTopologyDetailCluster(features, finalPos, stringInvCount, "string_inverter", {
+                    parent_type: "string_substation",
+                    inverter_ac_kva: impliedStringKva,
+                    strings_per_inverter: intVal("z_strings", 0),
+                    modules_per_string: intVal("x_mods", 0),
+                    dc_ac_ratio: num("dc_ac_ratio") || 1.2,
+                    gis_abstraction: true
+                }, axis, Math.min(block_w, block_l) / 7);
+            }
+
+            if (state.activeTab === "central" && state.showCentralCombinerLayer) {
+                addTopologyDetailCluster(features, finalPos, stats.combiner_boxes_per_inverter || 0, "central_combiner_box", {
+                    parent_type: "central_inverter",
+                    strings_per_combiner: intVal("str_per_cb_c", 0),
+                    combiner_boxes_per_inverter: stats.combiner_boxes_per_inverter || 0,
+                    total_combiner_boxes: stats.total_combiner_boxes || 0,
+                    gis_abstraction: true
+                }, axis, Math.min(block_w, block_l) / 7);
+            }
+
             count++;
         }
     }
@@ -167,8 +223,9 @@ function computeAndDraw() {
     }
 
     updateExportCableLengthDisplay();
-    updateCableRouteStatus();
     updateArrayRotationDisplay();
+    updateCableRouteStatus();
+    updateTopologyAbstractionDisplay();
 
     // Refresh side-panel values
     renderTechSummary(stats);

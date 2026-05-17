@@ -57,6 +57,12 @@ function getCommittedCablePins() {
     return state.cableRouteCommitted && Array.isArray(state.cableRoutePins) ? state.cableRoutePins : [];
 }
 
+function shouldShowExportCable() {
+    if (state.cableRoutePinMode) return false;
+    if (Array.isArray(state.cableRoutePins) && state.cableRoutePins.length > 0 && !state.cableRouteCommitted) return false;
+    return true;
+}
+
 function buildExportCableLine(privateSubCoord, publicSubCoord, safeExtraOffsetKm) {
     const routePoints = getCommittedCablePins();
     const coords = [privateSubCoord, ...routePoints, publicSubCoord];
@@ -134,7 +140,7 @@ function computeAndDraw() {
         export_cable_pin_count: state.cableRoutePins.length,
         export_cable_route_committed: Boolean(state.cableRouteCommitted)
     }));
-    features.push(exportCableLine);
+    if (shouldShowExportCable()) features.push(exportCableLine);
     addCableRoutePinMarkers(features);
     features.push(getRectPolygon(gridCenter, grid_w + CONSTANTS.BOUNDARY_BUFFER_KM, grid_l + CONSTANTS.BOUNDARY_BUFFER_KM, "array_boundary", axis));
 
@@ -207,10 +213,11 @@ function computeAndDraw() {
     const src = map.getSource("topology");
     if (src) src.setData(state.currentGeoJSON);
 
-    if (features.length > 0) {
+    if (features.length > 0 && !state.suppressNextMapFit) {
         const bbox = turf.bbox(state.currentGeoJSON);
         map.fitBounds(bbox, { padding: 60, duration: 800 });
     }
+    state.suppressNextMapFit = false;
 
     updateExportCableLengthDisplay();
     updateCableRouteStatus();

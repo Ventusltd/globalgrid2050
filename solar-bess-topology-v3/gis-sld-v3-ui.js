@@ -52,6 +52,22 @@ function updateExportCableLengthDisplay() {
     el.textContent = km.toFixed(2) + " km";
 }
 
+function updateCableRouteStatus() {
+    const el = $("cable_route_status");
+    if (!el) return;
+    const count = Array.isArray(state.cableRouteWaypoints) ? state.cableRouteWaypoints.length : 0;
+    if (state.cableRouteMode) {
+        el.textContent = "Route mode active. Click map to add waypoints. Waypoints: " + count;
+        el.style.color = "#00ffff";
+    } else if (count > 0) {
+        el.textContent = "Custom route active. Waypoints: " + count + ". Live length is calculated along route.";
+        el.style.color = "#00ff88";
+    } else {
+        el.textContent = "No custom route. Export cable is direct unless waypoints are added.";
+        el.style.color = "var(--muted)";
+    }
+}
+
 function injectExportCableLengthControl() {
     if ($("layout_export_extra_km")) return;
 
@@ -69,17 +85,25 @@ function injectExportCableLengthControl() {
         <div class="stat-row"><span>Live Export Cable Length:</span><span class="stat-val cyan" id="out_export_cable_length_km">0.00 km</span></div>
         <div class="input-group"><label>Export Cable Extra Length km</label><input type="number" id="layout_export_extra_km" value="0" step="0.05" min="-0.2"></div>
         <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
-            Moves the whole array further from or closer to the point of connection along the existing axis. Pick Up Array also recalculates this live length.
+            Moves the whole array further from or closer to the point of connection along the existing axis. Pick Up Array and cable route waypoints also recalculate this live length.
         </div>
         <button class="btn" id="btn_pick_array" style="margin-top:8px;background:#00ffff;color:#001111;">Pick Up Array</button>
         <button class="btn" id="btn_reset_array_move" style="margin-top:6px;">Reset Array Location</button>
         <div id="array_move_status" style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
             Pick Up Array keeps the grid point fixed. Click anywhere on the map to place the array centre.
         </div>
+        <div style="border-top:1px dashed #333;margin:8px 0;"></div>
+        <button class="btn" id="btn_draw_cable_route" style="background:#ff9900;color:#000000;">Draw Cable Route</button>
+        <button class="btn" id="btn_finish_cable_route" style="margin-top:6px;">Finish Route</button>
+        <button class="btn" id="btn_clear_cable_route" style="margin-top:6px;">Clear Route</button>
+        <div id="cable_route_status" style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
+            No custom route. Export cable is direct unless waypoints are added.
+        </div>
     `;
 
     drawBtn.parentNode.insertBefore(box, drawBtn);
     updateExportCableLengthDisplay();
+    updateCableRouteStatus();
 }
 
 function redrawIfTopologyExists() {
@@ -106,11 +130,13 @@ function toggleArrayMoveMode() {
         setArrayMoveStatus("Draw a grid first, then pick up the array.", false);
         return;
     }
+    state.cableRouteMode = false;
     state.arrayMoveMode = !state.arrayMoveMode;
     setArrayMoveStatus(
         state.arrayMoveMode ? "Move mode active. Click the map where the array centre should move." : "Move mode cancelled.",
         state.arrayMoveMode
     );
+    updateCableRouteStatus();
 }
 
 function resetArrayLocation() {
@@ -127,6 +153,37 @@ function placeArrayAtMapPoint(e) {
     state.arrayMoveMode = false;
     setArrayMoveStatus("Array moved. Grid point stayed fixed and export cable length recalculated.", false);
     computeAndDraw();
+}
+
+function startCableRouteMode() {
+    if (!state.activeDrawCenter) {
+        updateCableRouteStatus();
+        return;
+    }
+    state.arrayMoveMode = false;
+    state.cableRouteMode = true;
+    updateCableRouteStatus();
+}
+
+function finishCableRouteMode() {
+    state.cableRouteMode = false;
+    updateCableRouteStatus();
+    redrawIfTopologyExists();
+}
+
+function clearCableRoute() {
+    state.cableRouteMode = false;
+    state.cableRouteWaypoints = [];
+    updateCableRouteStatus();
+    redrawIfTopologyExists();
+}
+
+function addCableRouteWaypoint(e) {
+    if (!state.cableRouteMode) return;
+    if (!e || !e.lngLat) return;
+    state.cableRouteWaypoints.push([e.lngLat.lng, e.lngLat.lat]);
+    updateCableRouteStatus();
+    redrawIfTopologyExists();
 }
 
 // ============================================================
@@ -155,9 +212,12 @@ function triggerDrawAtCenter() {
     state.activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
     state.arrayOverrideCenter = null;
     state.arrayMoveMode = false;
+    state.cableRouteMode = false;
+    state.cableRouteWaypoints = [];
     computeAndDraw();
     updateSelectedSubstationDisplay();
     setArrayMoveStatus("Grid drawn. Use Pick Up Array to relocate the array while the grid point stays fixed.", false);
+    updateCableRouteStatus();
 }
 
 // ============================================================
@@ -208,6 +268,11 @@ function wireEvents() {
     $("btn_pick_array")?.addEventListener("click", toggleArrayMoveMode);
     $("btn_reset_array_move")?.addEventListener("click", resetArrayLocation);
 
+    // Cable route waypoints
+    $("btn_draw_cable_route")?.addEventListener("click", startCableRouteMode);
+    $("btn_finish_cable_route")?.addEventListener("click", finishCableRouteMode);
+    $("btn_clear_cable_route")?.addEventListener("click", clearCableRoute);
+
     // Search
     $("btn_search")?.addEventListener("click", searchLocation);
     $("loc_search")?.addEventListener("keydown", (e) => { if (e.key === "Enter") searchLocation(); });
@@ -232,10 +297,12 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
     // Safe export cable length adjustment
     $("layout_export_extra_km")?.addEventListener("input", () => {
         state.arrayOverrideCenter = null;
+        state.cableRouteWaypoints = [];
         redrawIfTopologyExists();
     });
     $("layout_export_extra_km")?.addEventListener("change", () => {
         state.arrayOverrideCenter = null;
+        state.cableRouteWaypoints = [];
         redrawIfTopologyExists();
     });
 
@@ -249,7 +316,10 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
 function wireMapMoveEvents() {
     if (!map || map.__arrayMoveWired) return;
     map.__arrayMoveWired = true;
-    map.on("click", placeArrayAtMapPoint);
+    map.on("click", (e) => {
+        if (state.cableRouteMode) addCableRouteWaypoint(e);
+        else placeArrayAtMapPoint(e);
+    });
 }
 
 // ============================================================
@@ -264,6 +334,7 @@ function boot() {
     renderBenchmark();
     setArrayMoveStatus("Draw a grid first. Then use Pick Up Array to relocate the array centre.", false);
     updateExportCableLengthDisplay();
+    updateCableRouteStatus();
 }
 
 // Libraries loaded via defer, so DOMContentLoaded is the right signal.

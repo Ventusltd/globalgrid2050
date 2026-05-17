@@ -1,0 +1,26 @@
+name: V5 DC AC LV 02 CSS
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  install-css:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install DC AC LV topology CSS
+        run: python solar-bess-topology-v5/install_dc_ac_lv_02_css.py
+
+      - name: Commit DC AC LV topology CSS
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Install DC AC LV topology CSS
+          file_pattern: solar-bess-topology-v5/dc-ac-lv-topology-review-v5.css

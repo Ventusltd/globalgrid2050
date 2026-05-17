@@ -57,8 +57,7 @@ function updateArrayRotationDisplay() {
     if (!el) return;
     const deg = Number.isFinite(state.arrayRotationDeg) ? state.arrayRotationDeg : 0;
     el.textContent = (((deg % 360) + 360) % 360).toFixed(0) + "°";
-}
-
+}\n
 function rotateArrayBy(deltaDeg) {
     state.arrayRotationDeg = (((state.arrayRotationDeg || 0) + deltaDeg) % 360 + 360) % 360;
     state.cableRoutePins = [];
@@ -253,7 +252,9 @@ function toggleCablePinMode() {
     }
     state.arrayMoveMode = false;
     state.cableRoutePinMode = !state.cableRoutePinMode;
+    state.suppressNextMapFit = true;
     updateCableRouteStatus();
+    redrawIfTopologyExists();
 }
 
 function commitCablePinRoute() {
@@ -267,6 +268,7 @@ function undoCablePin() {
     if (!Array.isArray(state.cableRoutePins) || state.cableRoutePins.length === 0) return;
     state.cableRoutePins.pop();
     state.cableRouteCommitted = false;
+    state.suppressNextMapFit = true;
     updateCableRouteStatus();
     redrawIfTopologyExists();
 }
@@ -285,6 +287,7 @@ function addCableRoutePin(e) {
     if (!e || !e.lngLat) return;
     state.cableRoutePins.push([e.lngLat.lng, e.lngLat.lat]);
     state.cableRouteCommitted = false;
+    state.suppressNextMapFit = true;
     updateCableRouteStatus();
     redrawIfTopologyExists();
 }

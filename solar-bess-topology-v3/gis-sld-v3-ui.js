@@ -63,6 +63,11 @@ function injectExportCableLengthControl() {
         <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
             Moves the whole array further from or closer to the point of connection along the existing axis. It does not rotate the array or change the internal 33kV radial topology.
         </div>
+        <button class="btn" id="btn_pick_array" style="margin-top:8px;background:#00ffff;color:#001111;">Pick Up Array</button>
+        <button class="btn" id="btn_reset_array_move" style="margin-top:6px;">Reset Array Location</button>
+        <div id="array_move_status" style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
+            Pick Up Array keeps the grid point fixed. Click anywhere on the map to place the array centre.
+        </div>
     `;
 
     drawBtn.parentNode.insertBefore(box, drawBtn);
@@ -71,6 +76,48 @@ function injectExportCableLengthControl() {
 function redrawIfTopologyExists() {
     if (state.activeDrawCenter) computeAndDraw();
     else recalcAll();
+}
+
+function setArrayMoveStatus(text, active = false) {
+    const el = $("array_move_status");
+    if (el) {
+        el.textContent = text;
+        el.style.color = active ? "#00ffff" : "var(--muted)";
+    }
+    const btn = $("btn_pick_array");
+    if (btn) {
+        btn.textContent = active ? "Click Map to Place" : "Pick Up Array";
+        btn.style.background = active ? "#ff9900" : "#00ffff";
+        btn.style.color = active ? "#000000" : "#001111";
+    }
+}
+
+function toggleArrayMoveMode() {
+    if (!state.activeDrawCenter) {
+        setArrayMoveStatus("Draw a grid first, then pick up the array.", false);
+        return;
+    }
+    state.arrayMoveMode = !state.arrayMoveMode;
+    setArrayMoveStatus(
+        state.arrayMoveMode ? "Move mode active. Click the map where the array centre should move." : "Move mode cancelled.",
+        state.arrayMoveMode
+    );
+}
+
+function resetArrayLocation() {
+    state.arrayMoveMode = false;
+    state.arrayOverrideCenter = null;
+    setArrayMoveStatus("Array reset to calculated default position.", false);
+    redrawIfTopologyExists();
+}
+
+function placeArrayAtMapPoint(e) {
+    if (!state.arrayMoveMode) return;
+    if (!e || !e.lngLat) return;
+    state.arrayOverrideCenter = [e.lngLat.lng, e.lngLat.lat];
+    state.arrayMoveMode = false;
+    setArrayMoveStatus("Array moved. Grid point stayed fixed and export cable was redrawn.", false);
+    computeAndDraw();
 }
 
 // ============================================================
@@ -97,8 +144,11 @@ function triggerDrawAtCenter() {
     if (!map) return;
     state.selectedSubstation = null;
     state.activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
+    state.arrayOverrideCenter = null;
+    state.arrayMoveMode = false;
     computeAndDraw();
     updateSelectedSubstationDisplay();
+    setArrayMoveStatus("Grid drawn. Use Pick Up Array to relocate the array while the grid point stays fixed.", false);
 }
 
 // ============================================================
@@ -145,6 +195,10 @@ function wireEvents() {
     $("btn_draw")?.addEventListener("click", triggerDrawAtCenter);
     $("btn_export")?.addEventListener("click", exportGeoJSON);
 
+    // Array movement
+    $("btn_pick_array")?.addEventListener("click", toggleArrayMoveMode);
+    $("btn_reset_array_move")?.addEventListener("click", resetArrayLocation);
+
     // Search
     $("btn_search")?.addEventListener("click", searchLocation);
     $("loc_search")?.addEventListener("keydown", (e) => { if (e.key === "Enter") searchLocation(); });
@@ -167,8 +221,14 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
     $("mounting_type_c")?.addEventListener("change", (e) => autoFillBifacial(e.target.value, "fin_central_bifacial"));
 
     // Safe export cable length adjustment
-    $("layout_export_extra_km")?.addEventListener("input", redrawIfTopologyExists);
-    $("layout_export_extra_km")?.addEventListener("change", redrawIfTopologyExists);
+    $("layout_export_extra_km")?.addEventListener("input", () => {
+        state.arrayOverrideCenter = null;
+        redrawIfTopologyExists();
+    });
+    $("layout_export_extra_km")?.addEventListener("change", () => {
+        state.arrayOverrideCenter = null;
+        redrawIfTopologyExists();
+    });
 
     // Global recalc on input changes (debounced)
     document.querySelectorAll("input, select").forEach(el => {
@@ -185,6 +245,7 @@ function boot() {
     initMap();
     updateSelectedSubstationDisplay();
     renderBenchmark();
+    setArrayMoveStatus("Draw a grid first. Then use Pick Up Array to relocate the array centre.", false);
 }
 
 // Libraries loaded via defer, so DOMContentLoaded is the right signal.

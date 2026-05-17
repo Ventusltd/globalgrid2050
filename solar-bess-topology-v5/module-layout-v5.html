@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Module Layout V5 | GlobalGrid2050</title>
+
+    <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
+    <link rel="stylesheet" href="./gis-sld-v5.css" />
+    <link rel="stylesheet" href="./module-layout-v5.css" />
+</head>
+<body>
+    <div class="module-app-shell">
+        <header class="module-header">
+            <div>
+                <div class="module-kicker">GlobalGrid2050 V5</div>
+                <h1>Physical Solar Module Layout</h1>
+                <p>Separate non breaking app for testing physical module footprint, portrait or landscape orientation and exact module count visualisation.</p>
+            </div>
+            <a class="module-link" href="./indexforgis-sld-v5.html">Back to GIS SLD V5</a>
+        </header>
+
+        <main class="module-main">
+            <section class="module-panel">
+                <h2>Module Inputs</h2>
+
+                <label>Total Modules</label>
+                <input id="ml_total_modules" type="number" value="1200" min="1" step="1" />
+
+                <label>Module Width m</label>
+                <input id="ml_module_width_m" type="number" value="1.134" min="0.1" step="0.001" />
+
+                <label>Module Height m</label>
+                <input id="ml_module_height_m" type="number" value="2.278" min="0.1" step="0.001" />
+
+                <label>Orientation</label>
+                <select id="ml_orientation">
+                    <option value="portrait">Portrait</option>
+                    <option value="landscape">Landscape</option>
+                </select>
+
+                <label>Modules Per Row</label>
+                <input id="ml_modules_per_row" type="number" value="60" min="1" step="1" />
+
+                <label>Row Pitch m</label>
+                <input id="ml_row_pitch_m" type="number" value="6.0" min="0.1" step="0.1" />
+
+                <label>Module Gap m</label>
+                <input id="ml_module_gap_m" type="number" value="0.03" min="0" step="0.01" />
+
+                <label>Array Rotation degrees</label>
+                <input id="ml_rotation_deg" type="number" value="0" step="5" />
+
+                <div class="module-button-row">
+                    <button id="ml_draw_center" class="btn">Draw at Map Centre</button>
+                    <button id="ml_pick_site" class="btn secondary">Pick Site on Map</button>
+                    <button id="ml_clear" class="btn danger">Clear</button>
+                </div>
+
+                <h2>Results</h2>
+                <div class="module-stat"><span>Rows</span><strong id="ml_out_rows">0</strong></div>
+                <div class="module-stat"><span>Layout Width</span><strong id="ml_out_width">0 m</strong></div>
+                <div class="module-stat"><span>Layout Length</span><strong id="ml_out_length">0 m</strong></div>
+                <div class="module-stat"><span>Footprint Area</span><strong id="ml_out_area">0 ha</strong></div>
+                <div class="module-stat"><span>Rendered Modules</span><strong id="ml_out_rendered">0</strong></div>
+                <div id="ml_status" class="module-status">Ready.</div>
+
+                <div class="module-note">
+                    This app is for physical GIS visualisation only. It does not replace paid EPC design, cable schedules, structural layout, shading study or IFC drawings.
+                </div>
+            </section>
+
+            <section class="module-map-card">
+                <div id="module_map"></div>
+                <div class="module-map-toolbar">
+                    <button id="ml_satellite" class="btn small">Satellite View</button>
+                    <button id="ml_zoom_layout" class="btn small secondary">Zoom to Layout</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./gis-sld-v5-config.js"></script>
+    <script src="./gis-sld-v5-helpers.js"></script>
+    <script src="./module-layout-v5.js"></script>
+</body>
+</html>

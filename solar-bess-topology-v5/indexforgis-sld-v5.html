@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GIS SLD Financial Sandbox V5</title>
+
+<link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js" defer></script>
+
+<script src="gis-sld-v5-config.js"></script>
+
+<script src="gis-sld-v5-helpers.js"></script>
+
+<script src="gis-sld-v5-state.js"></script>
+
+<script src="gis-sld-v5-substations.js"></script>
+
+<link rel="stylesheet" href="gis-sld-v5.css">
+
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="panel panel-left">
+        <h2>Solar Photovoltaic (PV) Development, Engineering, Procurement and Construction (EPC) and Grid Analysis</h2>
+
+    <div class="search-box">
+        <input type="text" id="loc_search" placeholder="Enter location (e.g. London)..." />
+        <button id="btn_search">FLY</button>
+    </div>
+
+    <div class="tab-container">
+        <button class="tab-btn active" id="tabbtn_string" data-tab="string">String</button>
+        <button class="tab-btn" id="tabbtn_central" data-tab="central">Central</button>
+    </div>
+
+    <div id="string_tab" class="tab-content active">
+        <h3>Dimensions & Physics</h3>
+        <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp" value="660" min="1" /></div>
+        <div class="input-group">
+            <label>Mod L x W (m)</label>
+            <div style="display: flex; gap: 4px;">
+                <input type="number" id="mod_l" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
+                <input type="number" id="mod_w" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
+            </div>
+        </div>
+        <div class="input-group">
+            <label>Mounting & GCR</label>
+            <select id="mounting_type">
+                <option value="0.75">East-West Dome (~75%)</option>
+                <option value="0.45" selected>Fixed Tilt South (~45%)</option>
+                <option value="0.35">Tracker (~35%)</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor" value="1.35" step="0.05" min="1.0" /></div>
+
+        <h3>Array Hierarchy (String)</h3>
+        <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
+        <div class="input-group"><label>Mods / String</label><input type="number" id="x_mods" value="28" min="1" /></div>
+        <div class="input-group"><label>Strings / Inverter</label><input type="number" id="z_strings" value="18" min="1" /></div>
+        <div class="input-group"><label>Inverters / Sub</label><input type="number" id="y_invs" value="28" min="1" /></div>
+        <div class="input-group"><label>Subs / Ring</label><input type="number" id="s_subs" value="5" min="1" /></div>
+        <div class="input-group"><label>33kV Rings</label><input type="number" id="b_cols" value="6" min="1" /></div>
+
+        <h3>Module Logistics</h3>
+        <div class="input-group">
+            <label>Packaging Preset</label>
+            <select id="logistics_preset" data-suffix="">
+                <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
+                <option value="manual">Manual Entry</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet" value="33" min="1" /></div>
+        <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container" value="594" min="1" /></div>
+        <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct" value="1.0" step="0.1" min="0" /></div>
+
+        <details class="finance-box">
+            <summary>Baseline Project Economics</summary>
+            <div class="finance-headline">
+                <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_string_annual_rev">£0</span></div>
+                <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_string_25_rev">£0</span></div>
+                <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_string_35_rev">£0</span></div>
+                <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_string_capex">£0</span></div>
+                <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_string_capex_wp">£0.00/Wp</span></div>
+                <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_string_surplus_25">£0</span></div>
+                <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_string_surplus_35">£0</span></div>
+            </div>
+
+            <h3>Revenue</h3>
+            <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_string_price" value="65" step="1" min="0"></div>
+            <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_string_other" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_string_yield" value="1000" step="10" min="0"></div>
+            <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_string_bifacial" value="5" step="0.5" min="0" max="15"></div>
+            <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_string_losses" value="2" step="0.1" min="0"></div>
+            <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_string_deg" value="0.4" step="0.01" min="0"></div>
+            <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_string_opex" value="25000" step="1000" min="0"></div>
+
+            <h3>Development Financials</h3>
+<div class="finance-headline">
+    <div class="stat-row"><span>Development Capital at Risk</span><span class="stat-val" id="fin_string_dev_capital">£0</span></div>
+    <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_string_dev_module_cost">£0</span></div>
+    <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_string_dev_epc_cost">£0</span></div>
+    <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_string_dev_owner_cost">£0</span></div>
+<div class="stat-row"><span>Grid Connection Cost</span><span class="stat-val" id="fin_string_dev_grid_cost">£0</span></div>
+    <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_string_dev_total_cost">£0</span></div>
+    <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_string_dev_exit_value">£0</span></div>
+<div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_string_dev_operating_npv">£0</span></div>
+    <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_string_dev_margin">£0</span></div>
+    <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_string_dev_risk_value">£0</span></div>
+    <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_string_dev_multiple">0.00x</span></div>
+</div>
+
+<div class="input-group" style="display: block; margin-bottom: 8px;">
+    <label style="margin-bottom: 4px; display: block;">Development Stage</label>
+    <select id="fin_string_dev_stage" data-dev-stage-prefix="fin_string" style="width: 100%;">
+        <option value="3000">Land Option Signed</option>
+        <option value="15000">Grid Connection Application Accepted</option>
+        <option value="35000">Planning Application Submitted</option>
+        <option value="55000">Planning Permission Granted</option>
+        <option value="70000">Grid Connection Terms Reviewed and Agreed</option>
+        <option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>
+        <option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>
+    </select>
+</div>
+<div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_string_dev_cost_mw" value="100000" step="5000" min="0"></div>
+<div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_string_dev_module_mwp" value="150000" step="10000" min="0"></div>
+<div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_string_dev_epc_mw" value="500000" step="25000" min="0"></div>
+<div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_string_dev_owner_mw" value="100000" step="25000" min="0"></div>
+<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_string_dev_grid_mw" value="100000" step="25000" min="0"></div>
+<div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_string_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+<div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_string_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
+<div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_string_dev_success" value="15" step="1" min="0" max="100"></div>
+<div class="input-group"><label>Development Years</label><input type="number" id="fin_string_dev_years" value="4" step="0.5" min="0"></div>
+
+<h3>CAPEX</h3>
+<div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_string_modules" value="0.15" step="0.01" min="0"></div>
+<div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_string_epc_ex" value="0.30" step="0.01" min="0"></div>
+<div class="input-group">
+    <label>Flood Resilience</label>
+    <div style="display: flex; gap: 4px; align-items: center;">
+        <input type="checkbox" id="fin_string_flood" />
+        <input type="number" id="fin_string_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+    </div>
+</div>
+<div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_string_other_capex" value="0.20" step="0.01" min="0"></div>
+<div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_string_fixed_capex" value="1500000" step="50000" min="0"></div>
+<div class="input-group"><label>Contingency %</label><input type="number" id="fin_string_cont" value="7" step="0.5" min="0"></div>
+
+            <h3>Loss Allowances</h3>
+            <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_string_loss_dc_string" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_string_loss_lv_dc" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_string_loss_lv_ac" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_string_loss_tx" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_string_loss_other" value="0" step="0.1" min="0"></div>
+
+            <h3>BESS Optional</h3>
+            <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_string_bess_mw" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_string_bess_mwh" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_string_bess_capex" value="0" step="10000" min="0"></div>
+            <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_string_bess_cycles" value="0" step="10" min="0"></div>
+            <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_string_bess_spread" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_string_bess_eff" value="88" step="1" min="0" max="100"></div>
+
+            <div class="warning-box" id="fin_string_warnings"></div>
+        </details>
+    </div>
+
+    <div id="central_tab" class="tab-content">
+        <h3>Dimensions & Physics</h3>
+        <div class="input-group"><label>Module Rating (Wp)</label><input type="number" id="mod_wp_c" value="660" min="1" /></div>
+        <div class="input-group">
+            <label>Mod L x W (m)</label>
+            <div style="display: flex; gap: 4px;">
+                <input type="number" id="mod_l_c" value="2.38" step="0.01" min="0.01" style="width: 45px;" />
+                <input type="number" id="mod_w_c" value="1.30" step="0.01" min="0.01" style="width: 45px;" />
+            </div>
+        </div>
+        <div class="input-group">
+            <label>Mounting & GCR</label>
+            <select id="mounting_type_c">
+                <option value="0.75">East-West Dome (~75%)</option>
+                <option value="0.45" selected>Fixed Tilt South (~45%)</option>
+                <option value="0.35">Tracker (~35%)</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor_c" value="1.35" step="0.05" min="1.0" /></div>
+
+        <h3>Array Hierarchy (Central)</h3>
+        <div class="input-group">
+            <label>Central AC Rating MWac</label>
+            <select id="inv_ac_mw_c">
+                <option value="3.15">3.15 MWac</option>
+                <option value="4.4" selected>4.40 MWac</option>
+                <option value="4.6">4.60 MWac</option>
+                <option value="5.0">5.00 MWac</option>
+                <option value="6.25">6.25 MWac</option>
+                <option value="6.8">6.80 MWac</option>
+            </select>
+        </div>
+        <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" min="0.01" /></div>
+        <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" min="1" /></div>
+        <div class="input-group"><label>Strings / Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>
+        <div class="input-group"><label>Central Invs / MV Station</label><input type="number" id="inv_per_mv_c" value="1" min="1" /></div>
+        <div class="input-group"><label>MV Stations / 33kV Ring</label><input type="number" id="mv_per_ring_c" value="4" min="1" /></div>
+        <div class="input-group"><label>33kV Rings</label><input type="number" id="rings_c" value="4" min="1" /></div>
+
+        <h3>Module Logistics</h3>
+        <div class="input-group">
+            <label>Packaging Preset</label>
+            <select id="logistics_preset_c" data-suffix="_c">
+                <option value="high_density" selected>High Density (33/box, 594/40ft)</option>
+                <option value="legacy">Standard Legacy (31/box, 620/40ft)</option>
+                <option value="manual">Manual Entry</option>
+            </select>
+        </div>
+        <div class="input-group"><label>Modules / Packing Unit</label><input type="number" id="mods_pallet_c" value="33" min="1" /></div>
+        <div class="input-group"><label>Mods / 40ft Container</label><input type="number" id="mods_container_c" value="594" min="1" /></div>
+        <div class="input-group"><label>Spare Allowance %</label><input type="number" id="spare_pct_c" value="1.0" step="0.1" min="0" /></div>
+
+        <details class="finance-box">
+            <summary>Baseline Project Economics</summary>
+            <div class="finance-headline">
+                <div class="stat-row"><span>Year 1 Revenue Projection</span><span class="stat-val" id="fin_central_annual_rev">£0</span></div>
+                <div class="stat-row"><span>25 Year Revenue Projection</span><span class="stat-val" id="fin_central_25_rev">£0</span></div>
+                <div class="stat-row"><span>35 Year Revenue Projection</span><span class="stat-val" id="fin_central_35_rev">£0</span></div>
+                <div class="stat-row"><span>Total CAPEX</span><span class="stat-val" id="fin_central_capex">£0</span></div>
+                <div class="stat-row"><span>CAPEX per Wp</span><span class="stat-val" id="fin_central_capex_wp">£0.00/Wp</span></div>
+                <div class="stat-row"><span>Indicative 25 Year Surplus</span><span class="stat-val" id="fin_central_surplus_25">£0</span></div>
+                <div class="stat-row"><span>Indicative 35 Year Surplus</span><span class="stat-val" id="fin_central_surplus_35">£0</span></div>
+            </div>
+
+            <h3>Revenue</h3>
+            <div class="input-group"><label>Energy Price £/MWh</label><input type="number" id="fin_central_price" value="65" step="1" min="0"></div>
+            <div class="input-group"><label>Other Income £/MWh</label><input type="number" id="fin_central_other" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>Base Yield kWh/kWp</label><input type="number" id="fin_central_yield" value="1000" step="10" min="0"></div>
+            <div class="input-group"><label>Bifacial Gain %</label><input type="number" id="fin_central_bifacial" value="5" step="0.5" min="0" max="15"></div>
+            <div class="input-group"><label>Base Losses %</label><input type="number" id="fin_central_losses" value="2" step="0.1" min="0"></div>
+            <div class="input-group"><label>Degradation % (Yr 2+)</label><input type="number" id="fin_central_deg" value="0.4" step="0.01" min="0"></div>
+            <div class="input-group"><label>OPEX £/MWac/yr</label><input type="number" id="fin_central_opex" value="25000" step="1000" min="0"></div>
+
+            <h3>Development Financials</h3>
+<div class="finance-headline">
+    <div class="stat-row"><span>Development Capital at Risk</span><span class="stat-val" id="fin_central_dev_capital">£0</span></div>
+    <div class="stat-row"><span>Module Supply Cost</span><span class="stat-val" id="fin_central_dev_module_cost">£0</span></div>
+    <div class="stat-row"><span>EPC Cost</span><span class="stat-val" id="fin_central_dev_epc_cost">£0</span></div>
+    <div class="stat-row"><span>Other Owner Costs</span><span class="stat-val" id="fin_central_dev_owner_cost">£0</span></div>
+<div class="stat-row"><span>Grid Connection Cost</span><span class="stat-val" id="fin_central_dev_grid_cost">£0</span></div>
+    <div class="stat-row"><span>Total Build Cost</span><span class="stat-val" id="fin_central_dev_total_cost">£0</span></div>
+    <div class="stat-row"><span>Target Exit Value</span><span class="stat-val" id="fin_central_dev_exit_value">£0</span></div>
+<div class="stat-row"><span>Operating Asset Net Present Value (NPV)</span><span class="stat-val" id="fin_central_dev_operating_npv">£0</span></div>
+    <div class="stat-row"><span>Gross Development Margin</span><span class="stat-val" id="fin_central_dev_margin">£0</span></div>
+    <div class="stat-row"><span>Risk Adjusted Development Value</span><span class="stat-val" id="fin_central_dev_risk_value">£0</span></div>
+    <div class="stat-row"><span>Development Return Multiple</span><span class="stat-val" id="fin_central_dev_multiple">0.00x</span></div>
+</div>
+
+<div class="input-group" style="display: block; margin-bottom: 8px;">
+    <label style="margin-bottom: 4px; display: block;">Development Stage</label>
+    <select id="fin_central_dev_stage" data-dev-stage-prefix="fin_central" style="width: 100%;">
+        <option value="3000">Land Option Signed</option>
+        <option value="15000">Grid Connection Application Accepted</option>
+        <option value="35000">Planning Application Submitted</option>
+        <option value="55000">Planning Permission Granted</option>
+        <option value="70000">Grid Connection Terms Reviewed and Agreed</option>
+        <option value="80000">Buyer or Revenue Agreement Reviewed (Power Purchase Agreement (PPA) / Offtaker)</option>
+        <option value="100000" selected>Construction Contract Signed and Finance Committed (Financial Close)</option>
+    </select>
+</div>
+<div class="input-group"><label>Development Cost £/MW</label><input type="number" id="fin_central_dev_cost_mw" value="100000" step="5000" min="0"></div>
+<div class="input-group"><label>Module Supply Cost £/MWp</label><input type="number" id="fin_central_dev_module_mwp" value="150000" step="10000" min="0"></div>
+<div class="input-group"><label>EPC Cost £/MW</label><input type="number" id="fin_central_dev_epc_mw" value="500000" step="25000" min="0"></div>
+<div class="input-group"><label>Other Owner Costs £/MW</label><input type="number" id="fin_central_dev_owner_mw" value="100000" step="25000" min="0"></div>
+<div class="input-group"><label>Grid Connection Cost £ per Megawatt (MW)</label><input type="number" id="fin_central_dev_grid_mw" value="100000" step="25000" min="0"></div>
+<div class="input-group"><label>Target Exit Value £/MWp</label><input type="number" id="fin_central_dev_exit_mwp" value="1350000" step="50000" min="0"></div>
+<div class="input-group"><label>Operating Asset Net Present Value (NPV) £ per Megawatt peak (MWp)</label><input type="number" id="fin_central_dev_npv_mwp" value="1200000" step="50000" min="0"></div>
+<div class="input-group"><label>Development Success Probability %</label><input type="number" id="fin_central_dev_success" value="15" step="1" min="0" max="100"></div>
+<div class="input-group"><label>Development Years</label><input type="number" id="fin_central_dev_years" value="4" step="0.5" min="0"></div>
+
+<h3>CAPEX</h3>
+<div class="input-group"><label>Modules £/Wp</label><input type="number" id="fin_central_modules" value="0.15" step="0.01" min="0"></div>
+<div class="input-group"><label>EPC ex Modules £/Wp</label><input type="number" id="fin_central_epc_ex" value="0.30" step="0.01" min="0"></div>
+<div class="input-group">
+    <label>Flood Resilience</label>
+    <div style="display: flex; gap: 4px; align-items: center;">
+        <input type="checkbox" id="fin_central_flood" />
+        <input type="number" id="fin_central_flood_rate" value="0.03" step="0.01" min="0" style="width: 50px;" />
+    </div>
+</div>
+<div class="input-group"><label>Other CAPEX £/Wp</label><input type="number" id="fin_central_other_capex" value="0.20" step="0.01" min="0"></div>
+<div class="input-group"><label>Fixed CAPEX £</label><input type="number" id="fin_central_fixed_capex" value="1500000" step="50000" min="0"></div>
+<div class="input-group"><label>Contingency %</label><input type="number" id="fin_central_cont" value="7" step="0.5" min="0"></div>
+
+            <h3>Loss Allowances</h3>
+            <div class="input-group"><label>DC String Cable Loss %</label><input type="number" id="fin_central_loss_dc_string" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV Main DC Loss %</label><input type="number" id="fin_central_loss_lv_dc" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>LV AC Loss %</label><input type="number" id="fin_central_loss_lv_ac" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Transformer Loss %</label><input type="number" id="fin_central_loss_tx" value="0" step="0.1" min="0"></div>
+            <div class="input-group"><label>Other Electrical Loss %</label><input type="number" id="fin_central_loss_other" value="0" step="0.1" min="0"></div>
+
+            <h3>BESS Optional</h3>
+            <div class="input-group"><label>BESS Power MW</label><input type="number" id="fin_central_bess_mw" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Energy MWh</label><input type="number" id="fin_central_bess_mwh" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS CAPEX £/MWh</label><input type="number" id="fin_central_bess_capex" value="0" step="10000" min="0"></div>
+            <div class="input-group"><label>BESS Cycles / Year</label><input type="number" id="fin_central_bess_cycles" value="0" step="10" min="0"></div>
+            <div class="input-group"><label>BESS Spread £/MWh</label><input type="number" id="fin_central_bess_spread" value="0" step="1" min="0"></div>
+            <div class="input-group"><label>BESS Efficiency %</label><input type="number" id="fin_central_bess_eff" value="88" step="1" min="0" max="100"></div>
+
+            <div class="warning-box" id="fin_central_warnings"></div>
+        </details>
+    </div>
+
+    <div class="stat-box" style="border-color: #ff3333; background: rgba(255, 51, 51, 0.05); margin-bottom: 15px;">
+        <h3 style="margin-top: 0; color: #ff3333; border-bottom-color: #ff3333;">Selected Grid Node</h3>
+        <div class="stat-row"><span>Substation:</span><span class="stat-val" id="out_selected_sub_name">None selected</span></div>
+        <div class="stat-row"><span>Voltage:</span><span class="stat-val" id="out_selected_sub_voltage">Unknown</span></div>
+        <div class="stat-row"><span>Longitude:</span><span class="stat-val" id="out_selected_sub_lon">n/a</span></div>
+        <div class="stat-row"><span>Latitude:</span><span class="stat-val" id="out_selected_sub_lat">n/a</span></div>
+    </div>
+
+    <div class="stat-box" id="tech_summary_box">
+        <h3>Technical Quantity Summary</h3>
+        <div class="stat-row"><span>Total Module Count:</span><span class="stat-val" id="out_module_count">0</span></div>
+        <div class="stat-row"><span>Total DC Capacity:</span><span class="stat-val cyan" id="out_dc_capacity">0.00 MWp</span></div>
+        <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
+        <div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
+        <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes / Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
+        <div class="stat-row central-only" style="display: none;"><span>Total Central Combiner Boxes:</span><span class="stat-val" id="out_total_cb">0</span></div>
+        <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+        <div class="stat-row"><span>Net Module Surface Area:</span><span class="stat-val" id="out_net_mod_area">0 Acres</span></div>
+        <div class="stat-row"><span>Net Array Area at GCR:</span><span class="stat-val" id="out_net_array_area">0 Acres</span></div>
+        <div class="stat-row"><span>Indicative Gross Site Area:</span><span class="stat-val orange" id="out_gross_area">0 Acres</span></div>
+        <div style="border-top:1px dashed #333; margin: 8px 0;"></div>
+        <div class="stat-row"><span>Modules per Packing Unit:</span><span class="stat-val" id="out_mod_per_pallet">0</span></div>
+        <div class="stat-row"><span>Total Packing Units:</span><span class="stat-val" id="out_pallets">0</span></div>
+        <div class="stat-row"><span>Modules per Container:</span><span class="stat-val" id="out_mod_per_cont">0</span></div>
+        <div class="stat-row"><span>Total Base Containers:</span><span class="stat-val" id="out_containers">0</span></div>
+        <div class="stat-row"><span>Spare Module Allowance:</span><span class="stat-val" id="out_spare_pct">0%</span></div>
+        <div class="stat-row"><span>Containers (Inc. Spares):</span><span class="stat-val cyan" id="out_containers_spares">0</span></div>
+        <div class="stat-row"><span>Containers per MWp:</span><span class="stat-val cyan" id="out_cont_per_mwp">0.00</span></div>
+    </div>
+
+    <div class="benchmark-box">
+        <h3 style="margin-top: 0;">Custom Reference Benchmark</h3>
+        <div class="input-group"><label>Reference Project</label><input type="text" id="ref_name" value="Custom Project X" style="width: 140px; text-align: left;"/></div>
+        <div class="input-group"><label>Reference Capacity (MW)</label><input type="number" id="ref_mw" value="100" min="1" /></div>
+        <div class="input-group"><label>Reference Module Count</label><input type="number" id="ref_modules" value="150000" min="1" /></div>
+        <div class="stat-row" style="margin-top: 8px; border-top: 1px dashed #333; padding-top: 8px;">
+            <span>Implied Benchmark:</span><span class="stat-val" id="out_ref_implied">~ 1,500 modules/MW</span>
+        </div>
+    </div>
+
+    <button class="btn draw-btn" id="btn_draw">⌖ DRAW NEAT GRID</button>
+    <button class="btn" id="btn_export">⬇ Export GeoJSON</button>
+
+    <div class="disclaimer-box">
+        <strong>ENGINEERING SCREENING OUTPUT</strong><br><br>
+        These outputs are indicative screening values only. They are not construction design, financial advice, EPC pricing, grid compliance, logistics planning or transport instruction. All quantities, packaging, site area, cable routes, container loads, module specifications and financial assumptions must be verified against current manufacturer datasheets, project specific drawings, EPC scope, grid requirements and competent engineering review.
+    </div>
+
+    <div class="explainer-box">
+
+        <h3>About the VENTUS GIS SLD Sandbox</h3>
+        <p>VENTUS GIS SLD Sandbox is a working engineering screening tool for utility scale solar, storage and grid connection analysis.</p>
+        <p>The tool helps users explore the relationship between land, grid proximity, solar topology, module count, inverter architecture, logistics, BESS assumptions and baseline project economics in one visual interface.</p>
+        <p>Users can enter a location, view UK substation reference data, select a grid node and generate an indicative solar layout using either string inverter or central inverter topology. The tool can estimate module count, DC capacity, AC capacity, site area, packing units, container loads, baseline revenue, CAPEX assumptions and simple long term financial outputs.</p>
+        <p>This is a real engineering screening tool. It is not a final construction design package, grid offer, connection approval, EPC quotation or financial advice. It is designed to support early stage project assessment by making technical, spatial, logistics and financial assumptions visible before deeper engineering, grid, planning, procurement and financial studies begin.</p>
+        <p>A key feature of the sandbox is that technical and commercial assumptions are shown together. In real projects, module count becomes logistics. Cable routing becomes electrical loss. Grid proximity becomes interface risk. BESS assumptions affect land, CAPEX and revenue logic. Financial outputs only become useful when the physical assumptions behind them are visible.</p>
+        <p>The tool also includes GeoJSON export so that generated layouts and assumptions can be carried into external GIS workflows, reports, internal review or further engineering discussion. The exported data is intended to preserve context, including topology mode, technical assumptions, logistics assumptions, financial assumptions and warnings.</p>
+        <p>The public substation layer is reference data only. A visible substation point does not confirm available capacity, connection rights, voltage suitability, cable route, grid acceptance or point of connection approval. Any real project must still be reviewed by competent engineers, grid specialists, planners, EPC teams, legal advisers and project finance professionals before real world decisions are made.</p>
+        <p>VENTUS created this sandbox to support better early stage thinking in solar and storage deployment. The aim is to help developers, engineers, suppliers, investors and commercial teams ask better questions before committing time, capital and contractual responsibility.</p>
+        <p>Use the sandbox as a thinking tool. Use it to test scale. Use it to compare assumptions. Use it to understand where deeper engineering begins.</p>
+
+<h3>Financial Model Logic</h3>
+<p>The financial model is a screening layer for Solar Photovoltaic (PV) development, grid connection, Engineering, Procurement and Construction (EPC) readiness and operating asset value. It is designed to make the main commercial assumptions visible beside the physical layout, not to replace a full valuation report or investment committee model.</p>
+<p>The energy price input is a blended screening assumption. It may represent government backed price stabilisation, a private buyer contract, merchant power exposure or a blended revenue case. Users should enter the expected captured electricity price that best reflects the project route to market.</p>
+<p>The Operating Asset Net Present Value (NPV) input is user editable because operational value changes with contract quality, revenue certainty, merchant exposure, grid status, asset maturity, inflation, debt assumptions and investor return requirements. A project with stable long term revenue may justify a higher value assumption than a project with greater merchant exposure.</p>
+<p>The development cost per Megawatt (MW) input is user editable because development capital at risk rises as a project moves from site identification through grid review, planning, buyer or revenue agreement review, technical design and Engineering, Procurement and Construction (EPC) readiness.</p>
+<p>The Target Exit Value input is a screening assumption, not a promised sale value or formal valuation. It helps users test whether there may be development margin after development cost, module supply cost, Engineering, Procurement and Construction (EPC) cost, grid connection cost and owner costs.</p>
+<p>The model deliberately avoids pretending to be a full discounted cash flow model. It is a fast comparison tool for early stage decision making. Real projects still require competent engineering, grid studies, planning review, legal review, tax review, debt sizing, revenue analysis and investment committee approval.</p>
+
+<h3>Detailed Screening Disclaimer</h3>
+<p>The VENTUS GIS SLD Sandbox is provided as an early stage screening, learning and project qualification tool. It is intended to help users visualise relationships between land, grid proximity, solar topology, cable route assumptions, module count, inverter architecture, logistics, Battery Energy Storage System (BESS) assumptions, capital cost assumptions, revenue assumptions and indicative project economics.</p>
+<p>The sandbox does not create, imply or evidence a grid offer, grid connection approval, point of connection approval, available grid capacity, land right, wayleave, easement, planning consent, EPC price, construction programme, investment recommendation, financial valuation, lending approval or insurance acceptance.</p>
+<p>Public substation points, voltage references and grid node markers are reference data only. A visible substation point does not confirm voltage suitability, thermal capacity, fault level headroom, protection compatibility, connection queue status, Gate 2 eligibility, land access, constructability, outage availability, reinforcement cost or acceptance by a Distribution Network Operator (DNO), Transmission Owner (TO), National Energy System Operator (NESO) or any other network party.</p>
+<p>User drawn cable routes, pin routes, direct route lines and exported route geometries are indicative routing assumptions only. They do not confirm landowner consent, wayleaves, easements, highway rights, railway crossings, watercourse crossings, third party utility conflicts, environmental constraints, planning acceptability, installation method, cable pulling feasibility, trench design, duct design, joint bay location, thermal rating, voltage drop, losses, protection design, earthing design or final constructability.</p>
+<p>All cable lengths, losses and route assumptions must be checked by competent cable engineers using project specific route surveys, cable data sheets, soil thermal resistivity, installation depth, grouping factors, duct factors, cyclic loading, conductor temperature limits, voltage drop limits, short circuit withstand, sheath bonding, earthing design, protection settings and applicable standards before procurement or construction decisions are made.</p>
+<p>Solar layout outputs are indicative. Module count, DC capacity, AC capacity, site area, Ground Coverage Ratio (GCR), gross site factor, block layout, inverter count, substation count, access assumptions and container quantities must be verified against manufacturer datasheets, planning drawings, topographical surveys, geotechnical surveys, environmental constraints, drainage strategy, fire access, operations access, EPC scope, grid compliance requirements and final design drawings.</p>
+<p>Financial outputs are screening values only. Revenue, capital expenditure, development cost, module cost, EPC cost, owner cost, grid connection cost, operating cost, target exit value, Operating Asset Net Present Value (NPV), development margin and surplus outputs depend on assumptions entered by the user and may change materially with route to market, Contracts for Difference (CfD), Power Purchase Agreement (PPA), merchant exposure, curtailment, grid charges, inflation, interest rates, debt sizing, tax treatment, construction cost, contingencies, warranties, insurance and investor return requirements.</p>
+<p>BESS assumptions are indicative only. BESS power, BESS energy, BESS CAPEX, cycles, efficiency and revenue per MWh do not replace battery degradation modelling, augmentation strategy, warranty review, revenue stack modelling, fire safety review, planning review, grid compliance studies, metering design, controls design, availability assumptions, insurance review or safety case preparation.</p>
+<p>The GeoJSON export preserves useful context for review and discussion, but exported data is not an Issued for Construction (IFC) drawing, legal boundary plan, grid application pack, cable route schedule, bill of quantities, EPC instruction, investment memorandum or bankable technical due diligence package. Any exported file must be reviewed and validated before being used in external GIS workflows, reports, procurement discussions, investor presentations or professional advice.</p>
+<p>Users remain responsible for checking all inputs, outputs, assumptions and exported data. Any real world project should be reviewed by competent engineers, grid specialists, planners, environmental consultants, land agents, legal advisers, tax advisers, insurance advisers, EPC contractors, Owner's Engineers, lenders and investment committee professionals before committing capital, signing contracts, placing orders or making public claims.</p>
+<p>The sandbox is designed to make assumptions visible, not to remove professional judgement. It should be used to ask better questions, compare scenarios, identify where deeper work is required and support disciplined early stage decision making.</p>
+    </div>
+</div>
+
+<div class="panel panel-right">
+    <div id="fetch_status"></div>
+    <div style="position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 8px;">
+        <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
+        <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
+    </div>
+    <div class="crosshair">⌖</div>
+    <div id="map"></div>
+    <div class="legend" id="map_legend"></div>
+</div>
+</div>
+
+<!-- V5 modular app scripts -->
+<script src="gis-sld-v5-map.js"></script>
+<script src="gis-sld-v5-calculations.js"></script>
+<script src="gis-sld-v5-finance.js"></script>
+<script src="gis-sld-v5-ui-core.js"></script>
+<script src="gis-sld-v5-drawing.js"></script>
+<script src="gis-sld-v5-export.js"></script>
+<script src="gis-sld-v5-ui.js"></script>
+
+
+</body>
+</html>

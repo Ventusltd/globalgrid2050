@@ -20,6 +20,13 @@ function getBlockAspect() {
     return 1.4;
 }
 
+function getExportCableExtraKm() {
+    const el = $("layout_export_extra_km");
+    if (!el) return 0;
+    const value = parseFloat(el.value);
+    return Number.isFinite(value) ? value : 0;
+}
+
 function computeAndDraw() {
     if (!state.activeDrawCenter || !map) return;
     const stats = computeStats();
@@ -45,7 +52,8 @@ function computeAndDraw() {
 
     const features = [];
     const publicSubCoord = state.activeDrawCenter;
-    const arrayOffsetKm = grid_l / 2 + CONSTANTS.ARRAY_OFFSET_KM;
+    const safeExtraOffsetKm = Math.max(-CONSTANTS.ARRAY_OFFSET_KM, getExportCableExtraKm());
+    const arrayOffsetKm = grid_l / 2 + CONSTANTS.ARRAY_OFFSET_KM + safeExtraOffsetKm;
     const gridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, 0, { units: "kilometers" }).geometry.coordinates;
     const privateSubCoord = turf.destination(turf.point(gridCenter), grid_l / 2, 180, { units: "kilometers" }).geometry.coordinates;
 
@@ -57,9 +65,13 @@ function computeAndDraw() {
     features.push(turf.point(privateSubCoord, {
         type: "private_sub",
         selected_substation_name: "Customer Substation",
-        selected_substation_voltage: "Local Voltage"
+        selected_substation_voltage: "Local Voltage",
+        export_cable_extra_km: safeExtraOffsetKm
     }));
-    features.push(turf.lineString([privateSubCoord, publicSubCoord], { type: "export_cable" }));
+    features.push(turf.lineString([privateSubCoord, publicSubCoord], {
+        type: "export_cable",
+        export_cable_extra_km: safeExtraOffsetKm
+    }));
     features.push(getRectPolygon(gridCenter, grid_w + CONSTANTS.BOUNDARY_BUFFER_KM, grid_l + CONSTANTS.BOUNDARY_BUFFER_KM, "array_boundary"));
 
     const ptN = turf.destination(turf.point(gridCenter), grid_l / 2, 0, { units: "kilometers" }).geometry.coordinates;

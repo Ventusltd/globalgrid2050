@@ -1,0 +1,26 @@
+name: Fix V5 JS Filenames
+
+on:
+  push:
+    paths:
+      - "scripts/fix_v5_js_filenames.py"
+      - ".github/workflows/fix-v5-js-filenames.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fix V5 JavaScript filenames
+        run: python scripts/fix_v5_js_filenames.py
+      - name: Commit V5 JavaScript filename repair
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Fix V5 JavaScript filename mismatch
+          file_pattern: solar-bess-topology-v5/*.js gridbot_reports/v5_js_filename_repair.md

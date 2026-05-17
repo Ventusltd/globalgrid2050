@@ -19,7 +19,5 @@ const state = {
     arrayRotationDeg: 0,
     exportCableLengthKm: 0,
     cableRouteMode: false,
-    cableRouteWaypoints: [],
-    showStringInverterLayer: true,
-    showCentralCombinerLayer: true
+    cableRouteWaypoints: []
 };

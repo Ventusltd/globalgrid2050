@@ -237,12 +237,20 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
     });
 }
 
+function wireMapMoveEvents() {
+    if (!map || map.__arrayMoveWired) return;
+    map.__arrayMoveWired = true;
+    map.on("click", placeArrayAtMapPoint);
+}
+
 // ============================================================
 // BOOT
 // ============================================================
 function boot() {
     wireEvents();
     initMap();
+    if (map) map.on("load", wireMapMoveEvents);
+    wireMapMoveEvents();
     updateSelectedSubstationDisplay();
     renderBenchmark();
     setArrayMoveStatus("Draw a grid first. Then use Pick Up Array to relocate the array centre.", false);

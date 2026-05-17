@@ -59,9 +59,10 @@ body {
 
 .panel-left {
   width: 440px;
-  padding: 20px;
+  padding: 20px 20px 80px 20px;
   flex-shrink: 0;
   overflow-y: auto;
+  align-items: stretch;
 }
 
 .panel-right {
@@ -339,11 +340,14 @@ input[type="number"] {
   border: 1px solid var(--accent);
   color: var(--muted);
   font-size: 10px;
-  padding: 12px;
+  padding: 12px 12px 28px 12px;
   border-radius: 3px;
   margin-top: 15px;
   line-height: 1.55;
   text-align: justify;
+  flex: 0 0 auto;
+  max-height: none;
+  overflow: visible;
 }
 
 .explainer-box strong {
@@ -532,6 +536,7 @@ input[type="number"] {
     width: 100%;
     max-height: none;
     flex-shrink: 0;
+    padding-bottom: 80px;
   }
   
   .panel-right {

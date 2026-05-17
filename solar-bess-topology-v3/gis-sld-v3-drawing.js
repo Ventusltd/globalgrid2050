@@ -27,6 +27,29 @@ function getExportCableExtraKm() {
     return Number.isFinite(value) ? value : 0;
 }
 
+function buildExportCableLine(privateSubCoord, publicSubCoord, safeExtraOffsetKm) {
+    const routePoints = Array.isArray(state.cableRouteWaypoints) ? state.cableRouteWaypoints : [];
+    const coords = [privateSubCoord, ...routePoints, publicSubCoord];
+    return turf.lineString(coords, {
+        type: "export_cable",
+        export_cable_extra_km: safeExtraOffsetKm,
+        export_cable_length_km: 0,
+        array_moved_manually: Boolean(state.arrayOverrideCenter),
+        routed_by_waypoints: routePoints.length > 0,
+        waypoint_count: routePoints.length
+    });
+}
+
+function addCableRouteWaypointMarkers(features) {
+    if (!Array.isArray(state.cableRouteWaypoints)) return;
+    state.cableRouteWaypoints.forEach((coord, idx) => {
+        features.push(turf.point(coord, {
+            type: "export_cable_waypoint",
+            waypoint_index: idx + 1
+        }));
+    });
+}
+
 function computeAndDraw() {
     if (!state.activeDrawCenter || !map) return;
     const stats = computeStats();
@@ -57,12 +80,9 @@ function computeAndDraw() {
     const defaultGridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, 0, { units: "kilometers" }).geometry.coordinates;
     const gridCenter = state.arrayOverrideCenter || defaultGridCenter;
     const privateSubCoord = turf.destination(turf.point(gridCenter), grid_l / 2, 180, { units: "kilometers" }).geometry.coordinates;
-    const exportCableLine = turf.lineString([privateSubCoord, publicSubCoord], {
-        type: "export_cable",
-        export_cable_extra_km: safeExtraOffsetKm,
-        array_moved_manually: Boolean(state.arrayOverrideCenter)
-    });
+    const exportCableLine = buildExportCableLine(privateSubCoord, publicSubCoord, safeExtraOffsetKm);
     state.exportCableLengthKm = turf.length(exportCableLine, { units: "kilometers" });
+    exportCableLine.properties.export_cable_length_km = state.exportCableLengthKm;
 
     features.push(turf.point(publicSubCoord, {
         type: "poi",
@@ -75,9 +95,11 @@ function computeAndDraw() {
         selected_substation_voltage: "Local Voltage",
         export_cable_extra_km: safeExtraOffsetKm,
         export_cable_length_km: state.exportCableLengthKm,
-        array_moved_manually: Boolean(state.arrayOverrideCenter)
+        array_moved_manually: Boolean(state.arrayOverrideCenter),
+        export_cable_waypoint_count: state.cableRouteWaypoints.length
     }));
     features.push(exportCableLine);
+    addCableRouteWaypointMarkers(features);
     features.push(getRectPolygon(gridCenter, grid_w + CONSTANTS.BOUNDARY_BUFFER_KM, grid_l + CONSTANTS.BOUNDARY_BUFFER_KM, "array_boundary"));
 
     const ptN = turf.destination(turf.point(gridCenter), grid_l / 2, 0, { units: "kilometers" }).geometry.coordinates;
@@ -137,6 +159,7 @@ function computeAndDraw() {
     }
 
     updateExportCableLengthDisplay();
+    updateCableRouteStatus();
 
     // Refresh side-panel values
     renderTechSummary(stats);

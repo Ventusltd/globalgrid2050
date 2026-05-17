@@ -59,10 +59,11 @@
         <h3>Array Hierarchy (String)</h3>
         <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
         <div class="input-group"><label>String Inverter Rating kVA</label><input type="number" id="string_inv_kva" value="352" step="1" min="1" /></div>
+        <div class="input-group"><label>String Skid Transformer Rating MVA</label><input type="number" id="string_skid_mva" value="8.96" step="0.01" min="0.1" /></div>
         <div class="input-group"><label>Modules per String</label><input type="number" id="x_mods" value="28" min="1" /></div>
         <div class="input-group"><label>Strings per String Inverter</label><input type="number" id="z_strings" value="18" min="1" /></div>
-        <div class="input-group"><label>String Inverters per Production Substation</label><input type="number" id="y_invs" value="28" min="1" /></div>
-        <div class="input-group"><label>Production Substations per 33 kV Ring Main</label><input type="number" id="s_subs" value="5" min="1" /></div>
+        <div class="input-group"><label>String Inverters per Skid</label><input type="number" id="y_invs" value="28" min="1" /></div>
+        <div class="input-group"><label>Skids per 33 kV Ring Main</label><input type="number" id="s_subs" value="5" min="1" /></div>
         <div class="input-group"><label>Number of 33 kV Ring Main Circuits</label><input type="number" id="b_cols" value="6" min="1" /></div>
 
         <h3>Module Logistics</h3>
@@ -190,34 +191,16 @@
         <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor_c" value="1.35" step="0.05" min="1.0" /></div>
 
         <h3>Array Hierarchy (Central)</h3>
-        <div class="input-group">
-            <label>Central Inverter Rating Mode</label>
-            <select id="central_rating_mode">
-                <option value="preset" selected>Preset</option>
-                <option value="custom">Custom</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label>Preset Central Inverter Rating MWac</label>
-            <select id="inv_ac_mw_c">
-                <option value="3.15">3.15 MWac</option>
-                <option value="4.4" selected>4.40 MWac</option>
-                <option value="4.6">4.60 MWac</option>
-                <option value="5.0">5.00 MWac</option>
-                <option value="6.25">6.25 MWac</option>
-                <option value="6.8">6.80 MWac</option>
-                <option value="8.8">8.80 MWac</option>
-                <option value="10.0">10.00 MWac</option>
-            </select>
-        </div>
-        <div class="input-group"><label>Custom Central Inverter Rating MWac</label><input type="number" id="inv_ac_mw_custom_c" value="4.40" step="0.1" min="0.1" max="20" /></div>
-        <div class="ux-note">Use custom values only for known inverter, MV station or power block assumptions. Values above 10 MW require transformer, MV switchgear, harmonic, thermal, protection and grid code verification.</div>
-        <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" min="0.01" /></div>
+        <div class="input-group"><label>Central Inverter DC Input Rating MWdc</label><input type="number" id="inv_dc_mw_c" value="5.28" step="0.01" min="0.1" max="30" /></div>
+        <div class="input-group"><label>Central Inverter AC Output Rating MWac</label><input type="number" id="inv_ac_mw_c" value="4.40" step="0.01" min="0.1" max="20" /></div>
+        <div class="input-group"><label>Central Skid Transformer Rating MVA</label><input type="number" id="central_skid_mva_c" value="4.40" step="0.01" min="0.1" max="25" /></div>
+        <div class="ux-note">A skid is a factory assembled power package. It usually combines inverter equipment, transformer, switchgear, protection and auxiliary systems on a transportable base or frame. Finance and non technical teams can treat each skid as one repeatable cost and power block. Values above 10 MWac should be treated as large power block assumptions and require transformer, MV switchgear, harmonic, thermal, protection and grid code verification.</div>
+        <div class="input-group"><label>Calculated DC/AC Ratio</label><input type="number" id="dc_ac_ratio_c" value="1.20" step="0.05" min="0.01" /></div>
         <div class="input-group"><label>Modules / String</label><input type="number" id="x_mods_c" value="28" min="1" /></div>
         <div class="input-group"><label>Strings per Combiner Box</label><input type="number" id="str_per_cb_c" value="24" min="1" /></div>
         <div class="input-group"><label>Combiner Box Design Limit kWdc</label><input type="number" id="combiner_limit_kwdc_c" value="500" step="10" min="1" /></div>
-        <div class="input-group"><label>Central Inverters per MV Station</label><input type="number" id="inv_per_mv_c" value="1" min="1" /></div>
-        <div class="input-group"><label>MV Stations per 33 kV Ring Main</label><input type="number" id="mv_per_ring_c" value="4" min="1" /></div>
+        <div class="input-group"><label>Central Inverter Units per Skid</label><input type="number" id="inv_per_mv_c" value="1" min="1" /></div>
+        <div class="input-group"><label>Central Skids per 33 kV Ring Main</label><input type="number" id="mv_per_ring_c" value="4" min="1" /></div>
         <div class="input-group"><label>Number of 33 kV Ring Main Circuits</label><input type="number" id="rings_c" value="4" min="1" /></div>
 
         <h3>Module Logistics</h3>
@@ -339,9 +322,11 @@
         <div class="stat-row"><span>Implied AC Capacity:</span><span class="stat-val" id="out_ac_capacity">0.00 MWac</span></div>
         <div class="stat-row"><span>DC/AC Ratio:</span><span class="stat-val" id="out_actual_dcac">1.20</span></div>
         <div class="stat-row"><span>String Inverter Rating:</span><span class="stat-val" id="out_string_inv_rating">n/a</span></div>
-        <div class="stat-row"><span>Production Substation AC Rating:</span><span class="stat-val" id="out_sub_ac_rating">0.00 MVA</span></div>
+        <div class="stat-row"><span>Inverter ACmax per Skid:</span><span class="stat-val" id="out_inverter_acmax_mva">0.00 MVA</span></div>
+        <div class="stat-row"><span>Skid Transformer Rating:</span><span class="stat-val" id="out_sub_ac_rating">0.00 MVA</span></div>
         <div class="stat-row"><span>33 kV Ring Main AC Rating:</span><span class="stat-val" id="out_ring_ac_rating">0.00 MVA</span></div>
-        <div class="stat-row central-only" style="display: none;"><span>Central Inverter Rating:</span><span class="stat-val" id="out_central_inv_rating">0.00 MWac</span></div>
+        <div class="stat-row central-only" style="display: none;"><span>Central Inverter DC Input:</span><span class="stat-val" id="out_central_inv_dc_rating">0.00 MWdc</span></div>
+        <div class="stat-row central-only" style="display: none;"><span>Central Inverter AC Output:</span><span class="stat-val" id="out_central_inv_rating">0.00 MWac</span></div>
         <div class="stat-row central-only" style="display: none;"><span>Combiner Box DC Capacity:</span><span class="stat-val" id="out_cb_dc_kw">0.00 kWdc</span></div>
         <div class="stat-row"><span>Engineering Warning:</span><span class="stat-val orange" id="out_engineering_warning">Check assumptions</span></div>
         <div class="stat-row central-only" style="display: none;"><span>Central Combiner Boxes / Inverter:</span><span class="stat-val" id="out_cb_per_inv">0</span></div>
@@ -382,10 +367,10 @@
 
         <h3>Electrical Topology Explanation</h3>
         <p>A string is a series chain of PV modules. For example, 30 modules per string means the voltage of 30 modules is added before entering the inverter.</p>
-        <p>A string inverter converts DC power from several PV strings into low voltage AC power. The inverter rating in kVA defines the apparent AC power capability of each inverter. For example, 28 string inverters rated at 352 kVA create a production substation block of approximately 9,856 kVA before transformer and grid limitations.</p>
-        <p>A production substation is the local electrical station that collects power from a group of inverters. It normally includes low voltage AC switchgear, a step up transformer, protection equipment and a medium voltage connection, often at 33 kV.</p>
-        <p>A Ring Main Unit, or RMU, is medium voltage switchgear used to connect production substations into a 33 kV network. It normally includes cable switches, protection, earthing switches and sometimes transformer protection.</p>
-        <p>A 33 kV ring main is a medium voltage collection circuit that links several production substations back toward the main substation or HV station. In this sandbox, Production Substations per 33 kV Ring Main means how many local substations sit on each medium voltage collection circuit. Number of 33 kV Ring Main Circuits means how many separate collection circuits are used across the solar farm.</p>
+        <p>A string inverter converts DC power from several PV strings into low voltage AC power. The inverter rating in kVA defines the apparent AC power capability of each inverter. For example, 28 string inverters rated at 352 kVA create a skid block of approximately 9,856 kVA before transformer and grid limitations.</p>
+        <p>A skid is the local electrical station that collects power from a group of inverters. It normally includes low voltage AC switchgear, a step up transformer, protection equipment and a medium voltage connection, often at 33 kV.</p>
+        <p>A Ring Main Unit, or RMU, is medium voltage switchgear used to connect skids into a 33 kV network. It normally includes cable switches, protection, earthing switches and sometimes transformer protection.</p>
+        <p>A 33 kV ring main is a medium voltage collection circuit that links several skids back toward the main substation or HV station. In this sandbox, Skids per 33 kV Ring Main means how many local substations sit on each medium voltage collection circuit. Number of 33 kV Ring Main Circuits means how many separate collection circuits are used across the solar farm.</p>
         <p>The financial model is driven by this hierarchy. More modules, strings, inverters, substations and 33 kV ring circuits change DC capacity, AC capacity, site area, cable loading, losses, CAPEX, revenue and development value. If the topology assumptions are unrealistic, the financial outputs will also be unrealistic.</p>
 
         <h3>About the VENTUS GIS SLD Sandbox</h3>

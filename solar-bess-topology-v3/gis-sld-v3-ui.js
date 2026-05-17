@@ -52,6 +52,27 @@ function updateExportCableLengthDisplay() {
     el.textContent = km.toFixed(2) + " km";
 }
 
+function updateArrayRotationDisplay() {
+    const el = $("out_array_rotation_deg");
+    if (!el) return;
+    const deg = Number.isFinite(state.arrayRotationDeg) ? state.arrayRotationDeg : 0;
+    el.textContent = (((deg % 360) + 360) % 360).toFixed(0) + "°";
+}
+
+function rotateArrayBy(deltaDeg) {
+    state.arrayRotationDeg = (((state.arrayRotationDeg || 0) + deltaDeg) % 360 + 360) % 360;
+    state.cableRouteWaypoints = [];
+    updateArrayRotationDisplay();
+    redrawIfTopologyExists();
+}
+
+function resetArrayRotation() {
+    state.arrayRotationDeg = 0;
+    state.cableRouteWaypoints = [];
+    updateArrayRotationDisplay();
+    redrawIfTopologyExists();
+}
+
 function updateCableRouteStatus() {
     const el = $("cable_route_status");
     if (!el) return;
@@ -83,10 +104,20 @@ function injectExportCableLengthControl() {
     box.innerHTML = `
         <h3 style="margin-top:0;color:#00ffff;border-bottom-color:#00ffff;">Grid Connection Length</h3>
         <div class="stat-row"><span>Live Export Cable Length:</span><span class="stat-val cyan" id="out_export_cable_length_km">0.00 km</span></div>
+        <div class="stat-row"><span>Array Rotation:</span><span class="stat-val orange" id="out_array_rotation_deg">0°</span></div>
         <div class="input-group"><label>Export Cable Extra Length km</label><input type="number" id="layout_export_extra_km" value="0" step="0.05" min="-0.2"></div>
         <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
             Moves the whole array further from or closer to the point of connection along the existing axis. Pick Up Array and cable route waypoints also recalculate this live length.
         </div>
+        <div style="border-top:1px dashed #333;margin:8px 0;"></div>
+        <button class="btn" id="btn_rotate_left_30" style="background:#222;color:#fff;">Rotate Left 30°</button>
+        <button class="btn" id="btn_rotate_right_30" style="margin-top:6px;background:#222;color:#fff;">Rotate Right 30°</button>
+        <button class="btn" id="btn_rotate_right_90" style="margin-top:6px;background:#ff9900;color:#000000;">Rotate 90°</button>
+        <button class="btn" id="btn_reset_rotation" style="margin-top:6px;">Reset Rotation</button>
+        <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
+            Rotation keeps the grid point fixed and redraws the export cable. Custom cable waypoints are cleared when rotation changes.
+        </div>
+        <div style="border-top:1px dashed #333;margin:8px 0;"></div>
         <button class="btn" id="btn_pick_array" style="margin-top:8px;background:#00ffff;color:#001111;">Pick Up Array</button>
         <button class="btn" id="btn_reset_array_move" style="margin-top:6px;">Reset Array Location</button>
         <div id="array_move_status" style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
@@ -103,6 +134,7 @@ function injectExportCableLengthControl() {
 
     drawBtn.parentNode.insertBefore(box, drawBtn);
     updateExportCableLengthDisplay();
+    updateArrayRotationDisplay();
     updateCableRouteStatus();
 }
 
@@ -264,6 +296,12 @@ function wireEvents() {
     $("btn_draw")?.addEventListener("click", triggerDrawAtCenter);
     $("btn_export")?.addEventListener("click", exportGeoJSON);
 
+    // Array rotation
+    $("btn_rotate_left_30")?.addEventListener("click", () => rotateArrayBy(-30));
+    $("btn_rotate_right_30")?.addEventListener("click", () => rotateArrayBy(30));
+    $("btn_rotate_right_90")?.addEventListener("click", () => rotateArrayBy(90));
+    $("btn_reset_rotation")?.addEventListener("click", resetArrayRotation);
+
     // Array movement
     $("btn_pick_array")?.addEventListener("click", toggleArrayMoveMode);
     $("btn_reset_array_move")?.addEventListener("click", resetArrayLocation);
@@ -334,6 +372,7 @@ function boot() {
     renderBenchmark();
     setArrayMoveStatus("Draw a grid first. Then use Pick Up Array to relocate the array centre.", false);
     updateExportCableLengthDisplay();
+    updateArrayRotationDisplay();
     updateCableRouteStatus();
 }
 

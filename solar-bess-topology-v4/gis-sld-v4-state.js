@@ -18,6 +18,10 @@ const state = {
     arrayOverrideCenter: null,
     arrayRotationDeg: 0,
     exportCableLengthKm: 0,
+    cableRoutePinMode: false,
+    cableRoutePins: [],
+    cableRouteCommitted: false,
+    // Legacy aliases retained for older export and drawing logic if needed.
     cableRouteMode: false,
     cableRouteWaypoints: []
 };

@@ -147,7 +147,8 @@
 │   ├── v4_clone_from_v3_report.md
 │   ├── v4_detailed_disclaimer_below_financial_logic.md
 │   ├── v4_pinned_cable_route_tool_rollback.md
-│   └── v5_clone_from_v4_report.md
+│   ├── v5_clone_from_v4_report.md
+│   └── v5_js_filename_repair.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -480,6 +481,7 @@
 │   ├── fetch_subsea_data_cables.py
 │   ├── fetch_substations.py
 │   ├── fetch_supermarkets.py
+│   ├── fix_v5_js_filenames.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_unification_estimates.py
 │   ├── gridbot_feature_installer.py
@@ -558,10 +560,15 @@
 │   ├── gis-sld-v4-ui.js
 │   ├── gis-sld-v5-calculations.js
 │   ├── gis-sld-v5-config.js
+│   ├── gis-sld-v5-drawing.js
+│   ├── gis-sld-v5-export.js
+│   ├── gis-sld-v5-finance.js
 │   ├── gis-sld-v5-helpers.js
 │   ├── gis-sld-v5-map.js
 │   ├── gis-sld-v5-state.js
 │   ├── gis-sld-v5-substations.js
+│   ├── gis-sld-v5-ui-core.js
+│   ├── gis-sld-v5-ui.js
 │   ├── gis-sld-v5.css
 │   ├── index.html
 │   ├── indexforgis-sld-v5.html
@@ -605,4 +612,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-75 directories, 531 files
+75 directories, 538 files

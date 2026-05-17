@@ -490,7 +490,8 @@
 │   ├── requirements.txt
 │   ├── update_metal_trends.py
 │   ├── update_prices.py
-│   └── update_prices_lv.py
+│   ├── update_prices_lv.py
+│   └── upgrade_v5_engineering_clarity.py
 ├── sld_single_diagrams_diagrams_and_grids
 │   └── index.md
 ├── solar-bess-topology
@@ -612,4 +613,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-75 directories, 538 files
+75 directories, 539 files

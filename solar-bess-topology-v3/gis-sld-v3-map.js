@@ -86,23 +86,6 @@ function onMapLoad() {
         paint: { "line-color": "#00ffff", "line-width": 2 }
     });
     map.addLayer({
-        id: "topology_detail_points", type: "circle", source: "topology",
-        filter: ["in", ["get", "type"], ["literal", ["string_inverter", "central_combiner_box", "export_cable_waypoint"]]],
-        paint: {
-            "circle-color": ["match", ["get", "type"],
-                "string_inverter", "#00ff88",
-                "central_combiner_box", "#ffcc00",
-                "export_cable_waypoint", "#ff3333", "#ffffff"],
-            "circle-radius": ["match", ["get", "type"],
-                "string_inverter", 2.5,
-                "central_combiner_box", 3,
-                "export_cable_waypoint", 4, 3],
-            "circle-stroke-color": "#000000",
-            "circle-stroke-width": 1,
-            "circle-opacity": 0.95
-        }
-    });
-    map.addLayer({
         id: "inverters", type: "circle", source: "topology",
         filter: ["in", ["get", "type"], ["literal", ["string_substation", "central_inverter", "mv_station", "bess_compound"]]],
         paint: {
@@ -131,10 +114,6 @@ function onMapLoad() {
     map.on("click", "inverters", onInverterClick);
     map.on("mouseenter", "inverters", () => map.getCanvas().style.cursor = "pointer");
     map.on("mouseleave", "inverters", () => map.getCanvas().style.cursor = "");
-
-    map.on("click", "topology_detail_points", onTopologyDetailClick);
-    map.on("mouseenter", "topology_detail_points", () => map.getCanvas().style.cursor = "pointer");
-    map.on("mouseleave", "topology_detail_points", () => map.getCanvas().style.cursor = "");
 
     map.on("click", "substation", onPoiClick);
     map.on("mouseenter", "substation", () => map.getCanvas().style.cursor = "pointer");
@@ -192,24 +171,6 @@ function onInverterClick(e) {
     if (prop.type === "bess_compound" && prop.mwh !== undefined) {
         html += `<div class="popup-row"><span>Capacity:</span><span class="popup-val" style="color:#fff;">${prop.mwh} MWh</span></div>`;
     }
-    showPopup(coords, html);
-}
-
-function onTopologyDetailClick(e) {
-    const prop = e.features[0].properties;
-    const coords = e.features[0].geometry.coordinates.slice();
-    const colourMap = {
-        string_inverter: "#00ff88",
-        central_combiner_box: "#ffcc00",
-        export_cable_waypoint: "#ff3333"
-    };
-    const colour = colourMap[prop.type] || "#ffffff";
-    let html = `<div style="margin-bottom:5px;color:${colour};font-weight:bold;font-size:13px;text-transform:uppercase;">GIS Topology Object</div>
-                <div class="popup-row"><span>Type:</span><span class="popup-val" style="color:#fff;">${prop.type}</span></div>`;
-    if (prop.inverter_ac_kva !== undefined) html += `<div class="popup-row"><span>Inverter AC:</span><span class="popup-val" style="color:#fff;">${Number(prop.inverter_ac_kva).toFixed(1)} kVA</span></div>`;
-    if (prop.strings_per_inverter !== undefined) html += `<div class="popup-row"><span>Strings / Inverter:</span><span class="popup-val" style="color:#fff;">${prop.strings_per_inverter}</span></div>`;
-    if (prop.strings_per_combiner !== undefined) html += `<div class="popup-row"><span>Strings / Combiner:</span><span class="popup-val" style="color:#fff;">${prop.strings_per_combiner}</span></div>`;
-    if (prop.actual_count !== undefined) html += `<div class="popup-row"><span>Actual Count:</span><span class="popup-val" style="color:#fff;">${prop.actual_count}</span></div>`;
     showPopup(coords, html);
 }
 

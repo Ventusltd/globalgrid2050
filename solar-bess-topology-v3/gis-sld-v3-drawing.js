@@ -146,12 +146,11 @@ function computeAndDraw() {
         features.push(turf.lineString([bessCenter, privateSubCoord], { type: "33kv_radial" }));
     }
 
-    // Spine
+    // Internal 33kV radial links only. Do not draw a visible trunk spine beyond the customer substation.
     if (inverters.length > 0) {
         const spineStart = privateSubCoord;
         const spineEnd = turf.destination(turf.point(privateSubCoord), grid_l, axis, { units: "kilometers" }).geometry.coordinates;
-        const spineLine = turf.lineString([spineStart, spineEnd], { type: "33kv_radial" });
-        features.push(spineLine);
+        const spineLine = turf.lineString([spineStart, spineEnd], { type: "33kv_projection_only" });
         inverters.forEach(inv => {
             const projected = turf.nearestPointOnLine(spineLine, turf.point(inv.coords), { units: "kilometers" }).geometry.coordinates;
             features.push(turf.lineString([inv.coords, projected], { type: "33kv_radial" }));

@@ -487,11 +487,17 @@
 │   ├── gis-sld-v2.css
 │   └── indexforgis-sld-v2.html
 ├── solar-bess-topology-v3
+│   ├── gis-sld-v2-config.js
+│   ├── gis-sld-v2-helpers.js
+│   ├── gis-sld-v2-state.js
+│   ├── gis-sld-v2-substations.js
+│   ├── gis-sld-v2.css
 │   ├── gis-sld-v3-config.js
 │   ├── gis-sld-v3-helpers.js
 │   ├── gis-sld-v3-state.js
 │   ├── gis-sld-v3-substations.js
-│   └── gis-sld-v3.css
+│   ├── gis-sld-v3.css
+│   └── indexforgis-sld-v3.html
 ├── solar_components
 │   └── index.md
 ├── solar_deployment_statistics
@@ -529,4 +535,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-71 directories, 459 files
+71 directories, 465 files

@@ -1,0 +1,22 @@
+name: Clone V4 to V5
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run clone script
+        run: python scripts/clone_v4_to_v5.py
+      - name: Commit generated V5 files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Clone V4 to V5 development version
+          file_pattern: solar-bess-topology-v5/** gridbot_reports/v5_clone_from_v4_report.md

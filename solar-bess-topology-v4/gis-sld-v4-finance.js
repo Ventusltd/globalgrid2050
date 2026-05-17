@@ -2,6 +2,71 @@
 
 // FINANCIALS
 // ============================================================
+function setFinanceLabel(inputId, labelText) {
+    const input = $(inputId);
+    if (!input) return;
+    const group = input.closest(".input-group");
+    const label = group ? group.querySelector("label") : null;
+    if (label) label.textContent = labelText;
+}
+
+function convertLargeDefaultToWp(inputId) {
+    const input = $(inputId);
+    if (!input) return;
+    const value = parseFloat(input.value);
+    if (!Number.isFinite(value)) return;
+    if (value > 10) {
+        input.value = (value / 1_000_000).toFixed(3).replace(/0+$/, "").replace(/\.$/, "");
+    }
+}
+
+function setFinanceInputDefaultsForWp(prefix) {
+    const stage = $(prefix + "_dev_stage");
+    if (stage) {
+        const stageValues = ["0.003", "0.015", "0.035", "0.055", "0.070", "0.080", "0.100"];
+        Array.from(stage.options).forEach((option, idx) => {
+            if (stageValues[idx]) option.value = stageValues[idx];
+        });
+        if (parseFloat(stage.value) > 10) stage.value = "0.100";
+    }
+
+    setFinanceLabel(prefix + "_dev_cost_mw", "Development Cost £/Wp");
+    setFinanceLabel(prefix + "_dev_module_mwp", "Module Supply Cost £/Wp");
+    setFinanceLabel(prefix + "_dev_epc_mw", "EPC Cost £/Wp");
+    setFinanceLabel(prefix + "_dev_owner_mw", "Other Owner Costs £/Wp");
+    setFinanceLabel(prefix + "_dev_grid_mw", "Grid Connection Cost £/Wp");
+    setFinanceLabel(prefix + "_dev_exit_mwp", "Target Exit Value £/Wp");
+    setFinanceLabel(prefix + "_dev_npv_mwp", "Operating Asset Net Present Value (NPV) £/Wp");
+    setFinanceLabel(prefix + "_bess_spread", "BESS Revenue per MWh £/MWh");
+
+    convertLargeDefaultToWp(prefix + "_dev_cost_mw");
+    convertLargeDefaultToWp(prefix + "_dev_module_mwp");
+    convertLargeDefaultToWp(prefix + "_dev_epc_mw");
+    convertLargeDefaultToWp(prefix + "_dev_owner_mw");
+    convertLargeDefaultToWp(prefix + "_dev_grid_mw");
+    convertLargeDefaultToWp(prefix + "_dev_exit_mwp");
+    convertLargeDefaultToWp(prefix + "_dev_npv_mwp");
+
+    const stepMap = {
+        _dev_cost_mw: "0.005",
+        _dev_module_mwp: "0.01",
+        _dev_epc_mw: "0.025",
+        _dev_owner_mw: "0.025",
+        _dev_grid_mw: "0.025",
+        _dev_exit_mwp: "0.05",
+        _dev_npv_mwp: "0.05"
+    };
+    Object.entries(stepMap).forEach(([suffix, step]) => {
+        const el = $(prefix + suffix);
+        if (el) el.step = step;
+    });
+}
+
+function migrateFinanceUnitsToWp() {
+    setFinanceInputDefaultsForWp("fin_string");
+    setFinanceInputDefaultsForWp("fin_central");
+}
+
 function applyDevelopmentStageDefaults(prefix) {
     const stage = $(prefix + "_dev_stage");
     const cost = $(prefix + "_dev_cost_mw");
@@ -10,18 +75,19 @@ function applyDevelopmentStageDefaults(prefix) {
 
     const success = $(prefix + "_dev_success");
     const successByStage = {
-        "3000": 10,
-        "15000": 15,
-        "35000": 30,
-        "55000": 55,
-        "70000": 70,
-        "80000": 80,
-        "100000": 95
+        "0.003": 10,
+        "0.015": 15,
+        "0.035": 30,
+        "0.055": 55,
+        "0.070": 70,
+        "0.080": 80,
+        "0.100": 95
     };
     if (success && successByStage[stage.value] !== undefined) {
         success.value = successByStage[stage.value];
     }
 }
+
 function computeFinance(prefix, stats) {
     const dc_mwp = stats.dc_mwp, ac_mw = stats.ac_mw;
 
@@ -48,7 +114,7 @@ function computeFinance(prefix, stats) {
     const bessMwh = num(prefix + "_bess_mwh");
     const bessCapexRate = num(prefix + "_bess_capex");
     const bessCycles = num(prefix + "_bess_cycles");
-    const bessSpread = num(prefix + "_bess_spread");
+    const bessRevenuePerMwh = num(prefix + "_bess_spread");
     const bessEff = num(prefix + "_bess_eff") / 100;
 
     const safeLoss = Math.min(Math.max(totalLoss, 0), 100);
@@ -57,7 +123,6 @@ function computeFinance(prefix, stats) {
 
     const year1Gen = dc_mwp * effectiveYield * (1 - safeLoss / 100);
 
-    // Cumulative generation
     let gen25 = 0, gen35 = 0;
     for (let y = 1; y <= 35; y++) {
         const yr = year1Gen * Math.pow(1 - deg / 100, y - 1);
@@ -66,7 +131,7 @@ function computeFinance(prefix, stats) {
     }
 
     const annualSolarRevenue = year1Gen * (price + other);
-    const bessAnnualValue = bessMwh * bessCycles * bessSpread * safeBessEff;
+    const bessAnnualValue = bessMwh * bessCycles * bessRevenuePerMwh * safeBessEff;
     const annualRevenue = annualSolarRevenue + bessAnnualValue;
     const revenue25 = gen25 * (price + other) + bessAnnualValue * 25;
     const revenue35 = gen35 * (price + other) + bessAnnualValue * 35;
@@ -83,41 +148,40 @@ function computeFinance(prefix, stats) {
     const surplus25 = revenue25 - annualOpex * 25 - totalCapex;
     const surplus35 = revenue35 - annualOpex * 35 - totalCapex;
 
-const devCostPerMw = num(prefix + "_dev_cost_mw");
-const devModulePerMwp = num(prefix + "_dev_module_mwp");
-const devEpcPerMw = num(prefix + "_dev_epc_mw");
-const devOwnerPerMw = num(prefix + "_dev_owner_mw");
-const devGridPerMw = num(prefix + "_dev_grid_mw");
-const devExitPerMwp = num(prefix + "_dev_exit_mwp");
-const devNpvPerMwp = num(prefix + "_dev_npv_mwp");
-const devSuccessPct = num(prefix + "_dev_success");
-const devYears = num(prefix + "_dev_years");
-const devStageEl = $(prefix + "_dev_stage");
-const devStage = devStageEl ? devStageEl.options[devStageEl.selectedIndex]?.text || "Manual" : "Manual";
+    const devCostPerMw = num(prefix + "_dev_cost_mw");
+    const devModulePerMwp = num(prefix + "_dev_module_mwp");
+    const devEpcPerMw = num(prefix + "_dev_epc_mw");
+    const devOwnerPerMw = num(prefix + "_dev_owner_mw");
+    const devGridPerMw = num(prefix + "_dev_grid_mw");
+    const devExitPerMwp = num(prefix + "_dev_exit_mwp");
+    const devNpvPerMwp = num(prefix + "_dev_npv_mwp");
+    const devSuccessPct = num(prefix + "_dev_success");
+    const devYears = num(prefix + "_dev_years");
+    const devStageEl = $(prefix + "_dev_stage");
+    const devStage = devStageEl ? devStageEl.options[devStageEl.selectedIndex]?.text || "Manual" : "Manual";
 
-const devCapitalAtRisk = dc_mwp * devCostPerMw;
-const devModuleCost = dc_mwp * devModulePerMwp;
-const devEpcCost = dc_mwp * devEpcPerMw;
-const devOwnerCost = dc_mwp * devOwnerPerMw;
-const devGridCost = dc_mwp * devGridPerMw;
-const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost + devGridCost;
-const devExitValue = dc_mwp * devExitPerMwp;
-const devOperatingNpv = dc_mwp * devNpvPerMwp;
-const devGrossMargin = devExitValue - devTotalBuildCost;
-const devRiskAdjustedValue = devGrossMargin * (devSuccessPct / 100);
-const devReturnMultiple = devCapitalAtRisk > 0 ? devGrossMargin / devCapitalAtRisk : 0;
+    const wpCapacity = dc_mwp * 1_000_000;
+    const devCapitalAtRisk = wpCapacity * devCostPerMw;
+    const devModuleCost = wpCapacity * devModulePerMwp;
+    const devEpcCost = wpCapacity * devEpcPerMw;
+    const devOwnerCost = wpCapacity * devOwnerPerMw;
+    const devGridCost = wpCapacity * devGridPerMw;
+    const devTotalBuildCost = devCapitalAtRisk + devModuleCost + devEpcCost + devOwnerCost + devGridCost;
+    const devExitValue = wpCapacity * devExitPerMwp;
+    const devOperatingNpv = wpCapacity * devNpvPerMwp;
+    const devGrossMargin = devExitValue - devTotalBuildCost;
+    const devRiskAdjustedValue = devGrossMargin * (devSuccessPct / 100);
+    const devReturnMultiple = devCapitalAtRisk > 0 ? devGrossMargin / devCapitalAtRisk : 0;
 
     return {
         annualRevenue, revenue25, revenue35, totalCapex, capexPerWp, surplus25, surplus35,
         devStage, devCostPerMw, devModulePerMwp, devEpcPerMw, devOwnerPerMw, devGridPerMw, devExitPerMwp, devNpvPerMwp, devSuccessPct, devYears,
         devCapitalAtRisk, devModuleCost, devEpcCost, devOwnerCost, devGridCost, devTotalBuildCost, devExitValue, devOperatingNpv,
         devGrossMargin, devRiskAdjustedValue, devReturnMultiple,
-        // raw inputs for export
         price, other, yieldVal, bifacial, baseLoss, deg, opexRate,
         epcEx, floodActive: checked(prefix + "_flood"), floodRate: num(prefix + "_flood_rate"),
         modules, otherCapex, fixedCapex, cont, totalLoss,
-        bessMw, bessMwh, bessCapexRate, bessCycles, bessSpread, bessEff: num(prefix + "_bess_eff"),
-        // for warnings
+        bessMw, bessMwh, bessCapexRate, bessCycles, bessSpread: bessRevenuePerMwh, bessEff: num(prefix + "_bess_eff"),
         epcIncModules: epcEx + modules
     };
 }
@@ -130,17 +194,17 @@ function renderFinance(prefix, fin) {
     setText(prefix + "_capex_wp", "£" + fin.capexPerWp.toFixed(2) + "/Wp");
     setText(prefix + "_surplus_25", money(fin.surplus25));
     setText(prefix + "_surplus_35", money(fin.surplus35));
-setText(prefix + "_dev_capital", money(fin.devCapitalAtRisk));
-setText(prefix + "_dev_module_cost", money(fin.devModuleCost));
-setText(prefix + "_dev_epc_cost", money(fin.devEpcCost));
-setText(prefix + "_dev_owner_cost", money(fin.devOwnerCost));
-setText(prefix + "_dev_grid_cost", money(fin.devGridCost));
-setText(prefix + "_dev_total_cost", money(fin.devTotalBuildCost));
-setText(prefix + "_dev_exit_value", money(fin.devExitValue));
-setText(prefix + "_dev_operating_npv", money(fin.devOperatingNpv));
-setText(prefix + "_dev_margin", money(fin.devGrossMargin));
-setText(prefix + "_dev_risk_value", money(fin.devRiskAdjustedValue));
-setText(prefix + "_dev_multiple", fin.devReturnMultiple.toFixed(2) + "x");
+    setText(prefix + "_dev_capital", money(fin.devCapitalAtRisk));
+    setText(prefix + "_dev_module_cost", money(fin.devModuleCost));
+    setText(prefix + "_dev_epc_cost", money(fin.devEpcCost));
+    setText(prefix + "_dev_owner_cost", money(fin.devOwnerCost));
+    setText(prefix + "_dev_grid_cost", money(fin.devGridCost));
+    setText(prefix + "_dev_total_cost", money(fin.devTotalBuildCost));
+    setText(prefix + "_dev_exit_value", money(fin.devExitValue));
+    setText(prefix + "_dev_operating_npv", money(fin.devOperatingNpv));
+    setText(prefix + "_dev_margin", money(fin.devGrossMargin));
+    setText(prefix + "_dev_risk_value", money(fin.devRiskAdjustedValue));
+    setText(prefix + "_dev_multiple", fin.devReturnMultiple.toFixed(2) + "x");
 }
 
 function renderFinanceWarnings(prefix, fin, stats) {
@@ -159,17 +223,17 @@ function renderFinanceWarnings(prefix, fin, stats) {
     if (fin.epcIncModules < 0.42) w.push("Aggressive EPC pricing.");
     if (fin.capexPerWp > 1.00) w.push("Full project cost territory.");
     if (fin.capexPerWp > 1.25) w.push("Complex project or asset value territory.");
-if (fin.devCostPerMw > 100000) w.push("Development cost is above typical EPC signature range.");
-if (fin.devModulePerMwp < 100000 && fin.devModulePerMwp > 0) w.push("Module supply cost may be aggressive.");
-if (fin.devEpcPerMw < 550000 && fin.devEpcPerMw > 0) w.push("EPC cost may be aggressive against UK benchmark range.");
-if (fin.devEpcPerMw > 850000) w.push("EPC cost is above typical non BESS UK benchmark range.");
-if (fin.devNpvPerMwp < 900000 && fin.devNpvPerMwp > 0) w.push("Operating asset Net Present Value (NPV) assumption is below current screening range.");
-if (fin.devNpvPerMwp > 1400000) w.push("Operating asset Net Present Value (NPV) assumption is above current screening range and may require strong evidence.");
-if (stats.dc_mwp > 100) w.push("Project capacity is above 100 megawatts peak. Nationally Significant Infrastructure Project (NSIP) and Development Consent Order (DCO) planning assumptions may apply and development cost, timescale and owner cost defaults may be too low.");
-if (fin.devGridPerMw > 1000000) w.push("Grid connection cost assumption is very high and may indicate major reinforcement, transmission interface or abnormal connection risk.");
-if (fin.devGridPerMw < 100000 && fin.devGridPerMw > 0) w.push("Grid connection cost assumption is low and should be checked against the project specific connection scope.");
-if (fin.devSuccessPct < 8) w.push("Development success probability is below typical greenfield to EPC outcome range.");
-if (fin.devSuccessPct > 25) w.push("Development success probability may be optimistic unless project is already materially de risked.");
+    if (fin.devCostPerMw > 0.10) w.push("Development cost is above typical EPC signature range.");
+    if (fin.devModulePerMwp < 0.10 && fin.devModulePerMwp > 0) w.push("Module supply cost may be aggressive.");
+    if (fin.devEpcPerMw < 0.55 && fin.devEpcPerMw > 0) w.push("EPC cost may be aggressive against UK benchmark range.");
+    if (fin.devEpcPerMw > 0.85) w.push("EPC cost is above typical non BESS UK benchmark range.");
+    if (fin.devNpvPerMwp < 0.90 && fin.devNpvPerMwp > 0) w.push("Operating asset Net Present Value (NPV) assumption is below current screening range.");
+    if (fin.devNpvPerMwp > 1.40) w.push("Operating asset Net Present Value (NPV) assumption is above current screening range and may require strong evidence.");
+    if (stats.dc_mwp > 100) w.push("Project capacity is above 100 megawatts peak. Nationally Significant Infrastructure Project (NSIP) and Development Consent Order (DCO) planning assumptions may apply and development cost, timescale and owner cost defaults may be too low.");
+    if (fin.devGridPerMw > 1.00) w.push("Grid connection cost assumption is very high and may indicate major reinforcement, transmission interface or abnormal connection risk.");
+    if (fin.devGridPerMw < 0.10 && fin.devGridPerMw > 0) w.push("Grid connection cost assumption is low and should be checked against the project specific connection scope.");
+    if (fin.devSuccessPct < 8) w.push("Development success probability is below typical greenfield to EPC outcome range.");
+    if (fin.devSuccessPct > 25) w.push("Development success probability may be optimistic unless project is already materially de risked.");
     if (fin.opexRate < 10000 && fin.opexRate >= 0) w.push("OPEX may be unrealistically low.");
     if (fin.totalLoss > 6) w.push("High loss assumption.");
     if (fin.bifacial > 12) w.push("Aggressive bifacial gain assumption.");
@@ -187,6 +251,12 @@ if (fin.devSuccessPct > 25) w.push("Development success probability may be optim
 
     const el = $(prefix + "_warnings");
     if (el) el.innerHTML = w.join("<br>");
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", migrateFinanceUnitsToWp);
+} else {
+    migrateFinanceUnitsToWp();
 }
 
 // ============================================================

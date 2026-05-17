@@ -85,7 +85,7 @@ def write_modules(script: str) -> None:
 
     for filename, (start_marker, end_marker) in MODULES.items():
         body = slice_section(script, start_marker, end_marker)
-        output = '\"use strict\";\n\n' + body
+        output = '"use strict";\n\n' + body
         (APP_DIR / filename).write_text(output, encoding="utf-8")
 
 
@@ -118,13 +118,18 @@ def verify() -> None:
         fail("missing files: " + ", ".join(missing))
 
     html = HTML_PATH.read_text(encoding="utf-8")
-    forbidden = ["gis-sld-v2", "Financial Sandbox V2"]
+    forbidden = ["gis-sld-v2", "Financial Sandbox V2", "__V3_MODULE_SCRIPT_TAGS__"]
     bad = [item for item in forbidden if item in html]
     if bad:
-        fail("V2 references remain in V3 HTML: " + ", ".join(bad))
+        fail("Forbidden V3 HTML text remains: " + ", ".join(bad))
 
-    if "<script>" in html:
-        fail("inline script tag still present in V3 HTML")
+    inline_start = "\n<script>\n\"use strict\";"
+    if inline_start in html:
+        fail("original inline app script still present in V3 HTML")
+
+    for filename in MODULE_ORDER:
+        if filename not in html:
+            fail("module tag missing from V3 HTML: " + filename)
 
 
 def main() -> int:

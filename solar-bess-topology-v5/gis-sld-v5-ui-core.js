@@ -9,6 +9,12 @@ function renderTechSummary(stats) {
     setText("out_actual_dcac", stats.dc_ac_ratio.toFixed(2));
     setText("out_cb_per_inv", stats.combiner_boxes_per_inverter.toLocaleString());
     setText("out_total_cb", stats.total_combiner_boxes.toLocaleString());
+    setText("out_string_inv_rating", stats.string_inverter_kva ? stats.string_inverter_kva.toFixed(0) + " kVA" : "n/a");
+    setText("out_sub_ac_rating", stats.production_substation_ac_mva.toFixed(2) + " MVA");
+    setText("out_ring_ac_rating", stats.ring_main_ac_mva.toFixed(2) + " MVA");
+    setText("out_central_inv_rating", stats.central_inverter_mwac.toFixed(2) + " MWac");
+    setText("out_cb_dc_kw", stats.combiner_box_dc_kw.toFixed(2) + " kWdc");
+    setText("out_engineering_warning", stats.engineering_warning || "Check assumptions");
     setText("out_net_mod_area", (stats.net_mod_area_m2 / CONSTANTS.M2_PER_ACRE).toFixed(0) + " Acres");
     setText("out_net_array_area", (stats.net_array_area_m2 / CONSTANTS.M2_PER_ACRE).toFixed(0) + " Acres");
     setText("out_gross_area", (stats.gross_site_area_m2 / CONSTANTS.M2_PER_ACRE).toFixed(0) + " Acres");

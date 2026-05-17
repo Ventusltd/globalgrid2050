@@ -77,6 +77,50 @@ function resetArrayRotation() {
     redrawIfTopologyExists();
 }
 
+function getCurrentArrayCenter() {
+    if (Array.isArray(state.arrayOverrideCenter)) return state.arrayOverrideCenter;
+    const boundary = state.currentGeoJSON?.features?.find(f => f.properties?.type === "array_boundary");
+    if (!boundary || typeof turf === "undefined") return null;
+    try {
+        return turf.centroid(boundary).geometry.coordinates;
+    } catch (err) {
+        console.warn("Array centroid unavailable", err);
+        return null;
+    }
+}
+
+function getArrayNudgeStepKm() {
+    const el = $("array_nudge_step_m");
+    const metres = el ? parseFloat(el.value) : 25;
+    const safeMetres = Number.isFinite(metres) && metres > 0 ? metres : 25;
+    return safeMetres / 1000;
+}
+
+function clearRouteAfterArrayShift() {
+    state.cableRoutePins = [];
+    state.cableRouteCommitted = false;
+    state.cableRouteWaypoints = [];
+    state.cableRoutePinMode = false;
+}
+
+function nudgeArray(bearingDeg) {
+    if (!state.activeDrawCenter) {
+        setArrayMoveStatus("Draw a grid first, then nudge the array.", false);
+        return;
+    }
+    const center = getCurrentArrayCenter();
+    if (!center) {
+        setArrayMoveStatus("Array centre unavailable. Draw the grid again.", false);
+        return;
+    }
+    const moved = turf.destination(turf.point(center), getArrayNudgeStepKm(), bearingDeg, { units: "kilometers" }).geometry.coordinates;
+    state.arrayOverrideCenter = moved;
+    state.arrayMoveMode = false;
+    clearRouteAfterArrayShift();
+    setArrayMoveStatus("Array nudged. Grid point stayed fixed. Route pins cleared because the customer substation moved.", false);
+    redrawIfTopologyExists();
+}
+
 function updateCableRouteStatus() {
     const el = $("cable_route_status");
     if (!el) return;
@@ -127,8 +171,13 @@ function injectExportCableLengthControl() {
         <div style="border-top:1px dashed #333;margin:8px 0;"></div>
         <button class="btn" id="btn_pick_array" style="margin-top:8px;background:#00ffff;color:#001111;">Pick Up Array</button>
         <button class="btn" id="btn_reset_array_move" style="margin-top:6px;">Reset Array Location</button>
+        <div class="input-group" style="margin-top:8px;"><label>Fine Nudge Step metres</label><input type="number" id="array_nudge_step_m" value="25" step="5" min="1"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px;align-items:center;">
+            <span></span><button class="btn" id="btn_nudge_up" style="background:#222;color:#fff;padding:8px;">↑</button><span></span>
+            <button class="btn" id="btn_nudge_left" style="background:#222;color:#fff;padding:8px;">←</button><button class="btn" id="btn_nudge_down" style="background:#222;color:#fff;padding:8px;">↓</button><button class="btn" id="btn_nudge_right" style="background:#222;color:#fff;padding:8px;">→</button>
+        </div>
         <div id="array_move_status" style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
-            Pick Up Array keeps the grid point fixed. Click anywhere on the map to place the array centre.
+            Pick Up Array keeps the grid point fixed. Use arrows for fine field fitting.
         </div>
         <div style="border-top:1px dashed #333;margin:8px 0;"></div>
         <button class="btn" id="btn_drop_cable_pins" style="background:#ff9900;color:#000000;">Drop Cable Pins</button>
@@ -182,6 +231,7 @@ function toggleArrayMoveMode() {
 function resetArrayLocation() {
     state.arrayMoveMode = false;
     state.arrayOverrideCenter = null;
+    clearRouteAfterArrayShift();
     setArrayMoveStatus("Array reset to calculated default position.", false);
     redrawIfTopologyExists();
 }
@@ -191,8 +241,7 @@ function placeArrayAtMapPoint(e) {
     if (!e || !e.lngLat) return;
     state.arrayOverrideCenter = [e.lngLat.lng, e.lngLat.lat];
     state.arrayMoveMode = false;
-    state.cableRoutePins = [];
-    state.cableRouteCommitted = false;
+    clearRouteAfterArrayShift();
     setArrayMoveStatus("Array moved. Grid point stayed fixed and export cable length recalculated.", false);
     computeAndDraw();
 }
@@ -276,7 +325,7 @@ function triggerDrawAtCenter() {
     state.cableRouteCommitted = false;
     computeAndDraw();
     updateSelectedSubstationDisplay();
-    setArrayMoveStatus("Grid drawn. Use Pick Up Array to relocate the array while the grid point stays fixed.", false);
+    setArrayMoveStatus("Grid drawn. Use Pick Up Array or nudge arrows to relocate the array while the grid point stays fixed.", false);
     updateCableRouteStatus();
 }
 
@@ -333,6 +382,10 @@ function wireEvents() {
     // Array movement
     $("btn_pick_array")?.addEventListener("click", toggleArrayMoveMode);
     $("btn_reset_array_move")?.addEventListener("click", resetArrayLocation);
+    $("btn_nudge_up")?.addEventListener("click", () => nudgeArray(0));
+    $("btn_nudge_right")?.addEventListener("click", () => nudgeArray(90));
+    $("btn_nudge_down")?.addEventListener("click", () => nudgeArray(180));
+    $("btn_nudge_left")?.addEventListener("click", () => nudgeArray(270));
 
     // Cable route pins
     $("btn_drop_cable_pins")?.addEventListener("click", toggleCablePinMode);
@@ -364,14 +417,12 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
     // Safe export cable length adjustment
     $("layout_export_extra_km")?.addEventListener("input", () => {
         state.arrayOverrideCenter = null;
-        state.cableRoutePins = [];
-        state.cableRouteCommitted = false;
+        clearRouteAfterArrayShift();
         redrawIfTopologyExists();
     });
     $("layout_export_extra_km")?.addEventListener("change", () => {
         state.arrayOverrideCenter = null;
-        state.cableRoutePins = [];
-        state.cableRouteCommitted = false;
+        clearRouteAfterArrayShift();
         redrawIfTopologyExists();
     });
 
@@ -401,7 +452,7 @@ function boot() {
     wireMapMoveEvents();
     updateSelectedSubstationDisplay();
     renderBenchmark();
-    setArrayMoveStatus("Draw a grid first. Then use Pick Up Array to relocate the array centre.", false);
+    setArrayMoveStatus("Draw a grid first. Then use Pick Up Array or nudge arrows to relocate the array centre.", false);
     updateExportCableLengthDisplay();
     updateArrayRotationDisplay();
     updateCableRouteStatus();

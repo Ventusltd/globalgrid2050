@@ -1,0 +1,25 @@
+name: V5 Engineering Clarity Upgrade
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run V5 engineering clarity upgrade
+        run: python scripts/upgrade_v5_engineering_clarity.py
+
+      - name: Commit V5 engineering clarity upgrade
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Upgrade V5 engineering clarity and inverter controls
+          file_pattern: solar-bess-topology-v5/indexforgis-sld-v5.html solar-bess-topology-v5/gis-sld-v5-calculations.js solar-bess-topology-v5/gis-sld-v5-ui-core.js gridbot_reports/v5_engineering_clarity_upgrade.md

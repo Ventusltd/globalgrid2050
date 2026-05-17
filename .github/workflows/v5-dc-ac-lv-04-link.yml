@@ -1,0 +1,26 @@
+name: V5 DC AC LV 04 Link
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  install-link:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install DC AC LV topology link
+        run: python solar-bess-topology-v5/install_dc_ac_lv_04_link.py
+
+      - name: Commit DC AC LV topology link
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Link Module Layout V5 to DC AC LV topology review
+          file_pattern: solar-bess-topology-v5/module-layout-v5.html

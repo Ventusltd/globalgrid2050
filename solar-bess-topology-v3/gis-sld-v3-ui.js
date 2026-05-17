@@ -73,6 +73,40 @@ function resetArrayRotation() {
     redrawIfTopologyExists();
 }
 
+function calculateStringInverterKvaFromInputs() {
+    const modulesPerString = intVal("x_mods", 0);
+    const stringsPerInverter = intVal("z_strings", 0);
+    const moduleWp = num("mod_wp");
+    const ratio = num("dc_ac_ratio") || 1.2;
+    if (modulesPerString <= 0 || stringsPerInverter <= 0 || moduleWp <= 0 || ratio <= 0) return 0;
+    return (modulesPerString * stringsPerInverter * moduleWp / 1000) / ratio;
+}
+
+function updateTopologyAbstractionDisplay() {
+    const kvaEl = $("out_string_inverter_kva");
+    if (kvaEl) kvaEl.textContent = calculateStringInverterKvaFromInputs().toFixed(1) + " kVA";
+    const stringLayer = $("show_string_inverter_layer");
+    if (stringLayer) stringLayer.checked = Boolean(state.showStringInverterLayer);
+    const cbLayer = $("show_central_combiner_layer");
+    if (cbLayer) cbLayer.checked = Boolean(state.showCentralCombinerLayer);
+}
+
+function applyTargetStringInverterKva() {
+    const target = num("target_string_inverter_kva");
+    const modulesPerString = intVal("x_mods", 0);
+    const moduleWp = num("mod_wp");
+    const ratio = num("dc_ac_ratio") || 1.2;
+    if (target <= 0 || modulesPerString <= 0 || moduleWp <= 0 || ratio <= 0) return;
+    const strings = Math.max(1, Math.round((target * ratio * 1000) / (modulesPerString * moduleWp)));
+    const z = $("z_strings");
+    if (z) {
+        z.value = strings;
+        z.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    updateTopologyAbstractionDisplay();
+    redrawIfTopologyExists();
+}
+
 function updateCableRouteStatus() {
     const el = $("cable_route_status");
     if (!el) return;
@@ -110,6 +144,20 @@ function injectExportCableLengthControl() {
             Moves the whole array further from or closer to the point of connection along the existing axis. Pick Up Array and cable route waypoints also recalculate this live length.
         </div>
         <div style="border-top:1px dashed #333;margin:8px 0;"></div>
+        <h3 style="margin-top:0;color:#00ff88;border-bottom-color:#00ff88;">GIS Topology Layers</h3>
+        <div class="stat-row"><span>Implied String Inverter:</span><span class="stat-val green" id="out_string_inverter_kva">0.0 kVA</span></div>
+        <div class="input-group"><label>Target String Inverter kVA AC</label><input type="number" id="target_string_inverter_kva" value="250" step="5" min="1"></div>
+        <button class="btn" id="btn_apply_string_kva" style="background:#00ff88;color:#001111;">Apply kVA to Strings / Inverter</button>
+        <div style="display:flex;gap:6px;align-items:center;margin-top:7px;font-size:11px;color:var(--muted);">
+            <input type="checkbox" id="show_string_inverter_layer" checked style="width:auto;"> <span>Show string inverter symbols</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;margin-top:5px;font-size:11px;color:var(--muted);">
+            <input type="checkbox" id="show_central_combiner_layer" checked style="width:auto;"> <span>Show central combiner box symbols</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
+            GIS abstraction only. String inverter kVA adjusts strings per inverter using module rating and DC/AC ratio. Central combiner boxes follow strings per combiner.
+        </div>
+        <div style="border-top:1px dashed #333;margin:8px 0;"></div>
         <button class="btn" id="btn_rotate_left_30" style="background:#222;color:#fff;">Rotate Left 30°</button>
         <button class="btn" id="btn_rotate_right_30" style="margin-top:6px;background:#222;color:#fff;">Rotate Right 30°</button>
         <button class="btn" id="btn_rotate_right_90" style="margin-top:6px;background:#ff9900;color:#000000;">Rotate 90°</button>
@@ -135,6 +183,7 @@ function injectExportCableLengthControl() {
     drawBtn.parentNode.insertBefore(box, drawBtn);
     updateExportCableLengthDisplay();
     updateArrayRotationDisplay();
+    updateTopologyAbstractionDisplay();
     updateCableRouteStatus();
 }
 
@@ -302,6 +351,17 @@ function wireEvents() {
     $("btn_rotate_right_90")?.addEventListener("click", () => rotateArrayBy(90));
     $("btn_reset_rotation")?.addEventListener("click", resetArrayRotation);
 
+    // Topology abstraction
+    $("btn_apply_string_kva")?.addEventListener("click", applyTargetStringInverterKva);
+    $("show_string_inverter_layer")?.addEventListener("change", (e) => {
+        state.showStringInverterLayer = Boolean(e.target.checked);
+        redrawIfTopologyExists();
+    });
+    $("show_central_combiner_layer")?.addEventListener("change", (e) => {
+        state.showCentralCombinerLayer = Boolean(e.target.checked);
+        redrawIfTopologyExists();
+    });
+
     // Array movement
     $("btn_pick_array")?.addEventListener("click", toggleArrayMoveMode);
     $("btn_reset_array_move")?.addEventListener("click", resetArrayLocation);
@@ -346,8 +406,14 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
 
     // Global recalc on input changes (debounced)
     document.querySelectorAll("input, select").forEach(el => {
-        el.addEventListener("input", recalcDebounced);
-        el.addEventListener("change", recalcDebounced);
+        el.addEventListener("input", () => {
+            updateTopologyAbstractionDisplay();
+            recalcDebounced();
+        });
+        el.addEventListener("change", () => {
+            updateTopologyAbstractionDisplay();
+            recalcDebounced();
+        });
     });
 }
 
@@ -373,6 +439,7 @@ function boot() {
     setArrayMoveStatus("Draw a grid first. Then use Pick Up Array to relocate the array centre.", false);
     updateExportCableLengthDisplay();
     updateArrayRotationDisplay();
+    updateTopologyAbstractionDisplay();
     updateCableRouteStatus();
 }
 

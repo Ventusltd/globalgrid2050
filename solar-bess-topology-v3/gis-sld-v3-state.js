@@ -13,5 +13,7 @@ const state = {
     satActive: false,
     activePopup: null,
     lastStats: null,
-    lastFinance: { fin_string: null, fin_central: null }
+    lastFinance: { fin_string: null, fin_central: null },
+    arrayMoveMode: false,
+    arrayOverrideCenter: null
 };

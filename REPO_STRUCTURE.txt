@@ -511,7 +511,9 @@
 │   ├── gis-sld-v3.css
 │   ├── index.html
 │   ├── indexforgis-sld-v3.html
-│   └── module-layout-v3.html
+│   ├── module-layout-v3.css
+│   ├── module-layout-v3.html
+│   └── module-layout-v3.js
 ├── solar_components
 │   └── index.md
 ├── solar_deployment_statistics
@@ -549,4 +551,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-73 directories, 477 files
+73 directories, 479 files

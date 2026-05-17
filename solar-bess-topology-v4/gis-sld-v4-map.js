@@ -86,6 +86,17 @@ function onMapLoad() {
         paint: { "line-color": "#00ffff", "line-width": 2 }
     });
     map.addLayer({
+        id: "export_cable_pins", type: "circle", source: "topology",
+        filter: ["==", "type", "export_cable_pin"],
+        paint: {
+            "circle-color": ["case", ["==", ["get", "committed_to_route"], true], "#ff3333", "#ff9900"],
+            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 4, 14, 6, 18, 10],
+            "circle-stroke-color": "#ffffff",
+            "circle-stroke-width": 1.5,
+            "circle-opacity": 0.95
+        }
+    });
+    map.addLayer({
         id: "inverters", type: "circle", source: "topology",
         filter: ["in", ["get", "type"], ["literal", ["string_substation", "central_inverter", "mv_station", "bess_compound"]]],
         paint: {
@@ -114,6 +125,10 @@ function onMapLoad() {
     map.on("click", "inverters", onInverterClick);
     map.on("mouseenter", "inverters", () => map.getCanvas().style.cursor = "pointer");
     map.on("mouseleave", "inverters", () => map.getCanvas().style.cursor = "");
+
+    map.on("click", "export_cable_pins", onCableRoutePinClick);
+    map.on("mouseenter", "export_cable_pins", () => map.getCanvas().style.cursor = "pointer");
+    map.on("mouseleave", "export_cable_pins", () => map.getCanvas().style.cursor = "");
 
     map.on("click", "substation", onPoiClick);
     map.on("mouseenter", "substation", () => map.getCanvas().style.cursor = "pointer");
@@ -172,6 +187,19 @@ function onInverterClick(e) {
         html += `<div class="popup-row"><span>Capacity:</span><span class="popup-val" style="color:#fff;">${prop.mwh} MWh</span></div>`;
     }
     showPopup(coords, html);
+}
+
+function onCableRoutePinClick(e) {
+    const prop = e.features[0].properties;
+    const coords = e.features[0].geometry.coordinates.slice();
+    const idx = prop.pin_index || "?";
+    showPopup(coords, `
+        <div style="margin-bottom:5px;color:#ff9900;font-weight:bold;font-size:13px;text-transform:uppercase;">Cable Route Pin</div>
+        <div class="popup-row"><span>Pin:</span><span class="popup-val" style="color:#fff;">${idx}</span></div>
+        <div class="popup-row"><span>Status:</span><span class="popup-val" style="color:#fff;">${prop.committed_to_route ? "Committed to cable route" : "Dropped but not drawn"}</span></div>
+        <div class="popup-row"><span>Lon:</span><span class="popup-val" style="color:#fff;">${Number(coords[0]).toFixed(6)}</span></div>
+        <div class="popup-row"><span>Lat:</span><span class="popup-val" style="color:#fff;">${Number(coords[1]).toFixed(6)}</span></div>
+    `);
 }
 
 function onPoiClick(e) {

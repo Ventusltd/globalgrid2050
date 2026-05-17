@@ -1,0 +1,31 @@
+name: V5 DC AC LV Topology Trigger
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  html:
+    uses: ./.github/workflows/v5-dc-ac-lv-01-html.yml
+    permissions:
+      contents: write
+
+  css:
+    needs: html
+    uses: ./.github/workflows/v5-dc-ac-lv-02-css.yml
+    permissions:
+      contents: write
+
+  js:
+    needs: css
+    uses: ./.github/workflows/v5-dc-ac-lv-03-js.yml
+    permissions:
+      contents: write
+
+  link:
+    needs: js
+    uses: ./.github/workflows/v5-dc-ac-lv-04-link.yml
+    permissions:
+      contents: write

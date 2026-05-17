@@ -1,0 +1,8 @@
+name: Add V3 modularisation plan
+
+description: Add an auditable modularisation plan for breaking the V3 GIS SLD Financial Sandbox into small feature files without modifying V2.
+
+operations:
+  - type: assert_contains
+    file: solar-bess-topology-v3/indexforgis-sld-v3.html
+    text: 'GIS SLD Financial Sandbox'

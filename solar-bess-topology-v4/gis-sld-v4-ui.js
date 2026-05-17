@@ -49,7 +49,7 @@ function updateExportCableLengthDisplay() {
     const el = $("out_export_cable_length_km");
     if (!el) return;
     const km = Number.isFinite(state.exportCableLengthKm) ? state.exportCableLengthKm : 0;
-    el.textContent = km.toFixed(2) + " km";
+    el.textContent = km.toFixed(3) + " km";
 }
 
 function updateArrayRotationDisplay() {
@@ -61,6 +61,8 @@ function updateArrayRotationDisplay() {
 
 function rotateArrayBy(deltaDeg) {
     state.arrayRotationDeg = (((state.arrayRotationDeg || 0) + deltaDeg) % 360 + 360) % 360;
+    state.cableRoutePins = [];
+    state.cableRouteCommitted = false;
     state.cableRouteWaypoints = [];
     updateArrayRotationDisplay();
     redrawIfTopologyExists();
@@ -68,6 +70,8 @@ function rotateArrayBy(deltaDeg) {
 
 function resetArrayRotation() {
     state.arrayRotationDeg = 0;
+    state.cableRoutePins = [];
+    state.cableRouteCommitted = false;
     state.cableRouteWaypoints = [];
     updateArrayRotationDisplay();
     redrawIfTopologyExists();
@@ -76,15 +80,18 @@ function resetArrayRotation() {
 function updateCableRouteStatus() {
     const el = $("cable_route_status");
     if (!el) return;
-    const count = Array.isArray(state.cableRouteWaypoints) ? state.cableRouteWaypoints.length : 0;
-    if (state.cableRouteMode) {
-        el.textContent = "Route mode active. Click map to add waypoints. Waypoints: " + count;
-        el.style.color = "#00ffff";
-    } else if (count > 0) {
-        el.textContent = "Custom route active. Waypoints: " + count + ". Live length is calculated along route.";
+    const count = Array.isArray(state.cableRoutePins) ? state.cableRoutePins.length : 0;
+    if (state.cableRoutePinMode) {
+        el.textContent = "Pin mode active. Click the map to drop pseudo pylon pins. Pins: " + count;
+        el.style.color = "#ff9900";
+    } else if (state.cableRouteCommitted && count > 0) {
+        el.textContent = "Pinned cable route drawn through " + count + " pins. Atlas haversine length is live.";
         el.style.color = "#00ff88";
+    } else if (count > 0) {
+        el.textContent = count + " pins dropped. Click Draw Cable to render route through pins.";
+        el.style.color = "#ff9900";
     } else {
-        el.textContent = "No custom route. Export cable is direct unless waypoints are added.";
+        el.textContent = "No pins. Export cable is direct until pins are dropped and drawn.";
         el.style.color = "var(--muted)";
     }
 }
@@ -103,11 +110,11 @@ function injectExportCableLengthControl() {
     box.style.marginBottom = "15px";
     box.innerHTML = `
         <h3 style="margin-top:0;color:#00ffff;border-bottom-color:#00ffff;">Grid Connection Length</h3>
-        <div class="stat-row"><span>Live Export Cable Length:</span><span class="stat-val cyan" id="out_export_cable_length_km">0.00 km</span></div>
+        <div class="stat-row"><span>Live Export Cable Length:</span><span class="stat-val cyan" id="out_export_cable_length_km">0.000 km</span></div>
         <div class="stat-row"><span>Array Rotation:</span><span class="stat-val orange" id="out_array_rotation_deg">0°</span></div>
         <div class="input-group"><label>Export Cable Extra Length km</label><input type="number" id="layout_export_extra_km" value="0" step="0.05" min="-0.2"></div>
         <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
-            Moves the whole array further from or closer to the point of connection along the existing axis. Pick Up Array and cable route waypoints also recalculate this live length.
+            Moves the whole array further from or closer to the point of connection along the existing axis. Pin routing measures the final cable route using Atlas style haversine maths.
         </div>
         <div style="border-top:1px dashed #333;margin:8px 0;"></div>
         <button class="btn" id="btn_rotate_left_30" style="background:#222;color:#fff;">Rotate Left 30°</button>
@@ -115,7 +122,7 @@ function injectExportCableLengthControl() {
         <button class="btn" id="btn_rotate_right_90" style="margin-top:6px;background:#ff9900;color:#000000;">Rotate 90°</button>
         <button class="btn" id="btn_reset_rotation" style="margin-top:6px;">Reset Rotation</button>
         <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
-            Rotation keeps the grid point fixed and redraws the export cable. Custom cable waypoints are cleared when rotation changes.
+            Rotation keeps the grid point fixed and redraws the export cable. Route pins are cleared when rotation changes.
         </div>
         <div style="border-top:1px dashed #333;margin:8px 0;"></div>
         <button class="btn" id="btn_pick_array" style="margin-top:8px;background:#00ffff;color:#001111;">Pick Up Array</button>
@@ -124,11 +131,12 @@ function injectExportCableLengthControl() {
             Pick Up Array keeps the grid point fixed. Click anywhere on the map to place the array centre.
         </div>
         <div style="border-top:1px dashed #333;margin:8px 0;"></div>
-        <button class="btn" id="btn_draw_cable_route" style="background:#ff9900;color:#000000;">Draw Cable Route</button>
-        <button class="btn" id="btn_finish_cable_route" style="margin-top:6px;">Finish Route</button>
-        <button class="btn" id="btn_clear_cable_route" style="margin-top:6px;">Clear Route</button>
+        <button class="btn" id="btn_drop_cable_pins" style="background:#ff9900;color:#000000;">Drop Cable Pins</button>
+        <button class="btn" id="btn_draw_cable_route" style="margin-top:6px;background:#00ff88;color:#001111;">Draw Cable Through Pins</button>
+        <button class="btn" id="btn_undo_cable_pin" style="margin-top:6px;">Undo Last Pin</button>
+        <button class="btn" id="btn_clear_cable_route" style="margin-top:6px;">Clear Pins and Route</button>
         <div id="cable_route_status" style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
-            No custom route. Export cable is direct unless waypoints are added.
+            No pins. Export cable is direct until pins are dropped and drawn.
         </div>
     `;
 
@@ -162,7 +170,7 @@ function toggleArrayMoveMode() {
         setArrayMoveStatus("Draw a grid first, then pick up the array.", false);
         return;
     }
-    state.cableRouteMode = false;
+    state.cableRoutePinMode = false;
     state.arrayMoveMode = !state.arrayMoveMode;
     setArrayMoveStatus(
         state.arrayMoveMode ? "Move mode active. Click the map where the array centre should move." : "Move mode cancelled.",
@@ -183,40 +191,59 @@ function placeArrayAtMapPoint(e) {
     if (!e || !e.lngLat) return;
     state.arrayOverrideCenter = [e.lngLat.lng, e.lngLat.lat];
     state.arrayMoveMode = false;
+    state.cableRoutePins = [];
+    state.cableRouteCommitted = false;
     setArrayMoveStatus("Array moved. Grid point stayed fixed and export cable length recalculated.", false);
     computeAndDraw();
 }
 
-function startCableRouteMode() {
+function toggleCablePinMode() {
     if (!state.activeDrawCenter) {
         updateCableRouteStatus();
         return;
     }
     state.arrayMoveMode = false;
-    state.cableRouteMode = true;
+    state.cableRoutePinMode = !state.cableRoutePinMode;
     updateCableRouteStatus();
 }
 
-function finishCableRouteMode() {
-    state.cableRouteMode = false;
+function commitCablePinRoute() {
+    state.cableRoutePinMode = false;
+    state.cableRouteCommitted = Array.isArray(state.cableRoutePins) && state.cableRoutePins.length > 0;
+    updateCableRouteStatus();
+    redrawIfTopologyExists();
+}
+
+function undoCablePin() {
+    if (!Array.isArray(state.cableRoutePins) || state.cableRoutePins.length === 0) return;
+    state.cableRoutePins.pop();
+    state.cableRouteCommitted = false;
     updateCableRouteStatus();
     redrawIfTopologyExists();
 }
 
 function clearCableRoute() {
-    state.cableRouteMode = false;
+    state.cableRoutePinMode = false;
+    state.cableRoutePins = [];
+    state.cableRouteCommitted = false;
     state.cableRouteWaypoints = [];
     updateCableRouteStatus();
     redrawIfTopologyExists();
 }
 
-function addCableRouteWaypoint(e) {
-    if (!state.cableRouteMode) return;
+function addCableRoutePin(e) {
+    if (!state.cableRoutePinMode) return;
     if (!e || !e.lngLat) return;
-    state.cableRouteWaypoints.push([e.lngLat.lng, e.lngLat.lat]);
+    state.cableRoutePins.push([e.lngLat.lng, e.lngLat.lat]);
+    state.cableRouteCommitted = false;
     updateCableRouteStatus();
     redrawIfTopologyExists();
 }
+
+// Legacy wrappers retained so old references do not break.
+function startCableRouteMode() { toggleCablePinMode(); }
+function finishCableRouteMode() { commitCablePinRoute(); }
+function addCableRouteWaypoint(e) { addCableRoutePin(e); }
 
 // ============================================================
 // LOCATION SEARCH
@@ -244,8 +271,9 @@ function triggerDrawAtCenter() {
     state.activeDrawCenter = [map.getCenter().lng, map.getCenter().lat];
     state.arrayOverrideCenter = null;
     state.arrayMoveMode = false;
-    state.cableRouteMode = false;
-    state.cableRouteWaypoints = [];
+    state.cableRoutePinMode = false;
+    state.cableRoutePins = [];
+    state.cableRouteCommitted = false;
     computeAndDraw();
     updateSelectedSubstationDisplay();
     setArrayMoveStatus("Grid drawn. Use Pick Up Array to relocate the array while the grid point stays fixed.", false);
@@ -306,9 +334,10 @@ function wireEvents() {
     $("btn_pick_array")?.addEventListener("click", toggleArrayMoveMode);
     $("btn_reset_array_move")?.addEventListener("click", resetArrayLocation);
 
-    // Cable route waypoints
-    $("btn_draw_cable_route")?.addEventListener("click", startCableRouteMode);
-    $("btn_finish_cable_route")?.addEventListener("click", finishCableRouteMode);
+    // Cable route pins
+    $("btn_drop_cable_pins")?.addEventListener("click", toggleCablePinMode);
+    $("btn_draw_cable_route")?.addEventListener("click", commitCablePinRoute);
+    $("btn_undo_cable_pin")?.addEventListener("click", undoCablePin);
     $("btn_clear_cable_route")?.addEventListener("click", clearCableRoute);
 
     // Search
@@ -335,12 +364,14 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
     // Safe export cable length adjustment
     $("layout_export_extra_km")?.addEventListener("input", () => {
         state.arrayOverrideCenter = null;
-        state.cableRouteWaypoints = [];
+        state.cableRoutePins = [];
+        state.cableRouteCommitted = false;
         redrawIfTopologyExists();
     });
     $("layout_export_extra_km")?.addEventListener("change", () => {
         state.arrayOverrideCenter = null;
-        state.cableRouteWaypoints = [];
+        state.cableRoutePins = [];
+        state.cableRouteCommitted = false;
         redrawIfTopologyExists();
     });
 
@@ -355,7 +386,7 @@ function wireMapMoveEvents() {
     if (!map || map.__arrayMoveWired) return;
     map.__arrayMoveWired = true;
     map.on("click", (e) => {
-        if (state.cableRouteMode) addCableRouteWaypoint(e);
+        if (state.cableRoutePinMode) addCableRoutePin(e);
         else placeArrayAtMapPoint(e);
     });
 }

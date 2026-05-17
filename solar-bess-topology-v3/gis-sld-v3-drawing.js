@@ -148,7 +148,7 @@ function computeAndDraw() {
 
     // Spine
     if (inverters.length > 0) {
-        const spineStart = turf.destination(turf.point(privateSubCoord), grid_l, axis + 180, { units: "kilometers" }).geometry.coordinates;
+        const spineStart = privateSubCoord;
         const spineEnd = turf.destination(turf.point(privateSubCoord), grid_l, axis, { units: "kilometers" }).geometry.coordinates;
         const spineLine = turf.lineString([spineStart, spineEnd], { type: "33kv_radial" });
         features.push(spineLine);

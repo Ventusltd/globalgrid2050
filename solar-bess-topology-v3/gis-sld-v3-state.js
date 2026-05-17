@@ -16,6 +16,7 @@ const state = {
     lastFinance: { fin_string: null, fin_central: null },
     arrayMoveMode: false,
     arrayOverrideCenter: null,
+    arrayRotationDeg: 0,
     exportCableLengthKm: 0,
     cableRouteMode: false,
     cableRouteWaypoints: []

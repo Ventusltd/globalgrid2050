@@ -43,6 +43,37 @@ function autoFillBifacial(gcrVal, targetId) {
 }
 
 // ============================================================
+// SAFE EXPORT CABLE LENGTH CONTROL
+// ============================================================
+function injectExportCableLengthControl() {
+    if ($("layout_export_extra_km")) return;
+
+    const drawBtn = $("btn_draw");
+    if (!drawBtn || !drawBtn.parentNode) return;
+
+    const box = document.createElement("div");
+    box.className = "stat-box";
+    box.id = "export_cable_length_box";
+    box.style.borderColor = "#00ffff";
+    box.style.background = "rgba(0, 255, 255, 0.05)";
+    box.style.marginBottom = "15px";
+    box.innerHTML = `
+        <h3 style="margin-top:0;color:#00ffff;border-bottom-color:#00ffff;">Grid Connection Length</h3>
+        <div class="input-group"><label>Export Cable Extra Length km</label><input type="number" id="layout_export_extra_km" value="0" step="0.05" min="-0.2"></div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
+            Moves the whole array further from or closer to the point of connection along the existing axis. It does not rotate the array or change the internal 33kV radial topology.
+        </div>
+    `;
+
+    drawBtn.parentNode.insertBefore(box, drawBtn);
+}
+
+function redrawIfTopologyExists() {
+    if (state.activeDrawCenter) computeAndDraw();
+    else recalcAll();
+}
+
+// ============================================================
 // LOCATION SEARCH
 // ============================================================
 async function searchLocation() {
@@ -99,6 +130,8 @@ function toggleSubs() {
 // WIRE EVERYTHING UP
 // ============================================================
 function wireEvents() {
+    injectExportCableLengthControl();
+
     // Tab buttons
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.addEventListener("click", () => switchTab(btn.dataset.tab));
@@ -132,6 +165,10 @@ document.querySelectorAll("[data-dev-stage-prefix]").forEach(sel => {
 });
     $("mounting_type")?.addEventListener("change", (e) => autoFillBifacial(e.target.value, "fin_string_bifacial"));
     $("mounting_type_c")?.addEventListener("change", (e) => autoFillBifacial(e.target.value, "fin_central_bifacial"));
+
+    // Safe export cable length adjustment
+    $("layout_export_extra_km")?.addEventListener("input", redrawIfTopologyExists);
+    $("layout_export_extra_km")?.addEventListener("change", redrawIfTopologyExists);
 
     // Global recalc on input changes (debounced)
     document.querySelectorAll("input, select").forEach(el => {

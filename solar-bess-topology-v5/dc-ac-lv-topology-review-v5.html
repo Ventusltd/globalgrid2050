@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>DC AC LV Topology Review V5 | GlobalGrid2050</title>
+    <link rel="stylesheet" href="./gis-sld-v5.css" />
+    <link rel="stylesheet" href="./module-layout-v5.css" />
+    <link rel="stylesheet" href="./dc-ac-lv-topology-review-v5.css" />
+</head>
+<body>
+    <div class="module-app-shell topo-app-shell">
+        <header class="module-header topo-header">
+            <div>
+                <div class="module-kicker">GlobalGrid2050 V5</div>
+                <h1>DC AC LV Topology Review</h1>
+                <p>Separate low voltage and DC engineering app for solar PV cable topology, string sizing, inverter aggregation, skid loading and SCADA style topology review.</p>
+            </div>
+            <div class="topo-header-links">
+                <a class="module-link" href="./module-layout-v5.html">Module Layout V5</a>
+                <a class="module-link" href="./indexforgis-sld-v5.html">Back to GIS SLD V5</a>
+            </div>
+        </header>
+
+        <main class="module-main topo-main">
+            <section class="module-panel topo-panel">
+                <div class="topo-tabs">
+                    <button id="topo_tab_string" class="topo-tab active" data-mode="string">String Inverter</button>
+                    <button id="topo_tab_central" class="topo-tab" data-mode="central">Central Inverter</button>
+                </div>
+
+                <div class="topo-mode active" data-mode-panel="string">
+                    <h2>Module Electrical Data</h2>
+                    <label>Module Rating Wp</label><input id="s_mod_wp" type="number" value="660" step="1" />
+                    <label>Module Voc V</label><input id="s_voc" type="number" value="45.9" step="0.01" />
+                    <label>Module Vmp V</label><input id="s_vmp" type="number" value="38.1" step="0.01" />
+                    <label>Module Isc A</label><input id="s_isc" type="number" value="18.45" step="0.01" />
+                    <label>Module Imp A</label><input id="s_imp" type="number" value="17.35" step="0.01" />
+                    <label>Maximum Series Fuse A</label><input id="s_fuse_a" type="number" value="35" step="1" />
+                    <label>Maximum System Voltage Vdc</label><input id="s_system_v" type="number" value="1500" step="10" />
+                    <label>Voc Temperature Coefficient % per °C</label><input id="s_voc_coeff" type="number" value="-0.25" step="0.01" />
+                    <label>Isc Temperature Coefficient % per °C</label><input id="s_isc_coeff" type="number" value="0.04" step="0.01" />
+                    <label>Minimum Design Temperature °C</label><input id="s_min_temp" type="number" value="-10" step="1" />
+                    <label>Current Correction Factor</label><input id="s_current_factor" type="number" value="1.25" step="0.01" />
+                    <label>Bifacial Current Uplift %</label><input id="s_bifacial_current" type="number" value="10" step="1" />
+
+                    <h2>String Inverter Topology</h2>
+                    <label>Modules per String</label><input id="s_modules_per_string" type="number" value="30" min="1" step="1" />
+                    <label>Strings per String Inverter</label><input id="s_strings_per_inverter" type="number" value="21" min="1" step="1" />
+                    <label>String Inverter Rating kVA</label><input id="s_inverter_kva" type="number" value="352" min="1" step="1" />
+                    <label>String Inverters per Skid</label><input id="s_inverters_per_skid" type="number" value="28" min="1" step="1" />
+                    <label>Skid Transformer Rating MVA</label><input id="s_skid_mva" type="number" value="8.96" min="0.1" step="0.01" />
+                    <label>Skids per 33 kV Ring</label><input id="s_skids_per_ring" type="number" value="5" min="1" step="1" />
+
+                    <h2>DC Cable Review</h2>
+                    <label>DC String Cable Length m</label><input id="s_dc_length_m" type="number" value="300" min="1" step="1" />
+                    <label>DC Cable CSA mm²</label><input id="s_dc_csa" type="number" value="6" min="1" step="1" />
+                    <label>DC Cable Material</label><select id="s_dc_material"><option value="cu" selected>Copper</option><option value="al">Aluminium</option></select>
+                    <label>Allowable DC Voltage Drop %</label><input id="s_dc_vdrop_limit" type="number" value="1.0" step="0.1" />
+                </div>
+
+                <div class="topo-mode" data-mode-panel="central">
+                    <h2>Module Electrical Data</h2>
+                    <label>Module Rating Wp</label><input id="c_mod_wp" type="number" value="660" step="1" />
+                    <label>Module Voc V</label><input id="c_voc" type="number" value="45.9" step="0.01" />
+                    <label>Module Vmp V</label><input id="c_vmp" type="number" value="38.1" step="0.01" />
+                    <label>Module Isc A</label><input id="c_isc" type="number" value="18.45" step="0.01" />
+                    <label>Maximum System Voltage Vdc</label><input id="c_system_v" type="number" value="1500" step="10" />
+                    <label>Voc Temperature Coefficient % per °C</label><input id="c_voc_coeff" type="number" value="-0.25" step="0.01" />
+                    <label>Minimum Design Temperature °C</label><input id="c_min_temp" type="number" value="-10" step="1" />
+                    <label>Current Correction Factor</label><input id="c_current_factor" type="number" value="1.25" step="0.01" />
+                    <label>Bifacial Current Uplift %</label><input id="c_bifacial_current" type="number" value="10" step="1" />
+
+                    <h2>Central Inverter Topology</h2>
+                    <label>Modules per String</label><input id="c_modules_per_string" type="number" value="30" min="1" step="1" />
+                    <label>Strings per Combiner Box</label><input id="c_strings_per_combiner" type="number" value="24" min="1" step="1" />
+                    <label>Combiner Box Design Limit kWdc</label><input id="c_combiner_limit_kw" type="number" value="500" min="1" step="10" />
+                    <label>Central Inverter DC Input Rating MWdc</label><input id="c_inv_dc_mw" type="number" value="5.28" min="0.1" step="0.01" />
+                    <label>Central Inverter AC Output Rating MWac</label><input id="c_inv_ac_mw" type="number" value="4.40" min="0.1" step="0.01" />
+                    <label>Central Skid Transformer Rating MVA</label><input id="c_skid_mva" type="number" value="4.40" min="0.1" step="0.01" />
+                    <label>Central Inverter Units per Skid</label><input id="c_inverters_per_skid" type="number" value="1" min="1" step="1" />
+                    <label>Central Skids per 33 kV Ring</label><input id="c_skids_per_ring" type="number" value="5" min="1" step="1" />
+
+                    <h2>DC Cable Review</h2>
+                    <label>Home Run Cable Length m</label><input id="c_dc_length_m" type="number" value="300" min="1" step="1" />
+                    <label>DC Cable CSA mm²</label><input id="c_dc_csa" type="number" value="6" min="1" step="1" />
+                    <label>DC Cable Material</label><select id="c_dc_material"><option value="cu" selected>Copper</option><option value="al">Aluminium</option></select>
+                    <label>Allowable DC Voltage Drop %</label><input id="c_dc_vdrop_limit" type="number" value="1.0" step="0.1" />
+                </div>
+
+                <h2>Topology Results</h2>
+                <div class="module-stat"><span>String kWp</span><strong id="out_string_kwp">0</strong></div>
+                <div class="module-stat"><span>String Vmp</span><strong id="out_string_vmp">0 V</strong></div>
+                <div class="module-stat"><span>String Voc STC</span><strong id="out_string_voc_stc">0 V</strong></div>
+                <div class="module-stat"><span>Cold String Voc</span><strong id="out_string_voc_cold">0 V</strong></div>
+                <div class="module-stat"><span>Max Modules per String</span><strong id="out_max_modules">0</strong></div>
+                <div class="module-stat"><span>Design String Current</span><strong id="out_design_current">0 A</strong></div>
+                <div class="module-stat"><span>DC per Inverter</span><strong id="out_dc_per_inv">0 kWp</strong></div>
+                <div class="module-stat"><span>Inverter DC/AC</span><strong id="out_dcac">0</strong></div>
+                <div class="module-stat"><span>Skid DC / AC</span><strong id="out_skid_block">0</strong></div>
+                <div class="module-stat"><span>Ring AC Rating</span><strong id="out_ring_ac">0 MVA</strong></div>
+                <div class="module-stat"><span>DC Cable Loss</span><strong id="out_dc_loss">0%</strong></div>
+                <div id="topo_status" class="module-status">Ready.</div>
+
+                <div class="module-note">Screening tool only. It does not replace manufacturer checks, cable schedules, load flow, fault studies, insulation coordination, SPD coordination, protection grading, earthing design or IFC drawings.</div>
+            </section>
+
+            <section class="topo-scada-card">
+                <div class="topo-scada-title">SCADA Style Cable Topology Panel</div>
+                <svg id="topo_scada" viewBox="0 0 1200 760" role="img" aria-label="SCADA style topology drawing"></svg>
+                <div class="topo-scada-footer"><span id="topo_footer_left">String inverter topology</span><span>Values recalculate live from left panel</span></div>
+            </section>
+        </main>
+    </div>
+    <script src="./dc-ac-lv-topology-review-v5.js"></script>
+</body>
+</html>

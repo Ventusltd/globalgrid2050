@@ -15,5 +15,6 @@ const state = {
     lastStats: null,
     lastFinance: { fin_string: null, fin_central: null },
     arrayMoveMode: false,
-    arrayOverrideCenter: null
+    arrayOverrideCenter: null,
+    exportCableLengthKm: 0
 };

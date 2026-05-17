@@ -45,6 +45,13 @@ function autoFillBifacial(gcrVal, targetId) {
 // ============================================================
 // SAFE EXPORT CABLE LENGTH CONTROL
 // ============================================================
+function updateExportCableLengthDisplay() {
+    const el = $("out_export_cable_length_km");
+    if (!el) return;
+    const km = Number.isFinite(state.exportCableLengthKm) ? state.exportCableLengthKm : 0;
+    el.textContent = km.toFixed(2) + " km";
+}
+
 function injectExportCableLengthControl() {
     if ($("layout_export_extra_km")) return;
 
@@ -59,9 +66,10 @@ function injectExportCableLengthControl() {
     box.style.marginBottom = "15px";
     box.innerHTML = `
         <h3 style="margin-top:0;color:#00ffff;border-bottom-color:#00ffff;">Grid Connection Length</h3>
+        <div class="stat-row"><span>Live Export Cable Length:</span><span class="stat-val cyan" id="out_export_cable_length_km">0.00 km</span></div>
         <div class="input-group"><label>Export Cable Extra Length km</label><input type="number" id="layout_export_extra_km" value="0" step="0.05" min="-0.2"></div>
         <div style="font-size:10px;color:var(--muted);line-height:1.4;margin-top:6px;">
-            Moves the whole array further from or closer to the point of connection along the existing axis. It does not rotate the array or change the internal 33kV radial topology.
+            Moves the whole array further from or closer to the point of connection along the existing axis. Pick Up Array also recalculates this live length.
         </div>
         <button class="btn" id="btn_pick_array" style="margin-top:8px;background:#00ffff;color:#001111;">Pick Up Array</button>
         <button class="btn" id="btn_reset_array_move" style="margin-top:6px;">Reset Array Location</button>
@@ -71,6 +79,7 @@ function injectExportCableLengthControl() {
     `;
 
     drawBtn.parentNode.insertBefore(box, drawBtn);
+    updateExportCableLengthDisplay();
 }
 
 function redrawIfTopologyExists() {
@@ -116,7 +125,7 @@ function placeArrayAtMapPoint(e) {
     if (!e || !e.lngLat) return;
     state.arrayOverrideCenter = [e.lngLat.lng, e.lngLat.lat];
     state.arrayMoveMode = false;
-    setArrayMoveStatus("Array moved. Grid point stayed fixed and export cable was redrawn.", false);
+    setArrayMoveStatus("Array moved. Grid point stayed fixed and export cable length recalculated.", false);
     computeAndDraw();
 }
 
@@ -254,6 +263,7 @@ function boot() {
     updateSelectedSubstationDisplay();
     renderBenchmark();
     setArrayMoveStatus("Draw a grid first. Then use Pick Up Array to relocate the array centre.", false);
+    updateExportCableLengthDisplay();
 }
 
 // Libraries loaded via defer, so DOMContentLoaded is the right signal.

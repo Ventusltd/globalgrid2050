@@ -2,14 +2,23 @@
 
 // DRAWING
 // ============================================================
-function getRectPolygon(centerCoord, width_km, length_km, propType) {
+function normBearing(deg) {
+    return ((deg % 360) + 360) % 360;
+}
+
+function getArrayAxisDeg() {
+    return normBearing(Number.isFinite(state.arrayRotationDeg) ? state.arrayRotationDeg : 0);
+}
+
+function getRectPolygon(centerCoord, width_km, length_km, propType, rotationDeg = 0) {
+    const axis = normBearing(rotationDeg);
     const pt = turf.point(centerCoord);
-    const ptN = turf.destination(pt, length_km / 2, 0, { units: "kilometers" }).geometry.coordinates;
-    const ptS = turf.destination(pt, length_km / 2, 180, { units: "kilometers" }).geometry.coordinates;
-    const nw = turf.destination(turf.point(ptN), width_km / 2, -90, { units: "kilometers" }).geometry.coordinates;
-    const ne = turf.destination(turf.point(ptN), width_km / 2, 90, { units: "kilometers" }).geometry.coordinates;
-    const se = turf.destination(turf.point(ptS), width_km / 2, 90, { units: "kilometers" }).geometry.coordinates;
-    const sw = turf.destination(turf.point(ptS), width_km / 2, -90, { units: "kilometers" }).geometry.coordinates;
+    const ptN = turf.destination(pt, length_km / 2, axis, { units: "kilometers" }).geometry.coordinates;
+    const ptS = turf.destination(pt, length_km / 2, axis + 180, { units: "kilometers" }).geometry.coordinates;
+    const nw = turf.destination(turf.point(ptN), width_km / 2, axis - 90, { units: "kilometers" }).geometry.coordinates;
+    const ne = turf.destination(turf.point(ptN), width_km / 2, axis + 90, { units: "kilometers" }).geometry.coordinates;
+    const se = turf.destination(turf.point(ptS), width_km / 2, axis + 90, { units: "kilometers" }).geometry.coordinates;
+    const sw = turf.destination(turf.point(ptS), width_km / 2, axis - 90, { units: "kilometers" }).geometry.coordinates;
     return turf.polygon([[nw, ne, se, sw, nw]], { type: propType });
 }
 
@@ -35,6 +44,7 @@ function buildExportCableLine(privateSubCoord, publicSubCoord, safeExtraOffsetKm
         export_cable_extra_km: safeExtraOffsetKm,
         export_cable_length_km: 0,
         array_moved_manually: Boolean(state.arrayOverrideCenter),
+        array_rotation_deg: getArrayAxisDeg(),
         routed_by_waypoints: routePoints.length > 0,
         waypoint_count: routePoints.length
     });
@@ -60,6 +70,7 @@ function computeAndDraw() {
         return;
     }
 
+    const axis = getArrayAxisDeg();
     const N = stats.total_blocks;
     const cols = Math.ceil(Math.sqrt(N));
     const rows = Math.ceil(N / cols);
@@ -77,9 +88,9 @@ function computeAndDraw() {
     const publicSubCoord = state.activeDrawCenter;
     const safeExtraOffsetKm = Math.max(-CONSTANTS.ARRAY_OFFSET_KM, getExportCableExtraKm());
     const arrayOffsetKm = grid_l / 2 + CONSTANTS.ARRAY_OFFSET_KM + safeExtraOffsetKm;
-    const defaultGridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, 0, { units: "kilometers" }).geometry.coordinates;
+    const defaultGridCenter = turf.destination(turf.point(publicSubCoord), arrayOffsetKm, axis, { units: "kilometers" }).geometry.coordinates;
     const gridCenter = state.arrayOverrideCenter || defaultGridCenter;
-    const privateSubCoord = turf.destination(turf.point(gridCenter), grid_l / 2, 180, { units: "kilometers" }).geometry.coordinates;
+    const privateSubCoord = turf.destination(turf.point(gridCenter), grid_l / 2, axis + 180, { units: "kilometers" }).geometry.coordinates;
     const exportCableLine = buildExportCableLine(privateSubCoord, publicSubCoord, safeExtraOffsetKm);
     state.exportCableLengthKm = turf.length(exportCableLine, { units: "kilometers" });
     exportCableLine.properties.export_cable_length_km = state.exportCableLengthKm;
@@ -96,25 +107,26 @@ function computeAndDraw() {
         export_cable_extra_km: safeExtraOffsetKm,
         export_cable_length_km: state.exportCableLengthKm,
         array_moved_manually: Boolean(state.arrayOverrideCenter),
+        array_rotation_deg: axis,
         export_cable_waypoint_count: state.cableRouteWaypoints.length
     }));
     features.push(exportCableLine);
     addCableRouteWaypointMarkers(features);
-    features.push(getRectPolygon(gridCenter, grid_w + CONSTANTS.BOUNDARY_BUFFER_KM, grid_l + CONSTANTS.BOUNDARY_BUFFER_KM, "array_boundary"));
+    features.push(getRectPolygon(gridCenter, grid_w + CONSTANTS.BOUNDARY_BUFFER_KM, grid_l + CONSTANTS.BOUNDARY_BUFFER_KM, "array_boundary", axis));
 
-    const ptN = turf.destination(turf.point(gridCenter), grid_l / 2, 0, { units: "kilometers" }).geometry.coordinates;
-    const ptNW = turf.destination(turf.point(ptN), grid_w / 2, -90, { units: "kilometers" }).geometry.coordinates;
+    const ptN = turf.destination(turf.point(gridCenter), grid_l / 2, axis, { units: "kilometers" }).geometry.coordinates;
+    const ptNW = turf.destination(turf.point(ptN), grid_w / 2, axis - 90, { units: "kilometers" }).geometry.coordinates;
 
     const inverters = [];
     let count = 0;
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             if (count >= N) break;
-            const posE = turf.destination(turf.point(ptNW), c * block_w + c * spacing + block_w / 2, 90, { units: "kilometers" }).geometry.coordinates;
-            const finalPos = turf.destination(turf.point(posE), r * block_l + r * spacing + block_l / 2, 180, { units: "kilometers" }).geometry.coordinates;
+            const posAcross = turf.destination(turf.point(ptNW), c * block_w + c * spacing + block_w / 2, axis + 90, { units: "kilometers" }).geometry.coordinates;
+            const finalPos = turf.destination(turf.point(posAcross), r * block_l + r * spacing + block_l / 2, axis + 180, { units: "kilometers" }).geometry.coordinates;
             const nodeType = state.activeTab === "string" ? "string_substation" : "central_inverter";
             const footType = state.activeTab === "string" ? "skid_footprint" : "central_footprint";
-            features.push(getRectPolygon(finalPos, block_w, block_l, footType));
+            features.push(getRectPolygon(finalPos, block_w, block_l, footType, axis));
             inverters.push({ coords: finalPos, type: nodeType });
             features.push(turf.point(finalPos, { type: nodeType }));
             count++;
@@ -128,24 +140,21 @@ function computeAndDraw() {
         const bess_area_km2 = (bess_mwh * CONSTANTS.BESS_M2_PER_MWH) / 1_000_000;
         const bess_w = Math.sqrt(bess_area_km2 * CONSTANTS.BESS_ASPECT);
         const bess_l = bess_area_km2 / bess_w;
-        const bessCenter = turf.destination(turf.point(privateSubCoord), bess_w / 2 + 0.05, -90, { units: "kilometers" }).geometry.coordinates;
-        features.push(getRectPolygon(bessCenter, bess_w, bess_l, "bess_footprint"));
+        const bessCenter = turf.destination(turf.point(privateSubCoord), bess_w / 2 + 0.05, axis - 90, { units: "kilometers" }).geometry.coordinates;
+        features.push(getRectPolygon(bessCenter, bess_w, bess_l, "bess_footprint", axis));
         features.push(turf.point(bessCenter, { type: "bess_compound", mwh: bess_mwh }));
         features.push(turf.lineString([bessCenter, privateSubCoord], { type: "33kv_radial" }));
     }
 
     // Spine
     if (inverters.length > 0) {
-        let spineN = -90, spineS = 90;
+        const spineStart = turf.destination(turf.point(privateSubCoord), grid_l, axis + 180, { units: "kilometers" }).geometry.coordinates;
+        const spineEnd = turf.destination(turf.point(privateSubCoord), grid_l, axis, { units: "kilometers" }).geometry.coordinates;
+        const spineLine = turf.lineString([spineStart, spineEnd], { type: "33kv_radial" });
+        features.push(spineLine);
         inverters.forEach(inv => {
-            if (inv.coords[1] > spineN) spineN = inv.coords[1];
-            if (inv.coords[1] < spineS) spineS = inv.coords[1];
-        });
-        if (privateSubCoord[1] > spineN) spineN = privateSubCoord[1];
-        if (privateSubCoord[1] < spineS) spineS = privateSubCoord[1];
-        features.push(turf.lineString([[privateSubCoord[0], spineS], [privateSubCoord[0], spineN]], { type: "33kv_radial" }));
-        inverters.forEach(inv => {
-            features.push(turf.lineString([inv.coords, [privateSubCoord[0], inv.coords[1]]], { type: "33kv_radial" }));
+            const projected = turf.nearestPointOnLine(spineLine, turf.point(inv.coords), { units: "kilometers" }).geometry.coordinates;
+            features.push(turf.lineString([inv.coords, projected], { type: "33kv_radial" }));
         });
     }
 
@@ -160,6 +169,7 @@ function computeAndDraw() {
 
     updateExportCableLengthDisplay();
     updateCableRouteStatus();
+    updateArrayRotationDisplay();
 
     // Refresh side-panel values
     renderTechSummary(stats);

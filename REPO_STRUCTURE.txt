@@ -148,6 +148,7 @@
 │   ├── v4_detailed_disclaimer_below_financial_logic.md
 │   ├── v4_pinned_cable_route_tool_rollback.md
 │   ├── v5_clone_from_v4_report.md
+│   ├── v5_engineering_clarity_upgrade.md
 │   └── v5_js_filename_repair.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
@@ -491,7 +492,8 @@
 │   ├── update_metal_trends.py
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
-│   └── upgrade_v5_engineering_clarity.py
+│   ├── upgrade_v5_engineering_clarity.py
+│   └── upgrade_v5_skid_mva_controls.py
 ├── sld_single_diagrams_diagrams_and_grids
 │   └── index.md
 ├── solar-bess-topology
@@ -613,4 +615,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-75 directories, 539 files
+75 directories, 541 files

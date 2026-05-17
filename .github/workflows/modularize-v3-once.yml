@@ -1,0 +1,37 @@
+name: Modularize V3 Once
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/modularize_v3.py
+      - .github/workflows/modularize-v3-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  modularize-v3:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run V3 modulariser
+        run: python scripts/modularize_v3.py
+
+      - name: Commit modularised V3
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add solar-bess-topology-v3 scripts/modularize_v3.py
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Modularize GIS SLD V3"
+            git push
+          else
+            echo "No modularisation changes to commit"
+          fi

@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GlobalGrid2050 V6</title>
     <style>
-        :root { --bg:#050505; --panel:#0b0e14; --line:#2f343d; --text:#fff; --muted:#a6adbb; --accent:#00ffff; --ok:#00ff88; }
+        :root { --bg:#050505; --panel:#0b0e14; --line:#2f343d; --text:#fff; --muted:#a6adbb; --accent:#00ffff; --ok:#00ff88; --danger:#ff3333; }
         * { box-sizing:border-box; }
         body { margin:0; padding:28px; background:var(--bg); color:var(--text); font-family:"Courier New", monospace; }
         header { max-width:1180px; margin:0 auto 24px auto; border:1px solid var(--line); background:rgba(10,10,10,.96); padding:22px; border-radius:14px; }
         .kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.14em; font-size:12px; }
         h1 { margin:8px 0 10px 0; font-size:28px; }
+        h2 { margin:0 0 10px 0; }
+        h3 { margin:0 0 8px 0; color:var(--accent); font-size:17px; }
         p { color:var(--muted); line-height:1.55; }
+        .testing-warning { margin:14px 0 0 0; padding:14px; border:1px solid var(--danger); border-radius:10px; color:var(--danger); font-weight:bold; line-height:1.55; background:rgba(255,51,51,.08); }
         main { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
         .card { display:block; min-height:190px; border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:20px; text-decoration:none; color:var(--text); }
         .card:hover { border-color:var(--accent); }
         .card h2 { margin:0 0 10px 0; color:var(--accent); font-size:18px; }
         .card span { color:var(--ok); font-weight:bold; }
+        .engineering-functions { max-width:1180px; margin:22px auto 0 auto; border:1px solid var(--line); background:rgba(10,10,10,.96); padding:22px; border-radius:14px; }
+        .engineering-functions h2 { color:var(--accent); font-size:22px; }
+        .function-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:16px; }
+        .function-item { border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:16px; }
+        .function-item p { margin:0; }
         footer { max-width:1180px; margin:22px auto 0 auto; color:var(--muted); font-size:12px; }
     </style>
 </head>
@@ -25,6 +33,7 @@
         <div class="kicker">GlobalGrid2050 V6</div>
         <h1>Separated Application Workspace</h1>
         <p>V6 starts by migrating the working V5 applications into separate folders so each app has its own HTML, CSS and JavaScript context. V5 remains untouched as the stable reference.</p>
+        <div class="testing-warning">STATUS: TESTING AND DEVELOPMENT. Use at your own risk. Always verify the results and the data before using this tool for engineering, commercial, investment or project decisions.</div>
     </header>
     <main>
             <a class="card" href="./gis-sld-financial-sandbox/index.html">
@@ -44,10 +53,30 @@
             </a>
             <a class="card" href="./cable-geometry-visualiser/index.html">
                 <h2>Cable Geometry Visualiser</h2>
-                <p>Cable formation, trench, bend and geometry visualiser. To be modularised next.</p>
+                <p>Cable formation, trench, bend and geometry visualiser.</p>
                 <span>Open app</span>
             </a>
     </main>
-    <footer>Generated from V5 on 2026-05-18T11:06:04.474849+00:00.</footer>
+    <section class="engineering-functions">
+        <h2>Solar Engineering Functions Supported By V6</h2>
+        <p>V6 is a testing workspace for early solar PV and BESS engineering review. It helps users expose assumptions before projects move into detailed design, procurement, EPC delivery or investment approval.</p>
+        <div class="function-grid">
+            <div class="function-item"><h3>1. Site and grid screening</h3><p>Assess where a solar or BESS project sits in relation to grid infrastructure, substations and likely connection logic.</p></div>
+            <div class="function-item"><h3>2. Solar BESS topology review</h3><p>Review the relationship between solar PV, BESS, inverters, transformers and the grid connection point.</p></div>
+            <div class="function-item"><h3>3. Single line diagram thinking</h3><p>Visualise early SLD logic across DC, AC, LV, MV and grid interface assumptions.</p></div>
+            <div class="function-item"><h3>4. DC string level reasoning</h3><p>Support early review of DC string voltage margin, inverter input assumptions and DC side configuration.</p></div>
+            <div class="function-item"><h3>5. AC and LV interface review</h3><p>Support review of LV AC assumptions, inverter feeder status, insulation basis and transformer connection logic.</p></div>
+            <div class="function-item"><h3>6. Cable route assumption review</h3><p>Study route assumptions before formal design and before procurement decisions harden.</p></div>
+            <div class="function-item"><h3>7. Cable geometry visualisation</h3><p>Inspect cable arrangement, grouping, routing, trench logic and physical layout behaviour.</p></div>
+            <div class="function-item"><h3>8. Cable loss awareness</h3><p>Expose how cable distance, arrangement and topology may affect electrical losses and project value.</p></div>
+            <div class="function-item"><h3>9. Thermal assumption visibility</h3><p>Flag whether thermal assumptions are complete, missing, uncertain or requiring formal review.</p></div>
+            <div class="function-item"><h3>10. Protection assumption visibility</h3><p>Flag whether protection assumptions are complete, incomplete or need engineering review.</p></div>
+            <div class="function-item"><h3>11. Manufacturer data confirmation</h3><p>Track whether cable, containment, inverter or equipment data has been confirmed.</p></div>
+            <div class="function-item"><h3>12. Module layout review</h3><p>Review physical PV module count, rating, footprint, row, pitch and layout assumptions.</p></div>
+            <div class="function-item"><h3>13. Engineering risk status</h3><p>Mark assumptions as status unknown, study required, review required or formal design required.</p></div>
+            <div class="function-item"><h3>14. Commercial engineering linkage</h3><p>Connect topology, cable distance, grid proximity and losses to CAPEX, revenue, profit, cashflow and IRR sensitivity.</p></div>
+        </div>
+    </section>
+    <footer>Generated from V5 on 2026-05-18T11:06:04.474849+00:00. Updated with V6 testing status and solar engineering function summary.</footer>
 </body>
 </html>

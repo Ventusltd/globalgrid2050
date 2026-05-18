@@ -613,7 +613,14 @@
 │   │   └── module-layout-v5.css
 │   ├── docs
 │   │   ├── ARCHITECTURE.md
-│   │   └── V5_CHANGELOG_AND_ROADMAP.md
+│   │   ├── V5_CHANGELOG_AND_ROADMAP.md
+│   │   └── training
+│   │       ├── 01_cable_route_assumptions.md
+│   │       ├── 02_sld_topology_validation.md
+│   │       ├── 03_bess_grid_resilience.md
+│   │       ├── 04_electrical_risk_controls.md
+│   │       ├── 05_v6_module_relevance.yml
+│   │       └── README.md
 │   ├── gis-sld-financial-sandbox
 │   │   ├── gis-sld-v5-calculations.js
 │   │   ├── gis-sld-v5-config.js
@@ -680,4 +687,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-83 directories, 598 files
+84 directories, 604 files

@@ -1,12 +1,6 @@
 # V6 Training Index
 
-Developer and AI reference only.
-
-Do not add this folder to the public homepage.
-
-Do not name projects, clients, sites, contractors, suppliers, consultants or confidential source documents in this folder.
-
-This folder converts prior research and review material into generic engineering lessons for V6.
+Developer and AI reference.
 
 ## Governing rule
 
@@ -35,7 +29,7 @@ SLD hierarchy, totals reconciliation, feeder loading, transformer checks, invert
 03_bess_grid_resilience.md
 ```
 
-Grid scale BESS lessons: redundancy, SIPS style fast response, transformer dependency, PCS integration, fire safety, grid support and failure mode visibility.
+Grid scale BESS lessons: redundancy, fast response, transformer dependency, PCS integration, fire safety, grid support and failure mode visibility.
 
 ```text
 04_electrical_risk_controls.md
@@ -60,10 +54,8 @@ Before proposing a V6 feature:
 5. Keep the feature small.
 6. Do not introduce calculation claims before assumptions are visible.
 
-## Private development stance
+## Development stance
 
 This is not marketing.
 
-This is not a public technical report.
-
-This is a private training layer for building the machine correctly.
+This is a working reference layer for building the machine correctly.

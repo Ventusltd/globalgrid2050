@@ -4,10 +4,6 @@ This file is now a pointer to the modular training folder.
 
 Developer and AI reference only.
 
-Do not add the training folder to the public homepage.
-
-Do not include project names, client names, site names, contractor names, supplier names, consultant names or confidential source document titles in training notes.
-
 Use:
 
 ```text

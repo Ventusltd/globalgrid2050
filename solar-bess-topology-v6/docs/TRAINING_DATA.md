@@ -194,7 +194,173 @@ source confidence
 
 Generic assumptions must not override actual manufacturer data.
 
-## 11. V6 should classify truth into 3 levels
+## 11. SLD topology must reconcile through hierarchy
+
+An SLD is not complete because it is drawn.
+
+It is complete only when every symbol, cable, feeder, transformer, inverter, string count and total reconciles through the hierarchy.
+
+V6 should eventually model this hierarchy:
+
+```text
+plant
+zone
+33 kV main
+production substation
+transformer
+inverter group
+string group
+cable section
+protection device
+metering point
+```
+
+Every total should be calculated from child objects, not manually typed.
+
+## 12. SLD totals must be checked automatically
+
+Future V6 should flag mismatches between:
+
+```text
+total DC capacity
+registered export capacity
+AC capacity
+DC to AC ratio
+module count
+string count
+inverter count
+transformer rating
+zone totals
+plant totals
+```
+
+Plant, zone and block totals must reconcile.
+
+## 13. Feeder loading must drive cable checks
+
+A feeder cable size should be checked against cumulative downstream load, not only selected by visual convention.
+
+Future V6 cable and feeder records should include:
+
+```text
+from_node
+to_node
+length_m
+cable_size
+conductor_material
+downstream_blocks
+downstream_ac_capacity
+downstream_dc_capacity
+current_load
+voltage_drop_status
+thermal_status
+fault_withstand_status
+installation_status
+```
+
+## 14. Transformer and inverter counts must cross check
+
+Future V6 should cross check:
+
+```text
+number_of_inverters
+inverter_ac_rating
+transformer_rating
+transformer_temperature_basis
+LV_switchgear_rating
+MV_feeder_rating
+DC_to_AC_ratio
+```
+
+Different inverter counts per block must produce different calculated loading. Template blocks should not hide instance specific data.
+
+Rule:
+
+```text
+Template drawings are allowed. Template assumptions are not.
+```
+
+## 15. Module rating changes must be visible
+
+Mixed module ratings may be valid, but they must be explicit.
+
+Future V6 should record:
+
+```text
+module_rating_wp
+module_type
+module_rating_source
+mixed_module_rating_flag
+```
+
+If mixed ratings are present, totals must show exactly how each rating contributes.
+
+## 16. MV joints are risk objects
+
+MV joints should not be neutral drawing marks.
+
+Future V6 should record:
+
+```text
+joint_count
+joint_location
+joint_type
+joint_test_required
+joint_risk_flag
+```
+
+Joints affect installation risk, testing, repair time, outage exposure and warranty control.
+
+## 17. Protection zones must be connected to topology
+
+V6 should eventually connect protection objects to feeders, transformers and switchgear.
+
+Future fields:
+
+```text
+relay_function
+CT_ratio
+protection_zone
+trip_target
+upstream_device
+downstream_device
+grading_status
+```
+
+Without protection zones, an SLD is only a layout drawing, not an electrical model.
+
+## 18. Temperature rating basis must be explicit
+
+Equipment ratings can change with ambient or operating temperature.
+
+Future V6 should record:
+
+```text
+rated_capacity_at_30c
+rated_capacity_at_40c
+ambient_basis
+temperature_derating_flag
+```
+
+Financial and electrical calculations must use the same temperature rating basis.
+
+## 19. Drawing status matters
+
+Electrical assumptions should carry drawing maturity.
+
+Future V6 should record:
+
+```text
+preliminary
+IFR
+IFC
+as_built
+superseded
+```
+
+Calculations based on preliminary topology should not be treated as final design truth.
+
+## 20. V6 should classify truth into 3 levels
 
 ```text
 Level 1: visual assumption
@@ -208,7 +374,7 @@ The next stage should be Level 2 assumption capture.
 
 Level 3 requires competent engineering calculation, verified project data, manufacturer confirmation and formal review.
 
-## 12. What V6 already does well
+## 21. What V6 already does well
 
 ```text
 Apps are separated.
@@ -219,7 +385,7 @@ Warnings correctly say geometry only.
 The file split creates space for future disciplined growth.
 ```
 
-## 13. What V6 should avoid
+## 22. What V6 should avoid
 
 ```text
 Do not claim compliance.
@@ -229,9 +395,11 @@ Do not mix app logic before shared architecture is designed.
 Do not rename legacy files only for neatness.
 Do not turn ui.js into a dumping ground.
 Do not collapse the modular cable geometry files back into one file.
+Do not treat SLD symbols as proof of electrical validity.
+Do not allow manual totals to override calculated hierarchy.
 ```
 
-## 14. Correct next feature
+## 23. Correct next feature
 
 ```text
 V6 cable route assumption schema phase 1
@@ -251,7 +419,31 @@ formal_design_required
 review_status
 ```
 
-## 15. File roles for cable geometry
+## 24. Later feature after cable assumptions
+
+```text
+V6 electrical topology validation phase 1
+```
+
+Purpose:
+
+Check whether SLD hierarchy, equipment blocks, feeder loads, cable sections, transformer ratings, inverter counts, module counts and totals reconcile.
+
+Suggested checks:
+
+```text
+totals_reconcile
+feeder_loads_calculated
+transformer_loading_checked
+inverter_counts_checked
+module_ratings_checked
+cable_sections_have_status
+protection_zones_present
+joint_register_present
+drawing_status_recorded
+```
+
+## 25. File roles for cable geometry
 
 ```text
 data.js
@@ -283,7 +475,7 @@ ui.js
 
 Input capture, event binding, debounce, orchestration and boot logic.
 
-## 16. Final instruction
+## 26. Final instruction
 
 Future V6 work should make hidden assumptions visible before adding more calculations.
 

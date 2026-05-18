@@ -500,6 +500,7 @@
 │   ├── update_prices_lv.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
+│   ├── v6_complex_upgrade_installer.py
 │   ├── v6_migrate_from_v5.py
 │   └── v6_sanity_label_fix.py
 ├── sld_single_diagrams_diagrams_and_grids
@@ -643,13 +644,18 @@
 │   │   ├── index.html
 │   │   ├── module-layout-v5.css
 │   │   └── module-layout-v5.js
-│   └── tools
-│       └── legacy-v5-installers
-│           ├── install_dc_ac_lv_01_html.py
-│           ├── install_dc_ac_lv_02_css.py
-│           ├── install_dc_ac_lv_03_js.py
-│           ├── install_dc_ac_lv_04_link.py
-│           └── install_geometry_visualiser_migration_v5.py
+│   ├── tools
+│   │   └── legacy-v5-installers
+│   │       ├── install_dc_ac_lv_01_html.py
+│   │       ├── install_dc_ac_lv_02_css.py
+│   │       ├── install_dc_ac_lv_03_js.py
+│   │       ├── install_dc_ac_lv_04_link.py
+│   │       └── install_geometry_visualiser_migration_v5.py
+│   └── upgrades
+│       ├── 000_validation_test
+│       │   └── manifest.yml
+│       └── 001_gis_sld_validation_test
+│           └── manifest.yml
 ├── solar_components
 │   └── index.md
 ├── solar_deployment_statistics
@@ -687,4 +693,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-84 directories, 604 files
+87 directories, 607 files

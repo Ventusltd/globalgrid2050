@@ -34,6 +34,41 @@ function onMapLoad() {
         tileSize: 256
     });
     map.addLayer({ id: "l-sat", type: "raster", source: "sat-s", layout: { visibility: "none" } });
+// Atlas V8 transmission visibility layers
+// These layers are read from the existing Atlas V8 data folder.
+// They are visual context only and do not imply confirmed grid headroom.
+map.addSource("atlas-v8-grid-132kv", {
+    type: "geojson",
+    data: "../../repd_grid_atlasv8/data/grid_132kv.geojson"
+});
+map.addLayer({
+    id: "atlas-v8-grid-132kv-line",
+    type: "line",
+    source: "atlas-v8-grid-132kv",
+    layout: { visibility: "visible" },
+    paint: {
+        "line-color": "#ffcc00",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.0, 10, 1.8, 14, 3.0],
+        "line-opacity": 0.72
+    }
+});
+
+map.addSource("atlas-v8-grid-400kv", {
+    type: "geojson",
+    data: "../../repd_grid_atlasv8/data/grid_400kv.geojson"
+});
+map.addLayer({
+    id: "atlas-v8-grid-400kv-line",
+    type: "line",
+    source: "atlas-v8-grid-400kv",
+    layout: { visibility: "visible" },
+    paint: {
+        "line-color": "#ff3333",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.6, 10, 2.8, 14, 4.2],
+        "line-opacity": 0.82
+    }
+});
+
 
     map.addSource("src-subs", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
     map.addLayer({

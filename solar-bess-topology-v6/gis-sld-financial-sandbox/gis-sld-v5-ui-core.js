@@ -84,7 +84,10 @@ function updateLegend() {
     const legend = $("map_legend");
     if (!legend) return;
     let html = `
-        <div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>
+<div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>
+        <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px solid #ffcc00;"></div> Atlas V8 132 kV Lines</div>
+        <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 3px solid #ff3333;"></div> Atlas V8 400 kV Lines</div>
+
         <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Point of Interconnection</div>
         <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px dashed var(--substation);"></div> Export Cable</div>
         <div class="legend-item"><div class="swatch" style="background:var(--private-sub);"></div> Customer Substation</div>

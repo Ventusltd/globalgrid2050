@@ -495,7 +495,8 @@
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
 │   ├── upgrade_v5_engineering_clarity.py
-│   └── upgrade_v5_skid_mva_controls.py
+│   ├── upgrade_v5_skid_mva_controls.py
+│   └── v6_migrate_from_v5.py
 ├── sld_single_diagrams_diagrams_and_grids
 │   └── index.md
 ├── solar-bess-topology
@@ -626,4 +627,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-75 directories, 552 files
+75 directories, 553 files

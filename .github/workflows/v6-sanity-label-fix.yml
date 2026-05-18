@@ -1,0 +1,32 @@
+name: V6 Sanity Label Fix
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fix V6 visible labels
+        run: python scripts/v6_sanity_label_fix.py
+
+      - name: Commit and push V6 label fixes
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add solar-bess-topology-v6 scripts/v6_sanity_label_fix.py gridbot_reports/v6_sanity_label_fix.md
+          if git diff --cached --quiet; then
+            echo "No V6 label changes to commit."
+            exit 0
+          fi
+          git commit -m "Fix V6 visible labels"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main

@@ -14,22 +14,41 @@ solar-bess-topology-v6/gis-sld-financial-sandbox/
 solar-bess-topology-v6/cable-geometry-visualiser/
 ```
 
-## DC string risk
+## Governing visibility rule
+
+Treat voltage margin, insulation basis, protection zones, surge protection, transformer dependency, grid service availability, BESS fire access and commissioning status as visibility layers before topology, capacity or financial outputs are treated as reliable.
+
+## DC string voltage margin
+
+PV string voltage must be checked against cold weather margin.
 
 Future V6 should check or record:
 
 ```text
 modules_per_string
 module_voc
+voc_temperature_coefficient
 minimum_temperature_basis
 maximum_string_voltage
 maximum_system_voltage
+inverter_max_dc_voltage
+dc_insulation_margin_status
+```
+
+## DC thermal and current assumptions
+
+DC to AC oversizing is not automatically unsafe, but it increases the need for visible current and thermal assumptions.
+
+Future V6 should record:
+
+```text
+dc_ac_ratio
 string_current
 short_circuit_current
-string_fuse_or_no_fuse_basis
-mppt_pairing_basis
+mppt_current_limit
 connector_rating_status
-dc_arc_detection_status
+dc_cable_thermal_status
+string_monitoring_status
 ```
 
 ## Insulation coordination
@@ -52,6 +71,8 @@ insulation_margin_status
 
 Surge protection must be visible on DC, LV AC, MV and grid interfaces where relevant.
 
+A single SPD symbol at one layer does not prove coordinated surge protection across the system.
+
 Future fields:
 
 ```text
@@ -66,6 +87,10 @@ coordination_status
 ```
 
 ## Arc energy
+
+Arc energy must be visible before claiming safe operation.
+
+This does not mean V6 performs a formal arc flash study. It means V6 should show whether the required arc related assumptions and studies exist.
 
 Future V6 should distinguish:
 
@@ -129,6 +154,29 @@ filter_requirement_status
 inverter_grid_code_mode
 ```
 
+## Safe wording
+
+Use risk visibility language:
+
+```text
+status unknown
+assumption missing
+study required
+review required
+source required
+formal design required
+```
+
+Avoid unsupported conclusions:
+
+```text
+This design is non compliant.
+The cables are definitely undersized.
+The transformer failure was caused by a specific event.
+The protection grading is definitely wrong.
+The fire strategy is inadequate.
+```
+
 ## Avoid
 
 ```text
@@ -137,4 +185,5 @@ Do not assume unity power factor unless explicitly stated.
 Do not assume cable voltage rating is valid without earthing basis.
 Do not assume surge protection exists because equipment has an AC SPD.
 Do not treat long MV feeders as low risk lines.
+Do not turn evidence gaps into final engineering conclusions.
 ```

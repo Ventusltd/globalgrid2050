@@ -1,0 +1,32 @@
+name: V6 Migrate From V5
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create V6 separated application workspace
+        run: python scripts/v6_migrate_from_v5.py
+
+      - name: Commit and push V6 migration
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add solar-bess-topology-v6 scripts/v6_migrate_from_v5.py gridbot_reports/v6_migration_from_v5.md
+          if git diff --cached --quiet; then
+            echo "No V6 migration changes to commit."
+            exit 0
+          fi
+          git commit -m "Create V6 separated app workspace from V5"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main

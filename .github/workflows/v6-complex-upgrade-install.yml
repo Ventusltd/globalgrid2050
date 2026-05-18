@@ -68,10 +68,12 @@ jobs:
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
 
-          git add gridbot_reports
+          git pull --rebase origin main
+          git add gridbot_reports solar-bess-topology-v6
 
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "V6 complex upgrade install: ${{ github.event.inputs.upgrade_id }}"
+            git pull --rebase origin main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"

@@ -3,6 +3,30 @@
 // MAP
 // ============================================================
 let map = null;
+const atlasV8GridLayerVisibility = {
+    "66kv": true,
+    "132kv": true,
+    "275kv": true,
+    "400kv": true
+};
+
+const atlasV8GridLayerIds = {
+    "66kv": "atlas-v8-grid-66kv-line",
+    "132kv": "atlas-v8-grid-132kv-line",
+    "275kv": "atlas-v8-grid-275kv-line",
+    "400kv": "atlas-v8-grid-400kv-line"
+};
+
+function toggleAtlasV8GridLayer(voltageKey) {
+    if (!atlasV8GridLayerIds[voltageKey]) return;
+    atlasV8GridLayerVisibility[voltageKey] = !atlasV8GridLayerVisibility[voltageKey];
+    const layerId = atlasV8GridLayerIds[voltageKey];
+    if (map && map.getLayer(layerId)) {
+        map.setLayoutProperty(layerId, "visibility", atlasV8GridLayerVisibility[voltageKey] ? "visible" : "none");
+    }
+    updateLegend();
+}
+
 
 function initMap() {
     if (typeof maplibregl === "undefined") {
@@ -37,6 +61,22 @@ function onMapLoad() {
 // Atlas V8 transmission visibility layers
 // These layers are read from the existing Atlas V8 data folder.
 // They are visual context only and do not imply confirmed grid headroom.
+map.addSource("atlas-v8-grid-66kv", {
+    type: "geojson",
+    data: "../../repd_grid_atlasv8/data/grid_66kv.geojson"
+});
+map.addLayer({
+    id: "atlas-v8-grid-66kv-line",
+    type: "line",
+    source: "atlas-v8-grid-66kv",
+    layout: { visibility: atlasV8GridLayerVisibility["66kv"] ? "visible" : "none" },
+    paint: {
+        "line-color": "#66ff66",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 5, 0.8, 10, 1.4, 14, 2.4],
+        "line-opacity": 0.62
+    }
+});
+
 map.addSource("atlas-v8-grid-132kv", {
     type: "geojson",
     data: "../../repd_grid_atlasv8/data/grid_132kv.geojson"
@@ -45,11 +85,27 @@ map.addLayer({
     id: "atlas-v8-grid-132kv-line",
     type: "line",
     source: "atlas-v8-grid-132kv",
-    layout: { visibility: "visible" },
+    layout: { visibility: atlasV8GridLayerVisibility["132kv"] ? "visible" : "none" },
     paint: {
         "line-color": "#ffcc00",
         "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.0, 10, 1.8, 14, 3.0],
         "line-opacity": 0.72
+    }
+});
+
+map.addSource("atlas-v8-grid-275kv", {
+    type: "geojson",
+    data: "../../repd_grid_atlasv8/data/grid_275kv.geojson"
+});
+map.addLayer({
+    id: "atlas-v8-grid-275kv-line",
+    type: "line",
+    source: "atlas-v8-grid-275kv",
+    layout: { visibility: atlasV8GridLayerVisibility["275kv"] ? "visible" : "none" },
+    paint: {
+        "line-color": "#ff66ff",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.3, 10, 2.4, 14, 3.7],
+        "line-opacity": 0.76
     }
 });
 
@@ -61,13 +117,14 @@ map.addLayer({
     id: "atlas-v8-grid-400kv-line",
     type: "line",
     source: "atlas-v8-grid-400kv",
-    layout: { visibility: "visible" },
+    layout: { visibility: atlasV8GridLayerVisibility["400kv"] ? "visible" : "none" },
     paint: {
         "line-color": "#ff3333",
         "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.6, 10, 2.8, 14, 4.2],
         "line-opacity": 0.82
     }
 });
+
 
 
     map.addSource("src-subs", { type: "geojson", data: { type: "FeatureCollection", features: [] } });

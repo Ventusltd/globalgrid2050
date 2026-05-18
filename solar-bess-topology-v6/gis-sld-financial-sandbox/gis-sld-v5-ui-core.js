@@ -80,13 +80,22 @@ const recalcDebounced = debounce(recalcAll, CONSTANTS.RECALC_DEBOUNCE_MS);
 // ============================================================
 // LEGEND
 // ============================================================
+function atlasV8LegendItem(voltageKey, label, colour, widthPx) {
+    const visible = atlasV8GridLayerVisibility?.[voltageKey] !== false;
+    const opacity = visible ? "1" : "0.35";
+    const suffix = visible ? "" : " OFF";
+    return `<div class="legend-item" onclick="toggleAtlasV8GridLayer('${voltageKey}')" style="cursor:pointer; opacity:${opacity};" title="Tap to toggle ${label}"><div class="swatch" style="background:transparent; border-bottom: ${widthPx}px solid ${colour};"></div> ${label}${suffix}</div>`;
+}
 function updateLegend() {
     const legend = $("map_legend");
     if (!legend) return;
     let html = `
 <div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>
-        <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px solid #ffcc00;"></div> Atlas V8 132 kV Lines</div>
-        <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 3px solid #ff3333;"></div> Atlas V8 400 kV Lines</div>
+        ${atlasV8LegendItem("66kv", "Atlas V8 66 kV Lines", "#66ff66", 2)}
+        ${atlasV8LegendItem("132kv", "Atlas V8 132 kV Lines", "#ffcc00", 2)}
+        ${atlasV8LegendItem("275kv", "Atlas V8 275 kV Lines", "#ff66ff", 3)}
+        ${atlasV8LegendItem("400kv", "Atlas V8 400 kV Lines", "#ff3333", 3)}
+
 
         <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Point of Interconnection</div>
         <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px dashed var(--substation);"></div> Export Cable</div>

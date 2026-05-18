@@ -1,0 +1,109 @@
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+OUT = ROOT / "dc-ac-lv-topology-review-v5.css"
+
+CSS = ''':root {
+    --topo-bg: #020202;
+    --topo-cyan: #00ffff;
+    --topo-orange: #ff9900;
+    --topo-green: #00ff88;
+    --topo-red: #ff3333;
+}
+
+.topo-app-shell { background: #050505; }
+.topo-header-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.topo-main { grid-template-columns: 390px minmax(0, 1fr); }
+.topo-panel { max-height: calc(100vh - 150px); }
+
+.topo-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.topo-tab {
+    border: 1px solid var(--module-border);
+    background: #080808;
+    color: var(--module-muted);
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.topo-tab.active {
+    color: var(--topo-cyan);
+    border-color: var(--topo-cyan);
+    background: rgba(0, 255, 255, 0.08);
+}
+
+.topo-mode { display: none; }
+.topo-mode.active { display: block; }
+
+.topo-scada-card {
+    position: relative;
+    border: 1px solid var(--module-border);
+    background: #020202;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: calc(100vh - 150px);
+    box-shadow: inset 0 0 80px rgba(0, 255, 255, 0.04);
+}
+
+.topo-scada-title {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    z-index: 2;
+    color: var(--topo-green);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+#topo_scada {
+    width: 100%;
+    height: calc(100vh - 190px);
+    min-height: 660px;
+    display: block;
+    background: radial-gradient(circle at center, rgba(0,255,255,0.05), #020202 55%);
+}
+
+.topo-scada-footer {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--module-muted);
+    font-size: 11px;
+}
+
+.scada-box { fill: #060606; stroke: #00ffff; stroke-width: 2; rx: 8; }
+.scada-box.orange { stroke: #ff9900; }
+.scada-box.green { stroke: #00ff88; }
+.scada-box.red { stroke: #ff3333; }
+.scada-line { stroke: #00ffff; stroke-width: 3; fill: none; }
+.scada-line.orange { stroke: #ff9900; }
+.scada-line.green { stroke: #00ff88; }
+.scada-line.red { stroke: #ff3333; }
+.scada-text { fill: #ffffff; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 18px; }
+.scada-small { fill: #a6adbb; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; }
+.scada-value { fill: #00ff88; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 15px; }
+.scada-warning { fill: #ff9900; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 14px; }
+
+@media (max-width: 900px) {
+    .topo-main { grid-template-columns: 1fr; }
+    .topo-scada-card { min-height: 680px; }
+    #topo_scada { height: 680px; min-height: 680px; }
+}
+'''
+
+OUT.write_text(CSS, encoding="utf-8")
+print(f"Wrote {OUT}")

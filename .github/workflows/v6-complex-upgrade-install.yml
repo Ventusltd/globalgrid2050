@@ -1,0 +1,78 @@
+name: V6 Complex Upgrade Install
+
+on:
+  workflow_dispatch:
+    inputs:
+      upgrade_id:
+        description: Upgrade folder name under solar-bess-topology-v6/upgrades/
+        required: true
+        default: ""
+      target_app:
+        description: Approved V6 target app
+        required: true
+        type: choice
+        options:
+          - gis-sld-financial-sandbox
+          - module-layout
+          - dc-ac-lv-topology-review
+          - cable-geometry-visualiser
+          - launcher
+          - docs
+        default: cable-geometry-visualiser
+      dry_run:
+        description: Validate and report only
+        required: true
+        type: boolean
+        default: true
+      commit_changes:
+        description: Commit generated report and any approved future changes
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  v6-complex-upgrade-install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Validate V6 upgrade manifest and write report
+        run: |
+          python scripts/v6_complex_upgrade_installer.py \
+            --upgrade-id "${{ github.event.inputs.upgrade_id }}" \
+            --target-app "${{ github.event.inputs.target_app }}" \
+            --dry-run "${{ github.event.inputs.dry_run }}"
+
+      - name: Commit and push changes if requested
+        if: ${{ github.event.inputs.commit_changes == 'true' }}
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git add gridbot_reports
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "V6 complex upgrade install: ${{ github.event.inputs.upgrade_id }}"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

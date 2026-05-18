@@ -1,0 +1,80 @@
+training_folder: solar-bess-topology-v6/docs/training
+public_homepage_link: false
+confidentiality_rule: >
+  Do not include project names, client names, site names, contractor names,
+  supplier names, consultant names or confidential source document titles.
+  Convert source material into generic engineering lessons only.
+
+governing_rule:
+  - Geometry first
+  - Assumptions second
+  - Screening third
+  - Formal design only when verified
+
+v6_modules:
+  cable_geometry_visualiser:
+    path: solar-bess-topology-v6/cable-geometry-visualiser
+    relevant_training:
+      - 01_cable_route_assumptions.md
+      - 02_sld_topology_validation.md
+      - 04_electrical_risk_controls.md
+    future_feature_priority:
+      - V6 cable route assumption schema phase 1
+      - Export missing assumption flags
+      - Add thermal and protection placeholder status
+    do_not:
+      - claim cable rating
+      - claim compliance
+      - add IEC thermal calculation before assumptions are stable
+
+  gis_sld_financial_sandbox:
+    path: solar-bess-topology-v6/gis-sld-financial-sandbox
+    relevant_training:
+      - 02_sld_topology_validation.md
+      - 03_bess_grid_resilience.md
+      - 04_electrical_risk_controls.md
+    future_feature_priority:
+      - Electrical topology validation phase 1
+      - Feeder load aggregation
+      - Transformer and inverter count cross checks
+      - BESS availability and redundancy visibility
+    do_not:
+      - allow manual totals to override child object totals
+      - treat SLD symbols as electrical validity
+      - hide temperature rating basis
+
+  dc_ac_lv_topology_review:
+    path: solar-bess-topology-v6/dc-ac-lv-topology-review
+    relevant_training:
+      - 02_sld_topology_validation.md
+      - 04_electrical_risk_controls.md
+    future_feature_priority:
+      - DC string voltage check placeholders
+      - LV AC insulation coordination placeholders
+      - Inverter feeder and protection status fields
+      - Harmonic and reactive power assumption fields
+    do_not:
+      - assume unity power factor without explicit basis
+      - assume cable voltage rating is valid without earthing basis
+      - draw protection without protection data
+
+  module_layout:
+    path: solar-bess-topology-v6/module-layout
+    relevant_training:
+      - 02_sld_topology_validation.md
+    future_feature_priority:
+      - Link module count to SLD hierarchy later
+      - Track module rating and mixed module flag later
+      - Preserve physical layout as visual assumption level
+    do_not:
+      - treat physical module layout as verified electrical design
+      - mix module geometry with full SLD logic too early
+
+future_training_expansion:
+  - employer_requirements_delivery_logic
+  - commissioning_and_acceptance_logic
+  - formal_testing_status_logic
+
+current_recommendation: >
+  Work on the tool first. Keep training modules short and generic.
+  Do not encode contractual delivery logic until the V6 electrical layers are ready.

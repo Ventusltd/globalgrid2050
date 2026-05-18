@@ -152,6 +152,7 @@
 │   ├── v5_geometry_visualiser_migration.md
 │   ├── v5_js_filename_repair.md
 │   ├── v5_skid_mva_controls_upgrade.md
+│   ├── v6_cable_geometry_modularisation_phase_1.md
 │   ├── v6_migration_from_v5.md
 │   └── v6_sanity_label_fix.md
 ├── heavy_emitters_uk.json
@@ -597,7 +598,13 @@
 ├── solar-bess-topology-v6
 │   ├── README.md
 │   ├── cable-geometry-visualiser
-│   │   └── index.html
+│   │   ├── calculations.js
+│   │   ├── data.js
+│   │   ├── export.js
+│   │   ├── index.html
+│   │   ├── rendering.js
+│   │   ├── style.css
+│   │   └── ui.js
 │   ├── dc-ac-lv-topology-review
 │   │   ├── dc-ac-lv-topology-review-v5.css
 │   │   ├── dc-ac-lv-topology-review-v5.js
@@ -673,4 +680,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-83 directories, 591 files
+83 directories, 598 files

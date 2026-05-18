@@ -10,7 +10,6 @@ const state = {
     activeDrawCenter: null,
     selectedSubstation: null,
     subsVisible: true,
-    transmissionVisible: true,
     satActive: false,
     activePopup: null,
     lastStats: null,

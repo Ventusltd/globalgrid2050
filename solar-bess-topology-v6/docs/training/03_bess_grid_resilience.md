@@ -13,6 +13,10 @@ solar-bess-topology-v6/gis-sld-financial-sandbox/
 solar-bess-topology-v6/dc-ac-lv-topology-review/
 ```
 
+## Governing visibility rule
+
+Treat voltage margin, insulation basis, protection zones, surge protection, transformer dependency, grid service availability, BESS fire access and commissioning status as visibility layers before topology, capacity or financial outputs are treated as reliable.
+
 ## BESS is a grid service object
 
 Future V6 should distinguish:
@@ -28,9 +32,9 @@ black_start_or_support_role
 constraint_management_role
 ```
 
-## Redundancy must be explicit
+## Redundancy must be calculated
 
-Large BESS projects may be designed around minimum deliverable grid support even after one equipment failure.
+Redundancy claims must be calculated, not merely stated.
 
 Future fields:
 
@@ -42,6 +46,8 @@ redundancy_margin_mw
 redundancy_margin_mwh
 single_failure_tolerated
 multiple_failure_status
+remaining_power_after_outage_mw
+remaining_energy_after_outage_mwh
 ```
 
 ## Transformer dependency
@@ -58,11 +64,14 @@ mv_transformer_rating_mva
 transformer_outage_case
 remaining_export_capacity
 transformer_failure_mode_review
+commissioning_hold_point_status
 ```
 
 ## PCS and controller integration
 
 BESS behaviour depends on PCS, EMS, PPC and grid operator signals.
+
+PCS and PPC integration status must be visible before grid service capability is treated as reliable.
 
 Future fields:
 
@@ -77,11 +86,14 @@ ppc_present
 response_time_requirement
 control_signal_source
 integration_test_status
+compliance_test_status
 ```
 
 ## Fire and access layer
 
 BESS layout should carry safety and access assumptions.
+
+Fire access and emergency response belong in the system model.
 
 Future fields:
 
@@ -130,9 +142,9 @@ commissioning_hold_point_status
 
 ## Commercial risk link
 
-A grid support BESS can lose value if equipment outage prevents guaranteed output.
+Grid service obligations must link to technical availability.
 
-Future V6 financial logic should eventually link:
+Future V6 financial logic should eventually connect:
 
 ```text
 available_power
@@ -143,6 +155,29 @@ revenue_at_risk
 liquidated_damage_or_penalty_flag
 ```
 
+## Safe wording
+
+Use risk visibility language:
+
+```text
+status unknown
+assumption missing
+study required
+review required
+source required
+formal design required
+outage case required
+```
+
+Avoid unsupported conclusions:
+
+```text
+The transformer failure was caused by a specific event.
+The cables are definitely undersized.
+The protection grading is definitely wrong.
+The fire strategy is inadequate.
+```
+
 ## Avoid
 
 ```text
@@ -151,4 +186,5 @@ Do not hide transformer dependency.
 Do not hide PCS and control dependency.
 Do not ignore fire access and emergency planning.
 Do not treat redundancy claims as valid unless the remaining capacity is calculated.
+Do not turn evidence gaps into final engineering conclusions.
 ```

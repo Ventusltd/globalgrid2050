@@ -1,6 +1,6 @@
 "use strict";
 
-// GIS SLD Financial Sandbox V5
+// GIS SLD Financial Sandbox V6
 // Config extracted by GridBot feature 002.
 // TODO: migrate config into the shared GISSLD namespace at feature 007.
 

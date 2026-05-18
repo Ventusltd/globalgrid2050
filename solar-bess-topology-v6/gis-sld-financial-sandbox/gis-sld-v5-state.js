@@ -1,6 +1,6 @@
 "use strict";
 
-// GIS SLD Financial Sandbox V5
+// GIS SLD Financial Sandbox V6
 // State extracted by GridBot feature 004.
 // Must load after config and helpers, and before the inline app script.
 

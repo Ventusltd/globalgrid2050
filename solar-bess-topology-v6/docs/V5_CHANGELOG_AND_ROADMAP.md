@@ -1,4 +1,4 @@
-# GlobalGrid2050 V5 Change Record and Roadmap
+# GlobalGrid2050 V6 Change Record and Roadmap
 
 UTC created: 2026-05-17T15:58:06.671160+00:00
 

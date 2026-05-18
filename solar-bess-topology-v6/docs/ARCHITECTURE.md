@@ -1,4 +1,4 @@
-# GlobalGrid2050 V5 Application Architecture
+# GlobalGrid2050 V6 Application Architecture
 
 This file documents the current V5 architecture for the app served from:
 
@@ -19,7 +19,7 @@ solar-bess-topology-v5/
 |   Redirects browser users to indexforgis-sld-v5.html
 |
 |-- indexforgis-sld-v5.html
-|   Main GIS SLD Financial Sandbox V5
+|   Main GIS SLD Financial Sandbox V6
 |   Used for grid node selection, solar and BESS layout, export cable routing, array rotation and finance screening
 |
 |-- module-layout-v5.html

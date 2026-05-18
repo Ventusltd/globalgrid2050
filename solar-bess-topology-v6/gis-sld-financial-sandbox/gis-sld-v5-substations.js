@@ -1,6 +1,6 @@
 "use strict";
 
-// GIS SLD Financial Sandbox V5
+// GIS SLD Financial Sandbox V6
 // Substation data loading extracted by GridBot feature 005.
 // Must load after config, helpers and state, and before the inline app script.
 

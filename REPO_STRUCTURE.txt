@@ -151,7 +151,8 @@
 │   ├── v5_engineering_clarity_upgrade.md
 │   ├── v5_geometry_visualiser_migration.md
 │   ├── v5_js_filename_repair.md
-│   └── v5_skid_mva_controls_upgrade.md
+│   ├── v5_skid_mva_controls_upgrade.md
+│   └── v6_migration_from_v5.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -496,7 +497,8 @@
 │   ├── update_prices_lv.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
-│   └── v6_migrate_from_v5.py
+│   ├── v6_migrate_from_v5.py
+│   └── v6_sanity_label_fix.py
 ├── sld_single_diagrams_diagrams_and_grids
 │   └── index.md
 ├── solar-bess-topology
@@ -590,6 +592,48 @@
 │   ├── module-layout-v5.css
 │   ├── module-layout-v5.html
 │   └── module-layout-v5.js
+├── solar-bess-topology-v6
+│   ├── README.md
+│   ├── cable-geometry-visualiser
+│   │   └── index.html
+│   ├── dc-ac-lv-topology-review
+│   │   ├── dc-ac-lv-topology-review-v5.css
+│   │   ├── dc-ac-lv-topology-review-v5.js
+│   │   ├── gis-sld-v5.css
+│   │   ├── index.html
+│   │   └── module-layout-v5.css
+│   ├── docs
+│   │   ├── ARCHITECTURE.md
+│   │   └── V5_CHANGELOG_AND_ROADMAP.md
+│   ├── gis-sld-financial-sandbox
+│   │   ├── gis-sld-v5-calculations.js
+│   │   ├── gis-sld-v5-config.js
+│   │   ├── gis-sld-v5-drawing.js
+│   │   ├── gis-sld-v5-export.js
+│   │   ├── gis-sld-v5-finance.js
+│   │   ├── gis-sld-v5-helpers.js
+│   │   ├── gis-sld-v5-map.js
+│   │   ├── gis-sld-v5-state.js
+│   │   ├── gis-sld-v5-substations.js
+│   │   ├── gis-sld-v5-ui-core.js
+│   │   ├── gis-sld-v5-ui.js
+│   │   ├── gis-sld-v5.css
+│   │   └── index.html
+│   ├── index.html
+│   ├── module-layout
+│   │   ├── gis-sld-v5-config.js
+│   │   ├── gis-sld-v5-helpers.js
+│   │   ├── gis-sld-v5.css
+│   │   ├── index.html
+│   │   ├── module-layout-v5.css
+│   │   └── module-layout-v5.js
+│   └── tools
+│       └── legacy-v5-installers
+│           ├── install_dc_ac_lv_01_html.py
+│           ├── install_dc_ac_lv_02_css.py
+│           ├── install_dc_ac_lv_03_js.py
+│           ├── install_dc_ac_lv_04_link.py
+│           └── install_geometry_visualiser_migration_v5.py
 ├── solar_components
 │   └── index.md
 ├── solar_deployment_statistics
@@ -627,4 +671,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-75 directories, 553 files
+83 directories, 589 files

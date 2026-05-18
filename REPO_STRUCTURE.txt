@@ -154,6 +154,7 @@
 │   ├── v5_skid_mva_controls_upgrade.md
 │   ├── v6_cable_geometry_modularisation_phase_1.md
 │   ├── v6_complex_upgrade_002_gis_sld_atlas_v8_132_400kv_layers_20260518_233553.md
+│   ├── v6_complex_upgrade_003_gis_sld_atlas_v8_voltage_layer_toggles_20260518_234758.md
 │   ├── v6_migration_from_v5.md
 │   └── v6_sanity_label_fix.md
 ├── heavy_emitters_uk.json
@@ -659,6 +660,8 @@
 │       │   └── manifest.yml
 │       ├── 002_gis_sld_atlas_v8_132_400kv_layers
 │       │   └── manifest.yml
+│       ├── 003_gis_sld_atlas_v8_voltage_layer_toggles
+│       │   └── manifest.yml
 │       └── ACTIVE_UPGRADE.yml
 ├── solar_components
 │   └── index.md
@@ -697,4 +700,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-88 directories, 610 files
+89 directories, 612 files

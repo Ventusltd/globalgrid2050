@@ -6,29 +6,6 @@
 
 const SUBSTATIONS_URL = "/grid_substations.geojson";
 
-// Borrowed live reference paths from repd_grid_atlasv8 without duplicating datasets.
-// These layers are public GIS screening references only and do not confirm capacity, outage availability or connection rights.
-const TRANSMISSION_GRID_LAYERS = [
-    {
-        id: "400kv",
-        label: "400kV Transmission",
-        sourceId: "src-grid-400kv",
-        layerId: "l-grid-400kv",
-        url: "/repd_grid_atlasv8/data/grid_400kv.geojson",
-        color: "#0054ff",
-        width: 2.8
-    },
-    {
-        id: "132kv",
-        label: "132kV Transmission",
-        sourceId: "src-grid-132kv",
-        layerId: "l-grid-132kv",
-        url: "/repd_grid_atlasv8/data/grid_132kv.geojson",
-        color: "#00cc00",
-        width: 2.0
-    }
-];
-
 const CONSTANTS = {
     M2_PER_ACRE: 4046.86,
     BESS_M2_PER_MWH: 85,

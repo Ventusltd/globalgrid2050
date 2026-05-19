@@ -509,6 +509,7 @@
 │   ├── v6_complex_upgrade_installer.py
 │   ├── v6_migrate_from_v5.py
 │   ├── v6_sanity_label_fix.py
+│   ├── v7_add_atlas_v8_dashboard_link.py
 │   └── v7_migrate_from_v6.py
 ├── sld_single_diagrams_diagrams_and_grids
 │   └── index.md
@@ -798,4 +799,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 684 files
+115 directories, 685 files

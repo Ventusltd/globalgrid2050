@@ -509,6 +509,7 @@
 │   ├── gridbot_feature_installer.py
 │   ├── modularise_v6_cable_geometry.py
 │   ├── modularize_v3.py
+│   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
 │   ├── remove_project_x_from_v6_v7_gis_sld.py
 │   ├── repd_updater.py
 │   ├── requirements.txt
@@ -811,4 +812,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 697 files
+115 directories, 698 files

@@ -1,0 +1,45 @@
+name: V7 Add Atlas V8 Dashboard Link
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  add-atlas-link:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Add Atlas V8 card to V7 dashboard
+        run: python scripts/v7_add_atlas_v8_dashboard_link.py
+
+      - name: Commit and push V7 dashboard update
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git pull --rebase --autostash origin main
+          git add solar-bess-topology-v7/index.html scripts/v7_add_atlas_v8_dashboard_link.py gridbot_reports/v7_add_atlas_v8_dashboard_link.md
+
+          if git diff --cached --quiet; then
+            echo "No V7 dashboard changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Add Atlas V8 link to V7 dashboard"
+          git pull --rebase --autostash origin main
+          git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main

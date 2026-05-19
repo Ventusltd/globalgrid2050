@@ -1,0 +1,55 @@
+name: Fix V6 V7 GIS SLD Print Simple Safe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-print-simple-safe:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fix GIS SLD print simple safe
+        run: python scripts/fix_v6_v7_gis_sld_print_simple_safe.py
+
+      - name: Commit and push simple safe print fix
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git pull --rebase --autostash origin main
+          git add \
+            solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-state.js \
+            solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-map.js \
+            solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js \
+            solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css \
+            solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-state.js \
+            solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-map.js \
+            solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-ui.js \
+            solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5.css \
+            scripts/fix_v6_v7_gis_sld_print_simple_safe.py \
+            gridbot_reports/fix_v6_v7_gis_sld_print_simple_safe.md
+
+          if git diff --cached --quiet; then
+            echo "No simple safe print fix changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Fix GIS SLD print with simple safe mode"
+          git pull --rebase --autostash origin main
+          git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main

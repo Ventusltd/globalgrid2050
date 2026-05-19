@@ -408,6 +408,34 @@ function toggleKeyCollapse() {
         btn.classList.toggle("active", !hidden);
     }
 }
+function toggleMapToolsOverlay() {
+    const overlay = $("map_tool_overlay");
+    const btn = $("btn_map_tools_toggle");
+    if (!overlay || !btn) return;
+    const collapsed = !overlay.classList.contains("tools-collapsed");
+    overlay.classList.toggle("tools-collapsed", collapsed);
+    btn.textContent = collapsed ? "TOOLS OFF" : "TOOLS ON";
+    btn.classList.toggle("active", !collapsed);
+}
+
+function wireMapToolOverlayButtons() {
+    $("btn_map_tools_toggle")?.addEventListener("click", toggleMapToolsOverlay);
+    $("btn_map_draw")?.addEventListener("click", triggerDrawAtCenter);
+    $("btn_map_pick_array")?.addEventListener("click", toggleArrayMoveMode);
+    $("btn_map_drop_pins")?.addEventListener("click", toggleCablePinMode);
+    $("btn_map_draw_route")?.addEventListener("click", commitCablePinRoute);
+    $("btn_map_rotate_left")?.addEventListener("click", () => rotateArrayBy(-30));
+    $("btn_map_rotate_right")?.addEventListener("click", () => rotateArrayBy(30));
+    $("btn_map_rotate_90")?.addEventListener("click", () => rotateArrayBy(90));
+    $("btn_map_reset_rotation")?.addEventListener("click", resetArrayRotation);
+    $("btn_map_reset_array")?.addEventListener("click", resetArrayLocation);
+    $("btn_map_nudge_up")?.addEventListener("click", () => nudgeArray(0));
+    $("btn_map_nudge_right")?.addEventListener("click", () => nudgeArray(90));
+    $("btn_map_nudge_down")?.addEventListener("click", () => nudgeArray(180));
+    $("btn_map_nudge_left")?.addEventListener("click", () => nudgeArray(270));
+    $("btn_map_undo_pin")?.addEventListener("click", undoCablePin);
+    $("btn_map_clear_route")?.addEventListener("click", clearCableRoute);
+}
 // ============================================================
 // WIRE EVERYTHING UP
 // ============================================================
@@ -425,6 +453,8 @@ function wireEvents() {
 wireAtlasV8GridToggleButtons();
 $("btn_map_expand")?.addEventListener("click", toggleMapExpand);
 $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
+wireMapToolOverlayButtons();
+
 
 
 

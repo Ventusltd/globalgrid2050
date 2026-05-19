@@ -426,6 +426,30 @@
     </div>
 
     <div class="crosshair">⌖</div>
+<div class="map-tool-overlay" id="map_tool_overlay">
+    <div class="map-toggle-row">
+        <button id="btn_map_tools_toggle" class="map-toggle-btn active">TOOLS ON</button>
+        <button id="btn_map_draw" class="map-toggle-btn">DRAW</button>
+        <button id="btn_map_pick_array" class="map-toggle-btn">PICK ARRAY</button>
+        <button id="btn_map_drop_pins" class="map-toggle-btn">DROP PINS</button>
+        <button id="btn_map_draw_route" class="map-toggle-btn">DRAW ROUTE</button>
+    </div>
+    <div class="map-toggle-row map-tool-row-secondary">
+        <button id="btn_map_rotate_left" class="map-toggle-btn">ROT -30</button>
+        <button id="btn_map_rotate_right" class="map-toggle-btn">ROT +30</button>
+        <button id="btn_map_rotate_90" class="map-toggle-btn">ROT +90</button>
+        <button id="btn_map_nudge_up" class="map-toggle-btn">↑</button>
+        <button id="btn_map_nudge_left" class="map-toggle-btn">←</button>
+        <button id="btn_map_nudge_right" class="map-toggle-btn">→</button>
+        <button id="btn_map_nudge_down" class="map-toggle-btn">↓</button>
+    </div>
+    <div class="map-toggle-row map-tool-row-secondary">
+        <button id="btn_map_undo_pin" class="map-toggle-btn">UNDO PIN</button>
+        <button id="btn_map_clear_route" class="map-toggle-btn">CLEAR ROUTE</button>
+        <button id="btn_map_reset_rotation" class="map-toggle-btn">RESET ROT</button>
+        <button id="btn_map_reset_array" class="map-toggle-btn">RESET ARRAY</button>
+    </div>
+</div>
     <div id="map"></div>
     <div class="legend" id="map_legend"></div>
 </div>

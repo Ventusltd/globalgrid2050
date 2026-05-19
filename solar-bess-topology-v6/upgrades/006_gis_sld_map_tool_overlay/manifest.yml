@@ -1,0 +1,130 @@
+upgrade_id: 006_gis_sld_map_tool_overlay
+target_app: gis-sld-financial-sandbox
+description: Add collapsible map overlay tools for draw, cable route pins, array movement and rotation using existing functions.
+allowed_paths:
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+operations:
+  - type: insert_after
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    marker: |
+      </div>
+          </div>
+      
+          <div class="crosshair">⌖</div>
+    insert: |
+          <div class="map-tool-overlay" id="map_tool_overlay">
+              <div class="map-toggle-row">
+                  <button id="btn_map_tools_toggle" class="map-toggle-btn active">TOOLS ON</button>
+                  <button id="btn_map_draw" class="map-toggle-btn">DRAW</button>
+                  <button id="btn_map_pick_array" class="map-toggle-btn">PICK ARRAY</button>
+                  <button id="btn_map_drop_pins" class="map-toggle-btn">DROP PINS</button>
+                  <button id="btn_map_draw_route" class="map-toggle-btn">DRAW ROUTE</button>
+              </div>
+              <div class="map-toggle-row map-tool-row-secondary">
+                  <button id="btn_map_rotate_left" class="map-toggle-btn">ROT -30</button>
+                  <button id="btn_map_rotate_right" class="map-toggle-btn">ROT +30</button>
+                  <button id="btn_map_rotate_90" class="map-toggle-btn">ROT +90</button>
+                  <button id="btn_map_nudge_up" class="map-toggle-btn">↑</button>
+                  <button id="btn_map_nudge_left" class="map-toggle-btn">←</button>
+                  <button id="btn_map_nudge_right" class="map-toggle-btn">→</button>
+                  <button id="btn_map_nudge_down" class="map-toggle-btn">↓</button>
+              </div>
+              <div class="map-toggle-row map-tool-row-secondary">
+                  <button id="btn_map_undo_pin" class="map-toggle-btn">UNDO PIN</button>
+                  <button id="btn_map_clear_route" class="map-toggle-btn">CLEAR ROUTE</button>
+                  <button id="btn_map_reset_rotation" class="map-toggle-btn">RESET ROT</button>
+                  <button id="btn_map_reset_array" class="map-toggle-btn">RESET ARRAY</button>
+              </div>
+          </div>
+
+  - type: insert_before
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+    marker: '/* Map Elements */'
+    insert: |
+      .map-tool-overlay {
+        position: absolute;
+        top: 110px;
+        right: 10px;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-end;
+        max-width: 520px;
+      }
+
+      .map-tool-overlay.tools-collapsed .map-tool-row-secondary,
+      .map-tool-overlay.tools-collapsed button:not(#btn_map_tools_toggle) {
+        display: none;
+      }
+
+      .map-tool-row-secondary .map-toggle-btn {
+        font-size: 10px;
+        padding: 5px 7px;
+      }
+
+      @media (max-width: 900px) {
+        .map-tool-overlay {
+          left: 10px;
+          right: 10px;
+          top: 118px;
+          max-width: none;
+        }
+      }
+
+  - type: insert_before
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    marker: |
+      // ============================================================
+      // WIRE EVERYTHING UP
+    insert: |
+      function toggleMapToolsOverlay() {
+          const overlay = $("map_tool_overlay");
+          const btn = $("btn_map_tools_toggle");
+          if (!overlay || !btn) return;
+          const collapsed = !overlay.classList.contains("tools-collapsed");
+          overlay.classList.toggle("tools-collapsed", collapsed);
+          btn.textContent = collapsed ? "TOOLS OFF" : "TOOLS ON";
+          btn.classList.toggle("active", !collapsed);
+      }
+
+      function wireMapToolOverlayButtons() {
+          $("btn_map_tools_toggle")?.addEventListener("click", toggleMapToolsOverlay);
+          $("btn_map_draw")?.addEventListener("click", triggerDrawAtCenter);
+          $("btn_map_pick_array")?.addEventListener("click", toggleArrayMoveMode);
+          $("btn_map_drop_pins")?.addEventListener("click", toggleCablePinMode);
+          $("btn_map_draw_route")?.addEventListener("click", commitCablePinRoute);
+          $("btn_map_rotate_left")?.addEventListener("click", () => rotateArrayBy(-30));
+          $("btn_map_rotate_right")?.addEventListener("click", () => rotateArrayBy(30));
+          $("btn_map_rotate_90")?.addEventListener("click", () => rotateArrayBy(90));
+          $("btn_map_reset_rotation")?.addEventListener("click", resetArrayRotation);
+          $("btn_map_reset_array")?.addEventListener("click", resetArrayLocation);
+          $("btn_map_nudge_up")?.addEventListener("click", () => nudgeArray(0));
+          $("btn_map_nudge_right")?.addEventListener("click", () => nudgeArray(90));
+          $("btn_map_nudge_down")?.addEventListener("click", () => nudgeArray(180));
+          $("btn_map_nudge_left")?.addEventListener("click", () => nudgeArray(270));
+          $("btn_map_undo_pin")?.addEventListener("click", undoCablePin);
+          $("btn_map_clear_route")?.addEventListener("click", clearCableRoute);
+      }
+
+  - type: insert_after
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    marker: '$("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);'
+    insert: |
+      
+          wireMapToolOverlayButtons();
+checks:
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    text: 'map_tool_overlay'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    text: 'btn_map_draw_route'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+    text: '.map-tool-overlay'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    text: 'wireMapToolOverlayButtons'

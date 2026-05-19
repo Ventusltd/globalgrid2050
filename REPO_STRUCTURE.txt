@@ -507,6 +507,7 @@
 │   ├── update_prices_lv.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
+│   ├── v6_add_atlas_v8_dashboard_link.py
 │   ├── v6_complex_upgrade_installer.py
 │   ├── v6_migrate_from_v5.py
 │   ├── v6_sanity_label_fix.py
@@ -800,4 +801,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 686 files
+115 directories, 687 files

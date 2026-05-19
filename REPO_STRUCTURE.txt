@@ -127,6 +127,7 @@
 │   ├── add_v6_v7_all_apps_a4_print_formatting.md
 │   ├── add_v6_v7_external_analysis_dashboard_links.md
 │   ├── add_v6_v7_print_v2_compact_report_mode.md
+│   ├── add_v6_v7_print_v3_financials_patch.md
 │   ├── gridbot_install_20260515_101208.md
 │   ├── gridbot_install_20260515_231448.md
 │   ├── gridbot_install_20260515_233241.md
@@ -478,6 +479,7 @@
 │   ├── add_v6_v7_all_apps_a4_print_formatting.py
 │   ├── add_v6_v7_external_analysis_dashboard_links.py
 │   ├── add_v6_v7_gis_sld_print_formatting.py
+│   ├── add_v6_v7_gis_sld_print_map_pack.py
 │   ├── add_v6_v7_print_v2_compact_report_mode.py
 │   ├── add_v6_v7_print_v3_financials_patch.py
 │   ├── clone_v3_to_v4.py
@@ -814,4 +816,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 700 files
+115 directories, 702 files

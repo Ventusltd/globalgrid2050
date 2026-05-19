@@ -105,5 +105,5 @@ checks:
     file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
     text: 'wireAtlasV8GridToggleButtons'
   - type: assert_contains
-    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-css
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
     text: '.map-controls'

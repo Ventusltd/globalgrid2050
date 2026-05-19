@@ -453,7 +453,7 @@ function wireEvents() {
 wireAtlasV8GridToggleButtons();
 $("btn_map_expand")?.addEventListener("click", toggleMapExpand);
 $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
-$("btn_print_report")?.addEventListener("click", () => window.print());
+$("btn_print_report")?.addEventListener("click", prepareGisSldPrintReport);
 wireMapToolOverlayButtons();
 
 
@@ -554,3 +554,227 @@ if (document.readyState === "loading") {
 } else {
     boot();
 }
+
+// GLOBALGRID2050 GIS SLD PRINT MAP PACK
+function sleepForPrintPack(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function setLayerVisibilityForPrintPack(layerId, visible) {
+    if (!map || !map.getLayer(layerId)) return;
+    map.setLayoutProperty(layerId, "visibility", visible ? "visible" : "none");
+}
+
+function setAtlasLayersDefaultOff() {
+    if (typeof atlasV8GridLayerVisibility === "undefined") return;
+    Object.keys(atlasV8GridLayerVisibility).forEach(voltageKey => {
+        atlasV8GridLayerVisibility[voltageKey] = false;
+        const layerId = atlasV8GridLayerIds?.[voltageKey];
+        if (layerId) setLayerVisibilityForPrintPack(layerId, false);
+    });
+    updateAtlasV8GridToggleButtons?.();
+    updateLegend?.();
+}
+
+function setSubsDefaultOff() {
+    if (typeof state === "undefined") return;
+    state.subsVisible = false;
+    setLayerVisibilityForPrintPack("l-subs", false);
+    updateSubsToggleButton?.();
+    updateLegend?.();
+}
+
+function enforceCleanDefaultMapLayers() {
+    setAtlasLayersDefaultOff();
+    setSubsDefaultOff();
+}
+
+function getMapPrintState() {
+    if (!map) return null;
+    return {
+        center: map.getCenter(),
+        zoom: map.getZoom(),
+        bearing: map.getBearing(),
+        pitch: map.getPitch(),
+        satActive: !!state.satActive,
+        subsVisible: !!state.subsVisible,
+        atlas: typeof atlasV8GridLayerVisibility !== "undefined" ? { ...atlasV8GridLayerVisibility } : {},
+        keyCollapsed: $("map_legend")?.classList.contains("key-collapsed") || false,
+        toolsCollapsed: $("map_tool_overlay")?.classList.contains("tools-collapsed") || false,
+        mapExpanded: document.body.classList.contains("map-expanded")
+    };
+}
+
+async function restoreMapPrintState(saved) {
+    if (!map || !saved) return;
+
+    if (typeof state !== "undefined") {
+        state.satActive = saved.satActive;
+        state.subsVisible = saved.subsVisible;
+    }
+
+    setLayerVisibilityForPrintPack("l-sat", saved.satActive);
+    setLayerVisibilityForPrintPack("l-subs", saved.subsVisible);
+
+    if (typeof atlasV8GridLayerVisibility !== "undefined") {
+        Object.keys(saved.atlas || {}).forEach(voltageKey => {
+            atlasV8GridLayerVisibility[voltageKey] = saved.atlas[voltageKey];
+            const layerId = atlasV8GridLayerIds?.[voltageKey];
+            if (layerId) setLayerVisibilityForPrintPack(layerId, saved.atlas[voltageKey]);
+        });
+    }
+
+    const legend = $("map_legend");
+    if (legend) legend.classList.toggle("key-collapsed", saved.keyCollapsed);
+    const keyBtn = $("btn_key_toggle");
+    if (keyBtn) {
+        keyBtn.textContent = saved.keyCollapsed ? "KEY OFF" : "KEY ON";
+        keyBtn.classList.toggle("active", !saved.keyCollapsed);
+    }
+
+    const overlay = $("map_tool_overlay");
+    if (overlay) overlay.classList.toggle("tools-collapsed", saved.toolsCollapsed);
+    const toolsBtn = $("btn_map_tools_toggle");
+    if (toolsBtn) {
+        toolsBtn.textContent = saved.toolsCollapsed ? "TOOLS OFF" : "TOOLS ON";
+        toolsBtn.classList.toggle("active", !saved.toolsCollapsed);
+    }
+
+    document.body.classList.toggle("map-expanded", saved.mapExpanded);
+    document.querySelector(".panel-right")?.classList.toggle("map-expanded", saved.mapExpanded);
+
+    map.jumpTo({ center: saved.center, zoom: saved.zoom, bearing: saved.bearing, pitch: saved.pitch });
+    updateSubsToggleButton?.();
+    updateAtlasV8GridToggleButtons?.();
+    updateLegend?.();
+    map.resize();
+    await sleepForPrintPack(350);
+}
+
+function ensurePrintMapPackContainer() {
+    let pack = document.getElementById("print_map_pack");
+    if (!pack) {
+        pack = document.createElement("section");
+        pack.id = "print_map_pack";
+        pack.className = "print-map-pack";
+        document.body.appendChild(pack);
+    }
+    pack.innerHTML = "";
+    return pack;
+}
+
+function addPrintMapFigure(pack, title, dataUrl, note, landscape = false) {
+    const page = document.createElement("section");
+    page.className = landscape ? "print-map-page print-map-page-landscape" : "print-map-page";
+
+    const heading = document.createElement("h2");
+    heading.textContent = title;
+
+    const img = document.createElement("img");
+    img.src = dataUrl;
+    img.alt = title;
+
+    const caption = document.createElement("p");
+    caption.textContent = note || "Map figure generated from current GIS SLD sandbox view. Indicative only.";
+
+    page.appendChild(heading);
+    page.appendChild(img);
+    page.appendChild(caption);
+    pack.appendChild(page);
+}
+
+async function captureCurrentMapForPrint() {
+    if (!map) return "";
+    map.resize();
+    await sleepForPrintPack(650);
+    return map.getCanvas().toDataURL("image/png");
+}
+
+function getTopologyBoundsForPrintPack() {
+    if (typeof turf === "undefined" || !state?.currentGeoJSON?.features?.length) return null;
+    try {
+        const bbox = turf.bbox(state.currentGeoJSON);
+        if (!bbox || bbox.length !== 4 || bbox.some(v => !Number.isFinite(v))) return null;
+        return [[bbox[0], bbox[1]], [bbox[2], bbox[3]]];
+    } catch (err) {
+        console.warn("Print pack bbox failed", err);
+        return null;
+    }
+}
+
+async function fitContextMapForPrint() {
+    const bounds = getTopologyBoundsForPrintPack();
+    if (bounds) {
+        map.fitBounds(bounds, { padding: 90, duration: 0, maxZoom: 12 });
+    } else {
+        const currentZoom = map.getZoom();
+        map.setZoom(Math.max(currentZoom - 4, 7));
+    }
+    await sleepForPrintPack(750);
+}
+
+async function setSatelliteForPrintPack(active) {
+    if (!map) return;
+    if (typeof state !== "undefined") state.satActive = !!active;
+    setLayerVisibilityForPrintPack("l-sat", !!active);
+    const btn = $("btn_basemap");
+    if (btn) {
+        btn.textContent = active ? "DARK MATTER VIEW" : "SATELLITE VIEW";
+        btn.classList.toggle("active", !!active);
+    }
+    await sleepForPrintPack(500);
+}
+
+async function prepareGisSldPrintReport() {
+    if (!map) {
+        window.print();
+        return;
+    }
+
+    const btn = $("btn_print_report");
+    const oldText = btn ? btn.textContent : "";
+    if (btn) btn.textContent = "PREPARING";
+
+    const saved = getMapPrintState();
+    const pack = ensurePrintMapPackContainer();
+
+    try {
+        document.body.classList.add("preparing-print-pack");
+        document.body.classList.remove("map-expanded");
+        document.querySelector(".panel-right")?.classList.remove("map-expanded");
+        $("map_tool_overlay")?.classList.add("tools-collapsed");
+        $("map_legend")?.classList.add("key-collapsed");
+
+        // Page 1 map: current working view, but clean with user selected layers retained.
+        map.resize();
+        await sleepForPrintPack(600);
+        const currentMap = await captureCurrentMapForPrint();
+        addPrintMapFigure(pack, "Map Figure 1: Current Project View", currentMap, "Current GIS SLD project view. Interactive controls are removed from print output.");
+
+        // Page 2 map: zoomed out context. Keep current basemap and layer settings.
+        await fitContextMapForPrint();
+        const contextMap = await captureCurrentMapForPrint();
+        addPrintMapFigure(pack, "Map Figure 2: Wider Grid And Route Context", contextMap, "Zoomed out context view showing wider relationship between project, route assumptions and grid geography.");
+
+        // Page 3 map: satellite view, clean and full page.
+        await setSatelliteForPrintPack(true);
+        await fitContextMapForPrint();
+        const satelliteMap = await captureCurrentMapForPrint();
+        addPrintMapFigure(pack, "Map Figure 3: Satellite Context View", satelliteMap, "Satellite context view for visual land, route and surrounding area review. Indicative only.", true);
+
+        await restoreMapPrintState(saved);
+        document.body.classList.remove("preparing-print-pack");
+        if (btn) btn.textContent = oldText || "PRINT";
+        window.print();
+    } catch (err) {
+        console.error("GIS SLD print pack failed", err);
+        await restoreMapPrintState(saved);
+        document.body.classList.remove("preparing-print-pack");
+        if (btn) btn.textContent = oldText || "PRINT";
+        window.print();
+    }
+}
+
+// Clean map defaults after the map and controls have loaded.
+setTimeout(enforceCleanDefaultMapLayers, 1200);
+

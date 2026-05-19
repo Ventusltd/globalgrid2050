@@ -4,10 +4,10 @@
 // ============================================================
 let map = null;
 const atlasV8GridLayerVisibility = {
-    "66kv": true,
-    "132kv": true,
-    "275kv": true,
-    "400kv": true
+    "66kv": false,
+    "132kv": false,
+    "275kv": false,
+    "400kv": false
 };
 
 const atlasV8GridLayerIds = {

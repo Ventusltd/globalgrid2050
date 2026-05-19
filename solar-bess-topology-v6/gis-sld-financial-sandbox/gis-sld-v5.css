@@ -448,6 +448,17 @@ input[type="number"] {
 .atlas-132kv.active { border-color: #ffcc00; color: #ffcc00; }
 .atlas-275kv.active { border-color: #ff66ff; color: #ff66ff; }
 .atlas-400kv.active { border-color: #ff3333; color: #ff3333; }
+body.map-expanded { overflow: hidden; padding: 0; }
+body.map-expanded .dashboard { max-width: none; width: 100vw; height: 100vh; }
+body.map-expanded .panel-left { display: none; }
+.panel-right.map-expanded { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 9999; border-radius: 0; border: none; }
+.panel-right.map-expanded #map { min-height: 100vh; }
+.legend.key-collapsed { display: none; }
+@media (max-width: 900px) {
+  .map-controls { left: 10px; right: 10px; align-items: flex-end; }
+  .map-toggle-row { gap: 6px; }
+  .map-toggle-btn { font-size: 10px; padding: 5px 7px; }
+}
 /* Map Elements */
 #map {
   width: 100%;

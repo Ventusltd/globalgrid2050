@@ -383,6 +383,31 @@ function wireAtlasV8GridToggleButtons() {
     });
     updateAtlasV8GridToggleButtons();
 }
+function toggleMapExpand() {
+    const panel = document.querySelector(".panel-right");
+    const btn = $("btn_map_expand");
+    if (!panel) return;
+    const active = !panel.classList.contains("map-expanded");
+    panel.classList.toggle("map-expanded", active);
+    document.body.classList.toggle("map-expanded", active);
+    if (btn) {
+        btn.textContent = active ? "MAP MIN" : "MAP MAX";
+        btn.classList.toggle("active", active);
+    }
+    setTimeout(() => { if (map && typeof map.resize === "function") map.resize(); }, 150);
+}
+
+function toggleKeyCollapse() {
+    const legend = $("map_legend");
+    const btn = $("btn_key_toggle");
+    if (!legend) return;
+    const hidden = !legend.classList.contains("key-collapsed");
+    legend.classList.toggle("key-collapsed", hidden);
+    if (btn) {
+        btn.textContent = hidden ? "KEY OFF" : "KEY ON";
+        btn.classList.toggle("active", !hidden);
+    }
+}
 // ============================================================
 // WIRE EVERYTHING UP
 // ============================================================
@@ -398,6 +423,9 @@ function wireEvents() {
     $("btn_basemap")?.addEventListener("click", toggleBasemap);
     $("btn_subs_toggle")?.addEventListener("click", toggleSubs);
 wireAtlasV8GridToggleButtons();
+$("btn_map_expand")?.addEventListener("click", toggleMapExpand);
+$("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
+
 
 
     // Draw / Export

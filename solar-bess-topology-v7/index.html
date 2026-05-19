@@ -15,7 +15,10 @@
         h3 { margin:0 0 8px 0; color:var(--accent); font-size:17px; }
         p { color:var(--muted); line-height:1.55; }
         .testing-warning { margin:14px 0 0 0; padding:14px; border:1px solid var(--danger); border-radius:10px; color:var(--danger); font-weight:bold; line-height:1.55; background:rgba(255,51,51,.08); }
-        main { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
+        main { max-width:1180px; margin:0 auto; }
+        .dashboard-section { margin:0 auto 22px auto; }
+        .section-title { color:var(--accent); font-size:22px; margin:0 0 14px 0; border-bottom:1px solid var(--line); padding-bottom:8px; }
+        .section-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
         .card { display:block; min-height:190px; border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:20px; text-decoration:none; color:var(--text); }
         .card:hover { border-color:var(--accent); }
         .card h2 { margin:0 0 10px 0; color:var(--accent); font-size:18px; }
@@ -36,56 +39,73 @@
         <div class="testing-warning">STATUS: TESTING AND DEVELOPMENT. Use at your own risk. Always verify the results and the data before using this tool for engineering, commercial, investment or project decisions.</div>
     </header>
     <main>
-            <a class="card" href="./gis-sld-financial-sandbox/index.html">
-                <h2>GIS SLD Financial Sandbox</h2>
-                <p>Main GIS, SLD, financial and grid screening application.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="./module-layout/index.html">
-                <h2>Physical Solar Module Layout</h2>
-                <p>Separate module footprint, row, pitch and layout visualiser.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="./dc-ac-lv-topology-review/index.html">
-                <h2>DC AC LV Topology Review</h2>
-                <p>Separate low voltage and DC topology screening application.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="./cable-geometry-visualiser/index.html">
-                <h2>Cable Geometry Visualiser</h2>
-                <p>Cable formation, trench, bend and geometry visualiser.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="../repd_grid_atlasv8/">
-                <h2>UK Energy Atlas V8</h2>
-                <p>Standalone UK grid, renewables pipeline and infrastructure atlas for wider spatial and grid screening analysis.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="../uk_renewables_pipeline/dashboard.html">
-                <h2>UK Renewables Pipeline Dashboard</h2>
-                <p>Pipeline analytics dashboard for UK renewables screening, market context and project opportunity review.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="../33kv_uk_dap_price_estimator/">
-                <h2>33 kV UK DAP Price Estimator</h2>
-                <p>Early 33 kV distribution cable pricing reference for commercial and procurement screening.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="../lv_ac_dc_price_estimator/">
-                <h2>LV AC and DC Cable Price Estimator</h2>
-                <p>Low voltage AC and DC distribution cable price reference for early commercial screening.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="../power_systems_studies/">
-                <h2>Power Systems Studies Process</h2>
-                <p>Power systems study process reference, including Braintree EV charging case study context by VENTUS Ltd UK and Studer Cables Switzerland.</p>
-                <span>Open app</span>
-            </a>
-            <a class="card" href="../mv_and_hv_components/">
-                <h2>MV and HV Connection Process</h2>
-                <p>Medium voltage and high voltage component and connection process reference for grid connection review.</p>
-                <span>Open app</span>
-            </a>
+        <section class="dashboard-section">
+            <h2 class="section-title">Core Applications</h2>
+            <div class="section-grid">
+                <a class="card" href="./gis-sld-financial-sandbox/index.html">
+                    <h2>GIS SLD Financial Sandbox</h2>
+                    <p>Main GIS, SLD, financial and grid screening application.</p>
+                    <span>Open app</span>
+                </a>
+                <a class="card" href="./module-layout/index.html">
+                    <h2>Physical Solar Module Layout</h2>
+                    <p>Separate module footprint, row, pitch and layout visualiser.</p>
+                    <span>Open app</span>
+                </a>
+                <a class="card" href="./dc-ac-lv-topology-review/index.html">
+                    <h2>DC AC LV Topology Review</h2>
+                    <p>Separate low voltage and DC topology screening application.</p>
+                    <span>Open app</span>
+                </a>
+                <a class="card" href="./cable-geometry-visualiser/index.html">
+                    <h2>Cable Geometry Visualiser</h2>
+                    <p>Cable formation, trench, bend and geometry visualiser.</p>
+                    <span>Open app</span>
+                </a>
+                <a class="card" href="../repd_grid_atlasv8/">
+                    <h2>UK Energy Atlas V8</h2>
+                    <p>Standalone UK grid, renewables pipeline and infrastructure atlas for wider spatial and grid screening analysis.</p>
+                    <span>Open app</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <h2 class="section-title">Dashboards and Estimators</h2>
+            <div class="section-grid">
+                <a class="card" href="../uk_renewables_pipeline/dashboard.html">
+                    <h2>UK Renewables Pipeline Dashboard</h2>
+                    <p>Pipeline analytics dashboard for UK renewables screening, market context and project opportunity review.</p>
+                    <span>Open dashboard</span>
+                </a>
+                <a class="card" href="../33kv_uk_dap_price_estimator/">
+                    <h2>33 kV UK DAP Price Estimator</h2>
+                    <p>Early 33 kV distribution cable pricing reference for commercial and procurement screening.</p>
+                    <span>Open price estimator</span>
+                </a>
+                <a class="card" href="../lv_ac_dc_price_estimator/">
+                    <h2>LV AC and DC Cable Price Estimator</h2>
+                    <p>Low voltage AC and DC distribution cable price reference for early commercial screening.</p>
+                    <span>Open price estimator</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <h2 class="section-title">Literature, Processes and Case Studies</h2>
+            <div class="section-grid">
+                <a class="card" href="../power_systems_studies/">
+                    <h2>Power Systems Studies and EV Case Study</h2>
+                    <p>Power systems study process reference with Braintree EV charging case study context by VENTUS Ltd UK and Studer Cables Switzerland.</p>
+                    <span>Open page</span>
+                </a>
+                <a class="card" href="../mv_and_hv_components/">
+                    <h2>MV and HV Connection Process</h2>
+                    <p>Medium voltage and high voltage component and connection process reference for grid connection review.</p>
+                    <span>Open reference</span>
+                </a>
+            </div>
+        </section>
     </main>
     <section class="engineering-functions">
         <h2>Solar Engineering Functions Supported By V7</h2>
@@ -112,6 +132,6 @@
             <div class="function-item"><h3>19. MV and HV connection pathway</h3><p>Use the MV and HV component reference to connect early site and grid screening with the practical connection process.</p></div>
         </div>
     </section>
-    <footer>Generated from V5 on 2026-05-18T11:06:04.474849+00:00. Updated with V7 testing status and solar engineering function summary.</footer>
+    <footer>Generated from V5 on 2026-05-18T11:06:04.474849+00:00. Updated with V7 testing status and organised dashboard sections.</footer>
 </body>
 </html>

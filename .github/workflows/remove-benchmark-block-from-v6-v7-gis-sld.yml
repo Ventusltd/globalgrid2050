@@ -1,0 +1,49 @@
+name: Remove Benchmark Block From V6 V7 GIS SLD
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  remove-benchmark-block:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Remove benchmark block
+        run: python scripts/remove_benchmark_block_from_v6_v7_gis_sld.py
+
+      - name: Commit and push benchmark block removal
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git pull --rebase --autostash origin main
+          git add \
+            solar-bess-topology-v6/gis-sld-financial-sandbox/index.html \
+            solar-bess-topology-v7/gis-sld-financial-sandbox/index.html \
+            scripts/remove_benchmark_block_from_v6_v7_gis_sld.py \
+            gridbot_reports/remove_benchmark_block_from_v6_v7_gis_sld.md
+
+          if git diff --cached --quiet; then
+            echo "No benchmark block removal changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Remove benchmark block from V6 and V7 GIS SLD"
+          git pull --rebase --autostash origin main
+          git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main

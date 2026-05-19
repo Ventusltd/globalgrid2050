@@ -1,0 +1,83 @@
+upgrade_id: 005_gis_sld_map_expand_and_key_collapse
+target_app: gis-sld-financial-sandbox
+description: Add map expand mode and key collapse controls.
+allowed_paths:
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+operations:
+  - type: insert_after
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    marker: '<button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>'
+    insert: |
+
+                  <button id="btn_map_expand" class="map-toggle-btn">MAP MAX</button>
+                  <button id="btn_key_toggle" class="map-toggle-btn active">KEY ON</button>
+  - type: insert_before
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+    marker: '/* Map Elements */'
+    insert: |
+      body.map-expanded { overflow: hidden; padding: 0; }
+      body.map-expanded .dashboard { max-width: none; width: 100vw; height: 100vh; }
+      body.map-expanded .panel-left { display: none; }
+      .panel-right.map-expanded { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 9999; border-radius: 0; border: none; }
+      .panel-right.map-expanded #map { min-height: 100vh; }
+      .legend.key-collapsed { display: none; }
+      @media (max-width: 900px) {
+        .map-controls { left: 10px; right: 10px; align-items: flex-end; }
+        .map-toggle-row { gap: 6px; }
+        .map-toggle-btn { font-size: 10px; padding: 5px 7px; }
+      }
+
+  - type: insert_before
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    marker: |
+      // ============================================================
+      // WIRE EVERYTHING UP
+    insert: |
+      function toggleMapExpand() {
+          const panel = document.querySelector(".panel-right");
+          const btn = $("btn_map_expand");
+          if (!panel) return;
+          const active = !panel.classList.contains("map-expanded");
+          panel.classList.toggle("map-expanded", active);
+          document.body.classList.toggle("map-expanded", active);
+          if (btn) {
+              btn.textContent = active ? "MAP MIN" : "MAP MAX";
+              btn.classList.toggle("active", active);
+          }
+          setTimeout(() => { if (map && typeof map.resize === "function") map.resize(); }, 150);
+      }
+
+      function toggleKeyCollapse() {
+          const legend = $("map_legend");
+          const btn = $("btn_key_toggle");
+          if (!legend) return;
+          const hidden = !legend.classList.contains("key-collapsed");
+          legend.classList.toggle("key-collapsed", hidden);
+          if (btn) {
+              btn.textContent = hidden ? "KEY OFF" : "KEY ON";
+              btn.classList.toggle("active", !hidden);
+          }
+      }
+
+  - type: insert_after
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    marker: 'wireAtlasV8GridToggleButtons();'
+    insert: |
+
+          $("btn_map_expand")?.addEventListener("click", toggleMapExpand);
+          $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
+checks:
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    text: 'btn_map_expand'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    text: 'btn_key_toggle'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+    text: '.panel-right.map-expanded'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    text: 'toggleMapExpand'

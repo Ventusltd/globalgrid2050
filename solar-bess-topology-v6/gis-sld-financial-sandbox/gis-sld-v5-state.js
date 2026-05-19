@@ -9,7 +9,7 @@ const state = {
     currentGeoJSON: { type: "FeatureCollection", features: [] },
     activeDrawCenter: null,
     selectedSubstation: null,
-    subsVisible: true,
+    subsVisible: false,
     satActive: false,
     activePopup: null,
     lastStats: null,

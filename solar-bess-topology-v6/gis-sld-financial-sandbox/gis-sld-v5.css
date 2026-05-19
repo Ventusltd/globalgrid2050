@@ -1415,3 +1415,66 @@ body.map-expanded .panel-left { display: none; }
   }
 }
 
+/* GLOBALGRID2050 SIMPLE SAFE PRINT MAP FIX */
+@media print {
+  /* The report prints first. The live map prints as one large page figure after report content. */
+  .panel-right {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    page-break-before: always !important;
+    break-before: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .panel-right::before {
+    content: "Map Figure: Current GIS SLD View";
+    display: block !important;
+    font-size: 12pt !important;
+    font-weight: 700 !important;
+    color: #111111 !important;
+    border-bottom: 1px solid #999999 !important;
+    padding: 0 0 3mm 0 !important;
+    margin: 0 0 4mm 0 !important;
+  }
+
+  #map {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 230mm !important;
+    min-height: 230mm !important;
+    max-height: 230mm !important;
+    overflow: hidden !important;
+    border: 1px solid #999999 !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .map-controls,
+  .map-tool-overlay,
+  .crosshair,
+  #fetch_status,
+  .maplibregl-control-container,
+  .maplibregl-ctrl,
+  .maplibregl-ctrl-group,
+  .legend {
+    display: none !important;
+  }
+
+  .print-map-pack,
+  .print-map-page,
+  .print-map-page-landscape {
+    display: none !important;
+  }
+}
+

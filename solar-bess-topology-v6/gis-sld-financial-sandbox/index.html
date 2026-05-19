@@ -409,10 +409,19 @@
 
 <div class="panel panel-right">
     <div id="fetch_status"></div>
-    <div style="position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 8px;">
-        <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
-        <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
+    <div class="map-controls">
+        <div class="map-toggle-row">
+            <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
+            <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
+        </div>
+        <div class="map-toggle-row voltage-toggle-row">
+            <button id="btn_atlas_66kv" class="map-toggle-btn active atlas-voltage-btn atlas-66kv" data-atlas-voltage="66kv">66 kV ON</button>
+            <button id="btn_atlas_132kv" class="map-toggle-btn active atlas-voltage-btn atlas-132kv" data-atlas-voltage="132kv">132 kV ON</button>
+            <button id="btn_atlas_275kv" class="map-toggle-btn active atlas-voltage-btn atlas-275kv" data-atlas-voltage="275kv">275 kV ON</button>
+            <button id="btn_atlas_400kv" class="map-toggle-btn active atlas-voltage-btn atlas-400kv" data-atlas-voltage="400kv">400 kV ON</button>
+        </div>
     </div>
+
     <div class="crosshair">⌖</div>
     <div id="map"></div>
     <div class="legend" id="map_legend"></div>

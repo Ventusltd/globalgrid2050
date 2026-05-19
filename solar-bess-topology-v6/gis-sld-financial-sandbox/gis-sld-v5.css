@@ -415,6 +415,39 @@ input[type="number"] {
   background: rgba(0, 255, 255, 0.05);
 }
 
+.map-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.map-toggle-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.voltage-toggle-row .map-toggle-btn {
+  font-size: 10px;
+  padding: 5px 8px;
+}
+
+.atlas-voltage-btn:not(.active) {
+  color: #777;
+  border-color: #333;
+  opacity: 0.65;
+}
+
+.atlas-66kv.active { border-color: #66ff66; color: #66ff66; }
+.atlas-132kv.active { border-color: #ffcc00; color: #ffcc00; }
+.atlas-275kv.active { border-color: #ff66ff; color: #ff66ff; }
+.atlas-400kv.active { border-color: #ff3333; color: #ff3333; }
 /* Map Elements */
 #map {
   width: 100%;

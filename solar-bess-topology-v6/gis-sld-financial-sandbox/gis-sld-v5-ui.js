@@ -363,6 +363,26 @@ function toggleSubs() {
     }
 }
 
+function updateAtlasV8GridToggleButtons() {
+    const labels = { "66kv": "66 kV", "132kv": "132 kV", "275kv": "275 kV", "400kv": "400 kV" };
+    Object.keys(labels).forEach(voltageKey => {
+        const btn = $(`btn_atlas_${voltageKey}`);
+        if (!btn) return;
+        const visible = atlasV8GridLayerVisibility?.[voltageKey] !== false;
+        btn.textContent = `${labels[voltageKey]} ${visible ? "ON" : "OFF"}`;
+        btn.classList.toggle("active", visible);
+    });
+}
+
+function wireAtlasV8GridToggleButtons() {
+    document.querySelectorAll(".atlas-voltage-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            toggleAtlasV8GridLayer(btn.dataset.atlasVoltage);
+            updateAtlasV8GridToggleButtons();
+        });
+    });
+    updateAtlasV8GridToggleButtons();
+}
 // ============================================================
 // WIRE EVERYTHING UP
 // ============================================================
@@ -377,6 +397,8 @@ function wireEvents() {
     // Map toggles
     $("btn_basemap")?.addEventListener("click", toggleBasemap);
     $("btn_subs_toggle")?.addEventListener("click", toggleSubs);
+wireAtlasV8GridToggleButtons();
+
 
     // Draw / Export
     $("btn_draw")?.addEventListener("click", triggerDrawAtCenter);

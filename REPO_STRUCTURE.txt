@@ -509,6 +509,7 @@
 │   ├── fetch_substations.py
 │   ├── fetch_supermarkets.py
 │   ├── fix_v5_js_filenames.py
+│   ├── fix_v6_v7_gis_sld_print_simple_safe.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_unification_estimates.py
 │   ├── gridbot_feature_installer.py
@@ -817,4 +818,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 703 files
+115 directories, 704 files

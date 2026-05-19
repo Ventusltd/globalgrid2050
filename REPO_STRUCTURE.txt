@@ -155,6 +155,7 @@
 │   ├── v6_cable_geometry_modularisation_phase_1.md
 │   ├── v6_complex_upgrade_002_gis_sld_atlas_v8_132_400kv_layers_20260518_233553.md
 │   ├── v6_complex_upgrade_003_gis_sld_atlas_v8_voltage_layer_toggles_20260518_234758.md
+│   ├── v6_complex_upgrade_004c_gis_sld_atlas_v8_voltage_buttons_no_map_patch_20260519_001912.md
 │   ├── v6_migration_from_v5.md
 │   └── v6_sanity_label_fix.md
 ├── heavy_emitters_uk.json
@@ -617,6 +618,9 @@
 │   ├── docs
 │   │   ├── ARCHITECTURE.md
 │   │   ├── V5_CHANGELOG_AND_ROADMAP.md
+│   │   ├── learning_objectives
+│   │   │   ├── 01_advanced_electrical_layers_before_upgrade.md
+│   │   │   └── README.md
 │   │   └── training
 │   │       ├── 01_cable_route_assumptions.md
 │   │       ├── 02_sld_topology_validation.md
@@ -662,6 +666,12 @@
 │       │   └── manifest.yml
 │       ├── 003_gis_sld_atlas_v8_voltage_layer_toggles
 │       │   └── manifest.yml
+│       ├── 004_gis_sld_atlas_v8_voltage_buttons
+│       │   └── manifest.yml
+│       ├── 004b_gis_sld_atlas_v8_voltage_buttons_safe
+│       │   └── manifest.yml
+│       ├── 004c_gis_sld_atlas_v8_voltage_buttons_no_map_patch
+│       │   └── manifest.yml
 │       └── ACTIVE_UPGRADE.yml
 ├── solar_components
 │   └── index.md
@@ -700,4 +710,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-89 directories, 612 files
+93 directories, 618 files

@@ -156,6 +156,7 @@
 │   ├── v6_complex_upgrade_002_gis_sld_atlas_v8_132_400kv_layers_20260518_233553.md
 │   ├── v6_complex_upgrade_003_gis_sld_atlas_v8_voltage_layer_toggles_20260518_234758.md
 │   ├── v6_complex_upgrade_004c_gis_sld_atlas_v8_voltage_buttons_no_map_patch_20260519_001912.md
+│   ├── v6_complex_upgrade_005_gis_sld_map_expand_and_key_collapse_20260519_003619.md
 │   ├── v6_migration_from_v5.md
 │   └── v6_sanity_label_fix.md
 ├── heavy_emitters_uk.json
@@ -627,6 +628,7 @@
 │   │       ├── 03_bess_grid_resilience.md
 │   │       ├── 04_electrical_risk_controls.md
 │   │       ├── 05_v6_module_relevance.yml
+│   │       ├── 06_commercial_engineering_interface.md
 │   │       └── README.md
 │   ├── gis-sld-financial-sandbox
 │   │   ├── gis-sld-v5-calculations.js
@@ -672,6 +674,8 @@
 │       │   └── manifest.yml
 │       ├── 004c_gis_sld_atlas_v8_voltage_buttons_no_map_patch
 │       │   └── manifest.yml
+│       ├── 005_gis_sld_map_expand_and_key_collapse
+│       │   └── manifest.yml
 │       └── ACTIVE_UPGRADE.yml
 ├── solar_components
 │   └── index.md
@@ -710,4 +714,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-93 directories, 618 files
+94 directories, 621 files

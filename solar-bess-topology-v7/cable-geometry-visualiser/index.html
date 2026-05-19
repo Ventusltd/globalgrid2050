@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cable Geometry Visualiser V7 | GlobalGrid2050</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <div class="dashboard">
+        <div class="panel panel-left">
+            <h2>Cable Geometry Visualiser V7</h2>
+            <div class="guidance-box"><strong>GlobalGrid2050 V7 migration</strong><br>This page is migrated from the original cable geometry visualiser into the V5 toolset. It remains a geometry capture and visual review tool only. It does not perform electrical rating, thermal rating, cable sizing, protection grading or construction design.</div>
+
+            <div class="button-row"><a class="btn" href="../module-layout/index.html" style="text-align:center;text-decoration:none;">Module Layout V7</a><a class="btn btn-alt" href="../dc-ac-lv-topology-review/index.html" style="text-align:center;text-decoration:none;">DC AC LV Topology Review</a></div>
+
+            <h3 class="section-title">Geometry Inputs</h3>
+
+            <div class="warning-box">
+                This tool produces indicative geometry records only and must not be used for trench design, duct sizing, burial depth specification, electrical design or any construction document without independent verification by a competent engineer with responsibility for the project.<br>
+                No electrical calculation is performed.<br>
+                No thermal rating is performed.<br>
+                No compliance verdict is produced.<br>
+                No burial depth design advice is produced.<br>
+                The user must verify safety, installation depth, protection, rating and utility compliance with a competent person in accordance with local law, site conditions and the relevant power utility or infrastructure owner requirements.
+            </div>
+
+            <div id="status_box" class="status-box ok" aria-live="polite">Geometry only. Ready for capture.</div>
+
+            <h3>Route Identity</h3>
+            <div class="input-group">
+                <label for="route_name">Route ID</label>
+                <input type="text" id="route_name" value="M_W3_BESS_to_PCS" />
+            </div>
+            <div class="input-group">
+                <label for="section_length">Worst Case Section Length m</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="section_length" value="30" />
+            </div>
+
+            <h3 class="section-title">Installation Basis</h3>
+            <div class="input-group">
+                <label for="installation_condition">Installation Condition</label>
+                <select id="installation_condition">
+                    <option value="buried_duct">Buried Duct</option>
+                    <option value="direct_buried">Direct Buried</option>
+                    <option value="open_trough">Open Trough</option>
+                    <option value="free_air">Free Air on Cleats</option>
+                    <option value="metallic_enclosure">Metallic Enclosure</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="service_type">Service Type</label>
+                <select id="service_type">
+                    <option value="lv" selected>LV AC</option>
+                    <option value="mv">33kV AC</option>
+                    <option value="ehv">132kV AC</option>
+                    <option value="dc">DC</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="grouping_basis">Grouping Basis</label>
+                <select id="grouping_basis">
+                    <option value="same_circuit">Same Circuit</option>
+                    <option value="same_service">Same Service</option>
+                    <option value="mixed_service">Mixed Service</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="burial_depth">Burial Depth mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="burial_depth" value="900" />
+            </div>
+            <div class="inline-note" id="burial_note">Indicative cover or depth input only. Verify with competent person and utility standard.</div>
+
+            <h3 class="section-title">Cable OD Lookup</h3>
+            <div class="input-group">
+                <label for="lookup_cores">Cores</label>
+                <select id="lookup_cores">
+                    <option value="single">Single Core</option>
+                    <option value="three">Three Core</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="lookup_voltage">Voltage Class</label>
+                <select id="lookup_voltage">
+                    <option value="">— manual OD entry —</option>
+                    <optgroup label="LV Power — 0.6/1kV XLPE, Cu conductor">
+                      <option value="lv_cu_sc">0.6/1kV Cu XLPE single core (AWA)</option>
+                      <option value="lv_cu_2c">0.6/1kV Cu XLPE 2-core SWA</option>
+                      <option value="lv_cu_3c">0.6/1kV Cu XLPE 3-core SWA</option>
+                      <option value="lv_cu_4c">0.6/1kV Cu XLPE 4-core SWA</option>
+                      <option value="lv_cu_5c">0.6/1kV Cu XLPE 5-core SWA</option>
+                    </optgroup>
+                    <optgroup label="LV Power — 0.6/1kV XLPE, Al conductor">
+                      <option value="lv_al_sc">0.6/1kV Al XLPE single core (AWA)</option>
+                      <option value="lv_al_3c">0.6/1kV Al XLPE 3-core SWA</option>
+                      <option value="lv_al_4c">0.6/1kV Al XLPE 4-core SWA</option>
+                      <option value="lv_al_5c">0.6/1kV Al XLPE 5-core SWA</option>
+                    </optgroup>
+                    <optgroup label="LV — Multicore, fixed installation">
+                      <option value="lv3">LV 0.6/1kV 3-core</option>
+                    </optgroup>
+                    <optgroup label="Solar PV — DC string (flexible Cu, 1500V DC only)">
+                      <option value="pv_string">1500V DC string — BS EN 50618 Class II</option>
+                    </optgroup>
+                    <optgroup label="Solar PV — Flexible screened (Cu screened, fixed/occasional)">
+                      <option value="flex_hv_ac">1000/1000V AC — IT system (Uo=1000V ≥ inverter Vac)</option>
+                      <option value="flex_hv_dc">1500V DC — flexible screened</option>
+                    </optgroup>
+                    <optgroup label="Solar PV — Rigid Al, Al tube armour (non-magnetic, fixed only)">
+                      <option value="al_ata_ac">1000/1000V AC — Al tube armour, IT system</option>
+                      <option value="al_ata_dc">1500/1500V DC — Al tube armour</option>
+                    </optgroup>
+                    <optgroup label="MV XLPE — fixed installation">
+                      <option value="6">6 kV (3.6/6 kV)</option>
+                      <option value="10">10 kV (5.8/10 kV)</option>
+                      <option value="15">15 kV (8.7/15 kV)</option>
+                      <option value="20">20 kV (12/20 kV)</option>
+                      <option value="33">33 kV (19/33 kV) — Al</option>
+                      <option value="33cu">33 kV (19/33 kV) — Cu 3-core</option>
+                    </optgroup>
+                    <optgroup label="HV XLPE — fixed installation ★ confirmed datasheets">
+                      <option value="66">66 kV (38/66 kV) ★</option>
+                      <option value="110">110 kV (64/110 kV) ★</option>
+                      <option value="132">132 kV (76/132 kV) ★</option>
+                    </optgroup>
+                  </select>
+            </div>
+            <div class="input-group">
+                <label for="lookup_csa">Conductor CSA mm²</label>
+                <select id="lookup_csa">
+                    <option value="">— select voltage first —</option>
+                </select>
+            </div>
+            <div class="inline-note" id="lookup_note">Select voltage and CSA to auto-populate OD and bend factor. All values are for <strong>fixed installation</strong> only. Flexible applications, very tight bend radii, cleats and terminations must be verified with the cable manufacturer. ★ = anchored on confirmed datasheets. Others from catalogue model. Indicative only.</div>
+
+            <h3 class="section-title">Formation</h3>
+            <div class="input-group">
+                <label for="formation_type">Formation Type</label>
+                <select id="formation_type"></select>
+            </div>
+            <div class="input-group">
+                <label for="circuit_qty">Number of Circuit Groups</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="circuit_qty" value="4" />
+            </div>
+            <div class="input-group">
+                <label for="max_per_row">Max Groups per Row</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="max_per_row" value="2" />
+            </div>
+            <div class="input-group">
+                <label for="cable_od">Cable Outer Diameter mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="cable_od" value="45" />
+            </div>
+            <div class="inline-note" id="od_source_note">OD entered manually.</div>
+            <div class="input-group">
+                <label for="spacing_basis">Spacing Basis</label>
+                <select id="spacing_basis">
+                    <option value="clear_gap">Clear Gap</option>
+                    <option value="touching">Touching</option>
+                    <option value="centre_to_centre">Centre to Centre</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="spacing_h">Horizontal Spacing mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_h" value="150" />
+            </div>
+            <div class="input-group">
+                <label for="spacing_v">Vertical Spacing mm</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="spacing_v" value="150" />
+            </div>
+            <div class="inline-note" id="spacing_note">Spacing inputs are active.</div>
+
+            <h3 class="section-title">Bend Geometry</h3>
+            <div class="input-group">
+                <label for="bend_factor">Bend Radius x OD</label>
+                <input type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" spellcheck="false" data-numeric="true" id="bend_factor" value="15" />
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-row"><span>Formation Width</span><span class="stat-val" id="out_width">0 mm</span></div>
+                <div class="stat-row"><span>Formation Depth</span><span class="stat-val" id="out_depth">0 mm</span></div>
+                <div class="stat-row"><span>Burial Depth Input</span><span class="stat-val" id="out_burial">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Width</span><span class="stat-val" id="out_trench_width">0 mm</span></div>
+                <div class="stat-row"><span>Indicative Trench Depth</span><span class="stat-val" id="out_trench_depth">0 mm</span></div>
+                <div class="stat-row"><span>Applied Bend Radius</span><span class="stat-val" id="out_mbr" style="color: var(--accent-2);">0 mm</span></div>
+                <div class="stat-row"><span>Rows</span><span class="stat-val" id="out_rows">0</span></div>
+                <div class="stat-row"><span>Clear Gap Horizontal</span><span class="stat-val" id="out_gap_h">0 mm</span></div>
+                <div class="stat-row"><span>Clear Gap Vertical</span><span class="stat-val" id="out_gap_v">0 mm</span></div>
+                <div class="stat-row"><span>Approx Group CTC Horizontal</span><span class="stat-val" id="out_ctc_h">0 mm</span></div>
+                <div class="stat-row"><span>Approx Group CTC Vertical</span><span class="stat-val" id="out_ctc_v">0 mm</span></div>
+                <div class="stat-row"><span>Review Status</span><span class="stat-val" id="out_note" style="color: var(--ok);">OK</span></div>
+            </div>
+
+            <div class="button-row">
+                <button class="btn" id="export_btn" type="button">Export JSON</button>
+                <button class="btn btn-alt" id="copy_btn" type="button">Copy Snapshot</button>
+                <button class="btn" id="drawing_view_btn" type="button">Drawing View</button>
+            </div>
+
+            <div class="conflict-box" id="conflict_box" aria-live="polite" hidden>
+                <strong>Input conflicts</strong>
+                <ul id="conflict_list"></ul>
+            </div>
+
+            <div class="review-box" id="review_box" aria-live="polite" hidden>
+                <strong>Review points</strong>
+                <ul id="review_list"></ul>
+            </div>
+
+            <div class="assumption-box">
+                <strong>Standing assumptions</strong>
+                <ul>
+                    <li>Within group cable spacing is assumed touching unless separately modelled.</li>
+                    <li>Mixed service visual uses one worst case OD for all shown services and is schematic only.</li>
+                    <li>Bend visual shows a single cable body sweep only and does not model full multi cable sweep, trench profile, duct entry, pull path or installation forces.</li>
+                    <li>Burial depth is recorded as an indicative input only and is not design advice.</li>
+                    <li>4-core and 5-core multicore formations are drawn as a single cable OD. Within-cable core arrangement is not modelled.</li>
+                </ul>
+            </div>
+
+            <div class="snapshot-box" id="snapshot_box"></div>
+
+            <div class="guidance-box">
+                <strong>Indicative burial depth guidance only</strong><br>
+                Use this for early geometry capture only, not final design advice.
+                <ul>
+                    <li>Primary source for LV to 132kV burial depth guidance in this tool is <a href="https://g81.ukpowernetworks.co.uk/library/installation/cables/ecs-02-0019-installation-of-underground-cables-lv-to-132kv" target="_blank" rel="noopener noreferrer">UKPN ECS 02 0019 Installation of Underground Cables LV to 132kV v14.2</a>.</li>
+                    <li>For this tool, burial depth should be read as depth to the top of duct or cable as applicable and then verified for the actual installation basis.</li>
+                    <li>BS 7671 and ERA 69 30 give thermal rating reference depths, not utility minimum cover requirements. See the official <a href="https://electrical.theiet.org/bs-7671-18th-edition-wiring-regulations/" target="_blank" rel="noopener noreferrer">IET BS 7671 page</a>.</li>
+                    <li>Street authority and underground apparatus context should be checked at the official <a href="https://www.gov.uk/government/publications/recording-of-underground-apparatus-in-streets-code-of-practice" target="_blank" rel="noopener noreferrer">GOV.UK underground apparatus code page</a>.</li>
+                    <li>Street Works UK should be used as coordination context only, not as the source of the burial depth figures in this tool. See the official <a href="https://streetworks.org.uk/resources/publications/" target="_blank" rel="noopener noreferrer">Street Works UK publications page</a>.</li>
+                    <li>DC minimum burial depth in this tool is a project default assumption only and has no normative source embedded in this release.</li>
+                </ul>
+                The user must verify safety, cover, backfill, duct arrangement, rating, separation, highway loading and protection with a competent person in accordance with the appropriate local regulation and the relevant power utility, infrastructure owner, highway authority or site designer requirements before use.
+            </div>
+        </div>
+
+        <div class="panel panel-right">
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: var(--accent);">Worst Case Formation Cross Section</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Cable group box only. Envelope width = the horizontal size of the cable group shown. Envelope depth = the vertical size of the cable group shown.
+                </p>
+                <div class="legend">
+                    <span class="legend-item"><span class="legend-swatch" style="background:#666; border-color:#00ffff;"></span>LV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#b87333; border-color:#ff5555;"></span>33kV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#ffd700; border-color:#ff8800;"></span>132kV AC</span>
+                    <span class="legend-item"><span class="legend-swatch" style="background:#777; border-color: var(--accent-2);"></span>DC</span>
+                </div>
+                <canvas id="formation_canvas" width="900" height="420" aria-label="Formation cross section visual"></canvas>
+            </div>
+
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: #8fd3ff;">Indicative Trench Cross Section</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Indicative trench size only. Trench width shown = worst case formation envelope width only. Trench depth shown = burial depth input to the top of duct or cable, plus cable formation depth. No bedding, side clearance, cover boards, duct OD, shoring or civil design is modelled.
+                </p>
+                <canvas id="trench_canvas" width="900" height="500" aria-label="Indicative trench cross section visual"></canvas>
+            </div>
+
+            <div class="canvas-container">
+                <h3 style="align-self:flex-start; color: var(--accent-2);">Single Cable Bend Sweep</h3>
+                <p class="subtle-note" style="align-self:flex-start;">
+                    Single cable body sweep only. Not multi cable sweep, trench profile, duct entry or civil detail.
+                </p>
+                <canvas id="bend_canvas" width="900" height="380" aria-label="Single cable bend sweep visual"></canvas>
+            </div>
+        </div>
+    </div>
+
+<script src="./data.js"></script>
+<script src="./calculations.js"></script>
+<script src="./rendering.js"></script>
+<script src="./export.js"></script>
+<script src="./ui.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+upgrade_id: 000_validation_test
+target_app: docs
+description: Validation only manifest for the V7 Complex Upgrade Install workflow.
+allowed_paths:
+  - solar-bess-topology-v7/docs
+operations: []
+checks:
+  - manifest_read
+  - target_app_validated
+  - allowed_paths_validated
+  - report_written

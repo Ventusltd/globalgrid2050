@@ -1,0 +1,143 @@
+upgrade_id: 003_gis_sld_atlas_v8_voltage_layer_toggles
+target_app: gis-sld-financial-sandbox
+description: Add Atlas V8 66 kV and 275 kV grid line layers and allow Atlas voltage layers to be toggled from the V7 GIS SLD map legend.
+allowed_paths:
+  - solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-map.js
+  - solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-ui-core.js
+operations:
+  - type: insert_after
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-map.js
+    marker: 'let map = null;'
+    insert: |
+
+      const atlasV8GridLayerVisibility = {
+          "66kv": true,
+          "132kv": true,
+          "275kv": true,
+          "400kv": true
+      };
+
+      const atlasV8GridLayerIds = {
+          "66kv": "atlas-v8-grid-66kv-line",
+          "132kv": "atlas-v8-grid-132kv-line",
+          "275kv": "atlas-v8-grid-275kv-line",
+          "400kv": "atlas-v8-grid-400kv-line"
+      };
+
+      function toggleAtlasV8GridLayer(voltageKey) {
+          if (!atlasV8GridLayerIds[voltageKey]) return;
+          atlasV8GridLayerVisibility[voltageKey] = !atlasV8GridLayerVisibility[voltageKey];
+          const layerId = atlasV8GridLayerIds[voltageKey];
+          if (map && map.getLayer(layerId)) {
+              map.setLayoutProperty(layerId, "visibility", atlasV8GridLayerVisibility[voltageKey] ? "visible" : "none");
+          }
+          updateLegend();
+      }
+  - type: regex_replace
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-map.js
+    flags: s
+    pattern: '// Atlas V8 transmission visibility layers.*?map\.addLayer\(\{\n    id: "atlas-v8-grid-400kv-line",\n    type: "line",\n    source: "atlas-v8-grid-400kv",\n    layout: \{ visibility: "visible" \},\n    paint: \{\n        "line-color": "#ff3333",\n        "line-width": \["interpolate", \["linear"\], \["zoom"\], 5, 1\.6, 10, 2\.8, 14, 4\.2\],\n        "line-opacity": 0\.82\n    \}\n\}\);'
+    replace: |
+      // Atlas V8 transmission visibility layers
+      // These layers are read from the existing Atlas V8 data folder.
+      // They are visual context only and do not imply confirmed grid headroom.
+      map.addSource("atlas-v8-grid-66kv", {
+          type: "geojson",
+          data: "../../repd_grid_atlasv8/data/grid_66kv.geojson"
+      });
+      map.addLayer({
+          id: "atlas-v8-grid-66kv-line",
+          type: "line",
+          source: "atlas-v8-grid-66kv",
+          layout: { visibility: atlasV8GridLayerVisibility["66kv"] ? "visible" : "none" },
+          paint: {
+              "line-color": "#66ff66",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 5, 0.8, 10, 1.4, 14, 2.4],
+              "line-opacity": 0.62
+          }
+      });
+
+      map.addSource("atlas-v8-grid-132kv", {
+          type: "geojson",
+          data: "../../repd_grid_atlasv8/data/grid_132kv.geojson"
+      });
+      map.addLayer({
+          id: "atlas-v8-grid-132kv-line",
+          type: "line",
+          source: "atlas-v8-grid-132kv",
+          layout: { visibility: atlasV8GridLayerVisibility["132kv"] ? "visible" : "none" },
+          paint: {
+              "line-color": "#ffcc00",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.0, 10, 1.8, 14, 3.0],
+              "line-opacity": 0.72
+          }
+      });
+
+      map.addSource("atlas-v8-grid-275kv", {
+          type: "geojson",
+          data: "../../repd_grid_atlasv8/data/grid_275kv.geojson"
+      });
+      map.addLayer({
+          id: "atlas-v8-grid-275kv-line",
+          type: "line",
+          source: "atlas-v8-grid-275kv",
+          layout: { visibility: atlasV8GridLayerVisibility["275kv"] ? "visible" : "none" },
+          paint: {
+              "line-color": "#ff66ff",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.3, 10, 2.4, 14, 3.7],
+              "line-opacity": 0.76
+          }
+      });
+
+      map.addSource("atlas-v8-grid-400kv", {
+          type: "geojson",
+          data: "../../repd_grid_atlasv8/data/grid_400kv.geojson"
+      });
+      map.addLayer({
+          id: "atlas-v8-grid-400kv-line",
+          type: "line",
+          source: "atlas-v8-grid-400kv",
+          layout: { visibility: atlasV8GridLayerVisibility["400kv"] ? "visible" : "none" },
+          paint: {
+              "line-color": "#ff3333",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.6, 10, 2.8, 14, 4.2],
+              "line-opacity": 0.82
+          }
+      });
+  - type: insert_before
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-ui-core.js
+    marker: 'function updateLegend() {'
+    insert: |
+      function atlasV8LegendItem(voltageKey, label, colour, widthPx) {
+          const visible = atlasV8GridLayerVisibility?.[voltageKey] !== false;
+          const opacity = visible ? "1" : "0.35";
+          const suffix = visible ? "" : " OFF";
+          return `<div class="legend-item" onclick="toggleAtlasV8GridLayer('${voltageKey}')" style="cursor:pointer; opacity:${opacity};" title="Tap to toggle ${label}"><div class="swatch" style="background:transparent; border-bottom: ${widthPx}px solid ${colour};"></div> ${label}${suffix}</div>`;
+      }
+
+  - type: regex_replace
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-ui-core.js
+    flags: s
+    pattern: '<div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>\n        <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 2px solid #ffcc00;"></div> Atlas V8 132 kV Lines</div>\n        <div class="legend-item"><div class="swatch" style="background:transparent; border-bottom: 3px solid #ff3333;"></div> Atlas V8 400 kV Lines</div>'
+    replace: |
+      <div class="legend-item"><div class="swatch" style="background:#ffffff; border-color:#ff3333;"></div> Atlas Substation Dataset</div>
+              ${atlasV8LegendItem("66kv", "Atlas V8 66 kV Lines", "#66ff66", 2)}
+              ${atlasV8LegendItem("132kv", "Atlas V8 132 kV Lines", "#ffcc00", 2)}
+              ${atlasV8LegendItem("275kv", "Atlas V8 275 kV Lines", "#ff66ff", 3)}
+              ${atlasV8LegendItem("400kv", "Atlas V8 400 kV Lines", "#ff3333", 3)}
+checks:
+  - type: assert_contains
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-map.js
+    text: 'atlas-v8-grid-66kv-line'
+  - type: assert_contains
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-map.js
+    text: 'atlas-v8-grid-275kv-line'
+  - type: assert_contains
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-map.js
+    text: 'toggleAtlasV8GridLayer'
+  - type: assert_contains
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-ui-core.js
+    text: 'atlasV8LegendItem'
+  - type: assert_contains
+    file: solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-ui-core.js
+    text: 'Atlas V8 275 kV Lines'

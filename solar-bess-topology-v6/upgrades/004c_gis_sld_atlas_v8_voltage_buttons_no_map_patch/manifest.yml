@@ -1,0 +1,109 @@
+upgrade_id: 004c_gis_sld_atlas_v8_voltage_buttons_no_map_patch
+target_app: gis-sld-financial-sandbox
+description: Add real Atlas voltage toggle buttons without patching the map layer function. Uses existing toggleAtlasV8GridLayer logic and updates button states from UI listeners.
+allowed_paths:
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+  - solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+operations:
+  - type: regex_replace
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    flags: s
+    pattern: '<div style="position: absolute; top: 10px; right: 10px; z-index: 20; display: flex; gap: 8px;">\s*<button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>\s*<button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>\s*</div>'
+    replace: |
+      <div class="map-controls">
+              <div class="map-toggle-row">
+                  <button id="btn_subs_toggle" class="map-toggle-btn active">SUBS ON</button>
+                  <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
+              </div>
+              <div class="map-toggle-row voltage-toggle-row">
+                  <button id="btn_atlas_66kv" class="map-toggle-btn active atlas-voltage-btn atlas-66kv" data-atlas-voltage="66kv">66 kV ON</button>
+                  <button id="btn_atlas_132kv" class="map-toggle-btn active atlas-voltage-btn atlas-132kv" data-atlas-voltage="132kv">132 kV ON</button>
+                  <button id="btn_atlas_275kv" class="map-toggle-btn active atlas-voltage-btn atlas-275kv" data-atlas-voltage="275kv">275 kV ON</button>
+                  <button id="btn_atlas_400kv" class="map-toggle-btn active atlas-voltage-btn atlas-400kv" data-atlas-voltage="400kv">400 kV ON</button>
+              </div>
+          </div>
+  - type: insert_before
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5.css
+    marker: '/* Map Elements */'
+    insert: |
+      .map-controls {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-end;
+      }
+
+      .map-toggle-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .voltage-toggle-row .map-toggle-btn {
+        font-size: 10px;
+        padding: 5px 8px;
+      }
+
+      .atlas-voltage-btn:not(.active) {
+        color: #777;
+        border-color: #333;
+        opacity: 0.65;
+      }
+
+      .atlas-66kv.active { border-color: #66ff66; color: #66ff66; }
+      .atlas-132kv.active { border-color: #ffcc00; color: #ffcc00; }
+      .atlas-275kv.active { border-color: #ff66ff; color: #ff66ff; }
+      .atlas-400kv.active { border-color: #ff3333; color: #ff3333; }
+
+  - type: insert_before
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    marker: |
+      // ============================================================
+      // WIRE EVERYTHING UP
+    insert: |
+      function updateAtlasV8GridToggleButtons() {
+          const labels = { "66kv": "66 kV", "132kv": "132 kV", "275kv": "275 kV", "400kv": "400 kV" };
+          Object.keys(labels).forEach(voltageKey => {
+              const btn = $(`btn_atlas_${voltageKey}`);
+              if (!btn) return;
+              const visible = atlasV8GridLayerVisibility?.[voltageKey] !== false;
+              btn.textContent = `${labels[voltageKey]} ${visible ? "ON" : "OFF"}`;
+              btn.classList.toggle("active", visible);
+          });
+      }
+
+      function wireAtlasV8GridToggleButtons() {
+          document.querySelectorAll(".atlas-voltage-btn").forEach(btn => {
+              btn.addEventListener("click", () => {
+                  toggleAtlasV8GridLayer(btn.dataset.atlasVoltage);
+                  updateAtlasV8GridToggleButtons();
+              });
+          });
+          updateAtlasV8GridToggleButtons();
+      }
+
+  - type: insert_after
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    marker: '    $("btn_subs_toggle")?.addEventListener("click", toggleSubs);'
+    insert: |
+      
+          wireAtlasV8GridToggleButtons();
+checks:
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    text: 'btn_atlas_66kv'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/index.html
+    text: 'data-atlas-voltage="400kv"'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-ui.js
+    text: 'wireAtlasV8GridToggleButtons'
+  - type: assert_contains
+    file: solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-css
+    text: '.map-controls'

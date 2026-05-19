@@ -285,3 +285,215 @@ body {
         flex-direction: column;
     }
 }
+
+/* GLOBALGRID2050 A4 PORTRAIT PRINT MODE */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.35 !important;
+  }
+
+  body::before {
+    content: "GlobalGrid2050  |  A4 Portrait Screening Report";
+    display: block;
+    color: #111111;
+    font-weight: bold;
+    font-size: 13pt;
+    border-bottom: 1px solid #999999;
+    padding: 0 0 5mm 0;
+    margin: 0 0 6mm 0;
+  }
+
+  .dashboard,
+  .module-app-shell,
+  .module-main,
+  .topo-main,
+  main {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  .panel,
+  .panel-left,
+  .panel-right,
+  .module-panel,
+  .topo-panel,
+  .module-map-card,
+  section,
+  header,
+  .guidance-box,
+  .warning-box,
+  .status-box,
+  .module-note {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #cccccc !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .panel,
+  .module-panel,
+  .topo-panel,
+  .module-map-card,
+  .guidance-box,
+  .warning-box,
+  .status-box,
+  .module-note {
+    border: 1px solid #cccccc !important;
+    border-radius: 0 !important;
+    padding: 5mm !important;
+    margin: 0 0 6mm 0 !important;
+  }
+
+  .panel-right,
+  .module-map-card {
+    page-break-before: auto;
+    break-before: auto;
+  }
+
+  #map,
+  #module_map,
+  canvas,
+  svg {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 110mm !important;
+    max-height: 170mm !important;
+    border: 1px solid #999999 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .maplibregl-canvas,
+  .maplibregl-map {
+    max-width: 100% !important;
+  }
+
+  .map-controls,
+  .map-tool-overlay,
+  .module-map-toolbar,
+  .crosshair,
+  #fetch_status,
+  .maplibregl-control-container,
+  .maplibregl-ctrl,
+  .maplibregl-ctrl-group,
+  .topo-header-links,
+  .button-row,
+  .btn,
+  button,
+  .tab-container,
+  .topo-tabs,
+  .toolbar,
+  .print-btn,
+  [id*="btn_"],
+  [class*="toggle"] {
+    display: none !important;
+  }
+
+  .legend {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid #cccccc !important;
+    padding: 4mm !important;
+    margin: 4mm 0 0 0 !important;
+    font-size: 8pt !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #111111 !important;
+    border-color: #999999 !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  p,
+  label,
+  div,
+  span,
+  small,
+  strong,
+  li {
+    color: #111111 !important;
+  }
+
+  input,
+  select,
+  textarea {
+    color: #111111 !important;
+    background: #ffffff !important;
+    border: 1px solid #999999 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .input-group,
+  .module-stat,
+  .stat-row,
+  .summary-row,
+  .function-item,
+  .card,
+  .topo-mode,
+  .tab-content {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .tab-content,
+  .topo-mode {
+    display: block !important;
+  }
+
+  .tab-content:not(.active),
+  .topo-mode:not(.active) {
+    display: block !important;
+  }
+
+  a::after {
+    content: "" !important;
+  }
+
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+

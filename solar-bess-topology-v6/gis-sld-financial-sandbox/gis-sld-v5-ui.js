@@ -453,6 +453,7 @@ function wireEvents() {
 wireAtlasV8GridToggleButtons();
 $("btn_map_expand")?.addEventListener("click", toggleMapExpand);
 $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
+$("btn_print_report")?.addEventListener("click", () => window.print());
 wireMapToolOverlayButtons();
 
 

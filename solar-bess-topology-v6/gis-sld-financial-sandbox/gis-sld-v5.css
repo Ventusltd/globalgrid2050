@@ -1478,3 +1478,35 @@ body.map-expanded .panel-left { display: none; }
   }
 }
 
+/* GLOBALGRID2050 OPERATING ASSET LAYER BUTTONS */
+.asset-toggle-row {
+    margin-top: 6px;
+}
+.asset-layer-btn {
+    opacity: 0.5;
+}
+.asset-layer-btn.active {
+    opacity: 1;
+}
+.asset-solar.active {
+    border-color: #00ff88;
+    color: #00ff88;
+}
+.asset-wind-onshore.active {
+    border-color: #00ffcc;
+    color: #00ffcc;
+}
+.asset-wind-offshore.active {
+    border-color: #0066ff;
+    color: #66aaff;
+}
+.asset-bess.active {
+    border-color: #ff69b4;
+    color: #ff69b4;
+}
+@media print {
+    .asset-toggle-row {
+        display: none !important;
+    }
+}
+

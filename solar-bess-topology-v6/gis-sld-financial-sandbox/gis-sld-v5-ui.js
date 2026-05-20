@@ -374,6 +374,33 @@ function updateAtlasV8GridToggleButtons() {
     });
 }
 
+
+function updateAtlasV8OperatingAssetToggleButtons() {
+    const labels = {
+        "solar_operational": "SOLAR OP",
+        "wind_onshore_operational": "ONSHORE WIND",
+        "wind_offshore_operational": "OFFSHORE WIND",
+        "bess_operational": "BESS OP"
+    };
+    Object.keys(labels).forEach(assetKey => {
+        const btn = $(`btn_asset_${assetKey}`);
+        if (!btn) return;
+        const visible = atlasV8OperatingAssetVisibility?.[assetKey] === true;
+        btn.textContent = `${labels[assetKey]} ${visible ? "ON" : "OFF"}`;
+        btn.classList.toggle("active", visible);
+    });
+}
+
+function wireAtlasV8OperatingAssetToggleButtons() {
+    document.querySelectorAll(".asset-layer-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            toggleAtlasV8OperatingAssetLayer(btn.dataset.assetLayer);
+            updateAtlasV8OperatingAssetToggleButtons();
+        });
+    });
+    updateAtlasV8OperatingAssetToggleButtons();
+}
+
 function wireAtlasV8GridToggleButtons() {
     document.querySelectorAll(".atlas-voltage-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -451,6 +478,7 @@ function wireEvents() {
     $("btn_basemap")?.addEventListener("click", toggleBasemap);
     $("btn_subs_toggle")?.addEventListener("click", toggleSubs);
 wireAtlasV8GridToggleButtons();
+wireAtlasV8OperatingAssetToggleButtons();
 $("btn_map_expand")?.addEventListener("click", toggleMapExpand);
 $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
 $("btn_print_report")?.addEventListener("click", () => window.print());

@@ -86,6 +86,14 @@ function atlasV8LegendItem(voltageKey, label, colour, widthPx) {
     const suffix = visible ? "" : " OFF";
     return `<div class="legend-item" onclick="toggleAtlasV8GridLayer('${voltageKey}')" style="cursor:pointer; opacity:${opacity};" title="Tap to toggle ${label}"><div class="swatch" style="background:transparent; border-bottom: ${widthPx}px solid ${colour};"></div> ${label}${suffix}</div>`;
 }
+
+function atlasV8AssetLegendItem(assetKey, label, colour) {
+    const visible = atlasV8OperatingAssetVisibility?.[assetKey] === true;
+    const opacity = visible ? "1" : "0.35";
+    const suffix = visible ? "" : " OFF";
+    return `<div class="legend-item" onclick="toggleAtlasV8OperatingAssetLayer('${assetKey}'); updateAtlasV8OperatingAssetToggleButtons?.();" style="cursor:pointer; opacity:${opacity};" title="Tap to toggle ${label}"><div class="swatch" style="background:${colour}; border-color:#111;"></div> ${label}${suffix}</div>`;
+}
+
 function updateLegend() {
     const legend = $("map_legend");
     if (!legend) return;
@@ -95,6 +103,10 @@ function updateLegend() {
         ${atlasV8LegendItem("132kv", "Atlas V8 132 kV Lines", "#ffcc00", 2)}
         ${atlasV8LegendItem("275kv", "Atlas V8 275 kV Lines", "#ff66ff", 3)}
         ${atlasV8LegendItem("400kv", "Atlas V8 400 kV Lines", "#ff3333", 3)}
+        ${atlasV8AssetLegendItem("solar_operational", "Operating Solar PV", "#00ff88")}
+        ${atlasV8AssetLegendItem("wind_onshore_operational", "Operating Onshore Wind", "#00ffcc")}
+        ${atlasV8AssetLegendItem("wind_offshore_operational", "Operating Offshore Wind", "#0066ff")}
+        ${atlasV8AssetLegendItem("bess_operational", "Operating Battery Storage", "#ff69b4")}
 
 
         <div class="legend-item"><div class="swatch" style="background:var(--substation);"></div> Point of Interconnection</div>

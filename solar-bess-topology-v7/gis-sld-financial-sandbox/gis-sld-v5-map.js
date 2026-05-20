@@ -17,6 +17,30 @@ const atlasV8GridLayerIds = {
     "400kv": "atlas-v8-grid-400kv-line"
 };
 
+const atlasV8OperatingAssetVisibility = {
+    "solar_operational": false,
+    "wind_onshore_operational": false,
+    "wind_offshore_operational": false,
+    "bess_operational": false
+};
+
+const atlasV8OperatingAssetLayerIds = {
+    "solar_operational": "atlas-v8-asset-solar-operational",
+    "wind_onshore_operational": "atlas-v8-asset-wind-onshore-operational",
+    "wind_offshore_operational": "atlas-v8-asset-wind-offshore-operational",
+    "bess_operational": "atlas-v8-asset-bess-operational"
+};
+
+function toggleAtlasV8OperatingAssetLayer(assetKey) {
+    if (!atlasV8OperatingAssetLayerIds[assetKey]) return;
+    atlasV8OperatingAssetVisibility[assetKey] = !atlasV8OperatingAssetVisibility[assetKey];
+    const layerId = atlasV8OperatingAssetLayerIds[assetKey];
+    if (map && map.getLayer(layerId)) {
+        map.setLayoutProperty(layerId, "visibility", atlasV8OperatingAssetVisibility[assetKey] ? "visible" : "none");
+    }
+    updateLegend?.();
+}
+
 function toggleAtlasV8GridLayer(voltageKey) {
     if (!atlasV8GridLayerIds[voltageKey]) return;
     atlasV8GridLayerVisibility[voltageKey] = !atlasV8GridLayerVisibility[voltageKey];
@@ -137,6 +161,76 @@ map.addLayer({
         }
     });
 
+
+
+    // Atlas V8 operating asset visibility layers from REPD master data.
+    // These are existing operating asset context layers only.
+    // They help users inspect nearby operating solar, wind and battery assets before drawing a new array.
+    map.addSource("atlas-v8-repd-operating-assets", {
+        type: "geojson",
+        data: "/dist/repd_master.json"
+    });
+
+    map.addLayer({
+        id: "atlas-v8-asset-solar-operational",
+        type: "circle",
+        source: "atlas-v8-repd-operating-assets",
+        filter: ["all", ["==", ["get", "tech"], "solar"], ["==", ["get", "status"], "operational"]],
+        layout: { visibility: atlasV8OperatingAssetVisibility["solar_operational"] ? "visible" : "none" },
+        paint: {
+            "circle-color": "#00ff88",
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-stroke-color": "#111111",
+            "circle-stroke-width": 1,
+            "circle-opacity": 0.88
+        }
+    });
+
+    map.addLayer({
+        id: "atlas-v8-asset-wind-onshore-operational",
+        type: "circle",
+        source: "atlas-v8-repd-operating-assets",
+        filter: ["all", ["==", ["get", "raw_tech"], "Wind Onshore"], ["==", ["get", "status"], "operational"]],
+        layout: { visibility: atlasV8OperatingAssetVisibility["wind_onshore_operational"] ? "visible" : "none" },
+        paint: {
+            "circle-color": "#00ffcc",
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-stroke-color": "#111111",
+            "circle-stroke-width": 1,
+            "circle-opacity": 0.88
+        }
+    });
+
+    map.addLayer({
+        id: "atlas-v8-asset-wind-offshore-operational",
+        type: "circle",
+        source: "atlas-v8-repd-operating-assets",
+        filter: ["all", ["==", ["get", "raw_tech"], "Wind Offshore"], ["==", ["get", "status"], "operational"]],
+        layout: { visibility: atlasV8OperatingAssetVisibility["wind_offshore_operational"] ? "visible" : "none" },
+        paint: {
+            "circle-color": "#0066ff",
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-stroke-color": "#ffffff",
+            "circle-stroke-width": 1,
+            "circle-opacity": 0.88
+        }
+    });
+
+    map.addLayer({
+        id: "atlas-v8-asset-bess-operational",
+        type: "circle",
+        source: "atlas-v8-repd-operating-assets",
+        filter: ["all", ["==", ["get", "tech"], "bess"], ["==", ["get", "status"], "operational"]],
+        layout: { visibility: atlasV8OperatingAssetVisibility["bess_operational"] ? "visible" : "none" },
+        paint: {
+            "circle-color": "#ff69b4",
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-stroke-color": "#111111",
+            "circle-stroke-width": 1,
+            "circle-opacity": 0.9
+        }
+    });
+
     map.addSource("topology", { type: "geojson", data: state.currentGeoJSON });
 
     map.addLayer({
@@ -226,6 +320,12 @@ map.addLayer({
     map.on("mouseenter", "substation", () => map.getCanvas().style.cursor = "pointer");
     map.on("mouseleave", "substation", () => map.getCanvas().style.cursor = "");
 
+    ["atlas-v8-asset-solar-operational", "atlas-v8-asset-wind-onshore-operational", "atlas-v8-asset-wind-offshore-operational", "atlas-v8-asset-bess-operational"].forEach(layerId => {
+        map.on("click", layerId, onOperatingAssetClick);
+        map.on("mouseenter", layerId, () => map.getCanvas().style.cursor = "pointer");
+        map.on("mouseleave", layerId, () => map.getCanvas().style.cursor = "");
+    });
+
     loadSubstations();
     updateLegend();
     recalcAll();
@@ -291,6 +391,25 @@ function onCableRoutePinClick(e) {
         <div class="popup-row"><span>Status:</span><span class="popup-val" style="color:#fff;">${prop.committed_to_route ? "Committed to cable route" : "Dropped but not drawn"}</span></div>
         <div class="popup-row"><span>Lon:</span><span class="popup-val" style="color:#fff;">${Number(coords[0]).toFixed(6)}</span></div>
         <div class="popup-row"><span>Lat:</span><span class="popup-val" style="color:#fff;">${Number(coords[1]).toFixed(6)}</span></div>
+    `);
+}
+
+
+function onOperatingAssetClick(e) {
+    const feature = e.features && e.features[0];
+    if (!feature || !feature.geometry) return;
+    const prop = feature.properties || {};
+    const coords = feature.geometry.coordinates.slice();
+    const name = pickProp(prop, ["name", "project", "Project Name", "site", "Site Name", "ref_name"], "Operating asset");
+    const tech = pickProp(prop, ["raw_tech", "tech", "technology", "Technology Type"], "Unknown technology");
+    const status = pickProp(prop, ["status", "Status"], "Unknown status");
+    const capacity = pickProp(prop, ["capacity", "capacity_mw", "Installed Capacity (MWelec)", "Capacity (MW)"], "n/a");
+    showPopup(coords, `
+        <div style="margin-bottom:5px;color:#00ff88;font-weight:bold;font-size:13px;text-transform:uppercase;">Operating Asset</div>
+        <div class="popup-row"><span>Name:</span><span class="popup-val" style="color:#fff;">${name}</span></div>
+        <div class="popup-row"><span>Technology:</span><span class="popup-val" style="color:#fff;">${tech}</span></div>
+        <div class="popup-row"><span>Status:</span><span class="popup-val" style="color:#fff;">${status}</span></div>
+        <div class="popup-row"><span>Capacity:</span><span class="popup-val" style="color:#fff;">${capacity} MW</span></div>
     `);
 }
 

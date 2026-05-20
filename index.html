@@ -5,23 +5,75 @@
 <title>GlobalGrid2050</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+  :root {
+    --bg: #050505;
+    --panel: #0b0e14;
+    --line: #2f343d;
+    --text: #ffffff;
+    --muted: #a6adbb;
+    --accent: #66ccff;
+    --ok: #00ff88;
+    --warn: #ffcc00;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
   body {
-    background: black;
-    color: white;
+    background: var(--bg);
+    color: var(--text);
     font-family: Courier, monospace;
-    padding: 40px;
-    max-width: 900px;
+    padding: 34px;
+    max-width: 1180px;
     margin: 0 auto;
-    font-size: 20px;
-    line-height: 1.6;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  header {
+    border: 1px solid var(--line);
+    background: rgba(10, 10, 10, 0.96);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 22px;
+  }
+
+  .kicker {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 12px;
+    margin-bottom: 8px;
   }
 
   h1 {
-    margin-top: 0;
+    margin: 0 0 12px 0;
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  h2 {
+    color: var(--accent);
+    font-size: 22px;
+    margin: 0 0 14px 0;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+  }
+
+  h3 {
+    color: var(--accent);
+    margin: 0 0 8px 0;
+    font-size: 18px;
+  }
+
+  p {
+    color: var(--muted);
+    margin: 0 0 12px 0;
   }
 
   a {
-    color: #66ccff;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -29,112 +81,350 @@
     text-decoration: underline;
   }
 
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .summary-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+    padding: 16px;
+  }
+
+  .summary-card p {
+    font-size: 15px;
+    margin: 0;
+  }
+
   #gridSearch {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     background: #111;
     color: white;
     border: 1px solid #444;
+    border-radius: 10px;
     font-family: Courier, monospace;
     font-size: 18px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+    margin: 0 0 22px 0;
   }
 
   #gridSearch:focus {
     outline: none;
-    border-color: #66ccff;
+    border-color: var(--accent);
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+  .section {
+    margin: 0 0 24px 0;
   }
 
-  td {
-    padding: 12px 0;
-    border-bottom: 1px solid #333;
+  .directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .directory-card {
+    display: block;
+    min-height: 150px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--panel);
+    padding: 18px;
+    color: var(--text);
+  }
+
+  .directory-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+
+  .directory-card span {
+    display: inline-block;
+    color: var(--ok);
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
+  .directory-card p {
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .status-note {
+    border: 1px solid var(--warn);
+    color: var(--warn);
+    background: rgba(255, 204, 0, 0.08);
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 15px;
   }
 
   .footer {
-    margin-top: 60px;
-    font-size: 16px;
-    color: #aaaaaa;
+    margin-top: 42px;
+    font-size: 14px;
+    color: var(--muted);
     line-height: 1.5;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     body {
-      padding: 25px;
-      font-size: 18px;
+      padding: 22px;
+      font-size: 16px;
     }
 
-    .footer {
-      font-size: 14px;
+    h1 {
+      font-size: 28px;
+    }
+
+    .directory-card {
+      min-height: 0;
     }
   }
 </style>
 </head>
 <body>
-<h1>GlobalGrid2050</h1>
+<header>
+  <div class="kicker">Open Grid Intelligence</div>
+  <h1>GlobalGrid2050</h1>
+  <p>GlobalGrid2050 is an open grid intelligence and commercial engineering platform for early stage solar, BESS, cable, grid connection and electrification decisions.</p>
+  <p>It helps users see the relationship between land, grid infrastructure, existing operating assets, voltage class, topology, cable routing, losses, CAPEX, revenue, project risk and procurement assumptions before formal design or investment decisions are locked in.</p>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h3>Grid and asset context</h3>
+      <p>Explore substations, voltage corridors, renewables pipeline data, operating assets and infrastructure layers.</p>
+    </div>
+    <div class="summary-card">
+      <h3>Engineering screening</h3>
+      <p>Review site layout, SLD logic, topology, cable geometry, losses, module assumptions and grid interface risk.</p>
+    </div>
+    <div class="summary-card">
+      <h3>Commercial visibility</h3>
+      <p>Connect early engineering assumptions to pricing, CAPEX, revenue, profit, cashflow and procurement awareness.</p>
+    </div>
+  </div>
+  <div class="status-note">Screening tools are for technical review, research and early stage decision support only. They do not replace formal engineering design, grid studies, procurement validation, legal review or investment due diligence.</div>
+</header>
 
-<p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
+<input type="text" id="gridSearch" onkeyup="searchCards()" placeholder="Search platform directory...">
 
-<input type="text" id="gridSearch" onkeyup="searchTable()" placeholder="Search directory...">
+<main id="directoryRoot">
+  <section class="section">
+    <h2>Core Workspaces</h2>
+    <div class="directory-grid">
+      <a class="directory-card" href="./solar-bess-topology-v7/" data-search="globalgrid2050 solar bess topology v7 workspace testing modular gis sld grid intelligence">
+        <h3>Solar BESS Topology V7 Workspace</h3>
+        <p>Current structured workspace for GIS SLD, solar BESS topology, cable geometry, grid screening and commercial engineering review.</p>
+        <span>Open workspace</span>
+      </a>
+      <a class="directory-card" href="./solar-bess-topology-v6/" data-search="globalgrid2050 solar bess topology v6 testing phase modular apps">
+        <h3>Solar BESS Topology V6 Testing Phase</h3>
+        <p>Testing and modularisation workspace preserving separated app logic and controlled feature development.</p>
+        <span>Open workspace</span>
+      </a>
+      <a class="directory-card" href="./repd_grid_atlasv8/" data-search="uk energy atlas grid overlay v8 repd substations voltage corridors operating assets">
+        <h3>UK Energy Atlas V8</h3>
+        <p>Standalone UK grid, renewables pipeline, operating asset and infrastructure atlas for wider spatial analysis.</p>
+        <span>Open atlas</span>
+      </a>
+      <a class="directory-card" href="./solar-bess-topology-v5/indexforgis-sld-v5.html" data-search="gis sld financial sandbox v5 stable baseline">
+        <h3>GIS SLD Financial Sandbox V5</h3>
+        <p>Stable baseline version of the GIS SLD financial sandbox for comparison against newer workspaces.</p>
+        <span>Open baseline</span>
+      </a>
+    </div>
+  </section>
 
-<table id="directoryTable">
-  <tr><td><a href="./33kv_uk_dap_price_estimator/">33 kV UK DAP Price Estimator</a></td></tr>
-  <tr><td><a href="./ac_cables_knowledge/">AC Cables Knowledge</a></td></tr>
-  <tr><td><a href="./blog/">Blog</a></td></tr>
-  <tr><td><a href="./conductor_resistances/">Conductor Resistances</a></td></tr>
-  <tr><td><a href="./copper_and_aluminium_prices_historic_trends/">Copper and Aluminium Historic Prices & Trends</a></td></tr>
-  <tr><td><a href="./dc_cables_knowledge/">DC Cables Knowledge</a></td></tr>
-  <tr><td><a href="./definitions/">Definitions</a></td></tr>
-  <tr><td><a href="./marketing/earth.html">Earth</a></td></tr>
-  <tr><td><a href="./employers_requirements_BESS/">Employer Requirements BESS Notes</a></td></tr>
-  <tr><td><a href="./employers_requirements/">Employer Requirements Notes</a></td></tr>
-  <tr><td><a href="./solar-bess-topology/indexforgis-sld.html">GIS-SLD Topology Engine And Financial Sandbox</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v2/indexforgis-sld-v2.html">GIS-SLD Financial Sandbox V2</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v4/indexforgis-sld-v4.html">GIS-SLD Financial Sandbox V4</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/indexforgis-sld-v5.html">GIS-SLD Financial Sandbox V5</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/module-layout-v5.html">Physical Solar Module Layout V5</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html">DC AC LV Solar PV Cable Topology Review V5</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/cable-geometry-visualiser-v5.html">Cable Geometry Visualiser V5</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v6/">GlobalGrid2050 Solar BESS Topology V6 Testing Phase</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v7/">GlobalGrid2050 Solar BESS Topology V7 Workspace</a></td></tr>
-  <tr><td><a href="./lv_ac_dc_price_estimator/">LV AC and DC Distribution Cables Price Estimator</a></td></tr>
-  <tr><td><a href="./mv_and_hv_components/">MV and HV Components</a></td></tr>
-  <tr><td><a href="./nsip_solar_farms/">NSIP Solar Farms</a></td></tr>
-  <tr><td><a href="./podcast_transcripts/">Podcast Transcripts</a></td></tr>
-  <tr><td><a href="./power_systems_studies/">Power Systems Studies</a></td></tr>
-  <tr><td><a href="./sld_single_diagrams_diagrams_and_grids/">Single Line Diagrams And Grids</a></td></tr>
-  <tr><td><a href="./solar_components/">Solar Components</a></td></tr>
-  <tr><td><a href="./solar_deployment_statistics/">Solar Deployment Statistics</a></td></tr>
-  <tr><td><a href="./repd_grid_atlasv8/">UK Energy Atlas (Grid Overlay V8)</a></td></tr>
-  <tr><td><a href="./uk_macro_energy_trends/">UK Macro Energy Consumption Trends (ONS)</a></td></tr>
-  <tr><td><a href="./uk_renewables_pipeline/dashboard.html">UK Renewables Pipeline Analytics Dashboard</a></td></tr>
-</table>
+  <section class="section">
+    <h2>Dashboards and Estimators</h2>
+    <div class="directory-grid">
+      <a class="directory-card" href="./uk_renewables_pipeline/dashboard.html" data-search="uk renewables pipeline analytics dashboard solar bess wind project market context">
+        <h3>UK Renewables Pipeline Dashboard</h3>
+        <p>Pipeline analytics dashboard for UK renewables screening, market context and project opportunity review.</p>
+        <span>Open dashboard</span>
+      </a>
+      <a class="directory-card" href="./33kv_uk_dap_price_estimator/" data-search="33 kv uk dap price estimator medium voltage cable pricing procurement screening">
+        <h3>33 kV UK DAP Price Estimator</h3>
+        <p>Early 33 kV cable pricing reference for commercial and procurement screening.</p>
+        <span>Open price estimator</span>
+      </a>
+      <a class="directory-card" href="./lv_ac_dc_price_estimator/" data-search="lv ac dc distribution cables price estimator low voltage cable pricing">
+        <h3>LV AC and DC Cable Price Estimator</h3>
+        <p>Low voltage AC and DC distribution cable price reference for early commercial screening.</p>
+        <span>Open price estimator</span>
+      </a>
+      <a class="directory-card" href="./copper_and_aluminium_prices_historic_trends/" data-search="copper aluminium prices historic trends cable metal procurement">
+        <h3>Copper and Aluminium Price Trends</h3>
+        <p>Historic metal price context for cable procurement and commercial awareness.</p>
+        <span>Open reference</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Engineering Knowledge and Processes</h2>
+    <div class="directory-grid">
+      <a class="directory-card" href="./power_systems_studies/" data-search="power systems studies process ev charging case study grid compliance">
+        <h3>Power Systems Studies</h3>
+        <p>Power systems study process reference and applied project case study context.</p>
+        <span>Open page</span>
+      </a>
+      <a class="directory-card" href="./mv_and_hv_components/" data-search="mv hv components medium voltage high voltage connection process switchgear transformers terminations">
+        <h3>MV and HV Components</h3>
+        <p>Medium voltage and high voltage component and connection process reference for grid connection review.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./sld_single_diagrams_diagrams_and_grids/" data-search="single line diagrams sld grids electrical diagrams">
+        <h3>Single Line Diagrams and Grids</h3>
+        <p>Reference material for SLD thinking, grid interface logic and electrical system structure.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./conductor_resistances/" data-search="conductor resistances cable electrical resistance voltage drop losses">
+        <h3>Conductor Resistances</h3>
+        <p>Cable conductor resistance reference for electrical loss and voltage drop awareness.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./employers_requirements/" data-search="employer requirements solar engineering procurement construction scope">
+        <h3>Employer Requirements Notes</h3>
+        <p>Reference notes for project requirements, scope clarity and delivery assumptions.</p>
+        <span>Open notes</span>
+      </a>
+      <a class="directory-card" href="./employers_requirements_BESS/" data-search="employer requirements bess battery energy storage systems notes">
+        <h3>Employer Requirements BESS Notes</h3>
+        <p>Reference notes for battery energy storage project requirements and delivery assumptions.</p>
+        <span>Open notes</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Solar, Cable and Market References</h2>
+    <div class="directory-grid">
+      <a class="directory-card" href="./solar_deployment_statistics/" data-search="solar deployment statistics global uk pv market data">
+        <h3>Solar Deployment Statistics</h3>
+        <p>Solar deployment data and context for market scale, growth and infrastructure planning.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./nsip_solar_farms/" data-search="nsip solar farms nationally significant infrastructure projects uk">
+        <h3>NSIP Solar Farms</h3>
+        <p>Reference material for large solar projects and nationally significant infrastructure context.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./solar_components/" data-search="solar components modules inverters cables connectors pv components">
+        <h3>Solar Components</h3>
+        <p>Reference material for solar PV components and system building blocks.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./ac_cables_knowledge/" data-search="ac cables knowledge alternating current cable reference">
+        <h3>AC Cables Knowledge</h3>
+        <p>Technical reference material for AC cable systems and related engineering considerations.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./dc_cables_knowledge/" data-search="dc cables knowledge direct current solar cable reference">
+        <h3>DC Cables Knowledge</h3>
+        <p>Technical reference material for DC cable systems and solar PV cable considerations.</p>
+        <span>Open reference</span>
+      </a>
+      <a class="directory-card" href="./uk_macro_energy_trends/" data-search="uk macro energy consumption trends ons electricity heat transport demand">
+        <h3>UK Macro Energy Trends</h3>
+        <p>UK energy consumption and electrification trend context for wider system analysis.</p>
+        <span>Open dashboard</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Archive and Earlier Versions</h2>
+    <div class="directory-grid">
+      <a class="directory-card" href="./solar-bess-topology/indexforgis-sld.html" data-search="gis sld topology engine financial sandbox original archive">
+        <h3>GIS SLD Topology Engine</h3>
+        <p>Earlier GIS SLD topology and financial sandbox route retained for version history.</p>
+        <span>Open archive</span>
+      </a>
+      <a class="directory-card" href="./solar-bess-topology-v2/indexforgis-sld-v2.html" data-search="gis sld financial sandbox v2 archive">
+        <h3>GIS SLD Financial Sandbox V2</h3>
+        <p>Earlier V2 sandbox retained for comparison and development history.</p>
+        <span>Open archive</span>
+      </a>
+      <a class="directory-card" href="./solar-bess-topology-v4/indexforgis-sld-v4.html" data-search="gis sld financial sandbox v4 archive">
+        <h3>GIS SLD Financial Sandbox V4</h3>
+        <p>Earlier V4 sandbox retained for comparison and development history.</p>
+        <span>Open archive</span>
+      </a>
+      <a class="directory-card" href="./solar-bess-topology-v5/module-layout-v5.html" data-search="physical solar module layout v5 archive">
+        <h3>Physical Solar Module Layout V5</h3>
+        <p>Earlier module layout version retained as part of the V5 baseline set.</p>
+        <span>Open archive</span>
+      </a>
+      <a class="directory-card" href="./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html" data-search="dc ac lv solar pv cable topology review v5 archive">
+        <h3>DC AC LV Topology Review V5</h3>
+        <p>Earlier low voltage and DC topology review page retained as part of the V5 baseline set.</p>
+        <span>Open archive</span>
+      </a>
+      <a class="directory-card" href="./solar-bess-topology-v5/cable-geometry-visualiser-v5.html" data-search="cable geometry visualiser v5 archive">
+        <h3>Cable Geometry Visualiser V5</h3>
+        <p>Earlier cable geometry visualiser retained as part of the V5 baseline set.</p>
+        <span>Open archive</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Library</h2>
+    <div class="directory-grid">
+      <a class="directory-card" href="./definitions/" data-search="definitions glossary technical terms">
+        <h3>Definitions</h3>
+        <p>Glossary and definitions for technical, commercial and energy system terms.</p>
+        <span>Open library</span>
+      </a>
+      <a class="directory-card" href="./blog/" data-search="blog articles analysis energy grid solar infrastructure">
+        <h3>Blog</h3>
+        <p>Articles and analysis on solar, grid infrastructure, electrification and project delivery.</p>
+        <span>Open library</span>
+      </a>
+      <a class="directory-card" href="./podcast_transcripts/" data-search="podcast transcripts solar photovoltaics interviews industry discussion">
+        <h3>Podcast Transcripts</h3>
+        <p>Transcript library for solar PV, infrastructure and energy transition discussions.</p>
+        <span>Open library</span>
+      </a>
+      <a class="directory-card" href="./marketing/earth.html" data-search="earth marketing visual page global energy infrastructure">
+        <h3>Earth</h3>
+        <p>Visual public page for global energy and infrastructure context.</p>
+        <span>Open page</span>
+      </a>
+    </div>
+  </section>
+</main>
 
 <div class="footer">
-  <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
+  <p><strong>Disclaimer:</strong> Content is provided for general technical documentation, research and early stage screening only. It does not constitute formal engineering advice, grid approval, procurement instruction, financial advice or regulatory guidance. All real world infrastructure decisions must be verified by appropriately qualified professionals using current project data, applicable standards and competent review.</p>
 </div>
 
 <script>
-function searchTable() {
+function searchCards() {
   var input = document.getElementById("gridSearch");
   var filter = input.value.toUpperCase();
-  var table = document.getElementById("directoryTable");
-  var tr = table.getElementsByTagName("tr");
+  var sections = document.querySelectorAll(".section");
 
-  for (var i = 0; i < tr.length; i++) {
-    var td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      var text = td.textContent || td.innerText;
-      tr[i].style.display = text.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-    }
-  }
+  sections.forEach(function(section) {
+    var cards = section.querySelectorAll(".directory-card");
+    var visibleCount = 0;
+
+    cards.forEach(function(card) {
+      var text = (card.textContent || card.innerText || "") + " " + (card.getAttribute("data-search") || "");
+      var visible = text.toUpperCase().indexOf(filter) > -1;
+      card.style.display = visible ? "block" : "none";
+      if (visible) visibleCount++;
+    });
+
+    section.style.display = visibleCount > 0 ? "block" : "none";
+  });
 }
 </script>
 </body>

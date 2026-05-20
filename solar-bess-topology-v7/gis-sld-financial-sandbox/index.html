@@ -57,6 +57,8 @@
         <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor" value="1.35" step="0.05" min="1.0" /></div>
 
         <h3>Array Hierarchy (String)</h3>
+        <div class="input-group array-size-control"><label>Target DC Capacity MWp</label><input type="number" id="target_dc_mwp" value="" placeholder="Optional" step="1" min="0.1" /></div>
+        <div class="ux-note array-size-note">Optional sizing helper. Enter a target MWp DC and the sandbox will resize by whole skid and ring main steps. Module rating, modules per string, strings per inverter and inverter rating remain user controlled.</div>
         <div class="input-group"><label>DC/AC Ratio</label><input type="number" id="dc_ac_ratio" value="1.20" step="0.05" min="0.01" /></div>
         <div class="input-group"><label>String Inverter Rating kVA</label><input type="number" id="string_inv_kva" value="352" step="1" min="1" /></div>
         <div class="input-group"><label>String Skid Transformer Rating MVA</label><input type="number" id="string_skid_mva" value="8.96" step="0.01" min="0.1" /></div>
@@ -191,6 +193,8 @@
         <div class="input-group"><label>Gross Site Factor</label><input type="number" id="gross_factor_c" value="1.35" step="0.05" min="1.0" /></div>
 
         <h3>Array Hierarchy (Central)</h3>
+        <div class="input-group array-size-control"><label>Target DC Capacity MWp</label><input type="number" id="target_dc_mwp_c" value="" placeholder="Optional" step="1" min="0.1" /></div>
+        <div class="ux-note array-size-note">Optional sizing helper. Enter a target MWp DC and the sandbox will resize by whole central inverter, skid and ring main steps. Module rating, modules per string and central inverter ratings remain user controlled.</div>
         <div class="input-group"><label>Central Inverter DC Input Rating MWdc</label><input type="number" id="inv_dc_mw_c" value="5.28" step="0.01" min="0.1" max="30" /></div>
         <div class="input-group"><label>Central Inverter AC Output Rating MWac</label><input type="number" id="inv_ac_mw_c" value="4.40" step="0.01" min="0.1" max="20" /></div>
         <div class="input-group"><label>Central Skid Transformer Rating MVA</label><input type="number" id="central_skid_mva_c" value="4.40" step="0.01" min="0.1" max="25" /></div>
@@ -405,6 +409,7 @@
             <button id="btn_basemap" class="map-toggle-btn">SATELLITE VIEW</button>
 <button id="btn_map_expand" class="map-toggle-btn">MAP MAX</button>
 <button id="btn_key_toggle" class="map-toggle-btn active">KEY ON</button>
+<button id="btn_array_toggle" class="map-toggle-btn active">ARRAY ON</button>
 <button id="btn_print_report" class="map-toggle-btn print-btn">PRINT</button>
 
         </div>
@@ -430,6 +435,11 @@
         <button id="btn_map_pick_array" class="map-toggle-btn">PICK ARRAY</button>
         <button id="btn_map_drop_pins" class="map-toggle-btn">DROP PINS</button>
         <button id="btn_map_draw_route" class="map-toggle-btn">DRAW ROUTE</button>
+    </div>
+    <div class="map-toggle-row map-size-row">
+        <input id="map_target_dc_mwp" class="map-size-input" type="number" min="0.1" step="1" placeholder="MWp DC" />
+        <button id="btn_map_apply_size" class="map-toggle-btn">SIZE MWp</button>
+        <span id="map_size_status" class="map-size-status">Whole block sizing</span>
     </div>
     <div class="map-toggle-row map-tool-row-secondary">
         <button id="btn_map_rotate_left" class="map-toggle-btn">ROT -30</button>

@@ -1510,3 +1510,66 @@ body.map-expanded .panel-left { display: none; }
     }
 }
 
+/* GLOBALGRID2050 V7 ARRAY VISIBILITY AND MWp SIZING */
+.array-size-control input {
+    color: var(--accent);
+    font-weight: bold;
+}
+.array-size-note {
+    border-left: 2px solid var(--accent);
+    padding-left: 8px;
+    margin-bottom: 10px;
+}
+.map-size-row {
+    align-items: center;
+}
+.map-size-input {
+    width: 90px;
+    min-width: 90px;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.82);
+    border: 1px solid #2f343d;
+    border-radius: 4px;
+    color: #00ffff;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    font-weight: bold;
+}
+.map-size-input:focus {
+    outline: none;
+    border-color: #00ffff;
+}
+.map-size-status {
+    color: #a6adbb;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 8px 4px;
+    white-space: nowrap;
+}
+#btn_array_toggle.active {
+    border-color: #00ff88;
+    color: #00ff88;
+}
+#btn_array_toggle:not(.active) {
+    opacity: 0.55;
+}
+@media (max-width: 768px) {
+    .map-size-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .map-size-input {
+        width: 82px;
+        min-width: 82px;
+    }
+    .map-size-status {
+        width: 100%;
+    }
+}
+@media print {
+    .map-size-row,
+    .array-size-note {
+        display: none !important;
+    }
+}
+

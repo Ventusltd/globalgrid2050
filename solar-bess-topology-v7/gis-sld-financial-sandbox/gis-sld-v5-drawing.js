@@ -212,6 +212,8 @@ function computeAndDraw() {
     state.currentGeoJSON = turf.featureCollection(features);
     const src = map.getSource("topology");
     if (src) src.setData(state.currentGeoJSON);
+    setTopologyLayerVisibility?.(state.arrayVisible !== false);
+    updateArrayToggleButton?.();
 
     if (features.length > 0 && !state.suppressNextMapFit) {
         const bbox = turf.bbox(state.currentGeoJSON);

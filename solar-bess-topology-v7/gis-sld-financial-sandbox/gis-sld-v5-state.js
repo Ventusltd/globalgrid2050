@@ -22,6 +22,7 @@ const state = {
     cableRoutePins: [],
     cableRouteCommitted: false,
     suppressNextMapFit: false,
+    arrayVisible: true,
     // Legacy aliases retained for older export and drawing logic if needed.
     cableRouteMode: false,
     cableRouteWaypoints: []

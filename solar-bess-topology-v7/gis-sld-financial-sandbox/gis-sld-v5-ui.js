@@ -13,6 +13,7 @@ function switchTab(tab) {
         el.style.display = tab === "central" ? "flex" : "none";
     });
     updateLegend();
+    syncMapSizeInputFromActiveTab?.();
     if (state.activeDrawCenter) computeAndDraw();
     else recalcAll();
 }
@@ -338,6 +339,142 @@ function triggerDrawAtCenter() {
     updateCableRouteStatus();
 }
 
+
+// ============================================================
+// ARRAY VISIBILITY AND TARGET MWp SIZING
+// ============================================================
+const TOPOLOGY_LAYER_IDS_FOR_ARRAY_TOGGLE = [
+    "overall_boundary_fill",
+    "overall_boundary_line",
+    "footprints",
+    "footprints_outline",
+    "export_cable",
+    "radial_spine",
+    "export_cable_pins",
+    "inverters",
+    "substation"
+];
+
+function setTopologyLayerVisibility(visible) {
+    if (!map) return;
+    TOPOLOGY_LAYER_IDS_FOR_ARRAY_TOGGLE.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, "visibility", visible ? "visible" : "none");
+        }
+    });
+}
+
+function updateArrayToggleButton() {
+    const btn = $("btn_array_toggle");
+    if (!btn) return;
+    const visible = state.arrayVisible !== false;
+    btn.textContent = visible ? "ARRAY ON" : "ARRAY OFF";
+    btn.classList.toggle("active", visible);
+}
+
+function toggleArrayVisibility() {
+    state.arrayVisible = state.arrayVisible === false;
+    setTopologyLayerVisibility(state.arrayVisible !== false);
+    updateArrayToggleButton();
+}
+
+function syncMapSizeInputFromActiveTab() {
+    const mapInput = $("map_target_dc_mwp");
+    if (!mapInput) return;
+    const source = state.activeTab === "string" ? $("target_dc_mwp") : $("target_dc_mwp_c");
+    mapInput.value = source?.value || "";
+}
+
+function setMapSizeStatus(text, ok = true) {
+    const el = $("map_size_status");
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = ok ? "#00ff88" : "#ff9900";
+}
+
+function setInputValue(id, value) {
+    const el = $(id);
+    if (!el) return;
+    el.value = String(value);
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function applyTargetDcMwpFromActiveTab(source) {
+    const suffix = state.activeTab === "string" ? "" : "_c";
+    const targetInput = state.activeTab === "string" ? $("target_dc_mwp") : $("target_dc_mwp_c");
+    const mapInput = $("map_target_dc_mwp");
+    const raw = source === "map" ? parseFloat(mapInput?.value) : parseFloat(targetInput?.value);
+    const targetMwp = Number.isFinite(raw) && raw > 0 ? raw : 0;
+
+    if (!targetMwp) {
+        setMapSizeStatus("Enter MWp DC", false);
+        return;
+    }
+
+    if (state.activeTab === "string") {
+        const modWp = num("mod_wp");
+        const x = intVal("x_mods");
+        const z = intVal("z_strings");
+        const y = intVal("y_invs");
+        const currentSkidsPerRing = Math.max(1, intVal("s_subs", 1));
+        if (modWp <= 0 || x <= 0 || z <= 0 || y <= 0) {
+            setMapSizeStatus("Check string inputs", false);
+            return;
+        }
+        const dcPerSkidMwp = (modWp * x * z * y) / 1_000_000;
+        const desiredSkids = Math.max(1, Math.ceil(targetMwp / dcPerSkidMwp));
+        const rings = Math.max(1, Math.ceil(desiredSkids / currentSkidsPerRing));
+        const skidsPerRing = Math.max(1, Math.ceil(desiredSkids / rings));
+        const actualSkids = skidsPerRing * rings;
+        const actualMwp = actualSkids * dcPerSkidMwp;
+
+        setInputValue("s_subs", skidsPerRing);
+        setInputValue("b_cols", rings);
+        if (targetInput) targetInput.value = targetMwp;
+        if (mapInput) mapInput.value = targetMwp;
+        setMapSizeStatus(`String ${actualMwp.toFixed(1)} MWp via ${actualSkids} skids`, true);
+    } else {
+        const invDcMwp = getCentralInverterDcMwdc();
+        const invPerSkid = Math.max(1, intVal("inv_per_mv_c", 1));
+        const currentSkidsPerRing = Math.max(1, intVal("mv_per_ring_c", 1));
+        if (invDcMwp <= 0 || invPerSkid <= 0) {
+            setMapSizeStatus("Check central inputs", false);
+            return;
+        }
+        const desiredInverters = Math.max(1, Math.ceil(targetMwp / invDcMwp));
+        const desiredSkids = Math.max(1, Math.ceil(desiredInverters / invPerSkid));
+        const rings = Math.max(1, Math.ceil(desiredSkids / currentSkidsPerRing));
+        const skidsPerRing = Math.max(1, Math.ceil(desiredSkids / rings));
+        const actualInverters = invPerSkid * skidsPerRing * rings;
+        const actualMwp = actualInverters * invDcMwp;
+
+        setInputValue("mv_per_ring_c", skidsPerRing);
+        setInputValue("rings_c", rings);
+        if (targetInput) targetInput.value = targetMwp;
+        if (mapInput) mapInput.value = targetMwp;
+        setMapSizeStatus(`Central ${actualMwp.toFixed(1)} MWp via ${actualInverters} inverter blocks`, true);
+    }
+
+    state.arrayOverrideCenter = null;
+    state.suppressNextMapFit = true;
+    redrawIfTopologyExists();
+    setTopologyLayerVisibility(state.arrayVisible !== false);
+    updateArrayToggleButton();
+}
+
+function wireArraySizingControls() {
+    $("btn_array_toggle")?.addEventListener("click", toggleArrayVisibility);
+    $("btn_map_apply_size")?.addEventListener("click", () => applyTargetDcMwpFromActiveTab("map"));
+    $("map_target_dc_mwp")?.addEventListener("keydown", e => {
+        if (e.key === "Enter") applyTargetDcMwpFromActiveTab("map");
+    });
+    $("target_dc_mwp")?.addEventListener("change", () => applyTargetDcMwpFromActiveTab("panel"));
+    $("target_dc_mwp_c")?.addEventListener("change", () => applyTargetDcMwpFromActiveTab("panel"));
+    updateArrayToggleButton();
+    syncMapSizeInputFromActiveTab();
+}
+
 // ============================================================
 // BASEMAP / SUBS TOGGLES
 // ============================================================
@@ -483,6 +620,7 @@ $("btn_map_expand")?.addEventListener("click", toggleMapExpand);
 $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
 $("btn_print_report")?.addEventListener("click", () => window.print());
 wireMapToolOverlayButtons();
+wireArraySizingControls();
 
 
 

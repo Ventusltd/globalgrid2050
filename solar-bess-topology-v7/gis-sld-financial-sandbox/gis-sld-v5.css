@@ -1573,3 +1573,80 @@ body.map-expanded .panel-left { display: none; }
     }
 }
 
+/* GLOBALGRID2050 V7 MOBILE TOOLS ENERGY LAYER CLEARANCE FIX */
+@media (max-width: 900px) {
+  .map-controls {
+    z-index: 30 !important;
+  }
+
+  .asset-toggle-row,
+  .voltage-toggle-row {
+    position: relative !important;
+    z-index: 35 !important;
+    pointer-events: auto !important;
+  }
+
+  .asset-toggle-row .map-toggle-btn,
+  .voltage-toggle-row .map-toggle-btn {
+    pointer-events: auto !important;
+  }
+
+  .map-tool-overlay,
+  .map-tool-overlay.tools-collapsed,
+  .panel-right.map-expanded .map-tool-overlay,
+  .panel-right.map-expanded .map-tool-overlay.tools-collapsed,
+  body.map-expanded .map-tool-overlay,
+  body.map-expanded .map-tool-overlay.tools-collapsed {
+    top: 265px !important;
+    left: 10px !important;
+    right: 10px !important;
+    z-index: 24 !important;
+    max-width: none !important;
+    align-items: stretch !important;
+    pointer-events: none !important;
+  }
+
+  .map-tool-overlay .map-toggle-btn,
+  .map-tool-overlay input,
+  .map-tool-overlay span {
+    pointer-events: auto !important;
+  }
+
+  .map-tool-overlay > .map-toggle-row {
+    justify-content: center !important;
+  }
+
+  .map-tool-overlay.tools-collapsed {
+    width: auto !important;
+  }
+
+  .map-tool-overlay.tools-collapsed #btn_map_tools_toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .map-tool-overlay.tools-collapsed .map-size-row,
+  .map-tool-overlay.tools-collapsed .map-tool-row-secondary,
+  .map-tool-overlay.tools-collapsed button:not(#btn_map_tools_toggle) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .map-tool-overlay,
+  .map-tool-overlay.tools-collapsed,
+  .panel-right.map-expanded .map-tool-overlay,
+  .panel-right.map-expanded .map-tool-overlay.tools-collapsed,
+  body.map-expanded .map-tool-overlay,
+  body.map-expanded .map-tool-overlay.tools-collapsed {
+    top: 285px !important;
+  }
+
+  .map-tool-overlay > .map-toggle-row:first-child {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+

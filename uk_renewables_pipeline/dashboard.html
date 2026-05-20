@@ -429,7 +429,7 @@
             <a href="#" class="nav-item active">UK REPD DASH</a>
             <a href="../index.html" class="nav-item">DIRECTORY</a>
             <a href="https://globalgrid2050.com/repd_grid_atlasv8/" class="nav-item">MAP ATLAS</a>
-            <a href="#" class="nav-item">EXPORT CSV</a>
+            <a href="#" class="nav-item" id="btn-export-csv">EXPORT CSV</a>
         </nav>
     </aside>
 
@@ -515,6 +515,7 @@
 
     <script>
         let allData = [];
+        let currentFilteredData = [];
         let currentTech = 'All';
         let currentStatus = 'All';
         let currentCounty = 'All';
@@ -632,6 +633,7 @@
                 );
             }
 
+            currentFilteredData = filtered;
             updateGauges(filtered);
             updateTable(filtered);
         }
@@ -659,6 +661,46 @@
             });
         }
 
+
+        function csvEscape(value) {
+            if (value === null || value === undefined) return '""';
+            const text = String(value).replace(/"/g, '""');
+            return `"${text}"`;
+        }
+
+        function exportFilteredCSV(event) {
+            if (event) event.preventDefault();
+
+            const rows = currentFilteredData && currentFilteredData.length ? currentFilteredData : allData;
+            const headers = ["Site Name", "County", "Operator", "Technology", "Status", "Capacity MW"];
+            const csvRows = [headers.map(csvEscape).join(",")];
+
+            rows.forEach(item => {
+                csvRows.push([
+                    item["Site Name"],
+                    item["County"],
+                    item["Operator"],
+                    item["Tech Category"],
+                    item["Status"],
+                    Number(item.Capacity_MW || 0).toFixed(3)
+                ].map(csvEscape).join(","));
+            });
+
+            const csv = "\ufeff" + csvRows.join("\n");
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            const date = new Date().toISOString().slice(0, 10);
+            const tech = String(currentTech || "All").replace(/[^a-z0-9]+/gi, "_").toLowerCase();
+            const status = String(currentStatus || "All").replace(/[^a-z0-9]+/gi, "_").toLowerCase();
+            link.href = url;
+            link.download = `globalgrid2050_uk_renewables_pipeline_${tech}_${status}_${date}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
         // Listeners
         document.querySelectorAll('.tech-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -677,6 +719,8 @@
                 applyFilters();
             });
         });
+
+        document.getElementById('btn-export-csv')?.addEventListener('click', exportFilteredCSV);
 
         document.getElementById('county-dropdown').addEventListener('change', (e) => {
             currentCounty = e.target.value;

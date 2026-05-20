@@ -521,6 +521,7 @@
 │   ├── fix_v7_gis_sld_mobile_array_toggle_visibility.py
 │   ├── fix_v7_gis_sld_mobile_mwp_sizing_visibility.py
 │   ├── fix_v7_gis_sld_mobile_tool_overlay_spacing.py
+│   ├── fix_v7_gis_sld_mobile_tools_energy_layer_clearance.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_unification_estimates.py
 │   ├── gridbot_feature_installer.py
@@ -830,4 +831,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 716 files
+115 directories, 717 files

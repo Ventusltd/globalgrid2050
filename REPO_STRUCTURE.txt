@@ -519,6 +519,7 @@
 │   ├── fix_v5_js_filenames.py
 │   ├── fix_v6_v7_gis_sld_print_simple_safe.py
 │   ├── fix_v7_gis_sld_mobile_array_toggle_visibility.py
+│   ├── fix_v7_gis_sld_mobile_mwp_sizing_visibility.py
 │   ├── fix_v7_gis_sld_mobile_tool_overlay_spacing.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_unification_estimates.py
@@ -829,4 +830,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 715 files
+115 directories, 716 files

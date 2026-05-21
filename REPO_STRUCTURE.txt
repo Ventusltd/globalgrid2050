@@ -493,6 +493,7 @@
 │   ├── add_v6_v7_print_v3_financials_patch.py
 │   ├── add_v7_gis_sld_array_visibility_and_mwp_sizing.py
 │   ├── add_v7_gis_sld_large_asset_markers_and_search.py
+│   ├── add_v7_gis_sld_site_intelligence_panel.py
 │   ├── clone_v3_to_v4.py
 │   ├── clone_v4_to_v5.py
 │   ├── fetch_11kv_ukpn.py
@@ -835,4 +836,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 721 files
+115 directories, 722 files

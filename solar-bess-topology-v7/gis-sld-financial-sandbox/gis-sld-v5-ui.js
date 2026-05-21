@@ -340,6 +340,212 @@ function triggerDrawAtCenter() {
 }
 
 
+
+// ============================================================
+// GIS MAP SEARCH: OPERATING ASSETS AND SUBSTATIONS
+// ============================================================
+let gisSearchReady = false;
+let gisAssetSearchIndex = [];
+let gisSubstationSearchIndex = [];
+
+function gisSearchEscape(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function gisSearchPick(prop, keys, fallback = "") {
+    for (const key of keys) {
+        if (prop && prop[key] !== undefined && prop[key] !== null && String(prop[key]).trim() !== "") return prop[key];
+    }
+    return fallback;
+}
+
+function gisSearchValidPoint(feature) {
+    return feature && feature.geometry && feature.geometry.type === "Point" && Array.isArray(feature.geometry.coordinates);
+}
+
+async function buildGisSearchIndexes() {
+    if (gisSearchReady) return;
+    try {
+        const [repdRes, subsRes] = await Promise.all([
+            fetch("/dist/repd_master.json", { cache: "no-cache" }),
+            fetch(SUBSTATIONS_URL, { cache: "no-cache" })
+        ]);
+
+        const repd = repdRes.ok ? await repdRes.json() : { features: [] };
+        const subsRaw = subsRes.ok ? await subsRes.json() : { features: [] };
+        const subs = normaliseSubstations?.(subsRaw) || { features: [] };
+
+        gisAssetSearchIndex = (repd.features || [])
+            .filter(gisSearchValidPoint)
+            .filter(f => {
+                const p = f.properties || {};
+                return String(p.status || "").toLowerCase() === "operational" &&
+                    (["solar", "bess"].includes(String(p.tech || "")) || ["Wind Onshore", "Wind Offshore"].includes(String(p.raw_tech || "")));
+            })
+            .map(f => {
+                const p = f.properties || {};
+                const name = gisSearchPick(p, ["name", "project", "site", "Site Name"], "Operating asset");
+                const tech = gisSearchPick(p, ["raw_tech", "tech"], "Unknown");
+                const capacity = Number(gisSearchPick(p, ["capacity", "capacity_mw"], 0)) || 0;
+                return {
+                    kind: "asset",
+                    feature: f,
+                    name,
+                    tech,
+                    capacity,
+                    label: `${name} ${tech} ${capacity} MW`.toLowerCase()
+                };
+            });
+
+        gisSubstationSearchIndex = (subs.features || [])
+            .filter(gisSearchValidPoint)
+            .map(f => {
+                const p = f.properties || {};
+                const name = gisSearchPick(p, ["name_clean", "name", "Name", "substation", "Substation"], "Substation");
+                const voltage = gisSearchPick(p, ["voltage_clean", "voltage", "Voltage", "kv", "kV"], "Unknown");
+                return {
+                    kind: "substation",
+                    feature: f,
+                    name,
+                    voltage,
+                    capacity: 0,
+                    label: `${name} ${voltage} substation`.toLowerCase()
+                };
+            });
+
+        gisSearchReady = true;
+    } catch (err) {
+        console.error("GIS search index failed", err);
+        setFetchStatus?.("Search index unavailable", true);
+    }
+}
+
+function gisSearchResultsEl() {
+    return $("gis_search_results");
+}
+
+function hideGisSearchResults() {
+    const el = gisSearchResultsEl();
+    if (el) el.style.display = "none";
+}
+
+function showGisSearchResults(html) {
+    const el = gisSearchResultsEl();
+    if (!el) return;
+    el.innerHTML = html;
+    el.style.display = "block";
+}
+
+function renderGisSearchResults(query) {
+    const q = String(query || "").trim().toLowerCase();
+    if (q.length < 2) {
+        hideGisSearchResults();
+        return;
+    }
+
+    const assetMatches = gisAssetSearchIndex
+        .filter(item => item.label.includes(q))
+        .sort((a, b) => b.capacity - a.capacity)
+        .slice(0, 8);
+    const subMatches = gisSubstationSearchIndex
+        .filter(item => item.label.includes(q))
+        .slice(0, 8);
+    const matches = [...assetMatches, ...subMatches].slice(0, 12);
+
+    if (!matches.length) {
+        showGisSearchResults('<div class="gis-search-result-empty">No sites or substations found</div>');
+        return;
+    }
+
+    showGisSearchResults(matches.map((item, idx) => {
+        const meta = item.kind === "asset" ? `${gisSearchEscape(item.tech)} · ${item.capacity || "n/a"} MW` : `Substation · ${gisSearchEscape(item.voltage)}`;
+        const cls = item.kind === "asset" ? "asset" : "substation";
+        return `<button class="gis-search-result ${cls}" data-gis-search-idx="${idx}">
+            <strong>${gisSearchEscape(item.name)}</strong>
+            <span>${meta}</span>
+        </button>`;
+    }).join(""));
+
+    const el = gisSearchResultsEl();
+    if (!el) return;
+    el.querySelectorAll("[data-gis-search-idx]").forEach((btn, idx) => {
+        btn.addEventListener("click", () => flyToGisSearchItem(matches[idx]));
+    });
+}
+
+function flyToGisSearchItem(item) {
+    if (!map || !item || !gisSearchValidPoint(item.feature)) return;
+    const coords = item.feature.geometry.coordinates.slice();
+    map.flyTo({ center: coords, zoom: item.kind === "asset" ? 11.5 : 13.5, duration: 1200, essential: true });
+    hideGisSearchResults();
+    const input = $("gis_search_input");
+    if (input) input.value = item.name;
+
+    setTimeout(() => {
+        if (item.kind === "asset") {
+            const p = item.feature.properties || {};
+            const name = gisSearchPick(p, ["name", "project", "site", "Site Name"], "Operating asset");
+            const tech = gisSearchPick(p, ["raw_tech", "tech"], "Unknown technology");
+            const status = gisSearchPick(p, ["status"], "Unknown status");
+            const capacity = gisSearchPick(p, ["capacity", "capacity_mw"], "n/a");
+            showPopup(coords, `
+                <div style="margin-bottom:5px;color:#00ff88;font-weight:bold;font-size:13px;text-transform:uppercase;">Operating Asset</div>
+                <div class="popup-row"><span>Name:</span><span class="popup-val" style="color:#fff;">${gisSearchEscape(name)}</span></div>
+                <div class="popup-row"><span>Technology:</span><span class="popup-val" style="color:#fff;">${gisSearchEscape(tech)}</span></div>
+                <div class="popup-row"><span>Status:</span><span class="popup-val" style="color:#fff;">${gisSearchEscape(status)}</span></div>
+                <div class="popup-row"><span>Capacity:</span><span class="popup-val" style="color:#fff;">${gisSearchEscape(capacity)} MW</span></div>
+            `);
+        } else {
+            const p = item.feature.properties || {};
+            const name = gisSearchPick(p, ["name_clean", "name", "Name", "substation", "Substation"], "Substation");
+            const voltage = gisSearchPick(p, ["voltage_clean", "voltage", "Voltage", "kv", "kV"], "Unknown");
+            showPopup(coords, `
+                <div style="margin-bottom:5px;color:#ff3333;font-weight:bold;font-size:13px;text-transform:uppercase;">Substation</div>
+                <div class="popup-row"><span>Name:</span><span class="popup-val" style="color:#fff;">${gisSearchEscape(name)}</span></div>
+                <div class="popup-row"><span>Voltage:</span><span class="popup-val" style="color:#fff;">${gisSearchEscape(voltage)}</span></div>
+                <div class="popup-row"><span>Lon:</span><span class="popup-val" style="color:#fff;">${Number(coords[0]).toFixed(6)}</span></div>
+                <div class="popup-row"><span>Lat:</span><span class="popup-val" style="color:#fff;">${Number(coords[1]).toFixed(6)}</span></div>
+            `);
+        }
+    }, 1250);
+}
+
+async function wireGisMapSearch() {
+    const input = $("gis_search_input");
+    const btn = $("gis_search_btn");
+    if (!input || !btn) return;
+
+    input.addEventListener("focus", buildGisSearchIndexes);
+    input.addEventListener("input", async () => {
+        await buildGisSearchIndexes();
+        renderGisSearchResults(input.value);
+    });
+    input.addEventListener("keydown", async e => {
+        if (e.key === "Enter") {
+            await buildGisSearchIndexes();
+            const first = gisSearchResultsEl()?.querySelector(".gis-search-result");
+            if (first) first.click();
+            else renderGisSearchResults(input.value);
+        }
+        if (e.key === "Escape") hideGisSearchResults();
+    });
+    btn.addEventListener("click", async () => {
+        await buildGisSearchIndexes();
+        const first = gisSearchResultsEl()?.querySelector(".gis-search-result");
+        if (first) first.click();
+        else renderGisSearchResults(input.value);
+    });
+    document.addEventListener("click", e => {
+        const wrap = $("gis_map_search");
+        if (wrap && !wrap.contains(e.target)) hideGisSearchResults();
+    });
+}
+
 // ============================================================
 // ARRAY VISIBILITY AND TARGET MWp SIZING
 // ============================================================
@@ -621,6 +827,7 @@ $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
 $("btn_print_report")?.addEventListener("click", () => window.print());
 wireMapToolOverlayButtons();
 wireArraySizingControls();
+wireGisMapSearch();
 
 
 

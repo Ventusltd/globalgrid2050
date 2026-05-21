@@ -179,7 +179,7 @@ map.addLayer({
         layout: { visibility: atlasV8OperatingAssetVisibility["solar_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#00ff88",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 6, 10, 10, 29.99, 14, 30, 28, 50, 32, 100, 38, 200, 44, 350, 52, 500, 60],
             "circle-stroke-color": "#111111",
             "circle-stroke-width": 1,
             "circle-opacity": 0.88
@@ -194,7 +194,7 @@ map.addLayer({
         layout: { visibility: atlasV8OperatingAssetVisibility["wind_onshore_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#00ffcc",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 8, 29.99, 12, 30, 20, 50, 24, 100, 30, 200, 36, 350, 44, 500, 52],
             "circle-stroke-color": "#111111",
             "circle-stroke-width": 1,
             "circle-opacity": 0.88
@@ -209,7 +209,7 @@ map.addLayer({
         layout: { visibility: atlasV8OperatingAssetVisibility["wind_offshore_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#0066ff",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 8, 29.99, 12, 30, 20, 50, 24, 100, 30, 200, 36, 350, 44, 500, 52],
             "circle-stroke-color": "#ffffff",
             "circle-stroke-width": 1,
             "circle-opacity": 0.88
@@ -224,7 +224,7 @@ map.addLayer({
         layout: { visibility: atlasV8OperatingAssetVisibility["bess_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#ff69b4",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 50, 10, 100, 13, 200, 16, 350, 20, 500, 24],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 6, 10, 10, 29.99, 14, 30, 24, 50, 28, 100, 34, 200, 40, 350, 48, 500, 56],
             "circle-stroke-color": "#111111",
             "circle-stroke-width": 1,
             "circle-opacity": 0.9

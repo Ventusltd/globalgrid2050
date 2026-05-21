@@ -1880,3 +1880,58 @@ body.map-expanded .panel-left { display: none; }
     }
 }
 
+/* GLOBALGRID2050 V7 ASSET PIPELINE DROPDOWN STATUS FILTER */
+.asset-filter-row {
+    gap: 6px;
+}
+.map-asset-select,
+.map-asset-status-select,
+.asset-range-input {
+    height: 32px;
+    background: rgba(0, 0, 0, 0.84);
+    color: #00ff88;
+    border: 1px solid #2f343d;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 6px 8px;
+}
+.map-asset-select {
+    min-width: 150px;
+}
+.map-asset-status-select {
+    min-width: 160px;
+    color: #00ffff;
+}
+.asset-range-input {
+    width: 76px;
+    text-align: center;
+}
+.map-asset-select:focus,
+.map-asset-status-select:focus,
+.asset-range-input:focus {
+    outline: none;
+    border-color: #00ff88;
+}
+@media (max-width: 900px) {
+    .asset-filter-row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        position: relative !important;
+        z-index: 35 !important;
+    }
+    .map-asset-select { min-width: 142px; max-width: 170px; }
+    .map-asset-status-select { min-width: 150px; max-width: 190px; }
+    .asset-range-input { width: 72px; }
+}
+@media (max-width: 520px) {
+    .map-asset-select { width: 150px; min-width: 150px; }
+    .map-asset-status-select { width: 160px; min-width: 160px; }
+    .asset-range-input { width: 70px; }
+}
+@media print {
+    .asset-filter-row { display: none !important; }
+}
+

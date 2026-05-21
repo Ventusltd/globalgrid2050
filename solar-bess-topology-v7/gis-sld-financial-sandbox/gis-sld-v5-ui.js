@@ -1001,6 +1001,53 @@ function updateAtlasV8GridToggleButtons() {
 }
 
 
+function readAssetFilterCapacityValue(id) {
+    const el = $(id);
+    if (!el || String(el.value || "").trim() === "") return null;
+    const value = Number(el.value);
+    return Number.isFinite(value) && value >= 0 ? value : null;
+}
+
+function updateAtlasV8OperatingAssetDropdown() {
+    const select = $("asset_layer_select");
+    if (select) select.value = atlasV8AssetFilterState?.selected || "off";
+    const statusSelect = $("asset_status_select");
+    if (statusSelect) statusSelect.value = atlasV8AssetFilterState?.status || "all";
+    const minInput = $("asset_min_mw");
+    const maxInput = $("asset_max_mw");
+    if (minInput && Number.isFinite(atlasV8AssetFilterState?.minMw)) minInput.value = atlasV8AssetFilterState.minMw;
+    if (maxInput && Number.isFinite(atlasV8AssetFilterState?.maxMw)) maxInput.value = atlasV8AssetFilterState.maxMw;
+}
+
+function applyAssetDropdownFromControls() {
+    const selected = $("asset_layer_select")?.value || "off";
+    const status = $("asset_status_select")?.value || "all";
+    let minMw = readAssetFilterCapacityValue("asset_min_mw");
+    let maxMw = readAssetFilterCapacityValue("asset_max_mw");
+    if (Number.isFinite(minMw) && Number.isFinite(maxMw) && minMw > maxMw) {
+        const temp = minMw;
+        minMw = maxMw;
+        maxMw = temp;
+        if ($("asset_min_mw")) $("asset_min_mw").value = minMw;
+        if ($("asset_max_mw")) $("asset_max_mw").value = maxMw;
+    }
+    applyAtlasV8AssetDropdownFilter?.(selected, status, minMw, maxMw);
+    updateAtlasV8OperatingAssetDropdown();
+}
+
+function wireAtlasV8PipelineDropdownWithStatus() {
+    $("asset_layer_select")?.addEventListener("change", applyAssetDropdownFromControls);
+    $("asset_status_select")?.addEventListener("change", applyAssetDropdownFromControls);
+    $("btn_asset_filter_apply")?.addEventListener("click", applyAssetDropdownFromControls);
+    ["asset_min_mw", "asset_max_mw"].forEach(id => {
+        $(id)?.addEventListener("keydown", e => {
+            if (e.key === "Enter") applyAssetDropdownFromControls();
+        });
+        $(id)?.addEventListener("change", applyAssetDropdownFromControls);
+    });
+    updateAtlasV8OperatingAssetDropdown();
+}
+
 function updateAtlasV8OperatingAssetToggleButtons() {
     const labels = {
         "solar_operational": "SOLAR OP",
@@ -1104,7 +1151,7 @@ function wireEvents() {
     $("btn_basemap")?.addEventListener("click", toggleBasemap);
     $("btn_subs_toggle")?.addEventListener("click", toggleSubs);
 wireAtlasV8GridToggleButtons();
-wireAtlasV8OperatingAssetToggleButtons();
+wireAtlasV8PipelineDropdownWithStatus();
 $("btn_map_expand")?.addEventListener("click", toggleMapExpand);
 $("btn_key_toggle")?.addEventListener("click", toggleKeyCollapse);
 $("btn_print_report")?.addEventListener("click", () => window.print());

@@ -424,11 +424,28 @@
             <button id="btn_atlas_275kv" class="map-toggle-btn active atlas-voltage-btn atlas-275kv" data-atlas-voltage="275kv">275 kV ON</button>
             <button id="btn_atlas_400kv" class="map-toggle-btn active atlas-voltage-btn atlas-400kv" data-atlas-voltage="400kv">400 kV ON</button>
         </div>
-        <div class="map-toggle-row asset-toggle-row">
-            <button id="btn_asset_solar_operational" class="map-toggle-btn asset-layer-btn asset-solar" data-asset-layer="solar_operational">SOLAR OP OFF</button>
-            <button id="btn_asset_wind_onshore_operational" class="map-toggle-btn asset-layer-btn asset-wind-onshore" data-asset-layer="wind_onshore_operational">ONSHORE WIND OFF</button>
-            <button id="btn_asset_wind_offshore_operational" class="map-toggle-btn asset-layer-btn asset-wind-offshore" data-asset-layer="wind_offshore_operational">OFFSHORE WIND OFF</button>
-            <button id="btn_asset_bess_operational" class="map-toggle-btn asset-layer-btn asset-bess" data-asset-layer="bess_operational">BESS OP OFF</button>
+        <div class="map-toggle-row asset-toggle-row asset-filter-row">
+            <select id="asset_layer_select" class="map-asset-select" title="Energy asset layer">
+                <option value="off">Energy assets OFF</option>
+                <option value="all">All technologies</option>
+                <option value="solar_operational">Solar PV</option>
+                <option value="bess_operational">BESS</option>
+                <option value="wind_onshore_operational">Onshore wind</option>
+                <option value="wind_offshore_operational">Offshore wind</option>
+            </select>
+            <select id="asset_status_select" class="map-asset-status-select" title="Project status">
+                <option value="all">All statuses</option>
+                <option value="operational">Operational</option>
+                <option value="under construction">Under construction</option>
+                <option value="awaiting construction">Awaiting construction</option>
+                <option value="planning approved">Planning approved</option>
+                <option value="planning submitted">Planning submitted</option>
+                <option value="refused">Refused</option>
+                <option value="withdrawn">Withdrawn</option>
+            </select>
+            <input id="asset_min_mw" class="asset-range-input" type="number" min="0" step="1" placeholder="Min MW" title="Minimum project capacity MW" />
+            <input id="asset_max_mw" class="asset-range-input" type="number" min="0" step="1" placeholder="Max MW" title="Maximum project capacity MW" />
+            <button id="btn_asset_filter_apply" class="map-toggle-btn">APPLY</button>
         </div>
     </div>
 

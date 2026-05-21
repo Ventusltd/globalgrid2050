@@ -24,6 +24,13 @@ const atlasV8OperatingAssetVisibility = {
     "bess_operational": false
 };
 
+const atlasV8AssetFilterState = {
+    selected: "off",
+    status: "all",
+    minMw: null,
+    maxMw: null
+};
+
 const atlasV8OperatingAssetLayerIds = {
     "solar_operational": "atlas-v8-asset-solar-operational",
     "wind_onshore_operational": "atlas-v8-asset-wind-onshore-operational",
@@ -31,15 +38,57 @@ const atlasV8OperatingAssetLayerIds = {
     "bess_operational": "atlas-v8-asset-bess-operational"
 };
 
-function toggleAtlasV8OperatingAssetLayer(assetKey) {
-    if (!atlasV8OperatingAssetLayerIds[assetKey]) return;
-    atlasV8OperatingAssetVisibility[assetKey] = !atlasV8OperatingAssetVisibility[assetKey];
-    const layerId = atlasV8OperatingAssetLayerIds[assetKey];
-    if (map && map.getLayer(layerId)) {
-        map.setLayoutProperty(layerId, "visibility", atlasV8OperatingAssetVisibility[assetKey] ? "visible" : "none");
+function atlasV8CapacityExpression() {
+    return ["to-number", ["coalesce", ["get", "capacity"], ["get", "capacity_mw"], 0]];
+}
+
+function atlasV8AssetBaseFilter(assetKey) {
+    if (assetKey === "solar_operational") return ["==", ["get", "tech"], "solar"];
+    if (assetKey === "bess_operational") return ["==", ["get", "tech"], "bess"];
+    if (assetKey === "wind_onshore_operational") return ["==", ["get", "raw_tech"], "Wind Onshore"];
+    if (assetKey === "wind_offshore_operational") return ["==", ["get", "raw_tech"], "Wind Offshore"];
+    return true;
+}
+
+function atlasV8StatusExpression() {
+    return ["downcase", ["to-string", ["coalesce", ["get", "status"], ["get", "Status"], ""]]];
+}
+
+function atlasV8AssetFilter(assetKey) {
+    const filters = ["all", atlasV8AssetBaseFilter(assetKey)];
+    const capacityExpr = atlasV8CapacityExpression();
+    if (atlasV8AssetFilterState.status && atlasV8AssetFilterState.status !== "all") {
+        filters.push(["==", atlasV8StatusExpression(), atlasV8AssetFilterState.status]);
     }
+    if (Number.isFinite(atlasV8AssetFilterState.minMw)) filters.push([">=", capacityExpr, atlasV8AssetFilterState.minMw]);
+    if (Number.isFinite(atlasV8AssetFilterState.maxMw)) filters.push(["<=", capacityExpr, atlasV8AssetFilterState.maxMw]);
+    return filters;
+}
+
+function applyAtlasV8AssetDropdownFilter(selected = atlasV8AssetFilterState.selected, status = atlasV8AssetFilterState.status, minMw = atlasV8AssetFilterState.minMw, maxMw = atlasV8AssetFilterState.maxMw) {
+    atlasV8AssetFilterState.selected = selected || "off";
+    atlasV8AssetFilterState.status = status || "all";
+    atlasV8AssetFilterState.minMw = Number.isFinite(minMw) ? minMw : null;
+    atlasV8AssetFilterState.maxMw = Number.isFinite(maxMw) ? maxMw : null;
+
+    Object.keys(atlasV8OperatingAssetLayerIds).forEach(assetKey => {
+        const layerId = atlasV8OperatingAssetLayerIds[assetKey];
+        const visible = atlasV8AssetFilterState.selected === "all" || atlasV8AssetFilterState.selected === assetKey;
+        atlasV8OperatingAssetVisibility[assetKey] = visible;
+        if (map && map.getLayer(layerId)) {
+            map.setFilter(layerId, atlasV8AssetFilter(assetKey));
+            map.setLayoutProperty(layerId, "visibility", visible ? "visible" : "none");
+        }
+    });
     updateLegend?.();
 }
+
+function toggleAtlasV8OperatingAssetLayer(assetKey) {
+    if (!atlasV8OperatingAssetLayerIds[assetKey]) return;
+    const next = atlasV8AssetFilterState.selected === assetKey ? "off" : assetKey;
+    applyAtlasV8AssetDropdownFilter(next, atlasV8AssetFilterState.status, atlasV8AssetFilterState.minMw, atlasV8AssetFilterState.maxMw);
+}
+
 
 function toggleAtlasV8GridLayer(voltageKey) {
     if (!atlasV8GridLayerIds[voltageKey]) return;
@@ -175,11 +224,11 @@ map.addLayer({
         id: "atlas-v8-asset-solar-operational",
         type: "circle",
         source: "atlas-v8-repd-operating-assets",
-        filter: ["all", ["==", ["get", "tech"], "solar"], ["==", ["get", "status"], "operational"]],
+        filter: ["all", ["==", ["get", "tech"], "solar"]],
         layout: { visibility: atlasV8OperatingAssetVisibility["solar_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#00ff88",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 6, 10, 10, 29.99, 14, 30, 28, 50, 32, 100, 38, 200, 44, 350, 52, 500, 60],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 30, 9, 50, 10, 100, 12, 200, 15, 350, 18, 500, 21],
             "circle-stroke-color": "#111111",
             "circle-stroke-width": 1,
             "circle-opacity": 0.88
@@ -190,11 +239,11 @@ map.addLayer({
         id: "atlas-v8-asset-wind-onshore-operational",
         type: "circle",
         source: "atlas-v8-repd-operating-assets",
-        filter: ["all", ["==", ["get", "raw_tech"], "Wind Onshore"], ["==", ["get", "status"], "operational"]],
+        filter: ["all", ["==", ["get", "raw_tech"], "Wind Onshore"]],
         layout: { visibility: atlasV8OperatingAssetVisibility["wind_onshore_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#00ffcc",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 8, 29.99, 12, 30, 20, 50, 24, 100, 30, 200, 36, 350, 44, 500, 52],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 30, 9, 50, 10, 100, 12, 200, 15, 350, 18, 500, 21],
             "circle-stroke-color": "#111111",
             "circle-stroke-width": 1,
             "circle-opacity": 0.88
@@ -205,11 +254,11 @@ map.addLayer({
         id: "atlas-v8-asset-wind-offshore-operational",
         type: "circle",
         source: "atlas-v8-repd-operating-assets",
-        filter: ["all", ["==", ["get", "raw_tech"], "Wind Offshore"], ["==", ["get", "status"], "operational"]],
+        filter: ["all", ["==", ["get", "raw_tech"], "Wind Offshore"]],
         layout: { visibility: atlasV8OperatingAssetVisibility["wind_offshore_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#0066ff",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 8, 29.99, 12, 30, 20, 50, 24, 100, 30, 200, 36, 350, 44, 500, 52],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 30, 9, 50, 10, 100, 12, 200, 15, 350, 18, 500, 21],
             "circle-stroke-color": "#ffffff",
             "circle-stroke-width": 1,
             "circle-opacity": 0.88
@@ -220,11 +269,11 @@ map.addLayer({
         id: "atlas-v8-asset-bess-operational",
         type: "circle",
         source: "atlas-v8-repd-operating-assets",
-        filter: ["all", ["==", ["get", "tech"], "bess"], ["==", ["get", "status"], "operational"]],
+        filter: ["all", ["==", ["get", "tech"], "bess"]],
         layout: { visibility: atlasV8OperatingAssetVisibility["bess_operational"] ? "visible" : "none" },
         paint: {
             "circle-color": "#ff69b4",
-            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 6, 10, 10, 29.99, 14, 30, 24, 50, 28, 100, 34, 200, 40, 350, 48, 500, 56],
+            "circle-radius": ["interpolate", ["linear"], ["coalesce", ["get", "capacity"], 0], 0, 5, 10, 7, 30, 9, 50, 10, 100, 12, 200, 15, 350, 18, 500, 21],
             "circle-stroke-color": "#111111",
             "circle-stroke-width": 1,
             "circle-opacity": 0.9

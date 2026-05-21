@@ -133,6 +133,7 @@
 │   ├── add_v6_v7_print_v3_financials_patch.md
 │   ├── add_v7_gis_sld_array_visibility_and_mwp_sizing.md
 │   ├── add_v7_gis_sld_large_asset_markers_and_search.md
+│   ├── add_v7_gis_sld_site_intelligence_panel.md
 │   ├── fix_uk_renewables_pipeline_csv_export.md
 │   ├── fix_v6_v7_gis_sld_print_simple_safe.md
 │   ├── fix_v7_gis_sld_mobile_tools_energy_layer_clearance.md
@@ -537,6 +538,7 @@
 │   ├── requirements.txt
 │   ├── test_v7_gis_sld_array_sizing_math.py
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
+│   ├── test_v7_gis_sld_site_intelligence_panel.py
 │   ├── update_metal_trends.py
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
@@ -836,4 +838,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 722 files
+115 directories, 724 files

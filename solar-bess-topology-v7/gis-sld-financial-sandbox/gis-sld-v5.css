@@ -1765,3 +1765,118 @@ body.map-expanded .panel-left { display: none; }
     }
 }
 
+/* GLOBALGRID2050 V7 SITE INTELLIGENCE PANEL */
+.site-intel-panel {
+    position: absolute;
+    right: 12px;
+    bottom: 16px;
+    z-index: 42;
+    width: min(380px, calc(100% - 24px));
+    max-height: 58%;
+    overflow-y: auto;
+    background: rgba(5, 5, 5, 0.94);
+    border: 1px solid #2f343d;
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: "Courier New", monospace;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+.site-intel-panel.collapsed {
+    display: none;
+}
+.site-intel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #2f343d;
+    color: #00ffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 12px;
+}
+.site-intel-header button {
+    background: transparent;
+    border: 0;
+    color: #a6adbb;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+.site-intel-body {
+    padding: 10px 12px 12px 12px;
+    font-size: 11px;
+}
+.site-intel-section-title {
+    color: #00ff88;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 8px 0 6px 0;
+}
+.site-intel-row {
+    display: grid;
+    grid-template-columns: 105px 1fr;
+    gap: 4px 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.site-intel-row.warn .site-intel-main,
+.site-intel-row.warn .site-intel-meta {
+    color: #ff9900;
+}
+.site-intel-label {
+    color: #a6adbb;
+}
+.site-intel-main {
+    color: #ffffff;
+    font-weight: bold;
+    word-break: break-word;
+}
+.site-intel-meta {
+    grid-column: 2;
+    color: #00ffff;
+}
+.site-intel-notes {
+    margin: 6px 0 8px 18px;
+    padding: 0;
+    color: #ffffff;
+}
+.site-intel-notes li {
+    margin-bottom: 5px;
+}
+.site-intel-disclaimer,
+.site-intel-loading,
+.site-intel-warning {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #333;
+    background: rgba(255,255,255,0.04);
+    color: #a6adbb;
+    line-height: 1.35;
+}
+.site-intel-warning {
+    color: #ff9900;
+    border-color: #ff9900;
+}
+
+@media (max-width: 900px) {
+    .site-intel-panel {
+        left: 10px;
+        right: 10px;
+        bottom: 14px;
+        width: auto;
+        max-height: 45%;
+    }
+    .site-intel-row {
+        grid-template-columns: 96px 1fr;
+    }
+}
+
+@media print {
+    .site-intel-panel {
+        display: none !important;
+    }
+}
+

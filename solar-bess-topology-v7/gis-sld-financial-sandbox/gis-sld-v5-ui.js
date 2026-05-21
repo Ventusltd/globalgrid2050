@@ -546,6 +546,289 @@ async function wireGisMapSearch() {
     });
 }
 
+
+// ============================================================
+// V7 SITE INTELLIGENCE PANEL
+// ============================================================
+const siteIntelData = {
+    ready: false,
+    loading: false,
+    assets: [],
+    substations: [],
+    grid: {
+        "66 kV": [],
+        "132 kV": [],
+        "275 kV": [],
+        "400 kV": []
+    }
+};
+
+const siteIntelGridUrls = {
+    "66 kV": "/repd_grid_atlasv8/data/grid_66kv.geojson",
+    "132 kV": "/repd_grid_atlasv8/data/grid_132kv.geojson",
+    "275 kV": "/repd_grid_atlasv8/data/grid_275kv.geojson",
+    "400 kV": "/repd_grid_atlasv8/data/grid_400kv.geojson"
+};
+
+function siteIntelPick(prop, keys, fallback = "") {
+    for (const key of keys) {
+        if (prop && prop[key] !== undefined && prop[key] !== null && String(prop[key]).trim() !== "") return prop[key];
+    }
+    return fallback;
+}
+
+function siteIntelEscape(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function siteIntelValidPoint(feature) {
+    return feature && feature.geometry && feature.geometry.type === "Point" && Array.isArray(feature.geometry.coordinates);
+}
+
+function siteIntelFeatureCollection(raw) {
+    if (!raw) return { type: "FeatureCollection", features: [] };
+    if (raw.type === "FeatureCollection" && Array.isArray(raw.features)) return raw;
+    if (Array.isArray(raw)) return { type: "FeatureCollection", features: raw };
+    return { type: "FeatureCollection", features: [] };
+}
+
+function siteIntelFlattenLines(features) {
+    const lines = [];
+    (features || []).forEach(feature => {
+        if (!feature || !feature.geometry) return;
+        const prop = feature.properties || {};
+        if (feature.geometry.type === "LineString") {
+            lines.push({ type: "Feature", geometry: feature.geometry, properties: prop });
+        } else if (feature.geometry.type === "MultiLineString") {
+            feature.geometry.coordinates.forEach(coords => {
+                lines.push({ type: "Feature", geometry: { type: "LineString", coordinates: coords }, properties: prop });
+            });
+        }
+    });
+    return lines;
+}
+
+function showSiteIntelPanel(html) {
+    const panel = $("site_intel_panel");
+    const body = $("site_intel_body");
+    if (!panel || !body) return;
+    body.innerHTML = html;
+    panel.classList.remove("collapsed");
+}
+
+function hideSiteIntelPanel() {
+    const panel = $("site_intel_panel");
+    if (panel) panel.classList.add("collapsed");
+}
+
+async function loadSiteIntelData() {
+    if (siteIntelData.ready || siteIntelData.loading) return;
+    siteIntelData.loading = true;
+
+    try {
+        const [repdRes, subsRes, ...gridResponses] = await Promise.all([
+            fetch("/dist/repd_master.json", { cache: "no-cache" }),
+            fetch(SUBSTATIONS_URL, { cache: "no-cache" }),
+            fetch(siteIntelGridUrls["66 kV"], { cache: "no-cache" }),
+            fetch(siteIntelGridUrls["132 kV"], { cache: "no-cache" }),
+            fetch(siteIntelGridUrls["275 kV"], { cache: "no-cache" }),
+            fetch(siteIntelGridUrls["400 kV"], { cache: "no-cache" })
+        ]);
+
+        const repd = repdRes.ok ? await repdRes.json() : { features: [] };
+        const subsRaw = subsRes.ok ? await subsRes.json() : { features: [] };
+        const subs = typeof normaliseSubstations === "function" ? normaliseSubstations(subsRaw) : siteIntelFeatureCollection(subsRaw);
+        const gridKeys = ["66 kV", "132 kV", "275 kV", "400 kV"];
+
+        siteIntelData.assets = (siteIntelFeatureCollection(repd).features || [])
+            .filter(siteIntelValidPoint)
+            .filter(feature => {
+                const p = feature.properties || {};
+                const status = String(siteIntelPick(p, ["status", "Status"], "")).toLowerCase();
+                const tech = String(siteIntelPick(p, ["tech"], "")).toLowerCase();
+                const rawTech = String(siteIntelPick(p, ["raw_tech", "Technology Type"], ""));
+                return status === "operational" && (tech === "solar" || tech === "bess" || rawTech === "Wind Onshore" || rawTech === "Wind Offshore");
+            });
+
+        siteIntelData.substations = (subs.features || []).filter(siteIntelValidPoint);
+
+        for (let i = 0; i < gridKeys.length; i++) {
+            const key = gridKeys[i];
+            const res = gridResponses[i];
+            const raw = res && res.ok ? await res.json() : { features: [] };
+            siteIntelData.grid[key] = siteIntelFlattenLines(siteIntelFeatureCollection(raw).features);
+        }
+
+        siteIntelData.ready = true;
+    } catch (err) {
+        console.error("Site intelligence data load failed", err);
+        showSiteIntelPanel(`<div class="site-intel-warning">Site intelligence data unavailable: ${siteIntelEscape(err.message || err)}</div>`);
+    } finally {
+        siteIntelData.loading = false;
+    }
+}
+
+function siteIntelAssetGroup(feature) {
+    const p = feature.properties || {};
+    const tech = String(siteIntelPick(p, ["tech"], "")).toLowerCase();
+    const rawTech = String(siteIntelPick(p, ["raw_tech", "Technology Type"], ""));
+    if (tech === "solar") return "Operating Solar PV";
+    if (tech === "bess") return "Operating Battery Storage";
+    if (rawTech === "Wind Onshore") return "Operating Onshore Wind";
+    if (rawTech === "Wind Offshore") return "Operating Offshore Wind";
+    return "Operating Asset";
+}
+
+function nearestPointFeature(point, features, predicate) {
+    let best = null;
+    (features || []).forEach(feature => {
+        if (!siteIntelValidPoint(feature)) return;
+        if (predicate && !predicate(feature)) return;
+        const d = turf.distance(point, turf.point(feature.geometry.coordinates), { units: "kilometers" });
+        if (!best || d < best.distanceKm) best = { feature, distanceKm: d };
+    });
+    return best;
+}
+
+function nearestLineFeature(point, features) {
+    let best = null;
+    (features || []).forEach(feature => {
+        if (!feature || !feature.geometry || feature.geometry.type !== "LineString") return;
+        try {
+            const snapped = turf.nearestPointOnLine(feature, point, { units: "kilometers" });
+            const d = Number(snapped.properties && snapped.properties.dist);
+            if (Number.isFinite(d) && (!best || d < best.distanceKm)) best = { feature, distanceKm: d };
+        } catch (err) {
+            // Ignore malformed line fragments.
+        }
+    });
+    return best;
+}
+
+function formatKm(value) {
+    if (!Number.isFinite(value)) return "n/a";
+    if (value < 1) return `${Math.round(value * 1000)} m`;
+    return `${value.toFixed(1)} km`;
+}
+
+function formatCapacity(feature) {
+    const p = feature?.properties || {};
+    const capacity = Number(siteIntelPick(p, ["capacity", "capacity_mw", "Capacity (MW)"], NaN));
+    return Number.isFinite(capacity) && capacity > 0 ? `${capacity.toFixed(capacity >= 100 ? 0 : 1)} MW` : "n/a";
+}
+
+function assetName(feature) {
+    const p = feature?.properties || {};
+    return siteIntelPick(p, ["name", "project", "site", "Site Name", "Project Name"], "Operating asset");
+}
+
+function substationName(feature) {
+    const p = feature?.properties || {};
+    return siteIntelPick(p, ["name_clean", "name", "Name", "site_name", "Site Name", "substation", "Substation"], "Substation");
+}
+
+function substationVoltage(feature) {
+    const p = feature?.properties || {};
+    return siteIntelPick(p, ["voltage_clean", "voltage", "Voltage", "kv", "kV", "Voltage kV"], "Unknown");
+}
+
+function siteIntelRow(label, main, meta, danger = false) {
+    return `<div class="site-intel-row${danger ? " warn" : ""}">
+        <div class="site-intel-label">${siteIntelEscape(label)}</div>
+        <div class="site-intel-main">${siteIntelEscape(main)}</div>
+        <div class="site-intel-meta">${siteIntelEscape(meta)}</div>
+    </div>`;
+}
+
+function siteIntelOpportunityNotes(results) {
+    const notes = [];
+    const hvDistances = [results.grid["132 kV"], results.grid["275 kV"], results.grid["400 kV"]]
+        .filter(Boolean)
+        .map(item => item.distanceKm);
+    const minHv = hvDistances.length ? Math.min(...hvDistances) : NaN;
+    const nearestSolar = results.assets.solar?.distanceKm;
+    const nearestBess = results.assets.bess?.distanceKm;
+
+    if (Number.isFinite(minHv) && minHv <= 5) notes.push("Near high voltage corridor. Worth deeper grid screening.");
+    if (Number.isFinite(minHv) && minHv > 15) notes.push("High voltage corridor not immediately nearby. Route and connection assumptions need care.");
+    if (Number.isFinite(nearestSolar) && nearestSolar <= 10) notes.push("Existing operating solar nearby. Compare pattern, grid route and project scale.");
+    if (Number.isFinite(nearestBess) && nearestBess <= 15) notes.push("Operating battery storage nearby. Check co location or grid constraint context.");
+    if (!notes.length) notes.push("Use as early spatial screening only. Formal grid and design studies still required.");
+    return notes;
+}
+
+async function inspectSiteIntelligenceAt(lngLat) {
+    if (!lngLat || typeof turf === "undefined") return;
+    showSiteIntelPanel(`<div class="site-intel-loading">Loading site intelligence…</div>`);
+    await loadSiteIntelData();
+    if (!siteIntelData.ready) return;
+
+    const point = turf.point([lngLat.lng, lngLat.lat]);
+    const results = {
+        assets: {
+            solar: nearestPointFeature(point, siteIntelData.assets, f => siteIntelAssetGroup(f) === "Operating Solar PV"),
+            bess: nearestPointFeature(point, siteIntelData.assets, f => siteIntelAssetGroup(f) === "Operating Battery Storage"),
+            onshore: nearestPointFeature(point, siteIntelData.assets, f => siteIntelAssetGroup(f) === "Operating Onshore Wind"),
+            offshore: nearestPointFeature(point, siteIntelData.assets, f => siteIntelAssetGroup(f) === "Operating Offshore Wind")
+        },
+        substation: nearestPointFeature(point, siteIntelData.substations),
+        grid: {}
+    };
+
+    Object.keys(siteIntelData.grid).forEach(key => {
+        results.grid[key] = nearestLineFeature(point, siteIntelData.grid[key]);
+    });
+
+    const rows = [];
+    rows.push(siteIntelRow("Clicked location", `${lngLat.lat.toFixed(5)}, ${lngLat.lng.toFixed(5)}`, "Reference point only"));
+
+    const addAssetRow = (label, item) => {
+        if (!item) rows.push(siteIntelRow(label, "No data", "Layer data unavailable", true));
+        else rows.push(siteIntelRow(label, assetName(item.feature), `${formatKm(item.distanceKm)} · ${formatCapacity(item.feature)}`));
+    };
+
+    addAssetRow("Nearest solar", results.assets.solar);
+    addAssetRow("Nearest BESS", results.assets.bess);
+    addAssetRow("Nearest onshore wind", results.assets.onshore);
+    addAssetRow("Nearest offshore wind", results.assets.offshore);
+
+    if (results.substation) {
+        rows.push(siteIntelRow("Nearest substation", substationName(results.substation.feature), `${formatKm(results.substation.distanceKm)} · ${substationVoltage(results.substation.feature)}`));
+    } else {
+        rows.push(siteIntelRow("Nearest substation", "No data", "Substation data unavailable", true));
+    }
+
+    ["66 kV", "132 kV", "275 kV", "400 kV"].forEach(key => {
+        const item = results.grid[key];
+        rows.push(siteIntelRow(`Nearest ${key}`, item ? formatKm(item.distanceKm) : "No data", "Atlas V8 corridor reference", !item));
+    });
+
+    const notes = siteIntelOpportunityNotes(results).map(note => `<li>${siteIntelEscape(note)}</li>`).join("");
+
+    showSiteIntelPanel(`
+        <div class="site-intel-section-title">Nearest infrastructure context</div>
+        ${rows.join("")}
+        <div class="site-intel-section-title">Screening notes</div>
+        <ul class="site-intel-notes">${notes}</ul>
+        <div class="site-intel-disclaimer">Indicative spatial screening only. Distances do not confirm capacity, rights, routes, consent or connection feasibility.</div>
+    `);
+}
+
+function wireSiteIntelligencePanel() {
+    $("site_intel_close")?.addEventListener("click", hideSiteIntelPanel);
+    if (!map) return;
+    map.on("click", e => {
+        const target = e.originalEvent && e.originalEvent.target;
+        if (target && target.closest && target.closest(".map-controls, .map-tool-overlay, .legend, .gis-map-search, .site-intel-panel")) return;
+        inspectSiteIntelligenceAt(e.lngLat);
+    });
+}
+
 // ============================================================
 // ARRAY VISIBILITY AND TARGET MWp SIZING
 // ============================================================
@@ -828,6 +1111,7 @@ $("btn_print_report")?.addEventListener("click", () => window.print());
 wireMapToolOverlayButtons();
 wireArraySizingControls();
 wireGisMapSearch();
+wireSiteIntelligencePanel();
 
 
 

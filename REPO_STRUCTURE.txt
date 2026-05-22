@@ -46,6 +46,8 @@
 ├── deep_subsea_illustrative.geojson
 ├── definitions
 │   └── index.md
+├── diary-notes-log
+│   └── 260522-0115-v7-rollback-and-working-method.md
 ├── dist
 │   ├── manifest_v4.json
 │   └── repd_master.json
@@ -152,6 +154,7 @@
 │   ├── gridbot_install_20260516_204935.md
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.md
 │   ├── remove_project_x_from_v6_v7_gis_sld.md
+│   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown_status.md
 │   ├── v3_array_rotation_controls_rollback.md
 │   ├── v3_export_cable_length_control_rollback.md
 │   ├── v3_export_cable_waypoint_route_rollback.md
@@ -539,6 +542,7 @@
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown_status.py
 │   ├── requirements.txt
 │   ├── test_v7_gis_sld_array_sizing_math.py
+│   ├── test_v7_gis_sld_asset_pipeline_dropdown_status.py
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
 │   ├── test_v7_gis_sld_site_intelligence_panel.py
 │   ├── update_metal_trends.py
@@ -742,6 +746,7 @@
 │   │   └── module-layout-v5.css
 │   ├── docs
 │   │   ├── ARCHITECTURE.md
+│   │   ├── DEMONSTRATION_VIDEOS.md
 │   │   ├── V5_CHANGELOG_AND_ROADMAP.md
 │   │   ├── learning_objectives
 │   │   │   ├── 01_advanced_electrical_layers_before_upgrade.md
@@ -840,4 +845,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-115 directories, 726 files
+116 directories, 730 files

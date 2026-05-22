@@ -91,7 +91,7 @@ Current V7 purpose:
 
 ## Current recovery note
 
-On 260522 at approximately 01:15 AM, V7 was rolled back after a failed feature expansion involving Energy Users, mobile filter controls, key layout changes and overlapping map controls.
+On 260522, V7 was rolled back after a failed feature expansion involving Energy Users, mobile filter controls, key layout changes and overlapping map controls.
 
 The trusted rollback target recorded in the diary is:
 
@@ -133,7 +133,7 @@ No unstable mobile control stack changes
 Before making any significant change, read:
 
 ```text
-/diary-notes-log/   latest 3 entries
+/diary-notes-log/ latest 3 entries
 /PHILOSOPHY.md
 solar-bess-topology-v7/docs/ARCHITECTURE.md
 solar-bess-topology-v7/docs/V5_CHANGELOG_AND_ROADMAP.md
@@ -337,6 +337,18 @@ https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.h
 12. Do not add data layers until their source paths are verified.
 13. If unsure, stop and refer to `/PHILOSOPHY.md`, the V7 docs folder and `/diary-notes-log/`.
 
+## Training and validation notes
+
+Training material belongs in the docs folder, not in the control README.
+
+Current training note:
+
+```text
+solar-bess-topology-v7/docs/training/project-maturity-and-tool-validation.md
+```
+
+Use that note when assessing the gap between apparent project maturity and actual engineering definition.
+
 ## Current architecture position
 
 V7 has passed the first structural objective:
@@ -372,64 +384,3 @@ V5 is the stable baseline.
 The diary is now part of the V7 doctrine. Future AI threads must read the last 3 diary notes before modifying anything.
 
 The priority is reliability first, feature expansion second.
-
-## Project Maturity and Tool Validation
-
-### Purpose
-
-This training module focuses on the gap between perceived project maturity and actual engineering definition, and how real-world datasets stress-test the V7 tool's assumptions.
-
-### Relevant V7 Apps
-
-* `solar-bess-topology-v7/gis-sld-financial-sandbox/`
-* `solar-bess-topology-v7/cable-geometry-visualiser/`
-* `solar-bess-topology-v7/commercial-engineering-interface/`
-
----
-
-### Assessing Engineering Maturity
-
-Early-stage projects often present indicators of maturity that do not equate to a bankable engineering design.
-
-* Projects frequently supply a consented layout, an environmental assessment and a redacted grid offer.
-
-
-* Foundational engineering bases are often missing, such as ground investigations, detailed system specifications and protection philosophies.
-
-
-* An SLD without validated studies represents concept maturity dressed as a further stage of development.
-
-
-* Recognizing this gap clarifies whether a project requires foundational engineering definition rather than just design checking.
-
-
-### Validating V7 Sandbox Assumptions
-
-Real-world project datasets provide the necessary framework to validate the tool against genuine scenarios.
-
-* Complex projects serve as a validation case to stress-test the tool against real-world datasets.
-
-
-* Physical parameters like medium-voltage connections, battery energy capacities, and export distances map directly to inputs the tool models.
-
-
-* Testing real projects through the sandbox checks if capital cost, revenue, and loss outputs remain realistic when measured against genuine grid offers and route lengths.
-
-
-* Engineering-definition frameworks supply a cost-and-hours backbone that connects topology and route assumptions to the scale of effort a compliant design requires.
-
-
-
-### Cable Geometry and Electrical Risk
-
-Practical studies demonstrate exactly which variables the V7 route-assumption modules must track.
-
-* A fully worked cable-sizing study illustrates the specific assumptions that must be made visible.
-
-
-* Critical tracking parameters include installation methods, soil thermal resistivity, grouping, parallel circuits, and fault withstand.
-
-
-* Applying these studies validates the "geometry first, assumptions second" methodology to ensure the tool points at the correct risks.
-
-

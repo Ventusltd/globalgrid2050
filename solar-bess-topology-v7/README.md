@@ -10,6 +10,68 @@ Public test address:
 https://globalgrid2050.com/solar-bess-topology-v7/
 ```
 
+## Mandatory instruction for AI, LLMs and GridBot
+
+Before making any change to V7, every AI, LLM, automation agent or human operator must first read the recent diary notes.
+
+The diary folder is:
+
+```text
+/diary-notes-log/
+```
+
+Read the last 3 dated diary entries in that folder before modifying any V7 file.
+
+If fewer than 3 diary entries exist, read all available diary entries.
+
+Then read the core documentation:
+
+```text
+/README.md
+/PHILOSOPHY.md
+solar-bess-topology-v7/README.md
+solar-bess-topology-v7/docs/ARCHITECTURE.md
+```
+
+Only after reading the diary and docs should any V7 change be proposed, scripted or applied.
+
+This is now part of the V7 doctrine.
+
+Do not rely on memory from a previous chat thread. Do not assume the current browser state matches the latest commit. Do not continue a failed patch sequence without checking the diary, current branch head and live file contents.
+
+## Diary note indexing rule
+
+Each major development note must be dated and placed in:
+
+```text
+/diary-notes-log/
+```
+
+Use this filename pattern:
+
+```text
+DDMMYY-HHMM-short-description.md
+```
+
+Example:
+
+```text
+260522-0115-v7-rollback-and-working-method.md
+```
+
+Each diary entry should clearly state:
+
+1. Date and time.
+2. What changed.
+3. What failed.
+4. What was rolled back.
+5. Which commit is trusted.
+6. Which files or workflows are relevant.
+7. What must not be repeated.
+8. What the next safe step is.
+
+Future AI threads must scan the latest 3 diary entries before touching V7. This prevents repeated rediscovery and protects the working baseline.
+
 ## Status
 
 ```text
@@ -27,23 +89,152 @@ Current V7 purpose:
 5. Preserve working behaviour while improving maintainability.
 6. Create a disciplined workspace for future GridBot controlled changes.
 
+## Current recovery note
+
+On 260522 at approximately 01:15 AM, V7 was rolled back after a failed feature expansion involving Energy Users, mobile filter controls, key layout changes and overlapping map controls.
+
+The trusted rollback target recorded in the diary is:
+
+```text
+14379fa93ab8d9b772c8cc904f55f465b8be9ff9
+```
+
+That commit is titled:
+
+```text
+Add V7 GIS SLD asset status dropdown filters
+```
+
+It is treated as the safer working point because it preserves the useful asset status dropdown, Min MW, Max MW and Apply controls while removing later unstable Energy Users and mobile control stack changes.
+
+Before continuing V7 work, confirm the rollback has deployed and browser testing has passed.
+
+Suggested cache buster test URL:
+
+```text
+https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html?v=rollback-2150
+```
+
+Expected state after rollback:
+
+```text
+Energy assets dropdown present
+Status dropdown present
+Min MW present
+Max MW present
+Apply button present
+No Energy Users dropdown
+No FILTERS ON/OFF button
+No unstable mobile control stack changes
+```
+
 ## Governing doctrine
 
 Before making any significant change, read:
 
 ```text
+/diary-notes-log/   latest 3 entries
 /PHILOSOPHY.md
 solar-bess-topology-v7/docs/ARCHITECTURE.md
 solar-bess-topology-v7/docs/V5_CHANGELOG_AND_ROADMAP.md
 ```
 
-When in doubt, follow the docs and the repo philosophy.
+When in doubt, follow the docs, the diary notes and the repo philosophy.
 
 The standing rule is:
 
 ```text
 Protect working truth. Make small changes. Preserve physics. Keep state clear. Use controlled workflows. Let Vikram approve what becomes part of the system.
 ```
+
+The engineering doctrine is:
+
+```text
+Geometry first.
+Assumptions second.
+Screening third.
+Formal design only when verified.
+```
+
+## V7 change control doctrine
+
+V7 changes must be controlled, small and reversible.
+
+For serious changes, use this pattern:
+
+```text
+scripts/feature_name.py
+scripts/test_feature_name.py
+.github/workflows/feature-name.yml
+gridbot_reports/feature_name.md
+```
+
+The Python script must:
+
+1. Read target files as UTF 8.
+2. Patch by stable anchors such as IDs, function names or section comments.
+3. Be idempotent.
+4. Fail clearly if anchors are missing.
+5. Avoid broad rewrites.
+6. Write a GridBot report.
+
+The test script must:
+
+1. Confirm required HTML IDs exist.
+2. Confirm duplicate controls were not created.
+3. Confirm required JavaScript functions exist.
+4. Confirm required layer IDs exist.
+5. Confirm required boot wiring exists.
+6. Confirm removed wording is absent.
+7. Confirm source paths are proven rather than guessed.
+
+The workflow must:
+
+1. Use `workflow_dispatch`.
+2. Use `GRIDBOT_PAT`.
+3. Run the Python patch.
+4. Run the test.
+5. Commit exact intended files only.
+6. Never use `git add .`.
+7. Stop before commit if tests fail.
+
+After any workflow succeeds, deploy GitHub Pages or Jekyll and test in the browser with a cache buster.
+
+## Energy Users warning
+
+Do not reintroduce Energy Users as a combined feature.
+
+The failed Energy Users sequence attempted too many changes at once:
+
+```text
+EV Rapid 100 kW plus
+Data Centres
+Major Industrial Sites
+Energy Users dropdown
+Filter collapse
+Mobile key repair
+Mobile overlay repair
+Tool spacing repair
+Legend changes
+Popup logic
+Atlas V8 path guesses
+```
+
+That broke the app.
+
+If Energy Users are ever reintroduced, do it one layer at a time:
+
+1. Read Atlas V8 first.
+2. Confirm the exact data path.
+3. Add Data Centres only.
+4. Make the layer visible by default for testing.
+5. Confirm the browser Network tab shows no 404.
+6. Confirm points render.
+7. Add popup.
+8. Add dropdown.
+9. Repeat only after each layer works.
+
+Do not guess data paths. Do not use the term `All energy users`.
 
 ## Folder structure
 
@@ -132,16 +323,19 @@ https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.h
 
 ## Safe work rules
 
-1. Do not edit V5 when working on V7.
-2. Do not mix scripts between apps unless a shared folder is deliberately designed later.
-3. Keep each app independently loadable from its own folder.
-4. Use small workflows and small commits.
-5. Every change must be traceable through GitHub history.
-6. Prefer deterministic Python or GridBot workflows over manual bulk edits.
-7. Do not mass refactor for cosmetic reasons.
-8. Do not rename legacy `v5` internal files unless that is the specific approved feature.
-9. Do not change calculations without checking physical, electrical and financial consequences.
-10. If unsure, stop and refer to `/PHILOSOPHY.md` and the V7 docs folder.
+1. Read the latest 3 diary entries before touching V7.
+2. Do not edit V5 when working on V7.
+3. Do not mix scripts between apps unless a shared folder is deliberately designed later.
+4. Keep each app independently loadable from its own folder.
+5. Use small workflows and small commits.
+6. Every change must be traceable through GitHub history.
+7. Prefer deterministic Python or GridBot workflows over manual bulk edits.
+8. Do not mass refactor for cosmetic reasons.
+9. Do not rename legacy `v5` internal files unless that is the specific approved feature.
+10. Do not change calculations without checking physical, electrical and financial consequences.
+11. Do not patch CSS repeatedly over broken JavaScript.
+12. Do not add data layers until their source paths are verified.
+13. If unsure, stop and refer to `/PHILOSOPHY.md`, the V7 docs folder and `/diary-notes-log/`.
 
 ## Current architecture position
 
@@ -162,11 +356,11 @@ The next correct work should remain controlled and narrow.
 Recommended next candidates:
 
 ```text
-1. Manual browser validation of the V7 cable geometry visualiser against V5.
-2. Add a small documentation note inside the V7 launcher saying Testing Phase.
-3. Add browser level smoke tests later if needed.
-4. Only after validation, consider phase 2 cable geometry cleanup.
-5. Leave GIS SLD finance logic untouched until the cable geometry split is proven stable.
+1. Confirm rollback browser state.
+2. Confirm the V7 GIS SLD app works again.
+3. Only then add very small features.
+4. Do not reintroduce Energy Users until proven source paths are known.
+5. Leave GIS SLD finance logic untouched unless the requested feature specifically requires it.
 ```
 
 ## Human summary
@@ -175,12 +369,6 @@ V7 is the workshop.
 
 V5 is the stable baseline.
 
-The V7 folder now separates the tools, protects the original system and gives GlobalGrid2050 a controlled path to grow from a working monolith into a maintainable infrastructure reasoning platform.
+The diary is now part of the V7 doctrine. Future AI threads must read the last 3 diary notes before modifying anything.
 
-## V7 migration note
-
-V7 was created as a full workspace copy from V6.
-
-V6 remains preserved as the previous working baseline.
-
-Internal legacy file names may still contain older version labels where renaming them would create unnecessary break risk. This is intentional. User facing documentation, launcher labels and development notes are relabelled to V7 where safe.
+The priority is reliability first, feature expansion second.

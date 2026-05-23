@@ -500,6 +500,7 @@
 │   ├── add_v7_gis_sld_site_intelligence_panel.py
 │   ├── clone_v3_to_v4.py
 │   ├── clone_v4_to_v5.py
+│   ├── create_v8_bess_pcs_standalone.py
 │   ├── fetch_11kv_ukpn.py
 │   ├── fetch_220kv_data.py
 │   ├── fetch_33kv_data.py
@@ -759,7 +760,8 @@
 │   │       ├── 04_electrical_risk_controls.md
 │   │       ├── 05_v6_module_relevance.yml
 │   │       ├── 06_commercial_engineering_interface.md
-│   │       └── README.md
+│   │       ├── README.md
+│   │       └── project-maturity-and-tool-validation.md
 │   ├── gis-sld-financial-sandbox
 │   │   ├── gis-sld-v5-calculations.js
 │   │   ├── gis-sld-v5-config.js
@@ -846,4 +848,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-116 directories, 731 files
+116 directories, 733 files

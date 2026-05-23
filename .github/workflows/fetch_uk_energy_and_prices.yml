@@ -83,8 +83,18 @@ jobs:
           git config --global user.email "bot@globalgrid2050.com"
 
           git add uk_energy_tracking/index.md
-          git add uk_energy_tracking/live_grid_energy.json
-          git add uk_energy_tracking/live_grid_price.json
+
+          if [ -f uk_energy_tracking/live_grid_energy.json ]; then
+            git add uk_energy_tracking/live_grid_energy.json
+          else
+            echo "live_grid_energy.json not present for this run"
+          fi
+
+          if [ -f uk_energy_tracking/live_grid_price.json ]; then
+            git add uk_energy_tracking/live_grid_price.json
+          else
+            echo "live_grid_price.json not present for this run"
+          fi
 
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated UK grid update (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"

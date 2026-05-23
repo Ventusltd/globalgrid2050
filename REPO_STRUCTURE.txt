@@ -572,6 +572,7 @@
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
 │   ├── test_v7_gis_sld_site_intelligence_panel.py
 │   ├── update_metal_trends.py
+│   ├── update_oil_prices.py
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
 │   ├── update_uk_energy.py
@@ -921,4 +922,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-121 directories, 801 files
+121 directories, 802 files

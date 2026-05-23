@@ -557,6 +557,7 @@
 │   ├── test_create_v8_bess_electrical_topology_review.py
 │   ├── test_create_v8_bess_pcs_standalone.py
 │   ├── test_generate_v8_codebase_blueprint.py
+│   ├── test_rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── test_v7_gis_sld_array_sizing_math.py
 │   ├── test_v7_gis_sld_asset_pipeline_dropdown_status.py
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
@@ -891,4 +892,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-120 directories, 772 files
+120 directories, 773 files

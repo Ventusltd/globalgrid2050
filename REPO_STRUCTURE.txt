@@ -136,6 +136,7 @@
 │   ├── add_v7_gis_sld_array_visibility_and_mwp_sizing.md
 │   ├── add_v7_gis_sld_large_asset_markers_and_search.md
 │   ├── add_v7_gis_sld_site_intelligence_panel.md
+│   ├── build_v8_bess_gis_sld_financial_sandbox.md
 │   ├── create_v8_bess_electrical_topology_review.md
 │   ├── create_v8_bess_pcs_standalone.md
 │   ├── fix_uk_renewables_pipeline_csv_export.md
@@ -827,6 +828,11 @@
 │   │   ├── bess-electrical-topology-review.css
 │   │   ├── bess-electrical-topology-review.js
 │   │   └── index.html
+│   ├── bess-gis-sld-financial-sandbox
+│   │   ├── README.md
+│   │   ├── bess-gis-sld-financial-sandbox.css
+│   │   ├── bess-gis-sld-financial-sandbox.js
+│   │   └── index.html
 │   ├── bess-pcs-standalone
 │   │   ├── gis-sld-v5-calculations.js
 │   │   ├── gis-sld-v5-config.js
@@ -879,4 +885,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-119 directories, 761 files
+120 directories, 766 files

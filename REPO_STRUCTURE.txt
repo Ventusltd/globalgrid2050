@@ -535,6 +535,7 @@
 │   ├── fix_v7_gis_sld_mobile_tools_energy_layer_clearance.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_unification_estimates.py
+│   ├── generate_v8_codebase_blueprint.py
 │   ├── gridbot_feature_installer.py
 │   ├── modularise_v6_cable_geometry.py
 │   ├── modularize_v3.py
@@ -869,4 +870,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-118 directories, 752 files
+118 directories, 753 files

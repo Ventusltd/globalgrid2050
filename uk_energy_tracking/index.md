@@ -1,8 +1,8 @@
------
-
-## layout: page
+---
+layout: page
 title: UK Live Grid Tracker
 permalink: /uk_energy_tracking/
+---
 
 <style>
 .scada-grid { font-family: "Courier New", monospace; }

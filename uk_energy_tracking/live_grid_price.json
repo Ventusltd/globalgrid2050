@@ -1,12 +1,12 @@
 {
-  "updated": "2026-05-23T16:08:14.181700+00:00",
+  "updated": "2026-05-23T16:50:25.511384+00:00",
   "priceGBPperMWh": null,
   "priceTime": null,
-  "carbonGperKWh": 86,
-  "carbonForecast": 77,
-  "carbonIndex": "low",
+  "carbonGperKWh": 113,
+  "carbonForecast": 91,
+  "carbonIndex": "moderate",
   "health": {
-    "price": "error: 404 Client Error: Resource Not Found for url: https://data.elexon.co.uk/bmrs/api/v1/datasets/MID/stream?publishDateTimeFrom=2026-05-23T14:08Z&publishDateTimeTo=2026-05-23T16:08Z",
+    "price": "error: 404 Client Error: Resource Not Found for url: https://data.elexon.co.uk/bmrs/api/v1/datasets/MID/stream?publishDateTimeFrom=2026-05-23T14:50Z&publishDateTimeTo=2026-05-23T16:50Z",
     "carbon": "ok"
   }
 }

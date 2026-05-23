@@ -23,8 +23,7 @@ a { color: #7fdfff; }
 .page-content, .wrapper, main { background: var(--gg-bg) !important; color: var(--gg-text) !important; }
 .scada-grid { font-family: "Courier New", monospace; max-width: 1180px; margin: 0 auto; }
 .scada-hero { border-bottom: 1px solid var(--gg-line); padding: 18px 0 16px; margin-bottom: 22px; }
-.scada-kicker { letter-spacing: .38em; font-weight: 700; color: var(--gg-text); font-size: clamp(20px, 5vw, 42px); text-transform: uppercase; }
-.scada-subtitle { letter-spacing: .28em; color: var(--gg-muted); font-size: 12px; text-transform: uppercase; margin-top: 4px; }
+.scada-subtitle { letter-spacing: .28em; color: var(--gg-muted); font-size: 14px; text-transform: uppercase; }
 .scada-live-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:16px; }
 .scada-live-pill { border: 1px solid #1b6b4c; color: var(--gg-green); background: rgba(0,255,136,.06); padding: 10px 14px; border-radius: 4px; text-transform: uppercase; letter-spacing: .18em; font-size: 12px; }
 .scada-live-dot { display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--gg-green); box-shadow:0 0 14px var(--gg-green); margin-right:8px; }
@@ -40,7 +39,7 @@ a { color: #7fdfff; }
 .scada-gauge-bg { fill:none; stroke:#1d2330; stroke-width:18; stroke-linecap:round; }
 .scada-gauge-fill { fill:none; stroke-width:18; stroke-linecap:round; filter: drop-shadow(0 0 8px currentColor); transition: stroke-dasharray .6s ease; }
 .scada-gauge-value { fill: var(--gg-text); font-size:24px; font-weight:800; text-anchor:middle; dominant-baseline:middle; }
-.scada-gauge-unit { fill: var(--gg-muted); font-size:9px; text-anchor:middle; text-transform:uppercase; }
+.scada-gauge-unit { fill: var(--gg-muted); font-size:8px; text-anchor:middle; text-transform:uppercase; }
 .scada-mix-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; margin-top:18px; }
 .scada-mini { background:var(--gg-panel); border:1px solid var(--gg-line); border-radius:6px; padding:12px 12px 10px; }
 .scada-mini-top { display:flex; justify-content:space-between; gap:10px; align-items:baseline; }
@@ -57,7 +56,6 @@ a { color: #7fdfff; }
 
 <div class="scada-grid" id="scada-grid">
   <header class="scada-hero">
-    <div class="scada-kicker">GLOBALGRID2050</div>
     <div class="scada-subtitle">UK LIVE GRID TRACKER</div>
     <div class="scada-live-row">
       <div class="scada-live-pill"><span class="scada-live-dot"></span>LIVE GRID SOURCE</div>
@@ -74,7 +72,7 @@ a { color: #7fdfff; }
   <section class="scada-gauges">
     <div class="scada-gauge-card"><div class="scada-gauge-title">Electricity Demand</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="demand"></svg></div>
     <div class="scada-gauge-card"><div class="scada-gauge-title">Electricity Price</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="price"></svg></div>
-    <div class="scada-gauge-card"><div class="scada-gauge-title">Carbon Emissions</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="carbon"></svg></div>
+    <div class="scada-gauge-card"><div class="scada-gauge-title">Carbon Intensity</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="carbon"></svg></div>
   </section>
 
   <section>
@@ -98,9 +96,9 @@ a { color: #7fdfff; }
 (function(){
   var ENERGY="./live_grid_energy.json", PRICE="./live_grid_price.json", POLL=5*60*1000;
   var GAUGES={
-    demand:{min:0,max:45,unit:"GW",colour:"#00ffff"},
-    price:{min:-50,max:250,unit:"£/MWh",colour:"#ff00e6"},
-    carbon:{min:0,max:400,unit:"g/kWh",colour:"#00ff88"}
+    demand:{min:0,max:45,unit:"Gigawatts (GW)",colour:"#00ffff"},
+    price:{min:-50,max:250,unit:"Pounds per Megawatt hour (£/MWh)",colour:"#ff00e6"},
+    carbon:{min:0,max:400,unit:"Grams per Kilowatt hour (g/kWh)",colour:"#00ff88"}
   };
   function fmt(n,dp){return (n===null||n===undefined||isNaN(n))?"—":Number(n).toFixed(dp==null?2:dp);}
   function pct(n,min,max){ if(n===null||n===undefined||isNaN(n)) return 0; return Math.max(0,Math.min(1,(Number(n)-min)/(max-min))); }
@@ -116,14 +114,14 @@ a { color: #7fdfff; }
     var display=value===null||value===undefined||isNaN(value)?"—":(name==="carbon"?Math.round(value):fmt(value, name==="price"?0:2));
     svg.innerHTML='<path class="scada-gauge-bg" d="'+arcPath(30,115,80,-90,90)+'"></path>'+
       '<path class="scada-gauge-fill" style="color:'+cfg.colour+';stroke:'+cfg.colour+'" d="'+arcPath(30,115,80,-90,end)+'"></path>'+
-      '<text class="scada-gauge-value" x="110" y="96">'+display+'</text>'+
+      '<text class="scada-gauge-value" x="110" y="94">'+display+'</text>'+
       '<text class="scada-gauge-unit" x="110" y="120">'+cfg.unit+'</text>';
   }
   function renderMix(mix){
     var w=document.getElementById("scada-mix"); if(!Array.isArray(mix)){return;}
     w.innerHTML=mix.map(function(r){
       var width=Math.max(0,Math.min(100,Math.abs(r.pct)));
-      return '<div class="scada-mini"><div class="scada-mini-top"><div class="scada-mini-name">'+r.label+'</div><div class="scada-mini-value">'+fmt(r.gw)+' GW · '+fmt(r.pct)+'%</div></div>'+
+      return '<div class="scada-mini"><div class="scada-mini-top"><div class="scada-mini-name">'+r.label+'</div><div class="scada-mini-value">'+fmt(r.gw)+' Gigawatts (GW) · '+fmt(r.pct)+'%</div></div>'+
         '<div class="scada-mini-track"><div class="scada-mini-fill" style="width:'+width+'%;background:'+r.color+';box-shadow:0 0 10px '+r.color+'"></div></div></div>';
     }).join("");
   }
@@ -131,19 +129,20 @@ a { color: #7fdfff; }
   function timeLabel(iso){return iso?new Date(iso).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"Awaiting feed";}
   function dateLabel(iso){return iso?new Date(iso).toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short",year:"numeric"}):"";}
   function latestIso(a,b){ if(!a) return b; if(!b) return a; return new Date(a)>new Date(b)?a:b; }
+  function carbonValue(p){ return p.carbonGperKWh==null ? p.carbonForecast : p.carbonGperKWh; }
   function getJSON(u){return fetch(u+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).catch(function(){return null;});}
   function refresh(){
     Promise.all([getJSON(ENERGY),getJSON(PRICE)]).then(function(res){
       var e=res[0]||{}, p=res[1]||{};
       renderGauge("demand", e.demandGW, "Demand");
       renderGauge("price", p.priceGBPperMWh, "Price");
-      renderGauge("carbon", p.carbonGperKWh, "Carbon");
+      renderGauge("carbon", carbonValue(p), "Carbon");
       if(e.mix) renderMix(e.mix);
       var latest=latestIso(e.updated,p.updated);
       document.getElementById("m-updated-time").textContent=timeLabel(latest);
-      document.getElementById("m-updated-meta").textContent=(latest?dateLabel(latest)+" · energy "+timeLabel(e.updated)+" · price/carbon "+timeLabel(p.updated):"Energy, price and carbon timestamps will appear here.");
+      document.getElementById("m-updated-meta").textContent=(latest?dateLabel(latest)+" · energy "+timeLabel(e.updated)+" · price and carbon "+timeLabel(p.updated):"Energy, price and carbon timestamps will appear here.");
       var s=document.getElementById("scada-status"), mins=ageMin(e.updated);
-      if(mins>20){s.textContent="Mix feed is "+Math.round(mins)+" min old. It may be stale.";s.className="scada-status stale";}
+      if(mins>20){s.textContent="Mix feed is "+Math.round(mins)+" minutes old. It may be stale.";s.className="scada-status stale";}
       else if(e.updated){s.textContent="Energy health: "+JSON.stringify(e.health||{})+" · Price health: "+JSON.stringify(p.health||{});s.className="scada-status";}
       else{s.textContent="Live feed unavailable. Awaiting first data write.";s.className="scada-status stale";}
     });

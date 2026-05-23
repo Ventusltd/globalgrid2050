@@ -37,21 +37,26 @@ jobs:
       - name: Run Historic Metal Trends update
         run: python scripts/update_metal_trends.py
 
+      - name: Run Oil and Fuel update
+        run: python scripts/update_oil_prices.py
+
       - name: Commit and push changes
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
           set -e
-          
+
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          
+
           git add lv_ac_dc_price_estimator/index.md
           git add 33kv_uk_dap_price_estimator/index.md
           git add copper_and_aluminium_prices_historic_trends.md
-          
+          git add uk_energy_tracking/live_oil_prices.json
+          git add uk_energy_tracking/oil_price_history.geojson
+
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "Automated commodity and energy update: $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No changes to commit"

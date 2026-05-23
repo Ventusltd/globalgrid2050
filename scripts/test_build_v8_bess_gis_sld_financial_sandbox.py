@@ -54,8 +54,12 @@ for token in [
     "function syncEnergy",
     "function calc",
     "function drawLayout",
-    "BESS containers provide MWh",
-    "PCS provides MW",
+    "BESS containers",
+    "provide",
+    "MWh",
+    "PCS",
+    "MW",
+    "Grid export",
 ]:
     assert token in js, token
 

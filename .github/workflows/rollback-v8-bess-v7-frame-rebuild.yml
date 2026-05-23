@@ -1,0 +1,36 @@
+name: Rollback V8 BESS V7 Frame Rebuild
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rollback-v8-bess-v7-frame-rebuild:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+          fetch-depth: 0
+
+      - name: Revert broken V8 BESS V7 frame rebuild commit
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git pull --rebase --autostash origin main
+
+          if git log --oneline --max-count=80 | grep -q "94a2ed194df46e6619dfea2722c6650118a8d29b"; then
+            git revert --no-edit 94a2ed194df46e6619dfea2722c6650118a8d29b
+          else
+            echo "Target rebuild commit not present in recent history. Nothing to revert."
+            exit 0
+          fi
+
+          git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main

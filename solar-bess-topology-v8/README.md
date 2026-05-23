@@ -2,26 +2,33 @@
 
 V8 is the standalone BESS study workspace.
 
-V7 is to remain stable for the combined solar and BESS GIS SLD release. V8 is where standalone BESS logic can be tested safely before any future V9 merge back into a unified Solar plus BESS UI.
+V7 remains stable. V8 is where standalone BESS logic is developed before any future V9 merge back into a unified Solar plus BESS UI.
 
-## Apps
+## Current apps
 
 ```text
-solar-bess-topology-v8/bess-pcs-standalone/
+solar-bess-topology-v8/bess-gis-sld-financial-sandbox/
 solar-bess-topology-v8/bess-electrical-topology-review/
 ```
 
-## Doctrine
+## Main app boundary
 
-Geometry first.
-Assumptions second.
-Screening third.
-Formal design only when verified.
+The BESS GIS SLD Financial Sandbox handles:
 
-## V8 scope
+- BESS containers.
+- PCS blocks.
+- Integrated PCS transformer layout.
+- Separate PCS plus external transformer layout.
+- Distributed PCS islands.
+- PCS corridor layout.
+- Central PCS block.
+- Transmission scale HV compound placeholder.
+- Access roads.
+- Fire or acoustic barriers.
+- Basic MW, MWh, CAPEX and revenue screening.
 
-V8 starts with BESS to PCS and BESS electrical topology review only.
+It does not handle cable sizing or protection validation.
 
-## V9 intention
+## Advanced review boundary
 
-V9 may merge solar and BESS into one UI after the standalone BESS logic is stable.
+The BESS Electrical Topology Review handles cable, impedance, leakage, reverse current, transformer impedance, fault level and formal study flags.

@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "updated": "2026-05-23T19:51:25.377920+00:00",
+    "unit": "USD per barrel",
+    "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset.",
+    "sources": [
+      {
+        "ok": false,
+        "source": "FRED Brent Europe daily spot price",
+        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=30)"
+      },
+      {
+        "ok": false,
+        "source": "FRED WTI Cushing daily spot price",
+        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=30)"
+      }
+    ]
+  },
+  "features": []
+}

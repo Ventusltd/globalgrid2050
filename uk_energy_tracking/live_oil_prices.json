@@ -1,0 +1,23 @@
+{
+  "updated": "2026-05-23T19:50:24.178839+00:00",
+  "brentUSDperBarrel": 100.21,
+  "wtiUSDperBarrel": 96.6,
+  "ukPumpPrices": {
+    "petrolPencePerLitre": null,
+    "dieselPencePerLitre": null,
+    "source": "RAC Fuel Watch public page"
+  },
+  "health": {
+    "BZ=F": {
+      "ok": true
+    },
+    "CL=F": {
+      "ok": true
+    },
+    "ukPumpPrices": {
+      "ok": false,
+      "url": "https://www.rac.co.uk/drive/advice/fuel-watch/",
+      "note": "Best effort public page read. Non critical."
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GlobalGrid2050 V8</title>
+<style>
+:root { --bg:#050505; --panel:#0b0e14; --line:#2f343d; --text:#fff; --muted:#a6adbb; --accent:#00ffff; --ok:#00ff88; --danger:#ff3333; }
+* { box-sizing:border-box; }
+body { margin:0; padding:28px; background:var(--bg); color:var(--text); font-family:"Courier New", monospace; }
+header, main { max-width:1180px; margin:0 auto 24px auto; }
+header { border:1px solid var(--line); background:rgba(10,10,10,.96); padding:22px; border-radius:14px; }
+.kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.14em; font-size:12px; }
+h1 { margin:8px 0 10px 0; font-size:28px; }
+p { color:var(--muted); line-height:1.55; }
+.card { display:block; border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:20px; text-decoration:none; color:var(--text); max-width:460px; }
+.card:hover { border-color:var(--accent); }
+.card h2 { color:var(--accent); margin:0 0 10px 0; }
+.card span { color:var(--ok); font-weight:bold; }
+.warning { margin-top:14px; padding:14px; border:1px solid var(--danger); border-radius:10px; color:var(--danger); background:rgba(255,51,51,.08); font-weight:bold; }
+</style>
+</head>
+<body>
+<header>
+<div class="kicker">GlobalGrid2050 V8</div>
+<h1>BESS Standalone Study Workspace</h1>
+<p>V8 starts as a standalone BESS to PCS study workspace. V7 is left as the stable solar and BESS GIS SLD release for now.</p>
+<div class="warning">STATUS: TESTING AND DEVELOPMENT. Screening only. Formal cable, protection, thermal and grid studies remain required.</div>
+</header>
+<main>
+<a class="card" href="./bess-pcs-standalone/index.html">
+<h2>BESS PCS Standalone</h2>
+<p>Standalone BESS to PCS DC link screening app copied from the V7 GIS SLD base for controlled study.</p>
+<span>Open app</span>
+</a>
+</main>
+</body>
+</html>

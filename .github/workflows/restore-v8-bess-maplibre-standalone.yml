@@ -1,0 +1,67 @@
+name: Restore V8 BESS MapLibre Standalone
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore-v8-bess-maplibre-standalone:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+          fetch-depth: 0
+
+      - name: Restore standalone BESS files from clean commit
+        run: |
+          git checkout f90d9e53965e83fd9a11b94e81ed23aefd3aef7f -- \
+            solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html \
+            solar-bess-topology-v8/bess-gis-sld-financial-sandbox/bess-gis-sld-financial-sandbox.js \
+            solar-bess-topology-v8/bess-gis-sld-financial-sandbox/bess-gis-sld-financial-sandbox.css
+
+      - name: Write restore report
+        run: |
+          mkdir -p gridbot_reports
+          cat > gridbot_reports/restore_v8_bess_maplibre_standalone.md <<'EOF'
+          # Restore V8 BESS MapLibre Standalone App
+
+          Restored the standalone BESS GIS SLD Financial Sandbox from commit:
+
+          ```text
+          f90d9e53965e83fd9a11b94e81ed23aefd3aef7f
+          ```
+
+          This restores the BESS only MapLibre app with layout, finance and notes tabs, BESS container drawing, PCS and transformer layout logic, SVG SLD preview, map reset, fit and GeoJSON export.
+
+          V8 is BESS only. V7 remains the solar GIS SLD reference frame.
+          EOF
+
+      - name: Run restore checks
+        run: python scripts/test_restore_v8_bess_maplibre_standalone.py
+
+      - name: Commit and push restore
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git pull --rebase --autostash origin main
+
+          git add \
+            solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html \
+            solar-bess-topology-v8/bess-gis-sld-financial-sandbox/bess-gis-sld-financial-sandbox.js \
+            solar-bess-topology-v8/bess-gis-sld-financial-sandbox/bess-gis-sld-financial-sandbox.css \
+            gridbot_reports/restore_v8_bess_maplibre_standalone.md
+
+          if git diff --cached --quiet; then
+            echo "No restore changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Restore V8 BESS MapLibre standalone app"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main

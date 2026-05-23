@@ -5,9 +5,9 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlencode
 
-# Runs every 30 minutes. Fetches GB market price from Elexon MID and carbon
-# intensity from the Carbon Intensity API. Writes ONLY the price slice;
-# independent of the 5-minute energy slice.
+# Runs every 30 minutes. Fetches GB market price from Elexon Market Index
+# and carbon intensity from the Carbon Intensity API. Writes ONLY the price
+# slice; independent of the 5-minute energy slice.
 
 FOLDER = Path(__file__).parent.parent / "uk_energy_tracking"
 JSON_FILE = FOLDER / "live_grid_price.json"
@@ -54,15 +54,30 @@ def _pick(row, names):
     return None
 
 
-def _try_mid_url(url):
+def _try_price_url(url):
     data = _get_json(url)
     rows = _rows(data)
     priced = []
     for row in rows:
-        price = _pick(row, ["price", "MarketIndexPrice", "marketIndexPrice", "value", "Price"])
+        price = _pick(row, [
+            "price",
+            "marketIndexPrice",
+            "MarketIndexPrice",
+            "market_price",
+            "value",
+            "Price",
+        ])
         if price is None:
             continue
-        ts = _pick(row, ["startTime", "settlementDate", "publishTime", "publishDateTime", "time", "datetime"])
+        ts = _pick(row, [
+            "startTime",
+            "settlementDate",
+            "publishTime",
+            "publishDateTime",
+            "dataProvider",
+            "time",
+            "datetime",
+        ])
         try:
             priced.append({"price": float(price), "time": ts or ""})
         except (TypeError, ValueError):
@@ -78,28 +93,28 @@ def fetch_market_price():
     end = _iso_minutes_ago(0)
     attempts = []
 
-    # Elexon dataset endpoints do not require an API key. The MID endpoint has
-    # changed shape before, so try the canonical dataset URL first and retain
-    # older variants as fallbacks.
-    query_a = urlencode({"publishDateTimeFrom": start, "publishDateTimeTo": end, "format": "json"})
-    query_b = urlencode({"from": start, "to": end, "format": "json"})
-    query_c = urlencode({"settlementDateFrom": start[:10], "settlementDateTo": end[:10], "format": "json"})
+    # Current Elexon Insights route first, then older dataset route fallbacks.
+    # Older failing route was /datasets/MID/stream. Do not use it here.
+    range_query = urlencode({"from": start, "to": end, "format": "json"})
+    dataset_publish_query = urlencode({"publishDateTimeFrom": start, "publishDateTimeTo": end, "format": "json"})
+    dataset_settlement_query = urlencode({"settlementDateFrom": start[:10], "settlementDateTo": end[:10], "format": "json"})
     urls = [
-        f"{ELEXON}/datasets/MID?{query_a}",
-        f"{ELEXON}/datasets/MID?{query_b}",
-        f"{ELEXON}/datasets/MID?{query_c}",
+        f"{ELEXON}/balancing/pricing/market-index?{range_query}",
+        f"{ELEXON}/balancing/pricing/market-index?{dataset_publish_query}",
+        f"{ELEXON}/datasets/MID?{dataset_publish_query}",
+        f"{ELEXON}/datasets/MID?{dataset_settlement_query}",
     ]
 
     for url in urls:
         try:
-            price, price_time = _try_mid_url(url)
+            price, price_time = _try_price_url(url)
             if price is not None:
                 return price, price_time
             attempts.append(f"no priced rows: {url}")
         except Exception as e:  # noqa: BLE001
             attempts.append(f"{type(e).__name__}: {e} | {url}")
 
-    raise RuntimeError("; ".join(attempts[-3:]))
+    raise RuntimeError("; ".join(attempts[-4:]))
 
 
 def fetch_carbon():

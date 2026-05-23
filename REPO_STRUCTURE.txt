@@ -542,6 +542,7 @@
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown.py
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown_status.py
 │   ├── requirements.txt
+│   ├── test_create_v8_bess_pcs_standalone.py
 │   ├── test_v7_gis_sld_array_sizing_math.py
 │   ├── test_v7_gis_sld_asset_pipeline_dropdown_status.py
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
@@ -848,4 +849,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-116 directories, 733 files
+116 directories, 734 files

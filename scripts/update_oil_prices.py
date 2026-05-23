@@ -48,6 +48,24 @@ def yahoo_price(ticker):
     return float(r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
 
 
+def yahoo_history(ticker):
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=max&interval=1d"
+    r = SESSION.get(url, timeout=60)
+    r.raise_for_status()
+    result = r.json()["chart"]["result"][0]
+    timestamps = result.get("timestamp") or []
+    closes = (((result.get("indicators") or {}).get("quote") or [{}])[0].get("close") or [])
+    rows = []
+    for ts, close in zip(timestamps, closes):
+        if close is None:
+            continue
+        date = datetime.fromtimestamp(ts, timezone.utc).strftime("%Y-%m-%d")
+        rows.append((date, float(close)))
+    if not rows:
+        raise RuntimeError(f"Yahoo returned no usable history rows for {ticker}")
+    return rows
+
+
 def fred_csv(series):
     url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}"
     r = SESSION.get(url, timeout=60)
@@ -112,22 +130,41 @@ def load_existing_history():
     return None
 
 
+def add_rows(merged, rows, field):
+    for date, value in rows:
+        merged.setdefault(date, {})[field] = value
+
+
 def oil_history_geojson():
     health = []
     merged = {}
+
     for series, field, label in [
         ("DCOILBRENTEU", "brentUSDperBarrel", "FRED Brent Europe daily spot price"),
         ("DCOILWTICO", "wtiUSDperBarrel", "FRED WTI Cushing daily spot price"),
     ]:
         try:
             rows = fred_csv(series)
-            for date, value in rows:
-                merged.setdefault(date, {})[field] = value
+            add_rows(merged, rows, field)
             health.append({"ok": True, "source": label, "rows": len(rows)})
         except Exception as exc:
             msg = f"Failed to fetch {label} after retries: {exc}"
             print(f"::warning::{msg}")
             health.append({"ok": False, "source": label, "error": msg})
+
+    if not merged:
+        for ticker, field, label in [
+            ("BZ=F", "brentUSDperBarrel", "Yahoo Brent futures history"),
+            ("CL=F", "wtiUSDperBarrel", "Yahoo WTI futures history"),
+        ]:
+            try:
+                rows = yahoo_history(ticker)
+                add_rows(merged, rows, field)
+                health.append({"ok": True, "source": label, "rows": len(rows), "fallback": True})
+            except Exception as exc:
+                msg = f"Failed to fetch {label} after retries: {exc}"
+                print(f"::warning::{msg}")
+                health.append({"ok": False, "source": label, "error": msg, "fallback": True})
 
     features = []
     for date in sorted(merged):
@@ -151,7 +188,7 @@ def oil_history_geojson():
         "metadata": {
             "updated": now_utc(),
             "unit": "USD per barrel",
-            "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset.",
+            "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
             "sources": health
         },
         "features": features

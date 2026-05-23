@@ -157,6 +157,7 @@
 │   ├── gridbot_install_20260516_183703.md
 │   ├── gridbot_install_20260516_201759.md
 │   ├── gridbot_install_20260516_204935.md
+│   ├── rebuild_v8_bess_from_v7_gis_frame.md
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.md
 │   ├── remove_project_x_from_v6_v7_gis_sld.md
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown_status.md
@@ -839,6 +840,18 @@
 │   │   ├── README.md
 │   │   ├── bess-gis-sld-financial-sandbox.css
 │   │   ├── bess-gis-sld-financial-sandbox.js
+│   │   ├── gis-sld-v5-calculations.js
+│   │   ├── gis-sld-v5-config.js
+│   │   ├── gis-sld-v5-drawing.js
+│   │   ├── gis-sld-v5-export.js
+│   │   ├── gis-sld-v5-finance.js
+│   │   ├── gis-sld-v5-helpers.js
+│   │   ├── gis-sld-v5-map.js
+│   │   ├── gis-sld-v5-state.js
+│   │   ├── gis-sld-v5-substations.js
+│   │   ├── gis-sld-v5-ui-core.js
+│   │   ├── gis-sld-v5-ui.js
+│   │   ├── gis-sld-v5.css
 │   │   └── index.html
 │   ├── bess-pcs-standalone
 │   │   ├── gis-sld-v5-calculations.js
@@ -892,4 +905,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-120 directories, 773 files
+120 directories, 786 files

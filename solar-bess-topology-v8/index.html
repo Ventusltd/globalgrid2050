@@ -13,7 +13,8 @@ header { border:1px solid var(--line); background:rgba(10,10,10,.96); padding:22
 .kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.14em; font-size:12px; }
 h1 { margin:8px 0 10px 0; font-size:28px; }
 p { color:var(--muted); line-height:1.55; }
-.card { display:block; border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:20px; text-decoration:none; color:var(--text); max-width:460px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
+.card { display:block; border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:20px; text-decoration:none; color:var(--text); min-height:180px; }
 .card:hover { border-color:var(--accent); }
 .card h2 { color:var(--accent); margin:0 0 10px 0; }
 .card span { color:var(--ok); font-weight:bold; }
@@ -24,13 +25,18 @@ p { color:var(--muted); line-height:1.55; }
 <header>
 <div class="kicker">GlobalGrid2050 V8</div>
 <h1>BESS Standalone Study Workspace</h1>
-<p>V8 starts as a standalone BESS to PCS study workspace. V7 is left as the stable solar and BESS GIS SLD release for now.</p>
+<p>V8 is a standalone BESS study workspace. V7 is left as the stable solar and BESS GIS SLD release for now. V9 may later merge proven solar and BESS logic into one UI.</p>
 <div class="warning">STATUS: TESTING AND DEVELOPMENT. Screening only. Formal cable, protection, thermal and grid studies remain required.</div>
 </header>
-<main>
+<main class="grid">
 <a class="card" href="./bess-pcs-standalone/index.html">
 <h2>BESS PCS Standalone</h2>
 <p>Standalone BESS to PCS DC link screening app copied from the V7 GIS SLD base for controlled study.</p>
+<span>Open app</span>
+</a>
+<a class="card" href="./bess-electrical-topology-review/index.html">
+<h2>BESS Electrical Topology Review</h2>
+<p>Detailed BESS engineering review for DC leakage, reverse current protection, PCS interface, cable R, X, Z and protection coordination screening.</p>
 <span>Open app</span>
 </a>
 </main>

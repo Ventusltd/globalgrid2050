@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>BESS Electrical Topology Review V8 | GlobalGrid2050</title>
+<link rel="stylesheet" href="./bess-electrical-topology-review.css" />
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header">
+    <div>
+      <div class="kicker">GlobalGrid2050 V8</div>
+      <h1>BESS Electrical Topology Review</h1>
+      <p>Standalone engineering review app for BESS DC interface, PCS, transformer connection, cable impedance, reverse current protection, leakage protection and protection coordination screening.</p>
+    </div>
+    <div class="header-links">
+      <button id="btn_print" class="link-btn" type="button" onclick="window.print()">Print</button>
+      <a class="link-btn" href="../index.html">Back to V8</a>
+      <a class="link-btn" href="../../solar-bess-topology-v7/index.html">V7 Stable</a>
+    </div>
+  </header>
+
+  <main class="main-grid">
+    <section class="panel input-panel">
+      <h2>1. BESS DC Interface</h2>
+      <label>BESS Power MW</label><input id="bess_power_mw" type="number" value="50" min="0" step="1" />
+      <label>BESS Energy MWh</label><input id="bess_energy_mwh" type="number" value="100" min="0" step="1" />
+      <label>Nominal DC Voltage V</label><input id="dc_voltage" type="number" value="1500" min="1" step="50" />
+      <label>Parallel DC Cable Sets</label><input id="parallel_sets" type="number" value="10" min="1" step="1" />
+      <label>One Way DC Route Length m</label><input id="dc_route_m" type="number" value="30" min="0" step="1" />
+      <label>Conductor Size mm²</label><input id="conductor_mm2" type="number" value="300" min="1" step="1" />
+      <label>Conductor Material</label><select id="conductor_material"><option value="al" selected>Aluminium</option><option value="cu">Copper</option></select>
+      <label>Resistance R ohm per km</label><input id="r_ohm_km" type="number" value="0.125" min="0" step="0.001" />
+      <label>Reactance X ohm per km</label><input id="x_ohm_km" type="number" value="0.080" min="0" step="0.001" />
+      <label>Installation Basis</label><select id="installation_basis"><option value="unknown">Unknown</option><option value="buried" selected>Buried or ducted underground</option><option value="trench">Open trench or trough</option><option value="free_air">Ladder or free air section</option></select>
+
+      <h2>2. PCS and AC Interface</h2>
+      <label>PCS Quantity</label><input id="pcs_qty" type="number" value="10" min="1" step="1" />
+      <label>Total PCS Rating MW</label><input id="pcs_total_mw" type="number" value="50" min="0" step="1" />
+      <label>PCS to Transformer Arrangement</label><select id="pcs_tx_arrangement"><option value="unknown">Unknown</option><option value="integrated" selected>Integrated PCS transformer station</option><option value="separated">Separated PCS and transformer station</option></select>
+      <label>LV AC Voltage V</label><input id="ac_voltage" type="number" value="690" min="1" step="10" />
+      <label>Transformer Rating MVA</label><input id="tx_mva" type="number" value="5" min="0" step="0.1" />
+      <label>Transformer Impedance Confirmed</label><select id="tx_impedance_confirmed"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select>
+
+      <h2>3. Protection and Leakage Validation</h2>
+      <label>DC Insulation Monitoring Confirmed</label><select id="dc_imd"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select>
+      <label>DC Leakage Protection Confirmed</label><select id="dc_leakage"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select>
+      <label>Reverse Current Protection Confirmed</label><select id="reverse_current"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select>
+      <label>DC Disconnector Rating Confirmed</label><select id="dc_disconnector"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select>
+      <label>DC Short Circuit Withstand Confirmed</label><select id="dc_fault_withstand"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select>
+      <label>Cable R and X Confirmed From Datasheet</label><select id="rx_confirmed"><option value="unknown">Unknown</option><option value="yes">Yes</option><option value="no">No</option></select>
+      <label>Protection Coordination Status</label><select id="protection_status"><option value="not_started">Not started</option><option value="data_missing">Data missing</option><option value="preliminary">Preliminary check</option><option value="formal_required" selected>Formal study required</option><option value="validated">Validated by engineer</option></select>
+    </section>
+
+    <section class="panel results-panel">
+      <h2>Topology Results</h2>
+      <div class="stat"><span>Total DC Current</span><strong id="out_total_dc_current">0 A</strong></div>
+      <div class="stat"><span>Current per DC Cable Set</span><strong id="out_current_per_set">0 A</strong></div>
+      <div class="stat"><span>Energy Duration</span><strong id="out_duration">0 h</strong></div>
+      <div class="stat"><span>MW per PCS</span><strong id="out_mw_per_pcs">0 MW</strong></div>
+      <div class="stat"><span>Estimated DC R Path</span><strong id="out_r_path">0 ohm</strong></div>
+      <div class="stat"><span>Estimated DC X Path</span><strong id="out_x_path">0 ohm</strong></div>
+      <div class="stat"><span>Estimated DC Z Path</span><strong id="out_z_path">0 ohm</strong></div>
+      <div class="stat"><span>Indicative DC Voltage Drop</span><strong id="out_vdrop">0 %</strong></div>
+      <div class="stat"><span>PCS Match Status</span><strong id="out_pcs_match">Check</strong></div>
+      <div class="stat"><span>Electrical Validation Status</span><strong id="out_validation_status">Check</strong></div>
+      <div id="status_box" class="status-box">Ready.</div>
+
+      <div class="note">
+        Screening only. This app does not replace formal load flow, short circuit calculation, protection grading, insulation coordination, earthing design, harmonic study, manufacturer interface review, cable thermal study or IFC design.
+      </div>
+
+      <h2>Required formal studies</h2>
+      <ul id="required_studies"></ul>
+    </section>
+
+    <section class="panel diagram-panel">
+      <div class="diagram-title">SCADA Style BESS Topology Panel</div>
+      <svg id="bess_scada" viewBox="0 0 1200 720" role="img" aria-label="BESS electrical topology diagram"></svg>
+      <div class="diagram-footer"><span>BESS DC terminals</span><span>PCS</span><span>Transformer</span><span>MV Grid Interface</span></div>
+    </section>
+  </main>
+</div>
+<script src="./bess-electrical-topology-review.js"></script>
+</body>
+</html>

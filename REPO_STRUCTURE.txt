@@ -500,6 +500,7 @@
 │   ├── add_v7_gis_sld_array_visibility_and_mwp_sizing.py
 │   ├── add_v7_gis_sld_large_asset_markers_and_search.py
 │   ├── add_v7_gis_sld_site_intelligence_panel.py
+│   ├── build_v8_bess_gis_sld_financial_sandbox.py
 │   ├── clone_v3_to_v4.py
 │   ├── clone_v4_to_v5.py
 │   ├── create_v8_bess_electrical_topology_review.py
@@ -877,4 +878,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-119 directories, 759 files
+119 directories, 760 files

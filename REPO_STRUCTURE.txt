@@ -162,6 +162,7 @@
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.md
 │   ├── remove_project_x_from_v6_v7_gis_sld.md
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown_status.md
+│   ├── restore_v8_bess_maplibre_standalone.md
 │   ├── v3_array_rotation_controls_rollback.md
 │   ├── v3_export_cable_length_control_rollback.md
 │   ├── v3_export_cable_waypoint_route_rollback.md
@@ -573,6 +574,7 @@
 │   ├── update_metal_trends.py
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
+│   ├── update_uk_energy.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
 │   ├── v6_add_atlas_v8_dashboard_link.py
@@ -914,4 +916,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-120 directories, 795 files
+120 directories, 797 files

@@ -1,0 +1,94 @@
+# UK live grid tracker for globalgrid2050.com
+# Two cadences, matching each source's native update rate and being a
+# courteous API citizen (no re-fetching half-hourly data every 5 min):
+#   * energy job  -> every 5 minutes  : demand + generation mix + solar
+#   * price job   -> every 30 minutes : market price + carbon intensity
+# Mirrors the existing update-metal-prices PAT + push pattern.
+#
+# Save as: .github/workflows/fetch_uk_energy_and_prices.yml
+
+name: fetch_uk_energy_and_prices
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'    # energy slice
+    - cron: '*/30 * * * *'   # price slice
+  workflow_dispatch:
+    inputs:
+      slice:
+        description: 'Which slice to run when triggered manually'
+        required: true
+        default: 'both'
+        type: choice
+        options: [both, energy, price]
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: uk-energy-tracking
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      # Decide what to run. The */30 cron also satisfies */5 at the hour/half-hour,
+      # so on those ticks we run BOTH; otherwise just energy. Manual runs honour
+      # the chosen input.
+      - name: Determine slice
+        id: which
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "slice=${{ github.event.inputs.slice }}" >> "$GITHUB_OUTPUT"
+          else
+            MIN=$(date -u +'%M')
+            if [ "$((10#$MIN % 30))" -eq 0 ]; then
+              echo "slice=both" >> "$GITHUB_OUTPUT"
+            else
+              echo "slice=energy" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Run energy slice (5-min)
+        if: steps.which.outputs.slice == 'energy' || steps.which.outputs.slice == 'both'
+        run: python scripts/update_uk_energy.py
+
+      - name: Run price slice (30-min)
+        if: steps.which.outputs.slice == 'price' || steps.which.outputs.slice == 'both'
+        run: python scripts/update_uk_price.py
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git add uk_energy_tracking/index.md
+          git add uk_energy_tracking/live_grid_energy.json
+          git add uk_energy_tracking/live_grid_price.json
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated UK grid update (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

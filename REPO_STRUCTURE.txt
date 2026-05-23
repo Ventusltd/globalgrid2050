@@ -187,7 +187,8 @@
 │   ├── v6_migration_from_v5.md
 │   ├── v6_sanity_label_fix.md
 │   ├── v7_add_atlas_v8_dashboard_link.md
-│   └── v7_migration_from_v6.md
+│   ├── v7_migration_from_v6.md
+│   └── v8_bess_tabs_patch_plan.md
 ├── heavy_emitters_uk.json
 ├── hs2.geojson
 ├── hv_interface.jpg
@@ -564,6 +565,7 @@
 │   ├── test_generate_v8_codebase_blueprint.py
 │   ├── test_patch_v8_bess_tabs_small_step.py
 │   ├── test_rebuild_v8_bess_from_v7_gis_frame.py
+│   ├── test_restore_v8_bess_maplibre_standalone.py
 │   ├── test_v7_gis_sld_array_sizing_math.py
 │   ├── test_v7_gis_sld_asset_pipeline_dropdown_status.py
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
@@ -912,4 +914,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-120 directories, 793 files
+120 directories, 795 files

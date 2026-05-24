@@ -1,0 +1,38 @@
+name: run-v2-safe-patch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run safe V2 patch
+        run: python scripts/v2_safe_patch.py
+
+      - name: Commit exact V2 files
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v2/index.md
+          git add gridbot_reports/v2_safe_patch.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Apply V2 safe patch"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

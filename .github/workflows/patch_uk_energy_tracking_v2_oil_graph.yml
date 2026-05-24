@@ -1,0 +1,41 @@
+name: patch-uk-energy-tracking-v2-oil-graph
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Apply V2 oil graph patch
+        run: python scripts/patch_uk_energy_tracking_v2_oil_graph.py
+
+      - name: Commit patched V2 tracker
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v2/index.md
+          git add gridbot_reports/patch_uk_energy_tracking_v2_oil_graph.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Patch UK energy tracking V2 oil graph"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

@@ -550,6 +550,7 @@
 │   ├── gridbot_feature_installer.py
 │   ├── modularise_v6_cable_geometry.py
 │   ├── modularize_v3.py
+│   ├── patch_uk_energy_oil_dashboard_interactivity.py
 │   ├── patch_v8_bess_tabs_small_step.py
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
@@ -924,4 +925,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-121 directories, 804 files
+121 directories, 805 files

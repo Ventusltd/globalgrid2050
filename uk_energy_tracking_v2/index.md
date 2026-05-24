@@ -126,8 +126,7 @@ a { color: #7fdfff; }
           <option value="1y">1 year</option>
           <option value="5y">5 years</option>
           <option value="10y">10 years</option>
-          <option value="25y">25 years</option>
-          <option value="all" selected>Since 1970s</option>
+          <option value="25y" selected>25 years</option>
         </select>
       </div>
       <div class="unit-panel"><strong>Unit:</strong> USD per barrel (USD/bbl). Touch or move across the graph to inspect date, Brent and WTI values.</div>
@@ -251,7 +250,7 @@ a { color: #7fdfff; }
     var min=Math.min.apply(null,vals), max=Math.max.apply(null,vals); if(max===min){max=min+1;}
     function x(i){return pad+(i/(rows.length-1))*(w-pad-rightPad);} function y(v){return h-pad-((v-min)/(max-min))*(h-pad*1.85);}
     ctx.strokeStyle="#252b36"; ctx.lineWidth=1;
-    ctx.fillStyle="#a6adbb"; ctx.font="12px Courier New";
+    ctx.fillStyle="#a6adbb"; ctx.font="16px Courier New";
     for(var g=0;g<5;g++){
       var value=max-(g*(max-min)/4), yy=y(value);
       ctx.beginPath();ctx.moveTo(pad,yy);ctx.lineTo(w-rightPad,yy);ctx.stroke();

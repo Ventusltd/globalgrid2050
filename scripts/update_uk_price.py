@@ -1,12 +1,15 @@
+import os
 import requests
 import json
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlencode
 
-# Runs every 30 minutes. Fetches GB market price from Elexon Market Index
-# and carbon intensity from the Carbon Intensity API. Writes ONLY the price
-# slice; independent of the 5-minute energy slice.
+# Fetches GB market price from Elexon Market Index and carbon intensity.
+# The workflow calls this every 5 minutes, but this script self-regulates
+# by checking the timestamp in live_grid_price.json and only refreshing when
+# the existing price slice is at least 30 minutes old. Manual workflow runs
+# can force execution with FORCE_UK_PRICE=1.
 
 FOLDER = Path(__file__).parent.parent / "uk_energy_tracking"
 JSON_FILE = FOLDER / "live_grid_price.json"
@@ -14,6 +17,40 @@ JSON_FILE = FOLDER / "live_grid_price.json"
 ELEXON = "https://data.elexon.co.uk/bmrs/api/v1"
 CARBON = "https://api.carbonintensity.org.uk"
 TIMEOUT = 12
+MIN_UPDATE_MINUTES = 30
+
+
+def _parse_dt(value):
+    if not value:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    try:
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        dt = datetime.fromisoformat(text)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
+def should_skip_price_update():
+    if os.getenv("FORCE_UK_PRICE") == "1":
+        return False
+    if not JSON_FILE.exists():
+        return False
+    try:
+        existing = json.loads(JSON_FILE.read_text(encoding="utf-8"))
+        updated = _parse_dt(existing.get("updated"))
+        if not updated:
+            return False
+        age = datetime.now(timezone.utc) - updated
+        return age < timedelta(minutes=MIN_UPDATE_MINUTES)
+    except Exception:
+        return False
 
 
 def _iso_minutes_ago(mins):
@@ -53,31 +90,12 @@ def _pick(row, names):
     return None
 
 
-def _parse_dt(value):
-    if not value:
-        return None
-    text = str(value).strip()
-    if not text:
-        return None
-    try:
-        if text.endswith("Z"):
-            text = text[:-1] + "+00:00"
-        dt = datetime.fromisoformat(text)
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        return dt.astimezone(timezone.utc)
-    except ValueError:
-        return None
-
-
 def _settlement_datetime(row):
-    # Prefer precise timestamps. Do not use dataProvider or other non time fields.
     for key in ("startTime", "publishDateTime", "publishTime", "time", "datetime"):
         dt = _parse_dt(row.get(key)) if isinstance(row, dict) else None
         if dt:
             return dt
 
-    # Elexon dataset rows may expose settlementDate plus settlementPeriod.
     settlement_date = _pick(row, ["settlementDate", "SettlementDate", "deliveryDate"])
     settlement_period = _pick(row, ["settlementPeriod", "SettlementPeriod", "period"])
     if settlement_date and settlement_period:
@@ -115,7 +133,6 @@ def _try_price_url(url):
         if not dt:
             continue
 
-        # Ignore clearly future rows. They can appear in some feeds and distort latest price selection.
         if dt > now + timedelta(minutes=35):
             continue
 
@@ -171,6 +188,10 @@ def fetch_carbon():
 
 
 def main():
+    if should_skip_price_update():
+        print("Price slice skipped: existing live_grid_price.json is less than 30 minutes old.")
+        return
+
     health = {}
     try:
         price, price_time = fetch_market_price()

@@ -1,0 +1,43 @@
+name: patch_uk_energy_oil_dashboard
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: patch-uk-energy-oil-dashboard
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Patch UK energy oil dashboard
+        run: python scripts/patch_uk_energy_oil_dashboard_interactivity.py
+
+      - name: Commit and push changes
+        run: |
+          set -e
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking/index.md scripts/patch_uk_energy_oil_dashboard_interactivity.py .github/workflows/patch_uk_energy_oil_dashboard.yml
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Patch UK energy oil dashboard interactivity"
+          git push origin HEAD:main

@@ -1,21 +1,3924 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-05-23T20:14:08.295181+00:00",
+    "updated": "2026-05-24T08:14:01.457478+00:00",
     "unit": "USD per barrel",
-    "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset.",
+    "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
     "sources": [
       {
         "ok": false,
         "source": "FRED Brent Europe daily spot price",
-        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=30)"
+        "error": "Failed to fetch FRED Brent Europe daily spot price after retries: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILBRENTEU (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
       },
       {
         "ok": false,
         "source": "FRED WTI Cushing daily spot price",
-        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=30)"
+        "error": "Failed to fetch FRED WTI Cushing daily spot price after retries: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILWTICO (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
+      },
+      {
+        "ok": true,
+        "source": "Yahoo Brent futures history",
+        "rows": 194,
+        "fallback": true
+      },
+      {
+        "ok": true,
+        "source": "Yahoo WTI futures history",
+        "rows": 264,
+        "fallback": true
       }
     ]
   },
-  "features": []
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2000-09-01",
+        "wtiUSDperBarrel": 30.860000610351562
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2000-11-01",
+        "wtiUSDperBarrel": 33.79999923706055
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2000-12-01",
+        "wtiUSDperBarrel": 26.799999237060547
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-01-01",
+        "wtiUSDperBarrel": 28.700000762939453
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-02-01",
+        "wtiUSDperBarrel": 27.420000076293945
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-03-01",
+        "wtiUSDperBarrel": 26.399999618530273
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-05-01",
+        "wtiUSDperBarrel": 28.3700008392334
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-06-01",
+        "wtiUSDperBarrel": 26.25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-08-01",
+        "wtiUSDperBarrel": 27.200000762939453
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-09-01",
+        "wtiUSDperBarrel": 23.43000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-10-01",
+        "wtiUSDperBarrel": 21.18000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-11-01",
+        "wtiUSDperBarrel": 19.440000534057617
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2001-12-01",
+        "wtiUSDperBarrel": 19.84000015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-01-01",
+        "wtiUSDperBarrel": 19.479999542236328
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-02-01",
+        "wtiUSDperBarrel": 21.850000381469727
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-03-01",
+        "wtiUSDperBarrel": 26.229999542236328
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-04-01",
+        "wtiUSDperBarrel": 27.290000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-05-01",
+        "wtiUSDperBarrel": 25.350000381469727
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-06-01",
+        "wtiUSDperBarrel": 26.860000610351562
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-07-01",
+        "wtiUSDperBarrel": 27.020000457763672
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-08-01",
+        "wtiUSDperBarrel": 28.979999542236328
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-10-01",
+        "wtiUSDperBarrel": 27.219999313354492
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2002-11-01",
+        "wtiUSDperBarrel": 26.889999389648438
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-01-01",
+        "wtiUSDperBarrel": 33.5099983215332
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-02-01",
+        "wtiUSDperBarrel": 36.599998474121094
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-03-01",
+        "wtiUSDperBarrel": 31.040000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-04-01",
+        "wtiUSDperBarrel": 25.799999237060547
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-05-01",
+        "wtiUSDperBarrel": 29.559999465942383
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-07-01",
+        "wtiUSDperBarrel": 30.540000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-08-01",
+        "wtiUSDperBarrel": 31.56999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-09-01",
+        "wtiUSDperBarrel": 29.200000762939453
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-10-01",
+        "wtiUSDperBarrel": 29.110000610351562
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-11-01",
+        "wtiUSDperBarrel": 30.40999984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2003-12-01",
+        "wtiUSDperBarrel": 32.52000045776367
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-01-01",
+        "wtiUSDperBarrel": 33.04999923706055
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-03-01",
+        "wtiUSDperBarrel": 35.7599983215332
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-04-01",
+        "wtiUSDperBarrel": 37.380001068115234
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-05-01",
+        "wtiUSDperBarrel": 39.880001068115234
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-06-01",
+        "wtiUSDperBarrel": 37.04999923706055
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-07-01",
+        "wtiUSDperBarrel": 43.79999923706055
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-09-01",
+        "wtiUSDperBarrel": 49.63999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-10-01",
+        "wtiUSDperBarrel": 51.7599983215332
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-11-01",
+        "wtiUSDperBarrel": 49.130001068115234
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2004-12-01",
+        "wtiUSDperBarrel": 43.45000076293945
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-01-01",
+        "wtiUSDperBarrel": 48.20000076293945
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-02-01",
+        "wtiUSDperBarrel": 51.75
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-03-01",
+        "wtiUSDperBarrel": 55.400001525878906
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-04-01",
+        "wtiUSDperBarrel": 49.720001220703125
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-06-01",
+        "wtiUSDperBarrel": 56.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-07-01",
+        "wtiUSDperBarrel": 60.56999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-08-01",
+        "wtiUSDperBarrel": 68.94000244140625
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-09-01",
+        "wtiUSDperBarrel": 66.23999786376953
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-10-01",
+        "wtiUSDperBarrel": 59.7599983215332
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-11-01",
+        "wtiUSDperBarrel": 57.31999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2005-12-01",
+        "wtiUSDperBarrel": 61.040000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-02-01",
+        "wtiUSDperBarrel": 61.40999984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-03-01",
+        "wtiUSDperBarrel": 66.62999725341797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-04-01",
+        "wtiUSDperBarrel": 71.87999725341797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-05-01",
+        "wtiUSDperBarrel": 71.29000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-06-01",
+        "wtiUSDperBarrel": 73.9800033569336
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-07-01",
+        "wtiUSDperBarrel": 74.4000015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-08-01",
+        "wtiUSDperBarrel": 70.26000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-09-01",
+        "wtiUSDperBarrel": 62.90999984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-11-01",
+        "wtiUSDperBarrel": 63.130001068115234
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2006-12-01",
+        "wtiUSDperBarrel": 61.04999923706055
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-01-01",
+        "wtiUSDperBarrel": 58.13999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-02-01",
+        "wtiUSDperBarrel": 61.790000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-03-01",
+        "wtiUSDperBarrel": 65.87000274658203
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-05-01",
+        "wtiUSDperBarrel": 64.01000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-06-01",
+        "wtiUSDperBarrel": 70.68000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-08-01",
+        "brentUSDperBarrel": 72.69000244140625,
+        "wtiUSDperBarrel": 74.04000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-09-01",
+        "brentUSDperBarrel": 79.16999816894531,
+        "wtiUSDperBarrel": 81.66000366210938
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-10-01",
+        "brentUSDperBarrel": 90.62999725341797,
+        "wtiUSDperBarrel": 94.52999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-11-01",
+        "brentUSDperBarrel": 88.26000213623047,
+        "wtiUSDperBarrel": 88.70999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2007-12-01",
+        "brentUSDperBarrel": 93.8499984741211,
+        "wtiUSDperBarrel": 95.9800033569336
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-01-01",
+        "brentUSDperBarrel": 92.20999908447266,
+        "wtiUSDperBarrel": 91.75
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-02-01",
+        "brentUSDperBarrel": 100.0999984741211,
+        "wtiUSDperBarrel": 101.83999633789062
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-03-01",
+        "brentUSDperBarrel": 100.30000305175781,
+        "wtiUSDperBarrel": 101.58000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-04-01",
+        "brentUSDperBarrel": 111.36000061035156,
+        "wtiUSDperBarrel": 113.45999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-05-01",
+        "brentUSDperBarrel": 127.77999877929688,
+        "wtiUSDperBarrel": 127.3499984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-07-01",
+        "brentUSDperBarrel": 123.9800033569336,
+        "wtiUSDperBarrel": 124.08000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-08-01",
+        "brentUSDperBarrel": 114.05000305175781,
+        "wtiUSDperBarrel": 115.45999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-09-01",
+        "brentUSDperBarrel": 98.16999816894531,
+        "wtiUSDperBarrel": 100.63999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-10-01",
+        "brentUSDperBarrel": 65.31999969482422,
+        "wtiUSDperBarrel": 67.80999755859375
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-11-01",
+        "brentUSDperBarrel": 53.4900016784668,
+        "wtiUSDperBarrel": 54.43000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2008-12-01",
+        "brentUSDperBarrel": 45.59000015258789,
+        "wtiUSDperBarrel": 44.599998474121094
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-01-01",
+        "brentUSDperBarrel": 45.880001068115234,
+        "wtiUSDperBarrel": 41.68000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-04-01",
+        "brentUSDperBarrel": 51.959999084472656,
+        "wtiUSDperBarrel": 51.119998931884766
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-05-01",
+        "brentUSDperBarrel": 65.5199966430664,
+        "wtiUSDperBarrel": 66.30999755859375
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-06-01",
+        "brentUSDperBarrel": 69.30000305175781,
+        "wtiUSDperBarrel": 69.88999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-07-01",
+        "brentUSDperBarrel": 71.69999694824219,
+        "wtiUSDperBarrel": 69.44999694824219
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-08-01",
+        "brentUSDperBarrel": 69.6500015258789,
+        "wtiUSDperBarrel": 69.95999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-09-01",
+        "brentUSDperBarrel": 69.06999969482422,
+        "wtiUSDperBarrel": 70.61000061035156
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-10-01",
+        "brentUSDperBarrel": 75.19999694824219,
+        "wtiUSDperBarrel": 77.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2009-12-01",
+        "brentUSDperBarrel": 77.93000030517578,
+        "wtiUSDperBarrel": 79.36000061035156
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-01-01",
+        "brentUSDperBarrel": 71.45999908447266,
+        "wtiUSDperBarrel": 72.88999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-02-01",
+        "brentUSDperBarrel": 77.58999633789062,
+        "wtiUSDperBarrel": 79.66000366210938
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-03-01",
+        "brentUSDperBarrel": 82.69999694824219,
+        "wtiUSDperBarrel": 83.76000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-04-01",
+        "brentUSDperBarrel": 87.44000244140625,
+        "wtiUSDperBarrel": 86.1500015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-05-01",
+        "brentUSDperBarrel": 74.0199966430664,
+        "wtiUSDperBarrel": 73.97000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-06-01",
+        "brentUSDperBarrel": 75.01000213623047,
+        "wtiUSDperBarrel": 75.62999725341797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-07-01",
+        "brentUSDperBarrel": 78.18000030517578,
+        "wtiUSDperBarrel": 78.94999694824219
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-09-01",
+        "brentUSDperBarrel": 82.30999755859375,
+        "wtiUSDperBarrel": 79.97000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-10-01",
+        "brentUSDperBarrel": 83.1500015258789,
+        "wtiUSDperBarrel": 81.43000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-11-01",
+        "brentUSDperBarrel": 85.91999816894531,
+        "wtiUSDperBarrel": 84.11000061035156
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2010-12-01",
+        "brentUSDperBarrel": 94.75,
+        "wtiUSDperBarrel": 91.37999725341797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-01-01",
+        "brentUSDperBarrel": 101.01000213623047,
+        "wtiUSDperBarrel": 92.19000244140625
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-02-01",
+        "brentUSDperBarrel": 111.80000305175781,
+        "wtiUSDperBarrel": 96.97000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-03-01",
+        "brentUSDperBarrel": 117.36000061035156,
+        "wtiUSDperBarrel": 106.72000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-04-01",
+        "brentUSDperBarrel": 125.88999938964844,
+        "wtiUSDperBarrel": 113.93000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-06-01",
+        "brentUSDperBarrel": 112.4800033569336,
+        "wtiUSDperBarrel": 95.41999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-07-01",
+        "brentUSDperBarrel": 116.73999786376953,
+        "wtiUSDperBarrel": 95.69999694824219
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-08-01",
+        "brentUSDperBarrel": 114.8499984741211,
+        "wtiUSDperBarrel": 88.80999755859375
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-09-01",
+        "brentUSDperBarrel": 102.76000213623047,
+        "wtiUSDperBarrel": 79.19999694824219
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-10-01",
+        "brentUSDperBarrel": 109.55999755859375,
+        "wtiUSDperBarrel": 93.19000244140625
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-11-01",
+        "brentUSDperBarrel": 110.81999969482422,
+        "wtiUSDperBarrel": 100.36000061035156
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2011-12-01",
+        "brentUSDperBarrel": 107.37999725341797,
+        "wtiUSDperBarrel": 98.83000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-02-01",
+        "brentUSDperBarrel": 122.66000366210938,
+        "wtiUSDperBarrel": 107.06999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-03-01",
+        "brentUSDperBarrel": 122.87999725341797,
+        "wtiUSDperBarrel": 103.0199966430664
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-05-01",
+        "brentUSDperBarrel": 101.87000274658203,
+        "wtiUSDperBarrel": 86.52999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-06-01",
+        "brentUSDperBarrel": 97.80000305175781,
+        "wtiUSDperBarrel": 84.95999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-08-01",
+        "brentUSDperBarrel": 114.56999969482422,
+        "wtiUSDperBarrel": 96.47000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-09-01",
+        "brentUSDperBarrel": 112.38999938964844,
+        "wtiUSDperBarrel": 92.19000244140625
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-10-01",
+        "brentUSDperBarrel": 108.69999694824219,
+        "wtiUSDperBarrel": 86.23999786376953
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-11-01",
+        "brentUSDperBarrel": 111.2300033569336,
+        "wtiUSDperBarrel": 88.91000366210938
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2012-12-01",
+        "brentUSDperBarrel": 111.11000061035156,
+        "wtiUSDperBarrel": 91.81999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-01-01",
+        "brentUSDperBarrel": 115.55000305175781,
+        "wtiUSDperBarrel": 97.48999786376953
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-02-01",
+        "brentUSDperBarrel": 111.37999725341797,
+        "wtiUSDperBarrel": 92.05000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-03-01",
+        "brentUSDperBarrel": 110.0199966430664,
+        "wtiUSDperBarrel": 97.2300033569336
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-04-01",
+        "brentUSDperBarrel": 102.37000274658203,
+        "wtiUSDperBarrel": 93.45999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-05-01",
+        "brentUSDperBarrel": 100.38999938964844,
+        "wtiUSDperBarrel": 91.97000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-06-01",
+        "brentUSDperBarrel": 102.16000366210938,
+        "wtiUSDperBarrel": 96.55999755859375
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-07-01",
+        "brentUSDperBarrel": 107.69999694824219,
+        "wtiUSDperBarrel": 105.02999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-08-01",
+        "brentUSDperBarrel": 114.01000213623047,
+        "wtiUSDperBarrel": 107.6500015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-10-01",
+        "brentUSDperBarrel": 108.83999633789062,
+        "wtiUSDperBarrel": 96.37999725341797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2013-11-01",
+        "brentUSDperBarrel": 109.69000244140625,
+        "wtiUSDperBarrel": 92.72000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-01-01",
+        "brentUSDperBarrel": 106.4000015258789,
+        "wtiUSDperBarrel": 97.48999786376953
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-02-01",
+        "brentUSDperBarrel": 109.06999969482422,
+        "wtiUSDperBarrel": 102.58999633789062
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-03-01",
+        "brentUSDperBarrel": 107.76000213623047,
+        "wtiUSDperBarrel": 101.58000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-04-01",
+        "brentUSDperBarrel": 108.06999969482422,
+        "wtiUSDperBarrel": 99.73999786376953
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-05-01",
+        "brentUSDperBarrel": 109.41000366210938,
+        "wtiUSDperBarrel": 102.70999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-07-01",
+        "brentUSDperBarrel": 106.0199966430664,
+        "wtiUSDperBarrel": 98.16999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-08-01",
+        "brentUSDperBarrel": 103.19000244140625,
+        "wtiUSDperBarrel": 95.95999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-09-01",
+        "brentUSDperBarrel": 94.66999816894531,
+        "wtiUSDperBarrel": 91.16000366210938
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-10-01",
+        "brentUSDperBarrel": 85.86000061035156,
+        "wtiUSDperBarrel": 80.54000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-11-01",
+        "brentUSDperBarrel": 70.1500015258789,
+        "wtiUSDperBarrel": 66.1500015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2014-12-01",
+        "brentUSDperBarrel": 57.33000183105469,
+        "wtiUSDperBarrel": 53.27000045776367
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-01-01",
+        "brentUSDperBarrel": 52.9900016784668,
+        "wtiUSDperBarrel": 48.2400016784668
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-04-01",
+        "brentUSDperBarrel": 66.77999877929688,
+        "wtiUSDperBarrel": 59.630001068115234
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-05-01",
+        "brentUSDperBarrel": 65.55999755859375,
+        "wtiUSDperBarrel": 60.29999923706055
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-06-01",
+        "brentUSDperBarrel": 63.59000015258789,
+        "wtiUSDperBarrel": 59.470001220703125
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-07-01",
+        "brentUSDperBarrel": 52.209999084472656,
+        "wtiUSDperBarrel": 47.119998931884766
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-08-01",
+        "brentUSDperBarrel": 54.150001525878906,
+        "wtiUSDperBarrel": 49.20000076293945
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-09-01",
+        "brentUSDperBarrel": 48.369998931884766,
+        "wtiUSDperBarrel": 45.09000015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-10-01",
+        "brentUSDperBarrel": 49.560001373291016,
+        "wtiUSDperBarrel": 46.59000015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2015-12-01",
+        "brentUSDperBarrel": 37.279998779296875,
+        "wtiUSDperBarrel": 37.040000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-01-01",
+        "brentUSDperBarrel": 34.7400016784668,
+        "wtiUSDperBarrel": 33.619998931884766
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-02-01",
+        "brentUSDperBarrel": 35.970001220703125,
+        "wtiUSDperBarrel": 33.75
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-03-01",
+        "brentUSDperBarrel": 39.599998474121094,
+        "wtiUSDperBarrel": 38.34000015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-04-01",
+        "brentUSDperBarrel": 48.130001068115234,
+        "wtiUSDperBarrel": 45.91999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-06-01",
+        "brentUSDperBarrel": 49.68000030517578,
+        "wtiUSDperBarrel": 48.33000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-07-01",
+        "brentUSDperBarrel": 42.459999084472656,
+        "wtiUSDperBarrel": 41.599998474121094
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-08-01",
+        "brentUSDperBarrel": 47.040000915527344,
+        "wtiUSDperBarrel": 44.70000076293945
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-09-01",
+        "brentUSDperBarrel": 49.060001373291016,
+        "wtiUSDperBarrel": 48.2400016784668
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-10-01",
+        "brentUSDperBarrel": 48.29999923706055,
+        "wtiUSDperBarrel": 46.86000061035156
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-11-01",
+        "brentUSDperBarrel": 50.470001220703125,
+        "wtiUSDperBarrel": 49.439998626708984
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2016-12-01",
+        "brentUSDperBarrel": 56.130001068115234,
+        "wtiUSDperBarrel": 53.720001220703125
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-02-01",
+        "brentUSDperBarrel": 55.59000015258789,
+        "wtiUSDperBarrel": 54.0099983215332
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-03-01",
+        "brentUSDperBarrel": 52.83000183105469,
+        "wtiUSDperBarrel": 50.599998474121094
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-04-01",
+        "brentUSDperBarrel": 51.72999954223633,
+        "wtiUSDperBarrel": 49.33000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-05-01",
+        "brentUSDperBarrel": 50.310001373291016,
+        "wtiUSDperBarrel": 48.31999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-06-01",
+        "brentUSDperBarrel": 47.91999816894531,
+        "wtiUSDperBarrel": 46.040000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-07-01",
+        "brentUSDperBarrel": 52.650001525878906,
+        "wtiUSDperBarrel": 50.16999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-08-01",
+        "brentUSDperBarrel": 52.380001068115234,
+        "wtiUSDperBarrel": 47.22999954223633
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-09-01",
+        "brentUSDperBarrel": 57.540000915527344,
+        "wtiUSDperBarrel": 51.66999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-11-01",
+        "brentUSDperBarrel": 63.56999969482422,
+        "wtiUSDperBarrel": 57.400001525878906
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2017-12-01",
+        "brentUSDperBarrel": 66.5999984741211,
+        "wtiUSDperBarrel": 60.41999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-01-01",
+        "brentUSDperBarrel": 69.05000305175781,
+        "wtiUSDperBarrel": 64.7300033569336
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-02-01",
+        "brentUSDperBarrel": 65.77999877929688,
+        "wtiUSDperBarrel": 61.63999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-03-01",
+        "brentUSDperBarrel": 70.2699966430664,
+        "wtiUSDperBarrel": 64.94000244140625
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-05-01",
+        "brentUSDperBarrel": 77.58999633789062,
+        "wtiUSDperBarrel": 67.04000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-06-01",
+        "brentUSDperBarrel": 79.44000244140625,
+        "wtiUSDperBarrel": 74.1500015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-08-01",
+        "brentUSDperBarrel": 77.41999816894531,
+        "wtiUSDperBarrel": 69.80000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-09-01",
+        "brentUSDperBarrel": 82.72000122070312,
+        "wtiUSDperBarrel": 73.25
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-10-01",
+        "brentUSDperBarrel": 75.47000122070312,
+        "wtiUSDperBarrel": 65.30999755859375
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-11-01",
+        "brentUSDperBarrel": 58.709999084472656,
+        "wtiUSDperBarrel": 50.93000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2018-12-01",
+        "brentUSDperBarrel": 53.79999923706055,
+        "wtiUSDperBarrel": 45.40999984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-01-01",
+        "brentUSDperBarrel": 61.88999938964844,
+        "wtiUSDperBarrel": 53.790000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-02-01",
+        "brentUSDperBarrel": 66.02999877929688,
+        "wtiUSDperBarrel": 57.220001220703125
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-03-01",
+        "brentUSDperBarrel": 68.38999938964844,
+        "wtiUSDperBarrel": 60.13999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-04-01",
+        "brentUSDperBarrel": 72.80000305175781,
+        "wtiUSDperBarrel": 63.90999984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-05-01",
+        "brentUSDperBarrel": 64.48999786376953,
+        "wtiUSDperBarrel": 53.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-06-01",
+        "brentUSDperBarrel": 66.55000305175781,
+        "wtiUSDperBarrel": 58.470001220703125
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-07-01",
+        "brentUSDperBarrel": 65.16999816894531,
+        "wtiUSDperBarrel": 58.58000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-08-01",
+        "brentUSDperBarrel": 60.43000030517578,
+        "wtiUSDperBarrel": 55.099998474121094
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-10-01",
+        "brentUSDperBarrel": 60.22999954223633,
+        "wtiUSDperBarrel": 54.18000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2019-11-01",
+        "brentUSDperBarrel": 62.43000030517578,
+        "wtiUSDperBarrel": 55.16999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-01-01",
+        "brentUSDperBarrel": 58.15999984741211,
+        "wtiUSDperBarrel": 51.560001373291016
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-02-01",
+        "brentUSDperBarrel": 50.52000045776367,
+        "wtiUSDperBarrel": 44.7599983215332
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-04-01",
+        "brentUSDperBarrel": 25.270000457763672,
+        "wtiUSDperBarrel": 18.84000015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-05-01",
+        "brentUSDperBarrel": 35.33000183105469,
+        "wtiUSDperBarrel": 35.4900016784668
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-06-01",
+        "brentUSDperBarrel": 41.150001525878906,
+        "wtiUSDperBarrel": 39.27000045776367
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-07-01",
+        "brentUSDperBarrel": 43.29999923706055,
+        "wtiUSDperBarrel": 40.27000045776367
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-08-01",
+        "brentUSDperBarrel": 45.279998779296875,
+        "wtiUSDperBarrel": 42.61000061035156
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-09-01",
+        "brentUSDperBarrel": 40.95000076293945,
+        "wtiUSDperBarrel": 40.220001220703125
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-10-01",
+        "brentUSDperBarrel": 37.459999084472656,
+        "wtiUSDperBarrel": 35.790000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2020-12-01",
+        "brentUSDperBarrel": 51.79999923706055,
+        "wtiUSDperBarrel": 48.52000045776367
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-01-01",
+        "brentUSDperBarrel": 55.880001068115234,
+        "wtiUSDperBarrel": 52.20000076293945
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-02-01",
+        "brentUSDperBarrel": 66.12999725341797,
+        "wtiUSDperBarrel": 61.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-03-01",
+        "brentUSDperBarrel": 63.540000915527344,
+        "wtiUSDperBarrel": 59.15999984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-04-01",
+        "brentUSDperBarrel": 67.25,
+        "wtiUSDperBarrel": 63.58000183105469
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-05-01",
+        "brentUSDperBarrel": 69.62999725341797,
+        "wtiUSDperBarrel": 66.31999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-06-01",
+        "brentUSDperBarrel": 75.12999725341797,
+        "wtiUSDperBarrel": 73.47000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-07-01",
+        "brentUSDperBarrel": 76.33000183105469,
+        "wtiUSDperBarrel": 73.94999694824219
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-09-01",
+        "brentUSDperBarrel": 78.5199966430664,
+        "wtiUSDperBarrel": 75.02999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-10-01",
+        "brentUSDperBarrel": 84.37999725341797,
+        "wtiUSDperBarrel": 83.56999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-11-01",
+        "brentUSDperBarrel": 70.56999969482422,
+        "wtiUSDperBarrel": 66.18000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2021-12-01",
+        "brentUSDperBarrel": 77.77999877929688,
+        "wtiUSDperBarrel": 75.20999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-01-01",
+        "brentUSDperBarrel": 91.20999908447266,
+        "wtiUSDperBarrel": 88.1500015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-02-01",
+        "brentUSDperBarrel": 100.98999786376953,
+        "wtiUSDperBarrel": 95.72000122070312
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-03-01",
+        "brentUSDperBarrel": 107.91000366210938,
+        "wtiUSDperBarrel": 100.27999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-04-01",
+        "brentUSDperBarrel": 109.33999633789062,
+        "wtiUSDperBarrel": 104.69000244140625
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-06-01",
+        "brentUSDperBarrel": 114.80999755859375,
+        "wtiUSDperBarrel": 105.76000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-07-01",
+        "brentUSDperBarrel": 110.01000213623047,
+        "wtiUSDperBarrel": 98.62000274658203
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-08-01",
+        "brentUSDperBarrel": 96.48999786376953,
+        "wtiUSDperBarrel": 89.55000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-09-01",
+        "brentUSDperBarrel": 87.95999908447266,
+        "wtiUSDperBarrel": 79.48999786376953
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-10-01",
+        "brentUSDperBarrel": 94.83000183105469,
+        "wtiUSDperBarrel": 86.52999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-11-01",
+        "brentUSDperBarrel": 85.43000030517578,
+        "wtiUSDperBarrel": 80.55000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2022-12-01",
+        "brentUSDperBarrel": 85.91000366210938,
+        "wtiUSDperBarrel": 80.26000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-02-01",
+        "brentUSDperBarrel": 83.88999938964844,
+        "wtiUSDperBarrel": 77.05000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-03-01",
+        "brentUSDperBarrel": 79.7699966430664,
+        "wtiUSDperBarrel": 75.66999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-04-01",
+        "brentUSDperBarrel": 79.54000091552734,
+        "wtiUSDperBarrel": 76.77999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-05-01",
+        "brentUSDperBarrel": 72.66000366210938,
+        "wtiUSDperBarrel": 68.08999633789062
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-06-01",
+        "brentUSDperBarrel": 74.9000015258789,
+        "wtiUSDperBarrel": 70.63999938964844
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-07-01",
+        "brentUSDperBarrel": 85.55999755859375,
+        "wtiUSDperBarrel": 81.80000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-08-01",
+        "brentUSDperBarrel": 86.86000061035156,
+        "wtiUSDperBarrel": 83.62999725341797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-09-01",
+        "brentUSDperBarrel": 95.30999755859375,
+        "wtiUSDperBarrel": 90.79000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-11-01",
+        "brentUSDperBarrel": 82.83000183105469,
+        "wtiUSDperBarrel": 75.95999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2023-12-01",
+        "brentUSDperBarrel": 77.04000091552734,
+        "wtiUSDperBarrel": 71.6500015258789
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-01-01",
+        "brentUSDperBarrel": 81.70999908447266,
+        "wtiUSDperBarrel": 75.8499984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-02-01",
+        "brentUSDperBarrel": 83.62000274658203,
+        "wtiUSDperBarrel": 78.26000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-03-01",
+        "brentUSDperBarrel": 87.4800033569336,
+        "wtiUSDperBarrel": 83.16999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-04-01",
+        "brentUSDperBarrel": 87.86000061035156,
+        "wtiUSDperBarrel": 81.93000030517578
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-05-01",
+        "brentUSDperBarrel": 81.62000274658203,
+        "wtiUSDperBarrel": 76.98999786376953
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-06-01",
+        "brentUSDperBarrel": 86.41000366210938,
+        "wtiUSDperBarrel": 81.54000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-07-01",
+        "brentUSDperBarrel": 80.72000122070312,
+        "wtiUSDperBarrel": 77.91000366210938
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-08-01",
+        "brentUSDperBarrel": 78.80000305175781,
+        "wtiUSDperBarrel": 73.55000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-10-01",
+        "brentUSDperBarrel": 73.16000366210938,
+        "wtiUSDperBarrel": 69.26000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2024-11-01",
+        "brentUSDperBarrel": 72.94000244140625,
+        "wtiUSDperBarrel": 68.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-01-01",
+        "brentUSDperBarrel": 76.76000213623047,
+        "wtiUSDperBarrel": 72.52999877929688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-02-01",
+        "brentUSDperBarrel": 73.18000030517578,
+        "wtiUSDperBarrel": 69.76000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-03-01",
+        "brentUSDperBarrel": 74.73999786376953,
+        "wtiUSDperBarrel": 71.4800033569336
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-04-01",
+        "brentUSDperBarrel": 63.119998931884766,
+        "wtiUSDperBarrel": 58.209999084472656
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-05-01",
+        "brentUSDperBarrel": 63.900001525878906,
+        "wtiUSDperBarrel": 60.790000915527344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-07-01",
+        "brentUSDperBarrel": 72.52999877929688,
+        "wtiUSDperBarrel": 69.26000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-08-01",
+        "brentUSDperBarrel": 68.12000274658203,
+        "wtiUSDperBarrel": 64.01000213623047
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-09-01",
+        "brentUSDperBarrel": 67.0199966430664,
+        "wtiUSDperBarrel": 62.369998931884766
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-10-01",
+        "brentUSDperBarrel": 65.06999969482422,
+        "wtiUSDperBarrel": 60.97999954223633
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-11-01",
+        "brentUSDperBarrel": 63.20000076293945,
+        "wtiUSDperBarrel": 58.54999923706055
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2025-12-01",
+        "brentUSDperBarrel": 60.849998474121094,
+        "wtiUSDperBarrel": 57.41999816894531
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-01-01",
+        "brentUSDperBarrel": 70.69000244140625,
+        "wtiUSDperBarrel": 65.20999908447266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-04-01",
+        "brentUSDperBarrel": 114.01000213623047,
+        "wtiUSDperBarrel": 105.06999969482422
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-05-01",
+        "brentUSDperBarrel": 103.54000091552734,
+        "wtiUSDperBarrel": 96.5999984741211
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-05-22",
+        "brentUSDperBarrel": 100.20999908447266,
+        "wtiUSDperBarrel": 96.5999984741211
+      }
+    }
+  ]
 }

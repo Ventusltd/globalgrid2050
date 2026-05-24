@@ -37,20 +37,24 @@ def _parse_dt(value):
         return None
 
 
+def load_existing():
+    if not JSON_FILE.exists():
+        return {}
+    try:
+        return json.loads(JSON_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
 def should_skip_price_update():
     if os.getenv("FORCE_UK_PRICE") == "1":
         return False
-    if not JSON_FILE.exists():
+    existing = load_existing()
+    updated = _parse_dt(existing.get("updated"))
+    if not updated:
         return False
-    try:
-        existing = json.loads(JSON_FILE.read_text(encoding="utf-8"))
-        updated = _parse_dt(existing.get("updated"))
-        if not updated:
-            return False
-        age = datetime.now(timezone.utc) - updated
-        return age < timedelta(minutes=MIN_UPDATE_MINUTES)
-    except Exception:
-        return False
+    age = datetime.now(timezone.utc) - updated
+    return age < timedelta(minutes=MIN_UPDATE_MINUTES)
 
 
 def _iso_minutes_ago(mins):
@@ -187,11 +191,24 @@ def fetch_carbon():
     return i.get("actual"), i.get("forecast"), i.get("index")
 
 
+def preserve_previous_price_if_bad(price, price_time, health, existing):
+    previous_price = existing.get("priceGBPperMWh")
+    previous_time = existing.get("priceTime")
+    previous_updated = existing.get("updated")
+
+    if price == 0 and previous_price not in (None, 0):
+        health["price"] = "warning: zero market price rejected; previous valid value preserved"
+        return previous_price, previous_time, previous_updated
+
+    return price, price_time, None
+
+
 def main():
     if should_skip_price_update():
         print("Price slice skipped: existing live_grid_price.json is less than 30 minutes old.")
         return
 
+    existing = load_existing()
     health = {}
     try:
         price, price_time = fetch_market_price()
@@ -206,6 +223,8 @@ def main():
         c_act = c_fc = c_idx = None
         health["carbon"] = f"error: {e}"
 
+    price, price_time, preserved_updated = preserve_previous_price_if_bad(price, price_time, health, existing)
+
     out = {
         "updated": datetime.now(timezone.utc).isoformat(),
         "priceGBPperMWh": round(price, 2) if price is not None else None,
@@ -215,6 +234,9 @@ def main():
         "carbonIndex": c_idx,
         "health": health,
     }
+    if preserved_updated:
+        out["previousPriceUpdated"] = preserved_updated
+
     FOLDER.mkdir(parents=True, exist_ok=True)
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2)

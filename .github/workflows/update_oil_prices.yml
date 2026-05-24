@@ -1,0 +1,56 @@
+name: update-oil-prices
+
+on:
+  schedule:
+    - cron: '30 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: oil-price-update
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Oil and Fuel update
+        run: python scripts/update_oil_prices.py
+
+      - name: Commit and push oil updates
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+
+          git add uk_energy_tracking/live_oil_prices.json
+          git add uk_energy_tracking/oil_price_history.geojson
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated oil price update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

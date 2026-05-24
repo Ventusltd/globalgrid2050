@@ -237,6 +237,32 @@ a { color: #7fdfff; }
       ["Peak", "$"+fmt(peak,2)], ["Trough", "$"+fmt(trough,2)], ["Average", "$"+fmt(avg,2)], ["Volatility", fmt(vol,1)+"%"]
     ].map(function(x){return '<div class="oil-stat"><div class="oil-stat-label">'+x[0]+'</div><div class="oil-stat-value">'+x[1]+'</div></div>';}).join("");
   }
+  var oilChartState = { rows: [], x: null, y: null, canvas: null };
+  function rangeCutoff(range){
+    if(range === "all") return null;
+    var d = new Date();
+    if(range === "7d") d.setDate(d.getDate()-7);
+    else if(range === "1m") d.setMonth(d.getMonth()-1);
+    else if(range === "3m") d.setMonth(d.getMonth()-3);
+    else if(range === "6m") d.setMonth(d.getMonth()-6);
+    else if(range === "9m") d.setMonth(d.getMonth()-9);
+    else if(range === "1y") d.setFullYear(d.getFullYear()-1);
+    else if(range === "5y") d.setFullYear(d.getFullYear()-5);
+    else if(range === "10y") d.setFullYear(d.getFullYear()-10);
+    else if(range === "25y") d.setFullYear(d.getFullYear()-25);
+    return d;
+  }
+  function oilStats(rows){
+    var vals=[]; rows.forEach(function(p){ if(p.brentUSDperBarrel) vals.push(p.brentUSDperBarrel); if(p.wtiUSDperBarrel) vals.push(p.wtiUSDperBarrel); });
+    var el=document.getElementById("oil-stats"); if(!el) return;
+    if(!vals.length){ el.innerHTML=""; return; }
+    var peak=Math.max.apply(null,vals), trough=Math.min.apply(null,vals), avg=vals.reduce(function(a,b){return a+b;},0)/vals.length;
+    var variance=vals.reduce(function(a,b){return a+Math.pow(b-avg,2);},0)/vals.length;
+    var vol=avg?Math.sqrt(variance)/avg*100:0;
+    el.innerHTML = [
+      ["Peak", "$"+fmt(peak,2)], ["Trough", "$"+fmt(trough,2)], ["Average", "$"+fmt(avg,2)], ["Volatility", fmt(vol,1)+"%"]
+    ].map(function(x){return '<div class="oil-stat"><div class="oil-stat-label">'+x[0]+'</div><div class="oil-stat-value">'+x[1]+'</div></div>';}).join("");
+  }
   function drawOilTrend(geo){
     var canvas=document.getElementById("oil-trend-canvas"); if(!canvas||!geo||!Array.isArray(geo.features)) return;
     var ctx=canvas.getContext("2d"), range=document.getElementById("oil-range").value;

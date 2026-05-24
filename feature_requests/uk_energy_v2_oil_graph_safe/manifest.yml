@@ -1,0 +1,24 @@
+name: uk_energy_v2_oil_graph_safe
+operations:
+  - type: replace
+    file: uk_energy_tracking_v2/index.md
+    count: 1
+    find: |
+                <option value="25y">25 years</option>
+                <option value="all" selected>Since 1970s</option>
+    replace: |
+                <option value="25y" selected>25 years</option>
+
+  - type: replace
+    file: uk_energy_tracking_v2/index.md
+    count: 1
+    find: 'ctx.fillStyle="#a6adbb"; ctx.font="12px Courier New";'
+    replace: 'ctx.fillStyle="#f5f7fb"; ctx.font="16px Courier New";'
+
+  - type: assert_contains
+    file: uk_energy_tracking_v2/index.md
+    text: '<option value="25y" selected>25 years</option>'
+
+  - type: assert_contains
+    file: uk_energy_tracking_v2/index.md
+    text: 'UK LIVE GRID TRACKER V2'

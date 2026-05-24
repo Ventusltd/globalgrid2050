@@ -1,5 +1,4 @@
 import requests
-import os
 import json
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
@@ -54,10 +53,52 @@ def _pick(row, names):
     return None
 
 
+def _parse_dt(value):
+    if not value:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    try:
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        dt = datetime.fromisoformat(text)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
+def _settlement_datetime(row):
+    # Prefer precise timestamps. Do not use dataProvider or other non time fields.
+    for key in ("startTime", "publishDateTime", "publishTime", "time", "datetime"):
+        dt = _parse_dt(row.get(key)) if isinstance(row, dict) else None
+        if dt:
+            return dt
+
+    # Elexon dataset rows may expose settlementDate plus settlementPeriod.
+    settlement_date = _pick(row, ["settlementDate", "SettlementDate", "deliveryDate"])
+    settlement_period = _pick(row, ["settlementPeriod", "SettlementPeriod", "period"])
+    if settlement_date and settlement_period:
+        date_text = str(settlement_date)[:10]
+        base = _parse_dt(date_text + "T00:00:00Z")
+        try:
+            period = int(settlement_period)
+        except (TypeError, ValueError):
+            period = None
+        if base and period and 1 <= period <= 50:
+            return base + timedelta(minutes=(period - 1) * 30)
+
+    return None
+
+
 def _try_price_url(url):
     data = _get_json(url)
     rows = _rows(data)
     priced = []
+    now = datetime.now(timezone.utc)
+
     for row in rows:
         price = _pick(row, [
             "price",
@@ -69,32 +110,36 @@ def _try_price_url(url):
         ])
         if price is None:
             continue
-        ts = _pick(row, [
-            "startTime",
-            "settlementDate",
-            "publishTime",
-            "publishDateTime",
-            "dataProvider",
-            "time",
-            "datetime",
-        ])
+
+        dt = _settlement_datetime(row)
+        if not dt:
+            continue
+
+        # Ignore clearly future rows. They can appear in some feeds and distort latest price selection.
+        if dt > now + timedelta(minutes=35):
+            continue
+
         try:
-            priced.append({"price": float(price), "time": ts or ""})
+            priced.append({
+                "price": float(price),
+                "time": dt.isoformat().replace("+00:00", "Z"),
+                "dt": dt,
+            })
         except (TypeError, ValueError):
             continue
+
     if not priced:
         return None, None
-    priced.sort(key=lambda item: str(item.get("time", "")), reverse=True)
-    return priced[0]["price"], priced[0].get("time")
+
+    priced.sort(key=lambda item: item["dt"], reverse=True)
+    return priced[0]["price"], priced[0]["time"]
 
 
 def fetch_market_price():
-    start = _iso_minutes_ago(180)
+    start = _iso_minutes_ago(240)
     end = _iso_minutes_ago(0)
     attempts = []
 
-    # Current Elexon Insights route first, then older dataset route fallbacks.
-    # Older failing route was /datasets/MID/stream. Do not use it here.
     range_query = urlencode({"from": start, "to": end, "format": "json"})
     dataset_publish_query = urlencode({"publishDateTimeFrom": start, "publishDateTimeTo": end, "format": "json"})
     dataset_settlement_query = urlencode({"settlementDateFrom": start[:10], "settlementDateTo": end[:10], "format": "json"})
@@ -110,7 +155,7 @@ def fetch_market_price():
             price, price_time = _try_price_url(url)
             if price is not None:
                 return price, price_time
-            attempts.append(f"no priced rows: {url}")
+            attempts.append(f"no valid priced timestamp rows: {url}")
         except Exception as e:  # noqa: BLE001
             attempts.append(f"{type(e).__name__}: {e} | {url}")
 
@@ -154,7 +199,7 @@ def main():
         json.dump(out, f, indent=2)
     if any(v != "ok" for v in health.values()):
         print(f"::warning::Price source issue: {health}")
-    print(f"Price slice | price {out['priceGBPperMWh']} GBP/MWh | carbon {out['carbonGperKWh']} g/kWh | {health}")
+    print(f"Price slice | price {out['priceGBPperMWh']} GBP/MWh | time {out['priceTime']} | carbon {out['carbonGperKWh']} g/kWh | {health}")
 
 
 if __name__ == "__main__":

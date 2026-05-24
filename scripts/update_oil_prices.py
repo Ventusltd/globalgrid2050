@@ -1,7 +1,6 @@
 import csv
 import json
 import os
-import re
 from datetime import datetime, timezone, timedelta
 from io import StringIO
 from pathlib import Path
@@ -15,17 +14,18 @@ LIVE_FILE = OUT_DIR / "live_oil_prices.json"
 HISTORY_FILE = OUT_DIR / "oil_price_history.geojson"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 LIVE_TIMEOUT = 15
-HISTORY_TIMEOUT = 25
+HISTORY_TIMEOUT = 60
 HISTORY_MAX_AGE_HOURS = 24
+HISTORY_YEARS = 25
 
 
 def build_session():
     retry_strategy = Retry(
-        total=2,
-        connect=2,
-        read=2,
-        status=2,
-        backoff_factor=1,
+        total=3,
+        connect=3,
+        read=3,
+        status=3,
+        backoff_factor=2,
         status_forcelist=[429, 500, 502, 503, 504],
         allowed_methods=["GET"],
         raise_on_status=False,
@@ -53,18 +53,21 @@ def yahoo_price(ticker):
 
 
 def yahoo_history(ticker):
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=max&interval=1d"
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range={HISTORY_YEARS}y&interval=1d"
     r = SESSION.get(url, timeout=HISTORY_TIMEOUT)
     r.raise_for_status()
     result = r.json()["chart"]["result"][0]
     timestamps = result.get("timestamp") or []
     closes = (((result.get("indicators") or {}).get("quote") or [{}])[0].get("close") or [])
     rows = []
+    cutoff = datetime.now(timezone.utc) - timedelta(days=HISTORY_YEARS * 366)
     for ts, close in zip(timestamps, closes):
         if close is None:
             continue
-        date = datetime.fromtimestamp(ts, timezone.utc).strftime("%Y-%m-%d")
-        rows.append((date, float(close)))
+        dt = datetime.fromtimestamp(ts, timezone.utc)
+        if dt < cutoff:
+            continue
+        rows.append((dt.strftime("%Y-%m-%d"), float(close)))
     if not rows:
         raise RuntimeError(f"Yahoo returned no usable history rows for {ticker}")
     return rows
@@ -75,51 +78,21 @@ def fred_csv(series):
     r = SESSION.get(url, timeout=HISTORY_TIMEOUT)
     r.raise_for_status()
     rows = []
+    cutoff = datetime.now(timezone.utc) - timedelta(days=HISTORY_YEARS * 366)
     for row in csv.DictReader(StringIO(r.text)):
         date = row.get("observation_date")
         value = row.get(series)
         if not date or not value or value == ".":
             continue
         try:
-            rows.append((date, float(value)))
+            dt = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            if dt >= cutoff:
+                rows.append((date, float(value)))
         except ValueError:
             continue
     if not rows:
         raise RuntimeError(f"FRED returned no usable rows for {series}")
     return rows
-
-
-def uk_pump_prices_best_effort():
-    url = "https://www.rac.co.uk/drive/advice/fuel-watch/"
-    result = {
-        "petrolPencePerLitre": None,
-        "dieselPencePerLitre": None,
-        "source": "RAC Fuel Watch public page",
-        "health": {"ok": False, "url": url, "note": "Best effort public page read. Non critical."}
-    }
-    try:
-        r = SESSION.get(url, timeout=LIVE_TIMEOUT)
-        r.raise_for_status()
-        text = " ".join(r.text.replace("\n", " ").split())
-        lower = text.lower()
-
-        def near(label):
-            i = lower.find(label)
-            if i < 0:
-                return None
-            chunk = text[max(0, i - 450): i + 800]
-            for raw in re.findall(r"(\d{2,3}\.\d{1,2})\s*p?", chunk):
-                value = float(raw)
-                if 80 <= value <= 250:
-                    return value
-            return None
-
-        result["petrolPencePerLitre"] = near("unleaded") or near("petrol")
-        result["dieselPencePerLitre"] = near("diesel")
-        result["health"]["ok"] = result["petrolPencePerLitre"] is not None or result["dieselPencePerLitre"] is not None
-    except Exception as exc:
-        result["health"]["error"] = str(exc)
-    return result
 
 
 def load_existing_history():
@@ -210,10 +183,11 @@ def oil_history_geojson():
             "metadata": {
                 "updated": now_utc(),
                 "unit": "USD per barrel",
+                "period": f"Last {HISTORY_YEARS} years",
                 "note": "Oil history unavailable during this run. Live oil prices were still updated.",
-                "sources": health
+                "sources": health,
             },
-            "features": []
+            "features": [],
         }, False
 
     return {
@@ -221,10 +195,11 @@ def oil_history_geojson():
         "metadata": {
             "updated": now_utc(),
             "unit": "USD per barrel",
+            "period": f"Last {HISTORY_YEARS} years",
             "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
-            "sources": health
+            "sources": health,
         },
-        "features": features
+        "features": features,
     }, True
 
 
@@ -242,27 +217,17 @@ def main():
             print(f"::warning::{msg}")
             health[ticker] = {"ok": False, "error": msg}
 
-    pump = uk_pump_prices_best_effort()
-    live["ukPumpPrices"] = {
-        "petrolPencePerLitre": pump["petrolPencePerLitre"],
-        "dieselPencePerLitre": pump["dieselPencePerLitre"],
-        "source": pump["source"]
-    }
-    health["ukPumpPrices"] = pump["health"]
     live["health"] = health
-
     LIVE_FILE.write_text(json.dumps(live, indent=2), encoding="utf-8")
 
     history, fetched_fresh_history = oil_history_geojson()
     HISTORY_FILE.write_text(json.dumps(history, indent=2), encoding="utf-8")
-    history_features = len(history.get("features", []))
-    history_metadata = history.get("metadata", {})
 
     print(json.dumps({
         "live": live,
-        "history_features": history_features,
+        "history_features": len(history.get("features", [])),
         "fresh_history_written": fetched_fresh_history,
-        "history": history_metadata
+        "history": history.get("metadata", {}),
     }, indent=2))
 
 

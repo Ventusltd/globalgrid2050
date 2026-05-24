@@ -509,6 +509,7 @@
 │   ├── add_v7_gis_sld_site_intelligence_panel.py
 │   ├── add_v8_bess_geospatial_layout_drawing.py
 │   ├── build_v8_bess_gis_sld_financial_sandbox.py
+│   ├── clone_uk_energy_tracking_v2.py
 │   ├── clone_v3_to_v4.py
 │   ├── clone_v4_to_v5.py
 │   ├── create_v8_bess_electrical_topology_review.py
@@ -904,11 +905,15 @@
 ├── supermarkets_tesco.geojson
 ├── supermarkets_waitrose.geojson
 ├── uk_energy_tracking
+│   ├── ev_charging_prices.json
 │   ├── index.md
 │   ├── live_grid_energy.json
 │   ├── live_grid_price.json
 │   ├── live_oil_prices.json
+│   ├── live_uk_fuel_prices.json
 │   └── oil_price_history.geojson
+├── uk_energy_tracking_v2
+│   └── index.md
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -926,4 +931,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-121 directories, 806 files
+122 directories, 810 files

@@ -21,7 +21,7 @@ Large scale price estimator for global 33 kV cable supply delivered to site with
 | Aluminium (GBP) | GBP 2,702 / tonne |
 | Copper (EUR) | EUR 12,119 / tonne |
 | Aluminium (EUR) | EUR 3,127 / tonne |
-| Last Update | Sunday 24 May 2026 00:29 UTC |
+| Last Update | Sunday 24 May 2026 08:35 UTC |
 
 ---
 

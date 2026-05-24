@@ -552,6 +552,7 @@
 │   ├── modularise_v6_cable_geometry.py
 │   ├── modularize_v3.py
 │   ├── patch_uk_energy_oil_dashboard_interactivity.py
+│   ├── patch_uk_energy_tracking_v2_oil_graph.py
 │   ├── patch_v8_bess_tabs_small_step.py
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
@@ -582,6 +583,7 @@
 │   ├── update_uk_price.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
+│   ├── v2_safe_patch.py
 │   ├── v6_add_atlas_v8_dashboard_link.py
 │   ├── v6_complex_upgrade_installer.py
 │   ├── v6_migrate_from_v5.py
@@ -931,4 +933,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-122 directories, 810 files
+122 directories, 812 files

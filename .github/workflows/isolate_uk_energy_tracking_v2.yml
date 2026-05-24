@@ -1,0 +1,46 @@
+name: isolate_uk_energy_tracking_v2
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  isolate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run V2 isolation
+        run: python scripts/isolate_uk_energy_tracking_v2.py
+
+      - name: Commit isolated V2 system
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v2
+          git add scripts/update_uk_energy_v2.py
+          git add scripts/update_uk_price_v2.py
+          git add scripts/update_oil_prices_v2.py
+          git add scripts/update_uk_fuel_prices_v2.py
+          git add .github/workflows/fetch_uk_energy_and_prices_v2.yml
+          git add gridbot_reports/isolate_uk_energy_tracking_v2.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Isolate UK energy tracking V2"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V2 isolation changes to commit"
+          fi

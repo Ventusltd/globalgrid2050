@@ -1,7 +1,8 @@
 import csv
 import json
+import os
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from io import StringIO
 from pathlib import Path
 
@@ -13,15 +14,18 @@ OUT_DIR = Path(__file__).parent.parent / "uk_energy_tracking"
 LIVE_FILE = OUT_DIR / "live_oil_prices.json"
 HISTORY_FILE = OUT_DIR / "oil_price_history.geojson"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
+LIVE_TIMEOUT = 15
+HISTORY_TIMEOUT = 25
+HISTORY_MAX_AGE_HOURS = 24
 
 
 def build_session():
     retry_strategy = Retry(
-        total=4,
-        connect=4,
-        read=4,
-        status=4,
-        backoff_factor=2,
+        total=2,
+        connect=2,
+        read=2,
+        status=2,
+        backoff_factor=1,
         status_forcelist=[429, 500, 502, 503, 504],
         allowed_methods=["GET"],
         raise_on_status=False,
@@ -43,14 +47,14 @@ def now_utc():
 
 def yahoo_price(ticker):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
-    r = SESSION.get(url, timeout=60)
+    r = SESSION.get(url, timeout=LIVE_TIMEOUT)
     r.raise_for_status()
     return float(r.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
 
 
 def yahoo_history(ticker):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=max&interval=1d"
-    r = SESSION.get(url, timeout=60)
+    r = SESSION.get(url, timeout=HISTORY_TIMEOUT)
     r.raise_for_status()
     result = r.json()["chart"]["result"][0]
     timestamps = result.get("timestamp") or []
@@ -68,7 +72,7 @@ def yahoo_history(ticker):
 
 def fred_csv(series):
     url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}"
-    r = SESSION.get(url, timeout=60)
+    r = SESSION.get(url, timeout=HISTORY_TIMEOUT)
     r.raise_for_status()
     rows = []
     for row in csv.DictReader(StringIO(r.text)):
@@ -94,7 +98,7 @@ def uk_pump_prices_best_effort():
         "health": {"ok": False, "url": url, "note": "Best effort public page read. Non critical."}
     }
     try:
-        r = SESSION.get(url, timeout=60)
+        r = SESSION.get(url, timeout=LIVE_TIMEOUT)
         r.raise_for_status()
         text = " ".join(r.text.replace("\n", " ").split())
         lower = text.lower()
@@ -130,12 +134,32 @@ def load_existing_history():
     return None
 
 
+def history_is_recent(existing):
+    if not existing:
+        return False
+    updated = existing.get("metadata", {}).get("updated")
+    if not updated:
+        return False
+    try:
+        dt = datetime.fromisoformat(str(updated).replace("Z", "+00:00"))
+        return datetime.now(timezone.utc) - dt < timedelta(hours=HISTORY_MAX_AGE_HOURS)
+    except Exception:
+        return False
+
+
 def add_rows(merged, rows, field):
     for date, value in rows:
         merged.setdefault(date, {})[field] = value
 
 
 def oil_history_geojson():
+    existing = load_existing_history()
+    force_history = os.getenv("FORCE_OIL_HISTORY", "0") == "1"
+    if existing and history_is_recent(existing) and not force_history:
+        existing.setdefault("metadata", {})["lastSkippedHistoryUpdate"] = now_utc()
+        existing["metadata"]["skipReason"] = "Existing oil history is less than 24 hours old. Live oil update completed without re-downloading full history."
+        return existing, False
+
     health = []
     merged = {}
 
@@ -148,7 +172,7 @@ def oil_history_geojson():
             add_rows(merged, rows, field)
             health.append({"ok": True, "source": label, "rows": len(rows)})
         except Exception as exc:
-            msg = f"Failed to fetch {label} after retries: {exc}"
+            msg = f"Failed to fetch {label}: {exc}"
             print(f"::warning::{msg}")
             health.append({"ok": False, "source": label, "error": msg})
 
@@ -162,7 +186,7 @@ def oil_history_geojson():
                 add_rows(merged, rows, field)
                 health.append({"ok": True, "source": label, "rows": len(rows), "fallback": True})
             except Exception as exc:
-                msg = f"Failed to fetch {label} after retries: {exc}"
+                msg = f"Failed to fetch {label}: {exc}"
                 print(f"::warning::{msg}")
                 health.append({"ok": False, "source": label, "error": msg, "fallback": True})
 
@@ -175,13 +199,22 @@ def oil_history_geojson():
         })
 
     if not features:
-        existing = load_existing_history()
         if existing:
             existing.setdefault("metadata", {})["lastAttemptedUpdate"] = now_utc()
             existing["metadata"]["latestAttemptHealth"] = health
             existing["metadata"]["note"] = existing["metadata"].get("note", "") + " Existing non empty history preserved after latest failed fetch attempt."
             return existing, False
-        raise RuntimeError(f"Oil history fetch produced zero features and no existing history file is available. Health: {health}")
+        print("::warning::Oil history unavailable and no existing history file found. Writing live prices only.")
+        return {
+            "type": "FeatureCollection",
+            "metadata": {
+                "updated": now_utc(),
+                "unit": "USD per barrel",
+                "note": "Oil history unavailable during this run. Live oil prices were still updated.",
+                "sources": health
+            },
+            "features": []
+        }, False
 
     return {
         "type": "FeatureCollection",
@@ -205,7 +238,7 @@ def main():
             live[key] = yahoo_price(ticker)
             health[ticker] = {"ok": True}
         except Exception as exc:
-            msg = f"Failed to fetch Yahoo price {ticker} after retries: {exc}"
+            msg = f"Failed to fetch Yahoo price {ticker}: {exc}"
             print(f"::warning::{msg}")
             health[ticker] = {"ok": False, "error": msg}
 
@@ -220,16 +253,10 @@ def main():
 
     LIVE_FILE.write_text(json.dumps(live, indent=2), encoding="utf-8")
 
-    try:
-        history, fetched_fresh_history = oil_history_geojson()
-        HISTORY_FILE.write_text(json.dumps(history, indent=2), encoding="utf-8")
-        history_features = len(history.get("features", []))
-        history_metadata = history.get("metadata", {})
-    except Exception as exc:
-        print(f"::error::Oil history update failed: {exc}")
-        history_features = 0
-        history_metadata = {"error": str(exc)}
-        fetched_fresh_history = False
+    history, fetched_fresh_history = oil_history_geojson()
+    HISTORY_FILE.write_text(json.dumps(history, indent=2), encoding="utf-8")
+    history_features = len(history.get("features", []))
+    history_metadata = history.get("metadata", {})
 
     print(json.dumps({
         "live": live,

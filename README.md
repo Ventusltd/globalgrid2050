@@ -3,7 +3,13 @@ Open infrastructure for electrification
 # GlobalGrid2050
 **Open Infrastructure for Electrification**
 
-GlobalGrid2050 is a data platform and engineering intelligence repository dedicated to documenting and analyzing the physical behavior of electrical energy systems.
+## AI and deployment doctrine
+
+Before modifying this repository, read:
+
+`AI_START_HERE.md`
+
+GlobalGrid2050 uses a controlled GridBot deployment method. AI should create small feature manifests and scripts, while workflows are manually triggered and validated by Vikram.
 
 ## System Architecture
 This platform is deployed via GitHub Pages as a high-performance static site. It utilizes client-side data processing to deliver geospatial intelligence and parametric cost estimations without backend latency.

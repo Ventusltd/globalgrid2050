@@ -39,6 +39,20 @@ PANEL = """
 """
 
 
+def extract_panel(text: str) -> tuple[str, str]:
+    start = text.find('  <section id="electricity-price-history-panel">')
+    if start == -1:
+        return text, PANEL
+    end_marker = "\n  </section>"
+    end = text.find(end_marker, start)
+    if end == -1:
+        raise RuntimeError("Could not locate end of electricity price history panel")
+    end += len(end_marker)
+    panel = text[start:end]
+    text = text[:start] + text[end:]
+    return text, panel
+
+
 def patch_page() -> None:
     text = PAGE.read_text(encoding="utf-8")
 
@@ -48,11 +62,13 @@ def patch_page() -> None:
     if "price-history-ui.css" not in text:
         text = text.replace("</style>", "@import url('/uk_energy_tracking_v3/price-history-ui.css');\n</style>")
 
-    marker = '  <section>\n    <h2 class="section-title">Generation Mix</h2>'
-    if "electricity-price-history-panel" not in text:
-        if marker not in text:
-            raise RuntimeError("Generation Mix marker not found. V3 structure has changed.")
-        text = text.replace(marker, PANEL + '\n  <section>\n    <h2 class="section-title">Generation Mix</h2>')
+    text, panel = extract_panel(text)
+
+    generation_mix = '  <section>\n    <h2 class="section-title">Generation Mix</h2>\n    <div id="scada-mix" class="scada-mix-grid"></div>\n  </section>'
+    if generation_mix not in text:
+        raise RuntimeError("Generation Mix block not found. V3 structure has changed.")
+
+    text = text.replace(generation_mix, generation_mix + panel)
 
     if "price-history-ui.js" not in text:
         text = text.replace(
@@ -65,4 +81,4 @@ def patch_page() -> None:
 
 if __name__ == "__main__":
     patch_page()
-    print("Patched V3 electricity price history UI")
+    print("Moved V3 electricity price history graph below Generation Mix")

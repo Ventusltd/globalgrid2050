@@ -529,3 +529,21 @@ Stable tracker rule:
 No changes to uk_energy_tracking/.
 ```
 
+## Diary entry: 2026-05-25 V3 price history full screen chart patch
+
+Purpose:
+
+```text
+add a large full screen electricity price history chart with zoom and pan while keeping the stable tracker untouched
+```
+
+Patch method:
+
+```text
+add full screen chart button
+add full screen overlay and large canvas
+load V3 captured electricity price history JSON
+support wheel zoom, drag pan, reset and close
+use canvas redraw with requestAnimationFrame and GPU friendly CSS compositing hints
+```
+

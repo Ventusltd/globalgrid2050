@@ -134,6 +134,7 @@ a { color: #7fdfff; }
           <option value="all">All captured data</option>
         </select>
         <a href="/uk_energy_tracking_v3/electricity_price_history.csv" download>Download CSV</a>
+        <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
       </div>
       <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Independently captured from Elexon BMRS Market Index values.</div>
       <canvas id="price-history-canvas" width="900" height="300"></canvas>
@@ -210,6 +211,22 @@ a { color: #7fdfff; }
     </div>
   </section>
 
+  <div id="price-history-fullscreen-overlay" class="price-history-fullscreen-overlay">
+    <div class="price-history-fullscreen-shell">
+      <div class="price-history-fullscreen-toolbar">
+        <strong>Electricity Price History</strong>
+        <span id="price-history-fullscreen-meta">Captured Elexon market index prices</span>
+        <button type="button" id="price-history-zoom-out">Zoom out</button>
+        <button type="button" id="price-history-zoom-in">Zoom in</button>
+        <button type="button" id="price-history-zoom-reset">Reset</button>
+        <button type="button" id="price-history-fullscreen-close">Close</button>
+      </div>
+      <canvas id="price-history-fullscreen-canvas"></canvas>
+      <div class="price-history-fullscreen-note">Wheel to zoom. Drag to pan. Esc closes the chart.</div>
+    </div>
+  </div>
+
+
   <div class="scada-status" id="scada-status">Loading live feed…</div>
 
   <section class="scada-credit">
@@ -223,6 +240,7 @@ a { color: #7fdfff; }
   </section>
 </div>
 <script src='/uk_energy_tracking_v3/price-history-ui.js'></script>
+<script src='/uk_energy_tracking_v3/price-history-fullscreen.js'></script>
 
 <script>
 (function(){

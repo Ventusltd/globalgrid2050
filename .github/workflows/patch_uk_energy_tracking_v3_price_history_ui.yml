@@ -1,4 +1,4 @@
-name: patch_uk_energy_tracking_v3_price_history_ui
+name: V3 Price History UI Patch
 
 on:
   workflow_dispatch:
@@ -19,20 +19,21 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GRIDBOT_PAT }}
 
-      - name: Patch V3 UI safely from V2 aligned structure
+      - name: Write V3 UI patch script
         run: |
-          python - <<'PY'
+          cat > /tmp/patch_v3_price_history_ui.py <<'PY'
           from pathlib import Path
-          page = Path('uk_energy_tracking_v3/index.md')
-          text = page.read_text(encoding='utf-8')
 
-          text = text.replace('UK LIVE GRID TRACKER V2', 'UK LIVE GRID TRACKER V3')
-          text = text.replace('This page uses isolated V2 feeds', 'This page uses isolated V3 feeds')
+          page = Path("uk_energy_tracking_v3/index.md")
+          text = page.read_text(encoding="utf-8")
 
-          if 'price-history-ui.css' not in text:
-              text = text.replace('</style>', '@import url("/uk_energy_tracking_v3/price-history-ui.css");\n</style>')
+          text = text.replace("UK LIVE GRID TRACKER V2", "UK LIVE GRID TRACKER V3")
+          text = text.replace("This page uses isolated V2 feeds", "This page uses isolated V3 feeds")
 
-          panel = '''
+          if "price-history-ui.css" not in text:
+              text = text.replace("</style>", "@import url('/uk_energy_tracking_v3/price-history-ui.css');\n</style>")
+
+          panel = """
 
   <section id="electricity-price-history-panel">
     <h2 class="section-title">Electricity Price History</h2>
@@ -66,18 +67,21 @@ jobs:
       </div>
     </div>
   </section>
-'''
+"""
 
-          marker = '  <section>\n    <h2 class="section-title">Generation Mix</h2>'
-          if 'electricity-price-history-panel' not in text and marker in text:
-              text = text.replace(marker, panel + '\n  <section>\n    <h2 class="section-title">Generation Mix</h2>')
+          marker = "  <section>\n    <h2 class=\"section-title\">Generation Mix</h2>"
+          if "electricity-price-history-panel" not in text and marker in text:
+              text = text.replace(marker, panel + "\n  <section>\n    <h2 class=\"section-title\">Generation Mix</h2>")
 
-          if 'price-history-ui.js' not in text:
-              text = text.replace('</div>\n\n<script>', '</div>\n<script src="/uk_energy_tracking_v3/price-history-ui.js"></script>\n\n<script>')
+          if "price-history-ui.js" not in text:
+              text = text.replace("</div>\n\n<script>", "</div>\n<script src='/uk_energy_tracking_v3/price-history-ui.js'></script>\n\n<script>")
 
-          page.write_text(text, encoding='utf-8')
-          print('Patched V3 price history UI.')
+          page.write_text(text, encoding="utf-8")
+          print("Patched V3 price history UI.")
           PY
+
+      - name: Apply V3 UI patch
+        run: python /tmp/patch_v3_price_history_ui.py
 
       - name: Commit V3 UI changes
         env:

@@ -113,7 +113,12 @@ a { color: #7fdfff; }
 
 
 
-  <section id="electricity-price-history-panel">
+
+
+  <section>
+    <h2 class="section-title">Generation Mix</h2>
+    <div id="scada-mix" class="scada-mix-grid"></div>
+  </section>  <section id="electricity-price-history-panel">
     <h2 class="section-title">Electricity Price History</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
@@ -144,11 +149,6 @@ a { color: #7fdfff; }
         </table>
       </div>
     </div>
-  </section>
-
-  <section>
-    <h2 class="section-title">Generation Mix</h2>
-    <div id="scada-mix" class="scada-mix-grid"></div>
   </section>
 
   <section>

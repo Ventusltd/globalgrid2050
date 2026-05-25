@@ -1,0 +1,354 @@
+# UK Energy Tracking V3 Work Diary
+
+This file is a persistent engineering and AI continuity log for V3.
+
+## Purpose
+
+Maintain continuity across overloaded ChatGPT threads.
+
+Track:
+
+```text
+what changed
+why it changed
+what failed
+what recovered
+which workflows exist
+which scripts are authoritative
+```
+
+## Initial architecture
+
+Stable tracker:
+
+```text
+uk_energy_tracking/
+```
+
+Development twin:
+
+```text
+uk_energy_tracking_v3/
+```
+
+V3 was created so experimental transport energy work would not damage the live public tracker.
+
+## Major lessons learned
+
+### Lesson 1
+
+Do not share feed scripts between stable and V3.
+
+Earlier versions accidentally pointed V3 and stable at the same JSON update logic which caused corruption risk.
+
+Resolution:
+
+```text
+create isolated _v2 scripts
+create isolated V3 workflows
+create isolated V3 JSON outputs
+```
+
+### Lesson 2
+
+Always preserve a working twin.
+
+The stable tracker acts as:
+
+```text
+comparison source
+recovery source
+truth source
+```
+
+### Lesson 3
+
+GitHub push races can break workflows.
+
+Observed issue:
+
+```text
+remote rejected HEAD -> main
+internal server error
+fetch first
+```
+
+Resolution:
+
+```text
+stagger schedules
+use git pull --rebase before push
+separate V3 cadence
+```
+
+## Diary entry: 2026-05-25 workflow cadence diagnosis
+
+### What was investigated
+
+The last 24 hours of Git commits were reviewed to understand why the original 5 minute live update behaviour appears to have weakened after oil prices, V3 isolation, DESNZ fuel and EV charging work were added.
+
+### What is working
+
+The stable tracker at:
+
+```text
+uk_energy_tracking/
+https://globalgrid2050.com/uk_energy_tracking/
+```
+
+is still working and still receives automated data commits.
+
+Recent stable commit evidence includes:
+
+```text
+Automated UK grid update (both): 2026-05-25 10:43 UTC
+Automated UK grid update (both): 2026-05-25 06:05 UTC
+Automated UK grid update (both): 2026-05-25 01:35 UTC
+```
+
+V3 also recovered at least once after a failed push:
+
+```text
+Automated UK grid update V3 (both): 2026-05-25 09:12 UTC
+```
+
+This proves the V3 Python update scripts can run and can write V3 JSON feeds.
+
+### What is not working as expected
+
+The system no longer shows a clean rhythm that looks like a reliable 5 minute live update in the commit history.
+
+Important correction: the workflow can run every 5 minutes without producing a Git commit every 5 minutes, because Git only commits when JSON content changes. However, the recent pattern shows larger gaps and workflow friction after additional workflows were introduced.
+
+### Main suspected causes
+
+1. The stable tracker workflow and V3 workflow both write to `main` frequently.
+2. The oil workflow also writes to `main`.
+3. GitHub Pages deploys after each commit.
+4. Repo structure and documentation workflows may also run after commits.
+5. Some workflows use direct tokenised push URLs while others use `origin`.
+6. At least one V3 run reached the commit stage but failed during `git push` with a GitHub internal server error.
+7. Earlier attempts also showed `fetch first` and push race behaviour.
+
+### Current workflow split
+
+Stable grid workflow:
+
+```text
+.github/workflows/fetch_uk_energy_and_prices.yml
+cron: */5 * * * *
+```
+
+V3 grid workflow:
+
+```text
+.github/workflows/fetch_uk_energy_and_prices_v2.yml
+cron: 2-59/5 * * * *
+```
+
+Oil workflow:
+
+```text
+.github/workflows/update_oil_prices.yml
+cron: 30 5 * * *
+```
+
+Documentation workflow:
+
+```text
+.github/workflows/document_uk_energy_trackers.yml
+manual only
+```
+
+### Current interpretation
+
+The original 5 minute system was simpler. It mostly had one frequent writer. After V3 and oil work, the repository now has multiple workflows pushing into the same branch. Even if each workflow is logically correct, they compete at Git level and can cause rejected pushes, stale checkouts or delayed commits.
+
+The issue is therefore not mainly an API data problem. It is an automation orchestration problem.
+
+### Current state classification
+
+Stable tracker:
+
+```text
+working, should not be touched
+```
+
+V3 tracker:
+
+```text
+partly working, isolated, but automation cadence and push reliability need hardening
+```
+
+Oil update:
+
+```text
+separate concern, not required for core grid gauges, should not block grid updates
+```
+
+Documentation:
+
+```text
+manual support layer, should not run frequently or interfere with data feeds
+```
+
+### Recommended next technical step
+
+Create a V3 only workflow hardening patch that does not touch the stable tracker.
+
+The patch should:
+
+```text
+keep V3 offset from stable
+use origin based push rather than explicit tokenised URL where possible
+add retry around pull and push
+stage only V3 JSON outputs
+avoid running documentation or repo structure workflows as part of grid updates
+```
+
+### Recovery rule
+
+If V3 breaks again, compare against stable but patch only V3:
+
+```text
+uk_energy_tracking_v3/index.md
+uk_energy_tracking_v3/*.json
+scripts/*_v2.py
+.github/workflows/*_v2.yml
+```
+
+Do not modify:
+
+```text
+uk_energy_tracking/index.md
+uk_energy_tracking/live_grid_energy.json
+uk_energy_tracking/live_grid_price.json
+```
+
+## V3 features added
+
+```text
+Transport energy dashboard section
+DESNZ fuel logic placeholders
+fuel duty and VAT links
+EV charging placeholder cards
+Atlas V8 EV reference embed
+oil chart UI improvements
+```
+
+## Current V3 status
+
+Core goal:
+
+```text
+V3 should behave identically to stable for live grid values.
+```
+
+Experimental additions:
+
+```text
+transport energy
+fuel logic
+EV charging economics
+future tariff comparison
+```
+
+## Important workflows
+
+### Stable
+
+```text
+fetch_uk_energy_and_prices.yml
+```
+
+### V3
+
+```text
+fetch_uk_energy_and_prices_v2.yml
+```
+
+### Documentation
+
+```text
+document_uk_energy_trackers.yml
+```
+
+## Important scripts
+
+### Stable
+
+```text
+update_uk_energy.py
+update_uk_price.py
+update_oil_prices.py
+```
+
+### V3
+
+```text
+update_uk_energy_v2.py
+update_uk_price_v2.py
+update_oil_prices_v2.py
+update_uk_fuel_prices_v2.py
+```
+
+## Operating principle
+
+Stable tracker:
+
+```text
+protected production twin
+```
+
+V3 tracker:
+
+```text
+experimental development twin
+```
+
+Never experiment directly on stable.
+
+## Future direction
+
+Planned V3 work:
+
+```text
+real DESNZ petrol prices
+real DESNZ diesel prices
+EV charging tariff ingestion
+comparison economics
+Brent to pump modelling
+transport electrification visualisation
+```
+
+
+## Diary entry: 2026-05-25 V3 clone created
+
+V3 was cloned from V2 as a controlled experimental build.
+
+Purpose:
+
+```text
+V1 stable reference remains untouched.
+V2 remains operational transport energy prototype.
+V3 becomes the diary led experimental version for price history, graphs, diagnostics and competitor tracking comparison.
+```
+
+Operating rule:
+
+```text
+No wholesale rewrites.
+One feature at a time.
+One workflow at a time.
+GridBot execution only.
+Vikram triggers, tests and approves.
+```
+
+Next intended V3 feature:
+
+```text
+native electricity price history capture
+last 7 days half hourly table
+native one year price graph building from captured data only
+no fake backfill
+```

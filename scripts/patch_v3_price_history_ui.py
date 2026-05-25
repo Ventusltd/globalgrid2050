@@ -16,7 +16,16 @@ CSS_TEXT = r'''
   box-sizing: border-box;
 }
 
+#electricity-price-history-panel {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 #electricity-price-history-panel .trend-panel {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   background: #070a10 !important;
   border: 1px solid #252b36 !important;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 0 22px rgba(0,255,255,.05);
@@ -55,8 +64,9 @@ CSS_TEXT = r'''
 }
 
 #electricity-price-history-panel #price-history-canvas {
-  width: 100%;
-  height: 240px;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: clamp(190px, 32vw, 300px) !important;
   display: block;
   border: 1px solid #252b36 !important;
   background: #05070c !important;
@@ -94,12 +104,47 @@ CSS_TEXT = r'''
   margin-top: 5px;
 }
 
+#electricity-price-history-panel .price-history-table-toggle {
+  margin-top: 12px;
+  border: 1px solid #252b36 !important;
+  border-radius: 6px;
+  background: #0b0f17 !important;
+  overflow: hidden;
+}
+
+#electricity-price-history-panel .price-history-table-toggle summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 12px;
+  color: #00ffff !important;
+  background: #05070c !important;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 11px;
+  border-bottom: 1px solid #252b36 !important;
+}
+
+#electricity-price-history-panel .price-history-table-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+#electricity-price-history-panel .price-history-table-toggle summary::after {
+  content: "Open";
+  float: right;
+  color: #9aa3b6;
+  letter-spacing: .08em;
+}
+
+#electricity-price-history-panel .price-history-table-toggle[open] summary::after {
+  content: "Close";
+}
+
 #electricity-price-history-panel .price-history-table-wrap {
   overflow-x: auto;
   overflow-y: auto;
-  border: 1px solid #252b36 !important;
-  border-radius: 6px;
-  margin-top: 12px;
+  border: 0 !important;
+  border-radius: 0;
+  margin-top: 0;
   max-height: 260px;
   background: #070a10 !important;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
@@ -163,14 +208,14 @@ CSS_TEXT = r'''
 
 @media (max-width: 850px) {
   #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr 1fr; }
-  #electricity-price-history-panel #price-history-canvas { height: 220px; }
+  #electricity-price-history-panel #price-history-canvas { height: 220px !important; }
   #electricity-price-history-panel table.price-history-table { font-size: 11px; min-width: 620px; }
 }
 
 @media (max-width: 560px) {
   #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr; }
   #electricity-price-history-panel .price-history-value { font-size: 22px; }
-  #electricity-price-history-panel #price-history-canvas { height: 210px; }
+  #electricity-price-history-panel #price-history-canvas { height: 210px !important; }
 }
 '''.strip() + "\n"
 
@@ -191,8 +236,8 @@ Issue observed:
 
 ```text
 The V3 price history table rendered with a white table background while the rest of the SCADA page remained dark.
-The likely cause was the external CSS being imported at the end of the inline style block, where CSS import behaviour is fragile and can be ignored after normal rules.
-Theme table rules then overrode the intended dark table colours.
+The graph also risked overflowing on mobile if the external stylesheet was not loaded properly.
+The table made the page visually heavy because it exposed raw records directly under the graph.
 ```
 
 Patch method:
@@ -201,7 +246,10 @@ Patch method:
 remove the late CSS import from the inline style block
 insert a normal stylesheet link for /uk_energy_tracking_v3/price-history-ui.css
 rewrite the price history CSS with scoped high specificity rules under #electricity-price-history-panel
-force dark table background, dark rows, cyan headings, readable body text and mobile scrolling
+force dark table background, dark rows, cyan headings and readable body text
+make the chart width responsive so it fits inside the page container
+move the raw records table inside a closed details dropdown by default
+retain CSV download for full data review
 ```
 
 Files intentionally changed by GridBot workflow:
@@ -264,12 +312,36 @@ def ensure_panel_after_generation_mix(text: str) -> str:
     return text.replace(generation_mix, generation_mix + panel, 1)
 
 
+def collapse_price_table(text: str) -> str:
+    if 'class="price-history-table-toggle"' in text:
+        return text
+    old = '''      <div class="price-history-table-wrap">
+        <table class="price-history-table">
+          <thead><tr><th>Settlement time</th><th>Price GBP/MWh</th><th>Captured UTC</th><th>Carbon g/kWh</th></tr></thead>
+          <tbody id="price-history-table-body"><tr><td colspan="4">Awaiting captured price history.</td></tr></tbody>
+        </table>
+      </div>'''
+    new = '''      <details class="price-history-table-toggle">
+        <summary>Captured records table</summary>
+        <div class="price-history-table-wrap">
+          <table class="price-history-table">
+            <thead><tr><th>Settlement time</th><th>Price GBP/MWh</th><th>Captured UTC</th><th>Carbon g/kWh</th></tr></thead>
+            <tbody id="price-history-table-body"><tr><td colspan="4">Awaiting captured price history.</td></tr></tbody>
+          </table>
+        </div>
+      </details>'''
+    if old not in text:
+        raise RuntimeError("Price history table block not found. V3 structure has changed.")
+    return text.replace(old, new, 1)
+
+
 def patch_page() -> bool:
     text = read(PAGE)
     text = text.replace("UK LIVE GRID TRACKER V2", "UK LIVE GRID TRACKER V3")
     text = text.replace("This page uses isolated V2 feeds", "This page uses isolated V3 feeds")
     text = ensure_linked_css(text)
     text = ensure_panel_after_generation_mix(text)
+    text = collapse_price_table(text)
     if "price-history-ui.js" not in text:
         text = text.replace(
             "</div>\n\n<script>",
@@ -279,6 +351,8 @@ def patch_page() -> bool:
         raise RuntimeError("Late CSS import still present")
     if CSS_LINK not in text:
         raise RuntimeError("Price history stylesheet link was not inserted")
+    if 'class="price-history-table-toggle"' not in text:
+        raise RuntimeError("Price history table was not collapsed")
     return write_if_changed(PAGE, text)
 
 

@@ -161,6 +161,8 @@
 │   ├── gridbot_install_20260516_183703.md
 │   ├── gridbot_install_20260516_201759.md
 │   ├── gridbot_install_20260516_204935.md
+│   ├── isolate_uk_energy_tracking_v2.md
+│   ├── patch_uk_energy_tracking_v2_transport.md
 │   ├── rebuild_v8_bess_from_v7_gis_frame.md
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.md
 │   ├── remove_project_x_from_v6_v7_gis_sld.md
@@ -553,10 +555,12 @@
 │   ├── generate_unification_estimates.py
 │   ├── generate_v8_codebase_blueprint.py
 │   ├── gridbot_feature_installer.py
+│   ├── isolate_uk_energy_tracking_v2.py
 │   ├── modularise_v6_cable_geometry.py
 │   ├── modularize_v3.py
 │   ├── patch_uk_energy_oil_dashboard_interactivity.py
 │   ├── patch_uk_energy_tracking_v2_oil_graph.py
+│   ├── patch_uk_energy_tracking_v2_transport.py
 │   ├── patch_v8_bess_tabs_small_step.py
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
@@ -580,11 +584,15 @@
 │   ├── test_v7_gis_sld_site_intelligence_panel.py
 │   ├── update_metal_trends.py
 │   ├── update_oil_prices.py
+│   ├── update_oil_prices_v2.py
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
 │   ├── update_uk_energy.py
+│   ├── update_uk_energy_v2.py
 │   ├── update_uk_fuel_prices.py
+│   ├── update_uk_fuel_prices_v2.py
 │   ├── update_uk_price.py
+│   ├── update_uk_price_v2.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
 │   ├── v2_safe_patch.py
@@ -919,7 +927,13 @@
 │   ├── live_uk_fuel_prices.json
 │   └── oil_price_history.geojson
 ├── uk_energy_tracking_v2
-│   └── index.md
+│   ├── ev_charging_prices.json
+│   ├── index.md
+│   ├── live_grid_energy.json
+│   ├── live_grid_price.json
+│   ├── live_oil_prices.json
+│   ├── live_uk_fuel_prices.json
+│   └── oil_price_history.geojson
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -937,4 +951,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-123 directories, 815 files
+123 directories, 829 files

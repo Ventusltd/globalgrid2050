@@ -1,0 +1,50 @@
+name: Update Elexon System Prices
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      backfill_days:
+        description: Days to fetch ending yesterday
+        required: true
+        default: '30'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Elexon system prices
+        env:
+          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '30' }}
+        run: python scripts/download_elexon_system_prices.py
+
+      - name: Commit data
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/electricity/elexon_system_prices_half_hourly.csv
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update Elexon system prices"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No Elexon system price changes"
+          fi

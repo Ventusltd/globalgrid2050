@@ -1,0 +1,32 @@
+name: clone_uk_energy_tracking_v2_to_v3
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clone-v3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run V3 clone script
+        run: python scripts/clone_uk_energy_tracking_v2_to_v3.py
+
+      - name: Commit and push V3 clone
+        run: |
+          git config --global user.name "GridBot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add .
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "GridBot: clone UK energy tracker V2 to V3"
+          git pull --rebase origin main
+          git push origin main

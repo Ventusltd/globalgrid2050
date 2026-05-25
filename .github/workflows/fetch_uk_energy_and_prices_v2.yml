@@ -1,6 +1,8 @@
 name: fetch_uk_energy_and_prices_v2
 
 on:
+  schedule:
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       slice:
@@ -29,21 +31,35 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests
+      - name: Determine V2 slice
+        id: which
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "slice=${{ github.event.inputs.slice }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "slice=both" >> "$GITHUB_OUTPUT"
+          fi
       - name: Run V2 energy slice
-        if: github.event.inputs.slice == 'energy' || github.event.inputs.slice == 'both'
+        if: steps.which.outputs.slice == 'energy' || steps.which.outputs.slice == 'both'
         run: python scripts/update_uk_energy_v2.py
       - name: Run V2 price slice
-        if: github.event.inputs.slice == 'price' || github.event.inputs.slice == 'both'
-        run: FORCE_UK_PRICE=1 python scripts/update_uk_price_v2.py
+        if: steps.which.outputs.slice == 'price' || steps.which.outputs.slice == 'both'
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            FORCE_UK_PRICE=1 python scripts/update_uk_price_v2.py
+          else
+            python scripts/update_uk_price_v2.py
+          fi
       - name: Commit V2 grid feeds
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
+          set -e
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
           git add uk_energy_tracking_v2/live_grid_energy.json uk_energy_tracking_v2/live_grid_price.json
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated UK grid update V2 (${{ github.event.inputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "Automated UK grid update V2 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No V2 grid feed changes to commit"

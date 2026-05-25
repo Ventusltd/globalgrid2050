@@ -516,6 +516,7 @@
 │   ├── add_v8_bess_geospatial_layout_drawing.py
 │   ├── build_v8_bess_gis_sld_financial_sandbox.py
 │   ├── clone_uk_energy_tracking_v2.py
+│   ├── clone_uk_energy_tracking_v2_to_v3.py
 │   ├── clone_v3_to_v4.py
 │   ├── clone_v4_to_v5.py
 │   ├── create_v8_bess_electrical_topology_review.py
@@ -928,7 +929,9 @@
 │   ├── live_uk_fuel_prices.json
 │   └── oil_price_history.geojson
 ├── uk_energy_tracking_v2
+│   ├── AI_RELOAD_INSTRUCTIONS.md
 │   ├── README.md
+│   ├── WORK_DIARY.md
 │   ├── ev_charging_prices.json
 │   ├── index.md
 │   ├── live_grid_energy.json
@@ -953,4 +956,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-123 directories, 831 files
+123 directories, 834 files

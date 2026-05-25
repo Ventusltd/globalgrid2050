@@ -1,0 +1,41 @@
+name: document_uk_energy_trackers
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  document-trackers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate tracker diagnostics
+        run: python scripts/document_uk_energy_trackers.py
+
+      - name: Commit diagnostic notes
+        run: |
+          git config --global user.name "GridBot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add uk_energy_tracking/DIAGNOSTIC_NOTES.md
+          git add uk_energy_tracking_v2/DIAGNOSTIC_NOTES.md
+          git add UK_ENERGY_TRACKER_COMPARISON.md
+          git add gridbot_reports/document_uk_energy_trackers.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "docs: Generate UK energy tracker diagnostics via GridBot"
+            git push
+          else
+            echo "No documentation changes detected"
+          fi

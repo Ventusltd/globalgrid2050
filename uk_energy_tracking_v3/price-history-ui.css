@@ -1,117 +1,206 @@
-.price-history-grid {
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-  margin-top:12px;
+#electricity-price-history-panel,
+#electricity-price-history-panel * {
+  box-sizing: border-box;
 }
-.price-history-card {
-  border:1px solid var(--gg-line);
-  background:var(--gg-panel);
-  border-radius:6px;
-  padding:12px;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+
+#electricity-price-history-panel {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
-.price-history-label {
-  color:var(--gg-muted);
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font-size:10px;
+
+#electricity-price-history-panel .trend-panel {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background: #070a10 !important;
+  border: 1px solid #252b36 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 0 22px rgba(0,255,255,.05);
 }
-.price-history-value {
-  color:var(--gg-cyan);
-  font-size:18px;
-  font-weight:800;
-  margin-top:5px;
+
+#electricity-price-history-panel .price-history-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
 }
-#price-history-canvas {
-  width:100%;
-  height:240px;
-  display:block;
-  border:1px solid var(--gg-line);
-  background:#070a10;
-  border-radius:6px;
-  touch-action:none;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+
+#electricity-price-history-panel .price-history-actions strong {
+  color: #00ffff !important;
+  letter-spacing: .12em;
+  text-transform: uppercase;
 }
-.price-history-table-wrap {
-  overflow-x:auto;
-  overflow-y:auto;
-  border:1px solid var(--gg-line);
-  border-radius:6px;
-  margin-top:12px;
-  max-height:260px;
-  background:var(--gg-panel) !important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+
+#electricity-price-history-panel .price-history-actions select {
+  background: #050505 !important;
+  color: #00ffff !important;
+  border: 1px solid #252b36 !important;
+  border-radius: 4px;
+  padding: 7px 9px;
+  font-family: "Courier New", monospace;
 }
-.price-history-table {
-  width:100%;
-  min-width:680px;
-  border-collapse:collapse;
-  font-size:12px;
-  color:var(--gg-text) !important;
-  background:var(--gg-panel) !important;
+
+#electricity-price-history-panel .price-history-actions a {
+  border: 1px solid #252b36 !important;
+  border-radius: 4px;
+  padding: 7px 9px;
+  color: #7fdfff !important;
+  text-decoration: none !important;
+  background: rgba(255,255,255,.03) !important;
 }
-.price-history-table th,
-.price-history-table td {
-  border-bottom:1px solid var(--gg-line) !important;
-  border-right:1px solid rgba(255,255,255,.04) !important;
-  padding:9px 10px;
-  text-align:left;
-  white-space:nowrap;
-  background:var(--gg-panel) !important;
+
+#electricity-price-history-panel #price-history-canvas {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: clamp(190px, 32vw, 300px) !important;
+  display: block;
+  border: 1px solid #252b36 !important;
+  background: #05070c !important;
+  border-radius: 6px;
+  touch-action: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
 }
-.price-history-table td {
-  color:var(--gg-text) !important;
+
+#electricity-price-history-panel .price-history-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 10px;
+  margin-top: 12px;
 }
-.price-history-table tr:nth-child(even) td {
-  background:#0f1520 !important;
+
+#electricity-price-history-panel .price-history-card {
+  border: 1px solid #252b36 !important;
+  background: #0b0f17 !important;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
 }
-.price-history-table th {
-  color:var(--gg-cyan) !important;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  background:#080c13 !important;
-  position:sticky;
-  top:0;
-  z-index:2;
+
+#electricity-price-history-panel .price-history-label {
+  color: #9aa3b6 !important;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: 10px;
 }
-.price-history-table td:nth-child(2) {
-  color:var(--gg-cyan) !important;
-  font-weight:800;
+
+#electricity-price-history-panel .price-history-value {
+  color: #00ffff !important;
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 5px;
 }
-.price-history-table td:nth-child(4) {
-  color:var(--gg-muted) !important;
+
+#electricity-price-history-panel .price-history-table-toggle {
+  margin-top: 12px;
+  border: 1px solid #252b36 !important;
+  border-radius: 6px;
+  background: #0b0f17 !important;
+  overflow: hidden;
 }
-.price-history-actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  align-items:center;
-  margin-bottom:10px;
+
+#electricity-price-history-panel .price-history-table-toggle summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 12px;
+  color: #00ffff !important;
+  background: #05070c !important;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 11px;
+  border-bottom: 1px solid #252b36 !important;
 }
-.price-history-actions select {
-  background:#050505;
-  color:var(--gg-cyan);
-  border:1px solid var(--gg-line);
-  border-radius:4px;
-  padding:7px 9px;
-  font-family:"Courier New", monospace;
+
+#electricity-price-history-panel .price-history-table-toggle summary::-webkit-details-marker {
+  display: none;
 }
-.price-history-actions a {
-  border:1px solid var(--gg-line);
-  border-radius:4px;
-  padding:7px 9px;
-  color:#7fdfff;
-  text-decoration:none;
-  background:rgba(255,255,255,.03);
+
+#electricity-price-history-panel .price-history-table-toggle summary::after {
+  content: "Open";
+  float: right;
+  color: #9aa3b6;
+  letter-spacing: .08em;
 }
-@media (max-width:850px) {
-  .price-history-grid { grid-template-columns:1fr 1fr; }
-  #price-history-canvas { height:220px; }
-  .price-history-table { font-size:11px; min-width:620px; }
+
+#electricity-price-history-panel .price-history-table-toggle[open] summary::after {
+  content: "Close";
 }
-@media (max-width:560px) {
-  .price-history-grid { grid-template-columns:1fr; }
-  .price-history-value { font-size:22px; }
-  #price-history-canvas { height:210px; }
+
+#electricity-price-history-panel .price-history-table-wrap {
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 0 !important;
+  border-radius: 0;
+  margin-top: 0;
+  max-height: 260px;
+  background: #070a10 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+}
+
+#electricity-price-history-panel table.price-history-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 12px;
+  color: #f5f7fb !important;
+  background: #070a10 !important;
+  font-family: "Courier New", monospace;
+}
+
+#electricity-price-history-panel table.price-history-table thead,
+#electricity-price-history-panel table.price-history-table tbody,
+#electricity-price-history-panel table.price-history-table tr {
+  background: transparent !important;
+}
+
+#electricity-price-history-panel table.price-history-table th,
+#electricity-price-history-panel table.price-history-table td {
+  border: 0 !important;
+  border-bottom: 1px solid #252b36 !important;
+  border-right: 1px solid rgba(255,255,255,.045) !important;
+  padding: 9px 10px;
+  text-align: left;
+  white-space: nowrap;
+  background: #0b0f17 !important;
+  color: #f5f7fb !important;
+}
+
+#electricity-price-history-panel table.price-history-table tbody tr:nth-child(even) td {
+  background: #0f1520 !important;
+}
+
+#electricity-price-history-panel table.price-history-table tbody tr:hover td {
+  background: #111b29 !important;
+}
+
+#electricity-price-history-panel table.price-history-table th {
+  color: #00ffff !important;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: #05070c !important;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+#electricity-price-history-panel table.price-history-table td:nth-child(2) {
+  color: #00ffff !important;
+  font-weight: 800;
+}
+
+#electricity-price-history-panel table.price-history-table td:nth-child(4) {
+  color: #9aa3b6 !important;
+}
+
+@media (max-width: 850px) {
+  #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr 1fr; }
+  #electricity-price-history-panel #price-history-canvas { height: 220px !important; }
+  #electricity-price-history-panel table.price-history-table { font-size: 11px; min-width: 620px; }
+}
+
+@media (max-width: 560px) {
+  #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr; }
+  #electricity-price-history-panel .price-history-value { font-size: 22px; }
+  #electricity-price-history-panel #price-history-canvas { height: 210px !important; }
 }

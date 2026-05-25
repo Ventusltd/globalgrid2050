@@ -4,6 +4,7 @@ title: UK Live Grid Tracker V3
 permalink: /uk_energy_tracking_v3/
 ---
 
+<link rel="stylesheet" href="/uk_energy_tracking_v3/price-history-ui.css">
 <style>
 :root {
   --gg-bg: #050505;
@@ -85,7 +86,6 @@ a { color: #7fdfff; }
 .scada-credit h2 { color:var(--gg-cyan); font-size:20px; letter-spacing:.06em; text-transform:uppercase; }
 .section-title { color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-size:22px;margin-top:26px; }
 @media (max-width: 850px) { .scada-gauges, .scada-mix-grid, .commodity-grid, .pump-grid { grid-template-columns:1fr; } .scada-gauge-card { min-height:190px; } }
-@import url('/uk_energy_tracking_v3/price-history-ui.css');
 </style>
 
 <div class="scada-grid" id="scada-grid">
@@ -142,12 +142,15 @@ a { color: #7fdfff; }
         <div class="price-history-card"><div class="price-history-label">Records retained</div><div class="price-history-value" id="ph-row-count">—</div></div>
         <div class="price-history-card"><div class="price-history-label">Source</div><div class="price-history-value" style="font-size:13px;" id="ph-source">Elexon BMRS</div></div>
       </div>
-      <div class="price-history-table-wrap">
-        <table class="price-history-table">
-          <thead><tr><th>Settlement time</th><th>Price GBP/MWh</th><th>Captured UTC</th><th>Carbon g/kWh</th></tr></thead>
-          <tbody id="price-history-table-body"><tr><td colspan="4">Awaiting captured price history.</td></tr></tbody>
-        </table>
-      </div>
+      <details class="price-history-table-toggle">
+        <summary>Captured records table</summary>
+        <div class="price-history-table-wrap">
+          <table class="price-history-table">
+            <thead><tr><th>Settlement time</th><th>Price GBP/MWh</th><th>Captured UTC</th><th>Carbon g/kWh</th></tr></thead>
+            <tbody id="price-history-table-body"><tr><td colspan="4">Awaiting captured price history.</td></tr></tbody>
+          </table>
+        </div>
+      </details>
     </div>
   </section>
 

@@ -447,3 +447,48 @@ uk_energy_tracking/live_grid_price.json
 ```
 
 V3 remains the controlled test bed. Vikram reviews and approves promotion only after the V3 feature works cleanly.
+
+## Diary entry: 2026-05-25 V3 price history table dark UI patch
+
+Purpose:
+
+```text
+repair the electricity price history table UI on mobile and desktop
+keep the V3 development tracker isolated
+avoid touching the stable tracker
+```
+
+Issue observed:
+
+```text
+The V3 price history table rendered with a white table background while the rest of the SCADA page remained dark.
+The graph also risked overflowing on mobile if the external stylesheet was not loaded properly.
+The table made the page visually heavy because it exposed raw records directly under the graph.
+```
+
+Patch method:
+
+```text
+remove the late CSS import from the inline style block
+insert a normal stylesheet link for /uk_energy_tracking_v3/price-history-ui.css
+rewrite the price history CSS with scoped high specificity rules under #electricity-price-history-panel
+force dark table background, dark rows, cyan headings and readable body text
+make the chart width responsive so it fits inside the page container
+move the raw records table inside a closed details dropdown by default
+retain CSV download for full data review
+```
+
+Files intentionally changed by GridBot workflow:
+
+```text
+uk_energy_tracking_v3/index.md
+uk_energy_tracking_v3/price-history-ui.css
+uk_energy_tracking_v3/WORK_DIARY.md
+```
+
+Stable tracker rule:
+
+```text
+No changes to uk_energy_tracking/.
+```
+

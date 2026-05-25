@@ -41,6 +41,9 @@
 │   └── registry.yaml
 ├── conversions.md
 ├── copper_and_aluminium_prices_historic_trends.md
+├── data
+│   └── electricity
+│       └── elexon_system_prices_half_hourly.csv
 ├── datacentres.geojson
 ├── dc_cables_knowledge
 │   └── index.md
@@ -980,4 +983,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-124 directories, 857 files
+126 directories, 858 files

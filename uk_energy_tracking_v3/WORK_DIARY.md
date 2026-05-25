@@ -156,9 +156,10 @@ cron: 30 5 * * *
 Documentation workflow:
 
 ```text
-.github/workflows/document_uk_energy_trackers.yml
-manual only
+document_uk_energy_trackers.yml
 ```
+
+manual only
 
 ### Current interpretation
 
@@ -232,7 +233,7 @@ Transport energy dashboard section
 DESNZ fuel logic placeholders
 fuel duty and VAT links
 EV charging placeholder cards
-Atlas V8 EV reference embed
+Atlas V8 reference embed
 oil chart UI improvements
 ```
 
@@ -547,3 +548,172 @@ support wheel zoom, drag pan, reset and close
 use canvas redraw with requestAnimationFrame and GPU friendly CSS compositing hints
 ```
 
+## Diary entry: 2026-05-26 post patch review of V3 price history UI
+
+### Files reviewed
+
+```text
+uk_energy_tracking_v3/index.md
+uk_energy_tracking_v3/price-history-ui.js
+uk_energy_tracking_v3/price-history-ui.css
+uk_energy_tracking_v3/price-history-fullscreen.js
+uk_energy_tracking_v3/electricity_price_history.json
+```
+
+### Current confirmed state
+
+The V3 page now has the external stylesheet link for:
+
+```text
+/uk_energy_tracking_v3/price-history-ui.css
+```
+
+The old late CSS import inside the inline style block has been removed. This is important because late CSS imports inside populated style blocks can be ignored by browsers or lose ordering against site theme rules.
+
+The electricity price history panel now includes:
+
+```text
+24 hours
+7 days
+30 days
+3 months
+6 months
+12 months
+10 years
+All captured data
+```
+
+The raw captured records table is now inside a closed dropdown using:
+
+```text
+<details class="price-history-table-toggle">
+```
+
+The table now has 5 aligned columns:
+
+```text
+Settlement time
+Price GBP/MWh
+Settlement period
+Captured UTC
+Carbon / health
+```
+
+The main price history script now treats:
+
+```text
+/uk_energy_tracking_v3/electricity_price_history.json
+```
+
+as the active captured history source. The future CSV feed is explicitly disabled through:
+
+```text
+var ENABLE_CSV_FEED = false;
+```
+
+This means V3 is no longer silently requesting a missing CSV path during normal chart operation.
+
+### Current data logic
+
+The live price remains separate from the captured historical record.
+
+```text
+live_grid_price.json
+```
+
+is the latest live Elexon market price layer.
+
+```text
+electricity_price_history.json
+electricity_price_history.csv
+```
+
+are the V3 captured evidence trail built from observed values over time.
+
+This distinction must remain. The graph and dropdown table are history views. The main gauge is the live value view.
+
+### Correctness improvements now in place
+
+The chart now positions points using timestamp spacing rather than row index spacing. This matters because a 4 hour capture gap and a 1 hour capture gap should not appear equally wide on the x axis.
+
+The range selector no longer silently falls back to all history when a selected range has no values. It now shows an empty state for the selected range.
+
+The dropdown table now renders all rows in the selected range, newest first. This allows the user to scroll back as far as the retained data goes when All captured data is selected.
+
+The canvas backing size now follows the displayed CSS size, reducing blur and avoiding the previous mismatch between CSS height and JavaScript height.
+
+### Full screen chart review
+
+The full screen chart patch has added:
+
+```text
+Full screen chart button
+full screen overlay
+large canvas
+wheel zoom
+button zoom
+reset view
+drag pan
+Esc close
+```
+
+The chart loads the same V3 captured JSON file and applies the currently selected range before opening. This means the main selector still governs the full screen view.
+
+The full screen chart is still a 2D canvas implementation. It uses requestAnimationFrame during pan and CSS compositing hints such as translateZ and will-change, but it is not a true WebGL or MapLibre style GPU chart. That distinction is important for future design.
+
+### Limitations observed
+
+The full screen JavaScript is compact and functional but not as readable as the main V3 script. A later maintenance patch should unminify it into a cleaner form before adding more features.
+
+The current full screen zoom does not clamp panning to the first and last retained timestamps. This means the user may pan beyond the available data range and see an empty or sparse view. This is acceptable for a prototype but should be tightened later.
+
+The current full screen chart does not yet support pinch distance zoom with 2 simultaneous touch points. It supports wheel zoom and pointer drag, which is sufficient for desktop testing.
+
+The current full screen chart has no tooltip or nearest point inspector. For validation work, the next useful chart feature is a cursor readout showing timestamp, price, settlement period and captured time.
+
+The full screen chart does not yet downsample very large retained records. This is fine for the current small V3 captured dataset, but a 12 month or 10 year half hourly record will require level of detail or sampling logic.
+
+### Next recommended technical patch
+
+Do not add more visual features before hardening the V3 automation path.
+
+The next recommended patch should be:
+
+```text
+V3 workflow hardening patch
+```
+
+Target files should be limited to:
+
+```text
+.github/workflows/fetch_uk_energy_and_prices_v2.yml
+scripts/update_uk_energy_v2.py
+scripts/update_uk_price_v2.py
+```
+
+Only include script changes if needed after inspection. If the issue is purely GitHub orchestration, patch only the workflow.
+
+The workflow hardening should:
+
+```text
+keep V3 offset from stable
+use explicit concurrency for main writing
+stage only V3 JSON and price history output files
+avoid broad git add commands
+pull with rebase before pushing
+retry push on failure
+avoid documentation updates in the live data path
+preserve live and captured history separation
+```
+
+### Standing rule after this review
+
+The current V3 price history UI should now be treated as a working prototype layer. Further development should be split into 3 separate future tracks:
+
+```text
+workflow reliability
+chart inspection features
+future official historical Elexon feed
+```
+
+Do not mix those tracks into 1 patch.

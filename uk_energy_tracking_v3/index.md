@@ -85,11 +85,12 @@ a { color: #7fdfff; }
 .scada-credit h2 { color:var(--gg-cyan); font-size:20px; letter-spacing:.06em; text-transform:uppercase; }
 .section-title { color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-size:22px;margin-top:26px; }
 @media (max-width: 850px) { .scada-gauges, .scada-mix-grid, .commodity-grid, .pump-grid { grid-template-columns:1fr; } .scada-gauge-card { min-height:190px; } }
+@import url('/uk_energy_tracking_v3/price-history-ui.css');
 </style>
 
 <div class="scada-grid" id="scada-grid">
   <header class="scada-hero">
-    <div class="scada-subtitle">UK LIVE GRID TRACKER V2</div>
+    <div class="scada-subtitle">UK LIVE GRID TRACKER V3</div>
     <div class="scada-live-row">
       <div class="scada-live-pill"><span class="scada-live-dot"></span>LIVE GRID SOURCE</div>
       <div class="scada-update-panel">
@@ -100,7 +101,7 @@ a { color: #7fdfff; }
     </div>
   </header>
 
-  <p class="scada-intro" style="border:1px solid var(--gg-orange);padding:10px 12px;border-radius:4px;color:var(--gg-orange);">V3 experimental clone. Original tracker remains protected at /uk_energy_tracking/. This page uses isolated V2 feeds for development and transport energy testing.</p>
+  <p class="scada-intro" style="border:1px solid var(--gg-orange);padding:10px 12px;border-radius:4px;color:var(--gg-orange);">V3 experimental clone. Original tracker remains protected at /uk_energy_tracking/. This page uses isolated V3 feeds for development and transport energy testing.</p>
 
   <p class="scada-intro">Near-real-time GB electricity demand, market price, carbon intensity and generation mix. Generation mix refreshes every 5 minutes; price and carbon update every half hour at their native cadence. Commodity prices update daily through GridBot.</p>
 
@@ -108,6 +109,41 @@ a { color: #7fdfff; }
     <div class="scada-gauge-card"><div class="scada-gauge-title">Electricity Demand</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="demand"></svg></div>
     <div class="scada-gauge-card"><div class="scada-gauge-title">Electricity Price</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="price"></svg></div>
     <div class="scada-gauge-card"><div class="scada-gauge-title">Carbon Intensity</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="carbon"></svg></div>
+  </section>
+
+
+
+  <section id="electricity-price-history-panel">
+    <h2 class="section-title">Electricity Price History</h2>
+    <div class="trend-panel">
+      <div class="price-history-actions">
+        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Captured Market Index Price</strong>
+        <select id="price-history-range">
+          <option value="24h">24 hours</option>
+          <option value="7d" selected>7 days</option>
+          <option value="30d">30 days</option>
+          <option value="3m">3 months</option>
+          <option value="6m">6 months</option>
+          <option value="12m">12 months</option>
+          <option value="10y">10 years</option>
+        </select>
+        <a href="/uk_energy_tracking_v3/electricity_price_history.csv" download>Download CSV</a>
+      </div>
+      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Independently captured from Elexon BMRS Market Index values.</div>
+      <canvas id="price-history-canvas" width="900" height="300"></canvas>
+      <div class="price-history-grid">
+        <div class="price-history-card"><div class="price-history-label">Latest price</div><div class="price-history-value" id="ph-latest-price">—</div></div>
+        <div class="price-history-card"><div class="price-history-label">Settlement time</div><div class="price-history-value" id="ph-latest-time">—</div></div>
+        <div class="price-history-card"><div class="price-history-label">Records retained</div><div class="price-history-value" id="ph-row-count">—</div></div>
+        <div class="price-history-card"><div class="price-history-label">Source</div><div class="price-history-value" style="font-size:13px;" id="ph-source">Elexon BMRS</div></div>
+      </div>
+      <div class="price-history-table-wrap">
+        <table class="price-history-table">
+          <thead><tr><th>Settlement time</th><th>Price GBP/MWh</th><th>Captured UTC</th><th>Carbon g/kWh</th></tr></thead>
+          <tbody id="price-history-table-body"><tr><td colspan="4">Awaiting captured price history.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -182,6 +218,7 @@ a { color: #7fdfff; }
     <p>Indicative near-real-time values for screening and situational awareness only. No representation is made that the data is accurate or complete.</p>
   </section>
 </div>
+<script src='/uk_energy_tracking_v3/price-history-ui.js'></script>
 
 <script>
 (function(){

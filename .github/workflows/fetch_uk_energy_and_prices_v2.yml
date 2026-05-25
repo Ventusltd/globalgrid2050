@@ -2,7 +2,7 @@ name: fetch_uk_energy_and_prices_v2
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '2-59/5 * * * *'
   workflow_dispatch:
     inputs:
       slice:
@@ -60,6 +60,7 @@ jobs:
           git add uk_energy_tracking_v2/live_grid_energy.json uk_energy_tracking_v2/live_grid_price.json
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated UK grid update V2 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
             echo "No V2 grid feed changes to commit"

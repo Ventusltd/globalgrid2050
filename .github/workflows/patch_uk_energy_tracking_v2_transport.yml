@@ -1,0 +1,42 @@
+name: patch_uk_energy_tracking_v2_transport
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Apply V2 transport patch
+        run: python scripts/patch_uk_energy_tracking_v2_transport.py
+
+      - name: Commit V2 transport changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v2
+          git add scripts/patch_uk_energy_tracking_v2_transport.py
+          git add gridbot_reports/patch_uk_energy_tracking_v2_transport.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Patch UK energy tracking V2 transport layer"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V2 transport changes to commit"
+          fi

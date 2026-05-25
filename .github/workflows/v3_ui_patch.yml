@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Apply V3 UI patch
         run: python scripts/patch_v3_price_history_ui.py
@@ -33,14 +33,10 @@ jobs:
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
 
-          git add \
-            uk_energy_tracking_v3/index.md \
-            uk_energy_tracking_v3/price-history-ui.css \
-            uk_energy_tracking_v3/price-history-ui.js \
-            scripts/patch_v3_price_history_ui.py
+          git add uk_energy_tracking_v3/index.md uk_energy_tracking_v3/price-history-ui.css uk_energy_tracking_v3/price-history-ui.js scripts/patch_v3_price_history_ui.py
 
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Run V3 UI patch: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "Run V3 UI patch"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else

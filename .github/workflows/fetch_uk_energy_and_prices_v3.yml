@@ -50,18 +50,22 @@ jobs:
           else
             python scripts/update_uk_price_v3.py
           fi
-      - name: Commit V3 grid feeds
+      - name: Commit V3 grid feeds and price history
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
           set -e
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add uk_energy_tracking_v3/live_grid_energy.json uk_energy_tracking_v3/live_grid_price.json
+          git add \
+            uk_energy_tracking_v3/live_grid_energy.json \
+            uk_energy_tracking_v3/live_grid_price.json \
+            uk_energy_tracking_v3/electricity_price_history.csv \
+            uk_energy_tracking_v3/electricity_price_history.json
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated UK grid update V3 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
-            echo "No V3 grid feed changes to commit"
+            echo "No V3 grid feed or price history changes to commit"
           fi

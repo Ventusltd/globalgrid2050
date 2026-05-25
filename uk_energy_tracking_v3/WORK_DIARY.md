@@ -352,3 +352,98 @@ last 7 days half hourly table
 native one year price graph building from captured data only
 no fake backfill
 ```
+
+## Diary entry: 2026-05-25 16:46 IST tracker comparison and V3 production focus
+
+### Comparison reviewed
+
+The current tracker family is now understood as three related but separate layers.
+
+Stable production tracker:
+
+```text
+uk_energy_tracking/
+https://globalgrid2050.com/uk_energy_tracking/
+```
+
+This is the protected live reference. It contains the working SCADA style public grid tracker with electricity demand, electricity price, carbon intensity, generation mix, commodity price signals, oil trend and basic UK pump price cards. It should remain the correction and recovery source and should not be used for experimental development.
+
+V2 tracker:
+
+```text
+uk_energy_tracking_v2/
+https://globalgrid2050.com/uk_energy_tracking_v2/
+```
+
+This is the earlier isolated transport energy development twin. It already established the rule that the stable tracker must not be touched while DESNZ road fuel prices, petrol and diesel cards, Brent crude to pump price logic, fuel duty, VAT links, EV charging tariff comparison and Atlas V8 reference work are developed.
+
+V3 tracker:
+
+```text
+uk_energy_tracking_v3/
+https://globalgrid2050.com/uk_energy_tracking_v3/
+```
+
+This is now the current production focus for experimental development. V3 inherits the protected twin logic from V2 but becomes the main diary led build for price history, graphing, diagnostics, competitor tracking comparison and independent validation of electricity price accuracy.
+
+### Current production focus
+
+V3 should become the active proving layer for live electricity price validation while the stable tracker remains untouched.
+
+The priority is no longer only showing the latest live electricity price. The system now needs to retain the live price with a timestamp, place each captured value into a structured history table and then create graphable records that can be reviewed over time.
+
+### Required next feature
+
+Create a V3 only electricity price history system.
+
+The feature should:
+
+```text
+capture the live electricity price
+capture the exact timestamp of each price value
+write each timestamped value into a structured table
+make the table downloadable or exportable as an Excel compatible file
+create a graph of the captured electricity price history
+add a dropdown selector for time ranges
+track at least 12 months of price history
+support independent validation of live electricity price accuracy
+avoid fake historical backfill
+build the 12 month record only from captured data going forward
+keep the stable tracker untouched
+```
+
+### Suggested file direction
+
+Potential V3 only files:
+
+```text
+uk_energy_tracking_v3/electricity_price_history.csv
+uk_energy_tracking_v3/electricity_price_history.json
+uk_energy_tracking_v3/electricity_price_history.xlsx or Excel compatible CSV export
+```
+
+Potential UI additions inside V3 only:
+
+```text
+electricity price history graph
+range dropdown: 24 hours, 7 days, 30 days, 3 months, 6 months, 12 months
+price history table with timestamp, price, source timestamp and update timestamp
+Excel download link
+validation note explaining that the record is independently accumulated from live captured values
+```
+
+### Validation purpose
+
+The purpose is to independently validate the accuracy and behaviour of the electricity price feed over time. Each live value must be traceable to its timestamp. The table and graph should make it possible to compare displayed values, captured values and later external reference values.
+
+### Operating rule
+
+Patch only V3. Do not touch:
+
+```text
+uk_energy_tracking/index.md
+uk_energy_tracking/live_grid_energy.json
+uk_energy_tracking/live_grid_price.json
+```
+
+V3 remains the controlled test bed. Vikram reviews and approves promotion only after the V3 feature works cleanly.

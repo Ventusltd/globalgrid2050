@@ -1,12 +1,72 @@
 .price-history-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:10px; }
 .price-history-card { border:1px solid var(--gg-line); background:rgba(255,255,255,.03); border-radius:4px; padding:10px; }
 .price-history-label { color:var(--gg-muted); text-transform:uppercase; letter-spacing:.12em; font-size:10px; }
-.price-history-value { color:var(--gg-magenta); font-size:18px; font-weight:800; margin-top:5px; }
-#price-history-canvas { width:100%; height:300px; display:block; border:1px solid rgba(255,255,255,.05); background:#070a10; touch-action:none; }
-.price-history-table-wrap { overflow:auto; border:1px solid var(--gg-line); border-radius:6px; margin-top:10px; max-height:260px; }
-.price-history-table { width:100%; border-collapse:collapse; font-size:12px; }
-.price-history-table th, .price-history-table td { border-bottom:1px solid var(--gg-line); padding:7px 8px; text-align:left; white-space:nowrap; }
-.price-history-table th { color:var(--gg-cyan); text-transform:uppercase; letter-spacing:.08em; background:#080c13; position:sticky; top:0; }
-.price-history-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:10px; }
-.price-history-actions a { border:1px solid var(--gg-line); border-radius:4px; padding:7px 9px; color:#7fdfff; text-decoration:none; }
-@media (max-width:850px) { .price-history-grid { grid-template-columns:1fr 1fr; } }
+.price-history-value { color:#ffffff; font-size:18px; font-weight:800; margin-top:5px; }
+#price-history-canvas {
+  width:100%;
+  height:300px;
+  display:block;
+  border:1px solid rgba(255,255,255,.08);
+  background:#02040a;
+  border-radius:6px;
+  touch-action:none;
+}
+.price-history-table-wrap {
+  overflow:auto;
+  border:1px solid var(--gg-line);
+  border-radius:6px;
+  margin-top:10px;
+  max-height:260px;
+  background:#060912;
+}
+.price-history-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+  color:#e8eefc;
+}
+.price-history-table th,
+.price-history-table td {
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:9px 8px;
+  text-align:left;
+  white-space:nowrap;
+}
+.price-history-table td {
+  color:#f5f7fb;
+  background:#050811;
+}
+.price-history-table tr:nth-child(even) td {
+  background:#0a0f1b;
+}
+.price-history-table th {
+  color:var(--gg-cyan);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  background:#080c13;
+  position:sticky;
+  top:0;
+}
+.price-history-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-bottom:10px;
+}
+.price-history-actions a {
+  border:1px solid var(--gg-line);
+  border-radius:4px;
+  padding:7px 9px;
+  color:#7fdfff;
+  text-decoration:none;
+}
+@media (max-width:850px) {
+  .price-history-grid { grid-template-columns:1fr 1fr; }
+  #price-history-canvas { height:260px; }
+  .price-history-table { font-size:11px; }
+}
+@media (max-width:560px) {
+  .price-history-grid { grid-template-columns:1fr; }
+  .price-history-value { font-size:22px; }
+}

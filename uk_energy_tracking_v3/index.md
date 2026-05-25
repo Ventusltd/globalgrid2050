@@ -131,6 +131,7 @@ a { color: #7fdfff; }
           <option value="6m">6 months</option>
           <option value="12m">12 months</option>
           <option value="10y">10 years</option>
+          <option value="all">All captured data</option>
         </select>
         <a href="/uk_energy_tracking_v3/electricity_price_history.csv" download>Download CSV</a>
       </div>
@@ -146,8 +147,8 @@ a { color: #7fdfff; }
         <summary>Captured records table</summary>
         <div class="price-history-table-wrap">
           <table class="price-history-table">
-            <thead><tr><th>Settlement time</th><th>Price GBP/MWh</th><th>Captured UTC</th><th>Carbon g/kWh</th></tr></thead>
-            <tbody id="price-history-table-body"><tr><td colspan="4">Awaiting captured price history.</td></tr></tbody>
+            <thead><tr><th>Settlement time</th><th>Price GBP/MWh</th><th>Settlement period</th><th>Captured UTC</th><th>Carbon / health</th></tr></thead>
+            <tbody id="price-history-table-body"><tr><td colspan="5">Awaiting captured price history.</td></tr></tbody>
           </table>
         </div>
       </details>

@@ -53,7 +53,7 @@
 #electricity-price-history-panel #price-history-canvas {
   width: 100% !important;
   max-width: 100% !important;
-  height: clamp(190px, 32vw, 300px) !important;
+  height: clamp(200px, 32vw, 320px) !important;
   display: block;
   border: 1px solid #252b36 !important;
   background: #05070c !important;
@@ -74,6 +74,7 @@
   background: #0b0f17 !important;
   border-radius: 6px;
   padding: 12px;
+  min-width: 0;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
 }
 
@@ -89,6 +90,7 @@
   font-size: 18px;
   font-weight: 800;
   margin-top: 5px;
+  overflow-wrap: anywhere;
 }
 
 #electricity-price-history-panel .price-history-table-toggle {
@@ -132,14 +134,15 @@
   border: 0 !important;
   border-radius: 0;
   margin-top: 0;
-  max-height: 260px;
+  max-height: 320px;
+  max-width: 100%;
   background: #070a10 !important;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
 }
 
 #electricity-price-history-panel table.price-history-table {
   width: 100%;
-  min-width: 680px;
+  min-width: 760px;
   border-collapse: collapse;
   border-spacing: 0;
   font-size: 12px;
@@ -189,18 +192,18 @@
   font-weight: 800;
 }
 
-#electricity-price-history-panel table.price-history-table td:nth-child(4) {
+#electricity-price-history-panel table.price-history-table td:nth-child(5) {
   color: #9aa3b6 !important;
 }
 
 @media (max-width: 850px) {
   #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr 1fr; }
   #electricity-price-history-panel #price-history-canvas { height: 220px !important; }
-  #electricity-price-history-panel table.price-history-table { font-size: 11px; min-width: 620px; }
+  #electricity-price-history-panel table.price-history-table { font-size: 11px; min-width: 700px; }
 }
 
 @media (max-width: 560px) {
   #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr; }
   #electricity-price-history-panel .price-history-value { font-size: 22px; }
-  #electricity-price-history-panel #price-history-canvas { height: 210px !important; }
+  #electricity-price-history-panel #price-history-canvas { height: 205px !important; }
 }

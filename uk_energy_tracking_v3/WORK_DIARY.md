@@ -492,3 +492,40 @@ Stable tracker rule:
 No changes to uk_energy_tracking/.
 ```
 
+## Diary entry: 2026-05-25 V3 price history correctness patch
+
+Purpose:
+
+```text
+correct V3 price history graph and table behaviour without touching the stable tracker
+```
+
+Patch method:
+
+```text
+keep /uk_energy_tracking_v3/electricity_price_history.json as the active captured history source
+disable the planned future CSV feed until deliberately built
+add an All captured data range option
+make the graph use timestamp based x axis spacing
+show no data in selected range instead of silently falling back to all data
+render all rows in the selected range inside the dropdown table, newest first
+align the table to 5 columns: settlement time, price, settlement period, captured UTC and carbon or health
+make canvas sizing responsive to the displayed CSS size
+scope all table and chart CSS under #electricity-price-history-panel
+```
+
+Files intentionally changed by GridBot workflow:
+
+```text
+uk_energy_tracking_v3/index.md
+uk_energy_tracking_v3/price-history-ui.js
+uk_energy_tracking_v3/price-history-ui.css
+uk_energy_tracking_v3/WORK_DIARY.md
+```
+
+Stable tracker rule:
+
+```text
+No changes to uk_energy_tracking/.
+```
+

@@ -141,6 +141,7 @@
 │   ├── add_v7_gis_sld_site_intelligence_panel.md
 │   ├── add_v8_bess_geospatial_layout_drawing.md
 │   ├── build_v8_bess_gis_sld_financial_sandbox.md
+│   ├── clone_uk_energy_tracking_v2_to_v3.md
 │   ├── create_v8_bess_electrical_topology_review.md
 │   ├── create_v8_bess_pcs_standalone.md
 │   ├── fix_uk_renewables_pipeline_csv_export.md
@@ -587,14 +588,18 @@
 │   ├── update_metal_trends.py
 │   ├── update_oil_prices.py
 │   ├── update_oil_prices_v2.py
+│   ├── update_oil_prices_v3.py
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
 │   ├── update_uk_energy.py
 │   ├── update_uk_energy_v2.py
+│   ├── update_uk_energy_v3.py
 │   ├── update_uk_fuel_prices.py
 │   ├── update_uk_fuel_prices_v2.py
+│   ├── update_uk_fuel_prices_v3.py
 │   ├── update_uk_price.py
 │   ├── update_uk_price_v2.py
+│   ├── update_uk_price_v3.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
 │   ├── v2_safe_patch.py
@@ -939,6 +944,17 @@
 │   ├── live_oil_prices.json
 │   ├── live_uk_fuel_prices.json
 │   └── oil_price_history.geojson
+├── uk_energy_tracking_v3
+│   ├── AI_RELOAD_INSTRUCTIONS.md
+│   ├── README.md
+│   ├── WORK_DIARY.md
+│   ├── ev_charging_prices.json
+│   ├── index.md
+│   ├── live_grid_energy.json
+│   ├── live_grid_price.json
+│   ├── live_oil_prices.json
+│   ├── live_uk_fuel_prices.json
+│   └── oil_price_history.geojson
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -956,4 +972,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-123 directories, 834 files
+124 directories, 849 files

@@ -1,0 +1,44 @@
+name: force_uk_energy_tracking_v3_price_history
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-energy-tracking-v3-price-history
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Force V3 price history capture
+        run: FORCE_UK_PRICE=1 python scripts/update_uk_price_v3.py
+      - name: Commit V3 price history
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add \
+            uk_energy_tracking_v3/live_grid_price.json \
+            uk_energy_tracking_v3/electricity_price_history.csv \
+            uk_energy_tracking_v3/electricity_price_history.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Forced V3 price history capture: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V3 price history changes to commit"
+          fi

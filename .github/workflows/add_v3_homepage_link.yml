@@ -1,0 +1,41 @@
+name: add_v3_homepage_link
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  add-v3-link:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run V3 homepage link patch
+        run: python scripts/add_v3_homepage_link.py
+
+      - name: Commit homepage link
+        run: |
+          set -e
+          git config --global user.name "GridBot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add index.html
+          git add gridbot_reports/add_v3_homepage_link.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "GridBot: add V3 tracker to homepage"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo "No homepage changes to commit"
+          fi

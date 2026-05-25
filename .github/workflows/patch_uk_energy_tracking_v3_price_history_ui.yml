@@ -1,0 +1,46 @@
+name: patch_uk_energy_tracking_v3_price_history_ui
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-energy-tracking-v3-ui-patch
+  cancel-in-progress: false
+
+jobs:
+  patch-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify V3 UI patch script exists
+        run: |
+          if [ ! -f scripts/patch_uk_energy_tracking_v3_price_history_ui.py ]; then
+            echo "Patch script not yet installed"
+            exit 1
+          fi
+      - name: Apply V3 UI patch
+        run: python scripts/patch_uk_energy_tracking_v3_price_history_ui.py
+      - name: Commit V3 UI changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v3/index.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Patch V3 electricity price history UI: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V3 UI changes to commit"
+          fi

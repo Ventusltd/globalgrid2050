@@ -1,0 +1,22 @@
+name: V4 Dependency Diagnostics
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run V4 dependency diagnostics
+        run: python scripts/dependencies_v4.py
+      - name: Commit V4 diagnostics report
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Run V4 dependency diagnostics
+          file_pattern: gridbot_reports/dependencies_v4.md gridbot_reports/dependencies_v4.json

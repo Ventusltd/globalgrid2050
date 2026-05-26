@@ -1,0 +1,73 @@
+name: Patch V4 live tracker modular structure
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Confirm V4 only modularisation
+        required: true
+        default: v4_only
+        type: choice
+        options: [v4_only]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Read V3 benchmark diary
+        run: |
+          test -f uk_energy_tracking_v3/WORK_DIARY.md
+          head -n 120 uk_energy_tracking_v3/WORK_DIARY.md
+
+      - name: Read V4 diary
+        run: |
+          test -f uk_energy_tracking_v4/WORK_DIARY.md
+          head -n 160 uk_energy_tracking_v4/WORK_DIARY.md
+
+      - name: Run V4 modular structure patch
+        run: python scripts/patch_v4_live_tracker_modular_structure.py
+
+      - name: Validate allowed V4 scope only
+        run: |
+          git diff --name-only > changed_files.txt
+          if grep -v -E '^(uk_energy_tracking_v4/index.md|uk_energy_tracking_v4/live-config.js|uk_energy_tracking_v4/live-helpers.js|uk_energy_tracking_v4/live-gauges.js|uk_energy_tracking_v4/live-transport.js|uk_energy_tracking_v4/live-oil-chart.js|uk_energy_tracking_v4/live-app.js|uk_energy_tracking_v4/WORK_DIARY.md|gridbot_reports/v4_live_tracker_modular_structure.md)$' changed_files.txt; then
+            echo "Unexpected files changed"
+            cat changed_files.txt
+            exit 1
+          fi
+
+      - name: Validate protected trackers untouched
+        run: |
+          if git diff --name-only -- uk_energy_tracking_v3 uk_energy_tracking | grep .; then
+            echo "Protected tracker changed"
+            git diff --name-only -- uk_energy_tracking_v3 uk_energy_tracking
+            exit 1
+          fi
+
+      - name: Commit and push with GridBot key
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v4/index.md uk_energy_tracking_v4/live-config.js uk_energy_tracking_v4/live-helpers.js uk_energy_tracking_v4/live-gauges.js uk_energy_tracking_v4/live-transport.js uk_energy_tracking_v4/live-oil-chart.js uk_energy_tracking_v4/live-app.js uk_energy_tracking_v4/WORK_DIARY.md gridbot_reports/v4_live_tracker_modular_structure.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Patch V4 live tracker modular structure"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V4 modular structure changes to commit"
+          fi

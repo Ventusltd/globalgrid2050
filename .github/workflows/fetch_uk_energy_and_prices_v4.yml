@@ -1,0 +1,77 @@
+name: fetch_uk_energy_and_prices_v4
+
+on:
+  schedule:
+    - cron: '2-59/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      slice:
+        description: Which V4 slice to run
+        required: true
+        default: both
+        type: choice
+        options: [both, energy, price]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-energy-tracking-v4
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Determine V4 slice
+        id: which
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "slice=${{ github.event.inputs.slice }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "slice=both" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run V4 energy slice
+        if: steps.which.outputs.slice == 'energy' || steps.which.outputs.slice == 'both'
+        run: python scripts/update_uk_energy_v4.py
+
+      - name: Run V4 price slice
+        if: steps.which.outputs.slice == 'price' || steps.which.outputs.slice == 'both'
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            FORCE_UK_PRICE=1 python scripts/update_uk_price_v4.py
+          else
+            python scripts/update_uk_price_v4.py
+          fi
+
+      - name: Commit V4 grid feeds and price history
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add \
+            uk_energy_tracking_v4/live_grid_energy.json \
+            uk_energy_tracking_v4/live_grid_price.json \
+            uk_energy_tracking_v4/electricity_price_history.csv \
+            uk_energy_tracking_v4/electricity_price_history.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated UK grid update V4 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V4 grid feed or price history changes to commit"
+          fi

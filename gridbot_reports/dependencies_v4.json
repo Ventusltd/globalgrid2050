@@ -1,0 +1,251 @@
+{
+  "checks": [
+    {
+      "group": "v4_files",
+      "name": "page",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "css",
+      "path": "uk_energy_tracking_v4/price-history-ui.css",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "price_ui_js",
+      "path": "uk_energy_tracking_v4/price-history-ui.js",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "fullscreen_js",
+      "path": "uk_energy_tracking_v4/price-history-fullscreen.js",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "live_energy",
+      "path": "uk_energy_tracking_v4/live_grid_energy.json",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "live_price",
+      "path": "uk_energy_tracking_v4/live_grid_price.json",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "price_history_json",
+      "path": "uk_energy_tracking_v4/electricity_price_history.json",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "price_history_csv",
+      "path": "uk_energy_tracking_v4/electricity_price_history.csv",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "oil_json",
+      "path": "uk_energy_tracking_v4/live_oil_prices.json",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "oil_history",
+      "path": "uk_energy_tracking_v4/oil_price_history.geojson",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "fuel_json",
+      "path": "uk_energy_tracking_v4/live_uk_fuel_prices.json",
+      "status": "PASS"
+    },
+    {
+      "group": "v4_files",
+      "name": "ev_json",
+      "path": "uk_energy_tracking_v4/ev_charging_prices.json",
+      "status": "PASS"
+    },
+    {
+      "group": "scripts",
+      "name": "energy_updater",
+      "path": "scripts/update_uk_energy_v4.py",
+      "status": "PASS"
+    },
+    {
+      "group": "scripts",
+      "name": "price_updater",
+      "path": "scripts/update_uk_price_v4.py",
+      "status": "PASS"
+    },
+    {
+      "group": "scripts",
+      "name": "oil_updater",
+      "path": "scripts/update_oil_prices_v4.py",
+      "status": "PASS"
+    },
+    {
+      "group": "scripts",
+      "name": "fuel_updater",
+      "path": "scripts/update_uk_fuel_prices_v4.py",
+      "status": "PASS"
+    },
+    {
+      "group": "scripts",
+      "name": "elexon_master_downloader",
+      "path": "scripts/download_elexon_system_prices.py",
+      "status": "PASS"
+    },
+    {
+      "group": "scripts",
+      "name": "elexon_annual_splitter",
+      "path": "scripts/split_elexon_system_prices_by_year.py",
+      "status": "PASS"
+    },
+    {
+      "group": "page_script_refs",
+      "name": "/uk_energy_tracking_v4/price-history-ui.js?v=20260526d",
+      "path": "uk_energy_tracking_v4/price-history-ui.js",
+      "status": "PASS"
+    },
+    {
+      "group": "page_script_refs",
+      "name": "/uk_energy_tracking_v4/price-history-fullscreen.js?v=20260526d",
+      "path": "uk_energy_tracking_v4/price-history-fullscreen.js",
+      "status": "PASS"
+    },
+    {
+      "group": "page_css_refs",
+      "name": "/uk_energy_tracking_v4/price-history-ui.css",
+      "path": "uk_energy_tracking_v4/price-history-ui.css",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-range",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-from",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-to",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-clear-dates",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-canvas",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-table-body",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-fullscreen-btn",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-fullscreen-overlay",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "dom_ids",
+      "name": "price-history-fullscreen-canvas",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "PASS"
+    },
+    {
+      "group": "path_isolation",
+      "name": "no V3 path leaks inside V4 files",
+      "path": "uk_energy_tracking_v4",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "group": "price_history_loading",
+      "name": "main chart does not fetch full master CSV",
+      "path": "uk_energy_tracking_v4/price-history-ui.js",
+      "status": "WARN",
+      "details": "Current script fetches master CSV"
+    },
+    {
+      "group": "price_history_loading",
+      "name": "annual files exist for lazy loading",
+      "path": "data/electricity/elexon_system_prices_*.csv",
+      "status": "PASS",
+      "details": {
+        "elexon_system_prices_2016.csv": 17567,
+        "elexon_system_prices_2017.csv": 17520,
+        "elexon_system_prices_2018.csv": 17517,
+        "elexon_system_prices_2019.csv": 17515,
+        "elexon_system_prices_2020.csv": 17568,
+        "elexon_system_prices_2021.csv": 17519,
+        "elexon_system_prices_2022.csv": 17516,
+        "elexon_system_prices_2023.csv": 17514,
+        "elexon_system_prices_2024.csv": 17568,
+        "elexon_system_prices_2025.csv": 17520,
+        "elexon_system_prices_2026.csv": 6958
+      }
+    },
+    {
+      "group": "price_history_loading",
+      "name": "10 year selector removed before annual lazy loading",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "WARN",
+      "details": "10y option still present"
+    },
+    {
+      "group": "price_history_loading",
+      "name": "all data selector removed before annual lazy loading",
+      "path": "uk_energy_tracking_v4/index.md",
+      "status": "WARN",
+      "details": "all option still present"
+    }
+  ],
+  "warnings": [
+    "Collapse risk: V4 price-history-ui.js can load the full Elexon master CSV and the UI still exposes 10y or all data ranges. This can crash mobile Safari and make the chart unreadable."
+  ],
+  "data": {
+    "master_rows": 182282,
+    "captured_rows": 6,
+    "annual_files": {
+      "elexon_system_prices_2016.csv": 17567,
+      "elexon_system_prices_2017.csv": 17520,
+      "elexon_system_prices_2018.csv": 17517,
+      "elexon_system_prices_2019.csv": 17515,
+      "elexon_system_prices_2020.csv": 17568,
+      "elexon_system_prices_2021.csv": 17519,
+      "elexon_system_prices_2022.csv": 17516,
+      "elexon_system_prices_2023.csv": 17514,
+      "elexon_system_prices_2024.csv": 17568,
+      "elexon_system_prices_2025.csv": 17520,
+      "elexon_system_prices_2026.csv": 6958
+    }
+  }
+}

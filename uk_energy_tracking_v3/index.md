@@ -122,7 +122,7 @@ a { color: #7fdfff; }
     <h2 class="section-title">Electricity Price History</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
-        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Captured Market Index Price</strong>
+        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity Price History</strong>
         <select id="price-history-range">
           <option value="24h">24 hours</option>
           <option value="7d" selected>7 days</option>
@@ -133,10 +133,14 @@ a { color: #7fdfff; }
           <option value="10y">10 years</option>
           <option value="all">All captured data</option>
         </select>
+        
+        <label class="price-history-date-label">From <input type="date" id="price-history-from"></label>
+        <label class="price-history-date-label">To <input type="date" id="price-history-to"></label>
+        <button type="button" id="price-history-clear-dates" class="price-history-date-apply">Clear dates</button>
         <a href="/uk_energy_tracking_v3/electricity_price_history.csv" download>Download CSV</a>
         <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
       </div>
-      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Independently captured from Elexon BMRS Market Index values.</div>
+      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Historical Elexon System Prices are shown for context. New live Market Index records build forward. Warnings are shown in the table health column.</div>
       <canvas id="price-history-canvas" width="900" height="300"></canvas>
       <div class="price-history-grid">
         <div class="price-history-card"><div class="price-history-label">Latest price</div><div class="price-history-value" id="ph-latest-price">—</div></div>

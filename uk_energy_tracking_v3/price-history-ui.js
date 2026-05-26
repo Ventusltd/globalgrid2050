@@ -21,17 +21,26 @@
     var labels = {"24h":"24 hours", "7d":"7 days", "30d":"30 days", "3m":"3 months", "6m":"6 months", "12m":"12 months", "10y":"10 years", "all":"all captured data"};
     return labels[range] || range;
   }
+  function customDateWindow(){
+    var f = document.getElementById("price-history-from"), t = document.getElementById("price-history-to");
+    if(!f || !t || !f.value || !t.value) return null;
+    var start = new Date(f.value + "T00:00:00Z");
+    var end = new Date(t.value + "T23:59:59Z");
+    if(isNaN(start) || isNaN(end) || end < start) return null;
+    var max = 60 * 24 * 60 * 60 * 1000;
+    if(end - start > max) end = new Date(start.getTime() + max);
+    return {start:start, end:end, label:f.value + " to " + end.toISOString().slice(0,10)};
+  }
   function cutoff(range){
     if(range === "all") return null;
-    var d = new Date();
-    if(range === "24h") d.setDate(d.getDate() - 1);
-    else if(range === "7d") d.setDate(d.getDate() - 7);
-    else if(range === "30d") d.setDate(d.getDate() - 30);
-    else if(range === "3m") d.setMonth(d.getMonth() - 3);
-    else if(range === "6m") d.setMonth(d.getMonth() - 6);
-    else if(range === "12m") d.setFullYear(d.getFullYear() - 1);
-    else d.setFullYear(d.getFullYear() - 10);
-    return d;
+    var now = Date.now(), days = 3650;
+    if(range === "24h") days = 1;
+    else if(range === "7d") days = 7;
+    else if(range === "30d") days = 30;
+    else if(range === "3m") days = 92;
+    else if(range === "6m") days = 183;
+    else if(range === "12m") days = 366;
+    return new Date(now - days * 24 * 60 * 60 * 1000);
   }
   function parseCsvLine(line){
     var out = [];
@@ -96,10 +105,10 @@
       .catch(function(){ return []; });
   }
   function carbonHealthCell(r){
-    if(r.carbonGperKWh !== "" && r.carbonGperKWh != null) return r.carbonGperKWh + " g/kWh";
-    if(r.carbonIndex) return String(r.carbonIndex);
     if(r.priceHealth && r.priceHealth !== "ok") return "price: " + r.priceHealth;
     if(r.carbonHealth && r.carbonHealth !== "ok") return "carbon: " + r.carbonHealth;
+    if(r.carbonGperKWh !== "" && r.carbonGperKWh != null) return r.carbonGperKWh + " g/kWh";
+    if(r.carbonIndex) return String(r.carbonIndex);
     return "—";
   }
   function minMax(vals){
@@ -186,7 +195,7 @@
     }
     var ordered = rows.slice().reverse();
     body.innerHTML = ordered.map(function(r){
-      return '<tr><td>' + dateLabel(r.priceTimeUTC) + ' ' + timeLabel(r.priceTimeUTC) + '</td><td>£' + fmt(Number(r.priceGBPperMWh), 2) + '</td><td>' + (r.settlementPeriod || '—') + '</td><td>' + dateLabel(r.capturedAtUTC) + ' ' + timeLabel(r.capturedAtUTC) + '</td><td>' + carbonHealthCell(r) + '</td></tr>';
+      return '<tr class="' + ((r.priceHealth && r.priceHealth !== 'ok') ? 'price-warning' : '') + '"><td>' + dateLabel(r.priceTimeUTC) + ' ' + timeLabel(r.priceTimeUTC) + '</td><td>£' + fmt(Number(r.priceGBPperMWh), 2) + '</td><td>' + (r.settlementPeriod || '—') + '</td><td>' + dateLabel(r.capturedAtUTC) + ' ' + timeLabel(r.capturedAtUTC) + '</td><td>' + carbonHealthCell(r) + '</td></tr>';
     }).join("");
   }
   function normaliseRows(rows){
@@ -219,20 +228,26 @@
       var jsonRows = normaliseRows(pair[0]);
       var csvRows = normaliseRows(pair[1]);
       var allRows = mergeSystemAndCapturedRows(csvRows, jsonRows);
+      var custom = customDateWindow();
       var cut = cutoff(range);
-      var rows = cut ? allRows.filter(function(r){ return new Date(r.priceTimeUTC) >= cut; }) : allRows;
+      var rows = custom ? allRows.filter(function(r){ var t = new Date(r.priceTimeUTC); return t >= custom.start && t <= custom.end; }) : (cut ? allRows.filter(function(r){ return new Date(r.priceTimeUTC) >= cut; }) : allRows);
+      var activeRangeLabel = custom ? custom.label : range;
       var latest = allRows.length ? allRows[allRows.length - 1] : null;
       setText("ph-latest-price", latest ? "£" + fmt(Number(latest.priceGBPperMWh), 2) : "—");
       setText("ph-latest-time", latest ? dateLabel(latest.priceTimeUTC) + " " + timeLabel(latest.priceTimeUTC) : "—");
       setText("ph-row-count", String(allRows.length));
       setText("ph-source", csvRows.length ? "Historical Elexon System Prices plus V3 captured Market Index" : (latest && latest.source ? latest.source : "Elexon BMRS"));
-      renderTable(rows, range);
-      draw(rows, range);
+      renderTable(rows, activeRangeLabel);
+      draw(rows, activeRangeLabel);
     }).catch(function(){ draw([], range); renderTable([], range); });
   }
   document.addEventListener("DOMContentLoaded", function(){
     var rangeEl = document.getElementById("price-history-range");
     if(rangeEl) rangeEl.addEventListener("change", load);
+    var f=document.getElementById("price-history-from"),to=document.getElementById("price-history-to"),cl=document.getElementById("price-history-clear-dates");
+    if(f)f.addEventListener("change",load);
+    if(to)to.addEventListener("change",load);
+    if(cl)cl.addEventListener("click",function(){if(f)f.value="";if(to)to.value="";load();});
     load();
     setInterval(load, 5 * 60 * 1000);
     window.addEventListener("resize", load);

@@ -773,3 +773,8 @@ Remaining issue:
 The date window controls have not been verified in this workflow run because the selected feature was merge_system.
 Run the consolidated workflow with feature date_window next if the page still needs calendar based inspection capped to 60 days.
 ```
+
+
+## Diary entry: 2026-05-26 V3 range and full screen correction amended before run
+
+Amended before execution after code review. The patch now aligns full screen with the inline chart by loading both the historical Elexon system price CSV and the V3 captured JSON. It adds From and To date controls capped to 60 days, changes rolling cutoffs to millisecond based UTC comparisons, surfaces priceHealth warnings before carbon values in the table health column and highlights warned rows. It also fixes the label so the panel is not described as captured Market Index only when historical System Prices are present.

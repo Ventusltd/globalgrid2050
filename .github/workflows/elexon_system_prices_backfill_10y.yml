@@ -1,0 +1,108 @@
+name: One off safe Elexon System Prices 10 year backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_year:
+        description: Earliest year to attempt
+        required: true
+        default: '2016'
+      final_year:
+        description: Final year to attempt
+        required: true
+        default: '2026'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: elexon-system-price-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Configure GridBot
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@globalgrid2050.com"
+
+      - name: Read V3 diary first
+        run: |
+          test -f uk_energy_tracking_v3/WORK_DIARY.md
+          head -n 80 uk_energy_tracking_v3/WORK_DIARY.md
+
+      - name: Commit diary preflight first
+        run: |
+          cat >> uk_energy_tracking_v3/WORK_DIARY.md <<'EOF'
+
+## Diary preflight: one off Elexon System Prices 10 year backfill
+
+```text
+purpose: fill historical Elexon System Prices safely in year chunks before returning focus to live gathering
+source file: data/electricity/elexon_system_prices_half_hourly.csv
+method: run one year chunk at a time, commit and push after each chunk
+stable tracker: do not touch uk_energy_tracking/
+```
+EOF
+          git add uk_energy_tracking_v3/WORK_DIARY.md
+          git diff --cached --quiet || git commit -m "Diary preflight for Elexon system price backfill"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Backfill year chunks and push after each year
+        env:
+          START_YEAR: ${{ github.event.inputs.start_year || '2016' }}
+          FINAL_YEAR: ${{ github.event.inputs.final_year || '2026' }}
+        run: |
+          set -e
+          current_year=$(date -u +%Y)
+          yesterday=$(date -u -d "yesterday" +%F)
+          for year in $(seq "$FINAL_YEAR" -1 "$START_YEAR"); do
+            if [ "$year" -gt "$current_year" ]; then
+              continue
+            fi
+            start="${year}-01-01"
+            end="${year}-12-31"
+            if [ "$year" -eq "$current_year" ]; then
+              end="$yesterday"
+            fi
+            echo "Fetching Elexon System Prices for $start to $end"
+            START_DATE="$start" END_DATE="$end" python scripts/download_elexon_system_prices_range.py
+            git add data/electricity/elexon_system_prices_half_hourly.csv
+            if git diff --cached --quiet; then
+              echo "No CSV changes for $year"
+            else
+              git commit -m "Backfill Elexon system prices ${year}"
+              for attempt in 1 2 3 4 5; do
+                git pull --rebase origin main && git push origin HEAD:main && break
+                echo "Push failed for year ${year}, attempt ${attempt}"
+                sleep $((attempt * 5))
+              done
+            fi
+          done
+
+      - name: Diary completion note
+        run: |
+          cat >> uk_energy_tracking_v3/WORK_DIARY.md <<'EOF'
+
+## Diary entry: one off Elexon System Prices backfill completed or attempted
+
+```text
+The one off safe backfill workflow attempted year by year Elexon System Price collection.
+The CSV is the historical context and proofing layer for V3 price history.
+After this one off fill, normal operation should rely on daily Elexon System Price updates and live V3 Market Index capture.
+```
+EOF
+          git add uk_energy_tracking_v3/WORK_DIARY.md
+          git diff --cached --quiet || git commit -m "Record Elexon system price backfill completion"
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -1,4 +1,4 @@
-name: One off safe Elexon System Prices 10 year backfill
+name: One off safe Elexon System Prices backfill
 
 on:
   workflow_dispatch:
@@ -30,44 +30,59 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GRIDBOT_PAT }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Configure GridBot
         run: |
           git config user.name "GridBot"
           git config user.email "gridbot@globalgrid2050.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GRIDBOT_PAT }}@github.com/${{ github.repository }}.git
 
-      - name: Read V3 diary first
+      - name: Sync with main and read V3 diary first
         run: |
+          git fetch origin main
+          git reset --hard origin/main
           test -f uk_energy_tracking_v3/WORK_DIARY.md
           head -n 80 uk_energy_tracking_v3/WORK_DIARY.md
 
-      - name: Commit diary preflight first
+      - name: Commit and push diary preflight first
         run: |
           cat >> uk_energy_tracking_v3/WORK_DIARY.md <<'EOF'
 
-## Diary preflight: one off Elexon System Prices 10 year backfill
+## Diary preflight: one off Elexon System Prices backfill
 
 ```text
-purpose: fill historical Elexon System Prices safely in year chunks before returning focus to live gathering
+purpose: fill historical Elexon System Prices safely in annual chunks before returning focus to live gathering
 source file: data/electricity/elexon_system_prices_half_hourly.csv
-method: run one year chunk at a time, commit and push after each chunk
+method: fetch one year at a time, commit and push after each successful year
 stable tracker: do not touch uk_energy_tracking/
 ```
 EOF
           git add uk_energy_tracking_v3/WORK_DIARY.md
-          git diff --cached --quiet || git commit -m "Diary preflight for Elexon system price backfill"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          if git diff --cached --quiet; then
+            echo "No diary preflight changes"
+          else
+            git commit -m "Diary preflight for Elexon system price backfill"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
 
-      - name: Backfill year chunks and push after each year
+      - name: Backfill annual chunks and push after each year
         env:
-          START_YEAR: ${{ github.event.inputs.start_year || '2016' }}
-          FINAL_YEAR: ${{ github.event.inputs.final_year || '2026' }}
+          START_YEAR: ${{ inputs.start_year }}
+          FINAL_YEAR: ${{ inputs.final_year }}
         run: |
-          set -e
+          set -euo pipefail
+          git fetch origin main
+          git reset --hard origin/main
           current_year=$(date -u +%Y)
           yesterday=$(date -u -d "yesterday" +%F)
           for year in $(seq "$FINAL_YEAR" -1 "$START_YEAR"); do
             if [ "$year" -gt "$current_year" ]; then
+              echo "Skipping future year $year"
               continue
             fi
             start="${year}-01-01"
@@ -83,26 +98,38 @@ EOF
             else
               git commit -m "Backfill Elexon system prices ${year}"
               for attempt in 1 2 3 4 5; do
-                git pull --rebase origin main && git push origin HEAD:main && break
+                if git pull --rebase origin main && git push origin HEAD:main; then
+                  echo "Pushed ${year} backfill"
+                  break
+                fi
                 echo "Push failed for year ${year}, attempt ${attempt}"
                 sleep $((attempt * 5))
+                if [ "$attempt" = "5" ]; then
+                  exit 1
+                fi
               done
             fi
           done
 
-      - name: Diary completion note
+      - name: Commit and push diary completion note
         run: |
+          git fetch origin main
+          git reset --hard origin/main
           cat >> uk_energy_tracking_v3/WORK_DIARY.md <<'EOF'
 
 ## Diary entry: one off Elexon System Prices backfill completed or attempted
 
 ```text
-The one off safe backfill workflow attempted year by year Elexon System Price collection.
+The one off safe backfill workflow attempted annual Elexon System Price collection.
 The CSV is the historical context and proofing layer for V3 price history.
 After this one off fill, normal operation should rely on daily Elexon System Price updates and live V3 Market Index capture.
 ```
 EOF
           git add uk_energy_tracking_v3/WORK_DIARY.md
-          git diff --cached --quiet || git commit -m "Record Elexon system price backfill completion"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          if git diff --cached --quiet; then
+            echo "No diary completion changes"
+          else
+            git commit -m "Record Elexon system price backfill completion"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

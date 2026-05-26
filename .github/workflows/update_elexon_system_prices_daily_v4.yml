@@ -1,0 +1,61 @@
+name: Update Elexon System Prices Daily V4
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: Number of days to refresh
+        required: true
+        default: '3'
+        type: choice
+        options: ['1', '2', '3', '7']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: elexon-system-prices-daily-v4
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Determine lookback window
+        id: window
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "lookback=${{ github.event.inputs.lookback_days }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "lookback=3" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run V4 daily Elexon System Price updater
+        run: ELEXON_DAILY_LOOKBACK_DAYS=${{ steps.window.outputs.lookback }} python scripts/update_elexon_system_prices_daily_v4.py
+
+      - name: Commit Elexon System Price data
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/electricity/elexon_system_prices_half_hourly.csv data/electricity/elexon_system_prices_*.csv
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update Elexon System Prices daily V4: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No Elexon System Price data changes to commit"
+          fi

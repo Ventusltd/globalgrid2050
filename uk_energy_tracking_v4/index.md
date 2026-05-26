@@ -1,34 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>UK Live Grid Tracker V4</title>
+---
+layout: page
+title: UK Live Grid Tracker V4
+permalink: /uk_energy_tracking_v4/
+---
+
 <link rel="stylesheet" href="/uk_energy_tracking_v4/price-history-ui.css">
 <style>
-:root{--bg:#050505;--panel:#0b0e14;--line:#252b36;--text:#f5f7fb;--muted:#9aa3b6;--cyan:#00ffff;--green:#00ff88;--red:#ff3333;--orange:#ff9900;--pink:#ff00e6;}
-*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at top,#101623 0,#050505 55%,#000 100%);color:var(--text);font-family:"Courier New",monospace;padding:22px} .wrap{max-width:1180px;margin:0 auto}.hero{border:1px solid var(--line);background:rgba(6,10,16,.95);padding:22px;border-radius:10px;box-shadow:0 0 30px rgba(0,255,255,.08)}.kicker{color:var(--cyan);letter-spacing:.18em;text-transform:uppercase;font-size:12px}.hero h1{margin:8px 0 8px;font-size:30px}.hero p{color:var(--muted);line-height:1.55}.scada-status{margin-top:12px;border:1px solid rgba(0,255,136,.4);color:var(--green);padding:10px;border-radius:6px;background:rgba(0,255,136,.06)}.scada-status.stale{border-color:rgba(255,51,51,.5);color:var(--red);background:rgba(255,51,51,.06)}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}.metric{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:16px}.metric-label{color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase}.metric-value{font-size:34px;color:var(--cyan);font-weight:800;margin-top:8px}.metric-unit{color:var(--muted);font-size:12px}.scada-gauge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:18px 0}.scada-gauge-card{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:16px}.scada-gauge-title{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:12px}.scada-gauge{width:100%;height:150px}.scada-gauge-bg{stroke:#1e2733;stroke-width:16;fill:none}.scada-gauge-fill{stroke-width:16;fill:none;filter:drop-shadow(0 0 6px currentColor)}.scada-gauge-value{fill:#fff;font-size:30px;font-weight:800}.scada-gauge-unit{fill:var(--muted);font-size:10px}.section-title{margin:26px 0 12px;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;font-size:14px}.scada-mix-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.scada-mini{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:12px}.scada-mini-top{display:flex;justify-content:space-between;gap:10px}.scada-mini-name{color:#fff}.scada-mini-value{color:var(--muted);font-size:12px}.scada-mini-track{height:7px;background:#111823;border-radius:999px;margin-top:10px;overflow:hidden}.scada-mini-fill{height:100%;border-radius:999px}.commodity-grid,.pump-grid,.ev-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.commodity-card,.pump-card,.ev-card{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:14px}.commodity-label,.pump-label,.ev-label{color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:11px}.commodity-value,.pump-value,.ev-value{font-size:28px;color:var(--cyan);font-weight:800;margin:6px 0}.commodity-unit{color:var(--muted);font-size:12px}.trend-panel,.fuel-logic-panel,.ev-panel,.scada-credit,.unit-panel{border:1px solid var(--line);background:rgba(11,14,20,.95);border-radius:8px;padding:14px;margin-top:12px;color:var(--muted);line-height:1.5}.trend-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}select{background:#050505;color:var(--cyan);border:1px solid var(--line);padding:7px;border-radius:4px;font-family:inherit}canvas{width:100%;max-width:100%;border:1px solid var(--line);background:#070a10;border-radius:6px}.oil-chart-wrap{position:relative}.oil-tooltip{position:absolute;display:none;top:40px;left:40px;background:#05070c;border:1px solid var(--cyan);color:#fff;padding:8px;border-radius:4px;font-size:12px;pointer-events:none;z-index:5}.oil-stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}.oil-stat{border:1px solid var(--line);background:#070a10;border-radius:6px;padding:10px}.oil-stat-label{color:var(--muted);font-size:10px;text-transform:uppercase}.oil-stat-value{color:var(--cyan);font-weight:800}.fuel-source-links a{display:inline-block;color:#7fdfff;margin:8px 10px 0 0}.scada-credit a{color:#7fdfff}.dev-note{border:1px solid var(--orange);color:var(--orange);background:rgba(255,153,0,.06);padding:10px;border-radius:6px;margin-top:12px}@media(max-width:600px){body{padding:12px}.hero h1{font-size:24px}.metric-value{font-size:28px}}
+:root {
+  --gg-bg: #050505;
+  --gg-panel: #0b0f17;
+  --gg-line: #252b36;
+  --gg-text: #f5f7fb;
+  --gg-muted: #9aa3b6;
+  --gg-cyan: #00ffff;
+  --gg-magenta: #ff00e6;
+  --gg-green: #00ff88;
+  --gg-yellow: #ffcc00;
+  --gg-orange: #ff9900;
+  --gg-red: #ff4444;
+}
+body { background: var(--gg-bg) !important; color: var(--gg-text) !important; }
 a { color: #7fdfff; }
+.page-content, .wrapper, main { background: var(--gg-bg) !important; color: var(--gg-text) !important; }
+.scada-grid { font-family: "Courier New", monospace; max-width: 1180px; margin: 0 auto; }
+.scada-hero { border-bottom: 1px solid var(--gg-line); padding: 18px 0 16px; margin-bottom: 22px; }
+.scada-subtitle { letter-spacing: .28em; color: var(--gg-muted); font-size: 14px; text-transform: uppercase; }
+.scada-title { margin: 10px 0 8px 0; color: var(--gg-text); font-size: clamp(28px, 5vw, 44px); line-height: 1.1; font-weight: 800; }
+.scada-title-rule { height: 1px; background: var(--gg-text); opacity: .75; margin: 12px 0 0 0; }
+.scada-live-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:16px; }
+.scada-live-pill { border: 1px solid #1b6b4c; color: var(--gg-green); background: rgba(0,255,136,.06); padding: 10px 14px; border-radius: 4px; text-transform: uppercase; letter-spacing: .18em; font-size: 12px; }
+.scada-live-dot { display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--gg-green); box-shadow:0 0 14px var(--gg-green); margin-right:8px; }
+.scada-update-panel { flex: 1 1 260px; border:1px solid var(--gg-cyan); background:rgba(0,255,255,.05); border-radius:4px; padding:10px 14px; box-shadow:0 0 18px rgba(0,255,255,.08); }
+.scada-update-label { color: var(--gg-muted); font-size:11px; text-transform:uppercase; letter-spacing:.18em; }
+.scada-update-time { color: var(--gg-cyan); font-size: clamp(20px, 5vw, 34px); font-weight: 800; line-height: 1.1; margin-top: 4px; }
+.scada-update-meta { color: var(--gg-muted); font-size: 11px; margin-top: 2px; }
+.scada-intro { color: var(--gg-muted); font-size: 14px; line-height:1.55; margin-bottom:22px; max-width:900px; }
+.scada-dev-note { border:1px solid var(--gg-orange); padding:10px 12px; border-radius:4px; color:var(--gg-orange); background:rgba(255,153,0,.04); }
+.scada-gauges { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; margin: 18px 0 22px; }
+.scada-gauge-card { background: var(--gg-panel); border:1px solid var(--gg-line); border-radius:6px; padding:18px 16px; min-height:220px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.02); }
+.scada-gauge-title { color: var(--gg-muted); text-align:center; text-transform:uppercase; letter-spacing:.18em; font-size:12px; font-weight:700; min-height:34px; }
+.scada-gauge { width:100%; max-width:260px; margin: 8px auto 0; display:block; }
+.scada-gauge-bg { fill:none; stroke:#1d2330; stroke-width:18; stroke-linecap:round; }
+.scada-gauge-fill { fill:none; stroke-width:18; stroke-linecap:round; filter: drop-shadow(0 0 8px currentColor); transition: stroke-dasharray .6s ease; }
+.scada-gauge-value { fill: var(--gg-text); font-size:24px; font-weight:800; text-anchor:middle; dominant-baseline:middle; }
+.scada-gauge-unit { fill: var(--gg-muted); font-size:8px; text-anchor:middle; text-transform:uppercase; }
+.scada-mix-grid, .commodity-grid, .pump-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; margin-top:18px; }
+.scada-mini { background:var(--gg-panel); border:1px solid var(--gg-line); border-radius:6px; padding:12px 12px 10px; }
+.scada-mini-top { display:flex; justify-content:space-between; gap:10px; align-items:baseline; }
+.scada-mini-name { color:var(--gg-text); text-transform:uppercase; letter-spacing:.12em; font-size:12px; }
+.scada-mini-value { color:var(--gg-cyan); font-size:13px; white-space:nowrap; }
+.scada-mini-track { height:8px; border-radius:5px; background:rgba(255,255,255,.08); overflow:hidden; margin-top:10px; }
+.scada-mini-fill { height:100%; border-radius:5px; transition:width .6s ease; }
+.commodity-card { background:var(--gg-panel); border:1px solid var(--gg-line); border-radius:6px; padding:14px; }
+.commodity-label { color:var(--gg-muted); text-transform:uppercase; letter-spacing:.16em; font-size:12px; }
+.commodity-value { color:var(--gg-text); font-size:clamp(24px,5vw,38px); font-weight:800; margin-top:8px; }
+.commodity-unit { color:var(--gg-muted); font-size:11px; margin-top:4px; }
+.commodity-card.oil .commodity-value { color:var(--gg-orange); }
+.commodity-card.metal .commodity-value { color:var(--gg-cyan); }
+.pump-grid { grid-template-columns: repeat(2, minmax(0,1fr)); opacity:.86; }
+.pump-card { background:rgba(255,255,255,.03); border:1px solid var(--gg-line); border-radius:6px; padding:12px; }
+.pump-label { color:var(--gg-muted); text-transform:uppercase; letter-spacing:.14em; font-size:11px; }
+.pump-value { color:var(--gg-yellow); font-size:24px; font-weight:800; margin-top:6px; }
+.trend-panel { background:var(--gg-panel); border:1px solid var(--gg-line); border-radius:6px; padding:14px; margin-top:18px; }
+.trend-controls, .price-history-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px; }
+.trend-controls select, .price-history-actions select, .price-history-actions input { background:#050505; color:var(--gg-cyan); border:1px solid var(--gg-line); padding:8px; font-family:"Courier New", monospace; border-radius:4px; }
+.price-history-actions a, .price-history-actions button { border:1px solid var(--gg-line); border-radius:4px; padding:8px 10px; color:#7fdfff; background:rgba(255,255,255,.03); font-family:"Courier New", monospace; }
+.price-history-date-label { display:flex; gap:6px; align-items:center; color:var(--gg-muted); text-transform:uppercase; letter-spacing:.12em; font-size:11px; }
+#oil-trend-canvas { width:100%; height:300px; display:block; border:1px solid rgba(255,255,255,.05); background:#070a10; touch-action:none; }
+.oil-chart-wrap { position:relative; }
+.oil-tooltip { position:absolute; display:none; pointer-events:none; background:rgba(5,5,5,.94); border:1px solid var(--gg-cyan); color:var(--gg-text); padding:8px 10px; border-radius:4px; font-size:12px; line-height:1.45; box-shadow:0 0 18px rgba(0,255,255,.12); z-index:5; }
+.oil-stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:10px; }
+.oil-stat { border:1px solid var(--gg-line); background:rgba(255,255,255,.03); border-radius:4px; padding:9px; }
+.oil-stat-label { color:var(--gg-muted); text-transform:uppercase; letter-spacing:.12em; font-size:10px; }
+.oil-stat-value { color:var(--gg-cyan); font-size:16px; font-weight:800; margin-top:4px; }
+.unit-panel { border:1px solid var(--gg-line); background:rgba(255,255,255,.03); border-radius:6px; padding:10px 12px; margin-top:10px; color:var(--gg-muted); font-size:12px; line-height:1.5; }
+.unit-panel strong { color:var(--gg-text); }
+.fuel-logic-panel, .ev-panel { border:1px solid var(--gg-line); background:rgba(255,255,255,.03); border-radius:6px; padding:14px; margin-top:14px; color:var(--gg-muted); font-size:13px; line-height:1.55; }
+.fuel-logic-panel strong, .ev-panel strong { color:var(--gg-text); }
+.fuel-source-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+.fuel-source-links a { border:1px solid var(--gg-line); border-radius:4px; padding:7px 9px; color:#7fdfff; }
+.ev-card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:10px; }
+.ev-card { border:1px solid var(--gg-line); background:var(--gg-panel); border-radius:6px; padding:12px; }
+.ev-label { color:var(--gg-muted); text-transform:uppercase; letter-spacing:.14em; font-size:11px; }
+.ev-value { color:var(--gg-green); font-size:22px; font-weight:800; margin-top:6px; }
+.scada-status { font-size:12px; color:var(--gg-muted); margin-top:18px; border:1px solid var(--gg-line); background:rgba(255,255,255,.03); padding:10px 12px; border-radius:4px; }
+.scada-status.stale { color:var(--gg-orange); border-color:var(--gg-orange); }
+.scada-credit { font-size:12px; color:var(--gg-muted); margin-top:22px; line-height:1.5; }
+.scada-credit h2 { color:var(--gg-cyan); font-size:20px; letter-spacing:.06em; text-transform:uppercase; }
+.section-title { color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-size:22px;margin-top:26px; }
+@media (max-width: 850px) { .scada-gauges, .scada-mix-grid, .commodity-grid, .pump-grid, .ev-card-grid { grid-template-columns:1fr; } .scada-gauge-card { min-height:190px; } .oil-stats-grid { grid-template-columns:1fr 1fr; } }
 </style>
-</head>
-<body>
-<div class="wrap">
-  <section class="hero">
-    <div class="kicker">GlobalGrid2050 · UK Live Grid Tracker V4</div>
-    <h1>GB Electricity, Price, Carbon, Oil and Transport Energy Monitor</h1>
-    <p>Experimental V4 build. Original tracker remains protected at <a href="/uk_energy_tracking/">/uk_energy_tracking/</a>. V4 uses isolated feeds for development, transport energy and price history testing.</p>
-    <div class="dev-note"><strong>V4 development note:</strong> generation mix refreshes every five minutes. Electricity price and carbon update on their native half hourly cadence. Oil, fuel and EV comparison layers are still being validated.</div>
-    <div id="scada-status" class="scada-status stale">Awaiting live feed.</div>
-  </section>
 
-  <section class="metrics">
-    <div class="metric"><div class="metric-label">Latest combined update</div><div class="metric-value" id="m-updated-time">—</div><div class="metric-unit" id="m-updated-meta">Awaiting feed</div></div>
-    <div class="metric"><div class="metric-label">Generation cadence</div><div class="metric-value">5 min</div><div class="metric-unit">Elexon BMRS Insights plus Sheffield Solar</div></div>
-    <div class="metric"><div class="metric-label">Price and carbon cadence</div><div class="metric-value">30 min</div><div class="metric-unit">Elexon Market Index and NESO Carbon Intensity</div></div>
-  </section>
+<div class="scada-grid" id="scada-grid">
+  <header class="scada-hero">
+    <div class="scada-subtitle">GLOBALGRID2050 · UK LIVE GRID TRACKER V4</div>
+    <h1 class="scada-title">GB Electricity, Price, Carbon, Oil and Transport Energy Monitor</h1>
+    <div class="scada-title-rule"></div>
+    <div class="scada-live-row">
+      <div class="scada-live-pill"><span class="scada-live-dot"></span>LIVE GRID SOURCE</div>
+      <div class="scada-update-panel">
+        <div class="scada-update-label">Latest data update</div>
+        <div class="scada-update-time" id="m-updated-time">Awaiting feed</div>
+        <div class="scada-update-meta" id="m-updated-meta">Energy, price, carbon and commodity timestamps will appear here.</div>
+      </div>
+    </div>
+  </header>
 
-  <section class="scada-gauge-grid">
-    <div class="scada-gauge-card"><div class="scada-gauge-title">Demand</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="demand"></svg></div>
+  <p class="scada-intro scada-dev-note"><strong>V4 experimental clone.</strong> Original tracker remains protected at /uk_energy_tracking/. This page uses isolated V4 feeds for development, transport energy and price history testing.</p>
+
+  <p class="scada-intro">Near real time GB electricity demand, market price, carbon intensity and generation mix. Generation mix refreshes every 5 minutes; price and carbon update every half hour at their native cadence. Commodity prices update daily through GridBot.</p>
+
+  <div id="scada-status" class="scada-status stale">Awaiting live feed.</div>
+
+  <section class="scada-gauges">
+    <div class="scada-gauge-card"><div class="scada-gauge-title">Electricity Demand</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="demand"></svg></div>
     <div class="scada-gauge-card"><div class="scada-gauge-title">Electricity Price</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="price"></svg></div>
     <div class="scada-gauge-card"><div class="scada-gauge-title">Carbon Intensity</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="carbon"></svg></div>
   </section>
@@ -36,7 +121,9 @@ a { color: #7fdfff; }
   <section>
     <h2 class="section-title">Generation Mix</h2>
     <div id="scada-mix" class="scada-mix-grid"></div>
-  </section>  <section id="electricity-price-history-panel">
+  </section>
+
+  <section id="electricity-price-history-panel">
     <h2 class="section-title">Electricity Price History</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
@@ -133,9 +220,10 @@ a { color: #7fdfff; }
     <p><strong>Carbon intensity</strong> — National Energy System Operator <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a>, developed with the Environmental Defense Fund, University of Oxford and WWF. Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
     <p><strong>Solar generation</strong> — <a href="https://www.solar.sheffield.ac.uk/api/">Sheffield Solar PV_Live</a>, University of Sheffield.</p>
     <p><strong>Commodity prices</strong> — Yahoo Finance live chart endpoints and FRED historic oil series. UK pump prices are a best effort public page read and should be treated as indicative only.</p>
-    <p>Indicative near-real-time values for screening and situational awareness only. No representation is made that the data is accurate or complete.</p>
+    <p>Indicative near real time values for screening and situational awareness only. No representation is made that the data is accurate or complete.</p>
   </section>
 </div>
+
 <div id="price-history-fullscreen-overlay" class="price-history-fullscreen-overlay">
   <div class="price-history-fullscreen-shell">
     <div class="price-history-fullscreen-toolbar">
@@ -148,14 +236,12 @@ a { color: #7fdfff; }
     <div class="price-history-fullscreen-note">Elexon System Price history. Red line marks £0/MWh. Date labels show from, middle and to points.</div>
   </div>
 </div>
+
 <script src='/uk_energy_tracking_v4/price-history-ui.js?v=20260526f'></script>
 <script src='/uk_energy_tracking_v4/price-history-fullscreen.js?v=20260526e'></script>
-
 <script src='/uk_energy_tracking_v4/live-config.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-helpers.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-gauges.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-transport.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-oil-chart.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-app.js?v=20260526a'></script>
-</body>
-</html>

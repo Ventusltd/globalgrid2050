@@ -726,3 +726,8 @@ purpose: prepare merged historical Elexon System Price and captured Market Index
 rule: read WORK_DIARY before changing files, commit diary preflight first, then run the selected V3 patch
 stable tracker: do not touch uk_energy_tracking/
 ```
+
+
+## Diary entry: 2026-05-26 V3 merged price source patch
+
+Merged the existing Elexon historical system price CSV with the V3 captured live Market Index trail. The chart and dropdown now use historical context plus new live captured rows, while the live gauge remains separate. System Prices and Market Index Prices remain labelled as different price products.

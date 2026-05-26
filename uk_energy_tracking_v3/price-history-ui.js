@@ -1,7 +1,7 @@
 (function(){
   var JSON_URL = "/uk_energy_tracking_v3/electricity_price_history.json";
-  var ENABLE_CSV_FEED = false;
-  var CSV_URL = "/uk_energy_tracking_v3/elexon_system_prices_half_hourly.csv";
+  var ENABLE_CSV_FEED = true;
+  var CSV_URL = "/data/electricity/elexon_system_prices_half_hourly.csv";
 
   function fmt(n, dp){
     if(n === null || n === undefined || isNaN(n)) return "—";
@@ -205,20 +205,27 @@
         return true;
       });
   }
+  function mergeSystemAndCapturedRows(systemRows, capturedRows){
+    var merged = {};
+    (systemRows || []).forEach(function(r){ if(r.priceTimeUTC){ merged[r.priceTimeUTC] = Object.assign({}, r, {source:"Elexon BMRS System Prices", priceHealth:(r.priceHealth || "historical system price")}); } });
+    (capturedRows || []).forEach(function(r){ if(r.priceTimeUTC){ merged[r.priceTimeUTC] = Object.assign({}, r, {source:(r.source || "V3 captured Elexon Market Index Price")}); } });
+    return Object.keys(merged).sort(function(a,b){ return new Date(a) - new Date(b); }).map(function(k){ return merged[k]; });
+  }
+
   function load(){
     var rangeEl = document.getElementById("price-history-range");
     var range = rangeEl ? rangeEl.value : "7d";
     Promise.all([loadJsonRows(), loadCsvRows()]).then(function(pair){
       var jsonRows = normaliseRows(pair[0]);
       var csvRows = normaliseRows(pair[1]);
-      var allRows = csvRows.length ? csvRows : jsonRows;
+      var allRows = mergeSystemAndCapturedRows(csvRows, jsonRows);
       var cut = cutoff(range);
       var rows = cut ? allRows.filter(function(r){ return new Date(r.priceTimeUTC) >= cut; }) : allRows;
       var latest = allRows.length ? allRows[allRows.length - 1] : null;
       setText("ph-latest-price", latest ? "£" + fmt(Number(latest.priceGBPperMWh), 2) : "—");
       setText("ph-latest-time", latest ? dateLabel(latest.priceTimeUTC) + " " + timeLabel(latest.priceTimeUTC) : "—");
       setText("ph-row-count", String(allRows.length));
-      setText("ph-source", latest && latest.source ? latest.source : "Elexon BMRS");
+      setText("ph-source", csvRows.length ? "Historical Elexon System Prices plus V3 captured Market Index" : (latest && latest.source ? latest.source : "Elexon BMRS"));
       renderTable(rows, range);
       draw(rows, range);
     }).catch(function(){ draw([], range); renderTable([], range); });

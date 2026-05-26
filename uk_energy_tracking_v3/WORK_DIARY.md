@@ -717,3 +717,12 @@ future official historical Elexon feed
 ```
 
 Do not mix those tracks into 1 patch.
+
+## Diary preflight: 2026-05-26 00:27 UTC GridBot V3 workflow start
+
+```text
+feature: merge_system
+purpose: prepare merged historical Elexon System Price and captured Market Index view
+rule: read WORK_DIARY before changing files, commit diary preflight first, then run the selected V3 patch
+stable tracker: do not touch uk_energy_tracking/
+```

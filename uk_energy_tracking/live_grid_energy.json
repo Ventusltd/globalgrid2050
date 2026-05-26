@@ -1,6 +1,6 @@
 {
-  "updated": "2026-05-25T23:46:27.628920+00:00",
-  "demandGW": 22.96,
+  "updated": "2026-05-26T01:30:56.189552+00:00",
+  "demandGW": 22.11,
   "solarGW": 0.0,
   "mix": [
     {
@@ -11,20 +11,20 @@
     },
     {
       "label": "Wind",
-      "gw": 5.14,
-      "pct": 22.39,
+      "gw": 5.02,
+      "pct": 22.68,
       "color": "#00d0ff"
     },
     {
       "label": "Hydro",
-      "gw": 0.27,
-      "pct": 1.17,
+      "gw": 0.11,
+      "pct": 0.51,
       "color": "#0090c0"
     },
     {
       "label": "Gas",
-      "gw": 9.42,
-      "pct": 41.01,
+      "gw": 9.05,
+      "pct": 40.91,
       "color": "#c0399a"
     },
     {
@@ -35,26 +35,26 @@
     },
     {
       "label": "Biomass",
-      "gw": 2.33,
-      "pct": 10.13,
+      "gw": 2.36,
+      "pct": 10.66,
       "color": "#f59e2b"
     },
     {
       "label": "Nuclear",
-      "gw": 2.83,
-      "pct": 12.33,
+      "gw": 2.84,
+      "pct": 12.83,
       "color": "#5cb85c"
     },
     {
       "label": "Pumped Storage",
-      "gw": 0.14,
-      "pct": 0.62,
+      "gw": -0.01,
+      "pct": -0.04,
       "color": "#9b59b6"
     },
     {
       "label": "Imports & Exports",
-      "gw": 2.84,
-      "pct": 12.36,
+      "gw": 2.75,
+      "pct": 12.44,
       "color": "#e8615a"
     }
   ],

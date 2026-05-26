@@ -1,0 +1,21 @@
+name: Patch V3 price axis table fullscreen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/patch_v3_price_axis_table_fullscreen.py
+      - run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@globalgrid2050.com"
+          git add uk_energy_tracking_v3/index.md uk_energy_tracking_v3/price-history-ui.css uk_energy_tracking_v3/price-history-ui.js uk_energy_tracking_v3/price-history-fullscreen.js uk_energy_tracking_v3/WORK_DIARY.md
+          git diff --cached --quiet || git commit -m "Patch V3 price axis table fullscreen"
+          git pull --rebase origin main
+          git push origin HEAD:main

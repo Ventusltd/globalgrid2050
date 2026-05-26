@@ -989,3 +989,8 @@ This communication landed well because the graph visually demonstrated volatilit
 ## Diary entry: V4 clone from V3 benchmark
 
 V4 was cloned from the preserved V3 tracker. V3 is now the benchmark and should not be modified for the next UI experiments. Annual lazy loading, year selection, seasonal filters and further price explanation should be developed in V4 only. V4 workflows should be added separately with correct workflow permissions.
+
+
+## Diary entry: 2026-05-26 V4 live tracker modular structure
+
+V4 live tracker logic was split into config, helpers, gauges, transport, oil chart and app boot files. V3 was used only as the read only benchmark. The structure follows the adjacent sandbox modular pattern where index keeps page structure and external JavaScript files load in a deliberate dependency order.

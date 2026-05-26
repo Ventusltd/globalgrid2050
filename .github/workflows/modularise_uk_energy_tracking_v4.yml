@@ -1,4 +1,4 @@
-name: Modularise UK Energy Tracking V4
+name: GridBot V4 live tracker modularisation
 
 on:
   workflow_dispatch:
@@ -6,49 +6,69 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: gridbot-v4-live-tracker-modularisation
+  cancel-in-progress: false
+
 jobs:
-  modularise-v4:
+  run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Configure GridBot identity
+      - name: Configure GridBot
         run: |
           git config user.name "GridBot"
           git config user.email "gridbot@globalgrid2050.com"
 
-      - name: Diary preflight
+      - name: Read V3 benchmark diary first
         run: |
-          printf '\n\n## Diary preflight: 2026-05-26 V4 live tracker modularisation\n\nPurpose: modularise the remaining V4 inline live tracker script using V3 as read only benchmark.\n\nRule: patch only uk_energy_tracking_v4 and gridbot_reports. Do not touch uk_energy_tracking_v3 or uk_energy_tracking.\n' >> uk_energy_tracking_v4/WORK_DIARY.md
+          test -f uk_energy_tracking_v3/WORK_DIARY.md
+          head -n 120 uk_energy_tracking_v3/WORK_DIARY.md
+
+      - name: Read V4 work diary first
+        run: |
+          test -f uk_energy_tracking_v4/WORK_DIARY.md
+          head -n 160 uk_energy_tracking_v4/WORK_DIARY.md
+
+      - name: Commit V4 diary preflight first
+        run: |
+          printf '\n\n## Diary preflight: 2026-05-26 V4 live tracker modularisation\n\nPurpose: modularise the remaining V4 inline live tracker script using V3 as the read only benchmark.\n\nRule: patch only V4 files and the GridBot report. Do not touch uk_energy_tracking_v3/ or uk_energy_tracking/.\n\nExpected files: uk_energy_tracking_v4/index.md, uk_energy_tracking_v4/live-tracker.js, uk_energy_tracking_v4/WORK_DIARY.md and gridbot_reports/v4_live_tracker_script_modularisation.md.\n' >> uk_energy_tracking_v4/WORK_DIARY.md
           git add uk_energy_tracking_v4/WORK_DIARY.md
-          git commit -m "GridBot V4 modularisation diary preflight" || echo "No diary preflight changes"
+          git diff --cached --quiet || git commit -m "GridBot V4 modularisation diary preflight"
 
       - name: Run V4 modularisation script
         run: python scripts/modularise_uk_energy_tracking_v4.py
 
-      - name: Verify protected folders unchanged
+      - name: Validate V4 scope
         run: |
-          if git diff --name-only HEAD -- uk_energy_tracking_v3 uk_energy_tracking | grep .; then
-            echo "Protected tracker changed. Stopping."
+          git diff --name-only > changed_files.txt
+          if grep -v -E '^(uk_energy_tracking_v4/index.md|uk_energy_tracking_v4/live-tracker.js|uk_energy_tracking_v4/WORK_DIARY.md|gridbot_reports/v4_live_tracker_script_modularisation.md)$' changed_files.txt; then
+            echo "Unexpected files changed"
+            cat changed_files.txt
             exit 1
           fi
 
-      - name: Commit V4 modularisation
+      - name: Validate protected trackers untouched
+        run: |
+          if git diff --name-only HEAD -- uk_energy_tracking_v3 uk_energy_tracking | grep .; then
+            echo "Protected tracker changed"
+            git diff --name-only HEAD -- uk_energy_tracking_v3 uk_energy_tracking
+            exit 1
+          fi
+
+      - name: Commit V4 modularisation patch
         run: |
           git add uk_energy_tracking_v4/index.md uk_energy_tracking_v4/live-tracker.js uk_energy_tracking_v4/WORK_DIARY.md gridbot_reports/v4_live_tracker_script_modularisation.md
-          git commit -m "GridBot modularise V4 live tracker script" || echo "No V4 modularisation changes"
+          git diff --cached --quiet || git commit -m "GridBot modularise V4 live tracker script"
 
-      - name: Pull with rebase before push
-        run: git pull --rebase origin main
-
-      - name: Push changes
+      - name: Push with rebase retry
         run: |
-          for n in 1 2 3; do
-            git push origin HEAD:main && exit 0
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            echo "Push attempt ${attempt} failed"
             sleep 5
-            git pull --rebase origin main
           done
           exit 1

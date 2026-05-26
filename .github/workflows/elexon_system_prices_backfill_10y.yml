@@ -50,17 +50,13 @@ jobs:
 
       - name: Commit and push diary preflight first
         run: |
-          cat >> uk_energy_tracking_v3/WORK_DIARY.md <<'EOF'
-
-## Diary preflight: one off Elexon System Prices backfill
-
-```text
-purpose: fill historical Elexon System Prices safely in annual chunks before returning focus to live gathering
-source file: data/electricity/elexon_system_prices_half_hourly.csv
-method: fetch one year at a time, commit and push after each successful year
-stable tracker: do not touch uk_energy_tracking/
-```
-EOF
+          {
+            printf '\n%s\n' '## Diary preflight: one off Elexon System Prices backfill'
+            printf '\n%s\n' 'Purpose: fill historical Elexon System Prices safely in annual chunks before returning focus to live gathering.'
+            printf '%s\n' 'Source file: data/electricity/elexon_system_prices_half_hourly.csv'
+            printf '%s\n' 'Method: fetch one year at a time, commit and push after each successful year.'
+            printf '%s\n' 'Stable tracker rule: do not touch uk_energy_tracking/.'
+          } >> uk_energy_tracking_v3/WORK_DIARY.md
           git add uk_energy_tracking_v3/WORK_DIARY.md
           if git diff --cached --quiet; then
             echo "No diary preflight changes"
@@ -115,16 +111,12 @@ EOF
         run: |
           git fetch origin main
           git reset --hard origin/main
-          cat >> uk_energy_tracking_v3/WORK_DIARY.md <<'EOF'
-
-## Diary entry: one off Elexon System Prices backfill completed or attempted
-
-```text
-The one off safe backfill workflow attempted annual Elexon System Price collection.
-The CSV is the historical context and proofing layer for V3 price history.
-After this one off fill, normal operation should rely on daily Elexon System Price updates and live V3 Market Index capture.
-```
-EOF
+          {
+            printf '\n%s\n' '## Diary entry: one off Elexon System Prices backfill completed or attempted'
+            printf '\n%s\n' 'The one off safe backfill workflow attempted annual Elexon System Price collection.'
+            printf '%s\n' 'The CSV is the historical context and proofing layer for V3 price history.'
+            printf '%s\n' 'After this one off fill, normal operation should rely on daily Elexon System Price updates and live V3 Market Index capture.'
+          } >> uk_energy_tracking_v3/WORK_DIARY.md
           git add uk_energy_tracking_v3/WORK_DIARY.md
           if git diff --cached --quiet; then
             echo "No diary completion changes"

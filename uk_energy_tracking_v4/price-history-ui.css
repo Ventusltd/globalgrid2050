@@ -1,0 +1,223 @@
+#electricity-price-history-panel,
+#electricity-price-history-panel * {
+  box-sizing: border-box;
+}
+
+#electricity-price-history-panel {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#electricity-price-history-panel .trend-panel {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background: #070a10 !important;
+  border: 1px solid #252b36 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 0 22px rgba(0,255,255,.05);
+}
+
+#electricity-price-history-panel .price-history-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#electricity-price-history-panel .price-history-actions strong {
+  color: #00ffff !important;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+#electricity-price-history-panel .price-history-actions select {
+  background: #050505 !important;
+  color: #00ffff !important;
+  border: 1px solid #252b36 !important;
+  border-radius: 4px;
+  padding: 7px 9px;
+  font-family: "Courier New", monospace;
+}
+
+#electricity-price-history-panel .price-history-actions a {
+  border: 1px solid #252b36 !important;
+  border-radius: 4px;
+  padding: 7px 9px;
+  color: #7fdfff !important;
+  text-decoration: none !important;
+  background: rgba(255,255,255,.03) !important;
+}
+
+#electricity-price-history-panel #price-history-canvas {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: clamp(200px, 32vw, 320px) !important;
+  display: block;
+  border: 1px solid #252b36 !important;
+  background: #05070c !important;
+  border-radius: 6px;
+  touch-action: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+}
+
+#electricity-price-history-panel .price-history-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+#electricity-price-history-panel .price-history-card {
+  border: 1px solid #252b36 !important;
+  background: #0b0f17 !important;
+  border-radius: 6px;
+  padding: 12px;
+  min-width: 0;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+}
+
+#electricity-price-history-panel .price-history-label {
+  color: #9aa3b6 !important;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: 10px;
+}
+
+#electricity-price-history-panel .price-history-value {
+  color: #00ffff !important;
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+
+#electricity-price-history-panel .price-history-table-toggle {
+  margin-top: 12px;
+  border: 1px solid #252b36 !important;
+  border-radius: 6px;
+  background: #0b0f17 !important;
+  overflow: hidden;
+}
+
+#electricity-price-history-panel .price-history-table-toggle summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 12px;
+  color: #00ffff !important;
+  background: #05070c !important;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 11px;
+  border-bottom: 1px solid #252b36 !important;
+}
+
+#electricity-price-history-panel .price-history-table-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+#electricity-price-history-panel .price-history-table-toggle summary::after {
+  content: "Open";
+  float: right;
+  color: #9aa3b6;
+  letter-spacing: .08em;
+}
+
+#electricity-price-history-panel .price-history-table-toggle[open] summary::after {
+  content: "Close";
+}
+
+#electricity-price-history-panel .price-history-table-wrap {
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 0 !important;
+  border-radius: 0;
+  margin-top: 0;
+  max-height: 320px;
+  max-width: 100%;
+  background: #070a10 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+}
+
+#electricity-price-history-panel table.price-history-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 12px;
+  color: #f5f7fb !important;
+  background: #070a10 !important;
+  font-family: "Courier New", monospace;
+}
+
+#electricity-price-history-panel table.price-history-table thead,
+#electricity-price-history-panel table.price-history-table tbody,
+#electricity-price-history-panel table.price-history-table tr {
+  background: transparent !important;
+}
+
+#electricity-price-history-panel table.price-history-table th,
+#electricity-price-history-panel table.price-history-table td {
+  border: 0 !important;
+  border-bottom: 1px solid #252b36 !important;
+  border-right: 1px solid rgba(255,255,255,.045) !important;
+  padding: 9px 10px;
+  text-align: left;
+  white-space: nowrap;
+  background: #0b0f17 !important;
+  color: #f5f7fb !important;
+}
+
+#electricity-price-history-panel table.price-history-table tbody tr:nth-child(even) td {
+  background: #0f1520 !important;
+}
+
+#electricity-price-history-panel table.price-history-table tbody tr:hover td {
+  background: #111b29 !important;
+}
+
+#electricity-price-history-panel table.price-history-table th {
+  color: #00ffff !important;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: #05070c !important;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+#electricity-price-history-panel table.price-history-table td:nth-child(2) {
+  color: #00ffff !important;
+  font-weight: 800;
+}
+
+#electricity-price-history-panel table.price-history-table td:nth-child(5) {
+  color: #9aa3b6 !important;
+}
+
+@media (max-width: 850px) {
+  #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr 1fr; }
+  #electricity-price-history-panel #price-history-canvas { height: 220px !important; }
+  #electricity-price-history-panel table.price-history-table { font-size: 11px; min-width: 700px; }
+}
+
+@media (max-width: 560px) {
+  #electricity-price-history-panel .price-history-grid { grid-template-columns: 1fr; }
+  #electricity-price-history-panel .price-history-value { font-size: 22px; }
+  #electricity-price-history-panel #price-history-canvas { height: 205px !important; }
+}
+
+/* V4 price history fullscreen chart */
+#electricity-price-history-panel .price-history-fullscreen-btn{border:1px solid #252b36!important;border-radius:4px;padding:7px 9px;color:#00ffff!important;background:rgba(0,255,255,.05)!important;font-family:"Courier New",monospace;cursor:pointer}.price-history-fullscreen-overlay{position:fixed;inset:0;display:none;z-index:9999;background:rgba(0,0,0,.92);padding:14px;box-sizing:border-box}.price-history-fullscreen-overlay.open{display:block}.price-history-fullscreen-shell{width:100%;height:100%;border:1px solid #00ffff;border-radius:8px;background:#05070c;box-shadow:0 0 32px rgba(0,255,255,.16);display:flex;flex-direction:column;overflow:hidden;transform:translateZ(0);will-change:transform}.price-history-fullscreen-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid #252b36;background:#070a10;color:#f5f7fb;font-family:"Courier New",monospace}.price-history-fullscreen-toolbar strong{color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-size:12px}.price-history-fullscreen-toolbar span{color:#9aa3b6;font-size:12px;margin-right:auto}.price-history-fullscreen-toolbar button{border:1px solid #252b36;border-radius:4px;padding:7px 9px;color:#00ffff;background:rgba(255,255,255,.03);font-family:"Courier New",monospace;cursor:pointer}#price-history-fullscreen-canvas{width:100%;height:100%;flex:1 1 auto;display:block;background:#05070c;touch-action:none;transform:translateZ(0);will-change:transform}.price-history-fullscreen-note{border-top:1px solid #252b36;padding:8px 12px;color:#9aa3b6;font:12px "Courier New",monospace;background:#070a10}
+
+/* V4 price history calendar range controls */
+#electricity-price-history-panel .price-history-date-label{display:flex;align-items:center;gap:6px;color:#9aa3b6;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+#electricity-price-history-panel .price-history-date-label input{background:#050505!important;color:#00ffff!important;border:1px solid #252b36!important;border-radius:4px;padding:7px 9px;font-family:"Courier New",monospace}
+#electricity-price-history-panel .price-history-date-apply{border:1px solid #252b36!important;border-radius:4px;padding:7px 9px;color:#00ffff!important;background:rgba(0,255,255,.05)!important;font-family:"Courier New",monospace;cursor:pointer}
+#electricity-price-history-panel table.price-history-table tr.price-warning td{background:#20160b!important;color:#ffd28a!important}
+#electricity-price-history-panel table.price-history-table tr.price-warning td:nth-child(2){color:#ffcc66!important}
+
+#electricity-price-history-panel .price-history-range-status{width:100%;color:#9aa3b6;font-size:11px;line-height:1.45;border:1px solid #252b36;border-radius:4px;padding:7px 9px;background:#070a10;}
+#electricity-price-history-panel table.price-history-table tr.price-warning td{background:#20160b!important;color:#ffd28a!important}
+#electricity-price-history-panel table.price-history-table tr.price-warning td:nth-child(2){color:#ffcc66!important}

@@ -1,0 +1,31 @@
+{
+  "updated": "2026-05-24T22:59:00Z",
+  "unit": "pence per kilowatt hour",
+  "note": "Curated EV charging tariff reference table. Manual or semi automated updates only.",
+  "operators": [
+    {
+      "operator": "Gridserve",
+      "rapidPencePerKWh": null,
+      "ultraRapidPencePerKWh": null,
+      "membershipPencePerKWh": null,
+      "sourceUrl": "https://www.gridserve.com/electric-highway/",
+      "lastChecked": null
+    },
+    {
+      "operator": "Instavolt",
+      "rapidPencePerKWh": null,
+      "ultraRapidPencePerKWh": null,
+      "membershipPencePerKWh": null,
+      "sourceUrl": "https://instavolt.co.uk/",
+      "lastChecked": null
+    },
+    {
+      "operator": "Tesla Supercharger",
+      "rapidPencePerKWh": null,
+      "ultraRapidPencePerKWh": null,
+      "membershipPencePerKWh": null,
+      "sourceUrl": "https://www.tesla.com/en_gb/supercharger",
+      "lastChecked": null
+    }
+  ]
+}

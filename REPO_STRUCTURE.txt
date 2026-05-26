@@ -43,6 +43,17 @@
 ├── copper_and_aluminium_prices_historic_trends.md
 ├── data
 │   └── electricity
+│       ├── elexon_system_prices_2016.csv
+│       ├── elexon_system_prices_2017.csv
+│       ├── elexon_system_prices_2018.csv
+│       ├── elexon_system_prices_2019.csv
+│       ├── elexon_system_prices_2020.csv
+│       ├── elexon_system_prices_2021.csv
+│       ├── elexon_system_prices_2022.csv
+│       ├── elexon_system_prices_2023.csv
+│       ├── elexon_system_prices_2024.csv
+│       ├── elexon_system_prices_2025.csv
+│       ├── elexon_system_prices_2026.csv
 │       └── elexon_system_prices_half_hourly.csv
 ├── datacentres.geojson
 ├── dc_cables_knowledge
@@ -146,6 +157,7 @@
 │   ├── add_v8_bess_geospatial_layout_drawing.md
 │   ├── build_v8_bess_gis_sld_financial_sandbox.md
 │   ├── clone_uk_energy_tracking_v2_to_v3.md
+│   ├── clone_uk_energy_tracking_v3_to_v4.md
 │   ├── create_v8_bess_electrical_topology_review.md
 │   ├── create_v8_bess_pcs_standalone.md
 │   ├── fix_uk_renewables_pipeline_csv_export.md
@@ -528,6 +540,7 @@
 │   ├── clone_v4_to_v5.py
 │   ├── create_v8_bess_electrical_topology_review.py
 │   ├── create_v8_bess_pcs_standalone.py
+│   ├── dependencies_v4.py
 │   ├── document_uk_energy_trackers.py
 │   ├── download_elexon_system_prices.py
 │   ├── download_elexon_system_prices_range.py
@@ -607,17 +620,21 @@
 │   ├── update_oil_prices.py
 │   ├── update_oil_prices_v2.py
 │   ├── update_oil_prices_v3.py
+│   ├── update_oil_prices_v4.py
 │   ├── update_prices.py
 │   ├── update_prices_lv.py
 │   ├── update_uk_energy.py
 │   ├── update_uk_energy_v2.py
 │   ├── update_uk_energy_v3.py
+│   ├── update_uk_energy_v4.py
 │   ├── update_uk_fuel_prices.py
 │   ├── update_uk_fuel_prices_v2.py
 │   ├── update_uk_fuel_prices_v3.py
+│   ├── update_uk_fuel_prices_v4.py
 │   ├── update_uk_price.py
 │   ├── update_uk_price_v2.py
 │   ├── update_uk_price_v3.py
+│   ├── update_uk_price_v4.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
 │   ├── v2_safe_patch.py
@@ -979,6 +996,23 @@
 │   ├── price-history-fullscreen.js
 │   ├── price-history-ui.css
 │   └── price-history-ui.js
+├── uk_energy_tracking_v4
+│   ├── AI_RELOAD_INSTRUCTIONS.md
+│   ├── DIARY_NOTE_2026-05-26_missed_price_history_updates.md
+│   ├── README.md
+│   ├── WORK_DIARY.md
+│   ├── electricity_price_history.csv
+│   ├── electricity_price_history.json
+│   ├── ev_charging_prices.json
+│   ├── index.md
+│   ├── live_grid_energy.json
+│   ├── live_grid_price.json
+│   ├── live_oil_prices.json
+│   ├── live_uk_fuel_prices.json
+│   ├── oil_price_history.geojson
+│   ├── price-history-fullscreen.js
+│   ├── price-history-ui.css
+│   └── price-history-ui.js
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -996,4 +1030,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-126 directories, 871 files
+127 directories, 904 files

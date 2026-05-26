@@ -119,19 +119,24 @@ a { color: #7fdfff; }
     <h2 class="section-title">Generation Mix</h2>
     <div id="scada-mix" class="scada-mix-grid"></div>
   </section>  <section id="electricity-price-history-panel">
-    <h2 class="section-title">Electricity Price History</h2>
+    <h2 class="section-title">Half Hourly Electricity Price Settlement History, £/MWh</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
         <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity Price History</strong>
         <select id="price-history-range">
-          <option value="24h">24 hours</option>
-          <option value="7d" selected>7 days</option>
-          <option value="30d">30 days</option>
+          <option value="7d">1 week</option>
+          <option value="1m" selected>1 month</option>
           <option value="3m">3 months</option>
           <option value="6m">6 months</option>
           <option value="12m">12 months</option>
-          <option value="10y">10 years</option>
-          <option value="all">All captured data</option>
+        </select>
+        <select id="price-history-year" aria-label="Price history year"></select>
+        <select id="price-history-season" aria-label="Price history season">
+          <option value="all" selected>All seasons</option>
+          <option value="spring">Spring</option>
+          <option value="summer">Summer</option>
+          <option value="autumn">Autumn</option>
+          <option value="winter">Winter</option>
         </select>
         
         <label class="price-history-date-label">From <input type="date" id="price-history-from"></label>
@@ -141,7 +146,7 @@ a { color: #7fdfff; }
         <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
       </div>
       <div id="price-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
-      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Historical Elexon System Prices are shown for context. New live Market Index records build forward. Warnings are shown in the table health column.</div>
+      <div class="unit-panel"><strong>Unit:</strong> pounds per megawatt hour (£/MWh). <strong>Resolution:</strong> half hourly settlement period. <strong>Source:</strong> Elexon Balancing Mechanism Reporting Service (BMRS), System Prices. <strong>Attribution:</strong> Data provided by Elexon Limited via the Balancing Mechanism Reporting Service (BMRS). Official source: Elexon BMRS. <strong>Use:</strong> historical wholesale electricity settlement price reference for studying price volatility, negative pricing, seasonal behaviour and renewable generation effects.</div>
       <canvas id="price-history-canvas" width="900" height="300"></canvas>
       <div class="price-history-grid">
         <div class="price-history-card"><div class="price-history-label">Latest price</div><div class="price-history-value" id="ph-latest-price">—</div></div>
@@ -242,8 +247,8 @@ a { color: #7fdfff; }
     <p>Indicative near-real-time values for screening and situational awareness only. No representation is made that the data is accurate or complete.</p>
   </section>
 </div>
-<script src='/uk_energy_tracking_v3/price-history-ui.js?v=20260526d'></script>
-<script src='/uk_energy_tracking_v3/price-history-fullscreen.js?v=20260526d'></script>
+<script src='/uk_energy_tracking_v3/price-history-ui.js?v=20260526j'></script>
+<script src='/uk_energy_tracking_v3/price-history-fullscreen.js?v=20260526j'></script>
 
 <script>
 (function(){

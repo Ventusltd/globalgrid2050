@@ -796,3 +796,8 @@ Stable tracker rule: do not touch uk_energy_tracking/.
 The one off safe backfill workflow attempted annual Elexon System Price collection.
 The CSV is the historical context and proofing layer for V3 price history.
 After this one off fill, normal operation should rely on daily Elexon System Price updates and live V3 Market Index capture.
+
+
+## Diary entry: 2026-05-26 V3 annual lazy loading UI and attribution
+
+Added annual lazy loading controls for V3 electricity price history. The browser should now load one annual Elexon System Price CSV at a time through the year selector, rather than attempting to render the full 2016 to present archive. Period choices are 1 week, 1 month, 3 months, 6 months and 12 months. Seasonal filters were added for spring, summer, autumn and winter. The page title and unit panel now clearly state Half Hourly Electricity Price Settlement History, pounds per megawatt hour, Elexon Balancing Mechanism Reporting Service BMRS System Prices and Elexon Limited attribution. A dashed zero price reference line is drawn when the selected snapshot crosses zero.

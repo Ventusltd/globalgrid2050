@@ -1,0 +1,24 @@
+name: Patch V4 live tracker modularisation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: python scripts/modularise_uk_energy_tracking_v4.py
+      - run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@globalgrid2050.com"
+          git add uk_energy_tracking_v4/index.md uk_energy_tracking_v4/live-tracker.js uk_energy_tracking_v4/WORK_DIARY.md gridbot_reports/v4_live_tracker_script_modularisation.md
+          git diff --cached --quiet && exit 0
+          git commit -m "Patch V4 live tracker modularisation"
+          git pull --rebase origin main
+          git push origin HEAD:main

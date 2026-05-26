@@ -72,8 +72,8 @@ EOF
 
       - name: Backfill annual chunks and push after each year
         env:
-          START_YEAR: ${{ inputs.start_year }}
-          FINAL_YEAR: ${{ inputs.final_year }}
+          START_YEAR: ${{ github.event.inputs.start_year }}
+          FINAL_YEAR: ${{ github.event.inputs.final_year }}
         run: |
           set -euo pipefail
           git fetch origin main

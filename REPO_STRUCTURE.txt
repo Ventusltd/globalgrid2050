@@ -160,6 +160,8 @@
 │   ├── clone_uk_energy_tracking_v3_to_v4.md
 │   ├── create_v8_bess_electrical_topology_review.md
 │   ├── create_v8_bess_pcs_standalone.md
+│   ├── dependencies_v4.json
+│   ├── dependencies_v4.md
 │   ├── fix_uk_renewables_pipeline_csv_export.md
 │   ├── fix_v6_v7_gis_sld_print_simple_safe.md
 │   ├── fix_v7_gis_sld_mobile_tools_energy_layer_clearance.md
@@ -195,6 +197,7 @@
 │   ├── v4_array_fine_nudge_controls_rollback.md
 │   ├── v4_clone_from_v3_report.md
 │   ├── v4_detailed_disclaimer_below_financial_logic.md
+│   ├── v4_live_tracker_modular_structure.md
 │   ├── v4_pinned_cable_route_tool_rollback.md
 │   ├── v5_clone_from_v4_report.md
 │   ├── v5_engineering_clarity_upgrade.md
@@ -581,6 +584,7 @@
 │   ├── gridbot_feature_installer.py
 │   ├── gridbot_v3_diary_preflight.py
 │   ├── isolate_uk_energy_tracking_v2.py
+│   ├── modularise_uk_energy_tracking_v4.py
 │   ├── modularise_v6_cable_geometry.py
 │   ├── modularize_v3.py
 │   ├── patch_uk_energy_oil_dashboard_interactivity.py
@@ -594,6 +598,7 @@
 │   ├── patch_v3_price_history_ui.py
 │   ├── patch_v3_price_lazy_selectors.py
 │   ├── patch_v3_price_range_fullscreen_fix.py
+│   ├── patch_v4_live_tracker_modular_structure.py
 │   ├── patch_v8_bess_tabs_small_step.py
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
@@ -1005,6 +1010,12 @@
 │   ├── electricity_price_history.json
 │   ├── ev_charging_prices.json
 │   ├── index.md
+│   ├── live-app.js
+│   ├── live-config.js
+│   ├── live-gauges.js
+│   ├── live-helpers.js
+│   ├── live-oil-chart.js
+│   ├── live-transport.js
 │   ├── live_grid_energy.json
 │   ├── live_grid_price.json
 │   ├── live_oil_prices.json
@@ -1030,4 +1041,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-127 directories, 904 files
+127 directories, 915 files

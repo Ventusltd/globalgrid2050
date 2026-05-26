@@ -1,0 +1,54 @@
+name: Modularise UK Energy Tracking V4
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  modularise-v4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure GridBot identity
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@globalgrid2050.com"
+
+      - name: Diary preflight
+        run: |
+          printf '\n\n## Diary preflight: 2026-05-26 V4 live tracker modularisation\n\nPurpose: modularise the remaining V4 inline live tracker script using V3 as read only benchmark.\n\nRule: patch only uk_energy_tracking_v4 and gridbot_reports. Do not touch uk_energy_tracking_v3 or uk_energy_tracking.\n' >> uk_energy_tracking_v4/WORK_DIARY.md
+          git add uk_energy_tracking_v4/WORK_DIARY.md
+          git commit -m "GridBot V4 modularisation diary preflight" || echo "No diary preflight changes"
+
+      - name: Run V4 modularisation script
+        run: python scripts/modularise_uk_energy_tracking_v4.py
+
+      - name: Verify protected folders unchanged
+        run: |
+          if git diff --name-only HEAD -- uk_energy_tracking_v3 uk_energy_tracking | grep .; then
+            echo "Protected tracker changed. Stopping."
+            exit 1
+          fi
+
+      - name: Commit V4 modularisation
+        run: |
+          git add uk_energy_tracking_v4/index.md uk_energy_tracking_v4/live-tracker.js uk_energy_tracking_v4/WORK_DIARY.md gridbot_reports/v4_live_tracker_script_modularisation.md
+          git commit -m "GridBot modularise V4 live tracker script" || echo "No V4 modularisation changes"
+
+      - name: Pull with rebase before push
+        run: git pull --rebase origin main
+
+      - name: Push changes
+        run: |
+          for n in 1 2 3; do
+            git push origin HEAD:main && exit 0
+            sleep 5
+            git pull --rebase origin main
+          done
+          exit 1

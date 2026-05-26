@@ -731,3 +731,45 @@ stable tracker: do not touch uk_energy_tracking/
 ## Diary entry: 2026-05-26 V3 merged price source patch
 
 Merged the existing Elexon historical system price CSV with the V3 captured live Market Index trail. The chart and dropdown now use historical context plus new live captured rows, while the live gauge remains separate. System Prices and Market Index Prices remain labelled as different price products.
+
+## Diary entry: 2026-05-26 merge system workflow verification
+
+Verification after running GridBot V3 consolidated price history with feature merge_system.
+
+Confirmed commits:
+
+```text
+4ab2123acf11bef22c906aba53d2c753b87e2d81 GridBot V3 diary preflight
+4325b77e5e0775feca4f69b3964e6c10edefa94e GridBot V3 price history patch
+```
+
+Confirmed result:
+
+```text
+uk_energy_tracking_v3/price-history-ui.js now enables the CSV feed
+CSV_URL now points to /data/electricity/elexon_system_prices_half_hourly.csv
+mergeSystemAndCapturedRows now merges Elexon System Price rows with V3 captured Market Index rows
+source card now reports Historical Elexon System Prices plus V3 captured Market Index when CSV rows exist
+WORK_DIARY was updated by the workflow itself
+```
+
+Confirmed historical source exists:
+
+```text
+data/electricity/elexon_system_prices_half_hourly.csv starts at 2026-04-25 settlement period 1 and contains half hourly Elexon BMRS System Prices
+```
+
+Interpretation:
+
+```text
+The V3 chart and dropdown should now move from the small captured only record count to the much larger historical Elexon System Price record set plus new live captured Market Index records.
+The live gauge remains separate and should still be treated as the live price feed.
+System Prices and Market Index Prices are different price products, so this merged view is for historical context and price proofing, not a claim that both products are identical.
+```
+
+Remaining issue:
+
+```text
+The date window controls have not been verified in this workflow run because the selected feature was merge_system.
+Run the consolidated workflow with feature date_window next if the page still needs calendar based inspection capped to 60 days.
+```

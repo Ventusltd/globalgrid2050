@@ -33,10 +33,6 @@ a { color: #7fdfff; }
     <div class="scada-gauge-card"><div class="scada-gauge-title">Carbon Intensity</div><svg class="scada-gauge" viewBox="0 0 220 140" data-gauge="carbon"></svg></div>
   </section>
 
-
-
-
-
   <section>
     <h2 class="section-title">Generation Mix</h2>
     <div id="scada-mix" class="scada-mix-grid"></div>
@@ -49,8 +45,8 @@ a { color: #7fdfff; }
           <option value="24h">24 hours</option>
           <option value="7d" selected>7 days</option>
           <option value="30d">30 days</option>
+          <option value="3m">3 months</option>
         </select>
-        
         <label class="price-history-date-label">From <input type="date" id="price-history-from"></label>
         <label class="price-history-date-label">To <input type="date" id="price-history-to"></label>
         <button type="button" id="price-history-clear-dates" class="price-history-date-apply">Clear dates</button>
@@ -58,8 +54,8 @@ a { color: #7fdfff; }
         <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
       </div>
       <div id="price-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
-      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Historical Elexon System Prices are loaded from annual CSV files for a maximum 30 day visible window. The red line marks £0/MWh.</div>
-      <canvas id="price-history-canvas" width="900" height="300"></canvas>
+      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Historical Elexon System Prices are loaded from annual CSV files for a maximum 3 month visible window. The red line marks £0/MWh.</div>
+      <canvas id="price-history-canvas" width="900" height="320"></canvas>
       <div class="price-history-grid">
         <div class="price-history-card"><div class="price-history-label">Latest price</div><div class="price-history-value" id="ph-latest-price">—</div></div>
         <div class="price-history-card"><div class="price-history-label">Settlement time</div><div class="price-history-value" id="ph-latest-time">—</div></div>
@@ -141,8 +137,20 @@ a { color: #7fdfff; }
     <p>Indicative near-real-time values for screening and situational awareness only. No representation is made that the data is accurate or complete.</p>
   </section>
 </div>
-<script src='/uk_energy_tracking_v4/price-history-ui.js?v=20260526d'></script>
-<script src='/uk_energy_tracking_v4/price-history-fullscreen.js?v=20260526d'></script>
+<div id="price-history-fullscreen-overlay" class="price-history-fullscreen-overlay">
+  <div class="price-history-fullscreen-shell">
+    <div class="price-history-fullscreen-toolbar">
+      <strong>Electricity price history</strong>
+      <span id="price-history-fullscreen-meta">Selected range will appear here.</span>
+      <button type="button" id="price-history-zoom-reset">Redraw</button>
+      <button type="button" id="price-history-fullscreen-close">Close</button>
+    </div>
+    <canvas id="price-history-fullscreen-canvas"></canvas>
+    <div class="price-history-fullscreen-note">Elexon System Price history. Red line marks £0/MWh. Date labels show from, middle and to points.</div>
+  </div>
+</div>
+<script src='/uk_energy_tracking_v4/price-history-ui.js?v=20260526e'></script>
+<script src='/uk_energy_tracking_v4/price-history-fullscreen.js?v=20260526e'></script>
 
 <script src='/uk_energy_tracking_v4/live-config.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-helpers.js?v=20260526a'></script>
@@ -150,3 +158,5 @@ a { color: #7fdfff; }
 <script src='/uk_energy_tracking_v4/live-transport.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-oil-chart.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-app.js?v=20260526a'></script>
+</body>
+</html>

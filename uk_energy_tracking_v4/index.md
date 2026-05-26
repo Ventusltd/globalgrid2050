@@ -41,23 +41,22 @@ a { color: #7fdfff; }
     <div class="trend-panel">
       <div class="price-history-actions">
         <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity Price History</strong>
-        <select id="price-history-range">
-          <option value="24h">24 hours</option>
-          <option value="7d" selected>7 days</option>
-          <option value="30d">30 days</option>
+        <label class="price-history-date-label">Year <select id="price-history-year"></select></label>
+        <label class="price-history-date-label">Start <input type="date" id="price-history-start"></label>
+        <label class="price-history-date-label">Period <select id="price-history-period">
+          <option value="7d" selected>1 week</option>
+          <option value="30d">1 month</option>
           <option value="3m">3 months</option>
-        </select>
-        <label class="price-history-date-label">From <input type="date" id="price-history-from"></label>
-        <label class="price-history-date-label">To <input type="date" id="price-history-to"></label>
-        <button type="button" id="price-history-clear-dates" class="price-history-date-apply">Clear dates</button>
+        </select></label>
+        <button type="button" id="price-history-clear-start" class="price-history-date-apply">Reset start</button>
         <a href="/uk_energy_tracking_v4/electricity_price_history.csv" download>Download CSV</a>
         <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
       </div>
       <div id="price-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
-      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Historical Elexon System Prices are loaded from annual CSV files for a maximum 3 month visible window. The red line marks £0/MWh.</div>
+      <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Select a year, a start date and a period. The chart automatically loads the required Elexon annual CSV file and calculates the end date. The red line marks £0/MWh.</div>
       <canvas id="price-history-canvas" width="900" height="320"></canvas>
       <div class="price-history-grid">
-        <div class="price-history-card"><div class="price-history-label">Latest price</div><div class="price-history-value" id="ph-latest-price">—</div></div>
+        <div class="price-history-card"><div class="price-history-label">Latest visible price</div><div class="price-history-value" id="ph-latest-price">—</div></div>
         <div class="price-history-card"><div class="price-history-label">Settlement time</div><div class="price-history-value" id="ph-latest-time">—</div></div>
         <div class="price-history-card"><div class="price-history-label">Visible records</div><div class="price-history-value" id="ph-row-count">—</div></div>
         <div class="price-history-card"><div class="price-history-label">Source</div><div class="price-history-value" style="font-size:13px;" id="ph-source">Elexon BMRS</div></div>
@@ -149,7 +148,7 @@ a { color: #7fdfff; }
     <div class="price-history-fullscreen-note">Elexon System Price history. Red line marks £0/MWh. Date labels show from, middle and to points.</div>
   </div>
 </div>
-<script src='/uk_energy_tracking_v4/price-history-ui.js?v=20260526e'></script>
+<script src='/uk_energy_tracking_v4/price-history-ui.js?v=20260526f'></script>
 <script src='/uk_energy_tracking_v4/price-history-fullscreen.js?v=20260526e'></script>
 
 <script src='/uk_energy_tracking_v4/live-config.js?v=20260526a'></script>

@@ -578,6 +578,7 @@
 │   ├── patch_v3_price_history_fullscreen.py
 │   ├── patch_v3_price_history_merge_system.py
 │   ├── patch_v3_price_history_ui.py
+│   ├── patch_v3_price_lazy_selectors.py
 │   ├── patch_v3_price_range_fullscreen_fix.py
 │   ├── patch_v8_bess_tabs_small_step.py
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
@@ -994,4 +995,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-126 directories, 869 files
+126 directories, 870 files

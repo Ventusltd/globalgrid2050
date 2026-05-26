@@ -520,7 +520,6 @@
 │   ├── add_v7_gis_sld_large_asset_markers_and_search.py
 │   ├── add_v7_gis_sld_site_intelligence_panel.py
 │   ├── add_v8_bess_geospatial_layout_drawing.py
-│   ├── backfill_v3_elexon_price_history.py
 │   ├── build_v8_bess_gis_sld_financial_sandbox.py
 │   ├── clone_uk_energy_tracking_v2.py
 │   ├── clone_uk_energy_tracking_v2_to_v3.py
@@ -987,4 +986,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-126 directories, 862 files
+126 directories, 861 files

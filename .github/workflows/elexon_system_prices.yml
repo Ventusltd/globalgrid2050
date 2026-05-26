@@ -28,10 +28,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Fetch Elexon system prices
+      - name: Fetch Elexon system prices and maintain annual files
         env:
           BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '30' }}
-        run: python scripts/download_elexon_system_prices.py
+        run: |
+          python scripts/download_elexon_system_prices.py
+          python scripts/split_elexon_system_prices_by_year.py
 
       - name: Commit data
         env:
@@ -40,7 +42,7 @@ jobs:
           set -e
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add data/electricity/elexon_system_prices_half_hourly.csv
+          git add data/electricity/elexon_system_prices_half_hourly.csv data/electricity/elexon_system_prices_*.csv
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Update Elexon system prices"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main

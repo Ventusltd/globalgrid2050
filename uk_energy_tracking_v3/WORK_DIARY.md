@@ -801,3 +801,186 @@ After this one off fill, normal operation should rely on daily Elexon System Pri
 ## Diary entry: 2026-05-26 V3 annual lazy loading UI and attribution
 
 Added annual lazy loading controls for V3 electricity price history. The browser should now load one annual Elexon System Price CSV at a time through the year selector, rather than attempting to render the full 2016 to present archive. Period choices are 1 week, 1 month, 3 months, 6 months and 12 months. Seasonal filters were added for spring, summer, autumn and winter. The page title and unit panel now clearly state Half Hourly Electricity Price Settlement History, pounds per megawatt hour, Elexon Balancing Mechanism Reporting Service BMRS System Prices and Elexon Limited attribution. A dashed zero price reference line is drawn when the selected snapshot crosses zero.
+
+## Diary entry: 2026-05-26 V3 continuity note for annual electricity price history
+
+### Current state
+
+The V3 electricity price history work has moved from a small captured data prototype into a larger historical and analytical layer.
+
+The data archive has been backfilled from Elexon System Prices from 2016 to 2026 using a one off safe annual backfill workflow. The workflow initially failed due to YAML syntax problems around heredoc markdown code fences, was corrected by replacing the heredoc block with safer printf based diary writing and then successfully pushed annual commits for:
+
+```text
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+2019
+2018
+2017
+2016
+```
+
+The backfill created and expanded the master file:
+
+```text
+data/electricity/elexon_system_prices_half_hourly.csv
+```
+
+This master file is too large to load safely as one browser graph from 2016 to present. Attempting to graph the full archive at once can crash mobile Safari and produce a dense unreadable chart.
+
+### Current intended architecture
+
+The correct architecture is now annual lazy loading.
+
+The browser should not load the whole 2016 to present master CSV. It should load one selected annual file at a time, for example:
+
+```text
+data/electricity/elexon_system_prices_2026.csv
+data/electricity/elexon_system_prices_2025.csv
+data/electricity/elexon_system_prices_2024.csv
+```
+
+Annual files are generated from the master CSV by:
+
+```text
+scripts/split_elexon_system_prices_by_year.py
+```
+
+The daily Elexon System Prices workflow has been updated so future updates should maintain both the master CSV and the annual files:
+
+```text
+.github/workflows/elexon_system_prices.yml
+```
+
+This means the archive should continue to populate as years go by. The current year annual CSV should receive new rows through the daily Elexon update workflow. When a new year begins, the splitter should create the new year file once records exist.
+
+### V3 UI controls planned and partially prepared
+
+The V3 price history UI should support:
+
+```text
+Period selector: 1 week, 1 month, 3 months, 6 months, 12 months
+Year selector: 2016 to current year
+Season selector: all seasons, spring, summer, autumn, winter
+Manual From and To date controls retained for advanced inspection
+Full screen chart using the already loaded inline snapshot
+```
+
+The old options that load too much data should be removed or avoided:
+
+```text
+10 years
+All captured data
+whole archive rendering
+```
+
+### Seasonal logic
+
+Seasonal windows are intended for studying weather dependent effects such as wind, solar, negative pricing and storage opportunities.
+
+Current proposed season windows:
+
+```text
+Spring: March 1 to May 31
+Summer: June 1 to August 31
+Autumn: September 1 to November 30
+Winter: January 1 to February 29 for the selected year
+```
+
+Note: winter is simplified to the January and February part of the selected year. A later refinement could allow cross year winter, December to February, but that would require loading 2 annual files.
+
+### Graph interpretation and attribution
+
+The graph should be titled:
+
+```text
+Half Hourly Electricity Price Settlement History, £/MWh
+```
+
+The unit and attribution text should say:
+
+```text
+Unit: pounds per megawatt hour (£/MWh).
+Resolution: half hourly settlement period.
+Source: Elexon Balancing Mechanism Reporting Service (BMRS), System Prices.
+Attribution: Data provided by Elexon Limited via the Balancing Mechanism Reporting Service (BMRS). Official source: Elexon BMRS.
+Use: historical wholesale electricity settlement price reference for studying price volatility, negative pricing, seasonal behaviour and renewable generation effects.
+```
+
+Do not mention the word API in the user facing attribution text.
+
+### Zero line requirement
+
+A prominent dashed horizontal reference line at £0 is worth adding whenever the selected price range crosses zero.
+
+Purpose:
+
+```text
+make negative pricing visually obvious
+support battery storage analysis
+make curtailment and renewable surplus behaviour readable without extra explanation
+```
+
+Keep the existing cyan on black colour scheme. The colour scheme is strong and should not be changed.
+
+### Current patch and workflow status
+
+The patch script prepared for this UI layer is:
+
+```text
+scripts/patch_v3_price_lazy_selectors.py
+```
+
+The workflow prepared for applying it is:
+
+```text
+.github/workflows/patch_v3_price_lazy_selectors.yml
+```
+
+The workflow to run is:
+
+```text
+Patch V3 price lazy selectors
+```
+
+Expected files touched by that workflow:
+
+```text
+uk_energy_tracking_v3/index.md
+uk_energy_tracking_v3/price-history-ui.js
+uk_energy_tracking_v3/price-history-fullscreen.js
+uk_energy_tracking_v3/WORK_DIARY.md
+```
+
+The patch should be checked carefully after running because earlier V3 price history work had a repeated problem where the inline chart was corrected but the full screen chart retained old source logic. Future verification must always inspect both:
+
+```text
+uk_energy_tracking_v3/price-history-ui.js
+uk_energy_tracking_v3/price-history-fullscreen.js
+```
+
+### Immediate next verification steps
+
+After running the lazy selector workflow and deploying Jekyll, verify:
+
+```text
+The dropdown no longer offers 10 years or All captured data.
+The range selector offers only 1 week, 1 month, 3 months, 6 months and 12 months.
+A year selector appears and can select 2016 through current year.
+A season selector appears and can select spring, summer, autumn and winter.
+The browser loads one annual CSV rather than the full master CSV.
+The graph no longer crashes when historical data exists back to 2016.
+The full screen chart uses the same already loaded snapshot as the inline chart.
+The £0 dashed reference line appears when prices cross zero.
+The Elexon BMRS attribution text is clear and does not mention API.
+```
+
+### Communication context
+
+A screenshot and short WhatsApp post were shared to the Solar Industry Networking UK group. The message said that 10 years of half hourly electricity data had been downloaded, the seasonal behaviour could be seen and that the data was so numerous it could crash the graph. The post also joked that although the obvious use case is battery storage, a good looking graph was also part of the motivation.
+
+This communication landed well because the graph visually demonstrated volatility, seasonality and negative pricing. The next UI patch is meaningful because it turns the impressive visual into a usable analytical dashboard for storage, renewables, seasonal behaviour and wholesale settlement price study.

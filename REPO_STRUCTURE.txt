@@ -621,6 +621,7 @@
 │   ├── test_v7_gis_sld_asset_pipeline_dropdown_status.py
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
 │   ├── test_v7_gis_sld_site_intelligence_panel.py
+│   ├── update_elexon_system_prices_daily_v4.py
 │   ├── update_metal_trends.py
 │   ├── update_oil_prices.py
 │   ├── update_oil_prices_v2.py
@@ -1041,4 +1042,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-127 directories, 915 files
+127 directories, 916 files

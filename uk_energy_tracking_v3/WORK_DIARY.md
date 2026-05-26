@@ -790,3 +790,9 @@ Purpose: fill historical Elexon System Prices safely in annual chunks before ret
 Source file: data/electricity/elexon_system_prices_half_hourly.csv
 Method: fetch one year at a time, commit and push after each successful year.
 Stable tracker rule: do not touch uk_energy_tracking/.
+
+## Diary entry: one off Elexon System Prices backfill completed or attempted
+
+The one off safe backfill workflow attempted annual Elexon System Price collection.
+The CSV is the historical context and proofing layer for V3 price history.
+After this one off fill, normal operation should rely on daily Elexon System Price updates and live V3 Market Index capture.

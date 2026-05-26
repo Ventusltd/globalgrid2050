@@ -1,0 +1,86 @@
+name: GridBot V3 consolidated price history
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature:
+        description: V3 patch to run after diary preflight
+        required: true
+        default: date_window
+        type: choice
+        options:
+          - correctness
+          - fullscreen
+          - merge_system
+          - date_window
+          - all_safe
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-v3-price-history
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure GridBot
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@globalgrid2050.com"
+      - name: Read diary first
+        run: |
+          test -f uk_energy_tracking_v3/WORK_DIARY.md
+          head -n 80 uk_energy_tracking_v3/WORK_DIARY.md
+      - name: Commit diary preflight first
+        run: |
+          echo "${{ github.event.inputs.feature }}" > gridbot_feature_choice.txt
+          python scripts/gridbot_v3_diary_preflight.py
+          rm gridbot_feature_choice.txt
+          git add uk_energy_tracking_v3/WORK_DIARY.md
+          git diff --cached --quiet || git commit -m "GridBot V3 diary preflight"
+      - name: Run selected V3 patch
+        run: |
+          feature="${{ github.event.inputs.feature }}"
+          if [ "$feature" = "correctness" ]; then
+            python scripts/patch_v3_price_history_correctness.py
+          elif [ "$feature" = "fullscreen" ]; then
+            python scripts/patch_v3_price_history_fullscreen.py
+          elif [ "$feature" = "merge_system" ]; then
+            python scripts/patch_v3_price_history_merge_system.py
+          elif [ "$feature" = "date_window" ]; then
+            python scripts/patch_v3_price_history_date_window.py
+          elif [ "$feature" = "all_safe" ]; then
+            python scripts/patch_v3_price_history_correctness.py
+            python scripts/patch_v3_price_history_fullscreen.py
+            python scripts/patch_v3_price_history_merge_system.py
+            python scripts/patch_v3_price_history_date_window.py
+          else
+            echo "Unknown feature: $feature"
+            exit 1
+          fi
+      - name: Validate V3 scope
+        run: |
+          git diff --name-only > changed_files.txt
+          if grep -v -E '^(uk_energy_tracking_v3/index.md|uk_energy_tracking_v3/price-history-ui.css|uk_energy_tracking_v3/price-history-ui.js|uk_energy_tracking_v3/price-history-fullscreen.js|uk_energy_tracking_v3/WORK_DIARY.md)$' changed_files.txt; then
+            echo "Unexpected files changed"
+            cat changed_files.txt
+            exit 1
+          fi
+      - name: Commit selected V3 patch
+        run: |
+          git add uk_energy_tracking_v3/index.md uk_energy_tracking_v3/price-history-ui.css uk_energy_tracking_v3/price-history-ui.js uk_energy_tracking_v3/price-history-fullscreen.js uk_energy_tracking_v3/WORK_DIARY.md
+          git diff --cached --quiet || git commit -m "GridBot V3 price history patch"
+      - name: Push with rebase retry
+        run: |
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            echo "Push attempt ${attempt} failed"
+            sleep 5
+          done
+          exit 1

@@ -21,4 +21,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Clone UK energy tracker V3 to V4
-          file_pattern: uk_energy_tracking_v4/** scripts/update_uk_energy_v4.py scripts/update_uk_price_v4.py scripts/update_oil_prices_v4.py scripts/update_uk_fuel_prices_v4.py .github/workflows/fetch_uk_energy_and_prices_v4.yml .github/workflows/force_uk_energy_tracking_v4_price_history.yml gridbot_reports/clone_uk_energy_tracking_v3_to_v4.md
+          file_pattern: uk_energy_tracking_v4/** scripts/update_uk_energy_v4.py scripts/update_uk_price_v4.py scripts/update_oil_prices_v4.py scripts/update_uk_fuel_prices_v4.py gridbot_reports/clone_uk_energy_tracking_v3_to_v4.md

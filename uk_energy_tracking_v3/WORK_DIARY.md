@@ -783,3 +783,10 @@ Amended before execution after code review. The patch now aligns full screen wit
 ## Diary entry: 2026-05-26 V3 selected range axis and fullscreen simplification patch
 
 This patch makes the selected date window govern the x axis rather than allowing the chart to collapse to only the earliest and latest available rows. It adds a visible selected range and available source data status line, makes the table use the same selected range, removes broken zoom in and zoom out controls from full screen mode and makes full screen reuse the already loaded inline chart state. If a selected range has no rows, both chart and table state that no records are available and advise checking the data source or running Elexon backfill.
+
+## Diary preflight: one off Elexon System Prices backfill
+
+Purpose: fill historical Elexon System Prices safely in annual chunks before returning focus to live gathering.
+Source file: data/electricity/elexon_system_prices_half_hourly.csv
+Method: fetch one year at a time, commit and push after each successful year.
+Stable tracker rule: do not touch uk_energy_tracking/.

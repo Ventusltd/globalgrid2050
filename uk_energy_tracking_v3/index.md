@@ -140,6 +140,7 @@ a { color: #7fdfff; }
         <a href="/uk_energy_tracking_v3/electricity_price_history.csv" download>Download CSV</a>
         <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
       </div>
+      <div id="price-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
       <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Historical Elexon System Prices are shown for context. New live Market Index records build forward. Warnings are shown in the table health column.</div>
       <canvas id="price-history-canvas" width="900" height="300"></canvas>
       <div class="price-history-grid">
@@ -220,13 +221,11 @@ a { color: #7fdfff; }
       <div class="price-history-fullscreen-toolbar">
         <strong>Electricity Price History</strong>
         <span id="price-history-fullscreen-meta">Captured Elexon market index prices</span>
-        <button type="button" id="price-history-zoom-out">Zoom out</button>
-        <button type="button" id="price-history-zoom-in">Zoom in</button>
-        <button type="button" id="price-history-zoom-reset">Reset</button>
+        <button type="button" id="price-history-zoom-reset">Redraw</button>
         <button type="button" id="price-history-fullscreen-close">Close</button>
       </div>
       <canvas id="price-history-fullscreen-canvas"></canvas>
-      <div class="price-history-fullscreen-note">Wheel to zoom. Drag to pan. Esc closes the chart.</div>
+      <div class="price-history-fullscreen-note">Full screen uses the selected inline date range. Esc closes the chart.</div>
     </div>
   </div>
 
@@ -243,8 +242,8 @@ a { color: #7fdfff; }
     <p>Indicative near-real-time values for screening and situational awareness only. No representation is made that the data is accurate or complete.</p>
   </section>
 </div>
-<script src='/uk_energy_tracking_v3/price-history-ui.js'></script>
-<script src='/uk_energy_tracking_v3/price-history-fullscreen.js'></script>
+<script src='/uk_energy_tracking_v3/price-history-ui.js?v=20260526d'></script>
+<script src='/uk_energy_tracking_v3/price-history-fullscreen.js?v=20260526d'></script>
 
 <script>
 (function(){

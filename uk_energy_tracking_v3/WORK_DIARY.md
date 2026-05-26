@@ -778,3 +778,8 @@ Run the consolidated workflow with feature date_window next if the page still ne
 ## Diary entry: 2026-05-26 V3 range and full screen correction amended before run
 
 Amended before execution after code review. The patch now aligns full screen with the inline chart by loading both the historical Elexon system price CSV and the V3 captured JSON. It adds From and To date controls capped to 60 days, changes rolling cutoffs to millisecond based UTC comparisons, surfaces priceHealth warnings before carbon values in the table health column and highlights warned rows. It also fixes the label so the panel is not described as captured Market Index only when historical System Prices are present.
+
+
+## Diary entry: 2026-05-26 V3 selected range axis and fullscreen simplification patch
+
+This patch makes the selected date window govern the x axis rather than allowing the chart to collapse to only the earliest and latest available rows. It adds a visible selected range and available source data status line, makes the table use the same selected range, removes broken zoom in and zoom out controls from full screen mode and makes full screen reuse the already loaded inline chart state. If a selected range has no rows, both chart and table state that no records are available and advise checking the data source or running Elexon backfill.

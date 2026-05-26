@@ -217,3 +217,7 @@
 #electricity-price-history-panel .price-history-date-apply{border:1px solid #252b36!important;border-radius:4px;padding:7px 9px;color:#00ffff!important;background:rgba(0,255,255,.05)!important;font-family:"Courier New",monospace;cursor:pointer}
 #electricity-price-history-panel table.price-history-table tr.price-warning td{background:#20160b!important;color:#ffd28a!important}
 #electricity-price-history-panel table.price-history-table tr.price-warning td:nth-child(2){color:#ffcc66!important}
+
+#electricity-price-history-panel .price-history-range-status{width:100%;color:#9aa3b6;font-size:11px;line-height:1.45;border:1px solid #252b36;border-radius:4px;padding:7px 9px;background:#070a10;}
+#electricity-price-history-panel table.price-history-table tr.price-warning td{background:#20160b!important;color:#ffd28a!important}
+#electricity-price-history-panel table.price-history-table tr.price-warning td:nth-child(2){color:#ffcc66!important}

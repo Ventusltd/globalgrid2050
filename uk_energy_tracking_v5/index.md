@@ -268,7 +268,7 @@ html.v5-chart-open, body.v5-chart-open { overflow:hidden !important; height:100d
 </div>
 
 <script src='/uk_energy_tracking_v5/price-history-ui.js?v=20260527l'></script>
-<script src='/uk_energy_tracking_v5/price-history-fullscreen.js?v=20260527l'></script>
+<script src='/uk_energy_tracking_v5/price-history-fullscreen.js?v=20260527n'></script>
 <script src='/uk_energy_tracking_v5/live-config.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v5/live-helpers.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v5/live-gauges.js?v=20260526a'></script>

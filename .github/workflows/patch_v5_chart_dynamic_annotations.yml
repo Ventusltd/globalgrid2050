@@ -1,0 +1,49 @@
+name: Patch V5 Dynamic Chart Annotations
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/patch_v5_chart_dynamic_annotations.py'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Patch V5 dynamic chart annotations
+        run: python scripts/patch_v5_chart_dynamic_annotations.py
+
+      - name: Syntax check JavaScript
+        run: |
+          node --check uk_energy_tracking_v5/price-history-ui.js
+          node --check uk_energy_tracking_v5/price-history-fullscreen.js
+
+      - name: Commit patched V5 dynamic chart files
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v5/price-history-ui.js uk_energy_tracking_v5/price-history-fullscreen.js uk_energy_tracking_v5/index.md gridbot_reports/patch_v5_chart_dynamic_annotations.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Patch V5 dynamic chart annotations"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V5 dynamic chart changes to commit"
+          fi

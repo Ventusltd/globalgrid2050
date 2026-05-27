@@ -1,13 +1,12 @@
 {
-  "updated": "2026-05-27T21:08:21.487162+00:00",
-  "priceGBPperMWh": 79.23,
-  "priceTime": "2026-05-27T13:30:00Z",
-  "carbonGperKWh": 152,
-  "carbonForecast": 146,
+  "updated": "2026-05-27T22:49:12.275961+00:00",
+  "priceGBPperMWh": 109.82,
+  "priceTime": "2026-05-27T22:30:00Z",
+  "carbonGperKWh": 125,
+  "carbonForecast": 140,
   "carbonIndex": "moderate",
   "health": {
-    "price": "warning: zero market price rejected; previous valid value preserved",
+    "price": "ok",
     "carbon": "ok"
-  },
-  "previousPriceUpdated": "2026-05-27T19:10:17.549993+00:00"
+  }
 }

@@ -2,6 +2,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
+UI = ROOT / "uk_energy_tracking_v5" / "price-history-ui.js"
 FS = ROOT / "uk_energy_tracking_v5" / "price-history-fullscreen.js"
 INDEX = ROOT / "uk_energy_tracking_v5" / "index.md"
 REPORT = ROOT / "gridbot_reports" / "patch_v5_fullscreen_glow_controls.md"
@@ -18,6 +19,10 @@ GLOW_LABEL_FUNCS = """function eventPoints(rows){if(!rows.length)return null;var
 function glowingLabel(g,label,r,point,q,x,y,right){g.save();g.strokeStyle='#ff3333';g.shadowColor='rgba(0,255,255,.85)';g.shadowBlur=10*q;g.lineWidth=1.9*q;g.beginPath();g.moveTo(point.x,point.y);g.lineTo(x,y);g.stroke();g.fillStyle='#ff3333';g.font='bold '+(12*q)+'px Courier New';g.textAlign=right?'left':'right';g.fillText(label+' £'+fmt(Number(r.priceGBPperMWh),2)+'/MWh',x,y);g.font='bold '+(10*q)+'px Courier New';g.fillText(slab(r.priceTimeUTC)+' '+tlab(r.priceTimeUTC),x,y+15*q);g.restore()}
 function drawEvents(g,rows,X,Y,q,w,h,pad){var e=eventPoints(rows);if(!e)return;var hx=X(e.hi),hy=Y(Number(e.hi.priceGBPperMWh)),lx=X(e.lo),ly=Y(Number(e.lo.priceGBPperMWh));g.save();g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.90)';g.shadowBlur=11*q;g.beginPath();g.arc(hx,hy,5*q,0,Math.PI*2);g.fill();g.beginPath();g.arc(lx,ly,5*q,0,Math.PI*2);g.fill();g.restore();var hxText=Math.min(w-pad.right-175*q,Math.max(pad.left+175*q,hx+18*q));var lxText=Math.max(pad.left+175*q,Math.min(w-pad.right-175*q,lx-18*q));glowingLabel(g,'HIGH',e.hi,{x:hx,y:hy},q,hxText,pad.top-8*q,hxText>=hx);glowingLabel(g,'LOW',e.lo,{x:lx,y:ly},q,lxText,h-pad.bottom+18*q,lxText>=lx)}"""
 
+NORMAL_GLOW_LABEL_FUNCS = """function eventPoints(rows){if(!rows.length)return null;var hi=rows[0],lo=rows[0];rows.forEach(function(r){if(Number(r.priceGBPperMWh)>Number(hi.priceGBPperMWh))hi=r;if(Number(r.priceGBPperMWh)<Number(lo.priceGBPperMWh))lo=r});return{hi:hi,lo:lo}}
+function glowingLabel(g,label,r,point,q,x,y,right){g.save();g.strokeStyle='#ff3333';g.shadowColor='rgba(0,255,255,.75)';g.shadowBlur=8*q;g.lineWidth=1.7*q;g.beginPath();g.moveTo(point.x,point.y);g.lineTo(x,y);g.stroke();g.fillStyle='#ff3333';g.font='bold '+(11*q)+'px Courier New';g.textAlign=right?'left':'right';g.fillText(label+' £'+fmt(Number(r.priceGBPperMWh),2)+'/MWh',x,y);g.font='bold '+(9.5*q)+'px Courier New';g.fillText(slab(r.priceTimeUTC)+' '+tlab(r.priceTimeUTC),x,y+14*q);g.restore()}
+function drawEvents(g,rows,X,Y,q,w,h,pad){var e=eventPoints(rows);if(!e)return;var hx=X(e.hi),hy=Y(Number(e.hi.priceGBPperMWh)),lx=X(e.lo),ly=Y(Number(e.lo.priceGBPperMWh));g.save();g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.80)';g.shadowBlur=9*q;g.beginPath();g.arc(hx,hy,5*q,0,Math.PI*2);g.fill();g.beginPath();g.arc(lx,ly,5*q,0,Math.PI*2);g.fill();g.restore();var hxText=Math.min(w-pad.right-160*q,Math.max(pad.left+160*q,hx+18*q));var lxText=Math.max(pad.left+160*q,Math.min(w-pad.right-160*q,lx-18*q));glowingLabel(g,'HIGH',e.hi,{x:hx,y:hy},q,hxText,pad.top-8*q,hxText>=hx);glowingLabel(g,'LOW',e.lo,{x:lx,y:ly},q,lxText,h-pad.bottom+18*q,lxText>=lx)}"""
+
 
 def replace_function(text, name, new_code):
     pattern = r"function " + re.escape(name) + r"\([^)]*\)\{.*?\nfunction "
@@ -27,66 +32,75 @@ def replace_function(text, name, new_code):
     return text[:m.start()] + new_code + "\nfunction " + text[m.end():]
 
 
-def main():
-    txt = FS.read_text()
-
-    # Fully spelled date formatting everywhere used in fullscreen labels and titles.
-    txt = re.sub(
+def patch_dates(text):
+    text = re.sub(
         r"function slab\(t\)\{.*?\}\nfunction tlab",
         "function slab(t){return new Date(t).toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'})}\nfunction tlab",
-        txt,
+        text,
         flags=re.S,
     )
-    txt = re.sub(
+    text = re.sub(
         r"function axisLabel\(t,span\)\{.*?\}\nfunction drawDateTick",
         "function axisLabel(t,span){var d=new Date(t);if(span<=45*86400000)return d.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});return d.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}\nfunction drawDateTick",
-        txt,
+        text,
         flags=re.S,
     )
+    return text
 
-    # Replace fullscreen CSS, controls and control synchronisation.
+
+def patch_fullscreen():
+    txt = patch_dates(FS.read_text())
     txt = re.sub(r"s\.textContent='.*?';document\.head\.appendChild\(s\)", "s.textContent='" + BOTTOM_CONTROL_CSS + "';document.head.appendChild(s)", txt, flags=re.S)
     txt = replace_function(txt, "ensureControls", ENSURE_CONTROLS)
     txt = replace_function(txt, "bindControls", BIND_CONTROLS)
     txt = replace_function(txt, "syncFs", SYNC_FS)
-
-    # Remove the failed black box/collision labelling system and use fixed extreme bands.
-    txt = re.sub(
-        r"function eventPoints\(rows\)\{.*?\nfunction draw\(\)",
-        GLOW_LABEL_FUNCS + "\nfunction draw()",
-        txt,
-        flags=re.S,
-    )
-
-    # Title and canvas geometry refinements.
+    txt = re.sub(r"function eventPoints\(rows\)\{.*?\nfunction draw\(\)", GLOW_LABEL_FUNCS + "\nfunction draw()", txt, flags=re.S)
     txt = txt.replace("g.fillText('ELECTRICITY PRICE',pad.left,(isLandscape?28:64)*q)", "g.fillText('ELECTRICITY PRICE £/MWh',pad.left,(isLandscape?28:64)*q)")
     txt = re.sub(
         r"var pad=\{left:\(isLandscape\?86:86\)\*q,right:\(isLandscape\?46:30\)\*q,top:\(isLandscape\?66:122\)\*q,bottom:\(isLandscape\?86:132\)\*q\};",
         "var pad={left:(isLandscape?94:94)*q,right:(isLandscape?34:34)*q,top:(isLandscape?56:88)*q,bottom:(isLandscape?140:156)*q};",
         txt,
     )
-
     FS.write_text(txt)
 
+
+def patch_normal():
+    txt = patch_dates(UI.read_text())
+    txt = re.sub(r"function eventPoints\(rows\)\{.*?\nfunction draw\(rows,meta\)", NORMAL_GLOW_LABEL_FUNCS + "\nfunction draw(rows,meta)", txt, flags=re.S)
+    txt = re.sub(
+        r"var g=c\.getContext\('2d'\),w=c\.width,h=c\.height,pad=\{left:[^}]+\};",
+        "var g=c.getContext('2d'),w=c.width,h=c.height,pad={left:86*q,right:30*q,top:52*q,bottom:118*q};",
+        txt,
+        count=1,
+    )
+    txt = txt.replace("drawDateTick(g,x,h-54*q,ts,q", "drawDateTick(g,x,h-70*q,ts,q")
+    UI.write_text(txt)
+
+
+def main():
+    patch_fullscreen()
+    patch_normal()
+
     idx = INDEX.read_text()
-    for old in ["20260527b", "20260527c", "20260527d", "20260527e", "20260527f", "20260527g", "20260527h", "20260527i"]:
-        idx = idx.replace(f"price-history-fullscreen.js?v={old}", "price-history-fullscreen.js?v=20260527j")
+    for old in ["20260527b", "20260527c", "20260527d", "20260527e", "20260527f", "20260527g", "20260527h", "20260527i", "20260527j"]:
+        idx = idx.replace(f"price-history-fullscreen.js?v={old}", "price-history-fullscreen.js?v=20260527k")
+        idx = idx.replace(f"price-history-ui.js?v={old}", "price-history-ui.js?v=20260527k")
     INDEX.write_text(idx)
 
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(
-        "# V5 fullscreen glow controls patch\n\n"
-        "Implemented the revised fullscreen chart design.\n\n"
+        "# V5 chart glow controls patch\n\n"
+        "Implemented the revised chart design in both normal and fullscreen views.\n\n"
         "Changes:\n"
-        "1. Fullscreen date labels now spell dates clearly as day, full month and year where a day is shown.\n"
+        "1. Date labels now spell dates clearly as day, full month and year where a day is shown.\n"
         "2. Long window month labels now use full month plus full year, avoiding ambiguous labels such as Dec 23.\n"
-        "3. Removed black annotation boxes.\n"
-        "4. Forced HIGH annotation into the top band and LOW annotation into the bottom band.\n"
-        "5. Added bold red annotation text with cyan glow.\n"
+        "3. Removed black annotation boxes in both views.\n"
+        "4. Forced HIGH annotation into the top band and LOW annotation into the bottom band in both views.\n"
+        "5. Added bold red annotation text with cyan glow in both views.\n"
         "6. Moved all fullscreen controls to the bottom.\n"
-        "7. Put glowing movement arrows on the left and right side of the chart.\n"
-        "8. Retitled the fullscreen chart as ELECTRICITY PRICE £/MWh.\n"
-        "9. Updated the fullscreen cache key to 20260527j.\n"
+        "7. Put glowing movement arrows on the left and right side of the fullscreen chart.\n"
+        "8. Retitled fullscreen chart as ELECTRICITY PRICE £/MWh.\n"
+        "9. Updated both chart cache keys to 20260527k.\n"
     )
 
 

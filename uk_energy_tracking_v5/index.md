@@ -149,7 +149,7 @@ html.v5-chart-open, body.v5-chart-open { overflow:hidden !important; height:100d
     <h2 class="section-title">Electricity Price History</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
-        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity Price History</strong>
+        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity Price History £/MWh</strong>
         <label class="price-history-date-label">Year <select id="price-history-year"></select></label>
         <label class="price-history-date-label">Start <input type="date" id="price-history-start"></label>
         <label class="price-history-date-label">Period <select id="price-history-period">
@@ -267,8 +267,8 @@ html.v5-chart-open, body.v5-chart-open { overflow:hidden !important; height:100d
   </div>
 </div>
 
-<script src='/uk_energy_tracking_v5/price-history-ui.js?v=20260527k'></script>
-<script src='/uk_energy_tracking_v5/price-history-fullscreen.js?v=20260527k'></script>
+<script src='/uk_energy_tracking_v5/price-history-ui.js?v=20260527l'></script>
+<script src='/uk_energy_tracking_v5/price-history-fullscreen.js?v=20260527l'></script>
 <script src='/uk_energy_tracking_v5/live-config.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v5/live-helpers.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v5/live-gauges.js?v=20260526a'></script>

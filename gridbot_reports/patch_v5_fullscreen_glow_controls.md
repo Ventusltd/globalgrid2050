@@ -1,14 +1,14 @@
-# V5 chart glow controls patch
+# V5 chart glow controls refinement
 
-Implemented the revised chart design in both normal and fullscreen views.
+Implemented the latest chart layout refinement in both normal and fullscreen views.
 
 Changes:
-1. Date labels now spell dates clearly as day, full month and year where a day is shown.
-2. Long window month labels now use full month plus full year, avoiding ambiguous labels such as Dec 23.
-3. Removed black annotation boxes in both views.
-4. Forced HIGH annotation into the top band and LOW annotation into the bottom band in both views.
-5. Added bold red annotation text with cyan glow in both views.
-6. Moved all fullscreen controls to the bottom.
-7. Put glowing movement arrows on the left and right side of the fullscreen chart.
-8. Retitled fullscreen chart as ELECTRICITY PRICE £/MWh.
-9. Updated both chart cache keys to 20260527k.
+1. Fullscreen now keeps only left arrow, right arrow and a small Close button at top right.
+2. Removed fullscreen All, Day, Night and period buttons to reduce clutter.
+3. Y axis labels now show currency only, with £/MWh stated in the chart title.
+4. Normal chart title text now also states £/MWh.
+5. HIGH remains in the top band and LOW remains in the bottom band.
+6. Red annotation text remains bold with cyan glow.
+7. Chart plot area is stretched wider while preserving room for annotations.
+8. Date labels remain fully spelled out to avoid UK or US ambiguity.
+9. Updated both chart cache keys to 20260527l.

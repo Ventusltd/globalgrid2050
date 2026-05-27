@@ -3,7 +3,7 @@ function ensureSummaryStyle(){
   if(document.getElementById('v4-live-summary-style')) return;
   var s=document.createElement('style');
   s.id='v4-live-summary-style';
-  s.textContent='\n.scada-gauges{display:none!important;}\n.scada-live-summary{border:1px solid var(--gg-cyan,#00ffff);background:rgba(0,255,255,.045);border-radius:6px;padding:14px;margin:18px 0 22px;box-shadow:0 0 18px rgba(0,255,255,.08);font-family:"Courier New",monospace;}\n.scada-summary-title{color:var(--gg-cyan,#00ffff);text-transform:uppercase;letter-spacing:.14em;font-size:13px;margin-bottom:12px;}\n.scada-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}\n.scada-summary-grid div{border:1px solid var(--gg-line,#252b36);background:rgba(255,255,255,.025);border-radius:4px;padding:10px 12px;}\n.scada-summary-grid span{display:block;color:var(--gg-muted,#9aa3b6);text-transform:uppercase;letter-spacing:.14em;font-size:10px;margin-bottom:5px;}\n.scada-summary-grid strong{display:inline-block;color:var(--gg-text,#f5f7fb);font-size:24px;line-height:1.1;margin-right:6px;}\n.scada-summary-grid em{font-style:normal;color:var(--gg-muted,#9aa3b6);font-size:11px;}\n.scada-summary-time{margin-top:10px;color:var(--gg-muted,#9aa3b6);font-size:11px;line-height:1.45;}\n@media(max-width:700px){.scada-summary-grid{grid-template-columns:1fr}.scada-summary-grid strong{font-size:22px}}\n';
+  s.textContent='\n.scada-gauges{display:none!important;}\n.scada-live-summary{border:1px solid var(--gg-cyan,#00ffff);background:rgba(0,255,255,.04);border-radius:6px;padding:18px 16px;margin:18px 0 24px;box-shadow:0 0 18px rgba(0,255,255,.08);font-family:"Courier New",monospace;}\n.scada-summary-title{color:var(--gg-cyan,#00ffff);text-transform:uppercase;letter-spacing:.16em;font-size:13px;margin-bottom:16px;text-align:center;}\n.scada-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}\n.scada-summary-grid div{border:1px solid var(--gg-line,#252b36);background:rgba(255,255,255,.025);border-radius:4px;padding:14px 12px;text-align:center;}\n.scada-summary-grid span{display:block;color:var(--gg-muted,#9aa3b6);text-transform:uppercase;letter-spacing:.14em;font-size:10px;margin-bottom:8px;}\n.scada-summary-grid strong{display:inline-block;color:var(--gg-text,#f5f7fb);font-size:clamp(28px,5vw,46px);line-height:1.05;margin-right:6px;}\n.scada-summary-grid em{font-style:normal;color:var(--gg-muted,#9aa3b6);font-size:13px;}\n.scada-summary-time{margin-top:14px;color:var(--gg-muted,#9aa3b6);font-size:11px;line-height:1.45;text-align:center;}\n@media(max-width:700px){.scada-summary-grid{grid-template-columns:1fr}.scada-summary-grid strong{font-size:34px}}\n';
   document.head.appendChild(s);
 }
 function ensureSummaryPanel(){
@@ -32,17 +32,14 @@ function refresh(){
       renderGauge("demand", e.demandGW); renderGauge("price", p.priceGBPperMWh); renderGauge("carbon", carbonValue(p));
       if(e.mix) renderMix(e.mix); renderCommodities(oil,fuel); renderEvPrices(ev); if(hist) drawOilTrend(hist);
       var latest=latestIso(e.updated,p.updated,oil.updated);
-      setText("m-updated-time",timeLabel(latest));
-      setText("m-updated-meta",latest?dateLabel(latest)+" · energy "+timeLabel(e.updated)+" · price and carbon "+timeLabel(p.updated)+" · commodities "+timeLabel(oil.updated):"Energy, price, carbon and commodity timestamps will appear here.");
       setText("summary-demand",e.demandGW==null?"—":fmt(e.demandGW,2));
       setText("summary-price",p.priceGBPperMWh==null?"—":fmt(p.priceGBPperMWh,2));
       setText("summary-carbon",carbonValue(p)==null?"—":Math.round(carbonValue(p)));
-      setText("summary-timestamps",latest?"Latest combined update: "+dateLabel(latest)+" · energy "+timeLabel(e.updated)+" · price and carbon "+timeLabel(p.updated)+" · commodities "+timeLabel(oil.updated):"Awaiting source timestamps.");
-      var s=document.getElementById("scada-status"), mins=ageMin(e.updated);
-      if(mins>20){s.textContent="Mix feed is "+Math.round(mins)+" minutes old. It may be stale.";s.className="scada-status stale";}
-      else if(e.updated){s.textContent="Data diagnostics recorded in JSON feeds. Energy, price, carbon and commodity source health are being tracked.";s.className="scada-status";}
-      else{s.textContent="Live feed unavailable. Awaiting first data write.";s.className="scada-status stale";}
+      setText("summary-timestamps",latest?"Updated: "+dateLabel(latest)+" · energy "+timeLabel(e.updated)+" · price "+timeLabel(p.updated)+" · commodities "+timeLabel(oil.updated):"Awaiting source timestamps.");
+      var s=document.getElementById("scada-status");
+      if(s){s.textContent="";s.style.display="none";}
     });
   }
-  document.getElementById("oil-range").addEventListener("change", function(){ getJSON(OIL_HISTORY).then(drawOilTrend); });
+  var oilRange=document.getElementById("oil-range");
+  if(oilRange) oilRange.addEventListener("change", function(){ getJSON(OIL_HISTORY).then(drawOilTrend); });
   parseMarketInputs(); ensureSummaryPanel(); refresh(); setInterval(refresh, POLL);

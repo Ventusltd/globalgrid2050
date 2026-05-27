@@ -608,6 +608,7 @@
 │   ├── patch_v5_chart_dynamic_annotations.py
 │   ├── patch_v5_chart_overlap_controls.py
 │   ├── patch_v5_fullscreen_glow_controls.py
+│   ├── patch_v5_fullscreen_left_legend.py
 │   ├── patch_v8_bess_tabs_small_step.py
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
@@ -1074,4 +1075,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-128 directories, 947 files
+128 directories, 948 files

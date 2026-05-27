@@ -4,6 +4,7 @@ function $(id){return document.getElementById(id)}
 function fmt(n,d){return Number(n).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})}
 function mlab(t){return new Date(t).toLocaleDateString('en-GB',{month:'short',year:'2-digit'})}
 function slab(t){return new Date(t).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+function tlab(t){return new Date(t).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
 function mm(v){var lo=0,hi=0;v.forEach(function(x){if(x<lo)lo=x;if(x>hi)hi=x});if(lo===hi)hi=lo+1;var m=(hi-lo)*0.08;return{lo:lo-m,hi:hi+m}}
 function niceStep(span){var raw=span/7,p=Math.pow(10,Math.floor(Math.log10(Math.max(raw,1)))),n=raw/p;if(n<=1)return p;if(n<=2)return 2*p;if(n<=5)return 5*p;return 10*p}
 function injectStyle(){
@@ -34,19 +35,23 @@ function drawAxes(g,w,h,q,m,t0,t1,pad){
  for(var val=start;val<=m.hi+step*.5;val+=step){var yy=pad.top+((m.hi-val)/(m.hi-m.lo))*(h-pad.top-pad.bottom);g.strokeStyle=val===0?'rgba(255,51,51,.98)':'rgba(255,255,255,.17)';g.lineWidth=val===0?2*q:q;g.beginPath();g.moveTo(pad.left,yy);g.lineTo(w-pad.right,yy);g.stroke();g.fillStyle=val===0?'#ff3333':'#f5f7fb';g.fillText(val===0?'£0':'£'+fmt(val,0),8*q,yy+4*q)}
  var count=(t1-t0)>180*86400000?6:3;for(var i=0;i<count;i++){var ts=t0+(i/(count-1))*(t1-t0),x=pad.left+(i/(count-1))*(w-pad.left-pad.right);g.strokeStyle='rgba(255,255,255,.11)';g.lineWidth=q;g.beginPath();g.moveTo(x,pad.top);g.lineTo(x,h-pad.bottom);g.stroke();drawDateTick(g,x,h-28*q,ts,q,i===0?'left':(i===count-1?'right':'center'))}
 }
+function eventPoints(rows,meta){if(!rows.length)return null;var hi=rows[0],lo=rows[0];rows.forEach(function(r){if(Number(r.priceGBPperMWh)>Number(hi.priceGBPperMWh))hi=r;if(Number(r.priceGBPperMWh)<Number(lo.priceGBPperMWh))lo=r});var midTs=meta.start.getTime()+(meta.end.getTime()-meta.start.getTime())/2;var mid=rows.reduce(function(a,r){return Math.abs(new Date(r.priceTimeUTC)-midTs)<Math.abs(new Date(a.priceTimeUTC)-midTs)?r:a},rows[0]);return{hi:hi,lo:lo,mid:mid}}
+function marker(g,label,r,x,y,q,above){var tx=Math.max(78*q,Math.min(x,g.canvas.width-110*q));var ty=above?Math.max(62*q,y-32*q):Math.min(g.canvas.height-54*q,y+46*q);g.fillStyle='#ff3333';g.strokeStyle='#ff3333';g.lineWidth=1.3*q;g.beginPath();g.arc(x,y,3.8*q,0,Math.PI*2);g.fill();g.beginPath();g.moveTo(x,y);g.lineTo(tx,ty-10*q);g.stroke();g.font=9.5*q+'px Courier New';g.textAlign='center';g.fillText(label+' £'+fmt(Number(r.priceGBPperMWh),2),tx,ty);g.font=8*q+'px Courier New';g.fillText(slab(r.priceTimeUTC)+' '+tlab(r.priceTimeUTC),tx,ty+11*q);g.textAlign='left'}
+function midMarker(g,r,x,q,pad){g.strokeStyle='rgba(255,51,51,.5)';g.setLineDash([4*q,6*q]);g.beginPath();g.moveTo(x,pad.top);g.lineTo(x,g.canvas.height-pad.bottom);g.stroke();g.setLineDash([]);g.fillStyle='#ff3333';g.font=8.5*q+'px Courier New';g.textAlign='center';g.fillText('MID '+slab(r.priceTimeUTC)+' '+tlab(r.priceTimeUTC),x,pad.top-8*q);g.textAlign='left'}
+function drawEvents(g,rows,meta,X,Y,q,pad){var e=eventPoints(rows,meta);if(!e)return;midMarker(g,e.mid,X(e.mid),q,pad);marker(g,'HIGH',e.hi,X(e.hi),Y(Number(e.hi.priceGBPperMWh)),q,true);marker(g,'LOW',e.lo,X(e.lo),Y(Number(e.lo.priceGBPperMWh)),q,false)}
 function draw(){
  var c=$('price-history-fullscreen-canvas');if(!c)return;var q=devicePixelRatio||1,cssW=window.innerWidth,cssH=window.innerHeight;c.width=Math.max(320,Math.floor(cssW*q));c.height=Math.max(320,Math.floor(cssH*q));
  var g=c.getContext('2d'),w=c.width,h=c.height,isLandscape=w>h;
- var pad={left:(isLandscape?68:62)*q,right:(isLandscape?54:34)*q,top:(isLandscape?54:74)*q,bottom:(isLandscape?42:58)*q};
+ var pad={left:(isLandscape?70:62)*q,right:(isLandscape?58:36)*q,top:(isLandscape?62:82)*q,bottom:(isLandscape?46:62)*q};
  g.fillStyle='#05070c';g.fillRect(0,0,w,h);
  var rows=S.rows,meta=S.meta;if(!meta){meta={start:new Date(),end:new Date(),period:'7d',timeMode:'all'}}var t0=meta.start.getTime(),t1=meta.end.getTime();if(t1<=t0)t1=t0+1;
  g.fillStyle='#00ffff';g.font=(isLandscape?12:13)*q+'px Courier New';g.fillText('ELECTRICITY PRICE',12*q,(isLandscape?22:34)*q);
- g.fillStyle='#9aa3b6';g.font=(isLandscape?9:10)*q+'px Courier New';g.fillText(slab(meta.start)+' to '+slab(meta.end)+' | '+modeText()+' | '+rows.length+' pts',12*q,(isLandscape?40:54)*q);
+ g.fillStyle='#9aa3b6';g.font=(isLandscape?9:10)*q+'px Courier New';g.fillText(slab(meta.start)+' to '+slab(meta.end)+' | '+modeText()+' | '+rows.length+' pts | event markers',12*q,(isLandscape?40:54)*q);
  if(rows.length<2){g.fillStyle='#00ffff';g.fillText('No records in view',pad.left,pad.top+40*q);return}
  var vals=rows.map(function(x){return Number(x.priceGBPperMWh)}),m=mm(vals);function X(r){return pad.left+((new Date(r.priceTimeUTC).getTime()-t0)/(t1-t0))*(w-pad.left-pad.right)}function Y(v){return pad.top+((m.hi-v)/(m.hi-m.lo))*(h-pad.top-pad.bottom)}
  drawAxes(g,w,h,q,m,t0,t1,pad);
- g.strokeStyle='#00ffff';g.lineWidth=(isLandscape?1.9:2.2)*q;g.shadowColor='#00ffff';g.shadowBlur=4*q;g.beginPath();rows.forEach(function(x,i){var xx=X(x),yy=Y(Number(x.priceGBPperMWh));if(i)g.lineTo(xx,yy);else g.moveTo(xx,yy)});g.stroke();g.shadowBlur=0;
- var lab=$('fs-label');if(lab)lab.textContent='‹ › move by window | '+modeText()+' | '+slab(meta.start)+' to '+slab(meta.end)
+ g.strokeStyle='#00ffff';g.lineWidth=(isLandscape?1.9:2.2)*q;g.shadowColor='#00ffff';g.shadowBlur=4*q;g.beginPath();rows.forEach(function(x,i){var xx=X(x),yy=Y(Number(x.priceGBPperMWh));if(i)g.lineTo(xx,yy);else g.moveTo(xx,yy)});g.stroke();g.shadowBlur=0;drawEvents(g,rows,meta,X,Y,q,pad);
+ var lab=$('fs-label');if(lab)lab.textContent='‹ › move by window | high, low and midpoint labelled | '+modeText()+' | '+slab(meta.start)+' to '+slab(meta.end)
 }
 function syncFs(){var st=window.__v4PriceHistoryState||{};var mini=$('fs-mini');if(mini){mini.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-fs-mode')===(st.timeMode||'all'))})}}
 function open(){ensureControls();var o=$('price-history-fullscreen-overlay'),st=window.__v4PriceHistoryState;if(!o)return;o.classList.add('open');S.rows=(st&&st.visible)||[];S.meta=(st&&st.meta)||null;syncFs();setTimeout(draw,40)}

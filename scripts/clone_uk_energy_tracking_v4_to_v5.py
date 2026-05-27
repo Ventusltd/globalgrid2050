@@ -19,6 +19,42 @@ REPLACEMENTS = [
     ("v4", "v5"),
 ]
 
+MACHINE_BLOCK = """
+      <div class=\"gg-machine-note\">
+        <strong>Grid intelligence machine:</strong>
+        <span><b>Inputs:</b> Elexon prices, live demand, carbon data, oil and fuel data, time windows, day and night filters.</span>
+        <span><b>Mechanism:</b> lazy loading, event detection, high and low marker logic, date windowing, chart rendering, mobile full screen controls.</span>
+        <span><b>Outputs:</b> price volatility insight, peak and trough timing, market spread visibility, battery opportunity signals, future circuit sizing logic.</span>
+      </div>
+"""
+
+MACHINE_STYLE = """
+#electricity-price-history-panel .gg-machine-note {
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.018);
+  color: var(--gg-muted);
+  font-size: 10.5px;
+  line-height: 1.45;
+  letter-spacing: .04em;
+  padding: 8px 10px;
+  margin: 8px 0 10px;
+  border-radius: 5px;
+}
+#electricity-price-history-panel .gg-machine-note strong {
+  color: var(--gg-cyan);
+  text-transform: uppercase;
+  letter-spacing: .10em;
+  display: block;
+  margin-bottom: 4px;
+}
+#electricity-price-history-panel .gg-machine-note span {
+  display: block;
+}
+#electricity-price-history-panel .gg-machine-note b {
+  color: var(--gg-text);
+}
+"""
+
 
 def copy_tree():
     if not SRC.exists():
@@ -55,12 +91,31 @@ def rewrite_text_files():
     return changed
 
 
+def add_machine_statement():
+    index = DST / "index.md"
+    if not index.exists():
+        return False
+    text = index.read_text(encoding="utf-8")
+    changed = False
+    if ".gg-machine-note" not in text:
+        text = text.replace("</style>", MACHINE_STYLE + "\n</style>")
+        changed = True
+    if "Grid intelligence machine:" not in text:
+        marker = '<canvas id="price-history-canvas" width="900" height="720"></canvas>'
+        if marker in text:
+            text = text.replace(marker, MACHINE_BLOCK + "\n" + marker)
+            changed = True
+    if changed:
+        index.write_text(text, encoding="utf-8")
+    return changed
+
+
 def update_homepage():
-    row = '  <tr><td><a href="./uk_energy_tracking_v5/">UK Live Grid Tracker V5, Electricity Market Intelligence Lab</a> <span class="dev-status">(in development)</span></td></tr>'
+    row = '  <tr><td><a href="./uk_energy_tracking_v5/">UK Live Grid Tracker V5, Electricity Market Intelligence Machine</a> <span class="dev-status">(in development)</span></td></tr>'
     if not INDEX.exists():
         return False
     text = INDEX.read_text(encoding="utf-8")
-    if row in text:
+    if './uk_energy_tracking_v5/' in text:
         return False
     anchor = '  <tr><td><a href="./uk_energy_tracking_v3/">UK Live Grid Tracker V3, Experimental Intelligence Lab</a></td></tr>'
     if anchor in text:
@@ -71,7 +126,7 @@ def update_homepage():
     return True
 
 
-def write_report(copied, changed, homepage_changed):
+def write_report(copied, changed, machine_changed, homepage_changed):
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     changed_files = "\n".join(f"- {x}" for x in changed[:200]) or "- No text replacements required"
@@ -99,6 +154,10 @@ Create `uk_energy_tracking_v5` as the next working clone of the current V4 elect
 
 Root `index.html` V5 link added: {homepage_changed}
 
+## Machine statement
+
+Small graph print added to V5: {machine_changed}
+
 ## Text paths rewritten
 
 {changed_files}
@@ -112,10 +171,12 @@ V4 is now the frozen twin. V5 is the working branch for the next round of chart,
 def main():
     copied = copy_tree()
     changed = rewrite_text_files()
+    machine_changed = add_machine_statement()
     homepage_changed = update_homepage()
-    write_report(copied, changed, homepage_changed)
+    write_report(copied, changed, machine_changed, homepage_changed)
     print(f"Cloned {len(copied)} files from V4 to V5")
     print(f"Text replacements: {len(changed)}")
+    print(f"Machine statement changed: {machine_changed}")
     print(f"Homepage changed: {homepage_changed}")
 
 

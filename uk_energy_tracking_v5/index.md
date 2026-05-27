@@ -157,7 +157,7 @@ html.v5-chart-open, body.v5-chart-open { overflow:hidden !important; height:100d
           <option value="30d">1 month</option>
           <option value="3m">3 months</option>
         </select></label>
-        <button type="button" id="price-history-clear-start" class="price-history-date-apply">Reset start</button>
+        
         <a href="/uk_energy_tracking_v5/electricity_price_history.csv" download>Download CSV</a>
         <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
       </div>
@@ -267,8 +267,8 @@ html.v5-chart-open, body.v5-chart-open { overflow:hidden !important; height:100d
   </div>
 </div>
 
-<script src='/uk_energy_tracking_v5/price-history-ui.js?v=20260527f'></script>
-<script src='/uk_energy_tracking_v5/price-history-fullscreen.js?v=20260527f'></script>
+<script src='/uk_energy_tracking_v5/price-history-ui.js?v=20260527g'></script>
+<script src='/uk_energy_tracking_v5/price-history-fullscreen.js?v=20260527g'></script>
 <script src='/uk_energy_tracking_v5/live-config.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v5/live-helpers.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v5/live-gauges.js?v=20260526a'></script>

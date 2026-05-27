@@ -2,6 +2,12 @@ name: Clone UK Energy Tracking V4 to V5
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/clone_uk_energy_tracking_v4_to_v5.yml'
+      - 'scripts/clone_uk_energy_tracking_v4_to_v5.py'
 
 permissions:
   contents: write

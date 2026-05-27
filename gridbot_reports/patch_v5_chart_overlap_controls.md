@@ -14,3 +14,7 @@ Changes applied:
 ## Units and red label spacing refinement
 
 Added explicit £/MWh units to y axis and HIGH/LOW event labels. Increased label spacing so red event text does not clash with date labels. Cache keys updated to 20260527e.
+
+## Idempotent units and spacing refinement
+
+Made the chart patch tolerant of already patched files. Added explicit £/MWh units to y axis and event labels, increased chart padding and moved full screen controls into chart corners. Cache keys updated to 20260527f.

@@ -601,6 +601,8 @@
 │   ├── patch_v3_price_lazy_selectors.py
 │   ├── patch_v3_price_range_fullscreen_fix.py
 │   ├── patch_v4_live_tracker_modular_structure.py
+│   ├── patch_v5_chart_breathing_space.py
+│   ├── patch_v5_chart_overlap_controls.py
 │   ├── patch_v8_bess_tabs_small_step.py
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
@@ -1067,4 +1069,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-128 directories, 940 files
+128 directories, 942 files

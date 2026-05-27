@@ -7,21 +7,19 @@ FS = ROOT / "uk_energy_tracking_v5" / "price-history-fullscreen.js"
 INDEX = ROOT / "uk_energy_tracking_v5" / "index.md"
 REPORT = ROOT / "gridbot_reports" / "patch_v5_fullscreen_glow_controls.md"
 
-BOTTOM_CONTROL_CSS = ".price-history-fullscreen-overlay.open{display:block!important}.price-history-fullscreen-overlay{position:fixed!important;inset:0!important;z-index:99999!important;background:#000!important;padding:0!important;overflow:hidden!important}.price-history-fullscreen-shell{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;border:0!important;border-radius:0!important;background:#05070c!important;display:block!important;overflow:hidden!important}.price-history-fullscreen-toolbar,.price-history-fullscreen-note{display:none!important}#price-history-fullscreen-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;border:0!important;background:#05070c!important}.fs-bottom-stack{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);transform:translateX(-50%);z-index:100001;display:flex;flex-direction:column;gap:7px;align-items:center;justify-content:center;max-width:94vw}.fs-mode-row,.fs-period-row{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap}.fs-bottom-stack button{border:1px solid rgba(0,255,255,.80)!important;border-radius:8px!important;padding:7px 10px!important;background:rgba(5,7,12,.76)!important;color:#00ffff!important;font:11px Courier New,monospace!important;box-shadow:0 0 12px rgba(0,255,255,.22),0 0 8px rgba(255,51,51,.16);text-shadow:0 0 6px rgba(0,255,255,.55),0 0 4px rgba(255,51,51,.28)}.fs-bottom-stack button.active{background:rgba(0,255,255,.18)!important}.fs-nav{position:fixed;top:50%;z-index:100001;transform:translateY(-50%);width:48px;height:48px;border:1px solid rgba(0,255,255,.80);background:rgba(5,7,12,.76);color:#00ffff;border-radius:10px;font:28px Courier New,monospace;box-shadow:0 0 14px rgba(0,255,255,.25),0 0 9px rgba(255,51,51,.18);text-shadow:0 0 7px rgba(0,255,255,.58),0 0 5px rgba(255,51,51,.30)}.fs-nav.left{left:10px}.fs-nav.right{right:10px}@media(orientation:landscape){.fs-bottom-stack{bottom:6px}.fs-bottom-stack button{padding:6px 8px!important;font-size:10px!important}.fs-nav{width:42px;height:42px}}"
+ARROW_CLOSE_CSS = ".price-history-fullscreen-overlay.open{display:block!important}.price-history-fullscreen-overlay{position:fixed!important;inset:0!important;z-index:99999!important;background:#000!important;padding:0!important;overflow:hidden!important}.price-history-fullscreen-shell{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;border:0!important;border-radius:0!important;background:#05070c!important;display:block!important;overflow:hidden!important}.price-history-fullscreen-toolbar,.price-history-fullscreen-note,.fs-bottom-stack,.fs-mode-row,.fs-period-row,.fs-mini,.fs-period{display:none!important}#price-history-fullscreen-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;border:0!important;background:#05070c!important}.fs-close-lite{position:fixed;right:10px;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:100002;border:1px solid rgba(0,255,255,.45);border-radius:7px;padding:6px 8px;background:rgba(5,7,12,.45);color:rgba(0,255,255,.82);font:10px Courier New,monospace;box-shadow:0 0 8px rgba(0,255,255,.12);text-shadow:0 0 5px rgba(0,255,255,.28)}.fs-nav{position:fixed;top:50%;z-index:100001;transform:translateY(-50%);width:48px;height:48px;border:1px solid rgba(0,255,255,.80);background:rgba(5,7,12,.76);color:#00ffff;border-radius:10px;font:28px Courier New,monospace;box-shadow:0 0 14px rgba(0,255,255,.25),0 0 9px rgba(255,51,51,.18);text-shadow:0 0 7px rgba(0,255,255,.58),0 0 5px rgba(255,51,51,.30)}.fs-nav.left{left:10px}.fs-nav.right{right:10px}@media(orientation:landscape){.fs-nav{width:42px;height:42px}.fs-close-lite{font-size:9px;padding:5px 7px}}"
 
-ENSURE_CONTROLS = """function ensureControls(){injectStyle();var o=$('price-history-fullscreen-overlay');if(!o||$('fs-bottom-stack'))return;var stack=document.createElement('div');stack.id='fs-bottom-stack';stack.className='fs-bottom-stack';stack.innerHTML='<div class=\"fs-mode-row\"><button type=\"button\" data-fs-mode=\"all\" class=\"active\">All</button><button type=\"button\" data-fs-mode=\"day\">Day</button><button type=\"button\" data-fs-mode=\"night\">Night</button><button type=\"button\" id=\"fs-close2\">Close</button></div><div class=\"fs-period-row\"><button type=\"button\" data-fs-period=\"7d\">1 week</button><button type=\"button\" data-fs-period=\"30d\">1 month</button><button type=\"button\" data-fs-period=\"3m\">3 months</button><button type=\"button\" data-fs-period=\"6m\">6 months</button><button type=\"button\" data-fs-period=\"12m\">12 months</button></div>';var left=document.createElement('button');left.id='fs-prev';left.className='fs-nav left';left.type='button';left.textContent='‹';var right=document.createElement('button');right.id='fs-next';right.className='fs-nav right';right.type='button';right.textContent='›';o.appendChild(stack);o.appendChild(left);o.appendChild(right);bindControls()}"""
+ENSURE_ARROWS_CLOSE = """function ensureControls(){injectStyle();var o=$('price-history-fullscreen-overlay');if(!o)return;['fs-bottom-stack','fs-mini','fs-period','fs-close2'].forEach(function(id){var el=$(id);if(el)el.remove()});if(!$('fs-prev')){var left=document.createElement('button');left.id='fs-prev';left.className='fs-nav left';left.type='button';left.textContent='‹';o.appendChild(left)}if(!$('fs-next')){var right=document.createElement('button');right.id='fs-next';right.className='fs-nav right';right.type='button';right.textContent='›';o.appendChild(right)}if(!$('fs-close-lite')){var closeBtn=document.createElement('button');closeBtn.id='fs-close-lite';closeBtn.className='fs-close-lite';closeBtn.type='button';closeBtn.textContent='Close';o.appendChild(closeBtn)}bindControls()}"""
 
-BIND_CONTROLS = """function bindControls(){var c=window.__v5PriceHistoryControls;if(!c)return;var prev=$('fs-prev'),next=$('fs-next'),stack=$('fs-bottom-stack'),close2=$('fs-close2');if(close2)close2.onclick=close;if(prev)prev.onclick=function(){var st=window.__v5PriceHistoryState||{},days=c.periodDays((st.meta||{}).period||'7d'),v=c.offsetFromDate((st.meta||{}).start||new Date());c.setOffset(Math.max(0,v-days));setTimeout(open,120)};if(next)next.onclick=function(){var st=window.__v5PriceHistoryState||{},days=c.periodDays((st.meta||{}).period||'7d'),v=c.offsetFromDate((st.meta||{}).start||new Date());c.setOffset(Math.min(c.totalScrollableDays(),v+days));setTimeout(open,120)};if(stack)stack.onclick=function(e){var bm=e.target.closest('button[data-fs-mode]');if(bm){stack.querySelectorAll('button[data-fs-mode]').forEach(function(x){x.classList.toggle('active',x===bm)});c.setMode(bm.getAttribute('data-fs-mode'));setTimeout(open,120);return}var bp=e.target.closest('button[data-fs-period]');if(bp){stack.querySelectorAll('button[data-fs-period]').forEach(function(x){x.classList.toggle('active',x===bp)});c.setPeriod(bp.getAttribute('data-fs-period'));setTimeout(open,120)}}}"""
+BIND_ARROWS_CLOSE = """function bindControls(){var c=window.__v5PriceHistoryControls;if(!c)return;var prev=$('fs-prev'),next=$('fs-next'),closeBtn=$('fs-close-lite');if(closeBtn)closeBtn.onclick=close;if(prev)prev.onclick=function(){var st=window.__v5PriceHistoryState||{},days=c.periodDays((st.meta||{}).period||'7d'),v=c.offsetFromDate((st.meta||{}).start||new Date());c.setOffset(Math.max(0,v-days));setTimeout(open,120)};if(next)next.onclick=function(){var st=window.__v5PriceHistoryState||{},days=c.periodDays((st.meta||{}).period||'7d'),v=c.offsetFromDate((st.meta||{}).start||new Date());c.setOffset(Math.min(c.totalScrollableDays(),v+days));setTimeout(open,120)}}"""
 
-SYNC_FS = """function syncFs(){var st=window.__v5PriceHistoryState||{},stack=$('fs-bottom-stack');if(!stack)return;stack.querySelectorAll('button[data-fs-mode]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-fs-mode')===(st.timeMode||'all'))});stack.querySelectorAll('button[data-fs-period]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-fs-period')===((st.meta||{}).period||'7d'))})}"""
+SYNC_NONE = "function syncFs(){}"
 
-GLOW_LABEL_FUNCS = """function eventPoints(rows){if(!rows.length)return null;var hi=rows[0],lo=rows[0];rows.forEach(function(r){if(Number(r.priceGBPperMWh)>Number(hi.priceGBPperMWh))hi=r;if(Number(r.priceGBPperMWh)<Number(lo.priceGBPperMWh))lo=r});return{hi:hi,lo:lo}}
-function glowingLabel(g,label,r,point,q,x,y,right){g.save();g.strokeStyle='#ff3333';g.shadowColor='rgba(0,255,255,.85)';g.shadowBlur=10*q;g.lineWidth=1.9*q;g.beginPath();g.moveTo(point.x,point.y);g.lineTo(x,y);g.stroke();g.fillStyle='#ff3333';g.font='bold '+(12*q)+'px Courier New';g.textAlign=right?'left':'right';g.fillText(label+' £'+fmt(Number(r.priceGBPperMWh),2)+'/MWh',x,y);g.font='bold '+(10*q)+'px Courier New';g.fillText(slab(r.priceTimeUTC)+' '+tlab(r.priceTimeUTC),x,y+15*q);g.restore()}
-function drawEvents(g,rows,X,Y,q,w,h,pad){var e=eventPoints(rows);if(!e)return;var hx=X(e.hi),hy=Y(Number(e.hi.priceGBPperMWh)),lx=X(e.lo),ly=Y(Number(e.lo.priceGBPperMWh));g.save();g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.90)';g.shadowBlur=11*q;g.beginPath();g.arc(hx,hy,5*q,0,Math.PI*2);g.fill();g.beginPath();g.arc(lx,ly,5*q,0,Math.PI*2);g.fill();g.restore();var hxText=Math.min(w-pad.right-175*q,Math.max(pad.left+175*q,hx+18*q));var lxText=Math.max(pad.left+175*q,Math.min(w-pad.right-175*q,lx-18*q));glowingLabel(g,'HIGH',e.hi,{x:hx,y:hy},q,hxText,pad.top-8*q,hxText>=hx);glowingLabel(g,'LOW',e.lo,{x:lx,y:ly},q,lxText,h-pad.bottom+18*q,lxText>=lx)}"""
+FS_LABELS = """function eventPoints(rows){if(!rows.length)return null;var hi=rows[0],lo=rows[0];rows.forEach(function(r){if(Number(r.priceGBPperMWh)>Number(hi.priceGBPperMWh))hi=r;if(Number(r.priceGBPperMWh)<Number(lo.priceGBPperMWh))lo=r});return{hi:hi,lo:lo}}
+function glowingLabel(g,label,r,point,q,x,y,right){g.save();g.strokeStyle='#ff3333';g.shadowColor='rgba(0,255,255,.85)';g.shadowBlur=10*q;g.lineWidth=1.8*q;g.beginPath();g.moveTo(point.x,point.y);g.lineTo(x,y);g.stroke();g.fillStyle='#ff3333';g.font='bold '+(12*q)+'px Courier New';g.textAlign=right?'left':'right';g.fillText(label+' £'+fmt(Number(r.priceGBPperMWh),2)+'/MWh',x,y);g.font='bold '+(10*q)+'px Courier New';g.fillText(slab(r.priceTimeUTC)+' '+tlab(r.priceTimeUTC),x,y+15*q);g.restore()}
+function drawEvents(g,rows,X,Y,q,w,h,pad){var e=eventPoints(rows);if(!e)return;var hx=X(e.hi),hy=Y(Number(e.hi.priceGBPperMWh)),lx=X(e.lo),ly=Y(Number(e.lo.priceGBPperMWh));g.save();g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.90)';g.shadowBlur=11*q;g.beginPath();g.arc(hx,hy,5*q,0,Math.PI*2);g.fill();g.beginPath();g.arc(lx,ly,5*q,0,Math.PI*2);g.fill();g.restore();var hxText=Math.min(w-pad.right-185*q,Math.max(pad.left+185*q,hx+18*q));var lxText=Math.max(pad.left+185*q,Math.min(w-pad.right-185*q,lx-18*q));glowingLabel(g,'HIGH',e.hi,{x:hx,y:hy},q,hxText,pad.top-24*q,hxText>=hx);glowingLabel(g,'LOW',e.lo,{x:lx,y:ly},q,lxText,h-pad.bottom+34*q,lxText>=lx)}"""
 
-NORMAL_GLOW_LABEL_FUNCS = """function eventPoints(rows){if(!rows.length)return null;var hi=rows[0],lo=rows[0];rows.forEach(function(r){if(Number(r.priceGBPperMWh)>Number(hi.priceGBPperMWh))hi=r;if(Number(r.priceGBPperMWh)<Number(lo.priceGBPperMWh))lo=r});return{hi:hi,lo:lo}}
-function glowingLabel(g,label,r,point,q,x,y,right){g.save();g.strokeStyle='#ff3333';g.shadowColor='rgba(0,255,255,.75)';g.shadowBlur=8*q;g.lineWidth=1.7*q;g.beginPath();g.moveTo(point.x,point.y);g.lineTo(x,y);g.stroke();g.fillStyle='#ff3333';g.font='bold '+(11*q)+'px Courier New';g.textAlign=right?'left':'right';g.fillText(label+' £'+fmt(Number(r.priceGBPperMWh),2)+'/MWh',x,y);g.font='bold '+(9.5*q)+'px Courier New';g.fillText(slab(r.priceTimeUTC)+' '+tlab(r.priceTimeUTC),x,y+14*q);g.restore()}
-function drawEvents(g,rows,X,Y,q,w,h,pad){var e=eventPoints(rows);if(!e)return;var hx=X(e.hi),hy=Y(Number(e.hi.priceGBPperMWh)),lx=X(e.lo),ly=Y(Number(e.lo.priceGBPperMWh));g.save();g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.80)';g.shadowBlur=9*q;g.beginPath();g.arc(hx,hy,5*q,0,Math.PI*2);g.fill();g.beginPath();g.arc(lx,ly,5*q,0,Math.PI*2);g.fill();g.restore();var hxText=Math.min(w-pad.right-160*q,Math.max(pad.left+160*q,hx+18*q));var lxText=Math.max(pad.left+160*q,Math.min(w-pad.right-160*q,lx-18*q));glowingLabel(g,'HIGH',e.hi,{x:hx,y:hy},q,hxText,pad.top-8*q,hxText>=hx);glowingLabel(g,'LOW',e.lo,{x:lx,y:ly},q,lxText,h-pad.bottom+18*q,lxText>=lx)}"""
+NORMAL_LABELS = FS_LABELS.replace("12*q", "11*q").replace("10*q", "9.5*q").replace("pad.top-24*q", "pad.top-22*q").replace("h-pad.bottom+34*q", "h-pad.bottom+32*q")
 
 
 def replace_function(text, name, new_code):
@@ -48,17 +46,25 @@ def patch_dates(text):
     return text
 
 
+def remove_mwh_from_y_axis(text):
+    text = text.replace("val===0?'£0/MWh':'£'+fmt(val,0)+'/MWh'", "val===0?'£0':'£'+fmt(val,0)")
+    text = text.replace("(val===0?'£0/MWh':'£'+fmt(val,0)+'/MWh')", "(val===0?'£0':'£'+fmt(val,0))")
+    return text
+
+
 def patch_fullscreen():
     txt = patch_dates(FS.read_text())
-    txt = re.sub(r"s\.textContent='.*?';document\.head\.appendChild\(s\)", "s.textContent='" + BOTTOM_CONTROL_CSS + "';document.head.appendChild(s)", txt, flags=re.S)
-    txt = replace_function(txt, "ensureControls", ENSURE_CONTROLS)
-    txt = replace_function(txt, "bindControls", BIND_CONTROLS)
-    txt = replace_function(txt, "syncFs", SYNC_FS)
-    txt = re.sub(r"function eventPoints\(rows\)\{.*?\nfunction draw\(\)", GLOW_LABEL_FUNCS + "\nfunction draw()", txt, flags=re.S)
+    txt = remove_mwh_from_y_axis(txt)
+    txt = re.sub(r"s\.textContent='.*?';document\.head\.appendChild\(s\)", "s.textContent='" + ARROW_CLOSE_CSS + "';document.head.appendChild(s)", txt, flags=re.S)
+    txt = replace_function(txt, "ensureControls", ENSURE_ARROWS_CLOSE)
+    txt = replace_function(txt, "bindControls", BIND_ARROWS_CLOSE)
+    txt = replace_function(txt, "syncFs", SYNC_NONE)
+    txt = re.sub(r"function eventPoints\(rows\)\{.*?\nfunction draw\(\)", FS_LABELS + "\nfunction draw()", txt, flags=re.S)
     txt = txt.replace("g.fillText('ELECTRICITY PRICE',pad.left,(isLandscape?28:64)*q)", "g.fillText('ELECTRICITY PRICE £/MWh',pad.left,(isLandscape?28:64)*q)")
+    txt = txt.replace("g.fillText('ELECTRICITY PRICE £/MWh',pad.left,(isLandscape?28:64)*q)", "g.fillText('ELECTRICITY PRICE £/MWh',pad.left,(isLandscape?28:64)*q)")
     txt = re.sub(
-        r"var pad=\{left:\(isLandscape\?86:86\)\*q,right:\(isLandscape\?46:30\)\*q,top:\(isLandscape\?66:122\)\*q,bottom:\(isLandscape\?86:132\)\*q\};",
-        "var pad={left:(isLandscape?94:94)*q,right:(isLandscape?34:34)*q,top:(isLandscape?56:88)*q,bottom:(isLandscape?140:156)*q};",
+        r"var pad=\{left:\(isLandscape\?\d+:\d+\)\*q,right:\(isLandscape\?\d+:\d+\)\*q,top:\(isLandscape\?\d+:\d+\)\*q,bottom:\(isLandscape\?\d+:\d+\)\*q\};",
+        "var pad={left:(isLandscape?82:86)*q,right:(isLandscape?26:28)*q,top:(isLandscape?74:112)*q,bottom:(isLandscape?96:128)*q};",
         txt,
     )
     FS.write_text(txt)
@@ -66,14 +72,16 @@ def patch_fullscreen():
 
 def patch_normal():
     txt = patch_dates(UI.read_text())
-    txt = re.sub(r"function eventPoints\(rows\)\{.*?\nfunction draw\(rows,meta\)", NORMAL_GLOW_LABEL_FUNCS + "\nfunction draw(rows,meta)", txt, flags=re.S)
+    txt = remove_mwh_from_y_axis(txt)
+    txt = re.sub(r"function eventPoints\(rows\)\{.*?\nfunction draw\(rows,meta\)", NORMAL_LABELS + "\nfunction draw(rows,meta)", txt, flags=re.S)
     txt = re.sub(
         r"var g=c\.getContext\('2d'\),w=c\.width,h=c\.height,pad=\{left:[^}]+\};",
-        "var g=c.getContext('2d'),w=c.width,h=c.height,pad={left:86*q,right:30*q,top:52*q,bottom:118*q};",
+        "var g=c.getContext('2d'),w=c.width,h=c.height,pad={left:74*q,right:24*q,top:58*q,bottom:124*q};",
         txt,
         count=1,
     )
-    txt = txt.replace("drawDateTick(g,x,h-54*q,ts,q", "drawDateTick(g,x,h-70*q,ts,q")
+    txt = txt.replace("drawDateTick(g,x,h-54*q,ts,q", "drawDateTick(g,x,h-74*q,ts,q")
+    txt = txt.replace("drawDateTick(g,x,h-70*q,ts,q", "drawDateTick(g,x,h-74*q,ts,q")
     UI.write_text(txt)
 
 
@@ -82,25 +90,27 @@ def main():
     patch_normal()
 
     idx = INDEX.read_text()
-    for old in ["20260527b", "20260527c", "20260527d", "20260527e", "20260527f", "20260527g", "20260527h", "20260527i", "20260527j"]:
-        idx = idx.replace(f"price-history-fullscreen.js?v={old}", "price-history-fullscreen.js?v=20260527k")
-        idx = idx.replace(f"price-history-ui.js?v={old}", "price-history-ui.js?v=20260527k")
+    idx = idx.replace("Electricity Price History</strong>", "Electricity Price History £/MWh</strong>")
+    idx = idx.replace("Electricity Price History £/MWh £/MWh</strong>", "Electricity Price History £/MWh</strong>")
+    for old in ["20260527b", "20260527c", "20260527d", "20260527e", "20260527f", "20260527g", "20260527h", "20260527i", "20260527j", "20260527k"]:
+        idx = idx.replace(f"price-history-fullscreen.js?v={old}", "price-history-fullscreen.js?v=20260527l")
+        idx = idx.replace(f"price-history-ui.js?v={old}", "price-history-ui.js?v=20260527l")
     INDEX.write_text(idx)
 
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(
-        "# V5 chart glow controls patch\n\n"
-        "Implemented the revised chart design in both normal and fullscreen views.\n\n"
+        "# V5 chart glow controls refinement\n\n"
+        "Implemented the latest chart layout refinement in both normal and fullscreen views.\n\n"
         "Changes:\n"
-        "1. Date labels now spell dates clearly as day, full month and year where a day is shown.\n"
-        "2. Long window month labels now use full month plus full year, avoiding ambiguous labels such as Dec 23.\n"
-        "3. Removed black annotation boxes in both views.\n"
-        "4. Forced HIGH annotation into the top band and LOW annotation into the bottom band in both views.\n"
-        "5. Added bold red annotation text with cyan glow in both views.\n"
-        "6. Moved all fullscreen controls to the bottom.\n"
-        "7. Put glowing movement arrows on the left and right side of the fullscreen chart.\n"
-        "8. Retitled fullscreen chart as ELECTRICITY PRICE £/MWh.\n"
-        "9. Updated both chart cache keys to 20260527k.\n"
+        "1. Fullscreen now keeps only left arrow, right arrow and a small Close button at top right.\n"
+        "2. Removed fullscreen All, Day, Night and period buttons to reduce clutter.\n"
+        "3. Y axis labels now show currency only, with £/MWh stated in the chart title.\n"
+        "4. Normal chart title text now also states £/MWh.\n"
+        "5. HIGH remains in the top band and LOW remains in the bottom band.\n"
+        "6. Red annotation text remains bold with cyan glow.\n"
+        "7. Chart plot area is stretched wider while preserving room for annotations.\n"
+        "8. Date labels remain fully spelled out to avoid UK or US ambiguity.\n"
+        "9. Updated both chart cache keys to 20260527l.\n"
     )
 
 

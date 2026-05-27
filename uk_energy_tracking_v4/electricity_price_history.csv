@@ -14,4 +14,4 @@ capturedAtUTC,priceTimeUTC,settlementDate,settlementPeriod,priceGBPperMWh,carbon
 2026-05-27T15:35:29.485166Z,2026-05-27T15:00:00Z,2026-05-27,31,73.52,59,54,low,Elexon BMRS Market Index Data,ok,ok
 2026-05-27T18:12:39.792193Z,2026-05-27T18:00:00Z,2026-05-27,37,115.00,125,106,moderate,Elexon BMRS Market Index Data,ok,ok
 2026-05-27T20:29:56.774151Z,2026-05-27T20:00:00Z,2026-05-27,41,117.46,146,138,moderate,Elexon BMRS Market Index Data,ok,ok
-2026-05-27T22:18:45.241480Z,2026-05-27T22:00:00Z,2026-05-27,45,109.91,135,138,moderate,Elexon BMRS Market Index Data,ok,ok
+2026-05-27T23:40:17.982654Z,2026-05-27T22:00:00Z,2026-05-27,45,109.91,120,123,moderate,Elexon BMRS Market Index Data,warning: zero market price rejected; previous valid value preserved,ok

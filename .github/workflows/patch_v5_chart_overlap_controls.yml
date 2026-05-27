@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'scripts/patch_v5_chart_overlap_controls.py'
+      - 'scripts/patch_v5_chart_breathing_space.py'
 
 permissions:
   contents: write
@@ -25,7 +26,7 @@ jobs:
           python-version: '3.11'
 
       - name: Patch V5 chart overlap and controls
-        run: python scripts/patch_v5_chart_overlap_controls.py
+        run: python scripts/patch_v5_chart_breathing_space.py
 
       - name: Syntax check JavaScript
         run: |

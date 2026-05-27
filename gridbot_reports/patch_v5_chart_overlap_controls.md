@@ -18,3 +18,7 @@ Added explicit £/MWh units to y axis and HIGH/LOW event labels. Increased label
 ## Idempotent units and spacing refinement
 
 Made the chart patch tolerant of already patched files. Added explicit £/MWh units to y axis and event labels, increased chart padding and moved full screen controls into chart corners. Cache keys updated to 20260527f.
+
+## Idempotent units and spacing refinement
+
+Made the chart patch tolerant of already patched files. Added explicit £/MWh units to y axis and event labels, increased chart padding and moved full screen controls into chart corners. Cache keys updated to 20260527f.

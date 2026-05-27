@@ -56,8 +56,8 @@ a { color: #7fdfff; }
 #electricity-price-history-panel .price-history-table-toggle { display:none !important; }
 #electricity-price-history-panel .trend-panel { padding:12px; }
 #electricity-price-history-panel .price-history-actions::after { content:"Scrollable Elexon System Price history · select start, period and hour filter · red line marks £0/MWh"; display:block; width:100%; color:var(--gg-muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-top:4px; }
-#electricity-price-history-panel #price-history-canvas { height: min(76vh, 760px) !important; min-height:520px !important; width:100% !important; display:block; }
-#oil-trend-canvas { width:100%; height:300px; display:block; border:1px solid rgba(255,255,255,.05); background:#070a10; touch-action:none; }
+#electricity-price-history-panel #price-history-canvas { height: min(76dvh, 760px) !important; min-height:520px !important; width:100% !important; display:block; touch-action: pan-y; }
+#oil-trend-canvas { width:100%; height:300px; display:block; border:1px solid rgba(255,255,255,.05); background:#070a10; touch-action:auto; }
 .oil-chart-wrap { position:relative; }
 .oil-tooltip { position:absolute; display:none; pointer-events:none; background:rgba(5,5,5,.94); border:1px solid var(--gg-cyan); color:var(--gg-text); padding:8px 10px; border-radius:4px; font-size:12px; line-height:1.45; box-shadow:0 0 18px rgba(0,255,255,.12); z-index:5; }
 .oil-stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:10px; }
@@ -77,7 +77,14 @@ a { color: #7fdfff; }
 .scada-credit { font-size:12px; color:var(--gg-muted); margin-top:22px; line-height:1.5; }
 .scada-credit h2 { color:var(--gg-cyan); font-size:20px; letter-spacing:.06em; text-transform:uppercase; }
 .section-title { color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-size:22px;margin-top:26px; }
-@media (max-width: 850px) { .scada-mix-grid, .commodity-grid, .pump-grid, .ev-card-grid { grid-template-columns:1fr; } .oil-stats-grid { grid-template-columns:1fr 1fr; } #electricity-price-history-panel #price-history-canvas { min-height:560px !important; height:72vh !important; } }
+html.v4-chart-open, body.v4-chart-open { overflow:hidden !important; height:100dvh !important; }
+@media (max-width: 850px) { .scada-mix-grid, .commodity-grid, .pump-grid, .ev-card-grid { grid-template-columns:1fr; } .oil-stats-grid { grid-template-columns:1fr 1fr; } #electricity-price-history-panel #price-history-canvas { min-height:560px !important; height:72dvh !important; } }
+@media (orientation: landscape) and (max-height: 520px) {
+  #electricity-price-history-panel #price-history-canvas { height:68dvh !important; min-height:260px !important; }
+  #electricity-price-history-panel .trend-panel { padding:8px !important; }
+  #electricity-price-history-panel .price-history-actions { max-height:none !important; overflow:visible !important; }
+  .price-history-scroller, .price-history-time-tabs { padding:7px 8px !important; margin:7px 0 !important; }
+}
 </style>
 
 <div class="scada-grid" id="scada-grid">
@@ -226,8 +233,8 @@ a { color: #7fdfff; }
   </div>
 </div>
 
-<script src='/uk_energy_tracking_v4/price-history-ui.js?v=20260527a'></script>
-<script src='/uk_energy_tracking_v4/price-history-fullscreen.js?v=20260527a'></script>
+<script src='/uk_energy_tracking_v4/price-history-ui.js?v=20260527b'></script>
+<script src='/uk_energy_tracking_v4/price-history-fullscreen.js?v=20260527b'></script>
 <script src='/uk_energy_tracking_v4/live-config.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-helpers.js?v=20260526a'></script>
 <script src='/uk_energy_tracking_v4/live-gauges.js?v=20260526a'></script>

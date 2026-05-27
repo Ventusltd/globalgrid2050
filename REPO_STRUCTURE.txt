@@ -158,6 +158,7 @@
 │   ├── build_v8_bess_gis_sld_financial_sandbox.md
 │   ├── clone_uk_energy_tracking_v2_to_v3.md
 │   ├── clone_uk_energy_tracking_v3_to_v4.md
+│   ├── clone_uk_energy_tracking_v4_to_v5.md
 │   ├── create_v8_bess_electrical_topology_review.md
 │   ├── create_v8_bess_pcs_standalone.md
 │   ├── dependencies_v4.json
@@ -1026,6 +1027,29 @@
 │   ├── price-history-fullscreen.js
 │   ├── price-history-ui.css
 │   └── price-history-ui.js
+├── uk_energy_tracking_v5
+│   ├── AI_RELOAD_INSTRUCTIONS.md
+│   ├── DIARY_NOTE_2026-05-26_missed_price_history_updates.md
+│   ├── README.md
+│   ├── WORK_DIARY.md
+│   ├── electricity_price_history.csv
+│   ├── electricity_price_history.json
+│   ├── ev_charging_prices.json
+│   ├── index.md
+│   ├── live-app.js
+│   ├── live-config.js
+│   ├── live-gauges.js
+│   ├── live-helpers.js
+│   ├── live-oil-chart.js
+│   ├── live-transport.js
+│   ├── live_grid_energy.json
+│   ├── live_grid_price.json
+│   ├── live_oil_prices.json
+│   ├── live_uk_fuel_prices.json
+│   ├── oil_price_history.geojson
+│   ├── price-history-fullscreen.js
+│   ├── price-history-ui.css
+│   └── price-history-ui.js
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -1043,4 +1067,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-127 directories, 917 files
+128 directories, 940 files

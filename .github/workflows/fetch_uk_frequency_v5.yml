@@ -1,9 +1,16 @@
 name: fetch_uk_frequency_v5
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_uk_frequency_v5.py'
+      - '.github/workflows/fetch_uk_frequency_v5.yml'
+      - 'uk_energy_tracking_v5/frequency-history-ui.js'
+      - 'uk_energy_tracking_v5/live-app.js'
   schedule:
-    # GitHub Actions does not guarantee true 2 minute scheduling.
-    # This runs every 5 minutes and the Python collector can take 2 minute burst samples.
+    # GitHub Actions supports 5 minute cron granularity for scheduled workflows.
+    # The collector keeps the public file trimmed to a rolling 24 hour window.
     - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
@@ -64,7 +71,7 @@ jobs:
           GG_FREQUENCY_LOOKBACK_MINUTES: '180'
         run: python scripts/update_uk_frequency_v5.py
 
-      - name: Commit V5 frequency feed, chart assets and report
+      - name: Commit V5 frequency feed and report
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         shell: bash
@@ -73,8 +80,6 @@ jobs:
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
           git add \
-            uk_energy_tracking_v5/index.md \
-            uk_energy_tracking_v5/frequency-history-ui.js \
             uk_energy_tracking_v5/grid_frequency_history.csv \
             uk_energy_tracking_v5/live_grid_frequency.json \
             gridbot_reports/uk_frequency_v5_report.md

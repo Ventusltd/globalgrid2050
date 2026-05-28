@@ -1,0 +1,61 @@
+name: backfill_uk_frequency_weekly_v5
+
+on:
+  workflow_dispatch:
+    inputs:
+      weeks:
+        description: Weekly windows to request from Elexon, maximum 52
+        required: true
+        default: '52'
+        type: choice
+        options: ['4', '13', '26', '52']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-frequency-weekly-backfill-v5
+  cancel-in-progress: false
+
+jobs:
+  backfill-weekly-frequency:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Run V5 weekly frequency backfill
+        env:
+          GG_FREQUENCY_BACKFILL_WEEKS: ${{ github.event.inputs.weeks }}
+          GG_FREQUENCY_BACKFILL_SLEEP_SECONDS: '2'
+        run: python scripts/backfill_uk_frequency_weekly_v5.py
+
+      - name: Commit V5 weekly frequency backfill
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        shell: bash
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add \
+            uk_energy_tracking_v5/grid_frequency_weekly_health.csv \
+            uk_energy_tracking_v5/live_grid_frequency_weekly_health.json \
+            gridbot_reports/uk_frequency_weekly_backfill_v5_report.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Backfill UK frequency weekly health V5: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V5 weekly frequency backfill changes to commit"
+          fi

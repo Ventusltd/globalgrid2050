@@ -1,0 +1,56 @@
+name: update_uk_frequency_daily_v5
+
+on:
+  schedule:
+    # Daily integrity layer. The 5 minute workflow maintains raw live samples.
+    - cron: '17 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-frequency-daily-v5
+  cancel-in-progress: false
+
+jobs:
+  update-daily-frequency-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Update daily frequency health and validation
+        run: python scripts/update_uk_frequency_daily_v5.py
+
+      - name: Commit V5 daily frequency health files
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        shell: bash
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add \
+            uk_energy_tracking_v5/grid_frequency_daily_health.csv \
+            uk_energy_tracking_v5/live_grid_frequency_daily_health.json \
+            uk_energy_tracking_v5/grid_frequency_validation.csv \
+            uk_energy_tracking_v5/live_grid_frequency_validation.json \
+            gridbot_reports/uk_frequency_daily_validation_v5_report.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update UK frequency daily health V5: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V5 daily frequency changes to commit"
+          fi

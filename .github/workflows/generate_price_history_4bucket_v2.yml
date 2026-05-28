@@ -1,0 +1,49 @@
+name: generate_price_history_4bucket_v2
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - fetch_uk_energy_and_prices_v5
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v5-price-history-4bucket
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate V5 4 bucket price history
+        run: python scripts/generate_price_history_4bucket_v2.py
+
+      - name: Commit V5 4 bucket price history
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v5/electricity_price_history_4bucket_decade.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Generate V5 4 bucket electricity price history: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V5 4 bucket price history changes to commit"
+          fi

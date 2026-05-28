@@ -1,0 +1,87 @@
+name: fetch_uk_frequency_v5
+
+on:
+  schedule:
+    # GitHub Actions does not guarantee true 2 minute scheduling.
+    # This runs every 5 minutes and the Python collector can take 2 minute burst samples.
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      burst_samples:
+        description: Number of 2 minute spaced samples to take in this run
+        required: true
+        default: '1'
+        type: choice
+        options: ['1', '2', '3', '6', '12']
+      rolling_hours:
+        description: Rolling retention window in hours
+        required: true
+        default: '24'
+        type: choice
+        options: ['6', '12', '24']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-frequency-v5
+  cancel-in-progress: false
+
+jobs:
+  update-frequency:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Resolve frequency run settings
+        id: settings
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "burst_samples=${{ github.event.inputs.burst_samples }}" >> "$GITHUB_OUTPUT"
+            echo "rolling_hours=${{ github.event.inputs.rolling_hours }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "burst_samples=1" >> "$GITHUB_OUTPUT"
+            echo "rolling_hours=24" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run V5 UK grid frequency collector
+        env:
+          GG_FREQUENCY_BURST_SAMPLES: ${{ steps.settings.outputs.burst_samples }}
+          GG_FREQUENCY_SLEEP_SECONDS: '120'
+          GG_FREQUENCY_ROLLING_HOURS: ${{ steps.settings.outputs.rolling_hours }}
+          GG_FREQUENCY_LOOKBACK_MINUTES: '180'
+        run: python scripts/update_uk_frequency_v5.py
+
+      - name: Commit V5 frequency feed, chart assets and report
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        shell: bash
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add \
+            uk_energy_tracking_v5/index.md \
+            uk_energy_tracking_v5/frequency-history-ui.js \
+            uk_energy_tracking_v5/grid_frequency_history.csv \
+            uk_energy_tracking_v5/live_grid_frequency.json \
+            gridbot_reports/uk_frequency_v5_report.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated UK frequency update V5: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V5 frequency changes to commit"
+          fi

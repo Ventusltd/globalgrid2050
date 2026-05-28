@@ -1,0 +1,99 @@
+// GlobalGrid2050 V5 frequency chart. Inserts itself below the Elexon price chart.
+(function(){
+  var CSV_URL = "/uk_energy_tracking_v5/grid_frequency_history.csv";
+  var LIVE_URL = "/uk_energy_tracking_v5/live_grid_frequency.json";
+  var REFRESH_MS = 120000;
+  var installed = false;
+
+  function $(id){ return document.getElementById(id); }
+  function txt(id, value){ var el=$(id); if(el) el.textContent=value; }
+  function css(){
+    if($("gg-frequency-style")) return;
+    var s=document.createElement("style");
+    s.id="gg-frequency-style";
+    s.textContent="\n#grid-frequency-panel .frequency-shell{background:var(--gg-panel,#0b0f17);border:1px solid var(--gg-line,#252b36);border-radius:6px;padding:14px;margin-top:18px}\n#grid-frequency-panel .frequency-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}\n#grid-frequency-panel .frequency-actions strong{color:var(--gg-cyan,#00ffff);letter-spacing:.12em;text-transform:uppercase}\n#grid-frequency-panel .frequency-actions a{border:1px solid var(--gg-line,#252b36);border-radius:4px;padding:8px 10px;color:#7fdfff;background:rgba(255,255,255,.03);font-family:'Courier New',monospace;text-decoration:none}\n#frequency-history-canvas{width:100%;height:340px;display:block;border:1px solid rgba(255,255,255,.05);background:#070a10;touch-action:auto}\n.frequency-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px}\n.frequency-mini{border:1px solid var(--gg-line,#252b36);background:rgba(255,255,255,.03);border-radius:4px;padding:9px}\n.frequency-mini span{display:block;color:var(--gg-muted,#9aa3b6);text-transform:uppercase;letter-spacing:.12em;font-size:10px}\n.frequency-mini strong{display:block;color:var(--gg-cyan,#00ffff);font-size:16px;margin-top:4px}\n.frequency-note{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.018);color:var(--gg-muted,#9aa3b6);font-size:11px;line-height:1.45;letter-spacing:.04em;padding:8px 10px;margin:8px 0 10px;border-radius:5px}\n.frequency-note b{color:var(--gg-text,#f5f7fb)}\n@media(max-width:850px){.frequency-mini-grid{grid-template-columns:1fr 1fr}#frequency-history-canvas{height:320px}}\n";
+    document.head.appendChild(s);
+  }
+  function install(){
+    if(installed || $("grid-frequency-panel")) return true;
+    var price=$("electricity-price-history-panel");
+    if(!price || !price.parentNode) return false;
+    css();
+    var section=document.createElement("section");
+    section.id="grid-frequency-panel";
+    section.innerHTML="<h2 class='section-title'>Grid Frequency 24 Hour Trace</h2>"+
+      "<div class='frequency-shell'>"+
+      "<div class='frequency-actions'><strong>UK grid frequency from Elexon</strong><a href='/uk_energy_tracking_v5/grid_frequency_history.csv' download>Download frequency CSV</a></div>"+
+      "<div class='frequency-note'><b>Grid stability signal:</b> frequency shows the live balance between generation and demand. The 50 Hz reference line exposes stress, recovery and control behaviour over the last rolling 24 hours.</div>"+
+      "<canvas id='frequency-history-canvas' width='900' height='340'></canvas>"+
+      "<div class='frequency-mini-grid'>"+
+      "<div class='frequency-mini'><span>Latest</span><strong><b id='frequency-latest'>—</b> Hz</strong></div>"+
+      "<div class='frequency-mini'><span>Records</span><strong id='frequency-records'>—</strong></div>"+
+      "<div class='frequency-mini'><span>Window</span><strong id='frequency-window'>24 hours</strong></div>"+
+      "<div class='frequency-mini'><span>Min to max</span><strong id='frequency-minmax'>—</strong></div>"+
+      "</div><div class='scada-credit' id='frequency-updated' style='margin-top:10px;'>Awaiting frequency update.</div></div>";
+    price.parentNode.insertBefore(section, price.nextSibling);
+    installed=true;
+    return true;
+  }
+  function parseCsv(text){
+    text=(text||"").trim();
+    if(!text) return [];
+    return text.split(/\r?\n/).slice(1).map(function(line){
+      var p=line.split(",");
+      if(p.length<2) return null;
+      var hz=parseFloat(p[1]);
+      if(!isFinite(hz)) return null;
+      return {t:p[0], hz:hz};
+    }).filter(Boolean);
+  }
+  function timeLabel(iso){
+    if(!iso) return "—";
+    var d=new Date(iso);
+    if(isNaN(d.getTime())) return iso;
+    return d.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  }
+  function getText(url){return fetch(url+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok) throw new Error(String(r.status)); return r.text();});}
+  function getJson(url){return fetch(url+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok) throw new Error(String(r.status)); return r.json();});}
+  function draw(rows){
+    var c=$("frequency-history-canvas");
+    if(!c) return;
+    var ctx=c.getContext("2d"), rect=c.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+    var w=Math.max(340,Math.floor(rect.width*dpr)), h=Math.max(260,Math.floor(rect.height*dpr));
+    c.width=w; c.height=h;
+    ctx.fillStyle="#070a10"; ctx.fillRect(0,0,w,h);
+    var L=58*dpr, R=18*dpr, T=24*dpr, B=44*dpr, pw=w-L-R, ph=h-T-B;
+    ctx.strokeStyle="rgba(255,255,255,.12)"; ctx.lineWidth=1*dpr; ctx.strokeRect(L,T,pw,ph);
+    [49.8,49.9,50.0,50.1,50.2].forEach(function(v){
+      var y=T+(50.2-v)/0.4*ph;
+      ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+      ctx.fillStyle=v===50?"#00ffff":"#9aa3b6"; ctx.font=(11*dpr)+"px Courier New"; ctx.fillText(v.toFixed(1),8*dpr,y+4*dpr);
+    });
+    if(!rows.length){ctx.fillStyle="#9aa3b6"; ctx.font=(14*dpr)+"px Courier New"; ctx.fillText("Awaiting frequency records",L+18*dpr,T+42*dpr); return;}
+    var vals=rows.map(function(r){return r.hz;});
+    var min=Math.min.apply(null,vals.concat([49.8])), max=Math.max.apply(null,vals.concat([50.2]));
+    var span=Math.max(0.2,max-min); min-=span*0.08; max+=span*0.08;
+    var y50=T+(max-50)/(max-min)*ph;
+    ctx.strokeStyle="rgba(0,255,255,.60)"; ctx.setLineDash([6*dpr,6*dpr]); ctx.beginPath(); ctx.moveTo(L,y50); ctx.lineTo(L+pw,y50); ctx.stroke(); ctx.setLineDash([]);
+    ctx.shadowColor="rgba(0,255,136,.45)"; ctx.shadowBlur=12*dpr; ctx.strokeStyle="#00ff88"; ctx.lineWidth=2*dpr; ctx.beginPath();
+    rows.forEach(function(r,i){var x=L+(rows.length===1?0.5:i/(rows.length-1))*pw; var y=T+(max-r.hz)/(max-min)*ph; if(i===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);});
+    ctx.stroke(); ctx.shadowBlur=0;
+    ctx.fillStyle="#9aa3b6"; ctx.font=(11*dpr)+"px Courier New";
+    ctx.fillText(timeLabel(rows[0].t),L,T+ph+26*dpr);
+    ctx.fillText(timeLabel(rows[rows.length-1].t),Math.max(L,L+pw-150*dpr),T+ph+26*dpr);
+  }
+  function refresh(){
+    if(!install()) return;
+    Promise.all([getText(CSV_URL).catch(function(){return "";}),getJson(LIVE_URL).catch(function(){return null;})]).then(function(res){
+      var rows=parseCsv(res[0]), live=res[1]||{}, latest=live.latest||{};
+      draw(rows);
+      txt("frequency-latest", latest.frequency_hz!=null?Number(latest.frequency_hz).toFixed(3):rows.length?Number(rows[rows.length-1].hz).toFixed(3):"—");
+      txt("frequency-records", String(live.record_count||rows.length||0));
+      txt("frequency-window", (live.window_hours||24)+" hours");
+      txt("frequency-minmax", live.min_hz!=null&&live.max_hz!=null?Number(live.min_hz).toFixed(3)+" to "+Number(live.max_hz).toFixed(3)+" Hz":"—");
+      txt("frequency-updated", live.updated_utc?"Updated: "+timeLabel(live.updated_utc):"Awaiting frequency update.");
+    });
+  }
+  window.addEventListener("resize", refresh);
+  refresh(); setInterval(refresh, REFRESH_MS);
+})();

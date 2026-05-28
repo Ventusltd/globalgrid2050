@@ -9,6 +9,7 @@ on:
       - 'scripts/patch_v5_fullscreen_glow_controls.py'
       - 'scripts/patch_v5_fullscreen_left_legend.py'
       - 'scripts/patch_v5_multi_year_loading.py'
+      - 'scripts/patch_v5_trend_title_safe_zone.py'
 
 permissions:
   contents: write
@@ -35,6 +36,9 @@ jobs:
       - name: Patch V5 multi year loading
         run: python scripts/patch_v5_multi_year_loading.py
 
+      - name: Patch V5 trend title safe zone
+        run: python scripts/patch_v5_trend_title_safe_zone.py
+
       - name: Syntax check JavaScript
         run: |
           node --check uk_energy_tracking_v5/price-history-ui.js
@@ -47,7 +51,7 @@ jobs:
           set -e
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add uk_energy_tracking_v5/price-history-ui.js uk_energy_tracking_v5/price-history-fullscreen.js uk_energy_tracking_v5/index.md gridbot_reports/patch_v5_fullscreen_glow_controls.md gridbot_reports/patch_v5_fullscreen_left_legend.md gridbot_reports/patch_v5_multi_year_loading.md
+          git add uk_energy_tracking_v5/price-history-ui.js uk_energy_tracking_v5/price-history-fullscreen.js uk_energy_tracking_v5/index.md gridbot_reports/patch_v5_fullscreen_glow_controls.md gridbot_reports/patch_v5_fullscreen_left_legend.md gridbot_reports/patch_v5_multi_year_loading.md gridbot_reports/patch_v5_trend_title_safe_zone.md
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Patch V5 chart glow controls"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main

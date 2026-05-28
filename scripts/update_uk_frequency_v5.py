@@ -2,9 +2,8 @@
 """
 GlobalGrid2050 V5 UK grid frequency collector.
 
-Keeps a rolling 24 hour UK grid frequency dataset for the V5 tracker.
-The workflow is scheduled inside GitHub Actions limits and writes only data,
-summary JSON and a GridBot report after the front end assets exist.
+Keeps a rolling 24 hour UK grid frequency dataset and a compact weekly
+frequency health summary for the V5 tracker.
 """
 
 from __future__ import annotations
@@ -25,6 +24,8 @@ ROOT = Path(__file__).resolve().parent.parent
 FOLDER = ROOT / "uk_energy_tracking_v5"
 CSV_FILE = FOLDER / "grid_frequency_history.csv"
 JSON_FILE = FOLDER / "live_grid_frequency.json"
+WEEKLY_CSV_FILE = FOLDER / "grid_frequency_weekly_health.csv"
+WEEKLY_JSON_FILE = FOLDER / "live_grid_frequency_weekly_health.json"
 REPORT_DIR = ROOT / "gridbot_reports"
 REPORT_FILE = REPORT_DIR / "uk_frequency_v5_report.md"
 
@@ -34,6 +35,7 @@ ROLLING_HOURS = int(os.getenv("GG_FREQUENCY_ROLLING_HOURS", "24"))
 LOOKBACK_MINUTES = int(os.getenv("GG_FREQUENCY_LOOKBACK_MINUTES", "180"))
 BURST_SAMPLES = max(1, min(int(os.getenv("GG_FREQUENCY_BURST_SAMPLES", "1")), 12))
 SLEEP_SECONDS = max(0, min(int(os.getenv("GG_FREQUENCY_SLEEP_SECONDS", "120")), 300))
+WEEKLY_HISTORY_WEEKS = int(os.getenv("GG_FREQUENCY_WEEKLY_HISTORY_WEEKS", "52"))
 USER_AGENT = "GlobalGrid2050 V5 frequency collector using public Elexon data"
 
 
@@ -69,6 +71,11 @@ def parse_time(value: Any) -> datetime | None:
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
     return dt.astimezone(timezone.utc)
+
+
+def week_start(dt: datetime) -> datetime:
+    day = dt.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    return day - timedelta(days=day.weekday())
 
 
 def http_json(url: str) -> Any:
@@ -151,9 +158,7 @@ def extract_rows(payload: Any) -> list[dict[str, Any]]:
     return output
 
 
-def fetch_frequency_rows() -> tuple[list[dict[str, Any]], list[str]]:
-    end = utc_now()
-    start = end - timedelta(minutes=LOOKBACK_MINUTES)
+def fetch_frequency_rows_for_window(start: datetime, end: datetime) -> tuple[list[dict[str, Any]], list[str]]:
     errors: list[str] = []
     for url in candidate_urls(start, end):
         try:
@@ -166,7 +171,13 @@ def fetch_frequency_rows() -> tuple[list[dict[str, Any]], list[str]]:
     return [], errors
 
 
-def read_existing() -> list[dict[str, Any]]:
+def fetch_frequency_rows() -> tuple[list[dict[str, Any]], list[str]]:
+    end = utc_now()
+    start = end - timedelta(minutes=LOOKBACK_MINUTES)
+    return fetch_frequency_rows_for_window(start, end)
+
+
+def read_existing_raw() -> list[dict[str, Any]]:
     if not CSV_FILE.exists():
         return []
     rows = []
@@ -186,7 +197,93 @@ def read_existing() -> list[dict[str, Any]]:
     return rows
 
 
-def write_outputs(rows: list[dict[str, Any]], errors: list[str]) -> None:
+def read_weekly_existing() -> dict[str, dict[str, Any]]:
+    if not WEEKLY_CSV_FILE.exists():
+        return {}
+    rows: dict[str, dict[str, Any]] = {}
+    with WEEKLY_CSV_FILE.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            key = row.get("week_start_utc")
+            if key:
+                rows[key] = row
+    return rows
+
+
+def weekly_summary_from_rows(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    buckets: dict[str, list[float]] = {}
+    for row in rows:
+        dt = parse_time(row.get("source_time_utc"))
+        if not dt:
+            continue
+        key = iso_z(week_start(dt))
+        buckets.setdefault(key, []).append(float(row["frequency_hz"]))
+
+    out: dict[str, dict[str, Any]] = {}
+    for key, values in buckets.items():
+        if not values:
+            continue
+        min_hz = min(values)
+        max_hz = max(values)
+        avg_hz = mean(values)
+        below_49_9 = sum(1 for v in values if v < 49.9)
+        above_50_1 = sum(1 for v in values if v > 50.1)
+        largest_dev = max(abs(v - 50.0) for v in values)
+        out[key] = {
+            "week_start_utc": key,
+            "sample_count": len(values),
+            "avg_hz": round(avg_hz, 4),
+            "min_hz": round(min_hz, 4),
+            "max_hz": round(max_hz, 4),
+            "samples_below_49_9": below_49_9,
+            "samples_above_50_1": above_50_1,
+            "largest_deviation_hz": round(largest_dev, 4),
+            "data_health": "ok" if len(values) >= 10 else "thin_sample",
+        }
+    return out
+
+
+def write_weekly_outputs(new_rows: list[dict[str, Any]]) -> None:
+    existing = read_weekly_existing()
+    new_weekly = weekly_summary_from_rows(new_rows)
+    merged = {**existing, **new_weekly}
+
+    cutoff = week_start(utc_now()) - timedelta(weeks=WEEKLY_HISTORY_WEEKS - 1)
+    final = []
+    for key, row in merged.items():
+        dt = parse_time(key)
+        if dt and dt >= cutoff:
+            final.append(row)
+    final.sort(key=lambda r: r["week_start_utc"])
+
+    fields = [
+        "week_start_utc",
+        "sample_count",
+        "avg_hz",
+        "min_hz",
+        "max_hz",
+        "samples_below_49_9",
+        "samples_above_50_1",
+        "largest_deviation_hz",
+        "data_health",
+    ]
+    with WEEKLY_CSV_FILE.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(final)
+
+    WEEKLY_JSON_FILE.write_text(json.dumps({
+        "updated_utc": iso_z(utc_now()),
+        "window_weeks": WEEKLY_HISTORY_WEEKS,
+        "record_count": len(final),
+        "latest_week": final[-1] if final else None,
+        "source": "Elexon plus GlobalGrid2050 weekly aggregation",
+        "health": "ok" if final else "awaiting_weekly_rows",
+        "rows": final,
+    }, indent=2), encoding="utf-8")
+
+
+def write_outputs(rows: list[dict[str, Any]], errors: list[str]) -> list[dict[str, Any]]:
     FOLDER.mkdir(parents=True, exist_ok=True)
     cutoff = utc_now() - timedelta(hours=ROLLING_HOURS)
     dedup: dict[str, dict[str, Any]] = {}
@@ -224,22 +321,26 @@ def write_outputs(rows: list[dict[str, Any]], errors: list[str]) -> None:
         print(f"Latest frequency {latest['frequency_hz']} Hz at {latest['source_time_utc']}")
     if errors:
         print("::warning::" + " | ".join(errors[-2:]))
+    return final
 
 
 def write_report(errors: list[str]) -> None:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     live = json.loads(JSON_FILE.read_text(encoding="utf-8")) if JSON_FILE.exists() else {}
+    weekly = json.loads(WEEKLY_JSON_FILE.read_text(encoding="utf-8")) if WEEKLY_JSON_FILE.exists() else {}
     lines = [
         "# UK Frequency V5 GridBot Report",
         "",
         f"Updated UTC: {iso_z(utc_now())}",
         f"Rolling window hours: {ROLLING_HOURS}",
-        f"Records retained: {live.get('record_count', 0)}",
+        f"24 hour records retained: {live.get('record_count', 0)}",
         f"Latest: {json.dumps(live.get('latest'), ensure_ascii=False)}",
         f"Min Hz: {live.get('min_hz')}",
         f"Max Hz: {live.get('max_hz')}",
         f"Average Hz: {live.get('avg_hz')}",
-        f"Health: {live.get('health')}",
+        f"24 hour health: {live.get('health')}",
+        f"Weekly records retained: {weekly.get('record_count', 0)}",
+        f"Latest weekly row: {json.dumps(weekly.get('latest_week'), ensure_ascii=False)}",
         "",
         "## Recent fetch issues",
     ]
@@ -248,11 +349,12 @@ def write_report(errors: list[str]) -> None:
 
 
 def run_once() -> list[str]:
-    existing = read_existing()
+    existing = read_existing_raw()
     fetched, errors = fetch_frequency_rows()
     if not fetched:
         errors.append("No source rows fetched this pass. Existing 24 hour file preserved and trimmed.")
-    write_outputs(existing + fetched, errors)
+    final_24h = write_outputs(existing + fetched, errors)
+    write_weekly_outputs(final_24h)
     return errors
 
 

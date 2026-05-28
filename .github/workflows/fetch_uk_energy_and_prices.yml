@@ -1,14 +1,11 @@
 # UK live grid tracker for globalgrid2050.com
-# Single 5-minute scheduler. The workflow calls both scripts every run:
-#   * update_uk_energy.py always writes demand, generation mix and solar
-#   * update_uk_price.py self-regulates and exits unless minute % 30 == 0
-# Manual workflow_dispatch can still run energy, price or both.
+# RETIRED LEGACY WORKFLOW.
+# V1 is preserved for historical reference and manual recovery only.
+# Scheduled live updates have been disabled so active capacity is focused on V4 and V5.
 
 name: fetch_uk_energy_and_prices
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       slice:
@@ -53,11 +50,11 @@ jobs:
             echo "slice=both" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Run energy slice (5-min)
+      - name: Run energy slice (manual legacy recovery)
         if: steps.which.outputs.slice == 'energy' || steps.which.outputs.slice == 'both'
         run: python scripts/update_uk_energy.py
 
-      - name: Run price slice (self-regulated 30-min)
+      - name: Run price slice (manual legacy recovery)
         if: steps.which.outputs.slice == 'price' || steps.which.outputs.slice == 'both'
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -86,7 +83,7 @@ jobs:
           fi
 
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated UK grid update (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "Manual legacy UK grid update (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push origin HEAD:main
           else
             echo "No changes to commit"

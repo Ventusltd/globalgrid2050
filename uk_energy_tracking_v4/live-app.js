@@ -1,4 +1,19 @@
 // V4 live tracker app boot and refresh loop. Load last.
+// V4 is now retired as a live page. V5 is the operational tracker.
+function ensureArchiveNotice(){
+  if(document.getElementById('v4-archive-notice')) return;
+  var s=document.createElement('style');
+  s.id='v4-archive-style';
+  s.textContent='\n.v4-archive-notice{border:1px solid #ffcc00;background:rgba(255,204,0,.08);color:#f5f7fb;border-radius:6px;padding:14px 16px;margin:16px 0 20px;font-family:"Courier New",monospace;line-height:1.5;box-shadow:0 0 18px rgba(255,204,0,.08)}\n.v4-archive-notice strong{color:#ffcc00;text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:6px}\n.v4-archive-notice a{color:#00ffff;font-weight:700}\n';
+  document.head.appendChild(s);
+  var grid=document.getElementById('scada-grid');
+  if(!grid) return;
+  var note=document.createElement('div');
+  note.id='v4-archive-notice';
+  note.className='v4-archive-notice';
+  note.innerHTML='<strong>V4 archived</strong>This version is retained for reference only and is no longer the live operational tracker. Please use <a href="/uk_energy_tracking_v5/">UK Live Grid Tracker V5</a> for current electricity, price, carbon and energy data.';
+  grid.insertBefore(note, grid.firstChild);
+}
 function ensureSummaryStyle(){
   if(document.getElementById('v4-live-summary-style')) return;
   var s=document.createElement('style');
@@ -14,13 +29,13 @@ function ensureSummaryPanel(){
   var panel=document.createElement('section');
   panel.id='scada-live-summary';
   panel.className='scada-live-summary';
-  panel.innerHTML='<div class="scada-summary-title">Live electricity snapshot</div>'+
+  panel.innerHTML='<div class="scada-summary-title">Archived electricity snapshot</div>'+ 
     '<div class="scada-summary-grid">'+
-    '<div><span>Demand</span><strong id="summary-demand">—</strong><em>GW</em></div>'+
-    '<div><span>Price</span><strong id="summary-price">—</strong><em>£/MWh</em></div>'+
-    '<div><span>Carbon</span><strong id="summary-carbon">—</strong><em>g/kWh</em></div>'+
-    '</div>'+
-    '<div class="scada-summary-time" id="summary-timestamps">Awaiting source timestamps.</div>';
+    '<div><span>Demand</span><strong id="summary-demand">—</strong><em>GW</em></div>'+ 
+    '<div><span>Price</span><strong id="summary-price">—</strong><em>£/MWh</em></div>'+ 
+    '<div><span>Carbon</span><strong id="summary-carbon">—</strong><em>g/kWh</em></div>'+ 
+    '</div>'+ 
+    '<div class="scada-summary-time" id="summary-timestamps">Archived V4 feed. Use V5 for current data.</div>';
   if(gauges&&gauges.parentNode){gauges.parentNode.insertBefore(panel,gauges);}
   else{document.getElementById('scada-grid').appendChild(panel);}
   return panel;
@@ -28,18 +43,18 @@ function ensureSummaryPanel(){
 function refresh(){
     Promise.all([getJSON(ENERGY),getJSON(PRICE),getJSON(OIL),getJSON(OIL_HISTORY),getJSON(FUEL),getJSON(EV_PRICES)]).then(function(res){
       var e=res[0]||{}, p=res[1]||{}, oil=res[2]||{}, hist=res[3], fuel=res[4]||{}, ev=res[5]||{};
-      ensureSummaryPanel();
+      ensureArchiveNotice(); ensureSummaryPanel();
       renderGauge("demand", e.demandGW); renderGauge("price", p.priceGBPperMWh); renderGauge("carbon", carbonValue(p));
       if(e.mix) renderMix(e.mix); renderCommodities(oil,fuel); renderEvPrices(ev); if(hist) drawOilTrend(hist);
       var latest=latestIso(e.updated,p.updated,oil.updated);
       setText("summary-demand",e.demandGW==null?"—":fmt(e.demandGW,2));
       setText("summary-price",p.priceGBPperMWh==null?"—":fmt(p.priceGBPperMWh,2));
       setText("summary-carbon",carbonValue(p)==null?"—":Math.round(carbonValue(p)));
-      setText("summary-timestamps",latest?"Updated: "+dateLabel(latest)+" · energy "+timeLabel(e.updated)+" · price "+timeLabel(p.updated)+" · commodities "+timeLabel(oil.updated):"Awaiting source timestamps.");
+      setText("summary-timestamps",latest?"Archived V4. Last stored update: "+dateLabel(latest)+" · energy "+timeLabel(e.updated)+" · price "+timeLabel(p.updated)+" · commodities "+timeLabel(oil.updated):"Archived V4 feed. Use V5 for current data.");
       var s=document.getElementById("scada-status");
       if(s){s.textContent="";s.style.display="none";}
     });
   }
   var oilRange=document.getElementById("oil-range");
   if(oilRange) oilRange.addEventListener("change", function(){ getJSON(OIL_HISTORY).then(drawOilTrend); });
-  parseMarketInputs(); ensureSummaryPanel(); refresh(); setInterval(refresh, POLL);
+  parseMarketInputs(); ensureArchiveNotice(); ensureSummaryPanel(); refresh(); setInterval(refresh, POLL);

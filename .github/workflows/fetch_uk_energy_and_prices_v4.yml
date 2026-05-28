@@ -1,8 +1,10 @@
 name: fetch_uk_energy_and_prices_v4
 
+# RETIRED WORKFLOW.
+# V4 is preserved for reference and manual recovery only.
+# Scheduled live updates have been disabled so operational focus moves to V5.
+
 on:
-  schedule:
-    - cron: '2-59/5 * * * *'
   workflow_dispatch:
     inputs:
       slice:
@@ -69,7 +71,7 @@ jobs:
             uk_energy_tracking_v4/electricity_price_history.csv \
             uk_energy_tracking_v4/electricity_price_history.json
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated UK grid update V4 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "Manual retired UK grid update V4 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else

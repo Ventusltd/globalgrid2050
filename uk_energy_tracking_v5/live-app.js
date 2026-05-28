@@ -14,16 +14,23 @@ function ensureSummaryPanel(){
   var panel=document.createElement('section');
   panel.id='scada-live-summary';
   panel.className='scada-live-summary';
-  panel.innerHTML='<div class="scada-summary-title">Live electricity snapshot</div>'+
+  panel.innerHTML='<div class="scada-summary-title">Live electricity snapshot</div>'+ 
     '<div class="scada-summary-grid">'+
-    '<div><span>Demand</span><strong id="summary-demand">—</strong><em>GW</em></div>'+
-    '<div><span>Price</span><strong id="summary-price">—</strong><em>£/MWh</em></div>'+
-    '<div><span>Carbon</span><strong id="summary-carbon">—</strong><em>g/kWh</em></div>'+
-    '</div>'+
+    '<div><span>Demand</span><strong id="summary-demand">—</strong><em>GW</em></div>'+ 
+    '<div><span>Price</span><strong id="summary-price">—</strong><em>£/MWh</em></div>'+ 
+    '<div><span>Carbon</span><strong id="summary-carbon">—</strong><em>g/kWh</em></div>'+ 
+    '</div>'+ 
     '<div class="scada-summary-time" id="summary-timestamps">Awaiting source timestamps.</div>';
   if(gauges&&gauges.parentNode){gauges.parentNode.insertBefore(panel,gauges);}
   else{document.getElementById('scada-grid').appendChild(panel);}
   return panel;
+}
+function loadFrequencyModule(){
+  if(document.getElementById('frequency-history-ui-script')) return;
+  var script=document.createElement('script');
+  script.id='frequency-history-ui-script';
+  script.src='/uk_energy_tracking_v5/frequency-history-ui.js?v=20260528b';
+  document.body.appendChild(script);
 }
 function refresh(){
     Promise.all([getJSON(ENERGY),getJSON(PRICE),getJSON(OIL),getJSON(OIL_HISTORY),getJSON(FUEL),getJSON(EV_PRICES)]).then(function(res){
@@ -42,4 +49,4 @@ function refresh(){
   }
   var oilRange=document.getElementById("oil-range");
   if(oilRange) oilRange.addEventListener("change", function(){ getJSON(OIL_HISTORY).then(drawOilTrend); });
-  parseMarketInputs(); ensureSummaryPanel(); refresh(); setInterval(refresh, POLL);
+  parseMarketInputs(); ensureSummaryPanel(); loadFrequencyModule(); refresh(); setInterval(refresh, POLL);

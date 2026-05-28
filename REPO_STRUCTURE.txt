@@ -610,6 +610,7 @@
 │   ├── patch_v5_chart_breathing_space.py
 │   ├── patch_v5_chart_dynamic_annotations.py
 │   ├── patch_v5_chart_overlap_controls.py
+│   ├── patch_v5_emergency_chart_repair.py
 │   ├── patch_v5_fullscreen_glow_controls.py
 │   ├── patch_v5_fullscreen_left_legend.py
 │   ├── patch_v5_multi_year_loading.py
@@ -1080,4 +1081,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-128 directories, 953 files
+128 directories, 954 files

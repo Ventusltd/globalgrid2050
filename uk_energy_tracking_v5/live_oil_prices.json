@@ -1,23 +1,39 @@
 {
-  "updated": "2026-05-24T16:40:11.985498+00:00",
-  "brentUSDperBarrel": 100.21,
-  "wtiUSDperBarrel": 96.6,
-  "ukPumpPrices": {
-    "petrolPencePerLitre": null,
-    "dieselPencePerLitre": null,
-    "source": "RAC Fuel Watch public page"
+  "updated": "2026-05-28T08:31:52.980321+00:00",
+  "updatedDisplayUTC": "Thursday 28 May 2026 08:31 UTC",
+  "brentUSDperBarrel": 94.37,
+  "wtiUSDperBarrel": 90.77,
+  "copperUSDperTonne": 13942.01688,
+  "copperGBPperTonne": 10380.676626902165,
+  "copperEURperTonne": 11986.743772586586,
+  "aluminiumUSDperTonne": 3615.0,
+  "aluminiumGBPperTonne": 2691.586613991485,
+  "aluminiumEURperTonne": 3108.020820148405,
+  "fx": {
+    "gbpUSD": 1.343074,
+    "gbpEUR": 1.154717,
+    "usdGBP": 0.7445606124457773,
+    "usdEUR": 0.8597567967215506,
+    "health": "ok"
   },
   "health": {
     "BZ=F": {
-      "ok": true
+      "ok": true,
+      "source": "Yahoo Finance chart endpoint"
     },
     "CL=F": {
-      "ok": true
+      "ok": true,
+      "source": "Yahoo Finance chart endpoint"
     },
-    "ukPumpPrices": {
-      "ok": false,
-      "url": "https://www.rac.co.uk/drive/advice/fuel-watch/",
-      "note": "Best effort public page read. Non critical."
+    "HG=F": {
+      "ok": true,
+      "source": "Yahoo Finance chart endpoint",
+      "note": "Copper futures converted from USD per pound to USD per tonne"
+    },
+    "ALI=F": {
+      "ok": true,
+      "source": "Yahoo Finance chart endpoint",
+      "note": "Aluminium futures in USD per tonne"
     }
   }
 }

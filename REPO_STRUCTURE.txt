@@ -1088,6 +1088,14 @@
 │   ├── price-history-render.js
 │   ├── price-history-ui.css
 │   └── price-history-ui.js
+├── uk_energy_tracking_v6
+│   ├── index.md
+│   ├── operating_manual.md
+│   ├── shared_helpers
+│   │   └── dom_text
+│   │       └── dom_text.js
+│   └── styles
+│       └── app.css
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -1105,4 +1113,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-128 directories, 978 files
+132 directories, 982 files

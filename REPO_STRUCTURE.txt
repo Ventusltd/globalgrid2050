@@ -1089,6 +1089,9 @@
 │   ├── price-history-ui.css
 │   └── price-history-ui.js
 ├── uk_energy_tracking_v6
+│   ├── app_bootstrap
+│   │   └── start_v6_app
+│   │       └── start_v6_app.js
 │   ├── commodity_price_signals
 │   │   └── render_commodities
 │   │       └── render_commodities.js
@@ -1103,6 +1106,8 @@
 │   │       └── render_live_snapshot.js
 │   ├── operating_manual.md
 │   ├── price_history_chart
+│   │   ├── control_price_history
+│   │   │   └── control_price_history.js
 │   │   ├── load_price_history_data
 │   │   │   └── load_price_history_data.js
 │   │   └── render_price_chart
@@ -1129,4 +1134,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-141 directories, 989 files
+144 directories, 991 files

@@ -1094,6 +1094,8 @@
 │   │   ├── live-config.js
 │   │   ├── load_json
 │   │   │   └── load_json.js
+│   │   ├── render_generation_mix
+│   │   │   └── render_generation_mix.js
 │   │   └── render_live_snapshot
 │   │       └── render_live_snapshot.js
 │   ├── operating_manual.md
@@ -1119,4 +1121,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-135 directories, 985 files
+136 directories, 986 files

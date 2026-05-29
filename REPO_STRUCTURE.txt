@@ -194,6 +194,7 @@
 │   ├── remove_project_x_from_v6_v7_gis_sld.md
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown_status.md
 │   ├── restore_v8_bess_maplibre_standalone.md
+│   ├── uk_frequency_daily_validation_v5_report.md
 │   ├── uk_frequency_v5_report.md
 │   ├── uk_frequency_weekly_backfill_v5_report.md
 │   ├── v2_safe_patch.md
@@ -1060,7 +1061,9 @@
 │   ├── electricity_price_history_4bucket_decade.json
 │   ├── ev_charging_prices.json
 │   ├── frequency-history-ui.js
+│   ├── grid_frequency_daily_health.csv
 │   ├── grid_frequency_history.csv
+│   ├── grid_frequency_validation.csv
 │   ├── grid_frequency_weekly_health.csv
 │   ├── index.md
 │   ├── live-app.js
@@ -1071,6 +1074,8 @@
 │   ├── live-transport.js
 │   ├── live_grid_energy.json
 │   ├── live_grid_frequency.json
+│   ├── live_grid_frequency_daily_health.json
+│   ├── live_grid_frequency_validation.json
 │   ├── live_grid_frequency_weekly_health.json
 │   ├── live_grid_price.json
 │   ├── live_oil_prices.json
@@ -1098,4 +1103,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-128 directories, 971 files
+128 directories, 976 files

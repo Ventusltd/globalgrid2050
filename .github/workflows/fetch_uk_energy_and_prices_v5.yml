@@ -55,6 +55,7 @@ jobs:
           else
             python scripts/update_uk_price_v5.py
           fi
+          python scripts/generate_price_history_daily_v5.py
 
       - name: Commit V5 grid feeds and price history
         env:
@@ -67,7 +68,8 @@ jobs:
             uk_energy_tracking_v5/live_grid_energy.json \
             uk_energy_tracking_v5/live_grid_price.json \
             uk_energy_tracking_v5/electricity_price_history.csv \
-            uk_energy_tracking_v5/electricity_price_history.json
+            uk_energy_tracking_v5/electricity_price_history.json \
+            uk_energy_tracking_v5/electricity_price_history_daily_decade.json
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated UK grid update V5 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main

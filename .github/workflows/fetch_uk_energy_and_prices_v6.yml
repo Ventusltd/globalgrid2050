@@ -1,0 +1,58 @@
+name: fetch_uk_energy_and_prices_v6
+
+on:
+  workflow_dispatch:
+    inputs:
+      slice:
+        description: Which V6 slice to run
+        required: true
+        default: both
+        type: choice
+        options: [both, energy, price]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-energy-tracking-v6
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Determine V6 slice
+        id: which
+        run: |
+          echo "slice=${{ github.event.inputs.slice }}" >> "$GITHUB_OUTPUT"
+      - name: Run V6 energy slice
+        if: steps.which.outputs.slice == 'energy' || steps.which.outputs.slice == 'both'
+        run: python scripts/update_uk_energy_v6.py
+      - name: Run V6 price slice
+        if: steps.which.outputs.slice == 'price' || steps.which.outputs.slice == 'both'
+        run: |
+          python scripts/update_uk_price_v6.py
+          python scripts/generate_price_history_daily_v6.py
+      - name: Commit V6 grid feeds
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/live_grid_energy.json uk_energy_tracking_v6/live_grid_price.json uk_energy_tracking_v6/electricity_price_history.csv uk_energy_tracking_v6/electricity_price_history.json uk_energy_tracking_v6/electricity_price_history_daily_decade.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated UK grid update V6 (${{ steps.which.outputs.slice }}): $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V6 grid feed changes to commit"
+          fi

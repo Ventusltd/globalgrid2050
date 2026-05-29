@@ -657,6 +657,7 @@
 │   ├── update_uk_energy_v3.py
 │   ├── update_uk_energy_v4.py
 │   ├── update_uk_energy_v5.py
+│   ├── update_uk_energy_v6.py
 │   ├── update_uk_frequency_daily_v5.py
 │   ├── update_uk_frequency_v5.py
 │   ├── update_uk_fuel_prices.py
@@ -1104,6 +1105,9 @@
 │   │   │   └── render_generation_mix.js
 │   │   └── render_live_snapshot
 │   │       └── render_live_snapshot.js
+│   ├── live_grid_energy.json
+│   ├── live_grid_price.json
+│   ├── live_oil_prices.json
 │   ├── operating_manual.md
 │   ├── price_history_chart
 │   │   ├── control_price_history
@@ -1134,4 +1138,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-144 directories, 991 files
+144 directories, 995 files

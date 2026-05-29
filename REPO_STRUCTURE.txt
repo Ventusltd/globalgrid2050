@@ -1089,6 +1089,9 @@
 │   ├── price-history-ui.css
 │   └── price-history-ui.js
 ├── uk_energy_tracking_v6
+│   ├── commodity_price_signals
+│   │   └── render_commodities
+│   │       └── render_commodities.js
 │   ├── index.md
 │   ├── live_data_pipeline
 │   │   ├── live-config.js
@@ -1121,4 +1124,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-136 directories, 986 files
+138 directories, 987 files

@@ -1,4 +1,18 @@
 // V5 live tracker app boot and refresh loop. Load last.
+function ensureV6Notice(){
+  if(document.getElementById('v5-v6-notice')) return;
+  var s=document.createElement('style');
+  s.id='v5-v6-notice-style';
+  s.textContent='\n.v5-v6-notice{border:1px solid rgba(0,255,255,.45);background:rgba(0,255,255,.055);border-radius:6px;padding:12px 14px;margin:14px 0;color:#f5f7fb;font-family:"Courier New",monospace;line-height:1.45;box-shadow:0 0 14px rgba(0,255,255,.10)}\n.v5-v6-notice strong{color:#00ffff;text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:4px}\n.v5-v6-notice a{color:#00ffff;font-weight:800}\n';
+  document.head.appendChild(s);
+  var grid=document.getElementById('scada-grid');
+  if(!grid) return;
+  var note=document.createElement('div');
+  note.id='v5-v6-notice';
+  note.className='v5-v6-notice';
+  note.innerHTML='<strong>Modular V6 now available</strong>V5 remains live for reference. The modular development build is now <a href="/uk_energy_tracking_v6/">UK Live Grid Tracker V6</a>.';
+  grid.insertBefore(note,grid.firstChild);
+}
 function ensureSummaryStyle(){
   if(document.getElementById('v5-live-summary-style')) return;
   var s=document.createElement('style');
@@ -7,6 +21,7 @@ function ensureSummaryStyle(){
   document.head.appendChild(s);
 }
 function ensureSummaryPanel(){
+  ensureV6Notice();
   ensureSummaryStyle();
   var existing=document.getElementById('scada-live-summary');
   if(existing) return existing;
@@ -49,4 +64,4 @@ function refresh(){
   }
   var oilRange=document.getElementById("oil-range");
   if(oilRange) oilRange.addEventListener("change", function(){ getJSON(OIL_HISTORY).then(drawOilTrend); });
-  parseMarketInputs(); ensureSummaryPanel(); loadFrequencyModule(); refresh(); setInterval(refresh, POLL);
+  parseMarketInputs(); ensureV6Notice(); ensureSummaryPanel(); loadFrequencyModule(); refresh(); setInterval(refresh, POLL);

@@ -593,6 +593,7 @@
 │   ├── generate_gis_sld_full_code_reports.py
 │   ├── generate_price_history_4bucket_v2.py
 │   ├── generate_price_history_daily_v5.py
+│   ├── generate_price_history_daily_v6.py
 │   ├── generate_unification_estimates.py
 │   ├── generate_v8_codebase_blueprint.py
 │   ├── gridbot_feature_installer.py
@@ -1139,4 +1140,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-144 directories, 996 files
+144 directories, 997 files

@@ -1,0 +1,32 @@
+{
+  "updated_utc": "2026-05-29T04:46:05Z",
+  "record_count": 1,
+  "latest_day": {
+    "date_utc": "2026-05-28",
+    "sample_count": 2,
+    "avg_hz": 50.122,
+    "min_hz": 50.122,
+    "max_hz": 50.122,
+    "samples_below_49_9": 0,
+    "samples_above_50_1": 2,
+    "largest_deviation_hz": 0.122,
+    "data_health": "thin_sample",
+    "last_updated_utc": "2026-05-29T04:46:05Z"
+  },
+  "source": "GlobalGrid2050 aggregation of Elexon frequency samples",
+  "health": "ok",
+  "rows": [
+    {
+      "date_utc": "2026-05-28",
+      "sample_count": 2,
+      "avg_hz": 50.122,
+      "min_hz": 50.122,
+      "max_hz": 50.122,
+      "samples_below_49_9": 0,
+      "samples_above_50_1": 2,
+      "largest_deviation_hz": 0.122,
+      "data_health": "thin_sample",
+      "last_updated_utc": "2026-05-29T04:46:05Z"
+    }
+  ]
+}

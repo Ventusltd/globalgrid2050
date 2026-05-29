@@ -1,0 +1,17 @@
+{
+  "updated_utc": "2026-05-29T04:46:05Z",
+  "latest": {
+    "checked_utc": "2026-05-29T04:46:05Z",
+    "status": "check_source_lag",
+    "stored_time_utc": "2026-05-28T01:54:57Z",
+    "stored_hz": 50.122,
+    "source_time_utc": "2026-05-29T04:46:05Z",
+    "source_hz": 50.07,
+    "delta_hz": 0.052,
+    "timestamp_match": false,
+    "source_lag_seconds": 96668,
+    "errors": ""
+  },
+  "history_count": 1,
+  "health": "check_source_lag"
+}

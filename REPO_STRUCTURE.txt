@@ -1060,6 +1060,7 @@
 │   ├── electricity_price_history.csv
 │   ├── electricity_price_history.json
 │   ├── electricity_price_history_4bucket_decade.json
+│   ├── electricity_price_history_daily_decade.json
 │   ├── ev_charging_prices.json
 │   ├── frequency-history-ui.js
 │   ├── grid_frequency_daily_health.csv
@@ -1104,4 +1105,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-128 directories, 977 files
+128 directories, 978 files

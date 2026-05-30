@@ -4,7 +4,7 @@ title: UK Live Grid Tracker V6
 permalink: /uk_energy_tracking_v6/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530d">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530e">
 
 <div class="scada-grid v6-app" id="scada-grid">
   <header class="scada-hero">
@@ -115,26 +115,23 @@ permalink: /uk_energy_tracking_v6/
 <div id="price-history-fullscreen-overlay" class="price-history-fullscreen-overlay">
   <div class="price-history-fullscreen-shell">
     <div class="price-history-fullscreen-toolbar">
-      <strong>Electricity half hourly settlement price in GBP (£) per MWh</strong>
+      <strong>£/MWh</strong>
       <span id="price-history-fullscreen-meta">Selected range will appear here.</span>
-      <button type="button" id="price-history-fullscreen-close">Close</button>
+      <button type="button" id="price-history-fullscreen-close" aria-label="Close">×</button>
     </div>
-    <div class="price-history-fullscreen-period-nav">
-      <button type="button" id="price-history-fullscreen-period-back">◀ Previous period</button>
-      <button type="button" id="price-history-fullscreen-period-forward">Next period ▶</button>
-    </div>
+    <button type="button" id="price-history-fullscreen-period-back" class="price-history-fullscreen-arrow price-history-fullscreen-arrow-left" aria-label="Previous period">‹</button>
+    <button type="button" id="price-history-fullscreen-period-forward" class="price-history-fullscreen-arrow price-history-fullscreen-arrow-right" aria-label="Next period">›</button>
     <canvas id="price-history-fullscreen-canvas"></canvas>
-    <div class="price-history-fullscreen-note">Elexon System Price history. Seasonal colours are winter, spring, summer and autumn. Red markers show the high and low values for the selected period.</div>
   </div>
 </div>
 
-<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530d"></script>
-<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530e"></script>
+<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530e"></script>

@@ -92,3 +92,43 @@ The 1965 Northeast blackout is an early landmark case in interconnected system f
 https://www.nerc.com/AboutNERC/Pages/History.aspx
 
 https://www.cbc.ca/archives/the-great-northeast-blackout-of-1965-1.4850859
+
+## California Electricity Crisis and Enron Market Manipulation Studies
+
+The 2000 to 2001 California electricity crisis is a different grid failure category. The grid did not fail only because of weather, vegetation, physical ageing or protection behaviour. It also failed because flawed market design allowed electricity trading strategies to exploit the connection between financial markets and physical power delivery.
+
+## FERC Final Report on Price Manipulation in Western Markets
+
+FERC's western markets investigation is a core source for studying market manipulation, artificial congestion, economic withholding, anomalous bidding, gaming strategies and the failure of market rules to protect physical grid reliability.
+
+http://www.ferc.gov/industries/electric/indus-act/wec.asp
+
+## FERC Summary Findings on Enron and Western Markets
+
+This source is useful for reviewing the market manipulation strategies associated with Enron and other traders, including Death Star, Fat Boy, Get Shorty and Ricochet type trading behaviour.
+
+http://www.ferc.gov/industries/electric/indus-act/wec/enron/summary-findings.pdf
+
+## FERC Western Energy Crisis Chronology
+
+The chronology is useful for tracking how market stress, regulatory decisions, price signals, rolling blackouts, utility financial distress and enforcement action unfolded during the California electricity crisis.
+
+https://web.archive.org/web/20050507173313/https://www.ferc.gov/industries/electric/indus-act/wec/chron/chronology.pdf
+
+## U.S. Senate Hearing Material on Enron and the California Energy Crisis
+
+Congressional hearing material is useful for studying the public policy, oversight and market design consequences of Enron's role in the California crisis.
+
+https://www.govinfo.gov/content/pkg/CHRG-107shrg80990/html/CHRG-107shrg80990.htm
+
+## Wall Street Journal Enron Trading Strategy Glossary
+
+This glossary is useful for identifying the names and basic descriptions of Enron trading strategies used in the California electricity crisis.
+
+https://www.wsj.com/public/resources/documents/info-enrongloss-0603.html
+
+## McCullough Research Reports on Enron and the California Energy Crisis
+
+This source contains reports and supporting material used in wider investigation and public analysis of Enron's trading behaviour during the California electricity crisis.
+
+http://www.mresearch.com/reports.html

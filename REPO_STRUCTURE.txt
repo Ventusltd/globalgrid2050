@@ -61,6 +61,7 @@
 │   │   ├── elexon_system_prices_2026.csv
 │   │   └── elexon_system_prices_half_hourly.csv
 │   └── grid_studies_public
+│       ├── bess_transformer_procurement_insurance_exposure.html
 │       ├── bess_transformer_procurement_insurance_exposure.md
 │       ├── california_market_design_operational_reliability.html
 │       ├── california_market_design_operational_reliability.md
@@ -1171,4 +1172,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-147 directories, 1025 files
+147 directories, 1026 files

@@ -61,9 +61,11 @@
 │   │   ├── elexon_system_prices_2026.csv
 │   │   └── elexon_system_prices_half_hourly.csv
 │   └── grid_studies_public
+│       ├── california_wildfire_grid_risk.md
 │       ├── heathrow_regulator_and_airport_commentary.md
 │       ├── iberian_blackout_2025.md
-│       └── index.md
+│       ├── index.md
+│       └── texas_ercot_winter_failures.md
 ├── datacentres.geojson
 ├── dc_cables_knowledge
 │   └── index.md
@@ -1158,4 +1160,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-147 directories, 1012 files
+147 directories, 1014 files

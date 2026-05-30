@@ -93,19 +93,21 @@ https://www.nerc.com/AboutNERC/Pages/History.aspx
 
 https://www.cbc.ca/archives/the-great-northeast-blackout-of-1965-1.4850859
 
-## California Electricity Crisis and Enron Market Manipulation Studies
+## California Electricity Crisis Market Design and Operational Reliability Studies
 
-The 2000 to 2001 California electricity crisis is a different grid failure category. The grid did not fail only because of weather, vegetation, physical ageing or protection behaviour. It also failed because flawed market design allowed electricity trading strategies to exploit the connection between financial markets and physical power delivery.
+The 2000 to 2001 California electricity crisis is a grid reliability case study in market design, dispatch incentives, transmission congestion, generation availability, price signals, utility credit stress and the interaction between commercial rules and physical power delivery.
 
-## FERC Final Report on Price Manipulation in Western Markets
+This catalogue records public sources for technical study. It does not make findings of fault, intent, liability or responsibility. The purpose is to study how market rules, operational visibility, dispatch behaviour, scarcity pricing and transmission constraints can affect system reliability.
 
-FERC's western markets investigation is a core source for studying market manipulation, artificial congestion, economic withholding, anomalous bidding, gaming strategies and the failure of market rules to protect physical grid reliability.
+## FERC Western Markets Investigation Material
+
+This source is useful for studying market design, congestion management, economic withholding, anomalous bidding, scarcity pricing and the relationship between market rules and physical grid reliability.
 
 http://www.ferc.gov/industries/electric/indus-act/wec.asp
 
-## FERC Summary Findings on Enron and Western Markets
+## FERC Western Markets Summary Findings
 
-This source is useful for reviewing the market manipulation strategies associated with Enron and other traders, including Death Star, Fat Boy, Get Shorty and Ricochet type trading behaviour.
+This source is useful for reviewing publicly reported trading patterns and market behaviours during the California electricity crisis, without treating the catalogue itself as a finding of responsibility.
 
 http://www.ferc.gov/industries/electric/indus-act/wec/enron/summary-findings.pdf
 
@@ -115,21 +117,21 @@ The chronology is useful for tracking how market stress, regulatory decisions, p
 
 https://web.archive.org/web/20050507173313/https://www.ferc.gov/industries/electric/indus-act/wec/chron/chronology.pdf
 
-## U.S. Senate Hearing Material on Enron and the California Energy Crisis
+## U.S. Senate Hearing Material on the California Energy Crisis
 
-Congressional hearing material is useful for studying the public policy, oversight and market design consequences of Enron's role in the California crisis.
+Congressional hearing material is useful for studying public policy, oversight, market design, system reliability and the institutional response to the California electricity crisis.
 
 https://www.govinfo.gov/content/pkg/CHRG-107shrg80990/html/CHRG-107shrg80990.htm
 
-## Wall Street Journal Enron Trading Strategy Glossary
+## Market Design Background Source
 
-This glossary is useful for identifying the names and basic descriptions of Enron trading strategies used in the California electricity crisis.
+This source is useful for identifying reported terminology used in public discussion of the California electricity crisis. It should be read as background material only, not as a primary engineering study.
 
 https://www.wsj.com/public/resources/documents/info-enrongloss-0603.html
 
-## McCullough Research Reports on Enron and the California Energy Crisis
+## Independent Public Research Archive
 
-This source contains reports and supporting material used in wider investigation and public analysis of Enron's trading behaviour during the California electricity crisis.
+This source contains public research material and reports on the California electricity crisis. It should be treated as background analysis and checked against primary sources before being used for technical conclusions.
 
 http://www.mresearch.com/reports.html
 

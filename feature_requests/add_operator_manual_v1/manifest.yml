@@ -1,0 +1,11 @@
+name: Add GlobalGrid2050 Operator Manual V1
+description: Install the root level Operator Manual V1 as reviewable operating doctrine for GlobalGrid2050 and Ventus Core.
+
+operations:
+  - type: assert_contains
+    file: OPERATOR_MANUAL_V1.md
+    text: 'GlobalGrid2050 is an open infrastructure intelligence operating system.'
+
+  - type: assert_contains
+    file: OPERATOR_MANUAL_V1.md
+    text: 'AI proposes. Python processes. GitHub records. GridBot executes. The maintainer approves.'

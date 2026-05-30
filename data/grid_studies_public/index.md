@@ -38,3 +38,57 @@ The December 1989 freeze provides an earlier warning that Texas power infrastruc
 Popik, T., and Humphreys, R. 2021. The 2021 Texas Blackouts: Causes, Consequences, and Cures. Journal of Critical Infrastructure Policy, 2(1), 47 to 73.
 
 https://doi.org/10.18278/jcip.2.1.6
+
+## California Wildfire and Utility Infrastructure Studies
+
+California provides a different grid failure category. The key issue is not only loss of supply, but the ability of ageing electrical infrastructure to become an ignition source during drought, high wind and wildfire conditions. The Camp Fire is a major public safety case study for transmission asset condition, wildfire risk, vegetation, utility governance and the operational use of Public Safety Power Shutoffs.
+
+## CAL FIRE Camp Fire Incident Page
+
+The November 2018 Camp Fire destroyed Paradise, California and became a major case study in utility infrastructure, wildfire ignition risk and climate exposed grid operation.
+
+https://www.fire.ca.gov/incidents/2018/11/8/camp-fire
+
+## CAL FIRE Camp Fire Investigation Release
+
+CAL FIRE determined that electrical transmission lines owned and operated by PG&E caused the Camp Fire. This source is useful for studying physical infrastructure failure as a public safety hazard.
+
+https://www.fire.ca.gov/media/5121/campfire_cause.pdf
+
+## California Public Utilities Commission Public Safety Power Shutoff Material
+
+Public Safety Power Shutoffs show how operators may intentionally de energise parts of the grid during high fire risk conditions. This creates a direct tradeoff between continuity of supply and wildfire prevention.
+
+https://www.cpuc.ca.gov/industries-and-topics/wildfires/public-safety-power-shutoffs
+
+## New York and Northeast Cascading Grid Failure Studies
+
+New York provides a contrasting study of cascading failures inside a highly interconnected power system. Unlike ERCOT, New York sits inside the Eastern Interconnection, where disturbances, protection behaviour, operator visibility, vegetation, reactive power and overloaded transmission corridors can propagate across regions.
+
+## Final Report on the August 14 2003 Blackout in the United States and Canada
+
+The 2003 Northeast blackout is a major modern case study in cascading grid failure. It exposed weaknesses in vegetation management, operator situational awareness, alarm systems, reactive power support, reliability coordination and regional communication.
+
+https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf
+
+## U.S. Canada Power System Outage Task Force Blackout Information
+
+The U.S. Canada investigation remains a core source for understanding the causes and recommendations following the 2003 Northeast blackout.
+
+https://www.energy.gov/oe/august-2003-blackout
+
+## New York City Blackout of 1977
+
+The 1977 New York City blackout is useful as both an engineering and social resilience case study. It involved lightning strikes, transmission and substation stress, protection and restoration issues and major public order consequences during a period of economic stress.
+
+https://spectrum.ieee.org/anatomy-of-a-blackout
+
+https://www.nytimes.com/1977/07/15/archives/improbable-strikes-by-lightning-tripped-its-system-con-ed-says.html
+
+## Northeast Blackout of 1965
+
+The 1965 Northeast blackout is an early landmark case in interconnected system fragility and protective relay behaviour. It helped shape the later development of regional reliability coordination in North America.
+
+https://www.nerc.com/AboutNERC/Pages/History.aspx
+
+https://www.cbc.ca/archives/the-great-northeast-blackout-of-1965-1.4850859

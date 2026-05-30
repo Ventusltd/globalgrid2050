@@ -4,7 +4,7 @@ title: UK Live Grid Tracker V6
 permalink: /uk_energy_tracking_v6/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530c">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530d">
 
 <div class="scada-grid v6-app" id="scada-grid">
   <header class="scada-hero">
@@ -44,7 +44,7 @@ permalink: /uk_energy_tracking_v6/
     <h2 class="section-title">Electricity Price History</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
-        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity Price History £/MWh</strong>
+        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity half hourly settlement price in GBP (£) per MWh</strong>
         <label class="price-history-date-label">Year <select id="price-history-year"></select></label>
         <label class="price-history-date-label">Start <input type="date" id="price-history-start"></label>
         <label class="price-history-date-label">Period <select id="price-history-period">
@@ -115,7 +115,7 @@ permalink: /uk_energy_tracking_v6/
 <div id="price-history-fullscreen-overlay" class="price-history-fullscreen-overlay">
   <div class="price-history-fullscreen-shell">
     <div class="price-history-fullscreen-toolbar">
-      <strong>Electricity price history</strong>
+      <strong>Electricity half hourly settlement price in GBP (£) per MWh</strong>
       <span id="price-history-fullscreen-meta">Selected range will appear here.</span>
       <button type="button" id="price-history-fullscreen-close">Close</button>
     </div>
@@ -128,13 +128,13 @@ permalink: /uk_energy_tracking_v6/
   </div>
 </div>
 
-<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530c"></script>
-<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530c"></script>
+<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530d"></script>
+<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530d"></script>

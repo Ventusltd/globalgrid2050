@@ -1,7 +1,7 @@
 name: Generate Repo Structure Gridbot
 
 on:
-  workflow_dispatch: # Run it manually whenever you want a fresh report
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -9,29 +9,46 @@ on:
       - '**/*.py'
       - '**/*.html'
       - '**/*.js'
-      # Automatically updates the report if you add new code files
+      - '**/*.md'
+      - '.github/workflows/generate_repo_structure.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-repo-structure-gridbot
+  cancel-in-progress: true
 
 jobs:
   generate-tree:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Install Tree Utility
-      run: sudo apt-get install tree -y
+      - name: Install tree utility
+        run: sudo apt-get update && sudo apt-get install tree -y
 
-    - name: Generate Structure Report
-      # This ignores messy folders like .git and creates the text file
-      run: tree -I '.git|__pycache__|node_modules|.github' > REPO_STRUCTURE.txt
+      - name: Generate structure report
+        run: |
+          tree -I '.git|__pycache__|node_modules|.github|_site|.jekyll-cache|.sass-cache' > REPO_STRUCTURE.txt
 
-    - name: Commit and push changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git config --global user.name "Gridbot"
-        git config --global user.email "gridbot@ventus.com"
-        git add REPO_STRUCTURE.txt
-        git diff --quiet && git diff --staged --quiet || git commit -m "docs: Automated repository structure update by Gridbot"
-        git push
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@ventus.com"
+          git add REPO_STRUCTURE.txt
+          if git diff --cached --quiet; then
+            echo "No REPO_STRUCTURE.txt changes to commit"
+            exit 0
+          fi
+          git pull --rebase https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
+          git commit -m "docs: Automated repository structure update by Gridbot"
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main

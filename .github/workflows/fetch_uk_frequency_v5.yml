@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GRIDBOT_PAT }}
+          token: ${{ secrets.GRIDBOT_PAT || github.token }}
 
       - uses: actions/setup-python@v5
         with:
@@ -73,20 +73,23 @@ jobs:
 
       - name: Commit V5 frequency feed and report
         env:
-          PAT: ${{ secrets.GRIDBOT_PAT }}
+          PUSH_TOKEN: ${{ secrets.GRIDBOT_PAT || github.token }}
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
           git add \
             uk_energy_tracking_v5/grid_frequency_history.csv \
             uk_energy_tracking_v5/live_grid_frequency.json \
+            uk_energy_tracking_v5/grid_frequency_weekly_health.csv \
+            uk_energy_tracking_v5/live_grid_frequency_weekly_health.json \
             gridbot_reports/uk_frequency_v5_report.md
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated UK frequency update V5: $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
-            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
-          else
-            echo "No V5 frequency changes to commit"
+          if git diff --cached --quiet; then
+            echo "No staged V5 frequency changes to commit"
+            git status --short
+            exit 0
           fi
+          git pull --rebase https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git main
+          git commit -m "Automated UK frequency update V5: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main

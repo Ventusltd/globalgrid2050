@@ -50,7 +50,7 @@ a{color:#7fdfff;}
 .trend-panel{background:var(--gg-panel);border:1px solid var(--gg-line);border-radius:6px;padding:14px;margin-top:18px;}
 .price-history-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
 .price-history-actions select,.price-history-actions input{background:#050505;color:var(--gg-cyan);border:1px solid var(--gg-line);padding:8px;font-family:"Courier New",monospace;border-radius:4px;}
-.price-history-actions a,.price-history-actions button,.price-history-chart-nav button,.price-history-fullscreen-period-nav button{border:1px solid var(--gg-line);border-radius:4px;padding:8px 11px;color:#00ffff;background:rgba(0,255,255,.05);font-family:"Courier New",monospace;cursor:pointer;}
+.price-history-actions a,.price-history-actions button,.price-history-chart-nav button{border:1px solid var(--gg-line);border-radius:4px;padding:8px 11px;color:#00ffff;background:rgba(0,255,255,.05);font-family:"Courier New",monospace;cursor:pointer;}
 .price-history-date-label{display:flex;gap:6px;align-items:center;color:var(--gg-muted);text-transform:uppercase;letter-spacing:.12em;font-size:11px;}
 
 #electricity-price-history-panel .price-history-range-status,
@@ -71,7 +71,7 @@ a{color:#7fdfff;}
 .price-history-time-tabs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--gg-muted);font:11px "Courier New",monospace;text-transform:uppercase;letter-spacing:.08em;}
 .price-history-time-tabs button.active{background:rgba(0,255,255,.18);box-shadow:0 0 10px rgba(0,255,255,.12);}
 .price-history-chart-nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:rgba(0,255,255,.025);}
-.price-history-chart-nav button,.price-history-fullscreen-period-nav button{min-height:42px;font-size:13px;letter-spacing:.04em;}
+.price-history-chart-nav button{min-height:42px;font-size:13px;letter-spacing:.04em;}
 
 .price-history-discovery{border:1px solid rgba(0,255,255,.28);background:rgba(0,255,255,.035);border-radius:6px;padding:10px 12px;margin:10px 0;color:#9aa3b6;font:12px "Courier New",monospace;line-height:1.55;}
 .price-history-discovery summary{cursor:pointer;color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-weight:800;}
@@ -83,27 +83,37 @@ a{color:#7fdfff;}
 
 html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!important;}
 .price-history-fullscreen-btn{border:1px solid #252b36!important;border-radius:4px;padding:7px 9px;color:#00ffff!important;background:rgba(0,255,255,.05)!important;font-family:"Courier New",monospace;cursor:pointer;}
-.price-history-fullscreen-overlay{position:fixed;inset:0;display:none;z-index:9999;background:rgba(0,0,0,.92);padding:14px;box-sizing:border-box;overflow:hidden;}
+.price-history-fullscreen-overlay{position:fixed;inset:0;display:none;z-index:9999;background:#000;padding:0;box-sizing:border-box;overflow:hidden;}
 .price-history-fullscreen-overlay.open{display:flex;}
-.price-history-fullscreen-shell{width:100%;height:100%;min-height:0;border:1px solid #00ffff;border-radius:8px;background:#05070c;box-shadow:0 0 32px rgba(0,255,255,.16);display:flex;flex-direction:column;overflow:hidden;transform:translateZ(0);will-change:transform;}
-.price-history-fullscreen-toolbar{flex:0 0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid #252b36;background:#070a10;color:#f5f7fb;font-family:"Courier New",monospace;}
-.price-history-fullscreen-toolbar strong{color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-size:12px;}
-.price-history-fullscreen-toolbar span{color:#9aa3b6;font-size:12px;margin-right:auto;}
-.price-history-fullscreen-toolbar button{border:1px solid #252b36;border-radius:4px;padding:7px 9px;color:#00ffff;background:rgba(255,255,255,.03);font-family:"Courier New",monospace;cursor:pointer;}
-.price-history-fullscreen-period-nav{flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 12px;border-bottom:1px solid #252b36;background:#05070c;}
-#price-history-fullscreen-canvas{width:100%;height:100%;min-height:0;flex:1 1 auto;display:block;background:#05070c;touch-action:none;transform:translateZ(0);will-change:transform;}
-.price-history-fullscreen-note{flex:0 0 auto;border-top:1px solid #252b36;padding:8px 12px;color:#9aa3b6;font:12px "Courier New",monospace;background:#070a10;}
+.price-history-fullscreen-shell{position:relative;width:100vw;height:100dvh;min-height:0;border:0;background:#05070c;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;transform:translateZ(0);will-change:transform;}
+.price-history-fullscreen-toolbar{position:absolute;z-index:4;top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));height:34px;display:flex;align-items:center;gap:8px;padding:0 4px;background:rgba(0,0,0,.34);backdrop-filter:blur(4px);color:#f5f7fb;font-family:"Courier New",monospace;pointer-events:none;}
+.price-history-fullscreen-toolbar strong{color:#00ffff;text-transform:uppercase;letter-spacing:.14em;font-size:12px;white-space:nowrap;}
+.price-history-fullscreen-toolbar span{display:none!important;}
+.price-history-fullscreen-toolbar button{margin-left:auto;pointer-events:auto;border:1px solid rgba(0,255,255,.22);border-radius:50%;width:34px;height:34px;color:#00ffff;background:rgba(0,255,255,.05);font:24px/1 "Courier New",monospace;cursor:pointer;}
+.price-history-fullscreen-arrow{position:absolute;z-index:5;top:50%;transform:translateY(-50%);width:42px;height:72px;border:0;border-radius:999px;color:#00ffff;background:rgba(0,0,0,.18);font:42px/1 "Courier New",monospace;cursor:pointer;text-shadow:0 0 10px rgba(0,255,255,.65);opacity:.72;}
+.price-history-fullscreen-arrow-left{left:max(6px,env(safe-area-inset-left));}
+.price-history-fullscreen-arrow-right{right:max(6px,env(safe-area-inset-right));}
+.price-history-fullscreen-arrow:active{background:rgba(0,255,255,.10);opacity:1;}
+#price-history-fullscreen-canvas{width:100vw;height:100dvh;min-height:0;flex:1 1 auto;display:block;background:#05070c;touch-action:none;transform:translateZ(0);will-change:transform;}
+.price-history-fullscreen-note{display:none!important;}
 
 @media(max-width:850px){
   .scada-summary-grid,.scada-mix-grid,.commodity-grid,.pump-grid{grid-template-columns:1fr;}
   #electricity-price-history-panel #price-history-canvas{min-height:580px!important;height:74dvh!important;}
-  .price-history-chart-nav,.price-history-fullscreen-period-nav{grid-template-columns:1fr;}
+  .price-history-chart-nav{grid-template-columns:1fr;}
   .price-history-time-tabs,.price-history-chart-nav{padding:9px!important;}
-  .price-history-chart-nav button,.price-history-fullscreen-period-nav button{min-height:44px;}
+  .price-history-chart-nav button{min-height:44px;}
+}
+
+@media(orientation:landscape){
+  .price-history-fullscreen-toolbar{height:30px;}
+  .price-history-fullscreen-toolbar strong{font-size:11px;}
+  .price-history-fullscreen-toolbar button{width:30px;height:30px;font-size:21px;}
+  .price-history-fullscreen-arrow{width:54px;height:54px;font-size:38px;}
 }
 
 @media(orientation:landscape) and (max-height:520px){
   #electricity-price-history-panel #price-history-canvas{height:68dvh!important;min-height:260px!important;}
   #electricity-price-history-panel .trend-panel{padding:8px!important;}
-  .price-history-time-tabs,.price-history-chart-nav,.price-history-fullscreen-period-nav{padding:7px 8px!important;margin:7px 0!important;}
+  .price-history-time-tabs,.price-history-chart-nav{padding:7px 8px!important;margin:7px 0!important;}
 }

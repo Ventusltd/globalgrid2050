@@ -669,6 +669,7 @@
 │   ├── test_patch_v8_bess_tabs_small_step.py
 │   ├── test_rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── test_restore_v8_bess_maplibre_standalone.py
+│   ├── test_v6_price_history_accuracy.py
 │   ├── test_v7_gis_sld_array_sizing_math.py
 │   ├── test_v7_gis_sld_asset_pipeline_dropdown_status.py
 │   ├── test_v7_gis_sld_large_asset_markers_and_search.py
@@ -1173,4 +1174,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-147 directories, 1027 files
+147 directories, 1028 files

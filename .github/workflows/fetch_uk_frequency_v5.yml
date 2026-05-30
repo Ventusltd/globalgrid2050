@@ -90,6 +90,6 @@ jobs:
             git status --short
             exit 0
           fi
-          git pull --rebase https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git main
           git commit -m "Automated UK frequency update V5: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git main
           git push https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main

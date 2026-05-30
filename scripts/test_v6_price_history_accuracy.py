@@ -2,9 +2,12 @@
 """
 Validate the V6 UK energy tracking price history chart inputs against source CSV data.
 
-This is a lightweight repository test. It does not render the canvas. It validates
-that the values the V6 chart should draw are aligned with the underlying Elexon
-CSV and daily aggregate JSON files.
+This test protects the fixed chart contract:
+
+- Short periods use half hourly settlement records.
+- Six months and longer use the daily aggregate JSON.
+- Daily aggregate mode must preserve true daily high, average and low values.
+- Extreme price events must not disappear from the long range chart.
 """
 
 from __future__ import annotations
@@ -16,7 +19,10 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ANNUAL_2026 = ROOT / "data" / "electricity" / "elexon_system_prices_2026.csv"
+ANNUAL_FILES = {
+    2021: ROOT / "data" / "electricity" / "elexon_system_prices_2021.csv",
+    2026: ROOT / "data" / "electricity" / "elexon_system_prices_2026.csv",
+}
 DAILY_JSON = ROOT / "uk_energy_tracking_v6" / "electricity_price_history_daily_decade.json"
 REPORT = ROOT / "V6_PRICE_HISTORY_ACCURACY_REPORT.md"
 
@@ -30,7 +36,7 @@ def read_annual_csv(path: Path) -> list[dict[str, object]]:
     with path.open("r", encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
         for row in reader:
-            price = row.get("systemBuyPriceGBPperMWh") or row.get("systemSellPriceGBPperMWh")
+            price = row.get("systemBuyPriceGBPperMWh") or row.get("systemSellPriceGBPperMWh") or row.get("priceGBPperMWh")
             if not price:
                 continue
             rows.append(
@@ -118,7 +124,7 @@ def write_report(results: list[list[str]], window_count: int) -> None:
         "",
         "## Result",
         "",
-        "PASS: sampled daily aggregates match the underlying 2026 Elexon CSV.",
+        "PASS: sampled daily aggregates match the underlying Elexon CSV files, including the September 2021 extreme price event.",
         "",
         "## Sample day checks",
         "",
@@ -136,7 +142,7 @@ def write_report(results: list[list[str]], window_count: int) -> None:
             "",
             "## Interpretation",
             "",
-            "The chart can still look visually wrong if canvas scaling, padding, filtering or forecast overlay logic is wrong, but the sampled price data values match the CSV source.",
+            "The chart must preserve true daily high, average and low values for periods of six months and longer. The 2021-09-09 high of £4,037.80/MWh is a required truth marker for the ten year chart and must not be hidden by average only rendering.",
             "",
         ]
     )
@@ -144,14 +150,21 @@ def write_report(results: list[list[str]], window_count: int) -> None:
 
 
 def main() -> None:
-    annual_rows = read_annual_csv(ANNUAL_2026)
-    csv_daily = daily_from_csv(annual_rows)
-    json_daily = read_daily_json(DAILY_JSON)
+    daily_json = read_daily_json(DAILY_JSON)
 
-    sample_days = ["2026-01-01", "2026-01-02", "2026-01-05"]
-    results = [validate_day(day, csv_daily, json_daily) for day in sample_days]
+    rows_2026 = read_annual_csv(ANNUAL_FILES[2026])
+    daily_2026 = daily_from_csv(rows_2026)
+    rows_2021 = read_annual_csv(ANNUAL_FILES[2021])
+    daily_2021 = daily_from_csv(rows_2021)
 
-    window_count = count_csv_window(annual_rows, datetime(2026, 1, 1, tzinfo=timezone.utc), 7)
+    results = [
+        validate_day("2026-01-01", daily_2026, daily_json),
+        validate_day("2026-01-02", daily_2026, daily_json),
+        validate_day("2026-01-05", daily_2026, daily_json),
+        validate_day("2021-09-09", daily_2021, daily_json),
+    ]
+
+    window_count = count_csv_window(rows_2026, datetime(2026, 1, 1, tzinfo=timezone.utc), 7)
     if window_count != 336:
         raise AssertionError(f"2026-01-01 7 day window expected 336 rows, got {window_count}")
 

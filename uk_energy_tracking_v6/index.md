@@ -4,7 +4,7 @@ title: UK Live Grid Tracker V6
 permalink: /uk_energy_tracking_v6/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530h">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530j">
 
 <div class="scada-grid v6-app" id="scada-grid">
   <header class="scada-hero">
@@ -68,7 +68,7 @@ permalink: /uk_energy_tracking_v6/
       <div class="gg-machine-note">
         <strong>Grid intelligence machine:</strong>
         <span><b>Inputs:</b> Elexon prices, live demand, carbon data, oil and fuel data, time windows, day and night filters.</span>
-        <span><b>Mechanism:</b> lazy loading, event detection, high and low marker logic, date windowing, chart rendering, mobile full screen controls, indicative seasonal baseline.</span>
+        <span><b>Mechanism:</b> lazy loading, event detection, high and low marker logic, date windowing, chart rendering, mobile full screen controls, indicative 7 day seasonal baseline.</span>
         <span><b>Outputs:</b> price volatility insight, peak and trough timing, market spread visibility, battery opportunity signals, future circuit sizing logic.</span>
       </div>
       <canvas id="price-history-canvas" width="900" height="720"></canvas>
@@ -76,7 +76,7 @@ permalink: /uk_energy_tracking_v6/
         <summary>What does this Elexon price mean?</summary>
         <p><strong>Interpretation:</strong> this is an Elexon System Price / imbalance price signal used in GB electricity settlement. It is not a retail tariff and it is not a simple consumer wholesale bill.</p>
         <p><strong>Market meaning:</strong> it reflects the marginal stress or surplus cost of balancing the power system in each settlement period. It can correlate with wholesale spot prices, but it is a balancing and settlement signal rather than a pure day ahead or intraday merchant price.</p>
-        <p><strong>Forecast baseline:</strong> the dashed line is an indicative seasonal baseline calculated from historic Elexon price behaviour. It does not include weather, gas prices, outages, interconnector events, policy changes or market shocks. It is not financial advice, not trading advice and not an AI prediction.</p>
+        <p><strong>Forecast baseline:</strong> the dashed line is an indicative 7 day seasonal baseline calculated from historic Elexon price behaviour and shown only for the next week. It does not include weather, gas prices, outages, interconnector events, policy changes or market shocks. It is not financial advice, not trading advice and not an AI prediction.</p>
       </details>
       <div class="price-history-grid">
         <div class="price-history-card"><div class="price-history-label">Latest visible price</div><div class="price-history-value" id="ph-latest-price">—</div></div>
@@ -125,13 +125,13 @@ permalink: /uk_energy_tracking_v6/
   </div>
 </div>
 
-<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530h"></script>
-<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530h"></script>
+<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530j"></script>
+<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530j"></script>

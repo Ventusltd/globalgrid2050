@@ -480,6 +480,19 @@
       "source": "Elexon BMRS Market Index Data",
       "priceHealth": "ok",
       "carbonHealth": "ok"
+    },
+    {
+      "capturedAtUTC": "2026-05-30T23:16:32.706512Z",
+      "priceTimeUTC": "2026-05-30T23:00:00Z",
+      "settlementDate": "2026-05-30",
+      "settlementPeriod": "47",
+      "priceGBPperMWh": "98.53",
+      "carbonGperKWh": "156",
+      "carbonForecast": "168",
+      "carbonIndex": "moderate",
+      "source": "Elexon BMRS Market Index Data",
+      "priceHealth": "ok",
+      "carbonHealth": "ok"
     }
   ]
 }

@@ -1,0 +1,51 @@
+name: Track Repository Size
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Monthly repository size governance check.
+    - cron: '17 6 1 * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: track-repository-size
+  cancel-in-progress: true
+
+jobs:
+  track-repository-size:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Update repository size report
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/track_repository_size.py
+
+      - name: Commit report if changed
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@ventus.com"
+          git add REPOSITORY_SIZE_REPORT.md repository_size_history.csv
+          if git diff --cached --quiet; then
+            echo "No repository size report changes to commit"
+            exit 0
+          fi
+          git commit -m "docs: monthly repository size report"
+          git pull --rebase https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main

@@ -36,8 +36,4 @@ https://www.theguardian.com/australia-news/live/2025/nov/11/australia-news-live-
 
 Reuters reported that renewable energy insurance premiums had risen after large natural catastrophe related claims, including hail damage to solar panels and lightning strikes on wind turbines. The report includes comments from a Lloyd's insurer and wider market participants. This is a confirmed public source on renewable insurance market stress, but it is not a confirmed Lloyd's report on Waratah or any specific OEM liability.
 
-https://www.reuters.com/business/energy/renewable-energy-offers-cost-opportunity-insurance-sector-2024-11-07/
-
-## Public source limitation
-
-No confirmed public Lloyd's report has been identified here that assigns insurance claim responsibility, OEM fault, EPC fault or warranty liability for the Waratah transformer event. Until such a report is public, the correct catalogue position is to record the incident as a transformer, commissioning, procurement, availability and insurance exposure study, not as a concluded OEM failure or settled insurance claim.
+https://www.reuters.com/business/energy/renewable-energy-offers-cost-opportunity-insurance-sector-2024-11-

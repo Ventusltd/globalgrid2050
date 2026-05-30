@@ -4,7 +4,7 @@ title: UK Live Grid Tracker V6
 permalink: /uk_energy_tracking_v6/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530k">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530l">
 
 <div class="scada-grid v6-app" id="scada-grid">
   <header class="scada-hero">
@@ -125,13 +125,13 @@ permalink: /uk_energy_tracking_v6/
   </div>
 </div>
 
-<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530k"></script>
-<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530k"></script>
+<script src="/uk_energy_tracking_v6/shared_helpers/dom_text/dom_text.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/load_json/load_json.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_live_snapshot/render_live_snapshot.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530l"></script>
+<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530l"></script>

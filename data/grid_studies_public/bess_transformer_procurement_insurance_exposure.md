@@ -18,7 +18,7 @@ https://www.ess-news.com/2025/11/10/catastrophic-failure-at-waratah-super-batter
 
 The Australian reported that Akaysha said 2 large transformers were damaged during final testing, that the project completion was pushed into 2026 and that the battery was still operating at 350 MW. This is useful for studying transformer procurement, commissioning delay, replacement lead time and grid support availability.
 
-https://www.theaustralian.com.au/business/companies/nsws-1bn-waratah-super-battery-faces-a-yearlong-delay-after-major-fault/news-story/44a07e253e08181de10b699bc9143305
+https://www.energy-storage.news/catastrophic-failure-of-transformer-at-waratah-super-battery-australias-giant-shock-absorber-for-the-grid/
 
 ## Guardian Australia Report on Waratah Partial Operation and SIPS Role
 

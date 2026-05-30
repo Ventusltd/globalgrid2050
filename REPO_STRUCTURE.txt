@@ -127,6 +127,10 @@
 │   │   └── manifest.yml
 │   ├── 010_v3_modularisation_plan
 │   │   └── manifest.yml
+│   ├── add_operator_manual_v1
+│   │   ├── files
+│   │   │   └── OPERATOR_MANUAL_V1.md
+│   │   └── manifest.yml
 │   └── uk_energy_v2_oil_graph_safe
 │       └── manifest.yml
 ├── global_hydrocarbons.geojson
@@ -1150,4 +1154,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-145 directories, 1006 files
+147 directories, 1008 files

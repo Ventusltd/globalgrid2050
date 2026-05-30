@@ -49,6 +49,6 @@ jobs:
             echo "No REPO_STRUCTURE.txt changes to commit"
             exit 0
           fi
-          git pull --rebase https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
           git commit -m "docs: Automated repository structure update by Gridbot"
+          git pull --rebase https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main

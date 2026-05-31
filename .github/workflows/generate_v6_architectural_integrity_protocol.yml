@@ -1,0 +1,36 @@
+name: Generate V6 Architectural Integrity Protocol
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate V6 architectural integrity protocol
+        run: python scripts/generate_v6_architectural_integrity_protocol.py
+
+      - name: Commit V6 architectural integrity protocol
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking_v6/V6_ARCHITECTURAL_INTEGRITY_PROTOCOL.md
+          if git diff --cached --quiet; then
+            echo "No V6 architectural integrity protocol changes to commit."
+          else
+            git commit -m "Generate V6 architectural integrity protocol"
+            git push
+          fi

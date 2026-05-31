@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-05-29T09:03:51.420139+00:00",
+    "updated": "2026-05-31T08:33:49.429913+00:00",
     "unit": "USD per barrel",
     "period": "Last 25 years",
     "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
@@ -25,42 +25,12 @@
       {
         "ok": true,
         "source": "Yahoo WTI futures history",
-        "rows": 6279,
+        "rows": 6277,
         "fallback": true
       }
-    ],
-    "lastSkippedHistoryUpdate": "2026-05-30T08:02:11.629185+00:00",
-    "skipReason": "Existing oil history is less than 24 hours old. Live oil update completed without re-downloading full history."
+    ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-05-29",
-        "wtiUSDperBarrel": 28.65999984741211
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-05-30",
-        "wtiUSDperBarrel": 28.549999237060547
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -92635,8 +92605,8 @@
       },
       "properties": {
         "date": "2026-05-29",
-        "brentUSDperBarrel": 92.41999816894531,
-        "wtiUSDperBarrel": 88.63999938964844
+        "brentUSDperBarrel": 91.12000274658203,
+        "wtiUSDperBarrel": 87.36000061035156
       }
     }
   ]

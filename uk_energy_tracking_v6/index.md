@@ -106,6 +106,53 @@ permalink: /uk_energy_tracking_v6/
     </div>
   </section>
 
+  <section id="oil-price-trend-panel">
+    <h2 class="section-title">Oil Price Trend</h2>
+    <div class="trend-panel">
+      <div class="trend-controls">
+        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Oil Price Trend</strong>
+        <select id="oil-range">
+          <option value="7d">1 week</option>
+          <option value="1m">1 month</option>
+          <option value="3m">3 months</option>
+          <option value="6m">6 months</option>
+          <option value="9m">9 months</option>
+          <option value="1y">1 year</option>
+          <option value="5y">5 years</option>
+          <option value="10y">10 years</option>
+          <option value="25y" selected>25 years</option>
+        </select>
+      </div>
+      <div class="unit-panel"><strong>Unit:</strong> USD per barrel. Touch or move across the graph to inspect date, Brent and WTI values.</div>
+      <div class="oil-chart-wrap"><canvas id="oil-trend-canvas" width="900" height="300"></canvas><div id="oil-tooltip" class="oil-tooltip"></div></div>
+      <div id="oil-stats" class="oil-stats-grid"></div>
+    </div>
+  </section>
+
+  <section id="road-fuel-ev-panel">
+    <h2 class="section-title" style="font-size:18px;color:#a6adbb;">Road Fuel & EV Charging</h2>
+    <div class="pump-grid">
+      <div class="pump-card"><div class="pump-label">Petrol</div><div class="pump-value" id="petrol-price">—</div><div class="commodity-unit">DESNZ weekly average, pence per litre</div></div>
+      <div class="pump-card"><div class="pump-label">Diesel</div><div class="pump-value" id="diesel-price">—</div><div class="commodity-unit">DESNZ weekly average, pence per litre</div></div>
+    </div>
+    <div class="fuel-logic-panel">
+      <strong>Road fuel price logic:</strong> Brent crude is quoted in US dollars per barrel. A rough product cost proxy converts USD per barrel into GBP per litre by applying an FX assumption and dividing by about 159 litres per barrel. UK pump prices then add refining spread, wholesale margin, logistics, retail margin, fuel duty and VAT.
+      <div id="fuel-breakdown" style="margin-top:10px;">Awaiting DESNZ fuel price feed.</div>
+      <div class="fuel-source-links">
+        <a href="https://www.gov.uk/government/statistics/weekly-road-fuel-prices" target="_blank" rel="noopener noreferrer">DESNZ weekly road fuel prices</a>
+        <a href="https://www.gov.uk/tax-on-shopping/fuel-duty" target="_blank" rel="noopener noreferrer">GOV.UK fuel duty</a>
+        <a href="https://www.gov.uk/vat-rates" target="_blank" rel="noopener noreferrer">GOV.UK VAT rates</a>
+      </div>
+    </div>
+    <div class="ev-panel">
+      <strong>EV charging comparison placeholder:</strong> Public EV tariffs are compared with petrol, diesel, wholesale electricity and operator tariff data when the V6 EV feed is present.
+      <div class="ev-card-grid">
+        <div class="ev-card"><div class="ev-label">Rapid charging average</div><div class="ev-value" id="ev-rapid-price">—</div><div class="commodity-unit">pence per kilowatt hour</div></div>
+        <div class="ev-card"><div class="ev-label">Ultra rapid average</div><div class="ev-value" id="ev-ultra-price">—</div><div class="commodity-unit">pence per kilowatt hour</div></div>
+      </div>
+    </div>
+  </section>
+
   <section class="scada-credit">
     <h2>Data sources & attribution</h2>
     <p>This tracker uses free public sources. Generation mix and demand use Elexon BMRS Insights. Carbon intensity uses National Energy System Operator Carbon Intensity API. Commodity prices use public market feeds. Indicative near real time values for screening and situational awareness only.</p>
@@ -135,3 +182,4 @@ permalink: /uk_energy_tracking_v6/
 <script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530o"></script>
+<script src="/uk_energy_tracking_v6/frequency_history/frequency-history-ui.js?v=20260531a"></script>

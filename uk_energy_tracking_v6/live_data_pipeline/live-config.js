@@ -2,6 +2,12 @@ window.V6LiveConfig={
   energy:'/uk_energy_tracking_v6/live_grid_energy.json',
   price:'/uk_energy_tracking_v6/live_grid_price.json',
   commodities:'/uk_energy_tracking_v6/live_oil_prices.json',
+  oilHistory:'/uk_energy_tracking_v6/oil_price_history.geojson',
+  fuel:'/uk_energy_tracking_v6/live_uk_fuel_prices.json',
+  evPrices:'/uk_energy_tracking_v6/ev_charging_prices.json',
+  frequencyCsv:'/uk_energy_tracking_v6/grid_frequency_history.csv',
+  frequencyLive:'/uk_energy_tracking_v6/live_grid_frequency.json',
+  frequencyWeekly:'/uk_energy_tracking_v6/live_grid_frequency_weekly_health.json',
   priceHistory:'/uk_energy_tracking_v6/electricity_price_history.json',
   dailyPriceHistory:'/uk_energy_tracking_v6/electricity_price_history_daily_decade.json',
   annualBase:'/data/electricity/elexon_system_prices_'

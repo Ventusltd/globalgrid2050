@@ -117,3 +117,27 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
   #electricity-price-history-panel .trend-panel{padding:8px!important;}
   .price-history-time-tabs,.price-history-chart-nav{padding:7px 8px!important;margin:7px 0!important;}
 }
+
+/* V6 repair: restore V5 oil, road fuel, EV and frequency panel styling. */
+.trend-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+.trend-controls select{background:#050505;color:var(--gg-cyan);border:1px solid var(--gg-line);padding:8px;font-family:"Courier New",monospace;border-radius:4px;}
+#oil-trend-canvas{width:100%;height:300px;display:block;border:1px solid rgba(255,255,255,.05);background:#070a10;touch-action:auto;}
+.oil-chart-wrap{position:relative;}
+.oil-tooltip{position:absolute;display:none;pointer-events:none;background:rgba(5,5,5,.94);border:1px solid var(--gg-cyan);color:var(--gg-text);padding:8px 10px;border-radius:4px;font-size:12px;line-height:1.45;box-shadow:0 0 18px rgba(0,255,255,.12);z-index:5;}
+.oil-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px;}
+.oil-stat{border:1px solid var(--gg-line);background:rgba(255,255,255,.03);border-radius:4px;padding:9px;}
+.oil-stat-label{color:var(--gg-muted);text-transform:uppercase;letter-spacing:.12em;font-size:10px;}
+.oil-stat-value{color:var(--gg-cyan);font-size:16px;font-weight:800;margin-top:4px;}
+.pump-grid{grid-template-columns:repeat(2,minmax(0,1fr));opacity:.86;}
+.pump-card{background:rgba(255,255,255,.03);border:1px solid var(--gg-line);border-radius:6px;padding:12px;}
+.pump-label{color:var(--gg-muted);text-transform:uppercase;letter-spacing:.14em;font-size:11px;}
+.pump-value{color:var(--gg-yellow);font-size:24px;font-weight:800;margin-top:6px;}
+.fuel-logic-panel,.ev-panel{border:1px solid var(--gg-line);background:rgba(255,255,255,.03);border-radius:6px;padding:14px;margin-top:14px;color:var(--gg-muted);font-size:13px;line-height:1.55;}
+.fuel-logic-panel strong,.ev-panel strong{color:var(--gg-text);}
+.fuel-source-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.fuel-source-links a{border:1px solid var(--gg-line);border-radius:4px;padding:7px 9px;color:#7fdfff;}
+.ev-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px;}
+.ev-card{border:1px solid var(--gg-line);background:var(--gg-panel);border-radius:6px;padding:12px;}
+.ev-label{color:var(--gg-muted);text-transform:uppercase;letter-spacing:.14em;font-size:11px;}
+.ev-value{color:var(--gg-green);font-size:22px;font-weight:800;margin-top:6px;}
+@media(max-width:850px){.pump-grid,.ev-card-grid,.oil-stats-grid{grid-template-columns:1fr;}#oil-trend-canvas{height:320px;}}

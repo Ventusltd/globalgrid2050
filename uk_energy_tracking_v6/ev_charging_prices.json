@@ -1,0 +1,50 @@
+{
+  "updated": "2026-05-31T22:54:34.109795+00:00",
+  "unit": "pence per kilowatt hour",
+  "sourcePolicy": "Curated public reference values. Public EV charging varies by operator, location, time, app, membership and vehicle.",
+  "sources": [
+    {
+      "publisher": "The Sunday Times",
+      "note": "Reported UK public charging benchmark: Gridserve 79p/kWh; InstaVolt 85p/kWh, 54p/kWh off peak; Tesla 24p to 47p/kWh for Tesla owners and 32p to 63p/kWh for non Tesla EVs, article citing Zapmap survey context."
+    },
+    {
+      "publisher": "Operator websites",
+      "note": "Operator links retained for manual verification before commercial use."
+    }
+  ],
+  "operators": [
+    {
+      "operator": "Gridserve",
+      "rapidPencePerKWh": 79,
+      "ultraRapidPencePerKWh": 79,
+      "sourceUrl": "https://www.gridserve.com/electric-highway/",
+      "lastChecked": "2026-05-31",
+      "status": "public benchmark, site tariffs may vary"
+    },
+    {
+      "operator": "InstaVolt",
+      "rapidPencePerKWh": 85,
+      "ultraRapidPencePerKWh": 85,
+      "offPeakPencePerKWh": 54,
+      "sourceUrl": "https://instavolt.co.uk/",
+      "lastChecked": "2026-05-31",
+      "status": "public benchmark, off peak tariff separately stated"
+    },
+    {
+      "operator": "Tesla Supercharger",
+      "rapidPencePerKWh": 36,
+      "ultraRapidPencePerKWh": 48,
+      "ownerRangePencePerKWh": [
+        24,
+        47
+      ],
+      "nonTeslaRangePencePerKWh": [
+        32,
+        63
+      ],
+      "sourceUrl": "https://www.tesla.com/en_gb/supercharger",
+      "lastChecked": "2026-05-31",
+      "status": "midpoint display from reported range; live site pricing varies"
+    }
+  ]
+}

@@ -1,0 +1,2216 @@
+{
+  "updated": "2026-05-31T22:54:34.107872+00:00",
+  "source": "Department for Energy Security and Net Zero weekly road fuel prices",
+  "sourcePage": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
+  "sourceCsv": "https://assets.publishing.service.gov.uk/media/6a15a15c1eb143220d8d2878/weekly_road_fuel_prices_250526.csv",
+  "unit": "pence per litre",
+  "latest": {
+    "week": "25/05/2026",
+    "petrolPencePerLitre": 158.78,
+    "dieselPencePerLitre": 185.07
+  },
+  "history": [
+    {
+      "week": "01/01/2018",
+      "petrolPencePerLitre": 120.19,
+      "dieselPencePerLitre": 123.51
+    },
+    {
+      "week": "08/01/2018",
+      "petrolPencePerLitre": 120.52,
+      "dieselPencePerLitre": 123.97
+    },
+    {
+      "week": "15/01/2018",
+      "petrolPencePerLitre": 120.96,
+      "dieselPencePerLitre": 124.58
+    },
+    {
+      "week": "22/01/2018",
+      "petrolPencePerLitre": 121.5,
+      "dieselPencePerLitre": 125.07
+    },
+    {
+      "week": "29/01/2018",
+      "petrolPencePerLitre": 121.69,
+      "dieselPencePerLitre": 125.32
+    },
+    {
+      "week": "05/02/2018",
+      "petrolPencePerLitre": 121.73,
+      "dieselPencePerLitre": 125.36
+    },
+    {
+      "week": "12/02/2018",
+      "petrolPencePerLitre": 121.58,
+      "dieselPencePerLitre": 125.02
+    },
+    {
+      "week": "19/02/2018",
+      "petrolPencePerLitre": 120.52,
+      "dieselPencePerLitre": 124.18
+    },
+    {
+      "week": "26/02/2018",
+      "petrolPencePerLitre": 119.55,
+      "dieselPencePerLitre": 123.09
+    },
+    {
+      "week": "05/03/2018",
+      "petrolPencePerLitre": 119.29,
+      "dieselPencePerLitre": 122.92
+    },
+    {
+      "week": "12/03/2018",
+      "petrolPencePerLitre": 119.11,
+      "dieselPencePerLitre": 122.96
+    },
+    {
+      "week": "19/03/2018",
+      "petrolPencePerLitre": 119.17,
+      "dieselPencePerLitre": 122.84
+    },
+    {
+      "week": "26/03/2018",
+      "petrolPencePerLitre": 119.23,
+      "dieselPencePerLitre": 122.9
+    },
+    {
+      "week": "02/04/2018",
+      "petrolPencePerLitre": 119.43,
+      "dieselPencePerLitre": 123.05
+    },
+    {
+      "week": "09/04/2018",
+      "petrolPencePerLitre": 119.96,
+      "dieselPencePerLitre": 123.58
+    },
+    {
+      "week": "16/04/2018",
+      "petrolPencePerLitre": 120.56,
+      "dieselPencePerLitre": 124.29
+    },
+    {
+      "week": "23/04/2018",
+      "petrolPencePerLitre": 121.44,
+      "dieselPencePerLitre": 125.39
+    },
+    {
+      "week": "30/04/2018",
+      "petrolPencePerLitre": 122.22,
+      "dieselPencePerLitre": 126.01
+    },
+    {
+      "week": "07/05/2018",
+      "petrolPencePerLitre": 123.27,
+      "dieselPencePerLitre": 126.99
+    },
+    {
+      "week": "14/05/2018",
+      "petrolPencePerLitre": 124.32,
+      "dieselPencePerLitre": 128.28
+    },
+    {
+      "week": "21/05/2018",
+      "petrolPencePerLitre": 125.93,
+      "dieselPencePerLitre": 130.04
+    },
+    {
+      "week": "28/05/2018",
+      "petrolPencePerLitre": 127.58,
+      "dieselPencePerLitre": 131.66
+    },
+    {
+      "week": "04/06/2018",
+      "petrolPencePerLitre": 128.43,
+      "dieselPencePerLitre": 132.34
+    },
+    {
+      "week": "11/06/2018",
+      "petrolPencePerLitre": 128.61,
+      "dieselPencePerLitre": 132.62
+    },
+    {
+      "week": "18/06/2018",
+      "petrolPencePerLitre": 127.92,
+      "dieselPencePerLitre": 131.98
+    },
+    {
+      "week": "25/06/2018",
+      "petrolPencePerLitre": 127.18,
+      "dieselPencePerLitre": 131.27
+    },
+    {
+      "week": "02/07/2018",
+      "petrolPencePerLitre": 126.54,
+      "dieselPencePerLitre": 130.83
+    },
+    {
+      "week": "09/07/2018",
+      "petrolPencePerLitre": 126.97,
+      "dieselPencePerLitre": 131.53
+    },
+    {
+      "week": "16/07/2018",
+      "petrolPencePerLitre": 127.47,
+      "dieselPencePerLitre": 131.85
+    },
+    {
+      "week": "23/07/2018",
+      "petrolPencePerLitre": 127.5,
+      "dieselPencePerLitre": 131.9
+    },
+    {
+      "week": "30/07/2018",
+      "petrolPencePerLitre": 127.54,
+      "dieselPencePerLitre": 131.94
+    },
+    {
+      "week": "06/08/2018",
+      "petrolPencePerLitre": 128.02,
+      "dieselPencePerLitre": 132.39
+    },
+    {
+      "week": "13/08/2018",
+      "petrolPencePerLitre": 128.39,
+      "dieselPencePerLitre": 132.56
+    },
+    {
+      "week": "20/08/2018",
+      "petrolPencePerLitre": 128.79,
+      "dieselPencePerLitre": 132.97
+    },
+    {
+      "week": "27/08/2018",
+      "petrolPencePerLitre": 129.18,
+      "dieselPencePerLitre": 133.2
+    },
+    {
+      "week": "03/09/2018",
+      "petrolPencePerLitre": 129.76,
+      "dieselPencePerLitre": 133.67
+    },
+    {
+      "week": "10/09/2018",
+      "petrolPencePerLitre": 130.24,
+      "dieselPencePerLitre": 134.31
+    },
+    {
+      "week": "17/09/2018",
+      "petrolPencePerLitre": 130.59,
+      "dieselPencePerLitre": 134.57
+    },
+    {
+      "week": "24/09/2018",
+      "petrolPencePerLitre": 130.59,
+      "dieselPencePerLitre": 134.77
+    },
+    {
+      "week": "01/10/2018",
+      "petrolPencePerLitre": 129.98,
+      "dieselPencePerLitre": 134.86
+    },
+    {
+      "week": "08/10/2018",
+      "petrolPencePerLitre": 130.15,
+      "dieselPencePerLitre": 135.53
+    },
+    {
+      "week": "15/10/2018",
+      "petrolPencePerLitre": 130.81,
+      "dieselPencePerLitre": 136.63
+    },
+    {
+      "week": "22/10/2018",
+      "petrolPencePerLitre": 130.98,
+      "dieselPencePerLitre": 136.93
+    },
+    {
+      "week": "29/10/2018",
+      "petrolPencePerLitre": 130.64,
+      "dieselPencePerLitre": 136.99
+    },
+    {
+      "week": "05/11/2018",
+      "petrolPencePerLitre": 130.11,
+      "dieselPencePerLitre": 137.03
+    },
+    {
+      "week": "12/11/2018",
+      "petrolPencePerLitre": 128.94,
+      "dieselPencePerLitre": 137.08
+    },
+    {
+      "week": "19/11/2018",
+      "petrolPencePerLitre": 127.4,
+      "dieselPencePerLitre": 136.38
+    },
+    {
+      "week": "26/11/2018",
+      "petrolPencePerLitre": 125.77,
+      "dieselPencePerLitre": 135.43
+    },
+    {
+      "week": "03/12/2018",
+      "petrolPencePerLitre": 124.3,
+      "dieselPencePerLitre": 134.38
+    },
+    {
+      "week": "10/12/2018",
+      "petrolPencePerLitre": 122.37,
+      "dieselPencePerLitre": 132.5
+    },
+    {
+      "week": "17/12/2018",
+      "petrolPencePerLitre": 121.02,
+      "dieselPencePerLitre": 131.26
+    },
+    {
+      "week": "24/12/2018",
+      "petrolPencePerLitre": 120.61,
+      "dieselPencePerLitre": 130.91
+    },
+    {
+      "week": "31/12/2018",
+      "petrolPencePerLitre": 120.18,
+      "dieselPencePerLitre": 130.26
+    },
+    {
+      "week": "07/01/2019",
+      "petrolPencePerLitre": 120.27,
+      "dieselPencePerLitre": 130.33
+    },
+    {
+      "week": "14/01/2019",
+      "petrolPencePerLitre": 119.53,
+      "dieselPencePerLitre": 129.47
+    },
+    {
+      "week": "21/01/2019",
+      "petrolPencePerLitre": 119.12,
+      "dieselPencePerLitre": 128.92
+    },
+    {
+      "week": "28/01/2019",
+      "petrolPencePerLitre": 119.29,
+      "dieselPencePerLitre": 129.1
+    },
+    {
+      "week": "04/02/2019",
+      "petrolPencePerLitre": 119.13,
+      "dieselPencePerLitre": 129.13
+    },
+    {
+      "week": "11/02/2019",
+      "petrolPencePerLitre": 118.97,
+      "dieselPencePerLitre": 129.17
+    },
+    {
+      "week": "18/02/2019",
+      "petrolPencePerLitre": 119.05,
+      "dieselPencePerLitre": 129.23
+    },
+    {
+      "week": "25/02/2019",
+      "petrolPencePerLitre": 119.22,
+      "dieselPencePerLitre": 129.66
+    },
+    {
+      "week": "04/03/2019",
+      "petrolPencePerLitre": 119.72,
+      "dieselPencePerLitre": 130.25
+    },
+    {
+      "week": "11/03/2019",
+      "petrolPencePerLitre": 120.1,
+      "dieselPencePerLitre": 130.59
+    },
+    {
+      "week": "18/03/2019",
+      "petrolPencePerLitre": 120.48,
+      "dieselPencePerLitre": 130.85
+    },
+    {
+      "week": "25/03/2019",
+      "petrolPencePerLitre": 120.83,
+      "dieselPencePerLitre": 131.15
+    },
+    {
+      "week": "01/04/2019",
+      "petrolPencePerLitre": 121.7,
+      "dieselPencePerLitre": 131.48
+    },
+    {
+      "week": "08/04/2019",
+      "petrolPencePerLitre": 122.75,
+      "dieselPencePerLitre": 132.08
+    },
+    {
+      "week": "15/04/2019",
+      "petrolPencePerLitre": 124.06,
+      "dieselPencePerLitre": 132.96
+    },
+    {
+      "week": "22/04/2019",
+      "petrolPencePerLitre": 125.43,
+      "dieselPencePerLitre": 133.99
+    },
+    {
+      "week": "29/04/2019",
+      "petrolPencePerLitre": 126.36,
+      "dieselPencePerLitre": 134.6
+    },
+    {
+      "week": "06/05/2019",
+      "petrolPencePerLitre": 127.5,
+      "dieselPencePerLitre": 135.41
+    },
+    {
+      "week": "13/05/2019",
+      "petrolPencePerLitre": 127.97,
+      "dieselPencePerLitre": 135.36
+    },
+    {
+      "week": "20/05/2019",
+      "petrolPencePerLitre": 128.51,
+      "dieselPencePerLitre": 135.82
+    },
+    {
+      "week": "27/05/2019",
+      "petrolPencePerLitre": 129.14,
+      "dieselPencePerLitre": 136.45
+    },
+    {
+      "week": "03/06/2019",
+      "petrolPencePerLitre": 129.41,
+      "dieselPencePerLitre": 136.39
+    },
+    {
+      "week": "10/06/2019",
+      "petrolPencePerLitre": 128.89,
+      "dieselPencePerLitre": 135.4
+    },
+    {
+      "week": "17/06/2019",
+      "petrolPencePerLitre": 127.66,
+      "dieselPencePerLitre": 133.76
+    },
+    {
+      "week": "24/06/2019",
+      "petrolPencePerLitre": 126.66,
+      "dieselPencePerLitre": 131.81
+    },
+    {
+      "week": "01/07/2019",
+      "petrolPencePerLitre": 126.49,
+      "dieselPencePerLitre": 131.55
+    },
+    {
+      "week": "08/07/2019",
+      "petrolPencePerLitre": 126.86,
+      "dieselPencePerLitre": 131.68
+    },
+    {
+      "week": "15/07/2019",
+      "petrolPencePerLitre": 127.13,
+      "dieselPencePerLitre": 131.86
+    },
+    {
+      "week": "22/07/2019",
+      "petrolPencePerLitre": 127.81,
+      "dieselPencePerLitre": 132.21
+    },
+    {
+      "week": "29/07/2019",
+      "petrolPencePerLitre": 128.03,
+      "dieselPencePerLitre": 132.6
+    },
+    {
+      "week": "05/08/2019",
+      "petrolPencePerLitre": 128.37,
+      "dieselPencePerLitre": 132.61
+    },
+    {
+      "week": "12/08/2019",
+      "petrolPencePerLitre": 128.36,
+      "dieselPencePerLitre": 132.59
+    },
+    {
+      "week": "19/08/2019",
+      "petrolPencePerLitre": 128.17,
+      "dieselPencePerLitre": 132.6
+    },
+    {
+      "week": "26/08/2019",
+      "petrolPencePerLitre": 128.22,
+      "dieselPencePerLitre": 132.51
+    },
+    {
+      "week": "02/09/2019",
+      "petrolPencePerLitre": 127.86,
+      "dieselPencePerLitre": 132.29
+    },
+    {
+      "week": "09/09/2019",
+      "petrolPencePerLitre": 127.79,
+      "dieselPencePerLitre": 131.89
+    },
+    {
+      "week": "16/09/2019",
+      "petrolPencePerLitre": 126.92,
+      "dieselPencePerLitre": 131.35
+    },
+    {
+      "week": "23/09/2019",
+      "petrolPencePerLitre": 126.78,
+      "dieselPencePerLitre": 131.52
+    },
+    {
+      "week": "30/09/2019",
+      "petrolPencePerLitre": 126.92,
+      "dieselPencePerLitre": 131.83
+    },
+    {
+      "week": "07/10/2019",
+      "petrolPencePerLitre": 126.87,
+      "dieselPencePerLitre": 131.82
+    },
+    {
+      "week": "14/10/2019",
+      "petrolPencePerLitre": 126.91,
+      "dieselPencePerLitre": 131.89
+    },
+    {
+      "week": "21/10/2019",
+      "petrolPencePerLitre": 126.4,
+      "dieselPencePerLitre": 131.28
+    },
+    {
+      "week": "28/10/2019",
+      "petrolPencePerLitre": 125.77,
+      "dieselPencePerLitre": 130.6
+    },
+    {
+      "week": "04/11/2019",
+      "petrolPencePerLitre": 125.56,
+      "dieselPencePerLitre": 130.38
+    },
+    {
+      "week": "11/11/2019",
+      "petrolPencePerLitre": 125.59,
+      "dieselPencePerLitre": 130.42
+    },
+    {
+      "week": "18/11/2019",
+      "petrolPencePerLitre": 125.58,
+      "dieselPencePerLitre": 130.35
+    },
+    {
+      "week": "25/11/2019",
+      "petrolPencePerLitre": 125.32,
+      "dieselPencePerLitre": 130.08
+    },
+    {
+      "week": "02/12/2019",
+      "petrolPencePerLitre": 124.81,
+      "dieselPencePerLitre": 129.79
+    },
+    {
+      "week": "09/12/2019",
+      "petrolPencePerLitre": 124.75,
+      "dieselPencePerLitre": 129.79
+    },
+    {
+      "week": "16/12/2019",
+      "petrolPencePerLitre": 124.33,
+      "dieselPencePerLitre": 129.56
+    },
+    {
+      "week": "23/12/2019",
+      "petrolPencePerLitre": 124.16,
+      "dieselPencePerLitre": 129.81
+    },
+    {
+      "week": "30/12/2019",
+      "petrolPencePerLitre": 124.96,
+      "dieselPencePerLitre": 130.54
+    },
+    {
+      "week": "06/01/2020",
+      "petrolPencePerLitre": 126.09,
+      "dieselPencePerLitre": 131.56
+    },
+    {
+      "week": "13/01/2020",
+      "petrolPencePerLitre": 127.17,
+      "dieselPencePerLitre": 132.69
+    },
+    {
+      "week": "20/01/2020",
+      "petrolPencePerLitre": 127.18,
+      "dieselPencePerLitre": 132.74
+    },
+    {
+      "week": "27/01/2020",
+      "petrolPencePerLitre": 127.33,
+      "dieselPencePerLitre": 132.88
+    },
+    {
+      "week": "03/02/2020",
+      "petrolPencePerLitre": 125.85,
+      "dieselPencePerLitre": 131.48
+    },
+    {
+      "week": "10/02/2020",
+      "petrolPencePerLitre": 124.73,
+      "dieselPencePerLitre": 129.7
+    },
+    {
+      "week": "17/02/2020",
+      "petrolPencePerLitre": 123.8,
+      "dieselPencePerLitre": 128.2
+    },
+    {
+      "week": "24/02/2020",
+      "petrolPencePerLitre": 123.45,
+      "dieselPencePerLitre": 127.67
+    },
+    {
+      "week": "02/03/2020",
+      "petrolPencePerLitre": 122.43,
+      "dieselPencePerLitre": 126.62
+    },
+    {
+      "week": "09/03/2020",
+      "petrolPencePerLitre": 122.24,
+      "dieselPencePerLitre": 126.25
+    },
+    {
+      "week": "16/03/2020",
+      "petrolPencePerLitre": 120.33,
+      "dieselPencePerLitre": 124.36
+    },
+    {
+      "week": "23/03/2020",
+      "petrolPencePerLitre": 119.64,
+      "dieselPencePerLitre": 123.41
+    },
+    {
+      "week": "30/03/2020",
+      "petrolPencePerLitre": 112.45,
+      "dieselPencePerLitre": 118.6
+    },
+    {
+      "week": "06/04/2020",
+      "petrolPencePerLitre": 110.23,
+      "dieselPencePerLitre": 116.83
+    },
+    {
+      "week": "13/04/2020",
+      "petrolPencePerLitre": 109.27,
+      "dieselPencePerLitre": 116.15
+    },
+    {
+      "week": "20/04/2020",
+      "petrolPencePerLitre": 108.63,
+      "dieselPencePerLitre": 115.73
+    },
+    {
+      "week": "27/04/2020",
+      "petrolPencePerLitre": 107.88,
+      "dieselPencePerLitre": 115.22
+    },
+    {
+      "week": "04/05/2020",
+      "petrolPencePerLitre": 107.56,
+      "dieselPencePerLitre": 114.94
+    },
+    {
+      "week": "11/05/2020",
+      "petrolPencePerLitre": 107.45,
+      "dieselPencePerLitre": 114.83
+    },
+    {
+      "week": "18/05/2020",
+      "petrolPencePerLitre": 105.09,
+      "dieselPencePerLitre": 112.22
+    },
+    {
+      "week": "25/05/2020",
+      "petrolPencePerLitre": 104.87,
+      "dieselPencePerLitre": 111.7
+    },
+    {
+      "week": "01/06/2020",
+      "petrolPencePerLitre": 105.17,
+      "dieselPencePerLitre": 111.76
+    },
+    {
+      "week": "08/06/2020",
+      "petrolPencePerLitre": 105.74,
+      "dieselPencePerLitre": 111.98
+    },
+    {
+      "week": "15/06/2020",
+      "petrolPencePerLitre": 106.37,
+      "dieselPencePerLitre": 112.53
+    },
+    {
+      "week": "22/06/2020",
+      "petrolPencePerLitre": 107.13,
+      "dieselPencePerLitre": 112.98
+    },
+    {
+      "week": "29/06/2020",
+      "petrolPencePerLitre": 108.31,
+      "dieselPencePerLitre": 114.1
+    },
+    {
+      "week": "06/07/2020",
+      "petrolPencePerLitre": 109.43,
+      "dieselPencePerLitre": 115.05
+    },
+    {
+      "week": "13/07/2020",
+      "petrolPencePerLitre": 111.24,
+      "dieselPencePerLitre": 116.75
+    },
+    {
+      "week": "20/07/2020",
+      "petrolPencePerLitre": 112.23,
+      "dieselPencePerLitre": 117.35
+    },
+    {
+      "week": "27/07/2020",
+      "petrolPencePerLitre": 112.66,
+      "dieselPencePerLitre": 117.76
+    },
+    {
+      "week": "03/08/2020",
+      "petrolPencePerLitre": 112.91,
+      "dieselPencePerLitre": 117.97
+    },
+    {
+      "week": "10/08/2020",
+      "petrolPencePerLitre": 113.02,
+      "dieselPencePerLitre": 118.01
+    },
+    {
+      "week": "17/08/2020",
+      "petrolPencePerLitre": 113.04,
+      "dieselPencePerLitre": 118.0
+    },
+    {
+      "week": "24/08/2020",
+      "petrolPencePerLitre": 113.22,
+      "dieselPencePerLitre": 118.14
+    },
+    {
+      "week": "31/08/2020",
+      "petrolPencePerLitre": 113.29,
+      "dieselPencePerLitre": 118.18
+    },
+    {
+      "week": "07/09/2020",
+      "petrolPencePerLitre": 113.37,
+      "dieselPencePerLitre": 118.22
+    },
+    {
+      "week": "14/09/2020",
+      "petrolPencePerLitre": 113.32,
+      "dieselPencePerLitre": 118.18
+    },
+    {
+      "week": "21/09/2020",
+      "petrolPencePerLitre": 113.31,
+      "dieselPencePerLitre": 118.16
+    },
+    {
+      "week": "28/09/2020",
+      "petrolPencePerLitre": 113.3,
+      "dieselPencePerLitre": 118.14
+    },
+    {
+      "week": "05/10/2020",
+      "petrolPencePerLitre": 113.26,
+      "dieselPencePerLitre": 118.11
+    },
+    {
+      "week": "12/10/2020",
+      "petrolPencePerLitre": 113.19,
+      "dieselPencePerLitre": 118.05
+    },
+    {
+      "week": "19/10/2020",
+      "petrolPencePerLitre": 113.18,
+      "dieselPencePerLitre": 118.08
+    },
+    {
+      "week": "26/10/2020",
+      "petrolPencePerLitre": 113.14,
+      "dieselPencePerLitre": 118.08
+    },
+    {
+      "week": "02/11/2020",
+      "petrolPencePerLitre": 113.11,
+      "dieselPencePerLitre": 118.06
+    },
+    {
+      "week": "09/11/2020",
+      "petrolPencePerLitre": 112.5,
+      "dieselPencePerLitre": 117.28
+    },
+    {
+      "week": "16/11/2020",
+      "petrolPencePerLitre": 112.35,
+      "dieselPencePerLitre": 117.07
+    },
+    {
+      "week": "23/11/2020",
+      "petrolPencePerLitre": 112.42,
+      "dieselPencePerLitre": 117.13
+    },
+    {
+      "week": "30/11/2020",
+      "petrolPencePerLitre": 112.61,
+      "dieselPencePerLitre": 117.41
+    },
+    {
+      "week": "07/12/2020",
+      "petrolPencePerLitre": 113.17,
+      "dieselPencePerLitre": 117.99
+    },
+    {
+      "week": "14/12/2020",
+      "petrolPencePerLitre": 113.82,
+      "dieselPencePerLitre": 118.57
+    },
+    {
+      "week": "21/12/2020",
+      "petrolPencePerLitre": 114.43,
+      "dieselPencePerLitre": 119.17
+    },
+    {
+      "week": "28/12/2020",
+      "petrolPencePerLitre": 114.91,
+      "dieselPencePerLitre": 119.65
+    },
+    {
+      "week": "04/01/2021",
+      "petrolPencePerLitre": 115.39,
+      "dieselPencePerLitre": 119.97
+    },
+    {
+      "week": "11/01/2021",
+      "petrolPencePerLitre": 116.14,
+      "dieselPencePerLitre": 120.61
+    },
+    {
+      "week": "18/01/2021",
+      "petrolPencePerLitre": 116.93,
+      "dieselPencePerLitre": 121.52
+    },
+    {
+      "week": "25/01/2021",
+      "petrolPencePerLitre": 118.1,
+      "dieselPencePerLitre": 122.7
+    },
+    {
+      "week": "01/02/2021",
+      "petrolPencePerLitre": 119.14,
+      "dieselPencePerLitre": 123.7
+    },
+    {
+      "week": "08/02/2021",
+      "petrolPencePerLitre": 119.67,
+      "dieselPencePerLitre": 124.09
+    },
+    {
+      "week": "15/02/2021",
+      "petrolPencePerLitre": 120.53,
+      "dieselPencePerLitre": 125.01
+    },
+    {
+      "week": "22/02/2021",
+      "petrolPencePerLitre": 121.27,
+      "dieselPencePerLitre": 125.71
+    },
+    {
+      "week": "01/03/2021",
+      "petrolPencePerLitre": 122.17,
+      "dieselPencePerLitre": 126.62
+    },
+    {
+      "week": "08/03/2021",
+      "petrolPencePerLitre": 122.94,
+      "dieselPencePerLitre": 127.4
+    },
+    {
+      "week": "15/03/2021",
+      "petrolPencePerLitre": 123.9,
+      "dieselPencePerLitre": 128.24
+    },
+    {
+      "week": "22/03/2021",
+      "petrolPencePerLitre": 124.57,
+      "dieselPencePerLitre": 129.02
+    },
+    {
+      "week": "29/03/2021",
+      "petrolPencePerLitre": 125.13,
+      "dieselPencePerLitre": 129.32
+    },
+    {
+      "week": "05/04/2021",
+      "petrolPencePerLitre": 125.24,
+      "dieselPencePerLitre": 129.35
+    },
+    {
+      "week": "12/04/2021",
+      "petrolPencePerLitre": 125.4,
+      "dieselPencePerLitre": 129.39
+    },
+    {
+      "week": "19/04/2021",
+      "petrolPencePerLitre": 125.48,
+      "dieselPencePerLitre": 129.49
+    },
+    {
+      "week": "26/04/2021",
+      "petrolPencePerLitre": 125.8,
+      "dieselPencePerLitre": 129.77
+    },
+    {
+      "week": "03/05/2021",
+      "petrolPencePerLitre": 126.09,
+      "dieselPencePerLitre": 130.0
+    },
+    {
+      "week": "10/05/2021",
+      "petrolPencePerLitre": 126.53,
+      "dieselPencePerLitre": 130.43
+    },
+    {
+      "week": "17/05/2021",
+      "petrolPencePerLitre": 127.19,
+      "dieselPencePerLitre": 131.03
+    },
+    {
+      "week": "24/05/2021",
+      "petrolPencePerLitre": 127.89,
+      "dieselPencePerLitre": 131.52
+    },
+    {
+      "week": "31/05/2021",
+      "petrolPencePerLitre": 128.15,
+      "dieselPencePerLitre": 131.82
+    },
+    {
+      "week": "07/06/2021",
+      "petrolPencePerLitre": 128.69,
+      "dieselPencePerLitre": 132.38
+    },
+    {
+      "week": "14/06/2021",
+      "petrolPencePerLitre": 129.47,
+      "dieselPencePerLitre": 133.17
+    },
+    {
+      "week": "21/06/2021",
+      "petrolPencePerLitre": 130.1,
+      "dieselPencePerLitre": 133.69
+    },
+    {
+      "week": "28/06/2021",
+      "petrolPencePerLitre": 130.73,
+      "dieselPencePerLitre": 134.27
+    },
+    {
+      "week": "05/07/2021",
+      "petrolPencePerLitre": 131.7,
+      "dieselPencePerLitre": 134.13
+    },
+    {
+      "week": "12/07/2021",
+      "petrolPencePerLitre": 132.47,
+      "dieselPencePerLitre": 135.29
+    },
+    {
+      "week": "19/07/2021",
+      "petrolPencePerLitre": 133.2,
+      "dieselPencePerLitre": 135.95
+    },
+    {
+      "week": "26/07/2021",
+      "petrolPencePerLitre": 133.48,
+      "dieselPencePerLitre": 136.2
+    },
+    {
+      "week": "02/08/2021",
+      "petrolPencePerLitre": 134.21,
+      "dieselPencePerLitre": 136.89
+    },
+    {
+      "week": "09/08/2021",
+      "petrolPencePerLitre": 134.7,
+      "dieselPencePerLitre": 137.31
+    },
+    {
+      "week": "16/08/2021",
+      "petrolPencePerLitre": 134.77,
+      "dieselPencePerLitre": 136.77
+    },
+    {
+      "week": "23/08/2021",
+      "petrolPencePerLitre": 134.68,
+      "dieselPencePerLitre": 137.15
+    },
+    {
+      "week": "30/08/2021",
+      "petrolPencePerLitre": 134.66,
+      "dieselPencePerLitre": 137.11
+    },
+    {
+      "week": "06/09/2021",
+      "petrolPencePerLitre": 134.76,
+      "dieselPencePerLitre": 137.19
+    },
+    {
+      "week": "13/09/2021",
+      "petrolPencePerLitre": 134.75,
+      "dieselPencePerLitre": 137.19
+    },
+    {
+      "week": "20/09/2021",
+      "petrolPencePerLitre": 134.86,
+      "dieselPencePerLitre": 137.35
+    },
+    {
+      "week": "27/09/2021",
+      "petrolPencePerLitre": 135.19,
+      "dieselPencePerLitre": 137.95
+    },
+    {
+      "week": "04/10/2021",
+      "petrolPencePerLitre": 136.1,
+      "dieselPencePerLitre": 139.2
+    },
+    {
+      "week": "11/10/2021",
+      "petrolPencePerLitre": 137.17,
+      "dieselPencePerLitre": 140.66
+    },
+    {
+      "week": "18/10/2021",
+      "petrolPencePerLitre": 139.46,
+      "dieselPencePerLitre": 143.19
+    },
+    {
+      "week": "25/10/2021",
+      "petrolPencePerLitre": 141.81,
+      "dieselPencePerLitre": 145.9
+    },
+    {
+      "week": "01/11/2021",
+      "petrolPencePerLitre": 143.7,
+      "dieselPencePerLitre": 147.48
+    },
+    {
+      "week": "08/11/2021",
+      "petrolPencePerLitre": 144.9,
+      "dieselPencePerLitre": 148.84
+    },
+    {
+      "week": "15/11/2021",
+      "petrolPencePerLitre": 145.87,
+      "dieselPencePerLitre": 149.76
+    },
+    {
+      "week": "22/11/2021",
+      "petrolPencePerLitre": 146.89,
+      "dieselPencePerLitre": 150.73
+    },
+    {
+      "week": "29/11/2021",
+      "petrolPencePerLitre": 147.53,
+      "dieselPencePerLitre": 151.31
+    },
+    {
+      "week": "06/12/2021",
+      "petrolPencePerLitre": 146.89,
+      "dieselPencePerLitre": 150.61
+    },
+    {
+      "week": "13/12/2021",
+      "petrolPencePerLitre": 146.22,
+      "dieselPencePerLitre": 149.88
+    },
+    {
+      "week": "20/12/2021",
+      "petrolPencePerLitre": 145.16,
+      "dieselPencePerLitre": 148.89
+    },
+    {
+      "week": "27/12/2021",
+      "petrolPencePerLitre": 144.92,
+      "dieselPencePerLitre": 148.82
+    },
+    {
+      "week": "03/01/2022",
+      "petrolPencePerLitre": 145.04,
+      "dieselPencePerLitre": 148.85
+    },
+    {
+      "week": "10/01/2022",
+      "petrolPencePerLitre": 144.82,
+      "dieselPencePerLitre": 148.65
+    },
+    {
+      "week": "17/01/2022",
+      "petrolPencePerLitre": 144.8,
+      "dieselPencePerLitre": 148.7
+    },
+    {
+      "week": "24/01/2022",
+      "petrolPencePerLitre": 144.87,
+      "dieselPencePerLitre": 148.81
+    },
+    {
+      "week": "31/01/2022",
+      "petrolPencePerLitre": 145.74,
+      "dieselPencePerLitre": 149.68
+    },
+    {
+      "week": "07/02/2022",
+      "petrolPencePerLitre": 146.33,
+      "dieselPencePerLitre": 150.3
+    },
+    {
+      "week": "14/02/2022",
+      "petrolPencePerLitre": 146.95,
+      "dieselPencePerLitre": 151.1
+    },
+    {
+      "week": "21/02/2022",
+      "petrolPencePerLitre": 147.77,
+      "dieselPencePerLitre": 151.95
+    },
+    {
+      "week": "28/02/2022",
+      "petrolPencePerLitre": 149.22,
+      "dieselPencePerLitre": 153.36
+    },
+    {
+      "week": "07/03/2022",
+      "petrolPencePerLitre": 152.95,
+      "dieselPencePerLitre": 158.56
+    },
+    {
+      "week": "14/03/2022",
+      "petrolPencePerLitre": 159.96,
+      "dieselPencePerLitre": 169.48
+    },
+    {
+      "week": "21/03/2022",
+      "petrolPencePerLitre": 165.37,
+      "dieselPencePerLitre": 177.47
+    },
+    {
+      "week": "28/03/2022",
+      "petrolPencePerLitre": 162.65,
+      "dieselPencePerLitre": 176.44
+    },
+    {
+      "week": "04/04/2022",
+      "petrolPencePerLitre": 161.91,
+      "dieselPencePerLitre": 176.0
+    },
+    {
+      "week": "11/04/2022",
+      "petrolPencePerLitre": 161.78,
+      "dieselPencePerLitre": 176.22
+    },
+    {
+      "week": "18/04/2022",
+      "petrolPencePerLitre": 161.67,
+      "dieselPencePerLitre": 175.93
+    },
+    {
+      "week": "25/04/2022",
+      "petrolPencePerLitre": 161.84,
+      "dieselPencePerLitre": 176.33
+    },
+    {
+      "week": "02/05/2022",
+      "petrolPencePerLitre": 162.48,
+      "dieselPencePerLitre": 177.06
+    },
+    {
+      "week": "09/05/2022",
+      "petrolPencePerLitre": 163.68,
+      "dieselPencePerLitre": 178.39
+    },
+    {
+      "week": "16/05/2022",
+      "petrolPencePerLitre": 165.09,
+      "dieselPencePerLitre": 179.67
+    },
+    {
+      "week": "23/05/2022",
+      "petrolPencePerLitre": 167.59,
+      "dieselPencePerLitre": 181.16
+    },
+    {
+      "week": "30/05/2022",
+      "petrolPencePerLitre": 170.36,
+      "dieselPencePerLitre": 182.25
+    },
+    {
+      "week": "06/06/2022",
+      "petrolPencePerLitre": 174.99,
+      "dieselPencePerLitre": 184.94
+    },
+    {
+      "week": "13/06/2022",
+      "petrolPencePerLitre": 182.53,
+      "dieselPencePerLitre": 190.43
+    },
+    {
+      "week": "20/06/2022",
+      "petrolPencePerLitre": 186.85,
+      "dieselPencePerLitre": 194.87
+    },
+    {
+      "week": "27/06/2022",
+      "petrolPencePerLitre": 190.93,
+      "dieselPencePerLitre": 198.93
+    },
+    {
+      "week": "04/07/2022",
+      "petrolPencePerLitre": 191.55,
+      "dieselPencePerLitre": 199.22
+    },
+    {
+      "week": "11/07/2022",
+      "petrolPencePerLitre": 190.63,
+      "dieselPencePerLitre": 198.74
+    },
+    {
+      "week": "18/07/2022",
+      "petrolPencePerLitre": 188.92,
+      "dieselPencePerLitre": 197.53
+    },
+    {
+      "week": "25/07/2022",
+      "petrolPencePerLitre": 186.6,
+      "dieselPencePerLitre": 195.88
+    },
+    {
+      "week": "01/08/2022",
+      "petrolPencePerLitre": 182.77,
+      "dieselPencePerLitre": 193.04
+    },
+    {
+      "week": "08/08/2022",
+      "petrolPencePerLitre": 177.64,
+      "dieselPencePerLitre": 188.49
+    },
+    {
+      "week": "15/08/2022",
+      "petrolPencePerLitre": 174.19,
+      "dieselPencePerLitre": 185.16
+    },
+    {
+      "week": "22/08/2022",
+      "petrolPencePerLitre": 171.14,
+      "dieselPencePerLitre": 182.92
+    },
+    {
+      "week": "29/08/2022",
+      "petrolPencePerLitre": 170.12,
+      "dieselPencePerLitre": 183.2
+    },
+    {
+      "week": "05/09/2022",
+      "petrolPencePerLitre": 168.93,
+      "dieselPencePerLitre": 182.82
+    },
+    {
+      "week": "12/09/2022",
+      "petrolPencePerLitre": 167.61,
+      "dieselPencePerLitre": 182.22
+    },
+    {
+      "week": "19/09/2022",
+      "petrolPencePerLitre": 165.47,
+      "dieselPencePerLitre": 181.13
+    },
+    {
+      "week": "26/09/2022",
+      "petrolPencePerLitre": 164.0,
+      "dieselPencePerLitre": 180.46
+    },
+    {
+      "week": "03/10/2022",
+      "petrolPencePerLitre": 162.67,
+      "dieselPencePerLitre": 180.04
+    },
+    {
+      "week": "10/10/2022",
+      "petrolPencePerLitre": 162.09,
+      "dieselPencePerLitre": 180.76
+    },
+    {
+      "week": "17/10/2022",
+      "petrolPencePerLitre": 162.81,
+      "dieselPencePerLitre": 181.86
+    },
+    {
+      "week": "24/10/2022",
+      "petrolPencePerLitre": 164.62,
+      "dieselPencePerLitre": 187.3
+    },
+    {
+      "week": "31/10/2022",
+      "petrolPencePerLitre": 165.87,
+      "dieselPencePerLitre": 189.77
+    },
+    {
+      "week": "07/11/2022",
+      "petrolPencePerLitre": 165.62,
+      "dieselPencePerLitre": 189.79
+    },
+    {
+      "week": "14/11/2022",
+      "petrolPencePerLitre": 164.4,
+      "dieselPencePerLitre": 188.85
+    },
+    {
+      "week": "21/11/2022",
+      "petrolPencePerLitre": 163.28,
+      "dieselPencePerLitre": 187.57
+    },
+    {
+      "week": "28/11/2022",
+      "petrolPencePerLitre": 161.13,
+      "dieselPencePerLitre": 185.57
+    },
+    {
+      "week": "05/12/2022",
+      "petrolPencePerLitre": 159.2,
+      "dieselPencePerLitre": 183.56
+    },
+    {
+      "week": "12/12/2022",
+      "petrolPencePerLitre": 155.97,
+      "dieselPencePerLitre": 179.91
+    },
+    {
+      "week": "19/12/2022",
+      "petrolPencePerLitre": 154.07,
+      "dieselPencePerLitre": 177.62
+    },
+    {
+      "week": "26/12/2022",
+      "petrolPencePerLitre": 151.94,
+      "dieselPencePerLitre": 175.52
+    },
+    {
+      "week": "02/01/2023",
+      "petrolPencePerLitre": 150.9,
+      "dieselPencePerLitre": 174.16
+    },
+    {
+      "week": "09/01/2023",
+      "petrolPencePerLitre": 149.97,
+      "dieselPencePerLitre": 173.16
+    },
+    {
+      "week": "16/01/2023",
+      "petrolPencePerLitre": 148.79,
+      "dieselPencePerLitre": 171.64
+    },
+    {
+      "week": "23/01/2023",
+      "petrolPencePerLitre": 148.21,
+      "dieselPencePerLitre": 170.86
+    },
+    {
+      "week": "30/01/2023",
+      "petrolPencePerLitre": 148.18,
+      "dieselPencePerLitre": 170.56
+    },
+    {
+      "week": "06/02/2023",
+      "petrolPencePerLitre": 148.34,
+      "dieselPencePerLitre": 170.36
+    },
+    {
+      "week": "13/02/2023",
+      "petrolPencePerLitre": 147.98,
+      "dieselPencePerLitre": 169.66
+    },
+    {
+      "week": "20/02/2023",
+      "petrolPencePerLitre": 147.86,
+      "dieselPencePerLitre": 169.3
+    },
+    {
+      "week": "27/02/2023",
+      "petrolPencePerLitre": 147.55,
+      "dieselPencePerLitre": 168.56
+    },
+    {
+      "week": "06/03/2023",
+      "petrolPencePerLitre": 147.12,
+      "dieselPencePerLitre": 167.33
+    },
+    {
+      "week": "13/03/2023",
+      "petrolPencePerLitre": 146.97,
+      "dieselPencePerLitre": 167.04
+    },
+    {
+      "week": "20/03/2023",
+      "petrolPencePerLitre": 146.62,
+      "dieselPencePerLitre": 166.26
+    },
+    {
+      "week": "27/03/2023",
+      "petrolPencePerLitre": 146.21,
+      "dieselPencePerLitre": 165.18
+    },
+    {
+      "week": "03/04/2023",
+      "petrolPencePerLitre": 145.72,
+      "dieselPencePerLitre": 163.71
+    },
+    {
+      "week": "10/04/2023",
+      "petrolPencePerLitre": 145.82,
+      "dieselPencePerLitre": 162.71
+    },
+    {
+      "week": "17/04/2023",
+      "petrolPencePerLitre": 145.93,
+      "dieselPencePerLitre": 162.11
+    },
+    {
+      "week": "24/04/2023",
+      "petrolPencePerLitre": 145.84,
+      "dieselPencePerLitre": 161.34
+    },
+    {
+      "week": "01/05/2023",
+      "petrolPencePerLitre": 145.71,
+      "dieselPencePerLitre": 160.35
+    },
+    {
+      "week": "08/05/2023",
+      "petrolPencePerLitre": 145.3,
+      "dieselPencePerLitre": 158.12
+    },
+    {
+      "week": "15/05/2023",
+      "petrolPencePerLitre": 144.65,
+      "dieselPencePerLitre": 155.53
+    },
+    {
+      "week": "22/05/2023",
+      "petrolPencePerLitre": 143.64,
+      "dieselPencePerLitre": 151.59
+    },
+    {
+      "week": "29/05/2023",
+      "petrolPencePerLitre": 142.94,
+      "dieselPencePerLitre": 147.87
+    },
+    {
+      "week": "05/06/2023",
+      "petrolPencePerLitre": 142.9,
+      "dieselPencePerLitre": 146.43
+    },
+    {
+      "week": "12/06/2023",
+      "petrolPencePerLitre": 142.71,
+      "dieselPencePerLitre": 145.48
+    },
+    {
+      "week": "19/06/2023",
+      "petrolPencePerLitre": 142.95,
+      "dieselPencePerLitre": 145.2
+    },
+    {
+      "week": "26/06/2023",
+      "petrolPencePerLitre": 143.43,
+      "dieselPencePerLitre": 145.65
+    },
+    {
+      "week": "03/07/2023",
+      "petrolPencePerLitre": 143.4,
+      "dieselPencePerLitre": 145.52
+    },
+    {
+      "week": "10/07/2023",
+      "petrolPencePerLitre": 142.87,
+      "dieselPencePerLitre": 144.73
+    },
+    {
+      "week": "17/07/2023",
+      "petrolPencePerLitre": 142.77,
+      "dieselPencePerLitre": 144.64
+    },
+    {
+      "week": "24/07/2023",
+      "petrolPencePerLitre": 142.96,
+      "dieselPencePerLitre": 145.13
+    },
+    {
+      "week": "31/07/2023",
+      "petrolPencePerLitre": 144.13,
+      "dieselPencePerLitre": 145.95
+    },
+    {
+      "week": "07/08/2023",
+      "petrolPencePerLitre": 146.18,
+      "dieselPencePerLitre": 148.23
+    },
+    {
+      "week": "14/08/2023",
+      "petrolPencePerLitre": 147.77,
+      "dieselPencePerLitre": 150.37
+    },
+    {
+      "week": "21/08/2023",
+      "petrolPencePerLitre": 149.4,
+      "dieselPencePerLitre": 152.14
+    },
+    {
+      "week": "28/08/2023",
+      "petrolPencePerLitre": 150.73,
+      "dieselPencePerLitre": 153.52
+    },
+    {
+      "week": "04/09/2023",
+      "petrolPencePerLitre": 151.71,
+      "dieselPencePerLitre": 154.65
+    },
+    {
+      "week": "11/09/2023",
+      "petrolPencePerLitre": 153.1,
+      "dieselPencePerLitre": 156.15
+    },
+    {
+      "week": "18/09/2023",
+      "petrolPencePerLitre": 154.06,
+      "dieselPencePerLitre": 158.16
+    },
+    {
+      "week": "25/09/2023",
+      "petrolPencePerLitre": 155.41,
+      "dieselPencePerLitre": 160.61
+    },
+    {
+      "week": "02/10/2023",
+      "petrolPencePerLitre": 156.02,
+      "dieselPencePerLitre": 162.15
+    },
+    {
+      "week": "09/10/2023",
+      "petrolPencePerLitre": 155.94,
+      "dieselPencePerLitre": 162.49
+    },
+    {
+      "week": "16/10/2023",
+      "petrolPencePerLitre": 155.09,
+      "dieselPencePerLitre": 162.31
+    },
+    {
+      "week": "23/10/2023",
+      "petrolPencePerLitre": 154.63,
+      "dieselPencePerLitre": 162.19
+    },
+    {
+      "week": "30/10/2023",
+      "petrolPencePerLitre": 153.97,
+      "dieselPencePerLitre": 161.76
+    },
+    {
+      "week": "06/11/2023",
+      "petrolPencePerLitre": 153.2,
+      "dieselPencePerLitre": 160.86
+    },
+    {
+      "week": "13/11/2023",
+      "petrolPencePerLitre": 152.39,
+      "dieselPencePerLitre": 160.39
+    },
+    {
+      "week": "20/11/2023",
+      "petrolPencePerLitre": 150.5,
+      "dieselPencePerLitre": 158.44
+    },
+    {
+      "week": "27/11/2023",
+      "petrolPencePerLitre": 147.99,
+      "dieselPencePerLitre": 156.18
+    },
+    {
+      "week": "04/12/2023",
+      "petrolPencePerLitre": 145.71,
+      "dieselPencePerLitre": 154.1
+    },
+    {
+      "week": "11/12/2023",
+      "petrolPencePerLitre": 143.8,
+      "dieselPencePerLitre": 152.01
+    },
+    {
+      "week": "18/12/2023",
+      "petrolPencePerLitre": 141.51,
+      "dieselPencePerLitre": 150.38
+    },
+    {
+      "week": "25/12/2023",
+      "petrolPencePerLitre": 140.33,
+      "dieselPencePerLitre": 149.24
+    },
+    {
+      "week": "01/01/2024",
+      "petrolPencePerLitre": 140.78,
+      "dieselPencePerLitre": 148.66
+    },
+    {
+      "week": "08/01/2024",
+      "petrolPencePerLitre": 139.72,
+      "dieselPencePerLitre": 148.21
+    },
+    {
+      "week": "15/01/2024",
+      "petrolPencePerLitre": 139.49,
+      "dieselPencePerLitre": 147.93
+    },
+    {
+      "week": "22/01/2024",
+      "petrolPencePerLitre": 139.39,
+      "dieselPencePerLitre": 147.96
+    },
+    {
+      "week": "29/01/2024",
+      "petrolPencePerLitre": 139.91,
+      "dieselPencePerLitre": 148.56
+    },
+    {
+      "week": "05/02/2024",
+      "petrolPencePerLitre": 140.55,
+      "dieselPencePerLitre": 149.35
+    },
+    {
+      "week": "12/02/2024",
+      "petrolPencePerLitre": 141.28,
+      "dieselPencePerLitre": 150.28
+    },
+    {
+      "week": "19/02/2024",
+      "petrolPencePerLitre": 142.86,
+      "dieselPencePerLitre": 152.08
+    },
+    {
+      "week": "26/02/2024",
+      "petrolPencePerLitre": 143.96,
+      "dieselPencePerLitre": 153.29
+    },
+    {
+      "week": "04/03/2024",
+      "petrolPencePerLitre": 144.73,
+      "dieselPencePerLitre": 154.53
+    },
+    {
+      "week": "11/03/2024",
+      "petrolPencePerLitre": 144.7,
+      "dieselPencePerLitre": 154.29
+    },
+    {
+      "week": "18/03/2024",
+      "petrolPencePerLitre": 144.73,
+      "dieselPencePerLitre": 153.81
+    },
+    {
+      "week": "25/03/2024",
+      "petrolPencePerLitre": 145.06,
+      "dieselPencePerLitre": 153.9
+    },
+    {
+      "week": "01/04/2024",
+      "petrolPencePerLitre": 146.25,
+      "dieselPencePerLitre": 156.0
+    },
+    {
+      "week": "08/04/2024",
+      "petrolPencePerLitre": 146.91,
+      "dieselPencePerLitre": 156.29
+    },
+    {
+      "week": "15/04/2024",
+      "petrolPencePerLitre": 148.49,
+      "dieselPencePerLitre": 157.46
+    },
+    {
+      "week": "22/04/2024",
+      "petrolPencePerLitre": 149.21,
+      "dieselPencePerLitre": 157.98
+    },
+    {
+      "week": "29/04/2024",
+      "petrolPencePerLitre": 149.49,
+      "dieselPencePerLitre": 157.98
+    },
+    {
+      "week": "06/05/2024",
+      "petrolPencePerLitre": 149.54,
+      "dieselPencePerLitre": 157.64
+    },
+    {
+      "week": "13/05/2024",
+      "petrolPencePerLitre": 149.23,
+      "dieselPencePerLitre": 157.08
+    },
+    {
+      "week": "20/05/2024",
+      "petrolPencePerLitre": 148.83,
+      "dieselPencePerLitre": 156.21
+    },
+    {
+      "week": "27/05/2024",
+      "petrolPencePerLitre": 147.65,
+      "dieselPencePerLitre": 154.3
+    },
+    {
+      "week": "03/06/2024",
+      "petrolPencePerLitre": 147.27,
+      "dieselPencePerLitre": 153.26
+    },
+    {
+      "week": "10/06/2024",
+      "petrolPencePerLitre": 146.25,
+      "dieselPencePerLitre": 151.99
+    },
+    {
+      "week": "17/06/2024",
+      "petrolPencePerLitre": 145.09,
+      "dieselPencePerLitre": 150.7
+    },
+    {
+      "week": "24/06/2024",
+      "petrolPencePerLitre": 144.43,
+      "dieselPencePerLitre": 150.12
+    },
+    {
+      "week": "01/07/2024",
+      "petrolPencePerLitre": 144.28,
+      "dieselPencePerLitre": 150.06
+    },
+    {
+      "week": "08/07/2024",
+      "petrolPencePerLitre": 144.45,
+      "dieselPencePerLitre": 150.39
+    },
+    {
+      "week": "15/07/2024",
+      "petrolPencePerLitre": 144.6,
+      "dieselPencePerLitre": 150.56
+    },
+    {
+      "week": "22/07/2024",
+      "petrolPencePerLitre": 144.69,
+      "dieselPencePerLitre": 150.59
+    },
+    {
+      "week": "29/07/2024",
+      "petrolPencePerLitre": 144.19,
+      "dieselPencePerLitre": 150.16
+    },
+    {
+      "week": "05/08/2024",
+      "petrolPencePerLitre": 143.42,
+      "dieselPencePerLitre": 149.1
+    },
+    {
+      "week": "12/08/2024",
+      "petrolPencePerLitre": 142.91,
+      "dieselPencePerLitre": 148.48
+    },
+    {
+      "week": "19/08/2024",
+      "petrolPencePerLitre": 141.96,
+      "dieselPencePerLitre": 147.42
+    },
+    {
+      "week": "26/08/2024",
+      "petrolPencePerLitre": 141.01,
+      "dieselPencePerLitre": 146.15
+    },
+    {
+      "week": "02/09/2024",
+      "petrolPencePerLitre": 139.96,
+      "dieselPencePerLitre": 145.19
+    },
+    {
+      "week": "09/09/2024",
+      "petrolPencePerLitre": 138.1,
+      "dieselPencePerLitre": 143.4
+    },
+    {
+      "week": "16/09/2024",
+      "petrolPencePerLitre": 136.49,
+      "dieselPencePerLitre": 141.61
+    },
+    {
+      "week": "23/09/2024",
+      "petrolPencePerLitre": 135.26,
+      "dieselPencePerLitre": 140.02
+    },
+    {
+      "week": "30/09/2024",
+      "petrolPencePerLitre": 134.17,
+      "dieselPencePerLitre": 138.85
+    },
+    {
+      "week": "07/10/2024",
+      "petrolPencePerLitre": 133.59,
+      "dieselPencePerLitre": 138.46
+    },
+    {
+      "week": "14/10/2024",
+      "petrolPencePerLitre": 133.86,
+      "dieselPencePerLitre": 139.08
+    },
+    {
+      "week": "21/10/2024",
+      "petrolPencePerLitre": 133.99,
+      "dieselPencePerLitre": 139.26
+    },
+    {
+      "week": "28/10/2024",
+      "petrolPencePerLitre": 134.41,
+      "dieselPencePerLitre": 139.71
+    },
+    {
+      "week": "04/11/2024",
+      "petrolPencePerLitre": 134.41,
+      "dieselPencePerLitre": 139.84
+    },
+    {
+      "week": "11/11/2024",
+      "petrolPencePerLitre": 134.59,
+      "dieselPencePerLitre": 140.13
+    },
+    {
+      "week": "18/11/2024",
+      "petrolPencePerLitre": 134.85,
+      "dieselPencePerLitre": 140.49
+    },
+    {
+      "week": "25/11/2024",
+      "petrolPencePerLitre": 135.37,
+      "dieselPencePerLitre": 141.4
+    },
+    {
+      "week": "02/12/2024",
+      "petrolPencePerLitre": 135.93,
+      "dieselPencePerLitre": 142.04
+    },
+    {
+      "week": "09/12/2024",
+      "petrolPencePerLitre": 136.23,
+      "dieselPencePerLitre": 142.49
+    },
+    {
+      "week": "16/12/2024",
+      "petrolPencePerLitre": 136.39,
+      "dieselPencePerLitre": 142.71
+    },
+    {
+      "week": "23/12/2024",
+      "petrolPencePerLitre": 136.39,
+      "dieselPencePerLitre": 142.85
+    },
+    {
+      "week": "30/12/2024",
+      "petrolPencePerLitre": 136.49,
+      "dieselPencePerLitre": 142.98
+    },
+    {
+      "week": "06/01/2025",
+      "petrolPencePerLitre": 136.6,
+      "dieselPencePerLitre": 143.3
+    },
+    {
+      "week": "13/01/2025",
+      "petrolPencePerLitre": 136.51,
+      "dieselPencePerLitre": 143.33
+    },
+    {
+      "week": "20/01/2025",
+      "petrolPencePerLitre": 136.97,
+      "dieselPencePerLitre": 144.27
+    },
+    {
+      "week": "27/01/2025",
+      "petrolPencePerLitre": 138.36,
+      "dieselPencePerLitre": 145.57
+    },
+    {
+      "week": "03/02/2025",
+      "petrolPencePerLitre": 138.74,
+      "dieselPencePerLitre": 146.13
+    },
+    {
+      "week": "10/02/2025",
+      "petrolPencePerLitre": 139.02,
+      "dieselPencePerLitre": 146.29
+    },
+    {
+      "week": "17/02/2025",
+      "petrolPencePerLitre": 139.22,
+      "dieselPencePerLitre": 146.45
+    },
+    {
+      "week": "24/02/2025",
+      "petrolPencePerLitre": 139.62,
+      "dieselPencePerLitre": 146.82
+    },
+    {
+      "week": "03/03/2025",
+      "petrolPencePerLitre": 139.61,
+      "dieselPencePerLitre": 146.88
+    },
+    {
+      "week": "10/03/2025",
+      "petrolPencePerLitre": 139.42,
+      "dieselPencePerLitre": 146.58
+    },
+    {
+      "week": "17/03/2025",
+      "petrolPencePerLitre": 137.97,
+      "dieselPencePerLitre": 145.38
+    },
+    {
+      "week": "24/03/2025",
+      "petrolPencePerLitre": 135.61,
+      "dieselPencePerLitre": 143.07
+    },
+    {
+      "week": "31/03/2025",
+      "petrolPencePerLitre": 134.91,
+      "dieselPencePerLitre": 142.26
+    },
+    {
+      "week": "07/04/2025",
+      "petrolPencePerLitre": 135.25,
+      "dieselPencePerLitre": 142.54
+    },
+    {
+      "week": "14/04/2025",
+      "petrolPencePerLitre": 134.85,
+      "dieselPencePerLitre": 141.97
+    },
+    {
+      "week": "21/04/2025",
+      "petrolPencePerLitre": 134.26,
+      "dieselPencePerLitre": 141.44
+    },
+    {
+      "week": "28/04/2025",
+      "petrolPencePerLitre": 133.84,
+      "dieselPencePerLitre": 140.81
+    },
+    {
+      "week": "05/05/2025",
+      "petrolPencePerLitre": 133.18,
+      "dieselPencePerLitre": 140.06
+    },
+    {
+      "week": "12/05/2025",
+      "petrolPencePerLitre": 132.32,
+      "dieselPencePerLitre": 139.2
+    },
+    {
+      "week": "19/05/2025",
+      "petrolPencePerLitre": 132.07,
+      "dieselPencePerLitre": 138.57
+    },
+    {
+      "week": "26/05/2025",
+      "petrolPencePerLitre": 131.99,
+      "dieselPencePerLitre": 138.37
+    },
+    {
+      "week": "02/06/2025",
+      "petrolPencePerLitre": 131.45,
+      "dieselPencePerLitre": 138.09
+    },
+    {
+      "week": "09/06/2025",
+      "petrolPencePerLitre": 131.35,
+      "dieselPencePerLitre": 137.54
+    },
+    {
+      "week": "16/06/2025",
+      "petrolPencePerLitre": 131.39,
+      "dieselPencePerLitre": 137.54
+    },
+    {
+      "week": "23/06/2025",
+      "petrolPencePerLitre": 132.33,
+      "dieselPencePerLitre": 139.03
+    },
+    {
+      "week": "30/06/2025",
+      "petrolPencePerLitre": 132.95,
+      "dieselPencePerLitre": 140.26
+    },
+    {
+      "week": "07/07/2025",
+      "petrolPencePerLitre": 133.19,
+      "dieselPencePerLitre": 140.58
+    },
+    {
+      "week": "14/07/2025",
+      "petrolPencePerLitre": 133.95,
+      "dieselPencePerLitre": 141.1
+    },
+    {
+      "week": "21/07/2025",
+      "petrolPencePerLitre": 134.09,
+      "dieselPencePerLitre": 141.85
+    },
+    {
+      "week": "28/07/2025",
+      "petrolPencePerLitre": 134.24,
+      "dieselPencePerLitre": 142.0
+    },
+    {
+      "week": "04/08/2025",
+      "petrolPencePerLitre": 134.3,
+      "dieselPencePerLitre": 142.13
+    },
+    {
+      "week": "11/08/2025",
+      "petrolPencePerLitre": 134.39,
+      "dieselPencePerLitre": 142.49
+    },
+    {
+      "week": "18/08/2025",
+      "petrolPencePerLitre": 134.3,
+      "dieselPencePerLitre": 142.17
+    },
+    {
+      "week": "25/08/2025",
+      "petrolPencePerLitre": 133.91,
+      "dieselPencePerLitre": 141.92
+    },
+    {
+      "week": "01/09/2025",
+      "petrolPencePerLitre": 133.86,
+      "dieselPencePerLitre": 141.65
+    },
+    {
+      "week": "08/09/2025",
+      "petrolPencePerLitre": 133.72,
+      "dieselPencePerLitre": 141.58
+    },
+    {
+      "week": "15/09/2025",
+      "petrolPencePerLitre": 133.81,
+      "dieselPencePerLitre": 141.69
+    },
+    {
+      "week": "22/09/2025",
+      "petrolPencePerLitre": 134.15,
+      "dieselPencePerLitre": 142.02
+    },
+    {
+      "week": "29/09/2025",
+      "petrolPencePerLitre": 134.36,
+      "dieselPencePerLitre": 142.24
+    },
+    {
+      "week": "06/10/2025",
+      "petrolPencePerLitre": 134.76,
+      "dieselPencePerLitre": 142.92
+    },
+    {
+      "week": "13/10/2025",
+      "petrolPencePerLitre": 134.81,
+      "dieselPencePerLitre": 142.99
+    },
+    {
+      "week": "20/10/2025",
+      "petrolPencePerLitre": 134.69,
+      "dieselPencePerLitre": 142.81
+    },
+    {
+      "week": "27/10/2025",
+      "petrolPencePerLitre": 134.4,
+      "dieselPencePerLitre": 142.38
+    },
+    {
+      "week": "03/11/2025",
+      "petrolPencePerLitre": 134.38,
+      "dieselPencePerLitre": 142.61
+    },
+    {
+      "week": "10/11/2025",
+      "petrolPencePerLitre": 134.65,
+      "dieselPencePerLitre": 143.31
+    },
+    {
+      "week": "17/11/2025",
+      "petrolPencePerLitre": 135.07,
+      "dieselPencePerLitre": 143.97
+    },
+    {
+      "week": "24/11/2025",
+      "petrolPencePerLitre": 136.07,
+      "dieselPencePerLitre": 145.4
+    },
+    {
+      "week": "01/12/2025",
+      "petrolPencePerLitre": 136.61,
+      "dieselPencePerLitre": 146.2
+    },
+    {
+      "week": "08/12/2025",
+      "petrolPencePerLitre": 136.68,
+      "dieselPencePerLitre": 146.23
+    },
+    {
+      "week": "15/12/2025",
+      "petrolPencePerLitre": 136.83,
+      "dieselPencePerLitre": 146.14
+    },
+    {
+      "week": "22/12/2025",
+      "petrolPencePerLitre": 136.23,
+      "dieselPencePerLitre": 145.45
+    },
+    {
+      "week": "29/12/2025",
+      "petrolPencePerLitre": 135.34,
+      "dieselPencePerLitre": 144.59
+    },
+    {
+      "week": "05/01/2026",
+      "petrolPencePerLitre": 134.9,
+      "dieselPencePerLitre": 144.19
+    },
+    {
+      "week": "12/01/2026",
+      "petrolPencePerLitre": 133.43,
+      "dieselPencePerLitre": 142.63
+    },
+    {
+      "week": "19/01/2026",
+      "petrolPencePerLitre": 132.64,
+      "dieselPencePerLitre": 141.82
+    },
+    {
+      "week": "26/01/2026",
+      "petrolPencePerLitre": 132.0,
+      "dieselPencePerLitre": 141.26
+    },
+    {
+      "week": "02/02/2026",
+      "petrolPencePerLitre": 131.62,
+      "dieselPencePerLitre": 140.82
+    },
+    {
+      "week": "09/02/2026",
+      "petrolPencePerLitre": 131.46,
+      "dieselPencePerLitre": 140.72
+    },
+    {
+      "week": "16/02/2026",
+      "petrolPencePerLitre": 131.6,
+      "dieselPencePerLitre": 141.46
+    },
+    {
+      "week": "23/02/2026",
+      "petrolPencePerLitre": 131.71,
+      "dieselPencePerLitre": 141.46
+    },
+    {
+      "week": "02/03/2026",
+      "petrolPencePerLitre": 132.14,
+      "dieselPencePerLitre": 142.15
+    },
+    {
+      "week": "09/03/2026",
+      "petrolPencePerLitre": 135.67,
+      "dieselPencePerLitre": 149.01
+    },
+    {
+      "week": "16/03/2026",
+      "petrolPencePerLitre": 140.28,
+      "dieselPencePerLitre": 158.78
+    },
+    {
+      "week": "23/03/2026",
+      "petrolPencePerLitre": 144.16,
+      "dieselPencePerLitre": 166.88
+    },
+    {
+      "week": "30/03/2026",
+      "petrolPencePerLitre": 148.78,
+      "dieselPencePerLitre": 176.52
+    },
+    {
+      "week": "06/04/2026",
+      "petrolPencePerLitre": 154.65,
+      "dieselPencePerLitre": 186.75
+    },
+    {
+      "week": "13/04/2026",
+      "petrolPencePerLitre": 158.17,
+      "dieselPencePerLitre": 192.14
+    },
+    {
+      "week": "20/04/2026",
+      "petrolPencePerLitre": 157.62,
+      "dieselPencePerLitre": 191.24
+    },
+    {
+      "week": "27/04/2026",
+      "petrolPencePerLitre": 156.99,
+      "dieselPencePerLitre": 189.81
+    },
+    {
+      "week": "04/05/2026",
+      "petrolPencePerLitre": 156.82,
+      "dieselPencePerLitre": 188.79
+    },
+    {
+      "week": "11/05/2026",
+      "petrolPencePerLitre": 156.81,
+      "dieselPencePerLitre": 188.14
+    },
+    {
+      "week": "18/05/2026",
+      "petrolPencePerLitre": 157.39,
+      "dieselPencePerLitre": 186.56
+    },
+    {
+      "week": "25/05/2026",
+      "petrolPencePerLitre": 158.78,
+      "dieselPencePerLitre": 185.07
+    }
+  ],
+  "health": {
+    "source": "DESNZ weekly road fuel prices",
+    "page": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
+    "ok": true,
+    "csv": "https://assets.publishing.service.gov.uk/media/6a15a15c1eb143220d8d2878/weekly_road_fuel_prices_250526.csv",
+    "rows": 439
+  }
+}

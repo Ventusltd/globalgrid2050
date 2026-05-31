@@ -1,14 +1,15 @@
 {
-  "updated": "2026-05-29T10:01:33.694974+00:00",
-  "updatedDisplayUTC": "Friday 29 May 2026 10:01 UTC",
-  "brentUSDperBarrel": 90.92,
-  "wtiUSDperBarrel": 87.29,
-  "copperUSDperTonne": 14129.40958,
-  "copperGBPperTonne": 10518.439736797241,
-  "copperEURperTonne": 12135.64984632982,
-  "aluminiumUSDperTonne": 3651.0,
-  "aluminiumGBPperTonne": 2717.9354708073183,
-  "aluminiumEURperTonne": 3135.818049443944,
-  "fx": {"gbpUSD": 1.343299, "gbpEUR": 1.15375, "usdGBP": 0.7444358999746147, "usdEUR": 0.8588929195957118, "health": "seeded from V5"},
-  "health": {"commodities": "seeded from V5"}
+  "updated": "2026-05-31T22:46:02.024349+00:00",
+  "brentUSDperBarrel": 92.92,
+  "wtiUSDperBarrel": 89.47,
+  "health": {
+    "BZ=F": {
+      "ok": true,
+      "source": "Yahoo Finance chart API"
+    },
+    "CL=F": {
+      "ok": true,
+      "source": "Yahoo Finance chart API"
+    }
+  }
 }

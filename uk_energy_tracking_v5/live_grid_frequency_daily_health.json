@@ -1,32 +1,56 @@
 {
-  "updated_utc": "2026-05-30T04:28:59Z",
-  "record_count": 1,
+  "updated_utc": "2026-05-31T04:54:45Z",
+  "record_count": 3,
   "latest_day": {
-    "date_utc": "2026-05-28",
-    "sample_count": 2,
-    "avg_hz": 50.122,
-    "min_hz": 50.122,
-    "max_hz": 50.122,
+    "date_utc": "2026-05-31",
+    "sample_count": 1,
+    "avg_hz": 50.106,
+    "min_hz": 50.106,
+    "max_hz": 50.106,
     "samples_below_49_9": 0,
-    "samples_above_50_1": 2,
-    "largest_deviation_hz": 0.122,
+    "samples_above_50_1": 1,
+    "largest_deviation_hz": 0.106,
     "data_health": "thin_sample",
-    "last_updated_utc": "2026-05-30T04:28:59Z"
+    "last_updated_utc": "2026-05-31T04:54:45Z"
   },
   "source": "GlobalGrid2050 aggregation of Elexon frequency samples",
   "health": "ok",
   "rows": [
     {
       "date_utc": "2026-05-28",
-      "sample_count": 2,
-      "avg_hz": 50.122,
-      "min_hz": 50.122,
-      "max_hz": 50.122,
-      "samples_below_49_9": 0,
-      "samples_above_50_1": 2,
-      "largest_deviation_hz": 0.122,
+      "sample_count": "2",
+      "avg_hz": "50.122",
+      "min_hz": "50.122",
+      "max_hz": "50.122",
+      "samples_below_49_9": "0",
+      "samples_above_50_1": "2",
+      "largest_deviation_hz": "0.122",
       "data_health": "thin_sample",
       "last_updated_utc": "2026-05-30T04:28:59Z"
+    },
+    {
+      "date_utc": "2026-05-30",
+      "sample_count": 13,
+      "avg_hz": 49.9788,
+      "min_hz": 49.881,
+      "max_hz": 49.987,
+      "samples_below_49_9": 1,
+      "samples_above_50_1": 0,
+      "largest_deviation_hz": 0.119,
+      "data_health": "thin_sample",
+      "last_updated_utc": "2026-05-31T04:54:45Z"
+    },
+    {
+      "date_utc": "2026-05-31",
+      "sample_count": 1,
+      "avg_hz": 50.106,
+      "min_hz": 50.106,
+      "max_hz": 50.106,
+      "samples_below_49_9": 0,
+      "samples_above_50_1": 1,
+      "largest_deviation_hz": 0.106,
+      "data_health": "thin_sample",
+      "last_updated_utc": "2026-05-31T04:54:45Z"
     }
   ]
 }

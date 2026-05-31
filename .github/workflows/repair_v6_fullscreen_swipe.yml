@@ -1,0 +1,27 @@
+name: Repair V6 Fullscreen Swipe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run V6 fullscreen swipe repair
+        run: python scripts/repair_v6_fullscreen_swipe.py
+
+      - name: Commit controlled V6 repair
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js
+          git add uk_energy_tracking_v6/V6_REPAIR_FULLSCREEN_SWIPE_REPORT.md
+          git diff --cached --quiet && echo "No V6 fullscreen swipe changes to commit" && exit 0
+          git commit -m "Repair V6 fullscreen swipe"
+          git push

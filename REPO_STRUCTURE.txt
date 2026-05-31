@@ -6,8 +6,8 @@
 ├── ARCHITECTURE.md
 ├── Braintree-cables1.png
 ├── Braintree.jpg
+├── CLAUDE-AUDIT-V1.md
 ├── CNAME
-├── Claude audits-v1.md
 ├── DEV_NOTES.md
 ├── GIS_SLD_APP_ADDRESS_MAP.md
 ├── GIS_SLD_V2_MODULAR_SITE_MAP.md
@@ -1133,6 +1133,7 @@
 │   ├── V5_V6_COMPARISON_REPORT.md
 │   ├── V6_ARCHITECTURAL_INTEGRITY_PROTOCOL.md
 │   ├── V6_REPAIR_RESTORE_V5_PANELS_REPORT.md
+│   ├── V6_TRANSPORT_ENERGY_SOURCES_REPORT.md
 │   ├── app_bootstrap
 │   │   └── start_v6_app
 │   │       └── start_v6_app.js
@@ -1142,6 +1143,7 @@
 │   ├── electricity_price_history.csv
 │   ├── electricity_price_history.json
 │   ├── electricity_price_history_daily_decade.json
+│   ├── ev_charging_prices.json
 │   ├── frequency_history
 │   │   └── frequency-history-ui.js
 │   ├── index.md
@@ -1156,6 +1158,8 @@
 │   ├── live_grid_energy.json
 │   ├── live_grid_price.json
 │   ├── live_oil_prices.json
+│   ├── live_uk_fuel_prices.json
+│   ├── oil_price_history.geojson
 │   ├── operating_manual.md
 │   ├── price_history_chart
 │   │   ├── control_price_history
@@ -1186,4 +1190,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-148 directories, 1039 files
+148 directories, 1043 files

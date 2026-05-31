@@ -1,15 +1,15 @@
 {
-  "updated_utc": "2026-05-31T09:17:12Z",
+  "updated_utc": "2026-05-31T11:10:59Z",
   "window_weeks": 52,
   "record_count": 1,
   "latest_week": {
     "week_start_utc": "2026-05-25T00:00:00Z",
-    "sample_count": 16,
-    "avg_hz": 50.0027,
+    "sample_count": 15,
+    "avg_hz": 50.0117,
     "min_hz": 49.881,
     "max_hz": 50.106,
     "samples_below_49_9": 1,
-    "samples_above_50_1": 3,
+    "samples_above_50_1": 4,
     "largest_deviation_hz": 0.119,
     "data_health": "ok"
   },
@@ -18,12 +18,12 @@
   "rows": [
     {
       "week_start_utc": "2026-05-25T00:00:00Z",
-      "sample_count": 16,
-      "avg_hz": 50.0027,
+      "sample_count": 15,
+      "avg_hz": 50.0117,
       "min_hz": 49.881,
       "max_hz": 50.106,
       "samples_below_49_9": 1,
-      "samples_above_50_1": 3,
+      "samples_above_50_1": 4,
       "largest_deviation_hz": 0.119,
       "data_health": "ok"
     }

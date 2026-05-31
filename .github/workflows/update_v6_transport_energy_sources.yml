@@ -1,0 +1,47 @@
+name: Update V6 Transport Energy Sources
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 5 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v6-transport-energy-sources
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Update V6 transport energy sources
+        run: python scripts/update_v6_transport_energy_sources.py
+
+      - name: Commit V6 source updates
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking_v6/live_oil_prices.json
+          git add uk_energy_tracking_v6/oil_price_history.geojson
+          git add uk_energy_tracking_v6/live_uk_fuel_prices.json
+          git add uk_energy_tracking_v6/ev_charging_prices.json
+          git add uk_energy_tracking_v6/V6_TRANSPORT_ENERGY_SOURCES_REPORT.md
+          git diff --cached --quiet && echo "No V6 transport energy source changes to commit" && exit 0
+          git commit -m "Update V6 transport energy sources"
+          git push

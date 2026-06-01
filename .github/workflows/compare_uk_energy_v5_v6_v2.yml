@@ -1,0 +1,26 @@
+name: Compare UK Energy V5 V6 V2
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate V5 V6 comparison report V2
+        run: python scripts/compare_uk_energy_v5_v6_v2.py
+
+      - name: Commit comparison report V2
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking_v6/V5_V6_COMPARISON_REPORT_V2.md
+          git diff --cached --quiet && echo "No V5 V6 V2 comparison changes to commit" && exit 0
+          git commit -m "Update V5 V6 comparison report V2"
+          git push

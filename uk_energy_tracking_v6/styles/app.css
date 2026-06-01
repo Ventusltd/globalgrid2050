@@ -144,10 +144,15 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 
 /* V6 repair: mobile chart readability and cinematic fullscreen layout. */
 #price-history-refresh{display:none!important;}
-@media(max-width:850px) and (orientation:portrait){
-  #electricity-price-history-panel #price-history-canvas{height:92dvh!important;min-height:720px!important;}
-}
 @media(orientation:landscape){
   #price-history-fullscreen-canvas{height:100dvh!important;width:100vw!important;}
   .price-history-fullscreen-toolbar{background:rgba(0,0,0,.18);}
+}
+
+/* V6 repair: stabilise mobile chart after readability experiment. */
+@media(max-width:850px) and (orientation:portrait){
+  #electricity-price-history-panel #price-history-canvas{height:74dvh!important;min-height:580px!important;}
+}
+@media(orientation:landscape){
+  #price-history-fullscreen-canvas{width:100vw!important;height:100dvh!important;}
 }

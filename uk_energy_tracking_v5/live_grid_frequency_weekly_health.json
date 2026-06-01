@@ -1,10 +1,10 @@
 {
-  "updated_utc": "2026-06-01T18:32:08Z",
+  "updated_utc": "2026-06-01T21:52:25Z",
   "window_weeks": 52,
   "record_count": 2,
   "latest_week": {
     "week_start_utc": "2026-06-01T00:00:00Z",
-    "sample_count": 4,
+    "sample_count": 5,
     "avg_hz": 49.978,
     "min_hz": 49.978,
     "max_hz": 49.978,
@@ -18,18 +18,18 @@
   "rows": [
     {
       "week_start_utc": "2026-05-25T00:00:00Z",
-      "sample_count": 5,
+      "sample_count": 2,
       "avg_hz": 50.106,
       "min_hz": 50.106,
       "max_hz": 50.106,
       "samples_below_49_9": 0,
-      "samples_above_50_1": 5,
+      "samples_above_50_1": 2,
       "largest_deviation_hz": 0.106,
       "data_health": "thin_sample"
     },
     {
       "week_start_utc": "2026-06-01T00:00:00Z",
-      "sample_count": 4,
+      "sample_count": 5,
       "avg_hz": 49.978,
       "min_hz": 49.978,
       "max_hz": 49.978,

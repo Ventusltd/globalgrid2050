@@ -84,18 +84,23 @@ a{color:#7fdfff;}
 html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!important;}
 .price-history-fullscreen-btn{border:1px solid #252b36!important;border-radius:4px;padding:7px 9px;color:#00ffff!important;background:rgba(0,255,255,.05)!important;font-family:"Courier New",monospace;cursor:pointer;}
 .price-history-fullscreen-overlay{position:fixed;inset:0;display:none;z-index:9999;background:#000;padding:0;box-sizing:border-box;overflow:hidden;}
-.price-history-fullscreen-overlay.open{display:flex;}
-.price-history-fullscreen-shell{position:relative;width:100vw;height:100dvh;min-height:0;border:0;background:#05070c;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;transform:translateZ(0);will-change:transform;}
-.price-history-fullscreen-toolbar{position:absolute;z-index:4;top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));height:34px;display:flex;align-items:center;gap:8px;padding:0 4px;background:rgba(0,0,0,.34);backdrop-filter:blur(4px);color:#f5f7fb;font-family:"Courier New",monospace;pointer-events:none;}
-.price-history-fullscreen-toolbar strong{color:#00ffff;text-transform:uppercase;letter-spacing:.14em;font-size:12px;white-space:nowrap;}
+.price-history-fullscreen-overlay.open{display:block;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.price-history-fullscreen-shell{position:relative;width:100vw;min-height:100dvh;border:0;background:#05070c;box-shadow:none;display:block;overflow:visible;transform:translateZ(0);will-change:transform;}
+.price-history-fullscreen-toolbar{position:sticky;z-index:6;top:0;height:42px;display:flex;align-items:center;gap:8px;padding:0 max(8px,env(safe-area-inset-right)) 0 max(8px,env(safe-area-inset-left));background:rgba(0,0,0,.58);backdrop-filter:blur(4px);color:#f5f7fb;font-family:"Courier New",monospace;}
+.price-history-fullscreen-toolbar strong{color:#00ffff;text-transform:uppercase;letter-spacing:.08em;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .price-history-fullscreen-toolbar span{display:none!important;}
-.price-history-fullscreen-toolbar button{margin-left:auto;pointer-events:auto;border:1px solid rgba(0,255,255,.22);border-radius:50%;width:34px;height:34px;color:#00ffff;background:rgba(0,255,255,.05);font:24px/1 "Courier New",monospace;cursor:pointer;}
-.price-history-fullscreen-arrow{position:absolute;z-index:5;top:50%;transform:translateY(-50%);width:42px;height:72px;border:0;border-radius:999px;color:#00ffff;background:rgba(0,0,0,.18);font:42px/1 "Courier New",monospace;cursor:pointer;text-shadow:0 0 10px rgba(0,255,255,.65);opacity:.72;}
+.price-history-fullscreen-toolbar button{margin-left:auto;border:1px solid rgba(0,255,255,.22);border-radius:50%;width:34px;height:34px;color:#00ffff;background:rgba(0,255,255,.05);font:24px/1 "Courier New",monospace;cursor:pointer;flex:0 0 auto;}
+.price-history-fullscreen-arrow{position:fixed;z-index:5;top:50%;transform:translateY(-50%);width:42px;height:72px;border:0;border-radius:999px;color:#00ffff;background:rgba(0,0,0,.18);font:42px/1 "Courier New",monospace;cursor:pointer;text-shadow:0 0 10px rgba(0,255,255,.65);opacity:.72;}
 .price-history-fullscreen-arrow-left{left:max(6px,env(safe-area-inset-left));}
 .price-history-fullscreen-arrow-right{right:max(6px,env(safe-area-inset-right));}
 .price-history-fullscreen-arrow:active{background:rgba(0,255,255,.10);opacity:1;}
-#price-history-fullscreen-canvas{width:100vw;height:100dvh;min-height:0;flex:1 1 auto;display:block;background:#05070c;touch-action:none;transform:translateZ(0);will-change:transform;}
+#price-history-fullscreen-canvas{width:100vw;height:calc(100dvh - 42px);min-height:620px;display:block;background:#05070c;touch-action:none;transform:translateZ(0);will-change:transform;}
 .price-history-fullscreen-note{display:none!important;}
+.price-history-fullscreen-smallprint{font-family:"Courier New",monospace;color:var(--gg-muted);border-top:1px solid rgba(0,255,255,.25);background:#05070c;padding:18px max(18px,env(safe-area-inset-right)) calc(36px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));font-size:12px;line-height:1.55;letter-spacing:.03em;}
+.price-history-fullscreen-smallprint h2{font-size:14px;color:#00ffff;text-transform:uppercase;letter-spacing:.12em;margin:0 0 10px;}
+.price-history-fullscreen-smallprint p{margin:8px 0 0;max-width:920px;}
+.price-history-fullscreen-smallprint strong{color:#f5f7fb;}
+.price-history-fullscreen-smallprint a{color:#7fdfff;border-bottom:1px solid rgba(127,223,255,.35);text-decoration:none;}
 
 @media(max-width:850px){
   .scada-summary-grid,.scada-mix-grid,.commodity-grid,.pump-grid{grid-template-columns:1fr;}
@@ -106,10 +111,11 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 }
 
 @media(orientation:landscape){
-  .price-history-fullscreen-toolbar{height:30px;}
+  .price-history-fullscreen-toolbar{height:36px;}
   .price-history-fullscreen-toolbar strong{font-size:11px;}
   .price-history-fullscreen-toolbar button{width:30px;height:30px;font-size:21px;}
   .price-history-fullscreen-arrow{width:54px;height:54px;font-size:38px;}
+  #price-history-fullscreen-canvas{height:calc(100dvh - 36px);min-height:0;}
 }
 
 @media(orientation:landscape) and (max-height:520px){
@@ -144,15 +150,8 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 
 /* V6 repair: mobile chart readability and cinematic fullscreen layout. */
 #price-history-refresh{display:none!important;}
-@media(orientation:landscape){
-  #price-history-fullscreen-canvas{height:100dvh!important;width:100vw!important;}
-  .price-history-fullscreen-toolbar{background:rgba(0,0,0,.18);}
-}
 
 /* V6 repair: stabilise mobile chart after readability experiment. */
 @media(max-width:850px) and (orientation:portrait){
   #electricity-price-history-panel #price-history-canvas{height:74dvh!important;min-height:580px!important;}
-}
-@media(orientation:landscape){
-  #price-history-fullscreen-canvas{width:100vw!important;height:100dvh!important;}
 }

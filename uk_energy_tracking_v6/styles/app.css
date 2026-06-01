@@ -46,7 +46,7 @@ a{color:#7fdfff;}
 .commodity-card.oil .commodity-value{color:var(--gg-orange);}
 .commodity-card.metal .commodity-value{color:var(--gg-cyan);}
 
-.section-title{color:#00ffff;text-transform:uppercase;letter-spacing:.12em;font-size:22px;margin-top:26px;}
+.section-title{color:#00ffff;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(15px,4.2vw,26px);line-height:1.25;margin-top:26px;}
 .trend-panel{background:var(--gg-panel);border:1px solid var(--gg-line);border-radius:6px;padding:14px;margin-top:18px;}
 .price-history-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
 .price-history-actions select,.price-history-actions input{background:#050505;color:var(--gg-cyan);border:1px solid var(--gg-line);padding:8px;font-family:"Courier New",monospace;border-radius:4px;}
@@ -59,12 +59,12 @@ a{color:#7fdfff;}
 #electricity-price-history-panel .price-history-table-toggle{display:none!important;}
 #electricity-price-history-panel .trend-panel{padding:12px;width:100%;max-width:100%;overflow:hidden;background:#070a10!important;border:1px solid #252b36!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
 #electricity-price-history-panel .price-history-actions::after{content:"Elexon System Price history · select start, period and hour filter · red markers show high and low";display:block;width:100%;color:var(--gg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
-#electricity-price-history-panel #price-history-canvas{height:min(76dvh,760px)!important;min-height:520px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;}
+#electricity-price-history-panel #price-history-canvas{height:min(62dvh,660px)!important;min-height:440px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;margin:4px 0 8px;}
 
-.gg-machine-note{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.018);color:var(--gg-muted);font-size:10.5px;line-height:1.45;letter-spacing:.04em;padding:8px 10px;margin:8px 0 10px;border-radius:5px;}
+.gg-machine-note{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.018);color:var(--gg-muted);font-size:clamp(11px,2.7vw,13px);line-height:1.4;letter-spacing:.04em;padding:8px 10px;margin:8px 0 10px;border-radius:5px;opacity:.72;display:grid;gap:4px;}
 .gg-machine-note strong{color:var(--gg-cyan);text-transform:uppercase;letter-spacing:.10em;display:block;margin-bottom:4px;}
 .gg-machine-note span{display:block;}
-.gg-machine-note b{color:var(--gg-text);}
+.gg-machine-note b{color:var(--gg-text);opacity:.95;}
 
 .price-history-scroller{display:none!important;}
 .price-history-time-tabs,.price-history-chart-nav{width:100%;border:1px solid var(--gg-line);background:rgba(255,255,255,.025);border-radius:6px;padding:10px 12px;margin:10px 0;box-sizing:border-box;}
@@ -104,7 +104,7 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 
 @media(max-width:850px){
   .scada-summary-grid,.scada-mix-grid,.commodity-grid,.pump-grid{grid-template-columns:1fr;}
-  #electricity-price-history-panel #price-history-canvas{min-height:580px!important;height:74dvh!important;}
+  #electricity-price-history-panel #price-history-canvas{min-height:440px!important;height:62dvh!important;}
   .price-history-chart-nav{grid-template-columns:1fr;}
   .price-history-time-tabs,.price-history-chart-nav{padding:9px!important;}
   .price-history-chart-nav button{min-height:44px;}
@@ -119,7 +119,7 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 }
 
 @media(orientation:landscape) and (max-height:520px){
-  #electricity-price-history-panel #price-history-canvas{height:68dvh!important;min-height:260px!important;}
+  #electricity-price-history-panel #price-history-canvas{height:60dvh!important;min-height:260px!important;}
   #electricity-price-history-panel .trend-panel{padding:8px!important;}
   .price-history-time-tabs,.price-history-chart-nav{padding:7px 8px!important;margin:7px 0!important;}
 }
@@ -153,5 +153,5 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 
 /* V6 repair: stabilise mobile chart after readability experiment. */
 @media(max-width:850px) and (orientation:portrait){
-  #electricity-price-history-panel #price-history-canvas{height:74dvh!important;min-height:580px!important;}
+  #electricity-price-history-panel #price-history-canvas{height:56dvh!important;min-height:420px!important;}
 }

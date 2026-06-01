@@ -4,7 +4,7 @@ title: UK Live Grid Tracker V6
 permalink: /uk_energy_tracking_v6/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260601c">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260601d">
 
 <div class="scada-grid v6-app" id="scada-grid">
   <header class="scada-hero">
@@ -161,7 +161,19 @@ permalink: /uk_energy_tracking_v6/
 <div id="price-history-fullscreen-overlay" class="price-history-fullscreen-overlay">
   <div class="price-history-fullscreen-shell">
     <div class="price-history-fullscreen-toolbar">
-      <strong>GB System Price £/MWh</strong>
+      <strong>GB Electricity System Price £/MWh</strong>
+      <label class="price-history-fullscreen-period-label">Period <select id="price-history-fullscreen-period-select">
+        <option value="12hday">12 hours day</option>
+        <option value="12hnight">12 hours night</option>
+        <option value="1d">1 day</option>
+        <option value="7d" selected>1 week</option>
+        <option value="30d">1 month</option>
+        <option value="3m">3 months</option>
+        <option value="6m">6 months</option>
+        <option value="12m">12 months</option>
+        <option value="5y">5 years</option>
+        <option value="10y">10 years</option>
+      </select></label>
       <span id="price-history-fullscreen-meta">Selected range will appear here.</span>
       <button type="button" id="price-history-fullscreen-close" aria-label="Close">×</button>
     </div>
@@ -186,6 +198,6 @@ permalink: /uk_energy_tracking_v6/
 <script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260601c"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260601c"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260601d"></script>
 <script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/frequency_history/frequency-history-ui.js?v=20260531a"></script>

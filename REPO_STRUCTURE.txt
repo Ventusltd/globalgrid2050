@@ -660,6 +660,7 @@
 │   ├── remove_project_x_from_v6_v7_gis_sld.py
 │   ├── repair_v6_fullscreen_summary_box.py
 │   ├── repair_v6_fullscreen_swipe.py
+│   ├── repair_v6_mobile_chart_readability.py
 │   ├── repair_v6_restore_v5_panels.py
 │   ├── repd_updater.py
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown.py
@@ -1193,4 +1194,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-148 directories, 1046 files
+148 directories, 1047 files

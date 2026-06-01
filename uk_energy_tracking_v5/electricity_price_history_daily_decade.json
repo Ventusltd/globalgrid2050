@@ -1,29 +1,20 @@
 {
-  "generated_utc": "2026-06-01T06:59:14.048223Z",
+  "generated_utc": "2026-06-01T12:45:29.661452Z",
   "source": "Derived from Elexon System Price half hourly history and V5 captured price history",
   "schema": "date|average|high|highAt|low|lowAt|observations",
   "retention_days": 3653,
   "minimum_observations_per_day": 24,
   "skipped_incomplete_days": [
     {
-      "date": "2026-05-31",
-      "observations": 13
+      "date": "2016-05-31",
+      "observations": 22
     },
     {
       "date": "2026-06-01",
-      "observations": 2
+      "observations": 3
     }
   ],
   "rows": [
-    {
-      "date": "2016-05-31",
-      "average": 41.79,
-      "high": 89.0,
-      "highAt": "18:00",
-      "low": 16.0,
-      "lowAt": "07:00",
-      "observations": 34
-    },
     {
       "date": "2016-06-01",
       "average": 40.22,
@@ -32881,6 +32872,15 @@
       "highAt": "15:30",
       "low": -3.62,
       "lowAt": "01:00",
+      "observations": 48
+    },
+    {
+      "date": "2026-05-31",
+      "average": 103.78,
+      "high": 154.9,
+      "highAt": "20:30",
+      "low": 60.0,
+      "lowAt": "14:30",
       "observations": 48
     }
   ]

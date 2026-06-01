@@ -4,7 +4,7 @@ title: UK Live Grid Tracker V6
 permalink: /uk_energy_tracking_v6/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260530o">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260601c">
 
 <div class="scada-grid v6-app" id="scada-grid">
   <header class="scada-hero">
@@ -44,7 +44,7 @@ permalink: /uk_energy_tracking_v6/
     <h2 class="section-title">Electricity Price History</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
-        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Electricity half hourly settlement price in GBP (£) per MWh</strong>
+        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Elexon System Price history in GBP (£) per MWh</strong>
         <label class="price-history-date-label">Year <select id="price-history-year"></select></label>
         <label class="price-history-date-label">Start <input type="date" id="price-history-start"></label>
         <label class="price-history-date-label">Period <select id="price-history-period">
@@ -161,13 +161,20 @@ permalink: /uk_energy_tracking_v6/
 <div id="price-history-fullscreen-overlay" class="price-history-fullscreen-overlay">
   <div class="price-history-fullscreen-shell">
     <div class="price-history-fullscreen-toolbar">
-      <strong>£/MWh</strong>
+      <strong>GB System Price £/MWh</strong>
       <span id="price-history-fullscreen-meta">Selected range will appear here.</span>
       <button type="button" id="price-history-fullscreen-close" aria-label="Close">×</button>
     </div>
     <button type="button" id="price-history-fullscreen-period-back" class="price-history-fullscreen-arrow price-history-fullscreen-arrow-left" aria-label="Previous period">‹</button>
     <button type="button" id="price-history-fullscreen-period-forward" class="price-history-fullscreen-arrow price-history-fullscreen-arrow-right" aria-label="Next period">›</button>
     <canvas id="price-history-fullscreen-canvas"></canvas>
+    <section class="price-history-fullscreen-smallprint" aria-label="Elexon System Price explainer">
+      <h2>What is the Elexon System Price?</h2>
+      <p><strong>Elexon</strong> operates the Balancing and Settlement Code arrangements for Great Britain and publishes market data through BMRS. This chart uses the GB System Price, also called the imbalance price, shown in pounds per Megawatt hour.</p>
+      <p>The System Price is used in electricity settlement to price energy imbalance in each settlement period. It is useful as a signal of system stress, surplus or scarcity, but it is not a retail tariff and it is not the same as a household electricity bill.</p>
+      <p><strong>Use:</strong> screening, education and market awareness only. Always check the official source before using the data commercially.</p>
+      <p><a href="https://bmrs.elexon.co.uk/system-prices" target="_blank" rel="noopener noreferrer">Open Elexon BMRS System Prices</a> · <a href="https://www.elexon.co.uk/bsc-and-codes/balancing-and-settlement-code/" target="_blank" rel="noopener noreferrer">About the Balancing and Settlement Code</a></p>
+    </section>
   </div>
 </div>
 
@@ -178,7 +185,7 @@ permalink: /uk_energy_tracking_v6/
 <script src="/uk_energy_tracking_v6/live_data_pipeline/render_generation_mix/render_generation_mix.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/commodity_price_signals/render_commodities/render_commodities.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530o"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260530o"></script>
-<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260530o"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260601c"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260601c"></script>
 <script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/frequency_history/frequency-history-ui.js?v=20260531a"></script>

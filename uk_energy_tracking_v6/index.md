@@ -61,7 +61,6 @@ permalink: /uk_energy_tracking_v6/
         </select></label>
         <a href="/uk_energy_tracking_v6/electricity_price_history.csv" download>Download CSV</a>
         <button type="button" id="price-history-fullscreen-btn" class="price-history-fullscreen-btn">Full screen chart</button>
-        <button type="button" id="price-history-refresh">Refresh chart</button>
       </div>
       <div id="price-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
       <div class="unit-panel"><strong>Unit:</strong> pounds per Megawatt hour. Select a year, a start date and a period. The chart automatically loads the required Elexon annual CSV file and calculates the end date. The red line marks £0/MWh.</div>

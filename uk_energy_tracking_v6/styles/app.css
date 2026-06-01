@@ -141,3 +141,13 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 .ev-label{color:var(--gg-muted);text-transform:uppercase;letter-spacing:.14em;font-size:11px;}
 .ev-value{color:var(--gg-green);font-size:22px;font-weight:800;margin-top:6px;}
 @media(max-width:850px){.pump-grid,.ev-card-grid,.oil-stats-grid{grid-template-columns:1fr;}#oil-trend-canvas{height:320px;}}
+
+/* V6 repair: mobile chart readability and cinematic fullscreen layout. */
+#price-history-refresh{display:none!important;}
+@media(max-width:850px) and (orientation:portrait){
+  #electricity-price-history-panel #price-history-canvas{height:92dvh!important;min-height:720px!important;}
+}
+@media(orientation:landscape){
+  #price-history-fullscreen-canvas{height:100dvh!important;width:100vw!important;}
+  .price-history-fullscreen-toolbar{background:rgba(0,0,0,.18);}
+}

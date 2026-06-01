@@ -94,7 +94,7 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 .price-history-fullscreen-arrow-left{left:max(6px,env(safe-area-inset-left));}
 .price-history-fullscreen-arrow-right{right:max(6px,env(safe-area-inset-right));}
 .price-history-fullscreen-arrow:active{background:rgba(0,255,255,.10);opacity:1;}
-#price-history-fullscreen-canvas{width:100vw;height:calc(100dvh - 42px);min-height:620px;display:block;background:#05070c;touch-action:none;transform:translateZ(0);will-change:transform;}
+#price-history-fullscreen-canvas{width:100vw;height:calc(100dvh - 42px);min-height:620px;display:block;background:#05070c;touch-action:pan-y;transform:translateZ(0);will-change:transform;}
 .price-history-fullscreen-note{display:none!important;}
 .price-history-fullscreen-smallprint{font-family:"Courier New",monospace;color:var(--gg-muted);border-top:1px solid rgba(0,255,255,.25);background:#05070c;padding:18px max(18px,env(safe-area-inset-right)) calc(36px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));font-size:12px;line-height:1.55;letter-spacing:.03em;}
 .price-history-fullscreen-smallprint h2{font-size:14px;color:#00ffff;text-transform:uppercase;letter-spacing:.12em;margin:0 0 10px;}

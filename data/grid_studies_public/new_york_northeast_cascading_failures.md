@@ -15,17 +15,3 @@ https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-W
 ### U.S. Canada Power System Outage Task Force Blackout Information
 
 https://www.energy.gov/oe/august-2003-blackout
-
-### New York City Blackout of 1977
-
-Open technical history and study material on the 1977 blackout.
-
-https://spectrum.ieee.org/anatomy-of-a-blackout
-
-https://blackout.gmu.edu/events/the-new-york-city-blackout-of-1977/
-
-### Northeast Blackout of 1965
-
-https://www.nerc.com/AboutNERC/Pages/History.aspx
-
-https://www.cbc.ca/archives/the-great-northeast-blackout-of-1965-1.4850859

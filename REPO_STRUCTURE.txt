@@ -660,6 +660,7 @@
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
 │   ├── remove_project_x_from_v6_v7_gis_sld.py
+│   ├── repair_v6_chart_boxes_no_summary.py
 │   ├── repair_v6_event_boxes_visible.py
 │   ├── repair_v6_fullscreen_summary_box.py
 │   ├── repair_v6_fullscreen_swipe.py
@@ -1140,6 +1141,7 @@
 │   ├── V5_V6_COMPARISON_REPORT.md
 │   ├── V5_V6_COMPARISON_REPORT_V2.md
 │   ├── V6_ARCHITECTURAL_INTEGRITY_PROTOCOL.md
+│   ├── V6_REPAIR_EVENT_BOXES_VISIBLE_REPORT.md
 │   ├── V6_REPAIR_FULLSCREEN_SUMMARY_BOX_REPORT.md
 │   ├── V6_REPAIR_FULLSCREEN_SWIPE_REPORT.md
 │   ├── V6_REPAIR_HIGH_LOW_TRACKERS_REPORT.md
@@ -1203,4 +1205,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-148 directories, 1056 files
+148 directories, 1058 files

@@ -1,0 +1,29 @@
+name: Repair V6 Price Annotations V5 Style
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run repair script
+        run: python scripts/repair_v6_price_annotations_v5_style.py
+
+      - name: Configure git
+        run: git config user.name GridBot && git config user.email gridbot@users.noreply.github.com
+
+      - name: Stage repair files
+        run: git add uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js uk_energy_tracking_v6/index.md uk_energy_tracking_v6/V6_REPAIR_PRICE_ANNOTATIONS_V5_STYLE_REPORT.md
+
+      - name: Commit repair if changed
+        run: git diff --cached --quiet || git commit -m "Repair V6 price annotations V5 style"
+
+      - name: Push repair
+        run: git push

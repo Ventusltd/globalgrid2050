@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-06-02T01:41:46.520767Z",
+  "generated_utc": "2026-06-02T06:23:01.270827Z",
   "source": "Derived from Elexon System Price half hourly history and V5 captured price history",
   "schema": "date|night|morning|midday|evening|peakAt|peakPrice|observations",
   "bucket_definitions_utc": {
@@ -14,18 +14,22 @@
     {
       "date": "2026-06-01",
       "observations": 6
+    },
+    {
+      "date": "2026-06-02",
+      "observations": 1
     }
   ],
   "rows": [
     {
       "date": "2016-06-01",
-      "night": 32.65,
-      "morning": 47.81,
+      "night": null,
+      "morning": 50.39,
       "midday": 33.16,
       "evening": 42.47,
       "peakAt": "08:30",
       "peakPrice": 99.9,
-      "observations": 44
+      "observations": 35
     },
     {
       "date": "2016-06-02",

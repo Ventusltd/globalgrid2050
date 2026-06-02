@@ -1182,7 +1182,8 @@
 │   │   ├── load_price_history_data
 │   │   │   └── load_price_history_data.js
 │   │   └── render_price_chart
-│   │       └── render_price_chart.js
+│   │       ├── render_price_chart.js
+│   │       └── render_price_chart_v6_clean_boxes.js
 │   ├── shared_helpers
 │   │   └── dom_text
 │   │       └── dom_text.js
@@ -1205,4 +1206,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-148 directories, 1058 files
+148 directories, 1059 files

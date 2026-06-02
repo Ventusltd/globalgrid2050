@@ -1,0 +1,28 @@
+name: Repair V6 High Low Trackers
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run V6 high low tracker repair
+        run: python scripts/repair_v6_high_low_trackers.py
+
+      - name: Commit controlled V6 repair
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js
+          git add uk_energy_tracking_v6/index.md
+          git add uk_energy_tracking_v6/V6_REPAIR_HIGH_LOW_TRACKERS_REPORT.md
+          git diff --cached --quiet && echo "No V6 high low tracker changes to commit" && exit 0
+          git commit -m "Repair V6 high low trackers"
+          git push

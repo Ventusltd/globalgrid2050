@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-02T01:41:26.319128+00:00",
-  "demandGW": 21.63,
+  "updated": "2026-06-02T06:22:40.058263+00:00",
+  "demandGW": 25.43,
   "solarGW": 0.0,
   "mix": [
     {
@@ -11,20 +11,20 @@
     },
     {
       "label": "Wind",
-      "gw": 5.84,
-      "pct": 27.01,
+      "gw": 3.81,
+      "pct": 14.98,
       "color": "#00d0ff"
     },
     {
       "label": "Hydro",
-      "gw": 0.18,
-      "pct": 0.85,
+      "gw": 0.32,
+      "pct": 1.27,
       "color": "#0090c0"
     },
     {
       "label": "Gas",
-      "gw": 10.21,
-      "pct": 47.22,
+      "gw": 11.19,
+      "pct": 43.99,
       "color": "#c0399a"
     },
     {
@@ -35,31 +35,31 @@
     },
     {
       "label": "Biomass",
-      "gw": 2.38,
-      "pct": 11.02,
+      "gw": 2.39,
+      "pct": 9.39,
       "color": "#f59e2b"
     },
     {
       "label": "Nuclear",
-      "gw": 2.27,
-      "pct": 10.47,
+      "gw": 2.26,
+      "pct": 8.9,
       "color": "#5cb85c"
     },
     {
       "label": "Pumped Storage",
-      "gw": -0.02,
-      "pct": -0.08,
+      "gw": 0.28,
+      "pct": 1.12,
       "color": "#9b59b6"
     },
     {
       "label": "Imports & Exports",
-      "gw": 0.76,
-      "pct": 3.51,
+      "gw": 5.18,
+      "pct": 20.36,
       "color": "#e8615a"
     }
   ],
   "health": {
     "generation": "ok",
-    "solar": "ok"
+    "solar": "error: 503 Server Error: Service Unavailable for url: https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0"
   }
 }

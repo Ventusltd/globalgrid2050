@@ -36,15 +36,15 @@ if "render_price_chart_v6_clean_boxes.js" in index:
 if "drawSummary(g,s,q,w,h,pad,isFull,isLandscape)" in js:
     issues.append("Bottom summary box still being drawn")
 if "function drawHighAverageLowTrackers" in js:
-    issues.append("Current V6 has custom tracker layout rather than V5 style event labels")
+    issues.append("Current V6 has custom tracker layout instead of V5 event annotation logic")
 
-# Replace any existing V6 annotation helper block from compactDateText to drawSummary with V5 style helpers.
+# V5 UI method, adapted only at the data boundary for V6 field names.
+# No data loading, filtering, period selection, forecast or control logic is touched.
 replacement = """  function compactDateText(t){return String(t||'').replace(/January/g,'Jan').replace(/February/g,'Feb').replace(/March/g,'Mar').replace(/April/g,'Apr').replace(/June/g,'Jun').replace(/July/g,'Jul').replace(/August/g,'Aug').replace(/September/g,'Sep').replace(/October/g,'Oct').replace(/November/g,'Nov').replace(/December/g,'Dec')}
-  function v5LabelLines(label,val,date,clock){return[label+' £'+fmt(val,2)+'/MWh',compactDateText(date)+(clock?' '+clock:'')]}
-  function v5MeasureBox(g,lines,q){g.save();g.font='900 '+12*q+'px Courier New';var w=0;lines.forEach(function(t){w=Math.max(w,g.measureText(t).width)});g.restore();return{w:w+18*q,h:50*q}}
-  function v5DrawBox(g,lines,q,x,y,anchor){var m=v5MeasureBox(g,lines,q),xx=anchor==='right'?x-m.w:x,yy=y-m.h/2;if(xx<8*q)xx=8*q;if(xx+m.w>g.canvas.width-8*q)xx=g.canvas.width-m.w-8*q;if(yy<8*q)yy=8*q;if(yy+m.h>g.canvas.height-8*q)yy=g.canvas.height-m.h-8*q;g.save();g.fillStyle='rgba(5,7,12,.78)';g.strokeStyle='rgba(0,255,255,.48)';g.lineWidth=1.1*q;g.shadowColor='rgba(0,255,255,.22)';g.shadowBlur=8*q;g.beginPath();g.roundRect(xx,yy,m.w,m.h,7*q);g.fill();g.stroke();g.shadowBlur=0;g.textAlign='left';g.font='900 '+12*q+'px Courier New';g.fillStyle='#ff3333';g.fillText(lines[0],xx+9*q,yy+20*q);g.fillText(lines[1],xx+9*q,yy+39*q);g.restore();return{x:xx,y:yy,w:m.w,h:m.h}}
-  function v5DrawConnector(g,from,box,q){var tx=from.x<box.x?box.x:box.x+box.w,ty=box.y+box.h*.50;g.save();g.strokeStyle='#ff3333';g.shadowColor='rgba(0,255,255,.45)';g.shadowBlur=6*q;g.lineWidth=1.2*q;g.beginPath();g.moveTo(from.x,from.y);g.lineTo(tx,ty);g.stroke();g.restore()}
-  function drawHighAverageLowTrackers(g,s,q,w,h,pad,X,Y,isFull,isLandscape){var plotLeft=pad.left,plotRight=w-pad.right,plotTop=pad.top,plotBottom=h-pad.bottom,plotW=plotRight-plotLeft,plotH=plotBottom-plotTop;var highPoint={x:X(s.hi),y:Y(s.hiValue)},lowPoint={x:X(s.lo),y:Y(s.loValue)};function dot(p){g.save();g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.85)';g.shadowBlur=8*q;g.beginPath();g.arc(p.x,p.y,5.5*q,0,Math.PI*2);g.fill();g.restore()}dot(highPoint);dot(lowPoint);var highAnchor,lowAnchor,highX,highY,lowX,lowY;if(isFull&&isLandscape){highAnchor='right';lowAnchor='right';highX=plotRight-10*q;highY=plotTop+plotH*.18;lowX=plotRight-10*q;lowY=plotTop+plotH*.82}else{highAnchor=highPoint.x>plotLeft+plotW*.55?'right':'left';lowAnchor=lowPoint.x>plotLeft+plotW*.55?'right':'left';highX=highAnchor==='right'?Math.min(plotRight-8*q,highPoint.x+plotW*.36):Math.max(plotLeft+8*q,highPoint.x-plotW*.08);highY=Math.max(plotTop+44*q,Math.min(plotTop+plotH*.30,highPoint.y-38*q));lowX=lowAnchor==='right'?Math.min(plotRight-8*q,lowPoint.x+plotW*.30):Math.max(plotLeft+8*q,lowPoint.x-plotW*.18);lowY=Math.max(plotTop+plotH*.70,Math.min(plotBottom-44*q,lowPoint.y+46*q))}var highBox=v5DrawBox(g,v5LabelLines('HIGH',s.hiValue,s.hiDate,s.hiClock),q,highX,highY,highAnchor);var lowBox=v5DrawBox(g,v5LabelLines('LOW',s.loValue,s.loDate,s.loClock),q,lowX,lowY,lowAnchor);v5DrawConnector(g,highPoint,highBox,q);v5DrawConnector(g,lowPoint,lowBox,q)}
+  function eventBox(g,lines,q,x,y,align){var pad=8*q,lh=18*q,wid=0;g.save();g.font='900 '+14*q+'px Courier New';lines.forEach(function(t){wid=Math.max(wid,g.measureText(t).width)});var bh=lines.length*lh+pad*2,xx=align==='right'?x-wid-pad*2:x;g.fillStyle='rgba(5,7,12,.78)';g.strokeStyle='rgba(0,255,255,.35)';g.lineWidth=1*q;g.shadowColor='rgba(0,255,255,.24)';g.shadowBlur=8*q;g.beginPath();g.roundRect(xx,y-bh+4*q,wid+pad*2,bh,6*q);g.fill();g.stroke();g.shadowBlur=0;g.fillStyle='#ff3333';g.textAlign=align;lines.forEach(function(t,i){g.fillText(t,x,y-(lines.length-1-i)*lh)});g.restore()}
+  function drawPointer(g,point,q,x,y){g.save();g.strokeStyle='#ff3333';g.shadowColor='rgba(0,255,255,.55)';g.shadowBlur=7*q;g.lineWidth=1.5*q;g.beginPath();g.moveTo(point.x,point.y);g.lineTo(x,y-24*q);g.stroke();g.restore()}
+  function drawV5StyleEvents(g,s,X,Y,q,w,h,pad){if(!s)return;var hx=X(s.hi),hy=Y(s.hiValue),lx=X(s.lo),ly=Y(s.loValue);g.save();g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.85)';g.shadowBlur=8*q;g.beginPath();g.arc(hx,hy,5*q,0,Math.PI*2);g.fill();g.beginPath();g.arc(lx,ly,5*q,0,Math.PI*2);g.fill();g.restore();var hr=hx<w/2,lr=lx<w/2;var hxText=hr?Math.min(w-pad.right-150*q,hx+18*q):Math.max(pad.left+150*q,hx-18*q);var lxText=lr?Math.min(w-pad.right-150*q,lx+18*q):Math.max(pad.left+150*q,lx-18*q);var hyText=Math.max(pad.top+54*q,hy-24*q);var lyText=Math.min(h-pad.bottom-28*q,ly+54*q);drawPointer(g,{x:hx,y:hy},q,hxText,hyText);drawPointer(g,{x:lx,y:ly},q,lxText,lyText);eventBox(g,['HIGH','£'+fmt(s.hiValue,2)+'/MWh',compactDateText(s.hiDate)+(s.hiClock?' '+s.hiClock:'')],q,hxText,hyText,hr?'left':'right');eventBox(g,['LOW','£'+fmt(s.loValue,2)+'/MWh',compactDateText(s.loDate)+(s.loClock?' '+s.loClock:'')],q,lxText,lyText,lr?'left':'right')}
+  function drawHighAverageLowTrackers(g,s,q,w,h,pad,X,Y,isFull,isLandscape){drawV5StyleEvents(g,s,X,Y,q,w,h,pad)}
 """
 
 js, count = re.subn(
@@ -57,7 +57,7 @@ js, count = re.subn(
 if count != 1:
     raise RuntimeError("Could not replace V6 annotation helper block safely")
 
-# Remove every known bottom summary draw call from the render path. Keep function definition for rollback, but do not call it.
+# Remove bottom summary draw calls, keeping the function definition untouched for rollback traceability.
 patterns = [
     "drawHighAverageLowTrackers(g,s,q,w,h,pad,X,Y,isFull,isLandscape);drawSummary(g,s,q,w,h,pad,isFull,isLandscape);",
     "drawSummary(g,s,q,w,h,pad,isFull,isLandscape);drawHighAverageLowTrackers(g,s,q,w,h,pad,X,Y,isFull,isLandscape);",
@@ -68,21 +68,22 @@ for p in patterns:
 
 if "drawSummary(g,s,q,w,h,pad,isFull,isLandscape);" in js:
     raise RuntimeError("Bottom summary call remains after repair")
-for token in ["v5DrawBox", "v5DrawConnector", "HIGH", "LOW", "isFull&&isLandscape"]:
+for token in ["function eventBox", "function drawPointer", "function drawV5StyleEvents", "drawHighAverageLowTrackers(g,s,q,w,h,pad,X,Y,isFull,isLandscape)"]:
     if token not in js:
         raise RuntimeError(f"V5 style assertion failed: {token}")
-if "AVERAGE" in js[js.find("function drawHighAverageLowTrackers"):js.find("function drawHighAverageLowTrackers")+1800]:
-    raise RuntimeError("Average label still present in V5 style event annotation block")
+tracker_slice = js[js.find("function drawHighAverageLowTrackers"):js.find("function drawHighAverageLowTrackers")+500]
+if "AVERAGE" in tracker_slice:
+    raise RuntimeError("Average label still present in event annotation block")
 
-# Clean index.md so only the working renderer is loaded and cache-busted.
+# Clean index.md so only the working V6 renderer is loaded and cache-busted.
 index = re.sub(r'\n<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart_box_overlay\.js\?v=[^"]+"></script>', "", index)
 index = re.sub(r'/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart_v6_clean_boxes\.js\?v=[^"]+',
-               '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260602v5style1', index)
+               '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260602v5exact1', index)
 index = re.sub(r'/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart\.js\?v=[^"]+',
-               '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260602v5style1', index)
+               '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260602v5exact1', index)
 if "render_price_chart_box_overlay.js" in index or "render_price_chart_v6_clean_boxes.js" in index:
     raise RuntimeError("Old overlay or replacement renderer still referenced in index.md")
-if "render_price_chart.js?v=20260602v5style1" not in index:
+if "render_price_chart.js?v=20260602v5exact1" not in index:
     raise RuntimeError("Working renderer cache bust missing")
 
 RENDER.write_text(js, encoding="utf-8")
@@ -98,7 +99,7 @@ Status: generated by deterministic diagnostic repair script.
 
 ## User instruction
 
-Copy the V5 annotation style into V6.
+Copy the V5 in-page price annotation UI method into V6, on and off fullscreen, while keeping V6 data logic.
 
 ## Diagnosis before repair
 
@@ -113,19 +114,19 @@ The script verified V5 contains:
 3. `drawEvents`
 4. `drawDailyEvents`
 
-V5 was read as the behavioural reference and was not modified.
+V5 was read as the UI reference and was not modified.
 
 ## Behaviour applied to V6
 
-1. HIGH and LOW event labels only, matching the V5 concept.
-2. Red dots remain at the exact high and low data points.
-3. Connector lines run from the real high and low points to the event label boxes.
-4. No AVERAGE event box is drawn, because V5 does not use an average event label.
-5. The bottom summary box draw call is removed.
-6. The overlay workaround is removed from `index.md`.
-7. The broken replacement renderer reference is removed if present.
-8. Fullscreen landscape receives the same simple V5 style: big chart, high box top right, low box lower right, connectors to true points.
-9. The working renderer is cache-busted to `20260602v5style1`.
+1. Uses V5-style `eventBox` and `drawPointer` functions inside the V6 renderer.
+2. Uses V6 rows, V6 stats, V6 X/Y scaling and V6 period controls.
+3. Draws HIGH and LOW labels only, matching V5.
+4. Red dots remain at the exact high and low data points.
+5. Removes the AVERAGE event label.
+6. Removes the bottom summary box draw call.
+7. Removes the overlay workaround from `index.md`.
+8. Removes the broken replacement renderer reference if present.
+9. Cache-busts the working renderer to `20260602v5exact1`.
 
 ## Files modified by workflow
 
@@ -145,7 +146,7 @@ V5 was read as the behavioural reference and was not modified.
 
 Open `/uk_energy_tracking_v6/` and hard refresh.
 
-Expected result: V6 chart resembles V5, with large chart area, high and low event labels, red dots at the exact points and connector lines to those points. No bottom summary box and no average event box.
+Expected result: V6 keeps its data and controls but the chart annotations behave like V5: HIGH and LOW only, red dots at the exact points and V5-style labels in page and fullscreen modes. No bottom summary box and no average box.
 """, encoding="utf-8")
 
-print("V6 V5 style price annotation repair prepared.")
+print("V6 V5 exact UI annotation repair prepared.")

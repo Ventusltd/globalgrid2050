@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-V6 electricity price chart real estate repair.
+V6 electricity price chart normal-page layout repair.
 
 Scope is deliberately narrow:
-1. Make the non-fullscreen mobile portrait chart taller and more vivid.
-2. Fix non-fullscreen mobile landscape compression by giving the renderer a landscape-aware pad.
+1. Fix only the non-fullscreen electricity price canvas.
+2. Keep fullscreen chart behaviour untouched.
 3. Do not touch V5, data fetchers, price calculations, period controls or frequency code.
 """
 
@@ -33,12 +33,7 @@ for path in required:
     path.read_text(encoding="utf-8", errors="replace")
 
 comparison = (V6 / "V5_V6_COMPARISON_REPORT_V2.md").read_text(encoding="utf-8", errors="replace")
-for token in [
-    "price-history-canvas",
-    "Only working V6 renderer loaded",
-    "Overlay workaround removed",
-    "Page load order",
-]:
+for token in ["price-history-canvas", "Only working V6 renderer loaded", "Overlay workaround removed", "Page load order"]:
     if token not in comparison:
         raise RuntimeError(f"Comparison report does not contain expected guardrail: {token}")
 
@@ -46,17 +41,22 @@ css = CSS.read_text(encoding="utf-8", errors="replace")
 render = RENDER.read_text(encoding="utf-8", errors="replace")
 index = INDEX.read_text(encoding="utf-8", errors="replace")
 
-css_patch_marker = "V6 repair: in-page electricity chart real estate"
+# Remove previous experimental chart-space block before adding the corrected version.
+css = re.sub(
+    r"\n/\* V6 repair: in-page electricity chart real estate\..*?\n\}\n?",
+    "\n",
+    css,
+    flags=re.S,
+)
+
 css_patch = """
 
-/* V6 repair: in-page electricity chart real estate.
-   Purpose: make the normal mobile chart vivid without touching data logic.
-   Portrait gets a taller canvas. Landscape gets enough height so the x-axis
-   and y-axis are not crushed into the top of the chart. */
+/* V6 repair: normal-page electricity chart real estate.
+   Scope: non-fullscreen canvas only. Fullscreen overlay is untouched. */
 @media(max-width:850px) and (orientation:portrait){
   #electricity-price-history-panel #price-history-canvas{
-    height:128dvh!important;
-    min-height:960px!important;
+    height:112dvh!important;
+    min-height:820px!important;
     max-height:none!important;
   }
 }
@@ -65,38 +65,42 @@ css_patch = """
     padding:6px!important;
   }
   #electricity-price-history-panel #price-history-canvas{
-    height:108dvh!important;
-    min-height:520px!important;
+    height:88dvh!important;
+    min-height:420px!important;
     max-height:none!important;
   }
   #electricity-price-history-panel .gg-machine-note{
     display:none!important;
   }
-  #electricity-price-history-panel .price-history-actions{
-    gap:6px!important;
-    margin-bottom:6px!important;
-  }
 }
 """
-if css_patch_marker not in css:
+if "V6 repair: normal-page electricity chart real estate" not in css:
     css = css.rstrip() + css_patch
 
-# Make the renderer landscape-aware for the in-page canvas. The previous renderer
-# only treated fullscreen as landscape, so non-fullscreen landscape inherited
-# portrait padding and could crush the visible plot.
-pattern = r"var pad=isFull\?\(isLandscape\?\{[^}]+\}:\{[^}]+\}\):\{[^}]+\};g\.clearRect"
-replacement = (
-    "var nonFullLandscape=!isFull&&cssW>cssH;"
-    "var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:78*q,bottom:48*q}:{left:58*q,right:18*q,top:132*q,bottom:86*q}):(nonFullLandscape?{left:58*q,right:18*q,top:58*q,bottom:72*q}:{left:74*q,right:24*q,top:92*q,bottom:76*q});g.clearRect"
-)
-render, count = re.subn(pattern, replacement, render, count=1)
-if count != 1:
-    raise RuntimeError("Could not replace renderer pad definition exactly once")
+# Location of the issue:
+# renderTo() manages normal and fullscreen drawing. The full-screen branch is `isFull ? ...`.
+# The normal-page branch is the `: (...)` branch after that ternary. Only that branch should change.
+old_pad_patterns = [
+    "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var nonFullLandscape=!isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:78*q,bottom:48*q}:{left:58*q,right:18*q,top:132*q,bottom:86*q}):(nonFullLandscape?{left:58*q,right:18*q,top:58*q,bottom:72*q}:{left:74*q,right:24*q,top:92*q,bottom:76*q});g.clearRect",
+    "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:74*q,bottom:44*q}:{left:58*q,right:18*q,top:104*q,bottom:285*q}):{left:74*q,right:24*q,top:96*q,bottom:284*q};g.clearRect",
+]
+new_pad = "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var nonFullLandscape=!isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:74*q,bottom:44*q}:{left:58*q,right:18*q,top:104*q,bottom:285*q}):(nonFullLandscape?{left:58*q,right:22*q,top:56*q,bottom:48*q}:{left:66*q,right:24*q,top:88*q,bottom:44*q});g.clearRect"
+
+replaced = 0
+for old in old_pad_patterns:
+    if old in render:
+        render = render.replace(old, new_pad, 1)
+        replaced += 1
+        break
+if replaced != 1:
+    raise RuntimeError("Could not replace renderTo pad definition safely")
 
 for token in [
     "nonFullLandscape=!isFull&&cssW>cssH",
-    "bottom:72*q",
-    "bottom:76*q",
+    "{left:50*q,right:22*q,top:74*q,bottom:44*q}",
+    "{left:58*q,right:18*q,top:104*q,bottom:285*q}",
+    "{left:58*q,right:22*q,top:56*q,bottom:48*q}",
+    "{left:66*q,right:24*q,top:88*q,bottom:44*q}",
 ]:
     if token not in render:
         raise RuntimeError(f"Renderer assertion failed: {token}")
@@ -104,12 +108,12 @@ for token in [
 # Cache-bust CSS and renderer only. Do not change script order.
 index = re.sub(
     r'/uk_energy_tracking_v6/styles/app\.css\?v=[^"]+',
-    '/uk_energy_tracking_v6/styles/app.css?v=20260603chartspace1',
+    '/uk_energy_tracking_v6/styles/app.css?v=20260604normalchart1',
     index,
 )
 index = re.sub(
     r'/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart\.js\?v=[^"]+',
-    '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260603chartspace1',
+    '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260604normalchart1',
     index,
 )
 
@@ -117,70 +121,65 @@ if "render_price_chart_box_overlay.js" in index:
     raise RuntimeError("Old overlay renderer still referenced in index.md")
 if "render_price_chart_v6_clean_boxes.js" in index:
     raise RuntimeError("Broken replacement renderer still referenced in index.md")
-if "20260603chartspace1" not in index:
+if "20260604normalchart1" not in index:
     raise RuntimeError("Cache-bust token missing from index.md")
 
 CSS.write_text(css, encoding="utf-8")
 RENDER.write_text(render, encoding="utf-8")
 INDEX.write_text(index, encoding="utf-8")
 
-REPORT.write_text("""# V6 Repair: In-page Electricity Chart Real Estate
+REPORT.write_text("""# V6 Repair: Normal-page Electricity Chart Layout
 
 Status: prepared by deterministic repair script.
 
+## Exact code location
+
+The non-fullscreen chart is managed in:
+
+`uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js`
+
+Inside:
+
+`function renderTo(canvasId,result)`
+
+The key variable is:
+
+`var pad = ...`
+
+The fullscreen branch is:
+
+`isFull ? (...) : (...)`
+
+The normal-page branch is the second branch after the colon. This repair changes only that normal-page branch and restores the fullscreen pad values to the previous working values.
+
 ## Problem observed
 
-The normal V6 electricity price chart is too compressed on mobile. Portrait leaves too much unused space and the plot needs to be more vivid. Mobile landscape is worse: the chart can inherit portrait-style padding because the renderer only identifies landscape for fullscreen mode. This can push the x-axis and date labels into the wrong visual area.
-
-## Code dependencies identified
-
-1. `uk_energy_tracking_v6/index.md`
-   - Loads `styles/app.css`.
-   - Contains `#price-history-canvas`.
-   - Loads `render_price_chart.js` after the V6 price data loader.
-
-2. `uk_energy_tracking_v6/styles/app.css`
-   - Controls the rendered height of `#price-history-canvas`.
-   - Existing mobile portrait rule controls normal-page mobile height.
-   - Existing landscape rule compresses the chart on short mobile landscape screens.
-
-3. `uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js`
-   - `renderTo(...)` reads the canvas CSS box using `getBoundingClientRect()`.
-   - `renderTo(...)` converts that box into internal canvas pixels.
-   - The `pad` object controls the plot area, including where the x-axis is drawn.
-   - The old logic treated `isLandscape` as fullscreen-only, so normal landscape inherited the wrong padding.
-
-4. `uk_energy_tracking_v6/V5_V6_COMPARISON_REPORT_V2.md`
-   - Confirms the working renderer is loaded.
-   - Confirms the overlay workaround is absent.
-   - Confirms the page load order and DOM ID parity.
+The previous chart-space repair made the CSS canvas taller but did not give the normal-page renderer a correct plot-area contract. On mobile landscape, the plot could be visually squeezed into the top band and the x-axis could appear in the wrong place. On portrait, the canvas became taller but the graph still did not use the space cleanly.
 
 ## Behaviour changed
 
-1. Mobile portrait normal-page chart height increased to `128dvh` with `960px` minimum height.
-2. Mobile landscape normal-page chart height increased to `108dvh` with `520px` minimum height.
-3. Mobile landscape hides the Grid Intelligence note inside the price panel so the chart gets more screen space.
-4. Renderer now has `nonFullLandscape` detection.
-5. Renderer uses separate non-fullscreen landscape padding:
-   - left `58q`
-   - right `18q`
-   - top `58q`
-   - bottom `72q`
-6. Renderer uses tighter non-fullscreen portrait padding:
-   - top `92q`
-   - bottom `76q`
-7. No data logic changed.
-8. No V5 file changed.
-9. No workflow changed.
-10. No price calculation changed.
+1. Fullscreen mode is left alone:
+   - fullscreen landscape pad restored to `left 50q, right 22q, top 74q, bottom 44q`
+   - fullscreen portrait pad restored to `left 58q, right 18q, top 104q, bottom 285q`
+2. Non-fullscreen landscape now has its own pad:
+   - `left 58q, right 22q, top 56q, bottom 48q`
+3. Non-fullscreen portrait now has its own pad:
+   - `left 66q, right 24q, top 88q, bottom 44q`
+4. Mobile portrait normal-page canvas is set to `112dvh` with `820px` minimum height.
+5. Mobile landscape normal-page canvas is set to `88dvh` with `420px` minimum height.
+6. The Grid Intelligence note is hidden in mobile landscape only to give chart space.
+7. No V5 file changed.
+8. No data logic changed.
+9. No price fetch changed.
+10. No frequency logic changed.
 
 ## Required test
 
 1. Open `/uk_energy_tracking_v6/` on mobile portrait.
-2. Confirm the normal in-page electricity chart is much taller and the trace is more vivid.
+2. Confirm the normal in-page electricity chart is taller but not wastefully blank.
 3. Rotate to mobile landscape without fullscreen.
-4. Confirm the plot fills more of the screen and the x-axis sits at the bottom of the plot, not in the wrong visual band.
-5. Confirm fullscreen mode still opens and swipes/arrows still work.
+4. Confirm the x-axis sits at the bottom of the plot.
+5. Confirm fullscreen mode still behaves as before.
 """, encoding="utf-8")
 
-print("V6 in-page chart real estate repair prepared.")
+print("V6 normal-page chart layout repair prepared.")

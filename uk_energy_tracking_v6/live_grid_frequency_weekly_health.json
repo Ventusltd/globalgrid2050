@@ -1,10 +1,10 @@
 {
-  "updated_utc": "2026-06-03T21:31:48Z",
+  "updated_utc": "2026-06-03T23:18:52Z",
   "window_weeks": 52,
   "record_count": 1,
   "latest_week": {
     "week_start_utc": "2026-06-01T00:00:00Z",
-    "sample_count": 3,
+    "sample_count": 4,
     "avg_hz": 49.954,
     "min_hz": 49.954,
     "max_hz": 49.954,
@@ -18,7 +18,7 @@
   "rows": [
     {
       "week_start_utc": "2026-06-01T00:00:00Z",
-      "sample_count": 3,
+      "sample_count": 4,
       "avg_hz": 49.954,
       "min_hz": 49.954,
       "max_hz": 49.954,

@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-02T05:02:15Z",
-  "record_count": 5,
+  "updated_utc": "2026-06-03T05:20:17Z",
+  "record_count": 6,
   "latest_day": {
-    "date_utc": "2026-06-02",
+    "date_utc": "2026-06-03",
     "sample_count": 1,
-    "avg_hz": 50.041,
-    "min_hz": 50.041,
-    "max_hz": 50.041,
+    "avg_hz": 49.954,
+    "min_hz": 49.954,
+    "max_hz": 49.954,
     "samples_below_49_9": 0,
     "samples_above_50_1": 0,
-    "largest_deviation_hz": 0.041,
+    "largest_deviation_hz": 0.046,
     "data_health": "thin_sample",
-    "last_updated_utc": "2026-06-02T05:02:15Z"
+    "last_updated_utc": "2026-06-03T05:20:17Z"
   },
   "source": "GlobalGrid2050 aggregation of Elexon frequency samples",
   "health": "ok",
@@ -54,19 +54,19 @@
     },
     {
       "date_utc": "2026-06-01",
-      "sample_count": 6,
-      "avg_hz": 49.978,
-      "min_hz": 49.978,
-      "max_hz": 49.978,
-      "samples_below_49_9": 0,
-      "samples_above_50_1": 0,
-      "largest_deviation_hz": 0.022,
+      "sample_count": "6",
+      "avg_hz": "49.978",
+      "min_hz": "49.978",
+      "max_hz": "49.978",
+      "samples_below_49_9": "0",
+      "samples_above_50_1": "0",
+      "largest_deviation_hz": "0.022",
       "data_health": "thin_sample",
       "last_updated_utc": "2026-06-02T05:02:15Z"
     },
     {
       "date_utc": "2026-06-02",
-      "sample_count": 1,
+      "sample_count": 6,
       "avg_hz": 50.041,
       "min_hz": 50.041,
       "max_hz": 50.041,
@@ -74,7 +74,19 @@
       "samples_above_50_1": 0,
       "largest_deviation_hz": 0.041,
       "data_health": "thin_sample",
-      "last_updated_utc": "2026-06-02T05:02:15Z"
+      "last_updated_utc": "2026-06-03T05:20:17Z"
+    },
+    {
+      "date_utc": "2026-06-03",
+      "sample_count": 1,
+      "avg_hz": 49.954,
+      "min_hz": 49.954,
+      "max_hz": 49.954,
+      "samples_below_49_9": 0,
+      "samples_above_50_1": 0,
+      "largest_deviation_hz": 0.046,
+      "data_health": "thin_sample",
+      "last_updated_utc": "2026-06-03T05:20:17Z"
     }
   ]
 }

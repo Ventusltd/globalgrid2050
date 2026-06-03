@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-02T05:02:16Z",
+  "updated_utc": "2026-06-03T05:20:17Z",
   "latest": {
-    "checked_utc": "2026-06-02T05:02:16Z",
+    "checked_utc": "2026-06-03T05:20:17Z",
     "status": "check_source_lag",
-    "stored_time_utc": "2026-06-02T01:43:26Z",
-    "stored_hz": 50.041,
-    "source_time_utc": "2026-06-02T05:02:16Z",
-    "source_hz": 50.041,
+    "stored_time_utc": "2026-06-03T02:05:45Z",
+    "stored_hz": 49.954,
+    "source_time_utc": "2026-06-03T05:20:17Z",
+    "source_hz": 49.954,
     "delta_hz": 0.0,
     "timestamp_match": false,
-    "source_lag_seconds": 11930,
+    "source_lag_seconds": 11672,
     "errors": ""
   },
-  "history_count": 5,
+  "history_count": 6,
   "health": "check_source_lag"
 }

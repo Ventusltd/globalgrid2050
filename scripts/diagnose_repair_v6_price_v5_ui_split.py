@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import runpy
 
 ROOT = Path(__file__).resolve().parents[1]
 V5 = ROOT / "uk_energy_tracking_v5"
@@ -77,7 +78,6 @@ js, count = re.subn(
 if count != 1:
     raise RuntimeError("Could not replace the V6 annotation helper block exactly once")
 
-# Remove bottom summary calls from render path only. Keep definition for rollback audit.
 patterns = [
     "drawHighAverageLowTrackers(g,s,q,w,h,pad,X,Y,isFull,isLandscape);drawSummary(g,s,q,w,h,pad,isFull,isLandscape);",
     "drawSummary(g,s,q,w,h,pad,isFull,isLandscape);drawHighAverageLowTrackers(g,s,q,w,h,pad,X,Y,isFull,isLandscape);",
@@ -92,7 +92,6 @@ for token in ["function eventBox", "function drawPointer", "function eventText",
     if token not in js:
         raise RuntimeError(f"Split V5 UI assertion failed: {token}")
 
-# Clean index so only the V6 working renderer is used.
 index = re.sub(r'\n<script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart_box_overlay\.js\?v=[^"]+"></script>', "", index)
 index = re.sub(r'/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart_v6_clean_boxes\.js\?v=[^"]+',
                '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260603v5split1', index)
@@ -106,18 +105,15 @@ if "render_price_chart.js?v=20260603v5split1" not in index:
 RENDER.write_text(js, encoding="utf-8")
 INDEX.write_text(index, encoding="utf-8")
 
-# Confirm V5 untouched.
 if (V5 / "price-history-ui.js").read_text(encoding="utf-8", errors="replace") != v5_ui_before:
     raise RuntimeError("V5 in-page file changed unexpectedly")
 if (V5 / "price-history-fullscreen.js").read_text(encoding="utf-8", errors="replace") != v5_full_before:
     raise RuntimeError("V5 fullscreen file changed unexpectedly")
 
-# Optional comparison V2 regeneration, if script exists.
 compare_status = "not run"
 compare_script = ROOT / "scripts" / "compare_uk_energy_v5_v6_v2.py"
 if compare_script.exists():
-    ns = {"__name__": "__main__"}
-    exec(compile(compare_script.read_text(encoding="utf-8"), str(compare_script), "exec"), ns)
+    runpy.run_path(str(compare_script), run_name="__main__")
     compare_status = "regenerated V5_V6_COMPARISON_REPORT_V2.md"
 
 REPORT.write_text(f"""# V6 Price Chart V5 UI Split Diagnostic Repair

@@ -155,3 +155,32 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
 @media(max-width:850px) and (orientation:portrait){
   #electricity-price-history-panel #price-history-canvas{height:74dvh!important;min-height:580px!important;}
 }
+
+/* V6 repair: in-page electricity chart real estate.
+   Purpose: make the normal mobile chart vivid without touching data logic.
+   Portrait gets a taller canvas. Landscape gets enough height so the x-axis
+   and y-axis are not crushed into the top of the chart. */
+@media(max-width:850px) and (orientation:portrait){
+  #electricity-price-history-panel #price-history-canvas{
+    height:128dvh!important;
+    min-height:960px!important;
+    max-height:none!important;
+  }
+}
+@media(max-width:950px) and (orientation:landscape){
+  #electricity-price-history-panel .trend-panel{
+    padding:6px!important;
+  }
+  #electricity-price-history-panel #price-history-canvas{
+    height:108dvh!important;
+    min-height:520px!important;
+    max-height:none!important;
+  }
+  #electricity-price-history-panel .gg-machine-note{
+    display:none!important;
+  }
+  #electricity-price-history-panel .price-history-actions{
+    gap:6px!important;
+    margin-bottom:6px!important;
+  }
+}

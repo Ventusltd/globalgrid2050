@@ -61,13 +61,24 @@ jobs:
           GG_FREQUENCY_LOOKBACK_MINUTES: '180'
         run: python scripts/update_uk_frequency_v6.py
 
+      - name: Verify V6 frequency outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f uk_energy_tracking_v6/grid_frequency_history.csv
+          test -f uk_energy_tracking_v6/live_grid_frequency.json
+          test -f uk_energy_tracking_v6/grid_frequency_weekly_health.csv
+          test -f uk_energy_tracking_v6/live_grid_frequency_weekly_health.json
+          test -f gridbot_reports/uk_frequency_v6_report.md
+          ls -lh uk_energy_tracking_v6/grid_frequency_history.csv uk_energy_tracking_v6/live_grid_frequency.json uk_energy_tracking_v6/grid_frequency_weekly_health.csv uk_energy_tracking_v6/live_grid_frequency_weekly_health.json gridbot_reports/uk_frequency_v6_report.md
+
       - name: Commit V6 frequency feed and report
         shell: bash
         run: |
           set -euo pipefail
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add uk_energy_tracking_v6/grid_frequency_history.csv uk_energy_tracking_v6/live_grid_frequency.json uk_energy_tracking_v6/grid_frequency_weekly_health.csv uk_energy_tracking_v6/live_grid_frequency_weekly_health.json gridbot_reports/uk_frequency_v6_report.md
+          git add -A uk_energy_tracking_v6 gridbot_reports
           if git diff --cached --quiet; then
             echo "No staged V6 frequency changes to commit"
             exit 0

@@ -1,0 +1,18 @@
+{
+  "updated_utc": "2026-06-03T16:41:20Z",
+  "window_hours": 24,
+  "record_count": 1,
+  "latest": {
+    "source_time_utc": "2026-06-03T16:41:20Z",
+    "frequency_hz": 49.954,
+    "captured_utc": "2026-06-03T16:41:20Z",
+    "source": "Elexon",
+    "status": "ok"
+  },
+  "min_hz": 49.954,
+  "max_hz": 49.954,
+  "avg_hz": 49.954,
+  "source": "Elexon",
+  "health": "ok",
+  "errors": []
+}

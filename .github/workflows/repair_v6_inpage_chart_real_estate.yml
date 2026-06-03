@@ -1,0 +1,31 @@
+name: Repair V6 Chart Space
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run repair
+        run: python scripts/repair_v6_inpage_chart_real_estate.py
+
+      - name: Commit changes
+        run: |
+          git config user.name GridBot
+          git config user.email gridbot@users.noreply.github.com
+          git add uk_energy_tracking_v6/styles/app.css
+          git add uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js
+          git add uk_energy_tracking_v6/index.md
+          git add uk_energy_tracking_v6/V6_REPAIR_INPAGE_CHART_REAL_ESTATE.md
+          git diff --cached --quiet || git commit -m "Repair V6 chart space"
+          git pull --rebase
+          git push

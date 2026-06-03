@@ -589,6 +589,7 @@
 │   ├── create_v8_bess_electrical_topology_review.py
 │   ├── create_v8_bess_pcs_standalone.py
 │   ├── dependencies_v4.py
+│   ├── diagnose_repair_v6_price_v5_ui_split.py
 │   ├── document_uk_energy_trackers.py
 │   ├── download_elexon_system_prices.py
 │   ├── download_elexon_system_prices_range.py
@@ -1149,6 +1150,7 @@
 │   ├── V6_REPAIR_HIGH_LOW_TRACKERS_REPORT.md
 │   ├── V6_REPAIR_MOBILE_CHART_READABILITY_REPORT.md
 │   ├── V6_REPAIR_MOBILE_CHART_STABILISE_REPORT.md
+│   ├── V6_REPAIR_PRICE_ANNOTATIONS_V5_STYLE_REPORT.md
 │   ├── V6_REPAIR_RESTORE_V5_PANELS_REPORT.md
 │   ├── V6_TRANSPORT_ENERGY_SOURCES_REPORT.md
 │   ├── app_bootstrap
@@ -1209,4 +1211,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-148 directories, 1062 files
+148 directories, 1064 files

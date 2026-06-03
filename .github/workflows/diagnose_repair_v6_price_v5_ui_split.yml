@@ -1,0 +1,29 @@
+name: Diagnose Repair V6 Price V5 UI Split
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose_repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run diagnostic repair
+        run: python scripts/diagnose_repair_v6_price_v5_ui_split.py
+
+      - name: Commit diagnostic repair output
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js
+          git add uk_energy_tracking_v6/index.md
+          git add uk_energy_tracking_v6/V6_PRICE_V5_UI_SPLIT_DIAGNOSTIC_REPAIR.md
+          git add uk_energy_tracking_v6/V5_V6_COMPARISON_REPORT_V2.md
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Diagnose and repair V6 price chart V5 UI split"
+          git push

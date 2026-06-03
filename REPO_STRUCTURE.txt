@@ -667,6 +667,7 @@
 │   ├── repair_v6_fullscreen_summary_box.py
 │   ├── repair_v6_fullscreen_swipe.py
 │   ├── repair_v6_high_low_trackers.py
+│   ├── repair_v6_inpage_chart_real_estate.py
 │   ├── repair_v6_mobile_chart_readability.py
 │   ├── repair_v6_mobile_chart_stabilise.py
 │   ├── repair_v6_price_annotation_layout.py
@@ -1217,4 +1218,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-148 directories, 1070 files
+148 directories, 1071 files

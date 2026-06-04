@@ -129,6 +129,8 @@ It should be assessed by:
 
 GlobalGrid2050 is being built to make those questions visible before money is committed.
 
+[Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026](https://globalgrid2050.com/data/grid_studies_public/great_britain_electricity_price_grid_constraint_trends_2016_2026.html)
+
 ---
 
 ## VENTUS Ltd position

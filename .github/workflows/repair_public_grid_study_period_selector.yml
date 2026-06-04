@@ -1,0 +1,56 @@
+name: Repair Public Grid Study Period Selector
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Apply repair and commit changes
+        required: true
+        default: 'yes'
+        type: choice
+        options:
+          - 'yes'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-public-grid-study-period-selector
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run repair script
+        run: python scripts/repair_public_grid_study_period_selector.py
+
+      - name: Commit controlled repair
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add \
+            data/grid_studies_public/great_britain_electricity_price_grid_constraint_trends_2016_2026.html \
+            data/grid_studies_public/gb_electricity_year_selector.js \
+            data/grid_studies_public/PUBLIC_GRID_STUDY_PERIOD_SELECTOR_REPAIR_REPORT.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Repair public grid study period selector"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No repair changes to commit"
+          fi

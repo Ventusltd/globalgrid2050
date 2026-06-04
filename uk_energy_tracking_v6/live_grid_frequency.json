@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-04T01:49:04Z",
+  "updated_utc": "2026-06-04T06:24:32Z",
   "window_hours": 24,
-  "record_count": 5,
+  "record_count": 6,
   "latest": {
-    "source_time_utc": "2026-06-04T01:49:04Z",
+    "source_time_utc": "2026-06-04T06:24:32Z",
     "frequency_hz": 49.98,
-    "captured_utc": "2026-06-04T01:49:04Z",
+    "captured_utc": "2026-06-04T06:24:32Z",
     "source": "Elexon",
     "status": "ok"
   },
   "min_hz": 49.954,
   "max_hz": 49.98,
-  "avg_hz": 49.9592,
+  "avg_hz": 49.9627,
   "source": "Elexon",
   "health": "ok",
   "errors": []

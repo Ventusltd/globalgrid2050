@@ -669,6 +669,7 @@
 │   ├── repair_v6_chart_boxes_no_summary.py
 │   ├── repair_v6_chart_context_labels.py
 │   ├── repair_v6_chart_inspect_arrows.py
+│   ├── repair_v6_connect_inspect_overlay.py
 │   ├── repair_v6_event_boxes_visible.py
 │   ├── repair_v6_fullscreen_summary_box.py
 │   ├── repair_v6_fullscreen_swipe.py
@@ -1236,4 +1237,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-149 directories, 1088 files
+149 directories, 1089 files

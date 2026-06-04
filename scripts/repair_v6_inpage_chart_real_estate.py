@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-V6 electricity price chart normal-page layout repair.
+V6 electricity price chart layout repair.
 
-Scope is deliberately narrow:
-1. Fix only the non-fullscreen electricity price canvas height and pad.
-2. Keep fullscreen chart drawing logic untouched.
-3. Style and position the fullscreen period selector without changing data logic.
-4. Do not touch V5, data fetchers, price calculations, period controls or frequency code.
+Narrow scope:
+1. Normal in page portrait chart height only.
+2. Fullscreen toolbar and Period selector CSS only.
+3. No data, fetcher, render calculation, V5 or frequency changes.
 """
 
 from pathlib import Path
@@ -15,7 +14,6 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 V6 = ROOT / "uk_energy_tracking_v6"
 CSS = V6 / "styles" / "app.css"
-RENDER = V6 / "price_history_chart" / "render_price_chart" / "render_price_chart.js"
 INDEX = V6 / "index.md"
 REPORT = V6 / "V6_REPAIR_INPAGE_CHART_REAL_ESTATE.md"
 
@@ -25,7 +23,6 @@ required = [
     V6 / "V5_V6_COMPARISON_REPORT.md",
     V6 / "V5_V6_COMPARISON_REPORT_V2.md",
     CSS,
-    RENDER,
     INDEX,
 ]
 for path in required:
@@ -33,32 +30,22 @@ for path in required:
         raise FileNotFoundError(f"Required file missing: {path.relative_to(ROOT)}")
     path.read_text(encoding="utf-8", errors="replace")
 
-comparison = (V6 / "V5_V6_COMPARISON_REPORT_V2.md").read_text(encoding="utf-8", errors="replace")
-for token in ["price-history-canvas", "Only working V6 renderer loaded", "Overlay workaround removed", "Page load order"]:
-    if token not in comparison:
-        raise RuntimeError(f"Comparison report does not contain expected guardrail: {token}")
-
 css = CSS.read_text(encoding="utf-8", errors="replace")
-render = RENDER.read_text(encoding="utf-8", errors="replace")
 index = INDEX.read_text(encoding="utf-8", errors="replace")
 
-# Remove previous experimental chart-space blocks before adding the corrected version.
-for marker in [
-    "in-page electricity chart real estate",
-    "normal-page electricity chart real estate",
-    "fullscreen period selector SCADA styling",
-]:
-    css = re.sub(
-        rf"\n/\* V6 repair: {re.escape(marker)}\..*?\n\}}\n?",
-        "\n",
-        css,
-        flags=re.S,
-    )
+# Remove only this final hard override if rerun. Older historic repair blocks are left alone,
+# because this block is appended last and uses stronger selectors with !important.
+css = re.sub(
+    r"\n/\* V6 hard override: fullscreen toolbar grid and safe selector\..*?\n/\* End V6 hard override \*/\n?",
+    "\n",
+    css,
+    flags=re.S,
+)
 
-css_patch = """
+hard_override = """
 
-/* V6 repair: normal-page electricity chart real estate.
-   Scope: non-fullscreen canvas only. Fullscreen canvas drawing is untouched. */
+/* V6 hard override: fullscreen toolbar grid and safe selector.
+   This block must sit last so it defeats the older flex toolbar rules above. */
 @media(max-width:850px) and (orientation:portrait){
   #electricity-price-history-panel #price-history-canvas{
     height:63dvh!important;
@@ -66,190 +53,156 @@ css_patch = """
     max-height:none!important;
   }
 }
-@media(max-width:950px) and (orientation:landscape){
-  #electricity-price-history-panel .trend-panel{
-    padding:6px!important;
-  }
-  #electricity-price-history-panel #price-history-canvas{
-    height:88dvh!important;
-    min-height:420px!important;
-    max-height:none!important;
-  }
-  #electricity-price-history-panel .gg-machine-note{
-    display:none!important;
-  }
-}
 
-/* V6 repair: fullscreen period selector SCADA styling.
-   Scope: toolbar controls only. Fullscreen canvas size and drawing are untouched. */
 .price-history-fullscreen-toolbar{
-  height:76px!important;
-  align-items:flex-start!important;
-  flex-wrap:wrap!important;
-  align-content:flex-start!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 40px!important;
+  grid-template-rows:22px 46px!important;
+  align-items:start!important;
   gap:4px 8px!important;
-  padding-top:8px!important;
+  height:76px!important;
+  padding:7px max(8px,env(safe-area-inset-right)) 5px max(8px,env(safe-area-inset-left))!important;
+  background:rgba(0,0,0,.82)!important;
+  border-bottom:1px solid rgba(0,255,255,.12)!important;
+  backdrop-filter:blur(4px)!important;
+  color:#00ffff!important;
+  font-family:"Courier New",monospace!important;
+  box-sizing:border-box!important;
 }
 .price-history-fullscreen-toolbar strong{
-  flex:1 1 calc(100% - 46px)!important;
-  max-width:calc(100% - 46px)!important;
-  line-height:18px!important;
+  grid-column:1!important;
+  grid-row:1!important;
+  color:#00ffff!important;
+  font:800 12px/18px "Courier New",monospace!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  max-width:100%!important;
+  margin:0!important;
+}
+.price-history-fullscreen-toolbar button#price-history-fullscreen-close{
+  grid-column:2!important;
+  grid-row:1 / span 2!important;
+  justify-self:end!important;
+  align-self:start!important;
+  margin:0!important;
+  width:34px!important;
+  height:34px!important;
+  border:1px solid rgba(0,255,255,.35)!important;
+  border-radius:50%!important;
+  background:#05070c!important;
+  color:#00ffff!important;
+  box-shadow:0 0 12px rgba(0,255,255,.18)!important;
+  font:24px/1 "Courier New",monospace!important;
 }
 .price-history-fullscreen-period-label{
-  order:3!important;
-  flex:0 0 auto!important;
-  margin-left:0!important;
-  margin-top:1ch!important;
+  grid-column:1!important;
+  grid-row:2!important;
+  justify-self:start!important;
+  align-self:start!important;
   display:flex!important;
   align-items:center!important;
-  gap:8px!important;
+  gap:9px!important;
+  margin:1ch 0 0 0!important;
   color:#00ffff!important;
-  font:11px "Courier New",monospace!important;
-  letter-spacing:.10em!important;
+  font:800 11px/1 "Courier New",monospace!important;
+  letter-spacing:.12em!important;
   text-transform:uppercase!important;
 }
 .price-history-fullscreen-period-label select{
-  min-width:142px!important;
-  max-width:55vw!important;
+  color-scheme:dark!important;
   appearance:none!important;
   -webkit-appearance:none!important;
-  background:linear-gradient(180deg,rgba(0,255,255,.13),rgba(0,255,255,.035))!important;
+  min-width:150px!important;
+  max-width:58vw!important;
+  padding:8px 34px 8px 12px!important;
+  border:1px solid rgba(0,255,255,.45)!important;
+  border-radius:7px!important;
+  background:#05070c!important;
   color:#00ffff!important;
-  border:1px solid rgba(0,255,255,.42)!important;
-  border-radius:8px!important;
-  padding:7px 34px 7px 10px!important;
-  font:14px "Courier New",monospace!important;
-  box-shadow:0 0 14px rgba(0,255,255,.14),inset 0 0 16px rgba(0,255,255,.04)!important;
-  text-shadow:0 0 8px rgba(0,255,255,.35)!important;
+  font:800 14px/1.1 "Courier New",monospace!important;
+  box-shadow:0 0 12px rgba(0,255,255,.16),inset 0 0 18px rgba(0,255,255,.045)!important;
+  text-shadow:0 0 7px rgba(0,255,255,.35)!important;
+}
+.price-history-fullscreen-period-label select option{
+  background:#05070c!important;
+  color:#00ffff!important;
+  font-family:"Courier New",monospace!important;
 }
 .price-history-fullscreen-period-label::after{
-  content:"▾";
-  margin-left:-30px;
-  color:#00ffff;
-  pointer-events:none;
-  text-shadow:0 0 8px rgba(0,255,255,.65);
+  content:"▾"!important;
+  margin-left:-31px!important;
+  color:#00ffff!important;
+  pointer-events:none!important;
+  text-shadow:0 0 8px rgba(0,255,255,.65)!important;
 }
-.price-history-fullscreen-toolbar button{
-  order:2!important;
-  margin-left:auto!important;
-  margin-top:-2px!important;
+#price-history-fullscreen-meta{
+  display:none!important;
 }
 #price-history-fullscreen-canvas{
   height:calc(100dvh - 76px)!important;
 }
-@media(max-width:850px) and (orientation:portrait){
-  .price-history-fullscreen-period-label{
-    font-size:10px!important;
-  }
-  .price-history-fullscreen-period-label select{
-    min-width:132px!important;
-    max-width:54vw!important;
-    font-size:13px!important;
-  }
-}
 @media(orientation:landscape){
   .price-history-fullscreen-toolbar{
     height:64px!important;
+    grid-template-rows:18px 38px!important;
+  }
+  .price-history-fullscreen-toolbar strong{
+    font-size:11px!important;
+    line-height:16px!important;
+  }
+  .price-history-fullscreen-period-label{
+    margin-top:.6ch!important;
+  }
+  .price-history-fullscreen-period-label select{
+    min-width:138px!important;
+    font-size:12px!important;
+    padding:6px 32px 6px 10px!important;
   }
   #price-history-fullscreen-canvas{
     height:calc(100dvh - 64px)!important;
   }
 }
+/* End V6 hard override */
 """
-if "V6 repair: normal-page electricity chart real estate" not in css:
-    css = css.rstrip() + css_patch
 
-old_pad_patterns = [
-    "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var nonFullLandscape=!isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:78*q,bottom:48*q}:{left:58*q,right:18*q,top:132*q,bottom:86*q}):(nonFullLandscape?{left:58*q,right:18*q,top:58*q,bottom:72*q}:{left:74*q,right:24*q,top:92*q,bottom:76*q});g.clearRect",
-    "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var nonFullLandscape=!isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:74*q,bottom:44*q}:{left:58*q,right:18*q,top:104*q,bottom:285*q}):(nonFullLandscape?{left:58*q,right:22*q,top:56*q,bottom:48*q}:{left:66*q,right:24*q,top:88*q,bottom:44*q});g.clearRect",
-    "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:74*q,bottom:44*q}:{left:58*q,right:18*q,top:104*q,bottom:285*q}):{left:74*q,right:24*q,top:96*q,bottom:284*q};g.clearRect",
-]
-new_pad = "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var nonFullLandscape=!isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:74*q,bottom:44*q}:{left:58*q,right:18*q,top:104*q,bottom:285*q}):(nonFullLandscape?{left:58*q,right:22*q,top:56*q,bottom:48*q}:{left:66*q,right:24*q,top:88*q,bottom:44*q});g.clearRect"
+css = css.rstrip() + hard_override
 
-replaced = 0
-for old in old_pad_patterns:
-    if old in render:
-        render = render.replace(old, new_pad, 1)
-        replaced += 1
-        break
-if replaced != 1:
-    raise RuntimeError("Could not replace renderTo pad definition safely")
-
-for token in [
-    "nonFullLandscape=!isFull&&cssW>cssH",
-    "{left:50*q,right:22*q,top:74*q,bottom:44*q}",
-    "{left:58*q,right:18*q,top:104*q,bottom:285*q}",
-    "{left:58*q,right:22*q,top:56*q,bottom:48*q}",
-    "{left:66*q,right:24*q,top:88*q,bottom:44*q}",
-]:
-    if token not in render:
-        raise RuntimeError(f"Renderer assertion failed: {token}")
-
-# Cache-bust CSS and renderer only. Do not change script order.
 index = re.sub(
     r'/uk_energy_tracking_v6/styles/app\.css\?v=[^"]+',
-    '/uk_energy_tracking_v6/styles/app.css?v=20260604chartfit2',
+    '/uk_energy_tracking_v6/styles/app.css?v=20260604toolbargrid1',
     index,
 )
-index = re.sub(
-    r'/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart\.js\?v=[^"]+',
-    '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260604chartfit2',
-    index,
-)
-
-if "render_price_chart_box_overlay.js" in index:
-    raise RuntimeError("Old overlay renderer still referenced in index.md")
-if "render_price_chart_v6_clean_boxes.js" in index:
-    raise RuntimeError("Broken replacement renderer still referenced in index.md")
-if "20260604chartfit2" not in index:
-    raise RuntimeError("Cache-bust token missing from index.md")
+if "20260604toolbargrid1" not in index:
+    raise RuntimeError("Cache bust token missing from index.md")
 
 CSS.write_text(css, encoding="utf-8")
-RENDER.write_text(render, encoding="utf-8")
 INDEX.write_text(index, encoding="utf-8")
 
-REPORT.write_text("""# V6 Repair: Normal-page Electricity Chart Layout
+REPORT.write_text("""# V6 Repair: Fullscreen Toolbar Grid and Safe Period Selector
 
 Status: prepared by deterministic repair script.
 
-## Stage 1 changes
+## Why the earlier fix did not work
 
-1. Normal in-page portrait chart reduced by another 30 percent:
-   - from `90dvh / 670px`
-   - to `63dvh / 470px`
-2. Fullscreen period selector moved to the top left under the title line with one line of spacing.
-3. Fullscreen period selector is styled in SCADA dark/cyan colours.
-4. Fullscreen chart drawing logic is not changed.
-5. V5 is not changed.
-6. Data, fetchers, price calculation, frequency and controls are not changed.
+The live stylesheet still had the original fullscreen toolbar as a flex row. The close button still used margin left auto. That forced the title, Period selector and close button into one row.
 
-## Exact code location
+The previous selector styling did not survive into the final live stylesheet in the required position, so the browser kept applying the old toolbar contract.
 
-The non-fullscreen chart is managed in:
+## Fix applied by this script
 
-`uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js`
-
-Inside:
-
-`function renderTo(canvasId,result)`
-
-The key variable is:
-
-`var pad = ...`
-
-The fullscreen branch is:
-
-`isFull ? (...) : (...)`
-
-The normal-page branch is the second branch after the colon.
-
-## Required test
-
-1. Open `/uk_energy_tracking_v6/` on mobile portrait normal page.
-2. Confirm the in-page chart is shorter than the previous version.
-3. Open fullscreen mode.
-4. Confirm the period selector sits top left below the title line.
-5. Confirm the period selector uses dark/cyan SCADA styling rather than default white styling.
+1. Adds a hard CSS override at the end of `app.css`.
+2. Changes fullscreen toolbar from flex to a 2 row grid.
+3. Row 1 left is the title.
+4. Row 1 right is the close button.
+5. Row 2 left is the Period selector.
+6. The Period selector uses black background and cyan text, not cyan text on white.
+7. The normal in page portrait chart remains `63dvh` with `470px` minimum height.
+8. No chart renderer logic is changed.
+9. No data logic is changed.
+10. No V5 file is changed.
 """, encoding="utf-8")
 
-print("V6 stage 1 chart height and fullscreen selector repair prepared.")
+print("V6 fullscreen toolbar grid and safe selector repair prepared.")

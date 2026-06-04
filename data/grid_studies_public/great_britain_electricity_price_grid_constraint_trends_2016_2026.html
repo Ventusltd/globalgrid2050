@@ -222,7 +222,32 @@
             header, .panel { border-radius:12px; }
             h1 { font-size:clamp(30px,10vw,44px); }
             .panel { padding:18px; }
-            ol { padding-left:20px; }
+            ol {
+                list-style:none;
+                counter-reset:gg2050-list;
+                padding-left:0;
+                margin-left:0;
+            }
+            ol > li {
+                counter-increment:gg2050-list;
+                position:relative;
+                padding-left:2.25em;
+                margin-left:0;
+                margin-bottom:1.15em;
+                overflow-wrap:anywhere;
+                word-break:normal;
+            }
+            ol > li::before {
+                content:counter(gg2050-list) ".";
+                position:absolute;
+                left:0;
+                top:0;
+                width:1.8em;
+                color:var(--muted);
+                font-size:var(--reader-font-size);
+                line-height:var(--reader-line-height);
+                text-align:left;
+            }
             .reader-controls {
                 bottom:max(10px, env(safe-area-inset-bottom));
                 display:grid;
@@ -249,6 +274,9 @@
             body.reading-mode .panel {
                 padding-left:18px;
                 padding-right:18px;
+            }
+            body.reading-mode ol > li {
+                padding-left:2.35em;
             }
         }
     </style>

@@ -666,6 +666,7 @@
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
 │   ├── remove_project_x_from_v6_v7_gis_sld.py
+│   ├── repair_public_grid_study_period_selector.py
 │   ├── repair_v6_adaptive_weekly_time_ticks.py
 │   ├── repair_v6_chart_boxes_no_summary.py
 │   ├── repair_v6_chart_context_labels.py
@@ -1248,4 +1249,4 @@
     ├── index.md
     └── uk_energy_tracker_purpose.md
 
-150 directories, 1099 files
+150 directories, 1100 files

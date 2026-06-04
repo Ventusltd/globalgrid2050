@@ -88,27 +88,27 @@ The tracker can be used in investor meetings to move the discussion from general
 
 A suggested sequence is:
 
-1. Show the 10 year GB electricity price view.
+## 1. Show the 10 year GB electricity price view.
 
 Explain that stable price assumptions are no longer enough for investment decisions.
 
-2. Show negative price days.
+## 2. Show negative price days.
 
 Explain that solar alone is increasingly exposed to cannibalisation when generation exceeds system demand or local export capacity.
 
-3. Show intraday spreads.
+## 3. Show intraday spreads.
 
 Explain that spread is the BESS revenue signal.
 
-4. Show a 1 week live period.
+## 4. Show a 1 week live period.
 
 Explain the real behaviour: charge during low or negative periods and discharge into high value periods.
 
-5. Connect the price view to GIS and grid location.
+## 5. Connect the price view to GIS and grid location.
 
 Explain that not all BESS locations are equal. Location near constraints, substations, demand centres, weak points or future load growth can create strategic value.
 
-6. Connect the location to engineering.
+## 6. Connect the location to engineering.
 
 Explain that the commercial case still depends on cable routing, transformer capacity, protection, losses, grid compliance, energisation risk and operational reliability.
 

@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-03T05:20:17Z",
-  "record_count": 6,
+  "updated_utc": "2026-06-04T05:11:51Z",
+  "record_count": 7,
   "latest_day": {
-    "date_utc": "2026-06-03",
+    "date_utc": "2026-06-04",
     "sample_count": 1,
-    "avg_hz": 49.954,
-    "min_hz": 49.954,
-    "max_hz": 49.954,
+    "avg_hz": 49.98,
+    "min_hz": 49.98,
+    "max_hz": 49.98,
     "samples_below_49_9": 0,
     "samples_above_50_1": 0,
-    "largest_deviation_hz": 0.046,
+    "largest_deviation_hz": 0.02,
     "data_health": "thin_sample",
-    "last_updated_utc": "2026-06-03T05:20:17Z"
+    "last_updated_utc": "2026-06-04T05:11:51Z"
   },
   "source": "GlobalGrid2050 aggregation of Elexon frequency samples",
   "health": "ok",
@@ -66,27 +66,39 @@
     },
     {
       "date_utc": "2026-06-02",
-      "sample_count": 6,
-      "avg_hz": 50.041,
-      "min_hz": 50.041,
-      "max_hz": 50.041,
-      "samples_below_49_9": 0,
-      "samples_above_50_1": 0,
-      "largest_deviation_hz": 0.041,
+      "sample_count": "6",
+      "avg_hz": "50.041",
+      "min_hz": "50.041",
+      "max_hz": "50.041",
+      "samples_below_49_9": "0",
+      "samples_above_50_1": "0",
+      "largest_deviation_hz": "0.041",
       "data_health": "thin_sample",
       "last_updated_utc": "2026-06-03T05:20:17Z"
     },
     {
       "date_utc": "2026-06-03",
-      "sample_count": 1,
-      "avg_hz": 49.954,
+      "sample_count": 7,
+      "avg_hz": 49.9804,
       "min_hz": 49.954,
-      "max_hz": 49.954,
+      "max_hz": 50.139,
+      "samples_below_49_9": 0,
+      "samples_above_50_1": 1,
+      "largest_deviation_hz": 0.139,
+      "data_health": "thin_sample",
+      "last_updated_utc": "2026-06-04T05:11:51Z"
+    },
+    {
+      "date_utc": "2026-06-04",
+      "sample_count": 1,
+      "avg_hz": 49.98,
+      "min_hz": 49.98,
+      "max_hz": 49.98,
       "samples_below_49_9": 0,
       "samples_above_50_1": 0,
-      "largest_deviation_hz": 0.046,
+      "largest_deviation_hz": 0.02,
       "data_health": "thin_sample",
-      "last_updated_utc": "2026-06-03T05:20:17Z"
+      "last_updated_utc": "2026-06-04T05:11:51Z"
     }
   ]
 }

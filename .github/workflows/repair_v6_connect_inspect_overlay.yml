@@ -1,0 +1,27 @@
+name: Repair V6 Connect Inspect Overlay
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run connector repair script
+        run: python scripts/repair_v6_connect_inspect_overlay.py
+      - name: Commit controlled repair
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Repair V6 connect inspect overlay
+          file_pattern: uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js uk_energy_tracking_v6/V6_REPAIR_CONNECT_INSPECT_OVERLAY_REPORT.md

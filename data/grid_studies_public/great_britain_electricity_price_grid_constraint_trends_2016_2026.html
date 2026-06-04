@@ -56,6 +56,7 @@
         .chart-controls { display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 14px 0; }
         .chart-controls button { border:1px solid var(--accent); border-radius:10px; padding:10px 12px; color:var(--accent); background:#051014; font-family:"Courier New", Courier, monospace; font-weight:bold; cursor:pointer; }
         .chart-controls button.active { background:#06282c; color:#fff; box-shadow:0 0 14px rgba(0,255,255,.25); }
+        .chart-context-note { margin:8px 0 14px 0; color:var(--muted); font-size:calc(var(--reader-font-size) * .88); line-height:1.55; }
         .chart-wrap { width:100%; height:min(74vh,720px); min-height:440px; position:relative; overflow:hidden; border:1px solid rgba(0,255,255,.25); border-radius:12px; background:#05070c; }
         #price-history-canvas { width:100%; height:100%; display:block; }
         .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:10px; margin-top:12px; }
@@ -146,15 +147,16 @@
             <div class="chart-panel-inner">
                 <div class="chart-controls" id="preset-grid">
                     <button type="button" data-start="2016-01-01" data-period="10y">10 year daily view</button>
-                    <button type="button" data-start="2019-11-01" data-period="6m">2019 to 2020</button>
-                    <button type="button" data-start="2020-11-01" data-period="6m">2020 to 2021</button>
-                    <button type="button" data-start="2021-05-01" data-period="6m">2021 shock</button>
-                    <button type="button" data-start="2022-06-01" data-period="6m">2022 crisis</button>
-                    <button type="button" data-start="2022-12-01" data-period="6m">2023 negative prices</button>
+                    <button type="button" data-start="2019-11-01" data-period="6m">COVID demand shock</button>
+                    <button type="button" data-start="2020-11-01" data-period="6m">Post COVID gas squeeze</button>
+                    <button type="button" data-start="2021-05-01" data-period="6m">2021 price spike</button>
+                    <button type="button" data-start="2022-06-01" data-period="6m">Ukraine energy crisis</button>
+                    <button type="button" data-start="2022-12-01" data-period="6m">Negative price regime</button>
                     <button type="button" data-dynamic="latest" data-period="24h">Latest 24 hours</button>
                     <button type="button" data-dynamic="latest" data-period="48h">Latest 48 hours</button>
                     <button type="button" data-dynamic="latest" data-period="7d" class="active">Latest 1 week</button>
                 </div>
+                <p class="chart-context-note">Longer windows show the market arc: COVID demand shock, post COVID gas tightening, the 2021 scarcity spike, the Ukraine energy crisis and the later negative price regime. Short windows show half hourly behaviour: 24 hours equals 48 settlement periods, 48 hours equals 96 and 1 week equals 336. Future gas and LNG stress, including Middle East shipping and Iran related risk, can be watched through the same price lens.</p>
                 <div class="chart-wrap"><canvas id="price-history-canvas" width="1200" height="720"></canvas></div>
                 <div class="stat-grid">
                     <div class="stat-card"><div class="stat-label">Visible average</div><div class="stat-value" id="ph-latest-price">—</div></div>

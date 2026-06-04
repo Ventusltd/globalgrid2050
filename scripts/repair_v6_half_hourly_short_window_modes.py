@@ -41,10 +41,10 @@ def replace_once(text, old, new, label):
     return text.replace(old, new, 1)
 
 
-def replace_all_expected(text, old, new, expected, label):
+def replace_at_least_one(text, old, new, label):
     count = text.count(old)
-    if count != expected:
-        raise SystemExit(f"Expected {expected} matches in {label}, found {count}: {old[:120]}")
+    if count < 1:
+        raise SystemExit(f"Expected at least 1 match in {label}, found {count}: {old[:120]}")
     return text.replace(old, new)
 
 
@@ -73,8 +73,8 @@ def patch_index():
     text = read(path)
     old = "<option value=\"1d\">1 day</option>\n          <option value=\"7d\" selected>1 week</option>"
     new = "<option value=\"24h\">24 hours</option>\n          <option value=\"48h\">48 hours</option>\n          <option value=\"7d\" selected>1 week</option>"
-    if new not in text:
-        text = replace_all_expected(text, old, new, 2, "V6 index period controls")
+    if '<option value="24h">24 hours</option>' not in text or '<option value="48h">48 hours</option>' not in text:
+        text = replace_at_least_one(text, old, new, "V6 index period controls")
 
     for marker in [
         '<option value="30d">1 month</option>',

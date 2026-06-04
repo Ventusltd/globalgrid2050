@@ -88,29 +88,29 @@ The tracker can be used in investor meetings to move the discussion from general
 
 A suggested sequence is:
 
-## 1. Show the 10 year GB electricity price view.
+1. Show the 10 year GB electricity price view.
 
-Explain that stable price assumptions are no longer enough for investment decisions.
+   Explain that stable price assumptions are no longer enough for investment decisions.
 
-## 2. Show negative price days.
+2. Show negative price days.
 
-Explain that solar alone is increasingly exposed to cannibalisation when generation exceeds system demand or local export capacity.
+   Explain that solar alone is increasingly exposed to cannibalisation when generation exceeds system demand or local export capacity.
 
-## 3. Show intraday spreads.
+3. Show intraday spreads.
 
-Explain that spread is the BESS revenue signal.
+   Explain that spread is the BESS revenue signal.
 
-## 4. Show a 1 week live period.
+4. Show a 1 week live period.
 
-Explain the real behaviour: charge during low or negative periods and discharge into high value periods.
+   Explain the real behaviour: charge during low or negative periods and discharge into high value periods.
 
-## 5. Connect the price view to GIS and grid location.
+5. Connect the price view to GIS and grid location.
 
-Explain that not all BESS locations are equal. Location near constraints, substations, demand centres, weak points or future load growth can create strategic value.
+   Explain that not all BESS locations are equal. Location near constraints, substations, demand centres, weak points or future load growth can create strategic value.
 
-## 6. Connect the location to engineering.
+6. Connect the location to engineering.
 
-Explain that the commercial case still depends on cable routing, transformer capacity, protection, losses, grid compliance, energisation risk and operational reliability.
+   Explain that the commercial case still depends on cable routing, transformer capacity, protection, losses, grid compliance, energisation risk and operational reliability.
 
 ---
 
@@ -129,14 +129,16 @@ It should be assessed by:
 
 GlobalGrid2050 is being built to make those questions visible before money is committed.
 
-[Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026](https://globalgrid2050.com/data/grid_studies_public/great_britain_electricity_price_grid_constraint_trends_2016_2026.html)
+---
 
-[GB Electricity, Price, Carbon, Oil and Transport Energy Monitor](https://globalgrid2050.com/uk_energy_tracking_v6/)
+## Related GlobalGrid2050 tools
 
-[UK Energy and Grid Atlas V8](https://globalgrid2050.com/repd_grid_atlasv8/)
+These tools support the investor education logic above:
 
-[Solar Photovoltaic (PV) Development, Engineering, Procurement and Construction (EPC) and Grid Analysis](https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html)
-
+* [Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026](https://globalgrid2050.com/data/grid_studies_public/great_britain_electricity_price_grid_constraint_trends_2016_2026.html)
+* [GB Electricity, Price, Carbon, Oil and Transport Energy Monitor](https://globalgrid2050.com/uk_energy_tracking_v6/)
+* [UK Energy and Grid Atlas V8](https://globalgrid2050.com/repd_grid_atlasv8/)
+* [Solar Photovoltaic (PV) Development, Engineering, Procurement and Construction (EPC) and Grid Analysis](https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html)
 
 ---
 

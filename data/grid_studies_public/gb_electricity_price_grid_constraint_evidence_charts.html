@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GB Electricity Price and Grid Constraint Evidence Charts | GlobalGrid2050</title>
-  <link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604gbcharts1" />
+  <title>GB Electricity Price Evidence | GlobalGrid2050</title>
+  <link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604v6evidence1" />
   <style>
     :root{--bg:#050505;--panel:#0b0e14;--line:#2f343d;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffd166;--danger:#ff4040;}
     *{box-sizing:border-box;}
@@ -12,126 +12,122 @@
     body{padding:clamp(14px,3vw,34px);}
     a{color:var(--accent);}
     header,main,footer{width:100%;max-width:1400px;margin-left:auto;margin-right:auto;}
-    header{border:1px solid var(--line);background:rgba(10,10,10,.96);border-radius:14px;padding:clamp(18px,3vw,30px);margin-bottom:22px;}
+    header,.panel{border:1px solid var(--line);background:rgba(10,10,10,.96);border-radius:14px;padding:clamp(18px,3vw,30px);margin-bottom:22px;}
     .back-link{display:inline-block;color:var(--accent);text-decoration:none;margin-bottom:14px;font-weight:bold;}
     .kicker{color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-size:12px;line-height:1.8;}
     h1{margin:10px 0 12px 0;font-size:clamp(30px,6vw,56px);line-height:1.08;letter-spacing:-.04em;}
     p,li{color:var(--muted);font-size:clamp(16px,2vw,19px);line-height:1.65;}
-    .panel{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:clamp(18px,3vw,28px);margin-bottom:22px;}
+    strong{color:var(--text);}
     .section-title{color:var(--accent);font-size:clamp(22px,4vw,34px);margin:0 0 14px 0;border-bottom:1px solid var(--line);padding-bottom:10px;}
-    .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:18px;}
-    .chart-card{border:1px solid var(--line);background:#070a0f;border-radius:14px;padding:16px;box-shadow:0 0 24px rgba(0,255,255,.04);}
-    .chart-card h2{color:var(--accent);font-size:clamp(17px,3vw,24px);margin:0 0 8px 0;letter-spacing:.04em;}
-    .chart-card p{font-size:14px;margin:0 0 10px 0;}
-    .chart-wrap{position:relative;width:100%;height:360px;border:1px solid rgba(0,255,255,.18);border-radius:12px;background:#040609;overflow:hidden;}
-    .chart-wrap canvas{width:100%;height:100%;display:block;}
-    .metric-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px;margin-top:14px;}
-    .metric{border:1px solid var(--line);border-radius:12px;background:#080b10;padding:14px;}
-    .metric strong{display:block;color:var(--ok);font-size:clamp(22px,4vw,34px);line-height:1.1;margin-bottom:8px;}
-    .metric span{display:block;color:var(--muted);font-size:14px;line-height:1.5;}
-    .source-note{border:1px solid var(--line);background:#080b10;border-radius:12px;padding:14px;margin-top:14px;}
-    .source-note p{font-size:14px;margin:0;}
-    .button-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;}
-    .button-row a{border:1px solid var(--accent);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--accent);background:#051014;}
+    .source-note,.warning-note{border:1px solid var(--line);background:#080b10;border-radius:12px;padding:14px;margin-top:14px;}
+    .warning-note{border-color:rgba(255,209,102,.65);background:#151105;}
+    .source-note p,.warning-note p{font-size:14px;margin:0;}
+    .button-row,.preset-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;}
+    .button-row a,.preset-grid button{border:1px solid var(--accent);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--accent);background:#051014;font-family:"Courier New",Courier,monospace;font-weight:bold;cursor:pointer;}
+    .preset-grid button.active{background:#06282c;color:#fff;box-shadow:0 0 14px rgba(0,255,255,.25);}
+    .evidence-chart-shell{border:1px solid rgba(0,255,255,.25);border-radius:14px;background:#05070c;padding:clamp(10px,2vw,18px);margin-top:18px;}
+    .evidence-chart-wrap{width:100%;height:min(76vh,720px);min-height:440px;position:relative;overflow:hidden;border-radius:12px;background:#05070c;}
+    #price-history-canvas{width:100%;height:100%;display:block;}
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px;margin-top:14px;}
+    .stat-card{border:1px solid var(--line);border-radius:12px;background:#080b10;padding:14px;}
+    .stat-label{color:var(--muted);font-size:13px;line-height:1.4;}
+    .stat-value{color:var(--ok);font-size:clamp(18px,3vw,28px);line-height:1.25;margin-top:6px;word-break:break-word;}
+    .split-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px;}
+    .mini-card{border:1px solid var(--line);background:#080b10;border-radius:12px;padding:14px;}
+    .mini-card h3{margin:0 0 8px;color:var(--accent);font-size:17px;}
+    .mini-card p{font-size:14px;margin:0;}
     footer{margin-top:22px;color:var(--muted);font-size:12px;line-height:1.5;}
-    @media(max-width:700px){body{padding:12px;}header,.panel,.chart-card{border-radius:12px;}.chart-wrap{height:320px;}.chart-grid{grid-template-columns:1fr;}}
+    @media(max-width:700px){body{padding:12px;}header,.panel{border-radius:12px;}.evidence-chart-wrap{height:70vh;min-height:420px;}.preset-grid button{width:100%;text-align:left;}.stat-value{font-size:18px;}}
   </style>
 </head>
 <body>
   <header>
     <a class="back-link" href="./">← Grid studies public</a>
-    <div class="kicker">GlobalGrid2050 | Evidence charts</div>
-    <h1>GB Electricity Price and Grid Constraint Evidence Charts</h1>
-    <p>Visual evidence layer for the Great Britain electricity price and grid constraint study. It uses the same Elexon derived 2016 to 2026 price series and overlays official system evidence for constraints, B6 transfer capability and gas price setting.</p>
-    <div class="source-note"><p><strong>Written:</strong> 4 June 2026. <strong>Dataset basis:</strong> Elexon API derived GB electricity price history, 2016 to 2026 year to date. <strong>Source review date:</strong> 4 June 2026.</p></div>
+    <div class="kicker">GlobalGrid2050 | V6 Elexon evidence</div>
+    <h1>GB Electricity Price Evidence</h1>
+    <p>This page now uses the existing V6 Elexon chart engine and V6 data loading pipeline. It no longer draws a separate simplified chart system. Use the buttons below to load specific evidence windows from the same structure used by the live tracker.</p>
+    <div class="source-note"><p><strong>Written:</strong> 4 June 2026. <strong>Dataset basis:</strong> V6 Elexon System Price data loader, annual Elexon CSV path and daily decade aggregate JSON. <strong>Source review date:</strong> 4 June 2026.</p></div>
+    <div class="warning-note"><p><strong>Data discipline:</strong> V6 shows System Price / imbalance price records, not retail electricity tariffs and not pure day ahead baseload. Annual averages in the written study must be recalculated from the same CSV or daily aggregate before being treated as final.</p></div>
     <div class="button-row">
       <a href="./great_britain_electricity_price_grid_constraint_trends_2016_2026.html">Open written study</a>
-      <a href="/uk_energy_tracking_v6/">Open live V6 Elexon tracker</a>
+      <a href="/uk_energy_tracking_v6/">Open live V6 tracker</a>
     </div>
   </header>
 
   <main>
     <section class="panel">
-      <h2 class="section-title">Top Evidence</h2>
-      <div class="metric-strip">
-        <div class="metric"><strong>5.7x</strong><span>2020 to 2022 price jump in the Elexon derived annual average series.</span></div>
-        <div class="metric"><strong>37.5%</strong><span>2025 days with at least 1 negative half hourly settlement period in the Elexon derived dataset.</span></div>
-        <div class="metric"><strong>£1.7bn</strong><span>NESO 2024 to 2025 constraint payments.</span></div>
-        <div class="metric"><strong>6.7 GW</strong><span>Approximate B6 Scotland to England boundary capability.</span></div>
+      <h2 class="section-title">V6 Evidence Windows</h2>
+      <p>These buttons call the existing V6 loader and renderer. The 6 month windows show raw half hourly records. The 10 year view uses the published daily decade aggregate so the graph remains readable.</p>
+      <div class="preset-grid" id="preset-grid">
+        <button type="button" data-start="2016-01-01" data-period="10y">10 year daily view</button>
+        <button type="button" data-start="2019-11-01" data-period="6m">2019 to 2020 shock window</button>
+        <button type="button" data-start="2020-11-01" data-period="6m">2020 to 2021 spike window</button>
+        <button type="button" data-start="2021-05-01" data-period="6m">2021 crisis spike window</button>
+        <button type="button" data-start="2022-06-01" data-period="6m">2022 gas crisis window</button>
+        <button type="button" data-start="2022-12-01" data-period="6m">2023 negative price window</button>
+        <button type="button" data-dynamic="latest" data-period="7d" class="active">Latest 1 week</button>
+      </div>
+      <div class="evidence-chart-shell">
+        <div class="evidence-chart-wrap">
+          <canvas id="price-history-canvas" width="1200" height="720"></canvas>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-label">Visible average</div><div class="stat-value" id="ph-latest-price">—</div></div>
+          <div class="stat-card"><div class="stat-label">Visible date range</div><div class="stat-value" id="ph-latest-time">—</div></div>
+          <div class="stat-card"><div class="stat-label">Visible records</div><div class="stat-value" id="ph-row-count">—</div></div>
+          <div class="stat-card"><div class="stat-label">Source</div><div class="stat-value" id="ph-source">Elexon BMRS</div></div>
+        </div>
+        <p id="price-history-range-status" style="font-size:14px;margin-top:14px;">Awaiting V6 chart load.</p>
       </div>
     </section>
 
     <section class="panel">
-      <h2 class="section-title">Chart Pack</h2>
-      <div class="chart-grid">
-        <article class="chart-card"><h2>1. Annual price trend</h2><p>Shows the pre crisis baseline, the 2021 to 2022 gas shock and the higher 2024 to 2026 plateau.</p><div class="chart-wrap"><canvas id="chartPrice"></canvas></div></article>
-        <article class="chart-card"><h2>2. Negative price day share</h2><p>Measures days with at least 1 negative half hourly settlement period, not daily average negative prices.</p><div class="chart-wrap"><canvas id="chartNegative"></canvas></div></article>
-        <article class="chart-card"><h2>3. Intraday spread</h2><p>High minus low daily price spread by year. This is the battery arbitrage signal.</p><div class="chart-wrap"><canvas id="chartSpread"></canvas></div></article>
-        <article class="chart-card"><h2>4. Constraint cost pathway</h2><p>Historical constraint cost outturns and 2030 scenario pathway from official and analyst overlays.</p><div class="chart-wrap"><canvas id="chartConstraints"></canvas></div></article>
-        <article class="chart-card"><h2>5. B6 transfer gap</h2><p>Shows the structural gap between present B6 capability and required north to south transfer.</p><div class="chart-wrap"><canvas id="chartB6"></canvas></div></article>
-        <article class="chart-card"><h2>6. Gas price setting share</h2><p>Zakeri and Staffell comparison: Great Britain versus Germany and France.</p><div class="chart-wrap"><canvas id="chartGas"></canvas></div></article>
+      <h2 class="section-title">What Changed</h2>
+      <div class="split-grid">
+        <div class="mini-card"><h3>Removed</h3><p>The previous hard coded annual mini charts have been removed from the main evidence page because they could be confused with the raw V6 half hourly chart.</p></div>
+        <div class="mini-card"><h3>Retained</h3><p>The page still links to the written study and keeps the official constraint, B6 and gas price setting arguments in the narrative rather than mixing them with raw Elexon price graphics.</p></div>
+        <div class="mini-card"><h3>Next check</h3><p>The proper next step is a script that recalculates annual averages, negative half hour day share and annual spread directly from the V6 CSV source and writes a verified JSON output.</p></div>
       </div>
-    </section>
-
-    <section class="panel">
-      <h2 class="section-title">Live Elexon Microscope</h2>
-      <p>The live V6 tracker is the operational microscope. It already has the mobile full screen chart, period selector, high and low markers and date windowing. Use the live page for short period inspection and this page for the 2016 to 2026 evidence layer.</p>
-      <div class="button-row"><a href="/uk_energy_tracking_v6/">Open V6 live Elexon chart</a></div>
     </section>
 
     <section class="panel">
       <h2 class="section-title">Source Discipline</h2>
       <ol>
-        <li><strong>Elexon API derived:</strong> annual average price, negative half hourly day share and intraday spread.</li>
-        <li><strong>NESO:</strong> balancing and constraint costs, B6 boundary and forward network stress.</li>
-        <li><strong>UCL, Zakeri and Staffell:</strong> gas price setting comparison across Great Britain, Germany and France.</li>
-        <li><strong>Projection caveat:</strong> 2030 values are scenario evidence, not outturns.</li>
+        <li><strong>V6 chart engine:</strong> live graphics, high and low markers, seasonal colours, daily and half hourly modes.</li>
+        <li><strong>Annual Elexon CSV path:</strong> <code>/data/electricity/elexon_system_prices_YYYY.csv</code> through the V6 loader.</li>
+        <li><strong>Daily decade aggregate:</strong> <code>/uk_energy_tracking_v6/electricity_price_history_daily_decade.json</code> for 12 month, 5 year and 10 year views.</li>
+        <li><strong>Study overlays:</strong> NESO constraint costs, B6 transfer capability and Zakeri and Staffell gas price setting remain separate evidence categories.</li>
       </ol>
     </section>
   </main>
 
-  <footer>GlobalGrid2050 public evidence chart layer.</footer>
+  <footer>GlobalGrid2050 V6 Elexon evidence layer.</footer>
 
+  <script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260604v6evidence1"></script>
+  <script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260604v6evidence1"></script>
+  <script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260604chartfit2"></script>
   <script>
-    const priceSeries = [
-      {year:'2016', price:42.5, negative:11.8, spread:140.7},
-      {year:'2017', price:44.3, negative:5.2, spread:89.4},
-      {year:'2018', price:57.3, negative:11.5, spread:86.9},
-      {year:'2019', price:42.0, negative:8.2, spread:70.2},
-      {year:'2020', price:35.1, negative:14.5, spread:80.8},
-      {year:'2021', price:113.3, negative:11.0, spread:241.8},
-      {year:'2022', price:200.1, negative:15.9, spread:307.0},
-      {year:'2023', price:94.6, negative:29.9, spread:162.0},
-      {year:'2024', price:71.2, negative:34.7, spread:115.9},
-      {year:'2025', price:80.6, negative:37.5, spread:127.9},
-      {year:'2026 YTD', price:92.7, negative:23.5, spread:120.1}
-    ];
-    const constraints = [
-      {label:'Pre 2020', value:0.5}, {label:'2022/23', value:1.5}, {label:'2024/25', value:1.7},
-      {label:'2030 NESO', value:8.0}, {label:'2030 LCP', value:6.1}, {label:'2030 RNP', value:2.3}
-    ];
-    const b6 = [{label:'B6 now', value:6.7},{label:'2030 need', value:25.0},{label:'2035 need', value:38.5}];
-    const gas = [{label:'GB', value:98},{label:'Germany', value:24},{label:'France', value:7}];
-
-    function setupCanvas(id){
-      const c = document.getElementById(id); const r = c.parentElement.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1;
-      c.width = Math.max(320, Math.floor(r.width*dpr)); c.height = Math.max(280, Math.floor(r.height*dpr));
-      const ctx = c.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); return {ctx,w:r.width,h:r.height};
+    function ymd(d){return d.toISOString().slice(0,10)}
+    function latestStart(period){
+      var days=window.V6LoadPriceHistoryData.periodDays(period||'7d');
+      var max=window.V6LoadPriceHistoryData.maxDate();
+      return new Date(max.getTime()-days*86400000);
     }
-    function clear(ctx,w,h){ctx.clearRect(0,0,w,h);ctx.fillStyle='#040609';ctx.fillRect(0,0,w,h);}
-    function axes(ctx,w,h,max,label){const p={l:54,r:22,t:28,b:52};ctx.strokeStyle='rgba(166,173,187,.35)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.l,p.t);ctx.lineTo(p.l,h-p.b);ctx.lineTo(w-p.r,h-p.b);ctx.stroke();ctx.fillStyle='#a6adbb';ctx.font='13px Courier New';ctx.fillText(label,p.l,p.t-10);for(let i=0;i<=4;i++){const y=h-p.b-(h-p.b-p.t)*i/4;const v=max*i/4;ctx.strokeStyle='rgba(166,173,187,.12)';ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke();ctx.fillStyle='#a6adbb';ctx.fillText(Math.round(v).toString(),8,y+4);}return p;}
-    function drawLine(id,data,key,max,label,prefix,suffix){const {ctx,w,h}=setupCanvas(id);clear(ctx,w,h);const p=axes(ctx,w,h,max,label);const n=data.length;const sx=i=>p.l+(w-p.l-p.r)*(i/(n-1));const sy=v=>h-p.b-(h-p.b-p.t)*(v/max);ctx.strokeStyle='#00ffff';ctx.shadowColor='#00ffff';ctx.shadowBlur=10;ctx.lineWidth=3;ctx.beginPath();data.forEach((d,i)=>{const x=sx(i), y=sy(d[key]);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();ctx.shadowBlur=0;data.forEach((d,i)=>{const x=sx(i), y=sy(d[key]);ctx.fillStyle=i===6?'#ff4040':'#00ffff';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a6adbb';ctx.font='12px Courier New';ctx.save();ctx.translate(x,h-p.b+18);ctx.rotate(-Math.PI/5);ctx.fillText(d.year,-18,0);ctx.restore();});const peak=data.reduce((a,b)=>b[key]>a[key]?b:a,data[0]);ctx.fillStyle='#ff4040';ctx.font='bold 15px Courier New';ctx.fillText('HIGH '+prefix+peak[key]+suffix+' in '+peak.year,p.l+20,p.t+22);}
-    function drawBars(id,data,key,max,label,prefix,suffix){const {ctx,w,h}=setupCanvas(id);clear(ctx,w,h);const p=axes(ctx,w,h,max,label);const bw=(w-p.l-p.r)/data.length*0.62;data.forEach((d,i)=>{const cx=p.l+(w-p.l-p.r)*(i+.5)/data.length;const y=h-p.b-(h-p.b-p.t)*(d[key]/max);const bh=h-p.b-y;ctx.fillStyle=i>=3?'#ffd166':'#00ffff';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=10;ctx.fillRect(cx-bw/2,y,bw,bh);ctx.shadowBlur=0;ctx.fillStyle='#a6adbb';ctx.font='12px Courier New';ctx.save();ctx.translate(cx,h-p.b+18);ctx.rotate(-Math.PI/5);ctx.fillText(d.label || d.year,-22,0);ctx.restore();});const peak=data.reduce((a,b)=>b[key]>a[key]?b:a,data[0]);ctx.fillStyle='#ff4040';ctx.font='bold 15px Courier New';ctx.fillText('HIGH '+prefix+peak[key]+suffix,p.l+18,p.t+22);}
-    function render(){
-      drawLine('chartPrice',priceSeries,'price',220,'£/MWh','£','/MWh');
-      drawBars('chartNegative',priceSeries,'negative',40,'% of days','','%');
-      drawLine('chartSpread',priceSeries,'spread',330,'£/MWh spread','£','/MWh');
-      drawBars('chartConstraints',constraints,'value',8.5,'£ billion','£','bn');
-      drawBars('chartB6',b6,'value',40,'GW','',' GW');
-      drawBars('chartGas',gas,'value',100,'% of hours','','%');
+    function setActive(btn){document.querySelectorAll('#preset-grid button').forEach(function(b){b.classList.toggle('active',b===btn)})}
+    function loadPreset(btn){
+      var period=btn.getAttribute('data-period')||'7d';
+      var start=btn.getAttribute('data-dynamic')==='latest'?latestStart(period):new Date(btn.getAttribute('data-start')+'T00:00:00Z');
+      setActive(btn);
+      window.V6LoadPriceHistoryData.loadWindow(start,period,'all').then(function(result){
+        window.V6RenderPriceChart.render(result);
+      }).catch(function(err){
+        var status=document.getElementById('price-history-range-status');
+        if(status)status.textContent='V6 chart load failed: '+err;
+      });
     }
-    window.addEventListener('resize', render);
-    render();
+    document.querySelectorAll('#preset-grid button').forEach(function(btn){btn.addEventListener('click',function(){loadPreset(btn)})});
+    window.addEventListener('resize',function(){var active=document.querySelector('#preset-grid button.active')||document.querySelector('#preset-grid button');if(active)loadPreset(active)});
+    loadPreset(document.querySelector('#preset-grid button.active')||document.querySelector('#preset-grid button'));
   </script>
 </body>
 </html>

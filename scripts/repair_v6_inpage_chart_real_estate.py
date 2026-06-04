@@ -43,24 +43,17 @@ render = RENDER.read_text(encoding="utf-8", errors="replace")
 index = INDEX.read_text(encoding="utf-8", errors="replace")
 
 # Remove previous experimental chart-space blocks before adding the corrected version.
-css = re.sub(
-    r"\n/\* V6 repair: in-page electricity chart real estate\..*?\n\}\n?",
-    "\n",
-    css,
-    flags=re.S,
-)
-css = re.sub(
-    r"\n/\* V6 repair: normal-page electricity chart real estate\..*?\n\}\n?",
-    "\n",
-    css,
-    flags=re.S,
-)
-css = re.sub(
-    r"\n/\* V6 repair: fullscreen period selector SCADA styling\..*?\n\}\n?",
-    "\n",
-    css,
-    flags=re.S,
-)
+for marker in [
+    "in-page electricity chart real estate",
+    "normal-page electricity chart real estate",
+    "fullscreen period selector SCADA styling",
+]:
+    css = re.sub(
+        rf"\n/\* V6 repair: {re.escape(marker)}\..*?\n\}}\n?",
+        "\n",
+        css,
+        flags=re.S,
+    )
 
 css_patch = """
 
@@ -68,8 +61,8 @@ css_patch = """
    Scope: non-fullscreen canvas only. Fullscreen canvas drawing is untouched. */
 @media(max-width:850px) and (orientation:portrait){
   #electricity-price-history-panel #price-history-canvas{
-    height:90dvh!important;
-    min-height:670px!important;
+    height:63dvh!important;
+    min-height:470px!important;
     max-height:none!important;
   }
 }
@@ -89,19 +82,35 @@ css_patch = """
 
 /* V6 repair: fullscreen period selector SCADA styling.
    Scope: toolbar controls only. Fullscreen canvas size and drawing are untouched. */
+.price-history-fullscreen-toolbar{
+  height:76px!important;
+  align-items:flex-start!important;
+  flex-wrap:wrap!important;
+  align-content:flex-start!important;
+  gap:4px 8px!important;
+  padding-top:8px!important;
+}
+.price-history-fullscreen-toolbar strong{
+  flex:1 1 calc(100% - 46px)!important;
+  max-width:calc(100% - 46px)!important;
+  line-height:18px!important;
+}
 .price-history-fullscreen-period-label{
-  margin-left:auto!important;
+  order:3!important;
+  flex:0 0 auto!important;
+  margin-left:0!important;
+  margin-top:1ch!important;
   display:flex!important;
   align-items:center!important;
   gap:8px!important;
   color:#00ffff!important;
-  font:12px "Courier New",monospace!important;
+  font:11px "Courier New",monospace!important;
   letter-spacing:.10em!important;
   text-transform:uppercase!important;
 }
 .price-history-fullscreen-period-label select{
   min-width:142px!important;
-  max-width:42vw!important;
+  max-width:55vw!important;
   appearance:none!important;
   -webkit-appearance:none!important;
   background:linear-gradient(180deg,rgba(0,255,255,.13),rgba(0,255,255,.035))!important;
@@ -121,29 +130,35 @@ css_patch = """
   text-shadow:0 0 8px rgba(0,255,255,.65);
 }
 .price-history-fullscreen-toolbar button{
-  margin-left:8px!important;
+  order:2!important;
+  margin-left:auto!important;
+  margin-top:-2px!important;
+}
+#price-history-fullscreen-canvas{
+  height:calc(100dvh - 76px)!important;
 }
 @media(max-width:850px) and (orientation:portrait){
-  .price-history-fullscreen-toolbar strong{
-    max-width:38vw!important;
-  }
   .price-history-fullscreen-period-label{
-    gap:6px!important;
     font-size:10px!important;
   }
   .price-history-fullscreen-period-label select{
     min-width:132px!important;
-    max-width:40vw!important;
+    max-width:54vw!important;
     font-size:13px!important;
+  }
+}
+@media(orientation:landscape){
+  .price-history-fullscreen-toolbar{
+    height:64px!important;
+  }
+  #price-history-fullscreen-canvas{
+    height:calc(100dvh - 64px)!important;
   }
 }
 """
 if "V6 repair: normal-page electricity chart real estate" not in css:
     css = css.rstrip() + css_patch
 
-# Location of the non-fullscreen chart issue:
-# renderTo() manages normal and fullscreen drawing. The full-screen branch is `isFull ? ...`.
-# The normal-page branch is the `: (...)` branch after that ternary. Only that branch should change.
 old_pad_patterns = [
     "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var nonFullLandscape=!isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:78*q,bottom:48*q}:{left:58*q,right:18*q,top:132*q,bottom:86*q}):(nonFullLandscape?{left:58*q,right:18*q,top:58*q,bottom:72*q}:{left:74*q,right:24*q,top:92*q,bottom:76*q});g.clearRect",
     "var g=c.getContext('2d'),w=c.width,h=c.height,cssW=w/q,cssH=h/q,isLandscape=isFull&&cssW>cssH;var nonFullLandscape=!isFull&&cssW>cssH;var pad=isFull?(isLandscape?{left:50*q,right:22*q,top:74*q,bottom:44*q}:{left:58*q,right:18*q,top:104*q,bottom:285*q}):(nonFullLandscape?{left:58*q,right:22*q,top:56*q,bottom:48*q}:{left:66*q,right:24*q,top:88*q,bottom:44*q});g.clearRect",
@@ -173,12 +188,12 @@ for token in [
 # Cache-bust CSS and renderer only. Do not change script order.
 index = re.sub(
     r'/uk_energy_tracking_v6/styles/app\.css\?v=[^"]+',
-    '/uk_energy_tracking_v6/styles/app.css?v=20260604chartfit1',
+    '/uk_energy_tracking_v6/styles/app.css?v=20260604chartfit2',
     index,
 )
 index = re.sub(
     r'/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart\.js\?v=[^"]+',
-    '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260604chartfit1',
+    '/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260604chartfit2',
     index,
 )
 
@@ -186,7 +201,7 @@ if "render_price_chart_box_overlay.js" in index:
     raise RuntimeError("Old overlay renderer still referenced in index.md")
 if "render_price_chart_v6_clean_boxes.js" in index:
     raise RuntimeError("Broken replacement renderer still referenced in index.md")
-if "20260604chartfit1" not in index:
+if "20260604chartfit2" not in index:
     raise RuntimeError("Cache-bust token missing from index.md")
 
 CSS.write_text(css, encoding="utf-8")
@@ -196,6 +211,17 @@ INDEX.write_text(index, encoding="utf-8")
 REPORT.write_text("""# V6 Repair: Normal-page Electricity Chart Layout
 
 Status: prepared by deterministic repair script.
+
+## Stage 1 changes
+
+1. Normal in-page portrait chart reduced by another 30 percent:
+   - from `90dvh / 670px`
+   - to `63dvh / 470px`
+2. Fullscreen period selector moved to the top left under the title line with one line of spacing.
+3. Fullscreen period selector is styled in SCADA dark/cyan colours.
+4. Fullscreen chart drawing logic is not changed.
+5. V5 is not changed.
+6. Data, fetchers, price calculation, frequency and controls are not changed.
 
 ## Exact code location
 
@@ -215,41 +241,15 @@ The fullscreen branch is:
 
 `isFull ? (...) : (...)`
 
-The normal-page branch is the second branch after the colon. This repair changes only that normal-page branch and keeps fullscreen chart drawing values at the previous working values.
-
-## Problem observed
-
-The previous chart-space repair made the normal portrait canvas too tall. The fullscreen period selector also looked like a default spreadsheet select and sat too centrally in the toolbar.
-
-## Behaviour changed
-
-1. Fullscreen chart drawing is left alone:
-   - fullscreen landscape pad remains `left 50q, right 22q, top 74q, bottom 44q`
-   - fullscreen portrait pad remains `left 58q, right 18q, top 104q, bottom 285q`
-2. Normal-page portrait canvas is reduced by about 30 percent from the earlier 128dvh value:
-   - `height 90dvh`
-   - `min-height 670px`
-3. Normal-page landscape remains:
-   - `height 88dvh`
-   - `min-height 420px`
-4. Non-fullscreen landscape keeps its own renderer pad:
-   - `left 58q, right 22q, top 56q, bottom 48q`
-5. Non-fullscreen portrait keeps its own renderer pad:
-   - `left 66q, right 24q, top 88q, bottom 44q`
-6. Fullscreen period selector is moved to the right side of the toolbar beside the close button.
-7. Fullscreen period selector is styled in the SCADA colour scheme.
-8. No V5 file changed.
-9. No data logic changed.
-10. No price fetch changed.
-11. No frequency logic changed.
+The normal-page branch is the second branch after the colon.
 
 ## Required test
 
 1. Open `/uk_energy_tracking_v6/` on mobile portrait normal page.
-2. Confirm the in-page chart is about 30 percent shorter than the previous stretched version.
+2. Confirm the in-page chart is shorter than the previous version.
 3. Open fullscreen mode.
-4. Confirm the period selector sits on the right near the close button.
-5. Confirm the period selector uses the dark/cyan SCADA style rather than the default white iOS select style.
+4. Confirm the period selector sits top left below the title line.
+5. Confirm the period selector uses dark/cyan SCADA styling rather than default white styling.
 """, encoding="utf-8")
 
-print("V6 normal-page chart height and fullscreen period selector repair prepared.")
+print("V6 stage 1 chart height and fullscreen selector repair prepared.")

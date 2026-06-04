@@ -1,42 +1,22 @@
-# V6 Repair: Normal-page Electricity Chart Layout
+# V6 Repair: Fullscreen Toolbar Grid and Safe Period Selector
 
 Status: prepared by deterministic repair script.
 
-## Stage 1 changes
+## Why the earlier fix did not work
 
-1. Normal in-page portrait chart reduced by another 30 percent:
-   - from `90dvh / 670px`
-   - to `63dvh / 470px`
-2. Fullscreen period selector moved to the top left under the title line with one line of spacing.
-3. Fullscreen period selector is styled in SCADA dark/cyan colours.
-4. Fullscreen chart drawing logic is not changed.
-5. V5 is not changed.
-6. Data, fetchers, price calculation, frequency and controls are not changed.
+The live stylesheet still had the original fullscreen toolbar as a flex row. The close button still used margin left auto. That forced the title, Period selector and close button into one row.
 
-## Exact code location
+The previous selector styling did not survive into the final live stylesheet in the required position, so the browser kept applying the old toolbar contract.
 
-The non-fullscreen chart is managed in:
+## Fix applied by this script
 
-`uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js`
-
-Inside:
-
-`function renderTo(canvasId,result)`
-
-The key variable is:
-
-`var pad = ...`
-
-The fullscreen branch is:
-
-`isFull ? (...) : (...)`
-
-The normal-page branch is the second branch after the colon.
-
-## Required test
-
-1. Open `/uk_energy_tracking_v6/` on mobile portrait normal page.
-2. Confirm the in-page chart is shorter than the previous version.
-3. Open fullscreen mode.
-4. Confirm the period selector sits top left below the title line.
-5. Confirm the period selector uses dark/cyan SCADA styling rather than default white styling.
+1. Adds a hard CSS override at the end of `app.css`.
+2. Changes fullscreen toolbar from flex to a 2 row grid.
+3. Row 1 left is the title.
+4. Row 1 right is the close button.
+5. Row 2 left is the Period selector.
+6. The Period selector uses black background and cyan text, not cyan text on white.
+7. The normal in page portrait chart remains `63dvh` with `470px` minimum height.
+8. No chart renderer logic is changed.
+9. No data logic is changed.
+10. No V5 file is changed.

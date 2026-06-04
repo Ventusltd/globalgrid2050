@@ -4,7 +4,7 @@ title: UK Live Grid Tracker V6
 permalink: /uk_energy_tracking_v6/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604chartfit2">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604toolbargrid1">
 
 <div class="scada-grid v6-app" id="scada-grid">
   <header class="scada-hero">

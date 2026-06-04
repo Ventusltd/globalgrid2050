@@ -679,6 +679,7 @@
 │   ├── repair_v6_inspect_cache_buster.py
 │   ├── repair_v6_mobile_chart_readability.py
 │   ├── repair_v6_mobile_chart_stabilise.py
+│   ├── repair_v6_mobile_inspect_buttons.py
 │   ├── repair_v6_price_annotation_layout.py
 │   ├── repair_v6_price_annotations_v5_style.py
 │   ├── repair_v6_restore_v5_panels.py
@@ -1240,4 +1241,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-149 directories, 1092 files
+149 directories, 1093 files

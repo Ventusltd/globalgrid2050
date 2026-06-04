@@ -4,9 +4,6 @@
 
 Large BESS projects create a different class of grid study problem. The public safety issue is not only battery fire risk. It also includes high voltage transformer availability, OEM insolvency, warranty allocation, EPC scope split, insurance response, commissioning delay, grid support availability and the difficulty of proving root cause after a major equipment failure.
 
-## Public safe note
-
-This page should remain public safe. It records confirmed public reports only. It does not assign fault to any OEM, EPC, insurer, developer or investor unless an official investigation, regulator, court or named company statement confirms that finding.
 
 ## ESS News Report on Waratah Super Battery Transformer Failure
 
@@ -17,6 +14,4 @@ https://www.ess-news.com/2025/11/10/catastrophic-failure-at-waratah-super-batter
 ## The Australian Report on Waratah Transformer Fault and Delay
 
 The Australian reported that Akaysha said 2 large transformers were damaged during final testing, that the project completion was pushed into 2026 and that the battery was still operating at 350 MW. This is useful for studying transformer procurement, commissioning delay, replacement lead time and grid support availability.
-
-https://www.energy-storage.news/catastrophic-failure-of-transformer-at-waratah-super-battery-australias-giant-shock-absorber-for-the-grid/
 

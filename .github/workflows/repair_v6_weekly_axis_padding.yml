@@ -1,0 +1,55 @@
+name: Repair V6 Weekly Axis Padding
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Apply weekly axis padding repair and commit changes
+        required: true
+        default: 'yes'
+        type: choice
+        options:
+          - 'yes'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-v6-weekly-axis-padding
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run repair script
+        run: python scripts/repair_v6_weekly_axis_padding.py
+
+      - name: Commit controlled repair
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add \
+            uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js \
+            uk_energy_tracking_v6/V6_REPAIR_WEEKLY_AXIS_PADDING_REPORT.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Repair V6 weekly axis padding"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No repair changes to commit"
+          fi

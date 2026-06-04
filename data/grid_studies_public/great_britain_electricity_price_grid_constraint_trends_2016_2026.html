@@ -78,6 +78,13 @@
             font-size:var(--reader-font-size);
         }
         strong { color:var(--text); }
+        code {
+            color:var(--accent);
+            background:#080b10;
+            border:1px solid var(--line);
+            border-radius:6px;
+            padding:1px 5px;
+        }
         .panel {
             border:1px solid var(--line);
             background:var(--panel);
@@ -116,6 +123,52 @@
             margin-top:16px;
         }
         .meta-strip p { margin:0; font-size:calc(var(--reader-font-size) * .9); }
+        .evidence-shell {
+            border:1px solid rgba(0,255,255,.3);
+            background:#05070c;
+            border-radius:14px;
+            overflow:hidden;
+            margin-top:16px;
+            box-shadow:0 0 28px rgba(0,255,255,.07);
+        }
+        .evidence-toolbar {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            flex-wrap:wrap;
+            border-bottom:1px solid rgba(0,255,255,.24);
+            background:#070a0f;
+            padding:12px 14px;
+        }
+        .evidence-toolbar span {
+            color:var(--accent);
+            font-weight:bold;
+            letter-spacing:.08em;
+            text-transform:uppercase;
+            font-size:14px;
+        }
+        .evidence-toolbar a {
+            border:1px solid var(--accent);
+            border-radius:10px;
+            padding:8px 12px;
+            text-decoration:none;
+            color:var(--accent);
+            background:#051014;
+            font-size:14px;
+        }
+        .evidence-frame-wrap {
+            width:100%;
+            height:760px;
+            background:#05070c;
+        }
+        .evidence-frame {
+            width:100%;
+            height:100%;
+            border:0;
+            display:block;
+            background:#05070c;
+        }
         .reader-controls {
             position:fixed;
             left:50%;
@@ -208,9 +261,7 @@
             padding-left:clamp(18px,5vw,48px);
             padding-right:clamp(18px,5vw,48px);
         }
-        body.reading-mode .grid {
-            grid-template-columns:1fr;
-        }
+        body.reading-mode .grid { grid-template-columns:1fr; }
         footer {
             margin-top:22px;
             color:var(--muted);
@@ -248,6 +299,9 @@
                 line-height:var(--reader-line-height);
                 text-align:left;
             }
+            .evidence-frame-wrap { height:78vh; min-height:620px; }
+            .evidence-toolbar { align-items:flex-start; }
+            .evidence-toolbar a { width:100%; text-align:center; }
             .reader-controls {
                 bottom:max(10px, env(safe-area-inset-bottom));
                 display:grid;
@@ -255,9 +309,7 @@
                 gap:8px;
                 padding:10px;
             }
-            .reader-controls button {
-                width:100%;
-            }
+            .reader-controls button { width:100%; }
             #readerModeToggle { grid-column:1 / 3; }
             #controlsHide { grid-column:3 / 4; }
             .reader-controls label { font-size:13px; }
@@ -267,17 +319,13 @@
                 padding-right:0;
                 padding-bottom:112px;
             }
-            body.reading-mode.controls-collapsed {
-                padding-bottom:54px;
-            }
+            body.reading-mode.controls-collapsed { padding-bottom:54px; }
             body.reading-mode header,
             body.reading-mode .panel {
                 padding-left:18px;
                 padding-right:18px;
             }
-            body.reading-mode ol > li {
-                padding-left:2.35em;
-            }
+            body.reading-mode ol > li { padding-left:2.35em; }
         }
     </style>
 </head>
@@ -320,6 +368,21 @@
                 <div class="metric"><span class="value">6.7 GW</span><span class="label">Approximate B6 Scotland to England transfer capability, far below the scale of Scottish renewable output.</span></div>
                 <div class="metric"><span class="value">~£8bn</span><span class="label">NESO short term projection for balancing costs to peak around 2030 if critical network delivery is delayed.</span></div>
             </div>
+        </section>
+
+        <section class="panel" id="v6-elexon-evidence-window">
+            <h2>V6 Elexon Evidence Window</h2>
+            <p>This embedded evidence window uses the existing GlobalGrid2050 V6 Elexon chart engine and data loading path. It is included here to let the reader inspect the raw System Price behaviour behind the macro narrative without leaving the study.</p>
+            <div class="evidence-shell">
+                <div class="evidence-toolbar">
+                    <span>Interactive V6 evidence segment</span>
+                    <a href="./gb_electricity_price_grid_constraint_evidence_charts.html" target="_blank" rel="noopener noreferrer">Open full evidence window</a>
+                </div>
+                <div class="evidence-frame-wrap">
+                    <iframe class="evidence-frame" title="GB electricity price evidence charts" src="./gb_electricity_price_grid_constraint_evidence_charts.html"></iframe>
+                </div>
+            </div>
+            <p><strong>Reading note:</strong> this window shows Elexon System Price and imbalance price behaviour. It is not a retail tariff and not a pure day ahead baseload price. Extreme half hourly spikes and annual averages are different statistical views of the same market stress.</p>
         </section>
 
         <section class="panel">

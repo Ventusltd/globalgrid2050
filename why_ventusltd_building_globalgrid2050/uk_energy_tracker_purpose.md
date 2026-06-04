@@ -131,6 +131,13 @@ GlobalGrid2050 is being built to make those questions visible before money is co
 
 [Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026](https://globalgrid2050.com/data/grid_studies_public/great_britain_electricity_price_grid_constraint_trends_2016_2026.html)
 
+[GB Electricity, Price, Carbon, Oil and Transport Energy Monitor](https://globalgrid2050.com/uk_energy_tracking_v6/)
+
+[UK Energy and Grid Atlas V8](https://globalgrid2050.com/repd_grid_atlasv8/)
+
+[Solar Photovoltaic (PV) Development, Engineering, Procurement and Construction (EPC) and Grid Analysis](https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html)
+
+
 ---
 
 ## VENTUS Ltd position

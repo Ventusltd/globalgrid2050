@@ -8,7 +8,7 @@ window.V6StartApp=(function(){
       window.V6RenderCommodities.render(commodities,fuel,ev,oilHistory);
     })
   }
-  function start(){refreshLive();setInterval(refreshLive,5*60*1000);if(window.V6ControlPriceHistory)window.V6ControlPriceHistory.start()}
+  function start(){refreshLive();setInterval(refreshLive,5*60*1000);if(window.V6ControlPriceHistory)window.V6ControlPriceHistory.start();if(window.V6FullscreenPeriodMenu)window.V6FullscreenPeriodMenu.start()}
   document.addEventListener('DOMContentLoaded',start);
   return{start:start,refreshLive:refreshLive};
 })();

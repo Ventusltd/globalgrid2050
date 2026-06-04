@@ -174,15 +174,6 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
   }
 }
 
-/* V6 repair: normal-page electricity chart real estate.
-   Scope: non-fullscreen canvas only. Fullscreen canvas drawing is untouched. */
-@media(max-width:850px) and (orientation:portrait){
-  #electricity-price-history-panel #price-history-canvas{
-    height:90dvh!important;
-    min-height:670px!important;
-    max-height:none!important;
-  }
-}
 @media(max-width:950px) and (orientation:landscape){
   #electricity-price-history-panel .trend-panel{
     padding:6px!important;
@@ -197,18 +188,6 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
   }
 }
 
-/* V6 repair: fullscreen period selector SCADA styling.
-   Scope: toolbar controls only. Fullscreen canvas size and drawing are untouched. */
-.price-history-fullscreen-period-label{
-  margin-left:auto!important;
-  display:flex!important;
-  align-items:center!important;
-  gap:8px!important;
-  color:#00ffff!important;
-  font:12px "Courier New",monospace!important;
-  letter-spacing:.10em!important;
-  text-transform:uppercase!important;
-}
 .price-history-fullscreen-period-label select{
   min-width:142px!important;
   max-width:42vw!important;
@@ -245,5 +224,104 @@ html.v5-chart-open,body.v5-chart-open{overflow:hidden!important;height:100dvh!im
     min-width:132px!important;
     max-width:40vw!important;
     font-size:13px!important;
+  }
+}
+
+/* V6 repair: normal-page electricity chart real estate.
+   Scope: non-fullscreen canvas only. Fullscreen canvas drawing is untouched. */
+@media(max-width:850px) and (orientation:portrait){
+  #electricity-price-history-panel #price-history-canvas{
+    height:63dvh!important;
+    min-height:470px!important;
+    max-height:none!important;
+  }
+}
+@media(max-width:950px) and (orientation:landscape){
+  #electricity-price-history-panel .trend-panel{
+    padding:6px!important;
+  }
+  #electricity-price-history-panel #price-history-canvas{
+    height:88dvh!important;
+    min-height:420px!important;
+    max-height:none!important;
+  }
+  #electricity-price-history-panel .gg-machine-note{
+    display:none!important;
+  }
+}
+
+/* V6 repair: fullscreen period selector SCADA styling.
+   Scope: toolbar controls only. Fullscreen canvas size and drawing are untouched. */
+.price-history-fullscreen-toolbar{
+  height:76px!important;
+  align-items:flex-start!important;
+  flex-wrap:wrap!important;
+  align-content:flex-start!important;
+  gap:4px 8px!important;
+  padding-top:8px!important;
+}
+.price-history-fullscreen-toolbar strong{
+  flex:1 1 calc(100% - 46px)!important;
+  max-width:calc(100% - 46px)!important;
+  line-height:18px!important;
+}
+.price-history-fullscreen-period-label{
+  order:3!important;
+  flex:0 0 auto!important;
+  margin-left:0!important;
+  margin-top:1ch!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  color:#00ffff!important;
+  font:11px "Courier New",monospace!important;
+  letter-spacing:.10em!important;
+  text-transform:uppercase!important;
+}
+.price-history-fullscreen-period-label select{
+  min-width:142px!important;
+  max-width:55vw!important;
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  background:linear-gradient(180deg,rgba(0,255,255,.13),rgba(0,255,255,.035))!important;
+  color:#00ffff!important;
+  border:1px solid rgba(0,255,255,.42)!important;
+  border-radius:8px!important;
+  padding:7px 34px 7px 10px!important;
+  font:14px "Courier New",monospace!important;
+  box-shadow:0 0 14px rgba(0,255,255,.14),inset 0 0 16px rgba(0,255,255,.04)!important;
+  text-shadow:0 0 8px rgba(0,255,255,.35)!important;
+}
+.price-history-fullscreen-period-label::after{
+  content:"▾";
+  margin-left:-30px;
+  color:#00ffff;
+  pointer-events:none;
+  text-shadow:0 0 8px rgba(0,255,255,.65);
+}
+.price-history-fullscreen-toolbar button{
+  order:2!important;
+  margin-left:auto!important;
+  margin-top:-2px!important;
+}
+#price-history-fullscreen-canvas{
+  height:calc(100dvh - 76px)!important;
+}
+@media(max-width:850px) and (orientation:portrait){
+  .price-history-fullscreen-period-label{
+    font-size:10px!important;
+  }
+  .price-history-fullscreen-period-label select{
+    min-width:132px!important;
+    max-width:54vw!important;
+    font-size:13px!important;
+  }
+}
+@media(orientation:landscape){
+  .price-history-fullscreen-toolbar{
+    height:64px!important;
+  }
+  #price-history-fullscreen-canvas{
+    height:calc(100dvh - 64px)!important;
   }
 }

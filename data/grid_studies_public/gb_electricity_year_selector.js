@@ -1,0 +1,15 @@
+(function(){
+  var FIRST_YEAR=2016;
+  var YEAR_ROLLOVER_MONTH=0;
+  var YEAR_ROLLOVER_DAY=15;
+  function $(id){return document.getElementById(id)}
+  function activeDataYear(){var d=new Date();var y=d.getUTCFullYear();if(d.getUTCMonth()===YEAR_ROLLOVER_MONTH&&d.getUTCDate()<YEAR_ROLLOVER_DAY)return y-1;return y}
+  function ymd(d){return d.toISOString().slice(0,10)}
+  function label(year){return year===activeDataYear()?String(year)+' YTD':String(year)}
+  function maxDate(){return window.V6LoadPriceHistoryData&&window.V6LoadPriceHistoryData.maxDate?window.V6LoadPriceHistoryData.maxDate():new Date()}
+  function cutoff(year){return year===activeDataYear()?maxDate():new Date(Date.UTC(year,11,31,23,59,59))}
+  function addStyles(){if($('gg2050-year-selector-style'))return;var s=document.createElement('style');s.id='gg2050-year-selector-style';s.textContent='.gg2050-year-select-label{display:flex;align-items:center;gap:8px;border:1px solid rgba(0,255,255,.45);border-radius:10px;padding:8px 10px;color:#00ffff;background:#051014;font-family:Courier New,Courier,monospace;font-weight:bold}.gg2050-year-select-label select{background:#05070c;color:#fff;border:1px solid rgba(0,255,255,.35);border-radius:8px;padding:8px;font-family:Courier New,Courier,monospace;font-weight:bold}@media(max-width:700px){.gg2050-year-select-label{width:100%;justify-content:space-between}.gg2050-year-select-label select{width:55%}}';document.head.appendChild(s)}
+  function renderYear(year){var start=new Date(Date.UTC(year,0,1,0,0,0));var end=cutoff(year);window.V6LoadPriceHistoryData.loadWindow(start,'12m','all').then(function(result){result.end=end;result.rows=(result.rows||[]).filter(function(r){var t=new Date((r.date?r.date+'T12:00:00Z':(r.priceTimeUTC||r.time)));return t>=start&&t<=end});result.period='12m';window.V6RenderPriceChart.render(result);var status=$('price-history-range-status');if(status)status.textContent=ymd(start)+' to '+ymd(end)+' | '+label(year)+' annual selector | '+(result.rows||[]).length.toLocaleString('en-GB')+' daily points';}).catch(function(err){var status=$('price-history-range-status');if(status)status.textContent='Year chart load failed: '+err;});}
+  function init(){var grid=$('preset-grid');if(!grid||$('gg2050-electricity-year-select'))return;if(!window.V6LoadPriceHistoryData||!window.V6RenderPriceChart)return;addStyles();var lab=document.createElement('label');lab.className='gg2050-year-select-label';lab.appendChild(document.createTextNode('Year'));var sel=document.createElement('select');sel.id='gg2050-electricity-year-select';var active=activeDataYear();for(var y=active;y>=FIRST_YEAR;y--){var o=document.createElement('option');o.value=String(y);o.textContent=label(y);sel.appendChild(o)}lab.appendChild(sel);grid.insertBefore(lab,grid.firstChild);sel.addEventListener('change',function(){grid.querySelectorAll('button').forEach(function(b){b.classList.remove('active')});renderYear(Number(sel.value));});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026 | GlobalGrid2050</title>
+    <link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604inline1" />
     <style>
         :root {
             --bg:#050505;
@@ -30,301 +31,72 @@
             padding-bottom:110px;
         }
         a { color:var(--accent); }
-        header, main, footer {
-            width:100%;
-            max-width:var(--content-width);
-            margin-left:auto;
-            margin-right:auto;
-        }
-        header {
-            margin-bottom:24px;
-            border:1px solid var(--line);
-            background:rgba(10,10,10,.96);
-            padding:clamp(18px,3vw,30px);
-            border-radius:14px;
-        }
-        .back-link {
-            display:inline-block;
-            color:var(--accent);
-            text-decoration:none;
-            margin-bottom:14px;
-            font-weight:bold;
-        }
+        header, main, footer { width:100%; max-width:var(--content-width); margin-left:auto; margin-right:auto; }
+        header { margin-bottom:24px; border:1px solid var(--line); background:rgba(10,10,10,.96); padding:clamp(18px,3vw,30px); border-radius:14px; }
+        .back-link { display:inline-block; color:var(--accent); text-decoration:none; margin-bottom:14px; font-weight:bold; }
         .back-link:hover { text-decoration:underline; }
-        .kicker {
-            color:var(--accent);
-            text-transform:uppercase;
-            letter-spacing:.14em;
-            font-size:12px;
-            line-height:1.8;
-        }
-        h1 {
-            margin:10px 0 12px 0;
-            font-size:clamp(30px,6vw,56px);
-            line-height:1.08;
-            letter-spacing:-.04em;
-        }
-        h2 {
-            color:var(--accent);
-            font-size:clamp(22px,4vw,34px);
-            margin:0 0 14px 0;
-            border-bottom:1px solid var(--line);
-            padding-bottom:10px;
-        }
+        .kicker { color:var(--accent); text-transform:uppercase; letter-spacing:.14em; font-size:12px; line-height:1.8; }
+        h1 { margin:10px 0 12px 0; font-size:clamp(30px,6vw,56px); line-height:1.08; letter-spacing:-.04em; }
+        h2 { color:var(--accent); font-size:clamp(22px,4vw,34px); margin:0 0 14px 0; border-bottom:1px solid var(--line); padding-bottom:10px; }
         h3 { color:var(--accent); margin:0 0 8px 0; }
-        p, li {
-            color:var(--muted);
-            line-height:var(--reader-line-height);
-            font-size:var(--reader-font-size);
-        }
+        p, li { color:var(--muted); line-height:var(--reader-line-height); font-size:var(--reader-font-size); }
         strong { color:var(--text); }
-        code {
-            color:var(--accent);
-            background:#080b10;
-            border:1px solid var(--line);
-            border-radius:6px;
-            padding:1px 5px;
-        }
-        .panel {
-            border:1px solid var(--line);
-            background:var(--panel);
-            border-radius:14px;
-            padding:clamp(18px,3vw,28px);
-            margin-bottom:22px;
-        }
-        .grid {
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
-            gap:16px;
-            margin-top:14px;
-        }
-        .metric {
-            border:1px solid var(--line);
-            background:#080b10;
-            border-radius:12px;
-            padding:16px;
-        }
-        .metric .value {
-            display:block;
-            color:var(--ok);
-            font-size:clamp(24px,4vw,38px);
-            font-weight:bold;
-            margin-bottom:8px;
-        }
+        code { color:var(--accent); background:#080b10; border:1px solid var(--line); border-radius:6px; padding:1px 5px; }
+        .panel { border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:clamp(18px,3vw,28px); margin-bottom:22px; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:16px; margin-top:14px; }
+        .metric { border:1px solid var(--line); background:#080b10; border-radius:12px; padding:16px; }
+        .metric .value { display:block; color:var(--ok); font-size:clamp(24px,4vw,38px); font-weight:bold; margin-bottom:8px; }
         .metric .label { color:var(--muted); line-height:1.5; }
         ol { padding-left:24px; }
         .source-list li { margin-bottom:12px; }
         .note { color:var(--warn); }
-        .meta-strip {
-            border:1px solid var(--line);
-            background:#080b10;
-            border-radius:12px;
-            padding:14px 16px;
-            margin-top:16px;
-        }
+        .meta-strip { border:1px solid var(--line); background:#080b10; border-radius:12px; padding:14px 16px; margin-top:16px; }
         .meta-strip p { margin:0; font-size:calc(var(--reader-font-size) * .9); }
-        .evidence-shell {
-            border:1px solid rgba(0,255,255,.3);
-            background:#05070c;
-            border-radius:14px;
-            overflow:hidden;
-            margin-top:16px;
-            box-shadow:0 0 28px rgba(0,255,255,.07);
-        }
-        .evidence-toolbar {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:12px;
-            flex-wrap:wrap;
-            border-bottom:1px solid rgba(0,255,255,.24);
-            background:#070a0f;
-            padding:12px 14px;
-        }
-        .evidence-toolbar span {
-            color:var(--accent);
-            font-weight:bold;
-            letter-spacing:.08em;
-            text-transform:uppercase;
-            font-size:14px;
-        }
-        .evidence-toolbar a {
-            border:1px solid var(--accent);
-            border-radius:10px;
-            padding:8px 12px;
-            text-decoration:none;
-            color:var(--accent);
-            background:#051014;
-            font-size:14px;
-        }
-        .evidence-frame-wrap {
-            width:100%;
-            height:760px;
-            background:#05070c;
-        }
-        .evidence-frame {
-            width:100%;
-            height:100%;
-            border:0;
-            display:block;
-            background:#05070c;
-        }
-        .reader-controls {
-            position:fixed;
-            left:50%;
-            bottom:max(16px, env(safe-area-inset-bottom));
-            transform:translateX(-50%);
-            z-index:50;
-            width:min(920px,calc(100% - 28px));
-            display:flex;
-            align-items:center;
-            gap:12px;
-            border:1px solid var(--line);
-            background:rgba(5,5,5,.96);
-            border-radius:16px;
-            padding:12px 14px;
-            box-shadow:0 18px 40px rgba(0,0,0,.45);
-        }
-        .reader-controls label,
-        .reader-controls output {
-            color:var(--muted);
-            font-size:14px;
-            white-space:nowrap;
-        }
-        .reader-controls input[type="range"] {
-            width:100%;
-            accent-color:var(--accent);
-        }
-        .reader-controls button,
-        .reader-controls-mini {
-            border:1px solid var(--line);
-            background:var(--panel);
-            color:var(--text);
-            border-radius:10px;
-            padding:9px 11px;
-            font-family:inherit;
-            cursor:pointer;
-            white-space:nowrap;
-        }
-        .reader-controls button:hover,
-        .reader-controls button:focus,
-        .reader-controls-mini:hover,
-        .reader-controls-mini:focus {
-            border-color:var(--accent);
-            outline:none;
-        }
-        .reader-controls-mini {
-            position:fixed;
-            left:14px;
-            bottom:max(14px, env(safe-area-inset-bottom));
-            z-index:51;
-            display:none;
-            min-width:52px;
-            min-height:44px;
-            color:var(--accent);
-            background:rgba(5,5,5,.96);
-            box-shadow:0 12px 30px rgba(0,0,0,.45);
-            font-weight:bold;
-        }
+        .chart-panel-inner { border:1px solid rgba(0,255,255,.25); background:#05070c; border-radius:14px; padding:clamp(12px,2vw,18px); margin-top:16px; }
+        .chart-controls { display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 14px 0; }
+        .chart-controls button { border:1px solid var(--accent); border-radius:10px; padding:10px 12px; color:var(--accent); background:#051014; font-family:"Courier New", Courier, monospace; font-weight:bold; cursor:pointer; }
+        .chart-controls button.active { background:#06282c; color:#fff; box-shadow:0 0 14px rgba(0,255,255,.25); }
+        .chart-wrap { width:100%; height:min(74vh,720px); min-height:440px; position:relative; overflow:hidden; border:1px solid rgba(0,255,255,.25); border-radius:12px; background:#05070c; }
+        #price-history-canvas { width:100%; height:100%; display:block; }
+        .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:10px; margin-top:12px; }
+        .stat-card { border:1px solid var(--line); border-radius:12px; background:#080b10; padding:12px; }
+        .stat-label { color:var(--muted); font-size:13px; line-height:1.4; }
+        .stat-value { color:var(--ok); font-size:clamp(17px,3vw,24px); line-height:1.25; margin-top:6px; word-break:break-word; }
+        #price-history-range-status { font-size:14px; margin:12px 0 0 0; color:var(--muted); }
+        .reader-controls { position:fixed; left:50%; bottom:max(16px, env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:50; width:min(920px,calc(100% - 28px)); display:flex; align-items:center; gap:12px; border:1px solid var(--line); background:rgba(5,5,5,.96); border-radius:16px; padding:12px 14px; box-shadow:0 18px 40px rgba(0,0,0,.45); }
+        .reader-controls label, .reader-controls output { color:var(--muted); font-size:14px; white-space:nowrap; }
+        .reader-controls input[type="range"] { width:100%; accent-color:var(--accent); }
+        .reader-controls button, .reader-controls-mini { border:1px solid var(--line); background:var(--panel); color:var(--text); border-radius:10px; padding:9px 11px; font-family:inherit; cursor:pointer; white-space:nowrap; }
+        .reader-controls button:hover, .reader-controls button:focus, .reader-controls-mini:hover, .reader-controls-mini:focus { border-color:var(--accent); outline:none; }
+        .reader-controls-mini { position:fixed; left:14px; bottom:max(14px, env(safe-area-inset-bottom)); z-index:51; display:none; min-width:52px; min-height:44px; color:var(--accent); background:rgba(5,5,5,.96); box-shadow:0 12px 30px rgba(0,0,0,.45); font-weight:bold; }
         body.controls-collapsed .reader-controls { display:none; }
         body.controls-collapsed .reader-controls-mini { display:block; }
-        body.reading-mode {
-            --content-width:100vw;
-            --reader-line-height:1.85;
-            background:#070707;
-            padding-left:0;
-            padding-right:0;
-        }
-        body.reading-mode header,
-        body.reading-mode main,
-        body.reading-mode footer {
-            width:100%;
-            max-width:none;
-        }
-        body.reading-mode header,
-        body.reading-mode .panel {
-            border-left:0;
-            border-right:0;
-            border-radius:0;
-            margin-left:0;
-            margin-right:0;
-            background:#0b0b0b;
-        }
-        body.reading-mode header {
-            margin-top:0;
-            margin-bottom:0;
-            padding-left:clamp(18px,5vw,48px);
-            padding-right:clamp(18px,5vw,48px);
-        }
-        body.reading-mode .panel {
-            margin-bottom:0;
-            padding-left:clamp(18px,5vw,48px);
-            padding-right:clamp(18px,5vw,48px);
-        }
+        body.reading-mode { --content-width:100vw; --reader-line-height:1.85; background:#070707; padding-left:0; padding-right:0; }
+        body.reading-mode header, body.reading-mode main, body.reading-mode footer { width:100%; max-width:none; }
+        body.reading-mode header, body.reading-mode .panel { border-left:0; border-right:0; border-radius:0; margin-left:0; margin-right:0; background:#0b0b0b; }
+        body.reading-mode header { margin-top:0; margin-bottom:0; padding-left:clamp(18px,5vw,48px); padding-right:clamp(18px,5vw,48px); }
+        body.reading-mode .panel { margin-bottom:0; padding-left:clamp(18px,5vw,48px); padding-right:clamp(18px,5vw,48px); }
         body.reading-mode .grid { grid-template-columns:1fr; }
-        footer {
-            margin-top:22px;
-            color:var(--muted);
-            font-size:12px;
-            line-height:1.5;
-        }
+        footer { margin-top:22px; color:var(--muted); font-size:12px; line-height:1.5; }
         @media (max-width:700px) {
             body { padding:12px; padding-bottom:132px; }
             header, .panel { border-radius:12px; }
             h1 { font-size:clamp(30px,10vw,44px); }
             .panel { padding:18px; }
-            ol {
-                list-style:none;
-                counter-reset:gg2050-list;
-                padding-left:0;
-                margin-left:0;
-            }
-            ol > li {
-                counter-increment:gg2050-list;
-                position:relative;
-                padding-left:2.25em;
-                margin-left:0;
-                margin-bottom:1.15em;
-                overflow-wrap:anywhere;
-                word-break:normal;
-            }
-            ol > li::before {
-                content:counter(gg2050-list) ".";
-                position:absolute;
-                left:0;
-                top:0;
-                width:1.8em;
-                color:var(--muted);
-                font-size:var(--reader-font-size);
-                line-height:var(--reader-line-height);
-                text-align:left;
-            }
-            .evidence-frame-wrap { height:78vh; min-height:620px; }
-            .evidence-toolbar { align-items:flex-start; }
-            .evidence-toolbar a { width:100%; text-align:center; }
-            .reader-controls {
-                bottom:max(10px, env(safe-area-inset-bottom));
-                display:grid;
-                grid-template-columns:auto 1fr auto;
-                gap:8px;
-                padding:10px;
-            }
+            ol { list-style:none; counter-reset:gg2050-list; padding-left:0; margin-left:0; }
+            ol > li { counter-increment:gg2050-list; position:relative; padding-left:2.25em; margin-left:0; margin-bottom:1.15em; overflow-wrap:anywhere; word-break:normal; }
+            ol > li::before { content:counter(gg2050-list) "."; position:absolute; left:0; top:0; width:1.8em; color:var(--muted); font-size:var(--reader-font-size); line-height:var(--reader-line-height); text-align:left; }
+            .chart-wrap { height:70vh; min-height:420px; }
+            .chart-controls button { width:100%; text-align:left; }
+            .stat-value { font-size:18px; }
+            .reader-controls { bottom:max(10px, env(safe-area-inset-bottom)); display:grid; grid-template-columns:auto 1fr auto; gap:8px; padding:10px; }
             .reader-controls button { width:100%; }
             #readerModeToggle { grid-column:1 / 3; }
             #controlsHide { grid-column:3 / 4; }
             .reader-controls label { font-size:13px; }
-            body.reading-mode {
-                padding-top:0;
-                padding-left:0;
-                padding-right:0;
-                padding-bottom:112px;
-            }
+            body.reading-mode { padding-top:0; padding-left:0; padding-right:0; padding-bottom:112px; }
             body.reading-mode.controls-collapsed { padding-bottom:54px; }
-            body.reading-mode header,
-            body.reading-mode .panel {
-                padding-left:18px;
-                padding-right:18px;
-            }
+            body.reading-mode header, body.reading-mode .panel { padding-left:18px; padding-right:18px; }
             body.reading-mode ol > li { padding-left:2.35em; }
         }
     </style>
@@ -335,9 +107,7 @@
         <div class="kicker">GlobalGrid2050 | Market design and grid constraints</div>
         <h1>Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026</h1>
         <p>A public grid study linking wholesale electricity prices, gas marginal pricing, negative prices, intraday spreads, Scottish wind curtailment, B6 constraints, battery arbitrage and transmission reinforcement priorities.</p>
-        <div class="meta-strip">
-            <p><strong>Written:</strong> 4 June 2026. <strong>Dataset basis:</strong> Elexon API derived GB wholesale price history, 2016 to 2026 year to date. <strong>Source review date:</strong> 4 June 2026.</p>
-        </div>
+        <div class="meta-strip"><p><strong>Written:</strong> 4 June 2026. <strong>Dataset basis:</strong> Elexon API derived GB wholesale price history, 2016 to 2026 year to date. <strong>Source review date:</strong> 4 June 2026.</p></div>
     </header>
 
     <div class="reader-controls" aria-label="Reader controls">
@@ -370,19 +140,28 @@
             </div>
         </section>
 
-        <section class="panel" id="v6-elexon-evidence-window">
-            <h2>V6 Elexon Evidence Window</h2>
-            <p>This embedded evidence window uses the existing GlobalGrid2050 V6 Elexon chart engine and data loading path. It is included here to let the reader inspect the raw System Price behaviour behind the macro narrative without leaving the study.</p>
-            <div class="evidence-shell">
-                <div class="evidence-toolbar">
-                    <span>Interactive V6 evidence segment</span>
-                    <a href="./gb_electricity_price_grid_constraint_evidence_charts.html" target="_blank" rel="noopener noreferrer">Open full evidence window</a>
+        <section class="panel" id="electricity-system-price-chart">
+            <h2>GB Electricity System Price Chart</h2>
+            <p>Interactive Elexon price history from the GlobalGrid2050 live electricity price tracker.</p>
+            <div class="chart-panel-inner">
+                <div class="chart-controls" id="preset-grid">
+                    <button type="button" data-start="2016-01-01" data-period="10y">10 year daily view</button>
+                    <button type="button" data-start="2019-11-01" data-period="6m">2019 to 2020</button>
+                    <button type="button" data-start="2020-11-01" data-period="6m">2020 to 2021</button>
+                    <button type="button" data-start="2021-05-01" data-period="6m">2021 shock</button>
+                    <button type="button" data-start="2022-06-01" data-period="6m">2022 crisis</button>
+                    <button type="button" data-start="2022-12-01" data-period="6m">2023 negative prices</button>
+                    <button type="button" data-dynamic="latest" data-period="7d" class="active">Latest 1 week</button>
                 </div>
-                <div class="evidence-frame-wrap">
-                    <iframe class="evidence-frame" title="GB electricity price evidence charts" src="./gb_electricity_price_grid_constraint_evidence_charts.html"></iframe>
+                <div class="chart-wrap"><canvas id="price-history-canvas" width="1200" height="720"></canvas></div>
+                <div class="stat-grid">
+                    <div class="stat-card"><div class="stat-label">Visible average</div><div class="stat-value" id="ph-latest-price">—</div></div>
+                    <div class="stat-card"><div class="stat-label">Visible date range</div><div class="stat-value" id="ph-latest-time">—</div></div>
+                    <div class="stat-card"><div class="stat-label">Visible records</div><div class="stat-value" id="ph-row-count">—</div></div>
+                    <div class="stat-card"><div class="stat-label">Source</div><div class="stat-value" id="ph-source">Elexon BMRS</div></div>
                 </div>
+                <p id="price-history-range-status">Loading chart.</p>
             </div>
-            <p><strong>Reading note:</strong> this window shows Elexon System Price and imbalance price behaviour. It is not a retail tariff and not a pure day ahead baseload price. Extreme half hourly spikes and annual averages are different statistical views of the same market stress.</p>
         </section>
 
         <section class="panel">
@@ -464,8 +243,33 @@
         </section>
     </main>
 
-    <footer>GlobalGrid2050 public grid study. Published as an evidence led market design and grid constraint note.</footer>
+    <footer>GlobalGrid2050 public grid study.</footer>
 
+    <script src="/uk_energy_tracking_v6/live_data_pipeline/live-config.js?v=20260604inline1"></script>
+    <script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260604inline1"></script>
+    <script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260604chartfit2"></script>
+    <script>
+        function latestStart(period){
+            var days=window.V6LoadPriceHistoryData.periodDays(period||'7d');
+            var max=window.V6LoadPriceHistoryData.maxDate();
+            return new Date(max.getTime()-days*86400000);
+        }
+        function setActiveChartButton(btn){document.querySelectorAll('#preset-grid button').forEach(function(b){b.classList.toggle('active',b===btn)});}
+        function loadChartPreset(btn){
+            var period=btn.getAttribute('data-period')||'7d';
+            var start=btn.getAttribute('data-dynamic')==='latest'?latestStart(period):new Date(btn.getAttribute('data-start')+'T00:00:00Z');
+            setActiveChartButton(btn);
+            window.V6LoadPriceHistoryData.loadWindow(start,period,'all').then(function(result){
+                window.V6RenderPriceChart.render(result);
+            }).catch(function(err){
+                var status=document.getElementById('price-history-range-status');
+                if(status)status.textContent='Chart load failed: '+err;
+            });
+        }
+        document.querySelectorAll('#preset-grid button').forEach(function(btn){btn.addEventListener('click',function(){loadChartPreset(btn);});});
+        window.addEventListener('resize',function(){var active=document.querySelector('#preset-grid button.active')||document.querySelector('#preset-grid button');if(active)loadChartPreset(active);});
+        loadChartPreset(document.querySelector('#preset-grid button.active')||document.querySelector('#preset-grid button'));
+    </script>
     <script>
         (function () {
             const sizeSlider = document.getElementById('textSize');
@@ -476,49 +280,15 @@
             const savedSize = localStorage.getItem('gg2050ReaderFontSize');
             const savedMode = localStorage.getItem('gg2050ReadingMode');
             const savedControls = localStorage.getItem('gg2050ControlsCollapsed');
-
-            function setTextSize(value) {
-                document.documentElement.style.setProperty('--reader-font-size', value + 'px');
-                sizeSlider.value = value;
-                sizeValue.textContent = value + 'px';
-                localStorage.setItem('gg2050ReaderFontSize', value);
-            }
-
-            function setControlsCollapsed(collapsed) {
-                document.body.classList.toggle('controls-collapsed', collapsed);
-                localStorage.setItem('gg2050ControlsCollapsed', collapsed ? 'on' : 'off');
-            }
-
-            if (savedSize) {
-                setTextSize(savedSize);
-            }
-
-            if (savedMode === 'on') {
-                document.body.classList.add('reading-mode');
-                readerButton.textContent = 'Wide mode';
-            }
-
-            if (savedControls === 'on') {
-                setControlsCollapsed(true);
-            }
-
-            sizeSlider.addEventListener('input', function (event) {
-                setTextSize(event.target.value);
-            });
-
-            readerButton.addEventListener('click', function () {
-                const readingModeActive = document.body.classList.toggle('reading-mode');
-                localStorage.setItem('gg2050ReadingMode', readingModeActive ? 'on' : 'off');
-                readerButton.textContent = readingModeActive ? 'Wide mode' : 'Reading mode';
-            });
-
-            hideButton.addEventListener('click', function () {
-                setControlsCollapsed(true);
-            });
-
-            miniButton.addEventListener('click', function () {
-                setControlsCollapsed(false);
-            });
+            function setTextSize(value) { document.documentElement.style.setProperty('--reader-font-size', value + 'px'); sizeSlider.value = value; sizeValue.textContent = value + 'px'; localStorage.setItem('gg2050ReaderFontSize', value); }
+            function setControlsCollapsed(collapsed) { document.body.classList.toggle('controls-collapsed', collapsed); localStorage.setItem('gg2050ControlsCollapsed', collapsed ? 'on' : 'off'); }
+            if (savedSize) setTextSize(savedSize);
+            if (savedMode === 'on') { document.body.classList.add('reading-mode'); readerButton.textContent = 'Wide mode'; }
+            if (savedControls === 'on') setControlsCollapsed(true);
+            sizeSlider.addEventListener('input', function (event) { setTextSize(event.target.value); });
+            readerButton.addEventListener('click', function () { const readingModeActive = document.body.classList.toggle('reading-mode'); localStorage.setItem('gg2050ReadingMode', readingModeActive ? 'on' : 'off'); readerButton.textContent = readingModeActive ? 'Wide mode' : 'Reading mode'; });
+            hideButton.addEventListener('click', function () { setControlsCollapsed(true); });
+            miniButton.addEventListener('click', function () { setControlsCollapsed(false); });
         })();
     </script>
 </body>

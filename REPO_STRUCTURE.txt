@@ -721,6 +721,7 @@
 │   ├── update_uk_price_v4.py
 │   ├── update_uk_price_v5.py
 │   ├── update_uk_price_v6.py
+│   ├── update_v5_v6_granular_change_tracker.py
 │   ├── update_v6_transport_energy_sources.py
 │   ├── upgrade_v5_engineering_clarity.py
 │   ├── upgrade_v5_skid_mva_controls.py
@@ -1221,4 +1222,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-149 directories, 1073 files
+149 directories, 1074 files

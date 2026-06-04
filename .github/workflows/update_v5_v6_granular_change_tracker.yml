@@ -1,0 +1,28 @@
+name: Update V5 V6 Granular Change Tracker
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-tracker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate granular tracker
+        run: python scripts/update_v5_v6_granular_change_tracker.py
+
+      - name: Commit granular tracker
+        run: |
+          git config user.name "GridBot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add uk_energy_tracking_v6/V5_V6_GRANULAR_CHANGE_TRACKER.md
+          git diff --cached --quiet && echo "No granular V5 V6 tracker changes to commit" && exit 0
+          git commit -m "Update V5 V6 granular change tracker"
+          git push

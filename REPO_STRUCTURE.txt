@@ -1191,6 +1191,8 @@
 │   ├── price_history_chart
 │   │   ├── control_price_history
 │   │   │   └── control_price_history.js
+│   │   ├── fullscreen_period_menu
+│   │   │   └── fullscreen_period_menu.js
 │   │   ├── load_price_history_data
 │   │   │   └── load_price_history_data.js
 │   │   └── render_price_chart
@@ -1219,4 +1221,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-148 directories, 1072 files
+149 directories, 1073 files

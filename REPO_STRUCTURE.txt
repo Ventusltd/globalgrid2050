@@ -665,6 +665,7 @@
 │   ├── rebuild_v8_bess_from_v7_gis_frame.py
 │   ├── remove_benchmark_block_from_v6_v7_gis_sld.py
 │   ├── remove_project_x_from_v6_v7_gis_sld.py
+│   ├── repair_v6_adaptive_weekly_time_ticks.py
 │   ├── repair_v6_chart_boxes_no_summary.py
 │   ├── repair_v6_chart_context_labels.py
 │   ├── repair_v6_event_boxes_visible.py
@@ -1232,4 +1233,4 @@
 ├── ventus-core.js
 └── ventus.css
 
-149 directories, 1084 files
+149 directories, 1085 files

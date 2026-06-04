@@ -119,7 +119,7 @@
         .reader-controls {
             position:fixed;
             left:50%;
-            bottom:16px;
+            bottom:max(16px, env(safe-area-inset-bottom));
             transform:translateX(-50%);
             z-index:50;
             width:min(920px,calc(100% - 28px));
@@ -142,7 +142,8 @@
             width:100%;
             accent-color:var(--accent);
         }
-        .reader-controls button {
+        .reader-controls button,
+        .reader-controls-mini {
             border:1px solid var(--line);
             background:var(--panel);
             color:var(--text);
@@ -153,18 +154,59 @@
             white-space:nowrap;
         }
         .reader-controls button:hover,
-        .reader-controls button:focus {
+        .reader-controls button:focus,
+        .reader-controls-mini:hover,
+        .reader-controls-mini:focus {
             border-color:var(--accent);
             outline:none;
         }
+        .reader-controls-mini {
+            position:fixed;
+            left:14px;
+            bottom:max(14px, env(safe-area-inset-bottom));
+            z-index:51;
+            display:none;
+            min-width:52px;
+            min-height:44px;
+            color:var(--accent);
+            background:rgba(5,5,5,.96);
+            box-shadow:0 12px 30px rgba(0,0,0,.45);
+            font-weight:bold;
+        }
+        body.controls-collapsed .reader-controls { display:none; }
+        body.controls-collapsed .reader-controls-mini { display:block; }
         body.reading-mode {
-            --content-width:820px;
+            --content-width:100vw;
             --reader-line-height:1.85;
             background:#070707;
+            padding-left:0;
+            padding-right:0;
         }
-        body.reading-mode .panel,
-        body.reading-mode header {
+        body.reading-mode header,
+        body.reading-mode main,
+        body.reading-mode footer {
+            width:100%;
+            max-width:none;
+        }
+        body.reading-mode header,
+        body.reading-mode .panel {
+            border-left:0;
+            border-right:0;
+            border-radius:0;
+            margin-left:0;
+            margin-right:0;
             background:#0b0b0b;
+        }
+        body.reading-mode header {
+            margin-top:0;
+            margin-bottom:0;
+            padding-left:clamp(18px,5vw,48px);
+            padding-right:clamp(18px,5vw,48px);
+        }
+        body.reading-mode .panel {
+            margin-bottom:0;
+            padding-left:clamp(18px,5vw,48px);
+            padding-right:clamp(18px,5vw,48px);
         }
         body.reading-mode .grid {
             grid-template-columns:1fr;
@@ -182,17 +224,32 @@
             .panel { padding:18px; }
             ol { padding-left:20px; }
             .reader-controls {
-                bottom:10px;
+                bottom:max(10px, env(safe-area-inset-bottom));
                 display:grid;
                 grid-template-columns:auto 1fr auto;
                 gap:8px;
                 padding:10px;
             }
             .reader-controls button {
-                grid-column:1 / -1;
                 width:100%;
             }
+            #readerModeToggle { grid-column:1 / 3; }
+            #controlsHide { grid-column:3 / 4; }
             .reader-controls label { font-size:13px; }
+            body.reading-mode {
+                padding-top:0;
+                padding-left:0;
+                padding-right:0;
+                padding-bottom:112px;
+            }
+            body.reading-mode.controls-collapsed {
+                padding-bottom:54px;
+            }
+            body.reading-mode header,
+            body.reading-mode .panel {
+                padding-left:18px;
+                padding-right:18px;
+            }
         }
     </style>
 </head>
@@ -212,7 +269,9 @@
         <input id="textSize" type="range" min="16" max="26" step="1" value="18" />
         <output id="textSizeValue" for="textSize">18px</output>
         <button id="readerModeToggle" type="button">Reading mode</button>
+        <button id="controlsHide" type="button">Hide</button>
     </div>
+    <button id="readerControlsMini" class="reader-controls-mini" type="button" aria-label="Show reader controls">Aa</button>
 
     <main>
         <section class="panel">
@@ -321,14 +380,22 @@
             const sizeSlider = document.getElementById('textSize');
             const sizeValue = document.getElementById('textSizeValue');
             const readerButton = document.getElementById('readerModeToggle');
+            const hideButton = document.getElementById('controlsHide');
+            const miniButton = document.getElementById('readerControlsMini');
             const savedSize = localStorage.getItem('gg2050ReaderFontSize');
             const savedMode = localStorage.getItem('gg2050ReadingMode');
+            const savedControls = localStorage.getItem('gg2050ControlsCollapsed');
 
             function setTextSize(value) {
                 document.documentElement.style.setProperty('--reader-font-size', value + 'px');
                 sizeSlider.value = value;
                 sizeValue.textContent = value + 'px';
                 localStorage.setItem('gg2050ReaderFontSize', value);
+            }
+
+            function setControlsCollapsed(collapsed) {
+                document.body.classList.toggle('controls-collapsed', collapsed);
+                localStorage.setItem('gg2050ControlsCollapsed', collapsed ? 'on' : 'off');
             }
 
             if (savedSize) {
@@ -340,6 +407,10 @@
                 readerButton.textContent = 'Wide mode';
             }
 
+            if (savedControls === 'on') {
+                setControlsCollapsed(true);
+            }
+
             sizeSlider.addEventListener('input', function (event) {
                 setTextSize(event.target.value);
             });
@@ -348,6 +419,14 @@
                 const readingModeActive = document.body.classList.toggle('reading-mode');
                 localStorage.setItem('gg2050ReadingMode', readingModeActive ? 'on' : 'off');
                 readerButton.textContent = readingModeActive ? 'Wide mode' : 'Reading mode';
+            });
+
+            hideButton.addEventListener('click', function () {
+                setControlsCollapsed(true);
+            });
+
+            miniButton.addEventListener('click', function () {
+                setControlsCollapsed(false);
             });
         })();
     </script>

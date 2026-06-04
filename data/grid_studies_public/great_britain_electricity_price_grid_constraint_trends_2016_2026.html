@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026 | GlobalGrid2050</title>
+    <style>
+        :root {
+            --bg:#050505;
+            --panel:#0b0e14;
+            --line:#2f343d;
+            --text:#ffffff;
+            --muted:#a6adbb;
+            --accent:#00ffff;
+            --ok:#00ff88;
+            --warn:#ffd166;
+        }
+        * { box-sizing:border-box; }
+        html { background:var(--bg); }
+        body {
+            margin:0;
+            min-height:100vh;
+            background:var(--bg);
+            color:var(--text);
+            font-family:"Courier New", Courier, monospace;
+            padding:clamp(16px,3vw,34px);
+        }
+        a { color:var(--accent); }
+        header, main, footer {
+            width:100%;
+            max-width:1400px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        header {
+            margin-bottom:24px;
+            border:1px solid var(--line);
+            background:rgba(10,10,10,.96);
+            padding:clamp(18px,3vw,30px);
+            border-radius:14px;
+        }
+        .back-link {
+            display:inline-block;
+            color:var(--accent);
+            text-decoration:none;
+            margin-bottom:14px;
+            font-weight:bold;
+        }
+        .back-link:hover { text-decoration:underline; }
+        .kicker {
+            color:var(--accent);
+            text-transform:uppercase;
+            letter-spacing:.14em;
+            font-size:12px;
+            line-height:1.8;
+        }
+        h1 {
+            margin:10px 0 12px 0;
+            font-size:clamp(30px,6vw,56px);
+            line-height:1.08;
+            letter-spacing:-.04em;
+        }
+        h2 {
+            color:var(--accent);
+            font-size:clamp(22px,4vw,34px);
+            margin:0 0 14px 0;
+            border-bottom:1px solid var(--line);
+            padding-bottom:10px;
+        }
+        h3 { color:var(--accent); margin:0 0 8px 0; }
+        p, li { color:var(--muted); line-height:1.65; font-size:clamp(15px,2vw,18px); }
+        strong { color:var(--text); }
+        .panel {
+            border:1px solid var(--line);
+            background:var(--panel);
+            border-radius:14px;
+            padding:clamp(18px,3vw,28px);
+            margin-bottom:22px;
+        }
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
+            gap:16px;
+            margin-top:14px;
+        }
+        .metric {
+            border:1px solid var(--line);
+            background:#080b10;
+            border-radius:12px;
+            padding:16px;
+        }
+        .metric .value {
+            display:block;
+            color:var(--ok);
+            font-size:clamp(24px,4vw,38px);
+            font-weight:bold;
+            margin-bottom:8px;
+        }
+        .metric .label { color:var(--muted); line-height:1.5; }
+        ol { padding-left:24px; }
+        .source-list li { margin-bottom:12px; }
+        .note { color:var(--warn); }
+        footer {
+            margin-top:22px;
+            color:var(--muted);
+            font-size:12px;
+            line-height:1.5;
+        }
+        @media (max-width:700px) {
+            body { padding:14px; }
+            header, .panel { border-radius:12px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="back-link" href="./">← Grid studies public</a>
+        <div class="kicker">GlobalGrid2050 | Market design and grid constraints</div>
+        <h1>Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026</h1>
+        <p>A public grid study linking wholesale electricity prices, gas marginal pricing, negative prices, intraday spreads, Scottish wind curtailment, B6 constraints, battery arbitrage and transmission reinforcement priorities.</p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>Executive Summary</h2>
+            <p>Great Britain’s electricity market from 2016 to 2026 shows 1 central fact: renewable generation has grown rapidly, but wholesale prices remain structurally tied to gas because gas still sets the marginal price in many hours. The 2021 to 2022 crisis lifted annual daily average prices from £35.1 per megawatt hour in 2020 to £200.1 per megawatt hour in 2022. Prices then normalised to roughly £71 to £93 per megawatt hour in 2024 to 2026, but they remain around double the pre crisis baseline.</p>
+            <p>The deeper structural trend is not only price. It is grid physics. Wind has grown strongly in Scotland and the North Sea, solar has concentrated in southern and eastern England and battery storage is clustering around constrained grid nodes. The result is a system with more cheap renewable energy, more negative pricing, wider intraday spreads and higher balancing and constraint costs.</p>
+            <p>The highest return physical fix is the Scotland to England transmission corridor, especially the B6 boundary and Eastern Green Link programme. Without reinforcement, Great Britain keeps paying northern wind to turn down and southern gas to turn up. This is the clearest evidence that the future value of electricity is no longer only generation capacity. It is location, timing, storage, grid headroom and system control.</p>
+        </section>
+
+        <section class="panel">
+            <h2>Core Indicators</h2>
+            <div class="grid">
+                <div class="metric"><span class="value">£35.1/MWh</span><span class="label">2020 annual daily average wholesale price, the decade low in the provided Elexon derived series.</span></div>
+                <div class="metric"><span class="value">£200.1/MWh</span><span class="label">2022 annual daily average wholesale price, around 5.7 times the 2020 level.</span></div>
+                <div class="metric"><span class="value">37.5%</span><span class="label">Share of days in 2025 with at least 1 negative half hour in the provided dataset.</span></div>
+                <div class="metric"><span class="value">£1.7bn</span><span class="label">Approximate constraint payments within NESO 2024 to 2025 balancing costs.</span></div>
+                <div class="metric"><span class="value">£2.7bn</span><span class="label">Approximate total NESO balancing costs for 2024 to 2025.</span></div>
+                <div class="metric"><span class="value">6.7 GW</span><span class="label">Approximate B6 Scotland to England transfer capability, far below the scale of Scottish renewable output.</span></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Top 20 Findings</h2>
+            <ol>
+                <li><strong>Gas remains the master price setter.</strong> Even with more wind and solar, Great Britain electricity prices remain tied to gas because gas often sets the marginal wholesale price.</li>
+                <li><strong>2021 to 2022 was a gas crisis, not a renewables crisis.</strong> Prices rose from £35.1 per megawatt hour in 2020 to £200.1 per megawatt hour in 2022 because gas prices exploded after COVID recovery, low storage, Russian supply cuts and Ukraine.</li>
+                <li><strong>Prices have normalised but remain structurally high.</strong> 2024 to 2026 prices around £71 to £93 per megawatt hour are still roughly double the pre crisis baseline of about £44 per megawatt hour.</li>
+                <li><strong>Renewables are reshaping the price curve.</strong> Wind overtook gas from 2023 and renewables reached about 45% of Great Britain generation by 2025.</li>
+                <li><strong>Negative prices are now structural.</strong> Days with negative half hours rose to 37.5% in 2025, showing that the system often has too much generation in the wrong place or at the wrong time.</li>
+                <li><strong>Battery storage is being driven by intraday spreads.</strong> Daily price spreads remain elevated, creating a strong arbitrage signal for BESS.</li>
+                <li><strong>The grid is the physical bottleneck.</strong> Scotland has huge wind output, but the B6 Scotland to England boundary cannot move enough power south.</li>
+                <li><strong>Constraint costs are becoming a major hidden bill.</strong> Constraint payments reached about £1.7 billion in 2024 to 2025, mainly from paying northern wind to switch off and southern gas to switch on.</li>
+                <li><strong>Eastern Green Links are the urgent reinforcement priority.</strong> EGL1 and EGL2 are critical because they move Scottish renewable power south and reduce curtailment.</li>
+                <li><strong>Brexit made trading less efficient.</strong> Leaving EU Single Day Ahead Coupling increased interconnector inefficiency and price volatility.</li>
+                <li><strong>The UK carbon market discount reduces price pressure but weakens policy alignment.</strong> UK ETS trading below EU ETS lowers the gas carbon adder but reduces carbon revenue and creates divergence.</li>
+                <li><strong>France proves the value and risk of nuclear.</strong> France had lower prices when nuclear recovered, but its 2022 nuclear collapse worsened the European crisis.</li>
+                <li><strong>Spain proves renewables can decouple prices from gas.</strong> Solar and wind reduced fossil influence strongly, but Spain also showed grid stability risks after the 2025 Iberian blackout.</li>
+                <li><strong>Great Britain is an outlier versus peers.</strong> It has high gas price setting, rising negative prices, major grid constraints and weaker market coupling.</li>
+                <li><strong>Solar, wind and BESS are not enough without grid strategy.</strong> The issue is no longer only generation capacity. It is location, timing, grid headroom, storage duration and system control.</li>
+                <li><strong>Southern and eastern England need distribution reinforcement.</strong> Solar and BESS pipelines are clustering around the South East, East of England and East Midlands networks.</li>
+                <li><strong>Scotland needs transmission reinforcement.</strong> Scottish wind cannot fully reach demand centres without B6 reinforcement and HVDC links.</li>
+                <li><strong>Zonal pricing rejection keeps the single Great Britain price.</strong> Because REMA rejected zonal pricing, constraint costs must now be solved through grid buildout, network charges and spatial planning.</li>
+                <li><strong>Investors should prioritise grid quality over headline megawatts.</strong> A project with poor grid access or weak local demand may be less valuable than a smaller, well located project.</li>
+                <li><strong>The strategic UK task is breaking the gas link before 2030.</strong> That means faster grid reinforcement, more flexible demand, more BESS, better interconnector coupling and smarter siting of new assets.</li>
+            </ol>
+        </section>
+
+        <section class="panel">
+            <h2>System Interpretation</h2>
+            <p>The electricity price path has 3 phases. The 2016 to 2020 period was the pre crisis baseline. The 2021 to 2022 period was the gas shock. The 2023 to 2026 period is the new transition regime, where gas prices are lower than the crisis peak, but the system remains exposed to gas while simultaneously producing more negative prices in renewable rich hours.</p>
+            <p>This is why the market can look contradictory. Great Britain can have more wind, more solar and more batteries, yet still see high average wholesale prices. It can also have negative prices in some hours and high scarcity prices in others. That contradiction is not irrational. It is the signature of a system where generation, transmission, storage and demand flexibility are not yet aligned.</p>
+            <p>The B6 Scotland to England boundary is the clearest physical symbol of the problem. When northern wind cannot travel south, NESO must curtail wind and dispatch gas closer to demand. This pushes costs into balancing services and consumer bills. The single national price hides the local physics.</p>
+        </section>
+
+        <section class="panel">
+            <h2>Evidence Base and Source Hierarchy</h2>
+            <p>The source hierarchy below separates primary and official evidence from academic research and analyst interpretation. This protects the study from weak citation chains and makes the public evidence auditable.</p>
+            <ol class="source-list">
+                <li><strong>NESO, National Energy System Operator.</strong> 2025 Annual Balancing Costs Report and balancing cost hub. Used for the £2.7 billion total balancing cost figure, the £1.7 billion constraint figure and the B6 or northern Scotland bottleneck logic. <a href="https://www.neso.energy/document/362561/download">Annual Balancing Costs Report</a> | <a href="https://www.neso.energy/industry-information/balancing-costs">Balancing costs hub</a></li>
+                <li><strong>RTE, French transmission system operator.</strong> Annual Electricity Review 2022. Used for France nuclear output, 279 terawatt hours, lowest since 1988 and net importer context. <a href="https://analysesetdonnees.rte-france.com/en/electricity-review-keyfindings">RTE electricity review key findings</a></li>
+                <li><strong>DESNZ.</strong> Review of Electricity Market Arrangements, Summer Update, 10 July 2025. Used for the zonal pricing rejection and continuation of reformed national pricing. <span class="note">Primary GOV.UK URL to be added after exact source URL verification.</span></li>
+                <li><strong>Ofgem and official Eastern Green Link project materials.</strong> Used for Eastern Green Link funding and reinforcement context, including EGL2. <a href="https://www.easterngreenlink2.co.uk/">Eastern Green Link 2 official project site</a></li>
+                <li><strong>ENTSO-E.</strong> Final report on the April 2025 Iberian blackout. Used for the finding that the event was a voltage control and system operation issue rather than a simple renewables cause. <span class="note">Primary ENTSO-E final report URL to be added after exact source URL verification.</span></li>
+                <li><strong>House of Commons Library.</strong> Energy crisis price briefing. Used for the conclusion that prices fell after the crisis but remained above pre crisis levels. <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-9714/">House of Commons Library briefing CBP 9714</a></li>
+                <li><strong>UCL, Zakeri and Staffell, 2023.</strong> Role of natural gas in electricity prices in Europe. Used for the gas set price finding, including Great Britain at 98% and France at 7%. <a href="https://www.ucl.ac.uk/bartlett/sites/bartlett/files/the_role_of_natural_gas_in_electricity_prices_in_europe_updated_may_2023.pdf">UCL paper PDF</a> | <a href="https://pure.iiasa.ac.at/id/eprint/19109/">Peer reviewed record</a></li>
+                <li><strong>Frontier Economics.</strong> Used for Brexit and interconnector efficiency analysis and UK to EU ETS linkage context. <a href="https://www.frontier-economics.com/uk/en/news-and-insights/articles/article-i8192-brexit-and-interconnectors-a-45m-problem/">Brexit and interconnectors</a> | <a href="https://www.frontier-economics.com/uk/en/news-and-insights/news/news-article-i20873-linking-uk-and-eu-carbon-markets/">UK and EU carbon market linking</a></li>
+                <li><strong>Credible analyst layer.</strong> Ember, Carbon Brief and IEA are useful for cross checking generation mix, Spain decoupling, negative pricing and European comparison. These are treated as credible analyst sources, not as the primary legal or system operator record.</li>
+            </ol>
+        </section>
+
+        <section class="panel">
+            <h2>Recommendations</h2>
+            <ol>
+                <li>Treat B6 reinforcement and Eastern Green Links as the highest return electricity infrastructure priority.</li>
+                <li>Use the Strategic Spatial Energy Plan and network charging reform to steer generation and batteries toward locations with grid headroom and demand.</li>
+                <li>Re pursue efficient UK to EU electricity market coupling to reduce interconnector friction and price volatility.</li>
+                <li>Prioritise longer duration and better located batteries over speculative capacity with weak connection prospects.</li>
+                <li>For large consumers, use flexible demand, on site storage and dynamic tariffs to exploit intraday spreads and negative price periods.</li>
+                <li>For investors, treat grid access, local congestion and system value as core diligence metrics, not secondary engineering details.</li>
+            </ol>
+        </section>
+
+        <section class="panel">
+            <h2>Caveats</h2>
+            <p>The Great Britain price levels, negative price shares, spreads and extremes are based on the provided Elexon derived series. External sources such as NESO, UCL, RTE, House of Commons Library, Frontier Economics, Ofgem, Ember, Carbon Brief and IEA corroborate the direction and magnitude but may use different units, market references or time periods.</p>
+            <p>Some forward figures are projections, including future balancing costs, gas price setting shares and battery capacity growth. Constraint and balancing costs are socialised into consumer bills through system charges rather than appearing directly as wholesale prices.</p>
+        </section>
+    </main>
+
+    <footer>GlobalGrid2050 public grid study. Published as an evidence led market design and grid constraint note.</footer>
+</body>
+</html>

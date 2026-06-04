@@ -14,9 +14,12 @@
             --accent:#00ffff;
             --ok:#00ff88;
             --warn:#ffd166;
+            --reader-font-size:18px;
+            --reader-line-height:1.7;
+            --content-width:1400px;
         }
         * { box-sizing:border-box; }
-        html { background:var(--bg); }
+        html { background:var(--bg); scroll-behavior:smooth; }
         body {
             margin:0;
             min-height:100vh;
@@ -24,11 +27,12 @@
             color:var(--text);
             font-family:"Courier New", Courier, monospace;
             padding:clamp(16px,3vw,34px);
+            padding-bottom:110px;
         }
         a { color:var(--accent); }
         header, main, footer {
             width:100%;
-            max-width:1400px;
+            max-width:var(--content-width);
             margin-left:auto;
             margin-right:auto;
         }
@@ -68,7 +72,11 @@
             padding-bottom:10px;
         }
         h3 { color:var(--accent); margin:0 0 8px 0; }
-        p, li { color:var(--muted); line-height:1.65; font-size:clamp(15px,2vw,18px); }
+        p, li {
+            color:var(--muted);
+            line-height:var(--reader-line-height);
+            font-size:var(--reader-font-size);
+        }
         strong { color:var(--text); }
         .panel {
             border:1px solid var(--line);
@@ -100,6 +108,67 @@
         ol { padding-left:24px; }
         .source-list li { margin-bottom:12px; }
         .note { color:var(--warn); }
+        .meta-strip {
+            border:1px solid var(--line);
+            background:#080b10;
+            border-radius:12px;
+            padding:14px 16px;
+            margin-top:16px;
+        }
+        .meta-strip p { margin:0; font-size:calc(var(--reader-font-size) * .9); }
+        .reader-controls {
+            position:fixed;
+            left:50%;
+            bottom:16px;
+            transform:translateX(-50%);
+            z-index:50;
+            width:min(920px,calc(100% - 28px));
+            display:flex;
+            align-items:center;
+            gap:12px;
+            border:1px solid var(--line);
+            background:rgba(5,5,5,.96);
+            border-radius:16px;
+            padding:12px 14px;
+            box-shadow:0 18px 40px rgba(0,0,0,.45);
+        }
+        .reader-controls label,
+        .reader-controls output {
+            color:var(--muted);
+            font-size:14px;
+            white-space:nowrap;
+        }
+        .reader-controls input[type="range"] {
+            width:100%;
+            accent-color:var(--accent);
+        }
+        .reader-controls button {
+            border:1px solid var(--line);
+            background:var(--panel);
+            color:var(--text);
+            border-radius:10px;
+            padding:9px 11px;
+            font-family:inherit;
+            cursor:pointer;
+            white-space:nowrap;
+        }
+        .reader-controls button:hover,
+        .reader-controls button:focus {
+            border-color:var(--accent);
+            outline:none;
+        }
+        body.reading-mode {
+            --content-width:820px;
+            --reader-line-height:1.85;
+            background:#070707;
+        }
+        body.reading-mode .panel,
+        body.reading-mode header {
+            background:#0b0b0b;
+        }
+        body.reading-mode .grid {
+            grid-template-columns:1fr;
+        }
         footer {
             margin-top:22px;
             color:var(--muted);
@@ -107,8 +176,23 @@
             line-height:1.5;
         }
         @media (max-width:700px) {
-            body { padding:14px; }
+            body { padding:12px; padding-bottom:132px; }
             header, .panel { border-radius:12px; }
+            h1 { font-size:clamp(30px,10vw,44px); }
+            .panel { padding:18px; }
+            ol { padding-left:20px; }
+            .reader-controls {
+                bottom:10px;
+                display:grid;
+                grid-template-columns:auto 1fr auto;
+                gap:8px;
+                padding:10px;
+            }
+            .reader-controls button {
+                grid-column:1 / -1;
+                width:100%;
+            }
+            .reader-controls label { font-size:13px; }
         }
     </style>
 </head>
@@ -118,7 +202,17 @@
         <div class="kicker">GlobalGrid2050 | Market design and grid constraints</div>
         <h1>Great Britain Electricity Price and Grid Constraint Trends 2016 to 2026</h1>
         <p>A public grid study linking wholesale electricity prices, gas marginal pricing, negative prices, intraday spreads, Scottish wind curtailment, B6 constraints, battery arbitrage and transmission reinforcement priorities.</p>
+        <div class="meta-strip">
+            <p><strong>Written:</strong> 4 June 2026. <strong>Dataset basis:</strong> Elexon API derived GB wholesale price history, 2016 to 2026 year to date. <strong>Source review date:</strong> 4 June 2026.</p>
+        </div>
     </header>
+
+    <div class="reader-controls" aria-label="Reader controls">
+        <label for="textSize">Text</label>
+        <input id="textSize" type="range" min="16" max="26" step="1" value="18" />
+        <output id="textSizeValue" for="textSize">18px</output>
+        <button id="readerModeToggle" type="button">Reading mode</button>
+    </div>
 
     <main>
         <section class="panel">
@@ -131,12 +225,13 @@
         <section class="panel">
             <h2>Core Indicators</h2>
             <div class="grid">
-                <div class="metric"><span class="value">£35.1/MWh</span><span class="label">2020 annual daily average wholesale price, the decade low in the provided Elexon derived series.</span></div>
+                <div class="metric"><span class="value">£35.1/MWh</span><span class="label">2020 annual daily average wholesale price, the decade low in the provided Elexon API derived series.</span></div>
                 <div class="metric"><span class="value">£200.1/MWh</span><span class="label">2022 annual daily average wholesale price, around 5.7 times the 2020 level.</span></div>
-                <div class="metric"><span class="value">37.5%</span><span class="label">Share of days in 2025 with at least 1 negative half hour in the provided dataset.</span></div>
+                <div class="metric"><span class="value">37.5%</span><span class="label">Share of calendar days in 2025 with at least 1 negative half hourly settlement period in the Elexon API derived dataset. This is not the same as negative day ahead hours or negative daily average prices.</span></div>
                 <div class="metric"><span class="value">£1.7bn</span><span class="label">Approximate constraint payments within NESO 2024 to 2025 balancing costs.</span></div>
                 <div class="metric"><span class="value">£2.7bn</span><span class="label">Approximate total NESO balancing costs for 2024 to 2025.</span></div>
                 <div class="metric"><span class="value">6.7 GW</span><span class="label">Approximate B6 Scotland to England transfer capability, far below the scale of Scottish renewable output.</span></div>
+                <div class="metric"><span class="value">~£8bn</span><span class="label">NESO short term projection for balancing costs to peak around 2030 if critical network delivery is delayed.</span></div>
             </div>
         </section>
 
@@ -145,9 +240,9 @@
             <ol>
                 <li><strong>Gas remains the master price setter.</strong> Even with more wind and solar, Great Britain electricity prices remain tied to gas because gas often sets the marginal wholesale price.</li>
                 <li><strong>2021 to 2022 was a gas crisis, not a renewables crisis.</strong> Prices rose from £35.1 per megawatt hour in 2020 to £200.1 per megawatt hour in 2022 because gas prices exploded after COVID recovery, low storage, Russian supply cuts and Ukraine.</li>
-                <li><strong>Prices have normalised but remain structurally high.</strong> 2024 to 2026 prices around £71 to £93 per megawatt hour are still roughly double the pre crisis baseline of about £44 per megawatt hour.</li>
-                <li><strong>Renewables are reshaping the price curve.</strong> Wind overtook gas from 2023 and renewables reached about 45% of Great Britain generation by 2025.</li>
-                <li><strong>Negative prices are now structural.</strong> Days with negative half hours rose to 37.5% in 2025, showing that the system often has too much generation in the wrong place or at the wrong time.</li>
+                <li><strong>Prices have normalised but remain structurally high.</strong> 2024 to 2026 prices around £71 to £93 per megawatt hour are still roughly double the pre crisis baseline of about £44 per megawatt hour, depending on baseline choice.</li>
+                <li><strong>Renewables are reshaping the price curve.</strong> Wind overtook gas in 2024 and renewables reached about 45% to 47% of UK generation by 2025, depending on boundary and accounting basis.</li>
+                <li><strong>Negative prices are now structural.</strong> Days with negative half hourly settlement periods rose to 37.5% in 2025 in the Elexon API derived dataset, showing that the system often has too much generation at the wrong time, with separate locational constraint effects also present.</li>
                 <li><strong>Battery storage is being driven by intraday spreads.</strong> Daily price spreads remain elevated, creating a strong arbitrage signal for BESS.</li>
                 <li><strong>The grid is the physical bottleneck.</strong> Scotland has huge wind output, but the B6 Scotland to England boundary cannot move enough power south.</li>
                 <li><strong>Constraint costs are becoming a major hidden bill.</strong> Constraint payments reached about £1.7 billion in 2024 to 2025, mainly from paying northern wind to switch off and southern gas to switch on.</li>
@@ -177,15 +272,26 @@
             <h2>Evidence Base and Source Hierarchy</h2>
             <p>The source hierarchy below separates primary and official evidence from academic research and analyst interpretation. This protects the study from weak citation chains and makes the public evidence auditable.</p>
             <ol class="source-list">
-                <li><strong>NESO, National Energy System Operator.</strong> 2025 Annual Balancing Costs Report and balancing cost hub. Used for the £2.7 billion total balancing cost figure, the £1.7 billion constraint figure and the B6 or northern Scotland bottleneck logic. <a href="https://www.neso.energy/document/362561/download">Annual Balancing Costs Report</a> | <a href="https://www.neso.energy/industry-information/balancing-costs">Balancing costs hub</a></li>
+                <li><strong>NESO, National Energy System Operator.</strong> 2025 Annual Balancing Costs Report and balancing cost hub. Used for the £2.7 billion total balancing cost figure, the £1.7 billion constraint figure, the B6 or northern Scotland bottleneck logic and the approximate £8 billion 2030 balancing cost peak projection. <a href="https://www.neso.energy/document/362561/download">Annual Balancing Costs Report</a> | <a href="https://www.neso.energy/industry-information/balancing-costs">Balancing costs hub</a></li>
                 <li><strong>RTE, French transmission system operator.</strong> Annual Electricity Review 2022. Used for France nuclear output, 279 terawatt hours, lowest since 1988 and net importer context. <a href="https://analysesetdonnees.rte-france.com/en/electricity-review-keyfindings">RTE electricity review key findings</a></li>
-                <li><strong>DESNZ.</strong> Review of Electricity Market Arrangements, Summer Update, 10 July 2025. Used for the zonal pricing rejection and continuation of reformed national pricing. <span class="note">Primary GOV.UK URL to be added after exact source URL verification.</span></li>
+                <li><strong>DESNZ.</strong> Review of Electricity Market Arrangements, Summer Update, 10 July 2025. Used for the zonal pricing rejection and continuation of reformed national pricing. <a href="https://www.gov.uk/government/publications/review-of-electricity-market-arrangements-rema-summer-update-2025">REMA Summer Update 2025</a></li>
                 <li><strong>Ofgem and official Eastern Green Link project materials.</strong> Used for Eastern Green Link funding and reinforcement context, including EGL2. <a href="https://www.easterngreenlink2.co.uk/">Eastern Green Link 2 official project site</a></li>
-                <li><strong>ENTSO-E.</strong> Final report on the April 2025 Iberian blackout. Used for the finding that the event was a voltage control and system operation issue rather than a simple renewables cause. <span class="note">Primary ENTSO-E final report URL to be added after exact source URL verification.</span></li>
+                <li><strong>ENTSO-E.</strong> Official 28 April 2025 Iberian blackout publication page. Used for the finding that the event was a multi factor system event involving voltage control, reactive power and oscillation issues rather than a simple renewables cause. <a href="https://www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/">ENTSO-E Iberian blackout publication page</a></li>
                 <li><strong>House of Commons Library.</strong> Energy crisis price briefing. Used for the conclusion that prices fell after the crisis but remained above pre crisis levels. <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-9714/">House of Commons Library briefing CBP 9714</a></li>
                 <li><strong>UCL, Zakeri and Staffell, 2023.</strong> Role of natural gas in electricity prices in Europe. Used for the gas set price finding, including Great Britain at 98% and France at 7%. <a href="https://www.ucl.ac.uk/bartlett/sites/bartlett/files/the_role_of_natural_gas_in_electricity_prices_in_europe_updated_may_2023.pdf">UCL paper PDF</a> | <a href="https://pure.iiasa.ac.at/id/eprint/19109/">Peer reviewed record</a></li>
                 <li><strong>Frontier Economics.</strong> Used for Brexit and interconnector efficiency analysis and UK to EU ETS linkage context. <a href="https://www.frontier-economics.com/uk/en/news-and-insights/articles/article-i8192-brexit-and-interconnectors-a-45m-problem/">Brexit and interconnectors</a> | <a href="https://www.frontier-economics.com/uk/en/news-and-insights/news/news-article-i20873-linking-uk-and-eu-carbon-markets/">UK and EU carbon market linking</a></li>
-                <li><strong>Credible analyst layer.</strong> Ember, Carbon Brief and IEA are useful for cross checking generation mix, Spain decoupling, negative pricing and European comparison. These are treated as credible analyst sources, not as the primary legal or system operator record.</li>
+                <li><strong>Credible analyst layer.</strong> Ember, Carbon Brief, IEA, Drax Electric Insights, Modo Energy, Fraunhofer ISE and Electricity Maps are useful for cross checking generation mix, negative pricing, Spain decoupling, Germany comparisons and European market context. These are treated as credible analyst sources, not as the primary legal or system operator record.</li>
+            </ol>
+        </section>
+
+        <section class="panel">
+            <h2>Definitions and Data Caveats</h2>
+            <ol>
+                <li><strong>GB versus UK:</strong> wholesale and system operation data may refer to Great Britain, while some generation mix sources report the United Kingdom.</li>
+                <li><strong>Calendar year versus financial year:</strong> Elexon derived prices are calendar year based, while NESO balancing costs are often financial year based.</li>
+                <li><strong>Negative price metric:</strong> 37.5% refers to calendar days with at least 1 negative half hourly settlement period in the Elexon API derived dataset. This is not the same as negative day ahead hours or negative daily average prices.</li>
+                <li><strong>Wholesale price versus system cost:</strong> constraint and balancing costs are socialised through system charges and bills, not directly embedded in the wholesale price series.</li>
+                <li><strong>Generation versus consumption:</strong> renewable share can change depending on whether imports, biomass, behind the meter generation and industrial CHP are included.</li>
             </ol>
         </section>
 
@@ -203,11 +309,47 @@
 
         <section class="panel">
             <h2>Caveats</h2>
-            <p>The Great Britain price levels, negative price shares, spreads and extremes are based on the provided Elexon derived series. External sources such as NESO, UCL, RTE, House of Commons Library, Frontier Economics, Ofgem, Ember, Carbon Brief and IEA corroborate the direction and magnitude but may use different units, market references or time periods.</p>
+            <p>The Great Britain price levels, negative price shares, spreads and extremes are based on the provided Elexon API derived series. External sources such as NESO, UCL, RTE, House of Commons Library, Frontier Economics, Ofgem, Ember, Carbon Brief, IEA, Drax Electric Insights, Modo Energy, Fraunhofer ISE and Electricity Maps corroborate the direction and magnitude but may use different units, market references or time periods.</p>
             <p>Some forward figures are projections, including future balancing costs, gas price setting shares and battery capacity growth. Constraint and balancing costs are socialised into consumer bills through system charges rather than appearing directly as wholesale prices.</p>
         </section>
     </main>
 
     <footer>GlobalGrid2050 public grid study. Published as an evidence led market design and grid constraint note.</footer>
+
+    <script>
+        (function () {
+            const sizeSlider = document.getElementById('textSize');
+            const sizeValue = document.getElementById('textSizeValue');
+            const readerButton = document.getElementById('readerModeToggle');
+            const savedSize = localStorage.getItem('gg2050ReaderFontSize');
+            const savedMode = localStorage.getItem('gg2050ReadingMode');
+
+            function setTextSize(value) {
+                document.documentElement.style.setProperty('--reader-font-size', value + 'px');
+                sizeSlider.value = value;
+                sizeValue.textContent = value + 'px';
+                localStorage.setItem('gg2050ReaderFontSize', value);
+            }
+
+            if (savedSize) {
+                setTextSize(savedSize);
+            }
+
+            if (savedMode === 'on') {
+                document.body.classList.add('reading-mode');
+                readerButton.textContent = 'Wide mode';
+            }
+
+            sizeSlider.addEventListener('input', function (event) {
+                setTextSize(event.target.value);
+            });
+
+            readerButton.addEventListener('click', function () {
+                const readingModeActive = document.body.classList.toggle('reading-mode');
+                localStorage.setItem('gg2050ReadingMode', readingModeActive ? 'on' : 'off');
+                readerButton.textContent = readingModeActive ? 'Wide mode' : 'Reading mode';
+            });
+        })();
+    </script>
 </body>
 </html>

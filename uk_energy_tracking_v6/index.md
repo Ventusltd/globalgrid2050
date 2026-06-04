@@ -50,7 +50,8 @@ permalink: /uk_energy_tracking_v6/
         <label class="price-history-date-label">Period <select id="price-history-period">
           <option value="12hday">12 hours day</option>
           <option value="12hnight">12 hours night</option>
-          <option value="1d">1 day</option>
+          <option value="24h">24 hours</option>
+          <option value="48h">48 hours</option>
           <option value="7d" selected>1 week</option>
           <option value="30d">1 month</option>
           <option value="3m">3 months</option>

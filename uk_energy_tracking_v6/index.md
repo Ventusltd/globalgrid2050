@@ -199,5 +199,6 @@ permalink: /uk_energy_tracking_v6/
 <script src="/uk_energy_tracking_v6/price_history_chart/load_price_history_data/load_price_history_data.js?v=20260530o"></script>
 <script src="/uk_energy_tracking_v6/price_history_chart/render_price_chart/render_price_chart.js?v=20260604chartfit2"></script>
 <script src="/uk_energy_tracking_v6/price_history_chart/control_price_history/control_price_history.js?v=20260601d"></script>
-<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260530o"></script>
+<script src="/uk_energy_tracking_v6/price_history_chart/fullscreen_period_menu/fullscreen_period_menu.js?v=20260604menu1"></script>
+<script src="/uk_energy_tracking_v6/app_bootstrap/start_v6_app/start_v6_app.js?v=20260604menu1"></script>
 <script src="/uk_energy_tracking_v6/frequency_history/frequency-history-ui.js?v=20260531a"></script>

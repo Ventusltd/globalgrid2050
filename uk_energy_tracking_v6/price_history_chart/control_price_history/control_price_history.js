@@ -1,7 +1,5 @@
 window.V6ControlPriceHistory=(function(){
   var FIRST_YEAR=2016;
-  var YEAR_ROLLOVER_MONTH=0;
-  var YEAR_ROLLOVER_DAY=15;
   var STATE={timeMode:'all'};
   function $(id){return document.getElementById(id)}
   function ymd(d){return d.toISOString().slice(0,10)}
@@ -9,11 +7,8 @@ window.V6ControlPriceHistory=(function(){
   function futureMaxDate(){return window.V6LoadPriceHistoryData.futureMaxDate?window.V6LoadPriceHistoryData.futureMaxDate():maxDate()}
   function minDate(){return window.V6LoadPriceHistoryData.minDate()}
   function periodDays(p){return window.V6LoadPriceHistoryData.periodDays(p)}
-  function activeDataYear(){var d=new Date();var y=d.getUTCFullYear();if(d.getUTCMonth()===YEAR_ROLLOVER_MONTH&&d.getUTCDate()<YEAR_ROLLOVER_DAY)return y-1;return y}
-  function yearCutoff(year){var m=maxDate(),active=activeDataYear();if(year===active&&year===m.getUTCFullYear())return m;if(year===active&&year<m.getUTCFullYear())return new Date(Date.UTC(year,11,31,23,59,59));return new Date(Date.UTC(year,11,31,23,59,59))}
-  function yearLabel(year){return year===activeDataYear()?String(year)+' YTD':String(year)}
-  function ensureYearOptions(){var y=$('price-history-year');if(!y||y.options.length)return;var active=activeDataYear();for(var n=active;n>=FIRST_YEAR;n--){var o=document.createElement('option');o.value=String(n);o.textContent=yearLabel(n);y.appendChild(o)}y.value=String(active)}
-  function ensureStartDate(){var y=$('price-history-year'),s=$('price-history-start');if(!s)return;var selectedYear=y&&y.value?Number(y.value):activeDataYear();if(!s.value||s.value.slice(0,4)!==String(selectedYear)){var start;if(selectedYear===activeDataYear()){var cutoff=yearCutoff(selectedYear);start=new Date(cutoff.getTime()-7*86400000);var jan1=new Date(Date.UTC(selectedYear,0,1,0,0,0));if(start<jan1)start=jan1}else{start=new Date(Date.UTC(selectedYear,0,1,0,0,0))}s.value=ymd(start)}}
+  function ensureYearOptions(){var y=$('price-history-year');if(!y||y.options.length)return;var now=futureMaxDate().getUTCFullYear();for(var n=now;n>=FIRST_YEAR;n--){var o=document.createElement('option');o.value=String(n);o.textContent=String(n);y.appendChild(o)}y.value=String(maxDate().getUTCFullYear())}
+  function ensureStartDate(){var y=$('price-history-year'),s=$('price-history-start');if(!s)return;var selectedYear=y&&y.value?Number(y.value):maxDate().getUTCFullYear();if(!s.value||s.value.slice(0,4)!==String(selectedYear)){var start;if(selectedYear===maxDate().getUTCFullYear()){start=new Date(maxDate().getTime()-7*86400000)}else{start=new Date(Date.UTC(selectedYear,0,1,0,0,0))}s.value=ymd(start)}}
   function ensureModeTabs(){if($('price-history-time-tabs'))return;var actions=document.querySelector('#electricity-price-history-panel .price-history-actions');if(!actions)return;var tabs=document.createElement('div');tabs.id='price-history-time-tabs';tabs.className='price-history-time-tabs';tabs.innerHTML='<span>Hour filter</span><button type="button" data-mode="all" class="active">All</button><button type="button" data-mode="day">Day</button><button type="button" data-mode="night">Night</button>';actions.appendChild(tabs);tabs.addEventListener('click',function(e){var b=e.target.closest('button[data-mode]');if(!b)return;STATE.timeMode=b.getAttribute('data-mode');tabs.querySelectorAll('button').forEach(function(x){x.classList.toggle('active',x===b)});load()})}
   function currentPeriod(){var p=$('price-history-period');return p&&p.value?p.value:'7d'}
   function syncFullscreenPeriod(){var p=$('price-history-period'),fp=$('price-history-fullscreen-period-select');if(p&&fp&&fp.value!==p.value)fp.value=p.value}
@@ -29,5 +24,5 @@ window.V6ControlPriceHistory=(function(){
   function closeFullscreen(){var o=$('price-history-fullscreen-overlay');if(!o)return;o.classList.remove('open');document.documentElement.classList.remove('v5-chart-open');document.body.classList.remove('v5-chart-open')}
   function attachFullscreenSwipe(){var c=$('price-history-fullscreen-canvas');if(!c||c.dataset.swipeBound)return;c.dataset.swipeBound='1';var sx=0,sy=0,active=false;c.addEventListener('touchstart',function(e){if(!e.touches||!e.touches.length)return;var t=e.touches[0];sx=t.clientX;sy=t.clientY;active=true},{passive:true});c.addEventListener('touchend',function(e){if(!active)return;active=false;var t=e.changedTouches&&e.changedTouches[0];if(!t)return;var dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)<55||Math.abs(dx)<Math.abs(dy)*1.25)return;nudgePeriod(dx<0?1:-1)},{passive:true})}
   function start(){ensureYearOptions();ensureModeTabs();ensurePeriodControls();ensureStartDate();attachPeriodButtons('price-history-fullscreen-period');attachFullscreenSwipe();bindFullscreenPeriodSelect();var btn=$('price-history-refresh'),period=$('price-history-period'),startEl=$('price-history-start'),year=$('price-history-year');if(btn)btn.addEventListener('click',load);if(period)period.addEventListener('change',function(){syncFullscreenPeriod();load()});if(startEl)startEl.addEventListener('change',load);if(year)year.addEventListener('change',function(){var s=$('price-history-start');if(s)s.value='';ensureStartDate();load()});var full=$('price-history-fullscreen-btn'),close=$('price-history-fullscreen-close');if(full)full.addEventListener('click',openFullscreen);if(close)close.addEventListener('click',closeFullscreen);window.addEventListener('resize',debouncedLoad);load()}
-  return{start:start,load:load,activeDataYear:activeDataYear};
+  return{start:start,load:load};
 })();

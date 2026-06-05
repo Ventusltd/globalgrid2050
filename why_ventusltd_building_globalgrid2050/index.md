@@ -17,6 +17,7 @@ Each entry should answer a direct strategic question and convert the answer into
 ## Contents
 
 * [UK Energy Tracker Purpose](./uk_energy_tracker_purpose/)
+* [Physical Layer Solar Cable Integrity](./physical_layer_solar_cable_integrity/)
 
 ---
 

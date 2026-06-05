@@ -73,12 +73,12 @@ For up-to-the-minute pricing, please refer to the official London Metal Exchange
 ---
 
 ### Live Daily Market Prices (API Sync)
-*Last Sync: Thursday 04 June 2026 10:02 UTC*
+*Last Sync: Friday 05 June 2026 10:00 UTC*
 
 | Metal | Live USD per tonne | Live EUR per tonne | Live GBP per tonne |
 |:---|---:|---:|---:|
-| **Copper** | $14,362 | €12,374 | £10,694 |
-| **Aluminium** | $3,717 | €3,203 | £2,768 |
+| **Copper** | $14,169 | €12,193 | £10,549 |
+| **Aluminium** | $3,715 | €3,197 | £2,766 |
 
 ---
 

@@ -143,6 +143,14 @@
       "carbonGperKWh": "83",
       "carbonIndex": "low",
       "source": "Elexon BMRS Market Index Data"
+    },
+    {
+      "capturedAtUTC": "2026-06-05T16:58:49.542759Z",
+      "priceTimeUTC": "2026-06-05T16:30:00Z",
+      "priceGBPperMWh": "112.04",
+      "carbonGperKWh": "139",
+      "carbonIndex": "moderate",
+      "source": "Elexon BMRS Market Index Data"
     }
   ]
 }

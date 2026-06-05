@@ -1,6 +1,6 @@
 # V6 Transport Energy Sources Report
 
-Updated UTC: `2026-06-04T09:44:40.604800+00:00`
+Updated UTC: `2026-06-05T08:57:41.995291+00:00`
 
 ## Outputs
 
@@ -19,12 +19,12 @@ EV charging values are curated public reference values and must not be treated a
 
 ```json
 {
-  "updated": "2026-06-04T09:44:40.604800+00:00",
+  "updated": "2026-06-05T08:57:41.995291+00:00",
   "oil": {
     "live": {
-      "updated": "2026-06-04T09:36:13.967743+00:00",
-      "brentUSDperBarrel": 96.35,
-      "wtiUSDperBarrel": 94.86,
+      "updated": "2026-06-05T08:57:40.877497+00:00",
+      "brentUSDperBarrel": 94.42,
+      "wtiUSDperBarrel": 92.37,
       "health": {
         "BZ=F": {
           "ok": true,
@@ -37,31 +37,7 @@ EV charging values are curated public reference values and must not be treated a
       }
     },
     "history_features": 6280,
-    "fresh_history": true,
-    "health": [
-      {
-        "ok": false,
-        "source": "FRED Brent Europe daily spot price",
-        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILBRENTEU (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
-      },
-      {
-        "ok": false,
-        "source": "FRED WTI Cushing daily spot price",
-        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILWTICO (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
-      },
-      {
-        "ok": true,
-        "source": "Yahoo Brent futures history",
-        "rows": 4691,
-        "fallback": true
-      },
-      {
-        "ok": true,
-        "source": "Yahoo WTI futures history",
-        "rows": 6279,
-        "fallback": true
-      }
-    ]
+    "fresh_history": false
   },
   "fuel": {
     "latest": {
@@ -79,7 +55,7 @@ EV charging values are curated public reference values and must not be treated a
   },
   "ev": {
     "operators": 3,
-    "updated": "2026-06-04T09:44:40.604644+00:00"
+    "updated": "2026-06-05T08:57:41.995103+00:00"
   }
 }
 ```

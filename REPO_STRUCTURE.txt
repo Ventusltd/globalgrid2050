@@ -657,6 +657,7 @@
 │   ├── gridbot_feature_installer.py
 │   ├── gridbot_insert_dc_subsections.py
 │   ├── gridbot_insert_markdown_section.py
+│   ├── gridbot_modularise_employers_requirements.py
 │   ├── gridbot_v3_diary_preflight.py
 │   ├── isolate_uk_energy_tracking_v2.py
 │   ├── modularise_uk_energy_tracking_v4.py
@@ -1271,4 +1272,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-156 directories, 1116 files
+156 directories, 1117 files

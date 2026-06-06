@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-06T20:39:05Z",
+  "updated_utc": "2026-06-06T21:44:14Z",
   "window_weeks": 52,
   "record_count": 2,
   "latest_week": {
     "week_start_utc": "2026-06-01T00:00:00Z",
-    "sample_count": 14,
-    "avg_hz": 49.9244,
+    "sample_count": 15,
+    "avg_hz": 49.9218,
     "min_hz": 49.886,
     "max_hz": 50.065,
-    "samples_below_49_9": 11,
+    "samples_below_49_9": 12,
     "samples_above_50_1": 0,
     "largest_deviation_hz": 0.114,
     "data_health": "ok"
@@ -29,11 +29,11 @@
     },
     {
       "week_start_utc": "2026-06-01T00:00:00Z",
-      "sample_count": 14,
-      "avg_hz": 49.9244,
+      "sample_count": 15,
+      "avg_hz": 49.9218,
       "min_hz": 49.886,
       "max_hz": 50.065,
-      "samples_below_49_9": 11,
+      "samples_below_49_9": 12,
       "samples_above_50_1": 0,
       "largest_deviation_hz": 0.114,
       "data_health": "ok"

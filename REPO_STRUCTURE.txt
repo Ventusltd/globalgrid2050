@@ -644,6 +644,7 @@
 │   ├── generate_v6_architectural_integrity_protocol.py
 │   ├── generate_v8_codebase_blueprint.py
 │   ├── gridbot_feature_installer.py
+│   ├── gridbot_insert_markdown_section.py
 │   ├── gridbot_v3_diary_preflight.py
 │   ├── isolate_uk_energy_tracking_v2.py
 │   ├── modularise_uk_energy_tracking_v4.py
@@ -1258,4 +1259,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-153 directories, 1106 files
+153 directories, 1107 files

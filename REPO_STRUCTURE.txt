@@ -1286,6 +1286,9 @@
 │   ├── ev_charging_prices.json
 │   ├── frequency_history
 │   │   └── frequency-history-ui.js
+│   ├── generation_history
+│   │   ├── live-config.js
+│   │   └── load_generation_history_data.js
 │   ├── grid_frequency_history.csv
 │   ├── grid_frequency_weekly_health.csv
 │   ├── index.md
@@ -1342,4 +1345,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-188 directories, 1155 files
+189 directories, 1157 files

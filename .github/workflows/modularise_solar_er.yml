@@ -1,0 +1,49 @@
+name: Modularise Solar ER Page
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Target markdown file
+        required: true
+        default: employers_requirments_large_scale_solar/index.md
+      page_title:
+        description: Public page title
+        required: true
+        default: Employers Requirements Large Scale Solar
+
+permissions:
+  contents: write
+
+jobs:
+  modularise-solar-er:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run modular builder
+        shell: bash
+        run: |
+          python scripts/gridbot_modularise_employers_requirements.py \
+            --target "${{ github.event.inputs.target }}" \
+            --page-title "${{ github.event.inputs.page_title }}" \
+            --backup-dir "backups/employers_requirments_large_scale_solar" \
+            --report-dir "gridbot_reports"
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add .
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Modularise solar employer requirements page"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

@@ -1288,6 +1288,7 @@
 │   │   └── frequency-history-ui.js
 │   ├── generation_history
 │   │   ├── control_generation_history.js
+│   │   ├── index.md
 │   │   ├── live-config.js
 │   │   ├── load_generation_history_data.js
 │   │   └── render_generation_history_chart.js
@@ -1347,4 +1348,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-189 directories, 1159 files
+189 directories, 1160 files

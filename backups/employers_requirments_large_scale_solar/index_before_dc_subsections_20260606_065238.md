@@ -262,25 +262,7 @@ A cable should not be accepted merely because it is marked as a photovoltaic cab
 
 Where cables are installed in ducts, trays, trenches, conduits, bundles or areas exposed to standing water, mud, abrasion, livestock, vegetation or mechanical damage, the design should state how the cable remains suitable for those conditions.
 
-## 5.5. UV Stability, Cross Linked Materials and Class Two Insulation Life
-
-PV DC cables, connector tails, module leads and exposed string wiring should be selected and installed to maintain Class Two insulation throughout the design life of the plant.
-
-The employer should require evidence that exposed DC insulation and sheath materials are suitable for long term ultraviolet exposure, ozone exposure, damp heat, cold impact, thermal cycling, bending, vibration, abrasion, cable movement, water exposure and contact with mounting structures.
-
-The design should not rely only on a generic cable description. It should identify the cable construction, sheath material, insulation material, cross linking method where relevant, colour, ultraviolet resistance, weathering resistance, shrinkage performance, cold bend performance, cold impact performance and compatibility with connectors, glands, clips, ties and cable supports.
-
-Where red, coloured or non black polymeric materials are proposed for long term outdoor DC exposure, the employer should require confirmation of ultraviolet stability, pigment stability, ageing performance and suitability for the intended installation environment.
-
-The employer should require confirmation that the selected material system does not become brittle, crack, shrink back, expose conductors, lose sealing integrity, lose connector strain relief or compromise Class Two insulation under expected lifetime conditions.
-
-Where electron beam cross linked materials, chemically cross linked materials or other advanced cable technologies are proposed, the employer should require manufacturer evidence showing the material performance, ageing basis, thermal endurance, mechanical durability, ultraviolet stability, ozone resistance, damp heat performance and compatibility with the installation method.
-
-The design should consider that exposed live DC conductors caused by sheath cracking, insulation cracking, shrink back, abrasion or connector degradation can create DC leakage, tracking, contact with metallic structures, galvanic corrosion, shock hazard and persistent abnormal DC conditions.
-
-A DC cable system should not be accepted for construction unless the employer has received evidence that the selected cable, connector tail and exposed DC wiring materials can maintain electrical insulation, mechanical integrity and environmental resistance throughout the operating life of the asset.
-
-## 5.6. Connector Compatibility and Termination Quality
+## 5.5. Connector Compatibility and Termination Quality
 
 DC connectors should be treated as safety critical components.
 
@@ -290,7 +272,7 @@ Mixed connector types, unverified substitutions, poor crimping, incomplete engag
 
 Connector inspection should form part of the commissioning and handover evidence pack.
 
-## 5.7. Connector Population, Combiner Philosophy and Fuse Absence
+## 5.6. Connector Population, Combiner Philosophy and Fuse Absence
 
 Utility scale photovoltaic designs can contain very large populations of plug connectors. The employer should require the design to state the expected number of DC connectors, their location, manufacturer, mating compatibility, installation method, inspection method and maintenance access strategy.
 
@@ -300,7 +282,7 @@ The design should compare the risk profile of distributed string inverter inputs
 
 Centralised inverter and combiner box designs may reduce field connector population and allow clearer string protection, but they can introduce different risks including combiner thermal loading, fuse coordination, longer DC cable runs and larger energy exposure. The employer should require the topology decision to be justified as an engineering decision rather than assumed from equipment preference.
 
-## 5.8. Reverse Current and Backfeed Assessment
+## 5.7. Reverse Current and Backfeed Assessment
 
 The DC design should consider reverse current and backfeed from parallel strings, inverter input circuits, stored energy systems and any other connected source capable of feeding an abnormal condition.
 
@@ -308,7 +290,7 @@ The employer should require a DC protection philosophy showing how conductors, c
 
 Where overcurrent devices are used, the design should state what they protect, what they cannot detect and how their ratings coordinate with the cable and module withstand limits.
 
-## 5.9. DC Cable Routing, Loop Area and Induced Overvoltage
+## 5.8. DC Cable Routing, Loop Area and Induced Overvoltage
 
 Positive and negative DC conductors should be routed together wherever practicable to minimise loop area, induced voltage, electromagnetic coupling and transient stress.
 
@@ -320,7 +302,7 @@ A DC cable route should not be accepted where positive and negative conductors f
 
 The employer should require DC cable route drawings showing containment, fixing method, bend radius, segregation, crossing points, exposure to water, exposure to heat and interface with module frames and mounting structures.
 
-## 5.10. DC Class Two Separation and Metallic Structure Fault Risk
+## 5.9. DC Class Two Separation and Metallic Structure Fault Risk
 
 The mounting structure should not be treated as electrically irrelevant. It should be assessed as a bonded metallic environment surrounding DC conductors, connectors and module frames.
 
@@ -330,7 +312,7 @@ The design should consider positive to negative event risk, damaged cable insula
 
 Where metallic objects or conductive support members are located between or near DC conductors, the design should consider possible induced currents, local heating, electromagnetic coupling and insulation stress under normal operation, switching and abnormal conditions.
 
-## 5.11. DC Capacitance, Inductance and Transient Behaviour
+## 5.10. DC Capacitance, Inductance and Transient Behaviour
 
 Large photovoltaic arrays should be assessed as distributed electrical systems with measurable capacitance, inductance and transient energy behaviour.
 
@@ -340,7 +322,7 @@ Where long DC cable runs, large parallel string populations or transformerless i
 
 The employer should require the DC design to identify how switching transients, cable inductance, distributed capacitance, field collapse, interruption events, inverter operation and inverter switching are controlled. Where transient suppression is provided by inverter input circuitry, surge protection devices, filters, clamping devices or switching design, the responsible designer should state the protective function, rating, coordination and limitation of each measure.
 
-## 5.12. DC Surge Protection and SPD Coordination
+## 5.11. DC Surge Protection and SPD Coordination
 
 The DC surge protection strategy should be coordinated across the complete photovoltaic system.
 
@@ -350,7 +332,7 @@ Type 1, Type 2 and Type 3 surge protection devices should be coordinated where a
 
 The study should explain how surge energy is managed from the DC array through the inverter interface and into the wider AC and earthing system.
 
-## 5.13. Floating DC Systems and Earthing Compliance
+## 5.12. Floating DC Systems and Earthing Compliance
 
 Where the DC array is floating, the earthing and insulation monitoring philosophy should be explicitly defined.
 
@@ -360,7 +342,7 @@ The design should state warning thresholds, trip thresholds, alarm routing, rese
 
 A floating DC system should not be accepted unless the employer can see how hidden faults, leakage currents and second fault conditions are detected and managed.
 
-## 5.14. DC Leakage, Metallic Structures and Earthing Integrity
+## 5.13. DC Leakage, Metallic Structures and Earthing Integrity
 
 Utility scale photovoltaic arrays contain large areas of metallic module frames, mounting structures, cable supports, earthing conductors, bonding conductors, inverter enclosures and substation interfaces.
 
@@ -380,7 +362,7 @@ Inspection and maintenance requirements should include continuity testing, earth
 
 A DC array should not be accepted for construction unless the employer can see how DC leakage, metallic structure bonding, corrosion risk and earthing integrity are monitored, maintained and protected over the life of the asset.
 
-## 5.15. Separation of DC, AC, Lightning and MV Earthing
+## 5.14. Separation of DC, AC, Lightning and MV Earthing
 
 Earthing systems should not be shown only as a generic earth symbol. The design should explain how DC earthing, AC protective earthing, lightning protection earthing and medium voltage substation earthing interact under normal operation, insulation fault, surge event and medium voltage earth fault conditions.
 
@@ -390,7 +372,7 @@ Where earthing systems are bonded together, the design should state why the bond
 
 Where earthing systems are separated or functionally separated, the design should state the separation distance, insulation requirement, bonding exceptions, surge protection interface and maintenance verification method.
 
-## 5.16. Transformerless Inverter, Common Mode Voltage and DC Leakage into AC Systems
+## 5.15. Transformerless Inverter, Common Mode Voltage and DC Leakage into AC Systems
 
 Where transformerless inverters are used, the design should include a DC to AC interaction statement.
 
@@ -402,7 +384,7 @@ These checks should include inverter inputs, DC cables, AC cables, transformer w
 
 Where transformerless inverters are used, the employer should require confirmation that DC leakage, common mode voltage and residual DC current cannot create unsafe operation of AC cables, low voltage switchgear, transformer windings, protection relays or earthing systems.
 
-## 5.17. Potential Induced Degradation and DC Side Harmonic Behaviour
+## 5.16. Potential Induced Degradation and DC Side Harmonic Behaviour
 
 The employer should require the designer to assess whether the selected module, inverter, earthing arrangement and operating modes create risk of potential induced degradation.
 
@@ -414,7 +396,7 @@ The employer should also require assessment of DC side electromagnetic behaviour
 
 The assessment should consider DC ripple, high frequency switching components, common mode current, differential mode current, cable capacitance, cable inductance, module frame capacitance, mounting structure bonding, filter behaviour, resonance risk, insulation stress, leakage current and possible interference with monitoring, communication and protection systems.
 
-## 5.18. Harmonic, Stability and Model Validity Requirements
+## 5.17. Harmonic, Stability and Model Validity Requirements
 
 The employer should not accept a manufacturer power system model as a substitute for every electrical study.
 
@@ -424,7 +406,7 @@ The design should separately identify which models are used for load flow, short
 
 Each study should state its assumptions, model limitations, input data, operating cases and acceptance criteria.
 
-## 5.19. DC Cable Thermal Verification, Voltage Drop and Losses
+## 5.18. DC Cable Thermal Verification, Voltage Drop and Losses
 
 DC cable sizing should not be based only on nominal string current.
 
@@ -434,7 +416,7 @@ Where DC cables are grouped with other DC or AC circuits, the thermal calculatio
 
 Voltage drop and loss calculations should be included because lifetime energy loss can materially affect project value.
 
-## 5.20. DC Isolation and Maintenance Safety
+## 5.19. DC Isolation and Maintenance Safety
 
 The DC system should include a clear isolation and maintenance philosophy.
 
@@ -442,27 +424,7 @@ The design should state which parts of the system remain energised under sunligh
 
 Isolation points, warning labels, polarity labels, string identifiers and emergency instructions should be shown on drawings and verified during commissioning.
 
-## 5.21. DC Duct Congestion, Combiner Currents and Local Thermal Pinch Points
-
-DC string cables, combiner box outgoing cables and inverter input cables should not be assessed only as individual circuits.
-
-The employer should require the designer to identify all points where DC cables gather, cross, enter ducts, enter conduits, enter combiner boxes, pass through restricted containment, run beneath or above AC cables or share thermal environments with other circuits.
-
-Where multiple DC strings are installed in ducts, conduits, trays, trenches or bundled routes, the design should include a derating and thermal assessment based on the actual number of circuits, cable spacing, conduit fill, installation depth, soil thermal resistivity, ambient temperature, duct material, crossing geometry and adjacent heat sources.
-
-Where DC circuits converge at combiner boxes, inverter inputs or transition points, the design should assess the local current density, connector population, termination temperature, enclosure temperature rise, fuse or disconnector heat contribution and ventilation or heat dissipation path.
-
-The design should not assume that a cable remains adequately rated because the individual string current is low. A high population of low current DC circuits can create a significant aggregate thermal load when placed in conduits, ducts, trenches, containment bottlenecks or combiner areas.
-
-Cable crossings between DC, low voltage AC and medium voltage circuits should be treated as local thermal pinch points. The employer should require evidence that worst case crossing locations have been modelled where cables run close together, change depth, enter ducts or share backfill.
-
-Where software limitations prevent direct modelling of the actual number of cables in a duct or conduit, the designer should state the modelling workaround, assumptions, equivalence method and margin of safety. The employer should not accept hidden assumptions where conduit fill, grouping or mutual heating materially affects cable temperature.
-
-The required deliverables should include duct fill schedule, conduit grouping schedule, trench cross sections, crossing details, thermal derating calculation, current carrying capacity calculation, voltage drop calculation, power loss calculation, termination temperature check and worst case local heat map where applicable.
-
-A DC cable installation should not be accepted for construction unless the employer can see how duct congestion, grouped string cables, combiner currents, crossing points and local thermal pinch points have been assessed and derated.
-
-## 5.22. Required DC Deliverables
+## 5.20. Required DC Deliverables
 
 The minimum deliverables for the DC string and DC cable system should include the DC single line diagram, string schedule, module datasheets, inverter input schedule, DC cable schedule, connector compatibility evidence, DC protection philosophy, insulation monitoring philosophy, earthing statement, surge protection study, cable routing drawings, voltage calculations, cable thermal calculations, voltage drop and loss calculations, polarity test records, insulation resistance records, open circuit voltage records, string current records, connector inspection evidence, thermographic inspection where applicable and as built string mapping.
 

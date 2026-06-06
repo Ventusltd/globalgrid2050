@@ -75,6 +75,9 @@
 │   │   ├── elexon_system_prices_2025.csv
 │   │   ├── elexon_system_prices_2026.csv
 │   │   └── elexon_system_prices_half_hourly.csv
+│   ├── generation
+│   │   ├── elexon_generation_sources_2026.csv
+│   │   └── elexon_generation_sources_half_hourly.csv
 │   └── grid_studies_public
 │       ├── PUBLIC_GRID_STUDY_PERIOD_SELECTOR_REPAIR_REPORT.md
 │       ├── PUBLIC_GRID_STUDY_SELECTOR_BINDING_REPAIR_REPORT.md
@@ -1287,7 +1290,9 @@
 │   ├── frequency_history
 │   │   └── frequency-history-ui.js
 │   ├── generation_history
+│   │   ├── GENERATION_HISTORY_DATA_REPORT.md
 │   │   ├── control_generation_history.js
+│   │   ├── generation_history_daily_decade.json
 │   │   ├── index.md
 │   │   ├── live-config.js
 │   │   ├── load_generation_history_data.js
@@ -1348,4 +1353,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-189 directories, 1160 files
+190 directories, 1164 files

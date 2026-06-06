@@ -1,0 +1,54 @@
+name: Install Solar DC ER Subsections
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Target markdown file
+        required: true
+        default: employers_requirments_large_scale_solar/index.md
+      material_fragment:
+        description: DC material life subsection fragment
+        required: true
+        default: content_fragments/employers_requirements_large_scale_solar/dc_material_life_subsection_v1.md
+      duct_fragment:
+        description: DC duct congestion subsection fragment
+        required: true
+        default: content_fragments/employers_requirements_large_scale_solar/dc_duct_congestion_subsection_v1.md
+
+permissions:
+  contents: write
+
+jobs:
+  install-solar-dc-er-subsections:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run installer
+        shell: bash
+        run: |
+          python scripts/gridbot_insert_dc_subsections.py \
+            --target "${{ github.event.inputs.target }}" \
+            --material-fragment "${{ github.event.inputs.material_fragment }}" \
+            --duct-fragment "${{ github.event.inputs.duct_fragment }}" \
+            --backup-dir "backups/employers_requirments_large_scale_solar" \
+            --report-dir "gridbot_reports"
+
+      - name: Commit and push changes
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add .
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Install solar DC employer requirements subsections"
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No changes to commit"
+          fi

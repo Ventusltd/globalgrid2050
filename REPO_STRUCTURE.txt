@@ -33,7 +33,8 @@
 │   │   └── index_20260605_before_lv_ac_expansion.md
 │   └── employers_requirments_large_scale_solar
 │       ├── index_before_dc_section_20260606_064052.md
-│       └── index_before_dc_subsections_20260606_065238.md
+│       ├── index_before_dc_subsections_20260606_065238.md
+│       └── index_before_modularise_20260606_080459.md
 ├── blog
 │   └── index.md
 ├── cable_geometry
@@ -113,7 +114,67 @@
 │   └── index.md
 ├── employers_requirements_BESS.md
 ├── employers_requirments_large_scale_solar
-│   └── index.md
+│   ├── index.md
+│   ├── print
+│   │   └── index.html
+│   ├── section_manifest.json
+│   └── sections
+│       ├── 01_introduction
+│       │   └── index.md
+│       ├── 02_scope
+│       │   └── index.md
+│       ├── 03_system_level_electrical_behaviour
+│       │   └── index.md
+│       ├── 04_low_voltage_ac_collector_system_requirements
+│       │   └── index.md
+│       ├── 05_dc_string_and_dc_cable_system_requirements
+│       │   └── index.md
+│       ├── 06_behaviour_of_direct_current_systems
+│       │   └── index.md
+│       ├── 07_electromagnetic_behaviour_in_large_solar_plants
+│       │   └── index.md
+│       ├── 08_conductors_connected_in_parallel
+│       │   └── index.md
+│       ├── 09_magnetic_forces_generated_by_current
+│       │   └── index.md
+│       ├── 10_earthing_systems
+│       │   └── index.md
+│       ├── 11_insulation_coordination
+│       │   └── index.md
+│       ├── 12_harmonic_behaviour_and_power_quality
+│       │   └── index.md
+│       ├── 13_harmonic_interaction_and_electromagnetic_compatibility_modelling
+│       │   └── index.md
+│       ├── 14_transformerless_inverter_behaviour_and_dc_ground_reference
+│       │   └── index.md
+│       ├── 15_surge_protection
+│       │   └── index.md
+│       ├── 16_dc_leakage_and_infrastructure_corrosion
+│       │   └── index.md
+│       ├── 17_cable_materials_and_fire_behaviour
+│       │   └── index.md
+│       ├── 18_water_blocking_of_cable_systems
+│       │   └── index.md
+│       ├── 19_fault_studies
+│       │   └── index.md
+│       ├── 20_cable_thermal_rating_and_derating_studies
+│       │   └── index.md
+│       ├── 21_protection_coordination_and_cable_sizing
+│       │   └── index.md
+│       ├── 22_substation_cable_termination_and_interface_engineering
+│       │   └── index.md
+│       ├── 23_cable_routing_and_bend_radius_considerations
+│       │   └── index.md
+│       ├── 24_engineering_review
+│       │   └── index.md
+│       ├── 25_long_term_infrastructure_perspective
+│       │   └── index.md
+│       ├── 26_observed_failure_modes_in_utility_scale_solar_installations
+│       │   └── index.md
+│       ├── 27_risk_reduction_considerations
+│       │   └── index.md
+│       └── 28_referenced_standards_and_guidance
+│           └── index.md
 ├── eurostar.geojson
 ├── ev_chargers.geojson
 ├── feature_requests
@@ -245,6 +306,7 @@
 │   ├── restore_v8_bess_maplibre_standalone.md
 │   ├── solar_dc_section_install_20260606_064052.md
 │   ├── solar_dc_subsections_install_20260606_065238.md
+│   ├── solar_er_modularise_20260606_080459.md
 │   ├── uk_frequency_daily_validation_v5_report.md
 │   ├── uk_frequency_v5_report.md
 │   ├── uk_frequency_v6_report.md
@@ -1272,4 +1334,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-156 directories, 1117 files
+186 directories, 1149 files

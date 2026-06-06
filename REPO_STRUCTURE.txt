@@ -1268,6 +1268,9 @@
 │   ├── V6_REPAIR_RESTORE_V5_PANELS_REPORT.md
 │   ├── V6_REPAIR_WEEKLY_AXIS_PADDING_REPORT.md
 │   ├── V6_TRANSPORT_ENERGY_SOURCES_REPORT.md
+│   ├── _restore_points
+│   │   └── 20260606_pre_new_charts
+│   │       └── RESTORE_MANIFEST.md
 │   ├── app_bootstrap
 │   │   └── start_v6_app
 │   │       └── start_v6_app.js
@@ -1336,4 +1339,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-186 directories, 1151 files
+188 directories, 1152 files

@@ -1,0 +1,1221 @@
+{
+  "generatedUTC": "2026-06-06T23:14:44.791833Z",
+  "source": "Elexon BMRS FUELINST",
+  "rows": [
+    {
+      "date": "2026-05-22",
+      "technology": "Biomass",
+      "averageMW": 1605.0,
+      "highMW": 1605.0,
+      "lowMW": 1605.0,
+      "records": 1,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 1,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Gas",
+      "averageMW": 2371.5,
+      "highMW": 4742.0,
+      "lowMW": 1.0,
+      "records": 2,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Hydro",
+      "averageMW": 299.0,
+      "highMW": 299.0,
+      "lowMW": 299.0,
+      "records": 1,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Imports & Exports",
+      "averageMW": 361.8,
+      "highMW": 1508.0,
+      "lowMW": -514.0,
+      "records": 10,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Nuclear",
+      "averageMW": 2121.0,
+      "highMW": 2121.0,
+      "lowMW": 2121.0,
+      "records": 1,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Other",
+      "averageMW": 216.5,
+      "highMW": 433.0,
+      "lowMW": 0.0,
+      "records": 2,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Pumped Storage",
+      "averageMW": 284.0,
+      "highMW": 284.0,
+      "lowMW": 284.0,
+      "records": 1,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-22",
+      "technology": "Wind",
+      "averageMW": 9134.0,
+      "highMW": 9134.0,
+      "lowMW": 9134.0,
+      "records": 1,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Biomass",
+      "averageMW": 1430.059,
+      "highMW": 1756.0,
+      "lowMW": 656.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Gas",
+      "averageMW": 2958.538,
+      "highMW": 12196.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Hydro",
+      "averageMW": 224.809,
+      "highMW": 333.0,
+      "lowMW": 122.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Imports & Exports",
+      "averageMW": 501.655,
+      "highMW": 1510.0,
+      "lowMW": -1068.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Nuclear",
+      "averageMW": 2196.444,
+      "highMW": 2331.0,
+      "lowMW": 2124.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Other",
+      "averageMW": 345.536,
+      "highMW": 2195.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Pumped Storage",
+      "averageMW": -99.951,
+      "highMW": 829.0,
+      "lowMW": -1101.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-23",
+      "technology": "Wind",
+      "averageMW": 5031.111,
+      "highMW": 9318.0,
+      "lowMW": 3721.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Biomass",
+      "averageMW": 1564.639,
+      "highMW": 1734.0,
+      "lowMW": 955.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Gas",
+      "averageMW": 3121.823,
+      "highMW": 12131.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Hydro",
+      "averageMW": 214.087,
+      "highMW": 365.0,
+      "lowMW": 134.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Imports & Exports",
+      "averageMW": 489.841,
+      "highMW": 1509.0,
+      "lowMW": -527.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Nuclear",
+      "averageMW": 2312.854,
+      "highMW": 2628.0,
+      "lowMW": 1982.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Other",
+      "averageMW": 291.799,
+      "highMW": 2021.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Pumped Storage",
+      "averageMW": -186.476,
+      "highMW": 682.0,
+      "lowMW": -1105.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-24",
+      "technology": "Wind",
+      "averageMW": 4079.837,
+      "highMW": 5135.0,
+      "lowMW": 3121.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Biomass",
+      "averageMW": 2204.354,
+      "highMW": 2395.0,
+      "lowMW": 1577.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Gas",
+      "averageMW": 3223.667,
+      "highMW": 11095.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Hydro",
+      "averageMW": 266.785,
+      "highMW": 662.0,
+      "lowMW": 91.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Imports & Exports",
+      "averageMW": 477.237,
+      "highMW": 1510.0,
+      "lowMW": -845.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Nuclear",
+      "averageMW": 2746.719,
+      "highMW": 2840.0,
+      "lowMW": 2615.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Other",
+      "averageMW": 393.939,
+      "highMW": 3720.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Pumped Storage",
+      "averageMW": 2.139,
+      "highMW": 1333.0,
+      "lowMW": -1200.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-25",
+      "technology": "Wind",
+      "averageMW": 4148.17,
+      "highMW": 5453.0,
+      "lowMW": 3031.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Biomass",
+      "averageMW": 2359.747,
+      "highMW": 2387.0,
+      "lowMW": 2296.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Gas",
+      "averageMW": 5177.222,
+      "highMW": 15347.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Hydro",
+      "averageMW": 220.924,
+      "highMW": 596.0,
+      "lowMW": 52.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Imports & Exports",
+      "averageMW": 403.19,
+      "highMW": 1509.0,
+      "lowMW": -1067.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Nuclear",
+      "averageMW": 2825.649,
+      "highMW": 2846.0,
+      "lowMW": 2796.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Other",
+      "averageMW": 399.151,
+      "highMW": 2493.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Pumped Storage",
+      "averageMW": 207.347,
+      "highMW": 1066.0,
+      "lowMW": -159.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-26",
+      "technology": "Wind",
+      "averageMW": 3828.688,
+      "highMW": 6510.0,
+      "lowMW": 1045.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Biomass",
+      "averageMW": 2204.625,
+      "highMW": 2409.0,
+      "lowMW": 1161.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Gas",
+      "averageMW": 2964.021,
+      "highMW": 9915.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Hydro",
+      "averageMW": 175.424,
+      "highMW": 385.0,
+      "lowMW": 66.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Imports & Exports",
+      "averageMW": 447.417,
+      "highMW": 1510.0,
+      "lowMW": -1062.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Nuclear",
+      "averageMW": 2347.625,
+      "highMW": 2828.0,
+      "lowMW": 2248.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Other",
+      "averageMW": 347.382,
+      "highMW": 2024.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Pumped Storage",
+      "averageMW": -92.726,
+      "highMW": 529.0,
+      "lowMW": -980.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-27",
+      "technology": "Wind",
+      "averageMW": 7063.788,
+      "highMW": 8895.0,
+      "lowMW": 5253.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Biomass",
+      "averageMW": 1679.729,
+      "highMW": 2407.0,
+      "lowMW": 303.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Gas",
+      "averageMW": 2346.823,
+      "highMW": 9067.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Hydro",
+      "averageMW": 168.278,
+      "highMW": 358.0,
+      "lowMW": 65.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Imports & Exports",
+      "averageMW": 314.953,
+      "highMW": 1511.0,
+      "lowMW": -1076.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Nuclear",
+      "averageMW": 2264.41,
+      "highMW": 2276.0,
+      "lowMW": 2247.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Other",
+      "averageMW": 384.007,
+      "highMW": 2159.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Pumped Storage",
+      "averageMW": -166.993,
+      "highMW": 1136.0,
+      "lowMW": -1358.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-28",
+      "technology": "Wind",
+      "averageMW": 10803.67,
+      "highMW": 13204.0,
+      "lowMW": 7754.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Biomass",
+      "averageMW": 2204.299,
+      "highMW": 2278.0,
+      "lowMW": 1513.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Gas",
+      "averageMW": 3300.37,
+      "highMW": 13511.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Hydro",
+      "averageMW": 185.677,
+      "highMW": 489.0,
+      "lowMW": 65.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Imports & Exports",
+      "averageMW": 395.677,
+      "highMW": 1512.0,
+      "lowMW": -1064.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Nuclear",
+      "averageMW": 2265.292,
+      "highMW": 2278.0,
+      "lowMW": 2249.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Other",
+      "averageMW": 431.314,
+      "highMW": 2631.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Pumped Storage",
+      "averageMW": -113.649,
+      "highMW": 657.0,
+      "lowMW": -1283.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-29",
+      "technology": "Wind",
+      "averageMW": 6746.521,
+      "highMW": 11089.0,
+      "lowMW": 4111.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Biomass",
+      "averageMW": 1790.413,
+      "highMW": 2370.0,
+      "lowMW": 1240.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Gas",
+      "averageMW": 3447.115,
+      "highMW": 11173.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Hydro",
+      "averageMW": 251.524,
+      "highMW": 619.0,
+      "lowMW": 97.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Imports & Exports",
+      "averageMW": 561.442,
+      "highMW": 1509.0,
+      "lowMW": -1057.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Nuclear",
+      "averageMW": 2265.403,
+      "highMW": 2279.0,
+      "lowMW": 2247.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Other",
+      "averageMW": 282.469,
+      "highMW": 1995.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Pumped Storage",
+      "averageMW": -16.351,
+      "highMW": 534.0,
+      "lowMW": -786.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-30",
+      "technology": "Wind",
+      "averageMW": 3119.038,
+      "highMW": 5310.0,
+      "lowMW": 1417.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Biomass",
+      "averageMW": 2074.931,
+      "highMW": 2401.0,
+      "lowMW": 1158.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Gas",
+      "averageMW": 3279.946,
+      "highMW": 12180.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Hydro",
+      "averageMW": 269.58,
+      "highMW": 570.0,
+      "lowMW": 98.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Imports & Exports",
+      "averageMW": 428.298,
+      "highMW": 1509.0,
+      "lowMW": -1247.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Nuclear",
+      "averageMW": 2263.09,
+      "highMW": 2275.0,
+      "lowMW": 2248.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Other",
+      "averageMW": 284.524,
+      "highMW": 1776.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Pumped Storage",
+      "averageMW": -81.222,
+      "highMW": 963.0,
+      "lowMW": -1147.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-05-31",
+      "technology": "Wind",
+      "averageMW": 4096.663,
+      "highMW": 5014.0,
+      "lowMW": 2915.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Biomass",
+      "averageMW": 2361.33,
+      "highMW": 2397.0,
+      "lowMW": 2147.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Gas",
+      "averageMW": 4932.089,
+      "highMW": 14592.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Hydro",
+      "averageMW": 269.274,
+      "highMW": 589.0,
+      "lowMW": 119.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Imports & Exports",
+      "averageMW": 333.856,
+      "highMW": 1510.0,
+      "lowMW": -1451.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Nuclear",
+      "averageMW": 2262.719,
+      "highMW": 2288.0,
+      "lowMW": 2250.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Other",
+      "averageMW": 334.366,
+      "highMW": 2230.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Pumped Storage",
+      "averageMW": 176.368,
+      "highMW": 1409.0,
+      "lowMW": -297.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-01",
+      "technology": "Wind",
+      "averageMW": 6062.434,
+      "highMW": 8372.0,
+      "lowMW": 3469.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Biomass",
+      "averageMW": 2386.66,
+      "highMW": 2421.0,
+      "lowMW": 2334.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Gas",
+      "averageMW": 5060.252,
+      "highMW": 13336.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Hydro",
+      "averageMW": 245.941,
+      "highMW": 452.0,
+      "lowMW": 100.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Imports & Exports",
+      "averageMW": 418.387,
+      "highMW": 1503.0,
+      "lowMW": -1322.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Nuclear",
+      "averageMW": 2280.201,
+      "highMW": 2332.0,
+      "lowMW": 2252.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Other",
+      "averageMW": 349.245,
+      "highMW": 1605.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Pumped Storage",
+      "averageMW": 81.267,
+      "highMW": 438.0,
+      "lowMW": -258.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-02",
+      "technology": "Wind",
+      "averageMW": 4332.892,
+      "highMW": 7140.0,
+      "lowMW": 2419.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Biomass",
+      "averageMW": 1978.201,
+      "highMW": 2426.0,
+      "lowMW": 867.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Gas",
+      "averageMW": 1628.113,
+      "highMW": 5928.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Hydro",
+      "averageMW": 272.007,
+      "highMW": 487.0,
+      "lowMW": 138.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Imports & Exports",
+      "averageMW": 495.128,
+      "highMW": 1504.0,
+      "lowMW": -1272.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Nuclear",
+      "averageMW": 2322.0,
+      "highMW": 2333.0,
+      "lowMW": 2313.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Other",
+      "averageMW": 367.186,
+      "highMW": 2898.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Pumped Storage",
+      "averageMW": -129.056,
+      "highMW": 803.0,
+      "lowMW": -1281.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-03",
+      "technology": "Wind",
+      "averageMW": 10742.17,
+      "highMW": 14706.0,
+      "lowMW": 5003.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Biomass",
+      "averageMW": 760.847,
+      "highMW": 995.0,
+      "lowMW": 625.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Gas",
+      "averageMW": 1395.66,
+      "highMW": 4019.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Hydro",
+      "averageMW": 225.837,
+      "highMW": 494.0,
+      "lowMW": 115.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Imports & Exports",
+      "averageMW": 452.498,
+      "highMW": 1506.0,
+      "lowMW": -654.0,
+      "records": 2880,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Nuclear",
+      "averageMW": 2324.167,
+      "highMW": 2366.0,
+      "lowMW": 1706.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Other",
+      "averageMW": 410.905,
+      "highMW": 2287.0,
+      "lowMW": 0.0,
+      "records": 576,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Pumped Storage",
+      "averageMW": -628.851,
+      "highMW": 677.0,
+      "lowMW": -1275.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-04",
+      "technology": "Wind",
+      "averageMW": 11900.611,
+      "highMW": 13585.0,
+      "lowMW": 9288.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Biomass",
+      "averageMW": 2033.202,
+      "highMW": 2412.0,
+      "lowMW": 865.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Gas",
+      "averageMW": 2855.873,
+      "highMW": 12679.0,
+      "lowMW": 0.0,
+      "records": 574,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Hydro",
+      "averageMW": 284.631,
+      "highMW": 575.0,
+      "lowMW": 117.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Imports & Exports",
+      "averageMW": 331.61,
+      "highMW": 1504.0,
+      "lowMW": -1452.0,
+      "records": 2870,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Nuclear",
+      "averageMW": 2519.833,
+      "highMW": 2592.0,
+      "lowMW": 2363.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Other",
+      "averageMW": 330.625,
+      "highMW": 1987.0,
+      "lowMW": 0.0,
+      "records": 574,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Pumped Storage",
+      "averageMW": 343.596,
+      "highMW": 1300.0,
+      "lowMW": -1035.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    },
+    {
+      "date": "2026-06-05",
+      "technology": "Wind",
+      "averageMW": 7798.192,
+      "highMW": 13270.0,
+      "lowMW": 4946.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST daily aggregate"
+    }
+  ]
+}

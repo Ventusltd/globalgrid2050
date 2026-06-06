@@ -1,0 +1,57 @@
+name: Update Elexon Generation Sources Weekly
+
+on:
+  schedule:
+    - cron: '30 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      backfill_days:
+        description: Days to fetch ending yesterday
+        required: true
+        default: '14'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: elexon-generation-sources-weekly
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Elexon generation sources and maintain annual files
+        env:
+          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '14' }}
+        run: |
+          python scripts/download_elexon_generation_sources.py
+          python scripts/split_elexon_generation_sources_by_year.py
+          python scripts/generate_generation_history_daily_v6.py
+
+      - name: Commit generation source data
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/generation/elexon_generation_sources_half_hourly.csv data/generation/elexon_generation_sources_*.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/GENERATION_HISTORY_DATA_REPORT.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update Elexon generation source history"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No Elexon generation source changes"
+          fi

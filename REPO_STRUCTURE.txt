@@ -677,6 +677,7 @@
 │   ├── dependencies_v4.py
 │   ├── diagnose_repair_v6_price_v5_ui_split.py
 │   ├── document_uk_energy_trackers.py
+│   ├── download_elexon_generation_sources.py
 │   ├── download_elexon_system_prices.py
 │   ├── download_elexon_system_prices_range.py
 │   ├── fetch_11kv_ukpn.py
@@ -710,6 +711,7 @@
 │   ├── fix_v7_gis_sld_mobile_tool_overlay_spacing.py
 │   ├── fix_v7_gis_sld_mobile_tools_energy_layer_clearance.py
 │   ├── generate_deep_subsea.py
+│   ├── generate_generation_history_daily_v6.py
 │   ├── generate_gis_sld_full_code_reports.py
 │   ├── generate_price_history_4bucket_v2.py
 │   ├── generate_price_history_daily_v5.py
@@ -777,6 +779,7 @@
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown.py
 │   ├── replace_v7_gis_sld_asset_buttons_with_pipeline_dropdown_status.py
 │   ├── requirements.txt
+│   ├── split_elexon_generation_sources_by_year.py
 │   ├── split_elexon_system_prices_by_year.py
 │   ├── test_add_v8_bess_geospatial_layout_drawing.py
 │   ├── test_build_v8_bess_gis_sld_financial_sandbox.py
@@ -1339,4 +1342,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-188 directories, 1152 files
+188 directories, 1155 files

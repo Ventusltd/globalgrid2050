@@ -719,6 +719,7 @@
 │   ├── fix_v7_gis_sld_mobile_tools_energy_layer_clearance.py
 │   ├── generate_deep_subsea.py
 │   ├── generate_generation_history_daily_v6.py
+│   ├── generate_generation_recent_halfhourly_v6.py
 │   ├── generate_gis_sld_full_code_reports.py
 │   ├── generate_price_history_4bucket_v2.py
 │   ├── generate_price_history_daily_v5.py
@@ -1362,4 +1363,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-191 directories, 1172 files
+191 directories, 1173 files

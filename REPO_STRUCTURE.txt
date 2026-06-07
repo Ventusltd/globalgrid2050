@@ -1293,7 +1293,10 @@
 │   ├── frequency_history
 │   │   └── frequency-history-ui.js
 │   ├── generation_history
+│   │   ├── AUTO_2026_TEST_DONE.flag
 │   │   ├── GENERATION_HISTORY_DATA_REPORT.md
+│   │   ├── backfill_reports
+│   │   │   └── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   ├── control_generation_history.js
 │   │   ├── generation_history_daily_decade.json
 │   │   ├── index.md
@@ -1356,4 +1359,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-190 directories, 1167 files
+191 directories, 1169 files

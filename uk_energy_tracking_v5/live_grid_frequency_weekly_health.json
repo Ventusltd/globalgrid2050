@@ -1,16 +1,16 @@
 {
-  "updated_utc": "2026-06-07T21:41:52Z",
+  "updated_utc": "2026-06-07T22:47:14Z",
   "window_weeks": 52,
   "record_count": 2,
   "latest_week": {
     "week_start_utc": "2026-06-01T00:00:00Z",
-    "sample_count": 15,
-    "avg_hz": 49.9523,
+    "sample_count": 13,
+    "avg_hz": 49.946,
     "min_hz": 49.886,
-    "max_hz": 50.166,
-    "samples_below_49_9": 3,
-    "samples_above_50_1": 1,
-    "largest_deviation_hz": 0.166,
+    "max_hz": 49.951,
+    "samples_below_49_9": 1,
+    "samples_above_50_1": 0,
+    "largest_deviation_hz": 0.114,
     "data_health": "ok"
   },
   "source": "Elexon plus GlobalGrid2050 weekly aggregation",
@@ -29,13 +29,13 @@
     },
     {
       "week_start_utc": "2026-06-01T00:00:00Z",
-      "sample_count": 15,
-      "avg_hz": 49.9523,
+      "sample_count": 13,
+      "avg_hz": 49.946,
       "min_hz": 49.886,
-      "max_hz": 50.166,
-      "samples_below_49_9": 3,
-      "samples_above_50_1": 1,
-      "largest_deviation_hz": 0.166,
+      "max_hz": 49.951,
+      "samples_below_49_9": 1,
+      "samples_above_50_1": 0,
+      "largest_deviation_hz": 0.114,
       "data_health": "ok"
     }
   ]

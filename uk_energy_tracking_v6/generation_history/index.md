@@ -14,12 +14,18 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel #generation-history-canvas{height:min(76dvh,760px)!important;min-height:520px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;}
   #generation-history-panel .price-history-actions select,
   #generation-history-panel .price-history-actions input{min-height:38px;max-width:100%;}
+  #generation-history-panel .ons-generation-placeholder{margin-top:16px;padding:14px;border:1px solid rgba(0,255,255,.28);border-radius:10px;background:rgba(0,255,255,.035);color:#9aa3b6;font-size:12px;line-height:1.55;letter-spacing:.07em;text-transform:uppercase;}
+  #generation-history-panel .ons-generation-placeholder strong{display:block;color:#00ffff;font-size:13px;margin-bottom:8px;letter-spacing:.12em;}
+  #generation-history-panel .ons-generation-placeholder .placeholder-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px;}
+  #generation-history-panel .ons-generation-placeholder .placeholder-card{border:1px solid rgba(255,255,255,.08);background:rgba(5,7,12,.72);border-radius:8px;padding:10px;min-height:58px;}
+  #generation-history-panel .ons-generation-placeholder .placeholder-card b{display:block;color:#f5f7fb;font-size:16px;margin-top:4px;}
   @media(max-width:850px){
-    #generation-history-panel #generation-history-canvas{min-height:580px!important;height:74dvh!important;}
+    #generation-history-panel #generation-history-canvas{min-height:560px!important;height:70dvh!important;}
     #generation-history-panel .price-history-actions{align-items:stretch;}
     #generation-history-panel .price-history-date-label{width:100%;justify-content:space-between;}
     #generation-history-panel .price-history-date-label select,
     #generation-history-panel .price-history-date-label input{flex:1;min-width:0;}
+    #generation-history-panel .ons-generation-placeholder .placeholder-grid{grid-template-columns:1fr;}
   }
   @media(max-width:950px) and (orientation:landscape){
     #generation-history-panel .trend-panel{padding:6px!important;}
@@ -61,6 +67,15 @@ permalink: /uk_energy_tracking_v6/generation_history/
       <div id="generation-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
       <div class="unit-panel"><strong>Unit:</strong> megawatts. Short windows use a small recent half hourly slice. Long windows use daily high, average and low aggregates.</div>
       <canvas id="generation-history-canvas" width="900" height="720"></canvas>
+      <div class="ons-generation-placeholder" id="ons-generation-placeholder">
+        <strong>Future ONS annual energy generation layer in MWh</strong>
+        Placeholder for Office for National Statistics energy generation and energy use datasets converted into MWh, with annual, monthly, seasonal and weekly views. This will complement the Elexon MW operational signal with higher level MWh energy accounting for investor education, system planning and electrification analysis.
+        <div class="placeholder-grid">
+          <div class="placeholder-card">Annual MWh by source<b>Pending</b></div>
+          <div class="placeholder-card">Monthly and seasonal MWh<b>Pending</b></div>
+          <div class="placeholder-card">Blog and manual integration<b>Pending</b></div>
+        </div>
+      </div>
       <details class="price-history-discovery">
         <summary>What does this generation data mean?</summary>
         <p><strong>Interpretation:</strong> this module uses generation output by technology. It is useful for system trend analysis, battery opportunity screening and historic technology behaviour.</p>
@@ -70,7 +85,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genui1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genui1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genui1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genui1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genui2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genui2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genui2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genui2"></script>

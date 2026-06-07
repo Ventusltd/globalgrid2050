@@ -1301,12 +1301,14 @@
 │   │   └── frequency-history-ui.js
 │   ├── generation_history
 │   │   ├── AUTO_2026_TEST_DONE.flag
+│   │   ├── GENERATION_DATA_COVERAGE_AUDIT.md
 │   │   ├── GENERATION_HISTORY_DATA_REPORT.md
 │   │   ├── GENERATION_HISTORY_DEVELOPMENT_COMPARISON_LOG.md
 │   │   ├── PVLIVE_SOLAR_HISTORY_REPORT.md
 │   │   ├── backfill_reports
 │   │   │   └── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   ├── control_generation_history.js
+│   │   ├── generation_data_coverage_audit.json
 │   │   ├── generation_history_daily_decade.json
 │   │   ├── generation_recent_halfhourly_30d.json
 │   │   ├── index.md
@@ -1372,4 +1374,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-192 directories, 1181 files
+192 directories, 1183 files

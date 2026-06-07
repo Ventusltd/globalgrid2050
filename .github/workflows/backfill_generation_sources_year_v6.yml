@@ -1,0 +1,62 @@
+name: Backfill Generation Sources Single Year V6
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: Calendar year to backfill
+        required: true
+        default: '2026'
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backfill-generation-sources-year-v6
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Backfill one generation source calendar year
+        env:
+          YEAR: ${{ github.event.inputs.year }}
+          INCLUDE_SOLAR: ${{ github.event.inputs.include_solar }}
+        run: |
+          set -e
+          YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_sources_year_v6.py
+          python scripts/merge_generation_sources_annual_to_master_v6.py
+          python scripts/generate_generation_history_daily_v6.py
+
+      - name: Commit generation source year files
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/generation/elexon_generation_sources_half_hourly.csv data/generation/elexon_generation_sources_${{ github.event.inputs.year }}.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_${{ github.event.inputs.year }}.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Backfill V6 generation source data for ${{ github.event.inputs.year }}"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V6 generation source year changes"
+          fi

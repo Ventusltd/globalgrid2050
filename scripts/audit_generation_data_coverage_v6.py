@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 DATA_DIR = Path('data/generation')
+ARCHIVE_DIR = DATA_DIR / 'archive'
 OUT_DIR = Path('uk_energy_tracking_v6/generation_history')
 REPORT_MD = OUT_DIR / 'GENERATION_DATA_COVERAGE_AUDIT.md'
 REPORT_JSON = OUT_DIR / 'generation_data_coverage_audit.json'
@@ -57,6 +58,39 @@ def csv_summary(path):
     return info
 
 
+def monthly_archive_summary(year):
+    folder = ARCHIVE_DIR / str(year)
+    files = sorted(folder.glob(f'elexon_generation_sources_{year}-[0-9][0-9].csv'))
+    info = {
+        'year': year,
+        'folder': str(folder),
+        'exists': bool(files),
+        'months': len(files),
+        'sizeBytes': 0,
+        'rows': 0,
+        'minPeriodStartUTC': None,
+        'maxPeriodStartUTC': None,
+        'technologies': {},
+        'files': [],
+    }
+    total_counts = Counter()
+    for path in files:
+        item = csv_summary(path)
+        info['files'].append(item)
+        info['sizeBytes'] += item['sizeBytes']
+        info['rows'] += item['rows']
+        for tech, count in item.get('technologies', {}).items():
+            total_counts[tech] += count
+        mn = item.get('minPeriodStartUTC')
+        mx = item.get('maxPeriodStartUTC')
+        if mn and (info['minPeriodStartUTC'] is None or mn < info['minPeriodStartUTC']):
+            info['minPeriodStartUTC'] = mn
+        if mx and (info['maxPeriodStartUTC'] is None or mx > info['maxPeriodStartUTC']):
+            info['maxPeriodStartUTC'] = mx
+    info['technologies'] = dict(sorted(total_counts.items()))
+    return info
+
+
 def json_rows_summary(path, date_key):
     info = file_info(path)
     info.update({
@@ -93,6 +127,7 @@ def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     years = list(range(2016, 2027))
     annual = {str(year): csv_summary(DATA_DIR / f'elexon_generation_sources_{year}.csv') for year in years}
+    monthly = {str(year): monthly_archive_summary(year) for year in years}
     master = csv_summary(DATA_DIR / 'elexon_generation_sources_half_hourly.csv')
     daily = json_rows_summary(DAILY_JSON, 'date')
     recent = json_rows_summary(RECENT_JSON, 'time')
@@ -100,6 +135,7 @@ def main():
     audit = {
         'generatedUTC': utc_now(),
         'annualFiles': annual,
+        'monthlyArchiveFiles': monthly,
         'masterHalfHourly': master,
         'dailyDecadeJson': daily,
         'recentHalfHourlyJson': recent,
@@ -111,7 +147,24 @@ def main():
     lines.append('')
     lines.append(f'Generated UTC: {audit["generatedUTC"]}')
     lines.append('')
-    lines.append('## Annual CSV files')
+    lines.append('## Monthly archive files')
+    lines.append('')
+    lines.append('| Year | Exists | Months | Size MB | Rows | Min UTC | Max UTC | Technology count |')
+    lines.append('| --- | --- | ---: | ---: | ---: | --- | --- | ---: |')
+    for year in years:
+        item = monthly[str(year)]
+        lines.append('| {year} | {exists} | {months} | {size:.2f} | {rows} | {mn} | {mx} | {tc} |'.format(
+            year=year,
+            exists='yes' if item['exists'] else 'no',
+            months=item['months'],
+            size=item['sizeBytes'] / 1024 / 1024,
+            rows=item['rows'],
+            mn=item['minPeriodStartUTC'] or '',
+            mx=item['maxPeriodStartUTC'] or '',
+            tc=len(item['technologies']),
+        ))
+    lines.append('')
+    lines.append('## Legacy annual CSV files')
     lines.append('')
     lines.append('| Year | Exists | Size MB | Rows | Min UTC | Max UTC | Technology count |')
     lines.append('| --- | --- | ---: | ---: | --- | --- | ---: |')
@@ -127,7 +180,7 @@ def main():
             tc=len(item['technologies']),
         ))
     lines.append('')
-    lines.append('## Master and browser files')
+    lines.append('## Browser files')
     lines.append('')
     lines.append('| File | Size MB | Rows | Min | Max | Status |')
     lines.append('| --- | ---: | ---: | --- | --- | --- |')
@@ -137,11 +190,11 @@ def main():
     lines.append('')
     lines.append('## Interpretation')
     lines.append('')
-    missing = [str(y) for y in years if not annual[str(y)]['exists'] or annual[str(y)]['rows'] == 0]
+    missing = [str(y) for y in years if monthly[str(y)]['rows'] == 0 and annual[str(y)]['rows'] == 0]
     if missing:
-        lines.append('Missing or empty annual years: ' + ', '.join(missing))
+        lines.append('Missing or empty years: ' + ', '.join(missing))
     else:
-        lines.append('All annual files from 2016 to 2026 contain rows.')
+        lines.append('All years from 2016 to 2026 contain generation rows in monthly archive or legacy annual files.')
     if recent['rows'] == 0:
         lines.append('Recent half hourly slice is empty. Short windows will show no data until this file is populated.')
     if daily['rows'] == 0:

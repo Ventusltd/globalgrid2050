@@ -1,0 +1,77 @@
+name: Update Generation Aggregates YTD V6
+
+on:
+  schedule:
+    - cron: '20 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generation-aggregate-writes-v6
+  cancel-in-progress: false
+
+jobs:
+  update_ytd:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve current UTC year
+        id: ytd
+        run: |
+          YEAR=$(date -u +%Y)
+          echo "year=$YEAR" >> "$GITHUB_OUTPUT"
+          echo "Current year: $YEAR"
+
+      - name: Pull latest main
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
+
+      - name: Aggregate current year to date
+        env:
+          YEAR: ${{ steps.ytd.outputs.year }}
+          INCLUDE_SOLAR: ${{ github.event.inputs.include_solar || 'true' }}
+        run: |
+          set -e
+          YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_aggregates_year_v6.py
+
+      - name: Commit YTD aggregate outputs
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+          YEAR: ${{ steps.ytd.outputs.year }}
+        run: |
+          set -e
+          git add uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_${YEAR}.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update V6 generation MWh aggregates YTD for ${YEAR}"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No YTD aggregate changes for ${YEAR}"
+          fi

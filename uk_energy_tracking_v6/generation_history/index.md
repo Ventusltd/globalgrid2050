@@ -10,7 +10,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel .price-history-range-status,
   #generation-history-panel .unit-panel{display:none!important;}
   #generation-history-panel .trend-panel{padding:12px;width:100%;max-width:100%;overflow:hidden;background:#070a10!important;border:1px solid #252b36!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
-  #generation-history-panel .price-history-actions::after{content:"V7 loading ladder · recent slice for short windows · daily aggregate for long windows · one technology at a time";display:block;width:100%;color:var(--gg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
+  #generation-history-panel .price-history-actions::after{content:"V7 loading ladder · daily aggregate landing view until recent slice is populated · one technology at a time";display:block;width:100%;color:var(--gg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
   #generation-history-panel #generation-history-canvas{height:min(76dvh,760px)!important;min-height:520px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;}
   #generation-history-panel .price-history-actions select,
   #generation-history-panel .price-history-actions input{min-height:38px;max-width:100%;}
@@ -49,11 +49,11 @@ permalink: /uk_energy_tracking_v6/generation_history/
           <option value="12hnight">12 hours night</option>
           <option value="24h">24 hours</option>
           <option value="48h">48 hours</option>
-          <option value="7d" selected>1 week</option>
+          <option value="7d">1 week</option>
           <option value="30d">1 month</option>
           <option value="3m">3 months</option>
           <option value="6m">6 months</option>
-          <option value="12m">12 months</option>
+          <option value="12m" selected>12 months</option>
           <option value="5y">5 years</option>
           <option value="10y">10 years</option>
         </select></label>
@@ -70,7 +70,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genlod1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genlod1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genlod1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genlod1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genlod2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genlod2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genlod2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genlod2"></script>

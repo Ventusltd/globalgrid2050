@@ -1,16 +1,14 @@
 name: Backfill Generation Sources Monthly Sequence V6
 
 on:
-  schedule:
-    - cron: '30 22 1 * *'
   workflow_dispatch:
     inputs:
       start_year:
-        description: First calendar year to backfill
+        description: First calendar year to backfill manually
         required: true
         default: '2016'
       end_year:
-        description: Last calendar year to backfill
+        description: Last calendar year to backfill manually
         required: true
         default: '2026'
       include_solar:
@@ -22,7 +20,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: backfill-generation-sources-monthly-sequence-v6
+  group: generation-data-writes-v6
   cancel-in-progress: false
 
 jobs:
@@ -41,18 +39,31 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Pull latest main before data work
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
+
       - name: Resolve year sequence
         id: years
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "start_year=${{ github.event.inputs.start_year }}" >> "$GITHUB_OUTPUT"
-            echo "end_year=${{ github.event.inputs.end_year }}" >> "$GITHUB_OUTPUT"
-            echo "include_solar=${{ github.event.inputs.include_solar }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "start_year=2016" >> "$GITHUB_OUTPUT"
-            echo "end_year=2026" >> "$GITHUB_OUTPUT"
-            echo "include_solar=true" >> "$GITHUB_OUTPUT"
+          START_YEAR="${{ github.event.inputs.start_year }}"
+          END_YEAR="${{ github.event.inputs.end_year }}"
+          if ! echo "$START_YEAR" | grep -Eq '^(2016|2017|2018|2019|2020|2021|2022|2023|2024|2025|2026)$'; then
+            echo "Invalid start_year: $START_YEAR"
+            exit 1
           fi
+          if ! echo "$END_YEAR" | grep -Eq '^(2016|2017|2018|2019|2020|2021|2022|2023|2024|2025|2026)$'; then
+            echo "Invalid end_year: $END_YEAR"
+            exit 1
+          fi
+          echo "start_year=$START_YEAR" >> "$GITHUB_OUTPUT"
+          echo "end_year=$END_YEAR" >> "$GITHUB_OUTPUT"
+          echo "include_solar=${{ github.event.inputs.include_solar }}" >> "$GITHUB_OUTPUT"
 
       - name: Backfill each calendar year sequentially
         env:
@@ -62,13 +73,9 @@ jobs:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
           set -e
-          git config --global user.name "gridbot"
-          git config --global user.email "bot@globalgrid2050.com"
-
           for YEAR in $(seq $START_YEAR $END_YEAR); do
             echo "Backfilling V6 generation source calendar year $YEAR"
             YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_sources_year_v6.py
-
             git add data/generation/elexon_generation_sources_${YEAR}.csv uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_${YEAR}.md
             if [ -n "$(git status --porcelain)" ]; then
               git commit -m "Backfill V6 generation source data for ${YEAR}"
@@ -79,7 +86,7 @@ jobs:
             fi
           done
 
-      - name: Rebuild master daily aggregate and recent slice
+      - name: Rebuild master daily aggregate recent slice and audit
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
@@ -87,10 +94,14 @@ jobs:
           python scripts/merge_generation_sources_annual_to_master_v6.py
           python scripts/generate_generation_history_daily_v6.py
           python scripts/generate_generation_recent_halfhourly_v6.py
-
-          git add data/generation/elexon_generation_sources_half_hourly.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json
+          python scripts/audit_generation_data_coverage_v6.py
+          git add data/generation/elexon_generation_sources_half_hourly.csv \
+                  uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json \
+                  uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json \
+                  uk_energy_tracking_v6/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md \
+                  uk_energy_tracking_v6/generation_history/generation_data_coverage_audit.json
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Rebuild V6 generation source master daily aggregate and recent slice"
+            git commit -m "Rebuild V6 generation source aggregates and audit"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else

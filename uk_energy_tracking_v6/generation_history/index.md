@@ -7,7 +7,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
 <link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604toolbargrid1">
 <style>
   #generation-history-module .scada-intro{display:block!important;color:#9aa3b6;font-size:13px;line-height:1.5;margin:10px 0 18px;}
-  #generation-history-panel .price-history-range-status,
+  #generation-history-panel .price-history-range-status{display:block!important;color:#9aa3b6;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin:8px 0 10px;}
   #generation-history-panel .unit-panel{display:none!important;}
   #generation-history-panel .trend-panel{padding:12px;width:100%;max-width:100%;overflow:hidden;background:#070a10!important;border:1px solid #252b36!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
   #generation-history-panel .price-history-actions::after{content:"V7 loading ladder · daily aggregate landing view until recent slice is populated · one technology at a time";display:block;width:100%;color:var(--gg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
@@ -70,7 +70,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genlod2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genlod2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genlod2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genlod2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genui1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genui1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genui1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genui1"></script>

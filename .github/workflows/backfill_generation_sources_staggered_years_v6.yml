@@ -1,0 +1,101 @@
+name: Backfill Generation Sources Staggered Years V6
+
+on:
+  schedule:
+    - cron: '30 22 2-12 * *'
+  workflow_dispatch:
+    inputs:
+      year:
+        description: Calendar year to backfill, or auto for schedule mapping
+        required: true
+        default: 'auto'
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backfill-generation-sources-staggered-years-v6
+  cancel-in-progress: false
+
+jobs:
+  backfill_year:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve calendar year
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.year }}" != "auto" ]; then
+            YEAR="${{ github.event.inputs.year }}"
+          else
+            DAY=$(date -u +%d)
+            case "$DAY" in
+              02) YEAR=2016 ;;
+              03) YEAR=2017 ;;
+              04) YEAR=2018 ;;
+              05) YEAR=2019 ;;
+              06) YEAR=2020 ;;
+              07) YEAR=2021 ;;
+              08) YEAR=2022 ;;
+              09) YEAR=2023 ;;
+              10) YEAR=2024 ;;
+              11) YEAR=2025 ;;
+              12) YEAR=2026 ;;
+              *) YEAR=2026 ;;
+            esac
+          fi
+          echo "year=$YEAR" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "include_solar=${{ github.event.inputs.include_solar }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "include_solar=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Resolved generation backfill year: $YEAR"
+
+      - name: Backfill one generation source calendar year
+        env:
+          YEAR: ${{ steps.resolve.outputs.year }}
+          INCLUDE_SOLAR: ${{ steps.resolve.outputs.include_solar }}
+        run: |
+          set -e
+          YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_sources_year_v6.py
+
+      - name: Rebuild derived generation files
+        run: |
+          set -e
+          python scripts/merge_generation_sources_annual_to_master_v6.py
+          python scripts/generate_generation_history_daily_v6.py
+          python scripts/generate_generation_recent_halfhourly_v6.py
+          python scripts/audit_generation_data_coverage_v6.py
+
+      - name: Commit year and derived generation files
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+          YEAR: ${{ steps.resolve.outputs.year }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/generation/elexon_generation_sources_${YEAR}.csv data/generation/elexon_generation_sources_half_hourly.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_${YEAR}.md uk_energy_tracking_v6/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md uk_energy_tracking_v6/generation_history/generation_data_coverage_audit.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Backfill V6 generation source data for ${YEAR}"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V6 generation source changes for ${YEAR}"
+          fi

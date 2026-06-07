@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-06-03T10:26:18.649471+00:00",
+    "updated": "2026-06-07T08:42:28.845331+00:00",
     "unit": "USD per barrel",
     "period": "Last 25 years",
     "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
@@ -19,60 +19,18 @@
       {
         "ok": true,
         "source": "Yahoo Brent futures history",
-        "rows": 4690,
+        "rows": 4692,
         "fallback": true
       },
       {
         "ok": true,
         "source": "Yahoo WTI futures history",
-        "rows": 6278,
+        "rows": 6277,
         "fallback": true
       }
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-04",
-        "wtiUSDperBarrel": 28.1299991607666
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-05",
-        "wtiUSDperBarrel": 28.239999771118164
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-06",
-        "wtiUSDperBarrel": 27.719999313354492
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -92622,8 +92580,38 @@
       },
       "properties": {
         "date": "2026-06-03",
-        "brentUSDperBarrel": 98.37999725341797,
-        "wtiUSDperBarrel": 96.36000061035156
+        "brentUSDperBarrel": 97.80999755859375,
+        "wtiUSDperBarrel": 96.0199966430664
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-04",
+        "brentUSDperBarrel": 95.02999877929688,
+        "wtiUSDperBarrel": 93.04000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-05",
+        "brentUSDperBarrel": 93.08999633789062,
+        "wtiUSDperBarrel": 90.54000091552734
       }
     }
   ]

@@ -10,7 +10,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel .price-history-range-status,
   #generation-history-panel .unit-panel{display:none!important;}
   #generation-history-panel .trend-panel{padding:12px;width:100%;max-width:100%;overflow:hidden;background:#070a10!important;border:1px solid #252b36!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
-  #generation-history-panel .price-history-actions::after{content:"Elexon FUELINST generation history · select technology, start, period and time filter · red markers show high and low";display:block;width:100%;color:var(--gg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
+  #generation-history-panel .price-history-actions::after{content:"V7 loading ladder · recent slice for short windows · daily aggregate for long windows · one technology at a time";display:block;width:100%;color:var(--gg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
   #generation-history-panel #generation-history-canvas{height:min(76dvh,760px)!important;min-height:520px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;}
   #generation-history-panel .price-history-actions select,
   #generation-history-panel .price-history-actions input{min-height:38px;max-width:100%;}
@@ -34,13 +34,13 @@ permalink: /uk_energy_tracking_v6/generation_history/
     <div class="scada-title-rule"></div>
   </header>
 
-  <p class="scada-intro"><strong>Separate module.</strong> This page is not linked into the main V6 tracker yet. It uses the same annual CSV and daily aggregate design pattern as the electricity price history chart.</p>
+  <p class="scada-intro"><strong>Separate module.</strong> This page is not linked into the main V6 tracker yet. It now follows the V7 loading ladder: recent slice for short windows and daily aggregate for long windows.</p>
 
   <section id="generation-history-panel">
     <h2 class="section-title">Generation History</h2>
     <div class="trend-panel">
       <div class="price-history-actions">
-        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Elexon FUELINST generation history in MW</strong>
+        <strong style="color:#00ffff;letter-spacing:.12em;text-transform:uppercase;">Generation history in MW</strong>
         <label class="price-history-date-label">Technology <select id="generation-history-technology"></select></label>
         <label class="price-history-date-label">Year <select id="generation-history-year"></select></label>
         <label class="price-history-date-label">Start <input type="date" id="generation-history-start"></label>
@@ -49,28 +49,28 @@ permalink: /uk_energy_tracking_v6/generation_history/
           <option value="12hnight">12 hours night</option>
           <option value="24h">24 hours</option>
           <option value="48h">48 hours</option>
-          <option value="7d">1 week</option>
+          <option value="7d" selected>1 week</option>
           <option value="30d">1 month</option>
           <option value="3m">3 months</option>
           <option value="6m">6 months</option>
-          <option value="12m" selected>12 months</option>
+          <option value="12m">12 months</option>
           <option value="5y">5 years</option>
           <option value="10y">10 years</option>
         </select></label>
       </div>
       <div id="generation-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
-      <div class="unit-panel"><strong>Unit:</strong> megawatts. Select a technology, year, start date and period. Short windows use half hourly FUELINST data. 12 month, 5 year and 10 year views use daily high, average and low aggregates.</div>
+      <div class="unit-panel"><strong>Unit:</strong> megawatts. Short windows use a small recent half hourly slice. Long windows use daily high, average and low aggregates.</div>
       <canvas id="generation-history-canvas" width="900" height="720"></canvas>
       <details class="price-history-discovery">
         <summary>What does this generation data mean?</summary>
-        <p><strong>Interpretation:</strong> this module uses Elexon BMRS FUELINST generation output by fuel type. It is useful for system trend analysis, battery opportunity screening and historic technology behaviour.</p>
-        <p><strong>Solar note:</strong> Solar is now included in the selector. If the Elexon FUELINST history does not contain solar rows for the selected period, the chart will show no solar records. Embedded distribution solar may need a PVLive historical layer later.</p>
+        <p><strong>Interpretation:</strong> this module uses generation output by technology. It is useful for system trend analysis, battery opportunity screening and historic technology behaviour.</p>
+        <p><strong>Loading rule:</strong> the page should never load the full raw generation universe by default. It should load only the visible time window at the required resolution.</p>
       </details>
     </div>
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genstep1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genstep1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genstep1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genstep1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genlod1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genlod1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genlod1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genlod1"></script>

@@ -78,9 +78,23 @@
 │   │   ├── elexon_system_prices_2026.csv
 │   │   └── elexon_system_prices_half_hourly.csv
 │   ├── generation
+│   │   ├── archive
+│   │   │   └── 2021
+│   │   │       ├── elexon_generation_sources_2020-12.csv
+│   │   │       ├── elexon_generation_sources_2021-01.csv
+│   │   │       ├── elexon_generation_sources_2021-02.csv
+│   │   │       ├── elexon_generation_sources_2021-03.csv
+│   │   │       ├── elexon_generation_sources_2021-04.csv
+│   │   │       ├── elexon_generation_sources_2021-05.csv
+│   │   │       ├── elexon_generation_sources_2021-06.csv
+│   │   │       ├── elexon_generation_sources_2021-07.csv
+│   │   │       ├── elexon_generation_sources_2021-08.csv
+│   │   │       ├── elexon_generation_sources_2021-09.csv
+│   │   │       ├── elexon_generation_sources_2021-10.csv
+│   │   │       ├── elexon_generation_sources_2021-11.csv
+│   │   │       └── elexon_generation_sources_2021-12.csv
 │   │   ├── elexon_generation_sources_2025.csv
-│   │   ├── elexon_generation_sources_2026.csv
-│   │   └── elexon_generation_sources_half_hourly.csv
+│   │   └── elexon_generation_sources_2026.csv
 │   └── grid_studies_public
 │       ├── PUBLIC_GRID_STUDY_PERIOD_SELECTOR_REPAIR_REPORT.md
 │       ├── PUBLIC_GRID_STUDY_SELECTOR_BINDING_REPAIR_REPORT.md
@@ -1309,6 +1323,7 @@
 │   │   ├── PVLIVE_SOLAR_HISTORY_REPORT.md
 │   │   ├── backfill_reports
 │   │   │   ├── GENERATION_AGGREGATE_BACKFILL_2024.md
+│   │   │   ├── GENERATION_HISTORY_BACKFILL_2021.md
 │   │   │   └── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   ├── control_generation_history.js
 │   │   ├── generation_annual_mwh_by_technology.json
@@ -1381,4 +1396,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-192 directories, 1190 files
+194 directories, 1203 files

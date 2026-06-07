@@ -1,0 +1,69 @@
+name: Backfill Generation Aggregates Manual V6
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: Calendar year to aggregate
+        required: true
+        default: '2024'
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generation-aggregate-writes-v6
+  cancel-in-progress: false
+
+jobs:
+  aggregate_year:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pull latest main
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
+
+      - name: Aggregate generation MWh
+        env:
+          YEAR: ${{ github.event.inputs.year }}
+          INCLUDE_SOLAR: ${{ github.event.inputs.include_solar }}
+        run: |
+          YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_aggregates_year_v6.py
+
+      - name: Commit aggregate outputs
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+          YEAR: ${{ github.event.inputs.year }}
+        run: |
+          git add uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json
+          git add uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_${YEAR}.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Backfill V6 generation MWh aggregates for ${YEAR}"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No aggregate changes"
+          fi

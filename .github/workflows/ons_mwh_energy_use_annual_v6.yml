@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  update_placeholder:
+  update_ons_mwh:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,22 +27,22 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Build ONS MWh placeholder
+      - name: Download and normalise ONS MWh energy use workbook
         run: |
-          python scripts/build_ons_mwh_energy_use_placeholder.py
+          python scripts/download_ons_mwh_energy_use_v6.py
 
-      - name: Commit ONS MWh placeholder
+      - name: Commit ONS MWh energy use data
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
           set -e
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add uk_energy_tracking_v6/generation_history/mwh_energy_use/ons_mwh_energy_use_placeholder.json
+          git add data/ons/11energyusebyindustrysourceandfuel.xlsx uk_energy_tracking_v6/generation_history/mwh_energy_use/ons_mwh_energy_use_annual.json uk_energy_tracking_v6/generation_history/mwh_energy_use/ons_mwh_summary_top_uses_latest.json uk_energy_tracking_v6/generation_history/mwh_energy_use/ons_mwh_summary_by_fuel.json uk_energy_tracking_v6/generation_history/mwh_energy_use/ONS_MWH_ENERGY_USE_REPORT.md
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Update ONS MWh energy use placeholder"
+            git commit -m "Update ONS MWh energy use data"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else
-            echo "No ONS MWh placeholder changes"
+            echo "No ONS MWh energy use changes"
           fi

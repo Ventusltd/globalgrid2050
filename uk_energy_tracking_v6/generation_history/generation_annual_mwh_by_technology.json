@@ -1,9 +1,90 @@
 {
-  "generatedUTC": "2026-06-07T23:45:10.174520Z",
+  "generatedUTC": "2026-06-07T23:52:35.667978Z",
   "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive where available",
   "description": "Annual MWh by generation technology",
   "unit": "MWh",
   "rows": [
+    {
+      "year": 2016,
+      "technology": "Coal",
+      "totalMWh": 18279900.833,
+      "averageMW": 2509.965,
+      "highMW": 13791.0,
+      "lowMW": 0.0,
+      "records": 87391
+    },
+    {
+      "year": 2016,
+      "technology": "Gas",
+      "totalMWh": 108573016.083,
+      "averageMW": 7362.355,
+      "highMW": 26320.0,
+      "lowMW": 0.0,
+      "records": 174782
+    },
+    {
+      "year": 2016,
+      "technology": "Hydro",
+      "totalMWh": 2393322.833,
+      "averageMW": 328.625,
+      "highMW": 1380.0,
+      "lowMW": 0.0,
+      "records": 87391
+    },
+    {
+      "year": 2016,
+      "technology": "Imports & Exports",
+      "totalMWh": 52107503.0,
+      "averageMW": 478.112,
+      "highMW": 3374.0,
+      "lowMW": -2051.0,
+      "records": 349564
+    },
+    {
+      "year": 2016,
+      "technology": "Nuclear",
+      "totalMWh": 55421198.083,
+      "averageMW": 7609.676,
+      "highMW": 8868.0,
+      "lowMW": 0.0,
+      "records": 87391
+    },
+    {
+      "year": 2016,
+      "technology": "Other",
+      "totalMWh": 11454079.833,
+      "averageMW": 772.979,
+      "highMW": 2295.0,
+      "lowMW": 0.0,
+      "records": 174782
+    },
+    {
+      "year": 2016,
+      "technology": "Pumped Storage",
+      "totalMWh": -849159.417,
+      "averageMW": -116.608,
+      "highMW": 2357.0,
+      "lowMW": -2548.0,
+      "records": 87391
+    },
+    {
+      "year": 2016,
+      "technology": "Solar",
+      "totalMWh": 10021156.419,
+      "averageMW": 1140.842,
+      "highMW": 8292.86,
+      "lowMW": 0.0,
+      "records": 17568
+    },
+    {
+      "year": 2016,
+      "technology": "Wind",
+      "totalMWh": 16433623.583,
+      "averageMW": 2256.481,
+      "highMW": 7976.0,
+      "lowMW": 0.0,
+      "records": 87391
+    },
     {
       "year": 2024,
       "technology": "Biomass",

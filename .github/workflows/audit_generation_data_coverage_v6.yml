@@ -1,0 +1,46 @@
+name: Audit Generation Data Coverage V6
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-generation-data-coverage-v6
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Audit generation data coverage
+        run: |
+          python scripts/audit_generation_data_coverage_v6.py
+
+      - name: Commit generation data coverage audit
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md uk_energy_tracking_v6/generation_history/generation_data_coverage_audit.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Audit V6 generation data coverage"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No audit changes"
+          fi

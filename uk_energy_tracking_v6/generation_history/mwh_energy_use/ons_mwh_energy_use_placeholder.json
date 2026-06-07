@@ -1,0 +1,22 @@
+{
+  "generatedUTC": "2026-06-07T20:45:00Z",
+  "status": "placeholder",
+  "source": "ONS Energy use by industry, source and fuel workbook or future API connector",
+  "conversion": {
+    "mtoeToTwh": 11.63,
+    "twhToMwh": 1000000,
+    "formula": "MWh = Mtoe * 11.63 * 1000000"
+  },
+  "purpose": "Annual MWh energy accounting layer for GlobalGrid2050 generation and electrification education.",
+  "rows": [],
+  "plannedFields": [
+    "year",
+    "economicSector",
+    "sourceName",
+    "activityName",
+    "fuel",
+    "mtoe",
+    "twh",
+    "mwh"
+  ]
+}

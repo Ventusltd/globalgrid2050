@@ -1308,11 +1308,16 @@
 │   │   ├── GENERATION_HISTORY_DEVELOPMENT_COMPARISON_LOG.md
 │   │   ├── PVLIVE_SOLAR_HISTORY_REPORT.md
 │   │   ├── backfill_reports
+│   │   │   ├── GENERATION_AGGREGATE_BACKFILL_2024.md
 │   │   │   └── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   ├── control_generation_history.js
+│   │   ├── generation_annual_mwh_by_technology.json
 │   │   ├── generation_data_coverage_audit.json
+│   │   ├── generation_day_night_mwh_by_technology.json
 │   │   ├── generation_history_daily_decade.json
+│   │   ├── generation_monthly_mwh_by_technology.json
 │   │   ├── generation_recent_halfhourly_30d.json
+│   │   ├── generation_seasonal_mwh_by_technology.json
 │   │   ├── index.md
 │   │   ├── live-config.js
 │   │   ├── load_generation_history_data.js
@@ -1376,4 +1381,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-192 directories, 1185 files
+192 directories, 1190 files

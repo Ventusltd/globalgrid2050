@@ -19,6 +19,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel .ons-generation-placeholder .placeholder-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px;}
   #generation-history-panel .ons-generation-placeholder .placeholder-card{border:1px solid rgba(255,255,255,.08);background:rgba(5,7,12,.72);border-radius:8px;padding:10px;min-height:58px;}
   #generation-history-panel .ons-generation-placeholder .placeholder-card b{display:block;color:#f5f7fb;font-size:16px;margin-top:4px;}
+  #generation-history-panel .ons-generation-placeholder a{color:#00ffff;}
   @media(max-width:850px){
     #generation-history-panel #generation-history-canvas{min-height:560px!important;height:70dvh!important;}
     #generation-history-panel .price-history-actions{align-items:stretch;}
@@ -68,12 +69,12 @@ permalink: /uk_energy_tracking_v6/generation_history/
       <div class="unit-panel"><strong>Unit:</strong> megawatts. Short windows use a small recent half hourly slice. Long windows use daily high, average and low aggregates.</div>
       <canvas id="generation-history-canvas" width="900" height="720"></canvas>
       <div class="ons-generation-placeholder" id="ons-generation-placeholder">
-        <strong>Future ONS annual energy generation layer in MWh</strong>
-        Placeholder for Office for National Statistics energy generation and energy use datasets converted into MWh, with annual, monthly, seasonal and weekly views. This will complement the Elexon MW operational signal with higher level MWh energy accounting for investor education, system planning and electrification analysis.
+        <strong>Annual MWh energy accounting layer</strong>
+        ONS energy use data belongs here as a separate MWh app, not inside the Elexon MW chart. It will support primary energy, final energy, fossil replacement and electrification analysis.
         <div class="placeholder-grid">
-          <div class="placeholder-card">Annual MWh by source<b>Pending</b></div>
-          <div class="placeholder-card">Monthly and seasonal MWh<b>Pending</b></div>
-          <div class="placeholder-card">Blog and manual integration<b>Pending</b></div>
+          <div class="placeholder-card">Annual MWh by source<b>Scaffold</b></div>
+          <div class="placeholder-card">ONS workbook/API automation<b>Annual</b></div>
+          <div class="placeholder-card">Standalone MWh app<b><a href="/uk_energy_tracking_v6/generation_history/mwh_energy_use/">Open</a></b></div>
         </div>
       </div>
       <details class="price-history-discovery">
@@ -85,7 +86,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genui2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genui2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genui2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genui2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genmwh1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genmwh1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genmwh1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genmwh1"></script>

@@ -1,0 +1,48 @@
+name: Update ONS MWh Energy Use Annual V6
+
+on:
+  schedule:
+    - cron: '30 5 15 8 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ons-mwh-energy-use-annual-v6
+  cancel-in-progress: true
+
+jobs:
+  update_placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build ONS MWh placeholder
+        run: |
+          python scripts/build_ons_mwh_energy_use_placeholder.py
+
+      - name: Commit ONS MWh placeholder
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/generation_history/mwh_energy_use/ons_mwh_energy_use_placeholder.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update ONS MWh energy use placeholder"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No ONS MWh placeholder changes"
+          fi

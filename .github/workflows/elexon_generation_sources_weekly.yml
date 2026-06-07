@@ -1,20 +1,20 @@
-name: Update Elexon Generation Sources Weekly
+name: Update Generation Sources YTD V6
 
 on:
   schedule:
-    - cron: '30 6 * * 1'
+    - cron: '30 6 * * *'
   workflow_dispatch:
     inputs:
       backfill_days:
         description: Days to fetch ending yesterday
         required: true
-        default: '14'
+        default: '30'
 
 permissions:
   contents: write
 
 concurrency:
-  group: elexon-generation-sources-weekly
+  group: generation-sources-ytd-v6
   cancel-in-progress: true
 
 jobs:
@@ -32,9 +32,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Fetch Elexon and PVLive generation sources and maintain annual files
+      - name: Fetch generation sources and maintain annual files
         env:
-          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '14' }}
+          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '30' }}
         run: |
           python scripts/download_elexon_generation_sources.py
           python scripts/download_pvlive_solar_history.py
@@ -50,7 +50,7 @@ jobs:
           git config --global user.email "bot@globalgrid2050.com"
           git add data/generation/elexon_generation_sources_half_hourly.csv data/generation/elexon_generation_sources_*.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/GENERATION_HISTORY_DATA_REPORT.md uk_energy_tracking_v6/generation_history/PVLIVE_SOLAR_HISTORY_REPORT.md
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Update Elexon and PVLive generation source history"
+            git commit -m "Update V6 generation source YTD data"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else

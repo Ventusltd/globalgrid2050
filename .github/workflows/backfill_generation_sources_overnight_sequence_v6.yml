@@ -1,8 +1,8 @@
-name: Backfill Generation Sources Overnight Sequence V6
+name: Backfill Generation Sources Monthly Sequence V6
 
 on:
   schedule:
-    - cron: '30 22 * * *'
+    - cron: '30 22 1 * *'
   workflow_dispatch:
     inputs:
       start_year:
@@ -22,7 +22,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: backfill-generation-sources-overnight-sequence-v6
+  group: backfill-generation-sources-monthly-sequence-v6
   cancel-in-progress: false
 
 jobs:

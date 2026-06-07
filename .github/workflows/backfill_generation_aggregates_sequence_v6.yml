@@ -1,0 +1,103 @@
+name: Backfill Generation Aggregates Sequence V6
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_year:
+        description: First calendar year to aggregate
+        required: true
+        default: '2016'
+      end_year:
+        description: Last calendar year to aggregate, or auto for current year
+        required: true
+        default: 'auto'
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generation-aggregate-writes-v6
+  cancel-in-progress: false
+
+jobs:
+  aggregate_sequence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 720
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pull latest main
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
+
+      - name: Resolve year range
+        id: years
+        run: |
+          set -e
+          START_YEAR="${{ github.event.inputs.start_year }}"
+          END_YEAR="${{ github.event.inputs.end_year }}"
+          if [ "$END_YEAR" = "auto" ]; then
+            END_YEAR=$(date -u +%Y)
+          fi
+          if ! echo "$START_YEAR" | grep -Eq '^[0-9]{4}$'; then
+            echo "Invalid start_year: $START_YEAR"
+            exit 1
+          fi
+          if ! echo "$END_YEAR" | grep -Eq '^[0-9]{4}$'; then
+            echo "Invalid end_year: $END_YEAR"
+            exit 1
+          fi
+          if [ "$START_YEAR" -lt 2016 ]; then
+            echo "Start year cannot be before 2016"
+            exit 1
+          fi
+          if [ "$END_YEAR" -lt "$START_YEAR" ]; then
+            echo "End year cannot be before start year"
+            exit 1
+          fi
+          echo "start_year=$START_YEAR" >> "$GITHUB_OUTPUT"
+          echo "end_year=$END_YEAR" >> "$GITHUB_OUTPUT"
+          echo "Year range: $START_YEAR to $END_YEAR"
+
+      - name: Aggregate and commit each year
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+          START_YEAR: ${{ steps.years.outputs.start_year }}
+          END_YEAR: ${{ steps.years.outputs.end_year }}
+          INCLUDE_SOLAR: ${{ github.event.inputs.include_solar }}
+        run: |
+          set -e
+          for YEAR in $(seq $START_YEAR $END_YEAR); do
+            echo "Aggregating generation MWh for $YEAR"
+            YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_aggregates_year_v6.py
+            git add uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json
+            git add uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json
+            git add uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json
+            git add uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json
+            git add uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_${YEAR}.md
+            if [ -n "$(git status --porcelain)" ]; then
+              git commit -m "Backfill V6 generation MWh aggregates for ${YEAR}"
+              git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+              git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+            else
+              echo "No aggregate changes for $YEAR"
+            fi
+          done

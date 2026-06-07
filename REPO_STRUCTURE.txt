@@ -1303,6 +1303,7 @@
 │   │   │   └── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   ├── control_generation_history.js
 │   │   ├── generation_history_daily_decade.json
+│   │   ├── generation_recent_halfhourly_30d.json
 │   │   ├── index.md
 │   │   ├── live-config.js
 │   │   ├── load_generation_history_data.js
@@ -1363,4 +1364,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-191 directories, 1173 files
+191 directories, 1174 files

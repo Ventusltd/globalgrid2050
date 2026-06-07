@@ -1,0 +1,70 @@
+name: Auto Test Generation Sources 2026 V6
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-test-generation-sources-2026-v6
+  cancel-in-progress: true
+
+jobs:
+  test_2026:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Stop if 2026 auto test already completed
+        id: guard
+        run: |
+          if [ -f uk_energy_tracking_v6/generation_history/AUTO_2026_TEST_DONE.flag ]; then
+            echo "done=true" >> "$GITHUB_OUTPUT"
+            echo "2026 generation auto test already completed. Skipping."
+          else
+            echo "done=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Python
+        if: steps.guard.outputs.done != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Backfill 2026 generation source test
+        if: steps.guard.outputs.done != 'true'
+        env:
+          YEAR: '2026'
+          INCLUDE_SOLAR: 'true'
+        run: |
+          set -e
+          YEAR=2026 INCLUDE_SOLAR=true python scripts/backfill_generation_sources_year_v6.py
+          python scripts/merge_generation_sources_annual_to_master_v6.py
+          python scripts/generate_generation_history_daily_v6.py
+          mkdir -p uk_energy_tracking_v6/generation_history
+          echo "Completed UTC: $(date -u +'%Y-%m-%dT%H:%M:%SZ')" > uk_energy_tracking_v6/generation_history/AUTO_2026_TEST_DONE.flag
+
+      - name: Commit 2026 auto test data
+        if: steps.guard.outputs.done != 'true'
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/generation/elexon_generation_sources_2026.csv data/generation/elexon_generation_sources_half_hourly.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2026.md uk_energy_tracking_v6/generation_history/AUTO_2026_TEST_DONE.flag
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Auto test V6 generation source data for 2026"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No 2026 generation source auto test changes"
+          fi

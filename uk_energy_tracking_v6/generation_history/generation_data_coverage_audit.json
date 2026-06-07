@@ -1,0 +1,253 @@
+{
+  "generatedUTC": "2026-06-07T20:14:30.249512Z",
+  "annualFiles": {
+    "2016": {
+      "path": "data/generation/elexon_generation_sources_2016.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2017": {
+      "path": "data/generation/elexon_generation_sources_2017.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2018": {
+      "path": "data/generation/elexon_generation_sources_2018.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2019": {
+      "path": "data/generation/elexon_generation_sources_2019.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2020": {
+      "path": "data/generation/elexon_generation_sources_2020.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2021": {
+      "path": "data/generation/elexon_generation_sources_2021.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2022": {
+      "path": "data/generation/elexon_generation_sources_2022.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2023": {
+      "path": "data/generation/elexon_generation_sources_2023.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2024": {
+      "path": "data/generation/elexon_generation_sources_2024.csv",
+      "exists": false,
+      "sizeBytes": 0,
+      "rows": 0,
+      "minPeriodStartUTC": null,
+      "maxPeriodStartUTC": null,
+      "technologies": {},
+      "sampleFirstDataRow": null
+    },
+    "2025": {
+      "path": "data/generation/elexon_generation_sources_2025.csv",
+      "exists": true,
+      "sizeBytes": 2209,
+      "rows": 20,
+      "minPeriodStartUTC": "2025-12-31T23:55:00Z",
+      "maxPeriodStartUTC": "2025-12-31T23:55:00Z",
+      "technologies": {
+        "BIOMASS": 1,
+        "CCGT": 1,
+        "COAL": 1,
+        "INTELEC": 1,
+        "INTEW": 1,
+        "INTFR": 1,
+        "INTGRNL": 1,
+        "INTIFA2": 1,
+        "INTIRL": 1,
+        "INTNED": 1,
+        "INTNEM": 1,
+        "INTNSL": 1,
+        "INTVKL": 1,
+        "NPSHYD": 1,
+        "NUCLEAR": 1,
+        "OCGT": 1,
+        "OIL": 1,
+        "OTHER": 1,
+        "PS": 1,
+        "WIND": 1
+      },
+      "sampleFirstDataRow": {
+        "source": "Elexon BMRS FUELINST",
+        "periodStartUTC": "2025-12-31T23:55:00Z",
+        "fuelType": "BIOMASS",
+        "generationMW": "1723.000",
+        "publishTimeUTC": "2026-01-01T00:00:00Z",
+        "fetchedAtUTC": "2026-06-07T01:25:42.324115Z"
+      }
+    },
+    "2026": {
+      "path": "data/generation/elexon_generation_sources_2026.csv",
+      "exists": true,
+      "sizeBytes": 96966904,
+      "rows": 911836,
+      "minPeriodStartUTC": "2026-01-01T00:00:00Z",
+      "maxPeriodStartUTC": "2026-06-06T23:50:00Z",
+      "technologies": {
+        "BIOMASS": 45215,
+        "CCGT": 45215,
+        "COAL": 45215,
+        "INTELEC": 45215,
+        "INTEW": 45215,
+        "INTFR": 45215,
+        "INTGRNL": 45215,
+        "INTIFA2": 45215,
+        "INTIRL": 45215,
+        "INTNED": 45215,
+        "INTNEM": 45215,
+        "INTNSL": 45215,
+        "INTVKL": 45215,
+        "NPSHYD": 45215,
+        "NUCLEAR": 45215,
+        "OCGT": 45215,
+        "OIL": 45215,
+        "OTHER": 45215,
+        "PS": 45215,
+        "SOLAR": 7536,
+        "WIND": 45215
+      },
+      "sampleFirstDataRow": {
+        "source": "Elexon BMRS FUELINST",
+        "periodStartUTC": "2026-01-01T00:00:00Z",
+        "fuelType": "BIOMASS",
+        "generationMW": "1725.000",
+        "publishTimeUTC": "2026-01-01T00:05:00Z",
+        "fetchedAtUTC": "2026-06-07T01:25:42.324115Z"
+      }
+    }
+  },
+  "masterHalfHourly": {
+    "path": "data/generation/elexon_generation_sources_half_hourly.csv",
+    "exists": true,
+    "sizeBytes": 96969040,
+    "rows": 911856,
+    "minPeriodStartUTC": "2025-12-31T23:55:00Z",
+    "maxPeriodStartUTC": "2026-06-06T23:50:00Z",
+    "technologies": {
+      "BIOMASS": 45216,
+      "CCGT": 45216,
+      "COAL": 45216,
+      "INTELEC": 45216,
+      "INTEW": 45216,
+      "INTFR": 45216,
+      "INTGRNL": 45216,
+      "INTIFA2": 45216,
+      "INTIRL": 45216,
+      "INTNED": 45216,
+      "INTNEM": 45216,
+      "INTNSL": 45216,
+      "INTVKL": 45216,
+      "NPSHYD": 45216,
+      "NUCLEAR": 45216,
+      "OCGT": 45216,
+      "OIL": 45216,
+      "OTHER": 45216,
+      "PS": 45216,
+      "SOLAR": 7536,
+      "WIND": 45216
+    },
+    "sampleFirstDataRow": {
+      "source": "Elexon BMRS FUELINST",
+      "periodStartUTC": "2025-12-31T23:55:00Z",
+      "fuelType": "BIOMASS",
+      "generationMW": "1723.000",
+      "publishTimeUTC": "2026-01-01T00:00:00Z",
+      "fetchedAtUTC": "2026-06-07T01:25:42.324115Z"
+    }
+  },
+  "dailyDecadeJson": {
+    "path": "uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json",
+    "exists": true,
+    "sizeBytes": 394438,
+    "rows": 1579,
+    "minDate": "2025-12-31",
+    "maxDate": "2026-06-06",
+    "technologies": {
+      "Biomass": 158,
+      "Coal": 158,
+      "Gas": 158,
+      "Hydro": 158,
+      "Imports & Exports": 158,
+      "Nuclear": 158,
+      "Other": 158,
+      "Pumped Storage": 158,
+      "Solar": 157,
+      "Wind": 158
+    },
+    "status": null
+  },
+  "recentHalfHourlyJson": {
+    "path": "uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json",
+    "exists": true,
+    "sizeBytes": 14039958,
+    "rows": 79209,
+    "minDate": "2026-05-07T23:50:00Z",
+    "maxDate": "2026-06-06T23:50:00Z",
+    "technologies": {
+      "Biomass": 8641,
+      "Coal": 8641,
+      "Gas": 8641,
+      "Hydro": 8641,
+      "Imports & Exports": 8641,
+      "Nuclear": 8641,
+      "Other": 8641,
+      "Pumped Storage": 8641,
+      "Solar": 1440,
+      "Wind": 8641
+    },
+    "status": null
+  }
+}

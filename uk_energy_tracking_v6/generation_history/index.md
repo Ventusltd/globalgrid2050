@@ -49,11 +49,11 @@ permalink: /uk_energy_tracking_v6/generation_history/
           <option value="12hnight">12 hours night</option>
           <option value="24h">24 hours</option>
           <option value="48h">48 hours</option>
-          <option value="7d" selected>1 week</option>
+          <option value="7d">1 week</option>
           <option value="30d">1 month</option>
           <option value="3m">3 months</option>
           <option value="6m">6 months</option>
-          <option value="12m">12 months</option>
+          <option value="12m" selected>12 months</option>
           <option value="5y">5 years</option>
           <option value="10y">10 years</option>
         </select></label>
@@ -70,7 +70,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260606generation2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260606generation2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260606generation2"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260606generation2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260607genstep1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260607genstep1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260607genstep1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260607genstep1"></script>

@@ -79,17 +79,18 @@ jobs:
             fi
           done
 
-      - name: Rebuild master and daily decade aggregate
+      - name: Rebuild master daily aggregate and recent slice
         env:
           PAT: ${{ secrets.GRIDBOT_PAT }}
         run: |
           set -e
           python scripts/merge_generation_sources_annual_to_master_v6.py
           python scripts/generate_generation_history_daily_v6.py
+          python scripts/generate_generation_recent_halfhourly_v6.py
 
-          git add data/generation/elexon_generation_sources_half_hourly.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json
+          git add data/generation/elexon_generation_sources_half_hourly.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Rebuild V6 generation source master and daily decade aggregate"
+            git commit -m "Rebuild V6 generation source master daily aggregate and recent slice"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
             git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
           else

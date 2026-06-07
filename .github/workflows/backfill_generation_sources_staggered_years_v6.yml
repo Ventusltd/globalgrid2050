@@ -98,6 +98,14 @@ jobs:
           set -e
           YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_sources_year_v6.py
 
+      - name: Split annual source into monthly archive
+        env:
+          YEAR: ${{ steps.resolve.outputs.year }}
+        run: |
+          set -e
+          python scripts/split_generation_sources_year_to_months_v6.py "$YEAR"
+          rm -f data/generation/elexon_generation_sources_${YEAR}.csv
+
       - name: Rebuild derived generation files
         run: |
           set -e
@@ -105,6 +113,7 @@ jobs:
           python scripts/generate_generation_history_daily_v6.py
           python scripts/generate_generation_recent_halfhourly_v6.py
           python scripts/audit_generation_data_coverage_v6.py
+          rm -f data/generation/elexon_generation_sources_half_hourly.csv
 
       - name: Commit year and derived generation files
         env:
@@ -112,15 +121,15 @@ jobs:
           YEAR: ${{ steps.resolve.outputs.year }}
         run: |
           set -e
-          git add data/generation/elexon_generation_sources_${YEAR}.csv \
-                  data/generation/elexon_generation_sources_half_hourly.csv \
+          git add data/generation/archive/${YEAR}/ \
                   uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json \
                   uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json \
                   uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_${YEAR}.md \
                   uk_energy_tracking_v6/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md \
                   uk_energy_tracking_v6/generation_history/generation_data_coverage_audit.json
+          git rm --ignore-unmatch data/generation/elexon_generation_sources_${YEAR}.csv data/generation/elexon_generation_sources_half_hourly.csv
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Backfill V6 generation source data for ${YEAR}"
+            git commit -m "Backfill V6 generation source monthly archive for ${YEAR}"
             for attempt in 1 2 3; do
               if git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main && git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main; then
                 exit 0

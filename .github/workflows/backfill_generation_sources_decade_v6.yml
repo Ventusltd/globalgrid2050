@@ -1,0 +1,70 @@
+name: Backfill Generation Sources Decade V6
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_year:
+        description: First year to backfill
+        required: true
+        default: '2016'
+      end_year:
+        description: Last year to backfill
+        required: true
+        default: '2026'
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backfill-generation-sources-decade-v6
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Backfill generation sources by year
+        env:
+          START_YEAR: ${{ github.event.inputs.start_year }}
+          END_YEAR: ${{ github.event.inputs.end_year }}
+          INCLUDE_SOLAR: ${{ github.event.inputs.include_solar }}
+        run: |
+          set -e
+          for YEAR in $(seq $START_YEAR $END_YEAR); do
+            echo "Backfilling generation source year $YEAR"
+            YEAR=$YEAR INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_sources_year_v6.py
+          done
+          python scripts/merge_generation_sources_annual_to_master_v6.py
+          python scripts/generate_generation_history_daily_v6.py
+
+      - name: Commit generation source decade files
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/generation/elexon_generation_sources_half_hourly.csv data/generation/elexon_generation_sources_*.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/backfill_reports/*.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Backfill V6 generation source decade data"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No V6 generation decade changes"
+          fi

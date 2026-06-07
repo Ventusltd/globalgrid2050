@@ -1297,6 +1297,7 @@
 │   ├── generation_history
 │   │   ├── AUTO_2026_TEST_DONE.flag
 │   │   ├── GENERATION_HISTORY_DATA_REPORT.md
+│   │   ├── GENERATION_HISTORY_DEVELOPMENT_COMPARISON_LOG.md
 │   │   ├── backfill_reports
 │   │   │   └── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   ├── control_generation_history.js
@@ -1361,4 +1362,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-191 directories, 1171 files
+191 directories, 1172 files

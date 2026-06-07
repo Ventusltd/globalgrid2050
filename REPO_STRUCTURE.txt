@@ -667,6 +667,7 @@
 │   ├── add_v7_gis_sld_large_asset_markers_and_search.py
 │   ├── add_v7_gis_sld_site_intelligence_panel.py
 │   ├── add_v8_bess_geospatial_layout_drawing.py
+│   ├── audit_generation_data_coverage_v6.py
 │   ├── backfill_generation_sources_year_v6.py
 │   ├── backfill_uk_frequency_weekly_v5.py
 │   ├── build_v8_bess_gis_sld_financial_sandbox.py
@@ -1366,4 +1367,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-191 directories, 1176 files
+191 directories, 1177 files

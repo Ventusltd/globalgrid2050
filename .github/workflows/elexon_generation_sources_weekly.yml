@@ -32,7 +32,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Fetch generation sources and maintain annual files
+      - name: Fetch generation sources and maintain V7 loading ladder files
         env:
           BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '30' }}
         run: |
@@ -40,6 +40,7 @@ jobs:
           python scripts/download_pvlive_solar_history.py
           python scripts/split_elexon_generation_sources_by_year.py
           python scripts/generate_generation_history_daily_v6.py
+          python scripts/generate_generation_recent_halfhourly_v6.py
 
       - name: Commit generation source data
         env:
@@ -48,7 +49,7 @@ jobs:
           set -e
           git config --global user.name "gridbot"
           git config --global user.email "bot@globalgrid2050.com"
-          git add data/generation/elexon_generation_sources_half_hourly.csv data/generation/elexon_generation_sources_*.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/GENERATION_HISTORY_DATA_REPORT.md uk_energy_tracking_v6/generation_history/PVLIVE_SOLAR_HISTORY_REPORT.md
+          git add data/generation/elexon_generation_sources_half_hourly.csv data/generation/elexon_generation_sources_*.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json uk_energy_tracking_v6/generation_history/GENERATION_HISTORY_DATA_REPORT.md uk_energy_tracking_v6/generation_history/PVLIVE_SOLAR_HISTORY_REPORT.md
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Update V6 generation source YTD data"
             git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main

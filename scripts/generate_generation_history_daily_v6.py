@@ -8,6 +8,7 @@ SOURCE = Path('data/generation/elexon_generation_sources_half_hourly.csv')
 OUT = Path('uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json')
 
 GROUPS = {
+    'Solar': ['SOLAR', 'PV'],
     'Wind': ['WIND'],
     'Hydro': ['NPSHYD', 'HYDRO'],
     'Gas': ['CCGT', 'OCGT'],
@@ -17,7 +18,7 @@ GROUPS = {
     'Pumped Storage': ['PS'],
     'Imports & Exports': ['INT'],
 }
-ORDER = ['Wind', 'Hydro', 'Gas', 'Coal', 'Biomass', 'Nuclear', 'Pumped Storage', 'Imports & Exports']
+ORDER = ['Solar', 'Wind', 'Hydro', 'Gas', 'Coal', 'Biomass', 'Nuclear', 'Pumped Storage', 'Imports & Exports']
 
 
 def group_for(fuel):
@@ -66,13 +67,13 @@ def main():
             'highMW': round(max(values), 3),
             'lowMW': round(min(values), 3),
             'records': len(values),
-            'source': 'Elexon BMRS FUELINST daily aggregate',
+            'source': 'Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate',
         })
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps({
         'generatedUTC': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
-        'source': 'Elexon BMRS FUELINST',
+        'source': 'Elexon BMRS FUELINST and Sheffield Solar PVLive where available',
         'rows': rows,
     }, indent=2), encoding='utf-8')
     print(f'Wrote {len(rows)} daily generation rows to {OUT}')

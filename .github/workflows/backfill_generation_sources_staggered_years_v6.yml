@@ -2,7 +2,17 @@ name: Backfill Generation Sources Staggered Years V6
 
 on:
   schedule:
-    - cron: '30 22 2-12 * *'
+    - cron: '15 22 2 * *'
+    - cron: '15 22 3 * *'
+    - cron: '15 22 4 * *'
+    - cron: '15 22 5 * *'
+    - cron: '15 22 6 * *'
+    - cron: '15 22 7 * *'
+    - cron: '15 22 8 * *'
+    - cron: '15 22 9 * *'
+    - cron: '15 22 10 * *'
+    - cron: '15 22 11 * *'
+    - cron: '15 22 12 * *'
   workflow_dispatch:
     inputs:
       year:
@@ -18,13 +28,13 @@ permissions:
   contents: write
 
 concurrency:
-  group: backfill-generation-sources-staggered-years-v6
+  group: generation-data-writes-v6
   cancel-in-progress: false
 
 jobs:
   backfill_year:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 240
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,6 +46,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Pull latest main before data work
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
 
       - name: Resolve calendar year
         id: resolve
@@ -58,6 +77,10 @@ jobs:
               12) YEAR=2026 ;;
               *) YEAR=2026 ;;
             esac
+          fi
+          if ! echo "$YEAR" | grep -Eq '^(2016|2017|2018|2019|2020|2021|2022|2023|2024|2025|2026)$'; then
+            echo "Invalid year: $YEAR"
+            exit 1
           fi
           echo "year=$YEAR" >> "$GITHUB_OUTPUT"
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -89,13 +112,26 @@ jobs:
           YEAR: ${{ steps.resolve.outputs.year }}
         run: |
           set -e
-          git config --global user.name "gridbot"
-          git config --global user.email "bot@globalgrid2050.com"
-          git add data/generation/elexon_generation_sources_${YEAR}.csv data/generation/elexon_generation_sources_half_hourly.csv uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_${YEAR}.md uk_energy_tracking_v6/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md uk_energy_tracking_v6/generation_history/generation_data_coverage_audit.json
+          git add data/generation/elexon_generation_sources_${YEAR}.csv \
+                  data/generation/elexon_generation_sources_half_hourly.csv \
+                  uk_energy_tracking_v6/generation_history/generation_history_daily_decade.json \
+                  uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json \
+                  uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_${YEAR}.md \
+                  uk_energy_tracking_v6/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md \
+                  uk_energy_tracking_v6/generation_history/generation_data_coverage_audit.json
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Backfill V6 generation source data for ${YEAR}"
-            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
-            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+            for attempt in 1 2 3; do
+              if git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main && git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main; then
+                exit 0
+              fi
+              echo "Push attempt $attempt failed. Retrying after rebase."
+              git rebase --abort || true
+              git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main || true
+              sleep 20
+            done
+            echo "Failed to push generation data after retries"
+            exit 1
           else
             echo "No V6 generation source changes for ${YEAR}"
           fi

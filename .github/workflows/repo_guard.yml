@@ -1,0 +1,58 @@
+name: Repository Guard
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repository-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  size-guard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run repository size guard
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DATASCIENCE_WARN_FILE_MB: '5'
+          DATASCIENCE_FAIL_FILE_MB: '25'
+          DATASCIENCE_HARD_FILE_MB: '100'
+        run: bash .github/scripts/size_guard.sh
+
+      - name: Upload guard reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-size-guard-report
+          path: |
+            data_science_protocol/audit_reports/REPO_SIZE_GUARD_LATEST.md
+            data_science_protocol/audit_reports/json/REPO_SIZE_GUARD_LATEST.json
+
+      - name: Commit guard reports on manual dispatch
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data_science_protocol/audit_reports/
+          if git diff --cached --quiet; then
+            echo "No repository guard report changes to commit"
+            exit 0
+          fi
+          git commit -m "docs: update repository size guard report"
+          git pull --rebase origin main
+          git push origin HEAD:main

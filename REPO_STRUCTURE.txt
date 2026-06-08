@@ -124,7 +124,13 @@
 │   ├── DATA_SCIENCE_DISCIPLINE_CHANGELOG.md
 │   ├── DATA_SCIENCE_NEXT_UPGRADE_IMPLEMENTATION_PLAN.md
 │   ├── DATA_STORAGE_DISCIPLINE_PROTOCOL.md
-│   └── MASS_UPGRADE_AUDIT_PROTOCOL.md
+│   ├── MASS_UPGRADE_AUDIT_PROTOCOL.md
+│   └── audit_reports
+│       ├── REPO_SIZE_GUARD_LATEST.md
+│       ├── json
+│       │   ├── REPO_SIZE_GUARD_LATEST.json
+│       │   └── repo_size_guard_20260608T131955Z.json
+│       └── repo_size_guard_20260608T131955Z.md
 ├── datacentres.geojson
 ├── dc_cables_knowledge
 │   └── index.md
@@ -1419,4 +1425,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-195 directories, 1225 files
+197 directories, 1229 files

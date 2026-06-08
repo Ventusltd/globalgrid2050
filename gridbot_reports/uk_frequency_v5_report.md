@@ -1,15 +1,15 @@
 # UK Frequency V5 GridBot Report
 
-Updated UTC: 2026-06-07T23:52:24Z
+Updated UTC: 2026-06-08T02:46:12Z
 Rolling window hours: 24
 24 hour records retained: 13
-Latest: {"source_time_utc": "2026-06-07T23:52:24Z", "frequency_hz": 49.951, "captured_utc": "2026-06-07T23:52:24Z", "source": "Elexon", "status": "ok"}
+Latest: {"source_time_utc": "2026-06-08T02:46:12Z", "frequency_hz": 50.054, "captured_utc": "2026-06-08T02:46:12Z", "source": "Elexon", "status": "ok"}
 Min Hz: 49.951
-Max Hz: 49.951
-Average Hz: 49.951
+Max Hz: 50.054
+Average Hz: 49.9589
 24 hour health: ok
-Weekly records retained: 2
-Latest weekly row: {"week_start_utc": "2026-06-01T00:00:00Z", "sample_count": 13, "avg_hz": 49.951, "min_hz": 49.951, "max_hz": 49.951, "samples_below_49_9": 0, "samples_above_50_1": 0, "largest_deviation_hz": 0.049, "data_health": "ok"}
+Weekly records retained: 3
+Latest weekly row: {"week_start_utc": "2026-06-08T00:00:00Z", "sample_count": 1, "avg_hz": 50.054, "min_hz": 50.054, "max_hz": 50.054, "samples_below_49_9": 0, "samples_above_50_1": 0, "largest_deviation_hz": 0.054, "data_health": "thin_sample"}
 
 ## Recent fetch issues
 - none

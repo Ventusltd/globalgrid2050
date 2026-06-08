@@ -1,5 +1,5 @@
 {
-  "generatedUTC": "2026-06-08T01:06:51.086750Z",
+  "generatedUTC": "2026-06-08T01:10:35.028028Z",
   "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive where available",
   "description": "Seasonal MWh by generation technology",
   "unit": "MWh",
@@ -4048,11 +4048,11 @@
       "year": 2026,
       "season": "Summer",
       "technology": "Biomass",
-      "totalMWh": 261210.083,
-      "averageMW": 1815.009,
+      "totalMWh": 284634.333,
+      "averageMW": 1695.093,
       "highMW": 2426.0,
-      "lowMW": 625.0,
-      "records": 1727
+      "lowMW": 494.0,
+      "records": 2015
     },
     {
       "year": 2026,
@@ -4062,87 +4062,87 @@
       "averageMW": 0.0,
       "highMW": 0.0,
       "lowMW": 0.0,
-      "records": 1727
+      "records": 2015
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Gas",
-      "totalMWh": 864541.167,
-      "averageMW": 2963.862,
+      "totalMWh": 963312.833,
+      "averageMW": 2830.439,
       "highMW": 14592.0,
       "lowMW": 0.0,
-      "records": 3454
+      "records": 4030
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Hydro",
-      "totalMWh": 39007.25,
-      "averageMW": 271.041,
+      "totalMWh": 43443.583,
+      "averageMW": 258.721,
       "highMW": 647.0,
-      "lowMW": 100.0,
-      "records": 1727
+      "lowMW": 68.0,
+      "records": 2015
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Imports & Exports",
-      "totalMWh": 2659304.083,
-      "averageMW": 410.965,
+      "totalMWh": 2813669.667,
+      "averageMW": 377.892,
       "highMW": 1510.0,
       "lowMW": -1453.0,
-      "records": 17270
+      "records": 20150
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Nuclear",
-      "totalMWh": 344443.25,
-      "averageMW": 2393.352,
-      "highMW": 2684.0,
+      "totalMWh": 412837.083,
+      "averageMW": 2458.583,
+      "highMW": 2974.0,
       "lowMW": 1706.0,
-      "records": 1727
+      "records": 2015
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Other",
-      "totalMWh": 103029.583,
-      "averageMW": 355.014,
+      "totalMWh": 120380.5,
+      "averageMW": 355.664,
       "highMW": 2898.0,
       "lowMW": 0.0,
-      "records": 3454
+      "records": 4030
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Pumped Storage",
-      "totalMWh": -947.917,
-      "averageMW": -6.587,
+      "totalMWh": -13881.417,
+      "averageMW": -82.668,
       "highMW": 1409.0,
-      "lowMW": -1281.0,
-      "records": 1727
+      "lowMW": -1388.0,
+      "records": 2015
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Solar",
-      "totalMWh": 418759.264,
-      "averageMW": 2908.05,
+      "totalMWh": 485606.136,
+      "averageMW": 2890.513,
       "highMW": 11045.7,
       "lowMW": 0.0,
-      "records": 288
+      "records": 336
     },
     {
       "year": 2026,
       "season": "Summer",
       "technology": "Wind",
-      "totalMWh": 1198643.583,
-      "averageMW": 8328.734,
+      "totalMWh": 1451365.083,
+      "averageMW": 8643.365,
       "highMW": 14706.0,
       "lowMW": 2419.0,
-      "records": 1727
+      "records": 2015
     },
     {
       "year": 2026,

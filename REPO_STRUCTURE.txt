@@ -794,6 +794,7 @@
 │   ├── fetch_elizabeth_line.py
 │   ├── fetch_eurostar.py
 │   ├── fetch_ev_chargers.py
+│   ├── fetch_generation_mw_year_staged.py
 │   ├── fetch_global_hydrocarbons.py
 │   ├── fetch_global_ports.py
 │   ├── fetch_grid_data.py
@@ -1498,4 +1499,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-201 directories, 1298 files
+201 directories, 1299 files

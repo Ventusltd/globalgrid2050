@@ -58,11 +58,11 @@ jobs:
 
       - name: Run GridBot mega upgrade in audit mode
         if: github.event.inputs.mode == 'audit'
-        run: python scripts/gridbot_mega_upgrade.py --manifest "${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}"
+        run: python scripts/gridbot_mega_upgrade.py --manifest "$GITHUB_WORKSPACE/${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}"
 
       - name: Run GridBot mega upgrade in apply mode
         if: github.event.inputs.mode == 'apply'
-        run: python scripts/gridbot_mega_upgrade.py --manifest "${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}" --apply
+        run: python scripts/gridbot_mega_upgrade.py --manifest "$GITHUB_WORKSPACE/${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}" --apply
 
       - name: Upload GridBot reports
         if: always()

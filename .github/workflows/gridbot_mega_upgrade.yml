@@ -1,0 +1,92 @@
+name: GridBot Mega Upgrade
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      manifest:
+        description: Manifest path
+        required: true
+        default: gridbot_manifests/001_generation_data_discipline.yml
+        type: string
+      phase:
+        description: Phase to run, or all
+        required: true
+        default: all
+        type: string
+      commit_reports:
+        description: Commit audit reports and applied outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-mega-upgrade
+  cancel-in-progress: false
+
+jobs:
+  gridbot-mega-upgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install manifest dependencies
+        run: python -m pip install pyyaml
+
+      - name: Run GridBot mega upgrade in audit mode
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/gridbot_mega_upgrade.py --manifest "${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}"
+
+      - name: Run GridBot mega upgrade in apply mode
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/gridbot_mega_upgrade.py --manifest "${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}" --apply
+
+      - name: Upload GridBot reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gridbot-mega-upgrade-report
+          path: |
+            data_science_protocol/audit_reports/GRIDBOT_MEGA_UPGRADE_LATEST.md
+            data_science_protocol/audit_reports/json/GRIDBOT_MEGA_UPGRADE_LATEST.json
+
+      - name: Commit GridBot outputs
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add .gitignore || true
+          git add uk_energy_tracking_v6/generation_history/generation_recent_30d_30min.json || true
+          git add data_science_protocol/audit_reports/ || true
+          if git diff --cached --quiet; then
+            echo "No GridBot outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: run mega upgrade ${{ github.event.inputs.mode }} ${{ github.event.inputs.phase }}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

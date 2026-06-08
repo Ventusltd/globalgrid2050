@@ -161,10 +161,11 @@ technology correlation studies
 
 Storage rule:
 
-Store clean monthly shards only.
+Store clean monthly shards only where they are actively valuable.
 Do not store raw annual Elexon files.
 Do not store a giant master half hourly CSV.
 Do not store duplicate raw and clean versions unless explicitly approved.
+Older clean half hourly shards may be replaced by distilled feature files after a staleness report is written.
 
 Clean schema:
 
@@ -240,7 +241,135 @@ Stale files: reported and removed
 
 If total data storage approaches 1 GB, run a storage audit before adding more large files.
 
-## 10. Decision rule
+## 10. Tiered retention model
+
+GlobalGrid2050 should use hot, warm and cold data tiers.
+
+### Hot tier
+
+Purpose:
+
+Fast user interaction and current operational insight.
+
+Typical retention:
+
+Last 30 days to last 3 years, depending on file size and analytical value.
+
+Allowed content:
+
+recent MW slices
+clean half hourly monthly shards
+current year YTD files
+latest aggregate dashboards
+
+Rule:
+
+Hot tier data may be optimised for fast browser loading and repeated analysis.
+
+### Warm tier
+
+Purpose:
+
+Historic analysis without full bulk storage.
+
+Typical retention:
+
+Older than 3 years but still regularly studied.
+
+Allowed content:
+
+daily high average low MW
+monthly MWh by technology
+seasonal MWh by technology
+day and night MWh by technology
+annual MWh by technology
+ramp statistics
+extreme event indexes
+representative daily profiles
+
+Rule:
+
+Warm tier data should preserve the behaviour of the system without carrying every half hourly row.
+
+### Cold tier
+
+Purpose:
+
+Regeneration on demand.
+
+Allowed content:
+
+API fetch scripts
+workflow definitions
+schema files
+source method reports
+coverage reports
+staleness reports
+
+Rule:
+
+Cold tier data may not be stored as large files. It must be regenerable through documented API calls and Python scripts.
+
+## 11. API regeneration principle
+
+Historic data does not always need to remain physically present in the repository.
+
+If a public API and a working script can regenerate a dataset, the repository may keep the method, schema and audit report instead of the full data file.
+
+Required regeneration metadata:
+
+source API
+endpoint or source name
+script name
+input parameters
+coverage period
+schema version
+cleaning method
+last successful run
+known limitations
+replacement derived files
+
+This allows the project to fetch historic data when needed without permanently clogging the repository.
+
+## 12. Python distillation discipline
+
+Python should be used to distil large datasets into smaller analytical features before storage.
+
+Useful distillation methods include:
+
+daily high average low MW
+monthly MWh totals
+seasonal MWh totals
+day versus night MWh split
+ramp rate statistics
+maximum upward and downward ramps
+capacity factor proxies
+percentile curves
+load duration curves
+extreme event lists
+missing data reports
+representative daily profiles by month and technology
+correlation matrices between technologies
+battery opportunity windows
+curtailment and negative price alignment indexes where price data is available
+
+The goal is to keep the behaviour, not necessarily every raw row.
+
+## 13. Data compression and format discipline
+
+CSV is transparent but inefficient.
+
+CSV may be used where browser readability and auditability matter.
+JSON may be used for dashboard payloads.
+Compressed or columnar formats may be used for data science if they do not break the static site model.
+
+Preferred approach:
+
+browser files should remain small JSON or CSV
+large analytical data should be cleaned before storage
+heavy columnar formats should be considered only where they materially reduce size and remain easy to regenerate
+
+## 14. Decision rule
 
 Keep a data file if it answers repeated future questions better than an aggregate and remains within the storage discipline.
 
@@ -248,19 +377,25 @@ Delete or replace a data file if it is heavy, duplicated, stale or only useful a
 
 The objective is not minimal data. The objective is useful data with disciplined storage.
 
-## 11. Current generation data priority
+## 15. Current generation data priority
 
 Priority 1:
-Complete clean half hourly MW monthly archive from 2016 to present.
+Complete clean half hourly MW monthly archive for recent and high value periods.
 
 Priority 2:
-Maintain annual, monthly, seasonal and day/night MWh aggregate JSON files.
+Keep the latest 3 years of clean half hourly data where storage allows.
 
 Priority 3:
-Connect the MW chart to selected monthly shards for historic engineering analysis.
+For older history, retain distilled daily, monthly, seasonal and event feature files unless full half hourly detail is specifically needed.
 
 Priority 4:
-Write staleness reports and remove old raw annual or master CSV files where superseded.
+Maintain annual, monthly, seasonal and day/night MWh aggregate JSON files.
 
 Priority 5:
+Connect the MW chart to selected monthly shards for historic engineering analysis.
+
+Priority 6:
+Write staleness reports and remove old raw annual or master CSV files where superseded.
+
+Priority 7:
 Continue YTD automated updates for current year data.

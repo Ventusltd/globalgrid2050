@@ -683,6 +683,7 @@
 │   ├── add_v8_bess_geospatial_layout_drawing.py
 │   ├── audit_generation_data_coverage_v6.py
 │   ├── backfill_generation_aggregates_year_v6.py
+│   ├── backfill_generation_clean_halfhourly_month_v6.py
 │   ├── backfill_generation_sources_year_v6.py
 │   ├── backfill_uk_frequency_weekly_v5.py
 │   ├── build_ons_mwh_energy_use_placeholder.py
@@ -1411,4 +1412,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-194 directories, 1218 files
+194 directories, 1219 files

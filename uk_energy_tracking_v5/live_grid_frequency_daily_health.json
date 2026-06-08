@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-07T04:58:28Z",
-  "record_count": 10,
+  "updated_utc": "2026-06-08T05:04:05Z",
+  "record_count": 11,
   "latest_day": {
-    "date_utc": "2026-06-07",
+    "date_utc": "2026-06-08",
     "sample_count": 1,
-    "avg_hz": 49.951,
-    "min_hz": 49.951,
-    "max_hz": 49.951,
+    "avg_hz": 50.054,
+    "min_hz": 50.054,
+    "max_hz": 50.054,
     "samples_below_49_9": 0,
     "samples_above_50_1": 0,
-    "largest_deviation_hz": 0.049,
+    "largest_deviation_hz": 0.054,
     "data_health": "thin_sample",
-    "last_updated_utc": "2026-06-07T04:58:28Z"
+    "last_updated_utc": "2026-06-08T05:04:05Z"
   },
   "source": "GlobalGrid2050 aggregation of Elexon frequency samples",
   "health": "ok",
@@ -114,19 +114,19 @@
     },
     {
       "date_utc": "2026-06-06",
-      "sample_count": 15,
-      "avg_hz": 49.9047,
-      "min_hz": 49.886,
-      "max_hz": 50.166,
-      "samples_below_49_9": 14,
-      "samples_above_50_1": 1,
-      "largest_deviation_hz": 0.166,
+      "sample_count": "15",
+      "avg_hz": "49.9047",
+      "min_hz": "49.886",
+      "max_hz": "50.166",
+      "samples_below_49_9": "14",
+      "samples_above_50_1": "1",
+      "largest_deviation_hz": "0.166",
       "data_health": "thin_sample",
       "last_updated_utc": "2026-06-07T04:58:28Z"
     },
     {
       "date_utc": "2026-06-07",
-      "sample_count": 1,
+      "sample_count": 12,
       "avg_hz": 49.951,
       "min_hz": 49.951,
       "max_hz": 49.951,
@@ -134,7 +134,19 @@
       "samples_above_50_1": 0,
       "largest_deviation_hz": 0.049,
       "data_health": "thin_sample",
-      "last_updated_utc": "2026-06-07T04:58:28Z"
+      "last_updated_utc": "2026-06-08T05:04:05Z"
+    },
+    {
+      "date_utc": "2026-06-08",
+      "sample_count": 1,
+      "avg_hz": 50.054,
+      "min_hz": 50.054,
+      "max_hz": 50.054,
+      "samples_below_49_9": 0,
+      "samples_above_50_1": 0,
+      "largest_deviation_hz": 0.054,
+      "data_health": "thin_sample",
+      "last_updated_utc": "2026-06-08T05:04:05Z"
     }
   ]
 }

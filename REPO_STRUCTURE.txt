@@ -1350,7 +1350,8 @@
 │   │   ├── mwh_energy_use
 │   │   │   ├── index.md
 │   │   │   └── ons_mwh_energy_use_placeholder.json
-│   │   └── render_generation_history_chart.js
+│   │   ├── render_generation_history_chart.js
+│   │   └── render_generation_mwh_aggregates.js
 │   ├── grid_frequency_history.csv
 │   ├── grid_frequency_weekly_health.csv
 │   ├── index.md
@@ -1407,4 +1408,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-194 directories, 1214 files
+194 directories, 1215 files

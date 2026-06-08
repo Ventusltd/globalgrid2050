@@ -128,10 +128,16 @@
 │   ├── MASS_UPGRADE_AUDIT_PROTOCOL.md
 │   └── audit_reports
 │       ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.md
+│       ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.md
+│       ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.md
+│       ├── GRIDBOT_MEGA_UPGRADE_20260608T182736Z.md
 │       ├── GRIDBOT_MEGA_UPGRADE_LATEST.md
 │       ├── REPO_SIZE_GUARD_LATEST.md
 │       ├── json
 │       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.json
+│       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.json
+│       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.json
+│       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182736Z.json
 │       │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.json
 │       │   ├── REPO_SIZE_GUARD_LATEST.json
 │       │   └── repo_size_guard_20260608T131955Z.json
@@ -1366,6 +1372,7 @@
 │   │   ├── generation_day_night_mwh_by_technology.json
 │   │   ├── generation_history_daily_decade.json
 │   │   ├── generation_monthly_mwh_by_technology.json
+│   │   ├── generation_recent_30d_30min.json
 │   │   ├── generation_recent_halfhourly_30d.json
 │   │   ├── generation_seasonal_mwh_by_technology.json
 │   │   ├── index.md
@@ -1433,4 +1440,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-198 directories, 1236 files
+198 directories, 1243 files

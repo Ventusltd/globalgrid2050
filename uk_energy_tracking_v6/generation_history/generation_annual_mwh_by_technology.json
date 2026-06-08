@@ -1,5 +1,5 @@
 {
-  "generatedUTC": "2026-06-08T00:58:07.817039Z",
+  "generatedUTC": "2026-06-08T01:06:51.084832Z",
   "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive where available",
   "description": "Annual MWh by generation technology",
   "unit": "MWh",
@@ -804,6 +804,96 @@
       "highMW": 17342.0,
       "lowMW": 0.0,
       "records": 105405
+    },
+    {
+      "year": 2025,
+      "technology": "Biomass",
+      "totalMWh": 19916959.25,
+      "averageMW": 2273.625,
+      "highMW": 3373.0,
+      "lowMW": 0.0,
+      "records": 105120
+    },
+    {
+      "year": 2025,
+      "technology": "Coal",
+      "totalMWh": 111.167,
+      "averageMW": 0.013,
+      "highMW": 623.0,
+      "lowMW": 0.0,
+      "records": 105120
+    },
+    {
+      "year": 2025,
+      "technology": "Gas",
+      "totalMWh": 78327608.417,
+      "averageMW": 4415.877,
+      "highMW": 26783.0,
+      "lowMW": 0.0,
+      "records": 210240
+    },
+    {
+      "year": 2025,
+      "technology": "Hydro",
+      "totalMWh": 3365499.417,
+      "averageMW": 384.189,
+      "highMW": 1179.0,
+      "lowMW": 0.0,
+      "records": 105120
+    },
+    {
+      "year": 2025,
+      "technology": "Imports & Exports",
+      "totalMWh": 132792191.25,
+      "averageMW": 332.636,
+      "highMW": 2592.0,
+      "lowMW": -2073.0,
+      "records": 1051200
+    },
+    {
+      "year": 2025,
+      "technology": "Nuclear",
+      "totalMWh": 34135046.583,
+      "averageMW": 3896.695,
+      "highMW": 5310.0,
+      "lowMW": 0.0,
+      "records": 105120
+    },
+    {
+      "year": 2025,
+      "technology": "Other",
+      "totalMWh": 4828852.25,
+      "averageMW": 273.261,
+      "highMW": 10832.0,
+      "lowMW": 0.0,
+      "records": 210240
+    },
+    {
+      "year": 2025,
+      "technology": "Pumped Storage",
+      "totalMWh": -390811.167,
+      "averageMW": -44.613,
+      "highMW": 2209.0,
+      "lowMW": -2155.0,
+      "records": 105120
+    },
+    {
+      "year": 2025,
+      "technology": "Solar",
+      "totalMWh": 18504951.759,
+      "averageMW": 2112.437,
+      "highMW": 13897.6,
+      "lowMW": 0.0,
+      "records": 17520
+    },
+    {
+      "year": 2025,
+      "technology": "Wind",
+      "totalMWh": 68673701.667,
+      "averageMW": 7839.464,
+      "highMW": 18415.0,
+      "lowMW": 0.0,
+      "records": 105120
     },
     {
       "year": 2026,

@@ -1,0 +1,76 @@
+name: Backfill Generation Clean Halfhourly Month V6
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: Calendar year
+        required: true
+        default: '2026'
+      month:
+        description: Calendar month 1 to 12
+        required: true
+        default: '6'
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generation-clean-halfhourly-v6
+  cancel-in-progress: false
+
+jobs:
+  backfill_month:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pull latest main
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
+
+      - name: Build clean monthly halfhourly data
+        env:
+          YEAR: ${{ github.event.inputs.year }}
+          MONTH: ${{ github.event.inputs.month }}
+          INCLUDE_SOLAR: ${{ github.event.inputs.include_solar }}
+        run: |
+          set -e
+          YEAR=$YEAR MONTH=$MONTH INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/backfill_generation_clean_halfhourly_month_v6.py
+
+      - name: Commit clean monthly halfhourly data
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+          YEAR: ${{ github.event.inputs.year }}
+          MONTH: ${{ github.event.inputs.month }}
+        run: |
+          set -e
+          MONTH_PADDED=$(printf "%02d" "$MONTH")
+          git add data/generation/halfhourly_clean/${YEAR}/generation_mw_${YEAR}_${MONTH_PADDED}.csv
+          git add uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_CLEAN_HALFHOUR_MONTH_${YEAR}_${MONTH_PADDED}.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Backfill clean V6 generation MW ${YEAR}-${MONTH_PADDED}"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No clean monthly halfhourly changes"
+          fi

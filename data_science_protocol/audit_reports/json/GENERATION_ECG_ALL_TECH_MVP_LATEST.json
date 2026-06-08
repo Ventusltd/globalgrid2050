@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "0.1.0-candidate",
+  "generatedUTC": "2026-06-08T20:33:03Z",
+  "mode": "audit only",
+  "ecgDays": 30,
+  "rowsParsed": 2268187,
+  "dailyRows": 7035,
+  "monthlyRows": 289,
+  "ecgRows": 442080,
+  "sources": [
+    {
+      "path": "uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json",
+      "sizeBytes": 14038311,
+      "rowsParsed": 79200
+    },
+    {
+      "path": "uk_energy_tracking_v6/generation_history/generation_recent_30d_30min.json",
+      "sizeBytes": 2997208,
+      "rowsParsed": 14409
+    },
+    {
+      "path": "data/generation/elexon_generation_sources_half_hourly.csv",
+      "sizeBytes": 18507182,
+      "rowsParsed": 174240
+    },
+    {
+      "path": "data/generation/elexon_generation_sources_2026.csv",
+      "sizeBytes": 18507182,
+      "rowsParsed": 174240
+    },
+    {
+      "path": "data/generation/elexon_generation_sources_2025.csv",
+      "sizeBytes": 2209,
+      "rowsParsed": 20
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2020-12.csv",
+      "sizeBytes": 1767,
+      "rowsParsed": 16
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-01.csv",
+      "sizeBytes": 15413877,
+      "rowsParsed": 145662
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-02.csv",
+      "sizeBytes": 14665911,
+      "rowsParsed": 138432
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-03.csv",
+      "sizeBytes": 16185121,
+      "rowsParsed": 152890
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-04.csv",
+      "sizeBytes": 15686104,
+      "rowsParsed": 148320
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-05.csv",
+      "sizeBytes": 16209600,
+      "rowsParsed": 153213
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-06.csv",
+      "sizeBytes": 15702695,
+      "rowsParsed": 148320
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-07.csv",
+      "sizeBytes": 16249920,
+      "rowsParsed": 153264
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-08.csv",
+      "sizeBytes": 16235243,
+      "rowsParsed": 153264
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-09.csv",
+      "sizeBytes": 16213757,
+      "rowsParsed": 153153
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-10.csv",
+      "sizeBytes": 17163611,
+      "rowsParsed": 162084
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-11.csv",
+      "sizeBytes": 16558701,
+      "rowsParsed": 156096
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-12.csv",
+      "sizeBytes": 17114119,
+      "rowsParsed": 161364
+    }
+  ],
+  "outputs": [],
+  "browserRule": "The ECG hot tier stores all technologies for the rolling window. The chart must filter client side by selected technology and must not draw all technology traces by default.",
+  "notes": "Candidate first. This does not promote confirmed data and does not overwrite production files. It proves the all technology hot tier ECG storage pattern while keeping browser display to one selected technology."
+}

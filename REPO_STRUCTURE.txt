@@ -764,6 +764,7 @@
 │   ├── backfill_generation_sources_year_v6.py
 │   ├── backfill_uk_frequency_weekly_v5.py
 │   ├── build_generation_daily_mw_spine.py
+│   ├── build_generation_daily_mw_spine_from_fuelhh.py
 │   ├── build_generation_ecg_all_tech_mvp.py
 │   ├── build_generation_heartbeat_mvp.py
 │   ├── build_ons_mwh_energy_use_placeholder.py
@@ -1501,4 +1502,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-201 directories, 1301 files
+201 directories, 1302 files

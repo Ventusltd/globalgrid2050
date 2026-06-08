@@ -1,0 +1,101 @@
+name: Generation ECG All Technologies MVP
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      ecg_days:
+        description: Rolling ECG days
+        required: true
+        default: '30'
+        type: choice
+        options:
+          - '7'
+          - '14'
+          - '30'
+      limit_sources:
+        description: Optional source file limit for smoke tests. Use 0 for all.
+        required: true
+        default: '0'
+        type: string
+      commit_outputs:
+        description: Commit candidate outputs and audit reports
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generation-ecg-all-tech-mvp
+  cancel-in-progress: false
+
+jobs:
+  generation-ecg-all-tech-mvp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Audit all technology ECG MVP
+        if: github.event.inputs.mode == 'audit'
+        run: |
+          python scripts/build_generation_ecg_all_tech_mvp.py \
+            --ecg-days "${{ github.event.inputs.ecg_days }}" \
+            --limit-sources "${{ github.event.inputs.limit_sources }}"
+
+      - name: Apply all technology ECG MVP
+        if: github.event.inputs.mode == 'apply'
+        run: |
+          python scripts/build_generation_ecg_all_tech_mvp.py \
+            --ecg-days "${{ github.event.inputs.ecg_days }}" \
+            --limit-sources "${{ github.event.inputs.limit_sources }}" \
+            --apply
+
+      - name: Upload all technology ECG reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: generation-ecg-all-tech-mvp-report
+          path: |
+            data_science_protocol/audit_reports/GENERATION_ECG_ALL_TECH_MVP_LATEST.md
+            data_science_protocol/audit_reports/json/GENERATION_ECG_ALL_TECH_MVP_LATEST.json
+
+      - name: Commit all technology ECG outputs
+        if: github.event.inputs.commit_outputs == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data/confirmed/generation_daily_candidate.json || true
+          git add data/confirmed/generation_monthly_candidate.json || true
+          git add uk_energy_tracking_v6/generation_history/generation_ecg_all_technologies_*d_candidate.json || true
+          git add data_science_protocol/audit_reports/ || true
+          if git diff --cached --quiet; then
+            echo "No all technology ECG outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: build all technology generation ECG MVP ${{ github.event.inputs.mode }}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

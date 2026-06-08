@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-08T22:11:53Z",
+  "mode": "audit only",
+  "ecgPath": "/uk_energy_tracking_v6/generation_history/generation_ecg_all_technologies_30d_30min_candidate.json",
+  "ecgRepoPath": "uk_energy_tracking_v6/generation_history/generation_ecg_all_technologies_30d_30min_candidate.json",
+  "ecgFileExists": true,
+  "ecgFileSizeBytes": 2838861,
+  "config": {
+    "path": "uk_energy_tracking_v6/generation_history/live-config.js",
+    "exists": true,
+    "recentEcgAlreadyPresent": false,
+    "wouldChange": true,
+    "applied": false
+  },
+  "loader": {
+    "path": "uk_energy_tracking_v6/generation_history/load_generation_history_data.js",
+    "exists": true,
+    "rendererTouched": false,
+    "usesRecentEcgFallback": true,
+    "wouldChange": true,
+    "applied": false
+  },
+  "rule": "Renderer untouched. Loader uses recentEcg when present and falls back to recentHalfHourly. Dropdown filtering remains unchanged."
+}

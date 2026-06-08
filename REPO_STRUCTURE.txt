@@ -285,6 +285,8 @@
 ├── grid_400kv.geojson
 ├── grid_66kv.geojson
 ├── grid_substations.geojson
+├── gridbot_manifests
+│   └── 001_generation_data_discipline.yml
 ├── gridbot_reports
 │   ├── add_v3_homepage_link.md
 │   ├── add_v6_v7_all_apps_a4_print_formatting.md
@@ -762,6 +764,7 @@
 │   ├── gridbot_feature_installer.py
 │   ├── gridbot_insert_dc_subsections.py
 │   ├── gridbot_insert_markdown_section.py
+│   ├── gridbot_mega_upgrade.py
 │   ├── gridbot_modularise_employers_requirements.py
 │   ├── gridbot_replace_modular_note_with_summary.py
 │   ├── gridbot_v3_diary_preflight.py
@@ -1425,4 +1428,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-197 directories, 1229 files
+198 directories, 1231 files

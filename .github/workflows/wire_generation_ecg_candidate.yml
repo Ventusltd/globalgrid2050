@@ -1,0 +1,79 @@
+name: Wire Generation ECG Candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_outputs:
+        description: Commit wiring changes and audit reports
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wire-generation-ecg-candidate
+  cancel-in-progress: false
+
+jobs:
+  wire-generation-ecg-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Audit ECG candidate wiring
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/wire_generation_ecg_candidate.py
+
+      - name: Apply ECG candidate wiring
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/wire_generation_ecg_candidate.py --apply
+
+      - name: Upload ECG wiring report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecg-candidate-wiring-report
+          path: |
+            data_science_protocol/audit_reports/ECG_CANDIDATE_WIRING_LATEST.md
+            data_science_protocol/audit_reports/json/ECG_CANDIDATE_WIRING_LATEST.json
+
+      - name: Commit ECG candidate wiring outputs
+        if: github.event.inputs.commit_outputs == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/generation_history/live-config.js || true
+          git add uk_energy_tracking_v6/generation_history/load_generation_history_data.js || true
+          git add data_science_protocol/audit_reports/ || true
+          if git diff --cached --quiet; then
+            echo "No ECG candidate wiring outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: wire generation ECG candidate ${{ github.event.inputs.mode }}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

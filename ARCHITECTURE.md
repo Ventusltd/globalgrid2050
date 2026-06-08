@@ -1,5 +1,10 @@
 GlobalGrid2050 | Ventus Core Architecture
 
+## Data spine doctrine stamp
+
+Data grain discipline applies. Store the right grain for the question, not raw bulk. Settled FUELHH is confirmed where available. Live FUELINST is provisional. Sums roll up. Peaks do not. Solar is provenance stamped. Every fact carries schema, source, completeness and status. Never overwrite good data. Commit facts and regenerate bulk. Full doctrine: data_science_protocol/THE_DATA_SPINE.md
+
+
 Last updated: 2026 05 15
 Platform: Ventus OS Modular Pipeline
 Operating model: Human origin, AI reasoning, Python processing, YAML instruction, GitHub execution

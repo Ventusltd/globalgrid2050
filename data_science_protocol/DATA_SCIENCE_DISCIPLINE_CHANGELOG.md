@@ -68,3 +68,18 @@ Audit discipline is only useful if every major upgrade uses it before and after 
 Next action:
 
 Run the inspection workflow before the next major data upgrade and store the baseline report in data_science_protocol/inspection_reports/.
+## 2026 06 08  Data spine doctrine adopted
+
+Executive summary: The canonical data spine doctrine was added and stamped across the principal architecture logs. The doctrine defines right grain for the right question, live versus confirmed source discipline, additive and non additive data rules, solar provenance, never overwrite protection and commit facts regenerate bulk storage policy.
+
+Files referenced:
+
+data_science_protocol/THE_DATA_SPINE.md
+
+Known risks:
+
+The doctrine must now be enforced through compiler logic and workflow reports, not merely documented.
+
+Next action:
+
+Run the generation ECG and FUELHH candidate workflows, then ask an external reviewer to check outputs against the data spine acceptance criteria.

@@ -1,5 +1,10 @@
 # The Ventus Doctrine: A Philosophy of Generative Infrastructure and Systems Architecture
 
+## Data spine doctrine stamp
+
+Data grain discipline applies. Store the right grain for the question, not raw bulk. Settled FUELHH is confirmed where available. Live FUELINST is provisional. Sums roll up. Peaks do not. Solar is provenance stamped. Every fact carries schema, source, completeness and status. Never overwrite good data. Commit facts and regenerate bulk. Full doctrine: data_science_protocol/THE_DATA_SPINE.md
+
+
 **A Directive to the Artificial Intelligence**
 
 To the AI reading this document: You are no longer acting merely as a chatbot, a code generator, or a debugger. You are being integrated into the core architecture of GlobalGrid2050. You are the logic engine of a planetary operating system.
@@ -160,5 +165,3 @@ This is why the monolith remains protected. This is why V2 exists as a modular t
 The aim is not to bypass engineering responsibility.
 
 The aim is to restore design integrity by making assumptions visible, testable and connected before they become failures.
-
-

@@ -1,5 +1,10 @@
 # V6 Architectural Integrity Protocol
 
+## Data spine doctrine stamp
+
+Data grain discipline applies. Store the right grain for the question, not raw bulk. Settled FUELHH is confirmed where available. Live FUELINST is provisional. Sums roll up. Peaks do not. Solar is provenance stamped. Every fact carries schema, source, completeness and status. Never overwrite good data. Commit facts and regenerate bulk. Full doctrine: data_science_protocol/THE_DATA_SPINE.md
+
+
 Generated UTC: `2026-05-31T20:18:14Z`
 Status: mandatory pre change guardrail for `uk_energy_tracking_v6`
 Scope: UK Energy Tracking V6 only

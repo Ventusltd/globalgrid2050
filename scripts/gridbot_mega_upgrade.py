@@ -50,6 +50,10 @@ def mib(size: int) -> float:
     return round(size / 1024 / 1024, 3)
 
 
+def read_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
+
+
 def read_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {"rows": []}
@@ -107,7 +111,7 @@ def repo_size_audit() -> dict[str, Any]:
 
 def patch_gitignore(patterns: list[str], apply: bool) -> dict[str, Any]:
     path = ROOT / ".gitignore"
-    existing = path.read_text(encoding="utf-8") if path.exists() else ""
+    existing = read_text(path)
     lines = existing.splitlines()
     present = {line.strip() for line in lines}
     additions = [p for p in patterns if p not in present]
@@ -137,10 +141,8 @@ def parse_ts(value: Any) -> datetime | None:
 def resample_recent_30min(source_path: Path, output_path: Path, apply: bool) -> dict[str, Any]:
     payload = read_json(source_path)
     rows = payload.get("rows", []) if isinstance(payload, dict) else []
-    buckets: dict[tuple[str, str], dict[str, Any]] = {}
     counts: defaultdict[tuple[str, str], int] = defaultdict(int)
     sums: defaultdict[tuple[str, str], float] = defaultdict(float)
-    sources: defaultdict[tuple[str, str], set[str]] = defaultdict(set)
 
     for row in rows:
         t = parse_ts(row.get("time") or row.get("ts") or row.get("periodStartUTC"))
@@ -158,7 +160,6 @@ def resample_recent_30min(source_path: Path, output_path: Path, apply: bool) -> 
         key = (bucket_time, str(tech))
         sums[key] += mwf
         counts[key] += 1
-        sources[key].add(str(row.get("source", "unknown")))
 
     out_rows = []
     for (bucket_time, tech), total in sorted(sums.items()):
@@ -196,23 +197,91 @@ def resample_recent_30min(source_path: Path, output_path: Path, apply: bool) -> 
     }
 
 
-def source_routing_audit(loader_path: Path) -> dict[str, Any]:
-    text = loader_path.read_text(encoding="utf-8", errors="replace") if loader_path.exists() else ""
+def rewire_recent_loader(config_path: Path, old_path: str, new_path: str, apply: bool) -> dict[str, Any]:
+    text = read_text(config_path)
+    found_old = old_path in text
+    found_new = new_path in text
+    changed = False
+    if apply and found_old:
+        text = text.replace(old_path, new_path)
+        config_path.write_text(text, encoding="utf-8")
+        changed = True
+    return {
+        "configPath": config_path.relative_to(ROOT).as_posix() if config_path.exists() else str(config_path),
+        "oldPathFound": found_old,
+        "newPathAlreadyPresent": found_new,
+        "applied": changed,
+    }
+
+
+def source_routing_audit(loader_path: Path, config_path: Path | None = None) -> dict[str, Any]:
+    text = read_text(loader_path)
+    cfg_text = read_text(config_path) if config_path else ""
     return {
         "loaderPath": loader_path.relative_to(ROOT).as_posix() if loader_path.exists() else str(loader_path),
+        "configPath": config_path.relative_to(ROOT).as_posix() if config_path and config_path.exists() else None,
         "exists": loader_path.exists(),
         "hasTierFor": "function tierFor" in text,
         "longRangesRouteDaily": "'3m'" in text and "'10y'" in text and "daily" in text,
         "recentTierPresent": "recent" in text,
-        "loadsRecentFile": "recentHalfHourly" in text or "recent" in text,
+        "configStillUsesOldRecentFile": "generation_recent_halfhourly_30d.json" in cfg_text,
+        "configUsesNewRecentFile": "generation_recent_30d_30min.json" in cfg_text,
     }
 
 
 def non_additive_peak_audit(loader_path: Path) -> dict[str, Any]:
-    text = loader_path.read_text(encoding="utf-8", errors="replace") if loader_path.exists() else ""
-    patterns = ["highMW+=", "lowMW+=", "by[k].highMW +=", "by[k].lowMW  +="]
-    hits = [p for p in patterns if p in text]
+    text = read_text(loader_path)
+    patterns = [
+        r"highMW\s*\+=",
+        r"lowMW\s*\+=",
+        r"\.highMW\s*=\s*[^;]+\+\s*Number",
+        r"\.lowMW\s*=\s*[^;]+\+\s*Number",
+    ]
+    hits = []
+    for pat in patterns:
+        if re.search(pat, text):
+            hits.append(pat)
     return {"loaderPath": loader_path.relative_to(ROOT).as_posix() if loader_path.exists() else str(loader_path), "hits": hits, "riskPresent": bool(hits)}
+
+
+def merge_guard_audit(script_path: Path) -> dict[str, Any]:
+    text = read_text(script_path)
+    danger = "for row in existing + new_rows" in text and "merged[key] = row" in text
+    signals = ["should_replace_existing", "weak_row", "FAIL_ON_WEAK_OVERWRITE", "completeness", "record_count"]
+    present = [s for s in signals if s in text]
+    return {
+        "scriptPath": script_path.relative_to(ROOT).as_posix() if script_path.exists() else str(script_path),
+        "exists": script_path.exists(),
+        "dangerousLastWriteWinsPatternPresent": danger,
+        "guardSignalsPresent": present,
+        "appearsGuarded": bool(present) and not danger,
+    }
+
+
+def confirmed_fact_source_audit(script_paths: list[str], data_paths: list[str]) -> dict[str, Any]:
+    script_results = []
+    for rel in script_paths:
+        path = ROOT / rel
+        text = read_text(path)
+        script_results.append({
+            "path": rel,
+            "exists": path.exists(),
+            "mentionsFUELINST": "FUELINST" in text,
+            "mentionsFUELHH": "FUELHH" in text,
+        })
+    data_results = []
+    for rel in data_paths:
+        path = ROOT / rel
+        payload = read_json(path)
+        source_text = json.dumps({k: payload.get(k) for k in ("source", "sourceDatasets", "metadata", "description")}, ensure_ascii=False)
+        data_results.append({
+            "path": rel,
+            "exists": path.exists(),
+            "mentionsFUELINST": "FUELINST" in source_text,
+            "mentionsFUELHH": "FUELHH" in source_text,
+            "sourceText": source_text[:500],
+        })
+    return {"scripts": script_results, "dataFiles": data_results}
 
 
 def confirmed_fact_schema_audit(paths: list[str], required_metadata: list[str], required_row_fields: list[str]) -> dict[str, Any]:
@@ -282,17 +351,23 @@ def main() -> int:
             continue
         op = phase.get("operation")
         apply_phase = bool(args.apply and phase.get("applyByDefault", False))
-        result: dict[str, Any]
         if op == "repo_size_audit":
             result = repo_size_audit()
         elif op == "patch_gitignore":
             result = patch_gitignore(phase.get("patterns", []), apply_phase)
         elif op == "resample_recent_30min":
             result = resample_recent_30min(ROOT / phase["sourcePath"], ROOT / phase["outputPath"], apply_phase)
+        elif op == "rewire_recent_loader":
+            result = rewire_recent_loader(ROOT / phase["configPath"], phase["oldPath"], phase["newPath"], apply_phase)
         elif op == "source_routing_audit":
-            result = source_routing_audit(ROOT / phase["loaderPath"])
+            cfg = ROOT / phase["configPath"] if phase.get("configPath") else None
+            result = source_routing_audit(ROOT / phase["loaderPath"], cfg)
         elif op == "non_additive_peak_audit":
             result = non_additive_peak_audit(ROOT / phase["loaderPath"])
+        elif op == "merge_guard_audit":
+            result = merge_guard_audit(ROOT / phase["scriptPath"])
+        elif op == "confirmed_fact_source_audit":
+            result = confirmed_fact_source_audit(phase.get("scriptPaths", []), phase.get("dataPaths", []))
         elif op == "confirmed_fact_schema_audit":
             result = confirmed_fact_schema_audit(phase.get("paths", []), phase.get("requiredMetadata", []), phase.get("requiredRowFields", []))
         else:
@@ -304,7 +379,7 @@ def main() -> int:
 
     payload = {
         "reportTitle": "GlobalGrid2050 GridBot Mega Upgrade Report",
-        "schemaVersion": "1.0.0",
+        "schemaVersion": "1.1.0",
         "generatedUTC": utc_now(),
         "mode": "apply" if args.apply else "audit only",
         "manifestPath": manifest_path.relative_to(ROOT).as_posix() if manifest_path.exists() else str(manifest_path),

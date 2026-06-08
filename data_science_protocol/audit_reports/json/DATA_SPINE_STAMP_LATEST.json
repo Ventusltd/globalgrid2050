@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-08T20:20:02Z",
+  "mode": "audit only",
+  "doctrine": "data_science_protocol/THE_DATA_SPINE.md",
+  "targets": [
+    {
+      "path": "ARCHITECTURE.md",
+      "exists": true,
+      "alreadyStamped": false,
+      "wouldChange": true,
+      "applied": false
+    },
+    {
+      "path": "PHILOSOPHY.md",
+      "exists": true,
+      "alreadyStamped": false,
+      "wouldChange": true,
+      "applied": false
+    },
+    {
+      "path": "data_science_protocol/DATA_STORAGE_DISCIPLINE_PROTOCOL.md",
+      "exists": true,
+      "alreadyStamped": false,
+      "wouldChange": true,
+      "applied": false
+    },
+    {
+      "path": "uk_energy_tracking_v6/V6_ARCHITECTURAL_INTEGRITY_PROTOCOL.md",
+      "exists": true,
+      "alreadyStamped": false,
+      "wouldChange": true,
+      "applied": false
+    },
+    {
+      "path": "data_science_protocol/DATA_SCIENCE_DISCIPLINE_CHANGELOG.md",
+      "exists": true,
+      "alreadyLogged": false,
+      "wouldChange": true,
+      "applied": false
+    }
+  ]
+}

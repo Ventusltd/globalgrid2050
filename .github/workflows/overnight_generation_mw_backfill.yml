@@ -1,0 +1,138 @@
+name: Overnight Generation MW Backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      years:
+        description: Comma separated years to fetch, newest or oldest order allowed
+        required: true
+        default: '2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026'
+        type: string
+      include_solar:
+        description: Also try PVLive embedded solar candidate rows
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      delay_seconds:
+        description: Delay between daily API calls
+        required: true
+        default: '0.35'
+        type: string
+      max_file_mb:
+        description: Staged file split target in MB
+        required: true
+        default: '25'
+        type: string
+      refetch_existing:
+        description: Refetch days already staged
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      commit_outputs:
+        description: Commit staged data, daily spine and reports
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: overnight-generation-mw-backfill
+  cancel-in-progress: false
+
+jobs:
+  overnight-generation-mw-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 720
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch staged generation MW source years
+        shell: bash
+        run: |
+          set -euo pipefail
+          IFS=',' read -ra YEARS <<< "${{ github.event.inputs.years }}"
+          for raw_year in "${YEARS[@]}"; do
+            year="$(echo "$raw_year" | xargs)"
+            if [ -z "$year" ]; then
+              continue
+            fi
+            echo "Fetching generation MW source year $year"
+            args=(python scripts/fetch_generation_mw_year_staged.py --year "$year" --delay-seconds "${{ github.event.inputs.delay_seconds }}" --max-file-mb "${{ github.event.inputs.max_file_mb }}")
+            if [ "${{ github.event.inputs.include_solar }}" = "true" ]; then
+              args+=(--include-solar)
+            fi
+            if [ "${{ github.event.inputs.refetch_existing }}" = "true" ]; then
+              args+=(--refetch-existing)
+            fi
+            if [ "${{ github.event.inputs.mode }}" = "apply" ]; then
+              args+=(--apply)
+            fi
+            "${args[@]}"
+          done
+
+      - name: Build daily MW spine from staged rows
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=(python scripts/build_generation_daily_mw_spine.py --years "${{ github.event.inputs.years }}")
+          if [ "${{ github.event.inputs.mode }}" = "apply" ]; then
+            args+=(--apply)
+          fi
+          "${args[@]}"
+
+      - name: Upload generation MW backfill reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-generation-mw-backfill-reports
+          path: |
+            data_science_protocol/audit_reports/GENERATION_MW_FETCH_*_LATEST.md
+            data_science_protocol/audit_reports/json/GENERATION_MW_FETCH_*_LATEST.json
+            data_science_protocol/audit_reports/GENERATION_DAILY_MW_SPINE_LATEST.md
+            data_science_protocol/audit_reports/json/GENERATION_DAILY_MW_SPINE_LATEST.json
+
+      - name: Commit generation MW staged outputs
+        if: github.event.inputs.commit_outputs == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data/generation/staged_mw/ || true
+          git add data/confirmed/generation_daily_mw_spine_candidate.json || true
+          git add data_science_protocol/audit_reports/ || true
+          if git diff --cached --quiet; then
+            echo "No generation MW backfill outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: overnight generation MW backfill ${{ github.event.inputs.mode }}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

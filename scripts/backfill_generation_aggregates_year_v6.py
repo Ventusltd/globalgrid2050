@@ -86,12 +86,83 @@ def write_json(path, rows, description):
     }, indent=2), encoding='utf-8')
 
 
+def safe_float(value):
+    try:
+        if value in (None, '', 'NaN'):
+            return None
+        return float(value)
+    except Exception:
+        return None
+
+
+def value_score(row):
+    fields = ['totalMWh', 'dayMWh', 'nightMWh', 'averageMW', 'highMW', 'lowMW']
+    score = 0.0
+    for field in fields:
+        value = safe_float(row.get(field))
+        if value is not None:
+            score += abs(value)
+    return score
+
+
+def record_count(row):
+    value = safe_float(row.get('records', row.get('periodCount', 0)))
+    return int(value) if value is not None and value > 0 else 0
+
+
+def completeness(row):
+    value = safe_float(row.get('completeness'))
+    if value is not None:
+        return value
+    # Existing v6 rows do not yet carry completeness. Until schema v2 lands,
+    # records are the best available quality proxy.
+    return float(record_count(row))
+
+
+def weak_row(row):
+    if not isinstance(row, dict):
+        return True
+    return record_count(row) <= 0 and value_score(row) <= 0
+
+
+def should_replace_existing(existing, incoming):
+    if existing is None:
+        return not weak_row(incoming)
+    if weak_row(incoming) and not weak_row(existing):
+        return False
+    existing_quality = completeness(existing)
+    incoming_quality = completeness(incoming)
+    if existing_quality > 0 and incoming_quality < existing_quality:
+        return False
+    return True
+
+
 def merge_rows(path, new_rows, key_fields, description):
     existing = load_json_rows(path)
     merged = {}
-    for row in existing + new_rows:
+    preserved = 0
+    blocked = []
+
+    for row in existing:
         key = tuple(row.get(field) for field in key_fields)
         merged[key] = row
+
+    for row in new_rows:
+        key = tuple(row.get(field) for field in key_fields)
+        old = merged.get(key)
+        if should_replace_existing(old, row):
+            merged[key] = row
+        else:
+            preserved += 1
+            blocked.append(key)
+
+    if blocked:
+        print(f'Preserved {preserved} existing rows in {path}; incoming rows were weaker or incomplete.')
+        for key in blocked[:20]:
+            print(f'Preserved existing row for key: {key}')
+        if os.getenv('FAIL_ON_WEAK_OVERWRITE', 'false').lower() in ('1', 'true', 'yes'):
+            raise ValueError(f'Blocked weak overwrite for {preserved} rows in {path}')
+
     rows = [merged[key] for key in sorted(merged)]
     write_json(path, rows, description)
     return len(rows)

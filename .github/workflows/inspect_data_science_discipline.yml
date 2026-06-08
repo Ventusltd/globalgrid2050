@@ -1,0 +1,63 @@
+name: Inspect Data Science Discipline
+
+on:
+  workflow_dispatch:
+    inputs:
+      fail_on_action:
+        description: Fail the workflow if files exceed the action threshold
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+  schedule:
+    # Weekly governance inspection. Manual dispatch can be used before audit or release.
+    - cron: '23 6 * * 1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: inspect-data-science-discipline
+  cancel-in-progress: true
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run data science discipline inspection
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DATASCIENCE_WARN_FILE_MB: '5'
+          DATASCIENCE_ACTION_FILE_MB: '25'
+          DATASCIENCE_HARD_FILE_MB: '100'
+          DATASCIENCE_FAIL_ON_ACTION: ${{ github.event.inputs.fail_on_action || 'false' }}
+        run: python scripts/inspect_data_science_discipline.py
+
+      - name: Commit inspection reports and changelog
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data_science_protocol/DATA_SCIENCE_DISCIPLINE_CHANGELOG.md
+          git add data_science_protocol/inspection_reports/
+          if git diff --cached --quiet; then
+            echo "No data science inspection changes to commit"
+            exit 0
+          fi
+          git commit -m "docs: update data science discipline inspection"
+          git pull --rebase origin main
+          git push origin HEAD:main

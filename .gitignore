@@ -40,3 +40,43 @@ yarn-error.log*
 *.tmp
 *.temp
 *.bak
+*.log
+*.cache
+
+# GlobalGrid2050 data science transient inputs
+# Raw source data may be fetched by local scripts or GitHub Actions but must not be committed by default.
+data/raw/
+data/transient/
+data/tmp/
+data/temp/
+tmp/
+temp/
+.raw/
+.transient/
+
+# API dump patterns
+*raw_api*
+*raw_elexon*
+*raw_pvlive*
+*fuelinst_raw*
+*fuelhh_raw*
+*carbon_intensity_raw*
+*backfill_tmp*
+*archive_full*
+*master_halfhourly*
+*_raw.json
+*_raw.csv
+*_raw.parquet
+*_dump.json
+*_dump.csv
+
+# Large local analysis exports
+exports/raw/
+exports/tmp/
+analysis/raw/
+analysis/tmp/
+notebooks/.ipynb_checkpoints/
+
+# Local cold archives must stay outside normal Git history
+cold_storage/
+external_archives/

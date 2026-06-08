@@ -126,8 +126,12 @@
 │   ├── DATA_STORAGE_DISCIPLINE_PROTOCOL.md
 │   ├── MASS_UPGRADE_AUDIT_PROTOCOL.md
 │   └── audit_reports
+│       ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.md
+│       ├── GRIDBOT_MEGA_UPGRADE_LATEST.md
 │       ├── REPO_SIZE_GUARD_LATEST.md
 │       ├── json
+│       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.json
+│       │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.json
 │       │   ├── REPO_SIZE_GUARD_LATEST.json
 │       │   └── repo_size_guard_20260608T131955Z.json
 │       └── repo_size_guard_20260608T131955Z.md
@@ -1428,4 +1432,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-198 directories, 1231 files
+198 directories, 1235 files

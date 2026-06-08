@@ -1336,6 +1336,7 @@
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2021.md
 │   │   │   └── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   ├── control_generation_history.js
+│   │   ├── control_generation_mwh_aggregates.js
 │   │   ├── generation_annual_mwh_by_technology.json
 │   │   ├── generation_data_coverage_audit.json
 │   │   ├── generation_day_night_mwh_by_technology.json
@@ -1408,4 +1409,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-194 directories, 1215 files
+194 directories, 1216 files

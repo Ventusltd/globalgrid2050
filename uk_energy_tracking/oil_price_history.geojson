@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-06-07T08:42:28.845331+00:00",
+    "updated": "2026-06-08T10:09:53.752675+00:00",
     "unit": "USD per barrel",
     "period": "Last 25 years",
     "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
@@ -19,7 +19,7 @@
       {
         "ok": true,
         "source": "Yahoo Brent futures history",
-        "rows": 4692,
+        "rows": 4693,
         "fallback": true
       },
       {
@@ -31,20 +31,6 @@
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-07",
-        "wtiUSDperBarrel": 27.75
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -92612,6 +92598,21 @@
         "date": "2026-06-05",
         "brentUSDperBarrel": 93.08999633789062,
         "wtiUSDperBarrel": 90.54000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-08",
+        "brentUSDperBarrel": 96.95999908447266,
+        "wtiUSDperBarrel": 94.75
       }
     }
   ]

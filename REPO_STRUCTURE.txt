@@ -94,7 +94,8 @@
 │   │   │       ├── elexon_generation_sources_2021-11.csv
 │   │   │       └── elexon_generation_sources_2021-12.csv
 │   │   ├── elexon_generation_sources_2025.csv
-│   │   └── elexon_generation_sources_2026.csv
+│   │   ├── elexon_generation_sources_2026.csv
+│   │   └── elexon_generation_sources_half_hourly.csv
 │   └── grid_studies_public
 │       ├── PUBLIC_GRID_STUDY_PERIOD_SELECTOR_REPAIR_REPORT.md
 │       ├── PUBLIC_GRID_STUDY_SELECTOR_BINDING_REPAIR_REPORT.md
@@ -1418,4 +1419,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-195 directories, 1224 files
+195 directories, 1225 files

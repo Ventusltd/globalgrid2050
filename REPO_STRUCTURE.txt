@@ -129,6 +129,11 @@
 │   ├── MASS_UPGRADE_AUDIT_PROTOCOL.md
 │   ├── THE_DATA_SPINE.md
 │   ├── audit_reports
+│   │   ├── DATA_SPINE_STAMP_20260608T202002Z.md
+│   │   ├── DATA_SPINE_STAMP_20260608T202237Z.md
+│   │   ├── DATA_SPINE_STAMP_LATEST.md
+│   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
+│   │   ├── GENERATION_ECG_ALL_TECH_MVP_LATEST.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.md
@@ -138,6 +143,11 @@
 │   │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.md
 │   │   ├── REPO_SIZE_GUARD_LATEST.md
 │   │   ├── json
+│   │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.json
+│   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
+│   │   │   ├── DATA_SPINE_STAMP_LATEST.json
+│   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
+│   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_LATEST.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.json
@@ -1451,4 +1461,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-199 directories, 1253 files
+199 directories, 1263 files

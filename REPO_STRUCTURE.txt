@@ -120,8 +120,10 @@
 │       ├── texas_ercot_winter_failures.html
 │       └── texas_ercot_winter_failures.md
 ├── data_science_protocol
+│   ├── DATA_SCIENCE_DISCIPLINE_CHANGELOG.md
 │   ├── DATA_SCIENCE_NEXT_UPGRADE_IMPLEMENTATION_PLAN.md
-│   └── DATA_STORAGE_DISCIPLINE_PROTOCOL.md
+│   ├── DATA_STORAGE_DISCIPLINE_PROTOCOL.md
+│   └── MASS_UPGRADE_AUDIT_PROTOCOL.md
 ├── datacentres.geojson
 ├── dc_cables_knowledge
 │   └── index.md
@@ -1416,4 +1418,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-195 directories, 1222 files
+195 directories, 1224 files

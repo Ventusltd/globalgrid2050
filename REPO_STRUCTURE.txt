@@ -122,6 +122,7 @@
 │       └── texas_ercot_winter_failures.md
 ├── data_science_protocol
 │   ├── DATA_SCIENCE_DISCIPLINE_CHANGELOG.md
+│   ├── DATA_SCIENCE_LOGIC_VENTUS.md
 │   ├── DATA_SCIENCE_NEXT_UPGRADE_IMPLEMENTATION_PLAN.md
 │   ├── DATA_STORAGE_DISCIPLINE_PROTOCOL.md
 │   ├── GRIDBOT_NEXT_MEGA_MANIFESTS.md
@@ -131,6 +132,8 @@
 │       ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.md
 │       ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.md
 │       ├── GRIDBOT_MEGA_UPGRADE_20260608T182736Z.md
+│       ├── GRIDBOT_MEGA_UPGRADE_20260608T190118Z.md
+│       ├── GRIDBOT_MEGA_UPGRADE_20260608T192646Z.md
 │       ├── GRIDBOT_MEGA_UPGRADE_LATEST.md
 │       ├── REPO_SIZE_GUARD_LATEST.md
 │       ├── json
@@ -138,6 +141,8 @@
 │       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.json
 │       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.json
 │       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182736Z.json
+│       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T190118Z.json
+│       │   ├── GRIDBOT_MEGA_UPGRADE_20260608T192646Z.json
 │       │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.json
 │       │   ├── REPO_SIZE_GUARD_LATEST.json
 │       │   └── repo_size_guard_20260608T131955Z.json
@@ -1440,4 +1445,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-198 directories, 1243 files
+198 directories, 1248 files

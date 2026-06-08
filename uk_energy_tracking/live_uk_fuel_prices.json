@@ -1,13 +1,13 @@
 {
-  "updated": "2026-06-01T12:43:26.056801+00:00",
+  "updated": "2026-06-08T12:03:02.081718+00:00",
   "source": "Department for Energy Security and Net Zero weekly road fuel prices",
   "sourcePage": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
-  "sourceCsv": "https://assets.publishing.service.gov.uk/media/6a15a15c1eb143220d8d2878/weekly_road_fuel_prices_250526.csv",
+  "sourceCsv": "https://assets.publishing.service.gov.uk/media/6a1d7dd659fb7a60f827f59d/weekly_road_fuel_prices_010626.csv",
   "unit": "pence per litre",
   "latest": {
-    "week": "25/05/2026",
-    "petrolPencePerLitre": 158.78,
-    "dieselPencePerLitre": 185.07
+    "week": "01/06/2026",
+    "petrolPencePerLitre": 158.74,
+    "dieselPencePerLitre": 184.11
   },
   "history": [
     {
@@ -2204,13 +2204,18 @@
       "week": "25/05/2026",
       "petrolPencePerLitre": 158.78,
       "dieselPencePerLitre": 185.07
+    },
+    {
+      "week": "01/06/2026",
+      "petrolPencePerLitre": 158.74,
+      "dieselPencePerLitre": 184.11
     }
   ],
   "health": {
     "source": "DESNZ weekly road fuel prices",
     "page": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
     "ok": true,
-    "csv": "https://assets.publishing.service.gov.uk/media/6a15a15c1eb143220d8d2878/weekly_road_fuel_prices_250526.csv",
-    "rows": 439
+    "csv": "https://assets.publishing.service.gov.uk/media/6a1d7dd659fb7a60f827f59d/weekly_road_fuel_prices_010626.csv",
+    "rows": 440
   }
 }

@@ -2,6 +2,23 @@ name: Repository Guard
 
 on:
   workflow_dispatch:
+    inputs:
+      scan_scope:
+        description: Scan changed files only or the whole repo
+        required: false
+        default: all
+        type: choice
+        options:
+          - all
+          - changed
+      enforce:
+        description: Fail workflow if threshold is breached
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
   pull_request:
   push:
     branches:
@@ -11,7 +28,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: repository-guard-${{ github.ref }}
+  group: repository-guard
   cancel-in-progress: true
 
 jobs:
@@ -24,12 +41,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run repository size guard
+      - name: Run repository size guard for push or pull request
+        if: github.event_name != 'workflow_dispatch'
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           DATASCIENCE_WARN_FILE_MB: '5'
           DATASCIENCE_FAIL_FILE_MB: '25'
           DATASCIENCE_HARD_FILE_MB: '100'
+          DATASCIENCE_SIZE_GUARD_SCOPE: changed
+          DATASCIENCE_ENFORCE_SIZE_GUARD: 'true'
+          DATASCIENCE_BASE_REF: origin/main
+        run: bash .github/scripts/size_guard.sh
+
+      - name: Run repository size guard manually
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DATASCIENCE_WARN_FILE_MB: '5'
+          DATASCIENCE_FAIL_FILE_MB: '25'
+          DATASCIENCE_HARD_FILE_MB: '100'
+          DATASCIENCE_SIZE_GUARD_SCOPE: ${{ github.event.inputs.scan_scope }}
+          DATASCIENCE_ENFORCE_SIZE_GUARD: ${{ github.event.inputs.enforce }}
+          DATASCIENCE_BASE_REF: origin/main
         run: bash .github/scripts/size_guard.sh
 
       - name: Upload guard reports

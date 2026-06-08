@@ -1,0 +1,84 @@
+manifestVersion: 1
+manifestId: 001_generation_data_discipline
+title: Generation Data Discipline Mega Upgrade
+owner: Ventus Ltd
+createdUTC: 2026-06-08T00:00:00Z
+mode: audit_first
+summary: >
+  Manifest driven upgrade for UK Generation History V6. It audits repository size,
+  patches archive ignore rules, creates a true 30 minute recent generation slice,
+  audits source routing, prepares confirmed fact discipline and writes audit logs.
+
+principles:
+  - Python in CI fetches and refines.
+  - GitHub stores confirmed facts and audit records.
+  - Browser displays selected slices.
+  - Raw bulk remains temporary.
+  - Every material change leaves Markdown and JSON audit output.
+
+phases:
+  - id: repo_size_audit
+    title: Repository size audit
+    enabled: true
+    applyByDefault: false
+    operation: repo_size_audit
+    description: Scan all large files and classify GIS, raw, data and protocol files.
+
+  - id: patch_generation_archive_gitignore
+    title: Ignore generation archive transient files
+    enabled: true
+    applyByDefault: true
+    operation: patch_gitignore
+    description: Add archive and master half hourly generation patterns to .gitignore without deleting files.
+    patterns:
+      - data/generation/archive/
+      - data/generation/elexon_generation_sources_half_hourly.csv
+      - data/generation/elexon_generation_sources_2026.csv
+      - data/generation/*half_hourly*.csv
+      - data/generation/*archive*.csv
+
+  - id: resample_recent_generation_30min
+    title: Resample recent generation to true 30 minute MW slice
+    enabled: true
+    applyByDefault: true
+    operation: resample_recent_30min
+    sourcePath: uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json
+    outputPath: uk_energy_tracking_v6/generation_history/generation_recent_30d_30min.json
+    description: Replace misleading 5 minute recent density with a smaller, honest 30 minute engineering layer.
+
+  - id: source_routing_audit
+    title: Generation history source routing audit
+    enabled: true
+    applyByDefault: false
+    operation: source_routing_audit
+    loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+    description: Check that long range views use daily confirmed facts and short views use recent slice.
+
+  - id: non_additive_peak_audit
+    title: Non additive peak audit
+    enabled: true
+    applyByDefault: false
+    operation: non_additive_peak_audit
+    loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+    description: Detect sum of highMW and lowMW across technologies.
+
+  - id: confirmed_fact_schema_audit
+    title: Confirmed fact schema audit
+    enabled: true
+    applyByDefault: false
+    operation: confirmed_fact_schema_audit
+    paths:
+      - uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json
+      - uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json
+      - uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json
+      - uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json
+    requiredMetadata:
+      - schemaVersion
+      - generatedUTC
+      - sourceDatasets
+      - timezone
+      - dayNightRule
+    requiredRowFields:
+      - records
+      - status
+      - completeness

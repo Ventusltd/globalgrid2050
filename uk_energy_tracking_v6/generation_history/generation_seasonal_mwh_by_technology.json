@@ -1,5 +1,5 @@
 {
-  "generatedUTC": "2026-06-08T00:00:19.375574Z",
+  "generatedUTC": "2026-06-08T00:08:09.938890Z",
   "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive where available",
   "description": "Seasonal MWh by generation technology",
   "unit": "MWh",
@@ -743,6 +743,406 @@
       "highMW": 9745.0,
       "lowMW": 0.0,
       "records": 25919
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Biomass",
+      "totalMWh": 4572942.167,
+      "averageMW": 2165.219,
+      "highMW": 3093.0,
+      "lowMW": 0.0,
+      "records": 25344
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Coal",
+      "totalMWh": 4388796.0,
+      "averageMW": 2078.028,
+      "highMW": 8967.0,
+      "lowMW": 0.0,
+      "records": 25344
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Gas",
+      "totalMWh": 25351293.417,
+      "averageMW": 5940.24,
+      "highMW": 24383.0,
+      "lowMW": 0.0,
+      "records": 50688
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Hydro",
+      "totalMWh": 1068049.0,
+      "averageMW": 505.705,
+      "highMW": 1054.0,
+      "lowMW": 0.0,
+      "records": 25344
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Imports & Exports",
+      "totalMWh": 13499596.25,
+      "averageMW": 412.77,
+      "highMW": 2002.0,
+      "lowMW": -2043.0,
+      "records": 101376
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Nuclear",
+      "totalMWh": 13419617.833,
+      "averageMW": 6353.986,
+      "highMW": 7965.0,
+      "lowMW": 0.0,
+      "records": 25344
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Other",
+      "totalMWh": 160067.167,
+      "averageMW": 37.246,
+      "highMW": 155.0,
+      "lowMW": 0.0,
+      "records": 50688
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Pumped Storage",
+      "totalMWh": -167015.0,
+      "averageMW": -79.079,
+      "highMW": 2307.0,
+      "lowMW": -2418.0,
+      "records": 25344
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Solar",
+      "totalMWh": 2201007.433,
+      "averageMW": 1007.787,
+      "highMW": 7608.53,
+      "lowMW": 0.0,
+      "records": 4368
+    },
+    {
+      "year": 2018,
+      "season": "Autumn",
+      "technology": "Wind",
+      "totalMWh": 11801992.083,
+      "averageMW": 5588.064,
+      "highMW": 12117.0,
+      "lowMW": 0.0,
+      "records": 25344
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Biomass",
+      "totalMWh": 4049031.833,
+      "averageMW": 1833.801,
+      "highMW": 2354.0,
+      "lowMW": 0.0,
+      "records": 26496
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Coal",
+      "totalMWh": 4644344.667,
+      "averageMW": 2103.417,
+      "highMW": 11343.0,
+      "lowMW": 0.0,
+      "records": 26496
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Gas",
+      "totalMWh": 29646055.667,
+      "averageMW": 6635.679,
+      "highMW": 24343.0,
+      "lowMW": 0.0,
+      "records": 52992
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Hydro",
+      "totalMWh": 665989.667,
+      "averageMW": 301.626,
+      "highMW": 956.0,
+      "lowMW": 0.0,
+      "records": 26496
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Imports & Exports",
+      "totalMWh": 21135557.417,
+      "averageMW": 565.965,
+      "highMW": 2000.0,
+      "lowMW": -1532.0,
+      "records": 105984
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Nuclear",
+      "totalMWh": 15521198.0,
+      "averageMW": 7029.528,
+      "highMW": 8333.0,
+      "lowMW": 0.0,
+      "records": 26496
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Other",
+      "totalMWh": 240253.25,
+      "averageMW": 53.466,
+      "highMW": 133.0,
+      "lowMW": 0.0,
+      "records": 52992
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Pumped Storage",
+      "totalMWh": -244883.833,
+      "averageMW": -110.908,
+      "highMW": 2037.0,
+      "lowMW": -2520.0,
+      "records": 26496
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Solar",
+      "totalMWh": 3414594.045,
+      "averageMW": 1546.465,
+      "highMW": 9029.09,
+      "lowMW": 0.0,
+      "records": 4416
+    },
+    {
+      "year": 2018,
+      "season": "Spring",
+      "technology": "Wind",
+      "totalMWh": 8935134.167,
+      "averageMW": 4046.709,
+      "highMW": 10989.0,
+      "lowMW": 0.0,
+      "records": 26496
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Biomass",
+      "totalMWh": 3882244.75,
+      "averageMW": 1758.271,
+      "highMW": 2437.0,
+      "lowMW": 426.0,
+      "records": 26493
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Coal",
+      "totalMWh": 617281.333,
+      "averageMW": 279.515,
+      "highMW": 2500.0,
+      "lowMW": 0.0,
+      "records": 26493
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Gas",
+      "totalMWh": 27697059.417,
+      "averageMW": 6199.299,
+      "highMW": 20339.0,
+      "lowMW": 0.0,
+      "records": 52986
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Hydro",
+      "totalMWh": 350402.25,
+      "averageMW": 158.699,
+      "highMW": 788.0,
+      "lowMW": 7.0,
+      "records": 26493
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Imports & Exports",
+      "totalMWh": 22236640.083,
+      "averageMW": 596.768,
+      "highMW": 2001.0,
+      "lowMW": -1522.0,
+      "records": 105972
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Nuclear",
+      "totalMWh": 16118439.667,
+      "averageMW": 7300.106,
+      "highMW": 7977.0,
+      "lowMW": 5432.0,
+      "records": 26493
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Other",
+      "totalMWh": 174897.0,
+      "averageMW": 38.929,
+      "highMW": 255.0,
+      "lowMW": 0.0,
+      "records": 52986
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Pumped Storage",
+      "totalMWh": -217921.75,
+      "averageMW": -98.73,
+      "highMW": 1728.0,
+      "lowMW": -2339.0,
+      "records": 26493
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Solar",
+      "totalMWh": 4639084.781,
+      "averageMW": 2101.035,
+      "highMW": 9003.03,
+      "lowMW": 0.0,
+      "records": 4416
+    },
+    {
+      "year": 2018,
+      "season": "Summer",
+      "technology": "Wind",
+      "totalMWh": 5437589.417,
+      "averageMW": 2462.804,
+      "highMW": 10185.0,
+      "lowMW": 46.0,
+      "records": 26493
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Biomass",
+      "totalMWh": 3438379.417,
+      "averageMW": 1591.842,
+      "highMW": 3058.0,
+      "lowMW": 0.0,
+      "records": 25920
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Coal",
+      "totalMWh": 5620137.25,
+      "averageMW": 2601.915,
+      "highMW": 11245.0,
+      "lowMW": 0.0,
+      "records": 25920
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Gas",
+      "totalMWh": 33171054.833,
+      "averageMW": 7593.597,
+      "highMW": 27065.0,
+      "lowMW": 0.0,
+      "records": 51840
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Hydro",
+      "totalMWh": 1081516.5,
+      "averageMW": 500.702,
+      "highMW": 1049.0,
+      "lowMW": 0.0,
+      "records": 25920
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Imports & Exports",
+      "totalMWh": 22825138.333,
+      "averageMW": 619.973,
+      "highMW": 2001.0,
+      "lowMW": -2045.0,
+      "records": 103680
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Nuclear",
+      "totalMWh": 15097496.833,
+      "averageMW": 6989.582,
+      "highMW": 8285.0,
+      "lowMW": 0.0,
+      "records": 25920
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Other",
+      "totalMWh": 148918.0,
+      "averageMW": 33.885,
+      "highMW": 143.0,
+      "lowMW": 0.0,
+      "records": 51840
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Pumped Storage",
+      "totalMWh": -226237.5,
+      "averageMW": -104.74,
+      "highMW": 2452.0,
+      "lowMW": -2753.0,
+      "records": 25920
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Solar",
+      "totalMWh": 1123043.078,
+      "averageMW": 519.927,
+      "highMW": 7446.73,
+      "lowMW": 0.0,
+      "records": 4320
+    },
+    {
+      "year": 2018,
+      "season": "Winter",
+      "technology": "Wind",
+      "totalMWh": 12640577.667,
+      "averageMW": 5852.119,
+      "highMW": 12104.0,
+      "lowMW": 0.0,
+      "records": 25920
     },
     {
       "year": 2024,

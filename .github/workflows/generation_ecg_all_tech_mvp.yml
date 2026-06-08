@@ -90,7 +90,7 @@ jobs:
           git config --global user.email "gridbot@globalgrid2050.com"
           git add data/confirmed/generation_daily_candidate.json || true
           git add data/confirmed/generation_monthly_candidate.json || true
-          git add uk_energy_tracking_v6/generation_history/generation_ecg_all_technologies_*d_candidate.json || true
+          git add uk_energy_tracking_v6/generation_history/generation_ecg_all_technologies_*candidate.json || true
           git add data_science_protocol/audit_reports/ || true
           if git diff --cached --quiet; then
             echo "No all technology ECG outputs to commit"

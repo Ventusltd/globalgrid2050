@@ -16,7 +16,7 @@ function sortDaily(rows){return rows.slice().sort(function(a,b){return a.date<b.
 function dedupe(rows,fn){var seen={};return rows.filter(function(r){var k=fn(r);if(seen[k])return false;seen[k]=1;return true})}
 function loadJsonOnce(key,url){if(cache[key])return cache[key];cache[key]=fetch(url+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():{rows:[]}}).then(function(d){return d.rows||[]}).catch(function(){return[]});return cache[key]}
 function loadDaily(){return loadJsonOnce('daily',cfg().dailyHistory)}
-function loadRecent(){return loadJsonOnce('recent',cfg().recentHalfHourly)}
+function loadRecent(){return loadJsonOnce('recent',cfg().recentEcg||cfg().recentHalfHourly)}
 function totalHalf(rows){var by={};rows.forEach(function(r){var k=r.time;if(!by[k])by[k]={time:k,generationMW:0,source:'Sum of generation technologies'};by[k].generationMW+=Number(r.generationMW)||0});return sortHalf(Object.keys(by).map(function(k){return by[k]}))}
 function totalDaily(rows){var by={};rows.forEach(function(r){var k=r.date;if(!by[k])by[k]={date:k,averageMW:0,highMW:0,lowMW:0,source:'Sum of generation technologies'};by[k].averageMW+=Number(r.averageMW)||0;by[k].highMW+=Number(r.highMW)||0;by[k].lowMW+=Number(r.lowMW)||0});return sortDaily(Object.keys(by).map(function(k){return by[k]}))}
 function seriesHalf(rows){var by={};rows.forEach(function(r){(by[r.technology]=by[r.technology]||[]).push(r)});return Object.keys(by).map(function(t){return{technology:t,rows:sortHalf(by[t])}})}

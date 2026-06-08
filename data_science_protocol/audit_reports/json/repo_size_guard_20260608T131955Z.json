@@ -1,0 +1,1666 @@
+{
+  "reportTitle": "GlobalGrid2050 Repository Size Guard",
+  "schemaVersion": "1.2.0",
+  "generatedUTC": "2026-06-08T13:19:55Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "branch": "main",
+  "gitHead": "da888c4d",
+  "mode": "audit only",
+  "scanScope": "all",
+  "baseRef": "origin/main",
+  "thresholdsMiB": {
+    "warn": 5.0,
+    "fail": 25.0,
+    "hard": 100.0
+  },
+  "warnCount": 21,
+  "failCount": 3,
+  "hardLimitRiskCount": 0,
+  "files": [
+    {
+      "path": "uk_primary_roads.geojson",
+      "sizeBytes": 79708290,
+      "sizeMiB": 76.016,
+      "risk": "fail",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_trunk_roads.geojson",
+      "sizeBytes": 67527843,
+      "sizeMiB": 64.4,
+      "risk": "fail",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_mainline_railways.geojson",
+      "sizeBytes": 55053387,
+      "sizeMiB": 52.503,
+      "risk": "fail",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "data/electricity/elexon_system_prices_half_hourly.csv",
+      "sizeBytes": 20029094,
+      "sizeMiB": 19.101,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/elexon_generation_sources_2026.csv",
+      "sizeBytes": 18507182,
+      "sizeMiB": 17.65,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/elexon_generation_sources_half_hourly.csv",
+      "sizeBytes": 18507182,
+      "sizeMiB": 17.65,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-10.csv",
+      "sizeBytes": 17163611,
+      "sizeMiB": 16.368,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-12.csv",
+      "sizeBytes": 17114119,
+      "sizeMiB": 16.321,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-11.csv",
+      "sizeBytes": 16558701,
+      "sizeMiB": 15.792,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-07.csv",
+      "sizeBytes": 16249920,
+      "sizeMiB": 15.497,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-08.csv",
+      "sizeBytes": 16235243,
+      "sizeMiB": 15.483,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-09.csv",
+      "sizeBytes": 16213757,
+      "sizeMiB": 15.463,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-05.csv",
+      "sizeBytes": 16209600,
+      "sizeMiB": 15.459,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-03.csv",
+      "sizeBytes": 16185121,
+      "sizeMiB": 15.435,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-06.csv",
+      "sizeBytes": 15702695,
+      "sizeMiB": 14.975,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-04.csv",
+      "sizeBytes": 15686104,
+      "sizeMiB": 14.959,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-01.csv",
+      "sizeBytes": 15413877,
+      "sizeMiB": 14.7,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "data/generation/archive/2021/elexon_generation_sources_2021-02.csv",
+      "sizeBytes": 14665911,
+      "sizeMiB": 13.987,
+      "risk": "warn",
+      "kind": "data"
+    },
+    {
+      "path": "uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json",
+      "sizeBytes": 14038311,
+      "sizeMiB": 13.388,
+      "risk": "warn",
+      "kind": "repository file"
+    },
+    {
+      "path": "uk_motorways.geojson",
+      "sizeBytes": 11490282,
+      "sizeMiB": 10.958,
+      "risk": "warn",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "global_ports.geojson",
+      "sizeBytes": 10258888,
+      "sizeMiB": 9.784,
+      "risk": "warn",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/global_ports.geojson",
+      "sizeBytes": 10186700,
+      "sizeMiB": 9.715,
+      "risk": "warn",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/global_ports.geojson",
+      "sizeBytes": 10186700,
+      "sizeMiB": 9.715,
+      "risk": "warn",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/global_ports.geojson",
+      "sizeBytes": 10186700,
+      "sizeMiB": 9.715,
+      "risk": "warn",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_metros_trams.geojson",
+      "sizeBytes": 4697463,
+      "sizeMiB": 4.48,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "eurostar.geojson",
+      "sizeBytes": 4259078,
+      "sizeMiB": 4.062,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/eurostar.geojson",
+      "sizeBytes": 4259078,
+      "sizeMiB": 4.062,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/eurostar.geojson",
+      "sizeBytes": 4259078,
+      "sizeMiB": 4.062,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/eurostar.geojson",
+      "sizeBytes": 4259078,
+      "sizeMiB": 4.062,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_132kv.geojson",
+      "sizeBytes": 3410191,
+      "sizeMiB": 3.252,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_132kv.geojson",
+      "sizeBytes": 3410191,
+      "sizeMiB": 3.252,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_132kv.geojson",
+      "sizeBytes": 3410191,
+      "sizeMiB": 3.252,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_132kv.geojson",
+      "sizeBytes": 3410191,
+      "sizeMiB": 3.252,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/subsea_data_cables.geojson",
+      "sizeBytes": 3346221,
+      "sizeMiB": 3.191,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/subsea_data_cables.geojson",
+      "sizeBytes": 3346221,
+      "sizeMiB": 3.191,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/subsea_data_cables.geojson",
+      "sizeBytes": 3346221,
+      "sizeMiB": 3.191,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "subsea_data_cables.geojson",
+      "sizeBytes": 3346221,
+      "sizeMiB": 3.191,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_11kv_ukpn.geojson",
+      "sizeBytes": 3125509,
+      "sizeMiB": 2.981,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_11kv_ukpn.geojson",
+      "sizeBytes": 3125509,
+      "sizeMiB": 2.981,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_11kv_ukpn.geojson",
+      "sizeBytes": 3125509,
+      "sizeMiB": 2.981,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_11kv_ukpn.geojson",
+      "sizeBytes": 3125509,
+      "sizeMiB": 2.981,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_energy_tracking_v6/oil_price_history.geojson",
+      "sizeBytes": 1837531,
+      "sizeMiB": 1.752,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_energy_tracking_v5/oil_price_history.geojson",
+      "sizeBytes": 1837192,
+      "sizeMiB": 1.752,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_energy_tracking/oil_price_history.geojson",
+      "sizeBytes": 1837180,
+      "sizeMiB": 1.752,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_substations.geojson",
+      "sizeBytes": 1822645,
+      "sizeMiB": 1.738,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_substations.geojson",
+      "sizeBytes": 1822645,
+      "sizeMiB": 1.738,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_substations.geojson",
+      "sizeBytes": 1822645,
+      "sizeMiB": 1.738,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_substations.geojson",
+      "sizeBytes": 1822645,
+      "sizeMiB": 1.738,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_400kv.geojson",
+      "sizeBytes": 1802840,
+      "sizeMiB": 1.719,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_400kv.geojson",
+      "sizeBytes": 1802840,
+      "sizeMiB": 1.719,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_400kv.geojson",
+      "sizeBytes": 1802840,
+      "sizeMiB": 1.719,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_400kv.geojson",
+      "sizeBytes": 1802840,
+      "sizeMiB": 1.719,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/uk_metros_trams.geojson",
+      "sizeBytes": 1649975,
+      "sizeMiB": 1.574,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/uk_metros_trams.geojson",
+      "sizeBytes": 1649975,
+      "sizeMiB": 1.574,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/uk_metros_trams.geojson",
+      "sizeBytes": 1649975,
+      "sizeMiB": 1.574,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_275kv.geojson",
+      "sizeBytes": 1271135,
+      "sizeMiB": 1.212,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_275kv.geojson",
+      "sizeBytes": 1271135,
+      "sizeMiB": 1.212,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_275kv.geojson",
+      "sizeBytes": 1271135,
+      "sizeMiB": 1.212,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_275kv.geojson",
+      "sizeBytes": 1271135,
+      "sizeMiB": 1.212,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "industrial_offtakers.geojson",
+      "sizeBytes": 1193462,
+      "sizeMiB": 1.138,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/industrial_offtakers.geojson",
+      "sizeBytes": 1193462,
+      "sizeMiB": 1.138,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/industrial_offtakers.geojson",
+      "sizeBytes": 1193462,
+      "sizeMiB": 1.138,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/industrial_offtakers.geojson",
+      "sizeBytes": 1193462,
+      "sizeMiB": 1.138,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_Wales_South.geojson",
+      "sizeBytes": 1165527,
+      "sizeMiB": 1.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_Wales_South.geojson",
+      "sizeBytes": 1165527,
+      "sizeMiB": 1.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_Wales_South.geojson",
+      "sizeBytes": 1165527,
+      "sizeMiB": 1.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_Wales_South.geojson",
+      "sizeBytes": 1165527,
+      "sizeMiB": 1.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_South_West_England.geojson",
+      "sizeBytes": 1013020,
+      "sizeMiB": 0.966,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_South_West_England.geojson",
+      "sizeBytes": 1013020,
+      "sizeMiB": 0.966,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_South_West_England.geojson",
+      "sizeBytes": 1013020,
+      "sizeMiB": 0.966,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_South_West_England.geojson",
+      "sizeBytes": 1013020,
+      "sizeMiB": 0.966,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "global_hydrocarbons.geojson",
+      "sizeBytes": 781466,
+      "sizeMiB": 0.745,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/global_hydrocarbons.geojson",
+      "sizeBytes": 781466,
+      "sizeMiB": 0.745,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/global_hydrocarbons.geojson",
+      "sizeBytes": 781466,
+      "sizeMiB": 0.745,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/global_hydrocarbons.geojson",
+      "sizeBytes": 781466,
+      "sizeMiB": 0.745,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_66kv.geojson",
+      "sizeBytes": 698542,
+      "sizeMiB": 0.666,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_66kv.geojson",
+      "sizeBytes": 698542,
+      "sizeMiB": 0.666,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_66kv.geojson",
+      "sizeBytes": 698542,
+      "sizeMiB": 0.666,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_66kv.geojson",
+      "sizeBytes": 698542,
+      "sizeMiB": 0.666,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "railways.geojson",
+      "sizeBytes": 582609,
+      "sizeMiB": 0.556,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/railways.geojson",
+      "sizeBytes": 582609,
+      "sizeMiB": 0.556,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/railways.geojson",
+      "sizeBytes": 582609,
+      "sizeMiB": 0.556,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/railways.geojson",
+      "sizeBytes": 582609,
+      "sizeMiB": 0.556,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_Yorkshire.geojson",
+      "sizeBytes": 278029,
+      "sizeMiB": 0.265,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_Yorkshire.geojson",
+      "sizeBytes": 278029,
+      "sizeMiB": 0.265,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_Yorkshire.geojson",
+      "sizeBytes": 278029,
+      "sizeMiB": 0.265,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_Yorkshire.geojson",
+      "sizeBytes": 278029,
+      "sizeMiB": 0.265,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "ev_chargers.geojson",
+      "sizeBytes": 262464,
+      "sizeMiB": 0.25,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/ev_chargers.geojson",
+      "sizeBytes": 259812,
+      "sizeMiB": 0.248,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/ev_chargers.geojson",
+      "sizeBytes": 259812,
+      "sizeMiB": 0.248,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/ev_chargers.geojson",
+      "sizeBytes": 259812,
+      "sizeMiB": 0.248,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_South_East_England.geojson",
+      "sizeBytes": 233997,
+      "sizeMiB": 0.223,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_South_East_England.geojson",
+      "sizeBytes": 233997,
+      "sizeMiB": 0.223,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_South_East_England.geojson",
+      "sizeBytes": 233997,
+      "sizeMiB": 0.223,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_South_East_England.geojson",
+      "sizeBytes": 233997,
+      "sizeMiB": 0.223,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_tesco.geojson",
+      "sizeBytes": 225282,
+      "sizeMiB": 0.215,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_tesco.geojson",
+      "sizeBytes": 225282,
+      "sizeMiB": 0.215,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_tesco.geojson",
+      "sizeBytes": 225282,
+      "sizeMiB": 0.215,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_tesco.geojson",
+      "sizeBytes": 225282,
+      "sizeMiB": 0.215,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_Scotland_North.geojson",
+      "sizeBytes": 220709,
+      "sizeMiB": 0.21,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_Scotland_North.geojson",
+      "sizeBytes": 220709,
+      "sizeMiB": 0.21,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_Scotland_North.geojson",
+      "sizeBytes": 220709,
+      "sizeMiB": 0.21,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_Scotland_North.geojson",
+      "sizeBytes": 220709,
+      "sizeMiB": 0.21,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_North_West_England.geojson",
+      "sizeBytes": 161753,
+      "sizeMiB": 0.154,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_North_West_England.geojson",
+      "sizeBytes": 161753,
+      "sizeMiB": 0.154,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_North_West_England.geojson",
+      "sizeBytes": 161753,
+      "sizeMiB": 0.154,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_North_West_England.geojson",
+      "sizeBytes": 161753,
+      "sizeMiB": 0.154,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_morrisons.geojson",
+      "sizeBytes": 156119,
+      "sizeMiB": 0.149,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_morrisons.geojson",
+      "sizeBytes": 156119,
+      "sizeMiB": 0.149,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_morrisons.geojson",
+      "sizeBytes": 156119,
+      "sizeMiB": 0.149,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_morrisons.geojson",
+      "sizeBytes": 156119,
+      "sizeMiB": 0.149,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_sainsburys.geojson",
+      "sizeBytes": 153154,
+      "sizeMiB": 0.146,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_sainsburys.geojson",
+      "sizeBytes": 153154,
+      "sizeMiB": 0.146,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_sainsburys.geojson",
+      "sizeBytes": 153154,
+      "sizeMiB": 0.146,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_sainsburys.geojson",
+      "sizeBytes": 153154,
+      "sizeMiB": 0.146,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "airports.geojson",
+      "sizeBytes": 136906,
+      "sizeMiB": 0.131,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/airports.geojson",
+      "sizeBytes": 136906,
+      "sizeMiB": 0.131,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/airports.geojson",
+      "sizeBytes": 136906,
+      "sizeMiB": 0.131,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/airports.geojson",
+      "sizeBytes": 136906,
+      "sizeMiB": 0.131,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_East_of_England.geojson",
+      "sizeBytes": 131462,
+      "sizeMiB": 0.125,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_East_of_England.geojson",
+      "sizeBytes": 131462,
+      "sizeMiB": 0.125,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_East_of_England.geojson",
+      "sizeBytes": 131462,
+      "sizeMiB": 0.125,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_East_of_England.geojson",
+      "sizeBytes": 131462,
+      "sizeMiB": 0.125,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_asda.geojson",
+      "sizeBytes": 117793,
+      "sizeMiB": 0.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_asda.geojson",
+      "sizeBytes": 117793,
+      "sizeMiB": 0.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_asda.geojson",
+      "sizeBytes": 117793,
+      "sizeMiB": 0.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_asda.geojson",
+      "sizeBytes": 117793,
+      "sizeMiB": 0.112,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_Wales_North.geojson",
+      "sizeBytes": 113989,
+      "sizeMiB": 0.109,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_Wales_North.geojson",
+      "sizeBytes": 113989,
+      "sizeMiB": 0.109,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_Wales_North.geojson",
+      "sizeBytes": 113989,
+      "sizeMiB": 0.109,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_Wales_North.geojson",
+      "sizeBytes": 113989,
+      "sizeMiB": 0.109,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "motorway_services.geojson",
+      "sizeBytes": 107192,
+      "sizeMiB": 0.102,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/motorway_services.geojson",
+      "sizeBytes": 107192,
+      "sizeMiB": 0.102,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/motorway_services.geojson",
+      "sizeBytes": 107192,
+      "sizeMiB": 0.102,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/motorway_services.geojson",
+      "sizeBytes": 107192,
+      "sizeMiB": 0.102,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "london_underground.geojson",
+      "sizeBytes": 82559,
+      "sizeMiB": 0.079,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/london_underground.geojson",
+      "sizeBytes": 82559,
+      "sizeMiB": 0.079,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/london_underground.geojson",
+      "sizeBytes": 82559,
+      "sizeMiB": 0.079,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/london_underground.geojson",
+      "sizeBytes": 82559,
+      "sizeMiB": 0.079,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_energy_tracking_v2/oil_price_history.geojson",
+      "sizeBytes": 78806,
+      "sizeMiB": 0.075,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_energy_tracking_v3/oil_price_history.geojson",
+      "sizeBytes": 78806,
+      "sizeMiB": 0.075,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "uk_energy_tracking_v4/oil_price_history.geojson",
+      "sizeBytes": 78806,
+      "sizeMiB": 0.075,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_220kv.geojson",
+      "sizeBytes": 76801,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_220kv.geojson",
+      "sizeBytes": 76801,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_220kv.geojson",
+      "sizeBytes": 76801,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_220kv.geojson",
+      "sizeBytes": 76801,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_Scotland_South.geojson",
+      "sizeBytes": 76647,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_Scotland_South.geojson",
+      "sizeBytes": 76647,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_Scotland_South.geojson",
+      "sizeBytes": 76647,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_Scotland_South.geojson",
+      "sizeBytes": 76647,
+      "sizeMiB": 0.073,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "hs2.geojson",
+      "sizeBytes": 65898,
+      "sizeMiB": 0.063,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/hs2.geojson",
+      "sizeBytes": 65898,
+      "sizeMiB": 0.063,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/hs2.geojson",
+      "sizeBytes": 65898,
+      "sizeMiB": 0.063,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/hs2.geojson",
+      "sizeBytes": 65898,
+      "sizeMiB": 0.063,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_lidl.geojson",
+      "sizeBytes": 63528,
+      "sizeMiB": 0.061,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_lidl.geojson",
+      "sizeBytes": 63528,
+      "sizeMiB": 0.061,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_lidl.geojson",
+      "sizeBytes": 63528,
+      "sizeMiB": 0.061,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_lidl.geojson",
+      "sizeBytes": 63528,
+      "sizeMiB": 0.061,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "feature_requests/004_create_test_fixtures/files/solar-bess-topology-v2/test_fixtures/fixture_001_default_string.geojson",
+      "sizeBytes": 45276,
+      "sizeMiB": 0.043,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_waitrose.geojson",
+      "sizeBytes": 44460,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_waitrose.geojson",
+      "sizeBytes": 44460,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_waitrose.geojson",
+      "sizeBytes": 44460,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_waitrose.geojson",
+      "sizeBytes": 44460,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_London_Area.geojson",
+      "sizeBytes": 43734,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_London_Area.geojson",
+      "sizeBytes": 43734,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_London_Area.geojson",
+      "sizeBytes": 43734,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_London_Area.geojson",
+      "sizeBytes": 43734,
+      "sizeMiB": 0.042,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/stadiums.geojson",
+      "sizeBytes": 42769,
+      "sizeMiB": 0.041,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/stadiums.geojson",
+      "sizeBytes": 42769,
+      "sizeMiB": 0.041,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/stadiums.geojson",
+      "sizeBytes": 42769,
+      "sizeMiB": 0.041,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "stadiums.geojson",
+      "sizeBytes": 42769,
+      "sizeMiB": 0.041,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "datacentres.geojson",
+      "sizeBytes": 40563,
+      "sizeMiB": 0.039,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/datacentres.geojson",
+      "sizeBytes": 40563,
+      "sizeMiB": 0.039,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/datacentres.geojson",
+      "sizeBytes": 40563,
+      "sizeMiB": 0.039,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/datacentres.geojson",
+      "sizeBytes": 40563,
+      "sizeMiB": 0.039,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "power_plants.geojson",
+      "sizeBytes": 34134,
+      "sizeMiB": 0.033,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/power_plants.geojson",
+      "sizeBytes": 34134,
+      "sizeMiB": 0.033,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/power_plants.geojson",
+      "sizeBytes": 34134,
+      "sizeMiB": 0.033,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/power_plants.geojson",
+      "sizeBytes": 34134,
+      "sizeMiB": 0.033,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "grid_33kv_North_East_England.geojson",
+      "sizeBytes": 27200,
+      "sizeMiB": 0.026,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/grid_33kv_North_East_England.geojson",
+      "sizeBytes": 27200,
+      "sizeMiB": 0.026,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/grid_33kv_North_East_England.geojson",
+      "sizeBytes": 27200,
+      "sizeMiB": 0.026,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/grid_33kv_North_East_England.geojson",
+      "sizeBytes": 27200,
+      "sizeMiB": 0.026,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_aldi.geojson",
+      "sizeBytes": 15917,
+      "sizeMiB": 0.015,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_aldi.geojson",
+      "sizeBytes": 15917,
+      "sizeMiB": 0.015,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_aldi.geojson",
+      "sizeBytes": 15917,
+      "sizeMiB": 0.015,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_aldi.geojson",
+      "sizeBytes": 15917,
+      "sizeMiB": 0.015,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "scripts/add_v8_bess_geospatial_layout_drawing.py",
+      "sizeBytes": 13854,
+      "sizeMiB": 0.013,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-drawing.js",
+      "sizeBytes": 10735,
+      "sizeMiB": 0.01,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "solar-bess-topology-v8/bess-gis-sld-financial-sandbox/gis-sld-v5-drawing.js",
+      "sizeBytes": 10735,
+      "sizeMiB": 0.01,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "solar-bess-topology-v8/bess-pcs-standalone/gis-sld-v5-drawing.js",
+      "sizeBytes": 10735,
+      "sizeMiB": 0.01,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "solar-bess-topology-v4/gis-sld-v4-drawing.js",
+      "sizeBytes": 10638,
+      "sizeMiB": 0.01,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "solar-bess-topology-v5/gis-sld-v4-drawing.js",
+      "sizeBytes": 10638,
+      "sizeMiB": 0.01,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "solar-bess-topology-v5/gis-sld-v5-drawing.js",
+      "sizeBytes": 10638,
+      "sizeMiB": 0.01,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "solar-bess-topology-v6/gis-sld-financial-sandbox/gis-sld-v5-drawing.js",
+      "sizeBytes": 10638,
+      "sizeMiB": 0.01,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_costco.geojson",
+      "sizeBytes": 9694,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_costco.geojson",
+      "sizeBytes": 9694,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_costco.geojson",
+      "sizeBytes": 9694,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_costco.geojson",
+      "sizeBytes": 9694,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "solar-bess-topology-v3/gis-sld-v3-drawing.js",
+      "sizeBytes": 9481,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "elizabeth_line.geojson",
+      "sizeBytes": 9037,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/elizabeth_line.geojson",
+      "sizeBytes": 9037,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/elizabeth_line.geojson",
+      "sizeBytes": 9037,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/elizabeth_line.geojson",
+      "sizeBytes": 9037,
+      "sizeMiB": 0.009,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_coop.geojson",
+      "sizeBytes": 8428,
+      "sizeMiB": 0.008,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_coop.geojson",
+      "sizeBytes": 8428,
+      "sizeMiB": 0.008,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_coop.geojson",
+      "sizeBytes": 8428,
+      "sizeMiB": 0.008,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_coop.geojson",
+      "sizeBytes": 8428,
+      "sizeMiB": 0.008,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "deep_subsea_illustrative.geojson",
+      "sizeBytes": 2875,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/deep_subsea_illustrative.geojson",
+      "sizeBytes": 2875,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/deep_subsea_illustrative.geojson",
+      "sizeBytes": 2875,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/deep_subsea_illustrative.geojson",
+      "sizeBytes": 2875,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_booths.geojson",
+      "sizeBytes": 2847,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_booths.geojson",
+      "sizeBytes": 2847,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_booths.geojson",
+      "sizeBytes": 2847,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_booths.geojson",
+      "sizeBytes": 2847,
+      "sizeMiB": 0.003,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": ".github/workflows/add-v8-bess-geospatial-layout-drawing.yml",
+      "sizeBytes": 1873,
+      "sizeMiB": 0.002,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "scripts/test_add_v8_bess_geospatial_layout_drawing.py",
+      "sizeBytes": 1468,
+      "sizeMiB": 0.001,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_ms.geojson",
+      "sizeBytes": 971,
+      "sizeMiB": 0.001,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_ms.geojson",
+      "sizeBytes": 971,
+      "sizeMiB": 0.001,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_ms.geojson",
+      "sizeBytes": 971,
+      "sizeMiB": 0.001,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_ms.geojson",
+      "sizeBytes": 971,
+      "sizeMiB": 0.001,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "gridbot_reports/add_v8_bess_geospatial_layout_drawing.md",
+      "sizeBytes": 778,
+      "sizeMiB": 0.001,
+      "risk": "pass",
+      "kind": "raw or transient candidate"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_farmfoods.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_iceland.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv6/data/supermarkets_spar.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_farmfoods.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_iceland.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv7/data/supermarkets_spar.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_farmfoods.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_iceland.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "repd_grid_atlasv8/data/supermarkets_spar.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_farmfoods.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_iceland.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    },
+    {
+      "path": "supermarkets_spar.geojson",
+      "sizeBytes": 42,
+      "sizeMiB": 0.0,
+      "risk": "pass",
+      "kind": "gis geometry"
+    }
+  ]
+}

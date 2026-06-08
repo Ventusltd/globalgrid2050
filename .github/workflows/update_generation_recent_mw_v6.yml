@@ -1,0 +1,67 @@
+name: Update Generation Recent MW Slice V6
+
+on:
+  schedule:
+    - cron: '40 6 * * *'
+  workflow_dispatch:
+    inputs:
+      days:
+        description: Number of recent complete days to include
+        required: true
+        default: '30'
+      include_solar:
+        description: Include Sheffield Solar PVLive solar rows
+        required: true
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generation-recent-mw-v6
+  cancel-in-progress: false
+
+jobs:
+  update_recent_mw:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pull latest main
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
+
+      - name: Build recent MW slice
+        env:
+          DAYS: ${{ github.event.inputs.days || '30' }}
+          INCLUDE_SOLAR: ${{ github.event.inputs.include_solar || 'true' }}
+        run: |
+          DAYS=$DAYS INCLUDE_SOLAR=$INCLUDE_SOLAR python scripts/update_generation_recent_mw_v6.py
+
+      - name: Commit recent MW slice
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          git add uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json
+          git add uk_energy_tracking_v6/generation_history/backfill_reports/GENERATION_RECENT_MW_SLICE.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update V6 recent generation MW slice"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No recent MW slice changes"
+          fi

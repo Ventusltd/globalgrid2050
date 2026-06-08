@@ -1,5 +1,5 @@
 {
-  "generatedUTC": "2026-06-08T01:10:35.026052Z",
+  "generatedUTC": "2026-06-08T11:28:13.498347Z",
   "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive where available",
   "description": "Annual MWh by generation technology",
   "unit": "MWh",
@@ -970,8 +970,8 @@
     {
       "year": 2026,
       "technology": "Solar",
-      "totalMWh": 8649692.583,
-      "averageMW": 2281.037,
+      "totalMWh": 8656096.62,
+      "averageMW": 2282.726,
       "highMW": 16289.2,
       "lowMW": 0.0,
       "records": 7584

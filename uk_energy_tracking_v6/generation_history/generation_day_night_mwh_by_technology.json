@@ -1,5 +1,5 @@
 {
-  "generatedUTC": "2026-06-08T01:10:35.034575Z",
+  "generatedUTC": "2026-06-08T11:28:13.506705Z",
   "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive where available",
   "description": "Monthly day versus night MWh by generation technology",
   "unit": "MWh",
@@ -14745,11 +14745,11 @@
       "month": 6,
       "season": "Summer",
       "technology": "Solar",
-      "dayMWh": 463436.081,
-      "nightMWh": 22170.055,
-      "totalMWh": 485606.136,
-      "daySharePercent": 95.435,
-      "nightSharePercent": 4.565,
+      "dayMWh": 469956.511,
+      "nightMWh": 22053.663,
+      "totalMWh": 492010.173,
+      "daySharePercent": 95.518,
+      "nightSharePercent": 4.482,
       "records": 336
     },
     {

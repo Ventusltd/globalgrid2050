@@ -1,6 +1,6 @@
 # Generation Aggregate Backfill 2026
 
-Updated UTC: 2026-06-08T01:10:35.046417Z
+Updated UTC: 2026-06-08T11:28:13.518377Z
 Year: 2026
 Window: 2026-01-01 to 2026-06-07
 Elexon raw rows fetched: 910080

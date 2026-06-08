@@ -7,7 +7,9 @@ mode: audit_first
 summary: >
   Manifest driven upgrade for UK Generation History V6. It audits repository size,
   patches archive ignore rules, creates a true 30 minute recent generation slice,
-  audits source routing, prepares confirmed fact discipline and writes audit logs.
+  rewires the browser to the corrected recent slice, audits source routing,
+  checks never overwrite protection, checks confirmed fact source discipline,
+  checks non additive peak risk, prepares confirmed fact discipline and writes audit logs.
 
 principles:
   - Python in CI fetches and refines.
@@ -37,6 +39,28 @@ phases:
       - data/generation/*half_hourly*.csv
       - data/generation/*archive*.csv
 
+  - id: merge_guard_audit
+    title: Audit never overwrite good data guard
+    enabled: true
+    applyByDefault: false
+    operation: merge_guard_audit
+    scriptPath: scripts/backfill_generation_aggregates_year_v6.py
+    description: Verify aggregate merge logic does not silently replace good rows with weaker incoming rows.
+
+  - id: confirmed_fact_source_audit
+    title: Audit confirmed fact source discipline
+    enabled: true
+    applyByDefault: false
+    operation: confirmed_fact_source_audit
+    description: Detect whether confirmed fact artifacts and aggregate scripts still declare FUELINST as their historic source.
+    scriptPaths:
+      - scripts/backfill_generation_aggregates_year_v6.py
+    dataPaths:
+      - uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json
+      - uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json
+      - uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json
+      - uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json
+
   - id: resample_recent_generation_30min
     title: Resample recent generation to true 30 minute MW slice
     enabled: true
@@ -46,13 +70,24 @@ phases:
     outputPath: uk_energy_tracking_v6/generation_history/generation_recent_30d_30min.json
     description: Replace misleading 5 minute recent density with a smaller, honest 30 minute engineering layer.
 
+  - id: rewire_recent_loader
+    title: Rewire browser config to true 30 minute recent slice
+    enabled: true
+    applyByDefault: true
+    operation: rewire_recent_loader
+    configPath: uk_energy_tracking_v6/generation_history/live-config.js
+    oldPath: /uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json
+    newPath: /uk_energy_tracking_v6/generation_history/generation_recent_30d_30min.json
+    description: Ensure the browser actually fetches the corrected 30 minute recent slice after it is created.
+
   - id: source_routing_audit
     title: Generation history source routing audit
     enabled: true
     applyByDefault: false
     operation: source_routing_audit
     loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
-    description: Check that long range views use daily confirmed facts and short views use recent slice.
+    configPath: uk_energy_tracking_v6/generation_history/live-config.js
+    description: Check that long range views use daily confirmed facts and short views use the recent configured slice.
 
   - id: non_additive_peak_audit
     title: Non additive peak audit

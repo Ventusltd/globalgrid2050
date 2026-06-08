@@ -64,6 +64,9 @@
 ├── conversions.md
 ├── copper_and_aluminium_prices_historic_trends.md
 ├── data
+│   ├── confirmed
+│   │   ├── generation_daily_candidate.json
+│   │   └── generation_monthly_candidate.json
 │   ├── electricity
 │   │   ├── elexon_system_prices_2016.csv
 │   │   ├── elexon_system_prices_2017.csv
@@ -134,6 +137,7 @@
 │   │   ├── DATA_SPINE_STAMP_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.md
+│   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T205122Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_LATEST.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.md
@@ -149,6 +153,7 @@
 │   │   │   ├── DATA_SPINE_STAMP_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.json
+│   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T205122Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_LATEST.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.json
@@ -1394,6 +1399,7 @@
 │   │   ├── generation_annual_mwh_by_technology.json
 │   │   ├── generation_data_coverage_audit.json
 │   │   ├── generation_day_night_mwh_by_technology.json
+│   │   ├── generation_ecg_all_technologies_30d_candidate.json
 │   │   ├── generation_history_daily_decade.json
 │   │   ├── generation_monthly_mwh_by_technology.json
 │   │   ├── generation_recent_30d_30min.json
@@ -1464,4 +1470,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-199 directories, 1266 files
+200 directories, 1271 files

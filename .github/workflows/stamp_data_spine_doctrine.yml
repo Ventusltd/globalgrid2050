@@ -1,0 +1,82 @@
+name: Stamp Data Spine Doctrine
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_outputs:
+        description: Commit stamped files and reports
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stamp-data-spine-doctrine
+  cancel-in-progress: false
+
+jobs:
+  stamp-data-spine-doctrine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Audit doctrine stamps
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/stamp_data_spine_doctrine.py
+
+      - name: Apply doctrine stamps
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/stamp_data_spine_doctrine.py --apply
+
+      - name: Upload stamp report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-spine-stamp-report
+          path: |
+            data_science_protocol/audit_reports/DATA_SPINE_STAMP_LATEST.md
+            data_science_protocol/audit_reports/json/DATA_SPINE_STAMP_LATEST.json
+
+      - name: Commit stamped doctrine outputs
+        if: github.event.inputs.commit_outputs == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add ARCHITECTURE.md || true
+          git add PHILOSOPHY.md || true
+          git add data_science_protocol/DATA_STORAGE_DISCIPLINE_PROTOCOL.md || true
+          git add data_science_protocol/DATA_SCIENCE_DISCIPLINE_CHANGELOG.md || true
+          git add uk_energy_tracking_v6/V6_ARCHITECTURAL_INTEGRITY_PROTOCOL.md || true
+          git add data_science_protocol/audit_reports/ || true
+          if git diff --cached --quiet; then
+            echo "No data spine stamp outputs to commit"
+            exit 0
+          fi
+          git commit -m "docs: stamp data spine doctrine"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

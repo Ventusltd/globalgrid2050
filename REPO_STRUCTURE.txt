@@ -136,6 +136,7 @@
 │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.md
 │   │   ├── DATA_SPINE_STAMP_LATEST.md
 │   │   ├── ECG_CANDIDATE_WIRING_20260608T221153Z.md
+│   │   ├── ECG_CANDIDATE_WIRING_20260608T230807Z.md
 │   │   ├── ECG_CANDIDATE_WIRING_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.md
@@ -157,6 +158,7 @@
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
 │   │   │   ├── DATA_SPINE_STAMP_LATEST.json
 │   │   │   ├── ECG_CANDIDATE_WIRING_20260608T221153Z.json
+│   │   │   ├── ECG_CANDIDATE_WIRING_20260608T230807Z.json
 │   │   │   ├── ECG_CANDIDATE_WIRING_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.json
@@ -1482,4 +1484,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-200 directories, 1283 files
+200 directories, 1285 files

@@ -82,6 +82,7 @@ jobs:
           git config --global user.email "gridbot@globalgrid2050.com"
           git add .gitignore || true
           git add uk_energy_tracking_v6/generation_history/generation_recent_30d_30min.json || true
+          git add uk_energy_tracking_v6/generation_history/live-config.js || true
           git add data_science_protocol/audit_reports/ || true
           if git diff --cached --quiet; then
             echo "No GridBot outputs to commit"

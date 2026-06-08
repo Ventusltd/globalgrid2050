@@ -1346,6 +1346,7 @@
 │   │   ├── index.md
 │   │   ├── live-config.js
 │   │   ├── load_generation_history_data.js
+│   │   ├── load_generation_mwh_aggregates.js
 │   │   ├── mwh_energy_use
 │   │   │   ├── index.md
 │   │   │   └── ons_mwh_energy_use_placeholder.json
@@ -1406,4 +1407,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-194 directories, 1213 files
+194 directories, 1214 files

@@ -827,6 +827,7 @@
 │   ├── track_repository_size.py
 │   ├── update_commodities_v5.py
 │   ├── update_elexon_system_prices_daily_v4.py
+│   ├── update_generation_recent_mw_v6.py
 │   ├── update_metal_trends.py
 │   ├── update_oil_prices.py
 │   ├── update_oil_prices_v2.py
@@ -1409,4 +1410,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-194 directories, 1216 files
+194 directories, 1217 files

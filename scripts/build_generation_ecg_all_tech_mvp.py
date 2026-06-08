@@ -6,9 +6,9 @@ This keeps the ECG data for all technologies in one compact rolling hot tier fil
 The browser should display only the selected technology from the dropdown.
 
 Important rule:
-The ECG hot tier must be built from recent source files only.
-Historic archive files may feed daily and monthly candidate facts, but they must not be
-allowed to inflate the rolling ECG file.
+The browser safe ECG candidate must be built from the 30 minute recent source.
+The 5 minute recent source is useful for future live heartbeat work, but it is too
+large to wire into the default browser path as one all technology static file.
 """
 
 from __future__ import annotations
@@ -33,8 +33,8 @@ from build_generation_heartbeat_mvp import (
 )
 
 RECENT_ECG_SOURCES = [
-    "uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json",
     "uk_energy_tracking_v6/generation_history/generation_recent_30d_30min.json",
+    "uk_energy_tracking_v6/generation_history/generation_recent_halfhourly_30d.json",
 ]
 
 
@@ -52,17 +52,17 @@ def build_all_tech_ecg(rows, days: int):
             "technology": r["technology"],
             "generationMW": round(r["mw"], 3),
             "status": "candidate",
-            "source": "recent ECG source candidate",
+            "source": "30 minute recent ECG source candidate",
         })
     return out
 
 
 def load_recent_ecg_rows():
-    """Use only recent hot tier source files for the ECG.
+    """Use browser safe recent source files for the ECG.
 
-    Prefer the existing high resolution recent file first because it gives the
-    heartbeat effect. Fall back to the 30 minute file if the high resolution file
-    is unavailable or empty.
+    Prefer the 30 minute recent file because it is already the browser safe grain.
+    The legacy 5 minute file is only a fallback for audit continuity and should not
+    be selected once the 30 minute file exists and parses.
     """
     audit = []
     for rel in RECENT_ECG_SOURCES:
@@ -71,12 +71,13 @@ def load_recent_ecg_rows():
             audit.append({"path": rel, "exists": False, "sizeBytes": 0, "rowsParsed": 0, "selected": False})
             continue
         rows = load_json_rows(path)
+        selected = bool(rows)
         audit.append({
             "path": rel,
             "exists": True,
             "sizeBytes": path.stat().st_size,
             "rowsParsed": len(rows),
-            "selected": bool(rows),
+            "selected": selected,
         })
         if rows:
             return rows, rel, audit
@@ -129,18 +130,18 @@ def main() -> int:
 
     daily_path = ROOT / "data" / "confirmed" / "generation_daily_candidate.json"
     monthly_path = ROOT / "data" / "confirmed" / "generation_monthly_candidate.json"
-    ecg_path = GEN_HISTORY / f"generation_ecg_all_technologies_{args.ecg_days}d_candidate.json"
+    ecg_path = GEN_HISTORY / f"generation_ecg_all_technologies_{args.ecg_days}d_30min_candidate.json"
 
     outputs = []
     if args.apply:
         write_payload(daily_path, daily, "Generation daily candidate facts", source_audit)
         write_payload(monthly_path, monthly, "Generation monthly candidate facts", source_audit)
-        write_payload(ecg_path, ecg, "Generation ECG candidate for all technologies", ecg_source_audit)
+        write_payload(ecg_path, ecg, "Generation 30 minute ECG candidate for all technologies", ecg_source_audit)
         for p in [daily_path, monthly_path, ecg_path]:
             outputs.append({"path": p.relative_to(ROOT).as_posix(), "sizeBytes": p.stat().st_size})
 
     report = {
-        "schemaVersion": "0.2.0-candidate",
+        "schemaVersion": "0.3.0-candidate",
         "generatedUTC": utc_now(),
         "mode": "apply" if args.apply else "audit only",
         "ecgDays": args.ecg_days,
@@ -153,8 +154,8 @@ def main() -> int:
         "ecgSources": ecg_source_audit,
         "sources": source_audit,
         "outputs": outputs,
-        "browserRule": "The ECG hot tier stores all technologies for the rolling window. The chart must filter client side by selected technology and must not draw all technology traces by default.",
-        "notes": "Candidate first. Daily and monthly facts may use wider repository source files. The ECG hot tier is restricted to recent source files only so historic archives do not inflate the live heartbeat file.",
+        "browserRule": "The ECG hot tier stores all technologies for the rolling window at 30 minute grain. The chart must filter client side by selected technology and must not draw all technology traces by default.",
+        "notes": "Candidate first. Daily and monthly facts may use wider repository source files. The browser safe ECG hot tier is restricted to the 30 minute recent source so the chart does not fetch the legacy 5 minute bulk file.",
     }
 
     REPORT_DIR.mkdir(parents=True, exist_ok=True)

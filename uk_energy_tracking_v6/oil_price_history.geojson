@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-06-04T09:44:39.781492+00:00",
+    "updated": "2026-06-09T08:58:44.691687+00:00",
     "unit": "USD per barrel",
     "period": "Last 25 years",
     "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is fallback.",
@@ -19,89 +19,18 @@
       {
         "ok": true,
         "source": "Yahoo Brent futures history",
-        "rows": 4691,
+        "rows": 4694,
         "fallback": true
       },
       {
         "ok": true,
         "source": "Yahoo WTI futures history",
-        "rows": 6279,
+        "rows": 6277,
         "fallback": true
       }
-    ],
-    "lastSkippedHistoryUpdate": "2026-06-05T08:57:41.024244+00:00"
+    ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-04",
-        "wtiUSDperBarrel": 28.1299991607666
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-05",
-        "wtiUSDperBarrel": 28.239999771118164
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-06",
-        "wtiUSDperBarrel": 27.719999313354492
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-07",
-        "wtiUSDperBarrel": 27.75
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-08",
-        "wtiUSDperBarrel": 28.399999618530273
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -92638,8 +92567,53 @@
       },
       "properties": {
         "date": "2026-06-04",
-        "brentUSDperBarrel": 96.31999969482422,
-        "wtiUSDperBarrel": 94.83000183105469
+        "brentUSDperBarrel": 95.02999877929688,
+        "wtiUSDperBarrel": 93.04000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-05",
+        "brentUSDperBarrel": 93.08999633789062,
+        "wtiUSDperBarrel": 90.54000091552734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-08",
+        "brentUSDperBarrel": 94.25,
+        "wtiUSDperBarrel": 91.30000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-09",
+        "brentUSDperBarrel": 92.66999816894531,
+        "wtiUSDperBarrel": 89.37000274658203
       }
     }
   ]

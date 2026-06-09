@@ -1,0 +1,51 @@
+# GridBot manifest for Generation History V6 Solar recent 30 minute heartbeat
+# Audit first, apply second. This matches Solar to the existing Elexon recent process.
+
+name: generation_history_solar_recent_heartbeat
+scope: uk_energy_tracking_v6/generation_history
+owner: Ventus Ltd
+createdUTC: 2026-06-09
+
+phases:
+  - id: r01_existing_recent_audit
+    title: Audit existing V6 recent generation process
+    operation: existing_recent_audit
+    enabled: true
+    applyByDefault: false
+    configPath: uk_energy_tracking_v6/generation_history/live-config.js
+    loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+    recentPath: uk_energy_tracking_v6/generation_history/generation_ecg_all_technologies_30d_30min_candidate.json
+
+  - id: r02_pvlive_recent_audit
+    title: Audit PVLive recent 30 minute parseability
+    operation: pvlive_recent_audit
+    enabled: true
+    applyByDefault: false
+    days: 3
+
+  - id: r03_build_solar_recent_browser
+    title: Build PVLive Solar recent 30 minute browser file
+    operation: build_recent_browser
+    enabled: true
+    applyByDefault: true
+    days: 30
+    outputPath: uk_energy_tracking_v6/generation_history/pvlive_solar_recent_30d_30min_browser.json
+    maxBytes: 750000
+
+  - id: r04_solar_recent_ui_audit
+    title: Audit Solar recent UI wiring readiness
+    operation: solar_recent_ui_audit
+    enabled: true
+    applyByDefault: false
+    configPath: uk_energy_tracking_v6/generation_history/live-config.js
+    loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+    solarRecentPath: uk_energy_tracking_v6/generation_history/pvlive_solar_recent_30d_30min_browser.json
+
+  - id: r05_wire_solar_recent
+    title: Apply Solar recent UI routing after browser file exists
+    operation: wire_solar_recent
+    enabled: true
+    applyByDefault: true
+    configPath: uk_energy_tracking_v6/generation_history/live-config.js
+    loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+    solarRecentPath: uk_energy_tracking_v6/generation_history/pvlive_solar_recent_30d_30min_browser.json

@@ -974,6 +974,7 @@
 │   ├── fetch_metros_trams.py
 │   ├── fetch_motorway_services.py
 │   ├── fetch_power_plants.py
+│   ├── fetch_pvlive_solar_candidate_v6.py
 │   ├── fetch_railways.py
 │   ├── fetch_stadiums.py
 │   ├── fetch_subsea_data_cables.py
@@ -1717,4 +1718,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-219 directories, 1499 files
+219 directories, 1500 files

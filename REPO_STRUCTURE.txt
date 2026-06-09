@@ -295,11 +295,13 @@
 │   │   ├── FUELHH_BACKFILL_20260609T043912Z.md
 │   │   ├── FUELHH_BACKFILL_20260609T100513Z.md
 │   │   ├── FUELHH_BACKFILL_20260609T131917Z.md
+│   │   ├── FUELHH_BACKFILL_20260609T170629Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T100522Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T131926Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260609T170638Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.md
@@ -327,11 +329,13 @@
 │   │   │   ├── FUELHH_BACKFILL_20260609T043912Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260609T100513Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260609T131917Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260609T170629Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T100522Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T131926Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T170638Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.json
@@ -1587,6 +1591,8 @@
 │   │   │   └── GENERATION_RECENT_MW_SLICE.md
 │   │   ├── control_generation_history.js
 │   │   ├── control_generation_mwh_aggregates.js
+│   │   ├── deep_studies
+│   │   │   └── 2026-06-09-fuelhh-solar-mw-integration.md
 │   │   ├── generation_annual_mwh_by_technology.json
 │   │   ├── generation_data_coverage_audit.json
 │   │   ├── generation_day_night_mwh_by_technology.json
@@ -1662,4 +1668,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-213 directories, 1450 files
+214 directories, 1455 files

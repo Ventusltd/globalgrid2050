@@ -1,4 +1,4 @@
-window.V6 22RenderGenerationHistoryChart=(function(){
+window.V62RenderGenerationHistoryChart=(function(){
   function fmt(n,d){return n==null||isNaN(Number(n))?'—':Number(n).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})}
   function niceDate(v){var d=v instanceof Date?v:new Date(String(v).replace(' ','T'));return isNaN(d.getTime())?'—':d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
   function niceClock(v){var s=String(v||'');var m=s.match(/(\d{2}:\d{2})/);return m?m[1]:''}

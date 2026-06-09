@@ -1,4 +1,4 @@
-window.V6 22RenderGenerationMwhAggregates=(function(){
+window.V62RenderGenerationMwhAggregates=(function(){
   var colours={Solar:'#f5c518',Wind:'#00d0ff',Hydro:'#0090c0',Gas:'#c0399a',Coal:'#888888',Biomass:'#f59e2b',Nuclear:'#5cb85c','Pumped Storage':'#9b59b6','Imports & Exports':'#e8615a',Other:'#a6adbb'};
   function fmt(n,d){return n==null||isNaN(Number(n))?'—':Number(n).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})}
   function renderAnnual(el,rows){

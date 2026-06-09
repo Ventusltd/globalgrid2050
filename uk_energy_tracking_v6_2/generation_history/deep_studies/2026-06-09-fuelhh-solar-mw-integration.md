@@ -2,7 +2,7 @@
 
 Status: working study
 Date UTC: 2026 06 09
-App folder: uk_energy_tracking_v6_2_2/generation_history
+App folder: uk_energy_tracking_v6_2/generation_history
 Scope: MW generation chart, FUELHH spine, solar routing, browser file strategy
 Owner: Ventus Ltd
 
@@ -144,7 +144,7 @@ data/confirmed/generation_daily_mw_spine_fuelhh_candidate.json
 
 Recommended browser file:
 
-uk_energy_tracking_v6_2_2/generation_history/generation_daily_fuelhh_browser_slim.json
+uk_energy_tracking_v6_2/generation_history/generation_daily_fuelhh_browser_slim.json
 
 Keep only:
 

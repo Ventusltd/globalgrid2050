@@ -6,7 +6,7 @@
   "timezone": "UTC",
   "sourceDatasets": [
     {
-      "path": "uk_energy_tracking_v6_2_2/generation_history/generation_recent_halfhourly_30d.json",
+      "path": "uk_energy_tracking_v6_2/generation_history/generation_recent_halfhourly_30d.json",
       "exists": true,
       "sizeBytes": 14038311,
       "rowsParsed": 79200,

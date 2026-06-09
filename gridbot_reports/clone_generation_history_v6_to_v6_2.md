@@ -20,11 +20,10 @@ Create `uk_energy_tracking_v6_2/generation_history` as a controlled clone of the
 
 ## Homepage
 
-Root `index.html` V6 2 generation history link added: True
+Root `index.html` V6 2 generation history link added: False
 
 ## Text paths rewritten
 
-* uk_energy_tracking_v6_2/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md
 * uk_energy_tracking_v6_2/generation_history/index.md
 * uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js
 * uk_energy_tracking_v6_2/generation_history/generation_ecg_all_technologies_30d_candidate.json

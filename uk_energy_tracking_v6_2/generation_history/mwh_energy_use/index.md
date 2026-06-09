@@ -1,10 +1,10 @@
 ---
 layout: page
 title: UK Annual Energy Use MWh Module
-permalink: /uk_energy_tracking_v6_2_2/generation_history/mwh_energy_use/
+permalink: /uk_energy_tracking_v6_2/generation_history/mwh_energy_use/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6_2/styles/app.css?v=20260604toolbargrid1">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604toolbargrid1">
 <style>
   #mwh-energy-use-module .mwh-panel{padding:14px;border:1px solid #252b36;border-radius:10px;background:#070a10;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
   #mwh-energy-use-module .mwh-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0;}
@@ -16,7 +16,7 @@ permalink: /uk_energy_tracking_v6_2_2/generation_history/mwh_energy_use/
   @media(max-width:850px){#mwh-energy-use-module .mwh-grid{grid-template-columns:1fr;}#mwh-energy-use-module .mwh-placeholder-chart{height:300px;}}
 </style>
 
-<div class="scada-grid v6_2-app" id="mwh-energy-use-module">
+<div class="scada-grid v6-app" id="mwh-energy-use-module">
   <header class="scada-hero">
     <div class="scada-subtitle">GLOBALGRID2050 · ONS ENERGY ACCOUNTING MODULE</div>
     <h1 class="scada-title">Annual UK Energy Use in MWh</h1>
@@ -33,6 +33,6 @@ permalink: /uk_energy_tracking_v6_2_2/generation_history/mwh_energy_use/
     </div>
     <div class="mwh-placeholder-chart">Future chart area: annual energy use by fuel, sector and activity in MWh. This will support primary energy versus final energy, electrification potential and investor education.</div>
     <p class="mwh-note">Planned outputs: annual MWh by fuel, annual MWh by economic sector, top fossil fuel uses, domestic heat, road transport, power station fuels and electrification replacement scenarios.</p>
-    <p class="mwh-note"><a href="/uk_energy_tracking_v6_2_2/generation_history/">Back to generation history</a></p>
+    <p class="mwh-note"><a href="/uk_energy_tracking_v6_2/generation_history/">Back to generation history</a></p>
   </section>
 </div>

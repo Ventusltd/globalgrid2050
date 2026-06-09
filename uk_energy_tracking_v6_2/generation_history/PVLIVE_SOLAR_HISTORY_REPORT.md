@@ -9,4 +9,4 @@ Working URL pattern: https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start
 Detail: PVLive solar rows merged into generation master CSV
 Source: Sheffield Solar PVLive
 Output fuelType: SOLAR
-Module: uk_energy_tracking_v6_2_2/generation_history
+Module: uk_energy_tracking_v6_2/generation_history

@@ -1,4 +1,4 @@
-# Generation Data Coverage Audit V6 2
+# Generation Data Coverage Audit V6
 
 Generated UTC: 2026-06-08T23:36:13.128405Z
 

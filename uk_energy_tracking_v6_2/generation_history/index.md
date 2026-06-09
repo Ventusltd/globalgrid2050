@@ -1,10 +1,10 @@
 ---
 layout: page
-title: UK Generation History V6 2 2 Module
-permalink: /uk_energy_tracking_v6_2_2/generation_history/
+title: UK Generation History V6 2 Module
+permalink: /uk_energy_tracking_v6_2/generation_history/
 ---
 
-<link rel="stylesheet" href="/uk_energy_tracking_v6_2/styles/app.css?v=20260604toolbargrid1">
+<link rel="stylesheet" href="/uk_energy_tracking_v6/styles/app.css?v=20260604toolbargrid1">
 <style>
   #generation-history-module .scada-intro{display:block!important;color:#9aa3b6;font-size:13px;line-height:1.5;margin:10px 0 18px;}
   #generation-history-panel .price-history-range-status{display:block!important;color:#9aa3b6;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin:8px 0 10px;}
@@ -59,9 +59,9 @@ permalink: /uk_energy_tracking_v6_2_2/generation_history/
   }
 </style>
 
-<div class="scada-grid v6_2-app" id="generation-history-module">
+<div class="scada-grid v6-app" id="generation-history-module">
   <header class="scada-hero">
-    <div class="scada-subtitle">GLOBALGRID2050 · ISOLATED V6 2 2 MODULE</div>
+    <div class="scada-subtitle">GLOBALGRID2050 · ISOLATED V6 2 MODULE</div>
     <h1 class="scada-title">GB Generation History by Technology</h1>
     <div class="scada-title-rule"></div>
   </header>
@@ -71,7 +71,7 @@ permalink: /uk_energy_tracking_v6_2_2/generation_history/
   <section id="generation-history-panel">
     <h2 class="section-title">Generation History</h2>
     <div class="trend-panel">
-      <div class="generation-study-summary"><strong>Deep study summary</strong> This MW chart is the operating pulse. Recent views use 30 minute generation movement for grid behaviour and balancing studies. Historic views use settled FUELHH transmission metered data for non solar fuels. Solar needs a separate output layer, most likely PV Live, while the <a href="/uk_renewables_pipeline/dashboard.html">Solar Pipeline</a> gives grid scale project and capacity intelligence. Full study: <a href="/uk_energy_tracking_v6_2_2/generation_history/deep_studies/2026-06-09-fuelhh-solar-mw-integration.md">FUELHH Solar MW Integration</a>.</div>
+      <div class="generation-study-summary"><strong>Deep study summary</strong> This MW chart is the operating pulse. Recent views use 30 minute generation movement for grid behaviour and balancing studies. Historic views use settled FUELHH transmission metered data for non solar fuels. Solar needs a separate output layer, most likely PV Live, while the <a href="/uk_renewables_pipeline/dashboard.html">Solar Pipeline</a> gives grid scale project and capacity intelligence. Full study: <a href="/uk_energy_tracking_v6_2/generation_history/deep_studies/2026-06-09-fuelhh-solar-mw-integration.md">FUELHH Solar MW Integration</a>.</div>
       <div class="mwh-panel">
         <div class="mwh-controls"><strong>Generation output in MWh</strong><label>Technology <select id="generation-mwh-technology"></select></label></div>
         <div id="generation-mwh-status" class="mwh-status">Loading aggregate files.</div>
@@ -104,17 +104,17 @@ permalink: /uk_energy_tracking_v6_2_2/generation_history/
         <div class="placeholder-grid">
           <div class="placeholder-card">Annual MWh by source<b>Scaffold</b></div>
           <div class="placeholder-card">ONS workbook/API automation<b>Annual</b></div>
-          <div class="placeholder-card">Standalone MWh app<b><a href="/uk_energy_tracking_v6_2_2/generation_history/mwh_energy_use/">Open</a></b></div>
+          <div class="placeholder-card">Standalone MWh app<b><a href="/uk_energy_tracking_v6_2/generation_history/mwh_energy_use/">Open</a></b></div>
         </div>
       </div>
     </div>
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6_2_2/generation_history/live-config.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2_2/generation_history/load_generation_mwh_aggregates.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2_2/generation_history/render_generation_mwh_aggregates.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2_2/generation_history/control_generation_mwh_aggregates.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2_2/generation_history/load_generation_history_data.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2_2/generation_history/render_generation_history_chart.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2_2/generation_history/control_generation_history.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/live-config.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_mwh_aggregates.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_history_data.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_history.js?v=20260609study1"></script>

@@ -1,6 +1,6 @@
-window.V6 22LoadGenerationHistoryData=(function(){
+window.V62LoadGenerationHistoryData=(function(){
 var cache={daily:null,recent:null};
-function cfg(){return window.V6 22GenerationHistoryConfig}
+function cfg(){return window.V62GenerationHistoryConfig}
 function todayMax(){var d=new Date();return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),23,59,59))}
 function minDate(){return new Date(Date.UTC((cfg().firstYear||2016),0,1,0,0,0))}
 function groupFor(fuel){var f=String(fuel||'').toUpperCase();if(f.indexOf('SOLAR')===0||f.indexOf('PV')===0)return'Solar';if(f.indexOf('WIND')===0)return'Wind';if(f.indexOf('NPSHYD')===0||f.indexOf('HYDRO')===0)return'Hydro';if(f.indexOf('CCGT')===0||f.indexOf('OCGT')===0)return'Gas';if(f.indexOf('COAL')===0)return'Coal';if(f.indexOf('BIOMASS')===0)return'Biomass';if(f.indexOf('NUCLEAR')===0)return'Nuclear';if(f.indexOf('PS')===0)return'Pumped Storage';if(f.indexOf('INT')===0)return'Imports & Exports';return'Other'}

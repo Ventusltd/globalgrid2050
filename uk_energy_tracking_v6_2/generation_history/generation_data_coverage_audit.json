@@ -1266,7 +1266,7 @@
     }
   },
   "dailyDecadeJson": {
-    "path": "uk_energy_tracking_v6_2_2/generation_history/generation_history_daily_decade.json",
+    "path": "uk_energy_tracking_v6_2/generation_history/generation_history_daily_decade.json",
     "exists": true,
     "sizeBytes": 1827930,
     "rows": 7309,
@@ -1287,7 +1287,7 @@
     "status": null
   },
   "recentHalfHourlyJson": {
-    "path": "uk_energy_tracking_v6_2_2/generation_history/generation_recent_halfhourly_30d.json",
+    "path": "uk_energy_tracking_v6_2/generation_history/generation_recent_halfhourly_30d.json",
     "exists": true,
     "sizeBytes": 14074051,
     "rows": 79209,

@@ -1,15 +1,15 @@
 # Generation History Development and Comparison Log
 
 Updated UTC: 2026 06 07
-Scope: `uk_energy_tracking_v6_2_2/generation_history/`
-Reference module: `uk_energy_tracking_v6_2/price_history_chart/`
+Scope: `uk_energy_tracking_v6_2/generation_history/`
+Reference module: `uk_energy_tracking_v6/price_history_chart/`
 Status: development log only. No data repair is performed by this file.
 
 ## Purpose
 
-This log records why the isolated V6 2 generation history module performed badly compared with the working V6 2 electricity price history chart.
+This log records why the isolated V6 generation history module performed badly compared with the working V6 electricity price history chart.
 
-The generation page must now be brought back under the same procedural loading discipline as the V6 2 price chart.
+The generation page must now be brought back under the same procedural loading discipline as the V6 price chart.
 
 ## Current problem
 
@@ -19,7 +19,7 @@ The working price chart is smooth because it does not load the whole historical 
 
 The generation chart became slow because it can request a very large raw half hourly CSV and then ask the browser to parse and filter too much data on the main thread.
 
-## Working V6 2 price chart pattern
+## Working V6 price chart pattern
 
 The price chart uses a layered data model.
 
@@ -37,7 +37,7 @@ Important reference behaviours from the price loader:
 
 `loadAnnual(year)` loads `/data/electricity/elexon_system_prices_YEAR.csv`.
 
-`loadDaily()` loads `/uk_energy_tracking_v6_2/electricity_price_history_daily_decade.json`.
+`loadDaily()` loads `/uk_energy_tracking_v6/electricity_price_history_daily_decade.json`.
 
 `loadWindow(start, period, timeMode)` chooses daily mode for 12 month, 5 year and 10 year views, otherwise half hourly mode.
 
@@ -69,7 +69,7 @@ A 97 MB raw CSV should not be the landing page data source.
 
 Even if it is cached after first fetch, the browser still has to download it, parse it and hold too many row objects in memory.
 
-This is exactly what the V6 2 price chart avoids by using pre aggregated daily data for long views.
+This is exactly what the V6 price chart avoids by using pre aggregated daily data for long views.
 
 The generation chart must not load raw half hourly data unless the selected period genuinely requires it.
 

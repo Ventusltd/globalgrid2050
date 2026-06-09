@@ -1,0 +1,102 @@
+name: GridBot Solar Monthly Backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      start_month:
+        description: Start month YYYY-MM
+        required: true
+        default: '2016-01'
+        type: string
+      end_month:
+        description: End month YYYY-MM, blank means current month
+        required: false
+        default: ''
+        type: string
+      max_months:
+        description: Maximum months this run
+        required: true
+        default: '12'
+        type: string
+      resume:
+        description: Skip complete months from progress file
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      commit_reports:
+        description: Commit reports and outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-solar-monthly-backfill
+  cancel-in-progress: false
+
+jobs:
+  solar-monthly-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Audit Solar monthly backfill
+        if: github.event.inputs.mode == 'audit'
+        run: |
+          if [ "${{ github.event.inputs.resume }}" = "true" ]; then RESUME="--resume"; else RESUME=""; fi
+          python scripts/gridbot_solar_monthly_backfill.py --start-month "${{ github.event.inputs.start_month }}" --end-month "${{ github.event.inputs.end_month }}" --max-months "${{ github.event.inputs.max_months }}" $RESUME
+
+      - name: Apply Solar monthly backfill
+        if: github.event.inputs.mode == 'apply'
+        run: |
+          if [ "${{ github.event.inputs.resume }}" = "true" ]; then RESUME="--resume"; else RESUME=""; fi
+          python scripts/gridbot_solar_monthly_backfill.py --start-month "${{ github.event.inputs.start_month }}" --end-month "${{ github.event.inputs.end_month }}" --max-months "${{ github.event.inputs.max_months }}" $RESUME --apply
+
+      - name: Upload Solar monthly report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: solar-monthly-backfill-report
+          path: |
+            data_science_protocol/audit_reports/SOLAR_MONTHLY_BACKFILL_LATEST.md
+            data_science_protocol/audit_reports/json/SOLAR_MONTHLY_BACKFILL_LATEST.json
+
+      - name: Commit Solar monthly outputs
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data/confirmed/pvlive_solar_daily_candidate.json || true
+          git add data/confirmed/pvlive_solar_daily_BACKFILL_PROGRESS.json || true
+          git add uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json || true
+          git add data_science_protocol/audit_reports/SOLAR_MONTHLY_BACKFILL_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/SOLAR_MONTHLY_BACKFILL_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar monthly outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: run solar monthly backfill ${{ github.event.inputs.mode }}"
+          git pull --rebase origin main
+          git push origin HEAD:main

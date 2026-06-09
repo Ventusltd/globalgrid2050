@@ -1,0 +1,52 @@
+# GridBot manifest for Generation History V6 Solar UI integration
+# Audit first, apply second. Do not run apply until the audit report is reviewed.
+
+name: generation_history_solar_ui
+scope: uk_energy_tracking_v6/generation_history
+owner: Ventus Ltd
+createdUTC: 2026-06-09
+
+phases:
+  - id: p01_pvlive_endpoint_audit
+    title: Audit PVLive endpoint and parseability
+    operation: pvlive_endpoint_audit
+    enabled: true
+    applyByDefault: false
+    days: 3
+
+  - id: p02_fetch_pvlive_candidate
+    title: Fetch PVLive solar candidate daily facts
+    operation: fetch_pvlive_candidate
+    enabled: true
+    applyByDefault: true
+    days: 30
+    outputPath: data/confirmed/pvlive_solar_daily_candidate.json
+
+  - id: p03_build_solar_browser
+    title: Build PVLive solar browser JSON
+    operation: build_solar_browser
+    enabled: true
+    applyByDefault: true
+    inputPath: data/confirmed/pvlive_solar_daily_candidate.json
+    outputPath: uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json
+    maxBytes: 500000
+
+  - id: p04_ui_wire_audit
+    title: Audit Solar UI wiring readiness
+    operation: ui_wire_audit
+    enabled: true
+    applyByDefault: false
+    configPath: uk_energy_tracking_v6/generation_history/live-config.js
+    loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+    indexPath: uk_energy_tracking_v6/generation_history/index.md
+    solarBrowserPath: uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json
+
+  - id: p05_wire_solar_ui
+    title: Apply Solar UI wiring after solar browser file exists
+    operation: wire_solar_ui
+    enabled: true
+    applyByDefault: true
+    configPath: uk_energy_tracking_v6/generation_history/live-config.js
+    loaderPath: uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+    indexPath: uk_energy_tracking_v6/generation_history/index.md
+    solarBrowserPath: uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json

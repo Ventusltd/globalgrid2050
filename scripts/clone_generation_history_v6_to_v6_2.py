@@ -23,8 +23,6 @@ REPLACEMENTS = [
     ("V6LoadGenerationMwhAggregates", "V62LoadGenerationMwhAggregates"),
     ("V6RenderGenerationMwhAggregates", "V62RenderGenerationMwhAggregates"),
     ("V6ControlGenerationMwhAggregates", "V62ControlGenerationMwhAggregates"),
-    ("V6", "V6 2"),
-    ("v6", "v6_2"),
 ]
 
 
@@ -59,6 +57,8 @@ def rewrite_text_files():
         original = text
         for old, new in REPLACEMENTS:
             text = text.replace(old, new)
+        if "uk_energy_tracking_v6_2_2" in text or "V6 2 2" in text or "V622" in text:
+            raise SystemExit(f"Unsafe double rewrite detected in {path.relative_to(ROOT)}")
         if text != original:
             path.write_text(text, encoding="utf-8")
             changed.append(path.relative_to(ROOT).as_posix())

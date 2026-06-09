@@ -325,6 +325,7 @@
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T192646Z.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.md
 │   │   ├── REPO_SIZE_GUARD_LATEST.md
+│   │   ├── SOLAR_IMMEDIATE_DATA_LATEST.md
 │   │   ├── json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
@@ -363,6 +364,7 @@
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T192646Z.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.json
 │   │   │   ├── REPO_SIZE_GUARD_LATEST.json
+│   │   │   ├── SOLAR_IMMEDIATE_DATA_LATEST.json
 │   │   │   └── repo_size_guard_20260608T131955Z.json
 │   │   └── repo_size_guard_20260608T131955Z.md
 │   └── manifest_designs
@@ -1022,6 +1024,7 @@
 │   ├── gridbot_replace_modular_note_with_summary.py
 │   ├── gridbot_solar_historic_backfill.py
 │   ├── gridbot_solar_immediate_data.py
+│   ├── gridbot_solar_monthly_backfill.py
 │   ├── gridbot_v3_diary_preflight.py
 │   ├── inspect_data_science_discipline.py
 │   ├── isolate_uk_energy_tracking_v2.py
@@ -1742,4 +1745,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-220 directories, 1523 files
+220 directories, 1526 files

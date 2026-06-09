@@ -1,0 +1,71 @@
+name: Build Generation FUELHH Browser Slim
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Commit slim browser outputs
+        required: false
+        default: 'true'
+      max_bytes:
+        description: Maximum browser JSON size in bytes
+        required: false
+        default: '3000000'
+  push:
+    branches: [main]
+    paths:
+      - 'data/confirmed/generation_daily_mw_spine_fuelhh_candidate.json'
+      - 'scripts/build_generation_daily_fuelhh_browser_slim.py'
+      - '.github/workflows/build_generation_fuelhh_browser_slim.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fuelhh-browser-slim
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      COMMIT_OUTPUTS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit || 'true' }}
+      MAX_BYTES: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.max_bytes || '3000000' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build slim browser file
+        run: python scripts/build_generation_daily_fuelhh_browser_slim.py --apply --max-bytes "$MAX_BYTES"
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuelhh-browser-slim-reports
+          path: |
+            uk_energy_tracking_v6/generation_history/generation_daily_fuelhh_browser_slim.json
+            uk_energy_tracking_v6/generation_history/manifests/generation_daily_fuelhh_browser_slim.manifest.json
+            data_science_protocol/audit_reports/FUELHH_BROWSER_SLIM_LATEST.md
+            data_science_protocol/audit_reports/json/FUELHH_BROWSER_SLIM_LATEST.json
+      - name: Commit outputs
+        if: env.COMMIT_OUTPUTS != 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add uk_energy_tracking_v6/generation_history/generation_daily_fuelhh_browser_slim.json || true
+          git add uk_energy_tracking_v6/generation_history/manifests/generation_daily_fuelhh_browser_slim.manifest.json || true
+          git add data_science_protocol/audit_reports/FUELHH_BROWSER_SLIM_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/FUELHH_BROWSER_SLIM_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No browser slim changes to commit."
+            exit 0
+          fi
+          git commit -m "gridbot: build FUELHH browser slim file"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

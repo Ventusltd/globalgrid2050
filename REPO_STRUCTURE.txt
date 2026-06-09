@@ -1121,7 +1121,8 @@
 │   ├── v6_sanity_label_fix.py
 │   ├── v7_add_atlas_v8_dashboard_link.py
 │   ├── v7_migrate_from_v6.py
-│   └── wire_generation_ecg_candidate.py
+│   ├── wire_generation_ecg_candidate.py
+│   └── wire_pvlive_solar_ui_v6.py
 ├── sld_single_diagrams_diagrams_and_grids
 │   └── index.md
 ├── solar-bess-topology
@@ -1719,4 +1720,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-219 directories, 1501 files
+219 directories, 1502 files

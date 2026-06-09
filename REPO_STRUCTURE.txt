@@ -927,6 +927,7 @@
 │   ├── backfill_generation_fuelhh_halfhourly_all_months_v6.py
 │   ├── backfill_generation_sources_year_v6.py
 │   ├── backfill_uk_frequency_weekly_v5.py
+│   ├── build_generation_daily_fuelhh_browser_slim.py
 │   ├── build_generation_daily_mw_spine.py
 │   ├── build_generation_daily_mw_spine_from_fuelhh.py
 │   ├── build_generation_ecg_all_tech_mvp.py
@@ -1668,4 +1669,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-214 directories, 1455 files
+214 directories, 1456 files

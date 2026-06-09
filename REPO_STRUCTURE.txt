@@ -314,6 +314,7 @@
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T215751Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_LATEST.md
 │   │   ├── GENERATION_HISTORY_SOLAR_LATEST.md
+│   │   ├── GENERATION_HISTORY_SOLAR_RECENT_LATEST.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.md
 │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.md
@@ -351,6 +352,7 @@
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T215751Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_LATEST.json
 │   │   │   ├── GENERATION_HISTORY_SOLAR_LATEST.json
+│   │   │   ├── GENERATION_HISTORY_SOLAR_RECENT_LATEST.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T141128Z.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T174446Z.json
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_20260608T182351Z.json
@@ -520,7 +522,8 @@
 ├── grid_substations.geojson
 ├── gridbot_manifests
 │   ├── 001_generation_data_discipline.yml
-│   └── 010_generation_history_solar_ui.yml
+│   ├── 010_generation_history_solar_ui.yml
+│   └── 011_generation_history_solar_recent.yml
 ├── gridbot_reports
 │   ├── add_v3_homepage_link.md
 │   ├── add_v6_v7_all_apps_a4_print_formatting.md
@@ -1733,4 +1736,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-219 directories, 1515 files
+219 directories, 1518 files

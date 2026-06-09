@@ -1,0 +1,95 @@
+name: GridBot Solar Monthly Backfill Auto
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_month:
+        description: Current month YYYY-MM
+        required: true
+        default: '2016-01'
+        type: string
+      end_month:
+        description: Final month YYYY-MM
+        required: true
+        default: '2026-05'
+        type: string
+      chain_next:
+        description: Trigger next month automatically
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: gridbot-solar-monthly-backfill-auto
+  cancel-in-progress: false
+
+jobs:
+  solar-monthly-backfill-auto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Apply one Solar month
+        run: python scripts/gridbot_solar_monthly_backfill.py --start-month "${{ github.event.inputs.start_month }}" --end-month "${{ github.event.inputs.start_month }}" --max-months 1 --resume --apply
+
+      - name: Commit Solar month outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data/confirmed/pvlive_solar_daily_candidate.json || true
+          git add data/confirmed/pvlive_solar_daily_BACKFILL_PROGRESS.json || true
+          git add uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json || true
+          git add data_science_protocol/audit_reports/SOLAR_MONTHLY_BACKFILL_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/SOLAR_MONTHLY_BACKFILL_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar monthly outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: auto solar monthly backfill ${{ github.event.inputs.start_month }}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"
+
+      - name: Trigger next Solar month
+        if: github.event.inputs.chain_next == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -euo pipefail
+          current="${{ github.event.inputs.start_month }}"
+          end="${{ github.event.inputs.end_month }}"
+          next=$(python - <<PY
+          import datetime as dt
+          y,m=map(int,"$current".split('-'))
+          if m==12:
+              y+=1; m=1
+          else:
+              m+=1
+          print(f"{y:04d}-{m:02d}")
+          PY
+          )
+          python - <<PY
+          cur="$current"; nxt="$next"; end="$end"
+          raise SystemExit(0 if nxt <= end else 1)
+          PY
+          should_run=$?
+          if [ "$next" \> "$end" ]; then
+            echo "Solar backfill chain complete at $current"
+            exit 0
+          fi
+          echo "Triggering next Solar month: $next"
+          gh workflow run gridbot_solar_monthly_backfill_auto.yml --ref "${GITHUB_REF_NAME}" -f start_month="$next" -f end_month="$end" -f chain_next=true

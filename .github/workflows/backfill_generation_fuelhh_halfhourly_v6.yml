@@ -1,0 +1,96 @@
+name: Generation FUELHH Half Hourly Backfill
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/backfill_generation_fuelhh_halfhourly_v6.yml'
+      - 'scripts/backfill_generation_fuelhh_halfhourly_all_months_v6.py'
+      - 'scripts/build_generation_daily_mw_spine_from_fuelhh.py'
+  workflow_dispatch:
+    inputs:
+      start_year_month:
+        description: First month to backfill YYYY-MM
+        required: false
+        default: '2016-01'
+      window_days:
+        description: Days per request
+        required: false
+        default: '7'
+      request_delay_seconds:
+        description: Delay between requests
+        required: false
+        default: '1.5'
+      time_budget_minutes:
+        description: Time budget minutes
+        required: false
+        default: '300'
+      force:
+        description: Re fetch existing months
+        required: false
+        default: 'false'
+      commit:
+        description: Commit outputs
+        required: false
+        default: 'true'
+  schedule:
+    - cron: '17 */2 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fuelhh-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      START_YEAR_MONTH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.start_year_month || '2016-01' }}
+      WINDOW_DAYS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.window_days || '7' }}
+      REQUEST_DELAY_SECONDS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.request_delay_seconds || '1.5' }}
+      TIME_BUDGET_MINUTES: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.time_budget_minutes || '300' }}
+      FORCE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force || 'false' }}
+      COMMIT_OUTPUTS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit || 'true' }}
+      MAX_SHARD_MB: '25'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run FUELHH backfill
+        run: python scripts/backfill_generation_fuelhh_halfhourly_all_months_v6.py
+      - name: Build FUELHH daily MW spine
+        run: python scripts/build_generation_daily_mw_spine_from_fuelhh.py --start-year-month "$START_YEAR_MONTH" --apply
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuelhh-backfill-reports
+          path: |
+            data/generation/fuelhh_halfhourly/BACKFILL_PROGRESS.json
+            data_science_protocol/audit_reports/FUELHH_BACKFILL_LATEST.md
+            data_science_protocol/audit_reports/json/FUELHH_BACKFILL_LATEST.json
+            data_science_protocol/audit_reports/FUELHH_DAILY_MW_SPINE_LATEST.md
+            data_science_protocol/audit_reports/json/FUELHH_DAILY_MW_SPINE_LATEST.json
+      - name: Commit outputs
+        if: env.COMMIT_OUTPUTS != 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/generation/fuelhh_halfhourly || true
+          git add data/confirmed/generation_daily_mw_spine_fuelhh_candidate.json || true
+          git add data_science_protocol/audit_reports || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit this run."
+            exit 0
+          fi
+          git commit -m "gridbot: FUELHH half hourly backfill"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

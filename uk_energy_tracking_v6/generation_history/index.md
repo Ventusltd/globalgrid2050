@@ -12,6 +12,9 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel .trend-panel{padding:12px;width:100%;max-width:100%;overflow:hidden;background:#070a10!important;border:1px solid #252b36!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
   #generation-history-panel .price-history-actions::after{content:"Secondary engineering MW view · primary dashboard now uses MWh aggregate intelligence";display:block;width:100%;color:var(--gg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
   #generation-history-panel #generation-history-canvas{height:min(76dvh,760px)!important;min-height:520px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;}
+  #generation-history-panel .generation-source-warning{margin:12px 0 0;padding:12px 14px;border:1px solid rgba(255,64,64,.72);border-radius:8px;background:rgba(80,0,0,.18);color:#ff5555;font-size:12px;line-height:1.55;letter-spacing:.06em;text-transform:uppercase;}
+  #generation-history-panel .generation-source-warning strong{color:#ff3333;}
+  #generation-history-panel .generation-source-warning a{color:#ff7777;text-decoration:underline;}
   #generation-history-panel .price-history-actions select,
   #generation-history-panel .price-history-actions input{min-height:38px;max-width:100%;}
   #generation-history-panel .mwh-panel{margin-bottom:18px;padding:14px;border:1px solid rgba(0,255,255,.30);border-radius:10px;background:rgba(0,255,255,.035);}
@@ -88,6 +91,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
         </div>
         <div id="generation-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
         <canvas id="generation-history-canvas" width="900" height="720"></canvas>
+        <div class="generation-source-warning"><strong>Source transparency:</strong> Historic MW generation uses Elexon FUELHH transmission-metered generation. It excludes most embedded distribution generation. Historic solar from this source is not national solar output and may show no records. Recent short-term views remain for grid behaviour. For grid-scale solar capacity and project intelligence, use the GlobalGrid2050 solar pipeline, currently showing 52,866 MW across 2,667 projects above 1 MW. Embedded or national solar output will be added as a separate layer.</div>
       </details>
 
       <div class="ons-generation-placeholder" id="ons-generation-placeholder">

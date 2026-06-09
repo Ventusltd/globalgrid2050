@@ -526,6 +526,7 @@
 │   ├── add_v7_gis_sld_site_intelligence_panel.md
 │   ├── add_v8_bess_geospatial_layout_drawing.md
 │   ├── build_v8_bess_gis_sld_financial_sandbox.md
+│   ├── clone_generation_history_v6_to_v6_2.md
 │   ├── clone_uk_energy_tracking_v2_to_v3.md
 │   ├── clone_uk_energy_tracking_v3_to_v4.md
 │   ├── clone_uk_energy_tracking_v4_to_v5.md
@@ -1649,6 +1650,52 @@
 │   │       └── dom_text.js
 │   └── styles
 │       └── app.css
+├── uk_energy_tracking_v6_2
+│   └── generation_history
+│       ├── AUTO_2026_TEST_DONE.flag
+│       ├── GENERATION_DATA_COVERAGE_AUDIT.md
+│       ├── GENERATION_HISTORY_DATA_REPORT.md
+│       ├── GENERATION_HISTORY_DEVELOPMENT_COMPARISON_LOG.md
+│       ├── PVLIVE_SOLAR_HISTORY_REPORT.md
+│       ├── backfill_reports
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2016.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2017.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2018.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2019.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2020.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2021.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2022.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2023.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2024.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2025.md
+│       │   ├── GENERATION_AGGREGATE_BACKFILL_2026.md
+│       │   ├── GENERATION_HISTORY_BACKFILL_2021.md
+│       │   ├── GENERATION_HISTORY_BACKFILL_2022.md
+│       │   ├── GENERATION_HISTORY_BACKFILL_2026.md
+│       │   └── GENERATION_RECENT_MW_SLICE.md
+│       ├── control_generation_history.js
+│       ├── control_generation_mwh_aggregates.js
+│       ├── deep_studies
+│       │   └── 2026-06-09-fuelhh-solar-mw-integration.md
+│       ├── generation_annual_mwh_by_technology.json
+│       ├── generation_data_coverage_audit.json
+│       ├── generation_day_night_mwh_by_technology.json
+│       ├── generation_ecg_all_technologies_30d_30min_candidate.json
+│       ├── generation_ecg_all_technologies_30d_candidate.json
+│       ├── generation_history_daily_decade.json
+│       ├── generation_monthly_mwh_by_technology.json
+│       ├── generation_recent_30d_30min.json
+│       ├── generation_recent_halfhourly_30d.json
+│       ├── generation_seasonal_mwh_by_technology.json
+│       ├── index.md
+│       ├── live-config.js
+│       ├── load_generation_history_data.js
+│       ├── load_generation_mwh_aggregates.js
+│       ├── mwh_energy_use
+│       │   ├── index.md
+│       │   └── ons_mwh_energy_use_placeholder.json
+│       ├── render_generation_history_chart.js
+│       └── render_generation_mwh_aggregates.js
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -1670,4 +1717,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-214 directories, 1457 files
+219 directories, 1499 files

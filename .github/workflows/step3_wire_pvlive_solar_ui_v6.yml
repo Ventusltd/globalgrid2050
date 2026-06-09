@@ -1,0 +1,40 @@
+name: Step 3 Wire PVLive Solar UI V6
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  wire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Wire PVLive solar into UI
+        run: python scripts/wire_pvlive_solar_ui_v6.py
+      - name: Commit PVLive UI wire and audit
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/generation_history/live-config.js
+          git add uk_energy_tracking_v6/generation_history/load_generation_history_data.js
+          git add uk_energy_tracking_v6/generation_history/index.md
+          git add uk_energy_tracking_v6/generation_history/PVLIVE_SOLAR_UI_WIRE_REPORT.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "gridbot: wire PVLive solar into generation history UI"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No PVLive solar UI wire changes to commit"
+          fi

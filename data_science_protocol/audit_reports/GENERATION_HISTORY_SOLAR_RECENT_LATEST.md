@@ -1,12 +1,12 @@
 # GridBot Generation History Solar Recent Report
 
-Generated UTC: `2026-06-09T21:37:37Z`
-Mode: `audit only`
+Generated UTC: `2026-06-09T21:50:36Z`
+Mode: `apply`
 Manifest: `gridbot_manifests/011_generation_history_solar_recent.yml`
 
 ## Executive summary
 
-GridBot solar recent workflow ran 5 phases in audit only mode. Apply only affects phases with applyByDefault true.
+GridBot solar recent workflow ran 5 phases in apply mode. Apply only affects phases with applyByDefault true.
 
 ## Phase results
 
@@ -58,7 +58,7 @@ Applied: `False`
 ### r03_build_solar_recent_browser  Build PVLive Solar recent 30 minute browser file
 
 Operation: `build_recent_browser`
-Applied: `False`
+Applied: `True`
 
 ```json
 {
@@ -70,10 +70,10 @@ Applied: `False`
   "lastTime": "2026-06-08T23:30:00Z",
   "estimatedBytes": 215661,
   "maxBytes": 750000,
-  "sha256": "b596a630e5619af340cc25038f562b3b1c2b6efd46dcf3c7a5d15a28455b9ee1",
+  "sha256": "9daa563120d40cc1fcb007c2ed6966f23ba1a8d06a586193e10fe0aba170efb5",
   "workingUrl": "https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2026-05-10T00%3A00%3A00Z&end=2026-06-08T23%3A59%3A00Z",
   "errors": [],
-  "apply": false,
+  "apply": true,
   "pass": true
 }
 ```
@@ -88,35 +88,38 @@ Applied: `False`
   "configPath": "uk_energy_tracking_v6/generation_history/live-config.js",
   "loaderPath": "uk_energy_tracking_v6/generation_history/load_generation_history_data.js",
   "solarRecentPath": "uk_energy_tracking_v6/generation_history/pvlive_solar_recent_30d_30min_browser.json",
-  "solarRecentExists": false,
+  "solarRecentExists": true,
   "configHasSolarRecent": false,
   "loaderHasLoadSolarRecent": false,
   "loaderRoutesSolarRecent": false,
   "dailyHistoryStillFullFUELHH": true,
   "recentEcgStillPresent": true,
-  "pass": false
+  "pass": true
 }
 ```
 
 ### r05_wire_solar_recent  Apply Solar recent UI routing after browser file exists
 
 Operation: `wire_solar_recent`
-Applied: `False`
+Applied: `True`
 
 ```json
 {
   "configPath": "uk_energy_tracking_v6/generation_history/live-config.js",
   "loaderPath": "uk_energy_tracking_v6/generation_history/load_generation_history_data.js",
   "solarRecentPath": "uk_energy_tracking_v6/generation_history/pvlive_solar_recent_30d_30min_browser.json",
-  "solarRecentExists": false,
-  "configHasSolarRecent": false,
-  "loaderHasLoadSolarRecent": false,
-  "loaderRoutesSolarRecent": false,
+  "solarRecentExists": true,
+  "configHasSolarRecent": true,
+  "loaderHasLoadSolarRecent": true,
+  "loaderRoutesSolarRecent": true,
   "dailyHistoryStillFullFUELHH": true,
   "recentEcgStillPresent": true,
-  "pass": false,
-  "apply": false,
-  "applied": false,
-  "error": "solar recent browser file does not exist"
+  "pass": true,
+  "apply": true,
+  "applied": true,
+  "plannedOrChangedFiles": [
+    "uk_energy_tracking_v6/generation_history/live-config.js",
+    "uk_energy_tracking_v6/generation_history/load_generation_history_data.js"
+  ]
 }
 ```

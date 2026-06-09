@@ -1,6 +1,6 @@
 ---
 layout: page
-title: UK Generation History V6 2 Module
+title: UK Generation History V6 2 Backup Mirror
 permalink: /uk_energy_tracking_v6_2/generation_history/
 ---
 
@@ -18,6 +18,9 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
   #generation-history-panel .generation-source-warning{margin:12px 0 0;padding:12px 14px;border:1px solid rgba(255,64,64,.72);border-radius:8px;background:rgba(80,0,0,.18);color:#ff5555;font-size:12px;line-height:1.55;letter-spacing:.06em;text-transform:uppercase;}
   #generation-history-panel .generation-source-warning strong{color:#ff3333;}
   #generation-history-panel .generation-source-warning a{color:#ff7777;text-decoration:underline;font-weight:bold;}
+  #generation-history-panel .backup-warning{margin:0 0 14px;padding:12px 14px;border:1px solid rgba(255,196,0,.65);border-radius:10px;background:rgba(120,80,0,.18);color:#ffd24a;font-size:12px;line-height:1.55;letter-spacing:.07em;text-transform:uppercase;}
+  #generation-history-panel .backup-warning strong{display:block;color:#ffe071;margin-bottom:6px;letter-spacing:.12em;}
+  #generation-history-panel .backup-warning a{color:#ffe071;text-decoration:underline;font-weight:bold;}
   #generation-history-panel .price-history-actions select,
   #generation-history-panel .price-history-actions input{min-height:38px;max-width:100%;}
   #generation-history-panel .mwh-panel{margin-bottom:18px;padding:14px;border:1px solid rgba(0,255,255,.30);border-radius:10px;background:rgba(0,255,255,.035);}
@@ -61,16 +64,17 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
 
 <div class="scada-grid v6-app" id="generation-history-module">
   <header class="scada-hero">
-    <div class="scada-subtitle">GLOBALGRID2050 · ISOLATED V6 2 MODULE</div>
-    <h1 class="scada-title">GB Generation History by Technology</h1>
+    <div class="scada-subtitle">GLOBALGRID2050 · GENERATION HISTORY V6 2 BACKUP MIRROR</div>
+    <h1 class="scada-title">GB Generation History by Technology Backup</h1>
     <div class="scada-title-rule"></div>
   </header>
 
-  <p class="scada-intro"><strong>Separate module.</strong> Recent views show short term generation movement. Historic views use settled Elexon FUELHH daily MW facts where available.</p>
+  <p class="scada-intro"><strong>Backup mirror.</strong> This page is a preserved comparison and fallback copy of the original V6 Generation History graph. Active work continues on <a href="/uk_energy_tracking_v6/generation_history/">the original V6 page</a>.</p>
 
   <section id="generation-history-panel">
-    <h2 class="section-title">Generation History</h2>
+    <h2 class="section-title">Generation History Backup Mirror</h2>
     <div class="trend-panel">
+      <div class="backup-warning"><strong>Backup mirror, not primary working page</strong> Use this route as a fallback and comparison copy only. The primary working graph is <a href="/uk_energy_tracking_v6/generation_history/">/uk_energy_tracking_v6/generation_history/</a>. Do not make new Solar or FUELHH wiring changes here first.</div>
       <div class="generation-study-summary"><strong>Deep study summary</strong> This MW chart is the operating pulse. Recent views use 30 minute generation movement for grid behaviour and balancing studies. Historic views use settled FUELHH transmission metered data for non solar fuels. Solar needs a separate output layer, most likely PV Live, while the <a href="/uk_renewables_pipeline/dashboard.html">Solar Pipeline</a> gives grid scale project and capacity intelligence. Full study: <a href="/uk_energy_tracking_v6_2/generation_history/deep_studies/2026-06-09-fuelhh-solar-mw-integration.md">FUELHH Solar MW Integration</a>.</div>
       <div class="mwh-panel">
         <div class="mwh-controls"><strong>Generation output in MWh</strong><label>Technology <select id="generation-mwh-technology"></select></label></div>
@@ -111,10 +115,10 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6_2/generation_history/live-config.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_mwh_aggregates.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_history_data.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js?v=20260609study1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_history.js?v=20260609study1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/live-config.js?v=20260609backup1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_mwh_aggregates.js?v=20260609backup1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js?v=20260609backup1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js?v=20260609backup1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_history_data.js?v=20260609backup1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js?v=20260609backup1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_history.js?v=20260609backup1"></script>

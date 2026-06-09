@@ -934,6 +934,7 @@
 │   ├── build_generation_ecg_all_tech_mvp.py
 │   ├── build_generation_heartbeat_mvp.py
 │   ├── build_ons_mwh_energy_use_placeholder.py
+│   ├── build_pvlive_solar_browser_v6.py
 │   ├── build_v8_bess_gis_sld_financial_sandbox.py
 │   ├── clone_generation_history_v6_to_v6_2.py
 │   ├── clone_uk_energy_tracking_v2.py
@@ -1718,4 +1719,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-219 directories, 1500 files
+219 directories, 1501 files

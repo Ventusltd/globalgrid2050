@@ -113,6 +113,7 @@
 │   │   │       └── elexon_generation_sources_2022-12.csv
 │   │   ├── elexon_generation_sources_2025.csv
 │   │   ├── elexon_generation_sources_2026.csv
+│   │   ├── elexon_generation_sources_half_hourly.csv
 │   │   └── fuelhh_halfhourly
 │   │       ├── 2016
 │   │       │   ├── generation_fuelhh_2016_01.csv
@@ -292,9 +293,11 @@
 │   │   ├── ECG_CANDIDATE_WIRING_LATEST.md
 │   │   ├── FUELHH_BACKFILL_20260609T004143Z.md
 │   │   ├── FUELHH_BACKFILL_20260609T043912Z.md
+│   │   ├── FUELHH_BACKFILL_20260609T100513Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260609T100522Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.md
@@ -320,9 +323,11 @@
 │   │   │   ├── ECG_CANDIDATE_WIRING_LATEST.json
 │   │   │   ├── FUELHH_BACKFILL_20260609T004143Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260609T043912Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260609T100513Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T100522Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.json
@@ -1653,4 +1658,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-213 directories, 1441 files
+213 directories, 1446 files

@@ -1,0 +1,44 @@
+name: Step 1 Fetch PVLive Solar Candidate V6
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: Number of recent days to fetch from PVLive
+        required: false
+        default: '30'
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch PVLive solar candidate
+        run: python scripts/fetch_pvlive_solar_candidate_v6.py --days "${{ github.event.inputs.days }}"
+      - name: Commit PVLive candidate and audit
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add data/confirmed/pvlive_solar_daily_candidate.json
+          git add data_science_protocol/audit_reports/PVLIVE_SOLAR_CANDIDATE_LATEST.md
+          git add data_science_protocol/audit_reports/json/PVLIVE_SOLAR_CANDIDATE_LATEST.json
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "gridbot: fetch PVLive solar daily candidate"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No PVLive solar candidate changes to commit"
+          fi

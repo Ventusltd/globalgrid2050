@@ -95,7 +95,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
         </div>
         <div id="generation-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
         <canvas id="generation-history-canvas" width="900" height="720"></canvas>
-        <div class="generation-source-warning"><strong>Source transparency:</strong> Historic MW generation uses Elexon FUELHH transmission-metered generation. It excludes most embedded distribution generation. Historic solar from this source is not national solar output and may show no records. Recent short-term views remain for grid behaviour. For grid-scale solar capacity and project intelligence, use the <a href="/uk_renewables_pipeline/dashboard.html">GlobalGrid2050 solar pipeline</a>, currently showing 52,866 MW across 2,667 projects above 1 MW. Embedded or national solar output will be added as a separate layer.</div>
+        <div class="generation-source-warning"><strong>Source transparency:</strong> Historic MW generation uses Elexon FUELHH transmission-metered generation. It excludes most embedded distribution generation. Historic solar from this source is not national solar output and may show no records. Recent short-term views remain for grid behaviour. For grid-scale solar capacity and project intelligence, use the <a href="/uk_renewables_pipeline/dashboard.html">GlobalGrid2050 solar pipeline</a>, currently showing 52,866 MW across 2,667 projects above 1 MW. Embedded solar output is routed through a separate PVLive candidate layer where the solar browser file is present.</div>
       </details>
 
       <div class="ons-generation-placeholder" id="ons-generation-placeholder">

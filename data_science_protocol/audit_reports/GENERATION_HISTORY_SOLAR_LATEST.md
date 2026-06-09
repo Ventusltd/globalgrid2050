@@ -1,12 +1,12 @@
 # GridBot Generation History Solar Report
 
-Generated UTC: `2026-06-09T19:50:15Z`
-Mode: `audit only`
+Generated UTC: `2026-06-09T20:04:23Z`
+Mode: `apply`
 Manifest: `gridbot_manifests/010_generation_history_solar_ui.yml`
 
 ## Executive summary
 
-GridBot solar workflow ran 5 phases in audit only mode. Apply only affects phases with applyByDefault true.
+GridBot solar workflow ran 5 phases in apply mode. Apply only affects phases with applyByDefault true.
 
 ## Phase results
 
@@ -44,17 +44,17 @@ Applied: `False`
 ### p02_fetch_pvlive_candidate  Fetch PVLive solar candidate daily facts
 
 Operation: `fetch_pvlive_candidate`
-Applied: `False`
+Applied: `True`
 
 ```json
 {
   "outputPath": "data/confirmed/pvlive_solar_daily_candidate.json",
-  "apply": false,
+  "apply": true,
   "daysRequested": 30,
   "daysFetched": 30,
   "rowsAfterMerge": 30,
   "estimatedBytes": 6410,
-  "sha256": "76b5c1d097b76d206d456f4b6e64d61675cbc0cbdd761b05a0168cc30e19dce7",
+  "sha256": "05f55ba598b54bbad11ad918887e349844678844802a5a0dbb6ce84aae124f91",
   "workingUrl": "https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2026-05-10T00%3A00%3A00Z&end=2026-05-10T23%3A59%3A00Z",
   "failures": [],
   "pass": true
@@ -64,21 +64,21 @@ Applied: `False`
 ### p03_build_solar_browser  Build PVLive solar browser JSON
 
 Operation: `build_solar_browser`
-Applied: `False`
+Applied: `True`
 
 ```json
 {
   "inputPath": "data/confirmed/pvlive_solar_daily_candidate.json",
-  "inputExists": false,
+  "inputExists": true,
   "outputPath": "uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json",
-  "apply": false,
-  "rows": 0,
-  "firstDate": null,
-  "lastDate": null,
-  "estimatedBytes": 190,
+  "apply": true,
+  "rows": 30,
+  "firstDate": "2026-05-10",
+  "lastDate": "2026-06-08",
+  "estimatedBytes": 6364,
   "maxBytes": 500000,
-  "sha256": "d89af69fa6d59440f4e13830a95795f0e16a079ad019fa6382418af1ed97c9e6",
-  "pass": false
+  "sha256": "b79f4ddd4e271f700c3b4faa568acefbcce67e3e3606d0687624babd5e23ce24",
+  "pass": true
 }
 ```
 
@@ -93,21 +93,21 @@ Applied: `False`
   "loaderPath": "uk_energy_tracking_v6/generation_history/load_generation_history_data.js",
   "indexPath": "uk_energy_tracking_v6/generation_history/index.md",
   "solarBrowserPath": "uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json",
-  "solarBrowserExists": false,
+  "solarBrowserExists": true,
   "configHasSolarDaily": false,
   "loaderHasSolarDailyLoader": false,
   "loaderRoutesSolarDaily": false,
   "indexMentionsPVLiveLayer": false,
   "recentEcgStillPresent": true,
   "dailyHistoryStillFullFUELHH": true,
-  "pass": false
+  "pass": true
 }
 ```
 
 ### p05_wire_solar_ui  Apply Solar UI wiring after solar browser file exists
 
 Operation: `wire_solar_ui`
-Applied: `False`
+Applied: `True`
 
 ```json
 {
@@ -115,16 +115,20 @@ Applied: `False`
   "loaderPath": "uk_energy_tracking_v6/generation_history/load_generation_history_data.js",
   "indexPath": "uk_energy_tracking_v6/generation_history/index.md",
   "solarBrowserPath": "uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json",
-  "solarBrowserExists": false,
-  "configHasSolarDaily": false,
-  "loaderHasSolarDailyLoader": false,
-  "loaderRoutesSolarDaily": false,
-  "indexMentionsPVLiveLayer": false,
+  "solarBrowserExists": true,
+  "configHasSolarDaily": true,
+  "loaderHasSolarDailyLoader": true,
+  "loaderRoutesSolarDaily": true,
+  "indexMentionsPVLiveLayer": true,
   "recentEcgStillPresent": true,
   "dailyHistoryStillFullFUELHH": true,
-  "pass": false,
-  "apply": false,
-  "applied": false,
-  "error": "solar browser file does not exist"
+  "pass": true,
+  "apply": true,
+  "applied": true,
+  "plannedOrChangedFiles": [
+    "uk_energy_tracking_v6/generation_history/live-config.js",
+    "uk_energy_tracking_v6/generation_history/load_generation_history_data.js",
+    "uk_energy_tracking_v6/generation_history/index.md"
+  ]
 }
 ```

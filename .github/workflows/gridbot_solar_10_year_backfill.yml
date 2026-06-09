@@ -1,0 +1,89 @@
+name: GridBot Solar 10 Year Backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      start_date:
+        description: Start date YYYY-MM-DD
+        required: true
+        default: '2016-01-01'
+        type: string
+      end_date:
+        description: End date YYYY-MM-DD, blank means yesterday
+        required: false
+        default: ''
+        type: string
+      max_days:
+        description: Maximum days this run
+        required: true
+        default: '4000'
+        type: string
+      commit_reports:
+        description: Commit reports and outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-solar-10-year-backfill
+  cancel-in-progress: false
+
+jobs:
+  solar-10-year-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Audit Solar 10 year backfill
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/gridbot_solar_historic_backfill.py --start-date "${{ github.event.inputs.start_date }}" --end-date "${{ github.event.inputs.end_date }}" --max-days "${{ github.event.inputs.max_days }}"
+
+      - name: Apply Solar 10 year backfill
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/gridbot_solar_historic_backfill.py --start-date "${{ github.event.inputs.start_date }}" --end-date "${{ github.event.inputs.end_date }}" --max-days "${{ github.event.inputs.max_days }}" --apply
+
+      - name: Upload Solar 10 year report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: solar-10-year-backfill-report
+          path: |
+            data_science_protocol/audit_reports/SOLAR_HISTORIC_BACKFILL_LATEST.md
+            data_science_protocol/audit_reports/json/SOLAR_HISTORIC_BACKFILL_LATEST.json
+
+      - name: Commit Solar 10 year outputs
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data/confirmed/pvlive_solar_daily_candidate.json || true
+          git add uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json || true
+          git add data_science_protocol/audit_reports/SOLAR_HISTORIC_BACKFILL_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/SOLAR_HISTORIC_BACKFILL_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar 10 year outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: run solar 10 year backfill ${{ github.event.inputs.mode }}"
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -1,0 +1,96 @@
+name: GridBot Generation History Solar Recent
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      manifest:
+        description: Manifest path
+        required: true
+        default: gridbot_manifests/011_generation_history_solar_recent.yml
+        type: string
+      phase:
+        description: Phase to run, or all
+        required: true
+        default: all
+        type: string
+      commit_reports:
+        description: Commit audit reports and applied outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-generation-history-solar-recent
+  cancel-in-progress: false
+
+jobs:
+  gridbot-generation-history-solar-recent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install manifest dependencies
+        run: python -m pip install pyyaml
+
+      - name: Run Solar Recent GridBot in audit mode
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/gridbot_generation_history_solar_recent.py --manifest "$GITHUB_WORKSPACE/${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}"
+
+      - name: Run Solar Recent GridBot in apply mode
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/gridbot_generation_history_solar_recent.py --manifest "$GITHUB_WORKSPACE/${{ github.event.inputs.manifest }}" --phase "${{ github.event.inputs.phase }}" --apply
+
+      - name: Upload Solar Recent GridBot reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: generation-history-solar-recent-report
+          path: |
+            data_science_protocol/audit_reports/GENERATION_HISTORY_SOLAR_RECENT_LATEST.md
+            data_science_protocol/audit_reports/json/GENERATION_HISTORY_SOLAR_RECENT_LATEST.json
+
+      - name: Commit Solar Recent GridBot outputs
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/generation_history/pvlive_solar_recent_30d_30min_browser.json || true
+          git add uk_energy_tracking_v6/generation_history/live-config.js || true
+          git add uk_energy_tracking_v6/generation_history/load_generation_history_data.js || true
+          git add data_science_protocol/audit_reports/GENERATION_HISTORY_SOLAR_RECENT_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/GENERATION_HISTORY_SOLAR_RECENT_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar Recent GridBot outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: run generation history solar recent ${{ github.event.inputs.mode }} ${{ github.event.inputs.phase }}"
+          git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+          git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main

@@ -1,0 +1,45 @@
+name: Clone Generation History V6 to V6 2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/clone_generation_history_v6_to_v6_2.yml'
+      - 'scripts/clone_generation_history_v6_to_v6_2.py'
+
+permissions:
+  contents: write
+
+jobs:
+  clone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Clone generation history V6 to V6 2
+        run: python scripts/clone_generation_history_v6_to_v6_2.py
+
+      - name: Commit generation history V6 2 clone
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -e
+          git config --global user.name "gridbot"
+          git config --global user.email "bot@globalgrid2050.com"
+          git add uk_energy_tracking_v6_2/generation_history index.html gridbot_reports/clone_generation_history_v6_to_v6_2.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Clone Generation History V6 to V6 2"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          else
+            echo "No Generation History V6 2 clone changes to commit"
+          fi

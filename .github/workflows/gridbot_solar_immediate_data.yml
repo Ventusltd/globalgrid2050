@@ -1,0 +1,78 @@
+name: GridBot Solar Immediate Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      days:
+        description: Days including today
+        required: true
+        default: '30'
+        type: string
+      commit_reports:
+        description: Commit reports and outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-solar-immediate-data
+  cancel-in-progress: false
+
+jobs:
+  solar-immediate-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Audit Solar immediate data
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/gridbot_solar_immediate_data.py --days "${{ github.event.inputs.days }}"
+
+      - name: Apply Solar immediate data
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/gridbot_solar_immediate_data.py --days "${{ github.event.inputs.days }}" --apply
+
+      - name: Upload Solar immediate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: solar-immediate-data-report
+          path: |
+            data_science_protocol/audit_reports/SOLAR_IMMEDIATE_DATA_LATEST.md
+            data_science_protocol/audit_reports/json/SOLAR_IMMEDIATE_DATA_LATEST.json
+
+      - name: Commit Solar immediate outputs
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/generation_history/pvlive_solar_recent_30d_30min_browser.json || true
+          git add data_science_protocol/audit_reports/SOLAR_IMMEDIATE_DATA_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/SOLAR_IMMEDIATE_DATA_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar immediate outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: run solar immediate data ${{ github.event.inputs.mode }}"
+          git pull --rebase origin main
+          git push origin HEAD:main

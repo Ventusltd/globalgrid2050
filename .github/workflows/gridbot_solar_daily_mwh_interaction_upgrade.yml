@@ -1,0 +1,74 @@
+name: GridBot Solar Daily MWh Interaction Upgrade
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit audit reports and applied changes
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-solar-daily-mwh-interaction-upgrade
+  cancel-in-progress: false
+
+jobs:
+  interaction-upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run audit
+        if: ${{ github.event.inputs.mode == 'audit' }}
+        run: python scripts/gridbot_solar_daily_mwh_interaction_upgrade.py
+
+      - name: Run apply
+        if: ${{ github.event.inputs.mode == 'apply' }}
+        run: python scripts/gridbot_solar_daily_mwh_interaction_upgrade.py --apply
+
+      - name: Upload interaction report
+        uses: actions/upload-artifact@v4
+        with:
+          name: solar-daily-mwh-interaction-report-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/SOLAR_DAILY_MWH_INTERACTION_LATEST.md
+            data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_INTERACTION_LATEST.json
+
+      - name: Commit reports and changes
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_solar_daily_mwh_interaction_upgrade.py
+          git add .github/workflows/gridbot_solar_daily_mwh_interaction_upgrade.yml
+          git add uk_energy_tracking_v6/generation_history/index.md
+          git add uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js
+          git add uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js
+          git add data_science_protocol/audit_reports/SOLAR_DAILY_MWH_INTERACTION_LATEST.md
+          git add data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_INTERACTION_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: solar daily mwh interaction upgrade ${{ github.event.inputs.mode }}"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

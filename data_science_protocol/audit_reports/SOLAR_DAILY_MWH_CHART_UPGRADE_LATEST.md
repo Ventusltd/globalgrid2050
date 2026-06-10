@@ -2,7 +2,7 @@
 
 ```json
 {
-  "mode": "audit",
+  "mode": "apply",
   "purpose": "Add third Solar daily MWh chart below the existing MW chart using stored Sheffield Solar PVLive daily mwh data only.",
   "solarAudit": {
     "rowCount": 3812,
@@ -33,7 +33,7 @@
   "wouldUpdate": "uk_energy_tracking_v6/generation_history/index.md",
   "indexOldSha256": "8ecdb72f91cd961bd16665773663017aecc5a5fce43df01076fb44c779463add",
   "indexNewSha256": "15bfa1b3d09c85196d0fe5607733c60341a90561a44a889ddb268e417f2e5a5f",
-  "applied": false,
+  "applied": true,
   "pass": true
 }
 ```

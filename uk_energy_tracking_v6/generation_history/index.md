@@ -57,6 +57,9 @@ permalink: /uk_energy_tracking_v6/generation_history/
     #generation-history-panel .mwh-row{grid-template-columns:90px 1fr 76px;font-size:11px;}
     #generation-history-panel .mwh-card.wide{grid-column:auto;}
   }
+
+  #generation-history-panel .solar-daily-mwh-panel{margin:18px 0 0;padding:14px;border:1px solid rgba(0,255,255,.30);border-radius:10px;background:rgba(0,255,255,.035);}
+  #generation-history-panel #solar-daily-mwh-canvas{height:min(58dvh,540px)!important;min-height:360px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;}
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
@@ -95,6 +98,13 @@ permalink: /uk_energy_tracking_v6/generation_history/
         </div>
         <div id="generation-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
         <canvas id="generation-history-canvas" width="900" height="720"></canvas>
+
+        <div class="solar-daily-mwh-panel" id="solar-daily-mwh-panel">
+          <div class="generation-study-summary"><strong>Solar daily energy output</strong> This chart uses Sheffield Solar PVLive daily MWh to show the total Solar energy generated across each full day. The highest full day currently recorded in this dataset is 30 Apr 2026.</div>
+          <div id="solar-daily-mwh-status" class="price-history-range-status">Solar daily MWh chart awaiting Solar selection.</div>
+          <canvas id="solar-daily-mwh-canvas" width="900" height="520"></canvas>
+        </div>
+
         <div class="generation-source-warning"><strong>Source transparency:</strong> Historic MW generation uses Elexon FUELHH transmission-metered generation for non solar technologies. It excludes most embedded distribution generation. Solar output is routed through a separate Sheffield Solar PVLive candidate layer, solar.sheffield.ac.uk, and is stamped as a PVLive embedded estimate. For grid-scale solar capacity and project intelligence, use the <a href="/uk_renewables_pipeline/dashboard.html">GlobalGrid2050 solar pipeline</a>, currently showing 52,866 MW across 2,667 projects above 1 MW.</div>
       </details>
 
@@ -118,3 +128,6 @@ permalink: /uk_energy_tracking_v6/generation_history/
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>
+
+<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260610solarmwh2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js?v=20260610solarmwh2"></script>

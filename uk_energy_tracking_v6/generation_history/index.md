@@ -66,6 +66,24 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{min-height:38px;background:#05070c;color:#00ffff;border:1px solid #252b36;border-radius:6px;padding:6px;max-width:100%;}
   #generation-history-panel #solar-daily-mwh-canvas{height:min(76dvh,760px)!important;min-height:560px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:8px;}
   @media(max-width:850px){#generation-history-panel .solar-daily-mwh-controls{align-items:stretch;}#generation-history-panel .solar-daily-mwh-controls label{width:100%;justify-content:space-between;}#generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{flex:1;min-width:0;}#generation-history-panel #solar-daily-mwh-canvas{height:70dvh!important;min-height:560px!important;}}
+
+  #generation-history-panel .solar-daily-mwh-fullscreen-btn{border:1px solid #00ffff;border-radius:9px;padding:8px 11px;background:#051014;color:#00ffff;font-family:Courier New,Courier,monospace;font-weight:bold;cursor:pointer;}
+  .solar-mwh-fullscreen-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:none;padding:10px;}
+  .solar-mwh-fullscreen-overlay.open{display:block;}
+  .solar-mwh-fullscreen-shell{height:100%;display:flex;flex-direction:column;border:1px solid rgba(0,255,255,.45);border-radius:12px;background:#05070c;box-shadow:0 0 30px rgba(0,255,255,.16);overflow:hidden;}
+  .solar-mwh-fullscreen-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px;border-bottom:1px solid rgba(0,255,255,.24);color:#9aa3b6;font-family:Courier New,Courier,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+  .solar-mwh-fullscreen-toolbar strong{color:#00ffff;letter-spacing:.12em;}
+  .solar-mwh-fullscreen-toolbar select,.solar-mwh-fullscreen-toolbar button{background:#05070c;color:#00ffff;border:1px solid #252b36;border-radius:7px;min-height:36px;padding:6px;font-family:Courier New,Courier,monospace;}
+  #solar-daily-mwh-fullscreen-close{margin-left:auto;font-size:22px;line-height:1;padding:3px 10px;border-color:#ff5555;color:#ff5555;}
+  #solar-daily-mwh-fullscreen-canvas{flex:1;width:100%;height:100%;min-height:420px;background:#05070c;display:block;touch-action:none;}
+  .solar-mwh-fullscreen-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10000;border:1px solid rgba(0,255,255,.5);background:rgba(5,7,12,.72);color:#00ffff;border-radius:999px;width:42px;height:42px;font-size:30px;line-height:1;}
+  .solar-mwh-fullscreen-arrow-left{left:18px;}
+  .solar-mwh-fullscreen-arrow-right{right:18px;}
+  .solar-mwh-fullscreen-smallprint{border-top:1px solid rgba(0,255,255,.18);padding:9px 12px;color:#9aa3b6;font-family:Courier New,Courier,monospace;font-size:11px;line-height:1.45;letter-spacing:.04em;text-transform:uppercase;}
+  .solar-mwh-inspect-controls{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0 0;font-family:Courier New,Courier,monospace;}
+  .solar-mwh-inspect-button{border:1px solid #00ffff;border-radius:10px;padding:9px 12px;color:#00ffff;background:#051014;font-family:Courier New,Courier,monospace;font-weight:bold;cursor:pointer;}
+  .solar-mwh-inspect-readout{flex:1;min-width:260px;color:#00ff88;border:1px solid rgba(0,255,255,.25);border-radius:10px;padding:9px 11px;background:#080b10;line-height:1.35;}
+  @media(max-width:700px){.solar-mwh-inspect-controls[style]{display:grid!important;grid-template-columns:1fr 1fr;align-items:stretch}.solar-mwh-inspect-readout{grid-column:1 / 3;min-width:0}.solar-mwh-inspect-button{width:100%;text-align:center}.solar-mwh-fullscreen-toolbar{align-items:stretch}.solar-mwh-fullscreen-toolbar label{width:100%;}.solar-mwh-fullscreen-toolbar select{width:100%;}#solar-daily-mwh-fullscreen-close{margin-left:0;}}
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
@@ -96,6 +114,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
         <div class="generation-study-summary"><strong>Solar daily energy output</strong> Standalone daily energy chart using stored Sheffield Solar PVLive MWh. This shows energy generated across each full day, not peak MW. Other technologies will be added only after their daily MWh data is separately fetched or audited.</div>
         <div class="solar-daily-mwh-controls">
           <strong>Daily MWh chart</strong>
+          <button type="button" id="solar-daily-mwh-fullscreen-btn" class="solar-daily-mwh-fullscreen-btn">Full screen chart</button>
           <label>Technology <select id="solar-daily-mwh-technology"><option value="Solar" selected>Solar</option></select></label>
           <label>Year <select id="solar-daily-mwh-year"></select></label>
           <label>Start <input type="date" id="solar-daily-mwh-start"></label>
@@ -136,6 +155,23 @@ permalink: /uk_energy_tracking_v6/generation_history/
   </section>
 </div>
 
+<div id="solar-daily-mwh-fullscreen-overlay" class="solar-mwh-fullscreen-overlay" aria-hidden="true">
+  <div class="solar-mwh-fullscreen-shell">
+    <div class="solar-mwh-fullscreen-toolbar">
+      <strong>Solar Daily MWh · PVLive stored energy</strong>
+      <label>Period <select id="solar-daily-mwh-fullscreen-period-select"><option value="30d">1 month</option><option value="3m">3 months</option><option value="6m">6 months</option><option value="12m" selected>12 months</option><option value="5y">5 years</option><option value="10y">10 years</option><option value="all">Full PVLive file</option></select></label>
+      <span id="solar-daily-mwh-fullscreen-meta">Selected range will appear here.</span>
+      <button type="button" id="solar-daily-mwh-fullscreen-close" aria-label="Close">x</button>
+    </div>
+    <button type="button" id="solar-daily-mwh-fullscreen-period-back" class="solar-mwh-fullscreen-arrow solar-mwh-fullscreen-arrow-left" aria-label="Previous period">‹</button>
+    <button type="button" id="solar-daily-mwh-fullscreen-period-forward" class="solar-mwh-fullscreen-arrow solar-mwh-fullscreen-arrow-right" aria-label="Next period">›</button>
+    <canvas id="solar-daily-mwh-fullscreen-canvas"></canvas>
+    <section class="solar-mwh-fullscreen-smallprint" aria-label="Solar daily MWh explainer">
+      <strong>Source:</strong> Sheffield Solar PVLive stored daily MWh. This chart shows daily energy, not MW peak power. Other technologies remain disabled until separate MWh data audits are complete.
+    </section>
+  </div>
+</div>
+
 <script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260610solarui1"></script>
@@ -144,5 +180,5 @@ permalink: /uk_energy_tracking_v6/generation_history/
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>
 
-<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260610solarmwh3"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260610solarmwh4"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js?v=20260610solarmwh2"></script>

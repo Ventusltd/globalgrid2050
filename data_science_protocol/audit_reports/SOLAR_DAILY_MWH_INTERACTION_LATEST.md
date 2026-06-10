@@ -1,15 +1,15 @@
 Title: Solar Daily MWh Interaction Upgrade
-Generated UTC: 2026-06-10T20:34:04Z
+Generated UTC: 2026-06-10T20:37:46Z
 Repository: Ventusltd/globalgrid2050
 Branch: main
-Git head before: a5c688c8
-Git head after: a5c688c8
+Git head before: a33f2840
+Git head after: a33f2840
 Workflow: GridBot Solar Daily MWh Interaction Upgrade
 Script: scripts/gridbot_solar_daily_mwh_interaction_upgrade.py
 Upgrade type: UI interaction and fullscreen chart mode
 Executive summary: Adds optional touch and click inspection, a movable dotted selection line, selected point controls and fullscreen Solar daily MWh chart mode without changing data or adding non Solar technologies.
-Human review status: audit required before apply
-Next action: Run apply only if all checks are true.
+Human review status: apply completed, verify live page after Jekyll deploy
+Next action: Verify inspect line, readout, fullscreen, close button and period arrows.
 
 # Solar Daily MWh Interaction Upgrade
 
@@ -17,15 +17,15 @@ Next action: Run apply only if all checks are true.
 {
   "reportTitle": "Solar Daily MWh Interaction Upgrade",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-10T20:34:04Z",
+  "generatedUTC": "2026-06-10T20:37:46Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "a5c688c8",
-  "gitHeadAfter": "a5c688c8",
+  "gitHeadBefore": "a33f2840",
+  "gitHeadAfter": "a33f2840",
   "workflowName": "GridBot Solar Daily MWh Interaction Upgrade",
   "scriptName": "scripts/gridbot_solar_daily_mwh_interaction_upgrade.py",
   "upgradeType": "UI interaction and fullscreen chart mode",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [
     "Sheffield Solar PVLive stored browser file only"
   ],
@@ -91,9 +91,9 @@ Next action: Run apply only if all checks are true.
   "browserRoutingAffected": true,
   "rollbackMethod": "Restore branch available: restore/2026-06-10-1833-solar-mwh-readable-stable. Revert the apply commit if this interaction upgrade misbehaves.",
   "executiveSummary": "Adds optional touch and click inspection, a movable dotted selection line, selected point controls and fullscreen Solar daily MWh chart mode without changing data or adding non Solar technologies.",
-  "humanReviewStatus": "audit required before apply",
-  "nextAction": "Run apply only if all checks are true.",
-  "applied": false,
+  "humanReviewStatus": "apply completed, verify live page after Jekyll deploy",
+  "nextAction": "Verify inspect line, readout, fullscreen, close button and period arrows.",
+  "applied": true,
   "pass": true
 }
 ```

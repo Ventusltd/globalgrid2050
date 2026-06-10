@@ -13,3 +13,15 @@ window.V6ControlSolarDailyMwhChart=(function(){
   return{boot:boot,update:update};
 })();
 document.addEventListener('DOMContentLoaded',function(){if(window.V6ControlSolarDailyMwhChart)window.V6ControlSolarDailyMwhChart.boot()});
+
+// Solar daily MWh fullscreen and period interaction bridge
+(function(){
+  function get(id){return document.getElementById(id)}
+  function syncFullPeriod(){var p=get('solar-daily-mwh-period'),fp=get('solar-daily-mwh-fullscreen-period-select');if(p&&fp&&fp.value!==p.value)fp.value=p.value}
+  function setPeriod(value){var p=get('solar-daily-mwh-period');if(p)p.value=value;syncFullPeriod();if(window.V6ControlSolarDailyMwhChart)window.V6ControlSolarDailyMwhChart.update()}
+  function nudgePeriod(dir){var s=get('solar-daily-mwh-start'),p=get('solar-daily-mwh-period');if(!s||!p)return;var days={'30d':30,'3m':92,'6m':183,'12m':366,'5y':1827,'10y':3653}[p.value]||366;var d=s.value?new Date(s.value+'T00:00:00Z'):new Date();d=new Date(d.getTime()+dir*days*86400000);s.value=d.toISOString().slice(0,10);var y=get('solar-daily-mwh-year');if(y)y.value=String(d.getUTCFullYear());if(window.V6ControlSolarDailyMwhChart)window.V6ControlSolarDailyMwhChart.update()}
+  function openFull(){var o=get('solar-daily-mwh-fullscreen-overlay');if(!o)return;syncFullPeriod();o.classList.add('open');document.documentElement.classList.add('v5-chart-open');document.body.classList.add('v5-chart-open');setTimeout(function(){if(window.V6RenderSolarDailyMwhChart&&window.V6RenderSolarDailyMwhChart.redrawFullscreen)window.V6RenderSolarDailyMwhChart.redrawFullscreen()},100)}
+  function closeFull(){var o=get('solar-daily-mwh-fullscreen-overlay');if(!o)return;o.classList.remove('open');document.documentElement.classList.remove('v5-chart-open');document.body.classList.remove('v5-chart-open')}
+  function bind(){var btn=get('solar-daily-mwh-fullscreen-btn'),close=get('solar-daily-mwh-fullscreen-close'),fp=get('solar-daily-mwh-fullscreen-period-select'),back=get('solar-daily-mwh-fullscreen-period-back'),forward=get('solar-daily-mwh-fullscreen-period-forward');if(btn&&!btn.dataset.bound){btn.dataset.bound='1';btn.addEventListener('click',openFull)}if(close&&!close.dataset.bound){close.dataset.bound='1';close.addEventListener('click',closeFull)}if(fp&&!fp.dataset.bound){fp.dataset.bound='1';fp.addEventListener('change',function(){setPeriod(fp.value)})}if(back&&!back.dataset.bound){back.dataset.bound='1';back.addEventListener('click',function(){nudgePeriod(-1)})}if(forward&&!forward.dataset.bound){forward.dataset.bound='1';forward.addEventListener('click',function(){nudgePeriod(1)})}}
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(bind,200);setTimeout(bind,1200)});
+})();

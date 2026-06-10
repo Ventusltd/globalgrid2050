@@ -1,0 +1,88 @@
+name: GridBot Solar Peak Integrity Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_month:
+        description: Target coverage start month YYYY-MM
+        required: true
+        default: '2016-01'
+        type: string
+      end_month:
+        description: Target coverage end month YYYY-MM, blank means current month
+        required: false
+        default: ''
+        type: string
+      dates:
+        description: Key dates to compare, comma separated
+        required: true
+        default: '2026-04-23,2026-05-24'
+        type: string
+      fetch_live:
+        description: Fetch live Sheffield Solar PVLive for key dates
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      commit_reports:
+        description: Commit audit report
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-solar-peak-integrity-audit
+  cancel-in-progress: false
+
+jobs:
+  solar-peak-integrity-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Solar peak integrity audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=(python scripts/gridbot_solar_peak_integrity_audit.py --start-month "${{ github.event.inputs.start_month }}" --end-month "${{ github.event.inputs.end_month }}" --dates "${{ github.event.inputs.dates }}")
+          if [ "${{ github.event.inputs.fetch_live }}" = "true" ]; then
+            args+=(--fetch-live)
+          fi
+          "${args[@]}"
+
+      - name: Upload Solar peak audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: solar-peak-integrity-audit
+          path: |
+            data_science_protocol/audit_reports/SOLAR_PEAK_INTEGRITY_LATEST.md
+            data_science_protocol/audit_reports/json/SOLAR_PEAK_INTEGRITY_LATEST.json
+
+      - name: Commit Solar peak audit report
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add data_science_protocol/audit_reports/SOLAR_PEAK_INTEGRITY_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/SOLAR_PEAK_INTEGRITY_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar peak audit report changes to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: solar peak integrity audit"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

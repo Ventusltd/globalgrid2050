@@ -1,0 +1,13 @@
+window.V6ControlSolarDailyMwhChart=(function(){
+  var cache=null;
+  function cfg(){return window.V6GenerationHistoryConfig||{}}
+  function get(id){return document.getElementById(id)}
+  function loadSolarDaily(){if(cache)return cache;var url=cfg().solarDaily||'/uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json';cache=fetch(url+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():{rows:[]}}).then(function(d){return d.rows||[]}).catch(function(){return[]});return cache}
+  function periodDays(p){return{'12hday':0.5,'12hnight':0.5,'1d':1,'24h':1,'48h':2,'7d':7,'30d':30,'3m':92,'6m':183,'12m':366,'5y':1827,'10y':3653}[p]||366}
+  function niceDate(v){var d=v instanceof Date?v:new Date(String(v));return isNaN(d.getTime())?'—':d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+  function selectedWindow(){var startEl=get('generation-history-start'),periodEl=get('generation-history-period');var start=new Date((startEl&&startEl.value?startEl.value:new Date().toISOString().slice(0,10))+'T00:00:00Z');var period=periodEl?periodEl.value:'12m';var end=new Date(start.getTime()+periodDays(period)*86400000-1000);var max=new Date();max=new Date(Date.UTC(max.getUTCFullYear(),max.getUTCMonth(),max.getUTCDate(),23,59,59));if(end>max)end=max;return{start:start,end:end,period:period}}
+  function update(){var panel=get('solar-daily-mwh-panel'),canvas=get('solar-daily-mwh-canvas'),status=get('solar-daily-mwh-status'),techEl=get('generation-history-technology');if(!panel||!canvas||!status||!window.V6RenderSolarDailyMwhChart)return;var tech=techEl?techEl.value:'Solar';if(tech!=='Solar'){panel.style.display='none';return}else panel.style.display='block';var meta=selectedWindow();loadSolarDaily().then(function(all){var rows=all.filter(function(r){var t=new Date(r.date+'T12:00:00Z');return t>=meta.start&&t<=meta.end});status.textContent='SOLAR DAILY MWH · '+rows.length+' RECORDS · '+niceDate(meta.start)+' TO '+niceDate(meta.end);window.V6RenderSolarDailyMwhChart.render(canvas,{rows:rows,start:meta.start,end:meta.end,period:meta.period})})}
+  function boot(){['generation-history-technology','generation-history-start','generation-history-period','generation-history-year'].forEach(function(id){var el=get(id);if(el)el.addEventListener('change',function(){setTimeout(update,60)})});window.addEventListener('resize',function(){setTimeout(update,80)});setTimeout(update,300);setTimeout(update,1200)}
+  return{boot:boot,update:update};
+})();
+document.addEventListener('DOMContentLoaded',function(){if(window.V6ControlSolarDailyMwhChart)window.V6ControlSolarDailyMwhChart.boot()});

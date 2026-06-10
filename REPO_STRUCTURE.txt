@@ -131,6 +131,7 @@
 │   │   │       └── elexon_generation_sources_2023-12.csv
 │   │   ├── elexon_generation_sources_2025.csv
 │   │   ├── elexon_generation_sources_2026.csv
+│   │   ├── elexon_generation_sources_half_hourly.csv
 │   │   └── fuelhh_halfhourly
 │   │       ├── 2016
 │   │       │   ├── generation_fuelhh_2016_01.csv
@@ -1781,4 +1782,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1561 files
+221 directories, 1562 files

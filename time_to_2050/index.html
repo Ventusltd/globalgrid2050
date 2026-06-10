@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hourglass to 2050</title>
+<style>
+  :root {
+    --ink: #ffffff;
+    --sand: #ffffff;
+    --bg: #000000;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--ink);
+  }
+
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4em;
+    padding: 2em 1em;
+    text-align: center;
+  }
+
+  .hourglass {
+    width: min(60vmin, 300px);
+    height: auto;
+  }
+
+  .glass-title {
+    font-size: clamp(1.1rem, 5vmin, 1.6rem);
+    font-weight: bold;
+    letter-spacing: 0.08em;
+  }
+
+  .today-countdown {
+    font-size: clamp(1.3rem, 6vmin, 2rem);
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    margin-top: -0.6em;
+  }
+
+  .time-display {
+    font-size: clamp(1.6rem, 7vmin, 2.6rem);
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .date-display {
+    font-size: clamp(1rem, 4.5vmin, 1.4rem);
+    font-weight: bold;
+    letter-spacing: 0.04em;
+  }
+
+  .countdown-value {
+    font-size: clamp(1rem, 4.5vmin, 1.3rem);
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fallen {
+    opacity: 0.75;
+    font-size: clamp(0.85rem, 3.5vmin, 1rem);
+    letter-spacing: 0.08em;
+    margin-top: 0.5em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Falling sand stream animation */
+  .stream-dash {
+    stroke-dasharray: 3 4;
+    animation: fall 0.5s linear infinite;
+  }
+  @keyframes fall {
+    to { stroke-dashoffset: -7; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stream-dash { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="glass-title">Time Left Today</div>
+  <div class="today-countdown" id="todayCountdown"></div>
+
+  <svg class="hourglass" viewBox="0 0 200 320" aria-label="Hourglass showing time remaining today">
+    <defs>
+      <!-- Top bulb interior shape -->
+      <clipPath id="topClip">
+        <path d="M40 30 H160 V60 C160 100 130 130 104 152 H96 C70 130 40 100 40 60 Z"/>
+      </clipPath>
+      <!-- Bottom bulb interior shape -->
+      <clipPath id="bottomClip">
+        <path d="M96 168 H104 C130 190 160 220 160 260 V290 H40 V260 C40 220 70 190 96 168 Z"/>
+      </clipPath>
+    </defs>
+
+    <!-- Top sand (drains as 2050 approaches) -->
+    <g clip-path="url(#topClip)">
+      <rect id="topSand" x="40" y="30" width="120" height="122" fill="var(--sand)" opacity="0.9"/>
+    </g>
+
+    <!-- Bottom sand (fills as 2050 approaches) -->
+    <g clip-path="url(#bottomClip)">
+      <rect id="bottomSand" x="40" y="168" width="120" height="122" fill="var(--sand)" opacity="0.9"/>
+    </g>
+
+    <!-- Falling stream through the neck -->
+    <line id="stream" class="stream-dash" x1="100" y1="150" x2="100" y2="240"
+          stroke="var(--sand)" stroke-width="2.5" opacity="0.85"/>
+
+    <!-- Glass outline -->
+    <path d="M40 30 H160 V60 C160 100 130 130 104 152 V168 C130 190 160 220 160 260 V290 H40 V260 C40 220 70 190 96 168 V152 C70 130 40 100 40 60 Z"
+          fill="none" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Wooden-style frame: top and bottom caps -->
+    <rect x="26" y="14" width="148" height="16" rx="4" fill="var(--bg)" stroke="var(--ink)" stroke-width="4"/>
+    <rect x="26" y="290" width="148" height="16" rx="4" fill="var(--bg)" stroke="var(--ink)" stroke-width="4"/>
+    <!-- Side posts -->
+    <line x1="32" y1="30" x2="32" y2="290" stroke="var(--ink)" stroke-width="4"/>
+    <line x1="168" y1="30" x2="168" y2="290" stroke="var(--ink)" stroke-width="4"/>
+  </svg>
+
+  <div class="time-display" id="timeDisplay"></div>
+  <div class="date-display" id="dateDisplay"></div>
+
+  <div>
+    <div class="countdown-value" id="countdownValue"></div>
+    <div class="fallen" id="fallenDisplay"></div>
+  </div>
+
+</div>
+
+<script>
+  const timeDisplay = document.getElementById('timeDisplay');
+  const dateDisplay = document.getElementById('dateDisplay');
+  const countdownValue = document.getElementById('countdownValue');
+  const fallenDisplay = document.getElementById('fallenDisplay');
+  const todayCountdown = document.getElementById('todayCountdown');
+  const topSand = document.getElementById('topSand');
+  const bottomSand = document.getElementById('bottomSand');
+  const stream = document.getElementById('stream');
+
+  // Daily hourglass: flips at 00:00 local time on the viewer's device.
+  // Top bulb is 100% at midnight and drains to 0% at 23:59:59.999;
+  // the bottom fills in step. The 2050 countdown line is unaffected.
+  const target = new Date(2050, 0, 1, 0, 0, 0);
+  // The fallen-days counter starts from 10 June 2026.
+  const counterStart = new Date(2026, 5, 10, 0, 0, 0);
+
+  const TOP_Y = 30, TOP_H = 122;      // top sand area (full bulb)
+  const BOT_Y = 168, BOT_H = 122;     // bottom sand area
+
+  function update() {
+    const now = new Date();
+
+    // Digital time (24h, local)
+    timeDisplay.textContent = now.toLocaleTimeString('en-GB');
+
+    // British date: Wednesday 10 June 2026
+    dateDisplay.textContent = now.toLocaleDateString('en-GB', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    });
+
+    // Countdown to 2050
+    let diff = target - now;
+    if (diff <= 0) {
+      countdownValue.textContent = 'Welcome to 2050!';
+      stream.style.display = 'none';
+      topSand.setAttribute('height', 0);
+      bottomSand.setAttribute('y', BOT_Y);
+      bottomSand.setAttribute('height', BOT_H);
+      const totalDays = Math.floor((target - start) / 86400000);
+      fallenDisplay.textContent = totalDays.toLocaleString() + ' days fallen';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    let rem = diff - days * 86400000;
+    const hours = Math.floor(rem / 3600000); rem -= hours * 3600000;
+    const mins = Math.floor(rem / 60000);    rem -= mins * 60000;
+    const secs = Math.floor(rem / 1000);
+
+    countdownValue.textContent =
+      String(hours).padStart(2, '0') + ':' +
+      String(mins).padStart(2, '0') + ':' +
+      String(secs).padStart(2, '0') + ' \u00B7 ' +
+      days.toLocaleString() + ' days to 2050';
+
+    // Sand level = fraction of the viewer's local day elapsed (00:00 -> 24:00)
+    const msToday = ((now.getHours() * 60 + now.getMinutes()) * 60
+                    + now.getSeconds()) * 1000 + now.getMilliseconds();
+    const frac = msToday / 86400000;
+
+    // Time remaining until the end of today (local midnight)
+    let remMs = 86400000 - msToday;
+    const remH = Math.floor(remMs / 3600000); remMs -= remH * 3600000;
+    const remM = Math.floor(remMs / 60000);   remMs -= remM * 60000;
+    const remS = Math.floor(remMs / 1000);
+    todayCountdown.textContent =
+      String(remH).padStart(2, '0') + ':' +
+      String(remM).padStart(2, '0') + ':' +
+      String(remS).padStart(2, '0');
+
+    // Top bulb: sand sits at the bottom of the bulb and shrinks upward... 
+    // physically sand drains from the bottom, so the remaining pile's top
+    // surface drops: remaining height anchored at the bulb's base.
+    const topRemainH = TOP_H * (1 - frac);
+    topSand.setAttribute('y', TOP_Y + (TOP_H - topRemainH));
+    topSand.setAttribute('height', topRemainH);
+
+    // Bottom bulb: pile grows from empty at midnight to full by 23:59:59.
+    const botH = BOT_H * frac;
+    bottomSand.setAttribute('y', BOT_Y + (BOT_H - botH));
+    bottomSand.setAttribute('height', botH);
+
+    // Days fallen into the bottom half since 10 June 2026.
+    // Stays hidden until at least one full day has fallen.
+    const fallenDays = Math.max(0, Math.floor((now - counterStart) / 86400000));
+    fallenDisplay.textContent = fallenDays > 0
+      ? fallenDays.toLocaleString() + ' day' + (fallenDays === 1 ? '' : 's') + ' fallen'
+      : '';
+  }
+
+  update();
+  setInterval(update, 250);
+</script>
+
+</body>
+</html>

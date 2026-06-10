@@ -1,11 +1,11 @@
-window.V62RenderGenerationHistoryChart=(function(){
+window.V6RenderGenerationHistoryChart=(function(){
   function fmt(n,d){return n==null||isNaN(Number(n))?'—':Number(n).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})}
   function niceDate(v){var d=v instanceof Date?v:new Date(String(v).replace(' ','T'));return isNaN(d.getTime())?'—':d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
   function niceClock(v){var s=String(v||'');var m=s.match(/(\d{2}:\d{2})/);return m?m[1]:''}
   function valueOf(r,mode){return mode==='daily'?Number(r.averageMW):Number(r.generationMW)}
   function timeOf(r,mode){return mode==='daily'?r.date+'T12:00:00Z':r.time}
   function colour(tech){return {'Solar':'#f5c518','Wind':'#00d0ff','Hydro':'#0090c0','Gas':'#ff4fbf','Coal':'#888888','Biomass':'#f59e2b','Nuclear':'#5cff8d','Pumped Storage':'#b16cff','Imports & Exports':'#e8615a','Other':'#a6adbb','All generation total':'#00ffff'}[tech]||'#00ffff'}
-  function compactMode(mode){return mode==='daily'?'Daily average':'30 min ECG'}
+  function compactMode(mode){return mode==='daily'?'Daily average':'30 min output'}
   function dateLabel(t,span){var d=new Date(t);return span>45*86400000?d.toLocaleDateString('en-GB',{month:'short',year:'numeric'}):d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}
   function shortTickLabel(t,span){var d=new Date(t);if(span<=2.1*86400000)return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false});return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}
   function stats(result){var rows=result.rows||[];if(!rows.length)return null;var h=rows[0],l=rows[0],s=0,n=0;rows.forEach(function(r){var v=valueOf(r,result.mode);if(isNaN(v))return;s+=v;n++;if(v>valueOf(h,result.mode))h=r;if(v<valueOf(l,result.mode))l=r});return n?{hi:h,lo:l,avg:s/n,hiValue:valueOf(h,result.mode),loValue:valueOf(l,result.mode),hiDate:niceDate(timeOf(h,result.mode)),loDate:niceDate(timeOf(l,result.mode)),hiClock:niceClock(timeOf(h,result.mode)),loClock:niceClock(timeOf(l,result.mode)),avgDate:niceDate(result.start)+' to '+niceDate(result.end)}:null}

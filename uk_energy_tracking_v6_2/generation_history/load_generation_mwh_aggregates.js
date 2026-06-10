@@ -1,4 +1,4 @@
-window.V62LoadGenerationMwhAggregates=(function(){
+window.V6LoadGenerationMwhAggregates=(function(){
   var cache={};
   function fetchRows(key,url){
     if(cache[key])return cache[key];

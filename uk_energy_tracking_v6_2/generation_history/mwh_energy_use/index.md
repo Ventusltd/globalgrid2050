@@ -36,3 +36,7 @@ permalink: /uk_energy_tracking_v6_2/generation_history/mwh_energy_use/
     <p class="mwh-note"><a href="/uk_energy_tracking_v6_2/generation_history/">Back to generation history</a></p>
   </section>
 </div>
+
+<div class="backup-mirror-banner" style="border:1px solid #f5c518;background:#151103;color:#f5c518;padding:12px;margin:12px 0;font-family:Courier New,Courier,monospace;font-size:13px;line-height:1.45;">
+<strong>Inactive backup mirror.</strong> This page is a frozen mirror of the Generation History V6 module for restore and comparison use. It is not the live development target and must not be automatically updated.
+</div>

@@ -1,5 +1,5 @@
 Title: Generation History V6 2 Backup Mirror
-Generated UTC: 2026-06-10T22:10:13Z
+Generated UTC: 2026-06-10T22:33:35Z
 Repository: Ventusltd/globalgrid2050
 Branch: main
 Git head before: 
@@ -8,8 +8,8 @@ Workflow: GridBot Generation History V6 2 Backup Mirror
 Script: scripts/gridbot_generation_history_v6_2_backup_mirror.py
 Upgrade type: inactive backup mirror snapshot
 Executive summary: Creates an inactive frozen backup mirror of the current Generation History V6 app under /uk_energy_tracking_v6_2/generation_history/ and replaces the old homepage development row with a red BACKUP label.
-Human review status: audit required before apply
-Next action: Run apply only if all checks are true.
+Human review status: backup mirror applied, verify mirror page, homepage backup label and main V6 unchanged
+Next action: Open the mirror route, confirm inactive banner, confirm red BACKUP label on homepage and verify the main V6 route still works.
 
 # Generation History V6 2 Backup Mirror
 
@@ -17,7 +17,7 @@ Next action: Run apply only if all checks are true.
 {
   "reportTitle": "Generation History V6 2 Backup Mirror",
   "schemaVersion": "1.1.0",
-  "generatedUTC": "2026-06-10T22:10:13Z",
+  "generatedUTC": "2026-06-10T22:33:35Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
   "gitHeadBefore": "",
@@ -25,10 +25,10 @@ Next action: Run apply only if all checks are true.
   "workflowName": "GridBot Generation History V6 2 Backup Mirror",
   "scriptName": "scripts/gridbot_generation_history_v6_2_backup_mirror.py",
   "upgradeType": "inactive backup mirror snapshot",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [],
   "sourceWindows": [
-    "static repository snapshot at git head 0c5d71bf8dd61c7ac53aa278e77782ec9464b73f"
+    "static repository snapshot at git head 2ea2ed081a05ae6ff952714838f6437f0ea5df15"
   ],
   "inputFiles": [
     "uk_energy_tracking_v6/generation_history/",
@@ -41,66 +41,66 @@ Next action: Run apply only if all checks are true.
     "data_science_protocol/audit_reports/json/GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.json"
   ],
   "changedFiles": [
-    "index.html",
-    "uk_energy_tracking_v6_2/generation_history/AUTO_2026_TEST_DONE.flag",
-    "uk_energy_tracking_v6_2/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md",
-    "uk_energy_tracking_v6_2/generation_history/GENERATION_HISTORY_DATA_REPORT.md",
-    "uk_energy_tracking_v6_2/generation_history/GENERATION_HISTORY_DEVELOPMENT_COMPARISON_LOG.md",
-    "uk_energy_tracking_v6_2/generation_history/MIRROR_STATUS.md",
-    "uk_energy_tracking_v6_2/generation_history/PVLIVE_SOLAR_HISTORY_REPORT.md",
-    "uk_energy_tracking_v6_2/generation_history/THREAD_CATCHUP_LOG_20260609.md",
-    "uk_energy_tracking_v6_2/generation_history/V6_V6_2_COMPARISON_AND_BACKUP_STATUS.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2016.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2017.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2018.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2019.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2020.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2021.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2022.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2023.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2024.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2025.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2026.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2021.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2022.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2023.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2026.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_RECENT_MW_SLICE.md",
-    "uk_energy_tracking_v6_2/generation_history/control_generation_history.js",
-    "uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js",
-    "uk_energy_tracking_v6_2/generation_history/control_solar_daily_mwh_chart.js",
-    "uk_energy_tracking_v6_2/generation_history/deep_studies/2026-06-09-fuelhh-solar-mw-integration.md",
-    "uk_energy_tracking_v6_2/generation_history/generation_annual_mwh_by_technology.json",
-    "uk_energy_tracking_v6_2/generation_history/generation_data_coverage_audit.json",
     "uk_energy_tracking_v6_2/generation_history/generation_day_night_mwh_by_technology.json",
-    "uk_energy_tracking_v6_2/generation_history/generation_ecg_all_technologies_30d_30min_candidate.json",
-    "uk_energy_tracking_v6_2/generation_history/generation_ecg_all_technologies_30d_candidate.json",
-    "uk_energy_tracking_v6_2/generation_history/generation_history_daily_decade.json",
-    "uk_energy_tracking_v6_2/generation_history/generation_monthly_mwh_by_technology.json",
-    "uk_energy_tracking_v6_2/generation_history/generation_recent_30d_30min.json",
+    "uk_energy_tracking_v6_2/generation_history/generation_data_coverage_audit.json",
+    "uk_energy_tracking_v6_2/generation_history/generation_annual_mwh_by_technology.json",
+    "uk_energy_tracking_v6_2/generation_history/GENERATION_HISTORY_DATA_REPORT.md",
+    "uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6_2/generation_history/pvlive_solar_daily_browser.json",
     "uk_energy_tracking_v6_2/generation_history/generation_recent_halfhourly_30d.json",
-    "uk_energy_tracking_v6_2/generation_history/generation_seasonal_mwh_by_technology.json",
-    "uk_energy_tracking_v6_2/generation_history/index.md",
     "uk_energy_tracking_v6_2/generation_history/live-config.js",
-    "uk_energy_tracking_v6_2/generation_history/load_generation_history_data.js",
+    "uk_energy_tracking_v6_2/generation_history/generation_history_daily_decade.json",
+    "uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6_2/generation_history/GENERATION_HISTORY_DEVELOPMENT_COMPARISON_LOG.md",
+    "uk_energy_tracking_v6_2/generation_history/control_generation_history.js",
+    "uk_energy_tracking_v6_2/generation_history/pvlive_solar_recent_30d_30min_browser.json",
+    "uk_energy_tracking_v6_2/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6_2/generation_history/GENERATION_DATA_COVERAGE_AUDIT.md",
     "uk_energy_tracking_v6_2/generation_history/load_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6_2/generation_history/generation_ecg_all_technologies_30d_candidate.json",
+    "uk_energy_tracking_v6_2/generation_history/THREAD_CATCHUP_LOG_20260609.md",
+    "uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js",
+    "uk_energy_tracking_v6_2/generation_history/generation_monthly_mwh_by_technology.json",
+    "uk_energy_tracking_v6_2/generation_history/AUTO_2026_TEST_DONE.flag",
+    "uk_energy_tracking_v6_2/generation_history/generation_ecg_all_technologies_30d_30min_candidate.json",
+    "uk_energy_tracking_v6_2/generation_history/generation_recent_30d_30min.json",
+    "uk_energy_tracking_v6_2/generation_history/generation_seasonal_mwh_by_technology.json",
+    "uk_energy_tracking_v6_2/generation_history/V6_V6_2_COMPARISON_AND_BACKUP_STATUS.md",
+    "uk_energy_tracking_v6_2/generation_history/index.md",
+    "uk_energy_tracking_v6_2/generation_history/load_generation_history_data.js",
+    "uk_energy_tracking_v6_2/generation_history/render_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6_2/generation_history/PVLIVE_SOLAR_HISTORY_REPORT.md",
+    "uk_energy_tracking_v6_2/generation_history/deep_studies/2026-06-09-fuelhh-solar-mw-integration.md",
     "uk_energy_tracking_v6_2/generation_history/mwh_energy_use/index.md",
     "uk_energy_tracking_v6_2/generation_history/mwh_energy_use/ons_mwh_energy_use_placeholder.json",
-    "uk_energy_tracking_v6_2/generation_history/pvlive_solar_daily_browser.json",
-    "uk_energy_tracking_v6_2/generation_history/pvlive_solar_recent_30d_30min_browser.json",
-    "uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js",
-    "uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js",
-    "uk_energy_tracking_v6_2/generation_history/render_solar_daily_mwh_chart.js"
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2025.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2024.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2016.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2023.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2026.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2022.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2026.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2018.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2020.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2023.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2021.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_RECENT_MW_SLICE.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2019.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2022.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_AGGREGATE_BACKFILL_2017.md",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2021.md",
+    "uk_energy_tracking_v6_2/generation_history/MIRROR_STATUS.md",
+    "index.html"
   ],
   "addedFiles": [
-    "uk_energy_tracking_v6_2/generation_history/MIRROR_STATUS.md",
-    "uk_energy_tracking_v6_2/generation_history/THREAD_CATCHUP_LOG_20260609.md",
-    "uk_energy_tracking_v6_2/generation_history/V6_V6_2_COMPARISON_AND_BACKUP_STATUS.md",
-    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2023.md",
-    "uk_energy_tracking_v6_2/generation_history/control_solar_daily_mwh_chart.js",
     "uk_energy_tracking_v6_2/generation_history/pvlive_solar_daily_browser.json",
     "uk_energy_tracking_v6_2/generation_history/pvlive_solar_recent_30d_30min_browser.json",
-    "uk_energy_tracking_v6_2/generation_history/render_solar_daily_mwh_chart.js"
+    "uk_energy_tracking_v6_2/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6_2/generation_history/THREAD_CATCHUP_LOG_20260609.md",
+    "uk_energy_tracking_v6_2/generation_history/V6_V6_2_COMPARISON_AND_BACKUP_STATUS.md",
+    "uk_energy_tracking_v6_2/generation_history/render_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6_2/generation_history/backfill_reports/GENERATION_HISTORY_BACKFILL_2023.md",
+    "uk_energy_tracking_v6_2/generation_history/MIRROR_STATUS.md"
   ],
   "deletedFiles": [],
   "mirrorAudit": {
@@ -108,12 +108,12 @@ Next action: Run apply only if all checks are true.
     "destinationPath": "uk_energy_tracking_v6_2/generation_history",
     "sourceFileCount": 48,
     "existingDestinationFileCount": 41,
-    "destinationFileCountAfterApply": null,
-    "textFilesRewrittenAfterApply": 0,
+    "destinationFileCountAfterApply": 49,
+    "textFilesRewrittenAfterApply": 15,
     "mirrorStatusFile": "uk_energy_tracking_v6_2/generation_history/MIRROR_STATUS.md",
     "inactive": true,
     "homepageWouldChange": true,
-    "homepageChangedAfterApply": false,
+    "homepageChangedAfterApply": true,
     "homepageBackupLabel": "(BACKUP)",
     "liveRoute": "/uk_energy_tracking_v6/generation_history/",
     "mirrorRoute": "/uk_energy_tracking_v6_2/generation_history/"
@@ -143,9 +143,9 @@ Next action: Run apply only if all checks are true.
   "browserRoutingAffected": true,
   "rollbackMethod": "Revert the apply commit or delete uk_energy_tracking_v6_2/generation_history/ if the backup mirror is not required.",
   "executiveSummary": "Creates an inactive frozen backup mirror of the current Generation History V6 app under /uk_energy_tracking_v6_2/generation_history/ and replaces the old homepage development row with a red BACKUP label.",
-  "humanReviewStatus": "audit required before apply",
-  "nextAction": "Run apply only if all checks are true.",
-  "applied": false,
+  "humanReviewStatus": "backup mirror applied, verify mirror page, homepage backup label and main V6 unchanged",
+  "nextAction": "Open the mirror route, confirm inactive banner, confirm red BACKUP label on homepage and verify the main V6 route still works.",
+  "applied": true,
   "pass": true
 }
 ```

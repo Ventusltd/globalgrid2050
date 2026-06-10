@@ -18,9 +18,6 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
   #generation-history-panel .generation-source-warning{margin:12px 0 0;padding:12px 14px;border:1px solid rgba(255,64,64,.72);border-radius:8px;background:rgba(80,0,0,.18);color:#ff5555;font-size:12px;line-height:1.55;letter-spacing:.06em;text-transform:uppercase;}
   #generation-history-panel .generation-source-warning strong{color:#ff3333;}
   #generation-history-panel .generation-source-warning a{color:#ff7777;text-decoration:underline;font-weight:bold;}
-  #generation-history-panel .backup-warning{margin:0 0 14px;padding:12px 14px;border:1px solid rgba(255,196,0,.65);border-radius:10px;background:rgba(120,80,0,.18);color:#ffd24a;font-size:12px;line-height:1.55;letter-spacing:.07em;text-transform:uppercase;}
-  #generation-history-panel .backup-warning strong{display:block;color:#ffe071;margin-bottom:6px;letter-spacing:.12em;}
-  #generation-history-panel .backup-warning a{color:#ffe071;text-decoration:underline;font-weight:bold;}
   #generation-history-panel .price-history-actions select,
   #generation-history-panel .price-history-actions input{min-height:38px;max-width:100%;}
   #generation-history-panel .mwh-panel{margin-bottom:18px;padding:14px;border:1px solid rgba(0,255,255,.30);border-radius:10px;background:rgba(0,255,255,.035);}
@@ -60,22 +57,48 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
     #generation-history-panel .mwh-row{grid-template-columns:90px 1fr 76px;font-size:11px;}
     #generation-history-panel .mwh-card.wide{grid-column:auto;}
   }
+
+  #generation-history-panel .solar-daily-mwh-panel{margin:18px 0 20px;padding:16px;border:1px solid rgba(0,255,255,.34);border-radius:12px;background:rgba(0,255,255,.04);}
+  #generation-history-panel .solar-daily-mwh-panel.standalone{box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
+  #generation-history-panel .solar-daily-mwh-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0 12px;color:#9aa3b6;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+  #generation-history-panel .solar-daily-mwh-controls strong{color:#00ffff;letter-spacing:.12em;}
+  #generation-history-panel .solar-daily-mwh-controls label{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  #generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{min-height:38px;background:#05070c;color:#00ffff;border:1px solid #252b36;border-radius:6px;padding:6px;max-width:100%;}
+  #generation-history-panel #solar-daily-mwh-canvas{height:min(76dvh,760px)!important;min-height:560px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:8px;}
+  @media(max-width:850px){#generation-history-panel .solar-daily-mwh-controls{align-items:stretch;}#generation-history-panel .solar-daily-mwh-controls label{width:100%;justify-content:space-between;}#generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{flex:1;min-width:0;}#generation-history-panel #solar-daily-mwh-canvas{height:70dvh!important;min-height:560px!important;}}
+
+  #generation-history-panel .solar-daily-mwh-fullscreen-btn{border:1px solid #00ffff;border-radius:9px;padding:8px 11px;background:#051014;color:#00ffff;font-family:Courier New,Courier,monospace;font-weight:bold;cursor:pointer;}
+  .solar-mwh-fullscreen-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:none;padding:10px;}
+  .solar-mwh-fullscreen-overlay.open{display:block;}
+  .solar-mwh-fullscreen-shell{height:100%;display:flex;flex-direction:column;border:1px solid rgba(0,255,255,.45);border-radius:12px;background:#05070c;box-shadow:0 0 30px rgba(0,255,255,.16);overflow:hidden;}
+  .solar-mwh-fullscreen-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px;border-bottom:1px solid rgba(0,255,255,.24);color:#9aa3b6;font-family:Courier New,Courier,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+  .solar-mwh-fullscreen-toolbar strong{color:#00ffff;letter-spacing:.12em;}
+  .solar-mwh-fullscreen-toolbar select,.solar-mwh-fullscreen-toolbar button{background:#05070c;color:#00ffff;border:1px solid #252b36;border-radius:7px;min-height:36px;padding:6px;font-family:Courier New,Courier,monospace;}
+  #solar-daily-mwh-fullscreen-close{margin-left:auto;font-size:22px;line-height:1;padding:3px 10px;border-color:#ff5555;color:#ff5555;}
+  #solar-daily-mwh-fullscreen-canvas{flex:1;width:100%;height:100%;min-height:420px;background:#05070c;display:block;touch-action:none;}
+  .solar-mwh-fullscreen-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10000;border:1px solid rgba(0,255,255,.5);background:rgba(5,7,12,.72);color:#00ffff;border-radius:999px;width:42px;height:42px;font-size:30px;line-height:1;}
+  .solar-mwh-fullscreen-arrow-left{left:18px;}
+  .solar-mwh-fullscreen-arrow-right{right:18px;}
+  .solar-mwh-fullscreen-smallprint{border-top:1px solid rgba(0,255,255,.18);padding:9px 12px;color:#9aa3b6;font-family:Courier New,Courier,monospace;font-size:11px;line-height:1.45;letter-spacing:.04em;text-transform:uppercase;}
+  .solar-mwh-inspect-controls{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0 0;font-family:Courier New,Courier,monospace;}
+  .solar-mwh-inspect-button{border:1px solid #00ffff;border-radius:10px;padding:9px 12px;color:#00ffff;background:#051014;font-family:Courier New,Courier,monospace;font-weight:bold;cursor:pointer;}
+  .solar-mwh-inspect-readout{flex:1;min-width:260px;color:#00ff88;border:1px solid rgba(0,255,255,.25);border-radius:10px;padding:9px 11px;background:#080b10;line-height:1.35;}
+  @media(max-width:700px){.solar-mwh-inspect-controls[style]{display:grid!important;grid-template-columns:1fr 1fr;align-items:stretch}.solar-mwh-inspect-readout{grid-column:1 / 3;min-width:0}.solar-mwh-inspect-button{width:100%;text-align:center}.solar-mwh-fullscreen-toolbar{align-items:stretch}.solar-mwh-fullscreen-toolbar label{width:100%;}.solar-mwh-fullscreen-toolbar select{width:100%;}#solar-daily-mwh-fullscreen-close{margin-left:0;}}
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
   <header class="scada-hero">
-    <div class="scada-subtitle">GLOBALGRID2050 · GENERATION HISTORY V6 2 BACKUP MIRROR</div>
-    <h1 class="scada-title">GB Generation History by Technology Backup</h1>
+    <div class="scada-subtitle">GLOBALGRID2050 · INACTIVE V6 2 BACKUP MIRROR</div>
+    <h1 class="scada-title">GB Generation History by Technology</h1>
     <div class="scada-title-rule"></div>
   </header>
 
-  <p class="scada-intro"><strong>Backup mirror.</strong> This page is a preserved comparison and fallback copy of the original V6 Generation History graph. Active work continues on <a href="/uk_energy_tracking_v6/generation_history/">the original V6 page</a>.</p>
+  <p class="scada-intro"><strong>Separate module.</strong> Recent views show short term generation movement. Historic views use settled Elexon FUELHH daily MW facts where available.</p>
 
   <section id="generation-history-panel">
-    <h2 class="section-title">Generation History Backup Mirror</h2>
+    <h2 class="section-title">Generation History</h2>
     <div class="trend-panel">
-      <div class="backup-warning"><strong>Backup mirror, not primary working page</strong> Use this route as a fallback and comparison copy only. The primary working graph is <a href="/uk_energy_tracking_v6/generation_history/">/uk_energy_tracking_v6/generation_history/</a>. Do not make new Solar or FUELHH wiring changes here first.</div>
-      <div class="generation-study-summary"><strong>Deep study summary</strong> This MW chart is the operating pulse. Recent views use 30 minute generation movement for grid behaviour and balancing studies. Historic views use settled FUELHH transmission metered data for non solar fuels. Solar needs a separate output layer, most likely PV Live, while the <a href="/uk_renewables_pipeline/dashboard.html">Solar Pipeline</a> gives grid scale project and capacity intelligence. Full study: <a href="/uk_energy_tracking_v6_2/generation_history/deep_studies/2026-06-09-fuelhh-solar-mw-integration.md">FUELHH Solar MW Integration</a>.</div>
+      <div class="generation-study-summary"><strong>Deep study summary</strong> This MW chart is the operating pulse. Recent views use 30 minute generation movement for grid behaviour and balancing studies. Historic views use settled FUELHH transmission metered data for non solar fuels. Solar uses a separate Sheffield Solar PVLive output layer, while the <a href="/uk_renewables_pipeline/dashboard.html">Solar Pipeline</a> gives grid scale project and capacity intelligence. Full study: <a href="/uk_energy_tracking_v6_2/generation_history/deep_studies/2026-06-09-fuelhh-solar-mw-integration.md">FUELHH Solar MW Integration</a>.</div>
       <div class="mwh-panel">
         <div class="mwh-controls"><strong>Generation output in MWh</strong><label>Technology <select id="generation-mwh-technology"></select></label></div>
         <div id="generation-mwh-status" class="mwh-status">Loading aggregate files.</div>
@@ -84,6 +107,21 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
           <div class="mwh-card" id="generation-mwh-monthly"></div>
           <div class="mwh-card" id="generation-mwh-daynight"></div>
         </div>
+      </div>
+
+
+      <div class="solar-daily-mwh-panel standalone" id="solar-daily-mwh-panel">
+        <div class="generation-study-summary"><strong>Solar daily energy output</strong> Standalone daily energy chart using stored Sheffield Solar PVLive MWh. This shows energy generated across each full day, not peak MW. Other technologies will be added only after their daily MWh data is separately fetched or audited.</div>
+        <div class="solar-daily-mwh-controls">
+          <strong>Daily MWh chart</strong>
+          <button type="button" id="solar-daily-mwh-fullscreen-btn" class="solar-daily-mwh-fullscreen-btn">Full screen chart</button>
+          <label>Technology <select id="solar-daily-mwh-technology"><option value="Solar" selected>Solar</option></select></label>
+          <label>Year <select id="solar-daily-mwh-year"></select></label>
+          <label>Start <input type="date" id="solar-daily-mwh-start"></label>
+          <label>Period <select id="solar-daily-mwh-period"><option value="30d">1 month</option><option value="3m">3 months</option><option value="6m">6 months</option><option value="12m" selected>12 months</option><option value="5y">5 years</option><option value="10y">10 years</option><option value="all">Full PVLive file</option></select></label>
+        </div>
+        <div id="solar-daily-mwh-status" class="price-history-range-status">Solar daily MWh chart awaiting PVLive data.</div>
+        <canvas id="solar-daily-mwh-canvas" width="1200" height="760"></canvas>
       </div>
 
       <details class="price-history-discovery" open>
@@ -99,7 +137,9 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
         </div>
         <div id="generation-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
         <canvas id="generation-history-canvas" width="900" height="720"></canvas>
-        <div class="generation-source-warning"><strong>Source transparency:</strong> Historic MW generation uses Elexon FUELHH transmission-metered generation. It excludes most embedded distribution generation. Historic solar from this source is not national solar output and may show no records. Recent short-term views remain for grid behaviour. For grid-scale solar capacity and project intelligence, use the <a href="/uk_renewables_pipeline/dashboard.html">GlobalGrid2050 solar pipeline</a>, currently showing 52,866 MW across 2,667 projects above 1 MW. Embedded or national solar output will be added as a separate layer.</div>
+
+
+        <div class="generation-source-warning"><strong>Source transparency:</strong> Historic MW generation uses Elexon FUELHH transmission-metered generation for non solar technologies. It excludes most embedded distribution generation. Solar output is routed through a separate Sheffield Solar PVLive candidate layer, solar.sheffield.ac.uk, and is stamped as a PVLive embedded estimate. For grid-scale solar capacity and project intelligence, use the <a href="/uk_renewables_pipeline/dashboard.html">GlobalGrid2050 solar pipeline</a>, currently showing 52,866 MW across 2,667 projects above 1 MW.</div>
       </details>
 
       <div class="ons-generation-placeholder" id="ons-generation-placeholder">
@@ -115,10 +155,34 @@ permalink: /uk_energy_tracking_v6_2/generation_history/
   </section>
 </div>
 
-<script src="/uk_energy_tracking_v6_2/generation_history/live-config.js?v=20260609backup1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_mwh_aggregates.js?v=20260609backup1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js?v=20260609backup1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js?v=20260609backup1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_history_data.js?v=20260609backup1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js?v=20260609backup1"></script>
-<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_history.js?v=20260609backup1"></script>
+<div id="solar-daily-mwh-fullscreen-overlay" class="solar-mwh-fullscreen-overlay" aria-hidden="true">
+  <div class="solar-mwh-fullscreen-shell">
+    <div class="solar-mwh-fullscreen-toolbar">
+      <strong>Solar Daily MWh · PVLive stored energy</strong>
+      <label>Period <select id="solar-daily-mwh-fullscreen-period-select"><option value="30d">1 month</option><option value="3m">3 months</option><option value="6m">6 months</option><option value="12m" selected>12 months</option><option value="5y">5 years</option><option value="10y">10 years</option><option value="all">Full PVLive file</option></select></label>
+      <span id="solar-daily-mwh-fullscreen-meta">Selected range will appear here.</span>
+      <button type="button" id="solar-daily-mwh-fullscreen-close" aria-label="Close">x</button>
+    </div>
+    <button type="button" id="solar-daily-mwh-fullscreen-period-back" class="solar-mwh-fullscreen-arrow solar-mwh-fullscreen-arrow-left" aria-label="Previous period">‹</button>
+    <button type="button" id="solar-daily-mwh-fullscreen-period-forward" class="solar-mwh-fullscreen-arrow solar-mwh-fullscreen-arrow-right" aria-label="Next period">›</button>
+    <canvas id="solar-daily-mwh-fullscreen-canvas"></canvas>
+    <section class="solar-mwh-fullscreen-smallprint" aria-label="Solar daily MWh explainer">
+      <strong>Source:</strong> Sheffield Solar PVLive stored daily MWh. This chart shows daily energy, not MW peak power. Other technologies remain disabled until separate MWh data audits are complete.
+    </section>
+  </div>
+</div>
+
+<script src="/uk_energy_tracking_v6_2/generation_history/live-config.js?v=20260610solarui1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_mwh_aggregates.js?v=20260610solarui1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js?v=20260610solarui1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js?v=20260610solarui1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/load_generation_history_data.js?v=20260610solarui1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/control_generation_history.js?v=20260610solarui1"></script>
+
+<script src="/uk_energy_tracking_v6_2/generation_history/render_solar_daily_mwh_chart.js?v=20260610solarmwh4"></script>
+<script src="/uk_energy_tracking_v6_2/generation_history/control_solar_daily_mwh_chart.js?v=20260610solarmwh2"></script>
+
+<div class="backup-mirror-banner" style="border:1px solid #f5c518;background:#151103;color:#f5c518;padding:12px;margin:12px 0;font-family:Courier New,Courier,monospace;font-size:13px;line-height:1.45;">
+<strong>Inactive backup mirror.</strong> This page is a frozen mirror of the Generation History V6 module for restore and comparison use. It is not the live development target and must not be automatically updated.
+</div>

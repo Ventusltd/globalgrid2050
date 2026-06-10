@@ -184,7 +184,7 @@
       topSand.setAttribute('height', 0);
       bottomSand.setAttribute('y', BOT_Y);
       bottomSand.setAttribute('height', BOT_H);
-      const totalDays = Math.floor((target - start) / 86400000);
+      const totalDays = Math.floor((target - counterStart) / 86400000);
       fallenDisplay.textContent = totalDays.toLocaleString() + ' days fallen';
       return;
     }

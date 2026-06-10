@@ -1,0 +1,48 @@
+manifestVersion: 1
+manifestId: 002_solar_daily_mwh_standalone
+title: Solar Daily MWh Standalone Chart Upgrade
+owner: Ventus Ltd
+createdUTC: 2026-06-10T00:00:00Z
+mode: audit_first
+summary: >
+  Lift the proven Solar daily MWh chart out of the existing MW generation chart section and convert it into a standalone daily energy module with its own Solar-only controls. This keeps Solar on stored Sheffield Solar PVLive rows[].mwh only and prevents Elexon derived MWh from entering the deployment path before a separate proof audit.
+principles:
+  - Audit before apply.
+  - Preserve the existing MW generation chart.
+  - Preserve the existing aggregate MWh panel.
+  - Solar daily MWh uses stored Sheffield Solar PVLive mwh only.
+  - No Elexon derived MWh logic in this feature.
+  - Other technologies are future phases after separate data proof.
+  - Markdown and JSON audit reports are mandatory.
+plannedFiles:
+  - uk_energy_tracking_v6/generation_history/index.md
+  - uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js
+  - uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js
+  - data_science_protocol/audit_reports/SOLAR_DAILY_MWH_STANDALONE_LATEST.md
+  - data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_STANDALONE_LATEST.json
+phases:
+  - id: inspect_current_state
+    title: Inspect current nested Solar daily MWh implementation
+    enabled: true
+    applyByDefault: false
+    description: Confirm the chart currently exists, is nested inside the MW details block and still uses Solar stored MWh.
+  - id: patch_index_standalone_panel
+    title: Move panel into standalone position
+    enabled: true
+    applyByDefault: true
+    description: Remove nested panel from the MW details block and insert a new standalone panel after aggregate MWh and before the MW chart section.
+  - id: patch_controller_independent_controls
+    title: Give Solar daily MWh independent controls
+    enabled: true
+    applyByDefault: true
+    description: Replace dependency on generation-history controls with Solar daily MWh specific controls for technology, year, start and period.
+  - id: patch_renderer_mobile_readability
+    title: Improve mobile and desktop readability
+    enabled: true
+    applyByDefault: true
+    description: Keep the renderer Solar-only while making chart title, callout and summary more legible inside a larger standalone canvas.
+  - id: audit_data_discipline
+    title: Confirm data discipline
+    enabled: true
+    applyByDefault: false
+    description: Confirm stored PVLive MWh rows exist, peak daily Solar MWh is found, and no Elexon derived MWh logic is present.

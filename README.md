@@ -9,6 +9,26 @@ Before modifying this repository, read:
 
 `AI_START_HERE.md`
 
+## Audit first GridBot doctrine
+
+Before running any apply mode workflow, read:
+
+`data_science_protocol/AUDIT_PROCESS_AND_REPORTING_REQUIREMENTS.md`
+
+Use the report templates in:
+
+`data_science_protocol/templates/`
+
+GridBot workflow, script and manifest requirements are documented in:
+
+`.github/workflows/README_GRIDBOT_AUDIT_WORKFLOWS.md`
+
+`scripts/README_GRIDBOT_AUDIT_REQUIREMENTS.md`
+
+`gridbot_manifests/AUDIT_MANIFEST_REQUIREMENTS.md`
+
+Rule: audit first, human review second, apply third, live verification fourth.
+
 GlobalGrid2050 uses a controlled GridBot deployment method. AI should create small feature manifests and scripts, while workflows are manually triggered and validated by Vikram.
 
 ## Repository size governance

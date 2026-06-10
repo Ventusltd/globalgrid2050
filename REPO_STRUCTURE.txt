@@ -1649,6 +1649,7 @@
 │   │   │   └── GENERATION_RECENT_MW_SLICE.md
 │   │   ├── control_generation_history.js
 │   │   ├── control_generation_mwh_aggregates.js
+│   │   ├── control_solar_daily_mwh_chart.js
 │   │   ├── deep_studies
 │   │   │   └── 2026-06-09-fuelhh-solar-mw-integration.md
 │   │   ├── generation_annual_mwh_by_technology.json
@@ -1775,4 +1776,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1555 files
+221 directories, 1556 files

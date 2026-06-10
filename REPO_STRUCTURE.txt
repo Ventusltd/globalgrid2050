@@ -295,6 +295,7 @@
 │       ├── texas_ercot_winter_failures.html
 │       └── texas_ercot_winter_failures.md
 ├── data_science_protocol
+│   ├── AUDIT_PROCESS_AND_REPORTING_REQUIREMENTS.md
 │   ├── DATA_SCIENCE_DISCIPLINE_CHANGELOG.md
 │   ├── DATA_SCIENCE_LOGIC_VENTUS.md
 │   ├── DATA_SCIENCE_NEXT_UPGRADE_IMPLEMENTATION_PLAN.md
@@ -416,9 +417,12 @@
 │   │   │   ├── SOLAR_PEAK_INTEGRITY_LATEST.json
 │   │   │   └── repo_size_guard_20260608T131955Z.json
 │   │   └── repo_size_guard_20260608T131955Z.md
-│   └── manifest_designs
-│       ├── 004_fuelhh_generation_heartbeat_mvp.md
-│       └── 005_generation_ui_extension_contract.md
+│   ├── manifest_designs
+│   │   ├── 004_fuelhh_generation_heartbeat_mvp.md
+│   │   └── 005_generation_ui_extension_contract.md
+│   └── templates
+│       ├── AUDIT_REPORT_TEMPLATE.json
+│       └── AUDIT_REPORT_TEMPLATE.md
 ├── datacentres.geojson
 ├── dc_cables_knowledge
 │   └── index.md
@@ -577,7 +581,8 @@
 │   ├── 001_generation_data_discipline.yml
 │   ├── 002_solar_daily_mwh_standalone.yml
 │   ├── 010_generation_history_solar_ui.yml
-│   └── 011_generation_history_solar_recent.yml
+│   ├── 011_generation_history_solar_recent.yml
+│   └── AUDIT_MANIFEST_REQUIREMENTS.md
 ├── gridbot_reports
 │   ├── add_v3_homepage_link.md
 │   ├── add_v6_v7_all_apps_a4_print_formatting.md
@@ -974,6 +979,7 @@
 │   └── ventusv8.css
 ├── repository_size_history.csv
 ├── scripts
+│   ├── README_GRIDBOT_AUDIT_REQUIREMENTS.md
 │   ├── add_v3_homepage_link.py
 │   ├── add_v4_detailed_disclaimer.py
 │   ├── add_v6_v7_all_apps_a4_print_formatting.py
@@ -1805,4 +1811,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1585 files
+222 directories, 1590 files

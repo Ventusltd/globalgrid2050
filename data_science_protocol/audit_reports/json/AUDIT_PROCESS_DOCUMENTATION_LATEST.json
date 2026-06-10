@@ -1,15 +1,15 @@
 {
   "reportTitle": "Audit Process Documentation",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-10T21:03:44Z",
+  "generatedUTC": "2026-06-10T21:19:18Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "c35241d6",
-  "gitHeadAfter": "c35241d6",
+  "gitHeadBefore": "8469ac3b",
+  "gitHeadAfter": "8469ac3b",
   "workflowName": "GridBot Audit Process Documentation",
   "scriptName": "scripts/gridbot_document_audit_process.py",
   "upgradeType": "audit doctrine documentation",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [],
   "sourceWindows": [],
   "inputFiles": [
@@ -81,8 +81,8 @@
   "browserRoutingAffected": false,
   "rollbackMethod": "Revert the documentation apply commit. This workflow does not touch live app files.",
   "executiveSummary": "Documents the GlobalGrid2050 audit first, apply second discipline and standardises reporting requirements before and after apply.",
-  "humanReviewStatus": "audit required before apply",
-  "nextAction": "Run apply only if all checks are true.",
-  "applied": false,
+  "humanReviewStatus": "documentation applied, review doctrine files",
+  "nextAction": "Review the generated doctrine files and use them as the standard for future GridBot workflows.",
+  "applied": true,
   "pass": true
 }

@@ -1,0 +1,32 @@
+{
+  "reportTitle": "<Feature Title>",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "<YYYY-MM-DDTHH:MM:SSZ>",
+  "repository": "Ventusltd/globalgrid2050",
+  "branch": "main",
+  "gitHeadBefore": "<short sha>",
+  "gitHeadAfter": "<short sha>",
+  "workflowName": "<workflow name>",
+  "scriptName": "<script path>",
+  "upgradeType": "<type>",
+  "mode": "audit or apply",
+  "sourceApis": [],
+  "sourceWindows": [],
+  "inputFiles": [],
+  "outputFiles": [],
+  "changedFiles": [],
+  "addedFiles": [],
+  "deletedFiles": [],
+  "checks": {},
+  "rawTemporaryFilesFound": {
+    "hits": [],
+    "hitCount": 0
+  },
+  "browserRoutingAffected": false,
+  "rollbackMethod": "<revert commit or restore branch>",
+  "executiveSummary": "<summary>",
+  "humanReviewStatus": "audit required before apply",
+  "nextAction": "Run apply only if all checks are true.",
+  "applied": false,
+  "pass": false
+}

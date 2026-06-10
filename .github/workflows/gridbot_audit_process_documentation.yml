@@ -1,0 +1,77 @@
+name: GridBot Audit Process Documentation
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit audit reports and documentation changes
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-audit-process-documentation
+  cancel-in-progress: false
+
+jobs:
+  document-audit-process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run audit
+        if: ${{ github.event.inputs.mode == 'audit' }}
+        run: python scripts/gridbot_document_audit_process.py
+
+      - name: Run apply
+        if: ${{ github.event.inputs.mode == 'apply' }}
+        run: python scripts/gridbot_document_audit_process.py --apply
+
+      - name: Upload audit process documentation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-process-documentation-report-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/AUDIT_PROCESS_DOCUMENTATION_LATEST.md
+            data_science_protocol/audit_reports/json/AUDIT_PROCESS_DOCUMENTATION_LATEST.json
+
+      - name: Commit reports and documentation
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_document_audit_process.py
+          git add .github/workflows/gridbot_audit_process_documentation.yml
+          git add data_science_protocol/AUDIT_PROCESS_AND_REPORTING_REQUIREMENTS.md
+          git add data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.md
+          git add data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.json
+          git add gridbot_manifests/AUDIT_MANIFEST_REQUIREMENTS.md
+          git add .github/workflows/README_GRIDBOT_AUDIT_WORKFLOWS.md
+          git add scripts/README_GRIDBOT_AUDIT_REQUIREMENTS.md
+          git add data_science_protocol/audit_reports/AUDIT_PROCESS_DOCUMENTATION_LATEST.md
+          git add data_science_protocol/audit_reports/json/AUDIT_PROCESS_DOCUMENTATION_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: audit process documentation ${{ github.event.inputs.mode }}"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

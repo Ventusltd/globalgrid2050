@@ -3,21 +3,21 @@
 ```json
 {
   "mode": "apply",
-  "startMonth": "2019-06",
-  "endMonth": "2019-06",
+  "startMonth": "2019-07",
+  "endMonth": "2019-07",
   "monthsAttempted": [
-    "2019-06"
+    "2019-07"
   ],
   "monthsFetched": [
-    "2019-06"
+    "2019-07"
   ],
   "failures": [],
-  "rowsAfterMerge": 1307,
-  "candidateBytes": 399840,
-  "browserBytes": 399838,
-  "candidateSha256": "f1483e5b05a1e372c2f7c861f308ba8b5a4f6e8ca22bd593ec1b280985c897c7",
-  "browserSha256": "2dbad74f90679cbd07d6d5290aa0472ce1cd8b4113b0b77d7dd94d4ebfedd5dc",
-  "lastUrl": "https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2019-06-01T00%3A00%3A00Z&end=2019-06-30T23%3A59%3A00Z",
+  "rowsAfterMerge": 1338,
+  "candidateBytes": 409409,
+  "browserBytes": 409407,
+  "candidateSha256": "138bc0443d856dd4aba2f199775a59668e3b9f95d7062cbb74ae607c8bce778b",
+  "browserSha256": "932fd46f3bbf0c9698fddce19b91ff76b3811c2f8d9fd2f19d1c15dcdf120c41",
+  "lastUrl": "https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2019-07-01T00%3A00%3A00Z&end=2019-07-31T23%3A59%3A00Z",
   "applied": true,
   "pass": true
 }

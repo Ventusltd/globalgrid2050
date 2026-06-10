@@ -1,0 +1,89 @@
+name: GridBot Generation History V6 2 Backup Mirror
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit reports and backup mirror changes
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-generation-history-v6-2-backup-mirror
+  cancel-in-progress: false
+
+jobs:
+  backup-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run audit
+        if: ${{ github.event.inputs.mode == 'audit' }}
+        run: python scripts/gridbot_generation_history_v6_2_backup_mirror.py
+
+      - name: Run apply
+        if: ${{ github.event.inputs.mode == 'apply' }}
+        run: python scripts/gridbot_generation_history_v6_2_backup_mirror.py --apply
+
+      - name: Upload backup mirror report
+        uses: actions/upload-artifact@v4
+        with:
+          name: generation-history-v6-2-backup-mirror-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.md
+            data_science_protocol/audit_reports/json/GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.json
+
+      - name: Commit audit report only
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'audit' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_generation_history_v6_2_backup_mirror.py
+          git add .github/workflows/gridbot_generation_history_v6_2_backup_mirror.yml
+          git add data_science_protocol/audit_reports/GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.md
+          git add data_science_protocol/audit_reports/json/GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: generation history v6 2 backup mirror audit"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Commit backup mirror and apply report
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'apply' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_generation_history_v6_2_backup_mirror.py
+          git add .github/workflows/gridbot_generation_history_v6_2_backup_mirror.yml
+          git add uk_energy_tracking_v6_2/generation_history
+          git add data_science_protocol/audit_reports/GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.md
+          git add data_science_protocol/audit_reports/json/GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: generation history v6 2 backup mirror apply"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

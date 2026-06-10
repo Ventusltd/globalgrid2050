@@ -64,8 +64,8 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel .solar-daily-mwh-controls strong{color:#00ffff;letter-spacing:.12em;}
   #generation-history-panel .solar-daily-mwh-controls label{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
   #generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{min-height:38px;background:#05070c;color:#00ffff;border:1px solid #252b36;border-radius:6px;padding:6px;max-width:100%;}
-  #generation-history-panel #solar-daily-mwh-canvas{height:min(82dvh,760px)!important;min-height:640px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:8px;}
-  @media(max-width:850px){#generation-history-panel .solar-daily-mwh-controls{align-items:stretch;}#generation-history-panel .solar-daily-mwh-controls label{width:100%;justify-content:space-between;}#generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{flex:1;min-width:0;}#generation-history-panel #solar-daily-mwh-canvas{height:76dvh!important;min-height:620px!important;}}
+  #generation-history-panel #solar-daily-mwh-canvas{height:min(76dvh,760px)!important;min-height:560px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:8px;}
+  @media(max-width:850px){#generation-history-panel .solar-daily-mwh-controls{align-items:stretch;}#generation-history-panel .solar-daily-mwh-controls label{width:100%;justify-content:space-between;}#generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{flex:1;min-width:0;}#generation-history-panel #solar-daily-mwh-canvas{height:70dvh!important;min-height:560px!important;}}
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
@@ -144,5 +144,5 @@ permalink: /uk_energy_tracking_v6/generation_history/
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>
 
-<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260610solarmwh2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260610solarmwh3"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js?v=20260610solarmwh2"></script>

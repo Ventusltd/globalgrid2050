@@ -1,15 +1,15 @@
 Title: Solar Daily MWh Readability Upgrade
-Generated UTC: 2026-06-10T18:18:58Z
+Generated UTC: 2026-06-10T18:33:24Z
 Repository: Ventusltd/globalgrid2050
 Branch: main
-Git head before: 7cb517fa
-Git head after: 7cb517fa
+Git head before: f4a43d85
+Git head after: f4a43d85
 Workflow: GridBot Solar Daily MWh Readability Upgrade
 Script: scripts/gridbot_solar_daily_mwh_readability_upgrade.py
 Upgrade type: UI chart readability and high low annotation
 Executive summary: Resizes the standalone Solar daily MWh chart to match the main generation chart better and adds bounded high and low daily MWh annotations.
-Human review status: audit required before apply
-Next action: Run apply only if all checks are true.
+Human review status: apply completed, verify live page after Jekyll deploy
+Next action: Verify high and low callouts on mobile and desktop.
 
 # Solar Daily MWh Readability Upgrade
 
@@ -17,15 +17,15 @@ Next action: Run apply only if all checks are true.
 {
   "reportTitle": "Solar Daily MWh Readability Upgrade",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-10T18:18:58Z",
+  "generatedUTC": "2026-06-10T18:33:24Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "7cb517fa",
-  "gitHeadAfter": "7cb517fa",
+  "gitHeadBefore": "f4a43d85",
+  "gitHeadAfter": "f4a43d85",
   "workflowName": "GridBot Solar Daily MWh Readability Upgrade",
   "scriptName": "scripts/gridbot_solar_daily_mwh_readability_upgrade.py",
   "upgradeType": "UI chart readability and high low annotation",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [
     "Sheffield Solar PVLive stored browser file only"
   ],
@@ -99,9 +99,9 @@ Next action: Run apply only if all checks are true.
   "browserRoutingAffected": true,
   "rollbackMethod": "Revert the apply commit for this readability upgrade.",
   "executiveSummary": "Resizes the standalone Solar daily MWh chart to match the main generation chart better and adds bounded high and low daily MWh annotations.",
-  "humanReviewStatus": "audit required before apply",
-  "nextAction": "Run apply only if all checks are true.",
-  "applied": false,
+  "humanReviewStatus": "apply completed, verify live page after Jekyll deploy",
+  "nextAction": "Verify high and low callouts on mobile and desktop.",
+  "applied": true,
   "pass": true
 }
 ```

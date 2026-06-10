@@ -1,15 +1,15 @@
 {
   "reportTitle": "Solar Daily MWh Readability Upgrade",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-10T18:18:58Z",
+  "generatedUTC": "2026-06-10T18:33:24Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "7cb517fa",
-  "gitHeadAfter": "7cb517fa",
+  "gitHeadBefore": "f4a43d85",
+  "gitHeadAfter": "f4a43d85",
   "workflowName": "GridBot Solar Daily MWh Readability Upgrade",
   "scriptName": "scripts/gridbot_solar_daily_mwh_readability_upgrade.py",
   "upgradeType": "UI chart readability and high low annotation",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [
     "Sheffield Solar PVLive stored browser file only"
   ],
@@ -83,8 +83,8 @@
   "browserRoutingAffected": true,
   "rollbackMethod": "Revert the apply commit for this readability upgrade.",
   "executiveSummary": "Resizes the standalone Solar daily MWh chart to match the main generation chart better and adds bounded high and low daily MWh annotations.",
-  "humanReviewStatus": "audit required before apply",
-  "nextAction": "Run apply only if all checks are true.",
-  "applied": false,
+  "humanReviewStatus": "apply completed, verify live page after Jekyll deploy",
+  "nextAction": "Verify high and low callouts on mobile and desktop.",
+  "applied": true,
   "pass": true
 }

@@ -1,0 +1,72 @@
+name: GridBot Solar Daily MWh Chart Upgrade
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Audit first, apply after review
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit audit report and applied index update
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-solar-daily-mwh-chart-upgrade
+  cancel-in-progress: false
+
+jobs:
+  solar-daily-mwh-chart-upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Audit Solar daily MWh chart upgrade
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/gridbot_solar_daily_mwh_index_upgrade.py
+
+      - name: Apply Solar daily MWh chart upgrade
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/gridbot_solar_daily_mwh_index_upgrade.py --apply
+
+      - name: Upload Solar daily MWh chart upgrade report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: solar-daily-mwh-chart-upgrade-report
+          path: |
+            data_science_protocol/audit_reports/SOLAR_DAILY_MWH_CHART_UPGRADE_LATEST.md
+            data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_CHART_UPGRADE_LATEST.json
+
+      - name: Commit Solar daily MWh chart upgrade outputs
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add uk_energy_tracking_v6/generation_history/index.md || true
+          git add data_science_protocol/audit_reports/SOLAR_DAILY_MWH_CHART_UPGRADE_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_CHART_UPGRADE_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar daily MWh chart upgrade outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: solar daily mwh chart upgrade ${{ github.event.inputs.mode }}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

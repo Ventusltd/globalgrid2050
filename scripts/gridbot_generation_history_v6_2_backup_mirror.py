@@ -11,10 +11,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / 'uk_energy_tracking_v6' / 'generation_history'
 DST = ROOT / 'uk_energy_tracking_v6_2' / 'generation_history'
+HOME = ROOT / 'index.html'
 REPORT = ROOT / 'data_science_protocol' / 'audit_reports' / 'GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.md'
 REPORT_JSON = ROOT / 'data_science_protocol' / 'audit_reports' / 'json' / 'GENERATION_HISTORY_V6_2_BACKUP_MIRROR_LATEST.json'
 MIRROR_STATUS = DST / 'MIRROR_STATUS.md'
 TEXT_EXTS = {'.md', '.html', '.js', '.css', '.json', '.geojson', '.csv', '.txt', '.yml', '.yaml'}
+
+OLD_HOME_ROWS = [
+    '  <tr><td><a href="./uk_energy_tracking_v6_2/generation_history/">UK Generation History V6 2 Module</a> <span class="dev-status">(in development)</span></td></tr>',
+    '  <tr><td><a href="./uk_energy_tracking_v6_2/generation_history/">UK Generation History V6 2 Backup Mirror</a> <span class="dev-status">(BACKUP)</span></td></tr>',
+    '  <tr><td><a href="./uk_energy_tracking_v6_2/generation_history/">UK Generation History V6 2 Backup Mirror</a> <span class="backup-status">(BACKUP)</span></td></tr>',
+]
+
+HOME_ANCHOR_ROW = '  <tr><td><a href="./uk_energy_tracking_v6/generation_history/">UK Generation History V6 Module</a> <span class="dev-status">(in development)</span></td></tr>'
+NEW_HOME_ROW = '  <tr><td><a href="./uk_energy_tracking_v6_2/generation_history/">UK Generation History V6 2 Backup Mirror</a> <span class="dev-status">(BACKUP)</span></td></tr>'
 
 REPLACEMENTS = [
     ('/uk_energy_tracking_v6/generation_history/', '/uk_energy_tracking_v6_2/generation_history/'),
@@ -44,6 +54,16 @@ def file_list(root: Path) -> list[str]:
 
 def read(path: Path) -> str:
     return path.read_text(encoding='utf-8', errors='replace') if path.exists() else ''
+
+def patch_homepage(text: str) -> str:
+    out = text
+    for row in OLD_HOME_ROWS:
+        out = out.replace(row + '\n', '').replace(row, '')
+    if NEW_HOME_ROW in out:
+        return out
+    if HOME_ANCHOR_ROW in out:
+        return out.replace(HOME_ANCHOR_ROW, HOME_ANCHOR_ROW + '\n' + NEW_HOME_ROW, 1)
+    return out.replace('</table>', NEW_HOME_ROW + '\n</table>', 1)
 
 def copy_snapshot() -> list[str]:
     if DST.exists():
@@ -115,16 +135,24 @@ def main() -> int:
 
     source_files = file_list(SRC)
     existing_dest_files = file_list(DST)
-    would_change = sorted(set('uk_energy_tracking_v6_2/generation_history/' + f for f in source_files) | ({str(MIRROR_STATUS.relative_to(ROOT))} if source_files else set()))
+    home_before = read(HOME)
+    home_after = patch_homepage(home_before)
+    homepage_would_change = home_before != home_after
+    would_change = sorted(set('uk_energy_tracking_v6_2/generation_history/' + f for f in source_files) | ({str(MIRROR_STATUS.relative_to(ROOT))} if source_files else set()) | ({'index.html'} if homepage_would_change else set()))
 
     copied = []
     rewritten = []
+    homepage_changed = False
     if args.apply and SRC.exists():
         copied = copy_snapshot()
         rewritten = rewrite_snapshot()
         write_status(len(copied), len(rewritten))
+        if homepage_would_change:
+            HOME.write_text(home_after, encoding='utf-8')
+            homepage_changed = True
 
     after_dest_files = file_list(DST)
+    final_home = home_after if args.apply else home_after
     checks = {
         'source_folder_exists': SRC.exists(),
         'source_has_index': (SRC / 'index.md').exists(),
@@ -132,6 +160,10 @@ def main() -> int:
         'destination_path_is_v6_2': str(DST.relative_to(ROOT)) == 'uk_energy_tracking_v6_2/generation_history',
         'mirror_is_inactive_by_design': True,
         'browser_route_target_declared': True,
+        'homepage_old_v6_2_development_row_removed_after_patch': OLD_HOME_ROWS[0] not in final_home,
+        'homepage_backup_row_present_after_patch': NEW_HOME_ROW in final_home,
+        'homepage_backup_uses_red_dev_status': '<span class="dev-status">(BACKUP)</span>' in final_home,
+        'homepage_main_v6_link_preserved': HOME_ANCHOR_ROW in final_home,
         'no_main_v6_files_changed': True,
         'no_source_data_fetching': True,
         'no_automatic_update_schedule': True,
@@ -141,9 +173,12 @@ def main() -> int:
     }
     passed = all(checks.values())
 
+    changed_apply = copied + [str(MIRROR_STATUS.relative_to(ROOT))] + (['index.html'] if homepage_changed else [])
+    changed_audit = would_change[:500]
+
     payload = {
         'reportTitle': 'Generation History V6 2 Backup Mirror',
-        'schemaVersion': '1.0.0',
+        'schemaVersion': '1.1.0',
         'generatedUTC': now(),
         'repository': 'Ventusltd/globalgrid2050',
         'branch': 'main',
@@ -155,10 +190,10 @@ def main() -> int:
         'mode': 'apply' if args.apply else 'audit',
         'sourceApis': [],
         'sourceWindows': ['static repository snapshot at git head ' + git_head(False)],
-        'inputFiles': ['uk_energy_tracking_v6/generation_history/'],
-        'outputFiles': ['uk_energy_tracking_v6_2/generation_history/', str(REPORT.relative_to(ROOT)), str(REPORT_JSON.relative_to(ROOT))],
-        'changedFiles': copied + [str(MIRROR_STATUS.relative_to(ROOT))] if args.apply else would_change[:500],
-        'addedFiles': [x for x in (copied + [str(MIRROR_STATUS.relative_to(ROOT))] if args.apply else would_change) if x.replace('uk_energy_tracking_v6_2/generation_history/', '') not in existing_dest_files][:500],
+        'inputFiles': ['uk_energy_tracking_v6/generation_history/', 'index.html'],
+        'outputFiles': ['uk_energy_tracking_v6_2/generation_history/', 'index.html', str(REPORT.relative_to(ROOT)), str(REPORT_JSON.relative_to(ROOT))],
+        'changedFiles': changed_apply if args.apply else changed_audit,
+        'addedFiles': [x for x in (changed_apply if args.apply else changed_audit) if x.startswith('uk_energy_tracking_v6_2/generation_history/') and x.replace('uk_energy_tracking_v6_2/generation_history/', '') not in existing_dest_files][:500],
         'deletedFiles': [],
         'mirrorAudit': {
             'sourcePath': str(SRC.relative_to(ROOT)),
@@ -169,6 +204,9 @@ def main() -> int:
             'textFilesRewrittenAfterApply': len(rewritten),
             'mirrorStatusFile': str(MIRROR_STATUS.relative_to(ROOT)),
             'inactive': True,
+            'homepageWouldChange': homepage_would_change,
+            'homepageChangedAfterApply': homepage_changed,
+            'homepageBackupLabel': '(BACKUP)',
             'liveRoute': '/uk_energy_tracking_v6/generation_history/',
             'mirrorRoute': '/uk_energy_tracking_v6_2/generation_history/'
         },
@@ -176,9 +214,9 @@ def main() -> int:
         'rawTemporaryFilesFound': {'hits': [], 'hitCount': 0},
         'browserRoutingAffected': True,
         'rollbackMethod': 'Revert the apply commit or delete uk_energy_tracking_v6_2/generation_history/ if the backup mirror is not required.',
-        'executiveSummary': 'Creates an inactive frozen backup mirror of the current Generation History V6 app under /uk_energy_tracking_v6_2/generation_history/ for restore and comparison use only.',
-        'humanReviewStatus': 'audit required before apply' if not args.apply else 'backup mirror applied, verify mirror page and confirm main V6 unchanged',
-        'nextAction': 'Run apply only if all checks are true.' if not args.apply else 'Open the mirror route, confirm inactive banner and verify the main V6 route still works.',
+        'executiveSummary': 'Creates an inactive frozen backup mirror of the current Generation History V6 app under /uk_energy_tracking_v6_2/generation_history/ and replaces the old homepage development row with a red BACKUP label.',
+        'humanReviewStatus': 'audit required before apply' if not args.apply else 'backup mirror applied, verify mirror page, homepage backup label and main V6 unchanged',
+        'nextAction': 'Run apply only if all checks are true.' if not args.apply else 'Open the mirror route, confirm inactive banner, confirm red BACKUP label on homepage and verify the main V6 route still works.',
         'applied': bool(args.apply and passed),
         'pass': passed
     }

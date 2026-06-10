@@ -319,6 +319,7 @@
 │   │   ├── FUELHH_BACKFILL_20260610T045212Z.md
 │   │   ├── FUELHH_BACKFILL_20260610T103613Z.md
 │   │   ├── FUELHH_BACKFILL_20260610T161128Z.md
+│   │   ├── FUELHH_BACKFILL_20260610T184436Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
@@ -330,6 +331,7 @@
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T045221Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T103622Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T161136Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260610T184444Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.md
@@ -371,6 +373,7 @@
 │   │   │   ├── FUELHH_BACKFILL_20260610T045212Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260610T103613Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260610T161128Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260610T184436Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
@@ -382,6 +385,7 @@
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T045221Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T103622Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T161136Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T184444Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.json
@@ -1066,6 +1070,7 @@
 │   ├── gridbot_modularise_employers_requirements.py
 │   ├── gridbot_replace_modular_note_with_summary.py
 │   ├── gridbot_solar_daily_mwh_index_upgrade.py
+│   ├── gridbot_solar_daily_mwh_interaction_upgrade.py
 │   ├── gridbot_solar_daily_mwh_readability_upgrade.py
 │   ├── gridbot_solar_daily_mwh_standalone_upgrade.py
 │   ├── gridbot_solar_historic_backfill.py
@@ -1795,4 +1800,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1575 files
+221 directories, 1580 files

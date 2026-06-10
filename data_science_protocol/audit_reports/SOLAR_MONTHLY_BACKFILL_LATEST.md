@@ -1,0 +1,24 @@
+# Solar Monthly Backfill Report
+
+```json
+{
+  "mode": "apply",
+  "startMonth": "2016-01",
+  "endMonth": "2016-01",
+  "monthsAttempted": [
+    "2016-01"
+  ],
+  "monthsFetched": [
+    "2016-01"
+  ],
+  "failures": [],
+  "rowsAfterMerge": 61,
+  "candidateBytes": 16015,
+  "browserBytes": 16013,
+  "candidateSha256": "df6732c087bad17573bd6d671c89c91428c3db4d79436c14abb12a68772936d7",
+  "browserSha256": "653a15a0f0cfaa3ef3bbc398247cf31952f79750934efb2a8b44852a25750e4e",
+  "lastUrl": "https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2016-01-01T00%3A00%3A00Z&end=2016-01-31T23%3A59%3A00Z",
+  "applied": true,
+  "pass": true
+}
+```

@@ -9,8 +9,8 @@ Current focus is to validate solar and UI then fetch other data sources for othe
 
 The objective is a single Atlas V8-compatible layer set that shows, per primary and grid substation, the three numbers that decide whether a connection is viable: thermal/firm capacity headroom (spare MW under normal and N-1 conditions), fault level headroom (the gap between existing short-circuit current and switchgear rating, which often kills inverter-heavy projects before MW does), and demand vs generation headroom direction. The method follows existing doctrine: first a study phase reading each DNO’s published sources — Embedded Capacity Registers, network capacity heat maps and Long Term Development Statements from UKPN, NGED, SSEN, SPEN, NPg and ENWL — documenting exact field names, units and licence terms in a markdown source register before any code; then one Python ingestion script per DNO (starting with a single DNO, likely UKPN as the data is cleanest) converting registers to a common GeoJSON schema keyed by substation name and coordinates; then one new map layer at a time into Atlas V8 using the proven layer-loading pattern, rendered as a heat map gradient (green = headroom, red = constrained) with a popup showing the raw figures, source and publication date; each step shipped via a dedicated GridBot workflow, browser-tested before the next. Education and lead generation are the outputs — every popup teaches what fault level headroom means in one sentence, and the layer becomes the page a developer screenshots when asking VENTUS where their project can actually connect. Confidentiality risk is nil by construction: only DNO-published datasets are ingested, attributed and dated, with no connection-offer or customer data ever included.
 
-
-#Claude AI feedback
+ 
+# Claude AI
 # Build Next
 
 Status: active planning file

@@ -1050,6 +1050,7 @@
 │   ├── gridbot_solar_historic_backfill.py
 │   ├── gridbot_solar_immediate_data.py
 │   ├── gridbot_solar_monthly_backfill.py
+│   ├── gridbot_solar_peak_integrity_audit.py
 │   ├── gridbot_v3_diary_preflight.py
 │   ├── inspect_data_science_discipline.py
 │   ├── isolate_uk_energy_tracking_v2.py
@@ -1771,4 +1772,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1551 files
+221 directories, 1552 files

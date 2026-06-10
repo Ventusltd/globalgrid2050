@@ -303,6 +303,7 @@
 │   ├── MASS_UPGRADE_AUDIT_PROTOCOL.md
 │   ├── THE_DATA_SPINE.md
 │   ├── audit_reports
+│   │   ├── AUDIT_PROCESS_DOCUMENTATION_LATEST.md
 │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.md
 │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.md
 │   │   ├── DATA_SPINE_STAMP_LATEST.md
@@ -358,6 +359,7 @@
 │   │   ├── SOLAR_MONTHLY_BACKFILL_LATEST.md
 │   │   ├── SOLAR_PEAK_INTEGRITY_LATEST.md
 │   │   ├── json
+│   │   │   ├── AUDIT_PROCESS_DOCUMENTATION_LATEST.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
 │   │   │   ├── DATA_SPINE_STAMP_LATEST.json
@@ -1803,4 +1805,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1583 files
+221 directories, 1585 files

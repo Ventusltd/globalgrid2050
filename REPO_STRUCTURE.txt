@@ -70,6 +70,7 @@
 │   │   ├── generation_daily_candidate.json
 │   │   ├── generation_daily_mw_spine_fuelhh_candidate.json
 │   │   ├── generation_monthly_candidate.json
+│   │   ├── pvlive_solar_daily_BACKFILL_PROGRESS.json
 │   │   └── pvlive_solar_daily_candidate.json
 │   ├── electricity
 │   │   ├── elexon_system_prices_2016.csv
@@ -341,6 +342,7 @@
 │   │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.md
 │   │   ├── REPO_SIZE_GUARD_LATEST.md
 │   │   ├── SOLAR_IMMEDIATE_DATA_LATEST.md
+│   │   ├── SOLAR_MONTHLY_BACKFILL_LATEST.md
 │   │   ├── json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
@@ -382,6 +384,7 @@
 │   │   │   ├── GRIDBOT_MEGA_UPGRADE_LATEST.json
 │   │   │   ├── REPO_SIZE_GUARD_LATEST.json
 │   │   │   ├── SOLAR_IMMEDIATE_DATA_LATEST.json
+│   │   │   ├── SOLAR_MONTHLY_BACKFILL_LATEST.json
 │   │   │   └── repo_size_guard_20260608T131955Z.json
 │   │   └── repo_size_guard_20260608T131955Z.md
 │   └── manifest_designs
@@ -1763,4 +1766,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1543 files
+221 directories, 1546 files

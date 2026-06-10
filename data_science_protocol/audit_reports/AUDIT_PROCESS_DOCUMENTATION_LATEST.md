@@ -1,15 +1,15 @@
 Title: Audit Process Documentation
-Generated UTC: 2026-06-10T21:19:18Z
+Generated UTC: 2026-06-10T21:39:03Z
 Repository: Ventusltd/globalgrid2050
 Branch: main
-Git head before: 8469ac3b
-Git head after: 8469ac3b
+Git head before: 32527530
+Git head after: 32527530
 Workflow: GridBot Audit Process Documentation
 Script: scripts/gridbot_document_audit_process.py
 Upgrade type: audit doctrine documentation
 Executive summary: Documents the GlobalGrid2050 audit first, apply second discipline and standardises reporting requirements before and after apply.
-Human review status: documentation applied, review doctrine files
-Next action: Review the generated doctrine files and use them as the standard for future GridBot workflows.
+Human review status: audit required before apply
+Next action: Run apply only if all checks are true.
 
 # Audit Process Documentation Report
 
@@ -17,15 +17,15 @@ Next action: Review the generated doctrine files and use them as the standard fo
 {
   "reportTitle": "Audit Process Documentation",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-10T21:19:18Z",
+  "generatedUTC": "2026-06-10T21:39:03Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "8469ac3b",
-  "gitHeadAfter": "8469ac3b",
+  "gitHeadBefore": "32527530",
+  "gitHeadAfter": "32527530",
   "workflowName": "GridBot Audit Process Documentation",
   "scriptName": "scripts/gridbot_document_audit_process.py",
   "upgradeType": "audit doctrine documentation",
-  "mode": "apply",
+  "mode": "audit",
   "sourceApis": [],
   "sourceWindows": [],
   "inputFiles": [
@@ -41,32 +41,11 @@ Next action: Review the generated doctrine files and use them as the standard fo
     "data_science_protocol/audit_reports/AUDIT_PROCESS_DOCUMENTATION_LATEST.md",
     "data_science_protocol/audit_reports/json/AUDIT_PROCESS_DOCUMENTATION_LATEST.json"
   ],
-  "changedFiles": [
-    "data_science_protocol/AUDIT_PROCESS_AND_REPORTING_REQUIREMENTS.md",
-    "data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.md",
-    "data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.json",
-    "gridbot_manifests/AUDIT_MANIFEST_REQUIREMENTS.md",
-    ".github/workflows/README_GRIDBOT_AUDIT_WORKFLOWS.md",
-    "scripts/README_GRIDBOT_AUDIT_REQUIREMENTS.md"
-  ],
-  "addedFiles": [
-    "data_science_protocol/AUDIT_PROCESS_AND_REPORTING_REQUIREMENTS.md",
-    "data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.md",
-    "data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.json",
-    "gridbot_manifests/AUDIT_MANIFEST_REQUIREMENTS.md",
-    ".github/workflows/README_GRIDBOT_AUDIT_WORKFLOWS.md",
-    "scripts/README_GRIDBOT_AUDIT_REQUIREMENTS.md"
-  ],
+  "changedFiles": [],
+  "addedFiles": [],
   "deletedFiles": [],
   "documentationAudit": {
-    "missingBeforeRun": [
-      "data_science_protocol/AUDIT_PROCESS_AND_REPORTING_REQUIREMENTS.md",
-      "data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.md",
-      "data_science_protocol/templates/AUDIT_REPORT_TEMPLATE.json",
-      "gridbot_manifests/AUDIT_MANIFEST_REQUIREMENTS.md",
-      ".github/workflows/README_GRIDBOT_AUDIT_WORKFLOWS.md",
-      "scripts/README_GRIDBOT_AUDIT_REQUIREMENTS.md"
-    ],
+    "missingBeforeRun": [],
     "mismatchedBeforeRun": [],
     "targetDocumentCount": 6,
     "foldersCovered": [
@@ -97,9 +76,9 @@ Next action: Review the generated doctrine files and use them as the standard fo
   "browserRoutingAffected": false,
   "rollbackMethod": "Revert the documentation apply commit. This workflow does not touch live app files.",
   "executiveSummary": "Documents the GlobalGrid2050 audit first, apply second discipline and standardises reporting requirements before and after apply.",
-  "humanReviewStatus": "documentation applied, review doctrine files",
-  "nextAction": "Review the generated doctrine files and use them as the standard for future GridBot workflows.",
-  "applied": true,
+  "humanReviewStatus": "audit required before apply",
+  "nextAction": "Run apply only if all checks are true.",
+  "applied": false,
   "pass": true
 }
 ```

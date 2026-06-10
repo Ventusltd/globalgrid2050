@@ -69,13 +69,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .fallen {
-    opacity: 0.75;
-    font-size: clamp(0.85rem, 3.5vmin, 1rem);
-    letter-spacing: 0.08em;
-    margin-top: 0.5em;
-    font-variant-numeric: tabular-nums;
-  }
 
   /* Falling sand stream animation */
   .stream-dash {
@@ -140,7 +133,6 @@
 
   <div>
     <div class="countdown-value" id="countdownValue"></div>
-    <div class="fallen" id="fallenDisplay"></div>
   </div>
 
 </div>
@@ -149,7 +141,6 @@
   const timeDisplay = document.getElementById('timeDisplay');
   const dateDisplay = document.getElementById('dateDisplay');
   const countdownValue = document.getElementById('countdownValue');
-  const fallenDisplay = document.getElementById('fallenDisplay');
   const todayCountdown = document.getElementById('todayCountdown');
   const topSand = document.getElementById('topSand');
   const bottomSand = document.getElementById('bottomSand');
@@ -159,8 +150,6 @@
   // Top bulb is 100% at midnight and drains to 0% at 23:59:59.999;
   // the bottom fills in step. The 2050 countdown line is unaffected.
   const target = new Date(2050, 0, 1, 0, 0, 0);
-  // The fallen-days counter starts from 10 June 2026.
-  const counterStart = new Date(2026, 5, 10, 0, 0, 0);
 
   const TOP_Y = 30, TOP_H = 122;      // top sand area (full bulb)
   const BOT_Y = 168, BOT_H = 122;     // bottom sand area
@@ -184,8 +173,6 @@
       topSand.setAttribute('height', 0);
       bottomSand.setAttribute('y', BOT_Y);
       bottomSand.setAttribute('height', BOT_H);
-      const totalDays = Math.floor((target - counterStart) / 86400000);
-      fallenDisplay.textContent = totalDays.toLocaleString() + ' days fallen';
       return;
     }
     const days = Math.floor(diff / 86400000);
@@ -226,13 +213,6 @@
     const botH = BOT_H * frac;
     bottomSand.setAttribute('y', BOT_Y + (BOT_H - botH));
     bottomSand.setAttribute('height', botH);
-
-    // Days fallen into the bottom half since 10 June 2026.
-    // Stays hidden until at least one full day has fallen.
-    const fallenDays = Math.max(0, Math.floor((now - counterStart) / 86400000));
-    fallenDisplay.textContent = fallenDays > 0
-      ? fallenDays.toLocaleString() + ' day' + (fallenDays === 1 ? '' : 's') + ' fallen'
-      : '';
   }
 
   update();

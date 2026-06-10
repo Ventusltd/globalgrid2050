@@ -1,0 +1,106 @@
+{
+  "reportTitle": "Solar Daily MWh Standalone Chart Upgrade",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-10T16:08:03Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "branch": "main",
+  "gitHeadBefore": "db4b0feb",
+  "gitHeadAfter": "db4b0feb",
+  "workflowName": "GridBot Solar Daily MWh Standalone Upgrade",
+  "scriptName": "scripts/gridbot_solar_daily_mwh_standalone_upgrade.py",
+  "upgradeType": "UI source routing and standalone chart layout",
+  "mode": "audit",
+  "sourceApis": [
+    "Sheffield Solar PVLive stored browser file only"
+  ],
+  "sourceWindows": [
+    "2016-01 to latest stored PVLive row"
+  ],
+  "inputFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json"
+  ],
+  "outputFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
+    "data_science_protocol/audit_reports/SOLAR_DAILY_MWH_STANDALONE_LATEST.md",
+    "data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_STANDALONE_LATEST.json"
+  ],
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js"
+  ],
+  "addedFiles": [],
+  "deletedFiles": [],
+  "solarAudit": {
+    "path": "uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json",
+    "exists": true,
+    "rowCount": 3812,
+    "mwhRowsAvailable": 3804,
+    "mwhRowsMissingOrInvalid": 8,
+    "peakDailyMwh": {
+      "date": "2026-04-30",
+      "mwh": 128075.198,
+      "highMW": 16009.6,
+      "averageMW": 5336.467,
+      "source": "Sheffield Solar PVLive",
+      "sourceAttribution": "Sheffield Solar PVLive, solar.sheffield.ac.uk",
+      "methodState": "PVLIVE EMBEDDED ESTIMATE"
+    }
+  },
+  "layoutPositionsAfterPatch": {
+    "mwhPanel": 10051,
+    "standalonePanel": 10599,
+    "mwDetails": 11960,
+    "mwCanvas": 13290,
+    "sourceWarning": 13371,
+    "nestedOldPanel": -1
+  },
+  "checks": {
+    "index_exists": true,
+    "controller_exists": true,
+    "renderer_exists": true,
+    "solar_data_exists": true,
+    "solar_data_has_stored_mwh": true,
+    "solar_peak_mwh_found": true,
+    "standalone_panel_present_after_patch": true,
+    "standalone_panel_before_mw_details": true,
+    "old_nested_panel_removed": true,
+    "mw_chart_canvas_preserved": true,
+    "aggregate_mwh_panel_preserved": true,
+    "source_warning_preserved": true,
+    "independent_control_ids_present": true,
+    "controller_uses_independent_controls": true,
+    "controller_not_bound_to_mw_controls": true,
+    "no_elexon_derived_mwh_logic": true,
+    "mobile_canvas_height_increased": true,
+    "script_refs_preserved": true
+  },
+  "rawTemporaryFilesFound": {
+    "patterns": [
+      "data/raw/",
+      "data/transient/",
+      "/tmp/",
+      "raw_api",
+      "raw_elexon",
+      "fuelinst_raw",
+      "fuelhh_raw",
+      "backfill_tmp",
+      "archive_full",
+      "master_halfhourly"
+    ],
+    "hits": [],
+    "hitCount": 0
+  },
+  "browserRoutingAffected": true,
+  "rollbackMethod": "Revert the apply commit or rerun the previous Solar daily MWh chart upgrade commit d4b5242 if a rollback is required.",
+  "executiveSummary": "Moves the proven Solar daily MWh chart into a standalone module with independent Solar-only controls, larger mobile canvas and no Elexon derived MWh logic.",
+  "humanReviewStatus": "audit required before apply",
+  "nextAction": "Run apply only if all checks are true.",
+  "applied": false,
+  "pass": true
+}

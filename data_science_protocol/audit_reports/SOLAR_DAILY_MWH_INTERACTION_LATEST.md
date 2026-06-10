@@ -1,0 +1,99 @@
+Title: Solar Daily MWh Interaction Upgrade
+Generated UTC: 2026-06-10T20:34:04Z
+Repository: Ventusltd/globalgrid2050
+Branch: main
+Git head before: a5c688c8
+Git head after: a5c688c8
+Workflow: GridBot Solar Daily MWh Interaction Upgrade
+Script: scripts/gridbot_solar_daily_mwh_interaction_upgrade.py
+Upgrade type: UI interaction and fullscreen chart mode
+Executive summary: Adds optional touch and click inspection, a movable dotted selection line, selected point controls and fullscreen Solar daily MWh chart mode without changing data or adding non Solar technologies.
+Human review status: audit required before apply
+Next action: Run apply only if all checks are true.
+
+# Solar Daily MWh Interaction Upgrade
+
+```json
+{
+  "reportTitle": "Solar Daily MWh Interaction Upgrade",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-10T20:34:04Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "branch": "main",
+  "gitHeadBefore": "a5c688c8",
+  "gitHeadAfter": "a5c688c8",
+  "workflowName": "GridBot Solar Daily MWh Interaction Upgrade",
+  "scriptName": "scripts/gridbot_solar_daily_mwh_interaction_upgrade.py",
+  "upgradeType": "UI interaction and fullscreen chart mode",
+  "mode": "audit",
+  "sourceApis": [
+    "Sheffield Solar PVLive stored browser file only"
+  ],
+  "sourceWindows": [
+    "2016-01 to latest stored PVLive row"
+  ],
+  "inputFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json"
+  ],
+  "outputFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
+    "data_science_protocol/audit_reports/SOLAR_DAILY_MWH_INTERACTION_LATEST.md",
+    "data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_INTERACTION_LATEST.json"
+  ],
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js"
+  ],
+  "addedFiles": [],
+  "deletedFiles": [],
+  "solarAudit": {
+    "path": "uk_energy_tracking_v6/generation_history/pvlive_solar_daily_browser.json",
+    "exists": true,
+    "rowCount": 3812,
+    "mwhRowsAvailable": 3804
+  },
+  "checks": {
+    "index_exists": true,
+    "control_exists": true,
+    "renderer_exists": true,
+    "restore_branch_expected_name": "restore/2026-06-10-1833-solar-mwh-readable-stable",
+    "fullscreen_button_present": true,
+    "fullscreen_overlay_present": true,
+    "fullscreen_canvas_present": true,
+    "fullscreen_close_present": true,
+    "fullscreen_period_selector_present": true,
+    "fullscreen_arrows_present": true,
+    "renderer_exports_redraw_fullscreen": true,
+    "renderer_has_inspect_state": true,
+    "renderer_draws_dotted_inspect_line": true,
+    "renderer_uses_nearest_point": true,
+    "renderer_inspection_off_until_user_moves": true,
+    "controller_binds_fullscreen": true,
+    "controller_binds_fullscreen_period": true,
+    "controller_binds_fullscreen_arrows": true,
+    "cache_buster_incremented": true,
+    "standalone_panel_preserved": true,
+    "mw_chart_preserved": true,
+    "price_chart_untouched": true,
+    "no_data_files_changed": true,
+    "no_elexon_derived_mwh_logic": true
+  },
+  "rawTemporaryFilesFound": {
+    "hits": [],
+    "hitCount": 0
+  },
+  "browserRoutingAffected": true,
+  "rollbackMethod": "Restore branch available: restore/2026-06-10-1833-solar-mwh-readable-stable. Revert the apply commit if this interaction upgrade misbehaves.",
+  "executiveSummary": "Adds optional touch and click inspection, a movable dotted selection line, selected point controls and fullscreen Solar daily MWh chart mode without changing data or adding non Solar technologies.",
+  "humanReviewStatus": "audit required before apply",
+  "nextAction": "Run apply only if all checks are true.",
+  "applied": false,
+  "pass": true
+}
+```

@@ -345,6 +345,7 @@
 │   │   ├── REPO_SIZE_GUARD_LATEST.md
 │   │   ├── SOLAR_IMMEDIATE_DATA_LATEST.md
 │   │   ├── SOLAR_MONTHLY_BACKFILL_LATEST.md
+│   │   ├── SOLAR_PEAK_INTEGRITY_LATEST.md
 │   │   ├── json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
@@ -389,6 +390,7 @@
 │   │   │   ├── REPO_SIZE_GUARD_LATEST.json
 │   │   │   ├── SOLAR_IMMEDIATE_DATA_LATEST.json
 │   │   │   ├── SOLAR_MONTHLY_BACKFILL_LATEST.json
+│   │   │   ├── SOLAR_PEAK_INTEGRITY_LATEST.json
 │   │   │   └── repo_size_guard_20260608T131955Z.json
 │   │   └── repo_size_guard_20260608T131955Z.md
 │   └── manifest_designs
@@ -1669,7 +1671,8 @@
 │   │   ├── pvlive_solar_daily_browser.json
 │   │   ├── pvlive_solar_recent_30d_30min_browser.json
 │   │   ├── render_generation_history_chart.js
-│   │   └── render_generation_mwh_aggregates.js
+│   │   ├── render_generation_mwh_aggregates.js
+│   │   └── render_solar_daily_mwh_chart.js
 │   ├── grid_frequency_history.csv
 │   ├── grid_frequency_weekly_health.csv
 │   ├── index.md
@@ -1772,4 +1775,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-221 directories, 1552 files
+221 directories, 1555 files

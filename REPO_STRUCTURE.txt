@@ -322,6 +322,7 @@
 │   │   ├── FUELHH_BACKFILL_20260610T103613Z.md
 │   │   ├── FUELHH_BACKFILL_20260610T161128Z.md
 │   │   ├── FUELHH_BACKFILL_20260610T184436Z.md
+│   │   ├── FUELHH_BACKFILL_20260610T222141Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
@@ -334,6 +335,7 @@
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T103622Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T161136Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T184444Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260610T222149Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.md
@@ -379,6 +381,7 @@
 │   │   │   ├── FUELHH_BACKFILL_20260610T103613Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260610T161128Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260610T184436Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260610T222141Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
@@ -391,6 +394,7 @@
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T103622Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T161136Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T184444Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T222149Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T204120Z.json
@@ -1753,7 +1757,10 @@
 │       ├── GENERATION_DATA_COVERAGE_AUDIT.md
 │       ├── GENERATION_HISTORY_DATA_REPORT.md
 │       ├── GENERATION_HISTORY_DEVELOPMENT_COMPARISON_LOG.md
+│       ├── MIRROR_STATUS.md
 │       ├── PVLIVE_SOLAR_HISTORY_REPORT.md
+│       ├── THREAD_CATCHUP_LOG_20260609.md
+│       ├── V6_V6_2_COMPARISON_AND_BACKUP_STATUS.md
 │       ├── backfill_reports
 │       │   ├── GENERATION_AGGREGATE_BACKFILL_2016.md
 │       │   ├── GENERATION_AGGREGATE_BACKFILL_2017.md
@@ -1768,10 +1775,12 @@
 │       │   ├── GENERATION_AGGREGATE_BACKFILL_2026.md
 │       │   ├── GENERATION_HISTORY_BACKFILL_2021.md
 │       │   ├── GENERATION_HISTORY_BACKFILL_2022.md
+│       │   ├── GENERATION_HISTORY_BACKFILL_2023.md
 │       │   ├── GENERATION_HISTORY_BACKFILL_2026.md
 │       │   └── GENERATION_RECENT_MW_SLICE.md
 │       ├── control_generation_history.js
 │       ├── control_generation_mwh_aggregates.js
+│       ├── control_solar_daily_mwh_chart.js
 │       ├── deep_studies
 │       │   └── 2026-06-09-fuelhh-solar-mw-integration.md
 │       ├── generation_annual_mwh_by_technology.json
@@ -1791,8 +1800,11 @@
 │       ├── mwh_energy_use
 │       │   ├── index.md
 │       │   └── ons_mwh_energy_use_placeholder.json
+│       ├── pvlive_solar_daily_browser.json
+│       ├── pvlive_solar_recent_30d_30min_browser.json
 │       ├── render_generation_history_chart.js
-│       └── render_generation_mwh_aggregates.js
+│       ├── render_generation_mwh_aggregates.js
+│       └── render_solar_daily_mwh_chart.js
 ├── uk_grid-batteries.md
 ├── uk_macro_energy_trends.md
 ├── uk_mainline_railways.geojson
@@ -1814,4 +1826,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-222 directories, 1593 files
+222 directories, 1605 files

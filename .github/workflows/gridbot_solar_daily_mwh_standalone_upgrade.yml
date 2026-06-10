@@ -1,0 +1,79 @@
+name: GridBot Solar Daily MWh Standalone Upgrade
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Audit first, apply after review
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit audit report and applied outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-solar-daily-mwh-standalone-upgrade
+  cancel-in-progress: false
+
+jobs:
+  solar-daily-mwh-standalone-upgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Audit Solar daily MWh standalone upgrade
+        if: github.event.inputs.mode == 'audit'
+        run: python scripts/gridbot_solar_daily_mwh_standalone_upgrade.py
+
+      - name: Apply Solar daily MWh standalone upgrade
+        if: github.event.inputs.mode == 'apply'
+        run: python scripts/gridbot_solar_daily_mwh_standalone_upgrade.py --apply
+
+      - name: Upload Solar daily MWh standalone report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: solar-daily-mwh-standalone-upgrade-report
+          path: |
+            data_science_protocol/audit_reports/SOLAR_DAILY_MWH_STANDALONE_LATEST.md
+            data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_STANDALONE_LATEST.json
+
+      - name: Commit Solar daily MWh standalone outputs
+        if: github.event.inputs.commit_reports == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global user.name "Gridbot"
+          git config --global user.email "gridbot@globalgrid2050.com"
+          git add gridbot_manifests/002_solar_daily_mwh_standalone.yml || true
+          git add scripts/gridbot_solar_daily_mwh_standalone_upgrade.py || true
+          git add .github/workflows/gridbot_solar_daily_mwh_standalone_upgrade.yml || true
+          git add uk_energy_tracking_v6/generation_history/index.md || true
+          git add uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js || true
+          git add uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js || true
+          git add data_science_protocol/audit_reports/SOLAR_DAILY_MWH_STANDALONE_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/SOLAR_DAILY_MWH_STANDALONE_LATEST.json || true
+          if git diff --cached --quiet; then
+            echo "No Solar daily MWh standalone outputs to commit"
+            exit 0
+          fi
+          git commit -m "gridbot: solar daily mwh standalone upgrade ${{ github.event.inputs.mode }}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

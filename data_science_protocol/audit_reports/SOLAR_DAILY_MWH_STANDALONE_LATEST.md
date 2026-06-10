@@ -1,15 +1,15 @@
 Title: Solar Daily MWh Standalone Chart Upgrade
-Generated UTC: 2026-06-10T16:08:03Z
+Generated UTC: 2026-06-10T16:31:02Z
 Repository: Ventusltd/globalgrid2050
 Branch: main
-Git head before: db4b0feb
-Git head after: db4b0feb
+Git head before: 1f0f856f
+Git head after: 1f0f856f
 Workflow: GridBot Solar Daily MWh Standalone Upgrade
 Script: scripts/gridbot_solar_daily_mwh_standalone_upgrade.py
 Upgrade type: UI source routing and standalone chart layout
 Executive summary: Moves the proven Solar daily MWh chart into a standalone module with independent Solar-only controls, larger mobile canvas and no Elexon derived MWh logic.
-Human review status: audit required before apply
-Next action: Run apply only if all checks are true.
+Human review status: apply completed, verify live page after Jekyll deploy
+Next action: Verify live page, then later create separate MWh proof audits for non Solar technologies.
 
 # Solar Daily MWh Standalone Chart Upgrade
 
@@ -17,15 +17,15 @@ Next action: Run apply only if all checks are true.
 {
   "reportTitle": "Solar Daily MWh Standalone Chart Upgrade",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-10T16:08:03Z",
+  "generatedUTC": "2026-06-10T16:31:02Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "db4b0feb",
-  "gitHeadAfter": "db4b0feb",
+  "gitHeadBefore": "1f0f856f",
+  "gitHeadAfter": "1f0f856f",
   "workflowName": "GridBot Solar Daily MWh Standalone Upgrade",
   "scriptName": "scripts/gridbot_solar_daily_mwh_standalone_upgrade.py",
   "upgradeType": "UI source routing and standalone chart layout",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [
     "Sheffield Solar PVLive stored browser file only"
   ],
@@ -115,9 +115,9 @@ Next action: Run apply only if all checks are true.
   "browserRoutingAffected": true,
   "rollbackMethod": "Revert the apply commit or rerun the previous Solar daily MWh chart upgrade commit d4b5242 if a rollback is required.",
   "executiveSummary": "Moves the proven Solar daily MWh chart into a standalone module with independent Solar-only controls, larger mobile canvas and no Elexon derived MWh logic.",
-  "humanReviewStatus": "audit required before apply",
-  "nextAction": "Run apply only if all checks are true.",
-  "applied": false,
+  "humanReviewStatus": "apply completed, verify live page after Jekyll deploy",
+  "nextAction": "Verify live page, then later create separate MWh proof audits for non Solar technologies.",
+  "applied": true,
   "pass": true
 }
 ```

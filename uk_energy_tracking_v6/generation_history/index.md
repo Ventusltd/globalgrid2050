@@ -58,8 +58,14 @@ permalink: /uk_energy_tracking_v6/generation_history/
     #generation-history-panel .mwh-card.wide{grid-column:auto;}
   }
 
-  #generation-history-panel .solar-daily-mwh-panel{margin:18px 0 0;padding:14px;border:1px solid rgba(0,255,255,.30);border-radius:10px;background:rgba(0,255,255,.035);}
-  #generation-history-panel #solar-daily-mwh-canvas{height:min(58dvh,540px)!important;min-height:360px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:6px;}
+  #generation-history-panel .solar-daily-mwh-panel{margin:18px 0 20px;padding:16px;border:1px solid rgba(0,255,255,.34);border-radius:12px;background:rgba(0,255,255,.04);}
+  #generation-history-panel .solar-daily-mwh-panel.standalone{box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 22px rgba(0,255,255,.05);}
+  #generation-history-panel .solar-daily-mwh-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0 12px;color:#9aa3b6;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+  #generation-history-panel .solar-daily-mwh-controls strong{color:#00ffff;letter-spacing:.12em;}
+  #generation-history-panel .solar-daily-mwh-controls label{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  #generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{min-height:38px;background:#05070c;color:#00ffff;border:1px solid #252b36;border-radius:6px;padding:6px;max-width:100%;}
+  #generation-history-panel #solar-daily-mwh-canvas{height:min(82dvh,760px)!important;min-height:640px!important;width:100%!important;display:block;touch-action:pan-y;background:#05070c!important;border:1px solid rgba(255,255,255,.06);border-radius:8px;}
+  @media(max-width:850px){#generation-history-panel .solar-daily-mwh-controls{align-items:stretch;}#generation-history-panel .solar-daily-mwh-controls label{width:100%;justify-content:space-between;}#generation-history-panel .solar-daily-mwh-controls select,#generation-history-panel .solar-daily-mwh-controls input{flex:1;min-width:0;}#generation-history-panel #solar-daily-mwh-canvas{height:76dvh!important;min-height:620px!important;}}
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
@@ -85,6 +91,20 @@ permalink: /uk_energy_tracking_v6/generation_history/
         </div>
       </div>
 
+
+      <div class="solar-daily-mwh-panel standalone" id="solar-daily-mwh-panel">
+        <div class="generation-study-summary"><strong>Solar daily energy output</strong> Standalone daily energy chart using stored Sheffield Solar PVLive MWh. This shows energy generated across each full day, not peak MW. Other technologies will be added only after their daily MWh data is separately fetched or audited.</div>
+        <div class="solar-daily-mwh-controls">
+          <strong>Daily MWh chart</strong>
+          <label>Technology <select id="solar-daily-mwh-technology"><option value="Solar" selected>Solar</option></select></label>
+          <label>Year <select id="solar-daily-mwh-year"></select></label>
+          <label>Start <input type="date" id="solar-daily-mwh-start"></label>
+          <label>Period <select id="solar-daily-mwh-period"><option value="30d">1 month</option><option value="3m">3 months</option><option value="6m">6 months</option><option value="12m" selected>12 months</option><option value="5y">5 years</option><option value="10y">10 years</option><option value="all">Full PVLive file</option></select></label>
+        </div>
+        <div id="solar-daily-mwh-status" class="price-history-range-status">Solar daily MWh chart awaiting PVLive data.</div>
+        <canvas id="solar-daily-mwh-canvas" width="1200" height="760"></canvas>
+      </div>
+
       <details class="price-history-discovery" open>
         <summary>Generation output by technology</summary>
         <div class="price-history-actions">
@@ -99,11 +119,6 @@ permalink: /uk_energy_tracking_v6/generation_history/
         <div id="generation-history-range-status" class="price-history-range-status">Selected range will appear here.</div>
         <canvas id="generation-history-canvas" width="900" height="720"></canvas>
 
-        <div class="solar-daily-mwh-panel" id="solar-daily-mwh-panel">
-          <div class="generation-study-summary"><strong>Solar daily energy output</strong> This chart uses Sheffield Solar PVLive daily MWh to show the total Solar energy generated across each full day. The highest full day currently recorded in this dataset is 30 Apr 2026.</div>
-          <div id="solar-daily-mwh-status" class="price-history-range-status">Solar daily MWh chart awaiting Solar selection.</div>
-          <canvas id="solar-daily-mwh-canvas" width="900" height="520"></canvas>
-        </div>
 
         <div class="generation-source-warning"><strong>Source transparency:</strong> Historic MW generation uses Elexon FUELHH transmission-metered generation for non solar technologies. It excludes most embedded distribution generation. Solar output is routed through a separate Sheffield Solar PVLive candidate layer, solar.sheffield.ac.uk, and is stamped as a PVLive embedded estimate. For grid-scale solar capacity and project intelligence, use the <a href="/uk_renewables_pipeline/dashboard.html">GlobalGrid2050 solar pipeline</a>, currently showing 52,866 MW across 2,667 projects above 1 MW.</div>
       </details>

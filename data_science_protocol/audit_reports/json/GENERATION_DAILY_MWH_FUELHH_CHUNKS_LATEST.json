@@ -1,7 +1,7 @@
 {
   "reportTitle": "Generation Daily MWh FUELHH Chunks",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-11T07:08:23.154602Z",
+  "generatedUTC": "2026-06-11T07:22:14.709976Z",
   "mode": "audit",
   "startYear": 2016,
   "endYear": 2026,
@@ -767,7 +767,7 @@
   "outputRows": 33574,
   "outputSizeBytes": 9668315,
   "maxBytes": 25000000,
-  "sha256": "6851d462d521c435add99bdaec7cddf9012d5abfc9e2b970f7af96b70591409a",
+  "sha256": "eb1e43a73e90c34f05ce10aff1ff28aa902dbe7220edede224cf8cd481bb5765",
   "unit": "MWh",
   "calculationMethod": "daily MWh = sum of half hourly generationMW times 0.5 hours, grouped by UTC date and technology",
   "rawTemporaryFilesCommitted": false,

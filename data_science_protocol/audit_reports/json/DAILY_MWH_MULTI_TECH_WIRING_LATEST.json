@@ -1,8 +1,8 @@
 {
   "reportTitle": "Daily MWh Multi Technology Wiring",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-11T08:13:54.982209Z",
-  "mode": "audit",
+  "generatedUTC": "2026-06-11T08:27:36.825589Z",
+  "mode": "apply",
   "changedFiles": [
     "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
     "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
@@ -23,6 +23,6 @@
     "no_data_files_changed_by_script": true
   },
   "pass": true,
-  "applied": false,
-  "nextAction": "Run apply only after audit and human review."
+  "applied": true,
+  "nextAction": "Open Solar, Wind, Gas and Nuclear chart selections."
 }

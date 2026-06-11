@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0-fuelhh-daily-mwh-index",
+  "generatedUTC": "2026-06-11T07:24:03.749225Z",
+  "unit": "MWh",
+  "sourceNote": "Chunk index for Elexon derived daily MWh by technology. Solar PVLive is separate.",
+  "chunks": [
+    {
+      "startYear": 2016,
+      "endYear": 2026,
+      "path": "uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_2016_2026.json",
+      "rows": 33574,
+      "sizeBytes": 9668315
+    }
+  ]
+}

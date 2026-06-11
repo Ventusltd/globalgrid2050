@@ -145,6 +145,7 @@
 │   │   │       └── elexon_generation_sources_2024-12.csv
 │   │   ├── elexon_generation_sources_2025.csv
 │   │   ├── elexon_generation_sources_2026.csv
+│   │   ├── elexon_generation_sources_half_hourly.csv
 │   │   └── fuelhh_halfhourly
 │   │       ├── 2016
 │   │       │   ├── generation_fuelhh_2016_01.csv
@@ -339,6 +340,7 @@
 │   │   ├── FUELHH_BACKFILL_20260610T184436Z.md
 │   │   ├── FUELHH_BACKFILL_20260610T222141Z.md
 │   │   ├── FUELHH_BACKFILL_20260611T050134Z.md
+│   │   ├── FUELHH_BACKFILL_20260611T110027Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
@@ -353,6 +355,7 @@
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T184444Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T222149Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T050142Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260611T110036Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
@@ -403,6 +406,7 @@
 │   │   │   ├── FUELHH_BACKFILL_20260610T184436Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260610T222141Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260611T050134Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260611T110027Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
@@ -417,6 +421,7 @@
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T184444Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260610T222149Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T050142Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T110036Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
@@ -1859,4 +1864,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-225 directories, 1635 files
+225 directories, 1640 files

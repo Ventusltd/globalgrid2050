@@ -115,23 +115,36 @@
 │   │   │   │   ├── elexon_generation_sources_2022-10.csv
 │   │   │   │   ├── elexon_generation_sources_2022-11.csv
 │   │   │   │   └── elexon_generation_sources_2022-12.csv
-│   │   │   └── 2023
-│   │   │       ├── elexon_generation_sources_2022-12.csv
-│   │   │       ├── elexon_generation_sources_2023-01.csv
-│   │   │       ├── elexon_generation_sources_2023-02.csv
-│   │   │       ├── elexon_generation_sources_2023-03.csv
-│   │   │       ├── elexon_generation_sources_2023-04.csv
-│   │   │       ├── elexon_generation_sources_2023-05.csv
-│   │   │       ├── elexon_generation_sources_2023-06.csv
-│   │   │       ├── elexon_generation_sources_2023-07.csv
-│   │   │       ├── elexon_generation_sources_2023-08.csv
-│   │   │       ├── elexon_generation_sources_2023-09.csv
-│   │   │       ├── elexon_generation_sources_2023-10.csv
-│   │   │       ├── elexon_generation_sources_2023-11.csv
-│   │   │       └── elexon_generation_sources_2023-12.csv
+│   │   │   ├── 2023
+│   │   │   │   ├── elexon_generation_sources_2022-12.csv
+│   │   │   │   ├── elexon_generation_sources_2023-01.csv
+│   │   │   │   ├── elexon_generation_sources_2023-02.csv
+│   │   │   │   ├── elexon_generation_sources_2023-03.csv
+│   │   │   │   ├── elexon_generation_sources_2023-04.csv
+│   │   │   │   ├── elexon_generation_sources_2023-05.csv
+│   │   │   │   ├── elexon_generation_sources_2023-06.csv
+│   │   │   │   ├── elexon_generation_sources_2023-07.csv
+│   │   │   │   ├── elexon_generation_sources_2023-08.csv
+│   │   │   │   ├── elexon_generation_sources_2023-09.csv
+│   │   │   │   ├── elexon_generation_sources_2023-10.csv
+│   │   │   │   ├── elexon_generation_sources_2023-11.csv
+│   │   │   │   └── elexon_generation_sources_2023-12.csv
+│   │   │   └── 2024
+│   │   │       ├── elexon_generation_sources_2023-12.csv
+│   │   │       ├── elexon_generation_sources_2024-01.csv
+│   │   │       ├── elexon_generation_sources_2024-02.csv
+│   │   │       ├── elexon_generation_sources_2024-03.csv
+│   │   │       ├── elexon_generation_sources_2024-04.csv
+│   │   │       ├── elexon_generation_sources_2024-05.csv
+│   │   │       ├── elexon_generation_sources_2024-06.csv
+│   │   │       ├── elexon_generation_sources_2024-07.csv
+│   │   │       ├── elexon_generation_sources_2024-08.csv
+│   │   │       ├── elexon_generation_sources_2024-09.csv
+│   │   │       ├── elexon_generation_sources_2024-10.csv
+│   │   │       ├── elexon_generation_sources_2024-11.csv
+│   │   │       └── elexon_generation_sources_2024-12.csv
 │   │   ├── elexon_generation_sources_2025.csv
 │   │   ├── elexon_generation_sources_2026.csv
-│   │   ├── elexon_generation_sources_half_hourly.csv
 │   │   └── fuelhh_halfhourly
 │   │       ├── 2016
 │   │       │   ├── generation_fuelhh_2016_01.csv
@@ -1691,6 +1704,7 @@
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2021.md
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2022.md
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2023.md
+│   │   │   ├── GENERATION_HISTORY_BACKFILL_2024.md
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   │   └── GENERATION_RECENT_MW_SLICE.md
 │   │   ├── control_generation_history.js
@@ -1830,4 +1844,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-224 directories, 1607 files
+225 directories, 1620 files

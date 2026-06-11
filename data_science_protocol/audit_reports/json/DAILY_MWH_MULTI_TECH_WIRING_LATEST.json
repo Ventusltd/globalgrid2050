@@ -1,0 +1,28 @@
+{
+  "reportTitle": "Daily MWh Multi Technology Wiring",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-11T08:13:54.982209Z",
+  "mode": "audit",
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/index.md"
+  ],
+  "missingMarkers": [],
+  "checks": {
+    "solar_file_exists": true,
+    "elexon_daily_mwh_file_exists": true,
+    "control_wires_solar_pvlive": true,
+    "control_wires_elexon_daily_mwh": true,
+    "chart_uses_mwh": true,
+    "dropdown_populates_elexon_tech": true,
+    "source_labels_distinguish_methods": true,
+    "render_title_dynamic": true,
+    "index_cache_busters_updated": true,
+    "all_markers_found": true,
+    "no_data_files_changed_by_script": true
+  },
+  "pass": true,
+  "applied": false,
+  "nextAction": "Run apply only after audit and human review."
+}

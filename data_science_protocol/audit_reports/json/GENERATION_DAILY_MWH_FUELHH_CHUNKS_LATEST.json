@@ -1,12 +1,12 @@
 {
   "reportTitle": "Generation Daily MWh FUELHH Chunks",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-11T07:00:02.280116Z",
+  "generatedUTC": "2026-06-11T07:08:23.154602Z",
   "mode": "audit",
   "startYear": 2016,
-  "endYear": 2016,
+  "endYear": 2026,
   "sourceRoot": "data/generation/fuelhh_halfhourly",
-  "sourceFileCount": 12,
+  "sourceFileCount": 125,
   "sourceFiles": [
     {
       "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_01.csv",
@@ -79,17 +79,695 @@
       "rows": 11904,
       "parsedRows": 11904,
       "sizeBytes": 693343
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_01.csv",
+      "rows": 11888,
+      "parsedRows": 11888,
+      "sizeBytes": 692710
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_02.csv",
+      "rows": 10752,
+      "parsedRows": 10752,
+      "sizeBytes": 626859
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_03.csv",
+      "rows": 11888,
+      "parsedRows": 11888,
+      "sizeBytes": 693090
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_04.csv",
+      "rows": 11512,
+      "parsedRows": 11512,
+      "sizeBytes": 668673
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_05.csv",
+      "rows": 11904,
+      "parsedRows": 11904,
+      "sizeBytes": 691218
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_06.csv",
+      "rows": 11520,
+      "parsedRows": 11520,
+      "sizeBytes": 668502
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_07.csv",
+      "rows": 11888,
+      "parsedRows": 11888,
+      "sizeBytes": 690580
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_08.csv",
+      "rows": 11904,
+      "parsedRows": 11904,
+      "sizeBytes": 691474
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_09.csv",
+      "rows": 11520,
+      "parsedRows": 11520,
+      "sizeBytes": 669964
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_10.csv",
+      "rows": 11888,
+      "parsedRows": 11888,
+      "sizeBytes": 690265
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_11.csv",
+      "rows": 12919,
+      "parsedRows": 12919,
+      "sizeBytes": 750574
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2017/generation_fuelhh_2017_12.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 776774
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_01.csv",
+      "rows": 13356,
+      "parsedRows": 13356,
+      "sizeBytes": 773704
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_02.csv",
+      "rows": 12096,
+      "parsedRows": 12096,
+      "sizeBytes": 701767
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_03.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 776784
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_04.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 751081
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_05.csv",
+      "rows": 13365,
+      "parsedRows": 13365,
+      "sizeBytes": 773683
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_06.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 748606
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_07.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 771206
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_08.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774419
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_09.csv",
+      "rows": 12933,
+      "parsedRows": 12933,
+      "sizeBytes": 749804
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_10.csv",
+      "rows": 13383,
+      "parsedRows": 13383,
+      "sizeBytes": 775337
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_11.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 751553
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2018/generation_fuelhh_2018_12.csv",
+      "rows": 13356,
+      "parsedRows": 13356,
+      "sizeBytes": 774117
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_01.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 776103
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_02.csv",
+      "rows": 12069,
+      "parsedRows": 12069,
+      "sizeBytes": 698569
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_03.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 773645
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_04.csv",
+      "rows": 12933,
+      "parsedRows": 12933,
+      "sizeBytes": 747047
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_05.csv",
+      "rows": 13329,
+      "parsedRows": 13329,
+      "sizeBytes": 767242
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_06.csv",
+      "rows": 12942,
+      "parsedRows": 12942,
+      "sizeBytes": 747037
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_07.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 772712
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_08.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774000
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_09.csv",
+      "rows": 12933,
+      "parsedRows": 12933,
+      "sizeBytes": 747731
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_10.csv",
+      "rows": 13383,
+      "parsedRows": 13383,
+      "sizeBytes": 774929
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_11.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 752166
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2019/generation_fuelhh_2019_12.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 777444
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_01.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 778187
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_02.csv",
+      "rows": 12510,
+      "parsedRows": 12510,
+      "sizeBytes": 726607
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_03.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 774789
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_04.csv",
+      "rows": 12933,
+      "parsedRows": 12933,
+      "sizeBytes": 747016
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_05.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 772334
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_06.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 747690
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_07.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 772925
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_08.csv",
+      "rows": 13356,
+      "parsedRows": 13356,
+      "sizeBytes": 771323
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_09.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 749101
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_10.csv",
+      "rows": 13410,
+      "parsedRows": 13410,
+      "sizeBytes": 775439
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_11.csv",
+      "rows": 12924,
+      "parsedRows": 12924,
+      "sizeBytes": 748544
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2020/generation_fuelhh_2020_12.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 776633
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_01.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 777734
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_02.csv",
+      "rows": 12096,
+      "parsedRows": 12096,
+      "sizeBytes": 701814
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_03.csv",
+      "rows": 13356,
+      "parsedRows": 13356,
+      "sizeBytes": 773280
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_04.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 750131
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_05.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774768
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_06.csv",
+      "rows": 12969,
+      "parsedRows": 12969,
+      "sizeBytes": 749534
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_07.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 775228
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_08.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774648
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_09.csv",
+      "rows": 12951,
+      "parsedRows": 12951,
+      "sizeBytes": 749881
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_10.csv",
+      "rows": 13383,
+      "parsedRows": 13383,
+      "sizeBytes": 774065
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_11.csv",
+      "rows": 12924,
+      "parsedRows": 12924,
+      "sizeBytes": 749316
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2021/generation_fuelhh_2021_12.csv",
+      "rows": 13338,
+      "parsedRows": 13338,
+      "sizeBytes": 772993
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_01.csv",
+      "rows": 13338,
+      "parsedRows": 13338,
+      "sizeBytes": 773769
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_02.csv",
+      "rows": 12060,
+      "parsedRows": 12060,
+      "sizeBytes": 700421
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_03.csv",
+      "rows": 13356,
+      "parsedRows": 13356,
+      "sizeBytes": 774674
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_04.csv",
+      "rows": 12951,
+      "parsedRows": 12951,
+      "sizeBytes": 749817
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_05.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774504
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_06.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 749952
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_07.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 775649
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_08.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 775378
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_09.csv",
+      "rows": 12951,
+      "parsedRows": 12951,
+      "sizeBytes": 751849
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_10.csv",
+      "rows": 13410,
+      "parsedRows": 13410,
+      "sizeBytes": 776168
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_11.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 751546
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2022/generation_fuelhh_2022_12.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 778389
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_01.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 777517
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_02.csv",
+      "rows": 12096,
+      "parsedRows": 12096,
+      "sizeBytes": 701495
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_03.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 774009
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_04.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 748847
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_05.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 771464
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_06.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 746431
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_07.csv",
+      "rows": 13383,
+      "parsedRows": 13383,
+      "sizeBytes": 773544
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_08.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 773395
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_09.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 750043
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_10.csv",
+      "rows": 13410,
+      "parsedRows": 13410,
+      "sizeBytes": 776994
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_11.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 752308
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2023/generation_fuelhh_2023_12.csv",
+      "rows": 13383,
+      "parsedRows": 13383,
+      "sizeBytes": 775952
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_01.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 777548
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_02.csv",
+      "rows": 12528,
+      "parsedRows": 12528,
+      "sizeBytes": 726331
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_03.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 775205
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_04.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 750940
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_05.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 773995
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_06.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 748107
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_07.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774069
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_08.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 773733
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_09.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 748996
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_10.csv",
+      "rows": 13410,
+      "parsedRows": 13410,
+      "sizeBytes": 774612
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_11.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 749077
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2024/generation_fuelhh_2024_12.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774791
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_01.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 775074
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_02.csv",
+      "rows": 12096,
+      "parsedRows": 12096,
+      "sizeBytes": 699834
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_03.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 772754
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_04.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 747267
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_05.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 771960
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_06.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 747725
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_07.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 772421
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_08.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 772359
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_09.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 748358
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_10.csv",
+      "rows": 13410,
+      "parsedRows": 13410,
+      "sizeBytes": 774943
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_11.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 749811
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2025/generation_fuelhh_2025_12.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774563
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2026/generation_fuelhh_2026_01.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 774716
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2026/generation_fuelhh_2026_02.csv",
+      "rows": 12096,
+      "parsedRows": 12096,
+      "sizeBytes": 699601
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2026/generation_fuelhh_2026_03.csv",
+      "rows": 13374,
+      "parsedRows": 13374,
+      "sizeBytes": 773362
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2026/generation_fuelhh_2026_04.csv",
+      "rows": 12960,
+      "parsedRows": 12960,
+      "sizeBytes": 748891
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2026/generation_fuelhh_2026_05.csv",
+      "rows": 13392,
+      "parsedRows": 13392,
+      "sizeBytes": 773271
     }
   ],
-  "rawRows": 140432,
-  "parsedRows": 140432,
+  "rawRows": 1610151,
+  "parsedRows": 1610151,
   "skippedRows": 0,
-  "outputPath": "uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_2016.json",
+  "outputPath": "uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_2016_2026.json",
   "indexPath": "uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_index.json",
-  "outputRows": 2936,
-  "outputSizeBytes": 849094,
+  "outputRows": 33574,
+  "outputSizeBytes": 9668315,
   "maxBytes": 25000000,
-  "sha256": "9c65104a4d8da4e9e8905b5c75a58ed199f3c65491fb5ef2f90f5c1ee6fdad18",
+  "sha256": "6851d462d521c435add99bdaec7cddf9012d5abfc9e2b970f7af96b70591409a",
   "unit": "MWh",
   "calculationMethod": "daily MWh = sum of half hourly generationMW times 0.5 hours, grouped by UTC date and technology",
   "rawTemporaryFilesCommitted": false,

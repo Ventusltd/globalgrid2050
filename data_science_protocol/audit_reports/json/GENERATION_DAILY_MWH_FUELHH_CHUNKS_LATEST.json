@@ -1,0 +1,108 @@
+{
+  "reportTitle": "Generation Daily MWh FUELHH Chunks",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-11T07:00:02.280116Z",
+  "mode": "audit",
+  "startYear": 2016,
+  "endYear": 2016,
+  "sourceRoot": "data/generation/fuelhh_halfhourly",
+  "sourceFileCount": 12,
+  "sourceFiles": [
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_01.csv",
+      "rows": 11904,
+      "parsedRows": 11904,
+      "sizeBytes": 693890
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_02.csv",
+      "rows": 11120,
+      "parsedRows": 11120,
+      "sizeBytes": 648102
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_03.csv",
+      "rows": 11864,
+      "parsedRows": 11864,
+      "sizeBytes": 691398
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_04.csv",
+      "rows": 11520,
+      "parsedRows": 11520,
+      "sizeBytes": 671416
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_05.csv",
+      "rows": 11888,
+      "parsedRows": 11888,
+      "sizeBytes": 691574
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_06.csv",
+      "rows": 11520,
+      "parsedRows": 11520,
+      "sizeBytes": 669580
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_07.csv",
+      "rows": 11880,
+      "parsedRows": 11880,
+      "sizeBytes": 689690
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_08.csv",
+      "rows": 11904,
+      "parsedRows": 11904,
+      "sizeBytes": 690694
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_09.csv",
+      "rows": 11520,
+      "parsedRows": 11520,
+      "sizeBytes": 669765
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_10.csv",
+      "rows": 11904,
+      "parsedRows": 11904,
+      "sizeBytes": 692333
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_11.csv",
+      "rows": 11504,
+      "parsedRows": 11504,
+      "sizeBytes": 670044
+    },
+    {
+      "path": "data/generation/fuelhh_halfhourly/2016/generation_fuelhh_2016_12.csv",
+      "rows": 11904,
+      "parsedRows": 11904,
+      "sizeBytes": 693343
+    }
+  ],
+  "rawRows": 140432,
+  "parsedRows": 140432,
+  "skippedRows": 0,
+  "outputPath": "uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_2016.json",
+  "indexPath": "uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_index.json",
+  "outputRows": 2936,
+  "outputSizeBytes": 849094,
+  "maxBytes": 25000000,
+  "sha256": "9c65104a4d8da4e9e8905b5c75a58ed199f3c65491fb5ef2f90f5c1ee6fdad18",
+  "unit": "MWh",
+  "calculationMethod": "daily MWh = sum of half hourly generationMW times 0.5 hours, grouped by UTC date and technology",
+  "rawTemporaryFilesCommitted": false,
+  "checks": {
+    "source_files_found": true,
+    "raw_rows_positive": true,
+    "parsed_rows_positive": true,
+    "output_rows_positive": true,
+    "output_under_25mb": true,
+    "raw_halfhourly_not_written": true,
+    "solar_pvlive_not_mixed": true,
+    "formula_declared": true
+  },
+  "pass": true,
+  "applied": false
+}

@@ -111,16 +111,16 @@ permalink: /uk_energy_tracking_v6/generation_history/
 
 
       <div class="solar-daily-mwh-panel standalone" id="solar-daily-mwh-panel">
-        <div class="generation-study-summary"><strong>Solar daily energy output</strong> Standalone daily energy chart using stored Sheffield Solar PVLive MWh. This shows energy generated across each full day, not peak MW. Other technologies will be added only after their daily MWh data is separately fetched or audited.</div>
+        <div class="generation-study-summary"><strong>Daily generation energy output</strong> Standalone daily MWh chart. Solar uses stored Sheffield Solar PVLive daily MWh. Elexon technologies use audited FUELHH derived daily MWh calculated from half hourly MW values multiplied by 0.5 hours. This chart presents total energy across each full day, not peak MW or average MW.</div>
         <div class="solar-daily-mwh-controls">
-          <strong>Daily MWh chart</strong>
+          <strong>Daily energy chart</strong>
           <button type="button" id="solar-daily-mwh-fullscreen-btn" class="solar-daily-mwh-fullscreen-btn">Full screen chart</button>
           <label>Technology <select id="solar-daily-mwh-technology"><option value="Solar" selected>Solar</option></select></label>
           <label>Year <select id="solar-daily-mwh-year"></select></label>
           <label>Start <input type="date" id="solar-daily-mwh-start"></label>
           <label>Period <select id="solar-daily-mwh-period"><option value="30d">1 month</option><option value="3m">3 months</option><option value="6m">6 months</option><option value="12m" selected>12 months</option><option value="5y">5 years</option><option value="10y">10 years</option><option value="all">Full PVLive file</option></select></label>
         </div>
-        <div id="solar-daily-mwh-status" class="price-history-range-status">Solar daily MWh chart awaiting PVLive data.</div>
+        <div id="solar-daily-mwh-status" class="price-history-range-status">Daily MWh chart awaiting selected technology data.</div>
         <canvas id="solar-daily-mwh-canvas" width="1200" height="760"></canvas>
       </div>
 
@@ -158,7 +158,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
 <div id="solar-daily-mwh-fullscreen-overlay" class="solar-mwh-fullscreen-overlay" aria-hidden="true">
   <div class="solar-mwh-fullscreen-shell">
     <div class="solar-mwh-fullscreen-toolbar">
-      <strong>Solar Daily MWh · PVLive stored energy</strong>
+      <strong>Daily MWh by technology</strong>
       <label>Period <select id="solar-daily-mwh-fullscreen-period-select"><option value="30d">1 month</option><option value="3m">3 months</option><option value="6m">6 months</option><option value="12m" selected>12 months</option><option value="5y">5 years</option><option value="10y">10 years</option><option value="all">Full PVLive file</option></select></label>
       <span id="solar-daily-mwh-fullscreen-meta">Selected range will appear here.</span>
       <button type="button" id="solar-daily-mwh-fullscreen-close" aria-label="Close">x</button>
@@ -167,7 +167,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
     <button type="button" id="solar-daily-mwh-fullscreen-period-forward" class="solar-mwh-fullscreen-arrow solar-mwh-fullscreen-arrow-right" aria-label="Next period">›</button>
     <canvas id="solar-daily-mwh-fullscreen-canvas"></canvas>
     <section class="solar-mwh-fullscreen-smallprint" aria-label="Solar daily MWh explainer">
-      <strong>Source:</strong> Sheffield Solar PVLive stored daily MWh. This chart shows daily energy, not MW peak power. Other technologies remain disabled until separate MWh data audits are complete.
+      <strong>Source:</strong> Solar uses Sheffield Solar PVLive stored daily MWh. Other technologies use Elexon FUELHH derived daily MWh after chart wiring. This chart shows daily energy, not MW peak power or average MW.
     </section>
   </div>
 </div>
@@ -180,5 +180,5 @@ permalink: /uk_energy_tracking_v6/generation_history/
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>
 
-<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260610solarmwh4"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js?v=20260610solarmwh2"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260611mwhlabels1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js?v=20260611mwhlabels1"></script>

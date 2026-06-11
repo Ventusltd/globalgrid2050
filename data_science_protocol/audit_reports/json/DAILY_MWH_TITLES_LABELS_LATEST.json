@@ -1,8 +1,8 @@
 {
   "reportTitle": "Daily MWh Titles And Labels",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-11T07:54:08.214831Z",
-  "mode": "audit",
+  "generatedUTC": "2026-06-11T07:58:13.454237Z",
+  "mode": "apply",
   "targetFile": "uk_energy_tracking_v6/generation_history/index.md",
   "changedFiles": [
     "uk_energy_tracking_v6/generation_history/index.md"
@@ -11,7 +11,7 @@
   "missingCount": 0,
   "missingMarkers": [],
   "wouldChange": true,
-  "applied": false,
+  "applied": true,
   "checks": {
     "target_exists": true,
     "all_markers_found": true,
@@ -23,5 +23,5 @@
     "cache_busters_updated": true
   },
   "pass": true,
-  "nextAction": "Run apply only after human review confirms wording."
+  "nextAction": "Open live page and confirm titles and labels only changed."
 }

@@ -1,7 +1,7 @@
 # Daily MWh Titles And Labels
 
-Generated UTC: `2026-06-11T07:54:08.214831Z`
-Mode: `audit`
+Generated UTC: `2026-06-11T07:58:13.454237Z`
+Mode: `apply`
 Target file: `uk_energy_tracking_v6/generation_history/index.md`
 Changed: `True`
 Replacement count: `7`

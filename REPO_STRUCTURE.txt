@@ -1720,6 +1720,8 @@
 │   │   ├── deep_studies
 │   │   │   └── 2026-06-09-fuelhh-solar-mw-integration.md
 │   │   ├── generation_annual_mwh_by_technology.json
+│   │   ├── generation_daily_mwh_by_technology_fuelhh_2016_2026.json
+│   │   ├── generation_daily_mwh_by_technology_fuelhh_index.json
 │   │   ├── generation_data_coverage_audit.json
 │   │   ├── generation_day_night_mwh_by_technology.json
 │   │   ├── generation_ecg_all_technologies_30d_30min_candidate.json
@@ -1851,4 +1853,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-225 directories, 1627 files
+225 directories, 1629 files

@@ -1,0 +1,103 @@
+name: GridBot Generation Daily MWh FUELHH Chunks
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      start_year:
+        description: Start year for this chunk
+        required: true
+        default: '2016'
+      end_year:
+        description: End year for this chunk
+        required: true
+        default: '2016'
+      max_bytes:
+        description: Maximum output file size in bytes
+        required: true
+        default: '25000000'
+      commit_reports:
+        description: Commit reports and outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-generation-daily-mwh-fuelhh-${{ github.event.inputs.start_year }}-${{ github.event.inputs.end_year }}
+  cancel-in-progress: false
+
+jobs:
+  daily-mwh-fuelhh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Sync latest main before processing
+        run: git pull --ff-only origin main
+
+      - name: Run audit
+        if: ${{ github.event.inputs.mode == 'audit' }}
+        run: python scripts/build_generation_daily_mwh_fuelhh_chunks.py --start-year ${{ github.event.inputs.start_year }} --end-year ${{ github.event.inputs.end_year }} --max-bytes ${{ github.event.inputs.max_bytes }}
+
+      - name: Run apply
+        if: ${{ github.event.inputs.mode == 'apply' }}
+        run: python scripts/build_generation_daily_mwh_fuelhh_chunks.py --start-year ${{ github.event.inputs.start_year }} --end-year ${{ github.event.inputs.end_year }} --max-bytes ${{ github.event.inputs.max_bytes }} --apply
+
+      - name: Upload daily MWh report
+        uses: actions/upload-artifact@v4
+        with:
+          name: generation-daily-mwh-fuelhh-${{ github.event.inputs.mode }}-${{ github.event.inputs.start_year }}-${{ github.event.inputs.end_year }}
+          path: |
+            data_science_protocol/audit_reports/GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
+            data_science_protocol/audit_reports/json/GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
+
+      - name: Commit audit report only
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'audit' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/build_generation_daily_mwh_fuelhh_chunks.py
+          git add .github/workflows/gridbot_generation_daily_mwh_fuelhh_chunks.yml
+          git add data_science_protocol/audit_reports/GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
+          git add data_science_protocol/audit_reports/json/GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: generation daily mwh fuelhh audit ${{ github.event.inputs.start_year }} ${{ github.event.inputs.end_year }}"
+            git push origin HEAD:main
+          fi
+
+      - name: Commit daily MWh output and report
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'apply' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/build_generation_daily_mwh_fuelhh_chunks.py
+          git add .github/workflows/gridbot_generation_daily_mwh_fuelhh_chunks.yml
+          git add uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_*.json
+          git add uk_energy_tracking_v6/generation_history/generation_daily_mwh_by_technology_fuelhh_index.json
+          git add data_science_protocol/audit_reports/GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
+          git add data_science_protocol/audit_reports/json/GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: generation daily mwh fuelhh apply ${{ github.event.inputs.start_year }} ${{ github.event.inputs.end_year }}"
+            git push origin HEAD:main
+          fi

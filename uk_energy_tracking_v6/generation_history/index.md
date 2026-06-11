@@ -180,5 +180,5 @@ permalink: /uk_energy_tracking_v6/generation_history/
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>
 
-<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260611mwhmulti1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js?v=20260611mwhseason1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_solar_daily_mwh_chart.js?v=20260611mwhmulti1"></script>

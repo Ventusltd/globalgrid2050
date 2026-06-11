@@ -1,8 +1,8 @@
 {
   "reportTitle": "Daily MWh Seasonal Colouring",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-11T16:43:07.668622Z",
-  "mode": "audit",
+  "generatedUTC": "2026-06-11T16:48:07.894022Z",
+  "mode": "apply",
   "changedFiles": [
     "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
     "uk_energy_tracking_v6/generation_history/index.md"
@@ -22,6 +22,6 @@
     "no_data_files_changed_by_script": true
   },
   "pass": true,
-  "applied": false,
-  "nextAction": "Run apply after audit review."
+  "applied": true,
+  "nextAction": "Open Daily Generation Energy Output and confirm seasonal colours and legend."
 }

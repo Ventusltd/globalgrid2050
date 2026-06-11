@@ -1,0 +1,27 @@
+{
+  "reportTitle": "Daily MWh Seasonal Colouring",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-11T16:43:07.668622Z",
+  "mode": "audit",
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/render_solar_daily_mwh_chart.js",
+    "uk_energy_tracking_v6/generation_history/index.md"
+  ],
+  "missingMarkers": [],
+  "checks": {
+    "season_name_function_present": true,
+    "season_colour_function_present": true,
+    "season_key_present": true,
+    "season_line_present": true,
+    "fixed_single_yellow_line_removed": true,
+    "high_low_markers_preserved": true,
+    "selected_inspection_preserved": true,
+    "mwh_logic_preserved": true,
+    "cache_buster_updated": true,
+    "all_markers_found": true,
+    "no_data_files_changed_by_script": true
+  },
+  "pass": true,
+  "applied": false,
+  "nextAction": "Run apply after audit review."
+}

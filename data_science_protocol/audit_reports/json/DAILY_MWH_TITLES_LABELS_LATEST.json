@@ -1,0 +1,27 @@
+{
+  "reportTitle": "Daily MWh Titles And Labels",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-11T07:54:08.214831Z",
+  "mode": "audit",
+  "targetFile": "uk_energy_tracking_v6/generation_history/index.md",
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md"
+  ],
+  "replacementCount": 7,
+  "missingCount": 0,
+  "missingMarkers": [],
+  "wouldChange": true,
+  "applied": false,
+  "checks": {
+    "target_exists": true,
+    "all_markers_found": true,
+    "would_change_index_only": true,
+    "no_data_files_changed_by_script": true,
+    "solar_source_label_preserved": true,
+    "elexon_source_label_prepared": true,
+    "daily_energy_not_peak_or_average_label": true,
+    "cache_busters_updated": true
+  },
+  "pass": true,
+  "nextAction": "Run apply only after human review confirms wording."
+}

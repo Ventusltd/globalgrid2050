@@ -318,6 +318,7 @@
 │   ├── THE_DATA_SPINE.md
 │   ├── audit_reports
 │   │   ├── AUDIT_PROCESS_DOCUMENTATION_LATEST.md
+│   │   ├── DAILY_MWH_TITLES_LABELS_LATEST.md
 │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.md
 │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.md
 │   │   ├── DATA_SPINE_STAMP_LATEST.md
@@ -380,6 +381,7 @@
 │   │   ├── SOLAR_PEAK_INTEGRITY_LATEST.md
 │   │   ├── json
 │   │   │   ├── AUDIT_PROCESS_DOCUMENTATION_LATEST.json
+│   │   │   ├── DAILY_MWH_TITLES_LABELS_LATEST.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
 │   │   │   ├── DATA_SPINE_STAMP_LATEST.json
@@ -1854,4 +1856,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-225 directories, 1630 files
+225 directories, 1632 files

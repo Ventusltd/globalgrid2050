@@ -1,6 +1,6 @@
 # UK Frequency Daily Validation V5 Report
 
-Updated UTC: 2026-06-11T05:01:12Z
-Daily records retained: 14
-Latest daily row: {"date_utc": "2026-06-11", "sample_count": 1, "avg_hz": 50.127, "min_hz": 50.127, "max_hz": 50.127, "samples_below_49_9": 0, "samples_above_50_1": 1, "largest_deviation_hz": 0.127, "data_health": "thin_sample", "last_updated_utc": "2026-06-11T05:01:11Z"}
-Validation: {"checked_utc": "2026-06-11T05:01:12Z", "status": "check_source_lag", "stored_time_utc": "2026-06-11T02:05:46Z", "stored_hz": 50.127, "source_time_utc": "2026-06-11T05:01:12Z", "source_hz": 50.127, "delta_hz": 0.0, "timestamp_match": false, "source_lag_seconds": 10526, "errors": ""}
+Updated UTC: 2026-06-12T05:08:50Z
+Daily records retained: 15
+Latest daily row: {"date_utc": "2026-06-12", "sample_count": 1, "avg_hz": 50.007, "min_hz": 50.007, "max_hz": 50.007, "samples_below_49_9": 0, "samples_above_50_1": 0, "largest_deviation_hz": 0.007, "data_health": "thin_sample", "last_updated_utc": "2026-06-12T05:08:49Z"}
+Validation: {"checked_utc": "2026-06-12T05:08:50Z", "status": "check_source_lag", "stored_time_utc": "2026-06-12T00:19:54Z", "stored_hz": 50.007, "source_time_utc": "2026-06-12T05:08:50Z", "source_hz": 50.007, "delta_hz": 0.0, "timestamp_match": false, "source_lag_seconds": 17336, "errors": ""}

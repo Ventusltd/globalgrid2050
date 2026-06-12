@@ -130,23 +130,35 @@
 │   │   │   │   ├── elexon_generation_sources_2023-10.csv
 │   │   │   │   ├── elexon_generation_sources_2023-11.csv
 │   │   │   │   └── elexon_generation_sources_2023-12.csv
-│   │   │   └── 2024
-│   │   │       ├── elexon_generation_sources_2023-12.csv
-│   │   │       ├── elexon_generation_sources_2024-01.csv
-│   │   │       ├── elexon_generation_sources_2024-02.csv
-│   │   │       ├── elexon_generation_sources_2024-03.csv
-│   │   │       ├── elexon_generation_sources_2024-04.csv
-│   │   │       ├── elexon_generation_sources_2024-05.csv
-│   │   │       ├── elexon_generation_sources_2024-06.csv
-│   │   │       ├── elexon_generation_sources_2024-07.csv
-│   │   │       ├── elexon_generation_sources_2024-08.csv
-│   │   │       ├── elexon_generation_sources_2024-09.csv
-│   │   │       ├── elexon_generation_sources_2024-10.csv
-│   │   │       ├── elexon_generation_sources_2024-11.csv
-│   │   │       └── elexon_generation_sources_2024-12.csv
-│   │   ├── elexon_generation_sources_2025.csv
+│   │   │   ├── 2024
+│   │   │   │   ├── elexon_generation_sources_2023-12.csv
+│   │   │   │   ├── elexon_generation_sources_2024-01.csv
+│   │   │   │   ├── elexon_generation_sources_2024-02.csv
+│   │   │   │   ├── elexon_generation_sources_2024-03.csv
+│   │   │   │   ├── elexon_generation_sources_2024-04.csv
+│   │   │   │   ├── elexon_generation_sources_2024-05.csv
+│   │   │   │   ├── elexon_generation_sources_2024-06.csv
+│   │   │   │   ├── elexon_generation_sources_2024-07.csv
+│   │   │   │   ├── elexon_generation_sources_2024-08.csv
+│   │   │   │   ├── elexon_generation_sources_2024-09.csv
+│   │   │   │   ├── elexon_generation_sources_2024-10.csv
+│   │   │   │   ├── elexon_generation_sources_2024-11.csv
+│   │   │   │   └── elexon_generation_sources_2024-12.csv
+│   │   │   └── 2025
+│   │   │       ├── elexon_generation_sources_2024-12.csv
+│   │   │       ├── elexon_generation_sources_2025-01.csv
+│   │   │       ├── elexon_generation_sources_2025-02.csv
+│   │   │       ├── elexon_generation_sources_2025-03.csv
+│   │   │       ├── elexon_generation_sources_2025-04.csv
+│   │   │       ├── elexon_generation_sources_2025-05.csv
+│   │   │       ├── elexon_generation_sources_2025-06.csv
+│   │   │       ├── elexon_generation_sources_2025-07.csv
+│   │   │       ├── elexon_generation_sources_2025-08.csv
+│   │   │       ├── elexon_generation_sources_2025-09.csv
+│   │   │       ├── elexon_generation_sources_2025-10.csv
+│   │   │       ├── elexon_generation_sources_2025-11.csv
+│   │   │       └── elexon_generation_sources_2025-12.csv
 │   │   ├── elexon_generation_sources_2026.csv
-│   │   ├── elexon_generation_sources_half_hourly.csv
 │   │   └── fuelhh_halfhourly
 │   │       ├── 2016
 │   │       │   ├── generation_fuelhh_2016_01.csv
@@ -345,6 +357,7 @@
 │   │   ├── FUELHH_BACKFILL_20260611T110027Z.md
 │   │   ├── FUELHH_BACKFILL_20260611T163148Z.md
 │   │   ├── FUELHH_BACKFILL_20260611T203856Z.md
+│   │   ├── FUELHH_BACKFILL_20260611T235638Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
@@ -362,6 +375,7 @@
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T110036Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T163157Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T203904Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260611T235647Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
@@ -416,6 +430,7 @@
 │   │   │   ├── FUELHH_BACKFILL_20260611T110027Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260611T163148Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260611T203856Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260611T235638Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
@@ -433,6 +448,7 @@
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T110036Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T163157Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T203904Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260611T235647Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
@@ -1735,6 +1751,7 @@
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2022.md
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2023.md
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2024.md
+│   │   │   ├── GENERATION_HISTORY_BACKFILL_2025.md
 │   │   │   ├── GENERATION_HISTORY_BACKFILL_2026.md
 │   │   │   └── GENERATION_RECENT_MW_SLICE.md
 │   │   ├── control_generation_history.js
@@ -1876,4 +1893,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-225 directories, 1652 files
+226 directories, 1668 files

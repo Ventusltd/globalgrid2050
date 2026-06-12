@@ -1,6 +1,6 @@
 # V6 Transport Energy Sources Report
 
-Updated UTC: `2026-06-09T08:58:44.933951+00:00`
+Updated UTC: `2026-06-12T09:56:21.336474+00:00`
 
 ## Outputs
 
@@ -19,12 +19,12 @@ EV charging values are curated public reference values and must not be treated a
 
 ```json
 {
-  "updated": "2026-06-09T08:58:44.933951+00:00",
+  "updated": "2026-06-12T09:56:21.336474+00:00",
   "oil": {
     "live": {
-      "updated": "2026-06-09T08:50:18.889847+00:00",
-      "brentUSDperBarrel": 92.43,
-      "wtiUSDperBarrel": 89.18,
+      "updated": "2026-06-12T09:47:52.979831+00:00",
+      "brentUSDperBarrel": 86.46,
+      "wtiUSDperBarrel": 83.79,
       "health": {
         "BZ=F": {
           "ok": true,
@@ -36,7 +36,7 @@ EV charging values are curated public reference values and must not be treated a
         }
       }
     },
-    "history_features": 6278,
+    "history_features": 6280,
     "fresh_history": true,
     "health": [
       {
@@ -52,13 +52,13 @@ EV charging values are curated public reference values and must not be treated a
       {
         "ok": true,
         "source": "Yahoo Brent futures history",
-        "rows": 4694,
+        "rows": 4697,
         "fallback": true
       },
       {
         "ok": true,
         "source": "Yahoo WTI futures history",
-        "rows": 6277,
+        "rows": 6279,
         "fallback": true
       }
     ]
@@ -79,7 +79,7 @@ EV charging values are curated public reference values and must not be treated a
   },
   "ev": {
     "operators": 3,
-    "updated": "2026-06-09T08:58:44.933792+00:00"
+    "updated": "2026-06-12T09:56:21.336288+00:00"
   }
 }
 ```

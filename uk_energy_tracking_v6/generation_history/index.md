@@ -84,6 +84,10 @@ permalink: /uk_energy_tracking_v6/generation_history/
   .solar-mwh-inspect-button{border:1px solid #00ffff;border-radius:10px;padding:9px 12px;color:#00ffff;background:#051014;font-family:Courier New,Courier,monospace;font-weight:bold;cursor:pointer;}
   .solar-mwh-inspect-readout{flex:1;min-width:260px;color:#00ff88;border:1px solid rgba(0,255,255,.25);border-radius:10px;padding:9px 11px;background:#080b10;line-height:1.35;}
   @media(max-width:700px){.solar-mwh-inspect-controls[style]{display:grid!important;grid-template-columns:1fr 1fr;align-items:stretch}.solar-mwh-inspect-readout{grid-column:1 / 3;min-width:0}.solar-mwh-inspect-button{width:100%;text-align:center}.solar-mwh-fullscreen-toolbar{align-items:stretch}.solar-mwh-fullscreen-toolbar label{width:100%;}.solar-mwh-fullscreen-toolbar select{width:100%;}#solar-daily-mwh-fullscreen-close{margin-left:0;}}
+
+  #generation-history-panel .mwh-interconnector-bars{margin-top:6px;}
+  #generation-history-panel .mwh-row.mwh-interconnector-row{grid-template-columns:minmax(250px,.9fr) 1fr 120px;font-size:11px;}
+  #generation-history-panel .mwh-row.mwh-interconnector-row .mwh-label{white-space:normal;line-height:1.25;color:#cfd7e6;}
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
@@ -107,6 +111,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
           <div class="mwh-card" id="generation-mwh-monthly"></div>
           <div class="mwh-card" id="generation-mwh-daynight"></div>
         </div>
+        <div class="generation-source-warning mwh-interconnector-split-warning"><strong>Interconnector accounting:</strong> The former Imports &amp; Exports generation bucket is hidden. Interconnectors are shown separately as signed imports, signed exports and net flow, labelled country first, interconnector name second and BMRS code third. Total electricity check lines are shown for external reconciliation.</div>
       </div>
 
 
@@ -173,9 +178,9 @@ permalink: /uk_energy_tracking_v6/generation_history/
 </div>
 
 <script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260610solarui1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js?v=20260610solarui1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260610solarui1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260610solarui1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>

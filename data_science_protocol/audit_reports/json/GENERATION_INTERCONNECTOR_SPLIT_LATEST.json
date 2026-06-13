@@ -1,15 +1,15 @@
 {
   "reportTitle": "Generation Interconnector Split",
   "schemaVersion": "2.0.0-granular",
-  "generatedUTC": "2026-06-13T19:39:37.337349Z",
+  "generatedUTC": "2026-06-13T19:46:53.799664Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "a409cc0ad840b7eba23e8b34ba7e919073165b53",
-  "gitHeadAfter": "a409cc0ad840b7eba23e8b34ba7e919073165b53",
+  "gitHeadBefore": "1888767448fcdaf9edf6a1c50dea4f92a62ead37",
+  "gitHeadAfter": "1888767448fcdaf9edf6a1c50dea4f92a62ead37",
   "workflowName": "GridBot Generation Interconnector Split",
   "scriptName": "scripts/gridbot_generation_interconnector_split.py",
   "upgradeType": "live V6 granular interconnector split for MWh panel",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [],
   "sourceWindows": [
     "2016 to 2026"
@@ -105,7 +105,34 @@
     "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_imports.json"
   ],
   "outputFilesJsonCount": 22,
-  "changedFiles": [],
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_total_electricity_summary.json"
+  ],
   "plannedChangedFiles": [
     "uk_energy_tracking_v6/generation_history/index.md",
     "uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js",
@@ -628,20 +655,10 @@
     "usedRows": 5130780,
     "skippedRows": 0,
     "signCountsByCode": {
-      "INTGRNL": {
-        "positive": 23182,
-        "negative": 137918,
-        "zero": 50556
-      },
-      "INTNEM": {
-        "positive": 421907,
-        "negative": 151992,
-        "zero": 15431
-      },
-      "INTFR": {
-        "positive": 441830,
-        "negative": 127905,
-        "zero": 19595
+      "INTNSL": {
+        "positive": 432124,
+        "negative": 114522,
+        "zero": 35081
       },
       "INTNED": {
         "positive": 340143,
@@ -653,30 +670,40 @@
         "negative": 82462,
         "zero": 39860
       },
-      "INTNSL": {
-        "positive": 432124,
-        "negative": 114522,
-        "zero": 35081
+      "INTELEC": {
+        "positive": 306561,
+        "negative": 84676,
+        "zero": 124279
       },
-      "INTIRL": {
-        "positive": 148049,
-        "negative": 402990,
-        "zero": 38291
+      "INTNEM": {
+        "positive": 421907,
+        "negative": 151992,
+        "zero": 15431
       },
       "INTEW": {
         "positive": 96425,
         "negative": 292036,
         "zero": 200869
       },
-      "INTELEC": {
-        "positive": 306561,
-        "negative": 84676,
-        "zero": 124279
-      },
       "INTIFA2": {
         "positive": 364968,
         "negative": 217456,
         "zero": 6906
+      },
+      "INTGRNL": {
+        "positive": 23182,
+        "negative": 137918,
+        "zero": 50556
+      },
+      "INTFR": {
+        "positive": 441830,
+        "negative": 127905,
+        "zero": 19595
+      },
+      "INTIRL": {
+        "positive": 148049,
+        "negative": 402990,
+        "zero": 38291
       }
     }
   },
@@ -736,8 +763,8 @@
   },
   "rollbackMethod": "Revert the apply commit. Existing generation aggregate JSON files are not modified by this workflow.",
   "executiveSummary": "Splits interconnectors out of the live V6 Generation Output in MWh panel using granular signed per-link files. The legacy Imports & Exports bucket is hidden, ten interconnectors each receive separate import and export JSON files, imports remain positive, exports remain negative, and a total electricity check line is shown at the bottom for reconciliation.",
-  "humanReviewStatus": "awaiting Vikram review",
-  "nextAction": "Review audit report, then rerun in apply mode only if all checks pass.",
-  "applied": false,
+  "humanReviewStatus": "apply completed; verify live page after Pages deploy",
+  "nextAction": "Open live page and verify annual MWh panel, interconnector rows and total electricity check line on desktop and mobile.",
+  "applied": true,
   "pass": true
 }

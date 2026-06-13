@@ -1,7 +1,7 @@
 # Generation Interconnector Split
 
-Generated UTC: `2026-06-13T19:39:37.337349Z`
-Mode: `audit`
+Generated UTC: `2026-06-13T19:46:53.799664Z`
+Mode: `apply`
 Pass: `True`
 
 ## Executive summary
@@ -66,7 +66,32 @@ Splits interconnectors out of the live V6 Generation Output in MWh panel using g
 
 ## Changed files in this mode
 
-- none
+- `uk_energy_tracking_v6/generation_history/index.md`
+- `uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js`
+- `uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js`
+- `uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js`
+- `uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_imports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_exports.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json`
+- `uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_total_electricity_summary.json`
 
 ## Checks
 

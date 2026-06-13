@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0.0-total-electricity-check",
+  "generatedUTC": "2026-06-13T19:46:53.584907Z",
+  "title": "Total electricity check line for generation plus net interconnector imports",
+  "unit": "MWh",
+  "signConvention": "Imports positive, exports negative.",
+  "rows": [
+    {
+      "year": 2016,
+      "generationShownMWh": 221727138.25,
+      "totalImportMWh": 0,
+      "totalExportMWh": 0,
+      "netInterconnectorMWh": 0,
+      "supplyProxyMWh": 221727138.25,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2017,
+      "generationShownMWh": 264310384.432,
+      "totalImportMWh": 0,
+      "totalExportMWh": 0,
+      "netInterconnectorMWh": 0,
+      "supplyProxyMWh": 264310384.432,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2018,
+      "generationShownMWh": 260462430.504,
+      "totalImportMWh": 0,
+      "totalExportMWh": 0,
+      "netInterconnectorMWh": 0,
+      "supplyProxyMWh": 260462430.504,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2019,
+      "generationShownMWh": 253177357.209,
+      "totalImportMWh": 0,
+      "totalExportMWh": 0,
+      "netInterconnectorMWh": 0,
+      "supplyProxyMWh": 253177357.209,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2020,
+      "generationShownMWh": 236254094.786,
+      "totalImportMWh": 279.584,
+      "totalExportMWh": 0.0,
+      "netInterconnectorMWh": 279.584,
+      "supplyProxyMWh": 236254374.37,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2021,
+      "generationShownMWh": 241241252.655,
+      "totalImportMWh": 29218859.916,
+      "totalExportMWh": -4405162.5,
+      "netInterconnectorMWh": 24813697.416,
+      "supplyProxyMWh": 266054950.071,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2022,
+      "generationShownMWh": 256517334.937,
+      "totalImportMWh": 16176140.75,
+      "totalExportMWh": -20437703.749,
+      "netInterconnectorMWh": -4261562.999,
+      "supplyProxyMWh": 252255771.938,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2023,
+      "generationShownMWh": 224507074.679,
+      "totalImportMWh": 33517179.0,
+      "totalExportMWh": -10138674.082,
+      "netInterconnectorMWh": 23378504.918,
+      "supplyProxyMWh": 247885579.597,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2024,
+      "generationShownMWh": 218368959.238,
+      "totalImportMWh": 43917505.5,
+      "totalExportMWh": -10622780.5,
+      "netInterconnectorMWh": 33294725.0,
+      "supplyProxyMWh": 251663684.238,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2025,
+      "generationShownMWh": 227361919.343,
+      "totalImportMWh": 43950818.999,
+      "totalExportMWh": -14811753.333,
+      "netInterconnectorMWh": 29139065.666,
+      "supplyProxyMWh": 256500985.009,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    },
+    {
+      "year": 2026,
+      "generationShownMWh": 104260472.286,
+      "totalImportMWh": 19595514.499,
+      "totalExportMWh": -7128014.335,
+      "netInterconnectorMWh": 12467500.164,
+      "supplyProxyMWh": 116727972.45,
+      "note": "Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not as final demand."
+    }
+  ]
+}

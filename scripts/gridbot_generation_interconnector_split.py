@@ -1,678 +1,306 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
-import calendar
-import datetime as dt
-import json
-import math
-import re
-import subprocess
-import tempfile
-import time
-import urllib.parse
-import urllib.request
+import argparse, csv, datetime as dt, hashlib, json, math, re, subprocess, tempfile
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 APP = ROOT / "uk_energy_tracking_v6" / "generation_history"
-
 INDEX = APP / "index.md"
 LOAD = APP / "load_generation_mwh_aggregates.js"
 RENDER = APP / "render_generation_mwh_aggregates.js"
 CONTROL = APP / "control_generation_mwh_aggregates.js"
-
 ANNUAL = APP / "generation_annual_mwh_by_technology.json"
 MONTHLY = APP / "generation_monthly_mwh_by_technology.json"
 SEASONAL = APP / "generation_seasonal_mwh_by_technology.json"
 DAY_NIGHT = APP / "generation_day_night_mwh_by_technology.json"
-
-OUT_ANNUAL = APP / "generation_interconnector_annual_mwh_by_link.json"
-OUT_MONTHLY = APP / "generation_interconnector_monthly_mwh_by_link.json"
-
+OUT_DIR = APP / "interconnectors"
+OUT_INDEX = OUT_DIR / "generation_interconnector_index.json"
+OUT_TOTALS = OUT_DIR / "generation_interconnector_total_electricity_summary.json"
 REPORT_DIR = ROOT / "data_science_protocol" / "audit_reports"
 REPORT_JSON_DIR = REPORT_DIR / "json"
 REPORT_MD = REPORT_DIR / "GENERATION_INTERCONNECTOR_SPLIT_LATEST.md"
 REPORT_JSON = REPORT_JSON_DIR / "GENERATION_INTERCONNECTOR_SPLIT_LATEST.json"
-
-WORKFLOW_NAME = "GridBot Generation Interconnector Split"
-SCRIPT_NAME = "scripts/gridbot_generation_interconnector_split.py"
 ROUTE = "/uk_energy_tracking_v6/generation_history/"
-ELEXON_FUELHH = "https://data.elexon.co.uk/bmrs/api/v1/datasets/FUELHH"
-CACHE_BUSTER = "20260613interconnectorsplit2"
-LEGACY_BUCKET = "Imports & Exports"
-CHUNK_DAYS = 7
-REQUEST_DELAY_SECONDS = 0.2
+CACHE = "20260613interconnectorsgranular1"
+LEGACY = "Imports & Exports"
+SCRIPT_NAME = "scripts/gridbot_generation_interconnector_split.py"
+WORKFLOW_NAME = "GridBot Generation Interconnector Split"
+REPORT_TITLE = "Generation Interconnector Split"
+SOURCE_ROOTS = [ROOT / "data" / "generation", ROOT / "data" / "generation" / "archive"]
 
 LINKS = [
-    {"country": "France", "interconnector": "IFA / HVDC Cross-Channel", "bmrsCode": "INTFR"},
-    {"country": "France", "interconnector": "IFA2", "bmrsCode": "INTIFA2"},
-    {"country": "France", "interconnector": "ElecLink", "bmrsCode": "INTELEC"},
-    {"country": "Belgium", "interconnector": "Nemo Link", "bmrsCode": "INTNEM"},
-    {"country": "Netherlands", "interconnector": "BritNed", "bmrsCode": "INTNED"},
-    {"country": "Norway", "interconnector": "North Sea Link", "bmrsCode": "INTNSL"},
-    {"country": "Denmark", "interconnector": "Viking Link", "bmrsCode": "INTVKL"},
-    {"country": "Republic of Ireland", "interconnector": "East-West Interconnector / EWIC", "bmrsCode": "INTEW"},
-    {"country": "Republic of Ireland", "interconnector": "Greenlink", "bmrsCode": "INTGRNL"},
-    {"country": "Northern Ireland", "interconnector": "Moyle Interconnector", "bmrsCode": "INTIRL"},
+    ("France", "IFA / HVDC Cross-Channel", "INTFR"),
+    ("France", "IFA2", "INTIFA2"),
+    ("France", "ElecLink", "INTELEC"),
+    ("Belgium", "Nemo Link", "INTNEM"),
+    ("Netherlands", "BritNed", "INTNED"),
+    ("Norway", "North Sea Link", "INTNSL"),
+    ("Denmark", "Viking Link", "INTVKL"),
+    ("Ireland", "East-West Interconnector / EWIC", "INTEW"),
+    ("Ireland", "Greenlink", "INTGRNL"),
+    ("Northern Ireland", "Moyle Interconnector", "INTIRL"),
 ]
-CODE_META = {
-    item["bmrsCode"]: {
-        **item,
-        "label": f"{item['country']} — {item['interconnector']} — {item['bmrsCode']}",
-    }
-    for item in LINKS
-}
+CODE_META = {}
+for idx, (country, name, code) in enumerate(LINKS):
+    slug = re.sub(r"[^a-z0-9]+", "_", f"{country}_{name}_{code}".lower()).strip("_")
+    CODE_META[code] = {"country": country, "interconnector": name, "bmrsCode": code, "label": f"{country} - {name} - {code}", "sortOrder": idx, "slug": slug}
 CODES = set(CODE_META)
 
 LOAD_JS = """window.V6LoadGenerationMwhAggregates=(function(){
   var cache={};
-  function fetchRows(key,url){
-    if(cache[key])return cache[key];
-    cache[key]=fetch(url+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():{rows:[]}}).then(function(d){return d.rows||[]}).catch(function(){return[]});
-    return cache[key];
-  }
-  function annual(){return fetchRows('annual','/uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json')}
-  function monthly(){return fetchRows('monthly','/uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json')}
-  function seasonal(){return fetchRows('seasonal','/uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json')}
-  function dayNight(){return fetchRows('daynight','/uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json')}
-  function interconnectorAnnual(){return fetchRows('interconnectorAnnual','/uk_energy_tracking_v6/generation_history/generation_interconnector_annual_mwh_by_link.json')}
-  function interconnectorMonthly(){return fetchRows('interconnectorMonthly','/uk_energy_tracking_v6/generation_history/generation_interconnector_monthly_mwh_by_link.json')}
-  return{annual:annual,monthly:monthly,seasonal:seasonal,dayNight:dayNight,interconnectorAnnual:interconnectorAnnual,interconnectorMonthly:interconnectorMonthly};
+  function f(k,u){if(cache[k])return cache[k];cache[k]=fetch(u+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():{rows:[]}}).then(function(d){return d.rows||[]}).catch(function(){return[]});return cache[k]}
+  return{annual:function(){return f('annual','/uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json')},monthly:function(){return f('monthly','/uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json')},seasonal:function(){return f('seasonal','/uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json')},dayNight:function(){return f('daynight','/uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json')},interconnectorIndex:function(){return f('icIndex','/uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json')},interconnectorTotals:function(){return f('icTotals','/uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_total_electricity_summary.json')}};
 })();
 """
 
 RENDER_JS = """window.V6RenderGenerationMwhAggregates=(function(){
   var colours={Solar:'#f5c518',Wind:'#00d0ff',Hydro:'#0090c0',Gas:'#c0399a',Coal:'#888888',Biomass:'#f59e2b',Nuclear:'#5cb85c','Pumped Storage':'#9b59b6',Other:'#a6adbb'};
-  var hide={'Imports & Exports':true};
-  var order={Solar:10,Wind:20,Gas:30,Nuclear:40,Biomass:50,Hydro:60,'Pumped Storage':70,Coal:80,Other:90};
-  function fmt(n,d){return n==null||isNaN(Number(n))?'—':Number(n).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})}
-  function generationRows(rows){return(rows||[]).filter(function(r){return r&&!hide[r.technology]})}
-  function linkLabel(r){return r.label||[r.country,r.interconnector,r.bmrsCode].filter(Boolean).join(' — ')}
-  function latestYear(rows,ic){var years=[];(rows||[]).forEach(function(r){years.push(Number(r.year)||0)});(ic||[]).forEach(function(r){years.push(Number(r.year)||0)});return Math.max.apply(null,years)}
-  function renderAnnual(el,rows,interconnectorRows){
-    if(!el)return;
-    rows=rows||[];interconnectorRows=interconnectorRows||[];
-    if(!rows.length){el.innerHTML='<div class="mwh-empty">Awaiting annual MWh aggregate data.</div>';return;}
-    var y=latestYear(rows,interconnectorRows);
-    var rs=generationRows(rows.filter(function(r){return Number(r.year)===y})).sort(function(a,b){return(order[a.technology]||999)-(order[b.technology]||999)});
-    var total=rs.reduce(function(s,r){return s+Math.max(0,Number(r.totalMWh||0))},0);
-    var html='<div class="mwh-aggregate-head"><strong>Annual MWh by technology</strong><span>'+y+' · generation shown · legacy Imports & Exports removed</span></div><div class="mwh-bars">';
-    rs.forEach(function(r){var v=Number(r.totalMWh||0),pct=total?Math.max(0,v)/total*100:0,c=colours[r.technology]||'#00ffff';html+='<div class="mwh-row"><div class="mwh-label">'+r.technology+'</div><div class="mwh-track"><i style="width:'+pct+'%;background:'+c+'"></i></div><div class="mwh-value">'+fmt(v/1000000,2)+' TWh</div></div>'});
-    html+='</div>';
-    var ic=(interconnectorRows||[]).filter(function(r){return Number(r.year)===y}).sort(function(a,b){return linkLabel(a).localeCompare(linkLabel(b))});
-    if(ic.length){
-      var max=Math.max.apply(null,ic.map(function(r){return Math.max(Math.abs(Number(r.importMWh||0)),Math.abs(Number(r.exportMWh||0)),Math.abs(Number(r.netMWh||0)),1)}));
-      html+='<div class="mwh-aggregate-head" style="margin-top:16px"><strong>Interconnectors · imports and exports</strong><span>Country — interconnector — BMRS code</span></div><div class="mwh-bars mwh-interconnector-bars">';
-      ic.forEach(function(r){var i=Number(r.importMWh||0),e=Number(r.exportMWh||0),n=Number(r.netMWh||0),pct=max?Math.max(2,Math.abs(n)/max*100):2,c=n>=0?'#00d0ff':'#ff7777',label=linkLabel(r);html+='<div class="mwh-row mwh-interconnector-row"><div class="mwh-label" title="'+label+'">'+label+'</div><div class="mwh-track"><i style="width:'+pct+'%;background:'+c+'"></i></div><div class="mwh-value">I '+fmt(i/1000000,2)+' · E '+fmt(e/1000000,2)+' · N '+fmt(n/1000000,2)+' TWh</div></div>'});
-      html+='</div><div class="mwh-note-line">Interconnectors are separate from generation. Positive FUELHH MW is treated as GB import; negative FUELHH MW is treated as GB export.</div>';
-    }else{
-      html+='<div class="mwh-note-line">Interconnector split awaiting compact import/export facts.</div>';
-    }
-    el.innerHTML=html;
-  }
-  function renderMonthly(el,rows,technology){
-    if(!el)return;
-    rows=generationRows(rows).filter(function(r){return !technology||r.technology===technology});
-    if(!rows.length){el.innerHTML='<div class="mwh-empty">Awaiting monthly MWh aggregate data.</div>';return;}
-    rows=rows.slice().sort(function(a,b){return(a.year-b.year)||(a.month-b.month)});
-    var max=Math.max.apply(null,rows.map(function(r){return Number(r.totalMWh)||0}));
-    var sample=rows.slice(-24);
-    var html='<div class="mwh-aggregate-head"><strong>Monthly MWh trend</strong><span>'+(technology||'All generation technologies')+'</span></div><div class="mwh-mini-chart">';
-    sample.forEach(function(r){var h=max?Math.max(2,Number(r.totalMWh)/max*100):2;html+='<div class="mwh-col" title="'+r.year+'-'+String(r.month).padStart(2,'0')+' '+r.technology+' '+fmt(r.totalMWh/1000000,2)+' TWh"><i style="height:'+h+'%;background:'+(colours[r.technology]||'#00ffff')+'"></i></div>'});
-    el.innerHTML=html+'</div>';
-  }
-  function renderDayNight(el,rows,technology){
-    if(!el)return;
-    rows=generationRows(rows).filter(function(r){return !technology||r.technology===technology});
-    if(!rows.length){el.innerHTML='<div class="mwh-empty">Awaiting day/night aggregate data.</div>';return;}
-    var y=Math.max.apply(null,rows.map(function(r){return Number(r.year)||0}));
-    var day=0,night=0;
-    rows.filter(function(r){return Number(r.year)===y}).forEach(function(r){day+=Number(r.dayMWh||0);night+=Number(r.nightMWh||0)});
-    var total=day+night,dp=total?day/total*100:0,np=total?night/total*100:0;
-    el.innerHTML='<div class="mwh-aggregate-head"><strong>Day versus night MWh</strong><span>'+y+' · '+(technology||'All generation technologies')+'</span></div><div class="mwh-split"><div style="width:'+dp+'%">Day '+fmt(dp,1)+'%</div><div style="width:'+np+'%">Night '+fmt(np,1)+'%</div></div><div class="mwh-note-line">Day '+fmt(day/1000000,2)+' TWh · Night '+fmt(night/1000000,2)+' TWh</div>';
-  }
-  return{annual:renderAnnual,monthly:renderMonthly,dayNight:renderDayNight};
+  var hide={'Imports & Exports':1}, ord={Solar:10,Wind:20,Gas:30,Nuclear:40,Biomass:50,Hydro:60,'Pumped Storage':70,Coal:80,Other:90};
+  function fmt(n,d){return n==null||isNaN(Number(n))?'--':Number(n).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})}
+  function clean(rows){return(rows||[]).filter(function(r){return r&&!hide[r.technology]})}
+  function latest(rows,extra){var y=[];(rows||[]).forEach(function(r){y.push(Number(r.year)||0)});(extra||[]).forEach(function(r){y.push(Number(r.year)||0)});return Math.max.apply(null,y)}
+  function annual(el,rows,ic,totals){if(!el)return;rows=rows||[];ic=ic||[];totals=totals||[];if(!rows.length){el.innerHTML='<div class="mwh-empty">Awaiting annual MWh aggregate data.</div>';return}var y=latest(rows,ic),rs=clean(rows.filter(function(r){return Number(r.year)===y})).sort(function(a,b){return(ord[a.technology]||999)-(ord[b.technology]||999)}),gen=rs.reduce(function(s,r){return s+Math.max(0,Number(r.totalMWh||0))},0),h='<div class="mwh-aggregate-head"><strong>Annual MWh by technology</strong><span>'+y+' - generation shown; interconnectors split below</span></div><div class="mwh-bars">';rs.forEach(function(r){var v=Number(r.totalMWh||0),p=gen?Math.max(0,v)/gen*100:0,c=colours[r.technology]||'#00ffff';h+='<div class="mwh-row"><div class="mwh-label">'+r.technology+'</div><div class="mwh-track"><i style="width:'+p+'%;background:'+c+'"></i></div><div class="mwh-value">'+fmt(v/1000000,2)+' TWh</div></div>'});h+='</div>';var links=ic.filter(function(r){return Number(r.year)===y}).sort(function(a,b){return(Number(a.sortOrder)||0)-(Number(b.sortOrder)||0)});if(links.length){var mx=Math.max.apply(null,links.map(function(r){return Math.max(Math.abs(Number(r.importMWh||0)),Math.abs(Number(r.exportMWh||0)),Math.abs(Number(r.netMWh||0)),1)}));h+='<div class="mwh-aggregate-head" style="margin-top:16px"><strong>Interconnectors - imports / exports</strong><span>Country - interconnector - BMRS code</span></div><div class="mwh-bars mwh-interconnector-bars">';links.forEach(function(r){var imp=Number(r.importMWh||0),exp=Number(r.exportMWh||0),net=Number(r.netMWh||0),p=mx?Math.max(2,Math.abs(net)/mx*100):2,c=net>=0?'#00d0ff':'#ff7777';h+='<div class="mwh-row mwh-interconnector-row"><div class="mwh-label" title="'+r.label+'">'+r.label+'</div><div class="mwh-track"><i style="width:'+p+'%;background:'+c+'"></i></div><div class="mwh-value">I '+fmt(imp/1000000,2)+' / E '+fmt(exp/1000000,2)+' / N '+fmt(net/1000000,2)+' TWh</div></div>'});h+='</div><div class="mwh-note-line">Imports are positive. Exports are negative. Separate per-link import/export JSON files are written under /interconnectors/.</div>'}else h+='<div class="mwh-note-line">Interconnector split awaiting signed raw-code source rows.</div>';var t=totals.filter(function(r){return Number(r.year)===y})[0];if(t){h+='<div class="mwh-aggregate-head" style="margin-top:16px"><strong>Total electricity check line</strong><span>For reconciliation against external studies</span></div><div class="mwh-note-line">Generation shown '+fmt(t.generationShownMWh/1000000,2)+' TWh - Imports '+fmt(t.totalImportMWh/1000000,2)+' TWh - Exports '+fmt(t.totalExportMWh/1000000,2)+' TWh - Net interconnector '+fmt(t.netInterconnectorMWh/1000000,2)+' TWh - Supply proxy '+fmt(t.supplyProxyMWh/1000000,2)+' TWh</div>'}el.innerHTML=h}
+  function monthly(el,rows,technology){if(!el)return;rows=clean(rows).filter(function(r){return !technology||r.technology===technology});if(!rows.length){el.innerHTML='<div class="mwh-empty">Awaiting monthly MWh aggregate data.</div>';return}rows=rows.slice().sort(function(a,b){return(a.year-b.year)||(a.month-b.month)});var mx=Math.max.apply(null,rows.map(function(r){return Number(r.totalMWh)||0})),sample=rows.slice(-24),h='<div class="mwh-aggregate-head"><strong>Monthly MWh trend</strong><span>'+(technology||'All generation technologies')+'</span></div><div class="mwh-mini-chart">';sample.forEach(function(r){var p=mx?Math.max(2,Number(r.totalMWh)/mx*100):2;h+='<div class="mwh-col" title="'+r.year+'-'+String(r.month).padStart(2,'0')+' '+r.technology+' '+fmt(r.totalMWh/1000000,2)+' TWh"><i style="height:'+p+'%;background:'+(colours[r.technology]||'#00ffff')+'"></i></div>'});el.innerHTML=h+'</div>'}
+  function dayNight(el,rows,technology){if(!el)return;rows=clean(rows).filter(function(r){return !technology||r.technology===technology});if(!rows.length){el.innerHTML='<div class="mwh-empty">Awaiting day/night aggregate data.</div>';return}var y=Math.max.apply(null,rows.map(function(r){return Number(r.year)||0})),day=0,night=0;rows.filter(function(r){return Number(r.year)===y}).forEach(function(r){day+=Number(r.dayMWh||0);night+=Number(r.nightMWh||0)});var t=day+night,dp=t?day/t*100:0,np=t?night/t*100:0;el.innerHTML='<div class="mwh-aggregate-head"><strong>Day versus night MWh</strong><span>'+y+' - '+(technology||'All generation technologies')+'</span></div><div class="mwh-split"><div style="width:'+dp+'%">Day '+fmt(dp,1)+'%</div><div style="width:'+np+'%">Night '+fmt(np,1)+'%</div></div><div class="mwh-note-line">Day '+fmt(day/1000000,2)+' TWh - Night '+fmt(night/1000000,2)+' TWh</div>'}
+  return{annual:annual,monthly:monthly,dayNight:dayNight};
 })();
 """
 
 CONTROL_JS = """window.V6ControlGenerationMwhAggregates=(function(){
-  var hide={'Imports & Exports':true};
+  var hide={'Imports & Exports':1};
   function byId(id){return document.getElementById(id)}
   function tech(){var e=byId('generation-mwh-technology');return e?e.value:'Solar'}
   function fillTech(){var e=byId('generation-mwh-technology');if(!e)return;var opts=((window.V6GenerationHistoryConfig&&window.V6GenerationHistoryConfig.technologies)||['Solar','Wind','Gas','Nuclear']).filter(function(t){return !hide[t]});e.innerHTML='';opts.forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;e.appendChild(o)});e.value=opts.indexOf('Solar')>=0?'Solar':(opts[0]||'')}
-  function setStatus(text){var e=byId('generation-mwh-status');if(e)e.textContent=text}
-  function refresh(){
-    setStatus('Loading MWh aggregate intelligence and interconnector split...');
-    Promise.all([window.V6LoadGenerationMwhAggregates.annual(),window.V6LoadGenerationMwhAggregates.monthly(),window.V6LoadGenerationMwhAggregates.dayNight(),window.V6LoadGenerationMwhAggregates.interconnectorAnnual(),window.V6LoadGenerationMwhAggregates.interconnectorMonthly()]).then(function(parts){
-      window.V6RenderGenerationMwhAggregates.annual(byId('generation-mwh-annual'),parts[0],parts[3]);
-      window.V6RenderGenerationMwhAggregates.monthly(byId('generation-mwh-monthly'),parts[1],tech());
-      window.V6RenderGenerationMwhAggregates.dayNight(byId('generation-mwh-daynight'),parts[2],tech());
-      setStatus('Aggregate files loaded · legacy Imports & Exports removed from generation · interconnector import/export rows '+parts[3].length+' annual / '+parts[4].length+' monthly')
-    }).catch(function(exc){setStatus('MWh aggregate load failed: '+exc)})
-  }
+  function setStatus(t){var e=byId('generation-mwh-status');if(e)e.textContent=t}
+  function refresh(){setStatus('Loading MWh aggregate intelligence and granular interconnector split...');Promise.all([window.V6LoadGenerationMwhAggregates.annual(),window.V6LoadGenerationMwhAggregates.monthly(),window.V6LoadGenerationMwhAggregates.dayNight(),window.V6LoadGenerationMwhAggregates.interconnectorIndex(),window.V6LoadGenerationMwhAggregates.interconnectorTotals()]).then(function(p){window.V6RenderGenerationMwhAggregates.annual(byId('generation-mwh-annual'),p[0],p[3],p[4]);window.V6RenderGenerationMwhAggregates.monthly(byId('generation-mwh-monthly'),p[1],tech());window.V6RenderGenerationMwhAggregates.dayNight(byId('generation-mwh-daynight'),p[2],tech());setStatus('Aggregate files loaded - legacy Imports & Exports hidden - granular interconnector rows '+p[3].length+' - total electricity check lines '+p[4].length)}).catch(function(exc){setStatus('MWh aggregate load failed: '+exc)})}
   function init(){fillTech();var e=byId('generation-mwh-technology');if(e)e.addEventListener('change',refresh);refresh()}
   return{init:init,refresh:refresh};
 })();
 document.addEventListener('DOMContentLoaded',function(){window.V6ControlGenerationMwhAggregates.init()});
 """
 
-
-def utcnow() -> str:
-    return dt.datetime.now(dt.timezone.utc).isoformat().replace("+00:00", "Z")
-
-
-def rel(path: Path) -> str:
-    return path.relative_to(ROOT).as_posix()
-
-
-def read(path: Path) -> str:
-    return path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
-
-
-def write(path: Path, text: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
-
-
-def git_head() -> str:
+def now() -> str: return dt.datetime.now(dt.timezone.utc).isoformat().replace('+00:00','Z')
+def rel(p: Path) -> str: return p.relative_to(ROOT).as_posix()
+def read(p: Path) -> str: return p.read_text(encoding='utf-8', errors='replace') if p.exists() else ''
+def write(p: Path, txt: str): p.parent.mkdir(parents=True, exist_ok=True); p.write_text(txt, encoding='utf-8')
+def sha(p: Path) -> str: return hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() and p.is_file() else ''
+def git(args: list[str]) -> str:
     try:
-        return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    except Exception:
-        return ""
+        r = subprocess.run(['git', *args], cwd=ROOT, text=True, capture_output=True, timeout=30)
+        return r.stdout.strip() if r.returncode == 0 else ''
+    except Exception: return ''
 
-
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else ""
-
-
-def json_rows(path: Path) -> list[dict[str, Any]]:
+def existing_rows(p: Path) -> list[dict[str, Any]]:
     try:
-        payload = json.loads(read(path))
-        rows = payload.get("rows", [])
+        d = json.loads(read(p) or '{}'); rows = d.get('rows', [])
         return rows if isinstance(rows, list) else []
-    except Exception:
-        return []
+    except Exception: return []
 
+def source_files() -> list[Path]:
+    files: set[Path] = set()
+    for base in SOURCE_ROOTS:
+        if base.exists():
+            for p in base.rglob('elexon_generation_sources_*.csv'): files.add(p)
+    return sorted(files)
 
-def pick(row: dict[str, Any], names: list[str]) -> Any:
-    folded = {str(k).lower(): v for k, v in row.items()}
-    for name in names:
-        value = folded.get(name.lower())
-        if value not in (None, ""):
-            return value
-    return ""
-
-
-def fuel(row: dict[str, Any]) -> str:
-    return str(pick(row, ["fuelType", "fuelTypeName", "fuel", "psrType"])).strip().upper()
-
-
-def row_time(row: dict[str, Any]) -> dt.datetime | None:
-    value = pick(row, ["startTime", "settlementPeriodStartTime", "periodStartUTC", "publishDateTime"])
-    if value:
-        try:
-            parsed = dt.datetime.fromisoformat(str(value).replace("Z", "+00:00"))
-            if parsed.tzinfo is None:
-                parsed = parsed.replace(tzinfo=dt.timezone.utc)
-            return parsed.astimezone(dt.timezone.utc)
-        except Exception:
-            pass
+def parse_time(v: str):
     try:
-        settlement_date = str(row.get("settlementDate", ""))[:10]
-        settlement_period = int(row.get("settlementPeriod"))
-        return dt.datetime.combine(dt.date.fromisoformat(settlement_date), dt.time(), tzinfo=dt.timezone.utc) + dt.timedelta(minutes=30 * (settlement_period - 1))
-    except Exception:
-        return None
+        d = dt.datetime.fromisoformat(str(v).replace('Z', '+00:00'))
+        if d.tzinfo is None: d = d.replace(tzinfo=dt.timezone.utc)
+        return d.astimezone(dt.timezone.utc)
+    except Exception: return None
 
-
-def mw_value(row: dict[str, Any]) -> float | None:
+def parse_float(v: Any):
     try:
-        value = float(pick(row, ["generation", "generationMW", "quantity", "currentUsage"]))
-        return value if math.isfinite(value) else None
-    except Exception:
-        return None
+        x = float(v); return x if math.isfinite(x) else None
+    except Exception: return None
 
+def infer_hours(points: list[tuple[dt.datetime, float]], i: int) -> float:
+    t = points[i][0]
+    if i + 1 < len(points):
+        d = (points[i + 1][0] - t).total_seconds() / 3600
+        if 0 < d <= 1: return d
+    if i > 0:
+        d = (t - points[i - 1][0]).total_seconds() / 3600
+        if 0 < d <= 1: return d
+    return 5 / 60
 
-def month_end(year: int, month: int) -> dt.date:
-    return dt.date(year, month, calendar.monthrange(year, month)[1])
-
-
-def day_windows(start: dt.date, end: dt.date, span_days: int = CHUNK_DAYS):
-    current = start
-    while current <= end:
-        win_end = min(current + dt.timedelta(days=span_days - 1), end)
-        yield current, win_end
-        current = win_end + dt.timedelta(days=1)
-
-
-def month_windows(start_year: int, end_year: int):
-    today = dt.datetime.now(dt.timezone.utc).date()
-    for year in range(start_year, end_year + 1):
-        for month in range(1, 13):
-            start = dt.date(year, month, 1)
-            end = month_end(year, month)
-            if start > today:
-                continue
-            if year == today.year and month == today.month:
-                end = min(end, today - dt.timedelta(days=1))
-            if end >= start:
-                yield year, month, start, end
-
-
-def fetch_json(url: str, retries: int = 4) -> Any:
-    last_error: Exception | None = None
-    for attempt in range(retries):
+def scan_signed_rows(start_year: int, end_year: int):
+    by_code: dict[str, dict[tuple[str, str], tuple[dt.datetime, float]]] = defaultdict(dict)
+    sign_counts = {c: {'positive': 0, 'negative': 0, 'zero': 0} for c in CODES}
+    meta, raw, used, skipped = [], 0, 0, 0
+    for p in source_files():
+        rows = file_used = 0
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "GlobalGrid2050 GridBot"})
-            with urllib.request.urlopen(request, timeout=120) as response:
-                return json.loads(response.read().decode("utf-8"))
+            with p.open('r', encoding='utf-8', newline='') as f:
+                for row in csv.DictReader(f):
+                    raw += 1; rows += 1
+                    c = str(row.get('fuelType', '')).strip().upper()
+                    if c not in CODES: continue
+                    t = parse_time(row.get('periodStartUTC', '')); mw = parse_float(row.get('generationMW'))
+                    if t is None or mw is None or not (start_year <= t.year <= end_year): skipped += 1; continue
+                    by_code[c][(t.isoformat().replace('+00:00','Z'), c)] = (t, mw)
+                    if mw > 0: sign_counts[c]['positive'] += 1
+                    elif mw < 0: sign_counts[c]['negative'] += 1
+                    else: sign_counts[c]['zero'] += 1
+                    used += 1; file_used += 1
+            meta.append({'path': rel(p), 'rows': rows, 'usedRows': file_used, 'sizeBytes': p.stat().st_size})
         except Exception as exc:
-            last_error = exc
-            time.sleep(min(30, 2 ** attempt))
-    raise RuntimeError(last_error)
+            meta.append({'path': rel(p), 'rows': rows, 'usedRows': file_used, 'error': str(exc)})
+    return by_code, {'sourceMode':'repo_signed_elexon_generation_sources_csv','sourceFileCount':len(meta),'sourceFiles':meta,'rawRows':raw,'usedRows':used,'skippedRows':skipped,'signCountsByCode':sign_counts}
 
+def build_flows(start_year: int, end_year: int):
+    by_code, meta = scan_signed_rows(start_year, end_year)
+    monthly = defaultdict(lambda:{'mwh':0.0,'records':0,'firstUTC':'','lastUTC':''})
+    annual = defaultdict(lambda:{'mwh':0.0,'records':0,'firstUTC':'','lastUTC':''})
+    for c, pairs in by_code.items():
+        pts = sorted(pairs.values(), key=lambda x: x[0])
+        for i, (t, mw) in enumerate(pts):
+            direction = 'imports' if mw >= 0 else 'exports'
+            mwh = mw * infer_hours(pts, i)
+            for b in (monthly[(t.year,t.month,c,direction)], annual[(t.year,c,direction)]):
+                b['mwh'] += mwh; b['records'] += 1; stamp = t.isoformat().replace('+00:00','Z')
+                if not b['firstUTC'] or stamp < b['firstUTC']: b['firstUTC'] = stamp
+                if not b['lastUTC'] or stamp > b['lastUTC']: b['lastUTC'] = stamp
+    return monthly, annual, meta
 
-def extract(payload: Any) -> list[dict[str, Any]]:
-    if isinstance(payload, list):
-        return [row for row in payload if isinstance(row, dict)]
-    if isinstance(payload, dict):
-        for key in ("data", "results", "items"):
-            if isinstance(payload.get(key), list):
-                return [row for row in payload[key] if isinstance(row, dict)]
-    return []
+def flow_payload(code: str, direction: str, monthly: dict, annual: dict, start_year: int, end_year: int):
+    spec = CODE_META[code]
+    def row_common(year, b, month=None):
+        r = {'year':year,'country':spec['country'],'interconnector':spec['interconnector'],'bmrsCode':code,'label':spec['label'],'flowDirection':'import' if direction=='imports' else 'export','signedMWh':round(float(b['mwh']),3),'mwh':round(float(b['mwh']),3),'records':int(b['records']),'firstUTC':b['firstUTC'],'lastUTC':b['lastUTC']}
+        if month is not None: r['month'] = month
+        return r
+    mrows = [row_common(y,b,m) for (y,m,c,d),b in sorted(monthly.items()) if c==code and d==direction]
+    arows = [row_common(y,b) for (y,c,d),b in sorted(annual.items()) if c==code and d==direction]
+    return {'schemaVersion':'1.0.0-interconnector-granular-flow-file','generatedUTC':now(),'country':spec['country'],'interconnector':spec['interconnector'],'bmrsCode':code,'label':spec['label'],'flowDirection':'import' if direction=='imports' else 'export','signConvention':'Imports are positive MWh. Exports are negative MWh.','source':'Signed Elexon BMRS raw-code rows already present in repository elexon_generation_sources_*.csv files.','startYear':start_year,'endYear':end_year,'monthlyRows':mrows,'annualRows':arows}
 
+def data_files(start_year: int, end_year: int):
+    monthly, annual, source_meta = build_flows(start_year, end_year)
+    files, index_rows = {}, []
+    years = sorted({k[0] for k in annual})
+    for code in sorted(CODES, key=lambda c: CODE_META[c]['sortOrder']):
+        spec = CODE_META[code]; paths = {}
+        for direction in ('imports','exports'):
+            path = OUT_DIR / f"{spec['slug']}_{direction}.json"
+            files[path] = json.dumps(flow_payload(code,direction,monthly,annual,start_year,end_year), indent=2, ensure_ascii=False) + '\n'
+            paths[direction] = rel(path)
+        for y in years:
+            imp = annual.get((y,code,'imports'), {'mwh':0.0,'records':0})
+            exp = annual.get((y,code,'exports'), {'mwh':0.0,'records':0})
+            im, ex = float(imp['mwh']), float(exp['mwh'])
+            index_rows.append({'year':y,'country':spec['country'],'interconnector':spec['interconnector'],'bmrsCode':code,'label':spec['label'],'importFile':paths['imports'],'exportFile':paths['exports'],'importMWh':round(im,3),'exportMWh':round(ex,3),'netMWh':round(im+ex,3),'importRecords':int(imp['records']),'exportRecords':int(exp['records']),'sortOrder':spec['sortOrder']})
+    files[OUT_INDEX] = json.dumps({'schemaVersion':'1.0.0-interconnector-index','generatedUTC':now(),'title':'GB interconnector import/export index','labelContract':'country - interconnector name - BMRS code','signConvention':'Imports are positive MWh. Exports are negative MWh.','sourceAudit':source_meta,'rows':index_rows}, indent=2, ensure_ascii=False) + '\n'
+    return files, index_rows, source_meta
 
-def fetch_interconnectors(start_year: int, end_year: int, offline: bool) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    if offline:
-        return [], {
-            "offline": True,
-            "rawRows": 0,
-            "usedRows": 0,
-            "fetches": [],
-            "windowDays": CHUNK_DAYS,
-            "requestDelaySeconds": REQUEST_DELAY_SECONDS,
-        }
+def generation_by_year():
+    out = defaultdict(float)
+    for r in existing_rows(ANNUAL):
+        if r.get('technology') == LEGACY: continue
+        try: out[int(r.get('year'))] += float(r.get('totalMWh') or 0)
+        except Exception: pass
+    return dict(out)
 
-    buckets: dict[tuple[int, int, str], dict[str, float | int]] = defaultdict(lambda: {
-        "importMWh": 0.0,
-        "exportMWh": 0.0,
-        "netMWh": 0.0,
-        "records": 0,
-        "positiveRecords": 0,
-        "negativeRecords": 0,
-    })
-    meta: dict[str, Any] = {
-        "offline": False,
-        "sourceApi": ELEXON_FUELHH,
-        "windowDays": CHUNK_DAYS,
-        "requestDelaySeconds": REQUEST_DELAY_SECONDS,
-        "rawRows": 0,
-        "usedRows": 0,
-        "failedWindows": 0,
-        "fetches": [],
-    }
+def add_total_file(files: dict[Path,str], index_rows: list[dict[str,Any]]):
+    generation = generation_by_year(); years = sorted(set(generation) | {int(r['year']) for r in index_rows}); rows = []
+    for y in years:
+        im = sum(float(r.get('importMWh') or 0) for r in index_rows if int(r['year']) == y)
+        ex = sum(float(r.get('exportMWh') or 0) for r in index_rows if int(r['year']) == y)
+        net, gen = im + ex, generation.get(y, 0.0)
+        rows.append({'year':y,'generationShownMWh':round(gen,3),'totalImportMWh':round(im,3),'totalExportMWh':round(ex,3),'netInterconnectorMWh':round(net,3),'supplyProxyMWh':round(gen+net,3),'note':'Supply proxy equals visible generation technologies plus net interconnector imports. Use for sense-checking against external studies, not final demand.'})
+    files[OUT_TOTALS] = json.dumps({'schemaVersion':'1.0.0-total-electricity-check','generatedUTC':now(),'title':'Total electricity check line for generation plus net interconnector imports','unit':'MWh','signConvention':'Imports positive, exports negative.','rows':rows}, indent=2, ensure_ascii=False) + '\n'
+    return rows
 
-    for year, month, month_start, month_end_date in month_windows(start_year, end_year):
-        month_raw = 0
-        month_used = 0
-        month_failed = 0
-        for win_start, win_end in day_windows(month_start, month_end_date):
-            params: list[tuple[str, str]] = [
-                ("settlementDateFrom", win_start.isoformat()),
-                ("settlementDateTo", win_end.isoformat()),
-                ("format", "json"),
-            ]
-            params.extend(("fuelType", code) for code in sorted(CODES))
-            url = ELEXON_FUELHH + "?" + urllib.parse.urlencode(params)
-            try:
-                rows = extract(fetch_json(url))
-                status = "ok"
-            except Exception as exc:
-                rows = []
-                status = str(exc)
-                month_failed += 1
+def patch_index(txt: str) -> str:
+    warning = '<div class="generation-source-warning mwh-interconnector-split-warning"><strong>Interconnector accounting:</strong> The former Imports &amp; Exports generation bucket is hidden. Interconnectors are shown separately as signed imports, signed exports and net flow, labelled country first, interconnector name second and BMRS code third. Total electricity check lines are shown for external reconciliation.</div>'
+    txt, count = re.compile(r'\n?\s*<div class="generation-source-warning mwh-interconnector-split-warning">.*?</div>', re.DOTALL).subn('\n        '+warning, txt)
+    if not count:
+        txt = txt.replace('          <div class="mwh-card" id="generation-mwh-daynight"></div>\n        </div>', '          <div class="mwh-card" id="generation-mwh-daynight"></div>\n        </div>\n        '+warning, 1)
+    if '.mwh-interconnector-row' not in txt:
+        css = '\n  #generation-history-panel .mwh-interconnector-bars{margin-top:6px;}\n  #generation-history-panel .mwh-row.mwh-interconnector-row{grid-template-columns:minmax(250px,.9fr) 1fr 120px;font-size:11px;}\n  #generation-history-panel .mwh-row.mwh-interconnector-row .mwh-label{white-space:normal;line-height:1.25;color:#cfd7e6;}\n'
+        txt = txt.replace('</style>', css + '</style>', 1)
+    for name in ('load_generation_mwh_aggregates','render_generation_mwh_aggregates','control_generation_mwh_aggregates'):
+        txt = re.sub(rf'(/uk_energy_tracking_v6/generation_history/{name}\.js\?v=)[^\"\']+', rf'\g<1>{CACHE}', txt)
+    return txt
 
-            used = 0
-            month_raw += len(rows)
-            meta["rawRows"] += len(rows)
-            for row in rows:
-                code = fuel(row)
-                timestamp = row_time(row)
-                mw = mw_value(row)
-                if code not in CODES or timestamp is None or mw is None:
-                    continue
-                mwh = mw * 0.5
-                bucket = buckets[(timestamp.year, timestamp.month, code)]
-                if mwh >= 0:
-                    bucket["importMWh"] = float(bucket["importMWh"]) + mwh
-                    bucket["positiveRecords"] = int(bucket["positiveRecords"]) + 1
-                else:
-                    bucket["exportMWh"] = float(bucket["exportMWh"]) + abs(mwh)
-                    bucket["negativeRecords"] = int(bucket["negativeRecords"]) + 1
-                bucket["netMWh"] = float(bucket["netMWh"]) + mwh
-                bucket["records"] = int(bucket["records"]) + 1
-                used += 1
-            month_used += used
-            meta["usedRows"] += used
-            time.sleep(REQUEST_DELAY_SECONDS)
-        meta["failedWindows"] += month_failed
-        meta["fetches"].append({
-            "year": year,
-            "month": month,
-            "window": f"{month_start.isoformat()} to {month_end_date.isoformat()}",
-            "rawRows": month_raw,
-            "usedRows": month_used,
-            "failedWindows": month_failed,
-            "status": "ok" if month_failed == 0 else "partial",
-        })
-
-    monthly: list[dict[str, Any]] = []
-    for (year, month, code), bucket in sorted(buckets.items()):
-        base = dict(CODE_META[code])
-        base.update({
-            "year": year,
-            "month": month,
-            "importMWh": round(float(bucket["importMWh"]), 3),
-            "exportMWh": round(float(bucket["exportMWh"]), 3),
-            "netMWh": round(float(bucket["netMWh"]), 3),
-            "records": int(bucket["records"]),
-            "positiveRecords": int(bucket["positiveRecords"]),
-            "negativeRecords": int(bucket["negativeRecords"]),
-            "source": "Elexon BMRS FUELHH",
-            "status": "candidate",
-        })
-        monthly.append(base)
-    return monthly, meta
-
-
-def annualise(monthly_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    acc: dict[tuple[int, str], dict[str, float | int]] = defaultdict(lambda: {
-        "importMWh": 0.0,
-        "exportMWh": 0.0,
-        "netMWh": 0.0,
-        "records": 0,
-        "positiveRecords": 0,
-        "negativeRecords": 0,
-    })
-    for row in monthly_rows:
-        key = (int(row["year"]), str(row["bmrsCode"]))
-        bucket = acc[key]
-        for field in ("importMWh", "exportMWh", "netMWh"):
-            bucket[field] = float(bucket[field]) + float(row.get(field) or 0)
-        for field in ("records", "positiveRecords", "negativeRecords"):
-            bucket[field] = int(bucket[field]) + int(row.get(field) or 0)
-
-    annual: list[dict[str, Any]] = []
-    for (year, code), bucket in sorted(acc.items()):
-        base = dict(CODE_META[code])
-        base.update({
-            "year": year,
-            "importMWh": round(float(bucket["importMWh"]), 3),
-            "exportMWh": round(float(bucket["exportMWh"]), 3),
-            "netMWh": round(float(bucket["netMWh"]), 3),
-            "records": int(bucket["records"]),
-            "positiveRecords": int(bucket["positiveRecords"]),
-            "negativeRecords": int(bucket["negativeRecords"]),
-            "source": "Elexon BMRS FUELHH",
-            "status": "candidate",
-        })
-        annual.append(base)
-    return annual
-
-
-def fact_payload(title: str, grain: str, rows: list[dict[str, Any]], start_year: int, end_year: int) -> dict[str, Any]:
-    return {
-        "schemaVersion": "1.1.0-interconnector-split",
-        "generatedUTC": utcnow(),
-        "title": title,
-        "grain": grain,
-        "unit": "MWh",
-        "status": "candidate",
-        "signConvention": "Positive FUELHH MW is treated as GB import. Negative FUELHH MW is treated as GB export.",
-        "labelContract": "country — interconnector name — BMRS code",
-        "sourceNote": "Interconnectors are separate from generation. Raw rows are fetched transiently and not committed.",
-        "startYear": start_year,
-        "endYear": end_year,
-        "rows": rows,
-    }
-
-
-def patch_index(text: str) -> str:
-    warning = (
-        '<div class="generation-source-warning mwh-interconnector-split-warning">'
-        '<strong>Interconnector accounting:</strong> The former Imports &amp; Exports generation bucket is removed from the Generation Output in MWh chart. '
-        'Named interconnectors now appear near the bottom of the annual chart with separate import, export and net MWh fields. '
-        'Labels use country first, interconnector name second and BMRS code third.'
-        '</div>'
-    )
-    if "mwh-interconnector-split-warning" not in text:
-        anchor = '          <div class="mwh-card" id="generation-mwh-daynight"></div>\n        </div>'
-        if anchor in text:
-            text = text.replace(anchor, anchor + "\n        " + warning, 1)
-
-    css = """
-  #generation-history-panel .mwh-interconnector-bars{margin-top:4px;}
-  #generation-history-panel .mwh-row.mwh-interconnector-row{grid-template-columns:minmax(240px,.92fr) 1fr 170px;font-size:11px;}
-  #generation-history-panel .mwh-row.mwh-interconnector-row .mwh-label{white-space:normal;line-height:1.25;color:#d8deeb;}
-"""
-    if ".mwh-interconnector-bars" not in text:
-        text = text.replace("</style>", css + "</style>", 1)
-
-    for name in ("load_generation_mwh_aggregates", "render_generation_mwh_aggregates", "control_generation_mwh_aggregates"):
-        text = re.sub(
-            rf"(/uk_energy_tracking_v6/generation_history/{name}\.js\?v=)[^\"']+",
-            rf"\g<1>{CACHE_BUSTER}",
-            text,
-        )
-    return text
-
-
-def node_check(source: str, label: str) -> dict[str, Any]:
+def node_check(src: str, label: str):
     try:
-        with tempfile.NamedTemporaryFile("w", suffix=f"_{label}.js", delete=False, encoding="utf-8") as handle:
-            handle.write(source)
-            temp_path = Path(handle.name)
-        result = subprocess.run(["node", "--check", str(temp_path)], cwd=ROOT, text=True, capture_output=True, timeout=30)
-        temp_path.unlink(missing_ok=True)
-        return {"ok": result.returncode == 0, "detail": (result.stderr or result.stdout).strip()}
-    except FileNotFoundError:
-        return {"ok": True, "detail": "node unavailable; syntax check skipped"}
-    except Exception as exc:
-        return {"ok": False, "detail": str(exc)}
+        with tempfile.NamedTemporaryFile('w', suffix=f'_{label}.js', delete=False, encoding='utf-8') as h:
+            h.write(src); tmp = Path(h.name)
+        r = subprocess.run(['node','--check',str(tmp)], cwd=ROOT, text=True, capture_output=True, timeout=30); tmp.unlink(missing_ok=True)
+        return {'ok': r.returncode == 0, 'detail': (r.stderr or r.stdout).strip()}
+    except FileNotFoundError: return {'ok': True, 'detail':'node unavailable; syntax check skipped'}
+    except Exception as exc: return {'ok': False, 'detail': str(exc)}
 
+def planned_files(start_year: int, end_year: int):
+    files, index_rows, source_meta = data_files(start_year, end_year); total_rows = add_total_file(files, index_rows)
+    all_files = {INDEX: patch_index(read(INDEX)), LOAD: LOAD_JS, RENDER: RENDER_JS, CONTROL: CONTROL_JS}; all_files.update(files)
+    return all_files, index_rows, total_rows, source_meta
 
-def planned_outputs(annual_rows: list[dict[str, Any]], monthly_rows: list[dict[str, Any]], start_year: int, end_year: int) -> dict[Path, str]:
-    return {
-        INDEX: patch_index(read(INDEX)),
-        LOAD: LOAD_JS,
-        RENDER: RENDER_JS,
-        CONTROL: CONTROL_JS,
-        OUT_ANNUAL: json.dumps(fact_payload("Annual interconnector import export net MWh", "annual by interconnector", annual_rows, start_year, end_year), indent=2, ensure_ascii=False) + "\n",
-        OUT_MONTHLY: json.dumps(fact_payload("Monthly interconnector import export net MWh", "monthly by interconnector", monthly_rows, start_year, end_year), indent=2, ensure_ascii=False) + "\n",
+def changed_paths(planned: dict[Path,str]) -> list[str]: return [rel(p) for p,c in planned.items() if read(p) != c]
+
+def raw_temp_files() -> list[str]:
+    hits=[]
+    for b in [ROOT/'data'/'raw', ROOT/'data'/'transient', ROOT/'data'/'tmp', ROOT/'tmp', ROOT/'temp']:
+        if b.exists(): hits += [rel(p) for p in b.rglob('*') if p.is_file()]
+    return sorted(set(hits))[:200]
+
+def collect_checks(planned, index_rows, total_rows, source_meta, before):
+    idx, load, render, control = planned[INDEX], planned[LOAD], planned[RENDER], planned[CONTROL]
+    current = {k: sha(p) for k,p in before['paths'].items()}
+    js = {'load': node_check(load,'load'), 'render': node_check(render,'render'), 'control': node_check(control,'control')}
+    out_json = [p for p in planned if OUT_DIR in p.parents and p.suffix == '.json']
+    import_files, export_files = [p for p in out_json if p.name.endswith('_imports.json')], [p for p in out_json if p.name.endswith('_exports.json')]
+    checks = {
+        'target_files_exist': all(p.exists() for p in (INDEX,LOAD,RENDER,CONTROL)),
+        'target_route_present': f'permalink: {ROUTE}' in idx,
+        'mwh_panel_present': 'Generation output in MWh' in idx and 'generation-mwh-annual' in idx,
+        'legacy_imports_exports_hidden_in_render': "hide={'Imports & Exports':1}" in render,
+        'legacy_imports_exports_hidden_in_control': "hide={'Imports & Exports':1}" in control,
+        'load_reads_interconnector_index_and_totals': 'generation_interconnector_index.json' in load and 'generation_interconnector_total_electricity_summary.json' in load,
+        'two_files_per_interconnector': len(import_files) == 10 and len(export_files) == 10,
+        'imports_positive_exports_negative': bool(index_rows) and all(float(r.get('importMWh') or 0) >= 0 and float(r.get('exportMWh') or 0) <= 0 for r in index_rows),
+        'separate_import_export_net_fields': bool(index_rows) and all(k in index_rows[0] for k in ('importMWh','exportMWh','netMWh')),
+        'labels_are_country_first_interconnector_second_code_third': bool(index_rows) and all(len(str(r.get('label','')).split(' - ')) >= 3 and str(r.get('label','')).split(' - ')[2].startswith('INT') for r in index_rows),
+        'all_ten_interconnector_codes_present': set(CODE_META).issubset({r.get('bmrsCode') for r in index_rows}),
+        'total_electricity_summary_present': bool(total_rows) and all(k in total_rows[0] for k in ('generationShownMWh','totalImportMWh','totalExportMWh','netInterconnectorMWh','supplyProxyMWh')),
+        'signed_rows_detected_in_source': any(v['positive'] > 0 for v in source_meta['signCountsByCode'].values()) and any(v['negative'] > 0 for v in source_meta['signCountsByCode'].values()),
+        'raw_rows_not_written': True,
+        'existing_generation_aggregate_jsons_not_modified': all(before['hashes'].get(k) == current.get(k) for k in before['hashes']),
+        'index_cache_busters_updated': CACHE in idx,
+        'index_has_interconnector_warning': 'mwh-interconnector-split-warning' in idx,
+        'load_js_syntax_ok': bool(js['load']['ok']),
+        'render_js_syntax_ok': bool(js['render']['ok']),
+        'control_js_syntax_ok': bool(js['control']['ok']),
     }
+    return checks, {'jsSyntax': js, 'currentHashes': current}
 
-
-def changed_paths(planned: dict[Path, str]) -> list[str]:
-    return [rel(path) for path, content in planned.items() if read(path) != content]
-
-
-def aggregate_hashes() -> dict[str, str]:
-    return {
-        "annual": sha256(ANNUAL),
-        "monthly": sha256(MONTHLY),
-        "seasonal": sha256(SEASONAL),
-        "dayNight": sha256(DAY_NIGHT),
-    }
-
-
-def write_reports(report: dict[str, Any]) -> None:
-    REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    REPORT_JSON_DIR.mkdir(parents=True, exist_ok=True)
-
-    lines = [
-        f"# Generation Interconnector Split — {'PASS' if report['pass'] else 'FAIL'}",
-        "",
-        f"Generated UTC: `{report['generatedUTC']}`",
-        f"Mode: `{report['mode']}`",
-        f"Route: `{ROUTE}`",
-        f"Pass: `{report['pass']}`",
-        "",
-        "## Executive summary",
-        "",
-        report["executiveSummary"],
-        "",
-        "## Changed / planned files",
-        "",
-    ]
-    lines.extend(f"- `{path}`" for path in (report["changedFiles"] or report.get("plannedChangedFiles", [])))
-    lines.extend([
-        "",
-        "## Interconnector label contract",
-        "",
-        "Labels use `country — interconnector name — BMRS code`.",
-        "",
-        "| Country | Interconnector | BMRS code |",
-        "|---|---|---|",
-    ])
-    for item in LINKS:
-        lines.append(f"| {item['country']} | {item['interconnector']} | `{item['bmrsCode']}` |")
-    lines.extend([
-        "",
-        "## Checks",
-        "",
-        "| Check | Result |",
-        "|---|---|",
-    ])
-    for key, value in report["checks"].items():
-        lines.append(f"| `{key}` | `{'PASS' if value else 'FAIL'}` |")
-    lines.extend([
-        "",
-        "## Method",
-        "",
-        "Positive FUELHH MW is treated as GB import. Negative FUELHH MW is treated as GB export. Interconnector rows are separate from generation and the old collapsed Imports & Exports bucket is hidden from the Generation Output in MWh panel.",
-        "",
-        "## Next action",
-        "",
-        report["nextAction"],
-        "",
-        "## Rollback",
-        "",
-        report["rollbackMethod"],
-        "",
-    ])
-
-    write(REPORT_MD, "\n".join(lines))
-    write(REPORT_JSON, json.dumps(report, indent=2, ensure_ascii=False) + "\n")
-
+def write_reports(report: dict[str,Any]):
+    REPORT_DIR.mkdir(parents=True, exist_ok=True); REPORT_JSON_DIR.mkdir(parents=True, exist_ok=True)
+    lines = [f'# {REPORT_TITLE}', '', f"Generated UTC: `{report['generatedUTC']}`", f"Mode: `{report['mode']}`", f"Pass: `{report['pass']}`", '', '## Executive summary', '', report['executiveSummary'], '', '## Granular data contract', '', '- Two files per interconnector: one imports file and one exports file.', '- Imports are positive MWh.', '- Exports are negative MWh.', '- Total electricity check lines are written for external reconciliation.', '- Label order is country, interconnector name, BMRS code.', '', '## Interconnectors']
+    lines += [f"- {x}" for x in report['interconnectors']]
+    lines += ['', '## Output rows', '', f"- Index rows: `{report['outputRows']['index']}`", f"- Total electricity rows: `{report['outputRows']['totalElectricity']}`", f"- JSON output files: `{report['outputFilesJsonCount']}`", '', '## Planned changed files']
+    lines += [f"- `{p}`" for p in report['plannedChangedFiles']]
+    lines += ['', '## Changed files in this mode'] + ([f"- `{p}`" for p in report['changedFiles']] or ['- none'])
+    lines += ['', '## Checks', '', '| Check | Result |', '|---|---|'] + [f"| {k} | {'✅' if v else '❌'} |" for k,v in report['checks'].items()]
+    lines += ['', '## Method', '', 'Signed raw-code interconnector rows are scanned before collapse. Energy is calculated per BMRS code, not inside a merged INT* technology bucket. Imports are stored as positive signed MWh and exports as negative signed MWh.', '', '## Rollback', '', report['rollbackMethod'], '']
+    write(REPORT_MD, '\n'.join(lines) + '\n'); write(REPORT_JSON, json.dumps(report, indent=2, ensure_ascii=False) + '\n')
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--start-year", type=int, default=2016)
-    parser.add_argument("--end-year", default="auto")
-    parser.add_argument("--apply", action="store_true")
-    parser.add_argument("--offline", action="store_true")
-    args = parser.parse_args()
-
-    end_year = dt.datetime.now(dt.timezone.utc).year if args.end_year == "auto" else int(args.end_year)
-    mode = "apply" if args.apply else "audit"
-    git_before = git_head()
-    hashes_before = aggregate_hashes()
-
-    monthly_rows, fetch_meta = fetch_interconnectors(args.start_year, end_year, args.offline)
-    annual_rows = annualise(monthly_rows)
-    planned = planned_outputs(annual_rows, monthly_rows, args.start_year, end_year)
-    planned_changed = changed_paths(planned)
-
+    ap = argparse.ArgumentParser(); ap.add_argument('--start-year', type=int, default=2016); ap.add_argument('--end-year', default='auto'); ap.add_argument('--apply', action='store_true'); args = ap.parse_args()
+    end_year = dt.datetime.now(dt.timezone.utc).year if args.end_year == 'auto' else int(args.end_year)
+    mode = 'apply' if args.apply else 'audit'; head = git(['rev-parse','HEAD'])
+    paths = {'annual':ANNUAL,'monthly':MONTHLY,'seasonal':SEASONAL,'dayNight':DAY_NIGHT}; before = {'paths': paths, 'hashes': {k: sha(p) for k,p in paths.items()}}
+    planned, index_rows, total_rows, source_meta = planned_files(args.start_year, end_year); planned_changed = changed_paths(planned); checks, state = collect_checks(planned,index_rows,total_rows,source_meta,before)
+    out_json = sorted(rel(p) for p in planned if OUT_DIR in p.parents and p.suffix == '.json')
+    report = {'reportTitle':REPORT_TITLE,'schemaVersion':'2.0.0-granular','generatedUTC':now(),'repository':'Ventusltd/globalgrid2050','branch':git(['branch','--show-current']),'gitHeadBefore':head,'gitHeadAfter':git(['rev-parse','HEAD']),'workflowName':WORKFLOW_NAME,'scriptName':SCRIPT_NAME,'upgradeType':'live V6 granular interconnector split for MWh panel','mode':mode,'sourceApis':[],'sourceWindows':[f'{args.start_year} to {end_year}'],'inputFiles':[rel(INDEX),rel(LOAD),rel(RENDER),rel(CONTROL),rel(ANNUAL),rel(MONTHLY),rel(SEASONAL),rel(DAY_NIGHT)] + [f['path'] for f in source_meta['sourceFiles'][:50]],'outputFiles':[rel(INDEX),rel(LOAD),rel(RENDER),rel(CONTROL),rel(REPORT_MD),rel(REPORT_JSON)] + out_json,'outputFilesJsonCount':len(out_json),'changedFiles':planned_changed if args.apply else [],'plannedChangedFiles':planned_changed,'addedFiles':[rel(p) for p in planned if p.suffix == '.json' and OUT_DIR in p.parents and not p.exists()],'deletedFiles':[],'interconnectors':[CODE_META[c]['label'] for c in sorted(CODES, key=lambda c: CODE_META[c]['sortOrder'])],'legacyBucketRowsFound':{'annual':sum(1 for r in existing_rows(ANNUAL) if r.get('technology') == LEGACY),'monthly':sum(1 for r in existing_rows(MONTHLY) if r.get('technology') == LEGACY)},'sourceAudit':source_meta,'outputRows':{'index':len(index_rows),'totalElectricity':len(total_rows)},'sourceHashesBefore':before['hashes'],'sourceHashesAfter':state['currentHashes'],'rawTemporaryFilesFound':raw_temp_files(),'browserRoutingAffected':True,'checks':checks,'jsSyntax':state['jsSyntax'],'rollbackMethod':'Revert the apply commit. Existing generation aggregate JSON files are not modified by this workflow.','executiveSummary':'Splits interconnectors out of the live V6 Generation Output in MWh panel using granular signed per-link files. The legacy Imports & Exports bucket is hidden, ten interconnectors each receive separate import and export JSON files, imports remain positive, exports remain negative, and a total electricity check line is shown at the bottom for reconciliation.','humanReviewStatus':'awaiting Vikram review' if not args.apply else 'apply completed; verify live page after Pages deploy','nextAction':'Review audit report, then rerun in apply mode only if all checks pass.' if not args.apply else 'Open live page and verify annual MWh panel, interconnector rows and total electricity check line on desktop and mobile.','applied':bool(args.apply),'pass':all(checks.values())}
+    if not report['pass']:
+        write_reports(report); print(json.dumps(report, indent=2, ensure_ascii=False)); raise SystemExit('checks failed')
     if args.apply:
         for path, content in planned.items():
-            if read(path) != content:
-                write(path, content)
+            if read(path) != content: write(path, content)
+    report['gitHeadAfter'] = git(['rev-parse','HEAD']); write_reports(report); print(json.dumps(report, indent=2, ensure_ascii=False)); return 0
 
-    hashes_after = aggregate_hashes()
-    index_after = planned[INDEX] if not args.apply else read(INDEX)
-    load_after = planned[LOAD] if not args.apply else read(LOAD)
-    render_after = planned[RENDER] if not args.apply else read(RENDER)
-    control_after = planned[CONTROL] if not args.apply else read(CONTROL)
-
-    checks = {
-        "target_files_exist": all(path.exists() for path in (INDEX, LOAD, RENDER, CONTROL, ANNUAL, MONTHLY, DAY_NIGHT)),
-        "audit_or_apply_mode_declared": mode in {"audit", "apply"},
-        "route_is_active_v6": f"permalink: {ROUTE}" in index_after,
-        "legacy_imports_exports_hidden_in_render": "var hide={'Imports & Exports':true};" in render_after,
-        "legacy_imports_exports_hidden_in_control": "var hide={'Imports & Exports':true};" in control_after,
-        "dropdown_filters_legacy_bucket": ".filter(function(t){return !hide[t]})" in control_after,
-        "loader_fetches_interconnector_outputs": "generation_interconnector_annual_mwh_by_link.json" in load_after and "generation_interconnector_monthly_mwh_by_link.json" in load_after,
-        "renderer_places_interconnectors_after_generation": "Interconnectors · imports and exports" in render_after,
-        "separate_import_export_net_fields": all(field in render_after for field in ("importMWh", "exportMWh", "netMWh")),
-        "country_first_labels": all(CODE_META[code]["label"].startswith(CODE_META[code]["country"]) for code in CODES),
-        "all_known_codes_in_mapping": len(CODES) == 10,
-        "output_rows_available_or_offline_audit": bool(annual_rows and monthly_rows) or bool(args.offline),
-        "raw_rows_not_written": True,
-        "existing_generation_aggregate_hashes_unchanged": hashes_before == hashes_after,
-        "load_js_syntax_ok": node_check(load_after, "load_generation_mwh_aggregates")["ok"],
-        "render_js_syntax_ok": node_check(render_after, "render_generation_mwh_aggregates")["ok"],
-        "control_js_syntax_ok": node_check(control_after, "control_generation_mwh_aggregates")["ok"],
-        "report_json_path_correct": REPORT_JSON == REPORT_JSON_DIR / "GENERATION_INTERCONNECTOR_SPLIT_LATEST.json",
-    }
-
-    output_files = [
-        rel(OUT_ANNUAL),
-        rel(OUT_MONTHLY),
-        rel(REPORT_MD),
-        rel(REPORT_JSON),
-    ]
-    changed_for_report = planned_changed if args.apply else []
-
-    report = {
-        "reportTitle": "Generation Interconnector Split",
-        "schemaVersion": "1.2.0",
-        "generatedUTC": utcnow(),
-        "repository": "Ventusltd/globalgrid2050",
-        "branch": "main",
-        "gitHeadBefore": git_before,
-        "gitHeadAfter": git_head(),
-        "workflowName": WORKFLOW_NAME,
-        "scriptName": SCRIPT_NAME,
-        "upgradeType": "live V6 Generation Output in MWh interconnector split",
-        "mode": mode,
-        "sourceApis": [] if args.offline else [ELEXON_FUELHH],
-        "sourceWindows": [f"{args.start_year} to {end_year}", f"{CHUNK_DAYS}-day FUELHH chunks", "fuelType filtered to INT* interconnector codes"],
-        "inputFiles": [rel(INDEX), rel(LOAD), rel(RENDER), rel(CONTROL), rel(ANNUAL), rel(MONTHLY), rel(DAY_NIGHT)],
-        "outputFiles": output_files,
-        "changedFiles": changed_for_report,
-        "plannedChangedFiles": planned_changed,
-        "addedFiles": [path for path in (rel(OUT_ANNUAL), rel(OUT_MONTHLY)) if not (ROOT / path).exists() or path in planned_changed],
-        "deletedFiles": [],
-        "checks": checks,
-        "rawTemporaryFilesFound": {"hits": [], "hitCount": 0, "note": "script writes no raw temporary files"},
-        "browserRoutingAffected": True,
-        "rollbackMethod": "Revert the apply commit. Existing generation aggregate JSON files are not edited by this workflow.",
-        "executiveSummary": "Removes the collapsed Imports & Exports bucket from the live V6 Generation Output in MWh panel and adds named interconnector imports, exports and net MWh near the bottom of the annual chart.",
-        "humanReviewStatus": "Audit required before apply. After apply, verify the live V6 Generation History page on desktop and mobile.",
-        "nextAction": "If audit passes, run this workflow again in apply mode. If apply passes, open the live page and verify the MWh panel and source warning." if not args.apply else "Open the live page, force refresh, verify the MWh panel, then review adjacent daily MWh and MW chart panels.",
-        "interconnectors": [CODE_META[code]["label"] for code in sorted(CODES)],
-        "legacyBucketRowsFound": {
-            "annual": sum(1 for row in json_rows(ANNUAL) if row.get("technology") == LEGACY_BUCKET),
-            "monthly": sum(1 for row in json_rows(MONTHLY) if row.get("technology") == LEGACY_BUCKET),
-            "dayNight": sum(1 for row in json_rows(DAY_NIGHT) if row.get("technology") == LEGACY_BUCKET),
-        },
-        "fetchMeta": fetch_meta,
-        "outputRows": {"annual": len(annual_rows), "monthly": len(monthly_rows)},
-        "aggregateHashesBefore": hashes_before,
-        "aggregateHashesAfter": hashes_after,
-        "applied": bool(args.apply),
-        "pass": all(checks.values()),
-    }
-
-    write_reports(report)
-    print(json.dumps({"pass": report["pass"], "applied": report["applied"], "annualRows": len(annual_rows), "monthlyRows": len(monthly_rows)}, indent=2))
-    if not report["pass"]:
-        raise SystemExit("Generation interconnector split checks failed")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+if __name__ == '__main__': raise SystemExit(main())

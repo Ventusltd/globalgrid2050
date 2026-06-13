@@ -446,6 +446,7 @@
 │   │   ├── SOLAR_MONTHLY_BACKFILL_LATEST.md
 │   │   ├── SOLAR_PEAK_INTEGRITY_LATEST.md
 │   │   ├── SUNRISE_SUNSET_TIME_BANDS_LATEST.md
+│   │   ├── SUNRISE_SUNSET_VISIBLE_ATTRIBUTION_LATEST.md
 │   │   ├── json
 │   │   │   ├── AUDIT_PROCESS_DOCUMENTATION_LATEST.json
 │   │   │   ├── DAILY_MWH_MULTI_TECH_WIRING_LATEST.json
@@ -550,6 +551,7 @@
 │   │   │   ├── SOLAR_MONTHLY_BACKFILL_LATEST.json
 │   │   │   ├── SOLAR_PEAK_INTEGRITY_LATEST.json
 │   │   │   ├── SUNRISE_SUNSET_TIME_BANDS_LATEST.json
+│   │   │   ├── SUNRISE_SUNSET_VISIBLE_ATTRIBUTION_LATEST.json
 │   │   │   └── repo_size_guard_20260608T131955Z.json
 │   │   └── repo_size_guard_20260608T131955Z.md
 │   ├── manifest_designs
@@ -2006,4 +2008,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-228 directories, 1779 files
+228 directories, 1781 files

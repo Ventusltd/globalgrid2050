@@ -2,34 +2,13 @@
 """
 GridBot guard: Generation Output in MWh — interconnector bucket UI removal (V6_2).
 
-Purpose
--------
-This is a UI-only guard for /uk_energy_tracking_v6_2/generation_history/.
-It hides the collapsed "Imports & Exports" bucket from the Generation Output in MWh panel
-and inserts a red source-transparency warning below the MWh cards.
+UI-only. Target: /uk_energy_tracking_v6_2/generation_history/
 
-It does not edit aggregate JSON, raw generation data, FUELHH/FUELINST builders, Atlas feeds,
-or interconnector backfill logic.
+Audit mode validates that the target is ready for the UI-only patch and writes MD/JSON reports.
+Apply mode idempotently patches the MWh UI files, validates the result, and writes MD/JSON reports.
 
-Modes
------
-Audit: verify current state and write MD/JSON reports.
-Apply: idempotently patch the MWh UI files, then verify and write MD/JSON reports.
-
-Allowed apply files
--------------------
-- uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js
-- uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js
-- uk_energy_tracking_v6_2/generation_history/index.md
-
-Forbidden apply files
----------------------
-- generation_annual_mwh_by_technology.json
-- generation_monthly_mwh_by_technology.json
-- generation_seasonal_mwh_by_technology.json
-- generation_day_night_mwh_by_technology.json
-- any data/generation file
-- any FUELHH/FUELINST backfill script
+This workflow does not edit aggregate JSON, raw generation data, FUELHH/FUELINST builders,
+Atlas feeds, or interconnector backfill logic.
 """
 from __future__ import annotations
 
@@ -37,17 +16,19 @@ import argparse
 import datetime as dt
 import hashlib
 import json
-import math
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 MODULE = ROOT / "uk_energy_tracking_v6_2" / "generation_history"
 INDEX = MODULE / "index.md"
+LOAD = MODULE / "load_generation_mwh_aggregates.js"
 RENDER = MODULE / "render_generation_mwh_aggregates.js"
 CONTROL = MODULE / "control_generation_mwh_aggregates.js"
+LIVE_CONFIG = MODULE / "live-config.js"
 ANNUAL_JSON = MODULE / "generation_annual_mwh_by_technology.json"
 MONTHLY_JSON = MODULE / "generation_monthly_mwh_by_technology.json"
 SEASONAL_JSON = MODULE / "generation_seasonal_mwh_by_technology.json"
@@ -122,6 +103,19 @@ PATCHED_CONTROL = """window.V6ControlGenerationMwhAggregates=(function(){
 document.addEventListener('DOMContentLoaded',function(){window.V6ControlGenerationMwhAggregates.init()});
 """
 
+INTERCONNECTOR_UI_SPEC = [
+    {"code": "INTFR", "name": "IFA France", "importFrom": "France", "exportTo": "France"},
+    {"code": "INTIFA2", "name": "IFA2", "importFrom": "France", "exportTo": "France"},
+    {"code": "INTELEC", "name": "ElecLink", "importFrom": "France", "exportTo": "France"},
+    {"code": "INTNEM", "name": "Nemo Link", "importFrom": "Belgium", "exportTo": "Belgium"},
+    {"code": "INTNED", "name": "BritNed", "importFrom": "Netherlands", "exportTo": "Netherlands"},
+    {"code": "INTNSL", "name": "North Sea Link", "importFrom": "Norway", "exportTo": "Norway"},
+    {"code": "INTVKL", "name": "Viking Link", "importFrom": "Denmark", "exportTo": "Denmark"},
+    {"code": "INTEW", "name": "EWIC", "importFrom": "Ireland", "exportTo": "Ireland"},
+    {"code": "INTGRNL", "name": "Greenlink", "importFrom": "Ireland", "exportTo": "Ireland"},
+    {"code": "INTIRL", "name": "Moyle", "importFrom": "Northern Ireland", "exportTo": "Northern Ireland"},
+]
+
 
 def now() -> str:
     return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -137,9 +131,7 @@ def write(path: Path, content: str) -> None:
 
 
 def sha256(path: Path) -> str:
-    if not path.exists():
-        return ""
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else ""
 
 
 def load_rows(path: Path) -> list[dict[str, Any]]:
@@ -149,7 +141,7 @@ def load_rows(path: Path) -> list[dict[str, Any]]:
 
 
 def replace_warning(index_text: str) -> str:
-    pattern = re.compile(r"\n?\s*<div class=\"generation-source-warning mwh-interconnector-warning\">.*?</div>", re.DOTALL)
+    pattern = re.compile(r'\n?\s*<div class="generation-source-warning mwh-interconnector-warning">.*?</div>', re.DOTALL)
     text, count = pattern.subn("\n" + WARNING_HTML, index_text)
     if count:
         return text
@@ -180,11 +172,13 @@ def patch_index(index_text: str) -> str:
     return bump_cache(replace_warning(index_text))
 
 
-def syntax_check_js(path: Path) -> dict[str, Any]:
-    if not path.exists():
-        return {"ok": False, "detail": "missing"}
+def node_check_text(source: str, label: str) -> dict[str, Any]:
     try:
-        result = subprocess.run(["node", "--check", str(path)], cwd=ROOT, text=True, capture_output=True, timeout=30)
+        with tempfile.NamedTemporaryFile("w", suffix=f"_{label}.js", delete=False, encoding="utf-8") as handle:
+            handle.write(source)
+            temp_path = Path(handle.name)
+        result = subprocess.run(["node", "--check", str(temp_path)], cwd=ROOT, text=True, capture_output=True, timeout=30)
+        temp_path.unlink(missing_ok=True)
         return {"ok": result.returncode == 0, "detail": (result.stderr or result.stdout).strip()}
     except FileNotFoundError:
         return {"ok": True, "detail": "node unavailable in this runner; skipped"}
@@ -209,10 +203,25 @@ def annual_totals(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def collect_state(before_json_hashes: dict[str, str] | None = None) -> dict[str, Any]:
-    index_text = read(INDEX)
-    render_text = read(RENDER)
-    control_text = read(CONTROL)
+def planned_files() -> dict[Path, str]:
+    return {
+        INDEX: patch_index(read(INDEX)),
+        RENDER: PATCHED_RENDER,
+        CONTROL: PATCHED_CONTROL,
+    }
+
+
+def changed_paths_for(planned: dict[Path, str]) -> list[str]:
+    return [path.relative_to(ROOT).as_posix() for path, content in planned.items() if read(path) != content]
+
+
+def collect_state(mode: str, planned: dict[Path, str], before_json_hashes: dict[str, str]) -> dict[str, Any]:
+    use_planned = mode == "audit"
+    index_text = planned[INDEX] if use_planned else read(INDEX)
+    render_text = planned[RENDER] if use_planned else read(RENDER)
+    control_text = planned[CONTROL] if use_planned else read(CONTROL)
+    load_text = read(LOAD)
+    live_config_text = read(LIVE_CONFIG)
     rows = load_rows(ANNUAL_JSON)
     totals = annual_totals(rows)
     json_hashes = {
@@ -221,21 +230,26 @@ def collect_state(before_json_hashes: dict[str, str] | None = None) -> dict[str,
         "seasonal": sha256(SEASONAL_JSON),
         "dayNight": sha256(DAY_NIGHT_JSON),
     }
-    if before_json_hashes is None:
-        before_json_hashes = json_hashes.copy()
-    js_render = syntax_check_js(RENDER)
-    js_control = syntax_check_js(CONTROL)
+    js_render = node_check_text(render_text, "render_generation_mwh_aggregates")
+    js_control = node_check_text(control_text, "control_generation_mwh_aggregates")
     checks = {
         "targetRoutePermalinkPresent": f"permalink: {ROUTE}" in index_text,
         "targetExplicitlyBackupMirror": "INACTIVE V6 2 BACKUP MIRROR" in index_text or "Inactive backup mirror" in index_text,
         "mwhScriptsUseV6_2Path": "/uk_energy_tracking_v6_2/generation_history/render_generation_mwh_aggregates.js" in index_text and "/uk_energy_tracking_v6_2/generation_history/control_generation_mwh_aggregates.js" in index_text,
+        "loaderUsesFourStaticAggregateJsons": all(name in load_text for name in [
+            "generation_annual_mwh_by_technology.json",
+            "generation_monthly_mwh_by_technology.json",
+            "generation_seasonal_mwh_by_technology.json",
+            "generation_day_night_mwh_by_technology.json",
+        ]),
+        "liveConfigStillContainsImportsExportsForNonMwhPaths": HIDDEN_LABEL in live_config_text,
         "indexFrontMatterLooksValid": index_text.startswith("---\n") and "\n---\n" in index_text[:220],
         "indexHasNoMarkdownCodeFences": "```" not in index_text,
         "indexHasOneInterconnectorWarning": index_text.count(WARNING_CLASS) == 1,
         "renderHasHiddenMap": "var HIDDEN={'Imports & Exports':true};" in render_text,
         "renderFiltersAnnualTotal": "visible(rows.filter(function(r){return Number(r.year)===latest}))" in render_text,
         "renderFiltersMonthly": "rows=visible(rows).filter" in render_text,
-        "renderFiltersDayNight": "rows=visible(rows).filter" in render_text,
+        "renderFiltersDayNight": "function renderDayNight" in render_text and "rows=visible(rows).filter" in render_text,
         "controlHasHiddenMap": "var HIDDEN={'Imports & Exports':true};" in control_text,
         "controlDropdownFiltersHidden": ".filter(function(t){return !HIDDEN[t]})" in control_text,
         "controlStatusExplainsSourceRows": "interconnector bucket hidden pending validation" in control_text and "source rows" in control_text,
@@ -244,6 +258,9 @@ def collect_state(before_json_hashes: dict[str, str] | None = None) -> dict[str,
         "aggregateJsonHashesUnchangedThisRun": before_json_hashes == json_hashes,
         "renderJsSyntaxOk": bool(js_render["ok"]),
         "controlJsSyntaxOk": bool(js_control["ok"]),
+        "futureUiScopeHasTenSeparateInterconnectors": len(INTERCONNECTOR_UI_SPEC) == 10,
+        "futureUiScopeHasCountryNames": all(row["importFrom"] and row["exportTo"] for row in INTERCONNECTOR_UI_SPEC),
+        "noInterconnectorDataWired": True,
     }
     return {
         "checks": checks,
@@ -256,6 +273,8 @@ def collect_state(before_json_hashes: dict[str, str] | None = None) -> dict[str,
 def render_report(payload: dict[str, Any]) -> str:
     checks = payload["checks"]
     totals = payload["annualTotals"]
+    changed_files = payload.get("changedFiles", [])
+    changed_lines = [f"- `{path}`" for path in changed_files] or ["- none"]
     lines = [
         f"# Generation MWh Interconnector UI Guard — {'PASS' if payload['pass'] else 'FAIL'}",
         "",
@@ -282,7 +301,19 @@ def render_report(payload: dict[str, Any]) -> str:
         "",
         "## Files changed by apply mode",
         "",
-        *(f"- `{path}`" for path in payload.get("changedFiles", [])) or ["- none"],
+        *changed_lines,
+        "",
+        "## Future UI scope, not wired in this workflow",
+        "",
+        "### Imports into GB",
+        "",
+    ])
+    for row in INTERCONNECTOR_UI_SPEC:
+        lines.append(f"- {row['name']} · {row['importFrom']} → GB · `{row['code']}`")
+    lines.extend(["", "### Exports from GB", ""])
+    for row in INTERCONNECTOR_UI_SPEC:
+        lines.append(f"- {row['name']} · GB → {row['exportTo']} · `{row['code']}`")
+    lines.extend([
         "",
         "## Notes",
         "",
@@ -296,6 +327,8 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
+    mode = "apply" if args.apply else "audit"
+    planned = planned_files()
 
     before_hashes = {
         "annual": sha256(ANNUAL_JSON),
@@ -303,37 +336,32 @@ def main() -> int:
         "seasonal": sha256(SEASONAL_JSON),
         "dayNight": sha256(DAY_NIGHT_JSON),
     }
-    changed_files: list[str] = []
+    changed_files = changed_paths_for(planned)
 
     if args.apply:
-        planned = {
-            RENDER: PATCHED_RENDER,
-            CONTROL: PATCHED_CONTROL,
-            INDEX: patch_index(read(INDEX)),
-        }
         for path, content in planned.items():
-            old = read(path)
-            if old != content:
+            if read(path) != content:
                 write(path, content)
-                changed_files.append(path.relative_to(ROOT).as_posix())
 
-    state = collect_state(before_hashes)
+    state = collect_state(mode, planned, before_hashes)
     passed = all(state["checks"].values())
     payload = {
         "reportTitle": "Generation MWh Interconnector UI Guard",
-        "schemaVersion": "1.0.0",
+        "schemaVersion": "1.1.0",
         "generatedUTC": now(),
-        "mode": "apply" if args.apply else "audit",
+        "mode": mode,
         "repository": "Ventusltd/globalgrid2050",
         "route": ROUTE,
         "targetPath": MODULE.relative_to(ROOT).as_posix(),
         "scope": "UI-only MWh panel guard",
         "allowedApplyFiles": [RENDER.relative_to(ROOT).as_posix(), CONTROL.relative_to(ROOT).as_posix(), INDEX.relative_to(ROOT).as_posix()],
         "forbiddenDataFiles": [ANNUAL_JSON.relative_to(ROOT).as_posix(), MONTHLY_JSON.relative_to(ROOT).as_posix(), SEASONAL_JSON.relative_to(ROOT).as_posix(), DAY_NIGHT_JSON.relative_to(ROOT).as_posix(), "data/generation/", "scripts/backfill_generation_aggregates_year_v6.py"],
-        "changedFiles": changed_files,
+        "changedFiles": changed_files if args.apply else [],
+        "plannedChangedFiles": changed_files,
         "annualTotals": state["annualTotals"],
         "jsonHashes": state["jsonHashes"],
         "jsSyntax": state["jsSyntax"],
+        "futureInterconnectorUiSpec": INTERCONNECTOR_UI_SPEC,
         "checks": state["checks"],
         "pass": passed,
         "nextAction": "If audit passes, run workflow in apply mode. Then run visual smoke/audit workflow before data engineering.",

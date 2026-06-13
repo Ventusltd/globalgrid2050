@@ -12,21 +12,13 @@ on:
           - audit
           - apply
       start_year:
-        description: First year to read from signed repo raw interconnector files
+        description: First year to scan from signed repository raw-code rows
         required: true
         default: '2016'
       end_year:
-        description: Last year to read, or auto
+        description: Last year to scan, or auto
         required: true
         default: auto
-      offline:
-        description: Patch-only audit without signed source scan
-        required: true
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
       commit_reports:
         description: Commit reports and apply outputs
         required: true
@@ -47,6 +39,7 @@ jobs:
   generation-interconnector-split:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -60,23 +53,17 @@ jobs:
       - name: Run audit
         if: ${{ github.event.inputs.mode == 'audit' }}
         run: |
-          EXTRA=""
-          if [ "${{ github.event.inputs.offline }}" = "true" ]; then EXTRA="--offline"; fi
           python scripts/gridbot_generation_interconnector_split.py \
             --start-year "${{ github.event.inputs.start_year }}" \
-            --end-year "${{ github.event.inputs.end_year }}" \
-            $EXTRA
+            --end-year "${{ github.event.inputs.end_year }}"
 
       - name: Run apply
         if: ${{ github.event.inputs.mode == 'apply' }}
         run: |
-          EXTRA=""
-          if [ "${{ github.event.inputs.offline }}" = "true" ]; then EXTRA="--offline"; fi
           python scripts/gridbot_generation_interconnector_split.py \
             --start-year "${{ github.event.inputs.start_year }}" \
             --end-year "${{ github.event.inputs.end_year }}" \
-            --apply \
-            $EXTRA
+            --apply
 
       - name: Upload interconnector split report
         if: always()

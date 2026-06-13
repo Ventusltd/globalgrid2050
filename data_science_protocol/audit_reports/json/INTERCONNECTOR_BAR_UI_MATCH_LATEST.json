@@ -1,0 +1,41 @@
+{
+  "reportTitle": "Interconnector Bar UI Match",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-13T20:14:17.958383Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "workflowName": "GridBot Interconnector Bar UI Match",
+  "scriptName": "scripts/gridbot_interconnector_bar_ui_match.py",
+  "route": "/uk_energy_tracking_v6/generation_history/",
+  "mode": "audit",
+  "changedFiles": [],
+  "plannedChangedFiles": [
+    "uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js"
+  ],
+  "checks": {
+    "renderer_syntax_ok": true,
+    "control_syntax_ok": true,
+    "interconnector_rows_use_mwh_row_bar_layout": true,
+    "interconnector_rows_not_collapsed_into_details": true,
+    "interconnector_labels_shortened_for_mobile": true,
+    "values_show_net_twh_like_generation_rows": true,
+    "total_check_uses_same_mwh_row_layout": true,
+    "status_line_shortened": true,
+    "generation_jsons_not_touched": true
+  },
+  "jsSyntax": {
+    "render": {
+      "ok": true,
+      "detail": ""
+    },
+    "control": {
+      "ok": true,
+      "detail": ""
+    }
+  },
+  "browserRoutingAffected": true,
+  "rollbackMethod": "Revert the apply commit. This repair changes only render_generation_mwh_aggregates.js and control_generation_mwh_aggregates.js.",
+  "executiveSummary": "Matches the interconnector section to the existing annual MWh generation bar style. Interconnectors remain below generation, but each row uses the same label, track and TWh value grammar. The value displayed is net MWh, with import/export detail retained in the hover title and JSON files. Granular JSON data is not changed.",
+  "applied": false,
+  "pass": true
+}

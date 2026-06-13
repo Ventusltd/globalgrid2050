@@ -1197,7 +1197,9 @@
 │   ├── gridbot_generation_history_solar_recent.py
 │   ├── gridbot_generation_history_ui_label_audit.py
 │   ├── gridbot_generation_history_v6_2_backup_mirror.py
+│   ├── gridbot_generation_interconnector_split.py
 │   ├── gridbot_generation_mwh_active_v6_source_audit.py
+│   ├── gridbot_generation_mwh_interconnector_split_v6.py
 │   ├── gridbot_generation_mwh_interconnector_ui_guard.py
 │   ├── gridbot_insert_dc_subsections.py
 │   ├── gridbot_insert_markdown_section.py
@@ -1953,4 +1955,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-227 directories, 1727 files
+227 directories, 1729 files

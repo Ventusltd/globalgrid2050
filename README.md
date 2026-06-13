@@ -3,6 +3,40 @@ Open infrastructure for electrification
 # GlobalGrid2050
 **Open Infrastructure for Electrification**
 
+## FAST START FOR AI SESSIONS
+
+GlobalGrid2050 is a founder controlled grid intelligence repository for Ventus Ltd. Do not treat it as a normal website repo or a place for casual direct edits.
+
+Operating rule:
+
+`AI proposes or commits controlled GridBot assets. Vikram triggers workflows manually. GridBot records evidence. Vikram approves what becomes live.`
+
+Standard GridBot sequence:
+
+1. Inspect `AI_START_HERE.md`, this README, recent commits, relevant workflows, relevant scripts and the latest audit reports in `data_science_protocol/audit_reports/`.
+2. If a change is requested, create or update the smallest relevant script and workflow first. Use the existing GridBot pattern.
+3. Commit the script and workflow when write access is available. Do not only provide a ZIP or instructions unless write access is genuinely unavailable.
+4. Ask Vikram to trigger `workflow_dispatch` in `audit` mode.
+5. Read the committed audit report and JSON evidence before recommending apply.
+6. Only after audit passes, ask Vikram to trigger `apply` mode.
+7. After apply, inspect the apply report, changed files and live route before saying the work is complete.
+
+Audit law:
+
+`audit mode must not alter target app files or data outputs. apply mode may write only the declared audited files.`
+
+Data law:
+
+`raw API and high frequency data are transient build inputs. Browser apps load compact confirmed facts. MWh can be summed. Peaks, lows and extrema must not be summed across grains.`
+
+Interconnector law:
+
+`never collapse INT* codes into Imports & Exports for generation charts. Preserve BMRS code identity. Imports are positive MWh. Exports are negative MWh. Labels must be country, interconnector name, BMRS code. Keep gross import, gross export and net flow distinct. Show total electricity check lines where useful for reconciliation.`
+
+Workflow hygiene:
+
+`prefer the active non duplicate workflow. Stale V2 or backup workflows must be treated as suspect until checked against the latest audit report and current script contract.`
+
 ## AI and deployment doctrine
 
 Before modifying this repository, read:

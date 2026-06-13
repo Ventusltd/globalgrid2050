@@ -1,0 +1,91 @@
+{
+  "reportTitle": "Sunrise Sunset Time Bands",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-13T22:01:39.196457Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "workflowName": "GridBot Sunrise Sunset Time Bands",
+  "scriptName": "scripts/gridbot_sunrise_sunset_time_bands.py",
+  "route": "/uk_energy_tracking_v6/generation_history/",
+  "mode": "audit",
+  "year": 2026,
+  "changedFiles": [],
+  "plannedChangedFiles": [
+    "uk_energy_tracking_v6/generation_history/sunrise_sunset_time_bands_reference.json"
+  ],
+  "source": "Sunrise-Sunset.org API",
+  "sourceUrl": "https://sunrise-sunset.org/api",
+  "fetchMeta": {
+    "fetchCount": 60,
+    "rowCount": 60,
+    "monthlySummaryRowCount": 12,
+    "fetches": [
+      {
+        "date": "2026-01-15",
+        "location": "London",
+        "status": "ok"
+      },
+      {
+        "date": "2026-01-15",
+        "location": "Cardiff",
+        "status": "ok"
+      },
+      {
+        "date": "2026-01-15",
+        "location": "Manchester",
+        "status": "ok"
+      },
+      {
+        "date": "2026-01-15",
+        "location": "Edinburgh",
+        "status": "ok"
+      },
+      {
+        "date": "2026-01-15",
+        "location": "Belfast",
+        "status": "ok"
+      },
+      {
+        "date": "2026-02-15",
+        "location": "London",
+        "status": "ok"
+      },
+      {
+        "date": "2026-02-15",
+        "location": "Cardiff",
+        "status": "ok"
+      },
+      {
+        "date": "2026-02-15",
+        "location": "Manchester",
+        "status": "ok"
+      },
+      {
+        "date": "2026-02-15",
+        "location": "Edinburgh",
+        "status": "ok"
+      },
+      {
+        "date": "2026-02-15",
+        "location": "Belfast",
+        "status": "ok"
+      }
+    ]
+  },
+  "checks": {
+    "has_five_time_bands": true,
+    "time_bands_are_times_only": true,
+    "has_reference_locations": true,
+    "fetched_rows_for_12_months_and_5_locations": true,
+    "monthly_summary_has_12_rows": true,
+    "sunrise_and_sunset_are_hhmm": true,
+    "timezone_is_europe_london": true,
+    "source_attribution_flag_present": true,
+    "output_under_1mb": true,
+    "generation_data_not_touched": true
+  },
+  "browserRoutingAffected": false,
+  "rollbackMethod": "Delete the compact sunrise_sunset_time_bands_reference.json output or revert the apply commit.",
+  "executiveSummary": "Fetches UK sunrise and sunset reference times for 5 UK locations on the 15th of each month, using fixed clock time bands only. This prepares the data layer for replacing the crude day versus night panel with time ranges plus sunrise and sunset context. Generation data is not changed.",
+  "applied": false,
+  "pass": true
+}

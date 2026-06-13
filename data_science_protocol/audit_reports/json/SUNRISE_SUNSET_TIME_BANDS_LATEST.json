@@ -1,14 +1,16 @@
 {
   "reportTitle": "Sunrise Sunset Time Bands",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-13T22:01:39.196457Z",
+  "generatedUTC": "2026-06-13T22:10:25.928103Z",
   "repository": "Ventusltd/globalgrid2050",
   "workflowName": "GridBot Sunrise Sunset Time Bands",
   "scriptName": "scripts/gridbot_sunrise_sunset_time_bands.py",
   "route": "/uk_energy_tracking_v6/generation_history/",
-  "mode": "audit",
+  "mode": "apply",
   "year": 2026,
-  "changedFiles": [],
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/sunrise_sunset_time_bands_reference.json"
+  ],
   "plannedChangedFiles": [
     "uk_energy_tracking_v6/generation_history/sunrise_sunset_time_bands_reference.json"
   ],
@@ -86,6 +88,6 @@
   "browserRoutingAffected": false,
   "rollbackMethod": "Delete the compact sunrise_sunset_time_bands_reference.json output or revert the apply commit.",
   "executiveSummary": "Fetches UK sunrise and sunset reference times for 5 UK locations on the 15th of each month, using fixed clock time bands only. This prepares the data layer for replacing the crude day versus night panel with time ranges plus sunrise and sunset context. Generation data is not changed.",
-  "applied": false,
+  "applied": true,
   "pass": true
 }

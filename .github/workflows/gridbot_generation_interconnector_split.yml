@@ -78,6 +78,14 @@ jobs:
             --apply \
             $EXTRA
 
+      - name: Normalize report path
+        if: always()
+        run: |
+          mkdir -p data_science_protocol/audit_reports/json
+          if [ -f data_science_protocol/audit_reports/json/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json ]; then
+            cp data_science_protocol/audit_reports/json/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json data_science_protocol/audit_reports/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json
+          fi
+
       - name: Upload interconnector split report
         if: always()
         uses: actions/upload-artifact@v4

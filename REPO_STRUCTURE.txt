@@ -1184,6 +1184,7 @@
 │   ├── gridbot_mega_upgrade.py
 │   ├── gridbot_modularise_employers_requirements.py
 │   ├── gridbot_replace_modular_note_with_summary.py
+│   ├── gridbot_repo_split_inventory.py
 │   ├── gridbot_solar_daily_mwh_index_upgrade.py
 │   ├── gridbot_solar_daily_mwh_interaction_upgrade.py
 │   ├── gridbot_solar_daily_mwh_readability_upgrade.py
@@ -1931,4 +1932,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-227 directories, 1705 files
+227 directories, 1706 files

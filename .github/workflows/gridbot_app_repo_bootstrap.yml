@@ -1,0 +1,94 @@
+name: GridBot App Repo Bootstrap
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      repo_set:
+        description: Repository set to audit or create
+        required: true
+        default: generation_history
+        type: choice
+        options:
+          - generation_history
+          - core_apps
+          - all
+      visibility:
+        description: New repository visibility
+        required: true
+        default: public
+        type: choice
+        options:
+          - public
+          - private
+      owner:
+        description: Target owner or org
+        required: true
+        default: Ventusltd
+      commit_reports:
+        description: Commit audit/apply reports
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-app-repo-bootstrap-${{ github.event.inputs.repo_set }}
+  cancel-in-progress: false
+
+jobs:
+  app-repo-bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run app repo bootstrap
+        env:
+          GRIDBOT_PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          python scripts/gridbot_app_repo_bootstrap.py \
+            --mode "${{ github.event.inputs.mode }}" \
+            --repo-set "${{ github.event.inputs.repo_set }}" \
+            --visibility "${{ github.event.inputs.visibility }}" \
+            --owner "${{ github.event.inputs.owner }}"
+
+      - name: Upload bootstrap report
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-repo-bootstrap-${{ github.event.inputs.mode }}-${{ github.event.inputs.repo_set }}
+          path: |
+            data_science_protocol/audit_reports/APP_REPO_BOOTSTRAP_LATEST.md
+            data_science_protocol/audit_reports/json/APP_REPO_BOOTSTRAP_LATEST.json
+
+      - name: Commit bootstrap report
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_app_repo_bootstrap.py
+          git add .github/workflows/gridbot_app_repo_bootstrap.yml
+          git add data_science_protocol/audit_reports/APP_REPO_BOOTSTRAP_LATEST.md
+          git add data_science_protocol/audit_reports/json/APP_REPO_BOOTSTRAP_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: app repo bootstrap ${{ github.event.inputs.mode }} ${{ github.event.inputs.repo_set }}"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

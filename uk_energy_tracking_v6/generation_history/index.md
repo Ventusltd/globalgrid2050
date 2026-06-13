@@ -205,8 +205,8 @@ permalink: /uk_energy_tracking_v6/generation_history/
 
 <script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260613mwhmobilebounds1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260613mwhmobilebounds1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260613interbarfinal1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260613interbarfinal1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>

@@ -1,13 +1,17 @@
 {
   "reportTitle": "Interconnector Bar UI Final",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-13T22:48:16.493373Z",
+  "generatedUTC": "2026-06-13T22:55:44.812885Z",
   "repository": "Ventusltd/globalgrid2050",
   "workflowName": "GridBot Interconnector Bar UI Final",
   "scriptName": "scripts/gridbot_interconnector_bar_ui_final.py",
   "route": "/uk_energy_tracking_v6/generation_history/",
-  "mode": "audit",
-  "changedFiles": [],
+  "mode": "apply",
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js"
+  ],
   "plannedChangedFiles": [
     "uk_energy_tracking_v6/generation_history/index.md",
     "uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js",
@@ -38,6 +42,6 @@
   "browserRoutingAffected": true,
   "rollbackMethod": "Revert the apply commit. This repair changes only index.md, render_generation_mwh_aggregates.js and control_generation_mwh_aggregates.js.",
   "executiveSummary": "Repairs the phone layout after screenshot review. Interconnectors keep the same bar row grammar as generation rows, but labels are shortened to country and BMRS code. The red accounting warning is removed from the card, and the total electricity check becomes a compact metric grid instead of fake empty bars. Granular JSON data is not changed.",
-  "applied": false,
+  "applied": true,
   "pass": true
 }

@@ -1,7 +1,7 @@
 # Interconnector Bar UI Final
 
-Generated UTC: `2026-06-13T22:48:16.493373Z`
-Mode: `audit`
+Generated UTC: `2026-06-13T22:55:44.812885Z`
+Mode: `apply`
 Pass: `True`
 
 Repairs the phone layout after screenshot review. Interconnectors keep the same bar row grammar as generation rows, but labels are shortened to country and BMRS code. The red accounting warning is removed from the card, and the total electricity check becomes a compact metric grid instead of fake empty bars. Granular JSON data is not changed.

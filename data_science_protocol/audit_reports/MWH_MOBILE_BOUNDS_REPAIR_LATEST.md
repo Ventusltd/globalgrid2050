@@ -1,6 +1,6 @@
 # MWh Mobile Bounds Repair
 
-Generated UTC: `2026-06-13T20:56:18.160895Z`
+Generated UTC: `2026-06-13T21:39:27.069817Z`
 Mode: `apply`
 Pass: `True`
 
@@ -8,7 +8,6 @@ Fixes phone-width overflow in the Generation Output in MWh cards. It removes the
 
 ## Planned changed files
 
-- `uk_energy_tracking_v6/generation_history/index.md`
 
 ## Checks
 

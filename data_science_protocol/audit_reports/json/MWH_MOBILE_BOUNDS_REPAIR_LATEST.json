@@ -1,18 +1,14 @@
 {
   "reportTitle": "MWh Mobile Bounds Repair",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-13T20:56:18.160895Z",
+  "generatedUTC": "2026-06-13T21:39:27.069817Z",
   "repository": "Ventusltd/globalgrid2050",
   "workflowName": "GridBot MWh Mobile Bounds Repair",
   "scriptName": "scripts/gridbot_mwh_mobile_bounds_repair.py",
   "route": "/uk_energy_tracking_v6/generation_history/",
   "mode": "apply",
-  "changedFiles": [
-    "uk_energy_tracking_v6/generation_history/index.md"
-  ],
-  "plannedChangedFiles": [
-    "uk_energy_tracking_v6/generation_history/index.md"
-  ],
+  "changedFiles": [],
+  "plannedChangedFiles": [],
   "checks": {
     "index_exists": true,
     "route_present": true,

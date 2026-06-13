@@ -115,6 +115,12 @@ permalink: /uk_energy_tracking_v6/generation_history/
     #generation-history-panel .mwh-value{font-size:11px;white-space:nowrap;}
     #generation-history-panel .mwh-check-grid{grid-template-columns:1fr;}
   }
+
+  /* GridBot sunrise sunset visible attribution */
+  #generation-history-panel .sunrise-sunset-attribution{margin:10px 0 0;padding:9px 11px;border:1px solid rgba(0,255,255,.22);border-radius:8px;background:rgba(0,255,255,.025);color:#9aa3b6;font-size:11px;line-height:1.45;letter-spacing:.055em;text-transform:uppercase;}
+  #generation-history-panel .sunrise-sunset-attribution strong{color:#00ffff;letter-spacing:.10em;}
+  #generation-history-panel .sunrise-sunset-attribution a{color:#00ffff;text-decoration:underline;font-weight:bold;}
+  @media(max-width:850px){#generation-history-panel .sunrise-sunset-attribution{font-size:10.5px;letter-spacing:.04em;}}
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
@@ -138,6 +144,7 @@ permalink: /uk_energy_tracking_v6/generation_history/
           <div class="mwh-card" id="generation-mwh-monthly"></div>
           <div class="mwh-card" id="generation-mwh-daynight"></div>
         </div>
+        <div class="sunrise-sunset-attribution" data-gridbot="sunrise-sunset-visible-attribution"><strong>Sunrise and sunset reference:</strong> <a href="https://sunrise-sunset.org/api" rel="noopener noreferrer">Sunrise-Sunset.org API</a> · Europe/London · UK reference locations.</div>
       </div>
 
 
@@ -205,8 +212,8 @@ permalink: /uk_energy_tracking_v6/generation_history/
 
 <script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260613interbarfinal1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260613interbarfinal1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260613sunattr1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260613sunattr1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>

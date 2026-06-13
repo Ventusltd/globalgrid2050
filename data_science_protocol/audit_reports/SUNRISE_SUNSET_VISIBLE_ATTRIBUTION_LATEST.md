@@ -1,7 +1,7 @@
 # Sunrise Sunset Visible Attribution
 
-Generated UTC: `2026-06-13T23:10:33.067308Z`
-Mode: `audit`
+Generated UTC: `2026-06-13T23:26:09.062203Z`
+Mode: `apply`
 Pass: `True`
 
 Adds a visible UI attribution line for the sunrise and sunset reference source under the Generation Output in MWh panel. The line names Sunrise-Sunset.org API, links the source, states Europe/London and UK reference locations. No data files are changed.

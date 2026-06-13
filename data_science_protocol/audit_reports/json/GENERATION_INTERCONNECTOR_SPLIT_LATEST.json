@@ -1,0 +1,743 @@
+{
+  "reportTitle": "Generation Interconnector Split",
+  "schemaVersion": "2.0.0-granular",
+  "generatedUTC": "2026-06-13T19:39:37.337349Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "branch": "main",
+  "gitHeadBefore": "a409cc0ad840b7eba23e8b34ba7e919073165b53",
+  "gitHeadAfter": "a409cc0ad840b7eba23e8b34ba7e919073165b53",
+  "workflowName": "GridBot Generation Interconnector Split",
+  "scriptName": "scripts/gridbot_generation_interconnector_split.py",
+  "upgradeType": "live V6 granular interconnector split for MWh panel",
+  "mode": "audit",
+  "sourceApis": [],
+  "sourceWindows": [
+    "2016 to 2026"
+  ],
+  "inputFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/generation_annual_mwh_by_technology.json",
+    "uk_energy_tracking_v6/generation_history/generation_monthly_mwh_by_technology.json",
+    "uk_energy_tracking_v6/generation_history/generation_seasonal_mwh_by_technology.json",
+    "uk_energy_tracking_v6/generation_history/generation_day_night_mwh_by_technology.json",
+    "data/generation/archive/2021/elexon_generation_sources_2020-12.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-01.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-02.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-03.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-04.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-05.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-06.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-07.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-08.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-09.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-10.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-11.csv",
+    "data/generation/archive/2021/elexon_generation_sources_2021-12.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2021-12.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-01.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-02.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-03.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-04.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-05.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-06.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-07.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-08.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-09.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-10.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-11.csv",
+    "data/generation/archive/2022/elexon_generation_sources_2022-12.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2022-12.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-01.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-02.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-03.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-04.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-05.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-06.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-07.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-08.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-09.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-10.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-11.csv",
+    "data/generation/archive/2023/elexon_generation_sources_2023-12.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2023-12.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-01.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-02.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-03.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-04.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-05.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-06.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-07.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-08.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-09.csv",
+    "data/generation/archive/2024/elexon_generation_sources_2024-10.csv"
+  ],
+  "outputFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js",
+    "data_science_protocol/audit_reports/GENERATION_INTERCONNECTOR_SPLIT_LATEST.md",
+    "data_science_protocol/audit_reports/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_total_electricity_summary.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_imports.json"
+  ],
+  "outputFilesJsonCount": 22,
+  "changedFiles": [],
+  "plannedChangedFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md",
+    "uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_total_electricity_summary.json"
+  ],
+  "addedFiles": [
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa_hvdc_cross_channel_intfr_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_ifa2_intifa2_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/france_eleclink_intelec_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/belgium_nemo_link_intnem_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/netherlands_britned_intned_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/norway_north_sea_link_intnsl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/denmark_viking_link_intvkl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_east_west_interconnector_ewic_intew_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/ireland_greenlink_intgrnl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_imports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/northern_ireland_moyle_interconnector_intirl_exports.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json",
+    "uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_total_electricity_summary.json"
+  ],
+  "deletedFiles": [],
+  "interconnectors": [
+    "France - IFA / HVDC Cross-Channel - INTFR",
+    "France - IFA2 - INTIFA2",
+    "France - ElecLink - INTELEC",
+    "Belgium - Nemo Link - INTNEM",
+    "Netherlands - BritNed - INTNED",
+    "Norway - North Sea Link - INTNSL",
+    "Denmark - Viking Link - INTVKL",
+    "Ireland - East-West Interconnector / EWIC - INTEW",
+    "Ireland - Greenlink - INTGRNL",
+    "Northern Ireland - Moyle Interconnector - INTIRL"
+  ],
+  "legacyBucketRowsFound": {
+    "annual": 11,
+    "monthly": 126
+  },
+  "sourceAudit": {
+    "sourceMode": "repo_raw_signed_elexon_generation_sources_csv",
+    "sourceFileCount": 74,
+    "sourceFiles": [
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2020-12.csv",
+        "rows": 16,
+        "usedRows": 6,
+        "sizeBytes": 1767
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-01.csv",
+        "rows": 145662,
+        "usedRows": 54894,
+        "sizeBytes": 15413877
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-02.csv",
+        "rows": 138432,
+        "usedRows": 56448,
+        "sizeBytes": 14665911
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-03.csv",
+        "rows": 152890,
+        "usedRows": 62342,
+        "sizeBytes": 16185121
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-04.csv",
+        "rows": 148320,
+        "usedRows": 60480,
+        "sizeBytes": 15686104
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-05.csv",
+        "rows": 153213,
+        "usedRows": 62475,
+        "sizeBytes": 16209600
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-06.csv",
+        "rows": 148320,
+        "usedRows": 60480,
+        "sizeBytes": 15702695
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-07.csv",
+        "rows": 153264,
+        "usedRows": 62496,
+        "sizeBytes": 16249920
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-08.csv",
+        "rows": 153264,
+        "usedRows": 62496,
+        "sizeBytes": 16235243
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-09.csv",
+        "rows": 153153,
+        "usedRows": 65266,
+        "sizeBytes": 16213757
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-10.csv",
+        "rows": 162084,
+        "usedRows": 71376,
+        "sizeBytes": 17163611
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-11.csv",
+        "rows": 156096,
+        "usedRows": 68736,
+        "sizeBytes": 16558701
+      },
+      {
+        "path": "data/generation/archive/2021/elexon_generation_sources_2021-12.csv",
+        "rows": 161364,
+        "usedRows": 71056,
+        "sizeBytes": 17114119
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2021-12.csv",
+        "rows": 18,
+        "usedRows": 8,
+        "sizeBytes": 1981
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-01.csv",
+        "rows": 161580,
+        "usedRows": 71152,
+        "sizeBytes": 17139858
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-02.csv",
+        "rows": 144462,
+        "usedRows": 63608,
+        "sizeBytes": 15333702
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-03.csv",
+        "rows": 159078,
+        "usedRows": 70040,
+        "sizeBytes": 16874895
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-04.csv",
+        "rows": 156906,
+        "usedRows": 69096,
+        "sizeBytes": 16634191
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-05.csv",
+        "rows": 162192,
+        "usedRows": 71424,
+        "sizeBytes": 17211847
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-06.csv",
+        "rows": 156942,
+        "usedRows": 69112,
+        "sizeBytes": 16679221
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-07.csv",
+        "rows": 161778,
+        "usedRows": 71240,
+        "sizeBytes": 17203656
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-08.csv",
+        "rows": 162192,
+        "usedRows": 71424,
+        "sizeBytes": 17235665
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-09.csv",
+        "rows": 156834,
+        "usedRows": 69064,
+        "sizeBytes": 16678744
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-10.csv",
+        "rows": 162174,
+        "usedRows": 71416,
+        "sizeBytes": 17228145
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-11.csv",
+        "rows": 156924,
+        "usedRows": 69104,
+        "sizeBytes": 16691840
+      },
+      {
+        "path": "data/generation/archive/2022/elexon_generation_sources_2022-12.csv",
+        "rows": 162174,
+        "usedRows": 71416,
+        "sizeBytes": 17235200
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2022-12.csv",
+        "rows": 18,
+        "usedRows": 8,
+        "sizeBytes": 1990
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-01.csv",
+        "rows": 162192,
+        "usedRows": 71424,
+        "sizeBytes": 17240268
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-02.csv",
+        "rows": 146496,
+        "usedRows": 64512,
+        "sizeBytes": 15562544
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-03.csv",
+        "rows": 162192,
+        "usedRows": 71424,
+        "sizeBytes": 17227248
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-04.csv",
+        "rows": 156960,
+        "usedRows": 69120,
+        "sizeBytes": 16656655
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-05.csv",
+        "rows": 162174,
+        "usedRows": 71416,
+        "sizeBytes": 17203858
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-06.csv",
+        "rows": 156870,
+        "usedRows": 69080,
+        "sizeBytes": 16636748
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-07.csv",
+        "rows": 162236,
+        "usedRows": 71478,
+        "sizeBytes": 17230938
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-08.csv",
+        "rows": 162174,
+        "usedRows": 71416,
+        "sizeBytes": 17222225
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-09.csv",
+        "rows": 156960,
+        "usedRows": 69120,
+        "sizeBytes": 16672054
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-10.csv",
+        "rows": 162192,
+        "usedRows": 71424,
+        "sizeBytes": 17222940
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-11.csv",
+        "rows": 159413,
+        "usedRows": 71573,
+        "sizeBytes": 16933439
+      },
+      {
+        "path": "data/generation/archive/2023/elexon_generation_sources_2023-12.csv",
+        "rows": 171044,
+        "usedRows": 80316,
+        "sizeBytes": 18153143
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2023-12.csv",
+        "rows": 19,
+        "usedRows": 9,
+        "sizeBytes": 2093
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-01.csv",
+        "rows": 171101,
+        "usedRows": 80343,
+        "sizeBytes": 18188241
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-02.csv",
+        "rows": 160061,
+        "usedRows": 75159,
+        "sizeBytes": 17008360
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-03.csv",
+        "rows": 171206,
+        "usedRows": 80438,
+        "sizeBytes": 18201149
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-04.csv",
+        "rows": 165600,
+        "usedRows": 77760,
+        "sizeBytes": 17607614
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-05.csv",
+        "rows": 171101,
+        "usedRows": 80343,
+        "sizeBytes": 18188075
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-06.csv",
+        "rows": 165600,
+        "usedRows": 77760,
+        "sizeBytes": 17595478
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-07.csv",
+        "rows": 171120,
+        "usedRows": 80352,
+        "sizeBytes": 18172712
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-08.csv",
+        "rows": 178498,
+        "usedRows": 87730,
+        "sizeBytes": 18956195
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-09.csv",
+        "rows": 174240,
+        "usedRows": 86400,
+        "sizeBytes": 18504314
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-10.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19090944
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-11.csv",
+        "rows": 174240,
+        "usedRows": 86400,
+        "sizeBytes": 18491357
+      },
+      {
+        "path": "data/generation/archive/2024/elexon_generation_sources_2024-12.csv",
+        "rows": 180028,
+        "usedRows": 89270,
+        "sizeBytes": 19097733
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2024-12.csv",
+        "rows": 20,
+        "usedRows": 10,
+        "sizeBytes": 2200
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-01.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19104784
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-02.csv",
+        "rows": 162624,
+        "usedRows": 80640,
+        "sizeBytes": 17293202
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-03.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19143006
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-04.csv",
+        "rows": 174240,
+        "usedRows": 86400,
+        "sizeBytes": 18508891
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-05.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19116293
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-06.csv",
+        "rows": 174240,
+        "usedRows": 86400,
+        "sizeBytes": 18526583
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-07.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19133649
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-08.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19137127
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-09.csv",
+        "rows": 174240,
+        "usedRows": 86400,
+        "sizeBytes": 18519242
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-10.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19147142
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-11.csv",
+        "rows": 174240,
+        "usedRows": 86400,
+        "sizeBytes": 18537772
+      },
+      {
+        "path": "data/generation/archive/2025/elexon_generation_sources_2025-12.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19158113
+      },
+      {
+        "path": "data/generation/archive/2026/elexon_generation_sources_2025-12.csv",
+        "rows": 20,
+        "usedRows": 10,
+        "sizeBytes": 2209
+      },
+      {
+        "path": "data/generation/archive/2026/elexon_generation_sources_2026-01.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19149604
+      },
+      {
+        "path": "data/generation/archive/2026/elexon_generation_sources_2026-02.csv",
+        "rows": 162624,
+        "usedRows": 80640,
+        "sizeBytes": 17303750
+      },
+      {
+        "path": "data/generation/archive/2026/elexon_generation_sources_2026-03.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19154932
+      },
+      {
+        "path": "data/generation/archive/2026/elexon_generation_sources_2026-04.csv",
+        "rows": 174240,
+        "usedRows": 86400,
+        "sizeBytes": 18527409
+      },
+      {
+        "path": "data/generation/archive/2026/elexon_generation_sources_2026-05.csv",
+        "rows": 180048,
+        "usedRows": 89280,
+        "sizeBytes": 19130736
+      },
+      {
+        "path": "data/generation/archive/2026/elexon_generation_sources_2026-06.csv",
+        "rows": 63976,
+        "usedRows": 31670,
+        "sizeBytes": 6795272
+      },
+      {
+        "path": "data/generation/elexon_generation_sources_2026.csv",
+        "rows": 174359,
+        "usedRows": 86400,
+        "sizeBytes": 18519592
+      },
+      {
+        "path": "data/generation/elexon_generation_sources_half_hourly.csv",
+        "rows": 174359,
+        "usedRows": 86400,
+        "sizeBytes": 18519592
+      }
+    ],
+    "rawRows": 11122777,
+    "usedRows": 5130780,
+    "skippedRows": 0,
+    "signCountsByCode": {
+      "INTGRNL": {
+        "positive": 23182,
+        "negative": 137918,
+        "zero": 50556
+      },
+      "INTNEM": {
+        "positive": 421907,
+        "negative": 151992,
+        "zero": 15431
+      },
+      "INTFR": {
+        "positive": 441830,
+        "negative": 127905,
+        "zero": 19595
+      },
+      "INTNED": {
+        "positive": 340143,
+        "negative": 168581,
+        "zero": 80606
+      },
+      "INTVKL": {
+        "positive": 163579,
+        "negative": 82462,
+        "zero": 39860
+      },
+      "INTNSL": {
+        "positive": 432124,
+        "negative": 114522,
+        "zero": 35081
+      },
+      "INTIRL": {
+        "positive": 148049,
+        "negative": 402990,
+        "zero": 38291
+      },
+      "INTEW": {
+        "positive": 96425,
+        "negative": 292036,
+        "zero": 200869
+      },
+      "INTELEC": {
+        "positive": 306561,
+        "negative": 84676,
+        "zero": 124279
+      },
+      "INTIFA2": {
+        "positive": 364968,
+        "negative": 217456,
+        "zero": 6906
+      }
+    }
+  },
+  "outputRows": {
+    "index": 70,
+    "totalElectricity": 11
+  },
+  "sourceHashesBefore": {
+    "annual": "e88abffa13a16c5dd6c6e812d34f8ee5a1145512f1a8c3ce8edfd4de5fd6728e",
+    "monthly": "8db62acdcc047436148f28a9ba444b7e0dcb221b806dee5d91cf287b8ec3b1c9",
+    "seasonal": "8bc665d6b799f480f3ab68289465249f60c90e8c4d474c6e85df5140151935e7",
+    "dayNight": "2f1b5e3308140dcdf44c204013d01fd2b2becc1f7e5728cd8c7a81884eaa2f0c"
+  },
+  "sourceHashesAfter": {
+    "annual": "e88abffa13a16c5dd6c6e812d34f8ee5a1145512f1a8c3ce8edfd4de5fd6728e",
+    "monthly": "8db62acdcc047436148f28a9ba444b7e0dcb221b806dee5d91cf287b8ec3b1c9",
+    "seasonal": "8bc665d6b799f480f3ab68289465249f60c90e8c4d474c6e85df5140151935e7",
+    "dayNight": "2f1b5e3308140dcdf44c204013d01fd2b2becc1f7e5728cd8c7a81884eaa2f0c"
+  },
+  "rawTemporaryFilesFound": [],
+  "browserRoutingAffected": true,
+  "checks": {
+    "target_files_exist": true,
+    "target_route_present": true,
+    "mwh_panel_present": true,
+    "legacy_imports_exports_hidden_in_render": true,
+    "legacy_imports_exports_hidden_in_control": true,
+    "load_reads_interconnector_index_and_totals": true,
+    "two_files_per_interconnector": true,
+    "imports_positive_exports_negative": true,
+    "separate_import_export_net_fields": true,
+    "labels_are_country_first_interconnector_second_code_third": true,
+    "all_ten_interconnector_codes_present": true,
+    "total_electricity_summary_present": true,
+    "signed_rows_detected_in_source": true,
+    "raw_rows_not_written": true,
+    "existing_generation_aggregate_jsons_not_modified": true,
+    "index_cache_busters_updated": true,
+    "index_has_interconnector_warning": true,
+    "load_js_syntax_ok": true,
+    "render_js_syntax_ok": true,
+    "control_js_syntax_ok": true
+  },
+  "jsSyntax": {
+    "load": {
+      "ok": true,
+      "detail": ""
+    },
+    "render": {
+      "ok": true,
+      "detail": ""
+    },
+    "control": {
+      "ok": true,
+      "detail": ""
+    }
+  },
+  "rollbackMethod": "Revert the apply commit. Existing generation aggregate JSON files are not modified by this workflow.",
+  "executiveSummary": "Splits interconnectors out of the live V6 Generation Output in MWh panel using granular signed per-link files. The legacy Imports & Exports bucket is hidden, ten interconnectors each receive separate import and export JSON files, imports remain positive, exports remain negative, and a total electricity check line is shown at the bottom for reconciliation.",
+  "humanReviewStatus": "awaiting Vikram review",
+  "nextAction": "Review audit report, then rerun in apply mode only if all checks pass.",
+  "applied": false,
+  "pass": true
+}

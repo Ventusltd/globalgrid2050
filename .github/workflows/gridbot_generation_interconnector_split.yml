@@ -12,15 +12,15 @@ on:
           - audit
           - apply
       start_year:
-        description: First year to fetch from Elexon FUELHH
+        description: First year to read from signed repo raw interconnector files
         required: true
         default: '2016'
       end_year:
-        description: Last year to fetch, or auto
+        description: Last year to read, or auto
         required: true
         default: auto
       offline:
-        description: Patch-only audit without Elexon fetch
+        description: Patch-only audit without signed source scan
         required: true
         default: 'false'
         type: choice
@@ -46,7 +46,7 @@ concurrency:
 jobs:
   generation-interconnector-split:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 60
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -77,14 +77,6 @@ jobs:
             --end-year "${{ github.event.inputs.end_year }}" \
             --apply \
             $EXTRA
-
-      - name: Normalize report path
-        if: always()
-        run: |
-          mkdir -p data_science_protocol/audit_reports/json
-          if [ -f data_science_protocol/audit_reports/json/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json ]; then
-            cp data_science_protocol/audit_reports/json/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json data_science_protocol/audit_reports/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json
-          fi
 
       - name: Upload interconnector split report
         if: always()
@@ -122,8 +114,7 @@ jobs:
           git add uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js
           git add uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js
           git add uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js
-          git add uk_energy_tracking_v6/generation_history/generation_interconnector_annual_mwh_by_link.json
-          git add uk_energy_tracking_v6/generation_history/generation_interconnector_monthly_mwh_by_link.json
+          git add uk_energy_tracking_v6/generation_history/interconnectors/*.json
           git add data_science_protocol/audit_reports/GENERATION_INTERCONNECTOR_SPLIT_LATEST.md
           git add data_science_protocol/audit_reports/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json
           if git diff --cached --quiet; then

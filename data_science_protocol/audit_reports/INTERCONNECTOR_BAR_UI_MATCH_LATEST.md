@@ -1,7 +1,7 @@
 # Interconnector Bar UI Match
 
-Generated UTC: `2026-06-13T20:14:17.958383Z`
-Mode: `audit`
+Generated UTC: `2026-06-13T20:19:55.293013Z`
+Mode: `apply`
 Pass: `True`
 
 Matches the interconnector section to the existing annual MWh generation bar style. Interconnectors remain below generation, but each row uses the same label, track and TWh value grammar. The value displayed is net MWh, with import/export detail retained in the hover title and JSON files. Granular JSON data is not changed.

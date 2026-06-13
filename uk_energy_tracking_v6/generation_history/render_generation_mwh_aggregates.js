@@ -10,10 +10,10 @@ window.V6RenderGenerationMwhAggregates=(function(){
     rows=rows||[]; icIndex=icIndex||[]; totals=totals||[];
     if(!rows.length){el.innerHTML='<div class="mwh-empty">Awaiting annual MWh aggregate data.</div>';return}
     var y=latestYear(rows,icIndex);
-    var rs=clean(rows.filter(function(r){return Number(r.year)===y})).sort(function(a,b){return(ord[a.technology]||999)-(ord[b.technology]||999)});
-    var generationTotal=rs.reduce(function(s,r){return s+Math.max(0,Number(r.totalMWh||0))},0);
+    var generationRows=clean(rows.filter(function(r){return Number(r.year)===y})).sort(function(a,b){return(ord[a.technology]||999)-(ord[b.technology]||999)});
+    var generationTotal=generationRows.reduce(function(s,r){return s+Math.max(0,Number(r.totalMWh||0))},0);
     var h='<div class="mwh-aggregate-head"><strong>Annual MWh by technology</strong><span>'+y+' - generation shown; interconnectors split below</span></div><div class="mwh-bars">';
-    rs.forEach(function(r){
+    generationRows.forEach(function(r){
       var v=Number(r.totalMWh||0),p=generationTotal?Math.max(0,v)/generationTotal*100:0,c=colours[r.technology]||'#00ffff';
       h+='<div class="mwh-row"><div class="mwh-label">'+r.technology+'</div><div class="mwh-track"><i style="width:'+p+'%;background:'+c+'"></i></div><div class="mwh-value">'+fmt(v/1000000,2)+' TWh</div></div>';
     });
@@ -21,22 +21,28 @@ window.V6RenderGenerationMwhAggregates=(function(){
 
     var links=(icIndex||[]).filter(function(r){return Number(r.year)===y}).sort(function(a,b){return(Number(a.sortOrder)||0)-(Number(b.sortOrder)||0)});
     if(links.length){
-      var maxAbs=Math.max.apply(null,links.map(function(r){return Math.max(Math.abs(Number(r.importMWh||0)),Math.abs(Number(r.exportMWh||0)),Math.abs(Number(r.netMWh||0)))}));
-      h+='<div class="mwh-aggregate-head" style="margin-top:16px"><strong>Interconnectors - imports / exports</strong><span>Country - interconnector - BMRS code</span></div><div class="mwh-bars mwh-interconnector-bars">';
+      var maxAbs=Math.max.apply(null,links.map(function(r){return Math.max(Math.abs(Number(r.importMWh||0)),Math.abs(Number(r.exportMWh||0)),Math.abs(Number(r.netMWh||0)),1)}));
+      h+='<div class="mwh-aggregate-head mwh-interconnector-head"><strong>Interconnectors</strong><span>same bar style - net MWh shown</span></div><div class="mwh-bars mwh-interconnector-bars">';
       links.forEach(function(r){
-        var imp=Number(r.importMWh||0), exp=Number(r.exportMWh||0), net=Number(r.netMWh||0);
-        var p=maxAbs?Math.max(2,Math.abs(net)/maxAbs*100):2, c=net>=0?'#00d0ff':'#ff7777';
-        h+='<div class="mwh-row mwh-interconnector-row"><div class="mwh-label" title="'+r.label+'">'+r.label+'</div><div class="mwh-track"><i style="width:'+p+'%;background:'+c+'"></i></div><div class="mwh-value">I '+fmt(imp/1000000,2)+' / E '+fmt(exp/1000000,2)+' / N '+fmt(net/1000000,2)+' TWh</div></div>';
+        var net=Number(r.netMWh||0),imp=Number(r.importMWh||0),exp=Number(r.exportMWh||0),p=Math.max(2,Math.abs(net)/maxAbs*100),c=net>=0?'#00d0ff':'#ff7777';
+        var label=r.country+' - '+r.bmrsCode;
+        var title=r.label+' | import '+fmt(imp/1000000,2)+' TWh | export '+fmt(exp/1000000,2)+' TWh | net '+fmt(net/1000000,2)+' TWh';
+        h+='<div class="mwh-row mwh-interconnector-row" title="'+title+'"><div class="mwh-label">'+label+'</div><div class="mwh-track"><i style="width:'+p+'%;background:'+c+'"></i></div><div class="mwh-value">'+fmt(net/1000000,2)+' TWh</div></div>';
       });
-      h+='</div><div class="mwh-note-line">Imports are positive. Exports are negative. Separate per-link import/export JSON files are written under /interconnectors/.</div>';
+      h+='</div><div class="mwh-note-line">Interconnector bars use net MWh. Imports are positive. Exports are negative. Tap/hover rows for import/export detail.</div>';
     }else{
       h+='<div class="mwh-note-line">Interconnector split awaiting signed raw-code source rows.</div>';
     }
 
     var total=(totals||[]).filter(function(r){return Number(r.year)===y})[0];
     if(total){
-      h+='<div class="mwh-aggregate-head" style="margin-top:16px"><strong>Total electricity check line</strong><span>For reconciliation against external studies</span></div>';
-      h+='<div class="mwh-note-line">Generation shown '+fmt(total.generationShownMWh/1000000,2)+' TWh · Imports '+fmt(total.totalImportMWh/1000000,2)+' TWh · Exports '+fmt(total.totalExportMWh/1000000,2)+' TWh · Net interconnector '+fmt(total.netInterconnectorMWh/1000000,2)+' TWh · Supply proxy '+fmt(total.supplyProxyMWh/1000000,2)+' TWh</div>';
+      h+='<div class="mwh-aggregate-head mwh-total-head"><strong>Total electricity check</strong><span>for reconciliation</span></div><div class="mwh-total-rows">';
+      h+='<div class="mwh-row mwh-total-row"><div class="mwh-label">Generation shown</div><div class="mwh-track"></div><div class="mwh-value">'+fmt(total.generationShownMWh/1000000,2)+' TWh</div></div>';
+      h+='<div class="mwh-row mwh-total-row"><div class="mwh-label">Imports</div><div class="mwh-track"></div><div class="mwh-value">'+fmt(total.totalImportMWh/1000000,2)+' TWh</div></div>';
+      h+='<div class="mwh-row mwh-total-row"><div class="mwh-label">Exports</div><div class="mwh-track"></div><div class="mwh-value">'+fmt(total.totalExportMWh/1000000,2)+' TWh</div></div>';
+      h+='<div class="mwh-row mwh-total-row"><div class="mwh-label">Net interconnector</div><div class="mwh-track"></div><div class="mwh-value">'+fmt(total.netInterconnectorMWh/1000000,2)+' TWh</div></div>';
+      h+='<div class="mwh-row mwh-total-row"><div class="mwh-label">Supply proxy</div><div class="mwh-track"></div><div class="mwh-value">'+fmt(total.supplyProxyMWh/1000000,2)+' TWh</div></div>';
+      h+='</div>';
     }
     el.innerHTML=h;
   }
@@ -47,10 +53,7 @@ window.V6RenderGenerationMwhAggregates=(function(){
     rows=rows.slice().sort(function(a,b){return(a.year-b.year)||(a.month-b.month)});
     var mx=Math.max.apply(null,rows.map(function(r){return Number(r.totalMWh)||0})),sample=rows.slice(-24);
     var h='<div class="mwh-aggregate-head"><strong>Monthly MWh trend</strong><span>'+(technology||'All generation technologies')+'</span></div><div class="mwh-mini-chart">';
-    sample.forEach(function(r){
-      var p=mx?Math.max(2,Number(r.totalMWh)/mx*100):2;
-      h+='<div class="mwh-col" title="'+r.year+'-'+String(r.month).padStart(2,'0')+' '+r.technology+' '+fmt(r.totalMWh/1000000,2)+' TWh"><i style="height:'+p+'%;background:'+(colours[r.technology]||'#00ffff')+'"></i></div>';
-    });
+    sample.forEach(function(r){var p=mx?Math.max(2,Number(r.totalMWh)/mx*100):2;h+='<div class="mwh-col" title="'+r.year+'-'+String(r.month).padStart(2,'0')+' '+r.technology+' '+fmt(r.totalMWh/1000000,2)+' TWh"><i style="height:'+p+'%;background:'+(colours[r.technology]||'#00ffff')+'"></i></div>'});
     el.innerHTML=h+'</div>';
   }
   function dayNight(el,rows,technology){

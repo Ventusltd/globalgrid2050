@@ -1892,7 +1892,8 @@
 │   │   ├── pvlive_solar_recent_30d_30min_browser.json
 │   │   ├── render_generation_history_chart.js
 │   │   ├── render_generation_mwh_aggregates.js
-│   │   └── render_solar_daily_mwh_chart.js
+│   │   ├── render_solar_daily_mwh_chart.js
+│   │   └── sunrise_sunset_time_bands_reference.json
 │   ├── grid_frequency_history.csv
 │   ├── grid_frequency_weekly_health.csv
 │   ├── index.md
@@ -2003,4 +2004,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-228 directories, 1776 files
+228 directories, 1777 files

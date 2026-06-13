@@ -1,0 +1,93 @@
+name: GridBot Generation Interconnector Split V2
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options: [audit, apply]
+      start_year:
+        description: First year to fetch from Elexon FUELHH
+        required: true
+        default: '2016'
+      end_year:
+        description: Last year to fetch, or auto
+        required: true
+        default: auto
+      offline:
+        description: Patch-only audit without Elexon fetch
+        required: true
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
+      commit_reports:
+        description: Commit reports and apply outputs
+        required: true
+        default: 'true'
+        type: choice
+        options: ['true', 'false']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-generation-interconnector-split
+  cancel-in-progress: false
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - run: git pull --ff-only origin main
+
+      - name: Run GridBot script
+        run: |
+          EXTRA=""
+          if [ "${{ github.event.inputs.offline }}" = "true" ]; then EXTRA="--offline"; fi
+          APPLY=""
+          if [ "${{ github.event.inputs.mode }}" = "apply" ]; then APPLY="--apply"; fi
+          python scripts/gridbot_generation_interconnector_split.py \
+            --start-year "${{ github.event.inputs.start_year }}" \
+            --end-year "${{ github.event.inputs.end_year }}" \
+            $APPLY $EXTRA
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: generation-interconnector-split-v2-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/GENERATION_INTERCONNECTOR_SPLIT_LATEST.md
+            data_science_protocol/audit_reports/json/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json
+
+      - name: Commit outputs
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_generation_interconnector_split.py
+          git add .github/workflows/gridbot_generation_interconnector_split_v2.yml
+          git add data_science_protocol/audit_reports/GENERATION_INTERCONNECTOR_SPLIT_LATEST.md || true
+          git add data_science_protocol/audit_reports/json/json/GENERATION_INTERCONNECTOR_SPLIT_LATEST.json || true
+          if [ "${{ github.event.inputs.mode }}" = "apply" ]; then
+            git add uk_energy_tracking_v6/generation_history/index.md
+            git add uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js
+            git add uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js
+            git add uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js
+            git add uk_energy_tracking_v6/generation_history/generation_interconnector_annual_mwh_by_link.json
+            git add uk_energy_tracking_v6/generation_history/generation_interconnector_monthly_mwh_by_link.json
+          fi
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: generation interconnector split ${{ github.event.inputs.mode }}"
+            git push origin HEAD:main
+          fi

@@ -1,0 +1,96 @@
+name: GridBot Sunrise Sunset Time Bands
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      year:
+        description: Year to fetch, or auto
+        required: true
+        default: auto
+      commit_reports:
+        description: Commit reports and apply outputs
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-sunrise-sunset-time-bands
+  cancel-in-progress: false
+
+jobs:
+  sunrise-sunset-time-bands:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Sync latest main before processing
+        run: git pull --ff-only origin main
+
+      - name: Run audit
+        if: ${{ github.event.inputs.mode == 'audit' }}
+        run: python scripts/gridbot_sunrise_sunset_time_bands.py --year "${{ github.event.inputs.year }}"
+
+      - name: Run apply
+        if: ${{ github.event.inputs.mode == 'apply' }}
+        run: python scripts/gridbot_sunrise_sunset_time_bands.py --year "${{ github.event.inputs.year }}" --apply
+
+      - name: Upload sunrise sunset report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sunrise-sunset-time-bands-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/SUNRISE_SUNSET_TIME_BANDS_LATEST.md
+            data_science_protocol/audit_reports/json/SUNRISE_SUNSET_TIME_BANDS_LATEST.json
+
+      - name: Commit audit report only
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'audit' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_sunrise_sunset_time_bands.py
+          git add .github/workflows/gridbot_sunrise_sunset_time_bands.yml
+          git add data_science_protocol/audit_reports/SUNRISE_SUNSET_TIME_BANDS_LATEST.md
+          git add data_science_protocol/audit_reports/json/SUNRISE_SUNSET_TIME_BANDS_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: sunrise sunset time bands audit"
+            git push origin HEAD:main
+          fi
+
+      - name: Commit sunrise sunset output and report
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'apply' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_sunrise_sunset_time_bands.py
+          git add .github/workflows/gridbot_sunrise_sunset_time_bands.yml
+          git add uk_energy_tracking_v6/generation_history/sunrise_sunset_time_bands_reference.json
+          git add data_science_protocol/audit_reports/SUNRISE_SUNSET_TIME_BANDS_LATEST.md
+          git add data_science_protocol/audit_reports/json/SUNRISE_SUNSET_TIME_BANDS_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: sunrise sunset time bands apply"
+            git push origin HEAD:main
+          fi

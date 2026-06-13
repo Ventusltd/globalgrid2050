@@ -1,0 +1,31 @@
+{
+  "reportTitle": "MWh Mobile Bounds Repair",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-13T20:49:27.963132Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "workflowName": "GridBot MWh Mobile Bounds Repair",
+  "scriptName": "scripts/gridbot_mwh_mobile_bounds_repair.py",
+  "route": "/uk_energy_tracking_v6/generation_history/",
+  "mode": "audit",
+  "changedFiles": [],
+  "plannedChangedFiles": [
+    "uk_energy_tracking_v6/generation_history/index.md"
+  ],
+  "checks": {
+    "index_exists": true,
+    "route_present": true,
+    "warning_box_removed": true,
+    "mobile_bounds_css_inserted": true,
+    "day_night_split_bounded": true,
+    "mini_chart_bounded": true,
+    "interconnector_min_width_overridden": true,
+    "total_check_metric_grid_styled": true,
+    "cache_busters_updated": true,
+    "data_files_not_touched": true
+  },
+  "browserRoutingAffected": true,
+  "rollbackMethod": "Revert the apply commit. This repair changes only uk_energy_tracking_v6/generation_history/index.md.",
+  "executiveSummary": "Fixes phone-width overflow in the Generation Output in MWh cards. It removes the large red interconnector warning box, bounds the Day/Night split and monthly mini-chart to the card width, overrides the old interconnector min-width rule and styles the total electricity check as compact metrics. No data files are changed.",
+  "applied": false,
+  "pass": true
+}

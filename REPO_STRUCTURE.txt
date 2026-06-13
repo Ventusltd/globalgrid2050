@@ -166,6 +166,8 @@
 │   │   │       ├── elexon_generation_sources_2026-04.csv
 │   │   │       ├── elexon_generation_sources_2026-05.csv
 │   │   │       └── elexon_generation_sources_2026-06.csv
+│   │   ├── elexon_generation_sources_2026.csv
+│   │   ├── elexon_generation_sources_half_hourly.csv
 │   │   └── fuelhh_halfhourly
 │   │       ├── 2016
 │   │       │   ├── generation_fuelhh_2016_01.csv
@@ -373,6 +375,7 @@
 │   │   ├── FUELHH_BACKFILL_20260612T220214Z.md
 │   │   ├── FUELHH_BACKFILL_20260612T235525Z.md
 │   │   ├── FUELHH_BACKFILL_20260613T045505Z.md
+│   │   ├── FUELHH_BACKFILL_20260613T093905Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
@@ -398,6 +401,7 @@
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260612T220223Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260612T235533Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260613T045514Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260613T093914Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
@@ -460,6 +464,7 @@
 │   │   │   ├── FUELHH_BACKFILL_20260612T220214Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260612T235525Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260613T045505Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260613T093905Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
@@ -485,6 +490,7 @@
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260612T220223Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260612T235533Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260613T045514Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260613T093914Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
@@ -1935,4 +1941,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-227 directories, 1709 files
+227 directories, 1715 files

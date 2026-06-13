@@ -1,0 +1,67 @@
+name: GridBot Repo Split Inventory
+
+on:
+  workflow_dispatch:
+    inputs:
+      warn_mb:
+        description: Warning threshold per file in MB
+        required: true
+        default: '5'
+      fail_mb:
+        description: Failure threshold per file in MB for classification
+        required: true
+        default: '25'
+      commit_reports:
+        description: Commit reports
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-repo-split-inventory
+  cancel-in-progress: false
+
+jobs:
+  repo-split-inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run inventory audit
+        run: python scripts/gridbot_repo_split_inventory.py --warn-mb "${{ github.event.inputs.warn_mb }}" --fail-mb "${{ github.event.inputs.fail_mb }}"
+
+      - name: Upload inventory reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-split-inventory
+          path: |
+            data_science_protocol/audit_reports/REPO_SPLIT_INVENTORY_LATEST.md
+            data_science_protocol/audit_reports/json/REPO_SPLIT_INVENTORY_LATEST.json
+
+      - name: Commit reports
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_repo_split_inventory.py
+          git add .github/workflows/gridbot_repo_split_inventory.yml
+          git add data_science_protocol/APP_REPO_SPLIT_AND_DATA_PIPELINE_ARCHITECTURE.md
+          git add data_science_protocol/audit_reports/REPO_SPLIT_INVENTORY_LATEST.md
+          git add data_science_protocol/audit_reports/json/REPO_SPLIT_INVENTORY_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: repo split inventory audit"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

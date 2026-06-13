@@ -329,6 +329,7 @@
 │       ├── texas_ercot_winter_failures.html
 │       └── texas_ercot_winter_failures.md
 ├── data_science_protocol
+│   ├── APP_REPO_SPLIT_AND_DATA_PIPELINE_ARCHITECTURE.md
 │   ├── AUDIT_PROCESS_AND_REPORTING_REQUIREMENTS.md
 │   ├── DATA_SCIENCE_DISCIPLINE_CHANGELOG.md
 │   ├── DATA_SCIENCE_LOGIC_VENTUS.md
@@ -1176,6 +1177,7 @@
 │   ├── gridbot_generation_history_solar_recent.py
 │   ├── gridbot_generation_history_ui_label_audit.py
 │   ├── gridbot_generation_history_v6_2_backup_mirror.py
+│   ├── gridbot_generation_mwh_active_v6_source_audit.py
 │   ├── gridbot_generation_mwh_interconnector_ui_guard.py
 │   ├── gridbot_insert_dc_subsections.py
 │   ├── gridbot_insert_markdown_section.py
@@ -1929,4 +1931,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-227 directories, 1703 files
+227 directories, 1705 files

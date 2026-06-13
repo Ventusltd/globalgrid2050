@@ -1,11 +1,11 @@
 # PVLive Solar History Report
 
-Updated UTC: 2026-06-12T10:48:04.225535Z
+Updated UTC: 2026-06-13T09:43:15.553551Z
 Status: ok
 Backfill days requested: 30
-Fetched solar rows this run: 1548
-Total master rows after solar merge: 174348
-Working URL pattern: https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2026-05-13T00%3A00%3A00Z&end=2026-05-13T23%3A59%3A00Z
+Fetched solar rows this run: 1559
+Total master rows after solar merge: 174359
+Working URL pattern: https://api.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2026-05-14T00%3A00%3A00Z&end=2026-05-14T23%3A59%3A00Z
 Detail: PVLive solar rows merged into generation master CSV
 Source: Sheffield Solar PVLive
 Output fuelType: SOLAR

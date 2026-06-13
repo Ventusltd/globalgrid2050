@@ -1,6 +1,6 @@
 # Generation History Data Report
 
-Updated UTC: 2026-06-12T10:47:50.735518Z
+Updated UTC: 2026-06-13T09:42:59.363150Z
 Status: ok
 Backfill days requested: 30
 Fetched rows this run: 172800

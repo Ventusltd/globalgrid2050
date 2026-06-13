@@ -43,51 +43,52 @@ jobs:
 
       - name: Run audit
         if: ${{ github.event.inputs.mode == 'audit' }}
-        run: python scripts/gridbot_interconnector_bar_ui_match.py
+        run: python scripts/gridbot_interconnector_bar_ui_final.py
 
       - name: Run apply
         if: ${{ github.event.inputs.mode == 'apply' }}
-        run: python scripts/gridbot_interconnector_bar_ui_match.py --apply
+        run: python scripts/gridbot_interconnector_bar_ui_final.py --apply
 
-      - name: Upload bar UI match report
+      - name: Upload final bar UI report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: interconnector-bar-ui-match-${{ github.event.inputs.mode }}
+          name: interconnector-bar-ui-final-${{ github.event.inputs.mode }}
           path: |
-            data_science_protocol/audit_reports/INTERCONNECTOR_BAR_UI_MATCH_LATEST.md
-            data_science_protocol/audit_reports/json/INTERCONNECTOR_BAR_UI_MATCH_LATEST.json
+            data_science_protocol/audit_reports/INTERCONNECTOR_BAR_UI_FINAL_LATEST.md
+            data_science_protocol/audit_reports/json/INTERCONNECTOR_BAR_UI_FINAL_LATEST.json
 
       - name: Commit audit report only
         if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'audit' }}
         run: |
           git config user.name "Gridbot"
           git config user.email "gridbot@users.noreply.github.com"
-          git add scripts/gridbot_interconnector_bar_ui_match.py
+          git add scripts/gridbot_interconnector_bar_ui_final.py
           git add .github/workflows/gridbot_interconnector_bar_ui_match.yml
-          git add data_science_protocol/audit_reports/INTERCONNECTOR_BAR_UI_MATCH_LATEST.md
-          git add data_science_protocol/audit_reports/json/INTERCONNECTOR_BAR_UI_MATCH_LATEST.json
+          git add data_science_protocol/audit_reports/INTERCONNECTOR_BAR_UI_FINAL_LATEST.md
+          git add data_science_protocol/audit_reports/json/INTERCONNECTOR_BAR_UI_FINAL_LATEST.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "gridbot: interconnector bar ui match audit"
+            git commit -m "gridbot: interconnector bar ui final audit"
             git push origin HEAD:main
           fi
 
-      - name: Commit bar UI match changes and report
+      - name: Commit final bar UI changes and report
         if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'apply' }}
         run: |
           git config user.name "Gridbot"
           git config user.email "gridbot@users.noreply.github.com"
-          git add scripts/gridbot_interconnector_bar_ui_match.py
+          git add scripts/gridbot_interconnector_bar_ui_final.py
           git add .github/workflows/gridbot_interconnector_bar_ui_match.yml
+          git add uk_energy_tracking_v6/generation_history/index.md
           git add uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js
           git add uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js
-          git add data_science_protocol/audit_reports/INTERCONNECTOR_BAR_UI_MATCH_LATEST.md
-          git add data_science_protocol/audit_reports/json/INTERCONNECTOR_BAR_UI_MATCH_LATEST.json
+          git add data_science_protocol/audit_reports/INTERCONNECTOR_BAR_UI_FINAL_LATEST.md
+          git add data_science_protocol/audit_reports/json/INTERCONNECTOR_BAR_UI_FINAL_LATEST.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "gridbot: interconnector bar ui match apply"
+            git commit -m "gridbot: interconnector bar ui final apply"
             git push origin HEAD:main
           fi

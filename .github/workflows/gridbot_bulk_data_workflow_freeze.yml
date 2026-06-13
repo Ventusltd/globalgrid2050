@@ -1,0 +1,89 @@
+name: GridBot Bulk Data Workflow Freeze
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit reports and apply target changes when mode is apply
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-bulk-data-workflow-freeze
+  cancel-in-progress: false
+
+jobs:
+  bulk-data-workflow-freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Run audit
+        if: ${{ github.event.inputs.mode == 'audit' }}
+        run: python scripts/gridbot_bulk_data_workflow_freeze.py
+
+      - name: Run apply
+        if: ${{ github.event.inputs.mode == 'apply' }}
+        run: python scripts/gridbot_bulk_data_workflow_freeze.py --apply
+
+      - name: Upload freeze report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bulk-data-workflow-freeze-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/BULK_DATA_WORKFLOW_FREEZE_LATEST.md
+            data_science_protocol/audit_reports/json/BULK_DATA_WORKFLOW_FREEZE_LATEST.json
+
+      - name: Commit audit report only
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'audit' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_bulk_data_workflow_freeze.py
+          git add .github/workflows/gridbot_bulk_data_workflow_freeze.yml
+          git add data_science_protocol/audit_reports/BULK_DATA_WORKFLOW_FREEZE_LATEST.md
+          git add data_science_protocol/audit_reports/json/BULK_DATA_WORKFLOW_FREEZE_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: bulk data workflow freeze audit"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Commit apply changes and report
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'apply' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_bulk_data_workflow_freeze.py
+          git add .github/workflows/gridbot_bulk_data_workflow_freeze.yml
+          git add .github/workflows/backfill_generation_fuelhh_halfhourly_v6.yml
+          git add data_science_protocol/audit_reports/BULK_DATA_WORKFLOW_FREEZE_LATEST.md
+          git add data_science_protocol/audit_reports/json/BULK_DATA_WORKFLOW_FREEZE_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: bulk data workflow freeze apply"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

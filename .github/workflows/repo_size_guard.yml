@@ -1,0 +1,21 @@
+name: Repo Size Guard
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  repo-size-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check changed files against size and raw-data rules
+        run: python scripts/gridbot_repo_size_guard.py --scope changed --warn-mb 5 --fail-mb 25

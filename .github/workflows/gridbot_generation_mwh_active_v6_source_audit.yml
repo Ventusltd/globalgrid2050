@@ -1,0 +1,81 @@
+name: GridBot Generation MWh Active V6 Source Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+      commit_reports:
+        description: Commit audit reports
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-generation-mwh-active-v6-source-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Sync latest main
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -euo pipefail
+          git pull --ff-only https://${PAT}@github.com/${{ github.repository }}.git main
+
+      - name: Run active V6 MWh source audit
+        run: python scripts/gridbot_generation_mwh_active_v6_source_audit.py --mode ${{ github.event.inputs.mode }}
+
+      - name: Upload audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: generation-mwh-active-v6-source-audit-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/GENERATION_MWH_ACTIVE_V6_SOURCE_AUDIT_LATEST.md
+            data_science_protocol/audit_reports/json/GENERATION_MWH_ACTIVE_V6_SOURCE_AUDIT_LATEST.json
+
+      - name: Commit audit reports
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        env:
+          PAT: ${{ secrets.GRIDBOT_PAT }}
+        run: |
+          set -euo pipefail
+          git config user.name "Gridbot"
+          git config user.email "gridbot@globalgrid2050.com"
+          git add scripts/gridbot_generation_mwh_active_v6_source_audit.py
+          git add .github/workflows/gridbot_generation_mwh_active_v6_source_audit.yml
+          git add data_science_protocol/audit_reports/GENERATION_MWH_ACTIVE_V6_SOURCE_AUDIT_LATEST.md
+          git add data_science_protocol/audit_reports/json/GENERATION_MWH_ACTIVE_V6_SOURCE_AUDIT_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No audit report changes to commit."
+          else
+            git commit -m "gridbot: generation mwh active v6 source audit"
+            git pull --rebase https://${PAT}@github.com/${{ github.repository }}.git main
+            git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          fi

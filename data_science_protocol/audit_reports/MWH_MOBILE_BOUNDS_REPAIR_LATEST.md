@@ -1,7 +1,7 @@
 # MWh Mobile Bounds Repair
 
-Generated UTC: `2026-06-13T20:49:27.963132Z`
-Mode: `audit`
+Generated UTC: `2026-06-13T20:56:18.160895Z`
+Mode: `apply`
 Pass: `True`
 
 Fixes phone-width overflow in the Generation Output in MWh cards. It removes the large red interconnector warning box, bounds the Day/Night split and monthly mini-chart to the card width, overrides the old interconnector min-width rule and styles the total electricity check as compact metrics. No data files are changed.

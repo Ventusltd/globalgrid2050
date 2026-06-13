@@ -88,6 +88,33 @@ permalink: /uk_energy_tracking_v6/generation_history/
   #generation-history-panel .mwh-interconnector-bars{margin-top:6px;}
   #generation-history-panel .mwh-row.mwh-interconnector-row{grid-template-columns:minmax(250px,.9fr) 1fr 120px;font-size:11px;}
   #generation-history-panel .mwh-row.mwh-interconnector-row .mwh-label{white-space:normal;line-height:1.25;color:#cfd7e6;}
+
+  /* GridBot MWh mobile bounds repair */
+  #generation-history-panel .mwh-panel,
+  #generation-history-panel .mwh-card{box-sizing:border-box;max-width:100%;overflow:hidden;}
+  #generation-history-panel .mwh-aggregate-head{min-width:0;max-width:100%;}
+  #generation-history-panel .mwh-aggregate-head span{min-width:0;max-width:54%;overflow:hidden;text-overflow:ellipsis;}
+  #generation-history-panel .mwh-mini-chart{box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow:hidden;}
+  #generation-history-panel .mwh-col{min-width:0;}
+  #generation-history-panel .mwh-split{box-sizing:border-box;width:100%;max-width:100%;min-width:0;}
+  #generation-history-panel .mwh-split div{min-width:0!important;overflow:hidden;white-space:nowrap;}
+  #generation-history-panel .mwh-split div:last-child{font-size:0;}
+  #generation-history-panel .mwh-check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px;}
+  #generation-history-panel .mwh-check-metric{border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px;background:rgba(255,255,255,.03);min-width:0;}
+  #generation-history-panel .mwh-check-metric span{display:block;color:#9aa3b6;font-size:11px;letter-spacing:.06em;text-transform:uppercase;}
+  #generation-history-panel .mwh-check-metric strong{display:block;color:#f5f7fb;font-size:13px;margin-top:3px;}
+  @media(max-width:850px){
+    #generation-history-panel .mwh-card{padding:10px;}
+    #generation-history-panel .mwh-aggregate-head{display:block;}
+    #generation-history-panel .mwh-aggregate-head span{display:block;max-width:100%;white-space:normal;text-align:left;margin-top:4px;}
+    #generation-history-panel .mwh-row,
+    #generation-history-panel .mwh-row.mwh-interconnector-row{grid-template-columns:minmax(84px,.78fr) minmax(88px,1fr) minmax(58px,auto)!important;gap:6px;}
+    #generation-history-panel .mwh-row.mwh-interconnector-row .mwh-label{white-space:normal;line-height:1.25;color:#cfd7e6;}
+    #generation-history-panel .mwh-label{min-width:0;overflow-wrap:anywhere;}
+    #generation-history-panel .mwh-track{min-width:0;}
+    #generation-history-panel .mwh-value{font-size:11px;white-space:nowrap;}
+    #generation-history-panel .mwh-check-grid{grid-template-columns:1fr;}
+  }
 </style>
 
 <div class="scada-grid v6-app" id="generation-history-module">
@@ -111,7 +138,6 @@ permalink: /uk_energy_tracking_v6/generation_history/
           <div class="mwh-card" id="generation-mwh-monthly"></div>
           <div class="mwh-card" id="generation-mwh-daynight"></div>
         </div>
-        <div class="generation-source-warning mwh-interconnector-split-warning"><strong>Interconnector accounting:</strong> The former Imports &amp; Exports generation bucket is hidden. Interconnectors are shown separately as signed imports, signed exports and net flow, labelled country first, interconnector name second and BMRS code third. Total electricity check lines are shown for external reconciliation.</div>
       </div>
 
 
@@ -179,8 +205,8 @@ permalink: /uk_energy_tracking_v6/generation_history/
 
 <script src="/uk_energy_tracking_v6/generation_history/live-config.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
-<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260613interconnectorsgranular1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/render_generation_mwh_aggregates.js?v=20260613mwhmobilebounds1"></script>
+<script src="/uk_energy_tracking_v6/generation_history/control_generation_mwh_aggregates.js?v=20260613mwhmobilebounds1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/load_generation_history_data.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/render_generation_history_chart.js?v=20260610solarui1"></script>
 <script src="/uk_energy_tracking_v6/generation_history/control_generation_history.js?v=20260610solarui1"></script>

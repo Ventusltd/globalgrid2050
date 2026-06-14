@@ -1,0 +1,138 @@
+name: GridBot V6 Same Slot Reconciliation Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: Slot date YYYY-MM-DD
+        required: true
+        default: '2026-06-14'
+      time:
+        description: Displayed slot start time HH:MM
+        required: true
+        default: '18:00'
+      timezone:
+        description: Timezone for displayed slot
+        required: true
+        default: Europe/London
+      benchmark_price:
+        description: Optional benchmark price GBP/MWh
+        required: false
+        default: '119.58'
+      benchmark_carbon:
+        description: Optional benchmark carbon g/kWh
+        required: false
+        default: '118'
+      benchmark_demand:
+        description: Optional benchmark demand GW
+        required: false
+        default: '24.76'
+      benchmark_solar:
+        description: Optional benchmark solar GW
+        required: false
+        default: '4.19'
+      benchmark_wind:
+        description: Optional benchmark wind GW
+        required: false
+        default: '5.49'
+      benchmark_hydro:
+        description: Optional benchmark hydro GW
+        required: false
+        default: '0.49'
+      benchmark_gas:
+        description: Optional benchmark gas GW
+        required: false
+        default: '4.90'
+      benchmark_coal:
+        description: Optional benchmark coal GW
+        required: false
+        default: '0.00'
+      benchmark_biomass:
+        description: Optional benchmark biomass GW
+        required: false
+        default: '3.02'
+      benchmark_nuclear:
+        description: Optional benchmark nuclear GW
+        required: false
+        default: '2.99'
+      benchmark_pumped_storage:
+        description: Optional benchmark pumped storage GW
+        required: false
+        default: '0.14'
+      benchmark_imports_exports:
+        description: Optional benchmark imports and exports GW
+        required: false
+        default: '5.94'
+      commit_reports:
+        description: Commit audit report
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-v6-same-slot-reconciliation-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Sync latest main
+        run: git pull --ff-only origin main
+
+      - name: Run same slot reconciliation audit
+        run: |
+          python scripts/gridbot_v6_same_slot_reconciliation_audit.py \
+            --date "${{ github.event.inputs.date }}" \
+            --time "${{ github.event.inputs.time }}" \
+            --timezone "${{ github.event.inputs.timezone }}" \
+            --benchmark-price "${{ github.event.inputs.benchmark_price }}" \
+            --benchmark-carbon "${{ github.event.inputs.benchmark_carbon }}" \
+            --benchmark-demand "${{ github.event.inputs.benchmark_demand }}" \
+            --benchmark-solar "${{ github.event.inputs.benchmark_solar }}" \
+            --benchmark-wind "${{ github.event.inputs.benchmark_wind }}" \
+            --benchmark-hydro "${{ github.event.inputs.benchmark_hydro }}" \
+            --benchmark-gas "${{ github.event.inputs.benchmark_gas }}" \
+            --benchmark-coal "${{ github.event.inputs.benchmark_coal }}" \
+            --benchmark-biomass "${{ github.event.inputs.benchmark_biomass }}" \
+            --benchmark-nuclear "${{ github.event.inputs.benchmark_nuclear }}" \
+            --benchmark-pumped-storage "${{ github.event.inputs.benchmark_pumped_storage }}" \
+            --benchmark-imports-exports "${{ github.event.inputs.benchmark_imports_exports }}"
+
+      - name: Upload audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v6-same-slot-reconciliation-audit
+          path: |
+            data_science_protocol/audit_reports/V6_SAME_SLOT_RECONCILIATION_AUDIT_LATEST.md
+            data_science_protocol/audit_reports/json/V6_SAME_SLOT_RECONCILIATION_AUDIT_LATEST.json
+
+      - name: Commit audit reports
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_v6_same_slot_reconciliation_audit.py
+          git add .github/workflows/gridbot_v6_same_slot_reconciliation_audit.yml
+          git add data_science_protocol/audit_reports/V6_SAME_SLOT_RECONCILIATION_AUDIT_LATEST.md
+          git add data_science_protocol/audit_reports/json/V6_SAME_SLOT_RECONCILIATION_AUDIT_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No audit changes to commit."
+          else
+            git commit -m "gridbot: v6 same slot reconciliation audit"
+            git push origin HEAD:main
+          fi

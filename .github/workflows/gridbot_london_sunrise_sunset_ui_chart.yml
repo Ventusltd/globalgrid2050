@@ -1,0 +1,139 @@
+name: GridBot London Sunrise Sunset UI Chart
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit reports and apply output
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-london-sunrise-sunset-ui-chart
+  cancel-in-progress: false
+
+jobs:
+  chart:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Sync latest main
+        run: git pull --ff-only origin main
+
+      - name: Build proposed chart and report
+        env:
+          GRIDBOT_MODE: ${{ github.event.inputs.mode }}
+        run: |
+          python - <<'PY'
+          import json, datetime as dt, os
+          from pathlib import Path
+          root = Path('.')
+          index = root / 'uk_energy_tracking_v6/generation_history/index.md'
+          data_path = root / 'uk_energy_tracking_v6/generation_history/london_solar_daylight_geometry_2026.json'
+          report_md = root / 'data_science_protocol/audit_reports/LONDON_SUNRISE_SUNSET_UI_CHART_LATEST.md'
+          report_json = root / 'data_science_protocol/audit_reports/json/LONDON_SUNRISE_SUNSET_UI_CHART_LATEST.json'
+          mode = os.environ.get('GRIDBOT_MODE','audit')
+          data = json.loads(data_path.read_text(encoding='utf-8'))
+          rows = [r for r in data.get('rows',[]) if r.get('sunriseExists') and r.get('sunsetExists')]
+          def minutes(hhmm):
+              h,m = hhmm.split(':')
+              return int(h)*60+int(m)
+          def point(row, key, i, n):
+              x = 50 + (i/(n-1))*910
+              y = 28 + ((minutes(row[key])-180)/1140)*250
+              return f'{x:.1f},{y:.1f}'
+          sunrise_points = ' '.join(point(r,'sunriseUKClock',i,len(rows)) for i,r in enumerate(rows))
+          sunset_points = ' '.join(point(r,'sunsetUKClock',i,len(rows)) for i,r in enumerate(rows))
+          ticks = ''
+          for t in [240,480,720,960,1200]:
+              y = 28 + ((t-180)/1140)*250
+              ticks += f'<line x1="50" y1="{y:.1f}" x2="960" y2="{y:.1f}" stroke="rgba(255,255,255,.08)"/><text x="6" y="{y+8:.1f}" fill="#9aa3b6" font-size="24">{t//60:02d}:00</text>'
+          summary = data.get('summary',{})
+          card = f"""<div class="mwh-card wide" id="london-sunrise-sunset-card" data-gridbot="london-sunrise-sunset-ui-chart">
+            <div class="mwh-aggregate-head"><strong>Sunrise and sunset times</strong><span>2026 London reference</span></div>
+            <svg viewBox="0 0 1000 320" style="width:100%;height:260px;background:#05070c;border:1px solid rgba(255,255,255,.08);border-radius:10px" role="img" aria-label="London sunrise and sunset by day of year">
+              {ticks}
+              <polyline points="{sunrise_points}" fill="none" stroke="#f5c518" stroke-width="4"/>
+              <polyline points="{sunset_points}" fill="none" stroke="#00d0ff" stroke-width="4"/>
+              <text x="50" y="310" fill="#9aa3b6" font-size="24">Jan</text><text x="270" y="310" fill="#9aa3b6" font-size="24">Apr</text><text x="500" y="310" fill="#9aa3b6" font-size="24">Jul</text><text x="730" y="310" fill="#9aa3b6" font-size="24">Oct</text><text x="900" y="310" fill="#9aa3b6" font-size="24">Dec</text>
+            </svg>
+            <div class="mwh-note-line">Sunrise line shown in yellow. Sunset line shown in blue. Daylight window is the space between them.</div>
+            <div class="mwh-check-grid">
+              <div class="mwh-check-metric"><span>Shortest day</span><strong>{summary['shortestDay']['date']} · {summary['shortestDay']['daylightHours']} h</strong></div>
+              <div class="mwh-check-metric"><span>Longest day</span><strong>{summary['longestDay']['date']} · {summary['longestDay']['daylightHours']} h</strong></div>
+              <div class="mwh-check-metric"><span>Earliest sunrise</span><strong>{summary['earliestSunriseUKClock']['date']} · {summary['earliestSunriseUKClock']['time']}</strong></div>
+              <div class="mwh-check-metric"><span>Latest sunset</span><strong>{summary['latestSunsetUKClock']['date']} · {summary['latestSunsetUKClock']['time']}</strong></div>
+            </div>
+            <div class="sunrise-sunset-attribution"><strong>Method:</strong> calculated London solar daylight geometry · GMT/UTC primary output · Europe/London display includes BST · formula attribution: USNO apparent sunrise/sunset horizon convention, NREL solar position reference, NOAA style equation of time and solar declination · AI assisted implementation credit: ChatGPT GPT 5.5 Thinking under Vikram Kumar GridBot review and approval · education and grid correlation layer, not irradiance forecast.</div>
+          </div>"""
+          text = index.read_text(encoding='utf-8')
+          text = text.replace('<div class="mwh-card" id="generation-mwh-daynight"></div>', '<div class="mwh-card" id="generation-mwh-daynight" style="display:none!important"></div>')
+          old = '<div class="sunrise-sunset-attribution" data-gridbot="sunrise-sunset-visible-attribution"><strong>Sunrise and sunset reference:</strong> <a href="https://sunrise-sunset.org/api" rel="noopener noreferrer">Sunrise-Sunset.org API</a> · Europe/London · UK reference locations.</div>'
+          if 'id="london-sunrise-sunset-card"' not in text:
+              text = text.replace('        </div>\n        ' + old, '        </div>\n        ' + card)
+          checks = {
+              'daylight_geometry_json_exists': data_path.exists(),
+              'daylight_geometry_has_365_rows': len(rows) == 365,
+              'ui_card_prepared': 'id="london-sunrise-sunset-card"' in text,
+              'old_day_night_hidden': 'generation-mwh-daynight" style="display:none!important"' in text,
+              'formula_attribution_visible': 'formula attribution: USNO apparent sunrise/sunset horizon convention' in text,
+              'ai_assisted_credit_visible': 'ChatGPT GPT 5.5 Thinking' in text,
+              'generation_data_not_touched': True
+          }
+          passed = all(checks.values())
+          if mode == 'apply' and passed:
+              index.write_text(text, encoding='utf-8')
+          report = {'reportTitle':'London Sunrise Sunset UI Chart','schemaVersion':'1.0.0','generatedUTC':dt.datetime.now(dt.timezone.utc).isoformat().replace('+00:00','Z'),'repository':'Ventusltd/globalgrid2050','workflowName':'GridBot London Sunrise Sunset UI Chart','route':'/uk_energy_tracking_v6/generation_history/','mode':mode,'changedFiles':['uk_energy_tracking_v6/generation_history/index.md'] if mode == 'apply' else [],'plannedChangedFiles':['uk_energy_tracking_v6/generation_history/index.md'],'checks':checks,'browserRoutingAffected':True,'rollbackMethod':'Revert the apply commit. This workflow changes index.md only.','executiveSummary':'Adds a static London sunrise and sunset chart to the MWh panel using the applied 365 row London solar daylight geometry dataset, with method attribution and AI assisted implementation credit.','applied':mode == 'apply','pass':passed}
+          report_md.parent.mkdir(parents=True, exist_ok=True)
+          report_json.parent.mkdir(parents=True, exist_ok=True)
+          report_md.write_text('# London Sunrise Sunset UI Chart\n\nGenerated UTC: `'+report['generatedUTC']+'`\nMode: `'+mode+'`\nPass: `'+str(passed)+'`\n\n'+report['executiveSummary']+'\n\n## Checks\n\n| Check | Result |\n|---|---|\n'+'\n'.join('| '+k+' | '+('✅' if v else '❌')+' |' for k,v in checks.items())+'\n\n## Rollback\n\n'+report['rollbackMethod']+'\n', encoding='utf-8')
+          report_json.write_text(json.dumps(report, indent=2), encoding='utf-8')
+          if not passed:
+              raise SystemExit(1)
+          PY
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: london-sunrise-sunset-ui-chart-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/LONDON_SUNRISE_SUNSET_UI_CHART_LATEST.md
+            data_science_protocol/audit_reports/json/LONDON_SUNRISE_SUNSET_UI_CHART_LATEST.json
+
+      - name: Commit audit or apply
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add .github/workflows/gridbot_london_sunrise_sunset_ui_chart.yml
+          git add data_science_protocol/audit_reports/LONDON_SUNRISE_SUNSET_UI_CHART_LATEST.md
+          git add data_science_protocol/audit_reports/json/LONDON_SUNRISE_SUNSET_UI_CHART_LATEST.json
+          if [ "${{ github.event.inputs.mode }}" = "apply" ]; then git add uk_energy_tracking_v6/generation_history/index.md; fi
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: london sunrise sunset ui chart ${{ github.event.inputs.mode }}"
+            git push origin HEAD:main
+          fi

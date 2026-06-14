@@ -1,0 +1,71 @@
+name: GridBot Deprecated Tracker Stale Data Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Audit only for deprecated tracker stale data defect
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+      commit_reports:
+        description: Commit audit reports and manifest
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-deprecated-tracker-stale-data-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Sync latest main
+        run: git pull --ff-only origin main
+
+      - name: Run deprecated tracker stale data audit
+        run: python scripts/gridbot_deprecated_tracker_stale_data_audit.py --mode audit
+
+      - name: Upload audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deprecated-tracker-stale-data-audit
+          path: |
+            data_science_protocol/audit_reports/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.md
+            data_science_protocol/audit_reports/json/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.json
+            gridbot_manifests/DEPRECATED_TRACKER_STALE_DATA_RETIREMENT_MANIFEST.json
+
+      - name: Commit audit reports and manifest
+        if: ${{ github.event.inputs.commit_reports == 'true' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_deprecated_tracker_stale_data_audit.py
+          git add .github/workflows/gridbot_deprecated_tracker_stale_data_audit.yml
+          git add data_science_protocol/audit_reports/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.md
+          git add data_science_protocol/audit_reports/json/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.json
+          git add gridbot_manifests/DEPRECATED_TRACKER_STALE_DATA_RETIREMENT_MANIFEST.json
+          if git diff --cached --quiet; then
+            echo "No audit changes to commit."
+          else
+            git commit -m "gridbot: deprecated tracker stale data audit"
+            git push origin HEAD:main
+          fi

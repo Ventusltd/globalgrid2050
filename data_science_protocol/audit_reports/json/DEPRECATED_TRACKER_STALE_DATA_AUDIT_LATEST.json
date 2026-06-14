@@ -1,0 +1,180 @@
+{
+  "reportTitle": "Deprecated Tracker Stale Data Audit",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-14T16:37:40.042810Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "branch": "main",
+  "gitHeadBefore": "eb216812aebef288c2f019cd57e56333655e1ec9",
+  "gitHeadAfter": "eb216812aebef288c2f019cd57e56333655e1ec9",
+  "workflowName": "GridBot Deprecated Tracker Stale Data Audit",
+  "scriptName": "scripts/gridbot_deprecated_tracker_stale_data_audit.py",
+  "upgradeType": "correctness and public trust fix under launch freeze",
+  "mode": "audit",
+  "sourceApis": [],
+  "sourceWindows": {
+    "staleThresholdMinutes": 30,
+    "auditVersions": [
+      "v2",
+      "v3",
+      "v4",
+      "v5"
+    ],
+    "liveVersion": "v6"
+  },
+  "inputFiles": [
+    "uk_energy_tracking_v2/live_grid_energy.json",
+    "uk_energy_tracking_v2/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v2.yml",
+    "uk_energy_tracking_v3/live_grid_energy.json",
+    "uk_energy_tracking_v3/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v3.yml",
+    "uk_energy_tracking_v4/live_grid_energy.json",
+    "uk_energy_tracking_v4/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v4.yml",
+    "uk_energy_tracking_v5/live_grid_energy.json",
+    "uk_energy_tracking_v5/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v5.yml",
+    ".github/workflows/fetch_uk_energy_and_prices_v6.yml"
+  ],
+  "outputFiles": [
+    "data_science_protocol/audit_reports/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.md",
+    "data_science_protocol/audit_reports/json/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.json",
+    "gridbot_manifests/DEPRECATED_TRACKER_STALE_DATA_RETIREMENT_MANIFEST.json"
+  ],
+  "changedFiles": [],
+  "addedFiles": [
+    "gridbot_manifests/DEPRECATED_TRACKER_STALE_DATA_RETIREMENT_MANIFEST.json"
+  ],
+  "deletedFiles": [],
+  "checks": {
+    "audit_covers_v2_to_v5": true,
+    "v6_is_confirmed_scheduled_live_version": true,
+    "deprecated_versions_do_not_have_cron": true,
+    "timestamp_mask_checked_for_each_version": true,
+    "imports_exports_bucket_checked_for_each_version": true,
+    "audit_does_not_modify_data_files": true,
+    "manifest_written": true
+  },
+  "rawTemporaryFilesFound": [],
+  "browserRoutingAffected": false,
+  "rollbackMethod": "Revert the apply commit. Apply must touch only deprecated tracker UI or routing files, never data files.",
+  "executiveSummary": "Audits deprecated UK energy tracker versions v2 to v5 for stale live data, missing cron schedules, timestamp masking, and collapsed Imports and Exports generation mix. No data files are modified by audit mode.",
+  "humanReviewStatus": "required before apply",
+  "nextAction": "Review this audit report. If accepted, build or trigger the apply retirement workflow to route deprecated versions to v6. Do not add cron schedules to deprecated versions.",
+  "applied": false,
+  "pass": true,
+  "versionAudits": [
+    {
+      "version": "v2",
+      "route": "/uk_energy_tracking_v2/",
+      "folderExists": true,
+      "indexPath": "uk_energy_tracking_v2/index.md",
+      "appPath": "uk_energy_tracking_v2/index.md",
+      "energyPath": "uk_energy_tracking_v2/live_grid_energy.json",
+      "pricePath": "uk_energy_tracking_v2/live_grid_price.json",
+      "energyUpdated": "2026-05-28T04:25:06.334688+00:00",
+      "priceUpdated": "2026-05-28T04:25:07.351182+00:00",
+      "energyAgeHours": 420.209,
+      "priceAgeHours": 420.209,
+      "workflow": {
+        "path": ".github/workflows/fetch_uk_energy_and_prices_v2.yml",
+        "exists": true,
+        "hasWorkflowDispatch": true,
+        "hasCronSchedule": false,
+        "manualOnly": true
+      },
+      "usesLatestIsoDateLabelPattern": true,
+      "containsCollapsedImportsExports": true,
+      "alreadyRetiredOrArchived": false,
+      "verdict": "stale"
+    },
+    {
+      "version": "v3",
+      "route": "/uk_energy_tracking_v3/",
+      "folderExists": true,
+      "indexPath": "uk_energy_tracking_v3/index.md",
+      "appPath": "uk_energy_tracking_v3/index.md",
+      "energyPath": "uk_energy_tracking_v3/live_grid_energy.json",
+      "pricePath": "uk_energy_tracking_v3/live_grid_price.json",
+      "energyUpdated": "2026-05-28T05:42:02.050808+00:00",
+      "priceUpdated": "2026-05-28T05:42:03.241715+00:00",
+      "energyAgeHours": 418.927,
+      "priceAgeHours": 418.927,
+      "workflow": {
+        "path": ".github/workflows/fetch_uk_energy_and_prices_v3.yml",
+        "exists": true,
+        "hasWorkflowDispatch": true,
+        "hasCronSchedule": false,
+        "manualOnly": true
+      },
+      "usesLatestIsoDateLabelPattern": true,
+      "containsCollapsedImportsExports": true,
+      "alreadyRetiredOrArchived": false,
+      "verdict": "stale"
+    },
+    {
+      "version": "v4",
+      "route": "/uk_energy_tracking_v4/",
+      "folderExists": true,
+      "indexPath": "uk_energy_tracking_v4/index.md",
+      "appPath": "uk_energy_tracking_v4/live-app.js",
+      "energyPath": "uk_energy_tracking_v4/live_grid_energy.json",
+      "pricePath": "uk_energy_tracking_v4/live_grid_price.json",
+      "energyUpdated": "2026-05-28T05:45:11.616624+00:00",
+      "priceUpdated": "2026-05-28T05:45:13.083370+00:00",
+      "energyAgeHours": 418.875,
+      "priceAgeHours": 418.874,
+      "workflow": {
+        "path": ".github/workflows/fetch_uk_energy_and_prices_v4.yml",
+        "exists": true,
+        "hasWorkflowDispatch": true,
+        "hasCronSchedule": false,
+        "manualOnly": true
+      },
+      "usesLatestIsoDateLabelPattern": true,
+      "containsCollapsedImportsExports": true,
+      "alreadyRetiredOrArchived": true,
+      "verdict": "abandoned"
+    },
+    {
+      "version": "v5",
+      "route": "/uk_energy_tracking_v5/",
+      "folderExists": true,
+      "indexPath": "uk_energy_tracking_v5/index.md",
+      "appPath": "uk_energy_tracking_v5/live-app.js",
+      "energyPath": "uk_energy_tracking_v5/live_grid_energy.json",
+      "pricePath": "uk_energy_tracking_v5/live_grid_price.json",
+      "energyUpdated": "2026-06-03T12:04:42.989110+00:00",
+      "priceUpdated": "2026-06-03T12:04:44.048713+00:00",
+      "energyAgeHours": 268.549,
+      "priceAgeHours": 268.549,
+      "workflow": {
+        "path": ".github/workflows/fetch_uk_energy_and_prices_v5.yml",
+        "exists": true,
+        "hasWorkflowDispatch": true,
+        "hasCronSchedule": false,
+        "manualOnly": true
+      },
+      "usesLatestIsoDateLabelPattern": true,
+      "containsCollapsedImportsExports": true,
+      "alreadyRetiredOrArchived": false,
+      "verdict": "stale"
+    }
+  ],
+  "liveVersionCheck": {
+    "version": "v6",
+    "route": "/uk_energy_tracking_v6/",
+    "energyUpdated": "2026-06-14T15:21:35.825718+00:00",
+    "priceUpdated": "2026-06-14T15:21:37.319916+00:00",
+    "energyAgeHours": 1.268,
+    "priceAgeHours": 1.267,
+    "workflow": {
+      "path": ".github/workflows/fetch_uk_energy_and_prices_v6.yml",
+      "exists": true,
+      "hasWorkflowDispatch": true,
+      "hasCronSchedule": true,
+      "manualOnly": false
+    },
+    "confirmedScheduledLiveVersion": true
+  }
+}

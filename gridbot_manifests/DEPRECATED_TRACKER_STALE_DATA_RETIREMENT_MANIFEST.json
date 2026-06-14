@@ -1,0 +1,50 @@
+{
+  "feature_id": "deprecated_tracker_stale_data_retirement",
+  "feature_name": "Deprecated tracker stale data audit and retirement",
+  "owner": "VENTUS Ltd",
+  "created_utc": "2026-06-14T16:37:40.042486Z",
+  "target_files": [
+    "uk_energy_tracking_v2/index.md",
+    "uk_energy_tracking_v3/index.md",
+    "uk_energy_tracking_v4/index.md",
+    "uk_energy_tracking_v5/index.md"
+  ],
+  "source_files": [
+    "uk_energy_tracking_v2/live_grid_energy.json",
+    "uk_energy_tracking_v2/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v2.yml",
+    "uk_energy_tracking_v3/live_grid_energy.json",
+    "uk_energy_tracking_v3/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v3.yml",
+    "uk_energy_tracking_v4/live_grid_energy.json",
+    "uk_energy_tracking_v4/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v4.yml",
+    "uk_energy_tracking_v5/live_grid_energy.json",
+    "uk_energy_tracking_v5/live_grid_price.json",
+    ".github/workflows/fetch_uk_energy_and_prices_v5.yml",
+    ".github/workflows/fetch_uk_energy_and_prices_v6.yml"
+  ],
+  "forbidden_files": [
+    "uk_energy_tracking_v2/live_grid_energy.json",
+    "uk_energy_tracking_v2/live_grid_price.json",
+    "uk_energy_tracking_v3/live_grid_energy.json",
+    "uk_energy_tracking_v3/live_grid_price.json",
+    "uk_energy_tracking_v4/live_grid_energy.json",
+    "uk_energy_tracking_v4/live_grid_price.json",
+    "uk_energy_tracking_v5/live_grid_energy.json",
+    "uk_energy_tracking_v5/live_grid_price.json"
+  ],
+  "audit_report_md": "data_science_protocol/audit_reports/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.md",
+  "audit_report_json": "data_science_protocol/audit_reports/json/DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.json",
+  "rollback_method": "Revert the apply commit. Apply must touch only deprecated tracker UI or routing files, never data files.",
+  "human_approval_required": true,
+  "data_source_domain": "UK live electricity tracker UI and routing only. No data refresh source is changed.",
+  "public_safety_or_ndA_risk": "Public trust defect caused by stale live data. No NDA content expected.",
+  "planned_apply": "Retire deprecated tracker routes v2 through v5 in favour of /uk_energy_tracking_v6/. Do not add cron schedules to old versions.",
+  "version_verdicts": {
+    "v2": "stale",
+    "v3": "stale",
+    "v4": "abandoned",
+    "v5": "stale"
+  }
+}

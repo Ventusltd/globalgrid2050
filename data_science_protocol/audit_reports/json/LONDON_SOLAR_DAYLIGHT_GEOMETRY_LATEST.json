@@ -1,0 +1,186 @@
+{
+  "reportTitle": "London Solar Daylight Geometry",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-14T00:09:30.645215Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "workflowName": "GridBot London Solar Daylight Geometry",
+  "scriptName": "scripts/gridbot_london_solar_daylight_geometry.py",
+  "route": "/uk_energy_tracking_v6/generation_history/",
+  "mode": "audit",
+  "year": 2026,
+  "changedFiles": [],
+  "plannedChangedFiles": [
+    "uk_energy_tracking_v6/generation_history/london_solar_daylight_geometry_2026.json"
+  ],
+  "method": "NOAA style equation of time and solar declination approximation, USNO apparent sunrise/sunset horizon convention, London reference coordinates, GMT/UTC primary output, Europe/London civil display output.",
+  "summary": {
+    "rowCount": 365,
+    "shortestDay": {
+      "date": "2026-12-22",
+      "daylightHours": 7.828,
+      "sunriseGMT": "08:03",
+      "sunsetGMT": "15:53",
+      "sunriseUKClock": "08:03",
+      "sunsetUKClock": "15:53"
+    },
+    "longestDay": {
+      "date": "2026-06-22",
+      "daylightHours": 16.643,
+      "sunriseGMT": "03:42",
+      "sunsetGMT": "20:21",
+      "sunriseUKClock": "04:42",
+      "sunsetUKClock": "21:21"
+    },
+    "earliestSunriseUKClock": {
+      "date": "2026-06-13",
+      "time": "04:42"
+    },
+    "latestSunriseUKClock": {
+      "date": "2026-01-01",
+      "time": "08:06"
+    },
+    "earliestSunsetUKClock": {
+      "date": "2026-12-12",
+      "time": "15:51"
+    },
+    "latestSunsetUKClock": {
+      "date": "2026-06-21",
+      "time": "21:21"
+    }
+  },
+  "crossCheckAgainstPreviousApi": {
+    "available": true,
+    "comparisonRows": 12,
+    "maxAbsoluteDifferenceMinutes": 5,
+    "sample": [
+      {
+        "date": "2026-01-15",
+        "currentSunriseUKClock": "07:59",
+        "previousApiSunrise": "07:57",
+        "sunriseDeltaMinutes": 2,
+        "currentSunsetUKClock": "16:18",
+        "previousApiSunset": "16:22",
+        "sunsetDeltaMinutes": -4
+      },
+      {
+        "date": "2026-02-15",
+        "currentSunriseUKClock": "07:16",
+        "previousApiSunrise": "07:12",
+        "sunriseDeltaMinutes": 4,
+        "currentSunsetUKClock": "17:13",
+        "previousApiSunset": "17:16",
+        "sunsetDeltaMinutes": -3
+      },
+      {
+        "date": "2026-03-15",
+        "currentSunriseUKClock": "06:17",
+        "previousApiSunrise": "06:12",
+        "sunriseDeltaMinutes": 5,
+        "currentSunsetUKClock": "18:03",
+        "previousApiSunset": "18:06",
+        "sunsetDeltaMinutes": -3
+      },
+      {
+        "date": "2026-04-15",
+        "currentSunriseUKClock": "06:06",
+        "previousApiSunrise": "06:02",
+        "sunriseDeltaMinutes": 4,
+        "currentSunsetUKClock": "19:54",
+        "previousApiSunset": "19:58",
+        "sunsetDeltaMinutes": -4
+      },
+      {
+        "date": "2026-05-15",
+        "currentSunriseUKClock": "05:09",
+        "previousApiSunrise": "05:06",
+        "sunriseDeltaMinutes": 3,
+        "currentSunsetUKClock": "20:43",
+        "previousApiSunset": "20:47",
+        "sunsetDeltaMinutes": -4
+      },
+      {
+        "date": "2026-06-15",
+        "currentSunriseUKClock": "04:42",
+        "previousApiSunrise": "04:40",
+        "sunriseDeltaMinutes": 2,
+        "currentSunsetUKClock": "21:18",
+        "previousApiSunset": "21:21",
+        "sunsetDeltaMinutes": -3
+      },
+      {
+        "date": "2026-07-15",
+        "currentSunriseUKClock": "04:59",
+        "previousApiSunrise": "04:59",
+        "sunriseDeltaMinutes": 0,
+        "currentSunsetUKClock": "21:12",
+        "previousApiSunset": "21:13",
+        "sunsetDeltaMinutes": -1
+      },
+      {
+        "date": "2026-08-15",
+        "currentSunriseUKClock": "05:44",
+        "previousApiSunrise": "05:44",
+        "sunriseDeltaMinutes": 0,
+        "currentSunsetUKClock": "20:26",
+        "previousApiSunset": "20:25",
+        "sunsetDeltaMinutes": 1
+      },
+      {
+        "date": "2026-09-15",
+        "currentSunriseUKClock": "06:33",
+        "previousApiSunrise": "06:33",
+        "sunriseDeltaMinutes": 0,
+        "currentSunsetUKClock": "19:18",
+        "previousApiSunset": "19:17",
+        "sunsetDeltaMinutes": 1
+      },
+      {
+        "date": "2026-10-15",
+        "currentSunriseUKClock": "07:22",
+        "previousApiSunrise": "07:22",
+        "sunriseDeltaMinutes": 0,
+        "currentSunsetUKClock": "18:09",
+        "previousApiSunset": "18:09",
+        "sunsetDeltaMinutes": 0
+      },
+      {
+        "date": "2026-11-15",
+        "currentSunriseUKClock": "07:17",
+        "previousApiSunrise": "07:16",
+        "sunriseDeltaMinutes": 1,
+        "currentSunsetUKClock": "16:13",
+        "previousApiSunset": "16:13",
+        "sunsetDeltaMinutes": 0
+      },
+      {
+        "date": "2026-12-15",
+        "currentSunriseUKClock": "07:59",
+        "previousApiSunrise": "07:57",
+        "sunriseDeltaMinutes": 2,
+        "currentSunsetUKClock": "15:51",
+        "previousApiSunset": "15:53",
+        "sunsetDeltaMinutes": -2
+      }
+    ]
+  },
+  "checks": {
+    "has_expected_daily_rows": true,
+    "has_sunrise_and_sunset_for_each_day": true,
+    "has_gmt_sunrise_and_sunset_fields": true,
+    "has_uk_clock_sunrise_and_sunset_fields": true,
+    "uses_london_reference": true,
+    "uses_gmt_utc_primary_standard": true,
+    "uses_europe_london_secondary_standard": true,
+    "attributes_usno_convention": true,
+    "attributes_formula_sources": true,
+    "contains_ui_application_contract": true,
+    "output_under_1mb": true,
+    "no_external_api_fetch_required": true,
+    "generation_data_not_touched": true
+  },
+  "browserRoutingAffected": false,
+  "rollbackMethod": "Delete `uk_energy_tracking_v6/generation_history/london_solar_daylight_geometry_2026.json` or revert the apply commit. Reports can also be reverted.",
+  "executiveSummary": "Calculates 365 or 366 daily London sunrise and sunset rows without calling an external sunrise API. Output includes GMT/UTC times, Europe/London civil clock times, daylight duration, solar noon, equation of time and solar declination. The report fully attributes formula origins and explains how the data should replace the existing Day versus Night panel in a later UI workflow.",
+  "applied": false,
+  "pass": true
+}

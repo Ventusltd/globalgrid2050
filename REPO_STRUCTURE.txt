@@ -1291,6 +1291,7 @@
 │   ├── gridbot_sunrise_sunset_time_bands.py
 │   ├── gridbot_sunrise_sunset_visible_attribution.py
 │   ├── gridbot_v3_diary_preflight.py
+│   ├── gridbot_v6_same_slot_reconciliation_audit.py
 │   ├── inspect_data_science_discipline.py
 │   ├── isolate_uk_energy_tracking_v2.py
 │   ├── merge_generation_sources_annual_to_master_v6.py
@@ -2056,4 +2057,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-230 directories, 1827 files
+230 directories, 1828 files

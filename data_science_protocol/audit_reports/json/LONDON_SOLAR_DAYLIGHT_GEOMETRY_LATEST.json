@@ -1,14 +1,16 @@
 {
   "reportTitle": "London Solar Daylight Geometry",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-14T00:09:30.645215Z",
+  "generatedUTC": "2026-06-14T00:12:29.818960Z",
   "repository": "Ventusltd/globalgrid2050",
   "workflowName": "GridBot London Solar Daylight Geometry",
   "scriptName": "scripts/gridbot_london_solar_daylight_geometry.py",
   "route": "/uk_energy_tracking_v6/generation_history/",
-  "mode": "audit",
+  "mode": "apply",
   "year": 2026,
-  "changedFiles": [],
+  "changedFiles": [
+    "uk_energy_tracking_v6/generation_history/london_solar_daylight_geometry_2026.json"
+  ],
   "plannedChangedFiles": [
     "uk_energy_tracking_v6/generation_history/london_solar_daylight_geometry_2026.json"
   ],
@@ -181,6 +183,6 @@
   "browserRoutingAffected": false,
   "rollbackMethod": "Delete `uk_energy_tracking_v6/generation_history/london_solar_daylight_geometry_2026.json` or revert the apply commit. Reports can also be reverted.",
   "executiveSummary": "Calculates 365 or 366 daily London sunrise and sunset rows without calling an external sunrise API. Output includes GMT/UTC times, Europe/London civil clock times, daylight duration, solar noon, equation of time and solar declination. The report fully attributes formula origins and explains how the data should replace the existing Day versus Night panel in a later UI workflow.",
-  "applied": false,
+  "applied": true,
   "pass": true
 }

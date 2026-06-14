@@ -1,7 +1,7 @@
 # London Solar Daylight Geometry
 
-Generated UTC: `2026-06-14T00:09:30.645215Z`
-Mode: `audit`
+Generated UTC: `2026-06-14T00:12:29.818960Z`
+Mode: `apply`
 Pass: `True`
 
 Calculates 365 or 366 daily London sunrise and sunset rows without calling an external sunrise API. Output includes GMT/UTC times, Europe/London civil clock times, daylight duration, solar noon, equation of time and solar declination. The report fully attributes formula origins and explains how the data should replace the existing Day versus Night panel in a later UI workflow.

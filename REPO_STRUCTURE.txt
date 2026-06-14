@@ -350,6 +350,7 @@
 │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.md
 │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.md
 │   │   ├── DATA_SPINE_STAMP_LATEST.md
+│   │   ├── DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.md
 │   │   ├── ECG_CANDIDATE_WIRING_20260608T221153Z.md
 │   │   ├── ECG_CANDIDATE_WIRING_20260608T230807Z.md
 │   │   ├── ECG_CANDIDATE_WIRING_LATEST.md
@@ -468,6 +469,7 @@
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202002Z.json
 │   │   │   ├── DATA_SPINE_STAMP_20260608T202237Z.json
 │   │   │   ├── DATA_SPINE_STAMP_LATEST.json
+│   │   │   ├── DEPRECATED_TRACKER_STALE_DATA_AUDIT_LATEST.json
 │   │   │   ├── ECG_CANDIDATE_WIRING_20260608T221153Z.json
 │   │   │   ├── ECG_CANDIDATE_WIRING_20260608T230807Z.json
 │   │   │   ├── ECG_CANDIDATE_WIRING_LATEST.json
@@ -747,7 +749,8 @@
 │   ├── 002_solar_daily_mwh_standalone.yml
 │   ├── 010_generation_history_solar_ui.yml
 │   ├── 011_generation_history_solar_recent.yml
-│   └── AUDIT_MANIFEST_REQUIREMENTS.md
+│   ├── AUDIT_MANIFEST_REQUIREMENTS.md
+│   └── DEPRECATED_TRACKER_STALE_DATA_RETIREMENT_MANIFEST.json
 ├── gridbot_reports
 │   ├── add_v3_homepage_link.md
 │   ├── add_v6_v7_all_apps_a4_print_formatting.md
@@ -2041,4 +2044,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-230 directories, 1812 files
+230 directories, 1815 files

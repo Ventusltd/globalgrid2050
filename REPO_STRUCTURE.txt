@@ -1896,6 +1896,7 @@
 │   │   ├── live-config.js
 │   │   ├── load_generation_history_data.js
 │   │   ├── load_generation_mwh_aggregates.js
+│   │   ├── london_solar_daylight_geometry_2026.json
 │   │   ├── mwh_energy_use
 │   │   │   ├── index.md
 │   │   │   └── ons_mwh_energy_use_placeholder.json
@@ -2015,4 +2016,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-228 directories, 1788 files
+228 directories, 1789 files

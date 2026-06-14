@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-06-13T09:31:31.184755+00:00",
+    "updated": "2026-06-14T09:51:37.542591+00:00",
     "unit": "USD per barrel",
     "period": "Last 25 years",
     "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
@@ -25,26 +25,12 @@
       {
         "ok": true,
         "source": "Yahoo WTI futures history",
-        "rows": 6278,
+        "rows": 6277,
         "fallback": true
       }
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-13",
-        "wtiUSDperBarrel": 28.84000015258789
-      }
-    },
     {
       "type": "Feature",
       "geometry": {

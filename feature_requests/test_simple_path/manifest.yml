@@ -1,0 +1,6 @@
+name: test_path
+summary: test only
+operations:
+  - type: assert_contains
+    file: .github/workflows/gridbot_london_sunrise_sunset_ui_chart.yml
+    text: "Sunrise and sunset"

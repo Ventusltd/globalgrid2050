@@ -394,6 +394,7 @@
 │   │   ├── FUELHH_BACKFILL_20260614T214359Z.md
 │   │   ├── FUELHH_BACKFILL_20260614T233925Z.md
 │   │   ├── FUELHH_BACKFILL_20260615T053124Z.md
+│   │   ├── FUELHH_BACKFILL_20260615T124554Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
@@ -435,6 +436,7 @@
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260614T214408Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260614T233934Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T053132Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260615T124602Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
@@ -523,6 +525,7 @@
 │   │   │   ├── FUELHH_BACKFILL_20260614T214359Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260614T233925Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260615T053124Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260615T124554Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
@@ -564,6 +567,7 @@
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260614T214408Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260614T233934Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T053132Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T124602Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
@@ -600,6 +604,12 @@
 │   │   │   ├── SUNRISE_SUNSET_VISIBLE_ATTRIBUTION_LATEST.json
 │   │   │   └── repo_size_guard_20260608T131955Z.json
 │   │   └── repo_size_guard_20260608T131955Z.md
+│   ├── inspection_reports
+│   │   ├── DATA_SCIENCE_DISCIPLINE_INSPECTION_LATEST.json
+│   │   ├── DATA_SCIENCE_DISCIPLINE_INSPECTION_LATEST.md
+│   │   └── history
+│   │       ├── data_science_discipline_inspection_20260615T124559Z.json
+│   │       └── data_science_discipline_inspection_20260615T124559Z.md
 │   ├── manifest_designs
 │   │   ├── 004_fuelhh_generation_heartbeat_mvp.md
 │   │   └── 005_generation_ui_extension_contract.md
@@ -2065,4 +2075,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-230 directories, 1836 files
+232 directories, 1844 files

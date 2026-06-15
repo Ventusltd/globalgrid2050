@@ -83,3 +83,10 @@ The doctrine must now be enforced through compiler logic and workflow reports, n
 Next action:
 
 Run the generation ECG and FUELHH candidate workflows, then ask an external reviewer to check outputs against the data spine acceptance criteria.
+
+## 2026-06-15T12:45:59Z  Data Science Discipline Inspection
+
+Executive summary: Inspection found 3 files above the action threshold and 83 files above the watch threshold. Snapshot comparison recorded 2094 added, 0 changed and 0 deleted files since the previous inspection. The active data science protocol is present. Largest immediate review item is uk_primary_roads.geojson at 76.016 MB.
+
+Files scanned: `2094`. Scanned size: `1738.23 MB`. Watch files: `83`. Action files: `3`. Added: `2094`. Changed: `0`. Deleted: `0`.
+

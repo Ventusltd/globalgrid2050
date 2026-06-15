@@ -395,6 +395,7 @@
 │   │   ├── FUELHH_BACKFILL_20260614T233925Z.md
 │   │   ├── FUELHH_BACKFILL_20260615T053124Z.md
 │   │   ├── FUELHH_BACKFILL_20260615T124554Z.md
+│   │   ├── FUELHH_BACKFILL_20260615T184818Z.md
 │   │   ├── FUELHH_BACKFILL_LATEST.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.md
@@ -437,6 +438,7 @@
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260614T233934Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T053132Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T124602Z.md
+│   │   ├── FUELHH_DAILY_MW_SPINE_20260615T184826Z.md
 │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.md
 │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.md
 │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.md
@@ -526,6 +528,7 @@
 │   │   │   ├── FUELHH_BACKFILL_20260614T233925Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260615T053124Z.json
 │   │   │   ├── FUELHH_BACKFILL_20260615T124554Z.json
+│   │   │   ├── FUELHH_BACKFILL_20260615T184818Z.json
 │   │   │   ├── FUELHH_BACKFILL_LATEST.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T004152Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260609T043921Z.json
@@ -568,6 +571,7 @@
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260614T233934Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T053132Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T124602Z.json
+│   │   │   ├── FUELHH_DAILY_MW_SPINE_20260615T184826Z.json
 │   │   │   ├── FUELHH_DAILY_MW_SPINE_LATEST.json
 │   │   │   ├── GENERATION_DAILY_MWH_FUELHH_CHUNKS_LATEST.json
 │   │   │   ├── GENERATION_ECG_ALL_TECH_MVP_20260608T203303Z.json
@@ -1298,6 +1302,7 @@
 │   ├── gridbot_replace_modular_note_with_summary.py
 │   ├── gridbot_repo_size_guard.py
 │   ├── gridbot_repo_split_inventory.py
+│   ├── gridbot_root_homepage_directory_audit.py
 │   ├── gridbot_solar_daily_mwh_index_upgrade.py
 │   ├── gridbot_solar_daily_mwh_interaction_upgrade.py
 │   ├── gridbot_solar_daily_mwh_readability_upgrade.py
@@ -2075,4 +2080,4 @@
     ├── physical_layer_solar_cable_integrity.md
     └── uk_energy_tracker_purpose.md
 
-232 directories, 1844 files
+232 directories, 1849 files

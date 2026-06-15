@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-06-12T09:56:19.664558+00:00",
+    "updated": "2026-06-15T11:44:00.721463+00:00",
     "unit": "USD per barrel",
     "period": "Last 25 years",
     "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is fallback.",
@@ -19,61 +19,18 @@
       {
         "ok": true,
         "source": "Yahoo Brent futures history",
-        "rows": 4697,
+        "rows": 4698,
         "fallback": true
       },
       {
         "ok": true,
         "source": "Yahoo WTI futures history",
-        "rows": 6279,
+        "rows": 6277,
         "fallback": true
       }
-    ],
-    "lastSkippedHistoryUpdate": "2026-06-13T08:40:58.492071+00:00"
+    ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-12",
-        "wtiUSDperBarrel": 29.18000030517578
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-13",
-        "wtiUSDperBarrel": 28.84000015258789
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-14",
-        "wtiUSDperBarrel": 29.040000915527344
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -92644,8 +92601,23 @@
       },
       "properties": {
         "date": "2026-06-12",
-        "brentUSDperBarrel": 86.5199966430664,
-        "wtiUSDperBarrel": 83.87999725341797
+        "brentUSDperBarrel": 87.33000183105469,
+        "wtiUSDperBarrel": 84.87999725341797
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-15",
+        "brentUSDperBarrel": 82.9000015258789,
+        "wtiUSDperBarrel": 80.20999908447266
       }
     }
   ]

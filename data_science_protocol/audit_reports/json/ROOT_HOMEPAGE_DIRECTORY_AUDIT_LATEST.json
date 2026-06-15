@@ -1,0 +1,102 @@
+{
+  "reportTitle": "Root Homepage Directory Audit",
+  "schemaVersion": "1.0.0",
+  "generatedUTC": "2026-06-15T20:56:18Z",
+  "repository": "Ventusltd/globalgrid2050",
+  "branch": "main",
+  "gitHeadBefore": "b90d1cd08cf633da8844c8b248baf765219f5beb",
+  "gitHeadAfter": "b90d1cd08cf633da8844c8b248baf765219f5beb",
+  "workflowName": "GridBot Root Homepage Directory Audit",
+  "scriptName": "scripts/gridbot_root_homepage_directory_audit.py",
+  "upgradeType": "root homepage UI directory replacement",
+  "mode": "audit",
+  "sourceApis": [],
+  "sourceWindows": {
+    "repoInspection": [
+      "README.md",
+      "AI_START_HERE.md",
+      "index.html"
+    ],
+    "userProvidedHtml": "Root homepage replacement HTML supplied in chat on 2026-06-15 Europe/London"
+  },
+  "inputFiles": [
+    "README.md",
+    "AI_START_HERE.md",
+    "index.html"
+  ],
+  "outputFiles": [
+    "data_science_protocol/audit_reports/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.md",
+    "data_science_protocol/audit_reports/json/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.json"
+  ],
+  "changedFiles": [],
+  "plannedChangedFiles": [
+    "index.html"
+  ],
+  "addedFiles": [],
+  "deletedFiles": [],
+  "checks": {
+    "targetFileExists": true,
+    "targetIsRootIndexHtml": true,
+    "currentHomepageRead": true,
+    "currentFlatDirectoryTableDetected": true,
+    "currentHourglassIframeDetectedForRemoval": true,
+    "proposedHtmlHasDoctype": true,
+    "proposedKeepsTitle": true,
+    "proposedKeepsOpeningDescription": true,
+    "proposedSearchPlaceholderUpdated": true,
+    "proposedHasMenuMount": true,
+    "proposedHasAreasData": true,
+    "proposedHasDrawerDetails": true,
+    "proposedHasNoResultState": true,
+    "proposedEscapesMenuText": true,
+    "proposedEncodesUrls": true,
+    "proposedSearchOpensMatches": true,
+    "proposedRemovesDirectoryTable": true,
+    "proposedRemovesHourglassIframe": true,
+    "proposedScriptSyntaxOk": true,
+    "linkCountMatchesExpected": true,
+    "allExistingHomepageLinksPreserved": true,
+    "noNewExternalLinks": true,
+    "noMarkdownCodeFences": true,
+    "singleInlineScriptTag": true,
+    "noDataFilesChanged": true,
+    "noConfidentialProjectNamesDetected": true
+  },
+  "rawTemporaryFilesFound": false,
+  "browserRoutingAffected": true,
+  "route": "/",
+  "currentLinkCount": 41,
+  "proposedLinkCount": 41,
+  "addedLinks": [],
+  "removedLinks": [],
+  "missingProposedLinkTargets": [
+    {
+      "link": "./uk_macro_energy_trends/",
+      "exists": false,
+      "reason": "directory"
+    },
+    {
+      "link": "./copper_and_aluminium_prices_historic_trends/",
+      "exists": false,
+      "reason": "directory"
+    },
+    {
+      "link": "./employers_requirements_BESS/",
+      "exists": false,
+      "reason": "directory"
+    }
+  ],
+  "jsSyntax": {
+    "ok": true,
+    "detail": ""
+  },
+  "currentTargetSha256BeforeApply": "35cd424369bbdc85c810efbae98bb78941da6a27f3e79fb82c62d8864d264425",
+  "currentTargetSha256AfterScriptRun": "35cd424369bbdc85c810efbae98bb78941da6a27f3e79fb82c62d8864d264425",
+  "proposedTargetSha256": "01357c6214f4658ea2394b77134f914a00593035719037babd18b34193926121",
+  "rollbackMethod": "Revert the apply commit. The only target application file declared for apply mode is index.html.",
+  "executiveSummary": "Audits the proposed root homepage replacement. The change converts the flat directory table into grouped expandable drawers, preserves the existing 41 homepage routes, keeps the dark Courier style, removes the embedded hourglass iframe from the root page and leaves all data, dashboards and child routes untouched.",
+  "humanReviewStatus": "Human review required before apply. Check the audit report, then trigger apply only if the grouped homepage is approved.",
+  "nextAction": "Run this workflow in audit mode first. If the report passes, run the same workflow in apply mode and then visually verify the live root homepage on desktop and mobile.",
+  "applied": false,
+  "pass": true
+}

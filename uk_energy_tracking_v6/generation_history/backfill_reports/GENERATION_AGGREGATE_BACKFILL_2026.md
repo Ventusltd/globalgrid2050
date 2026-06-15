@@ -1,11 +1,11 @@
 # Generation Aggregate Backfill 2026
 
-Updated UTC: 2026-06-08T11:28:13.518377Z
+Updated UTC: 2026-06-15T12:48:14.936715Z
 Year: 2026
-Window: 2026-01-01 to 2026-06-07
-Elexon raw rows fetched: 910080
-PVLive raw solar rows fetched: 7584
-Deduped timestamp plus fuel rows processed: 917664
+Window: 2026-01-01 to 2026-06-14
+Elexon raw rows fetched: 950400
+PVLive raw solar rows fetched: 7999
+Deduped timestamp plus fuel rows processed: 958399
 Monthly aggregate rows for this year: 69
 Annual aggregate rows for this year: 10
 Seasonal aggregate rows for this year: 30

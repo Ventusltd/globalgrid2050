@@ -1,0 +1,92 @@
+name: GridBot Root Homepage Directory Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Run mode
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+      commit_reports:
+        description: Commit reports and homepage changes
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gridbot-root-homepage-directory-audit
+  cancel-in-progress: false
+
+jobs:
+  root-homepage-directory-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT }}
+
+      - name: Sync latest main before processing
+        run: git pull --ff-only origin main
+
+      - name: Run audit
+        if: ${{ github.event.inputs.mode == 'audit' }}
+        run: python scripts/gridbot_root_homepage_directory_audit.py
+
+      - name: Run apply
+        if: ${{ github.event.inputs.mode == 'apply' }}
+        run: python scripts/gridbot_root_homepage_directory_audit.py --apply
+
+      - name: Upload homepage directory audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: root-homepage-directory-audit-${{ github.event.inputs.mode }}
+          path: |
+            data_science_protocol/audit_reports/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.md
+            data_science_protocol/audit_reports/json/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.json
+
+      - name: Commit audit report only
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'audit' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_root_homepage_directory_audit.py
+          git add .github/workflows/gridbot_root_homepage_directory_audit.yml
+          git add data_science_protocol/audit_reports/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.md
+          git add data_science_protocol/audit_reports/json/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: root homepage directory audit audit"
+            git push origin HEAD:main
+          fi
+
+      - name: Commit homepage directory changes and report
+        if: ${{ github.event.inputs.commit_reports == 'true' && github.event.inputs.mode == 'apply' }}
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add scripts/gridbot_root_homepage_directory_audit.py
+          git add .github/workflows/gridbot_root_homepage_directory_audit.yml
+          git add index.html
+          git add data_science_protocol/audit_reports/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.md
+          git add data_science_protocol/audit_reports/json/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "gridbot: root homepage directory audit apply"
+            git push origin HEAD:main
+          fi

@@ -1,6 +1,6 @@
 # V6 Transport Energy Sources Report
 
-Updated UTC: `2026-06-15T11:44:01.126501+00:00`
+Updated UTC: `2026-06-16T10:32:51.531540+00:00`
 
 ## Outputs
 
@@ -19,12 +19,12 @@ EV charging values are curated public reference values and must not be treated a
 
 ```json
 {
-  "updated": "2026-06-15T11:44:01.126501+00:00",
+  "updated": "2026-06-16T10:32:51.531540+00:00",
   "oil": {
     "live": {
-      "updated": "2026-06-15T11:35:34.457147+00:00",
-      "brentUSDperBarrel": 82.96,
-      "wtiUSDperBarrel": 80.25,
+      "updated": "2026-06-16T10:32:50.808084+00:00",
+      "brentUSDperBarrel": 81.13,
+      "wtiUSDperBarrel": 77.48,
       "health": {
         "BZ=F": {
           "ok": true,
@@ -37,49 +37,25 @@ EV charging values are curated public reference values and must not be treated a
       }
     },
     "history_features": 6278,
-    "fresh_history": true,
-    "health": [
-      {
-        "ok": false,
-        "source": "FRED Brent Europe daily spot price",
-        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILBRENTEU (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
-      },
-      {
-        "ok": false,
-        "source": "FRED WTI Cushing daily spot price",
-        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILWTICO (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
-      },
-      {
-        "ok": true,
-        "source": "Yahoo Brent futures history",
-        "rows": 4698,
-        "fallback": true
-      },
-      {
-        "ok": true,
-        "source": "Yahoo WTI futures history",
-        "rows": 6277,
-        "fallback": true
-      }
-    ]
+    "fresh_history": false
   },
   "fuel": {
     "latest": {
-      "week": "08/06/2026",
-      "petrolPencePerLitre": 157.95,
-      "dieselPencePerLitre": 181.79
+      "week": "15/06/2026",
+      "petrolPencePerLitre": 155.54,
+      "dieselPencePerLitre": 176.71
     },
     "health": {
       "source": "DESNZ weekly road fuel prices",
       "page": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
       "ok": true,
-      "csv": "https://assets.publishing.service.gov.uk/media/6a26ab7256e988a798b38790/weekly_road_fuel_prices_080626.csv",
-      "rows": 441
+      "csv": "https://assets.publishing.service.gov.uk/media/6a30084ca3674dfd3eb508e2/weekly_road_fuel_prices_150626.csv",
+      "rows": 442
     }
   },
   "ev": {
     "operators": 3,
-    "updated": "2026-06-15T11:44:01.126343+00:00"
+    "updated": "2026-06-16T10:32:51.531350+00:00"
   }
 }
 ```

@@ -1,15 +1,15 @@
 {
   "reportTitle": "Root Homepage Directory Audit",
   "schemaVersion": "1.0.0",
-  "generatedUTC": "2026-06-15T20:56:18Z",
+  "generatedUTC": "2026-06-16T00:23:25Z",
   "repository": "Ventusltd/globalgrid2050",
   "branch": "main",
-  "gitHeadBefore": "b90d1cd08cf633da8844c8b248baf765219f5beb",
-  "gitHeadAfter": "b90d1cd08cf633da8844c8b248baf765219f5beb",
+  "gitHeadBefore": "8bb0dd7cd0940ec1bbb0342828a5b34f1304bb8a",
+  "gitHeadAfter": "8bb0dd7cd0940ec1bbb0342828a5b34f1304bb8a",
   "workflowName": "GridBot Root Homepage Directory Audit",
   "scriptName": "scripts/gridbot_root_homepage_directory_audit.py",
   "upgradeType": "root homepage UI directory replacement",
-  "mode": "audit",
+  "mode": "apply",
   "sourceApis": [],
   "sourceWindows": {
     "repoInspection": [
@@ -25,10 +25,13 @@
     "index.html"
   ],
   "outputFiles": [
+    "index.html",
     "data_science_protocol/audit_reports/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.md",
     "data_science_protocol/audit_reports/json/ROOT_HOMEPAGE_DIRECTORY_AUDIT_LATEST.json"
   ],
-  "changedFiles": [],
+  "changedFiles": [
+    "index.html"
+  ],
   "plannedChangedFiles": [
     "index.html"
   ],
@@ -91,12 +94,12 @@
     "detail": ""
   },
   "currentTargetSha256BeforeApply": "35cd424369bbdc85c810efbae98bb78941da6a27f3e79fb82c62d8864d264425",
-  "currentTargetSha256AfterScriptRun": "35cd424369bbdc85c810efbae98bb78941da6a27f3e79fb82c62d8864d264425",
+  "currentTargetSha256AfterScriptRun": "01357c6214f4658ea2394b77134f914a00593035719037babd18b34193926121",
   "proposedTargetSha256": "01357c6214f4658ea2394b77134f914a00593035719037babd18b34193926121",
   "rollbackMethod": "Revert the apply commit. The only target application file declared for apply mode is index.html.",
   "executiveSummary": "Audits the proposed root homepage replacement. The change converts the flat directory table into grouped expandable drawers, preserves the existing 41 homepage routes, keeps the dark Courier style, removes the embedded hourglass iframe from the root page and leaves all data, dashboards and child routes untouched.",
   "humanReviewStatus": "Human review required before apply. Check the audit report, then trigger apply only if the grouped homepage is approved.",
   "nextAction": "Run this workflow in audit mode first. If the report passes, run the same workflow in apply mode and then visually verify the live root homepage on desktop and mobile.",
-  "applied": false,
+  "applied": true,
   "pass": true
 }

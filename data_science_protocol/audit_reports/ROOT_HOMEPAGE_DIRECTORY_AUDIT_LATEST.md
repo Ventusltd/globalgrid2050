@@ -1,7 +1,7 @@
 # Root Homepage Directory Audit PASS
 
-Generated UTC: `2026-06-15T20:56:18Z`
-Mode: `audit`
+Generated UTC: `2026-06-16T00:23:25Z`
+Mode: `apply`
 Route: `/`
 
 Audits the proposed root homepage replacement. The change converts the flat directory table into grouped expandable drawers, preserves the existing 41 homepage routes, keeps the dark Courier style, removes the embedded hourglass iframe from the root page and leaves all data, dashboards and child routes untouched.
@@ -12,7 +12,7 @@ Audits the proposed root homepage replacement. The change converts the flat dire
 
 ## Files changed in this run
 
-- none
+- `index.html`
 
 ## Homepage link reconciliation
 

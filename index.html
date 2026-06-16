@@ -5,8 +5,10 @@
 <title>GlobalGrid2050</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+  :root { color-scheme: dark; }
+  html { background: #000; }
   body {
-    background: black;
+    background: #000;
     color: white;
     font-family: Courier, monospace;
     padding: 40px;
@@ -15,24 +17,12 @@
     font-size: 20px;
     line-height: 1.6;
   }
+  h1 { margin-top: 0; }
 
-  h1 {
-    margin-top: 0;
-  }
+  a { color: #66ccff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-  a {
-    color: #66ccff;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  .dev-status {
-    color: #ff3333;
-    font-weight: bold;
-  }
+  .dev-status { color: #ff3333; font-weight: bold; font-size: 16px; }
 
   #gridSearch {
     width: 100%;
@@ -43,33 +33,34 @@
     font-family: Courier, monospace;
     font-size: 18px;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
     box-sizing: border-box;
   }
+  #gridSearch:focus { outline: none; border-color: #66ccff; }
 
-  #gridSearch:focus {
-    outline: none;
-    border-color: #66ccff;
+  /* areas (top tier) */
+  details.area { border-bottom: 1px solid #333; }
+  details.area > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 0;
+    color: #00ffff;
+    font-weight: bold;
+    letter-spacing: 0.5px;
   }
+  details.area > summary::-webkit-details-marker { display: none; }
+  details.area > summary::before { content: "[+] "; color: #00ffff; }
+  details.area[open] > summary::before { content: "[\2212] "; }
+  details.area > summary:hover { text-decoration: none; color: #66ffff; }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
+  /* drawer rows (infinite) */
+  ul.drawer { list-style: none; margin: 0 0 10px; padding: 0; }
+  ul.drawer li { padding: 10px 0 10px 28px; border-top: 1px solid #1c1c1c; }
 
-  td {
-    padding: 12px 0;
-    border-bottom: 1px solid #333;
-  }
+  /* direct top-level links (areas with no children) */
+  .toplink { display: block; padding: 14px 0; border-bottom: 1px solid #333; }
 
-  .hourglass-embed {
-    width: 100%;
-    height: 800px;
-    border: none;
-    background: black;
-    margin-top: 40px;
-  }
+  .noresult { color: #888; padding: 20px 0; }
 
   .footer {
     margin-top: 60px;
@@ -79,18 +70,9 @@
   }
 
   @media (max-width: 600px) {
-    body {
-      padding: 25px;
-      font-size: 18px;
-    }
-
-    .hourglass-embed {
-      height: 850px;
-    }
-
-    .footer {
-      font-size: 14px;
-    }
+    body { padding: 25px; font-size: 18px; }
+    .footer { font-size: 14px; }
+    ul.drawer li { padding-left: 20px; }
   }
 </style>
 </head>
@@ -99,73 +81,144 @@
 
 <p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
 
-<input type="text" id="gridSearch" onkeyup="searchTable()" placeholder="Search directory...">
+<input type="text" id="gridSearch" placeholder="Search everything..." autocomplete="off">
 
-<table id="directoryTable">
-  <tr><td><a href="./33kv_uk_dap_price_estimator/">33 kV UK DAP Price Estimator</a></td></tr>
-  <tr><td><a href="./ac_cables_knowledge/">AC Cables Knowledge</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html">BESS GIS SLD Financial Sandbox V8</a> <span class="dev-status">(in development)</span></td></tr>
-  <tr><td><a href="./blog/">Blog</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/cable-geometry-visualiser-v5.html">Cable Geometry Visualiser V5</a></td></tr>
-  <tr><td><a href="./conductor_resistances/">Conductor Resistances</a></td></tr>
-  <tr><td><a href="./copper_and_aluminium_prices_historic_trends/">Copper and Aluminium Historic Prices & Trends</a></td></tr>
-  <tr><td><a href="./dc_cables_knowledge/">DC Cables Knowledge</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html">DC AC LV Solar PV Cable Topology Review V5</a></td></tr>
-  <tr><td><a href="./definitions/">Definitions</a></td></tr>
-  <tr><td><a href="./marketing/earth.html">Earth</a></td></tr>
-  <tr><td><a href="./employers_requirements_BESS/">Employer Requirements BESS Notes</a></td></tr>
-  <tr><td><a href="./employers_requirments_large_scale_solar/">Employers Requirements Large Scale Solar</a></td></tr>
-  <tr><td><a href="./solar-bess-topology/indexforgis-sld.html">GIS SLD Topology Engine And Financial Sandbox</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v2/indexforgis-sld-v2.html">GIS SLD Financial Sandbox V2</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v4/indexforgis-sld-v4.html">GIS SLD Financial Sandbox V4</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/indexforgis-sld-v5.html">GIS SLD Financial Sandbox V5</a></td></tr>
-  <tr><td><a href="./data/grid_studies_public/">Grid Studies Public</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v6/">GlobalGrid2050 Solar BESS Topology V6 Testing Phase</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v7/">GlobalGrid2050 Solar BESS Topology V7 Workspace</a></td></tr>
-  <tr><td><a href="./lv_ac_dc_price_estimator/">LV AC and DC Distribution Cables Price Estimator</a></td></tr>
-  <tr><td><a href="./mv_and_hv_components/">MV and HV Components</a></td></tr>
-  <tr><td><a href="./nsip_solar_farms/">NSIP Solar Farms</a></td></tr>
-  <tr><td><a href="./solar-bess-topology-v5/module-layout-v5.html">Physical Solar Module Layout V5</a></td></tr>
-  <tr><td><a href="./podcast_transcripts/">Podcast Transcripts</a></td></tr>
-  <tr><td><a href="./power_systems_studies/">Power Systems Studies</a></td></tr>
-  <tr><td><a href="./sld_single_diagrams_diagrams_and_grids/">Single Line Diagrams And Grids</a></td></tr>
-  <tr><td><a href="./solar_components/">Solar Components</a></td></tr>
-  <tr><td><a href="./solar_deployment_statistics/">Solar Deployment Statistics</a></td></tr>
-  <tr><td><a href="./time_to_2050/">Time Left Today, Hourglass to 2050</a></td></tr>
-  <tr><td><a href="./repd_grid_atlasv8/">UK Energy Atlas Grid Overlay V8</a></td></tr>
-  <tr><td><a href="./uk_energy_tracking/">UK Live Grid Tracker, Electricity, Carbon, Oil and Metals</a></td></tr>
-  <tr><td><a href="./uk_energy_tracking_v2/">UK Live Grid Tracker V2, Transport Energy Test Clone</a></td></tr>
-  <tr><td><a href="./uk_energy_tracking_v3/">UK Live Grid Tracker V3, Experimental Intelligence Lab</a></td></tr>
-  <tr><td><a href="./uk_energy_tracking_v5/">UK Live Grid Tracker V5, Electricity Market Intelligence Machine</a> <span class="dev-status">(in development)</span></td></tr>
-  <tr><td><a href="./uk_energy_tracking_v6/">UK Live Grid Tracker V6, Modular Electricity Market Intelligence Machine</a> <span class="dev-status">(modular development)</span></td></tr>
-  <tr><td><a href="./uk_energy_tracking_v6/generation_history/">UK Generation History V6 Module</a> <span class="dev-status">(in development)</span></td></tr>
-  <tr><td><a href="./uk_energy_tracking_v6_2/generation_history/">UK Generation History V6 2 Backup Mirror</a> <span class="dev-status">(BACKUP)</span></td></tr>
-  <tr><td><a href="./uk_macro_energy_trends/">UK Macro Energy Consumption Trends ONS</a></td></tr>
-  <tr><td><a href="./uk_renewables_pipeline/dashboard.html">UK Renewables Pipeline Analytics Dashboard</a></td></tr>
-  <tr><td><a href="./why_ventusltd_building_globalgrid2050/">Why VENTUS Ltd Is Building GlobalGrid2050</a></td></tr>
-</table>
-
-<iframe class="hourglass-embed" src="./time_to_2050/" title="Time Left Today"></iframe>
+<div id="menu"></div>
 
 <div class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
 </div>
 
 <script>
-function searchTable() {
-  var input = document.getElementById("gridSearch");
-  var filter = input.value.toUpperCase();
-  var table = document.getElementById("directoryTable");
-  var tr = table.getElementsByTagName("tr");
+/* ====================================================================== *
+ *  MENU DATA  —  the only thing you edit.
+ *
+ *  A top-level entry is either:
+ *    • an AREA with a drawer:   { name: "Pricing", children: [ ...rows ] }
+ *    • a direct link:           { name: "Blog", url: "./blog/" }
+ *
+ *  A drawer row:   { name: "Title", url: "./path/", note: "in development" }
+ *  ( note is optional; shown in red. )
+ *
+ *  Add a row  -> add one line to a children array.
+ *  Re-group   -> move a line from one area to another.
+ *  Re-order   -> areas and rows display in the order written here.
+ * ====================================================================== */
+const AREAS = [
+  { name: "Solar & BESS Topology", children: [
+    { name: "GIS SLD Topology Engine And Financial Sandbox", url: "./solar-bess-topology/indexforgis-sld.html" },
+    { name: "GIS SLD Financial Sandbox V2", url: "./solar-bess-topology-v2/indexforgis-sld-v2.html" },
+    { name: "GIS SLD Financial Sandbox V4", url: "./solar-bess-topology-v4/indexforgis-sld-v4.html" },
+    { name: "GIS SLD Financial Sandbox V5", url: "./solar-bess-topology-v5/indexforgis-sld-v5.html" },
+    { name: "Cable Geometry Visualiser V5", url: "./solar-bess-topology-v5/cable-geometry-visualiser-v5.html" },
+    { name: "DC AC LV Solar PV Cable Topology Review V5", url: "./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html" },
+    { name: "Physical Solar Module Layout V5", url: "./solar-bess-topology-v5/module-layout-v5.html" },
+    { name: "Solar BESS Topology V6 Testing Phase", url: "./solar-bess-topology-v6/" },
+    { name: "Solar BESS Topology V7 Workspace", url: "./solar-bess-topology-v7/" },
+    { name: "BESS GIS SLD Financial Sandbox V8", url: "./solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html", note: "in development" },
+  ]},
+  { name: "UK Grid Tracking", children: [
+    { name: "UK Live Grid Tracker, Electricity, Carbon, Oil and Metals", url: "./uk_energy_tracking/" },
+    { name: "UK Live Grid Tracker V2, Transport Energy Test Clone", url: "./uk_energy_tracking_v2/" },
+    { name: "UK Live Grid Tracker V3, Experimental Intelligence Lab", url: "./uk_energy_tracking_v3/" },
+    { name: "UK Live Grid Tracker V5, Electricity Market Intelligence Machine", url: "./uk_energy_tracking_v5/", note: "in development" },
+    { name: "UK Live Grid Tracker V6, Modular Electricity Market Intelligence Machine", url: "./uk_energy_tracking_v6/", note: "modular development" },
+    { name: "UK Generation History V6 Module", url: "./uk_energy_tracking_v6/generation_history/", note: "in development" },
+    { name: "UK Generation History V6 2 Backup Mirror", url: "./uk_energy_tracking_v6_2/generation_history/", note: "BACKUP" },
+    { name: "UK Energy Atlas Grid Overlay V8", url: "./repd_grid_atlasv8/" },
+    { name: "UK Macro Energy Consumption Trends ONS", url: "./uk_macro_energy_trends/" },
+    { name: "UK Renewables Pipeline Analytics Dashboard", url: "./uk_renewables_pipeline/dashboard.html" },
+    { name: "Solar Deployment Statistics", url: "./solar_deployment_statistics/" },
+  ]},
+  { name: "Cables & Conductors", children: [
+    { name: "AC Cables Knowledge", url: "./ac_cables_knowledge/" },
+    { name: "DC Cables Knowledge", url: "./dc_cables_knowledge/" },
+    { name: "Conductor Resistances", url: "./conductor_resistances/" },
+  ]},
+  { name: "Pricing & Materials", children: [
+    { name: "33 kV UK DAP Price Estimator", url: "./33kv_uk_dap_price_estimator/" },
+    { name: "LV AC and DC Distribution Cables Price Estimator", url: "./lv_ac_dc_price_estimator/" },
+    { name: "Copper and Aluminium Historic Prices & Trends", url: "./copper_and_aluminium_prices_historic_trends/" },
+  ]},
+  { name: "Components", children: [
+    { name: "MV and HV Components", url: "./mv_and_hv_components/" },
+    { name: "Solar Components", url: "./solar_components/" },
+  ]},
+  { name: "Planning & Requirements", children: [
+    { name: "NSIP Solar Farms", url: "./nsip_solar_farms/" },
+    { name: "Grid Studies Public", url: "./data/grid_studies_public/" },
+    { name: "Employer Requirements BESS Notes", url: "./employers_requirements_BESS/" },
+    { name: "Employers Requirements Large Scale Solar", url: "./employers_requirments_large_scale_solar/" },
+  ]},
+  { name: "Reference & Knowledge", children: [
+    { name: "Definitions", url: "./definitions/" },
+    { name: "Power Systems Studies", url: "./power_systems_studies/" },
+    { name: "Single Line Diagrams And Grids", url: "./sld_single_diagrams_diagrams_and_grids/" },
+  ]},
+  { name: "About & Media", children: [
+    { name: "Why VENTUS Ltd Is Building GlobalGrid2050", url: "./why_ventusltd_building_globalgrid2050/" },
+    { name: "Blog", url: "./blog/" },
+    { name: "Podcast Transcripts", url: "./podcast_transcripts/" },
+    { name: "Earth", url: "./marketing/earth.html" },
+    { name: "Time Left Today, Hourglass to 2050", url: "./time_to_2050/" },
+  ]},
+];
 
-  for (var i = 0; i < tr.length; i++) {
-    var td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      var text = td.textContent || td.innerText;
-      tr[i].style.display = text.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const menu = document.getElementById("menu");
+
+function rowHtml(r) {
+  const note = r.note ? ` <span class="dev-status">(${esc(r.note)})</span>` : "";
+  const key = (r.name + " " + (r.note || "")).toLowerCase();
+  return `<li data-name="${esc(key)}"><a href="${encodeURI(r.url)}">${esc(r.name)}</a>${note}</li>`;
+}
+
+function build() {
+  let html = "";
+  for (const a of AREAS) {
+    if (a.children && a.children.length) {
+      const rows = a.children.map(rowHtml).join("");
+      html += `<details class="area" data-name="${esc(a.name.toLowerCase())}">` +
+              `<summary>${esc(a.name)}</summary>` +
+              `<ul class="drawer">${rows}</ul></details>`;
+    } else if (a.url) {
+      html += `<a class="toplink" data-name="${esc(a.name.toLowerCase())}" href="${encodeURI(a.url)}">${esc(a.name)}</a>`;
     }
   }
+  html += `<p class="noresult" id="noresult" style="display:none">No match.</p>`;
+  menu.innerHTML = html;
 }
+
+function applySearch(raw) {
+  const q = raw.trim().toLowerCase();
+  let anyVisible = false;
+
+  document.querySelectorAll(".toplink").forEach(el => {
+    const show = !q || el.dataset.name.includes(q);
+    el.style.display = show ? "" : "none";
+    if (show) anyVisible = true;
+  });
+
+  document.querySelectorAll("details.area").forEach(d => {
+    const areaMatch = !!q && d.dataset.name.includes(q);
+    let childMatch = false;
+    d.querySelectorAll("li").forEach(li => {
+      const liMatch = li.dataset.name.includes(q);
+      const show = !q || areaMatch || liMatch;
+      li.style.display = show ? "" : "none";
+      if (q && liMatch) childMatch = true;
+    });
+    const visible = !q || areaMatch || childMatch;
+    d.style.display = visible ? "" : "none";
+    d.open = q ? visible : false;          // search opens matches; empty collapses all
+    if (visible) anyVisible = true;
+  });
+
+  document.getElementById("noresult").style.display = anyVisible ? "none" : "";
+}
+
+build();
+document.getElementById("gridSearch").addEventListener("input", e => applySearch(e.target.value));
 </script>
 </body>
 </html>

@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-16T05:37:17Z",
-  "record_count": 19,
+  "updated_utc": "2026-06-17T05:19:30Z",
+  "record_count": 20,
   "latest_day": {
-    "date_utc": "2026-06-16",
-    "sample_count": 2,
-    "avg_hz": 50.124,
-    "min_hz": 50.124,
-    "max_hz": 50.124,
+    "date_utc": "2026-06-17",
+    "sample_count": 1,
+    "avg_hz": 50.116,
+    "min_hz": 50.116,
+    "max_hz": 50.116,
     "samples_below_49_9": 0,
-    "samples_above_50_1": 2,
-    "largest_deviation_hz": 0.124,
+    "samples_above_50_1": 1,
+    "largest_deviation_hz": 0.116,
     "data_health": "thin_sample",
-    "last_updated_utc": "2026-06-16T05:37:17Z"
+    "last_updated_utc": "2026-06-17T05:19:30Z"
   },
   "source": "GlobalGrid2050 aggregation of Elexon frequency samples",
   "health": "ok",
@@ -222,27 +222,39 @@
     },
     {
       "date_utc": "2026-06-15",
-      "sample_count": 4,
-      "avg_hz": 49.944,
-      "min_hz": 49.944,
-      "max_hz": 49.944,
-      "samples_below_49_9": 0,
-      "samples_above_50_1": 0,
-      "largest_deviation_hz": 0.056,
+      "sample_count": "4",
+      "avg_hz": "49.944",
+      "min_hz": "49.944",
+      "max_hz": "49.944",
+      "samples_below_49_9": "0",
+      "samples_above_50_1": "0",
+      "largest_deviation_hz": "0.056",
       "data_health": "thin_sample",
       "last_updated_utc": "2026-06-16T05:37:17Z"
     },
     {
       "date_utc": "2026-06-16",
-      "sample_count": 2,
+      "sample_count": 6,
       "avg_hz": 50.124,
       "min_hz": 50.124,
       "max_hz": 50.124,
       "samples_below_49_9": 0,
-      "samples_above_50_1": 2,
+      "samples_above_50_1": 6,
       "largest_deviation_hz": 0.124,
       "data_health": "thin_sample",
-      "last_updated_utc": "2026-06-16T05:37:17Z"
+      "last_updated_utc": "2026-06-17T05:19:30Z"
+    },
+    {
+      "date_utc": "2026-06-17",
+      "sample_count": 1,
+      "avg_hz": 50.116,
+      "min_hz": 50.116,
+      "max_hz": 50.116,
+      "samples_below_49_9": 0,
+      "samples_above_50_1": 1,
+      "largest_deviation_hz": 0.116,
+      "data_health": "thin_sample",
+      "last_updated_utc": "2026-06-17T05:19:30Z"
     }
   ]
 }

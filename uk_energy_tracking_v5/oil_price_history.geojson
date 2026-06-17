@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "updated": "2026-06-15T12:34:39.810503+00:00",
+    "updated": "2026-06-17T11:13:55.284573+00:00",
     "unit": "USD per barrel",
     "period": "Last 25 years",
     "note": "Placeholder Point geometry. This is a portable time series for charting, not a spatial dataset. FRED is preferred. Yahoo history is used as fallback when FRED is unavailable.",
@@ -19,34 +19,18 @@
       {
         "ok": true,
         "source": "Yahoo Brent futures history",
-        "rows": 4698,
+        "rows": 4700,
         "fallback": true
       },
       {
         "ok": true,
         "source": "Yahoo WTI futures history",
-        "rows": 6277,
+        "rows": 6278,
         "fallback": true
       }
-    ],
-    "lastSkippedHistoryUpdate": "2026-06-16T11:20:37.170637+00:00",
-    "skipReason": "Existing oil history is less than 24 hours old. Live commodities update completed without re downloading full history."
+    ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "date": "2001-06-15",
-        "wtiUSDperBarrel": 28.510000228881836
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -92618,8 +92602,38 @@
       },
       "properties": {
         "date": "2026-06-15",
-        "brentUSDperBarrel": 83.08999633789062,
-        "wtiUSDperBarrel": 80.29000091552734
+        "brentUSDperBarrel": 83.16999816894531,
+        "wtiUSDperBarrel": 80.75
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-16",
+        "brentUSDperBarrel": 78.95999908447266,
+        "wtiUSDperBarrel": 76.05000305175781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0,
+          0
+        ]
+      },
+      "properties": {
+        "date": "2026-06-17",
+        "brentUSDperBarrel": 79.25,
+        "wtiUSDperBarrel": 75.62000274658203
       }
     }
   ]

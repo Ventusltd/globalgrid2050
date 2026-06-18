@@ -1,5 +1,5 @@
 {
-  "generatedUTC": "2026-06-17T11:22:20.397563Z",
+  "generatedUTC": "2026-06-18T10:53:10.545192Z",
   "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive where available",
   "rows": [
     {
@@ -3056,10 +3056,10 @@
     {
       "date": "2026-06-16",
       "technology": "Biomass",
-      "averageMW": 1722.084,
+      "averageMW": 1722.118,
       "highMW": 1770.0,
       "lowMW": 1651.0,
-      "records": 287,
+      "records": 288,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
@@ -3068,34 +3068,34 @@
       "averageMW": 0.0,
       "highMW": 0.0,
       "lowMW": 0.0,
-      "records": 287,
+      "records": 288,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
       "date": "2026-06-16",
       "technology": "Gas",
-      "averageMW": 5475.648,
+      "averageMW": 5474.552,
       "highMW": 12585.0,
       "lowMW": 0.0,
-      "records": 574,
+      "records": 576,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
       "date": "2026-06-16",
       "technology": "Hydro",
-      "averageMW": 282.39,
+      "averageMW": 282.264,
       "highMW": 460.0,
       "lowMW": 150.0,
-      "records": 287,
+      "records": 288,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
       "date": "2026-06-16",
       "technology": "Imports & Exports",
-      "averageMW": 349.489,
+      "averageMW": 348.021,
       "highMW": 1502.0,
-      "lowMW": -1054.0,
-      "records": 2870,
+      "lowMW": -1076.0,
+      "records": 2880,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
@@ -3104,25 +3104,25 @@
       "averageMW": 2954.92,
       "highMW": 2975.0,
       "lowMW": 2939.0,
-      "records": 287,
+      "records": 288,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
       "date": "2026-06-16",
       "technology": "Other",
-      "averageMW": 435.753,
+      "averageMW": 435.024,
       "highMW": 2486.0,
       "lowMW": 0.0,
-      "records": 574,
+      "records": 576,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
       "date": "2026-06-16",
       "technology": "Pumped Storage",
-      "averageMW": -77.202,
+      "averageMW": -76.854,
       "highMW": 894.0,
       "lowMW": -1031.0,
-      "records": 287,
+      "records": 288,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     },
     {
@@ -3137,9 +3137,99 @@
     {
       "date": "2026-06-16",
       "technology": "Wind",
-      "averageMW": 4742.282,
+      "averageMW": 4750.347,
       "highMW": 8941.0,
       "lowMW": 2288.0,
+      "records": 288,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Biomass",
+      "averageMW": 1724.258,
+      "highMW": 1770.0,
+      "lowMW": 1669.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Coal",
+      "averageMW": 0.0,
+      "highMW": 0.0,
+      "lowMW": 0.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Gas",
+      "averageMW": 3988.422,
+      "highMW": 11468.0,
+      "lowMW": 0.0,
+      "records": 574,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Hydro",
+      "averageMW": 323.265,
+      "highMW": 444.0,
+      "lowMW": 207.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Imports & Exports",
+      "averageMW": 355.047,
+      "highMW": 1504.0,
+      "lowMW": -1391.0,
+      "records": 2870,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Nuclear",
+      "averageMW": 2952.707,
+      "highMW": 2969.0,
+      "lowMW": 2934.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Other",
+      "averageMW": 343.531,
+      "highMW": 1886.0,
+      "lowMW": 0.0,
+      "records": 574,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Pumped Storage",
+      "averageMW": 181.233,
+      "highMW": 1224.0,
+      "lowMW": -1068.0,
+      "records": 287,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Solar",
+      "averageMW": 2717.093,
+      "highMW": 8329.99,
+      "lowMW": 0.0,
+      "records": 50,
+      "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
+    },
+    {
+      "date": "2026-06-17",
+      "technology": "Wind",
+      "averageMW": 7603.003,
+      "highMW": 9517.0,
+      "lowMW": 5525.0,
       "records": 287,
       "source": "Elexon BMRS FUELINST and Sheffield Solar PVLive daily aggregate"
     }

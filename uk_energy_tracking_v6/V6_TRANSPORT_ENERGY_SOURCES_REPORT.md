@@ -1,6 +1,6 @@
 # V6 Transport Energy Sources Report
 
-Updated UTC: `2026-06-16T10:32:51.531540+00:00`
+Updated UTC: `2026-06-18T10:08:07.110035+00:00`
 
 ## Outputs
 
@@ -19,12 +19,12 @@ EV charging values are curated public reference values and must not be treated a
 
 ```json
 {
-  "updated": "2026-06-16T10:32:51.531540+00:00",
+  "updated": "2026-06-18T10:08:07.110035+00:00",
   "oil": {
     "live": {
-      "updated": "2026-06-16T10:32:50.808084+00:00",
-      "brentUSDperBarrel": 81.13,
-      "wtiUSDperBarrel": 77.48,
+      "updated": "2026-06-18T09:59:40.349726+00:00",
+      "brentUSDperBarrel": 78.0,
+      "wtiUSDperBarrel": 74.1,
       "health": {
         "BZ=F": {
           "ok": true,
@@ -36,8 +36,32 @@ EV charging values are curated public reference values and must not be treated a
         }
       }
     },
-    "history_features": 6278,
-    "fresh_history": false
+    "history_features": 6280,
+    "fresh_history": true,
+    "health": [
+      {
+        "ok": false,
+        "source": "FRED Brent Europe daily spot price",
+        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILBRENTEU (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
+      },
+      {
+        "ok": false,
+        "source": "FRED WTI Cushing daily spot price",
+        "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=DCOILWTICO (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=60)\"))"
+      },
+      {
+        "ok": true,
+        "source": "Yahoo Brent futures history",
+        "rows": 4701,
+        "fallback": true
+      },
+      {
+        "ok": true,
+        "source": "Yahoo WTI futures history",
+        "rows": 6279,
+        "fallback": true
+      }
+    ]
   },
   "fuel": {
     "latest": {
@@ -55,7 +79,7 @@ EV charging values are curated public reference values and must not be treated a
   },
   "ev": {
     "operators": 3,
-    "updated": "2026-06-16T10:32:51.531350+00:00"
+    "updated": "2026-06-18T10:08:07.109881+00:00"
   }
 }
 ```

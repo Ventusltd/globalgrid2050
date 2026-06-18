@@ -1,0 +1,198 @@
+name: Freeze all workflows to manual dispatch
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/000_freeze_all_workflows_to_manual.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: freeze-all-workflows-to-manual
+  cancel-in-progress: false
+
+jobs:
+  freeze-workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GRIDBOT_PAT || github.token }}
+
+      - name: Rewrite root workflows to manual dispatch only
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import datetime as dt
+          import json
+          import re
+
+          workflow_root = Path('.github/workflows')
+          report_dir = Path('data_science_protocol/audit_reports')
+          report_json_dir = report_dir / 'json'
+          report_dir.mkdir(parents=True, exist_ok=True)
+          report_json_dir.mkdir(parents=True, exist_ok=True)
+
+          def is_on_line(line: str) -> bool:
+              return re.match(r"^(on|'on'|\"on\")\s*:", line) is not None
+
+          def find_on_block(lines: list[str]) -> tuple[int | None, int | None]:
+              start = None
+              for index, line in enumerate(lines):
+                  if is_on_line(line):
+                      start = index
+                      break
+              if start is None:
+                  return None, None
+              end = start + 1
+              while end < len(lines):
+                  line = lines[end]
+                  if line.strip() == '' or line.startswith('#'):
+                      end += 1
+                      continue
+                  if not line.startswith((' ', '\t')):
+                      break
+                  end += 1
+              return start, end
+
+          def preserved_dispatch_block(block: list[str]) -> list[str]:
+              for index in range(1, len(block)):
+                  line = block[index]
+                  if re.match(r"^\s{2}workflow_dispatch\s*:", line):
+                      end = index + 1
+                      while end < len(block):
+                          candidate = block[end]
+                          if candidate.strip() == '':
+                              end += 1
+                              continue
+                          indent = len(candidate) - len(candidate.lstrip(' '))
+                          if indent <= 2:
+                              break
+                          end += 1
+                      preserved = block[index:end]
+                      while preserved and preserved[-1].strip() == '':
+                          preserved.pop()
+                      return ['on:'] + preserved
+              return ['on:', '  workflow_dispatch:']
+
+          def freeze_text(text: str) -> tuple[str, bool, dict]:
+              has_final_newline = text.endswith('\n')
+              lines = text.splitlines()
+              start, end = find_on_block(lines)
+              if start is None or end is None:
+                  return text, False, {'hadOnBlock': False, 'reason': 'no top level on block found'}
+              before_block = lines[start:end]
+              after_block = preserved_dispatch_block(before_block)
+              new_lines = lines[:start] + after_block + lines[end:]
+              new_text = '\n'.join(new_lines)
+              if has_final_newline:
+                  new_text += '\n'
+              changed = new_text != text
+              before_joined = '\n'.join(before_block)
+              after_joined = '\n'.join(after_block)
+              return new_text, changed, {
+                  'hadOnBlock': True,
+                  'changed': changed,
+                  'beforeOnBlock': before_joined,
+                  'afterOnBlock': after_joined,
+                  'hadSchedule': 'schedule:' in before_joined,
+                  'hadPush': 'push:' in before_joined,
+                  'hadPullRequest': 'pull_request' in before_joined,
+                  'hadWorkflowRun': 'workflow_run' in before_joined,
+                  'manualDispatchPreserved': 'workflow_dispatch:' in after_joined,
+                  'automaticTriggerRemainingInOnBlock': any(token in after_joined for token in ['schedule:', 'push:', 'pull_request', 'workflow_run', 'repository_dispatch', 'release:', 'page_build'])
+              }
+
+          changed_files = []
+          inspected_files = []
+          notes = []
+
+          for path in sorted(workflow_root.glob('*.y*ml')):
+              text = path.read_text(encoding='utf-8')
+              new_text, changed, detail = freeze_text(text)
+              inspected_files.append({'path': path.as_posix(), **detail})
+              if changed:
+                  path.write_text(new_text, encoding='utf-8')
+                  changed_files.append(path.as_posix())
+
+          for nested in sorted(Path('.').glob('*/.github/workflows/*.y*ml')):
+              notes.append(f'Nested workflow copy noted but not active at repository root: {nested.as_posix()}')
+
+          now = dt.datetime.now(dt.timezone.utc)
+          stamp = now.strftime('%Y%m%dT%H%M%SZ')
+          payload = {
+              'reportTitle': 'Freeze all root workflows to manual dispatch',
+              'generatedUTC': now.isoformat().replace('+00:00', 'Z'),
+              'scope': 'Root .github/workflows only',
+              'inspectedCount': len(inspected_files),
+              'changedCount': len(changed_files),
+              'changedFiles': changed_files,
+              'inspectedFiles': inspected_files,
+              'notes': notes,
+              'pass': all(item.get('manualDispatchPreserved', False) and not item.get('automaticTriggerRemainingInOnBlock', True) for item in inspected_files if item.get('hadOnBlock')),
+              'executiveSummary': 'All root GitHub Actions workflows are converted to manual workflow_dispatch only, stopping scheduled and push based automatic repository growth while preserving the workflow files for later repo splitting.',
+              'rollbackMethod': 'Revert this freeze commit or restore individual workflow trigger blocks from Git history.'
+          }
+
+          md_lines = [
+              '# Freeze all root workflows to manual dispatch',
+              '',
+              f"Generated UTC: `{payload['generatedUTC']}`",
+              f"Scope: `{payload['scope']}`",
+              f"Inspected workflows: `{payload['inspectedCount']}`",
+              f"Changed workflows: `{payload['changedCount']}`",
+              f"Pass: `{payload['pass']}`",
+              '',
+              '## Executive summary',
+              '',
+              payload['executiveSummary'],
+              '',
+              '## Changed files',
+              '',
+          ]
+          md_lines.extend(f'- `{item}`' for item in changed_files)
+          if not changed_files:
+              md_lines.append('- None')
+          md_lines.extend(['', '## Nested workflow copies noted', ''])
+          md_lines.extend(f'- `{item}`' for item in notes)
+          if not notes:
+              md_lines.append('- None')
+          md_lines.extend(['', '## Rollback', '', payload['rollbackMethod'], ''])
+
+          report_latest = report_dir / 'FREEZE_ALL_WORKFLOWS_TO_MANUAL_LATEST.md'
+          report_stamp = report_dir / f'FREEZE_ALL_WORKFLOWS_TO_MANUAL_{stamp}.md'
+          json_latest = report_json_dir / 'FREEZE_ALL_WORKFLOWS_TO_MANUAL_LATEST.json'
+          json_stamp = report_json_dir / f'FREEZE_ALL_WORKFLOWS_TO_MANUAL_{stamp}.json'
+          text = '\n'.join(md_lines)
+          report_latest.write_text(text, encoding='utf-8')
+          report_stamp.write_text(text, encoding='utf-8')
+          json_text = json.dumps(payload, indent=2, ensure_ascii=False) + '\n'
+          json_latest.write_text(json_text, encoding='utf-8')
+          json_stamp.write_text(json_text, encoding='utf-8')
+          print(json.dumps({'pass': payload['pass'], 'changedCount': payload['changedCount']}, indent=2))
+          if not payload['pass']:
+              raise SystemExit(1)
+          PY
+
+      - name: Commit freeze
+        shell: bash
+        run: |
+          git config user.name "Gridbot"
+          git config user.email "gridbot@users.noreply.github.com"
+          git add .github/workflows
+          git add data_science_protocol/audit_reports/FREEZE_ALL_WORKFLOWS_TO_MANUAL_*.md
+          git add data_science_protocol/audit_reports/json/FREEZE_ALL_WORKFLOWS_TO_MANUAL_*.json
+          if git diff --cached --quiet; then
+            echo "No freeze changes to commit."
+          else
+            git commit -m "chore: freeze workflows to manual dispatch only [skip ci]"
+            git push origin HEAD:main
+          fi

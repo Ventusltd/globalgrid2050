@@ -1,10 +1,7 @@
 name: update-metal-prices
 
 on:
-  schedule:
-    - cron: '0 6 * * *'
   workflow_dispatch:
-
 permissions:
   contents: write
   actions: write

@@ -2,7 +2,6 @@ name: Create UK Energy Tracking V4
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

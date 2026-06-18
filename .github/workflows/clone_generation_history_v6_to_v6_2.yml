@@ -2,13 +2,6 @@ name: Clone Generation History V6 to V6 2
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/clone_generation_history_v6_to_v6_2.yml'
-      - 'scripts/clone_generation_history_v6_to_v6_2.py'
-
 permissions:
   contents: write
 

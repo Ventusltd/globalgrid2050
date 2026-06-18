@@ -10,7 +10,6 @@ on:
         type: choice
         options:
           - 'yes'
-
 permissions:
   contents: write
 

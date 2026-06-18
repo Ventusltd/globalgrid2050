@@ -9,7 +9,6 @@ on:
         default: '52'
         type: choice
         options: ['4', '13', '26', '52']
-
 permissions:
   contents: write
 

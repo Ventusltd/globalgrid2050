@@ -2,7 +2,6 @@ name: force_uk_energy_tracking_v3_price_history
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

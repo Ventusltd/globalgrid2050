@@ -2,16 +2,6 @@ name: Patch V5 Chart Glow Controls
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'scripts/patch_v5_fullscreen_glow_controls.py'
-      - 'scripts/patch_v5_fullscreen_left_legend.py'
-      - 'scripts/patch_v5_multi_year_loading.py'
-      - 'scripts/patch_v5_trend_title_safe_zone.py'
-      - 'scripts/patch_v5_emergency_chart_repair.py'
-
 permissions:
   contents: write
 

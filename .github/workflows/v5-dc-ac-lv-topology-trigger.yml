@@ -2,7 +2,6 @@ name: V5 DC AC LV Topology Trigger
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

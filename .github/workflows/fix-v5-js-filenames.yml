@@ -1,12 +1,7 @@
 name: Fix V5 JS Filenames
 
 on:
-  push:
-    paths:
-      - "scripts/fix_v5_js_filenames.py"
-      - ".github/workflows/fix-v5-js-filenames.yml"
   workflow_dispatch:
-
 permissions:
   contents: write
 

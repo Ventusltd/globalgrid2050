@@ -2,7 +2,6 @@ name: V5 Geometry Visualiser Migration
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

@@ -1,15 +1,7 @@
 name: V6 Guardrail Preflight
 
 on:
-  pull_request:
-    paths:
-      - 'uk_energy_tracking_v6/**'
-      - 'scripts/repair_v6_*.py'
-      - '.github/workflows/repair_v6_*.yml'
-      - 'scripts/v6_guardrail_preflight.py'
-      - '.github/workflows/v6_guardrail_preflight.yml'
   workflow_dispatch:
-
 permissions:
   contents: read
 

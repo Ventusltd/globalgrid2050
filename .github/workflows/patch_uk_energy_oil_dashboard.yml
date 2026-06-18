@@ -2,7 +2,6 @@ name: patch_uk_energy_oil_dashboard
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

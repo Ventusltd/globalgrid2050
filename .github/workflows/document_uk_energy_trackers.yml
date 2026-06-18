@@ -2,7 +2,6 @@ name: document_uk_energy_trackers
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

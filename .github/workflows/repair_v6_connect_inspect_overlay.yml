@@ -2,7 +2,6 @@ name: Repair V6 Connect Inspect Overlay
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

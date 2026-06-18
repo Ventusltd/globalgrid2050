@@ -2,7 +2,6 @@ name: Diagnose Repair V6 Price V5 UI Split
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

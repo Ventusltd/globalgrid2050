@@ -2,7 +2,6 @@ name: Add V7 GIS SLD Array Visibility And MWp Sizing
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

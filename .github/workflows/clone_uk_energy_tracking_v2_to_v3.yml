@@ -2,7 +2,6 @@ name: clone_uk_energy_tracking_v2_to_v3
 
 on:
   workflow_dispatch:
-
 jobs:
   clone-v3:
     runs-on: ubuntu-latest

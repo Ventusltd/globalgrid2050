@@ -2,7 +2,6 @@ name: Add V7 GIS SLD Site Intelligence Panel
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

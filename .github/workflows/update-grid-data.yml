@@ -2,7 +2,6 @@ name: fetch-national-grid-data
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

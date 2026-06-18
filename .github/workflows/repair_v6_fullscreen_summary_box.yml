@@ -2,7 +2,6 @@ name: Repair V6 Fullscreen Summary Box
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

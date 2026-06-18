@@ -1,12 +1,7 @@
 name: Clone V3 to V4 Once
 
 on:
-  push:
-    paths:
-      - "scripts/clone_v3_to_v4.py"
-      - ".github/workflows/clone-v3-to-v4-once.yml"
   workflow_dispatch:
-
 permissions:
   contents: write
 

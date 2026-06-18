@@ -9,7 +9,6 @@ on:
         default: v4_only
         type: choice
         options: [v4_only]
-
 permissions:
   contents: write
 

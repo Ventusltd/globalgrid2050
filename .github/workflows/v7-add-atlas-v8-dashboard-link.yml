@@ -2,7 +2,6 @@ name: V7 Add Atlas V8 Dashboard Link
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

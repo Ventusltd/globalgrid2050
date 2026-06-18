@@ -1,17 +1,6 @@
 name: fetch_uk_frequency_v5
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/update_uk_frequency_v5.py'
-      - '.github/workflows/fetch_uk_frequency_v5.yml'
-      - 'uk_energy_tracking_v5/frequency-history-ui.js'
-      - 'uk_energy_tracking_v5/live-app.js'
-  schedule:
-    # GitHub Actions supports 5 minute cron granularity for scheduled workflows.
-    # The collector keeps the public file trimmed to a rolling 24 hour window.
-    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       burst_samples:
@@ -26,7 +15,6 @@ on:
         default: '24'
         type: choice
         options: ['6', '12', '24']
-
 permissions:
   contents: write
 

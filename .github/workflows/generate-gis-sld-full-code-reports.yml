@@ -2,7 +2,6 @@ name: Generate GIS SLD Full Code Reports
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

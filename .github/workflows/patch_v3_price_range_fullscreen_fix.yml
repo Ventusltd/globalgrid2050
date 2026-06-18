@@ -2,7 +2,6 @@ name: Patch V3 price range and fullscreen fix
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

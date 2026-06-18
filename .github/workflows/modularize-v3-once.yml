@@ -2,11 +2,6 @@ name: Modularize V3 Once
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - scripts/modularize_v3.py
-      - .github/workflows/modularize-v3-once.yml
-
 permissions:
   contents: write
 

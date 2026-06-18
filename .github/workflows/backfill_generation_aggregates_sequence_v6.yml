@@ -15,7 +15,6 @@ on:
         description: Include Sheffield Solar PVLive solar rows
         required: true
         default: 'true'
-
 permissions:
   contents: write
 

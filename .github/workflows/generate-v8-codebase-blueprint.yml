@@ -2,7 +2,6 @@ name: Generate V8 Codebase Blueprint
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

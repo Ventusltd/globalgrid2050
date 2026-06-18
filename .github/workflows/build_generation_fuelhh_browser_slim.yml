@@ -11,13 +11,6 @@ on:
         description: Maximum browser JSON size in bytes
         required: false
         default: '3000000'
-  push:
-    branches: [main]
-    paths:
-      - 'data/confirmed/generation_daily_mw_spine_fuelhh_candidate.json'
-      - 'scripts/build_generation_daily_fuelhh_browser_slim.py'
-      - '.github/workflows/build_generation_fuelhh_browser_slim.yml'
-
 permissions:
   contents: write
 

@@ -2,7 +2,6 @@ name: V6 Complex Upgrade Install
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

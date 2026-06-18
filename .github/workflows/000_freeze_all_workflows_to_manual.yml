@@ -1,13 +1,7 @@
 name: Freeze all workflows to manual dispatch
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/000_freeze_all_workflows_to_manual.yml"
   workflow_dispatch:
-
 permissions:
   contents: write
 

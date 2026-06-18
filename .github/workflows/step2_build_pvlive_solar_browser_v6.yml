@@ -7,7 +7,6 @@ on:
         description: Maximum browser solar JSON size in bytes
         required: false
         default: '500000'
-
 permissions:
   contents: write
 

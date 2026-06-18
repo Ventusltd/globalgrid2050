@@ -2,7 +2,6 @@ name: Rollback V8 BESS V7 Frame Rebuild
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

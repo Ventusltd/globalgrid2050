@@ -2,8 +2,6 @@ name: V5 DC AC LV 04 Link
 
 on:
   workflow_dispatch:
-  workflow_call:
-
 permissions:
   contents: write
 

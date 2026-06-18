@@ -2,7 +2,6 @@ name: isolate_uk_energy_tracking_v2
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

@@ -2,7 +2,6 @@ name: add_v3_homepage_link
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

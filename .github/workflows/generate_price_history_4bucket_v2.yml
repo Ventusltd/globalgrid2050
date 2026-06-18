@@ -2,12 +2,6 @@ name: generate_price_history_4bucket_v2
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows:
-      - fetch_uk_energy_and_prices_v5
-    types:
-      - completed
-
 permissions:
   contents: write
 

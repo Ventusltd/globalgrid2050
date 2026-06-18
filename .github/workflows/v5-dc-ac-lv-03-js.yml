@@ -2,8 +2,6 @@ name: V5 DC AC LV 03 JS
 
 on:
   workflow_dispatch:
-  workflow_call:
-
 permissions:
   contents: write
 

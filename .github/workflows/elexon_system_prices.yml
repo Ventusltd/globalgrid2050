@@ -1,15 +1,12 @@
 name: Update Elexon System Prices
 
 on:
-  schedule:
-    - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       backfill_days:
         description: Days to fetch ending yesterday
         required: true
         default: '30'
-
 permissions:
   contents: write
 

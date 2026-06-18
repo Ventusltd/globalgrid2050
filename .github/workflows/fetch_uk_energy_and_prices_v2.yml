@@ -13,7 +13,6 @@ on:
         default: both
         type: choice
         options: [both, energy, price]
-
 permissions:
   contents: write
 

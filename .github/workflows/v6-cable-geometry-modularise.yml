@@ -2,7 +2,6 @@ name: V6 Cable Geometry Modularise
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

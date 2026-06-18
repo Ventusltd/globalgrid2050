@@ -2,7 +2,6 @@ name: Fix V6 V7 GIS SLD Print Simple Safe
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

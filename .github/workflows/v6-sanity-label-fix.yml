@@ -2,7 +2,6 @@ name: V6 Sanity Label Fix
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

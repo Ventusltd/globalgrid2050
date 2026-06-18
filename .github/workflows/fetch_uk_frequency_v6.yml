@@ -1,8 +1,6 @@
 name: fetch_uk_frequency_v6
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       burst_samples:
@@ -17,7 +15,6 @@ on:
         default: '24'
         type: choice
         options: ['6', '12', '24']
-
 permissions:
   contents: write
 

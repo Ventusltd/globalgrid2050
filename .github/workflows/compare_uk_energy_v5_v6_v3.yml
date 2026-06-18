@@ -2,7 +2,6 @@ name: Compare UK Energy V5 V6 V3
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

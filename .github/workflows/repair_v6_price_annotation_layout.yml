@@ -2,7 +2,6 @@ name: Repair V6 Price Annotation Layout
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

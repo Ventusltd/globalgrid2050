@@ -2,7 +2,6 @@ name: run-v2-safe-patch
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

@@ -2,7 +2,6 @@ name: Generate V6 Architectural Integrity Protocol
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

@@ -2,16 +2,6 @@ name: Generate Repo Structure Gridbot
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - '**/*.py'
-      - '**/*.html'
-      - '**/*.js'
-      - '**/*.md'
-      - '.github/workflows/generate_repo_structure.yml'
-
 permissions:
   contents: write
 

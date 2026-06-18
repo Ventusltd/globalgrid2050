@@ -1,10 +1,7 @@
 name: Auto Test Generation Sources 2026 V6
 
 on:
-  schedule:
-    - cron: '*/30 * * * *'
   workflow_dispatch:
-
 permissions:
   contents: write
 

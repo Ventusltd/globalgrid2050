@@ -2,7 +2,6 @@ name: Step 3 Wire PVLive Solar UI V6
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

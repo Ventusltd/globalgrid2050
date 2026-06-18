@@ -33,7 +33,6 @@ on:
         options:
           - 'true'
           - 'false'
-
 permissions:
   contents: write
 

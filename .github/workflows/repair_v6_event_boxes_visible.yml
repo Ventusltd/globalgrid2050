@@ -2,7 +2,6 @@ name: Repair V6 Event Boxes Visible
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

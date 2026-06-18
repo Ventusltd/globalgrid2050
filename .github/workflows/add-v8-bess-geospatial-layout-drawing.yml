@@ -2,7 +2,6 @@ name: Add V8 BESS Geospatial Layout Drawing
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

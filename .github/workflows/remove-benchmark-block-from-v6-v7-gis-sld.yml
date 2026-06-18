@@ -2,7 +2,6 @@ name: Remove Benchmark Block From V6 V7 GIS SLD
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

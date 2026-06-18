@@ -1,15 +1,12 @@
 name: Update Generation Sources YTD V6
 
 on:
-  schedule:
-    - cron: '30 6 * * *'
   workflow_dispatch:
     inputs:
       backfill_days:
         description: Days to fetch ending yesterday
         required: true
         default: '30'
-
 permissions:
   contents: write
 

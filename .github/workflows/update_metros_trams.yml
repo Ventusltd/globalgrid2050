@@ -2,9 +2,6 @@ name: Fetch UK Metros and Trams
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 1 * *'
-
 permissions:
   contents: write
 

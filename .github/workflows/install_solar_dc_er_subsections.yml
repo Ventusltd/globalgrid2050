@@ -15,7 +15,6 @@ on:
         description: DC duct congestion subsection fragment
         required: true
         default: content_fragments/employers_requirements_large_scale_solar/dc_duct_congestion_subsection_v1.md
-
 permissions:
   contents: write
 

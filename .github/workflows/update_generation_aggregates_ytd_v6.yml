@@ -1,15 +1,12 @@
 name: Update Generation Aggregates YTD V6
 
 on:
-  schedule:
-    - cron: '20 6 * * 1'
   workflow_dispatch:
     inputs:
       include_solar:
         description: Include Sheffield Solar PVLive solar rows
         required: true
         default: 'true'
-
 permissions:
   contents: write
 

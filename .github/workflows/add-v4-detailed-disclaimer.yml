@@ -1,12 +1,7 @@
 name: Add V4 Detailed Disclaimer
 
 on:
-  push:
-    paths:
-      - "scripts/add_v4_detailed_disclaimer.py"
-      - ".github/workflows/add-v4-detailed-disclaimer.yml"
   workflow_dispatch:
-
 permissions:
   contents: write
 

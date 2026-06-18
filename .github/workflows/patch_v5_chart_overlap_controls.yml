@@ -2,13 +2,6 @@ name: Patch V5 Chart Overlap Controls
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'scripts/patch_v5_chart_overlap_controls.py'
-      - 'scripts/patch_v5_chart_breathing_space.py'
-
 permissions:
   contents: write
 

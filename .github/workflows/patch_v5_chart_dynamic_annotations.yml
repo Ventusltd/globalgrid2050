@@ -2,12 +2,6 @@ name: Patch V5 Dynamic Chart Annotations
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'scripts/patch_v5_chart_dynamic_annotations.py'
-
 permissions:
   contents: write
 

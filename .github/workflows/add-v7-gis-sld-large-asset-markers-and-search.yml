@@ -2,7 +2,6 @@ name: Add V7 GIS SLD Large Asset Markers And Search
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

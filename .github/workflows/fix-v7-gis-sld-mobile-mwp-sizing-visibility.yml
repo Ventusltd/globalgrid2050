@@ -2,7 +2,6 @@ name: Fix V7 GIS SLD Mobile MWp Sizing Visibility
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

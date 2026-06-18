@@ -2,7 +2,6 @@ name: patch-uk-energy-tracking-v2-oil-graph
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

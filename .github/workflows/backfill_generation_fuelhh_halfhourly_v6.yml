@@ -1,12 +1,6 @@
 name: Generation FUELHH Half Hourly Backfill
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/backfill_generation_fuelhh_halfhourly_v6.yml'
-      - 'scripts/backfill_generation_fuelhh_halfhourly_all_months_v6.py'
-      - 'scripts/build_generation_daily_mw_spine_from_fuelhh.py'
   workflow_dispatch:
     inputs:
       start_year_month:
@@ -33,9 +27,6 @@ on:
         description: Commit outputs
         required: false
         default: 'true'
-  schedule:
-    - cron: '17 */2 * * *'
-
 permissions:
   contents: write
 

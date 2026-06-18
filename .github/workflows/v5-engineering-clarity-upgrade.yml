@@ -2,7 +2,6 @@ name: V5 Engineering Clarity Upgrade
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

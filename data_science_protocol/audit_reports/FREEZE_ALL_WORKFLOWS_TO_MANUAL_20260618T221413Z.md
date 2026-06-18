@@ -1,0 +1,290 @@
+# Freeze all root workflows to manual dispatch
+
+Generated UTC: `2026-06-18T22:14:13.748589Z`
+Scope: `Root .github/workflows only`
+Inspected workflows: `215`
+Changed workflows: `215`
+Pass: `True`
+
+## Executive summary
+
+All root GitHub Actions workflows are converted to manual workflow_dispatch only, stopping scheduled and push based automatic repository growth while preserving the workflow files for later repo splitting.
+
+## Changed files
+
+- `.github/workflows/000_freeze_all_workflows_to_manual.yml`
+- `.github/workflows/add-v4-detailed-disclaimer.yml`
+- `.github/workflows/add-v6-v7-all-apps-a4-print-formatting.yml`
+- `.github/workflows/add-v6-v7-external-analysis-dashboard-links.yml`
+- `.github/workflows/add-v6-v7-gis-sld-operating-asset-layers.yml`
+- `.github/workflows/add-v6-v7-gis-sld-print-formatting.yml`
+- `.github/workflows/add-v6-v7-gis-sld-print-map-pack.yml`
+- `.github/workflows/add-v6-v7-print-v2-compact-report-mode.yml`
+- `.github/workflows/add-v6-v7-print-v3-financials-patch.yml`
+- `.github/workflows/add-v7-gis-sld-array-visibility-and-mwp-sizing.yml`
+- `.github/workflows/add-v7-gis-sld-large-asset-markers-and-search.yml`
+- `.github/workflows/add-v7-gis-sld-site-intelligence-panel.yml`
+- `.github/workflows/add-v8-bess-geospatial-layout-drawing.yml`
+- `.github/workflows/add_v3_homepage_link.yml`
+- `.github/workflows/audit_generation_data_coverage_v6.yml`
+- `.github/workflows/auto_test_generation_sources_2026_v6.yml`
+- `.github/workflows/backfill_generation_aggregates_manual_v6.yml`
+- `.github/workflows/backfill_generation_aggregates_sequence_v6.yml`
+- `.github/workflows/backfill_generation_clean_halfhourly_month_v6.yml`
+- `.github/workflows/backfill_generation_fuelhh_halfhourly_v6.yml`
+- `.github/workflows/backfill_generation_sources_decade_v6.yml`
+- `.github/workflows/backfill_generation_sources_overnight_sequence_v6.yml`
+- `.github/workflows/backfill_generation_sources_staggered_years_v6.yml`
+- `.github/workflows/backfill_generation_sources_year_v6.yml`
+- `.github/workflows/backfill_uk_frequency_weekly_v5.yml`
+- `.github/workflows/build-v8-bess-gis-sld-financial-sandbox.yml`
+- `.github/workflows/build_generation_fuelhh_browser_slim.yml`
+- `.github/workflows/clone-v3-to-v4-once.yml`
+- `.github/workflows/clone-v4-to-v5.yml`
+- `.github/workflows/clone_generation_history_v6_to_v6_2.yml`
+- `.github/workflows/clone_uk_energy_tracking_v2.yml`
+- `.github/workflows/clone_uk_energy_tracking_v2_to_v3.yml`
+- `.github/workflows/clone_uk_energy_tracking_v4_to_v5.yml`
+- `.github/workflows/compare_uk_energy_v5_v6.yml`
+- `.github/workflows/compare_uk_energy_v5_v6_v2.yml`
+- `.github/workflows/compare_uk_energy_v5_v6_v3.yml`
+- `.github/workflows/create-v8-bess-electrical-topology-review.yml`
+- `.github/workflows/create-v8-bess-pcs-standalone.yml`
+- `.github/workflows/create_uk_energy_tracking_v4.yml`
+- `.github/workflows/dependencies_v4.yml`
+- `.github/workflows/diagnose_repair_v6_price_v5_ui_split.yml`
+- `.github/workflows/document_uk_energy_trackers.yml`
+- `.github/workflows/elexon_generation_sources_weekly.yml`
+- `.github/workflows/elexon_system_prices.yml`
+- `.github/workflows/elexon_system_prices_backfill_10y.yml`
+- `.github/workflows/fetch_elizabeth_line.yml`
+- `.github/workflows/fetch_eurostar.yml`
+- `.github/workflows/fetch_global_ports.yml`
+- `.github/workflows/fetch_heavy_emitters_uk.yml`
+- `.github/workflows/fetch_motorway_services.yml`
+- `.github/workflows/fetch_naei_point_sources.yml`
+- `.github/workflows/fetch_stadiums.yml`
+- `.github/workflows/fetch_subsea_data_cables.yml`
+- `.github/workflows/fetch_uk_energy_and_prices.yml`
+- `.github/workflows/fetch_uk_energy_and_prices_v2.yml`
+- `.github/workflows/fetch_uk_energy_and_prices_v3.yml`
+- `.github/workflows/fetch_uk_energy_and_prices_v4.yml`
+- `.github/workflows/fetch_uk_energy_and_prices_v5.yml`
+- `.github/workflows/fetch_uk_energy_and_prices_v6.yml`
+- `.github/workflows/fetch_uk_frequency_v5.yml`
+- `.github/workflows/fetch_uk_frequency_v6.yml`
+- `.github/workflows/fetch_uk_railways.yml`
+- `.github/workflows/fetch_uk_roads.yml`
+- `.github/workflows/fix-uk-renewables-pipeline-csv-export.yml`
+- `.github/workflows/fix-v5-js-filenames.yml`
+- `.github/workflows/fix-v6-v7-gis-sld-print-simple-safe.yml`
+- `.github/workflows/fix-v7-gis-sld-mobile-array-toggle-visibility.yml`
+- `.github/workflows/fix-v7-gis-sld-mobile-mwp-sizing-visibility.yml`
+- `.github/workflows/fix-v7-gis-sld-mobile-tool-overlay-spacing.yml`
+- `.github/workflows/fix-v7-gis-sld-mobile-tools-energy-layer-clearance.yml`
+- `.github/workflows/force_uk_energy_tracking_v3_price_history.yml`
+- `.github/workflows/generate-gis-sld-full-code-reports.yml`
+- `.github/workflows/generate-v8-codebase-blueprint.yml`
+- `.github/workflows/generate_deep_subsea.yml`
+- `.github/workflows/generate_global_hydrocarbons.yml`
+- `.github/workflows/generate_price_history_4bucket_v2.yml`
+- `.github/workflows/generate_repo_structure.yml`
+- `.github/workflows/generate_v6_architectural_integrity_protocol.yml`
+- `.github/workflows/generation_ecg_all_tech_mvp.yml`
+- `.github/workflows/generation_heartbeat_mvp.yml`
+- `.github/workflows/gridbot-feature-install.yml`
+- `.github/workflows/gridbot_app_repo_bootstrap.yml`
+- `.github/workflows/gridbot_audit_process_documentation.yml`
+- `.github/workflows/gridbot_bulk_data_workflow_freeze.yml`
+- `.github/workflows/gridbot_daily_mwh_multi_technology_wiring.yml`
+- `.github/workflows/gridbot_daily_mwh_seasonal_colouring.yml`
+- `.github/workflows/gridbot_daily_mwh_titles_labels.yml`
+- `.github/workflows/gridbot_deprecated_tracker_stale_data_audit.yml`
+- `.github/workflows/gridbot_generation_daily_mwh_fuelhh_chunks.yml`
+- `.github/workflows/gridbot_generation_history_solar.yml`
+- `.github/workflows/gridbot_generation_history_solar_recent.yml`
+- `.github/workflows/gridbot_generation_history_v6_2_backup_mirror.yml`
+- `.github/workflows/gridbot_generation_interconnector_split.yml`
+- `.github/workflows/gridbot_generation_interconnector_split_v2.yml`
+- `.github/workflows/gridbot_generation_mwh_active_v6_source_audit.yml`
+- `.github/workflows/gridbot_generation_mwh_interconnector_split_v6.yml`
+- `.github/workflows/gridbot_generation_mwh_interconnector_ui_guard.yml`
+- `.github/workflows/gridbot_interconnector_bar_ui_match.yml`
+- `.github/workflows/gridbot_interconnector_mobile_ui_repair.yml`
+- `.github/workflows/gridbot_london_solar_daylight_geometry.yml`
+- `.github/workflows/gridbot_london_sunrise_sunset_ui_chart.yml`
+- `.github/workflows/gridbot_mega_upgrade.yml`
+- `.github/workflows/gridbot_mwh_mobile_bounds_repair.yml`
+- `.github/workflows/gridbot_repo_split_inventory.yml`
+- `.github/workflows/gridbot_root_homepage_directory_audit.yml`
+- `.github/workflows/gridbot_solar_10_year_backfill.yml`
+- `.github/workflows/gridbot_solar_daily_mwh_chart_upgrade.yml`
+- `.github/workflows/gridbot_solar_daily_mwh_interaction_upgrade.yml`
+- `.github/workflows/gridbot_solar_daily_mwh_readability_upgrade.yml`
+- `.github/workflows/gridbot_solar_daily_mwh_standalone_upgrade.yml`
+- `.github/workflows/gridbot_solar_historic_backfill.yml`
+- `.github/workflows/gridbot_solar_immediate_data.yml`
+- `.github/workflows/gridbot_solar_monthly_backfill.yml`
+- `.github/workflows/gridbot_solar_monthly_backfill_auto.yml`
+- `.github/workflows/gridbot_solar_peak_integrity_audit.yml`
+- `.github/workflows/gridbot_sunrise_sunset_time_bands.yml`
+- `.github/workflows/gridbot_sunrise_sunset_visible_attribution.yml`
+- `.github/workflows/gridbot_v3_consolidated_price_history.yml`
+- `.github/workflows/gridbot_v6_same_slot_reconciliation_audit.yml`
+- `.github/workflows/inspect_data_science_discipline.yml`
+- `.github/workflows/install_solar_dc_er_section.yml`
+- `.github/workflows/install_solar_dc_er_subsections.yml`
+- `.github/workflows/isolate_uk_energy_tracking_v2.yml`
+- `.github/workflows/jekyll-gh-pages.yml`
+- `.github/workflows/modularise_solar_er.yml`
+- `.github/workflows/modularize-v3-once.yml`
+- `.github/workflows/ons_mwh_energy_use_annual_v6.yml`
+- `.github/workflows/overnight_generation_mw_backfill.yml`
+- `.github/workflows/patch_uk_energy_oil_dashboard.yml`
+- `.github/workflows/patch_uk_energy_tracking_v2_oil_graph.yml`
+- `.github/workflows/patch_uk_energy_tracking_v2_transport.yml`
+- `.github/workflows/patch_v3_price_axis_table_fullscreen.yml`
+- `.github/workflows/patch_v3_price_history_correctness.yml`
+- `.github/workflows/patch_v3_price_history_date_window.yml`
+- `.github/workflows/patch_v3_price_history_fullscreen.yml`
+- `.github/workflows/patch_v3_price_history_merge_system.yml`
+- `.github/workflows/patch_v3_price_history_ui.yml`
+- `.github/workflows/patch_v3_price_lazy_selectors.yml`
+- `.github/workflows/patch_v3_price_range_fullscreen_fix.yml`
+- `.github/workflows/patch_v4_live_tracker_modular_structure.yml`
+- `.github/workflows/patch_v5_chart_dynamic_annotations.yml`
+- `.github/workflows/patch_v5_chart_overlap_controls.yml`
+- `.github/workflows/patch_v5_fullscreen_glow_controls.yml`
+- `.github/workflows/rebuild-v8-bess-from-v7-gis-frame.yml`
+- `.github/workflows/remove-benchmark-block-from-v6-v7-gis-sld.yml`
+- `.github/workflows/remove-project-x-from-v6-v7-gis-sld.yml`
+- `.github/workflows/repair_public_grid_study_period_selector.yml`
+- `.github/workflows/repair_public_grid_study_selector_binding.yml`
+- `.github/workflows/repair_v6_adaptive_weekly_time_ticks.yml`
+- `.github/workflows/repair_v6_chart_boxes_no_summary.yml`
+- `.github/workflows/repair_v6_chart_context_labels.yml`
+- `.github/workflows/repair_v6_chart_inspect_arrows.yml`
+- `.github/workflows/repair_v6_connect_inspect_overlay.yml`
+- `.github/workflows/repair_v6_electricity_annual_year_selector.yml`
+- `.github/workflows/repair_v6_event_boxes_visible.yml`
+- `.github/workflows/repair_v6_fullscreen_summary_box.yml`
+- `.github/workflows/repair_v6_fullscreen_swipe.yml`
+- `.github/workflows/repair_v6_half_hourly_short_window_modes.yml`
+- `.github/workflows/repair_v6_high_low_trackers.yml`
+- `.github/workflows/repair_v6_inpage_chart_real_estate.yml`
+- `.github/workflows/repair_v6_inspect_cache_buster.yml`
+- `.github/workflows/repair_v6_mobile_chart_readability.yml`
+- `.github/workflows/repair_v6_mobile_chart_stabilise.yml`
+- `.github/workflows/repair_v6_mobile_inspect_buttons.yml`
+- `.github/workflows/repair_v6_price_annotation_layout.yml`
+- `.github/workflows/repair_v6_price_annotations_v5_style.yml`
+- `.github/workflows/repair_v6_restore_v5_panels.yml`
+- `.github/workflows/repair_v6_weekly_axis_padding.yml`
+- `.github/workflows/repd_sync.yml`
+- `.github/workflows/replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown-status.yml`
+- `.github/workflows/replace-v7-gis-sld-asset-buttons-with-pipeline-dropdown.yml`
+- `.github/workflows/repo_guard.yml`
+- `.github/workflows/repo_size_guard.yml`
+- `.github/workflows/restore-v8-bess-maplibre-standalone.yml`
+- `.github/workflows/rollback-v8-bess-v7-frame-rebuild.yml`
+- `.github/workflows/run_v2_safe_patch.yml`
+- `.github/workflows/stamp_data_spine_doctrine.yml`
+- `.github/workflows/step1_fetch_pvlive_solar_candidate_v6.yml`
+- `.github/workflows/step2_build_pvlive_solar_browser_v6.yml`
+- `.github/workflows/step3_wire_pvlive_solar_ui_v6.yml`
+- `.github/workflows/track_repository_size.yml`
+- `.github/workflows/update-grid-data.yml`
+- `.github/workflows/update_11kv_ukpn.yml`
+- `.github/workflows/update_elexon_system_prices_daily_v4.yml`
+- `.github/workflows/update_ev_chargers.yml`
+- `.github/workflows/update_generation_aggregates_ytd_v6.yml`
+- `.github/workflows/update_generation_recent_mw_v6.yml`
+- `.github/workflows/update_metros_trams.yml`
+- `.github/workflows/update_oil_prices.yml`
+- `.github/workflows/update_prices.yml`
+- `.github/workflows/update_supermarkets.yml`
+- `.github/workflows/update_tube_stations.yml`
+- `.github/workflows/update_uk_frequency_daily_v5.yml`
+- `.github/workflows/update_uk_fuel_prices.yml`
+- `.github/workflows/update_v5_v6_granular_change_tracker.yml`
+- `.github/workflows/update_v6_transport_energy_sources.yml`
+- `.github/workflows/v3_ui_patch.yml`
+- `.github/workflows/v5-dc-ac-lv-01-html.yml`
+- `.github/workflows/v5-dc-ac-lv-02-css.yml`
+- `.github/workflows/v5-dc-ac-lv-03-js.yml`
+- `.github/workflows/v5-dc-ac-lv-04-link.yml`
+- `.github/workflows/v5-dc-ac-lv-topology-trigger.yml`
+- `.github/workflows/v5-engineering-clarity-upgrade.yml`
+- `.github/workflows/v5-geometry-visualiser-migration.yml`
+- `.github/workflows/v5-skid-mva-controls-upgrade.yml`
+- `.github/workflows/v6-add-atlas-v8-dashboard-link.yml`
+- `.github/workflows/v6-cable-geometry-modularise.yml`
+- `.github/workflows/v6-complex-upgrade-install.yml`
+- `.github/workflows/v6-gis-sld-validation-test.yml`
+- `.github/workflows/v6-migrate-from-v5.yml`
+- `.github/workflows/v6-sanity-label-fix.yml`
+- `.github/workflows/v6_guardrail_preflight.yml`
+- `.github/workflows/v7-add-atlas-v8-dashboard-link.yml`
+- `.github/workflows/v7-migrate-from-v6.yml`
+- `.github/workflows/wire_generation_ecg_candidate.yml`
+
+## Nested workflow copies noted
+
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/fetch_elizabeth_linev6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/fetch_eurostarv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/fetch_global_portsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/fetch_motorway_servicesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/fetch_stadiumsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/fetch_subsea_data_cablesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/generate_deep_subseav6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/generate_global_hydrocarbonsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/generate_repo_structurev6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/jekyll-gh-pagesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/repd_syncv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/update-grid-datav6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/update_11kv_ukpnv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/update_ev_chargersv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/update_metros_tramsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/update_pricesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/update_supermarketsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv6/.github/workflows/update_tube_stationsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/fetch_elizabeth_linev6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/fetch_eurostarv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/fetch_global_portsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/fetch_motorway_servicesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/fetch_stadiumsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/fetch_subsea_data_cablesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/generate_deep_subseav6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/generate_global_hydrocarbonsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/generate_repo_structurev6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/jekyll-gh-pagesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/repd_syncv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/update-grid-datav6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/update_11kv_ukpnv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/update_ev_chargersv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/update_metros_tramsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/update_pricesv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/update_supermarketsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv7/.github/workflows/update_tube_stationsv6.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/fetch_elizabeth_linev8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/fetch_eurostarv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/fetch_global_portsv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/fetch_motorway_servicesv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/fetch_stadiumsv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/fetch_subsea_data_cablesv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/generate_deep_subseav8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/generate_global_hydrocarbonsv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/generate_repo_structurev8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/jekyll-gh-pagesv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/repd_syncv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/update-grid-datav8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/update_11kv_ukpnv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/update_ev_chargersv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/update_metros_tramsv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/update_pricesv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/update_supermarketsv8.yml`
+- `Nested workflow copy noted but not active at repository root: repd_grid_atlasv8/.github/workflows/update_tube_stationsv8.yml`
+
+## Rollback
+
+Revert this freeze commit or restore individual workflow trigger blocks from Git history.

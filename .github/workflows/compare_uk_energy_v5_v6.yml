@@ -2,7 +2,6 @@ name: Compare UK Energy Tracking V5 and V6
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

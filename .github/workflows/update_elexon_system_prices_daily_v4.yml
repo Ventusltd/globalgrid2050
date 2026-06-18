@@ -1,8 +1,6 @@
 name: Update Elexon System Prices Daily V4
 
 on:
-  schedule:
-    - cron: '0 5 * * *'
   workflow_dispatch:
     inputs:
       lookback_days:
@@ -11,7 +9,6 @@ on:
         default: '3'
         type: choice
         options: ['1', '2', '3', '7']
-
 permissions:
   contents: write
 

@@ -1,18 +1,6 @@
 name: Backfill Generation Sources Staggered Years V6
 
 on:
-  schedule:
-    - cron: '15 22 2 * *'
-    - cron: '15 22 3 * *'
-    - cron: '15 22 4 * *'
-    - cron: '15 22 5 * *'
-    - cron: '15 22 6 * *'
-    - cron: '15 22 7 * *'
-    - cron: '15 22 8 * *'
-    - cron: '15 22 9 * *'
-    - cron: '15 22 10 * *'
-    - cron: '15 22 11 * *'
-    - cron: '15 22 12 * *'
   workflow_dispatch:
     inputs:
       year:
@@ -23,7 +11,6 @@ on:
         description: Include Sheffield Solar PVLive solar rows
         required: true
         default: 'true'
-
 permissions:
   contents: write
 

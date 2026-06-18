@@ -1,10 +1,7 @@
 name: Update ONS MWh Energy Use Annual V6
 
 on:
-  schedule:
-    - cron: '30 5 15 8 *'
   workflow_dispatch:
-
 permissions:
   contents: write
 

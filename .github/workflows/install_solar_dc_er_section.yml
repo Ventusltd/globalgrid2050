@@ -19,7 +19,6 @@ on:
         description: Insert before this existing heading
         required: true
         default: '# 5. Behaviour of Direct Current Systems'
-
 permissions:
   contents: write
 

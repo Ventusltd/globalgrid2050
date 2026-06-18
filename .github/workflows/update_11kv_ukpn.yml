@@ -1,10 +1,7 @@
 name: Update 11kV UKPN Substations
 
 on:
-  schedule:
-    - cron: '0 2 1 * *'   # monthly
   workflow_dispatch:
-
 permissions:
   contents: write
 

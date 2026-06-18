@@ -7,7 +7,6 @@ on:
         description: Number of recent days to fetch from PVLive
         required: false
         default: '30'
-
 permissions:
   contents: write
 

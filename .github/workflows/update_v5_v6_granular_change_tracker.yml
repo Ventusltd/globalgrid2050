@@ -2,7 +2,6 @@ name: Update V5 V6 Granular Change Tracker
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

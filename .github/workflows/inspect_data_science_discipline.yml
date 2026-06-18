@@ -11,10 +11,6 @@ on:
         options:
           - 'false'
           - 'true'
-  schedule:
-    # Weekly governance inspection. Manual dispatch can be used before audit or release.
-    - cron: '23 6 * * 1'
-
 permissions:
   contents: write
 

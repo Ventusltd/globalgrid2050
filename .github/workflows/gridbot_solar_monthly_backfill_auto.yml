@@ -21,7 +21,6 @@ on:
         options:
           - 'true'
           - 'false'
-
 permissions:
   contents: write
   actions: write

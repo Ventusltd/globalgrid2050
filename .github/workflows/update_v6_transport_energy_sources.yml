@@ -2,9 +2,6 @@ name: Update V6 Transport Energy Sources
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '45 5 * * *'
-
 permissions:
   contents: write
 

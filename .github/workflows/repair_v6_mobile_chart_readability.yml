@@ -2,7 +2,6 @@ name: Repair V6 Mobile Chart Readability
 
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
 

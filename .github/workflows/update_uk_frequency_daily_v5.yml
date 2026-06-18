@@ -1,11 +1,7 @@
 name: update_uk_frequency_daily_v5
 
 on:
-  schedule:
-    # Daily integrity layer. The 5 minute workflow maintains raw live samples.
-    - cron: '17 0 * * *'
   workflow_dispatch:
-
 permissions:
   contents: write
 

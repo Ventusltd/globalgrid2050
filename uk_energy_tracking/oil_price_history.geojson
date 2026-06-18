@@ -28,7 +28,9 @@
         "rows": 6278,
         "fallback": true
       }
-    ]
+    ],
+    "lastSkippedHistoryUpdate": "2026-06-18T09:52:39.584734+00:00",
+    "skipReason": "Existing oil history is less than 24 hours old. Live oil update completed without re-downloading full history."
   },
   "features": [
     {

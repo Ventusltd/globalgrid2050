@@ -23,6 +23,28 @@
   a:hover { text-decoration: underline; }
 
   .dev-status { color: #ff3333; font-weight: bold; font-size: 16px; }
+  .live-status { color:#53ff4c; font-weight:bold; font-size:16px; }
+
+  .launch-flagship,
+  .os-strip {
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:10px 0 2px;
+    padding:12px 0;
+    border-bottom:1px solid #333;
+  }
+  .launch-flagship a,
+  .os-strip a {
+    color:#00ffff;
+    font-weight:bold;
+    font-size:28px;
+    line-height:1.15;
+    text-decoration:none;
+  }
+  .os-strip { margin-top:0; }
+  .os-strip a { font-size:22px; }
 
   #gridSearch {
     width: 100%;
@@ -38,7 +60,6 @@
   }
   #gridSearch:focus { outline: none; border-color: #66ccff; }
 
-  /* areas (top tier) */
   details.area { border-bottom: 1px solid #333; }
   details.area > summary {
     list-style: none;
@@ -53,11 +74,9 @@
   details.area[open] > summary::before { content: "[\2212] "; }
   details.area > summary:hover { text-decoration: none; color: #66ffff; }
 
-  /* drawer rows (infinite) */
   ul.drawer { list-style: none; margin: 0 0 10px; padding: 0; }
   ul.drawer li { padding: 10px 0 10px 28px; border-top: 1px solid #1c1c1c; }
 
-  /* direct top-level links (areas with no children) */
   .toplink { display: block; padding: 14px 0; border-bottom: 1px solid #333; }
 
   .noresult { color: #888; padding: 20px 0; }
@@ -73,6 +92,8 @@
     body { padding: 25px; font-size: 18px; }
     .footer { font-size: 14px; }
     ul.drawer li { padding-left: 20px; }
+    .launch-flagship a { font-size:26px; }
+    .os-strip a { font-size:20px; }
   }
 </style>
 </head>
@@ -81,9 +102,19 @@
 
 <p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
 
-<div class="launch-flagship" style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:10px 0 2px;padding:12px 0;border-bottom:1px solid #333;">
-  <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html" style="color:#00ffff;font-weight:bold;font-size:28px;line-height:1.15;text-decoration:none;">The Spider 🕷 — Dependency Map</a>
-  <span class="dev-status">Federation in progress · live</span>
+<div class="launch-flagship">
+  <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html">The Spider 🕷 — Dependency Map</a>
+  <span class="live-status">latest dependency view · live</span>
+</div>
+
+<div class="os-strip">
+  <a href="https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/">Registry Dashboard</a>
+  <span class="live-status">BIOS / Kernel</span>
+</div>
+
+<div class="os-strip">
+  <a href="https://ventusltd.github.io/reports/studio/">Reports Dashboard</a>
+  <span class="dev-status">Save As / evidence layer</span>
 </div>
 
 <input type="text" id="gridSearch" placeholder="Search everything..." autocomplete="off">
@@ -95,21 +126,18 @@
 </div>
 
 <script>
-/* ====================================================================== *
- *  MENU DATA  —  the only thing you edit.
- *
- *  A top-level entry is either:
- *    • an AREA with a drawer:   { name: "Pricing", children: [ ...rows ] }
- *    • a direct link:           { name: "Blog", url: "./blog/" }
- *
- *  A drawer row:   { name: "Title", url: "./path/", note: "in development" }
- *  ( note is optional; shown in red. )
- *
- *  Add a row  -> add one line to a children array.
- *  Re-group   -> move a line from one area to another.
- *  Re-order   -> areas and rows display in the order written here.
- * ====================================================================== */
 const AREAS = [
+  { name: "GlobalGrid2050 OS & Federation", children: [
+    { name: "Registry Dashboard, BIOS and Kernel", url: "https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/", note: "live" },
+    { name: "Reports Dashboard, Save As and Evidence Layer", url: "https://ventusltd.github.io/reports/studio/", note: "new" },
+    { name: "The Spider Dependency Map, latest full PO test", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note: "latest dependency area" },
+    { name: "Spider Printer V1", url: "https://ventusltd.github.io/spiders/spider_printer_v1/", note: "printer" },
+    { name: "Federation Radial Uniform Print View", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note: "replaces old radial link" },
+    { name: "Federation Repository", url: "https://github.com/Ventusltd/data-federation-map-for-globalgrid2050-all-repos" },
+    { name: "Reports Repository", url: "https://github.com/Ventusltd/reports" },
+    { name: "Registry Repository", url: "https://github.com/Ventusltd/registry_of_all_content_in_repos_and_dependencies" },
+    { name: "Spiders Repository", url: "https://github.com/Ventusltd/spiders" },
+  ]},
   { name: "Solar & BESS Topology", children: [
     { name: "GIS SLD Topology Engine And Financial Sandbox", url: "./solar-bess-topology/indexforgis-sld.html" },
     { name: "GIS SLD Financial Sandbox V2", url: "./solar-bess-topology-v2/indexforgis-sld-v2.html" },
@@ -161,8 +189,9 @@ const AREAS = [
     { name: "Single Line Diagrams And Grids", url: "./sld_single_diagrams_diagrams_and_grids/" },
   ]},
   { name: "Federation & Spider", children: [
-    { name: "The Spider Dependency Map", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note: "live" },
-    { name: "Spider Printer", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note: "print view" },
+    { name: "The Spider Dependency Map", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note: "latest" },
+    { name: "Spider Printer V1", url: "https://ventusltd.github.io/spiders/spider_printer_v1/", note: "printer" },
+    { name: "Federation Radial Uniform Print View", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note: "current print view" },
     { name: "Federation Repository", url: "https://github.com/Ventusltd/data-federation-map-for-globalgrid2050-all-repos" },
   ]},
   { name: "About & Media", children: [
@@ -172,7 +201,6 @@ const AREAS = [
     { name: "Earth", url: "./marketing/earth.html" },
     { name: "Time Left Today, Hourglass to 2050", url: "./time_to_2050/" },
     { name: "NEW PENDING GlobalGrid2050 Homepage", url: "https://ventusltd.github.io/globalgrid2050-hompage/" },
-
   ]},
 ];
 
@@ -222,7 +250,7 @@ function applySearch(raw) {
     });
     const visible = !q || areaMatch || childMatch;
     d.style.display = visible ? "" : "none";
-    d.open = q ? visible : false;          // search opens matches; empty collapses all
+    d.open = q ? visible : false;
     if (visible) anyVisible = true;
   });
 

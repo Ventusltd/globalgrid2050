@@ -26,6 +26,18 @@ Use this format:
 
 Never overwrite an old version. Create the next numbered file.
 
+## Manual workflow
+
+A manual GitHub Actions workflow now exists:
+
+`.github/workflows/homepage-restore-point-check.yml`
+
+Run it before public homepage edits. It checks that the homepage files exist, measures the current public homepage files, records SHA-256 values and uploads an artifact called:
+
+`homepage-restore-point-report`
+
+The workflow does not change the website. It is a measurement and restore-point confidence check only.
+
 ## Baseline snapshot
 
 Version: `homepage_v001.html`

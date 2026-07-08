@@ -1,0 +1,53 @@
+name: Homepage restore point check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  restore-point-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check homepage version files exist
+        run: |
+          test -f index.html
+          test -f homepage_versions/README.md
+          test -f homepage_versions/homepage_v001.html
+          test -f scripts/measure_homepage_version.py
+
+      - name: Measure homepage files
+        run: |
+          mkdir -p homepage_restore_report
+          python3 scripts/measure_homepage_version.py \
+            index.html \
+            homepage_versions/homepage_v001.html \
+            how_to_work_with_globalgrid2050/index.html \
+            > homepage_restore_report/homepage_metrics.json
+
+      - name: Count homepage version folder
+        run: |
+          {
+            echo "# Homepage restore point check"
+            echo
+            echo "Generated: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            echo
+            echo "## Files in homepage_versions"
+            find homepage_versions -maxdepth 1 -type f | sort
+            echo
+            echo "## File count"
+            find homepage_versions -maxdepth 1 -type f | wc -l
+            echo
+            echo "## SHA-256"
+            sha256sum index.html homepage_versions/homepage_v001.html how_to_work_with_globalgrid2050/index.html
+          } > homepage_restore_report/homepage_restore_report.md
+
+      - name: Upload restore report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: homepage-restore-point-report
+          path: homepage_restore_report/

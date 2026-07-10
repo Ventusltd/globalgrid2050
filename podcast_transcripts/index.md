@@ -17,6 +17,7 @@
 <h2>Contents</h2>
 
 <ul style="padding-left: 20px; margin-left: 0; list-style-position: inside;">
+  <li><a href="#doug-krause-on-cattle-solar-&-cable-mounted-pv">Doug Krause on Cattle Solar & Cable-Mounted PV </a></li>
   <li><a href="#martin-heathcote-cleve-hill-major-solar-delivery">Martin Heathcote: from Cleve Hill to Major Solar Delivery</a></li>
   <li><a href="#david-mack-solar-om-rural-growth-resilience">David Mack: Solar O&amp;M, Rural Growth and Resilience</a></li>
   <li><a href="#clark-frost-uk-first-nationally-significant-solar-farm">UK’s First Nationally Significant Solar Farm - Clark Frost</a></li>
@@ -37,6 +38,950 @@
   <li><a href="#guy-atherton-solar-pv-expert-developer">Guy Atherton: Solar PV Expert &amp; Developer</a></li>
   <li><a href="#matthew-xenakis-perspectives-solar-panel-manufacturers">Matthew Xenakis: Perspectives from Solar Panel Manufacturers</a></li>
 </ul>
+
+---
+
+<h2 id="doug-krause-on-cattle-solar-&-cable-mounted-pv">Doug Krause on Cattle Solar & Cable-Mounted PV</h2>
+
+Vikram (00:01)
+Welcome to the future of solar photovoltaics. My name is Vikram Kumar of Ventus Limited. We've been going for about three years now since young Matthew Xenakis of JA Solar gave us the idea to start a podcast to communicate with the industry. Today I've got the absolute pleasure of welcoming Mr. Doug Krause president and founder of Rute Sun Tracker to our podcast. Doug, welcome.
+
+Doug - RUTE (00:23)
+Vikram thank you very much. It's a honor. I've enjoyed your podcast in the past and it's an honor to be on one.
+
+Vikram (00:31)
+Fantastic. Our podcast has been listened to in ninety nine countries. It is a non profit activity to allow engineers and practitioners and developers and any stakeholders in the utility scale solar business to communicate with each other. And big part of the industry is compliance and credibility because there's three trillion dollars worth of solar installed worldwide approximately and there's a pipeline of another
+
+seventy two terawatts in the next twenty four years. And so there there's regular boom and bust cycles in the industry. So knowing who you deal with is half of the battle. So do you want to start us off by giving us a flavor of your early life and background?
+
+Doug - RUTE (01:15)
+I grew up in small towns in the Midwest of the US and Indiana. moved to Michigan, went to college there for mechanical engineering, and then in the nineties I lived in a small cabin in Alaska. I was commercial fishing for about a decade. And the funny thing about that, compared to where I am now,
+
+I had solar on the roof back in the early nineties and then we burned coal for heat. And I've all enjoyed burning coal and it wasn't until like about a decade later that that the coal and the solar were in that competition, which is where we're just at right now, kind of neck and neck.
+
+Vikram (02:03)
+Wow, and in terms of education and and career history, are you able are you able to give us a bit more detail?
+
+Doug - RUTE (02:11)
+In eighty-six I graduated with a mechanical engineering degree. In eighty-four, our university University of Michigan is is associated with car companies and back then was really well funded. It's a really good mechanical engineering school. About a third of my co students all came from Persian and Iraqi and Chaldean communities that are all part of of western Detroit. It's like the highest population of
+
+Arabic speakers and and the all people from that part of the Mid East. So I had a lot of time a lot of fun. It's kind of a bummer today because I so many ri so many really good relationship with these smart, funny people. And then the way you see how that's all portrayed now, it just completely doesn't jive. But we'll get past all that, I think. not meaning to get into the politics. but it is kind of ironic that the energy, you know, mid
+
+from the Mid East is part and parcel of why we're looking at so much solar and degraded in the future.
+
+Vikram (03:19)
+Well, I'm friends with a very charismatic Italian guy called Mr Valerio Pelizzi from Rome. He spent his career in London, he still lives there.
+
+And you know, we did a two hour podcast with him on the on the future of solar photovoltaics, or agri voltaics rather. He's growing peppers behind solar panels because the Italian sun is too intense for direct sunlight on peppers and you know, I just jokingly said what happens if the Strait of Hormuz closes down, you know, what will happen to the industry? And I just said this as a joke and it must be a curse or something and so in energy and war it's a inseparable thing. And you know, why must I'm never said this on the podcast 'cause I I
+
+I I'm a host just to be a cop out about not saying anything about myself. But even though I'm from an Indian background I was born in Afghanistan, so the the politics follows us around. We can't help it.
+
+Doug - RUTE (04:09)
+I know it's
+
+wild. It's wild. And and as you know, we were have we were talking earlier that's such a small world. So then when you take this kind of like this whole planetary thing going on and then mix it with essentially a very small network of people, and a lot of oil and gas people are all crossbred in with the with the solar and wind, it's and now batteries. It's it's such a hodgepodge now, and I think we're getting past the point where you know people s talk about
+
+clean energy or renewable energy. You don't really need y adjectives anymore. It's cheaper and it's all energy and now it's a job to for everybody to, you know
+
+put a grid together that helps people live.
+
+Vikram (04:56)
+Mm. Well I I got into solar in the year 2008/9 time not because I was trying to be a lefty loony and, you know, - or what Trump would say woke or anything like that, but because the credit crunch shut down
+
+typical industry, the car plants, the construction sector was shut down and I was watching Bloomberg to see .. where else we could get work and solar was the up and coming thing. And even Shell themselves say that solar's gonna be the largest source of energy in the future. And we've got the world's first trillionaire there from electric cars. So for me EVs is a - yeah EVs a very tiny part of the energy sector. If to give you an idea the UK we use three hundred terawatts of electricity, sixteen hundred terawatt
+
+Doug - RUTE (05:25)
+Yeah.
+
+Isn't that well?
+
+Vikram (05:40)
+hours of primary energy and only about one terawatt of that you would need to charge thirty million EVs, something like that. So so it is it is the mainstream now. But before we go deep into solar, do you wanna speak a bit more about your career history and experience and, you know, what what prepared you for this moment in your in your career?
+
+Doug - RUTE (05:46)
+Yeah. Yeah, yeah.
+
+In the winters of the early nineties when I was commercial fishing, I would take winters and go work with a German tensile membrane structure contractor. So we put up structures in Morocco all over Spain and Europe and that's where I got my cable chops. So you mix that field experience of being ... industrial, say rigor with the mechanical engineering.
+
+That was the essentially the back the basis, the foundational part of what Rute Sun Tracker is all about, bringing the cable systems to the cuts cable structural systems of solar. So now that's spanning 30 years. In between the two, started raising a family, ended up with four kids, moved to Portland, Oregon, and started an engineering career just because working on boats and
+
+taking care of mothers in law and stuff. So we started our life really in Oregon. And ended up in 2010 working with a French developer and I learned a lot about solar project finance, wind, development, supply chains, EPC contracts. The French company is really really good with teaching the whole team about, you know, all the the sausage factory part of of
+
+Vikram (07:02)
+Mm-hmm. Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (07:28)
+solar projects and wind projects. And I'm really grateful to that. So then in 2015 I started my own company in structural solutions for wind and solar. My son and I in 2011 put together the first sun tracker prototype out of pizza boxes and dental floss. This was in yeah in the backyard. That was when solar was you know just so
+
+Vikram (07:40)
+Mm-hmm.
+
+Wow.
+
+Doug - RUTE (07:57)
+Comp you have different order of magnitude in terms of cost. You know, I was in utility scale wind and we were competing with
+
+market, you know, there was no feeding tariffs in the US, you get a little tax incentive, but you know, we're dealing with wholesale power markets. And I could see the trend in solar, but I was thinking we're maybe 20, 30 years off. But it was coming down pretty quick. And I couldn't figure out why nobody was doing cables. It just makes, you know, haven't come from European companies innovating in cable structures. If you're gonna build a structure and you're dealing with wind forces,
+
+There's just no better way to deal with that than w than cables. And then once you do that, if you've so solved the structural issue, the mechanics, it doesn't matter how high you go. So that was kind of the how that all started out back in two thousand eleven. We put the little prototype in just because I thought, this should be obvious. I wanted to figure out why it wasn't obvious, why, you know, a German or Chinese company or something
+
+Vikram (08:48)
+Mm-hmm.
+
+Doug - RUTE (09:06)
+wasn't already doing that. A year or two later a company a couple companies started coming out with like suspended cable systems over canals, things like that. And then in 2021, at that point, you know, our company was doing its thing, but we didn't have a solar structural solution. And the price of solar had gotten almost more competitive than just about anything else.
+
+Vikram (09:14)
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (09:36)
+So I knew that we would probably we'd be in a good position it to commercialize what we were thinking about. So that's when we got the patents and developed a few projects of our own to demonstrate it. I know I skipped over like a decade and a half there.
+
+Vikram (09:53)
+That's fine, you know, th th there is no sort of script here. We just wanna get to know you and and you know
+
+Listen to your experience because that's how we learn. I think storytelling is the ... the quintessential human art form, in in how we communicate with each other. And every time you say cable I was trying not to interrupt because I'm pretty sure you don't mean electrical cables, you mean mechanical cables to come up with foundations for different P V structural solutions. And I think even though we s both speak English, American English is a bit different. So what do you exactly mean by cables? Do you wanna elaborate on that please?
+
+Doug - RUTE (10:30)
+Yeah,
+
+thanks for making that point because we have a problem with that one too. So we call s cables with wire with copper and aluminum that you know conduct electricity, we call those wires just to keep it straight on our end. And then cables we we're just just for our nomenclature because we don't have a better term for it, for structural cables. And structural cables are guy wires you see
+
+tie in back, utility poles, this other wa round wire rope you see holding up bridges for d susp suspended bridges. It's all same class, same kind of stuff.
+
+Vikram (11:15)
+Right, okay, so massive mechanical cables that hold up bridges and pylons for utility poles and stadium roofs and s and and stuff like that. And how is that different from regular mechanical foundations that people use, like the steel and aluminium that that goes in?
+
+Doug - RUTE (11:32)
+And y you're referring to solar or just anything?
+
+Vikram (11:36)
+referring to solar 'cause I think you your your idea is to use cables to have very high mounted agri voltaic structures. I did have a brief read of your website. I wanted to do a bit more research but I wasn't able to because England were playing in the World Cup late last night.
+
+Doug - RUTE (11:54)
+Yeah, isn't that wild? That was wild. Holy moly. Yeah. Yep. so so I think the best way to jump into well can I jump into the market side first just to kind of give a picture of where I think this is headed.
+
+Vikram (11:57)
+Yes.
+
+Absolutely.
+
+Doug - RUTE (12:13)
+I think what happened after we got a a USDA and Department of Energy in the US grants to show that you could do this. We went through three successful stages because each time we got a grant said we're going to do this, we turn out we did it, and it worked out better than we thought. We piloted it in a very windy location in North Dakota, and then a job in Oregon, and then finally this commercial job we just finished in southern Oregon.
+
+Vikram (12:29)
+Mm-hmm.
+
+Doug - RUTE (12:43)
+on a ranch. And now that one's got cattle running around under it. The cattle love it. The grass is growing great. And so what we found was that
+
+It do that it works. The ranch the ranchers would otherwise be paying for shade in most places where there are cattle in the on the in the in the in the world. And the structure didn't cost that much to put up. Now the re what's that?
+
+Vikram (13:11)
+Right.
+
+absolutely so you mean the structures to actually mount the modules where you graze cattle rather than having barns or whatever you would have to shade them against the sun, right?
+
+Doug - RUTE (13:27)
+Yeah, the shading, the the shade for the from the perspective of let's call it what the people are either calling cattle voltaics, cattle solar, agri voltaics. If you start out with a ranch and they're all have all their pastures, however they decide to graze them, whatever their management plan is, typically they a ranch would prefer more shade than they get. so and sometimes they'll pay for it.
+
+Vikram (13:35)
+Mm-hmm.
+
+Right.
+
+Doug - RUTE (13:56)
+So if you could put shade structures out in a r a farmers or a rancher's pastures for free, for example, they would say, Yeah, please go do that. Especially can you put them around my around my fields where each time of the day, wherever they happen to be, like we're gonna graze over there in two weeks, I need some water infrastructure over there and some shade. So
+
+The the symbiosis with elevated solar and ranching is it it it's not understated. It's just it's it's just completely a giant market that's not being tapped right now. in fact you really wouldn't even need cheap hardware to accomplish that, because a rancher
+
+Well, I'm not gonna say do it for free because if you're offering them a thousand dollars an acre a year for the rent, you know but they are out there putting shade up anyway. And s and so
+
+Vikram (15:04)
+it's very political the competition between land and solar and there's a lot of misinformation out there where people almost advertise or protest against solar as competing with land. And I remember seeing a brief LinkedIn short video from yourself which peaked my interest after you got in contact with us that you had cows running beneath your
+
+modules and I've never seen them in my life before. You know, we've seen sheep running under panels and people having you know, cabbage we've never seen cows running beneath panels.
+
+Doug - RUTE (15:33)
+Yeah.
+
+well okay, so this gets back to your initial question that I went off on all these different tangents, which is if you think about 1840s and what the English people came figured out with these cutty sarks and they were d you know, they're taking these boats to Australia. I can't remember how fast they were going or how long it took but they were moving. And those boats had let's just say in comparison to what we're doing today with our
+
+Vikram (15:39)
+Yeah.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (16:05)
+structures. You take a wooden mast eighty feet tall, about twenty times the let's call it canvas area, and they're tied back with hemp rope. So then our big challenge hundred and seventy five years later is to have a twentieth of the canvas area, thirteen feet tall, with steel cables. It's just not
+
+Vikram (16:05)
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (16:34)
+Like it should not be a mind bender that you can't restrain something from being blown away using effectively sail rigging.
+
+Vikram (16:45)
+And you've been doing this for almost eleven years now. what has been your journey like from the start up years to till now? do you have any example of projects you've worked on so far? And in terms of financial models, the ... feedback from the industry?
+
+Doug - RUTE (17:02)
+Well,
+
+we've just commercialized our cattle solar product last fall. So this is brand new for us. Before then I was an engineer construction manager for a for a regular, you know, large scale utility developing projects.
+
+Vikram (17:09)
+Okay. Right.
+
+Mm-hmm.
+
+Fantastic. So how long have you been doing solar? How did you exactly get into solar? I may have missed it if you've said it already.
+
+Doug - RUTE (17:31)
+I was hired by a French company to be a civil engineer.
+
+Vikram (17:35)
+Yes, yes, you did mention that. Yeah, we we have a strong French influence in the UK as well. There's a heavy involvement from ... EDF and EPCs from France, called Equans and and also Voltalia. So yeah, sorry, you did say that earlier. And
+
+Doug - RUTE (17:50)
+It's okay. Yeah.
+
+A lot of the people that worked that well, my boss was from Total, who was in oil and gas before, and then Total became I don't know what are they Engie or like this?
+
+Vikram (18:05)
+Total
+
+is still total, I think I I always butcher the French pronunciations but we still have total energies and they have they are very involved around in Asia from my network. I know they are they are also somehow involved in the UK as well. There's also involvement from Shell who buy PPAs or power purchase agreements. So but because of the nature of these projects because they're so large, often most of the battle is, you know, getting information because people want to keep it under their hats in order
+
+Doug - RUTE (18:15)
+Yeah.
+
+Yeah, yeah, yeah.
+
+Vikram (18:35)
+to no not advertise to competitors what they're doing. You just need one person to start complaining and your site site can go on hold.
+
+Doug - RUTE (18:42)
+Well you want to know something kind of I shouldn't be saying this is but I'm more of like an open source type of hey let's make the world a better place kind of person. and I think there's a humongous market worldwide for ranchers to
+
+Figure out where they want solar on their land and have a greenfield developer, like old school, you know, landman kind of person or landwoman, then figure out what they want, what matches their ranch best. And as long as there's some transmission lines nearby them, you basically take that to the IPPs, because the IPPs don't want their fingerprints on the project at the beginning anyway.
+
+Vikram (19:28)
+Mm-hmm.
+
+Doug - RUTE (19:28)
+And
+
+then you start a project out where the ranch says, in the ideal, here's where I want the shade. And it will bring me some extra infrastructure like misting, watering stations, fencing, animal controls, all these different things. And the two pair together so well that there should be an industry of of essentially land development people that work directly with ranchers and create the perfect facility.
+
+And then we can just bypass this whole discussion of like how the hey the insurers don't wanna insure something because the IPP and their IE doesn't want, you know, they don't want to mix and match too much. But if the opportunity was presented to them where, well, this electricity is gonna cost you less and people are gonna compete for it, then what's gonna happen is the insurers are gonna figure out a way to insure it.
+
+Vikram (20:17)
+Yeah.
+
+Absolutely. I'm also an open source guy as well. I'm doing a lot of open source work. You know, I've been spending ninety percent of my last sixty days on building software because AI has unlocked a capability which I never knew I could access.
+
+You can write in plain English what you want and it converts your your experience into actual code and then I've even now as I'm talking to you, I've got four agents on like Linux searching the internet, executing scripts I've been writing over the last sixty days. They're executing over two hundred scripts. So in the age of AI, you know, people say using data centers is unethical. You know, my daughter may have mentioned that before when I said but we're using s data centers to work towards net
+
+Doug - RUTE (20:39)
+Yeah.
+
+Vikram (21:09)
+zero. so i in terms of for yourself have you had you said last fall which we call autumn in in in the UK you launched the business last last fall. Have you had a prototype project? Have you had a demonstrator? w how far along are we?
+
+Doug - RUTE (21:26)
+Yep, that one's up and going.
+
+It's it's hundred and twenty kilowatts, it's one acre, half a hectare. It's operational, it's plugged into the Pacific Power Grid. That's a utility that's owned by Warren Buffett and went through all the you know the permitting, all the all the stuff. So it's totally legit. Did wind studies with our national lab through a Department of Energy grant. And now I'm down in Georgia.
+
+Vikram (21:45)
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (21:58)
+Doing the second one. So the the ... the concept for us as far as our go-to market is to show that we can be coast to coast. We can get one permitted in our in a hurricane zone. This is southern Georgia, so that's hur hurricane territory. And demonstrate that, you know, wherever the cow's at, the cattle solar is a good pairing with it.
+
+Vikram (22:07)
+Mm-hmm.
+
+Well, mm-hmm.
+
+Doug - RUTE (22:23)
+And it just coincides with next week. The Georgia Solar Farm Summit is a big event that's happening. So we'll be at that.
+
+Vikram (22:23)
+Fantastic.
+
+Wow, okay. So you're are you looking to ... keep this technology in the US or you would you look to Europe or the UK or or or the Middle East where you've had experience before?
+
+Doug - RUTE (22:40)
+What's funny when my I saw the ... the this this the one that you did with Mr. Pelizzi or Dr. Pelisi with and so part of I guess it would be a quarter of our family when they left Italy they went to Argentina and they used to come up and visit us. They did better off down in Argentina than the Italians that ended up in Wisconsin. Or put it this way, they were more gung ho to travel. So when when I was little they'd come up and
+
+Vikram (22:46)
+Yes.
+
+Wow.
+
+Doug - RUTE (23:10)
+And yeah, there's I mean, anywhere that there's cattle and you need some shade and electricity, I think you'll you'll be seeing cattle solar, I think.
+
+Vikram (23:13)
+Mm-hmm.
+
+So with Valerio I can send you his number. He's as I said, he's a very charismatic firework kind of guy and is Mr. Valerio Polizzi, because he has got his ... professional qualifications from Rome. But he's been almost from his beginning of his career, he's he's been working for UK companies. One was OFGEM which is the I think the energy regulator, and then he got into the big bad world of solar investments. called the first one was may have been Bluefield
+
+solar fund which is listed on the London Stock Exchange, recently acquired by Drax. I won't go into too much politics about that, but you know Drax have businesses in the US as well and in the UK. And Valerio his family's from Italy. He works a lot in Italy, he works a lot in the US as well, has very strong opinions. So immediately you can is someone I can introduce you to if it may be of interest to you to cooperate with
+
+Doug - RUTE (23:54)
+Mm.
+
+Yeah, absolutely. Yep. Yeah, I think it's gonna be a pretty wild world here in the ... in the next the next decade. You know, it's gonna be really, really wild.
+
+Vikram (24:30)
+It's wild already, ... you know, ... I don't wanna sound too negative and and mention the horror stories, but you know, imagine you've got five or six people in a company and they've been given access to a hundred million dollars. You know, what what could possibly go wrong?
+
+And so there's there are stories of, you know, people buying Bugattis and private jets and things and but I think what I see from from especially with my home market in the UK, because we've had this Brexit lag for over a decade, that we're gonna have ginormous solar farms. And on the open source engine that I'm writing for the Global Grid 2050 Project, which is a non profit, completely available to anyone. the people say think I'm crazy for keeping it non profit, but there's a logistical reason behind it because we're using enterprise grade ... tools and if you commercialise
+
+Doug - RUTE (25:13)
+Yeah.
+
+Vikram (25:14)
+too early, you have to pay for the API licenses. So if you keep it open, you can use it all the Linux servers for free. And the what I can see on the software already, and the reason why I've not gone beyond the UK is because keep keep the data center cost free of charge because you can put it all on GitHub repositories, is what I see is the old coal power plants are shutting down, like it's almost going to zero, and it's opening up huge good grid capacities on those nodes, and then those projects.
+
+Doug - RUTE (25:17)
+Yeah, yeah, yeah.
+
+Vikram (25:44)
+were dominated by typical companies like RWE, German energy companies, EDF and others, and now they're going to be building huge solar farms in the UK. And now with data center coming as well, there's opportunity to do DC, DC co location with solar and storage and data centers. So the the Wild West is pretty much
+
+Doug - RUTE (26:00)
+Yeah.
+
+Yeah.
+
+Vikram (26:06)
+... in full speed from what I see. And I've been doing solar for fourteen years full time. in the US it must be even ... even more crazy because I've seen the numbers. There's been huge amounts of solar installed already in the US and now there's gonna be trade sanctions and you know, majority of the panels are made in China. What what do you think will happen in the US market and where do your highest priorities lie if you were to seek partners to to progress your business?
+
+Doug - RUTE (26:08)
+Yeah.
+
+Yeah.
+
+Excellent question. So I'm not gonna come across as a energy exec type of person, you know, and I have a hard time speaking, you know, more than like two syllable words. And that that whole architecture of project origination and grid stuff and working with utilities and there's such a heavy focus on no offense at all, like the Wall Street mindset and transactions.
+
+Vikram (26:39)
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (27:02)
+And my value is just not in talking about transactions. It's about infrastructure and especially on this land side. So I that's I think that's where I think that's where my value and our company's value is gonna be is if the grid wants electricity that's
+
+As symbiotic or holistically planned as you could possibly get, and that in my mind would be a cattle ranch, then we can provide you ... by the gigawatt. So and then if and then you turn around and probably find people using in you know AI infrastructure like yourself to probably you know help find those faster, maybe. But that's really not a tough job. It's not like micro
+
+Vikram (27:29)
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (27:53)
+you know, it's not super intense. If you ... if you wanted to do a GIS of the US and find intersect transmission lines with with ranch land, you ... you know, one person could do that in a day or two. And those r but go ahead.
+
+Vikram (28:04)
+Mm-hmm.
+
+Absolutely. Well I was going to say is, you know, I've had I've had a funny career because I've got corporate work experience. having worked for Honeywell, a billion Euro German company called Lapp in the past. I've been an agent for LEONI a five billion ... turnover company existing for almost five hundred years in Germany. They used to make the gold wires for the Pope and textiles before they got into cabling. And one of the areas I've been quite lucky in is I've got my own small company, but I'm an agent for a larger company. Now
+
+I'm in the conversation with Delta Electronics, a Taiwanese headquartered power electronics specialists. They turn over probably up to $17 billion with 12,000 engineers. And the corporate thing you talk about is, you know, I have enormous respect for people that can tolerate the pressure that comes within in that environment. And there is a constant power struggle between the old technology and the new technology. And when you change divisions or acquire companies and there's mergers and acquisitions, there's always you know friction about
+
+Who gets to keep their jobs, who gets which responsibilities, and while all of that's happening
+
+No one's doing the work. And what's happening at the result is and I've researched the US in detail as well because my kids are grown up now. You know, I've got dreams of driving around the US closing cable deals as well. But I don't want to just turn up and waste a load of money again until I'm ready. The point being, these corporate companies are getting ten year grid connection dates. And what you what you would do historically with you know getting a decade to build a nuclear power plant, you can't have that in solar because it's a low margin industry. It thrives on
+
+Doug - RUTE (29:30)
+Yeah.
+
+Yeah.
+
+Vikram (29:49)
+and the reason why we've got almost a white collar recession coming is because projects are not progressing... the projects, you don't get your construction finance. So then you end up with five hundred people without any work to do. And so we are in a stage, especially in the UK, I don't know what is happening in the US and it may go in the same direction with all the sanctions and everything. Is that the there there is an issue with with actual craftsmanship and skills and people actually ... people that actually
+
+build things. And so that's that's important, but at the same time to communicate to the lenders what our business plan is, where we need the funding, how what we are offering is better than what they've got, and then somehow finding someone that listens to us to be able to close the deals. So the communication element is very, very important. And so have you done the numbers on on what you're doing and how it's different to typical conventional tracking systems or fix fix tilt mounting structures?
+
+Doug - RUTE (30:38)
+Yeah.
+
+Yeah, yeah, I think our thesis is that cattle solar is cheaper
+
+Do guys use levelized cost of energy? Yeah. Yeah, LCOE. So so in a typical no matter where you're on the planet, you're spending about a million pounds or a million dollars or a million Euros per megawatt to build a solar facility. Is that about right for you on your end?
+
+Vikram (30:59)
+Yes, L C O E, yeah. Yeah. Yeah, L C O E so
+
+Mm-hmm.
+
+Mm-hmm.
+
+Well I can give you very specific numbers for the UK because I'm I almost work like a key accounts manager and my job is to keep an eye on who's who's who and what they're doing. And if I give you the peak numbers just to s not get in trouble with my friends in the industry, so the the highest I've seen development done for from ground zero, you know, just looking at Google Earth, drawing a square and hoping there's gonna be solar there ... from that stage to signing the E P C contract and getting the money
+
+Doug - RUTE (31:33)
+Yeah.
+
+Vikram (31:48)
+to
+
+build a thing, it's been costing two hundred thousand pounds a megawatt peak.
+
+Doug - RUTE (31:54)
+Well, that's you.
+
+Vikram (31:54)
+just to have a PDF
+
+just to have a PDF file ready. And that was that was at its peak because of the extreme demand. And so that created an industry, you know, almost like subprime mortgages. It created an industry where there are too many developers because for without picking up a single shovel, you can get two hundred thousand pounds and you times that by one point three six for US dollars just for getting the site prepared. And this wasn't done by corporate, this was done by small developers. So you had ethical developers who do
+
+Doug - RUTE (32:08)
+Yeah.
+
+Vikram (32:24)
+Things properly, you have independent power producers who do things properly, but majority of people they saw this as a massive Vegas thing and just spammed grid applications because you could if you're holding a vital asset and land nearby where solar can go on it, then you would sell it for 200 grand a megawatt and you might spend a fraction of that. But the failure rate has surprised a lot of people, and the result in the UK, because it's a small island grid, is that we've got
+
+got now probably seven hundred gigawatts of applications and National Grid, which also does the grid in the east coast of the US. You know, keep in mind there are three financial centers of the world, Tokyo, London and New York. Two of those are managed by National Grid UK. And National Grid now has the task to basically cancel the grid connections that can't show progression.
+
+Doug - RUTE (33:08)
+Mm-hmm.
+
+Yeah.
+
+Vikram (33:17)
+They want
+
+to see where's your grid connection plan? Where's your earthing studies? Where's your geotechnical surveys? You know, how where are your supply agreements? How are you gonna get it all together? Where's your milestones? You need to deliver 300 milestones from start to finish, and then if you miss the milestones, no cash is not happening. That's what's going on in the UK now. We call it a developer bloodbath.
+
+Doug - RUTE (33:35)
+Yeah. Yeah, yeah.
+
+Yeah. I think we got the same thing. I think the there's different mechanics going on as how how the the queue is putting a squeeze on people to shake money out of them or whatnot. but just on the downstream side, if just for some ballpark numbers, if if you you get the project built for whatever it is,
+
+Let's say your revenue for a hundred megawatt project is 10 million dollars a year, 10 million euros, something around there. That'd be a PPA price of around five cents a kilowatt hour. if that's if 20% of that is your is your vegetation management or 10%-ish of your OPEX operational expenses vegetation management, and your
+
+Vikram (34:11)
+Mm-hmm. Setting around there.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Mm.
+
+Mm-hmm.
+
+Doug - RUTE (34:34)
+land rent to essentially take over a whole giant area of land, especially if land is dear in a place like England, you're on an island, and if you completely occupy take take the food production away, you're you've got a strategic issue all of a sudden. So
+
+Vikram (34:43)
+Mm-hmm.
+
+Doug - RUTE (34:51)
+You would expect that the land price pairing with ranching would be lower, your vegetation management is lower. With our particular variety, we don't pile drive, we don't bulldoze, we don't have to restore the land because we don't mess it up in the first place. Cables are really good with undulating ground. So for all of those, let's call it capital expense and operational expense savers, then the
+
+Vikram (35:08)
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (35:19)
+extra cost you'd have to spend for our hire thing, which isn't much, it's almost nominal, you end up with a lower price of electricity. That's our effectively our business thesis, you know, one project in. two years ago it was when we were more in USDA and Department of Energy grant land. That was a concept. Can we do that? There's no way you can
+
+Vikram (35:24)
+Mm-hmm.
+
+That was a concept. Mm-hmm.
+
+Doug - RUTE (35:46)
+get competitive on ... you know, price of electricity with cattle solar and you know I should, I could say you know, I could sandbag a little bit, but I'm pretty sure yeah, you can beat that cattle solar is the cheapest way to go. I'm pretty sure about that.
+
+Vikram (36:06)
+Absolutely. I think there's a lot of great people in this industry, which is why I've stuck with it for so long and and made so many great friends. And if you do the numbers, there aren't enough people around for how many ... solar terawatts there is to deploy. There is there aren't enough cable factories on the electrical side ... or which you will call wire to to provide any of enough capacity for the medium and high voltage connections. And ... I think the ... biggest challenge ... is the gatekeeping that people face because the incumbents are
+
+Doug - RUTE (36:23)
+Yeah, really.
+
+Vikram (36:36)
+very powerful and you know, everyone would de defend their turf. You know, we don't have middle middle ages war anymore, but energy is you are, you know, going and stepping on people's toes. Yes.
+
+Doug - RUTE (36:46)
+Well hold on. So ... I have a question for you because honestly this is
+
+Vikram (36:53)
+Yeah. Absolutely.
+
+problem is not the metal, the problem is you need huge capex to produce a cable factory. the lines are very, very long and they can't produce fast enough.
+
+For for the demand that's coming, one, two, even if you can produce the high voltage cables, it's a highly regulated environment. If you knock out the power grid for Wall Street or for the UK, you could collapse the global economy. So installing a project in a place like the UK at 400 kV is is not a joke, because it's highly, highly regulated, and so to do the specification
+
+work to put together a connection for a 400 kV joint or a 132 kV joint and it'd be similar voltages in the US. You're looking at two years of arguments with the power utilities, with the consultants, and then when you go to ask for the quotation for the connection accessories, one which I did in Holland last year at 110 kV for a company called Ampyr Solar Europe, the connectors were a hundred kilograms each, and the lead time on them is almost two years. And and these are ... accessories
+
+Doug - RUTE (38:21)
+Yeah.
+
+Vikram (38:23)
+parts that don't cost so much ten thousand dollars each. They need eight of them, six for the connection, two for spares. People don't realize when they've close finance and they need to connect to the grid that there's a two-year wait for the high voltage connection equipment, and in those two years you've got labour standing on the ground.
+
+And there's no work to do 'cause you haven't got a solid connection. So the cash flow taps turn off because the banks worry that they are issuing money to your project that will just be a money pit. So it's it
+
+Doug - RUTE (38:45)
+Yeah.
+
+Vikram (38:54)
+It's an enormous environment. I'm not going to go too deep into that because I've spent my life on this. I started as a youngster as a dropout law school school student and now I'm forty three and I've all I've done is cables and solar my pretty much all my career. You asked earlier about numbers, so I gave you the development peak for the UK. For the EPC market, I would say about fifty pence. So times about one point three six. So say seventy dollars cents a watt for EPC, which I think is too low. So development you got twenty twenty
+
+Doug - RUTE (39:17)
+Yeah.
+
+Vikram (39:24)
+Let's
+
+just pretend s is dollar cents, you know, the numbers we can adjust. It's it's all changing with Iran now anyway. So so you got twenty dollar cents for development and you got fifty dollar cents for EPC in the UK, roughly. That's seventy cents. But the project net present value, how much you sell the project for
+
+Doug - RUTE (39:27)
+Mm-hmm.
+
+Yeah.
+
+Vikram (39:44)
+And this is public record. You can go on the London Stock Exchange, run an AI script on Bluefield and Next Energy and Foresight Capital. These are funds that you can buy shares in. The project values are about one point three six million pounds a megawatt.
+
+Doug - RUTE (39:58)
+Yeah.
+
+Vikram (39:59)
+That's so when it's all in all said and done. So the reason why people are paying twenty cents for development and fifty cents for EPC is because they double their money when they sell the project. The risk is the gap in between where you need the money without backing to develop the project to a stage where it's just shovel ready, or some people call RTB ready to build. And when it's ready to build, you've got an asset that people auction for. That's how high the demand is.
+
+Doug - RUTE (40:09)
+Yeah.
+
+Yeah.
+
+Yep. Yeah, that that j that tracks with what's going on here. Maybe a little little it's about the same. I think I've heard utility scale solar in in Australia is cheaper. In the US, Texas is now becoming I mean they're so flooded with utility scale wind and solar, you'd think they'd be kinda tapped. But whenever anybody thinks that Texas has just got a different culture, you know.
+
+when I first started in wind and solar, well it was mainly wind then in 2010, 2011 we went through our first episode and I was developing a project in Texas and New Mexico and those ERCOT regions. the the
+
+Vikram (41:00)
+Mm-hmm.
+
+Doug - RUTE (41:13)
+Grid was supposed to only be able or the established heavy high voltage transmission line was only supposed to be able to handle like twenty gigawatts of wind, and we're just bumping up into that. I think they're up to like ninety-five or a hundred gigawatts of wind installed. So what's happened in ERCOT, every couple of years, they
+
+Vikram (41:23)
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (41:35)
+They fill up the wires with intermittent wind and then they go build a bunch of transmission lines. I think it's kind of a joke almost, or it it's not not not a joke, but it's compared to the rest of the US, this stuff just appears overnight. Like fifteen billion dollars of electricity of ... high voltage transmission will go up.
+
+I think they've tripled something like that the amount of high voltage transmission that the rest of the US has built in the last twenty years. Didn't Texas
+
+Vikram (42:09)
+Didn't Texas
+
+have a grid collapse with the Great Freeze or something like that?
+
+Doug - RUTE (42:13)
+They did and you know it's funny, that's that's another problem we have as a society. I think it comes back metaphorically in my mind to this clipper ship thing where people did it. They built it and they sailed to Australia to go sell so I can't even remember what you guys were the the commodity that they built those ships to move from England to Australia for was something really silly. It's like ballpoint pens or something like that. Not really, but
+
+Vikram (42:23)
+Mm-hmm.
+
+Yeah.
+
+Yeah.
+
+Doug - RUTE (42:42)
+It just shows you the amount of risk and vision and connection to the physical world and all of the you know, all the hard stuff you do to make a buck. whereas nowadays the first thing anybody talks about when you look at the just the massive like order of magnitude level of success of Texas versus most other places in our grid, first thing somebody will refer to is that
+
+Vikram (42:49)
+Mm-hmm.
+
+Doug - RUTE (43:11)
+is the ... couple of freezes they've had. And in both of those cases they had specs, the the the regulations was for for the winterization was was this. And then they had a couple of events that just froze all the gas pipes. And that's really what what happened. The gas went down and then a couple of wind plants also froze up because they didn't need
+
+Vikram (43:24)
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (43:40)
+glycol in their cooling or something. So a couple of wind plants went down, but the majority of the of their issues was the natural gas systems. The pipes just came above ground and froze. They fixed all that. And it's funny it's all published. There's like there's exposes about that, but nobody seems to be able to connect the dot. Like that was a blip, we've technical blip, it got fixed.
+
+Vikram (43:42)
+Mm-hmm.
+
+Mm-hmm. Wow.
+
+Of course it
+
+Mm-hmm.
+
+Doug - RUTE (44:09)
+But look how many gigawatts of success story we got, why Texas is thriving and so many new things are happening. Yep.
+
+Vikram (44:15)
+Mm-hmm.
+
+Well in COVID time we put the whole world into a lockdown, so it's it's amazing what people do when they are motivated by a reason or a fear or whatever. And Texas is an interesting story because it's it's historically a red state if I if I'm if I haven't forgotten. And you know, it's normally you would associate Texas with oil and gas and, you know, cowboys and you know and the fact that Texas is installing so much solar
+
+And wind, you know, i i that in itself shows you, you know, that this isn't a woke or greenwashing technology. A lot of people do use it for greenwashing, let's let's not get this wrong, because it allows you to carry on trading oil for a bit longer because you've got a net zero plan until they fire the CEO and go back to oil again because everyone needs it, because of the state of affairs as it is. So, you know, everyone can greenwash all they like. Most of our industry runs on fossil fuels because, you know
+
+Doug - RUTE (45:00)
+Yeah.
+
+Vikram (45:14)
+as you mentioned agriculture, a lot of the animal feed comes from fossil fuel derived source sources. Most of the land in the UK is used not for houses or roads, it's used for growing animal feed for livestock.
+
+Doug - RUTE (45:30)
+Yeah, yeah. Well d do you wanna talk about just that for a second?
+
+Vikram (45:34)
+Absolutely. And I want you to also probe your mind about GIS as well because that's where where we're getting into now because you'd be amazed how little land you need to actually do solar. But yeah, of course w we are onto this topic, so
+
+Doug - RUTE (45:47)
+Yeah, go do it
+
+do the GIS first. Let's hear about that.
+
+Vikram (45:51)
+The GIS is a simple economics and geography. So we've built this financial sandbox tool, not for bankers. Bankers can use it, but they have fancier tools than us. You know, they have Bloomberg subscriptions for forty thousand dollars a year or whatever. They've got all the dashboards. But the point is it's for average people that actually wanna construct things, build a picture.
+
+And so this G Global Grid twenty fifty atlas that we're building, we did then variants of that where you can go and actually use geodesic mathematics to measure the curvature of Earth and run transmission lines all over the place. And then I thought can we measure the actual s acreage you need to build a solar farm? And how much space do you actually need? So we put the actual measurements in, so you type how many megawatts of solar you want for the entire region and it doesn't even
+
+cover a small square on the whole of England. It just it covers a space the size of central London. So if you wanted to and you put solar on all the coastal regions which has high tides and, you know, land below sea level, that in itself would be more than enough to have all the solar you need in the summer.
+
+Doug - RUTE (46:49)
+Yeah.
+
+Yeah, yeah, yeah. Okay, so I get it. So yeah. it's funny th the our particular version of that is good for flooded areas. And that's a you know so yeah, that's cool. I am a GIS guy too.
+
+Vikram (47:15)
+Mm-hmm.
+
+We have that so
+
+So the largest solar farm in the UK is called Cleve Hill Solar Farm, 373 MW DC, two hundred and eighty megawatts AC export at four hundred KV. And because it because it's public information, it's on Google Earth. Anyone can go and have a look. It's around a thousand acres. It has a four meter sea defense wall because the whole of the whole region was reclaimed probably from the sea, from the North Sea. So yeah, do you want to talk about your GIS experience and ... and how that
+
+Doug - RUTE (47:40)
+Yeah.
+
+Vikram (47:52)
+helps you in your current business?
+
+Doug - RUTE (47:55)
+When when I was up in Alaska and we started having kids, you know, you gotta get creative if you're fishing six months a year or whatnot. So I was doing some land surveying, staking out all kinds of stuff. and that's where and then I I learned GIS as a result of that. So then when I became engineer for the French company, I already had my GIS stuff and civil
+
+Vikram (48:05)
+Mm-hmm.
+
+Doug - RUTE (48:22)
+infrastructure work up in Alaska and then had the mechanical
+
+Vikram (48:26)
+Feel free to use the platform to push your agenda forward, you know, so we don't do like advertising or anything like that, but because you're giving up your time, it's only fair that you get to promote yourself and then any inquiries I get for your business I'll just forward to you.
+
+Doug - RUTE (48:44)
+Yeah. Well, Root Foundation Systems Inc., we're a US C Corp and we got two divisions, one in wind and one in solar. Both of them use cables to cables as part of the support structure. So what you would call some of the on the solar world, you'd call that balance of structural system. And that's what we provide. So the if if we if you had a hundred megawatt solar project.
+
+Vikram (49:05)
+Mm-hmm.
+
+Doug - RUTE (49:13)
+And you wanted to put that over cattle pasture and not worry about bulldozing or trenching or pile driving, then when you when you got your EPC, the EPC would essentially receive a what we call fields. And a one field is about a megawatt and a half DC, and and that's
+
+Vikram (49:22)
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (49:42)
+That's got a perimeter of structures that's that create this solar trell cable trellis. And then each one of those fields, if you got you want a hundred fifty megawatts, you buy a hundred field kits, and then the EPC contractor would be trained up at our headquarters in the southeast of the US and learn how to
+
+basically become a rigger. That's really the big that's probably the biggest news that that I think our patented innov innovation brings to the world. I think we're pretty fresh. In other words, I think we're a new thing. There are other cable systems out there.
+
+So what were you?
+
+Vikram (50:32)
+I abs
+
+I absolutely believe you that you know, what you have is innovative because just it has to be seen to be believed. I have seen your videos with cows running beneath solar panels and I I don't know if that was even possible. You know, when people talk about agri voltaics they it's almost like greenwashing, you know, you've got cabbages on the on the farm and then you've got some you got two kilowatts of solar panels suspended, you know, I look at it and I laugh because I I've been doing this for twenty two years. I could tell immediately the de power density of something, especially to do with solar and
+
+And you can I can even calculate the cables off the top of my head how much current they'll carry and what the power will be and and and so on. But the point being if we've got access to a huge
+
+investor base and E P C base because you know, we network with them once a month. I'm trying to change it to once a quarter quarter because I don't want to become an alcoholic or I'll just stick to soda and water now and pretend it's gin and tonic. The the point is I drink too much beer and end up doing stupid stuff, but that's a that's a side story.
+
+Doug - RUTE (51:29)
+Yeah.
+
+Vikram (51:34)
+If someone wants to work with you on large solar projects, is how do you convince them on bankability? Like where do you do the manufacturing? How do you assure them of supply, of cash flows, things like that? Are you looking for funders? I'm trying to basically point a picture of where you are and how we can support you in our network.
+
+Doug - RUTE (51:52)
+Yeah.
+
+We're just getting going. We're a tiny team running on project cash flow. We don't you know, we're not against capital to run a business, that's normally how you do it. but because we can build projects and cash flow them and pay ourselves, we're I think is basically as bootstrapped as you can possibly be. So getting getting a couple
+
+Vikram (51:55)
+Mm-hmm.
+
+Yep.
+
+Mm-hmm.
+
+Doug - RUTE (52:20)
+Larger projects in a pipeline would be a great thing. If an IPP wanted to stress test my claim that there's ranchers out there that would could provide a gigawatt project, we can act as a landman effectively, because we talk to a lot of ranchers, and then somebody can take an option, let's say if that project happens, and that would be one way for us to check those boxes you're referring to. Is it scalable? Is it
+
+Vikram (52:32)
+Mm-hmm.
+
+Right.
+
+Mm-hmm.
+
+Doug - RUTE (52:49)
+In demand, does a rancher really go along with this? Does the county permit it? So
+
+Vikram (52:58)
+to market is basically you've got relationship with ... ranchers and farmers, you can identify sites which maybe need grid connections and have land that requires solar photovoltaics and then by introducing that project you can then bring that to a funder and so you're almost self financing your projects because you're creating opportunities in terms of project origination.
+
+Doug - RUTE (53:22)
+That is one that is definitely unless somebody like yourself or somebody else that's smarter comes along and says, Hey, that's a dumb way to do it. Just go get a bunch of VC money and show your your tracker, you know, pitch deck or something. The problem is that now you're getting into a world where you're competing with tracker hardware, which is just so low margin and we're dealing with a whole different universe of let's say premium, you know, dual land use.
+
+Vikram (53:32)
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (53:51)
+More grass, more shade. It's just such a different it's just such a different universe. And on top of that is greenfield development is really valuable. It's like really one of the hardest things to do properly. So
+
+Vikram (54:05)
+Yes. Yes. Absolutely.
+
+And you have a big advantage. You're you're an engineer yourself, you got GIS experience, you got you know
+
+career of practical execution skills, ... you know, you know ve various different markets. So if ... if you're bringing projects that changes the whole conversation because you know I'm I'm also in a similar kind of situation. I prefer to sell just wires which you call wires which I call cables. Because to us cables are if you got a bunch of wires in a a sheath we call that a cable. Or or some wires we call the individual strands of the conductor.
+
+Doug - RUTE (54:30)
+Mm-hmm.
+
+Mm.
+
+right, right, right, right, right.
+
+Vikram (54:44)
+So, you know, we are in the IEC world. You guys are more American wire gauge. You know, if that's to do British wire gauge, I don't know, but I'm a history geek as well. So th so the the point being, if you're bringing project origination, then we can introduce you to funders, to EPCs to other structure manufacturers. Because what I'm doing right right now is you know, doing a lot of product development, because
+
+Doug - RUTE (54:49)
+Yeah.
+
+Vikram (55:12)
+There's three ter solar's not a secret anymore, everyone knows about it. It's three trillion dollars worth and you know, that's like the GDP of the UK. You know, so everyone knows about solar, people drop their pants on margins, sell a negative margin just to get in, you know, as a loss as a as so s so if you're not doing some kind of value add or solution sales, you you just get kicked out of the market, is as simple as that. So for me, the in the last fourteen years of ... solar experience, the most valuable person is
+
+Doug - RUTE (55:15)
+Yeah.
+
+It's crazy, I know. I screwed.
+
+Vikram (55:42)
+person that brings deals and brings the projects. Then you hold the golden key and you choose who you want to share it with as long as you can prove that you've got grid, you've got land, and you've progressed the project to a certain level where it's where it's differentiated from someone just drawing a square on Google Earth.
+
+Doug - RUTE (56:01)
+Yeah.
+
+Yeah. I agree with you there. And I think so that's what we'll I you I spend a lot of time going to cattle, cattlemen's association shows, you know, ag conventions.
+
+And there's a lot of you t there's a lot of developers that go to those too. And now we've got the solar farm
+
+Solar Farm Summit, the ... the first the first Georgia version of it coincides with us getting the building permit last week and the conventions next week. So that and it's it's got us some really big time people. Will Harris is there. It's gonna be really cool. We'll see what happens after that.
+
+Vikram (56:41)
+Fantastic. There's a few people I would like to introduce you to who have shipped structures to many hundreds of countries around the world. They are very well established and they are the big players in this game from Spain. you know, so I can introduce you to these people and if you're bringing projects they could be potential partners for you ... in the US on how to deploy your technology in in the fastest possible time. So what I'll do at the end of this podcast is I'll send you a list of names, their web addresses, their phone.
+
+Doug - RUTE (57:04)
+Yeah.
+
+Vikram (57:11)
+Numbers, you can WhatsApp them straight away, speak directly. You know, you don't need to keep me in the loop. You can refer to the podcast if it helps you, and you can get involved straight away. There's also other people in that have been on the podcast already that are very active with US partners. Valerio we already mentioned, but the other one is Clive Cosby, who's been who was a quantity surveyor, he's been on ever every major solar farm in the UK, he's worked in Myanmar on massive projects in Portugal.
+
+Doug - RUTE (57:32)
+Mm-hmm.
+
+Vikram (57:41)
+working with an Arizona-based partner who does module handling technology because at Cleve Hill Solar Farm they have five modules in portrait. Like can you imagine what that looks like? ... there's an east-west system, five in portrait this way, five in portrait this way, and they are like 40 kilogram modules, Trino modules, you know, 650 watt peak. So the problem with that you've got is a safety at height issue because if you're
+
+Doug - RUTE (57:54)
+Wow. Wow.
+
+Vikram (58:10)
+more than five meters up in the in the sky, how'd you put a solar panel there? And how'd you put ... half a million of them there? And so after Clive learned this problem with health safety issues, he he got into a franchise or something to that effect, an agency with an Arizona based company that has those caterpillar or what's the equivalent in America you know, those big JCB kind of vehicles and they have this suction arm on the end that could pick up
+
+Doug - RUTE (58:34)
+Yeah. Yeah.
+
+Vikram (58:40)
+These modules rotate the two-meter tall pallets because they weigh over a ton. There's people being crushed to death with these things because you've got low-skill labor and they're unloading one-ton pallets and thousands of pallets. So 300 megawatt solar farm needs a small container ship's worth of modules to give you idea. And this you can see on a GIS platform of how many ships you need to ship 300 megawatts, for example.
+
+Doug - RUTE (58:58)
+yeah.
+
+Vikram (59:03)
+So Clive is someone you should speak to because you got immediate contacts into Arizona, but also into the UK.
+
+Doug - RUTE (59:10)
+Yep. Yeah. We're yep. So the when we first started putting these on paper, there was usually eighty percent people would you know, that'll never work. And and I knew from ... from just rigging and wind forces it'll work, pencils out. The question was how was it gonna work and how you were gonna put it up without killing people, because we are four meters up, you know, so that's just like what you're talking about.
+
+Vikram (59:16)
+Yeah.
+
+Yeah.
+
+Yeah.
+
+wow, okay.
+
+Doug - RUTE (59:39)
+And we we build the whole the whole truss on the ground and do the wiring and then roll it out on this little robotic trolley and they we we invented this little lift system so that nobody's under it, you know, it two pins and then you're done and out of there and then nothing else has to be done in the field. So there's a pre assembly tent where your flatbeds would deliver all the metal.
+
+Vikram (59:54)
+Mm-hmm.
+
+Doug - RUTE (1:00:10)
+all the PV and all your cables or wires and then everything goes through a little assembly line. And that's effectively needed to happen because we're these thirty feet, ten, nine, ten meters, each each unit. It's got ... three in landscape and then four, whatever, twelve, it's about seven kilowatts per what we call a bloom.
+
+Vikram (1:00:10)
+Mm-hmm.
+
+Fantastic.
+
+Well as you come towards the end, you know, what I will definitely do is make a comprehensive list of contacts and I'll send those to you. And if you need me to make a formal introduction to anyone that's interesting for you, I can certainly do that. hopefully we'll get to meet in person soon as well. But from your perspective, do you wanna close by ... speaking about what you think the future of solar is in the next five years and beyond and what kind of people do you hope to work with
+
+with to bring this technology to the market.
+
+Doug - RUTE (1:01:14)
+I think the future for PV is just like you were saying, it's off the charts. the the data center part of it I think should just be looked at as a asset, you know. If they're gonna get their electricity one way or the other, and if they come and put a data center where they can get electricity, whether it's wind, offshore wind or solar.
+
+Vikram (1:01:34)
+Mm-hmm.
+
+Doug - RUTE (1:01:42)
+It's just takes the heat off the grid in the first place. So they're just a sec effectively a new p a new grid almost. They're that scale. Or I mean a new utility. And then whatever they have in excess where they're not doing their computing is gonna then go on the regular, you know, everybody else's grid. I just think that's where that's headed. In terms of agrovoltaics and cattle solar, I think both of them are gonna be.
+
+Vikram (1:01:50)
+Mm-hmm.
+
+Doug - RUTE (1:02:11)
+Again off the charts, not to the terawatt level you're talking about for say cabbages, because that's we're in the kind of Cambrian explosion phase of ag solar. Find out where it works best, how big you can do it. but pastures is a different story. That kind of in my mind jumps the line of everybody just because so far I can't think of anything that's as symbiotic.
+
+Vikram (1:02:13)
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (1:02:41)
+And when I mean symbiotic, what I mean that literally, like you get more grass, cooler cows, and more water, retained water. So all the things that a ranch is looking for to make more money or have more stocking density, more beef production per hectare, they get effectively for free. And likewise the solar
+
+Vikram (1:02:41)
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Mm-hmm.
+
+Doug - RUTE (1:03:06)
+Is probably that's just spitball, I'm not 100% sure, but you're gonna get probably two percent extra revenue in your thermal efficiency gain from having cooler panels. And then your bifacial gain because you're up four meters, is yeah. So in both cases, now the one business has made the other business more profitable and the cattle business has made the solar business more profitable. That's a pretty cool thing to be able to not just
+
+Vikram (1:03:20)
+well.
+
+Doug - RUTE (1:03:34)
+No, there's zero greenwashing. Nobody in the either either group is not talking about how many credits they're gonna sell or whatnot. Like you'd basically drown the you wouldn't even waste your time with credits. You know, soil building credits or whatnot. Just forget about that. You're all you're talking about bottom line stuff.
+
+Vikram (1:03:41)
+Yes.
+
+Mm-hmm, mm-hmm.
+
+One of the things I really love and and this is detailed stuff or later is is is the bifaciality now. I was in InterSolar recently and there's module companies out there talking about ninety percent bifaciality, that's the theoretical maximum you won't see that in real life. with grass you may get, you know, higher bifaciality than with you know, just dark ground of of of some description and if and and if you've got snow on the ground you can get maximum close to maximum bifaciality from a few
+
+Doug - RUTE (1:04:21)
+Yeah.
+
+Vikram (1:04:24)
+few seconds which is enough to blow up your transformers. So that in itself is an interesting area but of course yeah if you have a a four meters tall structure you are gonna get more bifaciality from incident light and also if you're if your if your ground is grass and not share and the panels are not too low you will improve the yield and the question will be demonstrating that in financial models and getting involved in the actual deals and and I think that's where all the action's gonna be.
+
+Doug - RUTE (1:04:53)
+exactly. And fine for us honestly it's built f putting stuff up. We could put something up in you know, Oxford, England is a bit of a center for agrivoltaics and the climate there. Why go to Oxford? Well, because if you wanted to find out what your bifacial gain at four meters is, I could have a hectare of our stuff up and you could give be getting actual data in about two months from now, you know.
+
+Vikram (1:05:19)
+Mm-hmm.
+
+Doug - RUTE (1:05:22)
+So rather than screwing around with studies, no offense, but just build it first and then have some actual data to look at instead of theoretical.
+
+Vikram (1:05:33)
+So this Clive, who was one of our early podcasts, will be very interesting for you because he's very much action, you know, straight demonstrating on solar farms. He's got the contacts to the builders as well. And in Oxford, you'll be amazed when you look at our GIS tool, you'll see solar farms that are operating already, wind farms are operating, batteries. You'll also see conventional projects, heavy energy users. Well what's most amazing because you know, it would be nonsensical
+
+to talk about future of solar photovoltaics without showing people the real numbers. And so there are now between 300 to 800 megawatt peak solar farms in planning in Oxfordshire and beyond. So if you and the details of these developers are public, it's also on our platform. So if you speak to these people and you could demonstrate a saving, it could be several multiples when it comes to a project of that magnitude. if you get involved early, you might be three years away from seeing anything, but if you get involved
+
+towards the financial close then the all the specs are already fixed. So it's a chicken and egg situation where you get involved but of course you make your own luck, the activity will will result in in conversations that hopefully will lead to business for you.
+
+Doug - RUTE (1:06:46)
+Yeah,
+
+exactly. Cool. Yeah, well in the in in rela in relation to that other comment, like what who's who's the people we need to talk to next. In the next year or two, regional demonstration projects are the way to go and those are behind the meter or net meter, but we're we're running a guy in Georgia we're running irrigation pivot. So that's two hundred horsepower, about a hectare total of solar panels. And so then you don't have to screw around with interconnection.
+
+Vikram (1:07:12)
+Mm-hmm.
+
+Fantastic. And another person you might also want to speak to is Clark Frost at Heathco Holdings.
+
+Because he was a mechanical installer at Cleve Hill Solar Farm. And he's the one that did the structures you know, five in portrait. And they are in the agri business, the main businesses, agriculture. They've got a couple of hundred people in the UK. If you haven't got the time to listen to the podcast, you can look at the transcripts and you'll see everything. So I'll send you Clark's details as well. There's a couple of his colleagues did a podcast with me. I still need to produce and send out there 'cause I want to just check any bits that we need to not broadcast. But I've certainly enjoyed this conversation. I think you are more
+
+about action than talking, you can just tell that in your demeanour, ... thanks so much very much for joining us today, Doug. Have got any questions for me before we hang up for today?
+
+Doug - RUTE (1:08:00)
+it's a pleasure. I learned a ton. It is Vikram, it's and I'm I'm just glad I'm able to do this with you.
+
+Vikram (1:08:06)
+Fantastic. You know, I'm not going anywhere, so I would love to speak with you again and I'll send you a few emails. Thanks, Doug. Cheers.
+
+Doug - RUTE (1:08:11)
+All right, thanks. See
+
+ya.
 
 ---
 

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Employer-side engineering quality assurance and independent supervision requirements for electrical infrastructure.">
+  <title>Engineering Quality Assurance and Independent Supervision | GlobalGrid2050</title>
+  <style>
+    :root { color-scheme: dark; }
+    html { background: #000; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Courier, monospace;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px;
+      font-size: 20px;
+      line-height: 1.62;
+    }
+    a { color: #66ccff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1 { color: #00ffff; line-height: 1.15; font-size: 2.1rem; margin: 0.7em 0 0.45em; }
+    h2 { color: #66ccff; line-height: 1.25; margin-top: 2.2em; }
+    h3 { color: #00ffff; line-height: 1.3; margin-top: 1.8em; }
+    p { margin: 1.05em 0; }
+    .back { margin-bottom: 1.8em; }
+    .status,
+    .scope,
+    .principle {
+      border: 1px solid #333;
+      padding: 18px;
+      margin: 1.4em 0;
+      background: #080808;
+    }
+    .status strong,
+    .scope strong,
+    .principle strong { color: #00ffff; }
+    .lead {
+      font-size: 1.08em;
+      border-left: 4px solid #00ffff;
+      padding-left: 18px;
+      margin: 1.5em 0;
+    }
+    .item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      padding: 15px 0;
+      border-bottom: 1px solid #222;
+    }
+    .id {
+      color: #00ffff;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .item strong { color: #fff; }
+    .evidence { color: #aaa; font-size: 0.9em; margin-top: 0.3em; }
+    .footer { margin-top: 4em; padding-top: 1.2em; border-top: 1px solid #333; color: #aaa; font-size: 0.8em; }
+    @media (max-width: 650px) {
+      body { padding: 24px; font-size: 18px; }
+      h1 { font-size: 1.7rem; }
+      h2 { font-size: 1.35rem; }
+      .item { grid-template-columns: 1fr; gap: 3px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="back"><a href="../">← Employer's Competence Requirements</a></nav>
+
+  <article>
+    <h1>Engineering Quality Assurance and Independent Supervision</h1>
+    <p><strong>How does an employer know that engineering evidence is correct, current, incorporated and proved?</strong></p>
+
+    <div class="status">
+      <strong>Status: living document.</strong><br>
+      This page expands the quality and supervision requirements within the Employer's Competence Checklist. It will be revised as engineering practice, operating evidence and technology develop.
+    </div>
+
+    <div class="scope">
+      <strong>Purpose and limitation.</strong><br>
+      This is an employer-side electrical engineering assurance guide. It does not replace project-specific design, contractual drafting, legal duties, applicable technical rules or competent professional judgement. The depth of assurance should be proportionate to system complexity, novelty and consequence of failure.
+    </div>
+
+    <h2>The governing principle</h2>
+
+    <p class="lead">Documentation is not assurance. Assurance exists only when technically credible engineering is independently challengeable, controlled through delivery, reconciled with the installed system and demonstrated by commissioning and operation.</p>
+
+    <div class="principle">
+      <strong>Assurance chain.</strong><br>
+      Requirement → controlled inputs → competent analysis → independent challenge → approved design → procurement conformity → installation conformity → commissioning proof → retained operational evidence.
+    </div>
+
+    <h2>Employer-side quality and supervision requirements</h2>
+
+    <div class="item"><div class="id">ER-E-035</div><div><strong>Employer-side electrical technical authority</strong><div class="evidence">Evidence: a named competent person or organisation, independent of the design originator where necessary, with authority to challenge, reject, escalate and close technical matters on behalf of the employer.</div></div></div>
+
+    <div class="item"><div class="id">ER-E-036</div><div><strong>Independent review of critical engineering</strong><div class="evidence">Evidence: risk-based review of critical studies, calculations and designs by a technically competent reviewer who has access to assumptions, inputs, models, outputs, limitations and unresolved disagreements.</div></div></div>
+
+    <div class="item"><div class="id">ER-E-037</div><div><strong>Engineering assumptions and input register</strong><div class="evidence">Evidence: controlled record of network data, environmental conditions, equipment characteristics, operating states, design margins, exclusions, model versions and information still awaiting confirmation.</div></div></div>
+
+    <div class="item"><div class="id">ER-E-038</div><div><strong>Cross-study and design consistency review</strong><div class="evidence">Evidence: confirmation that fault levels, protection settings, cable calculations, equipment duties, earthing, transient assumptions, drawings and commissioning requirements use consistent data and operating cases.</div></div></div>
+
+    <div class="item"><div class="id">ER-E-039</div><div><strong>Configuration, change and evidence control</strong><div class="evidence">Evidence: traceable revisions linking approved studies, drawings, equipment, firmware, settings, substitutions, site changes, test records and the final as-built system.</div></div></div>
+
+    <h2>Evidence quality hierarchy</h2>
+
+    <p>Evidence should be judged by what it proves, not by how formal it looks. A statement of compliance is weaker than a calculation. A calculation is weaker than an independently reviewed study. A reviewed study is still incomplete until its conclusions appear in the approved design, the installed configuration and the commissioning record.</p>
+
+    <p>The employer should therefore distinguish between:</p>
+
+    <div class="item"><div class="id">QA-01</div><div><strong>Declared evidence</strong><div class="evidence">A statement, certificate, schedule or drawing declaring what is intended or claimed.</div></div></div>
+    <div class="item"><div class="id">QA-02</div><div><strong>Analytical evidence</strong><div class="evidence">Calculations, studies and models demonstrating why the intended design should perform safely.</div></div></div>
+    <div class="item"><div class="id">QA-03</div><div><strong>Independent challenge</strong><div class="evidence">Recorded technical review of assumptions, methods, limitations, interfaces and conclusions.</div></div></div>
+    <div class="item"><div class="id">QA-04</div><div><strong>Implementation evidence</strong><div class="evidence">Procurement, manufacturing, installation and inspection records showing that the approved engineering entered the physical works.</div></div></div>
+    <div class="item"><div class="id">QA-05</div><div><strong>Demonstrated evidence</strong><div class="evidence">Commissioning and functional tests proving the actual system and its protection, controls and failure responses.</div></div></div>
+    <div class="item"><div class="id">QA-06</div><div><strong>Operational evidence</strong><div class="evidence">Monitoring, inspections, trends, incidents and periodic verification confirming that assumptions remain valid over time.</div></div></div>
+
+    <h2>Independent supervision through the project stages</h2>
+
+    <h3>Before design acceptance</h3>
+    <p>Confirm the design basis, system boundaries, responsibilities, operating cases, input data, study methods, critical assumptions and review plan.</p>
+
+    <h3>Before procurement release</h3>
+    <p>Confirm that equipment ratings and interfaces are supported by the approved studies and that substitutions cannot bypass technical reassessment.</p>
+
+    <h3>Before work is concealed</h3>
+    <p>Use hold points, inspections and traceable records for routes, joints, bonding, terminations, earthing, identification and inaccessible construction details.</p>
+
+    <h3>Before energisation</h3>
+    <p>Confirm that final studies, settings, drawings, equipment data, commissioning procedures and unresolved technical matters match the installed configuration.</p>
+
+    <h3>Before completion and retention release</h3>
+    <p>Confirm that as-built documents, as-left settings, test evidence, deviations, residual risks and maintenance requirements have been accepted on technical grounds rather than programme pressure alone.</p>
+
+    <h3>During operation and asset transfer</h3>
+    <p>Maintain controlled records, reassess material changes, retain settings and model history, and transfer the complete assurance record with the asset.</p>
+
+    <h2>Technical queries and non-conformances</h2>
+
+    <p>Every material technical query, deviation or non-conformance should identify the affected requirement, the engineering consequence, the competent decision-maker, the evidence supporting disposition and any consequential update to studies, drawings, settings, tests or maintenance.</p>
+
+    <p>Closing an issue administratively is not the same as closing its engineering consequence.</p>
+
+    <h2>Minimum quality assurance pack</h2>
+
+    <p>At minimum, the employer should retain the technical authority appointment, assurance plan, review register, assumptions and inputs register, design submission schedule, technical query and non-conformance registers, approved change register, configuration record, inspection and witness records, commissioning reconciliation and final assurance statement.</p>
+
+    <h2>Proportionality</h2>
+
+    <p>The same principles apply across project scales, but the method should be proportionate. A repeatable installation may rely on a validated design envelope and documented site conformity. A novel, high-voltage, highly interconnected or high-consequence installation will require deeper project-specific studies, specialist review and witnessed proof.</p>
+
+    <p>“Small project” is not evidence of low risk, and “large project” is not evidence of competent assurance.</p>
+
+    <h2>Revision history</h2>
+    <p><strong>Version 0.1 — July 2026:</strong> created the standalone employer-side engineering quality assurance and independent supervision guide.</p>
+  </article>
+
+  <footer class="footer">
+    <p>GlobalGrid2050 — technical documentation and research.</p>
+    <p>This document supports competent engineering judgement; it does not replace project-specific design, legal duties, applicable technical rules or professional responsibility.</p>
+  </footer>
+</body>
+</html>

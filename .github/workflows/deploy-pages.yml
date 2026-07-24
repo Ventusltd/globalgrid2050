@@ -7,6 +7,7 @@ on:
     paths:
       - 'index.html'
       - 'CNAME'
+      - 'employers_competence/**'
       - '.github/workflows/deploy-pages.yml'
 
 permissions:

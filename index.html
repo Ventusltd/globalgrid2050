@@ -6,115 +6,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root { color-scheme: dark; }
-  html { background: #000; }
-  body {
-    background: #000;
-    color: white;
-    font-family: Courier, monospace;
-    padding: 40px;
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 20px;
-    line-height: 1.6;
-  }
-  h1 { margin-top: 0; }
-
-  a { color: #66ccff; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  .dev-status { color: #ff3333; font-weight: bold; font-size: 16px; }
+  html { background:#000; }
+  body { background:#000; color:#fff; font-family:Courier,monospace; padding:40px; max-width:900px; margin:0 auto; font-size:20px; line-height:1.6; }
+  h1 { margin-top:0; }
+  a { color:#66ccff; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .dev-status { color:#ff3333; font-weight:bold; font-size:16px; }
   .live-status { color:#53ff4c; font-weight:bold; font-size:16px; }
-
-  .primary-link {
-    display:block;
-    margin: 30px 0 28px;
-    padding: 14px 0;
-    border-top:1px solid #333;
-    border-bottom:1px solid #333;
-    color:#00ffff;
-    font-weight:bold;
-    font-size:28px;
-    line-height:1.15;
-  }
-
-  .launch-flagship,
-  .os-strip {
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-    flex-wrap:wrap;
-    margin:10px 0 2px;
-    padding:12px 0;
-    border-bottom:1px solid #333;
-  }
-  .launch-flagship a,
-  .os-strip a {
-    color:#00ffff;
-    font-weight:bold;
-    font-size:28px;
-    line-height:1.15;
-    text-decoration:none;
-  }
+  .primary-link { display:block; margin:30px 0 28px; padding:14px 0; border-top:1px solid #333; border-bottom:1px solid #333; color:#00ffff; font-weight:bold; font-size:28px; line-height:1.15; }
+  .launch-flagship,.os-strip { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:10px 0 2px; padding:12px 0; border-bottom:1px solid #333; }
+  .launch-flagship a,.os-strip a { color:#00ffff; font-weight:bold; font-size:28px; line-height:1.15; text-decoration:none; }
   .os-strip { margin-top:0; }
   .os-strip a { font-size:22px; }
-
-  #gridSearch {
-    width: 100%;
-    padding: 12px;
-    background: #111;
-    color: white;
-    border: 1px solid #444;
-    font-family: Courier, monospace;
-    font-size: 18px;
-    margin-top: 20px;
-    margin-bottom: 18px;
-    box-sizing: border-box;
-  }
-  #gridSearch:focus { outline: none; border-color: #66ccff; }
-
-  details.area,
-  details.platform { border-bottom: 1px solid #333; }
-  details.area > summary,
-  details.platform > summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 14px 0;
-    color: #00ffff;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-  }
-  details.area > summary::-webkit-details-marker,
-  details.platform > summary::-webkit-details-marker { display: none; }
-  details.area > summary::before,
-  details.platform > summary::before { content: "[+] "; color: #00ffff; }
-  details.area[open] > summary::before,
-  details.platform[open] > summary::before { content: "[\2212] "; }
-  details.area > summary:hover,
-  details.platform > summary:hover { text-decoration: none; color: #66ffff; }
-
-  .platform-body { padding: 2px 0 18px; }
-  ul.drawer { list-style: none; margin: 0 0 10px; padding: 0; }
-  ul.drawer li { padding: 10px 0 10px 28px; border-top: 1px solid #1c1c1c; }
-
-  .toplink { display: block; padding: 14px 0; border-bottom: 1px solid #333; }
-
-  .noresult { color: #888; padding: 20px 0; }
-
-  .footer {
-    margin-top: 60px;
-    font-size: 16px;
-    color: #aaaaaa;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 600px) {
-    body { padding: 25px; font-size: 18px; }
-    .footer { font-size: 14px; }
-    ul.drawer li { padding-left: 20px; }
-    .launch-flagship a { font-size:26px; }
-    .os-strip a { font-size:20px; }
-    .primary-link { font-size: 24px; }
-  }
+  #gridSearch { width:100%; padding:12px; background:#111; color:#fff; border:1px solid #444; font-family:Courier,monospace; font-size:18px; margin-top:20px; margin-bottom:18px; box-sizing:border-box; }
+  #gridSearch:focus { outline:none; border-color:#66ccff; }
+  details.area,details.platform { border-bottom:1px solid #333; }
+  details.area > summary,details.platform > summary { list-style:none; cursor:pointer; padding:14px 0; color:#00ffff; font-weight:bold; letter-spacing:.5px; }
+  details.area > summary::-webkit-details-marker,details.platform > summary::-webkit-details-marker { display:none; }
+  details.area > summary::before,details.platform > summary::before { content:"[+] "; color:#00ffff; }
+  details.area[open] > summary::before,details.platform[open] > summary::before { content:"[−] "; }
+  details.area > summary:hover,details.platform > summary:hover { color:#66ffff; }
+  .platform-body { padding:2px 0 18px; }
+  ul.drawer { list-style:none; margin:0 0 10px; padding:0; }
+  ul.drawer li { padding:10px 0 10px 28px; border-top:1px solid #1c1c1c; }
+  .noresult { color:#888; padding:20px 0; }
+  .footer { margin-top:60px; font-size:16px; color:#aaa; line-height:1.5; }
+  @media(max-width:600px){ body{padding:25px;font-size:18px}.footer{font-size:14px}ul.drawer li{padding-left:20px}.launch-flagship a{font-size:26px}.os-strip a{font-size:20px}.primary-link{font-size:24px} }
 </style>
 </head>
 <body>
@@ -122,187 +39,106 @@
   <h1>GlobalGrid2050</h1>
   <p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
 </header>
-
 <main>
   <a class="primary-link" href="./how_to_work_with_globalgrid2050/">How to Work with GlobalGrid2050</a>
-
-  <details class="platform">
+  <details class="platform" open>
     <summary>The Platform</summary>
     <div class="platform-body">
-      <div class="launch-flagship">
-        <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html">The Spider 🕷 — Dependency Map</a>
-        <span class="live-status">latest dependency view · live</span>
-      </div>
-
-      <div class="os-strip">
-        <a href="https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/">Registry Dashboard</a>
-        <span class="live-status">BIOS / Kernel</span>
-      </div>
-
-      <div class="os-strip">
-        <a href="https://ventusltd.github.io/reports/studio/">Reports Dashboard</a>
-        <span class="dev-status">Save As / evidence layer</span>
-      </div>
-
+      <div class="launch-flagship"><a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html">The Spider 🕷 — Dependency Map</a><span class="live-status">latest dependency view · live</span></div>
+      <div class="os-strip"><a href="https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v10-development/">Ventus DC String Engine V10 — Live Computational Workbench</a><span class="live-status">public web application · live development</span></div>
+      <div class="os-strip"><a href="https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/">Registry Dashboard</a><span class="live-status">BIOS / Kernel</span></div>
+      <div class="os-strip"><a href="https://ventusltd.github.io/reports/studio/">Reports Dashboard</a><span class="dev-status">Save As / evidence layer</span></div>
       <input type="text" id="gridSearch" placeholder="Search everything..." autocomplete="off">
-
       <div id="menu"></div>
     </div>
   </details>
 </main>
-
-<div class="footer">
-  <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
-</div>
-
+<div class="footer"><p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p></div>
 <script>
 const AREAS = [
-  { name: "GlobalGrid2050 OS & Federation", children: [
-    { name: "Registry Dashboard, BIOS and Kernel", url: "https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/", note: "live" },
-    { name: "Reports Dashboard, Save As and Evidence Layer", url: "https://ventusltd.github.io/reports/studio/", note: "new" },
-    { name: "The Spider Dependency Map, latest full PO test", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note: "latest dependency area" },
-    { name: "Spider Printer V1", url: "https://ventusltd.github.io/spiders/spider_printer_v1/", note: "printer" },
-    { name: "Federation Radial Uniform Print View", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note: "replaces old radial link" },
-    { name: "Federation Repository", url: "https://github.com/Ventusltd/data-federation-map-for-globalgrid2050-all-repos" },
-    { name: "Reports Repository", url: "https://github.com/Ventusltd/reports" },
-    { name: "Registry Repository", url: "https://github.com/Ventusltd/registry_of_all_content_in_repos_and_dependencies" },
-    { name: "Spiders Repository", url: "https://github.com/Ventusltd/spiders" },
+  { name:"GlobalGrid2050 OS & Federation", children:[
+    { name:"Registry Dashboard, BIOS and Kernel", url:"https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/", note:"live" },
+    { name:"Reports Dashboard, Save As and Evidence Layer", url:"https://ventusltd.github.io/reports/studio/", note:"new" },
+    { name:"The Spider Dependency Map, latest full PO test", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note:"latest dependency area" },
+    { name:"Spider Printer V1", url:"https://ventusltd.github.io/spiders/spider_printer_v1/", note:"printer" },
+    { name:"Federation Radial Uniform Print View", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note:"current print view" }
   ]},
-  { name: "Solar & BESS Topology", children: [
-  { name: "GIS SLD Topology Engine And Financial Sandbox", url: "./solar-bess-topology/indexforgis-sld.html" },
-  { name: "GIS SLD Financial Sandbox V2", url: "./solar-bess-topology-v2/indexforgis-sld-v2.html" },
-  { name: "GIS SLD Financial Sandbox V4", url: "./solar-bess-topology-v4/indexforgis-sld-v4.html" },
-  { name: "GIS SLD Financial Sandbox V5", url: "./solar-bess-topology-v5/indexforgis-sld-v5.html" },
-  { name: "Cable Geometry Visualiser V5", url: "./solar-bess-topology-v5/cable-geometry-visualiser-v5.html" },
-  { name: "DC AC LV Solar PV Cable Topology Review V5", url: "./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html" },
-  { name: "Physical Solar Module Layout V5", url: "./solar-bess-topology-v5/module-layout-v5.html" },
-  { name: "Solar BESS Topology V6 Testing Phase", url: "./solar-bess-topology-v6/" },
-  { name: "Solar DC String Topology Engine V6", url: "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/", note: "in development" },
-  { name: "Solar DC String Topology Engine V7 Independent Workspace", url: "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v7-development/", note: "independent development · frequency-dependent film model pending" },
-  { name: "Solar DC String Topology Engine V8 Leapfrog Comparison", url: "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v8-leapfrog/", note: "independent development · use at your own risk" },
-  { name: "Solar DC String Topology Engine V9 East-West Inverter Block", url: "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v9-sandbox/", note: "live development · use at your own risk" },
-  { name: "Ventus DC String Engine V10 — Live Computational Workbench", url: "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v10-development/", note: "live kernel development · evidence-led · use at your own risk" },
-  { name: "Ventus DC String Engine V10 — Full Open-Source Code", url: "https://github.com/Ventusltd/solar-electrical-topology-analysis-engine-text-based/tree/main/v10-development", note: "public source · JSON kernel · tests · schemas · research records" },
-  { name: "Ventus DC String Engine V10 — Computation Kernel Source", url: "https://github.com/Ventusltd/solar-electrical-topology-analysis-engine-text-based/tree/main/v10-development/src", note: "all calculation functions visible to people and AI" },
-  { name: "Ventus DC String Engine V10 — Verification Tests", url: "https://github.com/Ventusltd/solar-electrical-topology-analysis-engine-text-based/tree/main/v10-development/tests", note: "golden calculations · regression evidence" },
-  { name: "Ventus DC String Engine V10 — Architecture and Development Record", url: "https://github.com/Ventusltd/solar-electrical-topology-analysis-engine-text-based/blob/main/v10-development/README.md", note: "how the kernel works · evidence and governance" },
-  { name: "Solar BESS Topology V7 Workspace", url: "./solar-bess-topology-v7/" },
-  { name: "BESS GIS SLD Financial Sandbox V8", url: "./solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html", note: "in development" },
+  { name:"Solar & BESS Topology", children:[
+    { name:"Ventus DC String Engine V10 — Live Computational Workbench", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v10-development/", note:"live kernel development · evidence-led · use at your own risk" },
+    { name:"GIS SLD Topology Engine And Financial Sandbox", url:"./solar-bess-topology/indexforgis-sld.html" },
+    { name:"GIS SLD Financial Sandbox V2", url:"./solar-bess-topology-v2/indexforgis-sld-v2.html" },
+    { name:"GIS SLD Financial Sandbox V4", url:"./solar-bess-topology-v4/indexforgis-sld-v4.html" },
+    { name:"GIS SLD Financial Sandbox V5", url:"./solar-bess-topology-v5/indexforgis-sld-v5.html" },
+    { name:"Cable Geometry Visualiser V5", url:"./solar-bess-topology-v5/cable-geometry-visualiser-v5.html" },
+    { name:"DC AC LV Solar PV Cable Topology Review V5", url:"./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html" },
+    { name:"Physical Solar Module Layout V5", url:"./solar-bess-topology-v5/module-layout-v5.html" },
+    { name:"Solar BESS Topology V6 Testing Phase", url:"./solar-bess-topology-v6/" },
+    { name:"Solar DC String Topology Engine V6", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/", note:"in development" },
+    { name:"Solar DC String Topology Engine V7 Independent Workspace", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v7-development/", note:"independent development" },
+    { name:"Solar DC String Topology Engine V8 Leapfrog Comparison", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v8-leapfrog/", note:"independent development · use at your own risk" },
+    { name:"Solar DC String Topology Engine V9 East-West Inverter Block", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v9-sandbox/", note:"live development · use at your own risk" },
+    { name:"Solar BESS Topology V7 Workspace", url:"./solar-bess-topology-v7/" },
+    { name:"BESS GIS SLD Financial Sandbox V8", url:"./solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html", note:"in development" }
   ]},
-  { name: "UK Grid Tracking", children: [
-    { name: "UK Live Grid Tracker, Electricity, Carbon, Oil and Metals", url: "./uk_energy_tracking/" },
-    { name: "UK Live Grid Tracker V2, Transport Energy Test Clone", url: "./uk_energy_tracking_v2/" },
-    { name: "UK Live Grid Tracker V3, Experimental Intelligence Lab", url: "./uk_energy_tracking_v3/" },
-    { name: "UK Live Grid Tracker V5, Electricity Market Intelligence Machine", url: "./uk_energy_tracking_v5/", note: "in development" },
-    { name: "UK Live Grid Tracker V6, Modular Electricity Market Intelligence Machine", url: "./uk_energy_tracking_v6/", note: "modular development" },
-    { name: "UK Generation History V6 Module", url: "./uk_energy_tracking_v6/generation_history/", note: "in development" },
-    { name: "UK Generation History V6 2 Backup Mirror", url: "./uk_energy_tracking_v6_2/generation_history/", note: "BACKUP" },
-    { name: "UK Energy Atlas Grid Overlay V8", url: "./repd_grid_atlasv8/" },
-    { name: "UK Macro Energy Consumption Trends ONS", url: "./uk_macro_energy_trends/" },
-    { name: "UK Renewables Pipeline Analytics Dashboard", url: "./uk_renewables_pipeline/dashboard.html" },
-    { name: "Solar Deployment Statistics", url: "./solar_deployment_statistics/" },
+  { name:"UK Grid Tracking", children:[
+    { name:"UK Live Grid Tracker, Electricity, Carbon, Oil and Metals", url:"./uk_energy_tracking/" },
+    { name:"UK Live Grid Tracker V2, Transport Energy Test Clone", url:"./uk_energy_tracking_v2/" },
+    { name:"UK Live Grid Tracker V3, Experimental Intelligence Lab", url:"./uk_energy_tracking_v3/" },
+    { name:"UK Live Grid Tracker V5, Electricity Market Intelligence Machine", url:"./uk_energy_tracking_v5/", note:"in development" },
+    { name:"UK Live Grid Tracker V6, Modular Electricity Market Intelligence Machine", url:"./uk_energy_tracking_v6/", note:"modular development" },
+    { name:"UK Generation History V6 Module", url:"./uk_energy_tracking_v6/generation_history/", note:"in development" },
+    { name:"UK Generation History V6 2 Backup Mirror", url:"./uk_energy_tracking_v6_2/generation_history/", note:"BACKUP" },
+    { name:"UK Energy Atlas Grid Overlay V8", url:"./repd_grid_atlasv8/" },
+    { name:"UK Macro Energy Consumption Trends ONS", url:"./uk_macro_energy_trends/" },
+    { name:"UK Renewables Pipeline Analytics Dashboard", url:"./uk_renewables_pipeline/dashboard.html" },
+    { name:"Solar Deployment Statistics", url:"./solar_deployment_statistics/" }
   ]},
-  { name: "Cables & Conductors", children: [
-    { name: "AC Cables Knowledge", url: "./ac_cables_knowledge/" },
-    { name: "DC Cables Knowledge", url: "./dc_cables_knowledge/" },
-    { name: "Conductor Resistances", url: "./conductor_resistances/" },
+  { name:"Cables & Conductors", children:[
+    { name:"AC Cables Knowledge", url:"./ac_cables_knowledge/" },
+    { name:"DC Cables Knowledge", url:"./dc_cables_knowledge/" },
+    { name:"Conductor Resistances", url:"./conductor_resistances/" }
   ]},
-  { name: "Pricing & Materials", children: [
-    { name: "33 kV UK DAP Price Estimator", url: "./33kv_uk_dap_price_estimator/" },
-    { name: "LV AC and DC Distribution Cables Price Estimator", url: "./lv_ac_dc_price_estimator/" },
-    { name: "Copper and Aluminium Historic Prices & Trends", url: "./copper_and_aluminium_prices_historic_trends/" },
+  { name:"Pricing & Materials", children:[
+    { name:"33 kV UK DAP Price Estimator", url:"./33kv_uk_dap_price_estimator/" },
+    { name:"LV AC and DC Distribution Cables Price Estimator", url:"./lv_ac_dc_price_estimator/" },
+    { name:"Copper and Aluminium Historic Prices & Trends", url:"./copper_and_aluminium_prices_historic_trends/" }
   ]},
-  { name: "Components", children: [
-    { name: "MV and HV Components", url: "./mv_and_hv_components/" },
-    { name: "Solar Components", url: "./solar_components/" },
+  { name:"Components", children:[
+    { name:"MV and HV Components", url:"./mv_and_hv_components/" },
+    { name:"Solar Components", url:"./solar_components/" }
   ]},
-  { name: "Planning & Requirements", children: [
-    { name: "NSIP Solar Farms", url: "./nsip_solar_farms/" },
-    { name: "Grid Studies Public", url: "./data/grid_studies_public/" },
-    { name: "Employer Requirements BESS Notes", url: "./employers_requirements_BESS/" },
-    { name: "Employers Requirements Large Scale Solar", url: "./employers_requirments_large_scale_solar/" },
-    { name: "Employer’s Competence Requirements: what is expected from the Employer towards drafting good ERs?", url: "./employers_competence/" },
+  { name:"Planning & Requirements", children:[
+    { name:"NSIP Solar Farms", url:"./nsip_solar_farms/" },
+    { name:"Grid Studies Public", url:"./data/grid_studies_public/" },
+    { name:"Employer Requirements BESS Notes", url:"./employers_requirements_BESS/" },
+    { name:"Employers Requirements Large Scale Solar", url:"./employers_requirments_large_scale_solar/" },
+    { name:"Employer’s Competence Requirements: what is expected from the Employer towards drafting good ERs?", url:"./employers_competence/" }
   ]},
-  { name: "Reference & Knowledge", children: [
-    { name: "Definitions", url: "./definitions/" },
-    { name: "Power Systems Studies", url: "./power_systems_studies/" },
-    { name: "Single Line Diagrams And Grids", url: "./sld_single_diagrams_diagrams_and_grids/" },
+  { name:"Reference & Knowledge", children:[
+    { name:"Definitions", url:"./definitions/" },
+    { name:"Power Systems Studies", url:"./power_systems_studies/" },
+    { name:"Single Line Diagrams And Grids", url:"./sld_single_diagrams_diagrams_and_grids/" }
   ]},
-  { name: "Federation & Spider", children: [
-    { name: "The Spider Dependency Map", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note: "latest" },
-    { name: "Spider Printer V1", url: "https://ventusltd.github.io/spiders/spider_printer_v1/", note: "printer" },
-    { name: "Federation Radial Uniform Print View", url: "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note: "current print view" },
-    { name: "Federation Repository", url: "https://github.com/Ventusltd/data-federation-map-for-globalgrid2050-all-repos" },
+  { name:"Federation & Spider", children:[
+    { name:"The Spider Dependency Map", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note:"latest" },
+    { name:"Spider Printer V1", url:"https://ventusltd.github.io/spiders/spider_printer_v1/", note:"printer" },
+    { name:"Federation Radial Uniform Print View", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note:"current print view" }
   ]},
-  { name: "About & Media", children: [
-    { name: "Why VENTUS Ltd Is Building GlobalGrid2050", url: "./why_ventusltd_building_globalgrid2050/" },
-    { name: "Blog", url: "./blog/" },
-    { name: "Podcast Transcripts", url: "./podcast_transcripts/" },
-    { name: "Earth", url: "./marketing/earth.html" },
-    { name: "Time Left Today, Hourglass to 2050", url: "./time_to_2050/" },
-    { name: "NEW PENDING GlobalGrid2050 Homepage", url: "https://ventusltd.github.io/globalgrid2050-hompage/" },
-  ]},
+  { name:"About & Media", children:[
+    { name:"Why VENTUS Ltd Is Building GlobalGrid2050", url:"./why_ventusltd_building_globalgrid2050/" },
+    { name:"Blog", url:"./blog/" },
+    { name:"Podcast Transcripts", url:"./podcast_transcripts/" },
+    { name:"Earth", url:"./marketing/earth.html" },
+    { name:"Time Left Today, Hourglass to 2050", url:"./time_to_2050/" },
+    { name:"NEW PENDING GlobalGrid2050 Homepage", url:"https://ventusltd.github.io/globalgrid2050-hompage/" }
+  ]}
 ];
-
-const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-const menu = document.getElementById("menu");
-
-function rowHtml(r) {
-  const note = r.note ? ` <span class="dev-status">(${esc(r.note)})</span>` : "";
-  const key = (r.name + " " + (r.note || "")).toLowerCase();
-  return `<li data-name="${esc(key)}"><a href="${encodeURI(r.url)}">${esc(r.name)}</a>${note}</li>`;
-}
-
-function build() {
-  let html = "";
-  for (const a of AREAS) {
-    if (a.children && a.children.length) {
-      const rows = a.children.map(rowHtml).join("");
-      html += `<details class="area" data-name="${esc(a.name.toLowerCase())}">` +
-              `<summary>${esc(a.name)}</summary>` +
-              `<ul class="drawer">${rows}</ul></details>`;
-    } else if (a.url) {
-      html += `<a class="toplink" data-name="${esc(a.name.toLowerCase())}" href="${encodeURI(a.url)}">${esc(a.name)}</a>`;
-    }
-  }
-  html += `<p class="noresult" id="noresult" style="display:none">No match.</p>`;
-  menu.innerHTML = html;
-}
-
-function applySearch(raw) {
-  const q = raw.trim().toLowerCase();
-  let anyVisible = false;
-
-  if (q) {
-    document.querySelector("details.platform").open = true;
-  }
-
-  document.querySelectorAll(".toplink").forEach(el => {
-    const show = !q || el.dataset.name.includes(q);
-    el.style.display = show ? "" : "none";
-    if (show) anyVisible = true;
-  });
-
-  document.querySelectorAll("details.area").forEach(d => {
-    const areaMatch = !!q && d.dataset.name.includes(q);
-    let childMatch = false;
-    d.querySelectorAll("li").forEach(li => {
-      const liMatch = li.dataset.name.includes(q);
-      const show = !q || areaMatch || liMatch;
-      li.style.display = show ? "" : "none";
-      if (q && liMatch) childMatch = true;
-    });
-    const visible = !q || areaMatch || childMatch;
-    d.style.display = visible ? "" : "none";
-    d.open = q ? visible : false;
-    if (visible) anyVisible = true;
-  });
-
-  document.getElementById("noresult").style.display = anyVisible ? "none" : "";
-}
-
-build();
-document.getElementById("gridSearch").addEventListener("input", e => applySearch(e.target.value));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const menu=document.getElementById("menu");
+function rowHtml(r){const note=r.note?` <span class="dev-status">(${esc(r.note)})</span>`:"";const key=(r.name+" "+(r.note||"")).toLowerCase();return `<li data-name="${esc(key)}"><a href="${encodeURI(r.url)}">${esc(r.name)}</a>${note}</li>`;}
+function build(){let html="";for(const a of AREAS){const rows=a.children.map(rowHtml).join("");html+=`<details class="area" data-name="${esc(a.name.toLowerCase())}"><summary>${esc(a.name)}</summary><ul class="drawer">${rows}</ul></details>`;}html+=`<p class="noresult" id="noresult" style="display:none">No match.</p>`;menu.innerHTML=html;}
+function applySearch(raw){const q=raw.trim().toLowerCase();let anyVisible=false;if(q)document.querySelector("details.platform").open=true;document.querySelectorAll("details.area").forEach(d=>{const areaMatch=!!q&&d.dataset.name.includes(q);let childMatch=false;d.querySelectorAll("li").forEach(li=>{const liMatch=li.dataset.name.includes(q);const show=!q||areaMatch||liMatch;li.style.display=show?"":"none";if(q&&liMatch)childMatch=true;});const visible=!q||areaMatch||childMatch;d.style.display=visible?"":"none";d.open=q?visible:false;if(visible)anyVisible=true;});document.getElementById("noresult").style.display=anyVisible?"none":"";}
+build();document.getElementById("gridSearch").addEventListener("input",e=>applySearch(e.target.value));
 </script>
 </body>
 </html>

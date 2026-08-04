@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>V11 Solar DC Topology Engine — Live Build</title>
+<title>V11 Solar DC Topology Engine — Validated Full-Array Build</title>
 <style>
 :root{color-scheme:dark;--bg:#05090d;--panel:#0b151d;--line:#29485b;--text:#e9f4fa;--muted:#91a9b8;--cyan:#51d8ff;--amber:#ffb84d;--green:#55dda0}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}header{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:2}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.eyebrow{color:var(--cyan);font-weight:900;letter-spacing:.12em}h1{font:800 clamp(1.35rem,4vw,2.3rem)/1.05 system-ui;margin:.3rem 0}.status{color:var(--green);font-weight:800}.note{color:var(--muted);max-width:1050px;margin:.35rem 0}.actions{display:flex;gap:8px;flex-wrap:wrap}a,button{border:1px solid var(--line);background:#0d1d27;color:var(--text);padding:9px 12px;border-radius:7px;text-decoration:none;font:700 13px ui-monospace;cursor:pointer}.primary{border-color:var(--cyan);color:var(--cyan)}main{padding:10px}.frame-shell{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#02070a}.frame-label{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:9px 11px;border-bottom:1px solid var(--line);color:var(--muted)}iframe{display:block;width:100%;height:calc(100vh - 190px);min-height:680px;border:0;background:#090b0f}@media(max-width:700px){header{padding:11px 12px}main{padding:6px}iframe{height:calc(100vh - 230px);min-height:620px}.note{font-size:12px}}
@@ -13,39 +13,38 @@
 <header>
   <div class="top">
     <div>
-      <div class="eyebrow">GLOBALGRID2050 · V11 LIVE BUILD</div>
+      <div class="eyebrow">GLOBALGRID2050 · V11 VALIDATED BUILD</div>
       <h1>Solar DC Topology Analysis Engine</h1>
-      <div class="status">Feature branch monitor · draft engineering prototype</div>
+      <div class="status">Full-array V8-style topology · immutable tested commit</div>
     </div>
     <div class="actions">
       <a href="../">GlobalGrid2050 home</a>
       <a href="https://github.com/Ventusltd/v11/pull/3">PR 3</a>
-      <a class="primary" id="open-live" href="https://raw.githack.com/Ventusltd/v11/build/v11-inverter-block-simulator/browser/workbench.html">Open full page</a>
-      <button id="reload" type="button">Reload latest</button>
+      <a class="primary" id="open-live" href="https://rawcdn.githack.com/Ventusltd/v11/f870883dfdfcabf2edcc800ff7a17e41fb0aa05a/browser/workbench.html">Open full page</a>
+      <button id="reload" type="button">Reload pinned build</button>
     </div>
   </div>
-  <p class="note">This monitor follows the active <code>build/v11-inverter-block-simulator</code> branch. It is intentionally separate from the read-only V10 laboratory pages. Refresh after an autopilot commit to see the newest browser build; branch-host caching may take a few minutes.</p>
+  <p class="note">Pinned to validated commit <code>f870883dfdfcabf2edcc800ff7a17e41fb0aa05a</code>: 24 separate strings × 30 modules, 12 MPPT groups, 24 physical inputs, Leapfrog/Sequential/Compare modes and mobile-safe scrolling. The V10 laboratory remains read-only and separate.</p>
 </header>
 <main>
   <section class="frame-shell">
-    <div class="frame-label"><span>Live V11 workbench</span><span id="loaded-at">loading…</span></div>
-    <iframe id="v11-frame" title="V11 live solar DC topology workbench" allow="clipboard-read; clipboard-write"></iframe>
+    <div class="frame-label"><span>Validated V11 full-array workbench</span><span id="loaded-at">loading…</span></div>
+    <iframe id="v11-frame" title="V11 validated full-array solar DC topology workbench" allow="clipboard-read; clipboard-write"></iframe>
   </section>
 </main>
 <script>
 (() => {
   'use strict';
-  const base = 'https://raw.githack.com/Ventusltd/v11/build/v11-inverter-block-simulator/browser/workbench.html';
+  const base = 'https://rawcdn.githack.com/Ventusltd/v11/f870883dfdfcabf2edcc800ff7a17e41fb0aa05a/browser/workbench.html';
   const frame = document.getElementById('v11-frame');
   const loadedAt = document.getElementById('loaded-at');
-  function loadLatest(){
-    const stamp = Date.now();
-    frame.src = `${base}?monitor=${stamp}`;
+  function loadPinned(){
+    frame.src = base;
     loadedAt.textContent = `requested ${new Date().toLocaleTimeString()}`;
   }
-  document.getElementById('reload').addEventListener('click', loadLatest);
+  document.getElementById('reload').addEventListener('click', loadPinned);
   frame.addEventListener('load', () => { loadedAt.textContent = `loaded ${new Date().toLocaleTimeString()}`; });
-  loadLatest();
+  loadPinned();
 })();
 </script>
 </body>

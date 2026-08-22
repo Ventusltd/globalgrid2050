@@ -1,10 +1,10 @@
 {
   "schema": "globalgrid2050.project-news-links.v6",
-  "generated_at": "2026-08-22T15:06:10.670503+00:00",
+  "generated_at": "2026-08-22T20:18:44.616084+00:00",
   "identity_schema": "globalgrid2050.project-identity.v6",
-  "article_count": 1,
-  "link_count": 1,
-  "primary_link_count": 1,
+  "article_count": 8,
+  "link_count": 8,
+  "primary_link_count": 8,
   "related_development_link_count": 0,
   "rules": {
     "one_primary_match_per_article": true,
@@ -15,6 +15,60 @@
   },
   "links": [
     {
+      "gg_article_id": "GG2050-NEWS-D1D037F96BF0C5C5",
+      "gg_project_id": "GG2050-REPD-5864",
+      "gg_development_id": "GG2050-DEV-BDB9672608D299",
+      "repd_ref": "5864",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 83
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-2E59E50CA94F26F0",
+      "gg_project_id": "GG2050-REPD-5864",
+      "gg_development_id": "GG2050-DEV-BDB9672608D299",
+      "repd_ref": "5864",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 80
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-D53A55B4CE224B33",
+      "gg_project_id": "GG2050-REPD-5864",
+      "gg_development_id": "GG2050-DEV-BDB9672608D299",
+      "repd_ref": "5864",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 80
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-3E30A42EAED74D96",
+      "gg_project_id": "GG2050-REPD-5864",
+      "gg_development_id": "GG2050-DEV-BDB9672608D299",
+      "repd_ref": "5864",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 80
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-7493318A1EFD7D53",
+      "gg_project_id": "GG2050-REPD-10087",
+      "gg_development_id": "GG2050-DEV-084BE976F34997",
+      "repd_ref": "10087",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 77
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-4D51082DBAFF15A3",
+      "gg_project_id": "GG2050-REPD-10087",
+      "gg_development_id": "GG2050-DEV-084BE976F34997",
+      "repd_ref": "10087",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 77
+    },
+    {
       "gg_article_id": "GG2050-NEWS-0B62C906FC62E3CA",
       "gg_project_id": "GG2050-REPD-5533",
       "gg_development_id": "GG2050-DEV-0E5A827DB4645E",
@@ -22,6 +76,15 @@
       "role": "PRIMARY_MATCH",
       "eligible_for_news_signal": true,
       "confidence": 69
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-004B0EE9A2251D99",
+      "gg_project_id": "GG2050-REPD-10087",
+      "gg_development_id": "GG2050-DEV-084BE976F34997",
+      "repd_ref": "10087",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 74
     }
   ]
 }

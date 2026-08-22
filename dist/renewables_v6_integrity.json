@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.renewables-v6-integrity.v6",
   "pass": true,
-  "validated_at": "2026-08-22T15:06:11.305004+00:00",
+  "validated_at": "2026-08-22T20:18:45.725005+00:00",
   "metrics": {
     "source_records": 14657,
     "source_unique_refs": 14657,
@@ -10,11 +10,13 @@
     "bess_projects": 269,
     "record_updates_supplied": 3696,
     "record_updates_missing": 18,
-    "news_candidates": 155,
-    "news_accepted": 1,
-    "news_rejected": 154,
+    "news_candidates": 151,
+    "news_accepted": 8,
+    "news_rejected": 144,
     "news_ambiguous": 0,
-    "project_news_links": 1
+    "news_retained": 1,
+    "solar_rotation_cursor_next": 48,
+    "project_news_links": 8
   },
   "checks": [
     {
@@ -430,7 +432,7 @@
     {
       "gate": "news headline count permits a valid zero",
       "pass": true,
-      "detail": "metadata=1 items=1"
+      "detail": "metadata=8 items=8"
     },
     {
       "gate": "news horizon exact",
@@ -465,27 +467,27 @@
     {
       "gate": "news telemetry rss_candidates_returned recorded",
       "pass": true,
-      "detail": "177"
+      "detail": "172"
     },
     {
       "gate": "news telemetry deduplicated_article_candidates recorded",
       "pass": true,
-      "detail": "155"
+      "detail": "151"
     },
     {
       "gate": "news telemetry articles_accepted_before_limit recorded",
       "pass": true,
-      "detail": "1"
+      "detail": "7"
     },
     {
       "gate": "news telemetry articles_published recorded",
       "pass": true,
-      "detail": "1"
+      "detail": "8"
     },
     {
       "gate": "news telemetry articles_rejected recorded",
       "pass": true,
-      "detail": "154"
+      "detail": "144"
     },
     {
       "gate": "news telemetry articles_ambiguous recorded",
@@ -523,22 +525,137 @@
       "detail": ""
     },
     {
-      "gate": "priority source queried: PV Magazine",
+      "gate": "persisted solar rotation metadata typed",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source attempt recorded: PV Magazine",
+      "gate": "solar rotation selects a bounded non-empty window",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source queried: Planning Inspectorate",
+      "gate": "solar rotation indexes are consecutive and auditable",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source attempt recorded: Planning Inspectorate",
+      "gate": "solar rotation planned cursor is deterministic",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "solar rotation advances only after a complete crawl",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "solar rotation persists the next complete or retry window",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "solar rotation advance reason explicit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "solar rotation full-sweep bound exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "solar rotation cursor source explicit",
+      "pass": true,
+      "detail": "initial_zero"
+    },
+    {
+      "gate": "fresh candidate accounting exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "retained-story telemetry typed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "previous-story revalidation accounting exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "only revalidated stories are carried forward",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "final newspaper union accounting exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "previous-story drop reasons recorded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "previous-story drop reason totals exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "previous news artifact is project-snapshot bound",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "article rejection reasons recorded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "article rejection reason totals exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "project-pair rejection reasons recorded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "all fresh project/article pair outcomes accounted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "bounded rejected-article audit samples configured",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "rejected-article samples are bounded, public and complete",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: BBC",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: BBC",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: Solar Power Portal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Solar Power Portal",
       "pass": true,
       "detail": ""
     },
@@ -563,27 +680,32 @@
       "detail": ""
     },
     {
-      "gate": "priority source queried: Solar Power Portal",
+      "gate": "priority source queried: Planning Inspectorate",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source attempt recorded: Solar Power Portal",
+      "gate": "priority source attempt recorded: Planning Inspectorate",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source queried: BBC",
+      "gate": "priority source queried: PV Magazine",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source attempt recorded: BBC",
+      "gate": "priority source attempt recorded: PV Magazine",
       "pass": true,
       "detail": ""
     },
     {
       "gate": "all accepted news passes identity/technology/foreign/quality gates",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "offline news matcher true/false-positive fixtures",
       "pass": true,
       "detail": ""
     },
@@ -599,6 +721,21 @@
     },
     {
       "gate": "relationship link count exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "relationship metadata has exactly one primary per article",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "relationship related-link metadata exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "relationship NEWS SIGNAL policy explicit",
       "pass": true,
       "detail": ""
     },

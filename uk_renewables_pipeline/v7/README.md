@@ -65,21 +65,165 @@ The reusable layers are:
 
 A future country pack must define authoritative sources, lifecycle terminology, thresholds, grid organisations, market mechanisms, coordinate systems, units, currency, language, timezone, evidence rules and data licensing without editing the country-neutral core.
 
-## V7.1–V7.9 refinement sequence
+## MVP truth and one-feature version discipline
 
-| Release | Refinement | Non-negotiable exit gate |
-|---|---|---|
-| V7.1 | Modular V5 parity: extract the live MVP shell, newspaper, gauges, filters, table and export into small modules | Visible behaviour and inherited 125-story/10,784-feature baseline remain reproducible |
-| V7.2 | Canonical UK project foundation: reconciled REPD, exact thresholds, identity, lifecycle and canonical GeoJSON | Q2 fixture produces 384 solar + 382 BESS = 766 records across 718 developments |
-| V7.3 | Trusted article/event/assertion engine and labelled matcher evaluation | Zero known-negative leakage; every accepted assertion has explicit identity and event evidence |
-| V7.4 | UK market analytics: consent, CfD, finance, EPC/NTP, construction, commissioning, operation and ownership | External events never overwrite official REPD facts |
-| V7.5 | Grid Watch: NESO, National Grid and DNO confirmed events plus separately labelled context | Proximity never becomes a claimed connection or confirmed impact |
-| V7.6 | Separate sub-49 MW C&I solar, C&I BESS and EV-charging identity lanes | No ordinary small solar farm is called C&I and no REPD Ref is fabricated |
-| V7.7 | Complete product: project/development pages, timelines, map, evidence drawers, analytics, search, filters and feeds | Desktop, mobile, export and referential-integrity gates pass |
-| V7.8 | Worldwide replication kit: country-pack specification, blank template, localisation and a second-country proof | A second country can be added without changing core identity or UI contracts |
-| V7.9 | Bulletproof operations: pinned dependencies, checkpointed collection, health gates, atomic publication and recovery | A failed or blind refresh leaves the last validated public edition unchanged |
+V7.0 is the current live MVP. It is a wholesale V5 product copy with only V7 labels, corrected folder paths, navigation and export naming.
 
-Delivery remains grouped into the four build steps below: Step 1 covers V7.1–V7.2; Step 2 is V7.3; Step 3 covers V7.4–V7.8; Step 4 is V7.9.
+The inherited V5 NEWS SIGNAL is part of the MVP. It works for some projects and fails for others. It must remain visibly external and unverified, must never overwrite REPD status, and must not be silently repaired during V7.1 or V7.2. Its discovery, identity and event behaviour is refined only in V7.3 under the labelled North Star corpus.
+
+Development proceeds as one training or build session at a time:
+
+1. One approved feature theme per minor release.
+2. A training-only session may improve the README, fixtures or scope but must not change application behaviour.
+3. A build session implements only the feature named for that release; unrelated repairs wait for the next release.
+4. Each completed feature advances the visible version exactly once: V7.1, V7.2, V7.3 through V7.9.
+5. After V7.9, the next product generation is V8.0; do not create V7.10 or silently add extra V7 scope.
+6. Every release receives a direct `main` commit, version manifest, short release record, pre/post North Star evidence and production verification.
+7. The stable public address remains `/uk_renewables_pipeline/v7/` throughout V7.x; the visible badge and manifest identify the exact minor release.
+8. The four build steps below are roadmap groupings only. They do not authorise bundling several minor releases into one build.
+
+## V7.1–V7.9 exact refinement sequence
+
+### V7.1 — Modular V5 parity
+
+Extract the live V5-derived MVP into small modules without changing visible behaviour, data, matching or NEWS SIGNAL decisions.
+
+- Thin `index.html`.
+- Separate styles, shell, newspaper, gauges, filters, table and export.
+- Stable plugin contract and version manifest.
+- Executable North Star preflight and postflight gate.
+- One-command validation.
+- Exact visual and functional parity with the current live MVP.
+- No project-data, threshold, news-matching or event refinements.
+
+Exit gate: the modular version reproduces the current 125-story newspaper, 10,784-feature legacy source and project interface, and the pre/post North Star results are identical.
+
+### V7.2 — Canonical UK project foundation
+
+Replace the legacy V5 project dependency with the strongest V6 engineering without changing the inherited V5 NEWS SIGNAL engine.
+
+- Reconciled REPD CSV/XLSX ingestion.
+- Solar `>49 MWp` and BESS `>99 MW`.
+- Expected Q2 fixture: 384 solar, 382 BESS and 766 records across 718 developments.
+- No wind.
+- Stable REPD, GlobalGrid project and development IDs.
+- Canonical JSON and GeoJSON from one record spine.
+- Active, disputed and historical lifecycle views.
+- Separate solar MWp and BESS MW analytics.
+- V5 NEWS SIGNAL remains external legacy intelligence and cannot alter canonical facts.
+
+Exit gate: every displayed utility project has canonical identity and provenance while the separately labelled legacy NEWS SIGNAL remains behaviourally unchanged.
+
+### V7.3 — Trusted newspaper and event engine
+
+Replace the inherited V5 NEWS SIGNAL bindings only after V7.1 and V7.2 are proven.
+
+- Separate articles, material events and project-event assertions.
+- Planning-reference and NSIP-reference anchors.
+- Current-versus-historical application resolution.
+- Inactive-record protection.
+- Technology, positive UK-location and ambiguity gates.
+- Duplicate coverage clustered into one event.
+- Evidence phrase and deterministic rejection reason stored.
+- V5/V6 positive and negative evaluation corpus.
+- Beacon Fen development-level and component-level tests.
+
+Exit gate: zero known foreign, offshore-wind, healthcare, common-name or inactive-record leakage, with every accepted assertion supported by explicit identity and event evidence.
+
+### V7.4 — UK market analytics
+
+Create one commercial market-intelligence layer from the trusted V7.3 event model.
+
+- Consent and refusal.
+- CfD allocation and contract status.
+- Financial close and investment.
+- EPC award and notice to proceed.
+- Construction commencement.
+- Energisation and commissioning.
+- Commercial operation.
+- Acquisition and ownership changes.
+- Development and regional market summaries.
+
+Exit gate: every market milestone is independently evidenced and never overwrites REPD facts.
+
+### V7.5 — Grid Watch
+
+Add project-specific and system-level grid intelligence as a separate feature.
+
+- NESO, National Grid and DNO adapters.
+- Grid offers, agreements, delays and queue changes.
+- Reinforcement, constraint, curtailment and outage events.
+- Explicit project/substation relationships.
+- Regional context shown separately from confirmed impact.
+- OSM infrastructure retained as contextual geography only.
+- Proximity never presented as a confirmed connection.
+
+Exit gate: every confirmed project-grid signal contains explicit relationship evidence.
+
+### V7.6 — C&I solar and EV charging
+
+Create a separate distributed-energy market without widening the utility-project scope.
+
+- Sub-49 MW rooftop and behind-the-meter solar.
+- Commercial and industrial BESS.
+- Depot and fleet charging.
+- Forecourts and charging hubs.
+- Physical-site identities based on organisation, address and planning evidence.
+- Separate GlobalGrid C&I and EV identifiers.
+- No fabricated REPD references.
+- Ordinary small solar farms excluded from the C&I lane.
+
+Exit gate: every C&I/EV asset has evidence for its classification and physical identity.
+
+### V7.7 — Complete analytics product
+
+Turn the proven modules into the intended UK market tool.
+
+- Utility, Market Events, Grid Watch, C&I/EV and Archive views.
+- Project and development pages.
+- Event timelines.
+- Canonical interactive map.
+- Evidence drawers.
+- Market totals and regional trends.
+- Search, filters and exports.
+- Public machine-readable feeds.
+- Mobile and accessibility completion.
+
+Exit gate: the UK market can be explored without conflating records, developments, events or context.
+
+### V7.8 — Worldwide replication kit
+
+Make the platform reusable without claiming portability until it is proven.
+
+- Country-pack specification.
+- Blank country template.
+- Adapter interface and example fixtures.
+- Localisation, currencies, units and timezone support.
+- Technology and lifecycle mapping.
+- Contributor and AI-agent instructions.
+- Source licensing and provenance checklist.
+- Schema compatibility tests.
+- Example second-country implementation.
+
+Exit gate: another country can be added without editing the core identity or interface engines.
+
+### V7.9 — Bulletproof operations
+
+Complete production automation and resilience as the final V7 feature.
+
+- Pinned dependencies and Actions revisions.
+- One validated writer on `main`.
+- Checkpointed source collection.
+- Source-health and freshness reporting.
+- Deterministic builds.
+- Content-addressed releases.
+- Atomic Pages publication.
+- Last-known-good retention.
+- Failure simulations and shadow runs.
+- V1–V7 immutability and regression gates.
+- Retirement of competing historical schedules only after V7 proof.
+
+Exit gate: source failure, crawler failure or a new REPD edition cannot corrupt or silently empty the public product.
 
 ## North Star anti-hallucination and anti-truncation gate
 
@@ -151,11 +295,42 @@ Every required record above must exist with the expected technology, planning re
 - Failure leaves the public manifest and last validated assets byte-for-byte unchanged.
 - The release report records fixture hashes, source hashes, counts by technology/status, development count, missing-field coverage, geometry coverage and all sentinel outcomes.
 
+### Executable beginning-and-end build contract
+
+The README is the governing human scope. V7.1 must add a machine-readable mirror and validator beneath the V7 folder; later releases must use them without weakening the README contract.
+
+Required V7.1 implementation:
+
+- `contracts/north-star.v1.json`: frozen counts, hashes, canonical sentinels, negative sentinels, thresholds and release rules.
+- `tests/validate_north_star.py`: one validator with explicit `pre` and `post` phases.
+- `data/build_manifest.json`: current minor version, governing README blob/hash, North Star contract hash, input hashes, output hashes and gate result.
+- One local command and one GitHub workflow step call the same validator; there is no separate weaker workflow validator.
+
+Every build begins by:
+
+1. Reading this README and resolving the current V7 minor version.
+2. Verifying that the machine contract fingerprints this governing README revision.
+3. Verifying frozen V1/V5/V6 fixture hashes, historical file hashes and current live-asset hashes.
+4. Verifying baseline universe counts and every required canonical sentinel.
+5. Recording a preflight report before any source or application file changes.
+
+Every build ends by:
+
+1. Running the identical fixture, universe, identity and negative-sentinel gates.
+2. Comparing the preflight and postflight reports and accounting for every intended difference.
+3. Proving that unrelated versions and features did not change.
+4. Writing the release manifest and short release record for exactly one minor version.
+5. Refusing commit or publication if the README, machine contract, build output or live deployment disagrees.
+
+Application and workflow code must read thresholds, version and scope identifiers from the validated contract/manifest. It must not maintain hidden duplicate constants that can drift away from this README.
+
 ## Four-step build
+
+These are macro roadmap groupings only. Each named V7.x refinement above is trained, built, validated, committed and published separately.
 
 ### Step 1 — V5 product base + V6 canonical project foundation
 
-Use V5 as the visual and interaction base, but modularise it inside the V7 folder. Replace its legacy data dependency with a V6-derived canonical ingestion spine.
+First complete V7.1 modular parity. Only after its exit gate passes, complete V7.2 canonical project data as a separate version and build.
 
 Deliverables:
 
@@ -174,7 +349,7 @@ Exit gate: the V7 project dashboard works locally from same-origin assets, produ
 
 ### Step 2 — Material-event intelligence
 
-Replace V5 headline binding and V6's incomplete event layer with auditable article, event and project-event records.
+Complete only V7.3: replace V5 headline binding and V6's incomplete event layer with auditable article, event and project-event records.
 
 Deliverables:
 
@@ -194,7 +369,7 @@ Exit gate: every published event has a defensible current-project identity, expl
 
 ### Step 3 — Grid, CfD, C&I/EV and complete interface
 
-Add the specialist disciplines without mixing their evidence classes.
+Complete V7.4, V7.5, V7.6, V7.7 and V7.8 sequentially as five separate feature releases. Do not mix their evidence classes or combine their builds.
 
 Deliverables:
 
@@ -213,7 +388,7 @@ Exit gate: the complete local product fulfils the market purpose and keeps offic
 
 ### Step 4 — Reliability, main-branch publication and production proof
 
-Replace competing writers with one staged and deterministic V7 publication path.
+Complete only V7.9: replace competing writers with one staged and deterministic V7 publication path.
 
 Deliverables:
 
@@ -279,4 +454,7 @@ For a new chat:
 - Production proof: deployed HTML matches the committed V7 file; the two inherited assets expose 125 V5 stories and 10,784 legacy REPD GeoJSON features.
 - Known V5 identity, foreign-story, technology, stale-GeoJSON and reproducibility weaknesses therefore remain present by design until refinement.
 - The modular platform decision, V7.1–V7.9 sequence and North Star anti-hallucination/anti-truncation gate are documented above and are mandatory for future work.
+- V7.0 deliberately retains V5 NEWS SIGNAL behaviour: useful matches and known failures remain external legacy intelligence until the single-feature V7.3 replacement.
+- Every future build must execute the North Star at both preflight and postflight; V7.1 is responsible for creating the shared machine-readable contract and validator.
+- Each V7.1–V7.9 release implements one feature theme only; after V7.9 development moves to V8.0.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.

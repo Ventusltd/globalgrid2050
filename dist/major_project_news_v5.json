@@ -1,0 +1,54 @@
+{
+  "schema": "globalgrid2050.major-project-news.v5",
+  "updated": "2026-08-22T01:23:00Z",
+  "thresholds": {"solar_mw_exclusive": 49.0, "bess_mw_exclusive": 100.0},
+  "eligible_projects": null,
+  "headline_count": 4,
+  "method": "Seed headlines; daily V5 all-project batched matcher takes over after first workflow run",
+  "items": [
+    {
+      "project": "Beacon Fen Energy Park",
+      "technology": "solar",
+      "capacity_mw": 400,
+      "event": "CONSENT",
+      "headline": "Beacon Fen Energy Park development consent decision announced",
+      "published": "2026-08-21",
+      "source": "GOV.UK",
+      "url": "https://www.gov.uk/government/news/beacon-fen-energy-park-development-consent-decision-announced",
+      "confidence": 100
+    },
+    {
+      "project": "Coalburn 1",
+      "technology": "bess",
+      "capacity_mw": 500,
+      "event": "OPERATIONAL",
+      "headline": "1GWh Coalburn 1 battery energy storage enters operations in Scotland",
+      "published": "2026-08-13",
+      "source": "Solar Power Portal",
+      "url": "https://www.solarpowerportal.co.uk/battery-storage/1gwh-coalburn-1-battery-energy-storage-enters-operationsscotland",
+      "confidence": 100
+    },
+    {
+      "project": "One Earth Solar Farm",
+      "technology": "solar",
+      "capacity_mw": 50,
+      "event": "CONSENT",
+      "headline": "One Earth Solar Farm development consent decision announced",
+      "published": "2026-07-08",
+      "source": "GOV.UK",
+      "url": "https://www.gov.uk/government/news/one-earth-solar-farm-development-consent-decision-announced",
+      "confidence": 95
+    },
+    {
+      "project": "Dean Moor Solar Farm",
+      "technology": "solar",
+      "capacity_mw": 50,
+      "event": "CONSENT",
+      "headline": "Dean Moor Solar Farm development consent decision announced",
+      "published": "2026-07-02",
+      "source": "GOV.UK",
+      "url": "https://www.gov.uk/government/news/dean-moor-solar-farm-development-consent-decision-announced",
+      "confidence": 95
+    }
+  ]
+}

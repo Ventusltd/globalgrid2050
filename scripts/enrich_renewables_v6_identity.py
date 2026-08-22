@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,16 +52,10 @@ def main():
         record = by_ref.get(ref)
         if not record:
             raise RuntimeError(f"Eligible V6 project has no canonical identity: REPD {ref} {project.get('name')}")
-        project["gg_project_id"] = record["gg_project_id"]
-        project["gg_development_id"] = record["gg_development_id"]
-        project["identity_status"] = record["identity_status"]
-        project["direct_related_repd_refs"] = record.get("direct_related_repd_refs") or []
-        project["planning_sibling_repd_refs"] = record.get("planning_sibling_repd_refs") or []
-        project["development_repd_refs"] = record.get("development_repd_refs") or [ref]
-
-    projects["identity_schema"] = identity.get("schema")
-    projects["globalgrid_id_required"] = True
-    PROJECTS.write_text(json.dumps(projects, indent=2), encoding="utf-8")
+        if project.get("gg_project_id") != record.get("gg_project_id"):
+            raise RuntimeError(f"Eligible V6 project ID differs from registry: REPD {ref}")
+        if project.get("gg_development_id") != record.get("gg_development_id"):
+            raise RuntimeError(f"Eligible V6 development ID differs from registry: REPD {ref}")
 
     links = []
     seen_article_ids = set()
@@ -69,6 +64,8 @@ def main():
         record = by_ref.get(ref)
         if not record:
             raise RuntimeError(f"Headline has no canonical REPD/GlobalGrid identity: {ref} {item.get('headline')}")
+        if ref not in eligible_refs:
+            raise RuntimeError(f"Headline primary match is outside the V6 threshold universe: REPD {ref}")
 
         aid = article_id(item)
         if aid in seen_article_ids:
@@ -123,13 +120,16 @@ def main():
         json.dumps(
             {
                 "schema": "globalgrid2050.project-news-links.v6",
+                "generated_at": datetime.now(timezone.utc).isoformat(),
                 "identity_schema": identity.get("schema"),
                 "article_count": len(seen_article_ids),
                 "link_count": len(links),
                 "primary_link_count": sum(1 for x in links if x["role"] == "PRIMARY_MATCH"),
                 "related_development_link_count": sum(1 for x in links if x["role"] == "RELATED_DEVELOPMENT"),
                 "rules": {
+                    "one_primary_match_per_article": True,
                     "primary_match_drives_news_signal": True,
+                    "related_development_drives_news_signal": False,
                     "related_development_never_confirms_repd_status": True,
                     "article_display_is_deduplicated": True,
                 },

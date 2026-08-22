@@ -5,7 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 text = INDEX.read_text(encoding="utf-8")
 
-v6_line = '    { name:"UK Solar + Storage Daily V6", url:"./uk_renewables_pipeline/dashboard_v6_live.html", note:"LIVE · DESNZ REPD-bound · GlobalGrid ID · REPD Ref + update date · solar >1MWp · BESS >100MW" },\n'
+v6_line = '    { name:"UK Solar + Storage Daily V6", url:"./uk_renewables_pipeline/dashboard_v6_live.html", note:"LIVE · DESNZ Q2 2026 validated snapshot · solar >1MW · BESS >100MW · canonical GlobalGrid/REPD IDs" },\n'
 v5_live = '    { name:"UK Solar + Storage Daily V5", url:"./uk_renewables_pipeline/dashboard_v5_live.html", note:"LIVE · daily newspaper · solar >49MWp · BESS >100MW" },'
 v5_previous = '    { name:"UK Solar + Storage Daily V5", url:"./uk_renewables_pipeline/dashboard_v5_live.html", note:"previous live · daily newspaper · solar >49MWp · BESS >100MW" },'
 

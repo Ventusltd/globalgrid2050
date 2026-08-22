@@ -1,33 +1,50 @@
 #!/usr/bin/env python3
+"""Build the public V6 newspaper from the validated V6 project snapshot.
+
+The project snapshot is an immutable input. News is a separate intelligence
+layer: every published article has exactly one canonical primary project while
+other records in the development are context-only links.
+"""
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import re
+import time
 import xml.etree.ElementTree as ET
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone, timedelta
+from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, as_completed
+from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import quote_plus
-
-import requests
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-REPD_PATH = ROOT / "dist" / "repd_master.json"
-MANIFEST_PATH = ROOT / "dist" / "manifest_v4.json"
+PROJECTS_PATH = ROOT / "dist" / "major_projects_v6.json"
+MANIFEST_PATH = ROOT / "dist" / "manifest_v6.json"
 NEWS_OUT = ROOT / "dist" / "major_project_news_v6.json"
-PROJECTS_OUT = ROOT / "dist" / "major_projects_v6.json"
+LINKS_OUT = ROOT / "dist" / "project_news_links_v6.json"
 
 SOLAR_MIN_EXCLUSIVE = 1.0
 BESS_MIN_EXCLUSIVE = 100.0
+EXPECTED_SOURCE_RECORDS = 14_657
+EXPECTED_SOLAR_PROJECTS = 3_445
+EXPECTED_BESS_PROJECTS = 269
+EXPECTED_PROJECTS = EXPECTED_SOLAR_PROJECTS + EXPECTED_BESS_PROJECTS
 LOOKBACK_DAYS = 183
 MAX_HEADLINES = 300
-MAX_PER_PROJECT = 3
 MIN_SCORE = 68
+AMBIGUITY_MARGIN = 8
 BATCH_SIZE = 25
 MAX_BATCH_CHARS = 1350
 WORKERS = 12
+CRAWL_BUDGET_SECONDS = 170
+# Leave time for a running 12-second request, global project matching and output
+# validation before the outer 170-second workflow timeout. Source failures or a
+# quiet period produce valid zero-item output through per-query handling.
+NETWORK_BUDGET_SECONDS = 122
 
 PRIORITY_SOURCES = {
     "DESNZ / GOV.UK": "gov.uk",
@@ -39,24 +56,14 @@ PRIORITY_SOURCES = {
 }
 
 BROAD_QUERIES = [
-    '"solar farm" UK MW',
-    '"solar park" UK MW',
-    '"solar energy park" UK MW',
-    '"solar photovoltaics" UK planning MW',
-    '"battery energy storage" UK MW',
-    'BESS UK MW',
-    '"battery storage" UK grid',
-    '"development consent" solar UK',
-    '"planning consent" solar UK',
-    '"planning permission" solar farm UK',
-    '"financial close" solar UK',
-    '"financial close" battery UK',
-    '"construction" solar farm UK',
-    '"construction" battery storage UK',
-    '"commercial operation" solar UK',
-    '"commercial operation" battery UK',
-    '"energised" battery UK',
-    '"acquisition" solar farm UK',
+    '"solar farm" UK MW', '"solar park" UK MW', '"solar energy park" UK MW',
+    '"solar photovoltaics" UK planning MW', '"battery energy storage" UK MW',
+    "BESS UK MW", '"battery storage" UK grid', '"development consent" solar UK',
+    '"planning consent" solar UK', '"planning permission" solar farm UK',
+    '"financial close" solar UK', '"financial close" battery UK',
+    '"construction" solar farm UK', '"construction" battery storage UK',
+    '"commercial operation" solar UK', '"commercial operation" battery UK',
+    '"energised" battery UK', '"acquisition" solar farm UK',
     '"acquisition" battery storage UK',
 ]
 
@@ -72,6 +79,11 @@ SOURCE_QUERIES = [
 ]
 
 EVENTS = [
+    # Negative outcomes precede consent words so "planning permission refused"
+    # can never be classified as a consent event merely because it contains
+    # "planning permission".
+    ("REFUSAL", ["refused", "rejected", "refusal", "turned down", "dismissed"]),
+    ("DELAY", ["delayed", "delay", "judicial review", "postponed", "deferred"]),
     ("OPERATIONAL", ["commercial operation", "operational", "energised", "energized", "commissioned", "goes live", "entered operation"]),
     ("CONSTRUCTION", ["construction", "breaking ground", "build begins", "under construction", "construction starts"]),
     ("CONSENT", ["development consent", "planning consent", "approved", "approval", "consented", "permission granted", "planning permission"]),
@@ -79,7 +91,6 @@ EVENTS = [
     ("ACQUISITION", ["acquires", "acquired", "acquisition", "sold to", "sale of", "portfolio sale"]),
     ("GRID CONNECTION", ["grid connection", "connected to the grid", "connection agreement", "grid offer"]),
     ("EXPANSION", ["expansion", "expanded", "extension", "upsized"]),
-    ("DELAY / REFUSAL", ["refused", "rejected", "delayed", "delay", "judicial review"]),
 ]
 
 STOP = {
@@ -91,373 +102,627 @@ GENERIC_SINGLE = {
     "grange", "manor", "common", "lodge", "hall", "hill", "fields", "field", "wood",
     "woods", "green", "bridge", "bank", "brook", "mill", "moor", "marsh", "meadow", "meadows",
 }
-FOREIGN_PHRASES = {
-    "new jersey", "california", "texas", "australia", "canada", "germany", "italy", "spain",
-    "india", "china", "south africa", "new zealand", "ireland", "united states", "u s roundup",
-    "new york", "arizona", "nevada", "florida", "ohio", "virginia",
+
+# Bare Ireland is intentionally absent: Northern Ireland is valid UK context.
+FOREIGN_RULES = {
+    "New Jersey": ("new jersey",), "California": ("california",), "Texas": ("texas",),
+    "Australia": ("australia", "new south wales", "queensland", "victoria australia"),
+    "Canada": ("canada", "alberta", "ontario canada"), "Germany": ("germany",),
+    "Italy": ("italy",), "Spain": ("spain",), "India": ("india",), "China": ("china",),
+    "South Africa": ("south africa",), "New Zealand": ("new zealand",),
+    "Republic of Ireland": ("republic of ireland", "irish republic"),
+    "United States": ("united states", "u s roundup"), "New York": ("new york",),
+    "Arizona": ("arizona",), "Nevada": ("nevada",), "Florida": ("florida",),
+    "Ohio": ("ohio",), "Virginia": ("virginia",), "Massachusetts": ("massachusetts",),
+    "Pennsylvania": ("pennsylvania",), "Colorado": ("colorado",),
 }
 
-
-def clean(v):
-    s = str(v or "")
-    return "" if s.lower() in {"nan", "none", "null", "not set"} else s.strip()
+QUERY_PLAN_META: dict[str, object] = {}
 
 
-def norm(v):
-    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", clean(v).lower().replace("&", " and "))).strip()
+def clean(value):
+    text = str(value or "").strip()
+    return "" if text.lower() in {"nan", "none", "null", "not set"} else text
 
 
-def toks(v):
-    return {t for t in norm(v).split() if len(t) >= 3 and t not in STOP}
+def norm(value):
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", clean(value).lower().replace("&", " and "))).strip()
 
 
-def load_manifest():
+def toks(value):
+    return {token for token in norm(value).split() if len(token) >= 3 and token not in STOP}
+
+
+def file_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write_json_atomic(path: Path, payload: dict) -> None:
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
+def load_manifest() -> dict:
     if not MANIFEST_PATH.exists():
-        return {}
-    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        raise RuntimeError("Missing dist/manifest_v6.json; V6 news cannot use a V4/V5 fallback")
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    if manifest.get("schema") != "globalgrid2050.repd-manifest.v6" or int(manifest.get("schema_version") or 0) != 6:
+        raise RuntimeError("dist/manifest_v6.json is not a V6 manifest")
+    if manifest.get("status") != "VALIDATED":
+        raise RuntimeError(f"V6 manifest is not validated: {manifest.get('status')!r}")
+    return manifest
 
 
-def load_projects():
-    data = json.loads(REPD_PATH.read_text(encoding="utf-8"))
-    out = []
-    seen_refs = set()
-    for feature in data.get("features", []):
-        p = feature.get("properties", {})
-        tech = clean(p.get("tech"))
-        try:
-            mw = float(p.get("capacity") or 0)
-        except Exception:
-            continue
-        if not math.isfinite(mw):
-            continue
-        solar = tech in {"solar", "solar_roof"} and mw > SOLAR_MIN_EXCLUSIVE
-        bess = tech == "bess" and mw > BESS_MIN_EXCLUSIVE
-        if not (solar or bess):
-            continue
+def _phrase_hit(value, text: str, text_tokens: set[str]) -> bool:
+    phrase = norm(value)
+    if not phrase:
+        return False
+    if phrase in text:
+        return True
+    parts = toks(value)
+    return bool(parts) and len(parts & text_tokens) >= min(2, len(parts))
 
-        repd_ref = clean(p.get("repd_ref"))
-        repd_updated = clean(p.get("repd_record_updated"))
-        if not repd_ref or not repd_updated:
-            raise RuntimeError(f"Eligible REPD project missing official binding: {p.get('name')} ref={repd_ref!r} updated={repd_updated!r}")
-        if repd_ref in seen_refs:
-            raise RuntimeError(f"Duplicate eligible REPD Ref ID: {repd_ref}")
+
+def load_project_snapshot() -> tuple[dict, list[dict]]:
+    if not PROJECTS_PATH.exists():
+        raise RuntimeError("Missing dist/major_projects_v6.json; no V5/private fallback is permitted")
+    snapshot = json.loads(PROJECTS_PATH.read_text(encoding="utf-8"))
+    if snapshot.get("schema") != "globalgrid2050.major-projects.v6":
+        raise RuntimeError("Unexpected V6 project snapshot schema")
+    rows = snapshot.get("projects")
+    if not isinstance(rows, list):
+        raise RuntimeError("V6 project snapshot has no projects array")
+    declared_count = snapshot.get("project_count", snapshot.get("count"))
+    if declared_count is not None and int(declared_count) != len(rows):
+        raise RuntimeError(f"V6 project snapshot count mismatch: declared={declared_count} actual={len(rows)}")
+    canonical_projects = json.dumps(rows, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    actual_projects_hash = hashlib.sha256(canonical_projects.encode("utf-8")).hexdigest()
+    if clean(snapshot.get("projects_sha256")) != actual_projects_hash:
+        raise RuntimeError("V6 project snapshot projects_sha256 does not match its projects array")
+
+    projects = []
+    seen_refs, seen_gg = set(), set()
+    for index, source in enumerate(rows):
+        repd_ref = clean(source.get("repd_ref"))
+        gg_project_id = clean(source.get("gg_project_id"))
+        gg_development_id = clean(source.get("gg_development_id"))
+        if not repd_ref or not gg_project_id or not gg_development_id:
+            raise RuntimeError(f"V6 project row {index} lacks canonical REPD/GlobalGrid identity")
+        if repd_ref in seen_refs or gg_project_id in seen_gg:
+            raise RuntimeError(f"Duplicate V6 project identity: REPD={repd_ref} GG={gg_project_id}")
         seen_refs.add(repd_ref)
+        seen_gg.add(gg_project_id)
 
-        name = clean(p.get("name")) or "Unknown Site"
-        category = "solar" if solar else "bess"
-        operator = clean(p.get("operator"))
-        county = clean(p.get("county") or p.get("local_planning_authority") or p.get("region"))
-        planning_ref = clean(p.get("planning_application_reference"))
-        out.append(
-            {
-                "id": repd_ref,
-                "repd_ref": repd_ref,
-                "repd_record_updated": repd_updated,
-                "name": name,
-                "operator": operator,
-                "county": county,
-                "status": clean(p.get("status")),
-                "technology": category,
-                "capacity_mw": round(mw, 3),
-                "planning_authority": clean(p.get("planning_authority") or p.get("local_planning_authority")),
-                "planning_application_reference": planning_ref,
-                "_name_norm": norm(name),
-                "_name_tokens": sorted(toks(name)),
-                "_operator_tokens": sorted(toks(operator)),
-                "_county_tokens": sorted(toks(county)),
-                "_planning_ref_norm": norm(planning_ref),
-            }
+        technology = clean(source.get("technology")).lower()
+        if technology not in {"solar", "bess"}:
+            raise RuntimeError(f"Unsupported V6 news technology {technology!r}: REPD {repd_ref}")
+        if source.get("capacity_known") is not True:
+            raise RuntimeError(f"Threshold-qualified project has unknown capacity: REPD {repd_ref}")
+        try:
+            capacity_mw = float(source.get("capacity_mw"))
+        except Exception as exc:
+            raise RuntimeError(f"Invalid official capacity for REPD {repd_ref}") from exc
+        if not math.isfinite(capacity_mw):
+            raise RuntimeError(f"Non-finite official capacity for REPD {repd_ref}")
+        if technology == "solar" and not capacity_mw > SOLAR_MIN_EXCLUSIVE:
+            raise RuntimeError(f"Solar threshold regression for REPD {repd_ref}: {capacity_mw}")
+        if technology == "bess" and not capacity_mw > BESS_MIN_EXCLUSIVE:
+            raise RuntimeError(f"BESS threshold regression for REPD {repd_ref}: {capacity_mw}")
+
+        name = clean(source.get("name")) or "Unknown Site"
+        operator, county = clean(source.get("operator")), clean(source.get("county"))
+        region, country = clean(source.get("region")), clean(source.get("country"))
+        authority = clean(source.get("planning_authority"))
+        planning_ref = clean(source.get("planning_application_reference"))
+        project = {
+            "project_id": repd_ref, "repd_ref": repd_ref,
+            "gg_project_id": gg_project_id, "gg_development_id": gg_development_id,
+            "identity_status": clean(source.get("identity_status")) or "REPD_BOUND",
+            "repd_record_updated": source.get("repd_record_updated") or None,
+            "name": name, "operator": operator, "county": county, "region": region,
+            "country": country, "status": clean(source.get("status")),
+            "technology": technology, "capacity_mw": capacity_mw, "capacity_known": True,
+            "planning_authority": authority, "planning_application_reference": planning_ref,
+            "related_repd_refs": [clean(ref) for ref in (source.get("related_repd_refs") or []) if clean(ref)],
+            "_name_norm": norm(name), "_name_tokens": toks(name),
+            "_planning_ref_norm": norm(planning_ref),
+        }
+        project["_identity_context"] = norm(" ".join((name, county, region, country, authority, planning_ref)))
+        projects.append(project)
+
+    name_counts = Counter(project["_name_norm"] for project in projects if project["_name_norm"])
+    for project in projects:
+        duplicate_count = name_counts[project["_name_norm"]]
+        project["_name_duplicate_count"] = duplicate_count
+        project["_name_duplicate"] = duplicate_count > 1
+        # Names made entirely from technology boilerplate (for example
+        # "Solar Farm" or "Battery Storage") have no distinctive tokens and
+        # must never pass identity on their text alone. The same applies to a
+        # single generic place token such as "Grange" or "Common".
+        project["_generic_name"] = not project["_name_tokens"] or (
+            len(project["_name_tokens"]) == 1
+            and next(iter(project["_name_tokens"])) in GENERIC_SINGLE
         )
-    return sorted(out, key=lambda x: (-x["capacity_mw"], x["name"]))
+    solar_count = sum(project["technology"] == "solar" for project in projects)
+    bess_count = sum(project["technology"] == "bess" for project in projects)
+    if (len(projects), solar_count, bess_count) != (
+        EXPECTED_PROJECTS,
+        EXPECTED_SOLAR_PROJECTS,
+        EXPECTED_BESS_PROJECTS,
+    ):
+        raise RuntimeError(
+            "V6 Q2 project universe mismatch: "
+            f"projects={len(projects)} solar={solar_count} bess={bess_count}"
+        )
+    projects.sort(key=lambda project: (project["name"].casefold(), project["repd_ref"]))
+    return snapshot, projects
 
 
-def fetch_rss(query):
-    q = f"{query} when:6m"
-    url = "https://news.google.com/rss/search?q=" + quote_plus(q) + "&hl=en-GB&gl=GB&ceid=GB:en"
-    r = requests.get(url, headers={"User-Agent": "GlobalGrid2050/6.0 (+https://globalgrid2050.com/)"}, timeout=12)
-    r.raise_for_status()
-    root = ET.fromstring(r.content)
+def load_projects() -> list[dict]:
+    return load_project_snapshot()[1]
+
+
+def fetch_rss(query: str) -> list[dict]:
+    requested = f"{query} when:6m"
+    url = "https://news.google.com/rss/search?q=" + quote_plus(requested) + "&hl=en-GB&gl=GB&ceid=GB:en"
+    request = Request(url, headers={"User-Agent": "GlobalGrid2050/6.0 (+https://globalgrid2050.com/)"})
+    with urlopen(request, timeout=12) as response:
+        root = ET.fromstring(response.read())
     cutoff = datetime.now(timezone.utc) - timedelta(days=LOOKBACK_DAYS)
     rows = []
     for item in root.findall(".//item"):
-        title = clean(item.findtext("title"))
-        link = clean(item.findtext("link"))
-        desc = clean(item.findtext("description"))
-        src = item.find("source")
-        source = clean(src.text if src is not None else "")
-        source_url = clean(src.attrib.get("url") if src is not None else "")
+        title, link = clean(item.findtext("title")), clean(item.findtext("link"))
+        description = clean(item.findtext("description"))
+        source_node = item.find("source")
+        source = clean(source_node.text if source_node is not None else "")
+        source_url = clean(source_node.attrib.get("url") if source_node is not None else "")
         try:
-            dt = parsedate_to_datetime(clean(item.findtext("pubDate")))
-            dt = (dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)).astimezone(timezone.utc)
+            published = parsedate_to_datetime(clean(item.findtext("pubDate")))
+            published = (published if published.tzinfo else published.replace(tzinfo=timezone.utc)).astimezone(timezone.utc)
         except Exception:
             continue
-        if title and link and dt >= cutoff:
-            rows.append(
-                {
-                    "title": title,
-                    "link": link,
-                    "description": re.sub(r"<[^>]+>", " ", desc),
-                    "published": dt,
-                    "source": source,
-                    "source_url": source_url,
-                }
-            )
+        if title and link and published >= cutoff:
+            rows.append({"title": title, "link": link, "description": re.sub(r"<[^>]+>", " ", description),
+                         "published": published, "source": source, "source_url": source_url})
     return rows
 
 
-def event(text):
-    t = norm(text)
+def event(text: str) -> str:
+    normalized = norm(text)
     for label, needles in EVENTS:
-        if any(norm(n) in t for n in needles):
+        if any(norm(needle) in normalized for needle in needles):
             return label
     return "PROJECT UPDATE"
 
 
-def source_bonus(source, url):
-    x = norm(source) + " " + norm(url)
-    if any(v in x for v in ("gov uk", "planning inspectorate", "planninginspectorate")):
-        return 24
-    if any(v in x for v in ("solar power portal", "energy storage news", "pv magazine", "bbc")):
+def source_bonus(source: str, url: str) -> int:
+    text = norm(source) + " " + norm(url)
+    if any(value in text for value in ("gov uk", "planning inspectorate", "planninginspectorate")):
         return 20
+    if any(value in text for value in ("solar power portal", "energy storage news", "pv magazine", "bbc")):
+        return 15
     return 5
 
 
-def capacity_match(project, text):
-    for m in re.findall(r"\b(\d{1,4}(?:\.\d+)?)\s*mw(?:p)?\b", text):
+def extract_news_capacities(text: str) -> list[float]:
+    values = []
+    for match in re.findall(r"\b(\d{1,4}(?:\.\d+)?)\s*mw(?:p)?\b", text, flags=re.I):
         try:
-            if abs(float(m) - project["capacity_mw"]) <= max(2.0, project["capacity_mw"] * 0.15):
-                return True
+            value = float(match)
         except Exception:
-            pass
-    return False
+            continue
+        if math.isfinite(value) and value not in values:
+            values.append(value)
+    return values
 
 
-def gate(project, story):
-    text = norm(story["title"] + " " + story["description"] + " " + story["source"])
-    title_text = norm(story["title"])
-    tt = set(text.split())
-    names = set(project["_name_tokens"])
-    op = set(project["_operator_tokens"])
-    county = set(project["_county_tokens"])
-    exact = bool(project["_name_norm"] and project["_name_norm"] in text)
-    title_exact = bool(project["_name_norm"] and project["_name_norm"] in title_text)
-    overlap = len(names & tt)
-    op_hit = bool(op & tt)
-    county_hit = bool(county & tt)
-    cap_hit = capacity_match(project, text)
+def capacity_match(project: dict, text: str) -> bool:
+    return any(abs(value - project["capacity_mw"]) <= max(2.0, project["capacity_mw"] * 0.15)
+               for value in extract_news_capacities(text))
+
+
+def _contains_normalized_phrase(text: str, phrase: str) -> bool:
+    normalized = norm(phrase)
+    return bool(normalized) and f" {normalized} " in f" {text} "
+
+
+def _foreign_locations(text: str, project: dict) -> tuple[list[str], list[str]]:
+    detected, unexplained = [], []
+    for label, phrases in FOREIGN_RULES.items():
+        hits = [phrase for phrase in phrases if _contains_normalized_phrase(text, phrase)]
+        if not hits:
+            continue
+        detected.append(label)
+        if not any(_contains_normalized_phrase(project["_identity_context"], phrase) for phrase in hits):
+            unexplained.append(label)
+    # "Ireland" is a foreign-geography veto only when it is not the valid UK
+    # phrase "Northern Ireland" and is not part of the project's official
+    # identity. This catches Dublin/Ireland leakage without rejecting NI assets.
+    if (
+        _contains_normalized_phrase(text, "ireland")
+        and not _contains_normalized_phrase(text, "northern ireland")
+        and "Republic of Ireland" not in detected
+    ):
+        detected.append("Ireland")
+        if not _contains_normalized_phrase(project["_identity_context"], "ireland"):
+            unexplained.append("Ireland")
+    return detected, unexplained
+
+
+def _story_context(story: dict) -> dict:
+    text = norm(" ".join((story.get("title", ""), story.get("description", ""), story.get("source", ""), story.get("source_url", ""))))
+    tokens = set(text.split())
+    source_text = norm(" ".join((story.get("source", ""), story.get("source_url", ""))))
+    return {
+        "text": text, "title_text": norm(story.get("title")), "tokens": tokens,
+        "official_source": any(value in source_text for value in ("gov uk", "planning inspectorate", "planninginspectorate")),
+        "solar_context": bool({"solar", "photovoltaic", "photovoltaics", "pv"} & tokens),
+        "bess_context": bool({"battery", "bess", "storage"} & tokens),
+        "news_capacities_mw": extract_news_capacities(text),
+    }
+
+
+def evaluate_candidate(project: dict, story: dict, context: dict | None = None) -> tuple[dict | None, str]:
+    context = context or _story_context(story)
+    text, title_text, text_tokens = context["text"], context["title_text"], context["tokens"]
+    name_tokens = project["_name_tokens"]
+    name_exact = bool(project["_name_norm"] and project["_name_norm"] in text)
+    title_name_exact = bool(project["_name_norm"] and project["_name_norm"] in title_text)
+    overlap = len(name_tokens & text_tokens)
+    overlap_required = max(2, min(3, len(name_tokens))) if name_tokens else 99
+    name_overlap = overlap >= overlap_required
     planning_ref_hit = bool(project["_planning_ref_norm"] and project["_planning_ref_norm"] in text)
-    source_text = norm(story["source"] + " " + story["source_url"])
-    official = any(x in source_text for x in ("gov uk", "planning inspectorate", "planninginspectorate"))
-    tech_hit = ("solar" in tt or "photovoltaic" in tt or "photovoltaics" in tt or "pv" in tt) if project["technology"] == "solar" else bool({"battery", "bess", "storage"} & tt)
+    operator_hit = _phrase_hit(project["operator"], text, text_tokens)
+    county_hit = _phrase_hit(project["county"], text, text_tokens)
+    region_hit = _phrase_hit(project["region"], text, text_tokens)
+    authority_hit = _phrase_hit(project["planning_authority"], text, text_tokens)
+    location_hit = county_hit or region_hit or authority_hit
+    technology_hit = context["solar_context"] if project["technology"] == "solar" else context["bess_context"]
+    capacity_hit = capacity_match(project, text)
+    detected_foreign, unexplained_foreign = _foreign_locations(text, project)
+    if unexplained_foreign:
+        return None, "foreign_location_veto"
+    if not technology_hit and not (planning_ref_hit and context["official_source"]):
+        return None, "technology_gate"
 
-    foreign = any(norm(x) in text and norm(x) not in project["_name_norm"] for x in FOREIGN_PHRASES)
-    if foreign and not (title_exact and (county_hit or planning_ref_hit or official)):
-        return False
-    if not exact and overlap < 2 and not planning_ref_hit:
-        return False
-    if len(names) == 1 and next(iter(names), "") in GENERIC_SINGLE and not (title_exact and tech_hit and (op_hit or county_hit or cap_hit or planning_ref_hit or official)):
-        return False
-    if not tech_hit and not planning_ref_hit and not (official and title_exact) and not (title_exact and cap_hit and (op_hit or county_hit)):
-        return False
-    return True
-
-
-def score(project, story):
-    if not gate(project, story):
-        return -999
-    text = norm(story["title"] + " " + story["description"] + " " + story["source"])
-    title_text = norm(story["title"])
-    tt = set(text.split())
-    names = set(project["_name_tokens"])
-    op = set(project["_operator_tokens"])
-    county = set(project["_county_tokens"])
-    exact = project["_name_norm"] in text
-    title_exact = project["_name_norm"] in title_text
-    overlap = len(names & tt)
-    planning_ref_hit = bool(project["_planning_ref_norm"] and project["_planning_ref_norm"] in text)
-
-    sc = 78 if title_exact else 70 if exact else 58 if overlap >= 3 else 42
+    corroborating_identity = operator_hit or location_hit
     if planning_ref_hit:
-        sc += 35
-    sc += 18 if op and len(op & tt) >= min(2, len(op)) else 8 if op & tt else 0
-    sc += 12 if county & tt else 0
-    sc += 16 if capacity_match(project, text) else 0
-    age = max(0, (datetime.now(timezone.utc) - story["published"]).days)
-    sc += 18 if age <= 14 else 14 if age <= 30 else 10 if age <= 90 else 6
-    sc += 12 if event(text) != "PROJECT UPDATE" else 0
-    return sc + source_bonus(story["source"], story["source_url"])
+        identity_gate = True
+    elif project["_name_duplicate"] or project["_generic_name"]:
+        identity_gate = (name_exact or title_name_exact) and corroborating_identity
+    else:
+        identity_gate = name_exact or (name_overlap and corroborating_identity)
+    if not identity_gate:
+        return None, "identity_gate"
+
+    anchors = []
+    if planning_ref_hit: anchors.append("planning_reference")
+    if title_name_exact: anchors.append("exact_project_name_in_headline")
+    elif name_exact: anchors.append("exact_project_name")
+    elif name_overlap: anchors.append("distinctive_project_name_tokens")
+    if operator_hit: anchors.append("operator_applicant")
+    if county_hit: anchors.append("county")
+    if region_hit: anchors.append("region")
+    if authority_hit: anchors.append("planning_authority")
+    if technology_hit: anchors.append("technology_context")
+    if context["official_source"]: anchors.append("official_source")
+    if capacity_hit: anchors.append("capacity_corroboration_only")
+
+    components = {
+        "planning_reference": 52 if planning_ref_hit else 0,
+        "project_name": 42 if title_name_exact else 34 if name_exact else min(18, overlap * 6),
+        "operator": 13 if operator_hit else 0,
+        "location_or_authority": 12 if location_hit else 0,
+        "technology": 10 if technology_hit else 0,
+        "official_source": 8 if context["official_source"] else 0,
+        "capacity_corroboration": 5 if capacity_hit else 0,
+        "event_specificity": 5 if event(text) != "PROJECT UPDATE" else 0,
+    }
+    try:
+        age_days = max(0, (datetime.now(timezone.utc) - story["published"]).days)
+    except Exception:
+        age_days = LOOKBACK_DAYS
+    components["recency"] = 10 if age_days <= 14 else 8 if age_days <= 30 else 5 if age_days <= 90 else 2
+    components["source_quality"] = source_bonus(story.get("source", ""), story.get("source_url", ""))
+    candidate_score = min(100, sum(components.values()))
+    evidence = {
+        "identity_gate_passed": True, "technology_gate_passed": True,
+        "foreign_location_gate_passed": True, "anchors": anchors,
+        "foreign_veto_passed": True, "duplicate_name_gate_passed": True,
+        "capacity_only": False,
+        "planning_reference_hit": planning_ref_hit, "exact_project_name_hit": name_exact,
+        "exact_project_name_in_headline": title_name_exact,
+        "distinctive_name_token_overlap": overlap, "operator_hit": operator_hit,
+        "county_hit": county_hit, "region_hit": region_hit,
+        "planning_authority_hit": authority_hit, "technology_context_hit": technology_hit,
+        "official_source": context["official_source"], "capacity_match": capacity_hit,
+        "capacity_is_corroboration_only": True,
+        "duplicate_project_name": project["_name_duplicate"],
+        "duplicate_project_name_count": project["_name_duplicate_count"],
+        "foreign_locations_detected": detected_foreign, "score_components": components,
+    }
+    rank = 5 if planning_ref_hit else 4 if title_name_exact and corroborating_identity else 3 if title_name_exact else 2 if name_exact else 1
+    return {"project": project, "score": candidate_score, "evidence": evidence, "anchor_rank": rank}, "accepted_candidate"
 
 
-def chunk_names(names):
-    chunks = []
-    current = []
-    chars = 0
+def gate(project: dict, story: dict) -> bool:
+    return evaluate_candidate(project, story)[0] is not None
+
+
+def score(project: dict, story: dict) -> int:
+    candidate, _ = evaluate_candidate(project, story)
+    return candidate["score"] if candidate else -999
+
+
+def chunk_names(names: list[str]) -> list[list[str]]:
+    chunks, current, characters = [], [], 0
     for name in names:
-        safe = name.replace('"', "").strip()
-        add = len(safe) + 7
-        if current and (len(current) >= BATCH_SIZE or chars + add > MAX_BATCH_CHARS):
-            chunks.append(current)
-            current = []
-            chars = 0
-        current.append(safe)
-        chars += add
-    if current:
-        chunks.append(current)
+        safe, added = name.replace('"', "").strip(), len(name) + 7
+        if current and (len(current) >= BATCH_SIZE or characters + added > MAX_BATCH_CHARS):
+            chunks.append(current); current, characters = [], 0
+        current.append(safe); characters += added
+    if current: chunks.append(current)
     return chunks
 
 
-def queries(projects):
-    qs = list(BROAD_QUERIES) + list(SOURCE_QUERIES)
-    for category in ("solar", "bess"):
-        names = [p["name"] for p in projects if p["technology"] == category]
-        suffix = "solar UK" if category == "solar" else '"battery storage" UK'
+def queries(projects: list[dict]) -> list[str]:
+    planned = list(BROAD_QUERIES) + list(SOURCE_QUERIES)
+    for technology in ("solar", "bess"):
+        names = [project["name"] for project in projects if project["technology"] == technology]
+        suffix = "solar UK" if technology == "solar" else '"battery storage" UK'
         for group in chunk_names(names):
-            ors = " OR ".join('"' + x + '"' for x in group)
-            qs.append("(" + ors + ") " + suffix)
-    # preserve order while removing accidental duplicate queries
-    return list(dict.fromkeys(qs))
+            planned.append("(" + " OR ".join('"' + name + '"' for name in group) + ") " + suffix)
+    QUERY_PLAN_META.clear()
+    QUERY_PLAN_META.update({"source_first_queries": len(BROAD_QUERIES) + len(SOURCE_QUERIES)})
+    return list(dict.fromkeys(planned))
 
 
-def collect(projects):
-    raw = []
-    seen = set()
-    qs = queries(projects)
-    with ThreadPoolExecutor(max_workers=WORKERS) as executor:
-        futures = {executor.submit(fetch_rss, q): q for q in qs}
-        for future in as_completed(futures):
-            try:
-                rows = future.result()
-            except Exception as exc:
-                print("WARN", futures[future][:160], exc)
-                continue
-            for story in rows:
-                key = (norm(story["title"]), story["source_url"] or story["source"])
-                if story["link"] not in seen and key not in seen:
-                    seen.add(story["link"])
-                    seen.add(key)
-                    raw.append(story)
+def _story_key(story: dict) -> tuple[str, str, str]:
+    return norm(story.get("title")), norm(story.get("source_url") or story.get("source")), story["published"].date().isoformat()
 
-    matches = []
-    global_seen = set()
-    rejected = 0
+
+def _article_id(story: dict) -> str:
+    key = "|".join((norm(story.get("title")), norm(story.get("source")), story["published"].date().isoformat()))
+    return "GG2050-NEWS-" + hashlib.sha256(key.encode("utf-8")).hexdigest()[:16].upper()
+
+
+def _query_bucket(query: str) -> str:
+    match = re.search(r"site:([^\s]+)", query, flags=re.I)
+    return match.group(1).lower() if match else "broad_or_targeted"
+
+
+def _resolve_story(story: dict, projects: list[dict]) -> tuple[dict | None, str, dict]:
+    context, candidates, pair_reasons = _story_context(story), [], Counter()
     for project in projects:
-        candidates = []
-        for story in raw:
-            if not gate(project, story):
-                rejected += 1
-                continue
-            sc = score(project, story)
-            if sc >= MIN_SCORE:
-                candidates.append((story["published"].timestamp(), sc, story))
-        candidates.sort(reverse=True, key=lambda x: (x[0], x[1]))
-        kept = 0
-        for _, sc, story in candidates:
-            headline_key = norm(story["title"])
-            if not headline_key or headline_key in global_seen:
-                continue
-            global_seen.add(headline_key)
-            matches.append(
-                {
-                    "project_id": project["repd_ref"],
-                    "repd_ref": project["repd_ref"],
-                    "repd_record_updated": project["repd_record_updated"],
-                    "planning_application_reference": project["planning_application_reference"],
-                    "project": project["name"],
-                    "technology": project["technology"],
-                    "capacity_mw": project["capacity_mw"],
-                    "operator": project["operator"],
-                    "county": project["county"],
-                    "status": project["status"],
-                    "event": event(story["title"] + " " + story["description"]),
-                    "headline": re.sub(r"\s+-\s+[^-]{2,80}$", "", story["title"]).strip(),
-                    "published": story["published"].date().isoformat(),
-                    "source": story["source"] or "Google News",
-                    "source_url": story["source_url"],
-                    "url": story["link"],
-                    "confidence": min(100, int(sc)),
-                }
-            )
-            kept += 1
-            if kept >= MAX_PER_PROJECT:
-                break
+        candidate, reason = evaluate_candidate(project, story, context)
+        pair_reasons[reason] += 1
+        if candidate is not None: candidates.append(candidate)
+    qualified = [candidate for candidate in candidates if candidate["score"] >= MIN_SCORE]
+    if not qualified:
+        reason = "below_confidence_threshold" if candidates else "no_canonical_identity"
+        return None, reason, {"identity_candidates": len(candidates), "pair_reasons": dict(pair_reasons)}
 
-    matches.sort(key=lambda x: (x["published"], x["confidence"], x["capacity_mw"]), reverse=True)
-    print("queries", len(qs), "raw", len(raw), "rejected", rejected, "matches", len(matches))
-    return matches[:MAX_HEADLINES], rejected, len(qs), len(raw)
+    qualified.sort(key=lambda candidate: (-candidate["score"], -candidate["anchor_rank"], candidate["project"]["repd_ref"]))
+    winner, runner_up = qualified[0], qualified[1] if len(qualified) > 1 else None
+    if runner_up:
+        margin = winner["score"] - runner_up["score"]
+        planning_exclusive = winner["evidence"]["planning_reference_hit"] and not runner_up["evidence"]["planning_reference_hit"]
+        if margin < AMBIGUITY_MARGIN and not planning_exclusive:
+            return None, "ambiguous_primary_match", {
+                "identity_candidates": len(candidates), "qualified_candidates": len(qualified),
+                "top_score": winner["score"], "runner_up_score": runner_up["score"],
+                "score_margin": margin, "top_repd_ref": winner["project"]["repd_ref"],
+                "runner_up_repd_ref": runner_up["project"]["repd_ref"],
+            }
+    else:
+        margin = None
 
-
-def main():
-    projects = load_projects()
-    manifest = load_manifest()
-    now = datetime.now(timezone.utc).isoformat()
-    public_projects = [{k: v for k, v in p.items() if not k.startswith("_")} for p in projects]
-    solar_count = sum(1 for p in public_projects if p["technology"] == "solar")
-    bess_count = sum(1 for p in public_projects if p["technology"] == "bess")
-    source_meta = {
-        "owner": manifest.get("source_owner", "Department for Energy Security and Net Zero (DESNZ)"),
-        "page": manifest.get("source_page"),
-        "csv": manifest.get("source_url"),
-        "excel": manifest.get("source_excel_url"),
-        "edition": manifest.get("source_dataset_title"),
-        "page_last_updated": manifest.get("source_page_last_updated"),
-        "master_last_sync": manifest.get("last_sync"),
+    project, evidence = winner["project"], winner["evidence"]
+    evidence.update({"candidate_project_count": len(candidates), "qualified_project_count": len(qualified),
+                     "runner_up_score": runner_up["score"] if runner_up else None, "score_margin": margin})
+    capacities = context["news_capacities_mw"]
+    item = {
+        "gg_article_id": _article_id(story), "project_id": project["repd_ref"],
+        "primary_repd_ref": project["repd_ref"], "repd_ref": project["repd_ref"],
+        "gg_project_id": project["gg_project_id"], "gg_development_id": project["gg_development_id"],
+        "identity_status": project["identity_status"], "role": "PRIMARY_MATCH",
+        "eligible_for_news_signal": True, "repd_record_updated": project["repd_record_updated"],
+        "planning_application_reference": project["planning_application_reference"],
+        "planning_authority": project["planning_authority"], "project": project["name"],
+        "technology": project["technology"], "capacity_mw": project["capacity_mw"],
+        "news_capacity_mw": capacities[0] if len(capacities) == 1 else None,
+        "news_capacities_mw": capacities, "operator": project["operator"],
+        "county": project["county"], "region": project["region"], "country": project["country"],
+        "status": project["status"], "event": event(story["title"] + " " + story.get("description", "")),
+        "headline": re.sub(r"\s+-\s+[^-]{2,80}$", "", story["title"]).strip(),
+        "published": story["published"].date().isoformat(), "source": story.get("source") or "Google News",
+        "source_url": story.get("source_url"), "url": story["link"], "confidence": winner["score"],
+        "match_evidence": evidence,
+        "news_binding_rule": "one globally best PRIMARY_MATCH; capacity is corroboration only",
     }
+    return item, "accepted", {"identity_candidates": len(candidates), "qualified_candidates": len(qualified)}
 
-    PROJECTS_OUT.write_text(
-        json.dumps(
-            {
-                "schema": "globalgrid2050.major-projects.v6",
-                "updated": now,
-                "thresholds": {"solar_mw_exclusive": SOLAR_MIN_EXCLUSIVE, "bess_mw_exclusive": BESS_MIN_EXCLUSIVE},
-                "count": len(public_projects),
-                "solar_count": solar_count,
-                "bess_count": bess_count,
-                "repd_bound": True,
-                "source": source_meta,
-                "projects": public_projects,
-            },
-            indent=2,
-        ),
-        encoding="utf-8",
-    )
 
-    headlines, rejected, query_count, raw_count = collect(projects)
-    official_count = sum(
-        1
-        for item in headlines
-        if any(x in norm(item.get("source", "") + " " + item.get("source_url", "")) for x in ("gov uk", "planning inspectorate", "planninginspectorate"))
-    )
-    NEWS_OUT.write_text(
-        json.dumps(
-            {
-                "schema": "globalgrid2050.major-project-news.v6",
-                "updated": now,
-                "lookback_days": LOOKBACK_DAYS,
-                "news_horizon_days": LOOKBACK_DAYS,
-                "crawl_target_minutes": 3,
-                "thresholds": {"solar_mw_exclusive": SOLAR_MIN_EXCLUSIVE, "bess_mw_exclusive": BESS_MIN_EXCLUSIVE},
-                "eligible_projects": len(projects),
-                "eligible_solar": solar_count,
-                "eligible_bess": bess_count,
-                "headline_count": len(headlines),
-                "official_source_headlines": official_count,
-                "priority_sources": list(PRIORITY_SOURCES),
-                "repd_bound": True,
-                "repd_edition": source_meta.get("edition"),
-                "repd_source_page_last_updated": source_meta.get("page_last_updated"),
-                "repd_source_url": source_meta.get("csv"),
-                "quality_gate": "official REPD Ref ID + official record update date + project identity + UK/location veto + energy context + generic-name corroboration",
-                "rejected_candidates": rejected,
-                "query_count": query_count,
-                "raw_story_count": raw_count,
-                "method": "DESNZ REPD eligibility -> six-month concurrent discovery -> official project binding -> identity/location gates -> scoring -> dedupe",
-                "items": headlines,
-            },
-            indent=2,
-        ),
-        encoding="utf-8",
-    )
-    print("eligible", len(projects), "solar", solar_count, "bess", bess_count, "headlines", len(headlines), "official", official_count)
+def _build_links(items: list[dict], projects: list[dict]) -> list[dict]:
+    by_ref = {project["repd_ref"]: project for project in projects}
+    by_development: dict[str, list[dict]] = defaultdict(list)
+    for project in projects: by_development[project["gg_development_id"]].append(project)
+    links = []
+    for item in items:
+        primary = by_ref[item["repd_ref"]]
+        links.append({"gg_article_id": item["gg_article_id"], "gg_project_id": primary["gg_project_id"],
+                      "gg_development_id": primary["gg_development_id"], "repd_ref": primary["repd_ref"],
+                      "role": "PRIMARY_MATCH", "eligible_for_news_signal": True, "confidence": item["confidence"]})
+        related_refs = set(primary.get("related_repd_refs") or [])
+        related_refs.update(project["repd_ref"] for project in by_development.get(primary["gg_development_id"], [])
+                            if project["repd_ref"] != primary["repd_ref"])
+        attached = []
+        for ref in sorted(related_refs, key=lambda value: (int(value) if value.isdigit() else 10**18, value)):
+            related = by_ref.get(ref)
+            if not related or related["repd_ref"] == primary["repd_ref"]: continue
+            links.append({"gg_article_id": item["gg_article_id"], "gg_project_id": related["gg_project_id"],
+                          "gg_development_id": related["gg_development_id"], "repd_ref": related["repd_ref"],
+                          "role": "RELATED_DEVELOPMENT", "eligible_for_news_signal": False, "confidence": None})
+            attached.append(related["repd_ref"])
+        item["development_related_repd_refs"] = attached
+    return links
+
+
+def collect(projects: list[dict]) -> tuple[list[dict], list[dict], dict]:
+    started, start_clock = datetime.now(timezone.utc), time.monotonic()
+    deadline = start_clock + NETWORK_BUDGET_SECONDS
+    planned_queries = queries(projects)
+    source_first_count = int(QUERY_PLAN_META.get("source_first_queries") or (len(BROAD_QUERIES) + len(SOURCE_QUERIES)))
+    phases = [("source_first", planned_queries[:source_first_count]),
+              ("targeted_backstop", planned_queries[source_first_count:])]
+    raw, seen, query_errors = [], set(), []
+    query_stats: dict[str, dict[str, int]] = defaultdict(lambda: {"configured": 0, "completed": 0, "failed": 0, "candidates": 0})
+    for query in planned_queries: query_stats[_query_bucket(query)]["configured"] += 1
+    completed_queries = failed_queries = raw_candidate_count = 0
+    for phase_name, phase_queries in phases:
+        if not phase_queries or time.monotonic() >= deadline: continue
+        executor = ThreadPoolExecutor(max_workers=WORKERS)
+        futures = {executor.submit(fetch_rss, query): query for query in phase_queries}
+        try:
+            for future in as_completed(futures, timeout=max(0.1, deadline - time.monotonic())):
+                query, bucket = futures[future], _query_bucket(futures[future])
+                try:
+                    rows = future.result(); completed_queries += 1
+                    query_stats[bucket]["completed"] += 1; query_stats[bucket]["candidates"] += len(rows)
+                    raw_candidate_count += len(rows)
+                except Exception as exc:
+                    failed_queries += 1; query_stats[bucket]["failed"] += 1
+                    if len(query_errors) < 25:
+                        query_errors.append({"phase": phase_name, "query": query[:300], "error": type(exc).__name__})
+                    continue
+                for story in rows:
+                    key = _story_key(story)
+                    if key not in seen: seen.add(key); raw.append(story)
+        except FuturesTimeoutError:
+            for future, query in futures.items():
+                if not future.done():
+                    future.cancel(); failed_queries += 1; query_stats[_query_bucket(query)]["failed"] += 1
+            if len(query_errors) < 25:
+                query_errors.append({"phase": phase_name, "query": "<remaining queries>", "error": "network_budget_exhausted"})
+        finally:
+            executor.shutdown(wait=True, cancel_futures=True)
+        if time.monotonic() >= deadline: break
+
+    accepted, rejection_reasons = [], Counter()
+    identity_candidate_pairs = qualified_candidate_pairs = ambiguous_count = 0
+    for story in raw:
+        item, resolution, detail = _resolve_story(story, projects)
+        identity_candidate_pairs += int(detail.get("identity_candidates") or 0)
+        qualified_candidate_pairs += int(detail.get("qualified_candidates") or 0)
+        if item is None:
+            rejection_reasons[resolution] += 1
+            ambiguous_count += resolution == "ambiguous_primary_match"
+        else: accepted.append(item)
+    accepted.sort(key=lambda item: (item["published"], item["confidence"], item["headline"]), reverse=True)
+    accepted_before_limit, accepted = len(accepted), accepted[:MAX_HEADLINES]
+    links = _build_links(accepted, projects)
+    source_telemetry = []
+    for label, domain in PRIORITY_SOURCES.items():
+        source_telemetry.append({"name": label, "domain": domain,
+                                 **query_stats.get(domain, {"configured": 0, "completed": 0, "failed": 0, "candidates": 0})})
+    telemetry = {
+        "started_at": started.isoformat(), "completed_at": datetime.now(timezone.utc).isoformat(),
+        "elapsed_seconds": round(time.monotonic() - start_clock, 3),
+        "crawl_budget_seconds": CRAWL_BUDGET_SECONDS, "network_budget_seconds": NETWORK_BUDGET_SECONDS,
+        "source_first": True, "queries_configured": len(planned_queries),
+        "queries_completed": completed_queries, "queries_failed_or_cancelled": failed_queries,
+        "queried_sources": source_telemetry, "query_plan": dict(QUERY_PLAN_META), "query_errors": query_errors,
+        "rss_candidates_returned": raw_candidate_count, "deduplicated_article_candidates": len(raw),
+        "identity_candidate_pairs": identity_candidate_pairs, "confidence_qualified_pairs": qualified_candidate_pairs,
+        "articles_accepted_before_limit": accepted_before_limit, "articles_published": len(accepted),
+        "articles_rejected": len(raw) - accepted_before_limit, "articles_ambiguous": ambiguous_count,
+        "articles_dropped_by_headline_limit": max(0, accepted_before_limit - len(accepted)),
+        "rejection_reasons": dict(sorted(rejection_reasons.items())), "zero_accepted_is_valid": True,
+    }
+    print("queries", len(planned_queries), "completed", completed_queries, "candidates", len(raw),
+          "accepted", len(accepted), "rejected", telemetry["articles_rejected"], "ambiguous", ambiguous_count)
+    return accepted, links, telemetry
+
+
+def main() -> dict:
+    project_hash_before = file_sha256(PROJECTS_PATH)
+    manifest = load_manifest()
+    snapshot, projects = load_project_snapshot()
+    manifest_snapshot = manifest.get("public_snapshot") or {}
+    manifest_counts = manifest.get("canonical_counts") or {}
+    if (
+        manifest.get("source_record_count") != EXPECTED_SOURCE_RECORDS
+        or manifest.get("source_unique_ref_count") != EXPECTED_SOURCE_RECORDS
+        or manifest_counts.get("solar") != EXPECTED_SOLAR_PROJECTS
+        or manifest_counts.get("bess") != EXPECTED_BESS_PROJECTS
+        or manifest_counts.get("combined") != EXPECTED_PROJECTS
+    ):
+        raise RuntimeError("V6 manifest does not describe the reconciled Q2 2026 source universe")
+    if (
+        manifest_snapshot.get("path") != "dist/major_projects_v6.json"
+        or manifest_snapshot.get("project_count") != len(projects)
+        or manifest_snapshot.get("projects_sha256") != snapshot.get("projects_sha256")
+    ):
+        raise RuntimeError("V6 manifest is not bound to the supplied public project snapshot")
+    # collect() isolates per-query network errors and records them in telemetry.
+    # Programming/schema errors intentionally propagate and fail closed.
+    items, links, telemetry = collect(projects)
+    if file_sha256(PROJECTS_PATH) != project_hash_before:
+        raise RuntimeError("News crawler modified immutable dist/major_projects_v6.json")
+
+    now = datetime.now(timezone.utc).isoformat()
+    solar_count = sum(project["technology"] == "solar" for project in projects)
+    bess_count = sum(project["technology"] == "bess" for project in projects)
+    supplied = sum(bool(project.get("repd_record_updated")) for project in projects)
+    update_coverage = round(supplied / len(projects), 8) if projects else 1.0
+    official_count = sum(bool(item.get("match_evidence", {}).get("official_source")) for item in items)
+    source_meta = {
+        "owner": manifest.get("source_owner"), "page": manifest.get("source_page"),
+        "csv": manifest.get("source_url"), "excel": manifest.get("source_excel_url"),
+        "edition": manifest.get("source_dataset_title"), "page_last_updated": manifest.get("source_page_last_updated"),
+        "validated_at": manifest.get("validated_at"), "source_record_count": manifest.get("source_record_count"),
+        "source_unique_ref_count": manifest.get("source_unique_ref_count"), "csv_xlsx_reconciled": True,
+    }
+    payload = {
+        "schema": "globalgrid2050.major-project-news.v6", "updated": now,
+        "lookback_days": LOOKBACK_DAYS, "news_horizon_days": LOOKBACK_DAYS,
+        "crawl_target_seconds": CRAWL_BUDGET_SECONDS, "crawl_target_minutes": 3,
+        "thresholds": {"solar_mw_exclusive": SOLAR_MIN_EXCLUSIVE, "bess_mw_exclusive": BESS_MIN_EXCLUSIVE},
+        "eligible_projects": len(projects), "eligible_solar": solar_count, "eligible_bess": bess_count,
+        "headline_count": len(items), "official_source_headlines": official_count,
+        "priority_sources": list(PRIORITY_SOURCES), "repd_bound": True, "globalgrid_id_required": True,
+        "repd_edition": source_meta["edition"], "repd_source_page_last_updated": source_meta["page_last_updated"],
+        "repd_source_url": source_meta["csv"], "repd_record_update_coverage": update_coverage,
+        "repd_record_update_policy": "official value when supplied; null preserved and never inferred",
+        "project_snapshot": {"path": "dist/major_projects_v6.json", "sha256": project_hash_before,
+                             "declared_projects_sha256": snapshot.get("projects_sha256"),
+                             "validated_at": snapshot.get("validated_at")},
+        "source": source_meta,
+        "quality_gate": "identity before score; one global PRIMARY_MATCH; duplicate-name ambiguity rejection; technology and context-aware foreign gates; capacity corroboration only",
+        "discovery_policy": "source-first bounded crawl + rotating project-name completeness backstop; no V5/private fallback",
+        "news_signal_scope": "Only PRIMARY_MATCH is eligible for NEWS SIGNAL; RELATED_DEVELOPMENT is context only",
+        "rejected_candidates": telemetry["articles_rejected"], "ambiguous_candidates": telemetry["articles_ambiguous"],
+        "query_count": telemetry["queries_configured"], "raw_story_count": telemetry["deduplicated_article_candidates"],
+        "telemetry": telemetry, "items": items,
+    }
+    link_payload = {
+        "schema": "globalgrid2050.project-news-links.v6", "generated_at": now,
+        "article_count": len(items), "link_count": len(links),
+        "primary_link_count": sum(link["role"] == "PRIMARY_MATCH" for link in links),
+        "related_development_link_count": sum(link["role"] == "RELATED_DEVELOPMENT" for link in links),
+        "rules": {"one_primary_match_per_article": True, "primary_match_drives_news_signal": True,
+                  "related_development_drives_news_signal": False,
+                  "related_development_never_confirms_repd_status": True},
+        "links": links,
+    }
+    write_json_atomic(NEWS_OUT, payload)
+    write_json_atomic(LINKS_OUT, link_payload)
+    if file_sha256(PROJECTS_PATH) != project_hash_before:
+        raise RuntimeError("News output write changed immutable V6 project snapshot")
+    print("eligible", len(projects), "solar", solar_count, "bess", bess_count,
+          "headlines", len(items), "official", official_count)
+    return payload
 
 
 if __name__ == "__main__":

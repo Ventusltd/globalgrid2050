@@ -1,10 +1,10 @@
-# UK Solar + Storage Daily V6 — frozen build plan
+# UK Solar + Storage Daily V6 — production repair plan
 
 Date: 2026-08-22
-Status: PASS 1 / BUILD PLAN FROZEN
+Status: amended for the validated same-origin V6 architecture
 
 ## Non-negotiable lineage
-V1, V2, V3, V4 and V5 remain untouched. V6 is a new standalone application generated from the complete V5 source and may only add functionality. No iframe replacement, no truncation, no removal of gauges, filters, county selector, site/operator search, REPD table, CSV export, newspaper, newspaper filters/search, mobile behaviour, REPD STATUS or NEWS SIGNAL.
+V1, V2, V3, V4 and V5 remain untouched. V6 is a maintained standalone application which preserves their useful behaviour without regenerating or mutating those baselines. No iframe replacement, no truncation, no removal of gauges, filters, county selector, site/operator search, REPD table, CSV export, newspaper, newspaper filters/search, mobile behaviour, REPD STATUS or NEWS SIGNAL.
 
 ## Authoritative source spine
 The authoritative external source is Department for Energy Security and Net Zero (DESNZ) Renewable Energy Planning Database (REPD), discovered from the GOV.UK quarterly publication page.
@@ -20,7 +20,7 @@ Known Q2 2026 raw source gates from the supplied official workbook:
 - 3,445 raw solar records >1 MW
 - 269 raw BESS records >100 MW
 
-These raw counts validate the source. They are not automatically the serving/newspaper count because the existing V1–V5 serving spine deliberately retains viable/geocoded records only.
+The CSV serialises capacity to two decimal places and therefore contains 3,443 values visibly above 1 MW. The XLSX retains official precision and contains 3,445; the two boundary records are Ref 14452 (1.00035 MW) and Ref 16093 (1.00204 MW). V6 records this representation difference, requires the Ref sets and material fields to reconcile, and uses the XLSX precision canonically. Its public threshold snapshot is therefore 3,714 records.
 
 ## Canonical identity model
 REPD Ref ID is the authoritative external record identifier. GlobalGrid2050 adds a stable internal identity above it:
@@ -39,10 +39,12 @@ One physical development may contain multiple REPD records. A solar record and a
 4. Record Last Updated is authoritative when supplied, but missing official dates are represented as null/blank with explicit provenance — never invented. Actual Q2 coverage is high but not 100%, so publication must not require a fictitious date.
 5. Capacity remains an REPD field. Missing/invalid capacity is unknown, not evidence of zero capacity. Unknown-capacity rows are excluded from threshold selection but must not be silently treated as genuine 0 MW projects in identity logic.
 6. REPD status is copied only from REPD. News can never modify it.
-7. Manifest must identify the official CSV, XLSX, GOV.UK page, edition, page update date and master sync timestamp.
+7. V6 manifest must identify the official CSV, XLSX, immutable source hashes, GOV.UK page, edition, page update date and snapshot validation timestamp.
+8. Both official files are retrieved once in the controlled backend, reconciled, and staged before identity or serving-data generation. The browser never retrieves the government asset files.
+9. V6 writes only V6-specific assets. It does not rewrite the shared V1–V5 `repd_master.json` or `manifest_v4.json`.
 
 ## V6 newspaper universe
-Serving/newspaper eligibility is recomputed from the transformed REPD master while preserving V1–V5 viability/geocoding discipline:
+Serving/newspaper eligibility is recomputed from the reconciled V6 canonical source without applying an unrelated coordinate or lifecycle filter:
 - solar / solar_roof: capacity >1 MW
 - BESS: capacity >100 MW
 
@@ -70,8 +72,7 @@ Strong identity anchors, in descending order:
 2. exact project name where that name is unique enough
 3. project name + operator/applicant
 4. project name + county/planning authority
-5. project name + REPD capacity
-6. operator + location + capacity only as corroboration, never as a name-free acceptance rule
+5. operator + location, with capacity available only as corroboration after identity passes
 
 Generic/duplicate site names require corroboration. Exact name alone is not sufficient when the REPD name is reused across multiple projects.
 
@@ -101,21 +102,23 @@ The newspaper remains large, scrollable and filterable/searchable. The REPD anal
 V6 fails closed if any of the following occur:
 - V1–V5 files are altered by the V6 build
 - V6 is missing closing HTML, full JS tail, responsive/mobile rules, gauges, filters, searches, table or CSV export
-- V6 becomes materially smaller/truncated versus V5 or wrapper-sized versus V2
+- V6 loses required standalone semantic components or its complete script tail
 - V6 contains an iframe
 - current official REPD source/manifest provenance is missing or inconsistent
 - Q2 source is active but the raw 14,657-row / unique-ref / 3,445 solar >1 / 269 BESS >100 reconciliation fails
-- transformed REPD master contains duplicate/missing Ref IDs
+- reconciled V6 identity registry contains duplicate/missing Ref IDs
 - GlobalGrid project IDs collide or cease to map deterministically to REPD refs
 - development/co-location relationships point to inconsistent development IDs
-- V6 project JSON does not exactly equal the eligible serving-master recomputation
+- V6 project JSON does not exactly equal the canonical 3,714-record threshold recomputation
 - a headline lacks a PRIMARY_MATCH, valid REPD ref, canonical GlobalGrid ID, UK/technology identity, source, URL, publication date or confidence floor
 - a RELATED_DEVELOPMENT link is allowed to drive NEWS SIGNAL
 - a foreign-location false positive leaks through
 
-REPD Record Last Updated coverage is monitored as a percentage and may not be forced to 100% when the official source itself is blank. For the serving project universe, target >=99% coverage; every blank must remain explicit rather than invented.
+REPD Record Last Updated coverage is monitored as a percentage and may not be forced to 100% when the official source itself is blank. Every blank must remain explicit rather than invented.
+
+The frontend loads `../dist/major_projects_v6.json` from the GlobalGrid2050 origin and validates its source counts, exact Q2 hashes, canonical project-array hash, thresholds and identities. A temporary government-site failure does not invalidate the last committed snapshot. The browser fails closed only when its same-origin snapshot is absent or malformed; a missing/quiet news layer leaves REPD analytics operational.
 
 ## Three-pass execution
 PASS 1: this plan; inspect current implementation and freeze scope.
-PASS 2: harden REPD ingestion, build V6 from V5, expose canonical GlobalGrid/REPD identity in UI/CSV, run the V6 crawler and identity enrichment through the production workflow.
+PASS 2: harden isolated V6 REPD ingestion, validate the maintained standalone V6, expose canonical GlobalGrid/REPD identity in UI/CSV, and run the V6 crawler and identity enrichment through the production workflow.
 PASS 3: audit the generated V6 and artifacts against this frozen plan, V1–V5, official Q2 source quantities, GlobalGrid identity integrity and known false-positive classes. Merge/publish only if the gates pass; otherwise fail closed with a diagnostic and do not promote V6.

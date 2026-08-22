@@ -4,50 +4,234 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GlobalGrid2050 | UK Solar + Storage Daily V6</title>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--solar:#ffff00;--bess:#ffae00;--bad:#ff6666}*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Courier New",monospace}body{display:flex;height:100vh;overflow:hidden;font-size:13px}.sidebar{width:250px;flex:none;background:#090909;border-right:1px solid #222;padding:18px 0;display:flex;flex-direction:column}.brand{text-align:center;border-bottom:1px solid #222;padding:0 12px 18px;margin-bottom:16px}.brand b{font:800 17px -apple-system,sans-serif;letter-spacing:5px}.brand small{display:block;color:#888;font-size:8px;letter-spacing:2px;margin-top:5px}.nav a{display:block;padding:11px 20px;color:var(--muted);text-decoration:none;border-left:3px solid transparent;font-weight:bold}.nav a:hover,.nav .active{color:var(--accent);background:#001414;border-left-color:var(--accent)}.main{flex:1;min-width:0;overflow-y:auto;padding:20px 28px}.header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #222;padding-bottom:14px;margin-bottom:12px}.header h1{font-size:19px;color:var(--accent);letter-spacing:2px}.status{border:1px solid #195b3b;color:#aef7d1;padding:7px 11px}.meta{display:flex;gap:12px;flex-wrap:wrap;padding:9px 12px;margin-bottom:14px;border:1px solid #24323a;background:#071018;color:var(--muted);font-size:11px}.meta strong{color:var(--accent)}.meta a{color:#66ccff}.notice{border:1px solid #3d4752;background:#090d12;padding:10px 12px;color:#9fa8b5;margin-bottom:14px;font-size:11px;line-height:1.55}.newspaper{border:1px solid #424b55;background:#06080b;margin-bottom:26px}.masthead{padding:15px 17px 11px;border-bottom:1px solid #424b55}.masthead h2{margin:0;font-size:24px}.masthead h2 span{color:var(--solar)}.strap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:7px;color:#8e98a5;font-size:10px;text-transform:uppercase}.tools{display:flex;gap:7px;flex-wrap:wrap;align-items:center;padding:9px 11px;background:#090c11;border-bottom:1px solid #303740}.tools button,.btn,select,input{background:#000;border:1px solid #343b45;color:#aab3bf;padding:7px 9px;font:700 10px "Courier New"}.tools button{cursor:pointer}.tools button.active,.tools button:hover,.btn:hover,.btn.active{border-color:var(--accent);color:var(--accent)}.tools input{margin-left:auto;min-width:260px;color:#fff}.paper{height:min(62vh,700px);min-height:440px;overflow:auto}.stories{display:grid;grid-template-columns:repeat(3,minmax(260px,1fr))}.story{display:block;padding:17px;border-right:1px solid #252a31;border-bottom:1px solid #252a31;text-decoration:none;min-height:180px;background:#07090c}.story:hover{background:#0b0f14}.story .kicker{font-size:10px;font-weight:bold}.story.solar .kicker{color:var(--solar)}.story.bess .kicker{color:var(--bess)}.story h3{color:#fff;font-size:16px;line-height:1.3;margin:8px 0 11px}.story p,.story .source{color:#aeb6c1;font-size:10px;line-height:1.5}.story .project{color:var(--ok);font-weight:bold}.story .source{display:block;color:#7f8996;margin-top:8px}.empty{padding:22px;color:var(--muted);grid-column:1/-1}.section{font-size:14px;color:var(--accent);letter-spacing:1px;margin:0 0 11px}.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}.card{background:var(--panel);border:1px solid #222;padding:13px;text-align:center}.card h3{font-size:10px;color:#8d95a3;margin:0 0 3px}.chart{position:relative;height:110px}.value{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:22px;font-weight:bold}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.asset-search{min-width:320px}.tablewrap{background:var(--panel);border:1px solid #222;overflow:auto;max-height:68vh}table{width:100%;border-collapse:collapse;min-width:1250px}th{position:sticky;top:0;background:#050505;color:var(--accent);padding:10px 11px;text-align:left;z-index:3}td{padding:9px 11px;border-bottom:1px solid #222;color:var(--muted)}.site{color:#fff;font-weight:bold}.mw{color:var(--ok);font-weight:bold}.badge,.signal{display:inline-block;padding:3px 5px;font-size:9px;font-weight:bold;white-space:nowrap}.badge{color:#000}.signal{border:1px solid #3b444f;color:#9aa3af}.signal.approved{border-color:#c8b900;color:#fff95a}.signal.operational{border-color:#167d4d;color:#60ff9c}.signal.construction{border-color:#a46f00;color:#ffbe45}.signal.finance{border-color:#6c62a8;color:#bdb2ff}.small{font-size:9px;color:#7e8792;margin-top:3px}.error{color:var(--bad)}@media(max-width:1200px){.stories{grid-template-columns:repeat(2,minmax(260px,1fr))}}@media(max-width:768px){body{display:block;overflow:auto}.sidebar{width:100%;padding:8px}.nav{display:none}.brand{border:0;margin:0;padding:5px}.main{padding:10px;overflow:visible}.header{align-items:flex-start}.paper{height:62vh}.stories{grid-template-columns:1fr}.gauges{grid-template-columns:1fr}.tools input,.asset-search{margin-left:0;min-width:100%;width:100%}.tablewrap{max-height:none}.header h1{font-size:16px}.masthead h2{font-size:20px}}
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--solar:#ffff00;--bess:#ffae00;--bad:#ff6666}*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Courier New",monospace}body{display:flex;height:100vh;overflow:hidden;font-size:13px}.sidebar{width:250px;flex:none;background:#090909;border-right:1px solid #222;padding:18px 0;display:flex;flex-direction:column}.brand{text-align:center;border-bottom:1px solid #222;padding:0 12px 18px;margin-bottom:16px}.brand b{font:800 17px -apple-system,sans-serif;letter-spacing:5px}.brand small{display:block;color:#888;font-size:8px;letter-spacing:2px;margin-top:5px}.nav a{display:block;padding:11px 20px;color:var(--muted);text-decoration:none;border-left:3px solid transparent;font-weight:bold}.nav a:hover,.nav .active{color:var(--accent);background:#001414;border-left-color:var(--accent)}.main{flex:1;min-width:0;overflow-y:auto;padding:20px 28px}.header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #222;padding-bottom:14px;margin-bottom:12px}.header h1{font-size:19px;color:var(--accent);letter-spacing:2px}.status{border:1px solid #195b3b;color:#aef7d1;padding:7px 11px;line-height:1.4}.meta{display:flex;gap:12px;flex-wrap:wrap;padding:9px 12px;margin-bottom:14px;border:1px solid #24323a;background:#071018;color:var(--muted);font-size:11px}.meta strong{color:var(--accent)}.meta a,.mobile-actions a{color:#66ccff}.notice{border:1px solid #3d4752;background:#090d12;padding:10px 12px;color:#9fa8b5;margin-bottom:14px;font-size:11px;line-height:1.55}.mobile-actions{display:none}.newspaper{border:1px solid #424b55;background:#06080b;margin-bottom:26px}.masthead{padding:15px 17px 11px;border-bottom:1px solid #424b55}.masthead h2{margin:0;font-size:24px}.masthead h2 span{color:var(--solar)}.strap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:7px;color:#8e98a5;font-size:10px;text-transform:uppercase}.tools{display:flex;gap:7px;flex-wrap:wrap;align-items:center;padding:9px 11px;background:#090c11;border-bottom:1px solid #303740}.tools button,.btn,select,input{background:#000;border:1px solid #343b45;color:#aab3bf;padding:7px 9px;font:700 10px "Courier New"}.tools button{cursor:pointer}.tools button.active,.tools button:hover,.btn:hover,.btn.active{border-color:var(--accent);color:var(--accent)}.tools input{margin-left:auto;min-width:260px;color:#fff}.paper{height:min(62vh,700px);min-height:440px;overflow:auto}.stories{display:grid;grid-template-columns:repeat(3,minmax(260px,1fr))}.story{display:block;padding:17px;border-right:1px solid #252a31;border-bottom:1px solid #252a31;text-decoration:none;min-height:180px;background:#07090c}.story:hover{background:#0b0f14}.story .kicker{font-size:10px;font-weight:bold}.story.solar .kicker{color:var(--solar)}.story.bess .kicker{color:var(--bess)}.story h3{color:#fff;font-size:16px;line-height:1.3;margin:8px 0 11px}.story p,.story .source{color:#aeb6c1;font-size:10px;line-height:1.5}.story .project{color:var(--ok);font-weight:bold}.story .source{display:block;color:#7f8996;margin-top:8px}.empty{padding:22px;color:var(--muted);grid-column:1/-1}.section{font-size:14px;color:var(--accent);letter-spacing:1px;margin:0 0 11px}.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}.card{background:var(--panel);border:1px solid #222;padding:13px;text-align:center}.card h3{font-size:10px;color:#8d95a3;margin:0 0 3px}.chart{position:relative;height:110px}.value{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:22px;font-weight:bold}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.asset-search{min-width:320px}.tablewrap{background:var(--panel);border:1px solid #222;overflow:auto;max-height:68vh}table{width:100%;border-collapse:collapse;min-width:1460px}th{position:sticky;top:0;background:#050505;color:var(--accent);padding:10px 11px;text-align:left;z-index:3}td{padding:9px 11px;border-bottom:1px solid #222;color:var(--muted)}.site{color:#fff;font-weight:bold}.mw{color:var(--ok);font-weight:bold}.badge,.signal{display:inline-block;padding:3px 5px;font-size:9px;font-weight:bold;white-space:nowrap}.badge{color:#000}.signal{border:1px solid #3b444f;color:#9aa3af}.signal.approved{border-color:#c8b900;color:#fff95a}.signal.operational{border-color:#167d4d;color:#60ff9c}.signal.construction{border-color:#a46f00;color:#ffbe45}.signal.finance{border-color:#6c62a8;color:#bdb2ff}.small{font-size:9px;color:#7e8792;margin-top:3px}.error{color:var(--bad)}@media(max-width:1200px){.stories{grid-template-columns:repeat(2,minmax(260px,1fr))}}@media(max-width:768px){body{display:block;overflow:auto}.sidebar{width:100%;padding:8px}.nav{display:none}.brand{border:0;margin:0;padding:5px}.main{padding:10px;overflow:visible}.header{align-items:flex-start;flex-direction:column}.status{width:100%}.mobile-actions{display:flex;gap:8px;flex-wrap:wrap;margin:-3px 0 14px;padding:8px 10px;border:1px solid #24323a;background:#071018;font-size:10px}.mobile-actions a{padding:4px 3px}.paper{height:62vh}.stories{grid-template-columns:1fr}.gauges{grid-template-columns:1fr}.tools input,.asset-search{margin-left:0;min-width:100%;width:100%}.tablewrap{max-height:none}.header h1{font-size:16px}.masthead h2{font-size:20px}}
 </style>
 </head>
 <body>
 <aside class="sidebar"><div class="brand"><b>GLOBALGRID2050</b><small>UK SOLAR + STORAGE DAILY · V6</small></div><nav class="nav"><a class="active" href="#">V6 LIVE</a><a href="dashboard_v5_live.html">V5</a><a href="dashboard_v4_live.html">V4</a><a href="dashboard_v3_live_2026-08-22.html">V3</a><a href="dashboard_v2_2026-08-22.html">V2</a><a href="dashboard.html">V1</a><a href="../index.html">DIRECTORY</a><a href="../repd_grid_atlasv8/">MAP ATLAS</a><a href="#" id="export">EXPORT CSV</a></nav></aside>
 <main class="main">
-<div class="header"><h1>UK RENEWABLES PIPELINE V6</h1><div class="status" id="statusBox">● LOADING OFFICIAL REPD</div></div>
-<div class="meta"><strong>V6 · 22 AUGUST 2026</strong><span>Solar &gt;1 MW · BESS &gt;100 MW</span><span>Canonical project ID: GG2050-REPD-&lt;Ref ID&gt;</span><span id="repdMeta">DESNZ Q2 2026</span><a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD portal</a></div>
+<div class="header"><h1>UK RENEWABLES PIPELINE V6</h1><div class="status" id="statusBox">● VALIDATING SAME-ORIGIN Q2 SNAPSHOT</div></div>
+<div class="meta"><strong>V6 · 22 AUGUST 2026</strong><span>Solar &gt;1 MW · BESS &gt;100 MW</span><span>GlobalGrid project + development identity</span><span id="repdMeta">DESNZ REPD Q2 2026 · validating snapshot…</span><a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD portal</a></div>
+<div class="mobile-actions" aria-label="Version navigation and export"><a href="dashboard_v5_live.html">V5</a><a href="dashboard_v4_live.html">V4</a><a href="dashboard_v3_live_2026-08-22.html">V3</a><a href="dashboard_v2_2026-08-22.html">V2</a><a href="dashboard.html">V1</a><a href="../index.html">DIRECTORY</a><a href="#" id="exportMobile">EXPORT CSV</a></div>
 <div class="notice"><b>DATA DISCIPLINE:</b> REPD fields below come from the official Q2 2026 publication and are never overwritten by news. NEWS SIGNAL is external intelligence only. A missing official date remains “not supplied”; V6 never invents one. Private commercial material is not part of this public application.</div>
-<section class="newspaper"><div class="masthead"><h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2><div class="strap"><span>REPD-bound UK solar + storage intelligence</span><span id="newsMeta">loading edition…</span></div></div><div class="tools" id="newsTools"><button class="active" data-mode="ALL">ALL</button><button data-mode="SOLAR">SOLAR</button><button data-mode="BESS">BESS</button><button data-mode="CONSENT">CONSENT</button><button data-mode="CONSTRUCTION">CONSTRUCTION</button><button data-mode="OPERATIONAL">OPERATIONAL</button><button data-mode="FINANCE">FINANCE / M&amp;A</button><input id="newsSearch" placeholder="SEARCH HEADLINE / PROJECT / REPD REF / GG ID"></div><div class="paper"><div class="stories" id="stories"><div class="empty">Loading V6 newspaper…</div></div></div></section>
+<section class="newspaper"><div class="masthead"><h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2><div class="strap"><span>REPD-bound UK solar + storage intelligence</span><span id="newsMeta">waiting for validated project universe…</span></div></div><div class="tools" id="newsTools"><button class="active" data-mode="ALL">ALL</button><button data-mode="SOLAR">SOLAR</button><button data-mode="BESS">BESS</button><button data-mode="CONSENT">CONSENT</button><button data-mode="CONSTRUCTION">CONSTRUCTION</button><button data-mode="OPERATIONAL">OPERATIONAL</button><button data-mode="FINANCE">FINANCE / M&amp;A</button><input id="newsSearch" placeholder="SEARCH HEADLINE / PROJECT / REPD REF / GG PROJECT OR DEVELOPMENT ID"></div><div class="paper"><div class="stories" id="stories"><div class="empty">Loading V6 newspaper…</div></div></div></section>
 <h2 class="section">REPD Q2 2026 PIPELINE ANALYTICS</h2>
 <div class="gauges"><div class="card"><h3>FILTERED CAPACITY (MW)</h3><div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div></div><div class="card"><h3>FILTERED PROJECTS</h3><div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div></div><div class="card"><h3>LARGEST PROJECT (MW)</h3><div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div></div></div>
 <div class="filters" id="tech"><button class="btn active" data-tech="ALL">ALL</button><button class="btn" data-tech="SOLAR">SOLAR &gt;1 MW</button><button class="btn" data-tech="BESS">BESS &gt;100 MW</button></div>
-<div class="filters"><select id="state"><option value="ALL">ALL REPD STATUS</option></select><select id="county"><option value="ALL">ALL COUNTIES / REGIONS</option></select><input id="assetSearch" class="asset-search" placeholder="SEARCH SITE / REPD REF / GG ID / PLANNING REF / AUTHORITY"></div>
-<div class="tablewrap"><table><thead><tr><th>SITE</th><th>GLOBALGRID PROJECT ID</th><th>REPD REF</th><th>REPD UPDATED</th><th>TECH</th><th>REPD STATUS</th><th>MW</th><th>COUNTY / REGION</th><th>PLANNING AUTHORITY</th><th>PLANNING REF</th><th>NEWS SIGNAL</th></tr></thead><tbody id="tbody"><tr><td colspan="11">Loading official Q2 data…</td></tr></tbody></table></div>
+<div class="filters"><select id="state"><option value="ALL">ALL REPD STATUS</option></select><select id="county"><option value="ALL">ALL COUNTIES / REGIONS</option></select><input id="assetSearch" class="asset-search" placeholder="SEARCH SITE / REPD REF / GG PROJECT OR DEVELOPMENT ID / PLANNING REF / AUTHORITY"></div>
+<div class="tablewrap"><table><thead><tr><th>SITE</th><th>GLOBALGRID PROJECT ID</th><th>GLOBALGRID DEVELOPMENT ID</th><th>REPD REF</th><th>REPD UPDATED</th><th>TECH</th><th>REPD STATUS</th><th>MW</th><th>COUNTY / REGION</th><th>PLANNING AUTHORITY</th><th>PLANNING REF</th><th>NEWS SIGNAL</th></tr></thead><tbody id="tbody"><tr><td colspan="12">Loading validated Q2 snapshot…</td></tr></tbody></table></div>
 </main>
 <script>
-const OFFICIAL_CSV='https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv';
-const EXPECTED={rows:14657,solar:3445,bess:269};
-const FOREIGN=['new jersey','texas','australia','canada','germany','italy','spain','india','china','south africa','new zealand','ireland','united states','new york','arizona','nevada','florida','ohio','virginia'];
+const PROJECT_SNAPSHOT='../dist/major_projects_v6.json';
+const NEWS_SNAPSHOT='../dist/major_project_news_v6.json';
+const OFFICIAL_PAGE='https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract';
+const EXPECTED={sourceRows:14657,sourceRefs:14657,projects:3714,solar:3445,bess:269,solarThreshold:1,bessThreshold:100,publicationDate:'2026-08-03',csvSha256:'84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035',xlsxSha256:'624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657'};
+const FOREIGN=['new jersey','california','texas','australia','new south wales','queensland','victoria australia','canada','alberta','ontario canada','germany','italy','spain','india','china','south africa','new zealand','republic of ireland','irish republic','ireland','united states','u s roundup','new york','arizona','nevada','florida','ohio','virginia','massachusetts','pennsylvania','colorado'];
 let projects=[],filtered=[],news=[],techMode='ALL',newsMode='ALL',assetQ='',newsQ='',charts=[];
-const $=id=>document.getElementById(id);const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=v=>String(v??'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();
-const val=(r,...keys)=>{for(const k of keys){if(Object.prototype.hasOwnProperty.call(r,k)&&String(r[k]??'').trim())return String(r[k]).trim()}return''};
-const iso=v=>{if(!v)return'';const s=String(v).trim();const m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);return m?`${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`:s};
-function classify(r){const t=norm(val(r,'Technology Type'));const mw=Number(String(val(r,'Installed Capacity (MWelec)')).replace(/,/g,''));if(!Number.isFinite(mw))return null;if(t.includes('solar')&&mw>1)return['SOLAR',mw];if(t.includes('battery')&&mw>100)return['BESS',mw];return null}
-function makeProject(r){const c=classify(r);if(!c)return null;const ref=val(r,'Ref ID').replace(/\.0$/,'');return{ref,gg:'GG2050-REPD-'+ref,name:val(r,'Site Name')||'Unknown Site',tech:c[0],mw:c[1],updated:iso(val(r,'Record Last Updated (dd/mm/yyyy)','Record Last Updated')),status:val(r,'Development Status (short)')||'Unknown',county:val(r,'County')||val(r,'Region'),authority:val(r,'Planning Authority','Local Planning Authority'),planning:val(r,'Planning Application Reference'),coloc:val(r,'Storage Co-location REPD Ref ID'),reNew:val(r,'Are they re-applying (New REPD Ref)'),reOld:val(r,'Are they re-applying (Old REPD Ref) ','Are they re-applying (Old REPD Ref)')}}
-function validateOfficial(raw,ps){const refs=new Set(raw.map(r=>val(r,'Ref ID').replace(/\.0$/,'')).filter(Boolean));if(raw.length!==EXPECTED.rows||refs.size!==EXPECTED.rows)throw new Error(`Q2 integrity mismatch: rows=${raw.length}, unique refs=${refs.size}`);const sc=ps.filter(p=>p.tech==='SOLAR').length,bc=ps.filter(p=>p.tech==='BESS').length;if(sc!==EXPECTED.solar||bc!==EXPECTED.bess)throw new Error(`threshold universe mismatch: solar=${sc}, BESS=${bc}`)}
-function setupCharts(){const o={responsive:true,maintainAspectRatio:false,circumference:180,rotation:270,cutout:'80%',plugins:{legend:{display:false},tooltip:{enabled:false}}};charts=[new Chart($('g1'),{type:'doughnut',data:{datasets:[{data:[0,1],backgroundColor:['#ff00ff','#222'],borderWidth:0}]},options:o}),new Chart($('g2'),{type:'doughnut',data:{datasets:[{data:[0,1],backgroundColor:['#00ffff','#222'],borderWidth:0}]},options:o}),new Chart($('g3'),{type:'doughnut',data:{datasets:[{data:[0,1],backgroundColor:['#00ff88','#222'],borderWidth:0}]},options:o})]}
-function signal(ref){const i=news.find(x=>String(x.repd_ref||'')===String(ref));if(!i)return{l:'—',c:'',n:'no primary matched headline'};const e=String(i.event||'PROJECT UPDATE').toUpperCase();if(e==='CONSENT')return{l:'APPROVED*',c:'approved',n:i.published||''};if(e==='CONSTRUCTION')return{l:'CONSTRUCTION*',c:'construction',n:i.published||''};if(e==='OPERATIONAL')return{l:'OPERATIONAL*',c:'operational',n:i.published||''};if(['FINANCIAL CLOSE','ACQUISITION'].includes(e))return{l:e==='ACQUISITION'?'M&A*':'FINANCED*',c:'finance',n:i.published||''};return{l:e+'*',c:'',n:i.published||''}}
-function apply(){const state=$('state').value,county=$('county').value,q=assetQ;filtered=projects.filter(p=>(techMode==='ALL'||p.tech===techMode)&&(state==='ALL'||p.status===state)&&(county==='ALL'||p.county===county)&&(!q||[p.name,p.ref,p.gg,p.planning,p.authority,p.county].join(' ').toUpperCase().includes(q)));const total=filtered.reduce((a,p)=>a+p.mw,0),max=filtered.length?Math.max(...filtered.map(p=>p.mw)):0,allTotal=projects.reduce((a,p)=>a+p.mw,0)||1,allMax=Math.max(...projects.map(p=>p.mw),1);$('v1').textContent=Math.round(total).toLocaleString();$('v2').textContent=filtered.length.toLocaleString();$('v3').textContent=max.toLocaleString(undefined,{maximumFractionDigits:1});charts[0].data.datasets[0].data=[total,Math.max(allTotal-total,0)];charts[1].data.datasets[0].data=[filtered.length,Math.max(projects.length-filtered.length,0)];charts[2].data.datasets[0].data=[max,Math.max(allMax-max,0)];charts.forEach(c=>c.update());drawTable()}
-function drawTable(){const tb=$('tbody');tb.innerHTML='';for(const p of filtered){const s=signal(p.ref),tr=document.createElement('tr');tr.innerHTML=`<td class="site">${esc(p.name)}</td><td><b>${esc(p.gg)}</b></td><td>${esc(p.ref)}</td><td>${esc(p.updated||'not supplied')}</td><td><span class="badge" style="background:${p.tech==='SOLAR'?'#ffff00':'#ffae00'}">${p.tech}</span></td><td>${esc(p.status)}</td><td class="mw">${p.mw.toFixed(1)}</td><td>${esc(p.county||'-')}</td><td>${esc(p.authority||'-')}</td><td>${esc(p.planning||'-')}</td><td><span class="signal ${s.c}">${esc(s.l)}</span><div class="small">${esc(s.n)} · not REPD-confirmed</div></td>`;tb.appendChild(tr)}}
-function fillFilters(){const states=[...new Set(projects.map(p=>p.status).filter(Boolean))].sort(),counties=[...new Set(projects.map(p=>p.county).filter(Boolean))].sort();for(const x of states){const o=document.createElement('option');o.value=x;o.textContent=x;$('state').appendChild(o)}for(const x of counties){const o=document.createElement('option');o.value=x;o.textContent=x;$('county').appendChild(o)}}
-function isForeign(i){const t=norm([i.headline,i.source,i.source_url].join(' ')),pn=norm(i.project);return FOREIGN.some(x=>t.includes(norm(x))&&!pn.includes(norm(x)))}
-function bindLegacy(items){const byName=new Map();for(const p of projects){const k=norm(p.name);if(!byName.has(k))byName.set(k,[]);byName.get(k).push(p)}const out=[];for(const i of items||[]){if(isForeign(i))continue;let cand=(byName.get(norm(i.project))||[]).filter(p=>p.tech===String(i.technology||'').toUpperCase());if(cand.length>1){const cmw=Number(i.capacity_mw||0);cand=cand.filter(p=>!cmw||Math.abs(p.mw-cmw)<=Math.max(2,p.mw*.15))}if(cand.length!==1)continue;const p=cand[0];out.push({...i,repd_ref:p.ref,repd_record_updated:p.updated,gg_project_id:p.gg,legacy_rebound:true})}return out}
-function nmatch(i){const e=String(i.event||'').toUpperCase(),t=String(i.technology||'').toUpperCase();if(newsMode==='SOLAR'&&t!=='SOLAR')return false;if(newsMode==='BESS'&&t!=='BESS')return false;if(newsMode==='CONSENT'&&e!=='CONSENT')return false;if(newsMode==='CONSTRUCTION'&&e!=='CONSTRUCTION')return false;if(newsMode==='OPERATIONAL'&&e!=='OPERATIONAL')return false;if(newsMode==='FINANCE'&&!['FINANCIAL CLOSE','ACQUISITION'].includes(e))return false;return !newsQ||[i.headline,i.project,i.repd_ref,i.gg_project_id,i.source,i.event].join(' ').toUpperCase().includes(newsQ)}
-function drawNews(){const rows=news.filter(nmatch),box=$('stories');if(!rows.length){box.innerHTML='<div class="empty">No V6-qualified headlines match this filter.</div>';return}box.innerHTML=rows.map(i=>`<a class="story ${String(i.technology||'').toLowerCase()==='bess'?'bess':'solar'}" href="${esc(i.url)}" target="_blank" rel="noopener"><div class="kicker">${esc(String(i.technology||'').toUpperCase())} · ${esc(i.event||'PROJECT UPDATE')} · ${esc(i.published||'')}</div><h3>${esc(i.headline||i.project)}</h3><p><span class="project">${esc(i.project||'')}</span>${i.capacity_mw?' · '+Number(i.capacity_mw).toLocaleString()+' MW':''}</p><span class="source">${esc(i.gg_project_id||'')} · REPD #${esc(i.repd_ref||'')} · record updated ${esc(i.repd_record_updated||'not supplied')}</span><span class="source">${esc(i.source||'Source')}${i.confidence?' · match '+esc(i.confidence)+'%':''}${i.legacy_rebound?' · V5 headline re-bound through Q2 identity gate':''}</span></a>`).join('')}
-async function loadNews(){const stamp=Date.now();let source='V6';try{const r=await fetch('../dist/major_project_news_v6.json?v='+stamp,{cache:'no-store'});if(!r.ok)throw 0;const p=await r.json();news=(p.items||[]).filter(i=>i.repd_ref&&!isForeign(i));$('newsMeta').textContent=`${news.length} V6 headlines · REPD-bound`;drawNews();apply();return}catch(e){}try{source='V5 re-bound';const r=await fetch('../dist/major_project_news_v5.json?v='+stamp,{cache:'no-store'});if(!r.ok)throw 0;const p=await r.json();news=bindLegacy(p.items||[]);$('newsMeta').textContent=`${news.length} qualified headlines · ${source}`;drawNews();apply()}catch(e){news=[];$('newsMeta').textContent='news feed unavailable · REPD analytics remain live';drawNews()}}
-function loadOfficial(){Papa.parse(OFFICIAL_CSV,{download:true,header:true,skipEmptyLines:true,complete:res=>{try{const raw=res.data||[];projects=raw.map(makeProject).filter(Boolean);validateOfficial(raw,projects);projects.sort((a,b)=>b.mw-a.mw);$('repdMeta').textContent=`DESNZ Q2 2026 · ${raw.length.toLocaleString()} official refs · ${projects.length.toLocaleString()} V6 threshold projects · publication page updated 2026-08-03`;$('statusBox').textContent='● LIVE · DIRECT DESNZ Q2 2026';fillFilters();setupCharts();apply();loadNews()}catch(err){fail(err)}},error:fail})}
-function fail(err){console.error(err);$('statusBox').textContent='● FAIL-CLOSED · OFFICIAL Q2 SOURCE UNAVAILABLE';$('statusBox').classList.add('error');$('repdMeta').textContent='No stale dataset substituted';$('tbody').innerHTML='<tr><td colspan="11" class="error">V6 refused to display stale REPD data because the official Q2 source could not be validated.</td></tr>';setupCharts();news=[];drawNews()}
-document.querySelectorAll('#tech .btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tech .btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');techMode=b.dataset.tech;apply()});$('state').onchange=apply;$('county').onchange=apply;$('assetSearch').oninput=e=>{assetQ=e.target.value.trim().toUpperCase();apply()};document.querySelectorAll('#newsTools button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#newsTools button').forEach(x=>x.classList.remove('active'));b.classList.add('active');newsMode=b.dataset.mode;drawNews()});$('newsSearch').oninput=e=>{newsQ=e.target.value.trim().toUpperCase();drawNews()};$('export').onclick=e=>{e.preventDefault();const out=['Site,GlobalGrid Project ID,REPD Ref,REPD Record Updated,Technology,REPD Status,Capacity MW,County Region,Planning Authority,Planning Reference,News Signal'];for(const p of filtered){const s=signal(p.ref);out.push([p.name,p.gg,p.ref,p.updated||'',p.tech,p.status,p.mw,p.county,p.authority,p.planning,s.l].map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','))}const u=URL.createObjectURL(new Blob(['\ufeff'+out.join('\n')],{type:'text/csv'})),a=document.createElement('a');a.href=u;a.download='globalgrid2050_uk_renewables_v6_2026-08-22.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)};loadOfficial();
+const clean=v=>String(v??'').trim();
+const hex64=v=>/^[a-f0-9]{64}$/i.test(clean(v));
+const validDate=v=>{const s=clean(v);if(!/^\d{4}-\d{2}-\d{2}$/.test(s))return false;const d=new Date(s+'T00:00:00Z');return!Number.isNaN(d.getTime())&&d.toISOString().slice(0,10)===s};
+function assert(ok,message){if(!ok)throw new Error(message)}
+function sameOriginURL(path){const u=new URL(path,window.location.href);assert(u.origin===window.location.origin,'V6 data URL is not same-origin');return u}
+function canonicalJSON(value,key=''){
+  if(value===null)return'null';
+  if(Array.isArray(value))return'['+value.map(v=>canonicalJSON(v)).join(',')+']';
+  if(typeof value==='object')return'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonicalJSON(value[k],k)).join(',')+'}';
+  if(typeof value==='number'){
+    assert(Number.isFinite(value),'Snapshot contains a non-finite number');
+    // The backend hashes Python floats; preserve the canonical trailing .0 for capacity integers.
+    if(key==='capacity_mw'&&Number.isInteger(value))return value.toFixed(1);
+  }
+  return JSON.stringify(value);
+}
+async function sha256(text){
+  assert(window.crypto&&window.crypto.subtle,'Secure SHA-256 validation is unavailable');
+  const digest=await window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));
+  return [...new Uint8Array(digest)].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function projectView(row,index){
+  const ref=clean(row.repd_ref),gg=clean(row.gg_project_id),dev=clean(row.gg_development_id);
+  assert(/^\d+$/.test(ref),`Project ${index+1} has an invalid REPD Ref`);
+  assert(gg===`GG2050-REPD-${ref}`,`REPD ${ref} has an invalid GlobalGrid Project ID`);
+  assert(dev===`GG2050-DEV-REPD-${ref}`||/^GG2050-DEV-[A-F0-9]{12,32}$/.test(dev),`REPD ${ref} has an invalid GlobalGrid Development ID`);
+  assert(row.identity_status==='REPD_BOUND',`REPD ${ref} is not REPD_BOUND`);
+  const technology=clean(row.technology).toLowerCase(),mw=Number(row.capacity_mw);
+  assert(technology==='solar'||technology==='bess',`REPD ${ref} has an invalid technology`);
+  assert(row.capacity_known===true&&Number.isFinite(mw),`REPD ${ref} has unknown official capacity`);
+  assert(technology==='solar'?mw>EXPECTED.solarThreshold:mw>EXPECTED.bessThreshold,`REPD ${ref} fails its exclusive threshold`);
+  assert(clean(row.name)&&clean(row.status),`REPD ${ref} is missing a required official field`);
+  const updated=row.repd_record_updated==null?'':clean(row.repd_record_updated);
+  assert(!updated||validDate(updated),`REPD ${ref} has an invalid record-update date`);
+  const county=clean(row.county),region=clean(row.region),country=clean(row.country);
+  return{ref,gg,dev,name:clean(row.name),tech:technology.toUpperCase(),mw,updated,status:clean(row.status),county,region,country,location:[county,region].filter((v,i,a)=>v&&a.indexOf(v)===i).join(' / '),authority:clean(row.planning_authority),planning:clean(row.planning_application_reference),operator:clean(row.operator),lifecycle:clean(row.lifecycle)};
+}
+async function validateProjectSnapshot(payload){
+  assert(payload&&typeof payload==='object'&&!Array.isArray(payload),'Project snapshot is not an object');
+  assert(payload.schema==='globalgrid2050.major-projects.v6'&&payload.version===6,'Unexpected V6 project schema/version');
+  assert(payload.repd_bound===true&&payload.globalgrid_id_required===true,'Canonical REPD/GlobalGrid identity policy is missing');
+  assert(payload.identity_schema==='globalgrid2050.project-identity.v6','Canonical identity-registry metadata is missing');
+  assert(clean(payload.source_owner).includes('DESNZ'),'DESNZ source ownership metadata is missing');
+  assert(clean(payload.source_dataset_title).includes('Q2 2026'),'Q2 2026 edition metadata is missing');
+  assert(payload.source_page===OFFICIAL_PAGE,'Official publication-page provenance mismatch');
+  assert(payload.source_publication_date===EXPECTED.publicationDate,'Official publication date mismatch');
+  assert(!Number.isNaN(Date.parse(payload.validated_at)),'Snapshot validation timestamp is invalid');
+  assert(payload.source_record_count===EXPECTED.sourceRows&&payload.source_unique_ref_count===EXPECTED.sourceRefs,'Official source count/Ref-ID gate failed');
+  assert(payload.csv_xlsx_reconciled===true,'CSV/XLSX reconciliation gate failed');
+  assert(payload.source_hashes&&hex64(payload.source_hashes.csv_sha256)&&hex64(payload.source_hashes.xlsx_sha256),'Official source hashes are missing or malformed');
+  assert(payload.source_hashes.csv_sha256.toLowerCase()===EXPECTED.csvSha256&&payload.source_hashes.xlsx_sha256.toLowerCase()===EXPECTED.xlsxSha256,'Official Q2 CSV/XLSX source hashes do not match the validated publication');
+  assert(norm(payload.canonical_capacity_source).includes('xlsx')&&norm(payload.canonical_capacity_source).includes('csv'),'Reconciled capacity provenance metadata is missing');
+  assert(payload.thresholds&&Number(payload.thresholds.solar_mw_exclusive)===EXPECTED.solarThreshold&&Number(payload.thresholds.bess_mw_exclusive)===EXPECTED.bessThreshold,'Exclusive threshold metadata mismatch');
+  assert(payload.project_count===EXPECTED.projects&&payload.count===EXPECTED.projects&&payload.solar_count===EXPECTED.solar&&payload.bess_count===EXPECTED.bess,'Declared V6 project counts mismatch');
+  assert(Array.isArray(payload.projects)&&payload.projects.length===EXPECTED.projects,'V6 project array count mismatch');
+  assert(Number(payload.record_update_supplied_count)+Number(payload.record_update_missing_count)===EXPECTED.projects,'REPD update-date coverage metadata mismatch');
+  assert(hex64(payload.projects_sha256),'Project-universe SHA-256 is missing or malformed');
+  const calculatedHash=await sha256(canonicalJSON(payload.projects));
+  assert(calculatedHash===payload.projects_sha256.toLowerCase(),'Project-universe SHA-256 validation failed');
+  const seenRefs=new Set(),seenGG=new Set(),mapped=[];
+  payload.projects.forEach((row,index)=>{
+    const p=projectView(row,index);
+    assert(!seenRefs.has(p.ref)&&!seenGG.has(p.gg),`Duplicate canonical project identity at REPD ${p.ref}`);
+    seenRefs.add(p.ref);seenGG.add(p.gg);mapped.push(p);
+  });
+  const solar=mapped.filter(p=>p.tech==='SOLAR').length,bess=mapped.filter(p=>p.tech==='BESS').length;
+  assert(solar===EXPECTED.solar&&bess===EXPECTED.bess,'Calculated V6 threshold counts mismatch');
+  const supplied=mapped.filter(p=>p.updated).length;
+  assert(supplied===payload.record_update_supplied_count&&mapped.length-supplied===payload.record_update_missing_count,'Calculated REPD update-date coverage mismatch');
+  mapped.sort((a,b)=>b.mw-a.mw||a.name.localeCompare(b.name));
+  return mapped;
+}
+function setupCharts(){
+  if(typeof Chart==='undefined')return;
+  const o={responsive:true,maintainAspectRatio:false,circumference:180,rotation:270,cutout:'80%',plugins:{legend:{display:false},tooltip:{enabled:false}}};
+  charts=[new Chart($('g1'),{type:'doughnut',data:{datasets:[{data:[0,1],backgroundColor:['#ff00ff','#222'],borderWidth:0}]},options:o}),new Chart($('g2'),{type:'doughnut',data:{datasets:[{data:[0,1],backgroundColor:['#00ffff','#222'],borderWidth:0}]},options:o}),new Chart($('g3'),{type:'doughnut',data:{datasets:[{data:[0,1],backgroundColor:['#00ff88','#222'],borderWidth:0}]},options:o})];
+}
+function signal(ref){
+  const i=news.find(x=>x.repd_ref===ref);
+  if(!i)return{l:'—',c:'',n:'no primary matched headline'};
+  const e=clean(i.event||'PROJECT UPDATE').toUpperCase();
+  if(e==='CONSENT')return{l:'APPROVED*',c:'approved',n:i.published};
+  if(e==='CONSTRUCTION')return{l:'CONSTRUCTION*',c:'construction',n:i.published};
+  if(e==='OPERATIONAL')return{l:'OPERATIONAL*',c:'operational',n:i.published};
+  if(e==='FINANCIAL CLOSE')return{l:'FINANCED*',c:'finance',n:i.published};
+  if(e==='ACQUISITION')return{l:'ACQUIRED*',c:'finance',n:i.published};
+  if(e==='GRID CONNECTION')return{l:'GRID CONNECTED*',c:'operational',n:i.published};
+  if(e==='REFUSAL')return{l:'REFUSED*',c:'',n:i.published};
+  if(e==='DELAY')return{l:'DELAYED*',c:'',n:i.published};
+  if(e==='DELAY / REFUSAL')return{l:norm(i.headline).includes('refus')?'REFUSED*':'DELAYED*',c:'',n:i.published};
+  return{l:'PROJECT UPDATE*',c:'',n:i.published};
+}
+function apply(){
+  const state=$('state').value,geography=$('county').value,q=assetQ;
+  filtered=projects.filter(p=>(techMode==='ALL'||p.tech===techMode)&&(state==='ALL'||p.status===state)&&(geography==='ALL'||p.county===geography||p.region===geography)&&(!q||[p.name,p.ref,p.gg,p.dev,p.planning,p.authority,p.county,p.region,p.operator].join(' ').toUpperCase().includes(q)));
+  const total=filtered.reduce((a,p)=>a+p.mw,0),max=filtered.length?Math.max(...filtered.map(p=>p.mw)):0,allTotal=projects.reduce((a,p)=>a+p.mw,0)||1,allMax=projects.length?Math.max(...projects.map(p=>p.mw)):1;
+  $('v1').textContent=Math.round(total).toLocaleString();$('v2').textContent=filtered.length.toLocaleString();$('v3').textContent=max.toLocaleString(undefined,{maximumFractionDigits:2});
+  if(charts.length===3){charts[0].data.datasets[0].data=[total,Math.max(allTotal-total,0)];charts[1].data.datasets[0].data=[filtered.length,Math.max(projects.length-filtered.length,0)];charts[2].data.datasets[0].data=[max,Math.max(allMax-max,0)];charts.forEach(c=>c.update())}
+  drawTable();
+}
+function drawTable(){
+  const tb=$('tbody');tb.innerHTML='';
+  for(const p of filtered){
+    const s=signal(p.ref),tr=document.createElement('tr');
+    tr.innerHTML=`<td class="site">${esc(p.name)}</td><td><b>${esc(p.gg)}</b></td><td>${esc(p.dev)}</td><td>${esc(p.ref)}</td><td>${esc(p.updated||'not supplied by REPD')}</td><td><span class="badge" style="background:${p.tech==='SOLAR'?'#ffff00':'#ffae00'}">${p.tech}</span></td><td>${esc(p.status)}</td><td class="mw">${p.mw.toLocaleString(undefined,{maximumFractionDigits:5})}</td><td>${esc(p.location||'-')}</td><td>${esc(p.authority||'-')}</td><td>${esc(p.planning||'-')}</td><td><span class="signal ${s.c}">${esc(s.l)}</span><div class="small">${esc(s.n)} · external, not REPD-confirmed</div></td>`;
+    tb.appendChild(tr);
+  }
+  if(!filtered.length)tb.innerHTML='<tr><td colspan="12">No projects match the current filters.</td></tr>';
+}
+function fillFilters(){
+  const states=[...new Set(projects.map(p=>p.status).filter(Boolean))].sort(),locations=[...new Set(projects.flatMap(p=>[p.county,p.region]).filter(Boolean))].sort();
+  for(const x of states){const o=document.createElement('option');o.value=x;o.textContent=x;$('state').appendChild(o)}
+  for(const x of locations){const o=document.createElement('option');o.value=x;o.textContent=x;$('county').appendChild(o)}
+}
+function isForeign(item,project){
+  const text=norm([item.headline,item.source,item.source_url].join(' '));
+  const identity=norm([item.project,project&&project.name,project&&project.country,project&&project.county,project&&project.region,project&&project.authority,project&&project.planning].join(' '));
+  return FOREIGN.some(place=>{
+    const token=norm(place);if(!text.includes(token))return false;
+    if(token==='ireland'&&identity.includes('northern ireland'))return false;
+    return !identity.includes(token);
+  });
+}
+function validPublicURL(value){try{const u=new URL(value);return u.protocol==='https:'||u.protocol==='http:'}catch(e){return false}}
+function validateNewsSnapshot(payload){
+  assert(payload&&payload.schema==='globalgrid2050.major-project-news.v6','Unexpected V6 news schema');
+  assert(payload.repd_bound===true&&payload.globalgrid_id_required===true,'News identity policy is missing');
+  assert(payload.thresholds&&Number(payload.thresholds.solar_mw_exclusive)===EXPECTED.solarThreshold&&Number(payload.thresholds.bess_mw_exclusive)===EXPECTED.bessThreshold,'News threshold metadata mismatch');
+  assert(payload.eligible_projects===EXPECTED.projects&&payload.eligible_solar===EXPECTED.solar&&payload.eligible_bess===EXPECTED.bess,'News eligible-universe counts mismatch');
+  assert(payload.news_horizon_days===183&&Array.isArray(payload.items)&&payload.headline_count===payload.items.length,'News crawl/count metadata mismatch');
+  const editionDate=new Date(payload.updated);assert(!Number.isNaN(editionDate.getTime()),'News edition timestamp is invalid');
+  const earliest=new Date(editionDate.getTime()-183*86400000),latest=new Date(editionDate.getTime()+86400000),byRef=new Map(projects.map(p=>[p.ref,p])),articleIds=new Set();
+  return payload.items.map((item,index)=>{
+    const ref=clean(item.repd_ref),project=byRef.get(ref),published=new Date(clean(item.published)+'T00:00:00Z');
+    assert(project,`News item ${index+1} is outside the canonical V6 universe`);
+    assert(item.primary_repd_ref===ref&&item.identity_status==='REPD_BOUND','News item is not a canonical PRIMARY_MATCH');
+    assert(item.gg_project_id===project.gg&&item.gg_development_id===project.dev,'News project/development identity mismatch');
+    assert(/^GG2050-NEWS-[A-F0-9]{16}$/.test(clean(item.gg_article_id))&&!articleIds.has(item.gg_article_id),'News article identity is missing or duplicated');
+    articleIds.add(item.gg_article_id);
+    assert(validPublicURL(item.url)&&clean(item.headline)&&clean(item.source),'News article URL/headline/source is invalid');
+    assert(validDate(item.published)&&published>=earliest&&published<=latest,'News publication date is outside the declared horizon');
+    assert(Number(item.confidence)>=68&&Number(item.confidence)<=100,'News match-confidence gate failed');
+    assert(clean(item.technology).toUpperCase()===project.tech,'News technology binding mismatch');
+    assert(Number(item.capacity_mw)===project.mw,'News capacity is not the official REPD project capacity');
+    assert(clean(item.repd_record_updated)===project.updated,'News REPD update-date binding mismatch');
+    assert(!isForeign(item,project),'Foreign-location veto failed');
+    return{...item,repd_ref:ref,gg_project_id:project.gg,gg_development_id:project.dev,technology:project.tech,capacity_mw:project.mw,repd_record_updated:project.updated};
+  });
+}
+function nmatch(item){
+  const event=clean(item.event).toUpperCase(),technology=clean(item.technology).toUpperCase();
+  if(newsMode==='SOLAR'&&technology!=='SOLAR')return false;if(newsMode==='BESS'&&technology!=='BESS')return false;
+  if(newsMode==='CONSENT'&&event!=='CONSENT')return false;if(newsMode==='CONSTRUCTION'&&event!=='CONSTRUCTION')return false;if(newsMode==='OPERATIONAL'&&event!=='OPERATIONAL')return false;
+  if(newsMode==='FINANCE'&&!['FINANCIAL CLOSE','ACQUISITION'].includes(event))return false;
+  return !newsQ||[item.headline,item.project,item.repd_ref,item.gg_project_id,item.gg_development_id,item.gg_article_id,item.source,item.event].join(' ').toUpperCase().includes(newsQ);
+}
+function drawNews(){
+  const rows=news.filter(nmatch),box=$('stories');if(!rows.length){box.innerHTML='<div class="empty">No V6-qualified headlines match this filter.</div>';return}
+  box.innerHTML=rows.map(i=>`<a class="story ${i.technology.toLowerCase()==='bess'?'bess':'solar'}" href="${esc(i.url)}" target="_blank" rel="noopener"><div class="kicker">${esc(i.technology)} · ${esc(i.event||'PROJECT UPDATE')} · ${esc(i.published)}</div><h3>${esc(i.headline)}</h3><p><span class="project">${esc(i.project)}</span> · REPD ${Number(i.capacity_mw).toLocaleString(undefined,{maximumFractionDigits:5})} MW</p><span class="source">${esc(i.gg_project_id)} · ${esc(i.gg_development_id)} · REPD #${esc(i.repd_ref)} · record updated ${esc(i.repd_record_updated||'not supplied by REPD')}</span><span class="source">${esc(i.source)} · identity match ${esc(i.confidence)}% · external NEWS SIGNAL only</span></a>`).join('');
+}
+async function loadNews(){
+  try{
+    const u=sameOriginURL(NEWS_SNAPSHOT);u.searchParams.set('v',Date.now());
+    const response=await fetch(u,{cache:'no-store',headers:{Accept:'application/json'}});assert(response.ok,`V6 news HTTP ${response.status}`);
+    news=validateNewsSnapshot(await response.json());
+    $('newsMeta').textContent=`${news.length.toLocaleString()} V6-qualified headlines · PRIMARY_MATCH only`;
+  }catch(error){console.error('V6 news snapshot:',error);news=[];$('newsMeta').textContent='V6 news feed unavailable or quiet · REPD analytics remain live'}
+  drawNews();apply();
+}
+function formatTimestamp(value){const d=new Date(value);return d.toISOString().replace('T',' ').replace(/\.\d{3}Z$/,' UTC')}
+async function loadProjects(){
+  try{
+    const u=sameOriginURL(PROJECT_SNAPSHOT);u.searchParams.set('v',Date.now());
+    const response=await fetch(u,{cache:'no-store',headers:{Accept:'application/json'}});assert(response.ok,`V6 project snapshot HTTP ${response.status}`);
+    const payload=await response.json();projects=await validateProjectSnapshot(payload);
+    $('statusBox').textContent='● LIVE · VALIDATED SAME-ORIGIN DESNZ Q2 SNAPSHOT';
+    $('statusBox').classList.remove('error');
+    $('repdMeta').textContent=`DESNZ REPD Q2 2026 · published ${payload.source_publication_date} · validated ${formatTimestamp(payload.validated_at)} · 14,657 official source records · 14,657 unique REPD refs · CSV ↔ XLSX reconciled · 3,714 projects (3,445 solar, 269 BESS)`;
+    fillFilters();apply();loadNews();
+  }catch(error){fail(error)}
+}
+function fail(error){
+  console.error('V6 project snapshot:',error);projects=[];filtered=[];news=[];
+  $('statusBox').textContent='● FAIL-CLOSED · VALIDATED V6 SNAPSHOT UNAVAILABLE';$('statusBox').classList.add('error');
+  $('repdMeta').textContent='Same-origin snapshot rejected: metadata, hash, counts or canonical identity did not validate';
+  $('tbody').innerHTML='<tr><td colspan="12" class="error">V6 refused to display a malformed or unvalidated same-origin project snapshot. The government website is not contacted by this browser.</td></tr>';
+  $('newsMeta').textContent='newspaper unavailable until canonical project identity loads';drawNews();
+}
+function exportCSV(event){
+  if(event)event.preventDefault();
+  const out=['Site,GlobalGrid Project ID,GlobalGrid Development ID,REPD Ref,REPD Record Last Updated,Technology,Official REPD Status,Official REPD Capacity MW,County,Region,Operator or Applicant,Planning Authority,Planning Application Reference,Derived Lifecycle,News Signal'];
+  for(const p of filtered){const s=signal(p.ref);out.push([p.name,p.gg,p.dev,p.ref,p.updated,p.tech,p.status,p.mw,p.county,p.region,p.operator,p.authority,p.planning,p.lifecycle,s.l].map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','))}
+  const u=URL.createObjectURL(new Blob(['\ufeff'+out.join('\n')],{type:'text/csv'})),a=document.createElement('a');a.href=u;a.download='globalgrid2050_uk_renewables_v6_q2_2026.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u);
+}
+document.querySelectorAll('#tech .btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tech .btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');techMode=b.dataset.tech;apply()});
+$('state').onchange=apply;$('county').onchange=apply;$('assetSearch').oninput=e=>{assetQ=e.target.value.trim().toUpperCase();apply()};
+document.querySelectorAll('#newsTools button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#newsTools button').forEach(x=>x.classList.remove('active'));b.classList.add('active');newsMode=b.dataset.mode;drawNews()});
+$('newsSearch').oninput=e=>{newsQ=e.target.value.trim().toUpperCase();drawNews()};$('export').onclick=exportCSV;$('exportMobile').onclick=exportCSV;
+setupCharts();loadProjects();
 </script>
 </body>
 </html>

@@ -2,6 +2,12 @@ name: Deploy GlobalGrid2050 Pages
 
 on:
   workflow_dispatch:
+  # Commits pushed by the V6 workflow use GITHUB_TOKEN and therefore do not emit a
+  # second push workflow. Deploy the validated main branch when that workflow finishes.
+  workflow_run:
+    workflows: ["UK Renewables V6 REPD-Bound Newspaper"]
+    types: [completed]
+    branches: [main]
   push:
     branches: [main]
     paths:
@@ -20,6 +26,7 @@ on:
       - 'dist/project_news_links_v6.json'
       - 'dist/repd_source_reconciliation_v6.json'
       - 'dist/renewables_v6_integrity.json'
+      - 'dist/manifest_v6.json'
       - 'dist/repd_master.json'
       - 'dist/manifest_v4.json'
       - '.github/workflows/deploy-pages.yml'
@@ -35,10 +42,14 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll

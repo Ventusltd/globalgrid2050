@@ -1,23 +1,25 @@
 #!/usr/bin/env python3
+"""Validate V6 project/development identities and news relationships."""
 from __future__ import annotations
 
+import hashlib
 import json
 import math
-import re
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 IDENTITY = DIST / "project_identity_v6.json"
-MASTER = DIST / "repd_master.json"
 PROJECTS = DIST / "major_projects_v6.json"
 NEWS = DIST / "major_project_news_v6.json"
 LINKS = DIST / "project_news_links_v6.json"
 REPORT = DIST / "project_identity_v6_integrity.json"
 
-Q2_2026_RAW_ROWS = 14657
-Q2_2026_SOLAR_GT1 = 3445
-Q2_2026_BESS_GT100 = 269
+EXPECTED_ROWS = 14657
+EXPECTED_SOLAR = 3445
+EXPECTED_BESS = 269
+EXPECTED_PROJECTS = EXPECTED_SOLAR + EXPECTED_BESS
 
 errors = []
 checks = []
@@ -38,174 +40,185 @@ def load(path):
         return {}
 
 
-def clean(v):
-    return str(v or "").strip()
+def clean(value):
+    return str(value or "").strip()
 
 
-def norm(v):
-    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", clean(v).lower())).strip()
-
-
-def num(v):
+def number(value):
     try:
-        x = float(clean(v).replace(",", ""))
-        return x if math.isfinite(x) else None
+        result = float(value)
+        return result if math.isfinite(result) else None
     except Exception:
         return None
 
 
 identity = load(IDENTITY)
-master = load(MASTER)
 projects = load(PROJECTS)
 news = load(NEWS)
 links = load(LINKS)
 
 records = identity.get("records") or []
 check(identity.get("schema") == "globalgrid2050.project-identity.v6", "identity schema")
-check(len(records) >= 1000, "identity registry non-trivial", f"records={len(records)}")
-check(identity.get("identity_rules", {}).get("capacity_not_identity") is True, "capacity excluded from identity fingerprint")
-check(float(identity.get("repd_ref_coverage") or 0) >= 0.999, "official REPD ref coverage >=99.9%", f"coverage={identity.get('repd_ref_coverage')}")
+check(identity.get("raw_record_count") == EXPECTED_ROWS, "identity raw row count", str(identity.get("raw_record_count")))
+check(identity.get("repd_bound_count") == EXPECTED_ROWS, "identity REPD-bound count", str(identity.get("repd_bound_count")))
+check(identity.get("globalgrid_only_count") == 0, "no fabricated REPD identities", str(identity.get("globalgrid_only_count")))
+check(len(records) == EXPECTED_ROWS, "identity record array exact", f"records={len(records)}")
+check(identity.get("identity_rules", {}).get("capacity_not_identity") is True, "capacity excluded from identity")
 
 by_ref = {}
 by_gg = {}
-for i, row in enumerate(records):
-    gg = clean(row.get("gg_project_id"))
-    ref = clean(row.get("repd_ref"))
-    status = clean(row.get("identity_status"))
-    check(bool(gg), f"identity row {i} has GlobalGrid ID")
-    if gg in by_gg:
-        errors.append(f"duplicate gg_project_id: {gg}")
-    by_gg[gg] = row
-    if status == "REPD_BOUND":
-        check(bool(ref), f"REPD-bound identity row {i} has repd_ref")
-        check(gg == f"GG2050-REPD-{ref}", f"REPD-bound ID deterministic for {ref}", gg)
-        if ref in by_ref:
-            errors.append(f"duplicate repd_ref in identity registry: {ref}")
-        by_ref[ref] = row
-    elif status == "GLOBALGRID_ONLY":
-        check(not ref, f"GlobalGrid-only row {i} does not fabricate REPD ref")
-        check(gg.startswith("GG2050-UK-"), f"GlobalGrid-only ID namespace row {i}", gg)
-    else:
-        errors.append(f"unknown identity_status row {i}: {status}")
-
-# Actual Q2 2026 workbook gates are conditional on the exact official publication URL.
-source_url = clean(identity.get("source_url"))
-if "REPD_Publication_Q2_2026.csv" in source_url:
-    check(int(identity.get("raw_record_count") or -1) == Q2_2026_RAW_ROWS, "Q2 2026 raw REPD row count exact", f"actual={identity.get('raw_record_count')} expected={Q2_2026_RAW_ROWS}")
-    check(int(identity.get("repd_bound_count") or -1) == Q2_2026_RAW_ROWS, "Q2 2026 all rows have unique official Ref ID", f"bound={identity.get('repd_bound_count')}")
-    check(int(identity.get("globalgrid_only_count") or -1) == 0, "Q2 2026 requires no synthetic GlobalGrid-only IDs", f"gg_only={identity.get('globalgrid_only_count')}")
-    raw_solar_gt1 = 0
-    raw_bess_gt100 = 0
-    for row in records:
-        mw = num(row.get("capacity_mw_raw"))
-        if mw is None:
-            continue
-        tech = norm(row.get("technology"))
-        if "solar photovoltaic" in tech and mw > 1.0:
-            raw_solar_gt1 += 1
-        if "battery" in tech and mw > 100.0:
-            raw_bess_gt100 += 1
-    check(raw_solar_gt1 == Q2_2026_SOLAR_GT1, "Q2 2026 raw solar >1MW count exact", f"actual={raw_solar_gt1} expected={Q2_2026_SOLAR_GT1}")
-    check(raw_bess_gt100 == Q2_2026_BESS_GT100, "Q2 2026 raw BESS >100MW count exact", f"actual={raw_bess_gt100} expected={Q2_2026_BESS_GT100}")
-
-# Relationship integrity: explicit related current refs must resolve, and development groups must agree.
-for ref, row in by_ref.items():
-    dev = clean(row.get("gg_development_id"))
-    check(bool(dev), f"REPD {ref} has development ID")
-    for related_ref in row.get("direct_related_repd_refs") or []:
-        if clean(related_ref) in by_ref:
-            check(clean(by_ref[clean(related_ref)].get("gg_development_id")) == dev, f"explicit related REPD {ref}<->{related_ref} shares development ID")
-    for sibling_ref in row.get("development_repd_refs") or []:
-        sr = clean(sibling_ref)
-        if sr in by_ref:
-            check(clean(by_ref[sr].get("gg_development_id")) == dev, f"development sibling {ref}<->{sr} consistent")
-
-# Shared transformed REPD master must be fully enriched without changing its official identity.
-features = master.get("features") or []
-check(master.get("identity_schema") == identity.get("schema"), "REPD master declares identity schema")
-master_refs = set()
-for feature in features:
-    p = feature.get("properties") or {}
-    ref = clean(p.get("repd_ref"))
+identity_error_start = len(errors)
+for index, record in enumerate(records):
+    ref = clean(record.get("repd_ref"))
+    gg = clean(record.get("gg_project_id"))
+    development = clean(record.get("gg_development_id"))
     if not ref:
-        errors.append(f"master feature lacks official REPD ref: {p.get('name')}")
-        continue
-    master_refs.add(ref)
-    identity_row = by_ref.get(ref)
-    if not identity_row:
-        errors.append(f"master REPD ref missing from identity registry: {ref}")
-        continue
-    check(clean(p.get("gg_project_id")) == clean(identity_row.get("gg_project_id")), f"master GlobalGrid ID matches registry {ref}")
-    check(clean(p.get("gg_development_id")) == clean(identity_row.get("gg_development_id")), f"master development ID matches registry {ref}")
+        errors.append(f"identity row {index} lacks official REPD Ref")
+    if gg != f"GG2050-REPD-{ref}":
+        errors.append(f"identity row {index} has non-deterministic project ID: {gg}")
+    if record.get("identity_status") != "REPD_BOUND":
+        errors.append(f"identity row {index} is not REPD_BOUND")
+    if not development.startswith("GG2050-DEV-"):
+        errors.append(f"identity row {index} lacks development ID")
+    if record.get("capacity_known") != (number(record.get("capacity_mw")) is not None):
+        errors.append(f"identity row {index} violates capacity-null discipline")
+    if ref in by_ref:
+        errors.append(f"duplicate identity REPD Ref: {ref}")
+    if gg in by_gg:
+        errors.append(f"duplicate GlobalGrid project ID: {gg}")
+    by_ref[ref] = record
+    by_gg[gg] = record
+check(len(errors) == identity_error_start, "all identity rows valid and unique", f"new_errors={len(errors)-identity_error_start}")
 
-# Eligible V6 project universe must be 100% GlobalGrid-bound.
+relationship_error_start = len(errors)
+for ref, record in by_ref.items():
+    development = clean(record.get("gg_development_id"))
+    for relation in record.get("relationships") or []:
+        target = clean(relation.get("repd_ref"))
+        if relation.get("type") not in {"CURRENT_VERSION", "PREVIOUS_REPD_REF", "RELATED_APPLICATION", "COLOCATED_COMPONENT"}:
+            errors.append(f"untyped relation {ref}->{target}: {relation.get('type')}")
+        if target in by_ref:
+            if clean(by_ref[target].get("gg_development_id")) != development:
+                errors.append(f"resolvable relation not grouped {ref}->{target}")
+    for target in record.get("development_repd_refs") or []:
+        target = clean(target)
+        if target not in by_ref:
+            errors.append(f"development member absent {ref}->{target}")
+        elif clean(by_ref[target].get("gg_development_id")) != development:
+            errors.append(f"development group inconsistent {ref}->{target}")
+check(len(errors) == relationship_error_start, "all identity relationships resolve consistently", f"new_errors={len(errors)-relationship_error_start}")
+
 project_rows = projects.get("projects") or []
-check(projects.get("globalgrid_id_required") is True, "V6 project output requires GlobalGrid IDs")
-for row in project_rows:
-    ref = clean(row.get("repd_ref"))
+check(projects.get("schema") == "globalgrid2050.major-projects.v6", "public project schema")
+check(projects.get("repd_bound") is True, "public projects REPD-bound")
+check(projects.get("globalgrid_id_required") is True, "public projects GlobalGrid-bound")
+check(projects.get("csv_xlsx_reconciled") is True, "public projects reconciled")
+check(projects.get("source_record_count") == EXPECTED_ROWS, "public source row metadata")
+check(projects.get("project_count") == EXPECTED_PROJECTS == len(project_rows), "public project count", f"metadata={projects.get('project_count')} rows={len(project_rows)}")
+check(projects.get("solar_count") == EXPECTED_SOLAR, "public solar count")
+check(projects.get("bess_count") == EXPECTED_BESS, "public BESS count")
+canonical_projects = json.dumps(project_rows, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+check(projects.get("projects_sha256") == hashlib.sha256(canonical_projects.encode("utf-8")).hexdigest(), "public project-array hash")
+
+project_refs = set()
+solar = bess = 0
+project_error_start = len(errors)
+for index, project in enumerate(project_rows):
+    ref = clean(project.get("repd_ref"))
     identity_row = by_ref.get(ref)
     if not identity_row:
-        errors.append(f"eligible project not in identity registry: {ref}")
+        errors.append(f"public project {index} absent from identity registry: {ref}")
         continue
-    check(clean(row.get("gg_project_id")) == clean(identity_row.get("gg_project_id")), f"eligible project GlobalGrid ID exact {ref}")
-    check(clean(row.get("gg_development_id")) == clean(identity_row.get("gg_development_id")), f"eligible project development ID exact {ref}")
+    if ref in project_refs:
+        errors.append(f"duplicate public project REPD Ref: {ref}")
+    project_refs.add(ref)
+    for field, project_key, identity_key in (
+        ("project ID", "gg_project_id", "gg_project_id"),
+        ("development ID", "gg_development_id", "gg_development_id"),
+        ("name", "name", "site_name"),
+        ("status", "status", "status"),
+        ("update date", "repd_record_updated", "repd_record_updated"),
+    ):
+        if project.get(project_key) != identity_row.get(identity_key):
+            errors.append(f"public {field} differs from identity registry: {ref}")
+    if number(project.get("capacity_mw")) != number(identity_row.get("capacity_mw")):
+        errors.append(f"public capacity differs from identity registry: {ref}")
+    tech, capacity = project.get("technology"), number(project.get("capacity_mw"))
+    if tech == "solar" and capacity is not None and capacity > 1.0:
+        solar += 1
+    elif tech == "bess" and capacity is not None and capacity > 100.0:
+        bess += 1
+    else:
+        errors.append(f"public project outside exclusive thresholds: {ref}")
+check(len(errors) == project_error_start, "all public projects bind exactly to identity registry", f"new_errors={len(errors)-project_error_start}")
+check(solar == EXPECTED_SOLAR and bess == EXPECTED_BESS, "derived public thresholds", f"solar={solar} bess={bess}")
 
-# Newspaper: one primary canonical project link per article; related links are context only.
 items = news.get("items") or []
 link_rows = links.get("links") or []
-check(news.get("globalgrid_id_required") is True, "V6 newspaper requires GlobalGrid IDs")
+check(news.get("repd_bound") is True, "news REPD-bound")
+check(news.get("globalgrid_id_required") is True, "news GlobalGrid-bound")
+check(news.get("headline_count") == len(items), "news headline count permits zero", f"metadata={news.get('headline_count')} rows={len(items)}")
 check(links.get("schema") == "globalgrid2050.project-news-links.v6", "project-news link schema")
-check(int(links.get("article_count") or -1) == len(items), "article count equals newspaper items", f"links={links.get('article_count')} news={len(items)}")
-primary_by_article = {}
+check(links.get("article_count") == len(items), "link article count permits zero")
+
+primary = {}
+link_error_start = len(errors)
 for link in link_rows:
-    aid = clean(link.get("gg_article_id"))
-    role = clean(link.get("role"))
+    article = clean(link.get("gg_article_id"))
     ref = clean(link.get("repd_ref"))
-    if ref not in by_ref:
-        errors.append(f"news link references unknown REPD ref: {ref}")
-        continue
-    if role == "PRIMARY_MATCH":
-        if aid in primary_by_article:
-            errors.append(f"article has multiple PRIMARY_MATCH links: {aid}")
-        primary_by_article[aid] = link
-        check(link.get("eligible_for_news_signal") is True, f"primary link drives news signal {aid}")
-    elif role == "RELATED_DEVELOPMENT":
-        check(link.get("eligible_for_news_signal") is False, f"related development cannot drive news signal {aid}/{ref}")
+    if ref not in project_refs:
+        errors.append(f"news link references ineligible project {article}/{ref}")
+    if link.get("role") == "PRIMARY_MATCH":
+        if article in primary:
+            errors.append(f"multiple PRIMARY_MATCH links: {article}")
+        primary[article] = link
+        if link.get("eligible_for_news_signal") is not True:
+            errors.append(f"primary link cannot drive signal: {article}")
+    elif link.get("role") == "RELATED_DEVELOPMENT":
+        if link.get("eligible_for_news_signal") is not False:
+            errors.append(f"related link drives signal: {article}/{ref}")
     else:
-        errors.append(f"unknown project-news link role: {role}")
+        errors.append(f"invalid project-news role: {link.get('role')}")
+check(len(errors) == link_error_start, "all project-news links valid", f"new_errors={len(errors)-link_error_start}")
 
 article_ids = set()
-for i, item in enumerate(items):
-    aid = clean(item.get("gg_article_id"))
+article_error_start = len(errors)
+for index, item in enumerate(items):
+    article = clean(item.get("gg_article_id"))
     ref = clean(item.get("repd_ref"))
-    gg = clean(item.get("gg_project_id"))
-    dev = clean(item.get("gg_development_id"))
-    check(bool(aid) and aid.startswith("GG2050-NEWS-"), f"headline {i} canonical article ID", aid)
-    if aid in article_ids:
-        errors.append(f"duplicate article ID in newspaper: {aid}")
-    article_ids.add(aid)
-    identity_row = by_ref.get(ref)
-    if not identity_row:
-        errors.append(f"headline {i} primary ref absent from registry: {ref}")
-        continue
-    check(gg == clean(identity_row.get("gg_project_id")), f"headline {i} GlobalGrid project ID exact")
-    check(dev == clean(identity_row.get("gg_development_id")), f"headline {i} development ID exact")
-    primary = primary_by_article.get(aid)
-    check(primary is not None and clean(primary.get("repd_ref")) == ref, f"headline {i} has exactly one matching primary link", aid)
-
-check(len(primary_by_article) == len(items), "exactly one PRIMARY_MATCH per article", f"primary={len(primary_by_article)} items={len(items)}")
+    if not article.startswith("GG2050-NEWS-"):
+        errors.append(f"news article {index} has invalid ID: {article}")
+    if article in article_ids:
+        errors.append(f"duplicate news article ID: {article}")
+    article_ids.add(article)
+    if ref not in project_refs:
+        errors.append(f"news article {index} PRIMARY_MATCH is ineligible: {ref}")
+    if ref in by_ref:
+        if item.get("gg_project_id") != by_ref[ref].get("gg_project_id"):
+            errors.append(f"news article {index} project ID mismatch")
+        if item.get("gg_development_id") != by_ref[ref].get("gg_development_id"):
+            errors.append(f"news article {index} development ID mismatch")
+    if article not in primary or clean(primary[article].get("repd_ref")) != ref:
+        errors.append(f"news article {index} lacks exactly one matching primary link")
+    evidence = item.get("match_evidence") or {}
+    for gate in ("identity_gate_passed", "technology_gate_passed", "foreign_veto_passed", "duplicate_name_gate_passed"):
+        if evidence.get(gate) is not True:
+            errors.append(f"news article {index} failed persisted {gate}")
+    if evidence.get("capacity_only") is not False:
+        errors.append(f"news article {index} is capacity-only")
+check(len(errors) == article_error_start, "all news articles preserve public match evidence", f"new_errors={len(errors)-article_error_start}")
+check(len(primary) == len(items), "one PRIMARY_MATCH per article", f"primary={len(primary)} items={len(items)}")
 
 report = {
     "schema": "globalgrid2050.project-identity-integrity.v6",
     "pass": not errors,
-    "source_url": source_url,
+    "validated_at": datetime.now(timezone.utc).isoformat(),
     "metrics": {
         "identity_records": len(records),
-        "repd_bound_records": len(by_ref),
-        "globalgrid_only_records": sum(1 for r in records if r.get("identity_status") == "GLOBALGRID_ONLY"),
-        "development_groups": len({clean(r.get('gg_development_id')) for r in records if clean(r.get('gg_development_id'))}),
-        "master_features": len(features),
-        "eligible_projects": len(project_rows),
+        "development_groups": len({clean(row.get('gg_development_id')) for row in records}),
+        "public_projects": len(project_rows),
+        "solar_projects": solar,
+        "bess_projects": bess,
         "news_articles": len(items),
         "project_news_links": len(link_rows),
     },

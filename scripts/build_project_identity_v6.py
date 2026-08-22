@@ -3,20 +3,28 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import io
 import json
 import re
 from collections import defaultdict
 from pathlib import Path
 
-import requests
+from repd_sources_v6 import (
+    CANONICAL_CSV,
+    EXPECTED_BESS_GT100,
+    EXPECTED_ROWS,
+    EXPECTED_SOLAR_GT1,
+    MANIFEST,
+    REPORT as SOURCE_REPORT,
+    clean_ref,
+    norm_date,
+    norm_number,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-DATA = ROOT / "data"
-REPD_MASTER = DIST / "repd_master.json"
-MANIFEST = DIST / "manifest_v4.json"
-LOCAL_CSV = DATA / "latest_repd.csv"
 IDENTITY_OUT = DIST / "project_identity_v6.json"
+PROJECTS_OUT = DIST / "major_projects_v6.json"
 
 SCHEMA = "globalgrid2050.project-identity.v6"
 MIN_REPD_ROWS = 1000
@@ -32,20 +40,50 @@ def norm(v):
     return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", clean(v).lower().replace("&", " and "))).strip()
 
 
+def numeric_sort(value):
+    text = clean(value)
+    return (0, int(text)) if text.isdigit() else (1, text)
+
+
+def technology_category(value):
+    value = norm(value)
+    if "solar photovoltaic" in value:
+        return "solar"
+    if "battery" in value:
+        return "bess"
+    return None
+
+
+def lifecycle(status):
+    value = norm(status)
+    if "operational" in value:
+        return "OPERATIONAL"
+    if "under construction" in value:
+        return "UNDER_CONSTRUCTION"
+    if any(word in value for word in ("abandon", "decommission", "refused", "withdrawn", "expired")):
+        return "INACTIVE"
+    if any(word in value for word in ("application", "awaiting", "consent", "approved", "pre construction")):
+        return "LIVE_PRE_CONSTRUCTION"
+    return "UNKNOWN"
+
+
+def valid_planning_ref(value):
+    value = norm(value)
+    return bool(value and value not in {"n a", "na", "none", "not known", "unknown", "tbc", "pending"})
+
+
 def canon_header(v):
     return norm(v)
 
 
-def clean_ref(v):
-    s = clean(v)
-    if re.fullmatch(r"\d+\.0", s):
-        s = s[:-2]
-    return s
-
-
 def split_refs(v):
-    # REPD cross-reference cells are normally numeric IDs, sometimes separated by punctuation.
-    return list(dict.fromkeys(re.findall(r"\b\d+\b", clean(v))))
+    # Avoid treating the trailing zero in Excel-style "12345.0" as another Ref ID.
+    values = []
+    for match in re.findall(r"(?<![A-Za-z0-9])\d+(?:\.0)?(?![A-Za-z0-9])", clean(v)):
+        ref = clean_ref(match)
+        if ref and ref not in values:
+            values.append(ref)
+    return values
 
 
 def short_hash(value, n=16):
@@ -112,19 +150,21 @@ def resolve(headers, *aliases):
 
 def load_manifest():
     if not MANIFEST.exists():
-        raise RuntimeError("Missing dist/manifest_v4.json; cannot bind identity to a declared DESNZ edition")
-    return json.loads(MANIFEST.read_text(encoding="utf-8"))
+        raise RuntimeError("Missing dist/manifest_v6.json; source reconciliation must run first")
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    report = json.loads(SOURCE_REPORT.read_text(encoding="utf-8")) if SOURCE_REPORT.exists() else {}
+    if manifest.get("status") != "VALIDATED" or report.get("pass") is not True:
+        raise RuntimeError("V6 source reconciliation has not passed")
+    if not CANONICAL_CSV.exists():
+        raise RuntimeError("Missing staged reconciled Q2 canonical CSV")
+    return manifest
 
 
 def ensure_official_csv(manifest):
     source_url = clean(manifest.get("source_url"))
     if not source_url or not source_url.lower().endswith(".csv") or "assets.publishing.service.gov.uk" not in source_url:
         raise RuntimeError(f"Manifest does not point to an official DESNZ CSV: {source_url!r}")
-    DATA.mkdir(parents=True, exist_ok=True)
-    r = requests.get(source_url, headers={"User-Agent": "GlobalGrid2050/6.0 (+https://globalgrid2050.com/)"}, timeout=45)
-    r.raise_for_status()
-    LOCAL_CSV.write_bytes(r.content)
-    return source_url
+    return source_url, CANONICAL_CSV
 
 
 def read_official_rows(path):
@@ -139,7 +179,7 @@ def read_official_rows(path):
     if text is None:
         raise RuntimeError("Unable to decode official REPD CSV")
 
-    reader = csv.DictReader(text.splitlines())
+    reader = csv.DictReader(io.StringIO(text))
     headers = reader.fieldnames or []
     if not headers:
         raise RuntimeError("Official REPD CSV has no header row")
@@ -155,21 +195,36 @@ def read_official_rows(path):
         "operator": resolve(headers, "Operator (or Applicant)"),
         "county": resolve(headers, "County"),
         "region": resolve(headers, "Region"),
+        "country": resolve(headers, "Country"),
         "planning_authority": resolve(headers, "Planning Authority", "Local Planning Authority"),
         "planning_application_reference": resolve(headers, "Planning Application Reference"),
+        "planning_application_submitted": resolve(headers, "Planning Application Submitted"),
+        "planning_application_withdrawn": resolve(headers, "Planning Application Withdrawn"),
+        "planning_permission_refused": resolve(headers, "Planning Permission Refused"),
+        "planning_permission_granted": resolve(headers, "Planning Permission Granted"),
+        "planning_permission_expired": resolve(headers, "Planning Permission Expired"),
+        "under_construction": resolve(headers, "Under Construction"),
+        "operational": resolve(headers, "Operational"),
     }
     required = ["ref_id", "site_name", "technology"]
     missing = [k for k in required if not cols[k]]
     if missing:
         raise RuntimeError(f"Official REPD schema missing identity columns after header normalisation: {missing}; headers={headers}")
 
-    # Future-proof REPD relationship discovery: take any cross-reference field containing
-    # 'REPD Ref ID', except this row's own Ref ID and the historical Old Ref ID.
     relationship_columns = []
     for h in headers:
         ch = canon_header(h)
-        if "repd ref id" in ch and ch not in {canon_header(cols["ref_id"]), canon_header(cols["old_ref_id"])}:
-            relationship_columns.append(h)
+        if ch in {canon_header(cols["ref_id"]), canon_header(cols["old_ref_id"])}:
+            continue
+        if "repd ref" in ch or ("re applying" in ch and "ref" in ch):
+            relation = "RELATED_APPLICATION"
+            if "storage co location" in ch:
+                relation = "COLOCATED_COMPONENT"
+            elif "new repd ref" in ch:
+                relation = "CURRENT_VERSION"
+            elif "old repd ref" in ch:
+                relation = "PREVIOUS_REPD_REF"
+            relationship_columns.append((h, relation))
 
     rows = []
     for row_number, source in enumerate(reader, start=2):
@@ -186,16 +241,28 @@ def read_official_rows(path):
             "operator": clean(source.get(cols["operator"])) if cols["operator"] else "",
             "county": clean(source.get(cols["county"])) if cols["county"] else "",
             "region": clean(source.get(cols["region"])) if cols["region"] else "",
+            "country": clean(source.get(cols["country"])) if cols["country"] else "",
             "planning_authority": clean(source.get(cols["planning_authority"])) if cols["planning_authority"] else "",
             "planning_application_reference": clean(source.get(cols["planning_application_reference"])) if cols["planning_application_reference"] else "",
+            "planning_application_submitted_raw": clean(source.get(cols["planning_application_submitted"])) if cols["planning_application_submitted"] else "",
+            "planning_application_withdrawn_raw": clean(source.get(cols["planning_application_withdrawn"])) if cols["planning_application_withdrawn"] else "",
+            "planning_permission_refused_raw": clean(source.get(cols["planning_permission_refused"])) if cols["planning_permission_refused"] else "",
+            "planning_permission_granted_raw": clean(source.get(cols["planning_permission_granted"])) if cols["planning_permission_granted"] else "",
+            "planning_permission_expired_raw": clean(source.get(cols["planning_permission_expired"])) if cols["planning_permission_expired"] else "",
+            "under_construction_raw": clean(source.get(cols["under_construction"])) if cols["under_construction"] else "",
+            "operational_raw": clean(source.get(cols["operational"])) if cols["operational"] else "",
             "direct_related_repd_refs": [],
+            "relationships": [],
         }
         related = []
-        for h in relationship_columns:
-            related.extend(split_refs(source.get(h)))
+        for h, relation in relationship_columns:
+            for target in split_refs(source.get(h)):
+                if target and target != repd_ref:
+                    related.append(target)
+                    out["relationships"].append({"repd_ref": target, "type": relation, "source_field": h})
         out["direct_related_repd_refs"] = [r for r in dict.fromkeys(related) if r and r != repd_ref]
         rows.append(out)
-    return rows, headers, relationship_columns
+    return rows, headers, [{"field": field, "type": relation} for field, relation in relationship_columns]
 
 
 def build_registry(rows, manifest, source_url):
@@ -223,8 +290,12 @@ def build_registry(rows, manifest, source_url):
     refs = set(current)
     uf = UnionFind(refs)
 
-    # Explicit REPD cross-references are the strongest grouping signal.
+    # Explicit REPD cross-references are the strongest grouping signal. Old Ref ID
+    # links are used only when they point to another current official record; history
+    # is otherwise retained without inventing a missing record.
     for ref, row in current.items():
+        if row["repd_old_ref"] in refs:
+            uf.union(ref, row["repd_old_ref"])
         for related in row["direct_related_repd_refs"]:
             if related in refs:
                 uf.union(ref, related)
@@ -235,7 +306,7 @@ def build_registry(rows, manifest, source_url):
     for ref, row in current.items():
         planning_ref = norm(row["planning_application_reference"])
         authority = norm(row["planning_authority"])
-        if not planning_ref:
+        if not valid_planning_ref(planning_ref):
             continue
         if re.fullmatch(r"en\s*\d{5,}", planning_ref.replace(" ", "")):
             key = ("nsip", planning_ref.replace(" ", ""))
@@ -250,19 +321,26 @@ def build_registry(rows, manifest, source_url):
             for ref in group[1:]:
                 uf.union(anchor, ref)
 
+    planning_siblings_by_ref = defaultdict(list)
+    for group in planning_groups.values():
+        if len(group) < 2:
+            continue
+        for ref in group:
+            planning_siblings_by_ref[ref] = [other for other in group if other != ref]
+
     groups = defaultdict(list)
     for ref in refs:
         groups[uf.find(ref)].append(ref)
 
     group_id = {}
     for root_ref, members in groups.items():
-        members = sorted(members, key=lambda x: (int(x) if x.isdigit() else 10**18, x))
+        members = sorted(members, key=numeric_sort)
         planning_candidates = []
         for ref in members:
             row = current[ref]
             pr = norm(row["planning_application_reference"])
             pa = norm(row["planning_authority"])
-            if pr:
+            if valid_planning_ref(pr):
                 planning_candidates.append((pa, pr))
         if planning_candidates:
             pa, pr = sorted(planning_candidates)[0]
@@ -281,19 +359,8 @@ def build_registry(rows, manifest, source_url):
             gid = f"GG2050-REPD-{ref}"
             confidence = "authoritative"
             identity_status = "REPD_BOUND"
-            siblings = sorted([r for r in groups[uf.find(ref)] if r != ref], key=lambda x: (int(x) if x.isdigit() else 10**18, x))
-            planning_siblings = []
-            pr = norm(row["planning_application_reference"])
-            pa = norm(row["planning_authority"])
-            if pr:
-                for other_ref, other in current.items():
-                    if other_ref == ref:
-                        continue
-                    if norm(other["planning_application_reference"]) != pr:
-                        continue
-                    if pa and norm(other["planning_authority"]) != pa:
-                        continue
-                    planning_siblings.append(other_ref)
+            siblings = sorted([r for r in groups[uf.find(ref)] if r != ref], key=numeric_sort)
+            planning_siblings = planning_siblings_by_ref.get(ref, [])
             development_id = group_id[ref]
         else:
             generated = gg_project_id("", row)
@@ -307,6 +374,18 @@ def build_registry(rows, manifest, source_url):
             raise RuntimeError(f"GlobalGrid project ID collision: {gid}")
         seen_gg.add(gid)
 
+        related = list(row["relationships"])
+        if row["repd_old_ref"] and row["repd_old_ref"] != ref:
+            related.append(
+                {
+                    "repd_ref": row["repd_old_ref"],
+                    "type": "PREVIOUS_REPD_REF",
+                    "source_field": "Old Ref ID",
+                }
+            )
+        capacity = norm_number(row["capacity_mw_raw"])
+        updated = norm_date(row["repd_record_updated_raw"])
+
         records.append(
             {
                 "gg_project_id": gid,
@@ -315,18 +394,31 @@ def build_registry(rows, manifest, source_url):
                 "identity_confidence": confidence,
                 "repd_ref": ref or None,
                 "repd_old_ref": row["repd_old_ref"] or None,
+                "repd_record_updated": updated or None,
                 "repd_record_updated_raw": row["repd_record_updated_raw"] or None,
                 "site_name": row["site_name"],
                 "technology": row["technology"],
+                "capacity_mw": capacity,
+                "capacity_known": capacity is not None,
                 "capacity_mw_raw": row["capacity_mw_raw"] or None,
                 "status": row["status"],
+                "lifecycle": lifecycle(row["status"]),
                 "operator": row["operator"],
                 "county": row["county"],
                 "region": row["region"],
+                "country": row["country"],
                 "planning_authority": row["planning_authority"],
                 "planning_application_reference": row["planning_application_reference"],
-                "direct_related_repd_refs": sorted(row["direct_related_repd_refs"], key=lambda x: (int(x) if x.isdigit() else 10**18, x)),
-                "planning_sibling_repd_refs": sorted(set(planning_siblings), key=lambda x: (int(x) if x.isdigit() else 10**18, x)),
+                "planning_application_submitted": norm_date(row["planning_application_submitted_raw"]) or None,
+                "planning_application_withdrawn": norm_date(row["planning_application_withdrawn_raw"]) or None,
+                "planning_permission_refused": norm_date(row["planning_permission_refused_raw"]) or None,
+                "planning_permission_granted": norm_date(row["planning_permission_granted_raw"]) or None,
+                "planning_permission_expired": norm_date(row["planning_permission_expired_raw"]) or None,
+                "under_construction": norm_date(row["under_construction_raw"]) or None,
+                "operational": norm_date(row["operational_raw"]) or None,
+                "relationships": related,
+                "direct_related_repd_refs": sorted(row["direct_related_repd_refs"], key=numeric_sort),
+                "planning_sibling_repd_refs": sorted(set(planning_siblings), key=numeric_sort),
                 "development_repd_refs": ([ref] + siblings) if ref else [],
                 "source_row": row["source_row"],
             }
@@ -340,6 +432,8 @@ def build_registry(rows, manifest, source_url):
         "source_page": manifest.get("source_page"),
         "source_dataset_title": manifest.get("source_dataset_title"),
         "source_page_last_updated": manifest.get("source_page_last_updated"),
+        "validated_at": manifest.get("validated_at"),
+        "source_hashes": manifest.get("source_hashes"),
         "raw_record_count": len(rows),
         "repd_bound_count": len(current),
         "globalgrid_only_count": len(missing_ref_rows),
@@ -356,40 +450,129 @@ def build_registry(rows, manifest, source_url):
     return registry
 
 
-def enrich_master(registry):
-    if not REPD_MASTER.exists():
-        raise RuntimeError("Missing dist/repd_master.json")
-    master = json.loads(REPD_MASTER.read_text(encoding="utf-8"))
-    by_ref = {str(r["repd_ref"]): r for r in registry["records"] if r.get("repd_ref")}
-    missing = []
-    for feature in master.get("features", []):
-        p = feature.setdefault("properties", {})
-        ref = clean_ref(p.get("repd_ref"))
-        if not ref or ref not in by_ref:
-            missing.append((ref, p.get("name")))
+def build_public_snapshot(registry, manifest):
+    projects = []
+    for record in registry["records"]:
+        category = technology_category(record["technology"])
+        capacity = record["capacity_mw"]
+        if capacity is None:
             continue
-        r = by_ref[ref]
-        p["gg_project_id"] = r["gg_project_id"]
-        p["gg_development_id"] = r["gg_development_id"]
-        p["identity_status"] = "REPD_BOUND"
-        p["repd_related_refs"] = r["direct_related_repd_refs"]
-        p["repd_planning_sibling_refs"] = r["planning_sibling_repd_refs"]
-        p["repd_development_refs"] = r["development_repd_refs"]
-    if missing:
-        raise RuntimeError(f"REPD master contains features that cannot be bound to official identity registry: {missing[:20]}")
-    master["identity_schema"] = SCHEMA
-    REPD_MASTER.write_text(json.dumps(master, separators=(",", ":")), encoding="utf-8")
+        if category == "solar" and capacity <= 1.0:
+            continue
+        if category == "bess" and capacity <= 100.0:
+            continue
+        if category not in {"solar", "bess"}:
+            continue
+        explicit_types = {
+            clean(relation.get("repd_ref")): relation.get("type")
+            for relation in record.get("relationships") or []
+            if clean(relation.get("repd_ref"))
+        }
+        development_relationships = [
+            {
+                "repd_ref": target,
+                "type": explicit_types.get(target, "SAME_DEVELOPMENT"),
+            }
+            for target in record["development_repd_refs"]
+            if target != record["repd_ref"]
+        ]
+        projects.append(
+            {
+                "gg_project_id": record["gg_project_id"],
+                "gg_development_id": record["gg_development_id"],
+                "identity_status": record["identity_status"],
+                "repd_ref": record["repd_ref"],
+                "repd_old_ref": record["repd_old_ref"],
+                "repd_record_updated": record["repd_record_updated"],
+                "name": record["site_name"],
+                "technology": category,
+                "repd_technology": record["technology"],
+                "capacity_mw": capacity,
+                "capacity_known": True,
+                "status": record["status"],
+                "lifecycle": record["lifecycle"],
+                "operator": record["operator"] or None,
+                "county": record["county"] or None,
+                "region": record["region"] or None,
+                "country": record["country"] or None,
+                "planning_authority": record["planning_authority"] or None,
+                "planning_application_reference": record["planning_application_reference"] or None,
+                "planning_application_submitted": record["planning_application_submitted"],
+                "planning_application_withdrawn": record["planning_application_withdrawn"],
+                "planning_permission_refused": record["planning_permission_refused"],
+                "planning_permission_granted": record["planning_permission_granted"],
+                "planning_permission_expired": record["planning_permission_expired"],
+                "under_construction": record["under_construction"],
+                "operational": record["operational"],
+                "related_repd_refs": record["development_repd_refs"][1:],
+                "relationships": record["relationships"],
+                "development_relationships": development_relationships,
+                "source_row": record["source_row"],
+            }
+        )
+
+    projects.sort(key=lambda item: (-item["capacity_mw"], item["name"].casefold(), numeric_sort(item["repd_ref"])))
+    solar_count = sum(item["technology"] == "solar" for item in projects)
+    bess_count = sum(item["technology"] == "bess" for item in projects)
+    if (solar_count, bess_count, len(projects)) != (
+        EXPECTED_SOLAR_GT1,
+        EXPECTED_BESS_GT100,
+        EXPECTED_SOLAR_GT1 + EXPECTED_BESS_GT100,
+    ):
+        raise RuntimeError(
+            "Canonical V6 threshold universe mismatch: "
+            f"solar={solar_count} bess={bess_count} total={len(projects)}"
+        )
+
+    canonical_projects = json.dumps(projects, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    update_count = sum(bool(item["repd_record_updated"]) for item in projects)
+    snapshot = {
+        "schema": "globalgrid2050.major-projects.v6",
+        "identity_schema": SCHEMA,
+        "version": 6,
+        "validated_at": manifest["validated_at"],
+        "source_owner": manifest["source_owner"],
+        "source_dataset_title": manifest["source_dataset_title"],
+        "source_publication_date": manifest["source_page_last_updated"],
+        "source_page": manifest["source_page"],
+        "source_csv_url": manifest["source_url"],
+        "source_xlsx_url": manifest["source_excel_url"],
+        "source_hashes": manifest["source_hashes"],
+        "source_record_count": EXPECTED_ROWS,
+        "source_unique_ref_count": EXPECTED_ROWS,
+        "csv_xlsx_reconciled": True,
+        "repd_bound": True,
+        "globalgrid_id_required": True,
+        "canonical_capacity_source": manifest["canonical_capacity_source"],
+        "thresholds": manifest["thresholds"],
+        "project_count": len(projects),
+        "count": len(projects),
+        "solar_count": solar_count,
+        "bess_count": bess_count,
+        "record_update_supplied_count": update_count,
+        "record_update_missing_count": len(projects) - update_count,
+        "projects_sha256": hashlib.sha256(canonical_projects.encode("utf-8")).hexdigest(),
+        "projects": projects,
+    }
+    return snapshot
 
 
 def main():
     manifest = load_manifest()
-    source_url = ensure_official_csv(manifest)
-    rows, headers, relationship_columns = read_official_rows(LOCAL_CSV)
+    source_url, canonical_path = ensure_official_csv(manifest)
+    rows, headers, relationship_columns = read_official_rows(canonical_path)
     registry = build_registry(rows, manifest, source_url)
-    enrich_master(registry)
     registry["detected_header_count"] = len(headers)
     registry["detected_relationship_columns"] = relationship_columns
     IDENTITY_OUT.write_text(json.dumps(registry, indent=2), encoding="utf-8")
+    snapshot = build_public_snapshot(registry, manifest)
+    PROJECTS_OUT.write_text(json.dumps(snapshot, separators=(",", ":")), encoding="utf-8")
+    manifest["public_snapshot"] = {
+        "path": "dist/major_projects_v6.json",
+        "project_count": snapshot["project_count"],
+        "projects_sha256": snapshot["projects_sha256"],
+    }
+    MANIFEST.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(
         "identity",
         f"raw={registry['raw_record_count']}",
@@ -397,6 +580,7 @@ def main():
         f"gg_only={registry['globalgrid_only_count']}",
         f"groups={registry['development_group_count']}",
         f"coverage={registry['repd_ref_coverage']:.3%}",
+        f"public_projects={snapshot['project_count']}",
     )
 
 

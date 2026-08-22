@@ -27,7 +27,7 @@ for domain in PRIORITY_SOURCES.values():
 EVENTS=[('OPERATIONAL',['commercial operation','operational','energised','energized','commissioned','goes live','entered operation']),('CONSTRUCTION',['construction','breaking ground','build begins','under construction','construction starts']),('CONSENT',['development consent','planning consent','approved','approval','consented','permission granted']),('FINANCIAL CLOSE',['financial close','financing','funding secured','debt financing']),('ACQUISITION',['acquires','acquired','acquisition','sold to','sale of','portfolio sale']),('GRID CONNECTION',['grid connection','connected to the grid','connection agreement','grid offer']),('EXPANSION',['expansion','expanded','extension','upsized']),('DELAY / REFUSAL',['refused','rejected','delayed','delay','judicial review'])]
 STOP={'solar','farm','park','energy','battery','storage','bess','project','limited','ltd','plc','the','and','of','at','uk','phase','site','development','power','renewables','renewable'}
 GENERIC_SINGLE={'grange','manor','common','lodge','hall','hill','fields','field','wood','woods','green','bridge','bank','brook','mill','moor','marsh','meadow','meadows'}
-FOREIGN_PHRASES={'new jersey','california','texas','australia','canada','germany','italy','spain','india','china','south africa','new zealand'}
+FOREIGN_PHRASES={'new jersey','california','texas','australia','canada','germany','italy','spain','india','china','south africa','new zealand','ireland','united states','us roundup'}
 SOLAR_WORDS={'solar','photovoltaic','photovoltaics',' pv '}
 BESS_WORDS={'battery','bess','storage'}
 
@@ -99,7 +99,8 @@ def gate(p,s):
     exact=bool(p['_name_norm'] and p['_name_norm'] in text); overlap=len(names&tt); op_hit=bool(op&tt); county_hit=bool(county&tt); cap_hit=capacity_match(p,text)
     official=any(x in norm(s['source']+' '+s['source_url']) for x in ['gov uk','planning inspectorate','planninginspectorate'])
     tech_words=SOLAR_WORDS if p['technology']=='solar' else BESS_WORDS; tech_hit=any(w.strip() in tt or norm(w) in text for w in tech_words)
-    if any(norm(x) in text for x in FOREIGN_PHRASES) and not (exact and (county_hit or official)): return False
+    foreign_hit=any(norm(x) in text and norm(x) not in p['_name_norm'] for x in FOREIGN_PHRASES)
+    if foreign_hit and not (exact and (county_hit or official)): return False
     if not exact and overlap<2: return False
     if len(names)==1 and next(iter(names),'') in GENERIC_SINGLE and not (exact and tech_hit and (op_hit or county_hit or cap_hit or official)): return False
     if not tech_hit and not (official and exact) and not (exact and cap_hit and (op_hit or county_hit)): return False

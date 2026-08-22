@@ -65,7 +65,7 @@ jobs:
           assert isinstance(count, int) and count == len(items), f'headline_count mismatch: {count!r} vs {len(items)}'
           assert len(items) >= 5, f'only {len(items)} headlines generated; refusing to replace live feed'
           assert required_sources.issubset(sources), f'priority sources missing: {required_sources - sources}'
-          assert d.get('news_horizon_days') in (365, 366), f'12-month horizon metadata missing: {d.get("news_horizon_days")!r}'
+          assert d.get('lookback_days') in (365, 366), f'12-month horizon metadata missing: {d.get("lookback_days")!r}'
 
           for i, item in enumerate(items):
               assert item.get('project'), f'item {i} missing project'

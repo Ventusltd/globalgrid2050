@@ -513,6 +513,7 @@ def main():
             ("One Earth solar project announces an update", "Example News", "https://example.com"),
             ("Approval for East Yorkshire offshore wind farm substation", "BBC", "https://www.bbc.co.uk"),
             ("Fire crew still at significant Avonmouth recycling centre fire", "BBC", "https://www.bbc.co.uk"),
+            ("Construction to start on improvements to Witney High Street", "Oxfordshire County Council", "https://news.oxfordshire.gov.uk"),
         )
         for title, source_name, source_url in negatives:
             matched, resolution, _detail = matcher._resolve_story(

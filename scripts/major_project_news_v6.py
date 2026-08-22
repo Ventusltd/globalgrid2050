@@ -348,9 +348,10 @@ def source_quality(source: str, url: str) -> tuple[int, str, bool, bool]:
         hostname = (urlparse(clean(url)).hostname or "").lower()
     except Exception:
         hostname = ""
-    official_host = any(
-        hostname == domain or hostname.endswith("." + domain)
-        for domain in ("gov.uk", "planninginspectorate.gov.uk")
+    official_host = (
+        hostname in {"gov.uk", "www.gov.uk"}
+        or hostname == "planninginspectorate.gov.uk"
+        or hostname.endswith(".planninginspectorate.gov.uk")
     )
     official = official_host
     configured_priority = official or any(
@@ -519,7 +520,7 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
         identity_gate = (
             corroborating_identity
             if stem_is_single_token
-            else (corroborating_identity or context["priority_source"] or specific_event)
+            else (corroborating_identity or context["official_source"])
         )
     else:
         identity_gate = name_overlap and corroborating_identity

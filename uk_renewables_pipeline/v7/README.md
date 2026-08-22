@@ -457,10 +457,11 @@ For a new chat:
 - V7.0 deliberately retains V5 NEWS SIGNAL behaviour: useful matches and known failures remain external legacy intelligence until the single-feature V7.3 replacement.
 - Every future build must execute the North Star at both preflight and postflight; V7.1 is responsible for creating the shared machine-readable contract and validator.
 - Each V7.1–V7.9 release implements one feature theme only; after V7.9 development moves to V8.0.
-- V7.1 modular release is complete: the thin shell, exact V5 stylesheet, shared core, gauges/newspaper/projects plugins, plugin manifest, North Star contract and validation suite are present.
+- V7.1 modular release is complete: the thin shell, exact V5 base stylesheet, bounded V6-derived mobile header override, shared core, gauges/newspaper/projects plugins, plugin manifest, North Star contract and validation suite are present.
 - V7.1 preflight passed 130 checks. Dataset/interface parity and ES-module contract tests pass with 5,210 displayed legacy projects and 125 inherited V5 headlines.
 - V7.1 has not changed the legacy project floor, wind visibility, V5 news feed or inherited NEWS SIGNAL decisions; those remain explicitly deferred to V7.2 and V7.3.
 - GitHub V7 North Star run `32603178045` passed; Pages run `32603177996` built and deployed commit `9967b6a` successfully.
 - Live browser proof: 5,210 rows, 125 headlines, gauges `262,397 / 5,210 / 4,100`, solar filter 2,667 rows, BESS news 56, finance news 34 and Berwick Bank search one exact row.
+- The mobile gate is mandatory and rejects horizontal document overflow or escaped key panels at 390, 430, 440 and 768 px; this layout correction does not alter project or news decisions.
 - iPhone-user-agent delivery is byte-identical to the committed HTML and the exact V5 stylesheet retains its 1,200 px and 768 px responsive breakpoints.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.

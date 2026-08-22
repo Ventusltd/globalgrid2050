@@ -75,15 +75,35 @@ async function main() {
     assert.deepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf]);
     assert.match(bytes.toString("utf8", 3, 110), /^Site Name,County,Operator,Technology,REPD Status,Capacity MW,News Signal,News Signal Note/);
 
-    await page.setViewportSize({ width: 390, height: 844 });
-    const mobile = await page.evaluate(() => ({
-      bodyDisplay: getComputedStyle(document.body).display,
-      storyColumns: getComputedStyle(document.querySelector(".stories")).gridTemplateColumns.split(" ").length,
-      searchWidth: Math.round(document.querySelector("#search").getBoundingClientRect().width),
-    }));
-    assert.equal(mobile.bodyDisplay, "block");
-    assert.equal(mobile.storyColumns, 1);
-    assert.ok(mobile.searchWidth >= 350);
+    for (const width of [390, 430, 440, 768]) {
+      await page.setViewportSize({ width, height: 844 });
+      const mobile = await page.evaluate(() => {
+        const selectors = [".main", ".header", ".status", ".newspaper", ".tablewrap"];
+        const bounds = Object.fromEntries(selectors.map((selector) => {
+          const rect = document.querySelector(selector).getBoundingClientRect();
+          return [selector, { left: rect.left, right: rect.right }];
+        }));
+        return {
+          bodyDisplay: getComputedStyle(document.body).display,
+          storyColumns: getComputedStyle(document.querySelector(".stories")).gridTemplateColumns.split(" ").length,
+          searchWidth: Math.round(document.querySelector("#search").getBoundingClientRect().width),
+          clientWidth: document.documentElement.clientWidth,
+          scrollWidth: document.documentElement.scrollWidth,
+          bounds,
+        };
+      });
+      assert.equal(mobile.bodyDisplay, "block", `${width}px body layout`);
+      assert.equal(mobile.storyColumns, 1, `${width}px story columns`);
+      assert.ok(mobile.searchWidth >= width - 50, `${width}px search width`);
+      assert.ok(
+        mobile.scrollWidth <= mobile.clientWidth,
+        `${width}px document overflow: ${mobile.scrollWidth}px > ${mobile.clientWidth}px`,
+      );
+      for (const [selector, bounds] of Object.entries(mobile.bounds)) {
+        assert.ok(bounds.left >= -0.5, `${width}px ${selector} crosses left edge`);
+        assert.ok(bounds.right <= width + 0.5, `${width}px ${selector} crosses right edge`);
+      }
+    }
     assert.deepEqual(pageErrors, []);
     await context.close();
 

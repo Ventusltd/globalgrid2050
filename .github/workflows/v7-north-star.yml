@@ -19,8 +19,20 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: uk_renewables_pipeline/v7/package-lock.json
+      - name: Install pinned browser harness
+        working-directory: uk_renewables_pipeline/v7
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
       - name: Run the shared V7.1 validator
+        env:
+          V7_BROWSER_SMOKE: "1"
         run: bash uk_renewables_pipeline/v7/tests/run_v7_1.sh

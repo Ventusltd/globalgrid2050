@@ -3,18 +3,18 @@
   "version": "7.1",
   "feature": "modular-v5-parity",
   "status": "LIVE_VALIDATED",
-  "built_at": "2026-08-22T22:37:24Z",
+  "built_at": "2026-08-22T23:41:15Z",
   "branch": "main",
   "north_star": "PASS",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "c5b2da44c476f0e945d3bee7575fb5973d5c467eda34f74f32c579b003a71130",
-    "git_blob_sha": "6093283cc4facb5b9a10755b93b7dc58ac368a81"
+    "sha256": "ccb1ef27bb699a011ae95835f0865ad1c6df57baae33b58e2c8fb3fb7b8a28e1",
+    "git_blob_sha": "54bad495fb00c779d282e9c5760cb16d6ea02ba3"
   },
   "contracts": {
     "north_star": {
       "path": "uk_renewables_pipeline/v7/contracts/north-star.v1.json",
-      "sha256": "2ae812013e055c2a1b0a6f86b8a6445505740517477c41be94750f97904e3835"
+      "sha256": "26eb29a6f5bd4030666cf6e09750af3f123b08d853faf0600f949f1f2c038bc4"
     },
     "plugin": {
       "path": "uk_renewables_pipeline/v7/contracts/plugin.v1.json",
@@ -28,8 +28,9 @@
     "dist/major_projects_v6.json": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7"
   },
   "outputs": {
-    "index.html": "202c2a53da4ff94e2e3b254ceabafae6c91dc4f6d5f2c86eed3362f2503626b6",
+    "index.html": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",
     "styles/v7.css": "036dbfe43ef1ffb2c55ba277d49dec57ab7c7be976289226a5d568e1f1be319d",
+    "styles/mobile.css": "9855b9c11255a85f477873d07cca45b057aedcdc8a6cc4aab2d29a0ffaac9b85",
     "scripts/app.js": "b96ca6baa4e85c7985fed173aa1e37c9d62d8366a1e6d9cbe251a13a22f3cfe1",
     "scripts/core/plugin-host.js": "e5aaa19b5bee93683fae461f7ead55d019e8c2edc8ce377680c0da634606e378",
     "scripts/core/state.js": "df96d850a249b318995dd4a14cec3ff41928710f6c23b96baf68650fe3d27f1b",

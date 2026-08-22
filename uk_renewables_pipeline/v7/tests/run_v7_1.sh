@@ -12,7 +12,20 @@ while IFS= read -r source; do
 done < <(find "$v7_dir/scripts" -type f -name '*.js' -print | sort)
 
 if [[ "${V7_BROWSER_SMOKE:-0}" == "1" ]]; then
-  node "$v7_dir/tests/browser_smoke.mjs"
+  browser_base_url="${V7_BASE_URL:-http://127.0.0.1:8765/uk_renewables_pipeline/v7/}"
+  python3 -m http.server 8765 --directory "$repo_root" >/tmp/globalgrid2050-v7-http.log 2>&1 &
+  server_pid=$!
+  trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+  for _ in {1..20}; do
+    if curl --fail --silent --output /dev/null "$browser_base_url"; then
+      break
+    fi
+    sleep 0.25
+  done
+  curl --fail --silent --output /dev/null "$browser_base_url"
+  V7_BASE_URL="$browser_base_url" node "$v7_dir/tests/browser_smoke.mjs"
+  kill "$server_pid" 2>/dev/null || true
+  trap - EXIT
 fi
 
 python3 "$v7_dir/tests/validate_north_star.py" \

@@ -11,7 +11,7 @@
   "postflight": {
     "result": "PASS",
     "checks": 158,
-    "contract_sha256": "a73ae748f372cd590a803df77f4c74630c64d7eada1448acf7e5ee3f03774431"
+    "contract_sha256": "2ae812013e055c2a1b0a6f86b8a6445505740517477c41be94750f97904e3835"
   },
   "identical_metrics": {
     "legacy_features": 10784,
@@ -27,7 +27,7 @@
   },
   "intended_differences": [
     "V7 index changed from an inline V7.0/V5 monolith to a V7.1 external stylesheet and ES-module shell.",
-    "README gained the truthful V7.1 release-candidate checkpoint.",
+    "README gained the truthful V7.1 build and production-verification checkpoint.",
     "North Star contract now fingerprints that README and requires every V7.1 module, contract, report and validator launcher.",
     "V7.1 plugin, build-manifest, release-note and validation files were added."
   ],

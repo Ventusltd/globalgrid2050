@@ -67,7 +67,7 @@ A future country pack must define authoritative sources, lifecycle terminology, 
 
 ## MVP truth and one-feature version discipline
 
-V7.0 is the current live MVP. It is a wholesale V5 product copy with only V7 labels, corrected folder paths, navigation and export naming.
+V7.0 was the initial live MVP: a wholesale V5 product copy with only V7 labels, corrected folder paths, navigation and export naming. V7.1 is the current live release and modularises that baseline without changing its data or decisions.
 
 The inherited V5 NEWS SIGNAL is part of the MVP. It works for some projects and fails for others. It must remain visibly external and unverified, must never overwrite REPD status, and must not be silently repaired during V7.1 or V7.2. Its discovery, identity and event behaviour is refined only in V7.3 under the labelled North Star corpus.
 
@@ -447,18 +447,20 @@ For a new chat:
 - Build plan approved for a four-step implementation structure.
 - Branches are prohibited.
 - V7 must use V5 as the product base and V6 as the canonical engineering refinement.
-- A wholesale V5 MVP is live at `https://globalgrid2050.com/uk_renewables_pipeline/v7/`.
-- The MVP changes only V7 labels, folder-relative paths, version navigation and export naming; its data and newspaper behaviour remain V5.
+- V7.1 is live at `https://globalgrid2050.com/uk_renewables_pipeline/v7/` from direct-main commit `9967b6a`.
+- V7.1 changes the shell and source organisation only; its project data, newspaper feed, matching decisions and NEWS SIGNAL behaviour remain V5.
 - The root directory lists the renewables dashboards in ascending order from V1 to V7.
 - MVP publication commits: `d9c0a9a` (V7 page) and `68af380` (ordered root link).
-- Production proof: deployed HTML matches the committed V7 file; the two inherited assets expose 125 V5 stories and 10,784 legacy REPD GeoJSON features.
+- Production proof: deployed HTML and CSS match the committed V7.1 hashes; the two inherited assets expose 125 V5 stories and 10,784 legacy REPD GeoJSON features.
 - Known V5 identity, foreign-story, technology, stale-GeoJSON and reproducibility weaknesses therefore remain present by design until refinement.
 - The modular platform decision, V7.1–V7.9 sequence and North Star anti-hallucination/anti-truncation gate are documented above and are mandatory for future work.
 - V7.0 deliberately retains V5 NEWS SIGNAL behaviour: useful matches and known failures remain external legacy intelligence until the single-feature V7.3 replacement.
 - Every future build must execute the North Star at both preflight and postflight; V7.1 is responsible for creating the shared machine-readable contract and validator.
 - Each V7.1–V7.9 release implements one feature theme only; after V7.9 development moves to V8.0.
-- V7.1 modular release candidate is complete locally: the thin shell, exact V5 stylesheet, shared core, gauges/newspaper/projects plugins, plugin manifest, North Star contract and validation suite are present.
+- V7.1 modular release is complete: the thin shell, exact V5 stylesheet, shared core, gauges/newspaper/projects plugins, plugin manifest, North Star contract and validation suite are present.
 - V7.1 preflight passed 130 checks. Dataset/interface parity and ES-module contract tests pass with 5,210 displayed legacy projects and 125 inherited V5 headlines.
 - V7.1 has not changed the legacy project floor, wind visibility, V5 news feed or inherited NEWS SIGNAL decisions; those remain explicitly deferred to V7.2 and V7.3.
-- V7.1 production proof remains pending until the validated release candidate is committed to `main`, deployed by Pages and browser-tested at the stable V7 URL.
+- GitHub V7 North Star run `32603178045` passed; Pages run `32603177996` built and deployed commit `9967b6a` successfully.
+- Live browser proof: 5,210 rows, 125 headlines, gauges `262,397 / 5,210 / 4,100`, solar filter 2,667 rows, BESS news 56, finance news 34 and Berwick Bank search one exact row.
+- iPhone-user-agent delivery is byte-identical to the committed HTML and the exact V5 stylesheet retains its 1,200 px and 768 px responsive breakpoints.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.

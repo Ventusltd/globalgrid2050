@@ -7,8 +7,10 @@ on:
   # Controlled connector-visible dispatch: only the exact operator issue title runs the job.
   issues:
     types: [opened]
+  # TEMPORARY BOOTSTRAP: five-minute GitHub-native schedule until the first validated
+  # V6 production output is published; then restore the normal daily 05:29 UTC run.
   schedule:
-    - cron: '29 5 * * *'
+    - cron: '*/5 * * * *'
   push:
     branches: [main]
     paths:

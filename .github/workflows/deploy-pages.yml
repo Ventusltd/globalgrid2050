@@ -18,6 +18,7 @@ on:
       - 'dist/project_identity_v6.json'
       - 'dist/project_identity_v6_integrity.json'
       - 'dist/project_news_links_v6.json'
+      - 'dist/repd_source_reconciliation_v6.json'
       - 'dist/renewables_v6_integrity.json'
       - 'dist/repd_master.json'
       - 'dist/manifest_v4.json'

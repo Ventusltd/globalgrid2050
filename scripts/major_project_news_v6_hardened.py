@@ -48,6 +48,9 @@ def _persisted_solar_cursor(total: int, previous: dict | None) -> tuple[int, str
     if total <= 0:
         return 0, "empty_universe"
     plan = ((previous or {}).get("telemetry") or {}).get("query_plan") or {}
+    previous_total = plan.get("solar_targeted_batches_total")
+    if isinstance(previous_total, int) and not isinstance(previous_total, bool) and previous_total != total:
+        return 0, "query_universe_changed_reset_zero"
     cursor = plan.get("solar_rotation_cursor_next", plan.get("solar_targeted_cursor_next"))
     if isinstance(cursor, int) and not isinstance(cursor, bool) and 0 <= cursor < total:
         return cursor, "previous_v6_news_telemetry"
@@ -64,12 +67,24 @@ def _rotation_window(total: int, limit: int, start: int) -> tuple[list[int], int
     return indexes, (start + count) % total
 
 
+def _targeted_search_terms(projects: list[dict], technology: str) -> list[str]:
+    """Use each project's public distinctive stem, falling back to its REPD name."""
+    terms = []
+    for project in projects:
+        if project["technology"] != technology:
+            continue
+        term = base.clean(project.get("_name_stem_norm")) or base.clean(project.get("name"))
+        if term:
+            terms.append(term)
+    return list(dict.fromkeys(terms))
+
+
 def queries(projects: list[dict]) -> list[str]:
     """Plan source-first discovery plus a bounded project-name backstop."""
     planned = list(base.BROAD_QUERIES) + list(base.SOURCE_QUERIES)
 
     # The BESS universe is small enough for its complete name backstop each run.
-    bess_names = [project["name"] for project in projects if project["technology"] == "bess"]
+    bess_names = _targeted_search_terms(projects, "bess")
     bess_groups = base.chunk_names(bess_names)
     for group in bess_groups:
         terms = " OR ".join('"' + name + '"' for name in group)
@@ -82,7 +97,7 @@ def queries(projects: list[dict]) -> list[str]:
     # internal deadline and workflow's 170s last-resort timeout. A selected
     # solar window advances only after all of its queries complete; otherwise
     # the same window is retried on the next run.
-    solar_names = [project["name"] for project in projects if project["technology"] == "solar"]
+    solar_names = _targeted_search_terms(projects, "solar")
     solar_groups = base.chunk_names(solar_names)
     selected: list[list[str]] = []
     selected_indexes: list[int] = []
@@ -120,6 +135,7 @@ def queries(projects: list[dict]) -> list[str]:
                 if solar_groups else 0
             ),
             "solar_targeted_coverage_policy": "persisted consecutive circular cursor",
+            "targeted_name_strategy": "distinctive public name stem with official REPD-name fallback",
         }
     )
     base.QUERY_PLAN_META.clear()

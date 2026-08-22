@@ -309,7 +309,18 @@ def main():
         check(full_sweep_runs == math.ceil(total_batches / selected), "solar rotation full-sweep bound exact")
     else:
         check(False, "solar rotation has a non-empty Q2 solar universe")
-    check(cursor_source in {"initial_zero", "previous_v6_news_telemetry"}, "solar rotation cursor source explicit", clean(cursor_source))
+    check(
+        cursor_source in {
+            "initial_zero", "previous_v6_news_telemetry", "query_universe_changed_reset_zero"
+        },
+        "solar rotation cursor source explicit",
+        clean(cursor_source),
+    )
+    check(
+        query_plan.get("targeted_name_strategy")
+        == "distinctive public name stem with official REPD-name fallback",
+        "targeted discovery uses press-compatible distinctive project names",
+    )
 
     # Fresh-crawl decisions and retained-story decisions are separate.  These
     # equations prevent a rotating batch from silently replacing the newspaper.

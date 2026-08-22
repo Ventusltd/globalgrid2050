@@ -13,6 +13,7 @@ on:
       - 'scripts/build_renewables_v6_dashboard.py'
       - 'scripts/major_project_news_v6.py'
       - 'scripts/validate_renewables_v6_integrity.py'
+      - 'scripts/promote_renewables_v6_homepage.py'
       - '.github/workflows/major_project_news_v6.yml'
       - 'uk_renewables_pipeline/dashboard_v5_live.html'
       - 'dist/repd_master.json'
@@ -56,11 +57,15 @@ jobs:
       - name: Run V1-V6 structural quality and quantity gates
         run: python scripts/validate_renewables_v6_integrity.py
 
+      - name: Promote validated V6 on root homepage
+        run: python scripts/promote_renewables_v6_homepage.py
+
       - name: Commit only fully validated V6 output
         run: |
           git config user.name "Ventus-Bot"
           git config user.email "bot@ventus.ltd"
           git add \
+            index.html \
             dist/repd_master.json \
             dist/manifest_v4.json \
             dist/major_projects_v6.json \

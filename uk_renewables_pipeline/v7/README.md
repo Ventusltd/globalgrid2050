@@ -165,4 +165,10 @@ For a new chat:
 - Build plan approved for a four-step implementation structure.
 - Branches are prohibited.
 - V7 must use V5 as the product base and V6 as the canonical engineering refinement.
-- No production V7 link, workflow or deployment is authorised merely by this planning commit.
+- A wholesale V5 MVP is live at `https://globalgrid2050.com/uk_renewables_pipeline/v7/`.
+- The MVP changes only V7 labels, folder-relative paths, version navigation and export naming; its data and newspaper behaviour remain V5.
+- The root directory lists the renewables dashboards in ascending order from V1 to V7.
+- MVP publication commits: `d9c0a9a` (V7 page) and `68af380` (ordered root link).
+- Production proof: deployed HTML matches the committed V7 file; the two inherited assets expose 125 V5 stories and 10,784 legacy REPD GeoJSON features.
+- Known V5 identity, foreign-story, technology, stale-GeoJSON and reproducibility weaknesses therefore remain present by design until refinement.
+- Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.

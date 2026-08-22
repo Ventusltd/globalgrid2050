@@ -198,7 +198,7 @@ def _phrase_hit(value, text: str, text_tokens: set[str]) -> bool:
     phrase = norm(value)
     if not phrase:
         return False
-    if phrase in text:
+    if f" {phrase} " in f" {text} ":
         return True
     parts = toks(value)
     return bool(parts) and len(parts & text_tokens) >= min(2, len(parts))
@@ -458,6 +458,7 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     region_hit = _phrase_hit(project["region"], text, text_tokens)
     authority_hit = _phrase_hit(project["planning_authority"], text, text_tokens)
     location_hit = county_hit or region_hit or authority_hit
+    corroborating_identity = operator_hit or location_hit
     technology_hit = context["solar_context"] if project["technology"] == "solar" else context["bess_context"]
     conflicting_technology = bool(
         not technology_hit
@@ -489,19 +490,15 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
             (planning_ref_hit and context["official_source"])
             or (
                 distinctive_exact_identity
-                and context["priority_source"]
-                and (
-                    title_name_exact
-                    or name_exact
-                    or specific_event
-                )
+                and context["official_source"]
+                and specific_event
+                and (len(project["_name_tokens"]) >= 2 or corroborating_identity)
             )
         )
     )
     if not technology_hit and not technology_inferred:
         return None, "technology_gate"
 
-    corroborating_identity = operator_hit or location_hit
     exact_identity = full_exact_identity or variant_exact_identity
     if planning_ref_hit:
         identity_gate = True
@@ -923,7 +920,7 @@ def main() -> dict:
                              "declared_projects_sha256": snapshot.get("projects_sha256"),
                              "validated_at": snapshot.get("validated_at")},
         "source": source_meta,
-        "quality_gate": "identity before score; one global PRIMARY_MATCH; duplicate-name ambiguity rejection; technology and context-aware foreign gates; capacity corroboration only",
+        "quality_gate": "identity before score; one global PRIMARY_MATCH; duplicate-name ambiguity rejection; authoritative-only technology inference; context-aware foreign gates; capacity corroboration only",
         "discovery_policy": "source-first bounded crawl + rotating project-name completeness backstop; no V5/private fallback",
         "news_signal_scope": "Only PRIMARY_MATCH is eligible for NEWS SIGNAL; RELATED_DEVELOPMENT is context only",
         "rejected_candidates": telemetry["articles_rejected"], "ambiguous_candidates": telemetry["articles_ambiguous"],

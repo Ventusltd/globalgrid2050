@@ -454,6 +454,8 @@ def main():
             article_errors.append(f"article {index} has no literal or safely inferred technology context")
         if inferred_technology and "technology_context_inferred_from_source_and_identity" not in anchors:
             article_errors.append(f"article {index} omits its inferred-technology audit anchor")
+        if inferred_technology and evidence.get("official_source") is not True:
+            article_errors.append(f"article {index} infers technology from a non-authoritative source")
         story_context = norm(" ".join((clean(item.get("headline")), clean(item.get("source")), clean(item.get("source_url")))))
         project_context = norm(" ".join(clean(project.get(key)) for key in ("name", "country", "county", "region", "planning_authority", "planning_application_reference")))
         leaked = [phrase for phrase in FOREIGN_PHRASES if phrase in story_context and phrase not in project_context]
@@ -499,6 +501,7 @@ def main():
             ("150MW battery storage project secures financing", "Energy-Storage.News", "https://energy-storage.news"),
             ("One Earth solar project announces an update", "Example News", "https://example.com"),
             ("Approval for East Yorkshire offshore wind farm substation", "BBC", "https://www.bbc.co.uk"),
+            ("Fire crew still at significant Avonmouth recycling centre fire", "BBC", "https://www.bbc.co.uk"),
         )
         for title, source_name, source_url in negatives:
             matched, resolution, _detail = matcher._resolve_story(

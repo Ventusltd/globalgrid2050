@@ -79,7 +79,9 @@ def queries(projects: list[dict]) -> list[str]:
     # universe; use the cursor committed in the preceding V6 news artefact to
     # rotate a consecutive name-batch backstop. This makes coverage exhaustive
     # and independent of GitHub Actions cron drift while retaining the 122s
-    # internal deadline and workflow's 170s last-resort timeout.
+    # internal deadline and workflow's 170s last-resort timeout. A selected
+    # solar window advances only after all of its queries complete; otherwise
+    # the same window is retried on the next run.
     solar_names = [project["name"] for project in projects if project["technology"] == "solar"]
     solar_groups = base.chunk_names(solar_names)
     selected: list[list[str]] = []

@@ -1,6 +1,6 @@
 {
   "schema": "globalgrid2050.major-project-news.v6",
-  "updated": "2026-08-22T20:41:34.195467+00:00",
+  "updated": "2026-08-22T20:45:25.507638+00:00",
   "lookback_days": 183,
   "news_horizon_days": 183,
   "crawl_target_seconds": 170,
@@ -12,8 +12,8 @@
   "eligible_projects": 3714,
   "eligible_solar": 3445,
   "eligible_bess": 269,
-  "headline_count": 7,
-  "official_source_headlines": 1,
+  "headline_count": 8,
+  "official_source_headlines": 0,
   "priority_sources": [
     "DESNZ / GOV.UK",
     "Planning Inspectorate",
@@ -31,9 +31,9 @@
   "repd_record_update_policy": "official value when supplied; null preserved and never inferred",
   "project_snapshot": {
     "path": "dist/major_projects_v6.json",
-    "sha256": "61abd1d1f79769d5cb5391ebcf0b4bf03afe928a829a54661bd12bce91b92929",
+    "sha256": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
     "declared_projects_sha256": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d",
-    "validated_at": "2026-08-22T20:41:14.699201+00:00"
+    "validated_at": "2026-08-22T20:45:01.161355+00:00"
   },
   "source": {
     "owner": "Department for Energy Security and Net Zero (DESNZ)",
@@ -42,7 +42,7 @@
     "excel": "https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx",
     "edition": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)",
     "page_last_updated": "2026-08-03",
-    "validated_at": "2026-08-22T20:41:14.699201+00:00",
+    "validated_at": "2026-08-22T20:45:01.161355+00:00",
     "source_record_count": 14657,
     "source_unique_ref_count": 14657,
     "csv_xlsx_reconciled": true
@@ -50,14 +50,14 @@
   "quality_gate": "identity before score; one global PRIMARY_MATCH; duplicate-name ambiguity rejection; authoritative-only technology inference; context-aware foreign gates; capacity corroboration only",
   "discovery_policy": "source-first bounded crawl + persisted exhaustive project-name rotation + within-horizon revalidated story retention; no V5/private fallback",
   "news_signal_scope": "Only PRIMARY_MATCH links may drive NEWS SIGNAL; RELATED_DEVELOPMENT is context only",
-  "rejected_candidates": 414,
+  "rejected_candidates": 589,
   "ambiguous_candidates": 0,
   "query_count": 102,
-  "raw_story_count": 417,
+  "raw_story_count": 592,
   "telemetry": {
-    "started_at": "2026-08-22T20:41:18.264525+00:00",
-    "completed_at": "2026-08-22T20:41:34.192095+00:00",
-    "elapsed_seconds": 15.928,
+    "started_at": "2026-08-22T20:45:04.719190+00:00",
+    "completed_at": "2026-08-22T20:45:25.504447+00:00",
+    "elapsed_seconds": 20.785,
     "crawl_budget_seconds": 170,
     "network_budget_seconds": 122,
     "source_first": true,
@@ -119,67 +119,67 @@
       "bess_targeted_batches": 11,
       "solar_targeted_batches_selected": 48,
       "solar_targeted_batches_total": 131,
-      "solar_targeted_cursor_start": 48,
-      "solar_targeted_cursor_next": 96,
+      "solar_targeted_cursor_start": 96,
+      "solar_targeted_cursor_next": 13,
       "solar_targeted_cursor_source": "previous_v6_news_telemetry",
-      "solar_rotation_cursor_start": 48,
-      "solar_rotation_cursor_next": 96,
+      "solar_rotation_cursor_start": 96,
+      "solar_rotation_cursor_next": 13,
       "solar_rotation_cursor_source": "previous_v6_news_telemetry",
       "solar_targeted_batch_indexes": [
-        48,
-        49,
-        50,
-        51,
-        52,
-        53,
-        54,
-        55,
-        56,
-        57,
-        58,
-        59,
-        60,
-        61,
-        62,
-        63,
-        64,
-        65,
-        66,
-        67,
-        68,
-        69,
-        70,
-        71,
-        72,
-        73,
-        74,
-        75,
-        76,
-        77,
-        78,
-        79,
-        80,
-        81,
-        82,
-        83,
-        84,
-        85,
-        86,
-        87,
-        88,
-        89,
-        90,
-        91,
-        92,
-        93,
-        94,
-        95
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
       ],
       "solar_targeted_full_coverage_runs_max": 3,
       "solar_rotation_full_sweep_runs": 3,
       "solar_targeted_coverage_policy": "persisted consecutive circular cursor",
       "targeted_name_strategy": "distinctive public name stem with official REPD-name fallback",
-      "solar_rotation_cursor_planned_next": 96,
+      "solar_rotation_cursor_planned_next": 13,
       "solar_rotation_advance_applied": true,
       "solar_rotation_advance_reason": "all_selected_solar_queries_completed"
     },
@@ -189,7 +189,7 @@
         "configured": 48,
         "completed": 48,
         "failed": 0,
-        "candidates": 352
+        "candidates": 530
       },
       "source_first": {
         "configured": 43,
@@ -201,34 +201,35 @@
         "configured": 59,
         "completed": 59,
         "failed": 0,
-        "candidates": 397
+        "candidates": 575
       }
     },
-    "rss_candidates_returned": 438,
-    "deduplicated_article_candidates": 417,
-    "identity_candidate_pairs": 3,
+    "rss_candidates_returned": 616,
+    "deduplicated_article_candidates": 592,
+    "identity_candidate_pairs": 4,
     "confidence_qualified_pairs": 3,
     "articles_accepted_before_limit": 3,
-    "articles_published": 7,
-    "articles_rejected": 414,
+    "articles_published": 8,
+    "articles_rejected": 589,
     "articles_ambiguous": 0,
     "articles_dropped_by_headline_limit": 0,
     "rejection_reasons": {
-      "no_canonical_identity": 414
+      "below_confidence_threshold": 1,
+      "no_canonical_identity": 588
     },
     "zero_accepted_is_valid": true,
     "pair_rejection_reasons": {
-      "foreign_location_veto": 16,
-      "identity_gate": 5,
-      "identity_prefilter": 1548251,
-      "technology_conflict_gate": 3,
-      "technology_gate": 460
+      "foreign_location_veto": 20,
+      "identity_gate": 85,
+      "identity_prefilter": 2198154,
+      "technology_conflict_gate": 1,
+      "technology_gate": 424
     },
     "rejected_article_samples": [
       {
-        "title": "Committee Date: 11/03/2026 - Winchester City Council",
-        "source": "Winchester City Council",
-        "published": "2026-03-11",
+        "title": "3369854 Appeal decision - GOV.UK",
+        "source": "GOV.UK",
+        "published": "2026-08-13",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -238,9 +239,58 @@
         }
       },
       {
-        "title": "3369854 Appeal decision - GOV.UK",
-        "source": "GOV.UK",
-        "published": "2026-08-13",
+        "title": "Oxfordshire Infrastructure Strategy - West Oxfordshire District Council",
+        "source": "West Oxfordshire District Council",
+        "published": "2026-07-08",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Application Details Application Reference Number: 09/23/00003 Application Types: Hybrid application, Extension of Time: Yes - Somerset Council",
+        "source": "Somerset Council",
+        "published": "2026-07-14",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "MONTHLY NEWS REPORT APRIL 2026 - cogenhoeandwhiston-pc.gov.uk",
+        "source": "cogenhoeandwhiston-pc.gov.uk",
+        "published": "2026-04-25",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "RE: TR020002 Manston Airport - nsip-documents.planninginspectorate.gov.uk",
+        "source": "nsip-documents.planninginspectorate.gov.uk",
+        "published": "2026-07-03",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Committee Date: 11/03/2026 - Winchester City Council",
+        "source": "Winchester City Council",
+        "published": "2026-03-11",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -298,52 +348,15 @@
         }
       },
       {
-        "title": "Oxfordshire Infrastructure Strategy - West Oxfordshire District Council",
-        "source": "West Oxfordshire District Council",
-        "published": "2026-07-08",
+        "title": "Rotherham and Wath library schemes go over budget by millions - BBC",
+        "source": "BBC",
+        "published": "2026-05-06",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
           "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Application Details Application Reference Number: 09/23/00003 Application Types: Hybrid application, Extension of Time: Yes - Somerset Council",
-        "source": "Somerset Council",
-        "published": "2026-07-14",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "MONTHLY NEWS REPORT APRIL 2026 - cogenhoeandwhiston-pc.gov.uk",
-        "source": "cogenhoeandwhiston-pc.gov.uk",
-        "published": "2026-04-25",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "RE: TR020002 Manston Airport - nsip-documents.planninginspectorate.gov.uk",
-        "source": "nsip-documents.planninginspectorate.gov.uk",
-        "published": "2026-07-03",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
         }
       },
       {
@@ -407,18 +420,6 @@
         }
       },
       {
-        "title": "Rotherham and Wath library schemes go over budget by millions - BBC",
-        "source": "BBC",
-        "published": "2026-05-06",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
         "title": "US Roundup: solar-plus-storage projects advance across the country - Energy-Storage.News",
         "source": "Energy-Storage.News",
         "published": "2026-03-19",
@@ -458,18 +459,6 @@
         "title": "US utilities Appalachian Power and 3CE launch RFPS seeking BESS capacity in Virginia, California - Energy-Storage.News",
         "source": "Energy-Storage.News",
         "published": "2026-08-19",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Scarborough Athletic vs Spennymoor Town: National League N / S stats & head-to-head - BBC",
-        "source": "BBC",
-        "published": "2026-08-18",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -537,6 +526,252 @@
         "top_score": null,
         "pair_reasons": {
           "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Scarborough Athletic vs Spennymoor Town: National League N / S stats & head-to-head - BBC",
+        "source": "BBC",
+        "published": "2026-08-18",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Dorit Kemsley Reveals if PK Kemsley or the RHOBH Cast Have Read Her Memoir - Yahoo",
+        "source": "Yahoo",
+        "published": "2026-06-04",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Harriet Kemsley looks back: \u2018My parents say I was a very well-behaved child. Sadly this has been in steady decline over the years\u2019 - The Guardian",
+        "source": "The Guardian",
+        "published": "2026-02-22",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "\u2018RHOBH\u2019\u2019s Dorit Kemsley Claims Estranged Husband PK Is Forcing Their Kids Into Homelessness by Refusing to Pay the Mortgage - People.com",
+        "source": "People.com",
+        "published": "2026-07-28",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Kilmarnock Women home fixtures - Kilmarnock Football Club",
+        "source": "Kilmarnock Football Club",
+        "published": "2026-07-21",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Peterhead vs Kilmarnock: League Cup stats & head-to-head - BBC",
+        "source": "BBC",
+        "published": "2026-07-25",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "League Cup fixtures moved - Kilmarnock Football Club",
+        "source": "Kilmarnock Football Club",
+        "published": "2026-06-19",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Coaching staff update - Kilmarnock Football Club",
+        "source": "Kilmarnock Football Club",
+        "published": "2026-07-13",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Kilmarnock FC Standings, Matches and Scores - Futbol24",
+        "source": "Futbol24",
+        "published": "2026-04-21",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Season Tickets 2026/27 - Kilmarnock Football Club - Kilmarnock Football Club",
+        "source": "Kilmarnock Football Club",
+        "published": "2026-04-09",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Kilmarnock 3-1 Dundee | Scottish Premiership Highlights - Sky Sports",
+        "source": "Sky Sports",
+        "published": "2026-05-13",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Dorit Kemsley Shares an Emotional Update on Her Life: \u201cBest Is Yet to Come\u201d - Bravo",
+        "source": "Bravo",
+        "published": "2026-07-15",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Is Dorit Kemsley Leaving 'Real Housewives of Beverly Hills'? Executive Producer Addresses Rumor She Has Been Put On Pause After Season 15 - Just Jared",
+        "source": "Just Jared",
+        "published": "2026-05-24",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "PK Kemsley Enjoys Greek Vacation with Bikini-Clad Girlfriend Tatiana Kharchylava - TMZ",
+        "source": "TMZ",
+        "published": "2026-08-18",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Rangers move quickly for Kilmarnock\u2019s David Watson - Ibrox Noise",
+        "source": "Ibrox Noise",
+        "published": "2026-05-22",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Ambitious vision for Kilmarnock town centre unveiled in incredible new plans - Daily Record",
+        "source": "Daily Record",
+        "published": "2026-08-21",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "'Significant moment' for Kilmarnock as \u00a320m plan to regenerate town is approved - Daily Record",
+        "source": "Daily Record",
+        "published": "2026-06-02",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Kilmarnock restaurant announces shock closure amid claim of 'substance misuse' - Daily Record",
+        "source": "Daily Record",
+        "published": "2026-06-02",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Kilmarnock nursery axed after boss admits to parents service is 'struggling' - Daily Record",
+        "source": "Daily Record",
+        "published": "2026-05-29",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
         }
       },
       {
@@ -615,265 +850,124 @@
           "identity_prefilter": 3713,
           "technology_gate": 1
         }
-      },
-      {
-        "title": "Aberthaw power station chimney demolished in controlled explosion - BBC",
-        "source": "BBC",
-        "published": "2026-06-12",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
-      },
-      {
-        "title": "Milestone as former coal power station turbine hall demolished in regeneration - Barry and District News",
-        "source": "Barry and District News",
-        "published": "2026-06-12",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "3 Appleford Avenue, Jacka, ACT 2914 - realestate.com.au",
-        "source": "realestate.com.au",
-        "published": "2026-03-13",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
-      },
-      {
-        "title": "Huge fire breaks out at former power station as residents warned over smoke - South Wales Argus",
-        "source": "South Wales Argus",
-        "published": "2026-07-02",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Major fire breaks out at power station as safety warnings issued - South Wales Argus",
-        "source": "South Wales Argus",
-        "published": "2026-07-02",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Anger as giant Kent solar farm used truckloads of water to wash panels as taps ran dry - Kent Online",
-        "source": "Kent Online",
-        "published": "2026-06-04",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_gate": 1,
-          "identity_prefilter": 3713
-        }
-      },
-      {
-        "title": "Cleve Hill baseball continues path to respectability - Bee Group Newspapers",
-        "source": "Bee Group Newspapers",
-        "published": "2026-04-09",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
-        }
-      },
-      {
-        "title": "Alcohol licence approved for 'workers' hub' hotel - BBC",
-        "source": "BBC",
-        "published": "2026-08-19",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Three minutes to approve alcohol licence for hotel aimed at Teesworks contractors - The Northern Echo",
-        "source": "The Northern Echo",
-        "published": "2026-08-19",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
-      },
-      {
-        "title": "Teesworks\u2019 land remediation claims don\u2019t stack up: Part One - North East Bylines",
-        "source": "North East Bylines",
-        "published": "2026-03-16",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3709,
-          "technology_gate": 5
-        }
-      },
-      {
-        "title": "Teesworks\u2019 land remediation claims don\u2019t stack up (Part Two) - North East Bylines",
-        "source": "North East Bylines",
-        "published": "2026-03-30",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3709,
-          "technology_gate": 5
-        }
-      },
-      {
-        "title": "From Teesworks to take-offs - ten years of the Tees Valley Combined Authority - The Northern Echo",
-        "source": "The Northern Echo",
-        "published": "2026-04-02",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
-      },
-      {
-        "title": "DORA takes stroll around square - Delaware Gazette",
-        "source": "Delaware Gazette",
-        "published": "2026-06-06",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Community Calendar - Sunbury & Macedon Ranges | Star Weekly",
-        "source": "Sunbury & Macedon Ranges | Star Weekly",
-        "published": "2026-08-13",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
-        }
-      },
-      {
-        "title": "Tyrrell Hatton Is the Most Underrated Golfer In the World - Fried Egg Golf",
-        "source": "Fried Egg Golf",
-        "published": "2026-02-25",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
-      },
-      {
-        "title": "I spoke to Ricky Hatton before he died \u2013 I knew he was struggling but his death threw me - Manchester Evening News",
-        "source": "Manchester Evening News",
-        "published": "2026-05-01",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
-      },
-      {
-        "title": "Scott Rabalais: Have a love/hate thing with golf? Tyrrell Hatton is your Masters contender. - NOLA.com",
-        "source": "NOLA.com",
-        "published": "2026-04-10",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
-      },
-      {
-        "title": "Lois Kathleen Hatton - View Obituary & Service Information - Allen Funeral Home and Crematory",
-        "source": "Allen Funeral Home and Crematory",
-        "published": "2026-03-28",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3713,
-          "technology_gate": 1
-        }
       }
     ],
     "rejected_article_sample_limit": 50,
     "articles_published_current_crawl": 3,
     "articles_published_fresh": 3,
-    "previous_articles_considered": 5,
-    "previous_articles_revalidated": 5,
-    "previous_articles_carried_forward": 4,
-    "previous_articles_dropped": 0,
-    "previous_article_drop_reasons": {},
+    "previous_articles_considered": 7,
+    "previous_articles_revalidated": 6,
+    "previous_articles_carried_forward": 5,
+    "previous_articles_dropped": 1,
+    "previous_article_drop_reasons": {
+      "current_gate_no_canonical_identity": 1
+    },
     "fresh_articles_published": 3,
     "story_retention": {
       "policy": "revalidate previous PRIMARY_MATCH against current snapshot and matcher",
       "previous_artifact_available": true,
       "previous_artifact_status": "accepted_same_project_snapshot",
-      "previous_items_considered": 5,
-      "previous_items_revalidated": 5,
-      "previous_items_carried_before_limit": 4,
-      "previous_items_carried": 4,
+      "previous_items_considered": 7,
+      "previous_items_revalidated": 6,
+      "previous_items_carried_before_limit": 5,
+      "previous_items_carried": 5,
       "previous_items_deduplicated_by_fresh_result": 1,
       "previous_items_deduplicated_within_previous": 0,
-      "previous_items_dropped": 0,
-      "previous_items_dropped_reasons": {},
+      "previous_items_dropped": 1,
+      "previous_items_dropped_reasons": {
+        "current_gate_no_canonical_identity": 1
+      },
       "fresh_items": 3,
-      "union_items_before_limit": 7,
-      "union_items_published": 7,
+      "union_items_before_limit": 8,
+      "union_items_published": 8,
       "union_items_dropped_by_headline_limit": 0
     }
   },
   "items": [
+    {
+      "gg_article_id": "GG2050-NEWS-EFAF7D710F26B406",
+      "project_id": "1044",
+      "primary_repd_ref": "1044",
+      "repd_ref": "1044",
+      "gg_project_id": "GG2050-REPD-1044",
+      "gg_development_id": "GG2050-DEV-6E53CADCD740FA",
+      "identity_status": "REPD_BOUND",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "repd_record_updated": "2011-08-24",
+      "planning_application_reference": "01270/2011",
+      "planning_authority": "West Devon",
+      "project": "North Tawton Solar Farm",
+      "technology": "solar",
+      "capacity_mw": 5.0,
+      "news_capacity_mw": null,
+      "news_capacities_mw": [],
+      "operator": "ZW North Tawton",
+      "county": "Devon",
+      "region": "South West",
+      "country": "England",
+      "status": "Application Refused",
+      "event": "PROJECT UPDATE",
+      "headline": "Solar farm plan for North Tawton field",
+      "published": "2026-08-21",
+      "source": "Crediton Courier",
+      "source_url": "https://www.creditoncourier.co.uk",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOZ0UzaHRwbjVaRmRIVWYzLWJYV3VrTUZXTk1kUjFWN0FZbzhzd0gwc3Y1bmV5Z0huS3Qwd1B4Y0hFcEp6OVZlZkxMaDlXb1kyTlJ6ZjhTUFl4T0FfUGkyNkpkWmpxRkt4Ull1VUo4WmQzUWZrMHhhS0pCQVV2b19yZWtKWU51WEtXOWwteXFhYWhLVFVrYS1Maw?oc=5",
+      "confidence": 81,
+      "match_evidence": {
+        "identity_gate_passed": true,
+        "technology_gate_passed": true,
+        "foreign_location_gate_passed": true,
+        "anchors": [
+          "distinctive_name_variant",
+          "operator_applicant",
+          "technology_context"
+        ],
+        "foreign_veto_passed": true,
+        "duplicate_name_gate_passed": true,
+        "capacity_only": false,
+        "planning_reference_hit": false,
+        "exact_project_name_hit": false,
+        "exact_project_name_in_headline": false,
+        "distinctive_name_variant_hit": true,
+        "distinctive_name_variant_in_headline": true,
+        "distinctive_name_stem": "north tawton",
+        "distinctive_name_token_overlap": 2,
+        "operator_hit": true,
+        "county_hit": false,
+        "region_hit": false,
+        "planning_authority_hit": false,
+        "technology_context_hit": true,
+        "technology_context_inferred": false,
+        "official_source": false,
+        "capacity_match": false,
+        "priority_source": false,
+        "source_quality_tier": "traceable_named_public_source",
+        "capacity_is_corroboration_only": true,
+        "duplicate_project_name": false,
+        "duplicate_project_name_count": 1,
+        "foreign_locations_detected": [],
+        "score_components": {
+          "planning_reference": 0,
+          "project_name": 38,
+          "operator": 13,
+          "location_or_authority": 0,
+          "technology": 10,
+          "official_source": 0,
+          "capacity_corroboration": 0,
+          "event_specificity": 0,
+          "recency": 10,
+          "source_quality": 10
+        },
+        "candidate_project_count": 1,
+        "qualified_project_count": 1,
+        "runner_up_score": null,
+        "score_margin": null
+      },
+      "news_binding_rule": "PRIMARY_MATCH_ONLY; related development records are context, not REPD/news-status confirmation",
+      "development_related_repd_refs": [],
+      "direct_related_repd_refs": []
+    },
     {
       "gg_article_id": "GG2050-NEWS-E3A49DB50D708576",
       "project_id": "12206",
@@ -1131,6 +1225,90 @@
       "direct_related_repd_refs": []
     },
     {
+      "gg_article_id": "GG2050-NEWS-DACA6627AECFEE3F",
+      "project_id": "2377",
+      "primary_repd_ref": "2377",
+      "repd_ref": "2377",
+      "gg_project_id": "GG2050-REPD-2377",
+      "gg_development_id": "GG2050-DEV-C2A5FEE70EF546",
+      "identity_status": "REPD_BOUND",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "repd_record_updated": "2018-09-04",
+      "planning_application_reference": "2012/1335",
+      "planning_authority": "Gedling",
+      "project": "Gedling Solar Farm",
+      "technology": "solar",
+      "capacity_mw": 5.7,
+      "news_capacity_mw": null,
+      "news_capacities_mw": [],
+      "operator": "Foresight",
+      "county": "Nottinghamshire",
+      "region": "East Midlands",
+      "country": "England",
+      "status": "Operational",
+      "event": "PROJECT UPDATE",
+      "headline": "More reaction after plans revealed for major new solar farm near Burton Joyce bypass",
+      "published": "2026-05-15",
+      "source": "Gedling Eye",
+      "source_url": "https://www.gedlingeye.co.uk",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQSjFPTTI3ZV9samJpWUh0cHFMdW9Ed096TVRKSFBHX0ZReDlZMTI4QmlDRzlvQ1JLZ2pTdFdfWGNTNkU1WmY3Rkl2NDc0aUtHU005UGZOWmNwa2liT0NMT29FbkF1Z2JnS1VLRmJST1FvSGE1aEg4OXR5czl1N2NVc203OG8ycHJwX1dkRVdrMVhiUDR2X1g5R29KOWpsM1YwSHlVVW0xUzdXX1M5cUJKbVdMRy0?oc=5",
+      "confidence": 72,
+      "match_evidence": {
+        "identity_gate_passed": true,
+        "technology_gate_passed": true,
+        "foreign_location_gate_passed": true,
+        "anchors": [
+          "distinctive_name_variant",
+          "planning_authority",
+          "technology_context"
+        ],
+        "foreign_veto_passed": true,
+        "duplicate_name_gate_passed": true,
+        "capacity_only": false,
+        "planning_reference_hit": false,
+        "exact_project_name_hit": false,
+        "exact_project_name_in_headline": false,
+        "distinctive_name_variant_hit": true,
+        "distinctive_name_variant_in_headline": true,
+        "distinctive_name_stem": "gedling",
+        "distinctive_name_token_overlap": 1,
+        "operator_hit": false,
+        "county_hit": false,
+        "region_hit": false,
+        "planning_authority_hit": true,
+        "technology_context_hit": true,
+        "technology_context_inferred": false,
+        "official_source": false,
+        "capacity_match": false,
+        "priority_source": false,
+        "source_quality_tier": "traceable_named_public_source",
+        "capacity_is_corroboration_only": true,
+        "duplicate_project_name": false,
+        "duplicate_project_name_count": 1,
+        "foreign_locations_detected": [],
+        "score_components": {
+          "planning_reference": 0,
+          "project_name": 38,
+          "operator": 0,
+          "location_or_authority": 12,
+          "technology": 10,
+          "official_source": 0,
+          "capacity_corroboration": 0,
+          "event_specificity": 0,
+          "recency": 2,
+          "source_quality": 10
+        },
+        "candidate_project_count": 1,
+        "qualified_project_count": 1,
+        "runner_up_score": null,
+        "score_margin": null
+      },
+      "news_binding_rule": "PRIMARY_MATCH_ONLY; related development records are context, not REPD/news-status confirmation",
+      "development_related_repd_refs": [],
+      "direct_related_repd_refs": []
+    },
+    {
       "gg_article_id": "GG2050-NEWS-0B62C906FC62E3CA",
       "project_id": "5533",
       "primary_repd_ref": "5533",
@@ -1289,90 +1467,6 @@
           "event_specificity": 0,
           "recency": 2,
           "source_quality": 15
-        },
-        "candidate_project_count": 1,
-        "qualified_project_count": 1,
-        "runner_up_score": null,
-        "score_margin": null
-      },
-      "news_binding_rule": "PRIMARY_MATCH_ONLY; related development records are context, not REPD/news-status confirmation",
-      "development_related_repd_refs": [],
-      "direct_related_repd_refs": []
-    },
-    {
-      "gg_article_id": "GG2050-NEWS-FE31397E748B58DB",
-      "project_id": "10000",
-      "primary_repd_ref": "10000",
-      "repd_ref": "10000",
-      "gg_project_id": "GG2050-REPD-10000",
-      "gg_development_id": "GG2050-DEV-EC48A85BA81FFD",
-      "identity_status": "REPD_BOUND",
-      "role": "PRIMARY_MATCH",
-      "eligible_for_news_signal": true,
-      "repd_record_updated": "2021-11-29",
-      "planning_application_reference": "21/04362/FUL",
-      "planning_authority": "Cheshire West and Chester",
-      "project": "High Street - Solar Farm",
-      "technology": "solar",
-      "capacity_mw": 17.57,
-      "news_capacity_mw": null,
-      "news_capacities_mw": [],
-      "operator": "Anesco Limited",
-      "county": "Cheshire",
-      "region": "North West",
-      "country": "England",
-      "status": "Awaiting Construction",
-      "event": "CONSTRUCTION",
-      "headline": "Construction to start on improvements to Witney High Street",
-      "published": "2026-04-22",
-      "source": "Oxfordshire County Council",
-      "source_url": "https://news.oxfordshire.gov.uk",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPaVZzNk5JRm8tQ084elh2TWpONV9wNnU1TjFKX3lQS0JyZUhEQ2ZtOG5QbHMzNTltdzVWQnFuRmFOdFFnZkFZSUl6WXEzR1R5T2hzYjRHcWZNQmVzb2hlNm9UczY3dW5tVnZuM2dHaWhCSGhkdmxRTmpRbHg1SU90TENjSVdjY1BfWEFzdHBndUNyenJxVzBj?oc=5",
-      "confidence": 79,
-      "match_evidence": {
-        "identity_gate_passed": true,
-        "technology_gate_passed": true,
-        "foreign_location_gate_passed": true,
-        "anchors": [
-          "distinctive_name_variant",
-          "technology_context_inferred_from_source_and_identity",
-          "official_source"
-        ],
-        "foreign_veto_passed": true,
-        "duplicate_name_gate_passed": true,
-        "capacity_only": false,
-        "planning_reference_hit": false,
-        "exact_project_name_hit": false,
-        "exact_project_name_in_headline": false,
-        "distinctive_name_variant_hit": true,
-        "distinctive_name_variant_in_headline": true,
-        "distinctive_name_stem": "high street",
-        "distinctive_name_token_overlap": 2,
-        "operator_hit": false,
-        "county_hit": false,
-        "region_hit": false,
-        "planning_authority_hit": false,
-        "technology_context_hit": false,
-        "technology_context_inferred": true,
-        "official_source": true,
-        "capacity_match": false,
-        "priority_source": true,
-        "source_quality_tier": "official_government_or_planning",
-        "capacity_is_corroboration_only": true,
-        "duplicate_project_name": false,
-        "duplicate_project_name_count": 1,
-        "foreign_locations_detected": [],
-        "score_components": {
-          "planning_reference": 0,
-          "project_name": 38,
-          "operator": 0,
-          "location_or_authority": 0,
-          "technology": 6,
-          "official_source": 8,
-          "capacity_corroboration": 0,
-          "event_specificity": 5,
-          "recency": 2,
-          "source_quality": 20
         },
         "candidate_project_count": 1,
         "qualified_project_count": 1,

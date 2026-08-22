@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.renewables-v6-integrity.v6",
   "pass": true,
-  "validated_at": "2026-08-22T20:41:35.748972+00:00",
+  "validated_at": "2026-08-22T20:45:27.112539+00:00",
   "metrics": {
     "source_records": 14657,
     "source_unique_refs": 14657,
@@ -10,13 +10,13 @@
     "bess_projects": 269,
     "record_updates_supplied": 3696,
     "record_updates_missing": 18,
-    "news_candidates": 417,
-    "news_accepted": 7,
-    "news_rejected": 414,
+    "news_candidates": 592,
+    "news_accepted": 8,
+    "news_rejected": 589,
     "news_ambiguous": 0,
-    "news_retained": 4,
-    "solar_rotation_cursor_next": 96,
-    "project_news_links": 7
+    "news_retained": 5,
+    "solar_rotation_cursor_next": 13,
+    "project_news_links": 8
   },
   "checks": [
     {
@@ -432,7 +432,7 @@
     {
       "gate": "news headline count permits a valid zero",
       "pass": true,
-      "detail": "metadata=7 items=7"
+      "detail": "metadata=8 items=8"
     },
     {
       "gate": "news horizon exact",
@@ -467,12 +467,12 @@
     {
       "gate": "news telemetry rss_candidates_returned recorded",
       "pass": true,
-      "detail": "438"
+      "detail": "616"
     },
     {
       "gate": "news telemetry deduplicated_article_candidates recorded",
       "pass": true,
-      "detail": "417"
+      "detail": "592"
     },
     {
       "gate": "news telemetry articles_accepted_before_limit recorded",
@@ -482,12 +482,12 @@
     {
       "gate": "news telemetry articles_published recorded",
       "pass": true,
-      "detail": "7"
+      "detail": "8"
     },
     {
       "gate": "news telemetry articles_rejected recorded",
       "pass": true,
-      "detail": "414"
+      "detail": "589"
     },
     {
       "gate": "news telemetry articles_ambiguous recorded",
@@ -645,32 +645,12 @@
       "detail": ""
     },
     {
-      "gate": "priority source queried: DESNZ / GOV.UK",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source attempt recorded: DESNZ / GOV.UK",
-      "pass": true,
-      "detail": ""
-    },
-    {
       "gate": "priority source queried: Energy-Storage.News",
       "pass": true,
       "detail": ""
     },
     {
       "gate": "priority source attempt recorded: Energy-Storage.News",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source queried: PV Magazine",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source attempt recorded: PV Magazine",
       "pass": true,
       "detail": ""
     },
@@ -685,12 +665,12 @@
       "detail": ""
     },
     {
-      "gate": "priority source queried: Planning Inspectorate",
+      "gate": "priority source queried: PV Magazine",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source attempt recorded: Planning Inspectorate",
+      "gate": "priority source attempt recorded: PV Magazine",
       "pass": true,
       "detail": ""
     },
@@ -701,6 +681,26 @@
     },
     {
       "gate": "priority source attempt recorded: Solar Power Portal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: DESNZ / GOV.UK",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: DESNZ / GOV.UK",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: Planning Inspectorate",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Planning Inspectorate",
       "pass": true,
       "detail": ""
     },

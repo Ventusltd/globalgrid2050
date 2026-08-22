@@ -1,0 +1,76 @@
+name: UK Renewables V6 REPD-Bound Newspaper
+
+# V6 is generated from the complete V5 live app and fails closed on structural,
+# DESNZ source, REPD identity, quantity or headline-quality regression.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 5 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/repd_updater.py'
+      - 'scripts/build_renewables_v6_dashboard.py'
+      - 'scripts/major_project_news_v6.py'
+      - 'scripts/validate_renewables_v6_integrity.py'
+      - '.github/workflows/major_project_news_v6.yml'
+      - 'uk_renewables_pipeline/dashboard_v5_live.html'
+      - 'dist/repd_master.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-renewables-v6-repd-bound
+  cancel-in-progress: true
+
+jobs:
+  build-validate-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install REPD and news dependencies
+        run: python -m pip install --disable-pip-version-check pandas pyyaml requests pyproj beautifulsoup4
+
+      - name: Refresh official DESNZ REPD binding when edition changes
+        run: python scripts/repd_updater.py
+
+      - name: Build V6 from complete V5 gospel source
+        run: python scripts/build_renewables_v6_dashboard.py
+
+      - name: Crawl six-month V6 newspaper within three-minute budget
+        run: timeout 170s python scripts/major_project_news_v6.py
+
+      - name: Run V1-V6 structural quality and quantity gates
+        run: python scripts/validate_renewables_v6_integrity.py
+
+      - name: Commit only fully validated V6 output
+        run: |
+          git config user.name "Ventus-Bot"
+          git config user.email "bot@ventus.ltd"
+          git add \
+            dist/repd_master.json \
+            dist/manifest_v4.json \
+            dist/major_projects_v6.json \
+            dist/major_project_news_v6.json \
+            dist/renewables_v6_integrity.json \
+            uk_renewables_pipeline/dashboard_v6_live.html
+          if git diff --cached --quiet; then
+            echo "No validated V6 changes to publish."
+            exit 0
+          fi
+          git commit -m "V6 REPD-bound newspaper refresh: $(date -u +'%Y-%m-%d')"
+          git pull --rebase origin main
+          git push origin HEAD:main

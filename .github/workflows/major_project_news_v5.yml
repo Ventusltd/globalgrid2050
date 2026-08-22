@@ -1,0 +1,37 @@
+name: UK Renewables V5 Newspaper
+
+# Deliberate bounded exception for the live V5 newspaper.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-renewables-v5-newspaper
+  cancel-in-progress: true
+
+jobs:
+  refresh-newspaper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependency
+        run: pip install requests
+      - name: Build REPD major-project newspaper
+        run: python scripts/major_project_news_v5.py
+      - name: Commit only when newspaper changed
+        run: |
+          git config user.name "Ventus-Bot"
+          git config user.email "bot@ventus.ltd"
+          git add dist/major_projects_v5.json dist/major_project_news_v5.json
+          git diff --cached --quiet && exit 0
+          git commit -m "V5 newspaper refresh: $(date -u +'%Y-%m-%d')"
+          git push

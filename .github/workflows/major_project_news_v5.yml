@@ -5,6 +5,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 5 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/major_project_news_v5.py'
+      - '.github/workflows/major_project_news_v5.yml'
+      - 'dist/repd_master.json'
 
 permissions:
   contents: write

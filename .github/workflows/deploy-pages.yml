@@ -10,6 +10,10 @@ on:
       - 'employers_competence/**'
       - 'solar_deployment_statistics/**'
       - 'solar_components/**'
+      - 'uk_renewables_pipeline/**'
+      - 'dist/major_project_news_v5.json'
+      - 'dist/major_projects_v5.json'
+      - 'dist/repd_master.json'
       - '.github/workflows/deploy-pages.yml'
 
 permissions:

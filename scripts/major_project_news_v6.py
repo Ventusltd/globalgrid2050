@@ -351,7 +351,8 @@ def _foreign_locations(text: str, project: dict) -> tuple[list[str], list[str]]:
 
 
 def _story_context(story: dict) -> dict:
-    text = norm(" ".join((story.get("title", ""), story.get("description", ""), story.get("source", ""), story.get("source_url", ""))))
+    raw_text = " ".join((story.get("title", ""), story.get("description", ""), story.get("source", ""), story.get("source_url", "")))
+    text = norm(raw_text)
     tokens = set(text.split())
     source_text = norm(" ".join((story.get("source", ""), story.get("source_url", ""))))
     return {
@@ -359,7 +360,9 @@ def _story_context(story: dict) -> dict:
         "official_source": any(value in source_text for value in ("gov uk", "planning inspectorate", "planninginspectorate")),
         "solar_context": bool({"solar", "photovoltaic", "photovoltaics", "pv"} & tokens),
         "bess_context": bool({"battery", "bess", "storage"} & tokens),
-        "news_capacities_mw": extract_news_capacities(text),
+        # Extract from the raw text: normalisation turns 46.5 MW into "46 5 mw"
+        # and would otherwise manufacture a false 5 MW article capacity.
+        "news_capacities_mw": extract_news_capacities(raw_text),
     }
 
 
@@ -379,7 +382,10 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     authority_hit = _phrase_hit(project["planning_authority"], text, text_tokens)
     location_hit = county_hit or region_hit or authority_hit
     technology_hit = context["solar_context"] if project["technology"] == "solar" else context["bess_context"]
-    capacity_hit = capacity_match(project, text)
+    capacity_hit = any(
+        abs(value - project["capacity_mw"]) <= max(2.0, project["capacity_mw"] * 0.15)
+        for value in context["news_capacities_mw"]
+    )
     detected_foreign, unexplained_foreign = _foreign_locations(text, project)
     if unexplained_foreign:
         return None, "foreign_location_veto"

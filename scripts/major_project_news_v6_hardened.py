@@ -76,6 +76,8 @@ def _targeted_search_terms(projects: list[dict], technology: str) -> list[str]:
         term = base.clean(project.get("_name_stem_norm")) or base.clean(project.get("name"))
         if term:
             terms.append(term)
+    # Several component records can share a development stem; one discovery
+    # query is sufficient because the matcher still resolves every REPD record.
     return list(dict.fromkeys(terms))
 
 

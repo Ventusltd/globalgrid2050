@@ -1,0 +1,38 @@
+name: UK Renewables V4 Major Project News
+
+# Deliberate exception to the June 2026 root-workflow manual freeze.
+# Authorised for V4 on 22 Aug 2026: one bounded daily data-refresh workflow.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-renewables-v4-major-project-news
+  cancel-in-progress: true
+
+jobs:
+  refresh-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependency
+        run: pip install requests
+      - name: Build eligible projects and matched headlines
+        run: python scripts/major_project_news_v4.py
+      - name: Commit only when data changed
+        run: |
+          git config user.name "Ventus-Bot"
+          git config user.email "bot@ventus.ltd"
+          git add dist/major_projects_v4.json dist/major_project_news_v4.json
+          git diff --cached --quiet && exit 0
+          git commit -m "V4 major project news refresh: $(date -u +'%Y-%m-%d')"
+          git push

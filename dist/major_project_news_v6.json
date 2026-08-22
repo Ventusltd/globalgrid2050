@@ -1,6 +1,6 @@
 {
   "schema": "globalgrid2050.major-project-news.v6",
-  "updated": "2026-08-22T20:22:45.498376+00:00",
+  "updated": "2026-08-22T20:26:00.242235+00:00",
   "lookback_days": 183,
   "news_horizon_days": 183,
   "crawl_target_seconds": 170,
@@ -31,9 +31,9 @@
   "repd_record_update_policy": "official value when supplied; null preserved and never inferred",
   "project_snapshot": {
     "path": "dist/major_projects_v6.json",
-    "sha256": "13018ef0e4819167d20fb05501163b24c8cf2b003a362b374d17fbb0e9b7784c",
+    "sha256": "3769d1531c118fb74c6e117e238b8c4570ec2c6dda7cea5a106df74c12860775",
     "declared_projects_sha256": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d",
-    "validated_at": "2026-08-22T20:22:33.684327+00:00"
+    "validated_at": "2026-08-22T20:25:48.543446+00:00"
   },
   "source": {
     "owner": "Department for Energy Security and Net Zero (DESNZ)",
@@ -42,7 +42,7 @@
     "excel": "https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx",
     "edition": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)",
     "page_last_updated": "2026-08-03",
-    "validated_at": "2026-08-22T20:22:33.684327+00:00",
+    "validated_at": "2026-08-22T20:25:48.543446+00:00",
     "source_record_count": 14657,
     "source_unique_ref_count": 14657,
     "csv_xlsx_reconciled": true
@@ -50,14 +50,14 @@
   "quality_gate": "identity before score; one global PRIMARY_MATCH; duplicate-name ambiguity rejection; authoritative-only technology inference; context-aware foreign gates; capacity corroboration only",
   "discovery_policy": "source-first bounded crawl + persisted exhaustive project-name rotation + within-horizon revalidated story retention; no V5/private fallback",
   "news_signal_scope": "Only PRIMARY_MATCH links may drive NEWS SIGNAL; RELATED_DEVELOPMENT is context only",
-  "rejected_candidates": 105,
+  "rejected_candidates": 153,
   "ambiguous_candidates": 0,
   "query_count": 102,
-  "raw_story_count": 105,
+  "raw_story_count": 154,
   "telemetry": {
-    "started_at": "2026-08-22T20:22:37.340890+00:00",
-    "completed_at": "2026-08-22T20:22:45.495093+00:00",
-    "elapsed_seconds": 8.154,
+    "started_at": "2026-08-22T20:25:52.132228+00:00",
+    "completed_at": "2026-08-22T20:26:00.239269+00:00",
+    "elapsed_seconds": 8.107,
     "crawl_budget_seconds": 170,
     "network_budget_seconds": 122,
     "source_first": true,
@@ -79,7 +79,7 @@
         "configured": 4,
         "completed": 4,
         "failed": 0,
-        "candidates": 5
+        "candidates": 4
       },
       {
         "name": "BBC",
@@ -119,66 +119,66 @@
       "bess_targeted_batches": 11,
       "solar_targeted_batches_selected": 48,
       "solar_targeted_batches_total": 138,
-      "solar_targeted_cursor_start": 48,
-      "solar_targeted_cursor_next": 96,
+      "solar_targeted_cursor_start": 96,
+      "solar_targeted_cursor_next": 6,
       "solar_targeted_cursor_source": "previous_v6_news_telemetry",
-      "solar_rotation_cursor_start": 48,
-      "solar_rotation_cursor_next": 96,
+      "solar_rotation_cursor_start": 96,
+      "solar_rotation_cursor_next": 6,
       "solar_rotation_cursor_source": "previous_v6_news_telemetry",
       "solar_targeted_batch_indexes": [
-        48,
-        49,
-        50,
-        51,
-        52,
-        53,
-        54,
-        55,
-        56,
-        57,
-        58,
-        59,
-        60,
-        61,
-        62,
-        63,
-        64,
-        65,
-        66,
-        67,
-        68,
-        69,
-        70,
-        71,
-        72,
-        73,
-        74,
-        75,
-        76,
-        77,
-        78,
-        79,
-        80,
-        81,
-        82,
-        83,
-        84,
-        85,
-        86,
-        87,
-        88,
-        89,
-        90,
-        91,
-        92,
-        93,
-        94,
-        95
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
       ],
       "solar_targeted_full_coverage_runs_max": 3,
       "solar_rotation_full_sweep_runs": 3,
       "solar_targeted_coverage_policy": "persisted consecutive circular cursor",
-      "solar_rotation_cursor_planned_next": 96,
+      "solar_rotation_cursor_planned_next": 6,
       "solar_rotation_advance_applied": true,
       "solar_rotation_advance_reason": "all_selected_solar_queries_completed"
     },
@@ -188,38 +188,39 @@
         "configured": 48,
         "completed": 48,
         "failed": 0,
-        "candidates": 83
+        "candidates": 133
       },
       "source_first": {
         "configured": 43,
         "completed": 43,
         "failed": 0,
-        "candidates": 43
+        "candidates": 42
       },
       "targeted_backstop": {
         "configured": 59,
         "completed": 59,
         "failed": 0,
-        "candidates": 83
+        "candidates": 133
       }
     },
-    "rss_candidates_returned": 126,
-    "deduplicated_article_candidates": 105,
-    "identity_candidate_pairs": 0,
-    "confidence_qualified_pairs": 0,
-    "articles_accepted_before_limit": 0,
+    "rss_candidates_returned": 175,
+    "deduplicated_article_candidates": 154,
+    "identity_candidate_pairs": 1,
+    "confidence_qualified_pairs": 1,
+    "articles_accepted_before_limit": 1,
     "articles_published": 4,
-    "articles_rejected": 105,
+    "articles_rejected": 153,
     "articles_ambiguous": 0,
     "articles_dropped_by_headline_limit": 0,
     "rejection_reasons": {
-      "no_canonical_identity": 105
+      "no_canonical_identity": 153
     },
     "zero_accepted_is_valid": true,
     "pair_rejection_reasons": {
-      "identity_gate": 2,
-      "identity_prefilter": 389914,
-      "technology_gate": 54
+      "foreign_location_veto": 4,
+      "identity_gate": 1,
+      "identity_prefilter": 571884,
+      "technology_gate": 66
     },
     "rejected_article_samples": [
       {
@@ -260,9 +261,9 @@
         }
       },
       {
-        "title": "Design Principles and Parameters (Tracked) - nsip-documents.planninginspectorate.gov.uk",
-        "source": "nsip-documents.planninginspectorate.gov.uk",
-        "published": "2026-07-15",
+        "title": "US Roundup: solar-plus-storage projects advance across the country - Energy-Storage.News",
+        "source": "Energy-Storage.News",
+        "published": "2026-03-19",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -272,9 +273,9 @@
         }
       },
       {
-        "title": "Major Application Application 2 - Broadland and South Norfolk",
-        "source": "Broadland and South Norfolk",
-        "published": "2026-04-11",
+        "title": "Redwood positions second-life BESS as \u2018essential infrastructure\u2019 - Energy-Storage.News",
+        "source": "Energy-Storage.News",
+        "published": "2026-03-05",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -284,9 +285,21 @@
         }
       },
       {
-        "title": "(Public Pack)Agenda Document for Planning Committee, 15/07/2026 18:00 - South Oxfordshire District Council",
-        "source": "South Oxfordshire District Council",
-        "published": "2026-07-15",
+        "title": "Organic flow battery company CMBlu closes \u20ac50 million Series C - Energy-Storage.News",
+        "source": "Energy-Storage.News",
+        "published": "2026-05-07",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "US utilities Appalachian Power and 3CE launch RFPS seeking BESS capacity in Virginia, California - Energy-Storage.News",
+        "source": "Energy-Storage.News",
+        "published": "2026-08-19",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -308,9 +321,21 @@
         }
       },
       {
-        "title": "LSBUD Reference: EA_3WWX_41033863 - Maldon District Council",
-        "source": "Maldon District Council",
-        "published": "2026-04-15",
+        "title": "(Public Pack)Agenda Document for Planning Committee, 15/07/2026 18:00 - South Oxfordshire District Council",
+        "source": "South Oxfordshire District Council",
+        "published": "2026-07-15",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "The Flag of the Fens - burwellparishcouncil.gov.uk",
+        "source": "burwellparishcouncil.gov.uk",
+        "published": "2026-07-14",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -356,57 +381,9 @@
         }
       },
       {
-        "title": "The Flag of the Fens - burwellparishcouncil.gov.uk",
-        "source": "burwellparishcouncil.gov.uk",
-        "published": "2026-07-14",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "US Roundup: solar-plus-storage projects advance across the country - Energy-Storage.News",
-        "source": "Energy-Storage.News",
-        "published": "2026-03-19",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Organic flow battery company CMBlu closes \u20ac50 million Series C - Energy-Storage.News",
-        "source": "Energy-Storage.News",
-        "published": "2026-05-07",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Redwood positions second-life BESS as \u2018essential infrastructure\u2019 - Energy-Storage.News",
-        "source": "Energy-Storage.News",
-        "published": "2026-03-05",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "US utilities Appalachian Power and 3CE launch RFPS seeking BESS capacity in Virginia, California - Energy-Storage.News",
-        "source": "Energy-Storage.News",
-        "published": "2026-08-19",
+        "title": "Major Application Application 2 - Broadland and South Norfolk",
+        "source": "Broadland and South Norfolk",
+        "published": "2026-04-11",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -488,131 +465,83 @@
         }
       },
       {
-        "title": "Greencells completes UK solar farm - Energy Global",
-        "source": "Energy Global",
+        "title": "LSBUD Reference: EA_3WWX_41033863 - Maldon District Council",
+        "source": "Maldon District Council",
+        "published": "2026-04-15",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Lot 70 Ravens Close, Strathfieldsaye, Vic 3551 - realestate.com.au",
+        "source": "realestate.com.au",
+        "published": "2026-08-18",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3712,
+          "technology_gate": 2
+        }
+      },
+      {
+        "title": "Ravens wrap up Day 2 of mandatory minicamp with focus on chemistry, center competition - WMAR 2 News Baltimore",
+        "source": "WMAR 2 News Baltimore",
+        "published": "2026-06-10",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Ravens close Day 2 of minicamp focused on chemistry and center battle - WMAR 2 News Baltimore",
+        "source": "WMAR 2 News Baltimore",
+        "published": "2026-06-10",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3712,
+          "technology_gate": 2
+        }
+      },
+      {
+        "title": "Redlands ANCA takes care of its community on Earth Day - redlandscommunitynews.com",
+        "source": "redlandscommunitynews.com",
+        "published": "2026-05-06",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "County Durham school wins prestigious play award with new sandpit - The Northern Echo",
+        "source": "The Northern Echo",
         "published": "2026-08-20",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
-          "identity_gate": 1,
-          "identity_prefilter": 3713
-        }
-      },
-      {
-        "title": "Greencells Completes Uk Solar Farm - megaproject.com",
-        "source": "megaproject.com",
-        "published": "2026-08-22",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_gate": 1,
-          "identity_prefilter": 3713
-        }
-      },
-      {
-        "title": "A visionary project in Somerset headed by two Italian brothers - Great British Life",
-        "source": "Great British Life",
-        "published": "2026-06-16",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
           "identity_prefilter": 3714
         }
       },
       {
-        "title": "Government of India Notifies Two New Potato Varieties - PIB",
-        "source": "PIB",
-        "published": "2026-07-20",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Tripura dispatches 600 Kew pineapples to Bangladesh as goodwill gesture - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-07-29",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Floods sweep elephant from Nagaland into Assam before dramatic rescue - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-07-25",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Early summer sees wave of larger farm launches - Farmers Weekly",
-        "source": "Farmers Weekly",
-        "published": "2026-06-19",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Diju River floods 14 villages in Nagaon, over 2,000 people affected - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-07-22",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "India Notifies Two New ICAR-CPRI Potato Varieties: Kufri Abhedya and Kufri Ruby to Boost Disease-Resistant Farming - PotatoPro",
-        "source": "PotatoPro",
-        "published": "2026-07-26",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Floods cut off hospital, tea worker delivers baby inside Sivasagar factory - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-07-20",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Manipur Police get 477 new vehicles; 54% of fleet earmarked for hill districts - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-05-24",
+        "title": "Bellway submits plans for up to 250 homes in Sherburn in North Yorkshire - Show House",
+        "source": "Show House",
+        "published": "2026-04-24",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -623,95 +552,60 @@
         }
       },
       {
-        "title": "Goalpara critical mineral buzz fades as GSI calls findings sub-economic - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-05-27",
+        "title": "Motorcyclist dies after collision in Sherburn in Elmet - YorkMix",
+        "source": "YorkMix",
+        "published": "2026-06-07",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
-          "identity_prefilter": 3714
+          "identity_prefilter": 3713,
+          "technology_gate": 1
         }
       },
       {
-        "title": "Women, children among worst hit as Assam floods claim 21 lives in past 24 hrs - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-07-22",
+        "title": "Sherburn Legion Hamburger Night tonight - Fairmont Sentinel",
+        "source": "Fairmont Sentinel",
+        "published": "2026-06-17",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
-          "identity_prefilter": 3714
+          "identity_prefilter": 3713,
+          "technology_gate": 1
         }
       },
       {
-        "title": "'No flood situation in Kaziranga; only 4 forest camps inundated': DFO Vignesh - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-07-21",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Over 20 houses washed away as Tipkai river wreaks havoc in Dhubri's Gauripur - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-07-17",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Critical mineral finds beneath 350-year-old Assam temple spark economic hopes - The Assam Tribune",
-        "source": "The Assam Tribune",
-        "published": "2026-05-23",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3714
-        }
-      },
-      {
-        "title": "Harrisburg\u2019s WildHeart Expands Allison Hill Farm and Affordable Homeownership Opportunities - WITF",
-        "source": "WITF",
+        "title": "Overdevelopment concerns over village homes plan - BBC",
+        "source": "BBC",
         "published": "2026-08-17",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
+          "identity_prefilter": 3714
         }
       },
       {
-        "title": "Worth the Drive: Windy Hill Farm and Preserve - Nfocus",
-        "source": "Nfocus",
-        "published": "2026-05-28",
+        "title": "Citizen-led movement reviving Sherburn silver screen - - Fairmont Sentinel",
+        "source": "Fairmont Sentinel",
+        "published": "2026-06-23",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
+          "identity_prefilter": 3713,
+          "technology_gate": 1
         }
       },
       {
-        "title": "Strawberry Jam music festival returns to Stowe for third year - WCAX",
-        "source": "WCAX",
-        "published": "2026-08-09",
+        "title": "Plans drawn up for 330 more homes on edge of North Yorkshire town - The Northern Echo",
+        "source": "The Northern Echo",
+        "published": "2026-06-04",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -721,74 +615,35 @@
         }
       },
       {
-        "title": "Celebration of National Agriculture Day at Flint Hill Farm | PHOTOS - The Morning Call",
-        "source": "The Morning Call",
-        "published": "2026-03-24",
+        "title": "Surge in housing prompts new plan for North Yorkshire town to cope with growth - The York Press",
+        "source": "The York Press",
+        "published": "2026-04-20",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
+          "identity_prefilter": 3713,
+          "technology_gate": 1
         }
       },
       {
-        "title": "Reservations Open April 8 for Exclusive Chef\u2019s Counter at Burnt Hill Farm - The MoCo Show -",
-        "source": "The MoCo Show -",
-        "published": "2026-04-07",
+        "title": "Emergency services tackle large 'deliberate' stubble field fire in North Yorkshire - The York Press",
+        "source": "The York Press",
+        "published": "2026-07-26",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
         "top_score": null,
         "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
+          "identity_prefilter": 3713,
+          "technology_gate": 1
         }
       },
       {
-        "title": "Friends of Holly Hill Farm Invites the Community to a Special Event on Cohasset Common this May - Hingham Anchor",
-        "source": "Hingham Anchor",
-        "published": "2026-03-18",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
-        }
-      },
-      {
-        "title": "Paxson Hill Farm, once a public garden and nursery in Bucks County, hits market for $5 million - PhillyVoice",
-        "source": "PhillyVoice",
-        "published": "2026-08-03",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
-        }
-      },
-      {
-        "title": "Concerns Continue Over Willistown\u2019s Rock Hill Farm After Public Hearing - VISTA.Today",
-        "source": "VISTA.Today",
-        "published": "2026-02-26",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
-        }
-      },
-      {
-        "title": "Why 1,000 CT Christmas trees need a new farmer. Or to join another agricultural use. - Hartford Courant",
-        "source": "Hartford Courant",
-        "published": "2026-08-05",
+        "title": "County Durham dad-to-be went wrong way round roundabout and hit speeds of 106mph - The Northern Echo",
+        "source": "The Northern Echo",
+        "published": "2026-04-26",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -798,22 +653,9 @@
         }
       },
       {
-        "title": "Plans for a glamping site at Rectory Farm refused - The Argus",
-        "source": "The Argus",
-        "published": "2026-02-23",
-        "resolution": "no_canonical_identity",
-        "identity_candidates": 0,
-        "qualified_candidates": 0,
-        "top_score": null,
-        "pair_reasons": {
-          "identity_prefilter": 3712,
-          "technology_gate": 2
-        }
-      },
-      {
-        "title": "Early plans unveiled for around 100 homes on village green belt site - Watford Observer",
-        "source": "Watford Observer",
-        "published": "2026-06-05",
+        "title": "Motorcyclist dies after crash near Leeds - as police issue statement - Yorkshire Evening Post",
+        "source": "Yorkshire Evening Post",
+        "published": "2026-06-08",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -823,9 +665,172 @@
         }
       },
       {
-        "title": "Inquiry launched into bad behaviour in schools after more than 4,700 pupils suspended in a single year - Belfast Telegraph",
-        "source": "Belfast Telegraph",
-        "published": "2026-07-19",
+        "title": "Marion SHERBURN Obituary (2026) - East Hastings, Hawke's Bay - Hawke's Bay Today - Legacy obituary",
+        "source": "Legacy obituary",
+        "published": "2026-07-13",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Deep Pond Farm building giant pavilion with bigger bar, stage and more - Taunton Daily Gazette",
+        "source": "Taunton Daily Gazette",
+        "published": "2026-04-29",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "This New Backyard-Style Outdoor Bar in Taunton Might Be Your Go-To Spot All Summer - FUN 107",
+        "source": "FUN 107",
+        "published": "2026-04-10",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Deep Pond Farm In East Taunton Gets Ready To Reopen With New Pavilion - WBZ NewsRadio 1030",
+        "source": "WBZ NewsRadio 1030",
+        "published": "2026-04-14",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Rumson's Turtle Pond Farm selling for $9.1M, complete with horse barn - Asbury Park Press",
+        "source": "Asbury Park Press",
+        "published": "2026-06-07",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Take a look at Taunton farm's giant new outdoor pavilion with bar - Taunton Daily Gazette",
+        "source": "Taunton Daily Gazette",
+        "published": "2026-05-13",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "This Revamped New Jersey Farmhouse Pairs 19th-Century Charm With Contemporary Design - Robb Report",
+        "source": "Robb Report",
+        "published": "2026-07-28",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Taunton Deep Pond Farm owner charged with A&B on cop after disturbance | Exclusive - Taunton Daily Gazette",
+        "source": "Taunton Daily Gazette",
+        "published": "2026-08-20",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Where Was The Sheep Detectives Filmed \u2014 Every Location in Hugh Jackman's Mystery Comedy - TravelPirates",
+        "source": "TravelPirates",
+        "published": "2026-05-13",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "East Taunton farm owners give dog special sendoff before crossing rainbow bridge - WJAR",
+        "source": "WJAR",
+        "published": "2026-06-25",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Jonathan Guthrie Herr - The Press Democrat",
+        "source": "The Press Democrat",
+        "published": "2026-08-14",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3714
+        }
+      },
+      {
+        "title": "Philadelphia Folk Festival returns to Pool Farm for 63rd year - thereporteronline",
+        "source": "thereporteronline",
+        "published": "2026-08-17",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Beaver Pond Farm offers fresh produce - The Vermont Journal & The Shopper -",
+        "source": "The Vermont Journal & The Shopper -",
+        "published": "2026-05-30",
+        "resolution": "no_canonical_identity",
+        "identity_candidates": 0,
+        "qualified_candidates": 0,
+        "top_score": null,
+        "pair_reasons": {
+          "identity_prefilter": 3713,
+          "technology_gate": 1
+        }
+      },
+      {
+        "title": "Restaurant reports for Ottawa County - Port Clinton News-Herald",
+        "source": "Port Clinton News-Herald",
+        "published": "2026-03-05",
         "resolution": "no_canonical_identity",
         "identity_candidates": 0,
         "qualified_candidates": 0,
@@ -836,31 +841,27 @@
       }
     ],
     "rejected_article_sample_limit": 50,
-    "articles_published_current_crawl": 0,
-    "articles_published_fresh": 0,
-    "previous_articles_considered": 8,
+    "articles_published_current_crawl": 1,
+    "articles_published_fresh": 1,
+    "previous_articles_considered": 4,
     "previous_articles_revalidated": 4,
-    "previous_articles_carried_forward": 4,
-    "previous_articles_dropped": 4,
-    "previous_article_drop_reasons": {
-      "current_gate_no_canonical_identity": 4
-    },
-    "fresh_articles_published": 0,
+    "previous_articles_carried_forward": 3,
+    "previous_articles_dropped": 0,
+    "previous_article_drop_reasons": {},
+    "fresh_articles_published": 1,
     "story_retention": {
       "policy": "revalidate previous PRIMARY_MATCH against current snapshot and matcher",
       "previous_artifact_available": true,
       "previous_artifact_status": "accepted_same_project_snapshot",
-      "previous_items_considered": 8,
+      "previous_items_considered": 4,
       "previous_items_revalidated": 4,
-      "previous_items_carried_before_limit": 4,
-      "previous_items_carried": 4,
-      "previous_items_deduplicated_by_fresh_result": 0,
+      "previous_items_carried_before_limit": 3,
+      "previous_items_carried": 3,
+      "previous_items_deduplicated_by_fresh_result": 1,
       "previous_items_deduplicated_within_previous": 0,
-      "previous_items_dropped": 4,
-      "previous_items_dropped_reasons": {
-        "current_gate_no_canonical_identity": 4
-      },
-      "fresh_items": 0,
+      "previous_items_dropped": 0,
+      "previous_items_dropped_reasons": {},
+      "fresh_items": 1,
       "union_items_before_limit": 4,
       "union_items_published": 4,
       "union_items_dropped_by_headline_limit": 0

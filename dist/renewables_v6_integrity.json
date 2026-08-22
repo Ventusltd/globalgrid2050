@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.renewables-v6-integrity.v6",
   "pass": true,
-  "validated_at": "2026-08-22T20:22:47.227554+00:00",
+  "validated_at": "2026-08-22T20:26:01.740857+00:00",
   "metrics": {
     "source_records": 14657,
     "source_unique_refs": 14657,
@@ -10,12 +10,12 @@
     "bess_projects": 269,
     "record_updates_supplied": 3696,
     "record_updates_missing": 18,
-    "news_candidates": 105,
+    "news_candidates": 154,
     "news_accepted": 4,
-    "news_rejected": 105,
+    "news_rejected": 153,
     "news_ambiguous": 0,
-    "news_retained": 4,
-    "solar_rotation_cursor_next": 96,
+    "news_retained": 3,
+    "solar_rotation_cursor_next": 6,
     "project_news_links": 4
   },
   "checks": [
@@ -467,17 +467,17 @@
     {
       "gate": "news telemetry rss_candidates_returned recorded",
       "pass": true,
-      "detail": "126"
+      "detail": "175"
     },
     {
       "gate": "news telemetry deduplicated_article_candidates recorded",
       "pass": true,
-      "detail": "105"
+      "detail": "154"
     },
     {
       "gate": "news telemetry articles_accepted_before_limit recorded",
       "pass": true,
-      "detail": "0"
+      "detail": "1"
     },
     {
       "gate": "news telemetry articles_published recorded",
@@ -487,7 +487,7 @@
     {
       "gate": "news telemetry articles_rejected recorded",
       "pass": true,
-      "detail": "105"
+      "detail": "153"
     },
     {
       "gate": "news telemetry articles_ambiguous recorded",
@@ -640,22 +640,12 @@
       "detail": ""
     },
     {
-      "gate": "priority source queried: Planning Inspectorate",
+      "gate": "priority source queried: Energy-Storage.News",
       "pass": true,
       "detail": ""
     },
     {
-      "gate": "priority source attempt recorded: Planning Inspectorate",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source queried: PV Magazine",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source attempt recorded: PV Magazine",
+      "gate": "priority source attempt recorded: Energy-Storage.News",
       "pass": true,
       "detail": ""
     },
@@ -670,22 +660,32 @@
       "detail": ""
     },
     {
-      "gate": "priority source queried: Energy-Storage.News",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source attempt recorded: Energy-Storage.News",
-      "pass": true,
-      "detail": ""
-    },
-    {
       "gate": "priority source queried: DESNZ / GOV.UK",
       "pass": true,
       "detail": ""
     },
     {
       "gate": "priority source attempt recorded: DESNZ / GOV.UK",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: PV Magazine",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: PV Magazine",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: Planning Inspectorate",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Planning Inspectorate",
       "pass": true,
       "detail": ""
     },

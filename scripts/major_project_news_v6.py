@@ -18,7 +18,7 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeou
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlparse
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +35,7 @@ EXPECTED_BESS_PROJECTS = 269
 EXPECTED_PROJECTS = EXPECTED_SOLAR_PROJECTS + EXPECTED_BESS_PROJECTS
 LOOKBACK_DAYS = 183
 MAX_HEADLINES = 300
+MAX_REJECTED_ARTICLE_SAMPLES = 50
 MIN_SCORE = 68
 AMBIGUITY_MARGIN = 8
 BATCH_SIZE = 25
@@ -119,6 +120,22 @@ FOREIGN_RULES = {
 
 QUERY_PLAN_META: dict[str, object] = {}
 
+# Press headlines routinely replace the official REPD trailing descriptor
+# (for example "Solar Farm") with an equivalent (for example "solar project").
+# Only the trailing technology boilerplate is removed: the distinctive place
+# name remains mandatory and one-token generic stems are never trusted.
+NAME_DESCRIPTOR_SUFFIXES = (
+    r"solar energy (?:farm|park|project|scheme|development)",
+    r"(?:solar|photovoltaic|pv) (?:farm|park|project|scheme|development|array|panels?)",
+    r"battery (?:energy )?storage(?: (?:system|facility|project|scheme|development))?",
+    r"energy storage(?: (?:system|facility|project|scheme|development))?",
+    r"bess(?: (?:project|facility|scheme|development))?",
+    r"energy (?:farm|park|project|scheme|development)",
+)
+NAME_DESCRIPTOR_SUFFIX_RE = re.compile(
+    r"\s+(?:and\s+)?(?:" + "|".join(NAME_DESCRIPTOR_SUFFIXES) + r")$"
+)
+
 
 def clean(value):
     text = str(value or "").strip()
@@ -131,6 +148,29 @@ def norm(value):
 
 def toks(value):
     return {token for token in norm(value).split() if len(token) >= 3 and token not in STOP}
+
+
+def distinctive_name_stem(value) -> str:
+    """Return a conservative name key with trailing technology wording removed."""
+    original = norm(value)
+    stem = original
+    while stem:
+        shortened = NAME_DESCRIPTOR_SUFFIX_RE.sub("", stem).strip()
+        shortened = re.sub(r"\s+(?:and|with)$", "", shortened).strip()
+        if shortened == stem:
+            break
+        stem = shortened
+    # A stem is a variant only when a suffix was removed. A single generic
+    # place token is never trusted; a unique non-generic one-token stem may be
+    # retained but the identity gate requires separate public corroboration.
+    stem_tokens = toks(stem)
+    if (
+        stem == original
+        or not stem_tokens
+        or (len(stem_tokens) == 1 and next(iter(stem_tokens)) in GENERIC_SINGLE)
+    ):
+        return ""
+    return stem
 
 
 def file_sha256(path: Path) -> str:
@@ -226,16 +266,21 @@ def load_project_snapshot() -> tuple[dict, list[dict]]:
             "planning_authority": authority, "planning_application_reference": planning_ref,
             "related_repd_refs": [clean(ref) for ref in (source.get("related_repd_refs") or []) if clean(ref)],
             "_name_norm": norm(name), "_name_tokens": toks(name),
+            "_name_stem_norm": distinctive_name_stem(name),
             "_planning_ref_norm": norm(planning_ref),
         }
         project["_identity_context"] = norm(" ".join((name, county, region, country, authority, planning_ref)))
         projects.append(project)
 
     name_counts = Counter(project["_name_norm"] for project in projects if project["_name_norm"])
+    stem_counts = Counter(project["_name_stem_norm"] for project in projects if project["_name_stem_norm"])
     for project in projects:
+        project["_name_stem_tokens"] = toks(project["_name_stem_norm"])
         duplicate_count = name_counts[project["_name_norm"]]
         project["_name_duplicate_count"] = duplicate_count
         project["_name_duplicate"] = duplicate_count > 1
+        project["_name_stem_duplicate_count"] = stem_counts.get(project["_name_stem_norm"], 0)
+        project["_name_stem_duplicate"] = project["_name_stem_duplicate_count"] > 1
         # Names made entirely from technology boilerplate (for example
         # "Solar Farm" or "Battery Storage") have no distinctive tokens and
         # must never pass identity on their text alone. The same applies to a
@@ -296,13 +341,39 @@ def event(text: str) -> str:
     return "PROJECT UPDATE"
 
 
+def source_quality(source: str, url: str) -> tuple[int, str, bool, bool]:
+    """Score provenance by traceability, without making five publishers a gate."""
+    source_text = norm(source)
+    try:
+        hostname = (urlparse(clean(url)).hostname or "").lower()
+    except Exception:
+        hostname = ""
+    official_host = any(
+        hostname == domain or hostname.endswith("." + domain)
+        for domain in ("gov.uk", "planninginspectorate.gov.uk")
+    )
+    official = official_host
+    configured_priority = official or any(
+        domain == hostname or hostname.endswith("." + domain)
+        for domain in PRIORITY_SOURCES.values()
+    )
+    if official:
+        return 20, "official_government_or_planning", True, True
+    if configured_priority:
+        return 15, "configured_priority_publication", False, True
+    # A named publisher with its own resolvable source URL receives a modest
+    # provenance score. This admits reputable trade/local/developer sources
+    # without turning the confidence rule into a fixed publisher whitelist;
+    # identity must still pass independently before these points can matter.
+    if source_text and hostname and "news.google." not in hostname:
+        return 10, "traceable_named_public_source", False, False
+    if source_text or hostname:
+        return 7, "partially_traceable_public_source", False, False
+    return 5, "unattributed_public_source", False, False
+
+
 def source_bonus(source: str, url: str) -> int:
-    text = norm(source) + " " + norm(url)
-    if any(value in text for value in ("gov uk", "planning inspectorate", "planninginspectorate")):
-        return 20
-    if any(value in text for value in ("solar power portal", "energy storage news", "pv magazine", "bbc")):
-        return 15
-    return 5
+    return source_quality(source, url)[0]
 
 
 def extract_news_capacities(text: str) -> list[float]:
@@ -354,12 +425,16 @@ def _story_context(story: dict) -> dict:
     raw_text = " ".join((story.get("title", ""), story.get("description", ""), story.get("source", ""), story.get("source_url", "")))
     text = norm(raw_text)
     tokens = set(text.split())
-    source_text = norm(" ".join((story.get("source", ""), story.get("source_url", ""))))
+    source_score, source_tier, official_source, priority_source = source_quality(
+        story.get("source", ""), story.get("source_url", "")
+    )
     return {
         "text": text, "title_text": norm(story.get("title")), "tokens": tokens,
-        "official_source": any(value in source_text for value in ("gov uk", "planning inspectorate", "planninginspectorate")),
+        "official_source": official_source, "priority_source": priority_source,
+        "source_quality_score": source_score, "source_quality_tier": source_tier,
         "solar_context": bool({"solar", "photovoltaic", "photovoltaics", "pv"} & tokens),
         "bess_context": bool({"battery", "bess", "storage"} & tokens),
+        "wind_context": bool({"wind", "turbine", "turbines", "offshore"} & tokens),
         # Extract from the raw text: normalisation turns 46.5 MW into "46 5 mw"
         # and would otherwise manufacture a false 5 MW article capacity.
         "news_capacities_mw": extract_news_capacities(raw_text),
@@ -370,8 +445,10 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     context = context or _story_context(story)
     text, title_text, text_tokens = context["text"], context["title_text"], context["tokens"]
     name_tokens = project["_name_tokens"]
-    name_exact = bool(project["_name_norm"] and project["_name_norm"] in text)
-    title_name_exact = bool(project["_name_norm"] and project["_name_norm"] in title_text)
+    name_exact = _contains_normalized_phrase(text, project["_name_norm"])
+    title_name_exact = _contains_normalized_phrase(title_text, project["_name_norm"])
+    name_variant_exact = _contains_normalized_phrase(text, project["_name_stem_norm"])
+    title_name_variant_exact = _contains_normalized_phrase(title_text, project["_name_stem_norm"])
     overlap = len(name_tokens & text_tokens)
     overlap_required = max(2, min(3, len(name_tokens))) if name_tokens else 99
     name_overlap = overlap >= overlap_required
@@ -382,6 +459,14 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     authority_hit = _phrase_hit(project["planning_authority"], text, text_tokens)
     location_hit = county_hit or region_hit or authority_hit
     technology_hit = context["solar_context"] if project["technology"] == "solar" else context["bess_context"]
+    conflicting_technology = bool(
+        not technology_hit
+        and (
+            context["wind_context"]
+            or (project["technology"] == "solar" and context["bess_context"])
+            or (project["technology"] == "bess" and context["solar_context"])
+        )
+    )
     capacity_hit = any(
         abs(value - project["capacity_mw"]) <= max(2.0, project["capacity_mw"] * 0.15)
         for value in context["news_capacities_mw"]
@@ -389,16 +474,58 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     detected_foreign, unexplained_foreign = _foreign_locations(text, project)
     if unexplained_foreign:
         return None, "foreign_location_veto"
-    if not technology_hit and not (planning_ref_hit and context["official_source"]):
+    if conflicting_technology:
+        return None, "technology_conflict_gate"
+    full_exact_identity = title_name_exact or name_exact
+    variant_exact_identity = title_name_variant_exact or name_variant_exact
+    distinctive_exact_identity = (
+        not project["_generic_name"]
+        and (full_exact_identity or variant_exact_identity)
+    )
+    specific_event = event(text) != "PROJECT UPDATE"
+    technology_inferred = bool(
+        not technology_hit
+        and (
+            (planning_ref_hit and context["official_source"])
+            or (
+                distinctive_exact_identity
+                and context["priority_source"]
+                and (
+                    title_name_exact
+                    or name_exact
+                    or specific_event
+                )
+            )
+        )
+    )
+    if not technology_hit and not technology_inferred:
         return None, "technology_gate"
 
     corroborating_identity = operator_hit or location_hit
+    exact_identity = full_exact_identity or variant_exact_identity
     if planning_ref_hit:
         identity_gate = True
-    elif project["_name_duplicate"] or project["_generic_name"]:
+    elif project["_generic_name"]:
+        # A publisher's reputation cannot disambiguate "The Grange" or
+        # another generic site name; project-specific corroboration remains
+        # mandatory.
         identity_gate = (name_exact or title_name_exact) and corroborating_identity
+    elif project["_name_duplicate"] or (variant_exact_identity and project["_name_stem_duplicate"]):
+        # An official source may establish the development identity for exact
+        # duplicate component records. Component ambiguity is still resolved
+        # globally below; this never silently assigns the story to both.
+        identity_gate = exact_identity and (corroborating_identity or context["official_source"])
+    elif full_exact_identity:
+        identity_gate = True
+    elif variant_exact_identity:
+        stem_is_single_token = len(project["_name_stem_tokens"]) == 1
+        identity_gate = (
+            corroborating_identity
+            if stem_is_single_token
+            else (corroborating_identity or context["priority_source"] or specific_event)
+        )
     else:
-        identity_gate = name_exact or (name_overlap and corroborating_identity)
+        identity_gate = name_overlap and corroborating_identity
     if not identity_gate:
         return None, "identity_gate"
 
@@ -406,31 +533,37 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     if planning_ref_hit: anchors.append("planning_reference")
     if title_name_exact: anchors.append("exact_project_name_in_headline")
     elif name_exact: anchors.append("exact_project_name")
+    elif title_name_variant_exact or name_variant_exact: anchors.append("distinctive_name_variant")
     elif name_overlap: anchors.append("distinctive_project_name_tokens")
     if operator_hit: anchors.append("operator_applicant")
     if county_hit: anchors.append("county")
     if region_hit: anchors.append("region")
     if authority_hit: anchors.append("planning_authority")
     if technology_hit: anchors.append("technology_context")
+    if technology_inferred: anchors.append("technology_context_inferred_from_source_and_identity")
     if context["official_source"]: anchors.append("official_source")
     if capacity_hit: anchors.append("capacity_corroboration_only")
 
     components = {
         "planning_reference": 52 if planning_ref_hit else 0,
-        "project_name": 42 if title_name_exact else 34 if name_exact else min(18, overlap * 6),
+        "project_name": (
+            42 if title_name_exact else 38 if title_name_variant_exact
+            else 34 if name_exact else 32 if name_variant_exact
+            else min(18, overlap * 6)
+        ),
         "operator": 13 if operator_hit else 0,
         "location_or_authority": 12 if location_hit else 0,
-        "technology": 10 if technology_hit else 0,
+        "technology": 10 if technology_hit else 6 if technology_inferred else 0,
         "official_source": 8 if context["official_source"] else 0,
         "capacity_corroboration": 5 if capacity_hit else 0,
-        "event_specificity": 5 if event(text) != "PROJECT UPDATE" else 0,
+        "event_specificity": 5 if specific_event else 0,
     }
     try:
         age_days = max(0, (datetime.now(timezone.utc) - story["published"]).days)
     except Exception:
         age_days = LOOKBACK_DAYS
     components["recency"] = 10 if age_days <= 14 else 8 if age_days <= 30 else 5 if age_days <= 90 else 2
-    components["source_quality"] = source_bonus(story.get("source", ""), story.get("source_url", ""))
+    components["source_quality"] = context["source_quality_score"]
     candidate_score = min(100, sum(components.values()))
     evidence = {
         "identity_gate_passed": True, "technology_gate_passed": True,
@@ -439,16 +572,28 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
         "capacity_only": False,
         "planning_reference_hit": planning_ref_hit, "exact_project_name_hit": name_exact,
         "exact_project_name_in_headline": title_name_exact,
+        "distinctive_name_variant_hit": name_variant_exact,
+        "distinctive_name_variant_in_headline": title_name_variant_exact,
+        "distinctive_name_stem": project["_name_stem_norm"] or None,
         "distinctive_name_token_overlap": overlap, "operator_hit": operator_hit,
         "county_hit": county_hit, "region_hit": region_hit,
         "planning_authority_hit": authority_hit, "technology_context_hit": technology_hit,
+        "technology_context_inferred": technology_inferred,
         "official_source": context["official_source"], "capacity_match": capacity_hit,
+        "priority_source": context["priority_source"],
+        "source_quality_tier": context["source_quality_tier"],
         "capacity_is_corroboration_only": True,
         "duplicate_project_name": project["_name_duplicate"],
         "duplicate_project_name_count": project["_name_duplicate_count"],
         "foreign_locations_detected": detected_foreign, "score_components": components,
     }
-    rank = 5 if planning_ref_hit else 4 if title_name_exact and corroborating_identity else 3 if title_name_exact else 2 if name_exact else 1
+    rank = (
+        5 if planning_ref_hit
+        else 4 if (title_name_exact or title_name_variant_exact) and corroborating_identity
+        else 3 if title_name_exact or title_name_variant_exact
+        else 2 if name_exact or name_variant_exact
+        else 1
+    )
     return {"project": project, "score": candidate_score, "evidence": evidence, "anchor_rank": rank}, "accepted_candidate"
 
 
@@ -498,16 +643,45 @@ def _query_bucket(query: str) -> str:
     return match.group(1).lower() if match else "broad_or_targeted"
 
 
+def _candidate_project_pool(context: dict, projects: list[dict]) -> list[dict]:
+    """Cheaply retain every project that could pass the identity gate.
+
+    The full matcher remains authoritative. This prefilter only removes records
+    that have no planning-reference, exact-name, name-variant or sufficient
+    name-token overlap in the story, and therefore cannot pass identity.
+    """
+    text, text_tokens = context["text"], context["tokens"]
+    selected = []
+    for project in projects:
+        name_tokens = project["_name_tokens"]
+        overlap_required = max(2, min(3, len(name_tokens))) if name_tokens else 99
+        if (
+            (project["_planning_ref_norm"] and project["_planning_ref_norm"] in text)
+            or _contains_normalized_phrase(text, project["_name_norm"])
+            or _contains_normalized_phrase(text, project["_name_stem_norm"])
+            or len(name_tokens & text_tokens) >= overlap_required
+        ):
+            selected.append(project)
+    return selected
+
+
 def _resolve_story(story: dict, projects: list[dict]) -> tuple[dict | None, str, dict]:
     context, candidates, pair_reasons = _story_context(story), [], Counter()
-    for project in projects:
+    candidate_pool = _candidate_project_pool(context, projects)
+    if len(candidate_pool) < len(projects):
+        pair_reasons["identity_prefilter"] = len(projects) - len(candidate_pool)
+    for project in candidate_pool:
         candidate, reason = evaluate_candidate(project, story, context)
         pair_reasons[reason] += 1
         if candidate is not None: candidates.append(candidate)
     qualified = [candidate for candidate in candidates if candidate["score"] >= MIN_SCORE]
     if not qualified:
         reason = "below_confidence_threshold" if candidates else "no_canonical_identity"
-        return None, reason, {"identity_candidates": len(candidates), "pair_reasons": dict(pair_reasons)}
+        return None, reason, {
+            "identity_candidates": len(candidates), "qualified_candidates": 0,
+            "top_score": max((candidate["score"] for candidate in candidates), default=None),
+            "pair_reasons": dict(pair_reasons),
+        }
 
     qualified.sort(key=lambda candidate: (-candidate["score"], -candidate["anchor_rank"], candidate["project"]["repd_ref"]))
     winner, runner_up = qualified[0], qualified[1] if len(qualified) > 1 else None
@@ -520,6 +694,7 @@ def _resolve_story(story: dict, projects: list[dict]) -> tuple[dict | None, str,
                 "top_score": winner["score"], "runner_up_score": runner_up["score"],
                 "score_margin": margin, "top_repd_ref": winner["project"]["repd_ref"],
                 "runner_up_repd_ref": runner_up["project"]["repd_ref"],
+                "pair_reasons": dict(pair_reasons),
             }
     else:
         margin = None
@@ -547,7 +722,10 @@ def _resolve_story(story: dict, projects: list[dict]) -> tuple[dict | None, str,
         "match_evidence": evidence,
         "news_binding_rule": "one globally best PRIMARY_MATCH; capacity is corroboration only",
     }
-    return item, "accepted", {"identity_candidates": len(candidates), "qualified_candidates": len(qualified)}
+    return item, "accepted", {
+        "identity_candidates": len(candidates), "qualified_candidates": len(qualified),
+        "top_score": winner["score"], "pair_reasons": dict(pair_reasons),
+    }
 
 
 def _build_links(items: list[dict], projects: list[dict]) -> list[dict]:
@@ -584,6 +762,17 @@ def collect(projects: list[dict]) -> tuple[list[dict], list[dict], dict]:
               ("targeted_backstop", planned_queries[source_first_count:])]
     raw, seen, query_errors = [], set(), []
     query_stats: dict[str, dict[str, int]] = defaultdict(lambda: {"configured": 0, "completed": 0, "failed": 0, "candidates": 0})
+    execution_stats: dict[str, dict[str, int]] = defaultdict(
+        lambda: {"configured": 0, "completed": 0, "failed": 0, "candidates": 0}
+    )
+    query_execution_groups: dict[str, tuple[str, ...]] = {}
+    for index, query in enumerate(planned_queries):
+        groups = ["source_first" if index < source_first_count else "targeted_backstop"]
+        if index >= source_first_count and query.startswith("(") and query.endswith(") solar UK"):
+            groups.append("solar_targeted_backstop")
+        query_execution_groups[query] = tuple(groups)
+        for group in groups:
+            execution_stats[group]["configured"] += 1
     for query in planned_queries: query_stats[_query_bucket(query)]["configured"] += 1
     completed_queries = failed_queries = raw_candidate_count = 0
     for phase_name, phase_queries in phases:
@@ -596,9 +785,14 @@ def collect(projects: list[dict]) -> tuple[list[dict], list[dict], dict]:
                 try:
                     rows = future.result(); completed_queries += 1
                     query_stats[bucket]["completed"] += 1; query_stats[bucket]["candidates"] += len(rows)
+                    for group in query_execution_groups[query]:
+                        execution_stats[group]["completed"] += 1
+                        execution_stats[group]["candidates"] += len(rows)
                     raw_candidate_count += len(rows)
                 except Exception as exc:
                     failed_queries += 1; query_stats[bucket]["failed"] += 1
+                    for group in query_execution_groups[query]:
+                        execution_stats[group]["failed"] += 1
                     if len(query_errors) < 25:
                         query_errors.append({"phase": phase_name, "query": query[:300], "error": type(exc).__name__})
                     continue
@@ -609,21 +803,41 @@ def collect(projects: list[dict]) -> tuple[list[dict], list[dict], dict]:
             for future, query in futures.items():
                 if not future.done():
                     future.cancel(); failed_queries += 1; query_stats[_query_bucket(query)]["failed"] += 1
+                    for group in query_execution_groups[query]:
+                        execution_stats[group]["failed"] += 1
             if len(query_errors) < 25:
                 query_errors.append({"phase": phase_name, "query": "<remaining queries>", "error": "network_budget_exhausted"})
         finally:
             executor.shutdown(wait=True, cancel_futures=True)
         if time.monotonic() >= deadline: break
 
-    accepted, rejection_reasons = [], Counter()
+    accepted, rejection_reasons, pair_rejection_reasons = [], Counter(), Counter()
+    rejected_article_samples = []
     identity_candidate_pairs = qualified_candidate_pairs = ambiguous_count = 0
     for story in raw:
         item, resolution, detail = _resolve_story(story, projects)
         identity_candidate_pairs += int(detail.get("identity_candidates") or 0)
         qualified_candidate_pairs += int(detail.get("qualified_candidates") or 0)
+        pair_rejection_reasons.update({
+            reason: int(count)
+            for reason, count in (detail.get("pair_reasons") or {}).items()
+            if reason != "accepted_candidate"
+        })
         if item is None:
             rejection_reasons[resolution] += 1
             ambiguous_count += resolution == "ambiguous_primary_match"
+            if len(rejected_article_samples) < MAX_REJECTED_ARTICLE_SAMPLES:
+                published = story.get("published")
+                rejected_article_samples.append({
+                    "title": clean(story.get("title")),
+                    "source": clean(story.get("source")) or "Google News",
+                    "published": published.date().isoformat() if isinstance(published, datetime) else clean(published),
+                    "resolution": resolution,
+                    "identity_candidates": int(detail.get("identity_candidates") or 0),
+                    "qualified_candidates": int(detail.get("qualified_candidates") or 0),
+                    "top_score": detail.get("top_score"),
+                    "pair_reasons": dict(sorted((detail.get("pair_reasons") or {}).items())),
+                })
         else: accepted.append(item)
     accepted.sort(key=lambda item: (item["published"], item["confidence"], item["headline"]), reverse=True)
     accepted_before_limit, accepted = len(accepted), accepted[:MAX_HEADLINES]
@@ -639,12 +853,16 @@ def collect(projects: list[dict]) -> tuple[list[dict], list[dict], dict]:
         "source_first": True, "queries_configured": len(planned_queries),
         "queries_completed": completed_queries, "queries_failed_or_cancelled": failed_queries,
         "queried_sources": source_telemetry, "query_plan": dict(QUERY_PLAN_META), "query_errors": query_errors,
+        "query_execution": {key: dict(value) for key, value in sorted(execution_stats.items())},
         "rss_candidates_returned": raw_candidate_count, "deduplicated_article_candidates": len(raw),
         "identity_candidate_pairs": identity_candidate_pairs, "confidence_qualified_pairs": qualified_candidate_pairs,
         "articles_accepted_before_limit": accepted_before_limit, "articles_published": len(accepted),
         "articles_rejected": len(raw) - accepted_before_limit, "articles_ambiguous": ambiguous_count,
         "articles_dropped_by_headline_limit": max(0, accepted_before_limit - len(accepted)),
         "rejection_reasons": dict(sorted(rejection_reasons.items())), "zero_accepted_is_valid": True,
+        "pair_rejection_reasons": dict(sorted(pair_rejection_reasons.items())),
+        "rejected_article_samples": rejected_article_samples,
+        "rejected_article_sample_limit": MAX_REJECTED_ARTICLE_SAMPLES,
     }
     print("queries", len(planned_queries), "completed", completed_queries, "candidates", len(raw),
           "accepted", len(accepted), "rejected", telemetry["articles_rejected"], "ambiguous", ambiguous_count)

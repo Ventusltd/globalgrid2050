@@ -164,7 +164,7 @@ function validateNewsSnapshot(payload){
   assert(payload.eligible_projects===EXPECTED.projects&&payload.eligible_solar===EXPECTED.solar&&payload.eligible_bess===EXPECTED.bess,'News eligible-universe counts mismatch');
   assert(payload.news_horizon_days===183&&Array.isArray(payload.items)&&payload.headline_count===payload.items.length,'News crawl/count metadata mismatch');
   const editionDate=new Date(payload.updated);assert(!Number.isNaN(editionDate.getTime()),'News edition timestamp is invalid');
-  const earliest=new Date(editionDate.getTime()-183*86400000),latest=new Date(editionDate.getTime()+86400000),byRef=new Map(projects.map(p=>[p.ref,p])),articleIds=new Set();
+  const editionDay=new Date(clean(payload.updated).slice(0,10)+'T00:00:00Z'),earliest=new Date(editionDay.getTime()-183*86400000),latest=new Date(editionDay.getTime()+86400000),byRef=new Map(projects.map(p=>[p.ref,p])),articleIds=new Set();
   return payload.items.map((item,index)=>{
     const ref=clean(item.repd_ref),project=byRef.get(ref),published=new Date(clean(item.published)+'T00:00:00Z');
     assert(project,`News item ${index+1} is outside the canonical V6 universe`);

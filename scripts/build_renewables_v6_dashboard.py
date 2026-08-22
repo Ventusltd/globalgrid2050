@@ -43,6 +43,7 @@ def validate():
         "official status": "REPD STATUS",
         "separate news signal": "NEWS SIGNAL",
         "missing official date": "not supplied by REPD",
+        "calendar-date news horizon": "const editionDay=new Date",
         "mobile CSS": "@media(max-width:768px)",
     }
     missing = [f"{label}: {token}" for label, token in required.items() if token not in html]
@@ -65,6 +66,8 @@ def validate():
         missing.append("shared V1–V5 REPD master remains in V6")
     if "../dist/major_project_news_v5.json" in html:
         missing.append("unsafe V5 news fallback remains")
+    if "editionDate.getTime()-183*86400000" in html:
+        missing.append("timestamp-based news horizon can reject a valid boundary-day article")
     if "</html>" not in lower:
         missing.append("closing HTML missing")
     if missing:

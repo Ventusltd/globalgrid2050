@@ -261,6 +261,137 @@ def main():
     check(news.get("rejected_candidates") == telemetry.get("articles_rejected"), "rejected count exposed")
     check(news.get("ambiguous_candidates") == telemetry.get("articles_ambiguous"), "ambiguous count exposed")
     check(telemetry.get("zero_accepted_is_valid") is True, "quiet-period policy explicit")
+
+    # Discovery coverage must advance from persisted state, not wall-clock
+    # timing.  The explicit indexes make every rotation independently auditable.
+    query_plan = telemetry.get("query_plan") or {}
+    selected = query_plan.get("solar_targeted_batches_selected")
+    total_batches = query_plan.get("solar_targeted_batches_total")
+    cursor_start = query_plan.get("solar_rotation_cursor_start")
+    cursor_next = query_plan.get("solar_rotation_cursor_next")
+    cursor_source = query_plan.get("solar_rotation_cursor_source")
+    full_sweep_runs = query_plan.get("solar_rotation_full_sweep_runs")
+    batch_indexes = query_plan.get("solar_targeted_batch_indexes")
+    cursor_planned_next = query_plan.get("solar_rotation_cursor_planned_next")
+    cursor_advanced = query_plan.get("solar_rotation_advance_applied")
+    cursor_advance_reason = query_plan.get("solar_rotation_advance_reason")
+    cursor_values_valid = all(
+        isinstance(value, int) and not isinstance(value, bool)
+        for value in (selected, total_batches, cursor_start, cursor_next, full_sweep_runs)
+    )
+    check(cursor_values_valid, "persisted solar rotation metadata typed")
+    if cursor_values_valid and total_batches > 0 and selected > 0:
+        expected_indexes = [(cursor_start + offset) % total_batches for offset in range(selected)]
+        check(0 < selected <= total_batches, "solar rotation selects a bounded non-empty window")
+        check(batch_indexes == expected_indexes, "solar rotation indexes are consecutive and auditable")
+        expected_next = (cursor_start + selected) % total_batches
+        check(cursor_planned_next == expected_next, "solar rotation planned cursor is deterministic")
+        solar_execution = (telemetry.get("query_execution") or {}).get("solar_targeted_backstop") or {}
+        all_queries_completed = (
+            solar_execution.get("configured") == selected
+            and solar_execution.get("completed") == selected
+            and solar_execution.get("failed") == 0
+        )
+        check(cursor_advanced is all_queries_completed, "solar rotation advances only after a complete crawl")
+        check(
+            cursor_next == (expected_next if all_queries_completed else cursor_start),
+            "solar rotation persists the next complete or retry window",
+        )
+        check(
+            cursor_advance_reason
+            == (
+                "all_selected_solar_queries_completed"
+                if all_queries_completed
+                else "incomplete_solar_query_execution_retry_window"
+            ),
+            "solar rotation advance reason explicit",
+        )
+        check(full_sweep_runs == math.ceil(total_batches / selected), "solar rotation full-sweep bound exact")
+    else:
+        check(False, "solar rotation has a non-empty Q2 solar universe")
+    check(cursor_source in {"initial_zero", "previous_v6_news_telemetry"}, "solar rotation cursor source explicit", clean(cursor_source))
+
+    # Fresh-crawl decisions and retained-story decisions are separate.  These
+    # equations prevent a rotating batch from silently replacing the newspaper.
+    fresh_candidates = telemetry.get("deduplicated_article_candidates")
+    fresh_accepted = telemetry.get("articles_accepted_before_limit")
+    fresh_rejected = telemetry.get("articles_rejected")
+    if all(isinstance(value, int) and value >= 0 for value in (fresh_candidates, fresh_accepted, fresh_rejected)):
+        check(fresh_candidates == fresh_accepted + fresh_rejected, "fresh candidate accounting exact")
+    previous_considered = telemetry.get("previous_articles_considered")
+    previous_revalidated = telemetry.get("previous_articles_revalidated")
+    previous_carried = telemetry.get("previous_articles_carried_forward")
+    previous_dropped = telemetry.get("previous_articles_dropped")
+    fresh_published = telemetry.get("fresh_articles_published")
+    retention_counts = (previous_considered, previous_revalidated, previous_carried, previous_dropped, fresh_published)
+    check(all(isinstance(value, int) and value >= 0 for value in retention_counts), "retained-story telemetry typed")
+    if all(isinstance(value, int) and value >= 0 for value in retention_counts):
+        check(previous_considered == previous_revalidated + previous_dropped, "previous-story revalidation accounting exact")
+        check(previous_carried <= previous_revalidated, "only revalidated stories are carried forward")
+        check(telemetry.get("articles_published") == fresh_published + previous_carried, "final newspaper union accounting exact")
+    drop_reasons = telemetry.get("previous_article_drop_reasons")
+    check(isinstance(drop_reasons, dict), "previous-story drop reasons recorded")
+    if isinstance(drop_reasons, dict) and isinstance(previous_dropped, int):
+        check(
+            all(isinstance(value, int) and value >= 0 for value in drop_reasons.values())
+            and sum(drop_reasons.values()) == previous_dropped,
+            "previous-story drop reason totals exact",
+        )
+    retention_detail = telemetry.get("story_retention") or {}
+    check(
+        retention_detail.get("previous_artifact_status")
+        in {"accepted_same_project_snapshot", "not_available_or_invalid", "project_snapshot_mismatch"},
+        "previous news artifact is project-snapshot bound",
+    )
+
+    # Rejections remain inspectable without retaining article bodies or URLs.
+    rejection_reasons = telemetry.get("rejection_reasons")
+    pair_reasons = telemetry.get("pair_rejection_reasons")
+    rejected_samples = telemetry.get("rejected_article_samples")
+    sample_limit = telemetry.get("rejected_article_sample_limit")
+    check(isinstance(rejection_reasons, dict), "article rejection reasons recorded")
+    if isinstance(rejection_reasons, dict) and isinstance(fresh_rejected, int):
+        check(
+            all(isinstance(value, int) and value >= 0 for value in rejection_reasons.values())
+            and sum(rejection_reasons.values()) == fresh_rejected,
+            "article rejection reason totals exact",
+        )
+    check(isinstance(pair_reasons, dict), "project-pair rejection reasons recorded")
+    if isinstance(pair_reasons, dict) and isinstance(fresh_candidates, int):
+        identity_pairs = telemetry.get("identity_candidate_pairs")
+        check(
+            isinstance(identity_pairs, int)
+            and all(isinstance(value, int) and value >= 0 for value in pair_reasons.values())
+            and sum(pair_reasons.values()) + identity_pairs == fresh_candidates * EXPECTED_PROJECTS,
+            "all fresh project/article pair outcomes accounted",
+        )
+    check(sample_limit == 50 and isinstance(rejected_samples, list), "bounded rejected-article audit samples configured")
+    sample_errors = []
+    allowed_sample_keys = {
+        "title", "source", "published", "resolution", "identity_candidates",
+        "qualified_candidates", "top_score", "pair_reasons",
+    }
+    if isinstance(rejected_samples, list):
+        expected_sample_count = (
+            min(sample_limit, fresh_rejected)
+            if isinstance(sample_limit, int) and isinstance(fresh_rejected, int) and fresh_rejected >= 0
+            else -1
+        )
+        if len(rejected_samples) != expected_sample_count:
+            sample_errors.append("sample count does not equal bounded rejected count")
+        for sample_index, sample in enumerate(rejected_samples):
+            if not isinstance(sample, dict) or set(sample) != allowed_sample_keys:
+                sample_errors.append(f"sample {sample_index} has unsafe/unexpected keys")
+                continue
+            if sample.get("resolution") not in (rejection_reasons or {}):
+                sample_errors.append(f"sample {sample_index} resolution is not aggregated")
+            sample_pair_reasons = sample.get("pair_reasons")
+            valid_pair_counts = isinstance(sample_pair_reasons, dict) and all(
+                isinstance(value, int) and value >= 0 for value in sample_pair_reasons.values()
+            )
+            if not valid_pair_counts or sum(sample_pair_reasons.values()) != EXPECTED_PROJECTS:
+                sample_errors.append(f"sample {sample_index} pair outcomes are incomplete")
+    check(not sample_errors, "rejected-article samples are bounded, public and complete", "; ".join(sample_errors[:10]))
     source_telemetry = {clean(row.get("name")): row for row in telemetry.get("queried_sources") or []}
     for source_name in PRIORITY_SOURCES:
         row = source_telemetry.get(source_name) or {}
@@ -315,8 +446,14 @@ def main():
         if evidence.get("capacity_only") is not False or evidence.get("capacity_is_corroboration_only") is not True:
             article_errors.append(f"article {index} treats capacity as identity")
         anchors = set(evidence.get("anchors") or [])
-        if not anchors & {"planning_reference", "exact_project_name_in_headline", "exact_project_name", "distinctive_project_name_tokens"}:
+        if not anchors & {"planning_reference", "exact_project_name_in_headline", "exact_project_name", "distinctive_name_variant", "distinctive_project_name_tokens"}:
             article_errors.append(f"article {index} lacks a public identity anchor")
+        literal_technology = evidence.get("technology_context_hit") is True
+        inferred_technology = evidence.get("technology_context_inferred") is True
+        if not (literal_technology or inferred_technology):
+            article_errors.append(f"article {index} has no literal or safely inferred technology context")
+        if inferred_technology and "technology_context_inferred_from_source_and_identity" not in anchors:
+            article_errors.append(f"article {index} omits its inferred-technology audit anchor")
         story_context = norm(" ".join((clean(item.get("headline")), clean(item.get("source")), clean(item.get("source_url")))))
         project_context = norm(" ".join(clean(project.get(key)) for key in ("name", "country", "county", "region", "planning_authority", "planning_application_reference")))
         leaked = [phrase for phrase in FOREIGN_PHRASES if phrase in story_context and phrase not in project_context]
@@ -327,11 +464,70 @@ def main():
             article_errors.append(f"article {index} known false-positive class: {bad}")
     check(not article_errors, "all accepted news passes identity/technology/foreign/quality gates", "; ".join(article_errors[:10]))
 
+    # Offline matcher fixtures guard the coverage repair while retaining the
+    # V6 false-positive controls.  They use only the committed public snapshot.
+    fixture_errors = []
+    try:
+        import major_project_news_v6 as matcher
+
+        _fixture_snapshot, fixture_projects = matcher.load_project_snapshot()
+        fixture_now = datetime.now(timezone.utc)
+
+        def fixture_story(title, source, source_url):
+            return {
+                "title": title, "description": "", "source": source,
+                "source_url": source_url, "link": "https://example.test/v6-fixture",
+                "published": fixture_now,
+            }
+
+        positives = (
+            ("DESNZ grants DCO for 150MW Dean Moor solar project in Cumbria", "GOV.UK", "https://www.gov.uk", "14550"),
+            ("One Earth development consent decision announced", "GOV.UK", "https://www.gov.uk", "14806"),
+            ("Longhedge solar project begins construction in Nottinghamshire", "reNEWS", "https://renews.biz", "11063"),
+        )
+        for title, source_name, source_url, expected_ref in positives:
+            matched, resolution, _detail = matcher._resolve_story(
+                fixture_story(title, source_name, source_url), fixture_projects
+            )
+            if matched is None or matched.get("repd_ref") != expected_ref:
+                fixture_errors.append(f"true-positive fixture {expected_ref} resolved as {resolution}/{matched and matched.get('repd_ref')}")
+
+        negatives = (
+            ("New Jersey Board of Public Utilities releases 150MW BTM energy storage proposal", "Energy-Storage.News", "https://energy-storage.news"),
+            ("Capital Dynamics acquires 170MW/680MWh BESS in County Kerry, Ireland", "Solar Power Portal", "https://solarpowerportal.co.uk"),
+            ("The Grange celebrates Forest Healthcare's National Care Award", "BBC", "https://bbc.co.uk"),
+            ("150MW battery storage project secures financing", "Energy-Storage.News", "https://energy-storage.news"),
+            ("One Earth solar project announces an update", "Example News", "https://example.com"),
+            ("Approval for East Yorkshire offshore wind farm substation", "BBC", "https://www.bbc.co.uk"),
+        )
+        for title, source_name, source_url in negatives:
+            matched, resolution, _detail = matcher._resolve_story(
+                fixture_story(title, source_name, source_url), fixture_projects
+            )
+            if matched is not None:
+                fixture_errors.append(f"known false-positive fixture matched REPD {matched.get('repd_ref')}: {title}")
+    except Exception as exc:
+        fixture_errors.append(f"fixture replay raised {type(exc).__name__}: {exc}")
+    check(not fixture_errors, "offline news matcher true/false-positive fixtures", "; ".join(fixture_errors))
+
     links = load(DIST / "project_news_links_v6.json")
     link_rows = links.get("links") or []
     check(links.get("schema") == "globalgrid2050.project-news-links.v6", "project-news relationship schema")
     check(links.get("article_count") == len(items), "relationship article count permits zero")
     check(links.get("link_count") == len(link_rows), "relationship link count exact")
+    check(links.get("primary_link_count") == len(items), "relationship metadata has exactly one primary per article")
+    check(
+        links.get("related_development_link_count")
+        == sum(link.get("role") == "RELATED_DEVELOPMENT" for link in link_rows),
+        "relationship related-link metadata exact",
+    )
+    link_rules = links.get("rules") or {}
+    check(
+        link_rules.get("one_primary_match_per_article") is True
+        and link_rules.get("primary_match_drives_news_signal") is True
+        and link_rules.get("related_development_drives_news_signal") is False,
+        "relationship NEWS SIGNAL policy explicit",
+    )
     primary_counts, link_errors = Counter(), []
     for link in link_rows:
         article_id, ref, role = clean(link.get("gg_article_id")), clean(link.get("repd_ref")), clean(link.get("role"))
@@ -374,6 +570,8 @@ def main():
             "news_accepted": len(items),
             "news_rejected": telemetry.get("articles_rejected"),
             "news_ambiguous": telemetry.get("articles_ambiguous"),
+            "news_retained": telemetry.get("previous_articles_carried_forward"),
+            "solar_rotation_cursor_next": query_plan.get("solar_rotation_cursor_next"),
             "project_news_links": len(link_rows),
         },
         "checks": checks,

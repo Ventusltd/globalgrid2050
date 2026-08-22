@@ -15,7 +15,8 @@ def replace_once(text, old, new, label):
 
 
 def sub_once(text, pattern, replacement, label):
-    updated, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+    # Lambda prevents re.sub from interpreting JS backslashes in the replacement.
+    updated, count = re.subn(pattern, lambda _: replacement, text, count=1, flags=re.S)
     if count != 1:
         raise RuntimeError(f"V6 builder expected exactly one {label} block, found {count}")
     return updated

@@ -1,7 +1,7 @@
 name: UK Renewables V6 REPD-Bound Newspaper
 
 # V6 is generated from the complete V5 live app and fails closed on structural,
-# DESNZ source, REPD identity, quantity or headline-quality regression.
+# DESNZ source, REPD identity, GlobalGrid identity, quantity or headline-quality regression.
 on:
   workflow_dispatch:
   # Controlled connector-visible dispatch: only the exact operator issue title runs the job.
@@ -15,8 +15,11 @@ on:
     branches: [main]
     paths:
       - 'scripts/repd_updater.py'
+      - 'scripts/build_project_identity_v6.py'
       - 'scripts/build_renewables_v6_dashboard.py'
       - 'scripts/major_project_news_v6.py'
+      - 'scripts/enrich_renewables_v6_identity.py'
+      - 'scripts/validate_project_identity_v6.py'
       - 'scripts/validate_renewables_v6_integrity.py'
       - 'scripts/promote_renewables_v6_homepage.py'
       - '.github/workflows/major_project_news_v6.yml'
@@ -34,8 +37,8 @@ jobs:
   build-validate-publish:
     if: github.event_name != 'issues' || github.event.issue.title == '[OPS] RUN UK RENEWABLES V6'
     runs-on: ubuntu-latest
-    # The news crawl itself remains hard-capped below three minutes. Extra job time
-    # is only for Python setup, official REPD refresh, validation and Git commit.
+    # News remains hard-capped below three minutes. Identity build/enrichment/validation
+    # is local processing plus one official DESNZ CSV fetch and should add only seconds.
     timeout-minutes: 7
     steps:
       - name: Checkout main
@@ -60,6 +63,11 @@ jobs:
           echo repd_updater > /tmp/v6_stage
           python scripts/repd_updater.py
 
+      - name: Build canonical GlobalGrid project identity spine
+        run: |
+          echo project_identity > /tmp/v6_stage
+          python scripts/build_project_identity_v6.py
+
       - name: Build V6 from complete V5 gospel source
         run: |
           echo dashboard_builder > /tmp/v6_stage
@@ -69,6 +77,16 @@ jobs:
         run: |
           echo news_crawler > /tmp/v6_stage
           timeout 170s python scripts/major_project_news_v6.py
+
+      - name: Bind V6 project/news outputs to canonical GlobalGrid IDs
+        run: |
+          echo identity_enrichment > /tmp/v6_stage
+          python scripts/enrich_renewables_v6_identity.py
+
+      - name: Validate GlobalGrid project identity and Q2 2026 quantities
+        run: |
+          echo identity_validator > /tmp/v6_stage
+          python scripts/validate_project_identity_v6.py
 
       - name: Run V1-V6 structural quality and quantity gates
         run: |
@@ -90,6 +108,9 @@ jobs:
             index.html \
             dist/repd_master.json \
             dist/manifest_v4.json \
+            dist/project_identity_v6.json \
+            dist/project_identity_v6_integrity.json \
+            dist/project_news_links_v6.json \
             dist/major_projects_v6.json \
             dist/major_project_news_v6.json \
             dist/renewables_v6_integrity.json \
@@ -99,7 +120,7 @@ jobs:
             echo "No validated V6 changes to publish."
             exit 0
           fi
-          git commit -m "V6 REPD-bound newspaper refresh: $(date -u +'%Y-%m-%d')"
+          git commit -m "V6 GlobalGrid-REPD identity refresh: $(date -u +'%Y-%m-%d')"
           git pull --rebase origin main
           git push origin HEAD:main
 

@@ -13,7 +13,11 @@ on:
       - 'uk_renewables_pipeline/**'
       - 'dist/major_project_news_v5.json'
       - 'dist/major_projects_v5.json'
+      - 'dist/major_project_news_v6.json'
+      - 'dist/major_projects_v6.json'
+      - 'dist/renewables_v6_integrity.json'
       - 'dist/repd_master.json'
+      - 'dist/manifest_v4.json'
       - '.github/workflows/deploy-pages.yml'
 
 permissions:

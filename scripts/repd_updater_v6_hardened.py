@@ -18,10 +18,27 @@ class HardenedREPDUpdater(REPDUpdater):
     harmless header whitespace/alias changes and records source-null provenance.
     """
 
+    def already_current(self, url):
+        if not super().already_current(url):
+            return False
+        manifest_path = Path(self.output_dir) / "manifest_v4.json"
+        master_path = Path(self.output_dir) / "repd_master.json"
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            master = json.loads(master_path.read_text(encoding="utf-8"))
+            hardened = (
+                manifest.get("ingestion_profile") == "globalgrid2050.repd-v6-hardened"
+                and master.get("ingestion_profile") == "globalgrid2050.repd-v6-hardened"
+            )
+            if not hardened:
+                print("⚠️ REPD edition is current but hardened V6 provenance is absent; rebuilding master.")
+            return hardened
+        except Exception:
+            return False
+
     def canonicalise_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         wanted = list(self.REQUIRED_COLUMNS) + list(self.OPTIONAL_COLUMNS)
         canonical = {re.sub(r"\s+", " ", c.strip()).lower(): c for c in wanted}
-        # Known source aliases that must resolve without silently losing data.
         canonical.update(
             {
                 "record last updated": "Record Last Updated (dd/mm/yyyy)",
@@ -70,10 +87,8 @@ class HardenedREPDUpdater(REPDUpdater):
         normalized = Path(self.raw_data_dir) / "latest_repd_v6_normalized.csv"
         df.to_csv(normalized, index=False, encoding="utf-8-sig")
 
-        # Preserve the established transformation/classification/geocoding logic.
         geojson = super().refine_dataset(str(normalized))
 
-        # Add explicit source-null provenance without changing old consumer fields.
         by_ref = {}
         for source_row, row in df.iterrows():
             ref = self.clean_ref(row.get("Ref ID"))

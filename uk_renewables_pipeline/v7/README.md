@@ -46,6 +46,111 @@ V7 combines the **product direction of V5** with the **data and identity discipl
 - V6 has no coordinates. The legacy GeoJSON is Q1 data without canonical REPD IDs and cannot be safely joined by name.
 - Solar MWp and BESS MW are different measures and must never be presented as one combined capacity gauge.
 
+## Modular platform decision
+
+V7 source code will be modular so the UK product can grow without becoming another single-file dashboard and so other countries can reuse the platform without inheriting UK assumptions.
+
+The production site will still publish compact, deterministic, same-origin assets. Modularity belongs in the source and test architecture; it must not create hundreds of fragile runtime requests.
+
+The reusable layers are:
+
+- `core/`: country-neutral Project, Development, Article, Event, ProjectEventAssertion, GridContext and SourceHealth contracts.
+- `country-packs/gb/`: REPD, UK lifecycle, planning, CfD, NESO, National Grid and DNO mappings.
+- `adapters/`: one bounded source collector per official register, market source or news source.
+- `plugins/`: Projects, Newspaper, Market Analytics, Grid Watch, CfD and C&I/EV features.
+- `ui/`: reusable tables, maps, filters, timelines, gauges and evidence panels.
+- `data/`: country, technology and period-partitioned validated publication assets.
+- `tests/`: shared contract tests plus country-specific fixtures.
+- `docs/`: short contributor, country-pack, source-provenance and release notes.
+
+A future country pack must define authoritative sources, lifecycle terminology, thresholds, grid organisations, market mechanisms, coordinate systems, units, currency, language, timezone, evidence rules and data licensing without editing the country-neutral core.
+
+## V7.1–V7.9 refinement sequence
+
+| Release | Refinement | Non-negotiable exit gate |
+|---|---|---|
+| V7.1 | Modular V5 parity: extract the live MVP shell, newspaper, gauges, filters, table and export into small modules | Visible behaviour and inherited 125-story/10,784-feature baseline remain reproducible |
+| V7.2 | Canonical UK project foundation: reconciled REPD, exact thresholds, identity, lifecycle and canonical GeoJSON | Q2 fixture produces 384 solar + 382 BESS = 766 records across 718 developments |
+| V7.3 | Trusted article/event/assertion engine and labelled matcher evaluation | Zero known-negative leakage; every accepted assertion has explicit identity and event evidence |
+| V7.4 | UK market analytics: consent, CfD, finance, EPC/NTP, construction, commissioning, operation and ownership | External events never overwrite official REPD facts |
+| V7.5 | Grid Watch: NESO, National Grid and DNO confirmed events plus separately labelled context | Proximity never becomes a claimed connection or confirmed impact |
+| V7.6 | Separate sub-49 MW C&I solar, C&I BESS and EV-charging identity lanes | No ordinary small solar farm is called C&I and no REPD Ref is fabricated |
+| V7.7 | Complete product: project/development pages, timelines, map, evidence drawers, analytics, search, filters and feeds | Desktop, mobile, export and referential-integrity gates pass |
+| V7.8 | Worldwide replication kit: country-pack specification, blank template, localisation and a second-country proof | A second country can be added without changing core identity or UI contracts |
+| V7.9 | Bulletproof operations: pinned dependencies, checkpointed collection, health gates, atomic publication and recovery | A failed or blind refresh leaves the last validated public edition unchanged |
+
+Delivery remains grouped into the four build steps below: Step 1 covers V7.1–V7.2; Step 2 is V7.3; Step 3 covers V7.4–V7.8; Step 4 is V7.9.
+
+## North Star anti-hallucination and anti-truncation gate
+
+This gate is mandatory before every V7.x publication. It exists so a shortened chat, truncated file, changed workflow or future AI agent cannot silently forget the product universe, positive UK evidence or known failure cases.
+
+### Truth hierarchy
+
+1. Official source record and provenance.
+2. Canonical record identity and evidence-backed development relationship.
+3. Independently evidenced article-to-project or article-to-development relationship.
+4. Material-event classification supported by an explicit phrase and subject.
+5. Publisher, capacity, name similarity and geographic proximity are corroboration only; none can create identity.
+
+An REPD Ref proves which row was selected. It does not prove that a new article concerns the same current application. Refused, abandoned, withdrawn or expired records require explicit continuity or reapplication evidence.
+
+### Frozen universe sentinels
+
+| Layer | Frozen fixture expectation | Purpose |
+|---|---|---|
+| V1/V5 legacy master | 10,784 GeoJSON features; SHA-256 `ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe` | Detect loss or substitution of the shared legacy source |
+| V1/V5 displayed project layer | 5,210 records at ≥1 MW: 2,667 solar, 1,271 BESS and 1,272 wind | Preserve the measured historical behaviour; not the V7 scope |
+| V5 raw utility filter | 321 solar >49 MW and 239 BESS >100 MW before V5 deduplication | Explain the legacy threshold projection |
+| V5 eligible-news universe | 559 deduplicated projects; 125 stories over 366 days; news SHA-256 `0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87` | Detect headline or candidate-corpus truncation |
+| V6 identity registry | 14,657 raw records and unique populated REPD Ref IDs; SHA-256 `d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95` | Preserve the canonical Q2 record spine |
+| V6 serving universe | 3,445 solar >1 MW + 269 BESS >100 MW = 3,714 records; project SHA-256 `ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7` | Detect V6 project-snapshot truncation |
+| V7 Q2 acceptance fixture | 384 solar >49 MWp + 382 BESS >99 MW = 766 records across 718 developments | Enforce the requested V7 utility scope |
+| V7 capacity fixtures | 34,073.49 solar MWp and 106,338.18 BESS MW | Prevent combined or silently changed capacity gauges |
+
+The frozen hashes are regression fixtures, not permanent expectations for a later official REPD edition. A new edition must retain the old fixture for tests, generate a complete Ref/status/capacity diff and account for every added, revised or removed record before promotion.
+
+### Canonical UK positive sentinels
+
+These V5-era stories test discovery, identity and event classification separately. Being present in V5 does not force publication.
+
+| Sentinel | Required canonical result |
+|---|---|
+| Beacon Fen generic development-consent announcement | Resolve to development `GG2050-DEV-E13842D4D80DEC`; do not arbitrarily choose solar REPD 13599 or BESS REPD 13600 |
+| Beacon Fen 400 MW solar permit report | Resolve to solar REPD 13599, planning reference `EN010151`; BESS REPD 13600 remains contextual |
+| Dean Moor solar development-consent announcement | Resolve to solar REPD 14550 and development `GG2050-DEV-DF8A23D9E62EA8`, planning reference `EN010155` |
+| Stonestreet Green Solar consent announcement | Resolve to solar REPD 10085 and development `GG2050-DEV-BAF7E2396D59FC`, planning reference `EN010135` |
+| Cleve Hill 373 MW operation report | Resolve to solar REPD 6502, not co-located BESS REPD 7856; both retain development `GG2050-DEV-2ADB0F2D626ABD` |
+| West Burton C 500 MW BESS financial-close report | Resolve to BESS REPD 11928, planning reference `22/01713/FUL` |
+| Hams Hall 350 MW article report | Resolve to BESS REPD 9427 while preserving official REPD capacity 400 MW separately from the article value |
+| Tween Bridge planning-application report | Resolve to solar REPD 12926 and development `GG2050-DEV-81C5A835AFC865`; BESS REPD 19574 remains contextual unless explicitly asserted |
+| Green Hill public-consultation report | Resolve the development `GG2050-DEV-36DE7073A7E4D2` but do not manufacture a construction, finance or operation milestone |
+| Coalburn 1 operational report | Resolve to BESS REPD 11034; an external operational claim must not overwrite the official Under Construction status |
+| Coalburn II 1,000 MWh land/acquisition report | Resolve to Coalburn II REPD 12206 or reject pending evidence; never bind to Kingston International Business Park or Carlisle Road |
+
+Every required record above must exist with the expected technology, planning reference, development relationship and official capacity/status fields. Missing sentinels fail the build even when aggregate counts still look correct.
+
+### Mandatory negative sentinels
+
+- Australian storage reporting cannot bind to Stonestreet Green.
+- A US or emerging-markets investment fund cannot bind to Cleve Hill.
+- Greek solar or German BESS reporting cannot bind to Tween Bridge.
+- Avonmouth fires, crime or industrial incidents cannot bind to the Avonmouth solar record.
+- Witney High Street roadworks cannot bind to High Street Solar Farm.
+- Offshore wind, healthcare, care-home, foreign-project, generic-capacity and common-word stories must not create UK solar/BESS identity.
+- A generic Beacon Fen development headline must not be forced into one co-located technology record merely to satisfy one-primary-per-article accounting.
+
+### Gate accounting
+
+- Discovery recall, project/development identity and event classification are scored and tested independently.
+- `configured = completed + failed + skipped` for every source/query plan.
+- `candidates = accepted + rejected + ambiguous + duplicates` after explicitly documented stage transitions.
+- Every accepted project assertion has exactly one current primary record; a development-level event is allowed where the evidence does not select a component.
+- Every rejected or ambiguous item has a bounded reason.
+- A changed fixture hash, missing sentinel, unexplained count difference, referential-integrity error or unhealthy mandatory source fails publication.
+- Failure leaves the public manifest and last validated assets byte-for-byte unchanged.
+- The release report records fixture hashes, source hashes, counts by technology/status, development count, missing-field coverage, geometry coverage and all sentinel outcomes.
+
 ## Four-step build
 
 ### Step 1 — V5 product base + V6 canonical project foundation
@@ -138,6 +243,8 @@ uk_renewables_pipeline/v7/
 ├── scripts/
 │   ├── core/             # Plugin host, validation and shared utilities
 │   ├── config/           # Versioned scope and source contracts
+│   ├── country-packs/    # GB implementation and future country templates
+│   ├── adapters/         # Bounded official, market and news collectors
 │   ├── data/             # REPD ingestion and canonical identity
 │   ├── events/           # Discovery, matching, event extraction and retention
 │   ├── grid/             # Grid context and confirmed-impact logic
@@ -171,4 +278,5 @@ For a new chat:
 - MVP publication commits: `d9c0a9a` (V7 page) and `68af380` (ordered root link).
 - Production proof: deployed HTML matches the committed V7 file; the two inherited assets expose 125 V5 stories and 10,784 legacy REPD GeoJSON features.
 - Known V5 identity, foreign-story, technology, stale-GeoJSON and reproducibility weaknesses therefore remain present by design until refinement.
+- The modular platform decision, V7.1–V7.9 sequence and North Star anti-hallucination/anti-truncation gate are documented above and are mandatory for future work.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.

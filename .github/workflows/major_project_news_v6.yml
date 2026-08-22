@@ -28,7 +28,9 @@ concurrency:
 jobs:
   build-validate-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # The news crawl itself remains hard-capped below three minutes. Extra job time
+    # is only for Python setup, official REPD refresh, validation and Git commit.
+    timeout-minutes: 7
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -43,39 +45,67 @@ jobs:
           python-version: '3.11'
 
       - name: Install REPD and news dependencies
-        run: python -m pip install --disable-pip-version-check pandas pyyaml requests pyproj beautifulsoup4
+        run: |
+          echo install > /tmp/v6_stage
+          python -m pip install --disable-pip-version-check pandas pyyaml requests pyproj beautifulsoup4
 
       - name: Refresh official DESNZ REPD binding when edition changes
-        run: python scripts/repd_updater.py
+        run: |
+          echo repd_updater > /tmp/v6_stage
+          python scripts/repd_updater.py
 
       - name: Build V6 from complete V5 gospel source
-        run: python scripts/build_renewables_v6_dashboard.py
+        run: |
+          echo dashboard_builder > /tmp/v6_stage
+          python scripts/build_renewables_v6_dashboard.py
 
       - name: Crawl six-month V6 newspaper within three-minute budget
-        run: timeout 170s python scripts/major_project_news_v6.py
+        run: |
+          echo news_crawler > /tmp/v6_stage
+          timeout 170s python scripts/major_project_news_v6.py
 
       - name: Run V1-V6 structural quality and quantity gates
-        run: python scripts/validate_renewables_v6_integrity.py
+        run: |
+          echo integrity_validator > /tmp/v6_stage
+          python scripts/validate_renewables_v6_integrity.py
 
       - name: Promote validated V6 on root homepage
-        run: python scripts/promote_renewables_v6_homepage.py
+        run: |
+          echo homepage_promotion > /tmp/v6_stage
+          python scripts/promote_renewables_v6_homepage.py
 
       - name: Commit only fully validated V6 output
         run: |
+          echo publish > /tmp/v6_stage
           git config user.name "Ventus-Bot"
           git config user.email "bot@ventus.ltd"
-          git add \
+          rm -f dist/renewables_v6_failure.txt
+          git add -A \
             index.html \
             dist/repd_master.json \
             dist/manifest_v4.json \
             dist/major_projects_v6.json \
             dist/major_project_news_v6.json \
             dist/renewables_v6_integrity.json \
+            dist/renewables_v6_failure.txt \
             uk_renewables_pipeline/dashboard_v6_live.html
           if git diff --cached --quiet; then
             echo "No validated V6 changes to publish."
             exit 0
           fi
           git commit -m "V6 REPD-bound newspaper refresh: $(date -u +'%Y-%m-%d')"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Persist first-run failure stage
+        if: failure()
+        run: |
+          git config user.name "Ventus-Bot"
+          git config user.email "bot@ventus.ltd"
+          stage="$(cat /tmp/v6_stage 2>/dev/null || echo unknown)"
+          printf 'V6 first-run failed\nstage=%s\nutc=%s\n' "$stage" "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" > dist/renewables_v6_failure.txt
+          git add dist/renewables_v6_failure.txt
+          git diff --cached --quiet && exit 0
+          git commit -m "V6 first-run diagnostic: ${stage}"
           git pull --rebase origin main
           git push origin HEAD:main

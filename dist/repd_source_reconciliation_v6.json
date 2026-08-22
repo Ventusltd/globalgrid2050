@@ -1,0 +1,233 @@
+{
+  "schema": "globalgrid2050.repd-source-reconciliation.v6",
+  "pass": true,
+  "validated_at": "2026-08-22T14:59:14.860236+00:00",
+  "csv_url": "https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv",
+  "xlsx_url": "https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx",
+  "xlsx_sheet": "REPD",
+  "source_hashes": {
+    "csv_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
+    "xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657"
+  },
+  "capacity_policy": "XLSX precision is canonical; CSV must be within 0.005 MW display-rounding tolerance",
+  "text_policy": "trim/collapse whitespace; treat XLSX _x000D_ as whitespace; use the XLSX representation of integer-equivalent planning references and report leading-zero differences",
+  "metrics": {
+    "csv_rows": 14657,
+    "xlsx_rows": 14657,
+    "csv_unique_refs": 14657,
+    "xlsx_unique_refs": 14657,
+    "csv_native_solar_gt1_rounded": 3443,
+    "xlsx_canonical_solar_gt1": 3445,
+    "canonical_solar_gt1": 3445,
+    "csv_bess_gt100": 269,
+    "xlsx_bess_gt100": 269,
+    "canonical_bess_gt100": 269,
+    "canonical_combined_projects": 3714,
+    "material_mismatches": 0,
+    "representation_differences": {
+      "capacity_precision": 1581,
+      "control_code_whitespace": 70,
+      "planning_reference_leading_zero": 1,
+      "planning_reference_missing_marker": 2
+    }
+  },
+  "checks": [
+    {
+      "gate": "CSV row count exact",
+      "pass": true,
+      "detail": "actual=14657 expected=14657"
+    },
+    {
+      "gate": "XLSX row count exact",
+      "pass": true,
+      "detail": "actual=14657 expected=14657"
+    },
+    {
+      "gate": "CSV unique Ref ID count exact",
+      "pass": true,
+      "detail": "actual=14657"
+    },
+    {
+      "gate": "XLSX unique Ref ID count exact",
+      "pass": true,
+      "detail": "actual=14657"
+    },
+    {
+      "gate": "CSV/XLSX Ref ID sets equal",
+      "pass": true,
+      "detail": "csv_only=0 xlsx_only=0"
+    },
+    {
+      "gate": "Q2 CSV immutable SHA-256",
+      "pass": true,
+      "detail": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035"
+    },
+    {
+      "gate": "Q2 XLSX immutable SHA-256",
+      "pass": true,
+      "detail": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657"
+    },
+    {
+      "gate": "CSV/XLSX material fields reconcile",
+      "pass": true,
+      "detail": "material_mismatches=0"
+    },
+    {
+      "gate": "XLSX/canonical solar >1MW exact",
+      "pass": true,
+      "detail": "actual=3445 expected=3445"
+    },
+    {
+      "gate": "XLSX/canonical BESS >100MW exact",
+      "pass": true,
+      "detail": "actual=269 expected=269"
+    },
+    {
+      "gate": "canonical solar >1MW exact",
+      "pass": true,
+      "detail": "actual=3445"
+    },
+    {
+      "gate": "canonical BESS >100MW exact",
+      "pass": true,
+      "detail": "actual=269"
+    }
+  ],
+  "representation_difference_examples": {
+    "capacity_precision": [
+      {
+        "repd_ref": "6816",
+        "csv": 0.38,
+        "xlsx": 0.384
+      },
+      {
+        "repd_ref": "7478",
+        "csv": 0.58,
+        "xlsx": 0.579
+      },
+      {
+        "repd_ref": "7557",
+        "csv": 25.0,
+        "xlsx": 24.995
+      },
+      {
+        "repd_ref": "7758",
+        "csv": 0.18,
+        "xlsx": 0.175
+      },
+      {
+        "repd_ref": "8184",
+        "csv": 0.26,
+        "xlsx": 0.259
+      },
+      {
+        "repd_ref": "8203",
+        "csv": 0.49,
+        "xlsx": 0.485
+      },
+      {
+        "repd_ref": "8204",
+        "csv": 0.18,
+        "xlsx": 0.175
+      },
+      {
+        "repd_ref": "8212",
+        "csv": 0.49,
+        "xlsx": 0.487
+      },
+      {
+        "repd_ref": "8222",
+        "csv": 0.62,
+        "xlsx": 0.623
+      },
+      {
+        "repd_ref": "8229",
+        "csv": 0.44,
+        "xlsx": 0.439
+      }
+    ],
+    "control_code_whitespace": [
+      {
+        "repd_ref": "8",
+        "field": "Site Name",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "1613",
+        "field": "Planning Authority",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "1616",
+        "field": "Planning Authority",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "4920",
+        "field": "Site Name",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "6907",
+        "field": "Site Name",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "9947",
+        "field": "Planning Authority",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "11948",
+        "field": "Operator (or Applicant)",
+        "csv": "Hamilton March",
+        "xlsx": "Hamilton March"
+      },
+      {
+        "repd_ref": "11973",
+        "field": "Operator (or Applicant)",
+        "csv": "F W Mansfield & Sons",
+        "xlsx": "F W Mansfield & Sons"
+      },
+      {
+        "repd_ref": "12175",
+        "field": "Operator (or Applicant)",
+        "csv": "Lightsource SPV 196",
+        "xlsx": "Lightsource SPV 196"
+      },
+      {
+        "repd_ref": "12210",
+        "field": "Operator (or Applicant)",
+        "csv": "Solent NHS Trust",
+        "xlsx": "Solent NHS Trust"
+      }
+    ],
+    "planning_reference_leading_zero": [
+      {
+        "repd_ref": "11250",
+        "csv": "58270",
+        "xlsx": "058270"
+      }
+    ],
+    "planning_reference_missing_marker": [
+      {
+        "repd_ref": "9873",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "11989",
+        "csv": "NA",
+        "xlsx": ""
+      }
+    ]
+  },
+  "material_mismatch_examples": [],
+  "errors": []
+}

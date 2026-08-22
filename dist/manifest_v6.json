@@ -1,0 +1,35 @@
+{
+  "schema": "globalgrid2050.repd-manifest.v6",
+  "schema_version": 6,
+  "status": "VALIDATED",
+  "validated_at": "2026-08-22T14:59:14.860236+00:00",
+  "source_owner": "Department for Energy Security and Net Zero (DESNZ)",
+  "source_page": "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract",
+  "source_page_last_updated": "2026-08-03",
+  "source_dataset_title": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)",
+  "source_url": "https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv",
+  "source_excel_url": "https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx",
+  "source_hashes": {
+    "csv_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
+    "xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657"
+  },
+  "source_record_count": 14657,
+  "source_unique_ref_count": 14657,
+  "canonical_capacity_source": "official XLSX precision, reconciled to official CSV by Ref ID",
+  "header_policy": "trim + collapse internal whitespace + case-insensitive aliases",
+  "missing_value_policy": "official blanks remain null; no value or date is invented",
+  "thresholds": {
+    "solar_mw_exclusive": 1.0,
+    "bess_mw_exclusive": 100.0
+  },
+  "canonical_counts": {
+    "solar": 3445,
+    "bess": 269,
+    "combined": 3714
+  },
+  "public_snapshot": {
+    "path": "dist/major_projects_v6.json",
+    "project_count": 3714,
+    "projects_sha256": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d"
+  }
+}

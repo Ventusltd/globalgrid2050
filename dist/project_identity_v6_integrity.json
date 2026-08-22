@@ -1,0 +1,152 @@
+{
+  "schema": "globalgrid2050.project-identity-integrity.v6",
+  "pass": true,
+  "validated_at": "2026-08-22T15:00:25.965896+00:00",
+  "metrics": {
+    "identity_records": 14657,
+    "development_groups": 12874,
+    "public_projects": 3714,
+    "solar_projects": 3445,
+    "bess_projects": 269,
+    "news_articles": 3,
+    "project_news_links": 3
+  },
+  "checks": [
+    {
+      "gate": "identity schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "identity raw row count",
+      "pass": true,
+      "detail": "14657"
+    },
+    {
+      "gate": "identity REPD-bound count",
+      "pass": true,
+      "detail": "14657"
+    },
+    {
+      "gate": "no fabricated REPD identities",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "gate": "identity record array exact",
+      "pass": true,
+      "detail": "records=14657"
+    },
+    {
+      "gate": "capacity excluded from identity",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "all identity rows valid and unique",
+      "pass": true,
+      "detail": "new_errors=0"
+    },
+    {
+      "gate": "all identity relationships resolve consistently",
+      "pass": true,
+      "detail": "new_errors=0"
+    },
+    {
+      "gate": "public project schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "public projects REPD-bound",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "public projects GlobalGrid-bound",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "public projects reconciled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "public source row metadata",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "public project count",
+      "pass": true,
+      "detail": "metadata=3714 rows=3714"
+    },
+    {
+      "gate": "public solar count",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "public BESS count",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "public project-array hash",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "all public projects bind exactly to identity registry",
+      "pass": true,
+      "detail": "new_errors=0"
+    },
+    {
+      "gate": "derived public thresholds",
+      "pass": true,
+      "detail": "solar=3445 bess=269"
+    },
+    {
+      "gate": "news REPD-bound",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "news GlobalGrid-bound",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "news headline count permits zero",
+      "pass": true,
+      "detail": "metadata=3 rows=3"
+    },
+    {
+      "gate": "project-news link schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "link article count permits zero",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "all project-news links valid",
+      "pass": true,
+      "detail": "new_errors=0"
+    },
+    {
+      "gate": "all news articles preserve public match evidence",
+      "pass": true,
+      "detail": "new_errors=0"
+    },
+    {
+      "gate": "one PRIMARY_MATCH per article",
+      "pass": true,
+      "detail": "primary=3 items=3"
+    }
+  ],
+  "errors": []
+}

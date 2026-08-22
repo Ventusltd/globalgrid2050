@@ -1,0 +1,637 @@
+{
+  "schema": "globalgrid2050.renewables-v6-integrity.v6",
+  "pass": true,
+  "validated_at": "2026-08-22T15:00:26.243230+00:00",
+  "metrics": {
+    "source_records": 14657,
+    "source_unique_refs": 14657,
+    "public_projects": 3714,
+    "solar_projects": 3445,
+    "bess_projects": 269,
+    "record_updates_supplied": 3696,
+    "record_updates_missing": 18,
+    "news_candidates": 156,
+    "news_accepted": 3,
+    "news_rejected": 153,
+    "news_ambiguous": 0,
+    "project_news_links": 3
+  },
+  "checks": [
+    {
+      "gate": "v1 exists",
+      "pass": true,
+      "detail": "uk_renewables_pipeline/dashboard.html"
+    },
+    {
+      "gate": "v1 closes HTML",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "v1 immutable blob",
+      "pass": true,
+      "detail": "e2d99e37d6388d3f498a79696773238ad689574b"
+    },
+    {
+      "gate": "v2 exists",
+      "pass": true,
+      "detail": "uk_renewables_pipeline/dashboard_v2_2026-08-22.html"
+    },
+    {
+      "gate": "v2 closes HTML",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "v2 immutable blob",
+      "pass": true,
+      "detail": "cb953a67332d3d29355945fb58a513e30c681013"
+    },
+    {
+      "gate": "v3 exists",
+      "pass": true,
+      "detail": "uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html"
+    },
+    {
+      "gate": "v3 closes HTML",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "v3 immutable blob",
+      "pass": true,
+      "detail": "911921e7aa254f0bfdecc122d975cc0e3af130c7"
+    },
+    {
+      "gate": "v4 exists",
+      "pass": true,
+      "detail": "uk_renewables_pipeline/dashboard_v4_live.html"
+    },
+    {
+      "gate": "v4 closes HTML",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "v4 immutable blob",
+      "pass": true,
+      "detail": "f356b37b1c6202150f3a5bb404a57ee329212f70"
+    },
+    {
+      "gate": "v5 exists",
+      "pass": true,
+      "detail": "uk_renewables_pipeline/dashboard_v5_live.html"
+    },
+    {
+      "gate": "v5 closes HTML",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "v5 immutable blob",
+      "pass": true,
+      "detail": "ac33daf67dba8951527b06761ab587003a19f60e"
+    },
+    {
+      "gate": "v6 exists",
+      "pass": true,
+      "detail": "uk_renewables_pipeline/dashboard_v6_live.html"
+    },
+    {
+      "gate": "v6 closes HTML",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 frontend: same-origin project snapshot",
+      "pass": true,
+      "detail": "../dist/major_projects_v6.json"
+    },
+    {
+      "gate": "V6 frontend: same-origin news snapshot",
+      "pass": true,
+      "detail": "../dist/major_project_news_v6.json"
+    },
+    {
+      "gate": "V6 frontend: Chart.js",
+      "pass": true,
+      "detail": "cdn.jsdelivr.net/npm/chart.js"
+    },
+    {
+      "gate": "V6 frontend: newspaper",
+      "pass": true,
+      "detail": "ENERGY DAILY"
+    },
+    {
+      "gate": "V6 frontend: news filters",
+      "pass": true,
+      "detail": "data-mode=\"FINANCE\""
+    },
+    {
+      "gate": "V6 frontend: news search",
+      "pass": true,
+      "detail": "id=\"newsSearch\""
+    },
+    {
+      "gate": "V6 frontend: three gauges",
+      "pass": true,
+      "detail": "id=\"g3\""
+    },
+    {
+      "gate": "V6 frontend: asset filters",
+      "pass": true,
+      "detail": "id=\"tech\""
+    },
+    {
+      "gate": "V6 frontend: status filter",
+      "pass": true,
+      "detail": "id=\"state\""
+    },
+    {
+      "gate": "V6 frontend: geography filter",
+      "pass": true,
+      "detail": "id=\"county\""
+    },
+    {
+      "gate": "V6 frontend: asset search",
+      "pass": true,
+      "detail": "id=\"assetSearch\""
+    },
+    {
+      "gate": "V6 frontend: project table",
+      "pass": true,
+      "detail": "id=\"tbody\""
+    },
+    {
+      "gate": "V6 frontend: CSV export",
+      "pass": true,
+      "detail": "id=\"export\""
+    },
+    {
+      "gate": "V6 frontend: mobile CSV export",
+      "pass": true,
+      "detail": "id=\"exportMobile\""
+    },
+    {
+      "gate": "V6 frontend: GlobalGrid project ID",
+      "pass": true,
+      "detail": "GLOBALGRID PROJECT ID"
+    },
+    {
+      "gate": "V6 frontend: GlobalGrid development ID",
+      "pass": true,
+      "detail": "GLOBALGRID DEVELOPMENT ID"
+    },
+    {
+      "gate": "V6 frontend: REPD Ref",
+      "pass": true,
+      "detail": "REPD REF"
+    },
+    {
+      "gate": "V6 frontend: REPD record update",
+      "pass": true,
+      "detail": "REPD UPDATED"
+    },
+    {
+      "gate": "V6 frontend: official status",
+      "pass": true,
+      "detail": "REPD STATUS"
+    },
+    {
+      "gate": "V6 frontend: separate news signal",
+      "pass": true,
+      "detail": "NEWS SIGNAL"
+    },
+    {
+      "gate": "V6 frontend: official missing date",
+      "pass": true,
+      "detail": "not supplied by REPD"
+    },
+    {
+      "gate": "V6 frontend: mobile layout",
+      "pass": true,
+      "detail": "@media(max-width:768px)"
+    },
+    {
+      "gate": "V6 frontend: official portal",
+      "pass": true,
+      "detail": "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract"
+    },
+    {
+      "gate": "V6 version lineage",
+      "pass": true,
+      "detail": "dashboard.html"
+    },
+    {
+      "gate": "V6 version lineage",
+      "pass": true,
+      "detail": "dashboard_v2_2026-08-22.html"
+    },
+    {
+      "gate": "V6 version lineage",
+      "pass": true,
+      "detail": "dashboard_v3_live_2026-08-22.html"
+    },
+    {
+      "gate": "V6 version lineage",
+      "pass": true,
+      "detail": "dashboard_v4_live.html"
+    },
+    {
+      "gate": "V6 version lineage",
+      "pass": true,
+      "detail": "dashboard_v5_live.html"
+    },
+    {
+      "gate": "V6 is standalone",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no browser CSV parser",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no government asset runtime dependency",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no shared V1\u2013V5 master loader",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no V5 news fallback",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "homepage V6 snapshot wording",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "validated V6 manifest",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "CSV/XLSX reconciliation passed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "official source row counts exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "official unique Ref counts exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "canonical solar count exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "canonical BESS count exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "official Q2 CSV hash exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "official Q2 XLSX hash exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "manifest/source hashes agree",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "identity integrity report passed",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "gate": "V6 public project schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 canonical identity policy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 snapshot declares source reconciliation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 source metadata exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 project quantity exact",
+      "pass": true,
+      "detail": "metadata=3714 rows=3714"
+    },
+    {
+      "gate": "V6 solar metadata exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 BESS metadata exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 solar threshold exclusive",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 BESS threshold exclusive",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 snapshot/source hashes agree",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 project array SHA-256 exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "manifest public project count exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "manifest/public project hash exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "every V6 project is canonical and threshold-qualified",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 derived threshold counts",
+      "pass": true,
+      "detail": "solar=3445 bess=269"
+    },
+    {
+      "gate": "REPD supplied-update metadata exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "REPD missing-update metadata exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 news schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "V6 news canonical identity policy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "news eligible project count exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "news eligible technology counts exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "news headline count permits a valid zero",
+      "pass": true,
+      "detail": "metadata=3 items=3"
+    },
+    {
+      "gate": "news horizon exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority public sources configured",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "source-first crawl executed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "news queries configured/executed",
+      "pass": true,
+      "detail": "102"
+    },
+    {
+      "gate": "news telemetry queries_completed recorded",
+      "pass": true,
+      "detail": "102"
+    },
+    {
+      "gate": "news telemetry queries_failed_or_cancelled recorded",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "gate": "news telemetry rss_candidates_returned recorded",
+      "pass": true,
+      "detail": "178"
+    },
+    {
+      "gate": "news telemetry deduplicated_article_candidates recorded",
+      "pass": true,
+      "detail": "156"
+    },
+    {
+      "gate": "news telemetry articles_accepted_before_limit recorded",
+      "pass": true,
+      "detail": "3"
+    },
+    {
+      "gate": "news telemetry articles_published recorded",
+      "pass": true,
+      "detail": "3"
+    },
+    {
+      "gate": "news telemetry articles_rejected recorded",
+      "pass": true,
+      "detail": "153"
+    },
+    {
+      "gate": "news telemetry articles_ambiguous recorded",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "gate": "news telemetry articles_dropped_by_headline_limit recorded",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "gate": "telemetry accepted count exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "candidate count exposed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "rejected count exposed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "ambiguous count exposed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "quiet-period policy explicit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: Solar Power Portal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Solar Power Portal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: PV Magazine",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: PV Magazine",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: BBC",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: BBC",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: Energy-Storage.News",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Energy-Storage.News",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: Planning Inspectorate",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Planning Inspectorate",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: DESNZ / GOV.UK",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: DESNZ / GOV.UK",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "all accepted news passes identity/technology/foreign/quality gates",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "project-news relationship schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "relationship article count permits zero",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "relationship link count exact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "all project-news relationships valid",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no private field: private_relationship",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no private field: relationship_score",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no private field: visit_priority",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no private field: commercial_priority",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "no private field: personal_email",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "errors": []
+}

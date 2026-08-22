@@ -4,6 +4,9 @@ name: UK Renewables V6 REPD-Bound Newspaper
 # DESNZ source, REPD identity, quantity or headline-quality regression.
 on:
   workflow_dispatch:
+  # Controlled connector-visible dispatch: only the exact operator issue title runs the job.
+  issues:
+    types: [opened]
   schedule:
     - cron: '29 5 * * *'
   push:
@@ -27,6 +30,7 @@ concurrency:
 
 jobs:
   build-validate-publish:
+    if: github.event_name != 'issues' || github.event.issue.title == '[OPS] RUN UK RENEWABLES V6'
     runs-on: ubuntu-latest
     # The news crawl itself remains hard-capped below three minutes. Extra job time
     # is only for Python setup, official REPD refresh, validation and Git commit.

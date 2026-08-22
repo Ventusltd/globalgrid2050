@@ -1,10 +1,10 @@
 {
   "schema": "globalgrid2050.project-news-links.v6",
-  "generated_at": "2026-08-22T20:38:55.570030+00:00",
+  "generated_at": "2026-08-22T20:41:34.591886+00:00",
   "identity_schema": "globalgrid2050.project-identity.v6",
-  "article_count": 5,
-  "link_count": 5,
-  "primary_link_count": 5,
+  "article_count": 7,
+  "link_count": 7,
+  "primary_link_count": 7,
   "related_development_link_count": 0,
   "rules": {
     "one_primary_match_per_article": true,
@@ -58,6 +58,24 @@
       "role": "PRIMARY_MATCH",
       "eligible_for_news_signal": true,
       "confidence": 74
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-FE31397E748B58DB",
+      "gg_project_id": "GG2050-REPD-10000",
+      "gg_development_id": "GG2050-DEV-EC48A85BA81FFD",
+      "repd_ref": "10000",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 79
+    },
+    {
+      "gg_article_id": "GG2050-NEWS-5972472B53E931D0",
+      "gg_project_id": "GG2050-REPD-5452",
+      "gg_development_id": "GG2050-DEV-1E2470FAD170DF",
+      "repd_ref": "5452",
+      "role": "PRIMARY_MATCH",
+      "eligible_for_news_signal": true,
+      "confidence": 72
     }
   ]
 }

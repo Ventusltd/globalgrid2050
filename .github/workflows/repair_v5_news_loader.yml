@@ -1,0 +1,47 @@
+name: Repair V5 News Loader
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/patch_v5_news_backend_loader.py'
+      - '.github/workflows/repair_v5_news_loader.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-v5-news-loader
+  cancel-in-progress: true
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Patch V5 news backend loader
+        run: python scripts/patch_v5_news_backend_loader.py
+
+      - name: Validate V1-V5 anti-truncation guard
+        run: python scripts/validate_renewables_v5_integrity.py
+
+      - name: Commit repaired live V5 only if changed
+        run: |
+          git config user.name "Ventus-Bot"
+          git config user.email "bot@ventus.ltd"
+          git add uk_renewables_pipeline/dashboard_v5_live.html
+          if git diff --cached --quiet; then
+            echo "V5 loader already repaired."
+            exit 0
+          fi
+          git commit -m "Repair V5 live news backend loader"
+          git pull --rebase origin main
+          git push origin HEAD:main

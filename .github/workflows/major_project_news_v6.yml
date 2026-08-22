@@ -15,6 +15,7 @@ on:
       - 'scripts/repd_updater.py'
       - 'scripts/repd_updater_v6_hardened.py'
       - 'scripts/validate_repd_sources_v6.py'
+      - 'scripts/validate_v6_manifest_provenance.py'
       - 'scripts/build_project_identity_v6.py'
       - 'scripts/build_renewables_v6_dashboard.py'
       - 'scripts/harden_renewables_v6_dashboard.py'
@@ -70,6 +71,7 @@ jobs:
         run: |
           echo repd_source_reconciliation > /tmp/v6_stage
           python scripts/validate_repd_sources_v6.py
+          python scripts/validate_v6_manifest_provenance.py
 
       - name: Build canonical GlobalGrid project identity spine
         run: |

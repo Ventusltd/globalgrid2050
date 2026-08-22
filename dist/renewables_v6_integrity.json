@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.renewables-v6-integrity.v6",
   "pass": true,
-  "validated_at": "2026-08-22T15:00:26.243230+00:00",
+  "validated_at": "2026-08-22T15:06:11.305004+00:00",
   "metrics": {
     "source_records": 14657,
     "source_unique_refs": 14657,
@@ -10,11 +10,11 @@
     "bess_projects": 269,
     "record_updates_supplied": 3696,
     "record_updates_missing": 18,
-    "news_candidates": 156,
-    "news_accepted": 3,
-    "news_rejected": 153,
+    "news_candidates": 155,
+    "news_accepted": 1,
+    "news_rejected": 154,
     "news_ambiguous": 0,
-    "project_news_links": 3
+    "project_news_links": 1
   },
   "checks": [
     {
@@ -430,7 +430,7 @@
     {
       "gate": "news headline count permits a valid zero",
       "pass": true,
-      "detail": "metadata=3 items=3"
+      "detail": "metadata=1 items=1"
     },
     {
       "gate": "news horizon exact",
@@ -465,27 +465,27 @@
     {
       "gate": "news telemetry rss_candidates_returned recorded",
       "pass": true,
-      "detail": "178"
+      "detail": "177"
     },
     {
       "gate": "news telemetry deduplicated_article_candidates recorded",
       "pass": true,
-      "detail": "156"
+      "detail": "155"
     },
     {
       "gate": "news telemetry articles_accepted_before_limit recorded",
       "pass": true,
-      "detail": "3"
+      "detail": "1"
     },
     {
       "gate": "news telemetry articles_published recorded",
       "pass": true,
-      "detail": "3"
+      "detail": "1"
     },
     {
       "gate": "news telemetry articles_rejected recorded",
       "pass": true,
-      "detail": "153"
+      "detail": "154"
     },
     {
       "gate": "news telemetry articles_ambiguous recorded",
@@ -523,42 +523,12 @@
       "detail": ""
     },
     {
-      "gate": "priority source queried: Solar Power Portal",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source attempt recorded: Solar Power Portal",
-      "pass": true,
-      "detail": ""
-    },
-    {
       "gate": "priority source queried: PV Magazine",
       "pass": true,
       "detail": ""
     },
     {
       "gate": "priority source attempt recorded: PV Magazine",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source queried: BBC",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source attempt recorded: BBC",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source queried: Energy-Storage.News",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "gate": "priority source attempt recorded: Energy-Storage.News",
       "pass": true,
       "detail": ""
     },
@@ -573,12 +543,42 @@
       "detail": ""
     },
     {
+      "gate": "priority source queried: Energy-Storage.News",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Energy-Storage.News",
+      "pass": true,
+      "detail": ""
+    },
+    {
       "gate": "priority source queried: DESNZ / GOV.UK",
       "pass": true,
       "detail": ""
     },
     {
       "gate": "priority source attempt recorded: DESNZ / GOV.UK",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: Solar Power Portal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: Solar Power Portal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source queried: BBC",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "gate": "priority source attempt recorded: BBC",
       "pass": true,
       "detail": ""
     },

@@ -1,15 +1,15 @@
 {
   "schema": "globalgrid2050.project-identity-integrity.v6",
   "pass": true,
-  "validated_at": "2026-08-22T15:00:25.965896+00:00",
+  "validated_at": "2026-08-22T15:06:10.994639+00:00",
   "metrics": {
     "identity_records": 14657,
     "development_groups": 12874,
     "public_projects": 3714,
     "solar_projects": 3445,
     "bess_projects": 269,
-    "news_articles": 3,
-    "project_news_links": 3
+    "news_articles": 1,
+    "project_news_links": 1
   },
   "checks": [
     {
@@ -120,7 +120,7 @@
     {
       "gate": "news headline count permits zero",
       "pass": true,
-      "detail": "metadata=3 rows=3"
+      "detail": "metadata=1 rows=1"
     },
     {
       "gate": "project-news link schema",
@@ -145,7 +145,7 @@
     {
       "gate": "one PRIMARY_MATCH per article",
       "pass": true,
-      "detail": "primary=3 items=3"
+      "detail": "primary=1 items=1"
     }
   ],
   "errors": []

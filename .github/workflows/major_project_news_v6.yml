@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
   issues:
     types: [opened]
-  # Temporary bootstrap until the first scope-validated production V6 lands.
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '29 5 * * *'
   push:
     branches: [main]
     paths:

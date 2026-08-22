@@ -1,0 +1,40 @@
+{
+  "schema": "globalgrid2050.v7.change-accounting.v1",
+  "version": "7.1",
+  "feature": "modular-v5-parity",
+  "result": "PASS",
+  "preflight": {
+    "result": "PASS",
+    "checks": 130,
+    "contract_sha256": "c827b9e4a3603126ba8abe134cbfe79ce33ee3fe1e4a7457eb636f6f77b50ec1"
+  },
+  "postflight": {
+    "result": "PASS",
+    "checks": 158,
+    "contract_sha256": "a73ae748f372cd590a803df77f4c74630c64d7eada1448acf7e5ee3f03774431"
+  },
+  "identical_metrics": {
+    "legacy_features": 10784,
+    "legacy_display_total": 5210,
+    "legacy_display_solar": 2667,
+    "legacy_display_bess": 1271,
+    "legacy_display_wind": 1272,
+    "v5_eligible_projects": 559,
+    "v5_headlines": 125,
+    "v5_lookback_days": 366,
+    "v5_raw_solar_gt49": 321,
+    "v5_raw_bess_gt100": 239
+  },
+  "intended_differences": [
+    "V7 index changed from an inline V7.0/V5 monolith to a V7.1 external stylesheet and ES-module shell.",
+    "README gained the truthful V7.1 release-candidate checkpoint.",
+    "North Star contract now fingerprints that README and requires every V7.1 module, contract, report and validator launcher.",
+    "V7.1 plugin, build-manifest, release-note and validation files were added."
+  ],
+  "forbidden_differences": {
+    "v1_to_v6_file_changes": 0,
+    "frozen_data_changes": 0,
+    "project_logic_changes": 0,
+    "news_signal_decision_changes": 0
+  }
+}

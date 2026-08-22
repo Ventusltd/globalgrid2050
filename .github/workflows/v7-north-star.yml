@@ -1,0 +1,26 @@
+name: V7 North Star
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "uk_renewables_pipeline/v7/**"
+      - "uk_renewables_pipeline/dashboard*.html"
+      - "dist/major_project_news_v5.json"
+      - "dist/major_projects_v6.json"
+      - "dist/project_identity_v6.json"
+      - "dist/repd_master.json"
+      - ".github/workflows/v7-north-star.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the shared V7.1 validator
+        run: bash uk_renewables_pipeline/v7/tests/run_v7_1.sh

@@ -1,0 +1,913 @@
+{
+  "checks": [
+    {
+      "actual": "bbf4fff496bd477edfa74d1b91696e886f4d3f9e5298e2b8a406a43ba7b55e93",
+      "expected": "bbf4fff496bd477edfa74d1b91696e886f4d3f9e5298e2b8a406a43ba7b55e93",
+      "name": "governing README SHA-256",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: V7.0 is the current live MVP",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: inherited V5 NEWS SIGNAL is part of the MVP",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: V7.1 \u2014 Modular V5 parity",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: V7.9 \u2014 Bulletproof operations",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: North Star anti-hallucination and anti-truncation gate",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: Every build begins by",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: Every build ends by",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: after V7.9 development moves to V8.0",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: uk_renewables_pipeline/dashboard.html",
+      "passed": true
+    },
+    {
+      "actual": "341da90d9c4de1ad2535ad82622bea14cdaaea7524e57f2cf69714f9b2ec879a",
+      "expected": "341da90d9c4de1ad2535ad82622bea14cdaaea7524e57f2cf69714f9b2ec879a",
+      "name": "file SHA-256: uk_renewables_pipeline/dashboard.html",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: uk_renewables_pipeline/dashboard_v2_2026-08-22.html",
+      "passed": true
+    },
+    {
+      "actual": "4b43797175c02680f23d459ccc8971f6356af5864696915f5a6aab923d8ba738",
+      "expected": "4b43797175c02680f23d459ccc8971f6356af5864696915f5a6aab923d8ba738",
+      "name": "file SHA-256: uk_renewables_pipeline/dashboard_v2_2026-08-22.html",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html",
+      "passed": true
+    },
+    {
+      "actual": "23a6e4d23927538c1f2d98bec097aee2b5ff5940ae6bffa60cdd9e7e695c8f13",
+      "expected": "23a6e4d23927538c1f2d98bec097aee2b5ff5940ae6bffa60cdd9e7e695c8f13",
+      "name": "file SHA-256: uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: uk_renewables_pipeline/dashboard_v4_live.html",
+      "passed": true
+    },
+    {
+      "actual": "94b126a89ca5bf125b785900fc57a713adfd0fe9074510a76b34c05c1af00c51",
+      "expected": "94b126a89ca5bf125b785900fc57a713adfd0fe9074510a76b34c05c1af00c51",
+      "name": "file SHA-256: uk_renewables_pipeline/dashboard_v4_live.html",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: uk_renewables_pipeline/dashboard_v5_live.html",
+      "passed": true
+    },
+    {
+      "actual": "af7045b3fd09435bcbc2dc5e6f63654c34ec1ee202c908eb156a93c1ae9f5bfc",
+      "expected": "af7045b3fd09435bcbc2dc5e6f63654c34ec1ee202c908eb156a93c1ae9f5bfc",
+      "name": "file SHA-256: uk_renewables_pipeline/dashboard_v5_live.html",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: uk_renewables_pipeline/dashboard_v6_live.html",
+      "passed": true
+    },
+    {
+      "actual": "2cdb541622a8c0a587af30c1ef600b1c77dc8e151a3c412bc444ec9ba1cc636d",
+      "expected": "2cdb541622a8c0a587af30c1ef600b1c77dc8e151a3c412bc444ec9ba1cc636d",
+      "name": "file SHA-256: uk_renewables_pipeline/dashboard_v6_live.html",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: dist/major_project_news_v5.json",
+      "passed": true
+    },
+    {
+      "actual": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+      "expected": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+      "name": "file SHA-256: dist/major_project_news_v5.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: dist/repd_master.json",
+      "passed": true
+    },
+    {
+      "actual": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
+      "expected": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
+      "name": "file SHA-256: dist/repd_master.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: dist/project_identity_v6.json",
+      "passed": true
+    },
+    {
+      "actual": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+      "expected": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+      "name": "file SHA-256: dist/project_identity_v6.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "file exists: dist/major_projects_v6.json",
+      "passed": true
+    },
+    {
+      "actual": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
+      "expected": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
+      "name": "file SHA-256: dist/major_projects_v6.json",
+      "passed": true
+    },
+    {
+      "actual": 10784,
+      "expected": 10784,
+      "name": "legacy_features",
+      "passed": true
+    },
+    {
+      "actual": 5210,
+      "expected": 5210,
+      "name": "legacy_display_total",
+      "passed": true
+    },
+    {
+      "actual": 2667,
+      "expected": 2667,
+      "name": "legacy_display_solar",
+      "passed": true
+    },
+    {
+      "actual": 1271,
+      "expected": 1271,
+      "name": "legacy_display_bess",
+      "passed": true
+    },
+    {
+      "actual": 1272,
+      "expected": 1272,
+      "name": "legacy_display_wind",
+      "passed": true
+    },
+    {
+      "actual": 321,
+      "expected": 321,
+      "name": "v5_raw_solar_gt49",
+      "passed": true
+    },
+    {
+      "actual": 239,
+      "expected": 239,
+      "name": "v5_raw_bess_gt100",
+      "passed": true
+    },
+    {
+      "actual": 125,
+      "expected": 125,
+      "name": "V5 item array count",
+      "passed": true
+    },
+    {
+      "actual": 559,
+      "expected": 559,
+      "name": "v5_eligible_projects",
+      "passed": true
+    },
+    {
+      "actual": 125,
+      "expected": 125,
+      "name": "v5_headlines",
+      "passed": true
+    },
+    {
+      "actual": 366,
+      "expected": 366,
+      "name": "v5_lookback_days",
+      "passed": true
+    },
+    {
+      "actual": 14657,
+      "expected": 14657,
+      "name": "V6 identity record count",
+      "passed": true
+    },
+    {
+      "actual": 14657,
+      "expected": 14657,
+      "name": "V6 unique REPD Ref count",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 13599",
+      "passed": true
+    },
+    {
+      "actual": "Beacon Fen Energy Park",
+      "expected": "Beacon Fen Energy Park",
+      "name": "REPD 13599 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Solar Photovoltaics",
+      "expected": "Solar Photovoltaics",
+      "name": "REPD 13599 technology",
+      "passed": true
+    },
+    {
+      "actual": 400.0,
+      "expected": 400.0,
+      "name": "REPD 13599 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-E13842D4D80DEC",
+      "expected": "GG2050-DEV-E13842D4D80DEC",
+      "name": "REPD 13599 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010151",
+      "expected": "EN010151",
+      "name": "REPD 13599 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 13600",
+      "passed": true
+    },
+    {
+      "actual": "Beacon Fen Energy Park",
+      "expected": "Beacon Fen Energy Park",
+      "name": "REPD 13600 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 13600 technology",
+      "passed": true
+    },
+    {
+      "actual": 600.0,
+      "expected": 600.0,
+      "name": "REPD 13600 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-E13842D4D80DEC",
+      "expected": "GG2050-DEV-E13842D4D80DEC",
+      "name": "REPD 13600 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010151",
+      "expected": "EN010151",
+      "name": "REPD 13600 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 14550",
+      "passed": true
+    },
+    {
+      "actual": "Dean Moor Solar Farm & Battery Storage",
+      "expected": "Dean Moor Solar Farm & Battery Storage",
+      "name": "REPD 14550 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Solar Photovoltaics",
+      "expected": "Solar Photovoltaics",
+      "name": "REPD 14550 technology",
+      "passed": true
+    },
+    {
+      "actual": 150.0,
+      "expected": 150.0,
+      "name": "REPD 14550 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-DF8A23D9E62EA8",
+      "expected": "GG2050-DEV-DF8A23D9E62EA8",
+      "name": "REPD 14550 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010155",
+      "expected": "EN010155",
+      "name": "REPD 14550 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 10085",
+      "passed": true
+    },
+    {
+      "actual": "Stonestreet Green - Solar Farm & Battery Storage",
+      "expected": "Stonestreet Green - Solar Farm & Battery Storage",
+      "name": "REPD 10085 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Solar Photovoltaics",
+      "expected": "Solar Photovoltaics",
+      "name": "REPD 10085 technology",
+      "passed": true
+    },
+    {
+      "actual": 99.9,
+      "expected": 99.9,
+      "name": "REPD 10085 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-BAF7E2396D59FC",
+      "expected": "GG2050-DEV-BAF7E2396D59FC",
+      "name": "REPD 10085 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010135",
+      "expected": "EN010135",
+      "name": "REPD 10085 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 6502",
+      "passed": true
+    },
+    {
+      "actual": "Cleve Hill Solar Project",
+      "expected": "Cleve Hill Solar Project",
+      "name": "REPD 6502 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Solar Photovoltaics",
+      "expected": "Solar Photovoltaics",
+      "name": "REPD 6502 technology",
+      "passed": true
+    },
+    {
+      "actual": 373.0,
+      "expected": 373.0,
+      "name": "REPD 6502 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-2ADB0F2D626ABD",
+      "expected": "GG2050-DEV-2ADB0F2D626ABD",
+      "name": "REPD 6502 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010085",
+      "expected": "EN010085",
+      "name": "REPD 6502 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 7856",
+      "passed": true
+    },
+    {
+      "actual": "Cleve Hill Solar Project",
+      "expected": "Cleve Hill Solar Project",
+      "name": "REPD 7856 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 7856 technology",
+      "passed": true
+    },
+    {
+      "actual": 150.0,
+      "expected": 150.0,
+      "name": "REPD 7856 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-2ADB0F2D626ABD",
+      "expected": "GG2050-DEV-2ADB0F2D626ABD",
+      "name": "REPD 7856 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010085",
+      "expected": "EN010085",
+      "name": "REPD 7856 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 11928",
+      "passed": true
+    },
+    {
+      "actual": "West Burton Power Station, North Road - Battery Storage",
+      "expected": "West Burton Power Station, North Road - Battery Storage",
+      "name": "REPD 11928 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 11928 technology",
+      "passed": true
+    },
+    {
+      "actual": 500.0,
+      "expected": 500.0,
+      "name": "REPD 11928 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-AEB36E1ABA4E03",
+      "expected": "GG2050-DEV-AEB36E1ABA4E03",
+      "name": "REPD 11928 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "22/01713/FUL",
+      "expected": "22/01713/FUL",
+      "name": "REPD 11928 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 9427",
+      "passed": true
+    },
+    {
+      "actual": "Hams Hall - Battery Energy Storage System",
+      "expected": "Hams Hall - Battery Energy Storage System",
+      "name": "REPD 9427 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 9427 technology",
+      "passed": true
+    },
+    {
+      "actual": 400.0,
+      "expected": 400.0,
+      "name": "REPD 9427 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-13408969AF918A",
+      "expected": "GG2050-DEV-13408969AF918A",
+      "name": "REPD 9427 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "PAP/2021/0473",
+      "expected": "PAP/2021/0473",
+      "name": "REPD 9427 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 12926",
+      "passed": true
+    },
+    {
+      "actual": "The Tween Bridge Solar Farm",
+      "expected": "The Tween Bridge Solar Farm",
+      "name": "REPD 12926 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Solar Photovoltaics",
+      "expected": "Solar Photovoltaics",
+      "name": "REPD 12926 technology",
+      "passed": true
+    },
+    {
+      "actual": 800.0,
+      "expected": 800.0,
+      "name": "REPD 12926 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-81C5A835AFC865",
+      "expected": "GG2050-DEV-81C5A835AFC865",
+      "name": "REPD 12926 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010148",
+      "expected": "EN010148",
+      "name": "REPD 12926 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 19574",
+      "passed": true
+    },
+    {
+      "actual": "The Tween Bridge Solar Farm",
+      "expected": "The Tween Bridge Solar Farm",
+      "name": "REPD 19574 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 19574 technology",
+      "passed": true
+    },
+    {
+      "actual": 400.0,
+      "expected": 400.0,
+      "name": "REPD 19574 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-81C5A835AFC865",
+      "expected": "GG2050-DEV-81C5A835AFC865",
+      "name": "REPD 19574 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010148",
+      "expected": "EN010148",
+      "name": "REPD 19574 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 15793",
+      "passed": true
+    },
+    {
+      "actual": "Green Hill Solar Farm & Battery Storage",
+      "expected": "Green Hill Solar Farm & Battery Storage",
+      "name": "REPD 15793 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Solar Photovoltaics",
+      "expected": "Solar Photovoltaics",
+      "name": "REPD 15793 technology",
+      "passed": true
+    },
+    {
+      "actual": 600.0,
+      "expected": 600.0,
+      "name": "REPD 15793 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-36DE7073A7E4D2",
+      "expected": "GG2050-DEV-36DE7073A7E4D2",
+      "name": "REPD 15793 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010170",
+      "expected": "EN010170",
+      "name": "REPD 15793 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 15794",
+      "passed": true
+    },
+    {
+      "actual": "Green Hill Solar Farm & Battery Storage",
+      "expected": "Green Hill Solar Farm & Battery Storage",
+      "name": "REPD 15794 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 15794 technology",
+      "passed": true
+    },
+    {
+      "actual": 600.0,
+      "expected": 600.0,
+      "name": "REPD 15794 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-36DE7073A7E4D2",
+      "expected": "GG2050-DEV-36DE7073A7E4D2",
+      "name": "REPD 15794 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "EN010170",
+      "expected": "EN010170",
+      "name": "REPD 15794 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 11034",
+      "passed": true
+    },
+    {
+      "actual": "Coalburn Energy - Battery Storage",
+      "expected": "Coalburn Energy - Battery Storage",
+      "name": "REPD 11034 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 11034 technology",
+      "passed": true
+    },
+    {
+      "actual": 500.0,
+      "expected": 500.0,
+      "name": "REPD 11034 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-8AFE67BBE335AE",
+      "expected": "GG2050-DEV-8AFE67BBE335AE",
+      "name": "REPD 11034 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "ECU00003458",
+      "expected": "ECU00003458",
+      "name": "REPD 11034 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel exists: 12206",
+      "passed": true
+    },
+    {
+      "actual": "Coalburn II Energy Storage Facility - Battery Storage Facility",
+      "expected": "Coalburn II Energy Storage Facility - Battery Storage Facility",
+      "name": "REPD 12206 site_name",
+      "passed": true
+    },
+    {
+      "actual": "Battery",
+      "expected": "Battery",
+      "name": "REPD 12206 technology",
+      "passed": true
+    },
+    {
+      "actual": 1000.0,
+      "expected": 1000.0,
+      "name": "REPD 12206 capacity_mw",
+      "passed": true
+    },
+    {
+      "actual": "GG2050-DEV-56744AC757C748",
+      "expected": "GG2050-DEV-56744AC757C748",
+      "name": "REPD 12206 gg_development_id",
+      "passed": true
+    },
+    {
+      "actual": "ECU00004698",
+      "expected": "ECU00004698",
+      "name": "REPD 12206 planning_application_reference",
+      "passed": true
+    },
+    {
+      "actual": 3714,
+      "expected": 3714,
+      "name": "V6 project count",
+      "passed": true
+    },
+    {
+      "actual": 3445,
+      "expected": 3445,
+      "name": "V6 solar count",
+      "passed": true
+    },
+    {
+      "actual": 269,
+      "expected": 269,
+      "name": "V6 BESS count",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/index.html",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/package.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/styles/v7.css",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/app.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/core/plugin-host.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/core/state.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/core/utils.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/plugins/gauges.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/plugins/newspaper.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/plugins/project-export.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/plugins/project-filters.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/plugins/project-table.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/scripts/plugins/projects.js",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/contracts/plugin.v1.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/data/build_manifest.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/data/plugin_manifest.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/data/build_reports/7.1-change-accounting.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/tests/browser_smoke.mjs",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/tests/check_modules.mjs",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/tests/check_v5_parity.py",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/tests/run_v7_1.sh",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: .github/workflows/v7-north-star.yml",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 required file: uk_renewables_pipeline/v7/docs/releases/7.1.md",
+      "passed": true
+    },
+    {
+      "actual": "7.1",
+      "expected": "7.1",
+      "name": "manifest version",
+      "passed": true
+    },
+    {
+      "actual": "modular-v5-parity",
+      "expected": "modular-v5-parity",
+      "name": "manifest feature",
+      "passed": true
+    },
+    {
+      "actual": "PASS",
+      "expected": "PASS",
+      "name": "manifest North Star result",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 external stylesheet",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 module entrypoint",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "V7.1 has no inline style block",
+      "passed": true
+    }
+  ],
+  "contract_sha256": "a73ae748f372cd590a803df77f4c74630c64d7eada1448acf7e5ee3f03774431",
+  "feature": "modular-v5-parity",
+  "generated_at": "2026-08-22T22:38:20.299965Z",
+  "metrics": {
+    "legacy_display_bess": 1271,
+    "legacy_display_solar": 2667,
+    "legacy_display_total": 5210,
+    "legacy_display_wind": 1272,
+    "legacy_features": 10784,
+    "v5_eligible_projects": 559,
+    "v5_headlines": 125,
+    "v5_lookback_days": 366,
+    "v5_raw_bess_gt100": 239,
+    "v5_raw_solar_gt49": 321
+  },
+  "phase": "post",
+  "result": "PASS",
+  "schema": "globalgrid2050.v7.north-star-report.v1",
+  "target_release": "7.1"
+}

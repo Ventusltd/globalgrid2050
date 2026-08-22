@@ -1,0 +1,62 @@
+{
+  "schema": "globalgrid2050.v7.build-manifest.v1",
+  "version": "7.1",
+  "feature": "modular-v5-parity",
+  "status": "VALIDATED_RELEASE_CANDIDATE",
+  "built_at": "2026-08-22T22:37:24Z",
+  "branch": "main",
+  "north_star": "PASS",
+  "governing_readme": {
+    "path": "uk_renewables_pipeline/v7/README.md",
+    "sha256": "bbf4fff496bd477edfa74d1b91696e886f4d3f9e5298e2b8a406a43ba7b55e93",
+    "git_blob_sha": "ecc034a5b3a38ad4992b13379a38bfa5814e0e17"
+  },
+  "contracts": {
+    "north_star": {
+      "path": "uk_renewables_pipeline/v7/contracts/north-star.v1.json",
+      "sha256": "a73ae748f372cd590a803df77f4c74630c64d7eada1448acf7e5ee3f03774431"
+    },
+    "plugin": {
+      "path": "uk_renewables_pipeline/v7/contracts/plugin.v1.json",
+      "sha256": "b4ed06d58891359e8df017bc3e9564ba49928e4f6696b1604cfa1e01ab354df5"
+    }
+  },
+  "frozen_inputs": {
+    "dist/major_project_news_v5.json": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+    "dist/repd_master.json": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
+    "dist/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+    "dist/major_projects_v6.json": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7"
+  },
+  "outputs": {
+    "index.html": "202c2a53da4ff94e2e3b254ceabafae6c91dc4f6d5f2c86eed3362f2503626b6",
+    "styles/v7.css": "036dbfe43ef1ffb2c55ba277d49dec57ab7c7be976289226a5d568e1f1be319d",
+    "scripts/app.js": "b96ca6baa4e85c7985fed173aa1e37c9d62d8366a1e6d9cbe251a13a22f3cfe1",
+    "scripts/core/plugin-host.js": "e5aaa19b5bee93683fae461f7ead55d019e8c2edc8ce377680c0da634606e378",
+    "scripts/core/state.js": "df96d850a249b318995dd4a14cec3ff41928710f6c23b96baf68650fe3d27f1b",
+    "scripts/core/utils.js": "bec300e2720e0793bc08434e91c0ea0dd8c3d8e36e79b97172e4d5270f01eda0",
+    "scripts/plugins/gauges.js": "c9172c8ca83a81d666ec04d10ad51bd5664004cd255c7acd4690aaf9a70e948f",
+    "scripts/plugins/newspaper.js": "938c662a4ca461107f3f0851c70dd09bc29d0103ed1517a49920cb7ccbd06417",
+    "scripts/plugins/project-export.js": "a5dbf6eff9670d7c08289d53e187c838b958f68eab2039928bc2a154e4689524",
+    "scripts/plugins/project-filters.js": "348065a5800f21cbfb05d7a4a0d051215fc4263d016643be37d14687481440c6",
+    "scripts/plugins/project-table.js": "cb9eab60637c87f940c2494590c301cf9c19e8b6c37eca6a38b9681a9e44c4f0",
+    "scripts/plugins/projects.js": "45a962c4c6bdc3c2851b957110cea7d0b1a8d822352b3592058f5982a314e9f6",
+    "data/plugin_manifest.json": "55191906571536a5131a49c3d90bf9e6564f316c369682e3660c6e6902fef5ce"
+  },
+  "parity": {
+    "legacy_features": 10784,
+    "displayed_projects": 5210,
+    "v5_headlines": 125,
+    "v5_eligible_projects": 559,
+    "v5_lookback_days": 366,
+    "news_signal_changed": false,
+    "project_logic_changed": false
+  },
+  "reports": {
+    "preflight": "uk_renewables_pipeline/v7/data/build_reports/7.1-preflight.json",
+    "postflight": "uk_renewables_pipeline/v7/data/build_reports/7.1-postflight.json"
+  },
+  "production": {
+    "status": "PENDING_DEPLOYMENT",
+    "url": "https://globalgrid2050.com/uk_renewables_pipeline/v7/"
+  }
+}

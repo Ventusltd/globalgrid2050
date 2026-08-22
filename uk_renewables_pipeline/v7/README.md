@@ -429,7 +429,7 @@ uk_renewables_pipeline/v7/
 ├── fixtures/             # Positive, negative and boundary evaluation cases
 ├── tests/                # Unit, contract, integrity and browser tests
 ├── data/                 # Generated same-origin release assets
-└── workflows/            # V7 workflow sources copied to .github only at Step 4
+└── workflows/            # Future publication workflows; the read-only validator launcher lives in .github
 ```
 
 ## Reload protocol
@@ -457,4 +457,8 @@ For a new chat:
 - V7.0 deliberately retains V5 NEWS SIGNAL behaviour: useful matches and known failures remain external legacy intelligence until the single-feature V7.3 replacement.
 - Every future build must execute the North Star at both preflight and postflight; V7.1 is responsible for creating the shared machine-readable contract and validator.
 - Each V7.1–V7.9 release implements one feature theme only; after V7.9 development moves to V8.0.
+- V7.1 modular release candidate is complete locally: the thin shell, exact V5 stylesheet, shared core, gauges/newspaper/projects plugins, plugin manifest, North Star contract and validation suite are present.
+- V7.1 preflight passed 130 checks. Dataset/interface parity and ES-module contract tests pass with 5,210 displayed legacy projects and 125 inherited V5 headlines.
+- V7.1 has not changed the legacy project floor, wind visibility, V5 news feed or inherited NEWS SIGNAL decisions; those remain explicitly deferred to V7.2 and V7.3.
+- V7.1 production proof remains pending until the validated release candidate is committed to `main`, deployed by Pages and browser-tested at the stable V7 URL.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.

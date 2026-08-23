@@ -4,7 +4,7 @@
   "feature": "modular-v5-parity",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "d3fa0d595039b01e948c131a7e0ff35c78572827cc1b7c33d1002b526ebb17c1"
+    "sha256": "c4eaf1a6144328efc935ef94cf227f02417011f60d1325dfcbb022abcae8fc84"
   },
   "required_readme_phrases": [
     "V7.1 is the current live release",
@@ -126,6 +126,7 @@
     "uk_renewables_pipeline/v7/fixtures/README.md",
     "uk_renewables_pipeline/v7/scripts/app.js",
     "uk_renewables_pipeline/v7/scripts/core/plugin-host.js",
+    "uk_renewables_pipeline/v7/scripts/core/project-state.js",
     "uk_renewables_pipeline/v7/scripts/core/state.js",
     "uk_renewables_pipeline/v7/scripts/core/utils.js",
     "uk_renewables_pipeline/v7/scripts/plugins/gauges.js",
@@ -134,6 +135,7 @@
     "uk_renewables_pipeline/v7/scripts/plugins/project-filters.js",
     "uk_renewables_pipeline/v7/scripts/plugins/project-table.js",
     "uk_renewables_pipeline/v7/scripts/plugins/projects.js",
+    "uk_renewables_pipeline/v7/scripts/data/canonical-projects.js",
     "uk_renewables_pipeline/v7/contracts/plugin.v1.json",
     "uk_renewables_pipeline/v7/contracts/projects-plugin.v7.2.json",
     "uk_renewables_pipeline/v7/docs/08-v7.2-project-interface.md",
@@ -142,6 +144,7 @@
     "uk_renewables_pipeline/v7/data/build_reports/7.1-change-accounting.json",
     "uk_renewables_pipeline/v7/tests/browser_smoke.mjs",
     "uk_renewables_pipeline/v7/tests/check_modules.mjs",
+    "uk_renewables_pipeline/v7/tests/check_v7_2_project_model.mjs",
     "uk_renewables_pipeline/v7/tests/check_v5_parity.py",
     "uk_renewables_pipeline/v7/tests/validate_projects_plugin_v7_2.py",
     "uk_renewables_pipeline/v7/tests/run_v7_1.sh",

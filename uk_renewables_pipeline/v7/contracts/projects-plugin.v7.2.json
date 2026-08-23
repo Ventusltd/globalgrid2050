@@ -18,6 +18,28 @@
     "interactive_map_release": "7.7",
     "v7_2_geojson_role": "validated map-ready derivative only"
   },
+  "implementation_checkpoints": {
+    "checkpoint_1": {
+      "status": "IMPLEMENTED_ISOLATED_NOT_LIVE",
+      "scope": "canonical project adapter and state model",
+      "files": {
+        "uk_renewables_pipeline/v7/scripts/data/canonical-projects.js": "e936a194655142b29f7e888874c3fe7c6df374e8bd8668e588ba9db5e6a9dd67",
+        "uk_renewables_pipeline/v7/scripts/core/project-state.js": "bf52f442cc1aaa7ba26a32ef9437a9dd0c4149120fc313a0ae6cf51d874557d8",
+        "uk_renewables_pipeline/v7/tests/check_v7_2_project_model.mjs": "dbdafd46a22f18cb40b62f4c4991b55549ec3f3c39ef51b77fee87b6c94a07e0"
+      },
+      "gates": [
+        "full validation precedes atomic state commit",
+        "same-origin relative sources and cross-origin redirects are rejected",
+        "failed refresh retains the last validated model",
+        "canonical project records and nested relationship arrays are immutable",
+        "exact REPD and GlobalGrid project IDs take precedence over contextual search",
+        "live V7.1 modules do not import the checkpoint"
+      ]
+    },
+    "checkpoint_2": {"status": "PENDING", "scope": "gauges, lifecycle filters and canonical search controls"},
+    "checkpoint_3": {"status": "PENDING", "scope": "canonical table, evidence fields and CSV export"},
+    "checkpoint_4": {"status": "PENDING", "scope": "browser, mobile, exact-commit and live-promotion proof"}
+  },
   "v7_1_runtime_guard": {
     "purpose": "The specification pass must not change visible V7.1 behaviour.",
     "files": {

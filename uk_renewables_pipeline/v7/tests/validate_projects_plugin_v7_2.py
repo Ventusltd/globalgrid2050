@@ -109,6 +109,12 @@ def main() -> int:
     check("specification status", contract.get("status") == "SPECIFICATION_ONLY_UI_NOT_LIVE")
     check("project-spine hash", sha256(spine_path) == contract["governance"]["project_spine_contract_sha256"])
     check("project-spine remains data only", spine.get("status") == "DATA_ONLY_NOT_LIVE")
+    checkpoint = contract["implementation_checkpoints"]["checkpoint_1"]
+    check("checkpoint 1 isolated status", checkpoint.get("status") == "IMPLEMENTED_ISOLATED_NOT_LIVE")
+    for relative, expected_hash in checkpoint["files"].items():
+        path = ROOT / relative
+        check(f"checkpoint 1 file exists: {relative}", path.is_file())
+        check(f"checkpoint 1 file hash: {relative}", path.is_file() and sha256(path) == expected_hash)
     for key in ("projects", "geojson", "manifest"):
         source = universe["source_files"][key]
         path = ROOT / source["path"]

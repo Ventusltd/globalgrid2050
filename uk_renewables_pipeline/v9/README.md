@@ -2,7 +2,7 @@
 
 ## Current release
 
-V9.3 restores the proven V5/V7.1 desktop and mobile interface while retaining the complete V9.1 canonical Q2 REPD universe and every V9.2 feature.
+V9.3 is the live validated release. It restores the proven V5/V7.1 desktop and mobile interface while retaining the complete V9.1 canonical Q2 REPD universe and every V9.2 feature.
 
 The default page loads all 7,680 qualifying solar, battery, onshore-wind and offshore-wind records at 1 MW and above. Technology, status, county and search controls filter that complete universe; they never redefine or truncate the pipeline.
 
@@ -45,7 +45,7 @@ The 769–920 px rule is not a redesign. It changes no gauge count, project, fil
 V2, V5 and the proven V7.1 release displayed filtered capacity with `maximumFractionDigits: 0`. V9.3 restores that presentation on desktop and mobile:
 
 - canonical `356,474.09 MW` displays as `356,474` in the primary gauge and results summary;
-- offshore-wind `80,535.3 MW` displays as `80,535`;
+- offshore-wind `80,535.4 MW` displays as `80,535`;
 - the underlying canonical value is not rounded or rewritten;
 - exact capacity remains in the V9.1 data partitions, project table, filtered CSV, Atlas URL and manifests.
 
@@ -105,7 +105,7 @@ The inherited V5 news feed remains explicitly legacy and unverified. V9.3 retain
 
 No headline score may overwrite an official REPD identity, status, capacity or date. Wind news remains outside the legacy V5 feed and is labelled accordingly.
 
-## Validation
+## Validation and publication proof
 
 Run:
 
@@ -129,4 +129,6 @@ cd uk_renewables_pipeline/v9
 V9_BROWSER_SMOKE=1 bash tests/run_v9_3.sh
 ```
 
-The read-only GitHub Actions workflow `.github/workflows/v9-3-validate.yml` runs the same gate against the exact committed bytes.
+The read-only workflow `.github/workflows/v9-3-validate.yml` runs the same gate against exact committed bytes. `.github/workflows/deploy-pages.yml` deploys the exact SHA and then runs the same Playwright browser proof against `https://globalgrid2050.com/uk_renewables_pipeline/v9/`.
+
+Candidate commit `2e4662226d4a82b8b071e31480a362f91ad5f66b` passed exact validation run `32659217157` and Pages/live-browser run `32659217161` before promotion. The final live promotion commit must receive the same two success contexts.

@@ -23,6 +23,7 @@ const gitBlob = (path) => execFileSync("git", ["-C", rootPath, "hash-object", pa
 const contract = await readJson("contracts/release.v9.3.json");
 const parentContract = await readJson("contracts/release.v9.2.json");
 const dataContract = await readJson("contracts/release.v9.1.json");
+const releaseManifest = await readJson("data/v9_manifest.json");
 const payload = await readJson("data/v9.1/build_manifest.json");
 const projectParts = await Promise.all(payload.project_partitions.map(({ path }) => readJson(path)));
 const projects = projectParts.flatMap((part) => part.projects);
@@ -38,6 +39,10 @@ assert.equal(contract.data_parent.release, "9.1");
 assert.equal(contract.data_parent.data_changed, false);
 assert.equal(parentContract.release, "9.2");
 assert.equal(dataContract.release, "9.1");
+assert.equal(releaseManifest.version, "9.3");
+assert.equal(releaseManifest.status, "LIVE_VALIDATED");
+assert.equal(releaseManifest.promotion_basis.candidate_commit, "2e4662226d4a82b8b071e31480a362f91ad5f66b");
+assert.equal(releaseManifest.promotion_basis.live_custom_domain_proof, true);
 assert.deepEqual(contract.ui_contract.intermediate_header_wrap_range_px, [769, 920]);
 assert.deepEqual(contract.ui_contract.intermediate_test_widths_px, [769, 800, 900, 920]);
 assert.equal(contract.ui_contract.desktop_header_row_from_px, 921);
@@ -115,6 +120,8 @@ const rootIndex = await readFile(new URL("index.html", root), "utf8");
 const packageJson = await readJson("package.json");
 
 assert.match(html, /UK RENEWABLES PIPELINE V9\.3/);
+assert.match(html, />V9\.3 LIVE</);
+assert.doesNotMatch(html, /V9\.3 CANDIDATE/);
 const styleOrder = [
   html.indexOf("styles/v7.css?v=9.3"),
   html.indexOf("styles/mobile.css?v=9.3"),
@@ -167,9 +174,10 @@ assert.doesNotMatch(projectsV93, /filtered\.length\s*\?\s*filtered\s*:\s*all/);
 assert.match(projectsV93, /geometry_status !== "valid"/);
 assert.match(projectsV93, /globalgrid2050_uk_renewables_pipeline_v9_3_/);
 
-assert.match(rootIndex, /V9\.3 LIVE CANDIDATE/);
+assert.match(rootIndex, /V9\.3 LIVE ·/);
+assert.doesNotMatch(rootIndex, /V9\.3 LIVE CANDIDATE/);
 assert.equal(packageJson.version, "9.3.0");
 assert.equal(packageJson.scripts.validate, "bash tests/run_v9_3.sh");
 assert.equal(packageJson.scripts["validate:browser"], "V9_BROWSER_SMOKE=1 bash tests/run_v9_3.sh");
 
-console.log("V9.3: PASS (V5/V7.1 UI and bounded tablet header restored; all V9.2 functions and 7,680-record data retained)");
+console.log("V9.3: PASS (LIVE V5/V7.1 UI and bounded tablet header; all V9.2 functions and 7,680-record data retained)");

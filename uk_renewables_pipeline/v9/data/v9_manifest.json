@@ -2,7 +2,13 @@
   "schema": "globalgrid2050.v9.release-manifest.v1",
   "version": "9.3",
   "feature": "proven-v5-v7-1-interface-and-whole-mw-capacity-presentation-restored-with-bounded-tablet-correction-and-v9-features-preserved",
-  "status": "LIVE_CANDIDATE",
+  "status": "LIVE_VALIDATED",
+  "promotion_basis": {
+    "candidate_commit": "2e4662226d4a82b8b071e31480a362f91ad5f66b",
+    "exact_validation_run": 32659217157,
+    "pages_and_live_browser_run": 32659217161,
+    "live_custom_domain_proof": true
+  },
   "frozen_v9_0_commit": "50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2",
   "frozen_v9_1_commit": "59f74e319fbaad62abdb995107dba5759d7f3ca2",
   "frozen_v9_1_tree": "e9dc244b74d9c983e4557a23bd2b745c1daeb105",

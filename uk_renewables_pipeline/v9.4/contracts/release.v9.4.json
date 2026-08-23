@@ -1,0 +1,62 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.4",
+  "release": "9.4",
+  "status": "CANDIDATE",
+  "feature": "click-repd-updated-header-to-toggle-newest-oldest",
+  "frozen_parent": {
+    "release": "9.3.1",
+    "commit": "9e0c51281fc816691a75e4255483a0851122481e",
+    "path": "uk_renewables_pipeline/v9",
+    "subtree": "64f318b1dced6c202c5ff3517ef120828fdd2064",
+    "tree_listing_sha256": "fe3d611555c7d9f19c64fa30105dfecb4ba68e649cd55d6424219b7081d07951",
+    "must_remain_unchanged": true
+  },
+  "data_parent": {
+    "release": "9.1",
+    "contract": "contracts/release.v9.1.json",
+    "manifest": "data/v9.1/build_manifest.json",
+    "data_changed": false
+  },
+  "scope": {
+    "capacity_mw_inclusive_minimum": 1.0,
+    "technologies": ["solar", "bess", "wind_onshore", "wind_offshore"],
+    "all_official_statuses": true,
+    "default_universe": "all_qualifying_records",
+    "record_identity_preserved": true,
+    "development_deduplication_forbidden": true
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "displayed_capacity_mw": 356474,
+    "largest_mw": 4100.0,
+    "valid_geometry_count": 7652,
+    "missing_geometry_count": 28,
+    "solar_count": 3563,
+    "bess_count": 1609,
+    "wind_onshore_count": 2399,
+    "wind_offshore_count": 109
+  },
+  "ui_contract": {
+    "separate_app_path": "uk_renewables_pipeline/v9.4",
+    "click_target": "REPD UPDATED table header",
+    "first_click": "updated_desc",
+    "second_click": "updated_asc",
+    "indicator_default": "↕",
+    "indicator_newest": "▼",
+    "indicator_oldest": "▲",
+    "aria_sort_default": "none",
+    "aria_sort_newest": "descending",
+    "aria_sort_oldest": "ascending",
+    "missing_update_dates": "retained as not supplied by REPD and sorted after dated records",
+    "retain_sort_select": true,
+    "shareable_sort_url": true,
+    "project_table_columns": 11,
+    "mobile_identity_location": "beneath site name"
+  },
+  "algorithms": {
+    "pipeline": "load all qualifying records before applying optional user filters",
+    "project_sort": "default canonical capacity order; header toggles official REPD update date newest then oldest; missing official dates always last",
+    "official_facts": "no UI or news signal may overwrite REPD identity, status, capacity or dates"
+  }
+}

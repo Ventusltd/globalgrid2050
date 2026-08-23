@@ -1,0 +1,87 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.6",
+  "release": "9.6",
+  "status": "CANDIDATE",
+  "feature": "mobile-project-cards-progressive-rendering-and-official-capacity-range",
+  "frozen_parent": {
+    "release": "9.5.1",
+    "commit": "8b2432be75f224562fc1c416dbcc3319e31a47a8",
+    "path": "uk_renewables_pipeline/v9.5.1",
+    "subtree": "6288b9d8196adce57207b549c555c9bcee42587a",
+    "tree_listing_sha256": "b6197b79601daab1ee3b1d33fb9356c6c56ec02c69f51be73298be34095d5fe8",
+    "must_remain_unchanged": true
+  },
+  "frozen_v9_4": {
+    "commit": "d598d9b6b89be4daeb904fafae52dd18ba35d1c1",
+    "subtree": "dfcd9b457854fc07d4af3df5797f29e2e3d12426",
+    "tree_listing_sha256": "72ab62c1129f0501e78c89ebff8ba8c0967197738916e556a7f6553699f69e8c"
+  },
+  "data_parent": {
+    "release": "9.1",
+    "contract": "contracts/release.v9.1.json",
+    "manifest": "data/v9.1/build_manifest.json",
+    "data_changed": false
+  },
+  "news_contract": {
+    "feed_schema": "globalgrid2050.major-project-news.v9.5.1",
+    "all_headline_count": 133,
+    "v9_4_baseline_headline_count": 125,
+    "relevant_headline_count": 45,
+    "v5_revalidated_primary_count": 37,
+    "v6_canonical_headline_count": 8,
+    "all_preserves_complete_v9_4_newspaper": true,
+    "relevant_filter_is_functional": true,
+    "browser_binding": "canonical repd_ref PRIMARY_MATCH only",
+    "discovery_only_drives_project_signal": false,
+    "related_development_drives_news_signal": false,
+    "capacity_is_corroboration_only": true,
+    "official_repd_facts_overwritten": false,
+    "beacon_fen": {
+      "repd_ref": "13599",
+      "gg_project_id": "GG2050-REPD-13599",
+      "operator": "Low Carbon Limited",
+      "official_capacity_mw": 400.0,
+      "related_bess_repd_ref": "13600",
+      "related_bess_drives_signal": false
+    }
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "displayed_capacity_mw": 356474,
+    "largest_mw": 4100.0,
+    "valid_geometry_count": 7652,
+    "missing_geometry_count": 28,
+    "solar_count": 3563,
+    "bess_count": 1609,
+    "wind_onshore_count": 2399,
+    "wind_offshore_count": 109
+  },
+  "ui_contract": {
+    "separate_app_path": "uk_renewables_pipeline/v9.6",
+    "project_table_columns": 11,
+    "first_click": "updated_desc",
+    "second_click": "updated_asc",
+    "aria_sort_default": "none",
+    "aria_sort_newest": "descending",
+    "aria_sort_oldest": "ascending",
+    "news_failure_mode": "fail newspaper closed while retaining canonical REPD analytics",
+    "capacity_filter_field": "official REPD capacity_mw",
+    "capacity_filter_minimum_inclusive": true,
+    "capacity_filter_maximum_inclusive": true,
+    "capacity_filter_blank_means_unbounded": true,
+    "capacity_filter_sentinel": {
+      "minimum_mw": 100,
+      "maximum_mw": 500,
+      "matching_projects": 476,
+      "matching_capacity_mw": 106714.5,
+      "largest_matching_project_mw": 500
+    },
+    "mobile_project_batch": 50,
+    "mobile_news_batch": 20,
+    "mobile_progressive_rendering_changes_data_universe": false,
+    "all_projects_loaded_searchable_sortable_exportable": true,
+    "mobile_table_horizontal_overflow_allowed": false,
+    "minimum_touch_target_px": 44
+  }
+}

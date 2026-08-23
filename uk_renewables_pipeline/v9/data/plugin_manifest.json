@@ -6,6 +6,8 @@
     {
       "id": "gauges",
       "module": "scripts/plugins/gauges-v9-2.js",
+      "presentation_module": "scripts/plugins/capacity-presentation-v9-3.js",
+      "presentation_contract": "V2/V5/V7.1 whole-MW capacity display; canonical and CSV values remain exact",
       "inherited_from": "9.2",
       "owns": [
         "g1",
@@ -43,6 +45,7 @@
         "scripts/data/canonical-projects-v9-3.js",
         "scripts/data/canonical-projects-v9-1.js",
         "scripts/plugins/gauges-v9-2.js",
+        "scripts/plugins/capacity-presentation-v9-3.js",
         "scripts/plugins/newspaper-v9-2.js",
         "data/v9.1/build_manifest.json",
         "data/v9.1/projects/*.json",

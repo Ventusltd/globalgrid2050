@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.uk-renewables.release.v9.3",
   "release": "9.3",
-  "feature": "restore-proven-v5-v7-1-interface-and-bound-tablet-header-overflow-without-changing-v9-2-functions",
+  "feature": "restore-proven-v5-v7-1-interface-whole-mw-capacity-presentation-and-bound-tablet-header-overflow-without-changing-v9-2-features",
   "frozen_parent": {
     "release": "9.2",
     "commit": "77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee",
@@ -24,7 +24,25 @@
       "project_reference": "scripts/plugins/projects-v9-2.js"
     },
     "application_logic_changed": false,
-    "interface_changed": true
+    "interface_changed": true,
+    "capacity_presentation_changed": true
+  },
+  "v9_3_presentation": {
+    "module": "scripts/plugins/capacity-presentation-v9-3.js",
+    "scope": "display only",
+    "filtered_capacity_maximum_fraction_digits": 0,
+    "rounding": "nearest whole MW using en-GB number formatting",
+    "applies_to": [
+      "primary filtered-capacity gauge",
+      "filtered results summary"
+    ],
+    "exact_capacity_preserved_in": [
+      "V9.1 canonical data partitions",
+      "filtered CSV export",
+      "project table official capacity",
+      "Atlas URL capacity_mw",
+      "release and build manifests"
+    ]
   },
   "scope": {
     "capacity_mw_inclusive_minimum": 1.0,
@@ -37,11 +55,13 @@
     "all_official_statuses": true,
     "default_universe": "all_qualifying_records",
     "record_identity_preserved": true,
-    "development_deduplication_forbidden": true
+    "development_deduplication_forbidden": true,
+    "additional_filters_deferred_to": "9.4"
   },
   "expected": {
     "project_count": 7680,
     "capacity_mw": 356474.09,
+    "displayed_capacity_mw": 356474,
     "largest_mw": 4100.0,
     "valid_geometry_count": 7652,
     "missing_geometry_count": 28,
@@ -51,7 +71,7 @@
     "wind_offshore_count": 109
   },
   "ui_contract": {
-    "reference": "V5 visual shell plus the proven V7.1 mobile overflow repair and a bounded V9.3 tablet-header correction",
+    "reference": "V5 visual shell plus the proven V7.1 mobile overflow repair, V2/V5 whole-MW capacity formatting and a bounded V9.3 tablet-header correction",
     "stylesheets_in_order": [
       "styles/v7.css",
       "styles/mobile.css",
@@ -62,6 +82,7 @@
       "styles/v9-2.css"
     ],
     "primary_gauges": 3,
+    "filtered_capacity_fraction_digits": 0,
     "desktop_gauge_columns": 3,
     "intermediate_gauge_columns": 3,
     "desktop_header_row_from_px": 921,

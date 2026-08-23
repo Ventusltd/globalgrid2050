@@ -2,11 +2,11 @@
 
 ## Current release
 
-V9.3 restores the proven V5/V7.1 desktop and mobile interface while retaining the complete V9.1 canonical Q2 REPD universe and every V9.2 function.
+V9.3 restores the proven V5/V7.1 desktop and mobile interface while retaining the complete V9.1 canonical Q2 REPD universe and every V9.2 feature.
 
 The default page loads all 7,680 qualifying solar, battery, onshore-wind and offshore-wind records at 1 MW and above. Technology, status, county and search controls filter that complete universe; they never redefine or truncate the pipeline.
 
-V9.3 is a bounded interface correction. It does not rebuild the V9.1 data spine or redesign the V9.2 search, relevance-screening, CSV, identity or Atlas algorithms.
+V9.3 is a bounded presentation correction. It does not rebuild the V9.1 data spine or redesign the V9.2 search, relevance-screening, CSV, identity or Atlas algorithms.
 
 - V9.2 frozen checkpoint: commit `77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee`, tree `3807968dbf5c73e4499c6de9157464e3185dd241`.
 - V9.1 frozen checkpoint: commit `59f74e319fbaad62abdb995107dba5759d7f3ca2`, tree `e9dc244b74d9c983e4557a23bd2b745c1daeb105`.
@@ -28,6 +28,7 @@ V9.3 does not load `styles/v8.css` or `styles/v9-2.css`.
 The visible contract is:
 
 - exactly three primary gauges;
+- the filtered-capacity gauge and filtered results summary use the original V2/V5/V7.1 whole-MW display with no decimal places;
 - three gauge columns above 768 px;
 - one gauge column at and below 768 px;
 - the normal desktop header remains a row from 921 px upwards;
@@ -37,7 +38,18 @@ The visible contract is:
 - no forced 1,500 px or 1,850 px table width;
 - contained-layout checks at 769, 800, 900 and 920 px, plus mobile checks at 390, 430, 440 and 768 px.
 
-The 769–920 px rule is not a redesign. A deterministic layout replay found that the longer V9.3 status extended beyond the header between those widths while the document-level overflow remained hidden. The bounded correction changes no gauge, table, project, filter, news, CSV or Atlas behaviour.
+The 769–920 px rule is not a redesign. It changes no gauge count, project, filter, news, CSV or Atlas decision.
+
+### Whole-MW presentation
+
+V2, V5 and the proven V7.1 release displayed filtered capacity with `maximumFractionDigits: 0`. V9.3 restores that presentation on desktop and mobile:
+
+- canonical `356,474.09 MW` displays as `356,474` in the primary gauge and results summary;
+- offshore-wind `80,535.3 MW` displays as `80,535`;
+- the underlying canonical value is not rounded or rewritten;
+- exact capacity remains in the V9.1 data partitions, project table, filtered CSV, Atlas URL and manifests.
+
+The presentation adapter is `scripts/plugins/capacity-presentation-v9-3.js`. It observes only the capacity text outputs and cannot change the canonical model or filtering decisions.
 
 V9 features remain inside the familiar layout. REPD Ref, GlobalGrid project ID and official record-update date appear beneath the site name. Planning, lifecycle, relationship and geometry fields remain available through the expandable project record. Atlas, news and copy-ID actions remain in the final column.
 
@@ -46,7 +58,7 @@ V9 features remain inside the familiar layout. REPD Ref, GlobalGrid project ID a
 The canonical universe remains unchanged:
 
 - 7,680 official REPD records;
-- 356,474.09 MW record-based capacity;
+- 356,474.09 MW exact record-based capacity;
 - 4,100 MW largest single record;
 - 3,563 solar records;
 - 1,609 BESS records;
@@ -70,7 +82,7 @@ It retains:
 - expandable canonical project record;
 - explicit `NO MAP` for missing geometry.
 
-No URL parameters means the complete 7,680-record universe.
+No URL parameters means the complete 7,680-record universe. No additional filter family is added in V9.3; further filters are reserved for the separately versioned V9.4 build.
 
 ## Filtered CSV contract
 
@@ -78,14 +90,14 @@ No URL parameters means the complete 7,680-record universe.
 - A zero-result filter produces the CSV header only.
 - Filename: `globalgrid2050_uk_renewables_pipeline_v9_3_YYYY-MM-DD.csv`.
 - UTF-8 BOM is retained for Excel compatibility.
-- Canonical identity, official status/capacity, official update date, relationships, coordinates, provenance, legacy-news warning and Atlas URL are included.
+- Canonical identity, exact official status/capacity, official update date, relationships, coordinates, provenance, legacy-news warning and Atlas URL are included.
 - Spreadsheet-formula injection remains neutralised.
 
 ## REPD date and Atlas contracts
 
 `repd_record_updated` remains an official REPD field. The table displays it as `dd/mm/yyyy`; CSV retains the canonical ISO date. Missing dates remain missing and are never replaced with the current date or a news date.
 
-Valid geometries create exact Atlas V8 links containing the canonical REPD Ref, project name, technology, capacity, latitude, longitude and zoom. The Atlas bridge resolves exact identity before flying to the point and opening the popup. Records without geometry remain searchable and exportable and display `NO MAP`; V9.3 never invents coordinates or identity.
+Valid geometries create exact Atlas V8 links containing the canonical REPD Ref, project name, technology, exact capacity, latitude, longitude and zoom. The Atlas bridge resolves exact identity before flying to the point and opening the popup. Records without geometry remain searchable and exportable and display `NO MAP`; V9.3 never invents coordinates or identity.
 
 ## News discipline
 
@@ -107,8 +119,8 @@ The gate:
 - verifies V1–V8 integrity markers;
 - rebuilds the V9.1 data spine and rejects any committed-byte difference;
 - checks every V9 JavaScript file;
-- validates the unchanged 7,680-record universe and all retained V9.2 functions;
-- proves the V5/V7.1 styles, the bounded tablet-header correction and the mobile contract.
+- validates the unchanged 7,680-record universe and all retained V9.2 features;
+- proves the V2/V5 whole-MW display, V5/V7.1 styles, bounded tablet-header correction and mobile contract.
 
 Browser validation:
 

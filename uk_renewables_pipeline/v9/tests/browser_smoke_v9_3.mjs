@@ -63,8 +63,10 @@ try {
   await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 7680, null, { timeout: 60000 });
   await page.waitForFunction(() => document.querySelectorAll("#stories .story").length > 0, null, { timeout: 30000 });
+  await page.waitForFunction(() => document.querySelector("#v1")?.textContent === "356,474");
 
-  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => page.locator(selector).textContent())), ["356,474.09", "7,680", "4,100"]);
+  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => page.locator(selector).textContent())), ["356,474", "7,680", "4,100"]);
+  assert.equal(await page.locator("#resultsMeta").textContent(), "7,680 of 7,680 records · 356,474 MW · largest 4,100 MW");
   assert.equal(await page.locator("thead th").count(), 8);
   assert.equal(await page.locator("#resultsMeta").getAttribute("data-filtered-count"), "7680");
   assert.equal(await page.locator("#releaseMeta").textContent(), "V9.3 interface · V9.1 canonical data spine · all 7,680 qualifying records loaded");
@@ -103,8 +105,10 @@ try {
 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.locator('[data-technology="wind_offshore"]').click();
+  await page.waitForFunction(() => document.querySelector("#v1")?.textContent === "80,535");
   assert.equal(await page.locator("#tbody tr").count(), 109);
-  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => page.locator(selector).textContent())), ["80,535.4", "109", "4,100"]);
+  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => page.locator(selector).textContent())), ["80,535", "109", "4,100"]);
+  assert.equal(await page.locator("#resultsMeta").textContent(), "109 of 7,680 records · 80,535 MW · largest 4,100 MW");
 
   await page.locator("#clearFilters").click();
   await page.locator("#search").fill("GG2050-REPD-9873 Berwick");
@@ -160,6 +164,7 @@ try {
   await newsFailure.page.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await newsFailure.page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 7680, null, { timeout: 60000 });
   await newsFailure.page.waitForFunction(() => document.querySelector("#newsMeta").textContent === "feed unavailable");
+  await newsFailure.page.waitForFunction(() => document.querySelector("#v1")?.textContent === "356,474");
   await newsFailure.context.close();
 
   const projectFailure = await preparePage(browser);
@@ -174,10 +179,11 @@ try {
   await chartFailure.page.route("https://raw.githubusercontent.com/**", (route) => route.abort());
   await chartFailure.page.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await chartFailure.page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 7680, null, { timeout: 60000 });
-  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => chartFailure.page.locator(selector).textContent())), ["356,474.09", "7,680", "4,100"]);
+  await chartFailure.page.waitForFunction(() => document.querySelector("#v1")?.textContent === "356,474");
+  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => chartFailure.page.locator(selector).textContent())), ["356,474", "7,680", "4,100"]);
   await chartFailure.context.close();
 
-  console.log("V9.3 browser smoke: PASS (V5/V7.1 mobile, bounded tablet header, full pipeline, CSV, news isolation and exact wind Atlas URL)");
+  console.log("V9.3 browser smoke: PASS (V2/V5 whole-MW presentation, V5/V7.1 layout, full pipeline, CSV, news isolation and exact wind Atlas URL)");
 } finally {
   await browser.close();
 }

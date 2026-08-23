@@ -1,0 +1,36 @@
+.capacity-controls {
+  align-items: center;
+  border: 1px solid #24323a;
+  background: #071018;
+  padding: 9px 12px;
+}
+
+.capacity-controls strong { color: #00ffff; font-size: 10px; }
+.capacity-controls label { color: #8d95a3; font-size: 9px; font-weight: bold; }
+.capacity-input {
+  background: #000;
+  border: 1px solid #2f343d;
+  color: #fff;
+  font: 700 11px 'Courier New', monospace;
+  padding: 8px 10px;
+  width: 130px;
+}
+.capacity-input[aria-invalid="true"] { border-color: #ff6666; }
+.capacity-meta { color: #aef7d1; font-size: 10px; font-weight: bold; }
+.capacity-meta.invalid { color: #ff6666; }
+.mobile-field-label { display: none; }
+
+@media (max-width: 768px) {
+  .capacity-controls label { width: 100%; }
+  .capacity-input { min-width: 100%; width: 100%; }
+
+  /* The only mobile layout change: preserve the complete table and swipe it. */
+  .tablewrap {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    width: 100%;
+  }
+  .tablewrap table { min-width: 1850px; }
+  .tablewrap .hide-mobile { display: table-cell; }
+}

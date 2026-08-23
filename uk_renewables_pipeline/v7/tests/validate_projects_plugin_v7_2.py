@@ -109,7 +109,7 @@ def main() -> int:
     check("specification status", contract.get("status") == "SPECIFICATION_ONLY_UI_NOT_LIVE")
     check("project-spine hash", sha256(spine_path) == contract["governance"]["project_spine_contract_sha256"])
     check("project-spine remains data only", spine.get("status") == "DATA_ONLY_NOT_LIVE")
-    for checkpoint_id in ("checkpoint_1", "checkpoint_2"):
+    for checkpoint_id in ("checkpoint_1", "checkpoint_2", "checkpoint_3"):
         checkpoint = contract["implementation_checkpoints"][checkpoint_id]
         checkpoint_label = checkpoint_id.replace("_", " ")
         check(f"{checkpoint_label} isolated status", checkpoint.get("status") == "IMPLEMENTED_ISOLATED_NOT_LIVE")
@@ -117,7 +117,6 @@ def main() -> int:
             path = ROOT / relative
             check(f"{checkpoint_label} file exists: {relative}", path.is_file())
             check(f"{checkpoint_label} file hash: {relative}", path.is_file() and sha256(path) == expected_hash)
-    check("checkpoint 3 pending", contract["implementation_checkpoints"]["checkpoint_3"].get("status") == "PENDING")
     check("checkpoint 4 pending", contract["implementation_checkpoints"]["checkpoint_4"].get("status") == "PENDING")
     for key in ("projects", "geojson", "manifest"):
         source = universe["source_files"][key]
@@ -140,6 +139,16 @@ def main() -> int:
     check("largest BESS", max(row["capacity_mw"] for row in bess) == universe["bess_largest_mw"])
     check("combined capacity forbidden", contract["interface"]["combined_capacity_metric_forbidden"] is True)
     check("technology units", contract["interface"]["technology_labels_and_units"] == {"solar": {"label": "Solar", "unit": "MWp"}, "bess": {"label": "Battery Storage", "unit": "MW"}})
+    expected_snapshot = universe["published_snapshot"]
+    for field in (
+        "projects_sha256",
+        "source_identity_sha256",
+        "source_coordinate_fixture_sha256",
+        "source_workbook_sha256",
+    ):
+        check(f"published snapshot metadata: {field}", payload.get(field) == expected_snapshot.get(field))
+    check("published geometry policy", payload.get("geometry_policy") == expected_snapshot.get("geometry_policy"))
+    check("published source provenance", payload.get("source_provenance") == expected_snapshot.get("source_provenance"))
 
     record_contract = contract["project_record"]
     for field in record_contract["required_non_null_strings"]:
@@ -208,6 +217,34 @@ def main() -> int:
             f"actual refs={result_refs}",
         )
     check("Beacon Fen components remain separate", by_ref["13599"]["gg_development_id"] == by_ref["13600"]["gg_development_id"] and by_ref["13599"]["gg_project_id"] != by_ref["13600"]["gg_project_id"])
+
+    table_fields = contract["interface"]["primary_table_fields"]
+    check("primary table has 11 fields", len(table_fields) == 11)
+    check(
+        "primary table labels preserve frozen order",
+        [field["label"] for field in table_fields] == contract["interface"]["primary_table_columns"],
+    )
+    check(
+        "official milestone fields are explicit",
+        contract["interface"]["official_milestone_fields"] == [
+            "planning_application_submitted",
+            "planning_application_withdrawn",
+            "planning_permission_granted",
+            "planning_permission_refused",
+            "planning_permission_expired",
+            "under_construction",
+            "operational",
+        ],
+    )
+    export_contract = contract["interface"]["export"]
+    export_ids = [column["id"] for column in export_contract["columns"]]
+    check("export column IDs unique", len(export_ids) == len(set(export_ids)))
+    check("export is filtered only", export_contract["scope"] == "current filtered rows only")
+    check("zero-result export is header only", export_contract["zero_results"] == "header only")
+    check("CSV null semantics are explicit", export_contract["null_official_value"] == "empty CSV field")
+    check("export includes canonical project ID", "gg_project_id" in export_ids)
+    check("export includes canonical development ID", "gg_development_id" in export_ids)
+    check("export includes published provenance", {"projects_sha256", "source_dataset", "source_row"}.issubset(export_ids))
 
     news_contract = contract["legacy_news_isolation"]
     news_path = ROOT / news_contract["fixture_path"]

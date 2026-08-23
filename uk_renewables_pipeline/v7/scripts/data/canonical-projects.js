@@ -40,6 +40,30 @@ function isFiniteNumber(value) {
   return typeof value === "number" && Number.isFinite(value);
 }
 
+function isIsoDate(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+function sameJson(left, right) {
+  if (left === right) return true;
+  if (Array.isArray(left) || Array.isArray(right)) {
+    return Array.isArray(left)
+      && Array.isArray(right)
+      && left.length === right.length
+      && left.every((value, index) => sameJson(value, right[index]));
+  }
+  if (isObject(left) || isObject(right)) {
+    if (!isObject(left) || !isObject(right)) return false;
+    const leftKeys = Object.keys(left).sort();
+    const rightKeys = Object.keys(right).sort();
+    return sameJson(leftKeys, rightKeys)
+      && leftKeys.every((key) => sameJson(left[key], right[key]));
+  }
+  return false;
+}
+
 function round2(value) {
   return Math.round((value + Number.EPSILON) * 100) / 100;
 }
@@ -105,12 +129,42 @@ export function adaptCanonicalProject(record, contract) {
   for (const field of recordContract.required_arrays) {
     invariant(Array.isArray(record[field]), `REPD ${record.repd_ref} lacks array ${field}`);
   }
+  for (const field of recordContract.nullable_iso_dates) {
+    invariant(record[field] === null || isIsoDate(record[field]), `REPD ${record.repd_ref} has invalid ${field}`);
+  }
+  for (const field of recordContract.nullable_strings) {
+    invariant(record[field] === null || typeof record[field] === "string", `REPD ${record.repd_ref} has invalid ${field}`);
+  }
+  for (const field of recordContract.nullable_numbers) {
+    invariant(record[field] === null || isFiniteNumber(record[field]), `REPD ${record.repd_ref} has invalid ${field}`);
+  }
+  for (const field of recordContract.string_may_be_empty) {
+    invariant(typeof record[field] === "string", `REPD ${record.repd_ref} has invalid ${field}`);
+  }
   invariant(["solar", "bess"].includes(record.technology), `REPD ${record.repd_ref} has out-of-scope technology`);
   invariant(record.gg_project_id === `GG2050-REPD-${record.repd_ref}`, `REPD ${record.repd_ref} has invalid project ID`);
   invariant(record.identity_status === "REPD_BOUND", `REPD ${record.repd_ref} is not REPD-bound`);
   invariant(record.identity_confidence === "authoritative", `REPD ${record.repd_ref} is not authoritative`);
   invariant(record.development_repd_refs.includes(record.repd_ref), `REPD ${record.repd_ref} development omits itself`);
   invariant(GEOMETRY_STATUSES.has(record.geometry_status), `REPD ${record.repd_ref} has invalid geometry status`);
+  if (record.geometry_status === "valid") {
+    invariant(
+      [record.easting, record.northing, record.longitude, record.latitude].every(isFiniteNumber),
+      `REPD ${record.repd_ref} has incomplete valid geometry`,
+    );
+  }
+  const relationshipContract = recordContract.relationship_object;
+  for (const relationship of record.relationships) {
+    invariant(isObject(relationship), `REPD ${record.repd_ref} has invalid relationship`);
+    invariant(
+      relationshipContract.required_fields.every((field) => typeof relationship[field] === "string" && relationship[field]),
+      `REPD ${record.repd_ref} has incomplete relationship`,
+    );
+    invariant(
+      relationshipContract.type_enum.includes(relationship.type),
+      `REPD ${record.repd_ref} has unsupported relationship type`,
+    );
+  }
   invariant(
     !Object.keys(record).some((field) => FORBIDDEN_NEWS_FIELDS.has(field)),
     `REPD ${record.repd_ref} contains a news-derived fact`,
@@ -192,6 +246,18 @@ export function buildCanonicalProjectModel(payload, rawContract) {
   invariant(payload.version === "7.2", "unexpected payload version", "SCHEMA");
   invariant(PAYLOAD_STATUSES.has(payload.status), "payload is not validated", "SCHEMA");
   invariant(Array.isArray(payload.projects), "payload projects are absent", "SCHEMA");
+  const expectedSnapshot = contract.canonical_universe.published_snapshot;
+  invariant(isObject(expectedSnapshot), "published snapshot contract is absent", "SCHEMA");
+  for (const field of [
+    "projects_sha256",
+    "source_identity_sha256",
+    "source_coordinate_fixture_sha256",
+    "source_workbook_sha256",
+  ]) {
+    invariant(payload[field] === expectedSnapshot[field], `${field} does not match the published snapshot`, "INTEGRITY");
+  }
+  invariant(sameJson(payload.geometry_policy, expectedSnapshot.geometry_policy), "geometry policy does not match the published snapshot");
+  invariant(sameJson(payload.source_provenance, expectedSnapshot.source_provenance), "source provenance does not match the published snapshot");
 
   const projects = sortCanonicalProjects(payload.projects.map((record) => adaptCanonicalProject(record, contract)));
   const projectIds = new Set(projects.map((project) => project.gg_project_id));
@@ -219,6 +285,10 @@ export function buildCanonicalProjectModel(payload, rawContract) {
       schema: payload.schema,
       status: payload.status,
       projects_sha256: payload.projects_sha256,
+      source_identity_sha256: payload.source_identity_sha256,
+      source_coordinate_fixture_sha256: payload.source_coordinate_fixture_sha256,
+      source_workbook_sha256: payload.source_workbook_sha256,
+      geometry_policy: deepFreeze(structuredClone(payload.geometry_policy)),
       source_provenance: deepFreeze(structuredClone(payload.source_provenance)),
     }),
     projects: Object.freeze(projects),

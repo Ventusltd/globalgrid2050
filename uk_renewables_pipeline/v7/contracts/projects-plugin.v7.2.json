@@ -23,7 +23,7 @@
       "status": "IMPLEMENTED_ISOLATED_NOT_LIVE",
       "scope": "canonical project adapter and state model",
       "files": {
-        "uk_renewables_pipeline/v7/scripts/data/canonical-projects.js": "e936a194655142b29f7e888874c3fe7c6df374e8bd8668e588ba9db5e6a9dd67",
+        "uk_renewables_pipeline/v7/scripts/data/canonical-projects.js": "40d21f77ae817575a8f17181154cfe7e2c95de2fc2f716ce29cccebe3eb6bdf8",
         "uk_renewables_pipeline/v7/scripts/core/project-state.js": "bf52f442cc1aaa7ba26a32ef9437a9dd0c4149120fc313a0ae6cf51d874557d8",
         "uk_renewables_pipeline/v7/tests/check_v7_2_project_model.mjs": "dbdafd46a22f18cb40b62f4c4991b55549ec3f3c39ef51b77fee87b6c94a07e0"
       },
@@ -55,7 +55,29 @@
         "live V7.1 modules do not import the checkpoint"
       ]
     },
-    "checkpoint_3": {"status": "PENDING", "scope": "canonical table, evidence fields and CSV export"},
+    "checkpoint_3": {
+      "status": "IMPLEMENTED_ISOLATED_NOT_LIVE",
+      "scope": "canonical table, evidence fields and CSV export",
+      "files": {
+        "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-table.js": "c5125a3701ab289d915e08aa631596fd5664cf23c6025dca1fb18a0b3717b94f",
+        "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-export.js": "6a89629b67f68f0b98686d8a7a42805c43a7c02abaa75547e46ad5ff9885e8f6",
+        "uk_renewables_pipeline/v7/tests/check_v7_2_project_table_export.mjs": "17bdfd26d74d7db1d8a5297daf0e8243efa191c117e64830629deba42d6d5fdd"
+      },
+      "gates": [
+        "the table is a deeply immutable whitelist projection with no DOM or live-runtime dependency",
+        "filtered rows must be unique exact objects from the validated frozen canonical model",
+        "table and export snapshot canonical state before invoking the injected legacy-news resolver",
+        "all 766 REPD records remain separate and canonical capacity order is preserved",
+        "official values, derived lifecycle, relationships, geometry and provenance remain explicitly separated",
+        "legacy news is injected as external unverified context and cannot change canonical facts",
+        "news search URLs use a fixed HTTPS origin and remain context rather than evidence",
+        "CSV exports exactly the current filtered rows and zero results produce a header-only file",
+        "CSV uses a UTF-8 BOM, CRLF, fixed columns, technology-specific units and spreadsheet-formula protection",
+        "first-load failure disables table export while stale last-known-good data remains exportable",
+        "published provenance metadata is validated against the frozen contract before exposure",
+        "live V7.1 modules do not import the checkpoint"
+      ]
+    },
     "checkpoint_4": {"status": "PENDING", "scope": "browser, mobile, exact-commit and live-promotion proof"}
   },
   "v7_1_runtime_guard": {
@@ -126,6 +148,24 @@
     "geometry_count_this_edition": 766,
     "missing_geometry_this_edition": 0,
     "wind_count": 0,
+    "published_snapshot": {
+      "projects_sha256": "753afa29cd3d13eb9ad7e38be3d2344d2c43046deea59cd52d90da07cec83ceb",
+      "source_identity_sha256": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+      "source_coordinate_fixture_sha256": "8ca7a99a9f3a95b4de6f1dff79af64ead3aaa14627356eb198ae7be21539741f",
+      "source_workbook_sha256": "99ec4d0509a9fdfb999116e33c459084ce9ab59b44e3fafba5fc9b280ae2d5a6",
+      "geometry_policy": {
+        "output_crs": "RFC 7946 WGS84",
+        "source_crs": "EPSG:27700",
+        "transform": "documented OSGB36-to-WGS84 seven-parameter Helmert approximation",
+        "use": "market map context only; never evidence of a grid connection or cadastral boundary"
+      },
+      "source_provenance": {
+        "canonical_identity_source_xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
+        "coordinate_workbook_copy_sha256": "99ec4d0509a9fdfb999116e33c459084ce9ab59b44e3fafba5fc9b280ae2d5a6",
+        "dataset": "DESNZ Renewable Energy Planning Database Q2 2026",
+        "reconciliation": "14657/14657 Ref IDs; technology and capacity exact; site names exact after missing-value and _x000D_ normalization"
+      }
+    },
     "thresholds": {
       "solar_mwp_exclusive": 49.0,
       "bess_mw_exclusive": 99.0
@@ -287,6 +327,19 @@
       "Legacy news signal — unverified",
       "News"
     ],
+    "primary_table_fields": [
+      {"id": "project", "label": "Project"},
+      {"id": "location", "label": "Location"},
+      {"id": "operator", "label": "Operator"},
+      {"id": "technology", "label": "Technology"},
+      {"id": "official_status", "label": "Official REPD status"},
+      {"id": "capacity", "label": "Capacity with technology-specific unit"},
+      {"id": "repd_ref", "label": "REPD Ref"},
+      {"id": "gg_project_id", "label": "GlobalGrid project ID"},
+      {"id": "planning_reference", "label": "Planning reference"},
+      {"id": "legacy_news_signal", "label": "Legacy news signal — unverified"},
+      {"id": "news", "label": "News"}
+    ],
     "evidence_fields": [
       "gg_development_id",
       "identity_status",
@@ -299,6 +352,15 @@
       "geometry_status",
       "source provenance"
     ],
+    "official_milestone_fields": [
+      "planning_application_submitted",
+      "planning_application_withdrawn",
+      "planning_permission_granted",
+      "planning_permission_refused",
+      "planning_permission_expired",
+      "under_construction",
+      "operational"
+    ],
     "missing_value_label": "not supplied by REPD",
     "export": {
       "scope": "current filtered rows only",
@@ -306,7 +368,60 @@
       "encoding": "UTF-8 with BOM",
       "filename_contains": "v7_2",
       "includes_canonical_identity_and_provenance": true,
-      "includes_technology_specific_unit": true
+      "includes_technology_specific_unit": true,
+      "null_official_value": "empty CSV field",
+      "columns": [
+        {"id": "site_name", "label": "Site Name"},
+        {"id": "repd_ref", "label": "REPD Ref"},
+        {"id": "gg_project_id", "label": "GlobalGrid Project ID"},
+        {"id": "gg_development_id", "label": "GlobalGrid Development ID"},
+        {"id": "identity_status", "label": "Identity Status"},
+        {"id": "identity_confidence", "label": "Identity Confidence"},
+        {"id": "technology", "label": "Technology"},
+        {"id": "repd_technology", "label": "Official REPD Technology"},
+        {"id": "official_capacity", "label": "Official REPD Capacity"},
+        {"id": "capacity_unit", "label": "Capacity Unit"},
+        {"id": "official_status", "label": "Official REPD Status"},
+        {"id": "derived_lifecycle", "label": "Derived Lifecycle"},
+        {"id": "derived_lifecycle_view", "label": "Derived Lifecycle View"},
+        {"id": "operator", "label": "Operator or Applicant"},
+        {"id": "county", "label": "County"},
+        {"id": "region", "label": "Region"},
+        {"id": "country", "label": "Country"},
+        {"id": "planning_authority", "label": "Planning Authority"},
+        {"id": "planning_reference", "label": "Planning Application Reference"},
+        {"id": "repd_record_updated", "label": "REPD Record Updated"},
+        {"id": "planning_application_submitted", "label": "Planning Application Submitted"},
+        {"id": "planning_application_withdrawn", "label": "Planning Application Withdrawn"},
+        {"id": "planning_permission_granted", "label": "Planning Permission Granted"},
+        {"id": "planning_permission_refused", "label": "Planning Permission Refused"},
+        {"id": "planning_permission_expired", "label": "Planning Permission Expired"},
+        {"id": "under_construction", "label": "Under Construction"},
+        {"id": "operational", "label": "Operational"},
+        {"id": "repd_old_ref", "label": "Old REPD Ref"},
+        {"id": "direct_related_repd_refs", "label": "Direct Related REPD Refs"},
+        {"id": "planning_sibling_repd_refs", "label": "Planning Sibling REPD Refs"},
+        {"id": "development_repd_refs", "label": "Development REPD Refs"},
+        {"id": "relationships_json", "label": "Typed Relationships JSON"},
+        {"id": "geometry_status", "label": "Geometry Status"},
+        {"id": "easting", "label": "Easting"},
+        {"id": "northing", "label": "Northing"},
+        {"id": "source_crs", "label": "Source CRS"},
+        {"id": "longitude", "label": "Longitude"},
+        {"id": "latitude", "label": "Latitude"},
+        {"id": "output_crs", "label": "Output CRS"},
+        {"id": "coordinate_transform", "label": "Coordinate Transform"},
+        {"id": "coordinate_use", "label": "Coordinate Use"},
+        {"id": "source_dataset", "label": "Source Dataset"},
+        {"id": "source_row", "label": "Source Row"},
+        {"id": "projects_sha256", "label": "Projects Array SHA-256"},
+        {"id": "source_identity_sha256", "label": "Source Identity SHA-256"},
+        {"id": "source_coordinate_fixture_sha256", "label": "Source Coordinate Fixture SHA-256"},
+        {"id": "source_workbook_sha256", "label": "Source Workbook SHA-256"},
+        {"id": "reconciliation", "label": "Source Reconciliation"},
+        {"id": "legacy_news_signal", "label": "Legacy News Signal — Unverified"},
+        {"id": "legacy_news_note", "label": "Legacy News Note — Unverified"}
+      ]
     },
     "mobile": {
       "widths_px": [390, 430, 440, 768],

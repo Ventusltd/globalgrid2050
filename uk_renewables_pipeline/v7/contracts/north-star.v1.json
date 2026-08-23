@@ -4,7 +4,7 @@
   "feature": "modular-v5-parity",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "154ce642f39159525487e13fadfefdf35fb63e00dc7a3ad16f46d1fe87d83468"
+    "sha256": "f5018607ca5c2cb8cdce65a72f882611e2e94294f4d6044b6f74d98395c1d90d"
   },
   "required_readme_phrases": [
     "V7.1 is the current live release",
@@ -180,6 +180,8 @@
     "uk_renewables_pipeline/v7/scripts/core/utils.js",
     "uk_renewables_pipeline/v7/scripts/plugins/gauges.js",
     "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-controls.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-table.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-export.js",
     "uk_renewables_pipeline/v7/scripts/plugins/newspaper.js",
     "uk_renewables_pipeline/v7/scripts/plugins/project-export.js",
     "uk_renewables_pipeline/v7/scripts/plugins/project-filters.js",
@@ -196,6 +198,7 @@
     "uk_renewables_pipeline/v7/tests/check_modules.mjs",
     "uk_renewables_pipeline/v7/tests/check_v7_2_project_model.mjs",
     "uk_renewables_pipeline/v7/tests/check_v7_2_project_controls.mjs",
+    "uk_renewables_pipeline/v7/tests/check_v7_2_project_table_export.mjs",
     "uk_renewables_pipeline/v7/tests/check_v5_parity.py",
     "uk_renewables_pipeline/v7/tests/validate_projects_plugin_v7_2.py",
     "uk_renewables_pipeline/v7/tests/run_v7_1.sh",

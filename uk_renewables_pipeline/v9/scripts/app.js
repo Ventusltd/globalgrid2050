@@ -1,31 +1,31 @@
-import { initialiseGaugesV9_1 } from "./plugins/gauges-v9-1.js";
-import { bindNewspaper, loadNews } from "./plugins/newspaper.js";
+import { initialiseGaugesV9_2 } from "./plugins/gauges-v9-2.js";
+import { bindNewspaperV9_2, loadNewsV9_2 } from "./plugins/newspaper-v9-2.js";
 import {
-  bindProjectControlsV9_1,
-  loadProjectsV9_1,
-  refreshProjectsV9_1,
-} from "./plugins/projects-v9-1.js";
+  bindProjectControlsV9_2,
+  loadProjectsV9_2,
+  refreshProjectsV9_2,
+} from "./plugins/projects-v9-2.js";
 import { startPlugins } from "./core/plugin-host.js";
 
 startPlugins([
   {
     id: "gauges",
-    start: initialiseGaugesV9_1,
+    start: initialiseGaugesV9_2,
   },
   {
     id: "newspaper",
     dependsOn: ["gauges"],
     start() {
-      bindNewspaper(refreshProjectsV9_1);
-      loadNews();
+      bindNewspaperV9_2(refreshProjectsV9_2);
+      loadNewsV9_2();
     },
   },
   {
     id: "projects",
     dependsOn: ["gauges", "newspaper"],
     start() {
-      bindProjectControlsV9_1();
-      loadProjectsV9_1();
+      bindProjectControlsV9_2();
+      loadProjectsV9_2();
     },
   },
 ]);

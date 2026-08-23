@@ -36,7 +36,25 @@
         "live V7.1 modules do not import the checkpoint"
       ]
     },
-    "checkpoint_2": {"status": "PENDING", "scope": "gauges, lifecycle filters and canonical search controls"},
+    "checkpoint_2": {
+      "status": "IMPLEMENTED_ISOLATED_NOT_LIVE",
+      "scope": "gauges, lifecycle filters and canonical search controls",
+      "files": {
+        "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-controls.js": "17651f44dd27506e99ee6abb97c6700b03bbcb3a6be44a14a6d5819b92cf233c",
+        "uk_renewables_pipeline/v7/tests/check_v7_2_project_controls.mjs": "3e8b5aeceeea5a197df5f8a653da37ffef838be6eb0c1cc6136d33038eabcfaa"
+      },
+      "gates": [
+        "four filtered gauges keep solar MWp and BESS MW separate",
+        "largest filtered record carries its technology-specific unit",
+        "lifecycle views remain disjoint at 670 current, 3 disputed, 63 historical and 30 review",
+        "exact REPD and GlobalGrid project IDs retain singleton precedence",
+        "Beacon Fen development, planning-reference and name searches retain both distinct components",
+        "combined filters are conjunctive and zero results remain zero",
+        "first-load failure is unavailable rather than a false zero market",
+        "refresh failure retains last-known-good controls and metrics",
+        "live V7.1 modules do not import the checkpoint"
+      ]
+    },
     "checkpoint_3": {"status": "PENDING", "scope": "canonical table, evidence fields and CSV export"},
     "checkpoint_4": {"status": "PENDING", "scope": "browser, mobile, exact-commit and live-promotion proof"}
   },

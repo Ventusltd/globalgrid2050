@@ -41,6 +41,7 @@ fi
 if [[ -f "$v7_dir/contracts/projects-plugin.v7.2.json" ]]; then
   python3 "$v7_dir/tests/validate_projects_plugin_v7_2.py" --phase spec
   node "$v7_dir/tests/check_v7_2_project_model.mjs"
+  node "$v7_dir/tests/check_v7_2_project_controls.mjs"
 fi
 
 echo "V7.1 validation suite: PASS ($repo_root)"

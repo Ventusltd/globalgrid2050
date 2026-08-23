@@ -77,6 +77,57 @@ The reusable layers are:
 
 A future country pack must define authoritative sources, lifecycle terminology, thresholds, grid organisations, market mechanisms, coordinate systems, units, currency, language, timezone, evidence rules and data licensing without editing the country-neutral core.
 
+## Research-grounded engineering decisions
+
+These decisions refine V7.3 and later releases. They do not alter the approved V7.2 interface checkpoints, the live V7.1 product or the inherited V5 NEWS SIGNAL.
+
+### Three gate classes
+
+Frozen regression fixtures, edition contracts and rolling operational metrics are three different gate classes.
+
+- **Frozen regression fixtures** retain exact historical hashes and counts, including V1–V6 files and the V5/V7.1 125-story baseline.
+- **Edition contracts** retain exact validated values for one named source edition, including the Q2 2026 V7.2 fixture of 766 records across 718 developments.
+- **Rolling operational metrics** report discovery volume, source health, acceptance, rejection, ambiguity, coverage and freshness using observed values, floors or ranges where healthy change is expected.
+
+A new REPD edition creates a new edition contract and a complete diff. It never weakens or silently rewrites the frozen Q2 fixture.
+
+### V7.3 matching decision
+
+Blocking, evidence scoring and publication decisions are separate stages. Every normalised source adapter emits one versioned candidate schema; downstream matching must not contain publisher-specific identity branches.
+
+1. Recall-safe blocking uses overlapping exact identifiers, planning or NSIP references, retained raw and normalised project-name evidence, geography and operator evidence.
+2. Blocking reports pair completeness, pair quality and reduction ratio. It must retain 100% of the frozen positive corpus before efficiency gains are accepted.
+3. Hard canonical-identity, positive UK-location, technology, foreign-location, inactive-record and ambiguity gates remain authoritative.
+4. Shorter-name containment, Monge–Elkan, SoftTFIDF, Jaro-Winkler and similar measures may be tested as corroborating features only. They cannot create identity or override a hard veto.
+5. Administrative qualifiers that distinguish West Burton C, Coalburn I/II, solar and BESS records are retained. Normalised stems never replace the official name.
+6. The final decision is **publish**, **quarantine/abstain** or **reject**, with evidence and a stable reason recorded for every outcome.
+
+Transparent rules and evidence features remain the production baseline. Neural matchers, weak supervision or learned calibration may be considered only after a frozen domain benchmark proves a material gain without precision loss.
+
+### Assertion, time and provenance decision
+
+V7.3 keeps a source article, a source-specific project-event assertion and a clustered material event as separate records. An extracted milestone is an attributed assertion, never an REPD fact.
+
+- Identity confidence and event confidence remain separate.
+- `occurred_at` or an explicit valid-time range records when the event happened; `published_at`, `observed_at` and `recorded_at` record when it became available to GlobalGrid2050.
+- An unknown event date remains null and is never replaced with the publication or crawl date.
+- Every assertion carries a stable ID, exactly one project or development subject, evidence, source identity, decision status, matcher/extractor method versions and correction or supersession fields where applicable.
+- Duplicate coverage is clustered conservatively by subject, event type, explicit reference and date window; ambiguous cases abstain.
+- Source cards record licence, attribution, access limits, declared fields, derived fields, update frequency, failure modes, allowed use and health state.
+- Provenance uses compact JSON fields compatible with Entity/Activity/Agent concepts. V7 does not require RDF, OWL or provenance-semiring infrastructure.
+
+Evaluation is split by development and by source/time where possible so related stories cannot leak between training and test evidence. It reports confusion counts, precision, recall, abstention coverage and all frozen-sentinel outcomes. Zero known-negative leakage is a mandatory sentinel gate, not a claim of perfect population precision.
+
+The complete V7.3 contract is recorded in `docs/03-news-events.md` before its code build begins.
+
+### Geography and analytical delivery decision
+
+The V7.2 OSGB36-to-WGS84 conversion remains explicitly display-only. Before a later release uses coordinates for metre-sensitive analysis, its derivative must record source CRS, output CRS, transformation method/version, geometry status and available source-accuracy information. A more accurate OSTN15 horizontal transformation is required before any such spatial join; OSGM15 is required only if height is introduced. Proximity remains context and never proves a grid connection.
+
+Same-origin JSON remains the V7.2 browser contract. Build-time Parquet or DuckDB may be added later only as a fully reconciled analytical derivative of the same canonical rows. Browser DuckDB-WASM is deferred until an end-to-end Pages and iPhone benchmark proves lower total transfer/start-up cost, acceptable memory use, reliable range/CORS behaviour and a tested JSON fallback.
+
+V7 deliberately defers transformers, Snorkel, conformal error guarantees, SQL:2011 temporal machinery, Deequ/Spark, Great Expectations, custom Merkle-DAG storage and learned event-coreference systems until scale and independent evidence justify them.
+
 ## MVP truth and one-feature version discipline
 
 V7.0 was the initial live MVP: a wholesale V5 product copy with only V7 labels, corrected folder paths, navigation and export naming. V7.1 is the current live release and modularises that baseline without changing its data or decisions.
@@ -141,10 +192,15 @@ Replace the inherited V5 NEWS SIGNAL bindings only after V7.1 and V7.2 are prove
 - Technology, positive UK-location and ambiguity gates.
 - Duplicate coverage clustered into one event.
 - Evidence phrase and deterministic rejection reason stored.
+- Recall-safe blocking with exact-ID bypasses and measured pair completeness, pair quality and reduction ratio.
+- Three-way publish, quarantine/abstain and reject decisions.
+- Separate event-occurrence, publication, observation and recording times.
+- Per-source cards, source health and declared-versus-derived field provenance.
+- Transparent evidence features; fuzzy similarity cannot override identity, location, technology or ambiguity vetoes.
 - V5/V6 positive and negative evaluation corpus.
 - Beacon Fen development-level and component-level tests.
 
-Exit gate: zero known foreign, offshore-wind, healthcare, common-name or inactive-record leakage, with every accepted assertion supported by explicit identity and event evidence.
+Exit gate: 100% of frozen positive matches survive blocking, zero known foreign, offshore-wind, healthcare, common-name or inactive-record leakage, canonical REPD facts remain unchanged, and every publication, abstention and rejection records its identity/event evidence state—including absent or conflicting evidence—and a deterministic reason.
 
 ### V7.4 — UK market analytics
 
@@ -497,4 +553,5 @@ For a new chat:
 - The repaired V7.2 data-only spine contains 766 records across 718 developments: 384 solar and 382 BESS, with 766 valid geometries and zero missing among this edition. Atomic replacement and synthetic missing/invalid-geometry tests protect future editions.
 - The V7.2 project-interface acceptance matrix is frozen and executable: V5/V7.1 remains the product-behaviour baseline, V6 remains the engineering/failure baseline, and every deliberate difference is enumerated before code changes. Its specification phase does not alter the live UI.
 - V7.2 interface checkpoint 1 is implemented behind the live runtime: the canonical adapter validates same-origin sources, complete identity and thresholds before returning an immutable 766-record model; the isolated state layer commits atomically and retains last-known-good data after refresh failure. Checkpoints 2–4 remain pending and nothing imports this layer into V7.1.
+- The research-grounded training pass fixes the V7.3 blocking, evidence, abstention, assertion-time and provenance posture without changing application behaviour. It also keeps V7.2 on JSON and defers browser DuckDB-WASM until measured later-scale need.
 - V7.2 remains data-only and not live. V7.1 remains the last-known-good public release until a separately approved project-plugin promotion passes its own exact-remote-commit and production gates.

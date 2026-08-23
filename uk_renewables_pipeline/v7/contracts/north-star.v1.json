@@ -4,7 +4,7 @@
   "feature": "modular-v5-parity",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "c4eaf1a6144328efc935ef94cf227f02417011f60d1325dfcbb022abcae8fc84"
+    "sha256": "692401400a31a5de8b67e40ed6502d326fa5bdb9de527e88b725a426bfa5db44"
   },
   "required_readme_phrases": [
     "V7.1 is the current live release",
@@ -16,8 +16,57 @@
     "Every build ends by",
     "after V7.9 development moves to V8.0",
     "A local pass is not publication proof",
-    "V4, V5 and V6 automatic `schedule`, `push` and `issues` triggers are therefore retired immediately"
+    "V4, V5 and V6 automatic `schedule`, `push` and `issues` triggers are therefore retired immediately",
+    "Frozen regression fixtures, edition contracts and rolling operational metrics are three different gate classes.",
+    "Blocking, evidence scoring and publication decisions are separate stages.",
+    "Browser DuckDB-WASM is deferred until an end-to-end Pages and iPhone benchmark"
   ],
+  "research_decisions": {
+    "documented_for_release": "7.3",
+    "must_not_change_v7_2": true,
+    "gate_classes": [
+      "frozen_regression_fixture",
+      "named_edition_contract",
+      "rolling_operational_metric"
+    ],
+    "matching_pipeline": [
+      "recall_safe_blocking",
+      "evidence_scoring",
+      "publish_quarantine_reject"
+    ],
+    "blocking_metrics": [
+      "pair_completeness",
+      "pair_quality",
+      "reduction_ratio"
+    ],
+    "frozen_positive_pair_completeness": 1.0,
+    "hard_vetoes": [
+      "canonical_identity",
+      "positive_uk_location",
+      "technology",
+      "foreign_location",
+      "inactive_record_without_proven_continuity",
+      "ambiguity"
+    ],
+    "assertion_times": [
+      "occurred_at",
+      "published_at",
+      "observed_at",
+      "recorded_at"
+    ],
+    "browser_delivery": {
+      "v7_2": "same_origin_json",
+      "duckdb_wasm": "deferred_until_end_to_end_benchmark"
+    },
+    "deferred_methods": [
+      "transformer_matcher",
+      "weak_supervision",
+      "conformal_error_guarantee",
+      "sql2011_temporal_database",
+      "custom_merkle_dag",
+      "learned_event_coreference"
+    ]
+  },
   "release_baseline": {
     "index_path": "uk_renewables_pipeline/v7/index.html",
     "index_sha256": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",

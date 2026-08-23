@@ -1,5 +1,5 @@
 .gauges {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 table {
@@ -34,7 +34,7 @@ table {
   font-size: 10px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1000px) {
   .gauges {
     grid-template-columns: repeat(2, 1fr);
   }

@@ -801,16 +801,27 @@ window.initVentusMap = function({ config, center, zoom }) {
         if (!/^[A-Za-z0-9-]{1,40}$/.test(repdRef)) return;
 
         try {
-            const response = await fetch('/uk_renewables_pipeline/v9/data/v7.2/projects.geojson', { cache: 'no-store' });
-            if (!response.ok) throw new Error(`canonical project HTTP ${response.status}`);
-            const payload = await response.json();
-            const feature = Array.isArray(payload.features)
-                ? payload.features.find(item => String(item?.properties?.repd_ref || '') === repdRef)
-                : null;
+            const requestedTechnology = String(params.get('technology') || '').trim();
+            const allowedTechnologies = new Set(['solar', 'bess', 'wind_onshore', 'wind_offshore']);
+            if (!allowedTechnologies.has(requestedTechnology)) throw new Error('canonical project technology is invalid');
+            const manifestResponse = await fetch('/uk_renewables_pipeline/v9/data/v9.1/build_manifest.json', { cache: 'no-store' });
+            if (!manifestResponse.ok) throw new Error(`canonical manifest HTTP ${manifestResponse.status}`);
+            const manifest = await manifestResponse.json();
+            const partitions = Array.isArray(manifest.atlas_partitions)
+                ? manifest.atlas_partitions.filter(item => item.technology === requestedTechnology)
+                : [];
+            if (!partitions.length) throw new Error(`no canonical ${requestedTechnology} partitions`);
+            const payloads = await Promise.all(partitions.map(async item => {
+                const response = await fetch(`/uk_renewables_pipeline/v9/${item.path}`, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`canonical project HTTP ${response.status}`);
+                return response.json();
+            }));
+            const feature = payloads.flatMap(payload => Array.isArray(payload.features) ? payload.features : [])
+                .find(item => String(item?.properties?.repd_ref || '') === repdRef);
             if (!feature || feature?.geometry?.type !== 'Point') throw new Error(`REPD Ref ${repdRef} not found`);
 
             const p = feature.properties || {};
-            const technology = p.technology === 'bess' ? 'bess' : 'solar';
+            const technology = p.technology === 'bess' ? 'bess' : (p.technology.startsWith('wind_') ? 'wind' : 'solar');
             const atlasFeature = {
                 type: 'Feature',
                 geometry: feature.geometry,

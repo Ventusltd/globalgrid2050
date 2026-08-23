@@ -1,6 +1,12 @@
-# GlobalGrid2050 UK Solar + Storage Daily V9
+# GlobalGrid2050 UK Renewables Pipeline V9.1
 
 ## Current release
+
+V9.1 restores the V1–V5 three-gauge analytics and the ≥1 MW solar, battery, onshore-wind and offshore-wind universe on the latest canonical Q2 source. It retains canonical identity, official update dates, filtered CSV, news and exact Atlas navigation.
+
+V9.0 remains frozen at commit `50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2` and tree `60b72b3665e6b65a397541b221c4bca75aa402c9`. See `docs/releases/9.1.md` and `contracts/release.v9.1.json`.
+
+## V9.0 frozen baseline
 
 V9.0 is an interim, wholesale copy of the validated V8.1 product with three bounded additions:
 
@@ -29,7 +35,7 @@ The V9 validation gate must fail if any pinned V1–V8 object changes. These his
 
 - The export contains the current filtered rows only.
 - No matching projects produces a header-only CSV.
-- Filename: `globalgrid2050_uk_renewables_pipeline_v9_0_YYYY-MM-DD.csv`.
+- Filename: `globalgrid2050_uk_renewables_pipeline_v9_1_YYYY-MM-DD.csv`.
 - UTF-8 BOM is retained for Excel compatibility.
 - Canonical identity, official status/capacity, official REPD update date, relationships, coordinates, provenance, legacy-news warning and Atlas URL are included.
 - Spreadsheet-formula injection remains neutralised.
@@ -53,8 +59,8 @@ The Atlas change is a backward-compatible deep-link bridge: visits without a `re
 ## North Star
 
 - Official REPD facts remain separate from news, grid and market assertions.
-- Solar MWp and BESS MW are never combined.
-- No wind.
+- The combined capacity gauge is the restored V1–V5 record-based analytics metric; technology filters expose solar, BESS and wind separately.
+- Solar, BESS, onshore wind and offshore wind at ≥1 MW are included.
 - Same-origin validated project data; no browser-side government download.
 - One canonical REPD Ref and GlobalGrid project ID per displayed record.
 - Missing official values remain missing.
@@ -66,7 +72,7 @@ The Atlas change is a backward-compatible deep-link bridge: visits without a `re
 Run:
 
 ```bash
-bash uk_renewables_pipeline/v9/tests/run_v9_0.sh
+bash uk_renewables_pipeline/v9/tests/run_v9_1.sh
 ```
 
-The gate validates V8.1 first, verifies every legacy integrity marker, validates the 766-record canonical spine, checks the 13-column table, tests official dates and Atlas URLs, and proves filtered and zero-result CSV behaviour.
+The gate validates V8.1 first, verifies every legacy integrity marker and the frozen V9.0 commit/tree, rebuilds the canonical V9.1 spine atomically, reproduces the V1–V5 legacy numbers, and validates 7,680 current-source records, technologies, gauges, identity, dates, CSV and Atlas integration.

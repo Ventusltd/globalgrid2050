@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GlobalGrid2050 | UK Solar + Storage Daily V9.0</title>
+  <title>GlobalGrid2050 | UK Renewables Pipeline V9.1</title>
   <link rel="stylesheet" href="styles/v7.css">
   <link rel="stylesheet" href="styles/mobile.css">
   <link rel="stylesheet" href="styles/v8.css">
@@ -13,10 +13,10 @@
   <aside class="sidebar">
     <div class="brand">
       <b>GLOBALGRID2050</b>
-      <small>UK SOLAR + STORAGE DAILY · V9.0 INTERIM</small>
+      <small>UK RENEWABLES PIPELINE · V9.1</small>
     </div>
     <nav class="nav">
-      <a class="active" href="#">V9.0 INTERIM</a>
+      <a class="active" href="#">V9.1 LIVE</a>
       <a href="../v8/">V8.1 FALLBACK</a>
       <a href="../v7/">V7 FALLBACK</a>
       <a href="../dashboard_v6_live.html">V6</a>
@@ -32,13 +32,13 @@
   </aside>
   <main class="main">
     <div class="header">
-      <h1>UK SOLAR + BESS PIPELINE V9.0</h1>
-      <div class="status">● INTERIM EXPORT RELEASE · V1–V8 HASH-PINNED</div>
+      <h1>UK RENEWABLES PIPELINE V9.1</h1>
+      <div class="status">● V1–V5 ANALYTICS CONTRACT · LATEST CANONICAL REPD</div>
     </div>
     <div class="meta">
-      <strong>V9.0 INTERIM · 23 August 2026</strong>
-      <span>Canonical DESNZ REPD Q2 2026 spine: 766 records across 718 developments.</span>
-      <span>384 solar &gt;49 MWp · 382 BESS &gt;99 MW · wind excluded.</span>
+      <strong>V9.1 · 23 August 2026</strong>
+      <span>Canonical DESNZ REPD Q2 2026: 7,680 solar, BESS and wind records at ≥1 MW.</span>
+      <span>V1–V5 method restored on the latest 14,657-record source; V1 legacy baseline was 5,210 records.</span>
       <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
     </div>
 
@@ -67,30 +67,28 @@
       </div>
     </section>
 
-    <h2 class="section-title">CANONICAL REPD PIPELINE ANALYTICS</h2>
+    <h2 class="section-title">REPD PIPELINE ANALYTICS</h2>
     <div class="gauges">
       <div class="card">
-        <h3>FILTERED SOLAR CAPACITY (MWp)</h3>
+        <h3>FILTERED CAPACITY (MW)</h3>
         <div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
       </div>
       <div class="card">
-        <h3>FILTERED BESS CAPACITY (MW)</h3>
+        <h3>FILTERED PROJECTS (≥1MW)</h3>
         <div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
       </div>
       <div class="card">
-        <h3>FILTERED PROJECT RECORDS</h3>
+        <h3>LARGEST SINGLE SITE (MW)</h3>
         <div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
-      </div>
-      <div class="card">
-        <h3>LARGEST RECORD CAPACITY</h3>
-        <div class="chart"><canvas id="g4"></canvas><div class="value" id="v4">0</div></div>
       </div>
     </div>
 
     <div class="filters" id="tech">
       <button class="btn active" data-technology="all">ALL TECH</button>
       <button class="btn" data-technology="solar">SOLAR</button>
-      <button class="btn" data-technology="bess">BESS</button>
+      <button class="btn" data-technology="bess">BATTERY</button>
+      <button class="btn" data-technology="wind_onshore">ONSHORE</button>
+      <button class="btn" data-technology="wind_offshore">OFFSHORE</button>
     </div>
     <div class="filters" id="status">
       <button class="btn active" data-official-status="All">ALL STATUS</button>
@@ -107,7 +105,7 @@
     </div>
     <div class="meta">
       <strong>STATUS DISCIPLINE</strong>
-      <span><b>REPD STATUS AND CAPACITY</b> are official record facts. <b>LEGACY NEWS SIGNAL</b> is unverified V5 intelligence and never changes or confirms them.</span>
+      <span><b>REPD STATUS AND CAPACITY</b> are official record facts. Gauges count official records, exactly as V1–V5 did; they do not merge developments.</span>
       <span><b>ATLAS LINK:</b> resolves the canonical REPD Ref, flies to the exact V9 project coordinate and opens its Atlas popup.</span>
     </div>
     <div class="tablewrap">

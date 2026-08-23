@@ -1,13 +1,13 @@
 {
   "name": "globalgrid2050-uk-renewables-v9",
   "private": true,
-  "version": "9.0.0",
+  "version": "9.1.0",
   "type": "module",
   "devDependencies": {
     "playwright": "1.62.1"
   },
   "scripts": {
-    "validate": "bash tests/run_v9_0.sh",
+    "validate": "bash tests/run_v9_1.sh",
     "validate:lineage": "bash ../v8/tests/run_v8_1.sh"
   }
 }

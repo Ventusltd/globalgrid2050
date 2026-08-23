@@ -31,7 +31,6 @@ const UNITS = Object.freeze({ solar: "MWp", bess: "MW", wind_onshore: "MW", wind
 const ALLOWED_TECHNOLOGIES = new Set(["all", "solar", "bess", "wind_onshore", "wind_offshore"]);
 const ALLOWED_STATUSES = new Set(["All", "Operational", "Under Construction", "Awaiting Construction", "Application Submitted"]);
 const ALLOWED_SORTS = new Set(["capacity_desc", "updated_desc", "updated_asc"]);
-const MOBILE_PROJECT_BATCH = 50;
 
 let all = [];
 let filtered = [];
@@ -45,13 +44,8 @@ let query = "";
 let sortMode = "capacity_desc";
 let minCapacity = "";
 let maxCapacity = "";
-let visibleLimit = MOBILE_PROJECT_BATCH;
 let capacityTimer = null;
 let controlsBound = false;
-
-function isMobileView() {
-  return typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
-}
 
 export function atlasUrlV9_6(project) {
   if (project.geometry_status !== "valid") return "";
@@ -125,7 +119,7 @@ function relationshipSummary(project) {
 
 function renderTable() {
   const body = document.getElementById("tbody");
-  const visible = isMobileView() ? filtered.slice(0, visibleLimit) : filtered;
+  const visible = filtered;
   body.innerHTML = visible.map((project) => {
     const label = LABELS[project.technology];
     const unit = UNITS[project.technology];
@@ -146,12 +140,8 @@ function renderTable() {
   }).join("");
   const renderMeta = document.getElementById("projectRenderMeta");
   const loadMore = document.getElementById("loadMoreProjects");
-  if (renderMeta) {
-    renderMeta.textContent = isMobileView()
-      ? `${visible.length.toLocaleString("en-GB")} shown · ${filtered.length.toLocaleString("en-GB")} matching · all ${all.length.toLocaleString("en-GB")} loaded`
-      : `All ${filtered.length.toLocaleString("en-GB")} matching records shown`;
-  }
-  if (loadMore) loadMore.hidden = !isMobileView() || visible.length >= filtered.length;
+  if (renderMeta) renderMeta.textContent = `All ${filtered.length.toLocaleString("en-GB")} matching records shown`;
+  if (loadMore) loadMore.hidden = true;
 }
 
 function updateResultSummary() {
@@ -193,7 +183,6 @@ function updateCapacityStatus(range) {
 function apply({ syncUrl = true, resetVisible = true } = {}) {
   const tokens = tokeniseSearchV9_2(query);
   const range = capacityRangeV9_6(minCapacity, maxCapacity);
-  if (resetVisible) visibleLimit = MOBILE_PROJECT_BATCH;
   filtered = range.valid ? all.filter((project) => projectMatchesV9_2(project, {
     technology,
     status,
@@ -390,17 +379,7 @@ export function bindProjectControlsV9_6() {
   document.getElementById("exportInline").onclick = downloadCsv;
   document.getElementById("exportMobile").onclick = downloadCsv;
   document.getElementById("clearFilters").onclick = clearFilters;
-  document.getElementById("loadMoreProjects").onclick = () => {
-    visibleLimit += MOBILE_PROJECT_BATCH;
-    renderTable();
-  };
-  const mobileMedia = window.matchMedia("(max-width: 768px)");
-  const handleMobileChange = () => {
-    visibleLimit = MOBILE_PROJECT_BATCH;
-    renderTable();
-  };
-  if (typeof mobileMedia.addEventListener === "function") mobileMedia.addEventListener("change", handleMobileChange);
-  else mobileMedia.addListener(handleMobileChange);
+  document.getElementById("loadMoreProjects").onclick = () => {};
   document.getElementById("tbody").addEventListener("click", (event) => {
     const button = event.target.closest(".copy-id");
     if (button) copyProjectId(button);

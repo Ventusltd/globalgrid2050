@@ -46,6 +46,8 @@ async function layoutSnapshot(page) {
       theadDisplay: getComputedStyle(document.querySelector(".tablewrap thead")).display,
       tableScrollWidth: document.querySelector(".tablewrap table").scrollWidth,
       tableClientWidth: document.querySelector(".tablewrap").clientWidth,
+      tablewrapOverflowX: getComputedStyle(document.querySelector(".tablewrap")).overflowX,
+      hiddenColumnDisplay: getComputedStyle(document.querySelector("th.hide-mobile")).display,
       bounds,
     };
   });
@@ -162,57 +164,35 @@ try {
 
   for (const width of [390, 430, 440, 768]) {
     await page.setViewportSize({ width, height: 844 });
-    await page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 50);
-    await page.waitForFunction(() => document.querySelectorAll("#stories .story").length === 20);
+    await page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 7680);
+    await page.waitForFunction(() => document.querySelectorAll("#stories .story").length === 133);
     const mobile = await layoutSnapshot(page);
     assert.equal(mobile.bodyDisplay, "block", `${width}px mobile body layout`);
-    assert.equal(mobile.gaugeColumns, 3, `${width}px mobile gauge columns`);
+    assert.equal(mobile.gaugeColumns, 1, `${width}px V1 mobile gauge columns`);
     assert.equal(mobile.storyColumns, 1, `${width}px mobile story columns`);
     assert.equal(mobile.headerDirection, "column", `${width}px mobile header direction`);
     assert.equal(mobile.statusWhiteSpace, "normal", `${width}px mobile status wrapping`);
     assert.ok(mobile.searchWidth >= width - 50, `${width}px mobile search width`);
-    assert.equal(mobile.tableDisplay, "block", `${width}px mobile table display`);
-    assert.equal(mobile.rowDisplay, "grid", `${width}px mobile project cards`);
-    assert.equal(mobile.theadDisplay, "none", `${width}px mobile table header`);
-    assert.ok(mobile.tableScrollWidth <= mobile.tableClientWidth + 1, `${width}px mobile internal table overflow`);
+    assert.equal(mobile.tableDisplay, "table", `${width}px mobile table display`);
+    assert.equal(mobile.rowDisplay, "table-row", `${width}px mobile table rows`);
+    assert.equal(mobile.theadDisplay, "table-header-group", `${width}px mobile table header`);
+    assert.equal(mobile.hiddenColumnDisplay, "table-cell", `${width}px full project columns`);
+    assert.equal(mobile.tablewrapOverflowX, "auto", `${width}px horizontal project scroll`);
+    assert.ok(mobile.tableScrollWidth > mobile.tableClientWidth, `${width}px table must be swipeable`);
     assertContained(mobile, width, `${width}px mobile`);
   }
 
-  assert.equal(await page.locator("#projectRenderMeta").textContent(), "50 shown · 7,680 matching · all 7,680 loaded");
-  assert.equal(await page.locator("#newsRenderMeta").textContent(), "20 shown · 133 matching · all 133 loaded");
-  await page.locator("#loadMoreProjects").click();
-  assert.equal(await page.locator("#tbody tr").count(), 100);
-  await page.locator("#loadMoreNews").click();
-  assert.equal(await page.locator("#stories .story").count(), 40);
+  assert.equal(await page.locator("#projectRenderMeta").textContent(), "All 7,680 matching records shown");
+  assert.equal(await page.locator("#newsRenderMeta").textContent(), "All 133 matching headlines shown");
 
   await page.locator("#minCapacity").fill("100");
   await page.locator("#maxCapacity").fill("500");
   await page.waitForFunction(() => document.querySelector("#resultsMeta")?.dataset.filteredCount === "476");
-  assert.equal(await page.locator("#tbody tr").count(), 50);
-  assert.equal(await page.locator("#projectRenderMeta").textContent(), "50 shown · 476 matching · all 7,680 loaded");
-  await page.locator("#loadMoreProjects").click();
-  assert.equal(await page.locator("#tbody tr").count(), 100);
-
-  await page.locator("#mobileSortUpdated").click();
-  assert.equal(await page.locator("#repdUpdatedHeader").getAttribute("aria-sort"), "descending");
-  assert.equal(await page.locator("#mobileSortUpdated").textContent(), "REPD UPDATED: NEWEST ▼");
-  await page.locator("#mobileSortUpdated").click();
-  assert.equal(await page.locator("#repdUpdatedHeader").getAttribute("aria-sort"), "ascending");
-  assert.equal(await page.locator("#mobileSortUpdated").textContent(), "REPD UPDATED: OLDEST ▲");
-
-  const touchTargets = await page.locator([
-    ".mobile-nav summary", ".news-tools button", "#tech .btn", "#status .btn",
-    "#minCapacity", "#maxCapacity", "#sortProjects", "#mobileSortUpdated",
-    "#loadMoreProjects", "#loadMoreNews", "#tbody .action-link", "#tbody .copy-id",
-  ].join(",")).evaluateAll((nodes) => nodes.filter((node) => {
-    const style = getComputedStyle(node);
-    return style.display !== "none" && style.visibility !== "hidden" && node.getBoundingClientRect().height > 0;
-  }).map((node) => ({ tag: node.tagName, text: node.textContent.trim(), height: node.getBoundingClientRect().height })));
-  assert.ok(touchTargets.length > 20);
-  assert.ok(touchTargets.every((target) => target.height >= 43.5), JSON.stringify(touchTargets.filter((target) => target.height < 43.5)));
+  assert.equal(await page.locator("#tbody tr").count(), 476);
+  assert.equal(await page.locator("#projectRenderMeta").textContent(), "All 476 matching records shown");
 
   await page.locator("#clearFilters").click();
-  await page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 50);
+  await page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 7680);
 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.locator('[data-technology="wind_offshore"]').click();
@@ -315,7 +295,7 @@ try {
   assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => chartFailure.page.locator(selector).textContent())), ["356,474", "7,680", "4,100"]);
   await chartFailure.context.close();
 
-  console.log("V9.6 browser smoke: PASS (mobile 50/20 batches, 100–500 MW range, 133/45 news, Beacon Fen REPD 13599)");
+  console.log("V9.6 browser smoke: PASS (V1-style mobile table scroll, 100–500 MW range, 133/45 news, Beacon Fen REPD 13599)");
 } finally {
   await browser.close();
 }

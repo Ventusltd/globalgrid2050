@@ -8,12 +8,6 @@ const NEWS_SOURCES = Object.freeze([
 
 let refreshProjects = () => {};
 let newsIndex = new Map();
-let visibleLimit = 20;
-const MOBILE_NEWS_BATCH = 20;
-
-function isMobileView() {
-  return typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
-}
 
 function canonicalItem(item) {
   return item
@@ -85,7 +79,6 @@ function newsMatches(item) {
 export function drawNewsV9_6({ resetVisible = false } = {}) {
   const stories = document.getElementById("stories");
   const rows = state.newsItems.filter(newsMatches);
-  if (resetVisible) visibleLimit = MOBILE_NEWS_BATCH;
   if (!rows.length) {
     stories.innerHTML = '<div class="news-empty">No headlines match this newspaper filter.</div>';
     const renderMeta = document.getElementById("newsRenderMeta");
@@ -94,7 +87,7 @@ export function drawNewsV9_6({ resetVisible = false } = {}) {
     if (loadMore) loadMore.hidden = true;
     return;
   }
-  const visible = isMobileView() ? rows.slice(0, visibleLimit) : rows;
+  const visible = rows;
   stories.innerHTML = visible.map((item) => {
     const technology = itemTechnology(item);
     const articleClass = technology === "BESS" ? "bess" : "solar";
@@ -106,13 +99,9 @@ export function drawNewsV9_6({ resetVisible = false } = {}) {
     return `<a class="story ${articleClass}" href="${escapeHtml(item.url)}" target="_blank" rel="noopener"><div class="kicker">${escapeHtml(technology)} · ${escapeHtml(item.event || "PROJECT UPDATE")} · ${escapeHtml(item.published || "")}</div><h3>${escapeHtml(item.headline || project)}</h3><p><span class="project">${escapeHtml(project)}${capacity ? ` · ${capacity.toLocaleString("en-GB")} MW` : ""}</span>${item.operator ? ` · ${escapeHtml(item.operator)}` : ""}${item.county ? ` · ${escapeHtml(item.county)}` : ""}</p><span class="source">${escapeHtml(item.source || "Source")} · ${quality} · algorithmic and unverified</span></a>`;
   }).join("");
   const renderMeta = document.getElementById("newsRenderMeta");
-  if (renderMeta) {
-    renderMeta.textContent = isMobileView()
-      ? `${visible.length} shown · ${rows.length} matching · all ${state.newsItems.length} loaded`
-      : `All ${rows.length} matching headlines shown`;
-  }
+  if (renderMeta) renderMeta.textContent = `All ${rows.length} matching headlines shown`;
   const loadMore = document.getElementById("loadMoreNews");
-  if (loadMore) loadMore.hidden = !isMobileView() || visible.length >= rows.length;
+  if (loadMore) loadMore.hidden = true;
 }
 
 function validPayload(payload) {
@@ -180,15 +169,5 @@ export function bindNewspaperV9_6(onNewsLoaded) {
     state.newsQuery = event.target.value.trim();
     drawNewsV9_6({ resetVisible: true });
   };
-  document.getElementById("loadMoreNews").onclick = () => {
-    visibleLimit += MOBILE_NEWS_BATCH;
-    drawNewsV9_6();
-  };
-  const mobileMedia = window.matchMedia("(max-width: 768px)");
-  const handleMobileChange = () => {
-    visibleLimit = MOBILE_NEWS_BATCH;
-    drawNewsV9_6();
-  };
-  if (typeof mobileMedia.addEventListener === "function") mobileMedia.addEventListener("change", handleMobileChange);
-  else mobileMedia.addListener(handleMobileChange);
+  document.getElementById("loadMoreNews").onclick = () => {};
 }

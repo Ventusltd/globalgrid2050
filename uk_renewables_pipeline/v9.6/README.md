@@ -4,19 +4,16 @@ V9.6 is a separate application copied from the validated V9.5.1 release. V9.5.1 
 
 ## Scope
 
-V9.6 changes only project filtering and mobile presentation:
+V9.6 changes only project filtering and project-table overflow on mobile:
 
 - optional inclusive minimum and maximum filters use the official REPD `capacity_mw` value;
 - a blank minimum or maximum leaves that side of the range unbounded;
 - filter state is shareable through `min_mw` and `max_mw` URL parameters;
 - all 7,680 qualifying records remain loaded, searched, sorted, measured and exported;
-- desktop continues to render every matching project;
-- mobile renders 50 matching project cards at a time and can progressively reveal the rest;
-- all 133 headlines remain loaded and filterable; mobile renders 20 matching headlines at a time;
-- mobile gains a compact menu, project/news jump links, 44 px touch targets, a three-number analytics summary and a prominent REPD-updated sort control;
-- the mobile project table becomes cards and must not require horizontal scrolling.
-
-Progressive rendering changes only the number of DOM nodes. It never changes the canonical project universe, filtered result count, gauges, CSV contents, news matching or official REPD facts.
+- desktop and mobile render every matching project and headline;
+- mobile retains the established V1/V8/V9 layout, gauges, newspaper, controls, typography and density;
+- the complete 11-column projects table uses touch-enabled horizontal scrolling on mobile;
+- no mobile card conversion, hidden project columns or compact gauge redesign is applied.
 
 ## Retained contracts
 
@@ -39,4 +36,4 @@ Browser validation:
 V9_BROWSER_SMOKE=1 bash uk_renewables_pipeline/v9.6/tests/run_v9_6.sh
 ```
 
-The browser gate checks 360, 390, 430 and 768 px mobile layouts, internal table width, touch targets, progressive rendering, capacity ranges, URL state, date sorting, CSV completeness, all 133/45 headline counts and Beacon Fen's exact binding.
+The browser gate checks 390, 430, 440 and 768 px mobile layouts, V1-style single-column gauges, full table headers/rows, horizontal project-table scrolling, capacity ranges, URL state, date sorting, CSV completeness, all 133/45 headline counts and Beacon Fen's exact binding.

@@ -2,7 +2,7 @@
   "schema": "globalgrid2050.uk-renewables.release.v9.6",
   "release": "9.6",
   "status": "LIVE_VALIDATED",
-  "feature": "mobile-project-cards-progressive-rendering-and-official-capacity-range",
+  "feature": "v1-style-mobile-layout-horizontal-project-table-and-official-capacity-range",
   "frozen_parent": {
     "release": "9.5.1",
     "commit": "8b2432be75f224562fc1c416dbcc3319e31a47a8",
@@ -77,11 +77,11 @@
       "matching_capacity_mw": 106714.5,
       "largest_matching_project_mw": 500
     },
-    "mobile_project_batch": 50,
-    "mobile_news_batch": 20,
-    "mobile_progressive_rendering_changes_data_universe": false,
+    "mobile_project_rendering": "all matching rows",
+    "mobile_news_rendering": "all matching headlines",
     "all_projects_loaded_searchable_sortable_exportable": true,
-    "mobile_table_horizontal_overflow_allowed": false,
-    "minimum_touch_target_px": 44
+    "mobile_table_horizontal_overflow_allowed": true,
+    "mobile_table_horizontal_scroll_required": true,
+    "mobile_visual_baseline": "V1/V8/V9"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.v9.release-manifest.v1",
   "version": "9.6",
-  "feature": "mobile-project-cards-progressive-rendering-and-official-capacity-range",
+  "feature": "v1-style-mobile-layout-horizontal-project-table-and-official-capacity-range",
   "status": "LIVE_VALIDATED",
   "promotion_basis": {
     "candidate_commit": "f9f4e47207a02b70edcf082dc3a6e79dfb3ed6f4",
@@ -59,7 +59,7 @@
     "segmented name stems, development-scoped duplicates and tiered confidence floors",
     "single-token and foreign-location adversarial guards with published rejection telemetry",
     "inclusive minimum and maximum official-capacity MW filters with unbounded blank fields",
-    "mobile project cards render 50 at a time while all 7,680 remain loaded, filtered and exportable",
+    "mobile retains the V1/V8/V9 interface and the complete projects table scrolls horizontally",
     "mobile newspaper renders 20 at a time while all 133 headlines remain loaded and filterable",
     "compact three-metric mobile summary, 44px touch targets and restored mobile navigation"
   ],

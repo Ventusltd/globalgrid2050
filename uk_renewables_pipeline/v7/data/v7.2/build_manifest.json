@@ -1,11 +1,15 @@
 {
-  "contract_sha256": "66a4fe168c418aeb4d4cf610c3b2c5d707a004ee33480503435895b97c47b5fc",
-  "features_sha256": "7a6d09c9a3f84a869187e12219f251b8a6082d63e6a708f67a1b00312fa051e8",
+  "contract_sha256": "6425d81381eda13d204d88a2cd95a409d27d73561b33d65420e2b08428353397",
+  "features_sha256": "0d56316ee3bfbcccacafaa81fdb37240259b19fc7ac12353b61a32c44cdfdeab",
   "geometry_policy": {
     "output_crs": "RFC 7946 WGS84",
     "source_crs": "EPSG:27700",
     "transform": "documented OSGB36-to-WGS84 seven-parameter Helmert approximation",
     "use": "market map context only; never evidence of a grid connection or cadastral boundary"
+  },
+  "input_bytes": {
+    "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json": 20701945,
+    "uk_renewables_pipeline/v7/fixtures/v7.2/repd_q2_coordinates.json": 2336155
   },
   "inputs": {
     "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
@@ -16,15 +20,20 @@
     "bess_mw": 106338.18,
     "development_count": 718,
     "geometry_count": 766,
+    "missing_geometry_count": 0,
     "project_count": 766,
     "solar_count": 384,
     "solar_mwp": 34073.49
   },
-  "outputs": {
-    "uk_renewables_pipeline/v7/data/v7.2/projects.geojson": "17ad4a3a91757ea0c9b61b6d8127029db2cfde1c1c00cff60bf52bcd19539577",
-    "uk_renewables_pipeline/v7/data/v7.2/projects.json": "99dfc7ae42f59ef58aa6870904cefb60d782aadc24b77a3f2e0d53012628b7de"
+  "output_bytes": {
+    "uk_renewables_pipeline/v7/data/v7.2/projects.geojson": 1023218,
+    "uk_renewables_pipeline/v7/data/v7.2/projects.json": 964717
   },
-  "projects_sha256": "32519b0cfdb07471853ca4728485a9ae6d6afab6f1cc0e5f40d986a34282393e",
+  "outputs": {
+    "uk_renewables_pipeline/v7/data/v7.2/projects.geojson": "74ccd73f3ee77a069c646cba0bcb5984609cdd68ea681292b8f3d7f33fe4bf8d",
+    "uk_renewables_pipeline/v7/data/v7.2/projects.json": "ce7e0a7681da47c6d2bfe66c292e61c3727d9db02db667053be4fbe5e0952de9"
+  },
+  "projects_sha256": "753afa29cd3d13eb9ad7e38be3d2344d2c43046deea59cd52d90da07cec83ceb",
   "schema": "globalgrid2050.v7.project-spine-build.v1",
   "source_provenance": {
     "canonical_identity_source_xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",

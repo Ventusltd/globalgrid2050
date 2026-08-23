@@ -5,6 +5,8 @@ import argparse
 import hashlib
 import json
 import math
+import os
+import tempfile
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -23,8 +25,30 @@ def sha256(path: Path) -> str:
 
 
 def canonical_sha(value: Any) -> str:
-    raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def atomic_write_json(path: Path, value: Any, *, indent: int | None = None) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=None if indent else (",", ":"), indent=indent, allow_nan=False) + "\n"
+    temp_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent, prefix=f".{path.name}.", suffix=".tmp", delete=False) as handle:
+            temp_path = Path(handle.name)
+            handle.write(raw)
+            handle.flush()
+            os.fsync(handle.fileno())
+        json.loads(temp_path.read_text(encoding="utf-8"))
+        os.replace(temp_path, path)
+        directory = os.open(path.parent, os.O_RDONLY)
+        try:
+            os.fsync(directory)
+        finally:
+            os.close(directory)
+    finally:
+        if temp_path is not None and temp_path.exists():
+            temp_path.unlink()
 
 
 def clean_text(value: Any) -> str:
@@ -37,7 +61,8 @@ def optional_float(value: Any) -> float | None:
     if not clean_text(value):
         return None
     try:
-        return float(value)
+        result = float(value)
+        return result if math.isfinite(result) else None
     except (TypeError, ValueError):
         return None
 
@@ -95,6 +120,31 @@ def osgb36_to_wgs84(easting: float, northing: float) -> tuple[float, float]:
     return round(math.degrees(math.atan2(y2, x2)), 7), round(math.degrees(lat2), 7)
 
 
+def resolve_geometry(easting: float | None, northing: float | None) -> tuple[str, float | None, float | None]:
+    if easting is None or northing is None:
+        return "missing", None, None
+    if not (math.isfinite(easting) and math.isfinite(northing) and 0 < easting < 800000 and 0 < northing < 1400000):
+        return "invalid", None, None
+    try:
+        longitude, latitude = osgb36_to_wgs84(easting, northing)
+    except (ArithmeticError, ValueError):
+        return "invalid", None, None
+    if not (math.isfinite(longitude) and math.isfinite(latitude) and -9.5 <= longitude <= 3.5 and 49.0 <= latitude <= 61.5):
+        return "invalid", None, None
+    return "valid", longitude, latitude
+
+
+def project_feature(project: dict[str, Any]) -> dict[str, Any] | None:
+    if project.get("geometry_status") != "valid":
+        return None
+    return {
+        "type": "Feature",
+        "id": project["gg_project_id"],
+        "geometry": {"type": "Point", "coordinates": [project["longitude"], project["latitude"]]},
+        "properties": {key: value for key, value in project.items() if key not in {"longitude", "latitude"}},
+    }
+
+
 def build_coordinate_fixture(xlsx_path: Path, identity: list[dict[str, Any]], output: Path) -> dict[str, Any]:
     import pandas as pd
 
@@ -135,8 +185,7 @@ def build_coordinate_fixture(xlsx_path: Path, identity: list[dict[str, Any]], ou
         "crs": "EPSG:27700",
         "records": [rows[ref] for ref in sorted(rows, key=int)],
     }
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    atomic_write_json(output, payload)
     return payload
 
 
@@ -164,10 +213,10 @@ def main() -> None:
     )]
     projects = []
     for record in selected:
-        coord = coordinates[record["repd_ref"]]
-        if coord["easting"] is None or coord["northing"] is None:
-            raise RuntimeError(f"Missing coordinate for qualifying REPD {record['repd_ref']}")
-        longitude, latitude = osgb36_to_wgs84(coord["easting"], coord["northing"])
+        coord = coordinates.get(record["repd_ref"]) or {}
+        easting = coord.get("easting")
+        northing = coord.get("northing")
+        geometry_status, longitude, latitude = resolve_geometry(easting, northing)
         project = {
             "gg_project_id": record["gg_project_id"],
             "gg_development_id": record["gg_development_id"],
@@ -201,16 +250,19 @@ def main() -> None:
             "planning_sibling_repd_refs": record["planning_sibling_repd_refs"],
             "development_repd_refs": record["development_repd_refs"],
             "source_row": record["source_row"],
-            "easting": coord["easting"],
-            "northing": coord["northing"],
+            "geometry_status": geometry_status,
+            "easting": easting,
+            "northing": northing,
             "longitude": longitude,
             "latitude": latitude,
-            "coordinate_source": contract["geometry_policy"]["transform"],
+            "coordinate_source": contract["geometry_policy"]["transform"] if geometry_status == "valid" else None,
         }
         projects.append(project)
     projects.sort(key=lambda row: (-float(row["capacity_mw"]), row["name"].casefold(), int(row["repd_ref"])))
     counts = Counter(row["technology"] for row in projects)
     lifecycle_counts = Counter(row["lifecycle"] for row in projects)
+    geometry_status_counts = Counter(row["geometry_status"] for row in projects)
+    features = [feature for row in projects if (feature := project_feature(row)) is not None]
     projects_payload = {
         "schema": "globalgrid2050.v7.projects.v7.2",
         "version": "7.2",
@@ -227,17 +279,13 @@ def main() -> None:
         "development_count": len({row["gg_development_id"] for row in projects}),
         "solar_mwp": round(sum(row["capacity_mw"] for row in projects if row["technology"] == "solar"), 2),
         "bess_mw": round(sum(row["capacity_mw"] for row in projects if row["technology"] == "bess"), 2),
-        "geometry_count": len(projects),
+        "geometry_count": len(features),
+        "missing_geometry_count": len(projects) - len(features),
+        "geometry_status_counts": dict(sorted(geometry_status_counts.items())),
         "lifecycle_counts": dict(sorted(lifecycle_counts.items())),
         "projects_sha256": canonical_sha(projects),
         "projects": projects,
     }
-    features = [{
-        "type": "Feature",
-        "id": row["gg_project_id"],
-        "geometry": {"type": "Point", "coordinates": [row["longitude"], row["latitude"]]},
-        "properties": {key: value for key, value in row.items() if key not in {"longitude", "latitude"}},
-    } for row in projects]
     geojson = {
         "type": "FeatureCollection",
         "schema": "globalgrid2050.v7.projects-geojson.v7.2",
@@ -251,9 +299,8 @@ def main() -> None:
     output_projects = ROOT / contract["outputs"]["projects"]
     output_geojson = ROOT / contract["outputs"]["geojson"]
     output_manifest = ROOT / contract["outputs"]["manifest"]
-    output_projects.parent.mkdir(parents=True, exist_ok=True)
-    output_projects.write_text(json.dumps(projects_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
-    output_geojson.write_text(json.dumps(geojson, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    atomic_write_json(output_projects, projects_payload)
+    atomic_write_json(output_geojson, geojson)
     manifest = {
         "schema": "globalgrid2050.v7.project-spine-build.v1",
         "version": "7.2",
@@ -265,15 +312,23 @@ def main() -> None:
             contract["identity_fixture"]: sha256(identity_path),
             contract["coordinate_fixture"]: sha256(coordinate_path),
         },
+        "input_bytes": {
+            contract["identity_fixture"]: identity_path.stat().st_size,
+            contract["coordinate_fixture"]: coordinate_path.stat().st_size,
+        },
         "outputs": {
             contract["outputs"]["projects"]: sha256(output_projects),
             contract["outputs"]["geojson"]: sha256(output_geojson),
         },
-        "metrics": {key: projects_payload[key] for key in ("project_count", "solar_count", "bess_count", "development_count", "solar_mwp", "bess_mw", "geometry_count")},
+        "output_bytes": {
+            contract["outputs"]["projects"]: output_projects.stat().st_size,
+            contract["outputs"]["geojson"]: output_geojson.stat().st_size,
+        },
+        "metrics": {key: projects_payload[key] for key in ("project_count", "solar_count", "bess_count", "development_count", "solar_mwp", "bess_mw", "geometry_count", "missing_geometry_count")},
         "projects_sha256": projects_payload["projects_sha256"],
         "features_sha256": geojson["features_sha256"],
     }
-    output_manifest.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    atomic_write_json(output_manifest, manifest, indent=2)
     print(f"V7.2 spine built: {len(projects)} projects ({counts['solar']} solar, {counts['bess']} BESS), {len(features)} geometries")
 
 

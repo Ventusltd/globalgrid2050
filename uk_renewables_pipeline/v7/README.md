@@ -483,13 +483,14 @@ For a new chat:
 - Every future build must execute the North Star at both preflight and postflight; V7.1 is responsible for creating the shared machine-readable contract and validator.
 - Each V7.1–V7.9 release implements one feature theme only; after V7.9 development moves to V8.0.
 - V7.1 modular release is complete: the thin shell, exact V5 base stylesheet, bounded V6-derived mobile header override, shared core, gauges/newspaper/projects plugins, plugin manifest, North Star contract and validation suite are present.
-- V7.1 fixture-hardened preflight passes 172 checks and postflight passes 203 checks. Dataset/interface parity and ES-module contract tests pass with 5,210 displayed legacy projects and 125 inherited V5 headlines.
+- V7.1 fixture-hardened preflight passes 180 checks and postflight passes 211 checks. Dataset/interface parity and ES-module contract tests pass with 5,210 displayed legacy projects and 125 inherited V5 headlines.
 - V7.1 has not changed the legacy project floor, wind visibility, V5 news feed or inherited NEWS SIGNAL decisions; those remain explicitly deferred to V7.2 and V7.3.
 - GitHub V7 North Star run `32606186065` passed; Pages run `32606186068` deployed the current proof state successfully.
 - Live browser proof: 5,210 rows, 125 headlines, gauges `262,397 / 5,210 / 4,100`, solar filter 2,667 rows, BESS news 56, finance news 34 and Berwick Bank search one exact row.
 - The mobile gate is mandatory and rejects horizontal document overflow or escaped key panels at 390, 430, 440 and 768 px; this layout correction does not alter project or news decisions.
 - iPhone-user-agent delivery is byte-identical to the committed HTML and the exact V5 stylesheet retains its 1,200 px and 768 px responsive breakpoints.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.
-- V7.2 was generated locally with the expected 766 REPD-bound records across 718 developments, but remote commit `5dee339` is rejected: three committed artefacts are corrupt at byte `393216`. V7.2 is neither validated nor live; V7.1 remains the last-known-good public release.
+- Original V7.2 commit `5dee339` remains rejected because three artefacts were corrupt at byte `393216`; it is retained as incident evidence, never as a release baseline.
 - Subsequent legacy commits `d3ba2a1` and `d8aa08f` proved that V4–V6 writers could move `main` independently of V7. Their automatic triggers are now retired before any V7.2 repair or promotion.
-- The V7.2 rebuild must preserve all qualifying records independently of geometry, use atomic outputs and pass exact-remote-commit validation before its 384 solar, 382 BESS, 718-development and geometry claims become release evidence.
+- The repaired V7.2 data-only spine contains 766 records across 718 developments: 384 solar and 382 BESS, with 766 valid geometries and zero missing among this edition. Atomic replacement and synthetic missing/invalid-geometry tests protect future editions.
+- V7.2 remains data-only and not live. V7.1 remains the last-known-good public release until a separately approved project-plugin promotion passes its own exact-remote-commit and production gates.

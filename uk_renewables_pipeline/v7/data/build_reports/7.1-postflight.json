@@ -1,8 +1,8 @@
 {
   "checks": [
     {
-      "actual": "a88a5e397142bcbf6cc46516a2ad588c4104d8ad4c84a80edea19e5cc6a9a825",
-      "expected": "a88a5e397142bcbf6cc46516a2ad588c4104d8ad4c84a80edea19e5cc6a9a825",
+      "actual": "ddc3b0dcb82c5f9d973d77c82f4154736fca6fcd43f6605634ecd0cbf81071c7",
+      "expected": "ddc3b0dcb82c5f9d973d77c82f4154736fca6fcd43f6605634ecd0cbf81071c7",
       "name": "governing README SHA-256",
       "passed": true
     },
@@ -44,6 +44,16 @@
     {
       "detail": "",
       "name": "README phrase: after V7.9 development moves to V8.0",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: A local pass is not publication proof",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "README phrase: V4, V5 and V6 automatic `schedule`, `push` and `issues` triggers are therefore retired immediately",
       "passed": true
     },
     {
@@ -174,6 +184,51 @@
     {
       "detail": "",
       "name": "runtime source exists: dist/major_projects_v6.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "manual-only workflow exists: .github/workflows/major_project_news_v4.yml",
+      "passed": true
+    },
+    {
+      "actual": [
+        "workflow_dispatch"
+      ],
+      "expected": [
+        "workflow_dispatch"
+      ],
+      "name": "manual-only workflow triggers: .github/workflows/major_project_news_v4.yml",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "manual-only workflow exists: .github/workflows/major_project_news_v5.yml",
+      "passed": true
+    },
+    {
+      "actual": [
+        "workflow_dispatch"
+      ],
+      "expected": [
+        "workflow_dispatch"
+      ],
+      "name": "manual-only workflow triggers: .github/workflows/major_project_news_v5.yml",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "manual-only workflow exists: .github/workflows/major_project_news_v6.yml",
+      "passed": true
+    },
+    {
+      "actual": [
+        "workflow_dispatch"
+      ],
+      "expected": [
+        "workflow_dispatch"
+      ],
+      "name": "manual-only workflow triggers: .github/workflows/major_project_news_v6.yml",
       "passed": true
     },
     {
@@ -1140,9 +1195,9 @@
       "passed": true
     }
   ],
-  "contract_sha256": "2db74cf06ce378b055e74ffe4568da07afd28cfaac67093a86e10129fe2a511b",
+  "contract_sha256": "6233b3049dc8e33a2f6951abb4fac529a97d8ac089544c2e88d6efacbaaf5376",
   "feature": "modular-v5-parity",
-  "generated_at": "2026-08-23T01:00:07.275460Z",
+  "generated_at": "2026-08-23T08:28:46.601797Z",
   "metrics": {
     "legacy_display_bess": 1271,
     "legacy_display_solar": 2667,

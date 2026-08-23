@@ -91,10 +91,50 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+  verify-v9-live:
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    timeout-minutes: 8
+    steps:
+      - name: Checkout deployed commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.build.outputs.deployed_sha }}
+          fetch-depth: 1
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: uk_renewables_pipeline/v9/package-lock.json
+      - name: Install pinned browser harness
+        working-directory: uk_renewables_pipeline/v9
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Wait for deployed V9.3 bytes
+        env:
+          TARGET_SHA: ${{ needs.build.outputs.deployed_sha }}
+        run: |
+          live="https://globalgrid2050.com/uk_renewables_pipeline/v9/?deployment=${TARGET_SHA}"
+          for _ in {1..30}; do
+            if curl --fail --silent --show-error --location --max-time 20 "$live" | grep -q 'UK RENEWABLES PIPELINE V9.3'; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Deployed V9.3 HTML did not become observable" >&2
+          exit 1
+      - name: Run live V9.3 browser proof
+        env:
+          TARGET_SHA: ${{ needs.build.outputs.deployed_sha }}
+          V9_BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/v9/?deployment=${{ needs.build.outputs.deployed_sha }}
+        run: node uk_renewables_pipeline/v9/tests/browser_smoke_v9_3.mjs
+
   report:
     if: always()
     runs-on: ubuntu-latest
-    needs: [build, deploy]
+    needs: [build, deploy, verify-v9-live]
     steps:
       - name: Publish Pages deployment result
         env:
@@ -102,16 +142,17 @@ jobs:
           TARGET_SHA: ${{ needs.build.outputs.deployed_sha || github.sha }}
           BUILD_RESULT: ${{ needs.build.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
+          LIVE_RESULT: ${{ needs.verify-v9-live.result }}
         run: |
-          if [[ "$BUILD_RESULT" == "success" && "$DEPLOY_RESULT" == "success" ]]; then
+          if [[ "$BUILD_RESULT" == "success" && "$DEPLOY_RESULT" == "success" && "$LIVE_RESULT" == "success" ]]; then
             state=success
-            description='GlobalGrid2050 Pages deployment passed'
-          elif [[ "$BUILD_RESULT" == "cancelled" || "$DEPLOY_RESULT" == "cancelled" ]]; then
+            description='Pages deployment and live V9.3 browser proof passed'
+          elif [[ "$BUILD_RESULT" == "cancelled" || "$DEPLOY_RESULT" == "cancelled" || "$LIVE_RESULT" == "cancelled" ]]; then
             state=error
-            description='GlobalGrid2050 Pages deployment cancelled'
+            description='GlobalGrid2050 Pages verification cancelled'
           else
             state=failure
-            description='GlobalGrid2050 Pages deployment failed'
+            description='Pages deployment or live V9.3 proof failed'
           fi
           gh api --method POST \
             -H "X-GitHub-Api-Version: 2022-11-28" \

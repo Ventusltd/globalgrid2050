@@ -8,6 +8,7 @@ on:
       - "index.html"
       - "uk_renewables_pipeline/v9/**"
       - ".github/workflows/v9-3-validate.yml"
+      - ".github/workflows/deploy-pages.yml"
 
 permissions:
   contents: read

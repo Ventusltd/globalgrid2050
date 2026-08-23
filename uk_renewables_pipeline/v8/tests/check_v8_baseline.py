@@ -33,11 +33,17 @@ def main() -> int:
     ).returncode == 0, "V7 working tree changed"
 
     allowed = set(contract["allowed_inherited_differences"])
+    tracked = git(
+        "ls-tree",
+        "-r",
+        "--name-only",
+        f"{source['commit']}:uk_renewables_pipeline/v7",
+    ).splitlines()
     compared = 0
-    for old in sorted(path for path in V7.rglob("*") if path.is_file()):
-        relative = old.relative_to(V7).as_posix()
+    for relative in tracked:
         if relative in allowed:
             continue
+        old = V7 / relative
         new = V8 / relative
         assert new.is_file(), f"missing inherited V8 file: {relative}"
         assert sha256(new) == sha256(old), f"unexpected V8.0 divergence: {relative}"

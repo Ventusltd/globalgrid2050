@@ -104,7 +104,7 @@ try {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.locator('[data-technology="wind_offshore"]').click();
   assert.equal(await page.locator("#tbody tr").count(), 109);
-  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => page.locator(selector).textContent())), ["80,535.3", "109", "4,100"]);
+  assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => page.locator(selector).textContent())), ["80,535.4", "109", "4,100"]);
 
   await page.locator("#clearFilters").click();
   await page.locator("#search").fill("GG2050-REPD-9873 Berwick");

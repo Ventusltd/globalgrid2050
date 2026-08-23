@@ -95,6 +95,7 @@ try {
   assert.match(await page.locator("#tbody .record-grid").textContent(), /PLANNING AUTHORITY/);
 
   await page.locator("#tbody .copy-id").click();
+  await page.waitForFunction(() => document.querySelector("#tbody .copy-id")?.textContent === "COPIED");
   assert.equal(await page.locator("#tbody .copy-id").textContent(), "COPIED");
 
   const missingRef = await page.evaluate(async () => {

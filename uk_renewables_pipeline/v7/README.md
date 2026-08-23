@@ -469,3 +469,5 @@ For a new chat:
 - The mobile gate is mandatory and rejects horizontal document overflow or escaped key panels at 390, 430, 440 and 768 px; this layout correction does not alter project or news decisions.
 - iPhone-user-agent delivery is byte-identical to the committed HTML and the exact V5 stylesheet retains its 1,200 px and 768 px responsive breakpoints.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.
+- V7.2's data-only canonical spine is now built and validated but not live: 766 REPD-bound records across 718 developments, comprising 384 solar projects `>49 MWp` and 382 BESS projects `>99 MW`, with no wind and 766 canonical point geometries.
+- V7.2 preserves REPD facts, GlobalGrid project/development IDs, lifecycle fields and typed relationships. Its geometry is contextual mapping evidence only and cannot establish a grid connection or cadastral boundary.

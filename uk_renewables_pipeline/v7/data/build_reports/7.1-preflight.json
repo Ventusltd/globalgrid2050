@@ -1,8 +1,8 @@
 {
   "checks": [
     {
-      "actual": "a95367a9ec953aada31c25be7b7a6dbdd5099c55dc4736112fcc71050760be29",
-      "expected": "a95367a9ec953aada31c25be7b7a6dbdd5099c55dc4736112fcc71050760be29",
+      "actual": "a88a5e397142bcbf6cc46516a2ad588c4104d8ad4c84a80edea19e5cc6a9a825",
+      "expected": "a88a5e397142bcbf6cc46516a2ad588c4104d8ad4c84a80edea19e5cc6a9a825",
       "name": "governing README SHA-256",
       "passed": true
     },
@@ -983,9 +983,9 @@
       "passed": true
     }
   ],
-  "contract_sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e",
+  "contract_sha256": "2db74cf06ce378b055e74ffe4568da07afd28cfaac67093a86e10129fe2a511b",
   "feature": "modular-v5-parity",
-  "generated_at": "2026-08-23T00:22:58.500127Z",
+  "generated_at": "2026-08-23T01:00:06.391963Z",
   "metrics": {
     "legacy_display_bess": 1271,
     "legacy_display_solar": 2667,

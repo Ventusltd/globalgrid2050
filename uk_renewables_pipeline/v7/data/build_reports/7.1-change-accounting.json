@@ -6,12 +6,12 @@
   "preflight": {
     "result": "PASS",
     "checks": 172,
-    "contract_sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e"
+    "contract_sha256": "2db74cf06ce378b055e74ffe4568da07afd28cfaac67093a86e10129fe2a511b"
   },
   "postflight": {
     "result": "PASS",
     "checks": 203,
-    "contract_sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e"
+    "contract_sha256": "2db74cf06ce378b055e74ffe4568da07afd28cfaac67093a86e10129fe2a511b"
   },
   "identical_metrics": {
     "legacy_features": 10784,

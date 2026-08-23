@@ -8,13 +8,13 @@
   "north_star": "PASS",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "a95367a9ec953aada31c25be7b7a6dbdd5099c55dc4736112fcc71050760be29",
-    "git_blob_sha": "5508e9a3cf5676922be6baa94c3135543ad2d259"
+    "sha256": "a88a5e397142bcbf6cc46516a2ad588c4104d8ad4c84a80edea19e5cc6a9a825",
+    "git_blob_sha": "514bd10a7ad9fef33812be178fa90ef26d528909"
   },
   "contracts": {
     "north_star": {
       "path": "uk_renewables_pipeline/v7/contracts/north-star.v1.json",
-      "sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e"
+      "sha256": "2db74cf06ce378b055e74ffe4568da07afd28cfaac67093a86e10129fe2a511b"
     },
     "plugin": {
       "path": "uk_renewables_pipeline/v7/contracts/plugin.v1.json",

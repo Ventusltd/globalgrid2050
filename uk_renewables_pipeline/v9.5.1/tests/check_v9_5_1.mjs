@@ -146,6 +146,7 @@ const mobileCss = await readText("styles/mobile.css");
 const additiveCss = await readText("styles/v9-3.css");
 const parentAdditiveCss = await readText("styles/v9-2.css");
 const headerCss = await readText("styles/v9-4.css");
+const responsiveCss = await readText("styles/v9-5-1.css");
 const frozenParentCss = await readFile(new URL("uk_renewables_pipeline/v9/styles/v9-3.css", root), "utf8");
 const projectsV95 = await readText("scripts/plugins/projects-v9-5-1.js");
 const newspaperV95 = await readText("scripts/plugins/newspaper-v9-5-1.js");
@@ -162,6 +163,7 @@ const styleOrder = [
   html.indexOf("styles/mobile.css?v=9.5.1"),
   html.indexOf("styles/v9-3.css?v=9.5.1"),
   html.indexOf("styles/v9-4.css?v=9.5.1"),
+  html.indexOf("styles/v9-5-1.css?v=9.5.1"),
 ];
 assert.ok(styleOrder.every((value) => value >= 0));
 assert.ok(styleOrder.every((value, index) => index === 0 || value > styleOrder[index - 1]));
@@ -184,6 +186,9 @@ assert.ok(additiveCss.startsWith(parentCssPrefix), "V9.3 additive CSS no longer 
 assert.match(headerCss, /\.repd-updated-heading button/);
 assert.match(headerCss, /#updatedSortIndicator/);
 assert.match(headerCss, /focus-visible/);
+assert.match(responsiveCss, /@media\s*\(min-width:\s*921px\)\s*and\s*\(max-width:\s*1100px\)/);
+assert.match(responsiveCss, /\.header\s*\{[^}]*flex-direction:\s*column[^}]*\}/s);
+assert.match(responsiveCss, /\.status\s*\{[^}]*width:\s*100%[^}]*white-space:\s*normal[^}]*\}/s);
 
 assert.match(app, /gauges-v9-2\.js/);
 assert.match(app, /projects-v9-5-1\.js/);

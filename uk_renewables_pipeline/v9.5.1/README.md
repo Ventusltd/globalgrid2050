@@ -41,7 +41,7 @@ The visible contract is:
 - three gauge columns above 768 px;
 - one gauge column at and below 768 px;
 - the normal desktop header remains a row from 921 px upwards;
-- from 769 to 920 px, only the header stacks and the status text wraps so the release label cannot be clipped beside the 250 px sidebar;
+- from 769 to 1,100 px, only the header stacks and the status text wraps so the V9.5.1 release counts cannot be clipped beside the 250 px sidebar;
 - at and below 768 px, the proven V7.1 mobile header and wrapping behaviour remains unchanged;
 - an eleven-column desktop project table, adding REPD Ref, GlobalGrid Ref and REPD Updated;
 - mobile retains the same three facts beneath the site name;

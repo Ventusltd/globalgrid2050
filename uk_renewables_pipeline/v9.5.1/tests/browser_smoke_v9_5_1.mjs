@@ -114,7 +114,7 @@ try {
   assert.equal(await page.locator("#repdUpdatedHeader").getAttribute("aria-sort"), "none");
   assert.equal(await page.locator("#updatedSortIndicator").textContent(), "↕");
 
-  for (const width of [1440, 1000, 921]) {
+  for (const width of [1440, 1200, 1101]) {
     await page.setViewportSize({ width, height: 1000 });
     const desktop = await layoutSnapshot(page);
     assert.equal(desktop.bodyDisplay, "flex", `${width}px desktop body layout`);
@@ -124,7 +124,7 @@ try {
     assertContained(desktop, width, `${width}px desktop`);
   }
 
-  for (const width of [769, 800, 900, 920]) {
+  for (const width of [769, 800, 900, 920, 921, 1000, 1100]) {
     await page.setViewportSize({ width, height: 900 });
     const intermediate = await layoutSnapshot(page);
     assert.equal(intermediate.bodyDisplay, "flex", `${width}px intermediate body layout`);

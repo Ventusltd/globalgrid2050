@@ -28,9 +28,10 @@ if [[ "${V7_BROWSER_SMOKE:-0}" == "1" ]]; then
   trap - EXIT
 fi
 
+north_star_report="${V7_NORTH_STAR_REPORT:-${TMPDIR:-/tmp}/globalgrid2050-v7-postflight.json}"
 python3 "$v7_dir/tests/validate_north_star.py" \
   --phase post \
-  --report "$v7_dir/data/build_reports/7.1-postflight.json"
+  --report "$north_star_report"
 
 if [[ -f "$v7_dir/contracts/project-spine.v7.2.json" ]]; then
   python3 "$v7_dir/tests/test_v7_2_spine_safety.py"

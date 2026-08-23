@@ -19,7 +19,7 @@ function updateChart(chart, value, maximum) {
 export function formatCapacityV9_2(value) {
   const rounded = Math.round(((Number(value) || 0) + Number.EPSILON) * 100) / 100;
   return rounded.toLocaleString("en-GB", {
-    minimumFractionDigits: Number.isInteger(rounded) ? 0 : 2,
+    minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   });
 }

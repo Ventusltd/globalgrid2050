@@ -154,7 +154,7 @@ try {
   assert.equal(await page.locator("#resultsMeta").textContent(), "109 of 7,680 records · 80,535 MW · largest 4,100 MW");
 
   await page.locator("#clearFilters").click();
-  await page.locator("#search").fill("10087");
+  await page.locator("#search").fill("GG2050-REPD-10087 Brecks");
   assert.equal(await page.locator("#tbody tr").count(), 1);
   assert.notEqual(await page.locator("#tbody .signal").textContent(), "—");
   assert.match(await page.locator("#tbody .signal-note").textContent(), /canonical PRIMARY_MATCH/);

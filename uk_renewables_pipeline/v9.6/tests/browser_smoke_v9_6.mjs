@@ -72,7 +72,7 @@ try {
   assert.equal(await page.locator("#stories .story").count(), 45);
   await page.locator("#newsSearch").fill("Beacon Fen");
   assert.equal(await page.locator("#stories .story").count(), 1);
-  assert.match(await page.locator("#stories .story").textContent(), /Low Carbon Limited.*REPD 13599/s);
+  assert.match(await page.locator("#stories .story").textContent(), /LOW CARBON LIMITED.*REPD 13599/s);
 
   console.log("V9.6 clean browser: PASS (untruncated V9.5.1 UI, horizontal projects, capacity range)");
 } finally {

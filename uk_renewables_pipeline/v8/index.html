@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GlobalGrid2050 | UK Solar + Storage Daily V8.0 Test</title>
+  <title>GlobalGrid2050 | UK Solar + Storage Daily V8.1</title>
   <link rel="stylesheet" href="styles/v7.css">
   <link rel="stylesheet" href="styles/mobile.css">
+  <link rel="stylesheet" href="styles/v8.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <aside class="sidebar">
     <div class="brand">
       <b>GLOBALGRID2050</b>
-      <small>UK SOLAR + STORAGE DAILY · V8.0 TEST</small>
+      <small>UK SOLAR + STORAGE DAILY · V8.1 MVP</small>
     </div>
     <nav class="nav">
-      <a class="active" href="#">V8.0 TEST</a>
+      <a class="active" href="#">V8.1 MVP</a>
       <a href="../v7/">V7 FALLBACK</a>
       <a href="../dashboard_v6_live.html">V6</a>
       <a href="../dashboard_v5_live.html">V5</a>
@@ -30,13 +31,13 @@
   </aside>
   <main class="main">
     <div class="header">
-      <h1>UK RENEWABLES PIPELINE V8.0</h1>
-      <div class="status">● FAST-TRACK TEST COPY · V7 FALLBACK PRESERVED</div>
+      <h1>UK SOLAR + BESS PIPELINE V8.1</h1>
+      <div class="status">● CANONICAL MVP · V7 FALLBACK PRESERVED</div>
     </div>
     <div class="meta">
-      <strong>V8.0 TEST · 23 August 2026</strong>
-      <span>Byte-derived from the repaired V7 baseline; project and news behaviour unchanged.</span>
-      <span>Newspaper universe: solar &gt;49 MWp · BESS &gt;100 MW.</span>
+      <strong>V8.1 MVP · 23 August 2026</strong>
+      <span>Canonical DESNZ REPD Q2 2026 spine: 766 records across 718 developments.</span>
+      <span>384 solar &gt;49 MWp · 382 BESS &gt;99 MW · wind excluded.</span>
       <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
     </div>
 
@@ -44,7 +45,7 @@
       <div class="masthead">
         <h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2>
         <div class="strap">
-          <span>UK utility-scale solar + battery intelligence</span>
+          <span>Legacy V5 newspaper · project bindings unverified</span>
           <span id="newsMeta">loading daily edition…</span>
         </div>
       </div>
@@ -65,56 +66,61 @@
       </div>
     </section>
 
-    <h2 class="section-title">REPD PIPELINE ANALYTICS</h2>
+    <h2 class="section-title">CANONICAL REPD PIPELINE ANALYTICS</h2>
     <div class="gauges">
       <div class="card">
-        <h3>FILTERED CAPACITY (MW)</h3>
+        <h3>FILTERED SOLAR CAPACITY (MWp)</h3>
         <div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
       </div>
       <div class="card">
-        <h3>FILTERED PROJECTS (&gt;1MW)</h3>
+        <h3>FILTERED BESS CAPACITY (MW)</h3>
         <div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
       </div>
       <div class="card">
-        <h3>LARGEST SINGLE SITE (MW)</h3>
+        <h3>FILTERED PROJECT RECORDS</h3>
         <div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+      </div>
+      <div class="card">
+        <h3>LARGEST RECORD CAPACITY</h3>
+        <div class="chart"><canvas id="g4"></canvas><div class="value" id="v4">0</div></div>
       </div>
     </div>
 
     <div class="filters" id="tech">
-      <button class="btn active" data-tech="All">ALL TECH</button>
-      <button class="btn" data-tech="Solar">SOLAR</button>
-      <button class="btn" data-tech="Battery Storage">BATTERY</button>
-      <button class="btn" data-tech="Onshore Wind">ONSHORE</button>
-      <button class="btn" data-tech="Offshore Wind">OFFSHORE</button>
+      <button class="btn active" data-technology="all">ALL TECH</button>
+      <button class="btn" data-technology="solar">SOLAR</button>
+      <button class="btn" data-technology="bess">BESS</button>
     </div>
     <div class="filters" id="status">
-      <button class="btn active" data-status="All">ALL STATUS</button>
-      <button class="btn" data-status="Operational">OPERATIONAL</button>
-      <button class="btn" data-status="Under Construction">CONSTRUCTING</button>
-      <button class="btn" data-status="Awaiting Construction">AWAITING</button>
-      <button class="btn" data-status="Application Submitted">SUBMITTED</button>
+      <button class="btn active" data-official-status="All">ALL STATUS</button>
+      <button class="btn" data-official-status="Operational">OPERATIONAL</button>
+      <button class="btn" data-official-status="Under Construction">CONSTRUCTING</button>
+      <button class="btn" data-official-status="Awaiting Construction">AWAITING</button>
+      <button class="btn" data-official-status="Application Submitted">SUBMITTED</button>
     </div>
     <div class="filters">
       <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
-      <input id="search" class="asset-search" placeholder="🔍 SEARCH OPERATOR OR SITE..." autocomplete="off">
+      <input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
     </div>
     <div class="meta">
       <strong>STATUS DISCIPLINE</strong>
-      <span><b>REPD STATUS</b> is the official dataset field. <b>NEWS SIGNAL</b> is headline-derived intelligence only and never changes or confirms REPD status.</span>
+      <span><b>REPD STATUS AND CAPACITY</b> are official record facts. <b>LEGACY NEWS SIGNAL</b> is unverified V5 intelligence and never changes or confirms them.</span>
     </div>
     <div class="tablewrap">
       <table>
         <thead>
           <tr>
             <th>SITE NAME</th>
-            <th class="hide-mobile">COUNTY</th>
+            <th class="hide-mobile">LOCATION</th>
             <th class="hide-mobile">OPERATOR</th>
             <th>TECHNOLOGY</th>
-            <th>REPD STATUS</th>
-            <th>CAPACITY (MW)</th>
-            <th>NEWS SIGNAL</th>
-            <th>NEWS</th>
+            <th>OFFICIAL REPD STATUS</th>
+            <th>OFFICIAL CAPACITY</th>
+            <th>REPD REF</th>
+            <th>GLOBALGRID ID</th>
+            <th>PLANNING REF</th>
+            <th>LEGACY NEWS SIGNAL</th>
+            <th>NEWS SEARCH</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>

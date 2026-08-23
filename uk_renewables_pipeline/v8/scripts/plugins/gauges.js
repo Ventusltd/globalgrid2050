@@ -1,5 +1,18 @@
 import { state } from "../core/state.js";
 
+function createGauge(canvasId, colour, options) {
+  const config = {
+    type: "doughnut",
+    data: { datasets: [{ data: [0, 1], backgroundColor: [colour, "#222"], borderWidth: 0 }] },
+    options,
+  };
+  if (typeof globalThis.Chart !== "function") {
+    document.getElementById(canvasId).hidden = true;
+    return { data: config.data, update() {} };
+  }
+  return new globalThis.Chart(document.getElementById(canvasId), config);
+}
+
 export function initialiseGauges() {
   const options = {
     responsive: true,
@@ -10,39 +23,41 @@ export function initialiseGauges() {
     plugins: { tooltip: { enabled: false }, legend: { display: false } },
   };
 
-  state.charts.capacity = new Chart(document.getElementById("g1"), {
-    type: "doughnut",
-    data: { datasets: [{ data: [0, 1], backgroundColor: ["#ff00ff", "#222"], borderWidth: 0 }] },
-    options,
-  });
-  state.charts.projects = new Chart(document.getElementById("g2"), {
-    type: "doughnut",
-    data: { datasets: [{ data: [0, 1], backgroundColor: ["#00ffff", "#222"], borderWidth: 0 }] },
-    options,
-  });
-  state.charts.largest = new Chart(document.getElementById("g3"), {
-    type: "doughnut",
-    data: { datasets: [{ data: [0, 1], backgroundColor: ["#00ff88", "#222"], borderWidth: 0 }] },
-    options,
-  });
+  state.charts.solar = createGauge("g1", "#ffff00", options);
+  state.charts.bess = createGauge("g2", "#ffae00", options);
+  state.charts.projects = createGauge("g3", "#00ffff", options);
+  state.charts.largest = createGauge("g4", "#00ff88", options);
+}
+
+function totalFor(projects, technology) {
+  return projects
+    .filter((project) => project.technology === technology)
+    .reduce((sum, project) => sum + project.capacity_mw, 0);
+}
+
+function updateChart(chart, value, maximum) {
+  chart.data.datasets[0].data = [value, Math.max(maximum - value, 0)];
+  chart.update();
 }
 
 export function updateGauges(projects) {
-  const total = projects.reduce((sum, project) => sum + project.mw, 0);
-  const count = projects.length;
-  const largest = count ? Math.max(...projects.map((project) => project.mw)) : 0;
-  const globalTotal = state.all.reduce((sum, project) => sum + project.mw, 0) || 1;
-  const globalLargest = state.all.length ? Math.max(...state.all.map((project) => project.mw)) : 1;
+  const solarMwp = totalFor(projects, "solar");
+  const bessMw = totalFor(projects, "bess");
+  const projectCount = projects.length;
+  const largestMw = projects.length ? Math.max(...projects.map((project) => project.capacity_mw)) : 0;
+  const allSolarMwp = totalFor(state.all, "solar") || 1;
+  const allBessMw = totalFor(state.all, "bess") || 1;
+  const allProjectCount = state.all.length || 1;
+  const allLargestMw = state.all.length ? Math.max(...state.all.map((project) => project.capacity_mw)) : 1;
+  const capacityFormat = { maximumFractionDigits: 2 };
 
-  document.getElementById("v1").textContent = total.toLocaleString(undefined, { maximumFractionDigits: 0 });
-  document.getElementById("v2").textContent = count.toLocaleString();
-  document.getElementById("v3").textContent = largest.toLocaleString(undefined, { maximumFractionDigits: 1 });
+  document.getElementById("v1").textContent = solarMwp.toLocaleString("en-GB", capacityFormat);
+  document.getElementById("v2").textContent = bessMw.toLocaleString("en-GB", capacityFormat);
+  document.getElementById("v3").textContent = projectCount.toLocaleString("en-GB");
+  document.getElementById("v4").textContent = largestMw.toLocaleString("en-GB", capacityFormat);
 
-  const { capacity, projects: projectGauge, largest: largestGauge } = state.charts;
-  capacity.data.datasets[0].data = [total, Math.max(globalTotal - total, 0)];
-  projectGauge.data.datasets[0].data = [count, Math.max(state.all.length - count, 0)];
-  largestGauge.data.datasets[0].data = [largest, Math.max(globalLargest - largest, 0)];
-  capacity.update();
-  projectGauge.update();
-  largestGauge.update();
+  updateChart(state.charts.solar, solarMwp, allSolarMwp);
+  updateChart(state.charts.bess, bessMw, allBessMw);
+  updateChart(state.charts.projects, projectCount, allProjectCount);
+  updateChart(state.charts.largest, largestMw, allLargestMw);
 }

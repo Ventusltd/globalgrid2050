@@ -1,7 +1,10 @@
 import { initialiseGauges } from "./plugins/gauges.js";
 import { bindNewspaper, loadNews } from "./plugins/newspaper.js";
-import { refreshProjectTable } from "./plugins/project-table.js";
-import { bindProjectControls, loadProjects } from "./plugins/projects.js";
+import {
+  bindProjectControls,
+  loadProjects,
+  refreshCanonicalProjects,
+} from "./plugins/projects.js";
 import { startPlugins } from "./core/plugin-host.js";
 
 startPlugins([
@@ -13,7 +16,7 @@ startPlugins([
     id: "newspaper",
     dependsOn: ["gauges"],
     start() {
-      bindNewspaper(refreshProjectTable);
+      bindNewspaper(refreshCanonicalProjects);
       loadNews();
     },
   },

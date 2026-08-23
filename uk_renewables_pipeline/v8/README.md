@@ -2,14 +2,14 @@
 
 ## Current state
 
-V8 is the fast-track test copy. V7 remains the untouched public fallback.
+V8.1 is the one-hour minimum viable product. V7 remains the untouched public fallback.
 
-- Visible release: **V8.0 TEST**.
+- Visible release: **V8.1 MVP**.
 - Public fallback: `/uk_renewables_pipeline/v7/`.
-- Test address: `/uk_renewables_pipeline/v8/`.
-- Source commit: `b6d0b39ec510f8b0bc670bef93184632df3b94a8`.
+- Live address: `/uk_renewables_pipeline/v8/`.
+- V8.1 baseline commit: `76bacf217ef5cadfd068e796aa2d493a34324cf1`.
 - Frozen V7 source tree: `9ad8cfe9cdf26948ed3ad3898822977f9198006a`.
-- V8.0 inherits V7.1 product behaviour and the repaired, isolated V7.2 canonical-data checkpoint.
+- V8.1 makes the repaired V7.2 canonical project spine visible without rebuilding the inherited newspaper.
 - The original governing V7 plan is preserved at `docs/V7_LINEAGE.md`.
 
 V8 must never overwrite or silently redirect V7. Rolling back means changing the directory link to V7; it must not require rebuilding old code.
@@ -41,6 +41,29 @@ Solar MWp and BESS MW remain separate measures. News, finance and grid evidence 
 10. Never transport release blobs through logs, command output or an unbounded base64 bridge.
 11. A local pass is not publication proof. Fetch the resulting commit, verify byte lengths and SHA-256 values, and rerun all gates.
 12. Failed retrieval or validation retains the last-known-good publication and records the failure separately.
+
+## One-hour V8.1 MVP boundary
+
+Included now:
+
+- The validated Q2 2026 universe of **766 canonical REPD records across 718 developments**.
+- **384 solar records above 49 MWp** and **382 BESS records above 99 MW**; no wind.
+- Separate filtered gauges for **34,073.49 MWp solar** and **106,338.18 MW BESS**, plus record count and largest record.
+- Canonical search by project, operator, REPD Ref, GlobalGrid project/development ID, planning reference, authority and location.
+- Solar/BESS, official-status and county filters; an 11-column project table; filtered-only CSV export.
+- A Chart.js outage hides the decorative arcs but leaves gauge values and the project interface operational.
+- The inherited 125-story V5 newspaper, labelled **legacy/unverified**. Its signals cannot overwrite REPD facts.
+
+Explicitly deferred to small daily releases in later chats:
+
+- V8.2 trusted news matching and the anti-hallucination corpus.
+- V8.3 capital, CfD and delivery milestones.
+- V8.4 append-only TEC and later ECR grid transitions.
+- V8.5 C&I solar, commercial BESS and EV charging.
+- V8.6 project pages, maps, timelines, evidence UI and accessibility.
+- V8.7 country-pack replication, V8.8 operations hardening and V8.9 integrated production proof.
+
+This boundary is deliberate. A daily release may advance one feature theme only; unfinished work stays inert and cannot be presented as verified intelligence.
 
 ## Four release stages
 

@@ -2,8 +2,16 @@
   "schema": "globalgrid2050.v9.release-manifest.v1",
   "version": "9.5",
   "feature": "canonical-news-binder-recall-and-repd-ref-signals",
-  "status": "CANDIDATE",
-  "promotion_basis": null,
+  "status": "LIVE_VALIDATED",
+  "promotion_basis": {
+    "candidate_commit": "ce5fc57051cb4b2d9b094dd58187c40ee53772be",
+    "validated_at": "2026-08-23T21:32:53Z",
+    "required_contexts": [
+      "globalgrid/v9.5-validation",
+      "globalgrid/pages-deploy"
+    ],
+    "candidate_contexts_passed": true
+  },
   "frozen_v9_4_commit": "d598d9b6b89be4daeb904fafae52dd18ba35d1c1",
   "frozen_v9_4_subtree": "dfcd9b457854fc07d4af3df5797f29e2e3d12426",
   "frozen_v9_3_1_commit": "9e0c51281fc816691a75e4255483a0851122481e",

@@ -2,8 +2,16 @@
   "schema": "globalgrid2050.v9.release-manifest.v1",
   "version": "9.5.1",
   "feature": "dual-layer-newspaper-with-canonical-repd-signals",
-  "status": "CANDIDATE",
-  "promotion_basis": null,
+  "status": "LIVE_VALIDATED",
+  "promotion_basis": {
+    "candidate_commit": "0e4d43b0c7888f2fb507ee2f98a1796214af5957",
+    "validated_at": "2026-08-23T22:34:13Z",
+    "required_contexts": [
+      "globalgrid/v9.5.1-validation",
+      "globalgrid/pages-deploy"
+    ],
+    "candidate_contexts_passed": true
+  },
   "frozen_v9_5_commit": "3acd56386d0bf2952f8f26754d615d20a7345e35",
   "frozen_v9_5_subtree": "457d060161c0edaf9a55cc633ee884ebca5fbe43",
   "frozen_v9_4_commit": "d598d9b6b89be4daeb904fafae52dd18ba35d1c1",
@@ -34,7 +42,7 @@
   "features": [
     "V5 desktop shell and proven V7.1 mobile correction restored",
     "V2/V5/V7.1 whole-MW filtered-capacity presentation restored while exact data remains unchanged",
-    "bounded 769-920px header correction prevents hidden status clipping while retaining three gauges",
+    "bounded 769-1100px header correction prevents hidden status clipping while retaining three gauges",
     "all qualifying >=1 MW records loaded by default",
     "multi-token canonical project search and shareable filters",
     "filtered CSV export with header-only zero-result behaviour",

@@ -91,7 +91,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  verify-v9-live:
+  verify_v9_live:
     runs-on: ubuntu-latest
     needs: [build, deploy]
     timeout-minutes: 8
@@ -134,7 +134,7 @@ jobs:
   report:
     if: always()
     runs-on: ubuntu-latest
-    needs: [build, deploy, verify-v9-live]
+    needs: [build, deploy, verify_v9_live]
     steps:
       - name: Publish Pages deployment result
         env:
@@ -142,7 +142,7 @@ jobs:
           TARGET_SHA: ${{ needs.build.outputs.deployed_sha || github.sha }}
           BUILD_RESULT: ${{ needs.build.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
-          LIVE_RESULT: ${{ needs.verify-v9-live.result }}
+          LIVE_RESULT: ${{ needs.verify_v9_live.result }}
         run: |
           if [[ "$BUILD_RESULT" == "success" && "$DEPLOY_RESULT" == "success" && "$LIVE_RESULT" == "success" ]]; then
             state=success

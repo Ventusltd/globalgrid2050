@@ -2,8 +2,14 @@
   "schema": "globalgrid2050.v9.release-manifest.v1",
   "version": "9.4",
   "feature": "click-repd-updated-header-to-toggle-newest-oldest",
-  "status": "CANDIDATE",
-  "promotion_basis": null,
+  "status": "LIVE_VALIDATED",
+  "promotion_basis": {
+    "candidate_commit": "da97704ca6a619ce752fc3f21e0b181d1c470ceb",
+    "v9_4_validation_run": 32664449815,
+    "v9_3_1_regression_run": 32664449902,
+    "pages_live_proof_run": 32664449830,
+    "live_custom_domain_proof": true
+  },
   "frozen_v9_3_1_commit": "9e0c51281fc816691a75e4255483a0851122481e",
   "frozen_v9_3_1_subtree": "64f318b1dced6c202c5ff3517ef120828fdd2064",
   "frozen_v9_0_commit": "50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2",

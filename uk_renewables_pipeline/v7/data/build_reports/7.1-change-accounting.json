@@ -5,13 +5,13 @@
   "result": "PASS",
   "preflight": {
     "result": "PASS",
-    "checks": 130,
-    "contract_sha256": "c827b9e4a3603126ba8abe134cbfe79ce33ee3fe1e4a7457eb636f6f77b50ec1"
+    "checks": 172,
+    "contract_sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e"
   },
   "postflight": {
     "result": "PASS",
-    "checks": 158,
-    "contract_sha256": "2ae812013e055c2a1b0a6f86b8a6445505740517477c41be94750f97904e3835"
+    "checks": 203,
+    "contract_sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e"
   },
   "identical_metrics": {
     "legacy_features": 10784,
@@ -23,13 +23,19 @@
     "v5_headlines": 125,
     "v5_lookback_days": 366,
     "v5_raw_solar_gt49": 321,
-    "v5_raw_bess_gt100": 239
+    "v5_raw_bess_gt99": 328,
+    "v5_raw_bess_gt100": 239,
+    "v5_bess_gt99_minus_gt100": 89,
+    "v7_q2_bess_gt99": 382,
+    "v7_q2_bess_gt100": 269,
+    "v7_q2_bess_gt99_minus_gt100": 113
   },
   "intended_differences": [
-    "V7 index changed from an inline V7.0/V5 monolith to a V7.1 external stylesheet and ES-module shell.",
-    "README gained the truthful V7.1 build and production-verification checkpoint.",
-    "North Star contract now fingerprints that README and requires every V7.1 module, contract, report and validator launcher.",
-    "V7.1 plugin, build-manifest, release-note and validation files were added."
+    "Byte-identical V5 and V6 reference assets were added under V7 fixtures; runtime dist paths remain unchanged.",
+    "North Star validation now derives baseline counts and canonical sentinels from immutable V7 fixtures.",
+    "The contract distinguishes the legacy V5 BESS threshold delta of 89 from the V6/Q2 delta of 113.",
+    "The contract distinguishes the V6 snapshot file hash from the canonical projects-array hash.",
+    "README architecture and provenance now include contracts and immutable fixtures."
   ],
   "forbidden_differences": {
     "v1_to_v6_file_changes": 0,

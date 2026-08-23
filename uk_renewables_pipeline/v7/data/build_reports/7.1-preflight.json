@@ -1,14 +1,14 @@
 {
   "checks": [
     {
-      "actual": "6ac0f77368c990faaa51d7c0932947b03b455948dc2a6d9004ae588ee5a3b9ee",
-      "expected": "6ac0f77368c990faaa51d7c0932947b03b455948dc2a6d9004ae588ee5a3b9ee",
+      "actual": "a95367a9ec953aada31c25be7b7a6dbdd5099c55dc4736112fcc71050760be29",
+      "expected": "a95367a9ec953aada31c25be7b7a6dbdd5099c55dc4736112fcc71050760be29",
       "name": "governing README SHA-256",
       "passed": true
     },
     {
       "detail": "",
-      "name": "README phrase: V7.0 is the current live MVP",
+      "name": "README phrase: V7.1 is the current live release",
       "passed": true
     },
     {
@@ -114,46 +114,66 @@
     },
     {
       "detail": "",
-      "name": "file exists: dist/major_project_news_v5.json",
+      "name": "file exists: uk_renewables_pipeline/v7/fixtures/v5/major_project_news_v5.json",
       "passed": true
     },
     {
       "actual": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
       "expected": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
-      "name": "file SHA-256: dist/major_project_news_v5.json",
+      "name": "file SHA-256: uk_renewables_pipeline/v7/fixtures/v5/major_project_news_v5.json",
       "passed": true
     },
     {
       "detail": "",
-      "name": "file exists: dist/repd_master.json",
+      "name": "file exists: uk_renewables_pipeline/v7/fixtures/v5/repd_master.json",
       "passed": true
     },
     {
       "actual": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
       "expected": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
-      "name": "file SHA-256: dist/repd_master.json",
+      "name": "file SHA-256: uk_renewables_pipeline/v7/fixtures/v5/repd_master.json",
       "passed": true
     },
     {
       "detail": "",
-      "name": "file exists: dist/project_identity_v6.json",
+      "name": "file exists: uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json",
       "passed": true
     },
     {
       "actual": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
       "expected": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
-      "name": "file SHA-256: dist/project_identity_v6.json",
+      "name": "file SHA-256: uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json",
       "passed": true
     },
     {
       "detail": "",
-      "name": "file exists: dist/major_projects_v6.json",
+      "name": "file exists: uk_renewables_pipeline/v7/fixtures/v6/major_projects_v6.json",
       "passed": true
     },
     {
       "actual": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
       "expected": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
-      "name": "file SHA-256: dist/major_projects_v6.json",
+      "name": "file SHA-256: uk_renewables_pipeline/v7/fixtures/v6/major_projects_v6.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "runtime source exists: dist/major_project_news_v5.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "runtime source exists: dist/repd_master.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "runtime source exists: dist/project_identity_v6.json",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "runtime source exists: dist/major_projects_v6.json",
       "passed": true
     },
     {
@@ -193,9 +213,21 @@
       "passed": true
     },
     {
+      "actual": 328,
+      "expected": 328,
+      "name": "v5_raw_bess_gt99",
+      "passed": true
+    },
+    {
       "actual": 239,
       "expected": 239,
       "name": "v5_raw_bess_gt100",
+      "passed": true
+    },
+    {
+      "actual": 89,
+      "expected": 89,
+      "name": "v5_bess_gt99_minus_gt100",
       "passed": true
     },
     {
@@ -235,6 +267,36 @@
       "passed": true
     },
     {
+      "actual": 14,
+      "expected": 14,
+      "name": "canonical sentinel record count",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "canonical sentinel development count",
+      "passed": true
+    },
+    {
+      "actual": 382,
+      "expected": 382,
+      "name": "v7_q2_bess_gt99",
+      "passed": true
+    },
+    {
+      "actual": 269,
+      "expected": 269,
+      "name": "v7_q2_bess_gt100",
+      "passed": true
+    },
+    {
+      "actual": 113,
+      "expected": 113,
+      "name": "v7_q2_bess_gt99_minus_gt100",
+      "passed": true
+    },
+    {
       "detail": "",
       "name": "canonical sentinel exists: 13599",
       "passed": true
@@ -258,6 +320,12 @@
       "passed": true
     },
     {
+      "actual": "Application Submitted",
+      "expected": "Application Submitted",
+      "name": "REPD 13599 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-E13842D4D80DEC",
       "expected": "GG2050-DEV-E13842D4D80DEC",
       "name": "REPD 13599 gg_development_id",
@@ -267,6 +335,11 @@
       "actual": "EN010151",
       "expected": "EN010151",
       "name": "REPD 13599 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 13599",
       "passed": true
     },
     {
@@ -293,6 +366,12 @@
       "passed": true
     },
     {
+      "actual": "Application Submitted",
+      "expected": "Application Submitted",
+      "name": "REPD 13600 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-E13842D4D80DEC",
       "expected": "GG2050-DEV-E13842D4D80DEC",
       "name": "REPD 13600 gg_development_id",
@@ -302,6 +381,11 @@
       "actual": "EN010151",
       "expected": "EN010151",
       "name": "REPD 13600 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 13600",
       "passed": true
     },
     {
@@ -328,6 +412,12 @@
       "passed": true
     },
     {
+      "actual": "Awaiting Construction",
+      "expected": "Awaiting Construction",
+      "name": "REPD 14550 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-DF8A23D9E62EA8",
       "expected": "GG2050-DEV-DF8A23D9E62EA8",
       "name": "REPD 14550 gg_development_id",
@@ -337,6 +427,11 @@
       "actual": "EN010155",
       "expected": "EN010155",
       "name": "REPD 14550 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 14550",
       "passed": true
     },
     {
@@ -363,6 +458,12 @@
       "passed": true
     },
     {
+      "actual": "Awaiting Construction",
+      "expected": "Awaiting Construction",
+      "name": "REPD 10085 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-BAF7E2396D59FC",
       "expected": "GG2050-DEV-BAF7E2396D59FC",
       "name": "REPD 10085 gg_development_id",
@@ -372,6 +473,11 @@
       "actual": "EN010135",
       "expected": "EN010135",
       "name": "REPD 10085 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 10085",
       "passed": true
     },
     {
@@ -398,6 +504,12 @@
       "passed": true
     },
     {
+      "actual": "Operational",
+      "expected": "Operational",
+      "name": "REPD 6502 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-2ADB0F2D626ABD",
       "expected": "GG2050-DEV-2ADB0F2D626ABD",
       "name": "REPD 6502 gg_development_id",
@@ -407,6 +519,11 @@
       "actual": "EN010085",
       "expected": "EN010085",
       "name": "REPD 6502 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 6502",
       "passed": true
     },
     {
@@ -433,6 +550,12 @@
       "passed": true
     },
     {
+      "actual": "Operational",
+      "expected": "Operational",
+      "name": "REPD 7856 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-2ADB0F2D626ABD",
       "expected": "GG2050-DEV-2ADB0F2D626ABD",
       "name": "REPD 7856 gg_development_id",
@@ -442,6 +565,11 @@
       "actual": "EN010085",
       "expected": "EN010085",
       "name": "REPD 7856 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 7856",
       "passed": true
     },
     {
@@ -468,6 +596,12 @@
       "passed": true
     },
     {
+      "actual": "Awaiting Construction",
+      "expected": "Awaiting Construction",
+      "name": "REPD 11928 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-AEB36E1ABA4E03",
       "expected": "GG2050-DEV-AEB36E1ABA4E03",
       "name": "REPD 11928 gg_development_id",
@@ -477,6 +611,11 @@
       "actual": "22/01713/FUL",
       "expected": "22/01713/FUL",
       "name": "REPD 11928 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 11928",
       "passed": true
     },
     {
@@ -503,6 +642,12 @@
       "passed": true
     },
     {
+      "actual": "Under Construction",
+      "expected": "Under Construction",
+      "name": "REPD 9427 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-13408969AF918A",
       "expected": "GG2050-DEV-13408969AF918A",
       "name": "REPD 9427 gg_development_id",
@@ -512,6 +657,11 @@
       "actual": "PAP/2021/0473",
       "expected": "PAP/2021/0473",
       "name": "REPD 9427 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 9427",
       "passed": true
     },
     {
@@ -538,6 +688,12 @@
       "passed": true
     },
     {
+      "actual": "Application Submitted",
+      "expected": "Application Submitted",
+      "name": "REPD 12926 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-81C5A835AFC865",
       "expected": "GG2050-DEV-81C5A835AFC865",
       "name": "REPD 12926 gg_development_id",
@@ -547,6 +703,11 @@
       "actual": "EN010148",
       "expected": "EN010148",
       "name": "REPD 12926 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 12926",
       "passed": true
     },
     {
@@ -573,6 +734,12 @@
       "passed": true
     },
     {
+      "actual": "Application Submitted",
+      "expected": "Application Submitted",
+      "name": "REPD 19574 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-81C5A835AFC865",
       "expected": "GG2050-DEV-81C5A835AFC865",
       "name": "REPD 19574 gg_development_id",
@@ -582,6 +749,11 @@
       "actual": "EN010148",
       "expected": "EN010148",
       "name": "REPD 19574 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 19574",
       "passed": true
     },
     {
@@ -608,6 +780,12 @@
       "passed": true
     },
     {
+      "actual": "Application Submitted",
+      "expected": "Application Submitted",
+      "name": "REPD 15793 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-36DE7073A7E4D2",
       "expected": "GG2050-DEV-36DE7073A7E4D2",
       "name": "REPD 15793 gg_development_id",
@@ -617,6 +795,11 @@
       "actual": "EN010170",
       "expected": "EN010170",
       "name": "REPD 15793 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 15793",
       "passed": true
     },
     {
@@ -643,6 +826,12 @@
       "passed": true
     },
     {
+      "actual": "Application Submitted",
+      "expected": "Application Submitted",
+      "name": "REPD 15794 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-36DE7073A7E4D2",
       "expected": "GG2050-DEV-36DE7073A7E4D2",
       "name": "REPD 15794 gg_development_id",
@@ -652,6 +841,11 @@
       "actual": "EN010170",
       "expected": "EN010170",
       "name": "REPD 15794 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 15794",
       "passed": true
     },
     {
@@ -678,6 +872,12 @@
       "passed": true
     },
     {
+      "actual": "Under Construction",
+      "expected": "Under Construction",
+      "name": "REPD 11034 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-8AFE67BBE335AE",
       "expected": "GG2050-DEV-8AFE67BBE335AE",
       "name": "REPD 11034 gg_development_id",
@@ -687,6 +887,11 @@
       "actual": "ECU00003458",
       "expected": "ECU00003458",
       "name": "REPD 11034 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 11034",
       "passed": true
     },
     {
@@ -713,6 +918,12 @@
       "passed": true
     },
     {
+      "actual": "Under Construction",
+      "expected": "Under Construction",
+      "name": "REPD 12206 status",
+      "passed": true
+    },
+    {
       "actual": "GG2050-DEV-56744AC757C748",
       "expected": "GG2050-DEV-56744AC757C748",
       "name": "REPD 12206 gg_development_id",
@@ -722,6 +933,11 @@
       "actual": "ECU00004698",
       "expected": "ECU00004698",
       "name": "REPD 12206 planning_application_reference",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "canonical sentinel in V7 utility scope: 12206",
       "passed": true
     },
     {
@@ -743,26 +959,49 @@
       "passed": true
     },
     {
-      "actual": "c886be0ea0f30f297ca02881a564250da4c98963c4f79b2136eaae445dc0056d",
-      "expected": "c886be0ea0f30f297ca02881a564250da4c98963c4f79b2136eaae445dc0056d",
-      "name": "V7.0 index SHA-256",
+      "actual": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d",
+      "expected": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d",
+      "name": "V6 declared project-array SHA-256",
+      "passed": true
+    },
+    {
+      "actual": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d",
+      "expected": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d",
+      "name": "V6 recomputed project-array SHA-256",
+      "passed": true
+    },
+    {
+      "actual": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
+      "expected": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
+      "name": "V6 fixture file SHA-256 semantics",
+      "passed": true
+    },
+    {
+      "actual": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",
+      "expected": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",
+      "name": "release baseline index SHA-256",
       "passed": true
     }
   ],
-  "contract_sha256": "c827b9e4a3603126ba8abe134cbfe79ce33ee3fe1e4a7457eb636f6f77b50ec1",
+  "contract_sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e",
   "feature": "modular-v5-parity",
-  "generated_at": "2026-08-22T22:26:13.090574Z",
+  "generated_at": "2026-08-23T00:22:58.500127Z",
   "metrics": {
     "legacy_display_bess": 1271,
     "legacy_display_solar": 2667,
     "legacy_display_total": 5210,
     "legacy_display_wind": 1272,
     "legacy_features": 10784,
+    "v5_bess_gt99_minus_gt100": 89,
     "v5_eligible_projects": 559,
     "v5_headlines": 125,
     "v5_lookback_days": 366,
     "v5_raw_bess_gt100": 239,
-    "v5_raw_solar_gt49": 321
+    "v5_raw_bess_gt99": 328,
+    "v5_raw_solar_gt49": 321,
+    "v7_q2_bess_gt100": 269,
+    "v7_q2_bess_gt99": 382,
+    "v7_q2_bess_gt99_minus_gt100": 113
   },
   "phase": "pre",
   "result": "PASS",

@@ -3,29 +3,29 @@
   "version": "7.1",
   "feature": "modular-v5-parity",
   "status": "LIVE_VALIDATED",
-  "built_at": "2026-08-22T23:41:15Z",
+  "built_at": "2026-08-23T00:20:27Z",
   "branch": "main",
   "north_star": "PASS",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "ccb1ef27bb699a011ae95835f0865ad1c6df57baae33b58e2c8fb3fb7b8a28e1",
-    "git_blob_sha": "54bad495fb00c779d282e9c5760cb16d6ea02ba3"
+    "sha256": "a95367a9ec953aada31c25be7b7a6dbdd5099c55dc4736112fcc71050760be29",
+    "git_blob_sha": "5508e9a3cf5676922be6baa94c3135543ad2d259"
   },
   "contracts": {
     "north_star": {
       "path": "uk_renewables_pipeline/v7/contracts/north-star.v1.json",
-      "sha256": "26eb29a6f5bd4030666cf6e09750af3f123b08d853faf0600f949f1f2c038bc4"
+      "sha256": "8b918f1188a6ceadd2a8dfc305b3c8e1c3664eb67df1cb2edf8bf5ffc653920e"
     },
     "plugin": {
       "path": "uk_renewables_pipeline/v7/contracts/plugin.v1.json",
       "sha256": "b4ed06d58891359e8df017bc3e9564ba49928e4f6696b1604cfa1e01ab354df5"
     }
   },
-  "frozen_inputs": {
-    "dist/major_project_news_v5.json": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
-    "dist/repd_master.json": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
-    "dist/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
-    "dist/major_projects_v6.json": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7"
+  "immutable_fixtures": {
+    "fixtures/v5/major_project_news_v5.json": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+    "fixtures/v5/repd_master.json": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
+    "fixtures/v6/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+    "fixtures/v6/major_projects_v6.json": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7"
   },
   "outputs": {
     "index.html": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",

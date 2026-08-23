@@ -4,7 +4,7 @@
   "feature": "modular-v5-parity",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "ccb1ef27bb699a011ae95835f0865ad1c6df57baae33b58e2c8fb3fb7b8a28e1"
+    "sha256": "a95367a9ec953aada31c25be7b7a6dbdd5099c55dc4736112fcc71050760be29"
   },
   "required_readme_phrases": [
     "V7.1 is the current live release",
@@ -16,9 +16,9 @@
     "Every build ends by",
     "after V7.9 development moves to V8.0"
   ],
-  "v7_0_baseline": {
+  "release_baseline": {
     "index_path": "uk_renewables_pipeline/v7/index.html",
-    "index_sha256": "c886be0ea0f30f297ca02881a564250da4c98963c4f79b2136eaae445dc0056d",
+    "index_sha256": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",
     "news_count": 125,
     "legacy_geojson_features": 10784
   },
@@ -30,11 +30,27 @@
     "uk_renewables_pipeline/dashboard_v5_live.html": "af7045b3fd09435bcbc2dc5e6f63654c34ec1ee202c908eb156a93c1ae9f5bfc",
     "uk_renewables_pipeline/dashboard_v6_live.html": "2cdb541622a8c0a587af30c1ef600b1c77dc8e151a3c412bc444ec9ba1cc636d"
   },
-  "frozen_data_files": {
-    "dist/major_project_news_v5.json": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
-    "dist/repd_master.json": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
-    "dist/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
-    "dist/major_projects_v6.json": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7"
+  "immutable_fixture_files": {
+    "uk_renewables_pipeline/v7/fixtures/v5/major_project_news_v5.json": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+    "uk_renewables_pipeline/v7/fixtures/v5/repd_master.json": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
+    "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+    "uk_renewables_pipeline/v7/fixtures/v6/major_projects_v6.json": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7"
+  },
+  "fixture_roles": {
+    "v5_news": "uk_renewables_pipeline/v7/fixtures/v5/major_project_news_v5.json",
+    "v5_geojson": "uk_renewables_pipeline/v7/fixtures/v5/repd_master.json",
+    "v6_identity": "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json",
+    "v6_projects": "uk_renewables_pipeline/v7/fixtures/v6/major_projects_v6.json"
+  },
+  "runtime_data_paths": [
+    "dist/major_project_news_v5.json",
+    "dist/repd_master.json",
+    "dist/project_identity_v6.json",
+    "dist/major_projects_v6.json"
+  ],
+  "hash_semantics": {
+    "major_projects_v6_file_sha256": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
+    "major_projects_v6_projects_array_sha256": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d"
   },
   "universe_fixtures": {
     "legacy_features": 10784,
@@ -43,7 +59,9 @@
     "legacy_display_bess": 1271,
     "legacy_display_wind": 1272,
     "v5_raw_solar_gt49": 321,
+    "v5_raw_bess_gt99": 328,
     "v5_raw_bess_gt100": 239,
+    "v5_bess_gt99_minus_gt100": 89,
     "v5_eligible_projects": 559,
     "v5_headlines": 125,
     "v5_lookback_days": 366,
@@ -53,26 +71,32 @@
     "v6_bess_records": 269,
     "v7_q2_solar_gt49": 384,
     "v7_q2_bess_gt99": 382,
+    "v7_q2_bess_gt100": 269,
+    "v7_q2_bess_gt99_minus_gt100": 113,
     "v7_q2_records": 766,
     "v7_q2_developments": 718,
     "v7_q2_solar_mwp": 34073.49,
     "v7_q2_bess_mw": 106338.18
   },
+  "canonical_sentinel_counts": {
+    "repd_records": 14,
+    "developments": 10
+  },
   "canonical_sentinels": [
-    {"repd_ref":"13599","site_name":"Beacon Fen Energy Park","technology":"Solar Photovoltaics","capacity_mw":400.0,"gg_development_id":"GG2050-DEV-E13842D4D80DEC","planning_reference":"EN010151"},
-    {"repd_ref":"13600","site_name":"Beacon Fen Energy Park","technology":"Battery","capacity_mw":600.0,"gg_development_id":"GG2050-DEV-E13842D4D80DEC","planning_reference":"EN010151"},
-    {"repd_ref":"14550","site_name":"Dean Moor Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":150.0,"gg_development_id":"GG2050-DEV-DF8A23D9E62EA8","planning_reference":"EN010155"},
-    {"repd_ref":"10085","site_name":"Stonestreet Green - Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":99.9,"gg_development_id":"GG2050-DEV-BAF7E2396D59FC","planning_reference":"EN010135"},
-    {"repd_ref":"6502","site_name":"Cleve Hill Solar Project","technology":"Solar Photovoltaics","capacity_mw":373.0,"gg_development_id":"GG2050-DEV-2ADB0F2D626ABD","planning_reference":"EN010085"},
-    {"repd_ref":"7856","site_name":"Cleve Hill Solar Project","technology":"Battery","capacity_mw":150.0,"gg_development_id":"GG2050-DEV-2ADB0F2D626ABD","planning_reference":"EN010085"},
-    {"repd_ref":"11928","site_name":"West Burton Power Station, North Road - Battery Storage","technology":"Battery","capacity_mw":500.0,"gg_development_id":"GG2050-DEV-AEB36E1ABA4E03","planning_reference":"22/01713/FUL"},
-    {"repd_ref":"9427","site_name":"Hams Hall - Battery Energy Storage System","technology":"Battery","capacity_mw":400.0,"gg_development_id":"GG2050-DEV-13408969AF918A","planning_reference":"PAP/2021/0473"},
-    {"repd_ref":"12926","site_name":"The Tween Bridge Solar Farm","technology":"Solar Photovoltaics","capacity_mw":800.0,"gg_development_id":"GG2050-DEV-81C5A835AFC865","planning_reference":"EN010148"},
-    {"repd_ref":"19574","site_name":"The Tween Bridge Solar Farm","technology":"Battery","capacity_mw":400.0,"gg_development_id":"GG2050-DEV-81C5A835AFC865","planning_reference":"EN010148"},
-    {"repd_ref":"15793","site_name":"Green Hill Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":600.0,"gg_development_id":"GG2050-DEV-36DE7073A7E4D2","planning_reference":"EN010170"},
-    {"repd_ref":"15794","site_name":"Green Hill Solar Farm & Battery Storage","technology":"Battery","capacity_mw":600.0,"gg_development_id":"GG2050-DEV-36DE7073A7E4D2","planning_reference":"EN010170"},
-    {"repd_ref":"11034","site_name":"Coalburn Energy - Battery Storage","technology":"Battery","capacity_mw":500.0,"gg_development_id":"GG2050-DEV-8AFE67BBE335AE","planning_reference":"ECU00003458"},
-    {"repd_ref":"12206","site_name":"Coalburn II Energy Storage Facility - Battery Storage Facility","technology":"Battery","capacity_mw":1000.0,"gg_development_id":"GG2050-DEV-56744AC757C748","planning_reference":"ECU00004698"}
+    {"repd_ref":"13599","site_name":"Beacon Fen Energy Park","technology":"Solar Photovoltaics","capacity_mw":400.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-E13842D4D80DEC","planning_reference":"EN010151"},
+    {"repd_ref":"13600","site_name":"Beacon Fen Energy Park","technology":"Battery","capacity_mw":600.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-E13842D4D80DEC","planning_reference":"EN010151"},
+    {"repd_ref":"14550","site_name":"Dean Moor Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":150.0,"status":"Awaiting Construction","gg_development_id":"GG2050-DEV-DF8A23D9E62EA8","planning_reference":"EN010155"},
+    {"repd_ref":"10085","site_name":"Stonestreet Green - Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":99.9,"status":"Awaiting Construction","gg_development_id":"GG2050-DEV-BAF7E2396D59FC","planning_reference":"EN010135"},
+    {"repd_ref":"6502","site_name":"Cleve Hill Solar Project","technology":"Solar Photovoltaics","capacity_mw":373.0,"status":"Operational","gg_development_id":"GG2050-DEV-2ADB0F2D626ABD","planning_reference":"EN010085"},
+    {"repd_ref":"7856","site_name":"Cleve Hill Solar Project","technology":"Battery","capacity_mw":150.0,"status":"Operational","gg_development_id":"GG2050-DEV-2ADB0F2D626ABD","planning_reference":"EN010085"},
+    {"repd_ref":"11928","site_name":"West Burton Power Station, North Road - Battery Storage","technology":"Battery","capacity_mw":500.0,"status":"Awaiting Construction","gg_development_id":"GG2050-DEV-AEB36E1ABA4E03","planning_reference":"22/01713/FUL"},
+    {"repd_ref":"9427","site_name":"Hams Hall - Battery Energy Storage System","technology":"Battery","capacity_mw":400.0,"status":"Under Construction","gg_development_id":"GG2050-DEV-13408969AF918A","planning_reference":"PAP/2021/0473"},
+    {"repd_ref":"12926","site_name":"The Tween Bridge Solar Farm","technology":"Solar Photovoltaics","capacity_mw":800.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-81C5A835AFC865","planning_reference":"EN010148"},
+    {"repd_ref":"19574","site_name":"The Tween Bridge Solar Farm","technology":"Battery","capacity_mw":400.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-81C5A835AFC865","planning_reference":"EN010148"},
+    {"repd_ref":"15793","site_name":"Green Hill Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":600.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-36DE7073A7E4D2","planning_reference":"EN010170"},
+    {"repd_ref":"15794","site_name":"Green Hill Solar Farm & Battery Storage","technology":"Battery","capacity_mw":600.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-36DE7073A7E4D2","planning_reference":"EN010170"},
+    {"repd_ref":"11034","site_name":"Coalburn Energy - Battery Storage","technology":"Battery","capacity_mw":500.0,"status":"Under Construction","gg_development_id":"GG2050-DEV-8AFE67BBE335AE","planning_reference":"ECU00003458"},
+    {"repd_ref":"12206","site_name":"Coalburn II Energy Storage Facility - Battery Storage Facility","technology":"Battery","capacity_mw":1000.0,"status":"Under Construction","gg_development_id":"GG2050-DEV-56744AC757C748","planning_reference":"ECU00004698"}
   ],
   "negative_sentinels": [
     "australia-to-stonestreet",
@@ -89,7 +113,10 @@
   "v7_1_required_files": [
     "uk_renewables_pipeline/v7/index.html",
     "uk_renewables_pipeline/v7/package.json",
+    "uk_renewables_pipeline/v7/package-lock.json",
     "uk_renewables_pipeline/v7/styles/v7.css",
+    "uk_renewables_pipeline/v7/styles/mobile.css",
+    "uk_renewables_pipeline/v7/fixtures/README.md",
     "uk_renewables_pipeline/v7/scripts/app.js",
     "uk_renewables_pipeline/v7/scripts/core/plugin-host.js",
     "uk_renewables_pipeline/v7/scripts/core/state.js",

@@ -51,16 +51,19 @@ def check_files(root: Path, contract: dict[str, Any], gate: Gate) -> None:
     for phrase in contract["required_readme_phrases"]:
         gate.require_true(f"README phrase: {phrase}", phrase in text)
 
-    for group in ("historical_files", "frozen_data_files"):
+    for group in ("historical_files", "immutable_fixture_files"):
         for relative, expected in contract[group].items():
             path = root / relative
             gate.require_true(f"file exists: {relative}", path.is_file())
             if path.is_file():
                 gate.require(f"file SHA-256: {relative}", sha256(path), expected)
 
+    for relative in contract["runtime_data_paths"]:
+        gate.require_true(f"runtime source exists: {relative}", (root / relative).is_file())
 
-def check_legacy_universe(root: Path, fixtures: dict[str, Any], gate: Gate) -> None:
-    master = load_json(root / "dist/repd_master.json")
+
+def check_legacy_universe(root: Path, contract: dict[str, Any], fixtures: dict[str, Any], gate: Gate) -> None:
+    master = load_json(root / contract["fixture_roles"]["v5_geojson"])
     features = master.get("features") or []
     display = []
     for feature in features:
@@ -75,7 +78,11 @@ def check_legacy_universe(root: Path, fixtures: dict[str, Any], gate: Gate) -> N
         1 for feature in features
         if (feature.get("properties") or {}).get("tech") in {"solar", "solar_roof"} and capacity(feature) > 49
     )
-    raw_bess = sum(
+    raw_bess_gt99 = sum(
+        1 for feature in features
+        if (feature.get("properties") or {}).get("tech") == "bess" and capacity(feature) > 99
+    )
+    raw_bess_gt100 = sum(
         1 for feature in features
         if (feature.get("properties") or {}).get("tech") == "bess" and capacity(feature) > 100
     )
@@ -86,15 +93,17 @@ def check_legacy_universe(root: Path, fixtures: dict[str, Any], gate: Gate) -> N
         "legacy_display_bess": count_tech({"bess"}),
         "legacy_display_wind": count_tech({"wind"}),
         "v5_raw_solar_gt49": raw_solar,
-        "v5_raw_bess_gt100": raw_bess,
+        "v5_raw_bess_gt99": raw_bess_gt99,
+        "v5_raw_bess_gt100": raw_bess_gt100,
+        "v5_bess_gt99_minus_gt100": raw_bess_gt99 - raw_bess_gt100,
     }
     for key, value in actual.items():
         gate.require(key, value, fixtures[key])
     gate.metrics.update(actual)
 
 
-def check_v5_news(root: Path, fixtures: dict[str, Any], gate: Gate) -> None:
-    news = load_json(root / "dist/major_project_news_v5.json")
+def check_v5_news(root: Path, contract: dict[str, Any], fixtures: dict[str, Any], gate: Gate) -> None:
+    news = load_json(root / contract["fixture_roles"]["v5_news"])
     actual = {
         "v5_eligible_projects": news.get("eligible_projects"),
         "v5_headlines": news.get("headline_count"),
@@ -107,11 +116,26 @@ def check_v5_news(root: Path, fixtures: dict[str, Any], gate: Gate) -> None:
 
 
 def check_v6_identity(root: Path, contract: dict[str, Any], gate: Gate) -> None:
-    identity = load_json(root / "dist/project_identity_v6.json")
+    identity = load_json(root / contract["fixture_roles"]["v6_identity"])
     records = identity.get("records") or []
     by_ref = {str(record.get("repd_ref")): record for record in records}
     gate.require("V6 identity record count", len(records), contract["universe_fixtures"]["v6_identity_records"])
     gate.require("V6 unique REPD Ref count", len(by_ref), contract["universe_fixtures"]["v6_identity_records"])
+    gate.require("canonical sentinel record count", len(contract["canonical_sentinels"]), contract["canonical_sentinel_counts"]["repd_records"])
+    sentinel_developments = {item["gg_development_id"] for item in contract["canonical_sentinels"]}
+    gate.require("canonical sentinel development count", len(sentinel_developments), contract["canonical_sentinel_counts"]["developments"])
+
+    bess = [record for record in records if record.get("technology") == "Battery"]
+    bess_gt99 = sum(float(record.get("capacity_mw") or 0) > 99 for record in bess)
+    bess_gt100 = sum(float(record.get("capacity_mw") or 0) > 100 for record in bess)
+    q2_thresholds = {
+        "v7_q2_bess_gt99": bess_gt99,
+        "v7_q2_bess_gt100": bess_gt100,
+        "v7_q2_bess_gt99_minus_gt100": bess_gt99 - bess_gt100,
+    }
+    for key, value in q2_thresholds.items():
+        gate.require(key, value, contract["universe_fixtures"][key])
+    gate.metrics.update(q2_thresholds)
 
     for expected in contract["canonical_sentinels"]:
         ref = expected["repd_ref"]
@@ -123,24 +147,32 @@ def check_v6_identity(root: Path, contract: dict[str, Any], gate: Gate) -> None:
             "site_name": expected["site_name"],
             "technology": expected["technology"],
             "capacity_mw": expected["capacity_mw"],
+            "status": expected["status"],
             "gg_development_id": expected["gg_development_id"],
             "planning_application_reference": expected["planning_reference"],
         }
         for field, value in fields.items():
             gate.require(f"REPD {ref} {field}", actual.get(field), value)
+        in_scope = expected["capacity_mw"] > (49 if expected["technology"] == "Solar Photovoltaics" else 99)
+        gate.require_true(f"canonical sentinel in V7 utility scope: {ref}", in_scope)
 
 
-def check_v6_projects(root: Path, fixtures: dict[str, Any], gate: Gate) -> None:
-    payload = load_json(root / "dist/major_projects_v6.json")
+def check_v6_projects(root: Path, contract: dict[str, Any], fixtures: dict[str, Any], gate: Gate) -> None:
+    payload = load_json(root / contract["fixture_roles"]["v6_projects"])
     gate.require("V6 project count", payload.get("project_count"), fixtures["v6_project_records"])
     gate.require("V6 solar count", payload.get("solar_count"), fixtures["v6_solar_records"])
     gate.require("V6 BESS count", payload.get("bess_count"), fixtures["v6_bess_records"])
+    array_json = json.dumps(payload.get("projects") or [], ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    array_sha = hashlib.sha256(array_json.encode("utf-8")).hexdigest()
+    gate.require("V6 declared project-array SHA-256", payload.get("projects_sha256"), contract["hash_semantics"]["major_projects_v6_projects_array_sha256"])
+    gate.require("V6 recomputed project-array SHA-256", array_sha, contract["hash_semantics"]["major_projects_v6_projects_array_sha256"])
+    gate.require("V6 fixture file SHA-256 semantics", sha256(root / contract["fixture_roles"]["v6_projects"]), contract["hash_semantics"]["major_projects_v6_file_sha256"])
 
 
 def check_phase(root: Path, contract: dict[str, Any], phase: str, gate: Gate) -> None:
-    index_path = root / contract["v7_0_baseline"]["index_path"]
+    index_path = root / contract["release_baseline"]["index_path"]
     if phase == "pre":
-        gate.require("V7.0 index SHA-256", sha256(index_path), contract["v7_0_baseline"]["index_sha256"])
+        gate.require("release baseline index SHA-256", sha256(index_path), contract["release_baseline"]["index_sha256"])
         return
 
     for relative in contract["v7_1_required_files"]:
@@ -161,9 +193,9 @@ def run_gate(root: Path, contract: dict[str, Any], phase: str) -> Gate:
     gate = Gate()
     check_files(root, contract, gate)
     fixtures = contract["universe_fixtures"]
-    check_legacy_universe(root, fixtures, gate)
-    check_v5_news(root, fixtures, gate)
+    check_legacy_universe(root, contract, fixtures, gate)
+    check_v5_news(root, contract, fixtures, gate)
     check_v6_identity(root, contract, gate)
-    check_v6_projects(root, fixtures, gate)
+    check_v6_projects(root, contract, fixtures, gate)
     check_phase(root, contract, phase, gate)
     return gate

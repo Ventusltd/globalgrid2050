@@ -302,6 +302,7 @@ The README is the governing human scope. V7.1 must add a machine-readable mirror
 Required V7.1 implementation:
 
 - `contracts/north-star.v1.json`: frozen counts, hashes, canonical sentinels, negative sentinels, thresholds and release rules.
+- `fixtures/`: immutable byte-for-byte V5 and V6 reference assets used only by the gate, never as rotating workflow outputs.
 - `tests/validate_north_star.py`: one validator with explicit `pre` and `post` phases.
 - `data/build_manifest.json`: current minor version, governing README blob/hash, North Star contract hash, input hashes, output hashes and gate result.
 - One local command and one GitHub workflow step call the same validator; there is no separate weaker workflow validator.
@@ -310,7 +311,7 @@ Every build begins by:
 
 1. Reading this README and resolving the current V7 minor version.
 2. Verifying that the machine contract fingerprints this governing README revision.
-3. Verifying frozen V1/V5/V6 fixture hashes, historical file hashes and current live-asset hashes.
+3. Verifying frozen V1/V5/V6 fixture hashes and historical file hashes while observing current runtime paths separately.
 4. Verifying baseline universe counts and every required canonical sentinel.
 5. Recording a preflight report before any source or application file changes.
 
@@ -323,6 +324,8 @@ Every build ends by:
 5. Refusing commit or publication if the README, machine contract, build output or live deployment disagrees.
 
 Application and workflow code must read thresholds, version and scope identifiers from the validated contract/manifest. It must not maintain hidden duplicate constants that can drift away from this README.
+
+Threshold and hash semantics are explicit. On the legacy V5 GeoJSON spine, BESS `>99 MW` produces 328 records and BESS `>100 MW` produces 239: a difference of 89. On the reconciled V6/Q2 identity spine, the corresponding counts are 382 and 269: a difference of 113. The V6 snapshot file SHA-256 is `ad04f772…`; `48281b1d…` is separately the canonical `projects` array SHA-256. These values are never interchangeable.
 
 ## Four-step build
 
@@ -413,6 +416,7 @@ Exit gate: V7 is live, reproducible, observable and capable of retaining the las
 uk_renewables_pipeline/v7/
 ├── README.md
 ├── index.html
+├── contracts/            # Machine-readable North Star and plugin contracts
 ├── docs/                 # Short discipline and decision records
 ├── styles/               # Tokens, layout and components
 ├── scripts/
@@ -426,7 +430,7 @@ uk_renewables_pipeline/v7/
 │   ├── cfd/              # CfD source reconciliation
 │   ├── ci_ev/            # Separate C&I and EV identity lanes
 │   └── plugins/          # User-facing feature modules
-├── fixtures/             # Positive, negative and boundary evaluation cases
+├── fixtures/             # Immutable V5/V6 baselines plus evaluation cases
 ├── tests/                # Unit, contract, integrity and browser tests
 ├── data/                 # Generated same-origin release assets
 └── workflows/            # Future publication workflows; the read-only validator launcher lives in .github
@@ -447,7 +451,7 @@ For a new chat:
 - Build plan approved for a four-step implementation structure.
 - Branches are prohibited.
 - V7 must use V5 as the product base and V6 as the canonical engineering refinement.
-- V7.1 is live at `https://globalgrid2050.com/uk_renewables_pipeline/v7/` from direct-main commit `9967b6a`.
+- V7.1 is live at `https://globalgrid2050.com/uk_renewables_pipeline/v7/`; mobile repair build `458ec52` and production proof `3e9c023` are deployed.
 - V7.1 changes the shell and source organisation only; its project data, newspaper feed, matching decisions and NEWS SIGNAL behaviour remain V5.
 - The root directory lists the renewables dashboards in ascending order from V1 to V7.
 - MVP publication commits: `d9c0a9a` (V7 page) and `68af380` (ordered root link).
@@ -458,9 +462,9 @@ For a new chat:
 - Every future build must execute the North Star at both preflight and postflight; V7.1 is responsible for creating the shared machine-readable contract and validator.
 - Each V7.1–V7.9 release implements one feature theme only; after V7.9 development moves to V8.0.
 - V7.1 modular release is complete: the thin shell, exact V5 base stylesheet, bounded V6-derived mobile header override, shared core, gauges/newspaper/projects plugins, plugin manifest, North Star contract and validation suite are present.
-- V7.1 preflight passed 130 checks. Dataset/interface parity and ES-module contract tests pass with 5,210 displayed legacy projects and 125 inherited V5 headlines.
+- V7.1 fixture-hardened preflight passes 172 checks and postflight passes 203 checks. Dataset/interface parity and ES-module contract tests pass with 5,210 displayed legacy projects and 125 inherited V5 headlines.
 - V7.1 has not changed the legacy project floor, wind visibility, V5 news feed or inherited NEWS SIGNAL decisions; those remain explicitly deferred to V7.2 and V7.3.
-- GitHub V7 North Star run `32603178045` passed; Pages run `32603177996` built and deployed commit `9967b6a` successfully.
+- GitHub V7 North Star run `32606186065` passed; Pages run `32606186068` deployed the current proof state successfully.
 - Live browser proof: 5,210 rows, 125 headlines, gauges `262,397 / 5,210 / 4,100`, solar filter 2,667 rows, BESS news 56, finance news 34 and Berwick Bank search one exact row.
 - The mobile gate is mandatory and rejects horizontal document overflow or escaped key panels at 390, 430, 440 and 768 px; this layout correction does not alter project or news decisions.
 - iPhone-user-agent delivery is byte-identical to the committed HTML and the exact V5 stylesheet retains its 1,200 px and 768 px responsive breakpoints.

@@ -1,6 +1,6 @@
 {
   "schema": "globalgrid2050.major-project-news.v4",
-  "updated": "2026-08-22T05:45:55.795620+00:00",
+  "updated": "2026-08-23T05:48:34.689220+00:00",
   "thresholds": {
     "solar_mw": 30.0,
     "bess_mw": 100.0
@@ -106,20 +106,20 @@
       "confidence": 60
     },
     {
-      "project_id": "coalburn-energy-battery-storage",
-      "project": "Coalburn Energy -  Battery Storage",
-      "technology": "bess",
-      "capacity_mw": 500.0,
-      "operator": "ALCEMI STORAGE DEVELOPMENT LIMITED",
-      "county": "Strathclyde",
-      "status": "under construction",
-      "event": "OPERATIONAL",
-      "headline": "CIP\u2019s 500-MW Coalburn 1 battery starts commercial operation in UK",
-      "published": "2026-08-12",
-      "source": "Renewables Now",
-      "source_url": "https://renewablesnow.com",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOUWFFaTczVzZSaUJjeVVNTTJBZnBVWUVUaFc4VFVpSDJLcWNCd3JDWUE5X3lTeC1RV2YzY3pScEV6anlOVVpnQXJyaGxCYjJvWkM3TFl1ZllBRHRkY1lRTmZ2bE9TVXg4Y3NlTTRFdHhjTkU2RnduMldfU091Nk9Va05kcFFDa3VraG5DMm9ETVJETDhIWjRKS0dVbWtEZXBNb2xnRlZpMA?oc=5",
-      "confidence": 74
+      "project_id": "larks-green-solar-farm",
+      "project": "Larks Green Solar Farm",
+      "technology": "solar",
+      "capacity_mw": 70.0,
+      "operator": "ENSO ENERGY / IRON ACTON GREEN",
+      "county": "Gloucestershire",
+      "status": "operational",
+      "event": "PROJECT UPDATE",
+      "headline": "NORD/LB consortium finances Larks Green solar-BESS cluster in UK",
+      "published": "2026-07-23",
+      "source": "ESS News",
+      "source_url": "https://www.ess-news.com",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNZDctN3IzZFlWdDk5Qy1PYm9OSDY3d3ROZjJvUU1GQ2RHTXowVmdOWjBpRXBVbF9PU1ZPa3E1cGNPVWhPNU96SWtGdlh6WEdEampEYmNYdGhJV3JTTVpkNm1DbDB6dl8xcmROakJJS2NUQ1NyVzFiNzJSMnN5QlM3N2lvMmxxSEpjWE9vODZONzRpXzFJZV9WYzdoWDBwRm9VSDdz?oc=5",
+      "confidence": 63
     },
     {
       "project_id": "west-burton-power-station-north-road-battery-storage",
@@ -130,12 +130,28 @@
       "county": "Nottinghamshire",
       "status": "awaiting construction",
       "event": "FINANCIAL CLOSE",
-      "headline": "Fidra Energy reaches financial close on 500 MW West Burton C BESS project",
-      "published": "2026-07-17",
-      "source": "Energy Global",
-      "source_url": "https://www.energyglobal.com",
-      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPVXlfMGdRWEU5T0FucEFrWkFHSC1ldkI1ZlZoOWNlSFk1emE4dHlIR1o5VkFCQUFOME1SS3BUWUdXeF9yRU1yMEhrUlgtd1VDdmVmaVFVdElHSHZZMHBySTA5WTh6YXFtMVowanJxTkhJNWRqa1BJbW85MHVuYkpHYUZKMlNSTnJKbEYxV1k5YVJQQ1F6X05XRC1aSG9GUmtzTEwtYVJXVF9ES3dFTllMWF9vYzhNekIxMzF1ODFLRG9TM1AxYUE?oc=5",
-      "confidence": 93
+      "headline": "Financial close for Fidra Energy\u2019s 500MW West Burton C battery energy storage system",
+      "published": "2026-07-20",
+      "source": "Solar Power Portal",
+      "source_url": "https://www.solarpowerportal.co.uk",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPSEhaelBueFZZR2ZEaXFDcHBGOG82MUw2VHdVWUdLN3NsLW52NVNqUGtyNlI0WHlYQTlOdlFMcFVnWkx0c19rSy1UYUhyUll6QjN3MGJJaHdwb1NCUDBxZjEtdG51TnpnVXV0SWxsZHdfWlZ5cGQ1aHRmeHgtSGdPVmZySEZaU3RwZ1dhZDlMSGZhbHRfOG5IMnlsLVlpYjE3RU42WExDWjJWWXc3alZiTVFoTmQyZVJlZ09ITmhETjNIU3ZWWG5ldFJhWUdWeDVV?oc=5",
+      "confidence": 100
+    },
+    {
+      "project_id": "castle-road-burton-battery-energy-storage-system",
+      "project": "Castle Road, Burton - Battery Energy Storage System",
+      "technology": "bess",
+      "capacity_mw": 440.0,
+      "operator": "REWE 7 LIMITED",
+      "county": "South Glamorgan",
+      "status": "application submitted",
+      "event": "FINANCIAL CLOSE",
+      "headline": "Financial close for Fidra Energy\u2019s 500MW West Burton C battery energy storage system",
+      "published": "2026-07-20",
+      "source": "Solar Power Portal",
+      "source_url": "https://www.solarpowerportal.co.uk",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPSEhaelBueFZZR2ZEaXFDcHBGOG82MUw2VHdVWUdLN3NsLW52NVNqUGtyNlI0WHlYQTlOdlFMcFVnWkx0c19rSy1UYUhyUll6QjN3MGJJaHdwb1NCUDBxZjEtdG51TnpnVXV0SWxsZHdfWlZ5cGQ1aHRmeHgtSGdPVmZySEZaU3RwZ1dhZDlMSGZhbHRfOG5IMnlsLVlpYjE3RU42WExDWjJWWXc3alZiTVFoTmQyZVJlZ09ITmhETjNIU3ZWWG5ldFJhWUdWeDVV?oc=5",
+      "confidence": 82
     },
     {
       "project_id": "mallard-pass-solar-farm",
@@ -184,22 +200,6 @@
       "source_url": "https://solarquarter.com",
       "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQekdWd2JIV1hDSW0zdWdUQng0N3NaUVJ5YldvX2FYNU82M0hJUUVyQmJCUnlxbUdFX3dfTklUNXVQZ1hmVHVzb2R5LVhXOGFmRlByUXprYllyYTNPenhxeEVHbFVla3lXVW9rMk5HOGhZYVpOWjVQYk91TnpianhyM2lDazJNZVE4bWQtWjNTZ19GempXcFJ6SVpHbTZXR3RVUU8tOFhyZHJJMExCM1VnYklRLU14MlhKNDh0Rm53?oc=5",
       "confidence": 85
-    },
-    {
-      "project_id": "peartree-hill-solar-farm",
-      "project": "Peartree Hill Solar Farm",
-      "technology": "solar",
-      "capacity_mw": 320.0,
-      "operator": "JBM SOLAR / RWE",
-      "county": "East Riding of Yorkshire",
-      "status": "application submitted",
-      "event": "CONSENT",
-      "headline": "Peartree Hill Solar Farm development consent decision announced",
-      "published": "2026-07-02",
-      "source": "GOV.UK",
-      "source_url": "https://www.gov.uk",
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNeWdvRFItQ05Wd2ZKSThwR1E4cmVXV2xwQW9oVVg1N1NWWEE4SnFESlR0RnB2dFJCcEVhSllhMFAybk1mbEEzSGkxNWZDZk1UZjgxRUdDeGRIbTl4R1BZTWxHbC04U3dybkpMMkc2cUxKNURJWnFJUkZ4WGRMQVh4alNHMkc3Nl9sdmpkclZXenRUX3JSR0dhMGVHdlN5LTg?oc=5",
-      "confidence": 100
     }
   ]
 }

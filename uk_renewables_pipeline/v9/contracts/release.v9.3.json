@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.uk-renewables.release.v9.3",
   "release": "9.3",
-  "feature": "restore-proven-v5-v7-1-interface-whole-mw-capacity-presentation-and-bound-tablet-header-overflow-without-changing-v9-2-features",
+  "feature": "v9-3-1-exposes-official-repd-and-globalgrid-references-and-official-repd-update-date-with-date-sorting",
   "frozen_parent": {
     "release": "9.2",
     "commit": "77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee",
@@ -23,7 +23,7 @@
       "newspaper": "scripts/plugins/newspaper-v9-2.js",
       "project_reference": "scripts/plugins/projects-v9-2.js"
     },
-    "application_logic_changed": false,
+    "application_logic_changed": true,
     "interface_changed": true,
     "capacity_presentation_changed": true
   },
@@ -43,6 +43,23 @@
       "Atlas URL capacity_mw",
       "release and build manifests"
     ]
+  },
+  "v9_3_1_patch": {
+    "version": "9.3.1",
+    "frozen_v9_3_commit": "eee4cf7d854bf44235c249d337c2aad3916bcdc0",
+    "data_changed": false,
+    "desktop_columns_added": [
+      "REPD Ref",
+      "GlobalGrid Ref",
+      "REPD Record Updated"
+    ],
+    "mobile_identity_location": "beneath site name",
+    "sort_modes": [
+      "canonical capacity order",
+      "REPD updated newest",
+      "REPD updated oldest"
+    ],
+    "missing_update_dates": "retained as not supplied by REPD and sorted after dated records"
   },
   "scope": {
     "capacity_mw_inclusive_minimum": 1.0,
@@ -108,7 +125,7 @@
       440,
       768
     ],
-    "project_table_columns": 8,
+    "project_table_columns": 11,
     "retain": [
       "canonical_ids",
       "official_update_date",
@@ -118,12 +135,14 @@
       "missing_geometry_records",
       "shareable_filters",
       "copy_project_id",
-      "expandable_project_record"
+      "expandable_project_record",
+      "official_update_date_sort"
     ]
   },
   "algorithms": {
     "pipeline": "load all qualifying records before applying optional user filters",
     "project_search": "inherit V9.2 normalised multi-token AND search",
+    "project_sort": "default canonical capacity order; optional official REPD update date newest or oldest; missing official dates always last",
     "news": "inherit V9.2 legacy-feed relevance screen; remain explicitly unverified",
     "atlas": "exact REPD Ref identity with coordinate fallback only after exact lookup failure",
     "official_facts": "news and contextual geography cannot overwrite REPD identity, status, capacity or dates"

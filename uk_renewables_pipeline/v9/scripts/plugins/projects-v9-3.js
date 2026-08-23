@@ -25,6 +25,7 @@ const COLOURS = Object.freeze({ solar: "#ffff00", bess: "#ffae00", wind_onshore:
 const UNITS = Object.freeze({ solar: "MWp", bess: "MW", wind_onshore: "MW", wind_offshore: "MW" });
 const ALLOWED_TECHNOLOGIES = new Set(["all", "solar", "bess", "wind_onshore", "wind_offshore"]);
 const ALLOWED_STATUSES = new Set(["All", "Operational", "Under Construction", "Awaiting Construction", "Application Submitted"]);
+const ALLOWED_SORTS = new Set(["capacity_desc", "updated_desc", "updated_asc"]);
 
 let all = [];
 let filtered = [];
@@ -35,6 +36,7 @@ let technology = "all";
 let status = "All";
 let county = "All";
 let query = "";
+let sortMode = "capacity_desc";
 let controlsBound = false;
 
 export function atlasUrlV9_3(project) {
@@ -54,6 +56,21 @@ function displayDate(value) {
   if (!value) return "not supplied by REPD";
   const [year, month, day] = String(value).split("-");
   return year && month && day ? `${day}/${month}/${year}` : String(value);
+}
+
+function repdUpdatedTimestamp(project) {
+  if (!project.repd_record_updated) return null;
+  const value = Date.parse(`${project.repd_record_updated}T00:00:00Z`);
+  return Number.isFinite(value) ? value : null;
+}
+
+export function compareProjectUpdatesV9_3(left, right, direction = "desc") {
+  const leftTime = repdUpdatedTimestamp(left);
+  const rightTime = repdUpdatedTimestamp(right);
+  if (leftTime === null && rightTime === null) return 0;
+  if (leftTime === null) return 1;
+  if (rightTime === null) return -1;
+  return direction === "asc" ? leftTime - rightTime : rightTime - leftTime;
 }
 
 function relationshipSummary(project) {
@@ -80,7 +97,8 @@ function renderTable() {
     const planning = project.planning_application_reference || "not supplied by REPD";
     const authority = project.planning_authority || "not supplied by REPD";
     const developmentId = project.gg_development_id || "not assigned";
-    return `<tr id="repd-${escapeHtml(project.repd_ref)}"><td class="site">${escapeHtml(project.name)}<div class="project-meta">REPD ${escapeHtml(project.repd_ref)} · ${escapeHtml(project.gg_project_id)} · UPDATED ${escapeHtml(displayDate(project.repd_record_updated))}</div><div class="mobile-extra">${escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><details class="project-record"><summary>PROJECT RECORD</summary><div class="record-grid"><div><b>PLANNING AUTHORITY</b><span>${escapeHtml(authority)}</span></div><div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div><div><b>DEVELOPMENT ID</b><span>${escapeHtml(developmentId)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(project.lifecycle || "not derived")}</span></div><div><b>RELATIONSHIPS</b><span>${escapeHtml(relationshipSummary(project))}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(project.geometry_status === "valid" ? "valid REPD map point" : "missing — retained without deletion")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location || "-")}</td><td class="hide-mobile">${escapeHtml(project.operator || "-")}</td><td><span class="badge" style="background:${COLOURS[project.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(project.status)}</td><td class="mw">${project.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td><span class="signal ${escapeHtml(signal.cls)}">${escapeHtml(signal.label)}</span><div class="signal-note">${escapeHtml(signal.note)}</div></td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(project.gg_project_id)}">COPY ID</button></div></td></tr>`;
+    const updated = displayDate(project.repd_record_updated);
+    return `<tr id="repd-${escapeHtml(project.repd_ref)}" data-repd-updated="${escapeHtml(project.repd_record_updated || "")}"><td class="site">${escapeHtml(project.name)}<div class="project-meta">REPD ${escapeHtml(project.repd_ref)} · ${escapeHtml(project.gg_project_id)} · UPDATED ${escapeHtml(updated)}</div><div class="mobile-extra">${escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><details class="project-record"><summary>PROJECT RECORD</summary><div class="record-grid"><div><b>PLANNING AUTHORITY</b><span>${escapeHtml(authority)}</span></div><div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div><div><b>DEVELOPMENT ID</b><span>${escapeHtml(developmentId)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(project.lifecycle || "not derived")}</span></div><div><b>RELATIONSHIPS</b><span>${escapeHtml(relationshipSummary(project))}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(project.geometry_status === "valid" ? "valid REPD map point" : "missing — retained without deletion")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location || "-")}</td><td class="hide-mobile">${escapeHtml(project.operator || "-")}</td><td><span class="badge" style="background:${COLOURS[project.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(project.status)}</td><td class="mw">${project.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(project.repd_ref)}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(project.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">${escapeHtml(updated)}</td><td><span class="signal ${escapeHtml(signal.cls)}">${escapeHtml(signal.label)}</span><div class="signal-note">${escapeHtml(signal.note)}</div></td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(project.gg_project_id)}">COPY ID</button></div></td></tr>`;
   }).join("");
 }
 
@@ -95,11 +113,12 @@ function updateResultSummary() {
 
 function syncFilterUrl() {
   const url = new URL(window.location.href);
-  for (const parameter of ["technology", "status", "county", "q"]) url.searchParams.delete(parameter);
+  for (const parameter of ["technology", "status", "county", "q", "sort"]) url.searchParams.delete(parameter);
   if (technology !== "all") url.searchParams.set("technology", technology);
   if (status !== "All") url.searchParams.set("status", status);
   if (county !== "All") url.searchParams.set("county", county);
   if (query) url.searchParams.set("q", query);
+  if (sortMode !== "capacity_desc") url.searchParams.set("sort", sortMode);
   history.replaceState(null, "", url);
 }
 
@@ -111,6 +130,8 @@ function apply({ syncUrl = true } = {}) {
     county,
     tokens,
   }, searchIndex.get(project.repd_ref)));
+  if (sortMode === "updated_desc") filtered.sort((left, right) => compareProjectUpdatesV9_3(left, right, "desc"));
+  if (sortMode === "updated_asc") filtered.sort((left, right) => compareProjectUpdatesV9_3(left, right, "asc"));
   state.filtered = filtered;
   updateGaugesV9_2(filtered);
   renderTable();
@@ -139,16 +160,19 @@ function hydrateFiltersFromUrl() {
   const requestedTechnology = parameters.get("technology") || "all";
   const requestedStatus = parameters.get("status") || "All";
   const requestedCounty = parameters.get("county") || "All";
+  const requestedSort = parameters.get("sort") || "capacity_desc";
   technology = ALLOWED_TECHNOLOGIES.has(requestedTechnology) ? requestedTechnology : "all";
   status = ALLOWED_STATUSES.has(requestedStatus) ? requestedStatus : "All";
   county = [...document.getElementById("county").options].some((option) => option.value === requestedCounty)
     ? requestedCounty
     : "All";
   query = parameters.get("q") || "";
+  sortMode = ALLOWED_SORTS.has(requestedSort) ? requestedSort : "capacity_desc";
   setButtonState("#tech", "technology", technology);
   setButtonState("#status", "officialStatus", status);
   document.getElementById("county").value = county;
   document.getElementById("search").value = query;
+  document.getElementById("sortProjects").value = sortMode;
 }
 
 function csvCell(value) {
@@ -180,10 +204,12 @@ function clearFilters(event) {
   status = "All";
   county = "All";
   query = "";
+  sortMode = "capacity_desc";
   setButtonState("#tech", "technology", technology);
   setButtonState("#status", "officialStatus", status);
   document.getElementById("county").value = county;
   document.getElementById("search").value = "";
+  document.getElementById("sortProjects").value = sortMode;
   apply();
 }
 
@@ -226,10 +252,10 @@ export async function loadProjectsV9_3() {
     populateCounties();
     hydrateFiltersFromUrl();
     apply({ syncUrl: false });
-    document.getElementById("releaseMeta").textContent = `V${release.release} interface · V${release.data_parent.release} canonical data spine · all ${all.length.toLocaleString("en-GB")} qualifying records loaded`;
+    document.getElementById("releaseMeta").textContent = `V9.3.1 interface · V${release.data_parent.release} canonical data spine · all ${all.length.toLocaleString("en-GB")} qualifying records loaded`;
   } catch (error) {
     console.error(error);
-    document.getElementById("tbody").innerHTML = '<tr><td colspan="8" style="text-align:center;color:#ff6666">Canonical Q2 REPD data unavailable. V9.3 has failed closed.</td></tr>';
+    document.getElementById("tbody").innerHTML = '<tr><td colspan="11" style="text-align:center;color:#ff6666">Canonical Q2 REPD data unavailable. V9.3.1 has failed closed.</td></tr>';
     document.getElementById("resultsMeta").textContent = "canonical data unavailable";
   }
 }
@@ -256,6 +282,7 @@ export function bindProjectControlsV9_3() {
     };
   });
   document.getElementById("county").onchange = (event) => { county = event.target.value; apply(); };
+  document.getElementById("sortProjects").onchange = (event) => { sortMode = event.target.value; apply(); };
   document.getElementById("search").oninput = (event) => { query = event.target.value.trim(); apply(); };
   document.getElementById("export").onclick = downloadCsv;
   document.getElementById("exportInline").onclick = downloadCsv;

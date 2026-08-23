@@ -199,3 +199,33 @@
     white-space: normal;
   }
 }
+
+/* V9.3.1 exposes official identity and update fields as desktop columns.
+   Mobile keeps the same facts in the compact project metadata line. */
+.project-meta {
+  display: none;
+}
+
+.tablewrap table {
+  min-width: 1280px;
+}
+
+.reference-cell {
+  color: #66ccff;
+  font-size: 10px;
+}
+
+.globalgrid-ref {
+  overflow-wrap: anywhere;
+}
+
+.repd-updated {
+  color: #d4d8de;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .project-meta {
+    display: block;
+  }
+}

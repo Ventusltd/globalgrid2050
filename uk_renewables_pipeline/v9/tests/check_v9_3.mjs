@@ -10,7 +10,7 @@ import {
   tokeniseSearchV9_2,
 } from "../scripts/core/project-filter-v9-2.js";
 import { assessNewsItemV9_2 } from "../scripts/core/news-relevance-v9-2.js";
-import { atlasUrlV9_3 } from "../scripts/plugins/projects-v9-3.js";
+import { atlasUrlV9_3, compareProjectUpdatesV9_3 } from "../scripts/plugins/projects-v9-3.js";
 
 const base = new URL("../", import.meta.url);
 const root = new URL("../../../", import.meta.url);
@@ -33,8 +33,10 @@ assert.equal(contract.release, "9.3");
 assert.equal(contract.frozen_parent.commit, "77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee");
 assert.equal(contract.frozen_parent.tree, "3807968dbf5c73e4499c6de9157464e3185dd241");
 assert.equal(contract.behaviour_parent.release, "9.2");
-assert.equal(contract.behaviour_parent.application_logic_changed, false);
+assert.equal(contract.behaviour_parent.application_logic_changed, true);
 assert.equal(contract.behaviour_parent.interface_changed, true);
+assert.equal(contract.v9_3_1_patch.version, "9.3.1");
+assert.equal(contract.v9_3_1_patch.data_changed, false);
 assert.equal(contract.data_parent.release, "9.1");
 assert.equal(contract.data_parent.data_changed, false);
 assert.equal(parentContract.release, "9.2");
@@ -75,6 +77,19 @@ assert.equal(projects.length, 7680);
 assert.equal(new Set(projects.map((project) => project.repd_ref)).size, 7680);
 assert.ok(projects.every((project) => project.capacity_mw >= 1));
 assert.deepEqual(summariseProjectsV9_2(projects), { count: 7680, capacity_mw: 356474.09, largest_mw: 4100 });
+
+const datedProjects = projects.filter((project) => project.repd_record_updated);
+const undatedProjects = projects.filter((project) => !project.repd_record_updated);
+assert.ok(datedProjects.length > 1);
+assert.ok(datedProjects.every((project) => /^\d{4}-\d{2}-\d{2}$/.test(project.repd_record_updated)));
+const newestFirst = [...projects].sort((left, right) => compareProjectUpdatesV9_3(left, right, "desc"));
+const oldestFirst = [...projects].sort((left, right) => compareProjectUpdatesV9_3(left, right, "asc"));
+assert.ok(newestFirst[0].repd_record_updated >= newestFirst[1].repd_record_updated);
+assert.ok(oldestFirst[0].repd_record_updated <= oldestFirst[1].repd_record_updated);
+if (undatedProjects.length) {
+  assert.equal(newestFirst.at(-1).repd_record_updated, null);
+  assert.equal(oldestFirst.at(-1).repd_record_updated, null);
+}
 
 const berwick = projects.find((project) => project.repd_ref === "9873");
 assert.ok(berwick);
@@ -119,13 +134,13 @@ const app = await readText("scripts/app-v9-3.js");
 const rootIndex = await readFile(new URL("index.html", root), "utf8");
 const packageJson = await readJson("package.json");
 
-assert.match(html, /UK RENEWABLES PIPELINE V9\.3/);
-assert.match(html, />V9\.3 LIVE</);
+assert.match(html, /UK RENEWABLES PIPELINE V9\.3\.1/);
+assert.match(html, />V9\.3\.1 LIVE</);
 assert.doesNotMatch(html, /V9\.3 CANDIDATE/);
 const styleOrder = [
-  html.indexOf("styles/v7.css?v=9.3"),
-  html.indexOf("styles/mobile.css?v=9.3"),
-  html.indexOf("styles/v9-3.css?v=9.3"),
+  html.indexOf("styles/v7.css?v=9.3.1"),
+  html.indexOf("styles/mobile.css?v=9.3.1"),
+  html.indexOf("styles/v9-3.css?v=9.3.1"),
 ];
 assert.ok(styleOrder.every((value) => value >= 0));
 assert.ok(styleOrder[0] < styleOrder[1] && styleOrder[1] < styleOrder[2]);
@@ -133,13 +148,19 @@ assert.doesNotMatch(html, /styles\/v8\.css/);
 assert.doesNotMatch(html, /styles\/v9-2\.css/);
 assert.equal((html.match(/<canvas id="g[1-3]"/g) || []).length, 3);
 assert.doesNotMatch(html, /id="g4"/);
-assert.equal((html.match(/<th(?:\s|>)/g) || []).length, 8);
+assert.equal((html.match(/<th(?:\s|>)/g) || []).length, 11);
+assert.match(html, /<th class="hide-mobile">REPD REF<\/th>/);
+assert.match(html, /<th class="hide-mobile">GLOBALGRID REF<\/th>/);
+assert.match(html, /<th class="hide-mobile">REPD UPDATED<\/th>/);
 assert.match(html, /data-technology="all"[^>]*aria-pressed="true"/);
 assert.match(html, /data-official-status="All"[^>]*aria-pressed="true"/);
 assert.match(html, /data-news="RELEVANT"/);
 assert.match(html, /id="clearFilters"/);
 assert.match(html, /id="resultsMeta"/);
-assert.match(html, /scripts\/app-v9-3\.js\?v=9\.3/);
+assert.match(html, /id="sortProjects"/);
+assert.match(html, /value="updated_desc"/);
+assert.match(html, /value="updated_asc"/);
+assert.match(html, /scripts\/app-v9-3\.js\?v=9\.3\.1/);
 
 assert.equal(sha256(mobileCss), "9855b9c11255a85f477873d07cca45b057aedcdc8a6cc4aab2d29a0ffaac9b85");
 assert.match(mobileCss, /flex-direction:\s*column/);
@@ -159,25 +180,19 @@ assert.match(app, /gauges-v9-2\.js/);
 assert.match(app, /newspaper-v9-2\.js/);
 assert.match(app, /projects-v9-3\.js/);
 
-const normalisedV93 = projectsV93
-  .replace('import { loadCanonicalProjectsV9_3 } from "../data/canonical-projects-v9-3.js";', 'import { loadCanonicalProjectsV9_2 } from "../data/canonical-projects-v9-2.js";')
-  .replaceAll("atlasUrlV9_3", "atlasUrlV9_2")
-  .replaceAll("loadProjectsV9_3", "loadProjectsV9_2")
-  .replaceAll("refreshProjectsV9_3", "refreshProjectsV9_2")
-  .replaceAll("bindProjectControlsV9_3", "bindProjectControlsV9_2")
-  .replaceAll("loadCanonicalProjectsV9_3()", "loadCanonicalProjectsV9_2()")
-  .replaceAll("_v9_3_", "_v9_2_")
-  .replaceAll("V9.3 has failed closed.", "V9.2 has failed closed.");
-assert.equal(normalisedV93, projectsV92);
+assert.ok(projectsV92.length > 0);
 assert.match(projectsV93, /filtered\.map/);
 assert.doesNotMatch(projectsV93, /filtered\.length\s*\?\s*filtered\s*:\s*all/);
 assert.match(projectsV93, /geometry_status !== "valid"/);
 assert.match(projectsV93, /globalgrid2050_uk_renewables_pipeline_v9_3_/);
+assert.match(projectsV93, /compareProjectUpdatesV9_3/);
+assert.match(projectsV93, /repd-updated/);
+assert.match(projectsV93, /sortProjects/);
 
-assert.match(rootIndex, /V9\.3 LIVE ·/);
+assert.match(rootIndex, /V9\.3\.1 LIVE ·/);
 assert.doesNotMatch(rootIndex, /V9\.3 LIVE CANDIDATE/);
-assert.equal(packageJson.version, "9.3.0");
+assert.equal(packageJson.version, "9.3.1");
 assert.equal(packageJson.scripts.validate, "bash tests/run_v9_3.sh");
 assert.equal(packageJson.scripts["validate:browser"], "V9_BROWSER_SMOKE=1 bash tests/run_v9_3.sh");
 
-console.log("V9.3: PASS (LIVE V5/V7.1 UI and bounded tablet header; all V9.2 functions and 7,680-record data retained)");
+console.log("V9.3.1: PASS (official references and REPD update-date sorting; 7,680-record data retained)");

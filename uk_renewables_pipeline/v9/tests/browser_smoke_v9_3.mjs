@@ -67,9 +67,35 @@ try {
 
   assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => page.locator(selector).textContent())), ["356,474", "7,680", "4,100"]);
   assert.equal(await page.locator("#resultsMeta").textContent(), "7,680 of 7,680 records · 356,474 MW · largest 4,100 MW");
-  assert.equal(await page.locator("thead th").count(), 8);
+  assert.equal(await page.locator("thead th").count(), 11);
+  assert.deepEqual(await page.locator("thead th").allTextContents(), [
+    "SITE NAME", "COUNTY", "OPERATOR", "TECHNOLOGY", "OFFICIAL REPD STATUS", "OFFICIAL CAPACITY",
+    "REPD REF", "GLOBALGRID REF", "REPD UPDATED", "NEWS SIGNAL", "ACTIONS",
+  ]);
   assert.equal(await page.locator("#resultsMeta").getAttribute("data-filtered-count"), "7680");
-  assert.equal(await page.locator("#releaseMeta").textContent(), "V9.3 interface · V9.1 canonical data spine · all 7,680 qualifying records loaded");
+  assert.equal(await page.locator("#releaseMeta").textContent(), "V9.3.1 interface · V9.1 canonical data spine · all 7,680 qualifying records loaded");
+
+  const firstIdentity = await page.locator("#tbody tr").first().evaluate((row) => ({
+    repd: row.querySelector(".repd-ref")?.textContent,
+    globalgrid: row.querySelector(".globalgrid-ref")?.textContent,
+    updated: row.querySelector(".repd-updated")?.textContent,
+  }));
+  assert.ok(/^\d+$/.test(firstIdentity.repd));
+  assert.equal(firstIdentity.globalgrid, `GG2050-REPD-${firstIdentity.repd}`);
+  assert.match(firstIdentity.updated, /^(?:\d{2}\/\d{2}\/\d{4}|not supplied by REPD)$/);
+
+  await page.locator("#sortProjects").selectOption("updated_desc");
+  const newestDates = await page.locator("#tbody tr").evaluateAll((rows) => rows.slice(0, 50).map((row) => row.dataset.repdUpdated));
+  assert.ok(newestDates.every((value, index) => index === 0 || value <= newestDates[index - 1]));
+  assert.match(page.url(), /[?&]sort=updated_desc(?:&|$)/);
+
+  await page.locator("#sortProjects").selectOption("updated_asc");
+  const oldestDates = await page.locator("#tbody tr").evaluateAll((rows) => rows.slice(0, 50).map((row) => row.dataset.repdUpdated));
+  assert.ok(oldestDates.every((value, index) => index === 0 || value >= oldestDates[index - 1]));
+  assert.match(page.url(), /[?&]sort=updated_asc(?:&|$)/);
+
+  await page.locator("#clearFilters").click();
+  assert.equal(await page.locator("#sortProjects").inputValue(), "capacity_desc");
 
   for (const width of [1440, 1000, 921]) {
     await page.setViewportSize({ width, height: 1000 });
@@ -172,7 +198,7 @@ try {
   await projectFailure.page.route("https://raw.githubusercontent.com/**", (route) => route.abort());
   await projectFailure.page.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await projectFailure.page.waitForFunction(() => document.querySelectorAll("#stories .story").length > 0, null, { timeout: 30000 });
-  await projectFailure.page.waitForFunction(() => document.querySelector("#tbody").textContent.includes("V9.3 has failed closed."));
+  await projectFailure.page.waitForFunction(() => document.querySelector("#tbody").textContent.includes("V9.3.1 has failed closed."));
   await projectFailure.context.close();
 
   const chartFailure = await preparePage(browser, { chartStub: false });
@@ -183,7 +209,7 @@ try {
   assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => chartFailure.page.locator(selector).textContent())), ["356,474", "7,680", "4,100"]);
   await chartFailure.context.close();
 
-  console.log("V9.3 browser smoke: PASS (V2/V5 whole-MW presentation, V5/V7.1 layout, full pipeline, CSV, news isolation and exact wind Atlas URL)");
+  console.log("V9.3.1 browser smoke: PASS (official references, REPD date sorting, full pipeline, CSV, news and Atlas)");
 } finally {
   await browser.close();
 }

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GlobalGrid2050 | UK Renewables Pipeline V9.5.1</title>
+  <link rel="stylesheet" href="styles/v7.css?v=9.5.1">
+  <link rel="stylesheet" href="styles/mobile.css?v=9.5.1">
+  <link rel="stylesheet" href="styles/v9-3.css?v=9.5.1">
+  <link rel="stylesheet" href="styles/v9-4.css?v=9.5.1">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <b>GLOBALGRID2050</b>
+      <small>UK RENEWABLES PIPELINE · V9.5.1</small>
+    </div>
+    <nav class="nav">
+      <a class="active" href="#">V9.5.1 CANDIDATE</a>
+      <a href="../v9.5/">V9.5 FROZEN APP</a>
+      <a href="../v9.4/">V9.4 FROZEN APP</a>
+      <a href="../v9/">V9.3.1 FROZEN APP</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/eee4cf7d854bf44235c249d337c2aad3916bcdc0/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.3 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.2 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/59f74e319fbaad62abdb995107dba5759d7f3ca2/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.1 CHECKPOINT</a>
+      <a href="../v8/">V8.1 FALLBACK</a>
+      <a href="../v7/">V7 FALLBACK</a>
+      <a href="../dashboard_v6_live.html">V6</a>
+      <a href="../dashboard_v5_live.html">V5</a>
+      <a href="../dashboard_v4_live.html">V4</a>
+      <a href="../dashboard_v3_live_2026-08-22.html">V3</a>
+      <a href="../dashboard_v2_2026-08-22.html">V2</a>
+      <a href="../dashboard.html">V1 LEGACY</a>
+      <a href="../../index.html">DIRECTORY</a>
+      <a href="../../repd_grid_atlasv8/">MAP ATLAS</a>
+      <a href="#" id="export">EXPORT CSV</a>
+    </nav>
+  </aside>
+  <main class="main">
+    <div class="header">
+      <h1>UK RENEWABLES PIPELINE V9.5.1</h1>
+      <div class="status">● FULL NEWSPAPER + CANONICAL REPD SIGNALS · FULL ≥1 MW PIPELINE</div>
+    </div>
+    <div class="meta">
+      <strong>V9.5.1 · 23 August 2026</strong>
+      <span>Canonical DESNZ REPD Q2 2026: 7,680 solar, BESS and wind records at ≥1 MW.</span>
+      <span id="releaseMeta" class="release-meta">Loading canonical release contract…</span>
+      <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
+    </div>
+
+    <section class="newspaper">
+      <div class="masthead">
+        <h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2>
+        <div class="strap">
+          <span>V9.5.1 dual-layer edition · ALL preserves V9.4 volume · RELEVANT and project signals require exact REPD binding</span>
+          <span id="newsMeta">loading daily edition…</span>
+        </div>
+      </div>
+      <div class="news-tools" id="newsTools">
+        <button class="active" data-news="ALL">ALL</button>
+        <button data-news="RELEVANT">RELEVANT</button>
+        <button data-news="SOLAR">SOLAR</button>
+        <button data-news="BESS">BESS</button>
+        <button data-news="CONSENT">CONSENT</button>
+        <button data-news="CONSTRUCTION">CONSTRUCTION</button>
+        <button data-news="OPERATIONAL">OPERATIONAL</button>
+        <button data-news="FINANCE">FINANCE / M&amp;A</button>
+        <input id="newsSearch" placeholder="SEARCH HEADLINES / PROJECT / OPERATOR">
+      </div>
+      <div class="paper">
+        <div class="stories" id="stories">
+          <div class="news-empty">Loading today’s major-project newspaper…</div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">REPD PIPELINE ANALYTICS</h2>
+    <div class="gauges">
+      <div class="card">
+        <h3>FILTERED CAPACITY (MW)</h3>
+        <div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
+      </div>
+      <div class="card">
+        <h3>FILTERED PROJECTS (≥1MW)</h3>
+        <div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
+      </div>
+      <div class="card">
+        <h3>LARGEST SINGLE SITE (MW)</h3>
+        <div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+      </div>
+    </div>
+
+    <div class="filters" id="tech">
+      <button class="btn active" data-technology="all" aria-pressed="true">ALL TECH</button>
+      <button class="btn" data-technology="solar" aria-pressed="false">SOLAR</button>
+      <button class="btn" data-technology="bess" aria-pressed="false">BATTERY</button>
+      <button class="btn" data-technology="wind_onshore" aria-pressed="false">ONSHORE</button>
+      <button class="btn" data-technology="wind_offshore" aria-pressed="false">OFFSHORE</button>
+    </div>
+    <div class="filters" id="status">
+      <button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
+      <button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
+      <button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
+      <button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
+      <button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
+    </div>
+    <div class="filters">
+      <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
+      <select id="sortProjects" aria-label="Sort projects">
+        <option value="capacity_desc">SORT: CAPACITY (DEFAULT)</option>
+        <option value="updated_desc">SORT: REPD UPDATED — NEWEST</option>
+        <option value="updated_asc">SORT: REPD UPDATED — OLDEST</option>
+      </select>
+      <input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
+      <button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
+      <button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
+      <span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+      <span id="exportMeta" class="export-meta">CSV contains the current filtered rows only</span>
+    </div>
+    <div class="meta">
+      <strong>STATUS DISCIPLINE</strong>
+      <span><b>DEFAULT:</b> every qualifying ≥1 MW record is loaded. Filters are user controls; they never redefine or truncate the pipeline.</span>
+      <span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>
+      <span><b>ATLAS:</b> valid geometry resolves the exact REPD Ref. Missing geometry remains in search and CSV and is labelled NO MAP.</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SITE NAME</th>
+            <th class="hide-mobile">COUNTY</th>
+            <th class="hide-mobile">OPERATOR</th>
+            <th>TECHNOLOGY</th>
+            <th>OFFICIAL REPD STATUS</th>
+            <th>OFFICIAL CAPACITY</th>
+            <th class="hide-mobile">REPD REF</th>
+            <th class="hide-mobile">GLOBALGRID REF</th>
+            <th class="hide-mobile repd-updated-heading" id="repdUpdatedHeader" aria-sort="none">
+              <button id="sortUpdated" type="button" aria-label="Sort by REPD updated date, newest first">
+                REPD UPDATED <span id="updatedSortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th>NEWS SIGNAL</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+  <script type="module" src="scripts/app-v9-5-1.js?v=9.5.1"></script>
+  <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.5.1"></script>
+</body>
+</html>

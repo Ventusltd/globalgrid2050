@@ -2,10 +2,10 @@ name: UK Renewables V4 Major Project News
 
 # Deliberate exception to the June 2026 root-workflow manual freeze.
 # Authorised for V4 on 22 Aug 2026: one bounded daily data-refresh workflow.
+# Retired from automatic execution on 2026-08-23. V4 remains available only
+# for deliberate historical diagnostics; V7 owns all future production work.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17 5 * * *'
 
 permissions:
   contents: write

@@ -4,7 +4,7 @@
   "feature": "modular-v5-parity",
   "governing_readme": {
     "path": "uk_renewables_pipeline/v7/README.md",
-    "sha256": "a88a5e397142bcbf6cc46516a2ad588c4104d8ad4c84a80edea19e5cc6a9a825"
+    "sha256": "08bc3e81f6a416a9bf889c1ebb7b4ee2d81421a742767e5587ceb1353a89341c"
   },
   "required_readme_phrases": [
     "V7.1 is the current live release",
@@ -14,7 +14,9 @@
     "North Star anti-hallucination and anti-truncation gate",
     "Every build begins by",
     "Every build ends by",
-    "after V7.9 development moves to V8.0"
+    "after V7.9 development moves to V8.0",
+    "A local pass is not publication proof",
+    "V4, V5 and V6 automatic `schedule`, `push` and `issues` triggers are therefore retired immediately"
   ],
   "release_baseline": {
     "index_path": "uk_renewables_pipeline/v7/index.html",
@@ -47,6 +49,11 @@
     "dist/repd_master.json",
     "dist/project_identity_v6.json",
     "dist/major_projects_v6.json"
+  ],
+  "manual_only_legacy_workflows": [
+    ".github/workflows/major_project_news_v4.yml",
+    ".github/workflows/major_project_news_v5.yml",
+    ".github/workflows/major_project_news_v6.yml"
   ],
   "hash_semantics": {
     "major_projects_v6_file_sha256": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",

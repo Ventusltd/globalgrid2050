@@ -1,18 +1,9 @@
 name: UK Renewables V5 Newspaper
 
-# Live V5 newspaper refresh. Six-month horizon, three-minute execution ceiling.
+# Retired from automatic execution on 2026-08-23. V5 remains available only
+# for deliberate historical diagnostics; V7 owns all future production work.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17 5 * * *'
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/major_project_news_v5.py'
-      - 'scripts/validate_renewables_v5_integrity.py'
-      - '.github/workflows/major_project_news_v5.yml'
-      - 'uk_renewables_pipeline/dashboard_v5_live.html'
-      - 'dist/repd_master.json'
 permissions:
   contents: write
 concurrency:

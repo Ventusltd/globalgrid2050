@@ -24,6 +24,9 @@ V7 combines the **product direction of V5** with the **data and identity discipl
 7. Do not expose an unfinished V7 link. Build and test the complete release candidate before adding navigation or deploying it.
 8. Commit coherent checkpoints to `main`; do not commit broken generated assets.
 9. Never allow a failed refresh to replace the last validated public edition.
+10. A local pass is not publication proof. Success requires a fresh checkout of the exact committed SHA, matching byte lengths and SHA-256 values, and the complete gate rerun against those committed bytes.
+11. Generated outputs use temporary files, flush and `fsync`, parse/hash verification and atomic replacement. Never transport release blobs through logs, command output or an unbounded base64 text bridge.
+12. Validation and failure reporting are read-only. A failed gate must never commit a diagnostic, rebase validated output onto a changed base, or move a public manifest.
 
 ## Measured V1–V6 synthesis
 
@@ -45,6 +48,15 @@ V7 combines the **product direction of V5** with the **data and identity discipl
 - V5/V6's `>100 MW` battery rule omits **113** records that satisfy the requested `>99 MW` rule.
 - V6 has no coordinates. The legacy GeoJSON is Q1 data without canonical REPD IDs and cannot be safely joined by name.
 - Solar MWp and BESS MW are different measures and must never be presented as one combined capacity gauge.
+
+### Workflow and publication failures already observed
+
+- On 23 August 2026, V4 and V5 were scheduled concurrently under independent concurrency groups. V4 run `32621259973` rewrote historical V4 assets and advanced `main` to `d3ba2a1`; this proved the historical versions were not operationally immutable.
+- V5 run `32621092076` found one headline for 559 eligible projects and correctly failed its five-headline floor. Its fresh-only crawler has no last-known-good retention, while a successful run could overwrite the 125-story asset consumed by live V7.1.
+- V6 run `32621379438` reconciled 14,657 REPD records and retained eight canonically bound stories, but failed only because it asserted obsolete V6 homepage wording after V7 became live. Its failure handler then wrongly committed `d8aa08f` to `main`.
+- V7 North Star run `32609396308` passed V7.1 parity, modules, browser and 203 North Star checks, then rejected three corrupt V7.2 artefacts at invalid UTF-8 byte `393216`. The local 26/26 result did not describe commit `5dee339`.
+- The V7.2 corruption was caused by routing large publication blobs through a clipped text-output bridge, not by the Python writer or the 500-second build limit.
+- V4, V5 and V6 automatic `schedule`, `push` and `issues` triggers are therefore retired immediately. They remain manual-only historical diagnostics. V7 North Star stays read-only; V7.9 may introduce the sole scheduled writer only after production proof.
 
 ## Modular platform decision
 
@@ -108,11 +120,13 @@ Replace the legacy V5 project dependency with the strongest V6 engineering witho
 - No wind.
 - Stable REPD, GlobalGrid project and development IDs.
 - Canonical JSON and GeoJSON from one record spine.
+- Every qualifying record remains in canonical JSON even when geometry is absent or invalid. Each record carries `geometry_status`; longitude and latitude are nullable, while GeoJSON contains only valid geometries.
+- Canonical-record and valid-geometry counts are asserted independently.
 - Active, disputed and historical lifecycle views.
 - Separate solar MWp and BESS MW analytics.
 - V5 NEWS SIGNAL remains external legacy intelligence and cannot alter canonical facts.
 
-Exit gate: every displayed utility project has canonical identity and provenance while the separately labelled legacy NEWS SIGNAL remains behaviourally unchanged.
+Exit gate: every displayed utility project has canonical identity and provenance while the separately labelled legacy NEWS SIGNAL remains behaviourally unchanged; a fresh checkout of the exact committed SHA reproduces every file hash, count and validation result.
 
 ### V7.3 — Trusted newspaper and event engine
 
@@ -213,15 +227,18 @@ Complete production automation and resilience as the final V7 feature.
 
 - Pinned dependencies and Actions revisions.
 - One validated writer on `main`.
+- One repository-wide publication concurrency group; base-SHA drift aborts rather than rebases validated output.
 - Checkpointed source collection.
 - Source-health and freshness reporting.
 - Deterministic builds.
 - Content-addressed releases.
 - Atomic Pages publication.
 - Last-known-good retention.
+- Binary-safe publication, exact-commit clean-checkout validation and atomic manifest promotion.
+- Failure evidence stored in Actions summaries/artefacts, never committed to `main`.
 - Failure simulations and shadow runs.
 - V1–V7 immutability and regression gates.
-- Retirement of competing historical schedules only after V7 proof.
+- V4/V5/V6 automatic writers remain retired; only V7 may receive a production schedule after proof.
 
 Exit gate: source failure, crawler failure or a new REPD edition cannot corrupt or silently empty the public product.
 
@@ -292,6 +309,8 @@ Every required record above must exist with the expected technology, planning re
 - Every accepted project assertion has exactly one current primary record; a development-level event is allowed where the evidence does not select a component.
 - Every rejected or ambiguous item has a bounded reason.
 - A changed fixture hash, missing sentinel, unexplained count difference, referential-integrity error or unhealthy mandatory source fails publication.
+- Every JSON and GeoJSON artefact is valid UTF-8, fully parseable and identical in byte length and SHA-256 to the validated manifest entry.
+- `git fsck` is insufficient publication evidence: the exact remote commit must be fetched into a clean checkout and semantically validated.
 - Failure leaves the public manifest and last validated assets byte-for-byte unchanged.
 - The release report records fixture hashes, source hashes, counts by technology/status, development count, missing-field coverage, geometry coverage and all sentinel outcomes.
 
@@ -321,7 +340,8 @@ Every build ends by:
 2. Comparing the preflight and postflight reports and accounting for every intended difference.
 3. Proving that unrelated versions and features did not change.
 4. Writing the release manifest and short release record for exactly one minor version.
-5. Refusing commit or publication if the README, machine contract, build output or live deployment disagrees.
+5. Fetching the exact committed SHA into a clean checkout, matching output sizes and hashes, and rerunning the complete gate.
+6. Refusing publication or manifest promotion if the README, machine contract, committed output, Actions result or live deployment disagrees.
 
 Application and workflow code must read thresholds, version and scope identifiers from the validated contract/manifest. It must not maintain hidden duplicate constants that can drift away from this README.
 
@@ -401,12 +421,13 @@ Deliverables:
 - Checkpointed discovery with bounded per-source timeouts.
 - Crawl-health gate; a blind or degraded crawl cannot advance the public edition.
 - Content-addressed release assets and an atomic manifest pointer.
+- Binary-safe asset transport; logs and command-output bridges never carry release blobs.
 - Pages deploys the exact validated commit/artefact, not an arbitrary later `main` state.
 - Deterministic rebuild, referential-integrity, negative-corpus, mobile and failure-recovery tests.
 - V1–V6 hash verification before every publication.
-- V4/V5/V6 schedules retired only when V7 production proof is complete; historical pages and assets remain.
+- V4/V5/V6 automatic triggers are already retired and remain manual-only; historical pages and assets remain.
 - Final production verification of counts, identity, search, filters, map, mobile, events and same-origin delivery.
-- V7 navigation exposed only after the production proof passes.
+- The live V7.1 MVP remains exposed; later data/news modules and the scheduled V7 writer are promoted only after their own production gates pass.
 
 Exit gate: V7 is live, reproducible, observable and capable of retaining the last validated edition through source or crawler failures.
 
@@ -469,5 +490,6 @@ For a new chat:
 - The mobile gate is mandatory and rejects horizontal document overflow or escaped key panels at 390, 430, 440 and 768 px; this layout correction does not alter project or news decisions.
 - iPhone-user-agent delivery is byte-identical to the committed HTML and the exact V5 stylesheet retains its 1,200 px and 768 px responsive breakpoints.
 - Step 1's canonical V6-derived project foundation and its exit gate are not yet complete.
-- V7.2's data-only canonical spine is now built and validated but not live: 766 REPD-bound records across 718 developments, comprising 384 solar projects `>49 MWp` and 382 BESS projects `>99 MW`, with no wind and 766 canonical point geometries.
-- V7.2 preserves REPD facts, GlobalGrid project/development IDs, lifecycle fields and typed relationships. Its geometry is contextual mapping evidence only and cannot establish a grid connection or cadastral boundary.
+- V7.2 was generated locally with the expected 766 REPD-bound records across 718 developments, but remote commit `5dee339` is rejected: three committed artefacts are corrupt at byte `393216`. V7.2 is neither validated nor live; V7.1 remains the last-known-good public release.
+- Subsequent legacy commits `d3ba2a1` and `d8aa08f` proved that V4–V6 writers could move `main` independently of V7. Their automatic triggers are now retired before any V7.2 repair or promotion.
+- The V7.2 rebuild must preserve all qualifying records independently of geometry, use atomic outputs and pass exact-remote-commit validation before its 384 solar, 382 BESS, 718-development and geometry claims become release evidence.

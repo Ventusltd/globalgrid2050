@@ -62,6 +62,25 @@ def check_files(root: Path, contract: dict[str, Any], gate: Gate) -> None:
         gate.require_true(f"runtime source exists: {relative}", (root / relative).is_file())
 
 
+def check_legacy_workflows(root: Path, contract: dict[str, Any], gate: Gate) -> None:
+    for relative in contract["manual_only_legacy_workflows"]:
+        path = root / relative
+        gate.require_true(f"manual-only workflow exists: {relative}", path.is_file())
+        if not path.is_file():
+            continue
+        triggers: list[str] = []
+        inside_on = False
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line == "on:":
+                inside_on = True
+                continue
+            if inside_on and line and not line.startswith(" "):
+                break
+            if inside_on and line.startswith("  ") and not line.startswith("    ") and line.rstrip().endswith(":"):
+                triggers.append(line.strip()[:-1])
+        gate.require(f"manual-only workflow triggers: {relative}", triggers, ["workflow_dispatch"])
+
+
 def check_legacy_universe(root: Path, contract: dict[str, Any], fixtures: dict[str, Any], gate: Gate) -> None:
     master = load_json(root / contract["fixture_roles"]["v5_geojson"])
     features = master.get("features") or []
@@ -192,6 +211,7 @@ def check_phase(root: Path, contract: dict[str, Any], phase: str, gate: Gate) ->
 def run_gate(root: Path, contract: dict[str, Any], phase: str) -> Gate:
     gate = Gate()
     check_files(root, contract, gate)
+    check_legacy_workflows(root, contract, gate)
     fixtures = contract["universe_fixtures"]
     check_legacy_universe(root, contract, fixtures, gate)
     check_v5_news(root, contract, fixtures, gate)

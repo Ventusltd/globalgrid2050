@@ -1,0 +1,38 @@
+name: V9.3 Exact Commit Validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "uk_renewables_pipeline/v9/**"
+      - ".github/workflows/v9-3-validate.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: uk_renewables_pipeline/v9/package-lock.json
+      - name: Install pinned browser harness
+        working-directory: uk_renewables_pipeline/v9
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Run V9.3 committed-byte gate
+        env:
+          V9_BROWSER_SMOKE: "1"
+        run: bash uk_renewables_pipeline/v9/tests/run_v9_3.sh

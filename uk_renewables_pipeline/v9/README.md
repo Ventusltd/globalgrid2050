@@ -1,33 +1,45 @@
-# GlobalGrid2050 UK Renewables Pipeline V9.2
+# GlobalGrid2050 UK Renewables Pipeline V9.3
 
 ## Current release
 
-V9.2 restores the proven V5 desktop and mobile interface contract while retaining V9.1's complete canonical Q2 REPD universe and new functions. The default page loads all 7,680 qualifying solar, battery, onshore-wind and offshore-wind records at 1 MW and above. User filters operate on that complete in-memory universe; they do not redefine or truncate the pipeline.
+V9.3 restores the proven V5/V7.1 desktop and mobile interface while retaining the complete V9.1 canonical Q2 REPD universe and every V9.2 function.
 
-V9.2 is an interface and algorithm release. It does not rebuild or alter the V9.1 canonical data spine.
+The default page loads all 7,680 qualifying solar, battery, onshore-wind and offshore-wind records at 1 MW and above. Technology, status, county and search controls filter that complete universe; they never redefine or truncate the pipeline.
 
+V9.3 is a bounded interface correction. It does not rebuild the V9.1 data spine or redesign the V9.2 search, relevance-screening, CSV, identity or Atlas algorithms.
+
+- V9.2 frozen checkpoint: commit `77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee`, tree `3807968dbf5c73e4499c6de9157464e3185dd241`.
 - V9.1 frozen checkpoint: commit `59f74e319fbaad62abdb995107dba5759d7f3ca2`, tree `e9dc244b74d9c983e4557a23bd2b745c1daeb105`.
 - V9.0 frozen baseline: commit `50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2`, tree `60b72b3665e6b65a397541b221c4bca75aa402c9`.
 - Earlier V1–V8 integrity markers remain pinned by `contracts/legacy-integrity.v9.json`.
 
-See `docs/releases/9.2.md`, `contracts/release.v9.2.json` and `contracts/release.v9.1.json`.
+See `docs/releases/9.3.md`, `contracts/release.v9.3.json`, `contracts/release.v9.2.json` and `contracts/release.v9.1.json`.
 
-## V9.2 interface contract
+## V9.3 interface contract
 
-The V5 stylesheet remains the visual shell. V9.2 deliberately removes the later runtime overrides that changed the agreed gauge and mobile behaviour:
+The runtime stylesheet order is deliberate:
+
+1. `styles/v7.css` — exact V5-derived visual shell.
+2. `styles/mobile.css` — the proven V7.1 mobile overflow correction.
+3. `styles/v9-3.css` — additive V9 controls and project-record details only.
+
+V9.3 does not load `styles/v8.css` or `styles/v9-2.css`.
+
+The visible contract is:
 
 - exactly three primary gauges;
-- three gauge columns above the legacy 768 px mobile breakpoint;
+- three gauge columns above 768 px;
 - one gauge column at and below 768 px;
-- the V5 header and mobile flow;
-- an eight-column project table rather than the V9.1 13-column expansion;
-- no forced 1,850 px table width.
+- the header stacks and status text wraps at and below 768 px;
+- an eight-column project table;
+- no forced 1,500 px or 1,850 px table width;
+- mobile overflow checks at 390, 430, 440 and 768 px.
 
-V9 features are integrated inside the familiar table rather than forcing a new dashboard layout. REPD Ref, GlobalGrid project ID and official record-update date appear beneath the site name. Planning, lifecycle, relationship and geometry information is available through an expandable project record. Atlas, news and copy-ID actions remain available in the final column.
+V9 features remain inside the familiar layout. REPD Ref, GlobalGrid project ID and official record-update date appear beneath the site name. Planning, lifecycle, relationship and geometry fields remain available through the expandable project record. Atlas, news and copy-ID actions remain in the final column.
 
-## Complete pipeline and filters
+## Complete pipeline
 
-The canonical universe remains:
+The canonical universe remains unchanged:
 
 - 7,680 official REPD records;
 - 356,474.09 MW record-based capacity;
@@ -39,13 +51,28 @@ The canonical universe remains:
 - 7,652 valid map geometries;
 - 28 missing geometries retained in search and CSV.
 
-With no URL parameters or button selections, all 7,680 records are displayed. Technology, status, county and search filters are optional user interactions. Search uses normalised multi-token AND matching across project name, operator, REPD Ref, GlobalGrid IDs, planning references, geography, status, dates and relationship references. Explicit filter state is reflected in shareable URL parameters; the default URL remains unfiltered.
+V9.3 reuses the V9.1 project partitions and validates their counts, capacity, identities, technologies and geometry coverage before exposing them.
+
+## Search, filters and engagement
+
+V9.3 retains V9.2's normalised multi-token AND search across project name, operator, REPD Ref, GlobalGrid IDs, planning references, geography, status, dates and relationship references.
+
+It retains:
+
+- optional shareable URL filter state;
+- results count and filtered-capacity summary;
+- clear filters;
+- copy project ID;
+- expandable canonical project record;
+- explicit `NO MAP` for missing geometry.
+
+No URL parameters means the complete 7,680-record universe.
 
 ## Filtered CSV contract
 
 - The export contains the current filtered rows only.
 - A zero-result filter produces the CSV header only.
-- Filename: `globalgrid2050_uk_renewables_pipeline_v9_2_YYYY-MM-DD.csv`.
+- Filename: `globalgrid2050_uk_renewables_pipeline_v9_3_YYYY-MM-DD.csv`.
 - UTF-8 BOM is retained for Excel compatibility.
 - Canonical identity, official status/capacity, official update date, relationships, coordinates, provenance, legacy-news warning and Atlas URL are included.
 - Spreadsheet-formula injection remains neutralised.
@@ -54,25 +81,36 @@ With no URL parameters or button selections, all 7,680 records are displayed. Te
 
 `repd_record_updated` remains an official REPD field. The table displays it as `dd/mm/yyyy`; CSV retains the canonical ISO date. Missing dates remain missing and are never replaced with the current date or a news date.
 
-Valid geometries create exact Atlas V8 links containing the canonical REPD Ref, project name, technology, capacity, latitude, longitude and zoom. The Atlas bridge resolves exact identity before flying to the point and opening the popup. A record without geometry remains in the database, results and CSV but displays `NO MAP`; V9.2 never invents a coordinate or guessed identity.
+Valid geometries create exact Atlas V8 links containing the canonical REPD Ref, project name, technology, capacity, latitude, longitude and zoom. The Atlas bridge resolves exact identity before flying to the point and opening the popup. Records without geometry remain searchable and exportable and display `NO MAP`; V9.3 never invents coordinates or identity.
 
 ## News discipline
 
-The inherited V5 news feed remains explicitly legacy and unverified. V9.2 adds a deterministic relevance gate before a headline can appear as a project-row signal. The gate requires exact project-name and technology binding, then tests whether the headline contains sufficient project, operator, county or capacity evidence. Obvious generic-name and foreign-project false positives are rejected. A `RELEVANT` newspaper filter exposes the algorithmic shortlist, but no relevance score changes an official REPD fact or claims journalistic verification.
+The inherited V5 news feed remains explicitly legacy and unverified. V9.3 retains V9.2's deterministic relevance screen and `RELEVANT` newspaper filter without claiming that this is the later trusted discovery/assertion/event engine.
+
+No headline score may overwrite an official REPD identity, status, capacity or date. Wind news remains outside the legacy V5 feed and is labelled accordingly.
 
 ## Validation
 
 Run:
 
 ```bash
-bash uk_renewables_pipeline/v9/tests/run_v9_2.sh
+bash uk_renewables_pipeline/v9/tests/run_v9_3.sh
 ```
 
-The gate first runs V9.1 lineage/data validation, confirms the frozen V9.1 commit/tree, checks V9.2 JavaScript syntax, validates the unchanged 7,680-record canonical universe, proves the V5 interface contract, tests full-universe defaults, search/filter logic, zero-result CSV discipline, missing-geometry retention and the news relevance gate.
+The gate:
 
-Browser smoke test:
+- confirms the frozen V9.2 commit and tree;
+- verifies V1–V8 integrity markers;
+- rebuilds the V9.1 data spine and rejects any committed-byte difference;
+- checks every V9 JavaScript file;
+- validates the unchanged 7,680-record universe and all retained V9.2 functions;
+- proves the V5/V7.1 stylesheet and mobile contract.
+
+Browser validation:
 
 ```bash
 cd uk_renewables_pipeline/v9
-npm run validate:browser
+V9_BROWSER_SMOKE=1 bash tests/run_v9_3.sh
 ```
+
+The read-only GitHub Actions workflow `.github/workflows/v9-3-validate.yml` runs the same gate against the exact committed bytes.

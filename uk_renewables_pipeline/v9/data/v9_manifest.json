@@ -1,13 +1,16 @@
 {
   "schema": "globalgrid2050.v9.release-manifest.v1",
-  "version": "9.2",
-  "feature": "v5-interface-and-mobile-restored-with-v9-canonical-features",
+  "version": "9.3",
+  "feature": "proven-v5-v7-1-interface-restored-with-v9-features-preserved",
   "status": "LIVE_CANDIDATE",
   "frozen_v9_0_commit": "50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2",
   "frozen_v9_1_commit": "59f74e319fbaad62abdb995107dba5759d7f3ca2",
   "frozen_v9_1_tree": "e9dc244b74d9c983e4557a23bd2b745c1daeb105",
+  "frozen_v9_2_commit": "77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee",
+  "frozen_v9_2_tree": "3807968dbf5c73e4499c6de9157464e3185dd241",
   "legacy_integrity": "contracts/legacy-integrity.v9.json",
   "data_release": "9.1",
+  "behaviour_release": "9.2",
   "data_changed": false,
   "project_count": 7680,
   "capacity_mw": 356474.09,
@@ -19,13 +22,13 @@
   "wind_onshore_count": 2399,
   "wind_offshore_count": 109,
   "features": [
-    "V5 desktop and mobile interface contract restored",
+    "V5 desktop shell and proven V7.1 mobile correction restored",
     "all qualifying >=1 MW records loaded by default",
     "multi-token canonical project search and shareable filters",
     "filtered CSV export with header-only zero-result behaviour",
     "official REPD record last updated date and canonical IDs",
     "exact Atlas V8 links for valid geometry and NO MAP for missing geometry",
-    "legacy V5 newspaper with explicit algorithmic relevance scoring"
+    "legacy V5 newspaper with inherited V9.2 relevance screening"
   ],
   "atlas_exact_focus_supported": true
 }

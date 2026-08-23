@@ -128,6 +128,8 @@ Replace the legacy V5 project dependency with the strongest V6 engineering witho
 
 Exit gate: every displayed utility project has canonical identity and provenance while the separately labelled legacy NEWS SIGNAL remains behaviourally unchanged; a fresh checkout of the exact committed SHA reproduces every file hash, count and validation result.
 
+The approved interface boundary is frozen in `docs/08-v7.2-project-interface.md` and its executable mirror `contracts/projects-plugin.v7.2.json`. The specification gate must pass while V7.1 remains byte-for-byte live; it is not permission to promote the V7.2 interface. The later implementation gate must prove the canonical source, split-unit analytics, lifecycle partition, Beacon Fen searches, filtered export, failure isolation and unchanged 125-story newspaper before the visible version advances.
+
 ### V7.3 — Trusted newspaper and event engine
 
 Replace the inherited V5 NEWS SIGNAL bindings only after V7.1 and V7.2 are proven.
@@ -493,4 +495,5 @@ For a new chat:
 - Original V7.2 commit `5dee339` remains rejected because three artefacts were corrupt at byte `393216`; it is retained as incident evidence, never as a release baseline.
 - Subsequent legacy commits `d3ba2a1` and `d8aa08f` proved that V4–V6 writers could move `main` independently of V7. Their automatic triggers are now retired before any V7.2 repair or promotion.
 - The repaired V7.2 data-only spine contains 766 records across 718 developments: 384 solar and 382 BESS, with 766 valid geometries and zero missing among this edition. Atomic replacement and synthetic missing/invalid-geometry tests protect future editions.
+- The V7.2 project-interface acceptance matrix is frozen and executable: V5/V7.1 remains the product-behaviour baseline, V6 remains the engineering/failure baseline, and every deliberate difference is enumerated before code changes. Its specification phase does not alter the live UI.
 - V7.2 remains data-only and not live. V7.1 remains the last-known-good public release until a separately approved project-plugin promotion passes its own exact-remote-commit and production gates.

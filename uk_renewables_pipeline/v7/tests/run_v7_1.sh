@@ -38,4 +38,8 @@ if [[ -f "$v7_dir/contracts/project-spine.v7.2.json" ]]; then
   python3 "$v7_dir/tests/validate_v7_2_spine.py"
 fi
 
+if [[ -f "$v7_dir/contracts/projects-plugin.v7.2.json" ]]; then
+  python3 "$v7_dir/tests/validate_projects_plugin_v7_2.py" --phase spec
+fi
+
 echo "V7.1 validation suite: PASS ($repo_root)"

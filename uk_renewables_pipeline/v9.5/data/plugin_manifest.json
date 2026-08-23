@@ -1,0 +1,77 @@
+{
+  "schema": "globalgrid2050.v7.plugin-manifest.v1",
+  "version": "9.5",
+  "contract": "../contracts/plugin.v1.json",
+  "plugins": [
+    {
+      "id": "gauges",
+      "module": "scripts/plugins/gauges-v9-2.js",
+      "presentation_module": "scripts/plugins/capacity-presentation-v9-3.js",
+      "presentation_contract": "V2/V5/V7.1 whole-MW capacity display; canonical and CSV values remain exact",
+      "inherited_from": "9.2",
+      "owns": [
+        "g1",
+        "g2",
+        "g3",
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "newspaper",
+      "module": "scripts/plugins/newspaper-v9-5.js",
+      "inherited_from": null,
+      "components": [
+        "../../dist/major_project_news_v6.json",
+        "../../dist/project_news_links_v6.json"
+      ],
+      "owns": [
+        "newsMeta",
+        "newsSearch",
+        "newsTools",
+        "stories"
+      ],
+      "depends_on": [
+        "gauges"
+      ]
+    },
+    {
+      "id": "projects",
+      "module": "scripts/plugins/projects-v9-5.js",
+      "components": [
+        "scripts/core/project-filter-v9-2.js",
+        "scripts/data/canonical-projects-v9-5.js",
+        "scripts/data/canonical-projects-v9-1.js",
+        "scripts/plugins/gauges-v9-2.js",
+        "scripts/plugins/capacity-presentation-v9-3.js",
+        "scripts/plugins/newspaper-v9-5.js",
+        "data/v9.1/build_manifest.json",
+        "data/v9.1/projects/*.json",
+        "data/v9.1/atlas/*.geojson",
+        "contracts/release.v9.1.json",
+        "contracts/release.v9.2.json",
+        "contracts/release.v9.3.json",
+        "contracts/release.v9.5.json"
+      ],
+      "owns": [
+        "clearFilters",
+        "county",
+        "export",
+        "exportInline",
+        "resultsMeta",
+        "search",
+        "sortProjects",
+        "sortUpdated",
+        "status",
+        "tbody",
+        "tech"
+      ],
+      "depends_on": [
+        "gauges",
+        "newspaper"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.5",
+  "release": "9.5",
+  "status": "CANDIDATE",
+  "feature": "canonical-news-binder-recall-and-repd-ref-signals",
+  "frozen_parent": {
+    "release": "9.4",
+    "commit": "d598d9b6b89be4daeb904fafae52dd18ba35d1c1",
+    "path": "uk_renewables_pipeline/v9.4",
+    "subtree": "dfcd9b457854fc07d4af3df5797f29e2e3d12426",
+    "tree_listing_sha256": "72ab62c1129f0501e78c89ebff8ba8c0967197738916e556a7f6553699f69e8c",
+    "must_remain_unchanged": true
+  },
+  "data_parent": {
+    "release": "9.1",
+    "contract": "contracts/release.v9.1.json",
+    "manifest": "data/v9.1/build_manifest.json",
+    "data_changed": false
+  },
+  "news_contract": {
+    "feed_schema": "globalgrid2050.major-project-news.v6",
+    "browser_binding": "canonical repd_ref PRIMARY_MATCH only",
+    "legacy_name_binding_removed": true,
+    "one_primary_match_per_article": true,
+    "related_development_drives_news_signal": false,
+    "capacity_is_corroboration_only": true,
+    "official_repd_facts_overwritten": false,
+    "matcher_floors": {"strong": 52, "weak": 68},
+    "focused_positive_target": 0.8,
+    "hostile_negative_leaks_allowed": 0,
+    "telemetry_required": ["pair_rejection_reasons", "rejected_article_samples"]
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "displayed_capacity_mw": 356474,
+    "largest_mw": 4100.0,
+    "valid_geometry_count": 7652,
+    "missing_geometry_count": 28,
+    "solar_count": 3563,
+    "bess_count": 1609,
+    "wind_onshore_count": 2399,
+    "wind_offshore_count": 109
+  },
+  "ui_contract": {
+    "separate_app_path": "uk_renewables_pipeline/v9.5",
+    "v9_4_repd_updated_sort_retained": true,
+    "first_click": "updated_desc",
+    "second_click": "updated_asc",
+    "aria_sort_default": "none",
+    "aria_sort_newest": "descending",
+    "aria_sort_oldest": "ascending",
+    "project_table_columns": 11,
+    "mobile_identity_location": "beneath site name",
+    "news_signal_suffix": "asterisk marks algorithmic and unverified event",
+    "news_failure_mode": "fail news closed while retaining canonical REPD analytics"
+  }
+}

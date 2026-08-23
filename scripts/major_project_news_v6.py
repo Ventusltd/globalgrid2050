@@ -36,7 +36,8 @@ EXPECTED_PROJECTS = EXPECTED_SOLAR_PROJECTS + EXPECTED_BESS_PROJECTS
 LOOKBACK_DAYS = 183
 MAX_HEADLINES = 300
 MAX_REJECTED_ARTICLE_SAMPLES = 50
-MIN_SCORE = 68
+FLOOR_STRONG = 52
+FLOOR_WEAK = 68
 AMBIGUITY_MARGIN = 8
 BATCH_SIZE = 25
 MAX_BATCH_CHARS = 1350
@@ -87,10 +88,11 @@ EVENTS = [
     ("DELAY", ["delayed", "delay", "judicial review", "postponed", "deferred"]),
     ("OPERATIONAL", ["commercial operation", "operational", "energised", "energized", "commissioned", "goes live", "entered operation"]),
     ("CONSTRUCTION", ["construction", "breaking ground", "build begins", "under construction", "construction starts"]),
-    ("CONSENT", ["development consent", "planning consent", "approved", "approval", "consented", "permission granted", "planning permission"]),
+    ("CONSENT", ["development consent", "consent awarded", "grants dco", "dco granted", "planning consent", "approved", "approval", "consented", "permission granted", "planning permission"]),
     ("FINANCIAL CLOSE", ["financial close", "financing", "funding secured", "debt financing"]),
     ("ACQUISITION", ["acquires", "acquired", "acquisition", "sold to", "sale of", "portfolio sale"]),
     ("GRID CONNECTION", ["grid connection", "connected to the grid", "connection agreement", "grid offer"]),
+    ("CONTRACT", ["to optimise", "to optimize", "partner on", "awarded contract", "secures contract"]),
     ("EXPANSION", ["expansion", "expanded", "extension", "upsized"]),
 ]
 
@@ -108,7 +110,7 @@ GENERIC_SINGLE = {
 FOREIGN_RULES = {
     "New Jersey": ("new jersey",), "California": ("california",), "Texas": ("texas",),
     "Australia": ("australia", "new south wales", "queensland", "victoria australia"),
-    "Canada": ("canada", "alberta", "ontario canada"), "Germany": ("germany",),
+    "Canada": ("canada", "alberta", "ontario", "ontario canada"), "Germany": ("germany",),
     "Italy": ("italy",), "Spain": ("spain",), "India": ("india",), "China": ("china",),
     "South Africa": ("south africa",), "New Zealand": ("new zealand",),
     "Republic of Ireland": ("republic of ireland", "irish republic"),
@@ -120,21 +122,28 @@ FOREIGN_RULES = {
 
 QUERY_PLAN_META: dict[str, object] = {}
 
-# Press headlines routinely replace the official REPD trailing descriptor
-# (for example "Solar Farm") with an equivalent (for example "solar project").
-# Only the trailing technology boilerplate is removed: the distinctive place
-# name remains mandatory and one-token generic stems are never trusted.
-NAME_DESCRIPTOR_SUFFIXES = (
-    r"solar energy (?:farm|park|project|scheme|development)",
-    r"(?:solar|photovoltaic|pv) (?:farm|park|project|scheme|development|array|panels?)",
-    r"battery (?:energy )?storage(?: (?:system|facility|project|scheme|development))?",
-    r"energy storage(?: (?:system|facility|project|scheme|development))?",
-    r"bess(?: (?:project|facility|scheme|development))?",
-    r"energy (?:farm|park|project|scheme|development)",
+# REPD names often append addresses and technology after commas, spaced dashes
+# or "near".  The press normally uses only the leading development identity.
+SEGMENT_SPLIT_RE = re.compile(r"\s+-\s+|,|\bnear\b", flags=re.I)
+NAME_BOILERPLATE = {
+    "solar", "farm", "farms", "park", "parks", "battery", "storage", "energy",
+    "bess", "pv", "photovoltaic", "photovoltaics", "project", "scheme",
+    "development", "renewable", "renewables", "power", "station", "substation",
+    "panels", "plant", "works", "hub", "facility", "system", "systems",
+    "ltd", "limited", "plc", "site", "the", "and", "of", "at", "on", "in", "for", "to",
+    "land", "extension",
+}
+NEWS_TECHNOLOGY_DESCRIPTORS = (
+    "solar", "pv", "photovoltaic", "photovoltaics", "battery", "bess", "storage", "energy"
 )
-NAME_DESCRIPTOR_SUFFIX_RE = re.compile(
-    r"\s+(?:and\s+)?(?:" + "|".join(NAME_DESCRIPTOR_SUFFIXES) + r")$"
-)
+FOREIGN_PHRASES = {
+    norm_phrase
+    for label, phrases in FOREIGN_RULES.items()
+    for norm_phrase in [re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", value.lower())).strip()
+                        for value in (*phrases, label)]
+    if norm_phrase
+}
+FOREIGN_PHRASES.add("ireland")
 
 
 def clean(value):
@@ -151,26 +160,38 @@ def toks(value):
 
 
 def distinctive_name_stem(value) -> str:
-    """Return a conservative name key with trailing technology wording removed."""
-    original = norm(value)
-    stem = original
-    while stem:
-        shortened = NAME_DESCRIPTOR_SUFFIX_RE.sub("", stem).strip()
-        shortened = re.sub(r"\s+(?:and|with)$", "", shortened).strip()
-        if shortened == stem:
-            break
-        stem = shortened
-    # A stem is a variant only when a suffix was removed. A single generic
-    # place token is never trusted; a unique non-generic one-token stem may be
-    # retained but the identity gate requires separate public corroboration.
-    stem_tokens = toks(stem)
-    if (
-        stem == original
-        or not stem_tokens
-        or (len(stem_tokens) == 1 and next(iter(stem_tokens)) in GENERIC_SINGLE)
-    ):
+    """Return the leading public identity with boilerplate stripped at both ends."""
+    head = SEGMENT_SPLIT_RE.split(clean(value), maxsplit=1)[0]
+    tokens = norm(head).split()
+    while tokens and tokens[0] in NAME_BOILERPLATE:
+        tokens.pop(0)
+    while tokens and tokens[-1] in NAME_BOILERPLATE:
+        tokens.pop()
+    if not tokens or (len(tokens) == 1 and tokens[0] in GENERIC_SINGLE):
         return ""
-    return stem
+    return " ".join(tokens)
+
+
+def descriptor_adjacent(padded_text: str, stem: str) -> bool:
+    """Require a one-token stem to sit beside public technology wording."""
+    if not stem or len(stem.split()) != 1:
+        return False
+    tokens = padded_text.strip().split()
+    descriptors = set(NEWS_TECHNOLOGY_DESCRIPTORS)
+    unsafe_predecessors = {"the", "on", "of", "at", "in"}
+    for index, token in enumerate(tokens):
+        if token != stem or (index and tokens[index - 1] in unsafe_predecessors):
+            continue
+        next_index = index + 1
+        if next_index < len(tokens) and tokens[next_index] in descriptors:
+            return True
+        if (
+            next_index + 1 < len(tokens)
+            and len(tokens[next_index]) <= 3
+            and tokens[next_index + 1] in descriptors
+        ):
+            return True
+    return False
 
 
 def file_sha256(path: Path) -> str:
@@ -272,8 +293,19 @@ def load_project_snapshot() -> tuple[dict, list[dict]]:
         project["_identity_context"] = norm(" ".join((name, county, region, country, authority, planning_ref)))
         projects.append(project)
 
-    name_counts = Counter(project["_name_norm"] for project in projects if project["_name_norm"])
-    stem_counts = Counter(project["_name_stem_norm"] for project in projects if project["_name_stem_norm"])
+    # Duplicate identity is development-scoped. Co-located solar/BESS records
+    # with one gg_development_id are components of one public development, not
+    # competing names that should invalidate one another.
+    name_pairs = {
+        (project["_name_norm"], project["gg_development_id"])
+        for project in projects if project["_name_norm"]
+    }
+    stem_pairs = {
+        (project["_name_stem_norm"], project["gg_development_id"])
+        for project in projects if project["_name_stem_norm"]
+    }
+    name_counts = Counter(name for name, _development in name_pairs)
+    stem_counts = Counter(stem for stem, _development in stem_pairs)
     for project in projects:
         project["_name_stem_tokens"] = toks(project["_name_stem_norm"])
         duplicate_count = name_counts[project["_name_norm"]]
@@ -281,6 +313,11 @@ def load_project_snapshot() -> tuple[dict, list[dict]]:
         project["_name_duplicate"] = duplicate_count > 1
         project["_name_stem_duplicate_count"] = stem_counts.get(project["_name_stem_norm"], 0)
         project["_name_stem_duplicate"] = project["_name_stem_duplicate_count"] > 1
+        project["_name_stem_foreign_collision"] = any(
+            phrase == project["_name_stem_norm"]
+            or f" {phrase} " in f" {project['_name_stem_norm']} "
+            for phrase in FOREIGN_PHRASES
+        )
         # Names made entirely from technology boilerplate (for example
         # "Solar Farm" or "Battery Storage") have no distinctive tokens and
         # must never pass identity on their text alone. The same applies to a
@@ -406,7 +443,7 @@ def _foreign_locations(text: str, project: dict) -> tuple[list[str], list[str]]:
         if not hits:
             continue
         detected.append(label)
-        if not any(_contains_normalized_phrase(project["_identity_context"], phrase) for phrase in hits):
+        if any(not _contains_normalized_phrase(project["_identity_context"], phrase) for phrase in hits):
             unexplained.append(label)
     # "Ireland" is a foreign-geography veto only when it is not the valid UK
     # phrase "Northern Ireland" and is not part of the project's official
@@ -423,7 +460,9 @@ def _foreign_locations(text: str, project: dict) -> tuple[list[str], list[str]]:
 
 
 def _story_context(story: dict) -> dict:
-    raw_text = " ".join((story.get("title", ""), story.get("description", ""), story.get("source", ""), story.get("source_url", "")))
+    # Publisher names and domains are provenance, never project or technology
+    # evidence (for example Energy-Storage.News must not manufacture BESS context).
+    raw_text = " ".join((story.get("title", ""), story.get("description", "")))
     text = norm(raw_text)
     tokens = set(text.split())
     source_score, source_tier, official_source, priority_source = source_quality(
@@ -448,8 +487,18 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     name_tokens = project["_name_tokens"]
     name_exact = _contains_normalized_phrase(text, project["_name_norm"])
     title_name_exact = _contains_normalized_phrase(title_text, project["_name_norm"])
-    name_variant_exact = _contains_normalized_phrase(text, project["_name_stem_norm"])
-    title_name_variant_exact = _contains_normalized_phrase(title_text, project["_name_stem_norm"])
+    raw_name_variant_exact = _contains_normalized_phrase(text, project["_name_stem_norm"])
+    raw_title_name_variant_exact = _contains_normalized_phrase(title_text, project["_name_stem_norm"])
+    stem_is_single_token = len(project["_name_stem_tokens"]) == 1
+    padded_text, padded_title = f" {text} ", f" {title_text} "
+    name_variant_exact = bool(
+        raw_name_variant_exact
+        and (not stem_is_single_token or descriptor_adjacent(padded_text, project["_name_stem_norm"]))
+    )
+    title_name_variant_exact = bool(
+        raw_title_name_variant_exact
+        and (not stem_is_single_token or descriptor_adjacent(padded_title, project["_name_stem_norm"]))
+    )
     overlap = len(name_tokens & text_tokens)
     overlap_required = max(2, min(3, len(name_tokens))) if name_tokens else 99
     name_overlap = overlap >= overlap_required
@@ -473,28 +522,28 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
         abs(value - project["capacity_mw"]) <= max(2.0, project["capacity_mw"] * 0.15)
         for value in context["news_capacities_mw"]
     )
+    full_exact_identity = title_name_exact or name_exact
+    if project["_name_stem_foreign_collision"] and not full_exact_identity:
+        return None, "foreign_stem_collision"
     detected_foreign, unexplained_foreign = _foreign_locations(text, project)
     if unexplained_foreign:
         return None, "foreign_location_veto"
     if conflicting_technology:
         return None, "technology_conflict_gate"
-    full_exact_identity = title_name_exact or name_exact
     variant_exact_identity = title_name_variant_exact or name_variant_exact
-    distinctive_exact_identity = (
-        not project["_generic_name"]
-        and (full_exact_identity or variant_exact_identity)
-    )
     specific_event = event(text) != "PROJECT UPDATE"
+    official_consent_bypass = bool(
+        context["official_source"]
+        and (
+            full_exact_identity
+            or (variant_exact_identity and not project["_generic_name"])
+        )
+    )
     technology_inferred = bool(
         not technology_hit
         and (
             (planning_ref_hit and context["official_source"])
-            or (
-                distinctive_exact_identity
-                and context["official_source"]
-                and specific_event
-                and (len(project["_name_tokens"]) >= 2 or corroborating_identity)
-            )
+            or official_consent_bypass
         )
     )
     if not technology_hit and not technology_inferred:
@@ -516,11 +565,14 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     elif full_exact_identity:
         identity_gate = True
     elif variant_exact_identity:
-        stem_is_single_token = len(project["_name_stem_tokens"]) == 1
         identity_gate = (
-            corroborating_identity
+            True
             if stem_is_single_token
-            else (corroborating_identity or context["official_source"])
+            else (
+                corroborating_identity
+                or context["official_source"]
+                or (specific_event and not project["_name_stem_duplicate"])
+            )
         )
     else:
         identity_gate = name_overlap and corroborating_identity
@@ -563,6 +615,15 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
     components["recency"] = 10 if age_days <= 14 else 8 if age_days <= 30 else 5 if age_days <= 90 else 2
     components["source_quality"] = context["source_quality_score"]
     candidate_score = min(100, sum(components.values()))
+    strong_anchor = bool(
+        planning_ref_hit
+        or full_exact_identity
+        or (
+            variant_exact_identity
+            and len(project["_name_stem_tokens"]) >= 2
+            and not project["_name_stem_duplicate"]
+        )
+    )
     evidence = {
         "identity_gate_passed": True, "technology_gate_passed": True,
         "foreign_location_gate_passed": True, "anchors": anchors,
@@ -573,6 +634,12 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
         "distinctive_name_variant_hit": name_variant_exact,
         "distinctive_name_variant_in_headline": title_name_variant_exact,
         "distinctive_name_stem": project["_name_stem_norm"] or None,
+        "strong_identity_anchor": strong_anchor,
+        "single_token_stem_descriptor_adjacent": (
+            descriptor_adjacent(padded_text, project["_name_stem_norm"])
+            if stem_is_single_token else None
+        ),
+        "foreign_stem_collision": project["_name_stem_foreign_collision"],
         "distinctive_name_token_overlap": overlap, "operator_hit": operator_hit,
         "county_hit": county_hit, "region_hit": region_hit,
         "planning_authority_hit": authority_hit, "technology_context_hit": technology_hit,
@@ -592,7 +659,13 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
         else 2 if name_exact or name_variant_exact
         else 1
     )
-    return {"project": project, "score": candidate_score, "evidence": evidence, "anchor_rank": rank}, "accepted_candidate"
+    return {
+        "project": project,
+        "score": candidate_score,
+        "evidence": evidence,
+        "anchor_rank": rank,
+        "strong_anchor": strong_anchor,
+    }, "accepted_candidate"
 
 
 def gate(project: dict, story: dict) -> bool:
@@ -672,7 +745,10 @@ def _resolve_story(story: dict, projects: list[dict]) -> tuple[dict | None, str,
         candidate, reason = evaluate_candidate(project, story, context)
         pair_reasons[reason] += 1
         if candidate is not None: candidates.append(candidate)
-    qualified = [candidate for candidate in candidates if candidate["score"] >= MIN_SCORE]
+    qualified = [
+        candidate for candidate in candidates
+        if candidate["score"] >= (FLOOR_STRONG if candidate["strong_anchor"] else FLOOR_WEAK)
+    ]
     if not qualified:
         reason = "below_confidence_threshold" if candidates else "no_canonical_identity"
         return None, reason, {
@@ -686,7 +762,11 @@ def _resolve_story(story: dict, projects: list[dict]) -> tuple[dict | None, str,
     if runner_up:
         margin = winner["score"] - runner_up["score"]
         planning_exclusive = winner["evidence"]["planning_reference_hit"] and not runner_up["evidence"]["planning_reference_hit"]
-        if margin < AMBIGUITY_MARGIN and not planning_exclusive:
+        same_development = (
+            winner["project"]["gg_development_id"]
+            == runner_up["project"]["gg_development_id"]
+        )
+        if margin < AMBIGUITY_MARGIN and not planning_exclusive and not same_development:
             return None, "ambiguous_primary_match", {
                 "identity_candidates": len(candidates), "qualified_candidates": len(qualified),
                 "top_score": winner["score"], "runner_up_score": runner_up["score"],
@@ -698,8 +778,18 @@ def _resolve_story(story: dict, projects: list[dict]) -> tuple[dict | None, str,
         margin = None
 
     project, evidence = winner["project"], winner["evidence"]
-    evidence.update({"candidate_project_count": len(candidates), "qualified_project_count": len(qualified),
-                     "runner_up_score": runner_up["score"] if runner_up else None, "score_margin": margin})
+    evidence.update({
+        "candidate_project_count": len(candidates),
+        "qualified_project_count": len(qualified),
+        "runner_up_score": runner_up["score"] if runner_up else None,
+        "score_margin": margin,
+        "confidence_floor": FLOOR_STRONG if winner["strong_anchor"] else FLOOR_WEAK,
+        "same_development_runner_up": bool(
+            runner_up
+            and winner["project"]["gg_development_id"]
+            == runner_up["project"]["gg_development_id"]
+        ),
+    })
     capacities = context["news_capacities_mw"]
     item = {
         "gg_article_id": _article_id(story), "project_id": project["repd_ref"],

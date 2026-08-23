@@ -1,7 +1,7 @@
 {
   "schema": "globalgrid2050.v9.release-manifest.v1",
   "version": "9.3",
-  "feature": "proven-v5-v7-1-interface-restored-with-v9-features-preserved",
+  "feature": "proven-v5-v7-1-interface-restored-with-bounded-tablet-overflow-correction-and-v9-features-preserved",
   "status": "LIVE_CANDIDATE",
   "frozen_v9_0_commit": "50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2",
   "frozen_v9_1_commit": "59f74e319fbaad62abdb995107dba5759d7f3ca2",
@@ -23,6 +23,7 @@
   "wind_offshore_count": 109,
   "features": [
     "V5 desktop shell and proven V7.1 mobile correction restored",
+    "bounded 769-920px header correction prevents hidden status clipping while retaining three gauges",
     "all qualifying >=1 MW records loaded by default",
     "multi-token canonical project search and shareable filters",
     "filtered CSV export with header-only zero-result behaviour",

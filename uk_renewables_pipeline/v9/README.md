@@ -21,7 +21,7 @@ The runtime stylesheet order is deliberate:
 
 1. `styles/v7.css` — exact V5-derived visual shell.
 2. `styles/mobile.css` — the proven V7.1 mobile overflow correction.
-3. `styles/v9-3.css` — additive V9 controls and project-record details only.
+3. `styles/v9-3.css` — additive V9 controls, project-record details and one bounded tablet-header correction.
 
 V9.3 does not load `styles/v8.css` or `styles/v9-2.css`.
 
@@ -30,10 +30,14 @@ The visible contract is:
 - exactly three primary gauges;
 - three gauge columns above 768 px;
 - one gauge column at and below 768 px;
-- the header stacks and status text wraps at and below 768 px;
+- the normal desktop header remains a row from 921 px upwards;
+- from 769 to 920 px, only the header stacks and the status text wraps so the longer V9.3 label cannot be clipped beside the 250 px sidebar;
+- at and below 768 px, the proven V7.1 mobile header and wrapping behaviour remains unchanged;
 - an eight-column project table;
 - no forced 1,500 px or 1,850 px table width;
-- mobile overflow checks at 390, 430, 440 and 768 px.
+- contained-layout checks at 769, 800, 900 and 920 px, plus mobile checks at 390, 430, 440 and 768 px.
+
+The 769–920 px rule is not a redesign. A deterministic layout replay found that the longer V9.3 status extended beyond the header between those widths while the document-level overflow remained hidden. The bounded correction changes no gauge, table, project, filter, news, CSV or Atlas behaviour.
 
 V9 features remain inside the familiar layout. REPD Ref, GlobalGrid project ID and official record-update date appear beneath the site name. Planning, lifecycle, relationship and geometry fields remain available through the expandable project record. Atlas, news and copy-ID actions remain in the final column.
 
@@ -104,7 +108,7 @@ The gate:
 - rebuilds the V9.1 data spine and rejects any committed-byte difference;
 - checks every V9 JavaScript file;
 - validates the unchanged 7,680-record universe and all retained V9.2 functions;
-- proves the V5/V7.1 stylesheet and mobile contract.
+- proves the V5/V7.1 styles, the bounded tablet-header correction and the mobile contract.
 
 Browser validation:
 

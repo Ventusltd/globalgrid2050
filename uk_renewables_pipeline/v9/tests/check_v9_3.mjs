@@ -32,11 +32,17 @@ assert.equal(contract.release, "9.3");
 assert.equal(contract.frozen_parent.commit, "77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee");
 assert.equal(contract.frozen_parent.tree, "3807968dbf5c73e4499c6de9157464e3185dd241");
 assert.equal(contract.behaviour_parent.release, "9.2");
-assert.equal(contract.behaviour_parent.behaviour_changed, false);
+assert.equal(contract.behaviour_parent.application_logic_changed, false);
+assert.equal(contract.behaviour_parent.interface_changed, true);
 assert.equal(contract.data_parent.release, "9.1");
 assert.equal(contract.data_parent.data_changed, false);
 assert.equal(parentContract.release, "9.2");
 assert.equal(dataContract.release, "9.1");
+assert.deepEqual(contract.ui_contract.intermediate_header_wrap_range_px, [769, 920]);
+assert.deepEqual(contract.ui_contract.intermediate_test_widths_px, [769, 800, 900, 920]);
+assert.equal(contract.ui_contract.desktop_header_row_from_px, 921);
+assert.equal(contract.ui_contract.intermediate_header_direction, "column");
+assert.equal(contract.ui_contract.intermediate_status_wrap, true);
 
 const frozenV92Blobs = {
   "uk_renewables_pipeline/v9/scripts/core/project-filter-v9-2.js": "dceee01d0f51e85b071aef275250c1fb223eeba7",
@@ -131,16 +137,22 @@ assert.match(html, /scripts\/app-v9-3\.js\?v=9\.3/);
 assert.equal(sha256(mobileCss), "9855b9c11255a85f477873d07cca45b057aedcdc8a6cc4aab2d29a0ffaac9b85");
 assert.match(mobileCss, /flex-direction:\s*column/);
 assert.match(mobileCss, /white-space:\s*normal/);
-assert.equal(additiveCss, parentAdditiveCss);
+const parentCssPrefix = parentAdditiveCss.trimEnd();
+assert.ok(additiveCss.startsWith(parentCssPrefix), "V9.3 additive CSS no longer preserves the complete V9.2 prefix");
+const tabletPatch = additiveCss.slice(parentCssPrefix.length);
+assert.match(tabletPatch, /@media\s*\(min-width:\s*769px\)\s*and\s*\(max-width:\s*920px\)/);
+assert.equal((tabletPatch.match(/\.header\s*\{/g) || []).length, 1);
+assert.equal((tabletPatch.match(/\.status\s*\{/g) || []).length, 1);
+assert.match(tabletPatch, /\.header\s*\{[^}]*align-items:\s*flex-start[^}]*flex-direction:\s*column[^}]*\}/s);
+assert.match(tabletPatch, /\.status\s*\{[^}]*width:\s*100%[^}]*white-space:\s*normal[^}]*\}/s);
 assert.doesNotMatch(additiveCss, /\.gauges\s*\{/);
-assert.doesNotMatch(additiveCss, /\.header\s*\{/);
 assert.doesNotMatch(additiveCss, /min-width:\s*(?:1500|1850)px/);
 
 assert.match(app, /gauges-v9-2\.js/);
 assert.match(app, /newspaper-v9-2\.js/);
 assert.match(app, /projects-v9-3\.js/);
 
-let normalisedV93 = projectsV93
+const normalisedV93 = projectsV93
   .replace('import { loadCanonicalProjectsV9_3 } from "../data/canonical-projects-v9-3.js";', 'import { loadCanonicalProjectsV9_2 } from "../data/canonical-projects-v9-2.js";')
   .replaceAll("atlasUrlV9_3", "atlasUrlV9_2")
   .replaceAll("loadProjectsV9_3", "loadProjectsV9_2")
@@ -160,4 +172,4 @@ assert.equal(packageJson.version, "9.3.0");
 assert.equal(packageJson.scripts.validate, "bash tests/run_v9_3.sh");
 assert.equal(packageJson.scripts["validate:browser"], "V9_BROWSER_SMOKE=1 bash tests/run_v9_3.sh");
 
-console.log("V9.3: PASS (V5/V7.1 UI restored; all V9.2 functions and 7,680-record data retained)");
+console.log("V9.3: PASS (V5/V7.1 UI and bounded tablet header restored; all V9.2 functions and 7,680-record data retained)");

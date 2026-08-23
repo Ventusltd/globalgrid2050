@@ -184,3 +184,18 @@
     width: 100%;
   }
 }
+
+/* The V9.3 status line is longer than V7.1. Preserve the V5 shell and
+   three-gauge layout, but stack only the header where the 250 px sidebar
+   otherwise clips that status between tablet and mobile widths. */
+@media (min-width: 769px) and (max-width: 920px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .status {
+    width: 100%;
+    white-space: normal;
+  }
+}

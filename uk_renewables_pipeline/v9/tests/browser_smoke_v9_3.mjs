@@ -25,6 +25,35 @@ async function preparePage(browser, { chartStub = true } = {}) {
   return { context, page };
 }
 
+async function layoutSnapshot(page) {
+  return page.evaluate(() => {
+    const selectors = [".main", ".header", ".status", ".newspaper", ".tablewrap"];
+    const bounds = Object.fromEntries(selectors.map((selector) => {
+      const rect = document.querySelector(selector).getBoundingClientRect();
+      return [selector, { left: rect.left, right: rect.right }];
+    }));
+    return {
+      bodyDisplay: getComputedStyle(document.body).display,
+      gaugeColumns: getComputedStyle(document.querySelector(".gauges")).gridTemplateColumns.split(" ").length,
+      storyColumns: getComputedStyle(document.querySelector(".stories")).gridTemplateColumns.split(" ").length,
+      headerDirection: getComputedStyle(document.querySelector(".header")).flexDirection,
+      statusWhiteSpace: getComputedStyle(document.querySelector(".status")).whiteSpace,
+      searchWidth: Math.round(document.querySelector("#search").getBoundingClientRect().width),
+      clientWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+      bounds,
+    };
+  });
+}
+
+function assertContained(layout, width, label) {
+  assert.ok(layout.scrollWidth <= layout.clientWidth, `${label} document overflow: ${layout.scrollWidth}px > ${layout.clientWidth}px`);
+  for (const [selector, bounds] of Object.entries(layout.bounds)) {
+    assert.ok(bounds.left >= -0.5, `${label} ${selector} crosses left edge`);
+    assert.ok(bounds.right <= width + 0.5, `${label} ${selector} crosses right edge`);
+  }
+}
+
 const browser = await chromium.launch({ headless: true });
 try {
   const { context, page } = await preparePage(browser);
@@ -39,43 +68,37 @@ try {
   assert.equal(await page.locator("thead th").count(), 8);
   assert.equal(await page.locator("#resultsMeta").getAttribute("data-filtered-count"), "7680");
   assert.equal(await page.locator("#releaseMeta").textContent(), "V9.3 interface · V9.1 canonical data spine · all 7,680 qualifying records loaded");
-  assert.equal(await page.locator(".gauges").evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(" ").length), 3);
 
-  await page.setViewportSize({ width: 900, height: 1000 });
-  assert.equal(await page.locator(".gauges").evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(" ").length), 3);
-  assert.equal(await page.locator(".header").evaluate((element) => getComputedStyle(element).flexDirection), "row");
+  for (const width of [1440, 1000, 921]) {
+    await page.setViewportSize({ width, height: 1000 });
+    const desktop = await layoutSnapshot(page);
+    assert.equal(desktop.bodyDisplay, "flex", `${width}px desktop body layout`);
+    assert.equal(desktop.gaugeColumns, 3, `${width}px desktop gauge columns`);
+    assert.equal(desktop.headerDirection, "row", `${width}px desktop header direction`);
+    assert.equal(desktop.statusWhiteSpace, "nowrap", `${width}px desktop status wrapping`);
+    assertContained(desktop, width, `${width}px desktop`);
+  }
+
+  for (const width of [769, 800, 900, 920]) {
+    await page.setViewportSize({ width, height: 900 });
+    const intermediate = await layoutSnapshot(page);
+    assert.equal(intermediate.bodyDisplay, "flex", `${width}px intermediate body layout`);
+    assert.equal(intermediate.gaugeColumns, 3, `${width}px intermediate gauge columns`);
+    assert.equal(intermediate.headerDirection, "column", `${width}px intermediate header direction`);
+    assert.equal(intermediate.statusWhiteSpace, "normal", `${width}px intermediate status wrapping`);
+    assertContained(intermediate, width, `${width}px intermediate`);
+  }
 
   for (const width of [390, 430, 440, 768]) {
     await page.setViewportSize({ width, height: 844 });
-    const mobile = await page.evaluate(() => {
-      const selectors = [".main", ".header", ".status", ".newspaper", ".tablewrap"];
-      const bounds = Object.fromEntries(selectors.map((selector) => {
-        const rect = document.querySelector(selector).getBoundingClientRect();
-        return [selector, { left: rect.left, right: rect.right }];
-      }));
-      return {
-        bodyDisplay: getComputedStyle(document.body).display,
-        gaugeColumns: getComputedStyle(document.querySelector(".gauges")).gridTemplateColumns.split(" ").length,
-        storyColumns: getComputedStyle(document.querySelector(".stories")).gridTemplateColumns.split(" ").length,
-        headerDirection: getComputedStyle(document.querySelector(".header")).flexDirection,
-        statusWhiteSpace: getComputedStyle(document.querySelector(".status")).whiteSpace,
-        searchWidth: Math.round(document.querySelector("#search").getBoundingClientRect().width),
-        clientWidth: document.documentElement.clientWidth,
-        scrollWidth: document.documentElement.scrollWidth,
-        bounds,
-      };
-    });
-    assert.equal(mobile.bodyDisplay, "block", `${width}px body layout`);
-    assert.equal(mobile.gaugeColumns, 1, `${width}px gauge columns`);
-    assert.equal(mobile.storyColumns, 1, `${width}px story columns`);
-    assert.equal(mobile.headerDirection, "column", `${width}px header direction`);
-    assert.equal(mobile.statusWhiteSpace, "normal", `${width}px status wrapping`);
-    assert.ok(mobile.searchWidth >= width - 50, `${width}px search width`);
-    assert.ok(mobile.scrollWidth <= mobile.clientWidth, `${width}px document overflow: ${mobile.scrollWidth}px > ${mobile.clientWidth}px`);
-    for (const [selector, bounds] of Object.entries(mobile.bounds)) {
-      assert.ok(bounds.left >= -0.5, `${width}px ${selector} crosses left edge`);
-      assert.ok(bounds.right <= width + 0.5, `${width}px ${selector} crosses right edge`);
-    }
+    const mobile = await layoutSnapshot(page);
+    assert.equal(mobile.bodyDisplay, "block", `${width}px mobile body layout`);
+    assert.equal(mobile.gaugeColumns, 1, `${width}px mobile gauge columns`);
+    assert.equal(mobile.storyColumns, 1, `${width}px mobile story columns`);
+    assert.equal(mobile.headerDirection, "column", `${width}px mobile header direction`);
+    assert.equal(mobile.statusWhiteSpace, "normal", `${width}px mobile status wrapping`);
+    assert.ok(mobile.searchWidth >= width - 50, `${width}px mobile search width`);
+    assertContained(mobile, width, `${width}px mobile`);
   }
 
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -154,7 +177,7 @@ try {
   assert.deepEqual(await Promise.all(["#v1", "#v2", "#v3"].map((selector) => chartFailure.page.locator(selector).textContent())), ["356,474.09", "7,680", "4,100"]);
   await chartFailure.context.close();
 
-  console.log("V9.3 browser smoke: PASS (V5/V7.1 mobile, full pipeline, filters, CSV, news isolation and exact wind Atlas URL)");
+  console.log("V9.3 browser smoke: PASS (V5/V7.1 mobile, bounded tablet header, full pipeline, CSV, news isolation and exact wind Atlas URL)");
 } finally {
   await browser.close();
 }

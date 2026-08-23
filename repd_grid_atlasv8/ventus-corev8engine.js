@@ -793,6 +793,61 @@ window.initVentusMap = function({ config, center, zoom }) {
         }, 1900);
     }
 
+    // V9 canonical project deep links. Identity is resolved only by official REPD Ref;
+    // URL names and coordinates are never used to manufacture a match.
+    async function focusCanonicalProjectDeepLink() {
+        const params = new URLSearchParams(window.location.search);
+        const repdRef = String(params.get('repd_ref') || '').trim();
+        if (!/^[A-Za-z0-9-]{1,40}$/.test(repdRef)) return;
+
+        try {
+            const response = await fetch('/uk_renewables_pipeline/v9/data/v7.2/projects.geojson', { cache: 'no-store' });
+            if (!response.ok) throw new Error(`canonical project HTTP ${response.status}`);
+            const payload = await response.json();
+            const feature = Array.isArray(payload.features)
+                ? payload.features.find(item => String(item?.properties?.repd_ref || '') === repdRef)
+                : null;
+            if (!feature || feature?.geometry?.type !== 'Point') throw new Error(`REPD Ref ${repdRef} not found`);
+
+            const p = feature.properties || {};
+            const technology = p.technology === 'bess' ? 'bess' : 'solar';
+            const atlasFeature = {
+                type: 'Feature',
+                geometry: feature.geometry,
+                properties: {
+                    name: p.name,
+                    capacity: p.capacity_mw,
+                    raw_tech: p.repd_technology,
+                    tech: technology,
+                    status: p.status,
+                    operator: p.operator,
+                    repd_ref: p.repd_ref
+                }
+            };
+
+            if (!map.getSource('src-v9-deep-link')) {
+                map.addSource('src-v9-deep-link', { type: 'geojson', data: atlasFeature });
+                map.addLayer({
+                    id: 'l-v9-deep-link', type: 'circle', source: 'src-v9-deep-link',
+                    paint: { 'circle-color': '#00ffff', 'circle-radius': 12, 'circle-stroke-width': 4, 'circle-stroke-color': '#000' }
+                });
+            } else {
+                map.getSource('src-v9-deep-link').setData(atlasFeature);
+            }
+
+            const checkbox = document.querySelector(`input[data-layer-id="${technology}"]`);
+            if (checkbox && !checkbox.checked) { checkbox.checked = true; handleLayerToggle(technology, true); }
+            flyToProject(atlasFeature);
+        } catch (error) {
+            console.error('[V9 DEEP LINK FAILED]', error);
+            const lon = Number(params.get('longitude'));
+            const lat = Number(params.get('latitude'));
+            if (Number.isFinite(lon) && Number.isFinite(lat) && Math.abs(lon) <= 180 && Math.abs(lat) <= 90) {
+                map.flyTo({ center: [lon, lat], zoom: 12, duration: 1800, essential: true });
+            }
+        }
+    }
+
     function searchProjects(query) {
         const resultsEl = document.getElementById('search-results');
         if (!query || query.length < 2) { resultsEl.style.display = 'none'; return; }
@@ -1356,5 +1411,6 @@ window.initVentusMap = function({ config, center, zoom }) {
         });
 
         GRID_CONFIG.forEach(group => { group.layers.forEach(layer => { if (layer.preload) hydrateLayer(layer.id); }); });
+        focusCanonicalProjectDeepLink();
     });
 };

@@ -1,0 +1,19 @@
+{
+  "schema": "globalgrid2050.v9.release-manifest.v1",
+  "version": "9.0",
+  "feature": "interim-filtered-export-repd-date-atlas-link",
+  "status": "LIVE_VALIDATED",
+  "copied_from_v8_tree": "fa7821202a8cb12b35aa9c5858c998090ae52b0e",
+  "legacy_integrity": "contracts/legacy-integrity.v9.json",
+  "project_count": 766,
+  "development_count": 718,
+  "solar_count": 384,
+  "bess_count": 382,
+  "wind_count": 0,
+  "features": [
+    "filtered CSV export",
+    "official REPD record last updated date",
+    "Atlas V8 links with canonical coordinates"
+  ],
+  "atlas_exact_focus_supported": false
+}

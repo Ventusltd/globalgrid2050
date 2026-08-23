@@ -1,0 +1,47 @@
+.gauges {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+table {
+  min-width: 1850px;
+}
+
+.identity {
+  color: #66ccff;
+  white-space: nowrap;
+}
+
+.updated {
+  color: #aef7d1;
+  white-space: nowrap;
+}
+
+.atlaslink {
+  color: #00ffff;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.export-inline {
+  border-color: #00ffff;
+  color: #00ffff;
+}
+
+.export-meta {
+  align-self: center;
+  color: #8d95a3;
+  font-size: 10px;
+}
+
+@media (max-width: 1200px) {
+  .gauges {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .gauges {
+    grid-template-columns: 1fr;
+  }
+}

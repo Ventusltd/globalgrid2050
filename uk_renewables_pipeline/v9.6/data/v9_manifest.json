@@ -1,20 +1,17 @@
 {
   "schema": "globalgrid2050.v9.release-manifest.v1",
-  "version": "9.6",
-  "feature": "v1-style-mobile-layout-horizontal-project-table-and-official-capacity-range",
+  "version": "9.5.1",
+  "feature": "dual-layer-newspaper-with-canonical-repd-signals",
   "status": "LIVE_VALIDATED",
   "promotion_basis": {
-    "candidate_commit": "f9f4e47207a02b70edcf082dc3a6e79dfb3ed6f4",
-    "validated_at": "2026-08-23T23:10:05Z",
+    "candidate_commit": "0e4d43b0c7888f2fb507ee2f98a1796214af5957",
+    "validated_at": "2026-08-23T22:34:13Z",
     "required_contexts": [
-      "globalgrid/v9.6-validation",
+      "globalgrid/v9.5.1-validation",
       "globalgrid/pages-deploy"
     ],
     "candidate_contexts_passed": true
   },
-  "frozen_v9_5_1_commit": "8b2432be75f224562fc1c416dbcc3319e31a47a8",
-  "frozen_v9_5_1_subtree": "6288b9d8196adce57207b549c555c9bcee42587a",
-  "frozen_v9_5_1_tree_listing_sha256": "b6197b79601daab1ee3b1d33fb9356c6c56ec02c69f51be73298be34095d5fe8",
   "frozen_v9_5_commit": "3acd56386d0bf2952f8f26754d615d20a7345e35",
   "frozen_v9_5_subtree": "457d060161c0edaf9a55cc633ee884ebca5fbe43",
   "frozen_v9_4_commit": "d598d9b6b89be4daeb904fafae52dd18ba35d1c1",
@@ -29,7 +26,7 @@
   "legacy_integrity": "contracts/legacy-integrity.v9.json",
   "data_release": "9.1",
   "behaviour_release": "9.2",
-  "presentation_release": "9.6",
+  "presentation_release": "9.5.1",
   "data_changed": false,
   "project_count": 7680,
   "capacity_mw": 356474.09,
@@ -45,7 +42,7 @@
   "features": [
     "V5 desktop shell and proven V7.1 mobile correction restored",
     "V2/V5/V7.1 whole-MW filtered-capacity presentation restored while exact data remains unchanged",
-    "bounded 769-1240px header correction prevents hidden status clipping while retaining three gauges",
+    "bounded 769-1100px header correction prevents hidden status clipping while retaining three gauges",
     "all qualifying >=1 MW records loaded by default",
     "multi-token canonical project search and shareable filters",
     "filtered CSV export with header-only zero-result behaviour",
@@ -57,11 +54,7 @@
     "project NEWS SIGNAL remains indexed only by exact official REPD Ref",
     "Beacon Fen consent binds to Low Carbon REPD 13599 at official 400 MW",
     "segmented name stems, development-scoped duplicates and tiered confidence floors",
-    "single-token and foreign-location adversarial guards with published rejection telemetry",
-    "inclusive minimum and maximum official-capacity MW filters with unbounded blank fields",
-    "mobile retains the V1/V8/V9 interface and the complete projects table scrolls horizontally",
-    "mobile newspaper renders 20 at a time while all 133 headlines remain loaded and filterable",
-    "compact three-metric mobile summary, 44px touch targets and restored mobile navigation"
+    "single-token and foreign-location adversarial guards with published rejection telemetry"
   ],
   "atlas_exact_focus_supported": true
 }

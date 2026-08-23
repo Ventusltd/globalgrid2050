@@ -1,39 +1,150 @@
-# GlobalGrid2050 UK Renewables Pipeline V9.6
+# GlobalGrid2050 UK Renewables Pipeline V9.5.1
 
-V9.6 is a separate application copied from the validated V9.5.1 release. V9.5.1 remains frozen at commit `8b2432be75f224562fc1c416dbcc3319e31a47a8`, subtree `6288b9d8196adce57207b549c555c9bcee42587a`, listing SHA-256 `b6197b79601daab1ee3b1d33fb9356c6c56ec02c69f51be73298be34095d5fe8`.
+## Current release
 
-## Scope
+V9.5.1 is a separate app copied from frozen V9.5. It repairs the newspaper-volume regression without weakening canonical project signals: `ALL` preserves all 125 V9.4 baseline headlines and adds eight V6 discoveries, while `RELEVANT` and the project table use exact `repd_ref` `PRIMARY_MATCH` binding.
 
-V9.6 changes only project filtering and project-table overflow on mobile:
+The default page loads all 7,680 qualifying solar, battery, onshore-wind and offshore-wind records at 1 MW and above. Technology, status, county and search controls filter that complete universe; they never redefine or truncate the pipeline.
 
-- optional inclusive minimum and maximum filters use the official REPD `capacity_mw` value;
-- a blank minimum or maximum leaves that side of the range unbounded;
-- filter state is shareable through `min_mw` and `max_mw` URL parameters;
-- all 7,680 qualifying records remain loaded, searched, sorted, measured and exported;
-- desktop and mobile render every matching project and headline;
-- mobile retains the established V1/V8/V9 layout, gauges, newspaper, controls, typography and density;
-- the complete 11-column projects table uses touch-enabled horizontal scrolling on mobile;
-- no mobile card conversion, hidden project columns or compact gauge redesign is applied.
+V9.5.1 changes the news presentation and deterministic feed union only. It does not rebuild the V9.1 data spine or change search, CSV, official identity, capacity, dates or Atlas algorithms.
 
-## Retained contracts
+- V9.5 frozen app: `../v9.5/`, commit `3acd56386d0bf2952f8f26754d615d20a7345e35`, subtree `457d060161c0edaf9a55cc633ee884ebca5fbe43`.
 
-- Canonical project universe: 7,680 records, 356,474.09 MW, 7,652 valid geometries and 28 retained missing geometries.
-- Newspaper: 133 `ALL`, 45 `RELEVANT`, exact-REPD project signals only.
-- Beacon Fen: Low Carbon Limited solar REPD `13599`, official 400 MW; related BESS REPD `13600` cannot inherit the signal.
-- Default project order: official capacity descending.
-- REPD Updated sorting: newest then oldest, with missing dates last.
-- V1–V9.5.1 remain immutable regression baselines.
+- V9.4 frozen app: `../v9.4/`, commit `d598d9b6b89be4daeb904fafae52dd18ba35d1c1`, subtree `dfcd9b457854fc07d4af3df5797f29e2e3d12426`.
 
-## Validation
+- V9.3.1 frozen app: `../v9/`, commit `9e0c51281fc816691a75e4255483a0851122481e`, subtree `64f318b1dced6c202c5ff3517ef120828fdd2064`.
+
+- V9.3 frozen checkpoint: commit `eee4cf7d854bf44235c249d337c2aad3916bcdc0`.
+
+- V9.2 frozen checkpoint: commit `77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee`, tree `3807968dbf5c73e4499c6de9157464e3185dd241`.
+- V9.1 frozen checkpoint: commit `59f74e319fbaad62abdb995107dba5759d7f3ca2`, tree `e9dc244b74d9c983e4557a23bd2b745c1daeb105`.
+- V9.0 frozen baseline: commit `50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2`, tree `60b72b3665e6b65a397541b221c4bca75aa402c9`.
+- Earlier V1–V8 integrity markers remain pinned by `contracts/legacy-integrity.v9.json`.
+
+See `docs/releases/9.5.md`, `contracts/release.v9.5.json`, `contracts/release.v9.4.json` and `contracts/release.v9.1.json`.
+
+## Retained V9.4 interface contract
+
+The runtime stylesheet order is deliberate:
+
+1. `styles/v7.css` — exact V5-derived visual shell.
+2. `styles/mobile.css` — the proven V7.1 mobile overflow correction.
+3. `styles/v9-3.css` — the frozen V9.3.1 additive controls and bounded tablet-header correction.
+4. `styles/v9-4.css` — only the clickable REPD Updated header presentation.
+
+V9.5 does not load `styles/v8.css` or `styles/v9-2.css`.
+
+The visible contract is:
+
+- exactly three primary gauges;
+- the filtered-capacity gauge and filtered results summary use the original V2/V5/V7.1 whole-MW display with no decimal places;
+- three gauge columns above 768 px;
+- one gauge column at and below 768 px;
+- the normal desktop header remains a row from 921 px upwards;
+- from 769 to 1,100 px, only the header stacks and the status text wraps so the V9.5.1 release counts cannot be clipped beside the 250 px sidebar;
+- at and below 768 px, the proven V7.1 mobile header and wrapping behaviour remains unchanged;
+- an eleven-column desktop project table, adding REPD Ref, GlobalGrid Ref and REPD Updated;
+- mobile retains the same three facts beneath the site name;
+- sort controls preserve the canonical capacity order by default and optionally order official REPD update dates newest or oldest;
+- missing official update dates remain `not supplied by REPD` and sort after dated records;
+- first header click selects newest first (`▼`); second selects oldest first (`▲`);
+- the clickable header, retained sort selector, `aria-sort` state and shareable URL remain synchronised;
+- no forced 1,500 px or 1,850 px table width;
+- contained-layout checks at 769, 800, 900 and 920 px, plus mobile checks at 390, 430, 440 and 768 px.
+
+The 769–920 px rule is not a redesign. It changes no gauge count, project, filter, news, CSV or Atlas decision.
+
+### Whole-MW presentation
+
+V2, V5 and the proven V7.1 release displayed filtered capacity with `maximumFractionDigits: 0`. V9.5 retains the V9.4 presentation on desktop and mobile:
+
+- canonical `356,474.09 MW` displays as `356,474` in the primary gauge and results summary;
+- offshore-wind `80,535.4 MW` displays as `80,535`;
+- the underlying canonical value is not rounded or rewritten;
+- exact capacity remains in the V9.1 data partitions, project table, filtered CSV, Atlas URL and manifests.
+
+The presentation adapter is `scripts/plugins/capacity-presentation-v9-3.js`. It observes only the capacity text outputs and cannot change the canonical model or filtering decisions.
+
+V9 features remain inside the familiar layout. REPD Ref, GlobalGrid project ID and official record-update date are explicit desktop columns and appear beneath the site name on mobile. Planning, lifecycle, relationship and geometry fields remain available through the expandable project record. Atlas, news and copy-ID actions remain in the final column.
+
+## Complete pipeline
+
+The canonical universe remains unchanged:
+
+- 7,680 official REPD records;
+- 356,474.09 MW exact record-based capacity;
+- 4,100 MW largest single record;
+- 3,563 solar records;
+- 1,609 BESS records;
+- 2,399 onshore-wind records;
+- 109 offshore-wind records;
+- 7,652 valid map geometries;
+- 28 missing geometries retained in search and CSV.
+
+V9.5 reuses the V9.1 project partitions and validates their counts, capacity, identities, technologies and geometry coverage before exposing them.
+
+## Search, filters and engagement
+
+V9.5 retains V9.4's normalised multi-token AND search across project name, operator, REPD Ref, GlobalGrid IDs, planning references, geography, status, dates and relationship references.
+
+It retains:
+
+- optional shareable URL filter state;
+- results count and filtered-capacity summary;
+- clear filters;
+- copy project ID;
+- expandable canonical project record;
+- explicit `NO MAP` for missing geometry.
+
+No URL parameters means the complete 7,680-record universe. V9.5 retains the V9.4 filter and date-sort contract unchanged.
+
+## Filtered CSV contract
+
+- The export contains the current filtered rows only.
+- A zero-result filter produces the CSV header only.
+- Filename: `globalgrid2050_uk_renewables_pipeline_v9_5_YYYY-MM-DD.csv`.
+- UTF-8 BOM is retained for Excel compatibility.
+- Canonical identity, exact official status/capacity, official update date, relationships, coordinates, provenance, canonical news-match note and Atlas URL are included.
+- Spreadsheet-formula injection remains neutralised.
+
+## REPD date and Atlas contracts
+
+`repd_record_updated` remains an official REPD field. The table displays it as `dd/mm/yyyy`; CSV retains the canonical ISO date. The sort control uses only that canonical field. Missing dates remain missing, display as `not supplied by REPD`, sort after dated records in both directions and are never replaced with the current date or a news date.
+
+Valid geometries create exact Atlas V8 links containing the canonical REPD Ref, project name, technology, exact capacity, latitude, longitude and zoom. The Atlas bridge resolves exact identity before flying to the point and opening the popup. Records without geometry remain searchable and exportable and display `NO MAP`; V9.5 never invents coordinates or identity.
+
+## News discipline
+
+V9.5.1 separates discovery from assertion. `ALL` exposes 133 deduplicated headlines, including every one of V9.4's 125 stories. `RELEVANT` exposes 45 canonical articles: 37 V5 stories revalidated by the V9.5 matcher plus eight existing V6 `PRIMARY_MATCH` records. Discovery-only stories can never drive a project signal.
+
+Beacon Fen's confirmed GOV.UK consent headline is restored as a 91% canonical match to Low Carbon's 400 MW solar record, REPD `13599`. The related 600 MW battery record, REPD `13600`, is context only and cannot inherit that signal.
+
+The Claude-informed matcher uses segmented public name stems, development-scoped duplicate counts, strong/weak confidence floors of 52/68, narrow official-source technology inference, single-token descriptor adjacency and foreign-location collision guards. The focused gate currently accepts 12/13 positives (92.3%) and rejects 9/9 hostile negatives. Pair-rejection reasons and bounded rejected-article samples remain published in telemetry.
+
+No headline score may overwrite an official REPD identity, status, capacity or date. Event labels remain algorithmic and unverified.
+
+## Validation and publication proof
+
+Run:
 
 ```bash
-bash uk_renewables_pipeline/v9.6/tests/run_v9_6.sh
+bash uk_renewables_pipeline/v9.5.1/tests/run_v9_5_1.sh
 ```
+
+The gate:
+
+- confirms the frozen V9.5 and V9.4 app subtrees;
+- verifies V1–V8 integrity markers;
+- rebuilds the V9.1 data spine and rejects any committed-byte difference;
+- checks every V9 JavaScript file;
+- validates the unchanged 7,680-record universe and all retained V9.4 features;
+- proves canonical REPD Ref news binding, focused recall/hostile-negative gates, the date-sort interaction and the retained responsive layout.
 
 Browser validation:
 
 ```bash
-V9_BROWSER_SMOKE=1 bash uk_renewables_pipeline/v9.6/tests/run_v9_6.sh
+cd uk_renewables_pipeline/v9.5
+V9_BROWSER_SMOKE=1 bash tests/run_v9_5_1.sh
 ```
 
-The browser gate checks 390, 430, 440 and 768 px mobile layouts, V1-style single-column gauges, full table headers/rows, horizontal project-table scrolling, capacity ranges, URL state, date sorting, CSV completeness, all 133/45 headline counts and Beacon Fen's exact binding.
+The read-only workflow `.github/workflows/v9-5-validate.yml` runs the same gate against exact committed bytes. `.github/workflows/deploy-pages.yml` deploys the exact SHA and then runs the same Playwright browser proof against `https://globalgrid2050.com/uk_renewables_pipeline/v9.5/`.

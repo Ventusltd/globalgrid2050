@@ -3,24 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GlobalGrid2050 | UK Renewables Pipeline V9.6</title>
-  <link rel="stylesheet" href="styles/v7.css?v=9.6-v1-mobile">
-  <link rel="stylesheet" href="styles/mobile.css?v=9.6-v1-mobile">
-  <link rel="stylesheet" href="styles/v9-3.css?v=9.6-v1-mobile">
-  <link rel="stylesheet" href="styles/v9-4.css?v=9.6-v1-mobile">
-  <link rel="stylesheet" href="styles/v9-5-1.css?v=9.6-v1-mobile">
-  <link rel="stylesheet" href="styles/v9-6.css?v=9.6-v1-mobile">
+  <title>GlobalGrid2050 | UK Renewables Pipeline V9.5.1</title>
+  <link rel="stylesheet" href="styles/v7.css?v=9.5.1">
+  <link rel="stylesheet" href="styles/mobile.css?v=9.5.1">
+  <link rel="stylesheet" href="styles/v9-3.css?v=9.5.1">
+  <link rel="stylesheet" href="styles/v9-4.css?v=9.5.1">
+  <link rel="stylesheet" href="styles/v9-5-1.css?v=9.5.1">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <aside class="sidebar">
     <div class="brand">
       <b>GLOBALGRID2050</b>
-      <small>UK RENEWABLES PIPELINE · V9.6</small>
+      <small>UK RENEWABLES PIPELINE · V9.5.1</small>
     </div>
     <nav class="nav">
-      <a class="active" href="#">V9.6 LIVE</a>
-      <a href="../v9.5.1/">V9.5.1 FROZEN APP</a>
+      <a class="active" href="#">V9.5.1 LIVE</a>
       <a href="../v9.5/">V9.5 FROZEN APP</a>
       <a href="../v9.4/">V9.4 FROZEN APP</a>
       <a href="../v9/">V9.3.1 FROZEN APP</a>
@@ -39,34 +37,24 @@
       <a href="../../repd_grid_atlasv8/">MAP ATLAS</a>
       <a href="#" id="export">EXPORT CSV</a>
     </nav>
-    <details class="mobile-nav">
-      <summary>MENU</summary>
-      <div class="mobile-nav-links">
-        <a href="#newspaper">NEWS</a>
-        <a href="#pipeline">PROJECTS</a>
-        <a href="../../index.html">DIRECTORY</a>
-        <a href="../../repd_grid_atlasv8/">MAP ATLAS</a>
-        <a href="#" id="exportMobile">EXPORT CSV</a>
-      </div>
-    </details>
   </aside>
   <main class="main">
     <div class="header">
-      <h1>UK RENEWABLES PIPELINE V9.6</h1>
-      <div class="status">● V1 UI · HORIZONTAL PROJECT SCROLL · FULL ≥1 MW</div>
+      <h1>UK RENEWABLES PIPELINE V9.5.1</h1>
+      <div class="status">● 133 HEADLINES · 45 REPD-BOUND · FULL ≥1 MW</div>
     </div>
     <div class="meta">
-      <strong>V9.6 · 23 August 2026</strong>
+      <strong>V9.5.1 · 23 August 2026</strong>
       <span>Canonical DESNZ REPD Q2 2026: 7,680 solar, BESS and wind records at ≥1 MW.</span>
       <span id="releaseMeta" class="release-meta">Loading canonical release contract…</span>
       <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
     </div>
 
-    <section class="newspaper" id="newspaper">
+    <section class="newspaper">
       <div class="masthead">
         <h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2>
         <div class="strap">
-          <span>V9.6 V1-style edition · all V9.5.1 headlines retained · RELEVANT and project signals require exact REPD binding</span>
+          <span>V9.5.1 dual-layer edition · ALL preserves V9.4 volume · RELEVANT and project signals require exact REPD binding</span>
           <span id="newsMeta">loading daily edition…</span>
         </div>
       </div>
@@ -86,13 +74,9 @@
           <div class="news-empty">Loading today’s major-project newspaper…</div>
         </div>
       </div>
-      <div class="progressive-controls news-progressive">
-        <span id="newsRenderMeta">Loading all headlines…</span>
-        <button class="btn" id="loadMoreNews" type="button" hidden>LOAD 20 MORE</button>
-      </div>
     </section>
 
-    <h2 class="section-title" id="pipeline">REPD PIPELINE ANALYTICS</h2>
+    <h2 class="section-title">REPD PIPELINE ANALYTICS</h2>
     <div class="gauges">
       <div class="card">
         <h3>FILTERED CAPACITY (MW)</h3>
@@ -122,19 +106,6 @@
       <button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
       <button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
     </div>
-    <div class="filters capacity-controls" aria-labelledby="capacityTitle">
-      <strong id="capacityTitle">OFFICIAL CAPACITY RANGE (MW)</strong>
-      <label class="capacity-field" for="minCapacity">
-        <span>MINIMUM MW</span>
-        <input id="minCapacity" class="capacity-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 100" autocomplete="off">
-      </label>
-      <span class="capacity-separator" aria-hidden="true">TO</span>
-      <label class="capacity-field" for="maxCapacity">
-        <span>MAXIMUM MW</span>
-        <input id="maxCapacity" class="capacity-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 500" autocomplete="off">
-      </label>
-      <span id="capacityMeta" class="capacity-meta" aria-live="polite">All official capacities</span>
-    </div>
     <div class="filters">
       <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
       <select id="sortProjects" aria-label="Sort projects">
@@ -142,7 +113,6 @@
         <option value="updated_desc">SORT: REPD UPDATED — NEWEST</option>
         <option value="updated_asc">SORT: REPD UPDATED — OLDEST</option>
       </select>
-      <button class="btn mobile-sort-updated" id="mobileSortUpdated" type="button">SORT REPD UPDATED ↕</button>
       <input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
       <button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
       <button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
@@ -155,7 +125,7 @@
       <span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>
       <span><b>ATLAS:</b> valid geometry resolves the exact REPD Ref. Missing geometry remains in search and CSV and is labelled NO MAP.</span>
     </div>
-    <div class="tablewrap" aria-describedby="projectRenderMeta">
+    <div class="tablewrap">
       <table>
         <thead>
           <tr>
@@ -179,12 +149,8 @@
         <tbody id="tbody"></tbody>
       </table>
     </div>
-    <div class="progressive-controls project-progressive">
-      <span id="projectRenderMeta" aria-live="polite">Loading all qualifying records…</span>
-      <button class="btn" id="loadMoreProjects" type="button" hidden>LOAD 50 MORE</button>
-    </div>
   </main>
-  <script type="module" src="scripts/app-v9-6.js?v=9.6-v1-mobile"></script>
-  <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.6-v1-mobile"></script>
+  <script type="module" src="scripts/app-v9-5-1.js?v=9.5.1"></script>
+  <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.5.1"></script>
 </body>
 </html>

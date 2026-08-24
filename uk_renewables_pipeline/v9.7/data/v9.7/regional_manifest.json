@@ -1,0 +1,115 @@
+{
+  "schema": "globalgrid2050.regional-news-manifest.v9.7",
+  "release": "9.7",
+  "snapshot_at": "2026-08-24",
+  "classifier_version": "v9.7.0",
+  "source_adapter": {
+    "id": "bootstrap-v9-5-1-discovery-snapshot",
+    "enabled": true,
+    "kind": "committed-json-snapshot",
+    "input": "dist/major_project_news_v9_5_1.json",
+    "input_collection": "all_items",
+    "role": "bootstrap-only",
+    "independent_of_repd_signals": true,
+    "notes": "Initial auditable migration source. V9.7 strips inherited UK project metadata and never writes regional decisions back to REPD signals."
+  },
+  "modules": [
+    {
+      "id": "source.committed-json.v9.7",
+      "role": "source-adapter",
+      "path": "scripts/news/adapters/committed-json-v9-7.mjs"
+    },
+    {
+      "id": "rule.technology.v9.7",
+      "role": "technology-evidence",
+      "path": "scripts/news/rules/technology-v9-7.mjs"
+    },
+    {
+      "id": "rule.geography.v9.7",
+      "role": "geography-evidence",
+      "path": "scripts/news/rules/geography-v9-7.mjs"
+    },
+    {
+      "id": "rule.uk-veto.v9.7",
+      "role": "uk-and-project-veto",
+      "path": "scripts/news/rules/uk-veto-v9-7.mjs"
+    },
+    {
+      "id": "classifier.regional.v9.7",
+      "role": "decision-orchestrator",
+      "path": "scripts/news/classifier-v9-7.mjs"
+    },
+    {
+      "id": "ledger.regional.v9.7",
+      "role": "normalise-ledger-telemetry",
+      "path": "scripts/news/ledger-v9-7.mjs"
+    },
+    {
+      "id": "writer.regional.v9.7",
+      "role": "deterministic-static-artifact-writer",
+      "path": "scripts/build/regional-news-v9-7.mjs"
+    }
+  ],
+  "telemetry": {
+    "input_count": 133,
+    "accepted_count": 19,
+    "by_decision": {
+      "ABSTAIN_NO_EXPLICIT_GEOGRAPHY": 9,
+      "ABSTAIN_NO_TECHNOLOGY": 8,
+      "ABSTAIN_NO_UTILITY_CONTEXT": 4,
+      "ACCEPT_REGIONAL": 19,
+      "REJECT_UK_EVIDENCE": 48,
+      "UK_CANONICAL": 45
+    },
+    "by_region": {
+      "US": 4,
+      "EUROPE": 9,
+      "INTERNATIONAL_OTHER": 6
+    },
+    "source_count": 31,
+    "sources": [
+      "BBC",
+      "Business Wire",
+      "Construction Review",
+      "Crediton Courier",
+      "Doncaster Free Press",
+      "Energies Media",
+      "Energy Global",
+      "Energy-Storage.News",
+      "GOV.UK",
+      "Gedling Eye",
+      "InYourArea",
+      "Meath Chronicle",
+      "Mercom Capital Group",
+      "PV Tech",
+      "Punchline-Gloucester.com",
+      "Renewables Now",
+      "Solar Power Portal",
+      "SolarQuarter",
+      "Solarbytes",
+      "Swindon Advertiser",
+      "The York Press",
+      "Vattenfall",
+      "Watson Farley & Williams",
+      "Yahoo News UK",
+      "citybiz",
+      "energy-pedia.com",
+      "libertyglobal.com",
+      "megaproject.com",
+      "pv magazine Global",
+      "reNEWS",
+      "theenergyst.com"
+    ],
+    "earliest_published": "2025-08-24",
+    "latest_published": "2026-08-21",
+    "invalid_url_count": 0,
+    "last_known_good": true
+  },
+  "hashes": {
+    "source_contract_sha256": "8d5391277adffa2a831f5106eb918ef9d23baf014bf3d2b65155878a03c87503",
+    "module_registry_sha256": "a4f2b9a1bb91a517874c8cd84f81eeeb1fa3715cf220f6dee5c07bdbcbcc9109",
+    "input_sha256": "cea104c3e9cfc07971680afdf5f64073e1d4825b63bfaf4e969266df8386ebbd",
+    "regional_news_sha256": "905237ddcbc71761f21d8c78961931676ac0c585030d29af95c75c7772254a99",
+    "decision_ledger_sha256": "66f9e8803c6d0d0e847950dc5002a2df3b1f1ac0451de0f76a931256ddcc7409"
+  }
+}

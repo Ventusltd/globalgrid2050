@@ -3,23 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GlobalGrid2050 | UK Renewables Pipeline V9.6 — DISCONTINUED</title>
-  <link rel="stylesheet" href="styles/v7.css?v=9.6-clean">
-  <link rel="stylesheet" href="styles/mobile.css?v=9.6-clean">
-  <link rel="stylesheet" href="styles/v9-3.css?v=9.6-clean">
-  <link rel="stylesheet" href="styles/v9-4.css?v=9.6-clean">
-  <link rel="stylesheet" href="styles/v9-5-1.css?v=9.6-clean">
-  <link rel="stylesheet" href="styles/v9-6.css?v=9.6-clean">
+  <title>GlobalGrid2050 | UK Renewables Pipeline V9.6.1</title>
+  <link rel="stylesheet" href="styles/v7.css?v=9.6.1">
+  <link rel="stylesheet" href="styles/mobile.css?v=9.6.1">
+  <link rel="stylesheet" href="styles/v9-3.css?v=9.6.1">
+  <link rel="stylesheet" href="styles/v9-4.css?v=9.6.1">
+  <link rel="stylesheet" href="styles/v9-5-1.css?v=9.6.1">
+  <link rel="stylesheet" href="styles/v9-6-1.css?v=9.6.1">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <aside class="sidebar">
     <div class="brand">
       <b>GLOBALGRID2050</b>
-      <small>UK RENEWABLES PIPELINE · V9.6</small>
+      <small>UK RENEWABLES PIPELINE · V9.6.1</small>
     </div>
     <nav class="nav">
-      <a class="active" href="#">V9.6 DISCONTINUED</a>
+      <a class="active" href="#">V9.6.1 CANDIDATE</a>
+      <a href="../v9.6/">V9.6 DISCONTINUED</a>
       <a href="../v9.5.1/">V9.5.1 FROZEN APP</a>
       <a href="../v9.5/">V9.5 FROZEN APP</a>
       <a href="../v9.4/">V9.4 FROZEN APP</a>
@@ -41,17 +42,12 @@
     </nav>
   </aside>
   <main class="main">
-    <div class="meta" role="status" style="border-color:#ff3333;color:#fff">
-      <strong style="color:#ff6666">V9.6 DISCONTINUED · 24 AUGUST 2026</strong>
-      <span>This release is retained for history only and must not be used.</span>
-      <a href="../v9.6.1/">OPEN V9.6.1 — FROZEN V9.5.1 BASELINE WITH MOBILE REPAIR</a>
-    </div>
     <div class="header">
-      <h1>UK RENEWABLES PIPELINE V9.6 · DISCONTINUED</h1>
+      <h1>UK RENEWABLES PIPELINE V9.6.1</h1>
       <div class="status">● 133 HEADLINES · 45 REPD-BOUND · FULL ≥1 MW</div>
     </div>
     <div class="meta">
-      <strong>V9.6 · CLEAN REBUILD FROM V9.5.1 · 23 August 2026</strong>
+      <strong>V9.6.1 · V9.5.1 RUNTIME + MOBILE TABLE SCROLL ONLY · 24 August 2026</strong>
       <span>Canonical DESNZ REPD Q2 2026: 7,680 solar, BESS and wind records at ≥1 MW.</span>
       <span id="releaseMeta" class="release-meta">Loading canonical release contract…</span>
       <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
@@ -61,7 +57,7 @@
       <div class="masthead">
         <h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2>
         <div class="strap">
-          <span>V9.6 clean V9.5.1 clone · ALL preserves V9.4 volume · RELEVANT and project signals require exact REPD binding</span>
+          <span>V9.6.1 mobile-only edition · ALL preserves V9.4 volume · RELEVANT and project signals require exact REPD binding</span>
           <span id="newsMeta">loading daily edition…</span>
         </div>
       </div>
@@ -113,14 +109,6 @@
       <button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
       <button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
     </div>
-    <div class="filters capacity-controls" aria-labelledby="capacityTitle">
-      <strong id="capacityTitle">OFFICIAL CAPACITY RANGE (MW)</strong>
-      <label for="minCapacity">MIN MW</label>
-      <input id="minCapacity" class="capacity-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 100" autocomplete="off">
-      <label for="maxCapacity">MAX MW</label>
-      <input id="maxCapacity" class="capacity-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 500" autocomplete="off">
-      <span id="capacityMeta" class="capacity-meta" aria-live="polite">All official capacities</span>
-    </div>
     <div class="filters">
       <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
       <select id="sortProjects" aria-label="Sort projects">
@@ -165,7 +153,7 @@
       </table>
     </div>
   </main>
-  <script type="module" src="scripts/app-v9-6.js?v=9.6-clean"></script>
-  <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.6-clean"></script>
+  <script type="module" src="scripts/app-v9-5-1.js?v=9.6.1"></script>
+  <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.6.1"></script>
 </body>
 </html>

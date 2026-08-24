@@ -12,6 +12,12 @@ build-time regional-news pipeline. It publishes three separate committed
 artifacts: sanitized accepted articles, a decision ledger covering every input
 headline, and a manifest containing source health and content hashes.
 
+The intelligence stages are independent registered modules under
+`scripts/news/`: source adapter, technology evidence, geography evidence, UK
+veto, decision classifier and ledger/telemetry. The file writer only composes
+those modules. New intelligence modules can therefore be added without editing
+the project application or weakening existing evidence gates.
+
 The project application is unchanged: 7,680 records, 356,474.09 MW, project
 filters, gauges, table, CSV, Atlas links and the repaired horizontal mobile
 table are inherited byte-for-byte. UK news remains the 45 canonical REPD

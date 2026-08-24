@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { classifyRegionalV9_7 } from "../scripts/build/regional-news-v9-7.mjs";
+import { classifyRegionalV9_7 } from "../scripts/news/classifier-v9-7.mjs";
 
 const base = new URL("../", import.meta.url);
 const root = new URL("../../../", import.meta.url);
@@ -21,9 +21,10 @@ assert.equal(
   "the validated V9.6.2 parent subtree changed",
 );
 
-const [contract, sourceContract, html, packageJson, feed, regionalText, ledgerText, manifest] = await Promise.all([
+const [contract, sourceContract, moduleRegistry, html, packageJson, feed, regionalText, ledgerText, manifest] = await Promise.all([
   json(new URL("contracts/release.v9.7.json", base)),
   json(new URL("contracts/regional-news-sources.v9.7.json", base)),
+  json(new URL("contracts/news-module-registry.v9.7.json", base)),
   text(new URL("index.html", base)),
   json(new URL("package.json", base)),
   json(new URL("dist/major_project_news_v9_5_1.json", root)),
@@ -45,6 +46,12 @@ assert.equal(contract.runtime.regional_project_signal_eligible, false);
 assert.equal(packageJson.version, "9.7.0");
 assert.equal(sourceContract.adapters.filter((adapter) => adapter.enabled).length, 1);
 assert.equal(sourceContract.adapters[0].independent_of_repd_signals, true);
+assert.equal(moduleRegistry.modules.length, 7);
+assert.equal(new Set(moduleRegistry.modules.map((item) => item.role)).size, 7);
+assert.equal(contract.regional_pipeline.modules_are_independently_extensible, true);
+for (const item of moduleRegistry.modules) {
+  await readFile(new URL(item.path, base), "utf8");
+}
 
 assert.match(html, /UK RENEWABLES PIPELINE V9\.7/);
 assert.match(html, /V9\.7 CANDIDATE/);
@@ -65,6 +72,7 @@ assert.deepEqual(manifest.telemetry.by_region, { US: 4, EUROPE: 9, INTERNATIONAL
 assert.equal(manifest.telemetry.by_decision.UK_CANONICAL, 45);
 assert.equal(manifest.telemetry.accepted_count, 19);
 assert.equal(manifest.telemetry.last_known_good, true);
+assert.deepEqual(manifest.modules, moduleRegistry.modules);
 assert.equal(manifest.hashes.regional_news_sha256, hash(regionalText));
 assert.equal(manifest.hashes.decision_ledger_sha256, hash(ledgerText));
 
@@ -99,8 +107,11 @@ assert.equal(classifyRegionalV9_7({
 }).decision, "UK_CANONICAL");
 
 const runtime = await text(new URL("scripts/plugins/newspaper-v9-7.js", base));
+const writer = await text(new URL("scripts/build/regional-news-v9-7.mjs", base));
 assert.match(runtime, /data\/v9\.7\/regional_news\.json/);
 assert.doesNotMatch(runtime, /classifyRegional|classifyInternational|news-regions-v9-6-2/);
 assert.match(runtime, /project_signal_eligible === false/);
+assert.doesNotMatch(writer, /const (?:SOLAR|BESS|UK|LOCATION_RULES|UTILITY_CONTEXT)/);
+assert.match(writer, /buildRegionalArtifactsV9_7/);
 
 console.log("V9.7 static gate: PASS (133 ledger decisions; 19 sanitized regional articles; 45 UK frozen)");

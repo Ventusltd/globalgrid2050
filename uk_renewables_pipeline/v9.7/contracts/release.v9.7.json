@@ -33,6 +33,8 @@
     "beacon_fen_repd_ref": "13599"
   },
   "regional_pipeline": {
+    "module_registry": "contracts/news-module-registry.v9.7.json",
+    "modules_are_independently_extensible": true,
     "classification_stage": "build-time",
     "default_decision": "ABSTAIN",
     "decision_ledger_published": true,

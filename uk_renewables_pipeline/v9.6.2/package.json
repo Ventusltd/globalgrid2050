@@ -1,0 +1,14 @@
+{
+  "name": "globalgrid2050-uk-renewables-v9-6-2",
+  "private": true,
+  "version": "9.6.2",
+  "type": "module",
+  "devDependencies": {
+    "playwright": "1.62.1"
+  },
+  "scripts": {
+    "validate": "bash tests/run_v9_6_2.sh",
+    "validate:browser": "V9_BROWSER_SMOKE=1 bash tests/run_v9_6_2.sh",
+    "validate:lineage": "python3 tests/check_legacy_integrity_v9.py"
+  }
+}

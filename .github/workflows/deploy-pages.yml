@@ -92,7 +92,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  verify_v9_6_1_live:
+  verify_v9_6_2_live:
     runs-on: ubuntu-latest
     needs: [build, deploy]
     timeout-minutes: 8
@@ -107,35 +107,35 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: uk_renewables_pipeline/v9.6.1/package-lock.json
+          cache-dependency-path: uk_renewables_pipeline/v9.6.2/package-lock.json
       - name: Install pinned browser harness
-        working-directory: uk_renewables_pipeline/v9.6.1
+        working-directory: uk_renewables_pipeline/v9.6.2
         run: |
           npm ci
           npx playwright install --with-deps chromium
-      - name: Wait for deployed V9.6.1 bytes
+      - name: Wait for deployed V9.6.2 bytes
         env:
           TARGET_SHA: ${{ needs.build.outputs.deployed_sha }}
         run: |
-          live="https://globalgrid2050.com/uk_renewables_pipeline/v9.6.1/?deployment=${TARGET_SHA}"
+          live="https://globalgrid2050.com/uk_renewables_pipeline/v9.6.2/?deployment=${TARGET_SHA}"
           for _ in {1..30}; do
-            if curl --fail --silent --show-error --location --max-time 20 "$live" | grep -q 'UK RENEWABLES PIPELINE V9.6.1'; then
+            if curl --fail --silent --show-error --location --max-time 20 "$live" | grep -q 'UK RENEWABLES PIPELINE V9.6.2'; then
               exit 0
             fi
             sleep 2
           done
-          echo "Deployed V9.6.1 HTML did not become observable" >&2
+          echo "Deployed V9.6.2 HTML did not become observable" >&2
           exit 1
-      - name: Run live V9.6.1 browser proof
+      - name: Run live V9.6.2 browser proof
         env:
           TARGET_SHA: ${{ needs.build.outputs.deployed_sha }}
-          V9_BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/v9.6.1/?deployment=${{ needs.build.outputs.deployed_sha }}
-        run: node uk_renewables_pipeline/v9.6.1/tests/browser_smoke_v9_6_1.mjs
+          V9_BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/v9.6.2/?deployment=${{ needs.build.outputs.deployed_sha }}
+        run: node uk_renewables_pipeline/v9.6.2/tests/browser_smoke_v9_6_2.mjs
 
   report:
     if: always()
     runs-on: ubuntu-latest
-    needs: [build, deploy, verify_v9_6_1_live]
+    needs: [build, deploy, verify_v9_6_2_live]
     steps:
       - name: Publish Pages deployment result
         env:
@@ -143,11 +143,11 @@ jobs:
           TARGET_SHA: ${{ needs.build.outputs.deployed_sha || github.sha }}
           BUILD_RESULT: ${{ needs.build.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
-          LIVE_RESULT: ${{ needs.verify_v9_6_1_live.result }}
+          LIVE_RESULT: ${{ needs.verify_v9_6_2_live.result }}
         run: |
           if [[ "$BUILD_RESULT" == "success" && "$DEPLOY_RESULT" == "success" && "$LIVE_RESULT" == "success" ]]; then
             state=success
-            description='Pages deployment and live V9.6.1 browser proof passed'
+            description='Pages deployment and live V9.6.2 browser proof passed'
           elif [[ "$BUILD_RESULT" == "cancelled" || "$DEPLOY_RESULT" == "cancelled" || "$LIVE_RESULT" == "cancelled" ]]; then
             state=error
             description='GlobalGrid2050 Pages verification cancelled'

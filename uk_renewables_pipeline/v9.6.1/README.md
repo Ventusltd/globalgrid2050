@@ -1,5 +1,7 @@
 # GlobalGrid2050 UK Renewables Pipeline V9.6.1
 
+**Status: LIVE VALIDATED · 24 August 2026**
+
 ## Scope lock
 
 V9.6.1 is a separate application copied from the validated V9.5.1 release. It

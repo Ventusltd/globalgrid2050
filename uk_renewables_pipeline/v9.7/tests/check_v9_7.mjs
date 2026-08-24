@@ -34,6 +34,7 @@ const [contract, sourceContract, moduleRegistry, html, packageJson, feed, region
 ]);
 const regional = JSON.parse(regionalText);
 const ledger = JSON.parse(ledgerText);
+const moduleRegistryText = await text(new URL("contracts/news-module-registry.v9.7.json", base));
 
 assert.equal(contract.release, "9.7");
 assert.equal(contract.status, "CANDIDATE");
@@ -48,6 +49,8 @@ assert.equal(sourceContract.adapters.filter((adapter) => adapter.enabled).length
 assert.equal(sourceContract.adapters[0].independent_of_repd_signals, true);
 assert.equal(moduleRegistry.modules.length, 7);
 assert.equal(new Set(moduleRegistry.modules.map((item) => item.role)).size, 7);
+assert.equal(new Set(moduleRegistry.modules.map((item) => item.id)).size, moduleRegistry.modules.length);
+assert.equal(new Set(moduleRegistry.modules.map((item) => item.path)).size, moduleRegistry.modules.length);
 assert.equal(contract.regional_pipeline.modules_are_independently_extensible, true);
 for (const item of moduleRegistry.modules) {
   await readFile(new URL(item.path, base), "utf8");
@@ -73,6 +76,7 @@ assert.equal(manifest.telemetry.by_decision.UK_CANONICAL, 45);
 assert.equal(manifest.telemetry.accepted_count, 19);
 assert.equal(manifest.telemetry.last_known_good, true);
 assert.deepEqual(manifest.modules, moduleRegistry.modules);
+assert.equal(manifest.hashes.module_registry_sha256, hash(moduleRegistryText));
 assert.equal(manifest.hashes.regional_news_sha256, hash(regionalText));
 assert.equal(manifest.hashes.decision_ledger_sha256, hash(ledgerText));
 

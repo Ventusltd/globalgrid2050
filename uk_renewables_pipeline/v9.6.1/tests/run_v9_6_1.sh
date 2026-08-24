@@ -14,7 +14,9 @@ diff -qr -x __pycache__ -x '*.pyc' "$V951/scripts" "$V961/scripts"
 diff -qr -x __pycache__ -x '*.pyc' "$V951/fixtures" "$V961/fixtures"
 
 # Re-run the complete frozen-parent data, news, identity and static suite.
-bash "$V951/tests/run_v9_5_1.sh"
+# Do not leak V9.6.1's browser flag into the frozen parent: Playwright is
+# installed in the V9.6.1 package and its browser proof below covers both apps.
+V9_BROWSER_SMOKE=0 bash "$V951/tests/run_v9_5_1.sh"
 
 # Run the stricter allowed-delta gate against the V9.6.1 clone. The complete
 # inherited runtime behaviour is exercised by the browser proof below.

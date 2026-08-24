@@ -1,0 +1,12 @@
+/* V9.6.1 changes the mobile projects viewport only. The inherited V9.5.1
+   table width, rows, columns, typography and all non-mobile layout remain. */
+@media (max-width: 768px) {
+  .tablewrap {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+  }
+
+  .tablewrap .hide-mobile {
+    display: table-cell;
+  }
+}

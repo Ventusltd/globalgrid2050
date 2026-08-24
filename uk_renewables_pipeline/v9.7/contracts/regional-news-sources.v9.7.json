@@ -1,0 +1,24 @@
+{
+  "schema": "globalgrid2050.regional-news-sources.v9.7",
+  "release": "9.7",
+  "snapshot_at": "2026-08-24",
+  "adapters": [
+    {
+      "id": "bootstrap-v9-5-1-discovery-snapshot",
+      "enabled": true,
+      "kind": "committed-json-snapshot",
+      "input": "dist/major_project_news_v9_5_1.json",
+      "input_collection": "all_items",
+      "role": "bootstrap-only",
+      "independent_of_repd_signals": true,
+      "notes": "Initial auditable migration source. V9.7 strips inherited UK project metadata and never writes regional decisions back to REPD signals."
+    }
+  ],
+  "adapter_contract": {
+    "required_article_fields": ["headline", "url", "source", "published"],
+    "normalized_fields": ["article_id", "headline", "url", "source", "published", "technology", "country", "region"],
+    "future_adapter_rule": "New regional sources must land as immutable input snapshots and pass the same build-time ledger gate before UI use.",
+    "last_known_good_required": true,
+    "regional_project_signal_allowed": false
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Status
 
-Candidate release dated 24 August 2026. V9.6.1 is the frozen working parent.
+Live validated release dated 24 August 2026. V9.6.1 is the frozen working parent.
 V9.6 remains discontinued.
 
 ## One-feature scope

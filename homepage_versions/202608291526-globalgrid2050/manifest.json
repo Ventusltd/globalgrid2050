@@ -1,0 +1,63 @@
+{
+  "atlas": {
+    "data_release_id": "202608291237-data-gridatlas",
+    "generation": "202608291239",
+    "golden_deep_link": "https://ventusltd.github.io/gridatlas/202608291239-atlas-v9/?repd_ref=16135",
+    "golden_repd_ref": "16135",
+    "live_url": "https://ventusltd.github.io/gridatlas/202608291239-atlas-v9/",
+    "pointer_path": "releases/current-v3.json",
+    "pointer_sha256": "29628a9ba376b24a72248fac7e9333e0487a33e86ad50d309a7b868932fea4d6",
+    "publication_commit": "1898184ccbf52ca836cf1482362fc5933baf3e8d",
+    "release_id": "202608291239-atlas-v9",
+    "release_manifest_path": "202608291239-atlas-v9/release-manifest.json",
+    "release_manifest_sha256": "7c903a395e14e880bd76bd6e8a11fc68aafc2418bd351467d3538cefe3da90cc",
+    "repository": "Ventusltd/gridatlas",
+    "resolved_commit": "936a31f703d31bd975af22d7349708d68a143d56",
+    "route": "/gridatlas/202608291239-atlas-v9/",
+    "source_commit": "ac00b9f326187a1e3bfabb5b45397210850c6052",
+    "state_mirror_path": "state/live-set.json"
+  },
+  "catalogue": {
+    "entry": {
+      "name": "UK Grid Atlas V9 — 202608291239",
+      "note": "LIVE VERIFIED · immutable timestamped release · official REPD address/postcode search · repd_ref deep links · V8 preserved",
+      "url": "https://ventusltd.github.io/gridatlas/202608291239-atlas-v9/"
+    },
+    "public_snapshot_url": "https://globalgrid2050.com/homepage_versions/202608291526-globalgrid2050/",
+    "root_index_path": "index.html",
+    "root_index_sha256_at_release": "ffe21151adf5a117712c39f4167444d546b7e049c2ba0ce361e27465ab245f52",
+    "snapshot_index_path": "homepage_versions/202608291526-globalgrid2050/index.html",
+    "snapshot_index_sha256": "30764a5203968cbfb0d6870e9afd533f5cf70017f37e535118d975e9dbe1c033"
+  },
+  "classification": "IMMUTABLE_CATALOGUE_RELEASE",
+  "control_generation": "202608291504",
+  "created_at": "2026-08-29T14:26:50Z",
+  "generation": "202608291526",
+  "immutable": true,
+  "incepted_at": "2026-08-29T15:26:50+01:00",
+  "predecessor": null,
+  "preservation": {
+    "v8_entry": "{ name:\"UK Energy Atlas Grid Overlay V8\", url:\"./repd_grid_atlasv8/\" },",
+    "v8_entry_count": 1,
+    "v8_public_url": "https://globalgrid2050.com/repd_grid_atlasv8/",
+    "v8_untouched": true
+  },
+  "public_verification": {
+    "required_urls": [
+      "https://globalgrid2050.com/",
+      "https://globalgrid2050.com/homepage_versions/202608291526-globalgrid2050/",
+      "https://globalgrid2050.com/repd_grid_atlasv8/",
+      "https://ventusltd.github.io/gridatlas/202608291239-atlas-v9/",
+      "https://ventusltd.github.io/gridatlas/202608291239-atlas-v9/?repd_ref=16135"
+    ],
+    "status": "REQUIRED_AFTER_PAGES_DEPLOYMENT"
+  },
+  "release_id": "202608291526-globalgrid2050",
+  "schema": "globalgrid2050.homepage-catalogue-release.v1",
+  "source": {
+    "base_commit": "a9f50776d5a6613e9bf7567650db77f68c03d2f1",
+    "parent_root_index_sha256": "adda8467fd170e6aec1eea5ea011a9d1a1aa5f61c835f5e2f888e261cf7433dc",
+    "repository": "Ventusltd/globalgrid2050",
+    "root_index_path": "index.html"
+  }
+}

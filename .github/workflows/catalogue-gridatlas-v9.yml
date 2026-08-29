@@ -1,0 +1,407 @@
+name: Catalogue verified Grid Atlas V9
+run-name: Catalogue current verified Grid Atlas V9 into GlobalGrid2050
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/catalogue_gridatlas_v9.py
+      - .github/workflows/catalogue-gridatlas-v9.yml
+  workflow_dispatch:
+    inputs:
+      expected_gridatlas_release_id:
+        description: Optional fail-closed expected current release ID
+        required: false
+        default: ''
+        type: string
+
+# Permissions are granted per job. The publisher intentionally uses the default
+# GITHUB_TOKEN: its push cannot recursively start the legacy push workflows.
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  CONTROL_GENERATION: '202608291504'
+  GRIDATLAS_REPOSITORY: Ventusltd/gridatlas
+  GRIDATLAS_POINTER_PATH: releases/current-v3.json
+  GRIDATLAS_STATE_PATH: state/live-set.json
+  PRODUCTION_BASE_URL: https://globalgrid2050.com
+
+jobs:
+  catalogue:
+    name: Resolve, compile and commit bounded catalogue release
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    outputs:
+      commit_sha: ${{ steps.publish.outputs.commit_sha }}
+      changed: ${{ steps.publish.outputs.changed }}
+      catalogue_release_id: ${{ steps.publish.outputs.catalogue_release_id }}
+      catalogue_manifest_path: ${{ steps.publish.outputs.catalogue_manifest_path }}
+      public_snapshot_url: ${{ steps.publish.outputs.public_snapshot_url }}
+      atlas_release_id: ${{ steps.publish.outputs.atlas_release_id }}
+      atlas_live_url: ${{ steps.publish.outputs.atlas_live_url }}
+      atlas_golden_deep_link: ${{ steps.publish.outputs.atlas_golden_deep_link }}
+      atlas_release_manifest_sha256: ${{ steps.publish.outputs.atlas_release_manifest_sha256 }}
+      gridatlas_commit: ${{ steps.publish.outputs.gridatlas_commit }}
+    steps:
+      - name: Checkout current GlobalGrid main with default GITHUB_TOKEN
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Resolve and pin the current verified Grid Atlas pointer
+        id: upstream
+        env:
+          EXPECTED_RELEASE_ID: ${{ inputs.expected_gridatlas_release_id || '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$RUNNER_TEMP/gridatlas-evidence"
+          mkdir -p "$evidence"
+
+          gridatlas_commit="$(timeout 30 git ls-remote "https://github.com/${GRIDATLAS_REPOSITORY}.git" refs/heads/main | awk 'NR == 1 { print $1 }')"
+          [[ "$gridatlas_commit" =~ ^[0-9a-f]{40}$ ]]
+          raw_base="https://raw.githubusercontent.com/${GRIDATLAS_REPOSITORY}/${gridatlas_commit}"
+
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${raw_base}/${GRIDATLAS_POINTER_PATH}" -o "$evidence/current-v3.json"
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${raw_base}/${GRIDATLAS_STATE_PATH}" -o "$evidence/live-set.json"
+          cmp "$evidence/current-v3.json" "$evidence/live-set.json"
+
+          atlas_release_id="$(jq -er '.current.release_id' "$evidence/current-v3.json")"
+          [[ "$atlas_release_id" =~ ^[0-9]{12}-atlas-v9$ ]]
+          [[ "$(jq -er '.current.route' "$evidence/current-v3.json")" == "/gridatlas/${atlas_release_id}/" ]]
+          [[ "$(jq -er '.current.live_url' "$evidence/current-v3.json")" == "https://ventusltd.github.io/gridatlas/${atlas_release_id}/" ]]
+          if [[ -n "$EXPECTED_RELEASE_ID" && "$atlas_release_id" != "$EXPECTED_RELEASE_ID" ]]; then
+            echo "Current Grid Atlas release ${atlas_release_id} does not equal expected ${EXPECTED_RELEASE_ID}" >&2
+            exit 1
+          fi
+
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${raw_base}/${atlas_release_id}/release-manifest.json" \
+            -o "$evidence/release-manifest.json"
+
+          echo "gridatlas_commit=$gridatlas_commit" >> "$GITHUB_OUTPUT"
+          echo "pointer_json=$evidence/current-v3.json" >> "$GITHUB_OUTPUT"
+          echo "release_manifest=$evidence/release-manifest.json" >> "$GITHUB_OUTPUT"
+
+      - name: Compile sentinel-only timestamped homepage release
+        id: compile
+        env:
+          GRIDATLAS_COMMIT: ${{ steps.upstream.outputs.gridatlas_commit }}
+          POINTER_JSON: ${{ steps.upstream.outputs.pointer_json }}
+          RELEASE_MANIFEST: ${{ steps.upstream.outputs.release_manifest }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          base_commit="$(git rev-parse HEAD)"
+          [[ "$base_commit" =~ ^[0-9a-f]{40}$ ]]
+          epoch="$(date +%s)"
+          catalogue_generation="$(TZ=Europe/London date --date="@${epoch}" +%Y%m%d%H%M)"
+          incepted_at="$(TZ=Europe/London date --date="@${epoch}" --iso-8601=seconds)"
+          created_at="$(date --utc --date="@${epoch}" +%Y-%m-%dT%H:%M:%SZ)"
+          result="$RUNNER_TEMP/catalogue-result.json"
+
+          python3 scripts/catalogue_gridatlas_v9.py apply \
+            --root . \
+            --pointer-json "$POINTER_JSON" \
+            --release-manifest "$RELEASE_MANIFEST" \
+            --gridatlas-commit "$GRIDATLAS_COMMIT" \
+            --base-commit "$base_commit" \
+            --catalogue-generation "$catalogue_generation" \
+            --incepted-at "$incepted_at" \
+            --created-at "$created_at" \
+            --result-json "$result"
+
+          manifest_path="$(jq -er '.catalogue_manifest_path' "$result")"
+          python3 scripts/catalogue_gridatlas_v9.py verify \
+            --root . \
+            --catalogue-manifest "$manifest_path" \
+            --pointer-json "$POINTER_JSON" \
+            --release-manifest "$RELEASE_MANIFEST" \
+            --gridatlas-commit "$GRIDATLAS_COMMIT"
+
+          echo "base_commit=$base_commit" >> "$GITHUB_OUTPUT"
+          echo "result_json=$result" >> "$GITHUB_OUTPUT"
+          echo "incepted_at=$incepted_at" >> "$GITHUB_OUTPUT"
+
+      - name: Assert exact three-output boundary or clean idempotent readback
+        env:
+          RESULT_JSON: ${{ steps.compile.outputs.result_json }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          jq -r '.changed_paths[]?' "$RESULT_JSON" | LC_ALL=C sort > "$RUNNER_TEMP/expected-paths.txt"
+          git status --porcelain=v1 --untracked-files=all | cut -c4- | LC_ALL=C sort > "$RUNNER_TEMP/actual-paths.txt"
+          diff -u "$RUNNER_TEMP/expected-paths.txt" "$RUNNER_TEMP/actual-paths.txt"
+
+          changed="$(jq -r '.changed | tostring' "$RESULT_JSON")"
+          if [[ "$changed" == "true" ]]; then
+            [[ "$(wc -l < "$RUNNER_TEMP/actual-paths.txt")" -le 3 ]]
+            while IFS= read -r path; do
+              [[ "$path" == 'index.html' \
+                || "$path" =~ ^homepage_versions/[0-9]{12}-globalgrid2050/(index\.html|manifest\.json)$ ]]
+            done < "$RUNNER_TEMP/actual-paths.txt"
+          else
+            [[ ! -s "$RUNNER_TEMP/actual-paths.txt" ]]
+          fi
+
+      - name: Commit with default token and refuse a moved main branch
+        id: publish
+        env:
+          RESULT_JSON: ${{ steps.compile.outputs.result_json }}
+          BASE_COMMIT: ${{ steps.compile.outputs.base_commit }}
+          INCEPTED_AT: ${{ steps.compile.outputs.incepted_at }}
+          GRIDATLAS_COMMIT: ${{ steps.upstream.outputs.gridatlas_commit }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main
+          [[ "$(git rev-parse origin/main)" == "$BASE_COMMIT" ]] || {
+            echo "GlobalGrid main moved after compilation; refusing to overwrite it" >&2
+            exit 1
+          }
+
+          changed="$(jq -r '.changed | tostring' "$RESULT_JSON")"
+          if [[ "$changed" == "true" ]]; then
+            while IFS= read -r path; do
+              [[ -n "$path" ]] && git add -- "$path"
+            done < <(jq -r '.changed_paths[]' "$RESULT_JSON")
+            git diff --cached --check
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            atlas_release_id="$(jq -r '.atlas_release_id' "$RESULT_JSON")"
+            catalogue_release_id="$(jq -r '.release_id' "$RESULT_JSON")"
+            GIT_AUTHOR_DATE="$INCEPTED_AT" GIT_COMMITTER_DATE="$INCEPTED_AT" \
+              git commit -m "${CONTROL_GENERATION}: catalogue ${atlas_release_id} via ${catalogue_release_id}"
+            git push origin HEAD:main
+            commit_sha="$(git rev-parse HEAD)"
+          else
+            commit_sha="$BASE_COMMIT"
+          fi
+          [[ -z "$(git status --porcelain)" ]]
+
+          echo "commit_sha=$commit_sha" >> "$GITHUB_OUTPUT"
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          echo "catalogue_release_id=$(jq -r '.release_id' "$RESULT_JSON")" >> "$GITHUB_OUTPUT"
+          echo "catalogue_manifest_path=$(jq -r '.catalogue_manifest_path' "$RESULT_JSON")" >> "$GITHUB_OUTPUT"
+          echo "public_snapshot_url=$(jq -r '.public_snapshot_url' "$RESULT_JSON")" >> "$GITHUB_OUTPUT"
+          echo "atlas_release_id=$(jq -r '.atlas_release_id' "$RESULT_JSON")" >> "$GITHUB_OUTPUT"
+          echo "atlas_live_url=$(jq -r '.atlas_live_url' "$RESULT_JSON")" >> "$GITHUB_OUTPUT"
+          echo "atlas_golden_deep_link=$(jq -r '.atlas_golden_deep_link' "$RESULT_JSON")" >> "$GITHUB_OUTPUT"
+          echo "atlas_release_manifest_sha256=$(jq -r '.atlas_release_manifest_sha256' "$RESULT_JSON")" >> "$GITHUB_OUTPUT"
+          echo "gridatlas_commit=$GRIDATLAS_COMMIT" >> "$GITHUB_OUTPUT"
+
+      - name: Upload compiler evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gridatlas-catalogue-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/catalogue-result.json
+            ${{ runner.temp }}/gridatlas-evidence/current-v3.json
+            ${{ runner.temp }}/gridatlas-evidence/live-set.json
+            ${{ runner.temp }}/gridatlas-evidence/release-manifest.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  build:
+    name: Build exact committed GlobalGrid Pages bytes
+    needs: catalogue
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout exact catalogue commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.catalogue.outputs.commit_sha }}
+          fetch-depth: 1
+      - name: Confirm exact source commit
+        shell: bash
+        run: test "$(git rev-parse HEAD)" = "${{ needs.catalogue.outputs.commit_sha }}"
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    name: Deploy exact GlobalGrid Pages artifact
+    needs: [catalogue, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Refuse to deploy an artifact behind current main
+        env:
+          TARGET_SHA: ${{ needs.catalogue.outputs.commit_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          current_main="$(timeout 30 git ls-remote "https://github.com/${GITHUB_REPOSITORY}.git" refs/heads/main | awk 'NR == 1 { print $1 }')"
+          [[ "$current_main" == "$TARGET_SHA" ]] || {
+            echo "GlobalGrid main moved to ${current_main}; refusing stale Pages deployment ${TARGET_SHA}" >&2
+            exit 1
+          }
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  verify:
+    name: Verify root, timestamped catalogue, V8 and immutable V9 publicly
+    needs: [catalogue, build, deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout deployed commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.catalogue.outputs.commit_sha }}
+          fetch-depth: 1
+
+      - name: Verify public catalogue and linked releases
+        env:
+          COMMIT_SHA: ${{ needs.catalogue.outputs.commit_sha }}
+          CATALOGUE_MANIFEST_PATH: ${{ needs.catalogue.outputs.catalogue_manifest_path }}
+          PUBLIC_SNAPSHOT_URL: ${{ needs.catalogue.outputs.public_snapshot_url }}
+          ATLAS_LIVE_URL: ${{ needs.catalogue.outputs.atlas_live_url }}
+          ATLAS_GOLDEN_DEEP_LINK: ${{ needs.catalogue.outputs.atlas_golden_deep_link }}
+          ATLAS_RELEASE_MANIFEST_SHA256: ${{ needs.catalogue.outputs.atlas_release_manifest_sha256 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          current_main="$(timeout 30 git ls-remote "https://github.com/${GITHUB_REPOSITORY}.git" refs/heads/main | awk 'NR == 1 { print $1 }')"
+          [[ "$current_main" == "$COMMIT_SHA" ]] || {
+            echo "GlobalGrid main moved to ${current_main}; refusing to attest stale Pages bytes ${COMMIT_SHA}" >&2
+            exit 1
+          }
+          proof="$RUNNER_TEMP/public-proof"
+          mkdir -p "$proof"
+          root_url="${PRODUCTION_BASE_URL}/?deployment=${COMMIT_SHA}"
+
+          observed=false
+          for _ in {1..60}; do
+            if curl --fail --silent --show-error --location --max-time 30 \
+                 -H 'Cache-Control: no-cache' "$root_url" -o "$proof/root.html" \
+              && grep -Fq './repd_grid_atlasv8/' "$proof/root.html" \
+              && grep -Fq "$ATLAS_LIVE_URL" "$proof/root.html"; then
+              observed=true
+              break
+            fi
+            sleep 5
+          done
+          [[ "$observed" == "true" ]] || {
+            echo "New GlobalGrid root catalogue bytes did not become public" >&2
+            exit 1
+          }
+          cmp index.html "$proof/root.html"
+
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${PUBLIC_SNAPSHOT_URL}?deployment=${COMMIT_SHA}" -o "$proof/snapshot.html"
+          grep -Fq '<base href="https://globalgrid2050.com/">' "$proof/snapshot.html"
+          grep -Fq './repd_grid_atlasv8/' "$proof/snapshot.html"
+          grep -Fq "$ATLAS_LIVE_URL" "$proof/snapshot.html"
+          snapshot_index_path="$(jq -er '.catalogue.snapshot_index_path' "$CATALOGUE_MANIFEST_PATH")"
+          cmp "$snapshot_index_path" "$proof/snapshot.html"
+
+          snapshot_manifest_url="${PUBLIC_SNAPSHOT_URL}manifest.json?deployment=${COMMIT_SHA}"
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "$snapshot_manifest_url" -o "$proof/catalogue-manifest.json"
+          cmp "$CATALOGUE_MANIFEST_PATH" "$proof/catalogue-manifest.json"
+
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${PRODUCTION_BASE_URL}/repd_grid_atlasv8/?deployment=${COMMIT_SHA}" -o "$proof/v8.html"
+          grep -Fq 'UK Region v8' "$proof/v8.html"
+
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${ATLAS_LIVE_URL}?deployment=${COMMIT_SHA}" -o "$proof/atlas.html"
+          grep -Fq 'GRID ATLAS V9' "$proof/atlas.html"
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${ATLAS_GOLDEN_DEEP_LINK}&deployment=${COMMIT_SHA}" -o "$proof/atlas-golden.html"
+          grep -Fq 'GRID ATLAS V9' "$proof/atlas-golden.html"
+
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "${ATLAS_LIVE_URL}release-manifest.json?deployment=${COMMIT_SHA}" \
+            -o "$proof/atlas-release-manifest.json"
+          echo "${ATLAS_RELEASE_MANIFEST_SHA256}  $proof/atlas-release-manifest.json" | sha256sum --check --strict
+
+          final_main="$(timeout 30 git ls-remote "https://github.com/${GITHUB_REPOSITORY}.git" refs/heads/main | awk 'NR == 1 { print $1 }')"
+          [[ "$final_main" == "$COMMIT_SHA" ]] || {
+            echo "GlobalGrid main moved to ${final_main} during public proof; refusing stale success" >&2
+            exit 1
+          }
+
+      - name: Upload public readback evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gridatlas-catalogue-public-proof-${{ github.run_id }}
+          path: ${{ runner.temp }}/public-proof/
+          if-no-files-found: warn
+          retention-days: 90
+
+  report:
+    name: Publish exact-commit catalogue status
+    if: always()
+    needs: [catalogue, build, deploy, verify]
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      statuses: write
+    steps:
+      - name: Publish status
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: ${{ needs.catalogue.outputs.commit_sha || github.sha }}
+          CATALOGUE_RESULT: ${{ needs.catalogue.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          VERIFY_RESULT: ${{ needs.verify.result }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$CATALOGUE_RESULT" == "success" && "$BUILD_RESULT" == "success" \
+             && "$DEPLOY_RESULT" == "success" && "$VERIFY_RESULT" == "success" ]]; then
+            state=success
+            description='Grid Atlas V9 catalogued, deployed and publicly verified'
+          else
+            state=failure
+            description='Grid Atlas V9 catalogue, deployment or public proof failed'
+          fi
+          gh api --method POST \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "repos/${GITHUB_REPOSITORY}/statuses/${TARGET_SHA}" \
+            -f state="$state" \
+            -f context='globalgrid/gridatlas-v9-catalogue' \
+            -f description="$description" \
+            -f target_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"

@@ -64,7 +64,7 @@ jobs:
           grep -Fq 'url:"https://ventusltd.github.io/gridatlas/"' index.html
           test "$(grep -Fo './202608300453-atlas-v9/' index.html | wc -l)" = 0
           git diff --check
-          changed="$(git status --short | awk '{print $2}' | sort)"
+          changed="$(git status --short --untracked-files=all | awk '{print $2}' | sort)"
           expected="$(printf '%s\n%s\n' "$target" index.html | sort)"
           test "$changed" = "$expected"
 

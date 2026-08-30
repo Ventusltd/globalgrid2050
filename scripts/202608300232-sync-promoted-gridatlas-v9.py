@@ -133,6 +133,74 @@ def update_homepage(homepage: Path, release_id: str) -> None:
     homepage.write_text(updated, encoding="utf-8", newline="\n")
 
 
+_legacy_update_homepage = update_homepage
+
+
+def _semantic_v8_catalogue_update(homepage: Path, release_id: str) -> None:
+    original = homepage.read_text(encoding="utf-8")
+    if V8_ANCHOR.search(original):
+        _legacy_update_homepage(homepage, release_id)
+        return
+
+    generated = re.compile(
+        rf"(?is)\s*/\*\s*{re.escape(START)}\s*\*/.*?/\*\s*{re.escape(END)}\s*\*/\s*"
+    )
+    without_old = generated.sub("\n", original)
+    without_old = re.sub(
+        rf"(?is)\s*{re.escape(START)}.*?{re.escape(END)}\s*",
+        "\n",
+        without_old,
+    )
+
+    current_row = re.compile(
+        r'(?m)^[ \t]*\{[^\n]*name\s*:\s*(["\'])UK Grid Atlas V9 — Current Verified Release\1[^\n]*\},?\s*$'
+    )
+    without_old = current_row.sub("", without_old)
+
+    v8_row = re.compile(
+        r'(?m)^(?P<indent>[ \t]*)\{[^\n]*url\s*:\s*(["\'])[^"\']*repd_grid_atlasv8/?\2[^\n]*\},?\s*$'
+    )
+    match = v8_row.search(without_old)
+    require(match is not None, "Atlas V8 homepage catalogue row not found")
+    indent = match.group("indent")
+    generation = release_id.split("-", 1)[0]
+    block = (
+        f"\n{indent}/* {START} */\n"
+        f'{indent}{{ name:"UK Grid Atlas V9 — Current Verified Release", '
+        f'url:"./{release_id}/", '
+        f'note:"CURRENT VERIFIED · {release_id} · actual 400 kV render gates · desktop/mobile · canonical repd_ref deep links · V8 and immutable prior V9 releases preserved", '
+        f'data_gridatlas_release:"{release_id}" }}, /* data-gridatlas-release="{release_id}" */\n'
+        f"{indent}/* {END} */"
+    )
+    updated = without_old[: match.end()] + block + without_old[match.end() :]
+
+    current_link = re.compile(
+        r'(<a\s+href=)(["\'])[^"\']+\2(>UK Grid Atlas V9 — Current Verified Release</a>)'
+    )
+    updated = current_link.sub(
+        lambda item: f'{item.group(1)}{item.group(2)}./{release_id}/{item.group(2)}{item.group(3)}',
+        updated,
+    )
+    current_strip = re.compile(
+        r'(<div class="os-strip"><a[^>]*>UK Grid Atlas V9 — Current Verified Release</a><span class="live-status">).*?(</span></div>)'
+    )
+    updated = current_strip.sub(
+        lambda item: f"{item.group(1)}{generation} · verified live{item.group(2)}",
+        updated,
+        count=1,
+    )
+
+    require(updated.count(START) == 1 and updated.count(END) == 1, "V9 catalogue marker closure mismatch")
+    require(
+        updated.find("repd_grid_atlasv8") < updated.find(f'data-gridatlas-release="{release_id}"'),
+        "V8/V9 catalogue order is wrong",
+    )
+    require(f'url:"./{release_id}/"' in updated, "V9 homepage route missing")
+    homepage.write_text(updated, encoding="utf-8", newline="\n")
+
+
+update_homepage = _semantic_v8_catalogue_update
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--gridatlas", required=True, type=Path)

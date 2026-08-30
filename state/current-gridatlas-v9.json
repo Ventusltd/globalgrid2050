@@ -1,17 +1,21 @@
 {
-  "classification": "VERIFIED_GRIDATLAS_V9_CATALOGUED",
-  "generation": "202608292311",
+  "classification": "CANONICAL_GRIDATLAS_V9_POINTER_NO_MIRROR",
+  "generation": "202608300453",
   "homepage_path": "index.html",
-  "live_url": "https://ventusltd.github.io/gridatlas/202608292311-atlas-v9/",
+  "legacy_globalgrid_url": "https://globalgrid2050.com/202608300453-atlas-v9/",
+  "legacy_route_behaviour": "REDIRECT_TO_CANONICAL",
+  "live_url": "https://ventusltd.github.io/gridatlas/",
   "ordering": [
     "UK Energy Atlas Grid Overlay V8",
-    "UK Grid Atlas V9 \u2014 202608291239",
-    "UK Grid Atlas V9 \u2014 Current Verified Release",
+    "UK Grid Atlas V9 — 202608291239",
+    "UK Grid Atlas V9 — Current Verified Release",
     "UK Macro Energy Consumption Trends ONS"
   ],
-  "publication_commit": "0597f4654a675e575690a6eab43f3c17707ef613",
-  "release_id": "202608292311-atlas-v9",
-  "rollback": "preserve existing immutable Atlas catalogue entries",
-  "schema": "globalgrid2050.gridatlas-catalogue-pointer.v1",
+  "publication_commit": "bf16a713b9e5d926822efe80c681c017cc4edcee",
+  "release_id": "202608300453-atlas-v9",
+  "resolved_release_url": "https://ventusltd.github.io/gridatlas/202608300453-atlas-v9/",
+  "rollback": "preserve existing immutable releases in the GridAtlas repository",
+  "schema": "globalgrid2050.gridatlas-catalogue-pointer.v2",
+  "source_repository": "Ventusltd/gridatlas",
   "source_state_url": "https://ventusltd.github.io/gridatlas/state/live-set.json"
 }

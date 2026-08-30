@@ -1,31 +1,12 @@
-name: 202608301115 Dispatch repaired Grid Atlas sync
-run-name: Reconcile Pages and governed Atlas publisher from ${{ github.sha }}
+name: Retired — GridAtlas mirror dispatcher
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/202608301115-dispatch-gridatlas-sync.yml'
   workflow_dispatch:
 
-permissions:
-  actions: write
-  contents: read
+permissions: {}
 
 jobs:
-  dispatch:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
+  retired:
+    runs-on: ubuntu-latest
     steps:
-      - name: Dispatch existing governed publisher after connector-backed Pages wake
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          curl --fail --silent --show-error \
-            -X POST \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H 'Accept: application/vnd.github+json' \
-            -H 'X-GitHub-Api-Version: 2022-11-28' \
-            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/202608300232-sync-promoted-gridatlas-v9.yml/dispatches" \
-            -d '{"ref":"main"}'
+      - run: echo 'Retired; there is no GlobalGrid-hosted Atlas mirror to dispatch.'

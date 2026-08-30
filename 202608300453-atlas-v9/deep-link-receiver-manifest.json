@@ -1,0 +1,26 @@
+{
+  "classification": "DETERMINISTIC_EXACT_REPD_RECEIVER_BUILT",
+  "generation": "202608300453",
+  "identity_parameter": "repd_ref",
+  "identity_rule": "EXACT_REPD_REF_ONLY",
+  "immutable_parent_files_changed": [
+    "202608291818-place-postcode-search.js",
+    "build-manifest.json",
+    "map-ready-manifest.json",
+    "release-manifest.json",
+    "sha256sums.txt"
+  ],
+  "local_test_shared_cartridge": "cartridges/5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993/grid_400kv.geojson",
+  "local_test_shared_cartridge_sha256": "5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993",
+  "map_ready_data_changed": false,
+  "parent_release_id": "202608292311-atlas-v9",
+  "privacy": "NO_PERSONAL_DATA",
+  "release_id": "202608300453-atlas-v9",
+  "schema": "gridatlas.exact-repd-deep-link-build.v1",
+  "search_cartridge": "202608291818-place-postcode-search.js",
+  "search_cartridge_sha256": "70258d89d62f6ca09630c1ec45c6086326940a108b97c66b658c57263663d093",
+  "source_commit": "4f3e8fc5c7ea28edf83dbac9b231024723bcf231",
+  "v8_css_changed": false,
+  "v8_engine_changed": false,
+  "v8_html_changed": false
+}

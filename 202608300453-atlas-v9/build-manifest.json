@@ -1,0 +1,18 @@
+{
+  "classification": "DETERMINISTIC_BUILD_COMPLETE",
+  "compiler_sha256": "2b96c5e9b4c21b8bf99520ba370d67d018e85ce388187327dac9cf2e1d9c3f71",
+  "contract_sha256": "1dd711a9ab99d09ecae5d6a3751a6b18ece2ccea8b4ce6768aafaf234c7e67ba",
+  "delivery": "MAPLIBRE_WORKER_DIRECT_URL",
+  "engine_patch_anchors": 3,
+  "exact_repd_deep_link_receiver": true,
+  "exact_repd_identity_parameter": "repd_ref",
+  "exact_repd_search_cartridge": "202608291818-place-postcode-search.js",
+  "generation": "202608300453",
+  "parent_release_id": "202608292311-atlas-v9",
+  "release_id": "202608300453-atlas-v9",
+  "schema": "gridatlas.render-ready-build-manifest.v1",
+  "shared_cartridge": "cartridges/5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993/grid_400kv.geojson",
+  "shared_cartridge_sha256": "5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993",
+  "source_commit": "4f3e8fc5c7ea28edf83dbac9b231024723bcf231",
+  "v8_css_blob_sha1": "29a2edb490407f489c29433d84e329b1038e0657"
+}

@@ -1,0 +1,32 @@
+{
+  "classification": "V8_RENDER_READY_EXACT_REPD_DEEP_LINK_CANDIDATE",
+  "critical_400kv_delivery": "MAPLIBRE_WORKER_DIRECT_URL",
+  "deep_link_receiver": {
+    "automatic_fly_to": true,
+    "automatic_search": true,
+    "identity_parameter": "repd_ref",
+    "identity_rule": "EXACT_REPD_REF_ONLY",
+    "official_source": "DESNZ_REPD_Q2_2026_PARQUET",
+    "privacy": "NO_PERSONAL_DATA",
+    "route_interceptions": 0,
+    "schema": "gridatlas.exact-repd-deep-link-receiver.v1",
+    "synthetic_receiver": false
+  },
+  "generation": "202608300453",
+  "immutable_after_publication": true,
+  "machine_learning_record": {
+    "negative_label": "REJECT",
+    "path": "machine-learning/records/202608300453-render-ready-performance.jsonl",
+    "positive_label": "PROMOTE",
+    "privacy": "NO_PERSONAL_DATA",
+    "schema": "gridatlas.ml.render-ready-performance-record.v1",
+    "task": "binary_release_promotion"
+  },
+  "parent_release_id": "202608292311-atlas-v9",
+  "product_surface": "PINNED_V8_WITH_WORKER_SOURCE_400KV_AND_EXACT_REPD_RECEIVER",
+  "promotion_policy": "AUTOMATIC_ONLY_AFTER_ACTUAL_RENDER_LOCAL_AND_PUBLIC_GATES",
+  "release_id": "202608300453-atlas-v9",
+  "schema": "gridatlas.v8-render-ready-release.v1",
+  "shared_cartridge_path": "cartridges/5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993/grid_400kv.geojson",
+  "source_commit": "4f3e8fc5c7ea28edf83dbac9b231024723bcf231"
+}

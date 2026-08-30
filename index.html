@@ -48,7 +48,7 @@
       <div class="os-strip"><a href="https://ventusltd.github.io/data-centres-gb/">Data Centres GB — Electricity Demand Intelligence</a><span class="live-status">independent repository · open development</span></div>
       <div class="os-strip"><a href="https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/">Registry Dashboard</a><span class="live-status">BIOS / Kernel</span></div>
       <div class="os-strip"><a href="https://ventusltd.github.io/reports/studio/">Reports Dashboard</a><span class="dev-status">Save As / evidence layer</span></div>
-      <div class="os-strip"><a href="https://ventusltd.github.io/gridatlas/202608292311-atlas-v9/">UK Grid Atlas V9 — Current Verified Release</a><span class="live-status">202608292311 · verified live</span></div>
+      <div class="os-strip"><a href="./202608300453-atlas-v9/">UK Grid Atlas V9 — Current Verified Release</a><span class="live-status">202608300453 · verified live</span></div>
       <input type="text" id="gridSearch" placeholder="Search everything..." autocomplete="off">
       <div id="menu"></div>
     </div>
@@ -91,8 +91,11 @@ const AREAS = [
     { name:"UK Generation History V6 Module", url:"./uk_energy_tracking_v6/generation_history/", note:"in development" },
     { name:"UK Generation History V6 2 Backup Mirror", url:"./uk_energy_tracking_v6_2/generation_history/", note:"BACKUP" },
     { name:"UK Energy Atlas Grid Overlay V8", url:"./repd_grid_atlasv8/" },
+    /* <!-- GRIDATLAS_V9_AUTOMATION_START --> */
+    { name:"UK Grid Atlas V9 — Current Verified Release", url:"./202608300453-atlas-v9/", note:"CURRENT VERIFIED · 202608300453-atlas-v9 · actual 400 kV render gates · desktop/mobile · canonical repd_ref deep links · V8 and immutable prior V9 releases preserved", data_gridatlas_release:"202608300453-atlas-v9" }, /* data-gridatlas-release="202608300453-atlas-v9" */
+    /* <!-- GRIDATLAS_V9_AUTOMATION_END --> */
     { name:"UK Grid Atlas V9 — 202608291239", url:"https://ventusltd.github.io/gridatlas/202608291239-atlas-v9/", note:"LIVE VERIFIED · immutable timestamped release · official REPD address/postcode search · repd_ref deep links · V8 preserved" },
-    { name:"UK Grid Atlas V9 — Current Verified Release", url:"https://ventusltd.github.io/gridatlas/202608292311-atlas-v9/", note:"CURRENT VERIFIED · 202608292311-atlas-v9 · actual 400 kV render gates · desktop/mobile · canonical repd_ref deep links · V8 and immutable prior V9 releases preserved" },
+
     { name:"UK Macro Energy Consumption Trends ONS", url:"./uk_macro_energy_trends/" },
     { name:"UK Renewables Pipeline Analytics Dashboard V1", url:"./uk_renewables_pipeline/dashboard.html", note:"legacy · unchanged" },
     { name:"UK Renewables Pipeline Analytics Dashboard V2", url:"./uk_renewables_pipeline/dashboard_v2_2026-08-22.html", note:"previous version · 22 Aug 2026" },

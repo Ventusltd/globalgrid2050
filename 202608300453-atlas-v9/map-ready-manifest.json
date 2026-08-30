@@ -1,0 +1,236 @@
+{
+  "architecture": {
+    "analytical_search_duckdb_retained": true,
+    "critical_400kv_cache_identity": "CONTENT_ADDRESSED_STABLE_URL",
+    "critical_400kv_delivery": "MAPLIBRE_WORKER_DIRECT_URL",
+    "critical_400kv_duplicate_fetch": false,
+    "critical_400kv_main_thread_json_parse": false,
+    "critical_400kv_shared_cartridge_path": "cartridges/5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993/grid_400kv.geojson",
+    "critical_400kv_window_prefetch": false,
+    "exact_repd_deep_link_receiver": true,
+    "map_ready_same_origin_geojson": true,
+    "preload_browser_duckdb": false,
+    "serialized_preload_queue": false,
+    "topology_pre_snapped": true,
+    "topology_snap_bypass_layer_ids": [
+      "400",
+      "275",
+      "220",
+      "132",
+      "66"
+    ]
+  },
+  "cartridges": [
+    {
+      "artifact": "derived/grid_400kv_snapped.parquet",
+      "artifact_bytes": 791477,
+      "artifact_sha256": "53663da46fb270f92454399419318840c9a47f5ab3a68e858702eaa2c05dc048",
+      "bytes": 1469778,
+      "critical": true,
+      "feature_index_range": [
+        0,
+        4105
+      ],
+      "feature_set_sha256": "c2e85ce5b8739ba4abd58db285fb8ae069837e9e5cda20cbfb462060f072b281",
+      "pre_snapped": true,
+      "rows": 4106,
+      "sha256": "5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993",
+      "source_id": "grid_400kv",
+      "url": "data/grid_400kv.geojson"
+    },
+    {
+      "artifact": "derived/grid_275kv_snapped.parquet",
+      "artifact_bytes": 530304,
+      "artifact_sha256": "c70aa02dd097efecd99c23f82036b25908a9ef1f88db6db12de294e2b4d719e5",
+      "bytes": 1022297,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        2934
+      ],
+      "feature_set_sha256": "b4872920df1daf55ba602064d54834bedd39c243b894d028c81d2ac6b1e87af7",
+      "pre_snapped": true,
+      "rows": 2935,
+      "sha256": "b72ddfe4c58e4d3f1bcd92f3e4c1bf4750c95416d995dfe53c155125551ee875",
+      "source_id": "grid_275kv",
+      "url": "data/grid_275kv.geojson"
+    },
+    {
+      "artifact": "derived/grid_220kv_snapped.parquet",
+      "artifact_bytes": 33974,
+      "artifact_sha256": "e66e10d413b3f4cde590c0647e49c2367890dbcadf0e9f648ff3351b079c8bd2",
+      "bytes": 62037,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        125
+      ],
+      "feature_set_sha256": "0b4584c8892f87ba61fb4404d5719e7bce8f34414c46f9c387f6314e434afd95",
+      "pre_snapped": true,
+      "rows": 126,
+      "sha256": "c00259f41260a6662c97b4f5b90b72fac59fe1e7f50330a9e5b6892b24cb88b2",
+      "source_id": "grid_220kv",
+      "url": "data/grid_220kv.geojson"
+    },
+    {
+      "artifact": "derived/grid_132kv_snapped.parquet",
+      "artifact_bytes": 1386620,
+      "artifact_sha256": "8d6c6b020c6ee261f85c322f0e7c7c3536e63c4bf2863aa470585f40c79c2a64",
+      "bytes": 2835649,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        6226
+      ],
+      "feature_set_sha256": "2c4502f650b24b819d09708c389a70148ff00f24ee5637236c73eca6ef9fb457",
+      "pre_snapped": true,
+      "rows": 6227,
+      "sha256": "2ffe85e52c0c9b6b42cf76be92c4a5f150617ace36a34db68acdbf49b633057e",
+      "source_id": "grid_132kv",
+      "url": "data/grid_132kv.geojson"
+    },
+    {
+      "artifact": "derived/grid_66kv_snapped.parquet",
+      "artifact_bytes": 300613,
+      "artifact_sha256": "86532e8ac22b8c7803df17480e8603d7ee34345f959a8bc49a8f912517d09a35",
+      "bytes": 597394,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        1170
+      ],
+      "feature_set_sha256": "7e1012bec260c1fd83b530411d2cc6d890492ac73500593640fd5503ea562670",
+      "pre_snapped": true,
+      "rows": 1171,
+      "sha256": "eb875e641d9f70a2a730e051a604cf3a7858283faa2c24632857ca53e32f020f",
+      "source_id": "grid_66kv",
+      "url": "data/grid_66kv.geojson"
+    },
+    {
+      "artifact": "partitions/grid_substations.parquet",
+      "artifact_bytes": 748993,
+      "artifact_sha256": "1e2d2b6123d9070e866de66d0490c27f3a812f8e2536a1b6b86c792215e9c423",
+      "bytes": 1192748,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        5799
+      ],
+      "feature_set_sha256": "5e211802601aa5261933c9969d989850643c4423255f4df1aed7ad86adc765e6",
+      "pre_snapped": false,
+      "rows": 5800,
+      "sha256": "87976435766a58ddf19c99540b58cd7f18a224148af42ba55075d8851f9e6251",
+      "source_id": "grid_substations",
+      "url": "data/grid_substations.geojson"
+    },
+    {
+      "artifact": "partitions/power_plants.parquet",
+      "artifact_bytes": 30866,
+      "artifact_sha256": "d55706b9ea02a0aae006025b2c3bca16a2beb0685d116ea0df76c9c43554ccf3",
+      "bytes": 35625,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        177
+      ],
+      "feature_set_sha256": "cf1466101e9661f5652c16b063e1d7d7dec1dc80e95fd75a8b5f297b7b12cc55",
+      "pre_snapped": false,
+      "rows": 178,
+      "sha256": "c7478e14724602fc378afc6257ef2cadb7c540ac1e60ce87717f0ffeab072bdf",
+      "source_id": "power_plants",
+      "url": "data/power_plants.geojson"
+    },
+    {
+      "artifact": "partitions/industrial_offtakers.parquet",
+      "artifact_bytes": 744705,
+      "artifact_sha256": "eb0981672bbbe8d84e6ab8fa4ef95c9377d179e01e908ef5471d0297eaa29dff",
+      "bytes": 1295615,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        5877
+      ],
+      "feature_set_sha256": "9602330bfeae6864a6be4391f11ef6146719a845c4a29ee773a426cb02ba7d9e",
+      "pre_snapped": false,
+      "rows": 5878,
+      "sha256": "c41d16dcbd59f0be1cdbe922861224766568c900bc0f93aace57a09fa392d47e",
+      "source_id": "industrial_offtakers",
+      "url": "data/industrial_offtakers.geojson"
+    },
+    {
+      "artifact": "partitions/datacentres.parquet",
+      "artifact_bytes": 40405,
+      "artifact_sha256": "d957f1a185ff6a2f37d09dc431a694a967e313c026c443b34cbc1fc39b381cb1",
+      "bytes": 42849,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        239
+      ],
+      "feature_set_sha256": "1185720452d41244f5da883e75747283f0e5460a6f2c29830865afcc00101578",
+      "pre_snapped": false,
+      "rows": 240,
+      "sha256": "fe09a05fb185ddb781fd660168f3477fef35c9de1e7ab357db0890930b922fd5",
+      "source_id": "datacentres",
+      "url": "data/datacentres.geojson"
+    },
+    {
+      "artifact": "partitions/airports.parquet",
+      "artifact_bytes": 120680,
+      "artifact_sha256": "b81dad3613a3c8c577df692b1821615a6578f02628201acc1f7e6bc48b6a7624",
+      "bytes": 119565,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        809
+      ],
+      "feature_set_sha256": "edb9aa0af9b9e69db70c3c2c66cb4c7c8913317f6270a7b29030603b92e432aa",
+      "pre_snapped": false,
+      "rows": 810,
+      "sha256": "f150c5f9475b0e1fbdc6cd2b7d029edd056bcec472fb9afa4ff6a86429ead0d3",
+      "source_id": "airports",
+      "url": "data/airports.geojson"
+    },
+    {
+      "artifact": "partitions/railways.parquet",
+      "artifact_bytes": 587824,
+      "artifact_sha256": "c9f6a414c73ae5bd0e67018b069af8865814e8c02038aa41fb8c15966af23abb",
+      "bytes": 508860,
+      "critical": false,
+      "feature_index_range": [
+        0,
+        3595
+      ],
+      "feature_set_sha256": "fb2f864f4e1cf05d37a1011f9f545ceabe207587784d7c41c105d2aa2b225d2d",
+      "pre_snapped": false,
+      "rows": 3596,
+      "sha256": "7c033aad138273e8a45bbcc7d8a948356e97ca44a0f20805953266812ad54046",
+      "source_id": "railways",
+      "url": "data/railways.geojson"
+    }
+  ],
+  "classification": "DETERMINISTIC_MAP_READY_CARTRIDGES",
+  "closure": {
+    "bytes": 9182417,
+    "cartridges": 11,
+    "critical_400kv_rows": 4106,
+    "rows": 31067
+  },
+  "data_plane": {
+    "commit": "32459230b958ff6ddbdb24365f56da83ab1cdc93",
+    "manifest_sha256": "3246dbdaa042ae8352ec9b7128cb6c2fe65e4f1aba0534302510661828df2526",
+    "release_id": "202608291237-data-gridatlas",
+    "repository": "Ventusltd/data-gridatlas"
+  },
+  "generation": "202608300453",
+  "product_oracle": {
+    "commit": "f2f343a92ee972cc74ed23b4b99d8a22896791ad",
+    "css_blob_sha1": "29a2edb490407f489c29433d84e329b1038e0657",
+    "engine_blob_sha1": "0a647c32c346770851704727bbf86fb7167e2596",
+    "index_blob_sha1": "278c3f55d3b61af9d13417c99bfb558374131143",
+    "repository": "Ventusltd/globalgrid2050"
+  },
+  "release_id": "202608300453-atlas-v9",
+  "schema": "gridatlas.map-ready-cartridge-manifest.v2",
+  "source_commit": "4f3e8fc5c7ea28edf83dbac9b231024723bcf231"
+}

@@ -1,0 +1,183 @@
+name: 202608300310 Sync current verified Grid Atlas V9
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/202608300310-sync-current-gridatlas-v9.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: globalgrid2050-current-gridatlas-v9-catalogue
+  cancel-in-progress: false
+
+env:
+  ATLAS_STATE_URL: https://ventusltd.github.io/gridatlas/state/live-set.json
+  MINIMUM_GENERATION: '202608292311'
+  POINTER_PATH: state/current-gridatlas-v9.json
+
+jobs:
+  sync:
+    name: Authenticate Atlas pointer, preserve order and publish catalogue entry
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact GlobalGrid catalogue source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 20
+          persist-credentials: true
+
+      - name: Resolve verified Atlas release
+        id: atlas
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 2 \
+            "$ATLAS_STATE_URL" -o /tmp/atlas-state.json
+          python3 -m json.tool /tmp/atlas-state.json >/dev/null
+
+          generation="$(jq -r '.generation // empty' /tmp/atlas-state.json)"
+          release_id="$(jq -r '.current.release_id // empty' /tmp/atlas-state.json)"
+          live_url="$(jq -r '.current.live_url // empty' /tmp/atlas-state.json)"
+          publication_commit="$(jq -r '.current.publication_commit // empty' /tmp/atlas-state.json)"
+          promotion="$(jq -r '.verification.promotion_eligible // false' /tmp/atlas-state.json)"
+          failed="$(jq -r '.verification.failed_gates // 999' /tmp/atlas-state.json)"
+
+          if [[ ! "$generation" =~ ^[0-9]{12}$ ]] || (( 10#$generation < 10#$MINIMUM_GENERATION )); then
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo "Atlas generation $generation is below required $MINIMUM_GENERATION" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          test "$promotion" = true
+          test "$failed" = 0
+          [[ "$release_id" =~ ^[0-9]{12}-atlas-v9$ ]]
+          [[ "$live_url" == "https://ventusltd.github.io/gridatlas/$release_id/" ]]
+          [[ "$publication_commit" =~ ^[a-f0-9]{40}$ ]]
+
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 2 \
+            "${live_url}release-manifest.json" -o /tmp/atlas-release-manifest.json
+          test "$(jq -r '.release_id' /tmp/atlas-release-manifest.json)" = "$release_id"
+          curl --fail --location --silent --show-error --retry 3 --retry-delay 2 \
+            "${live_url}index.html" -o /tmp/atlas-index.html
+          grep -q 'ventus-corev8engine.js' /tmp/atlas-index.html
+
+          echo 'ready=true' >> "$GITHUB_OUTPUT"
+          echo "generation=$generation" >> "$GITHUB_OUTPUT"
+          echo "release_id=$release_id" >> "$GITHUB_OUTPUT"
+          echo "live_url=$live_url" >> "$GITHUB_OUTPUT"
+          echo "publication_commit=$publication_commit" >> "$GITHUB_OUTPUT"
+
+      - name: Build ordered homepage and pointer update
+        if: steps.atlas.outputs.ready == 'true'
+        env:
+          ATLAS_GENERATION: ${{ steps.atlas.outputs.generation }}
+          ATLAS_RELEASE_ID: ${{ steps.atlas.outputs.release_id }}
+          ATLAS_LIVE_URL: ${{ steps.atlas.outputs.live_url }}
+          ATLAS_PUBLICATION_COMMIT: ${{ steps.atlas.outputs.publication_commit }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from __future__ import annotations
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          index_path = Path('index.html')
+          text = index_path.read_text(encoding='utf-8')
+          release_id = os.environ['ATLAS_RELEASE_ID']
+          live_url = os.environ['ATLAS_LIVE_URL']
+          generated = (
+              '    { name:"UK Grid Atlas V9 — Current Verified Release", '
+              f'url:"{live_url}", note:"CURRENT VERIFIED · {release_id} · '
+              'actual 400 kV render gates · desktop/mobile · canonical repd_ref deep links · '
+              'V8 and immutable prior V9 releases preserved" },'
+          )
+
+          marker = 'UK Grid Atlas V9 — Current Verified Release'
+          lines = text.splitlines()
+          matches = [i for i, line in enumerate(lines) if marker in line]
+          if len(matches) > 1:
+              raise SystemExit('duplicate generated Atlas catalogue entries')
+          if matches:
+              lines[matches[0]] = generated
+          else:
+              anchors = [
+                  i for i, line in enumerate(lines)
+                  if 'UK Grid Atlas V9 — ' in line and marker not in line
+              ]
+              if not anchors:
+                  raise SystemExit('Atlas V9 catalogue anchor absent')
+              lines.insert(anchors[-1] + 1, generated)
+
+          result = '\n'.join(lines) + '\n'
+          if result.count(marker) != 1:
+              raise SystemExit('generated Atlas catalogue closure is not one')
+          v8 = result.index('UK Energy Atlas Grid Overlay V8')
+          previous_v9 = result.index('UK Grid Atlas V9 — 202608291239')
+          current_v9 = result.index(marker)
+          macro = result.index('UK Macro Energy Consumption Trends ONS')
+          if not (v8 < previous_v9 < current_v9 < macro):
+              raise SystemExit('Atlas catalogue order contract failed')
+          index_path.write_text(result, encoding='utf-8', newline='\n')
+
+          pointer = {
+              'schema': 'globalgrid2050.gridatlas-catalogue-pointer.v1',
+              'classification': 'VERIFIED_GRIDATLAS_V9_CATALOGUED',
+              'generation': os.environ['ATLAS_GENERATION'],
+              'release_id': release_id,
+              'live_url': live_url,
+              'publication_commit': os.environ['ATLAS_PUBLICATION_COMMIT'],
+              'source_state_url': os.environ['ATLAS_STATE_URL'],
+              'homepage_path': 'index.html',
+              'ordering': [
+                  'UK Energy Atlas Grid Overlay V8',
+                  'UK Grid Atlas V9 — 202608291239',
+                  marker,
+                  'UK Macro Energy Consumption Trends ONS',
+              ],
+              'rollback': 'preserve existing immutable Atlas catalogue entries',
+          }
+          path = Path(os.environ['POINTER_PATH'])
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(pointer, indent=2, sort_keys=True) + '\n', encoding='utf-8', newline='\n')
+          PY
+          python3 -m json.tool "$POINTER_PATH" >/dev/null
+          grep -q "${ATLAS_RELEASE_ID}" index.html
+          test "$(grep -c 'UK Grid Atlas V9 — Current Verified Release' index.html)" = 1
+          git diff --check
+
+      - name: Compare-and-swap catalogue publication
+        if: steps.atlas.outputs.ready == 'true'
+        env:
+          ATLAS_RELEASE_ID: ${{ steps.atlas.outputs.release_id }}
+          ATLAS_LIVE_URL: ${{ steps.atlas.outputs.live_url }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- index.html "$POINTER_PATH"; then
+            echo "GlobalGrid2050 already catalogues $ATLAS_RELEASE_ID" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+          git add index.html "$POINTER_PATH"
+          mapfile -t staged < <(git diff --cached --name-only | sort)
+          expected=(index.html "$POINTER_PATH")
+          test "${staged[*]}" = "${expected[*]}"
+          git config user.name globalgrid2050-atlas-catalogue-bot
+          git config user.email actions@users.noreply.github.com
+          git commit -m "catalogue: current verified Grid Atlas $ATLAS_RELEASE_ID"
+          git push origin HEAD:main
+          {
+            echo "## Grid Atlas catalogue updated"
+            echo
+            echo "- Release: $ATLAS_RELEASE_ID"
+            echo "- Browser: $ATLAS_LIVE_URL"
+            echo '- Order: V8 → immutable prior V9 → current verified V9 → UK Macro Energy.'
+          } >> "$GITHUB_STEP_SUMMARY"

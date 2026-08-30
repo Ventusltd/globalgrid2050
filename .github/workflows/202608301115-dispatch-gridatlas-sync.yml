@@ -1,5 +1,5 @@
 name: 202608301115 Dispatch repaired Grid Atlas sync
-run-name: Dispatch governed Atlas publisher after semantic repair from ${{ github.sha }}
+run-name: Reconcile Pages and governed Atlas publisher from ${{ github.sha }}
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Dispatch existing governed publisher at current main
+      - name: Dispatch existing governed publisher after connector-backed Pages wake
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

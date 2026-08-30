@@ -1,28 +1,29 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+# Build and deploy the GlobalGrid2050 Pages site.
 name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
-# Keep automatic deployment narrowly limited to the podcast transcript source.
 on:
   push:
     branches:
       - main
     paths:
+      - index.html
+      - '202608300453-atlas-v9/index.html'
+      - 'state/current-gridatlas-v9.json'
+      - 'state/gridatlas-v9-current.json'
       - podcast_transcripts/index.md
       - .github/workflows/jekyll-gh-pages.yml
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +39,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages

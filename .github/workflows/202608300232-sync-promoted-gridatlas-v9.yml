@@ -1,0 +1,194 @@
+name: 202608300232 Sync promoted Grid Atlas V9
+run-name: Mirror promoted Atlas V9 and catalogue after V8 from ${{ github.sha }}
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/202608300232-sync-promoted-gridatlas-v9.py'
+      - '.github/workflows/202608300232-sync-promoted-gridatlas-v9.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17,47 * * * *'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: globalgrid2050-gridatlas-v9-publication
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    name: Verify, mirror, order and publish promoted Atlas V9
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact GlobalGrid source boundary
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 20
+          persist-credentials: true
+
+      - name: Require current main and validate publisher
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+          python3 -m py_compile scripts/202608300232-sync-promoted-gridatlas-v9.py
+          test -f index.html
+
+      - name: Fetch promoted GridAtlas source and run deterministic publisher
+        id: sync
+        run: |
+          set -euo pipefail
+          rm -rf "$RUNNER_TEMP/gridatlas"
+          git clone --depth 1 https://github.com/Ventusltd/gridatlas.git "$RUNNER_TEMP/gridatlas"
+          gridatlas_head="$(git -C "$RUNNER_TEMP/gridatlas" rev-parse HEAD)"
+          echo "gridatlas_head=$gridatlas_head" >> "$GITHUB_OUTPUT"
+          python3 scripts/202608300232-sync-promoted-gridatlas-v9.py \
+            --gridatlas "$RUNNER_TEMP/gridatlas" \
+            --site-root . \
+            --homepage index.html \
+            | tee "$RUNNER_TEMP/gridatlas-globalgrid-result.json"
+          if test -f state/gridatlas-v9-current.json; then
+            release_id="$(jq -r .release_id state/gridatlas-v9-current.json)"
+            echo "release_id=$release_id" >> "$GITHUB_OUTPUT"
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Enforce bounded output and immutable mirror
+        if: ${{ steps.sync.outputs.ready == 'true' }}
+        run: |
+          set -euo pipefail
+          release_id='${{ steps.sync.outputs.release_id }}'
+          test -n "$release_id"
+          test -d "$release_id"
+          (
+            cd "$release_id"
+            sha256sum --check sha256sums.txt
+          )
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          release = '${{ steps.sync.outputs.release_id }}'
+          allowed = {
+              'index.html',
+              'state/gridatlas-v9-current.json',
+          }
+          changed = subprocess.check_output(
+              ['git', 'status', '--porcelain=v1'], text=True
+          ).splitlines()
+          for line in changed:
+              path = line[3:]
+              if ' -> ' in path:
+                  path = path.split(' -> ', 1)[1]
+              if path in allowed or path.startswith(release + '/'):
+                  continue
+              print('unexpected publisher mutation:', path, file=sys.stderr)
+              raise SystemExit(1)
+          PY
+          git diff --check
+          grep -q '<!-- GRIDATLAS_V9_AUTOMATION_START -->' index.html
+          grep -q "data-gridatlas-release=\"$release_id\"" index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          release = '${{ steps.sync.outputs.release_id }}'
+          html = Path('index.html').read_text(encoding='utf-8')
+          assert html.index('repd_grid_atlasv8') < html.index(f'data-gridatlas-release="{release}"')
+          PY
+
+      - name: Compare-and-swap publication onto main
+        id: commit
+        if: ${{ steps.sync.outputs.ready == 'true' }}
+        run: |
+          set -euo pipefail
+          if test -z "$(git status --porcelain)"; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "publication_commit=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          release_id='${{ steps.sync.outputs.release_id }}'
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+          git add index.html state/gridatlas-v9-current.json "$release_id"
+          git config user.name globalgrid-gridatlas-publisher
+          git config user.email actions@users.noreply.github.com
+          git commit -m "${release_id}: publish promoted Grid Atlas V9 after Atlas V8"
+          publication_commit="$(git rev-parse HEAD)"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "publication_commit=$publication_commit" >> "$GITHUB_OUTPUT"
+
+      - name: Verify public GlobalGrid Pages readback
+        if: ${{ steps.sync.outputs.ready == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          release_id='${{ steps.sync.outputs.release_id }}'
+          publication_commit='${{ steps.commit.outputs.publication_commit }}'
+          if test '${{ steps.commit.outputs.changed }}' = true; then
+            api="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$publication_commit&per_page=50"
+            completed=0
+            for attempt in $(seq 1 120); do
+              payload="$(curl --fail --silent --show-error \
+                -H "Authorization: Bearer $GH_TOKEN" \
+                -H 'Accept: application/vnd.github+json' "$api")"
+              status="$(printf '%s' "$payload" | jq -r '[.workflow_runs[] | select(.name == "pages build and deployment")][0].status // empty')"
+              conclusion="$(printf '%s' "$payload" | jq -r '[.workflow_runs[] | select(.name == "pages build and deployment")][0].conclusion // empty')"
+              if test "$status" = completed; then
+                test "$conclusion" = success
+                completed=1
+                break
+              fi
+              sleep 5
+            done
+            test "$completed" = 1
+          fi
+
+          public_ready=0
+          for attempt in $(seq 1 60); do
+            if curl --fail --location --silent --show-error \
+              "https://globalgrid2050.com/$release_id/index.html" \
+              -o "$RUNNER_TEMP/public-gridatlas-index.html" \
+              && curl --fail --location --silent --show-error \
+              "https://globalgrid2050.com/$release_id/sha256sums.txt" \
+              -o "$RUNNER_TEMP/public-gridatlas-sha256sums.txt" \
+              && cmp "$release_id/sha256sums.txt" "$RUNNER_TEMP/public-gridatlas-sha256sums.txt"; then
+              public_ready=1
+              break
+            fi
+            sleep 3
+          done
+          test "$public_ready" = 1
+          curl --fail --location --silent --show-error \
+            https://globalgrid2050.com/index.html \
+            -o "$RUNNER_TEMP/public-globalgrid-index.html"
+          grep -q "data-gridatlas-release=\"$release_id\"" "$RUNNER_TEMP/public-globalgrid-index.html"
+          python3 - <<'PY'
+          from pathlib import Path
+          release = '${{ steps.sync.outputs.release_id }}'
+          html = Path('${{ runner.temp }}/public-globalgrid-index.html').read_text(encoding='utf-8')
+          assert html.index('repd_grid_atlasv8') < html.index(f'data-gridatlas-release="{release}"')
+          PY
+
+      - name: Record milestone summary
+        if: ${{ always() }}
+        run: |
+          {
+            echo '## Grid Atlas V9 → GlobalGrid2050'
+            echo
+            echo "- GridAtlas source HEAD: ${{ steps.sync.outputs.gridatlas_head }}"
+            echo "- Render-ready release: ${{ steps.sync.outputs.release_id || 'not yet promoted' }}"
+            echo "- Ready: ${{ steps.sync.outputs.ready || 'false' }}"
+            echo "- GlobalGrid commit: ${{ steps.commit.outputs.publication_commit || 'no change' }}"
+          } >> "$GITHUB_STEP_SUMMARY"

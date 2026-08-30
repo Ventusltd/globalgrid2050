@@ -1,0 +1,82 @@
+name: 202608301159 Repair GridAtlas homepage and cartridge
+run-name: Restore canonical Atlas link and mirrored 400 kV dependency from ${{ github.sha }}
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/202608301159-repair-gridatlas-homepage-and-cartridge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: globalgrid2050-gridatlas-homepage-cartridge-repair
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    name: Point homepage at canonical Atlas and restore mirror dependency
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact repair boundary
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 20
+          persist-credentials: true
+
+      - name: Apply bounded homepage and cartridge repair
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+          replacements = {
+              'href="./202608300453-atlas-v9/"': 'href="https://ventusltd.github.io/gridatlas/"',
+              'url:"./202608300453-atlas-v9/"': 'url:"https://ventusltd.github.io/gridatlas/"',
+          }
+          for before, after in replacements.items():
+              count = text.count(before)
+              assert count == 1, f'expected one homepage Atlas target {before!r}, found {count}'
+              text = text.replace(before, after)
+          path.write_text(text, encoding='utf-8', newline='\n')
+          PY
+
+          digest=5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993
+          source=202608300453-atlas-v9/data/grid_400kv.geojson
+          target=cartridges/$digest/grid_400kv.geojson
+          test -s "$source"
+          mkdir -p "$(dirname "$target")"
+          cp "$source" "$target"
+          echo "$digest  $target" | sha256sum --check --strict
+          cmp "$source" "$target"
+
+          grep -Fq 'href="https://ventusltd.github.io/gridatlas/"' index.html
+          grep -Fq 'url:"https://ventusltd.github.io/gridatlas/"' index.html
+          test "$(grep -Fo './202608300453-atlas-v9/' index.html | wc -l)" = 0
+          git diff --check
+          changed="$(git status --short | awk '{print $2}' | sort)"
+          expected="$(printf '%s\n%s\n' "$target" index.html | sort)"
+          test "$changed" = "$expected"
+
+      - name: Compare-and-swap repair onto main
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+          digest=5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993
+          target=cartridges/$digest/grid_400kv.geojson
+          git add index.html "$target"
+          git config user.name globalgrid-gridatlas-repair-bot
+          git config user.email actions@users.noreply.github.com
+          git commit -m '202608301159: use canonical GridAtlas pointer and restore 400 kV cartridge'
+          git push origin HEAD:main

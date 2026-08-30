@@ -13,7 +13,7 @@ on:
 
 permissions:
   contents: write
-  actions: read
+  actions: write
 
 concurrency:
   group: globalgrid2050-gridatlas-v9-publication
@@ -80,10 +80,7 @@ jobs:
           import sys
 
           release = '${{ steps.sync.outputs.release_id }}'
-          allowed = {
-              'index.html',
-              'state/gridatlas-v9-current.json',
-          }
+          allowed = {'index.html', 'state/gridatlas-v9-current.json'}
           changed = subprocess.check_output(
               ['git', 'status', '--porcelain=v1'], text=True
           ).splitlines()
@@ -128,7 +125,7 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "publication_commit=$publication_commit" >> "$GITHUB_OUTPUT"
 
-      - name: Verify public GlobalGrid Pages readback
+      - name: Deploy and verify public GlobalGrid Pages readback
         if: ${{ steps.sync.outputs.ready == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
@@ -136,15 +133,26 @@ jobs:
           set -euo pipefail
           release_id='${{ steps.sync.outputs.release_id }}'
           publication_commit='${{ steps.commit.outputs.publication_commit }}'
+
           if test '${{ steps.commit.outputs.changed }}' = true; then
+            curl --fail --silent --show-error \
+              -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H 'Accept: application/vnd.github+json' \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/jekyll-gh-pages.yml/dispatches" \
+              -d '{"ref":"main"}'
+
             api="https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$publication_commit&per_page=50"
             completed=0
             for attempt in $(seq 1 120); do
               payload="$(curl --fail --silent --show-error \
                 -H "Authorization: Bearer $GH_TOKEN" \
-                -H 'Accept: application/vnd.github+json' "$api")"
-              status="$(printf '%s' "$payload" | jq -r '[.workflow_runs[] | select(.name == "pages build and deployment")][0].status // empty')"
-              conclusion="$(printf '%s' "$payload" | jq -r '[.workflow_runs[] | select(.name == "pages build and deployment")][0].conclusion // empty')"
+                -H 'Accept: application/vnd.github+json' \
+                -H 'X-GitHub-Api-Version: 2022-11-28' \
+                "$api")"
+              status="$(printf '%s' "$payload" | jq -r '[.workflow_runs[] | select(.path == ".github/workflows/jekyll-gh-pages.yml" or .name == "pages build and deployment")][0].status // empty')"
+              conclusion="$(printf '%s' "$payload" | jq -r '[.workflow_runs[] | select(.path == ".github/workflows/jekyll-gh-pages.yml" or .name == "pages build and deployment")][0].conclusion // empty')"
               if test "$status" = completed; then
                 test "$conclusion" = success
                 completed=1
@@ -156,7 +164,7 @@ jobs:
           fi
 
           public_ready=0
-          for attempt in $(seq 1 60); do
+          for attempt in $(seq 1 120); do
             if curl --fail --location --silent --show-error \
               "https://globalgrid2050.com/$release_id/index.html" \
               -o "$RUNNER_TEMP/public-gridatlas-index.html" \

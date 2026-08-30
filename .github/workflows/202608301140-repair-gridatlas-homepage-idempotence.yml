@@ -1,83 +1,12 @@
-name: 202608301140 Repair Grid Atlas homepage idempotence
-run-name: Preserve following catalogue-row indentation from ${{ github.sha }}
+name: Retired — GridAtlas mirror idempotence repair
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/202608301140-repair-gridatlas-homepage-idempotence.yml'
   workflow_dispatch:
 
-permissions:
-  contents: write
-
-concurrency:
-  group: globalgrid2050-202608301140-homepage-idempotence-repair
-  cancel-in-progress: false
+permissions: {}
 
 jobs:
-  repair:
-    name: Patch only mutable marker removal and activate governed sync
-    runs-on: ubuntu-24.04
-    timeout-minutes: 8
+  retired:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout exact repair boundary
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 20
-          persist-credentials: true
-
-      - name: Apply bounded whitespace-safe marker replacement
-        run: |
-          set -euo pipefail
-          target=scripts/202608300232-sync-promoted-gridatlas-v9.py
-          git fetch --no-tags origin main:refs/remotes/origin/main
-          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path('scripts/202608300232-sync-promoted-gridatlas-v9.py')
-          text = path.read_text(encoding='utf-8')
-          before = '''    generated = re.compile(
-        rf"(?is)\\s*/\\*\\s*{re.escape(START)}\\s*\\*/.*?/\\*\\s*{re.escape(END)}\\s*\\*/\\s*"
-    )
-    without_old = generated.sub("\\n", original)
-    without_old = re.sub(
-        rf"(?is)\\s*{re.escape(START)}.*?{re.escape(END)}\\s*",
-        "\\n",
-        without_old,
-    )
-'''
-          after = '''    generated = re.compile(
-        rf"(?ims)^[ \\t]*/\\*\\s*{re.escape(START)}\\s*\\*/[ \\t]*\\n"
-        rf".*?"
-        rf"^[ \\t]*/\\*\\s*{re.escape(END)}\\s*\\*/[ \\t]*\\n?"
-    )
-    without_old = generated.sub("", original)
-    without_old = re.sub(
-        rf"(?ims)^[ \\t]*{re.escape(START)}[ \\t]*\\n.*?^[ \\t]*{re.escape(END)}[ \\t]*\\n?",
-        "",
-        without_old,
-    )
-'''
-          assert text.count(before) == 1, f'expected one mutable-marker remover, found {text.count(before)}'
-          path.write_text(text.replace(before, after), encoding='utf-8', newline='\n')
-          PY
-          python3 -m py_compile "$target"
-          git diff --check
-          test "$(git diff --name-only)" = "$target"
-
-      - name: Compare-and-swap source-only repair onto main
-        run: |
-          set -euo pipefail
-          target=scripts/202608300232-sync-promoted-gridatlas-v9.py
-          git fetch --no-tags origin main:refs/remotes/origin/main
-          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
-          git add "$target"
-          test "$(git diff --cached --name-only)" = "$target"
-          git config user.name globalgrid-homepage-idempotence-repair-bot
-          git config user.email actions@users.noreply.github.com
-          git commit -m '202608301140: preserve catalogue indentation across Atlas pointer refreshes'
-          git push origin HEAD:main
+      - run: echo 'Retired; the legacy GlobalGrid route is redirect-only.'

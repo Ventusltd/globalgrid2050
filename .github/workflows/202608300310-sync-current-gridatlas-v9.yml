@@ -13,19 +13,25 @@ permissions:
   contents: write
 
 concurrency:
-  group: globalgrid2050-current-gridatlas-v9-catalogue
+  group: pages
   cancel-in-progress: false
 
 env:
   ATLAS_STATE_URL: https://ventusltd.github.io/gridatlas/state/live-set.json
   MINIMUM_GENERATION: '202608292311'
   POINTER_PATH: state/current-gridatlas-v9.json
+  PRODUCTION_BASE_URL: https://globalgrid2050.com
 
 jobs:
   sync:
     name: Authenticate Atlas pointer, preserve order and publish catalogue entry
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    permissions:
+      contents: write
+    outputs:
+      ready: ${{ steps.atlas.outputs.ready }}
+      changed: ${{ steps.publish.outputs.changed }}
     steps:
       - name: Checkout exact GlobalGrid catalogue source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -86,7 +92,6 @@ jobs:
           from __future__ import annotations
           import json
           import os
-          import re
           from pathlib import Path
 
           index_path = Path('index.html')
@@ -154,6 +159,7 @@ jobs:
           git diff --check
 
       - name: Compare-and-swap catalogue publication
+        id: publish
         if: steps.atlas.outputs.ready == 'true'
         env:
           ATLAS_RELEASE_ID: ${{ steps.atlas.outputs.release_id }}
@@ -161,6 +167,7 @@ jobs:
         run: |
           set -euo pipefail
           if git diff --quiet -- index.html "$POINTER_PATH"; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
             echo "GlobalGrid2050 already catalogues $ATLAS_RELEASE_ID" >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
@@ -174,10 +181,136 @@ jobs:
           git config user.email actions@users.noreply.github.com
           git commit -m "catalogue: current verified Grid Atlas $ATLAS_RELEASE_ID"
           git push origin HEAD:main
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
           {
             echo "## Grid Atlas catalogue updated"
             echo
             echo "- Release: $ATLAS_RELEASE_ID"
             echo "- Browser: $ATLAS_LIVE_URL"
             echo '- Order: V8 → immutable prior V9 → current verified V9 → UK Macro Energy.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  build:
+    name: Build exact current GlobalGrid Pages bytes
+    needs: sync
+    if: >-
+      needs.sync.outputs.ready == 'true' &&
+      (needs.sync.outputs.changed == 'true' || github.event_name != 'schedule')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    outputs:
+      source_sha: ${{ steps.source.outputs.sha }}
+      release_id: ${{ steps.catalogue.outputs.release_id }}
+      live_url: ${{ steps.catalogue.outputs.live_url }}
+    steps:
+      - name: Checkout current GlobalGrid main after catalogue sync
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Pin deployed source commit
+        id: source
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Assert root index contains the current verified Atlas
+        id: catalogue
+        run: |
+          set -euo pipefail
+          python3 -m json.tool "$POINTER_PATH" >/dev/null
+          release_id="$(jq -r '.release_id' "$POINTER_PATH")"
+          live_url="$(jq -r '.live_url' "$POINTER_PATH")"
+          [[ "$release_id" =~ ^[0-9]{12}-atlas-v9$ ]]
+          [[ "$live_url" == "https://ventusltd.github.io/gridatlas/$release_id/" ]]
+          grep -Fq "$live_url" index.html
+          test "$(grep -c 'UK Grid Atlas V9 — Current Verified Release' index.html)" = 1
+          echo "release_id=$release_id" >> "$GITHUB_OUTPUT"
+          echo "live_url=$live_url" >> "$GITHUB_OUTPUT"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@44a6e6beabd48582f863aeeb6cb2151cc1716697
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+        with:
+          path: ./_site
+
+  deploy:
+    name: Deploy current GlobalGrid root homepage
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Refuse stale deployment after main moves
+        env:
+          TARGET_SHA: ${{ needs.build.outputs.source_sha }}
+        run: |
+          set -euo pipefail
+          current_main="$(timeout 30 git ls-remote "https://github.com/${GITHUB_REPOSITORY}.git" refs/heads/main | awk 'NR == 1 { print $1 }')"
+          test "$current_main" = "$TARGET_SHA"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
+
+  verify:
+    name: Verify latest Atlas V9 is visible on the public homepage
+    needs: [build, deploy]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout deployed source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ needs.build.outputs.source_sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Read back exact public root bytes
+        env:
+          SOURCE_SHA: ${{ needs.build.outputs.source_sha }}
+          RELEASE_ID: ${{ needs.build.outputs.release_id }}
+          LIVE_URL: ${{ needs.build.outputs.live_url }}
+        run: |
+          set -euo pipefail
+          observed=false
+          for _ in {1..60}; do
+            if curl --fail --location --silent --show-error --max-time 30 \
+                 -H 'Cache-Control: no-cache' \
+                 "${PRODUCTION_BASE_URL}/?deployment=${SOURCE_SHA}" -o /tmp/public-index.html \
+              && grep -Fq "$LIVE_URL" /tmp/public-index.html \
+              && grep -Fq 'UK Grid Atlas V9 — Current Verified Release' /tmp/public-index.html; then
+              observed=true
+              break
+            fi
+            sleep 5
+          done
+          test "$observed" = true
+          cmp index.html /tmp/public-index.html
+          {
+            echo "## Public homepage verified"
+            echo
+            echo "- Source commit: $SOURCE_SHA"
+            echo "- Atlas release: $RELEASE_ID"
+            echo "- Homepage: $PRODUCTION_BASE_URL/"
+            echo "- Atlas: $LIVE_URL"
           } >> "$GITHUB_STEP_SUMMARY"

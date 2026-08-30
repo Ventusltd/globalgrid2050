@@ -1,0 +1,32 @@
+name: 202608301132 Dispatch GlobalGrid Pages wake
+run-name: Deploy current GlobalGrid main for Atlas V9 readback from ${{ github.sha }}
+
+on:
+  push:
+    branches:
+      - 'ci/202608301132-gridatlas-pages-wake'
+    paths:
+      - '.github/workflows/202608301132-dispatch-pages-wake.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Dispatch existing production Pages workflow at main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error \
+            -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/jekyll-gh-pages.yml/dispatches" \
+            -d '{"ref":"main"}'

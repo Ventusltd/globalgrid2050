@@ -1,0 +1,315 @@
+/* ui/styles/202608261740-v7-foundation.css */
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--solar:#ffff00;--bess:#ffae00;--off:#0066ff}*{box-sizing:border-box;font-family:'Courier New',monospace;margin:0;padding:0}html,body{background:var(--bg);color:var(--text)}body{display:flex;height:100vh;overflow:hidden;font-size:13px}::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:#050505}::-webkit-scrollbar-thumb{background:#343b45;border:2px solid #050505}::-webkit-scrollbar-thumb:hover{background:var(--accent)}.sidebar{width:250px;background:#0a0a0a;border-right:1px solid var(--soft);padding:20px 0;display:flex;flex-direction:column;flex:none}.brand{text-align:center;padding:0 14px 20px;border-bottom:1px solid var(--soft);margin-bottom:20px}.brand b{font:800 17px -apple-system,sans-serif;letter-spacing:5px}.brand small{display:block;color:#888;letter-spacing:2px;font-size:7px;margin-top:4px}.nav{display:flex;flex-direction:column}.nav a{padding:12px 20px;color:var(--muted);text-decoration:none;border-left:3px solid transparent;font-weight:bold}.nav a:hover,.nav .active{color:var(--accent);background:#001414;border-left-color:var(--accent)}.main{flex:1;padding:20px 30px;overflow-y:auto;min-width:0}.header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--soft);padding-bottom:15px;margin-bottom:14px}.header h1{font-size:19px;color:var(--accent);letter-spacing:2px}.status{border:1px solid #195b3b;color:#aef7d1;padding:7px 11px;white-space:nowrap}.meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;padding:9px 12px;border:1px solid #24323a;background:#071018;color:var(--muted);font-size:11px}.meta strong{color:var(--accent)}.meta a{color:#66ccff}.newspaper{border:1px solid #424b55;background:#06080b;margin-bottom:28px;box-shadow:0 0 22px rgba(0,255,255,.04)}.masthead{padding:16px 18px 12px;border-bottom:1px solid #424b55}.masthead h2{font-size:24px;line-height:1;color:#fff;letter-spacing:2px}.masthead h2 span{color:var(--solar)}.strap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px;color:#8e98a5;font-size:10px;text-transform:uppercase}.news-tools{position:sticky;top:0;z-index:20;display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 12px;background:#090c11;border-bottom:1px solid #303740}.news-tools button{background:#000;border:1px solid #343b45;color:#aab3bf;padding:7px 10px;font:700 10px 'Courier New';cursor:pointer}.news-tools button:hover,.news-tools button.active{border-color:var(--accent);color:var(--accent)}.news-tools input{margin-left:auto;min-width:240px;background:#000;border:1px solid #343b45;color:#fff;padding:7px 10px;font:700 10px 'Courier New';outline:none}.paper{height:min(68vh,760px);min-height:520px;overflow:auto;overscroll-behavior:contain}.stories{display:grid;grid-template-columns:repeat(3,minmax(280px,1fr));align-items:stretch}.story{display:block;padding:18px;border-right:1px solid #252a31;border-bottom:1px solid #252a31;text-decoration:none;min-height:180px;background:#07090c}.story:hover{background:#0b0f14}.story .kicker{font-size:10px;font-weight:bold;letter-spacing:.5px}.story.solar .kicker{color:var(--solar)}.story.bess .kicker{color:var(--bess)}.story h3{color:#fff;font-size:17px;line-height:1.28;margin:9px 0 12px}.story p{color:#aeb6c1;font-size:11px;line-height:1.55}.story .project{color:var(--ok);font-weight:bold}.story .source{display:block;color:#7f8996;margin-top:12px;font-size:10px}.news-empty{padding:24px;color:var(--muted);grid-column:1/-1}.section-title{font-size:14px;color:var(--accent);letter-spacing:1px;margin:0 0 12px}.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:25px}.card{background:var(--panel);border:1px solid var(--soft);padding:15px;text-align:center}.card h3{font-size:11px;color:#8d95a3;margin-bottom:5px}.chart{position:relative;height:120px}.value{position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:bold}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.btn,select,.asset-search{background:#000;color:var(--muted);border:1px solid var(--line);padding:8px 14px;font:700 11px 'Courier New';text-transform:uppercase}.btn{cursor:pointer}.btn:hover{border-color:var(--accent);color:var(--accent)}.btn.active{color:#fff;border-color:#fff}.asset-search{min-width:280px}.tablewrap{background:var(--panel);border:1px solid var(--soft);overflow:auto;max-height:65vh}table{width:100%;border-collapse:collapse}th{background:#050505;color:var(--accent);padding:12px 15px;text-align:left;position:sticky;top:0;z-index:5}td{padding:10px 15px;border-bottom:1px solid var(--soft);color:var(--muted)}.site{color:#fff;font-weight:bold}.mw{color:var(--ok);font-weight:bold;font-size:14px}.badge{padding:3px 6px;border-radius:3px;font-size:10px;font-weight:bold;color:#000;white-space:nowrap}.signal{display:inline-block;padding:4px 6px;border:1px solid #3b444f;background:#090b0f;color:#9aa3af;font-size:9px;font-weight:bold;white-space:nowrap}.signal.approved{border-color:#c8b900;color:#fff95a}.signal.operational{border-color:#167d4d;color:#60ff9c}.signal.construction{border-color:#a46f00;color:#ffbe45}.signal.finance{border-color:#6c62a8;color:#bdb2ff}.signal.none{color:#626b77}.signal-note{color:#7e8792;font-size:9px;line-height:1.4;margin-top:4px;max-width:135px}.mobile-extra{display:none;font-size:9px;color:#888;margin-top:4px}.newslink{text-decoration:none;font-size:16px}@media(max-width:1200px){.stories{grid-template-columns:repeat(2,minmax(280px,1fr))}}@media(max-width:768px){body{display:block;overflow:auto}.sidebar{width:100%;padding:10px}.nav{display:none}.brand{border:0;margin:0;padding:5px}.main{padding:10px;overflow:visible}.header{align-items:flex-start}.masthead h2{font-size:20px}.news-tools{position:static}.news-tools input{margin-left:0;min-width:100%;width:100%}.paper{height:65vh;min-height:480px}.stories{grid-template-columns:1fr}.gauges{grid-template-columns:1fr}.hide-mobile{display:none}.mobile-extra{display:block}.asset-search,select{width:100%;min-width:100%}th,td{padding:8px 6px;font-size:10px}.tablewrap{max-height:none}.signal-note{max-width:100px}}
+
+/* ui/styles/202608261614-mobile.css */
+@media (max-width: 768px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .header h1 {
+    font-size: 16px;
+  }
+
+  .status {
+    width: 100%;
+    white-space: normal;
+  }
+}
+
+/* ui/styles/202608261927-v9-3.css */
+.project-meta {
+  margin-top: 5px;
+  color: #66ccff;
+  font-size: 9px;
+  font-weight: normal;
+  line-height: 1.45;
+  white-space: normal;
+}
+
+.project-record {
+  margin-top: 6px;
+  font-weight: normal;
+}
+
+.project-record summary {
+  color: #7e8792;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: .4px;
+  list-style: none;
+  user-select: none;
+}
+
+.project-record summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-record summary::before {
+  color: #00ffff;
+  content: "[+] ";
+}
+
+.project-record[open] summary::before {
+  content: "[−] ";
+}
+
+.project-record[open] summary {
+  color: #00ffff;
+}
+
+.record-grid {
+  background: #07090c;
+  border: 1px solid #252a31;
+  display: grid;
+  gap: 8px 12px;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  margin-top: 7px;
+  max-width: 720px;
+  padding: 9px;
+}
+
+.record-grid div {
+  min-width: 0;
+}
+
+.record-grid b,
+.record-grid span {
+  display: block;
+}
+
+.record-grid b {
+  color: #8d95a3;
+  font-size: 8px;
+  letter-spacing: .4px;
+  margin-bottom: 2px;
+}
+
+.record-grid span {
+  color: #d4d8de;
+  font-size: 9px;
+  overflow-wrap: anywhere;
+}
+
+.project-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 135px;
+}
+
+.action-link,
+.action-disabled,
+.copy-id {
+  background: #000;
+  border: 1px solid #343b45;
+  color: #00ffff;
+  cursor: pointer;
+  display: inline-block;
+  font: 700 9px 'Courier New', monospace;
+  padding: 5px 7px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.action-link:hover,
+.copy-id:hover,
+.copy-id.copied {
+  border-color: #00ffff;
+  color: #fff;
+}
+
+.action-disabled {
+  color: #626b77;
+  cursor: not-allowed;
+}
+
+.newslink {
+  font-size: 9px;
+}
+
+.results-meta {
+  align-self: center;
+  color: #aef7d1;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.results-meta.is-filtered {
+  color: #ffcc00;
+}
+
+.clear-filters {
+  border-color: #8d95a3;
+}
+
+.export-inline {
+  border-color: #00ffff;
+  color: #00ffff;
+}
+
+.export-meta {
+  align-self: center;
+  color: #8d95a3;
+  font-size: 10px;
+}
+
+.release-meta {
+  color: #8d95a3;
+}
+
+.news-quality {
+  border: 1px solid #555;
+  display: inline-block;
+  padding: 1px 4px;
+}
+
+.news-quality.relevant {
+  border-color: #167d4d;
+  color: #60ff9c;
+}
+
+.news-quality.unverified {
+  border-color: #6b4b25;
+  color: #d6a66f;
+}
+
+@media (max-width: 768px) {
+  .project-meta {
+    font-size: 8px;
+  }
+
+  .record-grid {
+    grid-template-columns: 1fr;
+    min-width: 230px;
+  }
+
+  .project-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    min-width: 68px;
+  }
+
+  .action-link,
+  .action-disabled,
+  .copy-id {
+    font-size: 8px;
+    padding: 4px 5px;
+  }
+
+  .results-meta,
+  .export-meta {
+    width: 100%;
+  }
+}
+
+/* The V9.3 status line is longer than V7.1. Preserve the V5 shell and
+   three-gauge layout, but stack only the header where the 250 px sidebar
+   otherwise clips that status between tablet and mobile widths. */
+@media (min-width: 769px) and (max-width: 920px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .status {
+    width: 100%;
+    white-space: normal;
+  }
+}
+
+/* V9.3.1 exposes official identity and update fields as desktop columns.
+   Mobile keeps the same facts in the compact project metadata line. */
+.project-meta {
+  display: none;
+}
+
+.tablewrap table {
+  min-width: 1280px;
+}
+
+.reference-cell {
+  color: #66ccff;
+  font-size: 10px;
+}
+
+.globalgrid-ref {
+  overflow-wrap: anywhere;
+}
+
+.repd-updated {
+  color: #d4d8de;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .project-meta {
+    display: block;
+  }
+}
+
+/* ui/styles/202608261927-v9-4.css */
+.repd-updated-heading button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: bold;
+  padding: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.repd-updated-heading button:hover,
+.repd-updated-heading button:focus-visible {
+  color: #fff;
+  outline: 1px solid #00ffff;
+  outline-offset: 4px;
+}
+
+#updatedSortIndicator {
+  color: #ffcc00;
+}
+
+/* ui/styles/202608261927-v9-5-1.css */
+/* V9.5.1 exposes exact newspaper/relevance counts in the release status.
+   Stack the header through compact desktop widths so the longer release
+   identity cannot cross the viewport beside the frozen 250 px sidebar. */
+@media (min-width: 921px) and (max-width: 1100px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .status {
+    width: 100%;
+    white-space: normal;
+  }
+}
+
+/* ui/styles/202608261927-v9-6-1.css */
+/* V9.6.1 changes the mobile projects viewport only. The inherited V9.5.1
+   table width, rows, columns, typography and all non-mobile layout remain. */
+@media (max-width: 768px) {
+  .tablewrap {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+  }
+
+  .tablewrap .hide-mobile {
+    display: table-cell;
+  }
+}
+
+/* ui/styles/202608270055-v8-fast-overrides.css */
+body{height:100dvh}.main,.sidebar,.paper,.tablewrap{min-width:0;min-height:0}.project-window-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px;background:#111;border:1px solid #333;position:sticky;bottom:0;z-index:6}.project-window-controls button,.news-more{background:#111;color:#fff;border:1px solid #666;padding:10px 14px;font:700 11px 'Courier New';cursor:pointer}.project-window-controls button:disabled{opacity:.35;cursor:default}.project-window-controls span{min-width:180px;text-align:center;font-variant-numeric:tabular-nums}.news-more{display:block;width:100%;border-color:#343b45;color:var(--accent)}.news-more[hidden]{display:none}.detail-loading{color:#89929f}.detail-error,.fast-fail{color:#ff6666}.tablewrap{overscroll-behavior:contain}.tablewrap table{min-width:1500px}.project-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.project-actions .action-link,.copy-id{background:#07090c;color:var(--accent);border:1px solid #37404a;padding:5px 7px;text-decoration:none;font:700 9px 'Courier New';white-space:nowrap}.action-disabled{color:#66717d;font-size:9px}.project-record{margin-top:6px;color:#8d98a5;font-size:9px}.project-record summary{cursor:pointer;color:#66ccff}.record-grid{display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:6px;margin-top:7px;padding:8px;background:#050608;border:1px solid #242b33}.record-grid div{display:flex;flex-direction:column;gap:3px}.record-grid b{color:#788492;font-size:8px}.record-grid span{color:#c8d0d8;font-weight:normal}.reference-cell,.repd-updated{white-space:nowrap}.repd-updated-heading button{background:none;border:0;color:inherit;font:inherit;cursor:pointer}.results-meta,.export-meta,.release-meta{color:#aab4c0}.results-meta.is-filtered{color:var(--solar)}
+@media(max-width:768px){body{height:auto;min-height:100dvh;overflow-x:hidden}.main{width:100%;max-width:100%;overflow-x:hidden}.tablewrap{width:100%;max-width:100%;overflow-x:auto;overflow-y:auto}.tablewrap .hide-mobile{display:table-cell!important}.mobile-extra{display:none!important}.project-window-controls{position:sticky;gap:6px;padding:10px 4px}.project-window-controls button{padding:9px 6px;font-size:10px}.project-window-controls span{min-width:108px;font-size:10px}.record-grid{grid-template-columns:1fr}.paper{height:65dvh}.story{min-height:160px}}
+.news-pager{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px;background:#111;border:1px solid #343b45;color:var(--accent)}
+.news-pager button{background:#111;color:#fff;border:1px solid #666;padding:10px 14px;font:700 11px 'Courier New';cursor:pointer}
+.news-pager button:disabled{opacity:.35;cursor:default}
+.news-pager span{min-width:180px;text-align:center;font-variant-numeric:tabular-nums}
+@media(max-width:768px){.news-pager{gap:6px;padding:10px 4px}.news-pager button{padding:9px 6px;font-size:10px}.news-pager span{min-width:108px;font-size:10px}}

@@ -206,3 +206,33 @@ Atlas V8 sentinel and the GRIDATLAS_V9_AUTOMATION markers stay byte-identical.
 Folder file count after this snapshot:
 
 8 files
+
+## Version 006
+
+Version: `homepage_v006.html`
+Source: live `index.html` at commit ffc356b8f3d224bf6cd4dc2a10808e533560b677
+Purpose: restore point taken before adding the `202608311858` Pipeline News release
+and demoting `202608311816` into the superseded list beneath it.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v006.html`:
+
+Line count: 190
+Word count: 1886
+Character count: 21833
+SHA-256 (first 16): bcede5bdc9de01e9
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release that moves the grid
+distance out of its own table column and into the ACTIONS column beside the MAP
+link, where it can be seen without scrolling the table sideways, and adds a
+second distance beside it: how far the project is from the nearest substation at
+33 kV or above. Move the previous current entry, `202608311816`, to the top of
+the superseded list nested beneath it. Nothing else on the page changes: every
+other `name:` and `note:` string, the Grid Atlas V8 sentinel and the
+GRIDATLAS_V9_AUTOMATION markers stay byte-identical.
+
+Folder file count after this snapshot:
+
+9 files

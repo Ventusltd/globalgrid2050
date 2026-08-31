@@ -1,0 +1,355 @@
+/* PipelineNews 202608272048 orientation repair cartridge.
+   The application is non-commercial open source. Publisher redistribution
+   rights remain source-specific and are not inferred by this stylesheet.
+
+   This file is additive. It loads after the immutable 202608270055 fast
+   stylesheet and never uses JavaScript to react to resize or orientation. */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: env(safe-area-inset-top);
+  scroll-padding-right: env(safe-area-inset-right);
+  scroll-padding-bottom: env(safe-area-inset-bottom);
+  scroll-padding-left: env(safe-area-inset-left);
+  text-size-adjust: 100%;
+}
+
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+}
+
+/* Scrolling content may pass behind iOS browser chrome even when the document
+   itself carries safe-area padding. Reserve the unsafe bottom hit strip as a
+   fixed, non-interactive-content shield so controls cannot be tapped beneath
+   the home indicator. The pseudo-element does not participate in DOM sizing. */
+body::after {
+  background: var(--bg, #090c11);
+  bottom: 0;
+  content: '';
+  height: env(safe-area-inset-bottom);
+  left: 0;
+  pointer-events: auto;
+  position: fixed;
+  right: 0;
+  z-index: 9999;
+}
+
+.release-menu-opener {
+  align-items: center;
+  align-self: center;
+  background: #000;
+  border: 1px solid #343b45;
+  color: var(--accent);
+  cursor: pointer;
+  display: none;
+  flex: none;
+  font: 700 11px 'Courier New', monospace;
+  justify-content: center;
+  margin: 0 12px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 14px;
+}
+
+.release-menu-opener:hover,
+.release-menu-opener:focus-visible {
+  border-color: var(--accent);
+  color: #fff;
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#releaseMenu[popover] {
+  background: #090c11;
+  border: 1px solid #424b55;
+  bottom: auto;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .86);
+  color: var(--text);
+  flex-direction: column;
+  height: auto;
+  left: max(10px, env(safe-area-inset-left));
+  margin: 0;
+  max-height: min(80dvh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 20px));
+  max-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right) - 20px);
+  overscroll-behavior: contain;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 8px 0;
+  position: fixed;
+  right: auto;
+  top: max(10px, env(safe-area-inset-top));
+  width: min(360px, calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right) - 20px));
+}
+
+#releaseMenu[popover]:popover-open {
+  display: flex;
+}
+
+#releaseMenu[popover]:not(:popover-open) {
+  display: none;
+}
+
+#releaseMenu[popover]::backdrop {
+  background: rgba(0, 0, 0, .72);
+}
+
+html:has(#releaseMenu:popover-open),
+body:has(#releaseMenu:popover-open),
+body:has(#releaseMenu:popover-open) .main {
+  overflow-y: hidden !important;
+}
+
+.project-window-controls {
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
+}
+
+@media (max-width: 768px), (orientation: landscape) and (max-height: 500px) and (min-width: 769px) {
+  .tablewrap {
+    max-height: 84dvh;
+  }
+
+  #releaseMenu a,
+  .meta a {
+    align-items: center;
+    display: flex;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .signal,
+  .signal-note,
+  .record-grid span {
+    font-size: 10px;
+  }
+
+  .news-tools button,
+  .news-tools input,
+  .btn,
+  select,
+  .asset-search,
+  .news-pager button,
+  .project-window-controls button,
+  .tablewrap .action-link,
+  .tablewrap .copy-id,
+  .tablewrap .action-disabled,
+  .tablewrap details > summary,
+  .tablewrap #sortUpdated {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .sidebar {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .brand {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .release-menu-opener {
+    display: inline-flex;
+    margin: 0;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+}
+
+/* The <=768px mobile layout remains intact in portrait. At the L3 landscape
+   height, keep that layout but place the three 44px project actions on one row;
+   otherwise the stacked actions make every table row too tall to show three. */
+@media (orientation: landscape) and (max-height: 500px) and (max-width: 768px) {
+  .tablewrap {
+    max-height: 84dvh;
+  }
+
+  .project-actions {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    min-width: 180px;
+  }
+
+  .tablewrap th,
+  .tablewrap td {
+    padding: 4px 6px;
+  }
+
+  .tablewrap details > summary {
+    min-height: 32px;
+  }
+}
+
+/* Only landscape viewports wider than the inherited <=768px mobile path
+   receive the short-cockpit geometry. */
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 769px) {
+  body {
+    display: block;
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .sidebar {
+    border-bottom: 1px solid var(--soft);
+    border-right: 0;
+    padding: 6px 8px;
+    width: 100%;
+  }
+
+  .brand {
+    border: 0;
+    margin: 0;
+    padding: 4px;
+  }
+
+  .brand small {
+    letter-spacing: 1px;
+  }
+
+  .main {
+    max-width: 100%;
+    overflow: visible;
+    padding: 8px;
+    width: 100%;
+  }
+
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .header h1 {
+    font-size: 16px;
+  }
+
+  .status {
+    white-space: normal;
+    width: 100%;
+  }
+
+  .news-tools {
+    position: static;
+  }
+
+  .news-tools input {
+    flex: 1 1 240px;
+    margin-left: 0;
+    min-width: min(240px, 100%);
+  }
+
+  .paper {
+    height: 70dvh;
+    max-height: 70dvh;
+    min-height: 0;
+  }
+
+  .stories {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .story {
+    min-height: 150px;
+  }
+
+  .gauges {
+    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .card,
+  .chart,
+  .chart canvas {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .card {
+    padding: 8px;
+  }
+
+  .chart {
+    height: 96px;
+  }
+
+  .chart canvas {
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .tablewrap {
+    -webkit-overflow-scrolling: touch;
+    height: auto;
+    max-height: 84dvh;
+    max-width: 100%;
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  .tablewrap .hide-mobile {
+    display: table-cell !important;
+  }
+
+  .tablewrap th,
+  .tablewrap td {
+    font-size: 10px;
+    padding: 6px;
+  }
+
+  .tablewrap th {
+    height: 44px;
+  }
+
+  .project-meta,
+  .mobile-extra {
+    display: none !important;
+  }
+
+  .project-record {
+    margin-top: 3px;
+  }
+
+  .signal-note {
+    line-height: 1.2;
+    max-width: 180px;
+  }
+
+  .record-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-actions {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    min-width: 180px;
+  }
+
+  .project-window-controls {
+    gap: 6px;
+    padding: 4px;
+    padding-bottom: calc(4px + env(safe-area-inset-bottom));
+  }
+
+  .project-window-controls span {
+    font-size: 10px;
+    min-width: 108px;
+  }
+}

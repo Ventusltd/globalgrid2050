@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>PipelineNews | Current verified Atlas V9 deep-link successor 202608300309</title>
+  <link rel="stylesheet" href="assets/202608270055-v8-fast.css">
+  <link rel="stylesheet" href="assets/202608272048-orientation.css">
+  <style>
+    /* Matches .repd-updated-heading, which was the only sortable heading
+       before this generation. Same affordance, so the table reads as one
+       control surface rather than one special column plus four new ones. */
+    .sortable-heading button {
+      background: transparent; border: 0; color: inherit; cursor: pointer;
+      font: inherit; font-weight: bold; padding: 0; text-align: left;
+      white-space: nowrap;
+    }
+    .sortable-heading button:hover,
+    .sortable-heading button:focus-visible { color: #fff; outline: 1px solid #00ffff; outline-offset: 4px; }
+    .sortable-heading span { color: #ffcc00; }
+
+    /* TOWN is capped and ellipsised, with the full value on hover. An
+       uncapped nowrap column takes the width of its LONGEST value, and the
+       longest ONS ward is "Wester Ross, Strathpeffer and Lochalsh" -- which
+       set the column width for all 7,510 rows and left a gap beside every
+       13-character town. The cap is on an inline-block, not the cell: a
+       max-width on a <td> is advisory under automatic table layout. */
+    .town-cell > span {
+      display: inline-block; max-width: 190px; overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom;
+    }
+    .town-cell .derived { color: #8d98a5; }
+    .locality-note { color: #8d98a5; font-size: 9px; }
+
+    /* GRID column. The BETA chip is a scope marker, not a disclaimer: the
+       measurement is published and checked, and the chip says which questions
+       it does not answer. Amber rather than red for that reason. */
+    .beta-chip {
+      font-size: 8px; letter-spacing: .06em; padding: 1px 3px; border-radius: 2px;
+      background: #3a2f12; color: #e0b050; border: 1px solid #6a5320;
+      vertical-align: 1px;
+    }
+    .grid-cell { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .grid-cell .km { color: #d8dee6; }
+    .grid-cell .kv { color: #8d98a5; font-size: 9px; margin-left: 3px; }
+    /* Band tints the distance only. Bands describe how close the mapped
+       network is; they never imply a connection is obtainable. */
+    .grid-cell[data-band="STRONG"] .km { color: #6fd18a; }
+    .grid-cell[data-band="MODERATE"] .km { color: #d8c96a; }
+    .grid-cell[data-band="DISTANT"] .km { color: #d89a6a; }
+    .grid-cell[data-band="REMOTE"] .km { color: #b06a6a; }
+    .grid-note { color: #8d98a5; font-size: 9px; }
+
+    /* PROJECT SIZE range. Two range inputs share one track: the upper one is
+       transparent to pointer events except on its thumb, so both thumbs stay
+       grabbable even when they meet. */
+    .size-filter { align-items: center; gap: 14px; flex-wrap: wrap; }
+    .size-filter .size-label { color: #00ffff; font-size: 10px; letter-spacing: .08em; }
+    .size-track {
+      position: relative; height: 26px; flex: 1 1 260px;
+      min-width: 200px; max-width: 460px;
+    }
+    .size-track input[type="range"] {
+      position: absolute; left: 0; top: 0; width: 100%; margin: 0;
+      background: none; pointer-events: none; -webkit-appearance: none; appearance: none;
+    }
+    .size-track input[type="range"]::-webkit-slider-runnable-track {
+      height: 3px; background: #2b3138; border-radius: 2px;
+    }
+    .size-track input[type="range"]::-moz-range-track {
+      height: 3px; background: #2b3138; border-radius: 2px;
+    }
+    .size-track input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; pointer-events: auto;
+      height: 15px; width: 15px; margin-top: -6px; border-radius: 50%;
+      background: #00ffff; border: 1px solid #04343a; cursor: pointer;
+    }
+    .size-track input[type="range"]::-moz-range-thumb {
+      pointer-events: auto; height: 13px; width: 13px; border-radius: 50%;
+      background: #00ffff; border: 1px solid #04343a; cursor: pointer;
+    }
+    .size-track input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 2px solid #66ffff; }
+    .size-selected {
+      position: absolute; top: 11px; height: 3px; background: #00ffff;
+      border-radius: 2px; pointer-events: none;
+    }
+    .size-box {
+      width: 72px; background: #10141a; color: #d8dee6; font: inherit;
+      font-size: 11px; border: 1px solid #2b3138; border-radius: 3px; padding: 4px 6px;
+    }
+    .size-box:focus { outline: 1px solid #00ffff; }
+    .size-readout { color: #d8dee6; font-size: 11px; font-variant-numeric: tabular-nums; }
+    .size-note { color: #8d98a5; font-size: 9px; }
+    .size-filter .size-reset {
+      background: none; border: 1px solid #2b3138; color: #8d98a5;
+      font: inherit; font-size: 9px; padding: 3px 7px; border-radius: 3px; cursor: pointer;
+    }
+    .size-filter .size-reset:hover { color: #00ffff; border-color: #00ffff; }
+    @media (max-width: 600px) { .size-track { max-width: none; } }
+
+    /* The horizontal scrollbar existed but was unreachable. .tablewrap was
+       given overflow:auto and then max-height:none, so the wrap grew to the
+       full height of all 100 rows and its scrollbar sat below the last one,
+       far past the fold. Bounding the wrap puts the bar back at the bottom of
+       the table area where it can be used; the sticky header already in the
+       stylesheet then sticks to the wrap instead of the page. */
+    @media (min-width: 769px) {
+      .tablewrap { max-height: calc(100vh - 270px); min-height: 340px; overflow: auto; }
+    }
+    .tablewrap { scrollbar-color: #4a5563 #0a0d11; }
+    .tablewrap::-webkit-scrollbar { height: 14px; width: 14px; }
+    .tablewrap::-webkit-scrollbar-track { background: #0a0d11; }
+    .tablewrap::-webkit-scrollbar-thumb {
+      background: #4a5563; border: 3px solid #0a0d11; border-radius: 8px;
+    }
+    .tablewrap::-webkit-scrollbar-thumb:hover { background: #6b7787; }
+    /* Two more columns than the 1500px this was written for. */
+    .tablewrap table { min-width: 1680px; }
+  </style>
+</head>
+<body data-fast-generation="202608300309" data-release-id="202608300309-pipelinenews">
+  <aside class="sidebar">
+    <div class="brand">
+      <b>GLOBALGRID2050</b>
+      <small>UK RENEWABLES PIPELINE · MOBILE ORIENTATION REPAIR + LIVE NEWS DISCOVERY + CHRONOLOGY + ATLAS V9 DEEP-LINK SUCCESSOR</small>
+    </div>
+    <button class="release-menu-opener" type="button" popovertarget="releaseMenu" popovertargetaction="toggle" aria-controls="releaseMenu">RELEASES</button>
+    <nav class="nav nav-mobile" id="releaseMenu" popover="auto" aria-label="Release links">
+      <a class="active" href="#">MOBILE ORIENTATION REPAIR + LIVE NEWS DISCOVERY + CHRONOLOGY + ATLAS V9 DEEP-LINK SUCCESSOR · TIMESTAMPED RELEASE · POINTER-CONTROLLED</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.6.1/">V9.6.1 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.6/">V9.6 DISCONTINUED</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.5.1/">V9.5.1 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.5/">V9.5 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.4/">V9.4 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9/">V9.3.1 FROZEN APP</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/eee4cf7d854bf44235c249d337c2aad3916bcdc0/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.3 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.2 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/59f74e319fbaad62abdb995107dba5759d7f3ca2/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.1 CHECKPOINT</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v8/">V8.1 FALLBACK</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v7/">V7 FALLBACK</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v6_live.html">V6</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v5_live.html">V5</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v4_live.html">V4</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html">V3</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v2_2026-08-22.html">V2</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard.html">V1 LEGACY</a>
+      <a href="https://globalgrid2050.com/">DIRECTORY</a>
+      <a href="https://globalgrid2050.com/repd_grid_atlasv8/">MAP ATLAS</a>
+    </nav>
+    <nav class="nav nav-desktop" aria-label="Release and export links">
+      <a class="active" href="#">MOBILE ORIENTATION REPAIR + LIVE NEWS DISCOVERY + CHRONOLOGY + ATLAS V9 DEEP-LINK SUCCESSOR · TIMESTAMPED RELEASE · POINTER-CONTROLLED</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.6.1/">V9.6.1 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.6/">V9.6 DISCONTINUED</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.5.1/">V9.5.1 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.5/">V9.5 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9.4/">V9.4 FROZEN APP</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v9/">V9.3.1 FROZEN APP</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/eee4cf7d854bf44235c249d337c2aad3916bcdc0/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.3 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.2 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/59f74e319fbaad62abdb995107dba5759d7f3ca2/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.1 CHECKPOINT</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v8/">V8.1 FALLBACK</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/v7/">V7 FALLBACK</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v6_live.html">V6</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v5_live.html">V5</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v4_live.html">V4</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html">V3</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard_v2_2026-08-22.html">V2</a>
+      <a href="https://globalgrid2050.com/uk_renewables_pipeline/dashboard.html">V1 LEGACY</a>
+      <a href="https://globalgrid2050.com/">DIRECTORY</a>
+      <a href="https://globalgrid2050.com/repd_grid_atlasv8/">MAP ATLAS</a>
+      <a href="#" id="export">EXPORT CSV</a>
+    </nav>
+  </aside>
+  <main class="main">
+    <div class="header">
+      <h1>UK RENEWABLES PIPELINE MOBILE ORIENTATION REPAIR + LIVE NEWS DISCOVERY + CHRONOLOGY + ATLAS V9 DEEP-LINK SUCCESSOR</h1>
+      <div class="status">● 136 HEADLINES · 47 UK · 19 INTERNATIONAL · FULL ≥1 MW</div>
+    </div>
+    <div class="meta">
+      <strong>MOBILE ORIENTATION REPAIR + LIVE NEWS DISCOVERY + CHRONOLOGY + ATLAS V9 DEEP-LINK SUCCESSOR · UK + INTERNATIONAL NEWS · BUILD VERIFIED · TIMESTAMPED RELEASE · POINTER-CONTROLLED</strong>
+      <span>Canonical DESNZ REPD Q2 2026: 7,680 solar, BESS and wind records at ≥1 MW.</span>
+      <span id="releaseMeta" class="release-meta">Loading compact canonical project index…</span>
+      <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
+    </div>
+
+    <section class="newspaper">
+      <div class="masthead">
+        <h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2>
+        <div class="strap">
+          <span>UK requires canonical REPD binding · INTERNATIONAL requires explicit non-UK geography plus solar or battery context · international items never drive REPD project signals</span>
+          <span id="newsMeta">loading daily edition…</span>
+        </div>
+      </div>
+      <div class="news-tools" id="newsTools">
+        <button class="active" data-news="ALL">ALL</button>
+        <button data-news="UK">UK</button>
+        <button data-news="INTERNATIONAL">INTERNATIONAL</button>
+        <button data-news="US">US</button>
+        <button data-news="EUROPE">EUROPE</button>
+        <button data-news="SOLAR">SOLAR</button>
+        <button data-news="BESS">BESS</button>
+        <button data-news="CONSENT">CONSENT</button>
+        <button data-news="CONSTRUCTION">CONSTRUCTION</button>
+        <button data-news="OPERATIONAL">OPERATIONAL</button>
+        <button data-news="FINANCE">FINANCE / M&amp;A</button>
+        <input id="newsSearch" placeholder="SEARCH HEADLINES / PROJECT / OPERATOR">
+      </div>
+      <div class="paper">
+        <div class="stories" id="stories">
+          <div class="news-empty">Loading today’s major-project newspaper…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="meta sector-intelligence-launch" aria-labelledby="sectorIntelHeading">
+      <strong id="sectorIntelHeading">SECTOR INTELLIGENCE</strong>
+      <span>Data centres · inverter security/policy · Strait of Hormuz · Ukraine · Great Grid Upgrade · worldwide PV · MV/HV components.</span>
+      <span>NON-COMMERCIAL OPEN-SOURCE APPLICATION. UPSTREAM RIGHTS REMAIN SOURCE-SPECIFIC AND ARE NEVER INFERRED FROM APP USAGE.</span>
+      <span>Three PipelineNews ZSTD Parquet grains. The browser projection exists only after DuckDB landed-file readback.</span>
+      <span>SECTOR CONTEXT ONLY — NOT A PROJECT BINDING. The generic 136-headline newspaper remains separate and unchanged.</span>
+      <button class="btn" id="sectorIntelOpen" type="button" aria-controls="sectorIntelHost" aria-expanded="false">OPEN SECTOR INTELLIGENCE</button>
+      <span id="sectorIntelMeta">WAIT · dynamic cartridge not requested at startup</span>
+      <div id="sectorIntelHost" hidden></div>
+    </section>
+
+    <section class="meta sector-intelligence-launch" aria-labelledby="federatedRelationshipHeading">
+      <strong id="federatedRelationshipHeading">RELATIONSHIP EVIDENCE — CANDIDATES AND ABSTENTIONS</strong>
+      <span>Compact Companies and data-centre governance projection. No bulk source corpus is copied.</span>
+      <span>All three rows remain ABSTAIN. No ownership, operator, developer, facility or project identity is asserted.</span>
+      <button class="btn" id="federatedRelationshipOpen" type="button" aria-controls="federatedRelationshipHost" aria-expanded="false">OPEN RELATIONSHIP EVIDENCE</button>
+      <span id="federatedRelationshipMeta">WAIT · zero relationship requests before explicit open</span>
+      <div id="federatedRelationshipHost" hidden></div>
+    </section>
+
+    <section class="meta sector-intelligence-launch" aria-labelledby="projectIntelHeading">
+      <strong id="projectIntelHeading">PROJECT INTELLIGENCE — WHERE TO LOOK FIRST</strong>
+      <span>3,054 live solar and battery projects, placed in the window between consent and construction, with grid proximity, nearby data centres and operator footprint.</span>
+      <span>Studies, cable and LV design are specified before a project freezes. This shows which consented projects are still inside that window.</span>
+      <span>Built from the DESNZ planning register under the Open Government Licence v3.0, and mapped network and OpenStreetMap data.</span>
+      <button class="btn" id="projectIntelOpen" type="button" aria-controls="projectIntelHost" aria-expanded="false">OPEN PROJECT INTELLIGENCE</button>
+      <span id="projectIntelMeta">WAIT · dynamic cartridge not requested at startup</span>
+      <div id="projectIntelHost" hidden></div>
+    </section>
+
+    <section class="meta grid-proximity-launch" aria-labelledby="gridProximityHeading">
+      <strong id="gridProximityHeading">GRID PROXIMITY</strong>
+      <span>Radius, sort, connections and target. Beta.</span>
+      <button class="btn" id="gridProximityOpen" type="button" aria-controls="gridProximityHost" aria-expanded="false">GRID</button>
+      <span id="gridProximityMeta">beta</span>
+      <div id="gridProximityHost" hidden></div>
+    </section>
+
+    <h2 class="section-title">REPD PIPELINE ANALYTICS</h2>
+    <div class="gauges">
+      <div class="card">
+        <h3>FILTERED CAPACITY (MW)</h3>
+        <div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
+      </div>
+      <div class="card">
+        <h3>FILTERED PROJECTS (≥1MW)</h3>
+        <div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
+      </div>
+      <div class="card">
+        <h3>LARGEST SINGLE SITE (MW)</h3>
+        <div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+      </div>
+    </div>
+
+    <div class="filters size-filter" id="capacityRange">
+      <span class="size-label">PROJECT SIZE</span>
+      <div class="size-track">
+        <div class="size-selected" id="sizeSelected"></div>
+        <input type="range" id="sizeMinRange" aria-label="Smallest project size to show, MW">
+        <input type="range" id="sizeMaxRange" aria-label="Largest project size to show, MW">
+      </div>
+      <input type="number" class="size-box" id="sizeMinBox" min="1" max="5000" step="0.1" aria-label="Smallest project size in MW">
+      <span class="size-readout" id="sizeReadout">1 – 5,000 MW</span>
+      <input type="number" class="size-box" id="sizeMaxBox" min="1" max="5000" step="0.1" aria-label="Largest project size in MW">
+      <button type="button" class="size-reset" id="sizeReset">FULL RANGE</button>
+      <span class="size-note" id="sizeNote">drag for round sizes, or type an exact MW value · the register itself starts at 1 MW</span>
+    </div>
+    <div class="filters" id="tech">
+      <button class="btn active" data-technology="all" aria-pressed="true">ALL TECH</button>
+      <button class="btn" data-technology="solar" aria-pressed="false">SOLAR</button>
+      <button class="btn" data-technology="bess" aria-pressed="false">BATTERY</button>
+      <button class="btn" data-technology="wind_onshore" aria-pressed="false">ONSHORE</button>
+      <button class="btn" data-technology="wind_offshore" aria-pressed="false">OFFSHORE</button>
+    </div>
+    <div class="filters" id="status">
+      <button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
+      <button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
+      <button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
+      <button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
+      <button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
+    </div>
+    <div class="filters">
+      <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
+      <span class="locality-note" id="localityNote">TOWN + POSTCODE · loading…</span>
+      <span class="grid-note" id="gridDistanceNote">GRID · loading…</span>
+      <select id="sortProjects" aria-label="Sort projects">
+        <option value="capacity_desc">SORT: CAPACITY — LARGEST (DEFAULT)</option>
+        <option value="capacity_asc">SORT: CAPACITY — SMALLEST</option>
+        <option value="county_asc">SORT: COUNTY — A–Z</option>
+        <option value="county_desc">SORT: COUNTY — Z–A</option>
+        <option value="town_asc">SORT: TOWN — A–Z</option>
+        <option value="town_desc">SORT: TOWN — Z–A</option>
+        <option value="postcode_asc">SORT: POSTCODE — A–Z</option>
+        <option value="postcode_desc">SORT: POSTCODE — Z–A</option>
+        <option value="grid_asc">SORT: GRID DISTANCE — NEAREST</option>
+        <option value="grid_desc">SORT: GRID DISTANCE — FURTHEST</option>
+        <option value="updated_desc">SORT: REPD UPDATED — NEWEST</option>
+        <option value="updated_asc">SORT: REPD UPDATED — OLDEST</option>
+      </select>
+      <input id="search" class="asset-search" placeholder="🔍 SEARCH TOWN / POSTCODE / COUNTY / PROJECT / OPERATOR / REPD..." autocomplete="off">
+      <button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
+      <button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
+      <span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+      <span id="exportMeta" class="export-meta">CSV contains the current filtered rows only</span>
+    </div>
+    <div class="meta">
+      <strong>STATUS DISCIPLINE</strong>
+      <span><b>DEFAULT:</b> every qualifying ≥1 MW record is loaded. Filters are user controls; they never redefine or truncate the pipeline.</span>
+      <span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>
+      <span><b>ATLAS:</b> valid geometry resolves the exact REPD Ref. Missing geometry remains in search and CSV and is labelled NO MAP.</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SITE NAME</th>
+            <th class="hide-mobile sortable-heading" id="countyHeader" aria-sort="none">
+              <button id="sortCounty" type="button" aria-label="Sort by county">
+                COUNTY <span id="countySortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th class="hide-mobile sortable-heading" id="townHeader" aria-sort="none">
+              <button id="sortTown" type="button" aria-label="Sort by town">
+                TOWN <span id="townSortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th class="hide-mobile sortable-heading" id="postcodeHeader" aria-sort="none">
+              <button id="sortPostcode" type="button" aria-label="Sort by postcode">
+                POSTCODE <span id="postcodeSortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th class="hide-mobile sortable-heading" id="gridHeader" aria-sort="none">
+              <button id="sortGrid" type="button" aria-label="Sort by straight-line distance to the nearest mapped grid circuit">
+                GRID <span class="beta-chip">BETA</span> <span id="gridSortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th class="hide-mobile">OPERATOR</th>
+            <th>TECHNOLOGY</th>
+            <th>OFFICIAL REPD STATUS</th>
+            <th class="sortable-heading" id="capacityHeader" aria-sort="descending">
+              <button id="sortCapacity" type="button" aria-label="Sort by installed capacity">
+                OFFICIAL CAPACITY <span id="capacitySortIndicator" aria-hidden="true">▼</span>
+              </button>
+            </th>
+            <th class="hide-mobile">REPD REF</th>
+            <th class="hide-mobile">GLOBALGRID REF</th>
+            <th class="hide-mobile repd-updated-heading" id="repdUpdatedHeader" aria-sort="none">
+              <button id="sortUpdated" type="button" aria-label="Sort by REPD updated date, newest first">
+                REPD UPDATED <span id="updatedSortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th>NEWS SIGNAL</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+  <script type="module" src="assets/202608291447-app.mjs"></script>
+</body>
+</html>

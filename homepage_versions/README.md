@@ -178,3 +178,31 @@ Folder file count after this snapshot:
 4. `homepage_v003.html`
 5. `homepage_v004.html`
 6. `202608291526-globalgrid2050`
+
+## Version 005
+
+Version: `homepage_v005.html`
+Source: live `index.html` at commit 58d91d44db639afba7a96434af56475443a9f2c0
+Purpose: restore point taken before adding the `202608311816` Pipeline News release
+and demoting `202608311800` into the superseded list beneath it.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v005.html`:
+
+Line count: 189
+Word count: 1801
+Character count: 21265
+SHA-256 (first 16): 28f5c67a88bd6608
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release that puts a PROJECT SIZE
+range filter above the technology buttons, so the register can be narrowed to a
+band of megawatts such as 30 to 40 MW. Move the previous current entry,
+`202608311800`, to the top of the superseded list nested beneath it. Nothing
+else on the page changes: every other `name:` and `note:` string, the Grid
+Atlas V8 sentinel and the GRIDATLAS_V9_AUTOMATION markers stay byte-identical.
+
+Folder file count after this snapshot:
+
+8 files

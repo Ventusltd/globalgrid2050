@@ -236,3 +236,31 @@ GRIDATLAS_V9_AUTOMATION markers stay byte-identical.
 Folder file count after this snapshot:
 
 9 files
+
+## Version 007
+
+Version: `homepage_v007.html`
+Source: live `index.html` at commit 34c0b6895031ed4f2c1b1bec47f37582080cedb2
+Purpose: restore point taken before adding the `202608312037` Pipeline News release
+and demoting `202608311858` into the superseded list beneath it.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v007.html`:
+
+Line count: 191
+Word count: 2015
+Character count: 22635
+SHA-256 (first 16): 3fe09e2274b8719d
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release whose MAP button finally
+opens the Grid Atlas that carries the grid maths, instead of the older atlas that
+does not. Move the previous current entry, `202608311858`, to the top of the
+superseded list nested beneath it. Nothing else on the page changes: every other
+`name:` and `note:` string, the Grid Atlas V8 sentinel and the
+GRIDATLAS_V9_AUTOMATION markers stay byte-identical.
+
+Folder file count after this snapshot:
+
+10 files

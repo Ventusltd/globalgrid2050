@@ -1,0 +1,35 @@
+{
+  "application_changes": 1,
+  "atlas_live_url": "https://ventusltd.github.io/gridatlas/202608300453-atlas-v9/",
+  "atlas_release_id": "202608300453-atlas-v9",
+  "atlas_target": "legacy",
+  "cartridge_added": "grid_proximity",
+  "cartridges_present": [
+    "grid_proximity",
+    "project_intelligence",
+    "relationship_governance_status",
+    "sector_intelligence"
+  ],
+  "classification": "ADDITIVE_DISCOVERY_CARTRIDGE",
+  "data_changes": 0,
+  "deployment": "not-authorised",
+  "exact_identity_route": {
+    "broad_search_supplement_requests_expected": 0,
+    "golden_repd_ref": "13599",
+    "parameter": "repd_ref"
+  },
+  "existing_dashboard_modified": false,
+  "generation": "202608311610",
+  "generation_source": "read from UTC clock at build time, never chosen",
+  "golden_repd_ref": "13599",
+  "immutable_after_publication": true,
+  "news_changes": 0,
+  "parent_release_id": "202608311343-pipelinenews",
+  "product_surface": "SOURCE_RELEASE_PLUS_VERIFIED_ATLAS_RECEIVER_AND_EXACT_REPD_ROUTE",
+  "project_changes": 0,
+  "promotion_policy": "LOCAL_AND_PUBLIC_BROWSER_DEEP_LINK_PROOF",
+  "release_id": "202608311610-pipelinenews",
+  "rollback": "build again with --from an earlier release; nothing is edited in place",
+  "runtime_verified": false,
+  "schema": "pipelinenews.additive-cartridge-release.v1"
+}

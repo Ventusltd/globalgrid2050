@@ -1,0 +1,37 @@
+{
+  "application_changes": 1,
+  "atlas_live_url": "https://ventusltd.github.io/gridatlas/202608300453-atlas-v9/",
+  "atlas_release_id": "202608300453-atlas-v9",
+  "atlas_target": "legacy",
+  "cartridge_added": "table_locality_sort",
+  "cartridges_present": [
+    "grid_proximity",
+    "project_intelligence",
+    "relationship_governance_status",
+    "sector_intelligence",
+    "table_locality_sort"
+  ],
+  "classification": "DASHBOARD_MODIFYING_CARTRIDGE",
+  "data_changes": 0,
+  "deployment": "not-authorised",
+  "exact_identity_route": {
+    "broad_search_supplement_requests_expected": 0,
+    "golden_repd_ref": "13599",
+    "parameter": "repd_ref"
+  },
+  "existing_dashboard_modification": "This cartridge is NOT panel-only. It adds two columns to the project table and makes four headings sortable, so it patches the table renderer and the sort model in app.mjs. Every patch is a declared, counted replacement; rollback is --from an earlier release, as always.",
+  "existing_dashboard_modified": true,
+  "generation": "202608311731",
+  "generation_source": "read from UTC clock at build time, never chosen",
+  "golden_repd_ref": "13599",
+  "immutable_after_publication": true,
+  "news_changes": 0,
+  "parent_release_id": "202608311610-pipelinenews",
+  "product_surface": "SOURCE_RELEASE_PLUS_VERIFIED_ATLAS_RECEIVER_AND_EXACT_REPD_ROUTE",
+  "project_changes": 0,
+  "promotion_policy": "LOCAL_AND_PUBLIC_BROWSER_DEEP_LINK_PROOF",
+  "release_id": "202608311731-pipelinenews",
+  "rollback": "build again with --from an earlier release; nothing is edited in place",
+  "runtime_verified": false,
+  "schema": "pipelinenews.additive-cartridge-release.v1"
+}

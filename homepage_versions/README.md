@@ -106,3 +106,39 @@ Folder file count after this snapshot:
 2. `homepage_v001.html`
 3. `homepage_v002.html`
 4. `202608291526-globalgrid2050`
+
+## Version 003
+
+Version: `homepage_v003.html`
+Source: live `index.html` at commit `5fe50782adc57e4d81e2ddc10a9bd30028627c8f`
+Purpose: restore point taken before adding the `202608311731` Pipeline News release
+and demoting `202608311645` into the superseded list beneath it.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v003.html`:
+
+Line count: 187
+Word count: 1661
+Character count: 20190
+SHA-256 (first 16): dd3c03b7a5863985
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release that narrows the TOWN
+column, restores a reachable horizontal scrollbar under the table, and extends
+the one search bar to cover town, postcode and planning authority alongside the
+project, operator, county and reference fields it already searched. Move the
+previous current entry, `202608311645`, to the top of the superseded list nested
+beneath it. Nothing else on the page changes: every other `name:` and `note:`
+string, the Grid Atlas V8 sentinel and the GRIDATLAS_V9_AUTOMATION markers stay
+byte-identical.
+
+Folder file count after this snapshot:
+
+5 files
+
+1. `README.md`
+2. `homepage_v001.html`
+3. `homepage_v002.html`
+4. `homepage_v003.html`
+5. `202608291526-globalgrid2050`

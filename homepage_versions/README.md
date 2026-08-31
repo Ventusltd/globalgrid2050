@@ -264,3 +264,31 @@ GRIDATLAS_V9_AUTOMATION markers stay byte-identical.
 Folder file count after this snapshot:
 
 10 files
+
+## Version 008
+
+Version: `homepage_v008.html`
+Source: live `index.html` at commit bdbd88dcefed48a0df54d80cad167463ef0ca232
+Purpose: restore point taken before adding the `202608312056` Pipeline News release
+and demoting `202608312037` into the superseded list beneath it.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v008.html`:
+
+Line count: 192
+Word count: 2113
+Character count: 23261
+SHA-256 (first 16): cf4bea662025f9ed
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release that removes the
+headlines the register does not bind to a project. 89 of 136 stories were
+classified as having no project signal and were being shown anyway, each
+captioned with a project it was not about. Move the previous current entry,
+`202608312037`, to the top of the superseded list nested beneath it. Nothing
+else on the page changes.
+
+Folder file count after this snapshot:
+
+11 files

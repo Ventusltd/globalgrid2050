@@ -1,0 +1,265 @@
+{
+  "schema": "globalgrid2050.decade-summary.v1",
+  "what_this_is": "Yearly aggregates derived from the tracker's own daily series, so that a map can carry the decade without carrying 1.9 MB. No resampling, smoothing, modelling or forecasting: every figure is an arithmetic aggregate of published days, and the day count behind each one is stated so a partial year reads as one.",
+  "not_a_forecast": "Historic system conditions. Nothing here is a projection, a price expectation, or a statement about the economics of any project.",
+  "derived_from": {
+    "price": {
+      "file": "electricity_price_history_daily_decade.json",
+      "source": "Derived from Elexon System Price half hourly history and V5 captured price history",
+      "generated_utc": "2026-06-03T12:04:45.067265Z",
+      "schema": "date|average|high|highAt|low|lowAt|observations",
+      "days": 3652
+    },
+    "solar": {
+      "file": "generation_history/pvlive_solar_daily_browser.json",
+      "source": "Sheffield Solar PVLive",
+      "attribution": "Sheffield Solar PVLive, solar.sheffield.ac.uk",
+      "note": "Solar generation is estimated from Sheffield Solar PVLive. It is not Elexon FUELHH transmission metered solar.",
+      "generated_utc": "2026-06-10T00:53:10Z",
+      "days": 3812
+    }
+  },
+  "price": {
+    "unit": "GBP per MWh, GB system price, daily mean of half hours",
+    "span": [
+      "2016",
+      "2026"
+    ],
+    "decade_mean": 80.17,
+    "lowest_half_hour": {
+      "value": -185.33,
+      "date": "2023-07-17",
+      "at": "14:00"
+    },
+    "highest_half_hour": {
+      "value": 4037.8,
+      "date": "2021-09-09",
+      "at": "16:00"
+    },
+    "by_year": [
+      {
+        "year": "2016",
+        "days": 212,
+        "mean_gbp_per_mwh": 42.52,
+        "min_daily_mean": 2.95,
+        "max_daily_mean": 226.9,
+        "days_with_a_negative_half_hour": 25
+      },
+      {
+        "year": "2017",
+        "days": 365,
+        "mean_gbp_per_mwh": 44.27,
+        "min_daily_mean": 4.72,
+        "max_daily_mean": 177.84,
+        "days_with_a_negative_half_hour": 19
+      },
+      {
+        "year": "2018",
+        "days": 365,
+        "mean_gbp_per_mwh": 57.35,
+        "min_daily_mean": 25.58,
+        "max_daily_mean": 281.61,
+        "days_with_a_negative_half_hour": 42
+      },
+      {
+        "year": "2019",
+        "days": 365,
+        "mean_gbp_per_mwh": 42.0,
+        "min_daily_mean": -12.16,
+        "max_daily_mean": 82.46,
+        "days_with_a_negative_half_hour": 30
+      },
+      {
+        "year": "2020",
+        "days": 366,
+        "mean_gbp_per_mwh": 35.06,
+        "min_daily_mean": -16.91,
+        "max_daily_mean": 122.89,
+        "days_with_a_negative_half_hour": 53
+      },
+      {
+        "year": "2021",
+        "days": 365,
+        "mean_gbp_per_mwh": 113.29,
+        "min_daily_mean": 28.27,
+        "max_daily_mean": 960.24,
+        "days_with_a_negative_half_hour": 40
+      },
+      {
+        "year": "2022",
+        "days": 365,
+        "mean_gbp_per_mwh": 200.06,
+        "min_daily_mean": 7.87,
+        "max_daily_mean": 777.9,
+        "days_with_a_negative_half_hour": 58
+      },
+      {
+        "year": "2023",
+        "days": 365,
+        "mean_gbp_per_mwh": 94.58,
+        "min_daily_mean": -9.34,
+        "max_daily_mean": 238.12,
+        "days_with_a_negative_half_hour": 109
+      },
+      {
+        "year": "2024",
+        "days": 366,
+        "mean_gbp_per_mwh": 71.17,
+        "min_daily_mean": -1.12,
+        "max_daily_mean": 174.93,
+        "days_with_a_negative_half_hour": 127
+      },
+      {
+        "year": "2025",
+        "days": 365,
+        "mean_gbp_per_mwh": 80.57,
+        "min_daily_mean": 0.4,
+        "max_daily_mean": 696.2,
+        "days_with_a_negative_half_hour": 137
+      },
+      {
+        "year": "2026",
+        "days": 153,
+        "mean_gbp_per_mwh": 92.66,
+        "min_daily_mean": -2.08,
+        "max_daily_mean": 149.16,
+        "days_with_a_negative_half_hour": 36
+      }
+    ]
+  },
+  "solar": {
+    "unit": "MW, GB solar generation estimated by Sheffield Solar PVLive",
+    "estimated_not_metered": true,
+    "decade_mean_mw": 1479.0,
+    "by_year": [
+      {
+        "year": "2016",
+        "days": 366,
+        "mean_mw": 1140.8,
+        "max_daily_mean_mw": 2793.4
+      },
+      {
+        "year": "2017",
+        "days": 365,
+        "mean_mw": 1192.0,
+        "max_daily_mean_mw": 3171.5
+      },
+      {
+        "year": "2018",
+        "days": 365,
+        "mean_mw": 1298.8,
+        "max_daily_mean_mw": 3238.7
+      },
+      {
+        "year": "2019",
+        "days": 365,
+        "mean_mw": 1313.1,
+        "max_daily_mean_mw": 3215.7
+      },
+      {
+        "year": "2020",
+        "days": 366,
+        "mean_mw": 1376.8,
+        "max_daily_mean_mw": 3363.4
+      },
+      {
+        "year": "2021",
+        "days": 365,
+        "mean_mw": 1344.8,
+        "max_daily_mean_mw": 3411.2
+      },
+      {
+        "year": "2022",
+        "days": 365,
+        "mean_mw": 1514.4,
+        "max_daily_mean_mw": 3473.6
+      },
+      {
+        "year": "2023",
+        "days": 365,
+        "mean_mw": 1545.4,
+        "max_daily_mean_mw": 3891.8
+      },
+      {
+        "year": "2024",
+        "days": 366,
+        "mean_mw": 1599.5,
+        "max_daily_mean_mw": 4087.1
+      },
+      {
+        "year": "2025",
+        "days": 365,
+        "mean_mw": 2112.4,
+        "max_daily_mean_mw": 4860.6
+      },
+      {
+        "year": "2026",
+        "days": 159,
+        "mean_mw": 2289.4,
+        "max_daily_mean_mw": 5336.5
+      }
+    ],
+    "by_month": [
+      {
+        "month": "01",
+        "days": 341,
+        "mean_mw": 479.6
+      },
+      {
+        "month": "02",
+        "days": 311,
+        "mean_mw": 821.2
+      },
+      {
+        "month": "03",
+        "days": 341,
+        "mean_mw": 1455.7
+      },
+      {
+        "month": "04",
+        "days": 330,
+        "mean_mw": 2226.4
+      },
+      {
+        "month": "05",
+        "days": 341,
+        "mean_mw": 2494.6
+      },
+      {
+        "month": "06",
+        "days": 308,
+        "mean_mw": 2421.0
+      },
+      {
+        "month": "07",
+        "days": 310,
+        "mean_mw": 2255.8
+      },
+      {
+        "month": "08",
+        "days": 310,
+        "mean_mw": 2027.9
+      },
+      {
+        "month": "09",
+        "days": 300,
+        "mean_mw": 1594.0
+      },
+      {
+        "month": "10",
+        "days": 310,
+        "mean_mw": 984.3
+      },
+      {
+        "month": "11",
+        "days": 300,
+        "mean_mw": 578.0
+      },
+      {
+        "month": "12",
+        "days": 310,
+        "mean_mw": 345.0
+      }
+    ]
+  }
+}

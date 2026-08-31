@@ -292,3 +292,17 @@ else on the page changes.
 Folder file count after this snapshot:
 
 11 files
+
+## Version 009
+
+Version: `homepage_v009.html`
+Source: live `index.html` at commit a9777cc19c69823d9964c60cb0d21f44f63d6e3f
+Purpose: restore point taken before adding the `202608312109` Pipeline News release.
+Measured by: Claude Code working session
+SHA-256 (first 16): 5c3012f11eb08907
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release that removes the
+headlines and sector topics that were not about the sector, and stops captioning
+an unbound story with a project it is not about.

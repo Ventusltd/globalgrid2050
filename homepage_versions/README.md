@@ -73,3 +73,36 @@ GlobalGrid2050 is for project developers, CEOs, entrepreneurs, commercial manage
 You do not need to code to start developing.
 
 Start with writing.
+
+## Version 002
+
+Version: `homepage_v002.html`
+Source: live `index.html` at commit `febf6b08802f4fdbc913efc693a8a1ca29868359`
+Purpose: restore point taken before adding the `202608311645` Pipeline News release
+and demoting `202608311610` into the superseded list beneath it.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v002.html`:
+
+Line count: 186
+Word count: 1614
+Character count: 19813
+SHA-256 (first 16): e3bbe4e5e6ccbdec
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release that puts TOWN and
+POSTCODE columns in the project table and makes CAPACITY, COUNTY, TOWN and
+POSTCODE sortable by clicking their headings. Move the previous current entry,
+`202608311610`, to the top of the superseded list nested beneath it. Nothing
+else on the page changes: every other `name:` and `note:` string, the Grid Atlas
+V8 sentinel and the GRIDATLAS_V9_AUTOMATION markers stay byte-identical.
+
+Folder file count after this snapshot:
+
+4 files
+
+1. `README.md`
+2. `homepage_v001.html`
+3. `homepage_v002.html`
+4. `202608291526-globalgrid2050`

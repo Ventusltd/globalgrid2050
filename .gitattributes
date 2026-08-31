@@ -1,0 +1,86 @@
+# Text is LF, everywhere, in the working copy as well as in the blob.
+#
+# WHY THIS FILE EXISTS
+#
+# Every digest in this repository is taken over git blob content, which is LF,
+# and GitHub Pages serves those same bytes. On a Windows checkout with
+# core.autocrlf=true git writes CRLF into the working copy instead, so the file
+# on disk is not the file that ships — and anything that reads the disk to
+# answer a question about what ships gets a different answer depending on whose
+# machine it runs on.
+#
+# That defect appeared FOUR times in one evening, in four separate places:
+#
+#   the pipelinenews release verifier   hashed the working copy
+#   tools/scope/verify-compose.mjs      failed on a tree nobody had touched
+#   tools/scope/advance.mjs             RECORDED digests from the working copy,
+#                                       so it would have attested bytes GitHub
+#                                       Pages never serves
+#   the cartridge proof                 compared the shell adapter raw, and so
+#                                       passed on Windows and failed on the
+#                                       runner — where it was right to fail
+#
+# Each was fixed by normalising at the point of comparison. This fixes the
+# cause: with `* text=auto eol=lf` the working copy is LF too, so there is no
+# second version of a file to disagree with, and a checkout on Windows, on a
+# runner, and in a container all hold identical bytes.
+#
+# `eol=lf` is deliberate rather than bare `text=auto`. Bare auto normalises the
+# blob and still hands Windows CRLF, which is exactly the situation that caused
+# all four.
+
+* text=auto eol=lf
+
+# Binaries must never be touched. Line-ending translation inside a PNG or a
+# Parquet file corrupts it silently, and the corruption survives a commit.
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.webp   binary
+*.ico    binary
+*.pdf    binary
+*.zip    binary
+*.gz     binary
+*.zst    binary
+*.parquet binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.otf    binary
+*.mbtiles binary
+*.pbf    binary
+
+# Shell scripts are executed by Linux runners. A CR at the end of a shebang
+# line makes the kernel look for an interpreter whose name ends in a carriage
+# return, and the error it gives — "bad interpreter" — names a file that
+# appears to exist.
+*.sh     text eol=lf
+*.bash   text eol=lf
+
+# So are the things CI runs directly.
+*.mjs    text eol=lf
+*.js     text eol=lf
+*.py     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.json   text eol=lf
+*.geojson text eol=lf
+*.md     text eol=lf
+*.html   text eol=lf
+*.css    text eol=lf
+*.txt    text eol=lf
+
+# CSV is left alone, deliberately.
+#
+# RFC 4180 specifies CRLF as the line ending for text/csv, so a CRLF CSV is
+# correct rather than a Windows accident, and every parser in this estate reads
+# both. There are 221 historical generation CSVs under data/generation/ that
+# predate this file; none of them is inside a hashed release, none is served as
+# an attested artefact, and rewriting all of them to chase a cosmetic rule
+# would be a large diff with no benefit and some risk.
+#
+# Linux compliance is about files whose bytes are executed, hashed, or served
+# as an attested artefact. A data file that parses identically either way is
+# none of those.
+*.csv   -text

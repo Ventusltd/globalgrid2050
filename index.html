@@ -29,6 +29,14 @@
   .platform-body { padding:2px 0 18px; }
   ul.drawer { list-style:none; margin:0 0 10px; padding:0; }
   ul.drawer li { padding:10px 0 10px 28px; border-top:1px solid #1c1c1c; }
+  details.nest { margin:6px 0 2px; }
+  details.nest > summary { list-style:none; cursor:pointer; padding:4px 0; color:#7a7a7a; font-size:16px; }
+  details.nest > summary::-webkit-details-marker { display:none; }
+  details.nest > summary::before { content:"[+] "; color:#7a7a7a; }
+  details.nest[open] > summary::before { content:"[−] "; }
+  details.nest > summary:hover { color:#66ccff; }
+  ul.drawer ul.drawer { margin:0; }
+  ul.drawer ul.drawer li { padding-left:22px; font-size:17px; }
   .noresult { color:#888; padding:20px 0; }
   .footer { margin-top:60px; font-size:16px; color:#aaa; line-height:1.5; }
   @media(max-width:600px){ body{padding:25px;font-size:18px}.footer{font-size:14px}ul.drawer li{padding-left:20px}.launch-flagship a{font-size:26px}.os-strip a{font-size:20px}.primary-link{font-size:24px} }
@@ -112,11 +120,12 @@ const AREAS = [
     { name:"UK Renewables Pipeline V9.6.1", url:"./uk_renewables_pipeline/v9.6.1/", note:"FROZEN PREVIOUS APP · V9.5.1 runtime · mobile table scroll repair only" },
     { name:"UK Renewables Pipeline V9.6.2", url:"./uk_renewables_pipeline/v9.6.2/", note:"LIVE VALIDATED · canonical UK news plus separate international, US and Europe solar/storage views" },
     { name:"UK Renewables Pipeline V9.7", url:"./uk_renewables_pipeline/v9.7/", note:"CANDIDATE · build-time regional classifier · published 133-item decision ledger · V9.6.2 project/mobile runtime frozen" },
-    { name:"UK Renewables Pipeline News V1", url:"https://ventusltd.github.io/pipelinenews/newsv1/", note:"FROZEN APP · Pipeline News repository · V9.7-parity performance rebuild" },
-    { name:"UK Renewables Pipeline News V7", url:"https://ventusltd.github.io/pipelinenews/newsv7/", note:"NEW CUMULATIVE APP · V9.7 baseline · NewsV2–NewsV6 governed intelligence · fail-closed evidence" },
-    { name:"Pipeline News — 202608260159", url:"https://ventusltd.github.io/pipelinenews/202608260159-pipelinenews/", note:"CURRENT · exact V9.6.2 interface copy · 7,680 projects · desktop/mobile and committed/live byte proof verified" },
-    { name:"Pipeline News — 202608271524 V8 Fast Candidate", url:"https://ventusltd.github.io/pipelinenews/releases/202608271524-v8-fast-candidate.html", note:"PUBLISHED CANDIDATE · immutable live bytes verified · 7,680 projects · 136 headlines · chronology and Atlas V8 links · mobile remediation pending" },
-    { name:"Pipeline News — Project Intelligence 202608311343", url:"./pipelinenews_intelligence/202608311343/", note:"NEW · open the panel for the window between consent and construction, grid and data-centre proximity · 3,054 live solar and battery projects · DESNZ REPD Q2 2026 under OGL v3.0 · Atlas V8 deep links" },
+    { name:"Pipeline News — Project Intelligence 202608311343", url:"./pipelinenews_intelligence/202608311343/", note:"NEW · open the panel for the window between consent and construction, grid and data-centre proximity · 3,054 live solar and battery projects · DESNZ REPD Q2 2026 under OGL v3.0 · Atlas V8 deep links", children:[
+      { name:"Pipeline News — 202608271524 V8 Fast Candidate", url:"https://ventusltd.github.io/pipelinenews/releases/202608271524-v8-fast-candidate.html", note:"PUBLISHED CANDIDATE · immutable live bytes verified · 7,680 projects · 136 headlines · chronology and Atlas V8 links · mobile remediation pending" },
+      { name:"Pipeline News — 202608260159", url:"https://ventusltd.github.io/pipelinenews/202608260159-pipelinenews/", note:"CURRENT · exact V9.6.2 interface copy · 7,680 projects · desktop/mobile and committed/live byte proof verified" },
+      { name:"UK Renewables Pipeline News V7", url:"https://ventusltd.github.io/pipelinenews/newsv7/", note:"NEW CUMULATIVE APP · V9.7 baseline · NewsV2–NewsV6 governed intelligence · fail-closed evidence" },
+      { name:"UK Renewables Pipeline News V1", url:"https://ventusltd.github.io/pipelinenews/newsv1/", note:"FROZEN APP · Pipeline News repository · V9.7-parity performance rebuild" }
+    ] },
     { name:"Solar Deployment Statistics", url:"./solar_deployment_statistics/" }
   ]},
   { name:"Data Centres & Digital Infrastructure", children:[
@@ -166,9 +175,9 @@ const AREAS = [
 ];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const menu=document.getElementById("menu");
-function rowHtml(r){const note=r.note?` <span class="dev-status">(${esc(r.note)})</span>`:"";const key=(r.name+" "+(r.note||"")).toLowerCase();return `<li data-name="${esc(key)}"><a href="${encodeURI(r.url)}">${esc(r.name)}</a>${note}</li>`;}
+function rowHtml(r){const note=r.note?` <span class="dev-status">(${esc(r.note)})</span>`:"";const key=(r.name+" "+(r.note||"")).toLowerCase();const nest=r.children&&r.children.length?`<details class="nest"><summary>Earlier versions (${r.children.length})</summary><ul class="drawer">${r.children.map(rowHtml).join("")}</ul></details>`:"";return `<li data-name="${esc(key)}"><a href="${encodeURI(r.url)}">${esc(r.name)}</a>${note}${nest}</li>`;}
 function build(){let html="";for(const a of AREAS){const rows=a.children.map(rowHtml).join("");html+=`<details class="area" data-name="${esc(a.name.toLowerCase())}"><summary>${esc(a.name)}</summary><ul class="drawer">${rows}</ul></details>`;}html+=`<p class="noresult" id="noresult" style="display:none">No match.</p>`;menu.innerHTML=html;}
-function applySearch(raw){const q=raw.trim().toLowerCase();let anyVisible=false;if(q)document.querySelector("details.platform").open=true;document.querySelectorAll("details.area").forEach(d=>{const areaMatch=!!q&&d.dataset.name.includes(q);let childMatch=false;d.querySelectorAll("li").forEach(li=>{const liMatch=li.dataset.name.includes(q);const show=!q||areaMatch||liMatch;li.style.display=show?"":"none";if(q&&liMatch)childMatch=true;});const visible=!q||areaMatch||childMatch;d.style.display=visible?"":"none";d.open=q?visible:false;if(visible)anyVisible=true;});document.getElementById("noresult").style.display=anyVisible?"none":"";}
+function applySearch(raw){const q=raw.trim().toLowerCase();let anyVisible=false;if(q)document.querySelector("details.platform").open=true;document.querySelectorAll("details.area").forEach(d=>{const areaMatch=!!q&&d.dataset.name.includes(q);let childMatch=false;d.querySelectorAll("li").forEach(li=>{const liMatch=li.dataset.name.includes(q);const show=!q||areaMatch||liMatch;li.style.display=show?"":"none";if(q&&liMatch)childMatch=true;});d.querySelectorAll("details.nest").forEach(n=>{if(!q){n.open=false;return;}const hit=Array.prototype.some.call(n.querySelectorAll("li"),li=>li.dataset.name.includes(q));n.open=hit;if(hit){const p=n.closest("li");if(p)p.style.display="";}});const visible=!q||areaMatch||childMatch;d.style.display=visible?"":"none";d.open=q?visible:false;if(visible)anyVisible=true;});document.getElementById("noresult").style.display=anyVisible?"none":"";}
 build();document.getElementById("gridSearch").addEventListener("input",e=>applySearch(e.target.value));
 </script>
 </body>

@@ -1,0 +1,33 @@
+{
+  "application_changes": 1,
+  "atlas": {
+    "generation": "202608300453",
+    "live_url": "https://ventusltd.github.io/gridatlas/202608300453-atlas-v9/",
+    "publication_commit": "bf16a713b9e5d926822efe80c681c017cc4edcee",
+    "release_id": "202608300453-atlas-v9",
+    "source_commit": "4f3e8fc5c7ea28edf83dbac9b231024723bcf231",
+    "state_url": "https://ventusltd.github.io/gridatlas/state/live-set.json"
+  },
+  "classification": "VERIFIED_GRIDATLAS_V9_RECEIVER_BOUND",
+  "data_changes": 0,
+  "deep_link_logic_changes": 2,
+  "exact_identity_route": {
+    "broad_search_supplement_requests_expected": 0,
+    "broad_search_supplement_required": false,
+    "golden_repd_ref": "13599",
+    "parameter": "repd_ref",
+    "stable_key_source": "compact project index field zero"
+  },
+  "generation": "202608300309",
+  "identity": {
+    "golden_repd_ref": "13599",
+    "golden_url": "https://ventusltd.github.io/gridatlas/202608300453-atlas-v9/?repd_ref=13599",
+    "parameter": "repd_ref",
+    "rule": "EXACT_REPD_REF_ONLY"
+  },
+  "news_changes": 0,
+  "pipeline_release_id": "202608300309-pipelinenews",
+  "project_changes": 0,
+  "schema": "pipelinenews.atlas-current-link-manifest.v1",
+  "source_pipeline_release_id": "202608291447-pipelinenews"
+}

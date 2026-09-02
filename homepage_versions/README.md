@@ -498,3 +498,33 @@ Nothing else on the page changes.
 Folder file count after this snapshot:
 
 18 files
+
+## Version 017
+
+Version: `homepage_v017.html`
+Source: live `index.html` at commit 4ab57063
+Purpose: restore point taken before renaming the estate build scan row to `Log`
+and repointing it at generation `202609021924`.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v017.html`:
+
+Line count: 205
+Word count: 3312
+Character count: 31572
+SHA-256 (first 16): 7b19e3d8b1ad1c7a
+
+Change intention in plain English:
+
+Vikram asked for two things: the row renamed from `Estate Build Scan` to `Log`,
+and his username taken off the terminal prompt at the top of the page it points
+at. The username is inside published bytes at `estate_scan/202609021858/`, and
+published bytes are not edited in place here, so `202609021924` is a new
+generation carrying the correction. The row now names that generation. The
+superseded folder stays on disk, unlisted, as the record of what was served.
+
+Nothing else on the page changes.
+
+Folder file count after this snapshot:
+
+19 files

@@ -1,0 +1,56 @@
+{
+  "schema": "pipelinenews.federated-relationship-status-browser.v1",
+  "generation": "202608282200",
+  "heading": "RELATIONSHIP EVIDENCE — CANDIDATES AND ABSTENTIONS",
+  "decision_posture": "ABSTENTION_FIRST",
+  "project_bindings": 0,
+  "confirmed_ownership_rows": 0,
+  "confirmed_operator_rows": 0,
+  "rows": [
+    {
+      "relationship_family": "COMPANY_REPD",
+      "segment": "ALL_CANDIDATES",
+      "generation": "202608282200",
+      "source_repository": "Ventusltd/companies",
+      "source_commit": "148335a6eb1fdf8c488fc1608ef29b6add0da269",
+      "source_contract_sha256": "43905c977b990ff5f1bbe4a8fc8eafee94cd5e474730adcd6b7112e166fcc358",
+      "candidate_commit": "407ff7f0a4d3f29a022845153364c9966075dbe7",
+      "candidate_rows": 482030,
+      "requested_role": "UNKNOWN",
+      "decision": "ABSTAIN",
+      "identity_posture": "CANDIDATE_ONLY_NOT_CONFIRMED_OWNERSHIP",
+      "eligible_for_join": false,
+      "caveat": "Name-derived candidate evidence only; ownership and project identity remain unconfirmed."
+    },
+    {
+      "relationship_family": "COMPANY_REPD",
+      "segment": "SOLAR_SUBSET",
+      "generation": "202608282200",
+      "source_repository": "Ventusltd/companies",
+      "source_commit": "148335a6eb1fdf8c488fc1608ef29b6add0da269",
+      "source_contract_sha256": "43905c977b990ff5f1bbe4a8fc8eafee94cd5e474730adcd6b7112e166fcc358",
+      "candidate_commit": "407ff7f0a4d3f29a022845153364c9966075dbe7",
+      "candidate_rows": 346233,
+      "requested_role": "UNKNOWN",
+      "decision": "ABSTAIN",
+      "identity_posture": "CANDIDATE_ONLY_NOT_CONFIRMED_OWNERSHIP",
+      "eligible_for_join": false,
+      "caveat": "Solar subset of name-derived candidates; no ownership, operator or developer role is asserted."
+    },
+    {
+      "relationship_family": "DATA_CENTRE_COMPANY",
+      "segment": "OWNER_OPERATOR_SLOTS",
+      "generation": "202608282200",
+      "source_repository": "Ventusltd/data-centres-gb",
+      "source_commit": "c5dfdee3ba5dbe94c1e29ec8cfa9d47431da9506",
+      "source_contract_sha256": "894234caa44a898b17f2bebcf10e24538ecd39854c09368c57dd8948c1c720a1",
+      "candidate_commit": "b2be24b3673a2532b3deab87f90861ca59e730fd",
+      "candidate_rows": 612,
+      "requested_role": "UNASSERTED_OWNER_OR_OPERATOR_SLOT",
+      "decision": "ABSTAIN",
+      "identity_posture": "SOURCE_ELEMENT_ONLY",
+      "eligible_for_join": false,
+      "caveat": "Requested role slots are not asserted relationships; a verified company number is required."
+    }
+  ]
+}

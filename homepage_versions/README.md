@@ -306,3 +306,67 @@ Change intention in plain English:
 Add one new current entry for the Pipeline News release that removes the
 headlines and sector topics that were not about the sector, and stops captioning
 an unbound story with a project it is not about.
+
+## Versions 010 and 011 — recorded late
+
+`homepage_v010.html` and `homepage_v011.html` exist in this folder with no
+entry above. Reading them back: `homepage_v011.html` carries `202608312114` as
+the current Pipeline News entry, so it is the restore point taken before adding
+`202608312145`; `homepage_v010.html` carries `202608312212`, so it is the
+restore point taken before adding `202608312339`. They are numbered out of
+chronological order because the ritual's own record was skipped, not because the
+snapshots are wrong. Recorded here rather than renumbered: nothing in this
+folder is ever overwritten, and a late entry is honest where a renumber would
+destroy two restore points to tidy an index.
+
+## Version 012
+
+Version: `homepage_v012.html`
+Source: live `index.html` at commit `34ba41db9dd0738b586bbf58a6245cb102f9c4cc`
+Purpose: restore point taken before naming the two Pipeline News releases that
+were published to this host and reachable from nothing, and before correcting
+the Grid Atlas row.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v012.html`:
+
+Line count: 200
+Word count: 2950
+Character count: 27769
+SHA-256 (first 16): 1173ddc0d58477d4
+
+Change intention in plain English:
+
+`202609012326` and `202609020025` were both copied into
+`pipelinenews_intelligence/`, deployed, and served with HTTP 200. Neither was
+named anywhere on this page, so the newest Pipeline News version a reader could
+reach was `202608312339` — three versions behind. The publishing runner does not
+edit this page by design, and nothing else was checking, so the gap was silent.
+
+This edit does four things:
+
+1. Makes `202609020025` the current Pipeline News entry.
+2. Adds `202609012326` to the top of the superseded list beneath it, and demotes
+   `202608312339` under that, with its `NEW` badge removed and its supersession
+   named.
+3. Adds `202608312244` in its correct place in that chain. It is the parent of
+   `202608312339` and the one step in the current lineage that was built but
+   never mirrored to this host; its directory is published in the same commit.
+4. Corrects the Grid Atlas row inside the `GRIDATLAS_V9_AUTOMATION` markers,
+   which claimed v9.5 / `202608301624` was the current verified release while
+   the live composition was v9.77 / `202609020018`. The markers, the URL and the
+   V8 sentinel are unchanged; only the name, note and `data_gridatlas_release`
+   move.
+
+Nothing else on the page changes: every other `name:` and `note:` string, the
+Grid Atlas V8 sentinel and the `GRIDATLAS_V9_AUTOMATION` markers stay
+byte-identical.
+
+`scripts/verify_published_versions.py` is added in the same commit so this
+cannot drift silently again. It was verified to fire on the unfixed page before
+being trusted: against `homepage_v012.html` it reports all three findings and
+exits 1.
+
+Folder file count after this snapshot:
+
+14 files

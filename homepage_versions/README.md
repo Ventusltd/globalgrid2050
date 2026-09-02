@@ -469,3 +469,32 @@ edit is one inserted line, verified by diff.
 Folder file count after this snapshot:
 
 17 files
+
+## Version 016
+
+Version: `homepage_v016.html`
+Source: live `index.html` at commit 9f1a7b96
+Purpose: restore point taken before removing the note from the
+`Estate Build Scan — 202609021858` entry.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v016.html`:
+
+Line count: 205
+Word count: 3385
+Character count: 32030
+SHA-256 (first 16): aaf3cc1c1267e205
+
+Change intention in plain English:
+
+Vikram asked for the note to come off the estate build scan entry. The row keeps
+its name and its route and loses its description, so it reads as a plain link
+like `Blog` and `Podcast Transcripts` beside it. The figures the note carried —
+the failing workflow count and the undeployed commit count — are still stated on
+the page the row points at, which is where they belong.
+
+Nothing else on the page changes.
+
+Folder file count after this snapshot:
+
+18 files

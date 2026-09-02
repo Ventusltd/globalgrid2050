@@ -528,3 +528,34 @@ Nothing else on the page changes.
 Folder file count after this snapshot:
 
 19 files
+
+## Version 018
+
+Version: `homepage_v018.html`
+Source: live `index.html` at commit 9c36d53c
+Purpose: restore point taken before repointing the `Log` row at generation
+`202609021937`.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v018.html`:
+
+Line count: 205
+Word count: 3310
+Character count: 31558
+SHA-256 (first 16): 0f6204a6192b55f0
+
+Change intention in plain English:
+
+The `Log` row moves from `202609021924` to `202609021937`. The page it points at
+is rebuilt as a vertical scan log rather than a set of tables: the terminal
+prompt line and the source strip are gone, the probe section is gone, and the
+per-repository statistics are widened to include tree size, file-type
+distribution, largest tracked objects, commit interval, hour and weekday
+distribution, per-workflow run durations, branch counts with distance from the
+default branch, and a live HTTP probe of every published site.
+
+Nothing else on the page changes.
+
+Folder file count after this snapshot:
+
+20 files

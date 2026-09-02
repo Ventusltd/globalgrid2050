@@ -27,6 +27,10 @@ on:
       - 'solar_deployment_statistics/**'
       - 'solar_components/**'
       - 'uk_renewables_pipeline/**'
+      # The estate build scan is a published directory like the Pipeline News
+      # snapshots above. Without a path here a rescan would deploy nothing,
+      # and would appear to work only when its commit also touched index.html.
+      - 'estate_scan/**'
       - 'dist/major_project_news_v5.json'
       - 'dist/major_projects_v5.json'
       - 'dist/major_project_news_v6.json'

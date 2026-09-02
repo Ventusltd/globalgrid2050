@@ -436,3 +436,36 @@ release published itself here and the page linked to nothing.
 Folder file count after this snapshot:
 
 16 files
+
+## Version 015
+
+Version: `homepage_v015.html`
+Source: live `index.html` at commit 77e4eeaff7e2a383cb764390cbbe2aa7801493fe
+Purpose: restore point taken before adding one About & Media entry for the
+estate build scan published at `estate_scan/202609021858/`.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v015.html`:
+
+Line count: 204
+Word count: 3305
+Character count: 31486
+SHA-256 (first 16): 2fbc82d968b4293a
+
+Change intention in plain English:
+
+Add one new entry to the About & Media area, pointing at a self-hosted page that
+reports the measured build state of the fifteen repositories behind the estate:
+commits on main, CI/CD outcomes, every workflow whose most recent run failed, and
+a fixed-width baseline index so a later scan can be diffed against this one. The
+page is self-hosted rather than linked, because the working copy of it sits behind
+a private URL the public site cannot reach.
+
+Nothing else on the page changes. The Grid Atlas Overlay V8 catalogue sentinel,
+its route, and the GRIDATLAS_V9_AUTOMATION markers are untouched, and all 113
+pre-existing `name:` strings and 65 `note:` strings stay byte-identical — the
+edit is one inserted line, verified by diff.
+
+Folder file count after this snapshot:
+
+17 files

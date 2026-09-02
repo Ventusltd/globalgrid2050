@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Measured build and delivery state of the fifteen Ventus repositories behind GlobalGrid2050: commit progression, CI/CD outcomes, failing workflows, and a fixed-width baseline index.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2307090c%27/%3E%3Ctext y=%2723%27 x=%275%27 font-size=%2718%27 fill=%27%2335c9d9%27 font-family=%27monospace%27%3E%3E_%3C/text%3E%3C/svg%3E">
+<style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Ventus Estate Scan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#07090c;
+  --panel:#0c1014;
+  --rule:#1b232c;
+  --rule-2:#2a3540;
+  --ink:#c6d2dd;
+  --ink-2:#8695a3;
+  --dim:#525f6b;
+  --cy:#35c9d9;
+  --am:#e8a33d;
+  --ok:#3fbf5f;
+  --bad:#e2564d;
+  --mag:#b98ae0;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size:13px;
+  line-height:1.55;
+  font-variant-ligatures:none;
+}
+.wrap{max-width:1500px;margin:0 auto;padding:26px 20px 64px;display:flex;flex-direction:column;gap:30px}
+.tnum{font-variant-numeric:tabular-nums}
+b{font-weight:700}
+.ok{color:var(--ok)} .bad{color:var(--bad)} .am{color:var(--am)} .cy{color:var(--cy)}
+.dim{color:var(--dim)} .ink2{color:var(--ink-2)} .mag{color:var(--mag)}
+
+/* prompt header */
+.term{border:1px solid var(--rule);background:var(--panel);border-radius:2px}
+.head{padding:14px 16px;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:3px}
+.ps1{color:var(--dim)}
+.ps1 .u{color:var(--ok)} .ps1 .p{color:var(--cy)} .ps1 .c{color:var(--ink)}
+.meta{color:var(--dim);font-size:12px}
+.meta b{color:var(--ink-2);font-weight:500}
+
+h2{margin:0;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--am);text-transform:uppercase}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sechead{display:flex;align-items:baseline;gap:14px}
+.sechead .rl{flex:1;height:1px;background:var(--rule-2)}
+.sechead .note{color:var(--dim);font-size:12px;letter-spacing:0;text-transform:none;font-weight:400}
+
+.scroll{overflow-x:auto;border:1px solid var(--rule);background:var(--panel);border-radius:2px}
+table{border-collapse:collapse;width:100%;white-space:nowrap;font-size:12.5px}
+th{
+  text-align:left;color:var(--dim);font-weight:500;font-size:11px;letter-spacing:.09em;
+  padding:9px 12px;border-bottom:1px solid var(--rule-2);position:sticky;top:0;background:var(--panel)
+}
+th.r,td.r{text-align:right}
+td{padding:5px 12px;border-bottom:1px solid var(--rule);color:var(--ink-2);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#101820}
+td.repo{color:var(--ink);font-weight:500}
+td.spark{letter-spacing:1px;color:var(--cy);font-size:13px}
+td.sub{color:var(--dim);max-width:520px;overflow:hidden;text-overflow:ellipsis}
+
+.tag{padding:1px 6px;border-radius:2px;border:1px solid currentColor;font-size:10.5px;letter-spacing:.06em}
+.tag.ok{color:var(--ok)} .tag.bad{color:var(--bad)} .tag.am{color:var(--am)} .tag.dim{color:var(--dim)}
+
+/* probes */
+.probe{border:1px solid var(--rule);background:var(--panel);border-radius:2px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.probes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.probe .cmd{color:var(--cy)}
+.probe .cmd::before{content:"$ ";color:var(--dim)}
+.probe pre{margin:0;white-space:pre;overflow-x:auto;color:var(--ink-2);font-size:12px;line-height:1.6;
+  border-left:2px solid var(--rule-2);padding-left:12px}
+.probe .verdict{font-size:12.5px;color:var(--ink)}
+
+/* index block */
+.idxbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+button{
+  font-family:inherit;font-size:11.5px;letter-spacing:.08em;color:var(--cy);background:transparent;
+  border:1px solid var(--rule-2);border-radius:2px;padding:5px 12px;cursor:pointer
+}
+button:hover{border-color:var(--cy);background:#0f1a1f}
+button:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+pre.index{
+  margin:0;border:1px solid var(--rule);background:var(--panel);border-radius:2px;
+  padding:14px 16px;overflow-x:auto;font-size:12px;line-height:1.65;color:var(--ink-2)
+}
+pre.index .hdr{color:var(--am)}
+
+footer{color:var(--dim);font-size:12px;display:flex;flex-direction:column;gap:6px;
+  border-top:1px solid var(--rule-2);padding-top:16px}
+footer b{color:var(--ink-2);font-weight:500}
+@media (max-width:900px){.probes{grid-template-columns:1fr}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <div class="term head">
+    <div class="ps1"><span class="u">vikram@ventus</span>:<span class="p">~/GitHub</span><span class="c">$ estate-scan --all --workers 20</span></div>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <section class="sec">
+    <div class="sechead"><h2>Repo index</h2><span class="note">15 repositories &middot; counts from origin/main at scan time</span><span class="rl"></span></div>
+    <div class="scroll"><table id="idx"></table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead"><h2>CI/CD red</h2><span class="note" id="rednote">workflows whose most recent run failed</span><span class="rl"></span></div>
+    <div class="scroll"><table id="red"></table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead"><h2>Probes run</h2><span class="note">change observed by executing the pipeline, not by reading it</span><span class="rl"></span></div>
+    <div class="probes" id="probes"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead"><h2>Progression index</h2><span class="note">baseline &mdash; diff the next scan against this block</span><span class="rl"></span></div>
+    <div class="idxbar">
+      <span class="dim">Fixed-width, stable column order. Same command, same shape, every scan.</span>
+      <button id="copy" type="button">COPY INDEX</button>
+    </div>
+    <pre class="index" id="block"></pre>
+  </section>
+
+  <footer>
+    <p><b>Method.</b> Git figures come from <code>git log --numstat</code> against <code>origin/main</code>, fetched at scan time into throwaway clones &mdash; no working tree was touched and nothing was pushed. CI figures come from the GitHub Actions REST API, unauthenticated, which returns the most recent 100 runs per repository; <code>runs</code> is the repository's lifetime total, <code>ok</code>/<code>fail</code> describe the sampled window only. Run logs need authentication, so failures were reproduced locally rather than read.</p>
+    <p><b>Reading the columns.</b> <code>2d</code> is today plus yesterday. <code>act</code> is distinct days with a commit in the last 30. <code>del</code>/<code>add</code> are omitted from the index: both estates commit generated products, so line counts measure data, not work.</p>
+    <p><b>Not measured.</b> Test coverage, review latency, runtime performance. Colour never carries meaning alone here &mdash; every state is also a word.</p>
+  </footer>
+</div>
+
+<script>
+const D = {"generated_utc": "2026-09-02T18:51:02Z", "workers": 20, "repos": [{"name": "chatgpt-audits", "ref": "main", "commits_total": 73, "first": "2026-08-31", "head_sha": "661e171", "head_iso": "2026-08-31T15:13:46+01:00", "head_subject": "20260831-stop: remove all audit workflows and schedules", "head_author": "Ventusltd", "c24h": 0, "c7d": 73, "c30d": 73, "add30": 498871, "del30": 2570, "files30": 3297, "active_days_30": 1, "authors_30": 1, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 73}, {"d": "2026-09-01", "n": 0}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "202608310033-study", "n": 3220}, {"dir": "automation", "n": 47}, {"dir": ".github", "n": 26}, {"dir": "(root)", "n": 4}], "branches": 26, "worktrees": 2, "local_head": "35ef8da", "local_ahead": "3", "local_behind": "0", "workflow_files": 0, "tracked_files": 3264, "ci": {"total_count": 138, "sampled": 100, "success": 55, "failure": 11, "window": ["2026-08-31T00:56:11Z", "2026-08-31T14:13:56Z"], "last_run": "2026-08-31T14:13:56Z", "last_conclusion": "success", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-08-31T14:13:56Z", "deploy_consec_fail": 0, "workflows": [{"name": "202608310322 real GPT hourly architecture reviewer", "total": 15, "fail": 6, "last": "2026-08-31T10:02:38Z", "last_c": "success"}, {"name": ".github/workflows/202608310322-real-gpt-hourly-review.yml", "total": 4, "fail": 4, "last": "2026-08-31T02:38:42Z", "last_c": "failure"}, {"name": "202608310423 OpenAI Codex hourly architecture reviewer", "total": 3, "fail": 1, "last": "2026-08-31T10:06:26Z", "last_c": "success"}, {"name": "pages build and deployment", "total": 37, "fail": 0, "last": "2026-08-31T14:13:56Z", "last_c": "success"}, {"name": "202608310122 audit failure auto-repair", "total": 32, "fail": 0, "last": "2026-08-31T10:02:50Z", "last_c": "skipped"}, {"name": "202608310125 overnight Actions watchdog", "total": 4, "fail": 0, "last": "2026-08-31T07:05:07Z", "last_c": "success"}, {"name": "202608310209 hourly intelligence reasoning checkpoint", "total": 2, "fail": 0, "last": "2026-08-31T08:36:08Z", "last_c": "success"}, {"name": "202608310121 hourly audit watchdog", "total": 2, "fail": 0, "last": "2026-08-31T07:41:09Z", "last_c": "success"}, {"name": "202608310116 overnight audit swarm", "total": 1, "fail": 0, "last": "2026-08-31T07:04:54Z", "last_c": "success"}]}}, {"name": "companies", "ref": "main", "commits_total": 51, "first": "2026-08-26", "head_sha": "ac70a37", "head_iso": "2026-08-31T23:53:10+01:00", "head_subject": "202608312250: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 0, "c7d": 51, "c30d": 51, "add30": 21363, "del30": 495, "files30": 106, "active_days_30": 5, "authors_30": 2, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 14}, {"d": "2026-08-27", "n": 13}, {"d": "2026-08-28", "n": 7}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 16}, {"d": "2026-08-31", "n": 1}, {"d": "2026-09-01", "n": 0}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": ".github", "n": 38}, {"dir": "build", "n": 38}, {"dir": "tests", "n": 9}, {"dir": "manifests", "n": 7}, {"dir": "(root)", "n": 5}], "branches": 4, "worktrees": 1, "local_head": "ac70a37", "local_ahead": "0", "local_behind": "0", "workflow_files": 7, "tracked_files": 76, "ci": {"total_count": 25, "sampled": 25, "success": 10, "failure": 13, "window": ["2026-08-27T14:40:32Z", "2026-08-30T10:02:08Z"], "last_run": "2026-08-30T10:02:08Z", "last_conclusion": "success", "deploy_wf": null, "deploy_last_ok": null, "deploy_consec_fail": 0, "workflows": [{"name": ".github/workflows/202608300430-bootstrap-five-hour-key-only-atlas-mission.yml", "total": 2, "fail": 2, "last": "2026-08-30T03:35:20Z", "last_c": "failure"}, {"name": "202608300312 Sync verified Grid Atlas V9 link contract", "total": 6, "fail": 1, "last": "2026-08-30T10:00:16Z", "last_c": "success"}, {"name": "Build compact Companies REPD Atlas V9 relations from 2f1e1ceb871fea99dd80bed49abdc17538e9c1b7", "total": 1, "fail": 1, "last": "2026-08-30T03:21:52Z", "last_c": "failure"}, {"name": "202608300327 Bound hourly Companies Atlas V9 mission", "total": 1, "fail": 1, "last": "2026-08-30T02:33:48Z", "last_c": "failure"}, {"name": "202608281112 Compact Company REPD Relationship Candidate", "total": 1, "fail": 1, "last": "2026-08-28T10:51:45Z", "last_c": "failure"}, {"name": "202608280744 Resume Compressed Companies House Candidate", "total": 1, "fail": 1, "last": "2026-08-28T06:45:17Z", "last_c": "failure"}, {"name": "202608280327 Resume Bounded Companies House Candidate", "total": 1, "fail": 1, "last": "2026-08-28T02:33:22Z", "last_c": "failure"}, {"name": "202608272120 Bounded Companies House Candidate", "total": 1, "fail": 1, "last": "2026-08-27T20:33:25Z", "last_c": "failure"}, {"name": "202608272035 Bounded Companies House Candidate", "total": 1, "fail": 1, "last": "2026-08-27T20:11:18Z", "last_c": "failure"}, {"name": "202608272016 Bounded Companies House Candidate", "total": 1, "fail": 1, "last": "2026-08-27T19:21:17Z", "last_c": "failure"}]}}, {"name": "cvaa", "ref": "main", "commits_total": 29, "first": "2026-08-30", "head_sha": "d2893fa", "head_iso": "2026-08-31T23:53:02+01:00", "head_subject": "202608312250: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 0, "c7d": 29, "c30d": 29, "add30": 4481, "del30": 1069, "files30": 147, "active_days_30": 2, "authors_30": 3, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 26}, {"d": "2026-08-31", "n": 3}, {"d": "2026-09-01", "n": 0}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "tosort", "n": 61}, {"dir": "vaccines", "n": 29}, {"dir": "(root)", "n": 20}, {"dir": ".github", "n": 10}, {"dir": "{tosort => vaccines}", "n": 7}], "branches": 2, "worktrees": 3, "local_head": "c18cc13", "local_ahead": "2", "local_behind": "0", "workflow_files": 2, "tracked_files": 50, "ci": {"total_count": 50, "sampled": 50, "success": 35, "failure": 9, "window": ["2026-08-30T13:08:19Z", "2026-09-01T22:49:31Z"], "last_run": "2026-09-01T22:49:31Z", "last_conclusion": "failure", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-08-31T22:53:05Z", "deploy_consec_fail": 0, "workflows": [{"name": "202608301447 Self-test and full-history fleet audit", "total": 6, "fail": 5, "last": "2026-09-01T22:49:31Z", "last_c": "failure"}, {"name": "202608301447 Self-test and lock", "total": 13, "fail": 4, "last": "2026-08-30T16:53:15Z", "last_c": "success"}, {"name": "pages build and deployment", "total": 29, "fail": 0, "last": "2026-08-31T22:53:05Z", "last_c": "success"}, {"name": "202608301447 Self-test, fleet adoption and full-history audit", "total": 2, "fail": 0, "last": "2026-08-30T17:24:39Z", "last_c": "success"}]}}, {"name": "data-centres-gb", "ref": "main", "commits_total": 13, "first": "2026-07-29", "head_sha": "f9f4728", "head_iso": "2026-09-01T00:25:42+01:00", "head_subject": "202608312345: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 1, "c7d": 7, "c30d": 7, "add30": 5087, "del30": 374, "files30": 32, "active_days_30": 3, "authors_30": 1, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 1}, {"d": "2026-08-28", "n": 5}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 0}, {"d": "2026-09-01", "n": 1}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": ".github", "n": 6}, {"dir": "contracts", "n": 5}, {"dir": "build", "n": 5}, {"dir": "(root)", "n": 4}, {"dir": "tests", "n": 4}], "branches": 4, "worktrees": 1, "local_head": "f9f4728", "local_ahead": "0", "local_behind": "0", "workflow_files": 5, "tracked_files": 33, "ci": {"total_count": 23, "sampled": 23, "success": 20, "failure": 3, "window": ["2026-07-29T11:42:49Z", "2026-08-31T23:25:46Z"], "last_run": "2026-08-31T23:25:46Z", "last_conclusion": "success", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-08-31T23:25:45Z", "deploy_consec_fail": 0, "workflows": [{"name": "202608281702 \u00b7 indexed OSM data-centres candidate", "total": 1, "fail": 1, "last": "2026-08-28T16:07:32Z", "last_c": "failure"}, {"name": "202608281626 \u00b7 retry-aware OSM data-centres candidate", "total": 1, "fail": 1, "last": "2026-08-28T15:43:49Z", "last_c": "failure"}, {"name": "202608281053 \u00b7 OSM data-centres candidate", "total": 1, "fail": 1, "last": "2026-08-28T10:04:31Z", "last_c": "failure"}, {"name": "pages build and deployment", "total": 8, "fail": 0, "last": "2026-08-31T23:25:45Z", "last_c": "success"}, {"name": "Validate API and data law", "total": 6, "fail": 0, "last": "2026-08-31T23:25:46Z", "last_c": "success"}, {"name": "Validate API", "total": 4, "fail": 0, "last": "2026-08-27T19:04:17Z", "last_c": "success"}, {"name": "202608281801 \u00b7 bytecode-clean indexed OSM candidate", "total": 1, "fail": 0, "last": "2026-08-28T17:03:59Z", "last_c": "success"}, {"name": "202608271854 \u00b7 auto-run DATA_CENTRES intelligence candidate", "total": 1, "fail": 0, "last": "2026-08-27T19:04:17Z", "last_c": "success"}]}}, {"name": "data-federation-map-for-globalgrid2050-all-repos", "ref": "main", "commits_total": 217, "first": "2026-06-30", "head_sha": "b759a7d", "head_iso": "2026-09-01T00:25:44+01:00", "head_subject": "202608312345: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 1, "c7d": 1, "c30d": 3, "add30": 478, "del30": 0, "files30": 5, "active_days_30": 2, "authors_30": 1, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 0}, {"d": "2026-09-01", "n": 1}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "(root)", "n": 2}, {"dir": "reports", "n": 2}, {"dir": "trueself", "n": 1}], "branches": 5, "worktrees": 1, "local_head": "b759a7d", "local_ahead": "0", "local_behind": "0", "workflow_files": 8, "tracked_files": 152, "ci": {"total_count": 194, "sampled": 100, "success": 79, "failure": 7, "window": ["2026-07-02T02:34:14Z", "2026-08-31T23:25:47Z"], "last_run": "2026-08-31T23:25:47Z", "last_conclusion": "success", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-08-31T23:25:47Z", "deploy_consec_fail": 0, "workflows": [{"name": "pages build and deployment", "total": 77, "fail": 6, "last": "2026-08-31T23:25:47Z", "last_c": "success"}, {"name": "Spider Maya Audit Process", "total": 8, "fail": 1, "last": "2026-07-02T20:14:49Z", "last_c": "success"}, {"name": "GridBot Federation Publish Weekly", "total": 9, "fail": 0, "last": "2026-08-31T14:17:07Z", "last_c": "success"}, {"name": "PO 3 Split Gate", "total": 2, "fail": 0, "last": "2026-07-03T00:10:34Z", "last_c": "success"}, {"name": "GridBot Declared Cartridges", "total": 2, "fail": 0, "last": "2026-07-02T03:17:05Z", "last_c": "success"}, {"name": "Publish Spider Temp Sandbox", "total": 1, "fail": 0, "last": "2026-07-03T22:23:18Z", "last_c": "success"}, {"name": "Spider Full PO Branch Build", "total": 1, "fail": 0, "last": "2026-07-03T15:08:28Z", "last_c": "success"}]}}, {"name": "data-gb-electricity", "ref": "main", "commits_total": 61, "first": "2026-06-29", "head_sha": "d310e3c", "head_iso": "2026-09-02T11:31:04Z", "head_subject": "Refresh the price decade rollup: 2016-2026, 3401 included days", "head_author": "github-actions[bot]", "c24h": 4, "c7d": 6, "c30d": 6, "add30": 2943, "del30": 311, "files30": 33, "active_days_30": 3, "authors_30": 3, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 2}, {"d": "2026-09-01", "n": 2}, {"d": "2026-09-02", "n": 2}], "areas": [{"dir": "derived", "n": 6}, {"dir": "(root)", "n": 6}, {"dir": "generation", "n": 5}, {"dir": "pipelines", "n": 5}, {"dir": ".github", "n": 4}], "branches": 4, "worktrees": 2, "local_head": "49691bc", "local_ahead": "0", "local_behind": "2", "workflow_files": 3, "tracked_files": 492, "ci": {"total_count": 14, "sampled": 14, "success": 6, "failure": 8, "window": ["2026-06-29T11:46:35Z", "2026-09-02T11:30:50Z"], "last_run": "2026-09-02T11:30:50Z", "last_conclusion": "success", "deploy_wf": null, "deploy_last_ok": null, "deploy_consec_fail": 0, "workflows": [{"name": "Historical GB Electricity Parquet Backfill", "total": 6, "fail": 4, "last": "2026-06-29T14:09:49Z", "last_c": "success"}, {"name": "Monthly GB Electricity Parquet Update", "total": 5, "fail": 4, "last": "2026-09-02T11:24:50Z", "last_c": "success"}, {"name": "Refresh the available-record price rollup", "total": 2, "fail": 0, "last": "2026-09-02T11:30:50Z", "last_c": "success"}, {"name": "Refresh the price decade rollup", "total": 1, "fail": 0, "last": "2026-08-31T22:37:25Z", "last_c": "success"}]}}, {"name": "data-grid-gb", "ref": "main", "commits_total": 9, "first": "2026-09-01", "head_sha": "1c9909d", "head_iso": "2026-09-01T17:23:51Z", "head_subject": "Refresh the GB network products: 886 connection points, 1392 circuits", "head_author": "github-actions[bot]", "c24h": 9, "c7d": 9, "c30d": 9, "add30": 329992, "del30": 9451, "files30": 40, "active_days_30": 1, "authors_30": 2, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 0}, {"d": "2026-09-01", "n": 9}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "derived", "n": 14}, {"dir": "chatgpt", "n": 12}, {"dir": "(root)", "n": 7}, {"dir": ".github", "n": 3}, {"dir": "pipelines", "n": 3}], "branches": 2, "worktrees": 2, "local_head": "1c9909d", "local_ahead": "0", "local_behind": "0", "workflow_files": 1, "tracked_files": 22, "ci": {"total_count": 10, "sampled": 10, "success": 7, "failure": 0, "window": ["2026-09-01T16:35:53Z", "2026-09-01T17:23:55Z"], "last_run": "2026-09-01T17:23:55Z", "last_conclusion": "success", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-09-01T17:23:55Z", "deploy_consec_fail": 0, "workflows": [{"name": "pages build and deployment", "total": 7, "fail": 0, "last": "2026-09-01T17:23:55Z", "last_c": "success"}, {"name": "Refresh the GB network products", "total": 3, "fail": 0, "last": "2026-09-01T17:23:35Z", "last_c": "success"}]}}, {"name": "data-gridatlas", "ref": "main", "commits_total": 18, "first": "2026-08-29", "head_sha": "5484218", "head_iso": "2026-09-01T00:25:46+01:00", "head_subject": "202608312345: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 1, "c7d": 18, "c30d": 18, "add30": 24140, "del30": 22, "files30": 144, "active_days_30": 3, "authors_30": 4, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 11}, {"d": "2026-08-30", "n": 6}, {"d": "2026-08-31", "n": 0}, {"d": "2026-09-01", "n": 1}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "202608291237-data-gridatlas", "n": 86}, {"dir": "contracts", "n": 15}, {"dir": ".github", "n": 14}, {"dir": "(root)", "n": 8}, {"dir": "atman", "n": 8}], "branches": 4, "worktrees": 1, "local_head": "5484218", "local_ahead": "0", "local_behind": "0", "workflow_files": 11, "tracked_files": 133, "ci": {"total_count": 75, "sampled": 75, "success": 38, "failure": 37, "window": ["2026-08-29T08:01:53Z", "2026-09-02T18:40:02Z"], "last_run": "2026-09-02T18:40:02Z", "last_conclusion": "failure", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-08-31T23:25:49Z", "deploy_consec_fail": 0, "workflows": [{"name": "Hourly watchdog 5484218a99a1cfde60c84daaa5aba001ebfcd697", "total": 11, "fail": 11, "last": "2026-09-02T18:40:02Z", "last_c": "failure"}, {"name": "202608301931 Layer fidelity, V8 origin vs V9 delivery", "total": 5, "fail": 5, "last": "2026-09-02T07:59:56Z", "last_c": "failure"}, {"name": "Hourly watchdog b335aca6c9c6b028b358c419410e4cf5b2035c2e", "total": 5, "fail": 5, "last": "2026-08-31T20:02:11Z", "last_c": "failure"}, {"name": "Hourly watchdog d9b36afa81d9ee112320b80d38e87a3fd549d6bb", "total": 5, "fail": 4, "last": "2026-08-30T06:37:25Z", "last_c": "failure"}, {"name": ".github/workflows/202608301118-repair-current-consumer-watchdog-v2.yml", "total": 3, "fail": 3, "last": "2026-08-30T10:18:40Z", "last_c": "failure"}, {"name": "Hourly watchdog 587b7fb1b1f7e3a7a0f7836571284b92ef0111c8", "total": 2, "fail": 1, "last": "2026-08-30T17:27:12Z", "last_c": "failure"}, {"name": "Current integrity cfb0dbc3212b6da2906788289808d205ea21b83f", "total": 1, "fail": 1, "last": "2026-08-30T18:01:28Z", "last_c": "failure"}, {"name": "Hourly watchdog cfb0dbc3212b6da2906788289808d205ea21b83f", "total": 1, "fail": 1, "last": "2026-08-30T18:01:28Z", "last_c": "failure"}, {"name": "Automation contract guard cd14104231c39acba3f5bbbb57e842ad34f925fd", "total": 1, "fail": 1, "last": "2026-08-30T17:56:57Z", "last_c": "failure"}, {"name": "Prove and repair semantic consumer pointer identity from 587b7fb1b1f7e3a7a0f7836571284b92ef0111c8", "total": 1, "fail": 1, "last": "2026-08-30T11:31:04Z", "last_c": "failure"}]}}, {"name": "data-interconnectors", "ref": "main", "commits_total": 22, "first": "2026-06-29", "head_sha": "1e00d0e", "head_iso": "2026-09-01T00:25:48+01:00", "head_subject": "202608312345: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 1, "c7d": 1, "c30d": 1, "add30": 72, "del30": 0, "files30": 1, "active_days_30": 1, "authors_30": 1, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 0}, {"d": "2026-09-01", "n": 1}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "(root)", "n": 1}], "branches": 1, "worktrees": 1, "local_head": "1e00d0e", "local_ahead": "0", "local_behind": "0", "workflow_files": 1, "tracked_files": 11, "ci": {"total_count": 10, "sampled": 10, "success": 0, "failure": 10, "window": ["2026-06-30T07:37:25Z", "2026-09-02T11:17:52Z"], "last_run": "2026-09-02T11:17:52Z", "last_conclusion": "failure", "deploy_wf": null, "deploy_last_ok": null, "deploy_consec_fail": 0, "workflows": [{"name": ".github/workflows/build_interconnectors.yml", "total": 6, "fail": 6, "last": "2026-06-30T08:02:24Z", "last_c": "failure"}, {"name": "GridBot UK Interconnector Build", "total": 4, "fail": 4, "last": "2026-09-02T11:17:52Z", "last_c": "failure"}]}}, {"name": "gb-electricity-ui", "ref": "main", "commits_total": 19, "first": "2026-06-29", "head_sha": "5b45339", "head_iso": "2026-08-31T23:53:06+01:00", "head_subject": "202608312250: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 0, "c7d": 1, "c30d": 1, "add30": 72, "del30": 0, "files30": 1, "active_days_30": 1, "authors_30": 1, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 1}, {"d": "2026-09-01", "n": 0}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "(root)", "n": 1}], "branches": 1, "worktrees": 1, "local_head": "5b45339", "local_ahead": "0", "local_behind": "0", "workflow_files": 1, "tracked_files": 15, "ci": {"total_count": 25, "sampled": 25, "success": 18, "failure": 7, "window": ["2026-06-29T21:50:57Z", "2026-08-31T22:53:12Z"], "last_run": "2026-08-31T22:53:12Z", "last_conclusion": "success", "deploy_wf": "Deploy static Pages", "deploy_last_ok": "2026-08-31T22:53:12Z", "deploy_consec_fail": 0, "workflows": [{"name": "Deploy static Pages", "total": 13, "fail": 4, "last": "2026-08-31T22:53:12Z", "last_c": "success"}, {"name": "pages build and deployment", "total": 12, "fail": 3, "last": "2026-08-31T22:53:09Z", "last_c": "success"}]}}, {"name": "globalgrid2050", "ref": "main", "commits_total": 4505, "first": "2026-03-12", "head_sha": "77e4eea", "head_iso": "2026-09-02T06:13:43Z", "head_subject": "202609020625: name 202609020611, the last of the queued overnight cuts", "head_author": "Claude", "c24h": 9, "c7d": 62, "c30d": 244, "add30": 7005235, "del30": 17961, "files30": 3376, "active_days_30": 12, "authors_30": 10, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 110}, {"d": "2026-08-23", "n": 45}, {"d": "2026-08-24", "n": 16}, {"d": "2026-08-25", "n": 6}, {"d": "2026-08-26", "n": 1}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 4}, {"d": "2026-08-30", "n": 25}, {"d": "2026-08-31", "n": 23}, {"d": "2026-09-01", "n": 1}, {"d": "2026-09-02", "n": 8}], "areas": [{"dir": "uk_renewables_pipeline", "n": 1789}, {"dir": "pipelinenews_intelligence", "n": 1206}, {"dir": ".github", "n": 78}, {"dir": "dist", "n": 75}, {"dir": "(root)", "n": 72}], "branches": 42, "worktrees": 4, "local_head": "34ba41db", "local_ahead": "0", "local_behind": "5", "workflow_files": 240, "tracked_files": 5084, "ci": {"total_count": 8120, "sampled": 100, "success": 56, "failure": 41, "window": ["2026-08-31T20:58:03Z", "2026-09-02T15:34:14Z"], "last_run": "2026-09-02T15:34:14Z", "last_conclusion": "success", "deploy_wf": "Deploy GlobalGrid2050 Pages", "deploy_last_ok": "2026-09-02T15:34:14Z", "deploy_consec_fail": 0, "workflows": [{"name": "V9.6.2 Exact Commit Validation", "total": 11, "fail": 10, "last": "2026-09-02T06:13:47Z", "last_c": "success"}, {"name": "V9.5.1 Exact Commit Validation", "total": 11, "fail": 10, "last": "2026-09-02T06:13:47Z", "last_c": "success"}, {"name": "V9.7 Exact Commit Validation", "total": 10, "fail": 10, "last": "2026-09-02T06:13:47Z", "last_c": "failure"}, {"name": "V9.6.1 Exact Commit Validation", "total": 10, "fail": 9, "last": "2026-09-02T06:13:47Z", "last_c": "success"}, {"name": "Verify published versions are reachable", "total": 5, "fail": 2, "last": "2026-09-02T06:13:47Z", "last_c": "success"}, {"name": "Deploy GlobalGrid2050 Pages", "total": 14, "fail": 0, "last": "2026-09-02T15:34:14Z", "last_c": "success"}, {"name": "V9.4 Exact Commit Validation", "total": 10, "fail": 0, "last": "2026-09-02T06:13:47Z", "last_c": "success"}, {"name": "V9.5 Exact Commit Validation", "total": 10, "fail": 0, "last": "2026-09-02T06:13:47Z", "last_c": "success"}, {"name": "V9.3 Exact Commit Validation", "total": 10, "fail": 0, "last": "2026-09-02T06:13:47Z", "last_c": "success"}, {"name": "Deploy Jekyll with GitHub Pages dependencies preinstalled", "total": 9, "fail": 0, "last": "2026-09-02T06:13:47Z", "last_c": "success"}]}}, {"name": "grid-distance-maths", "ref": "main", "commits_total": 5, "first": "2026-08-31", "head_sha": "30d2f81", "head_iso": "2026-09-01T00:25:50+01:00", "head_subject": "202608312345: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 1, "c7d": 5, "c30d": 5, "add30": 1954, "del30": 28, "files30": 18, "active_days_30": 2, "authors_30": 1, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 4}, {"d": "2026-09-01", "n": 1}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "src", "n": 7}, {"dir": "(root)", "n": 5}, {"dir": "test", "n": 5}, {"dir": "docs", "n": 1}], "branches": 1, "worktrees": 2, "local_head": "30d2f81", "local_ahead": "0", "local_behind": "0", "workflow_files": 0, "tracked_files": 10, "ci": {"total_count": 5, "sampled": 5, "success": 5, "failure": 0, "window": ["2026-08-31T15:31:35Z", "2026-08-31T23:25:53Z"], "last_run": "2026-08-31T23:25:53Z", "last_conclusion": "success", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-08-31T23:25:53Z", "deploy_consec_fail": 0, "workflows": [{"name": "pages build and deployment", "total": 5, "fail": 0, "last": "2026-08-31T23:25:53Z", "last_c": "success"}]}}, {"name": "gridatlas", "ref": "main", "commits_total": 289, "first": "2026-08-29", "head_sha": "6237b20", "head_iso": "2026-09-02T01:43:59+01:00", "head_subject": "202609020043: refresh the recovery capsule to the state it actually describes", "head_author": "Ventusltd", "c24h": 131, "c7d": 289, "c30d": 289, "add30": 252403, "del30": 13263, "files30": 1275, "active_days_30": 5, "authors_30": 21, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 51}, {"d": "2026-08-30", "n": 73}, {"d": "2026-08-31", "n": 34}, {"d": "2026-09-01", "n": 88}, {"d": "2026-09-02", "n": 43}], "areas": [{"dir": "atlas", "n": 332}, {"dir": "tools", "n": 268}, {"dir": "(root)", "n": 104}, {"dir": ".github", "n": 80}, {"dir": "ui", "n": 47}], "branches": 25, "worktrees": 26, "local_head": "6237b20", "local_ahead": "0", "local_behind": "0", "workflow_files": 5, "tracked_files": 446, "ci": {"total_count": 461, "sampled": 100, "success": 98, "failure": 1, "window": ["2026-09-01T13:55:08Z", "2026-09-02T00:44:02Z"], "last_run": "2026-09-02T00:44:02Z", "last_conclusion": "success", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-09-02T00:44:02Z", "deploy_consec_fail": 0, "workflows": [{"name": "202608312212 GridAtlas cartridge proof", "total": 32, "fail": 1, "last": "2026-09-02T00:18:59Z", "last_c": "success"}, {"name": "pages build and deployment", "total": 43, "fail": 0, "last": "2026-09-02T00:44:02Z", "last_c": "success"}, {"name": "202608310050 GridAtlas next-version builders", "total": 25, "fail": 0, "last": "2026-09-02T00:18:59Z", "last_c": "success"}]}}, {"name": "pipelinenews", "ref": "main", "commits_total": 379, "first": "2026-08-24", "head_sha": "6e40226", "head_iso": "2026-09-02T06:34:02Z", "head_subject": "202609020730: board - correct the deep-link diagnosis, I named the wrong lane", "head_author": "Claude", "c24h": 110, "c7d": 298, "c30d": 379, "add30": 2394130, "del30": 26597, "files30": 4267, "active_days_30": 10, "authors_30": 11, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 4}, {"d": "2026-08-25", "n": 77}, {"d": "2026-08-26", "n": 56}, {"d": "2026-08-27", "n": 38}, {"d": "2026-08-28", "n": 5}, {"d": "2026-08-29", "n": 8}, {"d": "2026-08-30", "n": 54}, {"d": "2026-08-31", "n": 27}, {"d": "2026-09-01", "n": 85}, {"d": "2026-09-02", "n": 25}], "areas": [{"dir": "releases", "n": 1970}, {"dir": "{v1-9-legacy-lessons => archive", "n": 298}, {"dir": "v1-9-legacy-lessons", "n": 298}, {"dir": ".github", "n": 137}, {"dir": "tools", "n": 132}], "branches": 14, "worktrees": 19, "local_head": "6e40226", "local_ahead": "0", "local_behind": "0", "workflow_files": 51, "tracked_files": 2857, "ci": {"total_count": 261, "sampled": 100, "success": 21, "failure": 79, "window": ["2026-08-30T02:48:53Z", "2026-09-02T06:11:56Z"], "last_run": "2026-09-02T06:11:56Z", "last_conclusion": "failure", "deploy_wf": "Deploy PipelineNews Pages", "deploy_last_ok": "2026-08-30T11:13:37Z", "deploy_consec_fail": 24, "workflows": [{"name": "Deploy PipelineNews Pages", "total": 28, "fail": 27, "last": "2026-09-02T06:11:56Z", "last_c": "failure"}, {"name": ".github/workflows/202608301150-repair-pages-historical-source-attestation.yml", "total": 19, "fail": 19, "last": "2026-08-30T11:13:31Z", "last_c": "failure"}, {"name": "Claude-Codex board continuity", "total": 5, "fail": 5, "last": "2026-09-01T22:49:48Z", "last_c": "failure"}, {"name": "PipelineNews Atlas pointer timestamp-folder successor", "total": 4, "fail": 2, "last": "2026-08-30T11:12:48Z", "last_c": "failure"}, {"name": "PipelineNews Atlas V9 timestamp-folder successor", "total": 2, "fail": 1, "last": "2026-08-30T11:12:48Z", "last_c": "failure"}, {"name": "Build PipelineNews Sector Intelligence Candidate 202609010145", "total": 1, "fail": 1, "last": "2026-09-01T01:46:15Z", "last_c": "failure"}, {"name": "Build PipelineNews Sector Intelligence Candidate 202609010143", "total": 1, "fail": 1, "last": "2026-09-01T01:43:42Z", "last_c": "failure"}, {"name": "Build PipelineNews Sector Intelligence Candidate 202609010140", "total": 1, "fail": 1, "last": "2026-09-01T01:40:52Z", "last_c": "failure"}, {"name": "Build PipelineNews Sector Intelligence Candidate 202609010134", "total": 1, "fail": 1, "last": "2026-09-01T01:37:17Z", "last_c": "failure"}, {"name": "Authorise PipelineNews V8 Fast Pages", "total": 1, "fail": 1, "last": "2026-08-30T11:12:48Z", "last_c": "failure"}]}}, {"name": "spiders", "ref": "main", "commits_total": 58, "first": "2026-07-04", "head_sha": "de53761", "head_iso": "2026-08-31T23:53:08+01:00", "head_subject": "202608312250: pin text to LF, so the file on disk is the file that ships", "head_author": "Ventusltd", "c24h": 0, "c7d": 1, "c30d": 1, "add30": 72, "del30": 0, "files30": 1, "active_days_30": 1, "authors_30": 1, "spark": [{"d": "2026-08-20", "n": 0}, {"d": "2026-08-21", "n": 0}, {"d": "2026-08-22", "n": 0}, {"d": "2026-08-23", "n": 0}, {"d": "2026-08-24", "n": 0}, {"d": "2026-08-25", "n": 0}, {"d": "2026-08-26", "n": 0}, {"d": "2026-08-27", "n": 0}, {"d": "2026-08-28", "n": 0}, {"d": "2026-08-29", "n": 0}, {"d": "2026-08-30", "n": 0}, {"d": "2026-08-31", "n": 1}, {"d": "2026-09-01", "n": 0}, {"d": "2026-09-02", "n": 0}], "areas": [{"dir": "(root)", "n": 1}], "branches": 1, "worktrees": 1, "local_head": "de53761", "local_ahead": "0", "local_behind": "0", "workflow_files": 2, "tracked_files": 52, "ci": {"total_count": 48, "sampled": 48, "success": 31, "failure": 6, "window": ["2026-07-04T23:27:52Z", "2026-08-31T22:53:11Z"], "last_run": "2026-08-31T22:53:11Z", "last_conclusion": "success", "deploy_wf": "pages build and deployment", "deploy_last_ok": "2026-08-31T22:53:11Z", "deploy_consec_fail": 0, "workflows": [{"name": "pages build and deployment", "total": 37, "fail": 6, "last": "2026-08-31T22:53:11Z", "last_c": "success"}, {"name": "Spider Printer registry smoke", "total": 9, "fail": 0, "last": "2026-08-31T17:40:08Z", "last_c": "success"}, {"name": "spider_maya v1 scan", "total": 2, "fail": 0, "last": "2026-07-04T23:31:41Z", "last_c": "success"}]}}], "probes": [{"cmd": "python atman/202608262014-build-pages.py --generation latest --stage _site --timestamp-folder-release 202608291447-pipelinenews", "out": "PAGES BUILD GATE FAILED:\n  live pointer commit is not deployment HEAD\n  build-pages.py:904\n\npointer 187ed63  2026-08-29 15:22Z  state/live-set.json\nHEAD    6e40226  2026-09-02 06:34Z  (+191 commits)", "verdict": "REPRODUCED", "cls": "bad", "note": "pipelinenews. The gate requires the live-pointer commit to BE head; the push trigger also fires on releases/**, where the daily work lands. Every ordinary push is refused by construction. 24 consecutive failures, 138 commits undeployed."}, {"cmd": "chrome --probe /gridatlas/atlas/?repd_ref=6502   # live page, deep link from Pipeline MAP", "out": "__GRIDATLAS_MODULES__      11/11 resolved (geodesy present)\nNESO product parsed        921 sites  2679 nodes  1392 circuits\nsite('CLEVE HILL')                  -> CLEH\nsite('Cleve Hill 400kV Substation') -> null\nsite('London Array OWF SVC pods')   -> null\nsite('LONDON ARRAY ONSHORE')        -> LONO", "verdict": "ROOT CAUSE FOUND", "cls": "bad", "note": "gridatlas. The v9.76 module-migration suspect is disproven: geodesy resolves and distances compute. The join is whole-string exact and the map labels carry suffixes NESO does not use, so no circuits bind and the neon links never draw."}, {"cmd": "curl -sI https://ventusltd.github.io/pipelinenews/  https://ventusltd.github.io/gridatlas/", "out": "/pipelinenews/                              404\n/pipelinenews/releases/202608291447-.../     200\n/pipelinenews/state/live-set.json            200  gen 202608291447\n/gridatlas/                                 200  2026-09-02 00:44Z", "verdict": "MEASURED", "cls": "am", "note": "The PipelineNews Pages root serves 404; only the immutable release route answers. Whether that is intended is a decision, not something measurable from outside. GridAtlas serves and is current."}, {"cmd": "git clone --shared + git fetch gh main  x15   # 20 workers", "out": "prep + actions api   3.9 s\ngit log --numstat    40.8 s\ntotal                44.7 s   15/15 repos\n\nno working tree touched, nothing pushed", "verdict": "CLEAN", "cls": "ok", "note": "The scan itself is repeatable and cheap. Re-running it produces the same index shape, which is what makes the block below diffable."}]};
+const $ = id => document.getElementById(id);
+const pad = (s,n,r) => { s = String(s); return r ? s.padStart(n) : s.padEnd(n); };
+const el = (t,a={},k=[]) => { const e=document.createElement(t);
+  for(const [x,v] of Object.entries(a)){ if(x==='class') e.className=v; else if(x==='html') e.innerHTML=v; else e.setAttribute(x,v); }
+  for(const c of [].concat(k)) e.append(c); return e; };
+const ts = s => s ? s.replace('T',' ').replace('Z','').slice(0,16) : '--';
+const hrs = s => s ? (Date.now()-new Date(s))/36e5 : null;
+
+const RED_NOTE = () => { const n=document.getElementById('rednote'); if(n&&window.__redcount!==undefined) n.textContent = window.__redcount + ' workflows whose most recent run failed'; };
+$('meta').innerHTML =
+  'scan <b>' + D.generated_utc.replace('T',' ').replace('Z',' UTC') + '</b> &nbsp;|&nbsp; ' +
+  'workers <b>' + D.workers + '</b> &nbsp;|&nbsp; ' +
+  'repos <b>' + D.repos.length + '</b> &nbsp;|&nbsp; ' +
+  'ci sample <b>last 100 runs/repo</b> &nbsp;|&nbsp; ' +
+  'sources <b>origin/main &middot; actions api &middot; live http</b>';
+
+/* ---- state derived only from measured CI facts ---- */
+function state(r){
+  const c = r.ci || {};
+  if (c.error) return ['no data','dim'];
+  if (c.deploy_consec_fail > 0) return ['jammed ' + c.deploy_consec_fail, 'bad'];
+  if (c.last_conclusion === 'failure') return ['red', 'bad'];
+  if (!c.sampled) return ['no runs','dim'];
+  const h = hrs(c.last_run);
+  if (h > 48) return ['quiet', 'am'];
+  return ['ok', 'ok'];
+}
+const BLK = ['·','▁','▂','▃','▅','▆','▇','█'];
+function spark(s){
+  if(!s) return '';
+  const mx = Math.max(1, ...s.map(x=>x.n));
+  return s.map(x => x.n ? BLK[Math.min(7, 1 + Math.floor((x.n/mx)*6))] : BLK[0]).join('');
+}
+
+/* ---- repo index table ---- */
+const COLS = [
+  ['repo','repo',0],['state','',0],['head','',0],['cmt','r',1],['2d','r',1],['7d','r',1],
+  ['30d','r',1],['act','r',1],['files','r',1],['wf','r',1],
+  ['ci ok','r',1],['ci fail','r',1],['last ci','',0],['14d','spark',0]
+];
+const idx = $('idx');
+idx.append(el('thead',{},el('tr',{},COLS.map(c=>el('th',{class:c[1]==='r'?'r':''},c[0])))));
+const tb = el('tbody');
+for(const r of D.repos){
+  const c = r.ci || {};
+  const [st,cls] = state(r);
+  const cell = (v,k='') => el('td',{class:k},String(v));
+  const failCell = el('td',{class:'r'}, String(c.failure ?? '-'));
+  if(c.failure) failCell.classList.add('bad');
+  tb.append(el('tr',{},[
+    cell(r.name,'repo'),
+    el('td',{}, el('span',{class:'tag '+cls}, st)),
+    el('td',{class:'dim'}, r.head_sha || '-'),
+    cell(r.commits_total ?? '-','r'),
+    cell(r.c24h ?? '-','r'),
+    cell(r.c7d ?? '-','r'),
+    cell(r.c30d ?? '-','r'),
+    cell(r.active_days_30 ?? '-','r'),
+    cell(r.tracked_files ?? '-','r'),
+    cell(r.workflow_files ?? '-','r'),
+    el('td',{class:'r ok'}, String(c.success ?? '-')),
+    failCell,
+    el('td',{class:'dim'}, ts(c.last_run)),
+    el('td',{class:'spark', title:(r.spark||[]).map(x=>x.d.slice(5)+' '+x.n).join('  ')}, spark(r.spark))
+  ]));
+}
+idx.append(tb);
+
+/* ---- red workflows ---- */
+const rows = [];
+for(const r of D.repos)
+  for(const w of (r.ci?.workflows||[]))
+    if(w.last_c === 'failure') rows.push({repo:r.name, ...w});
+rows.sort((a,b)=> (b.last > a.last ? 1 : -1));
+const red = $('red');
+red.append(el('thead',{},el('tr',{},
+  ['repo','workflow','failed','runs','last run','age'].map((h,i)=>el('th',{class:(i===2||i===3)?'r':''},h)))));
+const rb = el('tbody');
+const SHOWN = rows.slice(0,20);
+for(const w of SHOWN){
+  const h = hrs(w.last);
+  rb.append(el('tr',{},[
+    el('td',{class:'repo'}, w.repo),
+    el('td',{class:'sub'}, w.name),
+    el('td',{class:'r bad'}, String(w.fail)),
+    el('td',{class:'r dim'}, String(w.total)),
+    el('td',{class:'dim'}, ts(w.last)),
+    el('td',{class: h < 24 ? 'am' : 'dim'}, h < 24 ? h.toFixed(0)+' h' : (h/24).toFixed(0)+' d')
+  ]));
+}
+window.__redcount = rows.length; RED_NOTE();
+red.append(rb);
+if(rows.length > SHOWN.length){
+  const n = rows.length - SHOWN.length;
+  rb.append(el('tr',{},[el('td',{class:'dim',colspan:'6'}, '+ ' + n + ' further failing workflows, all older than the rows above')]));
+}
+
+/* ---- probes ---- */
+const P = $('probes');
+for(const p of D.probes){
+  P.append(el('div',{class:'probe'},[
+    el('div',{class:'cmd'}, p.cmd),
+    el('pre',{}, p.out),
+    el('div',{class:'verdict', html:'<span class="'+p.cls+'">'+p.verdict+'</span> &mdash; '+p.note})
+  ]));
+}
+
+/* ---- progression index block ---- */
+const W = [[ 'repo',48],['head',9],['cmt',7],['30d',6],['act',5],['files',8],['wf',5],['br',5],
+           ['ci_ok',7],['ci_fail',9],['runs',7],['last_ci',18]];
+let out = '# ventus-estate-index v1  ' + D.generated_utc + '\n';
+out += '# ' + W.map(([h,n])=>pad(h,n)).join('') + '\n';
+for(const r of D.repos){
+  const c = r.ci || {};
+  out += '  ' + [
+    pad(r.name,48), pad(r.head_sha||'-',9),
+    pad(r.commits_total??'-',7), pad(r.c30d??'-',6), pad(r.active_days_30??'-',5),
+    pad(r.tracked_files??'-',8), pad(r.workflow_files??'-',5), pad(r.branches??'-',5),
+    pad(c.success??'-',7), pad(c.failure??'-',9), pad(c.total_count??'-',7),
+    pad((c.last_run||'-').replace('T',' ').replace('Z',''),18)
+  ].join('') + '\n';
+}
+out += '# totals  commits=' + D.repos.reduce((a,r)=>a+(r.commits_total||0),0)
+     + '  files=' + D.repos.reduce((a,r)=>a+(r.tracked_files||0),0)
+     + '  workflows=' + D.repos.reduce((a,r)=>a+(r.workflow_files||0),0)
+     + '  lifetime_runs=' + D.repos.reduce((a,r)=>a+(r.ci?.total_count||0),0) + '\n';
+const blk = $('block');
+blk.textContent = out;
+blk.firstChild && (blk.innerHTML = out.split('\n').map(l =>
+  l.startsWith('#') ? '<span class="hdr">'+l.replace(/</g,'&lt;')+'</span>' : l.replace(/</g,'&lt;')).join('\n'));
+
+$('copy').addEventListener('click', async () => {
+  const b = $('copy');
+  try { await navigator.clipboard.writeText(out); b.textContent = 'COPIED'; }
+  catch { b.textContent = 'SELECT + COPY'; }
+  setTimeout(()=>{ b.textContent = 'COPY INDEX'; }, 1600);
+});
+</script>
+
+</body>
+</html>

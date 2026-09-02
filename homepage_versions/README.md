@@ -370,3 +370,37 @@ exits 1.
 Folder file count after this snapshot:
 
 14 files
+
+## Version 013
+
+Version: `homepage_v013.html`
+Source: live `index.html` at commit `1b2b4b3`
+Purpose: restore point taken before naming the `202609020552` Pipeline News
+release, the first cut made after the reachability checker existed.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v013.html`:
+
+Line count: 203
+Word count: 3262
+Character count: 29822
+SHA-256 (first 16): fe9d97445f32b4d9
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release whose strip says a
+rating quoted without its season flatters the network, and that the Atlas never
+sums ratings. Move the previous current entry, `202609020025`, to the top of the
+superseded list nested beneath it, with its `NEW` badge removed and its
+supersession named. Nothing else on the page changes.
+
+This is the first naming done after `scripts/verify_published_versions.py`
+existed, and the checker found the gap on its own: run against the deployed page
+before this edit it reported `202609020552` as published and reachable from
+nothing, and that the page was presenting `202609020025` first while a newer
+snapshot was being served. After this edit it reports 21 published snapshots,
+all reachable, newest first.
+
+Folder file count after this snapshot:
+
+15 files

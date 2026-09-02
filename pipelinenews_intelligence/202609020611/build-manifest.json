@@ -1,0 +1,233 @@
+{
+  "allowed_changed_paths": [
+    "assets/202608291447-app.mjs",
+    "assets/202608291447-atlas-pointer-deep-link.mjs",
+    "atlas-link-manifest.json",
+    "build-manifest.json",
+    "index.html",
+    "release-manifest.json",
+    "sha256sums.txt"
+  ],
+  "application_changes": 1,
+  "atlas_release_id": "202608300453-atlas-v9",
+  "classification": "DETERMINISTIC_RECEIVER_ONLY_BUILD",
+  "data_changes": 0,
+  "deep_link_logic_changes": 2,
+  "deep_link_repairs": [
+    {
+      "after": "if (!requestedRepdRef && tokens.length) {",
+      "before": "if (tokens.length) {",
+      "id": "exact REPD identity bypasses broad-search row text"
+    },
+    {
+      "after": "if (query && !requestedRepdRef) await ensureSearchSupplement();",
+      "before": "if (query) await ensureSearchSupplement();",
+      "id": "exact REPD identity does not fetch broad-search supplement"
+    }
+  ],
+  "files": [
+    {
+      "bytes": 208522,
+      "path": "assets/202608261927-chart-umd.min.js",
+      "sha256": "48444a82d4edcb5bec0f1965faacdde18d9c17db3063d042abada2f705c9f54a"
+    },
+    {
+      "bytes": 14512,
+      "path": "assets/202608270055-v8-fast.css",
+      "sha256": "776be660e40a947c6bb3d26a844e939de4e6074a673c838bc3f969815f990af6"
+    },
+    {
+      "bytes": 7131,
+      "path": "assets/202608272048-orientation.css",
+      "sha256": "e9e1cbefd49f10d2d3b06f31274357a947672242159e9f1b50434ca175a870bc"
+    },
+    {
+      "bytes": 13131,
+      "path": "assets/202608272130-sector-intelligence.mjs",
+      "sha256": "7a091c6bbe58a30976e8f5e9eb8b04ad9543a32a18cd90bea76f85fc0e10f41c"
+    },
+    {
+      "bytes": 4370,
+      "path": "assets/202608282200-federated-relationships.mjs",
+      "sha256": "8d6d46c0b1ca86ad4d4dc54d6ffdce483991dcdfd8c7dad3cbd206165cbcecc2"
+    },
+    {
+      "bytes": 80436,
+      "path": "assets/202608291447-app.mjs",
+      "sha256": "33982ec26a45d4df6561fa0411a21ef50af36347f61077b0a51e204a2310b0ea"
+    },
+    {
+      "bytes": 2220,
+      "path": "assets/202608291447-atlas-pointer-deep-link.mjs",
+      "sha256": "b773a4274aeaf38db3128dbbc53e9ed5dc66f4cf436aa9ace71e9236ae3a5375"
+    },
+    {
+      "bytes": 1248,
+      "path": "atlas-link-manifest.json",
+      "sha256": "6374ad7fbf1515eee2dd1719d489b7b30b5213a8731c3a13f3e02e939ff8be36"
+    },
+    {
+      "bytes": 979338,
+      "path": "data/202608270055-8ab1807551bc-v8-fast-projects.json",
+      "sha256": "c06aedef176d2d38fd135806306a8ef81b4af9994c7be31e8bd760304149f862"
+    },
+    {
+      "bytes": 1912681,
+      "path": "data/202608270055-8ab1807551bc-v8-fast-search.json",
+      "sha256": "a1cbfc5202b717889a471409e850ea5cae13626f91c60f08cda0b06da5102b65"
+    },
+    {
+      "bytes": 82460,
+      "path": "data/202608271524-fd2212a8c76d-v8-fast-news.json",
+      "sha256": "00cfbc6243e83cca274707a19b7848f776ce223d5e02808164e213dde887a8be"
+    },
+    {
+      "bytes": 46724,
+      "path": "data/202608272130-sector-intelligence.json",
+      "sha256": "846e10a00377509a3196972cdf3eb99ab127ca5864e63332f323e446d4bc95c1"
+    },
+    {
+      "bytes": 2514,
+      "path": "data/202608282200-relationship-governance-status.json",
+      "sha256": "1388b2c881867a994a68dd09109017b5591cee00c05eb1cb251a85ed4f16b93c"
+    },
+    {
+      "bytes": 66766,
+      "path": "data/202608291447-registry.json",
+      "sha256": "5023bc5dcf6edad6aca6f6f4cd67e3404db884c95a62d36a549aae1811831345"
+    },
+    {
+      "bytes": 1667,
+      "path": "data/intelligence/202608282200-relationship-governance-audit.json",
+      "sha256": "4b8106b012b3a266a906ec22caf02492fde2824b985c5dadd40b4c2b39998a75"
+    },
+    {
+      "bytes": 4726,
+      "path": "data/intelligence/202608282200-relationship-governance-status.parquet",
+      "sha256": "6de1a3fa19f3d130b0cc19c71d56d8c8108b144da8a365113247caec9fab0f1c"
+    },
+    {
+      "bytes": 21174,
+      "path": "data/intelligence/sector/202608272130-parquet-audit.json",
+      "sha256": "0bb848720a14c2cc799608e3f6976701be191823edc13093620bbe4ee76c1f65"
+    },
+    {
+      "bytes": 6178,
+      "path": "data/intelligence/sector/202608272130-source-ledger-receipt.json",
+      "sha256": "1286c52f7882d518cd8d94f7a3a267993edde1af782d9de39f25aae0c795ead1"
+    },
+    {
+      "bytes": 2661,
+      "path": "data/intelligence/sector/sector-item-topics.parquet",
+      "sha256": "c1c63a9ffe0f275611474fc438a91bbd70c209faebf1d863fdbf3e476f659ea3"
+    },
+    {
+      "bytes": 16314,
+      "path": "data/intelligence/sector/sector-items.parquet",
+      "sha256": "8f8d02c57d9f4591ba38b2ad7f3ff408e0b5a89bba5f431d4044b115dcc261f8"
+    },
+    {
+      "bytes": 234,
+      "path": "data/intelligence/sector/sector-project-bindings.parquet",
+      "sha256": "b268d0b5656a02a379633692b8c7950a1b53cb0031884f67c757cf8679e16e23"
+    },
+    {
+      "bytes": 624542,
+      "path": "data/projects/202608261927-project-partition-v9-1-01.json",
+      "sha256": "6e72d36a8f880bfc39274221edf58d1b895202f01f2e56aae001ad25cb3b337d"
+    },
+    {
+      "bytes": 629501,
+      "path": "data/projects/202608261927-project-partition-v9-1-02.json",
+      "sha256": "a2ba3598af8ff45726587b3a498c0f6a433ae007ec9eadbd5bfc682b7dca4b2e"
+    },
+    {
+      "bytes": 628898,
+      "path": "data/projects/202608261927-project-partition-v9-1-03.json",
+      "sha256": "6f012e9251433e0d32095b2df75ae1c988a813a14647debe16c057dee550d23b"
+    },
+    {
+      "bytes": 625997,
+      "path": "data/projects/202608261927-project-partition-v9-1-04.json",
+      "sha256": "1cdc7405098c85a477dd156930c4503ef7850ff005d1ec85a69928f10db6b7f5"
+    },
+    {
+      "bytes": 631815,
+      "path": "data/projects/202608261927-project-partition-v9-1-05.json",
+      "sha256": "43988789140bf2211263ffe49b756bc8f7f4cd69531b2e91c56b2e7c2a90bcae"
+    },
+    {
+      "bytes": 630303,
+      "path": "data/projects/202608261927-project-partition-v9-1-06.json",
+      "sha256": "e2c4d0c29e622270260e8fa71c1efae260e84fd3c9ebfa31b7dbf7bfe3da2d69"
+    },
+    {
+      "bytes": 628660,
+      "path": "data/projects/202608261927-project-partition-v9-1-07.json",
+      "sha256": "8f2b2d2d74a031f459b94e626e288c11c148629e955f97ef688a27eb1a5e2c59"
+    },
+    {
+      "bytes": 631189,
+      "path": "data/projects/202608261927-project-partition-v9-1-08.json",
+      "sha256": "f3c0dff755bc657c41b3e04305403bbcfbf94be5d893e85309faf9dd7cb1fa92"
+    },
+    {
+      "bytes": 630867,
+      "path": "data/projects/202608261927-project-partition-v9-1-09.json",
+      "sha256": "a9427f109b7ad5ee881628fcbde3602daab62896e8517922ff68d2efe6a23b15"
+    },
+    {
+      "bytes": 628464,
+      "path": "data/projects/202608261927-project-partition-v9-1-10.json",
+      "sha256": "57145897a6a457f3bfb58f431d7bfa6a75dd63bfd2708eb56c3802391847c6b3"
+    },
+    {
+      "bytes": 620261,
+      "path": "data/projects/202608261927-project-partition-v9-1-11.json",
+      "sha256": "e79c4eb42d1d366f01f8f2a941d92ff231b8ea14c2e40a2677a89601926938d1"
+    },
+    {
+      "bytes": 615891,
+      "path": "data/projects/202608261927-project-partition-v9-1-12.json",
+      "sha256": "ad077a3172f6813f2a641e2f51ab693bf038cae03b5cbbdaa4167973ce7a7388"
+    },
+    {
+      "bytes": 620861,
+      "path": "data/projects/202608261927-project-partition-v9-1-13.json",
+      "sha256": "4545362b1355e256dc3025019f971ffa208cc8828059152a26b99ac66fb47817"
+    },
+    {
+      "bytes": 619833,
+      "path": "data/projects/202608261927-project-partition-v9-1-14.json",
+      "sha256": "9cf8da7fcbf3c1d08830c613c69d0447c490d6126be3ebe8c2d9021a4ddcd004"
+    },
+    {
+      "bytes": 616440,
+      "path": "data/projects/202608261927-project-partition-v9-1-15.json",
+      "sha256": "109f20651ce1234d8933bb5efab78cbf45081ae7b4966e63ec0fca560a76cf03"
+    },
+    {
+      "bytes": 221745,
+      "path": "data/projects/202608261927-project-partition-v9-1-16.json",
+      "sha256": "ed4c672a6cb684a5fd29e17e436d4ee632de358de5e0a2cee9801c7ffa5ecc4b"
+    },
+    {
+      "bytes": 23927,
+      "path": "index.html",
+      "sha256": "38a099924a114195710f2a2186b2620fb41e191c199a6164673f6b8d5e0acc4e"
+    },
+    {
+      "bytes": 25073,
+      "path": "provenance/202608282200-v8-fast-site-manifest.json",
+      "sha256": "025daf70f1c4b9c9a7c84a70d41ceb50e96232771f736faa309ca92c2c9c134d"
+    }
+  ],
+  "generation": "202608300309",
+  "golden_repd_ref": "13599",
+  "news_changes": 0,
+  "project_changes": 0,
+  "release_id": "202608300309-pipelinenews",
+  "schema": "pipelinenews.current-atlas-link-build-manifest.v2",
+  "source_commit": "609b841e95929f3f263fa0be541a5d647a799806",
+  "source_release_id": "202608291447-pipelinenews"
+}

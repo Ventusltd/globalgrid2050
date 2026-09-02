@@ -13,6 +13,16 @@ on:
     paths:
       - 'index.html'
       - 'CNAME'
+      # A published Pipeline News snapshot must trigger the deploy that
+      # serves it. Until 202609020025 no path here matched
+      # pipelinenews_intelligence/, so pushing a new release directory
+      # deployed nothing at all: 202609012326 sat on origin/main, complete
+      # and verified byte-identical to its release, and returned 404 for
+      # over an hour. Every earlier snapshot appeared to work only because
+      # its commit also touched index.html, which did match - so the
+      # directory was being served as a side effect of a homepage edit
+      # rather than because it had been published.
+      - 'pipelinenews_intelligence/**'
       - 'employers_competence/**'
       - 'solar_deployment_statistics/**'
       - 'solar_components/**'

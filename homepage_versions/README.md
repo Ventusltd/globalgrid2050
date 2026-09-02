@@ -404,3 +404,35 @@ all reachable, newest first.
 Folder file count after this snapshot:
 
 15 files
+
+## Version 014
+
+Version: `homepage_v014.html`
+Source: live `index.html` at commit `1bbb0b2`
+Purpose: restore point taken before naming the `202609020611` Pipeline News
+release, the last of the queued overnight steps.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v014.html`:
+
+Line count: 204
+Word count: 3374
+Character count: 30519
+SHA-256 (first 16): 93e3a749e7f5be9f
+
+Change intention in plain English:
+
+Add one new current entry for the Pipeline News release whose connections panel
+says a kilometre is not a connection and points at the measurement that is: the
+panel still reports straight-line kilometres, which is what it measures, while
+MAP now reports the count of published circuits, which is what decides whether
+two sites are connected at all. Move `202609020552` to the top of the superseded
+list beneath it, with its `NEW` badge removed and its supersession named.
+Nothing else on the page changes.
+
+The checker found this gap on its own too, as it did for `202609020552`: the
+release published itself here and the page linked to nothing.
+
+Folder file count after this snapshot:
+
+16 files

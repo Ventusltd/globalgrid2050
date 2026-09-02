@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Estate log: measured git, code, CI and HTTP statistics across fifteen repositories.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2304060a%27/%3E%3Ctext y=%2723%27 x=%276%27 font-size=%2718%27 fill=%27%2335c9d9%27 font-family=%27monospace%27%3E%3E_%3C/text%3E%3C/svg%3E">
+<title>Ventus Estate Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#04060a;
+  --ink:#7d8f9c;
+  --hi:#d7e3ec;
+  --key:#4a5a66;
+  --cy:#35c9d9;
+  --ok:#3fbf5f;
+  --bad:#e2564d;
+  --am:#e8a33d;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:"IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size:12.5px;
+  line-height:1.5;
+  font-variant-ligatures:none;
+  -webkit-font-smoothing:antialiased;
+}
+#scan{
+  padding:26px 20px 64px;
+  max-width:1180px;
+  margin:0 auto;
+  white-space:pre;
+  overflow-x:auto;
+  tab-size:2;
+}
+.k{color:var(--key)}
+.v{color:var(--hi)}
+.c{color:var(--cy)}
+.o{color:var(--ok)}
+.b{color:var(--bad)}
+.a{color:var(--am)}
+.r{color:#2b3742}
+.hdr{color:var(--hi)}
+#cur{
+  display:inline-block;width:7px;height:13px;background:var(--cy);
+  vertical-align:-2px;animation:bl 1.05s steps(2,start) infinite
+}
+@keyframes bl{50%{opacity:0}}
+@media (prefers-reduced-motion: reduce){#cur{animation:none}}
+</style>
+
+</head>
+<body>
+<div id="scan"></div>
+
+<script>
+const D = {"generated_utc": "2026-09-02T19:34:14Z", "workers": 20, "elapsed_s": 41.9, "repos": [{"ref": "main", "head_iso": "2026-08-31T15:13:46+01:00", "first_iso": "2026-08-31T00:32:35+01:00", "span_days": 1, "commits": 73, "merges": 0, "per_day": 73.0, "c1": 0, "c7": 73, "c30": 73, "add_total": 498871, "del_total": 2570, "files_touched": 3297, "files_median": 1, "files_max": 3217, "gap_med_h": 0.01, "gap_max_h": 11.2, "authors_total": 1, "tracked_files": 3264, "tracked_human": "26.5 MB", "depth_avg": 2.01, "depth_max": 3, "branches": 26, "worktrees": 2, "workflow_files": 0, "hours": [4, 32, 9, 26, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "dow": [73, 0, 0, 0, 0, 0, 0], "authors": [{"c": 73}], "exts": [{"e": ".md", "n": 3203}, {"e": ".py", "n": 18}, {"e": ".tsv", "n": 16}, {"e": ".json", "n": 8}, {"e": ".txt", "n": 6}, {"e": ".awk", "n": 2}], "biggest": [{"b": "1.6 MB"}, {"b": "1.2 MB"}, {"b": "1.1 MB"}], "branch_rows": [{"d": "2026-08-31", "ahead": "2"}, {"d": "2026-08-31", "ahead": "1"}, {"d": "2026-08-31", "ahead": "6"}, {"d": "2026-08-31", "ahead": "1"}, {"d": "2026-08-31", "ahead": "9"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 73}, {"n": 0}, {"n": 0}], "http": {"status": 200, "bytes": 4948, "ms": 394, "last_modified": "Mon, 31 Aug 2026 14:15:01 GMT"}, "ci": {"sampled": 100, "total_count": 138, "success": 55, "failure": 11, "cancelled": 21, "window": ["2026-08-31T00:56:11Z", "2026-08-31T14:13:56Z"], "dur_med": 15, "dur_max": 92, "dur_sum": 2699, "deploy_consec_fail": 0, "events": [{"e": "dynamic", "n": 37}, {"e": "workflow_run", "n": 35}, {"e": "push", "n": 22}, {"e": "schedule", "n": 6}], "workflows": [{"t": 15, "f": 6, "med": 26, "last": "2026-08-31T10:02:38Z", "lc": "success"}, {"t": 4, "f": 4, "med": 0, "last": "2026-08-31T02:38:42Z", "lc": "failure"}, {"t": 3, "f": 1, "med": 13, "last": "2026-08-31T10:06:26Z", "lc": "success"}, {"t": 37, "f": 0, "med": 61, "last": "2026-08-31T14:13:56Z", "lc": "success"}, {"t": 32, "f": 0, "med": 10, "last": "2026-08-31T10:02:50Z", "lc": "skipped"}, {"t": 4, "f": 0, "med": 13, "last": "2026-08-31T07:05:07Z", "lc": "success"}, {"t": 2, "f": 0, "med": 29, "last": "2026-08-31T08:36:08Z", "lc": "success"}, {"t": 2, "f": 0, "med": 33, "last": "2026-08-31T07:41:09Z", "lc": "success"}, {"t": 1, "f": 0, "med": 11, "last": "2026-08-31T07:04:54Z", "lc": "success"}]}, "loc": {"text_files": 3264, "lines_total": 493136, "lines_codeish": 6117, "files_codeish": 22, "by_lang": [{"l": "Markdown", "n": 367112, "f": 3203}, {"l": "TSV", "n": 92545, "f": 16}, {"l": "Text", "n": 19543, "f": 6}, {"l": "GeoJSON", "n": 7047, "f": 1}, {"l": "Python", "n": 5644, "f": 18}, {"l": "JSON", "n": 764, "f": 8}]}}, {"ref": "main", "head_iso": "2026-08-31T23:53:10+01:00", "first_iso": "2026-08-26T22:25:29+01:00", "span_days": 5, "commits": 51, "merges": 0, "per_day": 10.2, "c1": 0, "c7": 51, "c30": 51, "add_total": 21363, "del_total": 495, "files_touched": 106, "files_median": 1, "files_max": 11, "gap_med_h": 0.02, "gap_max_h": 42.6, "authors_total": 2, "tracked_files": 76, "tracked_human": "930.6 KB", "depth_avg": 1.64, "depth_max": 2, "branches": 4, "worktrees": 1, "workflow_files": 7, "hours": [0, 0, 1, 5, 9, 2, 1, 1, 0, 0, 0, 2, 0, 0, 1, 1, 2, 0, 1, 0, 7, 2, 14, 2], "dow": [1, 0, 14, 13, 7, 0, 16], "authors": [{"c": 49}, {"c": 2}], "exts": [{"e": ".py", "n": 42}, {"e": ".yml", "n": 19}, {"e": ".json", "n": 12}, {"e": ".gitattributes", "n": 1}, {"e": ".md", "n": 1}, {"e": ".gitignore", "n": 1}], "biggest": [{"b": "55.5 KB"}, {"b": "52.2 KB"}, {"b": "51.6 KB"}], "branch_rows": [{"d": "2026-08-27", "ahead": "28"}, {"d": "2026-08-27", "ahead": "1"}, {"d": "2026-08-27", "ahead": "0"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 14}, {"n": 13}, {"n": 7}, {"n": 0}, {"n": 16}, {"n": 1}, {"n": 0}, {"n": 0}], "http": {"status": 404, "bytes": 0, "ms": 0, "last_modified": "-"}, "ci": {"sampled": 25, "total_count": 25, "success": 10, "failure": 13, "cancelled": 2, "window": ["2026-08-27T14:40:32Z", "2026-08-30T10:02:08Z"], "dur_med": 36, "dur_max": 13327, "dur_sum": 76015, "deploy_consec_fail": 0, "events": [{"e": "push", "n": 22}, {"e": "schedule", "n": 2}, {"e": "workflow_dispatch", "n": 1}], "workflows": [{"t": 2, "f": 2, "med": 0, "last": "2026-08-30T03:35:20Z", "lc": "failure"}, {"t": 6, "f": 1, "med": 10, "last": "2026-08-30T10:00:16Z", "lc": "success"}, {"t": 1, "f": 1, "med": 36, "last": "2026-08-30T03:21:52Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 8, "last": "2026-08-30T02:33:48Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 9741, "last": "2026-08-28T10:51:45Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 11876, "last": "2026-08-28T06:45:17Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 9012, "last": "2026-08-28T02:33:22Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 8535, "last": "2026-08-27T20:33:25Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 223, "last": "2026-08-27T20:11:18Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 7952, "last": "2026-08-27T19:21:17Z", "lc": "failure"}]}, "loc": {"text_files": 76, "lines_total": 20863, "lines_codeish": 18738, "files_codeish": 63, "by_lang": [{"l": "Python", "n": 13608, "f": 42}, {"l": "YAML", "n": 5056, "f": 19}, {"l": "JSON", "n": 2092, "f": 12}, {"l": "Git", "n": 74, "f": 2}, {"l": "Markdown", "n": 33, "f": 1}]}}, {"ref": "main", "head_iso": "2026-08-31T23:53:02+01:00", "first_iso": "2026-08-30T14:07:39+01:00", "span_days": 1, "commits": 29, "merges": 0, "per_day": 29.0, "c1": 0, "c7": 29, "c30": 29, "add_total": 4481, "del_total": 1069, "files_touched": 147, "files_median": 1, "files_max": 47, "gap_med_h": 0.04, "gap_max_h": 21.5, "authors_total": 3, "tracked_files": 50, "tracked_human": "210.6 KB", "depth_avg": 0.86, "depth_max": 2, "branches": 2, "worktrees": 3, "workflow_files": 2, "hours": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10, 1, 11, 2, 0, 0, 1, 0, 1], "dow": [3, 0, 0, 0, 0, 0, 26], "authors": [{"c": 27}, {"c": 1}, {"c": 1}], "exts": [{"e": ".md", "n": 34}, {"e": ".mjs", "n": 6}, {"e": ".yml", "n": 3}, {"e": ".txt", "n": 2}, {"e": ".json", "n": 2}, {"e": ".gitattributes", "n": 1}], "biggest": [{"b": "40.5 KB"}, {"b": "32.2 KB"}, {"b": "22.2 KB"}], "branch_rows": [{"d": "2026-09-01", "ahead": "2"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 26}, {"n": 3}, {"n": 0}, {"n": 0}], "http": {"status": 200, "bytes": 4526, "ms": 364, "last_modified": "Mon, 31 Aug 2026 22:53:49 GMT"}, "ci": {"sampled": 50, "total_count": 50, "success": 35, "failure": 9, "cancelled": 6, "window": ["2026-08-30T13:08:19Z", "2026-09-01T22:49:31Z"], "dur_med": 37, "dur_max": 50, "dur_sum": 1639, "deploy_consec_fail": 0, "events": [{"e": "dynamic", "n": 29}, {"e": "push", "n": 19}, {"e": "workflow_dispatch", "n": 2}], "workflows": [{"t": 6, "f": 5, "med": 12, "last": "2026-09-01T22:49:31Z", "lc": "failure"}, {"t": 13, "f": 4, "med": 20, "last": "2026-08-30T16:53:15Z", "lc": "success"}, {"t": 29, "f": 0, "med": 42, "last": "2026-08-31T22:53:05Z", "lc": "success"}, {"t": 2, "f": 0, "med": 33, "last": "2026-08-30T17:24:39Z", "lc": "success"}]}, "loc": {"text_files": 50, "lines_total": 3412, "lines_codeish": 666, "files_codeish": 10, "by_lang": [{"l": "Markdown", "n": 1870, "f": 34}, {"l": "Text", "n": 508, "f": 2}, {"l": "JavaScript", "n": 447, "f": 6}, {"l": "Other", "n": 336, "f": 2}, {"l": "YAML", "n": 147, "f": 3}, {"l": "Git", "n": 72, "f": 1}]}}, {"ref": "main", "head_iso": "2026-09-01T00:25:42+01:00", "first_iso": "2026-07-29T12:41:30+01:00", "span_days": 33, "commits": 13, "merges": 0, "per_day": 0.39, "c1": 0, "c7": 7, "c30": 7, "add_total": 5660, "del_total": 374, "files_touched": 38, "files_median": 1, "files_max": 13, "gap_med_h": 0.67, "gap_max_h": 700.8, "authors_total": 1, "tracked_files": 33, "tracked_human": "226.1 KB", "depth_avg": 1.18, "depth_max": 2, "branches": 4, "worktrees": 1, "workflow_files": 5, "hours": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 1, 0, 0, 1, 2, 1, 1, 0, 0, 0, 0], "dow": [0, 1, 6, 1, 5, 0, 0], "authors": [{"c": 13}], "exts": [{"e": ".py", "n": 10}, {"e": ".json", "n": 10}, {"e": ".yml", "n": 5}, {"e": ".md", "n": 2}, {"e": ".overpassql", "n": 2}, {"e": ".gitattributes", "n": 1}], "biggest": [{"b": "34.2 KB"}, {"b": "29.7 KB"}, {"b": "19.7 KB"}], "branch_rows": [{"d": "2026-08-28", "ahead": "1"}, {"d": "2026-08-27", "ahead": "1"}, {"d": "2026-08-27", "ahead": "1"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 1}, {"n": 5}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 1}, {"n": 0}], "http": {"status": 200, "bytes": 6328, "ms": 391, "last_modified": "Mon, 31 Aug 2026 23:26:14 GMT"}, "ci": {"sampled": 23, "total_count": 23, "success": 20, "failure": 3, "cancelled": 0, "window": ["2026-07-29T11:42:49Z", "2026-08-31T23:25:46Z"], "dur_med": 42, "dur_max": 461, "dur_sum": 1443, "deploy_consec_fail": 0, "events": [{"e": "push", "n": 15}, {"e": "dynamic", "n": 8}], "workflows": [{"t": 1, "f": 1, "med": 61, "last": "2026-08-28T16:07:32Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 461, "last": "2026-08-28T15:43:49Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 173, "last": "2026-08-28T10:04:31Z", "lc": "failure"}, {"t": 8, "f": 0, "med": 43, "last": "2026-08-31T23:25:45Z", "lc": "success"}, {"t": 6, "f": 0, "med": 23, "last": "2026-08-31T23:25:46Z", "lc": "success"}, {"t": 4, "f": 0, "med": 19, "last": "2026-08-27T19:04:17Z", "lc": "success"}, {"t": 1, "f": 0, "med": 69, "last": "2026-08-28T17:03:59Z", "lc": "success"}, {"t": 1, "f": 0, "med": 22, "last": "2026-08-27T19:04:17Z", "lc": "success"}]}, "loc": {"text_files": 33, "lines_total": 5286, "lines_codeish": 4327, "files_codeish": 17, "by_lang": [{"l": "Python", "n": 3327, "f": 10}, {"l": "YAML", "n": 825, "f": 5}, {"l": "JSON", "n": 760, "f": 10}, {"l": "Markdown", "n": 115, "f": 2}, {"l": "HTML", "n": 103, "f": 1}, {"l": "Other", "n": 79, "f": 3}]}}, {"ref": "main", "head_iso": "2026-09-01T00:25:44+01:00", "first_iso": "2026-06-30T09:22:21+01:00", "span_days": 62, "commits": 217, "merges": 0, "per_day": 3.5, "c1": 0, "c7": 1, "c30": 3, "add_total": 16723, "del_total": 3415, "files_touched": 289, "files_median": 1, "files_max": 27, "gap_med_h": 0.04, "gap_max_h": 600.7, "authors_total": 3, "tracked_files": 152, "tracked_human": "996.9 KB", "depth_avg": 2.2, "depth_max": 6, "branches": 5, "worktrees": 1, "workflow_files": 8, "hours": [12, 10, 0, 3, 6, 0, 0, 2, 3, 16, 7, 11, 25, 4, 1, 13, 9, 13, 2, 4, 16, 20, 25, 15], "dow": [0, 93, 49, 57, 16, 2, 0], "authors": [{"c": 206}, {"c": 9}, {"c": 2}], "exts": [{"e": ".md", "n": 72}, {"e": ".json", "n": 33}, {"e": ".parquet", "n": 18}, {"e": ".yml", "n": 8}, {"e": ".html", "n": 6}, {"e": ".py", "n": 5}], "biggest": [{"b": "61.9 KB"}, {"b": "36.1 KB"}, {"b": "36.1 KB"}], "branch_rows": [{"d": "2026-07-03", "ahead": "1"}, {"d": "2026-07-02", "ahead": "5"}, {"d": "2026-07-01", "ahead": "2"}, {"d": "2026-07-01", "ahead": "3"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 2}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 1}, {"n": 0}], "http": {"status": 200, "bytes": 7573, "ms": 368, "last_modified": "Mon, 31 Aug 2026 23:26:25 GMT"}, "ci": {"sampled": 100, "total_count": 194, "success": 79, "failure": 7, "cancelled": 14, "window": ["2026-07-02T02:34:14Z", "2026-08-31T23:25:47Z"], "dur_med": 40, "dur_max": 888, "dur_sum": 5656, "deploy_consec_fail": 0, "events": [{"e": "dynamic", "n": 77}, {"e": "workflow_dispatch", "n": 14}, {"e": "schedule", "n": 9}], "workflows": [{"t": 77, "f": 6, "med": 40, "last": "2026-08-31T23:25:47Z", "lc": "success"}, {"t": 8, "f": 1, "med": 11, "last": "2026-07-02T20:14:49Z", "lc": "success"}, {"t": 9, "f": 0, "med": 146, "last": "2026-08-31T14:17:07Z", "lc": "success"}, {"t": 2, "f": 0, "med": 13, "last": "2026-07-03T00:10:34Z", "lc": "success"}, {"t": 2, "f": 0, "med": 13, "last": "2026-07-02T03:17:05Z", "lc": "success"}, {"t": 1, "f": 0, "med": 15, "last": "2026-07-03T22:23:18Z", "lc": "success"}, {"t": 1, "f": 0, "med": 48, "last": "2026-07-03T15:08:28Z", "lc": "success"}]}, "loc": {"text_files": 134, "lines_total": 13307, "lines_codeish": 4140, "files_codeish": 26, "by_lang": [{"l": "Markdown", "n": 7778, "f": 72}, {"l": "Python", "n": 1781, "f": 5}, {"l": "YAML", "n": 1079, "f": 9}, {"l": "HTML", "n": 875, "f": 6}, {"l": "JSON", "n": 871, "f": 33}, {"l": "Text", "n": 518, "f": 3}]}}, {"ref": "main", "head_iso": "2026-09-02T11:31:04Z", "first_iso": "2026-06-29T10:48:27+01:00", "span_days": 65, "commits": 61, "merges": 0, "per_day": 0.94, "c1": 2, "c7": 6, "c30": 6, "add_total": 7060, "del_total": 1877, "files_touched": 881, "files_median": 1, "files_max": 460, "gap_med_h": 0.02, "gap_max_h": 1513.0, "authors_total": 3, "tracked_files": 492, "tracked_human": "94.5 MB", "depth_avg": 3.43, "depth_max": 4, "branches": 4, "worktrees": 2, "workflow_files": 3, "hours": [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 10, 7, 13, 6, 5, 10, 4, 1, 0, 0, 0, 0, 1, 2], "dow": [57, 2, 2, 0, 0, 0, 0], "authors": [{"c": 57}, {"c": 3}, {"c": 1}], "exts": [{"e": ".parquet", "n": 463}, {"e": ".py", "n": 11}, {"e": ".md", "n": 8}, {"e": ".json", "n": 5}, {"e": ".yml", "n": 3}, {"e": ".gitattributes", "n": 1}], "biggest": [{"b": "1.4 MB"}, {"b": "1.4 MB"}, {"b": "1.4 MB"}], "branch_rows": [{"d": "2026-06-29", "ahead": "4"}, {"d": "2026-06-29", "ahead": "1"}, {"d": "2026-06-29", "ahead": "14"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 2}, {"n": 2}, {"n": 2}], "http": {"status": 404, "bytes": 0, "ms": 0, "last_modified": "-"}, "ci": {"sampled": 14, "total_count": 14, "success": 6, "failure": 8, "cancelled": 0, "window": ["2026-06-29T11:46:35Z", "2026-09-02T11:30:50Z"], "dur_med": 59, "dur_max": 622, "dur_sum": 2901, "deploy_consec_fail": 0, "events": [{"e": "workflow_dispatch", "n": 8}, {"e": "schedule", "n": 3}, {"e": "push", "n": 2}, {"e": "workflow_run", "n": 1}], "workflows": [{"t": 6, "f": 4, "med": 52, "last": "2026-06-29T14:09:49Z", "lc": "success"}, {"t": 5, "f": 4, "med": 609, "last": "2026-09-02T11:24:50Z", "lc": "success"}, {"t": 2, "f": 0, "med": 19, "last": "2026-09-02T11:30:50Z", "lc": "success"}, {"t": 1, "f": 0, "med": 17, "last": "2026-08-31T22:37:25Z", "lc": "success"}]}, "loc": {"text_files": 29, "lines_total": 5183, "lines_codeish": 2426, "files_codeish": 16, "by_lang": [{"l": "Python", "n": 1993, "f": 11}, {"l": "Markdown", "n": 1595, "f": 8}, {"l": "JSON", "n": 1162, "f": 5}, {"l": "YAML", "n": 338, "f": 3}, {"l": "Git", "n": 95, "f": 2}]}}, {"ref": "main", "head_iso": "2026-09-01T17:23:51Z", "first_iso": "2026-09-01T17:35:14+01:00", "span_days": 1, "commits": 9, "merges": 0, "per_day": 9.0, "c1": 0, "c7": 9, "c30": 9, "add_total": 329992, "del_total": 9451, "files_touched": 40, "files_median": 2, "files_max": 11, "gap_med_h": 0.01, "gap_max_h": 0.5, "authors_total": 2, "tracked_files": 22, "tracked_human": "21.3 MB", "depth_avg": 1.05, "depth_max": 2, "branches": 2, "worktrees": 2, "workflow_files": 1, "hours": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 1, 0, 0, 0, 0, 0], "dow": [0, 9, 0, 0, 0, 0, 0], "authors": [{"c": 7}, {"c": 2}], "exts": [{"e": ".py", "n": 7}, {"e": ".json", "n": 6}, {"e": ".md", "n": 3}, {"e": ".gitignore", "n": 2}, {"e": ".gitattributes", "n": 1}, {"e": ".yml", "n": 1}], "biggest": [{"b": "9.6 MB"}, {"b": "7.7 MB"}, {"b": "2.8 MB"}], "branch_rows": [{"d": "2026-09-01", "ahead": "1"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 9}, {"n": 0}], "http": {"status": 200, "bytes": 8964, "ms": 368, "last_modified": "Tue, 01 Sep 2026 17:24:50 GMT"}, "ci": {"sampled": 10, "total_count": 10, "success": 7, "failure": 0, "cancelled": 3, "window": ["2026-09-01T16:35:53Z", "2026-09-01T17:23:55Z"], "dur_med": 41, "dur_max": 350, "dur_sum": 710, "deploy_consec_fail": 0, "events": [{"e": "dynamic", "n": 7}, {"e": "push", "n": 3}], "workflows": [{"t": 7, "f": 0, "med": 51, "last": "2026-09-01T17:23:55Z", "lc": "success"}, {"t": 3, "f": 0, "med": 24, "last": "2026-09-01T17:23:35Z", "lc": "success"}]}, "loc": {"text_files": 22, "lines_total": 320541, "lines_codeish": 1389, "files_codeish": 11, "by_lang": [{"l": "JSON", "n": 318994, "f": 6}, {"l": "Python", "n": 1297, "f": 7}, {"l": "Markdown", "n": 156, "f": 3}, {"l": "YAML", "n": 83, "f": 1}, {"l": "Git", "n": 9, "f": 3}, {"l": "Other", "n": 1, "f": 1}]}}, {"ref": "main", "head_iso": "2026-09-01T00:25:46+01:00", "first_iso": "2026-08-29T09:01:36+01:00", "span_days": 2, "commits": 18, "merges": 0, "per_day": 9.0, "c1": 0, "c7": 18, "c30": 18, "add_total": 24140, "del_total": 22, "files_touched": 144, "files_median": 3, "files_max": 86, "gap_med_h": 0.87, "gap_max_h": 29.4, "authors_total": 4, "tracked_files": 133, "tracked_human": "95.4 MB", "depth_avg": 2.18, "depth_max": 3, "branches": 4, "worktrees": 1, "workflow_files": 11, "hours": [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 3, 2, 1, 3, 0, 0, 1, 2, 0, 0, 0, 0], "dow": [0, 1, 0, 0, 0, 11, 6], "authors": [{"c": 15}, {"c": 1}, {"c": 1}, {"c": 1}], "exts": [{"e": ".parquet", "n": 65}, {"e": ".json", "n": 36}, {"e": ".yml", "n": 11}, {"e": ".py", "n": 11}, {"e": ".md", "n": 3}, {"e": ".html", "n": 2}], "biggest": [{"b": "27.9 MB"}, {"b": "22.0 MB"}, {"b": "15.4 MB"}], "branch_rows": [{"d": "2026-08-30", "ahead": "4"}, {"d": "2026-08-29", "ahead": "0"}, {"d": "2026-08-29", "ahead": "0"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 11}, {"n": 6}, {"n": 0}, {"n": 1}, {"n": 0}], "http": {"status": 200, "bytes": 5647, "ms": 380, "last_modified": "Mon, 31 Aug 2026 23:26:30 GMT"}, "ci": {"sampled": 75, "total_count": 75, "success": 38, "failure": 37, "cancelled": 0, "window": ["2026-08-29T08:01:53Z", "2026-09-02T18:40:02Z"], "dur_med": 33, "dur_max": 2025, "dur_sum": 9413, "deploy_consec_fail": 0, "events": [{"e": "push", "n": 29}, {"e": "schedule", "n": 25}, {"e": "dynamic", "n": 18}, {"e": "workflow_dispatch", "n": 3}], "workflows": [{"t": 11, "f": 11, "med": 28, "last": "2026-09-02T18:40:02Z", "lc": "failure"}, {"t": 5, "f": 5, "med": 1179, "last": "2026-09-02T07:59:56Z", "lc": "failure"}, {"t": 5, "f": 5, "med": 25, "last": "2026-08-31T20:02:11Z", "lc": "failure"}, {"t": 5, "f": 4, "med": 24, "last": "2026-08-30T06:37:25Z", "lc": "failure"}, {"t": 3, "f": 3, "med": 0, "last": "2026-08-30T10:18:40Z", "lc": "failure"}, {"t": 2, "f": 1, "med": 33, "last": "2026-08-30T17:27:12Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 42, "last": "2026-08-30T18:01:28Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 23, "last": "2026-08-30T18:01:28Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 8, "last": "2026-08-30T17:56:57Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 9, "last": "2026-08-30T11:31:04Z", "lc": "failure"}]}, "loc": {"text_files": 68, "lines_total": 24118, "lines_codeish": 7818, "files_codeish": 26, "by_lang": [{"l": "JSON", "n": 16083, "f": 36}, {"l": "Python", "n": 4470, "f": 11}, {"l": "YAML", "n": 3222, "f": 11}, {"l": "Markdown", "n": 127, "f": 3}, {"l": "Text", "n": 88, "f": 2}, {"l": "Git", "n": 85, "f": 2}]}}, {"ref": "main", "head_iso": "2026-09-01T00:25:48+01:00", "first_iso": "2026-06-29T21:46:31+01:00", "span_days": 63, "commits": 22, "merges": 0, "per_day": 0.35, "c1": 0, "c7": 1, "c30": 1, "add_total": 1578, "del_total": 177, "files_touched": 22, "files_median": 1, "files_max": 1, "gap_med_h": 0.01, "gap_max_h": 1503.2, "authors_total": 1, "tracked_files": 11, "tracked_human": "72.8 KB", "depth_avg": 0.55, "depth_max": 2, "branches": 1, "worktrees": 1, "workflow_files": 1, "hours": [1, 0, 0, 0, 0, 0, 0, 0, 12, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0], "dow": [2, 20, 0, 0, 0, 0, 0], "authors": [{"c": 22}], "exts": [{"e": ".md", "n": 6}, {"e": ".py", "n": 2}, {"e": ".gitattributes", "n": 1}, {"e": ".yml", "n": 1}, {"e": ".csv", "n": 1}], "biggest": [{"b": "26.3 KB"}, {"b": "22.6 KB"}, {"b": "5.0 KB"}], "branch_rows": [], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 1}, {"n": 0}], "http": {"status": 404, "bytes": 0, "ms": 0, "last_modified": "-"}, "ci": {"sampled": 10, "total_count": 10, "success": 0, "failure": 10, "cancelled": 0, "window": ["2026-06-30T07:37:25Z", "2026-09-02T11:17:52Z"], "dur_med": 14, "dur_max": 16, "dur_sum": 47, "deploy_consec_fail": 0, "events": [{"e": "push", "n": 6}, {"e": "schedule", "n": 3}, {"e": "workflow_dispatch", "n": 1}], "workflows": [{"t": 6, "f": 6, "med": 0, "last": "2026-06-30T08:02:24Z", "lc": "failure"}, {"t": 4, "f": 4, "med": 14, "last": "2026-09-02T11:17:52Z", "lc": "failure"}]}, "loc": {"text_files": 11, "lines_total": 1401, "lines_codeish": 944, "files_codeish": 4, "by_lang": [{"l": "Python", "n": 738, "f": 2}, {"l": "Markdown", "n": 440, "f": 6}, {"l": "YAML", "n": 134, "f": 1}, {"l": "Git", "n": 72, "f": 1}, {"l": "CSV", "n": 17, "f": 1}]}}, {"ref": "main", "head_iso": "2026-08-31T23:53:06+01:00", "first_iso": "2026-06-29T22:34:10+01:00", "span_days": 63, "commits": 19, "merges": 0, "per_day": 0.3, "c1": 0, "c7": 1, "c30": 1, "add_total": 962, "del_total": 37, "files_touched": 19, "files_median": 1, "files_max": 1, "gap_med_h": 0.01, "gap_max_h": 1511.0, "authors_total": 1, "tracked_files": 15, "tracked_human": "57.1 KB", "depth_avg": 0.93, "depth_max": 2, "branches": 1, "worktrees": 1, "workflow_files": 1, "hours": [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8], "dow": [16, 3, 0, 0, 0, 0, 0], "authors": [{"c": 19}], "exts": [{"e": ".html", "n": 7}, {"e": ".md", "n": 3}, {"e": ".gitattributes", "n": 1}, {"e": ".yml", "n": 1}, {"e": ".nojekyll", "n": 1}, {"e": ".css", "n": 1}], "biggest": [{"b": "21.5 KB"}, {"b": "6.8 KB"}, {"b": "4.9 KB"}], "branch_rows": [], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 1}, {"n": 0}, {"n": 0}], "http": {"status": 200, "bytes": 1656, "ms": 366, "last_modified": "Mon, 31 Aug 2026 22:53:29 GMT"}, "ci": {"sampled": 25, "total_count": 25, "success": 18, "failure": 7, "cancelled": 0, "window": ["2026-06-29T21:50:57Z", "2026-08-31T22:53:12Z"], "dur_med": 20, "dur_max": 46, "dur_sum": 554, "deploy_consec_fail": 0, "events": [{"e": "push", "n": 12}, {"e": "dynamic", "n": 12}, {"e": "workflow_dispatch", "n": 1}], "workflows": [{"t": 13, "f": 4, "med": 17, "last": "2026-08-31T22:53:12Z", "lc": "success"}, {"t": 12, "f": 3, "med": 25, "last": "2026-08-31T22:53:09Z", "lc": "success"}]}, "loc": {"text_files": 14, "lines_total": 925, "lines_codeish": 211, "files_codeish": 11, "by_lang": [{"l": "Markdown", "n": 714, "f": 3}, {"l": "HTML", "n": 103, "f": 7}, {"l": "Git", "n": 72, "f": 1}, {"l": "YAML", "n": 34, "f": 1}, {"l": "CSS", "n": 1, "f": 1}, {"l": "JavaScript", "n": 1, "f": 1}]}}, {"ref": "main", "head_iso": "2026-09-02T20:25:31+01:00", "first_iso": "2026-03-12T16:26:24Z", "span_days": 174, "commits": 4508, "merges": 16, "per_day": 25.91, "c1": 11, "c7": 64, "c30": 247, "add_total": 34445248, "del_total": 10050445, "files_touched": 13723, "files_median": 1, "files_max": 219, "gap_med_h": 0.06, "gap_max_h": 424.1, "authors_total": 15, "tracked_files": 5091, "tracked_human": "2.5 GB", "depth_avg": 2.82, "depth_max": 5, "branches": 42, "worktrees": 4, "workflow_files": 241, "hours": [463, 257, 183, 121, 64, 60, 70, 103, 146, 161, 172, 187, 146, 133, 108, 178, 150, 152, 183, 266, 314, 273, 284, 334], "dow": [657, 516, 536, 526, 454, 966, 853], "authors": [{"c": 2481}, {"c": 1104}, {"c": 747}, {"c": 59}, {"c": 56}], "exts": [{"e": ".json", "n": 1449}, {"e": ".md", "n": 732}, {"e": ".js", "n": 536}, {"e": ".py", "n": 479}, {"e": ".mjs", "n": 363}, {"e": ".geojson", "n": 361}], "biggest": [{"b": "76.0 MB"}, {"b": "64.4 MB"}, {"b": "52.5 MB"}], "branch_rows": [{"d": "2026-08-30", "ahead": "2"}, {"d": "2026-08-30", "ahead": "14"}, {"d": "2026-08-24", "ahead": "0"}, {"d": "2026-08-22", "ahead": "1"}, {"d": "2026-08-22", "ahead": "0"}], "days30": [{"n": 2}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 110}, {"n": 45}, {"n": 16}, {"n": 6}, {"n": 1}, {"n": 0}, {"n": 0}, {"n": 4}, {"n": 25}, {"n": 23}, {"n": 1}, {"n": 11}], "http": {"status": 200, "bytes": 31558, "ms": 666, "last_modified": "Wed, 02 Sep 2026 19:30:51 GMT"}, "ci": {"sampled": 100, "total_count": 8140, "success": 64, "failure": 35, "cancelled": 1, "window": ["2026-08-31T21:46:42Z", "2026-09-02T19:25:45Z"], "dur_med": 102, "dur_max": 458, "dur_sum": 13560, "deploy_consec_fail": 0, "events": [{"e": "push", "n": 99}, {"e": "workflow_dispatch", "n": 1}], "workflows": [{"t": 10, "f": 10, "med": 69, "last": "2026-09-02T19:25:44Z", "lc": "failure"}, {"t": 10, "f": 7, "med": 75, "last": "2026-09-02T19:25:45Z", "lc": "success"}, {"t": 10, "f": 7, "med": 88, "last": "2026-09-02T19:25:44Z", "lc": "success"}, {"t": 10, "f": 7, "med": 76, "last": "2026-09-02T19:25:44Z", "lc": "success"}, {"t": 7, "f": 4, "med": 33, "last": "2026-09-02T19:25:44Z", "lc": "failure"}, {"t": 14, "f": 0, "med": 273, "last": "2026-09-02T19:25:44Z", "lc": "success"}, {"t": 10, "f": 0, "med": 110, "last": "2026-09-02T19:25:44Z", "lc": "success"}, {"t": 10, "f": 0, "med": 101, "last": "2026-09-02T19:25:44Z", "lc": "success"}, {"t": 10, "f": 0, "med": 110, "last": "2026-09-02T19:25:44Z", "lc": "success"}, {"t": 9, "f": 0, "med": 320, "last": "2026-09-02T19:25:44Z", "lc": "success"}]}, "loc": {"text_files": 4964, "lines_total": 24394702, "lines_codeish": 350314, "files_codeish": 2065, "by_lang": [{"l": "CSV", "n": 13182545, "f": 227}, {"l": "JSON", "n": 10232516, "f": 1449}, {"l": "GeoJSON", "n": 545975, "f": 361}, {"l": "JavaScript", "n": 170700, "f": 899}, {"l": "Python", "n": 81311, "f": 479}, {"l": "Markdown", "n": 79561, "f": 731}]}}, {"ref": "main", "head_iso": "2026-09-01T00:25:50+01:00", "first_iso": "2026-08-31T16:25:27+01:00", "span_days": 1, "commits": 5, "merges": 0, "per_day": 5.0, "c1": 0, "c7": 5, "c30": 5, "add_total": 1954, "del_total": 28, "files_touched": 18, "files_median": 4, "files_max": 6, "gap_med_h": 1.57, "gap_max_h": 4.7, "authors_total": 1, "tracked_files": 10, "tracked_human": "103.8 KB", "depth_avg": 0.9, "depth_max": 2, "branches": 1, "worktrees": 2, "workflow_files": 0, "hours": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 1, 0, 0, 0, 0], "dow": [4, 1, 0, 0, 0, 0, 0], "authors": [{"c": 5}], "exts": [{"e": ".mjs", "n": 4}, {"e": ".md", "n": 2}, {"e": ".py", "n": 2}, {"e": ".gitattributes", "n": 1}, {"e": ".pyc", "n": 1}], "biggest": [{"b": "21.8 KB"}, {"b": "17.4 KB"}, {"b": "16.4 KB"}], "branch_rows": [], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 4}, {"n": 1}, {"n": 0}], "http": {"status": 200, "bytes": 13430, "ms": 443, "last_modified": "Mon, 31 Aug 2026 23:26:26 GMT"}, "ci": {"sampled": 5, "total_count": 5, "success": 5, "failure": 0, "cancelled": 0, "window": ["2026-08-31T15:31:35Z", "2026-08-31T23:25:53Z"], "dur_med": 42, "dur_max": 48, "dur_sum": 215, "deploy_consec_fail": 0, "events": [{"e": "dynamic", "n": 5}], "workflows": [{"t": 5, "f": 0, "med": 42, "last": "2026-08-31T23:25:53Z", "lc": "success"}]}, "loc": {"text_files": 9, "lines_total": 1926, "lines_codeish": 1629, "files_codeish": 7, "by_lang": [{"l": "JavaScript", "n": 850, "f": 4}, {"l": "Python", "n": 707, "f": 2}, {"l": "Markdown", "n": 297, "f": 2}, {"l": "Git", "n": 72, "f": 1}]}}, {"ref": "main", "head_iso": "2026-09-02T01:43:59+01:00", "first_iso": "2026-08-29T07:10:33+01:00", "span_days": 3, "commits": 289, "merges": 0, "per_day": 96.33, "c1": 74, "c7": 289, "c30": 289, "add_total": 252403, "del_total": 13263, "files_touched": 1275, "files_median": 2, "files_max": 109, "gap_med_h": 0.04, "gap_max_h": 15.6, "authors_total": 21, "tracked_files": 446, "tracked_human": "49.4 MB", "depth_avg": 2.29, "depth_max": 4, "branches": 25, "worktrees": 26, "workflow_files": 5, "hours": [35, 24, 12, 15, 18, 2, 1, 7, 5, 1, 1, 0, 1, 15, 11, 10, 4, 11, 15, 19, 5, 14, 21, 42], "dow": [34, 88, 43, 0, 0, 51, 73], "authors": [{"c": 250}, {"c": 7}, {"c": 5}, {"c": 4}, {"c": 3}], "exts": [{"e": ".json", "n": 113}, {"e": ".mjs", "n": 94}, {"e": ".js", "n": 62}, {"e": ".md", "n": 40}, {"e": ".geojson", "n": 34}, {"e": ".yml", "n": 26}], "biggest": [{"b": "8.9 MB"}, {"b": "2.7 MB"}, {"b": "2.7 MB"}], "branch_rows": [{"d": "2026-09-02", "ahead": "3"}, {"d": "2026-09-02", "ahead": "0"}, {"d": "2026-09-01", "ahead": "0"}, {"d": "2026-09-01", "ahead": "0"}, {"d": "2026-09-01", "ahead": "2"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 51}, {"n": 73}, {"n": 34}, {"n": 88}, {"n": 43}], "http": {"status": 200, "bytes": 470, "ms": 391, "last_modified": "Wed, 02 Sep 2026 00:44:37 GMT"}, "ci": {"sampled": 100, "total_count": 461, "success": 98, "failure": 1, "cancelled": 1, "window": ["2026-09-01T13:55:08Z", "2026-09-02T00:44:02Z"], "dur_med": 18, "dur_max": 301, "dur_sum": 3226, "deploy_consec_fail": 0, "events": [{"e": "push", "n": 57}, {"e": "dynamic", "n": 43}], "workflows": [{"t": 32, "f": 1, "med": 16, "last": "2026-09-02T00:18:59Z", "lc": "success"}, {"t": 43, "f": 0, "med": 48, "last": "2026-09-02T00:44:02Z", "lc": "success"}, {"t": 25, "f": 0, "med": 12, "last": "2026-09-02T00:18:59Z", "lc": "success"}]}, "loc": {"text_files": 445, "lines_total": 239131, "lines_codeish": 161445, "files_codeish": 228, "by_lang": [{"l": "JavaScript", "n": 148494, "f": 156}, {"l": "JSON", "n": 73272, "f": 113}, {"l": "YAML", "n": 5942, "f": 26}, {"l": "Python", "n": 4344, "f": 21}, {"l": "Markdown", "n": 3226, "f": 40}, {"l": "HTML", "n": 1781, "f": 13}]}}, {"ref": "main", "head_iso": "2026-09-02T19:58:13+01:00", "first_iso": "2026-08-24T11:39:30+01:00", "span_days": 9, "commits": 381, "merges": 2, "per_day": 42.33, "c1": 30, "c7": 266, "c30": 381, "add_total": 2405591, "del_total": 26597, "files_touched": 4332, "files_median": 1, "files_max": 730, "gap_med_h": 0.08, "gap_max_h": 25.7, "authors_total": 11, "tracked_files": 2922, "tracked_human": "716.4 MB", "depth_avg": 3.6, "depth_max": 8, "branches": 14, "worktrees": 19, "workflow_files": 51, "hours": [25, 24, 21, 15, 16, 13, 9, 5, 7, 8, 9, 15, 9, 5, 12, 15, 23, 34, 24, 20, 15, 24, 23, 10], "dow": [31, 162, 83, 38, 5, 8, 54], "authors": [{"c": 320}, {"c": 20}, {"c": 17}, {"c": 12}, {"c": 5}], "exts": [{"e": ".json", "n": 1398}, {"e": ".mjs", "n": 495}, {"e": ".js", "n": 190}, {"e": ".md", "n": 139}, {"e": ".parquet", "n": 138}, {"e": ".sha256", "n": 120}], "biggest": [{"b": "19.7 MB"}, {"b": "19.7 MB"}, {"b": "19.7 MB"}], "branch_rows": [{"d": "2026-09-02", "ahead": "0"}, {"d": "2026-09-02", "ahead": "2"}, {"d": "2026-09-02", "ahead": "0"}, {"d": "2026-09-02", "ahead": "2"}, {"d": "2026-09-01", "ahead": "5"}], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 4}, {"n": 77}, {"n": 56}, {"n": 38}, {"n": 5}, {"n": 8}, {"n": 54}, {"n": 27}, {"n": 85}, {"n": 27}], "http": {"status": 404, "bytes": 0, "ms": 0, "last_modified": "-"}, "ci": {"sampled": 100, "total_count": 262, "success": 20, "failure": 80, "cancelled": 0, "window": ["2026-08-30T03:05:18Z", "2026-09-02T18:59:05Z"], "dur_med": 14, "dur_max": 682, "dur_sum": 2898, "deploy_consec_fail": 25, "events": [{"e": "push", "n": 88}, {"e": "workflow_dispatch", "n": 6}, {"e": "schedule", "n": 6}], "workflows": [{"t": 29, "f": 28, "med": 14, "last": "2026-09-02T18:59:05Z", "lc": "failure"}, {"t": 19, "f": 19, "med": 0, "last": "2026-08-30T11:13:31Z", "lc": "failure"}, {"t": 5, "f": 5, "med": 33, "last": "2026-09-01T22:49:48Z", "lc": "failure"}, {"t": 4, "f": 2, "med": 18, "last": "2026-08-30T11:12:48Z", "lc": "failure"}, {"t": 2, "f": 1, "med": 20, "last": "2026-08-30T11:12:48Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 83, "last": "2026-09-01T01:46:15Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 25, "last": "2026-09-01T01:43:42Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 10, "last": "2026-09-01T01:40:52Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 14, "last": "2026-09-01T01:37:17Z", "lc": "failure"}, {"t": 1, "f": 1, "med": 13, "last": "2026-08-30T11:12:48Z", "lc": "failure"}]}, "loc": {"text_files": 2779, "lines_total": 2378982, "lines_codeish": 270152, "files_codeish": 1033, "by_lang": [{"l": "JSON", "n": 2094076, "f": 1398}, {"l": "JavaScript", "n": 189504, "f": 685}, {"l": "CSS", "n": 24286, "f": 119}, {"l": "YAML", "n": 23202, "f": 65}, {"l": "Python", "n": 17889, "f": 71}, {"l": "HTML", "n": 14648, "f": 64}]}}, {"ref": "main", "head_iso": "2026-08-31T23:53:08+01:00", "first_iso": "2026-07-04T07:34:47+01:00", "span_days": 58, "commits": 58, "merges": 0, "per_day": 1.0, "c1": 0, "c7": 1, "c30": 1, "add_total": 5172, "del_total": 520, "files_touched": 64, "files_median": 1, "files_max": 4, "gap_med_h": 0.02, "gap_max_h": 1370.7, "authors_total": 2, "tracked_files": 52, "tracked_human": "210.9 KB", "depth_avg": 2.02, "depth_max": 4, "branches": 1, "worktrees": 1, "workflow_files": 2, "hours": [2, 25, 0, 0, 0, 0, 0, 5, 4, 0, 0, 0, 3, 2, 1, 2, 0, 0, 2, 1, 0, 8, 0, 3], "dow": [1, 0, 0, 0, 0, 20, 37], "authors": [{"c": 56}, {"c": 2}], "exts": [{"e": ".md", "n": 34}, {"e": ".html", "n": 6}, {"e": ".json", "n": 6}, {"e": ".yml", "n": 2}, {"e": ".py", "n": 2}, {"e": ".gitattributes", "n": 1}], "biggest": [{"b": "45.3 KB"}, {"b": "33.2 KB"}, {"b": "27.7 KB"}], "branch_rows": [], "days30": [{"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 0}, {"n": 1}, {"n": 0}, {"n": 0}], "http": {"status": 200, "bytes": 2254, "ms": 373, "last_modified": "Mon, 31 Aug 2026 22:53:28 GMT"}, "ci": {"sampled": 48, "total_count": 48, "success": 31, "failure": 6, "cancelled": 11, "window": ["2026-07-04T23:27:52Z", "2026-08-31T22:53:11Z"], "dur_med": 22, "dur_max": 44, "dur_sum": 979, "deploy_consec_fail": 0, "events": [{"e": "dynamic", "n": 37}, {"e": "schedule", "n": 9}, {"e": "workflow_dispatch", "n": 2}], "workflows": [{"t": 37, "f": 6, "med": 23, "last": "2026-08-31T22:53:11Z", "lc": "success"}, {"t": 9, "f": 0, "med": 6, "last": "2026-08-31T17:40:08Z", "lc": "success"}, {"t": 2, "f": 0, "med": 12, "last": "2026-07-04T23:31:41Z", "lc": "success"}]}, "loc": {"text_files": 51, "lines_total": 4652, "lines_codeish": 669, "files_codeish": 11, "by_lang": [{"l": "JSON", "n": 2116, "f": 6}, {"l": "Markdown", "n": 1867, "f": 34}, {"l": "Python", "n": 338, "f": 2}, {"l": "HTML", "n": 185, "f": 6}, {"l": "YAML", "n": 74, "f": 2}, {"l": "Git", "n": 72, "f": 1}]}}]};
+
+/* ---------- formatting ---------- */
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const pad  = (s,n) => { s = String(s); return s.length >= n ? s : s + ' '.repeat(n - s.length); };
+const rpad = (s,n) => { s = String(s); return s.length >= n ? s : ' '.repeat(n - s.length) + s; };
+const num  = n => (n === undefined || n === null) ? '-' : Number(n).toLocaleString('en-GB');
+const BL   = ['·','▁','▂','▃','▅','▆','▇','█'];
+const bars = arr => { const m = Math.max(1, ...arr);
+  return arr.map(n => n ? BL[Math.min(7, 1 + Math.floor((n/m)*6))] : BL[0]).join(''); };
+const secs = s => s >= 3600 ? (s/3600).toFixed(1)+'h' : s >= 60 ? (s/60).toFixed(1)+'m' : s+'s';
+const ageD = iso => ((Date.now() - new Date(iso)) / 864e5).toFixed(1);
+
+const L = [];                                     // {h: html, pause?: n}
+const line = (h='', pause=0) => L.push({h, pause});
+const kv = (k, v, cls='v') =>
+  line('  <span class="k">' + pad(k,15) + '</span><span class="' + cls + '">' + v + '</span>');
+const RULE = '─'.repeat(96);
+
+/* ---------- header ---------- */
+line('<span class="r">' + RULE + '</span>');
+kv('scan', D.generated_utc.replace('T',' ').replace('Z','') + ' UTC', 'c');
+kv('workers', D.workers);
+kv('targets', D.repos.length + ' repositories');
+kv('elapsed', D.elapsed_s + ' s');
+line('', 260);
+
+/* ---------- per repository ---------- */
+let n = 0;
+for (const r of D.repos) {
+  n++;
+  const idx = String(n).padStart(2,'0') + '/' + D.repos.length;
+  line('');
+  line('<span class="r">' + RULE + '</span>');
+  line('<span class="c">' + idx + '</span>', 150);
+  line('<span class="r">' + RULE + '</span>');
+
+  if (r.error) { kv('error', esc(r.error), 'b'); continue; }
+
+  kv('ref', r.ref);
+  kv('head', r.head_iso.replace('T',' ').slice(0,19));
+  kv('first', r.first_iso.replace('T',' ').slice(0,19) + '   span ' + r.span_days + ' d');
+  kv('commits', num(r.commits) + '   merges ' + num(r.merges) + '   per day ' + r.per_day);
+  kv('recent', '24h ' + num(r.c1) + '   7d ' + num(r.c7) + '   30d ' + num(r.c30));
+  kv('lines', '+' + num(r.add_total) + '  −' + num(r.del_total));
+  kv('touched', num(r.files_touched) + ' file changes   median ' + r.files_median + '   max ' + r.files_max);
+  kv('interval', 'median ' + r.gap_med_h + ' h   longest ' + r.gap_max_h + ' h');
+  kv('authors', num(r.authors_total));
+  r.authors.slice(0,5).forEach((a,ai) =>
+    line('    <span class="k">' + pad('author ' + String(ai+1).padStart(2,'0'), 36) + '</span>' + rpad(num(a.c), 6)));
+  kv('tree', num(r.tracked_files) + ' files   ' + r.tracked_human +
+             '   depth avg ' + r.depth_avg + ' max ' + r.depth_max);
+  kv('types', r.exts.slice(0,6).map(e => e.e + ' ' + e.n).join('   '), 'k');
+  r.biggest.slice(0,3).forEach((b,bi) =>
+    line('    <span class="k">' + pad('object ' + String(bi+1).padStart(2,'0'), 60) + '</span>' + rpad(b.b, 9)));
+  if (r.loc) {
+    kv('text', num(r.loc.text_files) + ' files   ' + num(r.loc.lines_total) + ' lines');
+    kv('code', num(r.loc.files_codeish) + ' files   ' + num(r.loc.lines_codeish) + ' lines   ' +
+               (100 * r.loc.lines_codeish / Math.max(1, r.loc.lines_total)).toFixed(1) + '% of text');
+    kv('languages', r.loc.by_lang.slice(0,6).map(x => x.l + ' ' + num(x.n)).join('   '), 'k');
+  }
+  kv('branches', num(r.branches) + '   worktrees ' + num(r.worktrees) +
+                 '   workflow files ' + num(r.workflow_files));
+  (r.branch_rows||[]).slice(0,5).forEach((b,bi) =>
+    line('    <span class="k">' + pad('branch ' + String(bi+1).padStart(2,'0'), 48) + '</span>' + pad(b.d, 13) +
+         '<span class="' + (Number(b.ahead) ? 'a' : 'k') + '">+' + b.ahead + '</span>'));
+
+  const h = r.http || {};
+  const hc = h.status === 200 ? 'o' : (h.status ? 'b' : 'k');
+  kv('http', '<span class="' + hc + '">' + (h.status || 'ERR') + '</span>  ' +
+             num(h.bytes || 0) + ' B   ' + (h.ms || 0) + ' ms   ' + esc(h.last_modified || '-'), 'k');
+
+  const c = r.ci || {};
+  if (c.sampled) {
+    kv('runs', num(c.sampled) + ' sampled of ' + num(c.total_count) +
+               '   <span class="o">ok ' + c.success + '</span>   <span class="' +
+               (c.failure ? 'b' : 'k') + '">fail ' + c.failure + '</span>   cancel ' + c.cancelled);
+    kv('duration', 'median ' + secs(c.dur_med) + '   max ' + secs(c.dur_max) + '   total ' + secs(c.dur_sum));
+    kv('events', c.events.map(e => e.e + ' ' + e.n).join('   '), 'k');
+    kv('window', c.window[0].replace('T',' ').slice(0,16) + '  →  ' + c.window[1].replace('T',' ').slice(0,16), 'k');
+    if (c.deploy_consec_fail)
+      kv('deploy', '<span class="b">JAMMED  ' + c.deploy_consec_fail + ' consecutive</span>   last ok ' +
+                   (c.deploy_last_ok || '-').replace('T',' ').slice(0,16), 'k');
+    c.workflows.slice(0, 10).forEach((w, wi) => {
+      const st = w.lc === 'success' ? '<span class="o">OK  </span>'
+               : w.lc === 'failure' ? '<span class="b">FAIL</span>'
+               : '<span class="a">' + pad(String(w.lc || '?').slice(0,4),4) + '</span>';
+      line('    ' + st + ' <span class="k">' + pad('workflow ' + String(wi+1).padStart(2,'0'), 56) + '</span>' +
+           rpad(w.t,4) + ' run' + rpad(w.f,5) + ' fail' + rpad(secs(w.med),7) +
+           '  <span class="k">' + w.last.replace('T',' ').slice(0,16) + '</span>');
+    })
+  } else {
+    kv('runs', 'none sampled', 'k');
+  }
+  kv('hours', bars(r.hours) + '   00→23 UTC', 'c');
+  kv('weekday', bars(r.dow) + '   Mon→Sun', 'c');
+  kv('30 days', bars(r.days30.map(x => x.n)), 'c');
+  line('', 120);
+}
+
+/* ---------- estate totals ---------- */
+const T = k => D.repos.reduce((a,r) => a + (Number(r[k]) || 0), 0);
+const CT = k => D.repos.reduce((a,r) => a + (Number(r.ci && r.ci[k]) || 0), 0);
+line('');
+line('<span class="r">' + RULE + '</span>');
+line('<span class="hdr">E S T A T E   T O T A L S</span>', 260);
+line('<span class="r">' + RULE + '</span>');
+kv('commits', num(T('commits')) + '   merges ' + num(T('merges')));
+kv('lines', '+' + num(T('add_total')) + '  −' + num(T('del_total')));
+kv('file changes', num(T('files_touched')));
+kv('tracked', num(T('tracked_files')) + ' files   ' +
+              (T('tracked_bytes')/1073741824).toFixed(2) + ' GB');
+kv('branches', num(T('branches')) + '   worktrees ' + num(T('worktrees')));
+kv('workflows', num(T('workflow_files')) + ' files   ' + num(CT('total_count')) + ' lifetime runs');
+kv('sampled', num(CT('sampled')) + ' runs   <span class="o">ok ' + CT('success') +
+              '</span>   <span class="b">fail ' + CT('failure') + '</span>');
+kv('runner time', secs(CT('dur_sum')));
+const LT = k => D.repos.reduce((a,r) => a + (Number(r.loc && r.loc[k]) || 0), 0);
+kv('text', num(LT('text_files')) + ' files   ' + num(LT('lines_total')) + ' lines');
+kv('code', num(LT('files_codeish')) + ' files   ' + num(LT('lines_codeish')) + ' lines   ' +
+           (100 * LT('lines_codeish') / Math.max(1, LT('lines_total'))).toFixed(1) + '% of text');
+const AG = {}, AF = {};
+for (const r of D.repos) for (const x of (r.loc?.by_lang || [])) {
+  AG[x.l] = (AG[x.l] || 0) + x.n; AF[x.l] = (AF[x.l] || 0) + x.f;
+}
+line('');
+for (const [l, n] of Object.entries(AG).sort((a,b) => b[1]-a[1]).slice(0,14))
+  line('  <span class="k">' + pad(l, 15) + '</span>' + rpad(num(n), 13) + ' lines' +
+       rpad(num(AF[l]), 9) + ' files');
+const red = D.repos.flatMap(r => (r.ci?.workflows||[]).filter(w => w.lc === 'failure'));
+kv('red now', '<span class="b">' + red.length + ' workflows failing</span>', 'k');
+const ORD = r => String(D.repos.indexOf(r) + 1).padStart(2,'0');
+const jam = D.repos.filter(r => r.ci?.deploy_consec_fail);
+kv('jammed', jam.length ? '<span class="b">' + jam.map(r => ORD(r) + ' (' + r.ci.deploy_consec_fail + ')').join('   ') + '</span>' : 'none', 'k');
+const p404 = D.repos.filter(r => r.http && r.http.status !== 200);
+kv('http !200', p404.length ? '<span class="a">' + p404.map(r => ORD(r) + ' (' + r.http.status + ')').join('   ') + '</span>' : 'none', 'k');
+line('', 200);
+
+/* ---------- index ---------- */
+line('');
+line('<span class="r">' + RULE + '</span>');
+line('<span class="hdr">I N D E X</span>');
+line('<span class="r">' + RULE + '</span>');
+const CW = [['id',6],['cmt',9],['30d',7],['files',9],['size',11],['code',10],['wf',6],['br',6],['ok',6],['fail',7],['runs',9],['http',6]];
+
+line('  <span class="k">' + CW.map(([h,w]) => pad(h,w)).join('') + '</span>');
+let IDX = '# estate-index v3  ' + D.generated_utc + '\n';
+IDX += '# ' + CW.map(([h,w]) => pad(h,w)).join('') + '\n';
+for (const r of D.repos) {
+  const c = r.ci || {}, h = r.http || {};
+  const cells = [pad(String(D.repos.indexOf(r)+1).padStart(2,'0'),6), pad(num(r.commits),9),
+                 pad(num(r.c30),7), pad(num(r.tracked_files),9), pad(r.tracked_human||'-',11),
+                 pad(num(r.loc?.lines_codeish),10),
+                 pad(num(r.workflow_files),6), pad(num(r.branches),6), pad(num(c.success),6),
+                 pad(num(c.failure),7), pad(num(c.total_count),9), pad(h.status||'-',6)];
+  line('  ' + cells.join(''));
+  IDX += '  ' + cells.join('') + '\n';
+}
+line('');
+line('<span class="k">  EOF  ' + D.generated_utc + '</span>');
+line('<span id="cur"></span>');
+
+/* ---------- vertical reveal ---------- */
+const box = document.getElementById('scan');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let i = 0, done = false;
+
+function all(){
+  if (done) return; done = true;
+  box.innerHTML = L.map(x => x.h).join('\n');
+}
+function step(){
+  if (done) return;
+  const t0 = performance.now();
+  let held = 0, chunk = '';
+  while (i < L.length && performance.now() - t0 < 7) {
+    chunk += (i ? '\n' : '') + L[i].h;
+    held = L[i].pause; i++;
+    if (held) break;
+  }
+  box.insertAdjacentHTML('beforeend', chunk);
+  if (i >= L.length) { done = true; return; }
+  held ? setTimeout(step, held) : requestAnimationFrame(step);
+}
+if (reduced) all(); else requestAnimationFrame(step);
+addEventListener('keydown', all);
+addEventListener('click', all);
+</script>
+
+</body>
+</html>

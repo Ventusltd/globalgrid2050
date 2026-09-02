@@ -559,3 +559,41 @@ Nothing else on the page changes.
 Folder file count after this snapshot:
 
 20 files
+
+## Version 019
+
+Version: `homepage_v019.html`
+Source: live `index.html` at commit 685ce845
+Purpose: restore point taken before repointing the `Log` row at generation
+`202609021952`.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v019.html`:
+
+Line count: 205
+Word count: 3310
+Character count: 31558
+SHA-256 (first 16): 7804abb1b3930772
+
+Change intention in plain English:
+
+Four corrections to the page the `Log` row points at.
+
+The spaced banner is removed. The reveal no longer drags the viewport downward as
+lines arrive; the text fills from the top while the reader stays where they are.
+
+Every name is gone. Repositories are ordinals, authors are ordinals, branches and
+workflows are ordinals, object paths are sizes only, published URLs are statuses
+only, and the head commit subject and SHA are dropped — a SHA is a lookup key back
+to a repository, not a statistic. This is enforced in the payload, not only in the
+rendering: the embedded JSON was rebuilt from a whitelist, so nothing identifying
+survives View Source either. The page fell from 95,700 to 48,933 bytes as a result.
+
+Lines of code are counted for the first time, across all fifteen repositories,
+split into text and code-ish totals with a per-language breakdown.
+
+Nothing else on the homepage changes.
+
+Folder file count after this snapshot:
+
+21 files

@@ -194,21 +194,37 @@ def main() -> int:
     except Failure as error:
         failures = [str(error)]
 
+    if args.offline:
+        report.setdefault("skipped", []).append("both network checks: --offline was requested")
+
     report["unpublished_by_design"] = UNPUBLISHED_BY_DESIGN
     report["failures"] = failures
-    report["status"] = "PASS" if not failures else "FAIL"
+    skipped = report.get("skipped", [])
+    # A skip is not a pass.  A verdict may only say PASS when every check it
+    # names actually ran; when one could not, the verdict says so and the exit
+    # code is non-zero, so a caller cannot read silence as health.
+    report["status"] = "FAIL" if failures else ("INCOMPLETE" if skipped else "PASS")
 
     if args.json:
         args.json.parent.mkdir(parents=True, exist_ok=True)
         args.json.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
 
-    for skipped in report.get("skipped", []):
-        print(f"skipped: {skipped}")
+    for entry in skipped:
+        print(f"skipped: {entry}")
     if failures:
         print("PUBLICATION TRUTH: FAIL")
         for failure in failures:
             print(f"  - {failure}")
         return 1
+    if skipped:
+        print(
+            f"PUBLICATION TRUTH: INCOMPLETE - {len(skipped)} check(s) could not run; "
+            f"the {len(report.get('published_snapshots', []))} published snapshots that were "
+            f"checked are reachable, newest is {report.get('newest_published')}"
+        )
+        for entry in skipped:
+            print(f"  - {entry}")
+        return 2
     print(
         f"PUBLICATION TRUTH: PASS - {len(report.get('published_snapshots', []))} published snapshots, "
         f"all reachable, newest is {report.get('newest_published')}"

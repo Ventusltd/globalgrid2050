@@ -872,3 +872,80 @@ reachable, newest `202609032251`.
 Folder file count after this snapshot:
 
 27 files
+
+## Version 026
+
+Version: `homepage_v026.html`
+Source: live `index.html` at commit `d62d51258a32cabf1411de16c73501715bad262c`
+Purpose: restore point taken before the first *compiled* refresh of the Grid Atlas
+current-composition row, moving it from `v9.98 / 202609032246` to
+`v9.99 / 202609032315`. No Pipeline News release is published in this version:
+the newest cut, `202609032251`, was already mirrored and given its row in
+version 025, and no further release had been cut when this snapshot was taken.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v026.html`:
+
+Line count: 213
+Word count: 4678
+Character count: 38389
+SHA-256 (first 16): b47f3572b62ea2d0
+
+Plain-English change intention:
+
+One line changes, and for the first time a program rather than a person chooses
+it. The homepage named Grid Atlas v9.98 while `https://ventusltd.github.io/gridatlas/atlas/`
+had been serving v9.99 since generation 202609032315 — confirmed by fetching the
+public composition manifest, not by reading the repository. The row's four
+identity fields — the version in `name:`, the `CURRENT VERIFIED · v… · … ·`
+prefix of `note:`, `data_gridatlas_release:` and the trailing HTML comment — are
+refreshed together so they cannot disagree again.
+
+The 1,471 characters of measurement prose in `note:` are carried through byte for
+byte. The compiler does not own that text and does not write it; it owns the
+identity only.
+
+What it deliberately does not do: it does not re-word the note, does not touch
+the `os-strip` banner that carries the same href, does not touch the immutable
+`202608291239-atlas-v9` row beneath the markers, and does not publish any
+Pipeline News release.
+
+Verified after the edit:
+
+`name:`/`note:` strings 191 to 191, two removed and two added. Exactly one of the
+removals is a `name:` — `UK Grid Atlas V9.98 — Current Verified Release`, the row
+this edit deliberately renames — and the other is that row's `note:`. The
+remaining 189 of 191 strings are byte-identical against `HEAD:index.html`.
+
+Line count 213 to 213, and exactly one line differs: line 103, the governed row
+inside the markers. The `os-strip` banner on line 59, which carries the same
+href and is the reason the compiler was jammed, is untouched, as is the immutable
+`202608291239-atlas-v9` row on line 105.
+
+The V8 sentinel occurs once with its four leading spaces and its route once.
+Both automation markers occur once each. The identity
+`202609032315-gridatlas-v9.99` occurs exactly twice — the data attribute and the
+trailing comment — and no `v9.98` or `202609032246` string remains.
+
+`AREAS` was re-evaluated with node before and after: it parses, 11 top-level
+areas, 120 nodes, 109 with a URL, all four unchanged by this edit. Exactly one
+row resolves to `https://ventusltd.github.io/gridatlas/atlas/` and exactly one
+row carries `data_gridatlas_release`, now reading
+`202609032315-gridatlas-v9.99`.
+
+That the live composition really is v9.99 was established by fetching
+`https://ventusltd.github.io/gridatlas/atlas/manifests/202609032315-composition.json`
+from the public site, which returns `"generation": "202609032315"` and
+`"version": "v9.99"`.
+
+`scripts/verify_published_versions.py` passes: 28 published snapshots, all
+reachable, newest `202609032251`.
+
+The edit was made by `scripts/catalogue_gridatlas_v9.py refresh-composition`,
+not by hand. The same run against a scratch copy produced a byte-identical
+result — SHA-256 `6fa24b75c00b6bb5` both times — so the compiler is
+deterministic on this input.
+
+Folder file count after this snapshot:
+
+28 files

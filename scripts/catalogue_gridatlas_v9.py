@@ -28,11 +28,39 @@ GRIDATLAS_REPOSITORY = "Ventusltd/gridatlas"
 GLOBALGRID_REPOSITORY = "Ventusltd/globalgrid2050"
 POINTER_PATH = "releases/current-v3.json"
 STATE_PATH = "state/live-set.json"
+# The sentinel carries its four leading spaces inside the constant on purpose:
+# counting this exact string is what proves the indentation, so a row that lost
+# its indent fails closed instead of silently passing an unanchored match.
 V8_ENTRY = '    { name:"UK Energy Atlas Grid Overlay V8", url:"./repd_grid_atlasv8/" },'
 V8_URL = "https://globalgrid2050.com/repd_grid_atlasv8/"
 GENERATION_RE = re.compile(r"^[0-9]{12}$")
 ATLAS_RELEASE_RE = re.compile(r"^([0-9]{12})-atlas-v9$")
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+
+# The automation markers bracket exactly one governed catalogue row.  They are
+# the only unique handle on it, and they must survive every edit verbatim.
+MARKER_START = "GRIDATLAS_V9_AUTOMATION_START"
+MARKER_END = "GRIDATLAS_V9_AUTOMATION_END"
+
+# The current-composition model: one stable URL that is republished in place,
+# rather than one immutable URL per release.
+COMPOSITION_POINTER_SCHEMA = "gridatlas.composition-pointer.v1"
+COMPOSITION_MANIFEST_SCHEMA = "gridatlas.composition-manifest.v1"
+COMPOSITION_ROUTE = "/gridatlas/atlas/"
+COMPOSITION_LIVE_URL = "https://ventusltd.github.io/gridatlas/atlas/"
+COMPOSITION_VERSION_RE = re.compile(r"^v[0-9]+\.[0-9]+$")
+
+# The governed composition row, field by field.  Everything the compiler owns is
+# a named group; `editorial` is the human-written measurement prose that the
+# compiler must carry through byte for byte.
+COMPOSITION_ROW_RE = re.compile(
+    r'^(?P<indent>[ \t]*)'
+    r'\{ name:"UK Grid Atlas V(?P<name_version>[0-9]+\.[0-9]+) — Current Verified Release", '
+    r'url:"(?P<url>[^"]*)", '
+    r'note:"CURRENT VERIFIED · v(?P<note_version>[0-9]+\.[0-9]+) · (?P<note_generation>[0-9]{12}) · (?P<editorial>.*)", '
+    r'data_gridatlas_release:"(?P<release>[0-9]{12}-gridatlas-v[0-9]+\.[0-9]+)" \}, '
+    r'/\* data-gridatlas-release="(?P<comment_release>[0-9]{12}-gridatlas-v[0-9]+\.[0-9]+)" \*/$'
+)
 
 
 class ContractError(RuntimeError):
@@ -193,23 +221,227 @@ def atlas_entry(atlas: dict[str, Any]) -> tuple[str, dict[str, str]]:
     return line, {"name": name, "url": atlas["live_url"], "note": note}
 
 
+def marked_row_index(lines: list[str]) -> int:
+    """Return the index of the one catalogue row inside the automation markers.
+
+    A href is NOT a unique handle on the governed row and never was.  The public
+    `os-strip` banner added on 2026-08-30 carries the identical href, and an
+    immutable release URL such as `.../gridatlas/atlas/releases/<id>/` contains
+    the composition URL as a *prefix*, so a bare `str.count` of
+    `https://ventusltd.github.io/gridatlas/atlas/` reports three hits for a single
+    governed row.  That ambiguity is what jammed `compile_root`: it refused every
+    run rather than risk rewriting the wrong line, which was the correct refusal
+    but the wrong test.
+
+    The markers bracket exactly one row, so the row is identified structurally
+    here and the href is then asserted on that row alone.  This is a narrowing,
+    not a loosening: a line matching the href but sitting outside the markers is
+    now unreachable by the compiler instead of merely being counted.
+    """
+    starts = [i for i, line in enumerate(lines) if MARKER_START in line]
+    ends = [i for i, line in enumerate(lines) if MARKER_END in line]
+    require(len(starts) == 1, "GridAtlas automation START marker must occur exactly once")
+    require(len(ends) == 1, "GridAtlas automation END marker must occur exactly once")
+    start, end = starts[0], ends[0]
+    require(start < end, "GridAtlas automation markers are out of order")
+    body = [i for i in range(start + 1, end) if lines[i].strip()]
+    require(len(body) == 1, "The marked GridAtlas region must contain exactly one catalogue row")
+    require(lines[body[0]].lstrip().startswith("{ name:"), "The marked GridAtlas region does not hold a catalogue row")
+    return body[0]
+
+
+def assert_v8_sentinel(html: str, stage: str) -> None:
+    require(html.count(V8_ENTRY) == 1, f"Exact V8 catalogue sentinel must occur once ({stage})")
+    require(html.count('./repd_grid_atlasv8/') == 1, f"V8 catalogue route must occur once ({stage})")
+
+
 def compile_root(current_html: str, entry_line: str, live_url: str) -> tuple[str, bool]:
-    require(current_html.count(V8_ENTRY) == 1, "Exact V8 catalogue sentinel must occur once")
-    require(current_html.count('./repd_grid_atlasv8/') == 1, "V8 catalogue route must occur once")
-    url_count = current_html.count(live_url)
-    require(url_count <= 1, "Current Grid Atlas immutable URL occurs more than once")
-    if url_count == 1:
-        require(current_html.count(entry_line) == 1, "Current Grid Atlas URL exists but not as the governed catalogue entry")
-        compiled = current_html
-        changed = False
+    assert_v8_sentinel(current_html, "before compilation")
+
+    lines = current_html.split("\n")
+    marked = any(MARKER_START in line for line in lines)
+
+    if marked:
+        index = marked_row_index(lines)
+        if lines[index] == entry_line:
+            compiled, changed = current_html, False
+        else:
+            # The marked row can be governed by either model.  A composition row
+            # carries measurement prose and a data attribute; an immutable-release
+            # entry line carries neither.  Overwriting one with the other would
+            # silently destroy the reader-facing note, so the two models refuse
+            # to clobber each other rather than racing for the same line.
+            require(
+                COMPOSITION_ROW_RE.match(lines[index]) is None,
+                "The marked row is governed by the composition model; refuse to overwrite it with an immutable-release entry",
+            )
+            # Byte identity is NOT weakened.  The governed row is still replaced
+            # wholesale by the compiled line and every other byte of the file is
+            # carried through untouched; what changed is only *which* line is
+            # governed.  The markers name it, so a banner sharing the href can
+            # neither be mistaken for it nor block the refresh.
+            lines[index] = entry_line
+            compiled, changed = "\n".join(lines), True
     else:
+        # Legacy pre-marker homepage: the row has never been inserted, so the URL
+        # must be genuinely absent before one is added after the V8 sentinel.
+        require(current_html.count(live_url) == 0, "Grid Atlas URL is present but no automation markers govern it")
         compiled = current_html.replace(V8_ENTRY, f"{V8_ENTRY}\n{entry_line}", 1)
         changed = True
-    require(compiled.count(V8_ENTRY) == 1, "V8 sentinel changed during catalogue compilation")
-    require(compiled.count('./repd_grid_atlasv8/') == 1, "V8 route changed during catalogue compilation")
+
+    assert_v8_sentinel(compiled, "after compilation")
     require(compiled.count(entry_line) == 1, "Compiled Grid Atlas catalogue entry must occur once")
-    require(compiled.count(live_url) == 1, "Compiled Grid Atlas URL must occur once")
+    if marked:
+        compiled_lines = compiled.split("\n")
+        require(
+            compiled.count(MARKER_START) == 1 and compiled.count(MARKER_END) == 1,
+            "GridAtlas automation markers must survive compilation verbatim",
+        )
+        require(marked_row_index(compiled_lines) == index, "Governed catalogue row moved during compilation")
+        require(compiled_lines[index] == entry_line, "Governed catalogue row was not refreshed exactly")
     return compiled, changed
+
+
+def validate_composition(gridatlas_root: Path) -> dict[str, str]:
+    """Resolve the current GridAtlas composition identity, fail-closed.
+
+    The composition model republishes one stable URL rather than minting a new
+    immutable URL per release, so the identity that must reach the homepage is
+    (generation, version) and not a route.  Both are read from the pointer and
+    then cross-checked against the composition manifest the pointer names, so a
+    pointer that has advanced without its manifest cannot publish.
+    """
+    state = read_json(gridatlas_root / "state" / "live-set.json")
+    current = state.get("current")
+    require(isinstance(current, dict), "GridAtlas live-set has no current object")
+
+    pointer = current.get("atlas_composition")
+    require(isinstance(pointer, dict), "GridAtlas live-set carries no composition pointer")
+    require(pointer.get("schema") == COMPOSITION_POINTER_SCHEMA, "Unexpected GridAtlas composition pointer schema")
+    require(pointer.get("route") == COMPOSITION_ROUTE, "GridAtlas composition pointer does not serve the governed route")
+    require(current.get("live_url") == COMPOSITION_LIVE_URL, "GridAtlas live_url is not the governed composition URL")
+
+    generation = str(pointer.get("generation", ""))
+    require(bool(GENERATION_RE.fullmatch(generation)), "GridAtlas composition generation must be YYYYMMDDHHMM")
+
+    manifest_rel = pointer.get("manifest")
+    require(isinstance(manifest_rel, str) and manifest_rel.endswith("-composition.json"), "GridAtlas composition manifest path is invalid")
+    require(".." not in Path(manifest_rel).parts and not manifest_rel.startswith("/"), "GridAtlas composition manifest path is unsafe")
+    manifest_path = gridatlas_root / manifest_rel
+    manifest = read_json(manifest_path)
+    require(manifest.get("schema") == COMPOSITION_MANIFEST_SCHEMA, "Unexpected GridAtlas composition manifest schema")
+    require(str(manifest.get("generation", "")) == generation, "GridAtlas composition manifest generation differs from its pointer")
+
+    version = str(manifest.get("version", ""))
+    require(bool(COMPOSITION_VERSION_RE.fullmatch(version)), "GridAtlas composition version must look like vN.NN")
+
+    return {
+        "generation": generation,
+        "version": version,
+        "release_id": f"{generation}-gridatlas-{version}",
+        "live_url": COMPOSITION_LIVE_URL,
+        "manifest_path": manifest_rel,
+        "manifest_sha256": sha256_bytes(read_bytes(manifest_path)),
+    }
+
+
+def refresh_composition_row(current_html: str, composition: dict[str, str]) -> tuple[str, bool, dict[str, Any]]:
+    """Refresh the four identity fields of the governed composition row.
+
+    The compiler owns the version in `name:`, the `CURRENT VERIFIED · v… · … · `
+    prefix of `note:`, `data_gridatlas_release:` and the trailing HTML comment.
+    It does NOT own the rest of `note:` - that is the human-written measurement
+    prose a reader actually reads - so the editorial tail is carried through byte
+    for byte and only the identity is rewritten.
+
+    Before rewriting, all four identity fields must already agree with each
+    other.  A row whose `name:` says one version while its
+    `data_gridatlas_release:` says another is exactly the silent drift that went
+    nine releases unnoticed, so it is a refusal, not something to overwrite.
+    """
+    assert_v8_sentinel(current_html, "before composition refresh")
+
+    lines = current_html.split("\n")
+    index = marked_row_index(lines)
+    row = lines[index]
+    match = COMPOSITION_ROW_RE.match(row)
+    require(match is not None, "The governed composition row does not match the compiled row shape")
+
+    fields = match.groupdict()
+    require(fields["url"] == composition["live_url"], "The governed composition row does not carry the governed composition URL")
+
+    current_release = fields["release"]
+    current_generation, _, current_version = current_release.partition("-gridatlas-")
+    require(fields["comment_release"] == current_release, "Composition row data attribute and trailing comment disagree")
+    require(f"v{fields['name_version']}" == current_version, "Composition row name version disagrees with its release id")
+    require(f"v{fields['note_version']}" == current_version, "Composition row note version disagrees with its release id")
+    require(fields["note_generation"] == current_generation, "Composition row note generation disagrees with its release id")
+
+    release_id = composition["release_id"]
+    version = composition["version"]
+    generation = composition["generation"]
+    refreshed = (
+        f'{fields["indent"]}'
+        f'{{ name:"UK Grid Atlas V{version[1:]} — Current Verified Release", '
+        f'url:"{composition["live_url"]}", '
+        f'note:"CURRENT VERIFIED · {version} · {generation} · {fields["editorial"]}", '
+        f'data_gridatlas_release:"{release_id}" }}, '
+        f'/* data-gridatlas-release="{release_id}" */'
+    )
+
+    changed = refreshed != row
+    if changed:
+        lines[index] = refreshed
+        compiled = "\n".join(lines)
+    else:
+        compiled = current_html
+
+    assert_v8_sentinel(compiled, "after composition refresh")
+    compiled_lines = compiled.split("\n")
+    require(
+        compiled.count(MARKER_START) == 1 and compiled.count(MARKER_END) == 1,
+        "GridAtlas automation markers must survive the composition refresh verbatim",
+    )
+    require(marked_row_index(compiled_lines) == index, "Governed composition row moved during refresh")
+    require(compiled_lines[index] == refreshed, "Governed composition row was not refreshed exactly")
+    require(compiled.count(release_id) == 2, "Refreshed release identity must occur exactly twice on the governed row")
+    # Everything outside the one governed line must be untouched.
+    require(
+        compiled_lines[:index] == lines[:index] and compiled_lines[index + 1:] == lines[index + 1:],
+        "The composition refresh changed a line other than the governed row",
+    )
+
+    report = {
+        "previous_release_id": current_release,
+        "refreshed_release_id": release_id,
+        "row_index": index + 1,
+        "editorial_note_characters": len(fields["editorial"]),
+    }
+    return compiled, changed, report
+
+
+def refresh_composition(args: argparse.Namespace) -> dict[str, Any]:
+    root = args.root.resolve()
+    index_path = root / "index.html"
+    before_html = read_text(index_path)
+    composition = validate_composition(args.gridatlas.resolve())
+    compiled, changed, report = refresh_composition_row(before_html, composition)
+
+    written = False
+    if changed and not args.check:
+        index_path.write_text(compiled, encoding="utf-8", newline="")
+        written = True
+
+    return {
+        "ok": True,
+        "mode": "check" if args.check else "apply",
+        "changed": changed,
+        "written": written,
+        "composition": composition,
+        "root_index_sha256_before": sha256_text(before_html),
+        "root_index_sha256_after": sha256_text(compiled),
+        **report,
+    }
 
 
 def snapshot_html(root_html: str, catalogue_generation: str) -> str:
@@ -496,6 +728,15 @@ def parser() -> argparse.ArgumentParser:
     apply_parser.add_argument("--created-at", required=True)
     apply_parser.add_argument("--result-json", type=path_arg)
 
+    refresh_parser = subparsers.add_parser(
+        "refresh-composition",
+        help="Refresh the marked current-composition row identity in place",
+    )
+    refresh_parser.add_argument("--root", type=path_arg, default=Path.cwd())
+    refresh_parser.add_argument("--gridatlas", type=path_arg, required=True)
+    refresh_parser.add_argument("--check", action="store_true", help="Report the refresh without writing index.html")
+    refresh_parser.add_argument("--result-json", type=path_arg)
+
     verify_parser = subparsers.add_parser("verify", help="Verify committed or staged catalogue bytes")
     verify_parser.add_argument("--root", type=path_arg, default=Path.cwd())
     verify_parser.add_argument("--catalogue-manifest", type=path_arg, required=True)
@@ -511,6 +752,8 @@ def main() -> int:
     try:
         if args.command == "apply":
             payload = apply_catalogue(args)
+        elif args.command == "refresh-composition":
+            payload = refresh_composition(args)
         else:
             payload = verify_catalogue(
                 root=args.root,

@@ -1,0 +1,192 @@
+# DRAFT — NOT ENABLED. This file deliberately ends in `.disabled` so GitHub
+# never registers it as a workflow. Renaming it to `.yml` is the act of turning
+# it on, and that is a decision for a human, not a side effect of a merge.
+#
+# What this would do
+# ------------------
+# Run `scripts/catalogue_gridatlas_v9.py refresh-composition`, which rewrites the
+# four identity fields of the one catalogue row bracketed by the
+# GRIDATLAS_V9_AUTOMATION markers — the version in `name:`, the
+# `CURRENT VERIFIED · v… · … ·` prefix of `note:`, `data_gridatlas_release:` and
+# the trailing HTML comment — so the public homepage stops silently drifting
+# behind the live Grid Atlas composition. It carries the human-written
+# measurement prose in `note:` through byte for byte; it does not write that text
+# and must never be given the job of writing it.
+#
+# Why it is off
+# -------------
+# The homepage is the public front door. The compiler was unjammed on the same
+# night this draft was written, and one green run against one input is not
+# evidence that an unattended run is safe.
+#
+# What would have to be true before anyone turns it on
+# ----------------------------------------------------
+#  1. The refresh has been run by hand, by a person who read the diff, on at
+#     least three separate composition generations, and each time changed
+#     exactly one line. One proof (v9.98 -> v9.99, 2026-09-04) exists so far.
+#
+#  2. `scripts/catalogue_gridatlas_v9.py` has a committed test file that pins the
+#     fail-closed cases, so a later edit cannot quietly relax them. The ten cases
+#     currently proven only in a working session are: the V8 sentinel losing its
+#     four leading spaces; the V8 route occurring twice; either automation marker
+#     missing or duplicated; two rows inside the marked region; a row whose four
+#     identity fields disagree with each other; a row whose `url:` is not the
+#     governed composition URL; an immutable-release entry line being pointed at
+#     a composition row; a banner carrying the same href (must be ACCEPTED —
+#     this is the jam that made the compiler unusable); and the unchanged
+#     baseline (must be ACCEPTED and report changed=false).
+#
+#  3. The upstream pointers are consistent again. As of 2026-09-04 they are not,
+#     and this is the deeper defect: `catalogue-gridatlas-v9.yml` asserts
+#     `cmp current-v3.json live-set.json`, but those two files differ at char 2
+#     of line 1 and carry different schemas. That workflow therefore cannot reach
+#     the compiler at all, and `releases/current-v3.json` is still frozen at the
+#     202608291430 immutable-release model while the site has moved to the
+#     composition model. Automating a second workflow on top of an upstream that
+#     is already inconsistent would hide the inconsistency, not fix it.
+#
+#  4. A human-review gate exists on the resulting commit. The current governance
+#     is that nothing reaches `main` unreviewed; this workflow pushes to `main`,
+#     so it contradicts that rule until the rule changes or the workflow is
+#     changed to open a pull request instead.
+#
+#  5. Concurrency with the Pages deployment is settled. This shares
+#     `concurrency: pages` with `catalogue-gridatlas-v9.yml`; two publishers
+#     racing for one homepage is how a snapshot gets overwritten.
+#
+# Until all five hold, run it locally and read the diff:
+#
+#   python scripts/catalogue_gridatlas_v9.py refresh-composition \
+#     --root . --gridatlas ../gridatlas --check
+
+name: Refresh Grid Atlas composition row (DRAFT, DISABLED)
+run-name: Refresh the marked Grid Atlas catalogue row from the live composition
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_composition_generation:
+        description: Fail closed unless the live composition is this generation
+        required: true
+        type: string
+      apply:
+        description: Write and commit the refresh (false = report the diff only)
+        required: true
+        default: false
+        type: boolean
+
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  GRIDATLAS_REPOSITORY: Ventusltd/gridatlas
+
+jobs:
+  refresh:
+    name: Refresh the marked catalogue row and prove one line changed
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout GlobalGrid main
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Check out the pinned Grid Atlas commit
+        id: upstream
+        shell: bash
+        run: |
+          set -euo pipefail
+          commit="$(timeout 30 git ls-remote "https://github.com/${GRIDATLAS_REPOSITORY}.git" refs/heads/main | awk 'NR == 1 { print $1 }')"
+          [[ "$commit" =~ ^[0-9a-f]{40}$ ]]
+          git clone --quiet --filter=blob:none --no-checkout \
+            "https://github.com/${GRIDATLAS_REPOSITORY}.git" "$RUNNER_TEMP/gridatlas"
+          git -C "$RUNNER_TEMP/gridatlas" checkout --quiet "$commit"
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+
+      - name: Refuse a composition generation the operator did not expect
+        env:
+          GRIDATLAS_DIR: ${{ runner.temp }}/gridatlas
+          EXPECTED: ${{ inputs.expected_composition_generation }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          observed="$(jq -er '.current.atlas_composition.generation' "$GRIDATLAS_DIR/state/live-set.json")"
+          [[ "$observed" == "$EXPECTED" ]] || {
+            echo "Live composition is ${observed}, operator expected ${EXPECTED}; refusing" >&2
+            exit 1
+          }
+
+      - name: Prove the live composition is actually served before naming it
+        env:
+          GRIDATLAS_DIR: ${{ runner.temp }}/gridatlas
+        shell: bash
+        run: |
+          set -euo pipefail
+          manifest="$(jq -er '.current.atlas_composition.manifest' "$GRIDATLAS_DIR/state/live-set.json")"
+          generation="$(jq -er '.current.atlas_composition.generation' "$GRIDATLAS_DIR/state/live-set.json")"
+          curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+            "https://ventusltd.github.io/gridatlas/${manifest#atlas/}" -o "$RUNNER_TEMP/live-composition.json" \
+            || curl --fail --silent --show-error --location --retry 3 --max-time 30 \
+                 "https://ventusltd.github.io/gridatlas/${manifest}" -o "$RUNNER_TEMP/live-composition.json"
+          [[ "$(jq -er '.generation' "$RUNNER_TEMP/live-composition.json")" == "$generation" ]]
+
+      - name: Refresh the marked row
+        env:
+          GRIDATLAS_DIR: ${{ runner.temp }}/gridatlas
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/catalogue_gridatlas_v9.py refresh-composition \
+            --root . --gridatlas "$GRIDATLAS_DIR" \
+            --result-json "$RUNNER_TEMP/refresh.json"
+          cat "$RUNNER_TEMP/refresh.json"
+
+      - name: Assert exactly one line of exactly one file changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          changed="$(git status --porcelain=v1 --untracked-files=all | cut -c4-)"
+          [[ "$changed" == "index.html" || -z "$changed" ]] || {
+            echo "Refusing: files other than index.html changed:" >&2
+            echo "$changed" >&2
+            exit 1
+          }
+          if [[ -n "$changed" ]]; then
+            added="$(git diff --numstat -- index.html | cut -f1)"
+            removed="$(git diff --numstat -- index.html | cut -f2)"
+            [[ "$added" == "1" && "$removed" == "1" ]] || {
+              echo "Refusing: expected one line changed, got +${added}/-${removed}" >&2
+              git diff -- index.html >&2
+              exit 1
+            }
+          fi
+          git diff -- index.html
+
+      - name: Publication truth gate
+        shell: bash
+        run: python3 scripts/verify_published_versions.py
+
+      # NOTE: no snapshot step exists here yet. The homepage protocol requires a
+      # numbered homepage_versions/homepage_v0NN.html restore point and a README
+      # section recorded BEFORE the edit. Until that is automated and proven,
+      # this workflow must not be allowed to commit — which is condition 1 above.
+      - name: Commit the refresh
+        if: ${{ inputs.apply }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Deliberately not implemented in the draft." >&2
+          echo "See conditions 1-5 in the header of this file." >&2
+          exit 1

@@ -53,6 +53,14 @@ COMPOSITION_VERSION_RE = re.compile(r"^v[0-9]+\.[0-9]+$")
 # The governed composition row, field by field.  Everything the compiler owns is
 # a named group; `editorial` is the human-written measurement prose that the
 # compiler must carry through byte for byte.
+# When the compiler moves the identity but cannot move the prose, it says so in
+# the prose.  The clause is plain English rather than a bookkeeping token because
+# `note:` is rendered on the public homepage: a reader is owed the fact that the
+# argument they are reading describes an earlier build, and "stale-since:…" would
+# be internal machinery leaking into the reader-facing product.  A human clears
+# the clause by rewriting the note, which is the only thing that can clear it.
+EDITORIAL_LAG_RE = re.compile(r"^notes written for v(?P<version>[0-9]+\.[0-9]+) · (?P<rest>.*)$", re.S)
+
 COMPOSITION_ROW_RE = re.compile(
     r'^(?P<indent>[ \t]*)'
     r'\{ name:"UK Grid Atlas V(?P<name_version>[0-9]+\.[0-9]+) — Current Verified Release", '
@@ -345,7 +353,11 @@ def validate_composition(gridatlas_root: Path) -> dict[str, str]:
     }
 
 
-def refresh_composition_row(current_html: str, composition: dict[str, str]) -> tuple[str, bool, dict[str, Any]]:
+def refresh_composition_row(
+    current_html: str,
+    composition: dict[str, str],
+    notes_current: bool = False,
+) -> tuple[str, bool, dict[str, Any]]:
     """Refresh the four identity fields of the governed composition row.
 
     The compiler owns the version in `name:`, the `CURRENT VERIFIED · v… · … · `
@@ -380,11 +392,37 @@ def refresh_composition_row(current_html: str, composition: dict[str, str]) -> t
     release_id = composition["release_id"]
     version = composition["version"]
     generation = composition["generation"]
+
+    # Identity moving without the prose moving is drift of the opposite sign to
+    # the one that went nine releases unnoticed: the fields would name v10.02
+    # while the note still argues v9.99's case.  The compiler cannot write the
+    # prose, so it flags instead - and it flags only once.  A second unattended
+    # refresh while the flag still stands is a refusal, which bounds the drift at
+    # exactly one generation and turns "nobody came back" into a stop rather than
+    # an ever-staler public claim.
+    editorial = fields["editorial"]
+    lag = EDITORIAL_LAG_RE.match(editorial)
+    identity_moves = release_id != current_release
+    editorial_lag: str | None = f"v{lag.group('version')}" if lag else None
+
+    if notes_current:
+        # The operator asserts the prose was written for the incoming release.
+        editorial = lag.group("rest") if lag else editorial
+        editorial_lag = None
+    elif identity_moves:
+        require(
+            lag is None,
+            f"Editorial note has lagged the identity since {editorial_lag}; rewrite it, "
+            "or pass --notes-current to assert it already describes the incoming release",
+        )
+        editorial = f"notes written for {current_version} · {editorial}"
+        editorial_lag = current_version
+
     refreshed = (
         f'{fields["indent"]}'
         f'{{ name:"UK Grid Atlas V{version[1:]} — Current Verified Release", '
         f'url:"{composition["live_url"]}", '
-        f'note:"CURRENT VERIFIED · {version} · {generation} · {fields["editorial"]}", '
+        f'note:"CURRENT VERIFIED · {version} · {generation} · {editorial}", '
         f'data_gridatlas_release:"{release_id}" }}, '
         f'/* data-gridatlas-release="{release_id}" */'
     )
@@ -415,7 +453,9 @@ def refresh_composition_row(current_html: str, composition: dict[str, str]) -> t
         "previous_release_id": current_release,
         "refreshed_release_id": release_id,
         "row_index": index + 1,
-        "editorial_note_characters": len(fields["editorial"]),
+        "editorial_note_characters": len(editorial),
+        "editorial_lag": editorial_lag,
+        "notes_current_asserted": notes_current,
     }
     return compiled, changed, report
 
@@ -425,7 +465,7 @@ def refresh_composition(args: argparse.Namespace) -> dict[str, Any]:
     index_path = root / "index.html"
     before_html = read_text(index_path)
     composition = validate_composition(args.gridatlas.resolve())
-    compiled, changed, report = refresh_composition_row(before_html, composition)
+    compiled, changed, report = refresh_composition_row(before_html, composition, args.notes_current)
 
     written = False
     if changed and not args.check:
@@ -735,6 +775,15 @@ def parser() -> argparse.ArgumentParser:
     refresh_parser.add_argument("--root", type=path_arg, default=Path.cwd())
     refresh_parser.add_argument("--gridatlas", type=path_arg, required=True)
     refresh_parser.add_argument("--check", action="store_true", help="Report the refresh without writing index.html")
+    refresh_parser.add_argument(
+        "--notes-current",
+        action="store_true",
+        help=(
+            "Assert that the note's measurement prose already describes the incoming release, so "
+            "no lag clause is added and any existing one is cleared. Only a human who wrote that "
+            "prose may pass this; an unattended run must not."
+        ),
+    )
     refresh_parser.add_argument("--result-json", type=path_arg)
 
     verify_parser = subparsers.add_parser("verify", help="Verify committed or staged catalogue bytes")

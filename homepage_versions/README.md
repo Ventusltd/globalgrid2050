@@ -597,3 +597,39 @@ Nothing else on the homepage changes.
 Folder file count after this snapshot:
 
 21 files
+
+## Version 020
+
+Version: `homepage_v020.html`
+Source: live `index.html` at commit 864b92ea
+Purpose: restore point taken before linking the three published Pipeline News
+releases that had no row on the homepage.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v020.html`:
+
+Line count: 205
+Word count: 3310
+Character count: 31558
+SHA-256 (first 16): fc08fc922d23650b
+
+Change intention in plain English:
+
+Three releases were published to the repository and were serving live, but
+nothing on the homepage pointed at them: `202609021945`, `202609022308` and
+`202609030009`. A reader arriving at the directory had no route to any of them
+and the current row still named `202609020611`.
+
+`202609030009` becomes the current entry and the other two are folded beneath
+it, followed by the previous current entry which keeps its own nested list. The
+convention is unchanged: one current Pipeline News row, superseded builds under
+it.
+
+Nothing else changes. Every pre-existing `name:` and `note:` string is
+byte-identical, verified by diff — the previous current entry is moved intact
+and re-indented, not rewritten. The Grid Atlas Overlay V8 sentinel, its route,
+and the GRIDATLAS_V9_AUTOMATION markers are untouched.
+
+Folder file count after this snapshot:
+
+22 files

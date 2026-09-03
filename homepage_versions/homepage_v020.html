@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GlobalGrid2050</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: dark; }
+  html { background:#000; }
+  body { background:#000; color:#fff; font-family:Courier,monospace; padding:40px; max-width:900px; margin:0 auto; font-size:20px; line-height:1.6; }
+  h1 { margin-top:0; }
+  a { color:#66ccff; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .dev-status { color:#ff3333; font-weight:bold; font-size:16px; }
+  .live-status { color:#53ff4c; font-weight:bold; font-size:16px; }
+  .primary-link { display:block; margin:30px 0 28px; padding:14px 0; border-top:1px solid #333; border-bottom:1px solid #333; color:#00ffff; font-weight:bold; font-size:28px; line-height:1.15; }
+  .launch-flagship,.os-strip { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:10px 0 2px; padding:12px 0; border-bottom:1px solid #333; }
+  .launch-flagship a,.os-strip a { color:#00ffff; font-weight:bold; font-size:28px; line-height:1.15; text-decoration:none; }
+  .os-strip { margin-top:0; }
+  .os-strip a { font-size:22px; }
+  #gridSearch { width:100%; padding:12px; background:#111; color:#fff; border:1px solid #444; font-family:Courier,monospace; font-size:18px; margin-top:20px; margin-bottom:18px; box-sizing:border-box; }
+  #gridSearch:focus { outline:none; border-color:#66ccff; }
+  details.area,details.platform { border-bottom:1px solid #333; }
+  details.area > summary,details.platform > summary { list-style:none; cursor:pointer; padding:14px 0; color:#00ffff; font-weight:bold; letter-spacing:.5px; }
+  details.area > summary::-webkit-details-marker,details.platform > summary::-webkit-details-marker { display:none; }
+  details.area > summary::before,details.platform > summary::before { content:"[+] "; color:#00ffff; }
+  details.area[open] > summary::before,details.platform[open] > summary::before { content:"[−] "; }
+  details.area > summary:hover,details.platform > summary:hover { color:#66ffff; }
+  .platform-body { padding:2px 0 18px; }
+  ul.drawer { list-style:none; margin:0 0 10px; padding:0; }
+  ul.drawer li { padding:10px 0 10px 28px; border-top:1px solid #1c1c1c; }
+  details.nest { margin:6px 0 2px; }
+  details.nest > summary { list-style:none; cursor:pointer; padding:4px 0; color:#7a7a7a; font-size:16px; }
+  details.nest > summary::-webkit-details-marker { display:none; }
+  details.nest > summary::before { content:"[+] "; color:#7a7a7a; }
+  details.nest[open] > summary::before { content:"[−] "; }
+  details.nest > summary:hover { color:#66ccff; }
+  ul.drawer ul.drawer { margin:0; }
+  ul.drawer ul.drawer li { padding-left:22px; font-size:17px; }
+  .noresult { color:#888; padding:20px 0; }
+  .footer { margin-top:60px; font-size:16px; color:#aaa; line-height:1.5; }
+  @media(max-width:600px){ body{padding:25px;font-size:18px}.footer{font-size:14px}ul.drawer li{padding-left:20px}.launch-flagship a{font-size:26px}.os-strip a{font-size:20px}.primary-link{font-size:24px} }
+</style>
+</head>
+<body>
+<header>
+  <h1>GlobalGrid2050</h1>
+  <p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
+</header>
+<main>
+  <a class="primary-link" href="./how_to_work_with_globalgrid2050/">How to Work with GlobalGrid2050</a>
+  <details class="platform" open>
+    <summary>The Platform</summary>
+    <div class="platform-body">
+      <div class="launch-flagship"><a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html">The Spider 🕷 — Dependency Map</a><span class="live-status">latest dependency view · live</span></div>
+      <div class="os-strip"><a href="https://ventusltd.github.io/data-centres-gb/">Data Centres GB — Electricity Demand Intelligence</a><span class="live-status">independent repository · open development</span></div>
+      <div class="os-strip"><a href="https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/">Registry Dashboard</a><span class="live-status">BIOS / Kernel</span></div>
+      <div class="os-strip"><a href="https://ventusltd.github.io/reports/studio/">Reports Dashboard</a><span class="dev-status">Save As / evidence layer</span></div>
+      <div class="os-strip"><a href="https://ventusltd.github.io/gridatlas/atlas/">UK Grid Atlas V9.5 — Current Verified Release</a><span class="live-status">202608301624 · global address fly-to · verified live</span></div>
+      <input type="text" id="gridSearch" placeholder="Search everything..." autocomplete="off">
+      <div id="menu"></div>
+    </div>
+  </details>
+</main>
+<div class="footer"><p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p></div>
+<script>
+const AREAS = [
+  { name:"GlobalGrid2050 OS & Federation", children:[
+    { name:"Registry Dashboard, BIOS and Kernel", url:"https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/", note:"live" },
+    { name:"Reports Dashboard, Save As and Evidence Layer", url:"https://ventusltd.github.io/reports/studio/", note:"new" },
+    { name:"The Spider Dependency Map, latest full PO test", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note:"latest dependency area" },
+    { name:"Spider Printer V1", url:"https://ventusltd.github.io/spiders/spider_printer_v1/", note:"printer" },
+    { name:"Federation Radial Uniform Print View", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note:"current print view" }
+  ]},
+  { name:"Solar & BESS Topology", children:[
+    { name:"BESS GIS SLD Financial Sandbox V8", url:"./solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html", note:"in development" },
+    { name:"Cable Geometry Visualiser V5", url:"./solar-bess-topology-v5/cable-geometry-visualiser-v5.html" },
+    { name:"DC AC LV Solar PV Cable Topology Review V5", url:"./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html" },
+    { name:"GIS SLD Financial Sandbox V2", url:"./solar-bess-topology-v2/indexforgis-sld-v2.html" },
+    { name:"GIS SLD Financial Sandbox V4", url:"./solar-bess-topology-v4/indexforgis-sld-v4.html" },
+    { name:"GIS SLD Financial Sandbox V5", url:"./solar-bess-topology-v5/indexforgis-sld-v5.html" },
+    { name:"GIS SLD Topology Engine And Financial Sandbox", url:"./solar-bess-topology/indexforgis-sld.html" },
+    { name:"Physical Solar Module Layout V5", url:"./solar-bess-topology-v5/module-layout-v5.html" },
+    { name:"Solar BESS Topology V6 Testing Phase", url:"./solar-bess-topology-v6/" },
+    { name:"Solar BESS Topology V7 Workspace", url:"./solar-bess-topology-v7/" },
+    { name:"Solar DC String Topology Engine V6", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/", note:"in development" },
+    { name:"Solar DC String Topology Engine V7 Independent Workspace", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v7-development/", note:"independent development" },
+    { name:"Solar DC String Topology Engine V8 Leapfrog Comparison", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v8-leapfrog/", note:"independent development · use at your own risk" },
+    { name:"Solar DC String Topology Engine V9 East-West Inverter Block", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v9-sandbox/", note:"live development · use at your own risk" },
+    { name:"Ventus DC String Engine V10 — Laboratory Workbench", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v10-development/", note:"historical laboratory development · not V11" },
+    { name:"Ventus DC String Engine V11 — Live Build Monitor", url:"./v11/", note:"live PR 3 · active feature branch" }
+  ]},
+  { name:"UK Grid Tracking", children:[
+    { name:"UK Live Grid Tracker, Electricity, Carbon, Oil and Metals", url:"./uk_energy_tracking/" },
+    { name:"UK Live Grid Tracker V2, Transport Energy Test Clone", url:"./uk_energy_tracking_v2/" },
+    { name:"UK Live Grid Tracker V3, Experimental Intelligence Lab", url:"./uk_energy_tracking_v3/" },
+    { name:"UK Live Grid Tracker V5, Electricity Market Intelligence Machine", url:"./uk_energy_tracking_v5/", note:"in development" },
+    { name:"UK Live Grid Tracker V6, Modular Electricity Market Intelligence Machine", url:"./uk_energy_tracking_v6/", note:"modular development" },
+    { name:"UK Generation History V6 Module", url:"./uk_energy_tracking_v6/generation_history/", note:"in development" },
+    { name:"UK Generation History V6 2 Backup Mirror", url:"./uk_energy_tracking_v6_2/generation_history/", note:"BACKUP" },
+    { name:"UK Energy Atlas Grid Overlay V8", url:"./repd_grid_atlasv8/" },
+    /* <!-- GRIDATLAS_V9_AUTOMATION_START --> */
+    { name:"UK Grid Atlas V9.77 — Current Verified Release", url:"https://ventusltd.github.io/gridatlas/atlas/", note:"CURRENT VERIFIED · v9.77 · 202609020018 · declared DC injection response solved in a named component, with a declared sink and a cross-component transfer refused before the solver is asked · grid at any point · global address and place fly-to · UK postcode/town · exact REPD deep links · V8 and immutable prior V9 releases preserved", data_gridatlas_release:"202609020018-gridatlas-v9.77" }, /* data-gridatlas-release="202609020018-gridatlas-v9.77" */
+    /* <!-- GRIDATLAS_V9_AUTOMATION_END --> */
+{ name:"UK Grid Atlas V9 — 202608291239", url:"https://ventusltd.github.io/gridatlas/202608291239-atlas-v9/", note:"LIVE VERIFIED · immutable timestamped release · official REPD address/postcode search · repd_ref deep links · V8 preserved" },
+
+    { name:"UK Macro Energy Consumption Trends ONS", url:"./uk_macro_energy_trends/" },
+    { name:"UK Renewables Pipeline Analytics Dashboard V1", url:"./uk_renewables_pipeline/dashboard.html", note:"legacy · unchanged" },
+    { name:"UK Renewables Pipeline Analytics Dashboard V2", url:"./uk_renewables_pipeline/dashboard_v2_2026-08-22.html", note:"previous version · 22 Aug 2026" },
+    { name:"UK Renewables Pipeline Analytics Dashboard V3", url:"./uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html", note:"previous live · 22 Aug 2026" },
+    { name:"UK Renewables Pipeline Analytics Dashboard V4", url:"./uk_renewables_pipeline/dashboard_v4_live.html", note:"previous live · REPD + auto major-news feed · solar ≥30MW · BESS ≥100MW" },
+    { name:"UK Solar + Storage Daily V5", url:"./uk_renewables_pipeline/dashboard_v5_live.html", note:"previous live · daily newspaper · solar >49MWp · BESS >100MW" },
+    { name:"UK Solar + Storage Daily V6", url:"./uk_renewables_pipeline/dashboard_v6_live.html", note:"DESNZ Q2 2026 validated snapshot · solar >1MW · BESS >100MW · canonical GlobalGrid/REPD IDs" },
+    { name:"UK Solar + Storage Daily V7", url:"./uk_renewables_pipeline/v7/", note:"LIVE MVP · wholesale V5 baseline · V6 refinements pending" },
+    { name:"Pipeline News — 202609020611", url:"./pipelinenews_intelligence/202609020611/", note:"NEW · a kilometre is not a connection, and the panel now points at the measurement that is · two sites a few kilometres apart can share no published circuit, and the two ends of ONE published circuit can be over 200 km of route apart - the longest, PEMB41-WALH41, is 223.195 km, and 17 of 1,392 circuits exceed 100 km · the panel still reports straight-line kilometres, which is what it measures; MAP now reports the count of published circuits, which is what decides whether two sites are connected at all · lengths read from circuits[].ohl_km + cable_km", children:[
+      { name:"Pipeline News — 202609020552", url:"./pipelinenews_intelligence/202609020552/", note:"a rating quoted without its season flatters the network, and the Atlas never sums them · Pipeline News quotes no MVA rating anywhere, verified by searching every html, mjs and css in the parent release; what the strip now does is say what the ratings in the Atlas mean · NESO publishes a winter rating for all 1,392 circuits and a summer rating for 1,276, summer differs from winter on 1,081 of those, and winter is the more generous figure on 1,273 · one strip caption, no payload, no render-time network call · superseded by 202609020611, which says a kilometre is not a connection" },
+      { name:"Pipeline News — 202609020025", url:"./pipelinenews_intelligence/202609020025/", note:"the GRID + SUB strip states the limit of the word nearest · NESO names 886 transmission substations at 132 kV and above; the Atlas locates 502 of them, and the owner product publishes the other 384 without coordinates rather than dropping them, saying so in its own join block · so the nearest MAPPED substation may not be the nearest substation, and a reader comparing two projects on that number is comparing coverage as much as geography · counts read from derived/connection-points.v3.json · superseded by 202609020552, which says a rating without its season is ambiguous" },
+      { name:"Pipeline News — 202609012326", url:"./pipelinenews_intelligence/202609012326/", note:"the GRID + SUB strip names what the published transmission network can now answer · every refusal is kept verbatim - a distance is not a route, a rating is not headroom, and the DC model is not a loading, because what is already flowing is published nowhere · what is added is only what is answerable from a published source: NESO ETYS 2025 Appendix B, via Ventusltd/data-grid-gb · superseded by 202609020025, which states the limit of the word nearest" },
+      { name:"Pipeline News — 202608312339", url:"./pipelinenews_intelligence/202608312339/", note:"two panels that answered nothing are withdrawn and GB electricity context arrives · RELATIONSHIP EVIDENCE showed three rows all saying ABSTAIN, and PROJECT INTELLIGENCE mixed four taxonomies into one count of 3,054; both assets stay registered and auditable, marked withdrawn, and the page now names only surfaces that exist · a GB ELECTRICITY CONTEXT surface reads the decade of system prices from the data repository that owns them, pinned by SHA-256 into this release: 2016-2026, 3,339 complete days, mean 78.18 GBP/MWh, 580 days containing at least one negative settlement period, lowest -185.33 on a July day · historic context, not a forecast, no project join · built by the Codex session, verified and published by Claude · superseded by 202609012326, which names what the published transmission network can answer" },
+      { name:"Pipeline News — 202608312244", url:"./pipelinenews_intelligence/202608312244/", note:"the two panels that answered nothing are withdrawn · RELATIONSHIP EVIDENCE showed three rows all saying ABSTAIN, and PROJECT INTELLIGENCE mixed four taxonomies into one count of 3,054; both assets stay registered and auditable, marked withdrawn, and the page names only surfaces that exist · published on 202609020042 to close a hole in the public record: it is the parent of 202608312339 and was the one step in this lineage that was built but never mirrored · superseded by 202608312339, which adds the GB electricity context" },
+      { name:"Pipeline News — 202608312212", url:"./pipelinenews_intelligence/202608312212/", note:"sector intelligence opens again · it had been failing on every release since 202608312109: the corrected module was registered under a new key, as it must be, but still declared the older payload's generation, so an explicit runtime identity assertion threw and the panel read FAIL · module and payload now attest separately · and the grid table no longer says sorting puts the best-connected first, which was the same verdict the colour bands were removed for, written in prose · found by the Codex session auditing this estate in parallel · superseded by 202608312339, which withdraws the non-answers and adds GB electricity context" },
+      { name:"Pipeline News — 202608312202", url:"./pipelinenews_intelligence/202608312202/", note:"built for the phone first · on a phone in portrait the page was pinned to exactly 100vh, and on iOS 100vh is the viewport with the browser chrome hidden, so it was taller than what you could see whenever the toolbar was showing · the last rows sat under the toolbar and the page scrolled in two places that disagreed · the body now grows like a document, and the newspaper and table panes use dvh, which tracks the toolbar · landscape was already covered; portrait never was · superseded by 202608312212, which reopens sector intelligence" },
+      { name:"Pipeline News — 202608312145", url:"./pipelinenews_intelligence/202608312145/", note:"grid proximity reports a distance and no longer grades it · the table graded every project STRONG, MODERATE, DISTANT or REMOTE on a green-to-red scale, and the GRID column printed that verdict instead of the measurement · a developer may build their own substation, so distance to a mapped asset is not a verdict on a scheme · the bands, the colours, the sort by verdict and the phrase Target acquired are all gone, and the distances, voltages and working are untouched · superseded by 202608312202, which repairs the phone layout" },
+      { name:"Pipeline News — 202608312114", url:"./pipelinenews_intelligence/202608312114/", note:"the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312145, which stops grading grid proximity" },
+      { name:"Pipeline News — 202608312109", url:"./pipelinenews_intelligence/202608312109/", note:"the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312114, which removes the headlines with no project signal" },
+      { name:"Pipeline News — 202608312056", url:"./pipelinenews_intelligence/202608312056/", note:"the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312109, which removes the headlines with no project signal" },
+      { name:"Pipeline News — 202608312037", url:"./pipelinenews_intelligence/202608312037/", note:"the MAP button now opens the Grid Atlas that carries the grid maths · click MAP on a project and the Atlas opens with the substations switched on, the links drawn to the nearest substations at 33 kV and above, and a layout you can open from the card · it pointed at the older atlas until now, which is why none of that appeared · the route is the stable /gridatlas/atlas/ one, so promoting an Atlas release cannot break these links · superseded by 202608312056, which removes the headlines with no project signal" },
+      { name:"Pipeline News — 202608311858", url:"./pipelinenews_intelligence/202608311858/", note:"GRID and SUB now sit in the ACTIONS column beside MAP, where they are visible without scrolling the table sideways · GRID is the straight-line distance to the nearest mapped circuit, SUB is the distance to the nearest substation at 33 kV or above · a scheme of a few tens of MW connects at a substation, and the substation is the closer of the two for 68% of the 30–40 MW band · sort by distance is still in the SORT control · not a cable route, and not headroom: fault level and thermal headroom need DNO network data such as source impedance and are established by a connection study · superseded by 202608312037, which points MAP at the Atlas carrying the grid maths" },
+      { name:"Pipeline News — 202608311816", url:"./pipelinenews_intelligence/202608311816/", note:"PROJECT SIZE range filter above the technology buttons · narrow the register to a band of megawatts, 1 to 5,000 · the slider moves over 49 round values that thicken where the register is dense, because the median project is 12.3 MW and 98% sit under 500 MW — a linear track would put 30–40 MW inside two pixels · type an exact band in the boxes beside it · shareable as mw_min and mw_max · superseded by 202608311858, which moves the grid distance into ACTIONS and adds the 33 kV substation" },
+      { name:"Pipeline News — 202608311800", url:"./pipelinenews_intelligence/202608311800/", note:"GRID column in the project table · straight-line distance from each project to the nearest mapped circuit, sortable nearest-first, marked BETA · the GRID panel's own number, carried across and re-measured at build time against Ventusltd/grid-distance-maths — all 3,047 reproduce · projects with no mapped circuit show a dash, never a number · not a cable route, and not headroom: fault level and thermal headroom need DNO network data such as source impedance and are established by a connection study · superseded by 202608311816, which adds the project size filter" },
+      { name:"Pipeline News — 202608311731", url:"./pipelinenews_intelligence/202608311731/", note:"search the register by town, postcode, county, project, operator or reference from the one bar · TOWN column narrowed and the horizontal scrollbar put back under the table · click-to-sort on CAPACITY, COUNTY, TOWN and POSTCODE · postcode copied from the REPD register, town resolved from it through the ONS Postcode Directory at build time · no network call at runtime · superseded by 202608311800, which adds the GRID distance column" },
+      { name:"Pipeline News — 202608311645", url:"./pipelinenews_intelligence/202608311645/", note:"first release with TOWN and POSTCODE columns · superseded by 202608311731, which narrows the town column, restores the horizontal scrollbar and extends the search bar to the new fields" },
+      { name:"Pipeline News — 202608311610", url:"./pipelinenews_intelligence/202608311610/", note:"GRID beta · radius search, sortable register, targeting scope and indicative connections · 253,897 mapped segments at 400/275/220/132/66/33 kV plus estimated UKPN 11 kV · transmission and distribution answered separately · same haversine and Earth radius as the Atlas and the GIS SLD sandbox" },
+      { name:"Pipeline News — 202608311558", url:"./pipelinenews_intelligence/202608311558/", note:"targeting scope and grid-probable band · transmission voltages only" },
+      { name:"Pipeline News — 202608311530", url:"./pipelinenews_intelligence/202608311530/", note:"first grid-proximity release · superseded by 202608311558, which corrects three nearest-search defects" },
+      { name:"Pipeline News — 202608311343", url:"./pipelinenews_intelligence/202608311343/", note:"open the panel for the window between consent and construction, grid and data-centre proximity · 3,054 live solar and battery projects · DESNZ REPD Q2 2026 under OGL v3.0 · Atlas V8 deep links" },
+      { name:"Pipeline News — 202608271524 V8 Fast Candidate", url:"https://ventusltd.github.io/pipelinenews/releases/202608271524-v8-fast-candidate.html", note:"PUBLISHED CANDIDATE · immutable live bytes verified · 7,680 projects · 136 headlines · chronology and Atlas V8 links · mobile remediation pending" },
+      { name:"Pipeline News — 202608260159", url:"https://ventusltd.github.io/pipelinenews/202608260159-pipelinenews/", note:"CURRENT · exact V9.6.2 interface copy · 7,680 projects · desktop/mobile and committed/live byte proof verified" },
+      { name:"UK Renewables Pipeline News V7", url:"https://ventusltd.github.io/pipelinenews/newsv7/", note:"NEW CUMULATIVE APP · V9.7 baseline · NewsV2–NewsV6 governed intelligence · fail-closed evidence" },
+      { name:"UK Renewables Pipeline News V1", url:"https://ventusltd.github.io/pipelinenews/newsv1/", note:"FROZEN APP · Pipeline News repository · V9.7-parity performance rebuild" },
+      { name:"UK Renewables Pipeline V9.7", url:"./uk_renewables_pipeline/v9.7/", note:"CANDIDATE · build-time regional classifier · published 133-item decision ledger · V9.6.2 project/mobile runtime frozen" },
+      { name:"UK Renewables Pipeline V9.6.2", url:"./uk_renewables_pipeline/v9.6.2/", note:"LIVE VALIDATED · canonical UK news plus separate international, US and Europe solar/storage views" },
+      { name:"UK Renewables Pipeline V9.6.1", url:"./uk_renewables_pipeline/v9.6.1/", note:"FROZEN PREVIOUS APP · V9.5.1 runtime · mobile table scroll repair only" },
+      { name:"UK Renewables Pipeline V9.6", url:"./uk_renewables_pipeline/v9.6/", note:"DISCONTINUED · broken mobile release · do not use" },
+      { name:"UK Renewables Pipeline V9.5.1", url:"./uk_renewables_pipeline/v9.5.1/", note:"LIVE · full 133-headline newspaper · 45 canonical REPD matches · functional RELEVANT filter" },
+      { name:"UK Renewables Pipeline V9.5", url:"./uk_renewables_pipeline/v9.5/", note:"LIVE · canonical REPD Ref news binder · measured recall guards · separate app" },
+      { name:"UK Renewables Pipeline V9.4", url:"./uk_renewables_pipeline/v9.4/", note:"LIVE · click REPD UPDATED header to toggle newest/oldest · separate app" },
+      { name:"UK Renewables Pipeline V9.3.1", url:"./uk_renewables_pipeline/v9/", note:"V9.3.1 LIVE · frozen app · official REPD/GlobalGrid references · REPD update-date sorting · 7,680 records" }
+    ] },
+    { name:"Solar Deployment Statistics", url:"./solar_deployment_statistics/" }
+  ]},
+  { name:"Data Centres & Digital Infrastructure", children:[
+    { name:"Data Centres GB — Electricity Demand Intelligence", url:"https://ventusltd.github.io/data-centres-gb/", note:"independent open-source workstream" },
+    { name:"Data Centres GB Repository", url:"https://github.com/Ventusltd/data-centres-gb", note:"source and API development" },
+    { name:"Data Centres GB Open API", url:"https://github.com/Ventusltd/data-centres-gb/blob/main/app.py", note:"experimental source-separated adapter" }
+  ]},
+  { name:"Cables & Conductors", children:[
+    { name:"AC Cables Knowledge", url:"./ac_cables_knowledge/" },
+    { name:"DC Cables Knowledge", url:"./dc_cables_knowledge/" },
+    { name:"Conductor Resistances", url:"./conductor_resistances/" }
+  ]},
+  { name:"Pricing & Materials", children:[
+    { name:"33 kV UK DAP Price Estimator", url:"./33kv_uk_dap_price_estimator/" },
+    { name:"LV AC and DC Distribution Cables Price Estimator", url:"./lv_ac_dc_price_estimator/" },
+    { name:"Copper and Aluminium Historic Prices & Trends", url:"./copper_and_aluminium_prices_historic_trends/" }
+  ]},
+  { name:"Components", children:[
+    { name:"MV and HV Components", url:"./mv_and_hv_components/" },
+    { name:"Solar Components", url:"./solar_components/" }
+  ]},
+  { name:"Planning & Requirements", children:[
+    { name:"NSIP Solar Farms", url:"./nsip_solar_farms/" },
+    { name:"Grid Studies Public", url:"./data/grid_studies_public/" },
+    { name:"Employer Requirements BESS Notes", url:"./employers_requirements_BESS/" },
+    { name:"Employers Requirements Large Scale Solar", url:"./employers_requirments_large_scale_solar/" },
+    { name:"Employer’s Competence Requirements: what is expected from the Employer towards drafting good ERs?", url:"./employers_competence/" }
+  ]},
+  { name:"Reference & Knowledge", children:[
+    { name:"Definitions", url:"./definitions/" },
+    { name:"Power Systems Studies", url:"./power_systems_studies/" },
+    { name:"Single Line Diagrams And Grids", url:"./sld_single_diagrams_diagrams_and_grids/" }
+  ]},
+  { name:"Federation & Spider", children:[
+    { name:"The Spider Dependency Map", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html", note:"latest" },
+    { name:"Spider Printer V1", url:"https://ventusltd.github.io/spiders/spider_printer_v1/", note:"printer" },
+    { name:"Federation Radial Uniform Print View", url:"https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html", note:"current print view" }
+  ]},
+  { name:"About & Media", children:[
+    { name:"Why VENTUS Ltd Is Building GlobalGrid2050", url:"./why_ventusltd_building_globalgrid2050/" },
+    { name:"Blog", url:"./blog/" },
+    { name:"Podcast Transcripts", url:"./podcast_transcripts/" },
+    { name:"Earth", url:"./marketing/earth.html" },
+    { name:"Time Left Today, Hourglass to 2050", url:"./time_to_2050/" },
+    { name:"Log — 202609021952", url:"./estate_scan/202609021952/" },
+    { name:"NEW PENDING GlobalGrid2050 Homepage", url:"https://ventusltd.github.io/globalgrid2050-hompage/" }
+  ]}
+];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const menu=document.getElementById("menu");
+function rowHtml(r){const note=r.note?` <span class="dev-status">(${esc(r.note)})</span>`:"";const key=(r.name+" "+(r.note||"")).toLowerCase();const nest=r.children&&r.children.length?`<details class="nest"><summary>Earlier versions (${r.children.length})</summary><ul class="drawer">${r.children.map(rowHtml).join("")}</ul></details>`:"";return `<li data-name="${esc(key)}"><a href="${encodeURI(r.url)}">${esc(r.name)}</a>${note}${nest}</li>`;}
+function build(){let html="";for(const a of AREAS){const rows=a.children.map(rowHtml).join("");html+=`<details class="area" data-name="${esc(a.name.toLowerCase())}"><summary>${esc(a.name)}</summary><ul class="drawer">${rows}</ul></details>`;}html+=`<p class="noresult" id="noresult" style="display:none">No match.</p>`;menu.innerHTML=html;}
+function applySearch(raw){const q=raw.trim().toLowerCase();let anyVisible=false;if(q)document.querySelector("details.platform").open=true;document.querySelectorAll("details.area").forEach(d=>{const areaMatch=!!q&&d.dataset.name.includes(q);let childMatch=false;d.querySelectorAll("li").forEach(li=>{const liMatch=li.dataset.name.includes(q);const show=!q||areaMatch||liMatch;li.style.display=show?"":"none";if(q&&liMatch)childMatch=true;});d.querySelectorAll("details.nest").forEach(n=>{if(!q){n.open=false;return;}const hit=Array.prototype.some.call(n.querySelectorAll("li"),li=>li.dataset.name.includes(q));n.open=hit;if(hit){const p=n.closest("li");if(p)p.style.display="";}});const visible=!q||areaMatch||childMatch;d.style.display=visible?"":"none";d.open=q?visible:false;if(visible)anyVisible=true;});document.getElementById("noresult").style.display=anyVisible?"none":"";}
+build();document.getElementById("gridSearch").addEventListener("input",e=>applySearch(e.target.value));
+</script>
+</body>
+</html>

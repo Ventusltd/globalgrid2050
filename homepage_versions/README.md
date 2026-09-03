@@ -949,3 +949,36 @@ deterministic on this input.
 Folder file count after this snapshot:
 
 28 files
+
+## Version 027
+
+Version: `homepage_v027.html`
+Source: live `index.html` at commit `5c700a4a`
+Purpose: restore point taken before publishing Pipeline News `202609032329`, the release in
+which a dash stops asserting a search that never ran.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v027.html`:
+
+Line count: 213
+Word count: 4678
+Character count: 38389
+SHA-256 (first 16): 6fa24b75c00b6bb5
+
+Plain-English change intention:
+
+One row inserted and one modified. `202609032329` becomes the current Pipeline News entry
+and `202609032251` moves down to the superseded indent its siblings already sit
+at, losing its NEW mark and gaining the clause that names what superseded it.
+Nothing is re-indented and the Grid Atlas row is untouched — it was moved to
+v9.99 in the previous commit and the live composition has not changed since.
+
+The row carries the measurement rather than a claim: 7,680 records, 3,047 with a
+grid figure, 4,633 dashed, and the payload's own coverage block reading
+with_circuit 3,047 / no_circuit 0 — so the sentence the dash used to carry,
+which asserts a search that ran and failed, was true of none of the rows it was
+printed on.
+
+Folder file count after this snapshot:
+
+29 files

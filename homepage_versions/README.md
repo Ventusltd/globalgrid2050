@@ -633,3 +633,43 @@ and the GRIDATLAS_V9_AUTOMATION markers are untouched.
 Folder file count after this snapshot:
 
 22 files
+
+## Version 021
+
+Version: `homepage_v021.html`
+Source: live `index.html` at commit 87e6da86
+Purpose: restore point taken before naming Grid Atlas v9.86 as the current
+verified release. The homepage had named v9.77 while nine further versions shipped.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v021.html`:
+
+Line count: 209
+Word count: 3531
+Character count: 33206
+SHA-256 (first 16): f55d2d764c67a99d
+
+Change intention in plain English:
+
+The catalogue row inside the GRIDATLAS_V9_AUTOMATION markers named
+`202609020018-gridatlas-v9.77`. The live composition at
+`/gridatlas/atlas/` served generation `202609030200`, v9.86 — nine versions
+further on. globalgrid2050's own publication-truth gate was reporting the gap
+as a FAIL, correctly.
+
+`scripts/catalogue_gridatlas_v9.py` cannot make this change. Its
+`compile_root()` requires that when the catalogue URL is already present, the
+whole entry line matches byte for byte; the current-composition row has a stable
+URL, so a generation refresh fails by construction rather than updating. The
+compiler exists to insert a row per immutable release, not to move a pointer
+row. So this is a governed hand edit, and its invariants are asserted the way
+the compiler asserts them: V8 sentinel once, V8 route once, catalogue route
+once, both automation markers intact.
+
+One name and one note change. Every other `name:` and `note:` string in the
+file is byte-identical, verified by diff, and the row's URL is preserved
+unchanged.
+
+Folder file count after this snapshot:
+
+23 files

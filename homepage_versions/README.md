@@ -715,3 +715,57 @@ rather than an artefact and are left for the architect.
 Folder file count after this snapshot:
 
 24 files
+
+## Version 023
+
+Version: `homepage_v023.html`
+Source: live `index.html` at commit a0f93e87
+Purpose: restore point taken before adding the Pipeline News 202609031308 row to
+the catalogue.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v023.html`:
+
+Line count: 210
+Word count: 3865
+Character count: 33653
+SHA-256 (first 16): 2fd3c745dd5c8298
+
+Measured over LF bytes, which is what git stores and what GitHub Pages serves.
+A Windows working copy holds CRLF, so a character count taken off the disk is
+larger by one per line and describes bytes nobody receives — the same defect
+`.gitattributes` in this repository exists to document.
+
+Change intention in plain English:
+
+Pipeline News 202609031308 is published and serving and had no row. It becomes
+the current entry, and the entry it supersedes — 202609030009 — moves down to
+join the superseded siblings it already carried, at the indent those siblings
+already sit at. That is the whole edit: one line inserted, one line modified,
+nothing re-indented. The tree shape is unchanged: a current release holding the
+superseded ones beneath it, one of which carries the deeper history.
+
+The row says what changed. 202609030009 put the twenty REPD technology types the
+spine does not carry into the product's technology row as twenty more tabs,
+which made the row twenty-five controls wide. Counted on the payload, nine of
+the twenty hold five projects or fewer and one holds a single project, and on a
+390 px viewport that row was eleven wrapped lines and 584 px tall — it pushed
+the product's own SOLAR, BATTERY, ONSHORE and OFFSHORE down the page. The twenty
+are now one labelled control, each option carrying its own project count, and
+the row is three lines and 152 px with no horizontal overflow. The twenty also
+gain the `?technology=` deep link they never had.
+
+One `note:` string changes — the previous current row loses its NEW mark and
+gains its superseded clause — and one name and one note are added. Every other
+`name:` and `note:` string in the file is byte-identical, verified by
+comparison against `HEAD:index.html`: 185 strings before, 187 after, one
+removed and three added, and none of the removals is a name. The Grid Atlas
+Overlay V8 row and its route each still occur once, the catalogue route occurs
+twice as before, and both GRIDATLAS_V9_AUTOMATION markers are intact. AREAS was
+re-evaluated with node: it parses, 11 top-level areas, 118 nodes, 107 with a
+URL, and the new row resolves to
+`./pipelinenews_intelligence/202609031308/`.
+
+Folder file count after this snapshot:
+
+25 files

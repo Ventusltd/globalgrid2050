@@ -673,3 +673,45 @@ unchanged.
 Folder file count after this snapshot:
 
 23 files
+
+## Version 022
+
+Version: `homepage_v022.html`
+Source: live `index.html` at commit fafa4d2d
+Purpose: restore point taken before repairing the one dead Grid Atlas catalogue
+link left behind by the release-directory migration.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v022.html`:
+
+Line count: 209
+Word count: 3655
+Character count: 33913
+SHA-256 (first 16): 9046d60f8054fd9b
+
+Change intention in plain English:
+
+The row `UK Grid Atlas V9 — 202608291239` linked to
+`/gridatlas/202608291239-atlas-v9/`, which answers 404. GridAtlas split one
+directory into two roles that used to coincide: the served app now lives at
+`/gridatlas/atlas/` and the release artefacts at
+`/gridatlas/atlas/releases/<release_id>/`. Before the migration they were one
+URL, so nothing written earlier can tell them apart. The row names a release
+artefact, so it takes the artefact base; `/gridatlas/atlas/releases/202608291239-atlas-v9/`
+answers 200.
+
+Only the URL changes. Every `name:` and `note:` string in the file is
+byte-identical, verified by diff. The V8 sentinel, its route and both
+GRIDATLAS_V9_AUTOMATION markers are untouched, and AREAS was re-evaluated with
+node to confirm it still parses.
+
+This is one instance of an estate-wide class. 338 references to the
+pre-migration shape exist across the estate; 122 of the 125 in this repository
+are frozen by design — homepage snapshots and published immutable releases,
+which are correct to hold the URL that was live when they were cut. Three are
+operative here: this row and two files under `state/`, which describe the app
+rather than an artefact and are left for the architect.
+
+Folder file count after this snapshot:
+
+24 files

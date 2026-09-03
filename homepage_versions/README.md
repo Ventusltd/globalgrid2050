@@ -769,3 +769,56 @@ URL, and the new row resolves to
 Folder file count after this snapshot:
 
 25 files
+
+## Version 024
+
+Version: `homepage_v024.html`
+Source: live `index.html` at commit `9c4a0df3c03a46153765da2dac5c9ae9fd7a01eb`
+Purpose: restore point taken before publishing Pipeline News `202609032159` and
+before moving the Grid Atlas current-release row off `v9.86 / 202609030200`,
+which it had named since 3 September while the live composition moved eleven
+versions past it.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v024.html`:
+
+Line count: 211
+Word count: 4205
+Character count: 35642
+SHA-256 (first 16): f157fb6ec1d6e3cf
+
+Plain-English change intention:
+
+Two rows change and nothing else. Pipeline News `202609032159` becomes the
+current entry, and `202609031308` moves down to the superseded indent its
+siblings already sit at, losing its NEW mark and gaining the clause that says
+what superseded it. That is one line inserted and one modified; nothing is
+re-indented and the tree shape is unchanged.
+
+The Grid Atlas row inside the `GRIDATLAS_V9_AUTOMATION` markers is the second
+change, and it is the one that was overdue. It named `v9.86 / 202609030200`
+while the live composition was `v9.97 / 202609032222`. The homepage is the only
+route a reader has to these releases, so a stale row is not a cosmetic problem:
+`scripts/verify_published_versions.py` had been failing on exactly this, and on
+the newest Pipeline News release not being mirrored here at all. Both are now
+true and the check passes — 27 published snapshots, all reachable, newest
+`202609032159`.
+
+The compiler still cannot write that row. `compile_root()` requires the
+catalogue URL to occur at most once and the whole entry line to match byte for
+byte, and the `os-strip` banner added on 30 August carries the same href, so
+the URL occurs twice. It occurred twice before this edit and occurs twice
+after; the jam is unchanged and is not what this snapshot is for.
+
+Verified after the edit: three `name:`/`note:` strings removed and five added,
+187 to 189, and exactly one of the removals is a `name:` — the Grid Atlas row
+this edit deliberately renames. Every other string is byte-identical against
+`HEAD:index.html`. The V8 sentinel occurs once with its four leading spaces and
+its route once. Both automation markers are intact. AREAS was re-evaluated with
+node: it parses, 11 top-level areas, 119 nodes, 108 with a URL, the new row
+resolves to `./pipelinenews_intelligence/202609032159/`, and the Grid Atlas
+identity `202609032222-gridatlas-v9.97` occurs once.
+
+Folder file count after this snapshot:
+
+26 files

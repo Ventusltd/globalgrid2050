@@ -1,0 +1,189 @@
+{
+  "schema": "pipelinenews.sector-intelligence-source-ledger-receipt.v3",
+  "generation": "202608272130",
+  "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+  "application_usage_establishes_upstream_rights": false,
+  "source_ledger": {
+    "schema": "pipelinenews.sector-intelligence-ledger.v3",
+    "bytes": 102174,
+    "sha256": "c1f7c79459d5aa690fab93f49d4889101883041101531c2bf86da79e579f8c31",
+    "collection_anchor_at": "2026-08-27T21:50:27Z",
+    "collection_anchor_basis": "ACTIONS_LIVE_COLLECTION_STARTED_AT",
+    "source_statuses": [
+      {
+        "source_id": "DATA_CENTRES_OWNER_EXPORT",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 4579,
+        "response_sha256": "a3b783f5b2133c45b22a18bd4e3071d58262e2a849c6cfeab9cb80a7552b7907",
+        "content_type": "text/plain",
+        "retained_items": 3,
+        "error_code": null
+      },
+      {
+        "source_id": "EC_ENERGY_RSS",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 39687,
+        "response_sha256": "6f4429eae844beb33cc7405b5a58e45b13ac3ec645008e54d65b72cbe6da02f7",
+        "content_type": "application/rss+xml",
+        "retained_items": 5,
+        "error_code": null
+      },
+      {
+        "source_id": "EIA_SOLAR_RSS",
+        "result": "FAILED_SOFT",
+        "requested": true,
+        "response_bytes": 0,
+        "response_sha256": null,
+        "content_type": null,
+        "retained_items": 0,
+        "error_code": "NETWORK_OR_FORMAT_FAILURE"
+      },
+      {
+        "source_id": "FCC_CURRENT_COVERED_LIST",
+        "result": "STATIC_LINK",
+        "requested": false,
+        "response_bytes": 0,
+        "response_sha256": null,
+        "content_type": null,
+        "retained_items": 1,
+        "error_code": null
+      },
+      {
+        "source_id": "FCC_EDOCS_NEWS_RSS",
+        "result": "FAILED_SOFT",
+        "requested": true,
+        "response_bytes": 0,
+        "response_sha256": null,
+        "content_type": null,
+        "retained_items": 0,
+        "error_code": "NETWORK_OR_FORMAT_FAILURE"
+      },
+      {
+        "source_id": "FROZEN_GENERIC_DATA_CENTRE_NEWS",
+        "result": "OK",
+        "requested": false,
+        "response_bytes": 82460,
+        "response_sha256": "00cfbc6243e83cca274707a19b7848f776ce223d5e02808164e213dde887a8be",
+        "content_type": "application/json",
+        "retained_items": 6,
+        "error_code": null
+      },
+      {
+        "source_id": "GOVUK_GRID_UPGRADE",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 17197,
+        "response_sha256": "b2aacc2c59ce2448f22c9fb90f2fa344710135d3f43db9b0e4dd6bf0744ca9fb",
+        "content_type": "application/json",
+        "retained_items": 5,
+        "error_code": null
+      },
+      {
+        "source_id": "GOVUK_HORMUZ_ENERGY",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 30623,
+        "response_sha256": "9ee36f3e53880269d1724b525c5ef11bd7b9885849800613f7db065cd9691e2a",
+        "content_type": "application/json",
+        "retained_items": 6,
+        "error_code": null
+      },
+      {
+        "source_id": "GOVUK_INVERTER_SECURITY",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 26526,
+        "response_sha256": "d6128be18017a8c4bb49118bbd1ee989359d0f558b57cd8db3465b7a1d8c889a",
+        "content_type": "application/json",
+        "retained_items": 6,
+        "error_code": null
+      },
+      {
+        "source_id": "GOVUK_MV_HV_COMPONENTS",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 25713,
+        "response_sha256": "f5350a12495d333c90506f1b786cfff726e5975b3132af217daa8fc2275c3d51",
+        "content_type": "application/json",
+        "retained_items": 6,
+        "error_code": null
+      },
+      {
+        "source_id": "GOVUK_UKRAINE_ENERGY",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 26526,
+        "response_sha256": "f08885e5a3e2a87c444161080dc2eaf630c6ee08bfe6e4b7e420fe570b1b0d9e",
+        "content_type": "application/json",
+        "retained_items": 6,
+        "error_code": null
+      },
+      {
+        "source_id": "GOVUK_WORLDWIDE_PV",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 20303,
+        "response_sha256": "c16180a08ff59ffd792165983964d825897f81885f69837c1c26c5eeacddc0c4",
+        "content_type": "application/json",
+        "retained_items": 6,
+        "error_code": null
+      },
+      {
+        "source_id": "NATIONAL_GRID_GREAT_GRID_UPGRADE",
+        "result": "STATIC_LINK",
+        "requested": false,
+        "response_bytes": 0,
+        "response_sha256": null,
+        "content_type": null,
+        "retained_items": 1,
+        "error_code": null
+      },
+      {
+        "source_id": "OFGEM_GRID_RSS",
+        "result": "OK",
+        "requested": true,
+        "response_bytes": 917,
+        "response_sha256": "7b0ba6a7e6c56687629bf8466c50c549f80559295a005d48daf4ca00be96c12e",
+        "content_type": "application/rss+xml",
+        "retained_items": 0,
+        "error_code": null
+      }
+    ],
+    "policy_evidence": {
+      "network_requests": 11,
+      "upstream_data_centre_requests": 0,
+      "pinned_data_centre_owner_export_requests": 1,
+      "companies_house_requests": 0,
+      "generic_news_rows_preserved": 136,
+      "generic_data_centre_rows_sanitised": 6,
+      "query_context_used_for_project_identity": false,
+      "stripped_project_identity_fields": [
+        "repd_ref",
+        "gg_project_id",
+        "project",
+        "technology",
+        "capacity_mw",
+        "operator",
+        "county",
+        "related_context_repd_ref"
+      ],
+      "retained_raw_html_bytes": 0,
+      "retained_article_body_bytes": 0,
+      "retained_search_snippet_characters": 0,
+      "owner_parquet_copied": false,
+      "sector_project_bindings": 0,
+      "all_items_eligible_for_news_signal": false
+    }
+  },
+  "dataset_rows": {
+    "sector_items": 51,
+    "sector_item_topics": 51,
+    "sector_project_bindings": 0
+  },
+  "retained_raw_html_bytes": 0,
+  "retained_article_body_bytes": 0,
+  "retained_search_snippet_characters": 0,
+  "deployment": "not-authorised"
+}

@@ -822,3 +822,53 @@ identity `202609032222-gridatlas-v9.97` occurs once.
 Folder file count after this snapshot:
 
 26 files
+
+## Version 025
+
+Version: `homepage_v025.html`
+Source: live `index.html` at commit `d5aafefb72ad39063db8fe48bf1ccc2d865773fc`
+Purpose: restore point taken before publishing Pipeline News `202609032251` — grid
+proximity widened from 3,047 rows in two technologies to 4,138 in eleven — and
+before moving the Grid Atlas current-release row from `v9.97 / 202609032222` to
+`v9.98 / 202609032246`.
+Measured by: Claude Code working session
+
+Metrics for `homepage_v025.html`:
+
+Line count: 212
+Word count: 4421
+Character count: 36886
+SHA-256 (first 16): 4c1049f55e151579
+
+Plain-English change intention:
+
+The same two rows as version 024, for the same reason, and the discipline is the
+point: two lanes shipped in the same hour and the homepage is the only route a
+reader has to either. Pipeline News `202609032251` becomes the current entry and
+`202609032159` moves down to the superseded indent its siblings already sit at,
+losing its NEW mark and gaining the clause naming what superseded it. The Grid
+Atlas row moves to v9.98.
+
+The Pipeline News release was built by another lane and is carried here byte for
+byte — 61 files, verified with `diff -rq` against the cut, and its own `--check`
+re-run in this session rather than taken on trust. Its widened payload was
+counted here independently: 4,138 rows, solar 1,747, bess 1,300, biomass 814,
+hydro 150, hydrogen 59, act 37, tidal 18, geothermal 7, caes 4, flywheel 1,
+other 1, and the registry's `record_count` reads 4,138 against a 7,403,890-byte
+payload.
+
+Verified after the edit: `name:`/`note:` strings 189 to 191, three removed and
+five added, and exactly one removal is a `name:` — the Grid Atlas row this edit
+deliberately renames. Every other string is byte-identical against
+`HEAD:index.html`. The V8 sentinel occurs once with its four leading spaces and
+its route once. Both automation markers are intact. AREAS was re-evaluated with
+node: it parses, 11 top-level areas, 120 nodes, 109 with a URL, the new row
+resolves to `./pipelinenews_intelligence/202609032251/`, the identity
+`202609032246-gridatlas-v9.98` occurs once and no `v9.97` string remains.
+
+`scripts/verify_published_versions.py` passes: 28 published snapshots, all
+reachable, newest `202609032251`.
+
+Folder file count after this snapshot:
+
+27 files

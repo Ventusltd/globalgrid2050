@@ -74,8 +74,9 @@ GRIDATLAS_CATALOGUE_ENTRY_RE = re.compile(
 
 GRIDATLAS_FOUNDATION_COUNT = 124
 # Filled from the canonical serialisation of the first 124 records (V1 through
-# v9.103). Those records can never be rewritten to make room for a successor.
-GRIDATLAS_FOUNDATION_SHA256 = "acefa518ef976ebac963cc99c4313f8e3410b6754b0fbd310f88bd9556ac4f82"
+# v9.103) after v9.103's stale current link received its one permitted archive
+# transition. Those records can never otherwise be rewritten for a successor.
+GRIDATLAS_FOUNDATION_SHA256 = "40288c3233faba486848c90b958586b2f925a706285f13daa28696cff888b7f5"
 GRIDATLAS_AVAILABILITY = {
     "NONE",
     "SOURCE_ONLY",
@@ -174,6 +175,43 @@ def catalogue_digest(records: list[dict]) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+GRIDATLAS_CURRENT_URL = "https://ventusltd.github.io/gridatlas/atlas/"
+GRIDATLAS_ARCHIVE_NOTE_SUFFIX = (
+    " | archived after successor promotion; immutable composition manifest retained; "
+    "no longer the mutable current route"
+)
+
+
+def archived_gridatlas_record(record: dict) -> dict | None:
+    """Return the sole permitted rewrite of a stale v9.x current record."""
+    if not (
+        re.fullmatch(r"v9\.[0-9]+", record["version"])
+        and record["generation"]
+        and record["status"] == "LIVE"
+        and record["availability"] == "WORKING_VERIFIED"
+        and record["url"] == GRIDATLAS_CURRENT_URL
+        and record["name"].endswith(" -- Live Current (Working Verified)")
+        and record["note"].startswith("LIVE | WORKING VERIFIED | ")
+    ):
+        return None
+
+    archived = dict(record)
+    archived["name"] = record["name"].removesuffix(
+        " -- Live Current (Working Verified)"
+    ) + " -- Archived (Working Verified)"
+    archived["url"] = (
+        "https://ventusltd.github.io/gridatlas/atlas/manifests/"
+        f"{record['generation']}-composition.json"
+    )
+    archived["note"] = (
+        "ARCHIVED | WORKING VERIFIED | "
+        + record["note"].removeprefix("LIVE | WORKING VERIFIED | ")
+        + GRIDATLAS_ARCHIVE_NOTE_SUFFIX
+    )
+    archived["status"] = "ARCHIVED"
+    return archived
+
+
 def check_gridatlas_catalogue_retention(records: list[dict]) -> list[str]:
     """A numbered pre-edit snapshot makes already-catalogued identities append-only."""
     failures: list[str] = []
@@ -204,10 +242,14 @@ def check_gridatlas_catalogue_retention(records: list[dict]) -> list[str]:
                 f"append-only Grid Atlas history lost {old['version']} / {old['generation'] or 'no generation'}"
             )
             continue
+        if current == old:
+            continue
+        permitted_archive = archived_gridatlas_record(old)
+        if permitted_archive is not None and current == permitted_archive:
+            continue
         if current["commit"] != old["commit"]:
             failures.append(f"append-only Grid Atlas history rewrote the commit for {old['version']}")
-        if current != old:
-            failures.append(f"append-only Grid Atlas history rewrote retained record {old['version']}")
+        failures.append(f"append-only Grid Atlas history rewrote retained record {old['version']}")
     return failures
 
 
@@ -328,8 +370,21 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
             ):
                 failures.append(f"{version} reachable route does not say that functionality is unverified")
         elif availability == "WORKING_VERIFIED":
-            if status != "LIVE" or "browser click verified" not in note:
+            if status not in {"LIVE", "ARCHIVED"} or "browser click verified" not in note:
                 failures.append(f"{version} working claim lacks a visible browser-click proof")
+            if status == "ARCHIVED" and (
+                not re.fullmatch(r"v9\.[0-9]+", version)
+                or not generation
+                or url != (
+                    "https://ventusltd.github.io/gridatlas/atlas/manifests/"
+                    f"{generation}-composition.json"
+                )
+                or not record["name"].endswith(" -- Archived (Working Verified)")
+                or not note.endswith(GRIDATLAS_ARCHIVE_NOTE_SUFFIX)
+            ):
+                failures.append(
+                    f"{version} archived working evidence is not bound to its immutable manifest"
+                )
 
         if status == "REJECTED_PRE_PROMOTION" and (
             availability != "MANIFEST_EVIDENCE"
@@ -386,7 +441,7 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
     ]
     if len(current_records) != 1:
         failures.append(f"the catalogue must identify exactly one governed current release; found {len(current_records)}")
-    elif current_records[0]["status"] != "LIVE" or current_records[0]["url"] != "https://ventusltd.github.io/gridatlas/atlas/":
+    elif current_records[0]["status"] != "LIVE" or current_records[0]["url"] != GRIDATLAS_CURRENT_URL:
         failures.append("the catalogue current record has the wrong status or stable application URL")
     else:
         report["gridatlas_current_catalogue"] = {
@@ -396,6 +451,22 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         }
     if current_records and records[-1] != current_records[0]:
         failures.append("the current Grid Atlas catalogue record must be the final append-only record")
+
+    stale_v9_current = [
+        record["version"] for record in records
+        if re.fullmatch(r"v9\.[0-9]+", record["version"])
+        and (not current_records or record is not current_records[0])
+        and (
+            record["status"] == "LIVE"
+            or record["url"] == GRIDATLAS_CURRENT_URL
+            or "Live Current" in record["name"]
+        )
+    ]
+    if stale_v9_current:
+        failures.append(
+            "prior v9.x catalogue rows still masquerade as the mutable current route: "
+            + ", ".join(stale_v9_current)
+        )
 
     broken_legacy = [
         record for record in records

@@ -60,7 +60,7 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
             report["gridatlas_previous"],
         )
         self.assertEqual(
-            {"LIVE": 10, "ARCHIVED": 109, "REJECTED_PRE_PROMOTION": 3, "MISSING": 4},
+            {"LIVE": 8, "ARCHIVED": 111, "REJECTED_PRE_PROMOTION": 3, "MISSING": 4},
             report["gridatlas_catalogue_status_counts"],
         )
         self.assertEqual(
@@ -185,24 +185,41 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
         self.assertTrue(all("never live" in record["note"] for record in rejected))
         prior = by_identity[("v9.103", "202609040058")]
         self.assertEqual("WORKING_VERIFIED", prior["availability"])
+        self.assertEqual("ARCHIVED", prior["status"])
         previous = by_identity[("v9.104", "202609040134")]
         self.assertEqual("WORKING_VERIFIED", previous["availability"])
+        self.assertEqual("ARCHIVED", previous["status"])
         current = by_identity[("v9.105", "202609040219")]
         self.assertEqual("WORKING_VERIFIED", current["availability"])
+        self.assertEqual("LIVE", current["status"])
         self.assertEqual("5cb95611bae0eae031d493b7f2b6b3ef9ce2b995", current["commit"])
         self.assertIn("unchecked and disabled at [EMPTY]", current["note"])
         self.assertTrue(all(record["checked_at"] for record in records))
         self.assertNotIn("Current Verified Release", VALID_HOMEPAGE)
         self.assertNotIn("LIVE VERIFIED · immutable timestamped release", VALID_HOMEPAGE)
 
-    def test_all_125_prior_rows_are_byte_for_byte_preserved(self) -> None:
+    def test_only_stale_v9_current_rows_receive_the_exact_archive_transition(self) -> None:
         failures: list[str] = []
         current = verifier.parse_gridatlas_catalogue(VALID_HOMEPAGE, failures)
-        snapshot_text = (verifier.HOMEPAGE_VERSIONS / "homepage_v032.html").read_text(encoding="utf-8")
+        snapshot_text = (verifier.HOMEPAGE_VERSIONS / "homepage_v033.html").read_text(encoding="utf-8")
         snapshot = verifier.parse_gridatlas_catalogue(snapshot_text, failures)
         self.assertEqual([], failures)
-        self.assertEqual(125, len(snapshot))
-        self.assertEqual(snapshot, current[:125])
+        self.assertEqual(126, len(snapshot))
+        self.assertEqual(126, len(current))
+
+        changed = {("v9.103", "202609040058"), ("v9.104", "202609040134")}
+        current_by_identity = {
+            (record["version"], record["generation"]): record for record in current
+        }
+        for old in snapshot:
+            identity = (old["version"], old["generation"])
+            if identity in changed:
+                self.assertEqual(
+                    verifier.archived_gridatlas_record(old),
+                    current_by_identity[identity],
+                )
+            else:
+                self.assertEqual(old, current_by_identity[identity])
 
         def exact_rows(text: str) -> list[str]:
             match = verifier.GRIDATLAS_CATALOGUE_BLOCK_RE.search(text)
@@ -215,9 +232,15 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
 
         snapshot_rows = exact_rows(snapshot_text)
         current_rows = exact_rows(VALID_HOMEPAGE)
-        self.assertEqual(125, len(snapshot_rows))
+        self.assertEqual(126, len(snapshot_rows))
         self.assertEqual(126, len(current_rows))
-        self.assertEqual(snapshot_rows, current_rows[:125])
+        changed_lines = []
+        for old, new in zip(snapshot_rows, current_rows, strict=True):
+            if old != new:
+                changed_lines.append(old)
+        self.assertEqual(2, len(changed_lines))
+        self.assertTrue(any("v9.103|202609040058" in line for line in changed_lines))
+        self.assertTrue(any("v9.104|202609040134" in line for line in changed_lines))
 
     def test_a_retained_live_row_cannot_be_rewritten(self) -> None:
         invalid = VALID_HOMEPAGE.replace(
@@ -227,6 +250,42 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
         )
         failures = verifier.check_gridatlas_homepage_identity(invalid, {})
         self.assertTrue(any("rewrote retained record v9.104" in item for item in failures))
+
+    def test_v9105_is_the_only_mutable_current_v9_row(self) -> None:
+        failures: list[str] = []
+        records = verifier.parse_gridatlas_catalogue(VALID_HOMEPAGE, failures)
+        self.assertEqual([], failures)
+        v9_current = [
+            record for record in records
+            if record["version"].startswith("v9.")
+            and record["url"] == verifier.GRIDATLAS_CURRENT_URL
+        ]
+        self.assertEqual([("v9.105", "202609040219")], [
+            (record["version"], record["generation"]) for record in v9_current
+        ])
+
+        invalid = VALID_HOMEPAGE.replace(
+            "https://ventusltd.github.io/gridatlas/atlas/manifests/202609040134-composition.json",
+            verifier.GRIDATLAS_CURRENT_URL,
+            1,
+        )
+        failures = verifier.check_gridatlas_homepage_identity(invalid, {})
+        self.assertTrue(any(
+            "v9.104 archived working evidence is not bound" in item
+            or "prior v9.x catalogue rows still masquerade" in item
+            for item in failures
+        ))
+
+        stale_snapshot = (
+            verifier.HOMEPAGE_VERSIONS / "homepage_v033.html"
+        ).read_text(encoding="utf-8")
+        failures = verifier.check_gridatlas_homepage_identity(stale_snapshot, {})
+        stale_failure = next(
+            item for item in failures
+            if "prior v9.x catalogue rows still masquerade" in item
+        )
+        self.assertIn("v9.103", stale_failure)
+        self.assertIn("v9.104", stale_failure)
 
     def test_github_token_is_scoped_to_github_api_and_raw_hosts(self) -> None:
         seen: list[tuple[str, dict[str, str]]] = []

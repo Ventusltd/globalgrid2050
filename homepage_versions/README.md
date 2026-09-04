@@ -22,14 +22,18 @@ labelled older-version link. A numbered homepage snapshot is a restore point;
 it does not replace the reader-visible older-version row.
 
 The Grid Atlas catalogue is oldest-first and append-only. Preserve every
-existing version/generation identity, URL and source commit. The one permitted
-status transition is the prior current record moving from `LIVE` to
-`ARCHIVED` when its proven successor is appended; its mutable current-route URL
-then moves to its immutable manifest, because the current route now serves the
-successor and must not masquerade as an old runnable version. A missing generation stays
-labelled `MISSING`; never manufacture a link or reuse another product's
-similarly numbered release. Do not add a successor until its exact promoted
-GridAtlas `main` SHA is known.
+existing version/generation identity, source commit, checked-at time and
+recorded evidence. The only permitted retained-row mutation is a deterministic
+stale-current archival: when a proven successor is appended, its predecessor
+moves from `LIVE` on the mutable current route to `ARCHIVED` on its own
+immutable composition manifest. Any inherited v9.x predecessor accidentally
+left claiming `Live Current` receives that same delayed repair. Its version,
+generation, source commit, evidence class, checked-at time and browser-proof
+text do not change, and no other retained row may change. This prevents the
+mutable current route from masquerading as an older runnable version. A missing
+generation stays labelled `MISSING`; never manufacture a link or reuse another
+product's similarly numbered release. Do not add a successor until its exact
+promoted GridAtlas `main` SHA is known.
 
 ## Naming
 
@@ -1291,3 +1295,50 @@ the one appended v9.105 row.
 Folder file count after this snapshot:
 
 33 files (32 numbered snapshots plus this README; the timestamped release directory is not a file)
+
+## Version 033
+
+Version: `homepage_v033.html`
+Source: live `index.html` at commit `9e42af8a1ade776eeafa2be34f0c2bf5345d5c2d`
+Purpose: restore point before retiring two stale mutable-current Grid Atlas links.
+Measured by: Codex working session
+
+Metrics for `homepage_v033.html`:
+
+Line count: 351
+Word count: 9681
+Character count: 109329
+Byte count: 109666
+SHA-256: f77862a52d09c9935d1d632fea9f33336634bd229968df914a7b97d724f46878
+
+Plain-English change intention:
+
+v9.105 remains the one current v9.x catalogue row and continues to use the
+canonical mutable application route. Its exact commit, proof text and current
+homepage surfaces do not change. v9.103 and v9.104 were each still labelled
+`Live Current` on that same route, so clicking either older row now opened
+v9.105. Both rows receive the one lifecycle transition this catalogue permits:
+`LIVE` becomes `ARCHIVED`, `Live Current` becomes `Archived`, and the mutable
+route becomes that generation's immutable composition-manifest URL.
+
+Their version, generation, source commit, `WORKING_VERIFIED` evidence class,
+checked-at time and complete browser-proof text remain unchanged. The v9.103
+change is the delayed correction of the transition missed when v9.104 was
+appended. All other 124 catalogue rows remain byte-for-byte unchanged,
+including every standalone V1-V8 route and status.
+
+The retention verifier accepts only that exact transformation of a stale v9.x
+current row. It rejects changes to the row's identity or evidence, rejects any
+other retained-row edit, and fails if any prior v9.x row still says `Live
+Current`, remains `LIVE`, or points at the mutable application route. Tests
+exercise both the allowed transition and mutations of its preserved proof.
+
+Derived catalogue counts after the repair:
+
+- Lifecycle: 8 `LIVE`, 111 `ARCHIVED`, 3 `REJECTED_PRE_PROMOTION`, 4 `MISSING`.
+- Evidence: 2 `BROKEN`, 101 `MANIFEST_EVIDENCE`, 4 `NONE`, 13
+  `REACHABLE_UNVERIFIED`, 2 `SOURCE_ONLY`, 4 `WORKING_VERIFIED`.
+
+Folder file count after this snapshot:
+
+34 files (33 numbered snapshots plus this README; the timestamped release directory is not a file)

@@ -1,45 +1,151 @@
 #!/usr/bin/env python3
-"""Unit tests for fail-closed homepage publication identity checks."""
+"""Unit tests for fail-closed homepage publication and lineage checks."""
 
 from __future__ import annotations
 
-import unittest
 import sys
+import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import verify_published_versions as verifier
 
 
-def homepage(strip_version: str, strip_generation: str, row_version: str, row_generation: str) -> str:
-    return f'''<div class="os-strip"><a href="https://ventusltd.github.io/gridatlas/atlas/">UK Grid Atlas {strip_version} — Current Verified Release</a><span class="live-status">{strip_generation} · verified live</span></div>
-/* <!-- GRIDATLAS_V9_AUTOMATION_START --> */
-{{ data_gridatlas_release:"{row_generation}-gridatlas-{row_version}" }}
-/* <!-- GRIDATLAS_V9_AUTOMATION_END --> */'''
+VALID_HOMEPAGE = verifier.INDEX.read_text(encoding="utf-8")
 
 
 class GridAtlasHomepageIdentityTests(unittest.TestCase):
-    def test_matching_reader_and_governed_identity_passes(self) -> None:
+    def test_complete_catalogue_and_current_identity_pass(self) -> None:
         report: dict = {}
-        failures = verifier.check_gridatlas_homepage_identity(
-            homepage("V9.99", "202609032315", "v9.99", "202609032315"), report
-        )
+        failures = verifier.check_gridatlas_homepage_identity(VALID_HOMEPAGE, report)
         self.assertEqual([], failures)
         self.assertEqual(report["gridatlas_named"], report["gridatlas_os_strip"])
+        self.assertEqual(120, report["gridatlas_catalogue_count"])
+        self.assertEqual(
+            {"generation": "202609032246", "version": "v9.98"},
+            report["gridatlas_previous"],
+        )
+        self.assertEqual(
+            {"LIVE": 8, "ARCHIVED": 108, "MISSING": 4},
+            report["gridatlas_catalogue_status_counts"],
+        )
+        self.assertEqual(
+            {
+                "BROKEN": 2,
+                "MANIFEST_EVIDENCE": 97,
+                "NONE": 4,
+                "REACHABLE_UNVERIFIED": 14,
+                "SOURCE_ONLY": 2,
+                "WORKING_VERIFIED": 1,
+            },
+            report["gridatlas_catalogue_availability_counts"],
+        )
 
     def test_stale_reader_identity_fails(self) -> None:
-        failures = verifier.check_gridatlas_homepage_identity(
-            homepage("V9.86", "202609030200", "v9.99", "202609032315"), {}
+        invalid = VALID_HOMEPAGE.replace(
+            "UK Grid Atlas V9.99 — Current Release (Known Defect)</a>"
+            '<span class="live-status">202609032315',
+            "UK Grid Atlas V9.86 — Current Release (Known Defect)</a>"
+            '<span class="live-status">202609030200',
+            1,
         )
-        self.assertEqual(1, len(failures))
-        self.assertIn("os-strip names v9.86 / 202609030200", failures[0])
+        failures = verifier.check_gridatlas_homepage_identity(invalid, {})
+        self.assertTrue(any("os-strip names v9.86 / 202609030200" in item for item in failures))
 
-    def test_missing_or_duplicate_identity_fails_closed(self) -> None:
-        valid = homepage("V9.99", "202609032315", "v9.99", "202609032315")
-        missing_failures = verifier.check_gridatlas_homepage_identity("", {})
-        duplicate_failures = verifier.check_gridatlas_homepage_identity(valid + valid, {})
-        self.assertEqual(2, len(missing_failures))
-        self.assertEqual(2, len(duplicate_failures))
+    def test_missing_identity_and_catalogue_fail_closed(self) -> None:
+        failures = verifier.check_gridatlas_homepage_identity("", {})
+        self.assertTrue(any("AUTOMATION block" in item for item in failures))
+        self.assertTrue(any("os-strip identity" in item for item in failures))
+        self.assertTrue(any("no Grid Atlas version catalogue" in item for item in failures))
+
+    def test_malformed_catalogue_marker_is_not_silently_skipped(self) -> None:
+        invalid = VALID_HOMEPAGE.replace(
+            "v9.50|202609011251|ARCHIVED|MANIFEST_EVIDENCE|",
+            "v9.50|202609011251|UNPROVEN|MANIFEST_EVIDENCE|",
+            1,
+        )
+        failures = verifier.check_gridatlas_homepage_identity(invalid, {})
+        self.assertTrue(any("malformed" in item for item in failures))
+
+    def test_foundation_row_cannot_be_rewritten(self) -> None:
+        invalid = VALID_HOMEPAGE.replace(
+            "UK Grid Atlas V1 -- Archived Evidence",
+            "UK Grid Atlas V1 -- Altered Evidence",
+            1,
+        )
+        failures = verifier.check_gridatlas_homepage_identity(invalid, {})
+        self.assertIn(
+            "the protected V1-to-V9.98 Grid Atlas catalogue foundation was rewritten",
+            failures,
+        )
+
+    def test_missing_version_cannot_gain_an_invented_link(self) -> None:
+        invalid = VALID_HOMEPAGE.replace(
+            '{ name:"UK Grid Atlas V9.1 -- Missing", note:',
+            '{ name:"UK Grid Atlas V9.1 -- Missing", url:"https://example.invalid/", note:',
+            1,
+        )
+        failures = verifier.check_gridatlas_homepage_identity(invalid, {})
+        self.assertTrue(any("missing v9.1 invents" in item for item in failures))
+
+    def test_future_version_requires_promotion_first(self) -> None:
+        future = (
+            '  { name:"UK Grid Atlas V9.100 - 202609040021 -- Archived Evidence", '
+            'url:"https://example.invalid/manifest.json", '
+            'note:"ARCHIVED | MANIFEST EVIDENCE | generation 202609040021 | '
+            'source commit 3506bfb2b4d298e6bb00132c05467d67a71e89af | '
+            'checked_at 2026-09-04T00:40:53Z | '
+            'immutable composition evidence; not a runnable application", '
+            'data_gridatlas_catalogue:"v9.100|202609040021|ARCHIVED|MANIFEST_EVIDENCE|'
+            '3506bfb2b4d298e6bb00132c05467d67a71e89af|2026-09-04T00:40:53Z" },\n'
+        )
+        invalid = VALID_HOMEPAGE.replace(
+            "]);\n/* GRIDATLAS_VERSION_CATALOGUE_END */",
+            future + "]);\n/* GRIDATLAS_VERSION_CATALOGUE_END */",
+            1,
+        )
+        failures = verifier.check_gridatlas_homepage_identity(invalid, {})
+        self.assertTrue(any("future Grid Atlas version" in item for item in failures))
+
+    def test_missing_rows_render_as_disabled_text_not_broken_undefined_links(self) -> None:
+        self.assertIn('r.url?`<a href="${encodeURI(r.url)}">', VALID_HOMEPAGE)
+        self.assertIn('class="missing-entry" aria-disabled="true"', VALID_HOMEPAGE)
+        self.assertIn("details.nest ul.drawer li { overflow-wrap:anywhere; }", VALID_HOMEPAGE)
+        self.assertNotIn("v9.100", VALID_HOMEPAGE.lower())
+
+    def test_working_claim_is_limited_to_browser_proven_v8(self) -> None:
+        failures: list[str] = []
+        records = verifier.parse_gridatlas_catalogue(VALID_HOMEPAGE, failures)
+        self.assertEqual([], failures)
+        working = [record for record in records if record["availability"] == "WORKING_VERIFIED"]
+        self.assertEqual([("v8", None)], [(record["version"], record["generation"]) for record in working])
+        self.assertIn("mobile browser click verified: Tesco produced [OK]", working[0]["note"])
+
+    def test_known_failures_and_current_regression_are_explicit(self) -> None:
+        failures: list[str] = []
+        records = verifier.parse_gridatlas_catalogue(VALID_HOMEPAGE, failures)
+        by_identity = {(record["version"], record["generation"]): record for record in records}
+        legacy = by_identity[("v9", "202608291237")]
+        self.assertEqual("BROKEN", legacy["availability"])
+        self.assertIn("repd_browser_registry returns HTTP 404", legacy["note"])
+        current = by_identity[("v9.99", "202609032315")]
+        self.assertEqual("REACHABLE_UNVERIFIED", current["availability"])
+        self.assertIn("known project-card hit-target regression", current["note"])
+        self.assertTrue(all(record["checked_at"] for record in records))
+        self.assertNotIn("Current Verified Release", VALID_HOMEPAGE)
+        self.assertNotIn("LIVE VERIFIED · immutable timestamped release", VALID_HOMEPAGE)
+
+    def test_automation_markers_v8_sentinel_and_areas_wiring_fail_closed(self) -> None:
+        cases = (
+            ("GRIDATLAS_V9_AUTOMATION_START", "AUTOMATION_START marker"),
+            ('url:"./repd_grid_atlasv8/"', "local V8 sentinel route"),
+            ("children:[...GRIDATLAS_VERSION_CATALOGUE].reverse()", "wired into AREAS"),
+        )
+        for token, expected in cases:
+            with self.subTest(token=token):
+                invalid = VALID_HOMEPAGE.replace(token, "REMOVED_REQUIRED_TOKEN", 1)
+                failures = verifier.check_gridatlas_homepage_identity(invalid, {})
+                self.assertTrue(any(expected in failure for failure in failures))
 
 
 if __name__ == "__main__":

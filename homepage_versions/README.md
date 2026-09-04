@@ -16,6 +16,19 @@ Before creating a new homepage version, measure and record:
 
 Do this before editing so the homepage can be reversed, compared and rebuilt without losing navigation, links or working JavaScript.
 
+Every new current product version must also be labelled clearly on the live
+homepage, and the version it supersedes must remain there as an explicitly
+labelled older-version link. A numbered homepage snapshot is a restore point;
+it does not replace the reader-visible older-version row.
+
+The Grid Atlas catalogue is oldest-first and append-only. Preserve every
+existing version/generation identity, URL and source commit. The one permitted
+status transition is the prior current record moving from `LIVE` to
+`ARCHIVED` when its proven successor is appended. A missing generation stays
+labelled `MISSING`; never manufacture a link or reuse another product's
+similarly numbered release. Do not add a successor until its exact promoted
+GridAtlas `main` SHA is known.
+
 ## Naming
 
 Use this format:
@@ -1009,3 +1022,59 @@ markers remain unchanged. `AREAS` is re-evaluated but not rewritten.
 Folder file count after this snapshot:
 
 29 files (28 numbered snapshots plus this README; the timestamped release directory is not a file)
+
+## Version 029
+
+Version: `homepage_v029.html`
+Source: live `index.html` at commit `c9c9f61f6daf1057252e488d93a57a699a1772f0`
+Purpose: restore point before restoring the complete recoverable Grid Atlas version lineage to the homepage.
+Measured by: Codex working session
+
+Metrics for `homepage_v029.html`:
+
+Line count: 214
+Word count: 4867
+Character count: 39499
+Byte count: 39842
+SHA-256 (first 16): 5572fd68181a41cb
+
+Plain-English change intention:
+
+The current Grid Atlas v9.99 row remains linked, but its label now says deployed
+and reachable rather than verified while its project-card hit-target regression
+is open. A new complete catalogue adds 120 oldest-first, machine-marked lineage
+records: legacy V1 through V8; the removed April V9 source; all eight timestamped
+base-V9 release folders; every GridAtlas composition state committed on main
+from v9.5 through v9.99; and explicit MISSING rows for v9.1 through v9.4, where
+no GridAtlas composition exists. Reused version numbers retain every distinct
+generation. Evidence-only manifests say that they are not runnable, V9.57 is
+labelled as the rejected composition that broke its shell slot, and records
+without an honest URL render as disabled text instead of broken links.
+Nested catalogue rows wrap long immutable commit hashes rather than widening a
+phone viewport.
+
+Every network route was rechecked at `2026-09-04T00:40:53Z`. HTTP 200 proves
+reachability, not working behaviour: V2 through V7 and seven base-V9 folders are
+`REACHABLE_UNVERIFIED`. V8 alone is `WORKING_VERIFIED`, backed by the mobile
+browser Tesco -> `[OK]` click proof rechecked at `2026-09-04T00:47:58Z`. The
+202608291237 base-V9 shell is `BROKEN`
+because its `repd_browser_registry` dependency returns HTTP 404 even though the
+shell URL itself returns 200. Every machine marker and reader-visible note
+carries its `checked_at` value.
+
+The publication gate protects the exact V1-to-v9.98 foundation by digest,
+requires continuous version identities through the governed current version,
+and compares each later edit with the latest numbered snapshot. A new current
+version must therefore append its exact generation and promoted commit while
+retaining its predecessor. No v9.100 placeholder is added because no v9.100
+commit has been promoted to GridAtlas main.
+
+All earlier homepage snapshots and all existing URLs/rows remain preserved.
+Only stale truth labels are corrected: the old 202608291239 row is archived,
+reachable and unverified; v9.99 discloses its known defect; and V8 is identified
+as the last browser-verified working version. The V8 sentinel and route, both
+Grid Atlas automation markers, and the complete `AREAS` structure are preserved.
+
+Folder file count after this snapshot:
+
+30 files (29 numbered snapshots plus this README; the timestamped release directory is not a file)

@@ -8,6 +8,7 @@
     "enabled": true,
     "kind": "committed-json-snapshot",
     "input": "dist/major_project_news_v9_5_1.json",
+    "input_commit": "91e948338115b8f523f049e8cdc5369296d9451e",
     "input_collection": "all_items",
     "role": "bootstrap-only",
     "independent_of_repd_signals": true,
@@ -106,7 +107,7 @@
     "last_known_good": true
   },
   "hashes": {
-    "source_contract_sha256": "8d5391277adffa2a831f5106eb918ef9d23baf014bf3d2b65155878a03c87503",
+    "source_contract_sha256": "7ea974f61dcfe0b3d952e74864ed3c7ef78045077dee156e60927fd3e808f261",
     "module_registry_sha256": "a4f2b9a1bb91a517874c8cd84f81eeeb1fa3715cf220f6dee5c07bdbcbcc9109",
     "input_sha256": "cea104c3e9cfc07971680afdf5f64073e1d4825b63bfaf4e969266df8386ebbd",
     "regional_news_sha256": "905237ddcbc71761f21d8c78961931676ac0c585030d29af95c75c7772254a99",

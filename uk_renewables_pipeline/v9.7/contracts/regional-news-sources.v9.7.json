@@ -8,6 +8,7 @@
       "enabled": true,
       "kind": "committed-json-snapshot",
       "input": "dist/major_project_news_v9_5_1.json",
+      "input_commit": "91e948338115b8f523f049e8cdc5369296d9451e",
       "input_collection": "all_items",
       "role": "bootstrap-only",
       "independent_of_repd_signals": true,

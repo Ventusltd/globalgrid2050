@@ -1,11 +1,60 @@
 import { createHash } from "node:crypto";
+import { execFile } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 import { committedJsonItemsV9_7 } from "../news/adapters/committed-json-v9-7.mjs";
 import { CLASSIFIER_VERSION } from "../news/classifier-v9-7.mjs";
 import { buildRegionalArtifactsV9_7 } from "../news/ledger-v9-7.mjs";
 
 const sha256 = (value) => createHash("sha256").update(value).digest("hex");
+const execFileAsync = promisify(execFile);
+const FULL_COMMIT = /^[0-9a-f]{40}$/;
+const SAFE_REPO_PATH = /^[A-Za-z0-9._/-]+$/;
+const MAX_PINNED_INPUT_BYTES = 16 * 1024 * 1024;
+
+export function pinnedInputObjectV9_7(sourceMeta) {
+  if (sourceMeta?.kind !== "committed-json-snapshot") {
+    throw new Error("V9.7 enabled source must be a committed-json-snapshot");
+  }
+  if (!FULL_COMMIT.test(sourceMeta.input_commit || "")) {
+    throw new Error("V9.7 source input_commit must be one full lowercase Git commit SHA");
+  }
+  const input = sourceMeta.input;
+  const segments = typeof input === "string" ? input.split("/") : [];
+  if (
+    typeof input !== "string"
+    || !SAFE_REPO_PATH.test(input)
+    || input.startsWith("/")
+    || segments.some((segment) => segment === "" || segment === "." || segment === "..")
+  ) {
+    throw new Error("V9.7 source input must be a safe repository-relative path");
+  }
+  return `${sourceMeta.input_commit}:${input}`;
+}
+
+export async function readPinnedInputV9_7(repoRoot, sourceMeta) {
+  const object = pinnedInputObjectV9_7(sourceMeta);
+  try {
+    const { stdout: objectType } = await execFileAsync(
+      "git", ["-C", repoRoot, "cat-file", "-t", sourceMeta.input_commit], { encoding: "utf8" },
+    );
+    if (objectType.trim() !== "commit") {
+      throw new Error(`pinned object is ${objectType.trim()}, not a commit`);
+    }
+    await execFileAsync(
+      "git", ["-C", repoRoot, "merge-base", "--is-ancestor", sourceMeta.input_commit, "HEAD"],
+      { encoding: "utf8" },
+    );
+    const { stdout } = await execFileAsync(
+      "git", ["-C", repoRoot, "cat-file", "blob", object],
+      { encoding: null, maxBuffer: MAX_PINNED_INPUT_BYTES },
+    );
+    return Buffer.isBuffer(stdout) ? stdout : Buffer.from(stdout);
+  } catch (error) {
+    throw new Error(`V9.7 could not read pinned input ${object}: ${error.message}`);
+  }
+}
 
 async function main() {
   const releaseRoot = fileURLToPath(new URL("../../", import.meta.url));
@@ -19,8 +68,8 @@ async function main() {
   const sourceContract = JSON.parse(sourceContractText);
   const moduleRegistry = JSON.parse(moduleRegistryText);
   const sourceMeta = sourceContract.adapters.find((adapter) => adapter.enabled);
-  const inputPath = `${repoRoot}${sourceMeta.input}`;
-  const inputText = await readFile(inputPath, "utf8");
+  const inputBytes = await readPinnedInputV9_7(repoRoot, sourceMeta);
+  const inputText = inputBytes.toString("utf8");
   const input = JSON.parse(inputText);
   const items = committedJsonItemsV9_7(input, sourceMeta);
   const { regional, ledger, telemetry } = buildRegionalArtifactsV9_7(items, sourceMeta);

@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { pinnedInputObjectV9_7, readPinnedInputV9_7 } from "../scripts/build/regional-news-v9-7.mjs";
 import { classifyRegionalV9_7 } from "../scripts/news/classifier-v9-7.mjs";
 
 const base = new URL("../", import.meta.url);
@@ -21,17 +22,21 @@ assert.equal(
   "the validated V9.6.2 parent subtree changed",
 );
 
-const [contract, sourceContract, moduleRegistry, html, packageJson, feed, regionalText, ledgerText, manifest] = await Promise.all([
+const [contract, sourceContractText, moduleRegistry, html, packageJson, regionalText, ledgerText, manifest] = await Promise.all([
   json(new URL("contracts/release.v9.7.json", base)),
-  json(new URL("contracts/regional-news-sources.v9.7.json", base)),
+  text(new URL("contracts/regional-news-sources.v9.7.json", base)),
   json(new URL("contracts/news-module-registry.v9.7.json", base)),
   text(new URL("index.html", base)),
   json(new URL("package.json", base)),
-  json(new URL("dist/major_project_news_v9_5_1.json", root)),
   text(new URL("data/v9.7/regional_news.json", base)),
   text(new URL("data/v9.7/regional_decisions.json", base)),
   json(new URL("data/v9.7/regional_manifest.json", base)),
 ]);
+const sourceContract = JSON.parse(sourceContractText);
+const sourceMeta = sourceContract.adapters.find((adapter) => adapter.enabled);
+const inputBytes = await readPinnedInputV9_7(rootPath, sourceMeta);
+const inputText = inputBytes.toString("utf8");
+const feed = JSON.parse(inputText);
 const regional = JSON.parse(regionalText);
 const ledger = JSON.parse(ledgerText);
 const moduleRegistryText = await text(new URL("contracts/news-module-registry.v9.7.json", base));
@@ -47,6 +52,23 @@ assert.equal(contract.runtime.regional_project_signal_eligible, false);
 assert.equal(packageJson.version, "9.7.0");
 assert.equal(sourceContract.adapters.filter((adapter) => adapter.enabled).length, 1);
 assert.equal(sourceContract.adapters[0].independent_of_repd_signals, true);
+assert.equal(sourceMeta.input_commit, "91e948338115b8f523f049e8cdc5369296d9451e");
+assert.equal(
+  pinnedInputObjectV9_7(sourceMeta),
+  "91e948338115b8f523f049e8cdc5369296d9451e:dist/major_project_news_v9_5_1.json",
+);
+assert.throws(
+  () => pinnedInputObjectV9_7({ ...sourceMeta, input_commit: "main" }),
+  /full lowercase Git commit SHA/,
+);
+assert.throws(
+  () => pinnedInputObjectV9_7({ ...sourceMeta, input: "../major_project_news.json" }),
+  /safe repository-relative path/,
+);
+await assert.rejects(
+  readPinnedInputV9_7(rootPath, { ...sourceMeta, input_commit: "0000000000000000000000000000000000000000" }),
+  /could not read pinned input/,
+);
 assert.equal(moduleRegistry.modules.length, 7);
 assert.equal(new Set(moduleRegistry.modules.map((item) => item.role)).size, 7);
 assert.equal(new Set(moduleRegistry.modules.map((item) => item.id)).size, moduleRegistry.modules.length);
@@ -75,8 +97,12 @@ assert.deepEqual(manifest.telemetry.by_region, { US: 4, EUROPE: 9, INTERNATIONAL
 assert.equal(manifest.telemetry.by_decision.UK_CANONICAL, 45);
 assert.equal(manifest.telemetry.accepted_count, 19);
 assert.equal(manifest.telemetry.last_known_good, true);
+assert.deepEqual(manifest.source_adapter, sourceMeta);
 assert.deepEqual(manifest.modules, moduleRegistry.modules);
+assert.equal(manifest.hashes.source_contract_sha256, hash(sourceContractText));
 assert.equal(manifest.hashes.module_registry_sha256, hash(moduleRegistryText));
+assert.equal(manifest.hashes.input_sha256, hash(inputBytes));
+assert.equal(manifest.hashes.input_sha256, "cea104c3e9cfc07971680afdf5f64073e1d4825b63bfaf4e969266df8386ebbd");
 assert.equal(manifest.hashes.regional_news_sha256, hash(regionalText));
 assert.equal(manifest.hashes.decision_ledger_sha256, hash(ledgerText));
 

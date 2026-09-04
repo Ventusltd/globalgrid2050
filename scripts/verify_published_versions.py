@@ -206,8 +206,8 @@ def check_gridatlas_catalogue_retention(records: list[dict]) -> list[str]:
             continue
         if current["commit"] != old["commit"]:
             failures.append(f"append-only Grid Atlas history rewrote the commit for {old['version']}")
-        if old["status"] != "LIVE" and current != old:
-            failures.append(f"append-only Grid Atlas history rewrote archived record {old['version']}")
+        if current != old:
+            failures.append(f"append-only Grid Atlas history rewrote retained record {old['version']}")
     return failures
 
 
@@ -374,9 +374,10 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         ("v8", None),
         ("v9.103", "202609040058"),
         ("v9.104", "202609040134"),
+        ("v9.105", "202609040219"),
     ]
     if [(record["version"], record["generation"]) for record in working_verified] != expected_working:
-        failures.append("only V8, v9.103 and v9.104 may carry their recorded mobile browser verification")
+        failures.append("only V8 and v9.103-v9.105 may carry their recorded mobile browser verification")
 
     current_records = [
         record for record in records
@@ -404,9 +405,15 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         failures.append("the 202608291237 V9 shell must remain BROKEN until its 404 dependency is repaired")
     if current_records and (
         current_records[0]["availability"] != "WORKING_VERIFIED"
-        or "mobile browser click verified at 393x852" not in current_records[0]["note"]
+        or "exact-head Actions 33829736615, 33829737083 and 33829737107 passed"
+        not in current_records[0]["note"]
+        or "mobile browser click verified at 393x852-class" not in current_records[0]["note"]
+        or "unchecked and disabled at [EMPTY]" not in current_records[0]["note"]
     ):
-        failures.append("the governed v9.104 route must carry its exact 393x852 browser-click proof")
+        failures.append(
+            "the governed v9.105 route must carry its exact-head CI/public-byte proof and "
+            "its 393x852-class mobile browser [EMPTY] proof"
+        )
 
     rejected = [record for record in records if record["status"] == "REJECTED_PRE_PROMOTION"]
     expected_rejected = [
@@ -522,7 +529,7 @@ def check_network(report: dict) -> list[str]:
         if named and (named["generation"] != live["generation"] or named["version"] != live["version"]):
             failures.append(
                 f"the homepage names Grid Atlas {named['version']} / {named['generation']} as the current "
-                f"verified release while the live composition is {live['version']} / {live['generation']}"
+                f"release while the live composition is {live['version']} / {live['generation']}"
             )
 
         current_catalogue = report.get("gridatlas_current_catalogue")

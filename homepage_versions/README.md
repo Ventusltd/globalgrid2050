@@ -1230,3 +1230,64 @@ exhausted; the token is never sent to GitHub Pages or any other host.
 Folder file count after this snapshot:
 
 32 files (31 numbered snapshots plus this README; the timestamped release directory is not a file)
+
+## Version 032
+
+Version: `homepage_v032.html`
+Source: live `index.html` at commit `d377a47a180da44d0a42bfc27e228e7a6b3b8e73`
+Purpose: restore point before appending the exact promoted v9.105 Grid Atlas release.
+Measured by: Codex working session
+
+Metrics for `homepage_v032.html`:
+
+Line count: 350
+Word count: 9601
+Character count: 108461
+Byte count: 108798
+SHA-256: d9d0333f026a7e019797ca31106ddd2fb66b7378a75d4fcc6b50859ec2b4e61b
+
+Plain-English change intention:
+
+All 125 Grid Atlas catalogue records already on the homepage remain
+byte-for-byte unchanged. Exactly one Grid record is appended: v9.105 /
+`202609040219`, bound to GridAtlas main commit
+`5cb95611bae0eae031d493b7f2b6b3ef9ce2b995`. The two Grid current-release
+surfaces move to v9.105, while V8, the browser-verified v9.103 and v9.104,
+the three explicitly never-live candidates, and every earlier recoverable
+generation remain visible. The Grid catalogue therefore contains 126 records.
+
+At `2026-09-04T02:32:54Z`, exact-head GitHub Actions runs `33829736615`
+(Pages), `33829737083` (builders), and `33829737107` (cartridge proof) had all
+completed successfully. The public `atlas/current.json` returned 46,405 exact
+bytes with SHA-256
+`2f86a1bfd1c07c0bcb05a3bf57a102cd64f83d933db9118c51c3ee5e7790e384`.
+The immutable `202609040219` composition returned 47,301 exact bytes with
+SHA-256
+`90dbbb6b4bd5db2f23a097e6a0042df0aa77dd189410e8a2be33568fd0404bdb`.
+Both composed cartridges, both parts manifests, the version ledger and both
+live-set pointer forms were also fetched from the public Pages deployment and
+matched the exact commit bytes.
+
+A fresh Chrome extension session at a 393x852-class mobile viewport then
+confirmed generation `202609040219`, opened Markinch REPD 155, rendered 28.82
+km and retained all six menus. Clicking the live Tram proxy left DLR and every
+UK Metro/Trams control unchecked and disabled at `[EMPTY]`, with zero console
+errors. That is the intended honest state for fetched bytes which cannot
+produce renderable features, rather than a false tick or an invisible layer.
+This direct mobile acceptance is why v9.105 is `WORKING_VERIFIED`; the claim is
+not inferred from HTTP reachability.
+
+Derived catalogue counts after the append:
+
+- Lifecycle: 10 `LIVE`, 109 `ARCHIVED`, 3 `REJECTED_PRE_PROMOTION`, 4 `MISSING`.
+- Evidence: 2 `BROKEN`, 101 `MANIFEST_EVIDENCE`, 4 `NONE`, 13
+  `REACHABLE_UNVERIFIED`, 2 `SOURCE_ONLY`, 4 `WORKING_VERIFIED`.
+
+The latest-snapshot retention gate now rejects any rewrite of a retained
+record, including one historically marked live. A unit test compares all 125
+pre-existing serialised rows directly with this v032 snapshot before accepting
+the one appended v9.105 row.
+
+Folder file count after this snapshot:
+
+33 files (32 numbered snapshots plus this README; the timestamped release directory is not a file)

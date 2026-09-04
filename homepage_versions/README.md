@@ -1342,3 +1342,77 @@ Derived catalogue counts after the repair:
 Folder file count after this snapshot:
 
 34 files (33 numbered snapshots plus this README; the timestamped release directory is not a file)
+
+## Version 034
+
+Version: `homepage_v034.html`
+Source: live `index.html` at commit `6e462c5ca0ff50e8e8d926eec45c9c26a4169922`
+Purpose: restore point before archiving v9.105 on its immutable manifest and appending the exact promoted and browser-proven v9.106 Grid Atlas release.
+Measured by: Codex working session
+
+Metrics for `homepage_v034.html`:
+
+Line count: 351
+Word count: 9709
+Character count: 109645
+Byte count: 109982
+SHA-256: 6817281e2a6d8a12bc119064ebff3af0b4841fe085bf5274e3c501ab4d60a6e9
+
+Plain-English change intention:
+
+All 126 existing Grid Atlas identities remain in the catalogue. The 125 rows
+other than the former current v9.105 row remain byte-for-byte unchanged. v9.105
+receives only the lifecycle transition permitted by this catalogue: its
+version, generation, source commit, `WORKING_VERIFIED` evidence, checked-at
+time and complete browser proof are preserved, while `LIVE` becomes
+`ARCHIVED` and the mutable application URL becomes its immutable
+`202609040219` composition manifest. V8 remains present and unchanged.
+
+Exactly one record is appended at the oldest-first tail: v9.106 / generation
+`202609040337`, bound to exact GridAtlas main commit
+`2d8cc7bacf80a3f20ecfb96ea24548fcea43a19d`. It is the sole current v9.x row
+on the mutable application route, bringing the catalogue to 127 records. Both
+reader-facing current-release surfaces name that same identity.
+
+All three exact-head GitHub Actions completed successfully: `33834422562`
+(Pages), `33834422882` (next-version builders), and `33834422915` (cartridge,
+mobile and corpus proof). A cache-busted public audit fetched 34 composition-
+derived artifacts and found all 34 HTTP 200 and byte-identical to the exact
+commit. Their combined path-and-hash digest is
+`fc0ce52d698936adcbf3c8d136ea0868fb0f280f7cf7dba1992478095eeeaf25`.
+The public `current.json` is 46,599 bytes with SHA-256
+`7e8fc8c7e2aca9fa1974169085111844e26750be1fb793f54abbf253489cf80a`;
+the immutable composition is 47,855 bytes with SHA-256
+`4fab4d333f78878482925eea7191f675cac280d556f1703a1f9cf7c93c5d375f`.
+
+The accepted browser receipt used cold 393x852 Chromium and passed five
+arrival cases. Supplied-point `NOT_IN_ACTIVE_REGISTER` reference 12453 measured
+with link-supplied provenance. Ref-only 12453 explicitly could not measure and
+invented no official location or status. An induced
+`FAILED` -> retry -> `RESOLVED` reference 12588 reached five links, with the
+nearest at 3.432 km, manifest attempts 2, query 0 -> 1, retry 0 -> 1 and shared
+epoch 3. An induced `FAILED` -> retry -> `NOT_IN` reference 12453 ended with
+zero links and explicit no-coordinate/no-inference. An ordinary active match
+for reference 12588 was `VERIFIED` and measured. Every case showed File, Edit,
+View, Scope, Grid and About; there were zero post-terminal page, console or
+material errors and zero obsolete Pipeline requests.
+
+The exact Pipeline 0144 corpus static gate includes Markinch 155 and proves
+that it takes measure-first from supplied coordinates. That is recorded as
+static evidence only, not as a fresh v9.106 Markinch browser reading. The
+separate v9.105 Markinch 28.82 km browser observation remains intact on the
+archived v9.105 record.
+
+Derived catalogue counts after the append:
+
+- Lifecycle: 8 `LIVE`, 112 `ARCHIVED`, 3 `REJECTED_PRE_PROMOTION`, 4 `MISSING`.
+- Evidence: 2 `BROKEN`, 101 `MANIFEST_EVIDENCE`, 4 `NONE`, 13
+  `REACHABLE_UNVERIFIED`, 2 `SOURCE_ONLY`, 5 `WORKING_VERIFIED`.
+
+The latest-snapshot retention gate compares against this v034 restore point.
+It accepts the one deterministic v9.105 archival and the final v9.106 append,
+and rejects deletion, reordering or any other retained-row rewrite.
+
+Folder file count after this snapshot:
+
+35 files (34 numbered snapshots plus this README; the timestamped release directory is not a file)

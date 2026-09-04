@@ -430,9 +430,10 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         ("v9.103", "202609040058"),
         ("v9.104", "202609040134"),
         ("v9.105", "202609040219"),
+        ("v9.106", "202609040337"),
     ]
     if [(record["version"], record["generation"]) for record in working_verified] != expected_working:
-        failures.append("only V8 and v9.103-v9.105 may carry their recorded mobile browser verification")
+        failures.append("only V8 and v9.103-v9.106 may carry their recorded mobile browser verification")
 
     current_records = [
         record for record in records
@@ -476,14 +477,15 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         failures.append("the 202608291237 V9 shell must remain BROKEN until its 404 dependency is repaired")
     if current_records and (
         current_records[0]["availability"] != "WORKING_VERIFIED"
-        or "exact-head Actions 33829736615, 33829737083 and 33829737107 passed"
+        or "exact-head Actions 33834422562, 33834422882 and 33834422915 passed"
         not in current_records[0]["note"]
-        or "mobile browser click verified at 393x852-class" not in current_records[0]["note"]
-        or "unchecked and disabled at [EMPTY]" not in current_records[0]["note"]
+        or "mobile browser click verified in cold 393x852 Chromium" not in current_records[0]["note"]
+        or "FAILED→retry→RESOLVED" not in current_records[0]["note"]
+        or "zero obsolete Pipeline requests" not in current_records[0]["note"]
     ):
         failures.append(
-            "the governed v9.105 route must carry its exact-head CI/public-byte proof and "
-            "its 393x852-class mobile browser [EMPTY] proof"
+            "the governed v9.106 route must carry its exact-head CI/public-byte proof and "
+            "its cold 393x852 mobile arrival/retry proof"
         )
 
     rejected = [record for record in records if record["status"] == "REJECTED_PRE_PROMOTION"]

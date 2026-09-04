@@ -24,7 +24,9 @@ it does not replace the reader-visible older-version row.
 The Grid Atlas catalogue is oldest-first and append-only. Preserve every
 existing version/generation identity, URL and source commit. The one permitted
 status transition is the prior current record moving from `LIVE` to
-`ARCHIVED` when its proven successor is appended. A missing generation stays
+`ARCHIVED` when its proven successor is appended; its mutable current-route URL
+then moves to its immutable manifest, because the current route now serves the
+successor and must not masquerade as an old runnable version. A missing generation stays
 labelled `MISSING`; never manufacture a link or reuse another product's
 similarly numbered release. Do not add a successor until its exact promoted
 GridAtlas `main` SHA is known.
@@ -1078,3 +1080,63 @@ Grid Atlas automation markers, and the complete `AREAS` structure are preserved.
 Folder file count after this snapshot:
 
 30 files (29 numbered snapshots plus this README; the timestamped release directory is not a file)
+
+## Version 030
+
+Version: `homepage_v030.html`
+Source: live `index.html` at commit `0051b3dc25f803e622c942fc82bc114617cecdd9`
+Purpose: restore point before appending the promoted v9.103 Grid Atlas lineage and the three never-live candidates that preceded it.
+Measured by: Codex working session
+
+Metrics for `homepage_v030.html`:
+
+Line count: 344
+Word count: 9342
+Character count: 104493
+Byte count: 104835
+SHA-256: 32eaeeaabbb87f9c5c9e96111176bfb25230033a86e172b3d3ce5d6bb7fb7433
+
+Plain-English change intention:
+
+The 120 existing Grid Atlas records remain present. Four records are appended,
+bringing the catalogue to 124. v9.100 / `202609040021`, v9.101 /
+`202609040046`, and v9.102 / `202609040047` are explicitly
+`REJECTED_PRE_PROMOTION` and `never live`; each links to its immutable manifest,
+carries the exact source commit, and names the defect that stopped promotion.
+They are history and audit evidence, not runnable releases. v9.103 /
+`202609040058` is the new live record, bound to exact GridAtlas main commit
+`03ac1fd5b094c59e21b311a7978c954111d3e330`.
+
+The former v9.99 current row remains in place as archived manifest evidence. Its
+stable `/atlas/` URL is not retained on that archived row because the route now
+serves v9.103; the immutable `202609032315` manifest is the honest surviving
+target. Its known project-card hit-target defect remains visible. The GridAtlas
+live pointer deliberately names v9.99 as v9.103's previous live generation,
+skipping all three rejected candidates without erasing them.
+
+Public state was rechecked at `2026-09-04T01:14:35Z`. `atlas/current.json` and
+all four `202609040021`, `202609040046`, `202609040047`, and `202609040058`
+manifests returned HTTP 200 and were byte-exact to GridAtlas main. GitHub Actions
+runs `33824798171` (cartridge proof), `33824798137` (builders), and `33824797695`
+(Pages) all completed successfully on the exact v9.103 head. A 393x852 Chrome
+acceptance run opened the Markinch Pipeline deep link, rendered 28.82 km, kept
+all six menus visible and hittable, drove Tesco to authoritative `[OK]`, and
+drove DLR to `[OK]` from the hydrated shared UK Metro/Trams source. That is why
+v9.103, alongside retained V8, is `WORKING_VERIFIED` rather than merely HTTP
+reachable.
+
+Derived catalogue counts after the edit:
+
+- Lifecycle: 8 `LIVE`, 109 `ARCHIVED`, 3 `REJECTED_PRE_PROMOTION`, 4 `MISSING`.
+- Evidence: 2 `BROKEN`, 101 `MANIFEST_EVIDENCE`, 4 `NONE`, 13
+  `REACHABLE_UNVERIFIED`, 2 `SOURCE_ONLY`, 2 `WORKING_VERIFIED`.
+
+The publication gate now validates the three rejected manifests' identities and
+their own `candidate_status`, binds the current homepage row to the exact
+GridAtlas main SHA, follows `previous_generation` to v9.99 instead of confusing
+numeric v9.102 with a live predecessor, and protects all prior rows against
+loss. Every previous homepage snapshot and the local V8 route remain untouched.
+
+Folder file count after this snapshot:
+
+31 files (30 numbered snapshots plus this README; the timestamped release directory is not a file)

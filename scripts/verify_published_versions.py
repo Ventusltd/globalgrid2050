@@ -53,7 +53,7 @@ GRIDATLAS_ROW_RE = re.compile(
 )
 GRIDATLAS_OS_STRIP_RE = re.compile(
     r'<div class="os-strip"><a href="https://ventusltd\.github\.io/gridatlas/atlas/">'
-    r'UK Grid Atlas (V[0-9.]+) — Current Release \(Known Defect\)</a>'
+    r'UK Grid Atlas (V[0-9.]+) — Current Release \(Working Verified\)</a>'
     r'<span class="live-status">([0-9]{12})\b'
 )
 GRIDATLAS_CATALOGUE_BLOCK_RE = re.compile(
@@ -65,7 +65,7 @@ GRIDATLAS_CATALOGUE_ENTRY_RE = re.compile(
     r'note:"(?P<note>[^"]+)", data_gridatlas_catalogue:"'
     r'(?P<version>v[0-9]+(?:\.[0-9]+)?)\|'
     r'(?P<generation>none|[0-9]{12})\|'
-    r'(?P<status>LIVE|ARCHIVED|MISSING)\|'
+    r'(?P<status>LIVE|ARCHIVED|REJECTED_PRE_PROMOTION|MISSING)\|'
     r'(?P<availability>[A-Z_]+)\|'
     r'(?P<commit>none|[0-9a-f]{40})\|'
     r'(?P<checked_at>[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z)" \},'
@@ -87,6 +87,7 @@ GRIDATLAS_AVAILABILITY = {
 PIPELINENEWS_RAW = "https://raw.githubusercontent.com/Ventusltd/pipelinenews/main"
 GRIDATLAS_CURRENT = "https://raw.githubusercontent.com/Ventusltd/gridatlas/main/atlas/current.json"
 GRIDATLAS_MANIFESTS = "https://raw.githubusercontent.com/Ventusltd/gridatlas/main/atlas/manifests"
+GRIDATLAS_MAIN_API = "https://api.github.com/repos/Ventusltd/gridatlas/commits/main"
 
 # A release built and superseded without ever entering the published lineage is
 # not a published version.  These are recorded rather than silently ignored so
@@ -325,6 +326,16 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
             if status != "LIVE" or "browser click verified" not in note:
                 failures.append(f"{version} working claim lacks a visible browser-click proof")
 
+        if status == "REJECTED_PRE_PROMOTION" and (
+            availability != "MANIFEST_EVIDENCE"
+            or "never live" not in note
+            or "candidate_status REJECTED_PRE_PROMOTION" not in note
+        ):
+            failures.append(
+                f"{version} rejected pre-promotion record must be non-runnable manifest evidence "
+                "that explicitly says it was never live"
+            )
+
     versions = {record["version"] for record in records}
     missing_majors = [f"v{number}" for number in range(1, 10) if f"v{number}" not in versions]
     if missing_majors:
@@ -354,8 +365,9 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         record for record in records
         if record["availability"] == "WORKING_VERIFIED"
     ]
-    if [(record["version"], record["generation"]) for record in working_verified] != [("v8", None)]:
-        failures.append("V8 must be the sole working-verified release until another route has browser proof")
+    expected_working = [("v8", None), ("v9.103", "202609040058")]
+    if [(record["version"], record["generation"]) for record in working_verified] != expected_working:
+        failures.append("only V8 and the mobile-browser-proven v9.103 release may be working-verified")
 
     current_records = [
         record for record in records
@@ -366,6 +378,12 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         failures.append(f"the catalogue must identify exactly one governed current release; found {len(current_records)}")
     elif current_records[0]["status"] != "LIVE" or current_records[0]["url"] != "https://ventusltd.github.io/gridatlas/atlas/":
         failures.append("the catalogue current record has the wrong status or stable application URL")
+    else:
+        report["gridatlas_current_catalogue"] = {
+            "generation": current_records[0]["generation"],
+            "version": current_records[0]["version"],
+            "commit": current_records[0]["commit"],
+        }
     if current_records and records[-1] != current_records[0]:
         failures.append("the current Grid Atlas catalogue record must be the final append-only record")
 
@@ -376,10 +394,25 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
     if len(broken_legacy) != 1 or broken_legacy[0]["availability"] != "BROKEN":
         failures.append("the 202608291237 V9 shell must remain BROKEN until its 404 dependency is repaired")
     if current_records and (
-        current_records[0]["availability"] != "REACHABLE_UNVERIFIED"
-        or "known project-card hit-target regression" not in current_records[0]["note"]
+        current_records[0]["availability"] != "WORKING_VERIFIED"
+        or "mobile browser click verified at 393x852" not in current_records[0]["note"]
     ):
-        failures.append("the governed v9.99 route must disclose its known project-card hit-target regression")
+        failures.append("the governed v9.103 route must carry its exact 393x852 browser-click proof")
+
+    rejected = [record for record in records if record["status"] == "REJECTED_PRE_PROMOTION"]
+    expected_rejected = [
+        ("v9.100", "202609040021", "3506bfb2b4d298e6bb00132c05467d67a71e89af"),
+        ("v9.101", "202609040046", "6d2bad3c7bd0bb49f6bafad316c11ef7e753c964"),
+        ("v9.102", "202609040047", "6d2bad3c7bd0bb49f6bafad316c11ef7e753c964"),
+    ]
+    if [
+        (record["version"], record["generation"], record["commit"])
+        for record in rejected
+    ] != expected_rejected:
+        failures.append(
+            "the catalogue must retain exactly v9.100-v9.102 as rejected pre-promotion, "
+            "never-live evidence at their exact source commits"
+        )
 
     if current_minor and current_minor > 1:
         previous_version = f"v9.{current_minor - 1}"
@@ -394,7 +427,7 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
 
     report["gridatlas_catalogue_status_counts"] = {
         status: sum(record["status"] == status for record in records)
-        for status in ("LIVE", "ARCHIVED", "MISSING")
+        for status in ("LIVE", "ARCHIVED", "REJECTED_PRE_PROMOTION", "MISSING")
     }
     report["gridatlas_catalogue_availability_counts"] = {
         availability: sum(record["availability"] == availability for record in records)
@@ -483,16 +516,46 @@ def check_network(report: dict) -> list[str]:
                 f"verified release while the live composition is {live['version']} / {live['generation']}"
             )
 
+        current_catalogue = report.get("gridatlas_current_catalogue")
+        try:
+            gridatlas_main = json.loads(fetch(GRIDATLAS_MAIN_API))
+        except Exception as error:  # pragma: no cover - network shape varies
+            report.setdefault("skipped", []).append(f"gridatlas exact main commit: {error}")
+        else:
+            main_sha = gridatlas_main.get("sha")
+            report["gridatlas_main_commit"] = main_sha
+            if current_catalogue and current_catalogue["commit"] != main_sha:
+                failures.append(
+                    "the current Grid Atlas catalogue row is not bound to the exact main commit: "
+                    f"catalogue {current_catalogue['commit']}, main {main_sha}"
+                )
+
+        catalogue_failures: list[str] = []
+        catalogue_records = parse_gridatlas_catalogue(
+            INDEX.read_text(encoding="utf-8"),
+            catalogue_failures,
+        )
+        failures.extend(f"network catalogue parse: {failure}" for failure in catalogue_failures)
+
         previous_generation = current.get("previous_generation")
-        previous_named = report.get("gridatlas_previous")
+        previous_matches = [
+            record for record in catalogue_records
+            if record["generation"] == previous_generation
+        ]
+        previous_named = None
         if not isinstance(previous_generation, str) or not GENERATION_RE.fullmatch(previous_generation):
             failures.append("the live Grid Atlas pointer does not identify one valid previous generation")
-        elif previous_named and previous_named["generation"] != previous_generation:
+        elif len(previous_matches) != 1:
             failures.append(
-                f"the homepage retains Grid Atlas {previous_named['generation']} while the live pointer "
-                f"identifies {previous_generation} as the previous generation"
+                "the homepage catalogue must retain exactly one record for the live pointer's "
+                f"previous generation {previous_generation}; found {len(previous_matches)}"
             )
         else:
+            previous_named = {
+                "generation": previous_matches[0]["generation"],
+                "version": previous_matches[0]["version"],
+            }
+            report["gridatlas_previous_live_pointer"] = previous_named
             try:
                 previous_manifest = json.loads(
                     fetch(f"{GRIDATLAS_MANIFESTS}/{previous_generation}-composition.json")
@@ -514,6 +577,36 @@ def check_network(report: dict) -> list[str]:
                 )
                 if previous_manifest.get("composition_id") != expected_composition_id:
                     failures.append("the previous Grid Atlas composition manifest has an inconsistent identity")
+
+        rejected_records = [
+            record for record in catalogue_records
+            if record["status"] == "REJECTED_PRE_PROMOTION"
+        ]
+        report["gridatlas_rejected_pre_promotion"] = [
+            {"generation": record["generation"], "version": record["version"]}
+            for record in rejected_records
+        ]
+        for record in rejected_records:
+            try:
+                rejected_manifest = json.loads(fetch(record["url"]))
+            except Exception as error:  # pragma: no cover - network shape varies
+                report.setdefault("skipped", []).append(
+                    f"gridatlas rejected composition {record['generation']}: {error}"
+                )
+                continue
+            manifest_identity = (
+                rejected_manifest.get("version"),
+                rejected_manifest.get("generation"),
+            )
+            if manifest_identity != (record["version"], record["generation"]):
+                failures.append(
+                    f"rejected Grid Atlas manifest {record['generation']} has identity {manifest_identity}"
+                )
+            if rejected_manifest.get("candidate_status") != "REJECTED_PRE_PROMOTION":
+                failures.append(
+                    f"rejected Grid Atlas manifest {record['generation']} does not declare "
+                    "candidate_status REJECTED_PRE_PROMOTION"
+                )
 
     return failures
 

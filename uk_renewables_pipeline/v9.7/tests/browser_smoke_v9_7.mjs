@@ -18,7 +18,11 @@ async function pageAt(browser, width) {
     status: 200, contentType: "application/javascript", body: "",
   }));
   await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
-  await page.waitForFunction(() => document.querySelectorAll("#tbody tr").length === 7680);
+  await page.waitForFunction(() => (
+    document.querySelectorAll("#tbody tr").length === 7680
+    && document.querySelectorAll("#stories .story").length === 133
+    && document.querySelector("#newsMeta")?.textContent.includes("audited snapshot")
+  ));
   return { context, page };
 }
 

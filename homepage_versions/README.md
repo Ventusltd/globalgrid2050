@@ -1140,3 +1140,93 @@ loss. Every previous homepage snapshot and the local V8 route remain untouched.
 Folder file count after this snapshot:
 
 31 files (30 numbered snapshots plus this README; the timestamped release directory is not a file)
+
+## Version 031
+
+Version: `homepage_v031.html`
+Source: live `index.html` at commit `7b91a994a6899dbe6ef455126ab99664e12f6793`
+Purpose: restore point before publishing the exact Pipeline News `202609040144` wrapper and appending the exact promoted and browser-proven v9.104 Grid Atlas release.
+Measured by: Codex working session
+
+Metrics for `homepage_v031.html`:
+
+Line count: 348
+Word count: 9377
+Character count: 106631
+Byte count: 106959
+SHA-256: e8ae34f5c3391bbb4f7f37d6cea0c6461221cb210d4781e1a87abf66936372e7
+
+Plain-English change intention:
+
+All 124 Grid Atlas catalogue records already on the homepage remain
+byte-for-byte unchanged. Exactly one Grid record is appended: v9.104 /
+`202609040134`, bound to GridAtlas main commit
+`ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9`. The two Grid current-release
+surfaces move to v9.104, while V8, v9.103, the three explicitly never-live
+candidates, and every earlier recoverable generation remain visible. The Grid
+catalogue therefore contains 125 records.
+
+The same consistency-atomic edit publishes Pipeline News wrapper
+`202609040144-pipelinenews` as `pipelinenews_intelligence/202609040144/`. All
+64 files are byte-identical to Pipeline main. One new current row is inserted;
+`202609032329` is retained immediately below it and labelled superseded. Every
+older Pipeline route remains in place.
+
+The public state was checked at `2026-09-04T01:44:37Z`. The public
+`atlas/current.json` and immutable `202609040134` manifest returned HTTP 200 and
+were byte-exact to commit `ab80d45`. Exact-head GitHub Actions runs
+`33826742980` (Pages), `33826743587` (builders), and `33826743594` (cartridge
+proof) all completed successfully.
+
+A fresh Chrome extension session then ran the live Markinch Pipeline arrival at
+an explicit 393x852 viewport. The card rendered the 28.82 km result. File, Edit,
+View, Scope, Grid, and About were all visible and hittable inside fullscreen.
+From the Grid menu, Tesco moved from `[WAIT]` to `[OK]`, with the authoritative
+control and both mirrors checked. DLR did the same through the hydrated shared
+UK Metro/Trams source. The temporary browser viewport was reset and the audit
+tab closed after collecting the evidence. This is direct working behaviour, not
+an HTTP-only inference, so v9.104 is `WORKING_VERIFIED`.
+
+Pipeline exact-head run `33827954787` completed successfully on main
+`3493be1c4ebf3dabbc94135db17f433bb7892a8e`. Its build, deploy, public
+byte/pointer readback, public Atlas-link browser proof and public modular
+browser proof all passed. At `2026-09-04T02:07:53Z`, the public wrapper's
+`index.html`, `release-manifest.json` and `sha256sums.txt` returned HTTP 200 and
+were byte-identical to the exact source; their SHA-256 values are respectively
+`1e9079e1ebea216b3ed196bec61325f19ea4aeb8963658d938bcb5def0969d97`,
+`ca59bba6041dc7c0c33841fc3263c01bad355daeb0273691fdc97f1d0eed9cee`
+and `c6435a877b28a1bd17b217e5d991cbc866c7ea9498905b244cbaba0bd6d467ae`.
+
+The run's throttled 393x852 public proof found one 44x44 MAP action for
+Markinch with no horizontal overflow, followed the exact REPD 155 link into
+Grid Atlas v9.104, produced the first coordinate answer in 484.6 ms, drew five
+links to substations at 33 kV or above, reported the nearest at 2.49 km and the
+nearest 400 kV substation at 28.82 km. It used no synthetic receiver and
+intercepted no route.
+
+The byte-exact imported wrapper retains five upstream whitespace diagnostics:
+one blank EOF line in each of its two wider-fleet modules and three trailing
+space lines in its `index.html`. Those bytes are covered by the wrapper's own
+SHA-256 ledger and cannot be rewritten here without breaking the mirror. The
+candidate-owned paths pass `git diff --check` with that immutable subtree
+excluded; the subtree separately passes an exact directory comparison and all
+63 file hashes declared by its `sha256sums.txt`. Source and mirror each contain
+64 files totalling 22,666,028 bytes; their canonical path/size/SHA-256 inventory
+digest is `f7357a212753abb7266273d69f18a25474a7b98409fedb062335c374a7dbf789`.
+
+Derived catalogue counts after the append:
+
+- Lifecycle: 9 `LIVE`, 109 `ARCHIVED`, 3 `REJECTED_PRE_PROMOTION`, 4 `MISSING`.
+- Evidence: 2 `BROKEN`, 101 `MANIFEST_EVIDENCE`, 4 `NONE`, 13
+  `REACHABLE_UNVERIFIED`, 2 `SOURCE_ONLY`, 3 `WORKING_VERIFIED`.
+
+The protected catalogue digest now covers all 124 pre-existing records through
+v9.103, and a unit test compares those records directly with the v031 snapshot
+before accepting the v9.104 append. The network gate remains fail-closed and now
+uses the read-only GitHub workflow token for GitHub API and raw-content requests,
+avoiding false `INCOMPLETE` results when the shared anonymous API limit is
+exhausted; the token is never sent to GitHub Pages or any other host.
+
+Folder file count after this snapshot:
+
+32 files (31 numbered snapshots plus this README; the timestamped release directory is not a file)

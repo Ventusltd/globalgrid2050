@@ -34,6 +34,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 import urllib.error
@@ -71,10 +72,10 @@ GRIDATLAS_CATALOGUE_ENTRY_RE = re.compile(
     r'(?P<checked_at>[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z)" \},'
 )
 
-GRIDATLAS_FOUNDATION_COUNT = 119
-# Filled from the canonical serialisation of the first 119 records (V1 through
-# V9.98).  Those records can never be rewritten to make room for a successor.
-GRIDATLAS_FOUNDATION_SHA256 = "20abd1d15b770655879ebdd5fbd032c06f361c62bddbd8fbbd8316fc66fa7b19"
+GRIDATLAS_FOUNDATION_COUNT = 124
+# Filled from the canonical serialisation of the first 124 records (V1 through
+# v9.103). Those records can never be rewritten to make room for a successor.
+GRIDATLAS_FOUNDATION_SHA256 = "acefa518ef976ebac963cc99c4313f8e3410b6754b0fbd310f88bd9556ac4f82"
 GRIDATLAS_AVAILABILITY = {
     "NONE",
     "SOURCE_ONLY",
@@ -106,7 +107,11 @@ class Failure(Exception):
 
 
 def fetch(url: str, timeout: int = 20) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": "globalgrid2050-publication-check/1"})
+    headers = {"User-Agent": "globalgrid2050-publication-check/1"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token and url.startswith(("https://api.github.com/", "https://raw.githubusercontent.com/")):
+        headers["Authorization"] = f"Bearer {token}"
+    request = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return response.read()
 
@@ -276,7 +281,7 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
             f"at least {GRIDATLAS_FOUNDATION_COUNT + 1}"
         )
     elif catalogue_digest(records[:GRIDATLAS_FOUNDATION_COUNT]) != GRIDATLAS_FOUNDATION_SHA256:
-        failures.append("the protected V1-to-V9.98 Grid Atlas catalogue foundation was rewritten")
+        failures.append("the protected V1-to-v9.103 Grid Atlas catalogue foundation was rewritten")
 
     for record in records:
         version = record["version"]
@@ -365,9 +370,13 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         record for record in records
         if record["availability"] == "WORKING_VERIFIED"
     ]
-    expected_working = [("v8", None), ("v9.103", "202609040058")]
+    expected_working = [
+        ("v8", None),
+        ("v9.103", "202609040058"),
+        ("v9.104", "202609040134"),
+    ]
     if [(record["version"], record["generation"]) for record in working_verified] != expected_working:
-        failures.append("only V8 and the mobile-browser-proven v9.103 release may be working-verified")
+        failures.append("only V8, v9.103 and v9.104 may carry their recorded mobile browser verification")
 
     current_records = [
         record for record in records
@@ -397,7 +406,7 @@ def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
         current_records[0]["availability"] != "WORKING_VERIFIED"
         or "mobile browser click verified at 393x852" not in current_records[0]["note"]
     ):
-        failures.append("the governed v9.103 route must carry its exact 393x852 browser-click proof")
+        failures.append("the governed v9.104 route must carry its exact 393x852 browser-click proof")
 
     rejected = [record for record in records if record["status"] == "REJECTED_PRE_PROMOTION"]
     expected_rejected = [

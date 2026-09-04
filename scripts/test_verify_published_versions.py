@@ -3,9 +3,12 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import verify_published_versions as verifier
@@ -15,18 +18,49 @@ VALID_HOMEPAGE = verifier.INDEX.read_text(encoding="utf-8")
 
 
 class GridAtlasHomepageIdentityTests(unittest.TestCase):
+    def test_pipeline_0144_wrapper_is_current_complete_and_hash_bound(self) -> None:
+        published = verifier.published_snapshots()
+        named = verifier.named_on_homepage(VALID_HOMEPAGE)
+        self.assertEqual("202609040144", published[-1])
+        self.assertEqual("202609040144", named[0])
+        self.assertEqual(sorted(published, reverse=True), named)
+
+        wrapper = verifier.SNAPSHOTS / "202609040144"
+        files = sorted(path for path in wrapper.rglob("*") if path.is_file())
+        self.assertEqual(64, len(files))
+        manifest = json.loads((wrapper / "release-manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual("202609040144-pipelinenews", manifest["release_id"])
+        self.assertEqual("202609040044-pipelinenews", manifest["parent_release_id"])
+        self.assertEqual(
+            "ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9",
+            manifest["atlas_receiver_commit"],
+        )
+
+        declared: dict[str, str] = {}
+        for line in (wrapper / "sha256sums.txt").read_text(encoding="utf-8").splitlines():
+            digest, relative = line.split("  ", 1)
+            declared[relative] = digest
+        actual_paths = {
+            path.relative_to(wrapper).as_posix()
+            for path in files
+            if path.name != "sha256sums.txt"
+        }
+        self.assertEqual(actual_paths, set(declared))
+        for relative, expected in declared.items():
+            self.assertEqual(expected, hashlib.sha256((wrapper / relative).read_bytes()).hexdigest())
+
     def test_complete_catalogue_and_current_identity_pass(self) -> None:
         report: dict = {}
         failures = verifier.check_gridatlas_homepage_identity(VALID_HOMEPAGE, report)
         self.assertEqual([], failures)
         self.assertEqual(report["gridatlas_named"], report["gridatlas_os_strip"])
-        self.assertEqual(124, report["gridatlas_catalogue_count"])
+        self.assertEqual(125, report["gridatlas_catalogue_count"])
         self.assertEqual(
-            {"generation": "202609040047", "version": "v9.102"},
+            {"generation": "202609040058", "version": "v9.103"},
             report["gridatlas_previous"],
         )
         self.assertEqual(
-            {"LIVE": 8, "ARCHIVED": 109, "REJECTED_PRE_PROMOTION": 3, "MISSING": 4},
+            {"LIVE": 9, "ARCHIVED": 109, "REJECTED_PRE_PROMOTION": 3, "MISSING": 4},
             report["gridatlas_catalogue_status_counts"],
         )
         self.assertEqual(
@@ -36,15 +70,15 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
                 "NONE": 4,
                 "REACHABLE_UNVERIFIED": 13,
                 "SOURCE_ONLY": 2,
-                "WORKING_VERIFIED": 2,
+                "WORKING_VERIFIED": 3,
             },
             report["gridatlas_catalogue_availability_counts"],
         )
 
     def test_stale_reader_identity_fails(self) -> None:
         invalid = VALID_HOMEPAGE.replace(
-            "UK Grid Atlas V9.103 — Current Release (Working Verified)</a>"
-            '<span class="live-status">202609040058',
+            "UK Grid Atlas V9.104 — Current Release (Working Verified)</a>"
+            '<span class="live-status">202609040134',
             "UK Grid Atlas V9.86 — Current Release (Working Verified)</a>"
             '<span class="live-status">202609030200',
             1,
@@ -75,7 +109,7 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
         )
         failures = verifier.check_gridatlas_homepage_identity(invalid, {})
         self.assertIn(
-            "the protected V1-to-V9.98 Grid Atlas catalogue foundation was rewritten",
+            "the protected V1-to-v9.103 Grid Atlas catalogue foundation was rewritten",
             failures,
         )
 
@@ -90,13 +124,13 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
 
     def test_future_version_requires_promotion_first(self) -> None:
         future = (
-            '  { name:"UK Grid Atlas V9.104 - 202609040104 -- Archived Evidence", '
+            '  { name:"UK Grid Atlas V9.105 - 202609040145 -- Archived Evidence", '
             'url:"https://example.invalid/manifest.json", '
-            'note:"ARCHIVED | MANIFEST EVIDENCE | generation 202609040104 | '
+            'note:"ARCHIVED | MANIFEST EVIDENCE | generation 202609040145 | '
             'source commit 3506bfb2b4d298e6bb00132c05467d67a71e89af | '
             'checked_at 2026-09-04T00:40:53Z | '
             'immutable composition evidence; not a runnable application", '
-            'data_gridatlas_catalogue:"v9.104|202609040104|ARCHIVED|MANIFEST_EVIDENCE|'
+            'data_gridatlas_catalogue:"v9.105|202609040145|ARCHIVED|MANIFEST_EVIDENCE|'
             '3506bfb2b4d298e6bb00132c05467d67a71e89af|2026-09-04T00:40:53Z" },\n'
         )
         invalid = VALID_HOMEPAGE.replace(
@@ -111,19 +145,20 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
         self.assertIn('r.url?`<a href="${encodeURI(r.url)}">', VALID_HOMEPAGE)
         self.assertIn('class="missing-entry" aria-disabled="true"', VALID_HOMEPAGE)
         self.assertIn("details.nest ul.drawer li { overflow-wrap:anywhere; }", VALID_HOMEPAGE)
-        self.assertNotIn("v9.104", VALID_HOMEPAGE.lower())
+        self.assertNotIn("v9.105", VALID_HOMEPAGE.lower())
 
-    def test_working_claim_is_limited_to_browser_proven_v8_and_v9103(self) -> None:
+    def test_working_claim_is_limited_to_browser_proven_versions(self) -> None:
         failures: list[str] = []
         records = verifier.parse_gridatlas_catalogue(VALID_HOMEPAGE, failures)
         self.assertEqual([], failures)
         working = [record for record in records if record["availability"] == "WORKING_VERIFIED"]
         self.assertEqual(
-            [("v8", None), ("v9.103", "202609040058")],
+            [("v8", None), ("v9.103", "202609040058"), ("v9.104", "202609040134")],
             [(record["version"], record["generation"]) for record in working],
         )
         self.assertIn("mobile browser click verified: Tesco produced [OK]", working[0]["note"])
         self.assertIn("mobile browser click verified at 393x852", working[1]["note"])
+        self.assertIn("mobile browser click verified at 393x852", working[2]["note"])
 
     def test_known_failures_rejected_candidates_and_current_proof_are_explicit(self) -> None:
         failures: list[str] = []
@@ -142,12 +177,79 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
         ]
         self.assertTrue(all(record["status"] == "REJECTED_PRE_PROMOTION" for record in rejected))
         self.assertTrue(all("never live" in record["note"] for record in rejected))
-        current = by_identity[("v9.103", "202609040058")]
+        previous = by_identity[("v9.103", "202609040058")]
+        self.assertEqual("WORKING_VERIFIED", previous["availability"])
+        current = by_identity[("v9.104", "202609040134")]
         self.assertEqual("WORKING_VERIFIED", current["availability"])
-        self.assertEqual("03ac1fd5b094c59e21b311a7978c954111d3e330", current["commit"])
+        self.assertEqual("ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9", current["commit"])
         self.assertTrue(all(record["checked_at"] for record in records))
         self.assertNotIn("Current Verified Release", VALID_HOMEPAGE)
         self.assertNotIn("LIVE VERIFIED · immutable timestamped release", VALID_HOMEPAGE)
+
+    def test_all_124_prior_rows_are_byte_for_byte_preserved(self) -> None:
+        failures: list[str] = []
+        current = verifier.parse_gridatlas_catalogue(VALID_HOMEPAGE, failures)
+        snapshot_text = (verifier.HOMEPAGE_VERSIONS / "homepage_v031.html").read_text(encoding="utf-8")
+        snapshot = verifier.parse_gridatlas_catalogue(snapshot_text, failures)
+        self.assertEqual([], failures)
+        self.assertEqual(124, len(snapshot))
+        self.assertEqual(snapshot, current[:124])
+
+        def exact_rows(text: str) -> list[str]:
+            match = verifier.GRIDATLAS_CATALOGUE_BLOCK_RE.search(text)
+            self.assertIsNotNone(match)
+            return [
+                line
+                for line in match.group("body").splitlines()
+                if "data_gridatlas_catalogue:" in line
+            ]
+
+        snapshot_rows = exact_rows(snapshot_text)
+        current_rows = exact_rows(VALID_HOMEPAGE)
+        self.assertEqual(124, len(snapshot_rows))
+        self.assertEqual(125, len(current_rows))
+        self.assertEqual(snapshot_rows, current_rows[:124])
+
+    def test_github_token_is_scoped_to_github_api_and_raw_hosts(self) -> None:
+        seen: list[tuple[str, dict[str, str]]] = []
+
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            @staticmethod
+            def read() -> bytes:
+                return b"ok"
+
+        def fake_urlopen(request, timeout):
+            seen.append(
+                (
+                    request.full_url,
+                    {name.lower(): value for name, value in request.header_items()},
+                )
+            )
+            self.assertEqual(20, timeout)
+            return Response()
+
+        urls = (
+            "https://api.github.com/repos/Ventusltd/gridatlas/commits/main",
+            "https://raw.githubusercontent.com/Ventusltd/gridatlas/main/atlas/current.json",
+            "https://ventusltd.github.io/gridatlas/atlas/current.json",
+        )
+        with mock.patch.dict(verifier.os.environ, {"GITHUB_TOKEN": "unit-token"}), mock.patch.object(
+            verifier.urllib.request,
+            "urlopen",
+            side_effect=fake_urlopen,
+        ):
+            for url in urls:
+                self.assertEqual(b"ok", verifier.fetch(url))
+
+        self.assertEqual("Bearer unit-token", seen[0][1].get("authorization"))
+        self.assertEqual("Bearer unit-token", seen[1][1].get("authorization"))
+        self.assertNotIn("authorization", seen[2][1])
 
     def test_automation_markers_v8_sentinel_and_areas_wiring_fail_closed(self) -> None:
         cases = (

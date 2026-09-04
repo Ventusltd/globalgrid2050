@@ -109,7 +109,7 @@ jobs:
   verify_v9_7_candidate:
     runs-on: ubuntu-latest
     needs: [build, deploy]
-    timeout-minutes: 8
+    timeout-minutes: 20
     steps:
       - name: Checkout deployed commit
         uses: actions/checkout@v4

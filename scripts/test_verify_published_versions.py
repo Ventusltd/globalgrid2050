@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -339,6 +340,58 @@ class GridAtlasHomepageIdentityTests(unittest.TestCase):
                 invalid = VALID_HOMEPAGE.replace(token, "REMOVED_REQUIRED_TOKEN", 1)
                 failures = verifier.check_gridatlas_homepage_identity(invalid, {})
                 self.assertTrue(any(expected in failure for failure in failures))
+
+
+class WorkflowExecutionBudgetTests(unittest.TestCase):
+    def test_pinned_playwright_install_jobs_have_viable_timeouts(self) -> None:
+        workflows = verifier.ROOT / ".github" / "workflows"
+        browser_jobs: dict[tuple[str, str], int] = {}
+        job_header = re.compile(r"^  ([A-Za-z0-9_-]+):\s*$")
+        timeout_line = re.compile(r"^    timeout-minutes:\s*([0-9]+)\s*$", re.MULTILINE)
+
+        paths = sorted((*workflows.glob("*.yml"), *workflows.glob("*.yaml")))
+        for path in paths:
+            lines = path.read_text(encoding="utf-8").splitlines()
+            try:
+                jobs_line = lines.index("jobs:")
+            except ValueError:
+                continue
+            starts = [
+                (index, match.group(1))
+                for index, line in enumerate(lines[jobs_line + 1 :], jobs_line + 1)
+                if (match := job_header.fullmatch(line))
+            ]
+            for position, (start, job_name) in enumerate(starts):
+                end = starts[position + 1][0] if position + 1 < len(starts) else len(lines)
+                block = "\n".join(lines[start:end])
+                if "playwright install --with-deps" not in block:
+                    continue
+                timeouts = timeout_line.findall(block)
+                relative = path.relative_to(verifier.ROOT).as_posix()
+                self.assertEqual(
+                    1,
+                    len(timeouts),
+                    f"{relative}:{job_name} must declare exactly one job timeout",
+                )
+                timeout = int(timeouts[0])
+                browser_jobs[(relative, job_name)] = timeout
+                self.assertGreaterEqual(
+                    timeout,
+                    12,
+                    f"{relative}:{job_name} cannot fit a pinned --with-deps install and proof",
+                )
+
+        raised_after_observed_timeout = {
+            (".github/workflows/deploy-pages.yml", "verify_v9_7_candidate"),
+            (".github/workflows/v7-north-star.yml", "validate"),
+            (".github/workflows/v9-3-validate.yml", "validate"),
+            (".github/workflows/v9-4-validate.yml", "validate"),
+            (".github/workflows/v9-6-validate.yml", "validate"),
+        }
+        self.assertEqual(
+            {job: 20 for job in raised_after_observed_timeout},
+            {job: browser_jobs.get(job) for job in raised_after_observed_timeout},
+        )
 
 
 if __name__ == "__main__":

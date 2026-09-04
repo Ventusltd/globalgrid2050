@@ -49,6 +49,11 @@ GRIDATLAS_ROW_RE = re.compile(
     r"GRIDATLAS_V9_AUTOMATION_START.*?data_gridatlas_release:\"([0-9]{12})-gridatlas-(v[0-9.]+)\".*?GRIDATLAS_V9_AUTOMATION_END",
     re.S,
 )
+GRIDATLAS_OS_STRIP_RE = re.compile(
+    r'<div class="os-strip"><a href="https://ventusltd\.github\.io/gridatlas/atlas/">'
+    r'UK Grid Atlas (V[0-9.]+) — Current Verified Release</a>'
+    r'<span class="live-status">([0-9]{12})\b'
+)
 
 PIPELINENEWS_RAW = "https://raw.githubusercontent.com/Ventusltd/pipelinenews/main"
 GRIDATLAS_CURRENT = "https://raw.githubusercontent.com/Ventusltd/gridatlas/main/atlas/current.json"
@@ -94,6 +99,47 @@ def named_on_homepage(text: str) -> list[str]:
     return SNAPSHOT_URL_RE.findall(text)
 
 
+def check_gridatlas_homepage_identity(text: str, report: dict) -> list[str]:
+    """Require the two reader-visible Grid Atlas identities to agree exactly."""
+    failures: list[str] = []
+    governed = GRIDATLAS_ROW_RE.findall(text)
+    strips = GRIDATLAS_OS_STRIP_RE.findall(text)
+
+    if len(governed) != 1:
+        failures.append(
+            "the GRIDATLAS_V9_AUTOMATION block must carry exactly one "
+            f"data_gridatlas_release; found {len(governed)}"
+        )
+    if len(strips) != 1:
+        failures.append(
+            "the homepage must carry exactly one Grid Atlas os-strip identity; "
+            f"found {len(strips)}"
+        )
+
+    if len(governed) == 1:
+        report["gridatlas_named"] = {
+            "generation": governed[0][0],
+            "version": governed[0][1],
+        }
+    if len(strips) == 1:
+        report["gridatlas_os_strip"] = {
+            "generation": strips[0][1],
+            "version": strips[0][0].lower(),
+        }
+
+    if len(governed) == 1 and len(strips) == 1:
+        governed_identity = (governed[0][0], governed[0][1].lower())
+        strip_identity = (strips[0][1], strips[0][0].lower())
+        if strip_identity != governed_identity:
+            failures.append(
+                "the Grid Atlas os-strip names "
+                f"{strip_identity[1]} / {strip_identity[0]} while the governed row names "
+                f"{governed_identity[1]} / {governed_identity[0]}"
+            )
+
+    return failures
+
+
 def check_offline(report: dict) -> list[str]:
     failures: list[str] = []
     text = INDEX.read_text(encoding="utf-8")
@@ -129,11 +175,7 @@ def check_offline(report: dict) -> list[str]:
         report["newest_published"] = newest_published
         report["presented_first"] = named[0]
 
-    match = GRIDATLAS_ROW_RE.search(text)
-    if not match:
-        failures.append("the GRIDATLAS_V9_AUTOMATION block no longer carries a data_gridatlas_release")
-    else:
-        report["gridatlas_named"] = {"generation": match.group(1), "version": match.group(2)}
+    failures += check_gridatlas_homepage_identity(text, report)
 
     return failures
 

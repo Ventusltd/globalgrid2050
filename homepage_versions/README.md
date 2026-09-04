@@ -982,3 +982,30 @@ printed on.
 Folder file count after this snapshot:
 
 29 files
+
+## Version 028
+
+Version: `homepage_v028.html`
+Source: live `index.html` at commit `7d00781b6993b9038a1a8bedf2c88a4eb0109ad4`
+Purpose: restore point taken before aligning the stale Grid Atlas banner with the governed v9.99 row.
+Measured by: Codex working session
+
+Metrics for `homepage_v028.html`:
+
+Line count: 214
+Word count: 4867
+Character count: 39499
+Byte count: 39842
+SHA-256 (first 16): 103915690252df0f
+
+Plain-English change intention:
+
+Only the reader-facing Grid Atlas banner changes: V9.86 / 202609030200 becomes
+V9.99 / 202609032315 so it agrees with the governed current-release row. The
+governed row, its measurement prose, all other names and notes, every prior
+homepage snapshot, the V8 sentinel and route, and both Grid Atlas automation
+markers remain unchanged. `AREAS` is re-evaluated but not rewritten.
+
+Folder file count after this snapshot:
+
+29 files (28 numbered snapshots plus this README; the timestamped release directory is not a file)

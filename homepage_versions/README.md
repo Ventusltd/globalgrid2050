@@ -1416,3 +1416,32 @@ and rejects deletion, reordering or any other retained-row rewrite.
 Folder file count after this snapshot:
 
 35 files (34 numbered snapshots plus this README; the timestamped release directory is not a file)
+
+
+---
+
+## homepage_v035.html
+
+Line count: 352
+Word count: 9662
+Character count: 111720
+SHA-256 (first 16): 0cbb249849180a68
+
+Plain-English change intention:
+
+Two lines change, nothing else, and the diff against this snapshot shows only those two.
+
+The homepage moves to its own repository. `globalgrid2050-hompage` was misspelled and has
+been retired to a redirect; its 59 commits are merged into `globalgrid2050-homepage`. The
+menu row that pointed at the misspelled URL now points at the correct one, drops the
+"NEW PENDING" prefix and carries `note:"live"`.
+
+One `.primary-link` is added above "How to Work with GlobalGrid2050", so the handover is
+visible without searching for it. No new CSS: the class already exists.
+
+This page stays as the record. The Grid Atlas automation block, its START/END markers and
+the V8 entry are untouched.
+
+Folder file count after this snapshot:
+
+37 files

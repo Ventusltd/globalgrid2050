@@ -4,8 +4,14 @@
   "session": {
     "started_utc": "2026-09-05T01:20:00Z",
     "lanes": [
-      { "lane": "A", "owns": "globalgrid2050, gridatlas, ventus-grid-engine, claude" },
-      { "lane": "B", "owns": "pipelinenews" }
+      {
+        "lane": "A",
+        "owns": "globalgrid2050, gridatlas, ventus-grid-engine, claude"
+      },
+      {
+        "lane": "B",
+        "owns": "pipelinenews"
+      }
     ]
   },
   "entries": [
@@ -64,10 +70,58 @@
       "commit": "built, not yet pushed",
       "what": "v9.117 generation 202609050227. The map attribution moves off the map into About, last and in small print - on a 393x852 phone it had been overlapping the EDIT menu's own controls. About gains an Estate group; File lists the engine's canonical modules, fetched from the engine's own published graph so the menu cannot drift from the mathematics it names.",
       "verified": "24/24 on a proof made to fail first; 779/780 on the full suite; the outstanding one is the mobile browser gate"
+    },
+    {
+      "utc": "202609050238",
+      "lane": "A",
+      "repo": "gridatlas",
+      "commit": "54438ef",
+      "what": "v9.117. The map attribution leaves the map for About, last and in small print. About gains an Estate group. File lists the engine modules. A bug of mine that the gate caught first: adoptLate runs from a MutationObserver, so re-appending on every pass was a feedback loop that crashed the renderer; the previous generation passed the same gate in the same harness, which is how it was pinned on me rather than the environment.",
+      "verified": "proof 25/25 made to fail first; full suite green; 393x852 arrival gate earned"
+    },
+    {
+      "utc": "202609050244",
+      "lane": "A",
+      "repo": "gridatlas",
+      "commit": "9c1ed59",
+      "what": "v9.118. All 44 nodes the engine graph publishes are listed, grouped canonical / extract / reference / fragment, not the 11 canonical only - every .mjs in the estate sat in the three groups the filter had thrown away. One row hands over a command that runs, copied to the clipboard and never executed.",
+      "verified": "proof 29/29; suite green; gate earned on this generation"
+    },
+    {
+      "utc": "202609050249",
+      "lane": "A",
+      "repo": "gridatlas",
+      "commit": "100d206",
+      "what": "v9.119. Measured, then claimed: the engine declares no dependencies and no proof in it opens a socket, so its 133 checks run from a clone offline. The command shipped an hour earlier said npm install, which implied a dependency that does not exist.",
+      "verified": "proof 30/30; suite green; gate earned"
+    },
+    {
+      "utc": "202609050205",
+      "lane": "B",
+      "repo": "pipelinenews",
+      "commit": "e4f32ae4",
+      "what": "WIDER FLEET, the other-technologies control, returned other technologies: with LANDFILL GAS chosen, sorting by county gave 24 solar, 45 battery, 31 onshore and 0 landfill gas under a counter reading 7,680 of 7,680. Five controls did it.",
+      "verified": "6 of 6 leaking to 0 of 6, live"
+    },
+    {
+      "utc": "202609050216",
+      "lane": "B",
+      "repo": "pipelinenews",
+      "commit": "1b51cf26",
+      "what": "The shared pager named a window it did not move - 1-50 of 275 becoming 101-200 of 7,680 - and said PREVIOUS 50 while moving 100.",
+      "verified": "0 leaks, live"
+    },
+    {
+      "utc": "202609050233",
+      "lane": "B",
+      "repo": "pipelinenews",
+      "commit": "347d93fa",
+      "what": "2,416 of 7,680 records, 31.5 per cent of the register, sat in ten REPD statuses no control could select. Loaded, searchable, sortable, in the CSV - and unselectable.",
+      "verified": "reachable 5,264 to 7,680, unreachable to 0, live"
     }
   ],
   "open": [
-    "The mobile arrival gate (393x852) crashes the renderer under Playwright when the build is served locally, while the same harness against the live Atlas completes in 6 seconds. Being diagnosed against the previous generation as a control before anything is concluded.",
+    "Berwick Bank Offshore Wind Farm does not complete the nearest-grid view in Pipeline News. Queued 202609050255, not yet investigated.",
     "V9.5.1, V9.6.1, V9.6.2 and V9.7 exact-commit gates fail for a reason that is not any commit: the fixture's news scoring ages, recency 10 -> 8 and confidence 91 -> 89. A gate whose expectation moves with the clock fails on every push until the clock is frozen for the fixture.",
     "Verify published versions are reachable was already failing before this session."
   ]

@@ -1504,3 +1504,7 @@ Restore-point workflow33991696513 passed on the exact source commit before this 
 ### homepage_v055.html ? review checkpoint board restore point
 
 Saved before the static 8/96 identity-checkpoint board and calendar clocks. No application release was promoted. Measurements and source identity are in homepage_v055-measurement.json.
+
+### homepage_v056.html ? minute clock restore point
+
+Saved before adding the millisecond calendar counter. Review snapshot and product links remain unchanged. See homepage_v056-measurement.json.

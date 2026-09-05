@@ -211,7 +211,6 @@
 <h3>[ CALENDAR CLOCK ]</h3>
 <p id="precision-calendar">Calendar countdown requires JavaScript.</p>
 <p id="precision-today"></p>
-<p id="precision-minute" aria-live="off"></p>
 <p class="precision-note">Target: 1 January 2050, 00:00 UTC. Weeks and months are approximate calendar equivalents. Clock bars show elapsed calendar time, never work completion.</p>
 </section>
 <style>
@@ -230,8 +229,6 @@ function update(){const now=Date.now(),left=Math.max(0,target-now),days=left/864
 document.getElementById('precision-calendar').textContent=bar((now-start)/(target-start))+' TO 2050: '+Math.ceil(days).toLocaleString('en-GB')+' days | ~'+(days/7).toFixed(1)+' weeks | ~'+(days/(365.2425/12)).toFixed(1)+' months';
 document.getElementById('precision-today').textContent=bar((now-begin)/(end-begin))+' LONDON TODAY: '+Math.max(0,Math.ceil((end-now)/60000))+' minutes remaining';}
 update();setInterval(update,30000);
-const reduced=matchMedia('(prefers-reduced-motion: reduce)');let last=0;
-function minuteClock(t){if(t-last>=(reduced.matches?1000:33)){const remaining=60000-(Date.now()%60000);document.getElementById('precision-minute').textContent=bar(1-remaining/60000)+' THIS MINUTE: '+String(remaining).padStart(5,'0')+' ms remaining';last=t;}requestAnimationFrame(minuteClock);}requestAnimationFrame(minuteClock);
 })();
 </script>
 <!-- precision-board:end -->

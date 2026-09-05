@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="icon" href="data:,">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Test Code 202609051958 · GlobalGrid2050 | UK Renewables Pipeline V9.7</title>
+  <!-- The deep-link contract this page verifies its MAP receiver against lives
+       on a second origin. Nothing waits on that request any more, but it still
+       costs DNS + TCP + TLS on a cold mobile radio the first time it is made;
+       starting the handshake here overlaps it with the project payload instead
+       of paying for it in series. -->
+  <link rel="preconnect" href="https://ventusltd.github.io" crossorigin>
+  <link rel="stylesheet" href="styles/v7.css?v=9.7">
+  <link rel="stylesheet" href="styles/mobile.css?v=9.7">
+  <link rel="stylesheet" href="styles/v9-3.css?v=9.7">
+  <link rel="stylesheet" href="styles/v9-4.css?v=9.7">
+  <link rel="stylesheet" href="styles/v9-5-1.css?v=9.7">
+  <link rel="stylesheet" href="styles/v9-6-1.css?v=9.7">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="styles/testcode.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <b>GLOBALGRID2050</b>
+      <small>UK RENEWABLES PIPELINE · V9.7</small>
+    </div>
+    <nav aria-label="Version comparison" class="testcode-nav"><a href="../">Test Code 202609051958</a><a href="/uk_renewables_pipeline/v9.7/">Claude current Pipeline</a><a href="../atlas/" id="mapAtlasNav">Test Code Atlas</a><button type="button" id="export">Export CSV</button></nav>
+  </aside>
+  <main class="main">
+    <div class="header">
+      <h1>UK RENEWABLES PIPELINE V9.7</h1>
+      <div class="status">● 133 HEADLINES · 45 UK · 19 INTERNATIONAL · FULL ≥1 MW</div>
+    </div>
+    <div class="meta">
+      <strong>V9.7 · AUDITABLE REGIONAL NEWS · CANDIDATE · 24 August 2026</strong>
+      <span>Canonical DESNZ REPD Q2 2026: 7,680 solar, BESS and wind records at ≥1 MW.</span>
+      <span id="releaseMeta" class="release-meta">Loading canonical release contract…</span>
+      <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
+    </div>
+
+    <section class="newspaper">
+      <div class="masthead">
+        <h2>GLOBALGRID2050 <span>ENERGY DAILY</span></h2>
+        <div class="strap">
+          <span>UK requires canonical REPD binding · INTERNATIONAL is read from a committed build-time decision ledger · regional items never drive REPD project signals</span>
+          <span id="newsMeta">loading daily edition…</span>
+        </div>
+      </div>
+      <div class="news-tools" id="newsTools">
+        <button class="active" data-news="ALL">ALL</button>
+        <button data-news="UK">UK</button>
+        <button data-news="INTERNATIONAL">INTERNATIONAL</button>
+        <button data-news="US">US</button>
+        <button data-news="EUROPE">EUROPE</button>
+        <button data-news="SOLAR">SOLAR</button>
+        <button data-news="BESS">BESS</button>
+        <button data-news="CONSENT">CONSENT</button>
+        <button data-news="CONSTRUCTION">CONSTRUCTION</button>
+        <button data-news="OPERATIONAL">OPERATIONAL</button>
+        <button data-news="FINANCE">FINANCE / M&amp;A</button>
+        <input id="newsSearch" placeholder="SEARCH HEADLINES / PROJECT / OPERATOR">
+      </div>
+      <div class="paper">
+        <div class="stories" id="stories">
+          <div class="news-empty">Loading today’s major-project newspaper…</div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">REPD PIPELINE ANALYTICS</h2>
+    <div class="gauges">
+      <div class="card">
+        <h3>FILTERED CAPACITY (MW)</h3>
+        <div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
+      </div>
+      <div class="card">
+        <h3>FILTERED PROJECTS (≥1MW)</h3>
+        <div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
+      </div>
+      <div class="card">
+        <h3>LARGEST SINGLE SITE (MW)</h3>
+        <div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+      </div>
+    </div>
+
+    <div class="filters" id="tech">
+      <button class="btn active" data-technology="all" aria-pressed="true">ALL TECH</button>
+      <button class="btn" data-technology="solar" aria-pressed="false">SOLAR</button>
+      <button class="btn" data-technology="bess" aria-pressed="false">BATTERY</button>
+      <button class="btn" data-technology="wind_onshore" aria-pressed="false">ONSHORE</button>
+      <button class="btn" data-technology="wind_offshore" aria-pressed="false">OFFSHORE</button>
+    </div>
+    <div class="filters" id="status">
+      <button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
+      <button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
+      <button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
+      <button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
+      <button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
+    </div>
+    <div class="filters">
+      <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
+      <select id="sortProjects" aria-label="Sort projects">
+        <option value="capacity_desc">SORT: CAPACITY (DEFAULT)</option>
+        <option value="updated_desc">SORT: REPD UPDATED — NEWEST</option>
+        <option value="updated_asc">SORT: REPD UPDATED — OLDEST</option>
+      </select>
+      <input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
+      <button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
+      <button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
+      <span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+      <span id="exportMeta" class="export-meta">CSV contains the current filtered rows only</span>
+    </div>
+    <div class="meta">
+      <strong>STATUS DISCIPLINE</strong>
+      <span><b>DEFAULT:</b> every qualifying ≥1 MW record is loaded. Filters are user controls; they never redefine or truncate the pipeline.</span>
+      <span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>
+      <span><b>ATLAS:</b> valid geometry resolves the exact REPD Ref. Records without REPD geometry remain in search and CSV. Morgan MAP uses an attributed approximate Crown Estate lease-area centre; other unresolved locations open DETAILS.</span>
+    </div>
+    <nav id="projectPagination" aria-label="Project pages"></nav>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SITE NAME</th>
+            <th class="hide-mobile">COUNTY</th>
+            <th class="hide-mobile">OPERATOR</th>
+            <th>TECHNOLOGY</th>
+            <th>OFFICIAL REPD STATUS</th>
+            <th>OFFICIAL CAPACITY</th>
+            <th class="hide-mobile">REPD REF</th>
+            <th class="hide-mobile">GLOBALGRID REF</th>
+            <th class="hide-mobile repd-updated-heading" id="repdUpdatedHeader" aria-sort="none">
+              <button id="sortUpdated" type="button" aria-label="Sort by REPD updated date, newest first">
+                REPD UPDATED <span id="updatedSortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th>NEWS SIGNAL</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"><tr><td colspan="11" role="status">Loading project records…</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+  <script type="module" src="scripts/app-v9-7.js?v=9.7"></script>
+  <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.7"></script>
+<script type="module" src="./teleprinter-bootstrap.js"></script>
+</body>
+</html>

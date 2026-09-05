@@ -166,13 +166,63 @@
       "commit": "73f916c",
       "what": "The test code engine. Offline gates on the machine first, network only if they pass, nothing published from it. It found two faults in itself on the first run: both the menus driver and the runner measured a gridatlas clone parked on a candidate branch and reported about bytes nobody asked about. Both now prefer main and name the branch they read.",
       "verified": "grid-engine PASS 133 checks; gridatlas-composition PASS; menus 5/5; cvaa FAIL as registered"
+    },
+    {
+      "utc": "202609050345",
+      "lane": "A",
+      "repo": "seven repositories",
+      "commit": "licence",
+      "what": "Apache-2.0 applied to gridatlas, ventus-grid-engine, pipelinenews, spiders, testcode, grid-distance-maths and globalgrid2050-homepage. Until now the default was all-rights-reserved, so nobody could lawfully adopt what the estate asks the world to adopt. Data and document repositories were deliberately excluded: they carry REPD, NESO ETYS and OpenStreetMap material that is not the rights holder’s to license, and a licence granted over material that was never the licensor’s to grant is worth nothing to the adopter who relied on it.",
+      "verified": "GitHub own licence detection reports Apache-2.0 on all seven"
+    },
+    {
+      "utc": "202609050350",
+      "lane": "A",
+      "repo": "testcode",
+      "commit": "04f7135",
+      "what": "The link-target driver: every place the estate builds a project deep link, and which receiver it lands on. It found 64 sites naming the retired V8 receiver - 10 live, 54 immutable history. Its first version failed all 64 and would have stayed red for ever, demanding that dated publications be rewritten; history is classified and reported now, and only what is live has to be right.",
+      "verified": "10 live sites failing, which is the gate working"
+    },
+    {
+      "utc": "202609050354",
+      "lane": "A",
+      "repo": "gridatlas",
+      "commit": "18cffd5",
+      "what": "v9.121. Print the view as a slide, or save it as an image, from the File menu. The map is a WebGL canvas without preserveDrawingBuffer, so a read outside a render frame returns a transparent image that still encodes to a valid PNG and downloads happily: the capture is taken inside a render frame and sampled for non-transparent pixels before it is offered. The print sizes to whatever paper and orientation the reader chose rather than the A4 landscape the first cut forced. Both paths carry the attribution, because credit must travel with the artefact that leaves the building.",
+      "verified": "proof 44/44; suite green; 393x852 gate earned on this generation"
+    },
+    {
+      "utc": "202609050400",
+      "lane": "A",
+      "repo": "testcode",
+      "commit": "5bcd746",
+      "what": "All 7,680 published REPD rows audited offline against the engine contract: 7,680 carry an identity, 7,652 linkable, 28 without geometry - exactly the counts the release contract declares - every link on the canonical receiver, none on a retired one, and the 28 correctly given no link rather than one that lands on the map default view.",
+      "verified": "10/10"
+    },
+    {
+      "utc": "202609050405",
+      "lane": "B",
+      "repo": "pipelinenews",
+      "commit": "5fa6ebf7",
+      "what": "The MAP button fixed across all seven v9.7 plugin generations, routed through one module that holds no URL and reads the receiver contract. The 28 coordinate-less rows now get a working button plus a sentence in the cell - not a tooltip, which a phone cannot reach - saying REPD published no coordinate.",
+      "verified": "served bytes carry zero mentions of the retired route; live arrival computes BRAINTREE 9.44 km, 400/132 kV, NGET for Longfield REPD 8162"
+    },
+    {
+      "utc": "202609050410",
+      "lane": "A",
+      "repo": "testcode",
+      "commit": "882e86c",
+      "what": "A mention is not a link. Lane B caught the driver flagging files that name the retired route in order to assert its absence - a proof saying \"this must never appear\" reported as the very thing it prevents, which is how a gate teaches people to ignore it.",
+      "verified": "5/5, and the gate flipped from 10 failing sites to green on Lane B fix"
     }
   ],
   "open": [
-    "Berwick Bank Offshore Wind Farm does not complete the nearest-grid view in Pipeline News. Queued 202609050255, not yet investigated.",
-    "A licence. Eight of ten core repositories carry no licence file, so nobody can lawfully adopt what the estate asks the world to adopt. It is one file per repository and the choice is the rights holder's alone.",
-    "Still undone from tonight: the MAP button, the poly zone, the cards obstructing a deep-link arrival, and the REPD deep-link sweep - whose harness exists but has never been run and reads the wrong corpus file.",
-    "V9.5.1, V9.6.1, V9.6.2 and V9.7 exact-commit gates fail for a reason that is not any commit: the fixture's news scoring ages, recency 10 -> 8 and confidence 91 -> 89. A gate whose expectation moves with the clock fails on every push until the clock is frozen for the fixture.",
-    "Verify published versions are reachable was already failing before this session."
+    "Not started: the end-owner scope feature - a menu button to click anywhere and analyse nearby substations, and adding substations for optioneering. Decided: session-only, never persisted and never carried in a deep link, so a speculative asset can never be mistaken for a published one.",
+    "The kernel at registry_of_all_content_in_repos_and_dependencies is real but incomplete: generated 2026-08-31, 14 repos of the account’s 40, naming none of gridatlas, pipelinenews, ventus-grid-engine, cvaa, seed-data, studies, grid-distance-maths or testcode, and still listing globalgrid2050-hompage, which was retired to a redirect stub. testcode keeps a second registry; one of them should read the other.",
+    "v9.6.2 and every earlier published version still build MAP against the retired receiver - 54 sites, immutable history, correctly left alone. But v9.6.2 carries the LIVE VALIDATED label. Either the label moves or those pages keep a MAP button that computes nothing. A dated publication gets an erratum, not a rewrite, so this is the rights holder’s call.",
+    "Four exact-commit gates fail on a calendar boundary rather than on any commit: the fixture news scoring ages, recency 10 to 8 and confidence 91 to 89. They decay again on 2026-09-20 and 2026-11-19 and nobody is watching those dates.",
+    "The sizing double-count is served, not merely committed, byte-identical in five files. One figure to settle before any number is quoted: the brief says 211.2 where 105.6 is real, and the engine graph own evidence says the binding constraint is min(105.6, 52.8) = 52.8.",
+    "cvaa is registered in the test engine and is not green: selftest crashes on a Windows path fault, replay crashes when e.stdout is null, and the disk-is-not-what-ships antibody never sees .gitattributes.",
+    "Still undone from the night: the poly zone, the cards obstructing a deep-link arrival, and Berwick Bank not completing the nearest-grid view."
   ]
 }

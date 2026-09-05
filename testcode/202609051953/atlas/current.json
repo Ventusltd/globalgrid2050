@@ -1,0 +1,655 @@
+{
+  "schema": "gridatlas.current.v2",
+  "generation": "202609051953",
+  "previous_generation": "202609051948",
+  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
+  "live_route": "/testcode/202609051953/atlas/",
+  "release_id": "202608300453-atlas-v9",
+  "release_route": "/gridatlas/atlas/releases/202608300453-atlas-v9/",
+  "shell": {
+    "release_id": "202608300453-atlas-v9",
+    "index": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/index.html",
+    "base": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/"
+  },
+  "cartridge_order": [
+    "streaming-parquet-bridge",
+    "uk-gazetteer-flyto",
+    "substation-intelligence",
+    "sld-sandbox"
+  ],
+  "cartridges": [
+    {
+      "id": "streaming-parquet-bridge",
+      "generation": "202609051953",
+      "version": "v9.112",
+      "type": "script",
+      "slot": "replace-script",
+      "replace_script": "202608292311-maplibre-worker-bridge.js",
+      "path": "./cartridges/202609051953-streaming-parquet-bridge.js",
+      "sha256": "80ebac3061f634433554c6dc992b21a34405e5afd2a9b09f968086229b8d8b2c",
+      "contract": "../ui/cartridges/202608301825-streaming-parquet-bridge-v9-5.mjs",
+      "capabilities": [
+        "response-before-body-reconstruction",
+        "duckdb-runtime-prewarm-after-400kv",
+        "metro-partition-alias",
+        "parquet-on-demand-preserved",
+        "payload-cache-release-after-serialisation"
+      ],
+      "immutable_shell_modified": false
+    },
+    {
+      "id": "uk-gazetteer-flyto",
+      "generation": "202609051953",
+      "version": "testcode-202609051214",
+      "type": "script",
+      "slot": "replace-script",
+      "replace_script": "202608291818-place-postcode-search.js",
+      "path": "./cartridges/202609051953-uk-gazetteer-flyto.js",
+      "sha256": "ea193b7347ed222bca92c393256001047d198fae617483bacdb4d4a0540b7068",
+      "contract": "../ui/cartridges/202609040337-global-gazetteer-flyto-v9-106.mjs",
+      "capabilities": [
+        "exact-repd-first",
+        "uk-postcode",
+        "uk-place",
+        "global-address",
+        "global-place",
+        "deep-link-publishes-resolved-technology-and-capacity"
+      ],
+      "result_class": "LOCATION_ONLY",
+      "sets_deep_link": false
+    },
+    {
+      "id": "sld-sandbox",
+      "generation": "202609051953",
+      "version": "testcode-202609051300",
+      "type": "script",
+      "slot": "replace-script",
+      "replace_script": "202608292126-pre-snapped-config-adapter.js",
+      "path": "./cartridges/202609051953-sld-sandbox.js",
+      "sha256": "2a8cb3aa9c8bbe57b187c66ed05b34acef7d9c868e5f770321082c6c1921e9f2",
+      "capabilities": [
+        "pre-snapped-config-adapter-carried-forward",
+        "project-or-substation-selection",
+        "nearest-substations-33kv-and-above",
+        "nearest-projects-from-a-substation",
+        "distances-on-the-project-card",
+        "beta-scope-and-limits-stated-on-card",
+        "animated-scada-link-layer",
+        "reduced-motion-honoured",
+        "sld-layout-ported-from-gis-sld-financial-sandbox",
+        "string-and-central-sizing",
+        "bess-compound",
+        "33kv-collector-trunk-and-branches",
+        "export-cable-with-editable-route",
+        "drag-array-and-rotate-handle",
+        "electron-flow-on-collectors-and-cable",
+        "single-earth-radius-throughout",
+        "panel-clear-of-the-atlas-toolbar",
+        "deep-link-runs-the-same-measurement-as-a-click",
+        "substation-layer-auto-enabled-on-arrival",
+        "layout-opens-from-the-project-card",
+        "denser-electron-flow-two-layers",
+        "fit-array-to-the-registers-stated-capacity",
+        "ac-dc-basis-declared-not-assumed",
+        "ratio-mismatch-descriptive-not-graded",
+        "own-ui-clicks-do-not-reach-the-map",
+        "unloaded-layer-reported-as-unloaded",
+        "cards-drag-minimise-and-close",
+        "minimised-cards-stay-identifiable",
+        "card-bounded-to-the-map",
+        "layers-survive-fullscreen",
+        "project-pin-drawn-by-the-cartridge-not-a-layer",
+        "project-layer-enabled-on-arrival",
+        "pin-toggles-on-and-off-from-the-card",
+        "central-ac-is-the-limiting-nameplate-not-a-product",
+        "inverter-and-transformer-nameplates-reported-separately",
+        "mv-block-overload-detected-against-its-skid",
+        "project-marked-by-a-ring-not-a-second-dot",
+        "layer-control-found-by-data-layer-id",
+        "installs-without-a-painted-basemap",
+        "deep-link-waits-for-the-controls-it-ticks",
+        "boot-trigger-and-control-latency-published",
+        "says-what-it-is-waiting-for",
+        "retry-without-rebooting-the-engine",
+        "status-sized-for-a-phone-first",
+        "labels-take-their-font-from-the-style",
+        "no-glyphs-means-no-labels-not-an-exception-per-frame",
+        "glyph-range-pre-flighted-before-any-symbol-layer",
+        "card-geometry-is-per-selection",
+        "gb-decade-prices-beside-the-map",
+        "late-layer-controls-are-switched-on-not-abandoned",
+        "every-technology-the-register-uses",
+        "unknown-technology-asks-the-engine",
+        "offshore-measures-with-route-caveat",
+        "voltage-class-context-on-the-card",
+        "whole-generation-and-storage-dashboard-accepted",
+        "fit-moves-two-variables",
+        "dc-inverter-ac-and-export-kept-apart",
+        "dash-atlas-bounded-at-24-patterns",
+        "three-named-capacity-ratios",
+        "dash-written-only-when-it-changes",
+        "voltage-unit-from-the-property-not-the-magnitude",
+        "no-source-dereferenced-unchecked",
+        "pointer-events-for-card-and-panel",
+        "touch-drag-array-rotation-and-route",
+        "phone-portrait-and-landscape-bounded",
+        "44px-primary-touch-controls",
+        "array-inverter-and-export-ratios-rendered-separately",
+        "original-finance-oracle-parity",
+        "separate-string-central-finance",
+        "corrected-central-finance-divergence",
+        "mobile-collapsed-finance",
+        "visible-finance-assumptions",
+        "development-stage-updates-cost-and-success",
+        "separate-string-central-physical-state",
+        "mounting-preset-updates-bifacial-per-topology",
+        "original-central-input-defaults",
+        "one-bess-value-for-layout-and-finance",
+        "fractional-topology-counts-rejected",
+        "original-electrical-input-bounds",
+        "version-ledger-on-the-page",
+        "owner-v2-coverage-and-negative-share-verified",
+        "mobile-tray-tools-collapsed-on-touch",
+        "grid-and-subs-one-tap-on-the-map",
+        "arrival-by-identity-repd-ref-only",
+        "null-island-guard-on-deep-link-coordinates",
+        "arrival-enters-fullscreen-on-touch",
+        "identity-wait-until-terminal-not-budgeted",
+        "arrival-stages-surfaced-with-retry",
+        "measurement-block-kept-not-written-once",
+        "arrival-card-from-link-fields-when-register-absent",
+        "arrival-card-precedes-the-lines",
+        "declared-connections-bound-to-public-record",
+        "new-customer-substations-in-the-declared-chain",
+        "substation-works-noted-from-public-record",
+        "nearest-400kv-measured-for-every-project",
+        "recovered-failures-ledgered-separately",
+        "consented-works-quoted-on-the-declared-card",
+        "nearest-named-400kv-companion-measurement",
+        "measurement-independent-of-layer-controls",
+        "substation-payload-warmed-at-install",
+        "declared-connection-shown-before-measurement",
+        "project-ring-drawn-on-arrival-not-after-the-payload",
+        "pink-for-a-point-of-connection-not-yet-built",
+        "declared-circuit-connections-draw-no-line",
+        "little-crow-distribution-loop-archetype",
+        "published-network-parameters-on-the-card",
+        "subs-control-found-by-attribute-not-label-text",
+        "active-failures-recorded-once",
+        "network-sentence-scope-labelled",
+        "grid-finding-scope-on-a-blank-click",
+        "scope-never-implies-capacity",
+        "assembled-from-modules-and-a-body-part",
+        "connection-voltage-passed-to-the-network-query"
+      ],
+      "immutable_shell_modified": false,
+      "supersedes_shell_script": {
+        "name": "202608292126-pre-snapped-config-adapter.js",
+        "sha256": "e5de4131cefe26415afe88cd644099fbe2d673be23a04faab63d3e60ae6fd50c",
+        "behaviour": "carried forward verbatim; same layer closure, same failure mode, same public state object",
+        "hash_basis": "LF-normalised content, as served; the repository hashes git blob bytes, not the CRLF working copy"
+      },
+      "measurement": {
+        "formula": "haversine",
+        "radius_km": 6378.137,
+        "implementation": "Ventusltd/grid-distance-maths src/geodesy.mjs",
+        "parity": "every distance checked equal to the canonical module in tools/proofs/202608311910-neon-substation-links.proof.mjs",
+        "minimum_kv": 33,
+        "scope_note": "11 kV is excluded: rare for utility-scale export and often a private network behind the meter"
+      },
+      "result_class": "BETA_ANALYTICS_NOT_A_CONNECTION",
+      "states_on_card": [
+        "network impedance",
+        "fault level",
+        "thermal headroom",
+        "right of way",
+        "wayleaves and easements",
+        "crossings",
+        "terrain",
+        "land control",
+        "consent",
+        "queue position"
+      ],
+      "supersedes_cartridge": {
+        "id": "neon-substation-links",
+        "generation": "202608311910",
+        "sha256": "fd9471ed75857bb3b6e5c3a27bf2e55cc04883c7f4c5ed99e415dc99872c459c",
+        "reason": "the composer has one slot type and four shell scripts, three already used; the layout needs the same map handle the links cartridge already captures, so it extends it rather than claiming a fourth slot"
+      },
+      "ported_from": {
+        "repository": "Ventusltd/globalgrid2050",
+        "path": "solar-bess-topology-v7/gis-sld-financial-sandbox",
+        "modules": [
+          "gis-sld-v5-calculations.js",
+          "gis-sld-v5-drawing.js",
+          "gis-sld-v5-config.js"
+        ],
+        "arithmetic": "electrical arithmetic is checked independently on six sizing cases; financial arithmetic is checked against four fixtures produced by executing the original modules directly",
+        "deliberate_differences": [
+          "one Earth radius: the sandbox measures on 6378.137 but builds geometry with turf.destination on 6371.0088, mixing two radii inside one drawing; the Atlas ships no turf and every operation here is canonical",
+          "grab rather than mode-switch: the array is dragged, rotation has a handle, route vertices are dragged, inserted and removed without a commit step",
+          "the electron flow runs along the collectors and the export cable in the direction power flows",
+          "central AC sizing is corrected, not carried: gis-sld-v5-calculations.js line 147 computes total_blocks * central_skid_mva * inv_per_mv, but total_blocks already contains inv_per_mv, so the inverters sharing a skid enter the answer squared, and a count of inverters is multiplied by a transformer rating. The executable original defaults use one inverter per skid, where the square is latent and both paths state 70.4 MW. An explicit two-inverter stress reports 211.2 MW in the original where the inverters total 105.6 MW and the skids 52.8 MVA; a 3-inverter stress reports 1425.6 against 158.4. The Atlas reports the smaller nameplate and names the limiting element."
+        ],
+        "reverted_divergence": "z_strings was briefly changed from the original 18 to 23 here, reasoning that 18 gives a block DC/AC of 0.945. That was done without checking the reference, which is explicit that 28 inverters at 352 kVA make 9,856 kVA \"before transformer and grid limitations\" - the oversizing is the design. Reverted. A port does not improve its reference by guessing. The reconciler that implemented that reasoning was then left behind uncalled; the Codex source gate flagged it as a stop-ship and it was right. Dead code that assigns to a reference input is one handler away from silently rewriting the design. Deleted, and gated against."
+      },
+      "entry_points": {
+        "pipelinenews_map_button": "a deep link with latitude, longitude and technology draws the links, writes the distances onto the engine's own card, ticks the Subs control AND the project's own technology control, and drops a pin on the project itself so the scheme the card describes is visible under it",
+        "map_click": "a project or a substation",
+        "layout": "a button on the project card; the array starts on the project and the cable runs to the nearest substation found"
+      },
+      "capacity_basis": {
+        "problem": "REPD's figure is nominally MWelec but schemes report it as AC export and as DC MWp, and the register does not carry the distinction",
+        "handling": "nothing is fitted until the user declares the basis; the unstated case shows a red notice rather than a default",
+        "why_it_matters": "matching AC when the figure was DC oversizes the connection by the DC/AC ratio, which drives export limitation, curtailment and the size of the offer",
+        "fit": "two integer topology counts move - circuits and skids per circuit in string mode, rings and MV skids per ring in central; ratings, string length and module choice are untouched, and the residual is reported"
+      },
+      "project_pin": {
+        "shape": "a hollow ring around the site, toggled from the card",
+        "why_not_a_dot": "a filled dot in the technology colour was invisible in Chrome at zoom 12 on Botley West: it sat under the engine's own pixel for the same project, and the neon links converging on it are drawn in that same colour, so it disappeared into its own arrival point",
+        "what_the_ring_answers": "which of these is the project the card is about",
+        "control_lookup": "input[data-layer-id=\"<technology>\"], the attribute the engine tags its own control with; the label text is a fallback only, because the labels carry live counts"
+      },
+      "central_sizing": {
+        "reported_by": "the Codex session auditing this estate in parallel, 202608312124",
+        "confirmed": "dimensionally and against explicit two- and three-inverter stress fixtures; original one-inverter defaults remain exact",
+        "export": "min(inverters x inverter AC, skids x skid MVA)",
+        "both_published": [
+          "central_inverter_ac_total",
+          "central_skid_ac_total"
+        ],
+        "string_mode": "untouched, and still reproduces the sandbox exactly on every case"
+      },
+      "boot": {
+        "trigger": "whichever of style.load or load arrives first, then an 8s timer",
+        "why": "map.once(\"load\") fires only after a frame is painted, so a basemap that never serves tiles stopped the grid maths installing at all; observed live with style.json, tiles.json and the sprite all at 200 and not one vector tile fetched",
+        "independence": "the distances are arithmetic over substation coordinates and need no map; layers need a parsed style, not a frame",
+        "refuses": "to boot with no style at all, which would fail on the first addSource",
+        "reported_ios": "Vikram, 2026-08-31: the map from Pipeline News does not load on iPhone. iOS Safari delays or drops the first paint under memory pressure, which is exactly the condition this removes as a dependency. Not yet confirmed on a device."
+      },
+      "status_surface": {
+        "why": "a black map is indistinguishable from a broken one, and the Atlas boots a 35.7 MB query engine before it can answer anything",
+        "waiting": "Loading the grid data - the distances need it.",
+        "failed": "The grid data has not finished loading, so no distances can be measured yet. This is usually the network rather than the project.",
+        "retry": "re-runs the arrival, not the page: a reload on a phone pays for the whole engine again and the deep link is in the URL either way",
+        "sizing": "min(92vw, 420px) - the viewport, not a desktop column",
+        "mobile_first": "Vikram, 2026-08-31: build for the phone first and let it scale up, because the link that reaches most readers arrives in a WhatsApp message"
+      },
+      "label_glyphs": {
+        "symptom": "Cannot read properties of null (reading 'width') once per rendered frame; 4,218 on a cold load here, 50+ in about 20 seconds on mounting the layout, seen independently by the Codex session",
+        "cause": "a symbol layer with no glyph atlas -- either the style carries no glyphs endpoint, or it has one and the assumed font is not served by it; the font was named literally rather than taken from the style that has to serve it",
+        "fix": "ask the style: no glyphs endpoint means no labels, which is a quiet map rather than a broken one; otherwise borrow a font the style already labels with, because that one is definitely served",
+        "why_it_matters_on_a_phone": "an exception per frame is a main thread that never idles: heat, battery, and a page that stops answering touches",
+        "second_half": "having a glyphs endpoint is not the same as reaching it: the style declared tiles.basemaps.cartocdn.com/fonts on the same CDN that had just returned 200 for style.json and then served no vector tiles at all, which gives the identical null atlas and 5,362 exceptions in thirty seconds",
+        "pre_flight": "one fetch of the 0-255 range, the same request the renderer would make; no answer means no labels, and the layer is never added"
+      },
+      "card_reuse": {
+        "reported": "Vikram: arriving from Pipeline News and then clicking another solar pixel gives a card that is not sized correctly",
+        "cause": "the popup element is reused between selections and nothing this cartridge wrote onto a card was ever taken off: the max-height computed for the previous card's contents, gridatlas-free if it had been freed, the --gx/--gy it was parked at, the minimised state; and addCardBar returned early once the bar existed, so the only call to boundCardToMap on that path never ran again",
+        "rule": "geometry is per selection, content is not: the bar, its listeners and the drag handlers are kept, because rebuilding them costs a card that can no longer be moved"
+      },
+      "gb_decade": {
+        "reads": "https://raw.githubusercontent.com/Ventusltd/data-gb-electricity/d310e3cec8cd14bc7cd3eef1e37037197bcb0798/derived/price-decade-rollup.json (pinned by the pinned-products module and verified against sha256 18da5059c93cf09f6036bfcaabf56afaedf16d5f03e664c3cf0b0cff1dca970d before any value is rendered)",
+        "why_there": "\"data before charts\": a consumer reads a data product that already sits clean and never owns source data or becomes a second source of truth. data-gb-electricity owns the Parquet and refreshes monthly on a schedule that is still running",
+        "supersedes": "an earlier copy derived inside globalgrid2050, which was a second definition of the same numbers and is retired",
+        "size": "4 kB rollup against roughly a hundred megabytes of settlement periods",
+        "headline": "the lowest settlement period of the decade was -185.33 GBP/MWh on 2023-07-17, a July day and so peak solar",
+        "solar": "absent from the product by decision, and the panel says so: PVLive has not been taken into the data repository, and filling the gap from elsewhere would make a second source of truth",
+        "contract": "requires data-gb-electricity.price-decade-rollup.v2 before rendering any value; a v1 or malformed product fails closed with no numeric values",
+        "exactness": "the negative-day share keeps numerator and denominator visible (580 of 3,339, 17.37% in the pinned fixture); partial years are labelled from the owner's explicit calendar coverage, replacing the 360-day heuristic; the record low carries exact settlement-period and UTC identity",
+        "boundary_tightened": "the panel no longer infers peak solar, curtailment or export limitation from the record low's date or sign - an earlier version said \"a July day, which is peak solar\", and that was an inference, which this estate does not make on a card",
+        "freshness": "fetched with no-cache: revalidated on every open, never pinned to the first version this browser happened to see. force-cache held the panel on v1 for hours after the owner published v2, watched live"
+      },
+      "late_layers": {
+        "problem": "a fixed budget is always the wrong number: the engine dashboard has been measured arriving in 2s and not arriving at all in 86s, and giving up after the budget gave up permanently, leaving a card saying the grid data had not loaded while the controls sat on screen",
+        "fix": "the bounded wait still governs how long a spinner is shown, because that is a promise about the interface; a MutationObserver keeps watching afterwards and switches the layers on whenever they arrive, clearing the notice with them",
+        "observer": "armed once, disconnects the first time it fires"
+      },
+      "any_project": {
+        "was": "the accepted set was solar, bess and two spellings of wind, so 2,399 onshore wind and 109 offshore projects - 2,508 of 7,680, a third of the register - had a MAP button that did nothing at all: no card, no links, no message, no recorded failure",
+        "cause": "the register writes wind_onshore and the engine has had a wind_onshore layer throughout; only this list disagreed with both",
+        "now": "the list is a fast path, and any technology the engine has a layer control for is accepted, so the engine owns the vocabulary",
+        "offshore": "accepted and measured to the nearest mapped 33 kV-and-above substation, with an explicit caveat: the served payload has no onshore/offshore field, and a straight-line result is not an export cable, landfall or consented route"
+      },
+      "voltage_context": {
+        "why": "a distance to 132 kV is not the same proposition as a distance to 66 kV, and the reader of a register knows that while the map did not say it",
+        "classes": {
+          "33": "primary distribution; the usual utility-scale solar or storage connection",
+          "66": "largely legacy industrial distribution, much of it being reinforced to 132 kV and above as old heavy load is replaced and offshore wind arrives",
+          "132": "distribution in England and Wales, transmission in Scotland",
+          "220": "transmission; the class being built out for offshore wind landfalls",
+          "400 / 275": "transmission, bulk power"
+        },
+        "rule": "descriptive, never advisory: what a class generally is, never what a particular project should do with it",
+        "shown": "only for the classes actually found, never as a general legend"
+      },
+      "fit": {
+        "was": "one variable, so with s_subs pinned at five a single step of b_cols was five blocks - 44.8 MW. Targets of 5, 10, 20, 30, 40, 49.9 and 50 MW all produced the same 44.80 MW layout, and a 30 MW solar farm was drawn as 44.8. The register starts at 1 MW",
+        "now": "two variables, so the quantum is one block: 8.96 MW in string mode and 4.4 MVA in central. 30 MW gives 26.9 rather than 44.8",
+        "inner_bound": "12, because a ring main carries a handful of skids",
+        "tie_break": "the layout closest to the one already on screen, so it does not jump"
+      },
+      "capacity_names": {
+        "problem": "three different numbers were all called DC/AC: a stated input of 1.200, a reported 1.040, and 0.945 implied by the hardware; and in central mode a reported 2.402 against an inverter 1.200",
+        "cause": "AC had correctly become the LIMITING nameplate while the ratio was still read as though it were the inverter nameplate",
+        "now": "DC, inverter AC and export are named separately; the design ratio is DC over inverter AC, the export ratio is DC over the limit, and a disagreement between the stated and achieved ratio is stated",
+        "three_ratios": {
+          "design": "array DC MWp / inverter AC MW - what DC/AC means",
+          "export": "array DC MWp / export MVA - what drives clipping",
+          "headroom": "inverter AC MW / export MVA - how hard the inverters are pushed"
+        },
+        "not_a_verdict": "an earlier version called a design ratio below one a contradiction nobody builds; the reference documents 28 inverters at 352 kVA ahead of an 8.96 MVA skid, so oversizing is a deliberate choice and the panel describes it rather than grading it"
+      },
+      "finance_port": {
+        "oracle": "tools/proofs/fixtures/202609010002-original-sld-finance.json",
+        "oracle_builder": "tools/proofs/202609010002-original-sld-finance-fixture.mjs executes the original GlobalGrid2050 modules rather than retyping their formulas",
+        "coverage": "four string and central cases cover electrical outputs, revenue, losses, degradation, OPEX, solar and BESS CAPEX, 25/35-year surplus, and development values",
+        "parity": "every unaffected output equals the executable original within floating-point tolerance",
+        "central_divergence": "the original central stress case squares inverters per skid into AC. The port uses corrected inverter AC for central OPEX, and its corrected 25/35-year surplus is named in the oracle fixture rather than hidden as parity",
+        "topology_state": "string and central finance assumptions are independent, as in the original",
+        "physical_state": "module dimensions, GCR and gross-site factor are independent for string and central topology, as in the original",
+        "development_stage": "selecting a stage updates development cost GBP/Wp and success probability together, matching the original change handler; unknown stages fail closed",
+        "mounting_bifacial": "the original preset links are exact and topology-local: GCR 0.35 sets 8 percent, 0.45 sets 5 percent, and 0.75 sets 2 percent; a free-form GCR invents no bifacial value",
+        "bess_state": "one topology-local financial BESS MWh value drives CAPEX, revenue and the drawn compound, exactly as the original; the duplicate layout input and false mismatch claim are removed",
+        "input_integrity": "original central defaults are restored; topology counts must be positive integers, central ratings keep their original bounds, and invalid edits restore the prior visible value before arithmetic or geometry runs",
+        "mobile": "the financial block starts collapsed, remembers an explicit open, and uses the same bounded phone-first panel",
+        "limits": "screening values only, not financial advice; all assumptions remain visible",
+        "benchmark_warnings_not_ported": "the original calls finance assumptions typical, aggressive or optimistic. Those benchmark verdicts are not calculation outputs and are withheld until they have governed evidence; the Atlas shows the inputs and arithmetic instead"
+      },
+      "dash_atlas": {
+        "reported_by": "the Codex session's LineAtlas cardinality gate",
+        "fault": "MapLibre rasterises every distinct line-dasharray into its LineAtlas and keeps it for the life of the map; a continuously varying dasharray asks for a new entry sixty times a second and the atlas runs out of space in about twenty seconds",
+        "distinct_from": "the glyph fault fixed in v9.21 and v9.22 â€” a different cause with a similar symptom, which is why closing one did not close the other",
+        "fix": "24 patterns built once and frozen, cycled; measured at 24 distinct over 100,000 frames",
+        "call_sites": "a dash is written only when the quantised pattern changes; measured 3,168 writes in 3,600 frames, a 1.1x reduction rather than the 3.5x first claimed here - the saving grows with frame rate. The atlas bound is the substantive fix; this is tidiness on top of it",
+        "codex_gate": "dynamic_dash_writes 0, status CLEAN"
+      },
+      "voltage_units": {
+        "contract": "OSM `voltage` is volts at every magnitude; an explicit `kv` property is already kilovolts. Magnitude is not the unit.",
+        "was": "anything over 1,000 treated as volts, anything under as kilovolts",
+        "audited_by": "the Codex session, against the pinned 5,800-feature payload",
+        "impact": "229 features (3.95%) carry a token below 1,000 and every one was misread; 204 displayed a primary above 400 kV, which does not exist on this network",
+        "low_tokens": {
+          "230": 10,
+          "240": 1,
+          "400": 14,
+          "415": 2,
+          "750": 202
+        },
+        "why_750": "DC traction supplies at railway depots, so a third rail was shown as a 750 kV substation",
+        "examples": [
+          "19709 Selhurst Traincare Depot, 33000;750, 750 kV -> 33 kV",
+          "18128 Thames Way Northfleet, 33000;750, 750 kV -> 33 kV",
+          "14596 Ford Halewood Transmissions, 33000;11000;415, 415 kV -> 33 kV"
+        ],
+        "note": "a bare 33 under `voltage` is now 33 volts and falls out of scope; Codex confirmed the pinned payload contains no such token, so nothing real is lost by obeying the contract"
+      },
+      "source_guards": {
+        "why": "addSource throws if the style is not loaded and a failed source reads back as null; both are reachable now that the cartridge boots on the style rather than a painted frame",
+        "was": "the pin was guarded when this was found and five call sites were not - the ones drawing the links, the nodes and the layout - so the convenience would have survived while the substance threw",
+        "now": "one guard, five call sites, a missing source costs the drawing only"
+      },
+      "mobile_pointer": {
+        "problem": "the project card, layout panel, array, rotation handle and cable route vertices all advertised dragging but began only on mousedown; a touch screen could open the sandbox and could not operate it",
+        "dom_fix": "Pointer Events with pointer capture on the card and panel handles; no document-wide move listeners are recreated when the panel redraws",
+        "map_fix": "MapLibre touchstart, touchmove and touchend share the mouse drag path; interrupted pointers release the drag, and map gestures are restored only if they were enabled before it",
+        "containment": "the whole card width is clamped to the map, the panel is bounded by top and bottom, short landscape controls scroll, search results are viewport bounded, and primary panel controls are 44 CSS pixels",
+        "source_viewports": [
+          "390x844",
+          "414x896",
+          "844x390"
+        ],
+        "live_acceptance": "PENDING_CLAUDE"
+      },
+      "ratio_rendering": {
+        "problem": "the arithmetic kept array DC, inverter AC and export MVA separate but the visible panel relabelled array divided by export as DC/AC and graded it against a usual range",
+        "now": "the panel names array DC, inverter AC and export limit separately; design DC/AC, DC/export and inverter/export are three distinct rows",
+        "mismatch": "entered and derived DC/AC remain visible without rewriting inputs or declaring the design good, bad, close or remote"
+      },
+      "version_ledger": {
+        "what": "every composition this cartridge line has ever shipped, with its generation, version and one-line scope, as a collapsed mobile-first panel on the map",
+        "source": "extracted from the repository history at build time - every composition manifest that ever existed, read at its last commit; pinned history carried by the page, nothing fetched at runtime",
+        "span": "v9.16 through v9.40, 25 scoped entries, 16 pre-scope compositions counted",
+        "doctrine_stated": "a bad composition is never repaired in place; an earlier one is composed again under a new timestamp",
+        "why": "Vikram: produce timestamped versions on the website. They existed everywhere except where a visitor could see them"
+      },
+      "mobile_tray": {
+        "reported_by": "Vikram, phone acceptance 2026-09-01, portrait screenshots",
+        "faults": [
+          "the six shell tool buttons at this cartridge's own 44px coarse-pointer height covered a third of the portrait map",
+          "the grid-line and substation switches live below the map in the scada panel, which a phone never scrolls to; activation looked broken"
+        ],
+        "engine_cleared": "the switches themselves work: toggled live in Chrome, 220kV drew immediately; both faults are composition faults",
+        "fix": "on coarse pointers or windows at 700px and under, the tool buttons collapse behind one Tools chip, and GRID and SUBS chips stand on the map itself",
+        "mechanism": "the chips drive the engine's own checkboxes with real clicks - the same path enableTechnologyLayer uses - so the scada panel, the fullscreen curtain and the chips cannot disagree",
+        "readiness": "chips start disabled and wake when the engine builds its switches, however late; a document-level change listener keeps them true to switches toggled elsewhere",
+        "desktop": "unchanged: the tray installs only on touch or narrow windows"
+      },
+      "arrival_identity": {
+        "reported_by": "Vikram, phone, 2026-09-01: 'doesn't auto compute the neon lines on mobile'",
+        "diagnosis": "reproduced on desktop Chrome with ?repd_ref=12588 alone: the search cartridge resolves the identity and opens the card while this lane's URL guards bail, so the failure was the URL shape, never the device",
+        "latent_fault_fixed": "Number(null) is 0, so a link with no coordinates passed the finite guard as Null Island; only the technology guard was accidentally stopping links being drawn to 0,0",
+        "fix": "when URL coordinates or technology are unusable and repd_ref is present, the lane waits for the search cartridge's published deep_link state and consumes its resolved longitude, latitude, technology, name and capacity",
+        "one_resolver": "the search lane owns identity resolution against the pinned register parquet; this lane only consumes what it publishes",
+        "budget": "120s, because the identity lane boots a 35.7 MB query engine first on a cold phone; terminal FAILED or ABSENT is honoured immediately"
+      },
+      "arrival_surface": {
+        "reported_by": "Vikram, phone, 13:01: fullscreen still computed nothing, and the normal page is clutter fighting a small map",
+        "budget_relearned": "v9.44 waited 120s for the identity lane; a cold phone boots the 35.7 MB query engine first and exceeded it, so the lane gave up permanently and the card opened with nothing computed. The wait now runs until RESOLVED, FAILED or ABSENT, with a ten-minute last-resort stop for a lane that died silently",
+        "fullscreen": "an arrival on a touch screen enters the shell's own fullscreen - Vikram's design: arrive in full screen mode with the clutter minimised; the tray keeps the tool buttons collapsed",
+        "stages_surfaced": "resolving the identity, loading the substation payload, and a zero-substation outcome each say what is happening where the user is looking; failures carry Try again, which re-runs the arrival rather than reloading the page"
+      },
+      "card_keeper": {
+        "watched_live": "Pipeline News MAP journey at phone width, v9.45: five links drawn, fullscreen entered, and the card carried no distances - the search lane's popup arrived after the one-frame decoration retry and replaced the decorated card",
+        "why_lines_survived": "the links live in map layers; the measurement block lives inside a popup this cartridge does not own",
+        "fix": "a per-selection MutationObserver re-attaches the block whenever the active card lacks it; a new selection re-arms it and a cleared selection disarms it, so no other popup is ever decorated with a stale project's distances"
+      },
+      "arrival_card": {
+        "reported_by": "Vikram, phone: worked on Botley West, 'doesn't work on other lines of solar farms on pipelinenews' ",
+        "measured": "Exact Pipeline 0144 census: 2,430 of 8,743 unique clickable REPD refs are absent from the active-register snapshot; 6,313 match it. The missing set includes inactive and wider-fleet schemes that Pipeline legitimately links. Botley West happens to be present",
+        "consequence": "an expected exact miss was presented like a resolver failure, and a ref-only miss had neither a measurement nor an honest terminal identity state",
+        "fix": "measure supplied coordinates immediately, retain only supplied arrival identity as link provenance, render an exact miss as NOT_IN_ACTIVE_REGISTER without an official-status claim, keep real loader failures distinct, and retry owner plus measurement on one fresh shared epoch",
+        "not_done": "widening the register parquet is a data-governance decision (which statuses belong in the Atlas register) and is left recorded, not taken"
+      },
+      "declared_connections": {
+        "asked_by": "Vikram, 202609011433: NSIP-scale schemes were being read against nearest 132 kV-and-below points while their public record names 400 kV connections, often through new customer substations",
+        "rule": "bind to the public record or say nothing: every carded fact is from DCO orders, Planning Inspectorate documents, or public project statements; distances are measured against the served payload, never asserted",
+        "declared_schemes": [
+          "Cottam Solar -> Cottam 400 kV (EN010133, granted 2024)",
+          "West Burton Solar -> West Burton 400 kV via new customer substation at WB3 (EN010132, granted 2025)",
+          "Gate Burton -> Cottam 400 kV (EN010131, granted 2024)",
+          "Tillbridge -> Cottam 400 kV (EN010142, Order 2025)",
+          "One Earth -> NGET's new High Marnham substation (EN010159, consented)",
+          "Beacon Fen -> Bicker Fen 400 kV via consented extension (EN010151, granted Aug 2026)",
+          "Heckington Fen -> Bicker Fen 400 kV (EN010123, granted)",
+          "Thorpe Marsh Green Energy Hub -> Thorpe Marsh 400 kV, new four-bay substation under construction (public records)",
+          "West Burton C BESS -> West Burton 400 kV, financial close July 2026 (public records)"
+        ],
+        "new_substation_works_noted": [
+          "Thorpe Marsh",
+          "High Marnham (Great Grid Upgrade)",
+          "Bicker Fen extension"
+        ],
+        "generic": "nearest 400 kV substation is measured and shown for every project selection - measurement, not inference",
+        "confidentiality": "a private project document was used only to validate the grid logic; no fact appears on a card that is not in the public record"
+      },
+      "recovered_ledger": {
+        "found_by": "Codex supervision 202609011446",
+        "fault": "recovered late-arrival entries stayed in the public failures array, indistinguishable from terminal faults",
+        "fix": "recovery moves the entry to link.recovered at the moment the late control arrives; failures speaks only for what is still failing"
+      },
+      "works_study": {
+        "source": "governance/202609011515-400kv-customer-substation-study.md",
+        "rule": "quotations of consented works from made Orders and Environmental Statements; never design advice"
+      },
+      "arrival_latency": {
+        "reported_by": "Vikram, West Burton journey from Pipeline News on iPhone: 'it did nothing'",
+        "reproduced": "desktop Chrome, same URL: 0 links at 10s with the status still on the layer wait; 5 links at about 20s",
+        "cause": "the arrival awaited a 12s layer-control budget before attempting a measurement that needs no controls, then fetched the 1.2 MB substation payload afterwards - the two costs in series",
+        "fix": "measure first and let the layer switch-on run alongside; warm the payload at install; never show a late-layers notice over a map that already carries the answer"
+      },
+      "immediate_product": {
+        "asked_by": "Vikram: mobile is the sales surface and must show product immediately; desktop carries the detailed engineering",
+        "known_without_a_network": "substation, voltage class, route, consented works, citation - all from the made Order and the link",
+        "measured": "the distance only, marked pending until it exists",
+        "never": "no measured value is shown before it is measured, and the provisional block never overwrites a measured one"
+      },
+      "far_end_state": {
+        "asked_by": "Vikram: can the line be pink for a substation that has not been built yet",
+        "not_built": "One Earth - the point of connection is NGET's new substation beside the existing High Marnham (EN010159)",
+        "under_construction": "Thorpe Marsh - a new 400 kV four-bay substation is under construction (public record)",
+        "circuit_not_substation": "Little Crow - a looped connection into the existing Keadby-Broughton-Teed-Scawby Brook 132 kV Northern Powergrid circuit within the site, 99.9 MW export secured (EN010101 Grid Network Constraints Report, Nov 2020); no line is drawn because there is no node to draw to",
+        "archetypes": "West Burton builds a 400 kV customer substation and a 10 km cable to an existing transmission bay; Little Crow loops into a distribution circuit already crossing its land. Both are NSIPs; only one is a 400 kV story",
+        "rule": "the state is taken from the public record, never from whether OSM happens to have mapped the asset"
+      },
+      "data_sources": [
+        {
+          "repository": "Ventusltd/data-grid-gb",
+          "product": "derived/gb-transmission-network.v1.json",
+          "schema_required": "data-grid-gb.transmission-network.v1",
+          "fetched": "on the first click that asks, never at load; indexed by the network-topology module",
+          "upstream": "NESO Electricity Ten Year Statement 2025, appendix B"
+        },
+        {
+          "repository": "Ventusltd/data-gb-electricity",
+          "product": "derived/price-decade-rollup.json",
+          "schema_required": "data-gb-electricity.price-decade-rollup.v2",
+          "fetched": "when a project card opens its GB conditions panel; revalidated with no-cache every open",
+          "upstream": "Elexon settlement prices as the owner repository publishes them"
+        }
+      ]
+    },
+    {
+      "id": "substation-intelligence",
+      "generation": "202609051953",
+      "version": "testcode-202609051300",
+      "type": "script",
+      "slot": "replace-script",
+      "replace_script": "ventus-corev8engine.js",
+      "path": "./cartridges/202609051953-substation-intelligence.js",
+      "sha256": "6c00b725e6a92dcd776e4322dca79bc65f32af5b8818b6d93fac0c250c72b7e9",
+      "capabilities": [
+        "immutable-v8-shell-preserved-with-reviewed-receiver-successor",
+        "canonical-deep-link-technology-vocabulary",
+        "non-spine-links-deferred-to-exact-repd-receiver",
+        "eight-fault-current-metrics-never-conflated",
+        "rms-break-current-quoted-by-name",
+        "substation-lookup-by-name-and-by-position",
+        "published-parameters-never-a-connection-assessment",
+        "fails-closed-on-an-unknown-product-schema",
+        "revalidated-never-pinned-to-first-sight",
+        "site-wide-envelope-named-not-implied-as-a-bus-value",
+        "breaker-duty-metric-one-of-several-ratings",
+        "owner-product-coordinates-never-shown-as-a-distance",
+        "connection-points-v3-consumed",
+        "fault-current-quoted-at-the-connection-voltage",
+        "site-wide-quantities-named-as-site-wide",
+        "ventus-masthead-fused-into-menu-bar-never-a-closed-panel",
+        "scada-panel-restored-branded-head-real-nodes-moved-not-cloned",
+        "layer-controls-44px-min-hit-target-via-full-size-invisible-input",
+        "panel-anchored-to-its-own-side-group-plus-js-viewport-clamp",
+        "attribution-outranks-every-open-panel-by-z-index"
+      ],
+      "immutable_shell_modified": false,
+      "supersedes_shell_script": {
+        "name": "ventus-corev8engine.js",
+        "sha256": "9a75901ebdff05e094650e39973fc0f59204724753d393a734bb8cda7bc875ba",
+        "behaviour": "the immutable release file remains byte-identical; this cartridge carries a reviewed successor that accepts the canonical link vocabulary and defers non-spine identities to the exact REPD receiver before the intelligence runs"
+      },
+      "data_source": {
+        "repository": "Ventusltd/data-grid-gb",
+        "product": "derived/connection-points.v3.json",
+        "schema_required": "data-grid-gb.connection-points.v3",
+        "upstream": "NESO Electricity Ten Year Statement 2025, appendices B and D",
+        "built_by": "Claude and Codex, 2026-09-01; the v2 fault-current semantics are Codex's",
+        "corrected_at": {
+          "generation": "202609012217",
+          "finding": "the entry declared connection-points.v2 from v9.63 (202609012045) to v9.69 while the cartridge bytes required v3 from v9.65; held by Codex at 202609011820 and 202609012205",
+          "proof": "tools/proofs/202609012214-data-contract-parity.proof.mjs"
+        }
+      },
+      "slot_lesson": {
+        "v9_57": "claimed 202608292126-map-ready-fetch-bridge.js, which the shell does not load; the composer refused and the map went dark",
+        "now": "the composer replaces a script TAG, so only the four scripts index.html loads are slots; the engine was the one unclaimed",
+        "guard": "the proof now asserts every composed cartridge's replace_script appears in the shell index.html"
+      },
+      "open_upstream": {
+        "reported_by": "Codex 202609011852",
+        "site_envelope": "the owner product aggregates at site code; a per-bus split is Codex's to land, after which this consumer can quote a bus and drop the label",
+        "false_join": "WBUR's exact-name coordinate binds a different West Burton 96.42 km away; the Atlas measures on its own payload and the card is proven never to print a product-derived distance"
+      },
+      "review_findings_closed": {
+        "reviewer": "independent hostile review, 2026-09-01, and Codex 202609011852",
+        "finding": "the card printed a fault-current range spanning 132 kV and 400 kV busbars; correctly named metric, wrong scope",
+        "closed_by": "the owner product's per-voltage split, quoted at the connection voltage",
+        "still_site_wide": "circuit winter ratings are not split by voltage in the product and are now labelled site-wide (Blackhillock publishes 23-1,995 MVA)"
+      }
+    }
+  ],
+  "last_known_green": {
+    "release_id": "202608300453-atlas-v9",
+    "route": "/gridatlas/atlas/releases/202608300453-atlas-v9/"
+  },
+  "contracts": {
+    "new_full_application_folders": 0,
+    "cartridge_sha256_required": true,
+    "cartridge_order_explicit": true,
+    "shell_mutation_forbidden": true
+  },
+  "provenance": {
+    "pipelinenews_repository": "https://github.com/Ventusltd/pipelinenews",
+    "pipelinenews_tree": "83d9c430b283f8beaa8c0a05e42b14d4a4784623",
+    "cvaa_guide": "https://github.com/Ventusltd/cvaa/blob/main/202608301321-gridatlas-amnesia-vaccine.txt",
+    "sandbox_source": "https://github.com/Ventusltd/globalgrid2050/blob/main/solar-bess-topology-v7/gis-sld-financial-sandbox/gis-sld-v5-ui.js",
+    "cvaa_commit": "d2ebc01f6eab41f2a84b0c53c4cfae0d2625ec5e",
+    "v8_oracle_commit": "f2f343a92ee972cc74ed23b4b99d8a22896791ad"
+  },
+  "search_lanes": {
+    "repd": {
+      "external_requests": 0,
+      "identity_claims": "EXACT_REPD_REF_ONLY",
+      "first": true
+    },
+    "uk_gazetteer": {
+      "provider": "postcodes.io",
+      "endpoints": [
+        "postcodes",
+        "outcodes",
+        "places"
+      ],
+      "identity_claims": "none",
+      "result_class": "LOCATION_ONLY"
+    },
+    "global_gazetteer": {
+      "provider": "Nominatim / OpenStreetMap",
+      "endpoint": "search",
+      "activation": "Enter or search button",
+      "identity_claims": "none",
+      "result_class": "LOCATION_ONLY"
+    }
+  },
+  "composition_manifest": "./manifests/202609050354-composition.json",
+  "scope_closure": {
+    "generation": "202609010726",
+    "status": "DONE",
+    "scope": "GridAtlas v9.42 the price panel revalidates",
+    "schedule_retired": true
+  },
+  "composition_version": "v9.121",
+  "composition_id": "202609051953-teleprinter",
+  "transport": {
+    "response_contract": "HEADERS_BEFORE_PARQUET_BODY",
+    "engine_timeout_seconds": 15,
+    "duckdb_prewarm": "AFTER_400KV_SOURCE_READY",
+    "data_plane": "PARQUET_DUCKDB_ON_DEMAND",
+    "highway_layers": [
+      "motorways",
+      "trunk_roads",
+      "primary_roads"
+    ],
+    "v8_oracle_commit": "f2f343a92ee972cc74ed23b4b99d8a22896791ad",
+    "fidelity_workflow": ".github/workflows/202608301931-layer-fidelity.yml",
+    "payload_cache": "RELEASE_AFTER_SERIALISATION"
+  },
+  "composition_note": "A WebGL canvas without preserveDrawingBuffer returns a fully transparent image when read outside a render frame, and it still encodes to a valid PNG that downloads happily. A blank file that looks like a successful save is worse than a refusal. And the print must fit the reader's paper rather than the one we assumed: size:auto with a flex column, not a forced A4 landscape with a fixed map height."
+}

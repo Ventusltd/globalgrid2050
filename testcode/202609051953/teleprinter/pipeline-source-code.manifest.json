@@ -1,0 +1,1000 @@
+{
+  "format": "codex-print-source-code-v1",
+  "repository": "https://github.com/Ventusltd/testcode",
+  "commit": "2da0f119a7a53a1511bb361237c72897ec3c80a0",
+  "tree": "33c6506c271e7682578bfd0d8ec20c6ae715e9ce",
+  "scopes": [
+    "sandbox/202609051953/pipeline/contracts/fallback.v8.0.json",
+    "sandbox/202609051953/pipeline/contracts/legacy-integrity.v9.json",
+    "sandbox/202609051953/pipeline/contracts/mvp.v8.1.json",
+    "sandbox/202609051953/pipeline/contracts/news-module-registry.v9.7.json",
+    "sandbox/202609051953/pipeline/contracts/north-star.v1.json",
+    "sandbox/202609051953/pipeline/contracts/plugin.v1.json",
+    "sandbox/202609051953/pipeline/contracts/project-spine.v7.2.json",
+    "sandbox/202609051953/pipeline/contracts/projects-plugin.v7.2.json",
+    "sandbox/202609051953/pipeline/contracts/regional-news-sources.v9.7.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.0.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.1.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.2.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.3.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.4.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.5.1.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.5.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.6.1.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.6.2.json",
+    "sandbox/202609051953/pipeline/contracts/release.v9.7.json",
+    "sandbox/202609051953/pipeline/index.html",
+    "sandbox/202609051953/pipeline/scripts/app-v9-3.js",
+    "sandbox/202609051953/pipeline/scripts/app-v9-4.js",
+    "sandbox/202609051953/pipeline/scripts/app-v9-5-1.js",
+    "sandbox/202609051953/pipeline/scripts/app-v9-5.js",
+    "sandbox/202609051953/pipeline/scripts/app-v9-6-2.js",
+    "sandbox/202609051953/pipeline/scripts/app-v9-7.js",
+    "sandbox/202609051953/pipeline/scripts/app.js",
+    "sandbox/202609051953/pipeline/scripts/build/regional-news-v9-7.mjs",
+    "sandbox/202609051953/pipeline/scripts/core/atlas-receiver-v9-7.js",
+    "sandbox/202609051953/pipeline/scripts/core/news-regions-v9-6-2.js",
+    "sandbox/202609051953/pipeline/scripts/core/news-relevance-v9-2.js",
+    "sandbox/202609051953/pipeline/scripts/core/plugin-host.js",
+    "sandbox/202609051953/pipeline/scripts/core/project-filter-v9-2.js",
+    "sandbox/202609051953/pipeline/scripts/core/project-state.js",
+    "sandbox/202609051953/pipeline/scripts/core/state.js",
+    "sandbox/202609051953/pipeline/scripts/core/utils.js",
+    "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-1.js",
+    "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-2.js",
+    "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-3.js",
+    "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-4.js",
+    "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-5-1.js",
+    "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-5.js",
+    "sandbox/202609051953/pipeline/scripts/data/canonical-projects.js",
+    "sandbox/202609051953/pipeline/scripts/news/adapters/committed-json-v9-7.mjs",
+    "sandbox/202609051953/pipeline/scripts/news/classifier-v9-7.mjs",
+    "sandbox/202609051953/pipeline/scripts/news/ledger-v9-7.mjs",
+    "sandbox/202609051953/pipeline/scripts/news/rules/geography-v9-7.mjs",
+    "sandbox/202609051953/pipeline/scripts/news/rules/technology-v9-7.mjs",
+    "sandbox/202609051953/pipeline/scripts/news/rules/uk-veto-v9-7.mjs",
+    "sandbox/202609051953/pipeline/scripts/plugins/canonical-project-controls.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/canonical-project-export.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/canonical-project-table.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/capacity-presentation-v9-3.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/gauges-v9-1.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/gauges-v9-2.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/gauges.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-2.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-5-1.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-5.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-6-2.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-7.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/newspaper.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/project-export.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/project-filters.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/project-table.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-1.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-2.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-3.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-4.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-5-1.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-5.js",
+    "sandbox/202609051953/pipeline/scripts/plugins/projects.js",
+    "sandbox/202609051953/pipeline/styles/mobile.css",
+    "sandbox/202609051953/pipeline/styles/testcode.css",
+    "sandbox/202609051953/pipeline/styles/v7.css",
+    "sandbox/202609051953/pipeline/styles/v8.css",
+    "sandbox/202609051953/pipeline/styles/v9-2.css",
+    "sandbox/202609051953/pipeline/styles/v9-3.css",
+    "sandbox/202609051953/pipeline/styles/v9-4.css",
+    "sandbox/202609051953/pipeline/styles/v9-5-1.css",
+    "sandbox/202609051953/pipeline/styles/v9-6-1.css",
+    "sandbox/202609051953/pipeline/teleprinter-bootstrap.js",
+    "sandbox/202609051953/teleprinter/SOURCE-SCOPE.md",
+    "sandbox/202609051953/teleprinter/app-frame.js",
+    "sandbox/202609051953/teleprinter/capture-geometry.mjs",
+    "sandbox/202609051953/teleprinter/cartridges.json",
+    "sandbox/202609051953/teleprinter/clone-visible-ui.js",
+    "sandbox/202609051953/teleprinter/controls.js",
+    "sandbox/202609051953/teleprinter/layer-quick-controls.js",
+    "sandbox/202609051953/teleprinter/layers-panel-policy.js",
+    "sandbox/202609051953/teleprinter/layout-command.js",
+    "sandbox/202609051953/teleprinter/png-pixels.mjs",
+    "sandbox/202609051953/teleprinter/print-screen.js",
+    "sandbox/202609051953/teleprinter/print-source-code.js",
+    "sandbox/202609051953/teleprinter/runtime-source.js",
+    "sandbox/202609051953/teleprinter/screen-pdf.mjs",
+    "sandbox/202609051953/teleprinter/vendor/html2canvas-1.4.1.mjs",
+    "sandbox/202609051953/teleprinter/vendor/html2canvas-LICENSE.txt"
+  ],
+  "policy": {
+    "source": "Committed Git blobs only; working-tree changes are never substituted.",
+    "inclusion": "All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.",
+    "omission": "NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.",
+    "boundaries": "File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization."
+  },
+  "files": [
+    {
+      "mode": "100644",
+      "blobOid": "0f5b7187e2194caefaf90bc1ffb5754cc75e4c40",
+      "path": "sandbox/202609051953/pipeline/contracts/fallback.v8.0.json",
+      "byteCount": 1047,
+      "sha256": "72fa01406efe13a582fcf4363534f5306848fdb2ab71ce58e87469fc7acc10ca",
+      "status": "included",
+      "startByte": 31563
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f0b128f55b0e15694f8b2b491cc12da95be6b8dd",
+      "path": "sandbox/202609051953/pipeline/contracts/legacy-integrity.v9.json",
+      "byteCount": 2108,
+      "sha256": "a2696a311129774056a67096faee57a3b4491add1aad1e8d9187818e94330f2b",
+      "status": "included",
+      "startByte": 32871
+    },
+    {
+      "mode": "100644",
+      "blobOid": "43915a93ee6efc5238c3ca48c67c4f6ca4e1ca1b",
+      "path": "sandbox/202609051953/pipeline/contracts/mvp.v8.1.json",
+      "byteCount": 2242,
+      "sha256": "1bdd558c835249032bb7827d9c0ed55a04d8d20997af1ae8cf3b5ab306a6e92f",
+      "status": "included",
+      "startByte": 35235
+    },
+    {
+      "mode": "100644",
+      "blobOid": "10177887bac7563ae906e921e2d31cee22130259",
+      "path": "sandbox/202609051953/pipeline/contracts/news-module-registry.v9.7.json",
+      "byteCount": 1343,
+      "sha256": "a4f2b9a1bb91a517874c8cd84f81eeeb1fa3715cf220f6dee5c07bdbcbcc9109",
+      "status": "included",
+      "startByte": 37739
+    },
+    {
+      "mode": "100644",
+      "blobOid": "df8d1ffde924a6044c3bab584f8bb5b229c84ccf",
+      "path": "sandbox/202609051953/pipeline/contracts/north-star.v1.json",
+      "byteCount": 11586,
+      "sha256": "346f226dc172eabd95a1110cdfd918baee77a0cc213ea31097b70dd6e064326a",
+      "status": "included",
+      "startByte": 39350
+    },
+    {
+      "mode": "100644",
+      "blobOid": "ae170d210dab13872567ffc93a577bb2f6edebb7",
+      "path": "sandbox/202609051953/pipeline/contracts/plugin.v1.json",
+      "byteCount": 1150,
+      "sha256": "b4ed06d58891359e8df017bc3e9564ba49928e4f6696b1604cfa1e01ab354df5",
+      "status": "included",
+      "startByte": 51187
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3f786bc76e8e9e42d067c1312615b767452b2f0f",
+      "path": "sandbox/202609051953/pipeline/contracts/project-spine.v7.2.json",
+      "byteCount": 2144,
+      "sha256": "6425d81381eda13d204d88a2cd95a409d27d73561b33d65420e2b08428353397",
+      "status": "included",
+      "startByte": 52593
+    },
+    {
+      "mode": "100644",
+      "blobOid": "4a2ca6779a24f3e4deacb8fa97cd2971ecb68a4f",
+      "path": "sandbox/202609051953/pipeline/contracts/projects-plugin.v7.2.json",
+      "byteCount": 23201,
+      "sha256": "fc2f849cac2c3b40a0caa7bc63fca7dd79effca636b9e43f24f7dd80b3911606",
+      "status": "included",
+      "startByte": 55005
+    },
+    {
+      "mode": "100644",
+      "blobOid": "44ffeae9c485cdf169f05526b5cd9f732fa3d8d7",
+      "path": "sandbox/202609051953/pipeline/contracts/regional-news-sources.v9.7.json",
+      "byteCount": 1097,
+      "sha256": "7ea974f61dcfe0b3d952e74864ed3c7ef78045077dee156e60927fd3e808f261",
+      "status": "included",
+      "startByte": 78481
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e0f4a0fd88bd649843d667403ccd4a85f7ab36ad",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.0.json",
+      "byteCount": 1374,
+      "sha256": "c26d27d1734dbfdcb380091fd2c2cf710b370b46b75c2ad6c451df3cce1fe4a1",
+      "status": "included",
+      "startByte": 79845
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f3e707df6c699c0f375b207dc9bf706437b8d61a",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.1.json",
+      "byteCount": 1957,
+      "sha256": "bc21070f44aae1d32da333e4954816acd907aa8c9fa9cb639c64d651f7fd4259",
+      "status": "included",
+      "startByte": 81472
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3215ee78ab8e0affff8d728b8950ce0605504472",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.2.json",
+      "byteCount": 2282,
+      "sha256": "8f0d9a68fecd6b5bef25e2cb00e27f4587d7998fb7fca42d9f5f05b135be458f",
+      "status": "included",
+      "startByte": 83682
+    },
+    {
+      "mode": "100644",
+      "blobOid": "fdd35dcf901aecda919fcb258a2a7b7b33f46e52",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.3.json",
+      "byteCount": 4837,
+      "sha256": "48bd1fe7ab712737c1eeb8549b0e2e97bf592f262ecb404059adefc8202add01",
+      "status": "included",
+      "startByte": 86217
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b3c7087ef3d0f9e6d5fcfb8028fe0c527912699e",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.4.json",
+      "byteCount": 2312,
+      "sha256": "9d957b05160863b7384e4b755e74ca1ac6c90f2cf049d79c6c0dc67242d9ecb0",
+      "status": "included",
+      "startByte": 91307
+    },
+    {
+      "mode": "100644",
+      "blobOid": "86b1db362ca4bb58970839869a6a735c18b8d403",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.5.1.json",
+      "byteCount": 2505,
+      "sha256": "4137a31477be33a04b6ad5406d7cd13cefec1be8d84a94e23997c129c82076f1",
+      "status": "included",
+      "startByte": 93874
+    },
+    {
+      "mode": "100644",
+      "blobOid": "4939534d5778138ef665b3181650cf9e4f20c23e",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.5.json",
+      "byteCount": 2137,
+      "sha256": "ea3ceb47b6bf47ad2d2743b89b43d97e3f2a079cd1f7ea2bc968a3ad5c9a8e11",
+      "status": "included",
+      "startByte": 96634
+    },
+    {
+      "mode": "100644",
+      "blobOid": "771a5d312e858f31237d7b1fef66f7fb352fc8b3",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.6.1.json",
+      "byteCount": 1920,
+      "sha256": "e556ca98e6ead7d397d6e06e8156fea09fe9f414266ac62dc155317bba338d25",
+      "status": "included",
+      "startByte": 99026
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a3379eb2bb5f475f8d2216a7b5e62b15ba763559",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.6.2.json",
+      "byteCount": 1414,
+      "sha256": "661bb4f226ac3c75811f9e1d36546602f401491a5c21e1ddebccda170da92ece",
+      "status": "included",
+      "startByte": 101203
+    },
+    {
+      "mode": "100644",
+      "blobOid": "7fe3953f05f5f802620263993aa0bfaf482db049",
+      "path": "sandbox/202609051953/pipeline/contracts/release.v9.7.json",
+      "byteCount": 1797,
+      "sha256": "0b18c145e4cf2126ce27f9b57e07646dc3f840024c00ceb6f53e61eb06fa83c1",
+      "status": "included",
+      "startByte": 102872
+    },
+    {
+      "mode": "100644",
+      "blobOid": "c88361af89ab7388f11c2c1d509917cbb3420d68",
+      "path": "sandbox/202609051953/pipeline/index.html",
+      "byteCount": 8125,
+      "sha256": "f43b5d8cabbd572a54a2404ecb8b3c16456374b6618368f011a733217af2316b",
+      "status": "included",
+      "startByte": 104905
+    },
+    {
+      "mode": "100644",
+      "blobOid": "177338febb78efe86566fc5cd9b7e1847eef9ea7",
+      "path": "sandbox/202609051953/pipeline/scripts/app-v9-3.js",
+      "byteCount": 689,
+      "sha256": "364147302951332d745ee615d73051a6be962e2e2b568ddb4026689bcf4fe2e7",
+      "status": "included",
+      "startByte": 113257
+    },
+    {
+      "mode": "100644",
+      "blobOid": "0596783fc7967029c0cefa644c304a03e45b0311",
+      "path": "sandbox/202609051953/pipeline/scripts/app-v9-4.js",
+      "byteCount": 689,
+      "sha256": "3370012e59b154a209ffa9866e1515db9ff04b1a391b1247a4def2afb506095f",
+      "status": "included",
+      "startByte": 114182
+    },
+    {
+      "mode": "100644",
+      "blobOid": "36a5c48a017158e3e13b5566261f34b905b79007",
+      "path": "sandbox/202609051953/pipeline/scripts/app-v9-5-1.js",
+      "byteCount": 713,
+      "sha256": "1be160ffedffd634862172c98d4ac96145eff12be07518c88466ddea3c31e431",
+      "status": "included",
+      "startByte": 115109
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9146bfb97803a6d5680f861d66b89f81027b0711",
+      "path": "sandbox/202609051953/pipeline/scripts/app-v9-5.js",
+      "byteCount": 689,
+      "sha256": "a48603223cf5e75915b3e8cd9285dcab9b826ebf3e1575ada330ca8d88582b00",
+      "status": "included",
+      "startByte": 116060
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f37e16cf9f1f0160ecc4da8f4ce7bb509330cde2",
+      "path": "sandbox/202609051953/pipeline/scripts/app-v9-6-2.js",
+      "byteCount": 702,
+      "sha256": "4eed3a69f4755647dd223d45af438561bf80e6bd6b0a9bdacc5a789457b9e38d",
+      "status": "included",
+      "startByte": 116987
+    },
+    {
+      "mode": "100644",
+      "blobOid": "73dce8009c552b60ae80429929cde7aa6bfadd1c",
+      "path": "sandbox/202609051953/pipeline/scripts/app-v9-7.js",
+      "byteCount": 692,
+      "sha256": "58726ab9eeb8bbc7d348fc508ad681d8e356bb82a7debd911557ba723c899525",
+      "status": "included",
+      "startByte": 117927
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9c7360de94dda315fc0ddfd7d2d9699c91da0e70",
+      "path": "sandbox/202609051953/pipeline/scripts/app.js",
+      "byteCount": 689,
+      "sha256": "f24df134c92cd2178b2d5b90e606985b787c258a2a01181fd7341838fab7ac05",
+      "status": "included",
+      "startByte": 118850
+    },
+    {
+      "mode": "100644",
+      "blobOid": "205920ae5f6653ad83c0ed3ff276ed49ada2b253",
+      "path": "sandbox/202609051953/pipeline/scripts/build/regional-news-v9-7.mjs",
+      "byteCount": 4659,
+      "sha256": "a79fa1734d1f6cca1813a9dbcbfddb1c6cadfc485b00f0700bf63c55962005cf",
+      "status": "included",
+      "startByte": 119788
+    },
+    {
+      "mode": "100644",
+      "blobOid": "57823989d87737a95a86e9a06f8b1c18e66564ec",
+      "path": "sandbox/202609051953/pipeline/scripts/core/atlas-receiver-v9-7.js",
+      "byteCount": 16149,
+      "sha256": "a39c099718f51e8ca4fa3f31e310f102acfca7e9e105fa1379697548180bcee1",
+      "status": "included",
+      "startByte": 124718
+    },
+    {
+      "mode": "100644",
+      "blobOid": "0127ebdd379d54b7f87b781f496a28e3c3e65325",
+      "path": "sandbox/202609051953/pipeline/scripts/core/news-regions-v9-6-2.js",
+      "byteCount": 4781,
+      "sha256": "dd8a50414632200f9022bb19b934df50dab3785f1f88cfeadb133a4a207ccaa5",
+      "status": "included",
+      "startByte": 141136
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f8374bfd6f0c47e98ca1e7f2f3312c9281a34e8a",
+      "path": "sandbox/202609051953/pipeline/scripts/core/news-relevance-v9-2.js",
+      "byteCount": 3205,
+      "sha256": "e8b26fb6133b6be3286e55a3074744a54c5ca7ced13dd44367f31d3a665a29da",
+      "status": "included",
+      "startByte": 146186
+    },
+    {
+      "mode": "100644",
+      "blobOid": "159b7ae4029cc0686cd3770abf596919a928e5dd",
+      "path": "sandbox/202609051953/pipeline/scripts/core/plugin-host.js",
+      "byteCount": 669,
+      "sha256": "e5aaa19b5bee93683fae461f7ead55d019e8c2edc8ce377680c0da634606e378",
+      "status": "included",
+      "startByte": 149651
+    },
+    {
+      "mode": "100644",
+      "blobOid": "dceee01d0f51e85b071aef275250c1fb223eeba7",
+      "path": "sandbox/202609051953/pipeline/scripts/core/project-filter-v9-2.js",
+      "byteCount": 2532,
+      "sha256": "007126279582d5dbbe6bb5ebf30a79fd998b4839e8498c5a9a76ab2e4033c842",
+      "status": "included",
+      "startByte": 150581
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8fe3faf1801b1e581dd7fb40adfad9ebe78d0c30",
+      "path": "sandbox/202609051953/pipeline/scripts/core/project-state.js",
+      "byteCount": 3995,
+      "sha256": "bf52f442cc1aaa7ba26a32ef9437a9dd0c4149120fc313a0ae6cf51d874557d8",
+      "status": "included",
+      "startByte": 153376
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b880efadfe135843fb79c63c7e94acf1904d08fd",
+      "path": "sandbox/202609051953/pipeline/scripts/core/state.js",
+      "byteCount": 569,
+      "sha256": "1599d14a8895fe207b2b1354942e09e1d446332c338ade9b54b6e1d80a8522b4",
+      "status": "included",
+      "startByte": 157619
+    },
+    {
+      "mode": "100644",
+      "blobOid": "c2ec95aa95a5d57911728963e187b7d0e840c6ce",
+      "path": "sandbox/202609051953/pipeline/scripts/core/utils.js",
+      "byteCount": 707,
+      "sha256": "bec300e2720e0793bc08434e91c0ea0dd8c3d8e36e79b97172e4d5270f01eda0",
+      "status": "included",
+      "startByte": 158428
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b92a4a31a74e8d1b45ee5d32e5678324bd364d66",
+      "path": "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-1.js",
+      "byteCount": 4017,
+      "sha256": "d6135413ca0c0527142ba6557b9f7cb286618b6478d1804469e2239f808b00c3",
+      "status": "included",
+      "startByte": 159394
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e3d9b7bb0f39b813cf3b1f125467efbd6a021dda",
+      "path": "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-2.js",
+      "byteCount": 1442,
+      "sha256": "0b9820b9f48a5f72571091b7c921ca65d5fe1f2db0ee83cf8d914ddb4c029fc9",
+      "status": "included",
+      "startByte": 163688
+    },
+    {
+      "mode": "100644",
+      "blobOid": "189004ab3828f440dfd1f4fb18a794158af30d4d",
+      "path": "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-3.js",
+      "byteCount": 1787,
+      "sha256": "7ef5e264fd97e9e77f65042e392f4e2b7f3fb7a48380dfe9719ae80acb171300",
+      "status": "included",
+      "startByte": 165407
+    },
+    {
+      "mode": "100644",
+      "blobOid": "ba0e881e246a2649f61f3364bfcb865d3d9b2ff7",
+      "path": "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-4.js",
+      "byteCount": 1783,
+      "sha256": "96ab7aa96358d23ec977cd2754226601603895869adb4eebb1dd703100ec16fb",
+      "status": "included",
+      "startByte": 167471
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b632ccdf34f2ae41a2ddf39c3ed415726bee265a",
+      "path": "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-5-1.js",
+      "byteCount": 1791,
+      "sha256": "7e4bd9108eeaeb1b557e1b4f6ef4d8053f4429a4df46d5e5c8f886c4da88029b",
+      "status": "included",
+      "startByte": 169533
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b789fca9a3b9703af0431925506276ff5857a1d0",
+      "path": "sandbox/202609051953/pipeline/scripts/data/canonical-projects-v9-5.js",
+      "byteCount": 1781,
+      "sha256": "372bf74f115d47947bc7e903c8330ce40e76f54e2201f15373261ef11aed66b2",
+      "status": "included",
+      "startByte": 171603
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3468d88cce2c349b63e14d0f8dd02de850899f08",
+      "path": "sandbox/202609051953/pipeline/scripts/data/canonical-projects.js",
+      "byteCount": 15322,
+      "sha256": "40d21f77ae817575a8f17181154cfe7e2c95de2fc2f716ce29cccebe3eb6bdf8",
+      "status": "included",
+      "startByte": 173657
+    },
+    {
+      "mode": "100644",
+      "blobOid": "10e6699a8721585b32cefcbbe3abacc994d6a75f",
+      "path": "sandbox/202609051953/pipeline/scripts/news/adapters/committed-json-v9-7.mjs",
+      "byteCount": 652,
+      "sha256": "21063298123ca75593f3ec0daf883fba67c08b1e9321e0ecbbba4f01b309c80d",
+      "status": "included",
+      "startByte": 189256
+    },
+    {
+      "mode": "100644",
+      "blobOid": "7bb8b22e5a745bc2c8b6f0613377cf77ede3780c",
+      "path": "sandbox/202609051953/pipeline/scripts/news/classifier-v9-7.mjs",
+      "byteCount": 1842,
+      "sha256": "f15e8909e7e340a891f9253a743b1efc665641df1c1c63294f538c6dd413eaac",
+      "status": "included",
+      "startByte": 190184
+    },
+    {
+      "mode": "100644",
+      "blobOid": "fb2a84f95796be16a4b4dbc0e7f302d1dba60904",
+      "path": "sandbox/202609051953/pipeline/scripts/news/ledger-v9-7.mjs",
+      "byteCount": 2905,
+      "sha256": "ac8b88b5cbbdeee36db6561e6f369fa0f19b0276751688a563a4ba7719ddfd9c",
+      "status": "included",
+      "startByte": 192285
+    },
+    {
+      "mode": "100644",
+      "blobOid": "6a66671948c1629865afea292cd072fe30a8a663",
+      "path": "sandbox/202609051953/pipeline/scripts/news/rules/geography-v9-7.mjs",
+      "byteCount": 3381,
+      "sha256": "bba24b1c3c4e334494194ee8e371ba2925562a264dbf57bd7336a5b7dc25da94",
+      "status": "included",
+      "startByte": 195454
+    },
+    {
+      "mode": "100644",
+      "blobOid": "cc273037c84e835ec33a6a3c3e0a505685250b73",
+      "path": "sandbox/202609051953/pipeline/scripts/news/rules/technology-v9-7.mjs",
+      "byteCount": 951,
+      "sha256": "36a3f11f9badaa3b1a7372eca4e34f3f6509a4aa58c26038baa2645671a68222",
+      "status": "included",
+      "startByte": 199108
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8690f6e9b22c6074f0d8fc20aab680c267f8e4e7",
+      "path": "sandbox/202609051953/pipeline/scripts/news/rules/uk-veto-v9-7.mjs",
+      "byteCount": 1840,
+      "sha256": "11e6a1b656e1c5ffad4d16048b05c4239f6b81863e795dfba5d69026125dc388",
+      "status": "included",
+      "startByte": 200331
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8bc7ad18c98e1bd488a2f1b2a270aaba95d33271",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/canonical-project-controls.js",
+      "byteCount": 5694,
+      "sha256": "17651f44dd27506e99ee6abb97c6700b03bbcb3a6be44a14a6d5819b92cf233c",
+      "status": "included",
+      "startByte": 202450
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e5a394526242363db7b5286203f5aa904ee04cd3",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/canonical-project-export.js",
+      "byteCount": 6380,
+      "sha256": "3ec75298c9029a7b959022f80c43c00ea864eb98dbadaafb9de1de43b3679b8f",
+      "status": "included",
+      "startByte": 208431
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8c983a2777b1d5950891afe737d692c951879189",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/canonical-project-table.js",
+      "byteCount": 11406,
+      "sha256": "e086946da97557054db908315fd38f4b8b67148d2a2fcc88a5a4cb1d567c8b99",
+      "status": "included",
+      "startByte": 215096
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9054ec9ba841807ad3887960f9e11e57a65065d8",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/capacity-presentation-v9-3.js",
+      "byteCount": 1916,
+      "sha256": "650e2d1ca9fea55d0cb96db58c752e03ac03645499f033d11d4f76d29c917cef",
+      "status": "included",
+      "startByte": 226788
+    },
+    {
+      "mode": "100644",
+      "blobOid": "72baa0883a5182b4f62a764b7619b280815336e1",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/gauges-v9-1.js",
+      "byteCount": 1979,
+      "sha256": "eb9c3caf204dd177407f4ac4f3a4352afc28381aba70a745854e2a69a89f2cae",
+      "status": "included",
+      "startByte": 228978
+    },
+    {
+      "mode": "100644",
+      "blobOid": "1d081d2d9e1630912b912953cf18f431754f9e19",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/gauges-v9-2.js",
+      "byteCount": 2753,
+      "sha256": "30803e3ecc787175bc31b6913541d52cc6065e9be2b50dc4d3ed900797348682",
+      "status": "included",
+      "startByte": 231216
+    },
+    {
+      "mode": "100644",
+      "blobOid": "cdf1e0d9254aee0af46627238082b1141b9b28a9",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/gauges.js",
+      "byteCount": 2523,
+      "sha256": "c77752b697b9104fd8257d25294e84a63a8d4cc6060ce60eef7ef065cf19058d",
+      "status": "included",
+      "startByte": 234223
+    },
+    {
+      "mode": "100644",
+      "blobOid": "6c72de9e9bd8f41bf525a32ca2436e53ddb466b0",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-2.js",
+      "byteCount": 7846,
+      "sha256": "c6d3655455fe54131ce2a7b6cea189d099aed214f5710da40edf0d73d853e9b4",
+      "status": "included",
+      "startByte": 237003
+    },
+    {
+      "mode": "100644",
+      "blobOid": "c990407d2fd47ccfd9b94ab7c34230dce6741007",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-5-1.js",
+      "byteCount": 7882,
+      "sha256": "f0925133d5d29113b113d241ccee5869bf9484a7319050913d7cd6b9cec5cf86",
+      "status": "included",
+      "startByte": 245116
+    },
+    {
+      "mode": "100644",
+      "blobOid": "81b219ae7e6b4c338605005063f3358778e2d7ec",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-5.js",
+      "byteCount": 7000,
+      "sha256": "abca4ff5fb4e8f28bf5a613d399d6bb8a7a4ee94234a0936694663f2c5c2f2dc",
+      "status": "included",
+      "startByte": 253265
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b676b5b1eba30ce0fa5e5c6a38b54b635eb50a08",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-6-2.js",
+      "byteCount": 3592,
+      "sha256": "d5ea34b3ff4b006e454edd012e02b993c93dd9db8951323fd0fbb865006e0eb9",
+      "status": "included",
+      "startByte": 260532
+    },
+    {
+      "mode": "100644",
+      "blobOid": "dc0c1c3bc16c434fe96ec6a77a5dce1e5b0ad445",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/newspaper-v9-7.js",
+      "byteCount": 4413,
+      "sha256": "81b71eee9d720e4dc223a16677680e295db6d3aeaa226a76ec01680265ee1e34",
+      "status": "included",
+      "startByte": 264391
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e17eb4e52a3736976ec5f69d345b11e3667b41a2",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/newspaper.js",
+      "byteCount": 5883,
+      "sha256": "938c662a4ca461107f3f0851c70dd09bc29d0103ed1517a49920cb7ccbd06417",
+      "status": "included",
+      "startByte": 269064
+    },
+    {
+      "mode": "100644",
+      "blobOid": "06d1727722f347f7a4da874c194e56e6b3ae70b6",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/project-export.js",
+      "byteCount": 1169,
+      "sha256": "a5dbf6eff9670d7c08289d53e187c838b958f68eab2039928bc2a154e4689524",
+      "status": "included",
+      "startByte": 275207
+    },
+    {
+      "mode": "100644",
+      "blobOid": "914fc4b7389fed8d454682ee2e52ab7719da7b95",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/project-filters.js",
+      "byteCount": 1593,
+      "sha256": "348065a5800f21cbfb05d7a4a0d051215fc4263d016643be37d14687481440c6",
+      "status": "included",
+      "startByte": 276642
+    },
+    {
+      "mode": "100644",
+      "blobOid": "bd5f7611ef533751211c3321723ce8cb4a3dffa8",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/project-table.js",
+      "byteCount": 1538,
+      "sha256": "cb9eab60637c87f940c2494590c301cf9c19e8b6c37eca6a38b9681a9e44c4f0",
+      "status": "included",
+      "startByte": 278500
+    },
+    {
+      "mode": "100644",
+      "blobOid": "4259f28f52b5113ae3b33f7bb6f0ff29da3b4699",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-1.js",
+      "byteCount": 9202,
+      "sha256": "bff4758989eb29538525df4ee900eaed4b56e18f7f2bfcf4ed7211a9f0fb4468",
+      "status": "included",
+      "startByte": 280301
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e0697a60666700a9f73ccbe608005c905f052a48",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-2.js",
+      "byteCount": 15000,
+      "sha256": "f000545d11ba6aa620ce3179bdd2ac3eaeb5672ea46daecf0536048b83563467",
+      "status": "included",
+      "startByte": 289767
+    },
+    {
+      "mode": "100644",
+      "blobOid": "4d26d31f9acfae5360875e4ad27e54d1dbc328ae",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-3.js",
+      "byteCount": 16772,
+      "sha256": "a51eeda3bf0430f58083eb6179db56446724a98d1f4b11172fcc54561239d958",
+      "status": "included",
+      "startByte": 305031
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a5437c9a584d156210a52a0097b52ce9db100108",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-4.js",
+      "byteCount": 18086,
+      "sha256": "f585277b0d78f791507207de6cae2780969ea6e3a6a85b886ad54ecd26800e3a",
+      "status": "included",
+      "startByte": 322067
+    },
+    {
+      "mode": "100644",
+      "blobOid": "c41a45a1de7869cb93960b8049edfaacad987428",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-5-1.js",
+      "byteCount": 23534,
+      "sha256": "79baa921d8451f89bc06f90a4422a6534dc90f36b078b37fd13e8576a75bd907",
+      "status": "included",
+      "startByte": 340419
+    },
+    {
+      "mode": "100644",
+      "blobOid": "5ac0583723a12a3280cfc0ab33728c0d52135237",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/projects-v9-5.js",
+      "byteCount": 18089,
+      "sha256": "5561994a3a05ccffed410e9b3fdaa9924e08307215e8a0b6167910c8c5591b4f",
+      "status": "included",
+      "startByte": 364219
+    },
+    {
+      "mode": "100644",
+      "blobOid": "6f9f71f954b21c38bd47929f73c1ef67fb9d37e8",
+      "path": "sandbox/202609051953/pipeline/scripts/plugins/projects.js",
+      "byteCount": 5582,
+      "sha256": "d942b7468317cdbe5a5cb7a2bdcd1d27a4cdda11f0d3efacc893298a79b14b2d",
+      "status": "included",
+      "startByte": 382566
+    },
+    {
+      "mode": "100644",
+      "blobOid": "ace94d28df6890d206ce22a581ef7f13ed719948",
+      "path": "sandbox/202609051953/pipeline/styles/mobile.css",
+      "byteCount": 203,
+      "sha256": "9855b9c11255a85f477873d07cca45b057aedcdc8a6cc4aab2d29a0ffaac9b85",
+      "status": "included",
+      "startByte": 388390
+    },
+    {
+      "mode": "100644",
+      "blobOid": "1bf294c357c41d1706f7f43411b6f6b01320da37",
+      "path": "sandbox/202609051953/pipeline/styles/testcode.css",
+      "byteCount": 2190,
+      "sha256": "f07b404ea8e0c0d0530bdacda4ba5ff7aca6ebc37879fa6c577cf68c9c4dfc14",
+      "status": "included",
+      "startByte": 388828
+    },
+    {
+      "mode": "100644",
+      "blobOid": "ad3284c0025f5b8c7f90255fcbadf3d811f36e37",
+      "path": "sandbox/202609051953/pipeline/styles/v7.css",
+      "byteCount": 6245,
+      "sha256": "036dbfe43ef1ffb2c55ba277d49dec57ab7c7be976289226a5d568e1f1be319d",
+      "status": "included",
+      "startByte": 391249
+    },
+    {
+      "mode": "100644",
+      "blobOid": "5079fddedc91fff9be5750ae9db796668f208e85",
+      "path": "sandbox/202609051953/pipeline/styles/v8.css",
+      "byteCount": 608,
+      "sha256": "14129b4d6a148c0a629d4f5bf01fb4946ec0b62255ff9b78a3a9d01b6dfd1cbc",
+      "status": "included",
+      "startByte": 397718
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f4ac1a09145b0f4824e333ac2acbc767d84f2da6",
+      "path": "sandbox/202609051953/pipeline/styles/v9-2.css",
+      "byteCount": 2718,
+      "sha256": "b4f95937b05844659b039299026dda5664fbf337fbbba3305626012d125fee77",
+      "status": "included",
+      "startByte": 398553
+    },
+    {
+      "mode": "100644",
+      "blobOid": "7691393e0bb8fa6b329bf190047cdaee0ab4c232",
+      "path": "sandbox/202609051953/pipeline/styles/v9-3.css",
+      "byteCount": 5131,
+      "sha256": "5d1d40b9f1d8b483ac47c940a971eb78636e16877d5fa622985119a8a64794c9",
+      "status": "included",
+      "startByte": 401500
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3838c79ed304d6f7f98e20af5b21b00918f141fa",
+      "path": "sandbox/202609051953/pipeline/styles/v9-4.css",
+      "byteCount": 402,
+      "sha256": "39f7d0fd3ff42e82407c1f5129444e6cc308ef5c0ec551d43c7396ac53310d17",
+      "status": "included",
+      "startByte": 406859
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f60533018ff2531be2af9a55e632a5017e48e43a",
+      "path": "sandbox/202609051953/pipeline/styles/v9-5-1.css",
+      "byteCount": 408,
+      "sha256": "79ff5b1db85ae82a381fbad061c0122e7151bb9c9c7ba80c549051761f0bfae3",
+      "status": "included",
+      "startByte": 407491
+    },
+    {
+      "mode": "100644",
+      "blobOid": "ec636cc2a186932d61983a183948ae979f605c73",
+      "path": "sandbox/202609051953/pipeline/styles/v9-6-1.css",
+      "byteCount": 3691,
+      "sha256": "a0711d40125d81e1a2836f548206bb26dce5086dea6888d6cec867b08e3f4869",
+      "status": "included",
+      "startByte": 408132
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b73fe6e252c14235dc8aa31cabf906ea6d98f10c",
+      "path": "sandbox/202609051953/pipeline/teleprinter-bootstrap.js",
+      "byteCount": 1059,
+      "sha256": "269b88b6a18f6aa8ec7d0c41c662f6ca4bd109ad228b724b305ce451df6c50fd",
+      "status": "included",
+      "startByte": 412063
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8ce75945409656c3bc13ff7fe6b2b57af29162d7",
+      "path": "sandbox/202609051953/teleprinter/SOURCE-SCOPE.md",
+      "byteCount": 2109,
+      "sha256": "3fb97949b0d19b5bc130ac981a16a666a0707a741892a0c8787be78a093c0c18",
+      "status": "included",
+      "startByte": 413363
+    },
+    {
+      "mode": "100644",
+      "blobOid": "875240dd4cc09d01224adfc3de303f6f96956322",
+      "path": "sandbox/202609051953/teleprinter/app-frame.js",
+      "byteCount": 3421,
+      "sha256": "fbb73e307f356df8ed19cd9c91081d46645ce8bd649095ef0b3eb926ec9a6a42",
+      "status": "included",
+      "startByte": 415704
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e642a70ea67a5749aeff2c308d19ba5ed449fbb1",
+      "path": "sandbox/202609051953/teleprinter/capture-geometry.mjs",
+      "byteCount": 973,
+      "sha256": "1dfe34aaa5d559e2f6c894a8fac3bb11deea76916df853153eb24e6837a02613",
+      "status": "included",
+      "startByte": 419361
+    },
+    {
+      "mode": "100644",
+      "blobOid": "38448d15eacd47f41f45dba464c080c8abf0daac",
+      "path": "sandbox/202609051953/teleprinter/cartridges.json",
+      "byteCount": 1336,
+      "sha256": "d3891e840a71528dde83798b29984b4161a0341d8e61b300ca294eb918a77943",
+      "status": "included",
+      "startByte": 420574
+    },
+    {
+      "mode": "100644",
+      "blobOid": "2eb1ee6788436a00132ed5c4d330cb3168e3affb",
+      "path": "sandbox/202609051953/teleprinter/clone-visible-ui.js",
+      "byteCount": 1424,
+      "sha256": "cc710a39dcd0163cbccd639b2802dc96060b4a632d1ae8b6251efe63cb3be54d",
+      "status": "included",
+      "startByte": 422149
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9cb0ea06a41c66fb398b4f62588dd903ad86dde0",
+      "path": "sandbox/202609051953/teleprinter/controls.js",
+      "byteCount": 10376,
+      "sha256": "26668d706b4d11ee2383f1c29372735443f9745499e079e2d014b266f6d44044",
+      "status": "included",
+      "startByte": 423809
+    },
+    {
+      "mode": "100644",
+      "blobOid": "37d5c16712b7cd342d6ef161bc4361172d1830ae",
+      "path": "sandbox/202609051953/teleprinter/layer-quick-controls.js",
+      "byteCount": 2940,
+      "sha256": "6eb140de5934ff221867942ee4d6828db911c592b3ca251555f3ba3f029d4c54",
+      "status": "included",
+      "startByte": 434424
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9310754cbe6f433704a32c5c532cd1eeb9a424b2",
+      "path": "sandbox/202609051953/teleprinter/layers-panel-policy.js",
+      "byteCount": 965,
+      "sha256": "8b0bad5e4e07aa1fa616b6e60240f4461f367dbc1e28bfd8700d6a00287a9be2",
+      "status": "included",
+      "startByte": 437613
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8297f6abefe55aa3e993ef0a74b495ff0d633861",
+      "path": "sandbox/202609051953/teleprinter/layout-command.js",
+      "byteCount": 1762,
+      "sha256": "5781844356f6fc914f03e5ee522036f9fb4783b195ca00a8de462b64d59faa31",
+      "status": "included",
+      "startByte": 438822
+    },
+    {
+      "mode": "100644",
+      "blobOid": "98150c4635fd713ceb4baf0b09033db8851facb6",
+      "path": "sandbox/202609051953/teleprinter/png-pixels.mjs",
+      "byteCount": 8455,
+      "sha256": "01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481",
+      "status": "included",
+      "startByte": 440820
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a65d7bad3455ce9a4b6862edce4f83666903f266",
+      "path": "sandbox/202609051953/teleprinter/print-screen.js",
+      "byteCount": 2328,
+      "sha256": "c697937957010daf9d88830422100433f4d9c2a9edc39a973b96469de0536229",
+      "status": "included",
+      "startByte": 449509
+    },
+    {
+      "mode": "100644",
+      "blobOid": "1827a78fd6951776093ebb1c186f3e8155dbadbc",
+      "path": "sandbox/202609051953/teleprinter/print-source-code.js",
+      "byteCount": 10680,
+      "sha256": "78f6dba08fe4b7b44f6b40c85b17b469aa10a50676b77e17e74e2fa62065778f",
+      "status": "included",
+      "startByte": 452078
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3df51867e4f0500076dd171f5a745bbacadb5f7d",
+      "path": "sandbox/202609051953/teleprinter/runtime-source.js",
+      "byteCount": 26282,
+      "sha256": "4e6a423ee68b715df5fd07a6d6d9b0380eddc0047006244681cb7e087680c274",
+      "status": "included",
+      "startByte": 463001
+    },
+    {
+      "mode": "100644",
+      "blobOid": "fdb1ca4c25e0c3bea47122ac32c801165d95ffcc",
+      "path": "sandbox/202609051953/teleprinter/screen-pdf.mjs",
+      "byteCount": 10220,
+      "sha256": "ef8b7d5c213754d93141c362b2bb981457bf16dada199ba6549ae1dda8828039",
+      "status": "included",
+      "startByte": 489520
+    },
+    {
+      "mode": "100644",
+      "blobOid": "268e9bc26bcecad85dda44ef87ebe0709ab64608",
+      "path": "sandbox/202609051953/teleprinter/vendor/html2canvas-1.4.1.mjs",
+      "byteCount": 410344,
+      "sha256": "9e73165f2f55469d3a4c1a7a81f3858985ba9a230f8a8e8b2bab3c2dca6f253a",
+      "status": "included",
+      "startByte": 499989
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a73ffc9143edf0da1c821e920b6ec8582aba61f3",
+      "path": "sandbox/202609051953/teleprinter/vendor/html2canvas-LICENSE.txt",
+      "byteCount": 1061,
+      "sha256": "86200ce4e92d9a22c41c8647a55f7a5fddff304ff89b4d36ecc699ed8c123d2c",
+      "status": "included",
+      "startByte": 910596
+    }
+  ],
+  "byteCount": 911780,
+  "sha256": "8eaac9f9bc1077d648b48e68903f595d7416c28391c4b22dedbcb5b4ae2f94cf",
+  "includedCount": 98,
+  "omittedCount": 0
+}

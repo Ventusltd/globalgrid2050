@@ -1,0 +1,27 @@
+{
+  "owners": [
+    {
+      "repository": "https://github.com/Ventusltd/gis-sld-sandbox.git",
+      "commit": "9fe7b2d920aaa11e95380de39b33fd98f04e9696",
+      "release": "202609051855",
+      "manifestSha256": "90190a0846717b5203305a8c08301fb26ed58e015b992272e0999272091a0916",
+      "applications": [
+        {
+          "id": "gis-sld-financial-sandbox",
+          "entry": "solar-bess-topology-v7/gis-sld-financial-sandbox/index.html"
+        }
+      ],
+      "rootOriginDependencies": [
+        "/grid_substations.geojson",
+        "/dist/repd_master.json"
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "id": "gis-sld-financial-sandbox",
+      "title": "GIS SLD Financial Sandbox",
+      "entry": "../layer-apps/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html"
+    }
+  ]
+}

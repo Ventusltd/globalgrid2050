@@ -1,0 +1,58 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.6.1",
+  "release": "9.6.1",
+  "status": "LIVE_VALIDATED",
+  "feature": "mobile-project-table-horizontal-scroll-only",
+  "frozen_parent": {
+    "release": "9.5.1",
+    "commit": "8b2432be75f224562fc1c416dbcc3319e31a47a8",
+    "path": "uk_renewables_pipeline/v9.5.1",
+    "subtree": "6288b9d8196adce57207b549c555c9bcee42587a",
+    "tree_listing_sha256": "b6197b79601daab1ee3b1d33fb9356c6c56ec02c69f51be73298be34095d5fe8",
+    "must_remain_unchanged": true
+  },
+  "runtime": {
+    "app": "scripts/app-v9-5-1.js",
+    "contract": "contracts/release.v9.5.1.json",
+    "data_release": "9.1",
+    "behaviour_release": "9.5.1",
+    "data_changed": false,
+    "javascript_changed": false,
+    "news_changed": false
+  },
+  "immutable_trees": {
+    "data": "cb9fbae6a1ed3cd79ae93500df1075eba3aff435",
+    "scripts": "740dda1a21b3d4cba1f6e345c863a4ba7219c1fe",
+    "fixtures": "a764f29ee2ccd0a607c5dffbe4cff21e32a85847"
+  },
+  "discontinued_release": {
+    "release": "9.6",
+    "path": "uk_renewables_pipeline/v9.6",
+    "reason": "scope and mobile interface regression",
+    "reused": false
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "displayed_capacity_mw": 356474,
+    "largest_mw": 4100.0,
+    "valid_geometry_count": 7652,
+    "missing_geometry_count": 28,
+    "all_headline_count": 133,
+    "relevant_headline_count": 45,
+    "beacon_fen_repd_ref": "13599",
+    "beacon_fen_related_bess_repd_ref": "13600"
+  },
+  "ui_contract": {
+    "separate_app_path": "uk_renewables_pipeline/v9.6.1",
+    "desktop_changed": false,
+    "mobile_breakpoint_max_px": 768,
+    "project_table_columns": 11,
+    "project_table_inherited_min_width_px": 1280,
+    "horizontal_scroll_container": ".tablewrap",
+    "document_horizontal_scroll": false,
+    "mobile_cards": false,
+    "capacity_range_filter": false,
+    "forced_table_width_px": null
+  }
+}

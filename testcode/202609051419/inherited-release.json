@@ -1,0 +1,37 @@
+{
+  "generation": "202609051344",
+  "predecessor": "202609051300",
+  "built_utc": "2026-09-05T13:48:49.244581+00:00",
+  "engine_commit": "f9531a7",
+  "changes": [
+    "Wrapper at actual selectAt closure, receipt from actual nearestSubstations + nearestTransmission return values; original return retained.",
+    "Draw measured nearest transmission outside 40 km local search.",
+    "Crown Estate and Crown Estate Scotland attributed approximate areas for three unresolved offshore records.",
+    "Industrial clicks compute using actual source coordinates and original NAEI identity.",
+    "Same-origin industrial GeoJSON avoids Parquet dependency for map selection.",
+    "Usable layer-panel layout also applies to industrial visits."
+  ],
+  "results": {
+    "repd": {
+      "tested": 100,
+      "passed": 94
+    },
+    "industrial": {
+      "tested": 10,
+      "passed": 10
+    },
+    "cross_browser": {
+      "tested": 35,
+      "passed": 35,
+      "engine_fired": 35
+    }
+  },
+  "limitations": [
+    "Missing coordinates are failures, not omitted cases.",
+    "Windows WebKit and mobile emulation are not real Safari/iPhone or Android hardware.",
+    "Industrial selection is tested at zoom 17 to distinguish neighbouring sites.",
+    "Distances are indicative screening, not agreed grid connections.",
+    "General free-text Parquet search is outside the exact-identity arrival correction."
+  ],
+  "screenshots": "None retained or published."
+}

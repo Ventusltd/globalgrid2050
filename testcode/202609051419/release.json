@@ -1,0 +1,22 @@
+{
+  "generation": "202609051419",
+  "predecessor": "202609051344",
+  "built_utc": "2026-09-05T14:19:08.330Z",
+  "purpose": "Add Print and Print source code controls to the unchanged detector applications.",
+  "teleprinter": {
+    "repository": "https://github.com/Ventusltd/teleprinter",
+    "commit": "6f2026458665abffd969dc5e2f814157e365bf70"
+  },
+  "inherited_detector_evidence": {
+    "generation": "202609051344",
+    "rerun": false,
+    "files": [
+      "results.json",
+      "results.html",
+      "cases.json",
+      "detector-build.json",
+      "inherited-release.json"
+    ]
+  },
+  "source_publication": "Run finish only after committing application source; per-app pins identify that code commit."
+}

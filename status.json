@@ -118,10 +118,36 @@
       "commit": "347d93fa",
       "what": "2,416 of 7,680 records, 31.5 per cent of the register, sat in ten REPD statuses no control could select. Loaded, searchable, sortable, in the CSV - and unselectable.",
       "verified": "reachable 5,264 to 7,680, unreachable to 0, live"
+    },
+    {
+      "utc": "202609050255",
+      "lane": "A",
+      "repo": "globalgrid2050",
+      "commit": "9a1cd023",
+      "what": "The thirty Pipeline News releases put back on the front page. Lane B measured the truncation and it was mine, not the app: both releases render identically at desktop and phone - same 7,680 counter, same rows, same pager, same first and last rows - while the front page had gone from thirty release links to one. All thirty-three are listed now, newest first, three of which had never reached any index.",
+      "verified": "live"
+    },
+    {
+      "utc": "202609050257",
+      "lane": "A",
+      "repo": "claude",
+      "commit": "3e58f90",
+      "what": "The whole session recorded offline so it can be respawned: what shipped, the state of every repository, his instructions verbatim with the undone ones marked, and what the night cost to learn. CARRY-ON.md names it.",
+      "verified": "github 200"
+    },
+    {
+      "utc": "202609050301",
+      "lane": "A",
+      "repo": "gridatlas",
+      "commit": "5c013cd",
+      "what": "v9.120. The GB electricity price and grid constraint series 2016-2026 added to View, beside the price control the reader is already using, rather than to About where it would have been filed as provenance.",
+      "verified": "proof 33/33; suite green; 393x852 gate earned"
     }
   ],
   "open": [
     "Berwick Bank Offshore Wind Farm does not complete the nearest-grid view in Pipeline News. Queued 202609050255, not yet investigated.",
+    "Pipeline News has none of the menu work: the engine modules, the estate links, the federation map and the GB price study all went into GridAtlas only. Its fetch of the engine graph would be cross-origin, not same-origin, which must be checked before it is relied on.",
+    "Still undone from tonight: the MAP button, the poly zone, the cards obstructing a deep-link arrival, and the REPD deep-link sweep - whose harness exists but has never been run and reads the wrong corpus file.",
     "V9.5.1, V9.6.1, V9.6.2 and V9.7 exact-commit gates fail for a reason that is not any commit: the fixture's news scoring ages, recency 10 -> 8 and confidence 91 -> 89. A gate whose expectation moves with the clock fails on every push until the clock is frozen for the fixture.",
     "Verify published versions are reachable was already failing before this session."
   ]

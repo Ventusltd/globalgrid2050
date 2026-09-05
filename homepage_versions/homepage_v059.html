@@ -181,7 +181,6 @@
 </style>
 <link rel="stylesheet" href="./cartridges/202609052136-terminal-progress/progress.css">
 <link rel="stylesheet" href="./cartridges/202609052143-open-energy/energy.css">
-<link rel="stylesheet" href="./cartridges/202609052150-nasa-ice/ice.css">
 </head>
 <body>
 <header>
@@ -211,16 +210,6 @@
 </section>
 <script type="module" src="./cartridges/202609052143-open-energy/energy.mjs"></script>
 <!-- open-energy:end -->
-
-<section id="nasa-ice" aria-labelledby="ice-title">
-<h2 id="ice-title">[ POLAR ICE / THE SCALE OF CHANGE ]</h2>
-<p data-status>Loading historical ice-loss baseline.</p>
-<div class="ice-row" data-ice="greenland"><label for="ice-greenland">GREENLAND <output>Unavailable</output></label><progress id="ice-greenland" max="1" value="0"></progress><small></small></div>
-<div class="ice-row" data-ice="antarctica"><label for="ice-antarctica">ANTARCTICA <output>Unavailable</output></label><progress id="ice-antarctica" max="1" value="0"></progress><small></small></div>
-<button type="button" aria-pressed="false" disabled>Pause counters</button>
-<p>Tonnes over an average day at the historical rate; bars fill over the UTC day. Net mass loss includes ice flow into the ocean as well as surface processes. This is not a live melt sensor or an ice-remaining countdown.</p>
-<p>Source: <a href="https://svs.gsfc.nasa.gov/31166/">NASA and JPL/Caltech, 2002-2025 GRACE/GRACE-FO summary</a> (updated 11 December 2025). <a href="./cartridges/202609052150-nasa-ice/source.json">Baseline and model</a>.</p>
-</section><script type="module" src="./cartridges/202609052150-nasa-ice/ice.mjs"></script>
 
 <!-- precision-board:start -->
 <section id="precision-progress" aria-labelledby="precision-title">

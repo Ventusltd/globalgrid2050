@@ -1,0 +1,14 @@
+{
+  "schema":"ventus.ice-rate.v1",
+  "referencePeriod":"2002-2025",
+  "updated":"2025-12-11",
+  "verified":"2026-09-05",
+  "source":"NASA and JPL/Caltech, Scientific Visualization Studio, item31166",
+  "url":"https://svs.gsfc.nasa.gov/31166/",
+  "reuseUrl":"https://www.earthdata.nasa.gov/engage/open-data-services-software/data-use-policy",
+  "greenlandGtPerYear":264,
+  "antarcticaGtPerYear":135,
+  "modelYearDays":365.2425,
+  "kind":"Historical mean net mass-loss rate illustrated over one UTC day; not today's measured melting",
+  "selectionNote":"NASA's general ice-sheet page contains differing summaries. This release uses the explicit2002-2025 figures together from SVS31166; no blending of periods. No NASA images or logos are copied."
+}

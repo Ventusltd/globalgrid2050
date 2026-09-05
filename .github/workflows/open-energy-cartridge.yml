@@ -2,9 +2,9 @@ name: Open energy cartridge
 on:
   push:
     branches: [main]
-    paths: ['cartridges/202609052143-open-energy/**', '.github/workflows/open-energy-cartridge.yml']
+    paths: ['cartridges/**', '.github/workflows/open-energy-cartridge.yml']
   pull_request:
-    paths: ['cartridges/202609052143-open-energy/**', '.github/workflows/open-energy-cartridge.yml']
+    paths: ['cartridges/**', '.github/workflows/open-energy-cartridge.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,5 +20,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test cartridges/202609052143-open-energy/model.test.mjs
+      - run: node --test cartridges/*/model.test.mjs
       - run: node --check cartridges/202609052143-open-energy/energy.mjs

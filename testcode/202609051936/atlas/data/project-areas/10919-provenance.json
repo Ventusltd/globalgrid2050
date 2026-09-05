@@ -1,0 +1,12 @@
+{
+  "repd_ref": "10919",
+  "source": "The Crown Estate, Wind Site Agreements",
+  "source_url": "https://services2.arcgis.com/PZklK9Q45mfMFuZs/arcgis/rest/services/WindSite_EngWalNI_TheCrownEstate/FeatureServer/0/query?f=geojson&where=Name_Prop%20like%20%27%25Morgan%25%27&outFields=*&outSR=4326",
+  "source_item": "https://www.arcgis.com/home/item.html?id=22a1be6fb0c5416e9369f97743f387b1",
+  "source_sha256": "d883605fd19c7adbbaf5a2abf9d5ec9c4d8a605e36a455b12d0a46e126a36adf",
+  "retrieved_utc": "2026-09-05T12:58:01.294270+00:00",
+  "method": "Planar area-weighted polygon centroid in WGS84 lon/lat; approximate screening origin. Lease boundary, not consented array boundary.",
+  "longitude": -3.9937029868276253,
+  "latitude": 53.99631879420542,
+  "notice": "Approximate location: Crown Estate lease-area centre. Grid distances are indicative; this is not a turbine, landfall or agreed connection point."
+}

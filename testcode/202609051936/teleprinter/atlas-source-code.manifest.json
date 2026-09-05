@@ -1,0 +1,300 @@
+{
+  "format": "codex-print-source-code-v1",
+  "repository": "https://github.com/Ventusltd/testcode",
+  "commit": "cf4d34269ab100c8a5a22f61477155cf71727349",
+  "tree": "382cb9261e66d08834b1d6c7d3b40d6a75616b3c",
+  "scopes": [
+    "sandbox/202609051936/atlas/cartridges/202609051936-sld-sandbox.js",
+    "sandbox/202609051936/atlas/cartridges/202609051936-streaming-parquet-bridge.js",
+    "sandbox/202609051936/atlas/cartridges/202609051936-substation-intelligence.js",
+    "sandbox/202609051936/atlas/cartridges/202609051936-uk-gazetteer-flyto.js",
+    "sandbox/202609051936/atlas/current.json",
+    "sandbox/202609051936/atlas/index.html",
+    "sandbox/202609051936/atlas/source/menu-bar.js",
+    "sandbox/202609051936/atlas/teleprinter-bootstrap.js",
+    "sandbox/202609051936/atlas/tool-layers.json",
+    "sandbox/202609051936/teleprinter/SOURCE-SCOPE.md",
+    "sandbox/202609051936/teleprinter/app-frame.js",
+    "sandbox/202609051936/teleprinter/capture-geometry.mjs",
+    "sandbox/202609051936/teleprinter/cartridges.json",
+    "sandbox/202609051936/teleprinter/clone-visible-ui.js",
+    "sandbox/202609051936/teleprinter/controls.js",
+    "sandbox/202609051936/teleprinter/layer-quick-controls.js",
+    "sandbox/202609051936/teleprinter/layers-panel-policy.js",
+    "sandbox/202609051936/teleprinter/layout-command.js",
+    "sandbox/202609051936/teleprinter/png-pixels.mjs",
+    "sandbox/202609051936/teleprinter/print-screen.js",
+    "sandbox/202609051936/teleprinter/print-source-code.js",
+    "sandbox/202609051936/teleprinter/runtime-source.js",
+    "sandbox/202609051936/teleprinter/screen-pdf.mjs",
+    "sandbox/202609051936/teleprinter/vendor/html2canvas-1.4.1.mjs",
+    "sandbox/202609051936/teleprinter/vendor/html2canvas-LICENSE.txt",
+    "sandbox/202609051936/tool-layers/dismissal.js",
+    "sandbox/202609051936/tool-layers/focus-boundary.js",
+    "sandbox/202609051936/tool-layers/host.js"
+  ],
+  "policy": {
+    "source": "Committed Git blobs only; working-tree changes are never substituted.",
+    "inclusion": "All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.",
+    "omission": "NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.",
+    "boundaries": "File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization."
+  },
+  "files": [
+    {
+      "mode": "100644",
+      "blobOid": "f1df0a9deec25e5e598f9c3e2be825d4c0358f41",
+      "path": "sandbox/202609051936/atlas/cartridges/202609051936-sld-sandbox.js",
+      "byteCount": 384025,
+      "sha256": "2a8cb3aa9c8bbe57b187c66ed05b34acef7d9c868e5f770321082c6c1921e9f2",
+      "status": "included",
+      "startByte": 9349
+    },
+    {
+      "mode": "100644",
+      "blobOid": "98b025e842d7a6856dcc7cc6aa2db6a1edcf3ada",
+      "path": "sandbox/202609051936/atlas/cartridges/202609051936-streaming-parquet-bridge.js",
+      "byteCount": 13656,
+      "sha256": "80ebac3061f634433554c6dc992b21a34405e5afd2a9b09f968086229b8d8b2c",
+      "status": "included",
+      "startByte": 393657
+    },
+    {
+      "mode": "100644",
+      "blobOid": "612d9a209de7ad1912c771255348367dd8338211",
+      "path": "sandbox/202609051936/atlas/cartridges/202609051936-substation-intelligence.js",
+      "byteCount": 370349,
+      "sha256": "255a0e410b5fe53b5ce793ae5ad4ca60600ca9d22fefbaa7a363b91cab5338a9",
+      "status": "included",
+      "startByte": 407609
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f5ba42357785598131bb4f19d0c6027f6bc88dc7",
+      "path": "sandbox/202609051936/atlas/cartridges/202609051936-uk-gazetteer-flyto.js",
+      "byteCount": 36378,
+      "sha256": "ea193b7347ed222bca92c393256001047d198fae617483bacdb4d4a0540b7068",
+      "status": "included",
+      "startByte": 778247
+    },
+    {
+      "mode": "100644",
+      "blobOid": "dbe7505a0c458480030eb35292ebbf47ea2a296a",
+      "path": "sandbox/202609051936/atlas/current.json",
+      "byteCount": 49217,
+      "sha256": "f7636c6ddcb3bced73a8c0129777f48b099440d3578e458f3b762288fca07c58",
+      "status": "included",
+      "startByte": 814876
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a9d27c60efd1028b661e5600d2bdcea224b4e2f0",
+      "path": "sandbox/202609051936/atlas/index.html",
+      "byteCount": 5684,
+      "sha256": "270287955466c99a231d87e3e8d7c48268fa9a4c27cbc0cda09c5a183183086b",
+      "status": "included",
+      "startByte": 864308
+    },
+    {
+      "mode": "100644",
+      "blobOid": "746d1444d6e028ae3ee88bdcae195597672ed439",
+      "path": "sandbox/202609051936/atlas/source/menu-bar.js",
+      "byteCount": 74704,
+      "sha256": "bbb25d09591f57d107e8cb207c2f934eb367e1b5d2831e01fa493d836ab2e3b4",
+      "status": "included",
+      "startByte": 870214
+    },
+    {
+      "mode": "100644",
+      "blobOid": "cd5e47088f15ce895b999ecc084d9ab06f47ffcb",
+      "path": "sandbox/202609051936/atlas/teleprinter-bootstrap.js",
+      "byteCount": 2564,
+      "sha256": "fee1f418110ab6cbd7c58c54f6948b9b19e835cb63b1538fe33ba026999dc06b",
+      "status": "included",
+      "startByte": 945153
+    },
+    {
+      "mode": "100644",
+      "blobOid": "92a204c57fd75f3a475a60921f32ba4245d6de09",
+      "path": "sandbox/202609051936/atlas/tool-layers.json",
+      "byteCount": 3306,
+      "sha256": "03ff5351abb0c8351d26df7de8cdbb4f05343203db1e7d315c8d4687c06a67ab",
+      "status": "included",
+      "startByte": 947950
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8ce75945409656c3bc13ff7fe6b2b57af29162d7",
+      "path": "sandbox/202609051936/teleprinter/SOURCE-SCOPE.md",
+      "byteCount": 2109,
+      "sha256": "3fb97949b0d19b5bc130ac981a16a666a0707a741892a0c8787be78a093c0c18",
+      "status": "included",
+      "startByte": 951486
+    },
+    {
+      "mode": "100644",
+      "blobOid": "875240dd4cc09d01224adfc3de303f6f96956322",
+      "path": "sandbox/202609051936/teleprinter/app-frame.js",
+      "byteCount": 3421,
+      "sha256": "fbb73e307f356df8ed19cd9c91081d46645ce8bd649095ef0b3eb926ec9a6a42",
+      "status": "included",
+      "startByte": 953827
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e642a70ea67a5749aeff2c308d19ba5ed449fbb1",
+      "path": "sandbox/202609051936/teleprinter/capture-geometry.mjs",
+      "byteCount": 973,
+      "sha256": "1dfe34aaa5d559e2f6c894a8fac3bb11deea76916df853153eb24e6837a02613",
+      "status": "included",
+      "startByte": 957484
+    },
+    {
+      "mode": "100644",
+      "blobOid": "38448d15eacd47f41f45dba464c080c8abf0daac",
+      "path": "sandbox/202609051936/teleprinter/cartridges.json",
+      "byteCount": 1336,
+      "sha256": "d3891e840a71528dde83798b29984b4161a0341d8e61b300ca294eb918a77943",
+      "status": "included",
+      "startByte": 958697
+    },
+    {
+      "mode": "100644",
+      "blobOid": "2eb1ee6788436a00132ed5c4d330cb3168e3affb",
+      "path": "sandbox/202609051936/teleprinter/clone-visible-ui.js",
+      "byteCount": 1424,
+      "sha256": "cc710a39dcd0163cbccd639b2802dc96060b4a632d1ae8b6251efe63cb3be54d",
+      "status": "included",
+      "startByte": 960272
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9cb0ea06a41c66fb398b4f62588dd903ad86dde0",
+      "path": "sandbox/202609051936/teleprinter/controls.js",
+      "byteCount": 10376,
+      "sha256": "26668d706b4d11ee2383f1c29372735443f9745499e079e2d014b266f6d44044",
+      "status": "included",
+      "startByte": 961932
+    },
+    {
+      "mode": "100644",
+      "blobOid": "37d5c16712b7cd342d6ef161bc4361172d1830ae",
+      "path": "sandbox/202609051936/teleprinter/layer-quick-controls.js",
+      "byteCount": 2940,
+      "sha256": "6eb140de5934ff221867942ee4d6828db911c592b3ca251555f3ba3f029d4c54",
+      "status": "included",
+      "startByte": 972547
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9310754cbe6f433704a32c5c532cd1eeb9a424b2",
+      "path": "sandbox/202609051936/teleprinter/layers-panel-policy.js",
+      "byteCount": 965,
+      "sha256": "8b0bad5e4e07aa1fa616b6e60240f4461f367dbc1e28bfd8700d6a00287a9be2",
+      "status": "included",
+      "startByte": 975736
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8297f6abefe55aa3e993ef0a74b495ff0d633861",
+      "path": "sandbox/202609051936/teleprinter/layout-command.js",
+      "byteCount": 1762,
+      "sha256": "5781844356f6fc914f03e5ee522036f9fb4783b195ca00a8de462b64d59faa31",
+      "status": "included",
+      "startByte": 976945
+    },
+    {
+      "mode": "100644",
+      "blobOid": "98150c4635fd713ceb4baf0b09033db8851facb6",
+      "path": "sandbox/202609051936/teleprinter/png-pixels.mjs",
+      "byteCount": 8455,
+      "sha256": "01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481",
+      "status": "included",
+      "startByte": 978943
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a65d7bad3455ce9a4b6862edce4f83666903f266",
+      "path": "sandbox/202609051936/teleprinter/print-screen.js",
+      "byteCount": 2328,
+      "sha256": "c697937957010daf9d88830422100433f4d9c2a9edc39a973b96469de0536229",
+      "status": "included",
+      "startByte": 987632
+    },
+    {
+      "mode": "100644",
+      "blobOid": "1827a78fd6951776093ebb1c186f3e8155dbadbc",
+      "path": "sandbox/202609051936/teleprinter/print-source-code.js",
+      "byteCount": 10680,
+      "sha256": "78f6dba08fe4b7b44f6b40c85b17b469aa10a50676b77e17e74e2fa62065778f",
+      "status": "included",
+      "startByte": 990201
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3df51867e4f0500076dd171f5a745bbacadb5f7d",
+      "path": "sandbox/202609051936/teleprinter/runtime-source.js",
+      "byteCount": 26282,
+      "sha256": "4e6a423ee68b715df5fd07a6d6d9b0380eddc0047006244681cb7e087680c274",
+      "status": "included",
+      "startByte": 1001124
+    },
+    {
+      "mode": "100644",
+      "blobOid": "fdb1ca4c25e0c3bea47122ac32c801165d95ffcc",
+      "path": "sandbox/202609051936/teleprinter/screen-pdf.mjs",
+      "byteCount": 10220,
+      "sha256": "ef8b7d5c213754d93141c362b2bb981457bf16dada199ba6549ae1dda8828039",
+      "status": "included",
+      "startByte": 1027643
+    },
+    {
+      "mode": "100644",
+      "blobOid": "268e9bc26bcecad85dda44ef87ebe0709ab64608",
+      "path": "sandbox/202609051936/teleprinter/vendor/html2canvas-1.4.1.mjs",
+      "byteCount": 410344,
+      "sha256": "9e73165f2f55469d3a4c1a7a81f3858985ba9a230f8a8e8b2bab3c2dca6f253a",
+      "status": "included",
+      "startByte": 1038112
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a73ffc9143edf0da1c821e920b6ec8582aba61f3",
+      "path": "sandbox/202609051936/teleprinter/vendor/html2canvas-LICENSE.txt",
+      "byteCount": 1061,
+      "sha256": "86200ce4e92d9a22c41c8647a55f7a5fddff304ff89b4d36ecc699ed8c123d2c",
+      "status": "included",
+      "startByte": 1448719
+    },
+    {
+      "mode": "100644",
+      "blobOid": "4ed3e8eab87aceb8b7c97deb25d1fd0efcd3535e",
+      "path": "sandbox/202609051936/tool-layers/dismissal.js",
+      "byteCount": 848,
+      "sha256": "9b47757c1169e4ec8098685013220386e63a2e1e5ac02a9a635a364f26cfe50f",
+      "status": "included",
+      "startByte": 1450026
+    },
+    {
+      "mode": "100644",
+      "blobOid": "6d25f62b3d1f3585152c146c961b502c096d1262",
+      "path": "sandbox/202609051936/tool-layers/focus-boundary.js",
+      "byteCount": 1464,
+      "sha256": "49cccaba15a8b2b7f4a7a0e1b2342fd3b02460bb923e08f7137940826243a0b0",
+      "status": "included",
+      "startByte": 1451108
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a684a1c9fd4c2a7d0e01dc622ea17b7fc85662be",
+      "path": "sandbox/202609051936/tool-layers/host.js",
+      "byteCount": 2848,
+      "sha256": "616f1e2cecd30c16c23397c62714afc37a85ad15348a0c2fcffec18f9e955696",
+      "status": "included",
+      "startByte": 1452801
+    }
+  ],
+  "byteCount": 1455749,
+  "sha256": "4b2e01aea68754543467df50151bd365c9367a8765cfa7fd864840ddb3666e29",
+  "includedCount": 28,
+  "omittedCount": 0
+}

@@ -1,0 +1,86 @@
+{
+  "generation": "202609051152",
+  "parts": [
+    {
+      "source": "atlas/parts/202609040229-ventus-corev8engine-exact-repd-delegation.js",
+      "sha256": "d38a958aa3988b25621695576815ddd210ba67c80e09630a2a60320ad67676a0",
+      "bytes": 94129
+    },
+    {
+      "source": "atlas/modules/202609011950-geodesy.js",
+      "sha256": "2c98d0be8a1c8f4da045a2050e4ae9d56c2c5d07cd2c261a0fbfbc3ac2238e4f",
+      "bytes": 6296
+    },
+    {
+      "source": "atlas/modules/202609012245-network-topology.js",
+      "sha256": "d279e5338c4b325ab431e8727a4be1936b306ac5503597383c1cca658fa39875",
+      "bytes": 16483
+    },
+    {
+      "source": "atlas/modules/202609012245-electrical-distance.js",
+      "sha256": "28ae3f3e2de8c9d2f495a829e350ea2e76bbb1469d3ff39792e3c8f95b4386bb",
+      "bytes": 13873
+    },
+    {
+      "source": "atlas/modules/202609012250-rating-envelope.js",
+      "sha256": "a0160fac5aa251859847f2418e362d22bcc9def1aeb928da69eac309c345c178",
+      "bytes": 8560
+    },
+    {
+      "source": "atlas/modules/202609020015-injection-response.js",
+      "sha256": "c4c5614ddf962f2c686553a824c5c1337ee1413aaf479ddbaf92a120621afa39",
+      "bytes": 25847
+    },
+    {
+      "source": "atlas/modules/202609012345-planned-change.js",
+      "sha256": "cee36a7b6cfc0b4755f43f6370627fe698f88253447ce37c629833d20cb3a049",
+      "bytes": 13845
+    },
+    {
+      "source": "atlas/modules/202609012350-owner-boundary.js",
+      "sha256": "29a9f42930f7720fcfd82982e83919e864af79b701d5323cfd49ed5bcd67a478",
+      "bytes": 14657
+    },
+    {
+      "source": "atlas/modules/202609030137-pinned-products.js",
+      "sha256": "8929b8d762d2cf178190f8c750d3c1f76ecee9a71a5fe494904c17497ebcd608",
+      "bytes": 8093
+    },
+    {
+      "source": "atlas/modules/202609030157-version-ledger.js",
+      "sha256": "6a432a0837ddfe62ed5454f8add0a3f3bcfdb6802a34635b87fbe637ceb014ce",
+      "bytes": 26055
+    },
+    {
+      "source": "atlas/modules/202609030205-corridor-estimate.js",
+      "sha256": "197c0353f4421edc93efc58147d94b5e7e98173913a047cc6bfb3f331cac2362",
+      "bytes": 5332
+    },
+    {
+      "source": "atlas/modules/202609031958-menu-bar.js",
+      "sha256": "9d54982909602da343c9857f738ac0dd615add35e14308311cd78d6c5206735c",
+      "bytes": 74704
+    },
+    {
+      "source": "atlas/modules/202609032220-arrival-tidy.js",
+      "sha256": "59826ccf25a465abf4e8651a7bad8916a4c8a30e5e4fc37001fdbb58326f8505",
+      "bytes": 3972
+    },
+    {
+      "source": "atlas/modules/202609030048-pipeline-news-layers.js",
+      "sha256": "075fb2e50723bcd22cd69621adcded4a975342c38724a9c52502555c27836281",
+      "bytes": 19550
+    },
+    {
+      "source": "atlas/modules/202609040400-sld-styles.js",
+      "sha256": "7497379df0de2b7024cc63d8980fa5ef6c87552b2153f8c679bf4d5e05d9ec2d",
+      "bytes": 19440
+    },
+    {
+      "source": "atlas/parts/202609012350-substation-intelligence-body.js",
+      "sha256": "44c0caba961993e80ff184c61694d850729d2458fc7bde4f5d82cdac541b7fda",
+      "bytes": 15656
+    }
+  ],
+  "sha256": "0c659df0a5a8a780b69b4175d6a502ea31ab2b246d9a2b58e676a3472bbce550"
+}

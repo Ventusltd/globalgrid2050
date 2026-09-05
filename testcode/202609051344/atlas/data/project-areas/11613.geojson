@@ -1,0 +1,67 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 24,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -1.22816554599996,
+              58.273048729
+            ],
+            [
+              -1.24729897599997,
+              58.2414717730001
+            ],
+            [
+              -1.36808217899994,
+              58.28577561
+            ],
+            [
+              -1.35669450599994,
+              58.3675826240001
+            ],
+            [
+              -1.35404346399997,
+              58.386627225
+            ],
+            [
+              -1.35001425499996,
+              58.415572346
+            ],
+            [
+              -1.22295350599995,
+              58.5497346860001
+            ],
+            [
+              -1.06362246099997,
+              58.5446032850001
+            ],
+            [
+              -1.09169390199997,
+              58.4982754330001
+            ],
+            [
+              -1.22816554599996,
+              58.273048729
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "Property_Description": "Buchan Offshore Wind Farm",
+        "Tenant_Name": "Buchan Offshore Wind Limited",
+        "Lease_Type_Description": "Agreement/Option for Lease",
+        "Property_Classification": "Wind Farm",
+        "Project_Phase": "In Planning",
+        "Capacity_MW": 960,
+        "OBJECTID_1": 24,
+        "Shape__Area": 0.05081019704683243,
+        "Shape__Length": 0.9583323204037477
+      }
+    }
+  ]
+}

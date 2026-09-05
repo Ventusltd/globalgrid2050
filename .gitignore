@@ -80,3 +80,32 @@ notebooks/.ipynb_checkpoints/
 # Local cold archives must stay outside normal Git history
 cold_storage/
 external_archives/
+# Temporary browser test screenshots: code and text/JSON receipts are retained.
+screenshots/**/*.png
+screenshots/**/*.jpg
+screenshots/**/*.jpeg
+screenshots/**/*.webp
+sandbox/**/evidence*/**/*.png
+sandbox/**/compatibility*/**/*.png
+sandbox/compatibility-*/**/*.png
+sandbox/**/evidence*/**/*.jpg
+sandbox/**/compatibility*/**/*.jpg
+sandbox/compatibility-*/**/*.jpg
+sandbox/**/evidence*/**/*.jpeg
+sandbox/**/compatibility*/**/*.jpeg
+sandbox/compatibility-*/**/*.jpeg
+sandbox/**/evidence*/**/*.webp
+sandbox/**/compatibility*/**/*.webp
+sandbox/compatibility-*/**/*.webp
+testcode/**/evidence*/**/*.png
+testcode/**/compatibility*/**/*.png
+testcode/compatibility-*/**/*.png
+testcode/**/evidence*/**/*.jpg
+testcode/**/compatibility*/**/*.jpg
+testcode/compatibility-*/**/*.jpg
+testcode/**/evidence*/**/*.jpeg
+testcode/**/compatibility*/**/*.jpeg
+testcode/compatibility-*/**/*.jpeg
+testcode/**/evidence*/**/*.webp
+testcode/**/compatibility*/**/*.webp
+testcode/compatibility-*/**/*.webp

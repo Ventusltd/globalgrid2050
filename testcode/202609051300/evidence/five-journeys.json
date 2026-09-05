@@ -1,0 +1,1196 @@
+{
+  "base": "http://127.0.0.1:8877/testcode/202609051300/",
+  "time": "2026-09-05T13:01:34.454Z",
+  "checks": [
+    {
+      "profile": "firefox-desktop",
+      "ref": "2484",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "2484",
+          "resolved": true,
+          "mapped": true,
+          "name": "The East Anglia Array - Norfolk Vanguard East",
+          "postcode": "",
+          "longitude": 2.5499934,
+          "latitude": 52.6199968,
+          "technology": "wind_offshore",
+          "capacity_mw": 1380,
+          "status_value": "Awaiting Construction",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 16,
+          "y": 64,
+          "right": 356,
+          "bottom": 112,
+          "width": 340,
+          "height": 48
+        },
+        "card": {
+          "x": 16,
+          "y": 124,
+          "right": 356,
+          "bottom": 828,
+          "width": 340,
+          "height": 704
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 1400,
+          "bottom": 900,
+          "width": 1400,
+          "height": 846
+        },
+        "viewport": {
+          "w": 1400,
+          "h": 900
+        },
+        "layers": "none",
+        "frame": {
+          "points": 2,
+          "coordinates": [
+            [
+              2.5499934,
+              52.6199968
+            ],
+            [
+              1.6165753,
+              52.2150252
+            ]
+          ],
+          "padding": {
+            "left": 380,
+            "right": 70,
+            "top": 85,
+            "bottom": 70
+          },
+          "project": "The East Anglia Array - Norfolk Vanguard East"
+        },
+        "points": [
+          {
+            "x": 1095.3082306235676,
+            "y": 259.5535099227025
+          },
+          {
+            "x": 614.6917693763619,
+            "y": 601.446490077274
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n14:01:38\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\n⋮⋮\nThe East Anglia Array - Norfolk Vanguard East\n−\n×\nThe East Anglia Array - Norfolk Vanguard East\nwind_offshore\n1,380 MW\nOffshore\nREPD 2484 · Awaiting Construction\n×\n\nNearest 400 kV substation: Sizewell B Substation · 77.77 km straight · ~96.8 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nTransmission network: none of the substations named here joins by name to a published NESO site, so nothing is stated about their circuits.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\nNo mapped substation at 33 kV or above within 40 km of this point.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "firefox-desktop",
+      "ref": "17559",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "17559",
+          "resolved": true,
+          "mapped": true,
+          "name": "Moray Firth - Caledonia South Offshore Wind Farm",
+          "postcode": "",
+          "longitude": -3.6312625,
+          "latitude": 57.7871926,
+          "technology": "wind_offshore",
+          "capacity_mw": 1100,
+          "status_value": "Application Submitted",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 16,
+          "y": 64,
+          "right": 356,
+          "bottom": 112,
+          "width": 340,
+          "height": 48
+        },
+        "card": {
+          "x": 16,
+          "y": 124,
+          "right": 356,
+          "bottom": 828,
+          "width": 340,
+          "height": 704
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 1400,
+          "bottom": 900,
+          "width": 1400,
+          "height": 846
+        },
+        "viewport": {
+          "w": 1400,
+          "h": 900
+        },
+        "layers": "none",
+        "frame": {
+          "points": 7,
+          "coordinates": [
+            [
+              -3.6312625,
+              57.7871926
+            ],
+            [
+              -3.4669859,
+              57.7003703
+            ],
+            [
+              -3.5643993,
+              57.6359403
+            ],
+            [
+              -3.6192863,
+              57.6144585
+            ],
+            [
+              -3.29063,
+              57.7125416
+            ],
+            [
+              -3.3423597,
+              57.659787
+            ],
+            [
+              -2.9551774,
+              57.5240444
+            ]
+          ],
+          "padding": {
+            "left": 380,
+            "right": 70,
+            "top": 85,
+            "bottom": 70
+          },
+          "project": "Moray Firth - Caledonia South Offshore Wind Farm"
+        },
+        "points": [
+          {
+            "x": 680.9420787619501,
+            "y": 303.87026210595434
+          },
+          {
+            "x": 765.5280088587856,
+            "y": 387.6331473080848
+          },
+          {
+            "x": 715.3699033045224,
+            "y": 449.66309003133864
+          },
+          {
+            "x": 687.1086174900768,
+            "y": 470.32021167705244
+          },
+          {
+            "x": 856.3335638164746,
+            "y": 375.90284810498815
+          },
+          {
+            "x": 829.6979700183897,
+            "y": 426.71753788891505
+          },
+          {
+            "x": 1029.0579212380617,
+            "y": 557.1297378939987
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n14:01:43\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\n⋮⋮\nMoray Firth - Caledonia South Offshore Wind Farm\n−\n×\nMoray Firth - Caledonia South Offshore Wind Farm\nwind_offshore\n1,100 MW\nOffshore\nREPD 17559 · Application Submitted\n×\n\nNearest 400 kV substation: Beatrice Wind Farm Substation · 49.79 km straight · ~62.0 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nBEATRICE WIND FARM SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/220 kV buses at this site, not a value for any one bus.\n\n4 circuits · 4 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 321–321 MVA · 6 reactive compensation units.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nBEATRICE ONSHORE\nETYS TOPOLOGY\n\nJoined by name from Beatrice Wind Farm Substation to NESO site BEAT (SHET); declared voltages 400, 220 kV.\n\nAt the site: 4 circuits and 2 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 2 circuits, 2 transformers.\n\nAt an undeclared voltage: 2 circuits, 2 transformers.\n\nCircuit ratings: winter 321 MVA, summer 321 MVA, across 3 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owners: OFTO, SHET. 2 branches here are a boundary: the two ends are published under different owners. 2 asset carries an owner matching neither of its ends; that is reported as itself, not as a boundary. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nOn the published network: 2 sites one circuit away, 2 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: BEATRICE OFFSHORE (2), BLACKHILLOCK (2).\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n13.74 km\nBurghead Primary Substation\n33 kV\n17.30 km\nKinloss Primary Substation\n33 kV\n19.24 km\nForres Primary 33/11kV Substation\n33 kV\n21.87 km\nLossiemouth Primary Substation\n33 kV\n22.27 km\nUnnamed substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "firefox-desktop",
+      "ref": "12453",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "12453",
+          "resolved": true,
+          "mapped": true,
+          "name": "Thorpe Marsh Power Station - Battery Energy Storage",
+          "postcode": "",
+          "longitude": -1.0850616,
+          "latitude": 53.5802575,
+          "technology": "bess",
+          "capacity_mw": 1450,
+          "status_value": "Revised",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 16,
+          "y": 64,
+          "right": 356,
+          "bottom": 112,
+          "width": 340,
+          "height": 48
+        },
+        "card": {
+          "x": 16,
+          "y": 124,
+          "right": 356,
+          "bottom": 828,
+          "width": 340,
+          "height": 704
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 1400,
+          "bottom": 900,
+          "width": 1400,
+          "height": 846
+        },
+        "viewport": {
+          "w": 1400,
+          "h": 900
+        },
+        "layers": "none",
+        "frame": {
+          "points": 7,
+          "coordinates": [
+            [
+              -1.0850616,
+              53.5802575
+            ],
+            [
+              -1.0857428,
+              53.5787355
+            ],
+            [
+              -1.0870602,
+              53.5792113
+            ],
+            [
+              -1.0888715,
+              53.5786048
+            ],
+            [
+              -1.0894264,
+              53.5755438
+            ],
+            [
+              -1.0791454,
+              53.5855016
+            ],
+            [
+              -1.0888715,
+              53.5786048
+            ]
+          ],
+          "padding": {
+            "left": 380,
+            "right": 70,
+            "top": 85,
+            "bottom": 70
+          },
+          "project": "Thorpe Marsh Power Station - Battery Energy Storage"
+        },
+        "points": [
+          {
+            "x": 845.9624399639097,
+            "y": 435.71012238050844
+          },
+          {
+            "x": 838.0258847286233,
+            "y": 465.5776980520704
+          },
+          {
+            "x": 822.6770622574315,
+            "y": 456.2407620092186
+          },
+          {
+            "x": 801.573887714915,
+            "y": 468.14249163598316
+          },
+          {
+            "x": 795.1088341325169,
+            "y": 528.2078077359121
+          },
+          {
+            "x": 914.89116586598,
+            "y": 332.79219226390006
+          },
+          {
+            "x": 801.573887714915,
+            "y": 468.14249163598316
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n14:01:47\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\n⋮⋮\nThorpe Marsh Power Station - Battery Energy Storage\n−\n×\nThorpe Marsh Power Station - Battery Energy Storage\nbess\n1,450 MW\nSouth Yorkshire\nREPD 12453 · Revised\n×\n\nNearest 400 kV substation: Unnamed substation · 0.31 km straight No corridor estimate at this separation: under about a kilometre the site-centroid resolution dominates: median published length 0.59 km against a median error of 52.5%, so a straight line between centroids is not measuring route factor and no estimate is offered. (nearest named: Thorpe Marsh Substation · 0.60 km. A new 400 kV four-bay substation is under construction here (public record).)\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nTransmission network: none of the substations named here joins by name to a published NESO site, so nothing is stated about their circuits.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n0.18 km\nUnnamed substation\n275 kV\n0.18 km\nThorpe Marsh\n66 kV\n0.31 km\nUnnamed substation\n400 kV\n0.60 km\nThorpe Marsh Substation\n400 kV\n0.70 km\nTrumfleet Generation\n66 kV\n\n400 kV transmission, bulk power. 275 kV transmission, bulk power. 66 kV largely legacy industrial distribution, much of it being reinforced to 132 kV and above. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "firefox-desktop",
+      "ref": "10772",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "10772",
+          "resolved": true,
+          "mapped": true,
+          "name": "West of Orkney Wind Farm",
+          "postcode": "",
+          "longitude": -3.9141677,
+          "latitude": 58.8629717,
+          "technology": "wind_offshore",
+          "capacity_mw": 2000,
+          "status_value": "Awaiting Construction",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 16,
+          "y": 64,
+          "right": 356,
+          "bottom": 112,
+          "width": 340,
+          "height": 48
+        },
+        "card": {
+          "x": 16,
+          "y": 124,
+          "right": 356,
+          "bottom": 828,
+          "width": 340,
+          "height": 704
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 1400,
+          "bottom": 900,
+          "width": 1400,
+          "height": 846
+        },
+        "viewport": {
+          "w": 1400,
+          "h": 900
+        },
+        "layers": "none",
+        "frame": {
+          "points": 7,
+          "coordinates": [
+            [
+              -3.9141677,
+              58.8629717
+            ],
+            [
+              -3.7537206,
+              58.5757264
+            ],
+            [
+              -3.5366549,
+              58.5854927
+            ],
+            [
+              -3.2892581,
+              58.9744075
+            ],
+            [
+              -3.5033233,
+              58.58963
+            ],
+            [
+              -3.8791659,
+              58.512123
+            ],
+            [
+              -4.4920459,
+              57.4677293
+            ]
+          ],
+          "padding": {
+            "left": 380,
+            "right": 70,
+            "top": 85,
+            "bottom": 70
+          },
+          "project": "West of Orkney Wind Farm"
+        },
+        "points": [
+          {
+            "x": 849.321230624285,
+            "y": 137.12644156869104
+          },
+          {
+            "x": 888.0673482350247,
+            "y": 270.72197940667036
+          },
+          {
+            "x": 940.4862024334352,
+            "y": 266.1977987660226
+          },
+          {
+            "x": 1000.2296662250485,
+            "y": 84.99999999999706
+          },
+          {
+            "x": 948.5353980484008,
+            "y": 264.28083828846957
+          },
+          {
+            "x": 857.7737602081012,
+            "y": 300.15504338518605
+          },
+          {
+            "x": 709.7703337749103,
+            "y": 775.999999999997
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n14:01:51\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\n⋮⋮\nWest of Orkney Wind Farm\n−\n×\nWest of Orkney Wind Farm\nwind_offshore\n2,000 MW\nOffshore\nREPD 10772 · Awaiting Construction\n×\n\nNearest 400 kV substation: Beauly Substation · 158.98 km straight · ~197.9 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nBEAULY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/275/132/33 kV buses at this site, not a value for any one bus.\n\n16 circuits · 20 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 126–2,771 MVA · three-phase RMS break current 11.6–38.1 kA across every busbar at this site over 20 peak-demand rows at 1 bus (2025/26 to 2033/34) · 5 reactive compensation units · 25 changes published for 2028–2033.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nBEAULY\nETYS TOPOLOGY\n\nJoined by name from Beauly Substation to NESO site BEAU (SHET); declared voltages 400, 275, 132, 33 kV.\n\nAt the site: 16 circuits and 10 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 1 circuit, 3 transformers, 4 published changes (2028, 2030).\n\nAt 275 kV: 5 circuits, 6 transformers, 10 published changes (2028, 2030, 2033).\n\nAt 132 kV: 10 circuits, 9 transformers, 11 published changes (2028, 2030).\n\nAt an undeclared voltage: 0 circuits, 2 transformers.\n\nCircuit ratings: winter 133-2771 MVA, summer 106-2480 MVA, across 13 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owner: SHET. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nPublished as planned: 2028 8 change; 2030 2 addition, 4 change, 4 removed; 2033 2 addition, 2 removed. These are rows NESO publishes for a future year. None of them is a circuit today, a commitment, a consent, or a connection date, and none is counted among the circuits above.\n\nOn the published network: 9 sites one circuit away, 10 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: KNOCKNAGAEL (4), ORRIN (2), INVERNESS (2), SHIN (2), FYRISH (2), CULLIGRAN (1) and 3 more.\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n33.29 km\nDounreay Substation\n275 kV\n37.82 km\nUnnamed substation\n33 kV\n37.99 km\nElectricity Distribution Centre\n33 kV\n38.59 km\nUnnamed substation\n33 kV\n39.11 km\nConnagill Substation\n275 kV\n\n275 kV transmission, bulk power. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "firefox-desktop",
+      "ref": "10919",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "10919",
+          "resolved": true,
+          "mapped": true,
+          "name": "Morgan Offshore Wind Farm",
+          "postcode": "",
+          "longitude": -3.9937029868276253,
+          "latitude": 53.99631879420542,
+          "technology": "wind_offshore",
+          "capacity_mw": 1500,
+          "status_value": "Awaiting Construction",
+          "location_provenance": {
+            "repd_ref": "10919",
+            "source": "The Crown Estate, Wind Site Agreements",
+            "source_url": "https://services2.arcgis.com/PZklK9Q45mfMFuZs/arcgis/rest/services/WindSite_EngWalNI_TheCrownEstate/FeatureServer/0/query?f=geojson&where=Name_Prop%20like%20%27%25Morgan%25%27&outFields=*&outSR=4326",
+            "source_item": "https://www.arcgis.com/home/item.html?id=22a1be6fb0c5416e9369f97743f387b1",
+            "source_sha256": "d883605fd19c7adbbaf5a2abf9d5ec9c4d8a605e36a455b12d0a46e126a36adf",
+            "retrieved_utc": "2026-09-05T12:58:01.294270+00:00",
+            "method": "Planar area-weighted polygon centroid in WGS84 lon/lat; approximate screening origin. Lease boundary, not consented array boundary.",
+            "longitude": -3.9937029868276253,
+            "latitude": 53.99631879420542,
+            "notice": "Approximate location: Crown Estate lease-area centre. Grid distances are indicative; this is not a turbine, landfall or agreed connection point."
+          },
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 16,
+          "y": 64,
+          "right": 356,
+          "bottom": 112,
+          "width": 340,
+          "height": 48
+        },
+        "card": {
+          "x": 16,
+          "y": 124,
+          "right": 356,
+          "bottom": 828,
+          "width": 340,
+          "height": 704
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 1400,
+          "bottom": 900,
+          "width": 1400,
+          "height": 846
+        },
+        "viewport": {
+          "w": 1400,
+          "h": 900
+        },
+        "layers": "none",
+        "frame": {
+          "points": 5,
+          "coordinates": [
+            [
+              -3.9937029868276253,
+              53.99631879420542
+            ],
+            [
+              -3.5751912,
+              54.0795447
+            ],
+            [
+              -3.5023343,
+              54.0446313
+            ],
+            [
+              -3.4111891,
+              54.0785193
+            ],
+            [
+              -2.9883625,
+              53.8789973
+            ]
+          ],
+          "padding": {
+            "left": 380,
+            "right": 70,
+            "top": 85,
+            "bottom": 70
+          },
+          "project": "Morgan Offshore Wind Farm"
+        },
+        "points": [
+          {
+            "x": 596.1753708612881,
+            "y": 415.67618373271233
+          },
+          {
+            "x": 811.666857447349,
+            "y": 342.703812042285
+          },
+          {
+            "x": 849.1808347908928,
+            "y": 373.3336292182582
+          },
+          {
+            "x": 896.1114476466503,
+            "y": 343.60377114317237
+          },
+          {
+            "x": 1113.8246291386415,
+            "y": 518.2961879577033
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n14:01:55\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\n⋮⋮\nMorgan Offshore Wind Farm\n−\n×\n\nApproximate location: Crown Estate lease-area centre. Grid distances are indicative; this is not a turbine, landfall or agreed connection point. Source\n\nMorgan Offshore Wind Farm\nwind_offshore\n1,500 MW\nOffshore\nREPD 10919 · Awaiting Construction\n×\n\nNearest 400 kV substation: Stanah Substation · 67.16 km straight · ~83.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nSTANAH SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n2 circuits · 4 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 240–240 MVA · three-phase RMS break current 16.4–17.5 kA across every busbar at this site over 5 peak-demand rows at 1 bus (2025/26 to 2033/34) · 2 changes published for 2026–2026.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nSTANAH\nETYS TOPOLOGY\n\nJoined by name from Stanah Substation to NESO site STAH (NGET); declared voltages 400, 132 kV.\n\nAt the site: 2 circuits and 2 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 2 circuits, 2 transformers, 2 published changes (2026).\n\nAt 132 kV: 0 circuits, 2 transformers.\n\nCircuit ratings: winter 240 MVA, summer 240 MVA, across 2 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owner: NGET. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nPublished as planned: 2026 2 change. These are rows NESO publishes for a future year. None of them is a circuit today, a commitment, a consent, or a connection date, and none is counted among the circuits above.\n\nOn the published network: 1 site one circuit away, 2 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: HAMBLETON (2).\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n28.89 km\nWalney II OSP\n132 kV\n32.58 km\nWalney I OSP\n132 kV\n39.16 km\nUnnamed substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. Descriptions of the network, not advice about this scheme.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "chrome-android-emulation",
+      "ref": "2484",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "2484",
+          "resolved": true,
+          "mapped": true,
+          "name": "The East Anglia Array - Norfolk Vanguard East",
+          "postcode": "",
+          "longitude": 2.5499934,
+          "latitude": 52.6199968,
+          "technology": "wind_offshore",
+          "capacity_mw": 1380,
+          "status_value": "Awaiting Construction",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 12,
+          "y": 64,
+          "right": 400,
+          "bottom": 112,
+          "width": 388,
+          "height": 48
+        },
+        "card": {
+          "x": 12,
+          "y": 433.40625,
+          "right": 400,
+          "bottom": 769,
+          "width": 388,
+          "height": 335.59375
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 412,
+          "bottom": 839,
+          "width": 412,
+          "height": 785
+        },
+        "viewport": {
+          "w": 412,
+          "h": 839
+        },
+        "layers": "none",
+        "frame": {
+          "points": 2,
+          "coordinates": [
+            [
+              2.5499934,
+              52.6199968
+            ],
+            [
+              1.6165753,
+              52.2150252
+            ]
+          ],
+          "padding": {
+            "left": 28,
+            "right": 28,
+            "top": 125,
+            "bottom": 392.5
+          },
+          "project": "The East Anglia Array - Norfolk Vanguard East"
+        },
+        "points": [
+          {
+            "x": 384.0000000000127,
+            "y": 132.12730732403236
+          },
+          {
+            "x": 28.000000000012655,
+            "y": 385.37269267596133
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nVENTUS\nCABLES & CONNECTIVITY®\nSCOPE\nGRID\nABOUT\n⋮⋮\nThe East Anglia Array - Norfolk Vanguard East\n−\n×\nThe East Anglia Array - Norfolk Vanguard East\nwind_offshore\n1,380 MW\nOffshore\nREPD 2484 · Awaiting Construction\n×\n\nNearest 400 kV substation: Sizewell B Substation · 77.77 km straight · ~96.8 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nTransmission network: none of the substations named here joins by name to a published NESO site, so nothing is stated about their circuits.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\nNo mapped substation at 33 kV or above within 40 km of this point.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "chrome-android-emulation",
+      "ref": "17559",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "17559",
+          "resolved": true,
+          "mapped": true,
+          "name": "Moray Firth - Caledonia South Offshore Wind Farm",
+          "postcode": "",
+          "longitude": -3.6312625,
+          "latitude": 57.7871926,
+          "technology": "wind_offshore",
+          "capacity_mw": 1100,
+          "status_value": "Application Submitted",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 12,
+          "y": 64,
+          "right": 400,
+          "bottom": 112,
+          "width": 388,
+          "height": 48
+        },
+        "card": {
+          "x": 12,
+          "y": 433.40625,
+          "right": 400,
+          "bottom": 769,
+          "width": 388,
+          "height": 335.59375
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 412,
+          "bottom": 839,
+          "width": 412,
+          "height": 785
+        },
+        "viewport": {
+          "w": 412,
+          "h": 839
+        },
+        "layers": "none",
+        "frame": {
+          "points": 7,
+          "coordinates": [
+            [
+              -3.6312625,
+              57.7871926
+            ],
+            [
+              -3.4669859,
+              57.7003703
+            ],
+            [
+              -3.5643993,
+              57.6359403
+            ],
+            [
+              -3.6192863,
+              57.6144585
+            ],
+            [
+              -3.29063,
+              57.7125416
+            ],
+            [
+              -3.3423597,
+              57.659787
+            ],
+            [
+              -2.9551774,
+              57.5240444
+            ]
+          ],
+          "padding": {
+            "left": 28,
+            "right": 28,
+            "top": 125,
+            "bottom": 392.5
+          },
+          "project": "Moray Firth - Caledonia South Offshore Wind Farm"
+        },
+        "points": [
+          {
+            "x": 31.942078761955734,
+            "y": 132.12026210598125
+          },
+          {
+            "x": 116.52800885878045,
+            "y": 215.88314730810384
+          },
+          {
+            "x": 66.36990330452119,
+            "y": 277.9130900313647
+          },
+          {
+            "x": 38.10861749007444,
+            "y": 298.5702116770729
+          },
+          {
+            "x": 207.33356381647147,
+            "y": 204.15284810501552
+          },
+          {
+            "x": 180.6979700183919,
+            "y": 254.96753788894148
+          },
+          {
+            "x": 380.0579212380569,
+            "y": 385.3797378940187
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nVENTUS\nCABLES & CONNECTIVITY®\nSCOPE\nGRID\nABOUT\n⋮⋮\nMoray Firth - Caledonia South Offshore Wind Farm\n−\n×\nMoray Firth - Caledonia South Offshore Wind Farm\nwind_offshore\n1,100 MW\nOffshore\nREPD 17559 · Application Submitted\n×\n\nNearest 400 kV substation: Beatrice Wind Farm Substation · 49.79 km straight · ~62.0 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nBEATRICE WIND FARM SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/220 kV buses at this site, not a value for any one bus.\n\n4 circuits · 4 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 321–321 MVA · 6 reactive compensation units.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nBEATRICE ONSHORE\nETYS TOPOLOGY\n\nJoined by name from Beatrice Wind Farm Substation to NESO site BEAT (SHET); declared voltages 400, 220 kV.\n\nAt the site: 4 circuits and 2 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 2 circuits, 2 transformers.\n\nAt an undeclared voltage: 2 circuits, 2 transformers.\n\nCircuit ratings: winter 321 MVA, summer 321 MVA, across 3 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owners: OFTO, SHET. 2 branches here are a boundary: the two ends are published under different owners. 2 asset carries an owner matching neither of its ends; that is reported as itself, not as a boundary. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nOn the published network: 2 sites one circuit away, 2 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: BEATRICE OFFSHORE (2), BLACKHILLOCK (2).\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n13.74 km\nBurghead Primary Substation\n33 kV\n17.30 km\nKinloss Primary Substation\n33 kV\n19.24 km\nForres Primary 33/11kV Substation\n33 kV\n21.87 km\nLossiemouth Primary Substation\n33 kV\n22.27 km\nUnnamed substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "chrome-android-emulation",
+      "ref": "12453",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "12453",
+          "resolved": true,
+          "mapped": true,
+          "name": "Thorpe Marsh Power Station - Battery Energy Storage",
+          "postcode": "",
+          "longitude": -1.0850616,
+          "latitude": 53.5802575,
+          "technology": "bess",
+          "capacity_mw": 1450,
+          "status_value": "Revised",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 12,
+          "y": 64,
+          "right": 400,
+          "bottom": 112,
+          "width": 388,
+          "height": 48
+        },
+        "card": {
+          "x": 12,
+          "y": 433.40625,
+          "right": 400,
+          "bottom": 769,
+          "width": 388,
+          "height": 335.59375
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 412,
+          "bottom": 839,
+          "width": 412,
+          "height": 785
+        },
+        "viewport": {
+          "w": 412,
+          "h": 839
+        },
+        "layers": "none",
+        "frame": {
+          "points": 7,
+          "coordinates": [
+            [
+              -1.0850616,
+              53.5802575
+            ],
+            [
+              -1.0857428,
+              53.5787355
+            ],
+            [
+              -1.0870602,
+              53.5792113
+            ],
+            [
+              -1.0888715,
+              53.5786048
+            ],
+            [
+              -1.0894264,
+              53.5755438
+            ],
+            [
+              -1.0791454,
+              53.5855016
+            ],
+            [
+              -1.0888715,
+              53.5786048
+            ]
+          ],
+          "padding": {
+            "left": 28,
+            "right": 28,
+            "top": 125,
+            "bottom": 392.5
+          },
+          "project": "Thorpe Marsh Power Station - Battery Energy Storage"
+        },
+        "points": [
+          {
+            "x": 196.96243996508815,
+            "y": 263.96012238059075
+          },
+          {
+            "x": 189.02588472994017,
+            "y": 293.82769805195477
+          },
+          {
+            "x": 173.6770622585483,
+            "y": 284.49076200918535
+          },
+          {
+            "x": 152.5738877160787,
+            "y": 296.39249163605353
+          },
+          {
+            "x": 146.1088341338366,
+            "y": 356.45780773608294
+          },
+          {
+            "x": 265.8911658673783,
+            "y": 161.04219226391706
+          },
+          {
+            "x": 152.5738877160787,
+            "y": 296.39249163605353
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nVENTUS\nCABLES & CONNECTIVITY®\nSCOPE\nGRID\nABOUT\n⋮⋮\nThorpe Marsh Power Station - Battery Energy Storage\n−\n×\nThorpe Marsh Power Station - Battery Energy Storage\nbess\n1,450 MW\nSouth Yorkshire\nREPD 12453 · Revised\n×\n\nNearest 400 kV substation: Unnamed substation · 0.31 km straight No corridor estimate at this separation: under about a kilometre the site-centroid resolution dominates: median published length 0.59 km against a median error of 52.5%, so a straight line between centroids is not measuring route factor and no estimate is offered. (nearest named: Thorpe Marsh Substation · 0.60 km. A new 400 kV four-bay substation is under construction here (public record).)\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nTransmission network: none of the substations named here joins by name to a published NESO site, so nothing is stated about their circuits.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n0.18 km\nUnnamed substation\n275 kV\n0.18 km\nThorpe Marsh\n66 kV\n0.31 km\nUnnamed substation\n400 kV\n0.60 km\nThorpe Marsh Substation\n400 kV\n0.70 km\nTrumfleet Generation\n66 kV\n\n400 kV transmission, bulk power. 275 kV transmission, bulk power. 66 kV largely legacy industrial distribution, much of it being reinforced to 132 kV and above. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "chrome-android-emulation",
+      "ref": "10772",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "10772",
+          "resolved": true,
+          "mapped": true,
+          "name": "West of Orkney Wind Farm",
+          "postcode": "",
+          "longitude": -3.9141677,
+          "latitude": 58.8629717,
+          "technology": "wind_offshore",
+          "capacity_mw": 2000,
+          "status_value": "Awaiting Construction",
+          "location_provenance": null,
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 12,
+          "y": 64,
+          "right": 400,
+          "bottom": 112,
+          "width": 388,
+          "height": 48
+        },
+        "card": {
+          "x": 12,
+          "y": 433.40625,
+          "right": 400,
+          "bottom": 769,
+          "width": 388,
+          "height": 335.59375
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 412,
+          "bottom": 839,
+          "width": 412,
+          "height": 785
+        },
+        "viewport": {
+          "w": 412,
+          "h": 839
+        },
+        "layers": "none",
+        "frame": {
+          "points": 7,
+          "coordinates": [
+            [
+              -3.9141677,
+              58.8629717
+            ],
+            [
+              -3.7537206,
+              58.5757264
+            ],
+            [
+              -3.5366549,
+              58.5854927
+            ],
+            [
+              -3.2892581,
+              58.9744075
+            ],
+            [
+              -3.5033233,
+              58.58963
+            ],
+            [
+              -3.8791659,
+              58.512123
+            ],
+            [
+              -4.4920459,
+              57.4677293
+            ]
+          ],
+          "padding": {
+            "left": 28,
+            "right": 28,
+            "top": 125,
+            "bottom": 392.5
+          },
+          "project": "West of Orkney Wind Farm"
+        },
+        "points": [
+          {
+            "x": 203.80163414183127,
+            "y": 145.17919409496673
+          },
+          {
+            "x": 218.80103567710222,
+            "y": 196.8967141697282
+          },
+          {
+            "x": 239.0934285831426,
+            "y": 195.145312836336
+          },
+          {
+            "x": 262.2213252029063,
+            "y": 124.99999999999525
+          },
+          {
+            "x": 242.20943412149913,
+            "y": 194.40321887433055
+          },
+          {
+            "x": 207.07377837290176,
+            "y": 208.29084530468168
+          },
+          {
+            "x": 149.7786747971,
+            "y": 392.4999999999953
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nVENTUS\nCABLES & CONNECTIVITY®\nSCOPE\nGRID\nABOUT\n⋮⋮\nWest of Orkney Wind Farm\n−\n×\nWest of Orkney Wind Farm\nwind_offshore\n2,000 MW\nOffshore\nREPD 10772 · Awaiting Construction\n×\n\nNearest 400 kV substation: Beauly Substation · 158.98 km straight · ~197.9 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nBEAULY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/275/132/33 kV buses at this site, not a value for any one bus.\n\n16 circuits · 20 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 126–2,771 MVA · three-phase RMS break current 11.6–38.1 kA across every busbar at this site over 20 peak-demand rows at 1 bus (2025/26 to 2033/34) · 5 reactive compensation units · 25 changes published for 2028–2033.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nBEAULY\nETYS TOPOLOGY\n\nJoined by name from Beauly Substation to NESO site BEAU (SHET); declared voltages 400, 275, 132, 33 kV.\n\nAt the site: 16 circuits and 10 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 1 circuit, 3 transformers, 4 published changes (2028, 2030).\n\nAt 275 kV: 5 circuits, 6 transformers, 10 published changes (2028, 2030, 2033).\n\nAt 132 kV: 10 circuits, 9 transformers, 11 published changes (2028, 2030).\n\nAt an undeclared voltage: 0 circuits, 2 transformers.\n\nCircuit ratings: winter 133-2771 MVA, summer 106-2480 MVA, across 13 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owner: SHET. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nPublished as planned: 2028 8 change; 2030 2 addition, 4 change, 4 removed; 2033 2 addition, 2 removed. These are rows NESO publishes for a future year. None of them is a circuit today, a commitment, a consent, or a connection date, and none is counted among the circuits above.\n\nOn the published network: 9 sites one circuit away, 10 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: KNOCKNAGAEL (4), ORRIN (2), INVERNESS (2), SHIN (2), FYRISH (2), CULLIGRAN (1) and 3 more.\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n33.29 km\nDounreay Substation\n275 kV\n37.82 km\nUnnamed substation\n33 kV\n37.99 km\nElectricity Distribution Centre\n33 kV\n38.59 km\nUnnamed substation\n33 kV\n39.11 km\nConnagill Substation\n275 kV\n\n275 kV transmission, bulk power. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    },
+    {
+      "profile": "chrome-android-emulation",
+      "ref": "10919",
+      "ok": true,
+      "gridQuestion": null,
+      "separated": true,
+      "bounded": true,
+      "framed": true,
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "10919",
+          "resolved": true,
+          "mapped": true,
+          "name": "Morgan Offshore Wind Farm",
+          "postcode": "",
+          "longitude": -3.9937029868276253,
+          "latitude": 53.99631879420542,
+          "technology": "wind_offshore",
+          "capacity_mw": 1500,
+          "status_value": "Awaiting Construction",
+          "location_provenance": {
+            "repd_ref": "10919",
+            "source": "The Crown Estate, Wind Site Agreements",
+            "source_url": "https://services2.arcgis.com/PZklK9Q45mfMFuZs/arcgis/rest/services/WindSite_EngWalNI_TheCrownEstate/FeatureServer/0/query?f=geojson&where=Name_Prop%20like%20%27%25Morgan%25%27&outFields=*&outSR=4326",
+            "source_item": "https://www.arcgis.com/home/item.html?id=22a1be6fb0c5416e9369f97743f387b1",
+            "source_sha256": "d883605fd19c7adbbaf5a2abf9d5ec9c4d8a605e36a455b12d0a46e126a36adf",
+            "retrieved_utc": "2026-09-05T12:58:01.294270+00:00",
+            "method": "Planar area-weighted polygon centroid in WGS84 lon/lat; approximate screening origin. Lease boundary, not consented array boundary.",
+            "longitude": -3.9937029868276253,
+            "latitude": 53.99631879420542,
+            "notice": "Approximate location: Crown Estate lease-area centre. Grid distances are indicative; this is not a turbine, landfall or agreed connection point."
+          },
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "search": {
+          "x": 12,
+          "y": 64,
+          "right": 400,
+          "bottom": 112,
+          "width": 388,
+          "height": 48
+        },
+        "card": {
+          "x": 12,
+          "y": 433.40625,
+          "right": 400,
+          "bottom": 769,
+          "width": 388,
+          "height": 335.59375
+        },
+        "map": {
+          "x": 0,
+          "y": 54,
+          "right": 412,
+          "bottom": 839,
+          "width": 412,
+          "height": 785
+        },
+        "viewport": {
+          "w": 412,
+          "h": 839
+        },
+        "layers": "none",
+        "frame": {
+          "points": 5,
+          "coordinates": [
+            [
+              -3.9937029868276253,
+              53.99631879420542
+            ],
+            [
+              -3.5751912,
+              54.0795447
+            ],
+            [
+              -3.5023343,
+              54.0446313
+            ],
+            [
+              -3.4111891,
+              54.0785193
+            ],
+            [
+              -2.9883625,
+              53.8789973
+            ]
+          ],
+          "padding": {
+            "left": 28,
+            "right": 28,
+            "top": 125,
+            "bottom": 392.5
+          },
+          "project": "Morgan Offshore Wind Farm"
+        },
+        "points": [
+          {
+            "x": 28.000000000012655,
+            "y": 248.5553005838027
+          },
+          {
+            "x": 176.19874267751499,
+            "y": 198.37042364948874
+          },
+          {
+            "x": 201.9980183854351,
+            "y": 219.4352947765728
+          },
+          {
+            "x": 234.27334363607338,
+            "y": 198.98934743772645
+          },
+          {
+            "x": 384.0000000000253,
+            "y": 319.1295763505176
+          }
+        ],
+        "body": "FILE\nEDIT\nVIEW\nVENTUS\nCABLES & CONNECTIVITY®\nSCOPE\nGRID\nABOUT\n⋮⋮\nMorgan Offshore Wind Farm\n−\n×\n\nApproximate location: Crown Estate lease-area centre. Grid distances are indicative; this is not a turbine, landfall or agreed connection point. Source\n\nMorgan Offshore Wind Farm\nwind_offshore\n1,500 MW\nOffshore\nREPD 10919 · Awaiting Construction\n×\n\nNearest 400 kV substation: Stanah Substation · 67.16 km straight · ~83.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nSTANAH SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n2 circuits · 4 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 240–240 MVA · three-phase RMS break current 16.4–17.5 kA across every busbar at this site over 5 peak-demand rows at 1 bus (2025/26 to 2033/34) · 2 changes published for 2026–2026.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nSTANAH\nETYS TOPOLOGY\n\nJoined by name from Stanah Substation to NESO site STAH (NGET); declared voltages 400, 132 kV.\n\nAt the site: 2 circuits and 2 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 2 circuits, 2 transformers, 2 published changes (2026).\n\nAt 132 kV: 0 circuits, 2 transformers.\n\nCircuit ratings: winter 240 MVA, summer 240 MVA, across 2 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owner: NGET. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nPublished as planned: 2026 2 change. These are rows NESO publishes for a future year. None of them is a circuit today, a commitment, a consent, or a connection date, and none is counted among the circuits above.\n\nOn the published network: 1 site one circuit away, 2 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: HAMBLETON (2).\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n28.89 km\nWalney II OSP\n132 kV\n32.58 km\nWalney I OSP\n132 kV\n39.16 km\nUnnamed substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. Descriptions of the network, not advice about this scheme.\n\nThis is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.\n\nThe set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nFit connections\nTest Code · 202609051300\n▴ LAYERS"
+      }
+    }
+  ]
+}

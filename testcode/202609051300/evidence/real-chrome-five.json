@@ -1,0 +1,36 @@
+[
+  {
+    "ref": "2484",
+    "url": "http://127.0.0.1:8877/testcode/202609051300/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934&zoom=12&project=The+East+Anglia+Array+-+Norfolk+Vanguard+East&capacity_mw=1380",
+    "screenshot": "chrome-atlas-2484.png",
+    "calculation": "- paragraph: \"Nearest 400 kV substation: Sizewell B Substation · 77.77 km straight · ~96.8 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\"",
+    "status": "CALCULATION VISIBLE"
+  },
+  {
+    "ref": "17559",
+    "url": "http://127.0.0.1:8877/testcode/202609051300/atlas/?repd_ref=17559&technology=wind_offshore&latitude=57.7871926&longitude=-3.6312625&zoom=12&project=Moray+Firth+-+Caledonia+South+Offshore+Wind+Farm&capacity_mw=1100",
+    "screenshot": "chrome-atlas-17559.png",
+    "calculation": "- paragraph: \"Nearest 400 kV substation: Beatrice Wind Farm Substation · 49.79 km straight · ~62.0 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\"",
+    "status": "CALCULATION VISIBLE"
+  },
+  {
+    "ref": "12453",
+    "url": "http://127.0.0.1:8877/testcode/202609051300/atlas/?repd_ref=12453&technology=bess&latitude=53.5802575&longitude=-1.0850616&zoom=12&project=Thorpe+Marsh+Power+Station+-+Battery+Energy+Storage&capacity_mw=1450",
+    "screenshot": "chrome-atlas-12453.png",
+    "calculation": "- paragraph: \"Nearest 400 kV substation: Unnamed substation · 0.31 km straight No corridor estimate at this separation: under about a kilometre the site-centroid resolution dominates: median published length 0.59 km against a median error of 52.5%, so a straight line between centroids is not measuring route factor and no estimate is offered. (nearest named: Thorpe Marsh Substation · 0.60 km. A new 400 kV four-bay substation is under construction here (public record).)\"",
+    "status": "CALCULATION VISIBLE"
+  },
+  {
+    "ref": "10772",
+    "url": "http://127.0.0.1:8877/testcode/202609051300/atlas/?repd_ref=10772&technology=wind_offshore&latitude=58.8629717&longitude=-3.9141677&zoom=12&project=West+of+Orkney+Wind+Farm&capacity_mw=2000",
+    "screenshot": "chrome-atlas-10772.png",
+    "calculation": "- paragraph: \"Nearest 400 kV substation: Beauly Substation · 158.98 km straight · ~197.9 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\"",
+    "status": "CALCULATION VISIBLE"
+  },
+  {
+    "ref": "10919",
+    "screenshot": "chrome-morgan-provenance-check.png",
+    "calculation": "Stanah Substation, 67.16 km straight; Crown Estate approximate lease-area centre explicitly labelled.",
+    "status": "CALCULATION VISIBLE"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "generation": "202609051300",
+  "predecessor": "202609051214",
+  "built_utc": "2026-09-05T13:01:33.497859+00:00",
+  "changes": [
+    "Separate search and project card positions.",
+    "Full-height arrival map with a collapsible layers drawer.",
+    "Fit project and connection endpoints in remaining map area; preserve user pans.",
+    "Morgan REPD 10919 uses a pinned Crown Estate lease-area centroid for explicitly approximate grid screening."
+  ],
+  "limitations": [
+    "Other coordinate-less records, including REPD 11613, remain unresolved.",
+    "General search Parquet failure is not fixed by this exact-arrival path.",
+    "Mobile checks are Chrome Pixel 7 emulation, not an Android device or iPhone."
+  ],
+  "location_provenance": "atlas/data/project-areas/10919-provenance.json"
+}

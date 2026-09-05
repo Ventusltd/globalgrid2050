@@ -1483,3 +1483,9 @@ Intention: add a Test Code comparison section while retaining every existing lin
 Source: 7c21f271. File homepage_v038.html. Files before 39, after 40.
 Lines 299; words 4119; characters 31188. SHA256 45bc9f9fcbcf490222958cc33397077bff29db667bd7c447cfc5f2bbde8ed7c6.
 Intention: append the Firefox/project-identity correction while retaining the original Test Code link.
+
+
+## Snapshot v040
+Source: 7df9dd2fb4df85f1bad69db996a4fa210488da3e. File homepage_v040.html. Folder files before 41, after 42.
+Lines 303; words 4356; characters 32773. SHA256 efe4b01a4b5b46315afeaee04f19102a979b018ae85126ea859a876ea1f41d62.
+Intention: append Test Code 202609051300, preserving Claude builds and previous Test Code links.

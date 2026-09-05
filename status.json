@@ -1,0 +1,74 @@
+{
+  "schema": "globalgrid2050.build-status.v1",
+  "note": "Append-only session log, published so context survives a dead context window. Times are UTC; the architect's clock is BST, +1. Build facts only - no private correspondence, no client material.",
+  "session": {
+    "started_utc": "2026-09-05T01:20:00Z",
+    "lanes": [
+      { "lane": "A", "owns": "globalgrid2050, gridatlas, ventus-grid-engine, claude" },
+      { "lane": "B", "owns": "pipelinenews" }
+    ]
+  },
+  "entries": [
+    {
+      "utc": "202609050125",
+      "lane": "A",
+      "repo": "claude",
+      "commit": "31bc1a2",
+      "what": "Carry-on handover filed in the repository. Last night's log had been written only into Claude's private memory, where it could not be found the next morning.",
+      "verified": "github 200"
+    },
+    {
+      "utc": "202609050139",
+      "lane": "A",
+      "repo": "globalgrid2050",
+      "commit": "a4faffc1",
+      "what": "Front page rebuilt to show only what is being built now. The old page is preserved byte-identical at /historical_builds.html, at the root so its 229 relative links still resolve. The search box was wired for the first time - it had never had a script tag. catalogue-gridatlas-v9.yml retired, with its reasoning in the file.",
+      "verified": "live 5,934 bytes, was 111,836"
+    },
+    {
+      "utc": "202609050145",
+      "lane": "A",
+      "repo": "globalgrid2050",
+      "commit": "6ecc0dc0",
+      "what": "Carried the fifteen published-version labels the exact-commit gates require, read out of the archive rather than retyped. Corrected v9.7 / v9.6.2 to the estate's own CANDIDATE and LIVE VALIDATED labels rather than promoting either.",
+      "verified": "V9.3, V9.4, V9.5 gates back to green"
+    },
+    {
+      "utc": "202609050200",
+      "lane": "A",
+      "repo": "globalgrid2050",
+      "commit": "1a6445cc",
+      "what": "The spiders link came off the front page on the architect's word. The Grid Engine row now says what it is: every piece of grid mathematics in the estate, drawn as one graph.",
+      "verified": "live"
+    },
+    {
+      "utc": "202609050205",
+      "lane": "B",
+      "repo": "pipelinenews",
+      "commit": "4fc83af",
+      "what": "The WIDER FLEET control stops naming a cut the table has stopped showing.",
+      "verified": "lane B reported"
+    },
+    {
+      "utc": "202609050305",
+      "lane": "A",
+      "repo": "ventus-grid-engine",
+      "commit": "30efa2b",
+      "what": "The receiver takes ?focus=<module>, so a dashboard menu can link into one piece of mathematics rather than at the graph in general. The proof was run against the pre-change bytes first and failed five of its eight checks there.",
+      "verified": "live 200; confirmed in Chrome landing on engine/v9-nearest-search.js"
+    },
+    {
+      "utc": "202609050227",
+      "lane": "A",
+      "repo": "gridatlas",
+      "commit": "built, not yet pushed",
+      "what": "v9.117 generation 202609050227. The map attribution moves off the map into About, last and in small print - on a 393x852 phone it had been overlapping the EDIT menu's own controls. About gains an Estate group; File lists the engine's canonical modules, fetched from the engine's own published graph so the menu cannot drift from the mathematics it names.",
+      "verified": "24/24 on a proof made to fail first; 779/780 on the full suite; the outstanding one is the mobile browser gate"
+    }
+  ],
+  "open": [
+    "The mobile arrival gate (393x852) crashes the renderer under Playwright when the build is served locally, while the same harness against the live Atlas completes in 6 seconds. Being diagnosed against the previous generation as a control before anything is concluded.",
+    "V9.5.1, V9.6.1, V9.6.2 and V9.7 exact-commit gates fail for a reason that is not any commit: the fixture's news scoring ages, recency 10 -> 8 and confidence 91 -> 89. A gate whose expectation moves with the clock fails on every push until the clock is frozen for the fixture.",
+    "Verify published versions are reachable was already failing before this session."
+  ]
+}

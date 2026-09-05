@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GlobalGrid2050 — build status</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { background:#000; color:#fff; font-family:Courier,monospace; padding:40px;
+         max-width:900px; margin:0 auto; font-size:18px; line-height:1.6; }
+  h1 { margin-top:0; font-size:40px; line-height:1.1; }
+  h2 { font-size:18px; font-weight:normal; letter-spacing:.14em; text-transform:uppercase;
+        color:#888; margin:46px 0 6px; }
+  a { color:#66ccff; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .lede { color:#cccccc; font-size:16px; }
+  .written { color:#888; font-size:15px; }
+  .entry { border-top:1px solid #222; padding-top:12px; margin-top:22px; }
+  .when { color:#66ccff; font-size:15px; margin:0; }
+  .bst { color:#6f8f9c; }
+  .lane { float:right; color:#888; }
+  .where { margin:2px 0 0; font-size:15px; color:#aaa; }
+  .repo { color:#fff; }
+  .commit { color:#8fb6c0; }
+  .what { margin:6px 0 0; font-size:16px; }
+  .verified { margin:2px 0 0; font-size:14px; color:#7f9f88; }
+  ul { padding-left:20px; }
+  li { margin-top:10px; font-size:16px; color:#ccc; }
+  @media (max-width:600px) {
+    body { padding:25px; font-size:16px; }
+    h1 { font-size:32px; }
+    .lane { float:none; display:block; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Build status</h1>
+  <p class="lede">What is being built, as it is built. Published at intervals so the
+  work can be picked up again when a session ends — by a person or by the next model.
+  Times are UTC first, because stamps in this estate are read from the clock in UTC;
+  the second time is the same moment in British Summer Time.</p>
+  <p class="written">Written 2026-09-05 02:36 UTC · 03:36 BST</p>
+  <p><a href="./">← GlobalGrid2050</a></p>
+</header>
+
+<h2>Open</h2>
+<ul><li>The mobile arrival gate (393x852) crashes the renderer under Playwright when the build is served locally, while the same harness against the live Atlas completes in 6 seconds. Being diagnosed against the previous generation as a control before anything is concluded.</li><li>V9.5.1, V9.6.1, V9.6.2 and V9.7 exact-commit gates fail for a reason that is not any commit: the fixture&#x27;s news scoring ages, recency 10 -&gt; 8 and confidence 91 -&gt; 89. A gate whose expectation moves with the clock fails on every push until the clock is frozen for the fixture.</li><li>Verify published versions are reachable was already failing before this session.</li></ul>
+
+<h2>Log</h2>
+<article class="entry"><p class="when">2026-09-05 03:05 UTC<span class="bst"> · 04:05 BST</span><span class="lane">lane A</span></p><p class="where"><span class="repo">ventus-grid-engine</span> <span class="commit">30efa2b</span></p><p class="what">The receiver takes ?focus=&lt;module&gt;, so a dashboard menu can link into one piece of mathematics rather than at the graph in general. The proof was run against the pre-change bytes first and failed five of its eight checks there.</p><p class="verified">live 200; confirmed in Chrome landing on engine/v9-nearest-search.js</p></article><article class="entry"><p class="when">2026-09-05 02:27 UTC<span class="bst"> · 03:27 BST</span><span class="lane">lane A</span></p><p class="where"><span class="repo">gridatlas</span> <span class="commit">built, not yet pushed</span></p><p class="what">v9.117 generation 202609050227. The map attribution moves off the map into About, last and in small print - on a 393x852 phone it had been overlapping the EDIT menu&#x27;s own controls. About gains an Estate group; File lists the engine&#x27;s canonical modules, fetched from the engine&#x27;s own published graph so the menu cannot drift from the mathematics it names.</p><p class="verified">24/24 on a proof made to fail first; 779/780 on the full suite; the outstanding one is the mobile browser gate</p></article><article class="entry"><p class="when">2026-09-05 02:05 UTC<span class="bst"> · 03:05 BST</span><span class="lane">lane B</span></p><p class="where"><span class="repo">pipelinenews</span> <span class="commit">4fc83af</span></p><p class="what">The WIDER FLEET control stops naming a cut the table has stopped showing.</p><p class="verified">lane B reported</p></article><article class="entry"><p class="when">2026-09-05 02:00 UTC<span class="bst"> · 03:00 BST</span><span class="lane">lane A</span></p><p class="where"><span class="repo">globalgrid2050</span> <span class="commit">1a6445cc</span></p><p class="what">The spiders link came off the front page on the architect&#x27;s word. The Grid Engine row now says what it is: every piece of grid mathematics in the estate, drawn as one graph.</p><p class="verified">live</p></article><article class="entry"><p class="when">2026-09-05 01:45 UTC<span class="bst"> · 02:45 BST</span><span class="lane">lane A</span></p><p class="where"><span class="repo">globalgrid2050</span> <span class="commit">6ecc0dc0</span></p><p class="what">Carried the fifteen published-version labels the exact-commit gates require, read out of the archive rather than retyped. Corrected v9.7 / v9.6.2 to the estate&#x27;s own CANDIDATE and LIVE VALIDATED labels rather than promoting either.</p><p class="verified">V9.3, V9.4, V9.5 gates back to green</p></article><article class="entry"><p class="when">2026-09-05 01:39 UTC<span class="bst"> · 02:39 BST</span><span class="lane">lane A</span></p><p class="where"><span class="repo">globalgrid2050</span> <span class="commit">a4faffc1</span></p><p class="what">Front page rebuilt to show only what is being built now. The old page is preserved byte-identical at /historical_builds.html, at the root so its 229 relative links still resolve. The search box was wired for the first time - it had never had a script tag. catalogue-gridatlas-v9.yml retired, with its reasoning in the file.</p><p class="verified">live 5,934 bytes, was 111,836</p></article><article class="entry"><p class="when">2026-09-05 01:25 UTC<span class="bst"> · 02:25 BST</span><span class="lane">lane A</span></p><p class="where"><span class="repo">claude</span> <span class="commit">31bc1a2</span></p><p class="what">Carry-on handover filed in the repository. Last night&#x27;s log had been written only into Claude&#x27;s private memory, where it could not be found the next morning.</p><p class="verified">github 200</p></article>
+
+<footer>
+  <p class="written">Build facts only. This page is public.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+
+.testcode-nav{display:flex;gap:12px;flex-wrap:wrap;padding:12px;border-block:1px solid #28525a}
+.testcode-nav a{min-height:44px;display:flex;align-items:center;font-size:13px}
+#projectPagination{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;scroll-margin-top:12px}
+#projectPagination button{min-height:48px;min-width:78px;background:#101d23;color:#bdf9ff;border:1px solid #49747b;font:inherit;cursor:pointer}
+#projectPagination button:disabled{opacity:.4;cursor:default}
+#projectPagination span{font-size:13px;text-align:center}
+.project-actions .map-note{flex:0 0 auto;max-width:145px}
+@media(max-width:768px){
+ .tablewrap table{min-width:0}.tablewrap .hide-mobile{display:none}
+ .tablewrap table,.tablewrap tbody{display:block;width:100%}.tablewrap thead{display:none}
+ .tablewrap tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid #28434a;margin-bottom:12px;padding:10px;gap:12px;background:#0a1117}
+ .tablewrap td{display:block!important;min-width:0!important;width:auto!important;padding:0!important;border:0!important;overflow-wrap:anywhere;white-space:normal!important}
+ .tablewrap td.hide-mobile{display:none!important}.tablewrap td:first-child,.tablewrap td:last-child{grid-column:1/-1}
+ .tablewrap td::before{display:block;font-size:10px;color:#8aabb4;margin-bottom:4px}
+ .tablewrap td:nth-child(4)::before{content:"TECHNOLOGY"}.tablewrap td:nth-child(5)::before{content:"OFFICIAL STATUS"}
+ .tablewrap td:nth-child(6)::before{content:"CAPACITY"}.tablewrap td:nth-child(10)::before{content:"NEWS SIGNAL"}
+ .project-actions{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:8px!important;align-items:center!important}
+ .project-actions .map-note{flex-basis:100%!important;max-width:none!important;order:5}
+ .action-link,.action-disabled,.copy-id{min-width:48px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+ .site{min-width:130px}#projectPagination{gap:6px}.tablewrap{max-height:70dvh;overflow:auto;overscroll-behavior:contain}
+ .badge{white-space:normal}.project-actions .map-note{font-size:11px;line-height:1.45;max-width:110px}
+}

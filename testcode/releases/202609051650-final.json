@@ -1,0 +1,30 @@
+{
+  "schema": "testcode-daily-final-v1",
+  "published_utc": "2026-09-05T16:51:20.168243+00:00",
+  "release_id": "202609051650-final",
+  "date": "2026-09-05",
+  "status": "FINAL_FOR_TODAY",
+  "generation": "202609051623",
+  "design_freeze": false,
+  "source_commit": "faf1b3e7c95e75629025e3f847fa5332bde52120",
+  "engine_commit": "509c14410e5e77d77296bbc5d980196a65a167da",
+  "build_inventory_sha256": "ea5cbae3280f1ed75afbe76825734c6cfabb47be647c04840af0adea84ac70ad",
+  "apps": {
+    "pipeline": "/testcode/202609051623/pipeline/",
+    "atlas": "/testcode/202609051623/atlas/"
+  },
+  "tested": {
+    "chrome_visits": 50,
+    "pdf_downloads": 25,
+    "source_downloads": 25,
+    "offline_source_audits_passed": 25,
+    "native_capture_passed": 1,
+    "native_capture_cases": 3
+  },
+  "limitations": [
+    "Native Atlas capture remains unresolved.",
+    "Chrome host-capture tests do not prove physical iPhone or Android compatibility."
+  ],
+  "findings_commit": "9a7d29cd61c75ed301a4c18bad75aa74d6a90b8b",
+  "promotion": "Existing tested app bytes promoted without modification. Previous generations retained."
+}

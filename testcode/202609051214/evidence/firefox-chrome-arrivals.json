@@ -1,0 +1,210 @@
+{
+  "base": "http://127.0.0.1:8877/testcode/202609051214/",
+  "checked": "2026-09-05T12:17:52.296Z",
+  "checks": [
+    {
+      "engine": "firefox",
+      "version": "153.0",
+      "ref": "11613",
+      "ok": true,
+      "errors": [],
+      "facts": {
+        "identity": {
+          "repd_ref": "11613",
+          "name": "Fraserburgh - Buchan Floating Wind Project",
+          "technology": "wind_offshore",
+          "status": "IDENTIFIED_NO_GEOMETRY",
+          "capacity_mw": 1000,
+          "longitude": null,
+          "latitude": null,
+          "county": "Offshore",
+          "planning_authority": "Marine Scotland",
+          "geometry_status": "missing",
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "address": "",
+          "postcode": "",
+          "owner_epoch": 1,
+          "resolved": true,
+          "mapped": false,
+          "official_active_register_match": false
+        },
+        "selection": null,
+        "body": "SYSTEM TIME\n--:--:--\n--/--/----\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n-- DAYS\nData © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map\n⛶\nFraserburgh - Buchan Floating Wind Project\n\nREPD 11613 / 1000 MW\n\nLocation unavailable: this Pipeline REPD snapshot supplies no coordinates. No map pin or grid-distance calculation can be shown.\n\nGO\n⬇ EXPORT CSV\n◎ RADIUS SEARCH\n◵ RADIUS AREA\n⬡ POLY ZONE\n◑ STATUS COLOURS\n📏 MEASURE\nIN SUPPORT OF THE FUTURE OF SOLAR PHOTOVOLTAICS PODCAST\n& ALL PARTICIPANTS TO DATE\nVENTUS\nCABLES & CONNECTIVITY®\nGLOBALGRID2050.COM | OPEN INFRASTRUCTURE INTELLIGENCE\nOperational\nUnder Construction\nConsented\nApplied\nTest Code · 202609051214\n▴ LAYERS",
+        "failures": []
+      }
+    },
+    {
+      "engine": "firefox",
+      "version": "153.0",
+      "ref": "12588",
+      "ok": true,
+      "errors": [],
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "12588",
+          "resolved": true,
+          "mapped": true,
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "postcode": "",
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "technology": "solar",
+          "capacity_mw": 840,
+          "status_value": "Application Submitted",
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "selection": {
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "tech": "solar",
+          "direction": "to-substation",
+          "count": 5,
+          "nearest_km": 3.432
+        },
+        "body": "✕ Exit\n⬇ LAYERS\nVENTUS\nCABLES & CONNECTIVITY®\nSYSTEM TIME\n--:--:--\n--/--/----\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n-- DAYS\n⋮⋮\nBotley West, Botley - Botley West Solar Project\n−\n×\nBotley West, Botley - Botley West Solar Project\nsolar\n840 MW\nOxfordshire\nREPD 12588 · Application Submitted\n×\n\nNearest 400 kV substation: Cowley Substation · 15.76 km straight · ~19.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nCOWLEY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n6 circuits · 10 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 1,180–2,779 MVA · three-phase RMS break current 12.4–49.4 kA across every busbar at this site over 15 peak-demand rows at 3 buses (2025/26 to 2033/34) · 5 reactive compensation units · 14 changes published for 2026–2030.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nTransmission network: loading the published node/branch model (about 10 MB, once per session). This card fills in when it arrives.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n3.43 km\nYarnton Substation\n132 kV\n3.81 km\nEynsham\n33 kV\n4.56 km\nGreen Lane Electricity Substation\n33 kV\n6.00 km\nLovelace Road\n33 kV\n8.61 km\nWest Oxford Substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nData © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map\nGO\nTOOLS ▸\n⚡ GRID\n◉ SUBS\n◎ SCOPE\n✕ CLEAR\nGB PRICES · HISTORIC ▸\nVERSIONS · V9.121 ▸\nIN SUPPORT OF THE FUTURE OF SOLAR PHOTOVOLTAICS PODCAST\n& ALL PARTICIPANTS TO DATE\nVENTUS\nCABLES & CONNECTIVITY®\nGLOBALGRID2050.COM | OPEN INFRASTRUCTURE INTELLIGENCE\nOperational\nUnder Construction\nConsented\nApplied\nTest Code · 202609051214",
+        "failures": [
+          "subs: control not found",
+          "layer control not found: solar"
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "version": "153.0",
+      "ref": "12588-ref-only",
+      "ok": true,
+      "errors": [],
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "12588",
+          "resolved": true,
+          "mapped": true,
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "postcode": "",
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "technology": "solar",
+          "capacity_mw": 840,
+          "status_value": "Application Submitted",
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "selection": {
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "tech": "solar",
+          "direction": "to-substation",
+          "count": 5,
+          "nearest_km": 3.432
+        },
+        "body": "✕ Exit\n⬇ LAYERS\nVENTUS\nCABLES & CONNECTIVITY®\nSYSTEM TIME\n--:--:--\n--/--/----\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n-- DAYS\n⋮⋮\nBotley West, Botley - Botley West Solar Project\n−\n×\nBotley West, Botley - Botley West Solar Project\nsolar\n840 MW\nOxfordshire\nREPD 12588 · Application Submitted\n×\n\nNearest 400 kV substation: Cowley Substation · 15.76 km straight · ~19.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nCOWLEY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n6 circuits · 10 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 1,180–2,779 MVA · three-phase RMS break current 12.4–49.4 kA across every busbar at this site over 15 peak-demand rows at 3 buses (2025/26 to 2033/34) · 5 reactive compensation units · 14 changes published for 2026–2030.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nTransmission network: loading the published node/branch model (about 10 MB, once per session). This card fills in when it arrives.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n3.43 km\nYarnton Substation\n132 kV\n3.81 km\nEynsham\n33 kV\n4.56 km\nGreen Lane Electricity Substation\n33 kV\n6.00 km\nLovelace Road\n33 kV\n8.61 km\nWest Oxford Substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nData © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map\nGO\nTOOLS ▸\n⚡ GRID\n◉ SUBS\n◎ SCOPE\n✕ CLEAR\nGB PRICES · HISTORIC ▸\nVERSIONS · V9.121 ▸\nIN SUPPORT OF THE FUTURE OF SOLAR PHOTOVOLTAICS PODCAST\n& ALL PARTICIPANTS TO DATE\nVENTUS\nCABLES & CONNECTIVITY®\nGLOBALGRID2050.COM | OPEN INFRASTRUCTURE INTELLIGENCE\nOperational\nUnder Construction\nConsented\nApplied\nTest Code · 202609051214",
+        "failures": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "version": "152.0.7977.76",
+      "ref": "11613",
+      "ok": true,
+      "errors": [],
+      "facts": {
+        "identity": {
+          "repd_ref": "11613",
+          "name": "Fraserburgh - Buchan Floating Wind Project",
+          "technology": "wind_offshore",
+          "status": "IDENTIFIED_NO_GEOMETRY",
+          "capacity_mw": 1000,
+          "longitude": null,
+          "latitude": null,
+          "county": "Offshore",
+          "planning_authority": "Marine Scotland",
+          "geometry_status": "missing",
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "address": "",
+          "postcode": "",
+          "owner_epoch": 1,
+          "resolved": true,
+          "mapped": false,
+          "official_active_register_match": false
+        },
+        "selection": null,
+        "body": "SYSTEM TIME\n--:--:--\n--/--/----\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n-- DAYS\nData © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map\n⛶\nFraserburgh - Buchan Floating Wind Project\n\nREPD 11613 / 1000 MW\n\nLocation unavailable: this Pipeline REPD snapshot supplies no coordinates. No map pin or grid-distance calculation can be shown.\n\nGO\n⬇ EXPORT CSV\n◎ RADIUS SEARCH\n◵ RADIUS AREA\n⬡ POLY ZONE\n◑ STATUS COLOURS\n📏 MEASURE\nIN SUPPORT OF THE FUTURE OF SOLAR PHOTOVOLTAICS PODCAST\n& ALL PARTICIPANTS TO DATE\nVENTUS\nCABLES & CONNECTIVITY®\nGLOBALGRID2050.COM | OPEN INFRASTRUCTURE INTELLIGENCE\nOperational\nUnder Construction\nConsented\nApplied\nTest Code · 202609051214\n▴ LAYERS",
+        "failures": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "version": "152.0.7977.76",
+      "ref": "12588",
+      "ok": true,
+      "errors": [],
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "12588",
+          "resolved": true,
+          "mapped": true,
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "postcode": "",
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "technology": "solar",
+          "capacity_mw": 840,
+          "status_value": "Application Submitted",
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "selection": {
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "tech": "solar",
+          "direction": "to-substation",
+          "count": 5,
+          "nearest_km": 3.432
+        },
+        "body": "✕ Exit\n⬇ LAYERS\nVENTUS\nCABLES & CONNECTIVITY®\nSYSTEM TIME\n--:--:--\n--/--/----\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n-- DAYS\n⋮⋮\nBotley West, Botley - Botley West Solar Project\n−\n×\nBotley West, Botley - Botley West Solar Project\nsolar\n840 MW\nOxfordshire\nREPD 12588 · Application Submitted\n\nNearest 400 kV substation: Cowley Substation · 15.76 km straight · ~19.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nCOWLEY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n6 circuits · 10 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 1,180–2,779 MVA · three-phase RMS break current 12.4–49.4 kA across every busbar at this site over 15 peak-demand rows at 3 buses (2025/26 to 2033/34) · 5 reactive compensation units · 14 changes published for 2026–2030.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nTransmission network: loading the published node/branch model (about 10 MB, once per session). This card fills in when it arrives.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n3.43 km\nYarnton Substation\n132 kV\n3.81 km\nEynsham\n33 kV\n4.56 km\nGreen Lane Electricity Substation\n33 kV\n6.00 km\nLovelace Road\n33 kV\n8.61 km\nWest Oxford Substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nData © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map\nGO\nTOOLS ▸\n⚡ GRID\n◉ SUBS\n◎ SCOPE\n✕ CLEAR\nGB PRICES · HISTORIC ▸\nVERSIONS · V9.121 ▸\nVENTUS\nCABLES & CONNECTIVITY®\nGLOBALGRID2050.COM | OPEN INFRASTRUCTURE INTELLIGENCE\nOperational\nUnder Construction\nConsented\nApplied\nTest Code · 202609051214",
+        "failures": [
+          "subs: control not found",
+          "layer control not found: solar"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "version": "152.0.7977.76",
+      "ref": "12588-ref-only",
+      "ok": true,
+      "errors": [],
+      "facts": {
+        "identity": {
+          "status": "RESOLVED",
+          "owner_epoch": 1,
+          "repd_ref": "12588",
+          "resolved": true,
+          "mapped": true,
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "postcode": "",
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "technology": "solar",
+          "capacity_mw": 840,
+          "status_value": "Application Submitted",
+          "identity_source": "PIPELINE_REPD_SNAPSHOT",
+          "official_active_register_match": false
+        },
+        "selection": {
+          "name": "Botley West, Botley - Botley West Solar Project",
+          "tech": "solar",
+          "direction": "to-substation",
+          "count": 5,
+          "nearest_km": 3.432
+        },
+        "body": "✕ Exit\n⬇ LAYERS\nVENTUS\nCABLES & CONNECTIVITY®\nSYSTEM TIME\n--:--:--\n--/--/----\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n-- DAYS\n⋮⋮\nBotley West, Botley - Botley West Solar Project\n−\n×\nBotley West, Botley - Botley West Solar Project\nsolar\n840 MW\nOxfordshire\nREPD 12588 · Application Submitted\n\nNearest 400 kV substation: Cowley Substation · 15.76 km straight · ~19.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nCOWLEY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n6 circuits · 10 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 1,180–2,779 MVA · three-phase RMS break current 12.4–49.4 kA across every busbar at this site over 15 peak-demand rows at 3 buses (2025/26 to 2033/34) · 5 reactive compensation units · 14 changes published for 2026–2030.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nTransmission network: loading the published node/branch model (about 10 MB, once per session). This card fills in when it arrives.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n3.43 km\nYarnton Substation\n132 kV\n3.81 km\nEynsham\n33 kV\n4.56 km\nGreen Lane Electricity Substation\n33 kV\n6.00 km\nLovelace Road\n33 kV\n8.61 km\nWest Oxford Substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nData © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map\nGO\nTOOLS ▸\n⚡ GRID\n◉ SUBS\n◎ SCOPE\n✕ CLEAR\nGB PRICES · HISTORIC ▸\nVERSIONS · V9.121 ▸\nVENTUS\nCABLES & CONNECTIVITY®\nGLOBALGRID2050.COM | OPEN INFRASTRUCTURE INTELLIGENCE\nOperational\nUnder Construction\nConsented\nApplied\nTest Code · 202609051214",
+        "failures": []
+      }
+    }
+  ]
+}

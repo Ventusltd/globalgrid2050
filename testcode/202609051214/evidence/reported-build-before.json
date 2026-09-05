@@ -1,0 +1,1703 @@
+[
+  {
+    "engine": "firefox",
+    "query": "repd_ref=11613&technology=wind_offshore",
+    "errors": [],
+    "failed": [],
+    "facts": {
+      "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n13:14:04\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\nThe active-register identity check failed: Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'. No location was supplied, so the grid measurement cannot start until the check succeeds.\nTRY AGAIN\nGO\nTOPOLOGY (GEOJSON)\n400kV [OK]\n275kV [OK]\n220kV [OK]\n132kV [OK]\n66kV [OK]\n11kV (UKPN) [WAIT]\nSubs [OK]\nASSETS (GEOJSON)\nNuclear [OK]\nGas [OK]\nIndustry [OK]\nData Ctrs [OK]\nAirports [OK]\nRailways [OK]\nSUPERMARKETS (GEOJSON)\nTesco [WAIT]\nSainsbury's [WAIT]\nAsda [WAIT]\nMorrisons [WAIT]\nAldi [WAIT]\nLidl [WAIT]\nWaitrose [WAIT]\nM&S Food [WAIT]\nCo-op [WAIT]\nCostco [WAIT]\nBooths [WAIT]\nTRANSIT (GEOJSON)\nElizabeth Line [WAIT]\nLondon Underground [WAIT]\nDLR [WAIT]\nUK Metro [WAIT]\nTrams & Light Rail [WAIT]\nUK Mainline Railways [WAIT]\nHS2 [WAIT]\nEurostar (HS1) UK & Europe [WAIT]\nEurostar Stations UK & Europe [WAIT]\nLEISURE & SPORTS (GEOJSON)\nMajor Stadiums [WAIT]\nGLOBAL DATA BACKBONE\nSubsea Data Cables (Fibre) (not all connections available yet) [WAIT]\nGLOBAL SUPPLY CHAIN & CHOKEPOINTS\nMajor Ports (Deep Water/Ferry) [WAIT]\nInland / Minor Harbours [WAIT]\nGlobal Hydrocarbons (Oil, Gas, LNG) [WAIT]\nHIGHWAY INFRASTRUCTURE\nMotorways [WAIT]\nMajor A-Roads (Trunk) [WAIT]\nA-Roads (Primary) [WAIT]\nMotorway Services [WAIT]\nEV (GEOJSON)\nEV Rapid (100kW+) [WAIT]\nHEAVY INDUSTRY\nMajor Industrial Sites [WAIT]\nREPD (GEOJSON)\nSolar PV [WAIT]\nSolar PV (Operational Only) [WAIT]\nSolar Roof [WAIT]\nWind [WAIT]\nOnshore Wind (Operational Only) [WAIT]\nOffshore Wind (Operational Only) [WAIT]\nBattery Storage [WAIT]\nBattery Storage (Operational Only) [WAIT]\nBiomass & EfW [WAIT]\nTidal & Wave [WAIT]\nHydrogen [WAIT]\nHydro & Pumped Storage [WAIT]\nFlywheel [WAIT]\nAdvanced Conversion [WAIT]\nGeothermal [WAIT]\nCompressed Air Storage [WAIT]\nBASEMAP\nDark\nSatellite\nPIPELINE NEWS (REPD)\nSame technology [SELECT A PROJECT]\nWider fleet [SELECT A PROJECT]\nAll pipeline [SELECT A PROJECT]\nTest Code · 202609051152\n▾ HIDE LAYERS",
+      "search": {
+        "schema": "gridatlas.v9-place-global-search.v5",
+        "generation": "202609051152",
+        "source_generation": "202609040229",
+        "version": "v9.106",
+        "geocoder": "https://api.postcodes.io",
+        "global_geocoder": "https://nominatim.openstreetmap.org/search",
+        "geocoder_providers": [
+          "postcodes.io",
+          "Nominatim / OpenStreetMap"
+        ],
+        "geocoder_requests": 0,
+        "global_geocoder_requests": 0,
+        "geocoder_failures": [],
+        "last_location_selection": null,
+        "parquet_url": "https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet",
+        "parquet_sha256": "174040c37f3d63742d6fdd7af722a8cfdf3fb53de3ff85ff1142d22fdac4866b",
+        "ready": true,
+        "map_captured": true,
+        "query_count": 0,
+        "identity_retry_count": 0,
+        "last_query": "",
+        "last_results": [],
+        "last_selection": null,
+        "failures": [
+          {
+            "phase": "exact_repd_deep_link",
+            "repd_ref": "11613",
+            "message": "Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'"
+          }
+        ],
+        "deep_link": {
+          "repd_ref": "11613",
+          "name": null,
+          "technology": "wind_offshore",
+          "capacity_mw": null,
+          "longitude": null,
+          "latitude": null,
+          "supplied_status": null,
+          "owner_epoch": 1,
+          "status": "FAILED",
+          "resolved": false,
+          "mapped": false,
+          "message": "Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'",
+          "identity_source": "ACTIVE_REGISTER_CHECK_FAILED"
+        }
+      },
+      "neon": {
+        "schema": "gridatlas.neon-substation-links.v1",
+        "generation": "202609012045",
+        "minimum_kv": 33,
+        "map_captured": true,
+        "installed": true,
+        "substations_loaded": 5800,
+        "substations_qualifying": 5800,
+        "last_selection": null,
+        "links_drawn": 0,
+        "deep_linked": false,
+        "boot_trigger": "style.load",
+        "layer_controls_ready_ms": null,
+        "layer_controls_arrived_late": false,
+        "status_message": "The active-register identity check failed: Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'. No location was supplied, so the grid measurement cannot start until the check succeeds.",
+        "labels_drawn": true,
+        "gb_panel_installed": true,
+        "version_ledger": {
+          "entries": 104,
+          "newest": "v9.121",
+          "rejected_pre_promotion": [
+            "v9.100",
+            "v9.101",
+            "v9.102"
+          ]
+        },
+        "gb_conditions": null,
+        "project_layer_enabled": null,
+        "arrival_deferred_for_visibility": false,
+        "arrival_attempts": 1,
+        "arrival_resumed_on_visibility": 0,
+        "project_pin": {
+          "shown": false,
+          "name": null
+        },
+        "substation_layer_enabled": false,
+        "reduced_motion": false,
+        "failures": [],
+        "recovered": [],
+        "grid_scope": null,
+        "grid_scope_armed": false,
+        "measure": {
+          "arrivalGate": {},
+          "MIN_KV": 33,
+          "MAX_LINK_KM": 40,
+          "LINK_COUNT": 5,
+          "PROJECT_TECHS": {},
+          "OFFSHORE_TECHS": {},
+          "LAYER_ID_FOR_BUCKET": {
+            "wind_onshore": "wind",
+            "wind_offshore": "wind",
+            "other": null
+          },
+          "coverage": {
+            "schema": "gridatlas.technology-coverage.v1",
+            "wider_fleet": [
+              {
+                "repd": "Landfill Gas",
+                "bucket": "biomass",
+                "rows": 275
+              },
+              {
+                "repd": "Anaerobic Digestion",
+                "bucket": "biomass",
+                "rows": 253
+              },
+              {
+                "repd": "Biomass (dedicated)",
+                "bucket": "biomass",
+                "rows": 159
+              },
+              {
+                "repd": "EfW Incineration",
+                "bucket": "biomass",
+                "rows": 122
+              },
+              {
+                "repd": "Small Hydro",
+                "bucket": "hydro",
+                "rows": 108
+              },
+              {
+                "repd": "Hydrogen",
+                "bucket": "hydrogen",
+                "rows": 60
+              },
+              {
+                "repd": "Advanced Conversion Technologies",
+                "bucket": "act",
+                "rows": 37
+              },
+              {
+                "repd": "Large Hydro",
+                "bucket": "hydro",
+                "rows": 28
+              },
+              {
+                "repd": "Pumped Storage Hydroelectricity",
+                "bucket": "hydro",
+                "rows": 15
+              },
+              {
+                "repd": "Tidal Stream",
+                "bucket": "tidal",
+                "rows": 14
+              },
+              {
+                "repd": "Sewage Sludge Digestion",
+                "bucket": "biomass",
+                "rows": 12
+              },
+              {
+                "repd": "Geothermal",
+                "bucket": "geothermal",
+                "rows": 5
+              },
+              {
+                "repd": "Shoreline Wave",
+                "bucket": "tidal",
+                "rows": 4
+              },
+              {
+                "repd": "Liquid Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Biomass (co-firing)",
+                "bucket": "biomass",
+                "rows": 2
+              },
+              {
+                "repd": "Hot Dry Rocks (HDR)",
+                "bucket": "geothermal",
+                "rows": 2
+              },
+              {
+                "repd": "Compressed Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Fuel Cell (Hydrogen)",
+                "bucket": "hydrogen",
+                "rows": 2
+              },
+              {
+                "repd": "Flywheels",
+                "bucket": "flywheel",
+                "rows": 1
+              },
+              {
+                "repd": "Unknown",
+                "bucket": "other",
+                "rows": 1
+              }
+            ],
+            "spine": [
+              "solar",
+              "bess",
+              "wind_onshore",
+              "wind_offshore"
+            ],
+            "offshore_techs": [
+              "wind_offshore",
+              "wind_offshore_operational"
+            ],
+            "product": {
+              "features": 5800,
+              "with_location_tag": 0,
+              "offshore_in_name": 14,
+              "of_those_onshore": 4,
+              "source": "atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson"
+            },
+            "offshore_note": "This is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.",
+            "offshore_set_note": "The set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.",
+            "sample": {
+              "mapped_substations": "nearest of the mapped substations at or above the voltage floor that this search could see"
+            },
+            "not_a_connection": "A distance to a mapped substation is not a connection, a capacity, a queue position or an offer, for any technology on this list.",
+            "shell_allow_list_note": "The four-member technology allow-list in the immutable shell rejects every wider-fleet value and is caught; the arrival lane in this cartridge has already flown and carded by then, so it costs a console line and nothing else. The shell is carried forward verbatim and is not edited here."
+          }
+        },
+        "arrival_reconciliation": {
+          "status": "MEASUREMENT_CLAIMED",
+          "epoch": 1,
+          "owner_epoch": 1
+        },
+        "requested_zoom": null,
+        "mobile_tray": {
+          "installed": false,
+          "reason": "fine pointer, wide window"
+        }
+      },
+      "state": {
+        "gridatlasRepdDeepLink": "failed"
+      }
+    }
+  },
+  {
+    "engine": "firefox",
+    "query": "repd_ref=12588&technology=solar&latitude=51.8132088&longitude=-1.3489728&zoom=12",
+    "errors": [],
+    "failed": [
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/8/4.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/7/5.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/8/5.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/7/4.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/15/9.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/16/9.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/14/9.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/17/10.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/17/9.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/17/11.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/15/11.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/16/11.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/14/11.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/14/10.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/15/10.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/16/10.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/7/62/42.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/7/63/42.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/7/64/42.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/7/63/41.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/7/64/41.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/7/62/41.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/128/84.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/125/84.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/128/85.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/125/85.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/127/84.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/126/84.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/127/85.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/126/85.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/254/168.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/253/168.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/255/168.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/252/168.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/252/169.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/252/170.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/254/170.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/253/170.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/255/169.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/255/170.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/254/169.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/253/169.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/10/506/339.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/10/506/338.mvt",
+        "error": {
+          "errorText": "NS_BINDING_ABORTED"
+        }
+      }
+    ],
+    "facts": {
+      "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n13:14:22\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\n⋮⋮\nDeep-linked project\n−\n×\nDeep-linked project\nsolar\nREPD 12588 · active-register check failed: Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'; supplied point retained.\nCard and point built from the arrival link.\n×\n\nNearest 400 kV substation: Cowley Substation · 15.76 km straight · ~19.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nCOWLEY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n6 circuits · 10 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 1,180–2,779 MVA · three-phase RMS break current 12.4–49.4 kA across every busbar at this site over 15 peak-demand rows at 3 buses (2025/26 to 2033/34) · 5 reactive compensation units · 14 changes published for 2026–2030.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nCOWLEY\nETYS TOPOLOGY\n\nJoined by name from Cowley Substation to NESO site COWL (NGET); declared voltages 400, 132 kV.\n\nAt the site: 6 circuits and 5 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 6 circuits, 5 transformers, 14 published changes (2026, 2028, 2030).\n\nAt 132 kV: 0 circuits, 5 transformers.\n\nCircuit ratings: winter 1180-2779 MVA, summer 877-2219 MVA, across 6 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owner: NGET. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nPublished as planned: 2026 2 addition, 2 change, 2 removed; 2028 1 addition, 2 change, 1 removed; 2030 2 addition, 2 removed. These are rows NESO publishes for a future year. None of them is a circuit today, a commitment, a consent, or a connection date, and none is counted among the circuits above.\n\nOn the published network: 6 sites one circuit away, 9 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: CULHAM JET (1), DIDCOT (1), EAST CLAYDON (1), LEIGHTON BUZZARD (1), MINETY (1), WALHAM (1).\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n3.43 km\nYarnton Substation\n132 kV\n3.81 km\nEynsham\n33 kV\n4.56 km\nGreen Lane Electricity Substation\n33 kV\n6.00 km\nLovelace Road\n33 kV\n8.61 km\nWest Oxford Substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nThe active-register identity check failed: Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet' The supplied point and measurement remain on the map.\nTRY AGAIN\nGO\nTOPOLOGY (GEOJSON)\n400kV [OK]\n275kV [OK]\n220kV [OK]\n132kV [OK]\n66kV [OK]\n11kV (UKPN) [WAIT]\nSubs [OK]\nASSETS (GEOJSON)\nNuclear [OK]\nGas [OK]\nIndustry [OK]\nData Ctrs [OK]\nAirports [OK]\nRailways [OK]\nSUPERMARKETS (GEOJSON)\nTesco [WAIT]\nSainsbury's [WAIT]\nAsda [WAIT]\nMorrisons [WAIT]\nAldi [WAIT]\nLidl [WAIT]\nWaitrose [WAIT]\nM&S Food [WAIT]\nCo-op [WAIT]\nCostco [WAIT]\nBooths [WAIT]\nTRANSIT (GEOJSON)\nElizabeth Line [WAIT]\nLondon Underground [WAIT]\nDLR [WAIT]\nUK Metro [WAIT]\nTrams & Light Rail [WAIT]\nUK Mainline Railways [WAIT]\nHS2 [WAIT]\nEurostar (HS1) UK & Europe [WAIT]\nEurostar Stations UK & Europe [WAIT]\nLEISURE & SPORTS (GEOJSON)\nMajor Stadiums [WAIT]\nGLOBAL DATA BACKBONE\nSubsea Data Cables (Fibre) (not all connections available yet) [WAIT]\nGLOBAL SUPPLY CHAIN & CHOKEPOINTS\nMajor Ports (Deep Water/Ferry) [WAIT]\nInland / Minor Harbours [WAIT]\nGlobal Hydrocarbons (Oil, Gas, LNG) [WAIT]\nHIGHWAY INFRASTRUCTURE\nMotorways [WAIT]\nMajor A-Roads (Trunk) [WAIT]\nA-Roads (Primary) [WAIT]\nMotorway Services [WAIT]\nEV (GEOJSON)\nEV Rapid (100kW+) [WAIT]\nHEAVY INDUSTRY\nMajor Industrial Sites [WAIT]\nREPD (GEOJSON)\nSolar PV [FAIL]\nSolar PV (Operational Only) [WAIT]\nSolar Roof [WAIT]\nWind [WAIT]\nOnshore Wind (Operational Only) [WAIT]\nOffshore Wind (Operational Only) [WAIT]\nBattery Storage [WAIT]\nBattery Storage (Operational Only) [WAIT]\nBiomass & EfW [WAIT]\nTidal & Wave [WAIT]\nHydrogen [WAIT]\nHydro & Pumped Storage [WAIT]\nFlywheel [WAIT]\nAdvanced Conversion [WAIT]\nGeothermal [WAIT]\nCompressed Air Storage [WAIT]\nBASEMAP\nDark\nSatellite\nPIPELINE NEWS (REPD)\nSame technology [WAIT]\nWider fleet [WAIT]\nAll pipeline [WAIT]\nTest Code · 202609051152\n▾ HIDE LAYERS",
+      "search": {
+        "schema": "gridatlas.v9-place-global-search.v5",
+        "generation": "202609051152",
+        "source_generation": "202609040229",
+        "version": "v9.106",
+        "geocoder": "https://api.postcodes.io",
+        "global_geocoder": "https://nominatim.openstreetmap.org/search",
+        "geocoder_providers": [
+          "postcodes.io",
+          "Nominatim / OpenStreetMap"
+        ],
+        "geocoder_requests": 0,
+        "global_geocoder_requests": 0,
+        "geocoder_failures": [],
+        "last_location_selection": null,
+        "parquet_url": "https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet",
+        "parquet_sha256": "174040c37f3d63742d6fdd7af722a8cfdf3fb53de3ff85ff1142d22fdac4866b",
+        "ready": true,
+        "map_captured": true,
+        "query_count": 0,
+        "identity_retry_count": 0,
+        "last_query": "",
+        "last_results": [],
+        "last_selection": null,
+        "failures": [
+          {
+            "phase": "exact_repd_deep_link",
+            "repd_ref": "12588",
+            "message": "Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'"
+          }
+        ],
+        "deep_link": {
+          "repd_ref": "12588",
+          "name": null,
+          "technology": "solar",
+          "capacity_mw": null,
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "supplied_status": null,
+          "owner_epoch": 1,
+          "status": "FAILED",
+          "resolved": false,
+          "mapped": false,
+          "message": "Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'",
+          "identity_source": "ACTIVE_REGISTER_CHECK_FAILED"
+        }
+      },
+      "neon": {
+        "schema": "gridatlas.neon-substation-links.v1",
+        "generation": "202609012045",
+        "minimum_kv": 33,
+        "map_captured": true,
+        "installed": true,
+        "substations_loaded": 5800,
+        "substations_qualifying": 5800,
+        "last_selection": {
+          "name": "Deep-linked project",
+          "tech": "solar",
+          "direction": "to-substation",
+          "count": 5,
+          "nearest_km": 3.432
+        },
+        "links_drawn": 5,
+        "deep_linked": true,
+        "boot_trigger": "style.load",
+        "layer_controls_ready_ms": 1089,
+        "layer_controls_arrived_late": false,
+        "status_message": "The active-register identity check failed: Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet' The supplied point and measurement remain on the map.",
+        "labels_drawn": true,
+        "gb_panel_installed": true,
+        "version_ledger": {
+          "entries": 104,
+          "newest": "v9.121",
+          "rejected_pre_promotion": [
+            "v9.100",
+            "v9.101",
+            "v9.102"
+          ]
+        },
+        "gb_conditions": null,
+        "project_layer_enabled": "solar",
+        "arrival_deferred_for_visibility": false,
+        "arrival_attempts": 1,
+        "arrival_resumed_on_visibility": 0,
+        "project_pin": {
+          "shown": true,
+          "name": "Deep-linked project"
+        },
+        "substation_layer_enabled": true,
+        "reduced_motion": false,
+        "failures": [],
+        "recovered": [],
+        "grid_scope": null,
+        "grid_scope_armed": false,
+        "measure": {
+          "arrivalGate": {},
+          "MIN_KV": 33,
+          "MAX_LINK_KM": 40,
+          "LINK_COUNT": 5,
+          "PROJECT_TECHS": {},
+          "OFFSHORE_TECHS": {},
+          "LAYER_ID_FOR_BUCKET": {
+            "wind_onshore": "wind",
+            "wind_offshore": "wind",
+            "other": null
+          },
+          "coverage": {
+            "schema": "gridatlas.technology-coverage.v1",
+            "wider_fleet": [
+              {
+                "repd": "Landfill Gas",
+                "bucket": "biomass",
+                "rows": 275
+              },
+              {
+                "repd": "Anaerobic Digestion",
+                "bucket": "biomass",
+                "rows": 253
+              },
+              {
+                "repd": "Biomass (dedicated)",
+                "bucket": "biomass",
+                "rows": 159
+              },
+              {
+                "repd": "EfW Incineration",
+                "bucket": "biomass",
+                "rows": 122
+              },
+              {
+                "repd": "Small Hydro",
+                "bucket": "hydro",
+                "rows": 108
+              },
+              {
+                "repd": "Hydrogen",
+                "bucket": "hydrogen",
+                "rows": 60
+              },
+              {
+                "repd": "Advanced Conversion Technologies",
+                "bucket": "act",
+                "rows": 37
+              },
+              {
+                "repd": "Large Hydro",
+                "bucket": "hydro",
+                "rows": 28
+              },
+              {
+                "repd": "Pumped Storage Hydroelectricity",
+                "bucket": "hydro",
+                "rows": 15
+              },
+              {
+                "repd": "Tidal Stream",
+                "bucket": "tidal",
+                "rows": 14
+              },
+              {
+                "repd": "Sewage Sludge Digestion",
+                "bucket": "biomass",
+                "rows": 12
+              },
+              {
+                "repd": "Geothermal",
+                "bucket": "geothermal",
+                "rows": 5
+              },
+              {
+                "repd": "Shoreline Wave",
+                "bucket": "tidal",
+                "rows": 4
+              },
+              {
+                "repd": "Liquid Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Biomass (co-firing)",
+                "bucket": "biomass",
+                "rows": 2
+              },
+              {
+                "repd": "Hot Dry Rocks (HDR)",
+                "bucket": "geothermal",
+                "rows": 2
+              },
+              {
+                "repd": "Compressed Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Fuel Cell (Hydrogen)",
+                "bucket": "hydrogen",
+                "rows": 2
+              },
+              {
+                "repd": "Flywheels",
+                "bucket": "flywheel",
+                "rows": 1
+              },
+              {
+                "repd": "Unknown",
+                "bucket": "other",
+                "rows": 1
+              }
+            ],
+            "spine": [
+              "solar",
+              "bess",
+              "wind_onshore",
+              "wind_offshore"
+            ],
+            "offshore_techs": [
+              "wind_offshore",
+              "wind_offshore_operational"
+            ],
+            "product": {
+              "features": 5800,
+              "with_location_tag": 0,
+              "offshore_in_name": 14,
+              "of_those_onshore": 4,
+              "source": "atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson"
+            },
+            "offshore_note": "This is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.",
+            "offshore_set_note": "The set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.",
+            "sample": {
+              "mapped_substations": "nearest of the mapped substations at or above the voltage floor that this search could see"
+            },
+            "not_a_connection": "A distance to a mapped substation is not a connection, a capacity, a queue position or an offer, for any technology on this list.",
+            "shell_allow_list_note": "The four-member technology allow-list in the immutable shell rejects every wider-fleet value and is caught; the arrival lane in this cartridge has already flown and carded by then, so it costs a console line and nothing else. The shell is carried forward verbatim and is not edited here."
+          }
+        },
+        "arrival_reconciliation": {
+          "status": "MEASUREMENT_CLAIMED",
+          "epoch": 1,
+          "owner_epoch": 1
+        },
+        "requested_zoom": 12,
+        "origin_source": "link-supplied-register-failed",
+        "deep_link_identity": "terminal-failed",
+        "identity_verification": {
+          "status": "FAILED",
+          "repd_ref": "12588",
+          "supplied_coordinates_kept": true,
+          "arrival_fields": {
+            "name": "Deep-linked project",
+            "technology": "solar",
+            "capacity_mw": 0,
+            "supplied_status": null
+          },
+          "official_active_register_match": false,
+          "message": "Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet'"
+        },
+        "camera_from_link": {
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "zoom": 12,
+          "reason": "supplied coordinates while register verification runs"
+        },
+        "technology_layer": {
+          "requested": "solar",
+          "layer_id": "solar",
+          "enabled": true,
+          "reason": null
+        },
+        "arrival_card": "from-link-fields",
+        "arrival_card_identity": {
+          "repd_ref": "12588",
+          "name": "Deep-linked project",
+          "technology": "solar",
+          "capacity_mw": null,
+          "supplied_status": null,
+          "provenance": "ARRIVAL_LINK"
+        },
+        "mobile_tray": {
+          "installed": false,
+          "reason": "fine pointer, wide window"
+        },
+        "network_published": {
+          "name": "Cowley Substation",
+          "site": "COWL"
+        },
+        "first_coordinate_answer_ms": 178,
+        "first_coordinate_origin": "link-supplied",
+        "topology": {
+          "shown": 1,
+          "sites": 921,
+          "bytes": 10069964
+        },
+        "layer_controls_ready_visible_ms": 1000,
+        "zoom_applied": 13.832825609573723
+      },
+      "state": {
+        "gridatlasRepdDeepLink": "failed"
+      }
+    }
+  },
+  {
+    "engine": "chromium",
+    "query": "repd_ref=11613&technology=wind_offshore",
+    "errors": [],
+    "failed": [],
+    "facts": {
+      "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n13:14:42\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\nThe active-register identity check failed: exact REPD identity did not fly to a safe map point. No location was supplied, so the grid measurement cannot start until the check succeeds.\nTRY AGAIN\nFraserburgh - Buchan Floating Wind Project\nNE8, Ne/O Fraserburgh, Fraserburgh · AB43 · Offshore\n1,000 MW · REPD 11613\nGO\nTOPOLOGY (GEOJSON)\n400kV [OK]\n275kV [OK]\n220kV [OK]\n132kV [OK]\n66kV [OK]\n11kV (UKPN) [WAIT]\nSubs [OK]\nASSETS (GEOJSON)\nNuclear [OK]\nGas [OK]\nIndustry [OK]\nData Ctrs [OK]\nAirports [OK]\nRailways [OK]\nSUPERMARKETS (GEOJSON)\nTesco [WAIT]\nSainsbury's [WAIT]\nAsda [WAIT]\nMorrisons [WAIT]\nAldi [WAIT]\nLidl [WAIT]\nWaitrose [WAIT]\nM&S Food [WAIT]\nCo-op [WAIT]\nCostco [WAIT]\nBooths [WAIT]\nTRANSIT (GEOJSON)\nElizabeth Line [WAIT]\nLondon Underground [WAIT]\nDLR [WAIT]\nUK Metro [WAIT]\nTrams & Light Rail [WAIT]\nUK Mainline Railways [WAIT]\nHS2 [WAIT]\nEurostar (HS1) UK & Europe [WAIT]\nEurostar Stations UK & Europe [WAIT]\nLEISURE & SPORTS (GEOJSON)\nMajor Stadiums [WAIT]\nGLOBAL DATA BACKBONE\nSubsea Data Cables (Fibre) (not all connections available yet) [WAIT]\nGLOBAL SUPPLY CHAIN & CHOKEPOINTS\nMajor Ports (Deep Water/Ferry) [WAIT]\nInland / Minor Harbours [WAIT]\nGlobal Hydrocarbons (Oil, Gas, LNG) [WAIT]\nHIGHWAY INFRASTRUCTURE\nMotorways [WAIT]\nMajor A-Roads (Trunk) [WAIT]\nA-Roads (Primary) [WAIT]\nMotorway Services [WAIT]\nEV (GEOJSON)\nEV Rapid (100kW+) [WAIT]\nHEAVY INDUSTRY\nMajor Industrial Sites [WAIT]\nREPD (GEOJSON)\nSolar PV [WAIT]\nSolar PV (Operational Only) [WAIT]\nSolar Roof [WAIT]\nWind [WAIT]\nOnshore Wind (Operational Only) [WAIT]\nOffshore Wind (Operational Only) [WAIT]\nBattery Storage [WAIT]\nBattery Storage (Operational Only) [WAIT]\nBiomass & EfW [WAIT]\nTidal & Wave [WAIT]\nHydrogen [WAIT]\nHydro & Pumped Storage [WAIT]\nFlywheel [WAIT]\nAdvanced Conversion [WAIT]\nGeothermal [WAIT]\nCompressed Air Storage [WAIT]\nBASEMAP\nDark\nSatellite\nPIPELINE NEWS (REPD)\nSame technology [SELECT A PROJECT]\nWider fleet [SELECT A PROJECT]\nAll pipeline [SELECT A PROJECT]\nTest Code · 202609051152\n▾ HIDE LAYERS",
+      "search": {
+        "schema": "gridatlas.v9-place-global-search.v5",
+        "generation": "202609051152",
+        "source_generation": "202609040229",
+        "version": "v9.106",
+        "geocoder": "https://api.postcodes.io",
+        "global_geocoder": "https://nominatim.openstreetmap.org/search",
+        "geocoder_providers": [
+          "postcodes.io",
+          "Nominatim / OpenStreetMap"
+        ],
+        "geocoder_requests": 0,
+        "global_geocoder_requests": 0,
+        "geocoder_failures": [],
+        "last_location_selection": null,
+        "parquet_url": "https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet",
+        "parquet_sha256": "174040c37f3d63742d6fdd7af722a8cfdf3fb53de3ff85ff1142d22fdac4866b",
+        "ready": true,
+        "map_captured": true,
+        "query_count": 1,
+        "identity_retry_count": 0,
+        "last_query": "11613",
+        "last_results": [
+          {
+            "repd_ref": "11613",
+            "name": "Fraserburgh - Buchan Floating Wind Project",
+            "address": "NE8, Ne/O Fraserburgh, Fraserburgh",
+            "postcode": "AB43",
+            "county": "Offshore",
+            "planning_authority": "Marine Scotland",
+            "technology": "wind_offshore",
+            "status": "application submitted",
+            "capacity_mw": 1000,
+            "longitude": -7.55716,
+            "latitude": 49.766807,
+            "score": 9000
+          }
+        ],
+        "last_selection": {
+          "repd_ref": "11613",
+          "name": "Fraserburgh - Buchan Floating Wind Project",
+          "postcode": "AB43",
+          "mapped": false,
+          "longitude": -7.55716,
+          "latitude": 49.766807,
+          "technology": "wind_offshore",
+          "capacity_mw": 1000
+        },
+        "failures": [
+          {
+            "phase": "exact_repd_deep_link",
+            "repd_ref": "11613",
+            "message": "exact REPD identity did not fly to a safe map point"
+          }
+        ],
+        "deep_link": {
+          "repd_ref": "11613",
+          "name": null,
+          "technology": "wind_offshore",
+          "capacity_mw": null,
+          "longitude": null,
+          "latitude": null,
+          "supplied_status": null,
+          "owner_epoch": 1,
+          "status": "FAILED",
+          "resolved": false,
+          "mapped": false,
+          "message": "exact REPD identity did not fly to a safe map point",
+          "identity_source": "ACTIVE_REGISTER_CHECK_FAILED"
+        }
+      },
+      "neon": {
+        "schema": "gridatlas.neon-substation-links.v1",
+        "generation": "202609012045",
+        "minimum_kv": 33,
+        "map_captured": true,
+        "installed": true,
+        "substations_loaded": 5800,
+        "substations_qualifying": 5800,
+        "last_selection": null,
+        "links_drawn": 0,
+        "deep_linked": false,
+        "boot_trigger": "style.load",
+        "layer_controls_ready_ms": null,
+        "layer_controls_arrived_late": false,
+        "status_message": "The active-register identity check failed: exact REPD identity did not fly to a safe map point. No location was supplied, so the grid measurement cannot start until the check succeeds.",
+        "labels_drawn": true,
+        "gb_panel_installed": true,
+        "version_ledger": {
+          "entries": 104,
+          "newest": "v9.121",
+          "rejected_pre_promotion": [
+            "v9.100",
+            "v9.101",
+            "v9.102"
+          ]
+        },
+        "gb_conditions": null,
+        "project_layer_enabled": null,
+        "arrival_deferred_for_visibility": false,
+        "arrival_attempts": 1,
+        "arrival_resumed_on_visibility": 0,
+        "project_pin": {
+          "shown": false,
+          "name": null
+        },
+        "substation_layer_enabled": false,
+        "reduced_motion": false,
+        "failures": [],
+        "recovered": [],
+        "grid_scope": null,
+        "grid_scope_armed": false,
+        "measure": {
+          "arrivalGate": {},
+          "MIN_KV": 33,
+          "MAX_LINK_KM": 40,
+          "LINK_COUNT": 5,
+          "PROJECT_TECHS": {},
+          "OFFSHORE_TECHS": {},
+          "LAYER_ID_FOR_BUCKET": {
+            "wind_onshore": "wind",
+            "wind_offshore": "wind",
+            "other": null
+          },
+          "coverage": {
+            "schema": "gridatlas.technology-coverage.v1",
+            "wider_fleet": [
+              {
+                "repd": "Landfill Gas",
+                "bucket": "biomass",
+                "rows": 275
+              },
+              {
+                "repd": "Anaerobic Digestion",
+                "bucket": "biomass",
+                "rows": 253
+              },
+              {
+                "repd": "Biomass (dedicated)",
+                "bucket": "biomass",
+                "rows": 159
+              },
+              {
+                "repd": "EfW Incineration",
+                "bucket": "biomass",
+                "rows": 122
+              },
+              {
+                "repd": "Small Hydro",
+                "bucket": "hydro",
+                "rows": 108
+              },
+              {
+                "repd": "Hydrogen",
+                "bucket": "hydrogen",
+                "rows": 60
+              },
+              {
+                "repd": "Advanced Conversion Technologies",
+                "bucket": "act",
+                "rows": 37
+              },
+              {
+                "repd": "Large Hydro",
+                "bucket": "hydro",
+                "rows": 28
+              },
+              {
+                "repd": "Pumped Storage Hydroelectricity",
+                "bucket": "hydro",
+                "rows": 15
+              },
+              {
+                "repd": "Tidal Stream",
+                "bucket": "tidal",
+                "rows": 14
+              },
+              {
+                "repd": "Sewage Sludge Digestion",
+                "bucket": "biomass",
+                "rows": 12
+              },
+              {
+                "repd": "Geothermal",
+                "bucket": "geothermal",
+                "rows": 5
+              },
+              {
+                "repd": "Shoreline Wave",
+                "bucket": "tidal",
+                "rows": 4
+              },
+              {
+                "repd": "Liquid Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Biomass (co-firing)",
+                "bucket": "biomass",
+                "rows": 2
+              },
+              {
+                "repd": "Hot Dry Rocks (HDR)",
+                "bucket": "geothermal",
+                "rows": 2
+              },
+              {
+                "repd": "Compressed Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Fuel Cell (Hydrogen)",
+                "bucket": "hydrogen",
+                "rows": 2
+              },
+              {
+                "repd": "Flywheels",
+                "bucket": "flywheel",
+                "rows": 1
+              },
+              {
+                "repd": "Unknown",
+                "bucket": "other",
+                "rows": 1
+              }
+            ],
+            "spine": [
+              "solar",
+              "bess",
+              "wind_onshore",
+              "wind_offshore"
+            ],
+            "offshore_techs": [
+              "wind_offshore",
+              "wind_offshore_operational"
+            ],
+            "product": {
+              "features": 5800,
+              "with_location_tag": 0,
+              "offshore_in_name": 14,
+              "of_those_onshore": 4,
+              "source": "atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson"
+            },
+            "offshore_note": "This is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.",
+            "offshore_set_note": "The set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.",
+            "sample": {
+              "mapped_substations": "nearest of the mapped substations at or above the voltage floor that this search could see"
+            },
+            "not_a_connection": "A distance to a mapped substation is not a connection, a capacity, a queue position or an offer, for any technology on this list.",
+            "shell_allow_list_note": "The four-member technology allow-list in the immutable shell rejects every wider-fleet value and is caught; the arrival lane in this cartridge has already flown and carded by then, so it costs a console line and nothing else. The shell is carried forward verbatim and is not edited here."
+          }
+        },
+        "arrival_reconciliation": {
+          "status": "MEASUREMENT_CLAIMED",
+          "epoch": 1,
+          "owner_epoch": 1
+        },
+        "requested_zoom": null,
+        "mobile_tray": {
+          "installed": false,
+          "reason": "fine pointer, wide window"
+        }
+      },
+      "state": {
+        "gridatlasRepdDeepLink": "failed"
+      }
+    }
+  },
+  {
+    "engine": "chromium",
+    "query": "repd_ref=12588&technology=solar&latitude=51.8132088&longitude=-1.3489728&zoom=12",
+    "errors": [],
+    "failed": [
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/8/4.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/7/5.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/8/5.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/4/7/4.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/17/10.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/17/11.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/17/9.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/15/9.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/16/9.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/14/9.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/15/11.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/16/11.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/14/10.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/14/11.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/15/10.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/5/16/10.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/6/30/21.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/6/30/20.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/6/31/21.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/6/32/21.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/6/31/20.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/6/32/20.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/128/84.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/125/84.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/128/85.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/125/85.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/127/84.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/126/84.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/127/85.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/8/126/85.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/254/168.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/253/168.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/252/169.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/255/168.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/252/170.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/252/168.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/254/170.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/253/170.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/255/169.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/255/170.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/254/169.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/9/253/169.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/10/506/339.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/10/506/338.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/11/1014/678.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/11/1014/677.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-c.basemaps.cartocdn.com/vectortiles/carto.streets/v1/13/4065/2713.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-b.basemaps.cartocdn.com/vectortiles/carto.streets/v1/13/4064/2713.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/13/4066/2713.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-d.basemaps.cartocdn.com/vectortiles/carto.streets/v1/13/4063/2712.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      },
+      {
+        "url": "https://tiles-a.basemaps.cartocdn.com/vectortiles/carto.streets/v1/13/4063/2713.mvt",
+        "error": {
+          "errorText": "net::ERR_ABORTED"
+        }
+      }
+    ],
+    "facts": {
+      "body": "FILE\nEDIT\nVIEW\nSYSTEM TIME\n13:15:00\n05/09/2026\nVENTUS\nCABLES & CONNECTIVITY®\n2050 TARGET\n8518 DAYS\nSCOPE\nGRID\nABOUT\n⋮⋮\nDeep-linked project\n−\n×\nDeep-linked project\nsolar\nREPD 12588 · checking the active-register snapshot\nCard and point built from the arrival link.\n×\n\nNearest 400 kV substation: Cowley Substation · 15.76 km straight · ~19.6 km corridor estimate (×1.245, 73% of GB transmission cable circuits within 15% of published length, 59 distinct site pairs). Indicative highway-corridor screening only. Not a connection offer, not a constructability assessment and not a consenting design. Calibrated on cable circuits, which follow the highway network. Overhead line crosses open country and measures 1.13; this factor is not applied to an overhead-line question.\n\nScope: nearest of the 278 mapped substations at 400 kV or above that this search could see; the operator publishes 355 connection points at that class and 214 of them carry coordinates, so 141 cannot be measured to at all. A nearer one may exist that nothing here can see.\n\nCOWLEY SUBSTATION\nSITE-WIDE\nNESO PUBLISHED\n\nSite-wide published envelope across the 400/132 kV buses at this site, not a value for any one bus.\n\n6 circuits · 10 transformer winding connections at the site (a transformer whose windings are both here is published at each of them, so this is not a count of machines) · circuit winter ratings across the site 1,180–2,779 MVA · three-phase RMS break current 12.4–49.4 kA across every busbar at this site over 15 peak-demand rows at 3 buses (2025/26 to 2033/34) · 5 reactive compensation units · 14 changes published for 2026–2030.\n\nAppendix D publishes eight current metrics and they are not interchangeable; this is one published breaker-duty metric, and switchgear carries several relevant ratings besides it. NESO Electricity Ten Year Statement 2025, appendices B and D, via Ventusltd/data-grid-gb. Published parameters. Not a statement about whether any project can connect here.\n\nCOWLEY\nETYS TOPOLOGY\n\nJoined by name from Cowley Substation to NESO site COWL (NGET); declared voltages 400, 132 kV.\n\nAt the site: 6 circuits and 5 transformers, counted as units. The per-voltage lines below count landings, one for each end held here, so a transformer with both windings at this site appears under both of its voltages.\n\nAt 400 kV: 6 circuits, 5 transformers, 14 published changes (2026, 2028, 2030).\n\nAt 132 kV: 0 circuits, 5 transformers.\n\nCircuit ratings: winter 1180-2779 MVA, summer 877-2219 MVA, across 6 circuits. Each figure is one circuit's rating in that season. They are not added together: the sum of the circuits at a site is not a quantity that exists in the network, and a rating is not what is free on the circuit.\n\nTransmission owner: NGET. Ownership is a published fact about an asset. It is not a statement about who a project would contract with, which depends on connection agreements and commercial terms no appendix contains.\n\nPublished as planned: 2026 2 addition, 2 change, 2 removed; 2028 1 addition, 2 change, 1 removed; 2030 2 addition, 2 removed. These are rows NESO publishes for a future year. None of them is a circuit today, a commitment, a consent, or a connection date, and none is counted among the circuits above.\n\nOn the published network: 6 sites one circuit away, 9 more at two. A hop is a published circuit, not a distance - a site one hop away may be a hundred kilometres away.\n\nCircuits reach: CULHAM JET (1), DIDCOT (1), EAST CLAYDON (1), LEIGHTON BUZZARD (1), MINETY (1), WALHAM (1).\n\nCounts, lengths, ratings and impedances are what the network operator publishes about this site. None of them states whether any project can connect here, which depends on queue position, committed connections, consent and commercial terms that no published appendix contains. Counts are branches landing on this site's nodes at the stated voltage, from ETYS Appendix B via Ventusltd/data-grid-gb.\n\nExplore route corridors ›\nNEAREST SUBSTATIONS ≥33 KV\nBETA\n3.43 km\nYarnton Substation\n132 kV\n3.81 km\nEynsham\n33 kV\n4.56 km\nGreen Lane Electricity Substation\n33 kV\n6.00 km\nLovelace Road\n33 kV\n8.61 km\nWest Oxford Substation\n132 kV\n\n132 kV distribution in England and Wales, transmission in Scotland. 33 kV primary distribution; the usual class for a utility-scale solar or storage connection. Descriptions of the network, not advice about this scheme.\n\nHIDE THE PROJECT RING\nLAY OUT A SCHEME HERE ▸\nBeta analytics, not an actual grid connection. Straight-line distance to mapped geometry — not a cable route, not a connection length, and no route has been walked. A real connection depends on factors that must be studied: network impedance and fault level, thermal headroom, existing committed connections and queue position, right of way, wayleaves and easements, crossings, terrain, land control and consent. None of those can be inferred from a distance. A mapped substation does not confirm capacity, voltage suitability or acceptance by any network party, and absence from a mapped layer is not absence on the ground.\nGO\nTOPOLOGY (GEOJSON)\n400kV [OK]\n275kV [OK]\n220kV [OK]\n132kV [OK]\n66kV [OK]\n11kV (UKPN) [WAIT]\nSubs [OK]\nASSETS (GEOJSON)\nNuclear [OK]\nGas [OK]\nIndustry [OK]\nData Ctrs [OK]\nAirports [OK]\nRailways [OK]\nSUPERMARKETS (GEOJSON)\nTesco [WAIT]\nSainsbury's [WAIT]\nAsda [WAIT]\nMorrisons [WAIT]\nAldi [WAIT]\nLidl [WAIT]\nWaitrose [WAIT]\nM&S Food [WAIT]\nCo-op [WAIT]\nCostco [WAIT]\nBooths [WAIT]\nTRANSIT (GEOJSON)\nElizabeth Line [WAIT]\nLondon Underground [WAIT]\nDLR [WAIT]\nUK Metro [WAIT]\nTrams & Light Rail [WAIT]\nUK Mainline Railways [WAIT]\nHS2 [WAIT]\nEurostar (HS1) UK & Europe [WAIT]\nEurostar Stations UK & Europe [WAIT]\nLEISURE & SPORTS (GEOJSON)\nMajor Stadiums [WAIT]\nGLOBAL DATA BACKBONE\nSubsea Data Cables (Fibre) (not all connections available yet) [WAIT]\nGLOBAL SUPPLY CHAIN & CHOKEPOINTS\nMajor Ports (Deep Water/Ferry) [WAIT]\nInland / Minor Harbours [WAIT]\nGlobal Hydrocarbons (Oil, Gas, LNG) [WAIT]\nHIGHWAY INFRASTRUCTURE\nMotorways [WAIT]\nMajor A-Roads (Trunk) [WAIT]\nA-Roads (Primary) [WAIT]\nMotorway Services [WAIT]\nEV (GEOJSON)\nEV Rapid (100kW+) [WAIT]\nHEAVY INDUSTRY\nMajor Industrial Sites [WAIT]\nREPD (GEOJSON)\nSolar PV [LOAD]\nSolar PV (Operational Only) [WAIT]\nSolar Roof [WAIT]\nWind [WAIT]\nOnshore Wind (Operational Only) [WAIT]\nOffshore Wind (Operational Only) [WAIT]\nBattery Storage [WAIT]\nBattery Storage (Operational Only) [WAIT]\nBiomass & EfW [WAIT]\nTidal & Wave [WAIT]\nHydrogen [WAIT]\nHydro & Pumped Storage [WAIT]\nFlywheel [WAIT]\nAdvanced Conversion [WAIT]\nGeothermal [WAIT]\nCompressed Air Storage [WAIT]\nBASEMAP\nDark\nSatellite\nPIPELINE NEWS (REPD)\nSame technology [WAIT]\nWider fleet [WAIT]\nAll pipeline [WAIT]\nTest Code · 202609051152\n▾ HIDE LAYERS",
+      "search": {
+        "schema": "gridatlas.v9-place-global-search.v5",
+        "generation": "202609051152",
+        "source_generation": "202609040229",
+        "version": "v9.106",
+        "geocoder": "https://api.postcodes.io",
+        "global_geocoder": "https://nominatim.openstreetmap.org/search",
+        "geocoder_providers": [
+          "postcodes.io",
+          "Nominatim / OpenStreetMap"
+        ],
+        "geocoder_requests": 0,
+        "global_geocoder_requests": 0,
+        "geocoder_failures": [],
+        "last_location_selection": null,
+        "parquet_url": "https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet",
+        "parquet_sha256": "174040c37f3d63742d6fdd7af722a8cfdf3fb53de3ff85ff1142d22fdac4866b",
+        "ready": true,
+        "map_captured": true,
+        "query_count": 0,
+        "identity_retry_count": 0,
+        "last_query": "",
+        "last_results": [],
+        "last_selection": null,
+        "failures": [],
+        "deep_link": {
+          "repd_ref": "12588",
+          "name": null,
+          "technology": "solar",
+          "capacity_mw": null,
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "supplied_status": null,
+          "owner_epoch": 1,
+          "status": "RECEIVING",
+          "resolved": false,
+          "mapped": false,
+          "identity_source": "ACTIVE_REGISTER_PENDING"
+        }
+      },
+      "neon": {
+        "schema": "gridatlas.neon-substation-links.v1",
+        "generation": "202609012045",
+        "minimum_kv": 33,
+        "map_captured": true,
+        "installed": true,
+        "substations_loaded": 5800,
+        "substations_qualifying": 5800,
+        "last_selection": {
+          "name": "Deep-linked project",
+          "tech": "solar",
+          "direction": "to-substation",
+          "count": 5,
+          "nearest_km": 3.432
+        },
+        "links_drawn": 5,
+        "deep_linked": true,
+        "boot_trigger": "style.load",
+        "layer_controls_ready_ms": 1054,
+        "layer_controls_arrived_late": false,
+        "status_message": null,
+        "labels_drawn": true,
+        "gb_panel_installed": true,
+        "version_ledger": {
+          "entries": 104,
+          "newest": "v9.121",
+          "rejected_pre_promotion": [
+            "v9.100",
+            "v9.101",
+            "v9.102"
+          ]
+        },
+        "gb_conditions": null,
+        "project_layer_enabled": "solar",
+        "arrival_deferred_for_visibility": false,
+        "arrival_attempts": 1,
+        "arrival_resumed_on_visibility": 0,
+        "project_pin": {
+          "shown": true,
+          "name": "Deep-linked project"
+        },
+        "substation_layer_enabled": true,
+        "reduced_motion": false,
+        "failures": [],
+        "recovered": [],
+        "grid_scope": null,
+        "grid_scope_armed": false,
+        "measure": {
+          "arrivalGate": {},
+          "MIN_KV": 33,
+          "MAX_LINK_KM": 40,
+          "LINK_COUNT": 5,
+          "PROJECT_TECHS": {},
+          "OFFSHORE_TECHS": {},
+          "LAYER_ID_FOR_BUCKET": {
+            "wind_onshore": "wind",
+            "wind_offshore": "wind",
+            "other": null
+          },
+          "coverage": {
+            "schema": "gridatlas.technology-coverage.v1",
+            "wider_fleet": [
+              {
+                "repd": "Landfill Gas",
+                "bucket": "biomass",
+                "rows": 275
+              },
+              {
+                "repd": "Anaerobic Digestion",
+                "bucket": "biomass",
+                "rows": 253
+              },
+              {
+                "repd": "Biomass (dedicated)",
+                "bucket": "biomass",
+                "rows": 159
+              },
+              {
+                "repd": "EfW Incineration",
+                "bucket": "biomass",
+                "rows": 122
+              },
+              {
+                "repd": "Small Hydro",
+                "bucket": "hydro",
+                "rows": 108
+              },
+              {
+                "repd": "Hydrogen",
+                "bucket": "hydrogen",
+                "rows": 60
+              },
+              {
+                "repd": "Advanced Conversion Technologies",
+                "bucket": "act",
+                "rows": 37
+              },
+              {
+                "repd": "Large Hydro",
+                "bucket": "hydro",
+                "rows": 28
+              },
+              {
+                "repd": "Pumped Storage Hydroelectricity",
+                "bucket": "hydro",
+                "rows": 15
+              },
+              {
+                "repd": "Tidal Stream",
+                "bucket": "tidal",
+                "rows": 14
+              },
+              {
+                "repd": "Sewage Sludge Digestion",
+                "bucket": "biomass",
+                "rows": 12
+              },
+              {
+                "repd": "Geothermal",
+                "bucket": "geothermal",
+                "rows": 5
+              },
+              {
+                "repd": "Shoreline Wave",
+                "bucket": "tidal",
+                "rows": 4
+              },
+              {
+                "repd": "Liquid Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Biomass (co-firing)",
+                "bucket": "biomass",
+                "rows": 2
+              },
+              {
+                "repd": "Hot Dry Rocks (HDR)",
+                "bucket": "geothermal",
+                "rows": 2
+              },
+              {
+                "repd": "Compressed Air Energy Storage",
+                "bucket": "caes",
+                "rows": 2
+              },
+              {
+                "repd": "Fuel Cell (Hydrogen)",
+                "bucket": "hydrogen",
+                "rows": 2
+              },
+              {
+                "repd": "Flywheels",
+                "bucket": "flywheel",
+                "rows": 1
+              },
+              {
+                "repd": "Unknown",
+                "bucket": "other",
+                "rows": 1
+              }
+            ],
+            "spine": [
+              "solar",
+              "bess",
+              "wind_onshore",
+              "wind_offshore"
+            ],
+            "offshore_techs": [
+              "wind_offshore",
+              "wind_offshore_operational"
+            ],
+            "product": {
+              "features": 5800,
+              "with_location_tag": 0,
+              "offshore_in_name": 14,
+              "of_those_onshore": 4,
+              "source": "atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson"
+            },
+            "offshore_note": "This is a straight line from the project to the nearest mapped substation, and for an offshore project that line crosses water. It is not the export cable and not its length. An offshore project reaches an offshore substation, an export cable and a landfall before anything onshore, and the route inland is then chosen for consent and ground conditions rather than for distance, so the built length is longer than this by an amount no distance can tell you.",
+            "offshore_set_note": "The set searched is the same 5,800 mapped substations used for every other technology. It carries no field saying which of them are onshore: the OSM location tag is absent from all 5,800, and of the 14 whose name contains \"offshore\" at least 4 are onshore substations serving an offshore wind farm. No onshore filter is applied, because one built on the name would drop those 4 - including Hornsea at 400/220 kV, which is a landfall connection. Where a result is itself named as an offshore substation it is marked below.",
+            "sample": {
+              "mapped_substations": "nearest of the mapped substations at or above the voltage floor that this search could see"
+            },
+            "not_a_connection": "A distance to a mapped substation is not a connection, a capacity, a queue position or an offer, for any technology on this list.",
+            "shell_allow_list_note": "The four-member technology allow-list in the immutable shell rejects every wider-fleet value and is caught; the arrival lane in this cartridge has already flown and carded by then, so it costs a console line and nothing else. The shell is carried forward verbatim and is not edited here."
+          }
+        },
+        "arrival_reconciliation": {
+          "status": "MEASUREMENT_CLAIMED",
+          "epoch": 1,
+          "owner_epoch": 1
+        },
+        "requested_zoom": 12,
+        "origin_source": "link-supplied",
+        "deep_link_identity": "verifying-concurrently",
+        "identity_verification": {
+          "status": "PENDING",
+          "repd_ref": "12588",
+          "supplied_coordinates_used": true
+        },
+        "camera_from_link": {
+          "longitude": -1.3489728,
+          "latitude": 51.8132088,
+          "zoom": 12,
+          "reason": "supplied coordinates while register verification runs"
+        },
+        "technology_layer": {
+          "requested": "solar",
+          "layer_id": "solar",
+          "enabled": true,
+          "reason": null
+        },
+        "arrival_card": "from-link-fields",
+        "arrival_card_identity": {
+          "repd_ref": "12588",
+          "name": "Deep-linked project",
+          "technology": "solar",
+          "capacity_mw": null,
+          "supplied_status": null,
+          "provenance": "ARRIVAL_LINK"
+        },
+        "mobile_tray": {
+          "installed": false,
+          "reason": "fine pointer, wide window"
+        },
+        "network_published": {
+          "name": "Cowley Substation",
+          "site": "COWL"
+        },
+        "first_coordinate_answer_ms": 231,
+        "first_coordinate_origin": "link-supplied",
+        "topology": {
+          "shown": 1,
+          "sites": 921,
+          "bytes": 10069964
+        },
+        "layer_controls_ready_visible_ms": 1000,
+        "zoom_applied": 13.832825609573723
+      },
+      "state": {}
+    }
+  }
+]

@@ -1477,3 +1477,9 @@ Source: 87fe1250. File: homepage_v037.html. Folder files before: 38; after: 39.
 Lines: 293; words: 4085; characters: 30836.
 SHA-256: a6788e8829141383340bb5582c69406a78037762adb6190f048e0eb1585ef6b6.
 Intention: add a Test Code comparison section while retaining every existing link and section.
+
+
+## Snapshot v038
+Source: 7c21f271. File homepage_v038.html. Files before 39, after 40.
+Lines 299; words 4119; characters 31188. SHA256 45bc9f9fcbcf490222958cc33397077bff29db667bd7c447cfc5f2bbde8ed7c6.
+Intention: append the Firefox/project-identity correction while retaining the original Test Code link.

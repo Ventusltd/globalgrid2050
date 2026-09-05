@@ -1,4 +1,10 @@
 import { escapeHtml } from "../core/utils.js";
+import {
+  atlasCentresOnRepdPointV9_7,
+  atlasUnavailableReasonV9_7,
+  buildAtlasDeepLinkV9_7,
+  loadAtlasReceiverV9_7,
+} from "../core/atlas-receiver-v9-7.js";
 import { state } from "../core/state.js";
 import {
   buildProjectSearchTextV9_2,
@@ -40,16 +46,11 @@ let sortMode = "capacity_desc";
 let controlsBound = false;
 
 export function atlasUrlV9_5_1(project) {
-  if (project.geometry_status !== "valid") return "";
-  const url = new URL("https://globalgrid2050.com/repd_grid_atlasv8/");
-  url.searchParams.set("repd_ref", project.repd_ref);
-  url.searchParams.set("project", project.name);
-  url.searchParams.set("technology", project.technology);
-  url.searchParams.set("capacity_mw", project.capacity_mw);
-  url.searchParams.set("latitude", project.latitude);
-  url.searchParams.set("longitude", project.longitude);
-  url.searchParams.set("zoom", "12");
-  return url.href;
+  // The receiver is not named here. It is read from the deep-link contract the
+  // engine publishes -- see ../core/atlas-receiver-v9-7.js for the measurement
+  // that made this necessary. Seven files in this directory each held their own
+  // copy of a route that had quietly stopped carrying the engine.
+  return buildAtlasDeepLinkV9_7(project);
 }
 
 function displayDate(value) {
@@ -105,6 +106,31 @@ function relationshipSummary(project) {
   return `${development} development · ${direct} direct · ${siblings} planning sibling record(s)`;
 }
 
+/* WHAT THE MAP CELL SAYS, AND WHY IT SAYS IT IN THE CELL.
+
+   This used to be a link or the two words NO MAP with its reason in a title
+   attribute. A phone reports hover: none, so on a phone the reason could not be
+   reached at all -- and 28 of these 7,680 records got the silent version.
+
+   Those 28 are no longer denied a link. The contract requires only repd_ref;
+   latitude and longitude are optional, and the canonical receiver resolves the
+   project from its REPD reference and centres on its own geometry. Measured on
+   REPD 13429 (Ossian), which has no REPD coordinate: the arrival names the
+   project, its capacity and its reference. So they get a MAP button and a
+   sentence saying whose coordinate the map is using -- which is the honest
+   answer, and the opposite of a button that quietly does nothing. */
+function mapActionHtmlV9_5_1(project) {
+  const href = atlasUrlV9_5_1(project);
+  if (!href) {
+    return `<span class="action-disabled">NO MAP</span>`
+      + `<div class="map-note">${escapeHtml(atlasUnavailableReasonV9_7(project))}</div>`;
+  }
+  const link = `<a class="action-link atlaslink" target="_blank" rel="noopener" href="${escapeHtml(href)}">MAP ↗</a>`;
+  if (atlasCentresOnRepdPointV9_7(project)) return link;
+  return `${link}<div class="map-note">REPD published no coordinate for this record. `
+    + `The Atlas resolves it from REPD ${escapeHtml(project.repd_ref)} and centres on its own geometry.</div>`;
+}
+
 function renderTable() {
   const body = document.getElementById("tbody");
   body.innerHTML = filtered.map((project) => {
@@ -115,10 +141,7 @@ function renderTable() {
     const news = new URL("https://www.google.com/search");
     news.searchParams.set("q", `${project.name} ${label} UK`);
     news.searchParams.set("tbm", "nws");
-    const atlas = atlasUrlV9_5_1(project);
-    const mapAction = atlas
-      ? `<a class="action-link atlaslink" target="_blank" rel="noopener" href="${escapeHtml(atlas)}">MAP ↗</a>`
-      : '<span class="action-disabled" title="REPD geometry is unavailable; the record remains searchable and exportable">NO MAP</span>';
+    const mapAction = mapActionHtmlV9_5_1(project);
     const planning = project.planning_application_reference || "not supplied by REPD";
     const authority = project.planning_authority || "not supplied by REPD";
     const developmentId = project.gg_development_id || "not assigned";
@@ -265,7 +288,14 @@ async function copyProjectId(button) {
 
 export async function loadProjectsV9_5_1() {
   try {
-    const model = await loadCanonicalProjectsV9_5_1();
+    /* The deep-link contract is fetched beside the project payload, not after
+       it: atlasUrlV9_5_1() is synchronous and renderTable() calls it once per
+       row, so the receiver must be known before the first paint. In parallel,
+       because neither read depends on the other. */
+    const [model] = await Promise.all([
+      loadCanonicalProjectsV9_5_1(),
+      loadAtlasReceiverV9_7(),
+    ]);
     all = [...model.projects];
     filtered = all;
     metadata = model.metadata;

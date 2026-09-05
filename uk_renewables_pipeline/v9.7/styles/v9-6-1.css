@@ -10,3 +10,15 @@
     display: table-cell;
   }
 }
+
+/* The MAP cell's own sentence. A title attribute cannot be reached on a phone,
+   which reports hover: none, so the reason a record has no map point -- or no
+   receiver -- is printed in the cell instead of hidden behind a hover. */
+.project-actions .map-note {
+  flex: 1 0 100%;
+  margin: 4px 0 0;
+  color: #aab4c0;
+  font: normal 9px/1.5 'Courier New', monospace;
+  text-transform: none;
+  white-space: normal;
+}

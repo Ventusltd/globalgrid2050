@@ -1,4 +1,5 @@
 import { escapeHtml } from "../core/utils.js";
+import { buildAtlasDeepLinkV9_7 } from "../core/atlas-receiver-v9-7.js";
 import { state } from "../core/state.js";
 import {
   buildProjectSearchTextV9_2,
@@ -40,16 +41,11 @@ let sortMode = "capacity_desc";
 let controlsBound = false;
 
 export function atlasUrlV9_5(project) {
-  if (project.geometry_status !== "valid") return "";
-  const url = new URL("https://globalgrid2050.com/repd_grid_atlasv8/");
-  url.searchParams.set("repd_ref", project.repd_ref);
-  url.searchParams.set("project", project.name);
-  url.searchParams.set("technology", project.technology);
-  url.searchParams.set("capacity_mw", project.capacity_mw);
-  url.searchParams.set("latitude", project.latitude);
-  url.searchParams.set("longitude", project.longitude);
-  url.searchParams.set("zoom", "12");
-  return url.href;
+  // The receiver is not named here. It is read from the deep-link contract the
+  // engine publishes -- see ../core/atlas-receiver-v9-7.js for the measurement
+  // that made this necessary. Seven files in this directory each held their own
+  // copy of a route that had quietly stopped carrying the engine.
+  return buildAtlasDeepLinkV9_7(project);
 }
 
 function displayDate(value) {

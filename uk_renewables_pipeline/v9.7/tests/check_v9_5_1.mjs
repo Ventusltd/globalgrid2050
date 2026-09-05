@@ -10,6 +10,26 @@ import {
   tokeniseSearchV9_2,
 } from "../scripts/core/project-filter-v9-2.js";
 import { atlasUrlV9_5_1, compareProjectUpdatesV9_5_1 } from "../scripts/plugins/projects-v9-5-1.js";
+import {
+  atlasCentresOnRepdPointV9_7,
+  atlasReceiverV9_7,
+  isRetiredReceiverV9_7,
+  primeAtlasReceiverV9_7,
+} from "../scripts/core/atlas-receiver-v9-7.js";
+
+/* The deep-link contract, as the engine publishes it. Held here as the test's
+   own input so every branch runs with no network; the live file is audited
+   separately by Ventusltd/testcode drivers/link-targets.mjs, which reads
+   ventus-grid-engine/deeplink/receivers.json rather than restating it. */
+const RECEIVER_CONTRACT = {
+  schema: "ventus.grid-engine.deeplink-receivers.v1",
+  canonical: { id: "gridatlas-v9", route: "https://ventusltd.github.io/gridatlas/atlas/", carries_engine: true },
+  /* A synthetic retired route. This fixture only needs SOMETHING retired to
+     exercise the refusal branch, and naming the estate's real dead route in a
+     test keeps a copy of it alive for the next person to copy. */
+  retired: [{ id: "synthetic-retired-receiver", route: "https://retired.invalid/no-engine/", carries_engine: false }],
+};
+
 
 const base = new URL("../", import.meta.url);
 const root = new URL("../../../", import.meta.url);
@@ -115,12 +135,45 @@ assert.equal(projectMatchesV9_2(berwick, {
   tokens: [],
 }, searchText), false);
 
+/* Before the contract is read there is no receiver, so there is no link. This
+   is asserted FIRST because it is the branch that must never fall back to a
+   route someone typed: on 2026-09-05 every MAP link in this app was measured
+   pointing at a receiver carrying zero engine cartridges, and a fallback is how
+   that would come back. */
+assert.equal(atlasUrlV9_5_1(berwick), "", "no contract read yet, so no link may be built");
+
+assert.equal(primeAtlasReceiverV9_7(RECEIVER_CONTRACT), RECEIVER_CONTRACT.canonical.route);
+assert.equal(atlasReceiverV9_7(), RECEIVER_CONTRACT.canonical.route);
+
 const validAtlas = new URL(atlasUrlV9_5_1(berwick));
+assert.equal(validAtlas.origin + validAtlas.pathname, "https://ventusltd.github.io/gridatlas/atlas/");
+assert.equal(isRetiredReceiverV9_7(validAtlas.origin + validAtlas.pathname), false);
 assert.equal(validAtlas.searchParams.get("repd_ref"), "9873");
 assert.equal(validAtlas.searchParams.get("technology"), "wind_offshore");
+assert.equal(validAtlas.searchParams.get("latitude"), String(berwick.latitude));
+
+/* A record REPD published no coordinate for is still linkable: the contract
+   requires only repd_ref, and the canonical receiver resolves the project from
+   it -- measured live on REPD 13429, which arrives and names itself. It used to
+   return "", which rendered a button that silently did nothing. */
 const missingGeometry = projects.find((project) => project.geometry_status !== "valid");
 assert.ok(missingGeometry);
-assert.equal(atlasUrlV9_5_1(missingGeometry), "");
+assert.equal(atlasCentresOnRepdPointV9_7(missingGeometry), false);
+const refOnly = new URL(atlasUrlV9_5_1(missingGeometry));
+assert.equal(refOnly.origin + refOnly.pathname, "https://ventusltd.github.io/gridatlas/atlas/");
+assert.equal(refOnly.searchParams.get("repd_ref"), String(missingGeometry.repd_ref));
+assert.equal(refOnly.searchParams.get("latitude"), null);
+assert.equal(refOnly.searchParams.get("zoom"), null);
+
+/* A contract that names its own canonical route as retired must fail closed
+   rather than resolve itself. */
+assert.equal(primeAtlasReceiverV9_7({
+  schema: RECEIVER_CONTRACT.schema,
+  canonical: { route: RECEIVER_CONTRACT.retired[0].route, carries_engine: true },
+  retired: RECEIVER_CONTRACT.retired,
+}), "");
+assert.equal(atlasUrlV9_5_1(berwick), "");
+assert.equal(primeAtlasReceiverV9_7(RECEIVER_CONTRACT), RECEIVER_CONTRACT.canonical.route);
 
 assert.equal(news.schema, "globalgrid2050.major-project-news.v9.5.1");
 assert.equal(news.all_headline_count, news.all_items.length);

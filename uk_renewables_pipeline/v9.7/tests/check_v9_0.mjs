@@ -10,6 +10,26 @@ import {
 } from "../scripts/core/project-state.js";
 import { buildCanonicalProjectCsv } from "../scripts/plugins/canonical-project-export.js";
 import { buildCanonicalProjectTableView } from "../scripts/plugins/canonical-project-table.js";
+import { primeAtlasReceiverV9_7 } from "../scripts/core/atlas-receiver-v9-7.js";
+
+/* The deep-link contract, as the engine publishes it. Held here as the test's
+   own input so every branch runs with no network; the live file is audited
+   separately by Ventusltd/testcode drivers/link-targets.mjs, which reads
+   ventus-grid-engine/deeplink/receivers.json rather than restating it. */
+const RECEIVER_CONTRACT = {
+  schema: "ventus.grid-engine.deeplink-receivers.v1",
+  canonical: { id: "gridatlas-v9", route: "https://ventusltd.github.io/gridatlas/atlas/", carries_engine: true },
+  /* A synthetic retired route. This fixture only needs SOMETHING retired to
+     exercise the refusal branch, and naming the estate's real dead route in a
+     test keeps a copy of it alive for the next person to copy. */
+  retired: [{ id: "synthetic-retired-receiver", route: "https://retired.invalid/no-engine/", carries_engine: false }],
+};
+
+/* Primed before the first table view: buildAtlasV8Url() is synchronous and the
+   view builds a link per row, so the contract must be in place first. Without
+   it the link is empty by design -- there is no fallback to a retired route. */
+assert.equal(primeAtlasReceiverV9_7(RECEIVER_CONTRACT), RECEIVER_CONTRACT.canonical.route);
+
 
 const v9Url = new URL("../", import.meta.url);
 const repoUrl = new URL("../../../", import.meta.url);
@@ -42,13 +62,25 @@ assert.equal(thorpeMarsh.primary.repdRecordUpdated.value, "2025-11-04");
 assert.equal(thorpeMarsh.primary.repdRecordUpdated.display, "04/11/2025");
 assert.equal(thorpeMarsh.primary.atlas.exactFocusSupported, true);
 const atlas = new URL(thorpeMarsh.primary.atlas.url);
-assert.equal(atlas.origin, "https://globalgrid2050.com");
-assert.equal(atlas.pathname, "/repd_grid_atlasv8/");
+/* Was: the origin and pathname of the retired V8 overlay. The engine
+   retired that route on 2026-09-05 for carrying no cartridges, so the old
+   assertion pinned the defect. */
+assert.equal(atlas.origin, "https://ventusltd.github.io");
+assert.equal(atlas.pathname, "/gridatlas/atlas/");
 assert.equal(atlas.searchParams.get("repd_ref"), "12453");
 assert.equal(atlas.searchParams.get("technology"), "bess");
-assert.equal(atlas.searchParams.get("capacity_mw"), "1450");
 assert.equal(atlas.searchParams.get("latitude"), "53.5802575");
 assert.equal(atlas.searchParams.get("longitude"), "-1.0850616");
+/* `project` and `capacity_mw` are deliberately no longer sent. The engine's
+   deep-link contract names five parameters -- repd_ref, technology, latitude,
+   longitude, zoom -- and the canonical receiver resolves the project's name,
+   capacity, postcode and status from the REPD reference itself. Measured live
+   on REPD 8162: the arrival reads "Longfield solar 500 MW ... CM3 3AS - Essex
+   REPD 8162 - awaiting construction" with none of it carried in the link.
+   Sending them again would be a second source for a fact the receiver already
+   holds, which is the shape of fault this whole change is removing. */
+assert.equal(atlas.searchParams.get("capacity_mw"), null);
+assert.equal(atlas.searchParams.get("project"), null);
 
 const missingDate = table.rows.find((row) => row.primary.repdRecordUpdated.value === null);
 assert.ok(missingDate);
@@ -61,7 +93,23 @@ assert.equal(solarCsv.filename, "globalgrid2050_uk_renewables_pipeline_v9_0_2026
 assert.equal(solarCsv.content.split("\r\n").length, 385);
 assert.match(solarCsv.content.split("\r\n")[0], /"REPD Record Updated"/);
 assert.match(solarCsv.content.split("\r\n")[0], /"Atlas V8 URL"/);
-assert.match(solarCsv.content, /https:\/\/globalgrid2050\.com\/repd_grid_atlasv8\//);
+/* Was: assert the CSV contains the retired V8 overlay route.
+   That route was retired by the engine on 2026-09-05 for carrying no
+   cartridges, so the old assertion pinned the defect. It now asserts the
+   canonical receiver is present and the retired one is absent -- the same
+   check, made specific about which receiver is right and why.
+
+   The CSV column is still headed "Atlas V8 URL". That label is a published
+   contract, pinned above and in contracts/projects-plugin.v7.2.json;
+   renaming it is a separate governed decision and is recorded as an
+   erratum rather than taken here. */
+const csvAtlasUrls = [...solarCsv.content.matchAll(/https:\/\/[^",\s]+/g)].map((m) => m[0])
+  .filter((href) => /atlas|repd_grid/i.test(href));
+assert.ok(csvAtlasUrls.length > 0, "the CSV carries no Atlas URL at all");
+assert.ok(
+  csvAtlasUrls.every((href) => href.startsWith(RECEIVER_CONTRACT.canonical.route)),
+  `CSV Atlas URLs are not all the canonical receiver: ${[...new Set(csvAtlasUrls)].slice(0, 3).join(" | ")}`,
+);
 
 resetCanonicalProjectFilters(state);
 setCanonicalProjectFilter(state, "query", "no-v9-project-can-match-this-value");

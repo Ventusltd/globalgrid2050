@@ -1,7 +1,8 @@
+import { buildAtlasDeepLinkV9_7 } from "../core/atlas-receiver-v9-7.js";
+
 const CAPACITY_BASIS = "official_repd_record_capacity_not_development_deduplicated";
 const NO_RELATIONSHIPS = "none recorded";
 const LEGACY_NEWS_AUTHORITY = "external legacy intelligence — unverified";
-const ATLAS_V8_URL = "https://globalgrid2050.com/repd_grid_atlasv8/";
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`V7.2 canonical table: ${message}`);
@@ -49,18 +50,13 @@ function displayOfficialDate(value, missingValueLabel) {
   return `${day}/${month}/${year}`;
 }
 
+/* The name is kept because the CSV column it feeds is a published
+   contract pinned by contracts/projects-plugin.v7.2.json and by
+   tests/check_v9_0.mjs. What it BUILDS is now the receiver the engine
+   publishes as canonical; renaming the column is a separate, governed
+   decision and is recorded as an erratum rather than taken here. */
 export function buildAtlasV8Url(project) {
-  const url = new URL(ATLAS_V8_URL);
-  url.searchParams.set("repd_ref", project.repd_ref);
-  url.searchParams.set("project", project.name);
-  url.searchParams.set("technology", project.technology);
-  url.searchParams.set("capacity_mw", String(project.capacity_mw));
-  if (project.geometry_status === "valid") {
-    url.searchParams.set("latitude", String(project.latitude));
-    url.searchParams.set("longitude", String(project.longitude));
-    url.searchParams.set("zoom", "12");
-  }
-  return url.href;
+  return buildAtlasDeepLinkV9_7(project);
 }
 
 function sameFlatRecord(left, right) {

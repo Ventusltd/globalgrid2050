@@ -1,0 +1,23 @@
+{
+  "generation": "202609051344",
+  "predecessor": "202609051335",
+  "patches": [
+    "Wrapper at actual selectAt closure, receipt from actual nearestSubstations + nearestTransmission return values; original return retained.",
+    "Draw measured nearest transmission outside 40 km local search.",
+    "Crown Estate and Crown Estate Scotland attributed approximate areas for three unresolved offshore records.",
+    "Industrial clicks compute using actual source coordinates and original NAEI identity.",
+    "Same-origin industrial GeoJSON avoids Parquet dependency for map selection."
+  ],
+  "engine_sources": {
+    "compute-observer.js": "b24ab4db9933e045af0255a9c7e243f4692e97c00fcfd418715e825733b9b1d0",
+    "v9-geodesy.js": "af9b5a8796b51a1e4368491b98961a197adec539f2fa0f3ed226552a876864bb"
+  },
+  "purpose": "Observe actual computation; missing data and unsupported click paths retained as failures.",
+  "engine_commit": "f9531a7",
+  "screenshots": "disabled by user; coded observations only",
+  "industrial_data": {
+    "source": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\globalgrid2050\\heavy_emitters_uk.json",
+    "sha256": "9d603ac9a7dd5b831b94c01b1e25b4f0a434e299489a680d9b4461ce5f1a63f3",
+    "bytes": 722142
+  }
+}

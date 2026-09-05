@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 31,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -6.81715325999994,
+              58.3525111170001
+            ],
+            [
+              -6.88342678499993,
+              58.3249344380001
+            ],
+            [
+              -6.97818386499995,
+              58.376456713
+            ],
+            [
+              -6.68155300499996,
+              58.4907615180001
+            ],
+            [
+              -6.62503619899996,
+              58.4595220520001
+            ],
+            [
+              -6.59709560699997,
+              58.4440779870001
+            ],
+            [
+              -6.81715325999994,
+              58.3525111170001
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "Property_Description": "Spiorad na Mara",
+        "Tenant_Name": "Spiorad Na Mara Limited",
+        "Lease_Type_Description": "Agreement/Option for Lease",
+        "Property_Classification": "Wind Farm",
+        "Project_Phase": "In Planning",
+        "Capacity_MW": 900,
+        "OBJECTID_1": 31,
+        "Shape__Area": 0.024771895448623127,
+        "Shape__Length": 0.8323816540477443
+      }
+    }
+  ]
+}

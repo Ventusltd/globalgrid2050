@@ -1,0 +1,10 @@
+/* Original terminal palette. Typography and solid grey progress fills remain inherited. */
+body h1 { color: #83d8d0; }
+body h2, body h3 { color: #e2bd79; }
+#open-energy h2, #circuit-school h2 { color: #a8d59a; }
+#nasa-ice h2, #nano-minute h2 { color: #9bbfea; }
+#solar-radiation h2, #solar-75tw h2 { color: #e2bd79; }
+.solar-periods { margin: 12px 0; }
+.solar-periods div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 5px 0; border-bottom: 1px solid #303942; }
+.solar-periods dt, .solar-periods dd { margin: 0; }
+.solar-periods output { font-variant-numeric: tabular-nums; }

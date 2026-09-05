@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {periods} from './model.mjs';import {solarEnergy} from '../202609052155-solar-radiation/model.mjs';
+test('UTC periods reset independently and conserve rate',()=>{const r=periods(Date.UTC(2026,8,5,12,30,15));assert.equal(r.day,solarEnergy(45015));assert.equal(r.hour,solarEnergy(1815));assert.equal(r.minute,solarEnergy(15));assert.deepEqual(periods(Date.UTC(2026,8,6)),{day:0,hour:0,minute:0});assert.throws(()=>periods(NaN));});

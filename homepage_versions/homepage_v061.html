@@ -183,7 +183,6 @@
 <link rel="stylesheet" href="./cartridges/202609052143-open-energy/energy.css">
 <link rel="stylesheet" href="./cartridges/202609052150-nasa-ice/ice.css">
 <link rel="stylesheet" href="./cartridges/202609052154-minute-runtime/terminal.css">
-<link rel="stylesheet" href="./cartridges/202609052200-solar-periods/retro.css">
 </head>
 <body>
 <header>
@@ -226,13 +225,11 @@
 </section>
 
 <section id="solar-radiation" class="science-terminal" aria-labelledby="sun-title">
-<h2 id="sun-title">[ SUNLIGHT FALLING ON EARTH ]</h2>
-<p>MEAN SOLAR IRRADIANCE: 1,361 W/m&sup2; at the top of the atmosphere.</p>
-<dl class="solar-periods"><div><dt>TODAY &middot; UTC</dt><dd><output data-solar="day">Loading</output></dd></div><div><dt>THIS HOUR &middot; UTC</dt><dd><output data-solar="hour">Loading</output></dd></div><div><dt>THIS MINUTE &middot; UTC</dt><dd><output data-solar="minute">Loading</output></dd></div></dl>
-<div class="reading" data-row="sun"><label for="sun-progress">CURRENT MINUTE <output>Loading</output></label><progress id="sun-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button>
+<h2 id="sun-title">[ SUNLIGHT / EARTH THIS MINUTE ]</h2>
+<div class="reading" data-row="sun"><label for="sun-progress">INCOMING SOLAR ENERGY <output>Loading</output></label><progress id="sun-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button>
 <p>Somewhere on Earth it is always daytime. This model counts sunlight arriving at the top of the atmosphere, before reflection and conversion losses. It is not electricity available from solar panels.</p>
 <details><summary>How the number works</summary><p>1,361 W/m2 multiplied by Earth's sun-facing disk area, using a 6,371 km radius. Energy = power multiplied by time. The constant-rate model omits orbital and solar variability. <a href="https://earth.gsfc.nasa.gov/climate/projects/solar-irradiance/science">NASA irradiance</a> | <a href="./cartridges/202609052155-solar-radiation/source.json">Sources and calculation</a>.</p></details>
-</section><script type="module" src="./cartridges/202609052200-solar-periods/solar.mjs"></script>
+</section><script type="module" src="./cartridges/202609052155-solar-radiation/solar.mjs"></script>
 <section id="circuit-school" class="science-terminal" aria-labelledby="circuit-title">
 <h2 id="circuit-title">[ FARADS + HENRYS ]</h2>
 <p>Two separate ideal 48 V step-response circuits, each with a 10 ohm resistor. Change C or L and watch how quickly voltage or current develops.</p>

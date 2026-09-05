@@ -1,0 +1,1 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {scenarioMWh} from './model.mjs';test('75TW20% produces250000MWh per minute in the hypothetical scenario',()=>{assert.equal(scenarioMWh(60,.2),250000);assert.equal(scenarioMWh(0,.2),0);assert.equal(scenarioMWh(60,0),0);assert.throws(()=>scenarioMWh(60,2));});

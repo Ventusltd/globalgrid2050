@@ -135,12 +135,43 @@ assert.equal(projectMatchesV9_2(berwick, {
   tokens: [],
 }, searchText), false);
 
-/* Before the contract is read there is no receiver, so there is no link. This
-   is asserted FIRST because it is the branch that must never fall back to a
-   route someone typed: on 2026-09-05 every MAP link in this app was measured
-   pointing at a receiver carrying zero engine cartridges, and a fallback is how
-   that would come back. */
-assert.equal(atlasUrlV9_5_1(berwick), "", "no contract read yet, so no link may be built");
+/* WHAT THIS ASSERTION USED TO SAY, AND WHY IT WAS WRONG.
+
+   It read:
+
+     assert.equal(atlasUrlV9_5_1(berwick), "", "no contract read yet, so no link
+     may be built");
+
+   — and it passed, every run, because the module built no link until a
+   cross-origin fetch resolved. It was certifying as correct the exact state
+   this release's users were reported in: the release's own proof made the
+   failure mode unfalsifiable. The rest of the suite could never go red on it.
+
+   It is not deleted, it is INVERTED, and the thing that made it safe to invert
+   is stated rather than assumed. Before any network exists, this module now
+   answers from a contract compiled into it, and that compiled contract is
+   pinned to the engine's published one by testcode/drivers/link-targets.mjs,
+   which reads ventus-grid-engine/deeplink/receivers.json and fails offline if
+   the two disagree. The refusal branches this assertion was protecting are all
+   still tested below: a contract that fails its schema, one that names no
+   canonical receiver, and one that names its own canonical route as retired
+   each still yield "". What no longer yields "" is a slow network, which was
+   never a statement about which receiver is correct. */
+assert.equal(
+  atlasUrlV9_5_1(berwick).startsWith("https://ventusltd.github.io/gridatlas/atlas/"),
+  true,
+  "a link must exist before any network has resolved, against the compiled-in canonical receiver",
+);
+assert.equal(
+  atlasReceiverV9_7(),
+  "https://ventusltd.github.io/gridatlas/atlas/",
+  "the compiled-in canonical receiver, known at import",
+);
+assert.equal(
+  isRetiredReceiverV9_7("https://globalgrid2050.com/repd_grid_atlasv8/"),
+  true,
+  "the compiled-in contract must also carry the retired routes, or a retired route could be adopted before the live contract is read",
+);
 
 assert.equal(primeAtlasReceiverV9_7(RECEIVER_CONTRACT), RECEIVER_CONTRACT.canonical.route);
 assert.equal(atlasReceiverV9_7(), RECEIVER_CONTRACT.canonical.route);

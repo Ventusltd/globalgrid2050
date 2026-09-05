@@ -13,6 +13,16 @@ on:
     paths:
       - 'index.html'
       - 'CNAME'
+      # The build status page is published from the repository root, not from a
+      # release directory, so nothing above matched it. status.json was committed
+      # at 15,173 bytes with 25 entries on 2026-09-05 and that push triggered zero
+      # workflow runs; the site kept serving the previous 10,454-byte, 19-entry
+      # document. The page built specifically so a lost context window could
+      # recover the estate's state was the one artefact that never reached it.
+      # Checking for HTTP 200 did not catch this - the stale document also
+      # returns 200. Compare published bytes, not status codes.
+      - 'status.html'
+      - 'status.json'
       # A published Pipeline News snapshot must trigger the deploy that
       # serves it. Until 202609020025 no path here matched
       # pipelinenews_intelligence/, so pushing a new release directory

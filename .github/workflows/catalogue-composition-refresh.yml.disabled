@@ -25,16 +25,11 @@
 #     least three separate composition generations, and each time changed
 #     exactly one line. One proof (v9.98 -> v9.99, 2026-09-04) exists so far.
 #
-#  2. `scripts/catalogue_gridatlas_v9.py` has a committed test file that pins the
-#     fail-closed cases, so a later edit cannot quietly relax them. The ten cases
-#     currently proven only in a working session are: the V8 sentinel losing its
-#     four leading spaces; the V8 route occurring twice; either automation marker
-#     missing or duplicated; two rows inside the marked region; a row whose four
-#     identity fields disagree with each other; a row whose `url:` is not the
-#     governed composition URL; an immutable-release entry line being pointed at
-#     a composition row; a banner carrying the same href (must be ACCEPTED —
-#     this is the jam that made the compiler unusable); and the unchanged
-#     baseline (must be ACCEPTED and report changed=false).
+#  2. SATISFIED (2026-09-04). `scripts/test_catalogue_gridatlas_v9.py` pins the
+#     fail-closed cases against a fixture that reproduces the three-way href
+#     collision, so a later edit cannot quietly relax them. It is dependency-free
+#     and is run as a step below. Twenty checks, including the one that matters:
+#     a banner carrying the same href must be ACCEPTED.
 #
 #  3. The upstream pointers are consistent again. As of 2026-09-04 they are not,
 #     and this is the deeper defect: `catalogue-gridatlas-v9.yml` asserts
@@ -54,7 +49,20 @@
 #     `concurrency: pages` with `catalogue-gridatlas-v9.yml`; two publishers
 #     racing for one homepage is how a snapshot gets overwritten.
 #
-# Until all five hold, run it locally and read the diff:
+#  6. Someone owns the note. The refresher moves the four identity fields but
+#     cannot write the measurement prose in `note:`, so an unattended run would
+#     otherwise leave the row naming v10.02 while the note still argues v9.99's
+#     case — the nine-release drift inverted. The compiler now flags that
+#     instead: it prefixes the note with `notes written for v9.99 · `, in plain
+#     English because `note:` is rendered publicly and a reader is owed the fact
+#     that the argument describes an earlier build. The flag is NOT a licence to
+#     run unattended forever — a second refresh while it still stands is a hard
+#     refusal, which bounds the drift at exactly one generation. So before this
+#     is enabled, a named person must be on the hook to rewrite the note within
+#     one generation, and `--notes-current` (which clears the flag) must never be
+#     passed by this workflow: a machine cannot know that the prose is current.
+#
+# Until all six hold, run it locally and read the diff:
 #
 #   python scripts/catalogue_gridatlas_v9.py refresh-composition \
 #     --root . --gridatlas ../gridatlas --check
@@ -142,16 +150,25 @@ jobs:
                  "https://ventusltd.github.io/gridatlas/${manifest}" -o "$RUNNER_TEMP/live-composition.json"
           [[ "$(jq -er '.generation' "$RUNNER_TEMP/live-composition.json")" == "$generation" ]]
 
+      - name: Pin the fail-closed contracts before touching the homepage
+        shell: bash
+        run: python3 scripts/test_catalogue_gridatlas_v9.py
+
       - name: Refresh the marked row
         env:
           GRIDATLAS_DIR: ${{ runner.temp }}/gridatlas
         shell: bash
         run: |
           set -euo pipefail
+          # --notes-current is deliberately NOT passed: only a human who wrote
+          # the measurement prose may assert it describes the incoming release.
           python3 scripts/catalogue_gridatlas_v9.py refresh-composition \
             --root . --gridatlas "$GRIDATLAS_DIR" \
             --result-json "$RUNNER_TEMP/refresh.json"
           cat "$RUNNER_TEMP/refresh.json"
+          if [[ "$(jq -r '.editorial_lag // "null"' "$RUNNER_TEMP/refresh.json")" != "null" ]]; then
+            echo "::warning::The note now lags the identity. A human must rewrite it before the next generation, or the next run will refuse."
+          fi
 
       - name: Assert exactly one line of exactly one file changed
         shell: bash

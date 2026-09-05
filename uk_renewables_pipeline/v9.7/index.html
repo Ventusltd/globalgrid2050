@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>GlobalGrid2050 | UK Renewables Pipeline V9.7</title>
+  <!-- The deep-link contract this page verifies its MAP receiver against lives
+       on a second origin. Nothing waits on that request any more, but it still
+       costs DNS + TCP + TLS on a cold mobile radio the first time it is made;
+       starting the handshake here overlaps it with the project payload instead
+       of paying for it in series. -->
+  <link rel="preconnect" href="https://ventusltd.github.io" crossorigin>
   <link rel="stylesheet" href="styles/v7.css?v=9.7">
   <link rel="stylesheet" href="styles/mobile.css?v=9.7">
   <link rel="stylesheet" href="styles/v9-3.css?v=9.7">
@@ -39,7 +45,17 @@
       <a href="../dashboard_v2_2026-08-22.html">V2</a>
       <a href="../dashboard.html">V1 LEGACY</a>
       <a href="../../index.html">DIRECTORY</a>
-      <a href="../../repd_grid_atlasv8/">MAP ATLAS</a>
+      <!-- This opened ../../repd_grid_atlasv8/ until 2026-09-05. That route is
+           named RETIRED by the very contract this page compiles in, and every
+           row's MAP cell had already moved to the canonical receiver - so the
+           nav button and the table disagreed about where the Atlas is, and the
+           button was the one that was wrong. The link gate never saw it because
+           its scanner accepts only .js and .mjs, so "0 live sites" was true of
+           the JavaScript and false of the HTML.
+           The href below is the compiled canonical route, and it is re-pointed
+           by scripts/plugins/projects-v9-5-1.js if the live contract names a
+           different one - the same signal the MAP cells already follow. -->
+      <a href="https://ventusltd.github.io/gridatlas/atlas/" id="mapAtlasNav">MAP ATLAS</a>
       <a href="#" id="export">EXPORT CSV</a>
     </nav>
   </aside>

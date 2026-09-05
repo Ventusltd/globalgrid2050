@@ -1,0 +1,14 @@
+{
+  "schema": "homepage.restore-measurement.v1",
+  "measuredAt": "2026-09-05T21:00:12.940864+00:00",
+  "sourceCommit": "398733031805702dc1722634773f550868843cd2",
+  "fileCountBefore": 66,
+  "snapshot": "homepage_v054.html",
+  "lines": 325,
+  "words": 4939,
+  "characters": 38082,
+  "bytes": 38379,
+  "sha256": "8428951333a0b4fc988b014da8bb94eac7225afed238fe60ad142e382d00411e",
+  "intention": "Add Build plan / AI restart link beside Build status; preserve every tested application and historical-version row. Documentation only; no app promotion.",
+  "restoreWorkflowRun": 33991696513
+}

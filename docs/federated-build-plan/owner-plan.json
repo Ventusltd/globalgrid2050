@@ -1,0 +1,17 @@
+{
+  "schema": "ventus.owner-build-plan.v1",
+  "repository": "Ventusltd/globalgrid2050",
+  "role": "public publication and composition",
+  "canonicalPlan": "https://ventusltd.github.io/spiders/codex/build-plan/master-plan.geojson",
+  "checkpointRevision": "202609052048",
+  "status": "planned",
+  "productPromotion": false,
+  "localUnpublishedCandidate": "202609052028",
+  "ownershipBoundaries": [
+    "No monolith API collection",
+    "Preserve original V6 UI",
+    "Publish only tested pinned owner products",
+    "Retain prior versions"
+  ],
+  "restart": "AGENTS.md"
+}

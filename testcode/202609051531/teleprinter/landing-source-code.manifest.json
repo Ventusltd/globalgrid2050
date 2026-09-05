@@ -1,0 +1,120 @@
+{
+  "format": "codex-print-source-code-v1",
+  "repository": "https://github.com/Ventusltd/testcode",
+  "commit": "6c2cc1453129378e8e8bc6413af401e7d2c7e333",
+  "tree": "2302aa68b9abd9e7ad2ea5ddbab33864718d2c81",
+  "scopes": [
+    "sandbox/202609051531/capsule-launch.js",
+    "sandbox/202609051531/index.html",
+    "sandbox/202609051531/teleprinter-bootstrap.js",
+    "sandbox/202609051531/teleprinter/SOURCE-SCOPE.md",
+    "sandbox/202609051531/teleprinter/controls.js",
+    "sandbox/202609051531/teleprinter/png-pixels.mjs",
+    "sandbox/202609051531/teleprinter/print-screen.js",
+    "sandbox/202609051531/teleprinter/print-source-code.js",
+    "sandbox/202609051531/teleprinter/runtime-source.js",
+    "sandbox/202609051531/teleprinter/screen-pdf.mjs"
+  ],
+  "policy": {
+    "source": "Committed Git blobs only; working-tree changes are never substituted.",
+    "inclusion": "All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.",
+    "omission": "NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.",
+    "boundaries": "File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization."
+  },
+  "files": [
+    {
+      "mode": "100644",
+      "blobOid": "bc084744dc1e54872aee427a18490133c1f80869",
+      "path": "sandbox/202609051531/capsule-launch.js",
+      "byteCount": 804,
+      "sha256": "02c164370c6044d212ff4091f7b14d3d8fd87655e76de86e2534fa27f2097f14",
+      "status": "included",
+      "startByte": 3744
+    },
+    {
+      "mode": "100644",
+      "blobOid": "dcb251b2ed5c9738077e49c508aa3f506fef0f7d",
+      "path": "sandbox/202609051531/index.html",
+      "byteCount": 16965,
+      "sha256": "3bb42032aaddfd4c141ae2d58f406fcae819566093823b28336ab331e0393b53",
+      "status": "included",
+      "startByte": 4757
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a5d2667cb24de57db25bfd7b75bac511b09761fe",
+      "path": "sandbox/202609051531/teleprinter-bootstrap.js",
+      "byteCount": 1049,
+      "sha256": "770c74834eb095b03413761ee30c87b764aa4c134d228ab87e1c0829dfb0b031",
+      "status": "included",
+      "startByte": 21937
+    },
+    {
+      "mode": "100644",
+      "blobOid": "2bcd475e08f3fc62d7ef6ae9f95278906ee9f5ff",
+      "path": "sandbox/202609051531/teleprinter/SOURCE-SCOPE.md",
+      "byteCount": 1702,
+      "sha256": "94ed70ad03eb1682a7b0b0cf9e910269130fd8a69ff1781b7751045d9a5bd939",
+      "status": "included",
+      "startByte": 23218
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3845e87ea10997541e25536f67b2129b3bcc05bb",
+      "path": "sandbox/202609051531/teleprinter/controls.js",
+      "byteCount": 10405,
+      "sha256": "3e25605a7f490eb265ede11e7c382f11f5f373f1ff0e83a7376e9731abf9f6a3",
+      "status": "included",
+      "startByte": 25152
+    },
+    {
+      "mode": "100644",
+      "blobOid": "98150c4635fd713ceb4baf0b09033db8851facb6",
+      "path": "sandbox/202609051531/teleprinter/png-pixels.mjs",
+      "byteCount": 8455,
+      "sha256": "01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481",
+      "status": "included",
+      "startByte": 35787
+    },
+    {
+      "mode": "100644",
+      "blobOid": "6a33883ec8380af1d361a593605463dd4063af39",
+      "path": "sandbox/202609051531/teleprinter/print-screen.js",
+      "byteCount": 6953,
+      "sha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
+      "status": "included",
+      "startByte": 44476
+    },
+    {
+      "mode": "100644",
+      "blobOid": "1827a78fd6951776093ebb1c186f3e8155dbadbc",
+      "path": "sandbox/202609051531/teleprinter/print-source-code.js",
+      "byteCount": 10680,
+      "sha256": "78f6dba08fe4b7b44f6b40c85b17b469aa10a50676b77e17e74e2fa62065778f",
+      "status": "included",
+      "startByte": 51670
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3df51867e4f0500076dd171f5a745bbacadb5f7d",
+      "path": "sandbox/202609051531/teleprinter/runtime-source.js",
+      "byteCount": 26282,
+      "sha256": "4e6a423ee68b715df5fd07a6d6d9b0380eddc0047006244681cb7e087680c274",
+      "status": "included",
+      "startByte": 62593
+    },
+    {
+      "mode": "100644",
+      "blobOid": "fdb1ca4c25e0c3bea47122ac32c801165d95ffcc",
+      "path": "sandbox/202609051531/teleprinter/screen-pdf.mjs",
+      "byteCount": 10220,
+      "sha256": "ef8b7d5c213754d93141c362b2bb981457bf16dada199ba6549ae1dda8828039",
+      "status": "included",
+      "startByte": 89112
+    }
+  ],
+  "byteCount": 99439,
+  "sha256": "c85fb18da226792eaef0525733bf255e90f4a199d8b413d0b409caf30bd13450",
+  "includedCount": 10,
+  "omittedCount": 0
+}

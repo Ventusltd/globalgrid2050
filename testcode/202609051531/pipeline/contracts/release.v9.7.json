@@ -1,0 +1,52 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.7",
+  "release": "9.7",
+  "status": "CANDIDATE",
+  "feature": "independent-auditable-regional-news-pipeline",
+  "frozen_parent": {
+    "release": "9.6.2",
+    "commit": "bcf966f21ba778b8e739c5caba47e00ac01f8a2c",
+    "path": "uk_renewables_pipeline/v9.6.2",
+    "subtree": "99d3b5d80be77b43c9819a571f468913e6132d07",
+    "must_remain_unchanged": true
+  },
+  "runtime": {
+    "project_release": "9.5.1",
+    "project_data_changed": false,
+    "project_javascript_changed": false,
+    "project_styles_changed": false,
+    "mobile_interface_changed": false,
+    "uk_matching_changed": false,
+    "browser_geography_classification_removed": true,
+    "regional_project_signal_eligible": false
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "all_headline_count": 133,
+    "uk_headline_count": 45,
+    "bootstrap_international_headline_count": 19,
+    "bootstrap_us_headline_count": 4,
+    "bootstrap_europe_headline_count": 9,
+    "bootstrap_international_other_headline_count": 6,
+    "decision_ledger_count": 133,
+    "beacon_fen_repd_ref": "13599"
+  },
+  "regional_pipeline": {
+    "module_registry": "contracts/news-module-registry.v9.7.json",
+    "modules_are_independently_extensible": true,
+    "classification_stage": "build-time",
+    "default_decision": "ABSTAIN",
+    "decision_ledger_published": true,
+    "source_health_published": true,
+    "content_hashes_published": true,
+    "last_known_good_required": true,
+    "legacy_project_metadata_published_on_regional_articles": false,
+    "repd_project_signal_allowed": false
+  },
+  "interface": {
+    "regional_tabs": ["INTERNATIONAL", "US", "EUROPE"],
+    "mobile_table_inherited_from": "9.6.2",
+    "desktop_project_interface_changed": false
+  }
+}

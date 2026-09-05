@@ -180,7 +180,6 @@
   }
 </style>
 <link rel="stylesheet" href="./cartridges/202609052136-terminal-progress/progress.css">
-<link rel="stylesheet" href="./cartridges/202609052143-open-energy/energy.css">
 </head>
 <body>
 <header>
@@ -196,20 +195,6 @@
 <p class="statusline"><a href="./status.html">Build status</a> — what is being built right now, written at intervals so the work can be picked up again when a session ends.</p>
 <p class="statusline"><a id="build-plan-restart" href="https://ventusltd.github.io/spiders/codex/build-plan/">Build plan / AI restart</a> &mdash; 50 planned Pipeline News builds and 50 planned GridAtlas builds, with priorities, repository owners and restart guidance.</p>
 
-
-<!-- open-energy:start -->
-<section id="open-energy" aria-labelledby="energy-title">
-<h2 id="energy-title">[ WORLD ENERGY / AVERAGE-DAY MODEL ]</h2>
-<p data-status>Loading the 2024 energy baseline. These are modelled flows, not live measurements.</p>
-<div class="energy-row" data-energy="total"><div class="energy-label"><label for="energy-total">TOTAL PRIMARY ENERGY</label><output>Unavailable</output></div><progress id="energy-total" max="1" value="0"></progress><small data-rate></small></div>
-<div class="energy-row" data-energy="renewable"><div class="energy-label"><label for="energy-renewable">RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-renewable" max="1" value="0"></progress><small data-rate></small></div>
-<div class="energy-row" data-energy="nonrenewable"><div class="energy-label"><label for="energy-nonrenewable">NON-RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-nonrenewable" max="1" value="0"></progress><small data-rate></small></div>
-<button type="button" aria-pressed="false" disabled>Pause counters</button>
-<p>Original VENTUS calculation. Fast digits illustrate an average rate; they do not imply measurement precision. All bars share the total daily energy scale.</p>
-<details><summary>Source / calculation / limits</summary><p>Source: <a href="https://www.eia.gov/tools/faqs/faq.php?id=527&amp;t=1">U.S. Energy Information Administration (1 July 2026)</a>. World consumption in 2024: 606.0 quadrillion Btu total; 42.7 renewable. Non-renewable is the difference and includes nuclear. This is primary energy, not electricity alone.</p><p>We convert to MWh, divide by the 366 days of 2024 and multiply by the elapsed fraction of today's UTC day. This illustrates historical average rates, not measured demand today. Seasonal and hourly variation are not modelled.</p><p><a href="./cartridges/202609052143-open-energy/source.json">Baseline and provenance</a> | <a href="https://www.eia.gov/about/copyrights_reuse.php">EIA reuse policy</a>. No Worldometer feed or code is used.</p></details>
-</section>
-<script type="module" src="./cartridges/202609052143-open-energy/energy.mjs"></script>
-<!-- open-energy:end -->
 
 <!-- precision-board:start -->
 <section id="precision-progress" aria-labelledby="precision-title">

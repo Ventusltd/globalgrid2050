@@ -1,0 +1,17 @@
+{
+  "schema": "ventus.energy-baseline.v1",
+  "geography": "World",
+  "referenceYear": 2024,
+  "sourceUpdated": "2026-07-01",
+  "verifiedOn": "2026-09-05",
+  "reviewAfter": "2027-09-05",
+  "totalQuadBtu": 606.0,
+  "renewableQuadBtu": 42.7,
+  "source": "U.S. Energy Information Administration, International Energy Statistics FAQ",
+  "url": "https://www.eia.gov/tools/faqs/faq.php?id=527&t=1",
+  "reuse": "Public-domain EIA information; attribution with publication date. No logos or third-party illustrations reused.",
+  "reuseUrl": "https://www.eia.gov/about/copyrights_reuse.php",
+  "conversionUrl": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+  "accounting": "Primary energy consumption, using the EIA table's own definitions. Non-renewable is total minus renewable and includes nuclear; it is not fossil-only.",
+  "model": "Original VENTUS uniform-rate illustration: annual MWh divided by days in reference year, multiplied by fraction of current UTC day. No claim of measured current-year demand."
+}

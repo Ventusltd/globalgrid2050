@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {calculate,MWH_PER_QUAD,validate} from './model.mjs';
+const source=JSON.parse(readFileSync(new URL('./source.json',import.meta.url)));
+test('conversion agrees with quad to TWh reference',()=>assert.ok(Math.abs(MWH_PER_QUAD/1e6-293.07107)<0.00001));
+test('2024 leap baseline and UTC midnight/noon conserve components',()=>{const midnight=calculate(source,Date.UTC(2026,8,5));assert.equal(midnight.days,366);assert.ok(midnight.rows.every(x=>x.mwh===0));const noon=calculate(source,Date.UTC(2026,8,5,12));assert.equal(noon.rows[0].bar,0.5);assert.ok(Math.abs(noon.rows[1].mwh+noon.rows[2].mwh-noon.rows[0].mwh)<1e-6);assert.ok(Math.abs(noon.daily-485248820.44)<1);});
+test('day rollover resets; last millisecond stays below daily total',()=>{const end=calculate(source,Date.UTC(2026,8,6)-1);assert.ok(end.rows[0].mwh<end.daily);assert.equal(calculate(source,Date.UTC(2026,8,6)).rows[0].mwh,0);});
+test('reject missing, nonfinite and inconsistent data',()=>{for(const s of [null,{}, {...source,totalQuadBtu:NaN},{...source,renewableQuadBtu:607},{...source,renewableQuadBtu:-1}])assert.throws(()=>validate(s));});
+test('review deadline is exposed and nonleap baseline uses 365 days',()=>{assert.equal(calculate(source,Date.UTC(2027,8,5)).stale,true);assert.equal(calculate({...source,referenceYear:2023},Date.UTC(2026,8,5)).days,365);});

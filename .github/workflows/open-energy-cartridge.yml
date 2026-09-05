@@ -1,0 +1,24 @@
+name: Open energy cartridge
+on:
+  push:
+    branches: [main]
+    paths: ['cartridges/202609052143-open-energy/**', '.github/workflows/open-energy-cartridge.yml']
+  pull_request:
+    paths: ['cartridges/202609052143-open-energy/**', '.github/workflows/open-energy-cartridge.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: open-energy-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test cartridges/202609052143-open-energy/model.test.mjs
+      - run: node --check cartridges/202609052143-open-energy/energy.mjs

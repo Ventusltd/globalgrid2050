@@ -1513,3 +1513,6 @@ Saved before adding the millisecond calendar counter. Review snapshot and produc
 ### homepage_v057.html ? solid terminal progress restore point
 
 Snapshot of b7e8d25d6d0876b6c18c8bb5d2623da396760bad before replacing dot counters with a licensed, attributed terminal-style browser cartridge. Restore workflow33993479675 passed. No product versions changed. Measurements: homepage_v057-measurement.json.
+
+## homepage_v058
+Pre-edit snapshot of 89a6bb3b; restore workflow33993761917 passed. Adds original EIA average-day counter cartridge202609052143. Existing links preserved.

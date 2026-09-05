@@ -1,0 +1,1 @@
+import {animate,minute,row} from '../202609052154-minute-runtime/runtime.mjs';const root=document.getElementById('nano-minute');if(root)animate(root,now=>{const ms=minute(now);row(root,'nano',((60000n-BigInt(ms))*1000000n).toLocaleString('en-GB')+' ns',ms/60000);});

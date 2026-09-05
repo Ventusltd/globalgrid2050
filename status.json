@@ -142,11 +142,35 @@
       "commit": "5c013cd",
       "what": "v9.120. The GB electricity price and grid constraint series 2016-2026 added to View, beside the price control the reader is already using, rather than to About where it would have been filed as provenance.",
       "verified": "proof 33/33; suite green; 393x852 gate earned"
+    },
+    {
+      "utc": "202609050309",
+      "lane": "B",
+      "repo": "pipelinenews",
+      "commit": "362b679a",
+      "what": "The estate is in the menu on Pipeline News: the GB price study in both navs and beside the product own GB electricity context button, plus the engine graph, federation map and spider printer. The 44 engine nodes are read live from the genome - CORS verified with a real Origin header before a line was written, not assumed - and the failure state is visible: ENGINE NODES UNAVAILABLE, zero rows, no invented count.",
+      "verified": "live 200; served bytes sha256-identical to the release; 44 of 44 links carry focus=; 44px touch targets at 393x852"
+    },
+    {
+      "utc": "202609050320",
+      "lane": "A",
+      "repo": "ventus-grid-engine",
+      "commit": "3d3a561",
+      "what": "The engine now says which receiver a deep link may be built against. The MAP button in Pipeline News pointed at the V8 overlay: 21,045 bytes, zero cartridges, no current.json, no nearest-substation path - a page that serves and computes nothing, so no monitor complained. buildDeepLink(project) supplies the canonical receiver, building against a retired one throws, and auditProjectRows is the query over every row carrying an REPD identity.",
+      "verified": "20 checks, run against the previous contract first where it cannot even import; verify PASS 9 proofs"
+    },
+    {
+      "utc": "202609050330",
+      "lane": "A",
+      "repo": "testcode",
+      "commit": "73f916c",
+      "what": "The test code engine. Offline gates on the machine first, network only if they pass, nothing published from it. It found two faults in itself on the first run: both the menus driver and the runner measured a gridatlas clone parked on a candidate branch and reported about bytes nobody asked about. Both now prefer main and name the branch they read.",
+      "verified": "grid-engine PASS 133 checks; gridatlas-composition PASS; menus 5/5; cvaa FAIL as registered"
     }
   ],
   "open": [
     "Berwick Bank Offshore Wind Farm does not complete the nearest-grid view in Pipeline News. Queued 202609050255, not yet investigated.",
-    "Pipeline News has none of the menu work: the engine modules, the estate links, the federation map and the GB price study all went into GridAtlas only. Its fetch of the engine graph would be cross-origin, not same-origin, which must be checked before it is relied on.",
+    "A licence. Eight of ten core repositories carry no licence file, so nobody can lawfully adopt what the estate asks the world to adopt. It is one file per repository and the choice is the rights holder's alone.",
     "Still undone from tonight: the MAP button, the poly zone, the cards obstructing a deep-link arrival, and the REPD deep-link sweep - whose harness exists but has never been run and reads the wrong corpus file.",
     "V9.5.1, V9.6.1, V9.6.2 and V9.7 exact-commit gates fail for a reason that is not any commit: the fixture's news scoring ages, recency 10 -> 8 and confidence 91 -> 89. A gate whose expectation moves with the clock fails on every push until the clock is frozen for the fixture.",
     "Verify published versions are reachable was already failing before this session."

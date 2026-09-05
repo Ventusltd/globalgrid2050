@@ -1,0 +1,22 @@
+{
+  "generation": "202609051457",
+  "predecessor": "202609051419",
+  "built_utc": "2026-09-05T14:57:16.500Z",
+  "purpose": "Full rendered screen through File Print, retained header/footer, and current-view source with runtime dependencies.",
+  "teleprinter": {
+    "repository": "https://github.com/Ventusltd/teleprinter",
+    "commit": "fcbd93778143fd70ce93cdb7d0c79802c516e6d2"
+  },
+  "inherited_detector_evidence": {
+    "generation": "202609051419",
+    "rerun": false,
+    "files": [
+      "results.json",
+      "results.html",
+      "cases.json",
+      "detector-build.json",
+      "inherited-release.json"
+    ]
+  },
+  "source_publication": "Run finish only after committing application source; per-app pins identify that code commit."
+}

@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {response} from './model.mjs';const p={R:10,C:.001,L:.1,V:48};
+test('ideal step starts empty, reaches63.2% at tau and energy follows squared state',()=>{const zero=response(p,0);assert.equal(zero.vc,0);assert.equal(zero.i,0);const r=response(p,.01);assert.ok(Math.abs(r.vc/48-(1-Math.exp(-1)))<1e-12);assert.ok(Math.abs(r.i/4.8-(1-Math.exp(-1)))<1e-12);assert.equal(r.ec,.5*p.C*r.vc**2);assert.equal(r.el,.5*p.L*r.i**2);assert.throws(()=>response({...p,R:0},1));});

@@ -1,0 +1,1 @@
+export function response({R,C,L,V},t){if(![R,C,L,V].every(x=>Number.isFinite(x)&&x>0)||!Number.isFinite(t)||t<0)throw Error('Invalid ideal circuit');const tauC=R*C,tauL=L/R,vc=V*(1-Math.exp(-t/tauC)),i=V/R*(1-Math.exp(-t/tauL));return {tauC,tauL,vc,i,ec:.5*C*vc**2,el:.5*L*i**2};}

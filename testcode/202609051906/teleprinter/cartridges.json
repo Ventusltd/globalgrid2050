@@ -1,0 +1,11 @@
+{
+  "schema": "codex.app-cartridges.v1",
+  "rule": "Maintain these small source components; the Testcode release and source pins bind their actual bytes and engine commit.",
+  "cartridges": [
+    {"id":"capture-geometry","entry":"capture-geometry.mjs","extractedFrom":"drivers/codex/app-frame.js viewport and backing-size checks","contract":"CSS viewport plus DPR to integer backing dimensions; reject real resize"},
+    {"id":"visible-ui-clone","entry":"clone-visible-ui.js","extractedFrom":"drivers/codex/app-frame.js shadow-root reconstruction","contract":"Copy supported visible UI without leaking styles or closed menus"},
+    {"id":"layer-quick-controls","entry":"layer-quick-controls.js","extractedFrom":"GridAtlas installMobileTray/quickChip in sld-sandbox technology-buckets part","contract":"Existing engine checkbox actions; all five voltages and independent substations"},
+    {"id":"layers-panel-policy","entry":"layers-panel-policy.js","extractedFrom":"GridAtlas layer panel arrival default and existing toggle action","contract":"Start collapsed; panel visibility does not own enabled layers"},
+    {"id":"layout-command","entry":"layout-command.js","extractedFrom":"GridAtlas selected-project .neon-layout command","contract":"Separate visible entry point delegates to existing layout action; no formula changes"}
+  ]
+}

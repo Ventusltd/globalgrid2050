@@ -1,0 +1,61 @@
+{
+  "owners": [
+    {
+      "repository": "https://github.com/Ventusltd/gis-sld-sandbox.git",
+      "commit": "9fe7b2d920aaa11e95380de39b33fd98f04e9696",
+      "release": "202609051855",
+      "manifestSha256": "90190a0846717b5203305a8c08301fb26ed58e015b992272e0999272091a0916",
+      "applications": [
+        {
+          "id": "gis-sld-financial-sandbox",
+          "entry": "solar-bess-topology-v7/gis-sld-financial-sandbox/index.html"
+        }
+      ],
+      "rootOriginDependencies": [
+        "/grid_substations.geojson",
+        "/dist/repd_master.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/Ventusltd/layout-tool.git",
+      "commit": "e201075e052bfc71e7fef01f1360f319808cb78f",
+      "release": "202609051858",
+      "manifestSha256": "bb6d0a5cf4cf63d68b3d5cb02e55c27f1ccc0646135d7e39cdedbbe3da262796",
+      "applications": [
+        {
+          "id": "module-layout",
+          "entry": "solar-bess-topology-v7/module-layout/index.html"
+        },
+        {
+          "id": "cable-geometry-visualiser",
+          "entry": "solar-bess-topology-v7/cable-geometry-visualiser/index.html"
+        },
+        {
+          "id": "dc-ac-lv-topology-review",
+          "entry": "solar-bess-topology-v7/dc-ac-lv-topology-review/index.html"
+        }
+      ],
+      "rootOriginDependencies": [
+        "/grid_substations.geojson",
+        "/dist/repd_master.json"
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "id": "gis-sld-financial-sandbox",
+      "title": "GIS SLD Financial Sandbox",
+      "entry": "../layer-apps/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html"
+    },
+    {
+      "id": "module-layout",
+      "title": "Module Layout",
+      "entry": "../layer-apps/solar-bess-topology-v7/module-layout/index.html"
+    },
+    {
+      "id": "cable-geometry-visualiser",
+      "title": "Cable Geometry",
+      "entry": "../layer-apps/solar-bess-topology-v7/cable-geometry-visualiser/index.html"
+    }
+  ]
+}

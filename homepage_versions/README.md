@@ -1500,3 +1500,7 @@ SHA-256: 8428951333a0b4fc988b014da8bb94eac7225afed238fe60ad142e382d00411e.
 Intention: add the Build plan / AI restart link beside Build status. It describes50 planned Pipeline News and50 planned GridAtlas increments. Every existing application, version and historical link is retained byte-for-byte. No app version is promoted.
 
 Restore-point workflow33991696513 passed on the exact source commit before this homepage edit: https://github.com/Ventusltd/globalgrid2050/actions/runs/33991696513.
+
+### homepage_v055.html ? review checkpoint board restore point
+
+Saved before the static 8/96 identity-checkpoint board and calendar clocks. No application release was promoted. Measurements and source identity are in homepage_v055-measurement.json.

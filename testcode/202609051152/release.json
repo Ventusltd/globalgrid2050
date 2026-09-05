@@ -1,0 +1,418 @@
+{
+  "generation": "202609051152",
+  "built_utc": "2026-09-05T11:58:03.142890+00:00",
+  "pipeline_parent_commit": "313f56238b91dbe4f8104f286c1fd54cab05ba12",
+  "atlas_parent_commit": "18cffd516db0bec7f8186aafe60962cb154fcc53",
+  "sources": [
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/app-v9-3.js",
+      "sha256_lf": "364147302951332d745ee615d73051a6be962e2e2b568ddb4026689bcf4fe2e7"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/app-v9-4.js",
+      "sha256_lf": "3370012e59b154a209ffa9866e1515db9ff04b1a391b1247a4def2afb506095f"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/app-v9-5-1.js",
+      "sha256_lf": "1be160ffedffd634862172c98d4ac96145eff12be07518c88466ddea3c31e431"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/app-v9-5.js",
+      "sha256_lf": "a48603223cf5e75915b3e8cd9285dcab9b826ebf3e1575ada330ca8d88582b00"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/app-v9-6-2.js",
+      "sha256_lf": "4eed3a69f4755647dd223d45af438561bf80e6bd6b0a9bdacc5a789457b9e38d"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/app-v9-7.js",
+      "sha256_lf": "58726ab9eeb8bbc7d348fc508ad681d8e356bb82a7debd911557ba723c899525"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/app.js",
+      "sha256_lf": "f24df134c92cd2178b2d5b90e606985b787c258a2a01181fd7341838fab7ac05"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/build/regional-news-v9-7.mjs",
+      "sha256_lf": "a79fa1734d1f6cca1813a9dbcbfddb1c6cadfc485b00f0700bf63c55962005cf"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/atlas-receiver-v9-7.js",
+      "sha256_lf": "a39c099718f51e8ca4fa3f31e310f102acfca7e9e105fa1379697548180bcee1"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/news-regions-v9-6-2.js",
+      "sha256_lf": "dd8a50414632200f9022bb19b934df50dab3785f1f88cfeadb133a4a207ccaa5"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/news-relevance-v9-2.js",
+      "sha256_lf": "e8b26fb6133b6be3286e55a3074744a54c5ca7ced13dd44367f31d3a665a29da"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/plugin-host.js",
+      "sha256_lf": "e5aaa19b5bee93683fae461f7ead55d019e8c2edc8ce377680c0da634606e378"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/project-filter-v9-2.js",
+      "sha256_lf": "007126279582d5dbbe6bb5ebf30a79fd998b4839e8498c5a9a76ab2e4033c842"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/project-state.js",
+      "sha256_lf": "bf52f442cc1aaa7ba26a32ef9437a9dd0c4149120fc313a0ae6cf51d874557d8"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/state.js",
+      "sha256_lf": "7280acd43f72e166e7b7b3dac1d6e75439b1e1bf46b9e137c1b8aa891b52aad7"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/core/utils.js",
+      "sha256_lf": "bec300e2720e0793bc08434e91c0ea0dd8c3d8e36e79b97172e4d5270f01eda0"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/data/canonical-projects-v9-1.js",
+      "sha256_lf": "26dd3f1da795717b7e82b317a795658ef0c51338525f65a9c6b43ba2a88c0ebb"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/data/canonical-projects-v9-2.js",
+      "sha256_lf": "0b9820b9f48a5f72571091b7c921ca65d5fe1f2db0ee83cf8d914ddb4c029fc9"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/data/canonical-projects-v9-3.js",
+      "sha256_lf": "7ef5e264fd97e9e77f65042e392f4e2b7f3fb7a48380dfe9719ae80acb171300"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/data/canonical-projects-v9-4.js",
+      "sha256_lf": "96ab7aa96358d23ec977cd2754226601603895869adb4eebb1dd703100ec16fb"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/data/canonical-projects-v9-5-1.js",
+      "sha256_lf": "7e4bd9108eeaeb1b557e1b4f6ef4d8053f4429a4df46d5e5c8f886c4da88029b"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/data/canonical-projects-v9-5.js",
+      "sha256_lf": "372bf74f115d47947bc7e903c8330ce40e76f54e2201f15373261ef11aed66b2"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/data/canonical-projects.js",
+      "sha256_lf": "40d21f77ae817575a8f17181154cfe7e2c95de2fc2f716ce29cccebe3eb6bdf8"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/news/classifier-v9-7.mjs",
+      "sha256_lf": "f15e8909e7e340a891f9253a743b1efc665641df1c1c63294f538c6dd413eaac"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/news/ledger-v9-7.mjs",
+      "sha256_lf": "ac8b88b5cbbdeee36db6561e6f369fa0f19b0276751688a563a4ba7719ddfd9c"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/canonical-project-controls.js",
+      "sha256_lf": "17651f44dd27506e99ee6abb97c6700b03bbcb3a6be44a14a6d5819b92cf233c"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/canonical-project-export.js",
+      "sha256_lf": "3ec75298c9029a7b959022f80c43c00ea864eb98dbadaafb9de1de43b3679b8f"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/canonical-project-table.js",
+      "sha256_lf": "e086946da97557054db908315fd38f4b8b67148d2a2fcc88a5a4cb1d567c8b99"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/capacity-presentation-v9-3.js",
+      "sha256_lf": "650e2d1ca9fea55d0cb96db58c752e03ac03645499f033d11d4f76d29c917cef"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/gauges-v9-1.js",
+      "sha256_lf": "eb9c3caf204dd177407f4ac4f3a4352afc28381aba70a745854e2a69a89f2cae"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/gauges-v9-2.js",
+      "sha256_lf": "30803e3ecc787175bc31b6913541d52cc6065e9be2b50dc4d3ed900797348682"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/gauges.js",
+      "sha256_lf": "c77752b697b9104fd8257d25294e84a63a8d4cc6060ce60eef7ef065cf19058d"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/newspaper-v9-2.js",
+      "sha256_lf": "c6d3655455fe54131ce2a7b6cea189d099aed214f5710da40edf0d73d853e9b4"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/newspaper-v9-5-1.js",
+      "sha256_lf": "3a328d6d8eaa55884a8bbf1f134db98caccea655c7379096833ffc4ad802a59f"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/newspaper-v9-5.js",
+      "sha256_lf": "623c5aa4d08fe23430d4e85b9022c65099bef198849ab6cefaa2d58209a0bbe2"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/newspaper-v9-6-2.js",
+      "sha256_lf": "d5ea34b3ff4b006e454edd012e02b993c93dd9db8951323fd0fbb865006e0eb9"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/newspaper-v9-7.js",
+      "sha256_lf": "81b71eee9d720e4dc223a16677680e295db6d3aeaa226a76ec01680265ee1e34"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/newspaper.js",
+      "sha256_lf": "938c662a4ca461107f3f0851c70dd09bc29d0103ed1517a49920cb7ccbd06417"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/project-export.js",
+      "sha256_lf": "a5dbf6eff9670d7c08289d53e187c838b958f68eab2039928bc2a154e4689524"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/project-filters.js",
+      "sha256_lf": "348065a5800f21cbfb05d7a4a0d051215fc4263d016643be37d14687481440c6"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/project-table.js",
+      "sha256_lf": "cb9eab60637c87f940c2494590c301cf9c19e8b6c37eca6a38b9681a9e44c4f0"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/projects-v9-1.js",
+      "sha256_lf": "bff4758989eb29538525df4ee900eaed4b56e18f7f2bfcf4ed7211a9f0fb4468"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/projects-v9-2.js",
+      "sha256_lf": "f000545d11ba6aa620ce3179bdd2ac3eaeb5672ea46daecf0536048b83563467"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/projects-v9-3.js",
+      "sha256_lf": "a51eeda3bf0430f58083eb6179db56446724a98d1f4b11172fcc54561239d958"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/projects-v9-4.js",
+      "sha256_lf": "f585277b0d78f791507207de6cae2780969ea6e3a6a85b886ad54ecd26800e3a"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/projects-v9-5-1.js",
+      "sha256_lf": "030eccd08c54710e75fb806380b4b00722bf55b04c1961231629889952abca13"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/projects-v9-5.js",
+      "sha256_lf": "5561994a3a05ccffed410e9b3fdaa9924e08307215e8a0b6167910c8c5591b4f"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/plugins/projects.js",
+      "sha256_lf": "d942b7468317cdbe5a5cb7a2bdcd1d27a4cdda11f0d3efacc893298a79b14b2d"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/news/adapters/committed-json-v9-7.mjs",
+      "sha256_lf": "21063298123ca75593f3ec0daf883fba67c08b1e9321e0ecbbba4f01b309c80d"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/news/rules/geography-v9-7.mjs",
+      "sha256_lf": "bba24b1c3c4e334494194ee8e371ba2925562a264dbf57bd7336a5b7dc25da94"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/news/rules/technology-v9-7.mjs",
+      "sha256_lf": "36a3f11f9badaa3b1a7372eca4e34f3f6509a4aa58c26038baa2645671a68222"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/scripts/news/rules/uk-veto-v9-7.mjs",
+      "sha256_lf": "11e6a1b656e1c5ffad4d16048b05c4239f6b81863e795dfba5d69026125dc388"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/mobile.css",
+      "sha256_lf": "9855b9c11255a85f477873d07cca45b057aedcdc8a6cc4aab2d29a0ffaac9b85"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/v7.css",
+      "sha256_lf": "036dbfe43ef1ffb2c55ba277d49dec57ab7c7be976289226a5d568e1f1be319d"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/v8.css",
+      "sha256_lf": "14129b4d6a148c0a629d4f5bf01fb4946ec0b62255ff9b78a3a9d01b6dfd1cbc"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/v9-2.css",
+      "sha256_lf": "b4f95937b05844659b039299026dda5664fbf337fbbba3305626012d125fee77"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/v9-3.css",
+      "sha256_lf": "5d1d40b9f1d8b483ac47c940a971eb78636e16877d5fa622985119a8a64794c9"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/v9-4.css",
+      "sha256_lf": "39f7d0fd3ff42e82407c1f5129444e6cc308ef5c0ec551d43c7396ac53310d17"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/v9-5-1.css",
+      "sha256_lf": "79ff5b1db85ae82a381fbad061c0122e7151bb9c9c7ba80c549051761f0bfae3"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/styles/v9-6-1.css",
+      "sha256_lf": "a0711d40125d81e1a2836f548206bb26dce5086dea6888d6cec867b08e3f4869"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/fallback.v8.0.json",
+      "sha256_lf": "72fa01406efe13a582fcf4363534f5306848fdb2ab71ce58e87469fc7acc10ca"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/legacy-integrity.v9.json",
+      "sha256_lf": "a2696a311129774056a67096faee57a3b4491add1aad1e8d9187818e94330f2b"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/mvp.v8.1.json",
+      "sha256_lf": "1bdd558c835249032bb7827d9c0ed55a04d8d20997af1ae8cf3b5ab306a6e92f"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/news-module-registry.v9.7.json",
+      "sha256_lf": "a4f2b9a1bb91a517874c8cd84f81eeeb1fa3715cf220f6dee5c07bdbcbcc9109"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/north-star.v1.json",
+      "sha256_lf": "346f226dc172eabd95a1110cdfd918baee77a0cc213ea31097b70dd6e064326a"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/plugin.v1.json",
+      "sha256_lf": "b4ed06d58891359e8df017bc3e9564ba49928e4f6696b1604cfa1e01ab354df5"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/project-spine.v7.2.json",
+      "sha256_lf": "6425d81381eda13d204d88a2cd95a409d27d73561b33d65420e2b08428353397"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/projects-plugin.v7.2.json",
+      "sha256_lf": "a0be5a4e3008d3db8dc2ca983829d3d1fc2bef2c7ea0cd2b01bf2e72e78405d9"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/regional-news-sources.v9.7.json",
+      "sha256_lf": "7ea974f61dcfe0b3d952e74864ed3c7ef78045077dee156e60927fd3e808f261"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.0.json",
+      "sha256_lf": "c26d27d1734dbfdcb380091fd2c2cf710b370b46b75c2ad6c451df3cce1fe4a1"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.1.json",
+      "sha256_lf": "bc21070f44aae1d32da333e4954816acd907aa8c9fa9cb639c64d651f7fd4259"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.2.json",
+      "sha256_lf": "8f0d9a68fecd6b5bef25e2cb00e27f4587d7998fb7fca42d9f5f05b135be458f"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.3.json",
+      "sha256_lf": "48bd1fe7ab712737c1eeb8549b0e2e97bf592f262ecb404059adefc8202add01"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.4.json",
+      "sha256_lf": "9d957b05160863b7384e4b755e74ca1ac6c90f2cf049d79c6c0dc67242d9ecb0"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.5.1.json",
+      "sha256_lf": "4137a31477be33a04b6ad5406d7cd13cefec1be8d84a94e23997c129c82076f1"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.5.json",
+      "sha256_lf": "ea3ceb47b6bf47ad2d2743b89b43d97e3f2a079cd1f7ea2bc968a3ad5c9a8e11"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.6.1.json",
+      "sha256_lf": "e556ca98e6ead7d397d6e06e8156fea09fe9f414266ac62dc155317bba338d25"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.6.2.json",
+      "sha256_lf": "661bb4f226ac3c75811f9e1d36546602f401491a5c21e1ddebccda170da92ece"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/contracts/release.v9.7.json",
+      "sha256_lf": "0b18c145e4cf2126ce27f9b57e07646dc3f840024c00ceb6f53e61eb06fa83c1"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/data/v9.1/build_manifest.json",
+      "sha256_lf": "67976a1bbcaf383ed7121b13060db3b864db9ce33dfc721a88b59c8ca8b8e06c"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/data/v9.7/regional_news.json",
+      "sha256_lf": "905237ddcbc71761f21d8c78961931676ac0c585030d29af95c75c7772254a99"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/data/v9.7/regional_manifest.json",
+      "sha256_lf": "0a45ff8eceebadd4cc8654a262808c7e15ae1d38ae62e6337e4af71da218c698"
+    },
+    {
+      "path": "globalgrid2050/uk_renewables_pipeline/v9.7/index.html",
+      "sha256_lf": "f2e7f8ac4e35db1f8049df4e462f8934a8b4586a095302958dcaaa1b2c28eec4"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/current.json",
+      "sha256_lf": "5e2f90438d521001fbcedcc566c798f13906fd4bff455d368ea59e7df85fc380"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609031958-menu-bar.js",
+      "sha256_lf": "add4a1033a771cc888233885537332baf5725821f8e9a8c0b84e76dcf3b6135a"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/manifests/202609050354-substation-intelligence-v9-63-parts.json",
+      "sha256_lf": "aefe3a5c37d24f5647d5d72ea917d5b7d44d81df48e7b0895719b0fc763e7823"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/parts/202609040229-ventus-corev8engine-exact-repd-delegation.js",
+      "sha256_lf": "d38a958aa3988b25621695576815ddd210ba67c80e09630a2a60320ad67676a0"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609011950-geodesy.js",
+      "sha256_lf": "2c98d0be8a1c8f4da045a2050e4ae9d56c2c5d07cd2c261a0fbfbc3ac2238e4f"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609012245-network-topology.js",
+      "sha256_lf": "d279e5338c4b325ab431e8727a4be1936b306ac5503597383c1cca658fa39875"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609012245-electrical-distance.js",
+      "sha256_lf": "28ae3f3e2de8c9d2f495a829e350ea2e76bbb1469d3ff39792e3c8f95b4386bb"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609012250-rating-envelope.js",
+      "sha256_lf": "a0160fac5aa251859847f2418e362d22bcc9def1aeb928da69eac309c345c178"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609020015-injection-response.js",
+      "sha256_lf": "c4c5614ddf962f2c686553a824c5c1337ee1413aaf479ddbaf92a120621afa39"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609012345-planned-change.js",
+      "sha256_lf": "cee36a7b6cfc0b4755f43f6370627fe698f88253447ce37c629833d20cb3a049"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609012350-owner-boundary.js",
+      "sha256_lf": "29a9f42930f7720fcfd82982e83919e864af79b701d5323cfd49ed5bcd67a478"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609030137-pinned-products.js",
+      "sha256_lf": "8929b8d762d2cf178190f8c750d3c1f76ecee9a71a5fe494904c17497ebcd608"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609030157-version-ledger.js",
+      "sha256_lf": "6a432a0837ddfe62ed5454f8add0a3f3bcfdb6802a34635b87fbe637ceb014ce"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609030205-corridor-estimate.js",
+      "sha256_lf": "197c0353f4421edc93efc58147d94b5e7e98173913a047cc6bfb3f331cac2362"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609032220-arrival-tidy.js",
+      "sha256_lf": "59826ccf25a465abf4e8651a7bad8916a4c8a30e5e4fc37001fdbb58326f8505"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609030048-pipeline-news-layers.js",
+      "sha256_lf": "075fb2e50723bcd22cd69621adcded4a975342c38724a9c52502555c27836281"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/modules/202609040400-sld-styles.js",
+      "sha256_lf": "7497379df0de2b7024cc63d8980fa5ef6c87552b2153f8c679bf4d5e05d9ec2d"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/parts/202609012350-substation-intelligence-body.js",
+      "sha256_lf": "44c0caba961993e80ff184c61694d850729d2458fc7bde4f5d82cdac541b7fda"
+    },
+    {
+      "path": "gridatlas-main-202609050200/atlas/index.html",
+      "sha256_lf": "e1e403f6defe984e6a12c30bb882dfeb65166b5414e3088c3b04f957064232b3"
+    }
+  ],
+  "status": "candidate; not production validation",
+  "iphone": "user will test real iPhone"
+}

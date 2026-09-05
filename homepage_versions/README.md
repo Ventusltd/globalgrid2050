@@ -1469,3 +1469,11 @@ SHA-256 (first 16): fe46abbbd9ab0a14
 Folder file count after this snapshot:
 
 38 files
+
+
+## Snapshot v037
+
+Source: 87fe1250. File: homepage_v037.html. Folder files before: 38; after: 39.
+Lines: 293; words: 4085; characters: 30836.
+SHA-256: a6788e8829141383340bb5582c69406a78037762adb6190f048e0eb1585ef6b6.
+Intention: add a Test Code comparison section while retaining every existing link and section.

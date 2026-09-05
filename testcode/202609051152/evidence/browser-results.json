@@ -1,0 +1,403 @@
+{
+  "generation": "202609051152",
+  "base": "http://127.0.0.1:8877/testcode/202609051152/",
+  "started": "2026-09-05T11:58:05.943Z",
+  "browser": "Installed Google Chrome",
+  "profiles": [
+    {
+      "name": "desktop",
+      "errors": [],
+      "firstRowsMs": 386,
+      "geometry": {
+        "rows": 50,
+        "nodes": 2384,
+        "total": "7680",
+        "filtered": "7680",
+        "viewport": 1400,
+        "map": {
+          "x": 1465.59375,
+          "y": 423.5,
+          "width": 44.203125,
+          "height": 25,
+          "right": 1509.796875,
+          "hit": false,
+          "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+        }
+      }
+    },
+    {
+      "name": "android-touch",
+      "errors": [],
+      "firstRowsMs": 367,
+      "geometry": {
+        "rows": 50,
+        "nodes": 2384,
+        "total": "7680",
+        "filtered": "7680",
+        "viewport": 412,
+        "map": {
+          "x": 22,
+          "y": 493.71875,
+          "width": 48,
+          "height": 48,
+          "right": 70,
+          "hit": true,
+          "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+        }
+      }
+    },
+    {
+      "name": "android-receiver-stalled",
+      "errors": [],
+      "receiverIntercepted": true,
+      "firstRowsMs": 376,
+      "geometry": {
+        "rows": 50,
+        "nodes": 2384,
+        "total": "7680",
+        "filtered": "7680",
+        "viewport": 412,
+        "map": {
+          "x": 22,
+          "y": 493.71875,
+          "width": 48,
+          "height": 48,
+          "right": 70,
+          "hit": true,
+          "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+        }
+      }
+    },
+    {
+      "name": "desktop-atlas",
+      "errors": [],
+      "search": {
+        "x": 17,
+        "y": 69,
+        "width": 520,
+        "height": 48,
+        "visible": true,
+        "menu": false
+      },
+      "pdf": [
+        {
+          "landscape": false,
+          "bytes": 129101,
+          "images": 1,
+          "pages": 1
+        },
+        {
+          "landscape": true,
+          "bytes": 127012,
+          "images": 1,
+          "pages": 1
+        }
+      ]
+    },
+    {
+      "name": "android-touch-atlas",
+      "errors": [],
+      "search": {
+        "x": 17,
+        "y": 69,
+        "width": 378,
+        "height": 48,
+        "visible": true,
+        "menu": false
+      },
+      "pdf": [
+        {
+          "landscape": false,
+          "bytes": 145753,
+          "images": 1,
+          "pages": 1
+        },
+        {
+          "landscape": true,
+          "bytes": 145501,
+          "images": 1,
+          "pages": 1
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "desktop bounded rows",
+      "ok": true,
+      "detail": {
+        "rows": 50,
+        "nodes": 2384,
+        "total": "7680",
+        "filtered": "7680",
+        "viewport": 1400,
+        "map": {
+          "x": 1465.59375,
+          "y": 423.5,
+          "width": 44.203125,
+          "height": 25,
+          "right": 1509.796875,
+          "hit": false,
+          "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+        }
+      }
+    },
+    {
+      "name": "desktop bounded DOM",
+      "ok": true,
+      "detail": 2384
+    },
+    {
+      "name": "desktop next page changes records",
+      "ok": true,
+      "detail": {
+        "first": "repd-9873",
+        "second": "repd-19534"
+      }
+    },
+    {
+      "name": "desktop search across full corpus",
+      "ok": true,
+      "detail": "1 of 7,680 records · 500 MW · largest 500 MW"
+    },
+    {
+      "name": "desktop MAP links paired candidate",
+      "ok": true,
+      "detail": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=8162&technology=solar&latitude=51.7831862&longitude=0.5449877&zoom=12"
+    },
+    {
+      "name": "full CSV export",
+      "ok": true,
+      "detail": "7,680 filtered records exported"
+    },
+    {
+      "name": "desktop no script errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "android-touch bounded rows",
+      "ok": true,
+      "detail": {
+        "rows": 50,
+        "nodes": 2384,
+        "total": "7680",
+        "filtered": "7680",
+        "viewport": 412,
+        "map": {
+          "x": 22,
+          "y": 493.71875,
+          "width": 48,
+          "height": 48,
+          "right": 70,
+          "hit": true,
+          "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+        }
+      }
+    },
+    {
+      "name": "android-touch bounded DOM",
+      "ok": true,
+      "detail": 2384
+    },
+    {
+      "name": "android-touch reachable MAP",
+      "ok": true,
+      "detail": {
+        "x": 22,
+        "y": 493.71875,
+        "width": 48,
+        "height": 48,
+        "right": 70,
+        "hit": true,
+        "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+      }
+    },
+    {
+      "name": "android-touch next page changes records",
+      "ok": true,
+      "detail": {
+        "first": "repd-9873",
+        "second": "repd-19534"
+      }
+    },
+    {
+      "name": "android-touch search across full corpus",
+      "ok": true,
+      "detail": "1 of 7,680 records · 500 MW · largest 500 MW"
+    },
+    {
+      "name": "android-touch MAP links paired candidate",
+      "ok": true,
+      "detail": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=8162&technology=solar&latitude=51.7831862&longitude=0.5449877&zoom=12"
+    },
+    {
+      "name": "mobile MAP tap opens paired Atlas",
+      "ok": true,
+      "detail": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=8162&technology=solar&latitude=51.7831862&longitude=0.5449877&zoom=12"
+    },
+    {
+      "name": "android-touch no script errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "android-receiver-stalled bounded rows",
+      "ok": true,
+      "detail": {
+        "rows": 50,
+        "nodes": 2384,
+        "total": "7680",
+        "filtered": "7680",
+        "viewport": 412,
+        "map": {
+          "x": 22,
+          "y": 493.71875,
+          "width": 48,
+          "height": 48,
+          "right": 70,
+          "hit": true,
+          "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+        }
+      }
+    },
+    {
+      "name": "android-receiver-stalled bounded DOM",
+      "ok": true,
+      "detail": 2384
+    },
+    {
+      "name": "android-receiver-stalled reachable MAP",
+      "ok": true,
+      "detail": {
+        "x": 22,
+        "y": 493.71875,
+        "width": 48,
+        "height": 48,
+        "right": 70,
+        "hit": true,
+        "href": "http://127.0.0.1:8877/testcode/202609051152/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12"
+      }
+    },
+    {
+      "name": "android-receiver-stalled receiver actually stalled",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "name": "android-receiver-stalled no script errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "desktop persistent search",
+      "ok": true,
+      "detail": {
+        "x": 17,
+        "y": 69,
+        "width": 520,
+        "height": 48,
+        "visible": true,
+        "menu": false
+      }
+    },
+    {
+      "name": "desktop composed candidate generation",
+      "ok": true,
+      "detail": "202609051152"
+    },
+    {
+      "name": "desktop image download exists",
+      "ok": true,
+      "detail": 170843
+    },
+    {
+      "name": "desktop print carries generation",
+      "ok": true,
+      "detail": "generation 202609051152 · 2026-09-05 11:58 UTC"
+    },
+    {
+      "name": "desktop print portrait",
+      "ok": true,
+      "detail": {
+        "landscape": false,
+        "bytes": 129101,
+        "images": 1,
+        "pages": 1
+      }
+    },
+    {
+      "name": "desktop print landscape",
+      "ok": true,
+      "detail": {
+        "landscape": true,
+        "bytes": 127012,
+        "images": 1,
+        "pages": 1
+      }
+    },
+    {
+      "name": "desktop Atlas no script errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "android-touch persistent search",
+      "ok": true,
+      "detail": {
+        "x": 17,
+        "y": 69,
+        "width": 378,
+        "height": 48,
+        "visible": true,
+        "menu": false
+      }
+    },
+    {
+      "name": "android-touch composed candidate generation",
+      "ok": true,
+      "detail": "202609051152"
+    },
+    {
+      "name": "android-touch image download exists",
+      "ok": true,
+      "detail": 226104
+    },
+    {
+      "name": "android-touch print carries generation",
+      "ok": true,
+      "detail": "generation 202609051152 · 2026-09-05 11:58 UTC"
+    },
+    {
+      "name": "android-touch print portrait",
+      "ok": true,
+      "detail": {
+        "landscape": false,
+        "bytes": 145753,
+        "images": 1,
+        "pages": 1
+      }
+    },
+    {
+      "name": "android-touch print landscape",
+      "ok": true,
+      "detail": {
+        "landscape": true,
+        "bytes": 145501,
+        "images": 1,
+        "pages": 1
+      }
+    },
+    {
+      "name": "android-touch Atlas no script errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "limitations": [
+    "Android profile is Chrome device emulation, not a physical Android browser or WebView.",
+    "Owner performs real iPhone testing."
+  ],
+  "browserVersion": "152.0.7977.76",
+  "finished": "2026-09-05T11:58:17.135Z"
+}

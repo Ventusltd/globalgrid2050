@@ -12,6 +12,7 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'testcode/**'
       - 'CNAME'
       # The build status page is published from the repository root, not from a
       # release directory, so nothing above matched it. status.json was committed

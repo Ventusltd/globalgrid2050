@@ -1,0 +1,17 @@
+{
+  "generation": "202609051152",
+  "checked_utc": "2026-09-05T11:58:17.135Z",
+  "chrome_version": "152.0.7977.76",
+  "passed": 34,
+  "failed": 0,
+  "csv_records": 7680,
+  "android": "Chrome Pixel 7 emulation; not Android OS or physical hardware",
+  "iphone": "Owner testing pending",
+  "scope": "Pipeline pagination, mobile cards/MAP, stalled receiver, full-corpus search/CSV; Atlas persistent search, save PNG, print portrait and landscape.",
+  "limitations": [
+    "Full source data is still downloaded and parsed before filtering; pagination bounds rendered rows, not source JSON size.",
+    "Atlas retains existing external shell, engine/data services and map tiles.",
+    "No claim of fixes to engineering calculations, other feature requests or estate-wide gates.",
+    "Print tested via Chromium PDF output, not a physical printer or Android system print dialog."
+  ]
+}

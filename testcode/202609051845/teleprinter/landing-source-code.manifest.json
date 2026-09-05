@@ -1,0 +1,170 @@
+{
+  "format": "codex-print-source-code-v1",
+  "repository": "https://github.com/Ventusltd/testcode",
+  "commit": "57d6104ff1d2bfee0b06c7e14928c169b2f89c4c",
+  "tree": "222f116f79fd87fd5d97733ac6fe9a66d82cf4d8",
+  "scopes": [
+    "sandbox/202609051845/capsule-launch.js",
+    "sandbox/202609051845/index.html",
+    "sandbox/202609051845/teleprinter-bootstrap.js",
+    "sandbox/202609051845/teleprinter/SOURCE-SCOPE.md",
+    "sandbox/202609051845/teleprinter/app-frame.js",
+    "sandbox/202609051845/teleprinter/capture-geometry.mjs",
+    "sandbox/202609051845/teleprinter/clone-visible-ui.js",
+    "sandbox/202609051845/teleprinter/controls.js",
+    "sandbox/202609051845/teleprinter/png-pixels.mjs",
+    "sandbox/202609051845/teleprinter/print-screen.js",
+    "sandbox/202609051845/teleprinter/print-source-code.js",
+    "sandbox/202609051845/teleprinter/runtime-source.js",
+    "sandbox/202609051845/teleprinter/screen-pdf.mjs",
+    "sandbox/202609051845/teleprinter/vendor/html2canvas-1.4.1.mjs",
+    "sandbox/202609051845/teleprinter/vendor/html2canvas-LICENSE.txt"
+  ],
+  "policy": {
+    "source": "Committed Git blobs only; working-tree changes are never substituted.",
+    "inclusion": "All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.",
+    "omission": "NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.",
+    "boundaries": "File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization."
+  },
+  "files": [
+    {
+      "mode": "100644",
+      "blobOid": "bc084744dc1e54872aee427a18490133c1f80869",
+      "path": "sandbox/202609051845/capsule-launch.js",
+      "byteCount": 804,
+      "sha256": "02c164370c6044d212ff4091f7b14d3d8fd87655e76de86e2534fa27f2097f14",
+      "status": "included",
+      "startByte": 5278
+    },
+    {
+      "mode": "100644",
+      "blobOid": "b5664384b52c6e63bbc50f8823023bb592406731",
+      "path": "sandbox/202609051845/index.html",
+      "byteCount": 16971,
+      "sha256": "844ca226d83f536d61d6a4b85bb279fe67383e6f98c07f22feaa5d9c8b4c2aa3",
+      "status": "included",
+      "startByte": 6291
+    },
+    {
+      "mode": "100644",
+      "blobOid": "2ab169f2504b00ea822f7e6d0df454588214868d",
+      "path": "sandbox/202609051845/teleprinter-bootstrap.js",
+      "byteCount": 1049,
+      "sha256": "fe8ff41d0b9c540e18508f9dfc7c58659eafe5a9344aaf164499571c86fb0138",
+      "status": "included",
+      "startByte": 23477
+    },
+    {
+      "mode": "100644",
+      "blobOid": "f0f8e462a65e882acaeea6d0f10929f56d9ff941",
+      "path": "sandbox/202609051845/teleprinter/SOURCE-SCOPE.md",
+      "byteCount": 1728,
+      "sha256": "1f1be18ee0611d7e29e4a24f9972f4445f0625b040ca7445f733d6df8829e235",
+      "status": "included",
+      "startByte": 24758
+    },
+    {
+      "mode": "100644",
+      "blobOid": "875240dd4cc09d01224adfc3de303f6f96956322",
+      "path": "sandbox/202609051845/teleprinter/app-frame.js",
+      "byteCount": 3421,
+      "sha256": "fbb73e307f356df8ed19cd9c91081d46645ce8bd649095ef0b3eb926ec9a6a42",
+      "status": "included",
+      "startByte": 26718
+    },
+    {
+      "mode": "100644",
+      "blobOid": "e642a70ea67a5749aeff2c308d19ba5ed449fbb1",
+      "path": "sandbox/202609051845/teleprinter/capture-geometry.mjs",
+      "byteCount": 973,
+      "sha256": "1dfe34aaa5d559e2f6c894a8fac3bb11deea76916df853153eb24e6837a02613",
+      "status": "included",
+      "startByte": 30375
+    },
+    {
+      "mode": "100644",
+      "blobOid": "2eb1ee6788436a00132ed5c4d330cb3168e3affb",
+      "path": "sandbox/202609051845/teleprinter/clone-visible-ui.js",
+      "byteCount": 1424,
+      "sha256": "cc710a39dcd0163cbccd639b2802dc96060b4a632d1ae8b6251efe63cb3be54d",
+      "status": "included",
+      "startByte": 31592
+    },
+    {
+      "mode": "100644",
+      "blobOid": "9cb0ea06a41c66fb398b4f62588dd903ad86dde0",
+      "path": "sandbox/202609051845/teleprinter/controls.js",
+      "byteCount": 10376,
+      "sha256": "26668d706b4d11ee2383f1c29372735443f9745499e079e2d014b266f6d44044",
+      "status": "included",
+      "startByte": 33252
+    },
+    {
+      "mode": "100644",
+      "blobOid": "98150c4635fd713ceb4baf0b09033db8851facb6",
+      "path": "sandbox/202609051845/teleprinter/png-pixels.mjs",
+      "byteCount": 8455,
+      "sha256": "01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481",
+      "status": "included",
+      "startByte": 43858
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a65d7bad3455ce9a4b6862edce4f83666903f266",
+      "path": "sandbox/202609051845/teleprinter/print-screen.js",
+      "byteCount": 2328,
+      "sha256": "c697937957010daf9d88830422100433f4d9c2a9edc39a973b96469de0536229",
+      "status": "included",
+      "startByte": 52547
+    },
+    {
+      "mode": "100644",
+      "blobOid": "1827a78fd6951776093ebb1c186f3e8155dbadbc",
+      "path": "sandbox/202609051845/teleprinter/print-source-code.js",
+      "byteCount": 10680,
+      "sha256": "78f6dba08fe4b7b44f6b40c85b17b469aa10a50676b77e17e74e2fa62065778f",
+      "status": "included",
+      "startByte": 55116
+    },
+    {
+      "mode": "100644",
+      "blobOid": "3df51867e4f0500076dd171f5a745bbacadb5f7d",
+      "path": "sandbox/202609051845/teleprinter/runtime-source.js",
+      "byteCount": 26282,
+      "sha256": "4e6a423ee68b715df5fd07a6d6d9b0380eddc0047006244681cb7e087680c274",
+      "status": "included",
+      "startByte": 66039
+    },
+    {
+      "mode": "100644",
+      "blobOid": "fdb1ca4c25e0c3bea47122ac32c801165d95ffcc",
+      "path": "sandbox/202609051845/teleprinter/screen-pdf.mjs",
+      "byteCount": 10220,
+      "sha256": "ef8b7d5c213754d93141c362b2bb981457bf16dada199ba6549ae1dda8828039",
+      "status": "included",
+      "startByte": 92558
+    },
+    {
+      "mode": "100644",
+      "blobOid": "268e9bc26bcecad85dda44ef87ebe0709ab64608",
+      "path": "sandbox/202609051845/teleprinter/vendor/html2canvas-1.4.1.mjs",
+      "byteCount": 410344,
+      "sha256": "9e73165f2f55469d3a4c1a7a81f3858985ba9a230f8a8e8b2bab3c2dca6f253a",
+      "status": "included",
+      "startByte": 103027
+    },
+    {
+      "mode": "100644",
+      "blobOid": "a73ffc9143edf0da1c821e920b6ec8582aba61f3",
+      "path": "sandbox/202609051845/teleprinter/vendor/html2canvas-LICENSE.txt",
+      "byteCount": 1061,
+      "sha256": "86200ce4e92d9a22c41c8647a55f7a5fddff304ff89b4d36ecc699ed8c123d2c",
+      "status": "included",
+      "startByte": 513634
+    }
+  ],
+  "byteCount": 514818,
+  "sha256": "f98487a4323cdb81aebbb1958ba2e240874168c5f70e7b628cf32d204f3daf77",
+  "includedCount": 15,
+  "omittedCount": 0
+}

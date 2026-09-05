@@ -1445,3 +1445,27 @@ the V8 entry are untouched.
 Folder file count after this snapshot:
 
 37 files
+
+## Snapshot v036
+
+Version: `homepage_v036.html`
+Source: live `index.html` at commit `5260db10`
+Purpose: restore point before the homepage is replaced by the fresh dashboard page.
+The archived file becomes the reader-visible **Historical builds** page — every
+Grid Atlas catalogue row, every Pipeline News intelligence release, every
+version/generation identity, source commit, checked-at time and evidence class is
+preserved in it byte-for-byte and served at its own permanent path. Nothing in the
+append-only catalogue is altered, renamed or dropped; it stops being the front page
+and becomes the archive the front page links to.
+Measured by: Claude session 184379c4, 202609050125 UTC.
+
+Metrics for `homepage_v036.html`:
+
+Line count: 353
+Word count: 9665
+Character count: 111836
+SHA-256 (first 16): fe46abbbd9ab0a14
+
+Folder file count after this snapshot:
+
+38 files

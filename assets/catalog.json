@@ -1,0 +1,471 @@
+{
+  "schemaVersion": "dashboard_catalog.v1",
+  "title": "GlobalGrid2050",
+  "description": "Every page in the estate, searchable. The front page shows only what is being built now; everything here is reached by typing, or through Historical builds.",
+  "source": "extracted from historical_builds.html (the archived homepage of 202609042237)",
+  "areas": [
+    {
+      "name": "GlobalGrid2050 OS & Federation",
+      "tags": [
+        "globalgrid2050 os & federation"
+      ],
+      "children": [
+        {
+          "name": "Registry Dashboard, BIOS and Kernel",
+          "url": "https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/",
+          "note": "live"
+        },
+        {
+          "name": "Reports Dashboard, Save As and Evidence Layer",
+          "url": "https://ventusltd.github.io/reports/studio/",
+          "note": "new"
+        },
+        {
+          "name": "The Spider Dependency Map, latest full PO test",
+          "url": "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html",
+          "note": "latest dependency area"
+        },
+        {
+          "name": "Spider Printer V1",
+          "url": "https://ventusltd.github.io/spiders/spider_printer_v1/",
+          "note": "printer"
+        },
+        {
+          "name": "Federation Radial Uniform Print View",
+          "url": "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html",
+          "note": "current print view"
+        }
+      ]
+    },
+    {
+      "name": "Solar & BESS Topology",
+      "tags": [
+        "solar & bess topology"
+      ],
+      "children": [
+        {
+          "name": "BESS GIS SLD Financial Sandbox V8",
+          "url": "./solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html",
+          "note": "in development"
+        },
+        {
+          "name": "Cable Geometry Visualiser V5",
+          "url": "./solar-bess-topology-v5/cable-geometry-visualiser-v5.html",
+          "note": ""
+        },
+        {
+          "name": "DC AC LV Solar PV Cable Topology Review V5",
+          "url": "./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html",
+          "note": ""
+        },
+        {
+          "name": "GIS SLD Financial Sandbox V2",
+          "url": "./solar-bess-topology-v2/indexforgis-sld-v2.html",
+          "note": ""
+        },
+        {
+          "name": "GIS SLD Financial Sandbox V4",
+          "url": "./solar-bess-topology-v4/indexforgis-sld-v4.html",
+          "note": ""
+        },
+        {
+          "name": "GIS SLD Financial Sandbox V5",
+          "url": "./solar-bess-topology-v5/indexforgis-sld-v5.html",
+          "note": ""
+        },
+        {
+          "name": "GIS SLD Topology Engine And Financial Sandbox",
+          "url": "./solar-bess-topology/indexforgis-sld.html",
+          "note": ""
+        },
+        {
+          "name": "Physical Solar Module Layout V5",
+          "url": "./solar-bess-topology-v5/module-layout-v5.html",
+          "note": ""
+        },
+        {
+          "name": "Solar BESS Topology V6 Testing Phase",
+          "url": "./solar-bess-topology-v6/",
+          "note": ""
+        },
+        {
+          "name": "Solar BESS Topology V7 Workspace",
+          "url": "./solar-bess-topology-v7/",
+          "note": ""
+        },
+        {
+          "name": "Solar DC String Topology Engine V6",
+          "url": "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/",
+          "note": "in development"
+        },
+        {
+          "name": "Solar DC String Topology Engine V7 Independent Workspace",
+          "url": "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v7-development/",
+          "note": "independent development"
+        },
+        {
+          "name": "Solar DC String Topology Engine V8 Leapfrog Comparison",
+          "url": "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v8-leapfrog/",
+          "note": "independent development · use at your own risk"
+        },
+        {
+          "name": "Solar DC String Topology Engine V9 East-West Inverter Block",
+          "url": "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v9-sandbox/",
+          "note": "live development · use at your own risk"
+        },
+        {
+          "name": "Ventus DC String Engine V10 — Laboratory Workbench",
+          "url": "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v10-development/",
+          "note": "historical laboratory development · not V11"
+        },
+        {
+          "name": "Ventus DC String Engine V11 — Live Build Monitor",
+          "url": "./v11/",
+          "note": "live PR 3 · active feature branch"
+        }
+      ]
+    },
+    {
+      "name": "UK Grid Tracking",
+      "tags": [
+        "uk grid tracking"
+      ],
+      "children": [
+        {
+          "name": "UK Live Grid Tracker, Electricity, Carbon, Oil and Metals",
+          "url": "./uk_energy_tracking/",
+          "note": ""
+        },
+        {
+          "name": "UK Live Grid Tracker V2, Transport Energy Test Clone",
+          "url": "./uk_energy_tracking_v2/",
+          "note": ""
+        },
+        {
+          "name": "UK Live Grid Tracker V3, Experimental Intelligence Lab",
+          "url": "./uk_energy_tracking_v3/",
+          "note": ""
+        },
+        {
+          "name": "UK Live Grid Tracker V5, Electricity Market Intelligence Machine",
+          "url": "./uk_energy_tracking_v5/",
+          "note": "in development"
+        },
+        {
+          "name": "UK Live Grid Tracker V6, Modular Electricity Market Intelligence Machine",
+          "url": "./uk_energy_tracking_v6/",
+          "note": "modular development"
+        },
+        {
+          "name": "UK Generation History V6 Module",
+          "url": "./uk_energy_tracking_v6/generation_history/",
+          "note": "in development"
+        },
+        {
+          "name": "UK Generation History V6 2 Backup Mirror",
+          "url": "./uk_energy_tracking_v6_2/generation_history/",
+          "note": "BACKUP"
+        },
+        {
+          "name": "UK Energy Atlas Grid Overlay V8",
+          "url": "./repd_grid_atlasv8/",
+          "note": ""
+        },
+        {
+          "name": "UK Grid Atlas V9.106 — Current Release (Working Verified)",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "note": "CURRENT DEPLOYED | WORKING VERIFIED · v9.106 · 202609040337 · exact GridAtlas main commit 2d8cc7bacf80a3f20ecfb96ea24548fcea43a19d · exact-head Actions 33834422562, 33834422882 and 33834422915 passed · 34 public current, composition, cartridge, part, ledger and pointer artifacts are byte-exact · cold 393×852 Chromium: five supplied-point, ref-only, retry-resolved, retry-not-in-register and ordinary-active arrival cases passed; all showed File, Edit, View, Scope, Grid and About; zero post-terminal page, console or material errors and zero obsolete Pipeline requests · v9.105, v9.104, v9.103, V8 and every recoverable prior generation remain listed"
+        },
+        {
+          "name": "UK Grid Atlas V9 — 202608291239",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608291239-atlas-v9/",
+          "note": "ARCHIVED | HTTP REACHABLE | FUNCTIONALITY UNVERIFIED | immutable timestamped release · official REPD address/postcode search · repd_ref deep links · V8 preserved"
+        },
+        {
+          "name": "UK Grid Atlas — Complete Version Catalogue",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "note": "127 exact lineage records | LIVE / ARCHIVED / REJECTED PRE-PROMOTION / MISSING | WORKING VERIFIED / REACHABLE UNVERIFIED / BROKEN | browser-verified: V8 and v9.103-v9.106 | newest first | every recoverable generation and commit retained"
+        },
+        {
+          "name": "UK Macro Energy Consumption Trends ONS",
+          "url": "./uk_macro_energy_trends/",
+          "note": ""
+        },
+        {
+          "name": "UK Renewables Pipeline Analytics Dashboard V1",
+          "url": "./uk_renewables_pipeline/dashboard.html",
+          "note": "legacy · unchanged"
+        },
+        {
+          "name": "UK Renewables Pipeline Analytics Dashboard V2",
+          "url": "./uk_renewables_pipeline/dashboard_v2_2026-08-22.html",
+          "note": "previous version · 22 Aug 2026"
+        },
+        {
+          "name": "UK Renewables Pipeline Analytics Dashboard V3",
+          "url": "./uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html",
+          "note": "previous live · 22 Aug 2026"
+        },
+        {
+          "name": "UK Renewables Pipeline Analytics Dashboard V4",
+          "url": "./uk_renewables_pipeline/dashboard_v4_live.html",
+          "note": "previous live · REPD + auto major-news feed · solar ≥30MW · BESS ≥100MW"
+        },
+        {
+          "name": "UK Solar + Storage Daily V5",
+          "url": "./uk_renewables_pipeline/dashboard_v5_live.html",
+          "note": "previous live · daily newspaper · solar >49MWp · BESS >100MW"
+        },
+        {
+          "name": "UK Solar + Storage Daily V6",
+          "url": "./uk_renewables_pipeline/dashboard_v6_live.html",
+          "note": "DESNZ Q2 2026 validated snapshot · solar >1MW · BESS >100MW · canonical GlobalGrid/REPD IDs"
+        },
+        {
+          "name": "UK Solar + Storage Daily V7",
+          "url": "./uk_renewables_pipeline/v7/",
+          "note": "LIVE MVP · wholesale V5 baseline · V6 refinements pending"
+        },
+        {
+          "name": "Pipeline News — 202609040144",
+          "url": "./pipelinenews_intelligence/202609040144/",
+          "note": "NEW · every project row now uses one strict MAP handoff to the exact Grid Atlas v9.104 production receiver at commit ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9 · the immutable wrapper promotes source release 202609040044 byte-for-byte: 8,756 source rows, 8,743 clickable MAP rows and 13 explicitly unresolved, with no synthetic receiver or intercepted route · exact-head Pipeline Pages run 33827954787 passed on main 3493be1c4ebf3dabbc94135db17f433bb7892a8e, including public bytes, pointers and both browser proofs · on throttled 393×852 public Chrome, the Biomass route for REPD 155 exposed one 44×44 MAP action with no horizontal overflow and opened the exact Markinch deep link; its first coordinate answer arrived in 484.6 ms, five ≥33 kV links were drawn, the nearest was 2.49 km, and the nearest 400 kV substation was 28.82 km"
+        },
+        {
+          "name": "Pipeline News — 202609032329",
+          "url": "./pipelinenews_intelligence/202609032329/",
+          "note": "superseded by 202609040144 · a dash stops claiming a search that never ran · a project with no grid figure carried one hover sentence, “No mapped feature found for this project”, which asserts a search that ran and came back empty · counted on the release’s own shipped files: 7,680 records, 3,047 carrying a measurement, 4,633 dashed, and the payload’s own coverage block reads with_circuit 3,047 and no_circuit 0 — so not one project was measured and found nothing, and that sentence described 0 of the 4,633 rows it was printed on · the two silences are now separate: 4,605 rows hold a register coordinate and were never searched, 28 have no usable coordinate and cannot be · it does not explain WHY the 4,605 were not measured, which is a second idea and will be a second version · no name is invented anywhere: 1,154 of 4,737 mapped substations carry no name at all, 34 of them at 400 kV, and an empty field described as empty is the only honest third option beside hiding a gap and inventing over it"
+        },
+        {
+          "name": "Pipeline News — 202609032251",
+          "url": "./pipelinenews_intelligence/202609032251/",
+          "note": "superseded by 202609032329 · grid proximity is computed for the whole fleet, not just solar and battery · the file carried 3,047 rows in two technologies and now carries 4,138 in eleven: solar 1,747, battery 1,300, biomass 814, hydro 150, hydrogen 59, ACT 37, tidal 18, geothermal 7, CAES 4, flywheel 1 · nothing had ever put the wider fleet in front of the engine, and the engine never filtered by technology — it reads every row with usable coordinates and passes the technology through · no second implementation: the added rows are reshaped into the spine’s own 40-column contract and measured by the existing engine, point to segment, all five mapped voltages, so a distance here equals the same distance in the Atlas · all 3,047 previously published rows are byte-identical, proved by re-running the original spine through today’s engine first · 18 of the 1,091 added rows sit more than 30 km from any mapped circuit — Orkney, Shetland, Highland, Fermanagh and offshore, where the mapped GB layers do not reach — and that is a distance to the nearest mapped circuit, never a connection distance · town, region and country are left empty on the added rows rather than guessed"
+        },
+        {
+          "name": "Pipeline News — 202609032159",
+          "url": "./pipelinenews_intelligence/202609032159/",
+          "note": "superseded by 202609032251 · one summary now drives every surface it is supposed to · switching to a wider-fleet technology used to move the three gauge numbers and nothing else, so the record counter, the three gauge arcs and EXPORT FILTERED CSV all kept the previous technology’s answer and nothing said so · measured on LANDFILL GAS: the counter read 7,680 of 7,680 records and largest 4,100 MW while the gauge beside it read 22.5 · the export was the one that left the building, writing the spine’s 3,563 solar rows under a flywheel heading and stating that count with confidence · all five surfaces move together now, and a cut that cannot honestly fill the product’s fifty columns declines in words, names the ten it could have filled and the forty it could not, and writes no file · verified on three browsers, own ports, own profiles, desktop and a 393×852 phone"
+        },
+        {
+          "name": "Pipeline News — 202609031308",
+          "url": "./pipelinenews_intelligence/202609031308/",
+          "note": "superseded by 202609032159 · the twenty REPD technology types the spine does not carry are one labelled control in the technology row now, not twenty more tabs · the row held twenty-five controls, and the twenty are extremely long-tailed — Landfill Gas 275, Anaerobic Digestion 253, Biomass (dedicated) 159, EfW Incineration 122, Small Hydro 108, Hydrogen 60, and then a tail in which nine of the twenty hold five projects or fewer and one holds a single project · measured on a 390 px viewport, the technology row was 25 controls over 11 wrapped lines and 584 px tall, which pushed the product's own SOLAR, BATTERY, ONSHORE and OFFSHORE several lines down the page; it is 6 controls over 3 lines and 152 px now, with no horizontal overflow, and the control is 44 px high at every width rather than only under the phone breakpoint · every option carries its own project count, read from the payload, so the tail is visibly a tail instead of twenty equal-looking choices · Unknown is shown like any other type rather than hidden, because a bucket nobody can see is one that grows in silence the day REPD adds a type the mapper does not know · the twenty also gain the deep link they never had: the spine's technology whitelist has five members and silently coerced everything else to ALL TECH, so ?technology=Flywheels opened the product and said nothing about why · all twenty now open from the address bar under the REPD's own names, case-insensitively, and a link to one of the spine's four is never intercepted · same payload, same filter, same MAP link and the same REPD reference carried through, so MAP still arrives resolved with the camera on the project rather than the default UK view · 13 rows still carry no REPD reference and are left unbound rather than guessed"
+        },
+        {
+          "name": "Solar Deployment Statistics",
+          "url": "./solar_deployment_statistics/",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "name": "Data Centres & Digital Infrastructure",
+      "tags": [
+        "data centres & digital infrastructure"
+      ],
+      "children": [
+        {
+          "name": "Data Centres GB — Electricity Demand Intelligence",
+          "url": "https://ventusltd.github.io/data-centres-gb/",
+          "note": "independent open-source workstream"
+        },
+        {
+          "name": "Data Centres GB Repository",
+          "url": "https://github.com/Ventusltd/data-centres-gb",
+          "note": "source and API development"
+        },
+        {
+          "name": "Data Centres GB Open API",
+          "url": "https://github.com/Ventusltd/data-centres-gb/blob/main/app.py",
+          "note": "experimental source-separated adapter"
+        }
+      ]
+    },
+    {
+      "name": "Cables & Conductors",
+      "tags": [
+        "cables & conductors"
+      ],
+      "children": [
+        {
+          "name": "AC Cables Knowledge",
+          "url": "./ac_cables_knowledge/",
+          "note": ""
+        },
+        {
+          "name": "DC Cables Knowledge",
+          "url": "./dc_cables_knowledge/",
+          "note": ""
+        },
+        {
+          "name": "Conductor Resistances",
+          "url": "./conductor_resistances/",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "name": "Pricing & Materials",
+      "tags": [
+        "pricing & materials"
+      ],
+      "children": [
+        {
+          "name": "33 kV UK DAP Price Estimator",
+          "url": "./33kv_uk_dap_price_estimator/",
+          "note": ""
+        },
+        {
+          "name": "LV AC and DC Distribution Cables Price Estimator",
+          "url": "./lv_ac_dc_price_estimator/",
+          "note": ""
+        },
+        {
+          "name": "Copper and Aluminium Historic Prices & Trends",
+          "url": "./copper_and_aluminium_prices_historic_trends/",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "name": "Components",
+      "tags": [
+        "components"
+      ],
+      "children": [
+        {
+          "name": "MV and HV Components",
+          "url": "./mv_and_hv_components/",
+          "note": ""
+        },
+        {
+          "name": "Solar Components",
+          "url": "./solar_components/",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "name": "Planning & Requirements",
+      "tags": [
+        "planning & requirements"
+      ],
+      "children": [
+        {
+          "name": "NSIP Solar Farms",
+          "url": "./nsip_solar_farms/",
+          "note": ""
+        },
+        {
+          "name": "Grid Studies Public",
+          "url": "./data/grid_studies_public/",
+          "note": ""
+        },
+        {
+          "name": "Employer Requirements BESS Notes",
+          "url": "./employers_requirements_BESS/",
+          "note": ""
+        },
+        {
+          "name": "Employers Requirements Large Scale Solar",
+          "url": "./employers_requirments_large_scale_solar/",
+          "note": ""
+        },
+        {
+          "name": "Employer’s Competence Requirements: what is expected from the Employer towards drafting good ERs?",
+          "url": "./employers_competence/",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "name": "Reference & Knowledge",
+      "tags": [
+        "reference & knowledge"
+      ],
+      "children": [
+        {
+          "name": "Definitions",
+          "url": "./definitions/",
+          "note": ""
+        },
+        {
+          "name": "Power Systems Studies",
+          "url": "./power_systems_studies/",
+          "note": ""
+        },
+        {
+          "name": "Single Line Diagrams And Grids",
+          "url": "./sld_single_diagrams_diagrams_and_grids/",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "name": "Federation & Spider",
+      "tags": [
+        "federation & spider"
+      ],
+      "children": [
+        {
+          "name": "The Spider Dependency Map",
+          "url": "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html",
+          "note": "latest"
+        },
+        {
+          "name": "Spider Printer V1",
+          "url": "https://ventusltd.github.io/spiders/spider_printer_v1/",
+          "note": "printer"
+        },
+        {
+          "name": "Federation Radial Uniform Print View",
+          "url": "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html",
+          "note": "current print view"
+        }
+      ]
+    },
+    {
+      "name": "About & Media",
+      "tags": [
+        "about & media"
+      ],
+      "children": [
+        {
+          "name": "Why VENTUS Ltd Is Building GlobalGrid2050",
+          "url": "./why_ventusltd_building_globalgrid2050/",
+          "note": ""
+        },
+        {
+          "name": "Blog",
+          "url": "./blog/",
+          "note": ""
+        },
+        {
+          "name": "Podcast Transcripts",
+          "url": "./podcast_transcripts/",
+          "note": ""
+        },
+        {
+          "name": "Earth",
+          "url": "./marketing/earth.html",
+          "note": ""
+        },
+        {
+          "name": "Time Left Today, Hourglass to 2050",
+          "url": "./time_to_2050/",
+          "note": ""
+        },
+        {
+          "name": "Log — 202609021952",
+          "url": "./estate_scan/202609021952/",
+          "note": ""
+        },
+        {
+          "name": "GlobalGrid2050 Homepage",
+          "url": "https://ventusltd.github.io/globalgrid2050-homepage/",
+          "note": "live"
+        }
+      ]
+    }
+  ]
+}

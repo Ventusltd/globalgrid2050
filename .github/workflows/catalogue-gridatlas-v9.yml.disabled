@@ -1,3 +1,21 @@
+# RETIRED 202609050125.
+#
+# This workflow appended each newly verified Grid Atlas release into the homepage
+# index.html, and failed closed unless a byte-exact V8 sentinel block was present
+# in that file. The homepage was replaced on 202609050125 with a page that shows
+# only what is being built now; the version catalogue it maintained now lives in
+# historical_builds.html, and the reader-facing job of listing Atlas versions is
+# done by the estate menu FILE panel.
+#
+# It is retired deliberately, not broken and not ignored. Nothing it wrote has
+# been deleted: every version, generation, source commit, checked-at time and
+# evidence class it ever appended is preserved byte-for-byte in
+# historical_builds.html and in homepage_versions/homepage_v036.html.
+#
+# scripts/catalogue_gridatlas_v9.py is left in place, unrun by CI.
+#
+# Decision: Vikram, 2026-09-05. Recorded rather than left silently red.
+
 name: Catalogue verified Grid Atlas V9
 run-name: Catalogue current verified Grid Atlas V9 into GlobalGrid2050
 

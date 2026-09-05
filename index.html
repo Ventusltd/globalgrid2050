@@ -116,6 +116,33 @@
     font-size: 16px;
   }
 
+  .versions {
+    margin-top: 18px;
+  }
+
+  .versions summary {
+    color: #888888;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .versions ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+  }
+
+  .versions li {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+
+  .versions .vnote {
+    color: #888888;
+    font-size: 14px;
+    display: block;
+  }
+
   .footer {
     margin-top: 60px;
     font-size: 16px;
@@ -166,8 +193,8 @@
 
 <div class="build">
   <a href="./uk_renewables_pipeline/v9.7/">Pipeline News</a>
-  <p class="what">The UK renewables pipeline, tracked. Current version v9.7.</p>
-  <p class="prev">Previous version: <a href="./uk_renewables_pipeline/v9.6.2/">v9.6.2</a>. Latest intelligence release: <a href="./pipelinenews_intelligence/202609040144/">202609040144</a>.</p>
+  <p class="what">The UK renewables pipeline, tracked. Newest published version v9.7.</p>
+  <p class="prev">The estate record labels v9.7 <strong>CANDIDATE</strong> and <a href="./uk_renewables_pipeline/v9.6.2/">v9.6.2</a> <strong>LIVE VALIDATED</strong>; v9.7 is the link that was circulated. Latest intelligence release: <a href="./pipelinenews_intelligence/202609040144/">202609040144</a>.</p>
 </div>
 
 <div class="build">
@@ -193,6 +220,26 @@
   <p>Everything published before these: every earlier Grid Atlas generation with its commit and evidence, every Pipeline News version and intelligence release, the solar and BESS topology sandboxes, the cable and component references, the planning and requirements documents. Nothing has been removed — it has been moved off the front page.</p>
   <a class="link-row" href="./historical_builds.html">Open historical builds</a>
   <p class="what">Or type in the search box above to reach any page in the estate directly.</p>
+  <details class="versions">
+    <summary>Published pipeline versions (15)</summary>
+    <ul>
+      <li><a href="./uk_renewables_pipeline/dashboard.html">UK Renewables Pipeline Analytics Dashboard V1</a> <span class="vnote">legacy · unchanged</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v2_2026-08-22.html">UK Renewables Pipeline Analytics Dashboard V2</a> <span class="vnote">previous version · 22 Aug 2026</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html">UK Renewables Pipeline Analytics Dashboard V3</a> <span class="vnote">previous live · 22 Aug 2026</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v4_live.html">UK Renewables Pipeline Analytics Dashboard V4</a> <span class="vnote">previous live · REPD + auto major-news feed · solar ≥30MW · BESS ≥100MW</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v5_live.html">UK Solar + Storage Daily V5</a> <span class="vnote">previous live · daily newspaper · solar >49MWp · BESS >100MW</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v6_live.html">UK Solar + Storage Daily V6</a> <span class="vnote">DESNZ Q2 2026 validated snapshot · solar >1MW · BESS >100MW · canonical GlobalGrid/REPD IDs</span></li>
+      <li><a href="./uk_renewables_pipeline/v7/">UK Solar + Storage Daily V7</a> <span class="vnote">LIVE MVP · wholesale V5 baseline · V6 refinements pending</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.7/">UK Renewables Pipeline V9.7</a> <span class="vnote">CANDIDATE · build-time regional classifier · published 133-item decision ledger · V9.6.2 project/mobile runtime frozen</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6.2/">UK Renewables Pipeline V9.6.2</a> <span class="vnote">LIVE VALIDATED · canonical UK news plus separate international, US and Europe solar/storage views</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6.1/">UK Renewables Pipeline V9.6.1</a> <span class="vnote">FROZEN PREVIOUS APP · V9.5.1 runtime · mobile table scroll repair only</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6/">UK Renewables Pipeline V9.6</a> <span class="vnote">DISCONTINUED · broken mobile release · do not use</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.5.1/">UK Renewables Pipeline V9.5.1</a> <span class="vnote">LIVE · full 133-headline newspaper · 45 canonical REPD matches · functional RELEVANT filter</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.5/">UK Renewables Pipeline V9.5</a> <span class="vnote">LIVE · canonical REPD Ref news binder · measured recall guards · separate app</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.4/">UK Renewables Pipeline V9.4</a> <span class="vnote">LIVE · click REPD UPDATED header to toggle newest/oldest · separate app</span></li>
+      <li><a href="./uk_renewables_pipeline/v9/">UK Renewables Pipeline V9.3.1</a> <span class="vnote">V9.3.1 LIVE · frozen app · official REPD/GlobalGrid references · REPD update-date sorting · 7,680 records</span></li>
+    </ul>
+  </details>
 </section>
 
 <footer class="footer">

@@ -1,0 +1,19 @@
+{
+  "generation": "202609051906",
+  "sourceCommit": "174a88bb55cb5cef0122944debb100411e21bf01",
+  "engineCommit": "d01843d4e8bbcb9b14c2511e9eda3e4326d6b495",
+  "buildSha256": "6be9e4883562e92b4999e026ddb1520af63862ed28f0033f2262fc35b3ddbc13",
+  "createdUtc": "2026-09-05T19:27:10.706856+00:00",
+  "chromeVisits": 50,
+  "pdfDownloads": 25,
+  "sourceDownloads": 25,
+  "independentSourceAudits": 25,
+  "desktopAndPhoneLayerChecks": true,
+  "limitations": [
+    "Original embedded tool printing is outside Atlas app-only PDF coverage.",
+    "Approximate DOM rendering comparison, not browser compositor pixel equality.",
+    "Testcode estate CI remains red for separate missing repository inputs and an Atlas source budget failure.",
+    "Straight-line grid engine retained; constrained routing and trench versus drilling computation are planned."
+  ],
+  "previousGeneration": "202609051623"
+}

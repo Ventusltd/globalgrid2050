@@ -179,7 +179,6 @@
     }
   }
 </style>
-<link rel="stylesheet" href="./cartridges/202609052136-terminal-progress/progress.css">
 </head>
 <body>
 <header>
@@ -200,25 +199,41 @@
 <section id="precision-progress" aria-labelledby="precision-title">
 <h2 id="precision-title">[ REVIEW CHECKPOINTS ]</h2>
 <p><strong>08 / 96 verified</strong> &mdash; repository identity checkpoints only. The other 88 review steps are pending; these bars do not indicate running reviews.</p>
-<ul><li><span>Release composition</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>Cable geometry</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>GRID / SUBS controls</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>Project deep links</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>App-only PDF</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>GIS SLD isolation</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>Source print integrity</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>GPU evidence</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li></ul>
+<ul><li><span>Release composition</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li>
+<li><span>Cable geometry</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li>
+<li><span>GRID / SUBS controls</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li>
+<li><span>Project deep links</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li>
+<li><span>App-only PDF</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li>
+<li><span>GIS SLD isolation</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li>
+<li><span>Source print integrity</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li>
+<li><span>GPU evidence</span> <code aria-label="1 of 12 checkpoints verified">[#...........] 1/12</code></li></ul>
 <p class="precision-note">Snapshot: <time datetime="2026-09-05T21:24:56.581319+00:00">5 September 2026, 21:24 UTC</time>. Manually refreshed; no live telemetry. <a href="https://ventusltd.github.io/spiders/codex/build-plan/">Open the build plan / AI restart</a>.</p>
 <h3>[ CALENDAR CLOCK ]</h3>
-<div class="precision-clock"><label for="precision-days"><span>DAYS TO 2050</span><output id="precision-days-value">Clock loading</output></label><progress id="precision-days" max="1" value="0" aria-label="DAYS TO 2050 elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-weeks"><span>WEEKS TO 2050</span><output id="precision-weeks-value">Clock loading</output></label><progress id="precision-weeks" max="1" value="0" aria-label="WEEKS TO 2050 elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-months"><span>MONTHS TO 2050</span><output id="precision-months-value">Clock loading</output></label><progress id="precision-months" max="1" value="0" aria-label="MONTHS TO 2050 elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-today"><span>LONDON TODAY</span><output id="precision-today-value">Clock loading</output></label><progress id="precision-today" max="1" value="0" aria-label="LONDON TODAY elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-minute"><span>THIS MINUTE</span><output id="precision-minute-value">Clock loading</output></label><progress id="precision-minute" max="1" value="0" aria-label="THIS MINUTE elapsed time"></progress></div>
-<p class="precision-note">Target: 1 January 2050, 00:00 UTC. Weeks and months are approximate calendar equivalents. The 2050 bars span 2026 to 2050; all clock bars fill left to right with elapsed time, never work completion.</p>
-<p class="precision-note">Terminal presentation adapted from <a href="https://github.com/wolph/python-progressbar">progressbar2</a> | <a href="./cartridges/202609052136-terminal-progress/LICENSE.progressbar2.txt">BSD 3-Clause notice</a>.</p>
+<p id="precision-calendar">Calendar countdown requires JavaScript.</p>
+<p id="precision-today"></p>
+<p id="precision-minute" aria-live="off"></p>
+<p class="precision-note">Target: 1 January 2050, 00:00 UTC. Weeks and months are approximate calendar equivalents. Clock bars show elapsed calendar time, never work completion.</p>
 </section>
-<script type="module" src="./cartridges/202609052136-terminal-progress/progress.js"></script>
+<style>
+#precision-progress{border:1px solid #72e89c;padding:16px;margin:24px 0;color:#a6f4bc;background:#031008;font:15px/1.5 Courier,monospace}
+#precision-progress h2,#precision-progress h3{font-size:18px;color:#a6f4bc;margin:0 0 12px}
+#precision-progress ul{list-style:none;padding:0;margin:12px 0}#precision-progress li{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:5px 0}
+#precision-progress code{white-space:nowrap;color:#78ff99}#precision-progress a{color:#a6f4bc}#precision-progress .precision-note{font-size:12px}#precision-progress p{overflow-wrap:anywhere}
+</style>
+<script>
+(()=>{'use strict';
+const target=Date.UTC(2050,0,1),start=Date.UTC(2026,8,5);
+const parts=t=>Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(t).filter(x=>x.type!=='literal').map(x=>[x.type,Number(x.value)]));
+const midnight=(year,month,day)=>{const nominal=Date.UTC(year,month-1,day);let candidate=nominal;for(let i=0;i<3;i++){const q=parts(candidate);candidate+=nominal-Date.UTC(q.year,q.month-1,q.day,q.hour,q.minute,q.second);}return candidate;};
+const bar=f=>'['+'#'.repeat(Math.floor(Math.max(0,Math.min(1,f))*12))+'.'.repeat(12-Math.floor(Math.max(0,Math.min(1,f))*12))+']';
+function update(){const now=Date.now(),left=Math.max(0,target-now),days=left/86400000,q=parts(now),next=new Date(Date.UTC(q.year,q.month-1,q.day+1)),end=midnight(next.getUTCFullYear(),next.getUTCMonth()+1,next.getUTCDate()),begin=midnight(q.year,q.month,q.day);
+document.getElementById('precision-calendar').textContent=bar((now-start)/(target-start))+' TO 2050: '+Math.ceil(days).toLocaleString('en-GB')+' days | ~'+(days/7).toFixed(1)+' weeks | ~'+(days/(365.2425/12)).toFixed(1)+' months';
+document.getElementById('precision-today').textContent=bar((now-begin)/(end-begin))+' LONDON TODAY: '+Math.max(0,Math.ceil((end-now)/60000))+' minutes remaining';}
+update();setInterval(update,30000);
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');let last=0;
+function minuteClock(t){if(t-last>=(reduced.matches?1000:33)){const remaining=60000-(Date.now()%60000);document.getElementById('precision-minute').textContent=bar(1-remaining/60000)+' THIS MINUTE: '+String(remaining).padStart(5,'0')+' ms remaining';last=t;}requestAnimationFrame(minuteClock);}requestAnimationFrame(minuteClock);
+})();
+</script>
 <!-- precision-board:end -->
 <div class="build">
   <a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a>

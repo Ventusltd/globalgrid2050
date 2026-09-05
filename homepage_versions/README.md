@@ -1508,3 +1508,8 @@ Saved before the static 8/96 identity-checkpoint board and calendar clocks. No a
 ### homepage_v056.html ? minute clock restore point
 
 Saved before adding the millisecond calendar counter. Review snapshot and product links remain unchanged. See homepage_v056-measurement.json.
+
+
+### homepage_v057.html ? solid terminal progress restore point
+
+Snapshot of b7e8d25d6d0876b6c18c8bb5d2623da396760bad before replacing dot counters with a licensed, attributed terminal-style browser cartridge. Restore workflow33993479675 passed. No product versions changed. Measurements: homepage_v057-measurement.json.

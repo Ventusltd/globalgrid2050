@@ -1,0 +1,8 @@
+{
+  "upstream": "https://github.com/wolph/python-progressbar",
+  "commit": "a2c09de8aa8ff72d15c1ebe281b610b49dc7d03e",
+  "license": "BSD-3-Clause",
+  "licenseSha256": "29a1d851dc1d92fd6206d7dcaa72a82e945352d700992cb85054421246a5a7e6",
+  "reference": "docs/_static/demos/readme-multibar.svg",
+  "adaptation": "Terminal palette and progress presentation adapted to solid grey browser bars. Original browser logic; no Python runtime or upstream fake demo timings."
+}

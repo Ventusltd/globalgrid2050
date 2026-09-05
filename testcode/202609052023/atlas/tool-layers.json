@@ -1,0 +1,183 @@
+{
+  "owners": [
+    {
+      "repository": "https://github.com/Ventusltd/gis-sld-sandbox.git",
+      "commit": "9fe7b2d920aaa11e95380de39b33fd98f04e9696",
+      "release": "202609051855",
+      "manifestSha256": "90190a0846717b5203305a8c08301fb26ed58e015b992272e0999272091a0916",
+      "applications": [
+        {
+          "id": "gis-sld-financial-sandbox",
+          "entry": "solar-bess-topology-v7/gis-sld-financial-sandbox/index.html"
+        }
+      ],
+      "rootOriginDependencies": [
+        "/grid_substations.geojson",
+        "/dist/repd_master.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/Ventusltd/layout-tool.git",
+      "commit": "e201075e052bfc71e7fef01f1360f319808cb78f",
+      "release": "202609051858",
+      "manifestSha256": "bb6d0a5cf4cf63d68b3d5cb02e55c27f1ccc0646135d7e39cdedbbe3da262796",
+      "applications": [
+        {
+          "id": "module-layout",
+          "entry": "solar-bess-topology-v7/module-layout/index.html"
+        },
+        {
+          "id": "cable-geometry-visualiser",
+          "entry": "solar-bess-topology-v7/cable-geometry-visualiser/index.html"
+        },
+        {
+          "id": "dc-ac-lv-topology-review",
+          "entry": "solar-bess-topology-v7/dc-ac-lv-topology-review/index.html"
+        }
+      ],
+      "rootOriginDependencies": [
+        "/grid_substations.geojson",
+        "/dist/repd_master.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/Ventusltd/cable-trench-or-drill.git",
+      "commit": "76396fd3639dd86cddd21e392f29f43ab6d22f2d",
+      "release": "202609051921",
+      "manifestSha256": "a1b96236ba223bbbb8153538961bea677513a9fe3a877b9c61cd70d61128960e",
+      "applications": [
+        {
+          "id": "cable-geometry-visualiser",
+          "entry": "solar-bess-topology-v7/cable-geometry-visualiser/index.html"
+        }
+      ],
+      "rootOriginDependencies": []
+    },
+    {
+      "repository": "https://github.com/Ventusltd/layout-tool.git",
+      "commit": "5c450e27e430d6eb5d80070f794a5660f30015a1",
+      "release": "202609051955",
+      "manifestSha256": "57cf6fbf60cd50a50b2c230aa14a081835e1b1728dfd0f0f2129887250988f5c",
+      "applications": [
+        {
+          "id": "module-layout",
+          "entry": "solar-bess-topology-v7/module-layout/index.html"
+        }
+      ],
+      "rootOriginDependencies": [
+        "/grid_substations.geojson",
+        "/dist/repd_master.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/Ventusltd/cable-trench-or-drill.git",
+      "commit": "e6132475d1d369422f5ae98624c01ecb8c14f39e",
+      "release": "202609052001",
+      "manifestSha256": "a344ed826eeb29c37f2ebdefaf7699591dcdbf94320847f2d4e91a94a6c33193",
+      "applications": [
+        {
+          "id": "cable-geometry-visualiser",
+          "entry": "solar-bess-topology-v7/cable-geometry-visualiser/index.html"
+        }
+      ],
+      "rootOriginDependencies": []
+    },
+    {
+      "repository": "https://github.com/Ventusltd/gis-sld-sandbox.git",
+      "commit": "1a43820af46914d82e01236e560e49bd8556bce6",
+      "release": "202609052008",
+      "manifestSha256": "568362eb35efe678114ba227c13292d3fe06565a4eee24645f34c7407ee0e88b",
+      "applications": [
+        {
+          "id": "gis-sld-financial-sandbox",
+          "entry": "solar-bess-topology-v7/gis-sld-financial-sandbox/index.html"
+        }
+      ],
+      "rootOriginDependencies": [
+        "/grid_substations.geojson",
+        "/dist/repd_master.json"
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "id": "gis-sld-financial-sandbox",
+      "title": "GIS SLD Financial Sandbox",
+      "entry": "../layer-apps/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html",
+      "owner": {
+        "repository": "https://github.com/Ventusltd/gis-sld-sandbox.git",
+        "commit": "1a43820af46914d82e01236e560e49bd8556bce6",
+        "release": "202609052008",
+        "manifestSha256": "568362eb35efe678114ba227c13292d3fe06565a4eee24645f34c7407ee0e88b"
+      }
+    },
+    {
+      "id": "module-layout",
+      "title": "Module Layout",
+      "entry": "../layer-apps/solar-bess-topology-v7/module-layout/index.html",
+      "owner": {
+        "repository": "https://github.com/Ventusltd/layout-tool.git",
+        "commit": "5c450e27e430d6eb5d80070f794a5660f30015a1",
+        "release": "202609051955",
+        "manifestSha256": "57cf6fbf60cd50a50b2c230aa14a081835e1b1728dfd0f0f2129887250988f5c"
+      }
+    },
+    {
+      "id": "cable-geometry-visualiser",
+      "title": "Cable Geometry",
+      "entry": "../layer-apps/solar-bess-topology-v7/cable-geometry-visualiser/index.html",
+      "owner": {
+        "repository": "https://github.com/Ventusltd/cable-trench-or-drill.git",
+        "commit": "e6132475d1d369422f5ae98624c01ecb8c14f39e",
+        "release": "202609052001",
+        "manifestSha256": "a344ed826eeb29c37f2ebdefaf7699591dcdbf94320847f2d4e91a94a6c33193"
+      }
+    }
+  ],
+  "navigation": [
+    {
+      "id": "gis-sld-financial-sandbox",
+      "entry": "../layer-apps/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html",
+      "owner": {
+        "repository": "https://github.com/Ventusltd/gis-sld-sandbox.git",
+        "commit": "1a43820af46914d82e01236e560e49bd8556bce6",
+        "release": "202609052008",
+        "manifestSha256": "568362eb35efe678114ba227c13292d3fe06565a4eee24645f34c7407ee0e88b"
+      },
+      "title": "GIS SLD Financial Sandbox"
+    },
+    {
+      "id": "module-layout",
+      "entry": "../layer-apps/solar-bess-topology-v7/module-layout/index.html",
+      "owner": {
+        "repository": "https://github.com/Ventusltd/layout-tool.git",
+        "commit": "5c450e27e430d6eb5d80070f794a5660f30015a1",
+        "release": "202609051955",
+        "manifestSha256": "57cf6fbf60cd50a50b2c230aa14a081835e1b1728dfd0f0f2129887250988f5c"
+      },
+      "title": "Module Layout"
+    },
+    {
+      "id": "cable-geometry-visualiser",
+      "entry": "../layer-apps/solar-bess-topology-v7/cable-geometry-visualiser/index.html",
+      "owner": {
+        "repository": "https://github.com/Ventusltd/cable-trench-or-drill.git",
+        "commit": "e6132475d1d369422f5ae98624c01ecb8c14f39e",
+        "release": "202609052001",
+        "manifestSha256": "a344ed826eeb29c37f2ebdefaf7699591dcdbf94320847f2d4e91a94a6c33193"
+      },
+      "title": "Cable Geometry"
+    },
+    {
+      "id": "dc-ac-lv-topology-review",
+      "entry": "../layer-apps/solar-bess-topology-v7/dc-ac-lv-topology-review/index.html",
+      "owner": {
+        "repository": "https://github.com/Ventusltd/layout-tool.git",
+        "commit": "e201075e052bfc71e7fef01f1360f319808cb78f",
+        "release": "202609051858",
+        "manifestSha256": "bb6d0a5cf4cf63d68b3d5cb02e55c27f1ccc0646135d7e39cdedbbe3da262796"
+      },
+      "title": "DC/AC LV Topology Review"
+    }
+  ]
+}

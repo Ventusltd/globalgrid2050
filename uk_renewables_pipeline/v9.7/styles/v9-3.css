@@ -172,21 +172,11 @@
     min-width: 68px;
   }
 
-  /* A thumb, not a mouse pointer. These were measured at 37 x 21 px on the
-     served page — below Apple's 44 x 44 minimum and well below Android's
-     48 dp — in a product whose reported defect was that its primary control
-     could not be hit. Making them smaller on the smaller screen was exactly
-     backwards. inline-flex so the label centres inside the enlarged box. */
   .action-link,
   .action-disabled,
   .copy-id {
-    align-items: center;
-    display: inline-flex;
-    font-size: 9px;
-    justify-content: center;
-    min-height: 44px;
-    min-width: 44px;
-    padding: 4px 6px;
+    font-size: 8px;
+    padding: 4px 5px;
   }
 
   .results-meta,
@@ -216,26 +206,8 @@
   display: none;
 }
 
-/* DESKTOP ONLY, AND THAT IS THE WHOLE FIX.
-
-   This declaration was unconditional. The media query above it closes on the
-   preceding line, so it applied at every width, and on a phone it forced a
-   1280 px table inside a 371 px wrapper. Measured 2026-09-05 at 393 x 852:
-   the ACTIONS column's MAP anchor was drawn with its left edge at x = 1156,
-   763 px past the right edge of the viewport, and document.elementFromPoint()
-   at the anchor's own centre returned null. The link was correct and pointed
-   at the canonical receiver; it simply could not be reached with a thumb.
-   That is what "the map button doesn't work just tested on mobile" was.
-
-   Eleven columns do not fit on a phone and never did, which is why v7.css
-   hides five of them below 769 px and the row markup re-states their facts in
-   .project-meta and .mobile-extra. Both halves are needed: measured by
-   ablation, this rule alone left the anchor 346 px off-screen and the column
-   rule alone left it 799 px off-screen. */
-@media (min-width: 769px) {
-  .tablewrap table {
-    min-width: 1280px;
-  }
+.tablewrap table {
+  min-width: 1280px;
 }
 
 .reference-cell {

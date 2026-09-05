@@ -1,73 +1,13 @@
 /* V9.6.1 changes the mobile projects viewport only. The inherited V9.5.1
-   table width, rows, columns, typography and all non-mobile layout remain.
-
-   WHAT WAS REMOVED HERE, AND WHY.
-   V9.6.1 added `.tablewrap .hide-mobile { display: table-cell; }` inside this
-   query, to put all eleven columns on the phone behind a horizontal swipe. It
-   out-specifies the `.hide-mobile{display:none}` that v7.css has applied below
-   769 px since V7, so the five columns v7 hides came back. Combined with the
-   unconditional 1280 px table minimum in v9-3.css it drew the ACTIONS column —
-   the MAP button — 763 px past the right edge of a 393 px viewport, with
-   document.elementFromPoint() at the anchor's centre returning null. Measured
-   2026-09-05; reported by the architect on a real iPhone as "the map button
-   doesn't work just tested on mobile". This is not a regression from the
-   deep-link work of the same night: v9.6.2 serves the identical rule, so the
-   button has been unreachable on a phone since V9.6.1 shipped.
-
-   The swipe it was reaching for was never an affordance a reader could find,
-   and the five columns' facts are not lost by hiding them: the row already
-   prints REPD ref, GlobalGrid ref and updated date in .project-meta, and
-   county and operator in .mobile-extra, both of which v9-3.css shows only
-   below 769 px precisely so this trade is even.
-
-   overflow-x: auto stays. Nothing should need it now — the table is asserted
-   to fit its wrapper at 393 px by tests/browser_map_reachability_v9_7.mjs —
-   but a long site name must be able to scroll rather than be clipped away. */
+   table width, rows, columns, typography and all non-mobile layout remain. */
 @media (max-width: 768px) {
   .tablewrap {
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
   }
 
-  /* THE ACTIONS COLUMN IS PINNED TO THE RIGHT EDGE.
-
-     Hiding five columns and lifting the 1280 px minimum brings the table from
-     1280 px to 588 px, which still does not fit a 371 px wrapper: measured at
-     393 x 852, SITE NAME 131, TECHNOLOGY 114, STATUS 96, CAPACITY 60, NEWS
-     SIGNAL 107, ACTIONS 80. Five columns of real REPD content do not fit a
-     phone, and shrinking type until they do makes the page unreadable to make
-     one button reachable.
-
-     So the button stops depending on the fit. The last column is stuck to the
-     right edge of the scrolling wrapper, which makes MAP visible and hit-
-     testable at every horizontal scroll position and for every row, whatever
-     a site name's length does to the columns beside it. That is a stronger
-     guarantee than "it happens to fit today": a longer name in a later REPD
-     release cannot push it off again.
-
-     The two rules below then narrow the widest cells so the pinned column
-     covers as little as possible — the badge wraps instead of forcing its
-     whole label onto one line, and the signal note gets the width it needs
-     rather than the 100 px it inherited from a desktop layout. */
-  .tablewrap th:last-child,
-  .tablewrap td:last-child {
-    background: var(--panel);
-    border-left: 1px solid var(--soft);
-    position: sticky;
-    right: 0;
-  }
-
-  .tablewrap th:last-child {
-    background: #050505;
-    z-index: 6;
-  }
-
-  .tablewrap .badge {
-    white-space: normal;
-  }
-
-  .tablewrap .signal-note {
-    max-width: 76px;
+  .tablewrap .hide-mobile {
+    display: table-cell;
   }
 }
 

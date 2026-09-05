@@ -1,10 +1,9 @@
 import { escapeHtml } from "../core/utils.js";
 import {
   atlasCentresOnRepdPointV9_7,
-  atlasReceiverV9_7,
   atlasUnavailableReasonV9_7,
   buildAtlasDeepLinkV9_7,
-  verifyAtlasReceiverV9_7,
+  loadAtlasReceiverV9_7,
 } from "../core/atlas-receiver-v9-7.js";
 import { state } from "../core/state.js";
 import {
@@ -289,27 +288,14 @@ async function copyProjectId(button) {
 
 export async function loadProjectsV9_5_1() {
   try {
-    /* NOTHING CROSS-ORIGIN GATES THE FIRST ROW.
-
-       This was a Promise.all of the project payload AND a fetch to
-       ventusltd.github.io, because atlasUrlV9_5_1() is synchronous and
-       renderTable() calls it once per row, so the receiver had to be known
-       before the first paint. The consequence, measured 2026-09-05 at a phone
-       viewport: not one of 7,680 rows could appear until a request to a SECOND
-       ORIGIN had done DNS, TCP, TLS and a round trip — 59 ms on a wired link,
-       which is why every desktop check passed, and a cold-radio handshake on
-       the device the complaint came from. index.html:157 paints an empty
-       <tbody> with no placeholder, so the reader saw nothing at all for the
-       duration.
-
-       The receiver is now known at import (see core/atlas-receiver-v9-7.js),
-       so this awaits the payload alone. The contract is still read — fired
-       here, awaited by nobody — and the only thing it can do is change or
-       withdraw the links, which re-renders. On a correct estate it never
-       does, because the compiled contract is pinned to the published one by
-       testcode/drivers/link-targets.mjs. */
-    const verifying = verifyAtlasReceiverV9_7();
-    const model = await loadCanonicalProjectsV9_5_1();
+    /* The deep-link contract is fetched beside the project payload, not after
+       it: atlasUrlV9_5_1() is synchronous and renderTable() calls it once per
+       row, so the receiver must be known before the first paint. In parallel,
+       because neither read depends on the other. */
+    const [model] = await Promise.all([
+      loadCanonicalProjectsV9_5_1(),
+      loadAtlasReceiverV9_7(),
+    ]);
     all = [...model.projects];
     filtered = all;
     metadata = model.metadata;
@@ -323,16 +309,6 @@ export async function loadProjectsV9_5_1() {
     hydrateFiltersFromUrl();
     apply({ syncUrl: false });
     document.getElementById("releaseMeta").textContent = `V9.5.1 interface · V${release.data_parent.release} canonical data spine · all ${all.length.toLocaleString("en-GB")} qualifying records loaded`;
-
-    /* Re-render only if the engine's published contract disagrees with the one
-       compiled in — a different canonical receiver, or this one retired. Not
-       awaited, so a slow or dead contract costs the reader nothing, and on the
-       normal path `changed` is false and this does no work at all. */
-    verifying.then((result) => {
-      if (result.changed) refreshProjectsV9_5_1();
-      syncMapAtlasNavV9_7();
-      if (!result.verified) console.warn(`V9.5.1 MAP: ${result.reason}`);
-    });
   } catch (error) {
     console.error(error);
     document.getElementById("tbody").innerHTML = '<tr><td colspan="11" style="text-align:center;color:#ff6666">Canonical Q2 REPD data unavailable. V9.5.1 has failed closed.</td></tr>';
@@ -376,23 +352,4 @@ export function bindProjectControlsV9_5_1() {
     const button = event.target.closest(".copy-id");
     if (button) copyProjectId(button);
   });
-}
-
-/* The MAP ATLAS nav button is static HTML, so it cannot follow the receiver the
-   way a row's MAP cell does - and until 2026-09-05 it pointed at the retired V8
-   Atlas while every row pointed at the canonical one. The href in index.html is
-   now the compiled canonical route, which is correct before any network exists;
-   this re-points it only if the live contract disagrees, and hides it if the
-   contract withdraws the receiver entirely. Same signal, same moment, as the
-   table's own re-render. */
-function syncMapAtlasNavV9_7() {
-  const nav = document.getElementById("mapAtlasNav");
-  if (!nav) return;
-  const route = atlasReceiverV9_7();
-  if (!route) {
-    nav.hidden = true;
-    return;
-  }
-  nav.hidden = false;
-  nav.href = route;
 }

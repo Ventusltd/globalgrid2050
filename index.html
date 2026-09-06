@@ -160,46 +160,6 @@
     color: #7fa8bd;
   }
 
-  details.area { border-bottom:1px solid #333; margin:0; }
-  details.area > summary { list-style:none; cursor:pointer; padding:14px 0; color:#00ffff;
-    font-weight:bold; font-size:22px; display:flex; align-items:baseline; gap:14px;
-    flex-wrap:wrap; }
-  details.area > summary .stamp { color:#53ff4c; font-size:17px; font-weight:bold; }
-  details.area > summary::-webkit-details-marker { display:none; }
-  details.area > summary::before { content:"[+] "; color:#00ffff; }
-  details.area[open] > summary::before { content:"[2] "; }
-  details.area > summary:hover { color:#66ffff; }
-  ul.drawer li.now { border-top:0; }
-  ul.drawer li.now a { color:#53ff4c; font-weight:bold; }
-  ul.drawer { list-style:none; margin:0 0 16px; padding:0; max-height:240px; overflow-y:auto;
-    -webkit-overflow-scrolling:touch; }
-  ul.drawer li { padding:9px 0 9px 22px; border-top:1px solid #1c1c1c; font-size:17px; }
-  ul.drawer a { color:#7fa8bd; }
-
-  details.area { border-bottom:1px solid #333; }
-  details.area > summary { list-style:none; cursor:pointer; padding:16px 0; color:#00ffff;
-    font-weight:bold; font-size:21px; }
-  details.area > summary::-webkit-details-marker { display:none; }
-  details.area > summary::before { content:"[+] "; color:#00ffff; }
-  details.area[open] > summary::before { content:"[2] "; }
-  details.area > summary:hover { color:#66ffff; }
-  ul.drawer { list-style:none; margin:0 0 14px; padding:0; }
-  ul.drawer li { padding:9px 0 9px 24px; border-top:1px solid #1c1c1c; font-size:16px; }
-  ul.drawer a { color:#7fa8bd; }
-
-  details.nest { border-top:1px solid #1c1c1c; }
-  details.nest > summary { list-style:none; cursor:pointer; padding:10px 0 10px 24px;
-    color:#7a8a94; font-size:15px; font-weight:normal; }
-  details.nest > summary::-webkit-details-marker { display:none; }
-  details.nest > summary::before { content:"[+] "; color:#4f6570; }
-  details.nest[open] > summary::before { content:"[2] "; }
-  details.nest > summary:hover { color:#9fc3d0; }
-  details.nest ul.drawer li { padding-left:46px; font-size:15px; }
-
-  .archive-note { margin:44px 0 0; font-size:14px; }
-  .archive-note a { color:#5a5a5a; }
-  .archive-note a:hover { color:#8a8a8a; }
-
   @media (max-width: 600px) {
     body {
       padding: 25px;
@@ -234,38 +194,325 @@
 <input type="text" id="gridSearch" placeholder="Search everything..." autocomplete="off" aria-label="Search GlobalGrid2050">
 <div id="menu"></div>
 
-<div id="areas"></div>
+<h2>Building now</h2>
 
-<details class="area" id="test-code">
-  <summary>Test Code</summary>
-  <div class="lane">
-    <details class="nest"><summary>202609060537 — See measurements as soon as you draw</summary><ul class="drawer"><li><a href="./testcode/202609060537/atlas/">Open GridAtlas 202609060537</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060537-test-record.json">Test record</a></li><li><a href="./testcode/202609060528/atlas/">Previous GridAtlas 202609060528</a></li></ul></details>
-    <details class="nest"><summary>202609060528 — Keep long-distance exports finite</summary><ul class="drawer"><li><a href="./testcode/202609060528/atlas/">Open GridAtlas 202609060528</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060528-test-record.json">Test record</a></li><li><a href="./testcode/202609060521/atlas/">Previous GridAtlas 202609060521</a></li></ul></details>
-    <details class="nest"><summary>202609060521 — Preserve outlines at the vertex limit</summary><ul class="drawer"><li><a href="./testcode/202609060521/atlas/">Open GridAtlas 202609060521</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060521-test-record.json">Test record</a></li><li><a href="./testcode/202609060517/atlas/">Previous GridAtlas 202609060517</a></li></ul></details>
-    <details class="nest"><summary>202609060517 — Check the complete app before opening</summary><ul class="drawer"><li><a href="./testcode/202609060517/atlas/">Open GridAtlas 202609060517</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060517-test-record.json">Test record</a></li><li><a href="./testcode/202609060509/atlas/">Previous GridAtlas 202609060509</a></li></ul></details>
-    <details class="nest"><summary>202609060509 — Keep measurements and Layers usable</summary><ul class="drawer"><li><a href="./testcode/202609060509/atlas/">Open GridAtlas 202609060509</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060509-test-record.json">Test record</a></li><li><a href="./testcode/202609060504/atlas/">Previous GridAtlas 202609060504</a></li></ul></details>
-    <details class="nest"><summary>202609060504 — Remove unwanted polygon vertices</summary><ul class="drawer"><li><a href="./testcode/202609060504/atlas/">Open GridAtlas 202609060504</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060504-test-record.json">Test record</a></li><li><a href="./testcode/202609060503/atlas/">Previous GridAtlas 202609060503</a></li></ul></details>
-    <details class="nest"><summary>202609060503 — Recover tools and retain map controls</summary><ul class="drawer"><li><a href="./testcode/202609060503/atlas/">Open GridAtlas 202609060503</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060503-test-record.json">Test record</a></li><li><a href="./testcode/202609060441/atlas/">Previous accepted GridAtlas 202609060441</a></li><li><a href="./testcode/202609060447/atlas/">Historical GridAtlas 202609060447</a></li></ul></details>
-    <details class="nest"><summary>202609060447 — Historical GridAtlas Test Code - Recover embedded tools (acceptance withdrawn)</summary><ul class="drawer"><li><a href="./testcode/202609060447/atlas/">Open GridAtlas 202609060447</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060447-test-record.json">Test record</a></li><li><a href="./testcode/202609060441/atlas/">Previous GridAtlas 202609060441</a></li></ul></details>
-    <details class="nest"><summary>202609060441 — Export small polygons consistently</summary><ul class="drawer"><li><a href="./testcode/202609060441/atlas/">Open GridAtlas 202609060441</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060441-test-record.json">Test record</a></li><li><a href="./testcode/202609060435/atlas/">Previous GridAtlas 202609060435</a></li></ul></details>
-    <details class="nest"><summary>202609060435 — Use drawing controls by keyboard</summary><ul class="drawer"><li><a href="./testcode/202609060435/atlas/">Open GridAtlas 202609060435</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060435-test-record.json">Test record</a></li><li><a href="./testcode/202609060418/atlas/">Previous GridAtlas 202609060418</a></li></ul></details>
-    <details class="nest"><summary>202609060432 — Latest Cable Test Code - Restored drawing and export</summary><ul class="drawer"><li><a href="./testcode/202609060432/cable/">Open Cable Geometry 202609060432</a></li><li><a href="./testcode/202609060418/atlas/">Open GridAtlas 202609060418</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060432-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060418 — Download the map as a PDF</summary><ul class="drawer"><li><a href="./testcode/202609060418/atlas/">Open GridAtlas 202609060418</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/releases/202609060418-test-record.json">Test record</a></li><li><a href="./testcode/202609060401/atlas/">Previous GridAtlas 202609060401</a></li></ul></details>
-    <details class="nest"><summary>202609060401 — Inspect and refine polygon coordinates</summary><ul class="drawer"><li><a href="./testcode/202609060401/atlas/">Open GridAtlas 202609060401</a></li><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/202609060400/atlas/">Previous GridAtlas 202609060400</a></li><li><a href="./testcode/202609060352/atlas/">Earlier GridAtlas 202609060352</a></li><li><a href="./testcode/202609060351/atlas/">Earlier GridAtlas 202609060351</a></li><li><a href="./testcode/releases/202609060401-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060349 — Latest Pipeline News Test Code - Review and compare core projects</summary><ul class="drawer"><li><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></li><li><a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a></li><li><a href="./testcode/202609060345/pipeline/">Previous Pipeline News 202609060345</a></li><li><a href="./testcode/202609060343/pipeline/">Earlier Pipeline News 202609060343</a></li><li><a href="./testcode/releases/202609060349-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060342 — Previous Pipeline News Test Code - Search, export and assess coverage</summary><ul class="drawer"><li><a href="./testcode/202609060342/pipeline/">Open Pipeline News 202609060342</a></li><li><a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a></li><li><a href="./testcode/202609060340/pipeline/">Previous Pipeline News 202609060340</a></li><li><a href="./testcode/202609060338/pipeline/">Earlier Pipeline News 202609060338</a></li><li><a href="./testcode/202609060337/pipeline/">Earlier Pipeline News 202609060337</a></li><li><a href="./testcode/releases/202609060342-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060334 — Previous Pipeline News Test Code - Inspect and export project evidence</summary><ul class="drawer"><li><a href="./testcode/202609060334/pipeline/">Open Pipeline News 202609060334</a></li><li><a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a></li><li><a href="./testcode/202609060333/pipeline/">Previous Pipeline News 202609060333</a></li><li><a href="./testcode/202609060318/pipeline/">Earlier Pipeline News 202609060318</a></li><li><a href="./testcode/releases/202609060334-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060327 — Protect and undo drawing edits</summary><ul class="drawer"><li><a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a></li><li><a href="./testcode/202609060318/pipeline/">Open Pipeline News 202609060318</a></li><li><a href="./testcode/202609060325/atlas/">Previous GridAtlas 202609060325</a></li><li><a href="./testcode/releases/202609060327-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060324 — Keep and reopen drawings</summary><ul class="drawer"><li><a href="./testcode/202609060324/atlas/">Open GridAtlas 202609060324</a></li><li><a href="./testcode/202609060318/pipeline/">Open Pipeline News 202609060318</a></li><li><a href="./testcode/202609060322/atlas/">Previous GridAtlas 202609060322</a></li><li><a href="./testcode/202609060320/atlas/">Earlier GridAtlas 202609060320</a></li><li><a href="./testcode/releases/202609060324-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060318 — Previous Pipeline News Test Code - Wider project coverage</summary><ul class="drawer"><li><a href="./testcode/202609060318/pipeline/">Open Pipeline News 202609060318</a></li><li><a href="./testcode/202609060309/atlas/">Open GridAtlas 202609060309</a></li><li><a href="./testcode/202609060316/pipeline/">Previous Pipeline News 202609060316</a></li><li><a href="./testcode/202609060315/pipeline/">Earlier Pipeline News 202609060315</a></li><li><a href="./testcode/202609060232/pipeline/">Previous Pipeline News 202609060232</a></li><li><a href="./testcode/releases/202609060318-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060309 — Poly Zone drawing controls</summary><ul class="drawer"><li><a href="./testcode/202609060309/atlas/">Open GridAtlas 202609060309</a></li><li><a href="./testcode/202609060232/pipeline/">Open Pipeline News 202609060232</a></li><li><a href="./testcode/releases/202609060309-test-record.json">Test record</a></li><li><a href="./testcode/202609060308/atlas/">Previous GridAtlas 202609060308</a></li><li><a href="./testcode/releases/202609060308-test-record.json">Earlier test record</a></li></ul></details>
-    <details class="nest"><summary>202609060300 — Offshore routes</summary><ul class="drawer"><li><a href="./testcode/202609060300/atlas/">Open GridAtlas 202609060300</a></li><li><a href="./testcode/202609060232/pipeline/">Open Pipeline News 202609060232</a></li><li><a href="./testcode/releases/202609060300-test-record.json">Test record</a></li><li><a href="./testcode/202609060228/atlas/">Previous GridAtlas 202609060228</a></li></ul></details>
-    <details class="nest"><summary>202609060232 — Codex - 6 September 2026</summary><ul class="drawer"><li><a href="./testcode/202609060228/atlas/">Open GridAtlas</a></li><li><a href="./testcode/202609060232/pipeline/">Open Pipeline News</a></li><li><a href="./testcode/202609060232/">Test Code overview</a></li><li><a href="./testcode/releases/202609060232-test-record.json">Test record</a></li></ul></details>
-    <details class="nest"><summary>202609060213 — Earlier Pipeline News Test Code - Coverage and reported projects</summary><ul class="drawer"><li><a href="./testcode/202609060213/pipeline/">Pipeline News 202609060213</a></li><li><a href="./testcode/202609060208/">Earlier Pipeline News 202609060208</a></li><li><a href="./testcode/202609060206/">Earlier Pipeline News 202609060206</a></li><li><a href="./testcode/202609060204/">Earlier Pipeline News 202609060204</a></li></ul></details>
-    <details class="nest"><summary>202609051906 — Previous tested build - 5 September 2026 - Grid controls and design tools</summary><ul class="drawer"><li><a href="./testcode/202609051906/atlas/">Open GridAtlas</a></li><li><a href="./testcode/202609051906/pipeline/">Open Pipeline News</a></li><li><a href="./testcode/202609051906/">Test Code overview</a></li><li><a href="./testcode/releases/202609051927-tested-layers.json">Version and test record</a></li></ul></details>
-    <details class="nest"><summary>202609051623 — Previous release - 5 September 2026 (202609051623)</summary><ul class="drawer"><li><a href="./testcode/202609051623/pipeline/">Open Pipeline News</a></li><li><a href="./testcode/202609051623/atlas/">Open GridAtlas</a></li><li><a href="./testcode/202609051623/">Test Code overview</a></li><li><a href="https://github.com/Ventusltd/teleprinter/blob/9a7d29cd61c75ed301a4c18bad75aa74d6a90b8b/drivers/codex/PRINT-TEST-202609051623.md">Test results and limitations</a></li><li><a href="./testcode/releases/202609051650-final.json">Timestamped release record</a></li></ul></details>
-  </div>
-</details>
+<p class="statusline"><a href="./status.html">Build status</a> — what is being built right now, written at intervals so the work can be picked up again when a session ends.</p>
+<p class="statusline"><a id="build-plan-restart" href="https://ventusltd.github.io/spiders/codex/build-plan/">Build plan / AI restart</a> &mdash; 50 planned Pipeline News builds and 50 planned GridAtlas builds, with priorities, repository owners and restart guidance.</p>
+
+
+
+<div class="build">
+  <a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a>
+  <p class="what">The map. REPD projects, the GB transmission network, substations and measured grid distance. Current generation 202609042123 (v9.116).</p>
+  <p class="prev">Superseded generation 202609041957 (v9.115) and every earlier release are recorded in <a href="./historical_builds.html">Historical builds</a>, with their commits and evidence.</p>
+</div>
+
+<div class="build">
+  <a href="./uk_renewables_pipeline/v9.7/">Pipeline News</a>
+  <p class="what">The UK renewables pipeline, tracked. Newest published version v9.7.</p>
+  <p class="prev">The estate record labels v9.7 <strong>CANDIDATE</strong> and <a href="./uk_renewables_pipeline/v9.6.2/">v9.6.2</a> <strong>LIVE VALIDATED</strong>; v9.7 is the link that was circulated. Latest intelligence release: <a href="./pipelinenews_intelligence/202609050309/">202609050309</a>.</p>
+</div>
+
+<div class="build">
+  <a href="https://ventusltd.github.io/ventus-grid-engine/">Grid Engine</a>
+  <p class="what">Every piece of grid mathematics in the estate, drawn as one graph: which engine owns a calculation, which copies of it exist elsewhere, and which of those have drifted. The deep-link contract the dashboards are meant to share is in here too.</p>
+  <p class="prev">Open it: <a href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">the engine graph</a> · <a href="https://ventusltd.github.io/ventus-grid-engine/?graph=gridatlas-lineage">Grid Atlas cartridge lineage</a></p>
+  <p class="prev">Working paper: <a href="./papers/202609060045-published-fault-level/">Published, dated, never calculated — fault levels on an open grid map</a>. What a fault level is and why one number is not one, what each GB network publishes, and the contract under which the map may show any of it. Implemented and proven in the engine.</p>
+  <p class="prev">Workbench: <a href="./grid_engine/">Electrification Workbench</a> — the arithmetic of the electrification paper, live and interactive. Annual energy to average power, peak at a load factor you state, nameplate at a capacity factor, and displaced fuel converted through useful output. Every figure is computed by the engine module itself, not by the page, and carries the assumption it rests on.</p>
+</div>
+
+<div class="build">
+  <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html">Federation Map</a>
+  <p class="what">Every repository in the estate and what depends on what, drawn as one dependency map.</p>
+  <p class="prev">Print view: <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html">radial</a></p>
+</div>
+
+<section id="test-code">
+<h2>Test Code</h2>
+<div class="build" id="test-code-atlas-202609060537">
+<h3>Latest GridAtlas Test Code - See measurements as soon as you draw</h3>
+<p><a href="./testcode/202609060537/atlas/">Open GridAtlas 202609060537</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060537 UTC</strong> (06:37 BST): area and perimeter values stay visible immediately after drawing, including desktop and narrow-phone layouts.</p>
+<p>Measurement values appear before the editing controls where space is limited. Existing control actions and the two-column phone layout are preserved. Fresh-draw, Reset, Undo and Layers checks supplement the retained geometry, export and tool tests. <a href="./testcode/releases/202609060537-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060528/atlas/">Previous GridAtlas 202609060528</a>: finite long-distance exports; fresh-draw readouts may sit below the viewport on desktop or narrow phones.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060528">
+<h3>Previous GridAtlas Test Code - Keep long-distance exports finite</h3>
+<p><a href="./testcode/202609060528/atlas/">Open GridAtlas 202609060528</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060528 UTC</strong> (06:28 BST): polygon perimeter and CSV distances stay finite for points near opposite sides of the globe.</p>
+<p>A rounding-boundary correction preserves every input coordinate. Download checks cover UK, southern-hemisphere and near-antipodal outlines, alongside vertex limits, saved drafts, controls, embedded tools and Print. <a href="./testcode/releases/202609060528-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060521/atlas/">Previous GridAtlas 202609060521</a>: vertex-limit protection; near-antipodal exports may omit perimeter or contain NaN distances.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060521">
+<h3>Previous GridAtlas Test Code - Preserve outlines at the vertex limit</h3>
+<p><a href="./testcode/202609060521/atlas/">Open GridAtlas 202609060521</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060521 UTC</strong> (06:21 BST): adding a vertex at the 4,096-vertex limit leaves the existing outline, history and saved draft intact.</p>
+<p>Remove a vertex to make room, then insert again. Mouse and phone-touch checks verify refusal and recovery alongside the composition guard, measurement controls, editing, tools and Print. <a href="./testcode/releases/202609060521-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060517/atlas/">Previous GridAtlas 202609060517</a>: check the complete app before opening.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060517">
+<h3>Previous GridAtlas Test Code - Check the complete app before opening</h3>
+<p><a href="./testcode/202609060517/atlas/">Open GridAtlas 202609060517</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060517 UTC</strong> (06:17 BST): an incomplete or inconsistent app manifest is rejected before the shell loads.</p>
+<p>The check requires each essential cartridge exactly once with a matching load order. A refused load preserves saved polygon data, which returns unchanged when a valid app loads. Existing measurement controls, editing, tools and Print remain covered by browser checks. <a href="./testcode/releases/202609060517-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060509/atlas/">Previous GridAtlas 202609060509</a>: unobstructed measurement and Layers controls.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060509">
+<h3>Previous GridAtlas Test Code - Keep measurements and Layers usable</h3>
+<p><a href="./testcode/202609060509/atlas/">Open GridAtlas 202609060509</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060509 UTC</strong> (06:09 BST): the Layers control moves into the measurement dock so polygon readouts remain clear.</p>
+<p>The Layers panel fits above the dock on phones, its last option remains reachable, and closing measurements restores the original control position. Checks cover narrow phones, landscape and desktop, plus editing, tool recovery and Print. <a href="./testcode/releases/202609060509-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060504/atlas/">Previous GridAtlas 202609060504</a>: undoable vertex removal; its floating Layers control may overlap measurement readouts.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060504">
+<h3>Previous GridAtlas Test Code - Remove unwanted polygon vertices</h3>
+<p><a href="./testcode/202609060504/atlas/">Open GridAtlas 202609060504</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060504 UTC</strong> (06:04 BST): remove the selected vertex without redrawing the outline, then undo or redo the change.</p>
+<p>Locked outlines cannot be edited, and polygons retain at least three vertices. The edited outline persists after reload. Desktop and phone checks also retain the map controls and recoverable embedded tools. <a href="./testcode/releases/202609060504-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060503/atlas/">Previous GridAtlas 202609060503</a>: recover tools and retain map controls.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060503">
+<h3>Previous GridAtlas Test Code - Recover tools and retain map controls</h3>
+<p><a href="./testcode/202609060503/atlas/">Open GridAtlas 202609060503</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060503 UTC</strong> (06:03 BST): retry a failed embedded-tool load while retaining the map menus, search, tool controls and polygon.</p>
+<p>Cancelled retries preserve the session; confirmed retries reopen the original tool. Desktop and phone checks cover menu layout, search, tools, keyboard focus and polygon editing. <a href="./testcode/releases/202609060503-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060441/atlas/">Previous accepted GridAtlas 202609060441</a> &middot; <a href="./testcode/202609060447/atlas/">Historical GridAtlas 202609060447</a>: acceptance withdrawn because its map-controls layout did not initialize; use0503.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060447">
+<h3>Historical GridAtlas Test Code - Recover embedded tools (acceptance withdrawn)</h3>
+<p><a href="./testcode/202609060447/atlas/">Open GridAtlas 202609060447</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060447 UTC</strong> (05:47 BST): retry a failed embedded-tool load with clear confirmation while preserving the Atlas drawing.</p>
+<p>Closing and reopening a tool retains its editing session. Escape and keyboard focus return to the appropriate control. Desktop and phone checks cover a temporary tool outage, cancelled and confirmed retries, retained inputs and polygon editing. <a href="./testcode/releases/202609060447-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060441/atlas/">Previous GridAtlas 202609060441</a>: export small polygons consistently.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060441">
+<h3>Previous GridAtlas Test Code - Export small polygons consistently</h3>
+<p><a href="./testcode/202609060441/atlas/">Open GridAtlas 202609060441</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060441 UTC</strong> (05:41 BST): export small polygons with consistent boundary direction while preserving every entered coordinate.</p>
+<p>Checks cover tiny clockwise outlines, actual GeoJSON downloads and retained keyboard, touch, editing and validation controls. <a href="./testcode/releases/202609060441-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060435/atlas/">Previous GridAtlas 202609060435</a>: use drawing controls by keyboard.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060435">
+<h3>Previous GridAtlas Test Code - Use drawing controls by keyboard</h3>
+<p><a href="./testcode/202609060435/atlas/">Open GridAtlas 202609060435</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060435 UTC</strong> (05:35 BST): collapse and expand measurement controls using Enter or Space, with visible focus and larger buttons.</p>
+<p>Focus returns to the appropriate control, and the guidance explains Undo accurately. Polygon editing, validation and native map-PDF downloads remain available. <a href="./testcode/releases/202609060435-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060418/atlas/">Previous GridAtlas 202609060418</a>: download the map as a PDF.</p>
+</div>
+
+<div class="build" id="test-code-cable-202609060432">
+<h3>Latest Cable Test Code - Restored drawing and export</h3>
+<p><a href="./testcode/202609060432/cable/">Open Cable Geometry 202609060432</a> &middot; <a href="./testcode/202609060418/atlas/">Open GridAtlas 202609060418</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060432 UTC</strong> (05:32 BST): use the restored legacy geometry drawings, edit cable formation and spacing, and download or copy the resulting snapshot.</p>
+<p>Drawing View keeps an Exit button available and supports Escape. Desktop and phone checks cover the three drawings, geometry calculations and exported inputs. <a href="./testcode/releases/202609060432-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060418">
+<h3>Previous GridAtlas Test Code - Download the map as a PDF</h3>
+<p><a href="./testcode/202609060418/atlas/">Open GridAtlas 202609060418</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060418 UTC</strong> (05:18 BST): save the visible map directly as a PDF, with readable source attribution, generation and capture time.</p>
+<p>Actual downloads and rendered files are checked in Chromium, Firefox and WebKit at desktop and phone widths. Polygon editing and validation remain available. <a href="./testcode/releases/202609060418-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060401/atlas/">Previous GridAtlas 202609060401</a>: inspect and refine polygon coordinates.</p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060401">
+<h3>Previous GridAtlas Test Code - Inspect and refine polygon coordinates</h3>
+<p><a href="./testcode/202609060401/atlas/">Open GridAtlas 202609060401</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
+<p><strong>202609060401 UTC</strong> (05:01 BST): identify crossed, repeated or degenerate outlines before using their area or GeoJSON; keep the outline editable for correction.</p>
+<p><a href="./testcode/202609060400/atlas/">Previous GridAtlas 202609060400</a>: edit vertex coordinates numerically, with validation, Undo and protected input during zoom. <a href="./testcode/202609060352/atlas/">Earlier GridAtlas 202609060352</a>: download vertex coordinates and cumulative distances as CSV. <a href="./testcode/202609060351/atlas/">Earlier GridAtlas 202609060351</a>: fit the working polygon back into view.</p>
+<p>Desktop and phone checks cover drawing, imports, exports, numeric edits and invalid outlines. <a href="./testcode/releases/202609060401-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-pipeline-202609060349">
+<h3>Latest Pipeline News Test Code - Review and compare core projects</h3>
+<p><a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a> &middot; <a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a></p>
+<p><strong>202609060349 UTC</strong> (04:49 BST): use core project actions comfortably on a phone and open metric explanations with accessible controls.</p>
+<p><a href="./testcode/202609060345/pipeline/">Previous Pipeline News 202609060345</a>: review projects with or without mapped coordinates. <a href="./testcode/202609060343/pipeline/">Earlier Pipeline News 202609060343</a>: sort the core register by listed SUB distance in either direction, with unavailable distances last.</p>
+<p>Desktop and phone checks include coordinate filters, actual exported records, ordering and accessible controls. <a href="./testcode/releases/202609060349-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-pipeline-202609060342">
+<h3>Previous Pipeline News Test Code - Search, export and assess coverage</h3>
+<p><a href="./testcode/202609060342/pipeline/">Open Pipeline News 202609060342</a> &middot; <a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a></p>
+<p><strong>202609060342 UTC</strong> (04:42 BST): see actual core GRID and SUB coverage, with clear unavailable-source states and a working coverage summary.</p>
+<p><a href="./testcode/202609060340/pipeline/">Previous Pipeline News 202609060340</a>: download the selected wider-fleet projects as GeoJSON. <a href="./testcode/202609060338/pipeline/">Earlier Pipeline News 202609060338</a>: order by listed GRID or SUB distance. <a href="./testcode/202609060337/pipeline/">Earlier Pipeline News 202609060337</a>: search the wider fleet and share the selection.</p>
+<p>Desktop and phone checks cover every technology group, saved filters, distance order and actual downloads. <a href="./testcode/releases/202609060342-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-pipeline-202609060334">
+<h3>Previous Pipeline News Test Code - Inspect and export project evidence</h3>
+<p><a href="./testcode/202609060334/pipeline/">Open Pipeline News 202609060334</a> &middot; <a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a></p>
+<p><strong>202609060334 UTC</strong> (04:34 BST): download the filtered core project register as GeoJSON, with exact project identities, coordinates and explicit missing locations.</p>
+<p><a href="./testcode/202609060333/pipeline/">Previous Pipeline News 202609060333</a> (04:33 BST): open GRID and SUB details by touch or keyboard, with clear focus and Escape to close. <a href="./testcode/202609060318/pipeline/">Earlier Pipeline News 202609060318</a></p>
+<p>Desktop and phone checks cover every wider-fleet technology group, accessible details and actual filtered downloads. <a href="./testcode/releases/202609060334-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060327">
+<h3>Previous GridAtlas Test Code - Protect and undo drawing edits</h3>
+<p><a href="./testcode/202609060327/atlas/">Open GridAtlas 202609060327</a> &middot; <a href="./testcode/202609060318/pipeline/">Open Pipeline News 202609060318</a></p>
+<p><strong>202609060327 UTC</strong> (04:27 BST): lock polygon vertices while moving around the map. Unlock them to resume editing without changing the outline.</p>
+<p><a href="./testcode/202609060325/atlas/">Previous GridAtlas 202609060325</a> (04:25 BST): Undo and Redo restore earlier drawing edits, including reset and imported polygons.</p>
+<p>Drawing, history and locked-map movement checks passed on desktop and 393px phone. <a href="./testcode/releases/202609060327-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060324">
+<h3>Previous GridAtlas Test Code - Keep and reopen drawings</h3>
+<p><a href="./testcode/202609060324/atlas/">Open GridAtlas 202609060324</a> &middot; <a href="./testcode/202609060318/pipeline/">Open Pipeline News 202609060318</a></p>
+<p><strong>202609060324 UTC</strong> (04:24 BST): open a saved polygon GeoJSON file. Invalid files leave the current drawing intact.</p>
+<p><a href="./testcode/202609060322/atlas/">Previous GridAtlas 202609060322</a> (04:22 BST): download the drawn polygon as GeoJSON, preserving its coordinates and area units. <a href="./testcode/202609060320/atlas/">Earlier GridAtlas 202609060320</a> (04:20 BST): keep the polygon through page reloads, with an honest status if browser storage is unavailable.</p>
+<p>Drawing, reload, reset and file round-trip checks passed on desktop and 393px phone. <a href="./testcode/releases/202609060324-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-pipeline-202609060318">
+<h3>Previous Pipeline News Test Code - Wider project coverage</h3>
+<p><a href="./testcode/202609060318/pipeline/">Open Pipeline News 202609060318</a> &middot; <a href="./testcode/202609060309/atlas/">Open GridAtlas 202609060309</a></p>
+<p><strong>202609060318 UTC</strong> (04:18 BST): wider-fleet GRID and SUB measurements stay alongside reachable phone MAP controls, with touch-sized buttons.</p>
+<p><a href="./testcode/202609060316/pipeline/">Previous Pipeline News 202609060316</a> (04:16 BST): SUB measurements joined by exact wider-project identity. <a href="./testcode/202609060315/pipeline/">Earlier Pipeline News 202609060315</a> (04:15 BST): GRID measurements for the wider fleet.</p>
+<p><a href="./testcode/202609060232/pipeline/">Previous Pipeline News 202609060232</a></p>
+<p>Existing core-project results are preserved. All technology groups and table pages were checked on desktop and phone, including source-unavailable behavior. <a href="./testcode/releases/202609060318-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060309">
+<h3>Previous GridAtlas Test Code - Poly Zone drawing controls</h3>
+<p><a href="./testcode/202609060309/atlas/">Open GridAtlas 202609060309</a> &middot; <a href="./testcode/202609060232/pipeline/">Open Pipeline News 202609060232</a></p>
+<p><strong>202609060309 UTC</strong> (04:09 BST): an explicit Reset polygon control clears the drawing. Clicking the map background or switching tools preserves it. Polygon and circle labels remain outside the drawing area.</p>
+<p>Desktop and 393px phone drawing checks passed. <a href="./testcode/releases/202609060309-test-record.json">Test record</a></p>
+<p><a href="./testcode/202609060308/atlas/">Previous GridAtlas 202609060308</a> (04:08 BST): polygon and circle labels outside the drawing area, with drawing handles kept in view. <a href="./testcode/releases/202609060308-test-record.json">Earlier test record</a></p>
+</div>
+
+<div class="build" id="test-code-atlas-202609060300">
+<h3>Previous GridAtlas Test Code - Offshore routes</h3>
+<p><a href="./testcode/202609060300/atlas/">Open GridAtlas 202609060300</a> &middot; <a href="./testcode/202609060232/pipeline/">Open Pipeline News 202609060232</a></p>
+<p>GridAtlas <strong>202609060300 UTC</strong> (04:00 BST): offshore projects keep their measured straight-line distances and show that the export route is unassessed. Highway-derived corridor estimates remain available for onshore projects.</p>
+<p>Desktop and 393px phone browser checks passed for offshore routes and all six menus. <a href="./testcode/releases/202609060300-test-record.json">Test record</a> &middot; <a href="./testcode/202609060228/atlas/">Previous GridAtlas 202609060228</a></p>
+</div>
+
+<div class="build" id="test-code-current-202609060232">
+<h3>Previous GridAtlas Test Code - Codex - 6 September 2026</h3>
+<p><a href="./testcode/202609060228/atlas/">Open GridAtlas</a> &middot; <a href="./testcode/202609060232/pipeline/">Open Pipeline News</a> &middot; <a href="./testcode/202609060232/">Test Code overview</a></p>
+<p>GridAtlas <strong>202609060228 UTC</strong> (03:28 BST): design tools above Layers, matching colours, clear dropdown menus, a wider desktop address bar, and Elements.</p>
+<p>Pipeline News <strong>202609060232 UTC</strong> (03:32 BST): automated BBC RSS discovery, source freshness, and Cearn Solar Farm under temporary ID <strong>9999-REPD-TBC</strong> until a verified official REPD match replaces it.</p>
+<p>Chrome desktop and 393px phone checks passed: 54 for Atlas and 16 for the full Pipeline app. <a href="./testcode/releases/202609060232-test-record.json">Test record</a></p>
+</div>
+
+<div class="build" id="test-code-earlier-pipeline-202609060213">
+<h3>Earlier Pipeline News Test Code - Coverage and reported projects</h3>
+<p><a href="./testcode/202609060213/pipeline/">Pipeline News 202609060213</a> (03:13 BST): open the full register with Cearn Solar Farm clearly marked under its provisional identity.</p>
+<p><a href="./testcode/202609060208/">Earlier Pipeline News 202609060208</a> (03:08 BST): inspect attributed Cearn project evidence. <a href="./testcode/202609060206/">Earlier Pipeline News 202609060206</a> (03:06 BST): review BBC RSS discovery and its publication snapshot.</p>
+<p><a href="./testcode/202609060204/">Earlier Pipeline News 202609060204</a> (03:04 BST): inspect the pinned GRID and SUB coverage audit and unmatched project identities.</p>
+</div>
+
+<div class="build" id="test-code-current-202609051906">
+<h3>Previous tested build - 5 September 2026 - Grid controls and design tools</h3>
+<p><a href="./testcode/202609051906/atlas/">Open GridAtlas</a> &middot; <a href="./testcode/202609051906/pipeline/">Open Pipeline News</a> &middot; <a href="./testcode/202609051906/">Test Code overview</a></p>
+<p>Version <strong>202609051906 UTC</strong>. GRID and SUBS controls, layers minimised on arrival, and separate GIS SLD Financial Sandbox, Module Layout and Cable Geometry tools. File &gt; Print PDF captures the app without asking to share your screen.</p>
+<p>50 Chrome visits passed: 25 PDF and 25 source downloads; all 25 source prints passed independent checks. Design-tool controls were also tested at desktop and phone sizes. Printing inside the original design tools remains separate from these app-only PDF checks.</p>
+<p><a href="./testcode/releases/202609051927-tested-layers.json">Version and test record</a></p>
+</div>
+
+<div class="build" id="test-code-final-20260905">
+<h3>Previous release - 5 September 2026 (202609051623)</h3>
+<p><a href="./testcode/202609051623/pipeline/">Open Pipeline News</a> &middot; <a href="./testcode/202609051623/atlas/">Open GridAtlas</a> &middot; <a href="./testcode/202609051623/">Test Code overview</a></p>
+<p>Version <strong>202609051623 UTC</strong>. Separate <strong>Print PDF</strong> and <strong>Print source code</strong> commands in File. 50 Chrome test visits passed: 25 PDF and 25 source downloads. All 25 source prints passed independent offline checks.</p>
+<p>Known limitation: native Atlas screen capture is still unreliable; the separate native test passed 1 of 3 cases. This daily final is not a Design Freeze.</p>
+<p><a href="https://github.com/Ventusltd/teleprinter/blob/9a7d29cd61c75ed301a4c18bad75aa74d6a90b8b/drivers/codex/PRINT-TEST-202609051623.md">Test results and limitations</a> &middot; <a href="./testcode/releases/202609051650-final.json">Timestamped release record</a></p>
+</div>
+<p><a href="./testcode/202609051608/">Previous Print test candidate - 202609051608 UTC</a>: <strong>File: Print PDF</strong> and <strong>Print source code</strong>. 25 PDF and 25 source downloads passed Chrome driver checks; 25/25 source prints passed independent offline checks. <strong>Not Design Freeze:</strong> native capture passed Pipeline but refused reduced frames in both Atlas cases. <a href="https://github.com/Ventusltd/teleprinter/blob/acd13d1109a7ad53f4bf30304945172e84303608/drivers/codex/PRINT-TEST-202609051608.md">Measured results and limits</a>.</p>
+<p><a href="./testcode/202609051531/">Previous Print test candidate - 202609051531 UTC</a>: <strong>File: Print PDF</strong> and <strong>Print source code</strong>. 25 PDF and 25 source downloads passed the Chrome driver checks; all 25 source files also passed independent offline checks. <strong>Not Design Freeze:</strong> automatic screen capture still fails in two Atlas cases. <a href="https://github.com/Ventusltd/teleprinter/blob/712401c/drivers/codex/PRINT-TEST-202609051531.md">Measured results and limits</a>.</p>
+<p><a href="./testcode/202609051517/">Previous Print test candidate — 202609051517 UTC</a>: <strong>File → Print</strong> keeps the full screen and its layers, with a header and footer. <strong>Print source code</strong> includes the current view and fetched dependencies for attaching in AI chat. Testing is in progress; this is not a Design Freeze.</p>
+<p><a href="./testcode/202609051457/">Previous print test candidate — 202609051457 UTC</a>: <strong>File → Print</strong> keeps the full screen and its layers, with a header and footer. <strong>Print source code</strong> includes the current view and fetched dependencies for attaching in AI chat. Testing is in progress; this is not a Design Freeze.</p>
+<p><a href="./testcode/202609051419/">Test Code — 202609051419 UTC</a>: open Teleprinter in Pipeline News or Atlas. <strong>Print</strong> saves the screen; <strong>Print source code</strong> gives you a text file to attach in ChatGPT, with a copy option for pasting.</p>
+<p><a href="./testcode/202609051344/">Previous Test Code — 202609051344 UTC</a>: 100 REPD records plus 10 industrial sites; 94/100 REPD and 10/10 industrial cases pass. <a href="./testcode/202609051344/results.json">Coded results and remaining failures</a>. No screenshots retained.</p>
+<p><a href="./testcode/202609051300/">Grid calculation and mobile layout correction - 202609051300 UTC</a>: earlier comparison build; superseded by the detector above. Screenshot files were removed.</p>
+<p><a href="./testcode/202609051214/">Earlier correction - 202609051214 UTC</a>: Firefox arrivals, named project identity and explicit missing-location details.</p>
+<p><a href="./testcode/202609051152/">Pipeline and Grid Atlas comparison - 202609051152 UTC</a></p>
+<p>New comparison builds with mobile project cards, pagination, visible search and map exports. <a href="./testcode/202609051152/results.html">Chrome test results</a>. iPhone testing pending.</p>
+<p><a href="./uk_renewables_pipeline/202609051156/">Pipeline - 202609051156 UTC</a>: the MAP ATLAS link opens the canonical receiver instead of the retired V8 Atlas, and a deep-link contract this build cannot read no longer withdraws every MAP link. Measured against v9.7 on Pixel 7 emulation: the first row's MAP control moves from 744 px past the right edge to on screen, and from a 37x21 target to 44x44. It does NOT bound the table - 7,680 rows, 323,802 elements, a 1,244,152 px document, 55% taller than v9.7. The 202609051152 build above renders 50 rows and 3,314 elements for the same complete, searchable, exportable 7,680 records, and is better on that axis by two orders of magnitude.</p>
+<p><a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas - LIVE, generation 202609051340</a>: a PDF the page writes itself. Open File and choose "Save this view as a PDF" and a file arrives - no print dialog, no destination, no printer driver. That pipeline is the part that produced no file at all in Firefox with a physical printer selected, and this path does not use it. One page, sized to the captured map, so there is no white margin and nothing is cropped: a 1390x518 capture becomes a 1190x443pt page. Print also fills the sheet edge to edge now, with nothing on it but the map and its credit - the previous build still printed the whole layers dashboard and a HIDE LAYERS button over the footer. Proven on real downloads in Chromium 151, Firefox 153 and WebKit 26.5, phone and desktop: 48 of 48 against these live bytes, 6 of 12 against what was live before, naming the missing control on every engine. Earlier pinned candidates remain published unchanged at <a href="https://ventusltd.github.io/gridatlas/atlas/v/202609051329/">202609051329</a>, <a href="https://ventusltd.github.io/gridatlas/atlas/v/202609051309/">202609051309</a> and <a href="https://ventusltd.github.io/gridatlas/atlas/v/202609051211/">202609051211</a>. iPhone remains untested; Android coverage is Chrome device emulation on Windows, which is not a phone.</p>
+<p class="what">iPhone testing pending on both. Android coverage is Chrome device emulation on Windows, which is not a phone.</p>
+</section>
+
+<section class="archive">
+  <h2>Historical builds</h2>
+  <p>Everything published before these: every earlier Grid Atlas generation with its commit and evidence, every Pipeline News version and intelligence release, the solar and BESS topology sandboxes, the cable and component references, the planning and requirements documents. Nothing has been removed — it has been moved off the front page.</p>
+  <a class="link-row" href="./historical_builds.html">Open historical builds</a>
+  <p class="what">Or type in the search box above to reach any page in the estate directly.</p>
+  <details class="versions">
+    <summary>Published pipeline versions (15)</summary>
+    <ul>
+      <li><a href="./uk_renewables_pipeline/dashboard.html">UK Renewables Pipeline Analytics Dashboard V1</a> <span class="vnote">legacy · unchanged</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v2_2026-08-22.html">UK Renewables Pipeline Analytics Dashboard V2</a> <span class="vnote">previous version · 22 Aug 2026</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html">UK Renewables Pipeline Analytics Dashboard V3</a> <span class="vnote">previous live · 22 Aug 2026</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v4_live.html">UK Renewables Pipeline Analytics Dashboard V4</a> <span class="vnote">previous live · REPD + auto major-news feed · solar ≥30MW · BESS ≥100MW</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v5_live.html">UK Solar + Storage Daily V5</a> <span class="vnote">previous live · daily newspaper · solar >49MWp · BESS >100MW</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v6_live.html">UK Solar + Storage Daily V6</a> <span class="vnote">DESNZ Q2 2026 validated snapshot · solar >1MW · BESS >100MW · canonical GlobalGrid/REPD IDs</span></li>
+      <li><a href="./uk_renewables_pipeline/v7/">UK Solar + Storage Daily V7</a> <span class="vnote">LIVE MVP · wholesale V5 baseline · V6 refinements pending</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.7/">UK Renewables Pipeline V9.7</a> <span class="vnote">CANDIDATE · build-time regional classifier · published 133-item decision ledger · V9.6.2 project/mobile runtime frozen</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6.2/">UK Renewables Pipeline V9.6.2</a> <span class="vnote">LIVE VALIDATED · canonical UK news plus separate international, US and Europe solar/storage views</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6.1/">UK Renewables Pipeline V9.6.1</a> <span class="vnote">FROZEN PREVIOUS APP · V9.5.1 runtime · mobile table scroll repair only</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6/">UK Renewables Pipeline V9.6</a> <span class="vnote">DISCONTINUED · broken mobile release · do not use</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.5.1/">UK Renewables Pipeline V9.5.1</a> <span class="vnote">LIVE · full 133-headline newspaper · 45 canonical REPD matches · functional RELEVANT filter</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.5/">UK Renewables Pipeline V9.5</a> <span class="vnote">LIVE · canonical REPD Ref news binder · measured recall guards · separate app</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.4/">UK Renewables Pipeline V9.4</a> <span class="vnote">LIVE · click REPD UPDATED header to toggle newest/oldest · separate app</span></li>
+      <li><a href="./uk_renewables_pipeline/v9/">UK Renewables Pipeline V9.3.1</a> <span class="vnote">V9.3.1 LIVE · frozen app · official REPD/GlobalGrid references · REPD update-date sorting · 7,680 records</span></li>
+    </ul>
+  </details>
+  <details class="versions">
+    <summary>Pipeline News intelligence releases (34)</summary>
+    <ul>
+      <li><a href="./pipelinenews_intelligence/202609050309/">Pipeline News — 202609050309</a></li>
+      <li><a href="./pipelinenews_intelligence/202609050233/">Pipeline News — 202609050233</a></li>
+      <li><a href="./pipelinenews_intelligence/202609050216/">Pipeline News — 202609050216</a></li>
+      <li><a href="./pipelinenews_intelligence/202609050200/">Pipeline News — 202609050200</a></li>
+      <li><a href="./pipelinenews_intelligence/202609040144/">Pipeline News — 202609040144</a> <span class="vnote">NEW · every project row now uses one strict MAP handoff to the exact Grid Atlas v9.104 production receiver at commit ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9 · the immutable wrapper promotes source release 202609040044 byte-for-byte: 8,756 source rows, 8,743 clickable MAP rows and 13 explicitly unresolved, with no synthetic receiver or intercepted route · exact-head Pipeline Pages run 33827954787 passed on main 3493be1c4ebf3dabbc94135db17f433bb7892a8e, including public bytes, pointers and both browser proofs · on throttled 393×852 public Chrome, the Biomass route for REPD 155 exposed one 44×44 MAP action with no horizontal overflow and opened the exact Markinch deep link; its first coordinate answer arrived in 484.6 ms, five ≥33 kV links were drawn, the nearest was 2.49 km, and the nearest 400 kV substation was 28.82 km</span></li>
+      <li><a href="./pipelinenews_intelligence/202609032329/">Pipeline News — 202609032329</a> <span class="vnote">superseded by 202609040144 · a dash stops claiming a search that never ran · a project with no grid figure carried one hover sentence, “No mapped feature found for this project”, which asserts a search that ran and came back empty · counted on the release’s own shipped files: 7,680 records, 3,047 carrying a measurement, 4,633 dashed, and the payload’s own coverage block reads with_circuit 3,047 and no_circuit 0 — so not one project was measured and found nothing, and that sentence described 0 of the 4,633 rows it was printed on · the two silences are now separate: 4,605 rows hold a register coordinate and were never searched, 28 have no usable coordinate and cannot be · it does not explain WHY the 4,605 were not measured, which is a second idea and will be a second version · no name is invented anywhere: 1,154 of 4,737 mapped substations carry no name at all, 34 of them at 400 kV, and an empty field described as empty is the only honest third option beside hiding a gap and inventing over it</span></li>
+      <li><a href="./pipelinenews_intelligence/202609032251/">Pipeline News — 202609032251</a> <span class="vnote">superseded by 202609032329 · grid proximity is computed for the whole fleet, not just solar and battery · the file carried 3,047 rows in two technologies and now carries 4,138 in eleven: solar 1,747, battery 1,300, biomass 814, hydro 150, hydrogen 59, ACT 37, tidal 18, geothermal 7, CAES 4, flywheel 1 · nothing had ever put the wider fleet in front of the engine, and the engine never filtered by technology — it reads every row with usable coordinates and passes the technology through · no second implementation: the added rows are reshaped into the spine’s own 40-column contract and measured by the existing engine, point to segment, all five mapped voltages, so a distance here equals the same distance in the Atlas · all 3,047 previously published rows are byte-identical, proved by re-running the original spine through today’s engine first · 18 of the 1,091 added rows sit more than 30 km from any mapped circuit — Orkney, Shetland, Highland, Fermanagh and offshore, where the mapped GB layers do not reach — and that is a distance to the nearest mapped circuit, never a connection distance · town, region and country are left empty on the added rows rather than guessed</span></li>
+      <li><a href="./pipelinenews_intelligence/202609032159/">Pipeline News — 202609032159</a> <span class="vnote">superseded by 202609032251 · one summary now drives every surface it is supposed to · switching to a wider-fleet technology used to move the three gauge numbers and nothing else, so the record counter, the three gauge arcs and EXPORT FILTERED CSV all kept the previous technology’s answer and nothing said so · measured on LANDFILL GAS: the counter read 7,680 of 7,680 records and largest 4,100 MW while the gauge beside it read 22.5 · the export was the one that left the building, writing the spine’s 3,563 solar rows under a flywheel heading and stating that count with confidence · all five surfaces move together now, and a cut that cannot honestly fill the product’s fifty columns declines in words, names the ten it could have filled and the forty it could not, and writes no file · verified on three browsers, own ports, own profiles, desktop and a 393×852 phone</span></li>
+      <li><a href="./pipelinenews_intelligence/202609031308/">Pipeline News — 202609031308</a> <span class="vnote">superseded by 202609032159 · the twenty REPD technology types the spine does not carry are one labelled control in the technology row now, not twenty more tabs · the row held twenty-five controls, and the twenty are extremely long-tailed — Landfill Gas 275, Anaerobic Digestion 253, Biomass (dedicated) 159, EfW Incineration 122, Small Hydro 108, Hydrogen 60, and then a tail in which nine of the twenty hold five projects or fewer and one holds a single project · measured on a 390 px viewport, the technology row was 25 controls over 11 wrapped lines and 584 px tall, which pushed the product's own SOLAR, BATTERY, ONSHORE and OFFSHORE several lines down the page; it is 6 controls over 3 lines and 152 px now, with no horizontal overflow, and the control is 44 px high at every width rather than only under the phone breakpoint · every option carries its own project count, read from the payload, so the tail is visibly a tail instead of twenty equal-looking choices · Unknown is shown like any other type rather than hidden, because a bucket nobody can see is one that grows in silence the day REPD adds a type the mapper does not know · the twenty also gain the deep link they never had: the spine's technology whitelist has five members and silently coerced everything else to ALL TECH, so ?technology=Flywheels opened the product and said nothing about why · all twenty now open from the address bar under the REPD's own names, case-insensitively, and a link to one of the spine's four is never intercepted · same payload, same filter, same MAP link and the same REPD reference carried through, so MAP still arrives resolved with the camera on the project rather than the default UK view · 13 rows still carry no REPD reference and are left unbound rather than guessed</span></li>
+      <li><a href="./pipelinenews_intelligence/202609030009/">Pipeline News — 202609030009</a> <span class="vnote">the twenty REPD technologies the spine does not carry are now tabs in the product's own technology row, not a panel of their own · the DESNZ Renewable Energy Planning Database carries 24 technology types and the spine admits four — Solar Photovoltaics, Battery, Wind Onshore, Wind Offshore — so the other twenty sit beside them under the REPD's own names · additive by construction: the spine binds its technology handler once at boot, so tabs appended afterwards carry no spine listener and the spine's technology value is never set to something its whitelist would reject; the four original tabs keep their own handler, payload and render path · a MAP link from a wider-fleet row now arrives resolved, with the camera on the project rather than the default view · 13 rows still carry no REPD reference — 11 absent from the source, 2 genuinely ambiguous — and are left unbound rather than guessed, because a wrong reference would point the Atlas at a different project and make every number on the card about the wrong site · superseded by 202609031308, which collapses the twenty tabs into one labelled control and gives all twenty the deep link they never had</span></li>
+      <li><a href="./pipelinenews_intelligence/202609022308/">Pipeline News — 202609022308</a> <span class="vnote">wider fleet tabs in the technology row · superseded by 202609030009, which resolves the MAP arrival</span></li>
+      <li><a href="./pipelinenews_intelligence/202609021945/">Pipeline News — 202609021945</a> <span class="vnote">wider fleet · superseded by 202609022308, which puts the tabs in the product's own technology row</span></li>
+      <li><a href="./pipelinenews_intelligence/202609020611/">Pipeline News — 202609020611</a> <span class="vnote">NEW · a kilometre is not a connection, and the panel now points at the measurement that is · two sites a few kilometres apart can share no published circuit, and the two ends of ONE published circuit can be over 200 km of route apart - the longest, PEMB41-WALH41, is 223.195 km, and 17 of 1,392 circuits exceed 100 km · the panel still reports straight-line kilometres, which is what it measures; MAP now reports the count of published circuits, which is what decides whether two sites are connected at all · lengths read from circuits[].ohl_km + cable_km</span></li>
+      <li><a href="./pipelinenews_intelligence/202609020552/">Pipeline News — 202609020552</a> <span class="vnote">a rating quoted without its season flatters the network, and the Atlas never sums them · Pipeline News quotes no MVA rating anywhere, verified by searching every html, mjs and css in the parent release; what the strip now does is say what the ratings in the Atlas mean · NESO publishes a winter rating for all 1,392 circuits and a summer rating for 1,276, summer differs from winter on 1,081 of those, and winter is the more generous figure on 1,273 · one strip caption, no payload, no render-time network call · superseded by 202609020611, which says a kilometre is not a connection</span></li>
+      <li><a href="./pipelinenews_intelligence/202609020025/">Pipeline News — 202609020025</a> <span class="vnote">the GRID + SUB strip states the limit of the word nearest · NESO names 886 transmission substations at 132 kV and above; the Atlas locates 502 of them, and the owner product publishes the other 384 without coordinates rather than dropping them, saying so in its own join block · so the nearest MAPPED substation may not be the nearest substation, and a reader comparing two projects on that number is comparing coverage as much as geography · counts read from derived/connection-points.v3.json · superseded by 202609020552, which says a rating without its season is ambiguous</span></li>
+      <li><a href="./pipelinenews_intelligence/202609012326/">Pipeline News — 202609012326</a> <span class="vnote">the GRID + SUB strip names what the published transmission network can now answer · every refusal is kept verbatim - a distance is not a route, a rating is not headroom, and the DC model is not a loading, because what is already flowing is published nowhere · what is added is only what is answerable from a published source: NESO ETYS 2025 Appendix B, via Ventusltd/data-grid-gb · superseded by 202609020025, which states the limit of the word nearest</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312339/">Pipeline News — 202608312339</a> <span class="vnote">two panels that answered nothing are withdrawn and GB electricity context arrives · RELATIONSHIP EVIDENCE showed three rows all saying ABSTAIN, and PROJECT INTELLIGENCE mixed four taxonomies into one count of 3,054; both assets stay registered and auditable, marked withdrawn, and the page now names only surfaces that exist · a GB ELECTRICITY CONTEXT surface reads the decade of system prices from the data repository that owns them, pinned by SHA-256 into this release: 2016-2026, 3,339 complete days, mean 78.18 GBP/MWh, 580 days containing at least one negative settlement period, lowest -185.33 on a July day · historic context, not a forecast, no project join · built by the Codex session, verified and published by Claude · superseded by 202609012326, which names what the published transmission network can answer</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312244/">Pipeline News — 202608312244</a> <span class="vnote">the two panels that answered nothing are withdrawn · RELATIONSHIP EVIDENCE showed three rows all saying ABSTAIN, and PROJECT INTELLIGENCE mixed four taxonomies into one count of 3,054; both assets stay registered and auditable, marked withdrawn, and the page names only surfaces that exist · published on 202609020042 to close a hole in the public record: it is the parent of 202608312339 and was the one step in this lineage that was built but never mirrored · superseded by 202608312339, which adds the GB electricity context</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312212/">Pipeline News — 202608312212</a> <span class="vnote">sector intelligence opens again · it had been failing on every release since 202608312109: the corrected module was registered under a new key, as it must be, but still declared the older payload's generation, so an explicit runtime identity assertion threw and the panel read FAIL · module and payload now attest separately · and the grid table no longer says sorting puts the best-connected first, which was the same verdict the colour bands were removed for, written in prose · found by the Codex session auditing this estate in parallel · superseded by 202608312339, which withdraws the non-answers and adds GB electricity context</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312202/">Pipeline News — 202608312202</a> <span class="vnote">built for the phone first · on a phone in portrait the page was pinned to exactly 100vh, and on iOS 100vh is the viewport with the browser chrome hidden, so it was taller than what you could see whenever the toolbar was showing · the last rows sat under the toolbar and the page scrolled in two places that disagreed · the body now grows like a document, and the newspaper and table panes use dvh, which tracks the toolbar · landscape was already covered; portrait never was · superseded by 202608312212, which reopens sector intelligence</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312145/">Pipeline News — 202608312145</a> <span class="vnote">grid proximity reports a distance and no longer grades it · the table graded every project STRONG, MODERATE, DISTANT or REMOTE on a green-to-red scale, and the GRID column printed that verdict instead of the measurement · a developer may build their own substation, so distance to a mapped asset is not a verdict on a scheme · the bands, the colours, the sort by verdict and the phrase Target acquired are all gone, and the distances, voltages and working are untouched · superseded by 202608312202, which repairs the phone layout</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312114/">Pipeline News — 202608312114</a> <span class="vnote">the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312145, which stops grading grid proximity</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312109/">Pipeline News — 202608312109</a> <span class="vnote">the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312114, which removes the headlines with no project signal</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312056/">Pipeline News — 202608312056</a> <span class="vnote">the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312109, which removes the headlines with no project signal</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312037/">Pipeline News — 202608312037</a> <span class="vnote">the MAP button now opens the Grid Atlas that carries the grid maths · click MAP on a project and the Atlas opens with the substations switched on, the links drawn to the nearest substations at 33 kV and above, and a layout you can open from the card · it pointed at the older atlas until now, which is why none of that appeared · the route is the stable /gridatlas/atlas/ one, so promoting an Atlas release cannot break these links · superseded by 202608312056, which removes the headlines with no project signal</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311858/">Pipeline News — 202608311858</a> <span class="vnote">GRID and SUB now sit in the ACTIONS column beside MAP, where they are visible without scrolling the table sideways · GRID is the straight-line distance to the nearest mapped circuit, SUB is the distance to the nearest substation at 33 kV or above · a scheme of a few tens of MW connects at a substation, and the substation is the closer of the two for 68% of the 30–40 MW band · sort by distance is still in the SORT control · not a cable route, and not headroom: fault level and thermal headroom need DNO network data such as source impedance and are established by a connection study · superseded by 202608312037, which points MAP at the Atlas carrying the grid maths</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311816/">Pipeline News — 202608311816</a> <span class="vnote">PROJECT SIZE range filter above the technology buttons · narrow the register to a band of megawatts, 1 to 5,000 · the slider moves over 49 round values that thicken where the register is dense, because the median project is 12.3 MW and 98% sit under 500 MW — a linear track would put 30–40 MW inside two pixels · type an exact band in the boxes beside it · shareable as mw_min and mw_max · superseded by 202608311858, which moves the grid distance into ACTIONS and adds the 33 kV substation</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311800/">Pipeline News — 202608311800</a> <span class="vnote">GRID column in the project table · straight-line distance from each project to the nearest mapped circuit, sortable nearest-first, marked BETA · the GRID panel's own number, carried across and re-measured at build time against Ventusltd/grid-distance-maths — all 3,047 reproduce · projects with no mapped circuit show a dash, never a number · not a cable route, and not headroom: fault level and thermal headroom need DNO network data such as source impedance and are established by a connection study · superseded by 202608311816, which adds the project size filter</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311731/">Pipeline News — 202608311731</a> <span class="vnote">search the register by town, postcode, county, project, operator or reference from the one bar · TOWN column narrowed and the horizontal scrollbar put back under the table · click-to-sort on CAPACITY, COUNTY, TOWN and POSTCODE · postcode copied from the REPD register, town resolved from it through the ONS Postcode Directory at build time · no network call at runtime · superseded by 202608311800, which adds the GRID distance column</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311645/">Pipeline News — 202608311645</a> <span class="vnote">first release with TOWN and POSTCODE columns · superseded by 202608311731, which narrows the town column, restores the horizontal scrollbar and extends the search bar to the new fields</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311610/">Pipeline News — 202608311610</a> <span class="vnote">GRID beta · radius search, sortable register, targeting scope and indicative connections · 253,897 mapped segments at 400/275/220/132/66/33 kV plus estimated UKPN 11 kV · transmission and distribution answered separately · same haversine and Earth radius as the Atlas and the GIS SLD sandbox</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311558/">Pipeline News — 202608311558</a> <span class="vnote">targeting scope and grid-probable band · transmission voltages only</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311530/">Pipeline News — 202608311530</a> <span class="vnote">first grid-proximity release · superseded by 202608311558, which corrects three nearest-search defects</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311343/">Pipeline News — 202608311343</a> <span class="vnote">open the panel for the window between consent and construction, grid and data-centre proximity · 3,054 live solar and battery projects · DESNZ REPD Q2 2026 under OGL v3.0 · Atlas V8 deep links</span></li>
+    </ul>
+  </details>
+
+
+<section id="about-media" aria-labelledby="about-media-title">
+<h2 id="about-media-title">About &amp; Media</h2>
+<p class="link-row"><a href="./papers/202609060203-electrification/">Electrification and the Size of Britain&#8217;s Electricity System</a></p>
+<p class="statusline">Ventus technical discussion paper &middot; 6 September 2026 &middot; Electricity demand, winter peaks and network reinforcement.</p>
+<p class="link-row"><a href="./podcast_transcripts/">Podcast Transcripts</a></p>
+</section>
 
 <div id="science-graphics">
 <section id="terminal-pipes" aria-label="Decorative terminal cable sketch" style="margin:12px 0"><pre aria-hidden="true" style="font:12px/1.1 Consolas,monospace;color:#aeb3b8;max-width:100%;overflow:hidden;height:54px"></pre><button type="button" style="font:12px Consolas,monospace;color:#ccc;background:#222;border:1px solid #777">Pause sketch</button> <small style="font-size:11px">Decorative cable traces | <a href="https://github.com/pipeseroni/pipes.sh">pipes.sh</a> / <a href="./cartridges/202609052158-terminal-pipes/LICENSE.pipes.txt">MIT</a></small></section><script type="module" src="./cartridges/202609052158-terminal-pipes/pipes.mjs"></script>
@@ -278,7 +525,8 @@
 <div class="energy-row" data-energy="nonrenewable"><div class="energy-label"><label for="energy-nonrenewable">NON-RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-nonrenewable" max="1" value="0"></progress><small data-rate></small></div>
 <button type="button" aria-pressed="false" disabled>Pause counters</button>
 <p>Original VENTUS calculation. Fast digits illustrate an average rate; they do not imply measurement precision. Each bar fills over the current UTC minute; the numbers show each source contribution.</p>
-<details><summary>Source / calculation / limits</summary><p>Source: <a href="https://www.eia.gov/tools/faqs/faq.php?id=527&amp;t=1">U.S. Energy Information Administration (1 July 2026)</a>. World consumption in 2024: 606.0 quadrillion Btu total; 42.7 renewable. Non-renewable is the difference and includes nuclear. This is primary energy, not electricity alone.</p><p>We convert to MWh, divide by the 366 days of 2024 and multiply the average per-second rate by the elapsed seconds of this UTC minute. This illustrates historical average rates, not measured demand today. Seasonal and hourly variation are not modelled.</p><p><a href="./cartridges/202609052143-open-energy/source.json">Baseline and provenance</a> | <a href="https://www.eia.gov/about/copyrights_reuse.php">EIA reuse policy</a>. No Worldometer feed or code is used.</p></section>
+<details><summary>Source / calculation / limits</summary><p>Source: <a href="https://www.eia.gov/tools/faqs/faq.php?id=527&amp;t=1">U.S. Energy Information Administration (1 July 2026)</a>. World consumption in 2024: 606.0 quadrillion Btu total; 42.7 renewable. Non-renewable is the difference and includes nuclear. This is primary energy, not electricity alone.</p><p>We convert to MWh, divide by the 366 days of 2024 and multiply the average per-second rate by the elapsed seconds of this UTC minute. This illustrates historical average rates, not measured demand today. Seasonal and hourly variation are not modelled.</p><p><a href="./cartridges/202609052143-open-energy/source.json">Baseline and provenance</a> | <a href="https://www.eia.gov/about/copyrights_reuse.php">EIA reuse policy</a>. No Worldometer feed or code is used.</p></details>
+</section>
 <script type="module" src="./cartridges/202609052154-minute-runtime/fast-existing.mjs"></script>
 <!-- open-energy:end -->
 
@@ -332,207 +580,12 @@
 <script type="module" src="./cartridges/202609052136-terminal-progress/progress.js"></script>
 <!-- precision-board:end -->
 </div>
-</details>
 
-<p class="archive-note"><a href="./historical_builds.html">Archive</a></p>
 <footer class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
   <p>Previous homepage, kept as it was: <a href="./historical_builds.html">archive</a>.</p>
 </footer>
 
 <script src="./assets/dashboard.js?v=202609050125" defer></script>
-<script>
-const AREAS = [
-  { name:"Solar & BESS Topology", children:[
-    { name:"202608040904 — Ventus DC String Engine V11 — Live Build Monitor", url:"./v11/" },
-    { name:"202605261629 — Solar BESS Topology V7 Workspace", url:"./solar-bess-topology-v7/" },
-    { name:"202605231437 — BESS GIS SLD Financial Sandbox V8", url:"./solar-bess-topology-v8/bess-gis-sld-financial-sandbox/index.html" },
-    { name:"202605200007 — Solar BESS Topology V6 Testing Phase", url:"./solar-bess-topology-v6/" },
-    { name:"202605181155 — DC AC LV Solar PV Cable Topology Review V5", url:"./solar-bess-topology-v5/dc-ac-lv-topology-review-v5.html" },
-    { name:"202605171901 — Cable Geometry Visualiser V5", url:"./solar-bess-topology-v5/cable-geometry-visualiser-v5.html" },
-    { name:"202605171901 — Physical Solar Module Layout V5", url:"./solar-bess-topology-v5/module-layout-v5.html" },
-    { name:"202605171740 — GIS SLD Financial Sandbox V5", url:"./solar-bess-topology-v5/indexforgis-sld-v5.html" },
-    { name:"202605171530 — GIS SLD Financial Sandbox V4", url:"./solar-bess-topology-v4/indexforgis-sld-v4.html" },
-    { name:"202605162335 — GIS SLD Financial Sandbox V2", url:"./solar-bess-topology-v2/indexforgis-sld-v2.html" },
-    { name:"202605142223 — GIS SLD Topology Engine And Financial Sandbox", url:"./solar-bess-topology/indexforgis-sld.html" },
-    { name:"Solar DC String Topology Engine V6", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/" },
-    { name:"Solar DC String Topology Engine V7 Independent Workspace", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v7-development/" },
-    { name:"Solar DC String Topology Engine V8 Leapfrog Comparison", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v8-leapfrog/" },
-    { name:"Solar DC String Topology Engine V9 East-West Inverter Block", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v9-sandbox/" },
-    { name:"Ventus DC String Engine V10 — Laboratory Workbench", url:"https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/v10-development/" }
-  ]},
-  { name:"UK Grid Tracking", children:[
-    { name:"202609061004 — Pipeline News", url:"./uk_renewables_pipeline/202609061004/" },
-    { name:"202609060325 — Every Home A Charger", url:"./grid_engine/202609060325-every-home-a-charger/" },
-    { name:"202609060324 — Compute Against Charging", url:"./grid_engine/202609060324-compute-against-charging/" },
-    { name:"202609060321 — EV Depot", url:"./grid_engine/202609060321-ev-depot/" },
-    { name:"202609060318 — Solar Farm", url:"./grid_engine/202609060318-solar-farm/" },
-    { name:"202609060316 — Data Centre Connection", url:"./grid_engine/202609060316-data-centre-connection/" },
-    { name:"202609060313 — Voltage Drop", url:"./grid_engine/202609060313-voltage-drop/" },
-    { name:"202609060309 — Power Factor", url:"./grid_engine/202609060309-power-factor/" },
-    { name:"202609060305 — Interconnector", url:"./grid_engine/202609060305-interconnectors/" },
-    { name:"202609060259 — Grid Atlas", url:"https://ventusltd.github.io/gridatlas/atlas/" },
-    { name:"202609060238 — Site Geometry", url:"./grid_engine/202609060238-site-geometry/" },
-    { name:"202609060237 — Corridor Estimate", url:"./grid_engine/202609060237-corridor-estimate/" },
-    { name:"202609060236 — Published Fault Level", url:"./grid_engine/202609060236-published-fault-level/" },
-    { name:"202609060218 — Substation Growth", url:"./grid_engine/202609060218-substation-growth/" },
-    { name:"202609060217 — Solar and BESS Export", url:"./grid_engine/202609060217-solar-bess-export/" },
-    { name:"202609060213 — Route Obstacles", url:"./grid_engine/202609060213-route-obstacles/" },
-    { name:"202609060212 — Connection Cap", url:"./grid_engine/202609060212-connection-cap/" },
-    { name:"202609060211 — Diversity", url:"./grid_engine/202609060211-diversity/" },
-    { name:"202609060205 — Firm Capacity", url:"./grid_engine/202609060205-firm-capacity/" },
-    { name:"202609060148 — Electrification", url:"./grid_engine/202609060148-electrification-workbench/" },
-    { name:"202609051257 — Pipeline News 202609051156", url:"./uk_renewables_pipeline/202609051156/" },
-    { name:"202609051257 — UK Renewables Pipeline V9.7", url:"./uk_renewables_pipeline/v9.7/" },
-    { name:"202609040144 — Pipeline News", url:"./pipelinenews_intelligence/202609040144/" },
-    { name:"202609032329 — Pipeline News", url:"./pipelinenews_intelligence/202609032329/" },
-    { name:"202609032251 — Pipeline News", url:"./pipelinenews_intelligence/202609032251/" },
-    { name:"202609032159 — Pipeline News", url:"./pipelinenews_intelligence/202609032159/" },
-    { name:"202609031308 — Pipeline News", url:"./pipelinenews_intelligence/202609031308/" },
-    { name:"202609030009 — Pipeline News", url:"./pipelinenews_intelligence/202609030009/" },
-    { name:"202609022308 — Pipeline News", url:"./pipelinenews_intelligence/202609022308/" },
-    { name:"202609021945 — Pipeline News", url:"./pipelinenews_intelligence/202609021945/" },
-    { name:"202609020611 — Pipeline News", url:"./pipelinenews_intelligence/202609020611/" },
-    { name:"202609020552 — Pipeline News", url:"./pipelinenews_intelligence/202609020552/" },
-    { name:"202609020025 — Pipeline News", url:"./pipelinenews_intelligence/202609020025/" },
-    { name:"202609012326 — Pipeline News", url:"./pipelinenews_intelligence/202609012326/" },
-    { name:"202609010220 — UK Live Grid Tracker V6, Modular Electricity Market Intelligence Machine", url:"./uk_energy_tracking_v6/" },
-    { name:"202608312339 — Pipeline News", url:"./pipelinenews_intelligence/202608312339/" },
-    { name:"202608312244 — Pipeline News", url:"./pipelinenews_intelligence/202608312244/" },
-    { name:"202608312212 — Pipeline News", url:"./pipelinenews_intelligence/202608312212/" },
-    { name:"202608312202 — Pipeline News", url:"./pipelinenews_intelligence/202608312202/" },
-    { name:"202608312145 — Pipeline News", url:"./pipelinenews_intelligence/202608312145/" },
-    { name:"202608312114 — Pipeline News", url:"./pipelinenews_intelligence/202608312114/" },
-    { name:"202608312109 — Pipeline News", url:"./pipelinenews_intelligence/202608312109/" },
-    { name:"202608312056 — Pipeline News", url:"./pipelinenews_intelligence/202608312056/" },
-    { name:"202608312037 — Pipeline News", url:"./pipelinenews_intelligence/202608312037/" },
-    { name:"202608311858 — Pipeline News", url:"./pipelinenews_intelligence/202608311858/" },
-    { name:"202608311816 — Pipeline News", url:"./pipelinenews_intelligence/202608311816/" },
-    { name:"202608311800 — Pipeline News", url:"./pipelinenews_intelligence/202608311800/" },
-    { name:"202608311731 — Pipeline News", url:"./pipelinenews_intelligence/202608311731/" },
-    { name:"202608311645 — Pipeline News", url:"./pipelinenews_intelligence/202608311645/" },
-    { name:"202608311610 — Pipeline News", url:"./pipelinenews_intelligence/202608311610/" },
-    { name:"202608311558 — Pipeline News", url:"./pipelinenews_intelligence/202608311558/" },
-    { name:"202608311530 — Pipeline News", url:"./pipelinenews_intelligence/202608311530/" },
-    { name:"202608311343 — Pipeline News", url:"./pipelinenews_intelligence/202608311343/" },
-    { name:"202608241135 — UK Renewables Pipeline V9.6.2", url:"./uk_renewables_pipeline/v9.6.2/" },
-    { name:"202608241107 — UK Renewables Pipeline V9.6.1", url:"./uk_renewables_pipeline/v9.6.1/" },
-    { name:"202608241008 — UK Renewables Pipeline V9.6", url:"./uk_renewables_pipeline/v9.6/" },
-    { name:"202608232335 — UK Renewables Pipeline V9.5.1", url:"./uk_renewables_pipeline/v9.5.1/" },
-    { name:"202608232233 — UK Renewables Pipeline V9.5", url:"./uk_renewables_pipeline/v9.5/" },
-    { name:"202608232133 — UK Renewables Pipeline V9.4", url:"./uk_renewables_pipeline/v9.4/" },
-    { name:"202608232054 — UK Renewables Pipeline V9.3.1", url:"./uk_renewables_pipeline/v9/" },
-    { name:"202608231528 — UK Energy Atlas Grid Overlay V8", url:"./repd_grid_atlasv8/" },
-    { name:"202608231408 — Pipeline News v8", url:"./uk_renewables_pipeline/v8/" },
-    { name:"202608231149 — UK Solar + Storage Daily V7", url:"./uk_renewables_pipeline/v7/" },
-    { name:"202608222117 — UK Solar + Storage Daily V6", url:"./uk_renewables_pipeline/dashboard_v6_live.html" },
-    { name:"202608220404 — UK Solar + Storage Daily V5", url:"./uk_renewables_pipeline/dashboard_v5_live.html" },
-    { name:"202608220214 — UK Renewables Pipeline Analytics Dashboard V4", url:"./uk_renewables_pipeline/dashboard_v4_live.html" },
-    { name:"202608220137 — UK Renewables Pipeline Analytics Dashboard V3", url:"./uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html" },
-    { name:"202608220119 — UK Renewables Pipeline Analytics Dashboard V2", url:"./uk_renewables_pipeline/dashboard_v2_2026-08-22.html" },
-    { name:"202606182156 — UK Live Grid Tracker V5, Electricity Market Intelligence Machine", url:"./uk_energy_tracking_v5/" },
-    { name:"202606181100 — UK Generation History V6 Module", url:"./uk_energy_tracking_v6/generation_history/" },
-    { name:"202606180952 — UK Live Grid Tracker, Electricity, Carbon, Oil and Metals", url:"./uk_energy_tracking/" },
-    { name:"202606102233 — UK Generation History V6 2 Backup Mirror", url:"./uk_energy_tracking_v6_2/generation_history/" },
-    { name:"202605280542 — UK Live Grid Tracker V3, Experimental Intelligence Lab", url:"./uk_energy_tracking_v3/" },
-    { name:"202605280425 — UK Live Grid Tracker V2, Transport Energy Test Clone", url:"./uk_energy_tracking_v2/" },
-    { name:"202605202020 — UK Renewables Pipeline Analytics Dashboard V1", url:"./uk_renewables_pipeline/dashboard.html" },
-    { name:"202603150140 — Solar Deployment Statistics", url:"./solar_deployment_statistics/" },
-    { name:"Pipeline News — 202608271524 V8 Fast Candidate", url:"https://ventusltd.github.io/pipelinenews/releases/202608271524-v8-fast-candidate.html" },
-    { name:"Pipeline News — 202608260159", url:"https://ventusltd.github.io/pipelinenews/202608260159-pipelinenews/" },
-    { name:"UK Renewables Pipeline News V7", url:"https://ventusltd.github.io/pipelinenews/newsv7/" },
-    { name:"UK Renewables Pipeline News V1", url:"https://ventusltd.github.io/pipelinenews/newsv1/" },
-    /* <!-- GRIDATLAS_V9_AUTOMATION_START --> */
-    { name:"UK Grid Atlas V9.106 — Current Release (Working Verified)", url:"https://ventusltd.github.io/gridatlas/atlas/", data_gridatlas_release:"202609040337-gridatlas-v9.106" },
-    /* data-gridatlas-release="202609040337-gridatlas-v9.106" */
-    /* <!-- GRIDATLAS_V9_AUTOMATION_END --> */
-{ name:"UK Grid Atlas V9 — 202608291239", url:"https://ventusltd.github.io/gridatlas/atlas/releases/202608291239-atlas-v9/" },
-    { name:"UK Grid Atlas — Complete Version Catalogue", url:"https://ventusltd.github.io/gridatlas/atlas/" },
-    { name:"UK Macro Energy Consumption Trends ONS", url:"./uk_macro_energy_trends/" }
-  ]},
-  { name:"Data Centres & Digital Infrastructure", children:[
-    { name:"Data Centres GB — Electricity Demand Intelligence", url:"https://ventusltd.github.io/data-centres-gb/" },
-    { name:"Data Centres GB Repository", url:"https://github.com/Ventusltd/data-centres-gb" },
-    { name:"Data Centres GB Open API", url:"https://github.com/Ventusltd/data-centres-gb/blob/main/app.py" }
-  ]},
-  { name:"Cables & Conductors", children:[
-    { name:"202603202116 — Conductor Resistances", url:"./conductor_resistances/" },
-    { name:"202603151536 — AC Cables Knowledge", url:"./ac_cables_knowledge/" },
-    { name:"202603141837 — DC Cables Knowledge", url:"./dc_cables_knowledge/" }
-  ]},
-  { name:"Pricing & Materials", children:[
-    { name:"202606181026 — 33 kV UK DAP Price Estimator", url:"./33kv_uk_dap_price_estimator/" },
-    { name:"202606181026 — LV AC and DC Distribution Cables Price Estimator", url:"./lv_ac_dc_price_estimator/" },
-    { name:"Copper and Aluminium Historic Prices & Trends", url:"./copper_and_aluminium_prices_historic_trends/" }
-  ]},
-  { name:"Components", children:[
-    { name:"202603160019 — MV and HV Components", url:"./mv_and_hv_components/" },
-    { name:"202603151157 — Solar Components", url:"./solar_components/" }
-  ]},
-  { name:"Planning & Requirements", children:[
-    { name:"202607241619 — Employer’s Competence Requirements: what is expected from the Employer towards drafting good ERs?", url:"./employers_competence/" },
-    { name:"202606060924 — Employers Requirements Large Scale Solar", url:"./employers_requirments_large_scale_solar/" },
-    { name:"202606050132 — Grid Studies Public", url:"./data/grid_studies_public/" },
-    { name:"202603161720 — NSIP Solar Farms", url:"./nsip_solar_farms/" },
-    { name:"Employer Requirements BESS Notes", url:"./employers_requirements_BESS/" }
-  ]},
-  { name:"Reference & Knowledge", children:[
-    { name:"202603162230 — Power Systems Studies", url:"./power_systems_studies/" },
-    { name:"202603151548 — Single Line Diagrams And Grids", url:"./sld_single_diagrams_diagrams_and_grids/" },
-    { name:"202603122011 — Definitions", url:"./definitions/" }
-  ]},
-  { name:"About & Media", children:[
-    { name:"202609021952 — Log", url:"./estate_scan/202609021952/" },
-    { name:"202607102100 — Podcast Transcripts", url:"./podcast_transcripts/" },
-    { name:"202606110005 — Time Left Today, Hourglass to 2050", url:"./time_to_2050/" },
-    { name:"202606050123 — Why VENTUS Ltd Is Building GlobalGrid2050", url:"./why_ventusltd_building_globalgrid2050/" },
-    { name:"202604061353 — Earth", url:"./marketing/earth.html" },
-    { name:"202604052137 — Blog", url:"./blog/" },
-    { name:"GlobalGrid2050 Homepage", url:"https://ventusltd.github.io/globalgrid2050-homepage/" }
-  ]}
-];
-const escA = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function flatten(children){
-  // No sub-nests: a nested entry contributes itself and everything under it,
-  // then the whole category is re-sorted so the flat list stays newest-first.
-  const out = [];
-  for (const c of children) {
-    out.push({ name: c.name, url: c.url });
-    if (c.children) out.push(...flatten(c.children));
-  }
-  const stamp = r => (r.name.match(/^(\d{12})/) || [null, ""])[1];
-  return out.sort((x, y) => {
-    const a = stamp(x), b = stamp(y);
-    if (a && b) return b.localeCompare(a);
-    if (a) return -1;
-    if (b) return 1;
-    return 0;
-  });
-}
-const rowHtml = r => r.url
-  ? `<li><a href="${escA(r.url)}">${escA(r.name)}</a></li>`
-  : `<li>${escA(r.name)}</li>`;
-function buildAreas(){
-  document.getElementById("areas").innerHTML = AREAS.map(a =>
-    `<details class="area" data-name="${escA(a.name.toLowerCase())}">`
-    + `<summary>${escA(a.name)}</summary>`
-    + `<ul class="drawer">${flatten(a.children).map(rowHtml).join("")}</ul></details>`).join("");
-}
-function filterAreas(raw){
-  const q = raw.trim().toLowerCase();
-  document.querySelectorAll("#areas details.area").forEach(d => {
-    let shown = 0;
-    d.querySelectorAll("li").forEach(li => {
-      const hit = !q || li.textContent.toLowerCase().includes(q);
-      li.hidden = !hit; if (hit) shown++;
-    });
-    d.hidden = !(shown || !q || d.dataset.name.includes(q));
-    d.open = Boolean(q) && shown > 0;
-  });
-}
-buildAreas();
-const box = document.getElementById("gridSearch");
-if (box) box.addEventListener("input", e => filterAreas(e.target.value));
-</script>
 </body>
 </html>

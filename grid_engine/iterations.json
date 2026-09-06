@@ -100,6 +100,15 @@
       "engine": "engine/interconnector-economics.js",
       "engineCommit": "a3a5e23",
       "checks": 38
+    },
+    {
+      "stamp": "202609060309",
+      "path": "202609060309-power-factor/",
+      "title": "Power Factor Workbench",
+      "feature": "Reactive power, apparent power, and the correction that moves a site from one power factor to another — with the connection capacity that releases, and the agreed capacity it may let you fit inside.",
+      "engine": "engine/power-factor.js",
+      "engineCommit": "d1b459c",
+      "checks": 33
     }
   ]
 }

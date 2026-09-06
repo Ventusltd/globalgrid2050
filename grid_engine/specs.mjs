@@ -981,5 +981,105 @@ function render() {
       (l.bmrsCode ? l.bmrsCode : 'no code yet') + '</td></tr>').join('');
   } catch (err) { refuse('out-fleet', err.message); }
 }`
+    },
+    {
+        stamp: '202609060309',
+        slug: 'power-factor',
+        title: 'Power Factor Workbench',
+        sub: 'Capacity released without building anything',
+        feature: 'Reactive power, apparent power, and the correction that moves a site from one power factor to another — with the connection capacity that releases, and the agreed capacity it may let you fit inside.',
+        engineModule: 'power-factor.js',
+        engineCommit: 'd1b459c',
+        schema: 'ventus-grid-engine.power-factor.v1',
+        checks: 33,
+        panels: [
+            {
+                heading: '1 · THE LOAD AS THE PLANT SEES IT',
+                lede: `A load does not present kilowatts to a transformer, it presents kilovolt-amperes.
+                   Reactive power does no work, but it is carried by the same conductors and occupies
+                   the same rating as the real power beside it. That is why a site can be well inside
+                   its kW and outside its agreed capacity.`,
+                controls: [
+                    { id: 'kw', type: 'number', label: 'Real power (kW)', value: '1000', min: 1, max: 500000, step: 1 },
+                    { id: 'pf0', type: 'range', label: 'Present power factor', value: '0.85', min: 0.50, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-now'
+            },
+            {
+                heading: '2 · THE CORRECTION, AND WHAT IT GIVES BACK',
+                lede: `Correction supplies the reactive power locally instead of drawing it across the
+                   network. The site consumes exactly the same energy afterwards and occupies less of
+                   its connection. <strong>Do not aim at unity:</strong> the last few percent costs
+                   disproportionately, and a fixed bank sized for full load will over-correct at part
+                   load — at which point the site can be charged for exporting reactive power instead.`,
+                controls: [
+                    { id: 'pf1', type: 'range', label: 'Target power factor', value: '0.98', min: 0.60, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-correction',
+                tableId: 'pf-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Before', right: true }, { label: 'After', right: true }]
+            },
+            {
+                heading: '3 · AGAINST YOUR AGREED CAPACITY',
+                lede: `The figure in your connection agreement, which is commercial and is yours to
+                   type in — nothing here infers it. Watch what happens to the same load at the two
+                   power factors above.`,
+                controls: [
+                    { id: 'agreed', type: 'number', label: 'Agreed capacity (kVA)', value: '1100', min: 1, max: 500000, step: 1 }
+                ],
+                outId: 'out-agreed',
+                note: `A ratio of two numbers you supplied. It is not a connection assessment: the
+                   binding constraint may be the upstream circuit, the fault level at the busbar, or a
+                   position in a queue, none of which appear in this arithmetic.`
+            }
+        ],
+        script: `
+function bind() { ['kw','pf0','pf1','agreed'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('pf0-val').textContent = num('pf0').toFixed(2);
+  el('pf1-val').textContent = num('pf1').toFixed(2);
+  const kw = num('kw'), pf0 = num('pf0'), pf1 = num('pf1');
+
+  try {
+    const s = E.apparentPowerKva({ kw, powerFactor: pf0 });
+    const q = E.reactivePowerKvar({ kw, powerFactor: pf0 });
+    el('out-now').innerHTML =
+      '<div class="figure"><span class="q">as the plant sees it</span><span class="n">' +
+      s.value.toFixed(1) + '</span><span class="u">kVA · ' + q.value.toFixed(1) + ' kVAr reactive</span></div>' +
+      '<p class="basis">' + q.basis + '</p>';
+  } catch (err) { refuse('out-now', err.message); }
+
+  const tb = document.querySelector('#pf-table tbody');
+  try {
+    const c = E.correctionKvar({ kw, fromPowerFactor: pf0, toPowerFactor: pf1 });
+    el('out-correction').innerHTML =
+      '<div class="figure"><span class="q">correction required</span><span class="n">' +
+      c.value.toFixed(1) + '</span><span class="u">kVAr · releases ' + c.capacityReleasedKva.toFixed(1) +
+      ' kVA (' + c.capacityReleasedPercent.toFixed(1) + '%)</span></div>' +
+      '<p class="basis">' + c.basis + '</p>';
+    tb.innerHTML = [
+      ['Power factor', pf0.toFixed(2), pf1.toFixed(2)],
+      ['Real power', kw.toFixed(0) + ' kW', kw.toFixed(0) + ' kW'],
+      ['Reactive power', c.reactiveBeforeKvar.toFixed(1) + ' kVAr', c.reactiveAfterKvar.toFixed(1) + ' kVAr'],
+      ['Apparent power', c.apparentBeforeKva.toFixed(1) + ' kVA', c.apparentAfterKva.toFixed(1) + ' kVA']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:#00ff88">' + r[2] + '</td></tr>').join('');
+  } catch (err) {
+    refuse('out-correction', err.message);
+    tb.innerHTML = '';
+  }
+
+  try {
+    const before = E.againstAgreedCapacity({ kw, powerFactor: pf0, agreedKva: num('agreed') });
+    let after = null;
+    try { after = E.againstAgreedCapacity({ kw, powerFactor: pf1, agreedKva: num('agreed') }); } catch (e) {}
+    el('out-agreed').innerHTML =
+      '<div class="figure"><span class="q">at ' + pf0.toFixed(2) + '</span><span class="n' +
+      (before.exceeds ? ' over' : '') + '">' + before.percent.toFixed(1) + '%</span>' +
+      (after ? '<span class="u">→ at ' + pf1.toFixed(2) + ': ' + after.percent.toFixed(1) + '%' +
+        (before.exceeds && !after.exceeds ? ' — now inside it' : '') + '</span>' : '') +
+      '</div><p class="basis">' + before.basis + '</p>';
+  } catch (err) { refuse('out-agreed', err.message); }
+}`
     }
 ];

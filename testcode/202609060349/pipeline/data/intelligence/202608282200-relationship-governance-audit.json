@@ -1,0 +1,56 @@
+{
+  "schema": "pipelinenews.relationship-governance-parquet-audit.v1",
+  "generation": "202608282200",
+  "dataset": "relationship_governance_status",
+  "duckdb_version": "1.3.2",
+  "compression": [
+    "ZSTD"
+  ],
+  "declared_key": [
+    "relationship_family",
+    "segment"
+  ],
+  "rows": 3,
+  "distinct_declared_keys": 3,
+  "null_declared_keys": 0,
+  "duplicate_key_groups": 0,
+  "non_abstain_rows": 0,
+  "eligible_for_join_rows": 0,
+  "project_bindings": 0,
+  "confirmed_ownership_rows": 0,
+  "confirmed_operator_rows": 0,
+  "full_typed_value_equality": true,
+  "inputs": [
+    {
+      "id": "FROZEN_CONTRACT",
+      "bytes": 8291,
+      "sha256": "f53b453fe5a9a0ee7b646672a6994fbb377193f99f13f9dbb11d641d1a6dfc91"
+    },
+    {
+      "id": "COMPANY_REPD_CANDIDATES",
+      "bytes": 7896,
+      "sha256": "43905c977b990ff5f1bbe4a8fc8eafee94cd5e474730adcd6b7112e166fcc358"
+    },
+    {
+      "id": "DATA_CENTRE_COMPANY_SLOTS",
+      "bytes": 7024,
+      "sha256": "894234caa44a898b17f2bebcf10e24538ecd39854c09368c57dd8948c1c720a1"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "releases/data/intelligence/202608282200/relationship-governance-status/202608282200-part-000.parquet",
+      "bytes": 4726,
+      "sha256": "6de1a3fa19f3d130b0cc19c71d56d8c8108b144da8a365113247caec9fab0f1c"
+    },
+    {
+      "path": "releases/data/202608282200-relationship-governance-status.json",
+      "bytes": 2514,
+      "sha256": "1388b2c881867a994a68dd09109017b5591cee00c05eb1cb251a85ed4f16b93c"
+    }
+  ],
+  "record_universe_sha256": "f3d08c757869dc81074a943feafc4057cd3a9ef7788ad769a250521f8dd772cf",
+  "raw_archives_copied": 0,
+  "person_names_copied": 0,
+  "status": "PASS"
+}

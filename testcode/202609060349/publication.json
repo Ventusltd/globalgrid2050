@@ -1,0 +1,19 @@
+{
+  "schema": "ventus.testcode-publication.v1",
+  "generation": "202609060349",
+  "lane": "codex",
+  "name": "Use core project actions and metric details on phones",
+  "sourceRepository": "Ventusltd/pipelinenews",
+  "sourceCommit": "1d36639c31e22ccc0e0a52f2a7106656d812c3ef",
+  "sourceRelease": "releases/202609060349-pipelinenews",
+  "ci": {
+    "run": 34010009863,
+    "conclusion": "success"
+  },
+  "scope": "Desktop and phone: all20 wider technologies and every page, actual downloads, core SUB ascending/descending order;0345 adds located/missing geometry review;0349 adds native metric details and core touch targets.",
+  "limitations": [
+    "Listed straight-line GRID and SUB distances are not connection offers.",
+    "Missing coordinates remain null; failed local0346 is excluded."
+  ],
+  "status": "Source and scoped CI verified; served/live acceptance recorded after deployment"
+}

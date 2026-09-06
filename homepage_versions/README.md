@@ -1566,3 +1566,8 @@ Pre-edit snapshot of f772dc96c3261453c35923903e35ce5c984830c3; restore workflow3
 ## homepage_v071
 
 Pre-edit snapshot of 42f2b3a801c1d1ea8d82b10516461c050a77b423; restore workflow34009629949 passed. Measurements: homepage_v071-measurement.json. Add Pipeline0337/0338/0340/0342, retaining every older link. Source71890499de46a15896e533b8c3d7961e04437b7b; engineering CI34009695191 passed.
+
+
+## homepage_v072
+
+Pre-edit snapshot of 17d2733d5f1aff953919d2ac63075fb2471e5895; restore workflow34010021769 passed. Measurements: homepage_v072-measurement.json. Add Pipeline0343/0345/0349, preserving all older links. Source1d36639c31e22ccc0e0a52f2a7106656d812c3ef; engineering CI34010009863 passed. Failed local0346 is excluded.

@@ -1,0 +1,18 @@
+/* The wider-fleet row keeps its existing data and actions, within the phone viewport. */
+@media (max-width: 700px) {
+  .tablewrap:has(.wider-fleet-row) { overflow-x: hidden; }
+  .tablewrap table:has(.wider-fleet-row) { display: block; width: 100%; min-width: 0; }
+  .tablewrap table:has(.wider-fleet-row) thead { display: none; }
+  .tablewrap tbody:has(.wider-fleet-row) { display: block; width: 100%; }
+  .tablewrap tr.wider-fleet-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; box-sizing: border-box; border-bottom: 1px solid #37404a; padding: 10px 0; }
+  .tablewrap tr.wider-fleet-row td { display: block; min-width: 0; width: auto; max-width: 100%; box-sizing: border-box; white-space: normal; overflow-wrap: anywhere; border: 0; padding: 5px 8px; }
+  .tablewrap tr.wider-fleet-row td.hide-mobile { display: none !important; }
+  .tablewrap tr.wider-fleet-row td.site,
+  .tablewrap tr.wider-fleet-row td:nth-child(6),
+  .tablewrap tr.wider-fleet-row td:nth-child(12),
+  .tablewrap tr.wider-fleet-row td:last-child { grid-column: 1 / -1; }
+  .tablewrap tr.wider-fleet-row .mobile-extra { display: block !important; }
+  .tablewrap tr.wider-fleet-row .project-actions { display: flex; flex-wrap: wrap; width: 100%; gap: 8px; }
+  .tablewrap tr.wider-fleet-row .action-link { display: inline-flex; align-items: center; min-height: 44px; box-sizing: border-box; }
+  .tablewrap tr.wider-fleet-row .action-metric { max-width: 100%; white-space: normal; }
+}

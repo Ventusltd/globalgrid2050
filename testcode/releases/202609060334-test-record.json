@@ -1,0 +1,19 @@
+{
+  "schema": "ventus.testcode-publication.v1",
+  "generation": "202609060334",
+  "lane": "codex",
+  "name": "Filtered core project GeoJSON",
+  "sourceRepository": "Ventusltd/pipelinenews",
+  "sourceCommit": "eb2da9b8678dcc35f3f39de1df6796c9b69b5712",
+  "sourceRelease": "releases/202609060334-pipelinenews",
+  "ci": {
+    "run": 34009395044,
+    "conclusion": "success"
+  },
+  "scope": "All20wider-fleet technologies/everypage on desktop andphone. Touch/keyboard metric dialog boundaries,Enter,Escape,focus restoration; actual filteredcoreGeoJSON downloads in334.",
+  "limitations": [
+    "GeoJSON export covers the filtered core register; wider-fleet selection does not silently export core data.",
+    "Missing coordinates remain null geometry."
+  ],
+  "status": "source and scopedCIverified; served/live checks recorded after deployment"
+}

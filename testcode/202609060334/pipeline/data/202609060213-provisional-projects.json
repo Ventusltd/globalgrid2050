@@ -1,0 +1,24 @@
+{
+  "schema": "pipelinenews.provisional-register.v1",
+  "projects": [
+    {
+      "source_key": "bbc:c4gmkezn4nlo:cearn",
+      "name": "Cearn Solar Farm",
+      "operator": "Telis Energy UK",
+      "county": "Oxfordshire",
+      "technology": "solar",
+      "capacity_mw": 500,
+      "capacity_basis": "reported upper bound, not consented or connected",
+      "status": "REPD pending - reported proposal",
+      "article_url": "https://www.bbc.co.uk/news/articles/c4gmkezn4nlo",
+      "source_published_at": "2026-09-05T12:00:40+00:00",
+      "geometry": null,
+      "repd_ref": "9999-REPD-TBC",
+      "official_repd_ref": null,
+      "gg_project_id": "GG2050-REPD-9999-REPD-TBC",
+      "identity_status": "REPD_PENDING",
+      "aliases": [],
+      "identity_history": []
+    }
+  ]
+}

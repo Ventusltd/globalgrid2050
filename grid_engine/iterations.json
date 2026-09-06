@@ -91,6 +91,15 @@
       "engine": "engine/v9-geodesy.js + engine/geo-area.js",
       "engineCommit": "7d40365",
       "checks": 23
+    },
+    {
+      "stamp": "202609060305",
+      "path": "202609060305-interconnectors/",
+      "title": "Interconnector Workbench",
+      "feature": "The GB interconnector fleet as text against electricity prices: which way a link flows at a stated spread, the energy it moves, the gross congestion rent, and the 10.3 GW that is observable separated from the 7.65 GW that is still a plan.",
+      "engine": "engine/interconnector-economics.js",
+      "engineCommit": "a3a5e23",
+      "checks": 38
     }
   ]
 }

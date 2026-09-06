@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interconnector Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>INTERCONNECTOR WORKBENCH</h1>
+  <p class="sub">An edge between two systems, priced — in text, and deliberately never drawn</p>
+  <p class="stamp">Generation 202609060305 · engine interconnector-economics.js at a3a5e23</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · WHICH WAY, AND WHAT IT IS WORTH</h2>
+  <div class="body">
+    <p class="lede">An interconnector generates nothing. It moves what the exporting system's plant
+                   produced, from wherever energy is cheaper to wherever it is dearer — so the
+                   direction follows the price spread and nothing else. Set both prices. They travel
+                   back with the answer, because a direction quoted without the prices that produced
+                   it is an opinion.</p>
+    <div class="field">
+      <label for="gbp">GB price (£/MWh)</label>
+      <input type="number" id="gbp" value="92" min="-500" max="5000" step="0.5" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="nbp">Neighbour price (£/MWh)</label>
+      <input type="number" id="nbp" value="58" min="-500" max="5000" step="0.5" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="cap">Link capacity (GW)</label>
+      <input type="number" id="cap" value="1.4" min="0.01" max="10" step="0.01" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="util">Utilisation</label>
+        <span class="rangeval" id="util-val">0.55</span></div>
+      <input type="range" id="util" min="0.05" max="1" step="0.01" value="0.55">
+    </div>
+    <div class="field">
+      <label for="hrs">Hours</label>
+      <input type="number" id="hrs" value="8760" min="1" max="8784" step="1" inputmode="decimal">
+    </div>
+    <div class="out" id="out-flow"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THE ENERGY AND THE RENT</h2>
+  <div class="body">
+    <p class="lede">Congestion rent is the energy moved multiplied by the price difference it is
+                   moved across. It is the <strong>gross</strong> value of the arbitrage — before
+                   losses, before outages, before operating cost and before any cap-and-floor
+                   arrangement. It is not profit and nothing here calls it profit.</p>
+
+    <div class="out" id="out-rent"></div>
+    <div class="scroller"><table id="rent-table"><thead><tr><th>Measure</th><th style="text-align:right">Value</th></tr></thead><tbody></tbody></table></div>
+    
+  </div>
+</section>
+<section>
+  <h2>3 · THE FLEET, AND WHAT IS ACTUALLY OBSERVABLE</h2>
+  <div class="body">
+    <p class="lede">Sixteen links. Ten carry a BMRS code, so their flow appears in published data
+                   and can be checked. Six have no code because they are not built — their capacity is
+                   a plan. Adding the two numbers together is the easiest way to overstate the fleet,
+                   so they are kept apart here.</p>
+
+    <div class="out" id="out-fleet"></div>
+    <div class="scroller"><table id="fleet-table"><thead><tr><th>Link</th><th>Country</th><th style="text-align:right">GW</th><th style="text-align:right">Flow data</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis"><strong>No map.</strong> Subsea cable routes are licensed — TeleGeography is the
+                   usual source and it is not ours to redraw — and neither NESO nor National Grid
+                   publishes a route the estate could carry instead. So the estate does not draw these
+                   cables, and the engine holds no coordinates at all; its proof asserts that no export
+                   carries one. That is a licensing position stated where a reader will look, not a
+                   missing feature for somebody to fill in later from a screenshot.</p>
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/interconnector-economics.js">interconnector-economics.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 38 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/interconnector-economics.js"];
+const ENGINE_SCHEMAS = ["ventus-grid-engine.interconnector-economics.v1"];
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+// reference/interconnector_cables.csv in data-interconnectors, carried as text.
+const FLEET = [
+  { bmrsCode:'INTFR',   country:'France',           name:'IFA',                      capacityGw:2.0, status:'operational' },
+  { bmrsCode:'INTIFA2', country:'France',           name:'IFA2',                     capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTELEC', country:'France',           name:'ElecLink',                 capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTNED',  country:'Netherlands',      name:'BritNed',                  capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTNEM',  country:'Belgium',          name:'Nemo Link',                capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTNSL',  country:'Norway',           name:'North Sea Link',           capacityGw:1.4, status:'operational' },
+  { bmrsCode:'INTVKL',  country:'Denmark',          name:'Viking Link',              capacityGw:1.4, status:'operational' },
+  { bmrsCode:'INTEW',   country:'Ireland',          name:'East West Interconnector', capacityGw:0.5, status:'operational' },
+  { bmrsCode:'INTGRNL', country:'Ireland',          name:'Greenlink',                capacityGw:0.5, status:'operational' },
+  { bmrsCode:'INTIRL',  country:'Northern Ireland', name:'Moyle',                    capacityGw:0.5, status:'operational' },
+  { bmrsCode:'',        country:'Germany',          name:'NeuConnect',               capacityGw:1.4, status:'future' },
+  { bmrsCode:'',        country:'Germany',          name:'Tarchon Energy',           capacityGw:1.4, status:'future' },
+  { bmrsCode:'',        country:'Netherlands',      name:'LionLink',                 capacityGw:2.0, status:'future' },
+  { bmrsCode:'',        country:'Belgium',          name:'Nautilus',                 capacityGw:1.4, status:'future' },
+  { bmrsCode:'',        country:'Ireland',          name:'MaresConnect',             capacityGw:0.75, status:'future' },
+  { bmrsCode:'',        country:'Northern Ireland', name:'LirIC',                    capacityGw:0.7, status:'future' }
+];
+
+function bind() { ['gbp','nbp','cap','util','hrs'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('util-val').textContent = num('util').toFixed(2);
+  let dir = null;
+  try {
+    dir = E.flowDirection({ gbPriceGbpPerMwh: num('gbp'), neighbourPriceGbpPerMwh: num('nbp') });
+    el('out-flow').innerHTML =
+      '<div class="figure"><span class="q">commercial flow direction</span><span class="n" style="font-size:19px">' +
+      dir.direction.toUpperCase() + '</span><span class="u">spread £' + dir.spreadGbpPerMwh.toFixed(2) + '/MWh</span></div>' +
+      '<p class="basis">' + dir.basis + '</p>';
+  } catch (err) { refuse('out-flow', err.message); }
+
+  const rt = document.querySelector('#rent-table tbody');
+  try {
+    const energy = E.energyTransferredGwh({ capacityGw: num('cap'), hours: num('hrs'), utilisation: num('util') });
+    if (!dir || dir.spreadGbpPerMwh === 0) {
+      el('out-rent').innerHTML = '<p class="basis" style="border:0;padding:0;margin:0">' +
+        'No spread, so no arbitrage value. The link may still flow for system reasons this engine does not model.</p>';
+      rt.innerHTML = '<tr><td>Energy moved</td><td class="n">' + energy.value.toFixed(1) + ' GWh</td></tr>';
+    } else {
+      const rent = E.congestionRentGbp({ capacityGw: num('cap'), hours: num('hrs'),
+        utilisation: num('util'), spreadGbpPerMwh: dir.spreadGbpPerMwh });
+      el('out-rent').innerHTML =
+        '<div class="figure"><span class="q">gross congestion rent</span><span class="n">£' +
+        (rent.value/1e6).toFixed(2) + 'm</span></div><p class="basis">' + rent.basis + '</p>';
+      const share = E.shareOfDemand({ transferGw: num('cap') * num('util'), gbDemandGw: 34.2 });
+      rt.innerHTML = [
+        ['Energy moved', energy.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' GWh'],
+        ['Spread', '£' + dir.spreadGbpPerMwh.toFixed(2) + '/MWh'],
+        ['Gross rent', '£' + rent.value.toLocaleString('en-GB',{maximumFractionDigits:0})],
+        ['Average transfer', (num('cap') * num('util')).toFixed(2) + ' GW'],
+        ['Share of a 34.2 GW mean demand', share.percent.toFixed(1) + '%']
+      ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+    }
+  } catch (err) { refuse('out-rent', err.message); rt.innerHTML = ''; }
+
+  try {
+    const f = E.fleetCapacity({ links: FLEET });
+    el('out-fleet').innerHTML =
+      '<div class="figure"><span class="q">fleet capacity</span><span class="n">' +
+      f.value.toFixed(2) + '</span><span class="u">GW · ' + f.observableGw.toFixed(2) +
+      ' observable, ' + f.unobservableGw.toFixed(2) + ' planned</span></div>' +
+      '<p class="basis">' + f.basis + '</p>';
+    document.querySelector('#fleet-table tbody').innerHTML = FLEET.map(l =>
+      '<tr><td>' + l.name + '</td><td>' + l.country + '</td><td class="n">' + l.capacityGw.toFixed(2) +
+      '</td><td class="n" style="color:' + (l.bmrsCode ? '#00ff88' : '#8e98a5') + '">' +
+      (l.bmrsCode ? l.bmrsCode : 'no code yet') + '</td></tr>').join('');
+  } catch (err) { refuse('out-fleet', err.message); }
+}
+
+try {
+  const loaded = [];
+  for (const url of ENGINE_MODULES) loaded.push(await import(url));
+  // Some engine modules predate the schema convention and declare none. A spec
+  // says so by passing null, and the check is skipped rather than faked -- an
+  // asserted schema that does not exist would fail every load for a module that
+  // is perfectly good.
+  loaded.forEach((m, i) => {
+    const expected = ENGINE_SCHEMAS[i];
+    if (expected && m.schema !== expected) {
+      throw new Error('unexpected schema ' + m.schema + ' from ' + ENGINE_MODULES[i]);
+    }
+  });
+  // Merge the modules into one namespace. A name collision would silently
+  // shadow one module's function with another's, so it is refused loudly.
+  E = {};
+  const NOT_COMPUTED = {};
+  // Refusals are not all shaped the same. The newer modules export
+  // NOT_COMPUTED as an object of named reasons; the older ones export a single
+  // string, or name their boundaries individually as NOT_A_CAPACITY,
+  // NO_HEADROOM, NEVER_SUMMED, CAVEAT and so on. Spreading a string into an
+  // object would render one character per letter, so each shape is handled.
+  const REFUSAL_NAME = /^(NOT_|NO_|NEVER_|CAVEAT|IMPEDANCE_)/;
+  for (const m of loaded) {
+    for (const [k, v] of Object.entries(m)) {
+      if (k === 'schema' || k === 'requires') continue;
+      if (k === 'NOT_COMPUTED') {
+        if (typeof v === 'string') NOT_COMPUTED.notComputed = v;
+        else Object.assign(NOT_COMPUTED, v);
+        continue;
+      }
+      if (REFUSAL_NAME.test(k) && typeof v === 'string') {
+        NOT_COMPUTED[k.toLowerCase().replace(/_(.)/g, (_, c) => c.toUpperCase())] = v;
+        continue;
+      }
+      if (k in E) throw new Error('two engine modules both export "' + k + '"');
+      E[k] = v;
+    }
+  }
+  E.NOT_COMPUTED = NOT_COMPUTED;
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' +
+    ENGINE_SCHEMAS.map((sc, i) => sc || ENGINE_MODULES[i].split('/').pop()).join(' + ') +
+    ' · every figure below is computed by the engine module' + (loaded.length > 1 ? 's' : '') + ', not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

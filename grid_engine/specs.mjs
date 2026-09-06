@@ -851,5 +851,135 @@ function render() {
     ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
   } catch (err) { refuse('out-area', err.message); tb.innerHTML = ''; }
 }`
+    },
+    {
+        stamp: '202609060305',
+        slug: 'interconnectors',
+        title: 'Interconnector Workbench',
+        sub: 'An edge between two systems, priced — in text, and deliberately never drawn',
+        feature: 'The GB interconnector fleet as text against electricity prices: which way a link flows at a stated spread, the energy it moves, the gross congestion rent, and the 10.3 GW that is observable separated from the 7.65 GW that is still a plan.',
+        engineModule: 'interconnector-economics.js',
+        engineCommit: 'a3a5e23',
+        schema: 'ventus-grid-engine.interconnector-economics.v1',
+        checks: 38,
+        panels: [
+            {
+                heading: '1 · WHICH WAY, AND WHAT IT IS WORTH',
+                lede: `An interconnector generates nothing. It moves what the exporting system's plant
+                   produced, from wherever energy is cheaper to wherever it is dearer — so the
+                   direction follows the price spread and nothing else. Set both prices. They travel
+                   back with the answer, because a direction quoted without the prices that produced
+                   it is an opinion.`,
+                controls: [
+                    { id: 'gbp', type: 'number', label: 'GB price (£/MWh)', value: '92', min: -500, max: 5000, step: 0.5 },
+                    { id: 'nbp', type: 'number', label: 'Neighbour price (£/MWh)', value: '58', min: -500, max: 5000, step: 0.5 },
+                    { id: 'cap', type: 'number', label: 'Link capacity (GW)', value: '1.4', min: 0.01, max: 10, step: 0.01 },
+                    { id: 'util', type: 'range', label: 'Utilisation', value: '0.55', min: 0.05, max: 1.00, step: 0.01 },
+                    { id: 'hrs', type: 'number', label: 'Hours', value: '8760', min: 1, max: 8784, step: 1 }
+                ],
+                outId: 'out-flow'
+            },
+            {
+                heading: '2 · THE ENERGY AND THE RENT',
+                lede: `Congestion rent is the energy moved multiplied by the price difference it is
+                   moved across. It is the <strong>gross</strong> value of the arbitrage — before
+                   losses, before outages, before operating cost and before any cap-and-floor
+                   arrangement. It is not profit and nothing here calls it profit.`,
+                controls: [],
+                outId: 'out-rent',
+                tableId: 'rent-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Value', right: true }]
+            },
+            {
+                heading: '3 · THE FLEET, AND WHAT IS ACTUALLY OBSERVABLE',
+                lede: `Sixteen links. Ten carry a BMRS code, so their flow appears in published data
+                   and can be checked. Six have no code because they are not built — their capacity is
+                   a plan. Adding the two numbers together is the easiest way to overstate the fleet,
+                   so they are kept apart here.`,
+                controls: [],
+                outId: 'out-fleet',
+                tableId: 'fleet-table',
+                tableHead: [
+                    { label: 'Link' }, { label: 'Country' }, { label: 'GW', right: true }, { label: 'Flow data', right: true }
+                ],
+                note: `<strong>No map.</strong> Subsea cable routes are licensed — TeleGeography is the
+                   usual source and it is not ours to redraw — and neither NESO nor National Grid
+                   publishes a route the estate could carry instead. So the estate does not draw these
+                   cables, and the engine holds no coordinates at all; its proof asserts that no export
+                   carries one. That is a licensing position stated where a reader will look, not a
+                   missing feature for somebody to fill in later from a screenshot.`
+            }
+        ],
+        script: `
+// reference/interconnector_cables.csv in data-interconnectors, carried as text.
+const FLEET = [
+  { bmrsCode:'INTFR',   country:'France',           name:'IFA',                      capacityGw:2.0, status:'operational' },
+  { bmrsCode:'INTIFA2', country:'France',           name:'IFA2',                     capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTELEC', country:'France',           name:'ElecLink',                 capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTNED',  country:'Netherlands',      name:'BritNed',                  capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTNEM',  country:'Belgium',          name:'Nemo Link',                capacityGw:1.0, status:'operational' },
+  { bmrsCode:'INTNSL',  country:'Norway',           name:'North Sea Link',           capacityGw:1.4, status:'operational' },
+  { bmrsCode:'INTVKL',  country:'Denmark',          name:'Viking Link',              capacityGw:1.4, status:'operational' },
+  { bmrsCode:'INTEW',   country:'Ireland',          name:'East West Interconnector', capacityGw:0.5, status:'operational' },
+  { bmrsCode:'INTGRNL', country:'Ireland',          name:'Greenlink',                capacityGw:0.5, status:'operational' },
+  { bmrsCode:'INTIRL',  country:'Northern Ireland', name:'Moyle',                    capacityGw:0.5, status:'operational' },
+  { bmrsCode:'',        country:'Germany',          name:'NeuConnect',               capacityGw:1.4, status:'future' },
+  { bmrsCode:'',        country:'Germany',          name:'Tarchon Energy',           capacityGw:1.4, status:'future' },
+  { bmrsCode:'',        country:'Netherlands',      name:'LionLink',                 capacityGw:2.0, status:'future' },
+  { bmrsCode:'',        country:'Belgium',          name:'Nautilus',                 capacityGw:1.4, status:'future' },
+  { bmrsCode:'',        country:'Ireland',          name:'MaresConnect',             capacityGw:0.75, status:'future' },
+  { bmrsCode:'',        country:'Northern Ireland', name:'LirIC',                    capacityGw:0.7, status:'future' }
+];
+
+function bind() { ['gbp','nbp','cap','util','hrs'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('util-val').textContent = num('util').toFixed(2);
+  let dir = null;
+  try {
+    dir = E.flowDirection({ gbPriceGbpPerMwh: num('gbp'), neighbourPriceGbpPerMwh: num('nbp') });
+    el('out-flow').innerHTML =
+      '<div class="figure"><span class="q">commercial flow direction</span><span class="n" style="font-size:19px">' +
+      dir.direction.toUpperCase() + '</span><span class="u">spread £' + dir.spreadGbpPerMwh.toFixed(2) + '/MWh</span></div>' +
+      '<p class="basis">' + dir.basis + '</p>';
+  } catch (err) { refuse('out-flow', err.message); }
+
+  const rt = document.querySelector('#rent-table tbody');
+  try {
+    const energy = E.energyTransferredGwh({ capacityGw: num('cap'), hours: num('hrs'), utilisation: num('util') });
+    if (!dir || dir.spreadGbpPerMwh === 0) {
+      el('out-rent').innerHTML = '<p class="basis" style="border:0;padding:0;margin:0">' +
+        'No spread, so no arbitrage value. The link may still flow for system reasons this engine does not model.</p>';
+      rt.innerHTML = '<tr><td>Energy moved</td><td class="n">' + energy.value.toFixed(1) + ' GWh</td></tr>';
+    } else {
+      const rent = E.congestionRentGbp({ capacityGw: num('cap'), hours: num('hrs'),
+        utilisation: num('util'), spreadGbpPerMwh: dir.spreadGbpPerMwh });
+      el('out-rent').innerHTML =
+        '<div class="figure"><span class="q">gross congestion rent</span><span class="n">£' +
+        (rent.value/1e6).toFixed(2) + 'm</span></div><p class="basis">' + rent.basis + '</p>';
+      const share = E.shareOfDemand({ transferGw: num('cap') * num('util'), gbDemandGw: 34.2 });
+      rt.innerHTML = [
+        ['Energy moved', energy.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' GWh'],
+        ['Spread', '£' + dir.spreadGbpPerMwh.toFixed(2) + '/MWh'],
+        ['Gross rent', '£' + rent.value.toLocaleString('en-GB',{maximumFractionDigits:0})],
+        ['Average transfer', (num('cap') * num('util')).toFixed(2) + ' GW'],
+        ['Share of a 34.2 GW mean demand', share.percent.toFixed(1) + '%']
+      ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+    }
+  } catch (err) { refuse('out-rent', err.message); rt.innerHTML = ''; }
+
+  try {
+    const f = E.fleetCapacity({ links: FLEET });
+    el('out-fleet').innerHTML =
+      '<div class="figure"><span class="q">fleet capacity</span><span class="n">' +
+      f.value.toFixed(2) + '</span><span class="u">GW · ' + f.observableGw.toFixed(2) +
+      ' observable, ' + f.unobservableGw.toFixed(2) + ' planned</span></div>' +
+      '<p class="basis">' + f.basis + '</p>';
+    document.querySelector('#fleet-table tbody').innerHTML = FLEET.map(l =>
+      '<tr><td>' + l.name + '</td><td>' + l.country + '</td><td class="n">' + l.capacityGw.toFixed(2) +
+      '</td><td class="n" style="color:' + (l.bmrsCode ? '#00ff88' : '#8e98a5') + '">' +
+      (l.bmrsCode ? l.bmrsCode : 'no code yet') + '</td></tr>').join('');
+  } catch (err) { refuse('out-fleet', err.message); }
+}`
     }
 ];

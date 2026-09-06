@@ -1576,3 +1576,8 @@ Pre-edit snapshot of 17d2733d5f1aff953919d2ac63075fb2471e5895; restore workflow3
 ## homepage_v073
 
 Pre-edit snapshot of 22f337b9471ae063361f260a8efd10167a15c296; restore workflow34010213415 passed. Measurements: homepage_v073-measurement.json. Add Atlas0351/0352/0400/0401 and preserve all earlier links. Sourcec0af3cdec1a18b08b4d9631849a17e0a9ffa4bed, full polygon matrixCI34010457771 passed. Rejected353/354 are excluded; their failed CI and deterministic negative-control evidence remain recorded.
+
+
+## homepage_v074
+
+Pre-edit snapshot of 95dfa2ce68c624f841f3f212d7709aa9ffbc5d05; restore34011119409 passed. Measurements: homepage_v074-measurement.json. Add four missing previous Pipeline entries0204/0206/0208/0213 under existing TestCode. Correction: the prior homepage linked26of30 accepted/previously recorded ledger entries; these four were also absent in snapshot065. All30entrypoints were live and byte-identical before this navigation correction. No app files or feature count changed.

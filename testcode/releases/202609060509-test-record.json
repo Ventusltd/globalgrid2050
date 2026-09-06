@@ -1,0 +1,24 @@
+{
+  "generation": "202609060509",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "b7720356c33ada3871175e90bef304b9cc124438",
+  "ownerCommit": "443b2683e5b5d02b1a0b6e94fef7ea4d50bc8178",
+  "parentGeneration": "202609060504",
+  "ci": {
+    "run": 34013328981,
+    "conclusion": "success",
+    "clearanceChecks": 64,
+    "layoutChecks": 54,
+    "removalChecks": 26,
+    "recoveryChecks": 20,
+    "polygonChecks": 120,
+    "printChecks": 10
+  },
+  "scope": "Move original Layers button into measurement dock, preserve handler and restore original position on close; bound phone panel and keep final option reachable.",
+  "limitations": [
+    "Failed0506/0508 candidates remain unpublished.",
+    "Earlier503/504 proofs did not cover floating Layers overlap with measurement readouts.",
+    "No owner-main promotion or claim of full estate gates passing."
+  ],
+  "publicationStatus": "Exact served and live receipts recorded after deployment."
+}

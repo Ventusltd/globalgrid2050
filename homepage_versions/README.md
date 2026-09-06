@@ -1623,3 +1623,8 @@ Pre-edit snapshot of 7f7be6e54e2bc848b3037a5b995be27da2418b5f; fresh restore3401
 ## homepage_v082
 
 Pre-edit snapshot of d66f36c814839222b62e9154d9a1c6702cff3e1c; restore34013352469 passed. Measurements: homepage_v082-measurement.json. Publish0504 selected-vertex removal, source e142b2bc61330f3756be20f5648e025004e59a80, exact CI34013085157 green with54 layout,26 removal,20 recovery and120 polygon checks. Corrected0503 host retained; rejected0459 remains unpublished. Preserve all older links.
+
+
+## homepage_v083
+
+Pre-edit snapshot of 189c25b876e219463b268076d6cdfa7ba69a84f4; restore34013474725 passed. Measurements: homepage_v083-measurement.json. Publish0509 measurement-control clearance after0504 live acceptance. Exact source b7720356c33ada3871175e90bef304b9cc124438, CI34013328981 passed64 clearance,54 layout,26 removal,20 recovery,120 polygon and10 actual Print checks. Preserve every earlier link; failed0506/0508 remain unpublished.

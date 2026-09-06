@@ -13,6 +13,16 @@ on:
     paths:
       - 'index.html'
       - 'testcode/**'
+      # A new PipelineNews release is a directory under uk_renewables_pipeline.
+      # It was NOT in this list, so a push that only added a release triggered
+      # no deploy at all: 202609061329 sat at HTTP 404 through eight polls after
+      # its push, and 202609061149 only went live because an unrelated homepage
+      # restore happened to fire this workflow. CD that depends on a coincidence
+      # is not CD. The workflow file itself is listed too, so a change to what
+      # deploys is deployed by the same push that makes it.
+      - 'uk_renewables_pipeline/**'
+      - 'pipelinenews_intelligence/**'
+      - '.github/workflows/deploy-pages.yml'
       - 'CNAME'
       # The build status page is published from the repository root, not from a
       # release directory, so nothing above matched it. status.json was committed

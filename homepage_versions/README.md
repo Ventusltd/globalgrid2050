@@ -1546,3 +1546,8 @@ Pre-edit snapshot of 2dedd4f298e5e3a2a1088ab60fcb14b30ddbc2a4; restore workflow3
 ## homepage_v067
 
 Pre-edit snapshot of 4e0b72bf30c62247bf2d0766ae3438fac3f26307; restore workflow34008711187 passed. Measurements: homepage_v067-measurement.json. Add wider-fleet GRID0315,SUB0316 and phone-actions0318 under TestCode; all existing links retained. Sourcef9537f3, scopedengineeringCI34008723592 passed.
+
+
+## homepage_v068
+
+Pre-edit snapshot of 1f1ad310a40c815365920181ca6bbb4025ce45f6; restore workflow34008962881 passed. Measurements: homepage_v068-measurement.json. Add polygon persistence0320,GeoJSONexport0322andimport0324 underTestCode; retain all links and label previousPipeline232. Source267cff2, matrixCI34008948676 passed.

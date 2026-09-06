@@ -1,0 +1,18 @@
+{
+  "generation": "202609060320",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "267cff2117e22ad826dd2de5cae1098cf73ce556",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "dacc0abfdaacf069f86ea2416f62522985d25a55",
+  "ci": {
+    "run": 34008948676,
+    "conclusion": "success",
+    "browserChecks": 40
+  },
+  "scope": "Polygon/circle controls, outside labels, reset, geometry-preserving reload and source-provenance checks. Export in322and324; file import and invalid-file preservation in324.",
+  "limitations": [
+    "Browser phone emulation is not physical-device validation."
+  ],
+  "browserEvidence": "recovery-20260906",
+  "publicationStatus": "Exact served bytes and live browser evidence recorded separately after deployment."
+}

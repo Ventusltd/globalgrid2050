@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Route Obstacles Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>ROUTE OBSTACLES WORKBENCH</h1>
+  <p class="sub">What gets in the way — and when a road factor describes a road that is not there</p>
+  <p class="stamp">Generation 202609060213 · engine route-obstacles.js at 9a92211</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · THE ROUTE, AND WHAT IT CROSSES</h2>
+  <div class="body">
+    <p class="lede">The straight line is the first pass and stays exactly as it is. What this adds
+                   is the crossings. Enter them as <code>type</code> or <code>type x count</code>,
+                   separated by commas — for example <code>motorway, railway x2, minor_road x3</code>.
+                   Known types: motorway, trunk_road, minor_road, railway, navigable_river, canal,
+                   watercourse, open_water, protected_habitat.</p>
+    <div class="field">
+      <label for="skm">Straight-line distance (km)</label>
+      <input type="number" id="skm" value="10" min="0.1" max="2000" step="0.01" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="cross">Declared crossings</label>
+      <input type="text" id="cross" value="motorway, railway x2, minor_road x3" inputmode="text">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="cf">Corridor factor</label>
+        <span class="rangeval" id="cf-val">1.245</span></div>
+      <input type="range" id="cf" min="1" max="2" step="0.005" value="1.245">
+    </div>
+    <div class="out" id="out-route"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THE CROSSING SCHEDULE</h2>
+  <div class="body">
+    <p class="lede">You do not open-cut a live motorway or a running railway. Those are trenchless
+                   crossings, with launch and reception pits set back beyond the asset boundary — so
+                   the bore is always longer than the obstacle is wide, and for anything narrow the
+                   setback is the dominant term. A 30 m motorway with 15 m setbacks is a 60 m span,
+                   not a 30 m drill.</p>
+    <div class="field">
+      <label for="width">Obstacle width (m)</label>
+      <input type="number" id="width" value="30" min="0.5" max="2000" step="0.5" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="setback">Setback each side (m)</label>
+      <input type="number" id="setback" value="15" min="0.5" max="500" step="0.5" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="depth">Bore depth (m, 0 for none)</label>
+      <input type="number" id="depth" value="0" min="0" max="100" step="0.5" inputmode="decimal">
+    </div>
+    
+    <div class="scroller"><table id="cross-table"><thead><tr><th>Crossing</th><th style="text-align:right">Method</th><th>Why</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">Widths, setbacks and cover are the asset owner's requirements and differ between
+                   owners — Network Rail and a highways authority do not publish the same numbers — so
+                   they are inputs here and never constants. A crossing declared without a width is
+                   counted and named, not silently costed at zero.</p>
+  </div>
+</section>
+<section>
+  <h2>3 · THE IRISH SEA TEST</h2>
+  <div class="body">
+    <p class="lede">Add <code>open_water</code> to the crossings above and the estimate becomes
+                   <em>null</em>, not a number. This is the check a scalar corridor function cannot
+                   make: <code>forCable()</code> receives one kilometre and never sees the
+                   coordinates, so South Antrim to the Western HVDC converter — 142.21 km, almost all
+                   of it sea — was printed as a 177.05 km highway corridor. A road route that does not
+                   exist, stated with the confidence of a calibrated number. The straight line is kept
+                   either way, because it is a real measurement.</p>
+
+    <div class="out" id="out-sea"></div>
+    
+    
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/route-obstacles.js">route-obstacles.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 44 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE = 'https://ventusltd.github.io/ventus-grid-engine/engine/route-obstacles.js';
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+function bind() { ['skm','cross','cf','width','setback','depth'].forEach(id => el(id).addEventListener('input', render)); }
+
+function parseCrossings(raw, widthM, setbackM, depthM) {
+  return raw.split(',').map(s => s.trim()).filter(Boolean).map(tok => {
+    const m = tok.match(/^([a-z_]+)(?:\s*[x*]\s*(\d+))?$/i);
+    if (!m) throw new Error('cannot read crossing "' + tok + '" — use type or type x count');
+    const c = { type: m[1].toLowerCase(), count: m[2] ? parseInt(m[2], 10) : 1 };
+    if (widthM > 0 && setbackM > 0) { c.widthM = widthM; c.setbackM = setbackM; if (depthM > 0) c.depthM = depthM; }
+    return c;
+  });
+}
+
+function render() {
+  el('cf-val').textContent = num('cf').toFixed(3);
+  const tb = document.querySelector('#cross-table tbody');
+  let crossings;
+  try { crossings = parseCrossings(el('cross').value, num('width'), num('setback'), num('depth')); }
+  catch (err) { refuse('out-route', err.message); tb.innerHTML = ''; return; }
+
+  try {
+    const r = E.routeEstimate({ straightLineKm: num('skm'), crossings, corridorFactor: num('cf') });
+    el('out-route').innerHTML = r.value === null
+      ? '<div class="figure"><span class="q">route estimate</span><span class="n over">NO ESTIMATE</span></div>'
+        + '<p class="basis">' + r.basis + '</p>'
+      : '<div class="figure"><span class="q">route estimate</span><span class="n">' +
+        r.value.toFixed(2) + '</span><span class="u">km</span></div><p class="basis">' + r.basis + '</p>';
+
+    tb.innerHTML = r.schedule.items.map(i =>
+      '<tr><td>' + i.label + (i.count > 1 ? ' x' + i.count : '') + '</td>' +
+      '<td class="n" style="color:' + (i.trenchless ? '#ffae00' : '#00ff88') + '">' + i.method + '</td>' +
+      '<td style="font-size:10px">' + i.why + '</td></tr>').join('')
+      || '<tr><td colspan="3">No crossings declared.</td></tr>';
+
+    const sea = E.routeEstimate({ straightLineKm: num('skm'),
+      crossings: crossings.concat([{ type: 'open_water' }]), corridorFactor: num('cf') });
+    el('out-sea').innerHTML =
+      '<div class="figure"><span class="q">the same route, with open water added</span>' +
+      '<span class="n over">' + (sea.value === null ? 'NO ESTIMATE' : sea.value.toFixed(2)) + '</span></div>' +
+      '<p class="basis">' + sea.basis + '</p>';
+  } catch (err) { refuse('out-route', err.message); tb.innerHTML = ''; }
+}
+
+try {
+  E = await import(ENGINE);
+  if (E.schema !== 'ventus-grid-engine.route-obstacles.v1') throw new Error('unexpected schema ' + E.schema);
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' + E.schema +
+    ' · every figure below is computed by the engine module, not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

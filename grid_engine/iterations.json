@@ -19,6 +19,33 @@
       "engine": "engine/firm-capacity.js",
       "engineCommit": "294dcc0",
       "checks": 28
+    },
+    {
+      "stamp": "202609060211",
+      "path": "202609060211-diversity/",
+      "title": "Diversity Workbench",
+      "feature": "After Diversity Maximum Demand for a group of like loads, coincidence measured from a group peak rather than assumed, and the average across a delivery window kept separate from the peak inside it.",
+      "engine": "engine/diversified-demand.js",
+      "engineCommit": "9a92211",
+      "checks": 26
+    },
+    {
+      "stamp": "202609060212",
+      "path": "202609060212-connection-cap/",
+      "title": "Connection Cap Workbench",
+      "feature": "A demand profile against a stated connection cap: peak excess, energy above the cap, and the battery power and installed energy that keep the site inside it after round-trip efficiency and depth of discharge.",
+      "engine": "engine/connection-capacity.js",
+      "engineCommit": "9a92211",
+      "checks": 39
+    },
+    {
+      "stamp": "202609060213",
+      "path": "202609060213-route-obstacles/",
+      "title": "Route Obstacles Workbench",
+      "feature": "Declared crossings for a cable route: which obstacles cannot be open-cut, what each trenchless crossing costs in length once setbacks are counted, and a refusal to apply a highway-corridor factor to a route across open water.",
+      "engine": "engine/route-obstacles.js",
+      "engineCommit": "9a92211",
+      "checks": 44
     }
   ]
 }

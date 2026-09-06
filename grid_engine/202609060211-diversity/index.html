@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diversity Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>DIVERSITY WORKBENCH</h1>
+  <p class="sub">The peak of the sum, never the sum of the peaks</p>
+  <p class="stamp">Generation 202609060211 · engine diversified-demand.js at 9a92211</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · AFTER DIVERSITY MAXIMUM DEMAND</h2>
+  <div class="body">
+    <p class="lede">A hundred homes with 7 kW chargers do not present 700 kW to the transformer,
+                   because they do not all charge at once. The figure that sizes the plant is the peak
+                   of the <em>sum</em>. The coincidence factor is required here and never defaulted:
+                   assume it too low and the transformer overheats, too high and a viable connection is
+                   refused. It belongs to a group of <em>this</em> size — one quoted for a thousand
+                   units will badly under-size ten. Where your network operator publishes a factor for
+                   the load class, use theirs.</p>
+    <div class="field">
+      <label for="n">Number of units</label>
+      <input type="number" id="n" value="100" min="1" max="50000000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="perkw">Rating of each unit (kW)</label>
+      <input type="number" id="perkw" value="7" min="0.1" max="5000" step="0.1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="coin">Coincidence factor</label>
+        <span class="rangeval" id="coin-val">0.30</span></div>
+      <input type="range" id="coin" min="0.02" max="1" step="0.01" value="0.30">
+    </div>
+    <div class="out" id="out-admd"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THE HONEST DIRECTION — MEASURE IT</h2>
+  <div class="body">
+    <p class="lede">Where a group peak has actually been measured, derive the coincidence factor
+                   from it instead of assuming one. This is the same arithmetic run backwards, and it
+                   is always the better evidence.</p>
+    <div class="field">
+      <label for="meas">Measured group peak (kW)</label>
+      <input type="number" id="meas" value="210" min="0.1" max="100000000" step="0.1" inputmode="decimal">
+    </div>
+    <div class="out" id="out-implied"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>3 · ONE POPULATION, THREE DIFFERENT NUMBERS</h2>
+  <div class="body">
+    <p class="lede">The confusion that sizes networks wrongly. Ten million vehicles taking
+                   2,500 kWh a year is 25 TWh. Across the whole year that averages 2.85 GW. Squeezed
+                   into an eight-hour nightly window it averages 8.56 GW. Left unmanaged at 20%
+                   coincidence they draw 14 GW. Same vehicles, a factor of five apart — and only one
+                   of those numbers sizes a transformer.</p>
+    <div class="field">
+      <label for="fleet">Population size</label>
+      <input type="number" id="fleet" value="10000000" min="1" max="100000000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="perkwh">Annual energy each (kWh)</label>
+      <input type="number" id="perkwh" value="2500" min="1" max="100000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="window">Delivery window (hours per day)</label>
+        <span class="rangeval" id="window-val">8</span></div>
+      <input type="range" id="window" min="1" max="24" step="1" value="8">
+    </div>
+    
+    <div class="scroller"><table id="three-table"><thead><tr><th>Quantity</th><th style="text-align:right">Value</th><th style="text-align:right">What it sizes</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">Only the third row sizes plant. The first two are energy questions. Quoting an
+                   average across a window as though it were a peak is how a flexibility assumption
+                   gets smuggled into a network study.</p>
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/diversified-demand.js">diversified-demand.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 26 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE = 'https://ventusltd.github.io/ventus-grid-engine/engine/diversified-demand.js';
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+function bind() { ['n','perkw','coin','meas','fleet','perkwh','window'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('coin-val').textContent = num('coin').toFixed(2);
+  el('window-val').textContent = num('window').toFixed(0);
+
+  try { fig('out-admd', E.diversifiedDemandKw({ unitCount: Math.round(num('n')), perUnitKw: num('perkw'), coincidenceFactor: num('coin') }), 1); }
+  catch (err) { refuse('out-admd', err.message); }
+
+  try { fig('out-implied', E.impliedCoincidence({ unitCount: Math.round(num('n')), perUnitKw: num('perkw'), measuredGroupPeakKw: num('meas') }), 3); }
+  catch (err) { refuse('out-implied', err.message); }
+
+  const tb = document.querySelector('#three-table tbody');
+  try {
+    const fleet = Math.round(num('fleet')), each = num('perkwh'), win = num('window');
+    const en = E.populationEnergyTwh({ unitCount: fleet, perUnitKwhPerYear: each });
+    const annualGw = en.value / 8.76;
+    const winGw = E.averageOverWindowGw({ annualTwh: en.value, windowHoursPerDay: win }).value;
+    const admdGw = E.diversifiedDemandKw({ unitCount: fleet, perUnitKw: num('perkw'), coincidenceFactor: num('coin') }).value / 1e6;
+    tb.innerHTML = [
+      ['Annual energy', en.value.toFixed(2) + ' TWh', 'generation, not plant'],
+      ['Average across the year', annualGw.toFixed(2) + ' GW', 'nothing — no network sees this'],
+      ['Average across a ' + win + '-hour window', winGw.toFixed(2) + ' GW', 'an average, not a peak'],
+      ['Unrestricted simultaneous draw', (fleet * num('perkw') / 1e6).toFixed(2) + ' GW', 'the worst case'],
+      ['After diversity (factor ' + num('coin').toFixed(2) + ')', admdGw.toFixed(2) + ' GW', 'THIS sizes the plant']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/THIS/.test(r[2]) ? '#00ff88' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { tb.innerHTML = '<tr><td colspan="3" style="color:#ffae00">' + err.message + '</td></tr>'; }
+}
+
+try {
+  E = await import(ENGINE);
+  if (E.schema !== 'ventus-grid-engine.diversified-demand.v1') throw new Error('unexpected schema ' + E.schema);
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' + E.schema +
+    ' · every figure below is computed by the engine module, not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

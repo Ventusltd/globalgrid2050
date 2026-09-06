@@ -1591,3 +1591,8 @@ Pre-edit snapshot of 9d364a218b91cf0fda1807bc9705a6616b63e62f; restore3401127345
 ## homepage_v076
 
 Pre-edit snapshot of 1ae532c5ff5b3749aaef99474ee4e521018f8363; restore34011880667 passed. Measurements: homepage_v076-measurement.json. Add separateCable0432TestCode; allpreviouslinks retained. TestCodecb87b9f3f8e469b6d64cdae84cd387115e6a5c15 exactly mirrorsowner8666179, CI34011801132green. Publiclegacyroute/currentownerpointers untouched; failed0430 excluded.
+
+
+## homepage_v077
+
+Pre-edit snapshot of 02e7aac373f4390d4735b894368be6bcfa5fec3b; restore34011966324 passed. Measurements: homepage_v077-measurement.json. Add Atlas0435 keyboard-native drawing controls, preservingeverypreviouslink. Source782acf6841ad98e8b6ba1d12986f6562fa1b22ab; polygonCI34011944163 andPDFCI34011944197 passed. PDFmodule carried unchanged from0418.

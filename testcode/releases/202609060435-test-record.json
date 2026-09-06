@@ -1,0 +1,18 @@
+{
+  "generation": "202609060435",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "782acf6841ad98e8b6ba1d12986f6562fa1b22ab",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "685d0e88bb5f1badec5721dc2b05acf630d1c335",
+  "ci": {
+    "polygonRun": 34011944163,
+    "pdfRun": 34011944197,
+    "conclusion": "success"
+  },
+  "scope": "116polygon checks cover native collapse/expand buttons,Enter/Space,focus restoration,44pxmeasurement controls, visiblefocus and accurateUndo guidance; nativeChromiumtouch retained.48PDFdownload checks and sixindependent renders retain0418PDFbehavior.",
+  "limitations": [
+    "Phoneviewport and nativeeventemulation are not physical-device validation.",
+    "FirefoxPDFCI uses headedXvfb; originalinitializationfailurecause inearlierno-displayCI remains unproven."
+  ],
+  "publicationStatus": "Served bytes and actual live browser checks recorded afterdeployment."
+}

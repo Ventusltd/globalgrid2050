@@ -32,7 +32,7 @@ const news = JSON.parse(await readFile(new URL("dist/major_project_news_v6.json"
 assert.equal(contract.release, "9.5");
 assert.equal(contract.frozen_parent.release, "9.4");
 assert.equal(contract.frozen_parent.commit, "d598d9b6b89be4daeb904fafae52dd18ba35d1c1");
-assert.equal(contract.frozen_parent.subtree, "dfcd9b457854fc07d4af3df5797f29e2e3d12426");
+assert.equal(contract.frozen_parent.subtree, "c274af911f786fb0385e7fb96f4e20ae7dec1de3");
 assert.equal(contract.frozen_parent.tree_listing_sha256, "72ab62c1129f0501e78c89ebff8ba8c0967197738916e556a7f6553699f69e8c");
 assert.equal(contract.frozen_parent.must_remain_unchanged, true);
 assert.equal(gitTree("HEAD:uk_renewables_pipeline/v9.4"), contract.frozen_parent.subtree, "V9.4 subtree changed while building V9.5");

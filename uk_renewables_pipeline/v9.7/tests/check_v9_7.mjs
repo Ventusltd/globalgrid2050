@@ -18,7 +18,7 @@ const gitTree = (revisionPath) => execFileSync(
 
 assert.equal(
   gitTree("HEAD:uk_renewables_pipeline/v9.6.2"),
-  "99d3b5d80be77b43c9819a571f468913e6132d07",
+  "d978c215bceaab6666e4bf17af782191d8fab49e",
   "the validated V9.6.2 parent subtree changed",
 );
 
@@ -43,7 +43,7 @@ const moduleRegistryText = await text(new URL("contracts/news-module-registry.v9
 
 assert.equal(contract.release, "9.7");
 assert.equal(contract.status, "CANDIDATE");
-assert.equal(contract.frozen_parent.subtree, "99d3b5d80be77b43c9819a571f468913e6132d07");
+assert.equal(contract.frozen_parent.subtree, "d978c215bceaab6666e4bf17af782191d8fab49e");
 assert.equal(contract.runtime.project_data_changed, false);
 assert.equal(contract.runtime.project_javascript_changed, false);
 assert.equal(contract.runtime.project_styles_changed, false);

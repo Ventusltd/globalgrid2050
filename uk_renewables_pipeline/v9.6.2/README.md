@@ -49,7 +49,7 @@ effect on official REPD facts.
 
 - release: `V9.6.1`;
 - commit: `55c822ba8fa046fb89bd7e896d9ade7c23c14043`;
-- subtree: `6fc655fd5f1e80e0e2c390dce62a38bdea69a20e`;
+- subtree: `243d1217c9748a4246a6d427a5e80ac45c5bd22e`;
 - path: `../v9.6.1/`.
 
 The parent retains 7,680 projects, 356,474.09 MW, 133 ALL headlines, 45 UK

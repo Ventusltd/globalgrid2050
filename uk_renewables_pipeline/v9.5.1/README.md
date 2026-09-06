@@ -8,11 +8,11 @@ The default page loads all 7,680 qualifying solar, battery, onshore-wind and off
 
 V9.5.1 changes the news presentation and deterministic feed union only. It does not rebuild the V9.1 data spine or change search, CSV, official identity, capacity, dates or Atlas algorithms.
 
-- V9.5 frozen app: `../v9.5/`, commit `3acd56386d0bf2952f8f26754d615d20a7345e35`, subtree `457d060161c0edaf9a55cc633ee884ebca5fbe43`.
+- V9.5 frozen app: `../v9.5/`, commit `3acd56386d0bf2952f8f26754d615d20a7345e35`, subtree `763c5b4055fc82939c1192a26123bfb2c75f3869`.
 
-- V9.4 frozen app: `../v9.4/`, commit `d598d9b6b89be4daeb904fafae52dd18ba35d1c1`, subtree `dfcd9b457854fc07d4af3df5797f29e2e3d12426`.
+- V9.4 frozen app: `../v9.4/`, commit `d598d9b6b89be4daeb904fafae52dd18ba35d1c1`, subtree `c274af911f786fb0385e7fb96f4e20ae7dec1de3`.
 
-- V9.3.1 frozen app: `../v9/`, commit `9e0c51281fc816691a75e4255483a0851122481e`, subtree `64f318b1dced6c202c5ff3517ef120828fdd2064`.
+- V9.3.1 frozen app: `../v9/`, commit `9e0c51281fc816691a75e4255483a0851122481e`, subtree `d9a508845b4e3b717bfb8cb33f244f7507d4d581`.
 
 - V9.3 frozen checkpoint: commit `eee4cf7d854bf44235c249d337c2aad3916bcdc0`.
 

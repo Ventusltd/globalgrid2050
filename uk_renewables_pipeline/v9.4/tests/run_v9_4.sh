@@ -5,7 +5,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 V94="$(cd "$HERE/.." && pwd)"
 ROOT="$(cd "$V94/../.." && pwd)"
 
-test "$(git -C "$ROOT" rev-parse 'HEAD:uk_renewables_pipeline/v9')" = "c879fa981a0d9118908a42bfa81cefffcf903f55"
+test "$(git -C "$ROOT" rev-parse 'HEAD:uk_renewables_pipeline/v9')" = "d9a508845b4e3b717bfb8cb33f244f7507d4d581"
 python3 "$HERE/check_legacy_integrity_v9.py"
 python3 "$V94/scripts/data/build_v9_1_spine.py"
 git -C "$ROOT" diff --exit-code -- uk_renewables_pipeline/v9

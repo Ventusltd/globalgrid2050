@@ -8,7 +8,7 @@ The default page loads all 7,680 qualifying solar, battery, onshore-wind and off
 
 V9.4 is a one-feature interaction release. It does not rebuild the V9.1 data spine or change search, relevance-screening, CSV, identity or Atlas algorithms.
 
-- V9.3.1 frozen app: `../v9/`, commit `9e0c51281fc816691a75e4255483a0851122481e`, subtree `64f318b1dced6c202c5ff3517ef120828fdd2064`.
+- V9.3.1 frozen app: `../v9/`, commit `9e0c51281fc816691a75e4255483a0851122481e`, subtree `d9a508845b4e3b717bfb8cb33f244f7507d4d581`.
 
 - V9.3 frozen checkpoint: commit `eee4cf7d854bf44235c249d337c2aad3916bcdc0`.
 

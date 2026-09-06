@@ -1,6 +1,6 @@
 # GlobalGrid2050 UK Renewables Pipeline V9.6
 
-V9.6 is a separate application copied from the validated V9.5.1 release. V9.5.1 remains frozen at commit `8b2432be75f224562fc1c416dbcc3319e31a47a8`, subtree `6288b9d8196adce57207b549c555c9bcee42587a`, listing SHA-256 `b6197b79601daab1ee3b1d33fb9356c6c56ec02c69f51be73298be34095d5fe8`.
+V9.6 is a separate application copied from the validated V9.5.1 release. V9.5.1 remains frozen at commit `8b2432be75f224562fc1c416dbcc3319e31a47a8`, subtree `95672822a2c534445ca12b0dd62f29154a66c0e8`, listing SHA-256 `b6197b79601daab1ee3b1d33fb9356c6c56ec02c69f51be73298be34095d5fe8`.
 
 ## Scope
 

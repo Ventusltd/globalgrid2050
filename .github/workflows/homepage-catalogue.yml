@@ -1,0 +1,33 @@
+name: Homepage catalogue reconciles
+# The homepage is a table generated from the tree and git: a GlobalGrid2050
+# reference (UTC stamp-name) and an independent git reference (tree hash) per
+# version. This re-derives every tree hash from git ON LINUX and fails if any
+# committed barcode differs, any relative link no longer resolves, or a family
+# has more than one current release. A Windows checkout once held 3,555 files
+# whose bytes differed from the blobs git serves; this is the check that a
+# catalogue generated anywhere still reconciles with what ships.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'catalogue/**'
+      - 'scripts/build_homepage_catalogue.py'
+      - 'scripts/check_homepage_catalogue.py'
+      - '.github/workflows/homepage-catalogue.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/check_homepage_catalogue.py

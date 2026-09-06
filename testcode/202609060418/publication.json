@@ -1,0 +1,156 @@
+{
+  "generation": "202609060418",
+  "lane": "codex",
+  "name": "Native map PDF download with readable source credits and release identity",
+  "builtUTC": "2026-09-06T04:18:54.143Z",
+  "source_commit": "6d77a92688c07363f8c99c1e1cba7f54d4a039f0",
+  "parent": "202609060401",
+  "status": "candidate awaiting browser and served-byte checks",
+  "files": [
+    {
+      "path": "atlas/cartridges/202609060418-substation-intelligence.js",
+      "bytes": 270155,
+      "sha256": "ec4ef8aec4f5a57163120bde0911df275c9e2f1b8b1ad2fd9b811a2e258ce7a0"
+    },
+    {
+      "path": "atlas/current.json",
+      "bytes": 49967,
+      "sha256": "afc1edfeb470738c22a466b6b2a7b983371e3329c7895ec0006845fe993db51c"
+    },
+    {
+      "path": "atlas/data/repd-identities/0.json",
+      "bytes": 308,
+      "sha256": "db38cc5baeec264d993237b019fea25e0daf20d38e61a7c99c49708debbe7038"
+    },
+    {
+      "path": "atlas/data/repd-identities/1.json",
+      "bytes": 217529,
+      "sha256": "296043846cb858698f963956a75abe35fa8e36cb693a27de86da77149470d612"
+    },
+    {
+      "path": "atlas/data/repd-identities/10.json",
+      "bytes": 89363,
+      "sha256": "ada3abb9a625982afb42cdece252317a0714a4eecf0b8af9901e30fce6652244"
+    },
+    {
+      "path": "atlas/data/repd-identities/11.json",
+      "bytes": 120792,
+      "sha256": "e120400ed11e3ca2858bd70fe107c7f5828eb518ed86ec70fb3bb91c61827af2"
+    },
+    {
+      "path": "atlas/data/repd-identities/12.json",
+      "bytes": 93454,
+      "sha256": "92aee6e62510f181fb08fe8e00d3bb3cd9bc53b655698f2917cc2611b5c8b3a1"
+    },
+    {
+      "path": "atlas/data/repd-identities/13.json",
+      "bytes": 107027,
+      "sha256": "5dd12a84e8a50fa81b3dc7e9260a28834055d448c47bb49731036551318c245f"
+    },
+    {
+      "path": "atlas/data/repd-identities/14.json",
+      "bytes": 95925,
+      "sha256": "ed01c4722b77bba9b11a317d8a8377a48226226072502fb62d075e9c2ba291aa"
+    },
+    {
+      "path": "atlas/data/repd-identities/15.json",
+      "bytes": 95772,
+      "sha256": "f96a38fdbb186aa6e0a51089787d1ba49efffd903e1f948c89b151bd2090ab15"
+    },
+    {
+      "path": "atlas/data/repd-identities/16.json",
+      "bytes": 102479,
+      "sha256": "e675ec1a28eceddf5d52c53c39768fed10137cba928a633a07adb660d3c9f382"
+    },
+    {
+      "path": "atlas/data/repd-identities/17.json",
+      "bytes": 89533,
+      "sha256": "0a9320a8ade89c7b5623e0ad7a3d98076ae18854fdd6204b48e7b7b04a56e74c"
+    },
+    {
+      "path": "atlas/data/repd-identities/18.json",
+      "bytes": 86811,
+      "sha256": "ec52880f011ab831c9df60062f2e6746aaf216932845039f296e0b0a8f5a7c0b"
+    },
+    {
+      "path": "atlas/data/repd-identities/19.json",
+      "bytes": 69695,
+      "sha256": "079ec81eac9add3b175219ea6d7cc8b0003e0a5954624918045ae1decfb1c4d8"
+    },
+    {
+      "path": "atlas/data/repd-identities/2.json",
+      "bytes": 233609,
+      "sha256": "53dc3ab68911f73625345ce13afadbd5be40609e14985a8c3ce42c476b7cc9bb"
+    },
+    {
+      "path": "atlas/data/repd-identities/20.json",
+      "bytes": 31642,
+      "sha256": "223bb190b10c2f77946df9a317650d658819c93f0aa4ed752ea2c1f057690752"
+    },
+    {
+      "path": "atlas/data/repd-identities/21.json",
+      "bytes": 5055,
+      "sha256": "b181570db71a20b65e8c853f0b570eb931a8a986c94852b8e4bb1fcdd9d77193"
+    },
+    {
+      "path": "atlas/data/repd-identities/3.json",
+      "bytes": 281903,
+      "sha256": "5eae3b5982daa4e6ba9005bbf04a81dd35d03f7c01300082c8157c58a9001c62"
+    },
+    {
+      "path": "atlas/data/repd-identities/4.json",
+      "bytes": 277362,
+      "sha256": "21a7e231a65c45e4cfcd24f8a4f50b541d5b7b8a8933e361ccd41142a3f60634"
+    },
+    {
+      "path": "atlas/data/repd-identities/5.json",
+      "bytes": 212564,
+      "sha256": "37dc1818980b2024a813dc0d69706d0e9167bc7bec3c912a627ce552facee7ca"
+    },
+    {
+      "path": "atlas/data/repd-identities/6.json",
+      "bytes": 108252,
+      "sha256": "e9299e040ef4640232ed26c0938e6f656ba76e0787f01c805e05899a826c695a"
+    },
+    {
+      "path": "atlas/data/repd-identities/7.json",
+      "bytes": 140045,
+      "sha256": "3251b1085f4a92ee28fea7dafeb28abadfdc34ce6fab0c091ad15e6180620e9e"
+    },
+    {
+      "path": "atlas/data/repd-identities/8.json",
+      "bytes": 76868,
+      "sha256": "343ddc698f0c62ed15ee258cc5b9ce94b3c2c7f37e7af7dda8005097425b87a5"
+    },
+    {
+      "path": "atlas/data/repd-identities/9.json",
+      "bytes": 106432,
+      "sha256": "28b388d4b6fa171740451c6dd0ef8b9710e2d2e32e2167c536ed1c96dbbd7e81"
+    },
+    {
+      "path": "atlas/index.html",
+      "bytes": 5684,
+      "sha256": "5a78c5500b5c4dbd5c4642d528e33581a9f0e62f37a7dd5df87fcea48e077d60"
+    },
+    {
+      "path": "atlas/map-controls-layout.js",
+      "bytes": 3554,
+      "sha256": "719b70df886188adb0c33c3c170976bdd9274a4d4d5211023bf440a1fa7b62d1"
+    },
+    {
+      "path": "atlas/source-provenance.json",
+      "bytes": 1465,
+      "sha256": "8d67503dc862fed85ac6a006cc815e0a2abf2f668496bc72e8919105bb170cbb"
+    },
+    {
+      "path": "atlas/teleprinter-bootstrap.js",
+      "bytes": 155,
+      "sha256": "21b3a015d37847b310a81c0c9a65b453ef38ef4a7cf09d2637a024e0c95160d7"
+    },
+    {
+      "path": "index.html",
+      "bytes": 517,
+      "sha256": "0ec60c8a10db09ec938e018738c7af67be23098cb185cd71934a22cb00da392e"
+    }
+  ]
+}

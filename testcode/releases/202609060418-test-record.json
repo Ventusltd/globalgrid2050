@@ -1,0 +1,20 @@
+{
+  "generation": "202609060418",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "877f7cb09548b875d6cf6f84ba414900194f80a6",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "6d77a92688c07363f8c99c1e1cba7f54d4a039f0",
+  "ci": {
+    "run": 34011476374,
+    "conclusion": "success"
+  },
+  "scope": "48actual map-PDF download checks across Chromium,Firefox,WebKit and desktop/phone; six independent PDF parse/render checks;106polygon checks. Firefox CI uses headed mode under Xvfb.",
+  "limitations": [
+    "Map-PDF export is separate from whole-application Print.",
+    "Phone viewport tests are not physical-device validation.",
+    "InitialCI34011251539 failed Firefox map initialization before export. The later Xvfb probe found WebGL in both headless/headed modes; initial startup cause remains unproven. App bytes unchanged.",
+    "Failed0417 excluded."
+  ],
+  "browserEvidence": "recovery-20260906/pdf0418-ci-display",
+  "publicationStatus": "Served bytes and actual live downloads recorded after deployment."
+}

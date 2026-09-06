@@ -1581,3 +1581,8 @@ Pre-edit snapshot of 22f337b9471ae063361f260a8efd10167a15c296; restore workflow3
 ## homepage_v074
 
 Pre-edit snapshot of 95dfa2ce68c624f841f3f212d7709aa9ffbc5d05; restore34011119409 passed. Measurements: homepage_v074-measurement.json. Add four missing previous Pipeline entries0204/0206/0208/0213 under existing TestCode. Correction: the prior homepage linked26of30 accepted/previously recorded ledger entries; these four were also absent in snapshot065. All30entrypoints were live and byte-identical before this navigation correction. No app files or feature count changed.
+
+
+## homepage_v075
+
+Pre-edit snapshot of 9d364a218b91cf0fda1807bc9705a6616b63e62f; restore34011273452 passed. Measurements: homepage_v075-measurement.json. Add native map PDF0418 and retain all30 existing feature links. Source877f7cb09548b875d6cf6f84ba414900194f80a6; exact cross-browser/PDF-render/polygon CI34011476374 passed. InitialFirefoxstartup failure34011251539 remains recorded; later Xvfb configuration passes without app changes, original cause unproven. Failed0417 excluded; whole-app Print remains separate.

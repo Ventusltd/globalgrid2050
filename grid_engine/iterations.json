@@ -109,6 +109,15 @@
       "engine": "engine/power-factor.js",
       "engineCommit": "d1b459c",
       "checks": 33
+    },
+    {
+      "stamp": "202609060313",
+      "path": "202609060313-voltage-drop/",
+      "title": "Voltage Drop Workbench",
+      "feature": "Voltage drop along a run with the reactance term carried properly against power factor, the resistive and reactive parts shown apart, losses computed from resistance only, and annual energy at a stated loss load factor.",
+      "engine": "engine/voltage-drop.js",
+      "engineCommit": "2b0db38",
+      "checks": 32
     }
   ]
 }

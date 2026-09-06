@@ -1081,5 +1081,109 @@ function render() {
       '</div><p class="basis">' + before.basis + '</p>';
   } catch (err) { refuse('out-agreed', err.message); }
 }`
+    },
+    {
+        stamp: '202609060313',
+        slug: 'voltage-drop',
+        title: 'Voltage Drop Workbench',
+        sub: 'What a cable run costs in volts, and separately in watts',
+        feature: 'Voltage drop along a run with the reactance term carried properly against power factor, the resistive and reactive parts shown apart, losses computed from resistance only, and annual energy at a stated loss load factor.',
+        engineModule: 'voltage-drop.js',
+        engineCommit: '2b0db38',
+        schema: 'ventus-grid-engine.voltage-drop.v1',
+        checks: 32,
+        panels: [
+            {
+                heading: '1 · THE RUN',
+                lede: `On a long run — a solar farm's internal collection, a depot's feeders, anything
+                   in hundreds of metres — voltage drop chooses the conductor more often than current
+                   does. Resistance and reactance are per kilometre and belong to the conductor you are
+                   actually using: the engine carries none of its own, because a plausible-looking
+                   default would be the most dangerous thing in it.`,
+                controls: [
+                    { id: 'amps', type: 'number', label: 'Current (A)', value: '200', min: 0.1, max: 20000, step: 1 },
+                    { id: 'len', type: 'number', label: 'Run length (m)', value: '250', min: 1, max: 50000, step: 1 },
+                    { id: 'r', type: 'number', label: 'Resistance (ohm/km)', value: '0.1', min: 0.0001, max: 20, step: 0.0001 },
+                    { id: 'x', type: 'number', label: 'Reactance (ohm/km)', value: '0.08', min: 0, max: 20, step: 0.0001 },
+                    { id: 'pf', type: 'range', label: 'Load power factor', value: '0.90', min: 0.50, max: 1.00, step: 0.01 },
+                    { id: 'vn', type: 'number', label: 'Nominal voltage (V)', value: '400', min: 1, max: 500000, step: 1 }
+                ],
+                outId: 'out-drop'
+            },
+            {
+                heading: '2 · WHERE THE VOLTS ACTUALLY GO',
+                lede: `The reactance term is carried against sin(phi). At unity power factor it
+                   contributes exactly nothing; at 0.8 it contributes 60% of X. On a large cable —
+                   where X approaches and can exceed R — leaving it out under-states the drop badly,
+                   and a poorly corrected industrial load is precisely where that lands. Move the
+                   power factor slider and watch the reactive share move with it.`,
+                controls: [],
+                tableId: 'drop-table',
+                tableHead: [{ label: 'Component' }, { label: 'Volts', right: true }, { label: 'Share', right: true }],
+                note: `No permitted limit is asserted anywhere on this page. What drop is allowed
+                   depends on the installation, on what sits at the far end, and on how much of the
+                   allowance the rest of the system has already spent.`
+            },
+            {
+                heading: '3 · HEAT, WHICH IS A DIFFERENT QUESTION',
+                lede: `Losses are I²R and take <em>only</em> resistance — reactance stores and returns
+                   energy rather than dissipating it. So a run can pass on volts and be expensive in
+                   watts, or the reverse. Annual energy needs the <strong>loss</strong> load factor,
+                   which is not the load factor: losses follow the square of current, so using the
+                   load factor over-states them.`,
+                controls: [
+                    { id: 'llf', type: 'range', label: 'Loss load factor', value: '0.30', min: 0.02, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-loss',
+                tableId: 'loss-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Three phase', right: true }, { label: 'Single phase', right: true }]
+            }
+        ],
+        script: `
+function bind() { ['amps','len','r','x','pf','vn','llf'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('pf-val').textContent = num('pf').toFixed(2);
+  el('llf-val').textContent = num('llf').toFixed(2);
+  const a = { currentA: num('amps'), lengthM: num('len'), resistanceOhmPerKm: num('r'),
+              reactanceOhmPerKm: num('x'), powerFactor: num('pf') };
+
+  const dt = document.querySelector('#drop-table tbody');
+  try {
+    const three = E.voltageDropVolts({ ...a, phases: 'three' });
+    const single = E.voltageDropVolts({ ...a, phases: 'single' });
+    const pc = E.dropPercent({ dropVolts: three.value, nominalVolts: num('vn') });
+    el('out-drop').innerHTML =
+      '<div class="figure"><span class="q">three-phase voltage drop</span><span class="n">' +
+      three.value.toFixed(2) + '</span><span class="u">V · ' + pc.value.toFixed(3) + '% of ' + num('vn') + ' V</span></div>' +
+      '<p class="basis">' + three.basis + '</p>';
+    const tot = three.value;
+    dt.innerHTML = [
+      ['Resistive (R cos φ)', three.resistiveVolts.toFixed(2), ((three.resistiveVolts/tot)*100).toFixed(1) + '%'],
+      ['Reactive (X sin φ)', three.reactiveVolts.toFixed(2), ((three.reactiveVolts/tot)*100).toFixed(1) + '%'],
+      ['Total, three phase', tot.toFixed(2), pc.value.toFixed(3) + '% of nominal'],
+      ['Same run, single phase', single.value.toFixed(2), (single.value/tot).toFixed(4) + '× the three-phase figure']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-drop', err.message); dt.innerHTML = ''; }
+
+  const lt = document.querySelector('#loss-table tbody');
+  try {
+    const l3 = E.lossesWatts({ currentA: a.currentA, lengthM: a.lengthM, resistanceOhmPerKm: a.resistanceOhmPerKm, phases: 'three' });
+    const l1 = E.lossesWatts({ currentA: a.currentA, lengthM: a.lengthM, resistanceOhmPerKm: a.resistanceOhmPerKm, phases: 'single' });
+    const y3 = E.annualLossKwh({ peakLossWatts: l3.value, lossLoadFactor: num('llf') });
+    const y1 = E.annualLossKwh({ peakLossWatts: l1.value, lossLoadFactor: num('llf') });
+    el('out-loss').innerHTML =
+      '<div class="figure"><span class="q">losses at peak, three phase</span><span class="n">' +
+      (l3.value/1000).toFixed(3) + '</span><span class="u">kW · ' +
+      y3.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' kWh a year</span></div>' +
+      '<p class="basis">' + l3.basis + '</p>';
+    lt.innerHTML = [
+      ['Conductors carrying current', l3.conductors, l1.conductors],
+      ['Losses at peak', (l3.value/1000).toFixed(3) + ' kW', (l1.value/1000).toFixed(3) + ' kW'],
+      ['Annual energy lost', y3.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' kWh',
+                             y1.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' kWh']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-loss', err.message); lt.innerHTML = ''; }
+}`
     }
 ];

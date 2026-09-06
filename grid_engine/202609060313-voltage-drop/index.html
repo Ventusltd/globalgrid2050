@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voltage Drop Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>VOLTAGE DROP WORKBENCH</h1>
+  <p class="sub">What a cable run costs in volts, and separately in watts</p>
+  <p class="stamp">Generation 202609060313 · engine voltage-drop.js at 2b0db38</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · THE RUN</h2>
+  <div class="body">
+    <p class="lede">On a long run — a solar farm's internal collection, a depot's feeders, anything
+                   in hundreds of metres — voltage drop chooses the conductor more often than current
+                   does. Resistance and reactance are per kilometre and belong to the conductor you are
+                   actually using: the engine carries none of its own, because a plausible-looking
+                   default would be the most dangerous thing in it.</p>
+    <div class="field">
+      <label for="amps">Current (A)</label>
+      <input type="number" id="amps" value="200" min="0.1" max="20000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="len">Run length (m)</label>
+      <input type="number" id="len" value="250" min="1" max="50000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="r">Resistance (ohm/km)</label>
+      <input type="number" id="r" value="0.1" min="0.0001" max="20" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="x">Reactance (ohm/km)</label>
+      <input type="number" id="x" value="0.08" min="0" max="20" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="pf">Load power factor</label>
+        <span class="rangeval" id="pf-val">0.90</span></div>
+      <input type="range" id="pf" min="0.5" max="1" step="0.01" value="0.90">
+    </div>
+    <div class="field">
+      <label for="vn">Nominal voltage (V)</label>
+      <input type="number" id="vn" value="400" min="1" max="500000" step="1" inputmode="decimal">
+    </div>
+    <div class="out" id="out-drop"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · WHERE THE VOLTS ACTUALLY GO</h2>
+  <div class="body">
+    <p class="lede">The reactance term is carried against sin(phi). At unity power factor it
+                   contributes exactly nothing; at 0.8 it contributes 60% of X. On a large cable —
+                   where X approaches and can exceed R — leaving it out under-states the drop badly,
+                   and a poorly corrected industrial load is precisely where that lands. Move the
+                   power factor slider and watch the reactive share move with it.</p>
+
+    
+    <div class="scroller"><table id="drop-table"><thead><tr><th>Component</th><th style="text-align:right">Volts</th><th style="text-align:right">Share</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">No permitted limit is asserted anywhere on this page. What drop is allowed
+                   depends on the installation, on what sits at the far end, and on how much of the
+                   allowance the rest of the system has already spent.</p>
+  </div>
+</section>
+<section>
+  <h2>3 · HEAT, WHICH IS A DIFFERENT QUESTION</h2>
+  <div class="body">
+    <p class="lede">Losses are I²R and take <em>only</em> resistance — reactance stores and returns
+                   energy rather than dissipating it. So a run can pass on volts and be expensive in
+                   watts, or the reverse. Annual energy needs the <strong>loss</strong> load factor,
+                   which is not the load factor: losses follow the square of current, so using the
+                   load factor over-states them.</p>
+    <div class="field">
+      <div class="rangerow"><label for="llf">Loss load factor</label>
+        <span class="rangeval" id="llf-val">0.30</span></div>
+      <input type="range" id="llf" min="0.02" max="1" step="0.01" value="0.30">
+    </div>
+    <div class="out" id="out-loss"></div>
+    <div class="scroller"><table id="loss-table"><thead><tr><th>Measure</th><th style="text-align:right">Three phase</th><th style="text-align:right">Single phase</th></tr></thead><tbody></tbody></table></div>
+    
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/voltage-drop.js">voltage-drop.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 32 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/voltage-drop.js"];
+const ENGINE_SCHEMAS = ["ventus-grid-engine.voltage-drop.v1"];
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+function bind() { ['amps','len','r','x','pf','vn','llf'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('pf-val').textContent = num('pf').toFixed(2);
+  el('llf-val').textContent = num('llf').toFixed(2);
+  const a = { currentA: num('amps'), lengthM: num('len'), resistanceOhmPerKm: num('r'),
+              reactanceOhmPerKm: num('x'), powerFactor: num('pf') };
+
+  const dt = document.querySelector('#drop-table tbody');
+  try {
+    const three = E.voltageDropVolts({ ...a, phases: 'three' });
+    const single = E.voltageDropVolts({ ...a, phases: 'single' });
+    const pc = E.dropPercent({ dropVolts: three.value, nominalVolts: num('vn') });
+    el('out-drop').innerHTML =
+      '<div class="figure"><span class="q">three-phase voltage drop</span><span class="n">' +
+      three.value.toFixed(2) + '</span><span class="u">V · ' + pc.value.toFixed(3) + '% of ' + num('vn') + ' V</span></div>' +
+      '<p class="basis">' + three.basis + '</p>';
+    const tot = three.value;
+    dt.innerHTML = [
+      ['Resistive (R cos φ)', three.resistiveVolts.toFixed(2), ((three.resistiveVolts/tot)*100).toFixed(1) + '%'],
+      ['Reactive (X sin φ)', three.reactiveVolts.toFixed(2), ((three.reactiveVolts/tot)*100).toFixed(1) + '%'],
+      ['Total, three phase', tot.toFixed(2), pc.value.toFixed(3) + '% of nominal'],
+      ['Same run, single phase', single.value.toFixed(2), (single.value/tot).toFixed(4) + '× the three-phase figure']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-drop', err.message); dt.innerHTML = ''; }
+
+  const lt = document.querySelector('#loss-table tbody');
+  try {
+    const l3 = E.lossesWatts({ currentA: a.currentA, lengthM: a.lengthM, resistanceOhmPerKm: a.resistanceOhmPerKm, phases: 'three' });
+    const l1 = E.lossesWatts({ currentA: a.currentA, lengthM: a.lengthM, resistanceOhmPerKm: a.resistanceOhmPerKm, phases: 'single' });
+    const y3 = E.annualLossKwh({ peakLossWatts: l3.value, lossLoadFactor: num('llf') });
+    const y1 = E.annualLossKwh({ peakLossWatts: l1.value, lossLoadFactor: num('llf') });
+    el('out-loss').innerHTML =
+      '<div class="figure"><span class="q">losses at peak, three phase</span><span class="n">' +
+      (l3.value/1000).toFixed(3) + '</span><span class="u">kW · ' +
+      y3.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' kWh a year</span></div>' +
+      '<p class="basis">' + l3.basis + '</p>';
+    lt.innerHTML = [
+      ['Conductors carrying current', l3.conductors, l1.conductors],
+      ['Losses at peak', (l3.value/1000).toFixed(3) + ' kW', (l1.value/1000).toFixed(3) + ' kW'],
+      ['Annual energy lost', y3.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' kWh',
+                             y1.value.toLocaleString('en-GB',{maximumFractionDigits:0}) + ' kWh']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-loss', err.message); lt.innerHTML = ''; }
+}
+
+try {
+  const loaded = [];
+  for (const url of ENGINE_MODULES) loaded.push(await import(url));
+  // Some engine modules predate the schema convention and declare none. A spec
+  // says so by passing null, and the check is skipped rather than faked -- an
+  // asserted schema that does not exist would fail every load for a module that
+  // is perfectly good.
+  loaded.forEach((m, i) => {
+    const expected = ENGINE_SCHEMAS[i];
+    if (expected && m.schema !== expected) {
+      throw new Error('unexpected schema ' + m.schema + ' from ' + ENGINE_MODULES[i]);
+    }
+  });
+  // Merge the modules into one namespace. A name collision would silently
+  // shadow one module's function with another's, so it is refused loudly.
+  E = {};
+  const NOT_COMPUTED = {};
+  // Refusals are not all shaped the same. The newer modules export
+  // NOT_COMPUTED as an object of named reasons; the older ones export a single
+  // string, or name their boundaries individually as NOT_A_CAPACITY,
+  // NO_HEADROOM, NEVER_SUMMED, CAVEAT and so on. Spreading a string into an
+  // object would render one character per letter, so each shape is handled.
+  const REFUSAL_NAME = /^(NOT_|NO_|NEVER_|CAVEAT|IMPEDANCE_)/;
+  for (const m of loaded) {
+    for (const [k, v] of Object.entries(m)) {
+      if (k === 'schema' || k === 'requires') continue;
+      if (k === 'NOT_COMPUTED') {
+        if (typeof v === 'string') NOT_COMPUTED.notComputed = v;
+        else Object.assign(NOT_COMPUTED, v);
+        continue;
+      }
+      if (REFUSAL_NAME.test(k) && typeof v === 'string') {
+        NOT_COMPUTED[k.toLowerCase().replace(/_(.)/g, (_, c) => c.toUpperCase())] = v;
+        continue;
+      }
+      if (k in E) throw new Error('two engine modules both export "' + k + '"');
+      E[k] = v;
+    }
+  }
+  E.NOT_COMPUTED = NOT_COMPUTED;
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' +
+    ENGINE_SCHEMAS.map((sc, i) => sc || ENGINE_MODULES[i].split('/').pop()).join(' + ') +
+    ' · every figure below is computed by the engine module' + (loaded.length > 1 ? 's' : '') + ', not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

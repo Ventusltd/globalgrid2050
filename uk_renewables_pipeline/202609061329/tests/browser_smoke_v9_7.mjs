@@ -217,9 +217,23 @@ try {
        Where the MAP control actually lands, and whether a thumb can hit it, is
        measured in tests/browser_map_reachability_v9_7.mjs — because a display
        value is not a position, and it was the position that was wrong. */
+    /* 202609061329 REVERSES THE TWO LINES THAT USED TO FOLLOW:
+         assert.equal(hidden, 5);  assert.equal(visible, 6);
+       The architect asked for the columns back - REPD REF, GLOBALGRID REF and
+       REPD UPDATED were named - and pipelinenews_intelligence/202608312339 shows
+       thirteen on this viewport. So all eleven are shown again.
+
+       The defect the old contract was defending against was REAL and it is not
+       being re-opened: with a 1280 px table minimum and no pinned ACTIONS column,
+       MAP sat 763 px off-screen. Two things now hold it in place - the ACTIONS
+       column is pinned to the right edge, and any overflow is swiped inside
+       .tablewrap, asserted above - and whether a thumb can actually hit MAP is
+       measured where a position can be measured, in
+       tests/browser_map_reachability_v9_7.mjs, which runs after this file. A
+       display value is not a position; both are gated, separately. */
     const hidden = layout.displays.filter((display) => display === "none").length;
-    assert.equal(hidden, 5, `${width}px: the five desktop-only columns must stay hidden on a phone`);
-    assert.equal(layout.displays.length - hidden, 6, `${width}px: six columns remain`);
+    assert.equal(hidden, 0, `${width}px: no column may be hidden on a phone - ${hidden} are`);
+    assert.equal(layout.displays.length, 11, `${width}px: all eleven columns are shown`);
     assert.equal(await clickCount(mobile.page, "INTERNATIONAL"), 19);
     await mobile.context.close();
   }

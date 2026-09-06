@@ -1643,3 +1643,8 @@ Pre-edit snapshot of 00c94eb26860a40c44b3fd95d50cc3f39c77a8a0; restore3401394244
 ## homepage_v086
 
 Pre-edit snapshot of 282368be79f443d91a2e837b610f5acac8760bd5; restore34014252912 passed. Measurements: homepage_v086-measurement.json. Publish0528 near-antipodal distance correction after0521 acceptance. Exact source946a14e566ffe5b66372bb3e99e712b685d56dca, CI34014130115 passed349 checks including26 distance checks. Clamp haversine intermediate to its mathematical0..1 range only; exact coordinates unchanged. Earlier0521 eight failing export checks retained as negative evidence. Preserve older links.
+
+
+## homepage_v087
+
+Pre-edit snapshot of 93961b0d3388de4576eeb58afd3695a56384d381; restore34014509647 passed. Measurements: homepage_v087-measurement.json. Publish0537 immediate measurement visibility after0528 acceptance and exact CI34014494672. Source d66ac93905c4cbeb5526ac840d650e7dd876e25f; exact CI passed373 scoped checks including24 fresh-draw readout visibility cases. Preserve control DOM/handlers, two-column phone layout and every older link. Earlier0528 three visibility failures retained.

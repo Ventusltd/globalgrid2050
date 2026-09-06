@@ -1,0 +1,28 @@
+{
+  "generation": "202609060537",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "d66ac93905c4cbeb5526ac840d650e7dd876e25f",
+  "ownerCommit": "b608de2665f6b568f13b06a0ade9707da0014e7d",
+  "parentGeneration": "202609060528",
+  "ci": {
+    "run": 34014494672,
+    "conclusion": "success",
+    "readoutChecks": 24,
+    "distanceChecks": 26,
+    "vertexLimitChecks": 18,
+    "compositionChecks": 11,
+    "clearanceChecks": 64,
+    "layoutChecks": 54,
+    "removalChecks": 26,
+    "recoveryChecks": 20,
+    "polygonChecks": 120,
+    "printChecks": 10
+  },
+  "scope": "Show fresh-draw area/perimeter values before editing controls on desktop/single-column layouts; preserve phone columns, control DOM and handlers.",
+  "limitations": [
+    "Earlier0528 three fresh-draw visibility failures retained; prior overlap proofs did not cover scroll visibility.",
+    "Separate local integration validates three-engine PDF downloads/renders and readout interactions. WebKit page screenshots remain distinct from native-canvas and actual PDF evidence.",
+    "No owner-main promotion or full estate pass claimed."
+  ],
+  "publicationStatus": "Exact served and live receipts recorded after deployment."
+}

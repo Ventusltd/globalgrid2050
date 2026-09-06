@@ -88,7 +88,7 @@
 </div>
 
 <h2>3. What NESO publishes, and what the estate already carried</h2>
-<p>ETYS 2025 Appendix D is three documents on NESO's page, dated 30 June 2026 (workbooks) and 29 June 2026 (narrative).<sup><a href="#r23">[23]</a></sup> The narrative states the study basis exactly: currents calculated "in line with ER G74", "based on an initial condition from an AC load flow", X/R by IEC 60909-0 Method C, a uniform 50 ms break time, the Holistic Transition scenario for winters 2025/26 to 2033/34, minimum-demand cases for 2025/26 only.<sup><a href="#r2">[2]</a></sup> It also states the limit: "the listed currents should be regarded as indicative – they provide a general guide only", and interface-substation values are "not suitable for specifying short-circuit requirements for new switchgear".<sup><a href="#r2">[2]</a></sup></p>
+<p>ETYS 2025 Appendix D is three documents on NESO's page, all three dated 30 June 2026.<sup><a href="#r23">[23]</a></sup> The narrative states the study basis exactly: currents calculated "in line with ER G74", "based on an initial condition from an AC load flow", X/R by IEC 60909-0 Method C, a uniform 50 ms break time, the Holistic Transition scenario for winters 2025/26 to 2033/34, minimum-demand cases for 2025/26 only.<sup><a href="#r2">[2]</a></sup> It also states the limit: "the listed currents should be regarded as indicative – they provide a general guide only", and interface-substation values are "not suitable for specifying short-circuit requirements for new switchgear".<sup><a href="#r2">[2]</a></sup></p>
 <p>The estate's data lane pins both workbooks by byte count and SHA-256, refuses to build if the bytes differ, aborts on header drift, and publishes 886 connection points of which 605 carry fault-current envelopes.<sup><a href="#r25">[25]</a></sup> The Atlas card quotes one named metric — three-phase RMS break current — grouped by the voltage of the busbar the circuit lands on, after an earlier build printed "5.1–49.6 kA" across a 132 kV and a 400 kV busbar and an engineer would have read it as one number for one point.<sup><a href="#r26">[26]</a></sup></p>
 <figure>
 <pre><code>ABHAM · NGET · 132 kV busbars ABHA1 M2, ABHA1 R1 · peak demand · winters 2025/26–2033/34
@@ -160,7 +160,7 @@ quote(record, metricName) → one line, or null
 <h2>References</h2>
 <ol class="refs">
   <li id="r1">NESO, ETYS 2022 Appendix D fault level narrative (Jan 2023). https://www.neso.energy/document/275606/download</li>
-  <li id="r2">NESO, ETYS 2025 Appendix D – Fault levels Narrative (29 Jun 2026). https://www.neso.energy/document/383966/download</li>
+  <li id="r2">NESO, ETYS 2025 Appendix D – Fault levels Narrative (30 Jun 2026). https://www.neso.energy/document/383966/download</li>
   <li id="r3">WPD/NGED Standard Technique ST:SD7F/2, fault level assessment (May 2017). https://commercial.nationalgrid.co.uk/downloads-view-reciteme/3482</li>
   <li id="r4">ENA EREC G89 Issue 1 (2011), switchgear ratings. https://www.ena-eng.org/ENA-Docs/D0C3XTRACT/ENA_EREC_G89_Extract_180902050609.pdf</li>
   <li id="r5">IEC 60909-0:2016. https://webstore.iec.ch/en/publication/24100</li>

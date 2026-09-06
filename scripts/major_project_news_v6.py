@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import math
 import re
 import time
@@ -144,6 +145,63 @@ FOREIGN_PHRASES = {
     if norm_phrase
 }
 FOREIGN_PHRASES.add("ireland")
+
+
+# ---------------------------------------------------------------------------
+# The instant a story's age is measured from.
+#
+# WHY THIS IS NOT datetime.now().
+#
+# A story's recency contributes to its match score:
+#
+#     recency = 10 if age_days <= 14 else 8 if age_days <= 30 else 5 ... else 2
+#
+# Measured from the real clock, that makes the SCORE A FUNCTION OF WHEN YOU RUN
+# THE CODE. Rebuilding a recorded edition then produces a different number from
+# the one recorded in it, on nobody's change, and every gate that compares the
+# rebuild against the recorded bytes goes red as time passes.
+#
+# It did. The V9.5.1 edition was scored on 2026-08-22 against a story published
+# 2026-08-21 - one day old, recency 10, total 91. Re-run on 2026-09-06 the same
+# story is sixteen days old, recency 8, total 89, and five validation chains
+# failed on a repository nobody had touched: v9.5.1, v9.6.1, v9.6.2 and both
+# timestamped releases.
+#
+# CVAA names this class directly (Ventusltd/cvaa, 202608301810-no-time-based-
+# gates): a check whose result depends on when it runs is not a check.
+#
+# So a rebuild scores against the instant the edition was ORIGINALLY scored at.
+# The caller pins it from the edition's own `updated` field; SOURCE_DATE_EPOCH
+# is honoured second, for the reproducible-builds convention; and only a genuine
+# live crawl - which has no recorded instant to inherit - falls through to the
+# real clock.
+#
+# Note the crawl cutoff at the fetch site deliberately still uses the real
+# clock: choosing which stories to FETCH is a question about now. Only the
+# scoring of an already-recorded story must be reproducible.
+SCORING_REFERENCE: datetime | None = None
+
+
+def scoring_reference() -> datetime:
+    if SCORING_REFERENCE is not None:
+        return SCORING_REFERENCE
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if epoch and epoch.strip().isdigit():
+        return datetime.fromtimestamp(int(epoch.strip()), timezone.utc)
+    return datetime.now(timezone.utc)
+
+
+def pin_scoring_reference(value) -> datetime:
+    """Pin the scoring instant, from an ISO string or a datetime."""
+    global SCORING_REFERENCE
+    if isinstance(value, datetime):
+        moment = value
+    else:
+        moment = datetime.fromisoformat(str(value).strip().replace("Z", "+00:00"))
+    if moment.tzinfo is None:
+        moment = moment.replace(tzinfo=timezone.utc)
+    SCORING_REFERENCE = moment
+    return moment
 
 
 def clean(value):
@@ -609,7 +667,7 @@ def evaluate_candidate(project: dict, story: dict, context: dict | None = None) 
         "event_specificity": 5 if specific_event else 0,
     }
     try:
-        age_days = max(0, (datetime.now(timezone.utc) - story["published"]).days)
+        age_days = max(0, (scoring_reference() - story["published"]).days)
     except Exception:
         age_days = LOOKBACK_DAYS
     components["recency"] = 10 if age_days <= 14 else 8 if age_days <= 30 else 5 if age_days <= 90 else 2

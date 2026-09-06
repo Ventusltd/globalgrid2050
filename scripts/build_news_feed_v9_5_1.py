@@ -128,6 +128,12 @@ def main() -> dict:
     if v6.get("schema") != "globalgrid2050.major-project-news.v6":
         raise RuntimeError("Canonical V6 feed is unavailable")
 
+    # Score against the instant this edition was originally scored at, not the
+    # instant of the rebuild. Without this the recency component decays with the
+    # calendar and a rebuild disagrees with the recorded bytes on nobody's
+    # change. See major_project_news_v6.scoring_reference for the full account.
+    matcher.pin_scoring_reference(v6["updated"])
+
     snapshot, projects = matcher.load_project_snapshot()
     known_refs = {project["repd_ref"] for project in projects}
     revalidated_v5, rejections = canonical_v5_items(v5["items"], projects)
@@ -195,7 +201,15 @@ def main() -> dict:
         "canonical_items": canonical,
         "all_items": all_items,
     }
-    OUT_PATH.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    # newline="\n" is not cosmetic. Path.write_text opens in TEXT mode, so "\n"
+    # becomes os.linesep: CRLF on Windows, LF on Linux. That is the same build
+    # producing different bytes per platform, and every digest and byte-identity
+    # gate downstream then disagrees with itself depending on whose machine ran.
+    OUT_PATH.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
     print(
         f"V9.5.1 feed built: {len(all_items)} ALL, {len(canonical)} RELEVANT, "
         "Beacon Fen -> REPD 13599 (400 MW)"

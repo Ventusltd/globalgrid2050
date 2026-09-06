@@ -1,0 +1,23 @@
+{
+  "generation": "202609060517",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "7824dd7eb36fc6289c136509000a95b54a4297f3",
+  "parentGeneration": "202609060509",
+  "ci": {
+    "run": 34013666369,
+    "conclusion": "success",
+    "compositionChecks": 11,
+    "clearanceChecks": 64,
+    "layoutChecks": 54,
+    "removalChecks": 26,
+    "recoveryChecks": 20,
+    "polygonChecks": 120,
+    "printChecks": 10
+  },
+  "scope": "Reject missing, duplicate or inconsistent required-cartridge declarations before shell fetch; preserve saved polygon through refusal and valid reload. Four executable cartridges and layout/tool initializer remain unchanged.",
+  "limitations": [
+    "Eight malformed-manifest fixtures are tested; this is not a claim of validating every possible resource or network failure.",
+    "No new owner composition, pointer promotion or estate-wide pass."
+  ],
+  "publicationStatus": "Exact served and live receipts recorded after deployment."
+}

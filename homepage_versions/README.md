@@ -1628,3 +1628,8 @@ Pre-edit snapshot of d66f36c814839222b62e9154d9a1c6702cff3e1c; restore3401335246
 ## homepage_v083
 
 Pre-edit snapshot of 189c25b876e219463b268076d6cdfa7ba69a84f4; restore34013474725 passed. Measurements: homepage_v083-measurement.json. Publish0509 measurement-control clearance after0504 live acceptance. Exact source b7720356c33ada3871175e90bef304b9cc124438, CI34013328981 passed64 clearance,54 layout,26 removal,20 recovery,120 polygon and10 actual Print checks. Preserve every earlier link; failed0506/0508 remain unpublished.
+
+
+## homepage_v084
+
+Pre-edit snapshot of 424e5a0b60d49fd7ff068a9169de4b563c959fb2; restore34013716011 passed. Measurements: homepage_v084-measurement.json. Publish0517 browser composition guard after0509 acceptance. Exact source7824dd7eb36fc6289c136509000a95b54a4297f3, CI34013666369 passed11 composition,64 measurement,54 layout,26 removal,20 recovery,120 polygon and10 Print checks. Original four cartridges and layout initializer retained. No owner-main promotion; preserve older links.

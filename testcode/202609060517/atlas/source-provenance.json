@@ -1,0 +1,13 @@
+{
+  "schema": "gridatlas.composition-guard.v1",
+  "generation": "202609060517",
+  "parent": "202609060509",
+  "sourceCommit": "7bb554b229951711032c331f851660055c417a78",
+  "contract": {
+    "path": "sandbox/capsules/atlas-composition-contract.mjs",
+    "sha256": "69695bbe8bd69aa4fd1e1c757ad34e51d1bafffbb2bd22c622bfcc763c596b24"
+  },
+  "parentIndexSha256": "f51db7f0e051f60b9a140c98a761c3184f5e0a678c45343645d3af994136bdd1",
+  "indexSha256": "8ac370e19c4143db464c4a74984d0f748fca306588d6713505e211e51be9c0f5",
+  "scope": "Pre-shell composition validation only; four executable cartridges, layout and tool-host initialization unchanged."
+}

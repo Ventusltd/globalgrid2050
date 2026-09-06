@@ -264,9 +264,8 @@
   </ul>
 </details>
 
-<details class="area">
-  <summary>Test Code</summary>
 <section id="test-code">
+<h2>Test Code</h2>
 <div class="build" id="test-code-atlas-202609060537">
 <h3>Latest GridAtlas Test Code - See measurements as soon as you draw</h3>
 <p><a href="./testcode/202609060537/atlas/">Open GridAtlas 202609060537</a> &middot; <a href="./testcode/202609060349/pipeline/">Open Pipeline News 202609060349</a></p>
@@ -478,8 +477,8 @@
 <p><a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas - LIVE, generation 202609051340</a>: a PDF the page writes itself. Open File and choose "Save this view as a PDF" and a file arrives - no print dialog, no destination, no printer driver. That pipeline is the part that produced no file at all in Firefox with a physical printer selected, and this path does not use it. One page, sized to the captured map, so there is no white margin and nothing is cropped: a 1390x518 capture becomes a 1190x443pt page. Print also fills the sheet edge to edge now, with nothing on it but the map and its credit - the previous build still printed the whole layers dashboard and a HIDE LAYERS button over the footer. Proven on real downloads in Chromium 151, Firefox 153 and WebKit 26.5, phone and desktop: 48 of 48 against these live bytes, 6 of 12 against what was live before, naming the missing control on every engine. Earlier pinned candidates remain published unchanged at <a href="https://ventusltd.github.io/gridatlas/atlas/v/202609051329/">202609051329</a>, <a href="https://ventusltd.github.io/gridatlas/atlas/v/202609051309/">202609051309</a> and <a href="https://ventusltd.github.io/gridatlas/atlas/v/202609051211/">202609051211</a>. iPhone remains untested; Android coverage is Chrome device emulation on Windows, which is not a phone.</p>
 <p class="what">iPhone testing pending on both. Android coverage is Chrome device emulation on Windows, which is not a phone.</p>
 </section>
-</details>
 
+<p class="archive-note"><a href="./historical_builds.html">Archive</a></p>
 
 <div id="science-graphics">
 <section id="terminal-pipes" aria-label="Decorative terminal cable sketch" style="margin:12px 0"><pre aria-hidden="true" style="font:12px/1.1 Consolas,monospace;color:#aeb3b8;max-width:100%;overflow:hidden;height:54px"></pre><button type="button" style="font:12px Consolas,monospace;color:#ccc;background:#222;border:1px solid #777">Pause sketch</button> <small style="font-size:11px">Decorative cable traces | <a href="https://github.com/pipeseroni/pipes.sh">pipes.sh</a> / <a href="./cartridges/202609052158-terminal-pipes/LICENSE.pipes.txt">MIT</a></small></section><script type="module" src="./cartridges/202609052158-terminal-pipes/pipes.mjs"></script>
@@ -492,7 +491,8 @@
 <div class="energy-row" data-energy="nonrenewable"><div class="energy-label"><label for="energy-nonrenewable">NON-RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-nonrenewable" max="1" value="0"></progress><small data-rate></small></div>
 <button type="button" aria-pressed="false" disabled>Pause counters</button>
 <p>Original VENTUS calculation. Fast digits illustrate an average rate; they do not imply measurement precision. Each bar fills over the current UTC minute; the numbers show each source contribution.</p>
-<details><summary>Source / calculation / limits</summary><p>Source: <a href="https://www.eia.gov/tools/faqs/faq.php?id=527&amp;t=1">U.S. Energy Information Administration (1 July 2026)</a>. World consumption in 2024: 606.0 quadrillion Btu total; 42.7 renewable. Non-renewable is the difference and includes nuclear. This is primary energy, not electricity alone.</p><p>We convert to MWh, divide by the 366 days of 2024 and multiply the average per-second rate by the elapsed seconds of this UTC minute. This illustrates historical average rates, not measured demand today. Seasonal and hourly variation are not modelled.</p><p><a href="./cartridges/202609052143-open-energy/source.json">Baseline and provenance</a> | <a href="https://www.eia.gov/about/copyrights_reuse.php">EIA reuse policy</a>. No Worldometer feed or code is used.</p></section>
+<details><summary>Source / calculation / limits</summary><p>Source: <a href="https://www.eia.gov/tools/faqs/faq.php?id=527&amp;t=1">U.S. Energy Information Administration (1 July 2026)</a>. World consumption in 2024: 606.0 quadrillion Btu total; 42.7 renewable. Non-renewable is the difference and includes nuclear. This is primary energy, not electricity alone.</p><p>We convert to MWh, divide by the 366 days of 2024 and multiply the average per-second rate by the elapsed seconds of this UTC minute. This illustrates historical average rates, not measured demand today. Seasonal and hourly variation are not modelled.</p><p><a href="./cartridges/202609052143-open-energy/source.json">Baseline and provenance</a> | <a href="https://www.eia.gov/about/copyrights_reuse.php">EIA reuse policy</a>. No Worldometer feed or code is used.</p></details>
+</section>
 <script type="module" src="./cartridges/202609052154-minute-runtime/fast-existing.mjs"></script>
 <!-- open-energy:end -->
 
@@ -546,9 +546,7 @@
 <script type="module" src="./cartridges/202609052136-terminal-progress/progress.js"></script>
 <!-- precision-board:end -->
 </div>
-</details>
 
-<p class="archive-note"><a href="./historical_builds.html">Archive</a></p>
 <footer class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
   <p>Previous homepage, kept as it was: <a href="./historical_builds.html">archive</a>.</p>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electrification Workbench — Ventus Grid Engine</title>
+<style>
+:root{
+  --bg:#000; --panel:#0b0e14; --line:#2f343d; --soft:#222; --text:#fff;
+  --muted:#a6adbb; --accent:#00ffff; --ok:#00ff88; --warn:#ffae00; --no:#ff5c5c;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.5;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:18px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px;text-transform:uppercase;letter-spacing:1px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.stamp a{color:#66ccff}
+
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;margin-bottom:18px;font-size:11px}
+.status.loading{border-color:#6b5a25;color:#e8d08a}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11px;line-height:1.6;margin-bottom:13px}
+
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number]{width:100%;background:#000;border:1px solid var(--line);color:var(--text);
+  padding:11px 10px;font-size:16px;font-weight:700}
+input[type=number]:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:30px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.6;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px;letter-spacing:.4px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.6;margin-top:3px}
+
+footer{color:#69727d;font-size:10px;line-height:1.7;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:22px}
+footer a{color:#66ccff}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>ELECTRIFICATION WORKBENCH</h1>
+  <p class="sub">Ventus Grid Engine · applied arithmetic, with its assumptions attached</p>
+  <p class="stamp" id="stamp">Generation 202609060148</p>
+</header>
+
+<div class="status loading" id="engine-status">Loading the engine module…</div>
+
+<section>
+  <h2>1 · ANNUAL ENERGY TO AVERAGE POWER</h2>
+  <div class="body">
+    <p class="lede">Exact by definition — annual energy divided by the hours in the
+      year. It is the only figure on this page that carries no assumption, and the
+      least useful on its own, because no network is ever sized for its average.</p>
+    <div class="field">
+      <label for="twh">Annual electricity (TWh)</label>
+      <input type="number" id="twh" value="480" min="1" max="2000" step="1" inputmode="decimal">
+    </div>
+    <div class="out" id="out-average"></div>
+  </div>
+</section>
+
+<section>
+  <h2>2 · AVERAGE TO PEAK, AT A LOAD FACTOR YOU STATE</h2>
+  <div class="body">
+    <p class="lede">Peak = average ÷ load factor. The load factor is the entire
+      assumption, so it is never defaulted — you set it, and it travels with the
+      answer. A system with unmanaged heat pumps and one with smart-charged vehicles
+      are different numbers.</p>
+    <div class="field">
+      <div class="rangerow">
+        <label for="lf">Load factor</label>
+        <span class="rangeval" id="lf-val">0.60</span>
+      </div>
+      <input type="range" id="lf" min="0.30" max="0.95" step="0.01" value="0.60">
+    </div>
+    <div class="out" id="out-peak"></div>
+  </div>
+</section>
+
+<section>
+  <h2>3 · NESO'S PUBLISHED 2050 PATHWAYS, MEASURED</h2>
+  <div class="body">
+    <p class="lede">The honest direction of travel: where a peak is published,
+      derive the load factor from it rather than assuming one. Note the third row —
+      Hydrogen Evolution carries the <em>largest</em> annual demand and a
+      <em>lower</em> peak than Electric Engagement. No single national
+      peak-to-average ratio can describe both, which is why scaling today's ratio
+      forward is wrong.</p>
+    <div class="scroller">
+      <table id="pathways">
+        <thead><tr>
+          <th>FES 2025 pathway</th><th style="text-align:right">Annual</th>
+          <th style="text-align:right">Average</th><th style="text-align:right">Published peak</th>
+          <th style="text-align:right">Load factor</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="basis">Annual demand and peak are NESO FES 2025 Table 2, on that
+      report's boundary — customer demand, on-grid electrolysis and losses. The
+      load factor column is computed here from those two published figures.</p>
+  </div>
+</section>
+
+<section>
+  <h2>4 · NAMEPLATE FOR THE ENERGY, AT A CAPACITY FACTOR</h2>
+  <div class="body">
+    <p class="lede">How much nameplate produces this much annual energy. It answers
+      an energy question and nothing else — a portfolio satisfying this equation
+      may still fail on a still, cold evening.</p>
+    <div class="field">
+      <div class="rangerow">
+        <label for="cf">Annual capacity factor</label>
+        <span class="rangeval" id="cf-val">0.40</span>
+      </div>
+      <input type="range" id="cf" min="0.10" max="0.90" step="0.01" value="0.40">
+    </div>
+    <div class="out" id="out-nameplate"></div>
+  </div>
+</section>
+
+<section>
+  <h2>5 · DISPLACED FUEL TO ELECTRICITY</h2>
+  <div class="body">
+    <p class="lede">Useful output is conserved, not fuel energy. Burning fuel wastes
+      most of it; a heat pump moves more heat than the energy it draws. Skipping this
+      step — treating primary energy as future electrical load — is the commonest
+      error in electrification arithmetic.</p>
+    <div class="field">
+      <label for="fuel">Fuel energy displaced (TWh)</label>
+      <input type="number" id="fuel" value="100" min="1" max="5000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow">
+        <label for="eold">Efficiency of the route being replaced</label>
+        <span class="rangeval" id="eold-val">0.90</span>
+      </div>
+      <input type="range" id="eold" min="0.15" max="0.99" step="0.01" value="0.90">
+    </div>
+    <div class="field">
+      <div class="rangerow">
+        <label for="enew">Electrical performance (COP may exceed 1)</label>
+        <span class="rangeval" id="enew-val">3.00</span>
+      </div>
+      <input type="range" id="enew" min="0.50" max="5.00" step="0.05" value="3.00">
+    </div>
+    <div class="out" id="out-fuel"></div>
+  </div>
+</section>
+
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a
+      later version. The engine proof asserts that no function of these names
+      exists, so their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+
+<footer>
+  <p>The arithmetic on this page is not implemented here. It is imported live from
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/electrification-demand.js">engine/electrification-demand.js</a>
+     in the Ventus Grid Engine, proven by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">28 checks</a>
+     against the worked examples in the paper. If the engine cannot be reached, this
+     page says so and computes nothing — it does not fall back to a copy.</p>
+  <p style="margin-top:9px">Working paper:
+     <a href="/papers/202609060203-electrification/">Electrifying Great Britain</a> ·
+     <a href="/papers/202609060045-published-fault-level/">Published, dated, never calculated</a> ·
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:9px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+
+</div>
+
+<script type="module">
+const ENGINE = 'https://ventusltd.github.io/ventus-grid-engine/engine/electrification-demand.js';
+const statusEl = document.getElementById('engine-status');
+
+/* NESO FES 2025 Table 2. Published figures, carried not computed. The load
+   factor column is derived from them by the engine at render time. */
+const PATHWAYS = [
+  { name: 'Holistic Transition', twh: 705, peak: 120 },
+  { name: 'Electric Engagement', twh: 785, peak: 144 },
+  { name: 'Hydrogen Evolution',  twh: 797, peak: 122 }
+];
+
+let E = null;
+
+function fig(target, r, decimals = 1) {
+  document.getElementById(target).innerHTML =
+    `<div class="figure">
+       <span class="q">${r.quantity.replace(/_/g, ' ')}</span>
+       <span class="n">${r.value.toLocaleString('en-GB', {
+         minimumFractionDigits: decimals, maximumFractionDigits: decimals })}</span>
+       <span class="u">${r.unit}</span>
+     </div>
+     <p class="basis">${r.basis}</p>`;
+}
+
+function fail(message) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + message +
+    '. Nothing on this page is computed; there is no local copy of the arithmetic to fall back to.';
+  for (const id of ['out-average', 'out-peak', 'out-nameplate', 'out-fuel']) {
+    document.getElementById(id).innerHTML =
+      '<p class="basis" style="color:#ff8f8f;border:0;padding:0">No figure: the engine did not load.</p>';
+  }
+}
+
+function render() {
+  if (!E) return;
+  const twh = Number(document.getElementById('twh').value);
+  const lf  = Number(document.getElementById('lf').value);
+  const cf  = Number(document.getElementById('cf').value);
+  const fuel = Number(document.getElementById('fuel').value);
+  const eold = Number(document.getElementById('eold').value);
+  const enew = Number(document.getElementById('enew').value);
+
+  document.getElementById('lf-val').textContent = lf.toFixed(2);
+  document.getElementById('cf-val').textContent = cf.toFixed(2);
+  document.getElementById('eold-val').textContent = eold.toFixed(2);
+  document.getElementById('enew-val').textContent = enew.toFixed(2);
+
+  try {
+    const avg = E.averagePowerGw({ annualTwh: twh });
+    fig('out-average', avg);
+    fig('out-peak', E.peakFromLoadFactorGw({ averageGw: avg.value, loadFactor: lf }));
+    fig('out-nameplate', E.nameplateFromCapacityFactorGw({ annualTwh: twh, capacityFactor: cf }));
+    fig('out-fuel', E.electricityForDisplacedFuelTwh({
+      fuelTwh: fuel, oldEfficiency: eold, newPerformance: enew }), 2);
+  } catch (err) {
+    /* The engine refuses bad input by throwing with a reason. Print the reason
+       rather than a blank box — a refusal the user can read is the feature. */
+    document.getElementById('out-average').innerHTML =
+      `<p class="basis" style="color:#ffae00;border:0;padding:0">Engine refused this input: ${err.message}</p>`;
+  }
+}
+
+function renderPathways() {
+  const rows = PATHWAYS.map(p => {
+    const avg = E.averagePowerGw({ annualTwh: p.twh });
+    const lf = E.loadFactorFromPeak({ averageGw: avg.value, peakGw: p.peak });
+    return `<tr><td>${p.name}</td>
+      <td class="n">${p.twh} TWh</td>
+      <td class="n">${avg.value.toFixed(1)} GW</td>
+      <td class="n">${p.peak} GW</td>
+      <td class="n" style="color:#00ffff">${lf.value.toFixed(3)}</td></tr>`;
+  }).join('');
+  document.querySelector('#pathways tbody').innerHTML = rows;
+}
+
+function renderRefusals() {
+  document.getElementById('refusals').innerHTML =
+    Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+      `<dt>${k.replace(/([A-Z])/g, ' $1').toUpperCase()}</dt><dd>${v}</dd>`).join('');
+}
+
+try {
+  E = await import(ENGINE);
+  if (E.schema !== 'ventus-grid-engine.electrification-demand.v1') {
+    throw new Error('unexpected schema ' + E.schema);
+  }
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' + E.schema +
+    ' · every figure below is computed by the engine module, not by this page.';
+  for (const id of ['twh', 'lf', 'cf', 'fuel', 'eold', 'enew']) {
+    document.getElementById(id).addEventListener('input', render);
+  }
+  renderPathways();
+  renderRefusals();
+  render();
+} catch (err) {
+  fail(err.message);
+}
+</script>
+</body>
+</html>

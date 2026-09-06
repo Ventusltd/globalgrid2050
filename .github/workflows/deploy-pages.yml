@@ -47,6 +47,12 @@ on:
       # path here it would have deployed only when a commit also touched
       # index.html, which is the silent non-deploy this list keeps recording.
       - 'papers/**'
+      # Grid Engine workbenches are published directories like the papers and
+      # snapshots above, plus a ledger the index reads at runtime. Without a
+      # path here a new iteration would deploy nothing, and would appear to
+      # work only when its commit also touched index.html — the silent
+      # non-deploy this list exists to keep recording.
+      - 'grid_engine/**'
       - 'dist/major_project_news_v5.json'
       - 'dist/major_projects_v5.json'
       - 'dist/major_project_news_v6.json'

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid Engine Workbenches — GlobalGrid2050</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:900px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.7;margin-bottom:18px}
+.it{border:1px solid var(--soft);background:var(--panel);margin-bottom:12px}
+.it .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  flex-wrap:wrap;padding:11px 13px;border-bottom:1px solid var(--soft)}
+.it a.t{color:var(--accent);font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.6px}
+.it a.t:hover{color:#fff}
+.it .st{color:#7f8996;font-size:10px;white-space:nowrap}
+.it .bd{padding:11px 13px;color:var(--muted);font-size:11px;line-height:1.65}
+.it .meta{color:#69727d;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.it .meta b{color:var(--ok);font-weight:700}
+.it.current{border-color:#167d4d}
+.it.current .st{color:var(--ok)}
+footer{color:#69727d;font-size:10px;line-height:1.7;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+footer a{color:#66ccff}
+.empty{color:#ff8f8f;font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>GRID ENGINE WORKBENCHES</h1>
+  <p class="sub">Applied arithmetic from the Ventus Grid Engine, published one iteration at a time</p>
+</header>
+
+<p class="lede">Each entry below is an immutable published directory. A workbench is
+never edited once it is published — an improvement becomes the next timestamp, and
+the superseded one keeps its address so any figure quoted from it can still be
+found and checked. Every workbench imports its mathematics live from the engine
+repository rather than carrying a copy, so a workbench cannot silently drift from
+the module its numbers are proven against.</p>
+
+<div id="list"><p class="empty">Loading the iteration ledger…</p></div>
+
+<footer>
+  <p>Engine: <a href="https://ventusltd.github.io/ventus-grid-engine/">ventus-grid-engine</a> ·
+     <a href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">the engine graph</a> ·
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:8px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+
+</div>
+<script>
+fetch('./iterations.json?cb=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error('ledger HTTP ' + r.status); return r.json(); })
+  .then(d => {
+    const items = [...d.iterations].sort((a, b) => b.stamp.localeCompare(a.stamp));
+    document.getElementById('list').innerHTML = items.map((it, i) => `
+      <div class="it${i === 0 ? ' current' : ''}">
+        <div class="hd">
+          <a class="t" href="./${it.path}">${it.title}</a>
+          <span class="st">${it.stamp}${i === 0 ? ' · CURRENT' : ''}</span>
+        </div>
+        <div class="bd">
+          ${it.feature}
+          <p class="meta">engine <b>${it.engine}</b> at ${it.engineCommit} · ${it.checks} checks</p>
+        </div>
+      </div>`).join('');
+  })
+  .catch(e => {
+    document.getElementById('list').innerHTML =
+      '<p class="empty">The iteration ledger could not be read (' + e.message +
+      '). No list is shown rather than a guessed one.</p>';
+  });
+</script>
+</body>
+</html>

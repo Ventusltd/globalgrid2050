@@ -1,0 +1,15 @@
+{
+  "schema": "globalgrid2050.grid-engine-iterations.v1",
+  "note": "One entry per immutable iteration. Entries are append-only: a published directory is never edited, and a superseded entry keeps its link so a figure quoted from it can still be found.",
+  "iterations": [
+    {
+      "stamp": "202609060148",
+      "path": "202609060148-electrification-workbench/",
+      "title": "Electrification Workbench",
+      "feature": "The paper's five relations, live: average power, peak at a stated load factor, load factor measured from a published peak, nameplate at a capacity factor, and displaced fuel converted through useful output.",
+      "engine": "engine/electrification-demand.js",
+      "engineCommit": "0fdf425",
+      "checks": 28
+    }
+  ]
+}

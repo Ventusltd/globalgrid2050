@@ -1,13 +1,12 @@
 {
-  "createdUtc": "2026-09-05T19:27:10.706856+00:00",
-  "folderFileCount": 65,
-  "snapshot": "homepage_v053.html",
-  "lines": 317,
-  "words": 4832,
-  "characters": 37107,
-  "bytes": 37404,
-  "sha256": "328e34ecce4f8247a5b6c1824a704df6ad4d0cfb2f555047490056e6addf4dde",
-  "sourceCommit": "c4c704e293a08f4d655b13b0227b604ca7bfe2ea",
-  "intention": "Promote tested1906 app-only print and original design-tool layers; preserve previous Test Code links and untouched GridAtlas catalogue.",
-  "preflightRun": 33986914220
+  "created_utc": "2026-09-06T00:47:15.442188+00:00",
+  "folder_file_count_before": 65,
+  "html_version": "homepage_v053.html",
+  "line_count": 325,
+  "word_count": 4939,
+  "character_count": 38082,
+  "bytes": 38379,
+  "sha256": "8428951333a0b4fc988b014da8bb94eac7225afed238fe60ad142e382d00411e",
+  "source_commit": "a7fb24c22decd71166a6f9d1265b06c87425d9eb",
+  "intention": "Add one working-paper link under the Grid Engine card: papers/202609060045-published-fault-level. No other line changes."
 }

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Published, dated, never calculated — fault levels on an open grid map</title>
+<meta name="description" content="How an open grid map may carry a fault-level figure: by exact metric name, from a named publisher, on a stated date, under a stated study basis, and never by calculation. The engineering, the regulation, the data each GB network publishes, and the contract that enforces it.">
+<style>
+  :root{--bg:#0b0d12;--panel:#12151c;--line:#262b36;--text:#eef2fb;--muted:#9aa3b5;--cyan:#00e5ff;--amber:#ffb454;--rule:#1c2029}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text)}
+  body{font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;padding:0 clamp(14px,3vw,32px) 80px}
+  main{max-width:860px;margin:0 auto}
+  header.paper{padding:40px 0 20px;border-bottom:1px solid var(--line)}
+  .ey{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
+  h1{font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.15;margin:10px 0 8px;font-weight:700}
+  .sub{color:var(--muted);font-size:1.02rem;margin:0 0 14px}
+  .meta{font-family:ui-monospace,monospace;font-size:.7rem;color:var(--muted);line-height:1.8}
+  .meta b{color:var(--text);font-weight:600}
+  h2{font-size:1.25rem;margin:40px 0 10px;padding-top:8px;border-top:1px solid var(--rule)}
+  h3{font-size:1.02rem;margin:22px 0 6px;color:var(--cyan);font-weight:650}
+  p{margin:0 0 14px}
+  .box{border:1px solid var(--line);border-left:3px solid var(--cyan);background:var(--panel);padding:12px 16px;margin:16px 0;border-radius:6px}
+  .box.amber{border-left-color:var(--amber)}
+  .box p:last-child{margin:0}
+  blockquote{margin:14px 0;padding:8px 16px;border-left:3px solid var(--line);color:var(--muted);font-style:italic}
+  blockquote cite{display:block;font-style:normal;font-size:.8rem;margin-top:4px}
+  code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em}
+  code{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.5}
+  pre code{background:none;border:0;padding:0}
+  .tablewrap{overflow-x:auto;margin:14px 0}
+  table{border-collapse:collapse;width:100%;font-size:.86rem}
+  th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  td.num{font-family:ui-monospace,monospace;white-space:nowrap}
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{text-decoration:underline}
+  sup a{font-size:.72em;color:var(--cyan)}
+  ol.refs{padding-left:1.6em;font-size:.86rem;color:var(--muted)}
+  ol.refs li{margin:0 0 6px;overflow-wrap:anywhere}
+  .kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;font-family:ui-monospace,monospace;font-size:.8rem}
+  .kv b{color:var(--muted);font-weight:500}
+  figure{margin:18px 0}
+  figcaption{font-size:.8rem;color:var(--muted);margin-top:6px}
+  @media (max-width:640px){body{font-size:15px}th,td{padding:6px 7px}}
+</style>
+<!-- The shared estate menu, exactly as every other surface of the estate
+     carries it. It renders its bar above this page's own header. -->
+<script src="https://ventusltd.github.io/spiders/species/seer-spider/estate-menu/estate-menu.js" defer></script>
+</head>
+<body>
+<main>
+
+<header class="paper">
+  <div class="ey">GlobalGrid2050 · working paper · 202609060045</div>
+  <h1>Published, dated, never calculated: carrying a fault-level figure on an open grid map</h1>
+  <p class="sub">What a fault level is, why one number is not one, what each GB network actually publishes, and the contract under which the estate is allowed to show any of it.</p>
+  <div class="meta">
+    <b>Author</b> Ventus Ltd, with the estate's engine lane · <b>Date</b> 2026-09-06 · <b>Status</b> working paper, measured where stated<br>
+    <b>Implementation</b> <a href="https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/published-fault-level.js">ventus-grid-engine/engine/published-fault-level.js</a> · proof <a href="https://github.com/Ventusltd/ventus-grid-engine/blob/main/proofs/published-fault-level.proof.mjs">38 checks</a> · <code>verify PASS — 11 proofs, 193 checks</code><br>
+    <b>Not affiliated</b> with NESO, Ofgem, the ENA or any network operator. Every figure below is theirs, cited, and none is computed here.
+  </div>
+</header>
+
+<h2>0. The question that produced this paper</h2>
+<p>On 5 September 2026 a grid engineer, sent a link to the Atlas, asked whether it carried <em>maximum fault level currents for substations in the UK</em>, adding that it would be a fantastic addition. The reply he received was three sentences: it doesn't; it wouldn't have it; you need DNO network impedance calculations, so it is part of the DNO agreement.</p>
+<p>Two of those three sentences are right, and they are the ones that matter commercially. The first is wrong. The Atlas already carried a published transmission figure — eight of them, by name, from NESO's Electricity Ten Year Statement — and the reason it was easy to say "it doesn't" is the reason this paper exists: a fault level is not one number, and an honest map cannot pretend it is.</p>
+<div class="box">
+  <p><strong>The rule this paper defends.</strong> An open map may carry a fault-level figure only when it is <em>published</em> by the network operator, <em>dated</em>, attributed to a <em>stated study basis</em>, and named by the <em>exact metric</em> it is. It may never carry one it calculated. The figure that binds a connection is the one the operator produces at the point of connection and writes into the offer.</p>
+</div>
+
+<h2>1. Why "maximum fault level" is not one number</h2>
+<p>The short-circuit current at a busbar is set by the Thevenin equivalent impedance the network presents there, <code>Z = R + jX</code>. IEC 60909 defines the initial symmetrical current from an equivalent voltage source <code>c·Uₙ/√3</code> at the fault location, the only active source in the calculation, with the factor <em>c</em> covering voltage variation, tap position and the sub-transient behaviour of machines.<sup><a href="#r6">[6]</a></sup> The magnitude of <em>Z</em> sets the symmetrical current. The ratio <em>X/R</em> sets how quickly the DC offset decays — and that is where one busbar acquires several currents.</p>
+<h3>Make and break are different duties</h3>
+<p>NESO's own narrative states it plainly: the first peak "at about 10 ms after the fault occurrence … is known as the peak make … an instantaneous value", while the RMS break current is "the RMS value of the AC component … when the circuit breaker contacts separate. It does not include the effect of the DC component."<sup><a href="#r1">[1]</a></sup> The DC component "decays exponentially according to a time constant which is a function of the X/R ratio".<sup><a href="#r1">[1]</a></sup> Northern Powergrid warns that "X/R ratios higher than 14.14 may reduce the capability of switchgear to less than its nameplate rating".<sup><a href="#r12">[12]</a></sup></p>
+<p>Break currents are also published at different assumed contact-separation times: NESO at 50 ms,<sup><a href="#r2">[2]</a></sup> NGED at 70 ms for 11 and 33 kV and 50 ms for 66 and 132 kV,<sup><a href="#r3">[3]</a></sup> SSEN at 60 ms.<sup><a href="#r16">[16]</a></sup> The same busbar therefore legitimately has more than one "break" figure depending on who published it.</p>
+<h3>Three-phase and single-phase differ, and the direction flips with voltage</h3>
+<p>NGED: "On the 132kV network single phase fault levels can be significantly higher than 3 phase fault levels", whereas at 33 and 11 kV three-phase is higher "due to the impedance earthing used at these levels".<sup><a href="#r3">[3]</a></sup> A map that prints one figure per site is therefore wrong in different directions at different voltages.</p>
+<h3>So Appendix D publishes eight</h3>
+<p>NESO's ETYS Appendix D separately publishes, for every named node and winter, the three-phase and single-phase initial peak, RMS break, DC break and peak break currents. The estate's data lane normalises these as eight named fields and its contract states: "Appendix D publishes multiple fault-current measures. A consumer must not collapse them into a single generic 'fault level'."<sup><a href="#r25">[25]</a></sup> That sentence is the whole design.</p>
+
+<h2>2. Why it is a property of the network's state, not of the substation</h2>
+<p>Open a bus section and the impedance changes. NESO: switchgear "is only subjected to excessive fault current when sections of busbar are unselected … the substation can usually be re-switched"; "substation running arrangements vary".<sup><a href="#r1">[1]</a></sup> NGED studies the intact system "unless an outage would mean a more onerous running arrangement e.g. 4 transformers split into two bars, closed up".<sup><a href="#r3">[3]</a></sup> SSEN publishes "normal running arrangements" only, mitigates by "opening the bus-section circuit breaker", and marks its data "for planning purposes only".<sup><a href="#r16">[16]</a></sup> G99 adds that "the maximum short circuit duty might not occur under maximum generation conditions".<sup><a href="#r10">[10]</a></sup></p>
+<p>Connect another generator and it changes again. The G99 assessment (clause 9.7) requires studies across "all credible Distribution Network running arrangements", notes that a generating module "can raise the … X/R ratio … prolonging the duration of the DC component", and where limitation fails, plant "should be replaced" or the module constrained off in "infrequent but credible" configurations.<sup><a href="#r10">[10]</a></sup> That is the mechanism by which a connection offer comes back with switchgear replacement in it — and it is the engineer's second and third sentences, verbatim.</p>
+<div class="box amber">
+  <p><strong>The inverter point, because the pitch is solar and storage.</strong> A grid-following converter "is usually treated as a constant current source of output = 1.1 pu to 1.5 pu";<sup><a href="#r8">[8]</a></sup> NGED's design values for PV and BESS are 3.0 pu make and 1.2 pu break;<sup><a href="#r3">[3]</a></sup> NESO states coal and gas "create five times more fault current compared to wind and solar".<sup><a href="#r18">[18]</a></sup> Two consequences pull against each other. A converter-connected project consumes little headroom — good news for a connection. But as synchronous plant closes, "transmission system short circuit levels are falling", and if too low, "network protection … could miss that a fault is happening".<sup><a href="#r17">[17]</a><a href="#r18">[18]</a></sup> The figure a developer wants low and the figure the system needs high are the same figure.</p>
+</div>
+
+<h2>3. What NESO publishes, and what the estate already carried</h2>
+<p>ETYS 2025 Appendix D is three documents on NESO's page, dated 30 June 2026 (workbooks) and 29 June 2026 (narrative).<sup><a href="#r23">[23]</a></sup> The narrative states the study basis exactly: currents calculated "in line with ER G74", "based on an initial condition from an AC load flow", X/R by IEC 60909-0 Method C, a uniform 50 ms break time, the Holistic Transition scenario for winters 2025/26 to 2033/34, minimum-demand cases for 2025/26 only.<sup><a href="#r2">[2]</a></sup> It also states the limit: "the listed currents should be regarded as indicative – they provide a general guide only", and interface-substation values are "not suitable for specifying short-circuit requirements for new switchgear".<sup><a href="#r2">[2]</a></sup></p>
+<p>The estate's data lane pins both workbooks by byte count and SHA-256, refuses to build if the bytes differ, aborts on header drift, and publishes 886 connection points of which 605 carry fault-current envelopes.<sup><a href="#r25">[25]</a></sup> The Atlas card quotes one named metric — three-phase RMS break current — grouped by the voltage of the busbar the circuit lands on, after an earlier build printed "5.1–49.6 kA" across a 132 kV and a 400 kV busbar and an engineer would have read it as one number for one point.<sup><a href="#r26">[26]</a></sup></p>
+<figure>
+<pre><code>ABHAM · NGET · 132 kV busbars ABHA1 M2, ABHA1 R1 · peak demand · winters 2025/26–2033/34
+three_phase_rms_break_current_ka      12.78 – 14.52 kA
+three_phase_initial_peak_current_ka   31.28 – 35.54 kA
+single_phase_rms_break_current_ka     13.86 – 15.71 kA
+scope: envelope across the published rows; metrics, voltages and buses are not interchangeable</code></pre>
+<figcaption>One connection point as the estate carries it (data-grid-gb <code>connection-points.v3</code>, ETYS 2025 Appendix D, peak case, 132 kV only). The range is an envelope over the published winters at the named buses, not a measurement of any single state.</figcaption>
+</figure>
+<p>Two gaps in the estate's own record, found while writing this: the source ledger pins bytes and hashes but records <strong>no publication date and no licence</strong> for the Appendix D workbooks; and the "Holistic Transition" basis appears in NESO's narrative but nowhere in the estate's products. Both are exactly what the contract in §6 now refuses, so the transmission product will need them added at source before it can pass through it. That is the right order: the rule first, then the data made to meet it.</p>
+
+<h2>4. What the six distribution networks actually publish</h2>
+<p>Every GB distribution licensee must maintain a Long Term Development Statement under Standard Licence Condition 25, which requires it to identify parts of the network likely to reach capability limits within five years, "including excess fault levels", and to revise it "in each following year".<sup><a href="#r27">[27]</a></sup> Ofgem's direction of 30 April 2024 fixes the Form of Statement. Its Table 4, "Fault Level Information", specifies system impedance R and X "% on 100 MVA base", peak make and RMS break currents, and make/break ratings in kA; three-phase "for nodes with switchgear installed", single-phase "where single phase faults are more onerous"; X/R acceptable in place of R and X; and it requires the statement to describe how G74 was applied.<sup><a href="#r28">[28]</a></sup> Detailed information is due "on or before the 30th of November annually" with a May supplement; only the introductory section must be public "without the need for registration".<sup><a href="#r28">[28]</a></sup></p>
+<p>Fetched on 5 September 2026, this is what each network serves:<sup><a href="#r29">[29]</a></sup></p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Network</th><th>Where</th><th>Format</th><th>Fault metrics published (column headers)</th><th>Vintage and stated basis</th><th>Licence</th></tr></thead>
+<tbody>
+<tr><td>UK Power Networks</td><td>Opendatasoft <code>ltds-table-4a-3ph-fault-level</code>, <code>4b-earth-fault-level</code>, CIM <code>ukpn-ltds-cim</code></td><td>Tables (CSV/JSON/API) + CIM zips</td><td><code>Existing_System_Fault_Currents_Peak_Make_kA</code>, <code>_RMS_Break_kA</code>, <code>Fault_Rating_Peak_Make_kA</code>, <code>_Break_kA</code>, <code>System_Impedance_R_Percent</code>, <code>_X_Percent</code>; 4a three-phase, 4b earth</td><td>Published 29 May 2026; "normal running conditions"; CIM biannual May/November</td><td>Tables CC BY 4.0; CIM under UKPN Shared Data Licence</td></tr>
+<tr><td>SSEN Distribution</td><td>data.ssen.co.uk, SEPD and SHEPD LTDS datasets</td><td>PDF, XLSX Tables 1–7, CIM, heatmap GeoJSON</td><td>Tabs "4a 132kV" and "4b 66–6.6kV": three-phase peak make and RMS break kA, single-phase at 132 kV, breaker make/break rating, R, X, X/R</td><td>Issued May 2026; make "at a time of 10 ms", break "decremented RMS values at 50 ms"; G74 infeed</td><td>CC BY 4.0</td></tr>
+<tr><td>NGED</td><td>connecteddata.nationalgrid.co.uk <code>ltds-tabular-model</code>, CIM <code>ltds-common-information-model</code></td><td>CSV per table + CIM</td><td><code>Operating Voltage, R1, X1, 3ph Peak Make, 1ph Peak Make, 3ph RMS Break, 1ph RMS Break</code> + ratings, 11/33/132 kV</td><td>Table 4 dated 3 Dec 2025; CIM stage 2 28 May 2026; tabular "being superseded"</td><td>WPD Open Data Licence</td></tr>
+<tr><td>Northern Powergrid</td><td>Opendatasoft <code>ltds-appendix-6</code>, CIM <code>ltds-cim-files</code></td><td>Table (login to view) + CIM + PDF</td><td>Nominal voltage, 3-ph or 1-ph, R and X % on 100 MVA, existing peak make and AC RMS break kA, make/break rating</td><td>29 Nov 2025; "based on connected generation … does not include any future connected generation"</td><td>Northern Powergrid Open Data Licence v1.0</td></tr>
+<tr><td>Electricity North West</td><td>enwl.co.uk LTDS, secure area</td><td>Registration required; nothing on its open portal</td><td>Stated as present; not visible without registration</td><td>November 2025</td><td>Not stated</td></tr>
+<tr><td>SP Energy Networks</td><td>Opendatasoft <code>spd-ltds-appendix-4-fault-levels-table-4</code>; SPM 132 kV 3ph/1ph, HV</td><td>Tables + CIM + PDF</td><td>SPD: calculated 3-phase peak make and RMS break kA, single-phase pair, R/X % on 100 MVA, equipment rating, "calculated above 95% of rating"; SPM HV only a fault-level banding in MVA</td><td>28 Nov 2025; "as at the data freeze date"; "three phase faults under maximum plant conditions"; G74</td><td>Tables CC BY 4.0; CIM under SPEN Shared Data Licence</td></tr>
+</tbody>
+</table>
+</div>
+<p>Five of six groups publish per-busbar make and break currents and ratings as open, machine-readable tables; one gates them behind registration. The study-basis wording differs — "normal running conditions", "maximum plant conditions", "connected generation only" — so a cross-network map must carry <em>each network's own basis string</em> beside each figure rather than one caption for all. Ofgem's reform timetable moves LTDS onto a Common Information Model in stages, with stage 2 (short-circuit and system-capacity profiles) due 29 May 2026 and stage 3 publication 30 November 2026;<sup><a href="#r30">[30]</a></sup> the Embedded Capacity Register, mandatory in version 5.0 from 24 February 2026, lists accepted-to-connect capacity by technology and point of connection and is the open source for forward fault-infeed growth, though it carries no fault-contribution field of its own.<sup><a href="#r31">[31]</a></sup></p>
+
+<h2>5. The boundary, and a case where it was real</h2>
+<p>The estate's data lane states its own limit in every product: "Nothing here says a project can or cannot connect at a node. Queue position, committed connections, consent and commercial terms decide that, and no published appendix contains them."<sup><a href="#r25">[25]</a></sup> The Atlas card carries the same refusal inside the same object as the figure, "because a caveat in a different place from the figure is a caveat nobody reads".<sup><a href="#r26">[26]</a></sup></p>
+<p>The case that shows where the line falls is one the estate already publishes. At the Braintree Electric Forecourt, cable sizing "verified current carrying capacity, voltage drop, fault withstand capability and installation conditions", thermal modelling used IEC 60287 and ETAP, and where the ETAP study could not be completed for the closed-lid trench, a manufacturer's engineer completed it with installation modelling.<sup><a href="#r32">[32]</a></sup> None of that is a lookup. Fault withstand of a cable is a calculation against a current the DNO produced for that site under that running arrangement — the sentence "you need DNO network impedance calculations" in engineering practice. A map that had shown a published figure for the nearest primary would have narrowed the question; it could not have answered it, and the engineers on that job would not have let it.</p>
+<div class="box">
+  <p>In the architect's words to peers the same day: "you can definitely analyse private wires but the implementation is way beyond what AI can do as it needs engineering with electrical network impedance analysis, harmonics etc." A published figure narrows a search. It never makes a decision.</p>
+</div>
+
+<h2>6. The contract, implemented and proven</h2>
+<p><code>engine/published-fault-level.js</code> is the rule as code. It has two callables and the proof asserts there are no others.</p>
+<pre><code>record(input)  → { ok, record, refused }
+  accepts only: publisher, publication, source_url, sha256 (64 hex),
+                published_date (YYYY-MM-DD), study_basis,
+                site.name, site.voltage_kv, site.busbar,
+                metrics by EXACT name, each { min, max, unit }
+  refuses:      any metric named fault_level, short_circuit_level, scl,
+                maximum_fault_level … — a number that does not say which
+                current it is is not a measurement
+  returns:      a frozen record carrying computed:false and the caveat
+
+quote(record, metricName) → one line, or null
+  "three-phase RMS break current 12.78–14.52 kA · ABHAM ABHA1 M2 132 kV
+   · NESO, Electricity Ten Year Statement 2025, Appendix D
+   · peak demand, winters 2025/26 to 2033/34 · published 2026-06-30"
+  no default metric; the bare words "fault level" never printed</code></pre>
+<p>What the module must not do is a tested property, not an omission. The proof holds that the only functions exported are <code>record</code> and <code>quote</code>, that nothing computes, calculates, estimates or solves, and that nothing offers headroom against a rating — because "switchgear carries several ratings (making, breaking, short-time withstand, peak withstand) and each must be matched to the right published metric by an engineer with the asset data". A negative control run on a scratch copy — accepting generic names and exporting a <code>computeHeadroom</code> — turns three checks red.</p>
+<div class="kv">
+  <b>proof</b><span>38 checks, red-then-green demonstrated</span>
+  <b>gate</b><span><code>verify PASS — 11 proofs, 193 checks</code>; CI runs it before anything is published</span>
+  <b>vocabulary</b><span>ETYS eight copied byte-for-byte from data-grid-gb <code>ingest_etys.py</code> at <code>b91e45b</code>; LTDS names kept as a separate list so a reader sees which publisher a name belongs to</span>
+  <b>module</b><span><a href="https://ventusltd.github.io/ventus-grid-engine/engine/published-fault-level.js">served live</a>; node in the <a href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">engine graph</a></span>
+</div>
+<p>Two corrections made while writing this, recorded because they are the kind of error the paper is about. The first proof tested every export <em>name</em> and caught the two string constants that exist to say what is refused — fixed to test callables. The first proof fixture carried a publication date of 2025-11-27 that had never been read anywhere; it was typed as a plausible value in a proof whose entire subject is that a figure must be dated. NESO's page says 30 June 2026, and the fixture now says that with the source beside it.</p>
+
+<h2>7. What this establishes, and what it does not</h2>
+<p><strong>Measured:</strong> the transmission product's counts, hashes and the ABHAM figures; the six networks' dataset locations, column headers, vintages and licences on the fetch date; the proof and gate results above.</p>
+<p><strong>Stated by others, cited, not re-derived:</strong> every standard, ratio, time constant and per-unit figure in §1–2. In particular, the often-quoted "5–7 pu" synchronous contribution was not found in any fetched primary source; AEMO states "up to 3 pu" at 10 ms or later,<sup><a href="#r14">[14]</a></sup> and it is reported here as such.</p>
+<p><strong>Not established:</strong> what Electricity North West publishes behind registration; the text of the bespoke UKPN, NPg and SPEN CIM licences; IEC 60909 Table 1 c-factors from the standard itself; G74 Issue 2's converter clauses beyond secondary sources; and whether 13.1 kA remains typical installed 11 kV gear rather than a legacy design value.</p>
+<p><strong>Not done, deliberately:</strong> no distribution figure is yet on the Atlas. The contract now exists and refuses anything without a date, a basis and an exact name; the next step is a data-lane product that pins each network's Table 4 by bytes and hash the way the ETYS workbooks are pinned, so that what the map shows is what the network published, on the day it published it, and nothing else.</p>
+
+<h2>References</h2>
+<ol class="refs">
+  <li id="r1">NESO, ETYS 2022 Appendix D fault level narrative (Jan 2023). https://www.neso.energy/document/275606/download</li>
+  <li id="r2">NESO, ETYS 2025 Appendix D – Fault levels Narrative (29 Jun 2026). https://www.neso.energy/document/383966/download</li>
+  <li id="r3">WPD/NGED Standard Technique ST:SD7F/2, fault level assessment (May 2017). https://commercial.nationalgrid.co.uk/downloads-view-reciteme/3482</li>
+  <li id="r4">ENA EREC G89 Issue 1 (2011), switchgear ratings. https://www.ena-eng.org/ENA-Docs/D0C3XTRACT/ENA_EREC_G89_Extract_180902050609.pdf</li>
+  <li id="r5">IEC 60909-0:2016. https://webstore.iec.ch/en/publication/24100</li>
+  <li id="r6">IEC 60909-0:2016 preview (definitions, equivalent voltage source). https://cdn.standards.iteh.ai/samples/20022/510fbd170a1747efaeef82f084e788d7/IEC-60909-0-2016.pdf</li>
+  <li id="r7">ENA ER G74 Issue 2:2021. https://shop.standards.ie/en-ie/standards/ena-er-g74-issue-2-2021-1127322_saig_ena_uk_ena_uk_3079658/</li>
+  <li id="r8">Sommerville, Aunedi, Taylor, "Challenges of Fault Current Analysis using IEC 60909 and ENA G74 in Grids Dominated by Converter-Fed Generation", UPEC 2025 / CIGRE UK. https://cigre.org.uk/web-cont1001/uploads/Challenges-of-Fault-Current-Analysis-using-IEC-60909-and-ENA-G74-in-Grids-Dominated-by-Converter-Fed-Generation.pdf</li>
+  <li id="r10">ENA EREC G99 Issue 2 (10 Mar 2025), clause 9.7. https://dcode.org.uk/assets/250307ena-erec-g99-issue-2-(2025).pdf</li>
+  <li id="r11">NGED, G99 Connection Procedures Guidance (Jan 2023). https://connections.nationalgrid.co.uk/downloads/24747</li>
+  <li id="r12">Northern Powergrid IMP/001/007 v7.0 (Jun 2020). https://www.northernpowergrid.com/sites/default/files/assets/1678.pdf</li>
+  <li id="r14">AEMO, Grid Forming and Grid Following Inverter Fault Current Contribution (2025). https://www.aemo.com.au/-/media/files/initiatives/engineering-framework/2025/grid-forming-and-grid-following-inverter-fault-current-contribution.pdf</li>
+  <li id="r16">SSEN, SHEPD Long Term Development Statement (Nov 2023). https://www.ssen.co.uk/globalassets/our-services/tools-and-maps/ltds-scotland/scottish-hydro-electric-power-distribution-long-term-development-statement_parts-12.pdf</li>
+  <li id="r17">NESO, Stability Network Services. https://www.neso.energy/industry-information/balancing-services/network-services/stability-network-services</li>
+  <li id="r18">NESO, "What is Short Circuit Level?" (7 Sep 2020). https://www.neso.energy/news/what-short-circuit-level</li>
+  <li id="r23">NESO, ETYS documents and appendices (fetched 2026-09-05). https://www.neso.energy/publications/electricity-ten-year-statement-etys/etys-documents-and-appendices</li>
+  <li id="r25">Ventusltd/data-grid-gb: chatgpt/PRODUCT_CONTRACT.md, chatgpt/sources.json, chatgpt/ingest_etys.py, derived/connection-points.v3.json at b91e45b. https://github.com/Ventusltd/data-grid-gb</li>
+  <li id="r26">Ventusltd/gridatlas, substation-intelligence cartridge, generation 202609051624: QUOTED_METRIC, the 5.1–49.6 kA record, the in-object refusal. https://github.com/Ventusltd/gridatlas</li>
+  <li id="r27">Ofgem, Electricity Distribution Consolidated Standard Licence Conditions, SLC 25 (24 Aug 2021). https://www.ofgem.gov.uk/sites/default/files/2021-08/Schedule%206_Electricity%20Distribution%20Consolidated%20Standard%20Licence%20Conditions_For%20Publication_24_08_2021.pdf</li>
+  <li id="r28">Ofgem, Direction under SLC 25.2 and Form of Long Term Development Statement (30 Apr 2024). https://www.ofgem.gov.uk/sites/default/files/2024-04/Form%20of%20Long%20Term%20Development%20Statement%20300424.pdf</li>
+  <li id="r29">Per-network dataset pages fetched 2026-09-05: UKPN, SSEN, NGED, Northern Powergrid, ENWL and SPEN open-data portals; evidence extracts retained offline by the estate.</li>
+  <li id="r30">Ofgem, LTDS CIM extension and derogation letter (25 Nov 2024) and LTDS direction decision page (updated 13 May 2026). https://www.ofgem.gov.uk/decision/long-term-development-statement-direction</li>
+  <li id="r31">DCUSA, Embedded Capacity Register, version 5.0 mandatory from 24 Feb 2026. https://www.dcusa.co.uk/embedded-capacity-register/</li>
+  <li id="r32">GlobalGrid2050, Power Systems Case Studies: Braintree EV Forecourt. https://globalgrid2050.com/power_systems_studies/</li>
+</ol>
+
+</main>
+</body>
+</html>

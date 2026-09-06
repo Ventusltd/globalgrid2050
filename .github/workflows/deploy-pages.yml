@@ -42,6 +42,11 @@ on:
       # snapshots above. Without a path here a rescan would deploy nothing,
       # and would appear to work only when its commit also touched index.html.
       - 'estate_scan/**'
+      # Working papers are published directories like the snapshots above.
+      # papers/202609060045-published-fault-level/ was the first; without a
+      # path here it would have deployed only when a commit also touched
+      # index.html, which is the silent non-deploy this list keeps recording.
+      - 'papers/**'
       - 'dist/major_project_news_v5.json'
       - 'dist/major_projects_v5.json'
       - 'dist/major_project_news_v6.json'

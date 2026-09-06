@@ -1618,3 +1618,8 @@ Snapshot080 records the aborted0459 publication preparation: no homepage edit or
 ## homepage_v081
 
 Pre-edit snapshot of 7f7be6e54e2bc848b3037a5b995be27da2418b5f; fresh restore34013066172 passed. Measurements: homepage_v081-measurement.json. Publish corrected0503 host from c591b272566691ef3d85e1eb40be8746d2d895a0 after expanded CI34013057434. Preserve complete441 bootstrap/layout initializer and all older links. Historical0447 acceptance revoked for missing layout activation;0459 remains unpublished.
+
+
+## homepage_v082
+
+Pre-edit snapshot of d66f36c814839222b62e9154d9a1c6702cff3e1c; restore34013352469 passed. Measurements: homepage_v082-measurement.json. Publish0504 selected-vertex removal, source e142b2bc61330f3756be20f5648e025004e59a80, exact CI34013085157 green with54 layout,26 removal,20 recovery and120 polygon checks. Corrected0503 host retained; rejected0459 remains unpublished. Preserve all older links.

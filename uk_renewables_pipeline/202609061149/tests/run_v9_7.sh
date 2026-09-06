@@ -38,6 +38,10 @@ CHANGED_FROM_PARENT=(
   # 202609061149 - the release states its own identity. The parent was cut by
   # copying 202609051156 and announced that stamp in its title and banner.
   index.html
+  # 202609061149 - the smoke waited for 7,680 rows in the DOM. The view is a
+  # page of twenty now, so it waits for that AND for the loader to report the
+  # complete 7,680, then exercises the pager.
+  tests/browser_smoke_v9_7.mjs
 )
 is_changed() {
   local needle="$1"

@@ -18,8 +18,15 @@ async function pageAt(browser, width) {
     status: 200, contentType: "application/javascript", body: "",
   }));
   await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  /* The VIEW is a page of twenty; the DATA is still all 7,680. Waiting for 7,680
+     rows in the DOM was the old contract and it can never be satisfied again -
+     so the wait is on the windowed view being painted AND the loader reporting
+     the complete record count. Both halves matter: dropping the second would
+     let a short read pass unnoticed, which is the failure this whole gate is
+     for. */
   await page.waitForFunction(() => (
-    document.querySelectorAll("#tbody tr").length === 7680
+    document.querySelectorAll("#tbody tr").length === 20
+    && document.getElementById("tbody")?.dataset.total === "7680"
     && document.querySelectorAll("#stories .story").length === 133
     && document.querySelector("#newsMeta")?.textContent.includes("audited snapshot")
   ));
@@ -35,7 +42,19 @@ async function clickCount(page, mode) {
 const browser = await chromium.launch({ headless: true });
 try {
   const { context, page } = await pageAt(browser, 1440);
-  assert.equal(await page.locator("#tbody tr").count(), 7680);
+  assert.equal(await page.locator("#tbody tr").count(), 20);
+  // The pipeline is not windowed even though the view is.
+  assert.equal(await page.locator("#tbody").getAttribute("data-total"), "7680");
+  assert.equal(await page.locator("#tbody").getAttribute("data-pages"), "384");
+  // Largest first, and the pager moves without re-filtering.
+  const firstPageTop = await page.locator("#tbody td.mw").first().innerText();
+  assert.equal(firstPageTop.trim(), "4,100 MW");
+  await page.locator('[data-page-step="1"]').click();
+  await page.waitForFunction(() => document.getElementById("tbody")?.dataset.page === "2");
+  assert.equal(await page.locator("#tbody tr").count(), 20);
+  assert.equal(await page.locator("#tbody").getAttribute("data-total"), "7680");
+  await page.locator('[data-page-step="-1"]').click();
+  await page.waitForFunction(() => document.getElementById("tbody")?.dataset.page === "1");
   assert.equal(await page.locator("#v1").innerText(), "356,474");
   assert.equal(await page.locator("#v2").innerText(), "7,680");
   assert.equal(await page.locator("#v3").innerText(), "4,100");

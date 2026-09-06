@@ -1,17 +1,24 @@
 # Build and deploy the GlobalGrid2050 Pages site.
 name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
+# TWO PUBLISHERS, ONE SITE.
+#
+# This workflow and deploy-pages.yml both deployed GitHub Pages, both on a push
+# to main touching index.html, and both in concurrency group "pages" with
+# cancel-in-progress: false. So every homepage change queued TWO different
+# builders against the same environment and whichever finished last won - one
+# uploading the repository as-is, the other running it through Jekyll, which
+# this site is not.
+#
+# Observed on 2026-09-06: index.html correct on origin/main with 53 Test Code
+# links, and the live page still serving 44 several minutes and five polls
+# later. A site that does not update is indistinguishable from a site that was
+# never pushed to, which is how a whole morning of work can look lost.
+#
+# The push trigger is removed so there is exactly one publisher. This workflow
+# stays available by hand, because deciding which publisher the estate wants is
+# the architect's call and deleting the alternative would take that away.
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - index.html
-      - '202608300453-atlas-v9/index.html'
-      - 'state/current-gridatlas-v9.json'
-      - 'state/gridatlas-v9-current.json'
-      - podcast_transcripts/index.md
-      - .github/workflows/jekyll-gh-pages.yml
   workflow_dispatch:
 
 permissions:

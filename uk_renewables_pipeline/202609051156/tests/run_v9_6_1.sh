@@ -6,7 +6,7 @@ V961="$(cd "$HERE/.." && pwd)"
 V951="$(cd "$V961/../v9.5.1" && pwd)"
 ROOT="$(cd "$V961/../.." && pwd)"
 
-test "$(git -C "$ROOT" rev-parse 'HEAD:uk_renewables_pipeline/v9.5.1')" = "ae719483feddec2892c77e0c983fdfd3962efce7"
+test "$(git -C "$ROOT" rev-parse 'HEAD:uk_renewables_pipeline/v9.5.1')" = "cc1ebf8ddb8654934b861e4d0d2df73926076674"
 
 # Prove the requested clone boundary before testing behaviour.
 diff -qr -x __pycache__ -x '*.pyc' "$V951/data" "$V961/data"

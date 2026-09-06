@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "895cadcfa0d86cb6d5aaedec0fd93efe86dcb835",
+  "file": "homepage_v064.html",
+  "folderFilesBefore": 87,
+  "folderFilesAfter": 89,
+  "lines": 427,
+  "words": 6246,
+  "characters": 54032,
+  "bytes": 54333,
+  "sha256": "7da96e0a0704d8bc327e77ce771b5d3cf32d11ca27a6e64b9a5c3e48b84f74b8",
+  "restoreWorkflow": 34007522280,
+  "restoreConclusion": "success",
+  "intention": "Remove internal REVIEW CHECKPOINTS counts, pending tasks and dated snapshot from public homepage at user request; preserve calendar clocks and all other content. Original96criteria absorbed into Spiders internalcampaign e489f95."
+}

@@ -1,0 +1,24 @@
+{
+  "generation": "202609060503",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "c591b272566691ef3d85e1eb40be8746d2d895a0",
+  "parentGeneration": "202609060441",
+  "hostGeneration": "202609052015",
+  "applicationGeneration": "202609051906",
+  "ci": {
+    "run": 34013057434,
+    "conclusion": "success",
+    "layoutChecks": 54,
+    "recoveryChecks": 20,
+    "boundaryChecks": 16,
+    "printChecks": 10,
+    "polygonChecks": 120
+  },
+  "scope": "Corrected host composition preserves the complete parent bootstrap and layout initializer, four Atlas cartridges and eight historical host modules.",
+  "limitations": [
+    "Historical0447 acceptance revoked: earlier recovery/polygon suites missed missing layout activation.0459 rejected before publication.",
+    "Recovery scope is the tested same-origin503 fixture.",
+    "No owner-main promotion."
+  ],
+  "publicationStatus": "Exact served files and live layout/recovery/polygon receipts recorded after deployment."
+}

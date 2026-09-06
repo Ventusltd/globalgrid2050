@@ -1606,3 +1606,15 @@ Pre-edit snapshot of a1fdc757efc3e51d33bed94b81f01ce32fed1495; restore3401224404
 ## homepage_v079
 
 Pre-edit snapshot of 8486a34b24c60890505c35535a1530bb6585108c; restore34012672757 passed. Measurements: homepage_v079-measurement.json. Add recoverable toolhost0447, preserving everypreviouslink. Source54ab70a4aebb33d45db5912d8baa0c8b3c8c70e6, exactCI34012615665 passed hostprovenance,20recovery,16boundary,10Print and120polygonchecks. Allfourcartridges/eighthistoricalhostdependencies/originaliframeowners retained. Recoverylimitedtotestedsame-origin503fixture.
+
+
+## homepage_v080
+
+Pre-edit snapshot of 7f7be6e54e2bc848b3037a5b995be27da2418b5f; restore34012964151 passed. Measurements: homepage_v080-measurement.json. Add Atlas0459 selected-vertex removal after exact CI34012928257 passes. Preserve every previous link and immutable release. Source d2a317c1127c9deae12039cec0e9e5516354b78b; owner bb8f07ae8afb8d1872a75e7c2718b78d3e008504.
+
+
+Snapshot080 records the aborted0459 publication preparation: no homepage edit or0459 publication occurred because inherited layout initialization was missing.
+
+## homepage_v081
+
+Pre-edit snapshot of 7f7be6e54e2bc848b3037a5b995be27da2418b5f; fresh restore34013066172 passed. Measurements: homepage_v081-measurement.json. Publish corrected0503 host from c591b272566691ef3d85e1eb40be8746d2d895a0 after expanded CI34013057434. Preserve complete441 bootstrap/layout initializer and all older links. Historical0447 acceptance revoked for missing layout activation;0459 remains unpublished.

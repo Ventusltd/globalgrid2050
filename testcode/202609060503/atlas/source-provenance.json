@@ -1,0 +1,58 @@
+{
+  "schema": "gridatlas.tool-host-candidate.v1",
+  "generation": "202609060503",
+  "parent": "202609060441",
+  "sourceCommit": "d2a317c1127c9deae12039cec0e9e5516354b78b",
+  "hostGeneration": "202609052015",
+  "appGeneration": "202609051906",
+  "originalBootstrapSha256": "2d9e60f9cb899e9c5913f0fd6e742b5b9e7df69ee4e11629beb918a22882d4eb",
+  "bootstrapSha256": "0b38175018e2cb66d83c41de52c39ac46e659d8853587e287aef90918b16f341",
+  "layout": {
+    "parentBootstrapSha256": "21b3a015d37847b310a81c0c9a65b453ef38ef4a7cf09d2637a024e0c95160d7",
+    "sha256": "719b70df886188adb0c33c3c170976bdd9274a4d4d5211023bf440a1fa7b62d1",
+    "initializer": "import {mountMapControlsLayout} from './map-controls-layout.js';\nmountMapControlsLayout();\n"
+  },
+  "dependencies": [
+    {
+      "path": "sandbox/202609052015/tool-layers/host.js",
+      "sha256": "2f5e0a074bb18618a336bc615f2912242534f98399016de1a6e79e6c23d3cbf5",
+      "bytes": 3599
+    },
+    {
+      "path": "sandbox/202609052015/tool-layers/dismissal.js",
+      "sha256": "9b47757c1169e4ec8098685013220386e63a2e1e5ac02a9a635a364f26cfe50f",
+      "bytes": 848
+    },
+    {
+      "path": "sandbox/202609052015/tool-layers/focus-boundary.js",
+      "sha256": "238245abd65c04e2a6106f82287c77401dfd22381dd4e4692875915033f26a4a",
+      "bytes": 1887
+    },
+    {
+      "path": "sandbox/202609052015/tool-layers/navigation.js",
+      "sha256": "25818b6ef6adb0ac771b1d3c34a8370027ab39193441e51098a4cf68496a8ea9",
+      "bytes": 1905
+    },
+    {
+      "path": "sandbox/202609052015/tool-layers/viewport.js",
+      "sha256": "959eba08d8533cc27fc49009e15b1254f83321a69e6cb4d6bf3ce009fa7a4532",
+      "bytes": 1279
+    },
+    {
+      "path": "sandbox/202609052015/tool-layers/session-restart.js",
+      "sha256": "e3e65cdf8d8ad69dd5aae05a0a5ad281991e4c281b91a6ab3b3e6876615a68a3",
+      "bytes": 1902
+    },
+    {
+      "path": "sandbox/202609052015/tool-layers/recovery.js",
+      "sha256": "11315b837432ce3d0f7076b5edc7f9a4af725490d2df23a416f09b68fddda5e0",
+      "bytes": 840
+    },
+    {
+      "path": "sandbox/202609052015/tool-layers/readiness.js",
+      "sha256": "047223bd515da41124015723ff7816eedd7588d2a81e5847a502f5d27aba7d19",
+      "bytes": 3863
+    }
+  ],
+  "scope": "Only consumer tool-host composition changes. All four executable Atlas cartridges, original iframe application paths and existing layout initialization are retained."
+}

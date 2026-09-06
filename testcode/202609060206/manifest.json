@@ -1,0 +1,39 @@
+{
+  "schema": "ventus.testcode-candidate.v1",
+  "generation": "202609060206",
+  "planId": "BBC-RSS-01",
+  "relatedPlan": "PIPELINE-35",
+  "scopeExtension": "User requested automated BBC RSS discovery, independent of energy-feed rollup prerequisites",
+  "owner": "Ventusltd/pipelinenews",
+  "sourceCommit": "37cbca110d0b67bd0cf340816b263804d2876cda",
+  "status": "candidate",
+  "change": "Automatically discover BBC energy headlines with unmatched identity and explicit feed health",
+  "paper": "https://globalgrid2050.com/papers/202609060203-electrification/",
+  "schedule": "17 */2 * * *",
+  "sources": [
+    {
+      "path": "ui/templates/bbc-rss-intelligence.html",
+      "sha256": "85248161abbdda45bd96b485c47f0f9257b7c094154faab0e9f9f62b822f95dc"
+    },
+    {
+      "path": "discovery/bbc_rss.py",
+      "sha256": "3ad2bb332066e6a1af0c0ed985a115417901f1d1373a3eebdb15c3d22cd541c3"
+    },
+    {
+      "path": "discovery/products/bbc-rss.json",
+      "sha256": "a3c5dac749944e31bbfd5720cd6dbaa5ebe7fef60ccf2b9e0add6f59d4272016"
+    }
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 4355,
+      "sha256": "8b70e630d7e5691869d436ce9dc0bd327300d14ce77c968553176cff67824d34"
+    },
+    {
+      "path": "snapshot.json",
+      "bytes": 8420,
+      "sha256": "a3c5dac749944e31bbfd5720cd6dbaa5ebe7fef60ccf2b9e0add6f59d4272016"
+    }
+  ]
+}

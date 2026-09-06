@@ -1,0 +1,43 @@
+{
+  "schema": "ventus.testcode-candidate.v1",
+  "generation": "202609060204",
+  "planId": "PIPELINE-01",
+  "status": "candidate",
+  "change": "Report exact coverage differences and unjoinable source rows",
+  "owner": "Ventusltd/pipelinenews",
+  "sourceCommit": "9d6e1b5618272df32f2da33f8ff78e5b6b3160aa",
+  "module": {
+    "path": "cartridges/coverage-join-audit.mjs",
+    "sha256": "71ad748649f97b9689a72598711db91123d2b8b5e4a9f9e40b04537aaaa23e37"
+  },
+  "sources": [
+    {
+      "path": "releases/202609050309-pipelinenews/data/202608311610-grid-proximity.json",
+      "sha256": "beb5e940d005e46651281048ef7dff36ec195b71132a4e4fa402e683458d62a3",
+      "bytes": 7403890
+    },
+    {
+      "path": "releases/202609050309-pipelinenews/data/202608311800-grid-distance.json",
+      "sha256": "e186c8923ab4ca574309083c11e991084bd5eb001150733968ca0c0625891b82",
+      "bytes": 240355
+    },
+    {
+      "path": "releases/202609050309-pipelinenews/data/202608311858-substation-33kv.json",
+      "sha256": "81cae241eccfd77c2a2898843c9220ae1378668e7494dbeaf7378d6d94e7a480",
+      "bytes": 203062
+    }
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 3780,
+      "sha256": "eab85890457d7d29e20447d3d6f35d0663a887deb5e887a2314020bd17627689"
+    },
+    {
+      "path": "coverage.json",
+      "bytes": 27784,
+      "sha256": "e2c96459ce00aa1ae5da7ab7bf3b73ec087a7f8ca8ed0b52e2b67a6247ee30fb"
+    }
+  ],
+  "acceptance": "Owner fixtures pass; exact CI, served bytes and Chrome pending"
+}

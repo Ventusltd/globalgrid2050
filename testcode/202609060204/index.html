@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pipeline News · Coverage audit 202609060204</title>
+<style>body{font:17px/1.55 system-ui;margin:auto;padding:24px;max-width:900px;color:#e6edf3;background:#101923}a{color:#82cfff}h1{line-height:1.2}section{border:1px solid #435361;padding:18px;margin:20px 0;border-radius:8px}input,select,button{font:inherit;padding:9px;max-width:100%;box-sizing:border-box}table{width:100%;border-collapse:collapse}td,th{text-align:left;border-bottom:1px solid #435361;padding:8px}code{overflow-wrap:anywhere}#identities{max-height:260px;overflow:auto;overflow-wrap:anywhere}small{color:#bbc8d3}@media(max-width:450px){body{padding:14px}td,th{padding:5px;font-size:14px}}</style>
+<a href="https://globalgrid2050.com/#test-code">Test Code</a>
+<h1>Pipeline News coverage audit</h1><p>Version 202609060204 · PIPELINE-01 · Test candidate</p>
+<p>This checks which project identities appear in the three pinned datasets. It does not change the live application.</p>
+<p id="status" role="status">Loading verified coverage report…</p>
+<section><h2>Dataset coverage</h2><div id="counts"></div><div id="technologies"></div></section>
+<section><h2>Missing project identities</h2><label for="source">Missing from </label><select id="source"><option value="missingGrid">GRID</option><option value="missingSubstation">SUB</option></select>
+<p><label for="search">Find REPD identity </label><input id="search" type="search" inputmode="numeric"></p><p id="match-count" aria-live="polite"></p><div id="identities"></div></section>
+<section><h2>Records that cannot be joined</h2><div id="invalid"></div></section>
+<p id="caveat"></p><p><a href="coverage.json" download>Download complete coverage report</a> · <a href="manifest.json">Source and version record</a></p>
+<script type="module">
+const el=id=>document.getElementById(id);
+try {
+ const response=await fetch('./coverage.json'); if(!response.ok)throw Error('Report unavailable');
+ const bytes=await response.arrayBuffer(); const actual=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+ if(actual!=='e2c96459ce00aa1ae5da7ab7bf3b73ec087a7f8ca8ed0b52e2b67a6247ee30fb')throw Error('Report identity mismatch');
+ const data=JSON.parse(new TextDecoder().decode(bytes));
+ el('status').textContent='Verified source report loaded. Coverage differs between datasets.';
+ el('counts').textContent=data.counts.proximity+' proximity records; '+data.counts.validProximityIdentities+' valid identities; '+data.counts.grid+' GRID entries; '+data.counts.substation+' SUB entries.';
+ const table=document.createElement('table');const header=table.createTHead().insertRow();for(const label of ['Technology','Proximity','GRID','SUB']){const th=document.createElement('th');th.textContent=label;header.append(th);}
+ for(const [tech,counts]of Object.entries(data.byTechnology)){const row=table.insertRow();for(const value of [tech,counts.proximity,counts.grid,counts.substation])row.insertCell().textContent=value;}el('technologies').append(table);
+ const update=()=>{const matches=data[el('source').value].filter(id=>id.includes(el('search').value.trim()));el('match-count').textContent=matches.length+' matching identities';el('identities').textContent=matches.join(', ')||'No matches';};
+ el('source').addEventListener('change',update);el('search').addEventListener('input',update);update();
+ for(const item of data.invalidProximity){const p=document.createElement('p');p.textContent=item.name+' — '+item.reason;el('invalid').append(p);}
+ el('caveat').textContent=data.caveat;
+}catch(error){el('status').textContent='Coverage unavailable: '+error.message;}
+</script></html>

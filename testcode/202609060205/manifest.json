@@ -1,0 +1,26 @@
+{
+  "schema": "ventus.testcode-candidate.v1",
+  "generation": "202609060205",
+  "planId": "PIPELINE-35",
+  "scopeExtension": "User explicitly requested automated BBC RSS discovery on 2026-09-06",
+  "change": "Automated RSS discovery exposes unmatched BBC headlines and collection health",
+  "owner": "Ventusltd/pipelinenews",
+  "sourceCommit": "9d6e1b5618272df32f2da33f8ff78e5b6b3160aa",
+  "status": "candidate",
+  "workflowRun": 34005438708,
+  "schedule": "17 */2 * * *",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 4375,
+      "sha256": "8ded79cc784d637d5a095ede1d7f7b1b51af1d1683c90cfa0d6a005a82993d53"
+    },
+    {
+      "path": "snapshot.json",
+      "bytes": 8663,
+      "sha256": "7a38316f65227bfa8e1d394dcfb848a27a569fd3c5871ecb447d96b7f5bd80f8"
+    }
+  ],
+  "paper": "https://globalgrid2050.com/papers/202609060203-electrification/",
+  "browserProof": "pending"
+}

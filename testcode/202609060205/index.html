@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pipeline Intelligence ? BBC RSS</title>
+<style>body{font:17px/1.55 system-ui;max-width:900px;margin:auto;padding:24px;color:#e6edf3;background:#101923}a{color:#82cfff}h1{line-height:1.2}section,article{padding:18px;border:1px solid #435361;border-radius:8px;margin:18px 0}button{font:inherit;padding:10px}small{display:block;color:#bac6d3}code{overflow-wrap:anywhere}li{overflow-wrap:anywhere}@media(max-width:450px){body{padding:14px}section,article{padding:12px}}</style>
+<a href="https://globalgrid2050.com/#test-code">Test Code</a><h1>Pipeline Intelligence: BBC discovery</h1><p>202609060205 ? RSS source adapter ? Test candidate</p>
+<p>Automatic discovery every two hours. BBC News headlines can appear here before a project is matched to REPD. An unmatched report does not establish planning consent or a grid connection.</p>
+<button id="refresh">Refresh live feed</button><button id="snapshot">Show publication snapshot</button><p id="status" role="status">Loading publication snapshot?</p>
+<section><h2>Energy and infrastructure news</h2><div id="news"></div></section>
+<section><h2>Your submitted articles</h2><div id="submitted"></div></section>
+<section><h2>Source health</h2><p id="health"></p><details><summary>Feed details</summary><ul id="feeds"></ul></details></section>
+<p>Headlines and links from <a href="https://www.bbc.co.uk/news">BBC News</a>. Article pages are not fetched. The regional RSS feeds are rolling windows, so an unseen article is not evidence that it does not exist.</p>
+<p><a href="https://globalgrid2050.com/papers/202609060203-electrification/">Electrification paper</a> ? <a href="snapshot.json" download>Download this version's source snapshot</a> ? <a href="manifest.json">Version record</a></p>
+<script type="module">
+const el=id=>document.getElementById(id);let request=0;
+async function load(live){const current=++request;el('status').textContent='Loading '+(live?'latest RSS observations':'publication snapshot')+'?';try{
+const response=await fetch(live?'https://raw.githubusercontent.com/Ventusltd/pipelinenews/main/discovery/products/bbc-rss.json':'./snapshot.json',{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('Source HTTP '+response.status);const data=await response.json();if(data.schema!=='pipelinenews.bbc-rss.v1'||!Array.isArray(data.items)||!Array.isArray(data.feeds))throw Error('Unsupported source');if(current!==request)return;
+el('news').replaceChildren();for(const item of data.items){const u=new URL(item.url);if(u.protocol!=='https:'||!['www.bbc.co.uk','www.bbc.com'].includes(u.hostname))continue;const article=document.createElement('article'),a=document.createElement('a'),meta=document.createElement('small');a.href=u.href;a.textContent=item.headline;meta.textContent='BBC News ? '+(item.source_published_at||'Publication date unavailable')+' ? REPD match: unverified';article.append(a,meta);el('news').append(article);}if(!data.items.length)el('news').textContent='No matching headlines in this collection. Check source health below.';
+el('submitted').replaceChildren();for(const item of data.submitted_articles||[]){const p=document.createElement('p');p.textContent=(item.headline||item.url)+' ? '+item.status.replaceAll('_',' ');el('submitted').append(p);}
+const failures=data.feeds.filter(f=>f.status!=='ok');el('health').textContent=(data.feeds.length-failures.length)+' of '+data.feeds.length+' feeds fetched successfully. Collection: '+data.status+'.';el('feeds').replaceChildren();for(const f of data.feeds){const li=document.createElement('li');li.textContent=f.url+' ? '+f.status+(f.error?': '+f.error:'');el('feeds').append(li);}
+const age=Date.now()-Date.parse(data.checked_at);el('status').textContent=(live?'Latest RSS observations':'Publication snapshot')+' ? checked '+data.checked_at+(age>3*3600000?' ? STALE: more than 3 hours old':'')+'. Last successful collection: '+(data.last_success_at||'none')+'.';
+}catch(error){if(current===request)el('status').textContent='Refresh unavailable: '+error.message+'. Previously displayed observations, if any, are retained.';}}
+el('refresh').addEventListener('click',()=>load(true));el('snapshot').addEventListener('click',()=>load(false));load(false);
+</script></html>

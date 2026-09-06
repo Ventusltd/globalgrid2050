@@ -1,0 +1,243 @@
+{
+  "schema": "pipelinenews.bbc-rss.v1",
+  "checked_at": "2026-09-06T02:03:44.289928+00:00",
+  "last_success_at": "2026-09-06T02:03:44.289928+00:00",
+  "status": "partial",
+  "items": [
+    {
+      "id": "bbc:c4gmkezn4nlo",
+      "url": "https://www.bbc.co.uk/news/articles/c4gmkezn4nlo",
+      "headline": "Major solar farm could be built near villages",
+      "publisher": "BBC News",
+      "source_published_at": "2026-09-05T12:00:40+00:00",
+      "first_observed_at": "2026-09-06T02:03:44.289928+00:00",
+      "last_seen_at": "2026-09-06T02:03:44.289928+00:00",
+      "feed_urls": [
+        "https://feeds.bbci.co.uk/news/england/oxford/rss.xml"
+      ],
+      "repd_ref": null,
+      "binding_status": "UNMATCHED_REQUIRES_REVIEW",
+      "eligible_for_project_signal": false
+    },
+    {
+      "id": "bbc:c7903w0z28zo",
+      "url": "https://www.bbc.co.uk/news/articles/c7903w0z28zo",
+      "headline": "Decision on 2,400-acre solar farm postponed again",
+      "publisher": "BBC News",
+      "source_published_at": "2026-09-03T11:45:13+00:00",
+      "first_observed_at": "2026-09-06T02:03:44.289928+00:00",
+      "last_seen_at": "2026-09-06T02:03:44.289928+00:00",
+      "feed_urls": [
+        "https://feeds.bbci.co.uk/news/england/oxford/rss.xml"
+      ],
+      "repd_ref": null,
+      "binding_status": "UNMATCHED_REQUIRES_REVIEW",
+      "eligible_for_project_signal": false
+    }
+  ],
+  "feeds": [
+    {
+      "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "7e4b6a7c3cf82f91ea976a3f520348e4d89769bb494e1b756c5d5e4b3910047a"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "b28a13d630faf24cf74251f21604adda6e95e0137ee99016b956f648ba07fffe"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "fd8581d92aacc6d05c502e386759e9d597ce188f8e85706dbbd6750976a9b824"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "439bc4ca6a73deb7e4d3aa6b862db38d5ce64dc24f595f8ee97a81f0be49f48c"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "68545a8f67370c076da9a62c296e5992f100d18a96d7419b2142bbb9355dbea2"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "929ea68d58c1b00c8eee2206ca6b45db82ef2abcee01f65a73c8dbaf712c16ea"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "1716c792d1b6b815eb32012782661035b65d48ebee0d3029d4ca47f726ad7072"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "739123f35a0363a9c157ecb76e809818a3b0efe4528bd037f6f7638e114ad866"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/cambridgeshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "bf704e0ea6f2f2c9675702e025aee9de5918e65c5b591734564256bb6aecb500"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "a689c172d87d4f60a567f7897cf329ee19938882db2ba1332b18b21fd71f5152"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "54ef9b34110d3c38b76b68aa860c813e675951ebfba96a1c8e73919761f72c04"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/nottingham/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "787ae9aa6ee2bfe4b420ca664d3ae0c2d5f89fd520681eb3b96f971fd93b6b2e"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "db6f73e4f3d69ac25c0c4c7ab13a9909109e3ed465cdfc9f546339261f7d9210"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/kent/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "b91882b17f79fe2ed95f2438715fdf3684cded2b126df5a258bada4b7c988019"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
+      "status": "ok",
+      "items": 2,
+      "sha256": "03559eb533e75c0ac18c1d5048e335a260562dc08ec099ee115174717e4268b8"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/wiltshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "c391930768793b70091e526b6308cc5dfc193fc75e8d8cb1ac84a46c8fc6c127"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "3098dc28e81d7a52d25375900afafb2a375feb75f533016983027b1200d6e994"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "66472013bd63fbcd45d632a08e1f8a50d4e7198796563509b43a11a9fc28bf84"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "94732e8b18428a7395ce3a8c20233303bae85dd9a8de1f2453692e1b8ccdfe2b"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/lancashire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "5d01078bee8cc05196541a648ae5debfaef61482e9af0cb2fdbd5d99e7bb1e5e"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/cumbria/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "34e12698191c8bcadf7a0dcb600895d6d1408710c85d2843aec8ccbbe4cabb61"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/tees/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "fd91d7c6e60d56c8ad9b2f5e7ef622ed9d0c543a2c71eb897e6b2def7e99e713"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/york_and_north_yorkshire/rss.xml",
+      "status": "failed",
+      "error": "ValueError: feed redirect rejected"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/south_yorkshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "e7758d6ab0ff1856fbaa7dfe6f87cc79d66afbf99acde75cc9de4cc0427fbaa4"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/leicester/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "3d6dff6b77570f052a929f9c43271923940eb5056137d8025c905365d201f51f"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/derbyshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "5b81b4caa6a51c2e88b1e3f906e115c45b0c0a8c47bbe8fe9e52e6895b5822b8"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "4b613afdebe59f6303e4249cb48ddc7deee58ae1f06413d3f9dfbc0c66f9dd10"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/hampshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "56e870a4fd6cd74258b855ec2f65d6d18625c6a38ab7a8eecaa88114fc9051ed"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "9c26bcdfef76fdc9cf52b7f8649ebb6a249aa34ab4bd2067d915dea0c53fdf01"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/stoke_and_staffordshire/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "df925de1c1c0477ea24e4bff6f1c7c1e871ffbe52d0a35320cf3e71cdf4964e3"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/hereford_and_worcester/rss.xml",
+      "status": "ok",
+      "items": 0,
+      "sha256": "8131fa9c46d44c984c1cee5ba18f914eb2a6f798a4b987e2268d5329d62a0783"
+    }
+  ],
+  "limits": {
+    "feeds": 31,
+    "bytes_per_feed": 1048576,
+    "retained_items": 500,
+    "retention_days": 30
+  },
+  "attribution": "BBC News",
+  "source": "https://www.bbc.co.uk/news",
+  "scope": "RSS headlines and links; no article-page requests; no inferred REPD match.",
+  "submitted_articles": [
+    {
+      "url": "https://www.bbc.co.uk/news/articles/c4gmkezn4nlo",
+      "intake_id": "bbc-news-c4gmkezn4nlo",
+      "status": "FOUND_IN_RSS",
+      "headline": "Major solar farm could be built near villages",
+      "note": "Not seen does not mean absent from BBC or REPD; RSS is a rolling feed."
+    }
+  ]
+}

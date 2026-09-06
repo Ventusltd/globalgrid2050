@@ -1,0 +1,55 @@
+{
+  "generation": "202609060432",
+  "lane": "codex",
+  "name": "Restored legacy Cable drawing and export",
+  "source_repository": "Ventusltd/cable-trench-or-drill",
+  "source_commit": "86661790840c92ef5a1df47953061db87283b66a",
+  "status": "candidate awaiting CI and served-byte checks",
+  "files": [
+    {
+      "path": "cable/app.js",
+      "bytes": 39644,
+      "sha256": "6c9f1c8b369890ab62f34a6a0e133dd1de93086cae549cfa98e0bff3cbb384d8"
+    },
+    {
+      "path": "cable/data-core.js",
+      "bytes": 9574,
+      "sha256": "729a68a77264730d17674ce3f2aa69132a2417d98313de823202f53b8e6e0197"
+    },
+    {
+      "path": "cable/data-lv.js",
+      "bytes": 1949,
+      "sha256": "b6f352b0320e2b1e8cec468403d6de67d364deeaf63c90d4e5b001be4ae1b691"
+    },
+    {
+      "path": "cable/data-mv-hv.js",
+      "bytes": 2845,
+      "sha256": "5a5d6089d38df79ae37c3850ea6ffede1a3bfb890438ff20489bbbf0596300cd"
+    },
+    {
+      "path": "cable/data-solar.js",
+      "bytes": 4965,
+      "sha256": "80acebe68beb69a381eb055a70354737dd5ee3ef5407356f3f08b66774cb6356"
+    },
+    {
+      "path": "cable/drawing-view-exit.js",
+      "bytes": 1129,
+      "sha256": "8ad2d5d2b668879e63ed50280b80a6fa82e899c048f252779c429120df6c5b4f"
+    },
+    {
+      "path": "cable/index.html",
+      "bytes": 23329,
+      "sha256": "cb7a7e4279d01e6e0dd7bec7abf59c3e8cc30289ef70a2b2431e5ec77682fa2d"
+    },
+    {
+      "path": "index.html",
+      "bytes": 481,
+      "sha256": "d49fbf848d9d8c3887bfd4f2fbbe0ba9c45700f7303def1464071d90d4c765a5"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 3404,
+      "sha256": "9dabc85af056e75b7fe897686a0cb24f59dc1b4b613bf25dd4acf751a7a70e20"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "cable.legacy-syntax-repair.v1",
+  "generation": "202609060432",
+  "sourceRepository": "https://github.com/Ventusltd/globalgrid2050",
+  "sourceCommit": "9d364a218b91cf0fda1807bc9705a6616b63e62f",
+  "scope": "Restore the legacy Cable tool: remove pasted Markdown fences, restore JavaScript delimiters/operators, and keep an exit reachable in Drawing View. Equations, data values and design assumptions are retained.",
+  "files": [
+    {
+      "path": "legacy-cable-geometry/index.html",
+      "bytes": 23329,
+      "sha256": "cb7a7e4279d01e6e0dd7bec7abf59c3e8cc30289ef70a2b2431e5ec77682fa2d",
+      "sourcePath": "cable_geometry/index.html",
+      "sourceBytes": 23284,
+      "sourceSha256": "8fad2ffbd7adbb96da1c6f5543d26f128f81242a0698b70643ed3a523a282817",
+      "syntaxRepairs": {
+        "drawingViewExitCartridgeInsertion": 1
+      }
+    },
+    {
+      "path": "legacy-cable-geometry/app.js",
+      "bytes": 39644,
+      "sha256": "6c9f1c8b369890ab62f34a6a0e133dd1de93086cae549cfa98e0bff3cbb384d8",
+      "sourcePath": "cable_geometry/app.js",
+      "sourceBytes": 41216,
+      "sourceSha256": "0747388bc3e65528822fcf7fd232a5e597da73dd9201f8a370f8a3b6fdc76831",
+      "syntaxRepairs": {
+        "ellipsis": 10,
+        "doubleQuotes": 762,
+        "singleQuotes": 12,
+        "fenceLines": 6
+      }
+    },
+    {
+      "path": "legacy-cable-geometry/data-core.js",
+      "bytes": 9574,
+      "sha256": "729a68a77264730d17674ce3f2aa69132a2417d98313de823202f53b8e6e0197",
+      "sourcePath": "cable_geometry/data-core.js",
+      "sourceBytes": 9626,
+      "sourceSha256": "96355cb279ebfdde8298296fa9d1fa8a1496b4573b3add5ca1eb17e6befc3c78",
+      "syntaxRepairs": {
+        "ellipsis": 0,
+        "doubleQuotes": 10,
+        "singleQuotes": 0,
+        "fenceLines": 8
+      }
+    },
+    {
+      "path": "legacy-cable-geometry/data-lv.js",
+      "bytes": 1949,
+      "sha256": "b6f352b0320e2b1e8cec468403d6de67d364deeaf63c90d4e5b001be4ae1b691",
+      "sourcePath": "cable_geometry/data-lv.js",
+      "sourceBytes": 1957,
+      "sourceSha256": "8460a2fb462deb9d17c811c6a517d968f2c00e7ca7f8c088ea6f911b131c3f80",
+      "syntaxRepairs": {
+        "ellipsis": 0,
+        "doubleQuotes": 0,
+        "singleQuotes": 0,
+        "fenceLines": 2
+      }
+    },
+    {
+      "path": "legacy-cable-geometry/data-mv-hv.js",
+      "bytes": 2845,
+      "sha256": "5a5d6089d38df79ae37c3850ea6ffede1a3bfb890438ff20489bbbf0596300cd",
+      "sourcePath": "cable_geometry/data-mv-hv.js",
+      "sourceBytes": 2845,
+      "sourceSha256": "5a5d6089d38df79ae37c3850ea6ffede1a3bfb890438ff20489bbbf0596300cd",
+      "syntaxRepairs": {}
+    },
+    {
+      "path": "legacy-cable-geometry/data-solar.js",
+      "bytes": 4965,
+      "sha256": "80acebe68beb69a381eb055a70354737dd5ee3ef5407356f3f08b66774cb6356",
+      "sourcePath": "cable_geometry/data-solar.js",
+      "sourceBytes": 4965,
+      "sourceSha256": "80acebe68beb69a381eb055a70354737dd5ee3ef5407356f3f08b66774cb6356",
+      "syntaxRepairs": {}
+    },
+    {
+      "path": "legacy-cable-geometry/drawing-view-exit.js",
+      "bytes": 1129,
+      "sha256": "8ad2d5d2b668879e63ed50280b80a6fa82e899c048f252779c429120df6c5b4f",
+      "ownerSourcePath": "src/legacy-cable/drawing-view-exit.js"
+    }
+  ],
+  "status": "candidate awaiting actual browser and numerical checks"
+}

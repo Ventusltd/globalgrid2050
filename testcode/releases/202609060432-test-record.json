@@ -1,0 +1,19 @@
+{
+  "generation": "202609060432",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "cb87b9f3f8e469b6d64cdae84cd387115e6a5c15",
+  "ownerRepository": "Ventusltd/cable-trench-or-drill",
+  "ownerCommit": "86661790840c92ef5a1df47953061db87283b66a",
+  "ci": {
+    "run": 34011801132,
+    "conclusion": "success",
+    "browserChecks": 30
+  },
+  "scope": "Audited syntax repairs restore three geometry canvases and original export/calculations. DrawingView exit/Escape/focus guard added. Sevenruntimefiles match exactgreenownerCI; sixscriptclosure verified.",
+  "limitations": [
+    "Existing indicative-design assumptions retained.",
+    "Public/cable_geometry/ andcurrentownerpointers remain unchanged; failed0430 excluded."
+  ],
+  "ownerReview": "https://github.com/Ventusltd/cable-trench-or-drill/pull/1",
+  "publicationStatus": "Served bytes and actual live browser checks recorded afterdeployment."
+}

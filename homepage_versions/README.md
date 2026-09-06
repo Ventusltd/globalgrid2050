@@ -1586,3 +1586,8 @@ Pre-edit snapshot of 95dfa2ce68c624f841f3f212d7709aa9ffbc5d05; restore3401111940
 ## homepage_v075
 
 Pre-edit snapshot of 9d364a218b91cf0fda1807bc9705a6616b63e62f; restore34011273452 passed. Measurements: homepage_v075-measurement.json. Add native map PDF0418 and retain all30 existing feature links. Source877f7cb09548b875d6cf6f84ba414900194f80a6; exact cross-browser/PDF-render/polygon CI34011476374 passed. InitialFirefoxstartup failure34011251539 remains recorded; later Xvfb configuration passes without app changes, original cause unproven. Failed0417 excluded; whole-app Print remains separate.
+
+
+## homepage_v076
+
+Pre-edit snapshot of 1ae532c5ff5b3749aaef99474ee4e521018f8363; restore34011880667 passed. Measurements: homepage_v076-measurement.json. Add separateCable0432TestCode; allpreviouslinks retained. TestCodecb87b9f3f8e469b6d64cdae84cd387115e6a5c15 exactly mirrorsowner8666179, CI34011801132green. Publiclegacyroute/currentownerpointers untouched; failed0430 excluded.

@@ -383,5 +383,190 @@ function render() {
       '<p class="basis">' + sea.basis + '</p>';
   } catch (err) { refuse('out-route', err.message); tb.innerHTML = ''; }
 }`
+    },
+    {
+        stamp: '202609060217',
+        slug: 'solar-bess-export',
+        title: 'Solar and BESS Export Workbench',
+        sub: 'What a constrained connection costs an array — and what the battery recovers',
+        feature: 'Generation against an export cap: the energy clipped, the fraction of the array\'s output lost, and the net position at the connection point when site load and generation are taken together against separate import and export caps.',
+        engineModule: 'connection-capacity.js',
+        engineCommit: '9a92211',
+        schema: 'ventus-grid-engine.connection-capacity.v1',
+        checks: 39,
+        panels: [
+            {
+                heading: '1 · WHAT THE EXPORT CAP CLIPS',
+                lede: `Oversizing DC behind a smaller AC connection is a normal design choice and
+                   often a good one — but only once the loss is known rather than assumed away. Enter
+                   the generation profile in kW, hour by hour, and the export capacity from your
+                   connection agreement. Everything above the cap is energy the array would have made
+                   and cannot deliver.`,
+                controls: [
+                    { id: 'gen', type: 'text', label: 'Hourly generation (kW, comma separated)', value: '0, 2, 6, 11, 14, 15, 14, 11, 6, 2, 0' },
+                    { id: 'ecap', type: 'number', label: 'Agreed export capacity (kW)', value: '10', min: 1, max: 1000000, step: 1 }
+                ],
+                outId: 'out-clip'
+            },
+            {
+                heading: '2 · THE NET POSITION AT THE CONNECTION',
+                lede: `A site with both load and generation presents the <em>net</em> at the meter.
+                   Import and export caps are separate commercial parameters and are frequently
+                   different numbers, so they are checked separately here — netting them into a single
+                   figure hides a breach in whichever direction you were not looking.`,
+                controls: [
+                    { id: 'load', type: 'text', label: 'Hourly site load (kW, comma separated)', value: '4, 4, 5, 6, 6, 6, 6, 5, 5, 4, 4' },
+                    { id: 'icap', type: 'number', label: 'Agreed import capacity (kW)', value: '8', min: 1, max: 1000000, step: 1 }
+                ],
+                outId: 'out-net',
+                tableId: 'net-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Value', right: true }, { label: 'Against cap', right: true }],
+                note: `The load and generation profiles must describe the same period at the same
+                   resolution. If they do not, the engine refuses rather than silently padding one of
+                   them — a padded profile produces a confident answer about a period that was never
+                   measured.`
+            }
+        ],
+        script: `
+function bind() { ['gen','ecap','load','icap'].forEach(id => el(id).addEventListener('input', render)); }
+function parse(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+function render() {
+  const generationKw = parse(el('gen').value);
+  const loadKw = parse(el('load').value);
+  const tb = document.querySelector('#net-table tbody');
+
+  try {
+    const c = E.clippedEnergy({ generationKw, exportCapKw: num('ecap'), intervalHours: 1 });
+    el('out-clip').innerHTML =
+      '<div class="figure"><span class="q">energy clipped</span><span class="n' +
+      (c.clippedKwh > 0 ? ' over' : '') + '">' + c.clippedKwh.toFixed(1) +
+      '</span><span class="u">kWh · ' + (c.clippedFraction * 100).toFixed(2) + '% of potential</span></div>' +
+      '<p class="basis">' + c.basis + '</p>';
+  } catch (err) { refuse('out-clip', err.message); }
+
+  try {
+    const n = E.netAtConnection({ loadKw, generationKw,
+      importCapKw: num('icap'), exportCapKw: num('ecap'), intervalHours: 1 });
+    el('out-net').innerHTML =
+      '<div class="figure"><span class="q">net position</span><span class="n' +
+      (n.withinBothCaps ? '' : ' over') + '">' +
+      (n.withinBothCaps ? 'WITHIN BOTH CAPS' : 'CAP BREACHED') + '</span></div>' +
+      '<p class="basis">' + n.basis + '</p>';
+    tb.innerHTML = [
+      ['Peak import', n.peakImportKw.toFixed(1) + ' kW', n.importBreaches ? n.importBreaches + ' breach(es)' : 'within ' + n.importCapKw + ' kW'],
+      ['Peak export', n.peakExportKw.toFixed(1) + ' kW', n.exportBreaches ? n.exportBreaches + ' breach(es)' : 'within ' + n.exportCapKw + ' kW'],
+      ['Energy imported', n.importKwh.toFixed(1) + ' kWh', 'bought'],
+      ['Energy exported', n.exportKwh.toFixed(1) + ' kWh', 'sold or spilled']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/breach/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-net', err.message); tb.innerHTML = ''; }
+}`
+    },
+    {
+        stamp: '202609060218',
+        slug: 'substation-growth',
+        title: 'Substation Growth Workbench',
+        sub: 'A NESO pathway applied to one substation, against its firm capacity',
+        feature: 'National pathway growth taken down to a single site: today\'s demand grown by a stated multiple, converted to MVA at a stated power factor, and assessed against the substation\'s N-1 firm capacity rather than its nameplate.',
+        engineModule: ['electrification-demand.js', 'firm-capacity.js'],
+        engineCommit: '9a92211',
+        schema: ['ventus-grid-engine.electrification-demand.v1', 'ventus-grid-engine.firm-capacity.v1'],
+        checks: 56,
+        panels: [
+            {
+                heading: '1 · THE NATIONAL PATHWAYS, AND WHY THEY DO NOT DIVIDE',
+                lede: `NESO's three 2050 pathways published in FES 2025 Table 2. The load factor
+                   column is measured from the published peak, not assumed. Read the third row before
+                   using any of this: Hydrogen Evolution carries the <em>largest</em> annual demand and
+                   a <em>lower</em> peak than Electric Engagement. There is no single national
+                   multiplier, and there is no defensible rule that every site receives the same
+                   percentage uplift. What follows is a stress test on one site, not a forecast for it.`,
+                controls: [],
+                tableId: 'path-table',
+                tableHead: [{ label: 'FES 2025 pathway' }, { label: 'Annual', right: true },
+                    { label: 'Average', right: true }, { label: 'Published peak', right: true }, { label: 'Load factor', right: true }]
+            },
+            {
+                heading: '2 · THIS SUBSTATION, TODAY',
+                lede: `The bank as built, and the demand it carries now. Firm capacity is what remains
+                   with the largest unit out — it is the number that decides connections, and it is
+                   invisible if you look only at the total.`,
+                controls: [
+                    { id: 'units', type: 'text', label: 'Transformer ratings (MVA, comma separated)', value: '30, 30' },
+                    { id: 'mwnow', type: 'number', label: 'Present peak demand (MW)', value: '24', min: 0.1, max: 100000, step: 0.1 },
+                    { id: 'pf', type: 'range', label: 'Power factor', value: '0.95', min: 0.70, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-today'
+            },
+            {
+                heading: '3 · THE SAME SITE, GROWN',
+                lede: `Apply a growth multiple and see where it lands. The multiple is yours to state
+                   — a national pathway cannot tell you what happens behind one grid supply point,
+                   because growth does not distribute evenly and the local answer depends on what
+                   connects here.`,
+                controls: [
+                    { id: 'growth', type: 'range', label: 'Growth multiple on present demand', value: '1.75', min: 1.00, max: 4.00, step: 0.05 }
+                ],
+                outId: 'out-grown',
+                tableId: 'grow-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Today', right: true }, { label: 'Grown', right: true }],
+                note: `Passing this arithmetic is not ER P2/7 compliance, and exceeding it is not a
+                   refusal: a real study counts transfer capacity from adjacent sites and permitted
+                   interruption by group demand. What it does show is the moment a site stops being
+                   N-1 secure, which is normally long before its nameplate looks stressed.`
+            }
+        ],
+        script: `
+const PATHWAYS = [
+  { name: 'Holistic Transition', twh: 705, peak: 120 },
+  { name: 'Electric Engagement', twh: 785, peak: 144 },
+  { name: 'Hydrogen Evolution',  twh: 797, peak: 122 }
+];
+
+function bind() { ['units','mwnow','pf','growth'].forEach(id => el(id).addEventListener('input', render)); }
+function parseUnits(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+function render() {
+  el('pf-val').textContent = num('pf').toFixed(2);
+  el('growth-val').textContent = num('growth').toFixed(2) + 'x';
+
+  document.querySelector('#path-table tbody').innerHTML = PATHWAYS.map(p => {
+    const avg = E.averagePowerGw({ annualTwh: p.twh });
+    const lf = E.loadFactorFromPeak({ averageGw: avg.value, peakGw: p.peak });
+    return '<tr><td>' + p.name + '</td><td class="n">' + p.twh + ' TWh</td><td class="n">' +
+      avg.value.toFixed(1) + ' GW</td><td class="n">' + p.peak + ' GW</td>' +
+      '<td class="n" style="color:#00ffff">' + lf.value.toFixed(3) + '</td></tr>';
+  }).join('');
+
+  const tb = document.querySelector('#grow-table tbody');
+  try {
+    const units = parseUnits(el('units').value);
+    const firm = E.firmCapacityMva({ units });
+    const now = E.apparentPowerMva({ mw: num('mwnow'), powerFactor: num('pf') });
+    const grown = E.apparentPowerMva({ mw: num('mwnow') * num('growth'), powerFactor: num('pf') });
+    const a0 = E.assessAgainstFirm({ units, demandMva: now.value });
+    const a1 = E.assessAgainstFirm({ units, demandMva: grown.value });
+
+    el('out-today').innerHTML =
+      '<div class="figure"><span class="q">today</span><span class="n' + (a0.withinFirm ? '' : ' over') + '">' +
+      (a0.withinFirm ? 'WITHIN FIRM' : a0.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span></div><p class="basis">' + a0.basis + '</p>';
+    el('out-grown').innerHTML =
+      '<div class="figure"><span class="q">at ' + num('growth').toFixed(2) + 'x</span><span class="n' +
+      (a1.withinFirm ? '' : ' over') + '">' +
+      (a1.withinFirm ? 'WITHIN FIRM' : a1.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span></div><p class="basis">' + a1.basis + '</p>';
+
+    tb.innerHTML = [
+      ['Demand', now.value.toFixed(2) + ' MVA', grown.value.toFixed(2) + ' MVA'],
+      ['Utilisation of installed', (a0.utilisationOfInstalled * 100).toFixed(1) + '%', (a1.utilisationOfInstalled * 100).toFixed(1) + '%'],
+      ['Utilisation of firm', (a0.utilisationOfFirm * 100).toFixed(1) + '%', (a1.utilisationOfFirm * 100).toFixed(1) + '%'],
+      ['Shortfall against firm', a0.shortfallMva.toFixed(2) + ' MVA', a1.shortfallMva.toFixed(2) + ' MVA'],
+      ['N-1 secure', a0.withinFirm ? 'yes' : 'NO', a1.withinFirm ? 'yes' : 'NO']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/NO|^[1-9]\\d*\\.\\d+ MVA$/.test(r[2]) && r[2] !== '0.00 MVA' ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-today', err.message); tb.innerHTML = ''; }
+}`
     }
 ];

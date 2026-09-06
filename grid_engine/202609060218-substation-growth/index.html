@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Substation Growth Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>SUBSTATION GROWTH WORKBENCH</h1>
+  <p class="sub">A NESO pathway applied to one substation, against its firm capacity</p>
+  <p class="stamp">Generation 202609060218 · engine electrification-demand.js, firm-capacity.js at 9a92211</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · THE NATIONAL PATHWAYS, AND WHY THEY DO NOT DIVIDE</h2>
+  <div class="body">
+    <p class="lede">NESO's three 2050 pathways published in FES 2025 Table 2. The load factor
+                   column is measured from the published peak, not assumed. Read the third row before
+                   using any of this: Hydrogen Evolution carries the <em>largest</em> annual demand and
+                   a <em>lower</em> peak than Electric Engagement. There is no single national
+                   multiplier, and there is no defensible rule that every site receives the same
+                   percentage uplift. What follows is a stress test on one site, not a forecast for it.</p>
+
+    
+    <div class="scroller"><table id="path-table"><thead><tr><th>FES 2025 pathway</th><th style="text-align:right">Annual</th><th style="text-align:right">Average</th><th style="text-align:right">Published peak</th><th style="text-align:right">Load factor</th></tr></thead><tbody></tbody></table></div>
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THIS SUBSTATION, TODAY</h2>
+  <div class="body">
+    <p class="lede">The bank as built, and the demand it carries now. Firm capacity is what remains
+                   with the largest unit out — it is the number that decides connections, and it is
+                   invisible if you look only at the total.</p>
+    <div class="field">
+      <label for="units">Transformer ratings (MVA, comma separated)</label>
+      <input type="text" id="units" value="30, 30" inputmode="text">
+    </div>
+    <div class="field">
+      <label for="mwnow">Present peak demand (MW)</label>
+      <input type="number" id="mwnow" value="24" min="0.1" max="100000" step="0.1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="pf">Power factor</label>
+        <span class="rangeval" id="pf-val">0.95</span></div>
+      <input type="range" id="pf" min="0.7" max="1" step="0.01" value="0.95">
+    </div>
+    <div class="out" id="out-today"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>3 · THE SAME SITE, GROWN</h2>
+  <div class="body">
+    <p class="lede">Apply a growth multiple and see where it lands. The multiple is yours to state
+                   — a national pathway cannot tell you what happens behind one grid supply point,
+                   because growth does not distribute evenly and the local answer depends on what
+                   connects here.</p>
+    <div class="field">
+      <div class="rangerow"><label for="growth">Growth multiple on present demand</label>
+        <span class="rangeval" id="growth-val">1.75</span></div>
+      <input type="range" id="growth" min="1" max="4" step="0.05" value="1.75">
+    </div>
+    <div class="out" id="out-grown"></div>
+    <div class="scroller"><table id="grow-table"><thead><tr><th>Measure</th><th style="text-align:right">Today</th><th style="text-align:right">Grown</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">Passing this arithmetic is not ER P2/7 compliance, and exceeding it is not a
+                   refusal: a real study counts transfer capacity from adjacent sites and permitted
+                   interruption by group demand. What it does show is the moment a site stops being
+                   N-1 secure, which is normally long before its nameplate looks stressed.</p>
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/electrification-demand.js">electrification-demand.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js">firm-capacity.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 56 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/electrification-demand.js","https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js"];
+const ENGINE_SCHEMAS = ["ventus-grid-engine.electrification-demand.v1","ventus-grid-engine.firm-capacity.v1"];
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+const PATHWAYS = [
+  { name: 'Holistic Transition', twh: 705, peak: 120 },
+  { name: 'Electric Engagement', twh: 785, peak: 144 },
+  { name: 'Hydrogen Evolution',  twh: 797, peak: 122 }
+];
+
+function bind() { ['units','mwnow','pf','growth'].forEach(id => el(id).addEventListener('input', render)); }
+function parseUnits(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+function render() {
+  el('pf-val').textContent = num('pf').toFixed(2);
+  el('growth-val').textContent = num('growth').toFixed(2) + 'x';
+
+  document.querySelector('#path-table tbody').innerHTML = PATHWAYS.map(p => {
+    const avg = E.averagePowerGw({ annualTwh: p.twh });
+    const lf = E.loadFactorFromPeak({ averageGw: avg.value, peakGw: p.peak });
+    return '<tr><td>' + p.name + '</td><td class="n">' + p.twh + ' TWh</td><td class="n">' +
+      avg.value.toFixed(1) + ' GW</td><td class="n">' + p.peak + ' GW</td>' +
+      '<td class="n" style="color:#00ffff">' + lf.value.toFixed(3) + '</td></tr>';
+  }).join('');
+
+  const tb = document.querySelector('#grow-table tbody');
+  try {
+    const units = parseUnits(el('units').value);
+    const firm = E.firmCapacityMva({ units });
+    const now = E.apparentPowerMva({ mw: num('mwnow'), powerFactor: num('pf') });
+    const grown = E.apparentPowerMva({ mw: num('mwnow') * num('growth'), powerFactor: num('pf') });
+    const a0 = E.assessAgainstFirm({ units, demandMva: now.value });
+    const a1 = E.assessAgainstFirm({ units, demandMva: grown.value });
+
+    el('out-today').innerHTML =
+      '<div class="figure"><span class="q">today</span><span class="n' + (a0.withinFirm ? '' : ' over') + '">' +
+      (a0.withinFirm ? 'WITHIN FIRM' : a0.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span></div><p class="basis">' + a0.basis + '</p>';
+    el('out-grown').innerHTML =
+      '<div class="figure"><span class="q">at ' + num('growth').toFixed(2) + 'x</span><span class="n' +
+      (a1.withinFirm ? '' : ' over') + '">' +
+      (a1.withinFirm ? 'WITHIN FIRM' : a1.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span></div><p class="basis">' + a1.basis + '</p>';
+
+    tb.innerHTML = [
+      ['Demand', now.value.toFixed(2) + ' MVA', grown.value.toFixed(2) + ' MVA'],
+      ['Utilisation of installed', (a0.utilisationOfInstalled * 100).toFixed(1) + '%', (a1.utilisationOfInstalled * 100).toFixed(1) + '%'],
+      ['Utilisation of firm', (a0.utilisationOfFirm * 100).toFixed(1) + '%', (a1.utilisationOfFirm * 100).toFixed(1) + '%'],
+      ['Shortfall against firm', a0.shortfallMva.toFixed(2) + ' MVA', a1.shortfallMva.toFixed(2) + ' MVA'],
+      ['N-1 secure', a0.withinFirm ? 'yes' : 'NO', a1.withinFirm ? 'yes' : 'NO']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/NO|^[1-9]\d*\.\d+ MVA$/.test(r[2]) && r[2] !== '0.00 MVA' ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-today', err.message); tb.innerHTML = ''; }
+}
+
+try {
+  const loaded = [];
+  for (const url of ENGINE_MODULES) loaded.push(await import(url));
+  loaded.forEach((m, i) => {
+    if (m.schema !== ENGINE_SCHEMAS[i]) {
+      throw new Error('unexpected schema ' + m.schema + ' from ' + ENGINE_MODULES[i]);
+    }
+  });
+  // Merge the modules into one namespace. A name collision would silently
+  // shadow one module's function with another's, so it is refused loudly.
+  E = {};
+  const NOT_COMPUTED = {};
+  for (const m of loaded) {
+    for (const [k, v] of Object.entries(m)) {
+      if (k === 'schema') continue;
+      if (k === 'NOT_COMPUTED') { Object.assign(NOT_COMPUTED, v); continue; }
+      if (k in E) throw new Error('two engine modules both export "' + k + '"');
+      E[k] = v;
+    }
+  }
+  E.NOT_COMPUTED = NOT_COMPUTED;
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' + ENGINE_SCHEMAS.join(' + ') +
+    ' · every figure below is computed by the engine module' + (loaded.length > 1 ? 's' : '') + ', not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

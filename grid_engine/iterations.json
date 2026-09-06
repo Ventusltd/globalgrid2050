@@ -46,6 +46,24 @@
       "engine": "engine/route-obstacles.js",
       "engineCommit": "9a92211",
       "checks": 44
+    },
+    {
+      "stamp": "202609060217",
+      "path": "202609060217-solar-bess-export/",
+      "title": "Solar and BESS Export Workbench",
+      "feature": "Generation against an export cap: the energy clipped, the fraction of the array's output lost, and the net position at the connection point when site load and generation are taken together against separate import and export caps.",
+      "engine": "engine/connection-capacity.js",
+      "engineCommit": "9a92211",
+      "checks": 39
+    },
+    {
+      "stamp": "202609060218",
+      "path": "202609060218-substation-growth/",
+      "title": "Substation Growth Workbench",
+      "feature": "National pathway growth taken down to a single site: today's demand grown by a stated multiple, converted to MVA at a stated power factor, and assessed against the substation's N-1 firm capacity rather than its nameplate.",
+      "engine": "engine/electrification-demand.js + engine/firm-capacity.js",
+      "engineCommit": "9a92211",
+      "checks": 56
     }
   ]
 }

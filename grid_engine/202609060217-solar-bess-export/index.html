@@ -1,46 +1,9 @@
-/* build.mjs — emits a Grid Engine workbench as a self-contained immutable page.
- *
- * WHY A GENERATOR AND NOT THIRTY HAND-WRITTEN PAGES.
- * Each published workbench is immutable: it is never edited once it exists, so
- * an improvement becomes the next timestamp. Hand-writing each one guarantees
- * that a fix to the shell — a touch target, a dark-mode colour, an overflow
- * rule — reaches only the page that happened to be open at the time, and the
- * thirty pages drift apart. Holding the generator instead means the shell is
- * one thing, each iteration is a small declarative delta, and any past page can
- * be re-emitted byte-for-byte from its spec if it ever needs to be audited.
- *
- * WHAT THE GENERATOR DOES NOT DO.
- * It does not compute anything and it does not embed the mathematics. Every
- * emitted page imports its engine module from ventus-grid-engine at RUNTIME, so
- * a figure on a published page is the figure the engine's proofs are run
- * against. If the engine cannot be reached the page shows no numbers rather
- * than falling back to a copy — a fallback copy is exactly how a view drifts
- * from the module it claims to use, silently, while still looking right.
- *
- * Run:  node grid_engine/build.mjs            (emit any spec not yet published)
- *       node grid_engine/build.mjs --check    (verify published pages match)
- */
-
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-import { SPECS } from './specs.mjs';
-
-const here = dirname(fileURLToPath(import.meta.url));
-const ENGINE_BASE = 'https://ventusltd.github.io/ventus-grid-engine/engine/';
-
-const modules = spec => [].concat(spec.engineModule);
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-/* The shell. One place, so a fix reaches every page emitted after it, and no
-   page emitted before it changes — which is the point of immutability. */
-function shell({ spec, body, script }) {
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(spec.title)} — Ventus Grid Engine</title>
+<title>Solar and BESS Export Workbench — Ventus Grid Engine</title>
 <style>
 :root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
   --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
@@ -103,12 +66,55 @@ footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height
 <body>
 <div class="wrap">
 <header>
-  <h1>${esc(spec.title.toUpperCase())}</h1>
-  <p class="sub">${esc(spec.sub)}</p>
-  <p class="stamp">Generation ${esc(spec.stamp)} · engine ${esc(modules(spec).join(', '))} at ${esc(spec.engineCommit)}</p>
+  <h1>SOLAR AND BESS EXPORT WORKBENCH</h1>
+  <p class="sub">What a constrained connection costs an array — and what the battery recovers</p>
+  <p class="stamp">Generation 202609060217 · engine connection-capacity.js at 9a92211</p>
 </header>
 <div class="status" id="engine-status">Loading the engine module…</div>
-${body}
+<section>
+  <h2>1 · WHAT THE EXPORT CAP CLIPS</h2>
+  <div class="body">
+    <p class="lede">Oversizing DC behind a smaller AC connection is a normal design choice and
+                   often a good one — but only once the loss is known rather than assumed away. Enter
+                   the generation profile in kW, hour by hour, and the export capacity from your
+                   connection agreement. Everything above the cap is energy the array would have made
+                   and cannot deliver.</p>
+    <div class="field">
+      <label for="gen">Hourly generation (kW, comma separated)</label>
+      <input type="text" id="gen" value="0, 2, 6, 11, 14, 15, 14, 11, 6, 2, 0" inputmode="text">
+    </div>
+    <div class="field">
+      <label for="ecap">Agreed export capacity (kW)</label>
+      <input type="number" id="ecap" value="10" min="1" max="1000000" step="1" inputmode="decimal">
+    </div>
+    <div class="out" id="out-clip"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THE NET POSITION AT THE CONNECTION</h2>
+  <div class="body">
+    <p class="lede">A site with both load and generation presents the <em>net</em> at the meter.
+                   Import and export caps are separate commercial parameters and are frequently
+                   different numbers, so they are checked separately here — netting them into a single
+                   figure hides a breach in whichever direction you were not looking.</p>
+    <div class="field">
+      <label for="load">Hourly site load (kW, comma separated)</label>
+      <input type="text" id="load" value="4, 4, 5, 6, 6, 6, 6, 5, 5, 4, 4" inputmode="text">
+    </div>
+    <div class="field">
+      <label for="icap">Agreed import capacity (kW)</label>
+      <input type="number" id="icap" value="8" min="1" max="1000000" step="1" inputmode="decimal">
+    </div>
+    <div class="out" id="out-net"></div>
+    <div class="scroller"><table id="net-table"><thead><tr><th>Measure</th><th style="text-align:right">Value</th><th style="text-align:right">Against cap</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">The load and generation profiles must describe the same period at the same
+                   resolution. If they do not, the engine refuses rather than silently padding one of
+                   them — a padded profile produces a confident answer about a period that was never
+                   measured.</p>
+  </div>
+</section>
 <section class="refuse">
   <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
   <div class="body">
@@ -120,8 +126,8 @@ ${body}
 </section>
 <footer>
   <p>Every figure above is computed by
-     ${modules(spec).map(m => `<a href="${ENGINE_BASE}${esc(m)}">${esc(m)}</a>`).join(' and ')}
-     in the Ventus Grid Engine, imported at runtime and proven by ${spec.checks} checks.
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/connection-capacity.js">connection-capacity.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 39 checks.
      This page holds no copy of the mathematics: if the engine cannot be reached it
      shows no numbers rather than a stale answer.</p>
   <p class="nav">
@@ -134,8 +140,8 @@ ${body}
 </footer>
 </div>
 <script type="module">
-const ENGINE_MODULES = ${JSON.stringify(modules(spec).map(m => ENGINE_BASE + m))};
-const ENGINE_SCHEMAS = ${JSON.stringify([].concat(spec.schema))};
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/connection-capacity.js"];
+const ENGINE_SCHEMAS = ["ventus-grid-engine.connection-capacity.v1"];
 const statusEl = document.getElementById('engine-status');
 let E = null;
 
@@ -157,7 +163,41 @@ function refuse(target, message) {
     + 'Engine refused this input: ' + message + '</p>';
 }
 
-${script}
+
+function bind() { ['gen','ecap','load','icap'].forEach(id => el(id).addEventListener('input', render)); }
+function parse(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+function render() {
+  const generationKw = parse(el('gen').value);
+  const loadKw = parse(el('load').value);
+  const tb = document.querySelector('#net-table tbody');
+
+  try {
+    const c = E.clippedEnergy({ generationKw, exportCapKw: num('ecap'), intervalHours: 1 });
+    el('out-clip').innerHTML =
+      '<div class="figure"><span class="q">energy clipped</span><span class="n' +
+      (c.clippedKwh > 0 ? ' over' : '') + '">' + c.clippedKwh.toFixed(1) +
+      '</span><span class="u">kWh · ' + (c.clippedFraction * 100).toFixed(2) + '% of potential</span></div>' +
+      '<p class="basis">' + c.basis + '</p>';
+  } catch (err) { refuse('out-clip', err.message); }
+
+  try {
+    const n = E.netAtConnection({ loadKw, generationKw,
+      importCapKw: num('icap'), exportCapKw: num('ecap'), intervalHours: 1 });
+    el('out-net').innerHTML =
+      '<div class="figure"><span class="q">net position</span><span class="n' +
+      (n.withinBothCaps ? '' : ' over') + '">' +
+      (n.withinBothCaps ? 'WITHIN BOTH CAPS' : 'CAP BREACHED') + '</span></div>' +
+      '<p class="basis">' + n.basis + '</p>';
+    tb.innerHTML = [
+      ['Peak import', n.peakImportKw.toFixed(1) + ' kW', n.importBreaches ? n.importBreaches + ' breach(es)' : 'within ' + n.importCapKw + ' kW'],
+      ['Peak export', n.peakExportKw.toFixed(1) + ' kW', n.exportBreaches ? n.exportBreaches + ' breach(es)' : 'within ' + n.exportCapKw + ' kW'],
+      ['Energy imported', n.importKwh.toFixed(1) + ' kWh', 'bought'],
+      ['Energy exported', n.exportKwh.toFixed(1) + ' kWh', 'sold or spilled']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/breach/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-net', err.message); tb.innerHTML = ''; }
+}
 
 try {
   const loaded = [];
@@ -198,70 +238,3 @@ try {
 </script>
 </body>
 </html>
-`;
-}
-
-function panelHtml(p) {
-    const controls = p.controls.map(c => {
-        if (c.type === 'range') {
-            return `    <div class="field">
-      <div class="rangerow"><label for="${c.id}">${esc(c.label)}</label>
-        <span class="rangeval" id="${c.id}-val">${c.value}</span></div>
-      <input type="range" id="${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.value}">
-    </div>`;
-        }
-        return `    <div class="field">
-      <label for="${c.id}">${esc(c.label)}</label>
-      <input type="${c.type}" id="${c.id}" value="${esc(c.value)}"${c.min !== undefined ? ` min="${c.min}"` : ''}${c.max !== undefined ? ` max="${c.max}"` : ''}${c.step !== undefined ? ` step="${c.step}"` : ''} inputmode="${c.type === 'number' ? 'decimal' : 'text'}">
-    </div>`;
-    }).join('\n');
-    return `<section>
-  <h2>${esc(p.heading)}</h2>
-  <div class="body">
-    <p class="lede">${p.lede}</p>
-${controls}
-    ${p.outId ? `<div class="out" id="${p.outId}"></div>` : ''}
-    ${p.tableId ? `<div class="scroller"><table id="${p.tableId}"><thead><tr>${p.tableHead.map(h => `<th${h.right ? ' style="text-align:right"' : ''}>${esc(h.label)}</th>`).join('')}</tr></thead><tbody></tbody></table></div>` : ''}
-    ${p.note ? `<p class="basis">${p.note}</p>` : ''}
-  </div>
-</section>`;
-}
-
-function emit(spec) {
-    const body = spec.panels.map(panelHtml).join('\n');
-    const html = shell({ spec, body, script: spec.script });
-    const dir = join(here, `${spec.stamp}-${spec.slug}`);
-    const file = join(dir, 'index.html');
-    if (existsSync(file)) return { spec, written: false, file };
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(file, html, 'utf8');
-    return { spec, written: true, file };
-}
-
-const check = process.argv.includes('--check');
-const ledgerPath = join(here, 'iterations.json');
-const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
-
-let wrote = 0;
-for (const spec of SPECS) {
-    const r = emit(spec);
-    if (r.written) {
-        wrote += 1;
-        console.log(`emitted ${spec.stamp}-${spec.slug}/index.html`);
-    }
-    if (!ledger.iterations.some(i => i.stamp === spec.stamp)) {
-        ledger.iterations.push({
-            stamp: spec.stamp,
-            path: `${spec.stamp}-${spec.slug}/`,
-            title: spec.title,
-            feature: spec.feature,
-            engine: modules(spec).map(m => `engine/${m}`).join(' + '),
-            engineCommit: spec.engineCommit,
-            checks: spec.checks
-        });
-    }
-}
-if (!check) {
-    writeFileSync(ledgerPath, JSON.stringify(ledger, null, 2) + '\n', 'utf8');
-}
-console.log(`${wrote} page(s) emitted; ledger holds ${ledger.iterations.length} iteration(s)`);

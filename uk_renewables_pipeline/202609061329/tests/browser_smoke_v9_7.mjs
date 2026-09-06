@@ -62,12 +62,28 @@ try {
      requires the grid engine to answer on each, the way testcode/202609051531
      answers. "Answer" means the card states "Nearest <n> kV substation:"; a
      project name on screen proves only that a card was built. */
-  const sampleHrefs = await page.evaluate(() => {
-    const links = [...document.querySelectorAll("#tbody a")].filter((a) => /gridatlas/.test(a.href));
-    const step = Math.max(1, Math.floor(links.length / 4));
-    return links.filter((_, i) => i % step === 0).slice(0, 4).map((a) => a.href);
+  /* TWO KINDS OF ARRIVAL, MEASURED SEPARATELY - because they behave differently
+     and conflating them hid a stall for a day.
+       LOCATED   7,652 rows: REPD published a coordinate, the href carries it, and
+                 the live Atlas answers in about a second. These are the gate.
+       REF-ONLY     28 rows: REPD published no coordinate. The MAP note in the row
+                 says the Atlas "centres on its own geometry". Measured 2026-09-06
+                 against the live Atlas: REPD 20217 and 21087 - offshore projects
+                 in the top twenty by capacity - spin for 30 s and never answer.
+                 That is the spinner the architect photographed. It is an Atlas
+                 fault, not this release's: the href is exactly what the contract
+                 permits. So it is MEASURED and printed here, never asserted,
+                 because a pipeline release must not be blocked on a receiver it
+                 does not own - and never hidden, because it is real. */
+  const { located, refOnly } = await page.evaluate(() => {
+    const links = [...document.querySelectorAll("#tbody a")].filter((a) => /gridatlas/.test(a.href)).map((a) => a.href);
+    const located = links.filter((h) => /latitude=/.test(h));
+    const refOnly = links.filter((h) => !/latitude=/.test(h));
+    const step = Math.max(1, Math.floor(located.length / 3));
+    return { located: located.filter((_, i) => i % step === 0).slice(0, 3), refOnly: refOnly.slice(0, 1) };
   });
-  assert.ok(sampleHrefs.length >= 3, `expected MAP hrefs in the rendered page, found ${sampleHrefs.length}`);
+  const sampleHrefs = located;
+  assert.ok(sampleHrefs.length >= 3, `expected located MAP hrefs in the rendered page, found ${sampleHrefs.length}`);
   /* A CLEAN context for the arrivals. The pipeline context above stubs every
      cdn.jsdelivr.net request to an empty body so the newspaper's Chart never
      loads - and the Atlas loads duckdb-wasm and its map libraries from that same
@@ -81,6 +97,17 @@ try {
     await arrival.waitForFunction(() => /Nearest\s+\d+\s*kV substation:/.test(document.body.innerText), null, { timeout: 45000 });
     const ref = new URL(href).searchParams.get("repd_ref");
     assert.ok(await arrival.locator("body").innerText().then((t) => t.includes(`REPD ${ref}`)), `arrival for REPD ${ref} shows a different record`);
+    await arrival.close();
+  }
+  for (const href of refOnly) {
+    const arrival = await arrivalContext.newPage();
+    const started = Date.now();
+    let outcome = "FIRED";
+    try {
+      await arrival.goto(href, { waitUntil: "domcontentloaded" });
+      await arrival.waitForFunction(() => /Nearest\s+\d+\s*kV substation:/.test(document.body.innerText), null, { timeout: 20000 });
+    } catch { outcome = "STALLED - no engine answer and no refusal shown"; }
+    console.log(`ref-only arrival REPD ${new URL(href).searchParams.get("repd_ref")}: ${outcome} (${Date.now() - started} ms) - measured, not gated; see the note above`);
     await arrival.close();
   }
   await arrivalContext.close();

@@ -1,0 +1,19 @@
+{
+  "generation": "202609060401",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "c0af3cdec1a18b08b4d9631849a17e0a9ffa4bed",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "baacdb50615207e40a6f7b2ee4749c96b8f4d511",
+  "ci": {
+    "run": 34010457771,
+    "conclusion": "success",
+    "browserChecks": 106
+  },
+  "scope": "Polygon and circle controls, persistent outlines, exact GeoJSON round trips, history, locking and fit.0352 adds vertex CSV;0400 adds corrected numeric editing and redraw preservation;0401 rejects unsafe area/GeoJSON for invalid outlines. Actual native touch and CDP drag tested in0400/0401.",
+  "limitations": [
+    "Phone browser emulation is not physical-device validation.",
+    "Earlier353/354 were rejected after the zoomend race; repaired0400/0401 preserve typed inputs and feedback."
+  ],
+  "browserEvidence": "recovery-20260906/corrected-poly-ci",
+  "publicationStatus": "Exact served bytes and live browser evidence recorded separately after deployment."
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "ventus.testcode-publication.v1",
+  "generation": "202609060213",
+  "product": "Pipeline News",
+  "sourceCommit": "ea6d52c70190019ac48d4b709549dfbdcda5e04f",
+  "sourceRelease": "releases/202609060213-pipelinenews",
+  "change": "Cearn enters the Pipeline under provisional ID 9999-REPD-TBC with existing Global Grid reference format",
+  "status": "candidate",
+  "path": "pipeline/",
+  "localChecks": [
+    "release self-check: all files and digests pass",
+    "Chrome: pending row and Global Grid reference render; no logged errors",
+    "provisional allocation, unique replacement, ambiguous-match and alias tests pass"
+  ],
+  "limitations": [
+    "Official REPD totals deliberately exclude pending intake",
+    "No official Cearn REPD identity, geometry or confirmed connection is supplied",
+    "Exact served-byte and live Chrome checks pending"
+  ]
+}

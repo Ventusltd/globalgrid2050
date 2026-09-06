@@ -1,0 +1,1922 @@
+{
+  "schema": "pipelinenews.v9.timestamp-folder-registry.v1",
+  "generation": "202608291447",
+  "name": "PipelineNews Atlas V9 deep-link timestamp-folder successor",
+  "compiler_method": "pipelinenews-atlas-pointer-exact-identity-successor-v2",
+  "cache_identity": "d439dda1793f26dabad006df78dfce43e0add0e7c8a57e079e1fd3b6f0b24c6c",
+  "cache_contract": {
+    "schema": "pipelinenews.atlas-v9-folder-successor-cache-contract.v1",
+    "compiler_method": "pipelinenews-atlas-pointer-exact-identity-successor-v2",
+    "compiler": {
+      "path": "index/202608291447-compile-atlas-pointer-deep-link.mjs",
+      "bytes": 30527,
+      "sha256": "7993b91fac84e34eebba45a41ade3a8cfe621d0359afe6d4fcc3e795ee2652d6"
+    },
+    "source_parent_commit": "fabd905977410c10be3008e2ab5ceacccfce7930",
+    "parent_output_commit": "58ca361c921264c1218d4a3f6d1f87da33f8473e",
+    "protected_recovery_commit": "77bda8c3809d02550d06a1c4154315f56d1120fb",
+    "parent_generation": "202608282200",
+    "rollback_generation": "202608270055",
+    "parent_cache_identity": "38bf9950be3ef8e2d67a9401ae2b058a3349a704aee57cd6b858b97053bdd9d1",
+    "project_index": {
+      "schema": "pipelinenews.v8.fast-project-index.v1",
+      "fields": [
+        "repd_ref",
+        "gg_project_id",
+        "name",
+        "technology",
+        "status",
+        "capacity_mw",
+        "county",
+        "region",
+        "operator",
+        "repd_record_updated",
+        "geometry_status",
+        "latitude",
+        "longitude"
+      ],
+      "dictionary_fields": [
+        "technology",
+        "status",
+        "county",
+        "region",
+        "operator",
+        "geometry_status"
+      ],
+      "stable_key": "repd_ref",
+      "detail_locator": "floor(global_row_index/500)"
+    },
+    "search_index": {
+      "schema": "pipelinenews.v8.fast-search-index.v1",
+      "row_alignment": "global_project_row_index",
+      "activation": "first-nonempty-search"
+    },
+    "news_index": {
+      "schema": "pipelinenews.v8.live-news-index.v1",
+      "fields": [
+        "gg_article_id",
+        "repd_ref",
+        "gg_project_id",
+        "project",
+        "technology",
+        "capacity_mw",
+        "operator",
+        "county",
+        "country",
+        "event",
+        "headline",
+        "published",
+        "source",
+        "url",
+        "confidence",
+        "canonical_relevant",
+        "role",
+        "eligible_for_news_signal",
+        "regional_classification",
+        "regional_technology",
+        "regional_evidence",
+        "event_detail",
+        "relationship",
+        "related_context_repd_ref",
+        "related_context_project",
+        "binding_label",
+        "related_components",
+        "evidence_snippet"
+      ],
+      "stable_key": "gg_article_id",
+      "activation": "idle-after-core-ready"
+    },
+    "news_ordering": {
+      "key": "published",
+      "parsing": "strict-YYYY-MM-DD-at-UTC-midnight",
+      "direction": "descending",
+      "tie_breaks": [
+        "parent_row_index_ascending",
+        "gg_article_id_ascending_if_parent_index_equal"
+      ],
+      "invariant": "published timestamps are non-increasing",
+      "physical_first_window": 30
+    },
+    "atlas_deep_link": {
+      "schema": "pipelinenews.atlas-pointer-deep-link-cartridge.v1",
+      "generation": "202608291447",
+      "target": {
+        "base_url": "https://ventusltd.github.io/gridatlas/202608291430-atlas-v9/",
+        "pathname": "/gridatlas/202608291430-atlas-v9/"
+      },
+      "receiver_pointer": {
+        "path": "releases/current-v3.json",
+        "bytes": 3024,
+        "sha256": "3b281938c96173d83437805895cab38461c7e8f24e2dfe76cd36a4ecbd6b0a1e"
+      },
+      "receiver_pointer_commit": "f882d427662838b255693ddcf89c67f90e420f9c",
+      "contractual_golden_repd_ref": "16135",
+      "fallback": {
+        "classification": "LAST_KNOWN_GREEN_V8_PUBLIC_CANDIDATE",
+        "generation": "202608271524",
+        "route": "/pipelinenews/releases/202608271524-v8-fast-candidate.html",
+        "public_url": "https://ventusltd.github.io/pipelinenews/releases/202608271524-v8-fast-candidate.html",
+        "pages_run_id": 33085685060,
+        "manifest_path": "build/202608271524-v8-fast-site-manifest.json",
+        "manifest_sha256": "fef485accb1509297dbc64c5e30806c60d977bedb06591e8b324e7bbab06e818",
+        "retention_rule": "PRESERVE_ON_ANY_GRIDATLAS_POINTER_OR_RECEIVER_FAILURE"
+      },
+      "identity_anchor": "repd_ref",
+      "query_parameter_order": [
+        "repd_ref"
+      ],
+      "inbound_match_semantics": "EXACT_PROJECT_REPD_REF",
+      "general_search_parameter": "q",
+      "relationship_context_allowed_for_q": true,
+      "relationship_context_allowed_for_repd_ref": false,
+      "map_links": 7652,
+      "no_map": 28,
+      "inbound_alias": "repd_ref",
+      "public_receiver_readback_required": true
+    },
+    "runtime": {
+      "physical_project_rows": 100,
+      "physical_news_rows": 30,
+      "detail_fetch_concurrency": 4,
+      "immutable_cache_mode": "force-cache"
+    },
+    "sector_intelligence": {
+      "generation": "202608272130",
+      "topics": [
+        {
+          "code": "DATA_CENTRES",
+          "label": "DATA CENTRES",
+          "display_rank": 1
+        },
+        {
+          "code": "INVERTER_SECURITY_POLICY",
+          "label": "INVERTERS · SECURITY · POLICY",
+          "display_rank": 2
+        },
+        {
+          "code": "ENERGY_SECURITY_HORMUZ",
+          "label": "STRAIT OF HORMUZ",
+          "display_rank": 3
+        },
+        {
+          "code": "ENERGY_SECURITY_UKRAINE",
+          "label": "UKRAINE · ENERGY SECURITY",
+          "display_rank": 4
+        },
+        {
+          "code": "GREAT_GRID_UPGRADE",
+          "label": "GREAT GRID UPGRADE",
+          "display_rank": 5
+        },
+        {
+          "code": "WORLDWIDE_PV",
+          "label": "WORLDWIDE PV",
+          "display_rank": 6
+        },
+        {
+          "code": "MV_HV_COMPONENTS",
+          "label": "MV/HV COMPONENTS",
+          "display_rank": 7
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sector_items",
+          "grain": "one retained sector intelligence item from one explicit source item or one pinned owner-export record",
+          "key": [
+            "intelligence_item_id"
+          ],
+          "columns": [
+            {
+              "name": "intelligence_item_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "generation",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "item_kind",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "source_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "source_item_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "title",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "summary",
+              "duckdb_type": "VARCHAR",
+              "nullable": true
+            },
+            {
+              "name": "canonical_url",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "source_published_at",
+              "duckdb_type": "TIMESTAMP",
+              "nullable": true
+            },
+            {
+              "name": "observed_at",
+              "duckdb_type": "TIMESTAMP",
+              "nullable": false
+            },
+            {
+              "name": "collection_anchor_at",
+              "duckdb_type": "TIMESTAMP",
+              "nullable": false
+            },
+            {
+              "name": "staleness_state",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "evidence_class",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "usage_context",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "source_licence_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "source_terms_url",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "redistribution_rights",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "attribution",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "owner_repository",
+              "duckdb_type": "VARCHAR",
+              "nullable": true
+            },
+            {
+              "name": "owner_generation",
+              "duckdb_type": "VARCHAR",
+              "nullable": true
+            },
+            {
+              "name": "owner_record_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": true
+            },
+            {
+              "name": "generic_article_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": true
+            },
+            {
+              "name": "value_min",
+              "duckdb_type": "DOUBLE",
+              "nullable": true
+            },
+            {
+              "name": "value_max",
+              "duckdb_type": "DOUBLE",
+              "nullable": true
+            },
+            {
+              "name": "unit",
+              "duckdb_type": "VARCHAR",
+              "nullable": true
+            },
+            {
+              "name": "eligible_for_news_signal",
+              "duckdb_type": "BOOLEAN",
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "sector_item_topics",
+          "grain": "one explicit topic assignment for one sector intelligence item",
+          "key": [
+            "intelligence_item_id",
+            "topic_code"
+          ],
+          "columns": [
+            {
+              "name": "intelligence_item_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "topic_code",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "generation",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "assignment_basis",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "display_rank",
+              "duckdb_type": "BIGINT",
+              "nullable": false
+            },
+            {
+              "name": "eligible_for_news_signal",
+              "duckdb_type": "BOOLEAN",
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "name": "sector_project_bindings",
+          "grain": "one evidence-backed project-binding decision for one sector intelligence item and REPD reference",
+          "key": [
+            "intelligence_item_id",
+            "repd_ref",
+            "binding_role"
+          ],
+          "columns": [
+            {
+              "name": "intelligence_item_id",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "repd_ref",
+              "duckdb_type": "BIGINT",
+              "nullable": false
+            },
+            {
+              "name": "binding_role",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "generation",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "decision",
+              "duckdb_type": "VARCHAR",
+              "nullable": false
+            },
+            {
+              "name": "evidence",
+              "duckdb_type": "VARCHAR",
+              "nullable": true
+            },
+            {
+              "name": "eligible_for_news_signal",
+              "duckdb_type": "BOOLEAN",
+              "nullable": false
+            }
+          ]
+        }
+      ],
+      "physical_layout": {
+        "path_template": "releases/data/intelligence/202608272130/{dataset_directory}/202608272130-part-000.parquet",
+        "dataset_directories": {
+          "sector_items": "sector-items",
+          "sector_item_topics": "sector-item-topics",
+          "sector_project_bindings": "sector-project-bindings"
+        },
+        "compression": "ZSTD",
+        "generation_target_policy": "IMMUTABLE_FULL_GENERATION_WRITE_FROM_EMPTY_TARGET",
+        "write_audit_publish": [
+          "WRITE_STAGE",
+          "DUCKDB_AUDIT",
+          "PUBLISH",
+          "DUCKDB_LANDED_READBACK"
+        ],
+        "deterministic_order": "declared key ascending",
+        "empty_dataset_policy": "typed Parquet is required; an empty file has no column chunks, so codec evidence is NOT_APPLICABLE_EMPTY while schema/key/null readback remains gated"
+      },
+      "data_centres_owner": {
+        "owner_repository": "Ventusltd/data-centres-gb",
+        "owner_generation": "202608271727",
+        "owner_commit": "432864748d3af7b5fffcc51b65804aa6903672dd",
+        "export_path": "exports/202608271727-pipelinenews-data-centres.json",
+        "export_sha256": "a3b783f5b2133c45b22a18bd4e3071d58262e2a849c6cfeab9cb80a7552b7907",
+        "owner_parquet_sha256": "33f3cdf48f226b55f75d3dc2209d9faf5a126fa20e8ad69c5112df7aa4a1d246",
+        "owner_parquet_copied": false,
+        "export_mode": "PINNED_COMPACT_EXPORT_ONLY",
+        "record_kind": "CONTEXT_METRIC",
+        "eligible_for_news_signal": false
+      },
+      "generic_news": {
+        "path": "releases/data/202608271524-fd2212a8c76d-v8-fast-news.json",
+        "sha256": "00cfbc6243e83cca274707a19b7848f776ce223d5e02808164e213dde887a8be",
+        "expected_rows": 136,
+        "expected_data_centre_discovery_rows": 6,
+        "required_role": "DISCOVERY_ONLY",
+        "topic": "DATA_CENTRES",
+        "sector_projection": {
+          "repd_ref": null,
+          "gg_project_id": null,
+          "project": null,
+          "technology": null,
+          "capacity_mw": null,
+          "operator": null,
+          "county": null,
+          "related_context_repd_ref": null,
+          "eligible_for_news_signal": false,
+          "binding_label": "SECTOR CONTEXT ONLY — QUERY PROJECT IDENTITY REMOVED"
+        }
+      },
+      "payload": {
+        "path": "data/202608272130-sector-intelligence.json",
+        "bytes": 46724,
+        "sha256": "846e10a00377509a3196972cdf3eb99ab127ca5864e63332f323e446d4bc95c1"
+      },
+      "audit": {
+        "path": "releases/data/intelligence/202608272130/202608272130-parquet-audit.json",
+        "bytes": 21174,
+        "sha256": "0bb848720a14c2cc799608e3f6976701be191823edc13093620bbe4ee76c1f65"
+      },
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "activation": "dynamic-import-on-user-open; payload-fetch-on-first-topic-selection",
+      "startup_requests": 0
+    },
+    "relationship_governance_status": {
+      "schema": "pipelinenews.federated-relationship-cache-contract.v1",
+      "generation": "202608282200",
+      "frozen_contract": {
+        "path": "data/federation/202608282041-relationship-intelligence-contract.json",
+        "bytes": 8291,
+        "sha256": "f53b453fe5a9a0ee7b646672a6994fbb377193f99f13f9dbb11d641d1a6dfc91"
+      },
+      "upstream_contracts": [
+        {
+          "id": "COMPANY_REPD_CANDIDATES",
+          "repository": "Ventusltd/companies",
+          "commit": "148335a6eb1fdf8c488fc1608ef29b6add0da269",
+          "path": "contracts/202608281846-federated-company-repd-relationship-contract-v1.json",
+          "bytes": 7896,
+          "sha256": "43905c977b990ff5f1bbe4a8fc8eafee94cd5e474730adcd6b7112e166fcc358",
+          "candidate_commit": "407ff7f0a4d3f29a022845153364c9966075dbe7",
+          "eligible_for_join": false
+        },
+        {
+          "id": "DATA_CENTRE_COMPANY_SLOTS",
+          "repository": "Ventusltd/data-centres-gb",
+          "commit": "c5dfdee3ba5dbe94c1e29ec8cfa9d47431da9506",
+          "path": "contracts/202608281944-data-centre-company-federation-v1.json",
+          "bytes": 7024,
+          "sha256": "894234caa44a898b17f2bebcf10e24538ecd39854c09368c57dd8948c1c720a1",
+          "candidate_commit": "b2be24b3673a2532b3deab87f90861ca59e730fd",
+          "eligible_for_join": false
+        }
+      ],
+      "declared_key": [
+        "relationship_family",
+        "segment"
+      ],
+      "rows": 3,
+      "decisions": [
+        "ABSTAIN"
+      ],
+      "eligible_for_join_rows": 0,
+      "project_bindings": 0,
+      "confirmed_ownership_rows": 0,
+      "confirmed_operator_rows": 0,
+      "raw_archives_copied": 0,
+      "private_individual_names_copied": 0,
+      "activation": "dynamic-import-on-user-open; projection-fetch-after-explicit-open"
+    },
+    "source_commit": "fa4d73cbc9e78126d5f3b69c1d3df7f2f3f6265f",
+    "parent_artifact": {
+      "run_id": "33211041996",
+      "artifact_id": "9701586944",
+      "digest": "sha256:8ec24ba18c70b661ddfc6ff9ca4bb728db5929d5700c147c91449f5e93e9b497",
+      "manifest_sha256": "025daf70f1c4b9c9a7c84a70d41ceb50e96232771f736faa309ca92c2c9c134d"
+    },
+    "folder_release": {
+      "release_id": "202608291447-pipelinenews",
+      "entrypoint": "releases/202608291447-pipelinenews/index.html",
+      "assets_inside_release_folder": true,
+      "shared_data_hash_pinned": true,
+      "inherited_dependencies_copied_inside_release_folder": true
+    },
+    "dependencies": [
+      {
+        "path": "releases/javascript/202608272130-sector-intelligence.js",
+        "bytes": 13131,
+        "sha256": "7a091c6bbe58a30976e8f5e9eb8b04ad9543a32a18cd90bea76f85fc0e10f41c"
+      },
+      {
+        "path": "releases/data/202608272130-sector-intelligence.json",
+        "bytes": 46724,
+        "sha256": "846e10a00377509a3196972cdf3eb99ab127ca5864e63332f323e446d4bc95c1"
+      },
+      {
+        "path": "releases/data/intelligence/202608272130/202608272130-parquet-audit.json",
+        "bytes": 21174,
+        "sha256": "0bb848720a14c2cc799608e3f6976701be191823edc13093620bbe4ee76c1f65"
+      },
+      {
+        "path": "releases/data/intelligence/202608272130/202608272130-source-ledger-receipt.json",
+        "bytes": 6178,
+        "sha256": "1286c52f7882d518cd8d94f7a3a267993edde1af782d9de39f25aae0c795ead1"
+      },
+      {
+        "path": "releases/data/intelligence/202608272130/sector-items/202608272130-part-000.parquet",
+        "bytes": 16314,
+        "sha256": "8f8d02c57d9f4591ba38b2ad7f3ff408e0b5a89bba5f431d4044b115dcc261f8"
+      },
+      {
+        "path": "releases/data/intelligence/202608272130/sector-item-topics/202608272130-part-000.parquet",
+        "bytes": 2661,
+        "sha256": "c1c63a9ffe0f275611474fc438a91bbd70c209faebf1d863fdbf3e476f659ea3"
+      },
+      {
+        "path": "releases/data/intelligence/202608272130/sector-project-bindings/202608272130-part-000.parquet",
+        "bytes": 234,
+        "sha256": "b268d0b5656a02a379633692b8c7950a1b53cb0031884f67c757cf8679e16e23"
+      },
+      {
+        "path": "releases/styles/202608270055-v8-fast.css",
+        "bytes": 14397,
+        "sha256": "d6c8100dbf79dd02f65d78e4fc9cacae92f2e4b5a749ea0fd3ff481fe5bb4792"
+      },
+      {
+        "path": "releases/styles/202608272048-orientation.css",
+        "bytes": 7131,
+        "sha256": "e9e1cbefd49f10d2d3b06f31274357a947672242159e9f1b50434ca175a870bc"
+      },
+      {
+        "path": "releases/vendor/202608261927-chart-umd.min.js",
+        "bytes": 208522,
+        "sha256": "48444a82d4edcb5bec0f1965faacdde18d9c17db3063d042abada2f705c9f54a"
+      },
+      {
+        "path": "releases/data/202608270055-8ab1807551bc-v8-fast-projects.json",
+        "bytes": 979338,
+        "sha256": "c06aedef176d2d38fd135806306a8ef81b4af9994c7be31e8bd760304149f862"
+      },
+      {
+        "path": "releases/data/202608270055-8ab1807551bc-v8-fast-search.json",
+        "bytes": 1912681,
+        "sha256": "a1cbfc5202b717889a471409e850ea5cae13626f91c60f08cda0b06da5102b65"
+      },
+      {
+        "path": "releases/data/202608271524-fd2212a8c76d-v8-fast-news.json",
+        "bytes": 82460,
+        "sha256": "00cfbc6243e83cca274707a19b7848f776ce223d5e02808164e213dde887a8be"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-01.json",
+        "bytes": 624542,
+        "sha256": "6e72d36a8f880bfc39274221edf58d1b895202f01f2e56aae001ad25cb3b337d"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-02.json",
+        "bytes": 629501,
+        "sha256": "a2ba3598af8ff45726587b3a498c0f6a433ae007ec9eadbd5bfc682b7dca4b2e"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-03.json",
+        "bytes": 628898,
+        "sha256": "6f012e9251433e0d32095b2df75ae1c988a813a14647debe16c057dee550d23b"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-04.json",
+        "bytes": 625997,
+        "sha256": "1cdc7405098c85a477dd156930c4503ef7850ff005d1ec85a69928f10db6b7f5"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-05.json",
+        "bytes": 631815,
+        "sha256": "43988789140bf2211263ffe49b756bc8f7f4cd69531b2e91c56b2e7c2a90bcae"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-06.json",
+        "bytes": 630303,
+        "sha256": "e2c4d0c29e622270260e8fa71c1efae260e84fd3c9ebfa31b7dbf7bfe3da2d69"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-07.json",
+        "bytes": 628660,
+        "sha256": "8f2b2d2d74a031f459b94e626e288c11c148629e955f97ef688a27eb1a5e2c59"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-08.json",
+        "bytes": 631189,
+        "sha256": "f3c0dff755bc657c41b3e04305403bbcfbf94be5d893e85309faf9dd7cb1fa92"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-09.json",
+        "bytes": 630867,
+        "sha256": "a9427f109b7ad5ee881628fcbde3602daab62896e8517922ff68d2efe6a23b15"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-10.json",
+        "bytes": 628464,
+        "sha256": "57145897a6a457f3bfb58f431d7bfa6a75dd63bfd2708eb56c3802391847c6b3"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-11.json",
+        "bytes": 620261,
+        "sha256": "e79c4eb42d1d366f01f8f2a941d92ff231b8ea14c2e40a2677a89601926938d1"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-12.json",
+        "bytes": 615891,
+        "sha256": "ad077a3172f6813f2a641e2f51ab693bf038cae03b5cbbdaa4167973ce7a7388"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-13.json",
+        "bytes": 620861,
+        "sha256": "4545362b1355e256dc3025019f971ffa208cc8828059152a26b99ac66fb47817"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-14.json",
+        "bytes": 619833,
+        "sha256": "9cf8da7fcbf3c1d08830c613c69d0447c490d6126be3ebe8c2d9021a4ddcd004"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-15.json",
+        "bytes": 616440,
+        "sha256": "109f20651ce1234d8933bb5efab78cbf45081ae7b4966e63ec0fca560a76cf03"
+      },
+      {
+        "path": "data/projects/202608261927-project-partition-v9-1-16.json",
+        "bytes": 221745,
+        "sha256": "ed4c672a6cb684a5fd29e17e436d4ee632de358de5e0a2cee9801c7ffa5ecc4b"
+      }
+    ]
+  },
+  "lifecycle": [
+    "WAIT",
+    "QUEUED",
+    "LOAD",
+    "INDEX",
+    "OK",
+    "EMPTY",
+    "FAIL"
+  ],
+  "totals": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "largest_mw": 4100,
+    "solar_count": 3563,
+    "bess_count": 1609,
+    "wind_onshore_count": 2399,
+    "wind_offshore_count": 109,
+    "geometry_count": 7652,
+    "missing_geometry_count": 28
+  },
+  "news_counts": {
+    "all": 136,
+    "uk": 47,
+    "international": 19,
+    "us": 4,
+    "europe": 9,
+    "other": 6
+  },
+  "signals": {
+    "1044": [
+      "PROJECT UPDATE",
+      81,
+      "2026-08-21"
+    ],
+    "2377": [
+      "PROJECT UPDATE",
+      72,
+      "2026-05-15"
+    ],
+    "5452": [
+      "PROJECT UPDATE",
+      72,
+      "2026-03-27"
+    ],
+    "5533": [
+      "PROJECT UPDATE",
+      69,
+      "2026-05-12"
+    ],
+    "5967": [
+      "PROJECT UPDATE",
+      69,
+      "2026-04-03"
+    ],
+    "6502": [
+      "PROJECT UPDATE",
+      69,
+      "2025-09-26"
+    ],
+    "8100": [
+      "PROJECT UPDATE",
+      69,
+      "2025-12-04"
+    ],
+    "8162": [
+      "PROJECT UPDATE",
+      82,
+      "2025-12-19"
+    ],
+    "8393": [
+      "PROJECT UPDATE",
+      64,
+      "2026-04-04"
+    ],
+    "9427": [
+      "PROJECT UPDATE",
+      75,
+      "2026-04-28"
+    ],
+    "9610": [
+      "PROJECT UPDATE",
+      73,
+      "2026-02-05"
+    ],
+    "10085": [
+      "CONSENT",
+      83,
+      "2025-10-23"
+    ],
+    "10087": [
+      "FINANCIAL CLOSE",
+      77,
+      "2026-06-10"
+    ],
+    "11034": [
+      "PROJECT UPDATE",
+      85,
+      "2026-08-13"
+    ],
+    "11063": [
+      "ACQUISITION",
+      72,
+      "2026-06-24"
+    ],
+    "11460": [
+      "CONSENT",
+      74,
+      "2025-12-19"
+    ],
+    "11476": [
+      "CONSENT",
+      83,
+      "2025-12-03"
+    ],
+    "11678": [
+      "ACQUISITION",
+      81,
+      "2026-02-22"
+    ],
+    "11974": [
+      "ACQUISITION",
+      78,
+      "2026-08-18"
+    ],
+    "12017": [
+      "FINANCIAL CLOSE",
+      84,
+      "2026-06-12"
+    ],
+    "12206": [
+      "ACQUISITION",
+      80,
+      "2026-06-23"
+    ],
+    "12926": [
+      "PROJECT UPDATE",
+      73,
+      "2025-10-20"
+    ],
+    "13599": [
+      "PROJECT UPDATE",
+      100,
+      "2026-08-24"
+    ],
+    "13763": [
+      "PROJECT UPDATE",
+      65,
+      "2025-12-11"
+    ],
+    "14098": [
+      "CONSENT",
+      83,
+      "2026-02-18"
+    ],
+    "14550": [
+      "PROJECT UPDATE",
+      90,
+      "2026-07-03"
+    ],
+    "14763": [
+      "ACQUISITION",
+      70,
+      "2026-05-08"
+    ],
+    "14806": [
+      "PROJECT UPDATE",
+      72,
+      "2026-07-08"
+    ],
+    "15000": [
+      "CONSENT",
+      90,
+      "2026-07-02"
+    ],
+    "17494": [
+      "PROJECT UPDATE",
+      100,
+      "2026-08-25"
+    ]
+  },
+  "assets": {
+    "projects": {
+      "path": "data/202608270055-8ab1807551bc-v8-fast-projects.json",
+      "schema": "pipelinenews.v8.fast-project-index.v1",
+      "sha256": "c06aedef176d2d38fd135806306a8ef81b4af9994c7be31e8bd760304149f862",
+      "bytes": 979338,
+      "activation": "boot",
+      "generation": "202608270055",
+      "cache_identity": "8ab1807551bc77066e46e01cb0690dfaa41d473d8433644046f56b6984579b06"
+    },
+    "search": {
+      "path": "data/202608270055-8ab1807551bc-v8-fast-search.json",
+      "schema": "pipelinenews.v8.fast-search-index.v1",
+      "sha256": "a1cbfc5202b717889a471409e850ea5cae13626f91c60f08cda0b06da5102b65",
+      "bytes": 1912681,
+      "activation": "first-nonempty-search",
+      "generation": "202608270055",
+      "cache_identity": "8ab1807551bc77066e46e01cb0690dfaa41d473d8433644046f56b6984579b06"
+    },
+    "news": {
+      "path": "data/202608271524-fd2212a8c76d-v8-fast-news.json",
+      "schema": "pipelinenews.v8.live-news-index.v1",
+      "sha256": "00cfbc6243e83cca274707a19b7848f776ce223d5e02808164e213dde887a8be",
+      "bytes": 82460,
+      "activation": "idle-after-core-ready",
+      "generation": "202608271524",
+      "cache_identity": "fd2212a8c76d9fb97ec50cc97b1fefa104ae8cd7ac33cd4b4adcd57c8149e844"
+    },
+    "chart": {
+      "path": "assets/202608261927-chart-umd.min.js",
+      "sha256": "48444a82d4edcb5bec0f1965faacdde18d9c17db3063d042abada2f705c9f54a",
+      "bytes": 208522,
+      "activation": "idle-after-core-ready"
+    },
+    "style": {
+      "path": "assets/202608270055-v8-fast.css",
+      "sha256": "d6c8100dbf79dd02f65d78e4fc9cacae92f2e4b5a749ea0fd3ff481fe5bb4792",
+      "bytes": 14397,
+      "activation": "boot",
+      "generation": "202608270055"
+    }
+  },
+  "detail_schema": "globalgrid2050.v9.project-partition.v9.1",
+  "detail_partition_size": 500,
+  "detail_partitions": [
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-01.json",
+      "sha256": "6e72d36a8f880bfc39274221edf58d1b895202f01f2e56aae001ad25cb3b337d",
+      "bytes": 624542,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-02.json",
+      "sha256": "a2ba3598af8ff45726587b3a498c0f6a433ae007ec9eadbd5bfc682b7dca4b2e",
+      "bytes": 629501,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-03.json",
+      "sha256": "6f012e9251433e0d32095b2df75ae1c988a813a14647debe16c057dee550d23b",
+      "bytes": 628898,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-04.json",
+      "sha256": "1cdc7405098c85a477dd156930c4503ef7850ff005d1ec85a69928f10db6b7f5",
+      "bytes": 625997,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-05.json",
+      "sha256": "43988789140bf2211263ffe49b756bc8f7f4cd69531b2e91c56b2e7c2a90bcae",
+      "bytes": 631815,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-06.json",
+      "sha256": "e2c4d0c29e622270260e8fa71c1efae260e84fd3c9ebfa31b7dbf7bfe3da2d69",
+      "bytes": 630303,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-07.json",
+      "sha256": "8f2b2d2d74a031f459b94e626e288c11c148629e955f97ef688a27eb1a5e2c59",
+      "bytes": 628660,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-08.json",
+      "sha256": "f3c0dff755bc657c41b3e04305403bbcfbf94be5d893e85309faf9dd7cb1fa92",
+      "bytes": 631189,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-09.json",
+      "sha256": "a9427f109b7ad5ee881628fcbde3602daab62896e8517922ff68d2efe6a23b15",
+      "bytes": 630867,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-10.json",
+      "sha256": "57145897a6a457f3bfb58f431d7bfa6a75dd63bfd2708eb56c3802391847c6b3",
+      "bytes": 628464,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-11.json",
+      "sha256": "e79c4eb42d1d366f01f8f2a941d92ff231b8ea14c2e40a2677a89601926938d1",
+      "bytes": 620261,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-12.json",
+      "sha256": "ad077a3172f6813f2a641e2f51ab693bf038cae03b5cbbdaa4167973ce7a7388",
+      "bytes": 615891,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-13.json",
+      "sha256": "4545362b1355e256dc3025019f971ffa208cc8828059152a26b99ac66fb47817",
+      "bytes": 620861,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-14.json",
+      "sha256": "9cf8da7fcbf3c1d08830c613c69d0447c490d6126be3ebe8c2d9021a4ddcd004",
+      "bytes": 619833,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-15.json",
+      "sha256": "109f20651ce1234d8933bb5efab78cbf45081ae7b4966e63ec0fca560a76cf03",
+      "bytes": 616440,
+      "record_count": 500,
+      "activation": "project-detail-or-export"
+    },
+    {
+      "path": "data/projects/202608261927-project-partition-v9-1-16.json",
+      "sha256": "ed4c672a6cb684a5fd29e17e436d4ee632de358de5e0a2cee9801c7ffa5ecc4b",
+      "bytes": 221745,
+      "record_count": 180,
+      "activation": "project-detail-or-export"
+    }
+  ],
+  "source": {
+    "dataset": "DESNZ Renewable Energy Planning Database Q2 2026",
+    "source_record_count": 14657,
+    "projects_sha256": "24484ca837ac56520ba971fb2c2c1d29620e16a3c71bbaa5764e94c9b515ad52",
+    "identity_sha256": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+    "coordinate_fixture_sha256": "8ca7a99a9f3a95b4de6f1dff79af64ead3aaa14627356eb198ae7be21539741f",
+    "workbook_sha256": "99ec4d0509a9fdfb999116e33c459084ce9ab59b44e3fafba5fc9b280ae2d5a6",
+    "admitted_project_count": 7680,
+    "candidate_delta": {
+      "count": 23,
+      "status": "held-fail-closed"
+    }
+  },
+  "performance": {
+    "maximum_physical_project_rows": 100,
+    "maximum_physical_news_rows": 30,
+    "maximum_dom_elements": 5000,
+    "maximum_initial_decoded_bytes": 2000000,
+    "maximum_mobile_interaction_ms": 200,
+    "maximum_desktop_interaction_ms": 100,
+    "maximum_ordinary_long_task_ms": 200,
+    "maximum_detail_fetch_concurrency": 4
+  },
+  "discovery": {
+    "added_records": 3,
+    "primary_matches": 2,
+    "related_editorial_mentions": 1,
+    "enrichment": "strict-bbc-one-link-layer",
+    "evidence": "data/news-discovery/202608270844-bbc-live-news-evidence.json",
+    "raw_html_retained": false,
+    "article_bodies_retained": false
+  },
+  "cartridges": {
+    "mobile_orientation": {
+      "schema": "pipelinenews.v8.mobile-orientation-repair.v1",
+      "generation": "202608272048",
+      "path": "assets/202608272048-orientation.css",
+      "sha256": "e9e1cbefd49f10d2d3b06f31274357a947672242159e9f1b50434ca175a870bc",
+      "bytes": 7131,
+      "runtime_dom_mutation": false,
+      "deployment": "not-authorised"
+    },
+    "sector_intelligence": {
+      "schema": "pipelinenews.sector-intelligence-cartridge.v3",
+      "generation": "202608272130",
+      "filename": "202608272130-sector-intelligence.mjs",
+      "path": "assets/202608272130-sector-intelligence.mjs",
+      "bytes": 13131,
+      "sha256": "7a091c6bbe58a30976e8f5e9eb8b04ad9543a32a18cd90bea76f85fc0e10f41c",
+      "activation": "dynamic-import-on-user-open"
+    },
+    "atlas_v9_deep_link": {
+      "schema": "pipelinenews.atlas-pointer-deep-link-cartridge.v1",
+      "generation": "202608291447",
+      "path": "assets/202608291447-atlas-pointer-deep-link.mjs",
+      "bytes": 6249,
+      "sha256": "4ca354d13f913aea261950ef521817b0b96a78548b501e220a65205198d55c6f",
+      "identity_anchor": "repd_ref",
+      "query_parameter_order": [
+        "repd_ref"
+      ],
+      "target": "https://ventusltd.github.io/gridatlas/202608291430-atlas-v9/",
+      "receiver_pointer": {
+        "path": "releases/current-v3.json",
+        "bytes": 3024,
+        "sha256": "3b281938c96173d83437805895cab38461c7e8f24e2dfe76cd36a4ecbd6b0a1e"
+      },
+      "receiver_pointer_commit": "f882d427662838b255693ddcf89c67f90e420f9c",
+      "fallback": {
+        "classification": "LAST_KNOWN_GREEN_V8_PUBLIC_CANDIDATE",
+        "generation": "202608271524",
+        "route": "/pipelinenews/releases/202608271524-v8-fast-candidate.html",
+        "public_url": "https://ventusltd.github.io/pipelinenews/releases/202608271524-v8-fast-candidate.html",
+        "pages_run_id": 33085685060,
+        "manifest_path": "build/202608271524-v8-fast-site-manifest.json",
+        "manifest_sha256": "fef485accb1509297dbc64c5e30806c60d977bedb06591e8b324e7bbab06e818",
+        "retention_rule": "PRESERVE_ON_ANY_GRIDATLAS_POINTER_OR_RECEIVER_FAILURE"
+      },
+      "real_public_receiver_required": true,
+      "synthetic_receiver_allowed": false,
+      "classification": "IMMUTABLE_TIMESTAMPED_RELEASE"
+    }
+  },
+  "chronology": {
+    "schema": "pipelinenews.v8.news-chronology.v1",
+    "source_generation": "202608270844",
+    "order": "published-descending",
+    "dates": "strict-YYYY-MM-DD",
+    "stable_ties": "parent-row-order",
+    "first_window_size": 30,
+    "first_window_bbc_article_ids": [
+      "GG2050-NEWS-0E813A86D54E39FC",
+      "GG2050-NEWS-B4B91FD3DA8F596C",
+      "GG2050-NEWS-C3D0A5910F32E821"
+    ],
+    "source_rows_changed": false
+  },
+  "project_posture": {
+    "owner": "Ventus Ltd",
+    "application": "non-commercial-open-source",
+    "publisher_redistribution_rights": "source-specific-not-inferred"
+  },
+  "supplemental_assets": {
+    "sector_intelligence": {
+      "schema": "pipelinenews.sector-intelligence-supplemental-asset.v3",
+      "generation": "202608272130",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "dynamic-import-on-user-open; payload-fetch-on-first-topic-selection",
+      "cartridge": {
+        "schema": "pipelinenews.sector-intelligence-cartridge.v3",
+        "generation": "202608272130",
+        "filename": "202608272130-sector-intelligence.mjs",
+        "path": "assets/202608272130-sector-intelligence.mjs",
+        "bytes": 13131,
+        "sha256": "7a091c6bbe58a30976e8f5e9eb8b04ad9543a32a18cd90bea76f85fc0e10f41c",
+        "activation": "dynamic-import-on-user-open"
+      },
+      "payload": {
+        "path": "data/202608272130-sector-intelligence.json",
+        "bytes": 46724,
+        "sha256": "846e10a00377509a3196972cdf3eb99ab127ca5864e63332f323e446d4bc95c1"
+      },
+      "topics": [
+        {
+          "code": "DATA_CENTRES",
+          "label": "DATA CENTRES",
+          "display_rank": 1
+        },
+        {
+          "code": "INVERTER_SECURITY_POLICY",
+          "label": "INVERTERS · SECURITY · POLICY",
+          "display_rank": 2
+        },
+        {
+          "code": "ENERGY_SECURITY_HORMUZ",
+          "label": "STRAIT OF HORMUZ",
+          "display_rank": 3
+        },
+        {
+          "code": "ENERGY_SECURITY_UKRAINE",
+          "label": "UKRAINE · ENERGY SECURITY",
+          "display_rank": 4
+        },
+        {
+          "code": "GREAT_GRID_UPGRADE",
+          "label": "GREAT GRID UPGRADE",
+          "display_rank": 5
+        },
+        {
+          "code": "WORLDWIDE_PV",
+          "label": "WORLDWIDE PV",
+          "display_rank": 6
+        },
+        {
+          "code": "MV_HV_COMPONENTS",
+          "label": "MV/HV COMPONENTS",
+          "display_rank": 7
+        }
+      ],
+      "parquet_datasets": [
+        "sector_items",
+        "sector_item_topics",
+        "sector_project_bindings"
+      ],
+      "data_centres_owner_repository": "Ventusltd/data-centres-gb",
+      "owner_parquet_copied": false,
+      "companies_house_owner_repository": "Ventusltd/companies",
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "deployment": "not-authorised"
+    },
+    "relationship_governance_status": {
+      "schema": "pipelinenews.federated-relationship-supplemental-asset.v1",
+      "generation": "202608282200",
+      "activation": "dynamic-import-on-user-open; projection-fetch-after-explicit-open",
+      "startup_module_requests": 0,
+      "startup_payload_requests": 0,
+      "maximum_payload_requests": 1,
+      "rows": 3,
+      "project_bindings": 0,
+      "eligible_for_join_rows": 0,
+      "decisions": [
+        "ABSTAIN"
+      ],
+      "cartridge": {
+        "path": "assets/202608282200-federated-relationships.mjs",
+        "bytes": 4370,
+        "sha256": "8d6d46c0b1ca86ad4d4dc54d6ffdce483991dcdfd8c7dad3cbd206165cbcecc2",
+        "filename": "202608282200-federated-relationships.mjs",
+        "activation": "dynamic-import-on-user-open"
+      },
+      "payload": {
+        "path": "data/202608282200-relationship-governance-status.json",
+        "bytes": 2514,
+        "sha256": "1388b2c881867a994a68dd09109017b5591cee00c05eb1cb251a85ed4f16b93c"
+      },
+      "parquet": {
+        "path": "data/intelligence/202608282200-relationship-governance-status.parquet",
+        "bytes": 4726,
+        "sha256": "6de1a3fa19f3d130b0cc19c71d56d8c8108b144da8a365113247caec9fab0f1c"
+      },
+      "audit": {
+        "path": "data/intelligence/202608282200-relationship-governance-audit.json",
+        "bytes": 1667,
+        "sha256": "4b8106b012b3a266a906ec22caf02492fde2824b985c5dadd40b4c2b39998a75"
+      },
+      "deployment": "not-authorised",
+      "ui_state": "WITHDRAWN",
+      "ui_withdrawal_reason": "Three rows all abstain and assert no join; retained as provenance, not exposed as product intelligence."
+    },
+    "project_intelligence": {
+      "schema": "pipelinenews.project-intelligence-supplemental-asset.v1",
+      "generation": "202608311343",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "dynamic-import-on-user-open; payload-fetch-on-first-tab-selection",
+      "additive_only": true,
+      "mutates_existing_dom": false,
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "derived_values_are_inferred": true,
+      "corroboration_adapters_built": false,
+      "one_signal_policy": "WITHHOLD",
+      "no_personal_data": true,
+      "host_id": "projectIntelHost",
+      "bind_call": "bindProjectIntelligence();",
+      "cartridge": {
+        "schema": "pipelinenews.project-intelligence-cartridge.v1",
+        "generation": "202608311343",
+        "filename": "202608311343-project-intelligence.mjs",
+        "path": "assets/202608311343-project-intelligence.mjs",
+        "bytes": 15837,
+        "sha256": "e9f075cd623bab37ebafe52923d32d1062d80d7bf33622e3c26adc49bb018f00",
+        "activation": "dynamic-import-on-user-open"
+      },
+      "payload": {
+        "path": "data/202608311343-project-intelligence.json",
+        "schema": "pipelinenews.v9.project-intelligence.v1",
+        "record_count": 3054,
+        "bytes": 288010,
+        "sha256": "64469611e279abdb0f658ff470c4143ad32d0fb1eb3ae7b476cafd8d6d81cbe3"
+      },
+      "tabs": [
+        {
+          "code": "OVERVIEW",
+          "label": "OVERVIEW",
+          "display_rank": 1
+        },
+        {
+          "code": "LEAD_TIME",
+          "label": "LEAD TIME",
+          "display_rank": 2
+        },
+        {
+          "code": "GRID",
+          "label": "GRID",
+          "display_rank": 3
+        },
+        {
+          "code": "DATA_CENTRES",
+          "label": "DATA CENTRES",
+          "display_rank": 4
+        },
+        {
+          "code": "METHOD",
+          "label": "METHOD",
+          "display_rank": 5
+        }
+      ],
+      "scope": "live solar and battery-storage projects in the DESNZ REPD Q2 2026 spine (not operational, refused, withdrawn or abandoned)",
+      "ui_state": "WITHDRAWN",
+      "ui_withdrawal_reason": "The projection mixes incompatible lifecycle and missing-data taxonomies; retained for audit only."
+    },
+    "grid_proximity": {
+      "schema": "pipelinenews.grid-proximity-supplemental-asset.v1",
+      "generation": "202608311610",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "dynamic-import-on-user-open; payload-fetch-on-first-tab-selection",
+      "additive_only": true,
+      "mutates_existing_dom": false,
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "derived_values_are_inferred": true,
+      "corroboration_adapters_built": false,
+      "one_signal_policy": "WITHHOLD",
+      "no_personal_data": true,
+      "host_id": "gridProximityHost",
+      "bind_call": "bindGridProximity();",
+      "cartridge": {
+        "schema": "pipelinenews.grid-proximity-cartridge.v1",
+        "generation": "202608311610",
+        "filename": "202608311610-grid-proximity.mjs",
+        "path": "assets/202608311610-grid-proximity.mjs",
+        "bytes": 34091,
+        "sha256": "be8e57089d3075334085d91c77b68ac32b01171b24d8203d40a94d356bfd0cf5",
+        "activation": "dynamic-import-on-user-open"
+      },
+      "payload": {
+        "path": "data/202608311610-grid-proximity.json",
+        "schema": "pipelinenews.v9.grid-proximity.v1",
+        "record_count": 4138,
+        "bytes": 7403890,
+        "sha256": "beb5e940d005e46651281048ef7dff36ec195b71132a4e4fa402e683458d62a3"
+      },
+      "tabs": [
+        {
+          "code": "RADIUS",
+          "label": "RADIUS",
+          "display_rank": 1
+        },
+        {
+          "code": "SORT",
+          "label": "SORT",
+          "display_rank": 2
+        },
+        {
+          "code": "CONNECT",
+          "label": "CONNECT",
+          "display_rank": 3
+        },
+        {
+          "code": "TARGET",
+          "label": "TARGET",
+          "display_rank": 4
+        },
+        {
+          "code": "METHOD",
+          "label": "METHOD",
+          "display_rank": 5
+        }
+      ],
+      "earth_model": {
+        "formula": "haversine",
+        "radius_km": 6378.137,
+        "shared_with": [
+          "gridatlas ventus-corev8engine.js haversine()",
+          "gis-sld-financial-sandbox atlasHaversineKm()"
+        ]
+      },
+      "network": {
+        "voltages_kv": [
+          400,
+          275,
+          220,
+          132,
+          66
+        ],
+        "segments": 149340,
+        "substations": 5800,
+        "measure": "perpendicular distance to the circuit, not to a sampled vertex"
+      },
+      "scope": "live solar and battery-storage projects in the DESNZ REPD Q2 2026 spine (not operational, refused, withdrawn or abandoned)",
+      "presentation": "Radius search, sortable table and nearest circuit and substation across 400/275/220/132/66/33 kV plus estimated UKPN 11 kV points, over 4138 projects in eleven technologies: solar 1747, bess 1300, biomass 814, hydro 150, hydrogen 59, ACT 37, tidal 18, geothermal 7, CAES 4, flywheel 1, other 1. The 1091 added rows leave town, region and country empty, because the spine's town column is the planning authority rather than the settlement and the wider-fleet source carries no authority field."
+    },
+    "table_locality_sort": {
+      "schema": "pipelinenews.table-locality-supplemental-asset.v1",
+      "generation": "202608311731",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "fetched once during boot, before the first table paint; fails soft",
+      "additive_only": false,
+      "mutates_existing_dashboard": "adds TOWN and POSTCODE columns and makes CAPACITY, COUNTY, TOWN and POSTCODE headings sortable",
+      "network_at_runtime": false,
+      "payload": {
+        "schema": "pipelinenews.locality.v1",
+        "path": "data/202608311731-locality.json",
+        "sha256": "94ac231a64239995baefec5a6eeb7263f9e28cd93507b58369eca8dc253a0052",
+        "bytes": 757991
+      },
+      "provenance": {
+        "postcode": "DESNZ Renewable Energy Planning Database, column 'Post Code', Open Government Licence v3.0. Copied, never derived.",
+        "town": "Resolved at build time from the REPD postcode via the ONS Postcode Directory (api.postcodes.io), preferring ONS Built-Up Area, then civil parish, then electoral ward. Where the register carries no postcode, the last usable segment of the REPD Address line is used and marked town_source='derived'. Null where unsourceable; never guessed.",
+        "authority": "DESNZ REPD, column 'Planning Authority', OGL v3.0. Carried in the payload. NOTE: the gridatlas study spine (master.tsv) carries this same planning-authority value in a column it calls 'town'. It is the local planning authority, not a settlement -- 'Scottish Government (S36)' is one of its values. This cartridge keeps the two apart."
+      }
+    },
+    "grid_distance_column": {
+      "schema": "pipelinenews.grid-distance-supplemental-asset.v1",
+      "generation": "202608311800",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "fetched once during boot, before the first table paint; fails soft",
+      "additive_only": false,
+      "mutates_existing_dashboard": "adds a GRID column and a grid-distance sort mode to the project table",
+      "network_at_runtime": false,
+      "payload": {
+        "schema": "pipelinenews.grid-distance.v1",
+        "path": "data/202608311800-grid-distance.json",
+        "sha256": "e186c8923ab4ca574309083c11e991084bd5eb001150733968ca0c0625891b82",
+        "bytes": 240355
+      },
+      "maturity": {
+        "status": "BETA",
+        "means": "The measurement is published and checked. BETA marks what it does not yet cover, so it can be used for screening with its limits known. It is not a warning that the number is unreliable.",
+        "not_covered": [
+          "11 kV beyond an estimated UKPN layer, the voltage most sub-5 MW distribution connections are actually made at",
+          "the point of connection, which is not the register centroid the distance is measured from",
+          "connection queue position, curtailment and contracted capacity"
+        ],
+        "cannot_be_inferred": "Fault level and thermal headroom. These are properties of the network, not of the geometry: they depend on DNO data such as source impedance, fault infeed and existing committed connections, and are established by a connection study. No distance, at any precision, implies them."
+      },
+      "provenance": {
+        "geometry": "OpenStreetMap-derived overhead line and substation layers, ODbL-1.0, (c) OpenStreetMap contributors.",
+        "projects": "DESNZ Renewable Energy Planning Database, Open Government Licence v3.0.",
+        "mathematics": "Ventusltd/grid-distance-maths src/geodesy.py, haversine at R = 6378.137 km, point projected onto the segment on a local tangent plane. Every published distance was re-measured against it at build time and reproduced within the source payload's own rounding."
+      }
+    },
+    "capacity_range_filter": {
+      "schema": "pipelinenews.capacity-range-filter.v1",
+      "generation": "202608311816",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "inline control; no payload, no fetch",
+      "additive_only": false,
+      "mutates_existing_dashboard": "adds a PROJECT SIZE range filter and the mw_min / mw_max URL parameters",
+      "network_at_runtime": false,
+      "scale": {
+        "stops": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100,
+          125,
+          150,
+          175,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450,
+          500,
+          600,
+          700,
+          800,
+          900,
+          1000,
+          1250,
+          1500,
+          1750,
+          2000,
+          2500,
+          3000,
+          3500,
+          4000,
+          4500,
+          5000
+        ],
+        "why_not_linear": "Measured over all 7,680 projects the median is 12.3 MW, the 75th percentile is 40 MW and 98% sit under 500 MW. A linear 1-5000 track would put the 30-40 MW band inside 0.2% of its length. The ladder thickens where the register is dense and still reaches 5,000.",
+        "exact_values": "The number boxes accept any value in range, so a band the ladder does not carry is still reachable. Only the slider snaps."
+      },
+      "filters_only": "This is a view control. It never redefines the pipeline: the register's own floor is 1 MW, the largest record is 4,100 MW, and clearing the filter restores every qualifying record."
+    },
+    "grid_actions_inline": {
+      "schema": "pipelinenews.grid-actions-supplemental-asset.v1",
+      "generation": "202608311858",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "fetched once during boot, before the first table paint; fails soft",
+      "additive_only": false,
+      "mutates_existing_dashboard": "removes the GRID column and places GRID and SUB inside ACTIONS",
+      "network_at_runtime": false,
+      "payload": {
+        "schema": "pipelinenews.substation-33kv.v1",
+        "path": "data/202608311858-substation-33kv.json",
+        "sha256": "81cae241eccfd77c2a2898843c9220ae1378668e7494dbeaf7378d6d94e7a480",
+        "bytes": 203062
+      },
+      "placement": {
+        "was": "a sortable GRID column between POSTCODE and OPERATOR",
+        "now": "GRID and SUB chips in the ACTIONS cell, after MAP",
+        "why": "Measured from the published bytes, the GRID column's right edge sat at ~1,430px while a 1366px laptop shows ~1,056px of table; it only cleared the fold at about 1920px. Beside MAP it is reachable at any width, and MAP opens the Atlas the distances are measured against.",
+        "cost": "A sortable heading needs a column, so click-to-sort on distance is gone. Sorting is not: grid_asc and grid_desc remain in the SORT control."
+      },
+      "substation_scope": {
+        "minimum_kv": 33,
+        "why": "33 kV and above. 11 kV is rare for utility-scale export and where it occurs is often a private network behind the meter, so it is not a screening signal.",
+        "layer": "All 5,800 substations in the Atlas layer carry at least 33 kV; 4,342 carry 33 kV itself. Nothing is excluded, so the published substation distance is already the nearest 33 kV+ substation.",
+        "why_it_matters": "A scheme of a few tens of MW connects at a substation, not to a conductor it sits under. Median distance to a 33 kV+ substation is 1.52 km against 6.44 km to a 33 kV circuit, and for the 30-40 MW band the substation is the closer of the two for 68% of projects."
+      },
+      "cannot_be_inferred": "Fault level and thermal headroom. These are properties of the network, not of the geometry: they depend on DNO data such as source impedance, fault infeed and existing committed connections, and are established by a connection study. No distance, at any precision, implies them. Proximity to a mapped substation is not capacity at it.",
+      "provenance": {
+        "geometry": "OpenStreetMap-derived overhead line and substation layers, ODbL-1.0, (c) OpenStreetMap contributors.",
+        "mathematics": "Ventusltd/grid-distance-maths src/geodesy.py. All 3,047 published substation distances were re-measured against it at build time and reproduced within the source payload's own rounding."
+      }
+    },
+    "atlas_live_handoff": {
+      "schema": "pipelinenews.atlas-live-handoff.v1",
+      "generation": "202608312037",
+      "classification": "DASHBOARD_NAVIGATION_AND_PROJECT_ACTION_REPAIR",
+      "activation": "eager-es-module-import",
+      "active_target": "ported",
+      "stable_route": "https://ventusltd.github.io/gridatlas/atlas/",
+      "identity_rule": "EXACT_PROJECT_REPD_REF",
+      "context_parameters": [
+        "project",
+        "technology",
+        "capacity_mw",
+        "latitude",
+        "longitude",
+        "zoom"
+      ],
+      "project_data_changed": false,
+      "news_data_changed": false,
+      "rollback": "build again from 202608311858-pipelinenews",
+      "cartridge": {
+        "schema": "pipelinenews.atlas-current-deep-link-cartridge.v2",
+        "generation": "202608312037",
+        "filename": "202608312037-atlas-pointer-deep-link.mjs",
+        "path": "assets/202608312037-atlas-pointer-deep-link.mjs",
+        "bytes": 11385,
+        "sha256": "c39de3e2a5cf715732391ac5a67806a868521de099d46bf2c2b5bc07278fd165",
+        "activation": "eager-es-module-import"
+      }
+    },
+    "sector_intelligence_clean": {
+      "schema": "pipelinenews.sector-intelligence-supplemental-asset.v3",
+      "generation": "202608312109",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "dynamic-import-on-user-open; payload-fetch-on-first-topic-selection",
+      "cartridge": {
+        "schema": "pipelinenews.sector-intelligence-cartridge.v3",
+        "generation": "202608312109",
+        "filename": "202608312109-sector-intelligence.mjs",
+        "path": "assets/202608312109-sector-intelligence.mjs",
+        "bytes": 15663,
+        "sha256": "19ba45f057bfedca5f6bffea0ea4435a1b7aa7219d485dd80319a8f80c9349d7",
+        "activation": "dynamic-import-on-user-open"
+      },
+      "payload": {
+        "path": "data/202608272130-sector-intelligence.json",
+        "bytes": 46724,
+        "sha256": "846e10a00377509a3196972cdf3eb99ab127ca5864e63332f323e446d4bc95c1"
+      },
+      "topics": [
+        {
+          "code": "DATA_CENTRES",
+          "label": "DATA CENTRES",
+          "display_rank": 1
+        },
+        {
+          "code": "INVERTER_SECURITY_POLICY",
+          "label": "INVERTERS · SECURITY · POLICY",
+          "display_rank": 2
+        },
+        {
+          "code": "ENERGY_SECURITY_HORMUZ",
+          "label": "STRAIT OF HORMUZ",
+          "display_rank": 3
+        },
+        {
+          "code": "ENERGY_SECURITY_UKRAINE",
+          "label": "UKRAINE · ENERGY SECURITY",
+          "display_rank": 4
+        },
+        {
+          "code": "GREAT_GRID_UPGRADE",
+          "label": "GREAT GRID UPGRADE",
+          "display_rank": 5
+        },
+        {
+          "code": "WORLDWIDE_PV",
+          "label": "WORLDWIDE PV",
+          "display_rank": 6
+        },
+        {
+          "code": "MV_HV_COMPONENTS",
+          "label": "MV/HV COMPONENTS",
+          "display_rank": 7
+        }
+      ],
+      "parquet_datasets": [
+        "sector_items",
+        "sector_item_topics",
+        "sector_project_bindings"
+      ],
+      "data_centres_owner_repository": "Ventusltd/data-centres-gb",
+      "owner_parquet_copied": false,
+      "companies_house_owner_repository": "Ventusltd/companies",
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "deployment": "not-authorised",
+      "topics_shown": [
+        "DATA_CENTRES"
+      ],
+      "topics_withheld": {
+        "GREAT_GRID_UPGRADE": "1 of 6 items on topic",
+        "INVERTER_SECURITY_POLICY": "2 of 12 items on topic",
+        "MV_HV_COMPONENTS": "0 of 6",
+        "WORLDWIDE_PV": "0 of 6",
+        "ENERGY_SECURITY_HORMUZ": "0 of 6, and geopolitical",
+        "ENERGY_SECURITY_UKRAINE": "0 of 6, and geopolitical"
+      },
+      "why_withheld": "The collector returned a generic government feed for six of seven topics. One item, a Biometrics Commissioner FOI response, appears under five different topics. The rows remain in the payload so a fixed collector restores the topics without another release here."
+    },
+    "unbound_carries_nothing": {
+      "schema": "pipelinenews.unbound-carries-nothing.v1",
+      "generation": "202608312114",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "render-time; no payload",
+      "additive_only": false,
+      "mutates_existing_dashboard": "removes project detail from unbound stories",
+      "network_at_runtime": false,
+      "rule": "With no repd_ref there is no project, so no capacity, operator or county is reported. Bind or say nothing.",
+      "found_by": "Looking at the rendered page. A DOM read of the caption element showed the name was blank and passed; the operator and county sat in sibling text and still read 'Kent' under an Australian story."
+    },
+    "gb_electricity_context": {
+      "schema": "pipelinenews.gb-electricity-context-supplemental-asset.v1",
+      "generation": "202608312339",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "dynamic-import-and-attested-payload-fetch-on-user-open",
+      "additive_only": true,
+      "mutates_existing_dom": false,
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "forecast": false,
+      "host_id": "gbElectricityHost",
+      "bind_call": "bindGbElectricityContext();",
+      "source": {
+        "repository": "Ventusltd/data-gb-electricity",
+        "path": "derived/price-decade-rollup.json",
+        "upstream": "Elexon",
+        "role": "browser-sized historic derived product; sole calculation remains in the data repository"
+      },
+      "cartridge": {
+        "schema": "pipelinenews.gb-electricity-context-cartridge.v1",
+        "generation": "202608312339",
+        "filename": "202608312339-gb-electricity-context.mjs",
+        "path": "assets/202608312339-gb-electricity-context.mjs",
+        "bytes": 8252,
+        "sha256": "79cd1c74e26e489c8e2ec1c929db50dd0df8e12d794eeb981aafebd309aace3a"
+      },
+      "payload": {
+        "path": "data/202608312339-price-decade-rollup.json",
+        "schema": "data-gb-electricity.price-decade-rollup.v1",
+        "bytes": 4129,
+        "sha256": "6450935148e23a78e1e376465b47c3ed765ab5d166f0fda4949b404250f99efe"
+      },
+      "scope": "historic GB system sell price context only; no project binding, forecast, recommendation or inferred news signal"
+    },
+    "transmission_is_answerable": {
+      "schema": "pipelinenews.transmission-is-answerable.v1",
+      "generation": "202609012326",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "render-time; no payload",
+      "additive_only": false,
+      "mutates_existing_dashboard": "extends the GRID + SUB strip caption",
+      "network_at_runtime": false,
+      "rule": "Distance is not a route and a rating is not headroom - both refusals are kept verbatim. What is added is only what is actually answerable from a published source: the circuits and transformers at the declared site, their seasonal ratings never summed, the count of circuits to a neighbouring site, and a declared DC injection response. The DC model is not a loading: what is already flowing on those circuits is published nowhere.",
+      "found_by": "Reading the strip after the Atlas gained the published network on 1 September 2026. The sentence was accurate and had become incomplete: it told the reader what could not be answered and no longer mentioned what could.",
+      "upstream": "NESO Electricity Ten Year Statement 2025, Appendix B, via Ventusltd/data-grid-gb derived/gb-transmission-network.v1.json"
+    },
+    "mapped_is_not_nearest": {
+      "schema": "pipelinenews.mapped-is-not-nearest.v1",
+      "generation": "202609020025",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "render-time; no payload",
+      "additive_only": false,
+      "mutates_existing_dashboard": "extends the GRID + SUB strip caption",
+      "network_at_runtime": false,
+      "rule": "A distance to the nearest mapped feature is a distance to a layer, not to the network. Where the layer's own publisher states its coverage, the strip states it too, in the publisher's numbers: 886 named, 502 located, 384 without coordinates. Absence from a mapped layer is not absence on the ground, and the existing caveats stay verbatim. No grade, no headroom, no capacity is implied.",
+      "found_by": "Reading counts and join in Ventusltd/data-grid-gb derived/connection-points.v3.json on 2 September 2026 beside the strip in the parent release. The strip said 'nearest mapped' and the hover said 'absence from a mapped layer is not absence on the ground'; neither said how much of the transmission network the layer fails to place, and the publisher had already counted it.",
+      "upstream": "NESO Electricity Ten Year Statement 2025, Appendix B, joined to OpenStreetMap-derived substation geometry via Ventusltd/data-grid-gb derived/connection-points.v3.json (counts.connection_points 886, counts.with_location 502, join.unlocated 384)"
+    },
+    "season_is_named": {
+      "schema": "pipelinenews.season-is-named.v1",
+      "generation": "202609020552",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "render-time; no payload",
+      "additive_only": false,
+      "mutates_existing_dashboard": "extends the GRID + SUB strip caption",
+      "network_at_runtime": false,
+      "rule": "A rating without its season is ambiguous: NESO publishes a summer rating on 1,276 of 1,392 circuits and it differs from winter on 1,081 of them. Every rating the Atlas shows names its season and none is summed across circuits. A rating is still not headroom, and the strip's refusal on that point is kept verbatim. Pipeline News itself quotes no MVA figure and now says so.",
+      "found_by": "Searching every .html, .mjs and .css file in the parent release for MVA, rating, season, winter and summer: one hit, the word 'corroborating'. Then reading the four seasonal fields on every circuit in Ventusltd/data-grid-gb derived/gb-transmission-network.v1.json on 2 September 2026 and counting which are published and where they differ.",
+      "upstream": "NESO Electricity Ten Year Statement 2025, Appendix B, via Ventusltd/data-grid-gb derived/gb-transmission-network.v1.json (circuits[].winter_mva, spring_mva, summer_mva, autumn_mva)"
+    },
+    "hops_are_not_kilometres": {
+      "schema": "pipelinenews.hops-are-not-kilometres.v1",
+      "generation": "202609020611",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "render-time; no payload",
+      "additive_only": false,
+      "mutates_existing_dashboard": "extends the grid proximity CONNECT caption",
+      "network_at_runtime": false,
+      "rule": "A straight-line kilometre and a count of published circuits are different quantities and neither is a cable route, a connection length, a grade or headroom. The panel reports the kilometre and says so; the circuit count is reported where it is measured, in MAP. The only length cited is a published route length: the longest circuit in NESO's Appendix B is 223.195 km of route.",
+      "found_by": "Reading the CONNECT view after the Atlas gained circuit-count distance on 1 September 2026. The view is titled AUTO-DRAWN CONNECTIONS, draws lines with lengths, and nowhere said that length in kilometres is not the quantity that decides whether two sites are joined. The route lengths were read from circuits[].ohl_km and cable_km in Ventusltd/data-grid-gb derived/gb-transmission-network.v1.json on 2 September 2026.",
+      "upstream": "NESO Electricity Ten Year Statement 2025, Appendix B, via Ventusltd/data-grid-gb derived/gb-transmission-network.v1.json"
+    },
+    "wider_fleet": {
+      "schema": "pipelinenews.wider-fleet-supplemental-asset.v2",
+      "generation": "202609030009",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "activation": "eager-tab-injection-after-spine-controls-bound",
+      "additive_only": true,
+      "tabs_in_product_technology_row": false,
+      "mutates_existing_dom": true,
+      "mutation_scope": "appends one label and one select to #tech; while one of that select's twenty technologies is chosen it paints .tablewrap tbody and calls the spine's presentSummary() seam, which drives #resultsMeta, the three gauge values and the three gauge arcs, and installs an export provider that declines the spine's 50-column CSV in words",
+      "reads_spine_payload": false,
+      "spine_handler_wrapped": false,
+      "spine_tabs_unchanged": [
+        "all",
+        "solar",
+        "bess",
+        "wind_onshore",
+        "wind_offshore"
+      ],
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "forecast": false,
+      "host_id": "widerFleetHost",
+      "bind_call": "bindWiderFleet();",
+      "repd_technology_types": 20,
+      "projects": 1104,
+      "capacity_gw": 22.76,
+      "spine_technology_types_excluded": [
+        "Battery",
+        "Solar Photovoltaics",
+        "Wind Offshore",
+        "Wind Onshore"
+      ],
+      "tabs_derived_from": "the payload at mount time, never listed in source",
+      "source": {
+        "upstream": "DESNZ Renewable Energy Planning Database, quarterly extract",
+        "url": "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract",
+        "producer": "globalgrid2050 repd_grid_atlasv8/scripts/repd_updaterv8.py + config/registry.yaml",
+        "role": "the same REPD extract and the same classification the spine is cut from; no second fetcher and no second classification",
+        "builder": "tools/intelligence/cartridges/wider-fleet/build_payload.py"
+      },
+      "cartridge": {
+        "schema": "pipelinenews.wider-fleet-cartridge.v2",
+        "generation": "202609030009",
+        "filename": "202609030009-wider-fleet.mjs",
+        "path": "assets/202609030009-wider-fleet.mjs",
+        "bytes": 25325,
+        "sha256": "800f4de2f6abdf165931b7a807b371b02d91fe0ce61952368cc0577d42091667"
+      },
+      "payload": {
+        "path": "data/202609030009-wider-fleet.json",
+        "schema": "pipelinenews.wider-fleet-register-cut.v1",
+        "bytes": 220400,
+        "sha256": "14b562b413adfbe59ca37d6a4e264d5d14a285efcb99a5d908f6b26bb2ff2ac3"
+      },
+      "scope": "REPD technology types outside the spine's four. Capacity and status are the register's own fields. County, town, postcode, REPD ref and the GlobalGrid reference are spine joins and are withheld rather than guessed.",
+      "control_in_product_technology_row": "select",
+      "deep_linkable": true,
+      "presentation": "superseded by one 1,101-identity display with all 1,091 resolved REPD references retained",
+      "ui_state": "superseded",
+      "ui_withdrawal_reason": "The map_corpus_contract successor owns the active wider-fleet payload and runtime; this receipt remains only as provenance for the 1,104-row source cut."
+    },
+    "dash_is_not_a_search": {
+      "schema": "pipelinenews.dash-is-not-a-search.v1",
+      "generation": "202609032329",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "usage_context_establishes_upstream_rights": false,
+      "activation": "render-time; no payload",
+      "additive_only": false,
+      "mutates_existing_dashboard": "the hover text of a dashed GRID or SUB chip",
+      "network_at_runtime": false,
+      "rule": "A dash reports the absence of a measurement. It may not report the result of one. Where two different absences share a cell, the cell names which one it is from a fact the record already carries — geometry_status — and never from a guess about why the number is missing.",
+      "found_by": "Counted on releases/202609032251-pipelinenews on 2026-09-04, from the release’s own shipped files. data/202608270055-8ab1807551bc-v8-fast-projects.json carries 7,680 rows; 7,652 have latitude and longitude and 28 do not (geometry_status missing 26, invalid 2). The grid index in data/202608311800-grid-distance.json holds 3,047 refs and the substation index in data/202608311858-substation-33kv.json holds the same 3,047. Every one of the 3,047 has a coordinate; not one coordinate-less record is in either index. That leaves 4,633 dashed rows, 4,605 of them with a usable coordinate. The grid-distance payload’s coverage block reads with_circuit 3,047, no_circuit 0, and its own note already said the truth the chip did not: “A project with no entry has no mapped circuit found, OR no coordinate in the register.”",
+      "measured": {
+        "records_in_cut": 7680,
+        "carry_a_grid_measurement": 3047,
+        "dashed": 4633,
+        "dashed_with_a_register_coordinate": 4605,
+        "dashed_without_a_usable_coordinate": 28,
+        "coordinate_state_of_those_28": {
+          "missing": 26,
+          "invalid": 2
+        },
+        "measured_and_found_nothing": 0,
+        "rows_the_old_string_described_correctly": 0
+      },
+      "upstream": "DESNZ Renewable Energy Planning Database Q2 2026 (OGL v3.0) for the register coordinate and its geometry_status; the release’s own data/202608311800-grid-distance.json coverage block for with_circuit and no_circuit."
+    },
+    "map_corpus_contract": {
+      "schema": "pipelinenews.map-corpus-contract.v1",
+      "generation": "202609040044",
+      "usage_context": "NON_COMMERCIAL_OPEN_SOURCE",
+      "activation": "eager-tab-injection-after-spine-controls-bound",
+      "additive_only": true,
+      "control_in_product_technology_row": "select",
+      "deep_linkable": true,
+      "mutates_existing_dom": true,
+      "mutation_scope": "replaces no spine control; appends one wider-fleet select and paints the shared table only while that select is active",
+      "reads_spine_payload": false,
+      "spine_handler_wrapped": false,
+      "project_bindings": 0,
+      "eligible_for_news_signal": false,
+      "forecast": false,
+      "repd_technology_types": 20,
+      "source_rows": 1104,
+      "projects": 1101,
+      "map_actions": 1091,
+      "duplicate_identities_removed": 3,
+      "identity_rule": "EXACT_REPD_REF; a merged display identity may expose one MAP action for each distinct source reference",
+      "canonical_url_parameters": [
+        "repd_ref",
+        "project",
+        "technology",
+        "capacity_mw",
+        "latitude",
+        "longitude",
+        "zoom"
+      ],
+      "receiver_contract": {
+        "repository": "Ventusltd/gridatlas",
+        "candidate_commit": "b73247803377233069acfeff415ecad4e8391cb2",
+        "module": "atlas/codex/20260904-finding-loop-30x/finding-loop.mjs",
+        "module_sha256": "fdaf16829275c904ef190ba96925415151c9ac6f409eac39d81440dbdd0c3d20",
+        "module_bytes": 60148,
+        "exports": [
+          "PROJECT_TECHNOLOGIES",
+          "createProjectRegister",
+          "createProjectIndex",
+          "parseProjectDeepLink"
+        ],
+        "integration_state": "candidate; Pipeline proof must be rerun against the exact Grid integration head before promotion"
+      },
+      "cartridge": {
+        "schema": "pipelinenews.wider-fleet-cartridge.v3",
+        "generation": "202609040044",
+        "filename": "202609040044-wider-fleet.mjs",
+        "path": "assets/202609040044-wider-fleet.mjs",
+        "bytes": 28439,
+        "sha256": "3c20311447472df0cc6004cbf25fed6ede9db3bd3cec147e5c401b387e9477c9"
+      },
+      "payload": {
+        "path": "data/202609040044-wider-fleet.json",
+        "schema": "pipelinenews.wider-fleet-deduplicated-register-cut.v1",
+        "record_count": 1101,
+        "bytes": 219211,
+        "sha256": "29966f9b5573295e8c7c3793b1950a336c50fbe7570ba63b83f237bb57271efe"
+      },
+      "sender": {
+        "schema": "pipelinenews.atlas-map-corpus-contract.v1",
+        "path": "assets/202609040044-atlas-pointer-deep-link.mjs",
+        "bytes": 5847,
+        "sha256": "7ab16bbc704324d177210dd45acd54a684018980df766bdebdd7689a0f7571ae"
+      }
+    },
+    "provisional_projects": {
+      "schema": "pipelinenews.provisional-pipeline-supplement.v1",
+      "generation": "202609060213",
+      "source_commit": "327df89255f1e6d5b3d57a7952192a9ce4bbc5e1",
+      "cartridge": {
+        "path": "assets/202609060213-provisional-projects.mjs",
+        "schema": "pipelinenews.provisional-pipeline.v1",
+        "sha256": "548542c53bc95d1a15acf1337feb6d135777868bdf9ce497261dc0c35cfe3857",
+        "bytes": 1852
+      },
+      "identity": {
+        "path": "assets/202609060213-provisional-identity.mjs",
+        "sha256": "2b209392455d7d820822184855dcd6728d3c23682c51b0e3a617ce5f579d5b5a",
+        "bytes": 2698
+      },
+      "payload": {
+        "path": "data/202609060213-provisional-projects.json",
+        "schema": "pipelinenews.provisional-register.v1",
+        "sha256": "67edbf46e8b8d4090057beab8046622648c95bce13f2519888570ab67f97f7f4",
+        "bytes": 785
+      },
+      "identity_status": "REPD_PENDING",
+      "official_source_totals_unchanged": true,
+      "quarterly_rule": "Unique name/developer/county/capacity match replaces the temporary ref; previous ref and Global Grid reference remain aliases."
+    }
+  },
+  "classification": "IMMUTABLE_TIMESTAMPED_RELEASE",
+  "pointer_state_external": true
+}

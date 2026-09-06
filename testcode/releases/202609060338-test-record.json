@@ -1,0 +1,19 @@
+{
+  "schema": "ventus.testcode-publication.v1",
+  "generation": "202609060338",
+  "lane": "codex",
+  "name": "Order wider projects by listed GRID or SUB distance",
+  "sourceRepository": "Ventusltd/pipelinenews",
+  "sourceCommit": "71890499de46a15896e533b8c3d7961e04437b7b",
+  "sourceRelease": "releases/202609060338-pipelinenews",
+  "ci": {
+    "run": 34009695191,
+    "conclusion": "success"
+  },
+  "scope": "All20 wider technologies and every page on desktop and phone, metric details and actual GeoJSON downloads; incremental filter, order, wider export and coverage assertions.",
+  "limitations": [
+    "GRID and SUB remain listed straight-line metrics, not connection offers.",
+    "Versions0315 through0340 retain the loading-strip defect repaired in0342; earlier scoped row proofs did not cover that strip."
+  ],
+  "status": "Source and scoped CI verified; served/live acceptance recorded after deployment"
+}

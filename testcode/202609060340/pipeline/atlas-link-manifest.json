@@ -1,0 +1,58 @@
+{
+  "classification": "VERIFIED_GRIDATLAS_PRODUCTION_RECEIVER_BOUND",
+  "generation": "202609040144",
+  "pipeline_release_id": "202609040144-pipelinenews",
+  "receiver": {
+    "base_url": "https://ventusltd.github.io/gridatlas/atlas/",
+    "commit": "ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9",
+    "composition_manifest": {
+      "bytes": 47199,
+      "path": "atlas/manifests/202609040134-composition.json",
+      "sha256": "3ef9c39be8f30f865d0cd2b81dad8b7190a8352811770ef60720630933e3d986"
+    },
+    "engine_cartridge": {
+      "bytes": 293168,
+      "generation": "202609040134",
+      "path": "atlas/cartridges/202609040134-substation-intelligence-v9-63.js",
+      "sha256": "0fecdcf51e0c4e764df8bd5cbfe287e98b16fbc05e4b23ffc5f71ac706062821",
+      "version": "v9.104"
+    },
+    "generation": "202609040134",
+    "identity_reconciliation": "VERIFY_CONCURRENTLY_AND_REMEASURE_AT_RESOLVED_POINT",
+    "measurement_cartridge": {
+      "bytes": 362128,
+      "generation": "202609040134",
+      "path": "atlas/cartridges/202609040134-sld-sandbox-v9-8.js",
+      "sha256": "ac7c7a402f708ac0234625b644c593f605cce06a3437c43f5a191971f2008ff7",
+      "version": "v9.104"
+    },
+    "production_proof": {
+      "bytes": 217567,
+      "path": "tools/proofs/202609040134-sld-sandbox.proof.mjs",
+      "sha256": "adbab958399cd365fcad84c59a6c4ff0c24ca8c74d8f5100bf05541ee547f130"
+    },
+    "repository": "Ventusltd/gridatlas",
+    "required_result": "MEASURE_LINK_FIRST",
+    "schema": "pipelinenews.gridatlas-production-receiver.v1",
+    "version": "v9.104"
+  },
+  "receiver_contract_sha256": "1603778f752df7c25fd75345495621c9485dca20bd03ce1dd0d5349e45314d2d",
+  "schema": "pipelinenews.atlas-current-link-manifest.v2",
+  "source_commit": "20514b74172eef5748df6adf2b21bde942ce82ed",
+  "source_pipeline_release_id": "202609040044-pipelinenews",
+  "transport": {
+    "clickable_rows": 8743,
+    "identity_rule": "EXACT_REPD_REF",
+    "query_parameter_order": [
+      "repd_ref",
+      "project",
+      "technology",
+      "capacity_mw",
+      "latitude",
+      "longitude",
+      "zoom"
+    ],
+    "source_rows": 8756,
+    "unresolved_rows": 13
+  }
+}

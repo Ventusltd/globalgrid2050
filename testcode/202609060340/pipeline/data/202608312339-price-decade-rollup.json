@@ -1,0 +1,130 @@
+{
+  "schema": "data-gb-electricity.price-decade-rollup.v1",
+  "what_this_is": "Yearly aggregates of the GB system sell price, derived from the Parquet in this repository so that a browser can carry the decade without carrying the settlement periods. Arithmetic aggregates only: no resampling, smoothing, modelling or forecasting.",
+  "not_a_forecast": "Historic system conditions. Not a projection, not a price expectation, and not a statement about the economics of any project or asset.",
+  "grain": {
+    "source_grain": "half-hourly settlement period",
+    "product_grain": "calendar year, over daily means",
+    "minimum_periods_per_day": 24,
+    "note": "a day below the minimum is excluded rather than averaged, so the day counts below are complete days"
+  },
+  "derived_from": {
+    "repository": "Ventusltd/data-gb-electricity",
+    "path": "prices/year=*/month=*/data_0.parquet",
+    "field": "systemSellPriceGBPperMWh",
+    "upstream": "Elexon",
+    "settlement_periods": 161064,
+    "complete_days": 3339
+  },
+  "solar": {
+    "present": false,
+    "why": "PVLive has not been decided into this repository. Item 4 of UI_CHARTS_MIGRATION_SCOPE.md leaves it open between here, a separate solar data repository, and a deferred no-data state. Inventing a solar series here to make a panel look fuller is the failure the data discipline exists to prevent."
+  },
+  "price": {
+    "unit": "GBP per MWh",
+    "span": [
+      "2016",
+      "2026"
+    ],
+    "decade_mean": 78.18,
+    "lowest_settlement_period": {
+      "value": -185.33,
+      "date": "2023-07-17"
+    },
+    "highest_settlement_period": {
+      "value": 4037.8,
+      "date": "2021-09-09"
+    },
+    "days_with_a_negative_settlement_period": 580,
+    "by_year": [
+      {
+        "year": "2016",
+        "days": 366,
+        "mean_gbp_per_mwh": 39.38,
+        "min_daily_mean": 2.95,
+        "max_daily_mean": 226.9,
+        "days_with_a_negative_settlement_period": 47
+      },
+      {
+        "year": "2017",
+        "days": 365,
+        "mean_gbp_per_mwh": 44.28,
+        "min_daily_mean": 4.72,
+        "max_daily_mean": 177.84,
+        "days_with_a_negative_settlement_period": 19
+      },
+      {
+        "year": "2018",
+        "days": 276,
+        "mean_gbp_per_mwh": 56.36,
+        "min_daily_mean": 28.51,
+        "max_daily_mean": 281.61,
+        "days_with_a_negative_settlement_period": 30
+      },
+      {
+        "year": "2019",
+        "days": 365,
+        "mean_gbp_per_mwh": 42.0,
+        "min_daily_mean": -12.16,
+        "max_daily_mean": 82.46,
+        "days_with_a_negative_settlement_period": 30
+      },
+      {
+        "year": "2020",
+        "days": 366,
+        "mean_gbp_per_mwh": 35.12,
+        "min_daily_mean": -16.91,
+        "max_daily_mean": 122.89,
+        "days_with_a_negative_settlement_period": 52
+      },
+      {
+        "year": "2021",
+        "days": 214,
+        "mean_gbp_per_mwh": 127.68,
+        "min_daily_mean": 29.05,
+        "max_daily_mean": 960.24,
+        "days_with_a_negative_settlement_period": 26
+      },
+      {
+        "year": "2022",
+        "days": 365,
+        "mean_gbp_per_mwh": 200.07,
+        "min_daily_mean": 7.87,
+        "max_daily_mean": 777.9,
+        "days_with_a_negative_settlement_period": 58
+      },
+      {
+        "year": "2023",
+        "days": 365,
+        "mean_gbp_per_mwh": 94.59,
+        "min_daily_mean": -9.34,
+        "max_daily_mean": 238.12,
+        "days_with_a_negative_settlement_period": 109
+      },
+      {
+        "year": "2024",
+        "days": 366,
+        "mean_gbp_per_mwh": 71.0,
+        "min_daily_mean": -3.52,
+        "max_daily_mean": 179.29,
+        "days_with_a_negative_settlement_period": 123
+      },
+      {
+        "year": "2025",
+        "days": 123,
+        "mean_gbp_per_mwh": 84.77,
+        "min_daily_mean": 4.55,
+        "max_daily_mean": 696.2,
+        "days_with_a_negative_settlement_period": 45
+      },
+      {
+        "year": "2026",
+        "days": 168,
+        "mean_gbp_per_mwh": 91.97,
+        "min_daily_mean": -2.08,
+        "max_daily_mean": 149.16,
+        "days_with_a_negative_settlement_period": 41
+      }
+    ]
+  }
+}

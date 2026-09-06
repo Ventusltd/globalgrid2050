@@ -1561,3 +1561,8 @@ Pre-edit snapshot of 62728009e87cbea44ea164d45c69c917af8f9cc5; restore workflow3
 ## homepage_v070
 
 Pre-edit snapshot of f772dc96c3261453c35923903e35ce5c984830c3; restore workflow34009441132 passed. Measurements: homepage_v070-measurement.json. Add metricdetails0333andfilteredGeoJSON0334; retain all links. Sourceeb2da9b, engineeringCI34009395044 passed.
+
+
+## homepage_v071
+
+Pre-edit snapshot of 42f2b3a801c1d1ea8d82b10516461c050a77b423; restore workflow34009629949 passed. Measurements: homepage_v071-measurement.json. Add Pipeline0337/0338/0340/0342, retaining every older link. Source71890499de46a15896e533b8c3d7961e04437b7b; engineering CI34009695191 passed.

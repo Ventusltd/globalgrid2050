@@ -1,0 +1,364 @@
+{
+  "classification": "DETERMINISTIC_SOURCE_RELEASE_PROMOTION",
+  "files": [
+    {
+      "bytes": 208522,
+      "path": "assets/202608261927-chart-umd.min.js",
+      "sha256": "48444a82d4edcb5bec0f1965faacdde18d9c17db3063d042abada2f705c9f54a"
+    },
+    {
+      "bytes": 14512,
+      "path": "assets/202608270055-v8-fast.css",
+      "sha256": "776be660e40a947c6bb3d26a844e939de4e6074a673c838bc3f969815f990af6"
+    },
+    {
+      "bytes": 12090,
+      "path": "assets/202608272048-orientation.css",
+      "sha256": "9b9be5a3c30e4047231fc7e0459f0bd3417efd5b39384fc80711d3711f229130"
+    },
+    {
+      "bytes": 13131,
+      "path": "assets/202608272130-sector-intelligence.mjs",
+      "sha256": "7a091c6bbe58a30976e8f5e9eb8b04ad9543a32a18cd90bea76f85fc0e10f41c"
+    },
+    {
+      "bytes": 4370,
+      "path": "assets/202608282200-federated-relationships.mjs",
+      "sha256": "8d6d46c0b1ca86ad4d4dc54d6ffdce483991dcdfd8c7dad3cbd206165cbcecc2"
+    },
+    {
+      "bytes": 105393,
+      "path": "assets/202608291447-app.mjs",
+      "sha256": "f7b395de221b930587b2a0ca4648631f1a351154dfb01320b1e6edc2aed8c6aa"
+    },
+    {
+      "bytes": 2220,
+      "path": "assets/202608291447-atlas-pointer-deep-link.mjs",
+      "sha256": "b773a4274aeaf38db3128dbbc53e9ed5dc66f4cf436aa9ace71e9236ae3a5375"
+    },
+    {
+      "bytes": 11385,
+      "path": "assets/202608311343-atlas-pointer-deep-link.mjs",
+      "sha256": "02ac24c8aea27e8c4ba953cb3a4fc9a489759ed21ea8476c49459937bae82c50"
+    },
+    {
+      "bytes": 15837,
+      "path": "assets/202608311343-project-intelligence.mjs",
+      "sha256": "e9f075cd623bab37ebafe52923d32d1062d80d7bf33622e3c26adc49bb018f00"
+    },
+    {
+      "bytes": 34091,
+      "path": "assets/202608311610-grid-proximity.mjs",
+      "sha256": "be8e57089d3075334085d91c77b68ac32b01171b24d8203d40a94d356bfd0cf5"
+    },
+    {
+      "bytes": 11385,
+      "path": "assets/202608312037-atlas-pointer-deep-link.mjs",
+      "sha256": "c39de3e2a5cf715732391ac5a67806a868521de099d46bf2c2b5bc07278fd165"
+    },
+    {
+      "bytes": 15663,
+      "path": "assets/202608312109-sector-intelligence.mjs",
+      "sha256": "19ba45f057bfedca5f6bffea0ea4435a1b7aa7219d485dd80319a8f80c9349d7"
+    },
+    {
+      "bytes": 8252,
+      "path": "assets/202608312339-gb-electricity-context.mjs",
+      "sha256": "79cd1c74e26e489c8e2ec1c929db50dd0df8e12d794eeb981aafebd309aace3a"
+    },
+    {
+      "bytes": 25325,
+      "path": "assets/202609030009-wider-fleet.mjs",
+      "sha256": "800f4de2f6abdf165931b7a807b371b02d91fe0ce61952368cc0577d42091667"
+    },
+    {
+      "bytes": 5847,
+      "path": "assets/202609040044-atlas-pointer-deep-link.mjs",
+      "sha256": "7ab16bbc704324d177210dd45acd54a684018980df766bdebdd7689a0f7571ae"
+    },
+    {
+      "bytes": 32295,
+      "path": "assets/202609040044-wider-fleet.mjs",
+      "sha256": "8790bac2f993e9d4da1d4abbeb5bf7ad6ca5f45d7d4ed72b5d4ba4c3a29daafa"
+    },
+    {
+      "bytes": 2143,
+      "path": "atlas-link-manifest.json",
+      "sha256": "afd7efa6fbd638b0a34635e25ce18ba6dd93ae94479896800a2a283e03d9fcfc"
+    },
+    {
+      "bytes": 979338,
+      "path": "data/202608270055-8ab1807551bc-v8-fast-projects.json",
+      "sha256": "c06aedef176d2d38fd135806306a8ef81b4af9994c7be31e8bd760304149f862"
+    },
+    {
+      "bytes": 1912681,
+      "path": "data/202608270055-8ab1807551bc-v8-fast-search.json",
+      "sha256": "a1cbfc5202b717889a471409e850ea5cae13626f91c60f08cda0b06da5102b65"
+    },
+    {
+      "bytes": 82460,
+      "path": "data/202608271524-fd2212a8c76d-v8-fast-news.json",
+      "sha256": "00cfbc6243e83cca274707a19b7848f776ce223d5e02808164e213dde887a8be"
+    },
+    {
+      "bytes": 46724,
+      "path": "data/202608272130-sector-intelligence.json",
+      "sha256": "846e10a00377509a3196972cdf3eb99ab127ca5864e63332f323e446d4bc95c1"
+    },
+    {
+      "bytes": 2514,
+      "path": "data/202608282200-relationship-governance-status.json",
+      "sha256": "1388b2c881867a994a68dd09109017b5591cee00c05eb1cb251a85ed4f16b93c"
+    },
+    {
+      "bytes": 82915,
+      "path": "data/202608291447-registry.json",
+      "sha256": "df1df09e2be0a2a6be0174fd649dec6742334c5394861dacb222475cf484161e"
+    },
+    {
+      "bytes": 288010,
+      "path": "data/202608311343-project-intelligence.json",
+      "sha256": "64469611e279abdb0f658ff470c4143ad32d0fb1eb3ae7b476cafd8d6d81cbe3"
+    },
+    {
+      "bytes": 105,
+      "path": "data/202608311343-project-intelligence.json.sha256",
+      "sha256": "4ec0361d5254fcbcff72493a668f86019e85e6b82fd5f2ff48962848a81eac4e"
+    },
+    {
+      "bytes": 7403890,
+      "path": "data/202608311610-grid-proximity.json",
+      "sha256": "beb5e940d005e46651281048ef7dff36ec195b71132a4e4fa402e683458d62a3"
+    },
+    {
+      "bytes": 99,
+      "path": "data/202608311610-grid-proximity.json.sha256",
+      "sha256": "e4ea1c46fe3be5a3e08bb5de7a0d169bb950e10d6ef79fe44defd35a2b4df8e7"
+    },
+    {
+      "bytes": 757991,
+      "path": "data/202608311731-locality.json",
+      "sha256": "94ac231a64239995baefec5a6eeb7263f9e28cd93507b58369eca8dc253a0052"
+    },
+    {
+      "bytes": 93,
+      "path": "data/202608311731-locality.json.sha256",
+      "sha256": "3a9b80f0353a8b3e1d4a84a3427661232a1c3cd1f4c3b8c757d037133eadd166"
+    },
+    {
+      "bytes": 240355,
+      "path": "data/202608311800-grid-distance.json",
+      "sha256": "e186c8923ab4ca574309083c11e991084bd5eb001150733968ca0c0625891b82"
+    },
+    {
+      "bytes": 98,
+      "path": "data/202608311800-grid-distance.json.sha256",
+      "sha256": "a915c41f2953cb1963e2b9ef181c6051106cda484b842c9911a14e967d0d3f6b"
+    },
+    {
+      "bytes": 203062,
+      "path": "data/202608311858-substation-33kv.json",
+      "sha256": "81cae241eccfd77c2a2898843c9220ae1378668e7494dbeaf7378d6d94e7a480"
+    },
+    {
+      "bytes": 100,
+      "path": "data/202608311858-substation-33kv.json.sha256",
+      "sha256": "c857b236ca57544eb2ca076512df7d0a076952d9c909c93a5e11c806d0f5db2f"
+    },
+    {
+      "bytes": 4129,
+      "path": "data/202608312339-price-decade-rollup.json",
+      "sha256": "6450935148e23a78e1e376465b47c3ed765ab5d166f0fda4949b404250f99efe"
+    },
+    {
+      "bytes": 220400,
+      "path": "data/202609030009-wider-fleet.json",
+      "sha256": "14b562b413adfbe59ca37d6a4e264d5d14a285efcb99a5d908f6b26bb2ff2ac3"
+    },
+    {
+      "bytes": 219211,
+      "path": "data/202609040044-wider-fleet.json",
+      "sha256": "29966f9b5573295e8c7c3793b1950a336c50fbe7570ba63b83f237bb57271efe"
+    },
+    {
+      "bytes": 1667,
+      "path": "data/intelligence/202608282200-relationship-governance-audit.json",
+      "sha256": "4b8106b012b3a266a906ec22caf02492fde2824b985c5dadd40b4c2b39998a75"
+    },
+    {
+      "bytes": 4726,
+      "path": "data/intelligence/202608282200-relationship-governance-status.parquet",
+      "sha256": "6de1a3fa19f3d130b0cc19c71d56d8c8108b144da8a365113247caec9fab0f1c"
+    },
+    {
+      "bytes": 21174,
+      "path": "data/intelligence/sector/202608272130-parquet-audit.json",
+      "sha256": "0bb848720a14c2cc799608e3f6976701be191823edc13093620bbe4ee76c1f65"
+    },
+    {
+      "bytes": 6178,
+      "path": "data/intelligence/sector/202608272130-source-ledger-receipt.json",
+      "sha256": "1286c52f7882d518cd8d94f7a3a267993edde1af782d9de39f25aae0c795ead1"
+    },
+    {
+      "bytes": 2661,
+      "path": "data/intelligence/sector/sector-item-topics.parquet",
+      "sha256": "c1c63a9ffe0f275611474fc438a91bbd70c209faebf1d863fdbf3e476f659ea3"
+    },
+    {
+      "bytes": 16314,
+      "path": "data/intelligence/sector/sector-items.parquet",
+      "sha256": "8f8d02c57d9f4591ba38b2ad7f3ff408e0b5a89bba5f431d4044b115dcc261f8"
+    },
+    {
+      "bytes": 234,
+      "path": "data/intelligence/sector/sector-project-bindings.parquet",
+      "sha256": "b268d0b5656a02a379633692b8c7950a1b53cb0031884f67c757cf8679e16e23"
+    },
+    {
+      "bytes": 624542,
+      "path": "data/projects/202608261927-project-partition-v9-1-01.json",
+      "sha256": "6e72d36a8f880bfc39274221edf58d1b895202f01f2e56aae001ad25cb3b337d"
+    },
+    {
+      "bytes": 629501,
+      "path": "data/projects/202608261927-project-partition-v9-1-02.json",
+      "sha256": "a2ba3598af8ff45726587b3a498c0f6a433ae007ec9eadbd5bfc682b7dca4b2e"
+    },
+    {
+      "bytes": 628898,
+      "path": "data/projects/202608261927-project-partition-v9-1-03.json",
+      "sha256": "6f012e9251433e0d32095b2df75ae1c988a813a14647debe16c057dee550d23b"
+    },
+    {
+      "bytes": 625997,
+      "path": "data/projects/202608261927-project-partition-v9-1-04.json",
+      "sha256": "1cdc7405098c85a477dd156930c4503ef7850ff005d1ec85a69928f10db6b7f5"
+    },
+    {
+      "bytes": 631815,
+      "path": "data/projects/202608261927-project-partition-v9-1-05.json",
+      "sha256": "43988789140bf2211263ffe49b756bc8f7f4cd69531b2e91c56b2e7c2a90bcae"
+    },
+    {
+      "bytes": 630303,
+      "path": "data/projects/202608261927-project-partition-v9-1-06.json",
+      "sha256": "e2c4d0c29e622270260e8fa71c1efae260e84fd3c9ebfa31b7dbf7bfe3da2d69"
+    },
+    {
+      "bytes": 628660,
+      "path": "data/projects/202608261927-project-partition-v9-1-07.json",
+      "sha256": "8f2b2d2d74a031f459b94e626e288c11c148629e955f97ef688a27eb1a5e2c59"
+    },
+    {
+      "bytes": 631189,
+      "path": "data/projects/202608261927-project-partition-v9-1-08.json",
+      "sha256": "f3c0dff755bc657c41b3e04305403bbcfbf94be5d893e85309faf9dd7cb1fa92"
+    },
+    {
+      "bytes": 630867,
+      "path": "data/projects/202608261927-project-partition-v9-1-09.json",
+      "sha256": "a9427f109b7ad5ee881628fcbde3602daab62896e8517922ff68d2efe6a23b15"
+    },
+    {
+      "bytes": 628464,
+      "path": "data/projects/202608261927-project-partition-v9-1-10.json",
+      "sha256": "57145897a6a457f3bfb58f431d7bfa6a75dd63bfd2708eb56c3802391847c6b3"
+    },
+    {
+      "bytes": 620261,
+      "path": "data/projects/202608261927-project-partition-v9-1-11.json",
+      "sha256": "e79c4eb42d1d366f01f8f2a941d92ff231b8ea14c2e40a2677a89601926938d1"
+    },
+    {
+      "bytes": 615891,
+      "path": "data/projects/202608261927-project-partition-v9-1-12.json",
+      "sha256": "ad077a3172f6813f2a641e2f51ab693bf038cae03b5cbbdaa4167973ce7a7388"
+    },
+    {
+      "bytes": 620861,
+      "path": "data/projects/202608261927-project-partition-v9-1-13.json",
+      "sha256": "4545362b1355e256dc3025019f971ffa208cc8828059152a26b99ac66fb47817"
+    },
+    {
+      "bytes": 619833,
+      "path": "data/projects/202608261927-project-partition-v9-1-14.json",
+      "sha256": "9cf8da7fcbf3c1d08830c613c69d0447c490d6126be3ebe8c2d9021a4ddcd004"
+    },
+    {
+      "bytes": 616440,
+      "path": "data/projects/202608261927-project-partition-v9-1-15.json",
+      "sha256": "109f20651ce1234d8933bb5efab78cbf45081ae7b4966e63ec0fca560a76cf03"
+    },
+    {
+      "bytes": 221745,
+      "path": "data/projects/202608261927-project-partition-v9-1-16.json",
+      "sha256": "ed4c672a6cb684a5fd29e17e436d4ee632de358de5e0a2cee9801c7ffa5ecc4b"
+    },
+    {
+      "bytes": 27450,
+      "path": "index.html",
+      "sha256": "ea7c6835565680ac2ea990cf6763652ca442b5814e272b11b06957d5c3c6d75c"
+    },
+    {
+      "bytes": 25073,
+      "path": "provenance/202608282200-v8-fast-site-manifest.json",
+      "sha256": "025daf70f1c4b9c9a7c84a70d41ceb50e96232771f736faa309ca92c2c9c134d"
+    }
+  ],
+  "generation": "202609040144",
+  "promotion_wrapper": {
+    "copied_file_count": 60,
+    "copied_files_sha256": "44faf54a24ec06b9b9a37060c3c85918cb684c8d3ddc04e920c24564425d7732",
+    "receiver_contract_sha256": "1603778f752df7c25fd75345495621c9485dca20bd03ce1dd0d5349e45314d2d",
+    "schema": "pipelinenews.pages-promotion-wrapper.v1",
+    "source_commit": "20514b74172eef5748df6adf2b21bde942ce82ed",
+    "source_release_id": "202609040044-pipelinenews",
+    "source_release_manifest": {
+      "bytes": 2001,
+      "path": "releases/202609040044-pipelinenews/release-manifest.json",
+      "sha256": "2c33005f1ce9222bcb6521b7a5a326ccc3f1b727b145fd20491315a9ec7bea32"
+    },
+    "validator_commit": "0e8f114c223c34d7ebb165ed345af810d8c27cd1"
+  },
+  "receiver": {
+    "base_url": "https://ventusltd.github.io/gridatlas/atlas/",
+    "commit": "ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9",
+    "composition_manifest": {
+      "bytes": 47199,
+      "path": "atlas/manifests/202609040134-composition.json",
+      "sha256": "3ef9c39be8f30f865d0cd2b81dad8b7190a8352811770ef60720630933e3d986"
+    },
+    "engine_cartridge": {
+      "bytes": 293168,
+      "generation": "202609040134",
+      "path": "atlas/cartridges/202609040134-substation-intelligence-v9-63.js",
+      "sha256": "0fecdcf51e0c4e764df8bd5cbfe287e98b16fbc05e4b23ffc5f71ac706062821",
+      "version": "v9.104"
+    },
+    "generation": "202609040134",
+    "identity_reconciliation": "VERIFY_CONCURRENTLY_AND_REMEASURE_AT_RESOLVED_POINT",
+    "measurement_cartridge": {
+      "bytes": 362128,
+      "generation": "202609040134",
+      "path": "atlas/cartridges/202609040134-sld-sandbox-v9-8.js",
+      "sha256": "ac7c7a402f708ac0234625b644c593f605cce06a3437c43f5a191971f2008ff7",
+      "version": "v9.104"
+    },
+    "production_proof": {
+      "bytes": 217567,
+      "path": "tools/proofs/202609040134-sld-sandbox.proof.mjs",
+      "sha256": "adbab958399cd365fcad84c59a6c4ff0c24ca8c74d8f5100bf05541ee547f130"
+    },
+    "repository": "Ventusltd/gridatlas",
+    "required_result": "MEASURE_LINK_FIRST",
+    "schema": "pipelinenews.gridatlas-production-receiver.v1",
+    "version": "v9.104"
+  },
+  "release_id": "202609040144-pipelinenews",
+  "schema": "pipelinenews.current-atlas-link-build-manifest.v2",
+  "source_commit": "20514b74172eef5748df6adf2b21bde942ce82ed",
+  "source_release_id": "202609040044-pipelinenews",
+  "validator_commit": "0e8f114c223c34d7ebb165ed345af810d8c27cd1"
+}

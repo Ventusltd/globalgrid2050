@@ -35,6 +35,9 @@ CHANGED_FROM_PARENT=(
   # 202609061329 - the smoke asserts the columns at phone width and fires the
   # engine on MAP hrefs taken from the table itself, not typed in.
   tests/browser_smoke_v9_7.mjs
+  # 202609061329 - the reachability gate carried the same five-hidden check;
+  # reversed to eleven shown. Its other twenty-two checks are what guard MAP.
+  tests/browser_map_reachability_v9_7.mjs
 )
 is_changed() {
   local needle="$1"

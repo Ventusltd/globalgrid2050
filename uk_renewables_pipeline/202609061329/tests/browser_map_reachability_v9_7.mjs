@@ -174,8 +174,16 @@ try {
     `scrollWidth=${map.documentScrollWidth}px, clientWidth=${map.viewportWidth}px`,
   );
   record(
-    "the five desktop-only columns are hidden on the phone",
-    map.visibleHeaderCount === 6,
+/* 202609061329 REVERSES THIS CHECK. It read: the five desktop-only columns are
+   hidden on the phone. The architect asked for REPD REF, GLOBALGRID REF and
+   REPD UPDATED back, and pipelinenews_intelligence/202608312339 shows thirteen
+   columns at this width - so all eleven are shown. The twenty-two checks around
+   this one are the ones that guard the defect the old contract was for: MAP's
+   edges inside the viewport, a hit test that lands on it, a 44 px target, no
+   horizontal page scroll, and MAP on screen at every scroll position - and they
+   all pass with eleven columns because the ACTIONS column is position:sticky. */
+    "all eleven columns are shown on the phone, none hidden",
+    map.visibleHeaderCount === 11,
     `${map.visibleHeaderCount} of 11 columns displayed`,
   );
   record(

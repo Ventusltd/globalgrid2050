@@ -1601,3 +1601,8 @@ Pre-edit snapshot of 02e7aac373f4390d4735b894368be6bcfa5fec3b; restore3401196632
 ## homepage_v078
 
 Pre-edit snapshot of a1fdc757efc3e51d33bed94b81f01ce32fed1495; restore34012244049 passed. Measurements: homepage_v078-measurement.json. Add Atlas0441 smallpolygon windingprecision, preserving everypreviouslink. Source7dc02d1b5ec3214d440cef29781127a7f6c65cac, exactCI34012189298passed120browserchecks. Historical435immutable; PDFmodule/layoutunchanged.
+
+
+## homepage_v079
+
+Pre-edit snapshot of 8486a34b24c60890505c35535a1530bb6585108c; restore34012672757 passed. Measurements: homepage_v079-measurement.json. Add recoverable toolhost0447, preserving everypreviouslink. Source54ab70a4aebb33d45db5912d8baa0c8b3c8c70e6, exactCI34012615665 passed hostprovenance,20recovery,16boundary,10Print and120polygonchecks. Allfourcartridges/eighthistoricalhostdependencies/originaliframeowners retained. Recoverylimitedtotestedsame-origin503fixture.

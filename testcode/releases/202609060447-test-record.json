@@ -1,0 +1,22 @@
+{
+  "generation": "202609060447",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "54ab70a4aebb33d45db5912d8baa0c8b3c8c70e6",
+  "parentGeneration": "202609060441",
+  "hostGeneration": "202609052015",
+  "applicationGeneration": "202609051906",
+  "ci": {
+    "run": 34012615665,
+    "conclusion": "success",
+    "recoveryChecks": 20,
+    "boundaryChecks": 16,
+    "printChecks": 10,
+    "polygonChecks": 120
+  },
+  "scope": "Host-only composition: retain four executable Atlas cartridges and original iframe owner pins. Eight historical host modules verified. Tested503 failure, cancel/confirm retry, editing persistence,Escape andfocus.",
+  "limitations": [
+    "Recovery claim is limited to the tested same-origin503 fixture; othernetworkfailures are not established.",
+    "No new Atlas owner composition or pointer promotion."
+  ],
+  "publicationStatus": "32served candidate/home/record files plus eight historical dependencies and live20recovery/120polygon checks recorded afterdeployment."
+}

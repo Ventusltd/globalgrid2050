@@ -1,0 +1,18 @@
+{
+  "generation": "202609060327",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "273bf364e7110597c6be1b3def36ee7e55aff6c7",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "7a51609ae5f50623ded7888df06e5b49e7ca7267",
+  "ci": {
+    "run": 34009057079,
+    "conclusion": "success",
+    "browserChecks": 70
+  },
+  "scope": "Polygon/circle controls, labels, reset, persisted geometry, GeoJSON round-trip and Undo/Redo; locked vertices and map-panning checks in327. Pinned owner reconstruction and dependency hashes passed.",
+  "limitations": [
+    "Browser phone emulation is not physical-device validation."
+  ],
+  "browserEvidence": "recovery-20260906/history-lock-ci",
+  "publicationStatus": "Exact served bytes and live browser evidence recorded separately after deployment."
+}

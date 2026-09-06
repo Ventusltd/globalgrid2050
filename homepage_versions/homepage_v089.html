@@ -160,26 +160,6 @@
     color: #7fa8bd;
   }
 
-  details.area { border-bottom:1px solid #333; margin:0; }
-  details.area > summary { list-style:none; cursor:pointer; padding:14px 0; color:#00ffff;
-    font-weight:bold; font-size:22px; display:flex; align-items:baseline; gap:14px;
-    flex-wrap:wrap; }
-  details.area > summary .stamp { color:#53ff4c; font-size:17px; font-weight:bold; }
-  details.area > summary::-webkit-details-marker { display:none; }
-  details.area > summary::before { content:"[+] "; color:#00ffff; }
-  details.area[open] > summary::before { content:"[2] "; }
-  details.area > summary:hover { color:#66ffff; }
-  ul.drawer li.now { border-top:0; }
-  ul.drawer li.now a { color:#53ff4c; font-weight:bold; }
-  ul.drawer { list-style:none; margin:0 0 16px; padding:0; max-height:240px; overflow-y:auto;
-    -webkit-overflow-scrolling:touch; }
-  ul.drawer li { padding:9px 0 9px 22px; border-top:1px solid #1c1c1c; font-size:17px; }
-  ul.drawer a { color:#7fa8bd; }
-
-  .archive-note { margin:44px 0 0; font-size:14px; }
-  .archive-note a { color:#5a5a5a; }
-  .archive-note a:hover { color:#8a8a8a; }
-
   @media (max-width: 600px) {
     body {
       padding: 25px;
@@ -214,55 +194,38 @@
 <input type="text" id="gridSearch" placeholder="Search everything..." autocomplete="off" aria-label="Search GlobalGrid2050">
 <div id="menu"></div>
 
-<details class="area">
-  <summary>Grid Atlas <span class="stamp">202609060259</span></summary>
-    <ul class="drawer">
-    <li class="now"><a href="https://ventusltd.github.io/gridatlas/atlas/">202609060259 &mdash; Grid Atlas</a></li>
-    <li><a href="./historical_builds.html">Every earlier generation &mdash; Historical builds</a></li>
-  </ul>
-</details>
+<h2>Building now</h2>
 
-<details class="area">
-  <summary>Pipeline News <span class="stamp">202609061004</span></summary>
-    <ul class="drawer">
-    <li class="now"><a href="./uk_renewables_pipeline/202609061004/">202609061004 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/202609051156/">202609051156 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9.7/">v9.7 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9.6.2/">v9.6.2 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9.6.1/">v9.6.1 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9.6/">v9.6 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9.5.1/">v9.5.1 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9.5/">v9.5 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9.4/">v9.4 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v9/">v9 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v8/">v8 — Pipeline News</a></li>
-    <li><a href="./uk_renewables_pipeline/v7/">v7 — Pipeline News</a></li>
-  </ul>
-</details>
+<p class="statusline"><a href="./status.html">Build status</a> — what is being built right now, written at intervals so the work can be picked up again when a session ends.</p>
+<p class="statusline"><a id="build-plan-restart" href="https://ventusltd.github.io/spiders/codex/build-plan/">Build plan / AI restart</a> &mdash; 50 planned Pipeline News builds and 50 planned GridAtlas builds, with priorities, repository owners and restart guidance.</p>
 
-<details class="area">
-  <summary>Grid Engine <span class="stamp">202609060325</span></summary>
-    <ul class="drawer">
-    <li class="now"><a href="./grid_engine/202609060325-every-home-a-charger/">202609060325 — Every Home A Charger</a></li>
-    <li><a href="./grid_engine/202609060324-compute-against-charging/">202609060324 — Compute Against Charging</a></li>
-    <li><a href="./grid_engine/202609060321-ev-depot/">202609060321 — EV Depot</a></li>
-    <li><a href="./grid_engine/202609060318-solar-farm/">202609060318 — Solar Farm</a></li>
-    <li><a href="./grid_engine/202609060316-data-centre-connection/">202609060316 — Data Centre Connection</a></li>
-    <li><a href="./grid_engine/202609060313-voltage-drop/">202609060313 — Voltage Drop</a></li>
-    <li><a href="./grid_engine/202609060309-power-factor/">202609060309 — Power Factor</a></li>
-    <li><a href="./grid_engine/202609060305-interconnectors/">202609060305 — Interconnector</a></li>
-    <li><a href="./grid_engine/202609060238-site-geometry/">202609060238 — Site Geometry</a></li>
-    <li><a href="./grid_engine/202609060237-corridor-estimate/">202609060237 — Corridor Estimate</a></li>
-    <li><a href="./grid_engine/202609060236-published-fault-level/">202609060236 — Published Fault Level</a></li>
-    <li><a href="./grid_engine/202609060218-substation-growth/">202609060218 — Substation Growth</a></li>
-    <li><a href="./grid_engine/202609060217-solar-bess-export/">202609060217 — Solar and BESS Export</a></li>
-    <li><a href="./grid_engine/202609060213-route-obstacles/">202609060213 — Route Obstacles</a></li>
-    <li><a href="./grid_engine/202609060212-connection-cap/">202609060212 — Connection Cap</a></li>
-    <li><a href="./grid_engine/202609060211-diversity/">202609060211 — Diversity</a></li>
-    <li><a href="./grid_engine/202609060205-firm-capacity/">202609060205 — Firm Capacity</a></li>
-    <li><a href="./grid_engine/202609060148-electrification-workbench/">202609060148 — Electrification</a></li>
-  </ul>
-</details>
+
+
+<div class="build">
+  <a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a>
+  <p class="what">The map. REPD projects, the GB transmission network, substations and measured grid distance. Current generation 202609042123 (v9.116).</p>
+  <p class="prev">Superseded generation 202609041957 (v9.115) and every earlier release are recorded in <a href="./historical_builds.html">Historical builds</a>, with their commits and evidence.</p>
+</div>
+
+<div class="build">
+  <a href="./uk_renewables_pipeline/202609061004/">Pipeline News</a>
+  <p class="what">The UK renewables pipeline, tracked. Newest published release 202609061004, which paints the first rows at once instead of building 323,802 elements in one blocking step &mdash; the freeze on a phone. Same 7,680 records; the counts, search and CSV export still see every one of them.</p>
+  <p class="prev">The estate record labels v9.7 <strong>CANDIDATE</strong> and <a href="./uk_renewables_pipeline/v9.6.2/">v9.6.2</a> <strong>LIVE VALIDATED</strong>; v9.7 is the link that was circulated. Latest intelligence release: <a href="./pipelinenews_intelligence/202609050309/">202609050309</a>.</p>
+</div>
+
+<div class="build">
+  <a href="https://ventusltd.github.io/ventus-grid-engine/">Grid Engine</a>
+  <p class="what">Every piece of grid mathematics in the estate, drawn as one graph: which engine owns a calculation, which copies of it exist elsewhere, and which of those have drifted. The deep-link contract the dashboards are meant to share is in here too.</p>
+  <p class="prev">Open it: <a href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">the engine graph</a> · <a href="https://ventusltd.github.io/ventus-grid-engine/?graph=gridatlas-lineage">Grid Atlas cartridge lineage</a></p>
+  <p class="prev">Working paper: <a href="./papers/202609060045-published-fault-level/">Published, dated, never calculated — fault levels on an open grid map</a>. What a fault level is and why one number is not one, what each GB network publishes, and the contract under which the map may show any of it. Implemented and proven in the engine.</p>
+  <p class="prev">Workbench: <a href="./grid_engine/">Electrification Workbench</a> — the arithmetic of the electrification paper, live and interactive. Annual energy to average power, peak at a load factor you state, nameplate at a capacity factor, and displaced fuel converted through useful output. Every figure is computed by the engine module itself, not by the page, and carries the assumption it rests on.</p>
+</div>
+
+<div class="build">
+  <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html">Federation Map</a>
+  <p class="what">Every repository in the estate and what depends on what, drawn as one dependency map.</p>
+  <p class="prev">Print view: <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/federation_radial_uniform.html">radial</a></p>
+</div>
 
 <section id="test-code">
 <h2>Test Code</h2>
@@ -478,7 +441,78 @@
 <p class="what">iPhone testing pending on both. Android coverage is Chrome device emulation on Windows, which is not a phone.</p>
 </section>
 
-<p class="archive-note"><a href="./historical_builds.html">Archive</a></p>
+<section class="archive">
+  <h2>Historical builds</h2>
+  <p>Everything published before these: every earlier Grid Atlas generation with its commit and evidence, every Pipeline News version and intelligence release, the solar and BESS topology sandboxes, the cable and component references, the planning and requirements documents. Nothing has been removed — it has been moved off the front page.</p>
+  <a class="link-row" href="./historical_builds.html">Open historical builds</a>
+  <p class="what">Or type in the search box above to reach any page in the estate directly.</p>
+  <details class="versions">
+    <summary>Published pipeline versions (15)</summary>
+    <ul>
+      <li><a href="./uk_renewables_pipeline/dashboard.html">UK Renewables Pipeline Analytics Dashboard V1</a> <span class="vnote">legacy · unchanged</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v2_2026-08-22.html">UK Renewables Pipeline Analytics Dashboard V2</a> <span class="vnote">previous version · 22 Aug 2026</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html">UK Renewables Pipeline Analytics Dashboard V3</a> <span class="vnote">previous live · 22 Aug 2026</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v4_live.html">UK Renewables Pipeline Analytics Dashboard V4</a> <span class="vnote">previous live · REPD + auto major-news feed · solar ≥30MW · BESS ≥100MW</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v5_live.html">UK Solar + Storage Daily V5</a> <span class="vnote">previous live · daily newspaper · solar >49MWp · BESS >100MW</span></li>
+      <li><a href="./uk_renewables_pipeline/dashboard_v6_live.html">UK Solar + Storage Daily V6</a> <span class="vnote">DESNZ Q2 2026 validated snapshot · solar >1MW · BESS >100MW · canonical GlobalGrid/REPD IDs</span></li>
+      <li><a href="./uk_renewables_pipeline/v7/">UK Solar + Storage Daily V7</a> <span class="vnote">LIVE MVP · wholesale V5 baseline · V6 refinements pending</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.7/">UK Renewables Pipeline V9.7</a> <span class="vnote">CANDIDATE · build-time regional classifier · published 133-item decision ledger · V9.6.2 project/mobile runtime frozen</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6.2/">UK Renewables Pipeline V9.6.2</a> <span class="vnote">LIVE VALIDATED · canonical UK news plus separate international, US and Europe solar/storage views</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6.1/">UK Renewables Pipeline V9.6.1</a> <span class="vnote">FROZEN PREVIOUS APP · V9.5.1 runtime · mobile table scroll repair only</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.6/">UK Renewables Pipeline V9.6</a> <span class="vnote">DISCONTINUED · broken mobile release · do not use</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.5.1/">UK Renewables Pipeline V9.5.1</a> <span class="vnote">LIVE · full 133-headline newspaper · 45 canonical REPD matches · functional RELEVANT filter</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.5/">UK Renewables Pipeline V9.5</a> <span class="vnote">LIVE · canonical REPD Ref news binder · measured recall guards · separate app</span></li>
+      <li><a href="./uk_renewables_pipeline/v9.4/">UK Renewables Pipeline V9.4</a> <span class="vnote">LIVE · click REPD UPDATED header to toggle newest/oldest · separate app</span></li>
+      <li><a href="./uk_renewables_pipeline/v9/">UK Renewables Pipeline V9.3.1</a> <span class="vnote">V9.3.1 LIVE · frozen app · official REPD/GlobalGrid references · REPD update-date sorting · 7,680 records</span></li>
+    </ul>
+  </details>
+  <details class="versions">
+    <summary>Pipeline News intelligence releases (34)</summary>
+    <ul>
+      <li><a href="./pipelinenews_intelligence/202609050309/">Pipeline News — 202609050309</a></li>
+      <li><a href="./pipelinenews_intelligence/202609050233/">Pipeline News — 202609050233</a></li>
+      <li><a href="./pipelinenews_intelligence/202609050216/">Pipeline News — 202609050216</a></li>
+      <li><a href="./pipelinenews_intelligence/202609050200/">Pipeline News — 202609050200</a></li>
+      <li><a href="./pipelinenews_intelligence/202609040144/">Pipeline News — 202609040144</a> <span class="vnote">NEW · every project row now uses one strict MAP handoff to the exact Grid Atlas v9.104 production receiver at commit ab80d45be05eb08b334af8bc93cfeb30d3b9d3d9 · the immutable wrapper promotes source release 202609040044 byte-for-byte: 8,756 source rows, 8,743 clickable MAP rows and 13 explicitly unresolved, with no synthetic receiver or intercepted route · exact-head Pipeline Pages run 33827954787 passed on main 3493be1c4ebf3dabbc94135db17f433bb7892a8e, including public bytes, pointers and both browser proofs · on throttled 393×852 public Chrome, the Biomass route for REPD 155 exposed one 44×44 MAP action with no horizontal overflow and opened the exact Markinch deep link; its first coordinate answer arrived in 484.6 ms, five ≥33 kV links were drawn, the nearest was 2.49 km, and the nearest 400 kV substation was 28.82 km</span></li>
+      <li><a href="./pipelinenews_intelligence/202609032329/">Pipeline News — 202609032329</a> <span class="vnote">superseded by 202609040144 · a dash stops claiming a search that never ran · a project with no grid figure carried one hover sentence, “No mapped feature found for this project”, which asserts a search that ran and came back empty · counted on the release’s own shipped files: 7,680 records, 3,047 carrying a measurement, 4,633 dashed, and the payload’s own coverage block reads with_circuit 3,047 and no_circuit 0 — so not one project was measured and found nothing, and that sentence described 0 of the 4,633 rows it was printed on · the two silences are now separate: 4,605 rows hold a register coordinate and were never searched, 28 have no usable coordinate and cannot be · it does not explain WHY the 4,605 were not measured, which is a second idea and will be a second version · no name is invented anywhere: 1,154 of 4,737 mapped substations carry no name at all, 34 of them at 400 kV, and an empty field described as empty is the only honest third option beside hiding a gap and inventing over it</span></li>
+      <li><a href="./pipelinenews_intelligence/202609032251/">Pipeline News — 202609032251</a> <span class="vnote">superseded by 202609032329 · grid proximity is computed for the whole fleet, not just solar and battery · the file carried 3,047 rows in two technologies and now carries 4,138 in eleven: solar 1,747, battery 1,300, biomass 814, hydro 150, hydrogen 59, ACT 37, tidal 18, geothermal 7, CAES 4, flywheel 1 · nothing had ever put the wider fleet in front of the engine, and the engine never filtered by technology — it reads every row with usable coordinates and passes the technology through · no second implementation: the added rows are reshaped into the spine’s own 40-column contract and measured by the existing engine, point to segment, all five mapped voltages, so a distance here equals the same distance in the Atlas · all 3,047 previously published rows are byte-identical, proved by re-running the original spine through today’s engine first · 18 of the 1,091 added rows sit more than 30 km from any mapped circuit — Orkney, Shetland, Highland, Fermanagh and offshore, where the mapped GB layers do not reach — and that is a distance to the nearest mapped circuit, never a connection distance · town, region and country are left empty on the added rows rather than guessed</span></li>
+      <li><a href="./pipelinenews_intelligence/202609032159/">Pipeline News — 202609032159</a> <span class="vnote">superseded by 202609032251 · one summary now drives every surface it is supposed to · switching to a wider-fleet technology used to move the three gauge numbers and nothing else, so the record counter, the three gauge arcs and EXPORT FILTERED CSV all kept the previous technology’s answer and nothing said so · measured on LANDFILL GAS: the counter read 7,680 of 7,680 records and largest 4,100 MW while the gauge beside it read 22.5 · the export was the one that left the building, writing the spine’s 3,563 solar rows under a flywheel heading and stating that count with confidence · all five surfaces move together now, and a cut that cannot honestly fill the product’s fifty columns declines in words, names the ten it could have filled and the forty it could not, and writes no file · verified on three browsers, own ports, own profiles, desktop and a 393×852 phone</span></li>
+      <li><a href="./pipelinenews_intelligence/202609031308/">Pipeline News — 202609031308</a> <span class="vnote">superseded by 202609032159 · the twenty REPD technology types the spine does not carry are one labelled control in the technology row now, not twenty more tabs · the row held twenty-five controls, and the twenty are extremely long-tailed — Landfill Gas 275, Anaerobic Digestion 253, Biomass (dedicated) 159, EfW Incineration 122, Small Hydro 108, Hydrogen 60, and then a tail in which nine of the twenty hold five projects or fewer and one holds a single project · measured on a 390 px viewport, the technology row was 25 controls over 11 wrapped lines and 584 px tall, which pushed the product's own SOLAR, BATTERY, ONSHORE and OFFSHORE several lines down the page; it is 6 controls over 3 lines and 152 px now, with no horizontal overflow, and the control is 44 px high at every width rather than only under the phone breakpoint · every option carries its own project count, read from the payload, so the tail is visibly a tail instead of twenty equal-looking choices · Unknown is shown like any other type rather than hidden, because a bucket nobody can see is one that grows in silence the day REPD adds a type the mapper does not know · the twenty also gain the deep link they never had: the spine's technology whitelist has five members and silently coerced everything else to ALL TECH, so ?technology=Flywheels opened the product and said nothing about why · all twenty now open from the address bar under the REPD's own names, case-insensitively, and a link to one of the spine's four is never intercepted · same payload, same filter, same MAP link and the same REPD reference carried through, so MAP still arrives resolved with the camera on the project rather than the default UK view · 13 rows still carry no REPD reference and are left unbound rather than guessed</span></li>
+      <li><a href="./pipelinenews_intelligence/202609030009/">Pipeline News — 202609030009</a> <span class="vnote">the twenty REPD technologies the spine does not carry are now tabs in the product's own technology row, not a panel of their own · the DESNZ Renewable Energy Planning Database carries 24 technology types and the spine admits four — Solar Photovoltaics, Battery, Wind Onshore, Wind Offshore — so the other twenty sit beside them under the REPD's own names · additive by construction: the spine binds its technology handler once at boot, so tabs appended afterwards carry no spine listener and the spine's technology value is never set to something its whitelist would reject; the four original tabs keep their own handler, payload and render path · a MAP link from a wider-fleet row now arrives resolved, with the camera on the project rather than the default view · 13 rows still carry no REPD reference — 11 absent from the source, 2 genuinely ambiguous — and are left unbound rather than guessed, because a wrong reference would point the Atlas at a different project and make every number on the card about the wrong site · superseded by 202609031308, which collapses the twenty tabs into one labelled control and gives all twenty the deep link they never had</span></li>
+      <li><a href="./pipelinenews_intelligence/202609022308/">Pipeline News — 202609022308</a> <span class="vnote">wider fleet tabs in the technology row · superseded by 202609030009, which resolves the MAP arrival</span></li>
+      <li><a href="./pipelinenews_intelligence/202609021945/">Pipeline News — 202609021945</a> <span class="vnote">wider fleet · superseded by 202609022308, which puts the tabs in the product's own technology row</span></li>
+      <li><a href="./pipelinenews_intelligence/202609020611/">Pipeline News — 202609020611</a> <span class="vnote">NEW · a kilometre is not a connection, and the panel now points at the measurement that is · two sites a few kilometres apart can share no published circuit, and the two ends of ONE published circuit can be over 200 km of route apart - the longest, PEMB41-WALH41, is 223.195 km, and 17 of 1,392 circuits exceed 100 km · the panel still reports straight-line kilometres, which is what it measures; MAP now reports the count of published circuits, which is what decides whether two sites are connected at all · lengths read from circuits[].ohl_km + cable_km</span></li>
+      <li><a href="./pipelinenews_intelligence/202609020552/">Pipeline News — 202609020552</a> <span class="vnote">a rating quoted without its season flatters the network, and the Atlas never sums them · Pipeline News quotes no MVA rating anywhere, verified by searching every html, mjs and css in the parent release; what the strip now does is say what the ratings in the Atlas mean · NESO publishes a winter rating for all 1,392 circuits and a summer rating for 1,276, summer differs from winter on 1,081 of those, and winter is the more generous figure on 1,273 · one strip caption, no payload, no render-time network call · superseded by 202609020611, which says a kilometre is not a connection</span></li>
+      <li><a href="./pipelinenews_intelligence/202609020025/">Pipeline News — 202609020025</a> <span class="vnote">the GRID + SUB strip states the limit of the word nearest · NESO names 886 transmission substations at 132 kV and above; the Atlas locates 502 of them, and the owner product publishes the other 384 without coordinates rather than dropping them, saying so in its own join block · so the nearest MAPPED substation may not be the nearest substation, and a reader comparing two projects on that number is comparing coverage as much as geography · counts read from derived/connection-points.v3.json · superseded by 202609020552, which says a rating without its season is ambiguous</span></li>
+      <li><a href="./pipelinenews_intelligence/202609012326/">Pipeline News — 202609012326</a> <span class="vnote">the GRID + SUB strip names what the published transmission network can now answer · every refusal is kept verbatim - a distance is not a route, a rating is not headroom, and the DC model is not a loading, because what is already flowing is published nowhere · what is added is only what is answerable from a published source: NESO ETYS 2025 Appendix B, via Ventusltd/data-grid-gb · superseded by 202609020025, which states the limit of the word nearest</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312339/">Pipeline News — 202608312339</a> <span class="vnote">two panels that answered nothing are withdrawn and GB electricity context arrives · RELATIONSHIP EVIDENCE showed three rows all saying ABSTAIN, and PROJECT INTELLIGENCE mixed four taxonomies into one count of 3,054; both assets stay registered and auditable, marked withdrawn, and the page now names only surfaces that exist · a GB ELECTRICITY CONTEXT surface reads the decade of system prices from the data repository that owns them, pinned by SHA-256 into this release: 2016-2026, 3,339 complete days, mean 78.18 GBP/MWh, 580 days containing at least one negative settlement period, lowest -185.33 on a July day · historic context, not a forecast, no project join · built by the Codex session, verified and published by Claude · superseded by 202609012326, which names what the published transmission network can answer</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312244/">Pipeline News — 202608312244</a> <span class="vnote">the two panels that answered nothing are withdrawn · RELATIONSHIP EVIDENCE showed three rows all saying ABSTAIN, and PROJECT INTELLIGENCE mixed four taxonomies into one count of 3,054; both assets stay registered and auditable, marked withdrawn, and the page names only surfaces that exist · published on 202609020042 to close a hole in the public record: it is the parent of 202608312339 and was the one step in this lineage that was built but never mirrored · superseded by 202608312339, which adds the GB electricity context</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312212/">Pipeline News — 202608312212</a> <span class="vnote">sector intelligence opens again · it had been failing on every release since 202608312109: the corrected module was registered under a new key, as it must be, but still declared the older payload's generation, so an explicit runtime identity assertion threw and the panel read FAIL · module and payload now attest separately · and the grid table no longer says sorting puts the best-connected first, which was the same verdict the colour bands were removed for, written in prose · found by the Codex session auditing this estate in parallel · superseded by 202608312339, which withdraws the non-answers and adds GB electricity context</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312202/">Pipeline News — 202608312202</a> <span class="vnote">built for the phone first · on a phone in portrait the page was pinned to exactly 100vh, and on iOS 100vh is the viewport with the browser chrome hidden, so it was taller than what you could see whenever the toolbar was showing · the last rows sat under the toolbar and the page scrolled in two places that disagreed · the body now grows like a document, and the newspaper and table panes use dvh, which tracks the toolbar · landscape was already covered; portrait never was · superseded by 202608312212, which reopens sector intelligence</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312145/">Pipeline News — 202608312145</a> <span class="vnote">grid proximity reports a distance and no longer grades it · the table graded every project STRONG, MODERATE, DISTANT or REMOTE on a green-to-red scale, and the GRID column printed that verdict instead of the measurement · a developer may build their own substation, so distance to a mapped asset is not a verdict on a scheme · the bands, the colours, the sort by verdict and the phrase Target acquired are all gone, and the distances, voltages and working are untouched · superseded by 202608312202, which repairs the phone layout</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312114/">Pipeline News — 202608312114</a> <span class="vnote">the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312145, which stops grading grid proximity</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312109/">Pipeline News — 202608312109</a> <span class="vnote">the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312114, which removes the headlines with no project signal</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312056/">Pipeline News — 202608312056</a> <span class="vnote">the newspaper now shows only headlines the register binds to a project · 89 of 136 stories carried no project signal and were being shown anyway, each captioned with a project it was not about — a New Jersey storage consultation appeared as an update on Wilton International, and a care-home award under The Grange solar farm · 47 bound headlines remain, and the withheld count is stated on the page · superseded by 202608312109, which removes the headlines with no project signal</span></li>
+      <li><a href="./pipelinenews_intelligence/202608312037/">Pipeline News — 202608312037</a> <span class="vnote">the MAP button now opens the Grid Atlas that carries the grid maths · click MAP on a project and the Atlas opens with the substations switched on, the links drawn to the nearest substations at 33 kV and above, and a layout you can open from the card · it pointed at the older atlas until now, which is why none of that appeared · the route is the stable /gridatlas/atlas/ one, so promoting an Atlas release cannot break these links · superseded by 202608312056, which removes the headlines with no project signal</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311858/">Pipeline News — 202608311858</a> <span class="vnote">GRID and SUB now sit in the ACTIONS column beside MAP, where they are visible without scrolling the table sideways · GRID is the straight-line distance to the nearest mapped circuit, SUB is the distance to the nearest substation at 33 kV or above · a scheme of a few tens of MW connects at a substation, and the substation is the closer of the two for 68% of the 30–40 MW band · sort by distance is still in the SORT control · not a cable route, and not headroom: fault level and thermal headroom need DNO network data such as source impedance and are established by a connection study · superseded by 202608312037, which points MAP at the Atlas carrying the grid maths</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311816/">Pipeline News — 202608311816</a> <span class="vnote">PROJECT SIZE range filter above the technology buttons · narrow the register to a band of megawatts, 1 to 5,000 · the slider moves over 49 round values that thicken where the register is dense, because the median project is 12.3 MW and 98% sit under 500 MW — a linear track would put 30–40 MW inside two pixels · type an exact band in the boxes beside it · shareable as mw_min and mw_max · superseded by 202608311858, which moves the grid distance into ACTIONS and adds the 33 kV substation</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311800/">Pipeline News — 202608311800</a> <span class="vnote">GRID column in the project table · straight-line distance from each project to the nearest mapped circuit, sortable nearest-first, marked BETA · the GRID panel's own number, carried across and re-measured at build time against Ventusltd/grid-distance-maths — all 3,047 reproduce · projects with no mapped circuit show a dash, never a number · not a cable route, and not headroom: fault level and thermal headroom need DNO network data such as source impedance and are established by a connection study · superseded by 202608311816, which adds the project size filter</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311731/">Pipeline News — 202608311731</a> <span class="vnote">search the register by town, postcode, county, project, operator or reference from the one bar · TOWN column narrowed and the horizontal scrollbar put back under the table · click-to-sort on CAPACITY, COUNTY, TOWN and POSTCODE · postcode copied from the REPD register, town resolved from it through the ONS Postcode Directory at build time · no network call at runtime · superseded by 202608311800, which adds the GRID distance column</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311645/">Pipeline News — 202608311645</a> <span class="vnote">first release with TOWN and POSTCODE columns · superseded by 202608311731, which narrows the town column, restores the horizontal scrollbar and extends the search bar to the new fields</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311610/">Pipeline News — 202608311610</a> <span class="vnote">GRID beta · radius search, sortable register, targeting scope and indicative connections · 253,897 mapped segments at 400/275/220/132/66/33 kV plus estimated UKPN 11 kV · transmission and distribution answered separately · same haversine and Earth radius as the Atlas and the GIS SLD sandbox</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311558/">Pipeline News — 202608311558</a> <span class="vnote">targeting scope and grid-probable band · transmission voltages only</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311530/">Pipeline News — 202608311530</a> <span class="vnote">first grid-proximity release · superseded by 202608311558, which corrects three nearest-search defects</span></li>
+      <li><a href="./pipelinenews_intelligence/202608311343/">Pipeline News — 202608311343</a> <span class="vnote">open the panel for the window between consent and construction, grid and data-centre proximity · 3,054 live solar and battery projects · DESNZ REPD Q2 2026 under OGL v3.0 · Atlas V8 deep links</span></li>
+    </ul>
+  </details>
+
+
+<section id="about-media" aria-labelledby="about-media-title">
+<h2 id="about-media-title">About &amp; Media</h2>
+<p class="link-row"><a href="./papers/202609060203-electrification/">Electrification and the Size of Britain&#8217;s Electricity System</a></p>
+<p class="statusline">Ventus technical discussion paper &middot; 6 September 2026 &middot; Electricity demand, winter peaks and network reinforcement.</p>
+<p class="link-row"><a href="./podcast_transcripts/">Podcast Transcripts</a></p>
+</section>
 
 <div id="science-graphics">
 <section id="terminal-pipes" aria-label="Decorative terminal cable sketch" style="margin:12px 0"><pre aria-hidden="true" style="font:12px/1.1 Consolas,monospace;color:#aeb3b8;max-width:100%;overflow:hidden;height:54px"></pre><button type="button" style="font:12px Consolas,monospace;color:#ccc;background:#222;border:1px solid #777">Pause sketch</button> <small style="font-size:11px">Decorative cable traces | <a href="https://github.com/pipeseroni/pipes.sh">pipes.sh</a> / <a href="./cartridges/202609052158-terminal-pipes/LICENSE.pipes.txt">MIT</a></small></section><script type="module" src="./cartridges/202609052158-terminal-pipes/pipes.mjs"></script>

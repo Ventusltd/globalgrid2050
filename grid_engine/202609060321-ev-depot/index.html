@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EV Depot Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>EV DEPOT WORKBENCH</h1>
+  <p class="sub">A fleet that must be charged by morning, against a connection that cannot take it at once</p>
+  <p class="stamp">Generation 202609060321 · engine diversified-demand.js, connection-capacity.js, firm-capacity.js at 2b0db38</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · THE FLEET, AND WHAT IT MUST TAKE</h2>
+  <div class="body">
+    <p class="lede">A depot is the opposite problem to a data centre. The energy is modest and
+                   completely non-negotiable — every vehicle must be charged by the morning shift —
+                   but the <em>power</em> depends entirely on whether the charging is managed. Left
+                   alone, every charger starts when the last vehicle plugs in.</p>
+    <div class="field">
+      <label for="n">Vehicles</label>
+      <input type="number" id="n" value="60" min="1" max="5000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="kwh">Energy per vehicle per night (kWh)</label>
+      <input type="number" id="kwh" value="180" min="1" max="2000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="charger">Charger rating (kW)</label>
+      <input type="number" id="charger" value="50" min="1" max="1000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="window">Charging window (hours)</label>
+        <span class="rangeval" id="window-val">9</span></div>
+      <input type="range" id="window" min="1" max="24" step="1" value="9">
+    </div>
+    <div class="out" id="out-fleet"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THREE NUMBERS FOR ONE DEPOT</h2>
+  <div class="body">
+    <p class="lede">The energy fixes an average across the window. It does not fix the peak, and the
+                   gap between them is the whole of the connection problem. Unmanaged, the site draws
+                   everything it has plugged in. Managed, it draws what the schedule allows. Nothing
+                   here can tell you which you will get — that is a control decision, not arithmetic.</p>
+    <div class="field">
+      <div class="rangerow"><label for="coin">Coincidence, if unmanaged</label>
+        <span class="rangeval" id="coin-val">0.80</span></div>
+      <input type="range" id="coin" min="0.1" max="1" step="0.01" value="0.80">
+    </div>
+    
+    <div class="scroller"><table id="ev-table"><thead><tr><th>Quantity</th><th style="text-align:right">Value</th><th style="text-align:right">What it sizes</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">A coincidence factor measured on today's chargers does not survive a change in
+                   control. Smart charging, a time-of-use tariff and vehicle-to-grid all move it — and
+                   they can move it in either direction, because a tariff that starts cheap at midnight
+                   synchronises a fleet that used to be spread out.</p>
+  </div>
+</section>
+<section>
+  <h2>3 · AGAINST THE CONNECTION, AND THE BATTERY THAT SAVES IT</h2>
+  <div class="body">
+    <p class="lede">Now the decision. The depot has an agreed capacity. If the unmanaged profile
+                   breaks it, the options are a bigger connection, managed charging, or a battery —
+                   and only the last two are available this year. Power comes from the worst half
+                   hour; the store comes from the area above the cap.</p>
+    <div class="field">
+      <label for="cap">Agreed import capacity (kW)</label>
+      <input type="number" id="cap" value="1200" min="1" max="200000" step="10" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="rte">Round-trip efficiency</label>
+        <span class="rangeval" id="rte-val">0.88</span></div>
+      <input type="range" id="rte" min="0.6" max="0.98" step="0.01" value="0.88">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="dod">Depth of discharge</label>
+        <span class="rangeval" id="dod-val">0.90</span></div>
+      <input type="range" id="dod" min="0.5" max="1" step="0.01" value="0.90">
+    </div>
+    <div class="out" id="out-battery"></div>
+    <div class="scroller"><table id="batt-table"><thead><tr><th>Measure</th><th style="text-align:right">Value</th></tr></thead><tbody></tbody></table></div>
+    
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/diversified-demand.js">diversified-demand.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/connection-capacity.js">connection-capacity.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js">firm-capacity.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 103 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/diversified-demand.js","https://ventusltd.github.io/ventus-grid-engine/engine/connection-capacity.js","https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js"];
+const ENGINE_SCHEMAS = ["ventus-grid-engine.diversified-demand.v1","ventus-grid-engine.connection-capacity.v1","ventus-grid-engine.firm-capacity.v1"];
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+function bind() { ['n','kwh','charger','window','coin','cap','rte','dod'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('window-val').textContent = num('window').toFixed(0);
+  el('coin-val').textContent = num('coin').toFixed(2);
+  el('rte-val').textContent = num('rte').toFixed(2);
+  el('dod-val').textContent = num('dod').toFixed(2);
+
+  const n = Math.round(num('n')), perKwh = num('kwh'), chargerKw = num('charger'), hours = num('window');
+  const nightKwh = n * perKwh;
+  const avgKw = nightKwh / hours;
+  const unrestrictedKw = n * chargerKw;
+
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: n, perUnitKw: chargerKw, coincidenceFactor: num('coin') });
+    el('out-fleet').innerHTML =
+      '<div class="figure"><span class="q">energy that must be delivered</span><span class="n">' +
+      (nightKwh/1000).toFixed(1) + '</span><span class="u">MWh a night · ' + avgKw.toFixed(0) +
+      ' kW average across ' + hours + ' h</span></div>' +
+      '<p class="basis">' + admd.basis + '</p>';
+  } catch (err) { refuse('out-fleet', err.message); }
+
+  const et = document.querySelector('#ev-table tbody');
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: n, perUnitKw: chargerKw, coincidenceFactor: num('coin') });
+    // Can the window even deliver the energy at the diversified power?
+    const deliverable = admd.value * hours;
+    et.innerHTML = [
+      ['Energy per night', (nightKwh/1000).toFixed(2) + ' MWh', 'nothing - it is a requirement'],
+      ['Average across the window', avgKw.toFixed(0) + ' kW', 'an average, never a peak'],
+      ['Unmanaged simultaneous draw', (unrestrictedKw/1000).toFixed(2) + ' MW', 'the worst case'],
+      ['After diversity at ' + num('coin').toFixed(2), (admd.value/1000).toFixed(2) + ' MW', 'THIS sizes the connection'],
+      ['Deliverable in the window at that power', (deliverable/1000).toFixed(2) + ' MWh',
+        deliverable >= nightKwh ? 'enough' : 'NOT ENOUGH - fleet uncharged'],
+      ['Minimum power to finish in time', (avgKw/1000).toFixed(2) + ' MW', 'if charging were perfectly flat']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/THIS/.test(r[2]) ? '#00ff88' : /NOT ENOUGH/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { et.innerHTML = '<tr><td colspan="3" style="color:#ffae00">' + err.message + '</td></tr>'; }
+
+  const bt = document.querySelector('#batt-table tbody');
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: n, perUnitKw: chargerKw, coincidenceFactor: num('coin') });
+    // A flat charging block at the diversified power, in half-hour intervals,
+    // for as long as it takes to deliver the night's energy.
+    const stepKw = admd.value;
+    const stepsNeeded = Math.max(1, Math.ceil(nightKwh / (stepKw * 0.5)));
+    const profileKw = new Array(stepsNeeded).fill(stepKw);
+    const capKw = num('cap');
+    const ex = E.exceedance({ profileKw, capKw, intervalHours: 0.5 });
+    if (ex.withinCap) {
+      el('out-battery').innerHTML =
+        '<div class="figure"><span class="q">against the connection</span><span class="n">WITHIN CAP</span></div>' +
+        '<p class="basis">' + ex.basis + '</p>';
+      bt.innerHTML = '<tr><td>Peak draw</td><td class="n">' + (ex.peakKw/1000).toFixed(2) + ' MW</td></tr>' +
+        '<tr><td>Agreed capacity</td><td class="n">' + (capKw/1000).toFixed(2) + ' MW</td></tr>';
+      return;
+    }
+    const b = E.batteryForPeakShaving({ profileKw, capKw, intervalHours: 0.5,
+      roundTripEfficiency: num('rte'), depthOfDischarge: num('dod') });
+    el('out-battery').innerHTML =
+      '<div class="figure"><span class="q">battery to stay inside the cap</span><span class="n">' +
+      (b.powerKw/1000).toFixed(2) + '</span><span class="u">MW / ' + (b.installedEnergyKwh/1000).toFixed(2) +
+      ' MWh installed</span></div><p class="basis">' + b.basis + '</p>';
+    bt.innerHTML = [
+      ['Peak draw', (ex.peakKw/1000).toFixed(2) + ' MW'],
+      ['Agreed capacity', (capKw/1000).toFixed(2) + ' MW'],
+      ['Over the cap by', (ex.peakExcessKw/1000).toFixed(2) + ' MW'],
+      ['Energy above the cap', (ex.energyAboveCapKwh/1000).toFixed(2) + ' MWh'],
+      ['Battery power', (b.powerKw/1000).toFixed(2) + ' MW'],
+      ['Battery installed energy', (b.installedEnergyKwh/1000).toFixed(2) + ' MWh'],
+      ['Asset duration', b.durationHours.toFixed(2) + ' h'],
+      ['Or: manage charging to', (capKw/1000).toFixed(2) + ' MW and buy nothing']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+  } catch (err) { refuse('out-battery', err.message); bt.innerHTML = ''; }
+}
+
+try {
+  const loaded = [];
+  for (const url of ENGINE_MODULES) loaded.push(await import(url));
+  // Some engine modules predate the schema convention and declare none. A spec
+  // says so by passing null, and the check is skipped rather than faked -- an
+  // asserted schema that does not exist would fail every load for a module that
+  // is perfectly good.
+  loaded.forEach((m, i) => {
+    const expected = ENGINE_SCHEMAS[i];
+    if (expected && m.schema !== expected) {
+      throw new Error('unexpected schema ' + m.schema + ' from ' + ENGINE_MODULES[i]);
+    }
+  });
+  // Merge the modules into one namespace. A name collision would silently
+  // shadow one module's function with another's, so it is refused loudly.
+  E = {};
+  const NOT_COMPUTED = {};
+  // Refusals are not all shaped the same. The newer modules export
+  // NOT_COMPUTED as an object of named reasons; the older ones export a single
+  // string, or name their boundaries individually as NOT_A_CAPACITY,
+  // NO_HEADROOM, NEVER_SUMMED, CAVEAT and so on. Spreading a string into an
+  // object would render one character per letter, so each shape is handled.
+  const REFUSAL_NAME = /^(NOT_|NO_|NEVER_|CAVEAT|IMPEDANCE_)/;
+  for (const m of loaded) {
+    for (const [k, v] of Object.entries(m)) {
+      if (k === 'schema' || k === 'requires') continue;
+      if (k === 'NOT_COMPUTED') {
+        if (typeof v === 'string') NOT_COMPUTED.notComputed = v;
+        else Object.assign(NOT_COMPUTED, v);
+        continue;
+      }
+      if (REFUSAL_NAME.test(k) && typeof v === 'string') {
+        NOT_COMPUTED[k.toLowerCase().replace(/_(.)/g, (_, c) => c.toUpperCase())] = v;
+        continue;
+      }
+      if (k in E) throw new Error('two engine modules both export "' + k + '"');
+      E[k] = v;
+    }
+  }
+  E.NOT_COMPUTED = NOT_COMPUTED;
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' +
+    ENGINE_SCHEMAS.map((sc, i) => sc || ENGINE_MODULES[i].split('/').pop()).join(' + ') +
+    ' · every figure below is computed by the engine module' + (loaded.length > 1 ? 's' : '') + ', not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

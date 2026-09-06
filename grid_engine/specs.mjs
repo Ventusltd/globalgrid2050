@@ -1449,5 +1449,143 @@ function render() {
     ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
   } catch (err) { refuse('out-clip', err.message); tb.innerHTML = ''; }
 }`
+    },
+    {
+        stamp: '202609060321',
+        slug: 'ev-depot',
+        title: 'EV Depot Workbench',
+        sub: 'A fleet that must be charged by morning, against a connection that cannot take it at once',
+        feature: 'A vehicle fleet sized against a depot connection: energy that must be delivered overnight, the unmanaged simultaneous draw, what diversity and a charging window actually change, and the battery that holds the site inside its agreed capacity.',
+        engineModule: ['diversified-demand.js', 'connection-capacity.js', 'firm-capacity.js'],
+        engineCommit: '2b0db38',
+        schema: [
+            'ventus-grid-engine.diversified-demand.v1',
+            'ventus-grid-engine.connection-capacity.v1',
+            'ventus-grid-engine.firm-capacity.v1'
+        ],
+        checks: 103,
+        panels: [
+            {
+                heading: '1 · THE FLEET, AND WHAT IT MUST TAKE',
+                lede: `A depot is the opposite problem to a data centre. The energy is modest and
+                   completely non-negotiable — every vehicle must be charged by the morning shift —
+                   but the <em>power</em> depends entirely on whether the charging is managed. Left
+                   alone, every charger starts when the last vehicle plugs in.`,
+                controls: [
+                    { id: 'n', type: 'number', label: 'Vehicles', value: '60', min: 1, max: 5000, step: 1 },
+                    { id: 'kwh', type: 'number', label: 'Energy per vehicle per night (kWh)', value: '180', min: 1, max: 2000, step: 1 },
+                    { id: 'charger', type: 'number', label: 'Charger rating (kW)', value: '50', min: 1, max: 1000, step: 1 },
+                    { id: 'window', type: 'range', label: 'Charging window (hours)', value: '9', min: 1, max: 24, step: 1 }
+                ],
+                outId: 'out-fleet'
+            },
+            {
+                heading: '2 · THREE NUMBERS FOR ONE DEPOT',
+                lede: `The energy fixes an average across the window. It does not fix the peak, and the
+                   gap between them is the whole of the connection problem. Unmanaged, the site draws
+                   everything it has plugged in. Managed, it draws what the schedule allows. Nothing
+                   here can tell you which you will get — that is a control decision, not arithmetic.`,
+                controls: [
+                    { id: 'coin', type: 'range', label: 'Coincidence, if unmanaged', value: '0.80', min: 0.10, max: 1.00, step: 0.01 }
+                ],
+                tableId: 'ev-table',
+                tableHead: [{ label: 'Quantity' }, { label: 'Value', right: true }, { label: 'What it sizes', right: true }],
+                note: `A coincidence factor measured on today's chargers does not survive a change in
+                   control. Smart charging, a time-of-use tariff and vehicle-to-grid all move it — and
+                   they can move it in either direction, because a tariff that starts cheap at midnight
+                   synchronises a fleet that used to be spread out.`
+            },
+            {
+                heading: '3 · AGAINST THE CONNECTION, AND THE BATTERY THAT SAVES IT',
+                lede: `Now the decision. The depot has an agreed capacity. If the unmanaged profile
+                   breaks it, the options are a bigger connection, managed charging, or a battery —
+                   and only the last two are available this year. Power comes from the worst half
+                   hour; the store comes from the area above the cap.`,
+                controls: [
+                    { id: 'cap', type: 'number', label: 'Agreed import capacity (kW)', value: '1200', min: 1, max: 200000, step: 10 },
+                    { id: 'rte', type: 'range', label: 'Round-trip efficiency', value: '0.88', min: 0.60, max: 0.98, step: 0.01 },
+                    { id: 'dod', type: 'range', label: 'Depth of discharge', value: '0.90', min: 0.50, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-battery',
+                tableId: 'batt-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Value', right: true }]
+            }
+        ],
+        script: `
+function bind() { ['n','kwh','charger','window','coin','cap','rte','dod'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  el('window-val').textContent = num('window').toFixed(0);
+  el('coin-val').textContent = num('coin').toFixed(2);
+  el('rte-val').textContent = num('rte').toFixed(2);
+  el('dod-val').textContent = num('dod').toFixed(2);
+
+  const n = Math.round(num('n')), perKwh = num('kwh'), chargerKw = num('charger'), hours = num('window');
+  const nightKwh = n * perKwh;
+  const avgKw = nightKwh / hours;
+  const unrestrictedKw = n * chargerKw;
+
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: n, perUnitKw: chargerKw, coincidenceFactor: num('coin') });
+    el('out-fleet').innerHTML =
+      '<div class="figure"><span class="q">energy that must be delivered</span><span class="n">' +
+      (nightKwh/1000).toFixed(1) + '</span><span class="u">MWh a night · ' + avgKw.toFixed(0) +
+      ' kW average across ' + hours + ' h</span></div>' +
+      '<p class="basis">' + admd.basis + '</p>';
+  } catch (err) { refuse('out-fleet', err.message); }
+
+  const et = document.querySelector('#ev-table tbody');
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: n, perUnitKw: chargerKw, coincidenceFactor: num('coin') });
+    // Can the window even deliver the energy at the diversified power?
+    const deliverable = admd.value * hours;
+    et.innerHTML = [
+      ['Energy per night', (nightKwh/1000).toFixed(2) + ' MWh', 'nothing - it is a requirement'],
+      ['Average across the window', avgKw.toFixed(0) + ' kW', 'an average, never a peak'],
+      ['Unmanaged simultaneous draw', (unrestrictedKw/1000).toFixed(2) + ' MW', 'the worst case'],
+      ['After diversity at ' + num('coin').toFixed(2), (admd.value/1000).toFixed(2) + ' MW', 'THIS sizes the connection'],
+      ['Deliverable in the window at that power', (deliverable/1000).toFixed(2) + ' MWh',
+        deliverable >= nightKwh ? 'enough' : 'NOT ENOUGH - fleet uncharged'],
+      ['Minimum power to finish in time', (avgKw/1000).toFixed(2) + ' MW', 'if charging were perfectly flat']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/THIS/.test(r[2]) ? '#00ff88' : /NOT ENOUGH/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { et.innerHTML = '<tr><td colspan="3" style="color:#ffae00">' + err.message + '</td></tr>'; }
+
+  const bt = document.querySelector('#batt-table tbody');
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: n, perUnitKw: chargerKw, coincidenceFactor: num('coin') });
+    // A flat charging block at the diversified power, in half-hour intervals,
+    // for as long as it takes to deliver the night's energy.
+    const stepKw = admd.value;
+    const stepsNeeded = Math.max(1, Math.ceil(nightKwh / (stepKw * 0.5)));
+    const profileKw = new Array(stepsNeeded).fill(stepKw);
+    const capKw = num('cap');
+    const ex = E.exceedance({ profileKw, capKw, intervalHours: 0.5 });
+    if (ex.withinCap) {
+      el('out-battery').innerHTML =
+        '<div class="figure"><span class="q">against the connection</span><span class="n">WITHIN CAP</span></div>' +
+        '<p class="basis">' + ex.basis + '</p>';
+      bt.innerHTML = '<tr><td>Peak draw</td><td class="n">' + (ex.peakKw/1000).toFixed(2) + ' MW</td></tr>' +
+        '<tr><td>Agreed capacity</td><td class="n">' + (capKw/1000).toFixed(2) + ' MW</td></tr>';
+      return;
+    }
+    const b = E.batteryForPeakShaving({ profileKw, capKw, intervalHours: 0.5,
+      roundTripEfficiency: num('rte'), depthOfDischarge: num('dod') });
+    el('out-battery').innerHTML =
+      '<div class="figure"><span class="q">battery to stay inside the cap</span><span class="n">' +
+      (b.powerKw/1000).toFixed(2) + '</span><span class="u">MW / ' + (b.installedEnergyKwh/1000).toFixed(2) +
+      ' MWh installed</span></div><p class="basis">' + b.basis + '</p>';
+    bt.innerHTML = [
+      ['Peak draw', (ex.peakKw/1000).toFixed(2) + ' MW'],
+      ['Agreed capacity', (capKw/1000).toFixed(2) + ' MW'],
+      ['Over the cap by', (ex.peakExcessKw/1000).toFixed(2) + ' MW'],
+      ['Energy above the cap', (ex.energyAboveCapKwh/1000).toFixed(2) + ' MWh'],
+      ['Battery power', (b.powerKw/1000).toFixed(2) + ' MW'],
+      ['Battery installed energy', (b.installedEnergyKwh/1000).toFixed(2) + ' MWh'],
+      ['Asset duration', b.durationHours.toFixed(2) + ' h'],
+      ['Or: manage charging to', (capKw/1000).toFixed(2) + ' MW and buy nothing']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+  } catch (err) { refuse('out-battery', err.message); bt.innerHTML = ''; }
+}`
     }
 ];

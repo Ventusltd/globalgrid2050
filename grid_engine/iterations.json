@@ -136,6 +136,15 @@
       "engine": "engine/v9-geodesy.js + engine/geo-area.js + engine/voltage-drop.js + engine/connection-capacity.js",
       "engineCommit": "2b0db38",
       "checks": 94
+    },
+    {
+      "stamp": "202609060321",
+      "path": "202609060321-ev-depot/",
+      "title": "EV Depot Workbench",
+      "feature": "A vehicle fleet sized against a depot connection: energy that must be delivered overnight, the unmanaged simultaneous draw, what diversity and a charging window actually change, and the battery that holds the site inside its agreed capacity.",
+      "engine": "engine/diversified-demand.js + engine/connection-capacity.js + engine/firm-capacity.js",
+      "engineCommit": "2b0db38",
+      "checks": 103
     }
   ]
 }

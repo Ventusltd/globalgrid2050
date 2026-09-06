@@ -1,0 +1,18 @@
+{
+  "generation": "202609060441",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "7dc02d1b5ec3214d440cef29781127a7f6c65cac",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "479d3a1621164602e33d1dfab9081de26a8f3864",
+  "ci": {
+    "run": 34012189298,
+    "conclusion": "success",
+    "browserChecks": 120
+  },
+  "scope": "Translate coordinates by the first vertex before signed-area evaluation to preserve counterclockwise normalization for small clockwise polygons without coordinate rounding.120actualtouch/keyboard/exportchecks andtwo targetedunitcases; PDFmodule/layout unchanged from435.",
+  "limitations": [
+    "Older435 precisionnegativefixture remains evidence; its keyboard/PDFchecks didnotcover small-ring cancellation.",
+    "Phoneeventemulation isnotphysical-device validation."
+  ],
+  "publicationStatus": "Servedbytes and actuallive120checks recorded afterdeployment."
+}

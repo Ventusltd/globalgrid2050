@@ -1596,3 +1596,8 @@ Pre-edit snapshot of 1ae532c5ff5b3749aaef99474ee4e521018f8363; restore3401188066
 ## homepage_v077
 
 Pre-edit snapshot of 02e7aac373f4390d4735b894368be6bcfa5fec3b; restore34011966324 passed. Measurements: homepage_v077-measurement.json. Add Atlas0435 keyboard-native drawing controls, preservingeverypreviouslink. Source782acf6841ad98e8b6ba1d12986f6562fa1b22ab; polygonCI34011944163 andPDFCI34011944197 passed. PDFmodule carried unchanged from0418.
+
+
+## homepage_v078
+
+Pre-edit snapshot of a1fdc757efc3e51d33bed94b81f01ce32fed1495; restore34012244049 passed. Measurements: homepage_v078-measurement.json. Add Atlas0441 smallpolygon windingprecision, preserving everypreviouslink. Source7dc02d1b5ec3214d440cef29781127a7f6c65cac, exactCI34012189298passed120browserchecks. Historical435immutable; PDFmodule/layoutunchanged.

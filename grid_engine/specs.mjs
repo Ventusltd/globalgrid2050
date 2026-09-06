@@ -1587,5 +1587,344 @@ function render() {
     ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
   } catch (err) { refuse('out-battery', err.message); bt.innerHTML = ''; }
 }`
+    },
+    {
+        stamp: '202609060324',
+        slug: 'compute-against-charging',
+        title: 'Compute Against Charging',
+        sub: 'Two new load classes, the same substations, and completely different grid impacts',
+        feature: 'Data centres and rapid charging compared as demand on the same network: energy against power, coincidence against flatness, and what each does to a substation — set against the electrification paper\'s national pathways.',
+        engineModule: ['diversified-demand.js', 'electrification-demand.js', 'firm-capacity.js'],
+        engineCommit: '2b0db38',
+        schema: [
+            'ventus-grid-engine.diversified-demand.v1',
+            'ventus-grid-engine.electrification-demand.v1',
+            'ventus-grid-engine.firm-capacity.v1'
+        ],
+        checks: 103,
+        panels: [
+            {
+                heading: '1 · TWO LOAD CLASSES, SIDE BY SIDE',
+                lede: `Both are growing fast, both want the same substations, and they load a network in
+                   opposite ways. A data centre is <em>flat</em>: high load factor, almost no diversity,
+                   and it sits at its connection limit around the clock. Rapid charging is
+                   <em>peaky</em>: low load factor, real diversity across a population, and a peak that
+                   depends on when people happen to stop. The defaults are the real mapped
+                   population: GridAtlas carries <strong>1,055 charge points, every one of them
+                   100 kW or above, totalling 194.2 MW installed</strong> — median 150 kW, largest
+                   560 kW, and 118 of them at 350 kW or more. Narrow it to the ones behind the
+                   substation you care about and put that number in instead.
+                   <br><br>Worth knowing about the other side: the Atlas maps <strong>240 data
+                   centres and records no capacity for any of them</strong> — name and operator only.
+                   It knows where compute is and not how big, and knows both for chargers. That
+                   asymmetry is why the data centre figure here is typed in rather than counted.`,
+                controls: [
+                    { id: 'dcmw', type: 'number', label: 'Data centre facility load (MW)', value: '60', min: 0.1, max: 2000, step: 0.1 },
+                    { id: 'dclf', type: 'range', label: 'Data centre load factor', value: '0.90', min: 0.30, max: 1.00, step: 0.01 },
+                    { id: 'chargers', type: 'number', label: 'Rapid chargers over 100 kW', value: '1055', min: 1, max: 100000, step: 1 },
+                    { id: 'chkw', type: 'number', label: 'Rating each (kW)', value: '150', min: 100, max: 1000, step: 10 },
+                    { id: 'chcoin', type: 'range', label: 'Charging coincidence', value: '0.25', min: 0.02, max: 1.00, step: 0.01 },
+                    { id: 'chlf', type: 'range', label: 'Charging load factor', value: '0.12', min: 0.02, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-compare'
+            },
+            {
+                heading: '2 · WHAT EACH ONE ACTUALLY DOES TO A NETWORK',
+                lede: `The comparison that matters is not which is bigger. It is which one is bigger in
+                   the quantity that binds. A data centre buys a lot of energy and occupies its
+                   capacity constantly. A charging estate buys much less energy and can still demand
+                   more capacity, because capacity is sized by the peak and the peak barely
+                   diversifies once everyone stops at the same time.`,
+                controls: [],
+                tableId: 'cmp-table',
+                tableHead: [
+                    { label: 'Quantity' }, { label: 'Data centre', right: true },
+                    { label: 'Rapid charging', right: true }, { label: 'Which binds', right: true }
+                ],
+                note: `Load factor is doing the work in this table. A load factor of 0.90 against 0.12
+                   means the charging estate needs comparable capacity for a seventh of the energy —
+                   and pays for that capacity all year to use it in the evening peak.`
+            },
+            {
+                heading: '3 · BOTH BEHIND THE SAME SUBSTATION',
+                lede: `Now put them behind the same bank and see what the network operator sees. This
+                   is where the two classes stop being separate conversations: they compete for the
+                   same firm capacity, and the second one to apply meets a different answer from the
+                   first.`,
+                controls: [
+                    { id: 'units', type: 'text', label: 'Transformer ratings (MVA, comma separated)', value: '90, 90' },
+                    { id: 'pf', type: 'range', label: 'Power factor', value: '0.95', min: 0.80, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-both',
+                tableId: 'both-table',
+                tableHead: [{ label: 'Scenario' }, { label: 'Demand', right: true }, { label: 'Against firm', right: true }],
+                note: `Against the national picture: the electrification paper puts NESO's 2050
+                   pathways at 705–797 TWh with published peaks of 120–144 GW. Neither of these load
+                   classes is a large share of that nationally. Both can exhaust one substation, and
+                   that is the whole point — the national total is not the constraint, the node is.
+                   A national load factor cannot establish utilisation at any particular transformer.`
+            }
+        ],
+        script: `
+function bind() { ['dcmw','dclf','chargers','chkw','chcoin','chlf','units','pf'].forEach(id => el(id).addEventListener('input', render)); }
+function parseUnits(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+function render() {
+  ['dclf','chcoin','chlf','pf'].forEach(id => { el(id + '-val').textContent = num(id).toFixed(2); });
+  const dcMw = num('dcmw'), dcLf = num('dclf');
+  const nCh = Math.round(num('chargers')), chKw = num('chkw');
+
+  let chPeakMw = null;
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: nCh, perUnitKw: chKw, coincidenceFactor: num('chcoin') });
+    chPeakMw = admd.value / 1000;
+    el('out-compare').innerHTML =
+      '<div class="figure"><span class="q">peak demand each</span><span class="n">' + dcMw.toFixed(1) +
+      '</span><span class="u">MW compute · ' + chPeakMw.toFixed(1) + ' MW charging after diversity</span></div>' +
+      '<p class="basis">' + admd.basis + '</p>';
+  } catch (err) { refuse('out-compare', err.message); return; }
+
+  const ct = document.querySelector('#cmp-table tbody');
+  try {
+    const dcTwh = (dcMw * 8760 * dcLf) / 1e6;
+    const chTwh = (chPeakMw * 8760 * num('chlf')) / 1e6;
+    const unrestrictedMw = (nCh * chKw) / 1000;
+    const rows = [
+      ['Peak demand', dcMw.toFixed(1) + ' MW', chPeakMw.toFixed(1) + ' MW', dcMw >= chPeakMw ? 'compute' : 'charging'],
+      ['Unmanaged worst case', dcMw.toFixed(1) + ' MW', unrestrictedMw.toFixed(1) + ' MW', unrestrictedMw > dcMw ? 'charging' : 'compute'],
+      ['Load factor', dcLf.toFixed(2), num('chlf').toFixed(2), 'compute is flat'],
+      ['Annual energy', dcTwh.toFixed(3) + ' TWh', chTwh.toFixed(3) + ' TWh', dcTwh >= chTwh ? 'compute' : 'charging'],
+      ['Energy per MW of capacity', (dcTwh / dcMw * 1000).toFixed(2) + ' GWh/MW',
+        (chTwh / chPeakMw * 1000).toFixed(2) + ' GWh/MW', 'compute uses what it books'],
+      ['Capacity per TWh delivered', (dcMw / dcTwh).toFixed(0) + ' MW/TWh',
+        (chPeakMw / chTwh).toFixed(0) + ' MW/TWh', 'charging books far more']
+    ];
+    ct.innerHTML = rows.map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n">' +
+      r[2] + '</td><td class="n" style="color:#00ffff">' + r[3] + '</td></tr>').join('');
+  } catch (err) { ct.innerHTML = '<tr><td colspan="4" style="color:#ffae00">' + err.message + '</td></tr>'; }
+
+  const bt = document.querySelector('#both-table tbody');
+  try {
+    const units = parseUnits(el('units').value);
+    const firm = E.firmCapacityMva({ units });
+    const mvaOf = mw => E.apparentPowerMva({ mw, powerFactor: num('pf') }).value;
+    const dcMva = mvaOf(dcMw), chMva = mvaOf(chPeakMw), bothMva = mvaOf(dcMw + chPeakMw);
+    const a = E.assessAgainstFirm({ units, demandMva: bothMva });
+    el('out-both').innerHTML =
+      '<div class="figure"><span class="q">both behind one bank</span><span class="n' + (a.withinFirm ? '' : ' over') + '">' +
+      (a.withinFirm ? 'WITHIN FIRM' : a.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span></div><p class="basis">' + a.basis + '</p>';
+    const mk = (label, mva) => {
+      const r = E.assessAgainstFirm({ units, demandMva: mva });
+      return '<tr><td>' + label + '</td><td class="n">' + mva.toFixed(1) + ' MVA</td>' +
+        '<td class="n" style="color:' + (r.withinFirm ? '#8e98a5' : '#ff5c5c') + '">' +
+        (r.utilisationOfFirm * 100).toFixed(1) + '%' + (r.withinFirm ? '' : ' EXCEEDED') + '</td></tr>';
+    };
+    bt.innerHTML =
+      '<tr><td>Firm capacity (N-1)</td><td class="n">' + firm.value.toFixed(1) + ' MVA</td><td class="n">-</td></tr>' +
+      mk('Data centre alone', dcMva) + mk('Charging alone', chMva) + mk('Both together', bothMva);
+  } catch (err) { refuse('out-both', err.message); bt.innerHTML = ''; }
+}`
+    },
+    {
+        stamp: '202609060325',
+        slug: 'every-home-a-charger',
+        title: 'Every Home A Charger',
+        sub: 'What a 7 kW charger on every drive does to the LV substation and the 11 kV primary',
+        feature: 'Domestic charging taken down to the two assets that actually carry it: the 11 kV/LV distribution substation serving a few hundred homes, and the 33/11 kV primary serving several thousand. Base demand, EV demand, and firm capacity on both.',
+        engineModule: ['diversified-demand.js', 'firm-capacity.js'],
+        engineCommit: '2b0db38',
+        schema: [
+            'ventus-grid-engine.diversified-demand.v1',
+            'ventus-grid-engine.firm-capacity.v1'
+        ],
+        checks: 54,
+        panels: [
+            {
+                heading: '1 · ONE STREET, AFTER DIVERSITY',
+                lede: `A house is not 7 kW to the network, and it is not 1 kW either. What the
+                   transformer sees is the peak of the <em>sum</em>. Base domestic ADMD — everything
+                   except the car — is a well-measured quantity around 1 to 2 kW per home in GB, and
+                   it is the figure your DNO publishes for the housing type that matters, not a
+                   national average. The EV coincidence is the whole argument: leave it at 0.3 for
+                   unmanaged overnight charging, drop it toward 0.1 if you believe the charging is
+                   genuinely spread.`,
+                controls: [
+                    { id: 'homes', type: 'number', label: 'Homes on the LV substation', value: '250', min: 1, max: 5000, step: 1 },
+                    { id: 'base', type: 'number', label: 'Base ADMD per home, no EV (kW)', value: '1.5', min: 0.2, max: 10, step: 0.1 },
+                    { id: 'chkw', type: 'number', label: 'Charger rating (kW)', value: '7', min: 1, max: 50, step: 0.1 },
+                    { id: 'uptake', type: 'range', label: 'Homes with a charger', value: '1.00', min: 0.05, max: 1.00, step: 0.01 },
+                    { id: 'coin', type: 'range', label: 'EV coincidence factor', value: '0.30', min: 0.05, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-street'
+            },
+            {
+                heading: '2 · THE LV SUBSTATION',
+                lede: `The ground-mounted 11 kV/LV transformer at the end of the road — typically 500 or
+                   800 kVA, usually a <strong>single unit</strong>, which means its firm capacity is
+                   zero and an outage is a supply interruption rather than a transfer. This is the
+                   asset that fails first, in the largest numbers, and with the least visibility,
+                   because nobody is monitoring most of them.`,
+                controls: [
+                    { id: 'lvkva', type: 'number', label: 'LV transformer rating (kVA)', value: '500', min: 25, max: 3000, step: 25 },
+                    { id: 'pf', type: 'range', label: 'Power factor', value: '0.98', min: 0.85, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-lv',
+                tableId: 'lv-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Before EVs', right: true }, { label: 'With EVs', right: true }]
+            },
+            {
+                heading: '3 · THE 11 kV PRIMARY ABOVE IT',
+                lede: `One LV substation is a street. A 33/11 kV primary carries thousands of homes,
+                   and unlike the LV unit it usually has two transformers, so firm capacity is real
+                   and N-1 is the test. The same multiplier applies — but here there is a bank, a
+                   security standard, and somebody watching.`,
+                controls: [
+                    { id: 'phomes', type: 'number', label: 'Homes on the primary', value: '9000', min: 100, max: 200000, step: 100 },
+            { id: 'punits', type: 'text', label: 'Primary transformers (MVA, comma separated)', value: '23, 23' }
+                ],
+                outId: 'out-primary',
+                tableId: 'pri-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Before EVs', right: true }, { label: 'With EVs', right: true }],
+                note: `Nothing here is a reinforcement plan. Real assessment uses the DNO's own ADMD
+                   for the housing type, its measured coincidence for the load class, its monitored
+                   loading, the transfer capacity available from adjacent substations, and ER P2/7.
+                   What this shows is the shape of the problem — that a change which sounds modest per
+                   house is a multiplier on the asset, and that the multiplier lands hardest on the
+                   asset with no firm capacity at all.`
+            },
+            {
+                heading: '4 · THE SAME QUESTION, NATIONALLY',
+                lede: `Scale one street to the country and the reason this is the dominant
+                   electrification question becomes obvious. Every mapped rapid charger in GB — all
+                   1,055 of them, 194 MW — is a rounding error beside the domestic fleet. The
+                   national peak today is around 62.5 GW, inferred from NESO's published winter
+                   margin, and NESO's three 2050 pathways publish peaks of 120 to 144 GW.`,
+                controls: [
+                    { id: 'cars', type: 'number', label: 'Cars in the fleet (millions)', value: '30', min: 0.1, max: 60, step: 0.1 },
+                    { id: 'natcoin', type: 'range', label: 'National coincidence', value: '0.20', min: 0.02, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-national',
+                tableId: 'nat-table',
+                tableHead: [{ label: 'Quantity' }, { label: 'GW', right: true }, { label: 'Against a 62.5 GW peak', right: true }],
+                note: `The coincidence factor is doing every bit of the work here, which is exactly
+                   why it must never be assumed quietly. At 0.30 domestic charging alone would roughly
+                   double the national peak. At 0.05 it is a manageable 10.5 GW. The difference
+                   between those two futures is control — smart charging, tariffs, vehicle-to-grid —
+                   and not a single kilowatt-hour of energy changes between them.`
+            },
+        ],
+        script: `
+function bind() { ['homes','base','chkw','uptake','coin','lvkva','pf','phomes','punits','cars','natcoin'].forEach(id => el(id).addEventListener('input', render)); }
+function parseUnits(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+/* Demand for a population of homes, base plus EV, both after diversity. */
+function demandKw(homes) {
+  const withEv = Math.max(1, Math.round(homes * num('uptake')));
+  const baseKw = homes * num('base');           // ADMD is already an after-diversity figure
+  const ev = E.diversifiedDemandKw({ unitCount: withEv, perUnitKw: num('chkw'), coincidenceFactor: num('coin') });
+  return { baseKw, evKw: ev.value, totalKw: baseKw + ev.value, ev, withEv };
+}
+
+function render() {
+  ['uptake','coin','pf','natcoin'].forEach(id => { el(id + '-val').textContent = num(id).toFixed(2); });
+  const homes = Math.round(num('homes'));
+
+  let street;
+  try {
+    street = demandKw(homes);
+    const perHomeBefore = street.baseKw / homes, perHomeAfter = street.totalKw / homes;
+    el('out-street').innerHTML =
+      '<div class="figure"><span class="q">demand per home, after diversity</span><span class="n">' +
+      perHomeAfter.toFixed(2) + '</span><span class="u">kW · was ' + perHomeBefore.toFixed(2) +
+      ' kW · x' + (perHomeAfter / perHomeBefore).toFixed(2) + '</span></div>' +
+      '<p class="basis">' + street.ev.basis + '</p>';
+  } catch (err) { refuse('out-street', err.message); return; }
+
+  const lt = document.querySelector('#lv-table tbody');
+  try {
+    const kva = n => E.apparentPowerMva({ mw: n / 1000, powerFactor: num('pf') }).value * 1000;
+    const beforeKva = kva(street.baseKw), afterKva = kva(street.totalKw);
+    const rating = num('lvkva');
+    const uBefore = E.utilisationAgainstRating({ demandMva: beforeKva / 1000, ratingMva: rating / 1000 });
+    const uAfter = E.utilisationAgainstRating({ demandMva: afterKva / 1000, ratingMva: rating / 1000 });
+    el('out-lv').innerHTML =
+      '<div class="figure"><span class="q">LV transformer loading</span><span class="n' +
+      (uAfter.exceedsRating ? ' over' : '') + '">' + uAfter.percent.toFixed(0) +
+      '</span><span class="u">% of ' + rating + ' kVA · was ' + uBefore.percent.toFixed(0) + '%</span></div>' +
+      '<p class="basis">' + afterKva.toFixed(0) + ' kVA against a ' + rating + ' kVA unit is ' +
+      uAfter.percent.toFixed(0) + '% of its rating' +
+      (uAfter.exceedsRating ? ', which EXCEEDS it by ' + (afterKva - rating).toFixed(0) + ' kVA' : '') +
+      '. A single-unit LV substation has NO firm capacity: losing it is a supply interruption, ' +
+      'not a transfer, and most of these are not monitored at all. This is a ratio of two figures ' +
+      'you supplied and not a reinforcement assessment.</p>';
+    lt.innerHTML = [
+      ['Homes', homes, homes + ' (' + street.withEv + ' with a charger)'],
+      ['Demand after diversity', street.baseKw.toFixed(0) + ' kW', street.totalKw.toFixed(0) + ' kW'],
+      ['At the transformer', beforeKva.toFixed(0) + ' kVA', afterKva.toFixed(0) + ' kVA'],
+      ['Loading', uBefore.percent.toFixed(0) + '%', uAfter.percent.toFixed(0) + '%' + (uAfter.exceedsRating ? ' EXCEEDED' : '')],
+      ['Headroom left on the unit', (rating - beforeKva).toFixed(0) + ' kVA', (rating - afterKva).toFixed(0) + ' kVA']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (String(r[2]).includes('EXCEEDED') || String(r[2]).trim().startsWith('-') ? '#ff5c5c' : '#8e98a5') +
+      '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-lv', err.message); lt.innerHTML = ''; }
+
+  const pt = document.querySelector('#pri-table tbody');
+  try {
+    const ph = Math.round(num('phomes'));
+    const p = demandKw(ph);
+    const units = parseUnits(el('punits').value);
+    const mvaOf = kw => E.apparentPowerMva({ mw: kw / 1000, powerFactor: num('pf') }).value;
+    const beforeMva = mvaOf(p.baseKw), afterMva = mvaOf(p.totalKw);
+    const aBefore = E.assessAgainstFirm({ units, demandMva: beforeMva });
+    const aAfter = E.assessAgainstFirm({ units, demandMva: afterMva });
+    el('out-primary').innerHTML =
+      '<div class="figure"><span class="q">11 kV primary, N-1</span><span class="n' +
+      (aAfter.withinFirm ? '' : ' over') + '">' +
+      (aAfter.withinFirm ? 'WITHIN FIRM' : aAfter.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span><span class="u">was ' + (aBefore.withinFirm ? 'within firm' : 'beyond firm') + '</span></div>' +
+      '<p class="basis">' + aAfter.basis + '</p>';
+    pt.innerHTML = [
+      ['Homes', ph, ph],
+      ['Demand', beforeMva.toFixed(1) + ' MVA', afterMva.toFixed(1) + ' MVA'],
+      ['Installed capacity', aBefore.installedMva.toFixed(1) + ' MVA', aAfter.installedMva.toFixed(1) + ' MVA'],
+      ['Firm capacity (N-1)', aBefore.firmMva.toFixed(1) + ' MVA', aAfter.firmMva.toFixed(1) + ' MVA'],
+      ['Utilisation of firm', (aBefore.utilisationOfFirm * 100).toFixed(0) + '%',
+        (aAfter.utilisationOfFirm * 100).toFixed(0) + '%' + (aAfter.withinFirm ? '' : ' EXCEEDED')],
+      ['Shortfall against firm', aBefore.shortfallMva.toFixed(1) + ' MVA', aAfter.shortfallMva.toFixed(1) + ' MVA']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (String(r[2]).includes('EXCEEDED') ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-primary', err.message); pt.innerHTML = ''; }
+
+  // National scale. GB peak today is ~62.5 GW, inferred from NESO's published
+  // winter margin (5.5 GW at 8.8% of ACS peak) - an inference from rounded
+  // inputs, so it is a band of about 61.6-63.4 GW, not a published figure.
+  const GB_PEAK_GW = 62.5;
+  const MAPPED_RAPID_GW = 0.1942;
+  const nt = document.querySelector('#nat-table tbody');
+  try {
+    const cars = num('cars') * 1e6;
+    const unrestrictedGw = (cars * num('chkw')) / 1e6;
+    const nat = E.diversifiedDemandKw({ unitCount: Math.round(cars), perUnitKw: num('chkw'),
+      coincidenceFactor: num('natcoin') });
+    const natGw = nat.value / 1e6;
+    el('out-national').innerHTML =
+      '<div class="figure"><span class="q">domestic charging, nationally</span><span class="n' +
+      (natGw > GB_PEAK_GW ? ' over' : '') + '">' + natGw.toFixed(1) +
+      '</span><span class="u">GW at ' + num('natcoin').toFixed(2) + ' coincidence · ' +
+      unrestrictedGw.toFixed(0) + ' GW unrestricted</span></div>' +
+      '<p class="basis">' + nat.basis + '</p>';
+    const pct = g => (g / GB_PEAK_GW * 100).toFixed(0) + '%';
+    nt.innerHTML = [
+      ['Fleet, unrestricted', unrestrictedGw.toFixed(0), pct(unrestrictedGw) + ' - ' + (unrestrictedGw/GB_PEAK_GW).toFixed(1) + 'x the whole peak'],
+      ['At ' + num('natcoin').toFixed(2) + ' coincidence', natGw.toFixed(1), pct(natGw)],
+      ['GB peak today (inferred)', GB_PEAK_GW.toFixed(1), '100%'],
+      ['NESO 2050 pathways, published peaks', '120 - 144', pct(120) + ' - ' + pct(144)],
+      ['Every mapped rapid charger in GB', MAPPED_RAPID_GW.toFixed(3),
+        (MAPPED_RAPID_GW / natGw * 100).toFixed(2) + '% of the domestic figure']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/x the whole peak/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-national', err.message); nt.innerHTML = ''; }
+}`
     }
 ];

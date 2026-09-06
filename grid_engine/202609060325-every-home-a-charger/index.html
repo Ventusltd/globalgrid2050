@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every Home A Charger — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>EVERY HOME A CHARGER</h1>
+  <p class="sub">What a 7 kW charger on every drive does to the LV substation and the 11 kV primary</p>
+  <p class="stamp">Generation 202609060325 · engine diversified-demand.js, firm-capacity.js at 2b0db38</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · ONE STREET, AFTER DIVERSITY</h2>
+  <div class="body">
+    <p class="lede">A house is not 7 kW to the network, and it is not 1 kW either. What the
+                   transformer sees is the peak of the <em>sum</em>. Base domestic ADMD — everything
+                   except the car — is a well-measured quantity around 1 to 2 kW per home in GB, and
+                   it is the figure your DNO publishes for the housing type that matters, not a
+                   national average. The EV coincidence is the whole argument: leave it at 0.3 for
+                   unmanaged overnight charging, drop it toward 0.1 if you believe the charging is
+                   genuinely spread.</p>
+    <div class="field">
+      <label for="homes">Homes on the LV substation</label>
+      <input type="number" id="homes" value="250" min="1" max="5000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="base">Base ADMD per home, no EV (kW)</label>
+      <input type="number" id="base" value="1.5" min="0.2" max="10" step="0.1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="chkw">Charger rating (kW)</label>
+      <input type="number" id="chkw" value="7" min="1" max="50" step="0.1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="uptake">Homes with a charger</label>
+        <span class="rangeval" id="uptake-val">1.00</span></div>
+      <input type="range" id="uptake" min="0.05" max="1" step="0.01" value="1.00">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="coin">EV coincidence factor</label>
+        <span class="rangeval" id="coin-val">0.30</span></div>
+      <input type="range" id="coin" min="0.05" max="1" step="0.01" value="0.30">
+    </div>
+    <div class="out" id="out-street"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THE LV SUBSTATION</h2>
+  <div class="body">
+    <p class="lede">The ground-mounted 11 kV/LV transformer at the end of the road — typically 500 or
+                   800 kVA, usually a <strong>single unit</strong>, which means its firm capacity is
+                   zero and an outage is a supply interruption rather than a transfer. This is the
+                   asset that fails first, in the largest numbers, and with the least visibility,
+                   because nobody is monitoring most of them.</p>
+    <div class="field">
+      <label for="lvkva">LV transformer rating (kVA)</label>
+      <input type="number" id="lvkva" value="500" min="25" max="3000" step="25" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="pf">Power factor</label>
+        <span class="rangeval" id="pf-val">0.98</span></div>
+      <input type="range" id="pf" min="0.85" max="1" step="0.01" value="0.98">
+    </div>
+    <div class="out" id="out-lv"></div>
+    <div class="scroller"><table id="lv-table"><thead><tr><th>Measure</th><th style="text-align:right">Before EVs</th><th style="text-align:right">With EVs</th></tr></thead><tbody></tbody></table></div>
+    
+  </div>
+</section>
+<section>
+  <h2>3 · THE 11 kV PRIMARY ABOVE IT</h2>
+  <div class="body">
+    <p class="lede">One LV substation is a street. A 33/11 kV primary carries thousands of homes,
+                   and unlike the LV unit it usually has two transformers, so firm capacity is real
+                   and N-1 is the test. The same multiplier applies — but here there is a bank, a
+                   security standard, and somebody watching.</p>
+    <div class="field">
+      <label for="phomes">Homes on the primary</label>
+      <input type="number" id="phomes" value="9000" min="100" max="200000" step="100" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="punits">Primary transformers (MVA, comma separated)</label>
+      <input type="text" id="punits" value="23, 23" inputmode="text">
+    </div>
+    <div class="out" id="out-primary"></div>
+    <div class="scroller"><table id="pri-table"><thead><tr><th>Measure</th><th style="text-align:right">Before EVs</th><th style="text-align:right">With EVs</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">Nothing here is a reinforcement plan. Real assessment uses the DNO's own ADMD
+                   for the housing type, its measured coincidence for the load class, its monitored
+                   loading, the transfer capacity available from adjacent substations, and ER P2/7.
+                   What this shows is the shape of the problem — that a change which sounds modest per
+                   house is a multiplier on the asset, and that the multiplier lands hardest on the
+                   asset with no firm capacity at all.</p>
+  </div>
+</section>
+<section>
+  <h2>4 · THE SAME QUESTION, NATIONALLY</h2>
+  <div class="body">
+    <p class="lede">Scale one street to the country and the reason this is the dominant
+                   electrification question becomes obvious. Every mapped rapid charger in GB — all
+                   1,055 of them, 194 MW — is a rounding error beside the domestic fleet. The
+                   national peak today is around 62.5 GW, inferred from NESO's published winter
+                   margin, and NESO's three 2050 pathways publish peaks of 120 to 144 GW.</p>
+    <div class="field">
+      <label for="cars">Cars in the fleet (millions)</label>
+      <input type="number" id="cars" value="30" min="0.1" max="60" step="0.1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="natcoin">National coincidence</label>
+        <span class="rangeval" id="natcoin-val">0.20</span></div>
+      <input type="range" id="natcoin" min="0.02" max="1" step="0.01" value="0.20">
+    </div>
+    <div class="out" id="out-national"></div>
+    <div class="scroller"><table id="nat-table"><thead><tr><th>Quantity</th><th style="text-align:right">GW</th><th style="text-align:right">Against a 62.5 GW peak</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">The coincidence factor is doing every bit of the work here, which is exactly
+                   why it must never be assumed quietly. At 0.30 domestic charging alone would roughly
+                   double the national peak. At 0.05 it is a manageable 10.5 GW. The difference
+                   between those two futures is control — smart charging, tariffs, vehicle-to-grid —
+                   and not a single kilowatt-hour of energy changes between them.</p>
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/diversified-demand.js">diversified-demand.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js">firm-capacity.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 54 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/diversified-demand.js","https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js"];
+const ENGINE_SCHEMAS = ["ventus-grid-engine.diversified-demand.v1","ventus-grid-engine.firm-capacity.v1"];
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+function bind() { ['homes','base','chkw','uptake','coin','lvkva','pf','phomes','punits','cars','natcoin'].forEach(id => el(id).addEventListener('input', render)); }
+function parseUnits(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+/* Demand for a population of homes, base plus EV, both after diversity. */
+function demandKw(homes) {
+  const withEv = Math.max(1, Math.round(homes * num('uptake')));
+  const baseKw = homes * num('base');           // ADMD is already an after-diversity figure
+  const ev = E.diversifiedDemandKw({ unitCount: withEv, perUnitKw: num('chkw'), coincidenceFactor: num('coin') });
+  return { baseKw, evKw: ev.value, totalKw: baseKw + ev.value, ev, withEv };
+}
+
+function render() {
+  ['uptake','coin','pf','natcoin'].forEach(id => { el(id + '-val').textContent = num(id).toFixed(2); });
+  const homes = Math.round(num('homes'));
+
+  let street;
+  try {
+    street = demandKw(homes);
+    const perHomeBefore = street.baseKw / homes, perHomeAfter = street.totalKw / homes;
+    el('out-street').innerHTML =
+      '<div class="figure"><span class="q">demand per home, after diversity</span><span class="n">' +
+      perHomeAfter.toFixed(2) + '</span><span class="u">kW · was ' + perHomeBefore.toFixed(2) +
+      ' kW · x' + (perHomeAfter / perHomeBefore).toFixed(2) + '</span></div>' +
+      '<p class="basis">' + street.ev.basis + '</p>';
+  } catch (err) { refuse('out-street', err.message); return; }
+
+  const lt = document.querySelector('#lv-table tbody');
+  try {
+    const kva = n => E.apparentPowerMva({ mw: n / 1000, powerFactor: num('pf') }).value * 1000;
+    const beforeKva = kva(street.baseKw), afterKva = kva(street.totalKw);
+    const rating = num('lvkva');
+    const uBefore = E.utilisationAgainstRating({ demandMva: beforeKva / 1000, ratingMva: rating / 1000 });
+    const uAfter = E.utilisationAgainstRating({ demandMva: afterKva / 1000, ratingMva: rating / 1000 });
+    el('out-lv').innerHTML =
+      '<div class="figure"><span class="q">LV transformer loading</span><span class="n' +
+      (uAfter.exceedsRating ? ' over' : '') + '">' + uAfter.percent.toFixed(0) +
+      '</span><span class="u">% of ' + rating + ' kVA · was ' + uBefore.percent.toFixed(0) + '%</span></div>' +
+      '<p class="basis">' + afterKva.toFixed(0) + ' kVA against a ' + rating + ' kVA unit is ' +
+      uAfter.percent.toFixed(0) + '% of its rating' +
+      (uAfter.exceedsRating ? ', which EXCEEDS it by ' + (afterKva - rating).toFixed(0) + ' kVA' : '') +
+      '. A single-unit LV substation has NO firm capacity: losing it is a supply interruption, ' +
+      'not a transfer, and most of these are not monitored at all. This is a ratio of two figures ' +
+      'you supplied and not a reinforcement assessment.</p>';
+    lt.innerHTML = [
+      ['Homes', homes, homes + ' (' + street.withEv + ' with a charger)'],
+      ['Demand after diversity', street.baseKw.toFixed(0) + ' kW', street.totalKw.toFixed(0) + ' kW'],
+      ['At the transformer', beforeKva.toFixed(0) + ' kVA', afterKva.toFixed(0) + ' kVA'],
+      ['Loading', uBefore.percent.toFixed(0) + '%', uAfter.percent.toFixed(0) + '%' + (uAfter.exceedsRating ? ' EXCEEDED' : '')],
+      ['Headroom left on the unit', (rating - beforeKva).toFixed(0) + ' kVA', (rating - afterKva).toFixed(0) + ' kVA']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (String(r[2]).includes('EXCEEDED') || String(r[2]).trim().startsWith('-') ? '#ff5c5c' : '#8e98a5') +
+      '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-lv', err.message); lt.innerHTML = ''; }
+
+  const pt = document.querySelector('#pri-table tbody');
+  try {
+    const ph = Math.round(num('phomes'));
+    const p = demandKw(ph);
+    const units = parseUnits(el('punits').value);
+    const mvaOf = kw => E.apparentPowerMva({ mw: kw / 1000, powerFactor: num('pf') }).value;
+    const beforeMva = mvaOf(p.baseKw), afterMva = mvaOf(p.totalKw);
+    const aBefore = E.assessAgainstFirm({ units, demandMva: beforeMva });
+    const aAfter = E.assessAgainstFirm({ units, demandMva: afterMva });
+    el('out-primary').innerHTML =
+      '<div class="figure"><span class="q">11 kV primary, N-1</span><span class="n' +
+      (aAfter.withinFirm ? '' : ' over') + '">' +
+      (aAfter.withinFirm ? 'WITHIN FIRM' : aAfter.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span><span class="u">was ' + (aBefore.withinFirm ? 'within firm' : 'beyond firm') + '</span></div>' +
+      '<p class="basis">' + aAfter.basis + '</p>';
+    pt.innerHTML = [
+      ['Homes', ph, ph],
+      ['Demand', beforeMva.toFixed(1) + ' MVA', afterMva.toFixed(1) + ' MVA'],
+      ['Installed capacity', aBefore.installedMva.toFixed(1) + ' MVA', aAfter.installedMva.toFixed(1) + ' MVA'],
+      ['Firm capacity (N-1)', aBefore.firmMva.toFixed(1) + ' MVA', aAfter.firmMva.toFixed(1) + ' MVA'],
+      ['Utilisation of firm', (aBefore.utilisationOfFirm * 100).toFixed(0) + '%',
+        (aAfter.utilisationOfFirm * 100).toFixed(0) + '%' + (aAfter.withinFirm ? '' : ' EXCEEDED')],
+      ['Shortfall against firm', aBefore.shortfallMva.toFixed(1) + ' MVA', aAfter.shortfallMva.toFixed(1) + ' MVA']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (String(r[2]).includes('EXCEEDED') ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-primary', err.message); pt.innerHTML = ''; }
+
+  // National scale. GB peak today is ~62.5 GW, inferred from NESO's published
+  // winter margin (5.5 GW at 8.8% of ACS peak) - an inference from rounded
+  // inputs, so it is a band of about 61.6-63.4 GW, not a published figure.
+  const GB_PEAK_GW = 62.5;
+  const MAPPED_RAPID_GW = 0.1942;
+  const nt = document.querySelector('#nat-table tbody');
+  try {
+    const cars = num('cars') * 1e6;
+    const unrestrictedGw = (cars * num('chkw')) / 1e6;
+    const nat = E.diversifiedDemandKw({ unitCount: Math.round(cars), perUnitKw: num('chkw'),
+      coincidenceFactor: num('natcoin') });
+    const natGw = nat.value / 1e6;
+    el('out-national').innerHTML =
+      '<div class="figure"><span class="q">domestic charging, nationally</span><span class="n' +
+      (natGw > GB_PEAK_GW ? ' over' : '') + '">' + natGw.toFixed(1) +
+      '</span><span class="u">GW at ' + num('natcoin').toFixed(2) + ' coincidence · ' +
+      unrestrictedGw.toFixed(0) + ' GW unrestricted</span></div>' +
+      '<p class="basis">' + nat.basis + '</p>';
+    const pct = g => (g / GB_PEAK_GW * 100).toFixed(0) + '%';
+    nt.innerHTML = [
+      ['Fleet, unrestricted', unrestrictedGw.toFixed(0), pct(unrestrictedGw) + ' - ' + (unrestrictedGw/GB_PEAK_GW).toFixed(1) + 'x the whole peak'],
+      ['At ' + num('natcoin').toFixed(2) + ' coincidence', natGw.toFixed(1), pct(natGw)],
+      ['GB peak today (inferred)', GB_PEAK_GW.toFixed(1), '100%'],
+      ['NESO 2050 pathways, published peaks', '120 - 144', pct(120) + ' - ' + pct(144)],
+      ['Every mapped rapid charger in GB', MAPPED_RAPID_GW.toFixed(3),
+        (MAPPED_RAPID_GW / natGw * 100).toFixed(2) + '% of the domestic figure']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/x the whole peak/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-national', err.message); nt.innerHTML = ''; }
+}
+
+try {
+  const loaded = [];
+  for (const url of ENGINE_MODULES) loaded.push(await import(url));
+  // Some engine modules predate the schema convention and declare none. A spec
+  // says so by passing null, and the check is skipped rather than faked -- an
+  // asserted schema that does not exist would fail every load for a module that
+  // is perfectly good.
+  loaded.forEach((m, i) => {
+    const expected = ENGINE_SCHEMAS[i];
+    if (expected && m.schema !== expected) {
+      throw new Error('unexpected schema ' + m.schema + ' from ' + ENGINE_MODULES[i]);
+    }
+  });
+  // Merge the modules into one namespace. A name collision would silently
+  // shadow one module's function with another's, so it is refused loudly.
+  E = {};
+  const NOT_COMPUTED = {};
+  // Refusals are not all shaped the same. The newer modules export
+  // NOT_COMPUTED as an object of named reasons; the older ones export a single
+  // string, or name their boundaries individually as NOT_A_CAPACITY,
+  // NO_HEADROOM, NEVER_SUMMED, CAVEAT and so on. Spreading a string into an
+  // object would render one character per letter, so each shape is handled.
+  const REFUSAL_NAME = /^(NOT_|NO_|NEVER_|CAVEAT|IMPEDANCE_)/;
+  for (const m of loaded) {
+    for (const [k, v] of Object.entries(m)) {
+      if (k === 'schema' || k === 'requires') continue;
+      if (k === 'NOT_COMPUTED') {
+        if (typeof v === 'string') NOT_COMPUTED.notComputed = v;
+        else Object.assign(NOT_COMPUTED, v);
+        continue;
+      }
+      if (REFUSAL_NAME.test(k) && typeof v === 'string') {
+        NOT_COMPUTED[k.toLowerCase().replace(/_(.)/g, (_, c) => c.toUpperCase())] = v;
+        continue;
+      }
+      if (k in E) throw new Error('two engine modules both export "' + k + '"');
+      E[k] = v;
+    }
+  }
+  E.NOT_COMPUTED = NOT_COMPUTED;
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' +
+    ENGINE_SCHEMAS.map((sc, i) => sc || ENGINE_MODULES[i].split('/').pop()).join(' + ') +
+    ' · every figure below is computed by the engine module' + (loaded.length > 1 ? 's' : '') + ', not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

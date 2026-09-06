@@ -145,6 +145,24 @@
       "engine": "engine/diversified-demand.js + engine/connection-capacity.js + engine/firm-capacity.js",
       "engineCommit": "2b0db38",
       "checks": 103
+    },
+    {
+      "stamp": "202609060324",
+      "path": "202609060324-compute-against-charging/",
+      "title": "Compute Against Charging",
+      "feature": "Data centres and rapid charging compared as demand on the same network: energy against power, coincidence against flatness, and what each does to a substation — set against the electrification paper's national pathways.",
+      "engine": "engine/diversified-demand.js + engine/electrification-demand.js + engine/firm-capacity.js",
+      "engineCommit": "2b0db38",
+      "checks": 103
+    },
+    {
+      "stamp": "202609060325",
+      "path": "202609060325-every-home-a-charger/",
+      "title": "Every Home A Charger",
+      "feature": "Domestic charging taken down to the two assets that actually carry it: the 11 kV/LV distribution substation serving a few hundred homes, and the 33/11 kV primary serving several thousand. Base demand, EV demand, and firm capacity on both.",
+      "engine": "engine/diversified-demand.js + engine/firm-capacity.js",
+      "engineCommit": "2b0db38",
+      "checks": 54
     }
   ]
 }

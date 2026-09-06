@@ -22,6 +22,9 @@ on:
       # deploys is deployed by the same push that makes it.
       - 'uk_renewables_pipeline/**'
       - 'pipelinenews_intelligence/**'
+      # The homepage is rendered from catalogue/homepage-catalogue.json. A run of
+      # scripts/build_homepage_catalogue.py that changes only the JSON must deploy.
+      - 'catalogue/**'
       - '.github/workflows/deploy-pages.yml'
       - 'CNAME'
       # The build status page is published from the repository root, not from a

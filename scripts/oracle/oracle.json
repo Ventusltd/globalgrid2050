@@ -1,0 +1,61 @@
+{
+  "schema": "globalgrid2050.atlas-oracle.v1",
+  "why": "testcode/202609051531 is the arrival the architect identified as smooth. It is pinned here as the ORACLE: the build every candidate Atlas is measured against. An oracle is not an opinion about design - it is a set of numbers a candidate must not be worse than.",
+  "oracle": {
+    "release": "testcode/202609051531",
+    "url": "https://globalgrid2050.com/testcode/202609051531/atlas/?testcode_case=repd-11386&testcode_entity_kind=repd&testcode_entity_id=11386&repd_ref=11386&technology=solar&project=Harbour+Farm+-+Solar+Farm&capacity_mw=42&longitude=-0.2023162&latitude=53.734542",
+    "bound_to_pipeline": "uk_renewables_pipeline/202609051156",
+    "bound_how": "the REPD identity shards under atlas/data/repd-identities were first cut at 202609051214, after 202609051156 shipped, and the record for REPD 11386 matches that spine on name, technology, capacity_mw, longitude, latitude and county",
+    "map_button": "testcode/202609051531/capsule-launch.js builds new URL('./atlas/', location.href) - the Atlas is RELATIVE to the release, so PipelineNews and the Atlas ship together on one origin under one timestamp"
+  },
+  "baseline": {
+    "measured_utc": "2026-09-06T12:55Z",
+    "runs_per_lane": 3,
+    "note": "Medians of three runs per lane, Playwright chromium, iPhone 14 Pro profile for mobile and 1440x900 for desktop. A single sample is a number, not a baseline.",
+    "mobile": {
+      "engine_fired": 3,
+      "engine_ms": 1207,
+      "requests": 78,
+      "declared_kb": 7059
+    },
+    "desktop": {
+      "engine_fired": 3,
+      "engine_ms": 1185,
+      "requests": 97,
+      "declared_kb": 12978
+    },
+    "style_layers": 194,
+    "rendered_features": 180,
+    "l_subs_visible_on_arrival": true,
+    "repd_lookup": "sharded",
+    "repd_paths": [
+      "/testcode/202609051531/atlas/data/repd-identities/11.json"
+    ]
+  },
+  "rules": {
+    "engine_must_fire_every_run": {
+      "why": "The card stating 'Nearest <n> kV substation:' is the only evidence the grid engine ran. A project name on screen proves the card was built, nothing more - that conflation is what let an earlier harness report 94/94 while the map was still being complained about.",
+      "tolerance": "none"
+    },
+    "mobile_declared_kb": {
+      "why": "The oracle reads ONE ~120 KB REPD identity shard keyed by the ref's prefix. The live Atlas downloads a parquet dataset plus the duckdb WASM extension, measured at 17,021 KB against the oracle's 7,059 KB on the same arrival. On a phone that is the difference the architect can feel.",
+      "max_ratio_to_oracle": 1.15
+    },
+    "engine_ms": {
+      "why": "Time to the engine's answer, not time to first paint. A build may load quickly and still leave the reader without the number they came for. The bound is 1.6x, not tighter: re-measuring the ORACLE against its own baseline produced 1,797 ms on mobile against a 1,207 ms median, so a live network moves this by half again on its own. A gate that fails the build it was written from is measuring jitter, not regression - this is here to catch a structural change, and payload and drawn features are the axes that hold still.",
+      "max_ratio_to_oracle": 1.6
+    },
+    "rendered_features": {
+      "why": "What is actually DRAWN on arrival. The oracle renders 180; the live Atlas renders 62-74 on the same arrival. Equal layer counts hid this - both carry 194 style layers - so counting layers is not the check.",
+      "min_ratio_to_oracle": 0.8
+    },
+    "l_subs_visible_on_arrival": {
+      "why": "Arriving from a project must show the substations the card measures to. Asserted directly rather than inferred from a screenshot, because a backgrounded tab stalls MapLibre and makes a working map look blank.",
+      "required": true
+    },
+    "repd_lookup_is_sharded": {
+      "why": "A bulk parquet fetch on every arrival is the cause of the mobile payload gap, not a symptom of it. Naming the cause means a candidate cannot pass by trimming something else. Matched on the DATASET - parquet files, partitioned masters, whole-register payloads - never on the duckdb library, which the oracle also loads.",
+      "required": true
+    }
+  }
+}

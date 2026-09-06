@@ -1,0 +1,43 @@
+name: Atlas oracle comparison
+# testcode/202609051531 is the arrival the architect identified as smooth. It is
+# pinned as the ORACLE and every candidate Atlas is measured against it. This
+# runs on demand rather than on every push because it measures LIVE URLs over a
+# real network - a gate that depends on somebody else's uptime must not be able
+# to fail a commit that did not touch anything.
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_url:
+        description: "Atlas arrival URL to measure (blank = re-measure the oracle itself)"
+        required: false
+        default: ""
+      runs:
+        description: "Runs per lane (medians are compared; one sample is not a measurement)"
+        required: false
+        default: "3"
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install the pinned browser harness
+        working-directory: uk_renewables_pipeline/v9.7
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Compare against the oracle
+        run: |
+          ln -s uk_renewables_pipeline/v9.7/node_modules node_modules
+          if [ -z "${{ inputs.candidate_url }}" ]; then
+            node scripts/oracle/compare.mjs --remeasure-oracle "${{ inputs.runs }}"
+          else
+            node scripts/oracle/compare.mjs "${{ inputs.candidate_url }}" "${{ inputs.runs }}"
+          fi

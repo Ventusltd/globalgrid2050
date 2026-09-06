@@ -20,24 +20,25 @@ attributed; a derived one may not.
 |---|---|---|---|
 | 1 | Electrification arithmetic — energy, average, peak at a stated load factor | `202609060148-electrification-workbench` | **live** |
 | 2 | Firm capacity — N-1, installed against firm, MW to MVA | `202609060205-firm-capacity` | **live** |
-| 3 | Diversity — ADMD, coincidence measured not assumed | workbench | engine done, 26 checks |
-| 4 | Connection cap — battery power from peak, store from area above the cap | workbench | engine done, 39 checks |
-| 5 | Route obstacles — motorway, railway, open water; the Irish Sea refusal | workbench | engine done, 44 checks |
-| 6 | Trench or drill — crossing method, setback, bore length | workbench | |
-| 7 | Solar + BESS behind one connection — clipping and export | workbench | |
-| 8 | NESO pathway growth applied to a substation | workbench | |
-| 9 | Published fault level — a view for the module that has none | workbench | |
+| 3 | Diversity — ADMD, coincidence measured not assumed | `202609060211-diversity` | **live** |
+| 4 | Connection cap — battery power from peak, store from area above the cap | `202609060212-connection-cap` | **live** |
+| 5 | Route obstacles — motorway, railway, open water; the Irish Sea refusal | `202609060213-route-obstacles` | **live** |
+| 6 | Trench or drill — the engine wired into `cable-trench-or-drill`, pinned by hash | `src/route-constraints/` there, 25 checks | **live** |
+| 7 | Solar + BESS behind one connection — clipping and net position | `202609060217-solar-bess-export` | **live** |
+| 8 | NESO pathway growth applied to a substation | `202609060218-substation-growth` | **live** |
+| 9 | Published fault level — opens refused, because the data has no basis | `202609060236-published-fault-level` | **live** |
 | 10 | Fault headroom, published — resume the interrupted National Grid thread, CI-scanned | workbench + data provenance | |
 | 11 | Seasonal rating envelope — a view for `rating-envelope.js` | workbench | |
 | 12 | Nearest substation — a view for `v9-nearest-search.js` | workbench | |
 | 13 | Electrical distance — hop count over published topology | workbench | |
 | 14 | Network topology — a view for `network-topology.js` | workbench | |
-| 15 | Corridor estimate — the straight-line first pass, shown honestly | workbench | |
-| 16 | Site area and perimeter — a view for the geo modules | workbench | |
-| 17 | Load duration and load factor from a profile | workbench | |
-| 18 | Power factor correction — kVAr to reach a target | workbench | |
+| 15 | Corridor estimate — the straight-line first pass, shown honestly | `202609060237-corridor-estimate` | **live** |
+| 16 | Site area, perimeter and bearing on the shared geodesy | `202609060238-site-geometry` | **live** |
+| 17 | Interconnectors against prices, as text, deliberately not drawn | `202609060305-interconnectors` | **live** |
+| 18 | Power factor — capacity released without building anything | `202609060309-power-factor` | **live** |
 | 19 | Transformer loading and losses | workbench | |
-| 20 | Voltage drop along a feeder | workbench | |
+| 19b | Data centre connection — MVA, diversity and firm capacity together | workbench | |
+| 20 | Voltage drop along a feeder, and losses kept separate | `202609060313-voltage-drop` | **live** |
 | 21 | Storage duration and round-trip | workbench | |
 | 22 | Heat pump cold snap — the winter coincidence case | workbench | |
 | 23 | EV depot — fleet energy inside a charging window | workbench | |

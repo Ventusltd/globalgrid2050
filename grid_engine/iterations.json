@@ -118,6 +118,15 @@
       "engine": "engine/voltage-drop.js",
       "engineCommit": "2b0db38",
       "checks": 32
+    },
+    {
+      "stamp": "202609060316",
+      "path": "202609060316-data-centre-connection/",
+      "title": "Data Centre Connection Workbench",
+      "feature": "A data centre load taken end to end: IT load to MVA at a stated power factor, diversity across halls, annual energy at a load factor, and the whole thing assessed against a substation's N-1 firm capacity rather than its nameplate.",
+      "engine": "engine/firm-capacity.js + engine/diversified-demand.js + engine/electrification-demand.js",
+      "engineCommit": "2b0db38",
+      "checks": 93
     }
   ]
 }

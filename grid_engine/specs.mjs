@@ -1185,5 +1185,138 @@ function render() {
     ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n">' + r[2] + '</td></tr>').join('');
   } catch (err) { refuse('out-loss', err.message); lt.innerHTML = ''; }
 }`
+    },
+    {
+        stamp: '202609060316',
+        slug: 'data-centre-connection',
+        title: 'Data Centre Connection Workbench',
+        sub: 'A large, concentrated, fast-moving load, sized against the substation it wants',
+        feature: 'A data centre load taken end to end: IT load to MVA at a stated power factor, diversity across halls, annual energy at a load factor, and the whole thing assessed against a substation\'s N-1 firm capacity rather than its nameplate.',
+        engineModule: ['firm-capacity.js', 'diversified-demand.js', 'electrification-demand.js'],
+        engineCommit: '2b0db38',
+        schema: [
+            'ventus-grid-engine.firm-capacity.v1',
+            'ventus-grid-engine.diversified-demand.v1',
+            'ventus-grid-engine.electrification-demand.v1'
+        ],
+        checks: 93,
+        panels: [
+            {
+                heading: '1 · THE LOAD, AS THE SUBSTATION SEES IT',
+                lede: `Data centres are the load class changing GB distribution fastest: concentrated,
+                   large, and moving quicker than networks are built. Government put GB colocation IT
+                   capacity at about 1.6 GW in autumn 2024, two thirds of it in London, and the UK
+                   Compute Roadmap now looks for at least 6 GW of AI-capable capacity by 2030. Enter
+                   the IT load per hall and how many halls. Power factor matters here as everywhere:
+                   the transformer carries the MVA, not the MW.`,
+                controls: [
+                    { id: 'halls', type: 'number', label: 'Number of halls', value: '8', min: 1, max: 500, step: 1 },
+                    { id: 'permw', type: 'number', label: 'IT load per hall (MW)', value: '12.5', min: 0.1, max: 500, step: 0.1 },
+                    { id: 'pue', type: 'number', label: 'PUE (total facility ÷ IT load)', value: '1.25', min: 1.0, max: 3.0, step: 0.01 },
+                    { id: 'pf', type: 'range', label: 'Power factor', value: '0.95', min: 0.70, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-load'
+            },
+            {
+                heading: '2 · DIVERSITY, WHICH IS SMALL HERE AND THAT IS THE POINT',
+                lede: `Most load classes diversify heavily — a hundred homes never all draw at once.
+                   A data centre barely diversifies at all: it is designed to run flat, which is
+                   exactly why it is hard to connect. Set the coincidence factor you can actually
+                   defend. At 1.0 there is no diversity and the site presents everything it has.`,
+                controls: [
+                    { id: 'coin', type: 'range', label: 'Coincidence across halls', value: '0.95', min: 0.30, max: 1.00, step: 0.01 },
+                    { id: 'lf', type: 'range', label: 'Annual load factor', value: '0.90', min: 0.10, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-diversity',
+                tableId: 'dc-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Value', right: true }]
+            },
+            {
+                heading: '3 · AGAINST THE SUBSTATION IT WANTS',
+                lede: `Now the question that decides the project. Not "is there a big substation
+                   nearby" but "does this load still fit with the largest transformer out". Enter the
+                   bank. Watch what happens to a site that looks comfortable on installed capacity.`,
+                controls: [
+                    { id: 'units', type: 'text', label: 'Transformer ratings (MVA, comma separated)', value: '90, 90, 90' }
+                ],
+                outId: 'out-firm',
+                tableId: 'firm-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Value', right: true }, { label: 'Reading', right: true }],
+                note: `A connection is not granted by arithmetic. The binding constraint is frequently
+                   the upstream circuit, the fault level at the busbar, or a position in a queue —
+                   Ofgem has reported demand connection applications rising from 41 GW to 125 GW, at
+                   least 80 GW of it data centres, while warning that a significant portion may be
+                   speculative. Nothing here distinguishes a financed project from an enquiry.`
+            }
+        ],
+        script: `
+function bind() { ['halls','permw','pue','pf','coin','lf','units'].forEach(id => el(id).addEventListener('input', render)); }
+function parseUnits(raw) { return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number); }
+
+function render() {
+  el('pf-val').textContent = num('pf').toFixed(2);
+  el('coin-val').textContent = num('coin').toFixed(2);
+  el('lf-val').textContent = num('lf').toFixed(2);
+
+  const halls = Math.round(num('halls'));
+  const itMw = num('permw');
+  const facilityMwPerHall = itMw * num('pue');
+  let diversifiedMw = null, mva = null;
+
+  try {
+    const admd = E.diversifiedDemandKw({ unitCount: halls, perUnitKw: facilityMwPerHall * 1000,
+      coincidenceFactor: num('coin') });
+    diversifiedMw = admd.value / 1000;
+    mva = E.apparentPowerMva({ mw: diversifiedMw, powerFactor: num('pf') });
+    el('out-load').innerHTML =
+      '<div class="figure"><span class="q">demand at the connection</span><span class="n">' +
+      mva.value.toFixed(1) + '</span><span class="u">MVA · ' + diversifiedMw.toFixed(1) + ' MW after diversity</span></div>' +
+      '<p class="basis">' + mva.basis + '</p>';
+  } catch (err) { refuse('out-load', err.message); }
+
+  const dt = document.querySelector('#dc-table tbody');
+  try {
+    const unrestrictedMw = halls * facilityMwPerHall;
+    // MW x hours is MWh, and MWh to TWh is a division by 1e6. The first
+    // version multiplied by 1000 after that and printed 936 TWh for a
+    // 125 MW site - three orders of magnitude out, and obvious only
+    // because the number was absurd rather than because anything caught it.
+    const annualTwh = (diversifiedMw * 8760 * num('lf')) / 1e6;
+    const avg = E.averagePowerGw({ annualTwh });
+    el('out-diversity').innerHTML =
+      '<div class="figure"><span class="q">annual energy</span><span class="n">' +
+      annualTwh.toFixed(3) + '</span><span class="u">TWh a year at a load factor of ' + num('lf').toFixed(2) + '</span></div>' +
+      '<p class="basis">' + avg.basis + '</p>';
+    dt.innerHTML = [
+      ['IT load', (halls * itMw).toFixed(1) + ' MW'],
+      ['Facility load at PUE ' + num('pue').toFixed(2), unrestrictedMw.toFixed(1) + ' MW'],
+      ['After diversity at ' + num('coin').toFixed(2), diversifiedMw.toFixed(1) + ' MW'],
+      ['At the connection', mva.value.toFixed(1) + ' MVA'],
+      ['Annual energy', annualTwh.toFixed(3) + ' TWh'],
+      ['Mean power across the year', avg.value.toFixed(3) + ' GW']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+  } catch (err) { refuse('out-diversity', err.message); dt.innerHTML = ''; }
+
+  const ft = document.querySelector('#firm-table tbody');
+  try {
+    const units = parseUnits(el('units').value);
+    const a = E.assessAgainstFirm({ units, demandMva: mva.value });
+    el('out-firm').innerHTML =
+      '<div class="figure"><span class="q">n-1 assessment</span><span class="n' + (a.withinFirm ? '' : ' over') + '">' +
+      (a.withinFirm ? 'WITHIN FIRM' : a.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span></div><p class="basis">' + a.basis + '</p>';
+    ft.innerHTML = [
+      ['Installed capacity', a.installedMva.toFixed(1) + ' MVA', 'sum of all units'],
+      ['Firm capacity (N-1)', a.firmMva.toFixed(1) + ' MVA', 'largest unit out'],
+      ['Demand', a.demandMva.toFixed(1) + ' MVA', 'from panel 1'],
+      ['Utilisation of installed', (a.utilisationOfInstalled * 100).toFixed(1) + '%',
+        a.utilisationOfInstalled > 1 ? 'over' : 'looks comfortable'],
+      ['Utilisation of firm', (a.utilisationOfFirm * 100).toFixed(1) + '%',
+        a.utilisationOfFirm > 1 ? 'EXCEEDED' : 'within'],
+      ['Shortfall against firm', a.shortfallMva.toFixed(1) + ' MVA', a.shortfallMva > 0 ? 'must be resolved' : 'none']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/EXCEEDED|over|must/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-firm', err.message); ft.innerHTML = ''; }
+}`
     }
 ];

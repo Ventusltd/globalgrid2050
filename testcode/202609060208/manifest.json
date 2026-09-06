@@ -1,0 +1,66 @@
+{
+  "schema": "ventus.testcode-candidate.v1",
+  "generation": "202609060208",
+  "planId": "BBC-RSS-02",
+  "relatedPlan": "PIPELINE-01",
+  "scopeExtension": "User requested automated BBC RSS discovery, independent of energy-feed rollup prerequisites",
+  "owner": "Ventusltd/pipelinenews",
+  "sourceCommit": "603947ec164e68ecc5a10f78fe2999e3b98af8f4",
+  "status": "candidate",
+  "change": "Keep Cearn news-only and separate its claims from related Botley West facts",
+  "paper": "https://globalgrid2050.com/papers/202609060203-electrification/",
+  "schedule": "17 */2 * * *",
+  "sources": [
+    {
+      "path": "ui/templates/bbc-rss-intelligence.html",
+      "sha256": "85248161abbdda45bd96b485c47f0f9257b7c094154faab0e9f9f62b822f95dc"
+    },
+    {
+      "path": "discovery/bbc_rss.py",
+      "sha256": "a3498f66fa3eec40764f8622efc9cdf8bc1050037f77aa463e9a4e5db38f8521"
+    },
+    {
+      "path": "discovery/products/bbc-rss.json",
+      "sha256": "a12e108c0716b0792dbf6f3bc024812d6dbeec013cd68804a6b7cbde42b2037f"
+    },
+    {
+      "path": "discovery/inbox/202609060208-cearn-project-evidence.json",
+      "sha256": "3aad6f9b5fe19cadad4e3ff7a537f9a2c0bfe7d1764bee323ea021d1d4b62e30"
+    },
+    {
+      "path": "cartridges/reported-project.mjs",
+      "sha256": "9e8eab783dffe76b5d2224fb62d8d4bbb0675550e449860bd5b937ec280a6aca"
+    },
+    {
+      "path": "cartridges/reported-project-panel.mjs",
+      "sha256": "20ff38d97a87d81232c46ac65944e852c76269d7c59d5222ba14c96adae505b4"
+    }
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 4798,
+      "sha256": "b862add24f25e579b8a4a1c22be0a99d4a3688b2abc7927d921e00454cd6fae3"
+    },
+    {
+      "path": "snapshot.json",
+      "bytes": 8451,
+      "sha256": "a12e108c0716b0792dbf6f3bc024812d6dbeec013cd68804a6b7cbde42b2037f"
+    },
+    {
+      "path": "project-evidence.json",
+      "bytes": 3155,
+      "sha256": "3aad6f9b5fe19cadad4e3ff7a537f9a2c0bfe7d1764bee323ea021d1d4b62e30"
+    },
+    {
+      "path": "reported-project.mjs",
+      "bytes": 1815,
+      "sha256": "9e8eab783dffe76b5d2224fb62d8d4bbb0675550e449860bd5b937ec280a6aca"
+    },
+    {
+      "path": "reported-project-panel.mjs",
+      "bytes": 1668,
+      "sha256": "20ff38d97a87d81232c46ac65944e852c76269d7c59d5222ba14c96adae505b4"
+    }
+  ]
+}

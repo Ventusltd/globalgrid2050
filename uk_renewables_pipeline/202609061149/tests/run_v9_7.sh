@@ -74,7 +74,13 @@ for relative in "${CHANGED_FROM_PARENT[@]}"; do
   fi
 done
 
-V9_BROWSER_SMOKE=0 bash "$V962/tests/run_v9_6_2.sh"
+# The inherited chain runs from the CANONICAL directories, not from this
+# release's parent copy of them. A timestamped release carries a copy of every
+# ancestor runner, and those copies compute their own directory as the version
+# under test - so calling the parent's run_v9_6_2.sh asks it to prove that
+# 202609061004 IS v9.6.2, which it is not and was never meant to be. It fails
+# on the parent's own additions, such as data/v9.7.
+V9_BROWSER_SMOKE=0 bash "$ROOT/uk_renewables_pipeline/v9.6.2/tests/run_v9_6_2.sh"
 node "$V97/scripts/build/regional-news-v9-7.mjs"
 git -C "$ROOT" diff --exit-code -- "uk_renewables_pipeline/$(basename "$V97")/data"
 node "$HERE/check_v9_7.mjs"

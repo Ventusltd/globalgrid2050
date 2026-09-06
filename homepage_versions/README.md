@@ -1633,3 +1633,8 @@ Pre-edit snapshot of 189c25b876e219463b268076d6cdfa7ba69a84f4; restore3401347472
 ## homepage_v084
 
 Pre-edit snapshot of 424e5a0b60d49fd7ff068a9169de4b563c959fb2; restore34013716011 passed. Measurements: homepage_v084-measurement.json. Publish0517 browser composition guard after0509 acceptance. Exact source7824dd7eb36fc6289c136509000a95b54a4297f3, CI34013666369 passed11 composition,64 measurement,54 layout,26 removal,20 recovery,120 polygon and10 Print checks. Original four cartridges and layout initializer retained. No owner-main promotion; preserve older links.
+
+
+## homepage_v085
+
+Pre-edit snapshot of 00c94eb26860a40c44b3fd95d50cc3f39c77a8a0; restore34013942448 passed. Measurements: homepage_v085-measurement.json. Publish0521 maximum-vertex preservation after0517 acceptance. Exact source c7c18e984a394acdc3e16abca77886edd790989e, scoped CI34013926063 passed323 checks including18 direct insertion-limit checks. Refusal preserves outline, history and saved draft; removing one vertex permits insertion again. Preserve older immutable links.

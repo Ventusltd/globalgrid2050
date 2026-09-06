@@ -1,0 +1,25 @@
+{
+  "generation": "202609060521",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "c7c18e984a394acdc3e16abca77886edd790989e",
+  "ownerCommit": "ad666b93984545cf77e43e68dd07e1e74efa63bd",
+  "parentGeneration": "202609060517",
+  "ci": {
+    "run": 34013926063,
+    "conclusion": "success",
+    "vertexLimitChecks": 18,
+    "compositionChecks": 11,
+    "clearanceChecks": 64,
+    "layoutChecks": 54,
+    "removalChecks": 26,
+    "recoveryChecks": 20,
+    "polygonChecks": 120,
+    "printChecks": 10
+  },
+  "scope": "Refuse insertion beyond4096 vertices before geometry, history or saved-draft mutation; removing one permits insertion again.",
+  "limitations": [
+    "Separate0528 correction addresses near-antipodal distance rounding that can omit perimeter or produce NaN CSV in this historical version.",
+    "No owner-main promotion or full estate pass claimed."
+  ],
+  "publicationStatus": "Exact served and live receipts recorded after deployment."
+}

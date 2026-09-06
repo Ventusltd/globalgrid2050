@@ -200,7 +200,81 @@
 <p class="statusline"><a id="build-plan-restart" href="https://ventusltd.github.io/spiders/codex/build-plan/">Build plan / AI restart</a> &mdash; 50 planned Pipeline News builds and 50 planned GridAtlas builds, with priorities, repository owners and restart guidance.</p>
 
 
+<section id="terminal-pipes" aria-label="Decorative terminal cable sketch" style="margin:12px 0"><pre aria-hidden="true" style="font:12px/1.1 Consolas,monospace;color:#aeb3b8;max-width:100%;overflow:hidden;height:54px"></pre><button type="button" style="font:12px Consolas,monospace;color:#ccc;background:#222;border:1px solid #777">Pause sketch</button> <small style="font-size:11px">Decorative cable traces | <a href="https://github.com/pipeseroni/pipes.sh">pipes.sh</a> / <a href="./cartridges/202609052158-terminal-pipes/LICENSE.pipes.txt">MIT</a></small></section><script type="module" src="./cartridges/202609052158-terminal-pipes/pipes.mjs"></script>
+<!-- open-energy:start -->
+<section id="open-energy" aria-labelledby="energy-title">
+<h2 id="energy-title">[ WORLD ENERGY / THIS MINUTE ]</h2>
+<p data-status>Loading the 2024 energy baseline. These are modelled flows, not live measurements.</p>
+<div class="energy-row" data-energy="total"><div class="energy-label"><label for="energy-total">TOTAL PRIMARY ENERGY</label><output>Unavailable</output></div><progress id="energy-total" max="1" value="0"></progress><small data-rate></small></div>
+<div class="energy-row" data-energy="renewable"><div class="energy-label"><label for="energy-renewable">RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-renewable" max="1" value="0"></progress><small data-rate></small></div>
+<div class="energy-row" data-energy="nonrenewable"><div class="energy-label"><label for="energy-nonrenewable">NON-RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-nonrenewable" max="1" value="0"></progress><small data-rate></small></div>
+<button type="button" aria-pressed="false" disabled>Pause counters</button>
+<p>Original VENTUS calculation. Fast digits illustrate an average rate; they do not imply measurement precision. Each bar fills over the current UTC minute; the numbers show each source contribution.</p>
+<details><summary>Source / calculation / limits</summary><p>Source: <a href="https://www.eia.gov/tools/faqs/faq.php?id=527&amp;t=1">U.S. Energy Information Administration (1 July 2026)</a>. World consumption in 2024: 606.0 quadrillion Btu total; 42.7 renewable. Non-renewable is the difference and includes nuclear. This is primary energy, not electricity alone.</p><p>We convert to MWh, divide by the 366 days of 2024 and multiply the average per-second rate by the elapsed seconds of this UTC minute. This illustrates historical average rates, not measured demand today. Seasonal and hourly variation are not modelled.</p><p><a href="./cartridges/202609052143-open-energy/source.json">Baseline and provenance</a> | <a href="https://www.eia.gov/about/copyrights_reuse.php">EIA reuse policy</a>. No Worldometer feed or code is used.</p></details>
+</section>
+<script type="module" src="./cartridges/202609052154-minute-runtime/fast-existing.mjs"></script>
+<!-- open-energy:end -->
 
+<section id="nasa-ice" aria-labelledby="ice-title">
+<h2 id="ice-title">[ POLAR ICE / THE SCALE OF CHANGE ]</h2>
+<p data-status>Loading historical ice-loss baseline.</p>
+<div class="ice-row" data-ice="greenland"><label for="ice-greenland">GREENLAND <output>Unavailable</output></label><progress id="ice-greenland" max="1" value="0"></progress><small></small></div>
+<div class="ice-row" data-ice="antarctica"><label for="ice-antarctica">ANTARCTICA <output>Unavailable</output></label><progress id="ice-antarctica" max="1" value="0"></progress><small></small></div>
+<button type="button" aria-pressed="false" disabled>Pause counters</button>
+<p>Tonnes over this minute at the historical average rate; bars reset every UTC minute. Net mass loss includes ice flow into the ocean as well as surface processes. This is not a live melt sensor or an ice-remaining countdown.</p>
+<p>Source: <a href="https://svs.gsfc.nasa.gov/31166/">NASA and JPL/Caltech, 2002-2025 GRACE/GRACE-FO summary</a> (updated 11 December 2025). <a href="./cartridges/202609052150-nasa-ice/source.json">Baseline and model</a>.</p>
+</section>
+
+<section id="solar-radiation" class="science-terminal" aria-labelledby="sun-title">
+<h2 id="sun-title">[ SUNLIGHT FALLING ON EARTH ]</h2>
+<p>MEAN SOLAR IRRADIANCE: 1,361 W/m&sup2; at the top of the atmosphere.</p>
+<dl class="solar-periods"><div><dt>TODAY &middot; UTC</dt><dd><output data-solar="day">Loading</output></dd></div><div><dt>THIS HOUR &middot; UTC</dt><dd><output data-solar="hour">Loading</output></dd></div><div><dt>THIS MINUTE &middot; UTC</dt><dd><output data-solar="minute">Loading</output></dd></div></dl>
+<div class="reading" data-row="sun"><label for="sun-progress">CURRENT MINUTE <output>Loading</output></label><progress id="sun-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button>
+<p>Somewhere on Earth it is always daytime. This model counts sunlight arriving at the top of the atmosphere, before reflection and conversion losses. It is not electricity available from solar panels.</p>
+<details><summary>How the number works</summary><p>1,361 W/m2 multiplied by Earth's sun-facing disk area, using a 6,371 km radius. Energy = power multiplied by time. The constant-rate model omits orbital and solar variability. <a href="https://earth.gsfc.nasa.gov/climate/projects/solar-irradiance/science">NASA irradiance</a> | <a href="./cartridges/202609052155-solar-radiation/source.json">Sources and calculation</a>.</p></details>
+</section><script type="module" src="./cartridges/202609052200-solar-periods/solar.mjs"></script>
+<section id="circuit-school" class="science-terminal" aria-labelledby="circuit-title">
+<h2 id="circuit-title">[ FARADS + HENRYS ]</h2>
+<p>Two separate ideal 48 V step-response circuits, each with a 10 ohm resistor. Change C or L and watch how quickly voltage or current develops.</p>
+<div class="controls"><label>Capacitance / microfarads <input name="c" type="number" min="100" max="5000" step="100" value="1000"></label><label>Inductance / millihenrys <input name="l" type="number" min="1" max="100" step="1" value="100"></label></div>
+<div class="reading" data-row="cap"><label for="cap-progress">CAPACITOR VOLTAGE <output>Loading</output></label><progress id="cap-progress" max="1" value="0"></progress></div>
+<div class="reading" data-row="ind"><label for="ind-progress">INDUCTOR CURRENT <output>Loading</output></label><progress id="ind-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button>
+<p data-explain></p><p>A capacitor stores electric-field energy; an inductor stores magnetic-field energy. These behaviours matter in inverter DC links and converter filters. Each animation repeats after ten seconds; the circuit's simulated milliseconds are shown above. Ideal components only, not equipment design ratings.</p>
+<details><summary>Equations</summary><p>RC and L/R are time constants. At one time constant, the rising response reaches about 63.2%. Vc = V(1-exp(-t/RC)); I = (V/R)(1-exp(-tR/L)). Stored energies: CVc squared /2 and LI squared /2. Original implementation; <a href="https://openstax.org/books/university-physics-volume-2/pages/14-4-rl-circuits">OpenStax explanation</a>.</p></details>
+</section><script type="module" src="./cartridges/202609052156-rc-rl/circuits.mjs"></script>
+<section id="solar-75tw" class="science-terminal" aria-labelledby="pv-title">
+<h2 id="pv-title">[ 75 TW SOLAR / WHAT IF? ]</h2>
+<p>NREL-led workshop participants suggested about 75 TW or more of deployed PV by 2050 to meet decarbonisation goals. Explore the output of that hypothetical fleet.</p>
+<div class="controls"><label>Assumed capacity factor / percent <input type="number" min="5" max="40" step="1" value="20"></label></div>
+<div class="reading" data-row="pv"><label for="pv-progress">MODELLED ENERGY THIS MINUTE <output>Loading</output></label><progress id="pv-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button><p data-assumption></p>
+<p>TW measures capacity; MWh measures energy. This is a target-based scenario, not a claim that 75 TW has been built. <a href="https://www.nlr.gov/news/detail/press/2023/news-release-next-decade-decisive-for-pv-growth-on-the-path-to-2050">NREL report, 6 April 2023</a> | <a href="./cartridges/202609052157-solar-scenario/source.json">Scenario provenance</a>.</p>
+</section><script type="module" src="./cartridges/202609052157-solar-scenario/scenario.mjs"></script>
+<section id="nano-minute" class="science-terminal" aria-labelledby="nano-title"><h2 id="nano-title">[ THE MINUTE / IN NANOSECONDS ]</h2><div class="reading" data-row="nano"><label for="nano-progress">REMAINING <output>Loading</output></label><progress id="nano-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button><p>One second = one billion nanoseconds. The number converts the browser's millisecond clock into nanoseconds; it is not a nanosecond-resolution measurement. The grey bar shows elapsed time in this minute.</p></section><script type="module" src="./cartridges/202609052159-nanosecond-clock/clock.mjs"></script>
+
+<!-- precision-board:start -->
+<section id="precision-progress" aria-labelledby="precision-title">
+<h2 id="precision-title">[ REVIEW CHECKPOINTS ]</h2>
+<p><strong>08 / 96 verified</strong> &mdash; repository identity checkpoints only. The other 88 review steps are pending; these numbers do not indicate running reviews.</p>
+<ul><li><span>Release composition</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
+<li><span>Cable geometry</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
+<li><span>GRID / SUBS controls</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
+<li><span>Project deep links</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
+<li><span>App-only PDF</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
+<li><span>GIS SLD isolation</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
+<li><span>Source print integrity</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
+<li><span>GPU evidence</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li></ul>
+<p class="precision-note">Snapshot: <time datetime="2026-09-05T21:24:56.581319+00:00">5 September 2026, 21:24 UTC</time>. Manually refreshed; no live telemetry. <a href="https://ventusltd.github.io/spiders/codex/build-plan/">Open the build plan / AI restart</a>.</p>
+<h3>[ CALENDAR CLOCK ]</h3>
+<div class="precision-clock"><label for="precision-days"><span>DAYS TO 2050</span><output id="precision-days-value">Clock loading</output></label><progress id="precision-days" max="1" value="0" aria-label="DAYS TO 2050 elapsed time"></progress></div>
+<div class="precision-clock"><label for="precision-weeks"><span>WEEKS TO 2050</span><output id="precision-weeks-value">Clock loading</output></label><progress id="precision-weeks" max="1" value="0" aria-label="WEEKS TO 2050 elapsed time"></progress></div>
+<div class="precision-clock"><label for="precision-months"><span>MONTHS TO 2050</span><output id="precision-months-value">Clock loading</output></label><progress id="precision-months" max="1" value="0" aria-label="MONTHS TO 2050 elapsed time"></progress></div>
+<div class="precision-clock"><label for="precision-today"><span>LONDON TODAY</span><output id="precision-today-value">Clock loading</output></label><progress id="precision-today" max="1" value="0" aria-label="LONDON TODAY elapsed time"></progress></div>
+<div class="precision-clock"><label for="precision-minute"><span>THIS MINUTE</span><output id="precision-minute-value">Clock loading</output></label><progress id="precision-minute" max="1" value="0" aria-label="THIS MINUTE elapsed time"></progress></div>
+<p class="precision-note">Target: 1 January 2050, 00:00 UTC. Weeks and months are approximate calendar equivalents. Long-term totals are numeric. Animated clock bars fill over the current minute, never work completion.</p>
+<p class="precision-note">Terminal presentation adapted from <a href="https://github.com/wolph/python-progressbar">progressbar2</a> | <a href="./cartridges/202609052136-terminal-progress/LICENSE.progressbar2.txt">BSD 3-Clause notice</a>.</p>
+</section>
+<script type="module" src="./cartridges/202609052136-terminal-progress/progress.js"></script>
+<!-- precision-board:end -->
 <div class="build">
   <a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a>
   <p class="what">The map. REPD projects, the GB transmission network, substations and measured grid distance. Current generation 202609042123 (v9.116).</p>
@@ -323,91 +397,6 @@
     </ul>
   </details>
 
-
-<section id="about-media" aria-labelledby="about-media-title">
-<h2 id="about-media-title">About &amp; Media</h2>
-<p class="link-row"><a href="./papers/202609060203-electrification/">Electrification and the Size of Britain&#8217;s Electricity System</a></p>
-<p class="statusline">Ventus technical discussion paper &middot; 6 September 2026 &middot; Electricity demand, winter peaks and network reinforcement.</p>
-<p class="link-row"><a href="./podcast_transcripts/">Podcast Transcripts</a></p>
-</section>
-
-<div id="science-graphics">
-<section id="terminal-pipes" aria-label="Decorative terminal cable sketch" style="margin:12px 0"><pre aria-hidden="true" style="font:12px/1.1 Consolas,monospace;color:#aeb3b8;max-width:100%;overflow:hidden;height:54px"></pre><button type="button" style="font:12px Consolas,monospace;color:#ccc;background:#222;border:1px solid #777">Pause sketch</button> <small style="font-size:11px">Decorative cable traces | <a href="https://github.com/pipeseroni/pipes.sh">pipes.sh</a> / <a href="./cartridges/202609052158-terminal-pipes/LICENSE.pipes.txt">MIT</a></small></section><script type="module" src="./cartridges/202609052158-terminal-pipes/pipes.mjs"></script>
-<!-- open-energy:start -->
-<section id="open-energy" aria-labelledby="energy-title">
-<h2 id="energy-title">[ WORLD ENERGY / THIS MINUTE ]</h2>
-<p data-status>Loading the 2024 energy baseline. These are modelled flows, not live measurements.</p>
-<div class="energy-row" data-energy="total"><div class="energy-label"><label for="energy-total">TOTAL PRIMARY ENERGY</label><output>Unavailable</output></div><progress id="energy-total" max="1" value="0"></progress><small data-rate></small></div>
-<div class="energy-row" data-energy="renewable"><div class="energy-label"><label for="energy-renewable">RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-renewable" max="1" value="0"></progress><small data-rate></small></div>
-<div class="energy-row" data-energy="nonrenewable"><div class="energy-label"><label for="energy-nonrenewable">NON-RENEWABLE ENERGY</label><output>Unavailable</output></div><progress id="energy-nonrenewable" max="1" value="0"></progress><small data-rate></small></div>
-<button type="button" aria-pressed="false" disabled>Pause counters</button>
-<p>Original VENTUS calculation. Fast digits illustrate an average rate; they do not imply measurement precision. Each bar fills over the current UTC minute; the numbers show each source contribution.</p>
-<details><summary>Source / calculation / limits</summary><p>Source: <a href="https://www.eia.gov/tools/faqs/faq.php?id=527&amp;t=1">U.S. Energy Information Administration (1 July 2026)</a>. World consumption in 2024: 606.0 quadrillion Btu total; 42.7 renewable. Non-renewable is the difference and includes nuclear. This is primary energy, not electricity alone.</p><p>We convert to MWh, divide by the 366 days of 2024 and multiply the average per-second rate by the elapsed seconds of this UTC minute. This illustrates historical average rates, not measured demand today. Seasonal and hourly variation are not modelled.</p><p><a href="./cartridges/202609052143-open-energy/source.json">Baseline and provenance</a> | <a href="https://www.eia.gov/about/copyrights_reuse.php">EIA reuse policy</a>. No Worldometer feed or code is used.</p></details>
-</section>
-<script type="module" src="./cartridges/202609052154-minute-runtime/fast-existing.mjs"></script>
-<!-- open-energy:end -->
-
-<section id="nasa-ice" aria-labelledby="ice-title">
-<h2 id="ice-title">[ POLAR ICE / THE SCALE OF CHANGE ]</h2>
-<p data-status>Loading historical ice-loss baseline.</p>
-<div class="ice-row" data-ice="greenland"><label for="ice-greenland">GREENLAND <output>Unavailable</output></label><progress id="ice-greenland" max="1" value="0"></progress><small></small></div>
-<div class="ice-row" data-ice="antarctica"><label for="ice-antarctica">ANTARCTICA <output>Unavailable</output></label><progress id="ice-antarctica" max="1" value="0"></progress><small></small></div>
-<button type="button" aria-pressed="false" disabled>Pause counters</button>
-<p>Tonnes over this minute at the historical average rate; bars reset every UTC minute. Net mass loss includes ice flow into the ocean as well as surface processes. This is not a live melt sensor or an ice-remaining countdown.</p>
-<p>Source: <a href="https://svs.gsfc.nasa.gov/31166/">NASA and JPL/Caltech, 2002-2025 GRACE/GRACE-FO summary</a> (updated 11 December 2025). <a href="./cartridges/202609052150-nasa-ice/source.json">Baseline and model</a>.</p>
-</section>
-
-<section id="solar-radiation" class="science-terminal" aria-labelledby="sun-title">
-<h2 id="sun-title">[ SUNLIGHT FALLING ON EARTH ]</h2>
-<p>MEAN SOLAR IRRADIANCE: 1,361 W/m&sup2; at the top of the atmosphere.</p>
-<dl class="solar-periods"><div><dt>TODAY &middot; UTC</dt><dd><output data-solar="day">Loading</output></dd></div><div><dt>THIS HOUR &middot; UTC</dt><dd><output data-solar="hour">Loading</output></dd></div><div><dt>THIS MINUTE &middot; UTC</dt><dd><output data-solar="minute">Loading</output></dd></div></dl>
-<div class="reading" data-row="sun"><label for="sun-progress">CURRENT MINUTE <output>Loading</output></label><progress id="sun-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button>
-<p>Somewhere on Earth it is always daytime. This model counts sunlight arriving at the top of the atmosphere, before reflection and conversion losses. It is not electricity available from solar panels.</p>
-<details><summary>How the number works</summary><p>1,361 W/m2 multiplied by Earth's sun-facing disk area, using a 6,371 km radius. Energy = power multiplied by time. The constant-rate model omits orbital and solar variability. <a href="https://earth.gsfc.nasa.gov/climate/projects/solar-irradiance/science">NASA irradiance</a> | <a href="./cartridges/202609052155-solar-radiation/source.json">Sources and calculation</a>.</p></details>
-</section><script type="module" src="./cartridges/202609052200-solar-periods/solar.mjs"></script>
-<section id="circuit-school" class="science-terminal" aria-labelledby="circuit-title">
-<h2 id="circuit-title">[ FARADS + HENRYS ]</h2>
-<p>Two separate ideal 48 V step-response circuits, each with a 10 ohm resistor. Change C or L and watch how quickly voltage or current develops.</p>
-<div class="controls"><label>Capacitance / microfarads <input name="c" type="number" min="100" max="5000" step="100" value="1000"></label><label>Inductance / millihenrys <input name="l" type="number" min="1" max="100" step="1" value="100"></label></div>
-<div class="reading" data-row="cap"><label for="cap-progress">CAPACITOR VOLTAGE <output>Loading</output></label><progress id="cap-progress" max="1" value="0"></progress></div>
-<div class="reading" data-row="ind"><label for="ind-progress">INDUCTOR CURRENT <output>Loading</output></label><progress id="ind-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button>
-<p data-explain></p><p>A capacitor stores electric-field energy; an inductor stores magnetic-field energy. These behaviours matter in inverter DC links and converter filters. Each animation repeats after ten seconds; the circuit's simulated milliseconds are shown above. Ideal components only, not equipment design ratings.</p>
-<details><summary>Equations</summary><p>RC and L/R are time constants. At one time constant, the rising response reaches about 63.2%. Vc = V(1-exp(-t/RC)); I = (V/R)(1-exp(-tR/L)). Stored energies: CVc squared /2 and LI squared /2. Original implementation; <a href="https://openstax.org/books/university-physics-volume-2/pages/14-4-rl-circuits">OpenStax explanation</a>.</p></details>
-</section><script type="module" src="./cartridges/202609052156-rc-rl/circuits.mjs"></script>
-<section id="solar-75tw" class="science-terminal" aria-labelledby="pv-title">
-<h2 id="pv-title">[ 75 TW SOLAR / WHAT IF? ]</h2>
-<p>NREL-led workshop participants suggested about 75 TW or more of deployed PV by 2050 to meet decarbonisation goals. Explore the output of that hypothetical fleet.</p>
-<div class="controls"><label>Assumed capacity factor / percent <input type="number" min="5" max="40" step="1" value="20"></label></div>
-<div class="reading" data-row="pv"><label for="pv-progress">MODELLED ENERGY THIS MINUTE <output>Loading</output></label><progress id="pv-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button><p data-assumption></p>
-<p>TW measures capacity; MWh measures energy. This is a target-based scenario, not a claim that 75 TW has been built. <a href="https://www.nlr.gov/news/detail/press/2023/news-release-next-decade-decisive-for-pv-growth-on-the-path-to-2050">NREL report, 6 April 2023</a> | <a href="./cartridges/202609052157-solar-scenario/source.json">Scenario provenance</a>.</p>
-</section><script type="module" src="./cartridges/202609052157-solar-scenario/scenario.mjs"></script>
-<section id="nano-minute" class="science-terminal" aria-labelledby="nano-title"><h2 id="nano-title">[ THE MINUTE / IN NANOSECONDS ]</h2><div class="reading" data-row="nano"><label for="nano-progress">REMAINING <output>Loading</output></label><progress id="nano-progress" max="1" value="0"></progress></div><button data-pause aria-pressed="false">Pause</button><p>One second = one billion nanoseconds. The number converts the browser's millisecond clock into nanoseconds; it is not a nanosecond-resolution measurement. The grey bar shows elapsed time in this minute.</p></section><script type="module" src="./cartridges/202609052159-nanosecond-clock/clock.mjs"></script>
-
-<!-- precision-board:start -->
-<section id="precision-progress" aria-labelledby="precision-title">
-<h2 id="precision-title">[ REVIEW CHECKPOINTS ]</h2>
-<p><strong>08 / 96 verified</strong> &mdash; repository identity checkpoints only. The other 88 review steps are pending; these numbers do not indicate running reviews.</p>
-<ul><li><span>Release composition</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>Cable geometry</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>GRID / SUBS controls</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>Project deep links</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>App-only PDF</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>GIS SLD isolation</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>Source print integrity</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li>
-<li><span>GPU evidence</span> <progress max="12" value="1" aria-label="1 of 12 identity checkpoints verified">1/12</progress><span class="precision-count">1/12</span></li></ul>
-<p class="precision-note">Snapshot: <time datetime="2026-09-05T21:24:56.581319+00:00">5 September 2026, 21:24 UTC</time>. Manually refreshed; no live telemetry. <a href="https://ventusltd.github.io/spiders/codex/build-plan/">Open the build plan / AI restart</a>.</p>
-<h3>[ CALENDAR CLOCK ]</h3>
-<div class="precision-clock"><label for="precision-days"><span>DAYS TO 2050</span><output id="precision-days-value">Clock loading</output></label><progress id="precision-days" max="1" value="0" aria-label="DAYS TO 2050 elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-weeks"><span>WEEKS TO 2050</span><output id="precision-weeks-value">Clock loading</output></label><progress id="precision-weeks" max="1" value="0" aria-label="WEEKS TO 2050 elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-months"><span>MONTHS TO 2050</span><output id="precision-months-value">Clock loading</output></label><progress id="precision-months" max="1" value="0" aria-label="MONTHS TO 2050 elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-today"><span>LONDON TODAY</span><output id="precision-today-value">Clock loading</output></label><progress id="precision-today" max="1" value="0" aria-label="LONDON TODAY elapsed time"></progress></div>
-<div class="precision-clock"><label for="precision-minute"><span>THIS MINUTE</span><output id="precision-minute-value">Clock loading</output></label><progress id="precision-minute" max="1" value="0" aria-label="THIS MINUTE elapsed time"></progress></div>
-<p class="precision-note">Target: 1 January 2050, 00:00 UTC. Weeks and months are approximate calendar equivalents. Long-term totals are numeric. Animated clock bars fill over the current minute, never work completion.</p>
-<p class="precision-note">Terminal presentation adapted from <a href="https://github.com/wolph/python-progressbar">progressbar2</a> | <a href="./cartridges/202609052136-terminal-progress/LICENSE.progressbar2.txt">BSD 3-Clause notice</a>.</p>
-</section>
-<script type="module" src="./cartridges/202609052136-terminal-progress/progress.js"></script>
-<!-- precision-board:end -->
-</div>
 
 <footer class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>

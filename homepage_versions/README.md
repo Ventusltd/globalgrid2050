@@ -1516,3 +1516,8 @@ Snapshot of b7e8d25d6d0876b6c18c8bb5d2623da396760bad before replacing dot counte
 
 ## homepage_v058
 Pre-edit snapshot of 89a6bb3b; restore workflow33993761917 passed. Adds original EIA average-day counter cartridge202609052143. Existing links preserved.
+
+
+## homepage_v062
+
+Pre-edit snapshot of dfbcd6c93b2922aec2cf21dad7d91ce2ea8cb506. Restore workflow 34003682199 passed. Measurements: homepage_v062-measurement.json. Publish the supplied electrification paper with a contents list in the podcast Markdown layout, add About & Media navigation, and move all science graphics and review/calendar bars to the bottom before the footer. Existing app links, product versions and graphic modules remain intact.

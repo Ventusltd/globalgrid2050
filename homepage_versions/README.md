@@ -1638,3 +1638,8 @@ Pre-edit snapshot of 424e5a0b60d49fd7ff068a9169de4b563c959fb2; restore3401371601
 ## homepage_v085
 
 Pre-edit snapshot of 00c94eb26860a40c44b3fd95d50cc3f39c77a8a0; restore34013942448 passed. Measurements: homepage_v085-measurement.json. Publish0521 maximum-vertex preservation after0517 acceptance. Exact source c7c18e984a394acdc3e16abca77886edd790989e, scoped CI34013926063 passed323 checks including18 direct insertion-limit checks. Refusal preserves outline, history and saved draft; removing one vertex permits insertion again. Preserve older immutable links.
+
+
+## homepage_v086
+
+Pre-edit snapshot of 282368be79f443d91a2e837b610f5acac8760bd5; restore34014252912 passed. Measurements: homepage_v086-measurement.json. Publish0528 near-antipodal distance correction after0521 acceptance. Exact source946a14e566ffe5b66372bb3e99e712b685d56dca, CI34014130115 passed349 checks including26 distance checks. Clamp haversine intermediate to its mathematical0..1 range only; exact coordinates unchanged. Earlier0521 eight failing export checks retained as negative evidence. Preserve older links.

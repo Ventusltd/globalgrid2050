@@ -1,0 +1,27 @@
+{
+  "generation": "202609060528",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "946a14e566ffe5b66372bb3e99e712b685d56dca",
+  "ownerCommit": "a7c176851eff0a684421ec7420d893e6aa04635d",
+  "parentGeneration": "202609060521",
+  "ci": {
+    "run": 34014130115,
+    "conclusion": "success",
+    "distanceChecks": 26,
+    "vertexLimitChecks": 18,
+    "compositionChecks": 11,
+    "clearanceChecks": 64,
+    "layoutChecks": 54,
+    "removalChecks": 26,
+    "recoveryChecks": 20,
+    "polygonChecks": 120,
+    "printChecks": 10
+  },
+  "scope": "Clamp haversine intermediate to mathematical0..1 range to avoid rounding-induced NaN near antipodal points; preserve exact coordinates.",
+  "limitations": [
+    "Earlier0521 eight failing actual export checks retained; prior scoped proofs did not cover this boundary.",
+    "WebKit interaction/native-canvas evidence is separate from blank page-screenshot behavior; no blanket rendering claim.",
+    "No owner-main promotion or full estate pass claimed."
+  ],
+  "publicationStatus": "Exact served and live receipts recorded after deployment."
+}

@@ -42,10 +42,23 @@ FORBIDDEN_WORDS = (
     "antibody",
 )
 
-# The start page is a menu. These are the nests, and their titles carry the
-# name only — a timestamp on a title was tried and removed, because the eye
-# should land on three words.
-REQUIRED_NESTS = ("Grid Atlas", "Pipeline News", "Grid Engine")
+# The start page is a menu of SUBJECTS, not of applications. This structure was
+# chosen from historical_builds.html, which already read clearly, and the two
+# federation categories were dropped from it by instruction.
+REQUIRED_NESTS = (
+    "Solar & BESS Topology",
+    "UK Grid Tracking",
+    "Data Centres & Digital Infrastructure",
+    "Cables & Conductors",
+    "Pricing & Materials",
+    "Components",
+    "Planning & Requirements",
+    "Reference & Knowledge",
+    "About & Media",
+)
+
+# Dropped by instruction and not to return.
+REMOVED_CATEGORIES = ("GlobalGrid2050 OS & Federation", "Federation & Spider")
 
 # Removed deliberately. Build state belongs in the repositories' READMEs, and
 # the dependency map is not a front-page concern.
@@ -81,10 +94,28 @@ class HomepageReadsCleanly(unittest.TestCase):
 
 
 class HomepageIsAMenu(unittest.TestCase):
-    def test_every_required_nest_exists(self) -> None:
-        summaries = re.findall(r"<summary>([^<]+)</summary>", homepage())
-        missing = [n for n in REQUIRED_NESTS if n not in summaries]
-        self.assertEqual([], missing, f"nests missing from the homepage: {missing}")
+    def test_every_required_category_exists(self) -> None:
+        html = homepage()
+        declared = re.findall(r'\{ name:"([^"]+)", children:\[', html)
+        missing = [n for n in REQUIRED_NESTS if n not in declared]
+        self.assertEqual([], missing, f"categories missing from the homepage: {missing}")
+
+    def test_removed_categories_stay_removed(self) -> None:
+        html = homepage()
+        declared = re.findall(r'\{ name:"([^"]+)", children:\[', html)
+        back = [n for n in REMOVED_CATEGORIES if n in declared]
+        self.assertEqual([], back, f"categories removed by instruction have returned: {back}")
+
+    def test_no_entry_is_a_bare_timestamp(self) -> None:
+        """A timestamp on its own communicates nothing. Every entry says what it is."""
+        bare = [n for n in re.findall(r'\{ name:"([^"]+)"', homepage())
+                if re.fullmatch(r"\d{12}", n.strip())]
+        self.assertEqual([], bare, f"entries that are only a timestamp: {bare}")
+
+    def test_no_red_status_notes(self) -> None:
+        """The red note beside a name was monologue. Entries carry no note field."""
+        self.assertEqual(0, len(re.findall(r'note:"', homepage())),
+                         "note fields are back on homepage entries")
 
     def test_nest_titles_carry_no_timestamp(self) -> None:
         """A stamp on the title was tried and removed. The eye should land on a
@@ -96,18 +127,16 @@ class HomepageIsAMenu(unittest.TestCase):
         self.assertEqual([], offenders,
                          f"nest titles carry a timestamp again: {offenders}")
 
-    def test_nest_entries_run_newest_first(self) -> None:
-        """Newest at the top, oldest at the bottom, in every nest that lists
-        timestamped versions."""
+    def test_the_newest_builds_lead_uk_grid_tracking(self) -> None:
+        """Tonight's current releases sit at the head of the category, so the
+        newest thing is the first thing seen."""
         html = homepage()
-        for block in re.findall(r'<details class="area">(.*?)</details>', html, flags=re.S):
-            title_match = re.search(r"<summary>([^<]+)</summary>", block)
-            title = title_match.group(1).strip() if title_match else "(untitled)"
-            stamps = [m for m in re.findall(r">(\d{12})", block)]
-            if title not in REQUIRED_NESTS or len(stamps) < 2:
-                continue
-            self.assertEqual(sorted(stamps, reverse=True), stamps,
-                             f"{title}: versions are not newest-first")
+        i = html.index('{ name:"UK Grid Tracking", children:[')
+        head = html[i:i + 1200]
+        stamps = re.findall(r'name:"(\d{12}) —', head)
+        self.assertTrue(stamps, "UK Grid Tracking carries no timestamped builds")
+        self.assertEqual(sorted(stamps, reverse=True), stamps,
+                         "the newest builds are not newest-first")
 
 
 class EveryLinkedVersionExists(unittest.TestCase):
@@ -152,9 +181,11 @@ class TheArchiveStaysBuried(unittest.TestCase):
                       "the grey Archive line is gone; the archive must stay reachable")
         self.assertIn("historical_builds.html", html,
                       "the Archive line no longer points at historical_builds.html")
-        # It was 25,630 characters of listings on the page. It must not come back.
-        self.assertLess(html.count("pipelinenews_intelligence"), 1,
-                        "the archive listings have been pasted back onto the homepage")
+        # The listings themselves must not come back. A published directory is
+        # allowed to keep the name it was published under - those paths are
+        # immutable - so this counts the archive BLOCK, not the URLs.
+        self.assertNotIn("Pipeline News intelligence releases", html,
+                         "the archive listings have been pasted back onto the homepage")
 
 
 if __name__ == "__main__":

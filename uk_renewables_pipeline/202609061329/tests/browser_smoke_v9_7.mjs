@@ -68,14 +68,22 @@ try {
     return links.filter((_, i) => i % step === 0).slice(0, 4).map((a) => a.href);
   });
   assert.ok(sampleHrefs.length >= 3, `expected MAP hrefs in the rendered page, found ${sampleHrefs.length}`);
+  /* A CLEAN context for the arrivals. The pipeline context above stubs every
+     cdn.jsdelivr.net request to an empty body so the newspaper's Chart never
+     loads - and the Atlas loads duckdb-wasm and its map libraries from that same
+     CDN. Opening arrivals inside that context killed their dependencies and the
+     engine could not fire, which is how the first run of this block timed out
+     at 45 s on a page that answers in ~1.2 s. The arrival must see the CDN. */
+  const arrivalContext = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   for (const href of sampleHrefs) {
-    const arrival = await context.newPage();
+    const arrival = await arrivalContext.newPage();
     await arrival.goto(href, { waitUntil: "domcontentloaded" });
     await arrival.waitForFunction(() => /Nearest\s+\d+\s*kV substation:/.test(document.body.innerText), null, { timeout: 45000 });
     const ref = new URL(href).searchParams.get("repd_ref");
     assert.ok(await arrival.locator("body").innerText().then((t) => t.includes(`REPD ${ref}`)), `arrival for REPD ${ref} shows a different record`);
     await arrival.close();
   }
+  await arrivalContext.close();
   assert.equal(await page.locator("#v1").innerText(), "356,474");
   assert.equal(await page.locator("#v2").innerText(), "7,680");
   assert.equal(await page.locator("#v3").innerText(), "4,100");

@@ -1,0 +1,19 @@
+{
+  "generation": "202609060309",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "52e0709fa2c670b92280c57d0f718e4aaf2050c8",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "2d616e417dd05b74dd1f0785932d0fb1f86eb0cc",
+  "ci": {
+    "run": 34008345160,
+    "job": 101419565935,
+    "conclusion": "success",
+    "browserChecks": 30
+  },
+  "scope": "Actual polygon/circle drawing, outside labels and visible handles on desktop and phone; explicit reset and preservation checks in0309. Pinned source reconstruction and token/AST compaction verified.",
+  "limitations": [
+    "Phone emulation is not physical-device validation."
+  ],
+  "browserEvidence": "recovery-20260906/poly-ci",
+  "publicationStatus": "Exact served bytes and live browser evidence recorded separately after deployment."
+}

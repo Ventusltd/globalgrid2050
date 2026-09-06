@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head><link rel="icon" href="data:,">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Test Code Atlas 202609060308</title>
+  <style>
+    html,body{height:100%;margin:0;background:#000;color:#00ffff;font:13px monospace}
+    #gridatlas-loader{display:grid;place-items:center;height:100%;padding:24px;text-align:center}
+    #gridatlas-loader strong{color:#ffae00}
+  </style>
+</head>
+<body data-gridatlas-router="loading">
+  <main id="gridatlas-loader"><div><strong>GRIDATLAS</strong><br>verifying immutable shell and cartridges…</div></main>
+  <script type="module">
+    const SCRIPT_CLOSE = '</scr' + 'ipt>';
+    const loader = document.getElementById('gridatlas-loader');
+
+    function invariant(condition, message) {
+      if (!condition) throw new Error(message);
+    }
+
+    function escapeAttribute(value) {
+      return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    }
+
+    async function sha256Hex(bytes) {
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      return [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, '0')).join('');
+    }
+
+    function fail(error) {
+      console.error('[GRIDATLAS COMPOSER]', error);
+      document.body.dataset.gridatlasRouter = 'failed';
+      loader.innerHTML = `<div><strong>GRIDATLAS COMPOSITION FAILED</strong><br>${String(error?.message || error).replace(/[<>&]/g, '')}<br><small>The immutable shell was not changed.</small></div>`;
+    }
+
+    try {
+      const currentResponse = await fetch('./current.json', { cache: 'no-store' });
+      invariant(currentResponse.ok, `current.json HTTP ${currentResponse.status}`);
+      const current = await currentResponse.json();
+      invariant(current?.schema === 'gridatlas.current.v2', 'unsupported current.json schema');
+      invariant(current?.architecture === 'IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES', 'architecture contract mismatch');
+      invariant(Array.isArray(current.cartridge_order) && Array.isArray(current.cartridges), 'cartridge registry malformed');
+
+      const shellUrl = new URL(current.shell.index, window.location.href);
+      const shellBase = new URL(current.shell.base, window.location.href).href;
+      const shellResponse = await fetch(shellUrl, { cache: 'no-store' });
+      invariant(shellResponse.ok, `immutable shell HTTP ${shellResponse.status}`);
+      let html = await shellResponse.text();
+      invariant(/<head\b/i.test(html) && /<body\b/i.test(html), 'immutable shell is not HTML');
+      html = html.replace(/<head([^>]*)>/i, match => `${match}\n<base href="${escapeAttribute(shellBase)}">`);
+
+      const byId = new Map(current.cartridges.map(item => [item.id, item]));
+      const loaded = [];
+      const scriptTagPattern = new RegExp('<script\\b[^>]*\\bsrc=(["\\\'])([^"\\\']+)\\1[^>]*>\\s*<\\/script>', 'gi');
+
+      for (const id of current.cartridge_order) {
+        const cartridge = byId.get(id);
+        invariant(cartridge, `missing cartridge ${id}`);
+        invariant(cartridge.type === 'script', `${id}: unsupported cartridge type`);
+        invariant(cartridge.slot === 'replace-script', `${id}: unsupported cartridge slot`);
+        invariant(typeof cartridge.replace_script === 'string' && cartridge.replace_script, `${id}: replace_script missing`);
+        invariant(/^[a-f0-9]{64}$/.test(cartridge.sha256 || ''), `${id}: invalid SHA-256`);
+
+        const cartridgeUrl = new URL(cartridge.path, window.location.href);
+        const response = await fetch(cartridgeUrl, { cache: 'no-store' });
+        invariant(response.ok, `${id}: HTTP ${response.status}`);
+        const bytes = await response.arrayBuffer();
+        invariant(await sha256Hex(bytes) === cartridge.sha256, `${id}: SHA-256 mismatch`);
+        const blobUrl = URL.createObjectURL(new Blob([bytes], { type: 'text/javascript' }));
+
+        let replaced = false;
+        html = html.replace(scriptTagPattern, (full, quote, src) => {
+          if (replaced || String(src).split('/').pop() !== cartridge.replace_script) return full;
+          replaced = true;
+          return `<script data-gridatlas-cartridge="${escapeAttribute(id)}" src="${escapeAttribute(blobUrl)}">${SCRIPT_CLOSE}`;
+        });
+        invariant(replaced, `${id}: shell slot ${cartridge.replace_script} not found`);
+        loaded.push({ id, sha256: cartridge.sha256, blob_url: blobUrl });
+      }
+
+      const publicState = JSON.stringify({
+        schema: current.schema,
+        generation: current.generation,
+        release_id: current.release_id,
+        architecture: current.architecture,
+        shell: current.shell,
+        cartridge_order: current.cartridge_order,
+        loaded_cartridges: loaded.map(item => ({ id: item.id, sha256: item.sha256 }))
+      }).replace(/</g, '\\u003c');
+      const stateScript = `<script>window.__GRIDATLAS_ATLAS__=${publicState};document.documentElement.dataset.gridatlasGeneration=${JSON.stringify(current.generation)};${SCRIPT_CLOSE}`;
+      html = html.replace(/<body([^>]*)>/i, match => `${match}\n${stateScript}`);
+
+      html = html.replace(/<head>/i, '<head><link rel="icon" href="data:,">');
+      const teleprinterUrl = new URL('./teleprinter-bootstrap.js', window.location.href).href;
+      const teleprinterScript = '<script type="module" src="' + escapeAttribute(teleprinterUrl) + '">' + SCRIPT_CLOSE;
+      html = /<\/body>/i.test(html) ? html.replace(/<\/body>/i, teleprinterScript + '$&') : html + teleprinterScript;
+
+      document.open();
+      document.write(html);
+      document.close();
+    } catch (error) {
+      fail(error);
+    }
+  </script>
+</body>
+</html>

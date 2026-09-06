@@ -1536,3 +1536,8 @@ Pre-edit snapshot of 895cadcfa0d86cb6d5aaedec0fd93efe86dcb835. Restore workflow3
 ## homepage_v065
 
 Pre-edit snapshot of 24a3d8880904bc9f32abdef89edce93b708f5f56. Restore workflow34008157608 passed. Measurements: homepage_v065-measurement.json. Add verified offshore Atlas0300 under existing Test Code; retain Atlas228, Pipeline232 and every existing link. Source c06cb36, scoped CI34008040152 passed.
+
+
+## homepage_v066
+
+Pre-edit snapshot of 2dedd4f298e5e3a2a1088ab60fcb14b30ddbc2a4; restore workflow34008499158 passed. Measurements: homepage_v066-measurement.json. Add Poly Zone labels0308 and explicit reset0309 under Test Code; retain0300/228/232 and all existing links. Exact source52e0709, matrixCI34008345160 passed.

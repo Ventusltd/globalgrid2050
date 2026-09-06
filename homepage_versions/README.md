@@ -1521,3 +1521,8 @@ Pre-edit snapshot of 89a6bb3b; restore workflow33993761917 passed. Adds original
 ## homepage_v062
 
 Pre-edit snapshot of dfbcd6c93b2922aec2cf21dad7d91ce2ea8cb506. Restore workflow 34003682199 passed. Measurements: homepage_v062-measurement.json. Publish the supplied electrification paper with a contents list in the podcast Markdown layout, add About & Media navigation, and move all science graphics and review/calendar bars to the bottom before the footer. Existing app links, product versions and graphic modules remain intact.
+
+
+## homepage_v063
+
+Pre-edit snapshot of 63acce00fbf4b2db2e42d2d4a484297069ad2f78. Restore workflow34006729579 passed. Measurements: homepage_v063-measurement.json. Add tested Codex Atlas228 and Pipeline232 in the existing Test Code section; preserve earlier links and all other content.

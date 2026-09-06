@@ -1,0 +1,38 @@
+{
+  "schema": "ventus.testcode-test-record.v1",
+  "checkedUTC": "2026-09-06T02:35:21.039497+00:00",
+  "atlas": {
+    "generation": "202609060228",
+    "sourceCommit": "714d87343b74a6b1244c7b358c9b76a6b251f56d",
+    "publicationCommit": "63acce00fbf4b2db2e42d2d4a484297069ad2f78",
+    "browserChecks": 54,
+    "browserCI": 34006580442,
+    "browserCIConclusion": "success",
+    "pagesRun": 34006582498,
+    "pagesConclusion": "success",
+    "servedFilesMatched": 28
+  },
+  "pipeline": {
+    "generation": "202609060232",
+    "sourceCommit": "51442d6cdda0a1e51119cc4851260e580ff619b1",
+    "browserChecks": 16,
+    "modelTests": 15,
+    "releaseSelfCheck": "pass",
+    "liveVerification": "pending this publication"
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "width": 393,
+      "height": 852
+    }
+  ],
+  "limitations": [
+    "Phone emulation in Chrome, not a physical iPhone",
+    "Atlas inherits1906mapcartridges; this release validates controls and menus, not all engineering calculations",
+    "General estate gate34006580426 remains red: Atlas payload budget, missingCVAA checkout and incomplete homepage/REPD inputs. Scoped browser gates do not waive these findings."
+  ]
+}

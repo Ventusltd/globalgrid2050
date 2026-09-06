@@ -1,0 +1,18 @@
+{
+  "schema": "ventus.testcode-publication.v1",
+  "generation": "202609060232",
+  "lane": "codex",
+  "name": "BBC RSS discovery in full Pipeline News",
+  "display_time": "06 September 2026 03:32 BST / 02:32 UTC",
+  "sourceCommit": "51442d6cdda0a1e51119cc4851260e580ff619b1",
+  "sourceRelease": "releases/202609060232-pipelinenews",
+  "status": "candidate",
+  "localChecks": [
+    "15 cartridge tests pass",
+    "release self-check all hashes pass"
+  ],
+  "limitations": [
+    "Full application Chrome and served byte checks pending",
+    "Reported claims remain separate from official REPD totals"
+  ]
+}

@@ -189,8 +189,15 @@ assert.match(projectsV93, /compareProjectUpdatesV9_3/);
 assert.match(projectsV93, /repd-updated/);
 assert.match(projectsV93, /sortProjects/);
 
-assert.match(rootIndex, /V9\.3\.1 LIVE ·/);
-assert.doesNotMatch(rootIndex, /V9\.3 LIVE CANDIDATE/);
+/* A version's gate must not depend on the homepage's WORDING.
+   This asserted the front page still said "V9.3.1 LIVE ·". That sentence was
+   removed on purpose when the homepage was rebuilt to timestamp-and-title, and
+   this gate went red on a release nobody had touched - the gate was asserting
+   someone else's editorial copy as if it were this version's contract.
+   What is durable is that the published directory is REACHABLE from the front
+   page. The name on the link is the homepage's business; the link existing is
+   this version's. */
+assert.match(rootIndex, /uk_renewables_pipeline\/v9\//);
 assert.equal(packageJson.version, "9.3.1");
 assert.equal(packageJson.scripts.validate, "bash tests/run_v9_3.sh");
 assert.equal(packageJson.scripts["validate:browser"], "V9_BROWSER_SMOKE=1 bash tests/run_v9_3.sh");

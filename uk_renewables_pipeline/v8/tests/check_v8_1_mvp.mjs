@@ -99,6 +99,10 @@ assert.equal(stateSource.includes("assets.publishing.service.gov.uk"), false);
 assert.equal(newspaperSource.includes("major_project_news_v5.json"), false);
 assert.equal(pluginManifest.version, "8.1");
 assert.equal(pluginManifest.plugins.find((plugin) => plugin.id === "gauges").owns.includes("g4"), true);
-assert.match(rootIndex, /V8\.1 MVP · canonical 766-project utility pipeline/);
+/* Was: assert.match(rootIndex, /V8.1 MVP · canonical 766-project utility
+   pipeline/). That is homepage copy, deleted when the front page was rebuilt to
+   timestamp-and-title, and asserting it made this version's gate depend on
+   editorial wording it does not own. The durable fact is reachability. */
+assert.match(rootIndex, /uk_renewables_pipeline\/v8\//);
 
 console.log("V8.1 MVP contract: PASS (766 canonical projects, 125 legacy headlines)");

@@ -1,0 +1,45 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.6.2",
+  "release": "9.6.2",
+  "status": "LIVE_VALIDATED",
+  "feature": "uk-us-europe-international-newspaper-tabs",
+  "frozen_parent": {
+    "release": "9.6.1",
+    "commit": "55c822ba8fa046fb89bd7e896d9ade7c23c14043",
+    "path": "uk_renewables_pipeline/v9.6.1",
+    "subtree": "243d1217c9748a4246a6d427a5e80ac45c5bd22e",
+    "must_remain_unchanged": true
+  },
+  "runtime": {
+    "project_release": "9.5.1",
+    "project_data_changed": false,
+    "project_javascript_changed": false,
+    "uk_matching_changed": false,
+    "regional_project_signal_eligible": false
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "all_headline_count": 133,
+    "uk_headline_count": 45,
+    "international_headline_count": 19,
+    "us_headline_count": 4,
+    "europe_headline_count": 9,
+    "international_other_headline_count": 6,
+    "beacon_fen_repd_ref": "13599"
+  },
+  "regional_rules": {
+    "technology_context_required": true,
+    "explicit_geography_required": true,
+    "uk_veto_required": true,
+    "canonical_identity_claimed": false,
+    "repd_project_signal_allowed": false,
+    "company_name_alone_is_geography": false
+  },
+  "interface": {
+    "renamed_relevant_tab": "UK",
+    "regional_tabs": ["INTERNATIONAL", "US", "EUROPE"],
+    "mobile_table_inherited_from": "9.6.1",
+    "desktop_project_interface_changed": false
+  }
+}

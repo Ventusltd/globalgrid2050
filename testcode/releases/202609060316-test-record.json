@@ -1,0 +1,19 @@
+{
+  "schema": "ventus.testcode-publication.v1",
+  "generation": "202609060316",
+  "lane": "codex",
+  "name": "Exact wider-fleet SUB measurements",
+  "sourceRepository": "Ventusltd/pipelinenews",
+  "sourceCommit": "f9537f30b407a4205b0e949a86d279574bb6208d",
+  "sourceRelease": "releases/202609060316-pipelinenews",
+  "ci": {
+    "run": 34008723592,
+    "conclusion": "success"
+  },
+  "scope": "All20technologies and every wider-fleet page on desktop/phone;1090exact GRID identities and SUB in316/318. Existing core3047measurements preserved. Source-failure fallback checked.",
+  "limitations": [
+    "Wider fleet coverage is separate from core7680projects.",
+    "Mapped proximity does not prove an electrical connection."
+  ],
+  "status": "source and scopedCIverified; served/live checks recorded after deployment"
+}

@@ -1541,3 +1541,8 @@ Pre-edit snapshot of 24a3d8880904bc9f32abdef89edce93b708f5f56. Restore workflow3
 ## homepage_v066
 
 Pre-edit snapshot of 2dedd4f298e5e3a2a1088ab60fcb14b30ddbc2a4; restore workflow34008499158 passed. Measurements: homepage_v066-measurement.json. Add Poly Zone labels0308 and explicit reset0309 under Test Code; retain0300/228/232 and all existing links. Exact source52e0709, matrixCI34008345160 passed.
+
+
+## homepage_v067
+
+Pre-edit snapshot of 4e0b72bf30c62247bf2d0766ae3438fac3f26307; restore workflow34008711187 passed. Measurements: homepage_v067-measurement.json. Add wider-fleet GRID0315,SUB0316 and phone-actions0318 under TestCode; all existing links retained. Sourcef9537f3, scopedengineeringCI34008723592 passed.

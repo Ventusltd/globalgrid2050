@@ -1,0 +1,902 @@
+[
+ {
+  "ref": "13655",
+  "name": "Froghall Farm, Wyton Road - Solar Farm & Battery Energy Storage",
+  "lat": 53.7657111,
+  "lon": -0.2315267,
+  "tech": "bess",
+  "country": "England",
+  "mw": 20.0
+ },
+ {
+  "ref": "7047",
+  "name": "Portadown Road",
+  "lat": 54.3701898,
+  "lon": -6.42882,
+  "tech": "bess",
+  "country": "Northern Ireland",
+  "mw": 50.0
+ },
+ {
+  "ref": "14301",
+  "name": "Lower Bodachra - Energy Storage System",
+  "lat": 57.2108307,
+  "lon": -2.1309312,
+  "tech": "bess",
+  "country": "Scotland",
+  "mw": 45.0
+ },
+ {
+  "ref": "4595",
+  "name": "Pen y Cymoedd Energy Storage",
+  "lat": 51.6555429,
+  "lon": -3.6957302,
+  "tech": "bess",
+  "country": "Wales",
+  "mw": 22.0
+ },
+ {
+  "ref": "14095",
+  "name": "Barnsdale Road Solar Park",
+  "lat": 53.7570715,
+  "lon": -1.3647794,
+  "tech": "solar",
+  "country": "England",
+  "mw": 40.0
+ },
+ {
+  "ref": "16337",
+  "name": "Solar Farm Development in Magheralin",
+  "lat": 54.2994869,
+  "lon": -6.5474274,
+  "tech": "solar",
+  "country": "Northern Ireland",
+  "mw": 29.9
+ },
+ {
+  "ref": "5884",
+  "name": "Weels Farm Solar Array",
+  "lat": 55.8188512,
+  "lon": -4.6294105,
+  "tech": "solar",
+  "country": "Scotland",
+  "mw": 4.9
+ },
+ {
+  "ref": "16617",
+  "name": "Y Tyddyn Teg, Heol Y Nant - Solar Farm",
+  "lat": 51.7585406,
+  "lon": -4.1147881,
+  "tech": "solar",
+  "country": "Wales",
+  "mw": 1.0
+ },
+ {
+  "ref": "2535",
+  "name": "Navitus Bay",
+  "lat": 50.3929991,
+  "lon": -1.8390082,
+  "tech": "wind_offshore",
+  "country": "England",
+  "mw": 970.0
+ },
+ {
+  "ref": "6136",
+  "name": "Kincardine Offshore Windfarm",
+  "lat": 56.9972813,
+  "lon": -1.8738011,
+  "tech": "wind_offshore",
+  "country": "Scotland",
+  "mw": 49.5
+ },
+ {
+  "ref": "2495",
+  "name": "Rhyl Flats",
+  "lat": 53.377587,
+  "lon": -3.6401508,
+  "tech": "wind_offshore",
+  "country": "Wales",
+  "mw": 90.0
+ },
+ {
+  "ref": "3027",
+  "name": "Bodmin Moor",
+  "lat": 50.6274655,
+  "lon": -4.6301221,
+  "tech": "wind_onshore",
+  "country": "England",
+  "mw": 50.0
+ },
+ {
+  "ref": "4249",
+  "name": "Brockaghboy Wind Farm",
+  "lat": 54.9805712,
+  "lon": -6.7650282,
+  "tech": "wind_onshore",
+  "country": "Northern Ireland",
+  "mw": 37.5
+ },
+ {
+  "ref": "16348",
+  "name": "Balblair Wind Farm",
+  "lat": 57.9044271,
+  "lon": -4.3265827,
+  "tech": "wind_onshore",
+  "country": "Scotland",
+  "mw": 36.0
+ },
+ {
+  "ref": "3729",
+  "name": "Llys Dymper Wind Farm",
+  "lat": 53.1142851,
+  "lon": -3.6685093,
+  "tech": "wind_onshore",
+  "country": "Wales",
+  "mw": 23.0
+ },
+ {
+  "ref": "16357",
+  "name": "Electricity Substation, Bellevue Lane - Battery Storage",
+  "lat": 53.2039131,
+  "lon": -2.8446332,
+  "tech": "bess",
+  "country": "England",
+  "mw": 40.0
+ },
+ {
+  "ref": "17824",
+  "name": "Battery Energy Storage System Development in Drumquin",
+  "lat": 54.5782911,
+  "lon": -7.4911153,
+  "tech": "bess",
+  "country": "Northern Ireland",
+  "mw": 87.8
+ },
+ {
+  "ref": "12289",
+  "name": "Newlands Hill Wind Energy Hub",
+  "lat": 55.8739508,
+  "lon": -2.6398454,
+  "tech": "bess",
+  "country": "Scotland",
+  "mw": 136.0
+ },
+ {
+  "ref": "15472",
+  "name": "Penrhos Works - Battery Energy Storage System",
+  "lat": 53.2947707,
+  "lon": -4.5969673,
+  "tech": "bess",
+  "country": "Wales",
+  "mw": 349.0
+ },
+ {
+  "ref": "20775",
+  "name": "Bakkavor, Sluice Road - Solar Array",
+  "lat": 52.864335,
+  "lon": 0.0024832,
+  "tech": "solar",
+  "country": "England",
+  "mw": 1.36
+ },
+ {
+  "ref": "5443",
+  "name": "Hillside Solar Farm",
+  "lat": 54.5601368,
+  "lon": -6.1806623,
+  "tech": "solar",
+  "country": "Northern Ireland",
+  "mw": 25.2
+ },
+ {
+  "ref": "4631",
+  "name": "Crystal Rig Solar Farm",
+  "lat": 55.8938904,
+  "lon": -2.5622065,
+  "tech": "solar",
+  "country": "Scotland",
+  "mw": 27.5
+ },
+ {
+  "ref": "1612",
+  "name": "Wrexham Social Housing PV",
+  "lat": 53.0408962,
+  "lon": -2.9899065,
+  "tech": "solar",
+  "country": "Wales",
+  "mw": 5.4
+ },
+ {
+  "ref": "2520",
+  "name": "Rampion Offshore Wind Farm (Hastings Zone)",
+  "lat": 50.6399936,
+  "lon": -0.1800033,
+  "tech": "wind_offshore",
+  "country": "England",
+  "mw": 400.0
+ },
+ {
+  "ref": "14144",
+  "name": "Seagreen Phase 1A",
+  "lat": 56.6355131,
+  "lon": -1.9266208,
+  "tech": "wind_offshore",
+  "country": "Scotland",
+  "mw": 540.0
+ },
+ {
+  "ref": "2543",
+  "name": "Gwynt y Mor",
+  "lat": 53.4540034,
+  "lon": -3.6266487,
+  "tech": "wind_offshore",
+  "country": "Wales",
+  "mw": 576.0
+ },
+ {
+  "ref": "3547",
+  "name": "Draughton Maidwell Wind Farm",
+  "lat": 52.3958171,
+  "lon": -0.8696334,
+  "tech": "wind_onshore",
+  "country": "England",
+  "mw": 21.0
+ },
+ {
+  "ref": "4560",
+  "name": "Cloghinarney",
+  "lat": 54.8540497,
+  "lon": -6.1075892,
+  "tech": "wind_onshore",
+  "country": "Northern Ireland",
+  "mw": 13.8
+ },
+ {
+  "ref": "2828",
+  "name": "Clatto Farm Turbines",
+  "lat": 56.2460693,
+  "lon": -3.0529778,
+  "tech": "wind_onshore",
+  "country": "Scotland",
+  "mw": 6.0
+ },
+ {
+  "ref": "3848",
+  "name": "Llys Dymper",
+  "lat": 53.1142851,
+  "lon": -3.6685093,
+  "tech": "wind_onshore",
+  "country": "Wales",
+  "mw": 49.5
+ },
+ {
+  "ref": "16639",
+  "name": "Woodcock Solar Farm, Sweeming Lane - Battery Energy Storage",
+  "lat": 53.8100765,
+  "lon": -1.2052189,
+  "tech": "bess",
+  "country": "England",
+  "mw": 4.7
+ },
+ {
+  "ref": "7050",
+  "name": "Dungannon Energy Storage System",
+  "lat": 54.5125492,
+  "lon": -6.6751245,
+  "tech": "bess",
+  "country": "Northern Ireland",
+  "mw": 50.0
+ },
+ {
+  "ref": "11622",
+  "name": "Mains Of Keithick Farm, Keithick - Battery Storage & Solar Farm",
+  "lat": 56.5320972,
+  "lon": -3.2971276,
+  "tech": "bess",
+  "country": "Scotland",
+  "mw": 16.0
+ },
+ {
+  "ref": "6929",
+  "name": "Traston Road",
+  "lat": 51.5681025,
+  "lon": -2.9667024,
+  "tech": "bess",
+  "country": "Wales",
+  "mw": 20.0
+ },
+ {
+  "ref": "14279",
+  "name": "Longbreach Solar Farm",
+  "lat": 51.9121915,
+  "lon": -0.8869617,
+  "tech": "solar",
+  "country": "England",
+  "mw": 49.9
+ },
+ {
+  "ref": "5201",
+  "name": "Land north of 20 Knockcairn Road",
+  "lat": 54.611046,
+  "lon": -6.1668736,
+  "tech": "solar",
+  "country": "Northern Ireland",
+  "mw": 4.1
+ },
+ {
+  "ref": "5160",
+  "name": "Field 279M North East of 15 Tealing",
+  "lat": 56.5332909,
+  "lon": -2.9587969,
+  "tech": "solar",
+  "country": "Scotland",
+  "mw": 5.0
+ },
+ {
+  "ref": "7834",
+  "name": "Crumps Yard Solar Farm",
+  "lat": 53.219592,
+  "lon": -3.0542163,
+  "tech": "solar",
+  "country": "Wales",
+  "mw": 1.6
+ },
+ {
+  "ref": "2525",
+  "name": "Hornsea 1 - Heron & Njord",
+  "lat": 53.6815417,
+  "lon": 1.4207395,
+  "tech": "wind_offshore",
+  "country": "England",
+  "mw": 1218.0
+ },
+ {
+  "ref": "11851",
+  "name": "Green Volt - Offshore Wind Farm",
+  "lat": 57.154432,
+  "lon": -2.008727,
+  "tech": "wind_offshore",
+  "country": "Scotland",
+  "mw": 560.0
+ },
+ {
+  "ref": "2477",
+  "name": "Scarweather Sands",
+  "lat": 51.4282766,
+  "lon": -3.8368052,
+  "tech": "wind_offshore",
+  "country": "Wales",
+  "mw": 108.0
+ },
+ {
+  "ref": "3606",
+  "name": "Walkway",
+  "lat": 54.6635809,
+  "lon": -1.3969059,
+  "tech": "wind_onshore",
+  "country": "England",
+  "mw": 14.0
+ },
+ {
+  "ref": "4920",
+  "name": "",
+  "lat": 54.6448869,
+  "lon": -7.225753,
+  "tech": "wind_onshore",
+  "country": "Northern Ireland",
+  "mw": 2.0
+ },
+ {
+  "ref": "3693",
+  "name": "Gallowhill",
+  "lat": 59.276563,
+  "lon": -2.9821832,
+  "tech": "wind_onshore",
+  "country": "Scotland",
+  "mw": 1.8
+ },
+ {
+  "ref": "12277",
+  "name": "Upper Ogmore Wind Farm",
+  "lat": 51.6273689,
+  "lon": -3.5488144,
+  "tech": "wind_onshore",
+  "country": "Wales",
+  "mw": 25.2
+ },
+ {
+  "ref": "15573",
+  "name": "Toddington Services, Hipsey Spinney - Battery Storage",
+  "lat": 51.9439392,
+  "lon": -0.5010683,
+  "tech": "bess",
+  "country": "England",
+  "mw": 250.0
+ },
+ {
+  "ref": "15151",
+  "name": "Coolkeeragh - Battery Storage",
+  "lat": 55.0342336,
+  "lon": -7.2515464,
+  "tech": "bess",
+  "country": "Northern Ireland",
+  "mw": 140.0
+ },
+ {
+  "ref": "18585",
+  "name": "West Scales Energy Park",
+  "lat": 54.997767,
+  "lon": -3.1355192,
+  "tech": "bess",
+  "country": "Scotland",
+  "mw": 12.0
+ },
+ {
+  "ref": "12749",
+  "name": "Biffa Waste Services, Fochriw Road - Battery Storage",
+  "lat": 51.7674573,
+  "lon": -3.3209917,
+  "tech": "bess",
+  "country": "Wales",
+  "mw": 2.0
+ },
+ {
+  "ref": "15794",
+  "name": "Green Hill Solar Farm & Battery Storage",
+  "lat": 52.29058,
+  "lon": -0.7678469,
+  "tech": "solar",
+  "country": "England",
+  "mw": 600.0
+ },
+ {
+  "ref": "18060",
+  "name": "Solar Farm Development in Ballymena",
+  "lat": 54.8706723,
+  "lon": -6.2279216,
+  "tech": "solar",
+  "country": "Northern Ireland",
+  "mw": 3.5
+ },
+ {
+  "ref": "4969",
+  "name": "Pressock Farm",
+  "lat": 56.6349959,
+  "lon": -2.7043354,
+  "tech": "solar",
+  "country": "Scotland",
+  "mw": 5.0
+ },
+ {
+  "ref": "7894",
+  "name": "Mynydd y Gwryhd Solar Farm",
+  "lat": 51.7796553,
+  "lon": -3.8464056,
+  "tech": "solar",
+  "country": "Wales",
+  "mw": 2.3
+ },
+ {
+  "ref": "2492",
+  "name": "Kentish Flats",
+  "lat": 51.4606123,
+  "lon": 1.0938168,
+  "tech": "wind_offshore",
+  "country": "England",
+  "mw": 90.0
+ },
+ {
+  "ref": "11989",
+  "name": "Pentland Floating Offshore Wind Farm",
+  "lat": 58.5964542,
+  "lon": -3.5238299,
+  "tech": "wind_offshore",
+  "country": "Scotland",
+  "mw": 100.0
+ },
+ {
+  "ref": "7861",
+  "name": "Erebus - Floating Offshore Wind Demonstration Project",
+  "lat": 51.6089757,
+  "lon": -4.9364853,
+  "tech": "wind_offshore",
+  "country": "Wales",
+  "mw": 100.0
+ },
+ {
+  "ref": "3247",
+  "name": "Loscar Farm",
+  "lat": 53.314486,
+  "lon": -1.2359615,
+  "tech": "wind_onshore",
+  "country": "England",
+  "mw": 4.5
+ },
+ {
+  "ref": "4207",
+  "name": "Lisnaharney Road Wind Farm",
+  "lat": 54.6874744,
+  "lon": -7.2726974,
+  "tech": "wind_onshore",
+  "country": "Northern Ireland",
+  "mw": 42.0
+ },
+ {
+  "ref": "9669",
+  "name": "Nether Carswell Cottage Wind Turbine",
+  "lat": 55.740376,
+  "lon": -4.4717482,
+  "tech": "wind_onshore",
+  "country": "Scotland",
+  "mw": 4.2
+ },
+ {
+  "ref": "10084",
+  "name": "Rhoscrowther Wind Farm",
+  "lat": 51.6819805,
+  "lon": -5.0256761,
+  "tech": "wind_onshore",
+  "country": "Wales",
+  "mw": 11.5
+ },
+ {
+  "ref": "7096",
+  "name": "Rubber and Allied Products",
+  "lat": 53.0336438,
+  "lon": -2.2496902,
+  "tech": "bess",
+  "country": "England",
+  "mw": 40.0
+ },
+ {
+  "ref": "14117",
+  "name": "Quarterland Road, Islandmagee - Battery Storage",
+  "lat": 54.8475501,
+  "lon": -5.7778359,
+  "tech": "bess",
+  "country": "Northern Ireland",
+  "mw": 75.0
+ },
+ {
+  "ref": "7345",
+  "name": "High Constellation Wind Farm",
+  "lat": 55.7028474,
+  "lon": -5.4869832,
+  "tech": "bess",
+  "country": "Scotland",
+  "mw": 55.5
+ },
+ {
+  "ref": "16114",
+  "name": "Bronwylfa Road, Rhostyllen - Energy Storage System",
+  "lat": 53.0301142,
+  "lon": -3.0377787,
+  "tech": "bess",
+  "country": "Wales",
+  "mw": 400.0
+ },
+ {
+  "ref": "2261",
+  "name": "Homestead Farm (Alderton)",
+  "lat": 52.1026446,
+  "lon": -0.9231956,
+  "tech": "solar",
+  "country": "England",
+  "mw": 17.6
+ },
+ {
+  "ref": "5205",
+  "name": "Red Brae",
+  "lat": 54.749499,
+  "lon": -5.8065616,
+  "tech": "solar",
+  "country": "Northern Ireland",
+  "mw": 5.0
+ },
+ {
+  "ref": "5797",
+  "name": "Middle Balbeggie",
+  "lat": 56.1479368,
+  "lon": -3.1466917,
+  "tech": "solar",
+  "country": "Scotland",
+  "mw": 5.0
+ },
+ {
+  "ref": "1512",
+  "name": "Tyn y Pant",
+  "lat": 51.7965392,
+  "lon": -3.6993772,
+  "tech": "solar",
+  "country": "Wales",
+  "mw": 1.6
+ },
+ {
+  "ref": "6810",
+  "name": "TwinHub (previously called Wave Hub Floating Wind)",
+  "lat": 50.1930185,
+  "lon": -5.4305153,
+  "tech": "wind_offshore",
+  "country": "England",
+  "mw": 32.0
+ },
+ {
+  "ref": "2528",
+  "name": "Levenmouth demonstration turbine (Fife Energy Park)",
+  "lat": 56.1606946,
+  "lon": -2.9579616,
+  "tech": "wind_offshore",
+  "country": "Scotland",
+  "mw": 7.0
+ },
+ {
+  "ref": "2494",
+  "name": "North Hoyle",
+  "lat": 53.4172463,
+  "lon": -3.4485735,
+  "tech": "wind_offshore",
+  "country": "Wales",
+  "mw": 60.0
+ },
+ {
+  "ref": "3817",
+  "name": "Harap Road",
+  "lat": 54.6919923,
+  "lon": -1.4467653,
+  "tech": "wind_onshore",
+  "country": "England",
+  "mw": 1.0
+ },
+ {
+  "ref": "4220",
+  "name": "Slieve Kirk Ext",
+  "lat": 54.9203,
+  "lon": -7.2889027,
+  "tech": "wind_onshore",
+  "country": "Northern Ireland",
+  "mw": 11.5
+ },
+ {
+  "ref": "11705",
+  "name": "Arbikie, Inverkeilor - Green Hydrogen Project & Wind Turbine",
+  "lat": 56.6477309,
+  "lon": -2.5581794,
+  "tech": "wind_onshore",
+  "country": "Scotland",
+  "mw": 1.0
+ },
+ {
+  "ref": "3711",
+  "name": "Garreg Lwyd",
+  "lat": 52.4130684,
+  "lon": -3.2840678,
+  "tech": "wind_onshore",
+  "country": "Wales",
+  "mw": 34.0
+ },
+ {
+  "ref": "14016",
+  "name": "Pound Road, Hawkchurch - Battery Energy Storage System",
+  "lat": 50.7943084,
+  "lon": -2.9204819,
+  "tech": "bess",
+  "country": "England",
+  "mw": 120.0
+ },
+ {
+  "ref": "7556",
+  "name": "Lisnabreeny Road",
+  "lat": 54.555766,
+  "lon": -5.8640885,
+  "tech": "bess",
+  "country": "Northern Ireland",
+  "mw": 36.0
+ },
+ {
+  "ref": "16197",
+  "name": "Downiebrae Road, Rutherglen - Battery Energy Storage System",
+  "lat": 55.8362366,
+  "lon": -4.2085439,
+  "tech": "bess",
+  "country": "Scotland",
+  "mw": 150.0
+ },
+ {
+  "ref": "4881",
+  "name": "Dolgarrog Hydro Power Station",
+  "lat": 53.191872,
+  "lon": -3.8421356,
+  "tech": "bess",
+  "country": "Wales",
+  "mw": 5.0
+ },
+ {
+  "ref": "7897",
+  "name": "Harborough Fields Farm",
+  "lat": 52.421529,
+  "lon": -1.2651466,
+  "tech": "solar",
+  "country": "England",
+  "mw": 27.0
+ },
+ {
+  "ref": "1523",
+  "name": "Crookedstone Road",
+  "lat": 54.6706914,
+  "lon": -6.1985332,
+  "tech": "solar",
+  "country": "Northern Ireland",
+  "mw": 4.8
+ },
+ {
+  "ref": "5464",
+  "name": "Land East of Sandyford",
+  "lat": 56.6770505,
+  "lon": -2.9432536,
+  "tech": "solar",
+  "country": "Scotland",
+  "mw": 5.0
+ },
+ {
+  "ref": "5544",
+  "name": "Tir Nyth Soalr Park",
+  "lat": 51.6975196,
+  "lon": -3.3194456,
+  "tech": "solar",
+  "country": "Wales",
+  "mw": 5.0
+ },
+ {
+  "ref": "6556",
+  "name": "Sofia (Teesside B)",
+  "lat": 55.2099932,
+  "lon": 2.3299986,
+  "tech": "wind_offshore",
+  "country": "England",
+  "mw": 1400.0
+ },
+ {
+  "ref": "2479",
+  "name": "Hywind Scotland Pilot Park (Hywind 2) Demonstrator",
+  "lat": 57.507464,
+  "lon": -1.4425754,
+  "tech": "wind_offshore",
+  "country": "Scotland",
+  "mw": 30.0
+ },
+ {
+  "ref": "7699",
+  "name": "Awel y Mor Offshore Wind Farm",
+  "lat": 53.46538,
+  "lon": -3.8023026,
+  "tech": "wind_offshore",
+  "country": "Wales",
+  "mw": 775.0
+ },
+ {
+  "ref": "4099",
+  "name": "Slyer's Lane",
+  "lat": 50.7412322,
+  "lon": -2.4251112,
+  "tech": "wind_onshore",
+  "country": "England",
+  "mw": 18.0
+ },
+ {
+  "ref": "2989",
+  "name": "Slatbeg",
+  "lat": 54.3728923,
+  "lon": -7.2134087,
+  "tech": "wind_onshore",
+  "country": "Northern Ireland",
+  "mw": 20.7
+ },
+ {
+  "ref": "10883",
+  "name": "Nitshill Wind Farm, Hundland Hill",
+  "lat": 59.1209546,
+  "lon": -3.2708227,
+  "tech": "wind_onshore",
+  "country": "Scotland",
+  "mw": 26.4
+ },
+ {
+  "ref": "4064",
+  "name": "Nant Bach",
+  "lat": 53.2005506,
+  "lon": -3.7604916,
+  "tech": "wind_onshore",
+  "country": "Wales",
+  "mw": 30.0
+ },
+ {
+  "ref": "19491",
+  "name": "Mulbarton Road, Keswick - Battery Energy Storage System",
+  "lat": 52.5961949,
+  "lon": 1.2745045,
+  "tech": "bess",
+  "country": "England",
+  "mw": 400.0
+ },
+ {
+  "ref": "18441",
+  "name": "Battery Energy Storage Facility Development in Derry",
+  "lat": 55.0196379,
+  "lon": -7.3330377,
+  "tech": "bess",
+  "country": "Northern Ireland",
+  "mw": 17.0
+ },
+ {
+  "ref": "14677",
+  "name": "Corriemoillie Substation Garve - Battery Energy Storage",
+  "lat": 57.940809,
+  "lon": -5.5706214,
+  "tech": "bess",
+  "country": "Scotland",
+  "mw": 200.0
+ },
+ {
+  "ref": "14019",
+  "name": "MOD Pendine, Llanmiloe - Solar Panels",
+  "lat": 51.7497662,
+  "lon": -4.5207587,
+  "tech": "bess",
+  "country": "Wales",
+  "mw": 8.8
+ },
+ {
+  "ref": "5128",
+  "name": "Land To The East Of Back Lane",
+  "lat": 53.226652,
+  "lon": -1.3743309,
+  "tech": "solar",
+  "country": "England",
+  "mw": 5.0
+ },
+ {
+  "ref": "5463",
+  "name": "Sealstown Road Solar Farm",
+  "lat": 54.6940069,
+  "lon": -5.955595,
+  "tech": "solar",
+  "country": "Northern Ireland",
+  "mw": 6.7
+ },
+ {
+  "ref": "4844",
+  "name": "New Mains Of Guynd Farm",
+  "lat": 56.5740386,
+  "lon": -2.7091423,
+  "tech": "solar",
+  "country": "Scotland",
+  "mw": 10.0
+ },
+ {
+  "ref": "1244",
+  "name": "West Farm (Solar)",
+  "lat": 51.6987045,
+  "lon": -4.9011902,
+  "tech": "solar",
+  "country": "Wales",
+  "mw": 7.7
+ },
+ {
+  "ref": "2504",
+  "name": "Kentish Flats 2",
+  "lat": 51.4499942,
+  "lon": 1.079999,
+  "tech": "wind_offshore",
+  "country": "England",
+  "mw": 49.5
+ },
+ {
+  "ref": "13418",
+  "name": "Cluaran Ear-Thuath / Bowdun Wind Farm (Thistle North East) (E3)",
+  "lat": 57.1408972,
+  "lon": -1.2257817,
+  "tech": "wind_offshore",
+  "country": "Scotland",
+  "mw": 1000.0
+ }
+]

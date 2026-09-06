@@ -117,15 +117,32 @@ class HomepageIsAMenu(unittest.TestCase):
         self.assertEqual(0, len(re.findall(r'note:"', homepage())),
                          "note fields are back on homepage entries")
 
-    def test_nest_titles_carry_no_timestamp(self) -> None:
-        """A stamp on the title was tried and removed. The eye should land on a
-        name; the stamps live inside."""
-        offenders = []
-        for title in re.findall(r"<summary>([^<]+)</summary>", homepage()):
-            if re.search(r"\d{12}", title):
-                offenders.append(title.strip())
+    def test_category_titles_carry_no_timestamp(self) -> None:
+        """A stamp on a CATEGORY title was tried and removed: the eye should land
+        on a subject. Sub-nest titles inside the Test Code lane are the opposite
+        rule and are checked below."""
+        html = homepage()
+        offenders = [t.strip() for t in REQUIRED_NESTS if re.search(r"\d{12}", t)]
+        declared = re.findall(r'\{ name:"([^"]+)", children:\[', html)
+        offenders += [d for d in declared if re.search(r"\d{12}", d)]
         self.assertEqual([], offenders,
-                         f"nest titles carry a timestamp again: {offenders}")
+                         f"category titles carry a timestamp: {offenders}")
+
+    def test_test_code_sub_nests_are_timestamped_and_newest_first(self) -> None:
+        """The opposite rule, and the reason the lane exists: a timestamp is the
+        anchor that survives anyone's memory of which build was which."""
+        html = homepage()
+        i = html.find('id="test-code"')
+        if i == -1:
+            self.fail("the Test Code lane is missing; it is codex's lane and is not ours to remove")
+        lane = html[i:]
+        labels = re.findall(r'<details class="nest"><summary>([^<]+)</summary>', lane)
+        self.assertTrue(labels, "the Test Code lane has no sub-nests")
+        unstamped = [l for l in labels if not re.match(r"\d{12} ", l)]
+        self.assertEqual([], unstamped, f"Test Code entries without a timestamp: {unstamped}")
+        stamps = [l[:12] for l in labels]
+        self.assertEqual(sorted(stamps, reverse=True), stamps,
+                         "Test Code sub-nests are not newest-first")
 
     def test_the_newest_builds_lead_uk_grid_tracking(self) -> None:
         """Tonight's current releases sit at the head of the category, so the
@@ -161,11 +178,11 @@ class StatedCountsAreTrue(unittest.TestCase):
         count is a claim, and a wrong one is worse than none."""
         html = homepage()
         wrong = []
-        for block in re.findall(r"<details[^>]*>(.*?)</details>", html, flags=re.S):
+        for block in re.findall(r'<details class="versions"[^>]*>(.*?)</details>', html, flags=re.S):
             summary = re.search(r"<summary>([^<]*)</summary>", block)
             if not summary:
                 continue
-            stated = re.search(r"\((\d+)\)", summary.group(1))
+            stated = re.search(r"\((\d+)\)$", summary.group(1).strip())
             if not stated:
                 continue
             actual = len(re.findall(r"<li[\s>]", block))

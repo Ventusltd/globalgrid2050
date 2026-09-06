@@ -1531,3 +1531,8 @@ Pre-edit snapshot of 63acce00fbf4b2db2e42d2d4a484297069ad2f78. Restore workflow3
 ## homepage_v064
 
 Pre-edit snapshot of 895cadcfa0d86cb6d5aaedec0fd93efe86dcb835. Restore workflow34007522280 passed. Measurements: homepage_v064-measurement.json. Remove internal review checkpoint counters and snapshot per user; retain calendar clocks. The96acceptance criteria are preserved in Spiders campaign e489f95. Removed only the duplicate internal-review build-plan link; its target remains linked elsewhere on the homepage.
+
+
+## homepage_v065
+
+Pre-edit snapshot of 24a3d8880904bc9f32abdef89edce93b708f5f56. Restore workflow34008157608 passed. Measurements: homepage_v065-measurement.json. Add verified offshore Atlas0300 under existing Test Code; retain Atlas228, Pipeline232 and every existing link. Source c06cb36, scoped CI34008040152 passed.

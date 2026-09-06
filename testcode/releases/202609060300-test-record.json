@@ -1,0 +1,22 @@
+{
+  "generation": "202609060300",
+  "sourceRepository": "Ventusltd/testcode",
+  "sourceCommit": "c06cb36a3483762be7556adf66c50157b21c6a14",
+  "ownerRepository": "Ventusltd/gridatlas",
+  "ownerCommit": "db38dfe0811c755f9c382f2cdde1d438f52e07de",
+  "ci": {
+    "run": 34008040152,
+    "job": 101418747148,
+    "conclusion": "success",
+    "controlsChecks": 54,
+    "offshoreChecks": 14,
+    "capsuleChecks": 46
+  },
+  "scope": "Offshore and onshore corridor behavior, menu controls, exact owner source transformation and file identities. General estate CI remains separate.",
+  "limitations": [
+    "Phone emulation is not physical-device validation.",
+    "Straight lines are measurements, not surveyed export routes."
+  ],
+  "browserEvidence": "recovery-20260906/atlas0300-ci",
+  "publicationStatus": "Exact served bytes and live browser evidence recorded separately after deployment."
+}

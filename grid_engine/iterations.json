@@ -10,6 +10,15 @@
       "engine": "engine/electrification-demand.js",
       "engineCommit": "0fdf425",
       "checks": 28
+    },
+    {
+      "stamp": "202609060205",
+      "path": "202609060205-firm-capacity/",
+      "title": "Firm Capacity Workbench",
+      "feature": "N-1 firm capacity for a transformer bank, apparent power from a stated power factor, and a demand assessed against firm rather than installed capacity. Exposes the gap where most connection refusals actually live.",
+      "engine": "engine/firm-capacity.js",
+      "engineCommit": "294dcc0",
+      "checks": 28
     }
   ]
 }

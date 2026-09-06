@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firm Capacity Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>FIRM CAPACITY WORKBENCH</h1>
+  <p class="sub">What a substation carries when one unit is out — the N-1 question</p>
+  <p class="stamp">Generation 202609060205 · engine firm-capacity.js at 294dcc0</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · THE BANK — INSTALLED AGAINST FIRM</h2>
+  <div class="body">
+    <p class="lede">A substation's nameplate is the sum of its transformers. Its <strong>firm</strong>
+                   capacity is what remains when the largest single unit is unavailable, because a
+                   network planned to N-1 must survive the loss of any one element without shedding
+                   load. Enter the transformer ratings, in MVA, separated by commas. A single
+                   transformer returns zero firm capacity — that is the correct answer, not an error.</p>
+    <div class="field">
+      <label for="units">Transformer ratings (MVA, comma separated)</label>
+      <input type="text" id="units" value="30, 30" inputmode="text">
+    </div>
+    <div class="out" id="out-firm"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THE LOAD — MW TO MVA</h2>
+  <div class="body">
+    <p class="lede">Plant is limited by current, and current follows apparent power, not real power.
+                   A 100 MW load at 0.95 power factor draws 105.3 MVA, and it is the 105.3 the
+                   transformer has to carry. Sizing on MW alone under-counts by the reciprocal of the
+                   power factor, every time.</p>
+    <div class="field">
+      <label for="mw">Real power (MW)</label>
+      <input type="number" id="mw" value="40" min="0.1" max="5000" step="0.1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="pf">Power factor</label>
+        <span class="rangeval" id="pf-val">0.95</span></div>
+      <input type="range" id="pf" min="0.7" max="1" step="0.01" value="0.95">
+    </div>
+    <div class="out" id="out-mva"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>3 · THE N-1 ASSESSMENT</h2>
+  <div class="body">
+    <p class="lede">The question a planner actually asks: does this demand still sit inside firm
+                   capacity, and by how much does it miss if not? The paper's worked substation grows
+                   from 24 to 42 MVA on two 30 MVA units — a 75% increase that leaves installed
+                   capacity looking comfortable at 70% while firm capacity is already 40% exceeded.
+                   That gap is invisible if you look only at the total.</p>
+
+    <div class="out" id="out-assess"></div>
+    <div class="scroller"><table id="assess-table"><thead><tr><th>Measure</th><th style="text-align:right">Value</th><th style="text-align:right">Reading</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">The demand assessed is the MVA figure from panel 2, against the bank in panel 1.
+                   Passing this arithmetic is not ER P2/7 compliance: a real security study also counts
+                   transfer capacity from adjacent sites and permits interruption by group demand, so a
+                   site can pass this and fail that, or fail this and remain compliant.</p>
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js">firm-capacity.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 28 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE = 'https://ventusltd.github.io/ventus-grid-engine/engine/firm-capacity.js';
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+function bind() {
+  ['units','mw','pf'].forEach(id => el(id).addEventListener('input', render));
+}
+
+function parseUnits(raw) {
+  return raw.split(',').map(s => s.trim()).filter(Boolean).map(Number);
+}
+
+function render() {
+  el('pf-val').textContent = num('pf').toFixed(2);
+  let firm, mva;
+
+  try {
+    firm = E.firmCapacityMva({ units: parseUnits(el('units').value) });
+    fig('out-firm', firm, 1);
+  } catch (err) { refuse('out-firm', err.message); firm = null; }
+
+  try {
+    mva = E.apparentPowerMva({ mw: num('mw'), powerFactor: num('pf') });
+    fig('out-mva', mva, 2);
+  } catch (err) { refuse('out-mva', err.message); mva = null; }
+
+  const tb = document.querySelector('#assess-table tbody');
+  if (!firm || !mva) { tb.innerHTML = ''; el('out-assess').innerHTML =
+    '<p class="basis" style="border:0;padding:0;margin:0">Fix the inputs above to see the assessment.</p>'; return; }
+
+  try {
+    const a = E.assessAgainstFirm({ units: firm.from.units, demandMva: mva.value });
+    el('out-assess').innerHTML =
+      '<div class="figure"><span class="q">n-1 assessment</span>' +
+      '<span class="n' + (a.withinFirm ? '' : ' over') + '">' +
+        (a.withinFirm ? 'WITHIN FIRM' : a.withinInstalled ? 'BEYOND FIRM' : 'BEYOND INSTALLED') +
+      '</span></div><p class="basis">' + a.basis + '</p>';
+    tb.innerHTML = [
+      ['Installed capacity', a.installedMva.toFixed(1) + ' MVA', 'sum of all units'],
+      ['Firm capacity (N-1)', a.firmMva.toFixed(1) + ' MVA', 'largest unit out'],
+      ['Demand', a.demandMva.toFixed(2) + ' MVA', 'from panel 2'],
+      ['Utilisation of installed', (a.utilisationOfInstalled * 100).toFixed(1) + '%',
+        a.utilisationOfInstalled > 1 ? 'over' : 'looks comfortable'],
+      ['Utilisation of firm', (a.utilisationOfFirm * 100).toFixed(1) + '%',
+        a.utilisationOfFirm > 1 ? 'EXCEEDED' : 'within'],
+      ['Shortfall against firm', a.shortfallMva.toFixed(2) + ' MVA',
+        a.shortfallMva > 0 ? 'must be resolved' : 'none']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td class="n" style="color:' +
+      (/EXCEEDED|over|must/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
+  } catch (err) { refuse('out-assess', err.message); }
+}
+
+try {
+  E = await import(ENGINE);
+  if (E.schema !== 'ventus-grid-engine.firm-capacity.v1') throw new Error('unexpected schema ' + E.schema);
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' + E.schema +
+    ' · every figure below is computed by the engine module, not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

@@ -1318,5 +1318,136 @@ function render() {
       (/EXCEEDED|over|must/.test(r[2]) ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
   } catch (err) { refuse('out-firm', err.message); ft.innerHTML = ''; }
 }`
+    },
+    {
+        stamp: '202609060318',
+        slug: 'solar-farm',
+        title: 'Solar Farm Workbench',
+        sub: 'Boundary to export limit — area, capacity, cable and clipping in one place',
+        feature: 'A solar site taken end to end on one page: the measured boundary area, the capacity it carries at a stated density, the voltage drop and losses on the collection run, and the energy an export cap clips.',
+        engineModule: ['v9-geodesy.js', 'geo-area.js', 'voltage-drop.js', 'connection-capacity.js'],
+        engineCommit: '2b0db38',
+        schema: [
+            'gridatlas.module.geodesy.v1',
+            null,
+            'ventus-grid-engine.voltage-drop.v1',
+            'ventus-grid-engine.connection-capacity.v1'
+        ],
+        checks: 94,
+        panels: [
+            {
+                heading: '1 · THE SITE',
+                lede: `The boundary, as <code>lon,lat</code> pairs separated by semicolons — measured
+                   on the sphere rather than a flat projection, because at UK latitudes a planar
+                   approximation of a large site is wrong by enough to matter to a land agreement.
+                   Capacity density is yours to state: it depends on row pitch, tracker or fixed,
+                   module efficiency, and how much of the redline is actually plantable.`,
+                controls: [
+                    { id: 'poly', type: 'text', label: 'Boundary (lon,lat; …)', value: '0.930,51.3300; 0.945,51.3300; 0.945,51.3385; 0.930,51.3385' },
+                    { id: 'density', type: 'number', label: 'Capacity density (MWp per hectare)', value: '0.45', min: 0.05, max: 3, step: 0.01 },
+                    { id: 'usable', type: 'range', label: 'Usable fraction of the redline', value: '0.70', min: 0.10, max: 1.00, step: 0.01 }
+                ],
+                outId: 'out-site'
+            },
+            {
+                heading: '2 · THE COLLECTION RUN',
+                lede: `The internal cabling, where voltage drop usually chooses the conductor before
+                   ampacity does. R and X are the conductor you are actually using — the engine
+                   carries none of its own. Solar inverters run close to unity by default, which is
+                   why the reactive term is small here and large on an industrial load.`,
+                controls: [
+                    { id: 'amps', type: 'number', label: 'Circuit current (A)', value: '300', min: 1, max: 20000, step: 1 },
+                    { id: 'len', type: 'number', label: 'Run length (m)', value: '900', min: 1, max: 50000, step: 10 },
+                    { id: 'r', type: 'number', label: 'Resistance (ohm/km)', value: '0.16', min: 0.0001, max: 20, step: 0.0001 },
+                    { id: 'x', type: 'number', label: 'Reactance (ohm/km)', value: '0.09', min: 0, max: 20, step: 0.0001 },
+                    { id: 'pf', type: 'range', label: 'Inverter power factor', value: '1.00', min: 0.80, max: 1.00, step: 0.01 },
+                    { id: 'vn', type: 'number', label: 'Collection voltage (V)', value: '33000', min: 100, max: 400000, step: 100 }
+                ],
+                outId: 'out-cable'
+            },
+            {
+                heading: '3 · THE EXPORT CAP',
+                lede: `A generation day against an agreed export capacity. Oversizing DC behind a
+                   smaller connection is a normal design choice and often a good one — but only once
+                   the loss is a number rather than an assumption. The profile is a clear summer day
+                   scaled to the capacity from panel 1.`,
+                controls: [
+                    { id: 'ecap', type: 'number', label: 'Agreed export capacity (MW)', value: '30', min: 0.1, max: 5000, step: 0.1 }
+                ],
+                outId: 'out-clip',
+                tableId: 'solar-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Value', right: true }],
+                note: `An agreed export capacity is a commercial figure from a connection agreement.
+                   Nothing here infers one, and nothing here says whether you could get a larger one —
+                   that is an application and an offer.`
+            }
+        ],
+        script: `
+function bind() { ['poly','density','usable','amps','len','r','x','pf','vn','ecap'].forEach(id => el(id).addEventListener('input', render)); }
+function parsePoly(raw) {
+  return raw.split(';').map(s => s.trim()).filter(Boolean).map(pair => {
+    const [a,b] = pair.split(',').map(Number);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) throw new Error('cannot read point "' + pair + '"');
+    return [a,b];
+  });
+}
+/* A clear summer day, normalised so the peak is 1.0. Hourly, 05:00 to 20:00. */
+const DAY = [0, 0.04, 0.14, 0.30, 0.50, 0.70, 0.87, 0.97, 1.00, 0.97, 0.87, 0.70, 0.50, 0.30, 0.14, 0.04];
+
+function render() {
+  el('usable-val').textContent = num('usable').toFixed(2);
+  el('pf-val').textContent = num('pf').toFixed(2);
+  let mwp = null;
+
+  try {
+    const pts = parsePoly(el('poly').value);
+    if (pts.length < 3) throw new Error('a boundary needs at least three points');
+    const area = E.polygonAreaKm2(pts);
+    const usableHa = area.areaHa * num('usable');
+    mwp = usableHa * num('density');
+    el('out-site').innerHTML =
+      '<div class="figure"><span class="q">site capacity</span><span class="n">' + mwp.toFixed(1) +
+      '</span><span class="u">MWp · ' + usableHa.toFixed(1) + ' usable ha of ' + area.areaHa.toFixed(1) + '</span></div>' +
+      '<p class="basis">Boundary of ' + pts.length + ' points measuring ' + area.areaHa.toFixed(1) +
+      ' ha (' + area.areaAc.toFixed(0) + ' acres, ' + area.pitches.toFixed(0) + ' football pitches), ' +
+      'perimeter ' + area.perimKm.toFixed(2) + ' km, computed on the sphere. At ' +
+      num('usable').toFixed(2) + ' usable and ' + num('density').toFixed(2) + ' MWp/ha that is ' +
+      mwp.toFixed(1) + ' MWp. Density and usable fraction are yours: they depend on row pitch, ' +
+      'tracker or fixed, module efficiency and what the redline actually permits.</p>';
+  } catch (err) { refuse('out-site', err.message); }
+
+  try {
+    const drop = E.voltageDropVolts({ currentA: num('amps'), lengthM: num('len'),
+      resistanceOhmPerKm: num('r'), reactanceOhmPerKm: num('x'), powerFactor: num('pf'), phases: 'three' });
+    const pc = E.dropPercent({ dropVolts: drop.value, nominalVolts: num('vn') });
+    const loss = E.lossesWatts({ currentA: num('amps'), lengthM: num('len'), resistanceOhmPerKm: num('r'), phases: 'three' });
+    el('out-cable').innerHTML =
+      '<div class="figure"><span class="q">collection run</span><span class="n">' + pc.value.toFixed(3) +
+      '</span><span class="u">% drop · ' + drop.value.toFixed(1) + ' V · ' + (loss.value/1000).toFixed(2) + ' kW lost</span></div>' +
+      '<p class="basis">' + drop.basis + '</p>';
+  } catch (err) { refuse('out-cable', err.message); }
+
+  const tb = document.querySelector('#solar-table tbody');
+  try {
+    if (mwp === null) throw new Error('fix the boundary above first');
+    const genKw = DAY.map(f => f * mwp * 1000);
+    const capKw = num('ecap') * 1000;
+    const c = E.clippedEnergy({ generationKw: genKw, exportCapKw: capKw, intervalHours: 1 });
+    el('out-clip').innerHTML =
+      '<div class="figure"><span class="q">clipped on a clear day</span><span class="n' +
+      (c.clippedKwh > 0 ? ' over' : '') + '">' + (c.clippedKwh/1000).toFixed(1) +
+      '</span><span class="u">MWh · ' + (c.clippedFraction*100).toFixed(2) + '% of the day</span></div>' +
+      '<p class="basis">' + c.basis + '</p>';
+    tb.innerHTML = [
+      ['Installed capacity', mwp.toFixed(1) + ' MWp'],
+      ['Agreed export capacity', num('ecap').toFixed(1) + ' MW'],
+      ['DC to AC ratio against the cap', (mwp / num('ecap')).toFixed(2) + ' : 1'],
+      ['Delivered on a clear day', (c.deliveredKwh/1000).toFixed(1) + ' MWh'],
+      ['Clipped on a clear day', (c.clippedKwh/1000).toFixed(1) + ' MWh'],
+      ['Clipped share', (c.clippedFraction*100).toFixed(2) + '%'],
+      ['Hours at the cap', c.intervalsClipped + ' of ' + DAY.length]
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+  } catch (err) { refuse('out-clip', err.message); tb.innerHTML = ''; }
+}`
     }
 ];

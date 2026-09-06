@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solar Farm Workbench — Ventus Grid Engine</title>
+<style>
+:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
+  --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Courier New',ui-monospace,monospace}
+html,body{background:var(--bg);color:var(--text)}
+body{font-size:14px;line-height:1.55;padding:0 0 48px}
+.wrap{max-width:960px;margin:0 auto;padding:0 14px}
+header{border-bottom:1px solid var(--soft);padding:18px 0 14px;margin-bottom:16px}
+h1{font-size:17px;letter-spacing:2px;color:var(--accent)}
+.sub{color:var(--muted);font-size:11px;margin-top:6px}
+.stamp{color:#7f8996;font-size:10px;margin-top:8px;overflow-wrap:anywhere}
+.status{border:1px solid var(--line);background:var(--panel);padding:9px 11px;
+  margin-bottom:16px;font-size:11px}
+.status.live{border-color:#167d4d;color:var(--ok)}
+.status.dead{border-color:#7d1616;color:var(--no)}
+section{border:1px solid var(--soft);background:var(--panel);margin-bottom:16px}
+h2{font-size:12px;letter-spacing:1.4px;color:var(--accent);padding:11px 13px;
+  border-bottom:1px solid var(--soft)}
+.body{padding:13px}
+.lede{color:var(--muted);font-size:11.5px;line-height:1.65;margin-bottom:13px}
+label{display:block;color:var(--muted);font-size:10px;letter-spacing:.6px;
+  text-transform:uppercase;margin:0 0 5px}
+.field{margin-bottom:13px}
+input[type=number],input[type=text]{width:100%;background:#000;border:1px solid var(--line);
+  color:var(--text);padding:11px 10px;font-size:16px;font-weight:700}
+input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.rangerow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rangeval{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
+.out{border:1px solid var(--line);background:#06080b;padding:11px;margin-top:11px}
+.figure{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.figure .n{font-size:26px;font-weight:700;color:var(--ok);line-height:1.1}
+.figure .n.over{color:var(--no)}
+.figure .u{font-size:12px;color:var(--muted)}
+.figure .q{font-size:10px;color:#7f8996;text-transform:uppercase;letter-spacing:.8px;
+  flex:1 0 100%;margin-bottom:3px}
+.basis{color:#8e98a5;font-size:10.5px;line-height:1.65;margin-top:9px;
+  border-top:1px dashed #252a31;padding-top:8px}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--accent);text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.5px}
+td{padding:7px 6px;border-bottom:1px solid #1a1e25;color:var(--muted)}
+td.n{color:var(--text);font-weight:700;text-align:right;white-space:nowrap}
+.refuse{border:1px solid #5c2020;background:#120708}
+.refuse h2{color:#ff8f8f;border-bottom-color:#5c2020}
+.refuse dt{color:#ff8f8f;font-size:11px;font-weight:700;margin-top:11px}
+.refuse dt:first-child{margin-top:0}
+.refuse dd{color:#c9a9a9;font-size:10.5px;line-height:1.65;margin-top:3px}
+footer{color:#69727d;font-size:10.5px;line-height:1.9;padding-top:14px;
+  border-top:1px solid var(--soft);margin-top:20px}
+/* Touch targets. Measured at 393px on 2026-09-06: footer links were 11.3px
+   tall, below the 24px WCAG 2.2 minimum. Inline links keep their flow but are
+   given real height through padding and line-height. */
+footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height:1.5}
+.nav{margin-top:14px;font-size:11px}
+.nav a{color:#66ccff;display:inline-block;padding:8px 10px 8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>SOLAR FARM WORKBENCH</h1>
+  <p class="sub">Boundary to export limit — area, capacity, cable and clipping in one place</p>
+  <p class="stamp">Generation 202609060318 · engine v9-geodesy.js, geo-area.js, voltage-drop.js, connection-capacity.js at 2b0db38</p>
+</header>
+<div class="status" id="engine-status">Loading the engine module…</div>
+<section>
+  <h2>1 · THE SITE</h2>
+  <div class="body">
+    <p class="lede">The boundary, as <code>lon,lat</code> pairs separated by semicolons — measured
+                   on the sphere rather than a flat projection, because at UK latitudes a planar
+                   approximation of a large site is wrong by enough to matter to a land agreement.
+                   Capacity density is yours to state: it depends on row pitch, tracker or fixed,
+                   module efficiency, and how much of the redline is actually plantable.</p>
+    <div class="field">
+      <label for="poly">Boundary (lon,lat; …)</label>
+      <input type="text" id="poly" value="0.930,51.3300; 0.945,51.3300; 0.945,51.3385; 0.930,51.3385" inputmode="text">
+    </div>
+    <div class="field">
+      <label for="density">Capacity density (MWp per hectare)</label>
+      <input type="number" id="density" value="0.45" min="0.05" max="3" step="0.01" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="usable">Usable fraction of the redline</label>
+        <span class="rangeval" id="usable-val">0.70</span></div>
+      <input type="range" id="usable" min="0.1" max="1" step="0.01" value="0.70">
+    </div>
+    <div class="out" id="out-site"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · THE COLLECTION RUN</h2>
+  <div class="body">
+    <p class="lede">The internal cabling, where voltage drop usually chooses the conductor before
+                   ampacity does. R and X are the conductor you are actually using — the engine
+                   carries none of its own. Solar inverters run close to unity by default, which is
+                   why the reactive term is small here and large on an industrial load.</p>
+    <div class="field">
+      <label for="amps">Circuit current (A)</label>
+      <input type="number" id="amps" value="300" min="1" max="20000" step="1" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="len">Run length (m)</label>
+      <input type="number" id="len" value="900" min="1" max="50000" step="10" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="r">Resistance (ohm/km)</label>
+      <input type="number" id="r" value="0.16" min="0.0001" max="20" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="x">Reactance (ohm/km)</label>
+      <input type="number" id="x" value="0.09" min="0" max="20" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="field">
+      <div class="rangerow"><label for="pf">Inverter power factor</label>
+        <span class="rangeval" id="pf-val">1.00</span></div>
+      <input type="range" id="pf" min="0.8" max="1" step="0.01" value="1.00">
+    </div>
+    <div class="field">
+      <label for="vn">Collection voltage (V)</label>
+      <input type="number" id="vn" value="33000" min="100" max="400000" step="100" inputmode="decimal">
+    </div>
+    <div class="out" id="out-cable"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>3 · THE EXPORT CAP</h2>
+  <div class="body">
+    <p class="lede">A generation day against an agreed export capacity. Oversizing DC behind a
+                   smaller connection is a normal design choice and often a good one — but only once
+                   the loss is a number rather than an assumption. The profile is a clear summer day
+                   scaled to the capacity from panel 1.</p>
+    <div class="field">
+      <label for="ecap">Agreed export capacity (MW)</label>
+      <input type="number" id="ecap" value="30" min="0.1" max="5000" step="0.1" inputmode="decimal">
+    </div>
+    <div class="out" id="out-clip"></div>
+    <div class="scroller"><table id="solar-table"><thead><tr><th>Measure</th><th style="text-align:right">Value</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">An agreed export capacity is a commercial figure from a connection agreement.
+                   Nothing here infers one, and nothing here says whether you could get a larger one —
+                   that is an application and an offer.</p>
+  </div>
+</section>
+<section class="refuse">
+  <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
+  <div class="body">
+    <p class="lede" style="color:#c9a9a9">These are not features missing from a later
+      version. The engine proof asserts that no function of these names exists, so
+      their absence is a tested property rather than an oversight.</p>
+    <dl id="refusals"></dl>
+  </div>
+</section>
+<footer>
+  <p>Every figure above is computed by
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/v9-geodesy.js">v9-geodesy.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/geo-area.js">geo-area.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/voltage-drop.js">voltage-drop.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/connection-capacity.js">connection-capacity.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 94 checks.
+     This page holds no copy of the mathematics: if the engine cannot be reached it
+     shows no numbers rather than a stale answer.</p>
+  <p class="nav">
+     <a href="../">All workbenches</a>
+     <a href="/papers/202609060203-electrification/">Electrification paper</a>
+     <a href="/papers/202609060045-published-fault-level/">Fault-level paper</a>
+     <a href="/">GlobalGrid2050</a></p>
+  <p style="margin-top:6px">Scenario arithmetic is not evidence of connection headroom.
+     A national load factor cannot establish utilisation at any particular transformer.</p>
+</footer>
+</div>
+<script type="module">
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/v9-geodesy.js","https://ventusltd.github.io/ventus-grid-engine/engine/geo-area.js","https://ventusltd.github.io/ventus-grid-engine/engine/voltage-drop.js","https://ventusltd.github.io/ventus-grid-engine/engine/connection-capacity.js"];
+const ENGINE_SCHEMAS = ["gridatlas.module.geodesy.v1",null,"ventus-grid-engine.voltage-drop.v1","ventus-grid-engine.connection-capacity.v1"];
+const statusEl = document.getElementById('engine-status');
+let E = null;
+
+const el = id => document.getElementById(id);
+const num = id => Number(el(id).value);
+
+function fig(target, r, decimals = 1, over = false) {
+  el(target).innerHTML =
+    '<div class="figure">' +
+      '<span class="q">' + r.quantity.replace(/_/g, ' ') + '</span>' +
+      '<span class="n' + (over ? ' over' : '') + '">' +
+        r.value.toLocaleString('en-GB', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+      '</span><span class="u">' + r.unit + '</span></div>' +
+    '<p class="basis">' + r.basis + '</p>';
+}
+
+function refuse(target, message) {
+  el(target).innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">'
+    + 'Engine refused this input: ' + message + '</p>';
+}
+
+
+function bind() { ['poly','density','usable','amps','len','r','x','pf','vn','ecap'].forEach(id => el(id).addEventListener('input', render)); }
+function parsePoly(raw) {
+  return raw.split(';').map(s => s.trim()).filter(Boolean).map(pair => {
+    const [a,b] = pair.split(',').map(Number);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) throw new Error('cannot read point "' + pair + '"');
+    return [a,b];
+  });
+}
+/* A clear summer day, normalised so the peak is 1.0. Hourly, 05:00 to 20:00. */
+const DAY = [0, 0.04, 0.14, 0.30, 0.50, 0.70, 0.87, 0.97, 1.00, 0.97, 0.87, 0.70, 0.50, 0.30, 0.14, 0.04];
+
+function render() {
+  el('usable-val').textContent = num('usable').toFixed(2);
+  el('pf-val').textContent = num('pf').toFixed(2);
+  let mwp = null;
+
+  try {
+    const pts = parsePoly(el('poly').value);
+    if (pts.length < 3) throw new Error('a boundary needs at least three points');
+    const area = E.polygonAreaKm2(pts);
+    const usableHa = area.areaHa * num('usable');
+    mwp = usableHa * num('density');
+    el('out-site').innerHTML =
+      '<div class="figure"><span class="q">site capacity</span><span class="n">' + mwp.toFixed(1) +
+      '</span><span class="u">MWp · ' + usableHa.toFixed(1) + ' usable ha of ' + area.areaHa.toFixed(1) + '</span></div>' +
+      '<p class="basis">Boundary of ' + pts.length + ' points measuring ' + area.areaHa.toFixed(1) +
+      ' ha (' + area.areaAc.toFixed(0) + ' acres, ' + area.pitches.toFixed(0) + ' football pitches), ' +
+      'perimeter ' + area.perimKm.toFixed(2) + ' km, computed on the sphere. At ' +
+      num('usable').toFixed(2) + ' usable and ' + num('density').toFixed(2) + ' MWp/ha that is ' +
+      mwp.toFixed(1) + ' MWp. Density and usable fraction are yours: they depend on row pitch, ' +
+      'tracker or fixed, module efficiency and what the redline actually permits.</p>';
+  } catch (err) { refuse('out-site', err.message); }
+
+  try {
+    const drop = E.voltageDropVolts({ currentA: num('amps'), lengthM: num('len'),
+      resistanceOhmPerKm: num('r'), reactanceOhmPerKm: num('x'), powerFactor: num('pf'), phases: 'three' });
+    const pc = E.dropPercent({ dropVolts: drop.value, nominalVolts: num('vn') });
+    const loss = E.lossesWatts({ currentA: num('amps'), lengthM: num('len'), resistanceOhmPerKm: num('r'), phases: 'three' });
+    el('out-cable').innerHTML =
+      '<div class="figure"><span class="q">collection run</span><span class="n">' + pc.value.toFixed(3) +
+      '</span><span class="u">% drop · ' + drop.value.toFixed(1) + ' V · ' + (loss.value/1000).toFixed(2) + ' kW lost</span></div>' +
+      '<p class="basis">' + drop.basis + '</p>';
+  } catch (err) { refuse('out-cable', err.message); }
+
+  const tb = document.querySelector('#solar-table tbody');
+  try {
+    if (mwp === null) throw new Error('fix the boundary above first');
+    const genKw = DAY.map(f => f * mwp * 1000);
+    const capKw = num('ecap') * 1000;
+    const c = E.clippedEnergy({ generationKw: genKw, exportCapKw: capKw, intervalHours: 1 });
+    el('out-clip').innerHTML =
+      '<div class="figure"><span class="q">clipped on a clear day</span><span class="n' +
+      (c.clippedKwh > 0 ? ' over' : '') + '">' + (c.clippedKwh/1000).toFixed(1) +
+      '</span><span class="u">MWh · ' + (c.clippedFraction*100).toFixed(2) + '% of the day</span></div>' +
+      '<p class="basis">' + c.basis + '</p>';
+    tb.innerHTML = [
+      ['Installed capacity', mwp.toFixed(1) + ' MWp'],
+      ['Agreed export capacity', num('ecap').toFixed(1) + ' MW'],
+      ['DC to AC ratio against the cap', (mwp / num('ecap')).toFixed(2) + ' : 1'],
+      ['Delivered on a clear day', (c.deliveredKwh/1000).toFixed(1) + ' MWh'],
+      ['Clipped on a clear day', (c.clippedKwh/1000).toFixed(1) + ' MWh'],
+      ['Clipped share', (c.clippedFraction*100).toFixed(2) + '%'],
+      ['Hours at the cap', c.intervalsClipped + ' of ' + DAY.length]
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+  } catch (err) { refuse('out-clip', err.message); tb.innerHTML = ''; }
+}
+
+try {
+  const loaded = [];
+  for (const url of ENGINE_MODULES) loaded.push(await import(url));
+  // Some engine modules predate the schema convention and declare none. A spec
+  // says so by passing null, and the check is skipped rather than faked -- an
+  // asserted schema that does not exist would fail every load for a module that
+  // is perfectly good.
+  loaded.forEach((m, i) => {
+    const expected = ENGINE_SCHEMAS[i];
+    if (expected && m.schema !== expected) {
+      throw new Error('unexpected schema ' + m.schema + ' from ' + ENGINE_MODULES[i]);
+    }
+  });
+  // Merge the modules into one namespace. A name collision would silently
+  // shadow one module's function with another's, so it is refused loudly.
+  E = {};
+  const NOT_COMPUTED = {};
+  // Refusals are not all shaped the same. The newer modules export
+  // NOT_COMPUTED as an object of named reasons; the older ones export a single
+  // string, or name their boundaries individually as NOT_A_CAPACITY,
+  // NO_HEADROOM, NEVER_SUMMED, CAVEAT and so on. Spreading a string into an
+  // object would render one character per letter, so each shape is handled.
+  const REFUSAL_NAME = /^(NOT_|NO_|NEVER_|CAVEAT|IMPEDANCE_)/;
+  for (const m of loaded) {
+    for (const [k, v] of Object.entries(m)) {
+      if (k === 'schema' || k === 'requires') continue;
+      if (k === 'NOT_COMPUTED') {
+        if (typeof v === 'string') NOT_COMPUTED.notComputed = v;
+        else Object.assign(NOT_COMPUTED, v);
+        continue;
+      }
+      if (REFUSAL_NAME.test(k) && typeof v === 'string') {
+        NOT_COMPUTED[k.toLowerCase().replace(/_(.)/g, (_, c) => c.toUpperCase())] = v;
+        continue;
+      }
+      if (k in E) throw new Error('two engine modules both export "' + k + '"');
+      E[k] = v;
+    }
+  }
+  E.NOT_COMPUTED = NOT_COMPUTED;
+  statusEl.className = 'status live';
+  statusEl.textContent = 'ENGINE LIVE — ' +
+    ENGINE_SCHEMAS.map((sc, i) => sc || ENGINE_MODULES[i].split('/').pop()).join(' + ') +
+    ' · every figure below is computed by the engine module' + (loaded.length > 1 ? 's' : '') + ', not by this page.';
+  el('refusals').innerHTML = Object.entries(E.NOT_COMPUTED).map(([k, v]) =>
+    '<dt>' + k.replace(/([A-Z])/g, ' $1').toUpperCase() + '</dt><dd>' + v + '</dd>').join('');
+  bind();
+  render();
+} catch (err) {
+  statusEl.className = 'status dead';
+  statusEl.textContent = 'ENGINE UNREACHABLE — ' + err.message +
+    '. Nothing on this page is computed; there is deliberately no local copy to fall back to.';
+  document.querySelectorAll('.out').forEach(o => {
+    o.innerHTML = '<p class="basis" style="color:#ff8f8f;border:0;padding:0;margin:0">'
+      + 'No figure: the engine did not load.</p>'; });
+}
+</script>
+</body>
+</html>

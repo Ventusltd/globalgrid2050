@@ -1,46 +1,9 @@
-/* build.mjs — emits a Grid Engine workbench as a self-contained immutable page.
- *
- * WHY A GENERATOR AND NOT THIRTY HAND-WRITTEN PAGES.
- * Each published workbench is immutable: it is never edited once it exists, so
- * an improvement becomes the next timestamp. Hand-writing each one guarantees
- * that a fix to the shell — a touch target, a dark-mode colour, an overflow
- * rule — reaches only the page that happened to be open at the time, and the
- * thirty pages drift apart. Holding the generator instead means the shell is
- * one thing, each iteration is a small declarative delta, and any past page can
- * be re-emitted byte-for-byte from its spec if it ever needs to be audited.
- *
- * WHAT THE GENERATOR DOES NOT DO.
- * It does not compute anything and it does not embed the mathematics. Every
- * emitted page imports its engine module from ventus-grid-engine at RUNTIME, so
- * a figure on a published page is the figure the engine's proofs are run
- * against. If the engine cannot be reached the page shows no numbers rather
- * than falling back to a copy — a fallback copy is exactly how a view drifts
- * from the module it claims to use, silently, while still looking right.
- *
- * Run:  node grid_engine/build.mjs            (emit any spec not yet published)
- *       node grid_engine/build.mjs --check    (verify published pages match)
- */
-
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-import { SPECS } from './specs.mjs';
-
-const here = dirname(fileURLToPath(import.meta.url));
-const ENGINE_BASE = 'https://ventusltd.github.io/ventus-grid-engine/engine/';
-
-const modules = spec => [].concat(spec.engineModule);
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-/* The shell. One place, so a fix reaches every page emitted after it, and no
-   page emitted before it changes — which is the point of immutability. */
-function shell({ spec, body, script }) {
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(spec.title)} — Ventus Grid Engine</title>
+<title>Published Fault Level Workbench — Ventus Grid Engine</title>
 <style>
 :root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
   --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
@@ -103,12 +66,50 @@ footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height
 <body>
 <div class="wrap">
 <header>
-  <h1>${esc(spec.title.toUpperCase())}</h1>
-  <p class="sub">${esc(spec.sub)}</p>
-  <p class="stamp">Generation ${esc(spec.stamp)} · engine ${esc(modules(spec).join(', '))} at ${esc(spec.engineCommit)}</p>
+  <h1>PUBLISHED FAULT LEVEL WORKBENCH</h1>
+  <p class="sub">A figure may be carried only if it is published, dated and named by exact metric</p>
+  <p class="stamp">Generation 202609060236 · engine published-fault-level.js at 7d40365</p>
 </header>
 <div class="status" id="engine-status">Loading the engine module…</div>
-${body}
+<section>
+  <h2>1 · THE RECORD</h2>
+  <div class="body">
+    <p class="lede">A fault level is not one number. Make against break, three-phase against
+                   single-phase, and a DC offset set by X/R — NESO's ETYS Appendix D publishes
+                   <em>eight</em> separately named currents for one busbar, and collapsing them into
+                   a generic "fault level" is the error this contract exists to prevent. Edit the
+                   record below and watch it be accepted or refused. <strong>It opens refused on
+                   purpose:</strong> the study basis is empty, because the estate's pinned ETYS
+                   artefact genuinely records no basis today. That is a real open item, not a
+                   contrived demonstration.</p>
+    <div class="field">
+      <label for="rec">Study basis (fill this to see the record accepted)</label>
+      <input type="text" id="rec" value="" inputmode="text">
+    </div>
+    <div class="out" id="out-record"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · QUOTING ONE NAMED METRIC</h2>
+  <div class="body">
+    <p class="lede">Once a record is accepted, a figure may be quoted — but only one named metric
+                   at a time, with its unit, site, busbar, voltage, publisher, basis and date attached.
+                   Nothing here will ever print the bare words "fault level".</p>
+    <div class="field">
+      <label for="metric">Metric name</label>
+      <input type="text" id="metric" value="three_phase_rms_break_current_ka" inputmode="text">
+    </div>
+    <div class="out" id="out-quote"></div>
+    <div class="scroller"><table id="metric-table"><thead><tr><th>Metric ETYS publishes</th><th style="text-align:right">Unit</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">The eight ETYS metric names are listed above exactly as data-grid-gb
+                   normalises them. A generic name — <code>fault_level</code>, <code>scl</code>,
+                   <code>maximum_fault_level</code> — is refused outright, because a reader cannot
+                   tell which current it is and the wrong one against the wrong switchgear rating is
+                   how a screening tool becomes a false connection assessment.</p>
+  </div>
+</section>
 <section class="refuse">
   <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
   <div class="body">
@@ -120,8 +121,8 @@ ${body}
 </section>
 <footer>
   <p>Every figure above is computed by
-     ${modules(spec).map(m => `<a href="${ENGINE_BASE}${esc(m)}">${esc(m)}</a>`).join(' and ')}
-     in the Ventus Grid Engine, imported at runtime and proven by ${spec.checks} checks.
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/published-fault-level.js">published-fault-level.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 41 checks.
      This page holds no copy of the mathematics: if the engine cannot be reached it
      shows no numbers rather than a stale answer.</p>
   <p class="nav">
@@ -134,8 +135,8 @@ ${body}
 </footer>
 </div>
 <script type="module">
-const ENGINE_MODULES = ${JSON.stringify(modules(spec).map(m => ENGINE_BASE + m))};
-const ENGINE_SCHEMAS = ${JSON.stringify([].concat(spec.schema))};
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/published-fault-level.js"];
+const ENGINE_SCHEMAS = ["ventus-grid-engine.published-fault-level.v1"];
 const statusEl = document.getElementById('engine-status');
 let E = null;
 
@@ -157,7 +158,76 @@ function refuse(target, message) {
     + 'Engine refused this input: ' + message + '</p>';
 }
 
-${script}
+
+// The real pinned artefact: NESO ETYS 2025 Appendix D peak-demand workbook, with
+// the byte count and SHA-256 recorded in data-grid-gb chatgpt/sources.json, and
+// the publication date verified against NESO's documents page on 2026-09-06.
+// study_basis is deliberately EMPTY: the estate does not record one, so the page
+// opens refused rather than inventing a plausible string.
+const BASE = {
+  provenance: {
+    publisher: 'NESO',
+    publication: 'ETYS 2025 Appendix D — peak demand fault current scenarios',
+    source_url: 'https://www.neso.energy/document/383951/download',
+    sha256: 'ad8b54fa0b0562c34295514c150f33913a92fc756ff140e0154d53c181363440',
+    published_date: '2026-06-30',
+    study_basis: ''
+  },
+  site: { name: 'EXAMPLE 400 kV substation', voltage_kv: 400, busbar: 'A' },
+  metrics: {
+    three_phase_rms_break_current_ka: { min: 31.2, max: 34.8 },
+    three_phase_initial_peak_current_ka: { min: 78.4, max: 88.1 }
+  }
+};
+
+function bind() { ['rec','metric'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  const input = JSON.parse(JSON.stringify(BASE));
+  input.provenance.study_basis = el('rec').value.trim();
+
+  // record() returns { ok, record, refused }. quote() takes the INNER record,
+  // not the envelope -- passing the envelope returns null, silently, which is
+  // exactly what the first version of this page did.
+  const r = E.record(input);
+  const ok = r && r.ok === true && r.record;
+  el('out-record').innerHTML =
+    '<div class="figure"><span class="q">record()</span><span class="n' + (ok ? '' : ' over') + '">' +
+    (ok ? 'ACCEPTED' : 'REFUSED') + '</span></div>' +
+    '<p class="basis">' + (ok
+      ? 'Every required field is present: publisher, publication, source URL, SHA-256, an ISO date, a study basis, a named site and voltage, and metrics named by exact metric. ' + (E.CAVEAT || '')
+      : 'Refused: <b>' + ((r && r.refused) || 'unknown reason') + '</b>. ' +
+        'This is the contract working. A figure without its basis is not a measurement, it is a rumour.') +
+    '</p>';
+
+  const tb = document.querySelector('#metric-table tbody');
+  tb.innerHTML = E.ETYS_METRICS.map(n => {
+    const m = E.METRIC_LABELS[n];
+    return '<tr><td style="font-size:10px">' + n + '<div style="color:#7f8996">' +
+      (m ? m.label : '') + '</div></td><td class="n">' + (m ? m.unit : '?') + '</td></tr>';
+  }).join('');
+
+  if (!ok) {
+    el('out-quote').innerHTML = '<p class="basis" style="border:0;padding:0;margin:0">' +
+      'No quotation: the record was refused, so there is nothing here that may be printed.</p>';
+    return;
+  }
+  try {
+    const name = el('metric').value.trim();
+    const q = E.quote(r.record, name);
+    el('out-quote').innerHTML = q === null || q === undefined
+      ? '<div class="figure"><span class="q">quote()</span><span class="n over">NOT QUOTED</span></div>' +
+        '<p class="basis">The engine will not quote <b>' + name + '</b> from this record. Either the ' +
+        'record does not carry that metric, or the name is a generic one the contract refuses. ' +
+        'Try one of the exact names in the table below.</p>'
+      : '<div class="figure"><span class="q">quote()</span><span class="n" style="font-size:14px;line-height:1.4">' +
+        (typeof q === 'string' ? q : JSON.stringify(q)) + '</span></div>' +
+        '<p class="basis">' + (E.NO_HEADROOM || '') + '</p>';
+  } catch (err) {
+    el('out-quote').innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">' +
+      'Engine refused this metric: ' + err.message + '</p>';
+  }
+}
 
 try {
   const loaded = [];
@@ -218,70 +288,3 @@ try {
 </script>
 </body>
 </html>
-`;
-}
-
-function panelHtml(p) {
-    const controls = p.controls.map(c => {
-        if (c.type === 'range') {
-            return `    <div class="field">
-      <div class="rangerow"><label for="${c.id}">${esc(c.label)}</label>
-        <span class="rangeval" id="${c.id}-val">${c.value}</span></div>
-      <input type="range" id="${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.value}">
-    </div>`;
-        }
-        return `    <div class="field">
-      <label for="${c.id}">${esc(c.label)}</label>
-      <input type="${c.type}" id="${c.id}" value="${esc(c.value)}"${c.min !== undefined ? ` min="${c.min}"` : ''}${c.max !== undefined ? ` max="${c.max}"` : ''}${c.step !== undefined ? ` step="${c.step}"` : ''} inputmode="${c.type === 'number' ? 'decimal' : 'text'}">
-    </div>`;
-    }).join('\n');
-    return `<section>
-  <h2>${esc(p.heading)}</h2>
-  <div class="body">
-    <p class="lede">${p.lede}</p>
-${controls}
-    ${p.outId ? `<div class="out" id="${p.outId}"></div>` : ''}
-    ${p.tableId ? `<div class="scroller"><table id="${p.tableId}"><thead><tr>${p.tableHead.map(h => `<th${h.right ? ' style="text-align:right"' : ''}>${esc(h.label)}</th>`).join('')}</tr></thead><tbody></tbody></table></div>` : ''}
-    ${p.note ? `<p class="basis">${p.note}</p>` : ''}
-  </div>
-</section>`;
-}
-
-function emit(spec) {
-    const body = spec.panels.map(panelHtml).join('\n');
-    const html = shell({ spec, body, script: spec.script });
-    const dir = join(here, `${spec.stamp}-${spec.slug}`);
-    const file = join(dir, 'index.html');
-    if (existsSync(file)) return { spec, written: false, file };
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(file, html, 'utf8');
-    return { spec, written: true, file };
-}
-
-const check = process.argv.includes('--check');
-const ledgerPath = join(here, 'iterations.json');
-const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
-
-let wrote = 0;
-for (const spec of SPECS) {
-    const r = emit(spec);
-    if (r.written) {
-        wrote += 1;
-        console.log(`emitted ${spec.stamp}-${spec.slug}/index.html`);
-    }
-    if (!ledger.iterations.some(i => i.stamp === spec.stamp)) {
-        ledger.iterations.push({
-            stamp: spec.stamp,
-            path: `${spec.stamp}-${spec.slug}/`,
-            title: spec.title,
-            feature: spec.feature,
-            engine: modules(spec).map(m => `engine/${m}`).join(' + '),
-            engineCommit: spec.engineCommit,
-            checks: spec.checks
-        });
-    }
-}
-if (!check) {
-    writeFileSync(ledgerPath, JSON.stringify(ledger, null, 2) + '\n', 'utf8');
-}
-console.log(`${wrote} page(s) emitted; ledger holds ${ledger.iterations.length} iteration(s)`);

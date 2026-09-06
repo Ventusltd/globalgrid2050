@@ -568,5 +568,288 @@ function render() {
       (/NO|^[1-9]\\d*\\.\\d+ MVA$/.test(r[2]) && r[2] !== '0.00 MVA' ? '#ff5c5c' : '#8e98a5') + '">' + r[2] + '</td></tr>').join('');
   } catch (err) { refuse('out-today', err.message); tb.innerHTML = ''; }
 }`
+    },
+    {
+        stamp: '202609060236',
+        slug: 'published-fault-level',
+        title: 'Published Fault Level Workbench',
+        sub: 'A figure may be carried only if it is published, dated and named by exact metric',
+        feature: 'The estate\'s fault-level contract, made operable: paste a record and see exactly why it is accepted or refused. Opens refused, because the transmission product genuinely lacks a study basis today.',
+        engineModule: 'published-fault-level.js',
+        engineCommit: '7d40365',
+        schema: 'ventus-grid-engine.published-fault-level.v1',
+        checks: 41,
+        panels: [
+            {
+                heading: '1 · THE RECORD',
+                lede: `A fault level is not one number. Make against break, three-phase against
+                   single-phase, and a DC offset set by X/R — NESO's ETYS Appendix D publishes
+                   <em>eight</em> separately named currents for one busbar, and collapsing them into
+                   a generic "fault level" is the error this contract exists to prevent. Edit the
+                   record below and watch it be accepted or refused. <strong>It opens refused on
+                   purpose:</strong> the study basis is empty, because the estate's pinned ETYS
+                   artefact genuinely records no basis today. That is a real open item, not a
+                   contrived demonstration.`,
+                controls: [
+                    { id: 'rec', type: 'text', label: 'Study basis (fill this to see the record accepted)', value: '' }
+                ],
+                outId: 'out-record'
+            },
+            {
+                heading: '2 · QUOTING ONE NAMED METRIC',
+                lede: `Once a record is accepted, a figure may be quoted — but only one named metric
+                   at a time, with its unit, site, busbar, voltage, publisher, basis and date attached.
+                   Nothing here will ever print the bare words "fault level".`,
+                controls: [
+                    { id: 'metric', type: 'text', label: 'Metric name', value: 'three_phase_rms_break_current_ka' }
+                ],
+                outId: 'out-quote',
+                tableId: 'metric-table',
+                tableHead: [{ label: 'Metric ETYS publishes' }, { label: 'Unit', right: true }],
+                note: `The eight ETYS metric names are listed above exactly as data-grid-gb
+                   normalises them. A generic name — <code>fault_level</code>, <code>scl</code>,
+                   <code>maximum_fault_level</code> — is refused outright, because a reader cannot
+                   tell which current it is and the wrong one against the wrong switchgear rating is
+                   how a screening tool becomes a false connection assessment.`
+            }
+        ],
+        script: `
+// The real pinned artefact: NESO ETYS 2025 Appendix D peak-demand workbook, with
+// the byte count and SHA-256 recorded in data-grid-gb chatgpt/sources.json, and
+// the publication date verified against NESO's documents page on 2026-09-06.
+// study_basis is deliberately EMPTY: the estate does not record one, so the page
+// opens refused rather than inventing a plausible string.
+const BASE = {
+  provenance: {
+    publisher: 'NESO',
+    publication: 'ETYS 2025 Appendix D — peak demand fault current scenarios',
+    source_url: 'https://www.neso.energy/document/383951/download',
+    sha256: 'ad8b54fa0b0562c34295514c150f33913a92fc756ff140e0154d53c181363440',
+    published_date: '2026-06-30',
+    study_basis: ''
+  },
+  site: { name: 'EXAMPLE 400 kV substation', voltage_kv: 400, busbar: 'A' },
+  metrics: {
+    three_phase_rms_break_current_ka: { min: 31.2, max: 34.8 },
+    three_phase_initial_peak_current_ka: { min: 78.4, max: 88.1 }
+  }
+};
+
+function bind() { ['rec','metric'].forEach(id => el(id).addEventListener('input', render)); }
+
+function render() {
+  const input = JSON.parse(JSON.stringify(BASE));
+  input.provenance.study_basis = el('rec').value.trim();
+
+  // record() returns { ok, record, refused }. quote() takes the INNER record,
+  // not the envelope -- passing the envelope returns null, silently, which is
+  // exactly what the first version of this page did.
+  const r = E.record(input);
+  const ok = r && r.ok === true && r.record;
+  el('out-record').innerHTML =
+    '<div class="figure"><span class="q">record()</span><span class="n' + (ok ? '' : ' over') + '">' +
+    (ok ? 'ACCEPTED' : 'REFUSED') + '</span></div>' +
+    '<p class="basis">' + (ok
+      ? 'Every required field is present: publisher, publication, source URL, SHA-256, an ISO date, a study basis, a named site and voltage, and metrics named by exact metric. ' + (E.CAVEAT || '')
+      : 'Refused: <b>' + ((r && r.refused) || 'unknown reason') + '</b>. ' +
+        'This is the contract working. A figure without its basis is not a measurement, it is a rumour.') +
+    '</p>';
+
+  const tb = document.querySelector('#metric-table tbody');
+  tb.innerHTML = E.ETYS_METRICS.map(n => {
+    const m = E.METRIC_LABELS[n];
+    return '<tr><td style="font-size:10px">' + n + '<div style="color:#7f8996">' +
+      (m ? m.label : '') + '</div></td><td class="n">' + (m ? m.unit : '?') + '</td></tr>';
+  }).join('');
+
+  if (!ok) {
+    el('out-quote').innerHTML = '<p class="basis" style="border:0;padding:0;margin:0">' +
+      'No quotation: the record was refused, so there is nothing here that may be printed.</p>';
+    return;
+  }
+  try {
+    const name = el('metric').value.trim();
+    const q = E.quote(r.record, name);
+    el('out-quote').innerHTML = q === null || q === undefined
+      ? '<div class="figure"><span class="q">quote()</span><span class="n over">NOT QUOTED</span></div>' +
+        '<p class="basis">The engine will not quote <b>' + name + '</b> from this record. Either the ' +
+        'record does not carry that metric, or the name is a generic one the contract refuses. ' +
+        'Try one of the exact names in the table below.</p>'
+      : '<div class="figure"><span class="q">quote()</span><span class="n" style="font-size:14px;line-height:1.4">' +
+        (typeof q === 'string' ? q : JSON.stringify(q)) + '</span></div>' +
+        '<p class="basis">' + (E.NO_HEADROOM || '') + '</p>';
+  } catch (err) {
+    el('out-quote').innerHTML = '<p class="basis" style="color:#ffae00;border:0;padding:0;margin:0">' +
+      'Engine refused this metric: ' + err.message + '</p>';
+  }
+}`
+    },
+    {
+        stamp: '202609060237',
+        slug: 'corridor-estimate',
+        title: 'Corridor Estimate Workbench',
+        sub: 'The straight-line first pass, and the one multiplier that is allowed to touch it',
+        feature: 'The calibrated straight-line-to-corridor factor for cable circuits, with the calibration sample, the error distribution, and the minimum separation below which it refuses to answer at all.',
+        engineModule: 'corridor-estimate.js',
+        engineCommit: '7d40365',
+        schema: 'gridatlas.module.corridor-estimate.v1',
+        checks: 15,
+        panels: [
+            {
+                heading: '1 · STRAIGHT LINE TO CORRIDOR',
+                lede: `A straight line is not a route. Buried cable circuits follow the highway
+                   network, and across 95 published GB transmission cable circuits that detour
+                   measures a factor of <strong>1.245</strong>. This is the estate's first pass and it
+                   stays exactly as it is — everything else built tonight is additive to it.`,
+                controls: [
+                    { id: 'km', type: 'number', label: 'Straight-line distance (km)', value: '10', min: 0, max: 2000, step: 0.01 }
+                ],
+                outId: 'out-corridor'
+            },
+            {
+                heading: '2 · WHERE IT REFUSES, AND WHY THAT MATTERS MORE',
+                lede: `Below about a kilometre the factor is not measuring route detour at all — it is
+                   measuring the distance between two site centroids, and the median error rises to
+                   52.5%. So it returns <em>null</em>, not zero and not a small number. A tool that
+                   answers everything cannot be trusted on anything.`,
+                controls: [],
+                tableId: 'basis-table',
+                tableHead: [{ label: 'Calibration' }, { label: 'Value', right: true }],
+                note: `The factor is calibrated on cable, which follows roads. Overhead line crosses
+                   open country and measures 1.13 — published here only so a reader can see why the
+                   cable factor is the wrong model for an overhead question. There is deliberately no
+                   forOverhead().`
+            }
+        ],
+        script: `
+function bind() { el('km').addEventListener('input', render); }
+
+function render() {
+  const km = num('km');
+  // forCable returns { km, factor, straight_km, withheld }. Below the minimum
+  // separation it returns an OBJECT whose km is null and whose withheld says
+  // why; only a zero distance returns null outright. Calling toFixed on that
+  // null is what left this page showing a stale figure.
+  const r = E.forCable(km);
+  const value = r && r.km;
+  el('out-corridor').innerHTML = (value === null || value === undefined)
+    ? '<div class="figure"><span class="q">corridor estimate</span><span class="n over">NO ESTIMATE</span></div>' +
+      '<p class="basis">' + ((r && r.withheld) || 'No distance given, so there is nothing to estimate.') + '</p>'
+    : '<div class="figure"><span class="q">corridor estimate</span><span class="n">' +
+      value.toFixed(2) + '</span><span class="u">km</span></div><p class="basis">' +
+      'A straight line of ' + r.straight_km + ' km, multiplied by the calibrated cable factor of ' +
+      r.factor + '. ' + E.CAVEAT + '</p>';
+
+  const b = E.BASIS;
+  document.querySelector('#basis-table tbody').innerHTML = [
+    ['Cable factor', E.CABLE_FACTOR],
+    ['Overhead factor (not applied here)', E.OHL_FACTOR],
+    ['Circuits in the sample', b.circuits],
+    ['Distinct site pairs', b.distinct_site_pairs],
+    ['Median absolute error', b.median_absolute_error_pct + '%'],
+    ['Within 15%', b.within_15_pct + '%'],
+    ['Minimum separation', b.minimum_separation_km + ' km']
+  ].map(r2 => '<tr><td>' + r2[0] + '</td><td class="n">' + r2[1] + '</td></tr>').join('') +
+    '<tr><td colspan="2" style="font-size:10px;color:#7f8996">' + b.sample_note + '</td></tr>';
+}`
+    },
+    {
+        stamp: '202609060238',
+        slug: 'site-geometry',
+        title: 'Site Geometry Workbench',
+        sub: 'Distance, bearing, area and perimeter on the one geodesy the estate agrees on',
+        feature: 'Great-circle distance and bearing between two points, and polygon area, perimeter and circle-cap area for a site boundary — computed by the same geodesy every map in the estate uses.',
+        engineModule: ['v9-geodesy.js', 'geo-area.js'],
+        engineCommit: '7d40365',
+        schema: ['gridatlas.module.geodesy.v1', null],
+        checks: 23,
+        panels: [
+            {
+                heading: '1 · TWO POINTS',
+                lede: `Great-circle distance and initial bearing, in (longitude, latitude) order — the
+                   order the estate standardised on after mixing it up cost a day. The radius is
+                   6378.137 km, the equatorial figure the Atlas uses; the estate also carries a UK
+                   figure and a mean figure, and which one is correct depends on the question.`,
+                controls: [
+                    { id: 'lon1', type: 'number', label: 'From longitude', value: '-1.4', min: -180, max: 180, step: 0.0001 },
+                    { id: 'lat1', type: 'number', label: 'From latitude', value: '52.5', min: -90, max: 90, step: 0.0001 },
+                    { id: 'lon2', type: 'number', label: 'To longitude', value: '-0.9', min: -180, max: 180, step: 0.0001 },
+                    { id: 'lat2', type: 'number', label: 'To latitude', value: '53.1', min: -90, max: 90, step: 0.0001 }
+                ],
+                outId: 'out-distance'
+            },
+            {
+                heading: '2 · A SITE BOUNDARY',
+                lede: `Paste a closed boundary as <code>lon,lat</code> pairs separated by semicolons.
+                   Area and perimeter are computed on the sphere, not on a flat projection — at UK
+                   latitudes a planar approximation of a large site is wrong by enough to matter to a
+                   land agreement.`,
+                controls: [
+                    { id: 'poly', type: 'text', label: 'Boundary (lon,lat; lon,lat; …)', value: '-1.40,52.50; -1.39,52.50; -1.39,52.51; -1.40,52.51' }
+                ],
+                outId: 'out-area',
+                tableId: 'geo-table',
+                tableHead: [{ label: 'Measure' }, { label: 'Value', right: true }],
+                note: `A circle-cap area is given alongside for comparison: it is the area within a
+                   radius on the sphere, which is what a "within X km" search actually covers and is
+                   noticeably larger than πr² once the radius is big.`
+            }
+        ],
+        script: `
+function bind() { ['lon1','lat1','lon2','lat2','poly'].forEach(id => el(id).addEventListener('input', render)); }
+function parsePoly(raw) {
+  return raw.split(';').map(s => s.trim()).filter(Boolean).map(pair => {
+    const [a, b] = pair.split(',').map(Number);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) throw new Error('cannot read point "' + pair + '"');
+    return [a, b];
+  });
+}
+
+function render() {
+  try {
+    const km = E.distanceKm(num('lon1'), num('lat1'), num('lon2'), num('lat2'));
+    const brg = E.initialBearingDeg(num('lon1'), num('lat1'), num('lon2'), num('lat2'));
+    el('out-distance').innerHTML =
+      '<div class="figure"><span class="q">great-circle distance</span><span class="n">' +
+      km.toFixed(3) + '</span><span class="u">km · bearing ' + brg.toFixed(1) + '°</span></div>' +
+      '<p class="basis">Computed on a sphere of radius ' + E.EARTH_RADIUS_KM +
+      ' km in (longitude, latitude) order. A straight line between two points is a measurement; ' +
+      'it is not a route and it is not a cable length.</p>';
+  } catch (err) { refuse('out-distance', err.message); }
+
+  const tb = document.querySelector('#geo-table tbody');
+  try {
+    const pts = parsePoly(el('poly').value);
+    if (pts.length < 3) throw new Error('a boundary needs at least three points');
+    // polygonAreaKm2 and circleCapAreaKm2 return a whole set of units, not a
+    // bare number: { areaKm2, areaM2, areaHa, areaAc, areaMi2, perimKm,
+    // pitches }. Reading them as numbers threw, and the page said so rather
+    // than showing a stale figure.
+    const area = E.polygonAreaKm2(pts);
+    const perimKm = E.polylinePerimeterKm(pts, true);
+    const cap1 = E.circleCapAreaKm2(1);
+    const cap50 = E.circleCapAreaKm2(50);
+    el('out-area').innerHTML =
+      '<div class="figure"><span class="q">site area</span><span class="n">' +
+      area.areaHa.toFixed(2) + '</span><span class="u">hectares · ' +
+      area.areaAc.toFixed(1) + ' acres · ' + area.areaKm2.toFixed(5) + ' km²</span></div>' +
+      '<p class="basis">Spherical area of a closed boundary of ' + pts.length + ' points, on a ' +
+      'sphere rather than a flat projection. At UK latitudes a planar approximation of a large ' +
+      'site is wrong by enough to matter to a land agreement.</p>';
+    tb.innerHTML = [
+      ['Boundary points', pts.length],
+      ['Area', area.areaKm2.toFixed(6) + ' km²'],
+      ['Area', area.areaHa.toFixed(3) + ' ha'],
+      ['Area', area.areaAc.toFixed(2) + ' acres'],
+      ['Area, in football pitches', area.pitches.toFixed(1)],
+      ['Perimeter (closed)', perimKm.toFixed(4) + ' km'],
+      ['Within 1 km — spherical cap', cap1.areaKm2.toFixed(5) + ' km²'],
+      ['Within 1 km — flat πr², for comparison', Math.PI.toFixed(5) + ' km²'],
+      ['Within 50 km — spherical cap', cap50.areaKm2.toFixed(2) + ' km²'],
+      ['Within 50 km — flat πr², for comparison', (Math.PI * 2500).toFixed(2) + ' km²'],
+      ['Difference at 50 km', ((Math.PI * 2500 - cap50.areaKm2) / cap50.areaKm2 * 100).toFixed(3) + '%']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+  } catch (err) { refuse('out-area', err.message); tb.innerHTML = ''; }
+}`
     }
 ];

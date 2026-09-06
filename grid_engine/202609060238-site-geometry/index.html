@@ -1,46 +1,9 @@
-/* build.mjs — emits a Grid Engine workbench as a self-contained immutable page.
- *
- * WHY A GENERATOR AND NOT THIRTY HAND-WRITTEN PAGES.
- * Each published workbench is immutable: it is never edited once it exists, so
- * an improvement becomes the next timestamp. Hand-writing each one guarantees
- * that a fix to the shell — a touch target, a dark-mode colour, an overflow
- * rule — reaches only the page that happened to be open at the time, and the
- * thirty pages drift apart. Holding the generator instead means the shell is
- * one thing, each iteration is a small declarative delta, and any past page can
- * be re-emitted byte-for-byte from its spec if it ever needs to be audited.
- *
- * WHAT THE GENERATOR DOES NOT DO.
- * It does not compute anything and it does not embed the mathematics. Every
- * emitted page imports its engine module from ventus-grid-engine at RUNTIME, so
- * a figure on a published page is the figure the engine's proofs are run
- * against. If the engine cannot be reached the page shows no numbers rather
- * than falling back to a copy — a fallback copy is exactly how a view drifts
- * from the module it claims to use, silently, while still looking right.
- *
- * Run:  node grid_engine/build.mjs            (emit any spec not yet published)
- *       node grid_engine/build.mjs --check    (verify published pages match)
- */
-
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-import { SPECS } from './specs.mjs';
-
-const here = dirname(fileURLToPath(import.meta.url));
-const ENGINE_BASE = 'https://ventusltd.github.io/ventus-grid-engine/engine/';
-
-const modules = spec => [].concat(spec.engineModule);
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-/* The shell. One place, so a fix reaches every page emitted after it, and no
-   page emitted before it changes — which is the point of immutability. */
-function shell({ spec, body, script }) {
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(spec.title)} — Ventus Grid Engine</title>
+<title>Site Geometry Workbench — Ventus Grid Engine</title>
 <style>
 :root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
   --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
@@ -103,12 +66,57 @@ footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height
 <body>
 <div class="wrap">
 <header>
-  <h1>${esc(spec.title.toUpperCase())}</h1>
-  <p class="sub">${esc(spec.sub)}</p>
-  <p class="stamp">Generation ${esc(spec.stamp)} · engine ${esc(modules(spec).join(', '))} at ${esc(spec.engineCommit)}</p>
+  <h1>SITE GEOMETRY WORKBENCH</h1>
+  <p class="sub">Distance, bearing, area and perimeter on the one geodesy the estate agrees on</p>
+  <p class="stamp">Generation 202609060238 · engine v9-geodesy.js, geo-area.js at 7d40365</p>
 </header>
 <div class="status" id="engine-status">Loading the engine module…</div>
-${body}
+<section>
+  <h2>1 · TWO POINTS</h2>
+  <div class="body">
+    <p class="lede">Great-circle distance and initial bearing, in (longitude, latitude) order — the
+                   order the estate standardised on after mixing it up cost a day. The radius is
+                   6378.137 km, the equatorial figure the Atlas uses; the estate also carries a UK
+                   figure and a mean figure, and which one is correct depends on the question.</p>
+    <div class="field">
+      <label for="lon1">From longitude</label>
+      <input type="number" id="lon1" value="-1.4" min="-180" max="180" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="lat1">From latitude</label>
+      <input type="number" id="lat1" value="52.5" min="-90" max="90" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="lon2">To longitude</label>
+      <input type="number" id="lon2" value="-0.9" min="-180" max="180" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="field">
+      <label for="lat2">To latitude</label>
+      <input type="number" id="lat2" value="53.1" min="-90" max="90" step="0.0001" inputmode="decimal">
+    </div>
+    <div class="out" id="out-distance"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · A SITE BOUNDARY</h2>
+  <div class="body">
+    <p class="lede">Paste a closed boundary as <code>lon,lat</code> pairs separated by semicolons.
+                   Area and perimeter are computed on the sphere, not on a flat projection — at UK
+                   latitudes a planar approximation of a large site is wrong by enough to matter to a
+                   land agreement.</p>
+    <div class="field">
+      <label for="poly">Boundary (lon,lat; lon,lat; …)</label>
+      <input type="text" id="poly" value="-1.40,52.50; -1.39,52.50; -1.39,52.51; -1.40,52.51" inputmode="text">
+    </div>
+    <div class="out" id="out-area"></div>
+    <div class="scroller"><table id="geo-table"><thead><tr><th>Measure</th><th style="text-align:right">Value</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">A circle-cap area is given alongside for comparison: it is the area within a
+                   radius on the sphere, which is what a "within X km" search actually covers and is
+                   noticeably larger than πr² once the radius is big.</p>
+  </div>
+</section>
 <section class="refuse">
   <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
   <div class="body">
@@ -120,8 +128,8 @@ ${body}
 </section>
 <footer>
   <p>Every figure above is computed by
-     ${modules(spec).map(m => `<a href="${ENGINE_BASE}${esc(m)}">${esc(m)}</a>`).join(' and ')}
-     in the Ventus Grid Engine, imported at runtime and proven by ${spec.checks} checks.
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/v9-geodesy.js">v9-geodesy.js</a> and <a href="https://ventusltd.github.io/ventus-grid-engine/engine/geo-area.js">geo-area.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 23 checks.
      This page holds no copy of the mathematics: if the engine cannot be reached it
      shows no numbers rather than a stale answer.</p>
   <p class="nav">
@@ -134,8 +142,8 @@ ${body}
 </footer>
 </div>
 <script type="module">
-const ENGINE_MODULES = ${JSON.stringify(modules(spec).map(m => ENGINE_BASE + m))};
-const ENGINE_SCHEMAS = ${JSON.stringify([].concat(spec.schema))};
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/v9-geodesy.js","https://ventusltd.github.io/ventus-grid-engine/engine/geo-area.js"];
+const ENGINE_SCHEMAS = ["gridatlas.module.geodesy.v1",null];
 const statusEl = document.getElementById('engine-status');
 let E = null;
 
@@ -157,7 +165,62 @@ function refuse(target, message) {
     + 'Engine refused this input: ' + message + '</p>';
 }
 
-${script}
+
+function bind() { ['lon1','lat1','lon2','lat2','poly'].forEach(id => el(id).addEventListener('input', render)); }
+function parsePoly(raw) {
+  return raw.split(';').map(s => s.trim()).filter(Boolean).map(pair => {
+    const [a, b] = pair.split(',').map(Number);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) throw new Error('cannot read point "' + pair + '"');
+    return [a, b];
+  });
+}
+
+function render() {
+  try {
+    const km = E.distanceKm(num('lon1'), num('lat1'), num('lon2'), num('lat2'));
+    const brg = E.initialBearingDeg(num('lon1'), num('lat1'), num('lon2'), num('lat2'));
+    el('out-distance').innerHTML =
+      '<div class="figure"><span class="q">great-circle distance</span><span class="n">' +
+      km.toFixed(3) + '</span><span class="u">km · bearing ' + brg.toFixed(1) + '°</span></div>' +
+      '<p class="basis">Computed on a sphere of radius ' + E.EARTH_RADIUS_KM +
+      ' km in (longitude, latitude) order. A straight line between two points is a measurement; ' +
+      'it is not a route and it is not a cable length.</p>';
+  } catch (err) { refuse('out-distance', err.message); }
+
+  const tb = document.querySelector('#geo-table tbody');
+  try {
+    const pts = parsePoly(el('poly').value);
+    if (pts.length < 3) throw new Error('a boundary needs at least three points');
+    // polygonAreaKm2 and circleCapAreaKm2 return a whole set of units, not a
+    // bare number: { areaKm2, areaM2, areaHa, areaAc, areaMi2, perimKm,
+    // pitches }. Reading them as numbers threw, and the page said so rather
+    // than showing a stale figure.
+    const area = E.polygonAreaKm2(pts);
+    const perimKm = E.polylinePerimeterKm(pts, true);
+    const cap1 = E.circleCapAreaKm2(1);
+    const cap50 = E.circleCapAreaKm2(50);
+    el('out-area').innerHTML =
+      '<div class="figure"><span class="q">site area</span><span class="n">' +
+      area.areaHa.toFixed(2) + '</span><span class="u">hectares · ' +
+      area.areaAc.toFixed(1) + ' acres · ' + area.areaKm2.toFixed(5) + ' km²</span></div>' +
+      '<p class="basis">Spherical area of a closed boundary of ' + pts.length + ' points, on a ' +
+      'sphere rather than a flat projection. At UK latitudes a planar approximation of a large ' +
+      'site is wrong by enough to matter to a land agreement.</p>';
+    tb.innerHTML = [
+      ['Boundary points', pts.length],
+      ['Area', area.areaKm2.toFixed(6) + ' km²'],
+      ['Area', area.areaHa.toFixed(3) + ' ha'],
+      ['Area', area.areaAc.toFixed(2) + ' acres'],
+      ['Area, in football pitches', area.pitches.toFixed(1)],
+      ['Perimeter (closed)', perimKm.toFixed(4) + ' km'],
+      ['Within 1 km — spherical cap', cap1.areaKm2.toFixed(5) + ' km²'],
+      ['Within 1 km — flat πr², for comparison', Math.PI.toFixed(5) + ' km²'],
+      ['Within 50 km — spherical cap', cap50.areaKm2.toFixed(2) + ' km²'],
+      ['Within 50 km — flat πr², for comparison', (Math.PI * 2500).toFixed(2) + ' km²'],
+      ['Difference at 50 km', ((Math.PI * 2500 - cap50.areaKm2) / cap50.areaKm2 * 100).toFixed(3) + '%']
+    ].map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td></tr>').join('');
+  } catch (err) { refuse('out-area', err.message); tb.innerHTML = ''; }
+}
 
 try {
   const loaded = [];
@@ -218,70 +281,3 @@ try {
 </script>
 </body>
 </html>
-`;
-}
-
-function panelHtml(p) {
-    const controls = p.controls.map(c => {
-        if (c.type === 'range') {
-            return `    <div class="field">
-      <div class="rangerow"><label for="${c.id}">${esc(c.label)}</label>
-        <span class="rangeval" id="${c.id}-val">${c.value}</span></div>
-      <input type="range" id="${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.value}">
-    </div>`;
-        }
-        return `    <div class="field">
-      <label for="${c.id}">${esc(c.label)}</label>
-      <input type="${c.type}" id="${c.id}" value="${esc(c.value)}"${c.min !== undefined ? ` min="${c.min}"` : ''}${c.max !== undefined ? ` max="${c.max}"` : ''}${c.step !== undefined ? ` step="${c.step}"` : ''} inputmode="${c.type === 'number' ? 'decimal' : 'text'}">
-    </div>`;
-    }).join('\n');
-    return `<section>
-  <h2>${esc(p.heading)}</h2>
-  <div class="body">
-    <p class="lede">${p.lede}</p>
-${controls}
-    ${p.outId ? `<div class="out" id="${p.outId}"></div>` : ''}
-    ${p.tableId ? `<div class="scroller"><table id="${p.tableId}"><thead><tr>${p.tableHead.map(h => `<th${h.right ? ' style="text-align:right"' : ''}>${esc(h.label)}</th>`).join('')}</tr></thead><tbody></tbody></table></div>` : ''}
-    ${p.note ? `<p class="basis">${p.note}</p>` : ''}
-  </div>
-</section>`;
-}
-
-function emit(spec) {
-    const body = spec.panels.map(panelHtml).join('\n');
-    const html = shell({ spec, body, script: spec.script });
-    const dir = join(here, `${spec.stamp}-${spec.slug}`);
-    const file = join(dir, 'index.html');
-    if (existsSync(file)) return { spec, written: false, file };
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(file, html, 'utf8');
-    return { spec, written: true, file };
-}
-
-const check = process.argv.includes('--check');
-const ledgerPath = join(here, 'iterations.json');
-const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
-
-let wrote = 0;
-for (const spec of SPECS) {
-    const r = emit(spec);
-    if (r.written) {
-        wrote += 1;
-        console.log(`emitted ${spec.stamp}-${spec.slug}/index.html`);
-    }
-    if (!ledger.iterations.some(i => i.stamp === spec.stamp)) {
-        ledger.iterations.push({
-            stamp: spec.stamp,
-            path: `${spec.stamp}-${spec.slug}/`,
-            title: spec.title,
-            feature: spec.feature,
-            engine: modules(spec).map(m => `engine/${m}`).join(' + '),
-            engineCommit: spec.engineCommit,
-            checks: spec.checks
-        });
-    }
-}
-if (!check) {
-    writeFileSync(ledgerPath, JSON.stringify(ledger, null, 2) + '\n', 'utf8');
-}
-console.log(`${wrote} page(s) emitted; ledger holds ${ledger.iterations.length} iteration(s)`);

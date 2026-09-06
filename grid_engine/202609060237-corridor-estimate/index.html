@@ -1,46 +1,9 @@
-/* build.mjs — emits a Grid Engine workbench as a self-contained immutable page.
- *
- * WHY A GENERATOR AND NOT THIRTY HAND-WRITTEN PAGES.
- * Each published workbench is immutable: it is never edited once it exists, so
- * an improvement becomes the next timestamp. Hand-writing each one guarantees
- * that a fix to the shell — a touch target, a dark-mode colour, an overflow
- * rule — reaches only the page that happened to be open at the time, and the
- * thirty pages drift apart. Holding the generator instead means the shell is
- * one thing, each iteration is a small declarative delta, and any past page can
- * be re-emitted byte-for-byte from its spec if it ever needs to be audited.
- *
- * WHAT THE GENERATOR DOES NOT DO.
- * It does not compute anything and it does not embed the mathematics. Every
- * emitted page imports its engine module from ventus-grid-engine at RUNTIME, so
- * a figure on a published page is the figure the engine's proofs are run
- * against. If the engine cannot be reached the page shows no numbers rather
- * than falling back to a copy — a fallback copy is exactly how a view drifts
- * from the module it claims to use, silently, while still looking right.
- *
- * Run:  node grid_engine/build.mjs            (emit any spec not yet published)
- *       node grid_engine/build.mjs --check    (verify published pages match)
- */
-
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-import { SPECS } from './specs.mjs';
-
-const here = dirname(fileURLToPath(import.meta.url));
-const ENGINE_BASE = 'https://ventusltd.github.io/ventus-grid-engine/engine/';
-
-const modules = spec => [].concat(spec.engineModule);
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-/* The shell. One place, so a fix reaches every page emitted after it, and no
-   page emitted before it changes — which is the point of immutability. */
-function shell({ spec, body, script }) {
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(spec.title)} — Ventus Grid Engine</title>
+<title>Corridor Estimate Workbench — Ventus Grid Engine</title>
 <style>
 :root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;
   --muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--warn:#ffae00;--no:#ff5c5c}
@@ -103,12 +66,43 @@ footer a,.basis a{color:#66ccff;display:inline-block;padding:5px 2px;line-height
 <body>
 <div class="wrap">
 <header>
-  <h1>${esc(spec.title.toUpperCase())}</h1>
-  <p class="sub">${esc(spec.sub)}</p>
-  <p class="stamp">Generation ${esc(spec.stamp)} · engine ${esc(modules(spec).join(', '))} at ${esc(spec.engineCommit)}</p>
+  <h1>CORRIDOR ESTIMATE WORKBENCH</h1>
+  <p class="sub">The straight-line first pass, and the one multiplier that is allowed to touch it</p>
+  <p class="stamp">Generation 202609060237 · engine corridor-estimate.js at 7d40365</p>
 </header>
 <div class="status" id="engine-status">Loading the engine module…</div>
-${body}
+<section>
+  <h2>1 · STRAIGHT LINE TO CORRIDOR</h2>
+  <div class="body">
+    <p class="lede">A straight line is not a route. Buried cable circuits follow the highway
+                   network, and across 95 published GB transmission cable circuits that detour
+                   measures a factor of <strong>1.245</strong>. This is the estate's first pass and it
+                   stays exactly as it is — everything else built tonight is additive to it.</p>
+    <div class="field">
+      <label for="km">Straight-line distance (km)</label>
+      <input type="number" id="km" value="10" min="0" max="2000" step="0.01" inputmode="decimal">
+    </div>
+    <div class="out" id="out-corridor"></div>
+    
+    
+  </div>
+</section>
+<section>
+  <h2>2 · WHERE IT REFUSES, AND WHY THAT MATTERS MORE</h2>
+  <div class="body">
+    <p class="lede">Below about a kilometre the factor is not measuring route detour at all — it is
+                   measuring the distance between two site centroids, and the median error rises to
+                   52.5%. So it returns <em>null</em>, not zero and not a small number. A tool that
+                   answers everything cannot be trusted on anything.</p>
+
+    
+    <div class="scroller"><table id="basis-table"><thead><tr><th>Calibration</th><th style="text-align:right">Value</th></tr></thead><tbody></tbody></table></div>
+    <p class="basis">The factor is calibrated on cable, which follows roads. Overhead line crosses
+                   open country and measures 1.13 — published here only so a reader can see why the
+                   cable factor is the wrong model for an overhead question. There is deliberately no
+                   forOverhead().</p>
+  </div>
+</section>
 <section class="refuse">
   <h2>WHAT THIS WORKBENCH WILL NOT COMPUTE</h2>
   <div class="body">
@@ -120,8 +114,8 @@ ${body}
 </section>
 <footer>
   <p>Every figure above is computed by
-     ${modules(spec).map(m => `<a href="${ENGINE_BASE}${esc(m)}">${esc(m)}</a>`).join(' and ')}
-     in the Ventus Grid Engine, imported at runtime and proven by ${spec.checks} checks.
+     <a href="https://ventusltd.github.io/ventus-grid-engine/engine/corridor-estimate.js">corridor-estimate.js</a>
+     in the Ventus Grid Engine, imported at runtime and proven by 15 checks.
      This page holds no copy of the mathematics: if the engine cannot be reached it
      shows no numbers rather than a stale answer.</p>
   <p class="nav">
@@ -134,8 +128,8 @@ ${body}
 </footer>
 </div>
 <script type="module">
-const ENGINE_MODULES = ${JSON.stringify(modules(spec).map(m => ENGINE_BASE + m))};
-const ENGINE_SCHEMAS = ${JSON.stringify([].concat(spec.schema))};
+const ENGINE_MODULES = ["https://ventusltd.github.io/ventus-grid-engine/engine/corridor-estimate.js"];
+const ENGINE_SCHEMAS = ["gridatlas.module.corridor-estimate.v1"];
 const statusEl = document.getElementById('engine-status');
 let E = null;
 
@@ -157,7 +151,37 @@ function refuse(target, message) {
     + 'Engine refused this input: ' + message + '</p>';
 }
 
-${script}
+
+function bind() { el('km').addEventListener('input', render); }
+
+function render() {
+  const km = num('km');
+  // forCable returns { km, factor, straight_km, withheld }. Below the minimum
+  // separation it returns an OBJECT whose km is null and whose withheld says
+  // why; only a zero distance returns null outright. Calling toFixed on that
+  // null is what left this page showing a stale figure.
+  const r = E.forCable(km);
+  const value = r && r.km;
+  el('out-corridor').innerHTML = (value === null || value === undefined)
+    ? '<div class="figure"><span class="q">corridor estimate</span><span class="n over">NO ESTIMATE</span></div>' +
+      '<p class="basis">' + ((r && r.withheld) || 'No distance given, so there is nothing to estimate.') + '</p>'
+    : '<div class="figure"><span class="q">corridor estimate</span><span class="n">' +
+      value.toFixed(2) + '</span><span class="u">km</span></div><p class="basis">' +
+      'A straight line of ' + r.straight_km + ' km, multiplied by the calibrated cable factor of ' +
+      r.factor + '. ' + E.CAVEAT + '</p>';
+
+  const b = E.BASIS;
+  document.querySelector('#basis-table tbody').innerHTML = [
+    ['Cable factor', E.CABLE_FACTOR],
+    ['Overhead factor (not applied here)', E.OHL_FACTOR],
+    ['Circuits in the sample', b.circuits],
+    ['Distinct site pairs', b.distinct_site_pairs],
+    ['Median absolute error', b.median_absolute_error_pct + '%'],
+    ['Within 15%', b.within_15_pct + '%'],
+    ['Minimum separation', b.minimum_separation_km + ' km']
+  ].map(r2 => '<tr><td>' + r2[0] + '</td><td class="n">' + r2[1] + '</td></tr>').join('') +
+    '<tr><td colspan="2" style="font-size:10px;color:#7f8996">' + b.sample_note + '</td></tr>';
+}
 
 try {
   const loaded = [];
@@ -218,70 +242,3 @@ try {
 </script>
 </body>
 </html>
-`;
-}
-
-function panelHtml(p) {
-    const controls = p.controls.map(c => {
-        if (c.type === 'range') {
-            return `    <div class="field">
-      <div class="rangerow"><label for="${c.id}">${esc(c.label)}</label>
-        <span class="rangeval" id="${c.id}-val">${c.value}</span></div>
-      <input type="range" id="${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.value}">
-    </div>`;
-        }
-        return `    <div class="field">
-      <label for="${c.id}">${esc(c.label)}</label>
-      <input type="${c.type}" id="${c.id}" value="${esc(c.value)}"${c.min !== undefined ? ` min="${c.min}"` : ''}${c.max !== undefined ? ` max="${c.max}"` : ''}${c.step !== undefined ? ` step="${c.step}"` : ''} inputmode="${c.type === 'number' ? 'decimal' : 'text'}">
-    </div>`;
-    }).join('\n');
-    return `<section>
-  <h2>${esc(p.heading)}</h2>
-  <div class="body">
-    <p class="lede">${p.lede}</p>
-${controls}
-    ${p.outId ? `<div class="out" id="${p.outId}"></div>` : ''}
-    ${p.tableId ? `<div class="scroller"><table id="${p.tableId}"><thead><tr>${p.tableHead.map(h => `<th${h.right ? ' style="text-align:right"' : ''}>${esc(h.label)}</th>`).join('')}</tr></thead><tbody></tbody></table></div>` : ''}
-    ${p.note ? `<p class="basis">${p.note}</p>` : ''}
-  </div>
-</section>`;
-}
-
-function emit(spec) {
-    const body = spec.panels.map(panelHtml).join('\n');
-    const html = shell({ spec, body, script: spec.script });
-    const dir = join(here, `${spec.stamp}-${spec.slug}`);
-    const file = join(dir, 'index.html');
-    if (existsSync(file)) return { spec, written: false, file };
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(file, html, 'utf8');
-    return { spec, written: true, file };
-}
-
-const check = process.argv.includes('--check');
-const ledgerPath = join(here, 'iterations.json');
-const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
-
-let wrote = 0;
-for (const spec of SPECS) {
-    const r = emit(spec);
-    if (r.written) {
-        wrote += 1;
-        console.log(`emitted ${spec.stamp}-${spec.slug}/index.html`);
-    }
-    if (!ledger.iterations.some(i => i.stamp === spec.stamp)) {
-        ledger.iterations.push({
-            stamp: spec.stamp,
-            path: `${spec.stamp}-${spec.slug}/`,
-            title: spec.title,
-            feature: spec.feature,
-            engine: modules(spec).map(m => `engine/${m}`).join(' + '),
-            engineCommit: spec.engineCommit,
-            checks: spec.checks
-        });
-    }
-}
-if (!check) {
-    writeFileSync(ledgerPath, JSON.stringify(ledger, null, 2) + '\n', 'utf8');
-}
-console.log(`${wrote} page(s) emitted; ledger holds ${ledger.iterations.length} iteration(s)`);

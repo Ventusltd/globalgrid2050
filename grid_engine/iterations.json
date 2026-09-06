@@ -64,6 +64,33 @@
       "engine": "engine/electrification-demand.js + engine/firm-capacity.js",
       "engineCommit": "9a92211",
       "checks": 56
+    },
+    {
+      "stamp": "202609060236",
+      "path": "202609060236-published-fault-level/",
+      "title": "Published Fault Level Workbench",
+      "feature": "The estate's fault-level contract, made operable: paste a record and see exactly why it is accepted or refused. Opens refused, because the transmission product genuinely lacks a study basis today.",
+      "engine": "engine/published-fault-level.js",
+      "engineCommit": "7d40365",
+      "checks": 41
+    },
+    {
+      "stamp": "202609060237",
+      "path": "202609060237-corridor-estimate/",
+      "title": "Corridor Estimate Workbench",
+      "feature": "The calibrated straight-line-to-corridor factor for cable circuits, with the calibration sample, the error distribution, and the minimum separation below which it refuses to answer at all.",
+      "engine": "engine/corridor-estimate.js",
+      "engineCommit": "7d40365",
+      "checks": 15
+    },
+    {
+      "stamp": "202609060238",
+      "path": "202609060238-site-geometry/",
+      "title": "Site Geometry Workbench",
+      "feature": "Great-circle distance and bearing between two points, and polygon area, perimeter and circle-cap area for a site boundary — computed by the same geodesy every map in the estate uses.",
+      "engine": "engine/v9-geodesy.js + engine/geo-area.js",
+      "engineCommit": "7d40365",
+      "checks": 23
     }
   ]
 }

@@ -176,7 +176,7 @@ def add(e: dict) -> None:
 
 
 # ── pipeline-news ────────────────────────────────────────────────────────────
-CURRENT_PIPELINE = "202609061329"
+CURRENT_PIPELINE = "202609071221"
 for d in sorted((ROOT / "uk_renewables_pipeline").iterdir()):
     if not d.is_dir() or d.name in ("node_modules",):
         continue

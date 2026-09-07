@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-06T14:10:34Z",
+ "generated_utc": "2026-09-07T12:43:31Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -17,11 +17,47 @@
   "commit",
   "tree"
  ],
- "count": 406,
+ "count": 408,
  "skipped_unresolvable": [
   "./repd_atlas_grid_model/"
  ],
  "entries": [
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Fable 5.1",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "bfad323117",
+   "commit_full": "bfad3231172224dee2d5adebbba94d5494237897",
+   "tree": "36e30da95537e29938df59b9a68724c78f1d4593",
+   "id": "202609071221-pipeline-news",
+   "stamp": "202609071221",
+   "family": "pipeline-news",
+   "project": "pipeline-news",
+   "title": "Pipeline News 202609071221",
+   "url": "./uk_renewables_pipeline/202609071221/",
+   "kind": "release",
+   "parent": null,
+   "status": "current",
+   "stamp_source": "directory name (UTC)"
+  },
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Fable 5.1",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "f5a9028cd7",
+   "commit_full": "f5a9028cd77f6ab3ac2e1c73cdcd0ccb5966bb9f",
+   "tree": "62642a7a369d66f2f08ebbfc4b0474cf95c49e02",
+   "id": "202609061413-homepage-archive",
+   "stamp": "202609061413",
+   "family": "about-media",
+   "project": "homepage-archive",
+   "title": "Homepage archive homepage_v097",
+   "url": "./homepage_versions/homepage_v097.html",
+   "kind": "homepage",
+   "parent": null,
+   "status": "archived",
+   "stamp_source": "git first-commit time (UTC)"
+  },
   {
    "agent": "Claude",
    "agent_model": "Claude Fable 5.1",
@@ -37,7 +73,7 @@
    "url": "./uk_renewables_pipeline/202609061329/",
    "kind": "release",
    "parent": null,
-   "status": "current",
+   "status": "archived",
    "stamp_source": "directory name (UTC)"
   },
   {

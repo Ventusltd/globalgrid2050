@@ -1,0 +1,44 @@
+{
+ "schema": "globalgrid2050.v9.interconnector-build.v9.8",
+ "release": "9.8",
+ "technology": "interconnector",
+ "partition": {
+  "path": "data/v9.8/interconnectors.json",
+  "record_count": 16,
+  "sha256": "d13d6c24754a4a97b8a982d20a5dadc2de411116fd2c3491ff25a5e4f7daca64"
+ },
+ "sources": {
+  "cables_csv": {
+   "path": "fixtures/v9.8/interconnector_cables.csv",
+   "repository": "Ventusltd/data-interconnectors",
+   "repository_path": "reference/interconnector_cables.csv",
+   "commit": "1e00d0e4d7bf3ddbc86224b3b6be5c2f3eaabf86",
+   "blob": "f9581dec21e4db558d3befd79eb897b680448af4",
+   "sha256": "0ea612d869624e23cd97e391c47e790f2488e6c0d14233d234b19d3324bfa36d"
+  },
+  "endpoints": {
+   "path": "fixtures/v9.8/interconnector-endpoints.json",
+   "repository": "Ventusltd/gridatlas",
+   "repository_path": "atlas/data/interconnector-endpoints.json",
+   "commit": "7910d92d0f44c5248695e8eaf02aa3c7db961eee",
+   "blob": "70d650e54ca3e08698337e659d899b33ea82eec2",
+   "sha256": "df7d38ec7b8ec27fdc0f59b5f34e64d5d53165918321d8324db31b3c32e97271"
+  },
+  "geojson": {
+   "path": "fixtures/v9.8/interconnectors.geojson",
+   "repository": "Ventusltd/gridatlas",
+   "repository_path": "atlas/data/interconnectors.geojson",
+   "commit": "7910d92d0f44c5248695e8eaf02aa3c7db961eee",
+   "blob": "5047f6f04d9e2647f981912f77bd7cea1d93bcf3",
+   "sha256": "50fb06803d458ca18f3ebc4ce525562db0eec350054b68d35539cc985929a641"
+  }
+ },
+ "record_count": 16,
+ "capacity_mw": 17950,
+ "largest_mw": 2000,
+ "operational": 10,
+ "future": 6,
+ "geometry_valid": 2,
+ "geometry_gb_end_only": 8,
+ "geometry_missing": 6
+}

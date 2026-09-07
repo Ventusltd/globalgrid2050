@@ -1,0 +1,24 @@
+{
+  "schema": "globalgrid2050.v7.plugin-contract.v1",
+  "purpose": "Keep V7 features independently understandable while preserving one compact static application.",
+  "runtime": {
+    "entrypoint": "scripts/app.js",
+    "host": "scripts/core/plugin-host.js",
+    "start_order": "manifest order",
+    "failure_policy": "A missing id, duplicate id or unmet dependency stops startup visibly."
+  },
+  "plugin": {
+    "required": ["id", "module", "owns", "depends_on"],
+    "id": "Stable lowercase identifier.",
+    "module": "Same-origin ES module below scripts/.",
+    "owns": "DOM and behavior the plugin alone may mutate.",
+    "depends_on": "Earlier plugin ids required before startup."
+  },
+  "rules": [
+    "Core contains shared state, contracts and utilities, not market-specific feature logic.",
+    "A plugin must not silently overwrite another plugin's authoritative facts.",
+    "Country-specific ingestion and terminology belong in a country pack from V7.2 onward.",
+    "Production data remains same-origin and validated before publication.",
+    "Each release changes one approved feature and passes the North Star before and after."
+  ]
+}

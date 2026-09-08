@@ -1,0 +1,147 @@
+name: Verify intact Pipeline News 202609071221
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-pipeline-202609071221.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-pipeline-202609071221
+  cancel-in-progress: false
+
+jobs:
+  live-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/202609071221/
+      BASELINE_SHA: bfad3231172224dee2d5adebbba94d5494237897
+    steps:
+      - name: Read the pinned intact release only
+        uses: actions/checkout@v4
+        with:
+          ref: bfad3231172224dee2d5adebbba94d5494237897
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: uk_renewables_pipeline/202609071221
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install the release's locked browser harness
+        working-directory: uk_renewables_pipeline/202609071221
+        run: |
+          npm ci --ignore-scripts
+          npx playwright install --with-deps chromium
+      - name: Exercise the exact live release and its actual MAP button
+        working-directory: uk_renewables_pipeline/202609071221
+        run: |
+          cat > live-fallback.browser.mjs <<'JS'
+          import assert from 'node:assert/strict';
+          import fs from 'node:fs/promises';
+          import path from 'node:path';
+          import crypto from 'node:crypto';
+          import { chromium } from 'playwright';
+          const base = process.env.BASE_URL;
+          const out = path.join(process.env.GITHUB_WORKSPACE, 'working-version-proof');
+          await fs.mkdir(out, { recursive: true });
+          const proof = { url: base, baseline_sha: process.env.BASELINE_SHA, checked_at: new Date().toISOString(), checks: [], errors: [] };
+          const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+          const context = await browser.newContext({ viewport: { width: 393, height: 852 }, isMobile: true, hasTouch: true, acceptDownloads: true });
+          const page = await context.newPage();
+          page.on('pageerror', e => proof.errors.push(String(e)));
+          const check = (name, details = {}) => { proof.checks.push({ name, ...details }); console.log('PASS', name, JSON.stringify(details)); };
+          try {
+            for (const asset of ['index.html', 'scripts/app-v9-8.js', 'scripts/plugins/projects-v9-5-1.js']) {
+              const response = await context.request.get(new URL(asset, base).href, { timeout: 45000 });
+              assert.equal(response.status(), 200, asset + ' HTTP status');
+              const actual = await response.body();
+              new TextDecoder('utf-8', { fatal: true }).decode(actual);
+              assert.deepEqual(actual, await fs.readFile(asset), asset + ' must equal pinned release bytes');
+              check('served-byte equality', { asset, bytes: actual.length, sha256: crypto.createHash('sha256').update(actual).digest('hex') });
+            }
+            await page.goto(base, { waitUntil: 'domcontentloaded', timeout: 60000 });
+            await page.waitForFunction(() => document.querySelector('#resultsMeta')?.dataset.totalCount === '7680', undefined, { timeout: 90000 });
+            assert.match(await page.title(), /202609071221/);
+            const summary = await page.locator('#resultsMeta').innerText();
+            check('full REPD pipeline loaded', { summary });
+            const heads = await page.locator('.tablewrap thead th').count();
+            const cells = await page.locator('#tbody tr').first().locator('td').count();
+            assert.equal(heads, 11);
+            assert.equal(cells, heads);
+            const width = await page.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth }));
+            assert.ok(width.scroll <= width.inner + 2, 'mobile page must not overflow horizontally');
+            check('mobile table alignment', { headers: heads, cells, ...width });
+            await page.locator('#search').fill('Beacon Fen');
+            await page.waitForFunction(() => {
+              const rows = [...document.querySelectorAll('#tbody tr')];
+              return rows.length > 0 && rows.every(r => r.textContent.toLowerCase().includes('beacon fen'));
+            }, undefined, { timeout: 20000 });
+            const row = page.locator('#repd-13599');
+            await row.waitFor();
+            const href = await row.locator('a.atlaslink').getAttribute('href');
+            const target = new URL(href);
+            assert.equal(target.origin, 'https://ventusltd.github.io');
+            assert.equal(target.pathname, '/gridatlas/atlas/');
+            assert.equal(target.searchParams.get('repd_ref'), '13599');
+            check('project search and canonical MAP href', { href });
+            const downloadPromise = page.waitForEvent('download', { timeout: 20000 });
+            await page.locator('#exportInline').click();
+            const download = await downloadPromise;
+            assert.equal(await download.failure(), null);
+            const csv = await fs.readFile(await download.path(), 'utf8');
+            assert.match(csv, /Beacon Fen/);
+            assert.match(csv, /13599/);
+            check('filtered CSV export', { bytes: Buffer.byteLength(csv), filename: download.suggestedFilename() });
+            await page.screenshot({ path: path.join(out, 'pipeline-mobile.png'), fullPage: true });
+            const atlas = await context.newPage();
+            atlas.on('pageerror', e => proof.errors.push(String(e)));
+            await atlas.goto(href, { waitUntil: 'domcontentloaded', timeout: 60000 });
+            const receipt = await atlas.waitForFunction(() => {
+              const value = window.__GRIDATLAS_NEON_LINKS__?.arrival_engine;
+              return value && value.terminal !== false ? value : null;
+            }, undefined, { timeout: 120000 }).then(handle => handle.jsonValue());
+            assert.equal(receipt.answered, true, 'MAP must deliver a terminal answered engine receipt');
+            const rendered = await atlas.evaluate(() => {
+              const state = window.__GRIDATLAS_NEON_LINKS__ || {};
+              const map = window.__GRIDATLAS_V9_MAP__;
+              return { links_drawn: state.links_drawn ?? null, installed: state.installed ?? null, zoom: map?.getZoom?.() ?? null, canvas_count: document.querySelectorAll('canvas.maplibregl-canvas').length, text: document.body.innerText.slice(-10000) };
+            });
+            assert.ok(rendered.canvas_count > 0, 'MapLibre canvas must be present');
+            assert.ok(rendered.links_drawn > 0, 'onshore control must draw its grid measurement links');
+            check('real MAP arrival answered and drawn', { href, receipt, links_drawn: rendered.links_drawn, zoom: rendered.zoom });
+            await atlas.screenshot({ path: path.join(out, 'atlas-mobile.png'), fullPage: true });
+            await atlas.close();
+            await page.locator('#clearFilters').click();
+            await page.locator('[data-technology="interconnector"]').click();
+            await page.waitForFunction(() => [...document.querySelectorAll('#tbody tr')].some(r => /BritNed|ElecLink/.test(r.textContent)), undefined, { timeout: 45000 });
+            const interconnectors = await page.locator('#tbody tr').count();
+            assert.equal(interconnectors, 16);
+            check('separate interconnector tab', { rows: interconnectors });
+            assert.equal(proof.errors.length, 0, 'browser must have no uncaught page errors');
+            proof.status = 'PASS';
+          } catch (error) {
+            proof.status = 'FAIL';
+            proof.failure = String(error.stack || error);
+            process.exitCode = 1;
+            console.error(proof.failure);
+            await page.screenshot({ path: path.join(out, 'failure.png'), fullPage: true }).catch(() => {});
+          } finally {
+            await fs.writeFile(path.join(out, 'proof.json'), JSON.stringify(proof, null, 2) + '\n');
+            await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, '## Exact live fallback verification\n\n' + proof.status + ' — ' + base + '\n\n```json\n' + JSON.stringify(proof, null, 2) + '\n```\n');
+            await browser.close();
+          }
+          JS
+          node live-fallback.browser.mjs
+      - name: Preserve exact test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-202609071221-live-proof
+          path: working-version-proof/
+          if-no-files-found: warn
+          retention-days: 14

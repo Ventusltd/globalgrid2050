@@ -1,0 +1,13 @@
+{
+ "homepage_version": "v098",
+ "archived_from": "index.html at HEAD before reducing the visible homepage to a search box and Pipeline News",
+ "last_commit_of_that_page": "f5a9028cd77f6ab3ac2e1c73cdcd0ccb5966bb9f 2026-09-06T15:13:13+01:00",
+ "sha256": "80bb8114d8560a9e97bbf6a9f999f73d2bd494ab4f28a07e5b65dc6ac6a326e1",
+ "bytes": 11641,
+ "lines": 169,
+ "words": 1252,
+ "chars": 11609,
+ "files_in_folder_before": 156,
+ "reason": "The owner asked to archive everything on the site and leave only a search box and Pipeline News. Archived whole so the three-nest catalogue view can be restored exactly. Nothing is deleted from the catalogue data: the search still reaches every Grid Atlas and About and Media row, and the full archive page is unchanged.",
+ "change_intention": "Show only the Pipeline News nest by default. Grid Atlas and About and Media rows stay in the catalogue and stay reachable through the search box, appearing as soon as a query or filter is entered. Reversible by restoring this snapshot."
+}

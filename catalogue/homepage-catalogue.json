@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-07T12:43:31Z",
+ "generated_utc": "2026-09-08T04:26:59Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -22,6 +22,24 @@
   "./repd_atlas_grid_model/"
  ],
  "entries": [
+  {
+   "agent": "Claude",
+   "agent_source": "gridatlas: Co-Authored-By: Claude on the commit adding atlas/manifests/202609080430-composition.json",
+   "commit": "d475608c51",
+   "commit_full": "d475608c51c4e7d42b4feb2b0dcb616c6d0b735d",
+   "tree": null,
+   "id": "202609080430-grid-atlas",
+   "stamp": "202609080430",
+   "family": "grid-atlas",
+   "project": "grid-atlas",
+   "title": "Grid Atlas v9.151 — live",
+   "url": "https://ventusltd.github.io/gridatlas/atlas/",
+   "kind": "release",
+   "parent": null,
+   "status": "current",
+   "stamp_source": "atlas/current.json generation (UTC)",
+   "agent_model": "Claude Opus 5 (1M context)"
+  },
   {
    "agent": "Claude",
    "agent_model": "Claude Fable 5.1",
@@ -1335,24 +1353,6 @@
    "parent": "./testcode/202609060300/",
    "status": "test",
    "stamp_source": "directory name (UTC)"
-  },
-  {
-   "agent": "Claude",
-   "agent_source": "gridatlas: Co-Authored-By: Claude on the commit adding atlas/manifests/202609060259-composition.json",
-   "commit": "66b445b908",
-   "commit_full": "66b445b908005bcf3cb542de6bbd47090d855e76",
-   "tree": null,
-   "id": "202609060259-grid-atlas",
-   "stamp": "202609060259",
-   "family": "grid-atlas",
-   "project": "grid-atlas",
-   "title": "Grid Atlas v9.139 — live",
-   "url": "https://ventusltd.github.io/gridatlas/atlas/",
-   "kind": "release",
-   "parent": null,
-   "status": "current",
-   "stamp_source": "atlas/current.json generation (UTC)",
-   "agent_model": "Claude Opus 5 (1M context)"
   },
   {
    "agent": null,

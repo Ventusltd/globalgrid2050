@@ -50,7 +50,7 @@
 <body>
 <header>
   <h1>GlobalGrid2050</h1>
-  <p class="lede">UK renewables pipeline. Every published version, newest first, with two references each: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash) — reconciled on Linux by CI. Everything else on this site is archived and reachable from the search box below.</p>
+  <p class="lede">UK renewables pipeline and grid atlas. Every published version, newest first. Two references per version: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash) — reconciled on Linux by CI.</p>
 </header>
 <main>
   <input type="text" id="q" placeholder="Search everything… (name, stamp, agent, commit)" autocomplete="off">
@@ -130,27 +130,10 @@ function th(label, key) {
   const on = state.sort.key === key;
   return `<th data-sort="${key}">${label} <span class="dir">${on ? (state.sort.dir < 0 ? "▼" : "▲") : "↕"}</span></th>`;
 }
-/* ARCHIVED, NOT DELETED.
- *
- * The owner asked for the site to be archived down to a search box and Pipeline
- * News. Archived is the operative word: the catalogue still carries all 400-odd
- * versions, the generator is untouched, and nothing has been removed from the
- * data. What changed is the VIEW - the same slice-the-view-never-the-data rule
- * the table has always followed.
- *
- * So Pipeline News is the page. Grid Atlas and About & Media are not shown
- * until the reader asks for them, and the moment anything is typed in the
- * search box or a filter is pressed, every nest returns and the search runs
- * across all of them. A homepage that hid its own history behind a link nobody
- * clicks would not be an archive, it would be a loss. */
-const DEFAULT_NESTS = ["pipeline-news"];
-function browsing() { return Boolean(state.q || state.agent || state.status); }
-
 function build() {
   const menu = document.getElementById("menu");
   let html = "", total = 0, shown = 0;
-  const nests = browsing() ? NESTS : NESTS.filter(n => DEFAULT_NESTS.includes(n.key));
-  for (const nest of nests) {
+  for (const nest of NESTS) {
     const all = rowsFor(nest);
     const current = all.find(e => e.status === "current");
     const rows = sortRows(all.filter(passes));
@@ -161,23 +144,11 @@ function build() {
       ? `<a class="current" href="${encodeURI(current.url)}">${esc(current.title)}<small>${esc(current.id)} · ${esc(current.agent || "")} · ${esc(current.commit || "")}</small></a>` : "";
     const table = rows.length ? `<div class="tablewrap"><table><thead><tr>${th("Version · UTC stamp-name", "id")}${th("Agent", "agent")}${th("Status", "status")}${th("Commit", "commit")}<th title="git rev-parse HEAD:&lt;path&gt; — a content address: it changes if and only if the version changes. The value every runner pins.">Barcode · git tree</th></tr></thead><tbody>${visible.map(row).join("")}</tbody></table></div>` : `<p class="noresult">No match in ${esc(nest.title)}.</p>`;
     const more = rows.length > PAGE ? `<button class="more" data-more="${nest.key}">${state.open[nest.key] ? "show 3" : `show all ${rows.length}`}</button>` : "";
-    const open = browsing() || nest.key !== "about-media" ? " open" : "";
+    const open = state.q || state.agent || state.status || nest.key !== "about-media" ? " open" : "";
     html += `<details class="area"${open}><summary>${esc(nest.title)} <span style="color:#7a7a7a;font-size:15px">(${rows.length})</span></summary>${head}${table}${more}</details>`;
   }
-  /* Say what is being withheld and how to reach it, in the place the reader is
-     already looking. An archive nobody can find is indistinguishable from a
-     deletion. */
-  if (!browsing()) {
-    const rest = ALL.length - rowsFor(NESTS[0]).length;
-    html += `<p class="noresult">Grid Atlas and About &amp; Media are archived: `
-      + `${rest} further versions stay in the catalogue and are not shown here. `
-      + `Search above to reach any of them, or open the `
-      + `<a href="./historical_builds.html">full archive</a>.</p>`;
-  }
   menu.innerHTML = html;
-  document.getElementById("count").textContent = browsing()
-    ? `${shown} of ${total} shown · ${ALL.length} versions catalogued`
-    : `${shown} of ${total} Pipeline News shown · ${ALL.length} versions catalogued, searchable above`;
+  document.getElementById("count").textContent = `${shown} of ${total} shown · ${ALL.length} versions catalogued`;
 }
 document.addEventListener("click", ev => {
   const c = ev.target.closest("[data-copy]");

@@ -1,0 +1,224 @@
+{
+  "atlas_partitions": [
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/solar-part-001.geojson",
+      "sha256": "2c66e688e0966d0c8907f31d48811a86a34605c266c5bae11ec4468ae92ccf86",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/solar-part-002.geojson",
+      "sha256": "4b07ae35614e386c4160b9f0139ed6c6de5d749f0359e40b2fb006c4a62e6f45",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/solar-part-003.geojson",
+      "sha256": "b51bd20c614a779ce9926947444b19e3e048d6d9a6c579f36e93e3ea824e06a9",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/solar-part-004.geojson",
+      "sha256": "7d3fff522ceca3a8f71568a44d9b9e51cc9acd958312bc154663de5d7ab9f512",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/solar-part-005.geojson",
+      "sha256": "067e74aac181909807e9383d7a316f8ef602fb4a339a1f6365416fa9d2d6a107",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/solar-part-006.geojson",
+      "sha256": "e252687e29d7d2450f2e0fac3c27ed14bc760897cdd6676697c69830898a19c8",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/solar-part-007.geojson",
+      "sha256": "f557f0e54aea75c5fd29527a9a15bcabfc261c87d6e82087604c18ca5c556c70",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 58,
+      "path": "data/v9.1/atlas/solar-part-008.geojson",
+      "sha256": "bf9d31c63334b1525d1d5a9672fb093f38716278e33a21f7837f4188c5ee35de",
+      "technology": "solar"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/bess-part-001.geojson",
+      "sha256": "70d936864c973c342729b37c6eb81151a9d2965e7fa2b6dff0cd998635c3581a",
+      "technology": "bess"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/bess-part-002.geojson",
+      "sha256": "791dbb6485e5161f1157c058dedf5221633042a5898206b842672e3b0b5f5d48",
+      "technology": "bess"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/bess-part-003.geojson",
+      "sha256": "190d42c2ac743844fca134cf80ba3307e96d1dace175b1d855ccac26c8e5ad07",
+      "technology": "bess"
+    },
+    {
+      "feature_count": 105,
+      "path": "data/v9.1/atlas/bess-part-004.geojson",
+      "sha256": "27275a795cf4ea9e17d8b71ce3e695b421d96f04954d9c532e73d34388161951",
+      "technology": "bess"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/wind_onshore-part-001.geojson",
+      "sha256": "bea59e1e17acef821616936763de2e9cda33ca8914d2451c7242352c16a6b8ba",
+      "technology": "wind_onshore"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/wind_onshore-part-002.geojson",
+      "sha256": "88a10b117c157d312d8142515ff4935141b70451338495dbaf28c5d59ce96cb3",
+      "technology": "wind_onshore"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/wind_onshore-part-003.geojson",
+      "sha256": "430eb076f6dc8d4fcb3df819df47e3664c0b291dda604e2dd4d59978f051b09c",
+      "technology": "wind_onshore"
+    },
+    {
+      "feature_count": 500,
+      "path": "data/v9.1/atlas/wind_onshore-part-004.geojson",
+      "sha256": "9eff2764c9ee64837af4b417c620b25ba13c132cb3c6f5bebbdcd8c11ef24a4b",
+      "technology": "wind_onshore"
+    },
+    {
+      "feature_count": 395,
+      "path": "data/v9.1/atlas/wind_onshore-part-005.geojson",
+      "sha256": "fdb27b58dd70cde5257bf2296b227d1dc181dabb7261926f7ef3f6102ae2b887",
+      "technology": "wind_onshore"
+    },
+    {
+      "feature_count": 94,
+      "path": "data/v9.1/atlas/wind_offshore-part-001.geojson",
+      "sha256": "b0bb0b5fd7b00ae4d94f14c8a20ad9519867e762d339968434c82f4263a0c452",
+      "technology": "wind_offshore"
+    }
+  ],
+  "bess_count": 1609,
+  "capacity_mw": 356474.09,
+  "features_sha256": "3034771a785485160ec4be22a1445a818429c50d5c02383d37c664dee9f64373",
+  "geometry_count": 7652,
+  "largest_mw": 4100.0,
+  "missing_geometry_count": 28,
+  "project_count": 7680,
+  "project_partitions": [
+    {
+      "path": "data/v9.1/projects/part-001.json",
+      "record_count": 500,
+      "sha256": "6e72d36a8f880bfc39274221edf58d1b895202f01f2e56aae001ad25cb3b337d"
+    },
+    {
+      "path": "data/v9.1/projects/part-002.json",
+      "record_count": 500,
+      "sha256": "a2ba3598af8ff45726587b3a498c0f6a433ae007ec9eadbd5bfc682b7dca4b2e"
+    },
+    {
+      "path": "data/v9.1/projects/part-003.json",
+      "record_count": 500,
+      "sha256": "6f012e9251433e0d32095b2df75ae1c988a813a14647debe16c057dee550d23b"
+    },
+    {
+      "path": "data/v9.1/projects/part-004.json",
+      "record_count": 500,
+      "sha256": "1cdc7405098c85a477dd156930c4503ef7850ff005d1ec85a69928f10db6b7f5"
+    },
+    {
+      "path": "data/v9.1/projects/part-005.json",
+      "record_count": 500,
+      "sha256": "43988789140bf2211263ffe49b756bc8f7f4cd69531b2e91c56b2e7c2a90bcae"
+    },
+    {
+      "path": "data/v9.1/projects/part-006.json",
+      "record_count": 500,
+      "sha256": "e2c4d0c29e622270260e8fa71c1efae260e84fd3c9ebfa31b7dbf7bfe3da2d69"
+    },
+    {
+      "path": "data/v9.1/projects/part-007.json",
+      "record_count": 500,
+      "sha256": "8f2b2d2d74a031f459b94e626e288c11c148629e955f97ef688a27eb1a5e2c59"
+    },
+    {
+      "path": "data/v9.1/projects/part-008.json",
+      "record_count": 500,
+      "sha256": "f3c0dff755bc657c41b3e04305403bbcfbf94be5d893e85309faf9dd7cb1fa92"
+    },
+    {
+      "path": "data/v9.1/projects/part-009.json",
+      "record_count": 500,
+      "sha256": "a9427f109b7ad5ee881628fcbde3602daab62896e8517922ff68d2efe6a23b15"
+    },
+    {
+      "path": "data/v9.1/projects/part-010.json",
+      "record_count": 500,
+      "sha256": "57145897a6a457f3bfb58f431d7bfa6a75dd63bfd2708eb56c3802391847c6b3"
+    },
+    {
+      "path": "data/v9.1/projects/part-011.json",
+      "record_count": 500,
+      "sha256": "e79c4eb42d1d366f01f8f2a941d92ff231b8ea14c2e40a2677a89601926938d1"
+    },
+    {
+      "path": "data/v9.1/projects/part-012.json",
+      "record_count": 500,
+      "sha256": "ad077a3172f6813f2a641e2f51ab693bf038cae03b5cbbdaa4167973ce7a7388"
+    },
+    {
+      "path": "data/v9.1/projects/part-013.json",
+      "record_count": 500,
+      "sha256": "4545362b1355e256dc3025019f971ffa208cc8828059152a26b99ac66fb47817"
+    },
+    {
+      "path": "data/v9.1/projects/part-014.json",
+      "record_count": 500,
+      "sha256": "9cf8da7fcbf3c1d08830c613c69d0447c490d6126be3ebe8c2d9021a4ddcd004"
+    },
+    {
+      "path": "data/v9.1/projects/part-015.json",
+      "record_count": 500,
+      "sha256": "109f20651ce1234d8933bb5efab78cbf45081ae7b4966e63ec0fca560a76cf03"
+    },
+    {
+      "path": "data/v9.1/projects/part-016.json",
+      "record_count": 180,
+      "sha256": "ed4c672a6cb684a5fd29e17e436d4ee632de358de5e0a2cee9801c7ffa5ecc4b"
+    }
+  ],
+  "projects_sha256": "24484ca837ac56520ba971fb2c2c1d29620e16a3c71bbaa5764e94c9b515ad52",
+  "release": "9.1",
+  "schema": "globalgrid2050.v9.project-spine-build.v9.1",
+  "scope": {
+    "all_official_statuses": true,
+    "capacity_mw_inclusive_minimum": 1.0,
+    "development_deduplication_forbidden": true,
+    "record_identity_preserved": true,
+    "technologies": [
+      "solar",
+      "bess",
+      "wind_onshore",
+      "wind_offshore"
+    ]
+  },
+  "solar_count": 3563,
+  "source_coordinate_fixture_sha256": "8ca7a99a9f3a95b4de6f1dff79af64ead3aaa14627356eb198ae7be21539741f",
+  "source_dataset": "DESNZ Renewable Energy Planning Database Q2 2026",
+  "source_identity_sha256": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+  "source_record_count": 14657,
+  "source_workbook_sha256": "99ec4d0509a9fdfb999116e33c459084ce9ab59b44e3fafba5fc9b280ae2d5a6",
+  "wind_offshore_count": 109,
+  "wind_onshore_count": 2399
+}

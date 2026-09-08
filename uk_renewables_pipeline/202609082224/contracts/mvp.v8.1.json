@@ -1,0 +1,64 @@
+{
+  "schema": "globalgrid2050.v8.mvp-contract.v1",
+  "release": "8.1",
+  "status": "LIVE_VALIDATED",
+  "purpose": "One-hour canonical UK utility-project MVP with inherited legacy newspaper",
+  "fallback": {
+    "path": "uk_renewables_pipeline/v7",
+    "tree": "9ad8cfe9cdf26948ed3ad3898822977f9198006a",
+    "immutable": true
+  },
+  "projects": {
+    "contract": "contracts/projects-plugin.v7.2.json",
+    "source": "data/v7.2/projects.json",
+    "source_sha256": "ce7e0a7681da47c6d2bfe66c292e61c3727d9db02db667053be4fbe5e0952de9",
+    "geojson": "data/v7.2/projects.geojson",
+    "geojson_sha256": "74ccd73f3ee77a069c646cba0bcb5984609cdd68ea681292b8f3d7f33fe4bf8d",
+    "thresholds_exclusive": {
+      "solar_mwp": 49,
+      "bess_mw": 99
+    },
+    "expected": {
+      "project_count": 766,
+      "development_count": 718,
+      "solar_count": 384,
+      "solar_mwp": 34073.49,
+      "bess_count": 382,
+      "bess_mw": 106338.18,
+      "wind_count": 0,
+      "largest_record_mw": 1450
+    },
+    "runtime_government_request_forbidden": true,
+    "combined_solar_bess_capacity_forbidden": true
+  },
+  "newspaper": {
+    "status": "LEGACY_V5_UNVERIFIED",
+    "fixture": "fixtures/v5/major_project_news_v5.json",
+    "fixture_sha256": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+    "expected_headlines": 125,
+    "may_overwrite_repd_facts": false,
+    "trusted_rebinding_release": "8.2"
+  },
+  "interface": {
+    "gauges": ["solar_mwp", "bess_mw", "project_count", "largest_record"],
+    "project_table_columns": 11,
+    "filtered_csv_export": true,
+    "zero_result_csv": "header only",
+    "mobile_table": "horizontally contained",
+    "chart_cdn_failure": "numeric gauges and project interface remain available"
+  },
+  "deferred_daily_releases": {
+    "8.2": "trusted news and anti-hallucination corpus",
+    "8.3": "market milestones",
+    "8.4": "TEC and ECR grid transitions",
+    "8.5": "C&I solar, commercial BESS and EV charging",
+    "8.6": "maps, project pages, timelines and evidence UI",
+    "8.7": "worldwide country packs",
+    "8.8": "bulletproof operations",
+    "8.9": "integrated production proof"
+  },
+  "timing": {
+    "operation_target_seconds": 30,
+    "operation_hard_stop_seconds": 500
+  }
+}

@@ -1,0 +1,42 @@
+/* v9-10.css - THE ACTIONS COLUMN FITS ITS BUTTONS, NOT ITS SENTENCES.
+
+   Reported on a phone at 23:23 on 8 September: the ACTIONS column was taking
+   most of the width of the table, pushing every other column off-screen.
+
+   The cause is that a table cell is sized by its widest content and the notes
+   under MAP are sentences. `.project-actions .map-note` is `flex: 1 0 100%`,
+   which makes it fill the flex row it is in - but nothing bounds that row, so
+   the row grows to whatever the sentence wants and the column grows with it.
+   The v9.9 offshore note made this obvious by putting a long sentence on every
+   offshore row; it was not the only one. "REPD published no coordinate for this
+   record. The Atlas resolves it from REPD 13429 and centres on its own
+   geometry." is inherited, appears on 28 rows, and widened the column exactly
+   the same way.
+
+   So the cell is bounded and the sentence wraps inside it. The buttons keep the
+   44 px touch target v9.6.1 gave them - the cap is above the width of MAP, NEWS
+   and COPY ID side by side, so nothing that must be tappable is squeezed - and
+   the notes now set their own height instead of the table's width. */
+
+.project-actions {
+  max-width: 190px;
+}
+
+td:has(> .project-actions) {
+  max-width: 190px;
+  width: 190px;
+}
+
+.project-actions .map-note {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* On a phone the tray is a column and the buttons stack, so it needs less. */
+@media (max-width: 760px) {
+  .project-actions,
+  td:has(> .project-actions) {
+    max-width: 124px;
+    width: 124px;
+  }
+}

@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-08T21:25:21Z",
+ "generated_utc": "2026-09-08T22:29:18Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -17,11 +17,29 @@
   "commit",
   "tree"
  ],
- "count": 412,
+ "count": 413,
  "skipped_unresolvable": [
   "./repd_atlas_grid_model/"
  ],
  "entries": [
+  {
+   "agent": "unknown",
+   "agent_model": null,
+   "agent_source": "path not in git history",
+   "commit": "",
+   "commit_full": "",
+   "tree": null,
+   "id": "202609082224-pipeline-news",
+   "stamp": "202609082224",
+   "family": "pipeline-news",
+   "project": "pipeline-news",
+   "title": "Pipeline News 202609082224",
+   "url": "./uk_renewables_pipeline/202609082224/",
+   "kind": "release",
+   "parent": null,
+   "status": "current",
+   "stamp_source": "directory name (UTC)"
+  },
   {
    "agent": "Claude",
    "agent_model": "Claude Fable 5.1",
@@ -55,7 +73,7 @@
    "url": "./uk_renewables_pipeline/202609081016/",
    "kind": "release",
    "parent": null,
-   "status": "current",
+   "status": "archived",
    "stamp_source": "directory name (UTC)"
   },
   {

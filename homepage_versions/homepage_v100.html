@@ -34,6 +34,9 @@
   td { padding:8px 10px; border-bottom:1px solid #1c1c1c; vertical-align:top; overflow-wrap:anywhere; }
   td.name a { color:#66ccff; font-weight:bold; }
   td.name .title { display:block; color:#aaa; font-size:12px; }
+  .agent { display:inline-block; padding:2px 6px; border:1px solid #3b444f; font-size:11px; font-weight:bold; letter-spacing:.5px; }
+  .agent.Claude { border-color:#c8b900; color:#fff95a; } .agent.Codex { border-color:#167d4d; color:#60ff9c; }
+  .agent.Copilot { border-color:#a46f00; color:#ffbe45; } .agent.unknown, .agent.none { color:#626b77; }
   .status-current { color:#53ff4c; font-weight:bold; } .status-test { color:#ffbe45; } .status-archived, .status-live { color:#7a7a7a; }
   code { color:#9aa3af; font-size:12px; }
   .more { background:#000; color:#aab3bf; border:1px solid #343b45; padding:8px 14px; font:700 12px Courier,monospace; cursor:pointer; margin:0 0 18px; text-transform:uppercase; }
@@ -50,9 +53,11 @@
   <p class="lede">UK renewables pipeline — the current release. Every earlier version, and everything else on this site, is archived and reachable from the search box below, each with two references: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash), reconciled on Linux by CI.</p>
 </header>
 <main>
-  <input type="text" id="q" placeholder="Search everything… (name, stamp, commit)" autocomplete="off">
+  <input type="text" id="q" placeholder="Search everything… (name, stamp, agent, commit)" autocomplete="off">
   <div class="controls">
-    <span>Show:</span>
+    <span>Agent:</span>
+    <button data-agent="" class="on">all</button><button data-agent="Claude">Claude</button><button data-agent="Codex">Codex</button>
+    <span style="margin-left:10px">Show:</span>
     <button data-status="" class="on">all</button><button data-status="current">current</button><button data-status="test">test code</button><button data-status="archived">archived</button>
     <span class="count" id="count"></span>
   </div>
@@ -72,11 +77,8 @@
  * only ever carries what is on screen; filtering and sorting happen on the
  * array. The same slice-the-view-never-the-data rule as Pipeline News.
  *
- * Columns: stamp-name (yyyymmddhhmm-name-of-the-project, UTC) · status ·
- * commit · barcode. There is no agent column: a version is identified by its
- * UTC stamp-name and its git tree hash, and which agent cut it is not part of
- * that identity. It was drawing attention away from both references, so it is
- * off the page - the agent fields stay in the catalogue and stay searchable. The barcode is the git tree hash, `git rev-parse
+ * Columns: stamp-name (yyyymmddhhmm-name-of-the-project, UTC) · agent · status
+ * · commit · barcode. The barcode is the git tree hash, `git rev-parse
  * HEAD:<path>`: a content address that changes if and only if the version
  * changes - the same role the REPD REF plays for a project in Pipeline News.
  * It is what every runner pins, so a CI pin is copied from the table. */
@@ -110,11 +112,17 @@ function sortRows(rows) {
     return x < y ? -dir : dir;
   });
 }
+function agentCell(e) {
+  const a = e.agent || "—";
+  const model = e.agent_model ? ` <code>${esc(e.agent_model)}</code>` : "";
+  return `<span class="agent ${esc(a)}" title="${esc(e.agent_source || "")}">${esc(a)}</span>${model}`;
+}
 function row(e) {
   const tree = e.tree ? `<code title="${esc(e.tree)} — click to copy" data-copy="${esc(e.tree)}" style="cursor:copy">${esc(e.tree.slice(0, 12))}</code>` : `<code>—</code>`;
   const commit = e.commit ? `<code title="${esc(e.commit_full || e.commit)}">${esc(e.commit)}</code>` : `<code>—</code>`;
   return `<tr>
     <td class="name"><a href="${encodeURI(e.url)}">${esc(e.id)}</a><span class="title">${esc(e.title)}</span></td>
+    <td>${agentCell(e)}</td>
     <td class="status-${esc(e.status || "")}">${esc(e.status || "")}</td>
     <td>${commit}</td><td>${tree}</td></tr>`;
 }
@@ -150,8 +158,8 @@ function build() {
     const limit = state.open[nest.key] ? rows.length : PAGE;
     const visible = rows.slice(0, limit); shown += visible.length;
     const head = current && !state.q && !state.agent && !state.status
-      ? `<a class="current" href="${encodeURI(current.url)}">${esc(current.title)}<small>${esc(current.id)} · ${esc(current.commit || "")}</small></a>` : "";
-    const table = rows.length ? `<div class="tablewrap"><table><thead><tr>${th("Version · UTC stamp-name", "id")}${th("Status", "status")}${th("Commit", "commit")}<th title="git rev-parse HEAD:&lt;path&gt; — a content address: it changes if and only if the version changes. The value every runner pins.">Barcode · git tree</th></tr></thead><tbody>${visible.map(row).join("")}</tbody></table></div>` : `<p class="noresult">No match in ${esc(nest.title)}.</p>`;
+      ? `<a class="current" href="${encodeURI(current.url)}">${esc(current.title)}<small>${esc(current.id)} · ${esc(current.agent || "")} · ${esc(current.commit || "")}</small></a>` : "";
+    const table = rows.length ? `<div class="tablewrap"><table><thead><tr>${th("Version · UTC stamp-name", "id")}${th("Agent", "agent")}${th("Status", "status")}${th("Commit", "commit")}<th title="git rev-parse HEAD:&lt;path&gt; — a content address: it changes if and only if the version changes. The value every runner pins.">Barcode · git tree</th></tr></thead><tbody>${visible.map(row).join("")}</tbody></table></div>` : `<p class="noresult">No match in ${esc(nest.title)}.</p>`;
     const more = rows.length > PAGE ? `<button class="more" data-more="${nest.key}">${state.open[nest.key] ? "show 3" : `show all ${rows.length}`}</button>` : "";
     const open = browsing() || nest.key !== "about-media" ? " open" : "";
     /* JUST THE WORKING VERSION.
@@ -186,9 +194,10 @@ function build() {
 document.addEventListener("click", ev => {
   const c = ev.target.closest("[data-copy]");
   if (c && navigator.clipboard) { navigator.clipboard.writeText(c.dataset.copy); c.textContent = "copied"; setTimeout(() => { c.textContent = c.dataset.copy.slice(0, 12); }, 900); return; }
-  const t = ev.target.closest("[data-more],[data-status],th[data-sort]");
+  const t = ev.target.closest("[data-more],[data-agent],[data-status],th[data-sort]");
   if (!t) return;
   if (t.dataset.more !== undefined) { state.open[t.dataset.more] = !state.open[t.dataset.more]; build(); }
+  else if (t.dataset.agent !== undefined) { state.agent = t.dataset.agent; document.querySelectorAll("[data-agent]").forEach(b => b.classList.toggle("on", b === t)); build(); }
   else if (t.dataset.status !== undefined) { state.status = t.dataset.status; document.querySelectorAll("[data-status]").forEach(b => b.classList.toggle("on", b === t)); build(); }
   else if (t.dataset.sort) { const k = t.dataset.sort; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : -1 }; build(); }
 });

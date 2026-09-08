@@ -1,0 +1,13 @@
+{
+ "homepage_version": "v100",
+ "archived_from": "index.html at HEAD before removing the agent name from version rows",
+ "last_commit_of_that_page": "f7a7e2e6602bebf45c29975aeb0ddaab8e45adae 2026-09-08T22:18:25+01:00",
+ "sha256": "ef3f6af0932fcfb6855bcdec99429e5da1f0b62ce0495e9d9bc74f6bbf41c956",
+ "bytes": 14017,
+ "lines": 210,
+ "words": 1633,
+ "chars": 13984,
+ "files_in_folder_before": 160,
+ "reason": "The owner: get rid of Claude and Codex from version names, it is confusing and side tracks. A version is identified by its UTC stamp-name and its git tree hash; which agent cut it is not part of its identity and was drawing attention away from both references.",
+ "change_intention": "Remove the Agent column, the Claude/Codex filter buttons and the agent from the current-release headline. The agent fields stay in the catalogue JSON and stay searchable; only the display drops them. Reversible by restoring this snapshot."
+}

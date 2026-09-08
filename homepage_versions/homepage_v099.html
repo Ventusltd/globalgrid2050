@@ -50,7 +50,7 @@
 <body>
 <header>
   <h1>GlobalGrid2050</h1>
-  <p class="lede">UK renewables pipeline — the current release. Every earlier version, and everything else on this site, is archived and reachable from the search box below, each with two references: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash), reconciled on Linux by CI.</p>
+  <p class="lede">UK renewables pipeline. Every published version, newest first, with two references each: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash) — reconciled on Linux by CI. Everything else on this site is archived and reachable from the search box below.</p>
 </header>
 <main>
   <input type="text" id="q" placeholder="Search everything… (name, stamp, agent, commit)" autocomplete="off">
@@ -162,34 +162,22 @@ function build() {
     const table = rows.length ? `<div class="tablewrap"><table><thead><tr>${th("Version · UTC stamp-name", "id")}${th("Agent", "agent")}${th("Status", "status")}${th("Commit", "commit")}<th title="git rev-parse HEAD:&lt;path&gt; — a content address: it changes if and only if the version changes. The value every runner pins.">Barcode · git tree</th></tr></thead><tbody>${visible.map(row).join("")}</tbody></table></div>` : `<p class="noresult">No match in ${esc(nest.title)}.</p>`;
     const more = rows.length > PAGE ? `<button class="more" data-more="${nest.key}">${state.open[nest.key] ? "show 3" : `show all ${rows.length}`}</button>` : "";
     const open = browsing() || nest.key !== "about-media" ? " open" : "";
-    /* JUST THE WORKING VERSION.
-     *
-     * The owner, after publishing 202609081016 on the offshore cable engine:
-     * archive everything else, leave just this working version. So the default
-     * view is the one current release and nothing beneath it - no table of older
-     * releases, no show-all. Every one of them is still in the catalogue and
-     * returns the moment anything is typed in the search or a filter is pressed;
-     * the notice below says how many and how. Archived, not deleted. */
-    const body = browsing() ? `${table}${more}` : "";
-    const summary = browsing()
-      ? `${esc(nest.title)} <span style="color:#7a7a7a;font-size:15px">(${rows.length})</span>`
-      : `${esc(nest.title)} <span style="color:#7a7a7a;font-size:15px">current release</span>`;
-    html += `<details class="area"${open}><summary>${summary}</summary>${head}${body}</details>`;
+    html += `<details class="area"${open}><summary>${esc(nest.title)} <span style="color:#7a7a7a;font-size:15px">(${rows.length})</span></summary>${head}${table}${more}</details>`;
   }
   /* Say what is being withheld and how to reach it, in the place the reader is
      already looking. An archive nobody can find is indistinguishable from a
      deletion. */
   if (!browsing()) {
-    const rest = ALL.length - 1;
-    html += `<p class="noresult">Everything else is archived: `
-      + `${rest} earlier versions of Pipeline News, Grid Atlas and About &amp; Media stay in the `
-      + `catalogue and are not shown here. Search above to reach any of them, or open the `
+    const rest = ALL.length - rowsFor(NESTS[0]).length;
+    html += `<p class="noresult">Grid Atlas and About &amp; Media are archived: `
+      + `${rest} further versions stay in the catalogue and are not shown here. `
+      + `Search above to reach any of them, or open the `
       + `<a href="./historical_builds.html">full archive</a>.</p>`;
   }
   menu.innerHTML = html;
   document.getElementById("count").textContent = browsing()
     ? `${shown} of ${total} shown · ${ALL.length} versions catalogued`
-    : `1 current release shown · ${ALL.length} versions catalogued, searchable above`;
+    : `${shown} of ${total} Pipeline News shown · ${ALL.length} versions catalogued, searchable above`;
 }
 document.addEventListener("click", ev => {
   const c = ev.target.closest("[data-copy]");

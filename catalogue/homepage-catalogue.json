@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-08T04:26:59Z",
+ "generated_utc": "2026-09-08T04:35:31Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -17,7 +17,7 @@
   "commit",
   "tree"
  ],
- "count": 408,
+ "count": 410,
  "skipped_unresolvable": [
   "./repd_atlas_grid_model/"
  ],
@@ -39,6 +39,42 @@
    "status": "current",
    "stamp_source": "atlas/current.json generation (UTC)",
    "agent_model": "Claude Opus 5 (1M context)"
+  },
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Opus 5 (1M context)",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "c5e227cd72",
+   "commit_full": "c5e227cd72b991ca762a3619c9b682d298bedefa",
+   "tree": "becc31d171115eaff98ac7587589990755565307",
+   "id": "202609080428-homepage-archive",
+   "stamp": "202609080428",
+   "family": "about-media",
+   "project": "homepage-archive",
+   "title": "Homepage archive homepage_v098",
+   "url": "./homepage_versions/homepage_v098.html",
+   "kind": "homepage",
+   "parent": null,
+   "status": "archived",
+   "stamp_source": "git first-commit time (UTC)"
+  },
+  {
+   "agent": "Codex",
+   "agent_model": null,
+   "agent_source": "Codex publish-style subject: Publish engine-labelled Pipeline News entry",
+   "commit": "cf2b27af41",
+   "commit_full": "cf2b27af4152fa377ad846fa7e0bee07d06f06d0",
+   "tree": "6bb2e68d4b6ee1177361c46900e7ed6dfdcb9bbf",
+   "id": "202609080146-pipeline-news",
+   "stamp": "202609080146",
+   "family": "pipeline-news",
+   "project": "pipeline-news",
+   "title": "Pipeline News 202609080146",
+   "url": "./uk_renewables_pipeline/202609080146/",
+   "kind": "release",
+   "parent": null,
+   "status": "archived",
+   "stamp_source": "directory name (UTC)"
   },
   {
    "agent": "Claude",

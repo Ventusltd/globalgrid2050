@@ -176,7 +176,46 @@ def add(e: dict) -> None:
 
 
 # ── pipeline-news ────────────────────────────────────────────────────────────
-CURRENT_PIPELINE = "202609071221"
+# The current release was a hand-typed constant here, and on 2026-09-08 it went
+# stale the moment a new release was published: the homepage kept pointing at
+# 202609071221 while 202609080146 sat beside it, and check_homepage_catalogue.py
+# failed with "current is X but Y is newer of the same kind". A generator whose
+# defining rule is that nothing is typed by hand should not carry a hand-typed
+# pointer that must be remembered on every publish. The checker already defines
+# current as the newest of its kind, so this derives exactly that and the two
+# can no longer disagree.
+def _servable(index: Path) -> bool:
+    """Is this release's page actually a page?
+
+    Asked because on 2026-09-08 the newest release, 202609080146, was published
+    with an index.html of 9,885 bytes of binary noise - not invalid HTML, not
+    truncated HTML, but bytes that are not text at all, and the same for one of
+    its plugin scripts. The corruption is in the commit, not just the working
+    tree, so it survived the push and would have been served.
+
+    That matters more than it used to. The homepage now shows Pipeline News and
+    nothing else, so the newest release IS the site; promoting an unreadable one
+    would have taken the whole page down and left the archive unreachable behind
+    a search box nobody could see. "Newest" is not sufficient - it has to be
+    readable, and the cheapest honest test is whether it decodes as text and
+    opens like a document."""
+    try:
+        head = index.read_bytes()[:2048].decode("utf-8").lstrip().lower()
+    except (OSError, UnicodeDecodeError):
+        return False
+    # Looked-for, not led-with. repd_grid_atlasv4/index.html carries a stray
+    # line of build chatter ("supermarkets layer added") above its doctype and is
+    # otherwise a perfectly good page; requiring the doctype at byte zero called
+    # it corrupt. The defect being caught is bytes that are not text at all, so
+    # the test is that it decodes and that a document tag appears near the top.
+    return "<html" in head or "<!doctype" in head
+
+
+CURRENT_PIPELINE = max(
+    (d.name for d in (ROOT / "uk_renewables_pipeline").iterdir()
+     if d.is_dir() and STAMP.match(d.name) and (d / "index.html").is_file()
+     and _servable(d / "index.html")),
+    default="")
 for d in sorted((ROOT / "uk_renewables_pipeline").iterdir()):
     if not d.is_dir() or d.name in ("node_modules",):
         continue

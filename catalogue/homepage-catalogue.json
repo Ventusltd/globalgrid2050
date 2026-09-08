@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-08T04:35:31Z",
+ "generated_utc": "2026-09-08T08:57:55Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -24,21 +24,21 @@
  "entries": [
   {
    "agent": "Claude",
-   "agent_source": "gridatlas: Co-Authored-By: Claude on the commit adding atlas/manifests/202609080430-composition.json",
-   "commit": "d475608c51",
-   "commit_full": "d475608c51c4e7d42b4feb2b0dcb616c6d0b735d",
+   "agent_source": "gridatlas: Co-Authored-By: Claude on the commit adding atlas/manifests/202609080850-composition.json",
+   "commit": "b4227c5010",
+   "commit_full": "b4227c5010db186c6f8764d180ae0976b3d760d2",
    "tree": null,
-   "id": "202609080430-grid-atlas",
-   "stamp": "202609080430",
+   "id": "202609080850-grid-atlas",
+   "stamp": "202609080850",
    "family": "grid-atlas",
    "project": "grid-atlas",
-   "title": "Grid Atlas v9.151 — live",
+   "title": "Grid Atlas v9.154 — live",
    "url": "https://ventusltd.github.io/gridatlas/atlas/",
    "kind": "release",
    "parent": null,
    "status": "current",
    "stamp_source": "atlas/current.json generation (UTC)",
-   "agent_model": "Claude Opus 5 (1M context)"
+   "agent_model": "Claude Fable 5.1"
   },
   {
    "agent": "Claude",

@@ -1,0 +1,20 @@
+{
+  "snapshot": "homepage_v101.html",
+  "date_utc": "2026-09-10T09:55:51.029283+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "6bd4a3335893c75262931e000c41ab6e34c0c858",
+  "source_blob_sha": "e70c1733044b7c0747837616fc02e02ff523eef2",
+  "folder_file_count_before": 160,
+  "folder_entry_count_before": 161,
+  "line_count": 200,
+  "word_count": 1599,
+  "character_count": 13224,
+  "byte_count": 13253,
+  "sha256": "22489f88d9038d284b579bac1b3d0cd2885d8ce838812d203407089f4dfa1f83",
+  "change_intention": "Add the owner-supplied general GridAtlas link https://ventusltd.github.io/gridatlas/atlas/ to the root homepage without project-specific parameters. Preserve Pipeline News and all existing catalogue and archive links. Navigation only, not a product promotion.",
+  "measurement_method": "Local Python measurements of connector-fetched bytes, independently checked against the Git blob SHA before editing.",
+  "precommit_checks": ["All existing href values preserved", "General Atlas href appears exactly once without query parameters", "JavaScript syntax passes node --check"],
+  "workflow_measurement": "Not run: the connected GitHub actions expose no workflow dispatch operation. No workflow success is claimed.",
+  "served_byte_verification": "Not yet verified at pre-edit measurement time; local network DNS is unavailable and the web fetch returned a stale homepage."
+}

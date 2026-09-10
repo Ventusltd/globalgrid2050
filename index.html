@@ -47,12 +47,9 @@
 <body>
 <header>
   <h1>GlobalGrid2050</h1>
-  <p class="lede">UK renewables pipeline and Grid Atlas — explore projects and grid infrastructure. Earlier versions and other site content are archived and reachable from the search box below, each with two references: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash), reconciled on Linux by CI.</p>
+  <p class="lede">UK renewables pipeline — the current release. Every earlier version, and everything else on this site, is archived and reachable from the search box below, each with two references: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash), reconciled on Linux by CI.</p>
 </header>
 <main>
-  <nav aria-label="Grid Atlas">
-    <a class="current" id="gridatlas-link" href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas<small>Explore projects and grid infrastructure</small></a>
-  </nav>
   <input type="text" id="q" placeholder="Search everything… (name, stamp, commit)" autocomplete="off">
   <div class="controls">
     <span>Show:</span>
@@ -63,7 +60,7 @@
 </main>
 <div class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
-  <p>Catalogue generated from the repository and its git history by <code>scripts/build_homepage_catalogue.py</code>; release references are generated, not typed by hand. <a href="./historical_builds.html">Full archive</a> · <a href="./homepage_versions/">Earlier homepages</a></p>
+  <p>Catalogue generated from the repository and its git history by <code>scripts/build_homepage_catalogue.py</code>; nothing on this page is typed by hand. <a href="./historical_builds.html">Full archive</a> · <a href="./homepage_versions/">Earlier homepages</a></p>
 </div>
 <script>
 /* THREE NESTS, THREE ROWS EACH, EVERYTHING ELSE ON DEMAND.
@@ -133,9 +130,8 @@ function th(label, key) {
  * data. What changed is the VIEW - the same slice-the-view-never-the-data rule
  * the table has always followed.
  *
- * Pipeline News is the default catalogue view. A separate static link opens
- * the general Grid Atlas. Archived Grid Atlas and About & Media entries stay
- * hidden until the reader asks for them, and the moment anything is typed in the
+ * So Pipeline News is the page. Grid Atlas and About & Media are not shown
+ * until the reader asks for them, and the moment anything is typed in the
  * search box or a filter is pressed, every nest returns and the search runs
  * across all of them. A homepage that hid its own history behind a link nobody
  * clicks would not be an archive, it would be a loss. */
@@ -176,8 +172,9 @@ function build() {
      already looking. An archive nobody can find is indistinguishable from a
      deletion. */
   if (!browsing()) {
+    html += `<details class="area" open><summary>Grid Atlas</summary><a class="current" href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a></details>`;
     const rest = ALL.length - 1;
-    html += `<p class="noresult">Browse the archive: `
+    html += `<p class="noresult">Everything else is archived: `
       + `${rest} earlier versions of Pipeline News, Grid Atlas and About &amp; Media stay in the `
       + `catalogue and are not shown here. Search above to reach any of them, or open the `
       + `<a href="./historical_builds.html">full archive</a>.</p>`;

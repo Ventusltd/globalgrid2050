@@ -153,7 +153,7 @@ function build() {
       ? `<a class="current" href="${encodeURI(current.url)}">${esc(current.title)}<small>${esc(current.id)} · ${esc(current.commit || "")}</small></a>` : "";
     const table = rows.length ? `<div class="tablewrap"><table><thead><tr>${th("Version · UTC stamp-name", "id")}${th("Status", "status")}${th("Commit", "commit")}<th title="git rev-parse HEAD:&lt;path&gt; — a content address: it changes if and only if the version changes. The value every runner pins.">Barcode · git tree</th></tr></thead><tbody>${visible.map(row).join("")}</tbody></table></div>` : `<p class="noresult">No match in ${esc(nest.title)}.</p>`;
     const more = rows.length > PAGE ? `<button class="more" data-more="${nest.key}">${state.open[nest.key] ? "show 3" : `show all ${rows.length}`}</button>` : "";
-    const open = browsing() || nest.key !== "about-media" ? " open" : "";
+    const open = browsing() ? " open" : "";
     /* JUST THE WORKING VERSION.
      *
      * The owner, after publishing 202609081016 on the offshore cable engine:
@@ -172,8 +172,8 @@ function build() {
      already looking. An archive nobody can find is indistinguishable from a
      deletion. */
   if (!browsing()) {
-    html += `<details class="area" open><summary>Grid Atlas</summary><a class="current" href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a></details>`;
-    html += `<details class="area" open><summary>Grid Engine</summary><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">Spider Sandbox<small>how the engine's modules link together</small></a></details>`;
+    html += `<details class="area"><summary>Grid Atlas</summary><a class="current" href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a></details>`;
+    html += `<details class="area"><summary>Grid Engine</summary><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">Spider Sandbox<small>how the engine's modules link together</small></a></details>`;
     const rest = ALL.length - 1;
     html += `<p class="noresult">Everything else is archived: `
       + `${rest} earlier versions of Pipeline News, Grid Atlas and About &amp; Media stay in the `

@@ -1,0 +1,26 @@
+{
+  "snapshot": "homepage_v104.html",
+  "date_utc": "2026-09-13T20:41:05.683186+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "02776ec5c266e7b206b525d706613b32de6eb98e",
+  "source_blob_sha": "61c3e6383fba8123fdaa6ed6ebc338ac0b0e82ee",
+  "folder_file_count_before": 166,
+  "folder_entry_count_before": 167,
+  "line_count": 202,
+  "word_count": 1616,
+  "character_count": 13598,
+  "byte_count": 13627,
+  "sha256": "bb417f9ee9bc814a0fa87e6cdcd7a5b1d0eb432e521d8e24cef787a08d27e153",
+  "change_intention": "Restore the mission sentence lost at homepage_v098 (commit c5e227cd, 2026-09-08) as the first line of the header, verbatim from homepage_v097: An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification. The current-release sentence stays beneath it. No link added or removed.",
+  "measurement_method": "Local Python measurement of the committed git blob bytes (git cat-file), verified by git hash-object against HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "No href added or removed",
+    "Mission sentence present once, byte-identical to v097",
+    "Exactly one line added",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing: restore workflow dispatch not used in this session. No workflow success is claimed.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

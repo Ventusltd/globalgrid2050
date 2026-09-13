@@ -1,0 +1,26 @@
+{
+  "snapshot": "homepage_v105.html",
+  "date_utc": "2026-09-13T20:49:14.471413+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "f87c8c89c1a7026df935301617898d062670bc26",
+  "source_blob_sha": "0984e7c1fe463a74393be347b43a39084440d5c1",
+  "folder_file_count_before": 168,
+  "folder_entry_count_before": 169,
+  "line_count": 203,
+  "word_count": 1642,
+  "character_count": 13823,
+  "byte_count": 13852,
+  "sha256": "14f5c96a989385d3a18721cbe9f0c507e7e90f5b77bdcb1e55bd2a80969f317f",
+  "change_intention": "Remove internal prose the owner never asked for: the catalogue lede under the mission, the archived-versions notice, the versions-catalogued counter and the footer sentence about the catalogue generator. Mission, search, the three nests, the disclaimer and both archive links stay. Branding only; href set identical.",
+  "measurement_method": "Local Python measurement of the committed git blob bytes (git cat-file), verified by git hash-object against HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "href set identical",
+    "Mission and disclaimer present",
+    "Only prose removed",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing: restore workflow dispatch not used in this session. No workflow success is claimed.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

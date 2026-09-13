@@ -48,7 +48,6 @@
 <header>
   <h1>GlobalGrid2050</h1>
   <p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
-  <p class="lede">UK renewables pipeline — the current release. Every earlier version, and everything else on this site, is archived and reachable from the search box below, each with two references: the GlobalGrid2050 reference (UTC stamp-name) and the independent git reference (tree hash), reconciled on Linux by CI.</p>
 </header>
 <main>
   <input type="text" id="q" placeholder="Search everything… (name, stamp, commit)" autocomplete="off">
@@ -61,7 +60,7 @@
 </main>
 <div class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
-  <p>Catalogue generated from the repository and its git history by <code>scripts/build_homepage_catalogue.py</code>; nothing on this page is typed by hand. <a href="./historical_builds.html">Full archive</a> · <a href="./homepage_versions/">Earlier homepages</a></p>
+  <p><a href="./historical_builds.html">Full archive</a> · <a href="./homepage_versions/">Earlier homepages</a></p>
 </div>
 <script>
 /* THREE NESTS, THREE ROWS EACH, EVERYTHING ELSE ON DEMAND.
@@ -151,7 +150,7 @@ function build() {
     const limit = state.open[nest.key] ? rows.length : PAGE;
     const visible = rows.slice(0, limit); shown += visible.length;
     const head = current && !state.q && !state.agent && !state.status
-      ? `<a class="current" href="${encodeURI(current.url)}">${esc(current.title)}<small>${esc(current.id)} · ${esc(current.commit || "")}</small></a>` : "";
+      ? `<a class="current" href="${encodeURI(current.url)}">${esc(current.id)}</a>` : "";
     const table = rows.length ? `<div class="tablewrap"><table><thead><tr>${th("Version · UTC stamp-name", "id")}${th("Status", "status")}${th("Commit", "commit")}<th title="git rev-parse HEAD:&lt;path&gt; — a content address: it changes if and only if the version changes. The value every runner pins.">Barcode · git tree</th></tr></thead><tbody>${visible.map(row).join("")}</tbody></table></div>` : `<p class="noresult">No match in ${esc(nest.title)}.</p>`;
     const more = rows.length > PAGE ? `<button class="more" data-more="${nest.key}">${state.open[nest.key] ? "show 3" : `show all ${rows.length}`}</button>` : "";
     const open = browsing() ? " open" : "";
@@ -166,7 +165,7 @@ function build() {
     const body = browsing() ? `${table}${more}` : "";
     const summary = browsing()
       ? `${esc(nest.title)} <span style="color:#7a7a7a;font-size:15px">(${rows.length})</span>`
-      : `${esc(nest.title)} <span style="color:#7a7a7a;font-size:15px">current release</span>`;
+      : esc(nest.title);
     html += `<details class="area"${open}><summary>${summary}</summary>${head}${body}</details>`;
   }
   /* Say what is being withheld and how to reach it, in the place the reader is
@@ -175,16 +174,9 @@ function build() {
   if (!browsing()) {
     html += `<details class="area"><summary>Grid Atlas</summary><a class="current" href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a></details>`;
     html += `<details class="area"><summary>Grid Engine</summary><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">Spider Sandbox<small>how the engine's modules link together</small></a></details>`;
-    const rest = ALL.length - 1;
-    html += `<p class="noresult">Everything else is archived: `
-      + `${rest} earlier versions of Pipeline News, Grid Atlas and About &amp; Media stay in the `
-      + `catalogue and are not shown here. Search above to reach any of them, or open the `
-      + `<a href="./historical_builds.html">full archive</a>.</p>`;
   }
   menu.innerHTML = html;
-  document.getElementById("count").textContent = browsing()
-    ? `${shown} of ${total} shown · ${ALL.length} versions catalogued`
-    : `1 current release shown · ${ALL.length} versions catalogued, searchable above`;
+  document.getElementById("count").textContent = browsing() ? `${shown} of ${total} shown` : "";
 }
 document.addEventListener("click", ev => {
   const c = ev.target.closest("[data-copy]");

@@ -1,0 +1,25 @@
+{
+  "snapshot": "homepage_v103.html",
+  "date_utc": "2026-09-13T20:29:44.273596+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "89560f4bbbe32f23854d8dcd857dc880ca89f6bd",
+  "source_blob_sha": "9f50bdb2a4016275879a0e078b4a6c8394a88695",
+  "folder_file_count_before": 164,
+  "folder_entry_count_before": 165,
+  "line_count": 202,
+  "word_count": 1622,
+  "character_count": 13638,
+  "byte_count": 13667,
+  "sha256": "283b70896e5a80cbdf1a1e371a6ee15ffdd2cd4a37cbb32280b1c48c4e52c8c9",
+  "change_intention": "Collapse the three homepage nests (Pipeline News, Grid Atlas, Grid Engine) by default so the reader clicks a nest to expand it; nests still open automatically while searching or filtering so results are never hidden. Navigation presentation only; no link added or removed.",
+  "measurement_method": "Local Python measurement of the committed git blob bytes (git cat-file), verified by git hash-object against HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "No href added or removed",
+    "Only the open attribute logic changes",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing: restore workflow dispatch not used in this session. No workflow success is claimed.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

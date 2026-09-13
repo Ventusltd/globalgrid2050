@@ -1,0 +1,25 @@
+{
+  "snapshot": "homepage_v102.html",
+  "date_utc": "2026-09-13T19:01:03.516707+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "6928cffdc3428a06f8e53f341b3893c63814c494",
+  "source_blob_sha": "a06433616296b43949a29ba8a92788320e5ecb9b",
+  "folder_file_count_before": 162,
+  "folder_entry_count_before": 163,
+  "line_count": 201,
+  "word_count": 1608,
+  "character_count": 13391,
+  "byte_count": 13420,
+  "sha256": "d27dad13b56394eea1d85ee8849cd3d430b04268a20550881e88076065e6a66c",
+  "change_intention": "Add the owner-requested Grid Engine Spider Sandbox link https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph to the root homepage default view, as one block directly beneath the existing Grid Atlas block, so the dashboard is reachable from the homepage. Preserve Pipeline News, Grid Atlas and all existing catalogue and archive links. Navigation only, not a product promotion.",
+  "measurement_method": "Local Python measurement of the committed git blob bytes (git cat-file), verified by git hash-object against HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "Spider Sandbox href appears exactly once",
+    "Exactly one line added, no line removed",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing: restore workflow dispatch not used in this session. No workflow success is claimed.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

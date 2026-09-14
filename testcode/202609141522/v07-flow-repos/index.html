@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · v07 flow</title>
+<script>window.BUILT='2026-09-14 15:22'</script>
+<script src="../core.js"></script>
+<style>
+#box{overflow-x:auto;border:1px solid #1f2633;border-radius:8px}
+svg{display:block;min-width:720px}
+.node{cursor:pointer}.node:hover rect{filter:brightness(1.4)}
+.band{fill:none;opacity:.22}.band.hot{opacity:.8}
+.t{fill:#d8dee9;font-size:11px}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div class="u-muted">Left: repositories. Middle: categories. Right: blocks. Band thickness = how many blocks a repository carries into a category. Tap a repository, category or block to follow its bands.</div>
+<div id="box"><svg id="flow"></svg></div>
+<div class="u-panel" id="block" hidden></div><div class="u-panel" id="panel" hidden></div>
+<script>
+const NS = 'http://www.w3.org/2000/svg', S = $('#flow'), B = $('#block'), P = $('#panel');
+const sv = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+let focusBlocks = null;
+function draw() {
+  S.innerHTML = '';
+  const blocks = focusBlocks ? U.blocks.filter(b => focusBlocks.has(b.symbol)) : U.blocks;
+  const repoOf = b => (b.repos || []).map(r => r.replace('Ventusltd/', ''));
+  const repos = [...new Set(blocks.flatMap(repoOf))].sort(); const cats = U.cats.filter(c => blocks.some(b => b.category === c.id));
+  const right = [...blocks].sort((a, b) => a.category.localeCompare(b.category) || a.number - b.number).slice(0, 120);
+  const H = Math.max(420, right.length * 14 + 40), W = 900; S.setAttribute('viewBox', `0 0 ${W} ${H}`); S.setAttribute('height', H);
+  const place = (list, x, key) => { const gap = (H - 20) / Math.max(1, list.length); return new Map(list.map((it, i) => [key(it), { x, y: 10 + i * gap + gap / 2, it }])); };
+  const pr = place(repos, 150, r => r), pc = place(cats, 450, c => c.id), pb = place(right, 640, b => b.symbol);
+  const band = (a, b, w, col, tag) => S.append(sv('path', { d: `M${a.x},${a.y}C${(a.x + b.x) / 2},${a.y} ${(a.x + b.x) / 2},${b.y} ${b.x},${b.y}`, class: 'band', stroke: col, 'stroke-width': Math.max(1, w), 'data-tag': tag }));
+  const rc = new Map(); for (const b of blocks) for (const r of repoOf(b)) rc.set(`${r}|${b.category}`, (rc.get(`${r}|${b.category}`) || 0) + 1);
+  for (const [k, n] of rc) { const [r, c] = k.split('|'); if (pr.get(r) && pc.get(c)) band(pr.get(r), pc.get(c), Math.sqrt(n) * 2.2, catColour(c), `r:${r} c:${c}`); }
+  for (const b of right) band(pc.get(b.category), pb.get(b.symbol), 1.4, catColour(b.category), `c:${b.category} b:${b.symbol} ${repoOf(b).map(r => 'r:' + r).join(' ')}`);
+  const label = (m, anchor, dx, text, onClick, colour) => { for (const [id, p] of m) { const g = sv('g', { class: 'node' }); g.append(sv('rect', { x: p.x - 4, y: p.y - 6, width: 8, height: 12, fill: colour(p.it) })); const t = sv('text', { x: p.x + dx, y: p.y + 4, class: 't', 'text-anchor': anchor }); t.textContent = text(p.it); g.append(t); g.addEventListener('click', () => onClick(id, p.it)); S.append(g); } };
+  label(pr, 'end', -8, r => r, id => hot(`r:${id}`), () => '#9fd8ff');
+  label(pc, 'middle', 0, c => '', id => hot(`c:${id}`), c => c.colour);
+  for (const [id, p] of pc) { const t = sv('text', { x: p.x, y: p.y - 10, class: 't', 'text-anchor': 'middle' }); t.textContent = p.it.title; S.append(t); }
+  label(pb, 'start', 8, b => `${b.symbol} · ${b.title}`.slice(0, 38), id => showBlock(id), b => catColour(b.category));
+  $('#count').textContent = `${countsLine()} · ${repos.length} repositories${focusBlocks ? ' (filtered)' : ''}${U.blocks.length > 120 && !focusBlocks ? ' · first 120 blocks listed on the right' : ''}`;
+}
+function hot(tag) { S.querySelectorAll('.band').forEach(p => p.classList.toggle('hot', p.dataset.tag.split(' ').includes(tag))); }
+function showBlock(sym) {
+  trailPush('block', sym, blockLabel(sym)); if (U.bySym.has(sym)) hot(`b:${sym}`);
+  const b = U.bySym.get(sym) || {}; const fams = blockFamilies(sym); B.hidden = false; B.innerHTML = '';
+  B.append(el('div', { class: 'u-h' }, blockLabel(sym)), el('div', { class: 'u-muted' }, `${b.description || ''} In ${(b.repos || []).length} repositories. ${fams.length} families.`),
+    el('div', { class: 'u-links' }, b.symbol ? el('a', { class: 'u-chip', href: `${STARS}table.html?block=${sym}`, target: '_blank', rel: 'noopener' }, 'Block page ↗') : null,
+      el('button', { class: 'u-chip', on: { click: () => { focusBlocks = new Set([sym, ...blockDeps(sym), ...blockUsers(sym)]); draw(); hot(`b:${sym}`); } } }, 'Show only this block and its neighbours'),
+      el('button', { class: 'u-chip', on: { click: () => { focusBlocks = null; draw(); } } }, 'Show all'),
+      ...blockDeps(sym).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['depends on']}`, on: { click: () => showBlock(d) } }, `→ ${d}`)),
+      ...blockUsers(sym).slice(0, 30).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['used by']}`, on: { click: () => showBlock(d) } }, `← ${d}`))),
+    pageList(el('div', { class: 'u-links' }), fams, n => el('button', { class: 'u-chip', on: { click: () => openFamily(n) } }, `#${n}`), 100, 'families'));
+  B.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+async function openFamily(n) { P.hidden = false; await showFamilyPanel(n, P, openFamily, showBlock); P.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+window.goHome = () => { focusBlocks = null; draw(); B.hidden = P.hidden = true; };
+window.goTo = (k, id) => k === 'block' ? showBlock(id) : k === 'family' ? openFamily(id) : goHome();
+loadUniverse().then(() => { legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); draw(); openAddress(); footer('v07-flow-repos'); }).catch(e => fail('#count', e));
+</script>

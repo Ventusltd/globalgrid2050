@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · v01 spider drill</title>
+<script>window.BUILT='2026-09-14 15:22'</script>
+<script src="../core.js"></script>
+<style>
+.stage{display:grid;grid-template-columns:1fr minmax(220px,1.2fr) 1fr;gap:10px;align-items:start}
+.col{display:flex;flex-direction:column;gap:6px}
+.col h3{margin:0 0 2px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.card{background:#12151c;border:1px solid #2a3140;border-left:4px solid var(--c,#385464);border-radius:8px;padding:7px 9px;cursor:pointer;font-size:12px}
+.card:hover{border-color:#00e5ff}
+.card small{display:block;color:#8b93a7}
+.focus{border:2px solid #00e5ff;border-left:6px solid var(--c,#00e5ff);padding:12px;cursor:default}
+.focus .t{font-size:16px;color:#eef2fb}
+.arrow{font-size:11px;color:var(--a)}
+@media(max-width:700px){.stage{grid-template-columns:1fr}.focus{order:-1}}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div class="stage"><div class="col" id="left"></div><div class="col" id="centre"></div><div class="col" id="right"></div></div>
+<div class="u-panel" id="panel" hidden></div>
+<script>
+const L = $('#left'), C = $('#centre'), R = $('#right'), P = $('#panel');
+const card = (label, sub, colour, arrow, onClick) => el('div', { class: 'card', style: `--c:${colour}`, on: { click: onClick } }, arrow ? el('div', { class: 'arrow', style: `--a:${REL[arrow]}` }, arrow) : null, label, sub ? el('small', {}, sub) : null);
+function clear() { L.innerHTML = C.innerHTML = R.innerHTML = ''; P.hidden = true; }
+window.goHome = function () {
+  clear();
+  C.append(el('div', { class: 'card focus' }, el('div', { class: 't' }, 'GLOBALGRID2050'), el('small', {}, countsLine())));
+  const cats = [...U.cats, { id: '_unnamed', title: 'Not yet named', colour: '#566079' }];
+  const half = Math.ceil(cats.length / 2);
+  cats.forEach((c, i) => {
+    const n = c.id === '_unnamed' ? U.unnamed.length : U.blocks.filter(b => b.category === c.id).length;
+    (i < half ? L : R).append(card(c.title, `${n} ${c.id === '_unnamed' ? 'groups' : 'blocks'}`, c.colour, 'contains', () => { trailPush('cat', c.id, c.title); goTo('cat', c.id); }));
+  });
+};
+window.goTo = function (kind, id) {
+  if (kind === 'cat') return showCat(id);
+  if (kind === 'block') return showBlock(id);
+  if (kind === 'family') return openFamily(id);
+};
+function showCat(id) {
+  clear();
+  const list = id === '_unnamed' ? U.unnamed.map(g => ({ symbol: g, title: `Group ${g}`, category: '_unnamed' })) : U.blocks.filter(b => b.category === id);
+  C.append(el('div', { class: 'card focus', style: `--c:${catColour(id)}` }, el('div', { class: 't' }, id === '_unnamed' ? 'Not yet named' : catTitle(id)), el('small', {}, `${list.length} ${id === '_unnamed' ? 'groups' : 'blocks'} · tap one to open it`)));
+  pageList(L, list.filter((_, i) => i % 2 === 0), b => card(`${b.symbol} · ${b.title}`, `${blockFamilies(b.symbol).length} families`, catColour(b.category), 'contains', () => showBlock(b.symbol)), 60, 'blocks');
+  pageList(R, list.filter((_, i) => i % 2 === 1), b => card(`${b.symbol} · ${b.title}`, `${blockFamilies(b.symbol).length} families`, catColour(b.category), 'contains', () => showBlock(b.symbol)), 60, 'blocks');
+}
+function showBlock(sym) {
+  clear(); trailPush('block', sym, blockLabel(sym));
+  const b = U.bySym.get(sym) || {}; const fams = blockFamilies(sym);
+  L.append(el('h3', { style: `color:${REL['depends on']}` }, 'depends on →'));
+  blockDeps(sym).forEach(s => L.append(card(blockLabel(s), `${blockFamilies(s).length} families`, catColour((U.bySym.get(s) || {}).category), 'depends on', () => showBlock(s))));
+  R.append(el('h3', { style: `color:${REL['used by']}` }, '← used by'));
+  blockUsers(sym).slice(0, 60).forEach(s => R.append(card(blockLabel(s), `${blockFamilies(s).length} families`, catColour((U.bySym.get(s) || {}).category), 'used by', () => showBlock(s))));
+  const f = el('div', { class: 'card focus', style: `--c:${catColour(b.category)}` }, el('div', { class: 't' }, blockLabel(sym)), el('small', {}, `${b.description || ''} ${fams.length} function families.`),
+    b.symbol ? el('div', { class: 'u-links' }, el('a', { class: 'u-chip', href: `${STARS}table.html?block=${sym}`, target: '_blank', rel: 'noopener' }, 'Block page ↗'), ...((b.live || []).slice(-1).map(u => el('a', { class: 'u-chip live', href: u, target: '_blank', rel: 'noopener' }, 'Live file ↗')))) : null);
+  C.append(f, el('h3', { style: `color:${REL.contains};margin-top:8px` }, `contains ${fams.length} families`));
+  pageList(C, fams, n => card(`#${n}`, 'tap to open its numbered lines', catColour(b.category), null, () => openFamily(n)), 60, 'families');
+  // label the first families with their names once their bucket is loaded
+  const cards = [...C.querySelectorAll('.card:not(.focus)')];
+  // names for the first 30 only: each name costs a record bucket (200-850 KB), and a phone should not fetch dozens
+  fams.slice(0, 30).forEach((n, i) => family(n).then(r => { if (r && cards[i]) cards[i].firstChild.textContent = `#${n} ${famName(r)}`; }).catch(() => {}));
+}
+async function openFamily(n) {
+  P.hidden = false; P.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  await showFamilyPanel(n, P, openFamily, showBlock);
+}
+loadUniverse().then(() => { $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); goHome(); openAddress(); footer('v01-spider-drill'); }).catch(e => fail('#count', e));
+</script>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · v08 the 360° ring journey</title>
+<script>window.BUILT='2026-09-14 15:22'</script>
+<script src="../core.js"></script>
+<style>
+#wrap{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+svg{width:min(94vw,700px);height:auto;touch-action:manipulation}
+.b,.f{cursor:pointer}.b:hover,.f:hover{filter:brightness(1.5)}
+.lbl{fill:#8b93a7;font-size:8px;pointer-events:none}.big{fill:#eef2fb;font-size:14px;pointer-events:none}
+.ar{fill:none;stroke-width:1.6;opacity:.9}
+.journey{fill:none;stroke:#00e5ff;stroke-width:1;stroke-dasharray:3 3;opacity:.6}
+#side{flex:1;min-width:280px}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div id="wrap"><svg id="ring" viewBox="-350 -350 700 700"></svg>
+<div id="side"><div class="u-panel" id="note"><b>The 360° journey.</b> The outer ring is every named block, round the full circle. Tap a block: arrows cross the circle to what it depends on and what uses it, and its families form the inner ring. Tap a family: its numbered lines open, the families it uses and that use it light up on the inner ring, and their blocks light on the outer ring. Tap any lit item to travel there. The dashed line is your journey so far.</div><div class="u-panel" id="panel" hidden></div></div></div>
+<script>
+const NS = 'http://www.w3.org/2000/svg', S = $('#ring'), P = $('#panel');
+const sv = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const RB = 300, RF = 190; let order = [], angle = new Map(), curBlock = null, curFam = null, famAngle = new Map(), rec = null, path = [];
+const pt = (r, a) => [r * Math.cos(a - Math.PI / 2), r * Math.sin(a - Math.PI / 2)];
+function blockAt(sym) { if (angle.has(sym)) return angle.get(sym); return null; }
+function draw() {
+  S.innerHTML = '<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="context-stroke"/></marker></defs>';
+  // outer ring: named blocks
+  const step = (Math.PI * 2) / order.length;
+  const lit = new Set(); if (curBlock) { blockDeps(curBlock).forEach(s => lit.add(s)); blockUsers(curBlock).forEach(s => lit.add(s)); }
+  const famBlocks = new Set(); if (rec) for (const u of [...(rec.uses || []), ...(rec.used_by || [])]) { const g = U.famToGroup.get(u.family); if (g) famBlocks.add(g); }
+  order.forEach((b, i) => {
+    const a = i * step + step / 2; angle.set(b.symbol, a); const [x, y] = pt(RB, a); const on = b.symbol === curBlock, l = lit.has(b.symbol) || famBlocks.has(b.symbol);
+    const c = sv('circle', { cx: x, cy: y, r: on ? 9 : l ? 6 : 3.2, fill: catColour(b.category), class: 'b', opacity: curBlock && !on && !l ? .35 : 1, stroke: on ? '#00e5ff' : famBlocks.has(b.symbol) ? '#39d353' : 'none', 'stroke-width': 2 });
+    c.append(sv('title', {})); c.firstChild.textContent = `${blockLabel(b.symbol)} · ${blockFamilies(b.symbol).length} families`; c.addEventListener('click', () => openBlock(b.symbol)); S.append(c);
+    if (on || l || order.length < 90) { const [tx, ty] = pt(RB + 16, a); const t = sv('text', { x: tx, y: ty, class: 'lbl', 'text-anchor': 'middle', 'dominant-baseline': 'middle', style: on ? 'fill:#00e5ff;font-size:11px' : '' }); t.textContent = b.symbol; S.append(t); }
+  });
+  // arrows across the circle for the current block
+  if (curBlock && angle.has(curBlock)) {
+    const [x0, y0] = pt(RB - 8, angle.get(curBlock));
+    for (const [list, col, rev] of [[blockDeps(curBlock), REL['depends on'], false], [blockUsers(curBlock), REL['used by'], true]]) for (const s of list) { if (!angle.has(s)) continue; const [x1, y1] = pt(RB - 8, angle.get(s)); S.append(sv('path', { class: 'ar', stroke: col, d: rev ? `M${x1},${y1}Q0,0 ${x0},${y0}` : `M${x0},${y0}Q0,0 ${x1},${y1}`, 'marker-end': 'url(#m)' })); }
+  }
+  // inner ring: families of the current block (or group)
+  famAngle.clear();
+  if (curBlock) {
+    const fams = blockFamilies(curBlock).slice(0, 150); const fs = (Math.PI * 2) / Math.max(fams.length, 1);
+    const nb = new Set(rec ? [...(rec.uses || []), ...(rec.used_by || [])].map(u => u.family) : []);
+    fams.forEach((n, i) => { const a = i * fs + fs / 2; famAngle.set(n, a); const [x, y] = pt(RF, a); const on = n === curFam, l = nb.has(n);
+      const c = sv('rect', { x: x - (on ? 6 : 3), y: y - (on ? 6 : 3), width: on ? 12 : 6, height: on ? 12 : 6, fill: on ? '#00e5ff' : l ? REL.uses : REL.contains, class: 'f', opacity: curFam && !on && !l ? .4 : 1 });
+      c.append(sv('title', {})); c.firstChild.textContent = `family #${n}`; c.addEventListener('click', () => openFam(n)); S.append(c); });
+    if (angle.has(curBlock)) { const [bx, by] = pt(RB - 10, angle.get(curBlock)); const [ix, iy] = pt(RF + 12, angle.get(curBlock)); S.append(sv('path', { class: 'ar', stroke: REL.contains, d: `M${bx},${by}L${ix},${iy}`, 'marker-end': 'url(#m)' })); }
+    if (rec) for (const u of [...(rec.uses || []).map(x => ({ ...x, d: 'uses' })), ...(rec.used_by || []).map(x => ({ ...x, d: 'used by' }))]) {
+      if (!famAngle.has(u.family) || !famAngle.has(curFam)) continue; const [x0, y0] = pt(RF - 8, famAngle.get(curFam)), [x1, y1] = pt(RF - 8, famAngle.get(u.family));
+      S.append(sv('path', { class: 'ar', stroke: REL[u.d], d: u.d === 'uses' ? `M${x0},${y0}Q0,0 ${x1},${y1}` : `M${x1},${y1}Q0,0 ${x0},${y0}`, 'marker-end': 'url(#m)' }));
+    }
+  }
+  // the core
+  S.append(sv('circle', { r: 110, fill: '#0f1218', stroke: '#2a3140' }));
+  const t1 = sv('text', { y: -10, class: 'big', 'text-anchor': 'middle' }); t1.textContent = rec ? `#${curFam} ${famName(rec)}`.slice(0, 26) : curBlock ? curBlock : 'GLOBALGRID2050'; S.append(t1);
+  const t2 = sv('text', { y: 12, class: 'lbl', 'text-anchor': 'middle', style: 'font-size:10px' }); t2.textContent = rec ? `${rec.lines.length} numbered lines · read them on the right` : curBlock ? `${blockFamilies(curBlock).length} families · inner ring` : `${order.length} blocks round the ring`; S.append(t2);
+  // the journey so far, as a dashed line through the visited points
+  const pts = path.map(p => p.kind === 'block' && angle.has(p.id) ? pt(RB, angle.get(p.id)) : p.kind === 'family' && famAngle.has(p.id) ? pt(RF, famAngle.get(p.id)) : null).filter(Boolean);
+  if (pts.length > 1) S.append(sv('path', { class: 'journey', d: 'M' + pts.map(p => p.join(',')).join('L') }));
+}
+function openBlock(sym) {
+  if (!U.bySym.has(sym)) { // an unnamed group: not on the ring, still openable as the inner ring
+    curBlock = sym; curFam = null; rec = null; path.push({ kind: 'block', id: sym }); trailPush('block', sym, blockLabel(sym)); draw(); return;
+  }
+  curBlock = sym; curFam = null; rec = null; path.push({ kind: 'block', id: sym }); trailPush('block', sym, blockLabel(sym)); draw();
+  const b = U.bySym.get(sym); P.hidden = false; P.innerHTML = '';
+  P.append(el('div', { class: 'u-h' }, blockLabel(sym)), el('div', { class: 'u-muted' }, `${b.description || ''} ${blockFamilies(sym).length} families on the inner ring (first 150).`),
+    el('div', { class: 'u-links' }, el('a', { class: 'u-chip', href: `${STARS}table.html?block=${sym}`, target: '_blank', rel: 'noopener' }, 'Block page ↗'), ...((b.live || []).slice(-1).map(u => el('a', { class: 'u-chip live', href: u, target: '_blank', rel: 'noopener' }, 'Live file ↗')))));
+}
+async function openFam(n) {
+  const g = U.famToGroup.get(n); if (g && g !== curBlock) { curBlock = g; path.push({ kind: 'block', id: g }); }
+  curFam = n; P.hidden = false; path.push({ kind: 'family', id: n });
+  rec = await showFamilyPanel(n, P, openFam, openBlock) || null; draw();
+}
+window.goHome = () => { curBlock = curFam = null; rec = null; path = []; P.hidden = true; draw(); };
+window.goTo = (k, id) => k === 'block' ? openBlock(id) : k === 'family' ? openFam(id) : goHome();
+loadUniverse().then(() => {
+  for (const c of U.cats) for (const b of U.blocks.filter(x => x.category === c.id)) order.push(b);
+  $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFam); renderTrail(); draw(); openAddress(); footer('v08-ring-journey');
+}).catch(e => fail('#count', e));
+</script>

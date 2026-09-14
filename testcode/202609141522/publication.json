@@ -1,0 +1,88 @@
+{
+  "generation": "202609141522",
+  "lane": "claude-alienware (final publisher)",
+  "name": "GLOBALGRID2050 Spider universe, generation 2: paging past every cutoff, address-bar deep links with browser Back, every block membership shown, 'not yet known' where data is missing",
+  "builtUTC": "2026-09-14T15:22:01Z",
+  "data_source": {
+    "repository": "Ventusltd/stars",
+    "commit_at_build": "2dfbaa7a8513473488d3b34db5c7ad45a6cbe8a8",
+    "served": "https://ventusltd.github.io/stars/ (blocks/, code/) and raw.githubusercontent.com"
+  },
+  "status": "candidate awaiting browser and served-byte checks",
+  "read_only": true,
+  "files": [
+    {
+      "path": "SPEC.md",
+      "bytes": 5265,
+      "sha256": "38ccbbb4291c4108f460639891bf7f24488cff66447ace88bafb0e34232fb8d4"
+    },
+    {
+      "path": "core.js",
+      "bytes": 13654,
+      "sha256": "6c524b7275ae46c8cfdfa579afafa50852221e2a6db6085ad50105417a7c3318"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3458,
+      "sha256": "6c7f1dbabb07e0511dce98ffec3296b133c49ba5d097f4b282de477f7869f247"
+    },
+    {
+      "path": "v01-spider-drill/index.html",
+      "bytes": 5679,
+      "sha256": "e25e7b8db7ba5b18d8136c8c42b74768a78bf940b80d55aee6fc9dbce3567484"
+    },
+    {
+      "path": "v02-radial-sunburst/index.html",
+      "bytes": 6545,
+      "sha256": "35b4823ca4530426b0c4193cdf85f903672679a75dc798d08ef4c5a6c98025cb"
+    },
+    {
+      "path": "v03-particle-universe/index.html",
+      "bytes": 6971,
+      "sha256": "ae2738155bf8a97d624284d42534789c8c4a5dc578a63815b566c8b58ecf972e"
+    },
+    {
+      "path": "v04-periodic-arrows/index.html",
+      "bytes": 5767,
+      "sha256": "a881fccd04e1d34166c434ed345735fdeac3aef0d20bcabb569f06d70a55ea46"
+    },
+    {
+      "path": "v05-chord-dependencies/index.html",
+      "bytes": 4743,
+      "sha256": "544ee47606aa54a508a6c53c114e72c1372ada104c5ff21bcd3e89b5585834a7"
+    },
+    {
+      "path": "v06-treemap-lines/index.html",
+      "bytes": 4966,
+      "sha256": "0a94bd84dc3def7c27cc8a6d8d18fd21b2b6d3e8fc1c33a91a2e068cc934fcf7"
+    },
+    {
+      "path": "v07-flow-repos/index.html",
+      "bytes": 5997,
+      "sha256": "d298c500af48ab6cecbc15a75c16c3adfbac41901eb25b62db39074be3d69526"
+    },
+    {
+      "path": "v08-ring-journey/index.html",
+      "bytes": 8361,
+      "sha256": "32cfd774a5f436d1cace70d5b0a0f6569fd490fa5873d9e5e6180b04e26a906c"
+    },
+    {
+      "path": "v09-line-river/index.html",
+      "bytes": 6581,
+      "sha256": "b6244ea15d412a3f8ed291f7cad50bd4fc3ad42fb45d9d0f7980c2d9ac095bee"
+    },
+    {
+      "path": "v10-ide-search/index.html",
+      "bytes": 6312,
+      "sha256": "a62159fcc841431c1d8ac5d233bcf118d192f9b0c1c456a81b2f7c3e309f0d79"
+    }
+  ],
+  "supersedes": "202609141350",
+  "changes_from_202609141350": [
+    "lists page instead of stopping at 40/150/200 (Codex review 14:03 UTC)",
+    "#family=N and #block=Sym addresses; browser Back walks the journey",
+    "a family shows every group it belongs to (Codex review 14:21 UTC)",
+    "missing names and sources read 'not yet known' (spiders Maya doctrine)",
+    "counts read from the live data; no number is typed into a page"
+  ]
+}

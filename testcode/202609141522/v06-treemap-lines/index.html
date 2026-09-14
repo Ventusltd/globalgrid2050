@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · v06 treemap</title>
+<script>window.BUILT='2026-09-14 15:22'</script>
+<script src="../core.js"></script>
+<style>
+#map{position:relative;width:100%;height:min(68vh,680px);border:1px solid #1f2633;border-radius:8px;overflow:hidden}
+.cell{position:absolute;box-sizing:border-box;border:1px solid #0b0d12;overflow:hidden;cursor:pointer;padding:3px;font-size:11px;color:#0b0d12}
+.cell:hover{filter:brightness(1.25)} .cell b{display:block}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div class="u-muted" id="how">Area = function families. Tap a category, then a block; inside a block, area = numbered lines per family.</div>
+<div id="map"></div><div class="u-panel" id="panel" hidden></div>
+<script>
+const M = $('#map'), P = $('#panel');
+/* squarified treemap */
+function squarify(items, x, y, w, h) {
+  const out = []; items = items.filter(i => i.w > 0).sort((a, b) => b.w - a.w); const total = items.reduce((s, i) => s + i.w, 0) || 1;
+  let rest = items.map(i => ({ ...i, a: (i.w / total) * w * h }));
+  while (rest.length) {
+    const short = Math.min(w, h); let row = [], worst = Infinity;
+    for (const it of rest) { const r = [...row, it]; const s = r.reduce((q, z) => q + z.a, 0); const wr = Math.max(...r.map(z => Math.max((short * short * z.a) / (s * s), (s * s) / (short * short * z.a)))); if (wr > worst && row.length) break; row = r; worst = wr; }
+    const s = row.reduce((q, z) => q + z.a, 0); const thick = s / short; let off = 0;
+    for (const z of row) { const len = z.a / thick; out.push(w >= h ? { ...z, x, y: y + off, w: thick, h: len } : { ...z, x: x + off, y, w: len, h: thick }); off += len; }
+    if (w >= h) { x += thick; w -= thick; } else { y += thick; h -= thick; }
+    rest = rest.slice(row.length);
+  }
+  return out;
+}
+function render(items, onClick) {
+  M.innerHTML = ''; const W = M.clientWidth, H = M.clientHeight;
+  for (const c of squarify(items.slice(0, 380), 0, 0, W, H)) M.append(el('div', { class: 'cell', style: `left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.colour}`, title: `${c.label} · ${c.sub}`, on: { click: () => onClick(c) } }, c.w > 40 && c.h > 18 ? el('b', {}, c.label) : null, c.w > 60 && c.h > 32 ? c.sub : null));
+}
+window.goHome = function () {
+  $('#how').textContent = 'Area = function families. Tap a category.';
+  const items = U.cats.map(c => ({ id: c.id, label: c.title, colour: c.colour, w: U.blocks.filter(b => b.category === c.id).reduce((s, b) => s + blockFamilies(b.symbol).length, 0), sub: `${U.blocks.filter(b => b.category === c.id).length} blocks` }));
+  items.push({ id: '_unnamed', label: 'Not yet named', colour: '#566079', w: U.unnamed.reduce((s, g) => s + blockFamilies(g).length, 0), sub: `${U.unnamed.length} groups` });
+  items.forEach(i => i.sub += ` · ${i.w} families`);
+  render(items, c => { trailPush('cat', c.id, c.label); showCat(c.id); }); P.hidden = true;
+};
+window.goTo = (k, id) => k === 'cat' ? showCat(id) : k === 'block' ? showBlock(id) : openFamily(id);
+function showCat(id) {
+  $('#how').textContent = 'Area = function families per block. Tap a block.';
+  const list = id === '_unnamed' ? U.unnamed.map(g => ({ symbol: g })) : U.blocks.filter(b => b.category === id);
+  render(list.map(b => ({ id: b.symbol, label: b.symbol, colour: catColour(id), w: Math.max(1, blockFamilies(b.symbol).length), sub: `${blockLabel(b.symbol)} · ${blockFamilies(b.symbol).length} families` })), c => showBlock(c.id));
+}
+async function showBlock(sym) {
+  trailPush('block', sym, blockLabel(sym));
+  const fams = blockFamilies(sym).slice(0, 120); const col = catColour((U.bySym.get(sym) || {}).category);
+  $('#how').textContent = `Loading ${fams.length} family records to size them by numbered lines…`;
+  const recs = await Promise.all(fams.map(n => family(n).then(r => ({ n, r })).catch(() => ({ n, r: null }))));
+  $('#how').textContent = `${blockLabel(sym)}: area = numbered lines per family (${fams.length} of ${blockFamilies(sym).length} shown). Tap one to read it.`;
+  render(recs.map(({ n, r }) => ({ id: n, label: `#${n} ${famName(r)}`, colour: col, w: r ? r.lines.length : 1, sub: r ? `${r.lines.length} lines` : 'record missing' })), c => openFamily(c.id));
+}
+async function openFamily(n) { P.hidden = false; await showFamilyPanel(n, P, openFamily, showBlock); P.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+addEventListener('resize', () => { const last = U.trail[U.trail.length - 1]; last ? goTo(last.kind, last.id) : goHome(); });
+loadUniverse().then(() => { $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); goHome(); openAddress(); footer('v06-treemap-lines'); }).catch(e => fail('#count', e));
+</script>

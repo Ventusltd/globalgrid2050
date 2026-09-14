@@ -1,0 +1,24 @@
+{
+  "snapshot": "homepage_v109.html",
+  "date_utc": "2026-09-14T12:30:11.932642+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "3d0c1548b3fc0e32e18cb6d5b903261a33b0807a",
+  "source_blob_sha": "c7ad684bb852500d0a0427a78df5369690ffefc3",
+  "folder_file_count_before": 176,
+  "folder_entry_count_before": 176,
+  "line_count": 197,
+  "word_count": 1681,
+  "character_count": 15240,
+  "byte_count": 15264,
+  "sha256": "9f286fad4e6ca481775438d3ad26d8671e74095bbcec831d2440cf74bd4aa908",
+  "change_intention": "In the Relational mapping nest, the notes that said \"the estate\" now say \"globalgrid2050 architecture development\". Names, links and everything else unchanged.",
+  "measurement_method": "Local Python measurement of the working-copy bytes at HEAD, verified against git rev-parse HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "Only note wording changed",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

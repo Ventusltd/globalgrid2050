@@ -1,0 +1,784 @@
+{
+ "url": "http://127.0.0.1:8877/testcode/202609142202/index.html",
+ "puppeteer": "25.10.0",
+ "desktop": {
+  "hud0": [
+   "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+   "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+   "state: superposition · θ=70.5° φ=258.0° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "Born audit: no measurement yet",
+   "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+   "prepared (data state)",
+   "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges",
+   "join: family joined by name only: one family named \"Number\", showing family #6076",
+   "default focus: soul #2039 Number (electron/graph.json focus_default)"
+  ],
+  "count": "210 named blocks · 10,985 function families · 664,940 line entries in 160 buckets · 128,369 distinct numbered lines · index.json states 250,174 unique numbered lines",
+  "externalRequestsDuringLoad": [],
+  "gpu": {
+   "seaBytes": 7979280,
+   "seaDrawn": 664940,
+   "stride": 1,
+   "drawCalls": 10,
+   "DPR": 1
+  },
+  "elec_2039": {
+   "atom": {
+    "n": 2039,
+    "name": "Number",
+    "shells": {
+     "K": 0,
+     "L": 40,
+     "M": 20
+    }
+   },
+   "buffer": {
+    "a_i_loc": 0,
+    "a_shell_loc": 1,
+    "a_shell_value_histogram": {
+     "0": 512
+    },
+    "u_counts_KLM": [
+     0,
+     40,
+     20
+    ],
+    "u_stride": 1,
+    "draw": {
+     "mode": 0,
+     "first": 0,
+     "count": 512
+    }
+   },
+   "annuli": {
+    "sphereR_px": 90,
+    "K_0p50_0p60": {
+     "bright": 94,
+     "pixels": 2804
+    },
+    "L_0p80_0p90": {
+     "bright": 110,
+     "pixels": 4328
+    },
+    "M_1p20_1p30": {
+     "bright": 21,
+     "pixels": 6386
+    }
+   }
+  },
+  "elec_next": {
+   "atom": {
+    "n": 6554,
+    "name": "centre",
+    "shells": {
+     "K": 0,
+     "L": 0,
+     "M": 60
+    }
+   },
+   "buffer": {
+    "a_i_loc": 0,
+    "a_shell_loc": 1,
+    "a_shell_value_histogram": {
+     "0": 512
+    },
+    "u_counts_KLM": [
+     0,
+     0,
+     60
+    ],
+    "u_stride": 1,
+    "draw": {
+     "mode": 0,
+     "first": 0,
+     "count": 512
+    }
+   },
+   "annuli": {
+    "sphereR_px": 90,
+    "K_0p50_0p60": {
+     "bright": 85,
+     "pixels": 2804
+    },
+    "L_0p80_0p90": {
+     "bright": 118,
+     "pixels": 4328
+    },
+    "M_1p20_1p30": {
+     "bright": 19,
+     "pixels": 6386
+    }
+   }
+  },
+  "idle": {
+   "seconds": 14,
+   "frames_sampled": 600,
+   "raf_gap_ms": {
+    "mean": 16.65,
+    "p95": 16.8,
+    "max": 17.7
+   },
+   "taskDuration_s": 0.207,
+   "scriptDuration_s": 0.057,
+   "cpu_ms_per_frame_est": 0.25,
+   "heap_before": 6044324,
+   "heap_after": 6079732,
+   "nodes_before": 1539,
+   "nodes_after": 1539,
+   "listeners_before": 33,
+   "listeners_after": 33
+  },
+  "afterMeasure": {
+   "born": "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 · seed 3699843969 = hash(\"2026-09-14\", 2039, 0)",
+   "twin": "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553 · twin drew from q · Si(202609040219) q=0.687 r=0.734",
+   "cable": "cable: cable fetch failed: Failed to fetch",
+   "state": "state: collapsed |0> HOME · θ=70.5° φ=229.5° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")"
+  },
+  "externalRequestsAfterOneMeasurement": [
+   "https://ventusltd.github.io/stars/code/f/12.json"
+  ],
+  "externalRequestsAfter25More": 25,
+  "externalHosts": [
+   "ventusltd.github.io"
+  ],
+  "histogram": "histogram #2039: HOME 20/26=0.769 vs cos²(θ/2)=0.667 · TUNNEL 6/26=0.231 vs sin²=0.333",
+  "measure300": {
+   "heap_before": 6212464,
+   "heap_after": 6294952,
+   "nodes_before": 1595,
+   "nodes_after": 2195,
+   "listeners_before": 59,
+   "listeners_after": 359,
+   "measurements": 326,
+   "recordChips": 326,
+   "extRequestsTotal": 326
+  },
+  "handMeasure": {
+   "state": "state: collapsed |1> TUNNEL · θ=70.5° φ=229.5° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "born": "Born audit: measured #2039 Number: TUNNEL · r=0.692 < sin²(θ/2)=0.928 · seed 555948712 = hash(\"2026-09-14\", 2039, 326) · prepared by hand",
+   "S": {
+    "theta": 1.2309594173407745,
+    "dataTheta": 1.2309594173407745,
+    "hand": null,
+    "outcome": 1
+   }
+  },
+  "resizeAfterCollapse": {
+   "before": {
+    "outcome": 1,
+    "chosen": "Si(202609040219)",
+    "tetherDissolved": false
+   },
+   "after": {
+    "outcome": 1,
+    "chosen": null,
+    "collapseT": 1,
+    "twinNote": "twin drew from q · Si(202609040219) q=0.687 r=0.897"
+   }
+  },
+  "soul": {
+   "atom": {
+    "n": 766,
+    "name": "geometry",
+    "shells": {
+     "K": 0,
+     "L": 0,
+     "M": 9
+    },
+    "valence_repos": [
+     "globalgrid2050",
+     "solar-electrical-topology-analysis-engine-text-based",
+     "testcode",
+     "ventus-grid-engine",
+     "youengineer-code-review"
+    ]
+   },
+   "tierBefore": "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo testcode q=0.200 · repo ventus-grid-engine q=0.200 · repo youengineer-code-review q=0.200 · re-prepared: cloud re-expanded, shells restored",
+   "runs": [
+    {
+     "born": "Born audit: measured #766 geometry: TUNNEL · r=0.931 < sin²(",
+     "twin": "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo testcode q=0.200 · repo ventus-grid-engine q=0.200 · repo youengineer-code-review q=0.200 · twin fixed by SOUL entanglement: tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js",
+     "litRepo": "globalgrid2050",
+     "chosen": {
+      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "repo": "data-federation-map-for-globalgrid2050-all-repos",
+      "kind": "SOUL",
+      "q": 1
+     }
+    },
+    {
+     "born": "Born audit: measured #766 geometry: TUNNEL · r=0.854 < sin²(",
+     "twin": "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo testcode q=0.200 · repo ventus-grid-engine q=0.200 · repo youengineer-code-review q=0.200 · twin fixed by SOUL entanglement: tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js",
+     "litRepo": "testcode",
+     "chosen": {
+      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "repo": "data-federation-map-for-globalgrid2050-all-repos",
+      "kind": "SOUL",
+      "q": 1
+     }
+    },
+    {
+     "born": "Born audit: measured #766 geometry: TUNNEL · r=0.427 < sin²(",
+     "twin": "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo testcode q=0.200 · repo ventus-grid-engine q=0.200 · repo youengineer-code-review q=0.200 · twin fixed by SOUL entanglement: tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js",
+     "litRepo": "ventus-grid-engine",
+     "chosen": {
+      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "repo": "data-federation-map-for-globalgrid2050-all-repos",
+      "kind": "SOUL",
+      "q": 1
+     }
+    },
+    {
+     "born": "Born audit: measured #766 geometry: TUNNEL · r=0.941 < sin²(",
+     "twin": "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo testcode q=0.200 · repo ventus-grid-engine q=0.200 · repo youengineer-code-review q=0.200 · twin fixed by SOUL entanglement: tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js",
+     "litRepo": "testcode",
+     "chosen": {
+      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "repo": "data-federation-map-for-globalgrid2050-all-repos",
+      "kind": "SOUL",
+      "q": 1
+     }
+    },
+    {
+     "born": "Born audit: measured #766 geometry: TUNNEL · r=0.523 < sin²(",
+     "twin": "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo testcode q=0.200 · repo ventus-grid-engine q=0.200 · repo youengineer-code-review q=0.200 · twin fixed by SOUL entanglement: tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js",
+     "litRepo": "testcode",
+     "chosen": {
+      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "repo": "data-federation-map-for-globalgrid2050-all-repos",
+      "kind": "SOUL",
+      "q": 1
+     }
+    },
+    {
+     "born": "Born audit: measured #766 geometry: TUNNEL · r=0.953 < sin²(",
+     "twin": "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo testcode q=0.200 · repo ventus-grid-engine q=0.200 · repo youengineer-code-review q=0.200 · twin fixed by SOUL entanglement: tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js",
+     "litRepo": "youengineer-code-review",
+     "chosen": {
+      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "repo": "data-federation-map-for-globalgrid2050-all-repos",
+      "kind": "SOUL",
+      "q": 1
+     }
+    }
+   ]
+  },
+  "twinPick": {
+   "point": {
+    "x": 1282.9136042017885,
+    "y": 499.3628215516983,
+    "famIdx": 766
+   },
+   "msg": "tap hit no entry"
+  },
+  "errors": [
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED",
+   "error: Failed to load resource: net::ERR_FAILED"
+  ]
+ },
+ "mobile": {
+  "hud": [
+   "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "fps 60 (1 s mean) · draw calls 10 · DPR 2",
+   "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+   "state: superposition · θ=70.5° φ=246.0° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "Born audit: no measurement yet",
+   "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+   "prepared (data state)",
+   "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges",
+   "join: family joined by name only: one family named \"Number\", showing family #6076",
+   "default focus: soul #2039 Number (electron/graph.json focus_default)",
+   "▸ tap to expand"
+  ],
+  "count": "210 named blocks · 10,985 function families · 664,940 line entries in 160 buckets · 128,369 distinct numbered lines · index.json states 250,174 unique numbered lines",
+  "scrollWidth": 430,
+  "gpu": {
+   "seaBytes": 7979280,
+   "seaDrawn": 664940,
+   "stride": 1,
+   "drawCalls": 10,
+   "DPR": 2,
+   "canvas": [
+    816,
+    1720
+   ],
+   "phoneMode": ""
+  },
+  "layout": {
+   "stage": {
+    "l": 10,
+    "t": 358,
+    "w": 410,
+    "h": 862
+   },
+   "hud": {
+    "l": 19,
+    "t": 367,
+    "w": 392,
+    "h": 132
+   },
+   "hudCollapsed": true,
+   "sphereHandle": {
+    "l": 155,
+    "t": 514,
+    "w": 120,
+    "h": 120
+   },
+   "c0_css": [
+    204,
+    215
+   ],
+   "c1_css": [
+    204,
+    645
+   ],
+   "R_css": 156.36363636363637,
+   "sphereR_css": 60,
+   "labels": [
+    {
+     "text": "|0> HOME",
+     "l": 191,
+     "r": 239,
+     "t": 493,
+     "w": 48
+    },
+    {
+     "text": "|1> TUNNEL",
+     "l": 185,
+     "r": 245,
+     "t": 637,
+     "w": 60
+    },
+    {
+     "text": "#2039 Number · def · 7 lines · homes glo",
+     "l": 56,
+     "r": 374,
+     "t": 462,
+     "w": 318
+    },
+    {
+     "text": "K same dir",
+     "l": 218,
+     "r": 278,
+     "t": 571,
+     "w": 60
+    },
+    {
+     "text": "L same repo",
+     "l": 255,
+     "r": 321,
+     "t": 557,
+     "w": 67
+    },
+    {
+     "text": "M other repos (valence)",
+     "l": 40,
+     "r": 180,
+     "t": 555,
+     "w": 139
+    },
+    {
+     "text": "class conductor (7 in ELECTRON.md)",
+     "l": 192,
+     "r": 408,
+     "t": 479,
+     "w": 216
+    },
+    {
+     "text": "unpaired and bonded across repos: no tes",
+     "l": 29,
+     "r": 401,
+     "t": 675,
+     "w": 373
+    },
+    {
+     "text": "twin star: the antipode. For the singlet",
+     "l": 113,
+     "r": 317,
+     "t": 1152,
+     "w": 204
+    },
+    {
+     "text": "the dashes drift, nothing rides them",
+     "l": 106,
+     "r": 324,
+     "t": 794,
+     "w": 218
+    },
+    {
+     "text": "off table (587 symbols, 1,689 families):",
+     "l": 113,
+     "r": 317,
+     "t": 367,
+     "w": 204
+    }
+   ]
+  },
+  "fpsLine": "fps 60 (1 s mean) · draw calls 10 · DPR 2",
+  "fpsLine0": "fps 60 (1 s mean) · draw calls 10 · DPR 2",
+  "touch": {
+   "tapSphere": {
+    "born": "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 · seed 3699843969 = hash(\"2026-09-14\", 2039, 0)"
+   },
+   "swipe": {
+    "msg": "conduction band 2/76: #6554 centre (conductor)",
+    "bandPos": 1
+   }
+  },
+  "hudAfter": [
+   "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "fps 60 (1 s mean) · draw calls 11 · DPR 2",
+   "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+   "state: pure |1> · θ=180.0° φ=0.0° · P(home)=0.000 P(tunnel)=1.000 · |α|²+|β|²=1.000 · K0 L0 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+   "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 · seed 3699843969 = hash(\"2026-09-14\", 2039, 0)",
+   "twin tier: SOUL entanglement (40 listed of 69 stated) · repo globalgrid2050 q=0.200 · repo gridatlas q=0.200 · repo solar-electrical-topology-analysis-engine-text-based q=0.200 · repo spiders q=0.200 · repo testcode q=0.200 · twin drew from q · Si(202609040219) q=0.687 r=0.734",
+   "prepared (data state)",
+   "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges",
+   "join: family joined by name only: 2 families named \"centre\", showing family #75703 (first by key)",
+   "cable: cable fetch failed: Failed to fetch",
+   "conduction band 2/76: #6554 centre (conductor)",
+   "▸ tap to expand"
+  ],
+  "externalHosts": [
+   "ventusltd.github.io"
+  ],
+  "errors": [
+   "error: Failed to load resource: net::ERR_FAILED"
+  ]
+ }
+}

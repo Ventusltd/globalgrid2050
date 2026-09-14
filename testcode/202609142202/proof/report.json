@@ -1,0 +1,102 @@
+{
+ "url": "http://127.0.0.1:8862/testcode/202609142202/index.html",
+ "runs": [
+  {
+   "name": "build-1440",
+   "width": 1440,
+   "height": 1000,
+   "loadMs": 5771,
+   "scrollWidth": 1440,
+   "bodyScrollWidth": 1440,
+   "hud": [
+    "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+    "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+    "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+    "state: superposition · θ=70.5° φ=248.7° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+    "Born audit: no measurement yet",
+    "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+    "prepared (data state)",
+    "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges",
+    "join: family joined by name only: one family named \"Number\", showing family #6076",
+    "default focus: soul #2039 Number (electron/graph.json focus_default)"
+   ],
+   "count": "210 named blocks · 10,985 function families · 664,940 line entries in 160 buckets · 128,369 distinct numbered lines · index.json states 250,174 unique numbered lines",
+   "fail": [],
+   "labels": 11,
+   "prove": "prove it: VBO 7,979,280 bytes (664,940 entries × 12) · drawArraysInstanced(POINTS, 0, 664,940, 2) each frame · CPU sum of keys 46,838,599,001 · sha256(lines.bin in memory) 5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a · provenance sha256 5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a (match)",
+   "searchSteer": [
+    "family #80299 haversine · block Gc · 6 entries · search steers, it does not measure: Enter again or tap to collapse"
+   ],
+   "steerName": [
+    "state: superposition · θ=70.5° φ=9.4° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+    "join: atom joined by name only (soul numbers and family keys are different numberings)",
+    "1 family named \"Number\" · showing #6076 · search steers, it does not measure: Enter again or tap to collapse"
+   ],
+   "afterMeasure": [
+    "state: collapsed |0> HOME · θ=70.5° φ=11.7° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+    "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 · seed 3699843969 = hash(\"2026-09-14\", 2039, 0)",
+    "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553 · twin drew from q · Si(202609040219) q=0.687 r=0.734",
+    "re-prepare in 5.6 s",
+    "join: atom joined by name only (soul numbers and family keys are different numberings)",
+    "cable: live bucket 12: #6076 Number · 5 lines · 1 repos · came down the cable: 189 ms · collapse was instant; the data came down the cable"
+   ],
+   "record": "1 #2039 Number HOME",
+   "stateDotAfterCollapse": {
+    "outcome": 0,
+    "collapseT": 1,
+    "theta": 1.2309594173407745,
+    "litRepo": null,
+    "twinChosen": "Si(202609040219)"
+   },
+   "histogram": "histogram #2039: HOME 20/26=0.769 vs cos²(θ/2)=0.667 · TUNNEL 6/26=0.231 vs sin²=0.333",
+   "journeyVertices": 26,
+   "pickPoint": {
+    "x": 218.2938935457441,
+    "y": 533.4576585714237
+   },
+   "pick": "#48994 · family #6085 split_refs · block x162 (other) · line #48994 appears in 3 families",
+   "band": "conduction band 2/76: #6554 centre (conductor)",
+   "gpuBuffer": {
+    "seaBytes": 7979280,
+    "seaDrawn": 664940,
+    "stride": 1
+   },
+   "fpsAfter": "fps 60 (1 s mean) · draw calls 12 · DPR 1",
+   "lineText": {
+    "note": "came down the cable in 87 ms from Ventusltd/pipelinenews@4980096 tools/intelligence/cartridges/grid-actions-inline/build_payload.py L108-L121 · no information travelled by entanglement",
+    "lines": 14,
+    "first": "150110 │ def centre(geometry):"
+   },
+   "errors": [],
+   "logs": []
+  },
+  {
+   "name": "build-430",
+   "width": 430,
+   "height": 900,
+   "loadMs": 5633,
+   "scrollWidth": 430,
+   "bodyScrollWidth": 430,
+   "hud": [
+    "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+    "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+    "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+    "state: superposition · θ=70.5° φ=244.2° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+    "Born audit: no measurement yet",
+    "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+    "prepared (data state)",
+    "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges",
+    "join: family joined by name only: one family named \"Number\", showing family #6076",
+    "default focus: soul #2039 Number (electron/graph.json focus_default)",
+    "▸ tap to expand"
+   ],
+   "count": "210 named blocks · 10,985 function families · 664,940 line entries in 160 buckets · 128,369 distinct numbered lines · index.json states 250,174 unique numbered lines",
+   "fail": [],
+   "labels": 11,
+   "errors": [],
+   "logs": []
+  }
+ ]
+}

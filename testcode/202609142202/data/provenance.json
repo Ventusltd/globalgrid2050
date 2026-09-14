@@ -1,0 +1,1780 @@
+{
+ "built_utc": "2026-09-14T22:14:00.499Z",
+ "builder": "build_state.mjs",
+ "node": "v24.19.0",
+ "star_maker_commit": "c5bf5f6518feba594bb057988e8e99ca81044952",
+ "stars_base": "https://ventusltd.github.io/stars/",
+ "sources": [
+  {
+   "url": "https://ventusltd.github.io/stars/code/index.json",
+   "bytes": 653,
+   "sha256": "1ef3f70b0c894b46e9c32a5377329858b312491f4ec7fdf4ec5de59092b87132",
+   "fetched_utc": "2026-09-14T22:13:56.373Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/names.json",
+   "bytes": 172319,
+   "sha256": "c04e26bf5657ed43f0e75b736216f5e9086e177d434bdb9f89b16431ac286b89",
+   "fetched_utc": "2026-09-14T22:13:56.561Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/blocks/families.json",
+   "bytes": 67531,
+   "sha256": "bb31785a8736b573bac9f2f40f22eacb56a53df2575447df78de136cd2a7d26c",
+   "fetched_utc": "2026-09-14T22:13:56.621Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/blocks/blocks.json",
+   "bytes": 358019,
+   "sha256": "ad76de34ff729d9ed3a89d966f05ea37186a9dafe7f40952f01d8cded1456f11",
+   "fetched_utc": "2026-09-14T22:13:56.628Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/1.json",
+   "bytes": 370855,
+   "sha256": "89932aea5f94fb136ad448a450f31a831d07b3161d0c08af0a5db03484eea1ce",
+   "fetched_utc": "2026-09-14T22:13:56.683Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/2.json",
+   "bytes": 604444,
+   "sha256": "1904662c7e1d7c6666c55e86e6b3b7e466392101485798ff99eb44115cc52633",
+   "fetched_utc": "2026-09-14T22:13:56.690Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/6.json",
+   "bytes": 363263,
+   "sha256": "4bbf14fc0c2724acf49c279fa48856f156cd3ddea5f4d33eb44427c8ea86e7b4",
+   "fetched_utc": "2026-09-14T22:13:56.756Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/0.json",
+   "bytes": 856307,
+   "sha256": "3e7c4a840be7634b7cef4b2abfd218a3cc074f5eb095812bf6e65e24544dab5d",
+   "fetched_utc": "2026-09-14T22:13:56.789Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/3.json",
+   "bytes": 2225375,
+   "sha256": "55837d57f713160d626b757a8ef6af59abeb9502a793442d326117d5bfc4c161",
+   "fetched_utc": "2026-09-14T22:13:56.809Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/10.json",
+   "bytes": 583558,
+   "sha256": "7ddd700e8309220770206ad9f8b95eceff8b780ee72268fe5fe16a586adb2c71",
+   "fetched_utc": "2026-09-14T22:13:56.818Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/8.json",
+   "bytes": 285048,
+   "sha256": "245f1f3f203bb2494c4704f0e06d8b02dc11cd58e61c6873698d9a794312ef60",
+   "fetched_utc": "2026-09-14T22:13:56.822Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/9.json",
+   "bytes": 234691,
+   "sha256": "dbd3bd8eefe9b4a8b41cd45b26bdfbdf52a57f476a5669f3a92068ef1e72ce57",
+   "fetched_utc": "2026-09-14T22:13:56.844Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/11.json",
+   "bytes": 1250292,
+   "sha256": "87b5d863b6386a2b5916dd95fb1b73b4e742d67ffd3bd76d8deb3100a87f6fac",
+   "fetched_utc": "2026-09-14T22:13:56.846Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/4.json",
+   "bytes": 420746,
+   "sha256": "e4dc98e2ad5e13fb4ebf6ee56779d4deccabdfb817e6e4edfe5d3892b35389dd",
+   "fetched_utc": "2026-09-14T22:13:56.867Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/7.json",
+   "bytes": 76449,
+   "sha256": "6ef572f6f26b45f51e40419ed9e513ff6dbac81c2bacd6998364d66a7f4af72e",
+   "fetched_utc": "2026-09-14T22:13:56.900Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/16.json",
+   "bytes": 2711132,
+   "sha256": "23a5a8540b861f23b94a9618a6e7299be7c49e3cbc39155a6c7aad3bf19c0d10",
+   "fetched_utc": "2026-09-14T22:13:56.924Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/5.json",
+   "bytes": 109317,
+   "sha256": "9883a485587c1a9f881c3ff7da4d43d5795b1b7fea9672fa822810ca7e918c73",
+   "fetched_utc": "2026-09-14T22:13:56.953Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/13.json",
+   "bytes": 309352,
+   "sha256": "71d4e54c2a686e4c790b4548fe906dbc45821ad52402812079786b409e25b1ff",
+   "fetched_utc": "2026-09-14T22:13:56.965Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/14.json",
+   "bytes": 695771,
+   "sha256": "f802ae5b68c819f844fa65156cc5bd825f61d74465a872f9553acf8c57f13b71",
+   "fetched_utc": "2026-09-14T22:13:56.976Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/12.json",
+   "bytes": 327686,
+   "sha256": "723c4d42d58aef4eaa1e628f621098377352ee09c9320765d9030fc2cc1bbc33",
+   "fetched_utc": "2026-09-14T22:13:56.981Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/15.json",
+   "bytes": 2399594,
+   "sha256": "30cc60c277208ace6d1fd1a4ef2e145dad3629e52862d554be73a4c3d6e9cf78",
+   "fetched_utc": "2026-09-14T22:13:57.013Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/19.json",
+   "bytes": 68485,
+   "sha256": "49bd08339d75f2227d76f726011e68ffe59af8d412c947815b34f37da4be95e3",
+   "fetched_utc": "2026-09-14T22:13:57.092Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/20.json",
+   "bytes": 162018,
+   "sha256": "bbc71d0cf09b223cfe7e4e8f8892fc81a55f268639feb508e34d7033ed3743ff",
+   "fetched_utc": "2026-09-14T22:13:57.092Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/21.json",
+   "bytes": 82447,
+   "sha256": "86966d9aceeb9260d161b4cd2f9a6fa7f113ec2a8bbbe5064f54cc92e740343d",
+   "fetched_utc": "2026-09-14T22:13:57.114Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/17.json",
+   "bytes": 4596354,
+   "sha256": "fc8a5d6b326f81a5de1df094169da08f692f8b7430c9a0356096baef91147f5b",
+   "fetched_utc": "2026-09-14T22:13:57.120Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/23.json",
+   "bytes": 48360,
+   "sha256": "200988d413bb38516c307f2db812fccb841460355e225db031fdbad80fd4f4a0",
+   "fetched_utc": "2026-09-14T22:13:57.129Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/22.json",
+   "bytes": 314317,
+   "sha256": "cb4b3fe2cd3f8b1a8170c63f2b1fcd18073ab75385aaf0c0e3c8168338f9aba4",
+   "fetched_utc": "2026-09-14T22:13:57.130Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/18.json",
+   "bytes": 4749442,
+   "sha256": "db283580f1c1c37de094c147f5b11cd04a10960cd97a40afd150ac1d7e0082a6",
+   "fetched_utc": "2026-09-14T22:13:57.141Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/24.json",
+   "bytes": 251808,
+   "sha256": "fc78c0f4c5774b9b2e67ad4a38d1e836ba68f9b1aefc7ac4b61136ab6960d06e",
+   "fetched_utc": "2026-09-14T22:13:57.153Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/26.json",
+   "bytes": 9075,
+   "sha256": "74502c3c12464232650ea4bbf89490d362e3f36fad1a0276dde33a472665716e",
+   "fetched_utc": "2026-09-14T22:13:57.225Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/25.json",
+   "bytes": 458665,
+   "sha256": "411cdadbeda27d74a8450471e71c9d4b97caf4ce3ced27868bffa1af7c56dfe1",
+   "fetched_utc": "2026-09-14T22:13:57.228Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/27.json",
+   "bytes": 2854,
+   "sha256": "bba684106e2c73c34cc4b9f11bd7fc7a5b239cbb0d09c330061ed975ad9f1b6d",
+   "fetched_utc": "2026-09-14T22:13:57.250Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/28.json",
+   "bytes": 4184,
+   "sha256": "2f5d2db0c6ee101624df3b8d2c904fdc29f6ae601eac55a48c174066b2a38445",
+   "fetched_utc": "2026-09-14T22:13:57.250Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/29.json",
+   "bytes": 69420,
+   "sha256": "efed2bf2d793ce377e791eafbb4068c5086fe02d07b0a4da257782b95f0c7d6c",
+   "fetched_utc": "2026-09-14T22:13:57.259Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/30.json",
+   "bytes": 24079,
+   "sha256": "f4d1725acf8a8a2e96c60bcc13681b46a05ad85e284346e2dd9aaff990f1317c",
+   "fetched_utc": "2026-09-14T22:13:57.276Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/32.json",
+   "bytes": 84263,
+   "sha256": "50f20c658164506638b5a3fdd64458576841000657249d921877440bda399193",
+   "fetched_utc": "2026-09-14T22:13:57.294Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/31.json",
+   "bytes": 43377,
+   "sha256": "be35a0a122a8759e7c746b3f013ac0f279d8601febade8ddc238ab922a5b11f8",
+   "fetched_utc": "2026-09-14T22:13:57.308Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/33.json",
+   "bytes": 28812,
+   "sha256": "1a0fdfd0ae920b87ce24466189101905ecac80472b51572ba3f64fd998001202",
+   "fetched_utc": "2026-09-14T22:13:57.359Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/34.json",
+   "bytes": 5788,
+   "sha256": "9bc0145e6a88655eaebbdae679ce3f207f0d26f5382e4c9c998f3107b0922f2a",
+   "fetched_utc": "2026-09-14T22:13:57.378Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/35.json",
+   "bytes": 14670,
+   "sha256": "42bd1c0eea6f8470e868a2f27a5107d3c5eea99f03e39b6436da24bd6bee0b7d",
+   "fetched_utc": "2026-09-14T22:13:57.391Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/37.json",
+   "bytes": 24985,
+   "sha256": "260ffade40b5edb7ab2add9d7130bb7be73ad3e36e2b6032985f42590556eb53",
+   "fetched_utc": "2026-09-14T22:13:57.396Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/36.json",
+   "bytes": 1402,
+   "sha256": "020e25bdf483b8bc37e3346e3f00fe2232f05d684ffd0d516df055d351e7dc31",
+   "fetched_utc": "2026-09-14T22:13:57.398Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/38.json",
+   "bytes": 32357,
+   "sha256": "aa2d4af8a0893966537e945fe21a048be0627b1a07bfd2c5c960d339ff285d71",
+   "fetched_utc": "2026-09-14T22:13:57.414Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/39.json",
+   "bytes": 10175,
+   "sha256": "7f0fe4bc757d606edd232c4134a5b6556108ade06e03364d6947ba1b38de9bf7",
+   "fetched_utc": "2026-09-14T22:13:57.441Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/40.json",
+   "bytes": 20925,
+   "sha256": "8710f065b4934ba2babbeb1b4faf0547889636477c69bac0f32434f6dcf14812",
+   "fetched_utc": "2026-09-14T22:13:57.445Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/41.json",
+   "bytes": 62027,
+   "sha256": "47666ec9d7bf32f8d9058b053c099c85817d94e86062d56efaeed3e2cb7b211b",
+   "fetched_utc": "2026-09-14T22:13:57.503Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/42.json",
+   "bytes": 1402,
+   "sha256": "b323466521fa90ebeb9ec47de584cc31588094e6753b19fe35e83a7ace8c4dcd",
+   "fetched_utc": "2026-09-14T22:13:57.525Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/43.json",
+   "bytes": 9237,
+   "sha256": "f5fb192646afa6e9acb382ae6ba512bd65b664d9602bf8eef5c07e27c0f6a5ff",
+   "fetched_utc": "2026-09-14T22:13:57.531Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/44.json",
+   "bytes": 21569,
+   "sha256": "0acf1aabce61d3e1270c6b00de38f4a54a35ae7b24a5defddd82b0793d0cb2d4",
+   "fetched_utc": "2026-09-14T22:13:57.539Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/45.json",
+   "bytes": 28101,
+   "sha256": "c013a5e4bac4bd418e7c94430a6c493e503bd405603ea660821fec49ccbc8b26",
+   "fetched_utc": "2026-09-14T22:13:57.542Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/46.json",
+   "bytes": 192405,
+   "sha256": "e7c24d02aef9786df5023899401ff3516f56d11625169d1146467fc55a68c465",
+   "fetched_utc": "2026-09-14T22:13:57.576Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/47.json",
+   "bytes": 236787,
+   "sha256": "36dd23bb16016a7ea0f8f0e35837549064a217204e8f5a46c58481c04b13c379",
+   "fetched_utc": "2026-09-14T22:13:57.583Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/48.json",
+   "bytes": 112406,
+   "sha256": "7b64886ac57ec202d6f708fdd450f47712b703c96e89f679cd45f6c58f48ee25",
+   "fetched_utc": "2026-09-14T22:13:57.588Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/49.json",
+   "bytes": 40733,
+   "sha256": "a5cb066dfd232910ed23f09c48d3ca459cd809005f00f4a7496cb9557b8480f3",
+   "fetched_utc": "2026-09-14T22:13:57.649Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/50.json",
+   "bytes": 70347,
+   "sha256": "4aa07f549cf61bdb416680701310cb8ef6a3d64bb2cef5d856701c286a79843a",
+   "fetched_utc": "2026-09-14T22:13:57.669Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/51.json",
+   "bytes": 76794,
+   "sha256": "8c3e97d2438a1d313e573e83e02e5995e235b5c03df474fa140109bbae1e2617",
+   "fetched_utc": "2026-09-14T22:13:57.675Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/53.json",
+   "bytes": 57738,
+   "sha256": "9dd20d2c0f279ca5c743179447971fea71ab04e8c31a49e11dbb033f0dbda93f",
+   "fetched_utc": "2026-09-14T22:13:57.677Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/52.json",
+   "bytes": 28068,
+   "sha256": "09d7567957f61a2ae2d7ee5cb7fe006c3db7884c076745e99a33c301d07773a9",
+   "fetched_utc": "2026-09-14T22:13:57.683Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/56.json",
+   "bytes": 69518,
+   "sha256": "7dc2d131c15430bb0afc7d0de81d3f4a644d2f71232c3db467ea00732db06c8c",
+   "fetched_utc": "2026-09-14T22:13:57.729Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/55.json",
+   "bytes": 33426,
+   "sha256": "37907f414d41fc7e1666637895c7b1e3c883fede60aded94c6b84de3cfa5d741",
+   "fetched_utc": "2026-09-14T22:13:57.730Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/54.json",
+   "bytes": 29062,
+   "sha256": "eb0d3f97d98be523516977d38b56d2c90d47ea73c96712c1850756dc4294b44d",
+   "fetched_utc": "2026-09-14T22:13:57.785Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/57.json",
+   "bytes": 10099,
+   "sha256": "3091429af33f81f3c385e700f2b1388c027e6c1b6908783bceb1f64a72e8b8a2",
+   "fetched_utc": "2026-09-14T22:13:57.788Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/59.json",
+   "bytes": 27425,
+   "sha256": "d1f2a43efcfdea1f957026ad96ae78bb7cbb18cdeca1f4f4039336b035c50e62",
+   "fetched_utc": "2026-09-14T22:13:57.805Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/60.json",
+   "bytes": 11629,
+   "sha256": "f1ee87edd0bfa919f92fb20cad3aace0e629a47c492acd982d86e5388f358ad2",
+   "fetched_utc": "2026-09-14T22:13:57.809Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/61.json",
+   "bytes": 17714,
+   "sha256": "a2f252aabcf4591f46efae665a89c4cdefe395edcdb321491caf750bcfa6d093",
+   "fetched_utc": "2026-09-14T22:13:57.820Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/58.json",
+   "bytes": 157236,
+   "sha256": "3c428c3b5aea7df545aec28b0e7f60e99cd7ee793a87be160644e22e3b269a7b",
+   "fetched_utc": "2026-09-14T22:13:57.825Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/62.json",
+   "bytes": 14391,
+   "sha256": "51e9fc58fee3a90465308bf29d54c8a0fbe5a671a74dd0a126fdfc81c9ee3e1a",
+   "fetched_utc": "2026-09-14T22:13:57.874Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/63.json",
+   "bytes": 892026,
+   "sha256": "cfabf115ccb0ceebb63d1c06d5d29708554de6df5b1700fbe1a5d40ea14d2816",
+   "fetched_utc": "2026-09-14T22:13:57.889Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/64.json",
+   "bytes": 219432,
+   "sha256": "4644102a42074873cee06376ece631ce399c1d58682aa1434669102a8aff2ed0",
+   "fetched_utc": "2026-09-14T22:13:57.937Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/65.json",
+   "bytes": 247377,
+   "sha256": "6120b275ad96763750351df61d8ab6e4c7f0ab1cf75aeb037f62ed14582eef2f",
+   "fetched_utc": "2026-09-14T22:13:57.942Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/66.json",
+   "bytes": 366067,
+   "sha256": "25be127780c306abc5c8a7684fde3fc366846621a5e0d2ab6799229e00dff4b6",
+   "fetched_utc": "2026-09-14T22:13:57.957Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/67.json",
+   "bytes": 132819,
+   "sha256": "7b8982da8182637983bc8c665fbd3fb885abbab4983a28b6b56c7117c135f851",
+   "fetched_utc": "2026-09-14T22:13:57.964Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/68.json",
+   "bytes": 57938,
+   "sha256": "7d23f0c902832ac4b86ddc1dd423973d69608bf9811328841b3e011f52d9a77b",
+   "fetched_utc": "2026-09-14T22:13:57.965Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/69.json",
+   "bytes": 61879,
+   "sha256": "b07c10cb1702ca3dde876585f35bc377b3d7de4f5264fa8a18c4e308c923fcd6",
+   "fetched_utc": "2026-09-14T22:13:57.975Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/70.json",
+   "bytes": 71389,
+   "sha256": "dcdc08195ac8f803cb92e33e4e9cd4b8cc117590f11fa57fe5d255de4c45d72b",
+   "fetched_utc": "2026-09-14T22:13:58.027Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/71.json",
+   "bytes": 97266,
+   "sha256": "abb263f48586b658151dc1d58c77dfab2a4a4589499316393077f3e734e9833c",
+   "fetched_utc": "2026-09-14T22:13:58.035Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/72.json",
+   "bytes": 58385,
+   "sha256": "a8f747139256003099494bc6bb88fc74b54860e6ede26125490f5840303368de",
+   "fetched_utc": "2026-09-14T22:13:58.075Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/73.json",
+   "bytes": 33773,
+   "sha256": "23d64d1c74a346caf66ef5a5c9d897b37a1173fc651788d6041d90e3d14fc932",
+   "fetched_utc": "2026-09-14T22:13:58.082Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/74.json",
+   "bytes": 31425,
+   "sha256": "0a7e8332af32325d4026a28411bec0d0d9c4b08800b2ab2458e2aab7a5006095",
+   "fetched_utc": "2026-09-14T22:13:58.106Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/75.json",
+   "bytes": 63718,
+   "sha256": "40e8038acdfacf493f08f7878a56158aa2594185cee46b70f124b6ec9bc6bfca",
+   "fetched_utc": "2026-09-14T22:13:58.114Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/76.json",
+   "bytes": 81547,
+   "sha256": "905db97353d863e7c4491f2f813c8f068392a60fdfe6700120b322275d1fbfee",
+   "fetched_utc": "2026-09-14T22:13:58.123Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/77.json",
+   "bytes": 36242,
+   "sha256": "e89318631f80b95b8945e770289ceff404ec4c092b2df6990a217242b3650807",
+   "fetched_utc": "2026-09-14T22:13:58.127Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/78.json",
+   "bytes": 28633,
+   "sha256": "c147254daccf4371e2543f1623b8474ef22fac89f9eaa2f7db948511a95c7186",
+   "fetched_utc": "2026-09-14T22:13:58.171Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/79.json",
+   "bytes": 31089,
+   "sha256": "766b8423925f266151d8446460b2f244f3c462d35c1b6260c1ee67c25d5fd346",
+   "fetched_utc": "2026-09-14T22:13:58.172Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/80.json",
+   "bytes": 31401,
+   "sha256": "4c6cb92ba515dfb4b52e130aa1be83d3269ba20eea211fe51f2b600cbf754075",
+   "fetched_utc": "2026-09-14T22:13:58.216Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/81.json",
+   "bytes": 31978,
+   "sha256": "3a413bbe8aca51b9f17734a63f265870381ed263e2d6cb71d801f0881daf3bed",
+   "fetched_utc": "2026-09-14T22:13:58.226Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/82.json",
+   "bytes": 40500,
+   "sha256": "e2045889a3683f2b7573960cedff61a11a8d76b5a516192e4bd7c30158c90a16",
+   "fetched_utc": "2026-09-14T22:13:58.245Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/83.json",
+   "bytes": 37181,
+   "sha256": "ab93fb2d20cdf25c325955d2ed376025d6f7e30bbfcaf3cc0e8a0c7815f2a8f5",
+   "fetched_utc": "2026-09-14T22:13:58.252Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/84.json",
+   "bytes": 42151,
+   "sha256": "efbfde4452bdca34b883ac7a4952e4df0bdb69066aa4e9d150310aeec32e8f02",
+   "fetched_utc": "2026-09-14T22:13:58.265Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/85.json",
+   "bytes": 69890,
+   "sha256": "40ac2e1bc5e61cb97367d501ae90f7095dc97ed3b113a44cab918a3b5839bc0b",
+   "fetched_utc": "2026-09-14T22:13:58.274Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/87.json",
+   "bytes": 672,
+   "sha256": "1944164f548a649e1156783ce2f0201add291daa61c1a1c9e2a500c29bcb1928",
+   "fetched_utc": "2026-09-14T22:13:58.307Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/86.json",
+   "bytes": 4026,
+   "sha256": "df45ac550653201282ec5e9b5428eedc82fc7ee8a34b8667d76ef42d465bd9ce",
+   "fetched_utc": "2026-09-14T22:13:58.317Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/88.json",
+   "bytes": 52755,
+   "sha256": "bf75d22e8155bb82860734664a14e108d03e71b47c1ba2ef3b8760c0518822ef",
+   "fetched_utc": "2026-09-14T22:13:58.359Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/89.json",
+   "bytes": 672,
+   "sha256": "f7fb0fc8874cd07b84b3bab1ec895a083dcef975399dcd123559bd0ac47f96ff",
+   "fetched_utc": "2026-09-14T22:13:58.376Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/90.json",
+   "bytes": 41906,
+   "sha256": "44c7549e91da4d84b87e14ca1d7bac8e1c8fe125b2aea85412bdc337d385b561",
+   "fetched_utc": "2026-09-14T22:13:58.385Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/92.json",
+   "bytes": 672,
+   "sha256": "5ee9d96661fe8ee015518eaa51a371637351b0ab63e2cb9742cf794e785c11cb",
+   "fetched_utc": "2026-09-14T22:13:58.395Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/91.json",
+   "bytes": 672,
+   "sha256": "1a42d1ba72f367eb2fe935ded6c2c38b64272ddf5bd8626c7d24a8b65f46c642",
+   "fetched_utc": "2026-09-14T22:13:58.398Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/93.json",
+   "bytes": 108110,
+   "sha256": "70b2d03a510dca1c53af6c095dbd6dbb6cbdd82f0109d6e3d4afbec52bc6468a",
+   "fetched_utc": "2026-09-14T22:13:58.425Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/94.json",
+   "bytes": 62229,
+   "sha256": "f52b34e6660e5e658bd37cf17188604c5af2263c25e5838e7c5b67a8675f1e9f",
+   "fetched_utc": "2026-09-14T22:13:58.452Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/95.json",
+   "bytes": 25175,
+   "sha256": "39c6c8bf02c4924af4c0ab18ac48dfe3e13b902f59134a2a2b69246a88cc8928",
+   "fetched_utc": "2026-09-14T22:13:58.458Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/96.json",
+   "bytes": 33256,
+   "sha256": "ad06a4a94c3ba54affd28969b80cbd2babac6067235b896200831961e5500c3a",
+   "fetched_utc": "2026-09-14T22:13:58.501Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/99.json",
+   "bytes": 43403,
+   "sha256": "4940947ddfc92dbd09e03628acdeb2d95a81fd770231e81b61ed66b3d079837e",
+   "fetched_utc": "2026-09-14T22:13:58.527Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/97.json",
+   "bytes": 50627,
+   "sha256": "fdb107efd8d6e52970b1f729391e11e6e75a6a3047936dbce4ca96f1d62d924e",
+   "fetched_utc": "2026-09-14T22:13:58.530Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/98.json",
+   "bytes": 15209,
+   "sha256": "423c9c8e77cc80c41769477783c562f93ddfc12013b845030cc0bea408d68c74",
+   "fetched_utc": "2026-09-14T22:13:58.537Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/100.json",
+   "bytes": 32941,
+   "sha256": "4027ad1d5898a163632d6b9bb57eb8f9f29888ddcd38c6d77c24e3a4d87ef557",
+   "fetched_utc": "2026-09-14T22:13:58.543Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/101.json",
+   "bytes": 9654,
+   "sha256": "0087bf80a2c3529da462cd485d9376e65472dd3eb98de7a335298b935c4e6b9d",
+   "fetched_utc": "2026-09-14T22:13:58.569Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/103.json",
+   "bytes": 29934,
+   "sha256": "42338a2882b35ce8951b782d12c49444240a5c232147901127c4356b1d4be56d",
+   "fetched_utc": "2026-09-14T22:13:58.598Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/102.json",
+   "bytes": 37356,
+   "sha256": "2253dce3f77464dc81c16112d36ede7e1abf471a447b9c8cd12f6f422fc698d4",
+   "fetched_utc": "2026-09-14T22:13:58.603Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/104.json",
+   "bytes": 43823,
+   "sha256": "53adf39e925c8032aada7dfbd5af5498fa84ec74bb502d1c1803299a96a9ef43",
+   "fetched_utc": "2026-09-14T22:13:58.657Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/107.json",
+   "bytes": 733,
+   "sha256": "9e52466fbd71cad3f6d477bbdf01731b61734d705378a9feb2ff42edf6f57851",
+   "fetched_utc": "2026-09-14T22:13:58.664Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/105.json",
+   "bytes": 33869,
+   "sha256": "a0e018a8fca26084f0830c697a21349bbb95303556e6eb8060945018260b8bcc",
+   "fetched_utc": "2026-09-14T22:13:58.677Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/108.json",
+   "bytes": 9569,
+   "sha256": "1e3769d3d776b2cabdc30188e5b849c1a0a7ca91bf7b96f2df64a0c3bfc2a8fc",
+   "fetched_utc": "2026-09-14T22:13:58.678Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/109.json",
+   "bytes": 16148,
+   "sha256": "63763a85b61ce8b52309fc8e8fa7a63d46cb877b8297ea6371a24e4a14bd6c30",
+   "fetched_utc": "2026-09-14T22:13:58.683Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/111.json",
+   "bytes": 7758,
+   "sha256": "8df76a9806154f9c1f1a9f8c2a3b0efa3941777623bfa748cefaea86f929afce",
+   "fetched_utc": "2026-09-14T22:13:58.743Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/112.json",
+   "bytes": 9874,
+   "sha256": "bfa57c9a6c3b4d6e8a8a615072f80c912d869129120b621650a8f3dd08efc97c",
+   "fetched_utc": "2026-09-14T22:13:58.749Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/110.json",
+   "bytes": 10973,
+   "sha256": "db578c34ef896680bb232fd2c49524a2f8ec16b7270fce5cf31382631b03afbc",
+   "fetched_utc": "2026-09-14T22:13:58.753Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/113.json",
+   "bytes": 13418,
+   "sha256": "8b50663a5491b05a396bdba50d72e00675e55d8ba8cf370576236d464efa6934",
+   "fetched_utc": "2026-09-14T22:13:58.797Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/115.json",
+   "bytes": 54224,
+   "sha256": "d2cebc9bd3f8de241fb8ca4f6d1d69a527c7e3c86253bc3b5061bb2926d0fb45",
+   "fetched_utc": "2026-09-14T22:13:58.808Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/116.json",
+   "bytes": 733,
+   "sha256": "55814c35c5e9e4e6760a9a5a9f9aeb203c050e7a2cfb3df513a060013c0aacf9",
+   "fetched_utc": "2026-09-14T22:13:58.812Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/114.json",
+   "bytes": 77911,
+   "sha256": "2fd046e8796fa89d59e9964f569b312637a5513b20d0b118a3fdd451754db715",
+   "fetched_utc": "2026-09-14T22:13:58.830Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/117.json",
+   "bytes": 243529,
+   "sha256": "668b27f41e026f60f33c82e5a76b0af583413aaa8ef060a637aa9153be236442",
+   "fetched_utc": "2026-09-14T22:13:58.831Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/119.json",
+   "bytes": 56621,
+   "sha256": "aa6b7dae864f6e526e91bd7d3567d23f5576e13e9db323c368cd85a382434ebe",
+   "fetched_utc": "2026-09-14T22:13:58.885Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/120.json",
+   "bytes": 65858,
+   "sha256": "8862aa8028105477029dcbaac3096886692801b4ae48d34b33be60717d0e8066",
+   "fetched_utc": "2026-09-14T22:13:58.902Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/118.json",
+   "bytes": 175581,
+   "sha256": "9551208fefdc79ca7fa9cba59474ed3dc3981ac51ad24f2029a1e8aaefdd2af9",
+   "fetched_utc": "2026-09-14T22:13:58.923Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/121.json",
+   "bytes": 12275,
+   "sha256": "42f64e1c47ff1f89ab37e825e8ed4bebad65f97dd6365692e671f34c7b690446",
+   "fetched_utc": "2026-09-14T22:13:58.937Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/122.json",
+   "bytes": 30481,
+   "sha256": "8575663d302a928b9d62d81a82319ffe36a46bdc66be6369454a79b843815f51",
+   "fetched_utc": "2026-09-14T22:13:58.947Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/123.json",
+   "bytes": 20117,
+   "sha256": "52de03af9c27a3c84d1989c31990f00fb350ed8f700ed9cecd130588716d10ec",
+   "fetched_utc": "2026-09-14T22:13:58.961Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/124.json",
+   "bytes": 38014,
+   "sha256": "0640ec0d6f681e39193bf9cbdc1414d6647796a4e5b50009f22aa10fdc8a8a87",
+   "fetched_utc": "2026-09-14T22:13:58.967Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/125.json",
+   "bytes": 25457,
+   "sha256": "9f7e6e094d620bbfc8384bbe1f16416ff287fd6e4b74de4d918b897486b155e3",
+   "fetched_utc": "2026-09-14T22:13:58.970Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/126.json",
+   "bytes": 23382,
+   "sha256": "497a96b9af78e837e5efc4886ed83b9a2463540965e75218d68c4868b7f83b49",
+   "fetched_utc": "2026-09-14T22:13:59.018Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/127.json",
+   "bytes": 15127,
+   "sha256": "3e0ee8791526ef84e9af86866ec93ad8d5d4d21d5d028a9aa88b9fa98fcfae2b",
+   "fetched_utc": "2026-09-14T22:13:59.047Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/129.json",
+   "bytes": 57617,
+   "sha256": "cd1ce4ac7023c8d6c03771b7a638153d9624764ff349df0af9a53b94b54980c9",
+   "fetched_utc": "2026-09-14T22:13:59.088Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/128.json",
+   "bytes": 41991,
+   "sha256": "3b31b432f6b3ccd570fe9bdb034f513176078f6d0caafb67cfefe18bd0338e5e",
+   "fetched_utc": "2026-09-14T22:13:59.098Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/130.json",
+   "bytes": 94822,
+   "sha256": "e6bd12cea8e833dcd083aae471633014803420db0bb9d4750bd5601e438cf310",
+   "fetched_utc": "2026-09-14T22:13:59.104Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/131.json",
+   "bytes": 82685,
+   "sha256": "ef3685bec4c06cc336b22e6850db6febd38c157375841601925d7e9dbc9cbe5a",
+   "fetched_utc": "2026-09-14T22:13:59.124Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/133.json",
+   "bytes": 114449,
+   "sha256": "9ae0f2b6291adbe2b20cb931cfab4056896e50e30fa40b7b75bd87a0d2b5b7d2",
+   "fetched_utc": "2026-09-14T22:13:59.125Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/132.json",
+   "bytes": 129269,
+   "sha256": "6a9913ee2272ae2784bf0f820ecb965ad70ab1b68d6f11697158cf9a09aa58f3",
+   "fetched_utc": "2026-09-14T22:13:59.138Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/134.json",
+   "bytes": 64617,
+   "sha256": "2feaaff3dcfa34b723949a5a96be1d5a6890543535c78ce902c0c6e3823a7009",
+   "fetched_utc": "2026-09-14T22:13:59.175Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/143.json",
+   "bytes": 242411,
+   "sha256": "208a904caa82ec0f415c77f4bbdaaba66e1bba7de6bd3c496d1a2d01b3b0e595",
+   "fetched_utc": "2026-09-14T22:13:59.178Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/144.json",
+   "bytes": 441422,
+   "sha256": "ee6ed1928a869e99c0f8ef82af4e0a0848e5e6c9e703fde43413d4ed9dffc02a",
+   "fetched_utc": "2026-09-14T22:13:59.190Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/135.json",
+   "bytes": 92813,
+   "sha256": "f0a9c533cfb1cf2e1bb410dfcd9240abf00b1f3d2739d26772b63f843a7afb4e",
+   "fetched_utc": "2026-09-14T22:13:59.198Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/140.json",
+   "bytes": 141711,
+   "sha256": "70ed94483858e136b7a2c2e794f9e1cac199f7b0b797394064b2f520c05692b4",
+   "fetched_utc": "2026-09-14T22:13:59.234Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/136.json",
+   "bytes": 2419,
+   "sha256": "aca19febcd9ad853b91f0d6b771c0577978326c660d24d1fdaf762076855451b",
+   "fetched_utc": "2026-09-14T22:13:59.236Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/141.json",
+   "bytes": 249070,
+   "sha256": "8db87d49af64d3ba16675eb21fb41979dcc65a0ce50fd8f7362e7f3b3fb6dc24",
+   "fetched_utc": "2026-09-14T22:13:59.253Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/142.json",
+   "bytes": 397213,
+   "sha256": "27cfa9daae8df1d63bd45c8e029b8b116a7e8eba2cd478c2c8e3a30d2f047da7",
+   "fetched_utc": "2026-09-14T22:13:59.276Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/146.json",
+   "bytes": 164202,
+   "sha256": "0e35bdcb784e7fc936142ccd2308b2b83404088edefb635b7e9c2bd1a208f1ff",
+   "fetched_utc": "2026-09-14T22:13:59.314Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/152.json",
+   "bytes": 189954,
+   "sha256": "83c71037ac418679772657b26dc532ae0cd1107bb07a1d3ce2c0b182dab496d1",
+   "fetched_utc": "2026-09-14T22:13:59.339Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/148.json",
+   "bytes": 198416,
+   "sha256": "18b9411789bd4427595638be5d18864a71655260b26d2fd2d698a3ca45bb9dbb",
+   "fetched_utc": "2026-09-14T22:13:59.343Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/145.json",
+   "bytes": 296103,
+   "sha256": "274eb9ae334bb3211a80b1d17179878a2ef064d6f13ffeb48f12e051486a992d",
+   "fetched_utc": "2026-09-14T22:13:59.358Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/149.json",
+   "bytes": 58300,
+   "sha256": "947b91a4f1e2e4a0a37955831c16936951dd8583cb55bbfa8a8907cd504a5e95",
+   "fetched_utc": "2026-09-14T22:13:59.367Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/147.json",
+   "bytes": 300615,
+   "sha256": "0456500cf59736c28fe8ea3ca51f345a5526a10b7a6aa78c1dcd921c6391d4d5",
+   "fetched_utc": "2026-09-14T22:13:59.369Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/150.json",
+   "bytes": 30834,
+   "sha256": "1b3adb5355f999f6c84d16076d4ad905ad3613aa86195e84e4c2ce570c8713a7",
+   "fetched_utc": "2026-09-14T22:13:59.384Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/151.json",
+   "bytes": 179036,
+   "sha256": "30d026246c97126cc829730e0306093418e882937a43b8443bbf9dec00e02451",
+   "fetched_utc": "2026-09-14T22:13:59.403Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/160.json",
+   "bytes": 243560,
+   "sha256": "2927d59ed1fc51fb8326563d82d566a278edb38115cd3ffebcb157651a6aaa46",
+   "fetched_utc": "2026-09-14T22:13:59.449Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/153.json",
+   "bytes": 419543,
+   "sha256": "d95f51b2ffebccd55d048f4959a3dc1361eb1712b94c4b926bbe2b8e94171a4d",
+   "fetched_utc": "2026-09-14T22:13:59.468Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/154.json",
+   "bytes": 414364,
+   "sha256": "ecfdc4d64fe0a720d093a37734702c16543773cdc97c71194e7dbeb9026edbc1",
+   "fetched_utc": "2026-09-14T22:13:59.475Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/161.json",
+   "bytes": 159247,
+   "sha256": "fb0ee1ca2a10c58fa8b55eca3323e3bc8b7cb59a2a4f46d32fa040d3b11a83d1",
+   "fetched_utc": "2026-09-14T22:13:59.499Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/155.json",
+   "bytes": 441274,
+   "sha256": "1bdd0ffe24edd5e0defdc824f1cb3316b78e310894e1d8cb14baf10ef6648afe",
+   "fetched_utc": "2026-09-14T22:13:59.503Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/156.json",
+   "bytes": 179874,
+   "sha256": "50cacd42da80dbef1d006784a2785f7203c6a77e64935e0dfe04837664c5d9c0",
+   "fetched_utc": "2026-09-14T22:13:59.506Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/259.json",
+   "bytes": 212793,
+   "sha256": "f084c18df5e15d4ff3e6009bc5a7003bda2a27758ebfce133bf178a145aeed68",
+   "fetched_utc": "2026-09-14T22:13:59.512Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/157.json",
+   "bytes": 10559,
+   "sha256": "fc6c6bef997bb9463bf8cc5de9a3d7578ea473624fa7497116074d8e702dbd17",
+   "fetched_utc": "2026-09-14T22:13:59.513Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/158.json",
+   "bytes": 14895,
+   "sha256": "4d986ceeec8dc73b6289486458878989479bc4624ae8d895d9c1bbe50126f341",
+   "fetched_utc": "2026-09-14T22:13:59.527Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/260.json",
+   "bytes": 29266,
+   "sha256": "2ddb6f2850be10505df4c6a8963adb4eec4cc71ecb9fcc0cea39e803c5645307",
+   "fetched_utc": "2026-09-14T22:13:59.532Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code/f/159.json",
+   "bytes": 9148,
+   "sha256": "35d16a5ddd16a73d9b1e6b617149edacad4619975a01d6c1fa56cb0685876ce7",
+   "fetched_utc": "2026-09-14T22:13:59.538Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/ELECTRON.md",
+   "bytes": 8157,
+   "sha256": "0455cdc0389c93a5ad16b34b21d92068d282cb99ed9ba626b9a6d83b8d1d4df5",
+   "fetched_utc": "2026-09-14T22:13:59.768Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/electron/graph.json",
+   "bytes": 82144,
+   "sha256": "b5c7edc53e327150fb5d2d1726f09b663db2b109f924ce383453a26975c2ed76",
+   "fetched_utc": "2026-09-14T22:13:59.771Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/electron/atoms.json",
+   "bytes": 259284,
+   "sha256": "7a1cc9688155d3c64e42bc1f473fb30810ed911812e9181197741bbf6ac83e43",
+   "fetched_utc": "2026-09-14T22:13:59.771Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/spider/graphs/random.json",
+   "bytes": 55737,
+   "sha256": "67829ecdb3b25eb51f1dff6c3c388ccd29ea810a1d3527699574ecb5d1d4c9cf",
+   "fetched_utc": "2026-09-14T22:13:59.825Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/random/graph.json",
+   "bytes": 52212,
+   "sha256": "ba3ed7db7b3a7456c683045bd71c2d0878098a780e4ace2385ff38e8a7b9afa8",
+   "fetched_utc": "2026-09-14T22:13:59.948Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/SOUL.md",
+   "bytes": 17172,
+   "sha256": "0603eaaa86de0ff450a1c4f87bc99076401499c4b40c4d5f526300874b9e9a35",
+   "fetched_utc": "2026-09-14T22:14:00.100Z",
+   "http_status": 200,
+   "attempts": 1
+  },
+  {
+   "url": "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/soul/graph.json",
+   "bytes": 1203671,
+   "sha256": "421dc77cbe2243a6eeba644179861fe588114deabb120b7be53702acf2cd3659",
+   "fetched_utc": "2026-09-14T22:14:00.114Z",
+   "http_status": 200,
+   "attempts": 1
+  }
+ ],
+ "outputs": [
+  {
+   "file": "lines.bin",
+   "bytes": 2659760,
+   "sha256": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+  },
+  {
+   "file": "families.json",
+   "bytes": 2221286,
+   "sha256": "f055ef68089db83b0d7d3016b8dd704df46d6f24d377d43d6ec2f8b8d59dda54"
+  },
+  {
+   "file": "blocks.json",
+   "bytes": 54861,
+   "sha256": "245b741afd2fb7ecb3cbbe844f0c655df69f88169ca51ac5fc9ae766030b6e3f"
+  },
+  {
+   "file": "electron.json",
+   "bytes": 221272,
+   "sha256": "2ade71978b4502f0b7adee49aa5f6d4fb7a3d5f22efc34c6d8796e2a3ef5d9e3"
+  },
+  {
+   "file": "random.json",
+   "bytes": 120639,
+   "sha256": "2163aa5662628470cb57d27f4fdb2e0b553550c07586cedf3e195bc03c959b3f"
+  },
+  {
+   "file": "entangled.json",
+   "bytes": 7229,
+   "sha256": "dd605adbae674dbc4c377ac2de920dac42415e17978e43667eaf669ddab797e9"
+  }
+ ],
+ "checks": {
+  "index_generated_utc": "2026-09-14T19:55:48.124Z",
+  "index_families": 10985,
+  "families_built": 10985,
+  "index_lines": 250174,
+  "lines_bin_entries": 664940,
+  "distinct_line_numbers": 128369,
+  "min_line_number": 2,
+  "max_line_number": 342767,
+  "task_stated_lines_1955utc": 250174,
+  "buckets_listed": 160,
+  "buckets_fetched": 160,
+  "families_with_no_lines": 0,
+  "families_anonymous": 2252,
+  "families_with_no_block_symbol": 0,
+  "families_with_symbol_off_table": 1689,
+  "block_symbols_in_families_json": 797,
+  "blocks_on_table": 210,
+  "blocks_inside_vs_families_json_disagree": 170,
+  "symbols_off_table": 587,
+  "names_json_keys": 5553,
+  "names_first_name_not_in_names_json": 2252,
+  "names_first_name_not_in_names_json_excluding_anonymous": 0,
+  "electron_atoms_shipped": 500,
+  "electron_atoms_graph_only": 0,
+  "electron_bonds": 169,
+  "electron_repo_nodes": 23,
+  "random_nodes": 272,
+  "random_nodes_in_both_draws": 63,
+  "random_nodes_type_differs_between_draws": 24,
+  "random_edges": 300,
+  "random_edges_with_p": 150,
+  "entanglements_listed": 40,
+  "entanglements_stated": 69,
+  "shipped_bytes": 5285047,
+  "ship_limit_bytes": 3500000,
+  "top5_families_by_lines": [
+   {
+    "n": 67933,
+    "name": "(anonymous)",
+    "lineCount": 6518,
+    "block": "Ss"
+   },
+   {
+    "n": 67596,
+    "name": "(anonymous)",
+    "lineCount": 6492,
+    "block": "Ss"
+   },
+   {
+    "n": 67259,
+    "name": "(anonymous)",
+    "lineCount": 6456,
+    "block": "Ss"
+   },
+   {
+    "n": 66925,
+    "name": "(anonymous)",
+    "lineCount": 6386,
+    "block": "Ss"
+   },
+   {
+    "n": 66591,
+    "name": "(anonymous)",
+    "lineCount": 6223,
+    "block": "Ss"
+   }
+  ],
+  "conductor_atoms": [
+   {
+    "n": 766,
+    "name": "geometry",
+    "valence": 5,
+    "spin": "paired",
+    "homes": [
+     "data-federation-map-for-globalgrid2050-all-repos"
+    ],
+    "valence_repos": [
+     "globalgrid2050",
+     "solar-electrical-topology-analysis-engine-text-based",
+     "testcode",
+     "ventus-grid-engine",
+     "youengineer-code-review"
+    ]
+   },
+   {
+    "n": 2039,
+    "name": "Number",
+    "valence": 6,
+    "spin": "unpaired",
+    "homes": [
+     "globalgrid2050"
+    ],
+    "valence_repos": [
+     "cable-trench-or-drill",
+     "claude",
+     "crm",
+     "cvaa",
+     "data-federation-map-for-globalgrid2050-all-repos",
+     "gis-sld-sandbox"
+    ]
+   },
+   {
+    "n": 2138,
+    "name": "files",
+    "valence": 4,
+    "spin": "paired",
+    "homes": [
+     "globalgrid2050"
+    ],
+    "valence_repos": [
+     "data-gridatlas",
+     "gridatlas",
+     "pipelinenews",
+     "spiders"
+    ]
+   },
+   {
+    "n": 5246,
+    "name": "finding",
+    "valence": 4,
+    "spin": "paired",
+    "homes": [
+     "gridatlas"
+    ],
+    "valence_repos": [
+     "claude",
+     "cvaa",
+     "globalgrid2050",
+     "star-maker"
+    ]
+   },
+   {
+    "n": 6554,
+    "name": "centre",
+    "valence": 5,
+    "spin": "paired",
+    "homes": [
+     "pipelinenews"
+    ],
+    "valence_repos": [
+     "globalgrid2050",
+     "gridatlas",
+     "solar-electrical-topology-analysis-engine-text-based",
+     "spiders",
+     "testcode"
+    ]
+   },
+   {
+    "n": 7846,
+    "name": "cable",
+    "valence": 4,
+    "spin": "paired",
+    "homes": [
+     "solar-electrical-topology-analysis-engine-text-based"
+    ],
+    "valence_repos": [
+     "cable-trench-or-drill",
+     "globalgrid2050",
+     "layout-tool",
+     "testcode"
+    ]
+   },
+   {
+    "n": 8421,
+    "name": "function",
+    "valence": 5,
+    "spin": "paired",
+    "homes": [
+     "testcode"
+    ],
+    "valence_repos": [
+     "cable-trench-or-drill",
+     "data-federation-map-for-globalgrid2050-all-repos",
+     "gb-electricity-ui",
+     "gis-sld-sandbox",
+     "globalgrid2050"
+    ]
+   }
+  ],
+  "mismatches": [
+   "lines.bin has 664940 entries (128369 distinct line numbers, max 342767); neither equals index.json lines 250174 — index.json's figure is not reproducible from the per-family \"lines\" lists in code/f/*.json",
+   "SOUL.md lists 40 entanglements but its table states 69",
+   "shipped data 5284793 bytes exceeds limit 3500000 (3.5 MB; 3.5 MiB = 3670016) — lines.bin alone is 2659760 bytes because it holds 664940 per-family entries, not 250174"
+  ],
+  "warnings": [],
+  "index_bucket_size": 500,
+  "index_buckets": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49,
+   50,
+   51,
+   52,
+   53,
+   54,
+   55,
+   56,
+   57,
+   58,
+   59,
+   60,
+   61,
+   62,
+   63,
+   64,
+   65,
+   66,
+   67,
+   68,
+   69,
+   70,
+   71,
+   72,
+   73,
+   74,
+   75,
+   76,
+   77,
+   78,
+   79,
+   80,
+   81,
+   82,
+   83,
+   84,
+   85,
+   86,
+   87,
+   88,
+   89,
+   90,
+   91,
+   92,
+   93,
+   94,
+   95,
+   96,
+   97,
+   98,
+   99,
+   100,
+   101,
+   102,
+   103,
+   104,
+   105,
+   107,
+   108,
+   109,
+   110,
+   111,
+   112,
+   113,
+   114,
+   115,
+   116,
+   117,
+   118,
+   119,
+   120,
+   121,
+   122,
+   123,
+   124,
+   125,
+   126,
+   127,
+   128,
+   129,
+   130,
+   131,
+   132,
+   133,
+   134,
+   135,
+   136,
+   140,
+   141,
+   142,
+   143,
+   144,
+   145,
+   146,
+   147,
+   148,
+   149,
+   150,
+   151,
+   152,
+   153,
+   154,
+   155,
+   156,
+   157,
+   158,
+   159,
+   160,
+   161,
+   259,
+   260
+  ]
+ },
+ "amendments": [
+  {
+   "utc": "2026-09-14T22:57:08.167Z",
+   "script": "amend_pack.mjs",
+   "added": [
+    "electron.json.focus_default",
+    "electron.json.conduction_band_electron_md",
+    "checks.index_bucket_size",
+    "checks.index_buckets"
+   ],
+   "sources_reverified": [
+    "https://ventusltd.github.io/stars/code/index.json",
+    "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/electron/graph.json",
+    "https://raw.githubusercontent.com/Ventusltd/star-maker/c5bf5f6518feba594bb057988e8e99ca81044952/ELECTRON.md"
+   ],
+   "electron_json_bytes_before": 221018,
+   "electron_json_bytes_after": 221272,
+   "shipped_bytes_before": 5284793,
+   "shipped_bytes_after": 5285047
+  }
+ ]
+}

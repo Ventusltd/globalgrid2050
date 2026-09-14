@@ -1,0 +1,462 @@
+{
+ "url": "http://127.0.0.1:8871/testcode/202609142202/index.html",
+ "started": "2026-09-14T22:44:39.031Z",
+ "linesBin": {
+  "bytes": 2659760,
+  "entries": 664940,
+  "distinct": 128369,
+  "remainderBytes": 0
+ },
+ "nvidiaIdle": [
+  {
+   "t": 1789425879109,
+   "util": 0,
+   "memMiB": 2982,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425880169,
+   "util": 1,
+   "memMiB": 2982,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425881227,
+   "util": 0,
+   "memMiB": 2982,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425882289,
+   "util": 1,
+   "memMiB": 2994,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425883344,
+   "util": 1,
+   "memMiB": 2994,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425884406,
+   "util": 1,
+   "memMiB": 2994,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425885472,
+   "util": 1,
+   "memMiB": 2994,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425886529,
+   "util": 2,
+   "memMiB": 2994,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  }
+ ],
+ "chrome": "Chrome/153.0.8010.37",
+ "run1440": {
+  "width": 1440,
+  "height": 900,
+  "loadMs": 8155,
+  "consoleIssues8s": [],
+  "consoleOther": [],
+  "rendererOwnCanvas": {
+   "webgl": true,
+   "unmaskedRenderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "unmaskedVendor": "Google Inc. (NVIDIA)",
+   "RENDERER": "WebKit WebGL"
+  },
+  "rendererHudLine": "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "hudOnGpuLine": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+  "hudPointCount": 664940,
+  "hudDistinct": 128369,
+  "pageState": {
+   "seaDrawn": 664940,
+   "seaBytes": 7979280,
+   "seaStride": 1,
+   "N": 664940,
+   "keysLen": 664940,
+   "distinct": 128369,
+   "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "DPR": 1,
+   "phoneMode": ""
+  },
+  "pointCountMatchesLinesBin": true,
+  "scrollWidth": 1440,
+  "fps": {
+   "frames": 181,
+   "ms": 3003.3,
+   "fps": 60.3
+  },
+  "hudFpsLine": "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+  "pick": {
+   "targetFamily": {
+    "fi": 4064,
+    "n": 8844,
+    "name": "layerGroup",
+    "x": 580.9472833984335,
+    "y": 340.73439400963275,
+    "canvas": {
+     "l": 17,
+     "t": 180,
+     "w": 1406,
+     "h": 630
+    }
+   },
+   "attempts": 1,
+   "clickedAt": {
+    "x": 581,
+    "y": 341
+   },
+   "hudMsg": "#28255 · family #8856 (anonymous) · block Si (cartridges) · line #28255 appears in 1,346 families",
+   "hit": true,
+   "key": 28255,
+   "familyN": 8856,
+   "keyInLinesBin": true,
+   "linesPanel": {
+    "hidden": false,
+    "header": "#8856 (anonymous)",
+    "shownKeys": 4,
+    "firstKeys": [
+     81866,
+     73398,
+     81867,
+     28255
+    ],
+    "allShownKeysExistInLinesBin": true,
+    "missing": []
+   },
+   "bornAuditBeforeClick": "Born audit: no measurement yet",
+   "bornAuditAfterClick": "Born audit: no measurement yet",
+   "stateAfterClick": "shells not shipped for this soul (500 of 7,607 atoms carry records): tap steers, nothing to measure",
+   "bornAuditAfterMeasureButton": "Born audit: no measurement yet",
+   "msgAfterMeasureButton": "nothing to measure: no electron record for this focus (500 of 7,607 atoms carry records)",
+   "bornChangedAfterMeasureButton": false
+  },
+  "search80299": {
+   "steerMsg": "family #80299 haversine · block Gc · 6 entries · search steers, it does not measure: Enter again or tap to collapse",
+   "steerHasHaversine": true,
+   "joinLine": null,
+   "stateAfterSteer": "shells not shipped for this soul (500 of 7,607 atoms carry records): tap steers, nothing to measure",
+   "familyKeysInLinesBin": {
+    "n": 80299,
+    "name": "haversine",
+    "lineCount": 6,
+    "keys": [
+     192067,
+     192068,
+     192069,
+     192070,
+     192071,
+     1416
+    ],
+    "allExist": true
+   },
+   "secondEnterMsg": "nothing to measure: this focus has no electron record (search steered, it did not collapse)",
+   "bornAuditAfterSecondEnter": "Born audit: no measurement yet",
+   "measured": false,
+   "bornMentionsHaversine": false
+  },
+  "bloch": {
+   "focus": "conduction band 2/76: #6554 centre (conductor)",
+   "stateBefore": "state: pure |1> · θ=180.0° φ=0.0° · P(home)=0.000 P(tunnel)=1.000 · |α|²+|β|²=1.000 · K0 L0 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+   "before": {
+    "theta": 180,
+    "phi": 0,
+    "norm": 1
+   },
+   "handle": {
+    "x": 438.796875,
+    "y": 495,
+    "w": 180,
+    "h": 180
+   },
+   "stateDuringDrag": "state: pure |1> (prepared by hand) · θ=180.0° φ=27.5° · P(home)=0.000 P(tunnel)=1.000 · |α|²+|β|²=1.000 · K0 L0 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+   "during": {
+    "theta": 180,
+    "phi": 27.5,
+    "norm": 1
+   },
+   "samples": [
+    {
+     "theta": 180,
+     "phi": 27.5,
+     "norm": 1
+    },
+    {
+     "theta": 166.2,
+     "phi": 55,
+     "norm": 1
+    }
+   ],
+   "stateDuringDrag2": "state: superposition (prepared by hand) · θ=166.2° φ=55.0° · P(home)=0.014 P(tunnel)=0.986 · |α|²+|β|²=1.000 · K0 L0 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+   "during2": {
+    "theta": 166.2,
+    "phi": 55,
+    "norm": 1
+   },
+   "stateAfterRelease": "state: superposition · θ=168.1° φ=47.7° · P(home)=0.011 P(tunnel)=0.989 · |α|²+|β|²=1.000 · K0 L0 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+   "after": {
+    "theta": 168.1,
+    "phi": 47.7,
+    "norm": 1
+   },
+   "thetaChanged": false,
+   "phiChanged": true,
+   "preparedByHand": true,
+   "normAlwaysOne": true
+  },
+  "consoleIssuesWholeRun": []
+ },
+ "run430": {
+  "width": 430,
+  "height": 900,
+  "loadMs": 8032,
+  "consoleIssues8s": [],
+  "rendererOwnCanvas": {
+   "webgl": true,
+   "unmaskedRenderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "unmaskedVendor": "Google Inc. (NVIDIA)",
+   "RENDERER": "WebKit WebGL"
+  },
+  "rendererHudLine": "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "hudOnGpuLine": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+  "hudPointCount": 664940,
+  "pointCountMatchesLinesBin": true,
+  "pageState": {
+   "seaDrawn": 664940,
+   "seaStride": 1,
+   "phoneMode": "",
+   "DPR": 1
+  },
+  "scrollWidth": 430,
+  "bodyScrollWidth": 430,
+  "innerWidth": 430,
+  "fps": {
+   "frames": 181,
+   "ms": 3000.4,
+   "fps": 60.3
+  },
+  "consoleIssuesWholeRun": []
+ },
+ "nvidiaLive": [
+  {
+   "t": 1789425887593,
+   "util": 1,
+   "memMiB": 2994,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425888653,
+   "util": 1,
+   "memMiB": 2994,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425889719,
+   "util": 0,
+   "memMiB": 3038,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425890775,
+   "util": 4,
+   "memMiB": 3075,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425891838,
+   "util": 5,
+   "memMiB": 3075,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425892898,
+   "util": 5,
+   "memMiB": 3073,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425893958,
+   "util": 5,
+   "memMiB": 3075,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425895016,
+   "util": 8,
+   "memMiB": 3068,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425896071,
+   "util": 9,
+   "memMiB": 3068,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425897128,
+   "util": 10,
+   "memMiB": 3067,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425898190,
+   "util": 17,
+   "memMiB": 3076,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425899253,
+   "util": 15,
+   "memMiB": 3076,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425900312,
+   "util": 25,
+   "memMiB": 3098,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425901370,
+   "util": 16,
+   "memMiB": 3138,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425902430,
+   "util": 7,
+   "memMiB": 3136,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425903505,
+   "util": 17,
+   "memMiB": 3135,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425904568,
+   "util": 26,
+   "memMiB": 3143,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425905629,
+   "util": 19,
+   "memMiB": 3147,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425906691,
+   "util": 13,
+   "memMiB": 3142,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425907752,
+   "util": 14,
+   "memMiB": 3147,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425908812,
+   "util": 11,
+   "memMiB": 3121,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425909874,
+   "util": 13,
+   "memMiB": 3117,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425910938,
+   "util": 23,
+   "memMiB": 3113,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425911998,
+   "util": 5,
+   "memMiB": 3109,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425913058,
+   "util": 6,
+   "memMiB": 3098,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425914120,
+   "util": 6,
+   "memMiB": 3094,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425915185,
+   "util": 5,
+   "memMiB": 3094,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425916245,
+   "util": 7,
+   "memMiB": 3031,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425917310,
+   "util": 5,
+   "memMiB": 3031,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  {
+   "t": 1789425918366,
+   "util": 6,
+   "memMiB": 3031,
+   "name": "NVIDIA GeForce RTX 5070 Ti"
+  }
+ ],
+ "nvidiaSummary": {
+  "idle": {
+   "util": {
+    "min": 0,
+    "max": 2,
+    "mean": 0.9,
+    "n": 8
+   },
+   "memMiB": {
+    "min": 2982,
+    "max": 2994,
+    "mean": 2989.5,
+    "n": 8
+   }
+  },
+  "live": {
+   "util": {
+    "min": 0,
+    "max": 26,
+    "mean": 10.1,
+    "n": 30
+   },
+   "memMiB": {
+    "min": 2994,
+    "max": 3147,
+    "mean": 3086.8,
+    "n": 30
+   }
+  },
+  "gpuName": "NVIDIA GeForce RTX 5070 Ti"
+ },
+ "serverKilled": false,
+ "serverLogTail": "27.0.0.1 - - [14/Sep/2026 23:45:35] \"GET /testcode/202609142202/data/lines.bin HTTP/1.1\" 200 -\r\n127.0.0.1 - - [14/Sep/2026 23:45:35] \"GET /testcode/202609142202/data/blocks.json HTTP/1.1\" 200 -\r\n127.0.0.1 - - [14/Sep/2026 23:45:35] \"GET /testcode/202609142202/data/electron.json HTTP/1.1\" 200 -\r\n127.0.0.1 - - [14/Sep/2026 23:45:35] \"GET /testcode/202609142202/data/random.json HTTP/1.1\" 200 -\r\n127.0.0.1 - - [14/Sep/2026 23:45:35] \"GET /testcode/202609142202/data/entangled.json HTTP/1.1\" 200 -\r\n127.0.0.1 - - [14/Sep/2026 23:45:35] \"GET /testcode/202609142202/data/provenance.json HTTP/1.1\" 200 -\r\n",
+ "finished": "2026-09-14T22:47:08.977Z"
+}

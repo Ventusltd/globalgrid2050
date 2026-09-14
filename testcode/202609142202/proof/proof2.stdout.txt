@@ -1,0 +1,486 @@
+{
+ "url": "http://127.0.0.1:8863/testcode/202609142202/index.html",
+ "started_utc": "2026-09-14T23:13:41.354Z",
+ "desktop": {
+  "loadMs": 5835,
+  "hud": [
+   "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+   "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+   "state: superposition (data state) · θ=70.5° φ=252.9° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "Born audit: no measurement yet",
+   "twin tier: Random star edges (maker draw, seed 2026-09-13): published p, renormalised to sum to 1 (classical weights q=p/Σp) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+   "prepared (data state)",
+   "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (the census ships tunnelling atoms only; no pure |0> data state can appear) · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985",
+   "join: family joined by name only: one family named \"Number\", showing family #6076",
+   "cable: off · no automatic external request; line text only on demand",
+   "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n"
+  ],
+  "renderer": "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "count": "210 named blocks · 10,985 function families · 664,940 line entries in 160 buckets · 128,369 distinct numbered lines · index.json states 250,174 unique numbered lines",
+  "fps5s": "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+  "onGPU": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+  "scrollWidth": 1440,
+  "externalRequestsDuringLoad": [],
+  "gpu": {
+   "seaBytes": 7979280,
+   "seaDrawn": 664940,
+   "stride": 1,
+   "drawCalls": 10
+  },
+  "defaultFocus": "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
+  "footer": "202609142202 quantum-twin-star · pack built 2026-09-14T22:14:00.499Z · pack amended 2026-09-14T22:57:08.167Z from https://ventusltd.github.io/stars/ and raw.githubusercontent.com/Ventusltd/star-maker@c5bf5f6 · GLOBALGRID2050",
+  "elec_2039": {
+   "atom": {
+    "n": 2039,
+    "name": "Number",
+    "shells": {
+     "K": 0,
+     "L": 40,
+     "M": 20
+    }
+   },
+   "draw": {
+    "draw": {
+     "mode": 0,
+     "first": 0,
+     "count": 512,
+     "instanceCount": 3
+    },
+    "u_counts_KLM": [
+     0,
+     40,
+     20
+    ],
+    "u_stride": 1
+   },
+   "annuli": {
+    "sphereR_px": 90,
+    "bright": {
+     "K_0p50_0p60": 85,
+     "L_0p80_0p90": 231,
+     "M_1p20_1p30": 78
+    }
+   }
+  },
+  "elec_6554": {
+   "atom": {
+    "n": 6554,
+    "name": "centre",
+    "shells": {
+     "K": 0,
+     "L": 0,
+     "M": 60
+    }
+   },
+   "draw": {
+    "draw": {
+     "mode": 0,
+     "first": 0,
+     "count": 512,
+     "instanceCount": 3
+    },
+    "u_counts_KLM": [
+     0,
+     0,
+     60
+    ],
+    "u_stride": 1
+   },
+   "annuli": {
+    "sphereR_px": 90,
+    "bright": {
+     "K_0p50_0p60": 85,
+     "L_0p80_0p90": 124,
+     "M_1p20_1p30": 204
+    }
+   }
+  },
+  "search80299": {
+   "msg": "family #80299 haversine · block Gc · 6 entries · search steers, it does not measure: Enter again or tap to collapse",
+   "state": null,
+   "secondEnter": "nothing to measure: this focus has no electron record (search steered, it did not collapse)"
+  },
+  "annuli_noAtom": {
+   "sphereR_px": 90,
+   "bright": {
+    "K_0p50_0p60": 43,
+    "L_0p80_0p90": 79,
+    "M_1p20_1p30": 0
+   }
+  },
+  "measure1": {
+   "born": "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 at θ=70.5° (prepared data state, counted) · seed 3699843969 = hash(\"2026-09-14\", 2039, 0) · HOME: all bond dots dimmed",
+   "state": "state: collapsed |0> HOME · θ=0.0° φ=0.2° · P(home)=1.000 P(tunnel)=0.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=70.5° (prepared data state, counted) · data θ=70.5° · a repeat measurement now reproduces the outcome until re-prepared · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "twin": "twin tier: Random star edges (maker draw, seed 2026-09-13): published p, renormalised to sum to 1 (classical weights q=p/Σp) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553 · twin drew from q · Si(202609040219) q=0.687 r=0.734",
+   "cable": "cable: off · cable off: nothing fetched after this measurement (turn \"cable\" on to fetch the family record from the URL in provenance.json, at most once per bucket)",
+   "S": {
+    "theta": 0,
+    "dataTheta": 1.2309594173407745,
+    "outcome": 0,
+    "measuredTheta": 1.2309594173407745,
+    "litRepo": null,
+    "chosen": "Si(202609040219)",
+    "hand": null,
+    "cableOn": false
+   },
+   "externalRequests": 0
+  },
+  "repeats": {
+   "first": 0,
+   "outcomes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "allSame": true,
+   "born": "Born audit: repeat measurement #2039 Number: HOME again · r=0.173 ≥ P(tunnel)=0.000 (certain: the state sits at the pole until re-prepared) · seed 1908034900 = hash(\"2026-09-14\", 2039, 12)",
+   "state": "state: collapsed |0> HOME · θ=0.0° φ=0.2° · P(home)=1.000 P(tunnel)=0.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=70.5° (prepared data state, counted) · data θ=70.5° · a repeat measurement now reproduces the outcome until re-prepared · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "hist": {
+    "2039": {
+     "n": 1,
+     "home": 1,
+     "tunnel": 0,
+     "skipped": 12
+    }
+   },
+   "externalRequests": 0
+  },
+  "histogram": {
+   "outcomes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1
+   ],
+   "line": "histogram #2039 (prepared data state only): HOME 22/26=0.846 vs cos²(θ/2)=0.667 · TUNNEL 4/26=0.154 vs sin²=0.333 · 12 draws not counted (repeats on a collapsed state, by hand, or during relaxation)",
+   "hist": {
+    "2039": {
+     "n": 26,
+     "home": 22,
+     "tunnel": 4,
+     "skipped": 12
+    }
+   },
+   "externalRequests": 0,
+   "recordChips": 26
+  },
+  "litRepo": {
+   "S": {
+    "theta": 3.141592653589793,
+    "dataTheta": 1.2309594173407745,
+    "outcome": 1,
+    "measuredTheta": 1.2309594173407745,
+    "litRepo": "gis-sld-sandbox",
+    "chosen": "Si(202609040219)",
+    "hand": null,
+    "cableOn": false
+   },
+   "born": "Born audit: measured #2039 Number: TUNNEL · r=0.163 < sin²(θ/2)=0.333 at θ=70.5° (prepared data state, counted) · seed 1857407853 = hash(\"2026-09-14\", 2039, 37) · TUNNEL lit valence repo gis-sld-sandbox (index 5 of 6, 1/6, r=0.856)",
+   "litDotsInBuffer": 1
+  },
+  "handMeasure": {
+   "state": "state: collapsed |1> TUNNEL · θ=180.0° φ=57.3° · P(home)=0.000 P(tunnel)=1.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=149.0° (prepared by hand, not counted) · data θ=70.5° · a repeat measurement now reproduces the outcome until re-prepared · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "born": "Born audit: measured #2039 Number: TUNNEL · r=0.550 < sin²(θ/2)=0.928 at θ=149.0° (prepared by hand, not counted) · seed 1605743568 = hash(\"2026-09-14\", 2039, 38) · TUNNEL lit valence repo cvaa (index 3 of 6, 1/6, r=0.528)",
+   "S": {
+    "theta": 3.141592653589793,
+    "dataTheta": 1.2309594173407745,
+    "outcome": 1,
+    "measuredTheta": 2.6,
+    "litRepo": "cvaa",
+    "chosen": "Si(202609040219)",
+    "hand": null,
+    "cableOn": false
+   }
+  },
+  "resizeAfterCollapse": {
+   "before": {
+    "theta": 3.141592653589793,
+    "dataTheta": 1.2309594173407745,
+    "outcome": 1,
+    "measuredTheta": 2.6,
+    "litRepo": "cvaa",
+    "chosen": "Si(202609040219)",
+    "hand": null,
+    "cableOn": false
+   },
+   "after": {
+    "theta": 3.141592653589793,
+    "dataTheta": 1.2309594173407745,
+    "outcome": 1,
+    "measuredTheta": 2.6,
+    "litRepo": "cvaa",
+    "chosen": "Si(202609040219)",
+    "hand": null,
+    "cableOn": false
+   }
+  },
+  "cableOn": {
+   "firstMeasurement": {
+    "cable": "cable: on · live bucket 12: #6076 Number · 5 lines · 1 repos · came down the cable in 185 ms · 327,686 bytes · sha256 matches provenance (pack fetch 2026-09-14T22:13:56.981Z) · the collapse is a 120 ms animation; the record came down the cable in 185 ms · no information travelled by entanglement",
+    "externalRequests": [
+     "https://ventusltd.github.io/stars/code/f/12.json"
+    ]
+   },
+   "secondMeasurement": {
+    "cable": "cable: on · live bucket 12: #6076 Number · 5 lines · 1 repos · from this page's cache (fetched once, 185 ms then) · 327,686 bytes · sha256 matches provenance (pack fetch 2026-09-14T22:13:56.981Z) · the collapse is a 120 ms animation; the record came down the cable in 185 ms · no information travelled by entanglement",
+    "externalRequests": []
+   }
+  },
+  "lineText": {
+   "note": "came down the cable in 249 ms from Ventusltd/globalgrid2050@1a382b7 scripts/build_news_feed_v9_5_1.py L97-L101 · bucket 12: sha256 matches provenance (pack fetch 2026-09-14T22:13:56.981Z) · no information travelled by entanglement",
+   "lines": 5,
+   "first": "48829 │ def Number(value: object) -> float:",
+   "externalRequests": [
+    "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/1a382b71b99cdf3592f15024aabab244ba6fc31e/scripts/build_news_feed_v9_5_1.py"
+   ]
+  },
+  "soul": {
+   "atom": {
+    "n": 766,
+    "name": "geometry",
+    "shells": {
+     "K": 0,
+     "L": 0,
+     "M": 9
+    }
+   },
+   "tier": "twin tier: SOUL entanglement (40 listed of 69 stated) · rule: on TUNNEL the twin is the defining repository data-federation-map-for-globalgrid2050-all-repos (q=1); on HOME one of the 5 called_from repositories (1/5 each, index drawn with a printed r) · repo data-federation-map-for-globalgrid2050-all-repos (on TUNNEL) q=1.000 · repo globalgrid2050 (on HOME) q=0.200 · repo solar-electrical-topology-analysis-engine-text-based (on HOME) q=0.200 · repo testcode (on HOME) q=0.200 · repo ventus-grid-engine (on HOME) q=0.200 · repo youengineer-code-review (on HOME) q=0.200",
+   "runs": [
+    {
+     "outcome": 0,
+     "chosen": "repo globalgrid2050 (on HOME)",
+     "note": "twin fixed by SOUL entanglement: HOME → local copy or dead · called_from index 0 of 5 drawn with r=0.151 → repo globalgrid2050 (on HOME) (1/5)"
+    },
+    {
+     "outcome": 0,
+     "chosen": "repo testcode (on HOME)",
+     "note": "twin fixed by SOUL entanglement: HOME → local copy or dead · called_from index 2 of 5 drawn with r=0.405 → repo testcode (on HOME) (1/5)"
+    },
+    {
+     "outcome": 1,
+     "chosen": "repo data-federation-map-for-globalgrid2050-all-repos (on TUNNEL)",
+     "note": "twin fixed by SOUL entanglement: TUNNEL → tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js (q=1, no draw)"
+    },
+    {
+     "outcome": 0,
+     "chosen": "repo testcode (on HOME)",
+     "note": "twin fixed by SOUL entanglement: HOME → local copy or dead · called_from index 2 of 5 drawn with r=0.584 → repo testcode (on HOME) (1/5)"
+    },
+    {
+     "outcome": 0,
+     "chosen": "repo testcode (on HOME)",
+     "note": "twin fixed by SOUL entanglement: HOME → local copy or dead · called_from index 2 of 5 drawn with r=0.425 → repo testcode (on HOME) (1/5)"
+    },
+    {
+     "outcome": 0,
+     "chosen": "repo youengineer-code-review (on HOME)",
+     "note": "twin fixed by SOUL entanglement: HOME → local copy or dead · called_from index 4 of 5 drawn with r=0.996 → repo youengineer-code-review (on HOME) (1/5)"
+    },
+    {
+     "outcome": 1,
+     "chosen": "repo data-federation-map-for-globalgrid2050-all-repos (on TUNNEL)",
+     "note": "twin fixed by SOUL entanglement: TUNNEL → tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js (q=1, no draw)"
+    },
+    {
+     "outcome": 1,
+     "chosen": "repo data-federation-map-for-globalgrid2050-all-repos (on TUNNEL)",
+     "note": "twin fixed by SOUL entanglement: TUNNEL → tunnelled from data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/app.js (q=1, no draw)"
+    }
+   ]
+  },
+  "twinPick": {
+   "point": {
+    "x": 1282.9136042017885,
+    "y": 495.3628215516983,
+    "famIdx": 766
+   },
+   "msg": "twin star: #1416 · family #815 geometry · block x128 (other) · line #1416 appears in 5,801 families (the twin is the same entry mirrored; the pick steers the principal)"
+  },
+  "principalPick": {
+   "point": {
+    "x": 241.4463957982114,
+    "y": 556.6371784483017
+   },
+   "msg": "#1416 · family #815 geometry · block x128 (other) · line #1416 appears in 5,801 families"
+  },
+  "labelOverlap": [],
+  "prove": "prove it: VBO 7,979,280 bytes (664,940 entries × 12) · drawArraysInstanced(POINTS, 0, 664,940, 2) each frame · CPU sum of keys 46,838,599,001 · sha256(lines.bin in memory) 5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a · provenance sha256 5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a (match)",
+  "fpsEnd": "fps 60 (1 s mean) · draw calls 12 · DPR 1",
+  "externalHosts": [
+   "ventusltd.github.io",
+   "raw.githubusercontent.com"
+  ],
+  "externalRequestsTotal": 2,
+  "errors": []
+ },
+ "build-430": {
+  "scrollWidth": 430,
+  "bodyScrollWidth": 430,
+  "hud": [
+   "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+   "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+   "state: superposition (data state) · θ=70.5° φ=247.4° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "Born audit: no measurement yet",
+   "twin tier: Random star edges (maker draw, seed 2026-09-13): published p, renormalised to sum to 1 (classical weights q=p/Σp) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+   "prepared (data state)",
+   "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (the census ships tunnelling atoms only; no pure |0> data state can appear) · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985",
+   "join: family joined by name only: one family named \"Number\", showing family #6076",
+   "cable: off · no automatic external request; line text only on demand",
+   "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
+   "▸ tap to expand"
+  ],
+  "fps": "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+  "onGPU": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+  "gpu": {
+   "seaBytes": 7979280,
+   "seaDrawn": 664940,
+   "stride": 1,
+   "drawCalls": 10,
+   "DPR": 1,
+   "canvas": [
+    408,
+    860
+   ],
+   "phoneMode": ""
+  },
+  "layout": {
+   "stage": {
+    "l": 10,
+    "t": 394,
+    "w": 410,
+    "h": 1007
+   },
+   "canvas": {
+    "l": 11,
+    "t": 395,
+    "w": 408,
+    "h": 860
+   },
+   "hud": {
+    "l": 11,
+    "t": 1255,
+    "w": 408,
+    "h": 145
+   },
+   "hudPosition": "static",
+   "sphereHandle": {
+    "l": 155,
+    "t": 550,
+    "w": 120,
+    "h": 120
+   }
+  },
+  "labelOverlap": [],
+  "controlsInViewportWidth": true,
+  "touchTapSphere": {
+   "born": "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 at θ=70.5° (prepared data state, counted) · seed 3699843969 = hash(\"2026-09-14\", 2039, 0) · HOME: all bond dots dimmed"
+  },
+  "fpsAfter": "fps 60 (1 s mean) · draw calls 12 · DPR 1",
+  "externalRequests": [],
+  "errors": []
+ },
+ "build-430-dpr2": {
+  "scrollWidth": 430,
+  "bodyScrollWidth": 430,
+  "hud": [
+   "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "fps 60 (1 s mean) · draw calls 10 · DPR 2",
+   "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+   "state: superposition (data state) · θ=70.5° φ=244.0° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "Born audit: no measurement yet",
+   "twin tier: Random star edges (maker draw, seed 2026-09-13): published p, renormalised to sum to 1 (classical weights q=p/Σp) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+   "prepared (data state)",
+   "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (the census ships tunnelling atoms only; no pure |0> data state can appear) · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985",
+   "join: family joined by name only: one family named \"Number\", showing family #6076",
+   "cable: off · no automatic external request; line text only on demand",
+   "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
+   "▸ tap to expand"
+  ],
+  "fps": "fps 60 (1 s mean) · draw calls 10 · DPR 2",
+  "onGPU": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+  "gpu": {
+   "seaBytes": 7979280,
+   "seaDrawn": 664940,
+   "stride": 1,
+   "drawCalls": 10,
+   "DPR": 2,
+   "canvas": [
+    816,
+    1720
+   ],
+   "phoneMode": ""
+  },
+  "layout": {
+   "stage": {
+    "l": 10,
+    "t": 394,
+    "w": 410,
+    "h": 1007
+   },
+   "canvas": {
+    "l": 11,
+    "t": 395,
+    "w": 408,
+    "h": 860
+   },
+   "hud": {
+    "l": 11,
+    "t": 1255,
+    "w": 408,
+    "h": 145
+   },
+   "hudPosition": "static",
+   "sphereHandle": {
+    "l": 155,
+    "t": 550,
+    "w": 120,
+    "h": 120
+   }
+  },
+  "labelOverlap": [],
+  "controlsInViewportWidth": true,
+  "touchTapSphere": {
+   "born": "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 at θ=70.5° (prepared data state, counted) · seed 3699843969 = hash(\"2026-09-14\", 2039, 0) · HOME: all bond dots dimmed"
+  },
+  "fpsAfter": "fps 60 (1 s mean) · draw calls 12 · DPR 2",
+  "externalRequests": [],
+  "errors": []
+ },
+ "portStillListening": false,
+ "finished_utc": "2026-09-14T23:14:32.244Z"
+}

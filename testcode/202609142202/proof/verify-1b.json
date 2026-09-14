@@ -1,0 +1,167 @@
+{
+ "url": "http://127.0.0.1:8871/testcode/202609142202/index.html",
+ "started": "2026-09-14T22:48:41.433Z",
+ "linesBin": {
+  "bytes": 2659760,
+  "entries": 664940
+ },
+ "renderer": "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+ "candidates": [
+  {
+   "fi": 0,
+   "n": 1,
+   "name": "clampInteger",
+   "atomN": 1
+  },
+  {
+   "fi": 1261,
+   "n": 1339,
+   "name": "isValidLngLat",
+   "atomN": 1204
+  },
+  {
+   "fi": 1746,
+   "n": 5187,
+   "name": "FetchQueue",
+   "atomN": 1838
+  },
+  {
+   "fi": 3783,
+   "n": 8465,
+   "name": "representativePoint",
+   "atomN": 3458
+  },
+  {
+   "fi": 4268,
+   "n": 9129,
+   "name": "classifyRegionalV9_7",
+   "atomN": 3738
+  },
+  {
+   "fi": 5141,
+   "n": 31738,
+   "name": "canonical_sha",
+   "atomN": 4256
+  },
+  {
+   "fi": 5626,
+   "n": 33127,
+   "name": "localScaleKm",
+   "atomN": 3542
+  },
+  {
+   "fi": 8148,
+   "n": 75481,
+   "name": "validateAsset",
+   "atomN": 1465
+  }
+ ],
+ "clickLog": [
+  {
+   "target": 1,
+   "x": 587,
+   "y": 629,
+   "msg": "#19674 · family #73942 fetch_impl · block Ln (news) · line #19674 appears in 394 families"
+  },
+  {
+   "target": 1339,
+   "x": 555,
+   "y": 625,
+   "msg": "#2 · family #29123 handleInput · block Cg (solar) · line #2 appears in 36,545 families"
+  },
+  {
+   "target": 5187,
+   "x": 561,
+   "y": 342,
+   "msg": "#2 · family #67259 (anonymous) · block Ss (cartridges) · line #2 appears in 36,545 families"
+  },
+  {
+   "target": 8465,
+   "x": 502,
+   "y": 317,
+   "msg": "#76725 · family #8494 (anonymous) · block Ss (cartridges) · line #76725 appears in 59 families"
+  },
+  {
+   "target": 9129,
+   "x": 455,
+   "y": 741,
+   "msg": "#1416 · family #9129 classifyRegionalV9_7 · block x578 (off table) · line #1416 appears in 5,801 families"
+  }
+ ],
+ "pick": {
+  "target": {
+   "fi": 4268,
+   "n": 9129,
+   "name": "classifyRegionalV9_7",
+   "atomN": 3738
+  },
+  "clickedAt": {
+   "x": 455,
+   "y": 741
+  },
+  "msg": "#1416 · family #9129 classifyRegionalV9_7 · block x578 (off table) · line #1416 appears in 5,801 families",
+  "key": 1416,
+  "familyN": 9129,
+  "stateAfterClick": "state: superposition · θ=78.2° φ=0.0° · P(home)=0.603 P(tunnel)=0.397 · |α|²+|β|²=1.000 · K30 L61 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+  "keyInLinesBin": true,
+  "linesPanel": {
+   "hidden": false,
+   "header": "#9129 classifyRegionalV9_7",
+   "shownKeys": 32,
+   "firstKeys": [
+    84536,
+    84537,
+    84538,
+    84539,
+    84540,
+    2,
+    84541,
+    84542
+   ],
+   "allShownKeysExistInLinesBin": true
+  },
+  "joinLine": "join: atom joined by name only (soul numbers and family keys are different numberings)",
+  "bornBefore": "Born audit: no measurement yet",
+  "bornAfterMeasure": "Born audit: measured #3738 classifyRegionalV9_7: TUNNEL · r=0.338 < sin²(θ/2)=0.397 · seed 3545855122 = hash(\"2026-09-14\", 3738, 0)",
+  "stateAfterMeasure": "state: collapsed |1> TUNNEL · θ=78.2° φ=0.0° · P(home)=0.603 P(tunnel)=0.397 · |α|²+|β|²=1.000 · K30 L61 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+  "twinLine": "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · #1191 computeAndDraw q=1.000 p=0.373 · twin drew from q · #1191 computeAndDraw q=1.000 r=0.944",
+  "measured": true,
+  "record": "1 #3738 classifyRegionalV9_7 TUNNEL",
+  "bornAfterSphereTap": "Born audit: measured #3738 classifyRegionalV9_7: HOME · r=0.628 ≥ sin²(θ/2)=0.397 · seed 3562632741 = hash(\"2026-09-14\", 3738, 1)",
+  "sphereTapMeasured": true,
+  "cableLine": "cable: live bucket 18: #9129 classifyRegionalV9_7 · 32 lines · 2 repos · came down the cable: 53 ms · collapse was instant; the data came down the cable"
+ },
+ "bloch": {
+  "stateBefore": "state: collapsed |0> HOME · θ=78.2° φ=0.0° · P(home)=0.603 P(tunnel)=0.397 · |α|²+|β|²=1.000 · K30 L61 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+  "before": {
+   "theta": 78.2,
+   "phi": 0,
+   "norm": 1
+  },
+  "stateDuring": "state: superposition (prepared by hand) · θ=47.2° φ=24.1° · P(home)=0.840 P(tunnel)=0.160 · |α|²+|β|²=1.000 · K30 L61 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+  "during": {
+   "theta": 47.2,
+   "phi": 24.1,
+   "norm": 1
+  },
+  "stateDuring2": "state: superposition (prepared by hand) · θ=16.3° φ=346.2° · P(home)=0.980 P(tunnel)=0.020 · |α|²+|β|²=1.000 · K30 L61 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+  "during2": {
+   "theta": 16.3,
+   "phi": 346.2,
+   "norm": 1
+  },
+  "stateAfter": "state: superposition · θ=24.3° φ=301.2° · P(home)=0.956 P(tunnel)=0.044 · |α|²+|β|²=1.000 · K30 L61 M60 → sin²(θ/2)=M/(K+L+M) · φ still (paired)",
+  "after": {
+   "theta": 24.3,
+   "phi": 301.2,
+   "norm": 1
+  },
+  "thetaChanged": true,
+  "phiChanged": true,
+  "normAlwaysOne": true,
+  "preparedByHand": true
+ },
+ "consoleIssues": [],
+ "serverKill": "taskkill ok pid 32940",
+ "finished": "2026-09-14T22:48:59.418Z"
+}

@@ -1,0 +1,115 @@
+{
+ "before": {
+  "theta": 1.2309594173407745,
+  "dataTheta": 1.2309594173407745,
+  "phi": 0.5850430919147592,
+  "outcome": -1,
+  "collapse": false,
+  "reprepareAt": 0,
+  "hist": {},
+  "twinChosen": null
+ },
+ "after1": {
+  "theta": 1.2309594173407745,
+  "dataTheta": 1.2309594173407745,
+  "phi": 0.5980807014271569,
+  "outcome": 0,
+  "collapse": true,
+  "reprepareAt": 8765.10000000149,
+  "hist": {
+   "2039": {
+    "n": 1,
+    "home": 1,
+    "tunnel": 0
+   }
+  },
+  "twinChosen": "Si(202609040219)"
+ },
+ "hud1": [
+  "state: collapsed |0> HOME · θ=70.5° φ=34.3° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "Born audit: measured #2039 Number: HOME · r=0.729 ≥ sin²(θ/2)=0.333 · seed 3699843969 = hash(\"2026-09-14\", 2039, 0)",
+  "twin tier: Random star edges (maker draw, seed 2026-09-13, real p, Born-normalised) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553 · twin drew from q · Si(202609040219) q=0.687 r=0.734",
+  "re-prepare in 7.7 s"
+ ],
+ "insideWindow": [
+  {
+   "outcome": 0,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Ss(202609032222)"
+  },
+  {
+   "outcome": 0,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Si(202609040219)"
+  },
+  {
+   "outcome": 1,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Ss(202609032222)"
+  },
+  {
+   "outcome": 1,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Si(202609040219)"
+  },
+  {
+   "outcome": 0,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Si(202609040219)"
+  },
+  {
+   "outcome": 0,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Si(202609040219)"
+  },
+  {
+   "outcome": 1,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Si(202609040219)"
+  },
+  {
+   "outcome": 0,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Ss(202609032222)"
+  },
+  {
+   "outcome": 0,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Ss(202609032222)"
+  },
+  {
+   "outcome": 0,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Ss(202609032222)"
+  },
+  {
+   "outcome": 1,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Si(202609040219)"
+  },
+  {
+   "outcome": 1,
+   "theta": 1.231,
+   "collapse": true,
+   "twin": "Si(202609040219)"
+  }
+ ],
+ "hudEnd": [
+  "state: collapsed |1> TUNNEL · θ=70.5° φ=34.3° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1.000 · K0 L40 M20 → sin²(θ/2)=M/(K+L+M) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "Born audit: measured #2039 Number: TUNNEL · r=0.173 < sin²(θ/2)=0.333 · seed 1908034900 = hash(\"2026-09-14\", 2039, 12)",
+  "re-prepare in 8.0 s"
+ ],
+ "blochUniformSource": "BLOCH_VS mixes u_theta toward 0/PI by u_collapseT; S.theta itself is never set to 0/PI on collapse (quantum.js line 418, 591)",
+ "errors": []
+}

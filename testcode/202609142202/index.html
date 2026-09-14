@@ -1,0 +1,85 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · 202609142202 Quantum Twin Star</title><link rel="icon" href="data:,">
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden;max-width:100vw}
+body{margin:0;padding:12px 16px 40px;background:#0b0d12;color:#d8dee9;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
+a{color:#00e5ff}
+h1{font-size:20px;margin:0;letter-spacing:.06em}
+.u-count{color:#7da0c8;font-size:12px;overflow-wrap:anywhere}
+.u-fail{border:1px solid #ff5c5c;color:#ffb3b3;border-radius:8px;padding:8px 10px;margin:8px 0}
+.u-muted{color:#8b93a7;font-size:12px}
+.u-chip{display:inline-flex;align-items:center;min-height:24px;background:#12151c;border:1px solid #385464;color:#eef2fb;padding:5px 9px;border-radius:14px;font-size:12px;cursor:pointer;touch-action:manipulation;margin:2px 4px 2px 0;font-family:inherit}
+.u-chip:hover{border-color:#00e5ff}
+.u-chip.live{border-color:#39d353}
+.u-chip.on{border-color:#00e5ff;background:#0f2a33}
+.u-chip:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #00e5ff;outline-offset:1px}
+.u-search{width:100%;background:#12151c;border:1px solid #385464;border-radius:8px;color:#eef2fb;padding:7px 10px;font:inherit;min-width:0}
+.u-panel{border:1px solid #2a3140;background:#0f1218;border-radius:10px;padding:10px;margin-top:10px;overflow-wrap:anywhere}
+.u-code{background:#07090d;border:1px solid #1f2633;border-radius:8px;max-height:55vh;overflow:auto;font-size:12px;padding:8px}
+.u-line{white-space:pre}
+.u-key{color:#ffd54a}
+.u-foot{color:#566079;font-size:11px;margin-top:24px;overflow-wrap:anywhere}
+.u-legend{font-size:11px;color:#8b93a7;margin:6px 0}
+.u-legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:4px}
+#bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0}
+#bar .u-search{flex:1 1 220px}
+#stage{position:relative;width:100%;margin-top:6px;border:1px solid #1f2633;border-radius:10px;overflow:hidden;background:#07090d}
+#gl,#fallback{display:block;width:100%;height:min(70vh,720px);touch-action:pan-y}
+#hud{position:absolute;left:8px;top:8px;font-size:10.5px;line-height:1.4;color:#d8dee9;background:rgba(7,9,13,.8);border:1px solid #1f2633;border-radius:8px;padding:6px 8px;max-width:min(40%,300px);max-height:calc(100% - 16px);overflow-y:auto;pointer-events:auto;overflow-wrap:anywhere;z-index:3}
+#hud div{white-space:normal}
+#hud .k{color:#7da0c8}
+#hud .w{color:#ffd54a}
+#hud .r{color:#ff7b7b}
+#hud .g{color:#39d353}
+#labels{position:absolute;inset:0;pointer-events:none;z-index:2}
+#labels .lb{position:absolute;font-size:11px;color:#9fd8ff;white-space:nowrap;transform:translate(-50%,-50%);text-shadow:0 0 4px #000}
+#labels .lb.dim{color:#8b93a7}
+#labels .lb.left{transform:translate(0,-50%)}
+#labels .lb.wrap{white-space:normal;max-width:44%;text-align:center}
+@media(max-width:430px){#labels .lb.wrap{max-width:92%}}
+#labels .lb.amber{color:#ffd54a}
+#labels .lb.red{color:#ff7b7b;border:1px solid #ff5c5c;border-radius:6px;padding:1px 4px;background:rgba(40,0,0,.6)}
+#labels .lb.badge{border:1px solid #385464;border-radius:6px;padding:1px 4px;background:rgba(7,9,13,.7)}
+#sphereHandle{position:absolute;border-radius:50%;touch-action:none;cursor:grab;z-index:4}
+#record{margin-top:8px;overflow-x:auto;white-space:nowrap;padding:4px 0;border-top:1px solid #1f2633;border-bottom:1px solid #1f2633;min-height:34px}
+#record .u-chip{white-space:nowrap}
+#legend .u-chip{padding:3px 8px}
+#legend select{background:#12151c;color:#eef2fb;border:1px solid #385464;border-radius:8px;font:inherit;font-size:12px;padding:4px;max-width:100%}
+#about[hidden],#lines[hidden]{display:none}
+.u-h{font-size:16px;color:#eef2fb}
+@media(max-width:760px){#hud{max-width:82%}}
+@media(max-width:430px){
+  body{padding:10px 10px 40px}
+  #gl,#fallback{height:200vw}
+  #hud{position:static;max-width:100%;max-height:none;border-width:1px 0 0 0;border-radius:0;margin:0}
+  #hud.collapsed div.x{display:none}
+  #bar .u-search{flex-basis:100%}
+}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="bar">
+  <input class="u-search" id="search" placeholder="#family · #line number · function name — Enter steers, Enter again measures" aria-label="search">
+  <button class="u-chip" id="measure" title="Born-rule measurement of the focused atom (a repeat on a collapsed state reproduces the outcome)">measure</button>
+  <button class="u-chip" id="reprepare" title="return the state to the data θ now (the 8 s ring does the same)">re-prepare</button>
+  <button class="u-chip" id="cable" title="off by default: when on, the family record is fetched after a measurement from the bucket URL in provenance.json, once per bucket, sha256 checked">cable: off</button>
+  <button class="u-chip" id="prove" title="print buffer sizes and a CPU checksum">prove it</button>
+  <button class="u-chip" id="newseed" title="reseed the PRNG with today's UTC date">new seed</button>
+  <button class="u-chip" id="hold" title="freeze after collapse">hold</button>
+  <button class="u-chip" id="about" title="what is exact and what is a picture">?</button>
+</div>
+<div id="legend" class="u-legend"></div>
+<div id="stage">
+  <canvas id="gl"></canvas>
+  <div id="labels"></div>
+  <div id="hud" aria-live="polite"></div>
+  <div id="sphereHandle" title="drag to prepare the state by hand; tap to measure"></div>
+</div>
+<div id="record" class="u-muted"></div>
+<div class="u-panel" id="lines" hidden></div>
+<div class="u-panel" id="note"><b>Quantum Twin Star.</b> Every numbered-line entry the published buckets carry is uploaded to one GPU buffer once and drawn twice each frame: the principal star on the left (or top) and its antipodal twin on the right (or below). The qubit is the spin of one atom from the electron census; the Bloch sphere in the ring's centre shows it. Search steers; tapping the sphere, the measure button or a second Enter performs one Born-rule measurement with an auditable random number, and the state stays collapsed at the pole (a repeat reproduces the outcome) until the 8 s ring or the re-prepare button restores it. Only families whose name matches a shipped atom can be measured; the others are steered to and say so. Nothing is fetched from outside after load unless the cable toggle is on or line text is requested. Numbers on this page are read from the data pack; where a fact is absent nothing is shown for it.</div>
+<div class="u-panel" id="aboutPanel" hidden></div>
+<div class="u-foot" id="foot"></div>
+<script type="module" src="./quantum.js"></script>
+</html>

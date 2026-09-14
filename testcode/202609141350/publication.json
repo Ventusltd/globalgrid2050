@@ -1,0 +1,80 @@
+{
+  "generation": "202609141350",
+  "lane": "claude-alienware (final publisher)",
+  "name": "GLOBALGRID2050 Spider universe: ten read-only versions charting every function family and numbered line through its blocks",
+  "builtUTC": "2026-09-14T13:50:40Z",
+  "data_source": {
+    "repository": "Ventusltd/stars",
+    "commit_at_build": "9f0d405632a515030509556535af949bdb7cef51",
+    "served": "https://ventusltd.github.io/stars/ (blocks/, code/) and raw.githubusercontent.com"
+  },
+  "status": "candidate awaiting browser and served-byte checks",
+  "read_only": true,
+  "files": [
+    {
+      "path": "SPEC.md",
+      "bytes": 5265,
+      "sha256": "38ccbbb4291c4108f460639891bf7f24488cff66447ace88bafb0e34232fb8d4"
+    },
+    {
+      "path": "core.js",
+      "bytes": 11701,
+      "sha256": "262ffadcc63df1cdc2300ac7dd8b85c4606199db551f2cc017a6efd038167484"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3369,
+      "sha256": "b13ba25fd5e3007b40bd1e18630aac0f8524e053e189f51ab1efe21275daa19d"
+    },
+    {
+      "path": "v01-spider-drill/index.html",
+      "bytes": 5710,
+      "sha256": "bdbafb95f345b9aacd6568fa7225b93623f0659b7ed64b0c0472b49f7ea83b35"
+    },
+    {
+      "path": "v02-radial-sunburst/index.html",
+      "bytes": 6530,
+      "sha256": "ec1ef1107ebbccf973f4cb60880c3664b318a7f6299c70fe487437c7e866b9ea"
+    },
+    {
+      "path": "v03-particle-universe/index.html",
+      "bytes": 6947,
+      "sha256": "fc4356b48a15160400cc3e8723de434e674db515b312bb223a825034c8de7acc"
+    },
+    {
+      "path": "v04-periodic-arrows/index.html",
+      "bytes": 5855,
+      "sha256": "63dc287ececda3595478ee8ecdfa4bc9ddff4e512a14d869526ba5f5dc9d4274"
+    },
+    {
+      "path": "v05-chord-dependencies/index.html",
+      "bytes": 4719,
+      "sha256": "5c597831dec3ddcd3eb613d680e58851a06c1cb417a64bb0e956042f39a8c578"
+    },
+    {
+      "path": "v06-treemap-lines/index.html",
+      "bytes": 4951,
+      "sha256": "6ce162e1a1f4f014469f3fde76dd99683a4563fdbf9e600319ebdcb745ff89a2"
+    },
+    {
+      "path": "v07-flow-repos/index.html",
+      "bytes": 5973,
+      "sha256": "a7527f73c7048433719f5450e6e0cc08b89a76d1f0212809efa2e2daf032661e"
+    },
+    {
+      "path": "v08-ring-journey/index.html",
+      "bytes": 8346,
+      "sha256": "1501f4f5266bd19cb58359f9d4885b20cfda32bd9f4294c4586e514b3f90feb1"
+    },
+    {
+      "path": "v09-line-river/index.html",
+      "bytes": 6520,
+      "sha256": "7b92d65158dcdb5ad225a4c455a2ab10b8a38f1887be78b17ee04f351d3bc6c7"
+    },
+    {
+      "path": "v10-ide-search/index.html",
+      "bytes": 6299,
+      "sha256": "486d7f1e0cff82d2c0bee2aaa9b1e6704da498356f3782228aaf15979052774c"
+    }
+  ]
+}

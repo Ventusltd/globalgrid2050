@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · v03 particle universe</title>
+<script>window.BUILT='2026-09-14 13:50'</script>
+<script src="../core.js"></script>
+<style>
+canvas{width:100%;height:min(70vh,720px);background:radial-gradient(circle at 50% 50%,#101624,#07090d 70%);border:1px solid #1f2633;border-radius:10px;touch-action:none;display:block}
+#tip{position:fixed;pointer-events:none;background:#12151c;border:1px solid #385464;padding:4px 8px;border-radius:6px;font-size:12px;display:none;z-index:5}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<canvas id="sky"></canvas><div id="tip"></div>
+<div class="u-muted">Stars are the 207 named blocks, sized by their function families and placed by category. Tap a star: its families orbit it and its dependencies light up as threads. Tap a particle to read its numbered lines. Drag to pan.</div>
+<div class="u-panel" id="panel" hidden></div>
+<script>
+const cv = $('#sky'), ctx = cv.getContext('2d'), tip = $('#tip'), P = $('#panel');
+let W, H, dpr, stars = [], parts = [], sel = null, pan = { x: 0, y: 0 }, t0 = performance.now();
+function size() { dpr = devicePixelRatio || 1; W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+function layout() {
+  const cats = U.cats; stars = [];
+  cats.forEach((c, ci) => {
+    const list = U.blocks.filter(b => b.category === c.id);
+    const a0 = (ci / cats.length) * Math.PI * 2, span = (Math.PI * 2) / cats.length;
+    list.forEach((b, i) => {
+      const f = blockFamilies(b.symbol).length; const r = 0.12 + 0.36 * ((i + 1) / (list.length + 1)) ** 0.8;
+      const a = a0 + span * (0.15 + 0.7 * ((i * 0.618) % 1));
+      stars.push({ sym: b.symbol, label: blockLabel(b.symbol), colour: c.colour, rx: r * Math.cos(a), ry: r * Math.sin(a), rad: 2 + Math.sqrt(f) * 0.55, fams: f });
+    });
+  });
+}
+const scr = s => ({ x: W / 2 + pan.x + s.rx * Math.min(W, H) * 1.05, y: H / 2 + pan.y + s.ry * Math.min(W, H) * 1.05 });
+function draw(now) {
+  ctx.clearRect(0, 0, W, H); const t = (now - t0) / 1000;
+  if (sel) {  // threads: depends on (yellow) and used by (pink)
+    const a = scr(sel);
+    for (const [list, col] of [[blockDeps(sel.sym), REL['depends on']], [blockUsers(sel.sym), REL['used by']]]) for (const s of list) { const o = stars.find(x => x.sym === s); if (!o) continue; const b = scr(o); ctx.strokeStyle = col; ctx.globalAlpha = .55; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.quadraticCurveTo((a.x + b.x) / 2 + (a.y - b.y) * .2, (a.y + b.y) / 2 + (b.x - a.x) * .2, b.x, b.y); ctx.stroke(); ctx.globalAlpha = 1; }
+  }
+  for (const s of stars) {
+    const p = scr(s); const on = sel === s; ctx.fillStyle = s.colour; ctx.globalAlpha = sel && !on ? .45 : 1;
+    ctx.beginPath(); ctx.arc(p.x, p.y, s.rad + (on ? 3 : 0), 0, 7); ctx.fill(); ctx.globalAlpha = 1;
+    if (on || s.rad > 9) { ctx.fillStyle = '#d8dee9'; ctx.font = '11px ui-monospace,monospace'; ctx.fillText(s.sym, p.x + s.rad + 3, p.y + 4); }
+  }
+  if (sel) { // families orbit the selected star
+    const c = scr(sel); parts.forEach((q, i) => { const ring = 1 + (i % 4); const a = q.a + t * (0.25 / ring); q.x = c.x + Math.cos(a) * (sel.rad + 16 + ring * 18); q.y = c.y + Math.sin(a) * (sel.rad + 16 + ring * 18); ctx.fillStyle = REL.contains; ctx.beginPath(); ctx.arc(q.x, q.y, 2.6, 0, 7); ctx.fill(); });
+  }
+  requestAnimationFrame(draw);
+}
+function hit(x, y) {
+  for (const q of parts) if (Math.hypot(q.x - x, q.y - y) < 7) return { part: q };
+  let best = null, bd = 1e9; for (const s of stars) { const p = scr(s); const d = Math.hypot(p.x - x, p.y - y); if (d < Math.max(10, s.rad + 4) && d < bd) { best = s; bd = d; } }
+  return best ? { star: best } : null;
+}
+let drag = null;
+cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, px: pan.x, py: pan.y, moved: false }; });
+cv.addEventListener('pointermove', e => {
+  const r = cv.getBoundingClientRect(); const h = hit(e.clientX - r.left, e.clientY - r.top);
+  if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true; if (drag.moved) { pan.x = drag.px + dx; pan.y = drag.py + dy; } }
+  if (h) { tip.style.display = 'block'; tip.style.left = e.clientX + 12 + 'px'; tip.style.top = e.clientY + 12 + 'px'; tip.textContent = h.star ? `${h.star.label} · ${h.star.fams} families` : `family #${h.part.n}`; } else tip.style.display = 'none';
+});
+cv.addEventListener('pointerup', e => { const d = drag; drag = null; if (d && d.moved) return; const r = cv.getBoundingClientRect(); const h = hit(e.clientX - r.left, e.clientY - r.top); if (!h) return; if (h.star) selectStar(h.star.sym); else openFamily(h.part.n); });
+function selectStar(sym) {
+  const s = stars.find(x => x.sym === sym);
+  if (!s) { P.hidden = false; P.innerHTML = `<div class="u-muted">${esc(blockLabel(sym))} is an unnamed group: it has no star. Its ${blockFamilies(sym).length} families: </div>`; P.append(el('div', { class: 'u-links' }, blockFamilies(sym).slice(0, 80).map(n => el('button', { class: 'u-chip', on: { click: () => openFamily(n) } }, `#${n}`)))); return; }
+  sel = s; trailPush('block', sym, s.label);
+  parts = blockFamilies(sym).slice(0, 120).map((n, i) => ({ n, a: (i / Math.min(120, s.fams)) * Math.PI * 2, x: 0, y: 0 }));
+  P.hidden = false; P.innerHTML = '';
+  const b = U.bySym.get(sym) || {};
+  P.append(el('div', { class: 'u-h' }, s.label), el('div', { class: 'u-muted' }, `${b.description || ''} ${s.fams} families (${parts.length} orbiting). Threads: yellow = depends on, pink = used by.`),
+    el('div', { class: 'u-links' }, el('a', { class: 'u-chip', href: `${STARS}table.html?block=${sym}`, target: '_blank', rel: 'noopener' }, 'Block page ↗'), ...blockDeps(sym).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['depends on']}`, on: { click: () => selectStar(d) } }, `→ ${d}`)), ...blockUsers(sym).slice(0, 20).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['used by']}`, on: { click: () => selectStar(d) } }, `← ${d}`))));
+}
+async function openFamily(n) { P.hidden = false; await showFamilyPanel(n, P, openFamily, selectStar); P.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+window.goHome = () => { sel = null; parts = []; pan = { x: 0, y: 0 }; P.hidden = true; };
+window.goTo = (k, id) => k === 'block' ? selectStar(id) : k === 'family' ? openFamily(id) : goHome();
+addEventListener('resize', size);
+loadUniverse().then(() => { $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); size(); layout(); requestAnimationFrame(draw); footer('v03-particle-universe'); }).catch(e => fail('#count', e));
+</script>

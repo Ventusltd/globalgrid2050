@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · v02 radial sunburst</title>
+<script>window.BUILT='2026-09-14 13:50'</script>
+<script src="../core.js"></script>
+<style>
+#wrap{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+svg{width:min(92vw,640px);height:auto;touch-action:manipulation}
+.seg{cursor:pointer;stroke:#0b0d12;stroke-width:1}.seg:hover{filter:brightness(1.35)}
+.lbl{fill:#d8dee9;font-size:10px;pointer-events:none}
+#side{flex:1;min-width:280px}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div id="wrap"><svg id="sun" viewBox="-320 -320 640 640"></svg><div id="side"><div class="u-panel" id="panel">Tap a ring segment. The centre goes back one level.</div></div></div>
+<script>
+const NS = 'http://www.w3.org/2000/svg', S = $('#sun'), P = $('#panel');
+const sv = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+function arc(r0, r1, a0, a1) {
+  const p = (r, a) => [r * Math.cos(a - Math.PI / 2), r * Math.sin(a - Math.PI / 2)];
+  const big = a1 - a0 > Math.PI ? 1 : 0; const [x0, y0] = p(r1, a0), [x1, y1] = p(r1, a1), [x2, y2] = p(r0, a1), [x3, y3] = p(r0, a0);
+  return `M${x0},${y0}A${r1},${r1} 0 ${big} 1 ${x1},${y1}L${x2},${y2}A${r0},${r0} 0 ${big} 0 ${x3},${y3}Z`;
+}
+/* one ring of weighted items; min share so small items stay tappable; labels only when the segment is wide enough */
+function ring(items, r0, r1, onClick) {
+  const tot = items.reduce((s, x) => s + Math.max(x.w, 0.004 * items.reduce((q, y) => q + y.w, 0)), 0); let a = 0;
+  for (const it of items) {
+    const w = Math.max(it.w, 0.004 * items.reduce((q, y) => q + y.w, 0)); const da = (w / tot) * Math.PI * 2;
+    const g = sv('path', { d: arc(r0, r1, a, a + da - 0.002), fill: it.colour, class: 'seg' });
+    g.append(sv('title', {})); g.firstChild.textContent = `${it.label} (${it.sub})`;
+    g.addEventListener('click', () => onClick(it)); S.append(g);
+    if (da > 0.09) { const m = a + da / 2, rr = (r0 + r1) / 2; const t = sv('text', { x: rr * Math.cos(m - Math.PI / 2), y: rr * Math.sin(m - Math.PI / 2), class: 'lbl', 'text-anchor': 'middle', 'dominant-baseline': 'middle' }); t.textContent = it.short || it.label.slice(0, 14); S.append(t); }
+    it.mid = a + da / 2; a += da;
+  }
+}
+function centre(title, sub, onClick) {
+  const c = sv('circle', { r: 95, fill: '#12151c', stroke: '#00e5ff', 'stroke-width': 2, class: 'seg' }); c.addEventListener('click', onClick); S.append(c);
+  const t = sv('text', { y: -8, class: 'lbl', 'text-anchor': 'middle', style: 'font-size:15px;fill:#eef2fb' }); t.textContent = title; S.append(t);
+  const s = sv('text', { y: 14, class: 'lbl', 'text-anchor': 'middle', style: 'fill:#8b93a7' }); s.textContent = sub; S.append(s);
+}
+window.goHome = function () {
+  S.innerHTML = '';
+  const cats = U.cats.map(c => ({ id: c.id, label: c.title, short: c.id, colour: c.colour, w: U.blocks.filter(b => b.category === c.id).length, sub: 'blocks' }));
+  cats.push({ id: '_unnamed', label: 'Not yet named', short: 'unnamed', colour: '#566079', w: U.unnamed.length / 4, sub: `${U.unnamed.length} groups` });
+  centre('GLOBALGRID2050', '12 categories · tap a ring', () => {});
+  ring(cats, 100, 190, c => { trailPush('cat', c.id, c.label); showCat(c.id); });
+  const outer = []; for (const c of cats) { if (c.id === '_unnamed') continue; for (const b of U.blocks.filter(x => x.category === c.id)) outer.push({ id: b.symbol, label: blockLabel(b.symbol), short: b.symbol, colour: c.colour, w: 1, sub: `${blockFamilies(b.symbol).length} families` }); }
+  ring(outer, 196, 300, b => showBlock(b.id));
+  P.innerHTML = `<div class="u-h">GLOBALGRID2050</div><div class="u-muted">${countsLine()}</div><p>Inner ring: categories of blocks. Outer ring: the 207 named blocks. Tap either to go in.</p>`;
+};
+window.goTo = (k, id) => k === 'cat' ? showCat(id) : k === 'block' ? showBlock(id) : openFamily(id);
+function showCat(id) {
+  S.innerHTML = '';
+  const list = id === '_unnamed' ? U.unnamed.slice(0, 180).map(g => ({ symbol: g })) : U.blocks.filter(b => b.category === id);
+  centre(id === '_unnamed' ? 'Not yet named' : catTitle(id), `${list.length} shown · centre = back`, () => { U.trail.pop(); renderTrail(); goHome(); });
+  ring(list.map(b => ({ id: b.symbol, label: blockLabel(b.symbol), short: b.symbol, colour: catColour(id), w: Math.max(1, Math.sqrt(blockFamilies(b.symbol).length)), sub: `${blockFamilies(b.symbol).length} families` })), 110, 300, b => showBlock(b.id));
+  P.innerHTML = `<div class="u-h">${esc(id === '_unnamed' ? 'Not yet named' : catTitle(id))}</div><div class="u-muted">Segment size: square root of the family count.</div>`;
+}
+function showBlock(sym) {
+  S.innerHTML = ''; trailPush('block', sym, blockLabel(sym));
+  const b = U.bySym.get(sym) || {}; const fams = blockFamilies(sym); const col = catColour(b.category);
+  centre(sym, `${fams.length} families · centre = back`, () => { U.trail.pop(); renderTrail(); b.category ? showCat(b.category) : goHome(); });
+  const shown = fams.slice(0, 180);
+  ring(shown.map(n => ({ id: n, label: `#${n}`, short: `#${n}`, colour: col, w: 1, sub: 'family' })), 110, 220, f => openFamily(f.id));
+  const deps = blockDeps(sym).map(s => ({ id: s, label: blockLabel(s), short: s, colour: REL['depends on'], w: 1, sub: 'depends on' }));
+  const users = blockUsers(sym).slice(0, 60).map(s => ({ id: s, label: blockLabel(s), short: s, colour: REL['used by'], w: 1, sub: 'used by' }));
+  if (deps.length + users.length) ring([...deps, ...users], 228, 300, x => showBlock(x.id));
+  P.innerHTML = '';
+  P.append(el('div', { class: 'u-h' }, blockLabel(sym)), el('div', { class: 'u-muted' }, `${b.description || ''} Inner ring: ${shown.length} of ${fams.length} families. Outer ring: blocks it depends on (yellow) and blocks that use it (pink).`),
+    b.symbol ? el('a', { class: 'u-chip', href: `${STARS}table.html?block=${sym}`, target: '_blank', rel: 'noopener' }, 'Block page ↗') : null);
+}
+async function openFamily(n) { await showFamilyPanel(n, P, openFamily, showBlock); P.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+loadUniverse().then(() => { $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); goHome(); footer('v02-radial-sunburst'); }).catch(e => fail('#count', e));
+</script>

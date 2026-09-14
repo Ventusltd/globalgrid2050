@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLOBALGRID2050 · v05 chord dependencies</title>
+<script>window.BUILT='2026-09-14 13:50'</script>
+<script src="../core.js"></script>
+<style>
+#wrap{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+svg{width:min(94vw,680px);height:auto}
+.arc{cursor:pointer}.arc:hover{filter:brightness(1.4)}
+.chord{fill:none;stroke-width:1.1;opacity:.28}.chord.hot{opacity:.95;stroke-width:2}
+.lbl{fill:#8b93a7;font-size:8px}
+#side{flex:1;min-width:280px}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div id="wrap"><svg id="ch" viewBox="-340 -340 680 680"></svg><div id="side"><div class="u-panel" id="block">Every chord is one "depends on" relationship between two named blocks. Tap a block's arc to light its chords and open it.</div><div class="u-panel" id="panel" hidden></div></div></div>
+<script>
+const NS = 'http://www.w3.org/2000/svg', S = $('#ch'), B = $('#block'), P = $('#panel'); const pos = new Map();
+const sv = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+function draw() {
+  S.innerHTML = ''; const order = []; for (const c of U.cats) for (const b of U.blocks.filter(x => x.category === c.id)) order.push(b);
+  const gap = 0.004, step = (Math.PI * 2) / order.length; const R = 270;
+  order.forEach((b, i) => {
+    const a0 = i * step, a1 = a0 + step - gap, m = (a0 + a1) / 2; pos.set(b.symbol, m);
+    const p = (r, a) => `${r * Math.cos(a - Math.PI / 2)},${r * Math.sin(a - Math.PI / 2)}`;
+    const path = sv('path', { d: `M${p(R, a0)}A${R},${R} 0 0 1 ${p(R, a1)}L${p(R + 14, a1)}A${R + 14},${R + 14} 0 0 0 ${p(R + 14, a0)}Z`, fill: catColour(b.category), class: 'arc' });
+    path.append(sv('title', {})); path.firstChild.textContent = `${blockLabel(b.symbol)} · ${blockFamilies(b.symbol).length} families`;
+    path.addEventListener('click', () => pick(b.symbol)); S.append(path);
+    const t = sv('text', { class: 'lbl', transform: `rotate(${(m * 180) / Math.PI - 90}) translate(${R + 18},0)${m > Math.PI ? ' rotate(180)' : ''}`, 'text-anchor': m > Math.PI ? 'end' : 'start', 'dominant-baseline': 'middle' }); t.textContent = b.symbol; S.append(t);
+  });
+  const xy = a => [R * 0.98 * Math.cos(a - Math.PI / 2), R * 0.98 * Math.sin(a - Math.PI / 2)]; let n = 0;
+  for (const b of order) for (const d of blockDeps(b.symbol)) {
+    if (!pos.has(d)) continue; const [x0, y0] = xy(pos.get(b.symbol)), [x1, y1] = xy(pos.get(d));
+    S.append(sv('path', { d: `M${x0},${y0}Q0,0 ${x1},${y1}`, class: 'chord', stroke: catColour(b.category), 'data-a': b.symbol, 'data-b': d })); n++;
+  }
+  $('#count').textContent = `${countsLine()} · ${n} depends-on chords between named blocks`;
+}
+function pick(sym) {
+  trailPush('block', sym, blockLabel(sym));
+  S.querySelectorAll('.chord').forEach(c => { const hotOut = c.dataset.a === sym, hotIn = c.dataset.b === sym; c.classList.toggle('hot', hotOut || hotIn); if (hotOut) c.setAttribute('stroke', REL['depends on']); else if (hotIn) c.setAttribute('stroke', REL['used by']); });
+  const b = U.bySym.get(sym) || {}; const fams = blockFamilies(sym); B.innerHTML = '';
+  B.append(el('div', { class: 'u-h' }, blockLabel(sym)), el('div', { class: 'u-muted' }, `${b.description || ''} Yellow chords: depends on. Pink: used by. ${fams.length} families.`),
+    el('div', { class: 'u-links' }, b.symbol ? el('a', { class: 'u-chip', href: `${STARS}table.html?block=${sym}`, target: '_blank', rel: 'noopener' }, 'Block page ↗') : null,
+      ...blockDeps(sym).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['depends on']}`, on: { click: () => pick(d) } }, `→ ${d}`)),
+      ...blockUsers(sym).slice(0, 30).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['used by']}`, on: { click: () => pick(d) } }, `← ${d}`))),
+    el('div', { class: 'u-links' }, fams.slice(0, 120).map(n => el('button', { class: 'u-chip', on: { click: () => openFamily(n) } }, `#${n}`))));
+}
+async function openFamily(n) { P.hidden = false; await showFamilyPanel(n, P, openFamily, pick); P.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+window.goHome = () => { S.querySelectorAll('.chord').forEach(c => c.classList.remove('hot')); P.hidden = true; };
+window.goTo = (k, id) => k === 'block' ? pick(id) : k === 'family' ? openFamily(id) : goHome();
+loadUniverse().then(() => { legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); draw(); footer('v05-chord-dependencies'); }).catch(e => fail('#count', e));
+</script>

@@ -1,0 +1,170 @@
+{
+ "stamp": "202609142202",
+ "name": "Quantum Twin Star",
+ "generation": "first published generation (verification round 1 complete; repair round lands as the next generation)",
+ "published_utc": "2026-09-14T23:16:33+00:00",
+ "data_provenance": "data/provenance.json",
+ "files": {
+  "amend_pack.mjs": {
+   "bytes": 4289,
+   "sha256": "1edcc0d7e98ae5faf80061c3e63af872bb4e424a5b257aed2ecd0bfaf181148b"
+  },
+  "build_state.mjs": {
+   "bytes": 27713,
+   "sha256": "465f95e11addf25b0dcd8127de1c152eded9a25d460f1af5186280992515d1e3"
+  },
+  "index.html": {
+   "bytes": 6692,
+   "sha256": "b9ae0fe4bd3631c3c50b7426d68121a8e22df2a45fdfe423e30b3bd4484de12a"
+  },
+  "quantum.js": {
+   "bytes": 85089,
+   "sha256": "8cd6d955425a79ab3611bb3dc3400e00bb518a96510231b4766ff9ccc4fdab8a"
+  },
+  "README.md": {
+   "bytes": 14903,
+   "sha256": "442884a55aec5afe6d986a5384f335dbf36c860f213fb2018650d574e78d4d14"
+  },
+  "data/blocks.json": {
+   "bytes": 54861,
+   "sha256": "245b741afd2fb7ecb3cbbe844f0c655df69f88169ca51ac5fc9ae766030b6e3f"
+  },
+  "data/electron.json": {
+   "bytes": 221272,
+   "sha256": "2ade71978b4502f0b7adee49aa5f6d4fb7a3d5f22efc34c6d8796e2a3ef5d9e3"
+  },
+  "data/entangled.json": {
+   "bytes": 7229,
+   "sha256": "dd605adbae674dbc4c377ac2de920dac42415e17978e43667eaf669ddab797e9"
+  },
+  "data/families.json": {
+   "bytes": 2221286,
+   "sha256": "f055ef68089db83b0d7d3016b8dd704df46d6f24d377d43d6ec2f8b8d59dda54"
+  },
+  "data/lines.bin": {
+   "bytes": 2659760,
+   "sha256": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+  },
+  "data/provenance.json": {
+   "bytes": 51691,
+   "sha256": "13f86b8ba7fc076361a6ac039cf4fe1e0117891acbdbeee31f987838e4b9c674"
+  },
+  "data/random.json": {
+   "bytes": 120639,
+   "sha256": "2163aa5662628470cb57d27f4fdb2e0b553550c07586cedf3e195bc03c959b3f"
+  },
+  "proof/build-1440.png": {
+   "bytes": 655447,
+   "sha256": "2e3bc3a5e19556adf53dba8c6354aac4f7a9c5e3afec70732197132e0c7418c5"
+  },
+  "proof/build-430-dpr2.png": {
+   "bytes": 665932,
+   "sha256": "e8f6642ca701f1a2f7654c48d4d2dfd2d19da52fbf339736411157513b0bd1e3"
+  },
+  "proof/build-430.png": {
+   "bytes": 198510,
+   "sha256": "7b6f8855244ab386847b6b3d08b3b359f483647fdf5c3a901bc6fb70df3d8f96"
+  },
+  "proof/prng_check2.json": {
+   "bytes": 150,
+   "sha256": "f0878304d49b570248de393a06c1f3d13585abdee0ae72a5febc4b4b0168c28d"
+  },
+  "proof/prng_check2.mjs": {
+   "bytes": 918,
+   "sha256": "289189464c2ef53f3e9ef96f318358a1c471a62303057b725c1805b3bc085242"
+  },
+  "proof/proof.mjs": {
+   "bytes": 7508,
+   "sha256": "4c7fffacd6c1d9992a1136386cc33574893132b000e9eef754ba173e517afe61"
+  },
+  "proof/proof2.mjs": {
+   "bytes": 17997,
+   "sha256": "47d098e5e6344da5d0b3bf2994e3aca4b82277b244ee4984501c272af7c8b209"
+  },
+  "proof/proof2.stdout.txt": {
+   "bytes": 20312,
+   "sha256": "77bd234c3101167a02e497daf0f49ff7d617d20102ee1b086af2979c09c65048"
+  },
+  "proof/report.json": {
+   "bytes": 6093,
+   "sha256": "d72168dcecb85f480a92ffe8be5f0e70881ab1da62d011a9076d2482b889b532"
+  },
+  "proof/report2.json": {
+   "bytes": 20311,
+   "sha256": "ffa7ef891a66f439a692b899b6f85f41b97a336815e8af662588c45081f1e16f"
+  },
+  "proof/review1-desktop.png": {
+   "bytes": 613762,
+   "sha256": "366e1dee5893f4f228309e8bfcee4933626086e75491392cf067530ffed157a6"
+  },
+  "proof/review1-mobile-dpr2.png": {
+   "bytes": 679215,
+   "sha256": "389efc906eb5b56769a8e265c01e660ce8c6cf88ba4641053dc63cb816746873"
+  },
+  "proof/review1_check.mjs": {
+   "bytes": 14438,
+   "sha256": "1b6fcc5ed5390dd15b00453f4f86cac5ede6b6c4e5eab0b0f96d1ec244d45a9d"
+  },
+  "proof/review1_report.json": {
+   "bytes": 33744,
+   "sha256": "40094637dbdacce288f44ca4ec9c95de96f460a19dec2ff156c665e630c05ccb"
+  },
+  "proof/verify-1-1440.png": {
+   "bytes": 545421,
+   "sha256": "f802d1c30c2ac93ed44d587e4dc7bd6918d70a3ab6de0fc5e420e27567aec78d"
+  },
+  "proof/verify-1-430.png": {
+   "bytes": 203034,
+   "sha256": "ed5509b8cbcba4f8320bb93865e5c38b8792ae65423951236077928b263ee46f"
+  },
+  "proof/verify-1.json": {
+   "bytes": 11091,
+   "sha256": "4cc6590eef08e44125f2f59b603bd91e191d5aa268967efbf19da39642dca77e"
+  },
+  "proof/verify-1.mjs": {
+   "bytes": 13522,
+   "sha256": "3ce9e24fc13160fb3adf198bb34f451294ce6e4c19b5f76a92c0a47d552e56a3"
+  },
+  "proof/verify-1.stdout.txt": {
+   "bytes": 11092,
+   "sha256": "c8d458fd564a88059b89d97bc4267ed6714d607f968d4c78e4315d5e56f87af3"
+  },
+  "proof/verify-1b-1440.png": {
+   "bytes": 627452,
+   "sha256": "849fcaea25d18b9712899f67c4e72540fe2d8bb2608935e68d4372ceaff7c9d1"
+  },
+  "proof/verify-1b.json": {
+   "bytes": 4977,
+   "sha256": "e042df4146c9de1b228b741d9db50d2ef8497fc4cdcca33d18491e424fb5f8e1"
+  },
+  "proof/verify-1b.mjs": {
+   "bytes": 7620,
+   "sha256": "9d4590b647ab9db9cc19ca02783edff89a9a76dbcb82375806c55c19c141ee9f"
+  },
+  "proof/verify-1b.stdout.txt": {
+   "bytes": 4978,
+   "sha256": "c1320f8c9622ac0ad273f38bd6fe703fc1894d129f9278fe0796c1e350676c4c"
+  },
+  "proof/critic/ELECTRON.md": {
+   "bytes": 8157,
+   "sha256": "0455cdc0389c93a5ad16b34b21d92068d282cb99ed9ba626b9a6d83b8d1d4df5"
+  },
+  "proof/critic/prng_check.mjs": {
+   "bytes": 3317,
+   "sha256": "940eb40db832ce9f032f70bcbf63b87f43e8cfb4f27c8a545c854c3fa36ebadb"
+  },
+  "proof/critic/remeasure.json": {
+   "bytes": 2862,
+   "sha256": "106f8e081265e6cca50312d54da99a88970b467c36e0c02425c4bda32c293fe9"
+  },
+  "proof/critic/remeasure.mjs": {
+   "bytes": 2743,
+   "sha256": "0c7fc15d7e8dd5d7e26af7cb45799ceca5abd9adac794bdf6f8364f3d892af60"
+  },
+  "proof/critic/SOUL.md": {
+   "bytes": 17172,
+   "sha256": "0603eaaa86de0ff450a1c4f87bc99076401499c4b40c4d5f526300874b9e9a35"
+  }
+ },
+ "note": "Every shipped file with bytes and sha256; logs are not shipped. Numbers on the page come from data/ only: 664,940 family-line entries, 128,369 distinct numbered lines in the family buckets, 250,174 unique lines per stars code/index.json."
+}

@@ -1,0 +1,25 @@
+{
+  "snapshot": "homepage_v106.html",
+  "date_utc": "2026-09-14T12:07:36.422591+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "a387cac3aa3f09b8cdd27d3ed8040d661303f127",
+  "source_blob_sha": "dc19eca5eb55a5bed0f8b2ea846c4452e315d185",
+  "folder_file_count_before": 170,
+  "folder_entry_count_before": 170,
+  "line_count": 196,
+  "word_count": 1503,
+  "character_count": 12732,
+  "byte_count": 12756,
+  "sha256": "0b86e4f3162db2ff567592b1503e98b8a80d338c5344e0965bc76d057980ee0f",
+  "change_intention": "Under the Grid Engine nest, add a sub-nest \"Spider nest\" listing, alphabetically, the pages of the Spider Sandbox a reader can open and explore, each with a plain-words note. The existing Spider Sandbox link and every other existing name, note and href are unchanged. One small style rule for the sub-nest is added. Nothing else on the page changes.",
+  "measurement_method": "Local Python measurement of the working-copy bytes at HEAD, verified against git rev-parse HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "All existing link names and notes preserved byte for byte",
+    "Spider nest links alphabetical",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

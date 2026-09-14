@@ -1,0 +1,25 @@
+{
+  "snapshot": "homepage_v108.html",
+  "date_utc": "2026-09-14T12:28:57.577140+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "f9df600f5ed925134df87d03883084743f5fd4a4",
+  "source_blob_sha": "fa97f1737b41b4cc36e4fe80b328e29aaafeed7b",
+  "folder_file_count_before": 174,
+  "folder_entry_count_before": 174,
+  "line_count": 197,
+  "word_count": 1699,
+  "character_count": 15326,
+  "byte_count": 15350,
+  "sha256": "954740094a8895d6c599ca2c77e7f7cf784c3a17cabf3fc62f789bcacc4b382a",
+  "change_intention": "Under Grid Engine, the sub-nest is titled \"Relational mapping\" and its twelve entries carry one-word business names (Applications, Assessment, Audit, Classification, Compatibility, Engine, Inventory, Lineage, Repositories, Reuse, Sampling, Structure), alphabetical, with their notes and links unchanged. Nothing else on the page changes.",
+  "measurement_method": "Local Python measurement of the working-copy bytes at HEAD, verified against git rev-parse HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "Only the sub-nest title and its entry names changed",
+    "Entries alphabetical",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

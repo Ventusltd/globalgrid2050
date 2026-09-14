@@ -1,0 +1,24 @@
+{
+  "schema": "globalgrid2050.concept-task.v1",
+  "id": "sun-star-evidence-baseline",
+  "mission": "GLOBALGRID2050.COM shall become the UNIVERSAL IDE FOR THE ENERGY TRANSITION.",
+  "objective": "Turn the Sun Star concept into a deterministic, evidence-backed computation that can run locally and on GitHub Actions.",
+  "expected": {
+    "pipeline_release": "202609050309",
+    "solar_projects": 3563,
+    "solar_mw_rounded": 67013,
+    "solar_with_coordinates": 3558
+  },
+  "claims_from_scope": {
+    "solar_with_coordinates": 3563,
+    "treatment": "retain as a claim and reconcile against the pinned source; never fill missing coordinates"
+  },
+  "constraints": [
+    "public repository data only",
+    "no invented measurements",
+    "no Math.random or unseeded layout",
+    "colour is category rather than verdict",
+    "no homepage or historical release edits",
+    "candidate results require matching local and CI payload hashes"
+  ]
+}

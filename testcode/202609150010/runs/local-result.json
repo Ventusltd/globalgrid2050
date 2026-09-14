@@ -1,0 +1,205 @@
+{
+  "lane": "local",
+  "generated_utc": "2026-09-14T23:13:35.240229Z",
+  "runner": {
+    "python": "3.12.10",
+    "system": "Windows"
+  },
+  "git_commit": "1a382b71b99cdf3592f15024aabab244ba6fc31e",
+  "payload_sha256": "76d8309bc9ccb301e44e5f4d923437ff102e38e2f97f264785f3f2f7fc39de64",
+  "payload": {
+    "schema": "globalgrid2050.concept-result.v1",
+    "stamp": "202609150010",
+    "task": {
+      "schema": "globalgrid2050.concept-task.v1",
+      "id": "sun-star-evidence-baseline",
+      "mission": "GLOBALGRID2050.COM shall become the UNIVERSAL IDE FOR THE ENERGY TRANSITION.",
+      "objective": "Turn the Sun Star concept into a deterministic, evidence-backed computation that can run locally and on GitHub Actions.",
+      "expected": {
+        "pipeline_release": "202609050309",
+        "solar_projects": 3563,
+        "solar_mw_rounded": 67013,
+        "solar_with_coordinates": 3558
+      },
+      "claims_from_scope": {
+        "solar_with_coordinates": 3563,
+        "treatment": "retain as a claim and reconcile against the pinned source; never fill missing coordinates"
+      },
+      "constraints": [
+        "public repository data only",
+        "no invented measurements",
+        "no Math.random or unseeded layout",
+        "colour is category rather than verdict",
+        "no homepage or historical release edits",
+        "candidate results require matching local and CI payload hashes"
+      ]
+    },
+    "inputs": {
+      "task": {
+        "path": "testcode/202609150010/task.json",
+        "bytes": 942,
+        "sha256": "496f68b36bfa40cef295b1c32c540f6fdb9fb00da2782e1c594cc640c60a3b04"
+      },
+      "deployment_page": {
+        "path": "solar_deployment_statistics/index.md",
+        "bytes": 5330,
+        "sha256": "842da4893ebb145608fc6147bd02228cbe173b6ca61e8c86c9274ea98d3f81d5",
+        "headings": [
+          "Global Solar PV Deployment 2025",
+          "Executive Summary",
+          "Global Solar PV – Top 50 Countries",
+          "Industry Sources Used"
+        ],
+        "outbound_links": [
+          "https://www.dnv.com/energy-transition-outlook/2025/",
+          "https://www.ise.fraunhofer.de/en/press-media/press-releases/2023/next-decade-decisive-for-pv-growth-on-the-path-to-2050.html"
+        ]
+      },
+      "components_page": {
+        "path": "solar_components/index.md",
+        "bytes": 3427,
+        "sha256": "6bbd52210366b8bdc4fa56f255ee5efdf13fee8d2e54c582533fb270cb9be1f9",
+        "headings": [
+          "PV Inverter Installed Base and Market Structure (End 2025)",
+          "PV Inverter Market Split",
+          "PV Inverter Installed Base – Top 30 OEMs"
+        ],
+        "outbound_links": []
+      },
+      "geometry": {
+        "path": "scripts/gridbot_london_solar_daylight_geometry.py",
+        "bytes": 20120,
+        "sha256": "095f4813b6529a8b26ccaa118f96015791b3f9474676e199bb9cef94c520dd9a",
+        "functions": [
+          "build",
+          "checks",
+          "compare_with_previous_sunrise_api",
+          "days_in_year",
+          "hhmm",
+          "is_leap_year",
+          "iso_minute",
+          "main",
+          "minutes_to_utc",
+          "now",
+          "read_json_if_exists",
+          "rel",
+          "report_lines",
+          "solar_geometry_for_day",
+          "time_to_minutes",
+          "write",
+          "write_report"
+        ]
+      },
+      "podcast": {
+        "path": "podcast_transcripts/index.md",
+        "bytes": 1108995,
+        "sha256": "a4547d4cdf26167a9fae8f7718ab94e03d02df6ad6c98b89b8e916cc93635125",
+        "episode_count": 20,
+        "first_five": [
+          {
+            "anchor": "doug-krause-on-cattle-solar-&-cable-mounted-pv",
+            "title": "Doug Krause on Cattle Solar & Cable-Mounted PV"
+          },
+          {
+            "anchor": "martin-heathcote-cleve-hill-major-solar-delivery",
+            "title": "Martin Heathcote: from Cleve Hill to Major Solar Delivery"
+          },
+          {
+            "anchor": "david-mack-solar-om-rural-growth-resilience",
+            "title": "David Mack: Solar O&amp;M, Rural Growth and Resilience"
+          },
+          {
+            "anchor": "clark-frost-uk-first-nationally-significant-solar-farm",
+            "title": "UK’s First Nationally Significant Solar Farm - Clark Frost"
+          },
+          {
+            "anchor": "valerio-pelizzi-agrivoltaics-ci-grid",
+            "title": "Valerio Pelizzi: Agrivoltaics, C&amp;I and Grid"
+          }
+        ]
+      },
+      "pipeline": {
+        "release": "202609050309",
+        "source": {
+          "path": "pipelinenews_intelligence/202609050309/data/202608270055-8ab1807551bc-v8-fast-projects.json",
+          "bytes": 979338,
+          "sha256": "c06aedef176d2d38fd135806306a8ef81b4af9994c7be31e8bd760304149f862"
+        },
+        "all_projects": 7680,
+        "solar_projects": 3563,
+        "solar_mw": 67013.29477,
+        "solar_mw_rounded": 67013,
+        "solar_with_coordinates": 3558,
+        "missing_coordinate_projects": [
+          {
+            "repd_ref": "14773",
+            "name": "Mynydd Maen Solar Farm (Cil-Lonydd)",
+            "status": "Application Submitted",
+            "geometry_status": "missing"
+          },
+          {
+            "repd_ref": "17260",
+            "name": "Solar Farm Development in Antrim",
+            "status": "Application Submitted",
+            "geometry_status": "missing"
+          },
+          {
+            "repd_ref": "1613",
+            "name": "Sainsbury's Stores (169 individual Stores)",
+            "status": "Operational",
+            "geometry_status": "missing"
+          },
+          {
+            "repd_ref": "17120",
+            "name": "La Rue De La Hougue Mauger - Solar Farm",
+            "status": "Application Submitted",
+            "geometry_status": "missing"
+          },
+          {
+            "repd_ref": "1616",
+            "name": "First Wessex Housing Properties (multiple)",
+            "status": "Operational",
+            "geometry_status": "missing"
+          }
+        ],
+        "by_status": {
+          "Abandoned": 125,
+          "Appeal Lodged": 3,
+          "Appeal Refused": 92,
+          "Appeal Withdrawn": 8,
+          "Application Refused": 219,
+          "Application Submitted": 343,
+          "Application Withdrawn": 107,
+          "Awaiting Construction": 945,
+          "No Application Required": 1,
+          "Operational": 1262,
+          "Planning Permission Expired": 122,
+          "Revised": 196,
+          "Under Construction": 140
+        }
+      }
+    },
+    "checks": {
+      "pipeline_release": true,
+      "solar_projects": true,
+      "solar_mw_rounded": true,
+      "solar_with_coordinates": true
+    },
+    "all_checks_pass": true,
+    "reconciliation_findings": [
+      {
+        "field": "solar_with_coordinates",
+        "scope_claim": 3563,
+        "observed": 3558,
+        "matches": false,
+        "treatment": "five projects remain explicit missing-geometry records; no coordinates inferred"
+      }
+    ],
+    "next_python_products": [
+      "capture dated PV Live half-hourly observations with byte-level provenance",
+      "parse attributed Solar Power Portal and PV Magazine RSS metadata under feed terms",
+      "compile deterministic Sun Star daily JSON using a seed derived from the PV series",
+      "render the UK Solar lens only after Claude's shared GRAMMAR.md is verified"
+    ]
+  }
+}

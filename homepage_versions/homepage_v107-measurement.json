@@ -1,0 +1,25 @@
+{
+  "snapshot": "homepage_v107.html",
+  "date_utc": "2026-09-14T12:19:13.274204+00:00",
+  "source_path": "index.html",
+  "source_branch": "main",
+  "source_commit": "1f9cde64c216e5cbd8a3d56a18b4c63ba1631af8",
+  "source_blob_sha": "6f32a3b4145a0abec0ac051b62c5bce4d02719b4",
+  "folder_file_count_before": 172,
+  "folder_entry_count_before": 172,
+  "line_count": 197,
+  "word_count": 1694,
+  "character_count": 15292,
+  "byte_count": 15316,
+  "sha256": "0e0fb6de6d88b1dca88b5f566e66cd0e2625276cf6abdb25494ab85cafc34988",
+  "change_intention": "In the Spider nest under Grid Engine, rename the entry \"Vedic stars\" to \"Classification stars\" with a plain-words note, and keep the list alphabetical. No other name, note or href changes.",
+  "measurement_method": "Local Python measurement of the working-copy bytes at HEAD, verified against git rev-parse HEAD:index.html before editing.",
+  "precommit_checks": [
+    "All existing href values preserved",
+    "Only the one entry renamed",
+    "Spider nest links alphabetical",
+    "JavaScript syntax passes node --check"
+  ],
+  "workflow_measurement": "Not run before editing.",
+  "served_byte_verification": "Performed after push by fetching https://globalgrid2050.com/ and comparing SHA-256 with the committed blob."
+}

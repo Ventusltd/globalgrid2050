@@ -1,0 +1,27 @@
+name: testcode 202609150010 dual compute
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run deterministic and fail-closed tests
+        run: python -m unittest discover -s testcode/202609150010 -p "test_*.py" -v
+      - name: Compute CI lane
+        run: python testcode/202609150010/concept_compute.py --lane ci --output testcode/202609150010/runs/ci-result.json
+      - name: Upload CI result
+        uses: actions/upload-artifact@v4
+        with:
+          name: sun-star-ci-result
+          path: testcode/202609150010/runs/ci-result.json
+          if-no-files-found: error

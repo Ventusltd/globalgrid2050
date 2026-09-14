@@ -2,8 +2,13 @@
   "schema": "globalgrid2050.testcode-publication.v1",
   "stamp": "202609150010",
   "status": "test-only candidate; not promoted",
-  "source_commit": "1a382b71b99cdf3592f15024aabab244ba6fc31e",
+  "source_commit": "59e5fa5e8544b68ad0eda4df6929adba76b186ca",
   "files": [
+    {
+      "path": "testcode/202609150010/CI.md",
+      "bytes": 736,
+      "sha256": "33836dc2a2c67047e8878fc94c22912eda2c7ca94c3ce7d3111015d0404706b2"
+    },
     {
       "path": "testcode/202609150010/concept_compute.py",
       "bytes": 8283,
@@ -15,6 +20,11 @@
       "sha256": "29fe67993ca5f0cce45ad0804c7934fb075a5f50bc21b5a1f2395bb232c95908"
     },
     {
+      "path": "testcode/202609150010/merged/result.json",
+      "bytes": 7979,
+      "sha256": "2ce2307cd61495dcb4a7646926634b988ebbdd51c8dff124ab5c669fbf003a25"
+    },
+    {
       "path": "testcode/202609150010/publication.py",
       "bytes": 1060,
       "sha256": "14d58e94975100d8ec4b864eef48a7fdf5c0fe5bed6a8028b7014d729afce2f6"
@@ -23,6 +33,11 @@
       "path": "testcode/202609150010/README.md",
       "bytes": 2054,
       "sha256": "fca9a78ca50cc751d022f7ebfd08c9d2c8447bc996479ad22cfe7ce2731a73b9"
+    },
+    {
+      "path": "testcode/202609150010/runs/ci-result.json",
+      "bytes": 7374,
+      "sha256": "76f8153394cafd462f3bdbc6ef343cd1a35ba35ee5ca2883a8bd717d5b930222"
     },
     {
       "path": "testcode/202609150010/runs/local-result.json",

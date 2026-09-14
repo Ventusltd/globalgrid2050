@@ -1,0 +1,27 @@
+{
+  "schema": "universe-journey-publication.v1",
+  "created_utc": "2026-09-14T14:19:40.073546+00:00",
+  "status": "experimental; local fixtures pass; Chrome extension browser review pending permission",
+  "original_generation": "202609141350",
+  "original_commit": "a88abf09e360184c26300484e6a02e2d0ddf88fb",
+  "data_url": "https://ventusltd.github.io/stars/",
+  "data_is_live": true,
+  "files": {
+    "index.html": {
+      "bytes": 1586,
+      "sha256": "58de7a0b4cf3e656cdbb0779c6f42950043322f145603f50999445dbc98cf2c9"
+    },
+    "journey.css": {
+      "bytes": 2680,
+      "sha256": "808f6754a7b7e1438decb905ccf5614a7ac139fa8c8a3870d89a5e3ea9b5c6d2"
+    },
+    "journey.js": {
+      "bytes": 9985,
+      "sha256": "75b5325bce736f5d6a9156e9340088065f9715bafdfbc6295ea986bb398d0f18"
+    },
+    "core.js": {
+      "bytes": 11701,
+      "sha256": "262ffadcc63df1cdc2300ac7dd8b85c4606199db551f2cc017a6efd038167484"
+    }
+  }
+}

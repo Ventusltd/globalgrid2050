@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Public copy of https://ventusltd.github.io/ventus-grid-engine/ (testcode 202609141754): same live data, plain public wording via ../corporate.js. -->
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>GlobalGrid2050 · Grid Engine Sandbox</title>
+<style>
+  :root{
+    --bg:#0b0d12;--panel:#12151c;--panel2:#151923;--line:#262b36;--text:#eef2fb;--muted:#9aa3b5;--cyan:#00e5ff;
+    --e-data:#00e5ff;--e-governance:#b47cff;--e-archive:#7da0c8;--e-external:#5f76a4;--e-repo:#b8ccff;--e-workflow:#00ffff;
+    --safe-x:clamp(12px,2.3vw,28px);--shell:1040px;--card:220px;--gap:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{background:radial-gradient(1200px 700px at 50% -10%,rgba(0,229,255,.06),transparent 60%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
+  button,select{font:inherit}
+  .top{border-bottom:1px solid var(--line);background:rgba(11,13,18,.92);backdrop-filter:blur(16px)}
+  .bar,.controls,.crumbs,.hint{width:min(var(--shell),calc(100vw - var(--safe-x)*2));margin:0 auto}
+  .bar{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;padding:max(env(safe-area-inset-top),12px) 0 10px}
+  .brand{display:flex;flex-direction:column;line-height:1.05;min-width:190px}
+  .brand a.ey{text-decoration:none}
+  .brand .ey{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
+  .brand h1{margin:2px 0 0;font-size:1rem;font-weight:650}
+  .pick{display:flex;align-items:center;gap:8px;flex:1 1 280px;min-width:0}
+  .pick label,.grouplabel{font-family:ui-monospace,monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);flex:none}
+  select{flex:1 1 auto;min-width:0;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:9px 32px 9px 12px;font-size:.85rem;cursor:pointer;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 16px) center,calc(100% - 11px) center;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+  select:focus-visible,button:focus-visible{outline:none;border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,229,255,.18)}
+  .count{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);margin-left:auto;white-space:nowrap}
+  .count b{color:var(--text);font-weight:600}
+  .controls{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;padding:8px 0 4px}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none;background:rgba(18,21,28,.7)}
+  .seg button{border:0;background:transparent;color:var(--muted);font-size:.72rem;padding:7px 13px;cursor:pointer;white-space:nowrap}
+  .seg button[aria-pressed="true"]{background:rgba(0,229,255,.16);color:var(--text)}
+  .seg button.gh[aria-pressed="true"]{background:rgba(184,204,255,.18)}
+  .seg button.ext[aria-pressed="true"]{background:rgba(95,118,164,.28)}
+  .seg button:disabled{opacity:.4;cursor:not-allowed}
+  .viewbtn{border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.86rem;line-height:1;display:inline-flex;align-items:center;gap:7px}
+  .viewbtn[aria-pressed="true"]{border-color:var(--cyan);background:rgba(0,229,255,.16);box-shadow:0 0 22px rgba(0,229,255,.12)}
+  .srctag{margin-left:auto;font-family:ui-monospace,monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+  .srctag.live{color:var(--cyan);border-color:rgba(0,229,255,.4)}
+  .crumbs{display:flex;align-items:center;gap:6px;padding:2px 0 0;font-family:ui-monospace,monospace;font-size:.66rem;color:var(--muted);min-height:18px}
+  .crumbs a{color:var(--cyan);cursor:pointer;text-decoration:none}
+  .crumbs .sep{opacity:.5}
+  .hint{padding:4px 0 8px;font-family:ui-monospace,monospace;font-size:.62rem;color:var(--muted)}
+  .hint b{color:var(--text);font-weight:600}
+  .stage{flex:1;min-height:0;position:relative;overflow:hidden}
+  .overlay{position:absolute;inset:0}
+  .overlay.column{overflow-y:auto;overflow-x:hidden;padding:16px var(--safe-x) max(env(safe-area-inset-bottom),22px)}
+  .shell{width:min(var(--shell),100%);margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .card{border:1px solid var(--line);border-radius:14px;background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.014));padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-height:74px;box-shadow:0 16px 44px rgba(0,0,0,.12)}
+  .card .row{display:flex;align-items:center;gap:7px}
+  .badge{font-family:ui-monospace,monospace;font-size:.55rem;letter-spacing:.07em;border:1px solid var(--line);border-radius:6px;padding:2px 5px;color:var(--muted);flex:none}
+  .name{font-size:.85rem;font-weight:650;line-height:1.15;overflow-wrap:anywhere}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none;margin-left:auto;box-shadow:0 0 8px currentColor}
+  .reason{font-size:.68rem;color:var(--muted);line-height:1.25}
+  .relrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .reltag{font-family:ui-monospace,monospace;font-size:.55rem;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;border-radius:999px;border:1px solid currentColor}
+  .arrow{font-family:ui-monospace,monospace;font-size:.62rem;color:var(--muted)}
+  .go{font-family:ui-monospace,monospace;font-size:.6rem;color:var(--cyan);margin-left:auto}
+  .is-center{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,229,255,.22),0 0 26px rgba(0,229,255,.12)}
+  .is-center .name{font-size:.95rem}
+  .contents{align-self:flex-start;margin-top:3px;font-family:ui-monospace,monospace;font-size:.62rem;color:var(--cyan);border:1px solid rgba(0,229,255,.4);border-radius:999px;padding:4px 10px;background:rgba(0,229,255,.08);cursor:pointer}
+  .inert{opacity:.34}
+  .sect{font-family:ui-monospace,monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:16px 2px 4px}
+  .branch{position:relative;padding-left:20px;display:flex;flex-direction:column;gap:9px}
+  .branch::before{content:"";position:absolute;left:7px;top:-6px;bottom:14px;width:2px;background:var(--line)}
+  .twig{position:relative;cursor:pointer}
+  .twig::before{content:"";position:absolute;left:-13px;top:28px;width:13px;height:2px;background:var(--twig,var(--line))}
+  .twig .card{border-left:3px solid var(--twig,var(--line))}
+  .empty{color:var(--muted);font-size:.78rem;padding:6px 2px}
+  .overlay.spider{overflow:auto;cursor:grab;background:radial-gradient(circle at center,rgba(0,229,255,.045),transparent 45%)}
+  .overlay.spider.dragging{cursor:grabbing;user-select:none}
+  .spiderCanvas{position:relative;min-width:100%;min-height:100%}
+  .spiderGrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px, transparent 1px);background-size:80px 80px;mask-image:radial-gradient(circle at center,black,transparent 78%);pointer-events:none}
+  .wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+  .spoke{stroke-width:1.8;fill:none;opacity:.88}
+  .place{position:absolute;transform:translate(-50%,-50%);width:var(--card);cursor:pointer}
+  .place.center{width:250px;cursor:default}
+  .legend{position:sticky;left:14px;bottom:10px;display:flex;flex-wrap:wrap;gap:5px 12px;width:max-content;max-width:70%;pointer-events:none;padding:4px 0 10px 14px}
+  .legend span{display:flex;align-items:center;gap:6px;font-family:ui-monospace,monospace;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .legend i{width:15px;height:0;border-top:2px solid;display:inline-block}
+  .maphint{position:sticky;top:12px;left:14px;width:max-content;max-width:min(560px,calc(100vw - 32px));font-family:ui-monospace,monospace;font-size:.62rem;color:var(--muted);background:rgba(18,21,28,.8);border:1px solid var(--line);border-radius:999px;padding:5px 10px;backdrop-filter:blur(10px);z-index:5}
+  @media (max-width:680px){:root{--safe-x:14px}.brand{min-width:100%}.bar{gap:8px}.count{width:100%;margin-left:0}.controls{gap:7px 10px}.seg button{padding:7px 10px;font-size:.68rem}.viewbtn{padding:6px 10px}.srctag{margin-left:0}.shell{gap:10px}.card{border-radius:12px}.name{font-size:.82rem}}
+</style>
+<link rel="stylesheet" href="https://ventusltd.github.io/ventus-grid-engine/spider/federation_radial.css" />
+<script src="../corporate.js"></script>
+</head>
+<body>
+  <div class="top">
+    <div class="bar">
+      <div class="brand"><a class="ey" href="https://globalgrid2050.com/">GlobalGrid2050</a><h1>Grid Engine Sandbox</h1></div>
+      <div class="pick"><label for="focus">Focus</label><select id="focus"></select></div>
+      <div class="count" id="count"></div>
+    </div>
+    <div class="controls">
+      <span class="grouplabel">Show</span>
+      <div class="seg" id="relSeg" role="group" aria-label="Relationship direction">
+        <button data-mode="both" aria-pressed="true">Both</button>
+        <button data-mode="out" aria-pressed="false">Outgoing</button>
+        <button data-mode="in" aria-pressed="false">Incoming</button>
+      </div>
+      <button class="viewbtn" id="spiderToggle" aria-pressed="false" title="Switch between the list view and the canvas view"><span id="viewLabel">Canvas</span></button>
+      <span class="grouplabel">Tap does</span>
+      <div class="seg" id="actSeg" role="group" aria-label="Tap action">
+        <button data-act="explore" aria-pressed="true">Explore</button>
+        <button class="gh" data-act="github" aria-pressed="false">GitHub</button>
+        <button class="ext" data-act="external" aria-pressed="false">External</button>
+        <button data-act="status" aria-pressed="false" disabled title="Enables when the page reads live scanner data">Status</button>
+      </div>
+      <span class="srctag" id="srcTag" title="Data source for this view">snapshot</span>
+    </div>
+    <div class="crumbs" id="crumbs"></div>
+    <div class="hint" id="hint"></div>
+  </div>
+  <div class="stage" id="stage"><div class="overlay column" id="overlay"></div></div>
+<script>
+const GH_BASE="https://github.com/Ventusltd/data-federation-map-for-globalgrid2050-all-repos";
+const LIVE_PAGE="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/live_sandbox/federation_control_ledger/";
+const EXT_HOME={"DuckDB":"https://duckdb.org","Parquet":"https://parquet.apache.org","GitHub Actions":"https://github.com/features/actions","Elexon BMRS API":"https://bmrs.elexon.co.uk","GitHub Pages":"https://pages.github.com"};
+const PAGE_HOME={"globalgrid2050":"https://globalgrid2050.com/","globalgrid2050-hompage":"https://globalgrid2050.com/","data-federation-map-for-globalgrid2050-all-repos":LIVE_PAGE};
+const ROOT_NODES=[
+  {label:"data-federation-map-for-globalgrid2050-all-repos",type:"data",rag:"green",reason:"active federation repository",child:"data-federation"},
+  {label:"data-gb-electricity",type:"data",rag:"red",reason:"contract finding surfaced"},
+  {label:"data-interconnectors",type:"data",rag:"red",reason:"contract finding surfaced"},
+  {label:"gb-electricity-ui",type:"ui",rag:"red",reason:"depends on verified data repos"},
+  {label:"globalgrid2050",type:"source_archive",rag:"blue",reason:"source archive"},
+  {label:"globalgrid2050-hompage",type:"homepage",rag:"green",reason:"homepage dependency surfaced"},
+  {label:"pandapower",type:"unknown",rag:"grey",reason:"not fully classified"},
+  {label:"Podcast-transcripts",type:"unknown",rag:"amber",reason:"workflow finding"},
+  {label:"pv-arc-protection-circuit",type:"unknown",rag:"amber",reason:"workflow finding"},
+  {label:"Solar-PV-Hybrid-and-off-grid",type:"unknown",rag:"amber",reason:"workflow finding"},
+  {label:"solar-repowering-whitepaper",type:"unknown",rag:"amber",reason:"workflow finding"},
+  {label:"youengineer-code-review",type:"ui",rag:"amber",reason:"reference UI pattern source"},
+  {label:"DuckDB",type:"external",rag:"blue",reason:"proof query engine"},
+  {label:"Parquet",type:"external",rag:"blue",reason:"columnar proof store"},
+  {label:"Elexon BMRS API",type:"external",rag:"blue",reason:"external electricity source"},
+  {label:"GitHub Actions",type:"external",rag:"blue",reason:"static build runner"},
+];
+const ROOT_EDGES=[
+  [0,12,"external"],[0,13,"external"],[0,5,"governance"],[0,15,"external"],[0,14,"external"],
+  [1,4,"archive"],[1,5,"governance"],[1,14,"external"],[1,15,"external"],[1,12,"external"],[1,13,"external"],
+  [2,4,"archive"],[2,5,"governance"],[2,14,"external"],[2,13,"external"],[2,1,"repo"],[2,3,"repo"],[2,15,"external"],[2,12,"external"],
+  [3,1,"data"],[3,2,"data"],[3,5,"governance"],[3,15,"external"],
+  [4,14,"external"],[4,15,"external"],
+  [5,14,"external"],[5,0,"data"],[5,1,"data"],[5,2,"data"],[5,3,"repo"],[5,4,"archive"],[5,12,"external"],[5,13,"external"],[5,15,"external"],
+  [6,15,"external"],
+];
+function applyRootLinks(nodes){nodes.forEach(n=>{n.gh=n.type==="external"?null:`https://github.com/Ventusltd/${n.label}`;n.ext=EXT_HOME[n.label]||PAGE_HOME[n.label]||null;});return nodes;}
+applyRootLinks(ROOT_NODES);
+const CHILD_NODES=[
+  {label:"data-federation repo",type:"data",rag:"green",reason:"root of this child scope",gh:GH_BASE+"/tree/main"},
+  {label:"live dashboard page",type:"ui",rag:"green",reason:"GitHub Pages browser UI in this repo",gh:GH_BASE+"/tree/main/live_sandbox/federation_control_ledger",ext:LIVE_PAGE},
+  {label:"index.html",type:"ui",rag:"green",reason:"page shell for the board",gh:GH_BASE+"/blob/main/live_sandbox/federation_control_ledger/index.html"},
+  {label:"app.js",type:"ui",rag:"green",reason:"board renderer and interaction logic",gh:GH_BASE+"/blob/main/live_sandbox/federation_control_ledger/app.js"},
+  {label:"style.css",type:"ui",rag:"green",reason:"board visual system",gh:GH_BASE+"/blob/main/live_sandbox/federation_control_ledger/style.css"},
+  {label:"data cartridge folder",type:"data",rag:"green",reason:"manifest, nodes, edges, layers, sectors",gh:GH_BASE+"/tree/main/live_sandbox/federation_control_ledger/data"},
+  {label:"data/manifest.json",type:"data",rag:"amber",reason:"root cartridge manifest; key still flagged",gh:GH_BASE+"/blob/main/live_sandbox/federation_control_ledger/data/manifest.json"},
+  {label:"data/nodes.json",type:"data",rag:"green",reason:"repo and source nodes for the board",gh:GH_BASE+"/blob/main/live_sandbox/federation_control_ledger/data/nodes.json"},
+  {label:"data/edges.json",type:"data",rag:"green",reason:"relationship lines for the board",gh:GH_BASE+"/blob/main/live_sandbox/federation_control_ledger/data/edges.json"},
+  {label:"reports folder",type:"unknown",rag:"green",reason:"scan reports and evidence",gh:GH_BASE+"/tree/main/reports"},
+  {label:"FEDERATION_MAP_LATEST.md",type:"unknown",rag:"green",reason:"latest human-readable scan report",gh:GH_BASE+"/blob/main/reports/FEDERATION_MAP_LATEST.md"},
+  {label:"governance documents",type:"unknown",rag:"green",reason:"governance notes and addenda",gh:GH_BASE+"/tree/main/every-drop-is-the-ocean"},
+  {label:"GitHub Pages",type:"external",rag:"blue",reason:"static public hosting",ext:LIVE_PAGE},
+  {label:"GitHub Actions",type:"external",rag:"blue",reason:"future scanner and validation runner",ext:EXT_HOME["GitHub Actions"],gh:GH_BASE+"/actions"},
+];
+const CHILD_EDGES=[[0,1,"repo"],[1,2,"repo"],[1,3,"repo"],[1,4,"repo"],[1,5,"data"],[3,5,"data"],[5,6,"data"],[5,7,"data"],[5,8,"data"],[0,9,"governance"],[9,10,"governance"],[0,11,"governance"],[1,12,"external"],[0,13,"external"],[3,13,"external"]];
+const SCOPES={"root":{label:"Repositories",nodes:ROOT_NODES,edges:ROOT_EDGES},"data-federation":{label:"Data federation internals",nodes:CHILD_NODES,edges:CHILD_EDGES}};
+const RAG={green:"#00ff88",amber:"#ffcc00",red:"#ff5555",blue:"#3aa0ff",grey:"#9298a6"};
+const ECSS={data:"#00e5ff",governance:"#b47cff",archive:"#7da0c8",external:"#5f76a4",repo:"#b8ccff",workflow:"#00ffff"};
+const BADGE={data:"DB",ui:"UI",homepage:"WEB",source_archive:"SRC",unknown:"REPO",external:"EXT"};
+const REL={data:"data",governance:"governance",archive:"archive",external:"external",repo:"repo ref",workflow:"workflow"};
+const SVGNS="http://www.w3.org/2000/svg";
+let mode="both", action="explore", view="column", current=0, scopeKey="root", stack=[];
+const sel=document.getElementById("focus"), overlay=document.getElementById("overlay"), elCount=document.getElementById("count"), elCrumbs=document.getElementById("crumbs"), elHint=document.getElementById("hint"), spiderToggle=document.getElementById("spiderToggle"), viewLabel=document.getElementById("viewLabel");
+function S(){return SCOPES[scopeKey];}
+function rebuildSelect(){sel.innerHTML="";S().nodes.forEach((n,i)=>{const o=document.createElement("option");o.value=i;o.textContent=Corporate.label(n.label,n.type);sel.appendChild(o);});sel.value=current;}
+sel.addEventListener("change",()=>{current=+sel.value;draw();});
+document.querySelectorAll("#relSeg button").forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.mode;document.querySelectorAll("#relSeg button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));draw();}));
+document.querySelectorAll("#actSeg button").forEach(b=>b.addEventListener("click",()=>{if(b.disabled)return;action=b.dataset.act;document.querySelectorAll("#actSeg button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));draw();}));
+spiderToggle.addEventListener("click",()=>{view=view==="spider"?"column":"spider";spiderToggle.setAttribute("aria-pressed",String(view==="spider"));viewLabel.textContent=view==="spider"?"List":"Canvas";draw();});
+let rt;new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(draw,80);}).observe(document.getElementById("stage"));
+function actionable(n){return action==="explore" ? true : action==="github" ? !!n.gh : action==="external" ? !!n.ext : false;}
+function openUrl(u){u=Corporate.link(u);if(u)window.open(u,"_blank","noopener");}
+function handleTap(i){const n=S().nodes[i];if(action==="explore"){current=i;sel.value=i;draw();}else if(action==="github"){openUrl(n.gh);}else if(action==="external"){openUrl(n.ext);}}
+function drillInto(childKey){stack.push({key:scopeKey,current});scopeKey=childKey;current=0;mode="both";document.querySelectorAll("#relSeg button").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.mode==="both")));rebuildSelect();draw();}
+function popTo(idx){const target=stack[idx];stack=stack.slice(0,idx);scopeKey=target.key;current=target.current;rebuildSelect();draw();}
+function neighbours(idx){const out=[],inc=[];S().edges.forEach(([f,t,ty])=>{if(f===idx)out.push({other:t,type:ty});if(t===idx)inc.push({other:f,type:ty});});return {out,inc};}
+function cardInner(node,opts={}){const center=opts.center, rel=opts.rel, dim=opts.dim;let relHTML="";if(rel){const c=ECSS[rel.type]||ECSS.repo;relHTML=`<div class="relrow"><span class="arrow">${rel.dir==="out"?"depends on →":"← depended on by"}</span><span class="reltag" style="color:${c}">${Corporate.type(REL[rel.type]||rel.type)}</span>${opts.go?`<span class="go">${opts.go}</span>`:""}</div>`;}let contents="";if(center&&node.child&&SCOPES[node.child]){contents=`<button class="contents" data-child="${node.child}">⊕ Contents (${SCOPES[node.child].nodes.length})</button>`;}return `<div class="card${center?" is-center":""}${dim?" inert":""}"><div class="row"><span class="badge">${BADGE[node.type]||"REPO"}</span><span class="name">${Corporate.label(node.label,node.type)}</span><span class="dot" style="color:${RAG[node.rag]||RAG.grey}"></span></div>${center?`<div class="reason">${Corporate.text(node.reason||"")}</div>`:""}${relHTML}${!rel&&opts.go?`<span class="go">${opts.go}</span>`:""}${contents}</div>`;}
+function goLabel(n){return action==="github"&&n.gh?"open ↗":action==="external"&&n.ext?"open ↗":"";}
+function setHint(){const base={explore:"<b>Explore</b> — tap a card to re-centre on it.",github:"<b>GitHub</b> — tap a repo to open it. Cards with no repo are dimmed.",external:"<b>External</b> — tap an external system to open it. Others are dimmed."};elHint.innerHTML=(base[action]||"")+(view==="spider"?" &nbsp; <b>Canvas view</b> — scroll or drag to move around.":"");}
+function setCrumbs(){elCrumbs.innerHTML="";const trail=[...stack.map((s,i)=>({label:SCOPES[s.key].label,idx:i})),{label:S().label,idx:-1}];trail.forEach((c,k)=>{if(k)elCrumbs.insertAdjacentHTML("beforeend",`<span class="sep">›</span>`);if(c.idx===-1){const s=document.createElement("strong");s.textContent=Corporate.text(c.label);s.style.color="var(--text)";elCrumbs.appendChild(s);}else{const a=document.createElement("a");a.textContent=Corporate.text(c.label);a.addEventListener("click",()=>popTo(c.idx));elCrumbs.appendChild(a);}});}
+function draw(){const nodes=S().nodes,focus=nodes[current];let {out,inc}=neighbours(current);let lo=mode==="in"?[]:out,li=mode==="out"?[]:inc;elCount.innerHTML=`<b>${out.length}</b> dependencies &nbsp;·&nbsp; <b>${inc.length}</b> dependents`;setHint();setCrumbs();overlay.innerHTML="";overlay.className="overlay "+view;if(view==="spider")drawSpider(focus,lo,li);else drawColumn(focus,lo,li);overlay.querySelectorAll(".contents").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();drillInto(b.dataset.child);}));}
+function drawColumn(focus,out,inc){const nodes=S().nodes;const shell=document.createElement("div");shell.className="shell";shell.innerHTML=`<div class="focuswrap">${cardInner(focus,{center:true,dim:!actionable(focus),go:goLabel(focus)})}</div>`;const section=(title,items,dir)=>{const s=document.createElement("div");s.innerHTML=`<div class="sect">${title}</div>`;if(!items.length){const e=document.createElement("div");e.className="empty";e.textContent="None";s.appendChild(e);return s;}const br=document.createElement("div");br.className="branch";items.forEach(it=>{const node=nodes[it.other],dim=!actionable(node);const t=document.createElement("div");t.className="twig";t.style.setProperty("--twig",ECSS[it.type]||ECSS.repo);t.innerHTML=cardInner(node,{rel:{type:it.type,dir},dim,go:goLabel(node)});t.addEventListener("click",()=>handleTap(it.other));br.appendChild(t);});s.appendChild(br);return s;};if(mode!=="in")shell.appendChild(section("Depends on →",out,"out"));if(mode!=="out")shell.appendChild(section("← Depended on by",inc,"in"));overlay.appendChild(shell);shell.querySelector(".focuswrap .card").addEventListener("click",()=>handleTap(current));}
+function marker(defs,type){const m=document.createElementNS(SVGNS,"marker");m.id="arr-"+type;m.setAttribute("viewBox","0 0 10 10");m.setAttribute("refX","9");m.setAttribute("refY","5");m.setAttribute("markerWidth","8");m.setAttribute("markerHeight","8");m.setAttribute("orient","auto");const p=document.createElementNS(SVGNS,"path");p.setAttribute("d","M0,0 L10,5 L0,10 z");p.setAttribute("fill",ECSS[type]||ECSS.repo);m.appendChild(p);defs.appendChild(m);}
+function distribute(items,side,cx,cy,gap,xGap){const n=items.length;if(!n)return[];return items.map((it,k)=>{const y=cy+(k-(n-1)/2)*gap;const stagger=(n>5&&k%2?90:0);const x=cx+side*(xGap+stagger);return{...it,dir:side>0?"out":"in",x,y};});}
+function drawSpider(focus,out,inc){const stage=document.getElementById("stage");const sw=stage.clientWidth,sh=stage.clientHeight;const maxSide=Math.max(out.length,inc.length,1);const gap=176;const xGap=Math.max(420,260+maxSide*38);const cw=Math.max(sw,Math.ceil(680+xGap*2+maxSide*120));const ch=Math.max(sh,Math.ceil(520+gap*(maxSide+1)));const cx=cw/2,cy=ch/2;const pts=[...distribute(out,1,cx,cy,gap,xGap),...distribute(inc,-1,cx,cy,gap,xGap)];const canvas=document.createElement("div");canvas.className="spiderCanvas";canvas.style.width=cw+"px";canvas.style.height=ch+"px";canvas.innerHTML=`<div class="spiderGrid"></div><div class="maphint">Canvas view: cards keep their size and the canvas grows. Drag or scroll to move around.</div>`;const svg=document.createElementNS(SVGNS,"svg");svg.setAttribute("class","wires");svg.setAttribute("viewBox",`0 0 ${cw} ${ch}`);const defs=document.createElementNS(SVGNS,"defs");[...new Set(pts.map(p=>p.type))].forEach(t=>marker(defs,t));svg.appendChild(defs);pts.forEach(p=>{const line=document.createElementNS(SVGNS,"line");const from=p.dir==="out"?{x:cx+130,y:cy}:p;const to=p.dir==="out"?{x:p.x-112,y:p.y}:{x:cx-130,y:cy};line.setAttribute("x1",from.x);line.setAttribute("y1",from.y);line.setAttribute("x2",to.x);line.setAttribute("y2",to.y);line.setAttribute("stroke",ECSS[p.type]||ECSS.repo);line.setAttribute("class","spoke");line.setAttribute("marker-end",`url(#arr-${p.type})`);svg.appendChild(line);});canvas.appendChild(svg);const center=document.createElement("div");center.className="place center";center.style.left=cx+"px";center.style.top=cy+"px";center.innerHTML=cardInner(focus,{center:true,dim:!actionable(focus),go:goLabel(focus)});canvas.appendChild(center);center.querySelector(".card").addEventListener("click",()=>handleTap(current));const nodes=S().nodes;pts.forEach(p=>{const node=nodes[p.other],dim=!actionable(node);const el=document.createElement("div");el.className="place";el.style.left=p.x+"px";el.style.top=p.y+"px";el.innerHTML=cardInner(node,{rel:{type:p.type,dir:p.dir},dim,go:goLabel(node)});el.addEventListener("click",()=>handleTap(p.other));canvas.appendChild(el);});const legend=document.createElement("div");legend.className="legend";[...new Set(pts.map(p=>p.type))].sort().forEach(t=>{const s=document.createElement("span");s.innerHTML=`<i style="border-color:${ECSS[t]||ECSS.repo}"></i>${Corporate.type(REL[t]||t)}`;legend.appendChild(s);});canvas.appendChild(legend);overlay.appendChild(canvas);requestAnimationFrame(()=>{overlay.scrollLeft=Math.max(0,cx-sw/2);overlay.scrollTop=Math.max(0,cy-sh/2);enableDragPan(overlay);});}
+function enableDragPan(el){let down=false,captured=false,pid=null,sx=0,sy=0,sl=0,st=0;el.onpointerdown=e=>{if(e.target.closest("button,select"))return;down=true;captured=false;pid=e.pointerId;sx=e.clientX;sy=e.clientY;sl=el.scrollLeft;st=el.scrollTop;};el.onpointermove=e=>{if(!down)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(!captured){if(Math.abs(dx)<6&&Math.abs(dy)<6)return;captured=true;el.classList.add("dragging");try{el.setPointerCapture(pid)}catch(_){}}el.scrollLeft=sl-dx;el.scrollTop=st-dy;};const end=e=>{down=false;el.classList.remove("dragging");if(captured){try{el.releasePointerCapture(pid)}catch(_){}}captured=false;};el.onpointerup=end;el.onpointercancel=end;}
+const ORIGIN="https://ventusltd.github.io/ventus-grid-engine/";
+const DATA_BASE=ORIGIN+"spider/data/";
+const CHILD_KEY="data-federation";
+function reshapeNodes(fc){return (fc.features||[]).map(f=>{const p=f.properties||{};const cm=p.child_manifest||null;return {label:p.label||f.id,type:p.repo_type||p.scope_type||"unknown",rag:p.rag||p.status||"grey",reason:p.status_reason||"",child:(cm&&/data-federation/.test(cm))?CHILD_KEY:null};});}
+async function loadJSON(path){const r=await fetch(DATA_BASE+path,{cache:"no-cache"});if(!r.ok)throw new Error(path+" "+r.status);return r.json();}
+async function loadRoot(){try{const [nf,ef]=await Promise.all([loadJSON("nodes.json"),loadJSON("edges.json")]);const nodes=reshapeNodes(nf);if(!nodes.length)throw new Error("empty");applyRootLinks(nodes);SCOPES.root.nodes=nodes;SCOPES.root.edges=(ef.edges||[]).map(e=>[e[0],e[1],e[2]]);return "live";}catch(e){return "snapshot";}}
+const CONTENTS_BASE=ORIGIN+"spider/data/contents/";
+const MONO_GH="https://github.com/Ventusltd/globalgrid2050";
+const CONTENTS_KEY="globalgrid2050-contents";
+async function loadContents(){try{const get=p=>fetch(CONTENTS_BASE+p,{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(p+" "+r.status);return r.json();});const [mf,nf,ef]=await Promise.all([get("manifest.json"),get("nodes.json"),get("edges.json")]);if(!Array.isArray(nf)||!nf.length)throw new Error("empty nodes");BADGE.eye_app="APP";BADGE.sense_app="APP";BADGE.served_surface="PAGE";REL.contains="contains";ECSS.contains="#7da0c8";const ids={};const nodes=nf.map((n,i)=>{ids[n.id]=i;const inFed=n.path&&n.path.indexOf("data/federation_map")===0;const base=inFed?GH_BASE:MONO_GH;return {label:n.label||n.id,type:n.nodeKind||"unknown",rag:n.rag||"grey",reason:n.path||"repo root",gh:base+(n.path?"/tree/main/"+n.path.replace(/\/+$/,""):""),ext:null};});const edges=(ef||[]).filter(e=>ids[e.from]!==undefined&&ids[e.to]!==undefined).map(e=>[ids[e.from],ids[e.to],e.type||"repo"]);SCOPES[CONTENTS_KEY]={label:"globalgrid2050 contents · declared @ "+(mf.scannedMonolithSHA||"?"),nodes,edges};SCOPES.root.nodes.forEach(n=>{if(n.label==="globalgrid2050")n.child=CONTENTS_KEY;});return true;}catch(e){return false;}}
+
+const RECEIVER_MANIFEST_PATH=ORIGIN+"spider/manifest.json";
+const MANIFEST_FALLBACK={graphs:[
+  {id:"engine-graph",title:"Engine population",path:"./genome/engine-graph.json",source_spider:"genome-spider (population phase)",description:"The ventus-grid-engine population graph. Not owned by this page; may not exist yet."},
+  {id:"genome-spider",title:"genome-spider output",path:"./spider/data/genome-spider.json",source_spider:"spiders/species/genome-spider",description:"Documented empty slot for spiders/species/genome-spider's own output, which did not exist when this receiver was built."}
+]};
+function placeholderScope(title,path){return {label:title,nodes:[{label:title+" — no data yet",type:"unknown",rag:"grey",reason:"Shown once its data is published."}],edges:[]};}
+function resolveRef(ids,r){return ids[r]!==undefined?ids[r]:r;}
+function normaliseGenericGraph(raw){
+  const rawNodes=Array.isArray(raw.nodes)?raw.nodes:(Array.isArray(raw.features)?raw.features.map(f=>({id:f.id,...(f.properties||{})})):[]);
+  const ids={};
+  const nodes=rawNodes.map((n,i)=>{const id=n.id!==undefined?n.id:i;ids[id]=i;return {label:n.label||n.title||String(id),type:n.type||n.nodeKind||n.repo_type||"unknown",rag:n.rag||n.status||"grey",reason:n.reason||n.status_reason||n.path||"",gh:n.gh||null,ext:n.ext||null};});
+  const rawEdges=Array.isArray(raw.edges)?raw.edges:(Array.isArray(raw.links)?raw.links:[]);
+  const edges=rawEdges.map(e=>Array.isArray(e)?[resolveRef(ids,e[0]),resolveRef(ids,e[1]),e[2]||"repo"]:[resolveRef(ids,e.from!==undefined?e.from:e.source),resolveRef(ids,e.to!==undefined?e.to:e.target),e.type||"repo"]).filter(e=>typeof e[0]==="number"&&typeof e[1]==="number");
+  return {nodes,edges};
+}
+async function loadManifestScope(entry){
+  try{const r=await fetch(new URL(entry.path,ORIGIN),{cache:"no-cache"});if(!r.ok)throw new Error(entry.path+" "+r.status);const raw=await r.json();const g=normaliseGenericGraph(raw);if(!g.nodes.length)throw new Error("empty");return {label:Corporate.graphTitle(entry.id,entry.title),nodes:g.nodes,edges:g.edges,live:true};}
+  catch(e){return {...placeholderScope(Corporate.graphTitle(entry.id,entry.title),entry.path),live:false};}
+}
+async function wireReceiver(){
+  let manifest=MANIFEST_FALLBACK;
+  try{const r=await fetch(RECEIVER_MANIFEST_PATH,{cache:"no-cache"});if(r.ok){const live=await r.json();if(Array.isArray(live.graphs)&&live.graphs.length)manifest=live;}}catch(e){}
+  const BUILT_IN=new Set(["federation","globalgrid2050-contents"]);
+  const extra=(manifest.graphs||[]).filter(g=>g&&g.id&&g.path&&!BUILT_IN.has(g.id));
+  for(const entry of extra){
+    const scope=await loadManifestScope(entry);
+    SCOPES[entry.id]=scope;
+    SCOPES.root.nodes.push({label:Corporate.graphTitle(entry.id,entry.title),origLabel:entry.title,type:"unknown",rag:scope.live?"green":"grey",reason:Corporate.graphDescription(entry.id,entry.description||""),child:entry.id,gh:null,ext:null});
+  }
+  const qp=new URLSearchParams(location.search);
+  const want=Corporate.graphId(qp.get("graph"));
+  if(want){const key=want==="federation"?"root":want;if(SCOPES[key]){stack=key==="root"?[]:[{key:"root",current:0}];scopeKey=key;current=0;}}
+  const wantFocus=qp.get("focus");
+  if(wantFocus){
+    const ns=S().nodes;
+    let i=ns.findIndex(n=>n.label===wantFocus||n.origLabel===wantFocus);
+    if(i<0){const lc=wantFocus.toLowerCase();i=ns.findIndex(n=>String(n.label||"").toLowerCase()===lc);}
+    if(i>=0)current=i;
+  }
+  rebuildSelect();draw();
+}
+(async()=>{const src=await loadRoot();await loadContents();const tag=document.getElementById("srcTag");if(tag){tag.textContent=src;tag.classList.toggle("live",src==="live");}await wireReceiver();})();
+</script>
+</body>
+</html>

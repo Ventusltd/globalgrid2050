@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalGrid2050 · Block register</title>
+<style>
+  :root{color-scheme:dark}
+  body{margin:0;padding:16px 18px 40px;background:#0b0d12;color:#eef2fb;font:14px/1.5 Inter,ui-sans-serif,system-ui,sans-serif}
+  a{color:#00e5ff}
+  h1{font-size:22px;margin:0 0 4px}
+  .ey{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#00e5ff}
+  .nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 10px;font-size:13px;font-family:ui-monospace,monospace}
+  .muted{color:#9aa3b5}
+  .cat{margin:18px 0 6px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;scroll-margin-top:8px}
+  .cat h2{font-size:14px;margin:0;letter-spacing:.06em;text-transform:uppercase}
+  .cat.on h2{text-decoration:underline;text-underline-offset:4px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+  .tile{border:1px solid #262b36;border-radius:10px;padding:8px 9px;background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.014));cursor:pointer;min-height:78px;display:flex;flex-direction:column;gap:2px}
+  .tile:hover,.tile.on{border-color:#00e5ff;box-shadow:0 0 0 1px rgba(0,229,255,.22)}
+  .tile .sym{font-family:ui-monospace,monospace;font-size:20px;font-weight:700;line-height:1}
+  .tile .num{font-family:ui-monospace,monospace;font-size:10px;color:#9aa3b5}
+  .tile .t{font-size:11.5px;line-height:1.2;color:#dfe6f3}
+  .tile .n{font-family:ui-monospace,monospace;font-size:10px;color:#9aa3b5;margin-top:auto}
+  .panel{position:sticky;bottom:0;border:1px solid #00e5ff;border-radius:14px;background:#12151c;padding:14px;margin-top:18px;box-shadow:0 -10px 40px rgba(0,0,0,.4);max-height:70vh;overflow:auto}
+  .panel h3{margin:0 0 4px;font-size:18px;padding-right:36px}
+  .close{position:absolute;top:8px;right:10px;background:none;border:1px solid #385464;color:#9aa3b5;border-radius:999px;width:28px;height:28px;font:inherit;cursor:pointer}
+  .close:hover{border-color:#00e5ff;color:#eef2fb}
+  .btn{display:inline-block;background:#0f1218;border:1px solid #385464;color:#eef2fb;padding:7px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;margin:6px 6px 0 0;text-decoration:none}
+  .btn:hover{border-color:#00e5ff}
+  .btn.first{border-color:#00e5ff}
+  details{margin-top:8px}summary{cursor:pointer;color:#9aa3b5;font-size:13px}
+  .inside{font-family:ui-monospace,monospace;font-size:12px;columns:2;column-gap:20px}
+  .filter{margin:8px 0 0;font-size:13px}
+  @media(max-width:600px){.inside{columns:1}.grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}body{padding:12px 12px 40px}}
+</style>
+<div class="ey">Ventus · Global Grid 2050</div>
+<h1>Block register</h1>
+<nav class="nav"><a data-origin="https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table" href="https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table">← Map</a><a href="https://globalgrid2050.com/">Home</a><a href="../index.html">Start here</a><a data-origin="https://ventusltd.github.io/stars/code.html" href="../code-record/index.html">Code record</a></nav>
+<div class="muted" id="status">Loading…</div>
+<div class="muted">Select a block to see what it does, where it runs and what it depends on.</div>
+<div class="filter" id="filter" hidden></div>
+<div id="table"></div>
+<div class="panel" id="panel" hidden></div>
+<p class="muted" style="margin-top:20px">Every block has a permanent number. Numbers 1 to 47 are the original register entries; later numbers are blocks added as the code is reviewed. Each block contains its functions, each with its own permanent number; together they form the parts list, kept in the background. <a href="https://github.com/Ventusltd/stars/blob/main/MODULAR-STAR.md">About this register</a> · <a href="../index.html">Start here</a> · <a href="https://ventusltd.github.io/code-generator/">Build an app from blocks</a></p>
+<script src="../corporate.js"></script>
+<script>
+const ORIGIN = 'https://ventusltd.github.io/stars/';
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const T = s => Corporate.text(s);
+const L = u => Corporate.link(u);
+const repoName = r => Corporate.label(r, 'repo');
+const byName = (a, b) => String(a).localeCompare(String(b), 'en');
+document.querySelectorAll('a[data-origin]').forEach(a => a.href = L(a.dataset.origin));
+let data;
+function closePanel() {
+  $('#panel').hidden = true;
+  document.querySelectorAll('.tile.on').forEach(t => t.classList.remove('on'));
+  const q = new URLSearchParams(location.search); q.delete('block');
+  history.replaceState(null, '', q.toString() ? '?' + q : location.pathname);
+}
+function show(sym) {
+  const b = data.blocks.find(x => x.symbol === sym); if (!b) return;
+  document.querySelectorAll('.tile').forEach(t => t.classList.toggle('on', t.dataset.sym === sym));
+  const autos = $('#autos'); if (autos && b.kind === 'auto') autos.open = true;
+  const cat = data.categories.find(c => c.id === b.category) || { title: 'Other tools', colour: '#9aa3b5' };
+  const p = $('#panel'); p.hidden = false;
+  const kind = { constant: 'a value everyone must agree on', engine: 'an engine module', cartridge: 'a plug-in part of the map', layer: 'a map layer', deeplink: 'a link contract', app: 'an app', tool: 'a tool', auto: 'identified automatically from one source file' }[b.kind] || Corporate.type(b.kind);
+  const state = b.state === 'UNSETTLED' ? ' · value not yet agreed' : b.state === 'SETTLED' ? ' · agreed' : '';
+  const deps = (b.depends_on || []).slice().sort((x, y) => byName(x.title, y.title));
+  const usedBy = (b.used_by || []).slice().sort(byName);
+  const inside = (b.inside || []).slice().sort((x, y) => (y.places - x.places) || byName(x.name, y.name));
+  // A need whose meaning is just its code name is an identifier and stays as written.
+  const need = n => n.meaning === n.name ? n.name : T(n.meaning);
+  const buttons = [
+    b.live[0] ? `<a class="btn first" href="${esc(L(b.live[0]))}" target="_blank" rel="noopener">Open the live page</a>` : '',
+    `<a class="btn" href="${esc(L('https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table&focus=' + encodeURIComponent(b.symbol + ' · ' + b.title)))}">See it on the map</a>`,
+    b.functions ? `<a class="btn" href="https://ventusltd.github.io/code-generator/?blocks=${encodeURIComponent(b.symbol)}">Add to an app</a>` : '',
+    b.files[0] ? `<a class="btn" href="https://github.com/${esc(b.files[0].repo)}/blob/${esc(b.files[0].commit)}/${esc(b.files[0].path)}" target="_blank" rel="noopener">Source on GitHub</a>` : ''
+  ].join('');
+  p.innerHTML = `<button class="close" id="close" title="Close" aria-label="Close">×</button>
+    <div class="ey" style="color:${cat.colour}">${esc(T(cat.title))} · block ${b.number}</div>
+    <h3><span style="font-family:ui-monospace,monospace">${esc(b.symbol)}</span> ${esc(T(b.title))}</h3>
+    <div>${esc(T(b.description))}</div>
+    <div class="muted" style="margin-top:6px">${esc(kind)}${state}${b.functions ? ` · ${b.functions} functions inside (${b.named_functions} named)` : ' · no code of its own'}${b.repos.length ? ' · held in ' + b.repos.map(r => repoName(r.split('/')[1])).sort(byName).map(esc).join(', ') : ''}${b.first_written ? ' · first written ' + b.first_written.slice(0, 10) : ''}</div>
+    <div>${buttons}</div>
+    ${deps.length ? `<div style="margin-top:8px"><span class="muted">Depends on:</span> ${deps.map(d => `<a href="?block=${esc(d.symbol)}">${esc(d.symbol)} ${esc(T(d.title))}</a> <span class="muted">(through ${d.via.map(esc).join(", ")})</span>`).join("; ")}</div>` : ""}${usedBy.length ? `<div><span class="muted">Used by:</span> ${usedBy.map(s => `<a href="?block=${esc(s)}">${esc(s)}</a>`).join(", ")}</div>` : ""}
+    ${b.needs.length ? `<div style="margin-top:6px"><span style="color:#ffd54a">External dependencies:</span> ${b.needs.slice(0, 8).map(n => esc(need(n))).join('; ')}</div>` : ''}
+    ${inside.length ? `<details><summary>Contents: the parts list (${inside.length} of ${b.named_functions} named functions, most used first)</summary><div class="inside">${inside.map(f => `<div><a href="${esc(L(ORIGIN + 'code.html?family=' + f.family))}">#${f.family}</a> ${esc(f.name)} <span class="muted">×${f.places}</span></div>`).join('')}</div></details>` : ''}`;
+  $('#close').onclick = closePanel;
+  document.querySelectorAll('#panel a[href^="?block="]').forEach(a => a.onclick = e => { e.preventDefault(); show(new URLSearchParams(a.getAttribute('href')).get('block')); });
+  const q = new URLSearchParams(location.search); q.set('block', sym);
+  history.replaceState(null, '', '?' + q);
+}
+function showCategory(id) {
+  const cat = data.categories.find(c => c.id === id); const f = $('#filter');
+  document.querySelectorAll('.cat').forEach(el => el.classList.toggle('on', el.dataset.cat === id));
+  if (!cat) { f.hidden = true; return; }
+  f.hidden = false;
+  f.innerHTML = `Showing the category <b style="color:${cat.colour}">${esc(T(cat.title))}</b> · <a href="${esc(L(ORIGIN + 'table.html'))}">show every category</a>`;
+  const h = document.getElementById('h-' + id); if (h) h.scrollIntoView({ block: 'start' });
+}
+(async () => {
+  try {
+    data = await (await fetch(ORIGIN + 'blocks/blocks.json', {cache: 'no-cache'})).json();
+    const named = data.blocks.filter(b => b.kind !== 'auto'), autos = data.blocks.filter(b => b.kind === 'auto');
+    $('#status').textContent = `${named.length} named blocks and ${autos.length} blocks identified automatically from source files · ${data.blocks.reduce((s, b) => s + b.functions, 0).toLocaleString('en-GB')} functions in total · updated ${data.generated_utc.slice(0, 16).replace('T', ' ')} UTC`;
+    const t = $('#table');
+    const tile = (b, c) => `<div class="tile" data-sym="${esc(b.symbol)}" style="border-top:3px solid ${c.colour}"><div class="num">${b.number}</div><div class="sym">${esc(b.symbol)}</div><div class="t">${esc(T(b.title))}</div><div class="n">${b.functions ? b.functions + ' functions' : 'data only'}${b.state === 'UNSETTLED' ? ' · not agreed' : ''}</div></div>`;
+    for (const c of data.categories) {
+      const all = data.blocks.filter(b => b.category === c.id && (b.kind !== 'auto' || b.functions >= 8)).sort((a, b) => a.number - b.number);
+      if (!all.length) continue;
+      const bs = all.filter(b => b.kind !== 'auto'), as = all.filter(b => b.kind === 'auto');
+      t.insertAdjacentHTML('beforeend', `<div class="cat" id="h-${esc(c.id)}" data-cat="${esc(c.id)}"><h2 style="color:${c.colour}"><a href="?category=${esc(c.id)}" style="color:inherit;text-decoration:none">${esc(T(c.title))}</a></h2><span class="muted">${esc(T(c.blurb))}</span></div>`);
+      if (bs.length) t.insertAdjacentHTML('beforeend', `<div class="grid">${bs.map(b => tile(b, c)).join('')}</div>`);
+      if (as.length) t.insertAdjacentHTML('beforeend', `<details id="autos"><summary>${as.length} blocks identified automatically from source files, in number order (select to show)</summary><div class="grid" style="margin-top:8px">${as.map(b => tile(b, c)).join('')}</div></details>`);
+    }
+    document.querySelectorAll('.tile').forEach(el => el.onclick = () => show(el.dataset.sym));
+    document.querySelectorAll('.cat h2 a').forEach(a => a.onclick = e => { e.preventDefault(); const id = new URLSearchParams(a.getAttribute('href')).get('category'); history.replaceState(null, '', '?category=' + id); showCategory(id); });
+    const q = new URLSearchParams(location.search);
+    if (q.get('category')) showCategory(q.get('category'));
+    if (q.get('block')) show(q.get('block'));
+  } catch (e) { $('#status').textContent = 'The block register is not published yet: ' + e.message; }
+})();
+</script>
+</html>

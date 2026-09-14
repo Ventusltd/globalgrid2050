@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalGrid2050 · Code record</title>
+<style>
+  :root{color-scheme:dark}
+  body{margin:0;padding:16px 18px 40px;background:#0b0d12;color:#d8dee9;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
+  a{color:#00e5ff}
+  h1{font-size:22px;margin:0 0 4px}
+  .ey{color:#7da0c8;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+  .nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 6px;font-size:13px}
+  input{width:100%;box-sizing:border-box;padding:10px;background:#12151c;border:1px solid #2a3140;color:inherit;font:inherit;border-radius:6px;margin:12px 0}
+  .hits a{display:block;padding:4px 0;border-bottom:1px solid #1a1f2a}
+  .card{border:1px solid #2a3140;border-radius:8px;padding:14px;margin:14px 0;background:#0f1218}
+  .green{color:#39d353}.amber{color:#ffd54a}.grey{color:#8b93a7}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  td,th{text-align:left;padding:4px 6px;border-bottom:1px solid #1a1f2a;vertical-align:top}
+  .scroll{overflow-x:auto}
+  pre{background:#070910;border:1px solid #1a1f2a;border-radius:6px;padding:10px;overflow:auto;font-size:12.5px;line-height:1.45}
+  .ln{color:#4b5568;user-select:none;display:inline-block;min-width:7ch;text-align:right;margin-right:12px}
+  button{background:#12151c;border:1px solid #385464;color:#d8dee9;padding:7px 12px;border-radius:6px;font:inherit;cursor:pointer;margin:4px 6px 4px 0}
+  button:hover{border-color:#00e5ff}
+  a > button{color:#d8dee9}
+  .first button{border-color:#00e5ff}
+  .muted{color:#8b93a7}
+  details{margin-top:10px}summary{cursor:pointer;color:#8b93a7}
+  .examples a{margin-right:12px}
+  @media(max-width:600px){body{padding:12px}}
+</style>
+<div class="ey">Ventus · Global Grid 2050</div>
+<h1>Code record</h1>
+<nav class="nav"><a data-origin="https://ventusltd.github.io/ventus-grid-engine/?graph=modular" href="https://ventusltd.github.io/ventus-grid-engine/?graph=modular">← Map</a><a href="https://globalgrid2050.com/">Home</a><a href="../index.html">Start here</a><a data-origin="https://ventusltd.github.io/stars/table.html" href="../block-register/index.html">Block register</a></nav>
+<div class="muted" id="status">Loading the index…</div>
+<input id="q" placeholder="Type part of a function name, or its number (for example distanceKm, or 511)" autocomplete="off" aria-label="Search functions by name or number">
+<div class="hits" id="hits"></div>
+<div id="view"><div class="card" id="landing">
+  <div>One function per record: its purpose, where it is used, the live page it runs on, and the source code when you open it.</div>
+  <div class="muted" style="margin-top:8px">Matches appear as you type. Examples:</div>
+  <div class="examples" style="margin-top:4px"><a href="?family=511">#511 distanceKm</a> <a href="?family=440">#440 haversine</a> <a href="?family=514">#514 nearestSubstations</a> <a href="?family=77484">#77484 voltageDrop</a></div>
+  <div class="muted" style="margin-top:8px">Do not know the name? <a data-origin="https://ventusltd.github.io/stars/table.html" href="../block-register/index.html">Browse the block register by category</a>, then open a block's parts list.</div>
+</div></div>
+<p class="muted">Every function has a permanent number, shared by all copies of the same logic. Line numbers shown are the permanent number of each line. The code is fetched from GitHub at the exact commit. Public repositories only. <a href="https://github.com/Ventusltd/stars/blob/main/MODULAR-STAR.md">About this record</a> · <a href="https://github.com/Ventusltd/stars/blob/main/modular/SUMMARY.md">Summary</a> · <a href="https://github.com/Ventusltd/stars/blob/main/LINES.md">Every unique line</a> <span class="muted">(21 MB, not suitable for mobile)</span></p>
+<script src="../corporate.js"></script>
+<script>
+const ORIGIN = 'https://ventusltd.github.io/stars/';
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const T = s => Corporate.text(s);
+const L = u => Corporate.link(u);
+const repoName = r => Corporate.label(r, 'repo');
+const byName = (a, b) => String(a).localeCompare(String(b), 'en');
+document.querySelectorAll('a[data-origin]').forEach(a => a.href = L(a.dataset.origin));
+let index, names;
+const bucketCache = new Map();
+let blocksPromise = null;
+async function purposeOf(n) {
+  if (!blocksPromise) blocksPromise = Promise.all([fetch(ORIGIN + 'blocks/blocks.json').then(r => r.json()), fetch(ORIGIN + 'blocks/families.json').then(r => r.json())]);
+  const [table, fams] = await blocksPromise;
+  const sym = Object.keys(fams).find(s => fams[s].includes(n)); if (!sym) return null;
+  const block = table.blocks.find(b => b.symbol === sym) || { symbol: sym, title: 'other tools', category: 'other' };
+  return { block, category: table.categories.find(c => c.id === block.category) || { id: 'other', title: 'Other tools' } };
+}
+async function loadFamily(n) {
+  const b = Math.floor(n / index.bucket_size);
+  if (!bucketCache.has(b)) bucketCache.set(b, fetch(`${ORIGIN}code/f/${b}.json`, {cache: 'no-cache'}).then(r => r.ok ? r.json() : {}));
+  return (await bucketCache.get(b))[n] || null;
+}
+function search(q) {
+  q = q.trim(); const hits = $('#hits'); hits.innerHTML = '';
+  if (!q) return;
+  if (/^#?\d+$/.test(q)) { history.pushState(null, '', `?family=${q.replace('#', '')}`); show(Number(q.replace('#', ''))); return; }
+  const ql = q.toLowerCase();
+  const found = Object.keys(names).filter(k => k.toLowerCase().includes(ql)).sort((a, b) => (a.toLowerCase().startsWith(ql) ? 0 : 1) - (b.toLowerCase().startsWith(ql) ? 0 : 1) || a.length - b.length || byName(a, b)).slice(0, 40);
+  for (const k of found) for (const n of names[k].slice(0, 8)) {
+    const a = document.createElement('a'); a.href = `?family=${n}`; a.textContent = `#${n} ${k}`;
+    a.onclick = e => { e.preventDefault(); history.pushState(null, '', `?family=${n}`); show(n); };
+    hits.append(a);
+  }
+  if (!found.length) hits.textContent = 'No function has a name containing "' + q + '". Try a shorter part of the name, or browse the block register by category.';
+}
+async function fetchSource(p) {
+  const url = `https://raw.githubusercontent.com/${p.repo}/${p.commit}/${p.path.split('/').map(encodeURIComponent).join('/')}`;
+  const r = await fetch(url); if (!r.ok) throw new Error(`GitHub ${r.status}`);
+  return (await r.text()).split('\n').slice(p.first - 1, p.last);
+}
+async function show(n) {
+  $('#hits').innerHTML = ''; const v = $('#view'); v.innerHTML = '<div class="card">Loading…</div>';
+  const f = await loadFamily(n);
+  if (!f) { v.innerHTML = `<div class="card">There is no function with the number ${esc(n)}. Type a name in the search box, or <a href="${esc(L(ORIGIN + 'table.html'))}">browse the block register by category</a>.</div>`; return; }
+  const gh = p => `https://github.com/${p.repo}/blob/${p.commit}/${p.path.split('/').map(encodeURIComponent).join('/')}#L${p.first}-L${p.last}`;
+  const c = f.places[0];
+  const rag = f.standalone ? 'green' : 'amber';
+  const kind = { function: 'a function', class: 'a class', method: 'a method' }[f.kind] || Corporate.type(f.kind);
+  const places = f.places.slice().sort((a, b) => (b.live ? 1 : 0) - (a.live ? 1 : 0) || byName(a.repo, b.repo) || byName(a.path, b.path) || a.first - b.first);
+  const uses = (f.uses || []).slice().sort((a, b) => byName(a.name, b.name));
+  const usedBy = (f.used_by || []).slice().sort((a, b) => a.family - b.family);
+  // Function names, needed identifiers, file paths and library exports are code identifiers and are shown exactly as written.
+  v.innerHTML = `<div class="card">
+    <div class="ey">function #${f.n}</div>
+    <h1>${esc(f.names[0])}</h1>
+    <div><span class="${rag}">●</span> ${f.standalone ? 'self-contained: works on its own' : 'external dependencies: ' + (f.needs && f.needs.length ? esc(f.needs.slice().sort(byName).join(', ')) : 'its surrounding file')}
+      · ${esc(kind)} · used in ${f.places.length}${f.places.length === 40 ? '+' : ''} place${f.places.length === 1 ? '' : 's'} across ${f.files} file${f.files === 1 ? '' : 's'} in ${f.repos.length} repositor${f.repos.length === 1 ? 'y' : 'ies'} · ${f.versions} version${f.versions === 1 ? '' : 's'}${f.first_written ? ' · first written ' + f.first_written.slice(0, 10) : ''}</div>
+    ${f.names.length > 1 ? `<div class="muted">also named: ${f.names.slice(1).map(esc).join(', ')}</div>` : ''}
+    <div id="purpose" class="muted"></div>
+    ${uses.length || usedBy.length ? `<div style="margin-top:6px">${uses.length ? `<div><span class="muted">uses:</span> ${uses.slice(0, 10).map(u => `<a href="?family=${u.family}">#${u.family} ${esc(u.name)}</a>`).join(', ')}</div>` : ''}${usedBy.length ? `<div><span class="muted">used by:</span> ${usedBy.slice(0, 12).map(u => `<a href="?family=${u.family}">#${u.family}</a>`).join(', ')}${usedBy.length > 12 ? ` <span class="muted">and ${usedBy.length - 12} more</span>` : ''}</div>` : ''}</div>` : ''}
+    <div style="margin-top:10px">
+      ${c.live ? `<a class="first" href="${esc(L(c.live))}" target="_blank" rel="noopener"><button>Open the live page</button></a>` : ''}
+      <a href="${esc(L('https://ventusltd.github.io/ventus-grid-engine/?graph=modular&focus=' + encodeURIComponent('#' + f.n + ' ' + f.names[0])))}"><button>See it on the map</button></a>
+      <a href="${gh(c)}" target="_blank" rel="noopener"><button>Open on GitHub</button></a>
+      <button id="copy">Copy the code</button>
+      ${f.library ? `<button id="copyImport">Copy an import line</button>` : ''}
+    </div>
+    <div class="ey" style="margin-top:12px">where it is used (live pages first)</div>
+    <div class="scroll"><table><tr><th>repository</th><th>file</th><th>lines</th><th>live page</th></tr>
+    ${places.map(p => `<tr><td>${esc(repoName(p.repo.split('/')[1]))}</td><td><a href="${gh(p)}" target="_blank" rel="noopener">${esc(p.path)}</a></td><td>${p.first}–${p.last}</td><td>${p.live ? `<a href="${esc(L(p.live))}" target="_blank" rel="noopener">open</a>` : '<span class="muted">not published</span>'}</td></tr>`).join('')}
+    </table></div>
+    <details open><summary>The code (${c.last - c.first + 1} lines, from ${esc(repoName(c.repo.split('/')[1]))})</summary><pre id="src">Fetching the code from GitHub…</pre></details>
+    ${f.library ? `<p class="muted">In the compiled library as <code>${esc(f.library)}</code>: <code>import { ${esc(f.library)} } from 'https://ventusltd.github.io/stars/library/standalone.mjs'</code></p>` : ''}
+  </div>`;
+  purposeOf(n).then(p => { const el = $('#purpose'); if (el && p) el.innerHTML = `part of: <a href="${esc(L(ORIGIN + 'table.html?category=' + encodeURIComponent(p.category.id)))}">${esc(T(p.category.title))}</a> › <a href="${esc(L(ORIGIN + 'table.html?block=' + encodeURIComponent(p.block.symbol)))}">${esc(p.block.symbol)} ${esc(T(p.block.title))}</a>`; }).catch(() => {});
+  document.querySelectorAll('#view a[href^="?family="]').forEach(a => a.onclick = e => { e.preventDefault(); const m = new URLSearchParams(a.getAttribute('href')).get('family'); history.pushState(null, '', `?family=${m}`); show(Number(m)); });
+  let source = '';
+  try {
+    const lines = await fetchSource(c);
+    source = lines.join('\n');
+    $('#src').innerHTML = lines.map((t, i) => `<span class="ln">${f.lines[i] ?? ''}</span>${esc(t)}`).join('\n');
+  } catch (e) { $('#src').textContent = 'The code could not be fetched from GitHub: ' + e.message; }
+  $('#copy').onclick = () => navigator.clipboard.writeText(`// function #${f.n} ${f.names[0]} · ${gh(c)}\n${source}\n`).then(() => $('#copy').textContent = 'Copied');
+  const ci = $('#copyImport'); if (ci) ci.onclick = () => navigator.clipboard.writeText(`import { ${f.library} } from 'https://ventusltd.github.io/stars/library/standalone.mjs';\n`).then(() => ci.textContent = 'Copied');
+}
+(async () => {
+  try {
+    [index, names] = await Promise.all([fetch(ORIGIN + 'code/index.json', {cache: 'no-cache'}).then(r => r.json()), fetch(ORIGIN + 'code/names.json', {cache: 'no-cache'}).then(r => r.json())]);
+    $('#status').textContent = `${index.families.toLocaleString('en-GB')} functions with a permanent number · ${index.elements.toLocaleString('en-GB')} functions and classes in the code · ${index.lines.toLocaleString('en-GB')} unique lines · updated ${index.generated_utc.slice(0, 16).replace('T', ' ')} UTC`;
+    $('#q').oninput = e => search(e.target.value);
+    document.querySelectorAll('#landing a[href^="?family="]').forEach(a => a.onclick = e => { e.preventDefault(); const m = new URLSearchParams(a.getAttribute('href')).get('family'); history.pushState(null, '', `?family=${m}`); show(Number(m)); });
+    const n = new URLSearchParams(location.search).get('family');
+    if (n) show(Number(n));
+    window.onpopstate = () => { const m = new URLSearchParams(location.search).get('family'); if (m) show(Number(m)); else location.reload(); };
+  } catch (e) { $('#status').textContent = 'The code index is not published yet: ' + e.message; }
+})();
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalGrid2050 · v10 read-only code browser</title>
+<script>window.BUILT='2026-09-14 17:54'</script>
+<script src="../../corporate.js"></script>
+<script src="../core.js"></script>
+<style>
+.ide{display:grid;grid-template-columns:230px minmax(0,1fr) 260px;gap:8px;height:calc(100vh - 170px);min-height:460px}
+.pane{background:#0f1218;border:1px solid #2a3140;border-radius:8px;overflow:auto;padding:6px}
+.pane h3{margin:2px 4px 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7da0c8}
+details{margin:2px 0}summary{cursor:pointer;font-size:12px;padding:2px 4px}
+.nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#d8dee9;font:inherit;font-size:12px;padding:2px 10px;cursor:pointer;border-radius:4px}
+.nav button:hover,.nav button.on{background:#12151c;color:#00e5ff}
+.sld{width:100%;height:auto}
+.bus{stroke:#eef2fb;stroke-width:4}.feeder{stroke-width:1.6}.tag{fill:#d8dee9;font-size:10px}.small{fill:#8b93a7;font-size:9px}
+@media(max-width:900px){.ide{grid-template-columns:1fr;height:auto}.pane{max-height:60vh}}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the code map…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div class="u-muted">Read-only. Navigator on the left; the numbered code in the middle; on the right, the relationships drawn like a single-line diagram: the block is the busbar, each relationship a feeder with its type, key and count.</div>
+<div class="ide"><div class="pane nav" id="nav"><h3>Blocks</h3></div><div class="pane" id="code"><h3>Code</h3><div class="u-muted">Choose a family.</div></div><div class="pane" id="rel"><h3>Relationships</h3></div></div>
+<script>
+const N = $('#nav'), C = $('#code'), R = $('#rel'); const NS = 'http://www.w3.org/2000/svg';
+const sv = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+function navBuild() {
+  for (const c of U.cats) {
+    const list = U.blocks.filter(b => b.category === c.id); if (!list.length) continue;
+    const d = el('details', {}, el('summary', { style: `color:${c.colour}` }, `${catName(c)} (${list.length})`));
+    for (const b of list) { const bd = el('details', {}, el('summary', {}, `${b.symbol} · ${blockTitle(b)}`)); bd.addEventListener('toggle', () => { if (!bd.open || bd.dataset.done) return; bd.dataset.done = 1; sld(b.symbol); pageList(bd, blockFamilies(b.symbol), n => el('button', { 'data-n': n, on: { click: () => openFamily(n) } }, `#${n}`), 100, 'families'); family(blockFamilies(b.symbol)[0] ?? -1).then(() => bd.querySelectorAll('button').forEach(btn => { const u = U.buckets.get(Math.floor(btn.dataset.n / 500)); u && u.then(bk => { const r = bk[btn.dataset.n]; if (r) btn.textContent = `#${btn.dataset.n} ${famName(r)}`; }); })).catch(() => {}); }); d.append(bd); }
+    N.append(d);
+  }
+  N.append(el('div', { class: 'u-muted', style: 'padding:6px' }, `${U.unnamed.length} unnamed groups: reach them through search.`));
+}
+/* single-line diagram of relationships: a horizontal busbar for the subject, feeders dropping to each related item */
+function sld(sym, rec, n) {
+  R.innerHTML = '<h3>Relationships</h3>';
+  const feeders = [];
+  if (rec) {
+    const g = U.famToGroup.get(n); if (g) feeders.push({ type: 'contains', key: g, label: blockLabel(g), go: () => sld(g) });
+    (rec.uses || []).slice(0, 12).forEach(u => feeders.push({ type: 'uses', key: `#${u.family}`, label: u.name, go: () => openFamily(u.family) }));
+    (rec.used_by || []).slice(0, 12).forEach(u => feeders.push({ type: 'used by', key: `#${u.family}`, label: u.name, go: () => openFamily(u.family) }));
+  } else {
+    blockDeps(sym).forEach(s => feeders.push({ type: 'depends on', key: s, label: blockLabel(s), go: () => sld(s) }));
+    blockUsers(sym).slice(0, 16).forEach(s => feeders.push({ type: 'used by', key: s, label: blockLabel(s), go: () => sld(s) }));
+    trailPush('block', sym, blockLabel(sym));
+  }
+  const title = rec ? `#${n} ${famName(rec)}` : blockLabel(sym);
+  const rowH = 30, H = 60 + feeders.length * rowH, W = 250; const svg = sv('svg', { class: 'sld', viewBox: `0 0 ${W} ${H}` });
+  svg.append(sv('line', { x1: 20, y1: 30, x2: 20, y2: H - 10, class: 'bus' }));
+  const t = sv('text', { x: 4, y: 16, class: 'tag', style: 'fill:#00e5ff;font-size:11px' }); t.textContent = title.slice(0, 38); svg.append(t);
+  feeders.forEach((f, i) => {
+    const y = 46 + i * rowH; const col = REL[f.type];
+    svg.append(sv('line', { x1: 20, y1: y, x2: 60, y2: y, class: 'feeder', stroke: col }));
+    svg.append(sv('rect', { x: 60, y: y - 5, width: 10, height: 10, fill: 'none', stroke: col }));  // the "breaker": the relationship type
+    const g = sv('g', { style: 'cursor:pointer' }); g.addEventListener('click', f.go);
+    const a = sv('text', { x: 76, y: y - 2, class: 'tag' }); a.textContent = `${f.key}`; const b = sv('text', { x: 76, y: y + 9, class: 'small' }); b.textContent = `${sayType(f.type)} · ${String(f.label || '').slice(0, 30)}`;
+    g.append(sv('rect', { x: 72, y: y - 13, width: 176, height: 26, fill: 'transparent' }), a, b); svg.append(g);
+  });
+  R.append(svg); if (!feeders.length) R.append(el('div', { class: 'u-muted' }, 'No relationships recorded.'));
+  if (!rec && U.bySym.has(sym)) R.append(el('a', { class: 'u-chip', href: blockPage(sym), target: '_blank', rel: 'noopener' }, 'Block page ↗'));
+}
+async function openFamily(n) {
+  N.querySelectorAll('button.on').forEach(b => b.classList.remove('on')); const btn = N.querySelector(`button[data-n="${n}"]`); btn && btn.classList.add('on');
+  C.innerHTML = '<h3>Code</h3>'; const host = el('div'); C.append(host);
+  const rec = await showFamilyPanel(n, host, openFamily, s => sld(s));
+  if (rec) sld(null, rec, n);
+}
+window.goHome = () => { C.innerHTML = '<h3>Code</h3><div class="u-muted">Choose a family.</div>'; R.innerHTML = '<h3>Relationships</h3>'; };
+window.goTo = (k, id) => k === 'block' ? sld(id) : k === 'family' ? openFamily(id) : goHome();
+loadUniverse().then(() => { $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); navBuild(); openAddress(); footer('v10-code-browser'); }).catch(e => fail('#count', e));
+</script>

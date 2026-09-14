@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalGrid2050 · v09 line view</title>
+<script>window.BUILT='2026-09-14 17:54'</script>
+<script src="../../corporate.js"></script>
+<script src="../core.js"></script>
+<style>
+.mini{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:3px}
+.mini button{background:#12151c;border:1px solid #2a3140;border-bottom:3px solid var(--c);color:#eef2fb;font:inherit;font-size:11px;padding:4px 0;border-radius:4px;cursor:pointer}
+.river{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:8px;margin-top:10px}
+.lines{background:#07090d;border:1px solid #1f2633;border-radius:8px;padding:6px 0;overflow:auto;max-height:70vh;position:relative;min-width:0}
+.ln{white-space:pre;font-size:12px;padding:0 8px;border-left:3px solid transparent}
+.ln.sh{border-left-color:#39d353;background:#0d1a12}
+.ln .k{color:#ffd54a;display:inline-block;min-width:62px}
+.side{display:flex;flex-direction:column;gap:6px;font-size:12px;min-width:0}
+.side h4{margin:6px 0 0;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.u-h,.u-muted,.u-chip{overflow-wrap:anywhere}
+@media(max-width:640px){.river{grid-template-columns:minmax(0,1fr)}}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the code map…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div class="u-panel" id="home"></div>
+<div id="view"></div>
+<script>
+const Hm = $('#home'), V = $('#view');
+window.goHome = function () {
+  V.innerHTML = ''; Hm.hidden = false; Hm.innerHTML = '';
+  Hm.append(el('div', { class: 'u-muted' }, 'Every named block, by category. Tap one to list its families; open a family to see its numbered lines in sequence, with every relationship alongside.'));
+  for (const c of U.cats) { const list = U.blocks.filter(b => b.category === c.id); if (!list.length) continue; Hm.append(el('div', { class: 'u-sub', style: `color:${c.colour}` }, catName(c)), el('div', { class: 'mini' }, list.map(b => el('button', { style: `--c:${c.colour}`, title: blockLabel(b.symbol), on: { click: () => showBlock(b.symbol) } }, b.symbol)))); }
+};
+window.goTo = (k, id) => k === 'block' ? showBlock(id) : k === 'family' ? openFamily(id) : goHome();
+function showBlock(sym) {
+  trailPush('block', sym, blockLabel(sym)); Hm.hidden = true; V.innerHTML = '';
+  const fams = blockFamilies(sym); const b = U.bySym.get(sym) || {};
+  V.append(el('div', { class: 'u-panel' }, el('div', { class: 'u-h' }, blockLabel(sym)), el('div', { class: 'u-muted' }, `${blockDesc(b)} ${fams.length} families.`),
+    el('div', { class: 'u-links' }, ...blockDeps(sym).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['depends on']}`, on: { click: () => showBlock(d) } }, `depends on → ${d}`)), ...blockUsers(sym).slice(0, 30).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['used by']}`, on: { click: () => showBlock(d) } }, `← used by ${d}`))),
+    pageList(el('div', { class: 'u-links' }), fams, n => el('button', { class: 'u-chip', on: { click: () => openFamily(n) } }, `#${n}`), 100, 'families')));
+}
+async function openFamily(n) {
+  Hm.hidden = true; V.innerHTML = '<div class="u-muted">Loading…</div>';
+  let rec; try { rec = await family(n); } catch (e) { V.innerHTML = ''; V.append(el('div', { class: 'u-fail' }, e.message)); return; }
+  if (!rec) { V.innerHTML = `<div class="u-fail">Family #${n} is not in the published records.</div>`; return; }
+  trailPush('family', n, `#${n} ${famName(rec)}`); const L = familyLinks(rec, n); const g = U.famToGroup.get(n);
+  // shared lines, from buckets already loaded: load the buckets of its neighbours first so the markers mean something
+  await Promise.all([...(rec.uses || []), ...(rec.used_by || [])].slice(0, 20).map(u => family(u.family).catch(() => null)));
+  const keys = new Map(rec.lines.map(k => [k, []]));
+  for (const p of U.buckets.values()) { const bucket = await p.catch(() => ({})); for (const [m, r] of Object.entries(bucket)) { if (+m === n) continue; for (const k of r.lines || []) if (keys.has(k)) keys.get(k).push(+m); } }
+  const sharedFams = new Map(); for (const [k, list] of keys) for (const m of list) sharedFams.set(m, (sharedFams.get(m) || 0) + 1);
+  V.innerHTML = '';
+  V.append(el('div', { class: 'u-panel' }, el('div', { class: 'u-h' }, `#${n} ${famName(rec)}`), el('div', { class: 'u-muted' }, `${rec.lines.length} numbered lines · ${rec.repos.length} repositories · a green edge marks a line that also appears in another family (among ${U.buckets.size} loaded record buckets of ${U.index.buckets})`),
+    el('div', { class: 'u-links' }, g ? el('button', { class: 'u-chip', on: { click: () => showBlock(g) } }, `◂ contained in ${blockLabel(g)}`) : null, el('a', { class: 'u-chip', href: L.page, target: '_blank', rel: 'noopener' }, 'Function page ↗'), L.gh ? el('a', { class: 'u-chip', href: L.gh, target: '_blank', rel: 'noopener' }, 'File at commit ↗') : null, L.live ? el('a', { class: 'u-chip live', href: L.live, target: '_blank', rel: 'noopener' }, 'Live page ↗') : null)));
+  const linesBox = el('div', { class: 'lines' }, 'Fetching the code at its pinned commit…');
+  const side = el('div', { class: 'side' });
+  const list = (title, items, colour) => { if (!items.length) return; side.append(el('h4', { style: `color:${colour}` }, `${title} (${items.length})`)); items.slice(0, 30).forEach(it => side.append(el('button', { class: 'u-chip', style: `border-color:${colour};text-align:left`, on: { click: () => openFamily(it.family) } }, `#${it.family} ${it.name || ''}`))); };
+  list('→ uses', rec.uses || [], REL.uses); list('← used by', rec.used_by || [], REL['used by']);  // paged below 30 via the side list
+  list('≡ shares lines with', [...sharedFams].sort((a, b) => b[1] - a[1]).map(([m, c]) => ({ family: m, name: `${c} lines` })), REL['shared line']);
+  V.append(el('div', { class: 'river' }, linesBox, side));
+  try { const rows = await familyLines(rec); linesBox.innerHTML = ''; rows.forEach(r => { const sh = (keys.get(r.key) || []).length; linesBox.append(el('div', { class: 'ln' + (sh ? ' sh' : ''), title: sh ? `line ${r.key} also in ${sh} other families` : `line ${r.key}` }, el('span', { class: 'k' }, r.key), ` │ ${r.text}`)); }); }
+  catch (e) { linesBox.textContent = `The code could not be fetched (${e.message}). Line keys: ${rec.lines.join(', ')}`; }
+}
+loadUniverse().then(() => { $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); goHome(); openAddress(); footer('v09-line-view'); }).catch(e => fail('#count', e));
+</script>

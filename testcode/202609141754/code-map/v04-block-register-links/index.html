@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalGrid2050 · v04 block register with dependencies</title>
+<script>window.BUILT='2026-09-14 17:54'</script>
+<script src="../../corporate.js"></script>
+<script src="../core.js"></script>
+<style>
+#board{position:relative}
+.cat{margin:10px 0 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:4px}
+.tile{background:#12151c;border:1px solid #2a3140;border-top:3px solid var(--c);border-radius:6px;padding:4px;cursor:pointer;min-height:48px;position:relative}
+.tile b{font-size:15px;color:#eef2fb;display:block}.tile small{font-size:9px;color:#8b93a7;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.tile .n{position:absolute;top:2px;right:4px;font-size:9px;color:#566079}
+.tile.on{outline:2px solid #00e5ff}.tile.dep{outline:2px solid #ffd54a}.tile.use{outline:2px solid #ff7ab6}.dim{opacity:.35}
+#arrows{position:absolute;inset:0;pointer-events:none;overflow:visible}
+</style>
+<h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the code map…</div>
+<div id="search"></div><div id="trail"></div><div id="legend"></div>
+<div class="u-muted">The block register: the 207 named blocks as tiles. Tap a tile: arrows go to the blocks it depends on (yellow) and come from the blocks that use it (pink), and its function families open below.</div>
+<div id="board"><svg id="arrows"></svg><div id="grid"></div></div>
+<div class="u-panel" id="block" hidden></div><div class="u-panel" id="panel" hidden></div>
+<script>
+const G = $('#grid'), A = $('#arrows'), B = $('#block'), P = $('#panel'); const NS = 'http://www.w3.org/2000/svg'; let current = null;
+function build() {
+  G.innerHTML = '';
+  for (const c of U.cats) {
+    const list = U.blocks.filter(b => b.category === c.id).sort((a, b) => a.number - b.number); if (!list.length) continue;
+    G.append(el('div', { class: 'cat', style: `color:${c.colour}` }, `${catName(c)} · ${list.length}`));
+    G.append(el('div', { class: 'tiles' }, list.map(b => el('div', { class: 'tile', 'data-sym': b.symbol, style: `--c:${c.colour}`, title: `${blockTitle(b)}: ${blockDesc(b)}`, on: { click: () => pick(b.symbol) } }, el('span', { class: 'n' }, b.number), el('b', {}, b.symbol), el('small', {}, blockTitle(b)), el('small', {}, `${blockFamilies(b.symbol).length} fam`)))));
+  }
+  G.append(el('div', { class: 'cat', style: 'color:#566079' }, `Not yet named · ${U.unnamed.length} groups (search a function to reach them)`));
+}
+function arrows(sym) {
+  A.innerHTML = '<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="context-stroke"/></marker></defs>';
+  const box = $('#board').getBoundingClientRect(); const at = s => { const t = G.querySelector(`[data-sym="${CSS.escape(s)}"]`); if (!t) return null; const r = t.getBoundingClientRect(); return { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2, t }; };
+  const me = at(sym); if (!me) return;
+  G.querySelectorAll('.tile').forEach(t => t.className = 'tile dim'); me.t.className = 'tile on';
+  const line = (a, b, col) => { const p = document.createElementNS(NS, 'path'); const mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) - 30; p.setAttribute('d', `M${a.x},${a.y}Q${mx},${my} ${b.x},${b.y}`); p.setAttribute('stroke', col); p.setAttribute('fill', 'none'); p.setAttribute('stroke-width', '1.6'); p.setAttribute('marker-end', 'url(#m)'); p.setAttribute('opacity', '.85'); A.append(p); };
+  for (const d of blockDeps(sym)) { const o = at(d); if (o) { o.t.className = 'tile dep'; line(me, o, REL['depends on']); } }
+  for (const u of blockUsers(sym)) { const o = at(u); if (o) { o.t.className = 'tile use'; line(o, me, REL['used by']); } }
+}
+function pick(sym) {
+  current = sym; trailPush('block', sym, blockLabel(sym)); if (U.bySym.has(sym)) arrows(sym);
+  const b = U.bySym.get(sym) || {}; const fams = blockFamilies(sym);
+  B.hidden = false; B.innerHTML = '';
+  B.append(el('div', { class: 'u-h' }, blockLabel(sym)), el('div', { class: 'u-muted' }, `${blockDesc(b)} Contains ${fams.length} function families.`),
+    el('div', { class: 'u-links' }, b.symbol ? el('a', { class: 'u-chip', href: blockPage(sym), target: '_blank', rel: 'noopener' }, 'Block page ↗') : null,
+      ...blockDeps(sym).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['depends on']}`, on: { click: () => pick(d) } }, `depends on → ${d}`)),
+      ...blockUsers(sym).slice(0, 30).map(d => el('button', { class: 'u-chip', style: `border-color:${REL['used by']}`, on: { click: () => pick(d) } }, `← used by ${d}`))),
+    el('div', { class: 'u-sub', style: `color:${REL.contains}` }, 'contains'),
+    pageList(el('div', { class: 'u-links' }), fams, n => el('button', { class: 'u-chip', on: { click: () => openFamily(n) } }, `#${n}`), 100, 'families'));
+  B.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+async function openFamily(n) { P.hidden = false; await showFamilyPanel(n, P, openFamily, pick); P.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+window.goHome = () => { A.innerHTML = ''; G.querySelectorAll('.tile').forEach(t => t.className = 'tile'); B.hidden = P.hidden = true; scrollTo(0, 0); };
+window.goTo = (k, id) => k === 'block' ? pick(id) : k === 'family' ? openFamily(id) : goHome();
+addEventListener('resize', () => current && U.bySym.has(current) && arrows(current));
+loadUniverse().then(() => { $('#count').textContent = countsLine(); legend($('#legend')); mountSearch($('#search'), openFamily); renderTrail(); build(); openAddress(); footer('v04-block-register-links'); }).catch(e => fail('#count', e));
+</script>

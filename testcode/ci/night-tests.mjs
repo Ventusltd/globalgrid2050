@@ -59,15 +59,70 @@ const VIEWPORTS = {
 const results = [];
 const started = Date.now();
 
+/* FIVE STATES, BECAUSE FOUR OF THEM WERE BEING SPELT 'SUCCESS'.
+
+   Two runs today were green and proved nothing. Testcode proof 34955380619 ran
+   on a push that touched testcode/ci/ and no testcode/<stamp>/ folder, found no
+   publication.json, skipped every step after the stamp scan and reported
+   success. Night tests go idle the moment NIGHT-UNTIL.txt is in the past -
+   2026-09-15T07:00:00Z, hours ago - print 'night window closed; nothing run'
+   and report success. Both are honest in their logs and both are
+   indistinguishable from health on the runs page, which is the only place
+   anyone looks.
+
+   A result vocabulary has to be able to say the difference between:
+
+     pass            the check ran and what it asserts is true
+     fail            the check ran and what it asserts is false
+     skipped         the check could have run here and did not, for a reason
+                     that may not hold next time - the page never painted under
+                     software GL, the folder is published but not yet served.
+                     Transient. A skip that repeats is a fail nobody has named.
+     expired         the check is time-boxed and its window has closed. Nothing
+                     was asked. Never a pass; and after EXPIRY_GRACE_DAYS with
+                     nobody renewing or deleting the window it becomes a fail,
+                     because a gate left running forever asking nothing is a
+                     defect in its own right.
+     not-applicable  there was nothing here for this check to look at, by
+                     construction - this push carried no testcode folder, this
+                     folder ships no proof/ci-checks.json. Legitimately silent.
+
+   'warn' keeps the one job it always had: a real observation that is not a
+   verdict (no WebGL2 on the runner). It does not move the run verdict.
+   skipped, expired and not-applicable do.
+
+   The run verdict and the exit code are derived from the counts at the foot of
+   this file, and the workflows are told to read the verdict, not the colour. */
+const STATES = ['pass', 'fail', 'skip', 'expired', 'na', 'warn'];
+const TAG = { pass: 'PASS', fail: 'FAIL', warn: 'WARN', skip: 'SKIP', expired: 'EXPIRED', na: 'N/A' };
+
 function record(status, name, detail, extra = {}) {
   results.push({ status, name, detail: String(detail ?? ''), ...extra });
-  const tag = { pass: 'PASS', fail: 'FAIL', warn: 'WARN', skip: 'SKIP' }[status];
+  if (!STATES.includes(status)) throw new Error(`unknown result state: ${status}`);
+  const tag = TAG[status];
   console.log(`  ${tag}  ${name}${detail ? ' — ' + detail : ''}`);
 }
 const pass = (n, d, e) => record('pass', n, d, e);
 const fail = (n, d, e) => record('fail', n, d, e);
 const warn = (n, d, e) => record('warn', n, d, e);
 const skip = (n, d, e) => record('skip', n, d, e);
+const expired = (n, d, e) => record('expired', n, d, e);
+const na = (n, d, e) => record('na', n, d, e);
+
+/* The night window is judged here, not by a shell step whose only outcome is
+   'skip the rest of the job and finish green'. NIGHT_TESTS_UNTIL carries the
+   contents of testcode/ci/NIGHT-UNTIL.txt. With no window declared the tests
+   simply run, which is what a local dry run wants. */
+const EXPIRY_GRACE_DAYS = Number(process.env.NIGHT_EXPIRY_GRACE_DAYS || 7);
+function windowState() {
+  const until = (process.env.NIGHT_TESTS_UNTIL || '').trim();
+  if (!until) return { state: 'open', until: null, overdueDays: 0 };
+  const closesAt = Date.parse(until);
+  if (Number.isNaN(closesAt)) return { state: 'invalid', until, overdueDays: 0 };
+  const overdueDays = (Date.now() - closesAt) / 86400000;
+  if (overdueDays < 0) return { state: 'open', until, overdueDays };
+  return { state: overdueDays > EXPIRY_GRACE_DAYS ? 'abandoned' : 'closed', until, overdueDays };
+}
 
 // ------------------------------------------------------------ served bytes ---
 
@@ -503,7 +558,7 @@ async function runStamp(browser, stamp) {
     folderChecks = ck.json;
     pass(`${stamp}: proof/ci-checks.json`, `${folderChecks.length} checks shipped with the folder`);
   } else if (ck.status === 404) {
-    skip(`${stamp}: proof/ci-checks.json`, 'the folder ships none');
+    na(`${stamp}: proof/ci-checks.json`, 'the folder ships none');
   } else {
     warn(`${stamp}: proof/ci-checks.json`, `HTTP ${ck.status}${ck.parseError ? ` — ${ck.parseError}` : ''}`);
   }
@@ -602,7 +657,7 @@ function summaryTable() {
   console.log('NIGHT TESTS SUMMARY'.padEnd(width + 8) + 'STATUS  DETAIL');
   console.log(line);
   for (const r of results) {
-    const tag = { pass: 'PASS', fail: 'FAIL', warn: 'WARN', skip: 'SKIP' }[r.status];
+    const tag = TAG[r.status];
     const detail = r.detail.length > 90 ? r.detail.slice(0, 87) + '...' : r.detail;
     console.log(r.name.padEnd(width + 8) + tag.padEnd(8) + detail);
   }
@@ -612,6 +667,27 @@ function summaryTable() {
 async function main() {
   console.log(`night tests against ${BASE}`);
   console.log(`started ${new Date(started).toISOString()} · CI=${IN_CI ? 'yes' : 'no'} · load patience ${LOAD_MS / 1000} s`);
+
+  /* An expired window ends the run here, with a verdict, before a browser is
+     launched. The old shape put this in a workflow step that set run=no and let
+     every later step be skipped, which GitHub renders as a wholly green job. */
+  const window_ = windowState();
+  if (window_.state === 'invalid') {
+    fail('night window', `NIGHT_TESTS_UNTIL is not a date: ${window_.until}`);
+    return finish(null, null, window_);
+  }
+  if (window_.state === 'closed' || window_.state === 'abandoned') {
+    const overdue = window_.overdueDays.toFixed(1);
+    const detail = `window closed ${overdue} day(s) ago at ${window_.until}; nothing was checked`;
+    if (window_.state === 'abandoned') {
+      fail('night window', `${detail} - past the ${EXPIRY_GRACE_DAYS}-day grace. `
+        + 'Put a later time in testcode/ci/NIGHT-UNTIL.txt, or delete the schedule. '
+        + 'A gate that has asked nothing for a week is not idle, it is abandoned.');
+    } else {
+      expired('night window', detail);
+    }
+    return finish(null, null, window_);
+  }
 
   const { puppeteer, via } = await loadPuppeteer();
   console.log(`browser driver: ${via}`);
@@ -641,31 +717,81 @@ async function main() {
     await browser.close().catch(() => {});
   }
 
+  return finish(servedSummary, via, window_);
+}
+
+/* THE VERDICT, AND THE EXIT CODE THAT CARRIES IT.
+
+   Derived, never asserted by hand, and ordered so the worst honest thing about
+   the run is what the run is called:
+
+     FAIL            1   something ran and was wrong
+     EXPIRED         3   the window is shut; nothing was asked
+     NOT_APPLICABLE  4   there was nothing here to check
+     INCOMPLETE      2   something that should have run did not
+     PASS            0   every check that could run, ran, and was right
+
+   PASS requires at least one actual pass: a run of nothing but warnings is not
+   a clean bill of health, it is a run of nothing.
+
+   GitHub Actions gives a job two conclusions, success and failure, so only FAIL
+   can be red. That is exactly why the verdict is written into report.json and
+   printed as the last line: the workflows annotate the run with it, and no
+   consumer is entitled to read a green tick as proof that anything was checked.
+   Exit codes 2, 3 and 4 are distinguishable to any caller that is not GitHub. */
+function verdictOf(counts) {
+  if (counts.fail) return { verdict: 'FAIL', exit: 1 };
+  if (counts.expired) return { verdict: 'EXPIRED', exit: 3 };
+  if (!counts.pass && !counts.skip) return { verdict: 'NOT_APPLICABLE', exit: 4 };
+  if (counts.skip) return { verdict: 'INCOMPLETE', exit: 2 };
+  return { verdict: 'PASS', exit: 0 };
+}
+
+async function finish(servedSummary, via, window_) {
   summaryTable();
 
-  const counts = { pass: 0, fail: 0, warn: 0, skip: 0 };
+  const counts = { pass: 0, fail: 0, warn: 0, skip: 0, expired: 0, na: 0 };
   for (const r of results) counts[r.status]++;
   const failed = results.filter((r) => r.status === 'fail').map((r) => r.name);
+  const skipped = results.filter((r) => r.status === 'skip').map((r) => r.name);
+  const notApplicable = results.filter((r) => r.status === 'na').map((r) => r.name);
+  const { verdict, exit } = verdictOf(counts);
 
   const report = {
+    schema: 'globalgrid2050.night-tests.v2',
+    verdict,
+    exit_code: exit,
     base: BASE,
     stamp: STAMP || null,
     mode: STAMP ? 'single-stamp' : 'nightly',
+    night_window: window_ || { state: 'open', until: null },
     served: servedSummary,
     started_utc: new Date(started).toISOString(),
     finished_utc: new Date().toISOString(),
     duration_s: Number(((Date.now() - started) / 1000).toFixed(1)),
     ci: IN_CI,
-    driver: via,
+    driver: via || null,
     counts,
     failed,
+    skipped,
+    not_applicable: notApplicable,
     results,
   };
   await writeFile(REPORT_PATH, JSON.stringify(report, null, 1));
-  console.log(`\n${counts.pass} passed · ${counts.fail} failed · ${counts.warn} warnings · ${counts.skip} skipped`);
+  const line = [
+    `${counts.pass} passed`, `${counts.fail} failed`, `${counts.warn} warnings`,
+    `${counts.skip} skipped`, `${counts.expired} expired`, `${counts.na} not-applicable`,
+  ].join(' / ');
+  console.log(`\n${line}`);
   console.log(`report written to ${REPORT_PATH}`);
-  if (counts.fail) console.log(`failing checks: ${failed.join(', ')}`);
-  process.exitCode = counts.fail ? 1 : 0;
+  if (failed.length) console.log(`failing checks: ${failed.join(', ')}`);
+  if (skipped.length) console.log(`skipped checks: ${skipped.join(', ')}`);
+  if (notApplicable.length) console.log(`not applicable here: ${notApplicable.join(', ')}`);
+  // Last line, one token, greppable. The workflows read this and report.json;
+  // they are not entitled to read the job's colour as proof of anything.
+  console.log(`NIGHT_TESTS_VERDICT=${verdict}`);
+  process.exitCode = exit;
+  return exit;
 }
 
 main().catch(async (e) => {
@@ -673,9 +799,12 @@ main().catch(async (e) => {
   try {
     await writeFile(REPORT_PATH, JSON.stringify({
       base: BASE, started_utc: new Date(started).toISOString(), finished_utc: new Date().toISOString(),
-      harness_error: String(e && e.message ? e.message : e), counts: { pass: 0, fail: 1, warn: 0, skip: 0 },
-      failed: ['harness'], results,
+      schema: 'globalgrid2050.night-tests.v2', verdict: 'FAIL', exit_code: 1,
+      harness_error: String(e && e.message ? e.message : e),
+      counts: { pass: 0, fail: 1, warn: 0, skip: 0, expired: 0, na: 0 },
+      failed: ['harness'], skipped: [], not_applicable: [], results,
     }, null, 1));
   } catch { /* nothing more to do */ }
+  console.log('NIGHT_TESTS_VERDICT=FAIL');
   process.exitCode = 1;
 });

@@ -16,26 +16,16 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v5
-      - name: Gate scheduled unit tests at night cutoff
-        id: gate
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-        run: |
-          python - <<'PY'
-          import os
-          from pathlib import Path
-          from testcode.ci.star_checks import window_open
-          enabled = os.environ['EVENT_NAME'] not in {'schedule', 'workflow_dispatch'} or window_open(Path('testcode/ci/NIGHT-UNTIL.txt').read_text())
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-              out.write('enabled=' + str(enabled).lower() + '\n')
-          print('unit_window_open=' + str(enabled).lower())
-          PY
+      # THE UNIT TESTS ARE NOT NIGHT WORK.
+      # They were gated on the same NIGHT-UNTIL.txt as the network sweep, so on a
+      # schedule or a dispatch after the cutoff this job installed nothing, ran
+      # nothing and reported success. They are pure, they take seconds, they need
+      # no window, and a green tick from a job that ran no tests is the exact
+      # thing this repository is trying to stop producing.
       - uses: actions/setup-python@v6
-        if: steps.gate.outputs.enabled == 'true'
         with:
           python-version: '3.12'
       - run: python -m unittest -v testcode/ci/test_star_checks.py
-        if: steps.gate.outputs.enabled == 'true'
   sweep:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     needs: unit
@@ -65,19 +55,35 @@ jobs:
           repository: Ventusltd/star-solar-star
           ref: 8b930de59db7b7a6d332025da3eaf80ce8dcf9ab
           path: sun-owner
+      # star_checks.py now states a verdict - PASS, FAIL or EXPIRED - and exits
+      # 0, 1 or 3. The script is the judge; this step only turns its verdict into
+      # something a reader of the runs page can see. An EXPIRED sweep stays green
+      # because nobody should be paged for a window closing, but it is annotated
+      # as EXPIRED and it is never reported as a pass.
       - name: Audit committed publication expectations and served Sun data
         if: steps.gate.outputs.enabled == 'true'
         run: |
+          set +e
           python testcode/ci/star_checks.py --sun-root sun-owner --output star-checks-report.json
+          code=$?
+          set -e
           python - <<'PY'
-          import json
+          import json, os
           from pathlib import Path
           report = json.loads(Path('star-checks-report.json').read_text())
-          if report.get('status') == 'window_closed':
-              print('night window closed before sweep; no checks executed')
-          else:
-              assert report.get('pass') is True, 'scoped publication checks did not pass'
+          verdict = report.get('verdict', 'FAIL')
+          detail = report.get('detail') or f"{report.get('mismatches', '?')} mismatch(es)"
+          summary = Path(os.environ['GITHUB_STEP_SUMMARY'])
+          with summary.open('a', encoding='utf-8') as out:
+              out.write(f'## Star publication checks: {verdict}\n\n{detail}\n')
+          level = {'PASS': 'notice', 'EXPIRED': 'warning'}.get(verdict, 'error')
+          print(f'::{level} title=Star publication checks::{verdict} - {detail}')
+          assert verdict in {'PASS', 'EXPIRED'}, f'star checks verdict {verdict}: {detail}'
+          assert report.get('pass') is not False, 'scoped publication checks did not pass'
           PY
+          # exit 3 is EXPIRED and is not a failure; anything else the script
+          # returns is.
+          if [ "$code" != "0" ] && [ "$code" != "3" ]; then exit "$code"; fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:

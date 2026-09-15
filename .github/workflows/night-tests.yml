@@ -6,13 +6,25 @@
 # strongest check — that every file publication.json lists is served with the
 # sha256 it was published with.
 #
-# THE NIGHT WINDOW
-# The job reads testcode/ci/NIGHT-UNTIL.txt (one ISO time). Past that time it
-# prints "night window closed; nothing run" and exits 0. The schedule below is
-# deliberately LEFT IN PLACE and simply goes idle: after the window closes this
-# workflow costs one trivial step per run and reports success. To extend the
-# night, put a later time in NIGHT-UNTIL.txt. To stop it for good, delete this
-# file (or remove the `schedule:` block and keep workflow_dispatch).
+# THE NIGHT WINDOW, AND WHY IT NO LONGER REPORTS SUCCESS
+# The job reads testcode/ci/NIGHT-UNTIL.txt (one ISO time). It used to compare
+# that time in a shell step, print "night window closed; nothing run", set
+# run=no and let every later step be skipped - which GitHub renders as a wholly
+# green job. Since 2026-09-15T07:00:00Z that is what every scheduled run has
+# been: green, every half hour, having asked nothing.
+#
+# The window is now judged by night-tests.mjs, which states a VERDICT - PASS,
+# FAIL, EXPIRED, NOT_APPLICABLE or INCOMPLETE - in report.json and on its last
+# line. A closed window is EXPIRED, and EXPIRED is not a pass: the job is
+# annotated with it and the run summary says so. Actions offers a job exactly
+# two conclusions, so only FAIL is red; the verdict is the thing to read.
+#
+# An expired window that nobody renews or deletes becomes a FAIL after
+# NIGHT_EXPIRY_GRACE_DAYS (7). A schedule that has asked nothing for a week is
+# not idle, it is abandoned, and that is a defect worth a red run.
+#
+# To extend the night, put a later time in NIGHT-UNTIL.txt. To stop it for
+# good, delete this file (or drop `schedule:` and keep workflow_dispatch).
 #
 # GRAPHICS ON THE RUNNER
 # GitHub's runners have no GPU: Chrome draws WebGL with SwiftShader on the CPU,
@@ -51,22 +63,24 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Night window gate
+      - name: Read the night window
         id: gate
         run: |
           UNTIL="$(tr -d '[:space:]' < testcode/ci/NIGHT-UNTIL.txt)"
-          NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          echo "now   $NOW"
+          echo "now   $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           echo "until $UNTIL"
-          if [ "$(date -u -d "$NOW" +%s)" -ge "$(date -u -d "$UNTIL" +%s)" ]; then
-            echo "night window closed; nothing run"
-            echo "run=no" >> "$GITHUB_OUTPUT"
+          echo "until=$UNTIL" >> "$GITHUB_OUTPUT"
+          # The window is not judged here. night-tests.mjs decides, and says
+          # EXPIRED out loud, because a step that quietly skips the rest of the
+          # job is how this workflow spent a week reporting success.
+          if [ "$(date -u +%s)" -lt "$(date -u -d "$UNTIL" +%s)" ]; then
+            echo "open=yes" >> "$GITHUB_OUTPUT"
           else
-            echo "run=yes" >> "$GITHUB_OUTPUT"
+            echo "open=no" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install puppeteer and Chrome
-        if: steps.gate.outputs.run == 'yes'
+        if: steps.gate.outputs.open == 'yes'
         run: |
           mkdir -p "$RUNNER_TEMP/pptr"
           cd "$RUNNER_TEMP/pptr"
@@ -76,15 +90,47 @@ jobs:
           echo "installed puppeteer $(node -p "require('puppeteer/package.json').version") at $ENTRY"
           echo "PUPPETEER_MODULE=$ENTRY" >> "$GITHUB_ENV"
 
+      # Always run. With the window shut this costs one node start and produces
+      # an EXPIRED verdict and a report, which is the point: the run says what
+      # it did, and what it did was nothing.
       - name: Run night tests
-        if: steps.gate.outputs.run == 'yes'
         id: tests
+        continue-on-error: true
         env:
           NIGHT_TESTS_BASE: https://globalgrid2050.com
           NIGHT_TESTS_LOAD_MS: "240000"
+          NIGHT_TESTS_UNTIL: ${{ steps.gate.outputs.until }}
           REPORT_PATH: ${{ github.workspace }}/report.json
         run: node testcode/ci/night-tests.mjs
 
+      # A verdict is stated in words on every run, whatever colour the job ends
+      # up. Actions gives a job two conclusions; this gives the reader five.
+      - name: State the verdict
+        id: verdict
+        run: |
+          node -e '
+            const fs = require("fs");
+            let r;
+            try { r = JSON.parse(fs.readFileSync("report.json", "utf8")); }
+            catch (e) { r = { verdict: "FAIL", counts: {}, failed: ["report unreadable: " + e.message] }; }
+            const c = r.counts || {};
+            const n = (k) => c[k] || 0;
+            const tally = n("pass") + " passed, " + n("fail") + " failed, " + n("skip") + " skipped, "
+              + n("expired") + " expired, " + n("na") + " not-applicable";
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, "verdict=" + r.verdict + "\n");
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+              "## Night tests: " + r.verdict + "\n\n" + tally + "\n"
+              + ((r.failed || []).length ? "\nFailing: " + r.failed.join("; ") + "\n" : "")
+              + ((r.skipped || []).length ? "\nSkipped: " + r.skipped.join("; ") + "\n" : ""));
+            const say = {
+              PASS:           ["notice",  "PASS - " + tally],
+              NOT_APPLICABLE: ["notice",  "NOT_APPLICABLE - there was nothing here for this run to check"],
+              INCOMPLETE:     ["warning", "INCOMPLETE - " + tally + ". A skip is not a pass."],
+              EXPIRED:        ["warning", "EXPIRED - the night window in testcode/ci/NIGHT-UNTIL.txt has closed. Nothing was checked. This run is not evidence of anything."],
+            }[r.verdict] || ["error", "FAIL - " + tally];
+            console.log("::" + say[0] + " title=Night tests::" + say[1]);
+            if (say[0] === "error") process.exitCode = 1;
+          '
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
@@ -94,8 +140,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+      # Only a FAIL is worth an issue comment. EXPIRED and NOT_APPLICABLE are
+      # visible on the run and in the report; paging a human about them would
+      # retrain exactly the reflex this change exists to undo.
       - name: Report failures
-        if: failure() && steps.gate.outputs.run == 'yes'
+        if: always() && steps.verdict.outputs.verdict == 'FAIL'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

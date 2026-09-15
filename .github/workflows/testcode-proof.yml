@@ -18,6 +18,15 @@
 #
 # One neutral comment is posted on issue 37 per push, whether it passed or
 # failed, and the reports are uploaded as an artifact.
+#
+# WHEN THERE IS NOTHING TO PROVE, THIS SAYS SO.
+# The path filter is testcode/**, which includes testcode/ci/ - the harness
+# itself. A push that edits the harness and no published folder finds no
+# publication.json, so every later step is skipped and the job reports success.
+# Run 34955380619 did exactly that on 75781be8 and is indistinguishable on the
+# runs page from a run that proved a publication byte for byte. NOT_APPLICABLE
+# is now stated in words, in the step summary and as an annotation, with the
+# folders that were considered and why each was dropped.
 
 name: Testcode proof
 
@@ -91,7 +100,22 @@ jobs:
           STAMPS="$(echo $STAMPS)"
           echo "stamps: ${STAMPS:-(none)}"
           echo "stamps=$STAMPS" >> "$GITHUB_OUTPUT"
+          echo "candidates=$(echo $CANDIDATES)" >> "$GITHUB_OUTPUT"
           if [ -z "$STAMPS" ]; then echo "run=no" >> "$GITHUB_OUTPUT"; else echo "run=yes" >> "$GITHUB_OUTPUT"; fi
+
+      # Stated before any work is attempted, so the record exists even if a later
+      # step dies: this push carried nothing this workflow can prove.
+      - name: Say that there is nothing to prove
+        if: steps.stamps.outputs.run == 'no'
+        env:
+          CANDIDATES: ${{ steps.stamps.outputs.candidates }}
+        run: |
+          WHY="no testcode/<stamp>/publication.json in this push"
+          if [ -n "${CANDIDATES:-}" ]; then
+            WHY="folders touched: ${CANDIDATES}; none carries a publication.json"
+          fi
+          { echo "## Testcode proof: NOT_APPLICABLE"; echo; echo "$WHY"; } >> "$GITHUB_STEP_SUMMARY"
+          echo "::notice title=Testcode proof::NOT_APPLICABLE - $WHY. No publication was checked; this green tick is not evidence."
 
       - name: Wait for Pages to deploy this commit
         if: steps.stamps.outputs.run == 'yes'
@@ -137,13 +161,23 @@ jobs:
           set -u
           mkdir -p reports
           FAILED=0
+          WORST=0
           for s in ${{ steps.stamps.outputs.stamps }}; do
             echo "::group::testcode/$s"
+            set +e
             NIGHT_TESTS_STAMP="$s" REPORT_PATH="$GITHUB_WORKSPACE/reports/report-$s.json" \
-              node testcode/ci/night-tests.mjs || FAILED=1
+              node testcode/ci/night-tests.mjs
+            code=$?
+            set -e
             echo "::endgroup::"
+            # night-tests.mjs exits 0 PASS, 1 FAIL, 2 INCOMPLETE, 3 EXPIRED,
+            # 4 NOT_APPLICABLE. Only 1 fails this workflow; the others are stated
+            # in words by the comment and the summary rather than swallowed.
+            if [ "$code" = "1" ]; then FAILED=1; fi
+            if [ "$code" -gt "$WORST" ]; then WORST=$code; fi
           done
           echo "failed=$FAILED" >> "$GITHUB_OUTPUT"
+          echo "worst=$WORST" >> "$GITHUB_OUTPUT"
 
       - name: Upload reports
         if: always() && steps.stamps.outputs.run == 'yes'
@@ -176,11 +210,11 @@ jobs:
               }
               const r = JSON.parse(fs.readFileSync(f, "utf8"));
               const sv = r.served || { ok: 0, bad: 0, total: 0 };
-              const c = r.counts || { pass: 0, fail: 0, warn: 0, skip: 0 };
+              const c = r.counts || { pass: 0, fail: 0, warn: 0, skip: 0, expired: 0, na: 0 };
               if (c.fail) anyFail = true;
               lines.push(
-                `- \`testcode/${s}\` — served bytes: ${sv.ok} ok / ${sv.bad} bad of ${sv.total}; ` +
-                `page checks: ${c.pass} passed, ${c.fail} failed, ${c.warn} warnings, ${c.skip} skipped.` +
+                `- \`testcode/${s}\` — ${r.verdict || 'UNKNOWN'} — served bytes: ${sv.ok} ok / ${sv.bad} bad of ${sv.total}; ` +
+                `page checks: ${c.pass} passed, ${c.fail} failed, ${c.warn} warnings, ${c.skip} skipped, ${c.expired || 0} expired, ${c.na || 0} not-applicable.` +
                 (r.failed && r.failed.length ? `\n  Failing: ${r.failed.join("; ")}` : "")
               );
             }

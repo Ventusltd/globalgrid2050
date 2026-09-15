@@ -253,6 +253,15 @@ def window_open(until: str, now: dt.datetime | None = None) -> bool:
     return (now or dt.datetime.now(dt.timezone.utc)) < dt.datetime.fromisoformat(until.strip().replace("Z", "+00:00"))
 
 
+EXPIRY_GRACE_DAYS = 7
+
+
+def window_overdue_days(until: str, now: dt.datetime | None = None) -> float:
+    """How long ago did the night window close? Negative while it is still open."""
+    cutoff = dt.datetime.fromisoformat(until.strip().replace("Z", "+00:00"))
+    return ((now or dt.datetime.now(dt.timezone.utc)) - cutoff).total_seconds() / 86400
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, default=Path(__file__).resolve().parents[2])
@@ -268,7 +277,37 @@ def main(argv=None) -> int:
     exit_code = 0
     try:
         if not window_open(until):
-            report["status"] = "window_closed"
+            # EXPIRED IS NOT A PASS.
+            #
+            # This used to set status "window_closed", and the workflow step that
+            # reads this report says, in as many words, `if status ==
+            # "window_closed": print(...)` and then does not assert anything. So
+            # from 2026-09-15T07:00:00Z the two-hourly sweep has been green
+            # without looking at a single published byte - and the run before it,
+            # inside the window, found three mismatches. The colour got better
+            # when the checking stopped.
+            #
+            # A closed window now says EXPIRED, carries pass=None rather than a
+            # missing key, and exits 3. And a window nobody has renewed or
+            # deleted for EXPIRY_GRACE_DAYS is not idle, it is abandoned: that is
+            # a FAIL, because a gate asking nothing forever is a defect.
+            overdue = window_overdue_days(until)
+            report["overdue_days"] = round(overdue, 3)
+            if overdue > EXPIRY_GRACE_DAYS:
+                report["status"] = "abandoned"
+                report["verdict"] = "FAIL"
+                report["pass"] = False
+                report["detail"] = (
+                    f"the night window closed {overdue:.1f} days ago and nothing has renewed or "
+                    f"deleted it; put a later time in testcode/ci/NIGHT-UNTIL.txt or remove the "
+                    f"schedule from .github/workflows/star-checks.yml")
+                exit_code = 1
+            else:
+                report["status"] = "expired"
+                report["verdict"] = "EXPIRED"
+                report["pass"] = None
+                report["detail"] = f"night window closed {overdue:.1f} days ago; nothing was checked"
+                exit_code = 3
         else:
             # Limit the sweep to 8 minutes and to the authorization cutoff, with at
             # most four concurrent requests and no response above its declared size.
@@ -287,9 +326,11 @@ def main(argv=None) -> int:
             report["pass"] = report["checked_items_pass"]
             report["full_assurance"] = False  # Missing private-name comparison is an explicit open gate.
             report["status"] = "checked" if report["checked_items_pass"] else "findings"
+            report["verdict"] = "PASS" if report["checked_items_pass"] else "FAIL"
             exit_code = 0 if report["checked_items_pass"] else 1
     except Exception as exc:
-        report.update(status="error", error=type(exc).__name__, checked_items_pass=False, full_assurance=False)
+        report.update(status="error", verdict="FAIL", error=type(exc).__name__,
+                      checked_items_pass=False, full_assurance=False)
         report["pass"] = False
         exit_code = 1
     args.output.parent.mkdir(parents=True, exist_ok=True)

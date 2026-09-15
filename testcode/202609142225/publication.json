@@ -1,8 +1,8 @@
 {
  "page": "testcode/202609142225 — Star Generator: one grammar, six lenses",
- "built_utc": "2026-09-15T01:17:53.360Z",
+ "built_utc": "2026-09-15T01:26:38.033Z",
  "node": "v24.19.0",
- "built_stamp_in_footer": "2026-09-15 01:17 UTC",
+ "built_stamp_in_footer": "2026-09-15 01:26 UTC",
  "shipped": [
   "index.html",
   "style.css",
@@ -60,8 +60,8 @@
   {
    "file": "index.html",
    "bytes": 1241,
-   "sha256": "7ce9c4ae9bc2a6afca7f0bfa9be541324d0b6409952fb9249c1edc1129f4eacb",
-   "mtime_utc": "2026-09-15T01:17:53.232Z"
+   "sha256": "3ef94766a3aea552c95b58b175ca9d18e7e72b9ace1f136145b4d20ef3451808",
+   "mtime_utc": "2026-09-15T01:26:37.905Z"
   },
   {
    "file": "lens_mobile_evidence.json",
@@ -434,6 +434,12 @@
    "bytes": 53712,
    "sha256": "f26b3265edfa49bcd510bb9252eb5712cf0578cd3875129d5f20e5aa65097f16",
    "mtime_utc": "2026-09-15T00:25:39.229Z"
+  },
+  {
+   "file": "proof/ci-checks.json",
+   "bytes": 1069,
+   "sha256": "c48d3eb0c848c5b4f7b3d9f1bb5fc7501e59912ddb0879673ed5d0b866dba3c0",
+   "mtime_utc": "2026-09-15T01:26:29.084Z"
   },
   {
    "file": "proof/code-generator-desktop.png",

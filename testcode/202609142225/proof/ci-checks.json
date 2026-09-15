@@ -1,0 +1,58 @@
+[
+ {
+  "name": "count sentence words (GRAMMAR.md section 0)",
+  "must_contain": [
+   "blocks on the table",
+   "named",
+   "found automatically",
+   "groups off the table",
+   "function families",
+   "unique numbered lines",
+   "repositories",
+   "data "
+  ],
+  "must_not_contain": []
+ },
+ {
+  "name": "the seven legend words, in legend order (GRAMMAR.md section 0)",
+  "must_contain": [
+   "contains",
+   "depends on",
+   "uses",
+   "used by",
+   "shared line",
+   "random link",
+   "entangled"
+  ],
+  "must_not_contain": []
+ },
+ {
+  "name": "retired words (GRAMMAR.md section 0) appear nowhere",
+  "must_contain": [],
+  "must_not_contain": [
+   "dependents",
+   "depended on by",
+   "DEPENDS-ON",
+   "FOUND-IN",
+   "CONTAINS",
+   "BLOCK 22"
+  ]
+ },
+ {
+  "name": "seeded pseudo-random numbers only, never the browser's",
+  "must_contain": [],
+  "must_not_contain": [
+   "Math.random"
+  ]
+ },
+ {
+  "name": "nothing invented and nothing left half-written",
+  "must_contain": [],
+  "must_not_contain": [
+   "TODO",
+   "FIXME",
+   "Lorem ipsum",
+   "example.com"
+  ]
+ }
+]

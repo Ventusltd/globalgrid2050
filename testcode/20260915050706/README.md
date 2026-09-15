@@ -16,7 +16,7 @@ The FPS values sample requestAnimationFrame for four seconds idle and four secon
 - `proof/bench.json` and `proof/bench-table.md`: original measurements with added functional assertions. The report's `pass: true` concerns those functional assertions only.
 - `supplemental.json`: post-deploy homepage check and forced WebGL2-unavailable reproduction.
 - `assessment.json`: the combined verdict, **`pass: false`**, with the missing target-size and fallback requirements.
-- `portable-bench.mjs`: runs the committed owner script with explicit `PUPPETEER_MODULE`, `CHROME_PATH`, `BENCH_BASE` and a new `BENCH_OUT`; never overwrites owner proof. It now includes mobile target size in its gate as well. Measurement calculations are unchanged.
+- `portable-bench.mjs`: runs the committed owner script with explicit `PUPPETEER_MODULE`, `CHROME_PATH`, `BENCH_BASE` and a new `BENCH_OUT`; never overwrites owner proof. Its pass flag covers functional checks only, as in the archived run. The separate assessment adds target size and fallback requirements. Measurement calculations are unchanged.
 - `reproduce-night.mjs`: requires `PUPPETEER_MODULE`, `CHROME_PATH`, and a new `REPRO_OUT`, with the repository already served at port 8891 for the forced fallback check.
 - `assess-bench.mjs`: `node assess-bench.mjs proof/bench.json supplemental.json new-assessment.json`; exits nonzero unless every assessment check is true.
 

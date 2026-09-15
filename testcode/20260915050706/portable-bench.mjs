@@ -32,7 +32,6 @@ report.physicalPhoneTest = false;
 report.acceptance = {
   completed: !report.fatal && report.lenses.length === 12 && report.coordination?.length === 2 && !!report.compose?.checks,
   layout: report.lenses.length === 12 && report.lenses.every(r => r.scrollWidth === r.innerWidth && r.afterInteraction.scrollWidth === r.innerWidth),
-  mobileTargets: report.lenses.filter(r => r.mobile).length === 6 && report.lenses.filter(r => r.mobile).every(r => r.smallestTap?.px >= 44),
   errors: report.lenses.every(r => !r.errors.length && !r.pageErrors.length) && report.coordination?.every(r => !r.errors.length) && report.compose?.errors?.length === 0,
   selection: report.coordination?.every(r => r.steps.length === 6 && r.steps[0].haversineSelected && r.steps.slice(1).every(s => s.sameKey && s.visible)),
   recipe: !!report.compose?.checks && ['keysHave80299','keysHaveVd','everyBlockPinned','familyPinned','urlHasVd','urlHas80299'].every(k => report.compose.checks[k] === true)

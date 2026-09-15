@@ -1,0 +1,22 @@
+{
+ "schema": "all-lines.v0",
+ "source": {
+  "url": "https://ventusltd.github.io/stars/LINES.md",
+  "bytes": 22142736,
+  "sha256": "406c929e76e0ae79853fe486b8f4de328268648ee1e9bfe737b6d2855fc30abb",
+  "header": "250,174 unique lines, numbered 1 to 342,795. Generated 2026-09-14T19:56:58.242Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issu"
+ },
+ "built_utc": "2026-09-14T22:44:05.716Z",
+ "lines": 250174,
+ "distinct": 250174,
+ "duplicate_rows": 0,
+ "min": 1,
+ "max": 342795,
+ "in_a_family": 128369,
+ "family_pack_distinct": 128369,
+ "files": {
+  "all-lines.bin": 1000696,
+  "all-lines.len.bin": 500348,
+  "all-lines.family.bin": 250174
+ }
+}

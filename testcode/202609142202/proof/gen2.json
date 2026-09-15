@@ -1,0 +1,393 @@
+{
+ "started_utc": "2026-09-15T00:03:58.723Z",
+ "port": 8875,
+ "url": "http://127.0.0.1:8875/testcode/202609142202/index.html",
+ "node_check": "ok",
+ "disk": {
+  "lines_bin_entries": 664940,
+  "all_lines": 250174,
+  "in_a_family": 128369,
+  "outside": 121805,
+  "lines_md_generated_utc": "2026-09-14T19:56:58.242Z"
+ },
+ "expected_count_line": "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
+ "chrome_version": "Chrome/153.0.8010.37",
+ "desktop": {
+  "readyMs": 343,
+  "renderer_page_S": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "renderer_fresh_context": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "hud_count_lines": [
+   "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
+   "128,369 distinct permanent numbers in the family buckets (equal to the 128,369 in-family unique lines) · index.json states 250,174 unique lines, LINES.md carries 250,174 (equal; the buckets alone reproduce only the in-family part)",
+   "fps 60 (1 s mean) · draw calls 11 · DPR 1"
+  ],
+  "hud_count_line_matches_disk": true,
+  "state_line": "state: superposition (data state) · θ=70.5° φ=147.0° · P(home)=0.667 P(away)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · a TUNNEL is possible only where valence ≥ 1 (a caller in a repository holding no copy): this atom has valence 6 (electron.json tunnelling=true) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "born_line": "last measurement (Born audit): no measurement yet",
+  "caveats_line": "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (every shipped atom has a caller outside its home directory and repository, so no pure |0> data state can appear) · atoms with a tunnelling bond (valence ≥ 1): 106/500 · valence 0: 394/500 (394 of them with M>0) · distinct K/L/M triples: 142/500 · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985 · joins by number, names agree: entanglements 36/36, random nodes 180/180 (a disagreeing entanglement is not joined) · θ from the shell counts recorded for this atom in electron/atoms.json (star-maker @c5bf5f6, 2026-09-13); this page does not recompute them",
+  "count_div": "210 named blocks · 10,985 function families · 664,940 line entries in 160 buckets (128,369 distinct numbered lines) · 250,174 unique numbered lines in LINES.md (2026-09-14 19:56 UTC): 128,369 inside a function family, 121,805 not · index.json states 250,174",
+  "fps_3s": {
+   "frames": 181,
+   "ms": 3013.3,
+   "fps": 59.7
+  },
+  "scrollWidth": 1440,
+  "state0": {
+   "atom": {
+    "n": 2039,
+    "name": "Number",
+    "valence": 6,
+    "tunnelling": true
+   },
+   "famIdx": 2189,
+   "key": 0,
+   "lastQuery": "",
+   "measurements": 0,
+   "outcome": -1,
+   "msg": "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
+   "hold": false,
+   "seaDrawn": 664940,
+   "uniqDrawn": 250174,
+   "seaBytes": 7979280,
+   "uniqBytes": 2001392,
+   "lastDrawCalls": 11,
+   "contextLost": false,
+   "phone": false
+  },
+  "labels": {
+   "labels": 12,
+   "overlaps": [],
+   "outside": [],
+   "canvas": {
+    "w": 1406,
+    "h": 700
+   }
+  },
+  "wording": {
+   "state_has_P_away": true,
+   "hud_lines_with_TUNNEL": [
+    "state: superposition (data state) · θ=70.5° φ=147.0° · P(home)=0.667 P(away)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+"
+   ],
+   "caveats_has_tunnelling_counts": true,
+   "caveats_has_theta_source": true,
+   "labels_have_AWAY": true,
+   "labels_M_other_repos": [
+    "M other repos",
+    "valence 6: repositories calling it that hold no copy"
+   ]
+  },
+  "enter_after_no_match": {
+   "msg_after_search": "#999999999 is neither a family key, a line number in LINES.md nor a shipped soul number.",
+   "lastQuery_after_no_match": "",
+   "measurements_before": 0,
+   "after_second_enter": 0,
+   "measured": false,
+   "pass": true
+  },
+  "unique_line_key_clash": {
+   "n": 2,
+   "msg": "family #2 effectiveGap · block Cg · 5 entries · search steers, it does not measure: no electron record for this family, nothing to measure · #2 is also a permanent line number: type \"line 2\" for the line",
+   "family_won": true,
+   "hint_present": true
+  },
+  "unique_line_search": {
+   "outside": {
+    "n": 1,
+    "key": 1,
+    "famIdx": -1,
+    "msg": "line #1 · unique line 1 of 250,174 in LINES.md · 57 bytes · outside every function family (grey band) · no electron record: nothing to measure",
+    "lines_panel": "line #1 unique numbered line 1 of 250,174 in LINES.md (2026-09-14 19:56 UTC) · code length 57 bytes · outside every function family in the published buckets · no family record holds it, so no source place is known to this page: nothing to fetch",
+    "pass": true
+   },
+   "inside": {
+    "n": 2,
+    "key": 2,
+    "famIdx": 9,
+    "msg": "line #2 · unique line 2 of 250,174 in LINES.md · 0 bytes · inside a function family: appears in 36,545 families, showing #10 buildReview (first by pack order) · lit in the unique band and in the family sea · search steers, it does not measure",
+    "pass": true
+   }
+  },
+  "click_steers_only": {
+   "tries": 1,
+   "hit": {
+    "x": 610,
+    "y": 548,
+    "msg": "#36473 · family #1622 syncFilterUrl · block Pn (news) · line #36473 appears in 7 families · tap steers only: press measure, tap the sphere or Enter to collapse",
+    "famIdx": 1417,
+    "atom": {
+     "n": 3870,
+     "name": "syncFilterUrl",
+     "valence": 0,
+     "tunnelling": false
+    }
+   },
+   "born_before": "last measurement (Born audit): no measurement yet",
+   "born_after": "last measurement (Born audit): no measurement yet",
+   "click_alone_measured": false,
+   "pass": true
+  },
+  "search_then_measure": {
+   "atom": {
+    "n": 3859,
+    "name": "renderTable",
+    "valence": 0,
+    "tunnelling": false
+   },
+   "famIdx": 1217,
+   "measurements_before": 0,
+   "after": 1,
+   "outcome": 1,
+   "born": "last measurement (Born audit): measured #3859 renderTable: AWAY · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash(\"2026-09-14\", 3859, 0) · AWAY, not a tunnel: valence 0 — every outside caller sits in a repository that holds a copy (electron.json tunnelling=false)",
+   "state": "state: collapsed |1> AWAY · θ=180.0° φ — (global phase at the pole, not a state parameter) · P(home)=0.000 P(away)=1.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=82.5° (prepared data state, counted) · data θ=82.5° · a repeat measurement now reproduces the outcome until re-prepared · K17 L61 M60 → sin²(θ/2)=M/(K+L+M)=0.435: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · no tunnel possible: valence 0 — every outside caller sits in a repository that holds a copy (electron.json tunnelling=false) · φ frozen at the collapse · Pauli: this name is bound to more than one soul; only soul f36417ea82c1 is shipped",
+   "pole_phi_hidden": true,
+   "phi_wording": "φ frozen at the collapse",
+   "pass": true
+  },
+  "repeat_line": "last measurement (Born audit): repeat measurement #3859 renderTable: AWAY again · r=0.678 < P(away)=1.000 (certain: the state sits at the pole until re-prepared) · seed 186604361 = hash(\"2026-09-14\", 3859, 1)",
+  "bare_enter": {
+   "with_hold_focused": {
+    "measurements_before": 1,
+    "after": 1,
+    "hold_toggled": true,
+    "measured": false
+   },
+   "with_body_focused": {
+    "after": 2,
+    "measured": true
+   },
+   "pass": true
+  },
+  "soul_tier_line": "twin tier: no electron record: twin is pure chance",
+  "external_requests_before_forged_test": 0,
+  "forged_bucket": {
+   "family": 1284,
+   "cable_line": "cable: on · bucket 2: live bucket differs from the pack (sha256 mismatch: live 1adc0ead9061… vs pack 1904662c7e1d…): record not used, nothing fetched further (242 bytes in 3 ms)",
+   "liveRec_null": true,
+   "line_text": {
+    "note": "bucket 2: live bucket differs from the pack (sha256 mismatch: live 1adc0ead9061… vs pack 1904662c7e1d…): record not used, nothing fetched further",
+    "linesShown": 21,
+    "anyDummy": false
+   },
+   "intercepted": [
+    {
+     "url": "https://ventusltd.github.io/stars/code/f/2.json",
+     "answered": "locally with a forged bucket"
+    }
+   ],
+   "raw_fetch_attempted": false,
+   "pass": true
+  },
+  "context_loss": {
+   "lost": {
+    "isContextLost": true,
+    "S_contextLost": true,
+    "seaDrawn": 0,
+    "uniqDrawn": 0,
+    "lastDrawCalls": 0,
+    "hud_lost_line": "WebGL context lost: 0 entries on GPU, nothing drawn · waiting for the browser to restore the context",
+    "hud_on_gpu_line_present": false,
+    "hud_fps_line": null
+   },
+   "restored": {
+    "isContextLost": false,
+    "S_contextLost": false,
+    "seaDrawn": 664940,
+    "uniqDrawn": 250174,
+    "seaBufferSize": 7979280,
+    "uniqBufferSize": 2001392,
+    "lastDrawCalls": 13,
+    "journeyN": 3,
+    "hud_on_gpu_line": "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
+    "litPixelsAroundSphere64x64": 116,
+    "context_line": "context: context restored after 1.5 s: buffers re-uploaded"
+   },
+   "errors_during": 0,
+   "pass": true
+  },
+  "prove_line": "prove it: family VBO 7,979,280 bytes (664,940 entries × 12) · drawArraysInstanced(POINTS, 0, 664,940, 2) each frame · unique-lines VBO 2,001,392 bytes (250,174 lines × 8) · drawArraysInstanced(POINTS, 0, 250,174, 2) each frame · CPU sum of keys 46,838,599,001 · sha256(lines.bin in memory) 5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a vs provenance 5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a (match) · sha256(all-lines.bin in memory) 8291d2680e43506fd5bda23428bc9906458ed38413fc2c206d32c4b9952b2762 vs provenance 8291d2680e43506fd5bda23428bc9906458ed38413fc2c206d32c4b9952b2762 (match)",
+  "prove_both_match": true,
+  "console": {
+   "all": 0,
+   "errors": [],
+   "warnings": [],
+   "pageerrors": [],
+   "requestfailed": [],
+   "external_requests": [
+    "https://ventusltd.github.io/stars/code/f/2.json"
+   ]
+  },
+  "console_error_count": 0
+ },
+ "phone": {
+  "readyMs": 142,
+  "hud_count_lines": [
+   "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
+   "128,369 distinct permanent numbers in the family buckets (equal to the 128,369 in-family unique lines) · index.json states 250,174 unique lines, LINES.md carries 250,174 (equal; the buckets alone reproduce only the in-family part)",
+   "fps 60 (1 s mean) · draw calls 11 · DPR 1"
+  ],
+  "hud_count_line_matches_disk": true,
+  "fps_3s": {
+   "frames": 181,
+   "ms": 3007,
+   "fps": 59.9
+  },
+  "scrollWidth": 430,
+  "bodyScrollWidth": 430,
+  "state0": {
+   "atom": {
+    "n": 2039,
+    "name": "Number",
+    "valence": 6,
+    "tunnelling": true
+   },
+   "famIdx": 2189,
+   "key": 0,
+   "lastQuery": "",
+   "measurements": 0,
+   "outcome": -1,
+   "msg": "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
+   "hold": false,
+   "seaDrawn": 664940,
+   "uniqDrawn": 250174,
+   "seaBytes": 7979280,
+   "uniqBytes": 2001392,
+   "lastDrawCalls": 11,
+   "contextLost": false,
+   "phone": true
+  },
+  "hud_position": "static",
+  "labels": {
+   "labels": 6,
+   "overlaps": [],
+   "outside": [],
+   "canvas": {
+    "w": 408,
+    "h": 860
+   }
+  },
+  "geometry": {
+   "c0css": [
+    204,
+    211
+   ],
+   "c1css": [
+    204,
+    649
+   ],
+   "Rcss": 141,
+   "sphereRcss": 52,
+   "phone": true
+  },
+  "phone_hud_atom_line": "atom: class conductor (7 in ELECTRON.md) · valence 6: repositories calling it that hold no copy (cable-trench-or-drill, claude, crm, cvaa, data-federation-map-for-globalgrid2050-all-repos, gis-sld-sandbox) · unpaired and bonded across repos (valence 6): no test guards these tunnels",
+  "phone_hud_bands_line": "bands: off table (587 symbols, 1,689 families) grey · unique lines (LINES.md) outermost: grey = outside every family, dim colour = inside one",
+  "controls_in_width": true,
+  "console": {
+   "all": 0,
+   "errors": [],
+   "warnings": [],
+   "pageerrors": [],
+   "requestfailed": [],
+   "external_requests": []
+  },
+  "console_error_count": 0
+ },
+ "landscape": {
+  "hud_count_lines": [
+   "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
+   "128,369 distinct permanent numbers in the family buckets (equal to the 128,369 in-family unique lines) · index.json states 250,174 unique lines, LINES.md carries 250,174 (equal; the buckets alone reproduce only the in-family part)",
+   "fps 60 (1 s mean) · draw calls 11 · DPR 1"
+  ],
+  "hud_count_line_matches_disk": true,
+  "state": {
+   "atom": {
+    "n": 2039,
+    "name": "Number",
+    "valence": 6,
+    "tunnelling": true
+   },
+   "famIdx": 2189,
+   "key": 0,
+   "lastQuery": "",
+   "measurements": 0,
+   "outcome": -1,
+   "msg": "layout switched to compact side-by-side (short canvas; tap the HUD to expand it) on resize",
+   "hold": false,
+   "seaDrawn": 664940,
+   "uniqDrawn": 250174,
+   "seaBytes": 7979280,
+   "uniqBytes": 2001392,
+   "lastDrawCalls": 11,
+   "contextLost": false,
+   "phone": false
+  },
+  "hud_position": "absolute",
+  "geometry": {
+   "canvasCss": {
+    "w": 866,
+    "h": 387
+   },
+   "c0css": [
+    260,
+    194
+   ],
+   "c1css": [
+    658,
+    194
+   ],
+   "Rcss": 132,
+   "sphereRcss": 62,
+   "phone": false,
+   "phoneMediaNow": false
+  },
+  "labels": {
+   "labels": 6,
+   "overlaps": [],
+   "outside": [],
+   "canvas": {
+    "w": 866,
+    "h": 387
+   }
+  },
+  "scrollWidth": 900,
+  "fps_3s": {
+   "frames": 181,
+   "ms": 3003.8,
+   "fps": 59.9
+  },
+  "sphere_handle_inside_canvas": true,
+  "rotation_live": true,
+  "console": {
+   "all": 0,
+   "errors": [],
+   "warnings": [],
+   "pageerrors": [],
+   "requestfailed": [],
+   "external_requests": []
+  },
+  "console_error_count": 0
+ },
+ "port_still_listening": false,
+ "finished_utc": "2026-09-15T00:04:34.141Z",
+ "passes": {
+  "node_check": true,
+  "desktop_count_line": true,
+  "desktop_no_console_errors": true,
+  "enter_after_no_match": true,
+  "unique_line_search": true,
+  "click_steers_only": true,
+  "search_then_measure": true,
+  "pole_phi_hidden": true,
+  "bare_enter_guard": true,
+  "forged_bucket_not_used": true,
+  "context_loss": true,
+  "prove_both_match": true,
+  "desktop_no_label_overlap": true,
+  "phone_scrollWidth_430": true,
+  "phone_no_console_errors": true,
+  "phone_no_label_overlap": true,
+  "rotation_live": true,
+  "landscape_no_console_errors": true,
+  "server_stopped": true
+ },
+ "pass": true
+}

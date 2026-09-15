@@ -38,7 +38,9 @@ h1{font-size:20px;margin:0;letter-spacing:.06em}
 #labels .lb.dim{color:#8b93a7}
 #labels .lb.left{transform:translate(0,-50%)}
 #labels .lb.wrap{white-space:normal;max-width:44%;text-align:center}
-@media(max-width:430px){#labels .lb.wrap{max-width:92%}}
+#labels .lb.wrap.w36{max-width:36%}
+#labels .lb.wrap.w30{max-width:30%}
+@media(max-width:430px){#labels .lb.wrap,#labels .lb.wrap.w36,#labels .lb.wrap.w30{max-width:92%}}
 #labels .lb.amber{color:#ffd54a}
 #labels .lb.red{color:#ff7b7b;border:1px solid #ff5c5c;border-radius:6px;padding:1px 4px;background:rgba(40,0,0,.6)}
 #labels .lb.badge{border:1px solid #385464;border-radius:6px;padding:1px 4px;background:rgba(7,9,13,.7)}
@@ -50,6 +52,7 @@ h1{font-size:20px;margin:0;letter-spacing:.06em}
 #about[hidden],#lines[hidden]{display:none}
 .u-h{font-size:16px;color:#eef2fb}
 @media(max-width:760px){#hud{max-width:82%}}
+@media(max-height:500px) and (min-width:431px){#gl,#fallback{height:90vh} #hud{max-width:min(26%,230px)} #hud.collapsed div.x{display:none}} /* a rotated phone: give the side-by-side layout the height it needs; a narrower HUD that collapses to its count lines */
 @media(max-width:430px){
   body{padding:10px 10px 40px}
   #gl,#fallback{height:200vw}
@@ -60,10 +63,10 @@ h1{font-size:20px;margin:0;letter-spacing:.06em}
 </style>
 <h1>GLOBALGRID2050</h1><div class="u-count" id="count">Loading the universe…</div>
 <div id="bar">
-  <input class="u-search" id="search" placeholder="#family · #line number · function name — Enter steers, Enter again measures" aria-label="search">
+  <input class="u-search" id="search" placeholder="#family · #line number (or 'line N') · function name — Enter steers, Enter again measures" aria-label="search">
   <button class="u-chip" id="measure" title="Born-rule measurement of the focused atom (a repeat on a collapsed state reproduces the outcome)">measure</button>
   <button class="u-chip" id="reprepare" title="return the state to the data θ now (the 8 s ring does the same)">re-prepare</button>
-  <button class="u-chip" id="cable" title="off by default: when on, the family record is fetched after a measurement from the bucket URL in provenance.json, once per bucket, sha256 checked">cable: off</button>
+  <button class="u-chip" id="cable" title="off by default: when on, the family record is fetched after a measurement from the bucket URL in provenance.json, once per bucket (retried only after a failure), sha256 checked; a mismatching bucket is not used">cable: off</button>
   <button class="u-chip" id="prove" title="print buffer sizes and a CPU checksum">prove it</button>
   <button class="u-chip" id="newseed" title="reseed the PRNG with today's UTC date">new seed</button>
   <button class="u-chip" id="hold" title="freeze after collapse">hold</button>
@@ -78,7 +81,7 @@ h1{font-size:20px;margin:0;letter-spacing:.06em}
 </div>
 <div id="record" class="u-muted"></div>
 <div class="u-panel" id="lines" hidden></div>
-<div class="u-panel" id="note"><b>Quantum Twin Star.</b> Every numbered-line entry the published buckets carry is uploaded to one GPU buffer once and drawn twice each frame: the principal star on the left (or top) and its antipodal twin on the right (or below). The qubit is the spin of one atom from the electron census; the Bloch sphere in the ring's centre shows it. Search steers; tapping the sphere, the measure button or a second Enter performs one Born-rule measurement with an auditable random number, and the state stays collapsed at the pole (a repeat reproduces the outcome) until the 8 s ring or the re-prepare button restores it. Only families whose name matches a shipped atom can be measured; the others are steered to and say so. Nothing is fetched from outside after load unless the cable toggle is on or line text is requested. Numbers on this page are read from the data pack; where a fact is absent nothing is shown for it.</div>
+<div class="u-panel" id="note"><b>Quantum Twin Star</b> (generation 2). Every numbered-line entry the published buckets carry, and every unique numbered line in the estate's LINES.md, is uploaded to a GPU buffer once and drawn twice each frame: the principal star on the left (or top) and its antipodal twin on the right (or below). The family entries form the ring; the unique lines form the outermost band (grey where a line sits outside every function family, dim colour where it sits inside one). The qubit is built from one atom's shell census: θ from its K/L/M caller counts (sin²(θ/2)=M/(K+L+M)); the census spin flag (paired = a test or proof calls it) only sets whether φ precesses, and φ never enters the Born probability. |0⟩ HOME = the next caller sits in the atom's own repository; |1⟩ AWAY = it sits in another repository (M shell), whether or not that repository holds a copy — a tunnel is the valence subset and is named only where the atom's record says one exists. Search steers, and so does a tap on a sea point; tapping the sphere, the measure button or a second Enter performs one Born-rule measurement with an auditable random number, and the state stays collapsed at the pole (a repeat reproduces the outcome) until the 8 s ring or the re-prepare button restores it. Only families whose name matches a shipped atom can be measured; the others are steered to and say so. Nothing is fetched from outside after load unless the cable toggle is on or line text is requested. Numbers on this page are read from the data pack; where a fact is absent nothing is shown for it.</div>
 <div class="u-panel" id="aboutPanel" hidden></div>
 <div class="u-foot" id="foot"></div>
 <script type="module" src="./quantum.js"></script>

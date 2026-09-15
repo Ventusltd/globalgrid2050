@@ -1372,6 +1372,16 @@
    "fetched_utc": "2026-09-14T22:14:00.114Z",
    "http_status": 200,
    "attempts": 1
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/LINES.md",
+   "bytes": 22142736,
+   "sha256": "406c929e76e0ae79853fe486b8f4de328268648ee1e9bfe737b6d2855fc30abb",
+   "fetched_utc": "2026-09-14T22:44:05.716Z",
+   "http_status": 200,
+   "attempts": 1,
+   "fetched_by": "_tools/all-lines/build_all_lines.mjs",
+   "header": "250,174 unique lines, numbered 1 to 342,795. Generated 2026-09-14T19:56:58.242Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issu"
   }
  ],
  "outputs": [
@@ -1404,6 +1414,26 @@
    "file": "entangled.json",
    "bytes": 7229,
    "sha256": "dd605adbae674dbc4c377ac2de920dac42415e17978e43667eaf669ddab797e9"
+  },
+  {
+   "file": "all-lines.bin",
+   "bytes": 1000696,
+   "sha256": "8291d2680e43506fd5bda23428bc9906458ed38413fc2c206d32c4b9952b2762"
+  },
+  {
+   "file": "all-lines.len.bin",
+   "bytes": 500348,
+   "sha256": "2481540d45540a6963efb17c95ff8e9c9bd61359043d4e1ebd31f4742721e118"
+  },
+  {
+   "file": "all-lines.family.bin",
+   "bytes": 250174,
+   "sha256": "8bfa485b45f849dccebefd3da33f2ecf4ca14c740487ec47f598bcc4e448c2a8"
+  },
+  {
+   "file": "all-lines.meta.json",
+   "bytes": 812,
+   "sha256": "ca2b6af2539c43fb93ac4d7e7d834b6c38b51779b81ce1975782edd78520556a"
   }
  ],
  "checks": {
@@ -1754,7 +1784,18 @@
    161,
    259,
    260
-  ]
+  ],
+  "all_lines": 250174,
+  "all_lines_distinct": 250174,
+  "all_lines_duplicate_rows": 0,
+  "all_lines_min": 1,
+  "all_lines_max": 342795,
+  "all_lines_in_a_family": 128369,
+  "all_lines_outside_families": 121805,
+  "all_lines_ascending": true,
+  "lines_md_generated_utc": "2026-09-14T19:56:58.242Z",
+  "lines_md_bytes": 22142736,
+  "lines_md_sha256": "406c929e76e0ae79853fe486b8f4de328268648ee1e9bfe737b6d2855fc30abb"
  },
  "amendments": [
   {
@@ -1775,6 +1816,18 @@
    "electron_json_bytes_after": 221272,
    "shipped_bytes_before": 5284793,
    "shipped_bytes_after": 5285047
+  },
+  {
+   "utc": "2026-09-14T23:40:23.581Z",
+   "script": "proof/add_all_lines.mjs",
+   "added": [
+    "sources: LINES.md",
+    "outputs: all-lines.bin, all-lines.len.bin, all-lines.family.bin, all-lines.meta.json",
+    "checks.all_lines*",
+    "checks.lines_md_*"
+   ],
+   "source_added": "https://ventusltd.github.io/stars/LINES.md",
+   "generation": "generation 2"
   }
  ]
 }

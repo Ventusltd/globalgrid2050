@@ -1,9 +1,14 @@
 {
  "stamp": "202609142202",
  "name": "Quantum Twin Star",
- "generation": "first published generation (verification round 1 complete; repair round lands as the next generation)",
- "published_utc": "2026-09-14T23:16:33+00:00",
+ "generation": "generation 2: round-2 findings fixed; all 250,174 unique lines added",
+ "previous_generation": {
+  "generation": "first published generation (verification round 1 complete; repair round lands as the next generation)",
+  "published_utc": "2026-09-14T23:16:33+00:00"
+ },
+ "published_utc": "2026-09-15T00:05:01+00:00",
  "data_provenance": "data/provenance.json",
+ "self_test": "proof/gen2.mjs → proof/gen2.json",
  "files": {
   "amend_pack.mjs": {
    "bytes": 4289,
@@ -13,17 +18,21 @@
    "bytes": 27713,
    "sha256": "465f95e11addf25b0dcd8127de1c152eded9a25d460f1af5186280992515d1e3"
   },
-  "index.html": {
-   "bytes": 6692,
-   "sha256": "b9ae0fe4bd3631c3c50b7426d68121a8e22df2a45fdfe423e30b3bd4484de12a"
+  "data/all-lines.bin": {
+   "bytes": 1000696,
+   "sha256": "8291d2680e43506fd5bda23428bc9906458ed38413fc2c206d32c4b9952b2762"
   },
-  "quantum.js": {
-   "bytes": 85089,
-   "sha256": "8cd6d955425a79ab3611bb3dc3400e00bb518a96510231b4766ff9ccc4fdab8a"
+  "data/all-lines.family.bin": {
+   "bytes": 250174,
+   "sha256": "8bfa485b45f849dccebefd3da33f2ecf4ca14c740487ec47f598bcc4e448c2a8"
   },
-  "README.md": {
-   "bytes": 14903,
-   "sha256": "442884a55aec5afe6d986a5384f335dbf36c860f213fb2018650d574e78d4d14"
+  "data/all-lines.len.bin": {
+   "bytes": 500348,
+   "sha256": "2481540d45540a6963efb17c95ff8e9c9bd61359043d4e1ebd31f4742721e118"
+  },
+  "data/all-lines.meta.json": {
+   "bytes": 812,
+   "sha256": "ca2b6af2539c43fb93ac4d7e7d834b6c38b51779b81ce1975782edd78520556a"
   },
   "data/blocks.json": {
    "bytes": 54861,
@@ -46,12 +55,20 @@
    "sha256": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
   },
   "data/provenance.json": {
-   "bytes": 51691,
-   "sha256": "13f86b8ba7fc076361a6ac039cf4fe1e0117891acbdbeee31f987838e4b9c674"
+   "bytes": 53670,
+   "sha256": "846127391f5ad9ecc2c9885a0440791c88d666475b96973be8afb914e0e563f1"
   },
   "data/random.json": {
    "bytes": 120639,
    "sha256": "2163aa5662628470cb57d27f4fdb2e0b553550c07586cedf3e195bc03c959b3f"
+  },
+  "index.html": {
+   "bytes": 7806,
+   "sha256": "dfe1b72f132c8ff4038a67553e6986f00c26bfd9c548a2bb6328e4b2840859d5"
+  },
+  "proof/add_all_lines.mjs": {
+   "bytes": 3467,
+   "sha256": "899aa84151770a3da630d3d91bd255c071fc92397bb800d5c44df81e782d69e1"
   },
   "proof/build-1440.png": {
    "bytes": 655447,
@@ -64,6 +81,86 @@
   "proof/build-430.png": {
    "bytes": 198510,
    "sha256": "7b6f8855244ab386847b6b3d08b3b359f483647fdf5c3a901bc6fb70df3d8f96"
+  },
+  "proof/critic/ELECTRON.md": {
+   "bytes": 8157,
+   "sha256": "0455cdc0389c93a5ad16b34b21d92068d282cb99ed9ba626b9a6d83b8d1d4df5"
+  },
+  "proof/critic/prng_check.mjs": {
+   "bytes": 3317,
+   "sha256": "940eb40db832ce9f032f70bcbf63b87f43e8cfb4f27c8a545c854c3fa36ebadb"
+  },
+  "proof/critic/remeasure.json": {
+   "bytes": 2862,
+   "sha256": "106f8e081265e6cca50312d54da99a88970b467c36e0c02425c4bda32c293fe9"
+  },
+  "proof/critic/remeasure.mjs": {
+   "bytes": 2743,
+   "sha256": "0c7fc15d7e8dd5d7e26af7cb45799ceca5abd9adac794bdf6f8364f3d892af60"
+  },
+  "proof/critic/SOUL.md": {
+   "bytes": 17172,
+   "sha256": "0603eaaa86de0ff450a1c4f87bc99076401499c4b40c4d5f526300874b9e9a35"
+  },
+  "proof/critic2/electron_atoms.json": {
+   "bytes": 259284,
+   "sha256": "7a1cc9688155d3c64e42bc1f473fb30810ed911812e9181197741bbf6ac83e43"
+  },
+  "proof/critic2/electron_graph.json": {
+   "bytes": 82144,
+   "sha256": "b5c7edc53e327150fb5d2d1726f09b663db2b109f924ce383453a26975c2ed76"
+  },
+  "proof/critic2/ELECTRON.md": {
+   "bytes": 8157,
+   "sha256": "0455cdc0389c93a5ad16b34b21d92068d282cb99ed9ba626b9a6d83b8d1d4df5"
+  },
+  "proof/critic2/physics2-1440.png": {
+   "bytes": 616774,
+   "sha256": "f15e89a0dafeb6b5d5e6b59d60b9974c4afb34f248f0d376e87d30c529a951d3"
+  },
+  "proof/critic2/physics2.json": {
+   "bytes": 7558,
+   "sha256": "49c7cc886f8d699eeb818a6bce3620c6afd360e3334e360e28c0ef163311f084"
+  },
+  "proof/critic2/physics2.mjs": {
+   "bytes": 7374,
+   "sha256": "5e5408ceca48fe3147a174bbb62ae4ab2fb26a2333907c6e9abbcec6d8e5cb27"
+  },
+  "proof/critic2/physics2b.json": {
+   "bytes": 4879,
+   "sha256": "bf4670d89966df1bdfb2845c997e88ce4e1c4669dee9c457e879c7568c0c6222"
+  },
+  "proof/critic2/physics2b.mjs": {
+   "bytes": 4451,
+   "sha256": "9d61b597d51e2aa2f0b4afe9908747624dd22de25bdec74212e13bb97b8969a1"
+  },
+  "proof/critic2/SOUL.md": {
+   "bytes": 17172,
+   "sha256": "0603eaaa86de0ff450a1c4f87bc99076401499c4b40c4d5f526300874b9e9a35"
+  },
+  "proof/gen2-1440.png": {
+   "bytes": 804362,
+   "sha256": "609a3d11e9bdbde9fc0a89a8a1809f2970b9ee11baeb8fe2545e4d5176ecbf0c"
+  },
+  "proof/gen2-430.png": {
+   "bytes": 296638,
+   "sha256": "33d2ea40ccbde61931b4e132e795341a4c9637b794d3fe231d6d46d1e9bde025"
+  },
+  "proof/gen2-900x430.png": {
+   "bytes": 290891,
+   "sha256": "fc3efa49b6bb630c4f24aade5dacc7611a35834b23fa2d38358dc7277ba42291"
+  },
+  "proof/gen2.json": {
+   "bytes": 15587,
+   "sha256": "ef492a3871db2a23b4ab16be22f56f2df79da44abe558a9e7e3580f3f24cb640"
+  },
+  "proof/gen2.mjs": {
+   "bytes": 27492,
+   "sha256": "3bc9647175c2bbe96a84b2f039f77b421538a055951b0c18f0d9dabc6c5e4f47"
+  },
+  "proof/gen2.stdout.txt": {
+   "bytes": 4569,
+   "sha256": "615d5eee79762a42160117ce4c61caba21a62d0fce415c3b49ce54b0ef02fe81"
   },
   "proof/prng_check2.json": {
    "bytes": 150,
@@ -85,6 +182,10 @@
    "bytes": 20312,
    "sha256": "77bd234c3101167a02e497daf0f49ff7d617d20102ee1b086af2979c09c65048"
   },
+  "proof/publish-gen2.mjs": {
+   "bytes": 1998,
+   "sha256": "3e7bee8b291d6c6670363543362b90eafd4f276157929d5d2a57d9f6fd434349"
+  },
   "proof/report.json": {
    "bytes": 6093,
    "sha256": "d72168dcecb85f480a92ffe8be5f0e70881ab1da62d011a9076d2482b889b532"
@@ -92,6 +193,14 @@
   "proof/report2.json": {
    "bytes": 20311,
    "sha256": "ffa7ef891a66f439a692b899b6f85f41b97a336815e8af662588c45081f1e16f"
+  },
+  "proof/review1_check.mjs": {
+   "bytes": 14438,
+   "sha256": "1b6fcc5ed5390dd15b00453f4f86cac5ede6b6c4e5eab0b0f96d1ec244d45a9d"
+  },
+  "proof/review1_report.json": {
+   "bytes": 33744,
+   "sha256": "40094637dbdacce288f44ca4ec9c95de96f460a19dec2ff156c665e630c05ccb"
   },
   "proof/review1-desktop.png": {
    "bytes": 613762,
@@ -101,13 +210,33 @@
    "bytes": 679215,
    "sha256": "389efc906eb5b56769a8e265c01e660ce8c6cf88ba4641053dc63cb816746873"
   },
-  "proof/review1_check.mjs": {
-   "bytes": 14438,
-   "sha256": "1b6fcc5ed5390dd15b00453f4f86cac5ede6b6c4e5eab0b0f96d1ec244d45a9d"
+  "proof/review2_check.mjs": {
+   "bytes": 15721,
+   "sha256": "f6f4092c3231f3d78c84c04cc53f539d56f3d2fc601eaf72d1be6a7c102dd4c8"
   },
-  "proof/review1_report.json": {
-   "bytes": 33744,
-   "sha256": "40094637dbdacce288f44ca4ec9c95de96f460a19dec2ff156c665e630c05ccb"
+  "proof/review2_report.json": {
+   "bytes": 7985,
+   "sha256": "8ff609480a7f06ec9fca6c2b8272bef812dbfece0b86ca39b14ca4e6463c7583"
+  },
+  "proof/review2-rotated-900x430.png": {
+   "bytes": 305529,
+   "sha256": "e1c8046b1369f1c4d32dcde181ddb78673ee4bb91be55222c3f95da40bd9c8c1"
+  },
+  "proof/review2.stdout.txt": {
+   "bytes": 7986,
+   "sha256": "eda10cf12be59345393aafcaba596391e9aa0aba416eb4177f07d4b571b6f8bf"
+  },
+  "proof/review2b_check.mjs": {
+   "bytes": 9904,
+   "sha256": "33b0c5163708df150c1e93efbef2af3c172f990d5e3624c2df0ce12697373023"
+  },
+  "proof/review2b_report.json": {
+   "bytes": 4035,
+   "sha256": "84cedeb4a1098ce5e5f6744869a1a8e9413b3c771dffe17de82859f3da78a026"
+  },
+  "proof/review2b.stdout.txt": {
+   "bytes": 4036,
+   "sha256": "17b8f426f4b9718e8de8939f6bd3c1ba1f7ae75e2f237fc030f80176fef285eb"
   },
   "proof/verify-1-1440.png": {
    "bytes": 545421,
@@ -145,26 +274,34 @@
    "bytes": 4978,
    "sha256": "c1320f8c9622ac0ad273f38bd6fe703fc1894d129f9278fe0796c1e350676c4c"
   },
-  "proof/critic/ELECTRON.md": {
-   "bytes": 8157,
-   "sha256": "0455cdc0389c93a5ad16b34b21d92068d282cb99ed9ba626b9a6d83b8d1d4df5"
+  "proof/verify-2-1440.png": {
+   "bytes": 548914,
+   "sha256": "bcc4a004a1c4e7ccd01105728afb363661fde7c8671c2a86f3234d6afa9656ac"
   },
-  "proof/critic/prng_check.mjs": {
-   "bytes": 3317,
-   "sha256": "940eb40db832ce9f032f70bcbf63b87f43e8cfb4f27c8a545c854c3fa36ebadb"
+  "proof/verify-2-430.png": {
+   "bytes": 191014,
+   "sha256": "48b9a91ce37016e932bf37156fc482d8efe782e77259aaaa880e8f4fed8ed2da"
   },
-  "proof/critic/remeasure.json": {
-   "bytes": 2862,
-   "sha256": "106f8e081265e6cca50312d54da99a88970b467c36e0c02425c4bda32c293fe9"
+  "proof/verify-2.json": {
+   "bytes": 15040,
+   "sha256": "b659b31059bc482be71cf72dd450f40195384f8c70608c032430205c2c3b9b52"
   },
-  "proof/critic/remeasure.mjs": {
-   "bytes": 2743,
-   "sha256": "0c7fc15d7e8dd5d7e26af7cb45799ceca5abd9adac794bdf6f8364f3d892af60"
+  "proof/verify-2.mjs": {
+   "bytes": 22082,
+   "sha256": "53293c7c7ed0b5ea8af718f8c22a7f5d659903498c0ff04eae6843d558cd858a"
   },
-  "proof/critic/SOUL.md": {
-   "bytes": 17172,
-   "sha256": "0603eaaa86de0ff450a1c4f87bc99076401499c4b40c4d5f526300874b9e9a35"
+  "proof/verify-2.stdout.txt": {
+   "bytes": 2578,
+   "sha256": "11a1806cf27355021839388f08fe52018058c55480d89171351acb2c71e975ab"
+  },
+  "quantum.js": {
+   "bytes": 111635,
+   "sha256": "008930e440ba2cce3220f915394dad239510b59d2b3f11183a45ed078c75a701"
+  },
+  "README.md": {
+   "bytes": 23909,
+   "sha256": "9abc7ed93debeac9f5ba14d7ed64126be6ec95db11f43c0233ccd9fee9489905"
   }
  },
- "note": "Every shipped file with bytes and sha256; logs are not shipped. Numbers on the page come from data/ only: 664,940 family-line entries, 128,369 distinct numbered lines in the family buckets, 250,174 unique lines per stars code/index.json."
+ "note": "Every shipped file with bytes and sha256; logs are not shipped. Numbers on the page come from data/ only: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC; 128,369 inside a function family, 121,805 not) and 664,940 family-line entries (128,369 distinct numbered lines) in the published buckets; index.json states 250,174."
 }

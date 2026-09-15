@@ -1,0 +1,524 @@
+{
+  "started_utc": "2026-09-14T23:19:06.870Z",
+  "port": 8871,
+  "url": "http://127.0.0.1:8871/testcode/202609142202/index.html",
+  "lines_bin_bytes": 2659760,
+  "lines_bin_entries": 664940,
+  "family_80299": {
+    "n": 80299,
+    "name": "haversine",
+    "kind": "function",
+    "block": "Gc",
+    "category": "geodesy",
+    "lineOffset": 657946,
+    "lineCount": 6,
+    "repos": 1,
+    "files": 1,
+    "standalone": false,
+    "first_written": "2026-09-04T15:00:03+01:00"
+  },
+  "atom_named_haversine_exists": false,
+  "gpu_idle": {
+    "n": 6,
+    "util_mean": 1,
+    "util_min": 1,
+    "util_max": 1,
+    "mem_mean_MiB": 2844,
+    "mem_min_MiB": 2834,
+    "mem_max_MiB": 2849,
+    "samples": [
+      "1%/2849MiB",
+      "1%/2849MiB",
+      "1%/2849MiB",
+      "1%/2849MiB",
+      "1%/2834MiB",
+      "1%/2834MiB"
+    ]
+  },
+  "chrome_version": "Chrome/153.0.8010.37",
+  "desktop": {
+    "readyMs": 303,
+    "renderer_fresh_context": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "renderer_page_S": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "console_8s": {
+      "all": 0,
+      "errors": [],
+      "warnings": [],
+      "pageerrors": [],
+      "requestfailed": [],
+      "external_requests": [],
+      "other": []
+    },
+    "hud_on_gpu_text": "on GPU: 664,940 line entries",
+    "hud_point_count": 664940,
+    "S_seaDrawn": 664940,
+    "S_seaBytes": 7979280,
+    "D_N": 664940,
+    "hud_count_equals_lines_bin": true,
+    "hud_fps_line": "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+    "fps_3s": {
+      "frames": 181,
+      "ms": 3013.4,
+      "fps": 59.7
+    },
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "bloch": {
+      "focus_before": {
+        "atom": {
+          "n": 2039,
+          "name": "Number",
+          "shells": {
+            "K": 0,
+            "L": 40,
+            "M": 20
+          }
+        },
+        "theta": 1.2309594173407745,
+        "phi": 2.6589654821820616,
+        "dataTheta": 1.2309594173407745
+      },
+      "handle_rect": {
+        "x": 348.796875,
+        "y": 405,
+        "w": 180,
+        "h": 180
+      },
+      "element_at_handle_centre": "sphereHandle",
+      "during_drag": {
+        "hand": true,
+        "theta": 1.5909594173407746,
+        "phi": 3.1520816315108,
+        "theta_deg": 91.15525999021894,
+        "phi_deg": 180.6009741662796,
+        "alpha2": 0.48991913782225066,
+        "beta2": 0.5100808621777494,
+        "sum": 1
+      },
+      "state_line_during_drag": "state: prepared by hand · θ=91.2° φ=180.6° · P(home)=0.490 P(tunnel)=0.510 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+      "after_release": {
+        "hand": false,
+        "relaxing": true,
+        "theta": 1.563617417341579,
+        "phi": 3.104050621379397
+      },
+      "theta_changed": true,
+      "phi_changed": true,
+      "norm_1000": true,
+      "pass": true
+    },
+    "click": {
+      "tries": 24,
+      "hits": 13,
+      "first_hit_with_atom": {
+        "x": 632,
+        "y": 597
+      },
+      "picked": {
+        "msg": "#97258 · family #72089 renderTable · block Pn (news) · line #97258 appears in 3 families",
+        "famIdx": 7201,
+        "key": 97258,
+        "fam": {
+          "n": 72089,
+          "name": "renderTable",
+          "lineOffset": 577683,
+          "lineCount": 26
+        },
+        "atom": {
+          "n": 3859,
+          "name": "renderTable"
+        }
+      },
+      "born_before": "Born audit: no measurement yet",
+      "tries_log": [
+        {
+          "x": 567,
+          "y": 495,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": {
+            "n": 2039,
+            "name": "Number"
+          }
+        },
+        {
+          "x": 452,
+          "y": 344,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": {
+            "n": 2039,
+            "name": "Number"
+          }
+        },
+        {
+          "x": 568,
+          "y": 663,
+          "hit": true,
+          "msg": "#1416 · family #7665 baseCalc · block Sb (solar) · line #1416 appears in 5,801 families",
+          "atom": null
+        },
+        {
+          "x": 554,
+          "y": 421,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 388,
+          "y": 686,
+          "hit": true,
+          "msg": "#183679 · family #78102 (anonymous) · block Tp (interface) · line #183679 appears in 2 families",
+          "atom": null
+        },
+        {
+          "x": 365,
+          "y": 353,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 646,
+          "y": 571,
+          "hit": true,
+          "msg": "#94564 · family #31861 main · block Pn (news) · line #94564 appears in 6 families",
+          "atom": null
+        },
+        {
+          "x": 501,
+          "y": 363,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 501,
+          "y": 692,
+          "hit": true,
+          "msg": "#161796 · family #76823 circuit_validation_diagnostics · block St (solar) · line #161796 appears in 21 families",
+          "atom": null
+        },
+        {
+          "x": 567,
+          "y": 467,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 328,
+          "y": 652,
+          "hit": true,
+          "msg": "#117924 · family #71270 (anonymous) · block Pr (proofs) · line #117924 appears in 23 families",
+          "atom": null
+        },
+        {
+          "x": 419,
+          "y": 342,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 603,
+          "y": 634,
+          "hit": true,
+          "msg": "#1416 · family #73659 fetchBounded · block Ln (news) · line #1416 appears in 5,801 families",
+          "atom": null
+        },
+        {
+          "x": 538,
+          "y": 396,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 430,
+          "y": 696,
+          "hit": true,
+          "msg": "#1416 · family #77493 weakestProvenance · block St (solar) · line #1416 appears in 5,801 families",
+          "atom": null
+        },
+        {
+          "x": 334,
+          "y": 369,
+          "hit": true,
+          "msg": "#146650 · family #75100 atlasUrl · block x419 (other) · line #146650 appears in 2 families",
+          "atom": null
+        },
+        {
+          "x": 661,
+          "y": 525,
+          "hit": true,
+          "msg": "#1416 · family #4076 mountWiderFleet · block Pn (news) · line #1416 appears in 5,801 families",
+          "atom": null
+        },
+        {
+          "x": 286,
+          "y": 602,
+          "hit": true,
+          "msg": "#1416 · family #80155 fixture · block Pr (proofs) · line #1416 appears in 5,801 families",
+          "atom": null
+        },
+        {
+          "x": 472,
+          "y": 349,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 543,
+          "y": 677,
+          "hit": true,
+          "msg": "#1416 · family #76449 modulePitch · block St (solar) · line #1416 appears in 5,801 families",
+          "atom": null
+        },
+        {
+          "x": 561,
+          "y": 438,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 363,
+          "y": 675,
+          "hit": true,
+          "msg": "#23350 · family #1005 haversine · block Pr (proofs) · line #23350 appears in 1 families",
+          "atom": null
+        },
+        {
+          "x": 385,
+          "y": 346,
+          "hit": false,
+          "msg": "tap hit no entry",
+          "atom": null
+        },
+        {
+          "x": 632,
+          "y": 597,
+          "hit": true,
+          "msg": "#97258 · family #72089 renderTable · block Pn (news) · line #97258 appears in 3 families",
+          "atom": {
+            "n": 3859,
+            "name": "renderTable"
+          }
+        }
+      ],
+      "picked_key_in_lines_bin": true,
+      "picked_key_in_family_range": true,
+      "lines_panel": {
+        "hidden": false,
+        "head": "#72089 renderTable",
+        "shown_count": 26,
+        "family_lineCount_on_disk": 26,
+        "first_keys": [
+          29760,
+          36426,
+          132462,
+          132463,
+          132464,
+          132465,
+          132466,
+          85571,
+          85572,
+          85573,
+          132467,
+          85574
+        ],
+        "all_shown_keys_exist_in_lines_bin": true,
+        "shown_keys_equal_family_range_prefix": true
+      },
+      "born_after_click": "Born audit: no measurement yet",
+      "click_alone_measured": false,
+      "measure": {
+        "born_before": "Born audit: no measurement yet",
+        "born_after": "Born audit: measured #3859 renderTable: TUNNEL · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash(\"2026-09-14\", 3859, 0) · no valence_repos listed: no repo lit",
+        "changed": true,
+        "is_measurement": true,
+        "state_line": "state: collapsed |1> TUNNEL · θ=180.0° φ=0.0° · P(home)=0.000 P(tunnel)=1.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=82.5° (prepared data state, counted) · data θ=82.5° · a repeat measurement now reproduces the outcome until re-prepared · K17 L61 M60 → sin²(θ/2)=M/(K+L+M)=0.435 · φ still (paired) · Pauli: this name is bound to more than one soul; only soul f36417ea82c1 is shipped",
+        "record_chips": [
+          "1 #3859 renderTable TUNNEL"
+        ],
+        "S": {
+          "outcome": 1,
+          "theta": 3.141592653589793,
+          "measuredTheta": 1.4399888307171895,
+          "twinNote": "twin drew uniformly over 664,940 entries: line #7 in family #42503 (anonymous)",
+          "measurements": 1
+        }
+      },
+      "pass": true
+    },
+    "search_80299": {
+      "born_before": "Born audit: measured #3859 renderTable: TUNNEL · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash(\"2026-09-14\", 3859, 0) · no valence_repos listed: no repo lit",
+      "after_first_enter": {
+        "S": {
+          "msg": "family #80299 haversine · block Gc · 6 entries · search steers, it does not measure: Enter again or tap to collapse",
+          "famIdx": 10519,
+          "fam": {
+            "n": 80299,
+            "name": "haversine",
+            "lineCount": 6
+          },
+          "atom": null,
+          "famJoinNote": "",
+          "outcome": -1
+        },
+        "state_line": null,
+        "born": "Born audit: measured #3859 renderTable: TUNNEL · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash(\"2026-09-14\", 3859, 0) · no valence_repos listed: no repo lit"
+      },
+      "after_second_enter": {
+        "S": {
+          "msg": "nothing to measure: this focus has no electron record (search steered, it did not collapse)",
+          "outcome": -1,
+          "collapse": false,
+          "measurements": 1
+        },
+        "state_line": null,
+        "born": "Born audit: measured #3859 renderTable: TUNNEL · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash(\"2026-09-14\", 3859, 0) · no valence_repos listed: no repo lit"
+      },
+      "after_measure_button": {
+        "S": {
+          "msg": "nothing to measure: no electron record for this focus (500 of 7,607 atoms carry records)",
+          "outcome": -1,
+          "measurements": 1
+        },
+        "born": "Born audit: measured #3859 renderTable: TUNNEL · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash(\"2026-09-14\", 3859, 0) · no valence_repos listed: no repo lit"
+      },
+      "lines_panel": {
+        "hidden": false,
+        "head": "#80299 haversine",
+        "keys": [
+          192067,
+          192068,
+          192069,
+          192070,
+          192071,
+          1416
+        ],
+        "keys_on_disk": [
+          192067,
+          192068,
+          192069,
+          192070,
+          192071,
+          1416
+        ],
+        "match": true
+      },
+      "steered_to_haversine": true,
+      "haversine_born_measured": false,
+      "any_measurement_happened": false
+    },
+    "console_total": {
+      "all": 0,
+      "errors": [],
+      "warnings": [],
+      "pageerrors": [],
+      "external_requests_total": []
+    }
+  },
+  "phone": {
+    "readyMs": 116,
+    "renderer_page_S": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "console_8s": {
+      "all": 0,
+      "errors": [],
+      "warnings": [],
+      "pageerrors": [],
+      "requestfailed": [],
+      "external_requests": []
+    },
+    "hud_point_count": 664940,
+    "S_seaDrawn": 664940,
+    "phoneMode": null,
+    "hud_count_equals_lines_bin": true,
+    "fps_3s": {
+      "frames": 181,
+      "ms": 3011.5,
+      "fps": 59.8
+    },
+    "scrollWidth": 430,
+    "innerWidth": 430,
+    "bodyScrollWidth": 430,
+    "hud_position": "static",
+    "widest_elements": [],
+    "console_total": {
+      "all": 0,
+      "errors": [],
+      "warnings": [],
+      "pageerrors": []
+    }
+  },
+  "server_stopped": true,
+  "server_listen_after_stop": "",
+  "gpu_live": {
+    "n": 29,
+    "util_mean": 10.9,
+    "util_min": 1,
+    "util_max": 18,
+    "mem_mean_MiB": 2896,
+    "mem_min_MiB": 2843,
+    "mem_max_MiB": 2923,
+    "samples": [
+      "1%/2843MiB",
+      "4%/2911MiB",
+      "4%/2911MiB",
+      "4%/2911MiB",
+      "4%/2910MiB",
+      "5%/2905MiB",
+      "9%/2902MiB",
+      "8%/2902MiB",
+      "14%/2902MiB",
+      "15%/2902MiB",
+      "16%/2902MiB",
+      "17%/2902MiB",
+      "15%/2902MiB",
+      "13%/2902MiB",
+      "12%/2923MiB",
+      "14%/2917MiB",
+      "17%/2917MiB",
+      "17%/2917MiB",
+      "18%/2923MiB",
+      "14%/2881MiB",
+      "15%/2881MiB",
+      "13%/2878MiB",
+      "13%/2878MiB",
+      "15%/2872MiB",
+      "13%/2869MiB",
+      "15%/2875MiB",
+      "4%/2881MiB",
+      "4%/2876MiB",
+      "4%/2876MiB"
+    ]
+  },
+  "gpu_live_first_10": [
+    "1%/2843MiB",
+    "4%/2911MiB",
+    "4%/2911MiB",
+    "4%/2911MiB",
+    "4%/2910MiB",
+    "5%/2905MiB",
+    "9%/2902MiB",
+    "8%/2902MiB",
+    "14%/2902MiB",
+    "15%/2902MiB"
+  ],
+  "criteria": {
+    "c1_renderer_names_gpu": true,
+    "c2_no_console_errors": true,
+    "c3_hud_count_matches_lines_bin": true,
+    "c5_scrollWidth_430": true,
+    "c6_click_then_measurement": true,
+    "c7_haversine_80299_born_measured": false,
+    "c7_haversine_80299_steered": true,
+    "c8_bloch_drag": true
+  },
+  "pass_strict": false,
+  "finished_utc": "2026-09-14T23:19:47.150Z"
+}

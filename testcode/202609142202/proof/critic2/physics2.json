@@ -1,0 +1,191 @@
+{
+ "default": {
+  "state": "state: superposition (data state) · θ=70.5° φ=98.5° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "labels": [
+   "|0> HOME",
+   "|1> TUNNEL",
+   "#2039 Number · def · 7 lines · homes globalgrid2050",
+   "K same dir",
+   "L same repo",
+   "M other repos (valence)",
+   "class conductor (7 in ELECTRON.md)",
+   "unpaired and bonded across repos: no test guards this tunnel",
+   "twin star: the same points at angle + π. In a real singlet, up along n here means down along n there; here the twin is a mirror, not a second qubit.",
+   "the dashes drift, nothing rides them",
+   "off table (587 symbols, 1,689 families): grey outer band"
+  ]
+ },
+ "census": {
+  "shipped": 500,
+  "tunnelling_true": 106,
+  "tunnelling_false": 394,
+  "valence0": 394,
+  "M_gt_0": 500,
+  "tunnelling_false_but_page_P_tunnel_gt_0": 394,
+  "valence_equals_M": 45,
+  "valence_lt_M": 455,
+  "electron_json_note": "Souls as atoms; shells K/L/M = callers in the same directory / repo / other repos; BONDS_WITH = a repo that calls the soul without holding a copy (tunnelling).",
+  "hud_caveat": "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (the census ships tunnelling atoms only; no pure |0> data state can appear) · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985",
+  "example_1": {
+   "n": 1,
+   "name": "clampInteger",
+   "class": "noble",
+   "shells": {
+    "K": 29,
+    "L": 59,
+    "M": 61
+   },
+   "valence": 0,
+   "tunnelling": false,
+   "homes": [
+    "cable-trench-or-drill",
+    "globalgrid2050",
+    "layout-tool",
+    "testcode"
+   ],
+   "page_P_tunnel": 0.40939597315436244
+  },
+  "identical_shell_triples": [
+   [
+    "27/60/61",
+    151
+   ],
+   [
+    "0/0/1",
+    23
+   ],
+   [
+    "30/61/60",
+    23
+   ],
+   [
+    "60/61/60",
+    17
+   ],
+   [
+    "29/59/61",
+    13
+   ]
+  ]
+ },
+ "atom1": {
+  "state": "state: superposition (data state) · θ=79.6° φ=0.0° · P(home)=0.591 P(tunnel)=0.409 · |α|²+|β|²=1 by construction (Bloch angles) · K29 L59 M61 → sin²(θ/2)=M/(K+L+M)=0.409 · φ still (paired)",
+  "labels": [
+   "|0> HOME",
+   "|1> TUNNEL",
+   "#1 clampInteger · function · 5 lines · homes cable-trench-or-drill, globalgrid2050, layout-tool, testcode",
+   "K same dir",
+   "L same repo",
+   "M other repos (valence)",
+   "class noble (1,546 in ELECTRON.md)",
+   "twin star: the same points at angle + π. In a real singlet, up along n here means down along n there; here the twin is a mirror, not a second qubit.",
+   "the dashes drift, nothing rides them",
+   "off table (587 symbols, 1,689 families): grey outer band"
+  ],
+  "twinTier": "twin tier: Random star edges (stars draw, seed 2026-09-14): p not published for this draw: uniform · #3610 gridatlas/onChange q=1.000",
+  "measurements": [
+   "Born audit: measured #1 clampInteger: TUNNEL · r=0.341 < sin²(θ/2)=0.409 at θ=79.6° (prepared data state, counted) · seed 3749464458 = hash(\"2026-09-14\", 1, 0) · no valence_repos listed: no repo lit"
+  ],
+  "stateAfter": "state: collapsed |1> TUNNEL · θ=180.0° φ=0.0° · P(home)=0.000 P(tunnel)=1.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=79.6° (prepared data state, counted) · data θ=79.6° · a repeat measurement now reproduces the outcome until re-prepared · K29 L59 M61 → sin²(θ/2)=M/(K+L+M)=0.409 · φ still (paired)"
+ },
+ "born2039": {
+  "shells": {
+   "K": 0,
+   "L": 40,
+   "M": 20
+  },
+  "dataTheta_deg": 70.52877936550931,
+  "expected_P_tunnel": 0.3333333333333333,
+  "hist": {
+   "n": 600,
+   "home": 397,
+   "tunnel": 203,
+   "skipped": 0
+  },
+  "observed_P_tunnel": 0.3383333333333333,
+  "histLine": "histogram #2039 (prepared data state only): HOME 397/600=0.662 vs cos²(θ/2)=0.667 · TUNNEL 203/600=0.338 vs sin²=0.333 · 0 draws not counted (repeats on a collapsed state, by hand, or during relaxation)",
+  "sigma": 0.019245008972987525,
+  "z": 0.25980762113533185
+ },
+ "collapse": {
+  "theta_after_measure": 0,
+  "outcome": 0,
+  "phi": 5.671124518443957,
+  "P_tunnel_now": 0,
+  "stateLine": "state: collapsed |0> HOME · θ=0.0° φ=324.9° · P(home)=1.000 P(tunnel)=0.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=70.5° (prepared data state, counted) · data θ=70.5° · a repeat measurement now reproduces the outcome until re-prepared · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "repeats": [
+   "Born audit: repeat measurement #2039 Number: HOME again · r=0.359 ≥ P(tunnel)=0.000 (certain: the state sits at the pole",
+   "Born audit: repeat measurement #2039 Number: HOME again · r=0.694 ≥ P(tunnel)=0.000 (certain: the state sits at the pole",
+   "Born audit: repeat measurement #2039 Number: HOME again · r=0.531 ≥ P(tunnel)=0.000 (certain: the state sits at the pole",
+   "Born audit: repeat measurement #2039 Number: HOME again · r=0.417 ≥ P(tunnel)=0.000 (certain: the state sits at the pole",
+   "Born audit: repeat measurement #2039 Number: HOME again · r=0.788 ≥ P(tunnel)=0.000 (certain: the state sits at the pole"
+  ],
+  "allSameOutcome": true,
+  "histUnchangedByRepeats": 600
+ },
+ "hand": {
+  "state": "state: collapsed |0> HOME · θ=120.3° φ=40.1° · P(home)=0.248 P(tunnel)=0.752 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=70.5° (prepared data state, counted) · data θ=70.5° · a repeat measurement now reproduces the outcome until re-prepared · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "sum": 1,
+  "expected_P_tunnel_theta_2p1": 0.7524230522999289,
+  "born": "Born audit: repeat measurement #2039 Number: HOME again · r=0.883 ≥ P(tunnel)=0.752 (certain: the state sits at the pole until re-prepared) · seed 805336704 = hash(\"2026-09-14\", 2039, 605)",
+  "state_after": "state: collapsed |0> HOME · θ=120.3° φ=40.1° · P(home)=0.248 P(tunnel)=0.752 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=70.5° (prepared data state, counted) · data θ=70.5° · a repeat measurement now reproduces the outcome until re-prepared · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "hist_n_unchanged": 600
+ },
+ "soul": {
+  "ent6666_shipped_atom": false,
+  "ent766_shipped_atom": true,
+  "entangled_and_shipped": [
+   766,
+   5246,
+   6554,
+   7846,
+   8099,
+   2926,
+   2966,
+   3262,
+   3263,
+   3265,
+   4568,
+   5214,
+   5403,
+   5909,
+   6743,
+   7050,
+   7335,
+   8297,
+   8398,
+   8538,
+   8552,
+   346,
+   980,
+   4870,
+   5490,
+   5547,
+   5556,
+   6847,
+   6974,
+   8298,
+   8299,
+   8391,
+   8445,
+   8492,
+   8493,
+   8630
+  ],
+  "tierLine": "twin tier: no electron record: twin is pure chance",
+  "outcomes": [
+   "twin tier: no electron record: twin is pure chance",
+   "twin tier: no electron record: twin is pure chance",
+   "twin tier: no electron record: twin is pure chance",
+   "twin tier: no electron record: twin is pure chance",
+   "twin tier: no electron record: twin is pure chance",
+   "twin tier: no electron record: twin is pure chance"
+  ]
+ },
+ "phiAtPole": {
+  "theta": 1.5707963267948966,
+  "phi": 0,
+  "outcome": -1
+ },
+ "errors": []
+}

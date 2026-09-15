@@ -1,0 +1,155 @@
+{
+ "url": "http://127.0.0.1:8871/testcode/202609142202/index.html",
+ "started_utc": "2026-09-14T23:24:04.893Z",
+ "desktop": {
+  "hudAtLoad": [
+   "renderer: ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+   "seed \"2026-09-14\" · PRNG mulberry32(hash(seed, soul, measurementCount))",
+   "state: superposition (data state) · θ=70.5° φ=253.6° · P(home)=0.667 P(tunnel)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+   "Born audit: no measurement yet",
+   "twin tier: Random star edges (maker draw, seed 2026-09-13): published p, renormalised to sum to 1 (classical weights q=p/Σp) · Ss(202609032222) q=0.313 p=0.252 · Si(202609040219) q=0.687 p=0.553",
+   "prepared (data state)",
+   "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (the census ships tunnelling atoms only; no pure |0> data state can appear) · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985",
+   "join: family joined by name only: one family named \"Number\", showing family #6076",
+   "cable: off · no automatic external request; line text only on demand",
+   "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n"
+  ],
+  "externalDuringLoad": [],
+  "glTraffic": {
+   "bufferData": 0,
+   "bufferSubData": 0,
+   "texImage2D": 0,
+   "texSubImage2D": 0,
+   "readPixels": 0,
+   "frames": 180,
+   "seaDraws": 180,
+   "seaDrawShapes": [
+    "0,0,664940,2"
+   ],
+   "otherInstanced": 180,
+   "drawArrays": 1440
+  },
+  "idleCpu": {
+   "seconds": 10.019855999998981,
+   "scriptSeconds": 0.053334,
+   "taskSeconds": 0.18075199999999997,
+   "scriptShare": 0.005322830986793166
+  },
+  "heap": {
+   "t0_afterLoad": {
+    "Timestamp": 38490.610731,
+    "JSEventListeners": 35,
+    "Nodes": 1547,
+    "ScriptDuration": 0.109484,
+    "TaskDuration": 0.53261,
+    "JSHeapUsedSize": 5916892,
+    "JSHeapTotalSize": 6529024
+   },
+   "t1_after45sIdle": {
+    "Timestamp": 38535.630633,
+    "JSEventListeners": 35,
+    "Nodes": 1549,
+    "ScriptDuration": 0.353965,
+    "TaskDuration": 1.416303,
+    "JSHeapUsedSize": 5920252,
+    "JSHeapTotalSize": 6791168
+   },
+   "t2_after150measurements": {
+    "Timestamp": 38547.916503,
+    "JSEventListeners": 185,
+    "Nodes": 1874,
+    "ScriptDuration": 0.533697,
+    "TaskDuration": 2.521782,
+    "JSHeapUsedSize": 6201436,
+    "JSHeapTotalSize": 7053312
+   },
+   "measurementsRecorded": 150,
+   "recordChips": 150,
+   "t3_after30sMoreIdle": {
+    "Timestamp": 38577.934155,
+    "JSEventListeners": 185,
+    "Nodes": 1850,
+    "ScriptDuration": 0.69317,
+    "TaskDuration": 3.121111,
+    "JSHeapUsedSize": 6192616,
+    "JSHeapTotalSize": 6791168
+   },
+   "fpsLine": "fps 60 (1 s mean) · draw calls 11 · DPR 1"
+  },
+  "externalAfterHeapTests": 0,
+  "failedSearchThenEnter": {
+   "firstEnterMsg": "#999999999 is neither a family key, a line number nor a shipped soul number.",
+   "lastQueryAfterFirstEnter": "#999999999",
+   "measuredOnSecondEnter": true,
+   "outcomeAfter": 0,
+   "bornAfter": "measured #2039 Number: HOME · r=0.841 ≥ sin²(θ/2)=0.333 at θ=70.5° (prepared data state, counted) · seed 1715833955 = hash(\"2026-09-14\", 2039, 150) · HOME: all bond dots dimmed",
+   "measurementsBefore": 150,
+   "measurementsAfter": 151
+  },
+  "enterOnHoldButton": {
+   "measurementsBefore": 151,
+   "measurementsAfter": 152,
+   "measured": true,
+   "holdBefore": false,
+   "holdAfter": true
+  },
+  "phiAfterCollapse": {
+   "phi_t0": 2.7881634800609376,
+   "phi_t1s": 2.7881634800609376,
+   "phiChanged": false,
+   "stateLine": "state: collapsed |1> TUNNEL · θ=180.0° φ=159.7° · P(home)=0.000 P(tunnel)=1.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=70.5° (prepared data state, counted) · data θ=70.5° · a repeat measurement now reproduces the outcome until re-prepared · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333 · φ precessing (decorative: precession marks \"no test or proof calls this\")"
+  },
+  "chipResteer": {
+   "joinLine": null,
+   "famJoinNote": "",
+   "msg": "#999999999 is neither a family key, a line number nor a shipped soul number."
+  },
+  "atom15": {
+   "focus": "14 renderIssues",
+   "tier": "RANDOM",
+   "tierLabel": "Random star edges (maker draw, seed 2026-09-13): published p, renormalised to sum to 1 (classical weights q=p/Σp)",
+   "candidates": 2,
+   "edgesTouching15": 21,
+   "edgesWithP": 11,
+   "edgesWithoutP": 10,
+   "hudTwinLine": "twin tier: Random star edges (maker draw, seed 2026-09-13): published p, renormalised to sum to 1 (classical weights q=p/Σp) · #1684 clearWider q=0.366 p=0.416 · #15 testcode/renderStats q=0.634 p=0.722"
+  },
+  "externalBeforeForgedBucket": 0,
+  "forgedBucket": {
+   "cableLine": "cable: on · cable fetch failed: Failed to fetch",
+   "lineText": {
+    "note": "The code could not be fetched (Failed to fetch); the line keys are shown above.",
+    "linesShown": 5,
+    "firstLine": "48829 │ appears in 1 families"
+   },
+   "intercepted": [
+    {
+     "url": "https://ventusltd.github.io/stars/code/f/12.json",
+     "answered": "locally with a forged bucket"
+    },
+    {
+     "url": "https://ventusltd.github.io/stars/code/f/12.json",
+     "answered": "locally with a forged bucket"
+    }
+   ]
+  },
+  "contextLoss": {
+   "isContextLost": true,
+   "hudOnGPU": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "hudFps": "fps 60 (1 s mean) · draw calls 13 · DPR 1",
+   "hudMentionsLoss": false,
+   "glError": 37442,
+   "errorsLogged": [
+    "error: Access to fetch at 'https://ventusltd.github.io/stars/code/f/12.json' from origin 'http://127.0.0.1:8871' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+    "error: Failed to load resource: net::ERR_FAILED",
+    "error: Access to fetch at 'https://ventusltd.github.io/stars/code/f/12.json' from origin 'http://127.0.0.1:8871' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+    "error: Failed to load resource: net::ERR_FAILED"
+   ]
+  }
+ },
+ "error": "TypeError: Cannot read properties of null (reading 'restoreContext')\n    at evaluate (evaluate at file:///C:/Users/vikra/Documents/GitHub/globalgrid2050/testcode/202609142202/proof/review2_check.mjs:101:16, <anonymous>:0:133)\n    at #evaluate (file:///C:/Users/vikra/Desktop/Claude-Sandbox-MSI/bench/node_modules/puppeteer-core/lib/puppeteer/cdp/ExecutionContext.js:402:19)\n    at async ExecutionContext.evaluate (file:///C:/Users/vikra/Desktop/Claude-Sandbox-MSI/bench/node_modules/puppeteer-core/lib/puppeteer/cdp/ExecutionContext.js:288:16)\n    at async IsolatedWorld.evaluate (file:///C:/Users/vikra/Desktop/Claude-Sandbox-MSI/bench/node_modules/puppeteer-core/lib/puppeteer/cdp/IsolatedWorld.js:104:16)\n    at async CdpFrame.evaluate (file:///C:/Users/vikra/Desktop/Claude-Sandbox-MSI/bench/node_modules/puppeteer-core/lib/puppeteer/api/Frame.js:364:20)\n    at async CdpPage.evaluate (file:///C:/Users/vikra/Desktop/Claude-Sandbox-MSI/bench/node_modules/puppeteer-core/lib/puppeteer/api/Page.js:832:20)\n    at async file:///C:/Users/vikra/Documents/GitHub/globalgrid2050/testcode/202609142202/proof/review2_check.mjs:101:5",
+ "portStillListening": false,
+ "finished_utc": "2026-09-14T23:26:04.922Z"
+}

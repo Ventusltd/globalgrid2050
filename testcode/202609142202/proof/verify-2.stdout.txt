@@ -1,0 +1,27 @@
+lines.bin 2659760 bytes = 664940 uint32 entries; distinct 128369
+sampling nvidia-smi idle for 6 s (no server, no browser)…
+idle {"n":6,"util_mean":1,"util_min":1,"util_max":1,"mem_mean_MiB":2844,"mem_min_MiB":2834,"mem_max_MiB":2849,"samples":["1%/2849MiB","1%/2849MiB","1%/2849MiB","1%/2849MiB","1%/2834MiB","1%/2834MiB"]}
+desktop page ready in 303 ms
+renderer (fresh ctx): ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)
+renderer (S.renderer): ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)
+console 8 s: {"all":0,"errors":0,"warnings":0,"pageerrors":0,"requestfailed":0,"external":0}
+HUD count 664940 S.seaDrawn 664940 VBO bytes 7979280 lines.bin/4 664940 → true
+fps 1440: {"frames":181,"ms":3013.4,"fps":59.7}
+scrollWidth 1440: 1440
+bloch: before θ 1.2310 φ 2.6590 → during drag θ 1.5910 φ 3.1521 |α|²+|β|²= 1.000000 hand true pass true
+measure after click: Born audit: measured #3859 renderTable: TUNNEL · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash("2026-09-14", 3859, 0) · no valence_repos listed: no repo lit
+click: {"tries":24,"picked":"#97258 · family #72089 renderTable · block Pn (news) · line #97258 appears in 3 families","keyInBin":true,"inRange":true,"panel":{"shown":26,"allExist":true,"exactPrefix":true}}
+search #80299: first Enter → family #80299 haversine · block Gc · 6 entries · search steers, it does not measure: Enter again or tap to collapse
+  atom: null famJoinNote: 
+  second Enter → nothing to measure: this focus has no electron record (search steered, it did not collapse)
+  measure button → nothing to measure: no electron record for this focus (500 of 7,607 atoms carry records)
+  Born audit after: Born audit: measured #3859 renderTable: TUNNEL · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash("2026-09-14", 3859, 0) · no valence_repos listed: no repo lit
+wrote verify-2-1440.png
+phone page ready in 116 ms
+fps 430: {"frames":181,"ms":3011.5,"fps":59.8}
+scrollWidth 430: 430
+wrote verify-2-430.png
+live {"n":29,"util_mean":10.9,"util_min":1,"util_max":18,"mem_mean_MiB":2896,"mem_min_MiB":2843,"mem_max_MiB":2923}
+criteria {"c1_renderer_names_gpu":true,"c2_no_console_errors":true,"c3_hud_count_matches_lines_bin":true,"c5_scrollWidth_430":true,"c6_click_then_measurement":true,"c7_haversine_80299_born_measured":false,"c7_haversine_80299_steered":true,"c8_bloch_drag":true}
+PASS (strict wording): false
+wrote proof/verify-2.json

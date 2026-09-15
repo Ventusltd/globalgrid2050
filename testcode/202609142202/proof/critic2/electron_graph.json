@@ -1,0 +1,2494 @@
+{
+  "schema": "electron-graph.v1",
+  "label": "The Electron star",
+  "generated_utc": "2026-09-13T22:58:44.770Z",
+  "note": "Souls as atoms; shells K/L/M = callers in the same directory / repo / other repos; BONDS_WITH = a repo that calls the soul without holding a copy (tunnelling).",
+  "focus_default": "#2039 Number",
+  "nodes": [
+    {
+      "label": "#2039 Number",
+      "type": "conductor",
+      "rag": "amber",
+      "reason": "def · 7 lines · shells K0 L40 M20 · valence 6 · spin unpaired · homes globalgrid2050"
+    },
+    {
+      "label": "#6554 centre",
+      "type": "conductor",
+      "rag": "green",
+      "reason": "def · 16 lines · shells K0 L0 M60 · valence 5 · spin paired · homes pipelinenews"
+    },
+    {
+      "label": "#8421 function",
+      "type": "conductor",
+      "rag": "green",
+      "reason": "def · 5 lines · shells K0 L0 M60 · valence 5 · spin paired · homes testcode"
+    },
+    {
+      "label": "#766 geometry",
+      "type": "conductor",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K0 L0 M9 · valence 5 · spin paired · homes data-federation-map-for-globalgrid2050-all-repos"
+    },
+    {
+      "label": "#7846 cable",
+      "type": "conductor",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K0 L0 M36 · valence 4 · spin paired · homes solar-electrical-topology-analysis-engine-text-based"
+    },
+    {
+      "label": "#2138 files",
+      "type": "conductor",
+      "rag": "green",
+      "reason": "def · 4 lines · shells K2 L0 M6 · valence 4 · spin paired · homes globalgrid2050"
+    },
+    {
+      "label": "#5246 finding",
+      "type": "conductor",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K1 L0 M5 · valence 4 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#8297 header",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K0 L0 M60 · valence 3 · spin paired · homes teleprinter"
+    },
+    {
+      "label": "#4402 category",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K0 L17 M38 · valence 3 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#8099 mount",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K1 L0 M35 · valence 3 · spin paired · homes spiders"
+    },
+    {
+      "label": "#3978 click",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 47 lines · shells K3 L2 M14 · valence 3 · spin paired · homes globalgrid2050,teleprinter,testcode"
+    },
+    {
+      "label": "#7335 child",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "def · 4 lines · shells K0 L0 M6 · valence 3 · spin paired · homes solar-electrical-topology-analysis-engine-text-based"
+    },
+    {
+      "label": "#4674 encode",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K0 L2 M3 · valence 3 · spin paired · homes gridatlas · says: Absent crypto is NOT a mismatch. -----------------------------------------------"
+    },
+    {
+      "label": "#3606 release",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 8 lines · shells K0 L0 M3 · valence 3 · spin paired · homes globalgrid2050,gridatlas,testcode"
+    },
+    {
+      "label": "#4076 reset",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K0 L59 M61 · valence 2 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3615 array",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K0 L58 M61 · valence 2 · spin paired · homes globalgrid2050,gridatlas,testcode · says: holds the layer groups, so gridHead never enters the 2-column flow"
+    },
+    {
+      "label": "#3616 cleanText",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K0 L52 M61 · valence 2 · spin paired · homes globalgrid2050,gridatlas,testcode"
+    },
+    {
+      "label": "#4568 outcome",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K0 L24 M36 · valence 2 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#5214 grab",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 8 lines · shells K0 L1 M59 · valence 2 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#5403 nativeFetch",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 9 lines · shells K0 L10 M50 · valence 2 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#8351 assess",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 21 lines · shells K0 L28 M32 · valence 2 · spin paired · homes testcode"
+    },
+    {
+      "label": "#8398 tool",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K0 L0 M60 · valence 2 · spin paired · homes testcode · says: github.com/Ventusltd/layout-tool.git',commit:char.repeat(40),release:'2026090519"
+    },
+    {
+      "label": "#8552 compute",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 6 lines · shells K0 L0 M60 · valence 2 · spin paired · homes ventus-grid-engine"
+    },
+    {
+      "label": "#3262 startCableRouteMode",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K0 L23 M20 · valence 2 · spin paired · homes globalgrid2050"
+    },
+    {
+      "label": "#3263 finishCableRouteMode",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K0 L23 M20 · valence 2 · spin paired · homes globalgrid2050"
+    },
+    {
+      "label": "#3265 addCableRouteWaypoint",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K0 L23 M20 · valence 2 · spin paired · homes globalgrid2050"
+    },
+    {
+      "label": "#5909 projects",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 19 lines · shells K0 L7 M32 · valence 2 · spin paired · homes pipelinenews"
+    },
+    {
+      "label": "#8630 getLayerConfig",
+      "type": "halogen",
+      "rag": "amber",
+      "reason": "function · 3 lines · shells K0 L0 M19 · valence 2 · spin unpaired · homes youengineer-code-review"
+    },
+    {
+      "label": "#346 fetcher",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "def · 16 lines · shells K0 L0 M16 · valence 2 · spin paired · homes claude"
+    },
+    {
+      "label": "#6847 cell",
+      "type": "halogen",
+      "rag": "amber",
+      "reason": "arrow · 3 lines · shells K0 L0 M12 · valence 2 · spin unpaired · homes pipelinenews-gridatlas-20260906 · says: Preserve official strings. Neutralise spreadsheet formula interpretation only in"
+    },
+    {
+      "label": "#7050 clamp",
+      "type": "halogen",
+      "rag": "amber",
+      "reason": "arrow · 2 lines · shells K0 L1 M6 · valence 2 · spin unpaired · homes solar-electrical-topology-analysis-engine-text-based"
+    },
+    {
+      "label": "#3571 network",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "arrow · 4 lines · shells K0 L1 M3 · valence 2 · spin paired · homes globalgrid2050,gridatlas,testcode"
+    },
+    {
+      "label": "#6743 cartridge",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "def · 14 lines · shells K0 L1 M3 · valence 2 · spin paired · homes pipelinenews"
+    },
+    {
+      "label": "#8538 quote",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "function · 15 lines · shells K0 L2 M2 · valence 2 · spin paired · homes ventus-grid-engine · says: The one line a card may print for ONE named metric of a record. Always the label"
+    },
+    {
+      "label": "#980 cells",
+      "type": "halogen",
+      "rag": "amber",
+      "reason": "def · 5 lines · shells K0 L0 M2 · valence 2 · spin unpaired · homes data-grid-gb"
+    },
+    {
+      "label": "#5490 pair",
+      "type": "halogen",
+      "rag": "amber",
+      "reason": "arrow · 38 lines · shells K0 L0 M2 · valence 2 · spin unpaired · homes gridatlas · says: C: a transformer row carries its own rating and ratio; nothing is reconstructed "
+    },
+    {
+      "label": "#6974 log_message",
+      "type": "halogen",
+      "rag": "green",
+      "reason": "def · 3 lines · shells K0 L0 M2 · valence 2 · spin paired · homes solar-electrical-topology-analysis-engine-text-based"
+    },
+    {
+      "label": "#4299 fetchImpl",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 5 lines · shells K0 L59 M60 · valence 1 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4093 dispose",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K0 L57 M60 · valence 1 · spin paired · homes globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#4336 capacity",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 8 lines · shells K0 L53 M61 · valence 1 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4621 graph",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 25 lines · shells K27 L26 M60 · valence 1 · spin paired · homes gridatlas,ventus-grid-engine · says: The adjacency, handed out rather than rebuilt. ---------------------------------"
+    },
+    {
+      "label": "#1197 migrateFinanceUnitsToWp",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 4 lines · shells K2 L43 M44 · valence 1 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#4364 schedule",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K7 L60 M1 · valence 1 · spin paired · homes globalgrid2050 · says: requestAnimationFrame does not fire in a background tab, so a reader who opens t"
+    },
+    {
+      "label": "#4711 waitForResolvedIdentity",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 37 lines · shells K27 L0 M34 · valence 1 · spin paired · homes gridatlas · says: ── arrival by identity ───────────────────────────────────────────── The search "
+    },
+    {
+      "label": "#2926 indexed",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 13 lines · shells K0 L34 M26 · valence 1 · spin paired · homes globalgrid2050"
+    },
+    {
+      "label": "#2966 composition",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 9 lines · shells K0 L34 M26 · valence 1 · spin paired · homes globalgrid2050"
+    },
+    {
+      "label": "#4538 nearest",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 28 lines · shells K0 L0 M60 · valence 1 · spin paired · homes grid-distance-maths"
+    },
+    {
+      "label": "#5324 element",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 14 lines · shells K0 L0 M60 · valence 1 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#1822 createGeoJSONCircle",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 14 lines · shells K10 L19 M21 · valence 1 · spin unpaired · homes globalgrid2050,gridatlas · says: Geodesic circle — uses bearing projection (same method as _zoneDrawCirclePoints)"
+    },
+    {
+      "label": "#1792 _zoneDrawCirclePoints",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 12 lines · shells K10 L19 M20 · valence 1 · spin unpaired · homes globalgrid2050,gridatlas"
+    },
+    {
+      "label": "#1793 _zoneDrawCalcArea",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 16 lines · shells K10 L19 M20 · valence 1 · spin unpaired · homes globalgrid2050,gridatlas"
+    },
+    {
+      "label": "#1811 updateMeasureDisplay",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 47 lines · shells K10 L19 M20 · valence 1 · spin unpaired · homes globalgrid2050,gridatlas"
+    },
+    {
+      "label": "#1817 doRadiusAreaMeasure",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 43 lines · shells K10 L19 M20 · valence 1 · spin unpaired · homes globalgrid2050,gridatlas"
+    },
+    {
+      "label": "#4340 passed",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 4 lines · shells K0 L21 M23 · valence 1 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1724 centroid",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 3 lines · shells K16 L16 M1 · valence 1 · spin unpaired · homes globalgrid2050"
+    },
+    {
+      "label": "#4624 crossing",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 10 lines · shells K6 L9 M10 · valence 1 · spin unpaired · homes gridatlas,ventus-grid-engine · says: A traversal must not invent a voltage, so the two ends of an edge are compared o"
+    },
+    {
+      "label": "#4646 relation",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 4 lines · shells K5 L6 M4 · valence 1 · spin unpaired · homes gridatlas · says: The owner of a NODE, from the node record and nowhere else. The graph does not h"
+    },
+    {
+      "label": "#401 head_sha",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 7 lines · shells K0 L0 M11 · valence 1 · spin unpaired · homes claude"
+    },
+    {
+      "label": "#5372 measured",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 4 lines · shells K7 L0 M1 · valence 1 · spin paired · homes gridatlas · says: Every check below states its own reason when the product could not be read, rath"
+    },
+    {
+      "label": "#2055 union",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 17 lines · shells K0 L0 M7 · valence 1 · spin unpaired · homes globalgrid2050"
+    },
+    {
+      "label": "#4804 answer",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K6 L0 M1 · valence 1 · spin paired · homes gridatlas · says: The connection v9.148 built and left unplugged. --------------------------------"
+    },
+    {
+      "label": "#8209 body",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K0 L0 M6 · valence 1 · spin paired · homes star-maker"
+    },
+    {
+      "label": "#537 query",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 16 lines · shells K0 L0 M5 · valence 1 · spin paired · homes claude · says: HEALTH: read back from the map, never from our own flag. */ function health() { "
+    },
+    {
+      "label": "#5096 classified",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 4 lines · shells K2 L0 M3 · valence 1 · spin unpaired · homes gridatlas"
+    },
+    {
+      "label": "#5587 dump",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 4 lines · shells K0 L0 M5 · valence 1 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#6161 item",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 4 lines · shells K3 L1 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#4942 sourceId",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 3 lines · shells K0 L3 M1 · valence 1 · spin unpaired · homes gridatlas"
+    },
+    {
+      "label": "#5556 sha256PublishedFile",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 9 lines · shells K3 L0 M1 · valence 1 · spin unpaired · homes gridatlas"
+    },
+    {
+      "label": "#2141 scripts",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 4 lines · shells K2 L0 M1 · valence 1 · spin paired · homes globalgrid2050"
+    },
+    {
+      "label": "#3573 published",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "arrow · 6 lines · shells K0 L1 M2 · valence 1 · spin unpaired · homes globalgrid2050,gridatlas,testcode"
+    },
+    {
+      "label": "#3579 ratings",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 6 lines · shells K0 L1 M2 · valence 1 · spin paired · homes globalgrid2050,gridatlas,testcode · says: Seasonal ratings, per circuit, never added together. ---------------------------"
+    },
+    {
+      "label": "#3979 detach",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 7 lines · shells K1 L0 M2 · valence 1 · spin paired · homes globalgrid2050,teleprinter,testcode"
+    },
+    {
+      "label": "#5547 writeText",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K2 L0 M1 · valence 1 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#8299 writeSourceCodeBundle",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 10 lines · shells K2 L0 M1 · valence 1 · spin paired · homes teleprinter · says: Re-read Git objects and require the entire canonical bundle, including omissions"
+    },
+    {
+      "label": "#8391 buildNavigationRegistry",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 41 lines · shells K1 L1 M1 · valence 1 · spin paired · homes testcode · says: Resolve actual composed destinations; historical navigation declarations remain "
+    },
+    {
+      "label": "#8493 auditProjectRows",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 30 lines · shells K0 L2 M1 · valence 1 · spin paired · homes ventus-grid-engine · says: The query: every project row that carries an REPD identity, and the link it shou"
+    },
+    {
+      "label": "#411 cartridges",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 41 lines · shells K0 L0 M2 · valence 1 · spin paired · homes claude"
+    },
+    {
+      "label": "#4870 savePdf",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 33 lines · shells K0 L1 M1 · valence 1 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#5885 groupFor",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 5 lines · shells K0 L0 M2 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#8298 verifySourceCodeBundleAgainstRepository",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K1 L0 M1 · valence 1 · spin paired · homes teleprinter · says: Re-read Git objects and require the entire canonical bundle, including omissions"
+    },
+    {
+      "label": "#8436 overlap",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 2 lines · shells K0 L0 M2 · valence 1 · spin paired · homes testcode"
+    },
+    {
+      "label": "#8445 distance",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K1 L0 M1 · valence 1 · spin paired · homes testcode"
+    },
+    {
+      "label": "#8492 isRetiredReceiver",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K0 L1 M1 · valence 1 · spin paired · homes ventus-grid-engine · says: True if a base is a receiver that cannot honour a deep link. Trailing slashes an"
+    },
+    {
+      "label": "#190 replay",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 3 lines · shells K0 L0 M1 · valence 1 · spin paired · homes chatgpt-audits"
+    },
+    {
+      "label": "#352 sweep",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 112 lines · shells K0 L0 M1 · valence 1 · spin paired · homes claude"
+    },
+    {
+      "label": "#1431 modules",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 6 lines · shells K0 L0 M1 · valence 1 · spin paired · homes globalgrid2050 · says: ventusltd.github.io/ventus-grid-engine/engine/';"
+    },
+    {
+      "label": "#4466 words",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 5 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes gpu-drivers-for-global-grid"
+    },
+    {
+      "label": "#4569 success",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 3 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes gridatlas"
+    },
+    {
+      "label": "#4843 envelope",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 19 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes gridatlas"
+    },
+    {
+      "label": "#5253 evidence",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "arrow · 3 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes gridatlas"
+    },
+    {
+      "label": "#5439 title",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 31 lines · shells K0 L0 M1 · valence 1 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#5440 panel",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 30 lines · shells K0 L0 M1 · valence 1 · spin paired · homes gridatlas"
+    },
+    {
+      "label": "#5726 counts",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "arrow · 16 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#5889 authority",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "arrow · 4 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#5914 repoUrl",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 6 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#6580 curvature",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 7 lines · shells K0 L0 M1 · valence 1 · spin paired · homes pipelinenews · says: index cell, degrees"
+    },
+    {
+      "label": "#6588 nearest_segment",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 54 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#6589 nearest_substations",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 44 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#6652 megawatts",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 7 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#6688 releases",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "def · 11 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews"
+    },
+    {
+      "label": "#7851 available",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 7 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes solar-electrical-topology-analysis-engine-text-based"
+    },
+    {
+      "label": "#7945 notify",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "function · 4 lines · shells K0 L0 M1 · valence 1 · spin paired · homes solar-electrical-topology-analysis-engine-text-based"
+    },
+    {
+      "label": "#8336 publishes",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "arrow · 9 lines · shells K0 L0 M1 · valence 1 · spin paired · homes testcode · says: A file is published if the homepage links it, or links a directory it sits under"
+    },
+    {
+      "label": "#8341 blocks",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "arrow · 7 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes testcode · says: The last line that says something. A gate's own summary is better evidence than "
+    },
+    {
+      "label": "#8471 edit",
+      "type": "alkali",
+      "rag": "green",
+      "reason": "def · 3 lines · shells K0 L0 M1 · valence 1 · spin paired · homes testcode"
+    },
+    {
+      "label": "#8579 drawLegend",
+      "type": "alkali",
+      "rag": "red",
+      "reason": "function · 25 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes youengineer-code-review"
+    },
+    {
+      "label": "#1529 invariant",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K61 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews,ventus-grid-engine · says: ventusltd.github.io/gridatlas/202608300453-atlas-v9/\",\"source_commit\":\"4f3e8fc5c"
+    },
+    {
+      "label": "#3360 sharedDuckDBRuntime",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 27 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode · says: ONE DuckDB runtime for the whole page. Duplicated verbatim from 202608301825-str"
+    },
+    {
+      "label": "#3366 rowObject",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode"
+    },
+    {
+      "label": "#3705 round2",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3709 fetchRelease",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3800 signalLabel",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 10 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3805 validPayload",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3806 payloadTime",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 4 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3807 fetchPayload",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3810 refreshProjects",
+      "type": "noble",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3812 indexNewsItems",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 13 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3818 payloadTime",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 4 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3869 updateResultSummary",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 8 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3880 repdUpdatedTimestamp",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#4281 layoutSnapshot",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 20 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4282 assertContained",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4317 readText",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 4 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4318 readJson",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 3 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1209 intVal",
+      "type": "noble",
+      "rag": "green",
+      "reason": "arrow · 4 lines · shells K57 L60 M60 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#1683 declineExport",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 30 lines · shells K54 L61 M61 · valence 0 · spin paired · homes globalgrid2050,pipelinenews · says: A column counts as fillable only if EVERY row on screen has it. REPD ref and cou"
+    },
+    {
+      "label": "#1686 carried",
+      "type": "noble",
+      "rag": "green",
+      "reason": "arrow · 37 lines · shells K54 L61 M61 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4320 gitBlob",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K57 L58 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4304 readText",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 52 lines · shells K53 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4305 readJson",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 51 lines · shells K53 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4312 readText",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 6 lines · shells K53 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4313 readJson",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 5 lines · shells K53 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4315 readText",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 7 lines · shells K53 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#4316 readJson",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 6 lines · shells K53 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1531 finiteInRange",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K52 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,ventus-grid-engine · says: Finite, in-range coordinate. Anything else means we do not emit one. */"
+    },
+    {
+      "label": "#1533 selfTest",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 57 lines · shells K52 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews,ventus-grid-engine · says: Self-test. Pure, no IO, no network. Callable from a build step or a verifier. Re"
+    },
+    {
+      "label": "#1211 setText",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 4 lines · shells K52 L60 M60 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#1532 buildAtlasV9DeepLink",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 32 lines · shells K51 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews,ventus-grid-engine · says: Finite, in-range coordinate. Anything else means we do not emit one. */ function"
+    },
+    {
+      "label": "#1465 validateAsset",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1467 loadPayload",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1468 renderRows",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 26 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#3789 formatCapacityV9_2",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3790 formatLargestV9_2",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3792 setGaugeUniverseV9_2",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3793 updateGaugesV9_2",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 20 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#4272 preparePage",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 18 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews · says: 127.0.0.1:8765/uk_renewables_pipeline/v7/\";"
+    },
+    {
+      "label": "#1470 invariant",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K49 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,gridatlas,pipelinenews,testcode"
+    },
+    {
+      "label": "#1476 invariant",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K49 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1535 invariant",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K49 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1233 recalcAll",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 14 lines · shells K47 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode · says: ============================================================ MAIN RECALC ======="
+    },
+    {
+      "label": "#3845 signalForProject",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 18 lines · shells K48 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#1463 installStyles",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 25 lines · shells K46 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1676 writeDeepLink",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K45 L61 M61 · valence 0 · spin paired · homes globalgrid2050,pipelinenews · says: The five values the spine's own TECHNOLOGIES whitelist admits. Listed here for o"
+    },
+    {
+      "label": "#1677 selectTechnology",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 17 lines · shells K45 L61 M61 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1464 sha256Hex",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 4 lines · shells K46 L60 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#3801 signalForProjectV9_2",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 18 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3804 renderNews",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 11 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3817 validPayload",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 14 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3819 fetchPayload",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3820 renderNews",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3827 renderNews",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3828 validPayload",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3829 fetchPayload",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3848 renderNews",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K45 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3707 loadCanonicalProjectsV9_1",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 56 lines · shells K44 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#1200 renderFinance",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 20 lines · shells K42 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1232 updateSelectedSubstationDisplay",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 14 lines · shells K42 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1530 buildAtlasV9DeepLink",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K43 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1469 select",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 23 lines · shells K42 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1542 select",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 26 lines · shells K42 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1684 clearWider",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 11 lines · shells K41 L61 M61 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1201 renderFinanceWarnings",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 45 lines · shells K40 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1219 toggleAtlasV8GridLayer",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K39 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#3799 indexNewsItems",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 15 lines · shells K40 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3816 drawNewsV9_5_1",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 18 lines · shells K40 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#1567 select",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 17 lines · shells K39 L61 M60 · valence 0 · spin unpaired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1680 presentSummary",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 21 lines · shells K39 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1206 setFetchStatus",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 15 lines · shells K37 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#3725 deepFreeze",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K38 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#1205 pickProp",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K36 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#1218 toggleAtlasV8OperatingAssetLayer",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K36 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1666 bindWiderFleet",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 10 lines · shells K37 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1179 computeStats",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K35 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1199 computeFinance",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 97 lines · shells K32 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1220 initMap",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 22 lines · shells K32 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1231 renderBenchmark",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K32 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1241 updateArrayRotationDisplay",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K32 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1236 updateLegend",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 29 lines · shells K31 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1240 updateExportCableLengthDisplay",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K31 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode · says: ============================================================ SAFE EXPORT CABLE L"
+    },
+    {
+      "label": "#1248 updateCableRouteStatus",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 18 lines · shells K31 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1191 computeAndDraw",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 143 lines · shells K30 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#4114 mountMapControlsLayout",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 47 lines · shells K30 L61 M61 · valence 0 · spin paired · homes globalgrid2050,testcode · says: Layout-only successor: preserve the existing tool, Layers and menu handlers. */"
+    },
+    {
+      "label": "#1222 showPopup",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K29 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#3570 cancel",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 1 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode"
+    },
+    {
+      "label": "#3706 fetchJson",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3734 fetchJson",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 25 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3738 classifyRegionalV9_7",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 32 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3748 hasValidatedModel",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3754 createCanonicalProjectControls",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 19 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3764 hasValidatedModel",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3769 buildAtlasV8Url",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode · says: The name is kept because the CSV column it feeds is a published contract pinned "
+    },
+    {
+      "label": "#3786 setGaugeUniverseV9_1",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 3 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3787 updateGaugesV9_1",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 12 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3811 canonicalItem",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3813 signalForProjectV9_5_1",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 8 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3821 loadNewsV9_5_1",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 12 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3822 bindNewspaperV9_5_1",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 15 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3823 canonicalItem",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3824 signalForProjectV9_5",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 13 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,testcode"
+    },
+    {
+      "label": "#3832 queryMatches",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 8 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3833 regionalRows",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3834 drawRegional",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 13 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3838 queryMatches",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 8 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3839 regionalRows",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 8 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3840 drawRegional",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 13 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3855 drawProjectTable",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 13 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#1175 getCentralInverterDcMwdc",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 4 lines · shells K28 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode"
+    },
+    {
+      "label": "#1228 normaliseSubstations",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 53 lines · shells K28 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode · says: GIS SLD Financial Sandbox V7 Substation data loading extracted by GridBot featur"
+    },
+    {
+      "label": "#1230 renderTechSummary",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 33 lines · shells K28 L61 M61 · valence 0 · spin paired · homes gis-sld-sandbox,globalgrid2050,testcode · says: RENDER TECHNICAL SUMMARY ======================================================="
+    },
+    {
+      "label": "#3969 decodePngPixels",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 94 lines · shells K31 L58 M61 · valence 0 · spin paired · homes globalgrid2050,teleprinter,testcode · says: Unsupported valid PNG sample formats return null; invalid/corrupt PNGs throw. */"
+    },
+    {
+      "label": "#4034 captureGeometry",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K31 L58 M61 · valence 0 · spin paired · homes globalgrid2050,teleprinter,testcode · says: Match the renderer's integer backing-store contract without rescaling pixels. */"
+    },
+    {
+      "label": "#4035 assertStableGeometry",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 4 lines · shells K31 L58 M61 · valence 0 · spin paired · homes globalgrid2050,teleprinter,testcode"
+    },
+    {
+      "label": "#4037 cloneVisiblePrinterUi",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 28 lines · shells K30 L59 M61 · valence 0 · spin paired · homes globalgrid2050,teleprinter,testcode · says: Transfer the printer's visible shadow UI without leaking its CSS into the app. *"
+    },
+    {
+      "label": "#1 clampInteger",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#4 normaliseBurialDepthFieldOnBlur",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 9 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#5 normaliseIntegerFields",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 14 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#6 getInputs",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 18 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#8 computeLayout",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 34 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#9 buildReview",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 45 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#10 lookupOD",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 45 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#13 renderStatus",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#14 renderIssues",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 16 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#19 drawFormation",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 63 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#20 drawTrench",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 87 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#21 drawBend",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 72 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#22 buildSnapshot",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 67 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable-trench-or-drill,globalgrid2050,layout-tool,testcode"
+    },
+    {
+      "label": "#1687 visible",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "arrow · 13 lines · shells K31 L57 M61 · valence 0 · spin paired · homes globalgrid2050,pipelinenews"
+    },
+    {
+      "label": "#1483 displayDate",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K27 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#1497 setButtonState",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K27 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#1504 csvCell",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 5 lines · shells K27 L61 M60 · valence 0 · spin paired · homes globalgrid2050,pipelinenews,testcode"
+    },
+    {
+      "label": "#3402 classOf",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 7 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode"
+    },
+    {
+      "label": "#3403 scope",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 89 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode · says: @param origin [lon, lat] @param substations [{ at:[lon,lat], kv:[numbers], name,"
+    },
+    {
+      "label": "#3404 survey",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 35 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode · says: Withheld is its own state: the product was reached and was not the schema this c"
+    },
+    {
+      "label": "#3405 ready",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 6 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode · says: Written as a sentence here so a card cannot compose its own and get it wrong, an"
+    },
+    {
+      "label": "#3406 provisional",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 21 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode · says: Public works at named substations, shown wherever the name is - the \"customer an"
+    },
+    {
+      "label": "#3408 nearestTransmission",
+      "type": "ambiguous",
+      "rag": "green",
+      "reason": "function · 29 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode · says: The nearest transmission (>= 400 kV) substation in the payload, and separately t"
+    },
+    {
+      "label": "#3409 physicalInputs",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 13 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode,ventus-grid-engine"
+    },
+    {
+      "label": "#3411 consistency",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 70 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode,ventus-grid-engine"
+    },
+    {
+      "label": "#3412 stringStats",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 23 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode,ventus-grid-engine"
+    },
+    {
+      "label": "#3413 centralStats",
+      "type": "noble",
+      "rag": "green",
+      "reason": "function · 67 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globalgrid2050,gridatlas,testcode,ventus-grid-engine"
+    },
+    {
+      "label": "repo cable-trench-or-drill",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo claude",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo crm",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo cvaa",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo gis-sld-sandbox",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo globalgrid2050",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo gridatlas",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo solar-electrical-topology-analysis-engine-text-based",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo spiders",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo testcode",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo gb-electricity-ui",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo ventus-grid-engine",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo youengineer-code-review",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo layout-tool",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo data-gridatlas",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo pipelinenews",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo star-maker",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo teleprinter",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo v11",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo gpu-drivers-for-global-grid",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo grid-distance-maths",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    },
+    {
+      "label": "repo gridmachine1",
+      "type": "repo",
+      "rag": "green",
+      "reason": "holds no copy of the souls it bonds with — every bond is a tunnel"
+    }
+  ],
+  "edges": [
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#2039 Number",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#2039 Number",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo crm",
+      "to": "#2039 Number",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cvaa",
+      "to": "#2039 Number",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "to": "#2039 Number",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gis-sld-sandbox",
+      "to": "#2039 Number",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#6554 centre",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#6554 centre",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo solar-electrical-topology-analysis-engine-text-based",
+      "to": "#6554 centre",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#6554 centre",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#6554 centre",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#8421 function",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "to": "#8421 function",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gb-electricity-ui",
+      "to": "#8421 function",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gis-sld-sandbox",
+      "to": "#8421 function",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8421 function",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#766 geometry",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo solar-electrical-topology-analysis-engine-text-based",
+      "to": "#766 geometry",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#766 geometry",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#766 geometry",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo youengineer-code-review",
+      "to": "#766 geometry",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#7846 cable",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#7846 cable",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo layout-tool",
+      "to": "#7846 cable",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#7846 cable",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo data-gridatlas",
+      "to": "#2138 files",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#2138 files",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#2138 files",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#2138 files",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#5246 finding",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cvaa",
+      "to": "#5246 finding",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#5246 finding",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo star-maker",
+      "to": "#5246 finding",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8297 header",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#8297 header",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#8297 header",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#4402 category",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo layout-tool",
+      "to": "#4402 category",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#4402 category",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8099 mount",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#8099 mount",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo teleprinter",
+      "to": "#8099 mount",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#3978 click",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#3978 click",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#3978 click",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#7335 child",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#7335 child",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#7335 child",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#4674 encode",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gis-sld-sandbox",
+      "to": "#4674 encode",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo layout-tool",
+      "to": "#4674 encode",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#3606 release",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#3606 release",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#3606 release",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#4076 reset",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#4076 reset",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#3615 array",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#3615 array",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#3616 cleanText",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#3616 cleanText",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#4568 outcome",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#4568 outcome",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#5214 grab",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#5214 grab",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#5403 nativeFetch",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#5403 nativeFetch",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#8351 assess",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8351 assess",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8398 tool",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#8398 tool",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8552 compute",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#8552 compute",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gis-sld-sandbox",
+      "to": "#3262 startCableRouteMode",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#3262 startCableRouteMode",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gis-sld-sandbox",
+      "to": "#3263 finishCableRouteMode",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#3263 finishCableRouteMode",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gis-sld-sandbox",
+      "to": "#3265 addCableRouteWaypoint",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#3265 addCableRouteWaypoint",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#5909 projects",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#5909 projects",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8630 getLayerConfig",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#8630 getLayerConfig",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#346 fetcher",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#346 fetcher",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#6847 cell",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#6847 cell",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#7050 clamp",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo v11",
+      "to": "#7050 clamp",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#3571 network",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#3571 network",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#6743 cartridge",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#6743 cartridge",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo data-gridatlas",
+      "to": "#8538 quote",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8538 quote",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#980 cells",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#980 cells",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#5490 pair",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#5490 pair",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gpu-drivers-for-global-grid",
+      "to": "#6974 log_message",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#6974 log_message",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#4299 fetchImpl",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#4093 dispose",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#4336 capacity",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#4621 graph",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#1197 migrateFinanceUnitsToWp",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#4364 schedule",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#4711 waitForResolvedIdentity",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#2926 indexed",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#2966 composition",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#4538 nearest",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#5324 element",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#1822 createGeoJSONCircle",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#1792 _zoneDrawCirclePoints",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#1793 _zoneDrawCalcArea",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#1811 updateMeasureDisplay",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#1817 doRadiusAreaMeasure",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#4340 passed",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#1724 centroid",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cable-trench-or-drill",
+      "to": "#4624 crossing",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#4646 relation",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#401 head_sha",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#5372 measured",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#2055 union",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#4804 answer",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#8209 body",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#537 query",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#5096 classified",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#5587 dump",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#6161 item",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo youengineer-code-review",
+      "to": "#4942 sourceId",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#5556 sha256PublishedFile",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#2141 scripts",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#3573 published",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#3579 ratings",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#3979 detach",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo teleprinter",
+      "to": "#5547 writeText",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#8299 writeSourceCodeBundle",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo teleprinter",
+      "to": "#8391 buildNavigationRegistry",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#8493 auditProjectRows",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#411 cartridges",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#4870 savePdf",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#5885 groupFor",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#8298 verifySourceCodeBundleAgainstRepository",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridatlas",
+      "to": "#8436 overlap",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8445 distance",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#8492 isRetiredReceiver",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#190 replay",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo grid-distance-maths",
+      "to": "#352 sweep",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#1431 modules",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#4466 words",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#4569 success",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo pipelinenews",
+      "to": "#4843 envelope",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#5253 evidence",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo teleprinter",
+      "to": "#5439 title",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#5440 panel",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#5726 counts",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#5889 authority",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo data-federation-map-for-globalgrid2050-all-repos",
+      "to": "#5914 repoUrl",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo gridmachine1",
+      "to": "#6580 curvature",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#6588 nearest_segment",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#6589 nearest_substations",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#6652 megawatts",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#6688 releases",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo cvaa",
+      "to": "#7851 available",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo testcode",
+      "to": "#7945 notify",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo ventus-grid-engine",
+      "to": "#8336 publishes",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo claude",
+      "to": "#8341 blocks",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo spiders",
+      "to": "#8471 edit",
+      "kind": "BONDS_WITH"
+    },
+    {
+      "from": "repo globalgrid2050",
+      "to": "#8579 drawLegend",
+      "kind": "BONDS_WITH"
+    }
+  ]
+}

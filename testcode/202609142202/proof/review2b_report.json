@@ -1,0 +1,145 @@
+{
+ "url": "http://127.0.0.1:8871/testcode/202609142202/index.html",
+ "started_utc": "2026-09-14T23:27:20.096Z",
+ "desktop": {
+  "forgedBucket": {
+   "cableLine": "cable: on · live bucket 12: #6076 Number · 3 lines · 3 repos · came down the cable in 2 ms · 261 bytes · sha256 MISMATCH: live f7b12c470893… vs pack 723c4d42d58a… (fetched 2026-09-14T22:13:56.981Z) · the collapse is a 120 ms animation; the record came down the cable in 2 ms · no information travelled by entanglement",
+   "liveRec": {
+    "n": 6076,
+    "lines": 3,
+    "repos": 3
+   },
+   "lineText": {
+    "note": "came down the cable in 14 ms from Ventusltd/globalgrid2050@1a382b7 scripts/build_news_feed_v9_5_1.py L97-L101 · bucket 12: sha256 MISMATCH: live f7b12c470893… vs pack 723c4d42d58a… (fetched 2026-09-14T22:13:56.981Z) · no information travelled by entanglement",
+    "linesShown": 3,
+    "lines": [
+     "1 │ DUMMY LINE 97 (answered locally by the review probe, not GitHub)",
+     "2 │ DUMMY LINE 98 (answered locally by the review probe, not GitHub)",
+     "3 │ DUMMY LINE 99 (answered locally by the review probe, not GitHub)"
+    ]
+   },
+   "intercepted": [
+    {
+     "url": "https://ventusltd.github.io/stars/code/f/12.json",
+     "answered": "locally with a forged bucket (3 lines, 3 repos)"
+    },
+    {
+     "url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/1a382b71b99cdf3592f15024aabab244ba6fc31e/scripts/build_news_feed_v9_5_1.py",
+     "answered": "locally with dummy text"
+    }
+   ]
+  },
+  "contextLoss": {
+   "isContextLost": true,
+   "hudOnGPU": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+   "hudFps": "fps 60 (1 s mean) · draw calls 12 · DPR 1",
+   "hudMentionsLoss": false,
+   "errorsDuringLoss": 0,
+   "afterRestore": {
+    "isContextLost": true,
+    "seaBufferSizeAfterRestore": null,
+    "hudOnGPU": "on GPU: 664,940 line entries · 128,369 distinct permanent numbers · index.json states 250,174 (not reproducible from the published buckets; both printed, neither invented)",
+    "hudFps": "fps 60 (1 s mean) · draw calls 10 · DPR 1",
+    "litPixelsAroundSphere64x64": 0,
+    "lastDrawCalls": 10
+   },
+   "errorsAfterRestore2s": 0,
+   "errorSample": []
+  },
+  "externalRequestsTotal": 2,
+  "externalHosts": [
+   "ventusltd.github.io",
+   "raw.githubusercontent.com"
+  ],
+  "interceptedCount": 2
+ },
+ "phone": {
+  "portrait": {
+   "viewport": [
+    430,
+    900
+   ],
+   "phoneMediaNow": true,
+   "canvasCss": {
+    "l": 11,
+    "t": 395,
+    "w": 408,
+    "h": 860
+   },
+   "c0css": [
+    204,
+    215
+   ],
+   "c1css": [
+    204,
+    645
+   ],
+   "Rcss": 156,
+   "hudPosition": "static",
+   "sphereHandle": {
+    "l": 155,
+    "t": 550,
+    "w": 120,
+    "h": 120
+   },
+   "scrollWidth": 430,
+   "labelsOutsideCanvas": [],
+   "twinCentreBeyondCanvasBottom": false,
+   "twinBottomEdgeBeyondCanvas": false
+  },
+  "landscapeAfterRotate": {
+   "viewport": [
+    900,
+    430
+   ],
+   "phoneMediaNow": false,
+   "canvasCss": {
+    "l": 17,
+    "t": 226,
+    "w": 866,
+    "h": 301
+   },
+   "c0css": [
+    433,
+    75
+   ],
+   "c1css": [
+    433,
+    226
+   ],
+   "Rcss": 55,
+   "hudPosition": "absolute",
+   "sphereHandle": {
+    "l": 390,
+    "t": 241,
+    "w": 120,
+    "h": 120
+   },
+   "scrollWidth": 900,
+   "labelsOutsideCanvas": [
+    "|0> HOME",
+    "#2039 Number · def · 7 lines ·",
+    "class conductor (7 in ELECTRON",
+    "off table (587 symbols, 1,689 "
+   ],
+   "twinCentreBeyondCanvasBottom": false,
+   "twinBottomEdgeBeyondCanvas": false
+  },
+  "externalRequests": 0,
+  "errors": []
+ },
+ "phone375": {
+  "scrollWidth": 375,
+  "bodyScrollWidth": 375,
+  "controlsInWidth": true,
+  "widest": [],
+  "hudPosition": "static",
+  "seaDrawn": 664940,
+  "seaBytes": 7979280,
+  "fps": "fps 60 (1 s mean) · draw calls 10 · DPR 2",
+  "externalRequests": 0,
+  "errors": []
+ },
+ "portStillListening": false,
+ "finished_utc": "2026-09-14T23:27:48.492Z"
+}

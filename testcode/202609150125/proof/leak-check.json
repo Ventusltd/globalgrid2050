@@ -1,0 +1,123 @@
+{
+ "schema": "globalgrid2050.sector-star.leak-check.v1",
+ "page": "testcode/202609150125",
+ "run_utc": "2026-09-15T01:43:43.778116+00:00",
+ "files_checked": 17,
+ "rules": [
+  "company_suffix",
+  "eight_digit_number",
+  "uk_full_postcode",
+  "at_sign",
+  "url_outside_allow_list",
+  "company_name_from_source"
+ ],
+ "allowed_hosts": [
+  "globalgrid2050.com",
+  "ventusltd.github.io",
+  "api.postcodes.io",
+  "postcodes.io",
+  "www.gov.uk",
+  "gov.uk",
+  "download.companieshouse.gov.uk",
+  "www.companieshouse.gov.uk",
+  "companieshouse.gov.uk",
+  "127.0.0.1",
+  "127.0.0.1:8867",
+  "localhost"
+ ],
+ "company_name_test": {
+  "ran": true,
+  "names_tested": 135062,
+  "names_found_in_public_files": [],
+  "pass": true
+ },
+ "findings": [],
+ "pass": true,
+ "files": [
+  {
+   "file": "data/geography.json",
+   "bytes": 1152154,
+   "hits": null
+  },
+  {
+   "file": "data/provenance.json",
+   "bytes": 6725,
+   "hits": null
+  },
+  {
+   "file": "data/sectors.json",
+   "bytes": 527284,
+   "hits": null
+  },
+  {
+   "file": "index.html",
+   "bytes": 728,
+   "hits": null
+  },
+  {
+   "file": "MODEL.md",
+   "bytes": 7152,
+   "hits": null
+  },
+  {
+   "file": "proof/build.py",
+   "bytes": 36012,
+   "hits": null
+  },
+  {
+   "file": "proof/ci-checks.json",
+   "bytes": 1677,
+   "hits": null
+  },
+  {
+   "file": "proof/headless-check.json",
+   "bytes": 1482,
+   "hits": null
+  },
+  {
+   "file": "proof/headless-check.mjs",
+   "bytes": 4501,
+   "hits": null
+  },
+  {
+   "file": "proof/leak-check.py",
+   "bytes": 6472,
+   "hits": null
+  },
+  {
+   "file": "proof/publish.mjs",
+   "bytes": 3549,
+   "hits": null
+  },
+  {
+   "file": "proof/sector-star-1440.png",
+   "skipped": "not a text file",
+   "bytes": 249203
+  },
+  {
+   "file": "proof/sector-star-430.png",
+   "skipped": "not a text file",
+   "bytes": 154621
+  },
+  {
+   "file": "publication.json",
+   "bytes": 6306,
+   "hits": null
+  },
+  {
+   "file": "README.md",
+   "bytes": 5211,
+   "hits": null
+  },
+  {
+   "file": "star.js",
+   "bytes": 20053,
+   "hits": null
+  },
+  {
+   "file": "style.css",
+   "bytes": 2573,
+   "hits": null
+  }
+ ]
+}

@@ -1,0 +1,185 @@
+{
+ "schema": "globalgrid2050.sector-star.provenance.v1",
+ "page": "testcode/202609150125 - Sector Star",
+ "built_utc": "2026-09-15T01:42:09.884402+00:00",
+ "build_seconds": 3.5,
+ "sources": [
+  {
+   "name": "Companies House Basic Company Data (register snapshot)",
+   "product": "BasicCompanyDataAsOneFile-2026-09-01.zip",
+   "snapshot": "2026-09-01",
+   "documentation": "https://www.gov.uk/government/organisations/companies-house",
+   "fetched_utc": "2026-09-14T19:02:25+00:00"
+  },
+  {
+   "name": "Companies House Accounts Monthly Data (filed accounts, XBRL)",
+   "months": [
+    "April2026",
+    "August2026",
+    "December2025",
+    "February2026",
+    "January2026",
+    "July2026",
+    "June2026",
+    "March2026",
+    "May2026",
+    "November2025",
+    "October2025",
+    "September2025"
+   ],
+   "count_months": 12,
+   "documentation": "https://www.gov.uk/government/organisations/companies-house",
+   "fetched_utc": "2026-09-14T19:02:25+00:00"
+  },
+  {
+   "name": "postcodes.io outcode centroids, region, country and admin county",
+   "url": "https://api.postcodes.io/outcodes/{outcode}",
+   "fetched_utc": "2026-09-15T01:42:09.884402+00:00",
+   "outcodes_requested": 2288,
+   "licence": "Open Government Licence (ONS / Royal Mail open data)"
+  },
+  {
+   "name": "UK SIC 2007 section and division titles (official), Companies House condensed list for class titles",
+   "documentation": "https://www.gov.uk/government/publications/standard-industrial-classification-of-economic-activities-sic"
+  }
+ ],
+ "qualifying_rule": {
+  "statement": "England & Wales active companies with latest filed profit, balance-sheet value OR cash > \u00c2\u00a31,000,000: 135,064",
+  "measures": [
+   "profit before tax (or operating profit / profit after tax where that is the filed measure)",
+   "balance sheet net worth (net assets, else equity)",
+   "cash"
+  ],
+  "threshold_gbp": 1000000,
+  "geography": "England and Wales",
+  "status": "active on the register (including 377 with a proposal to strike off)",
+  "note": "the population includes holding companies and special purpose vehicles as well as trading companies; SIC division 64 and 68 counts show how large that part is"
+ },
+ "counts": {
+  "rows_read_from_source": 135064,
+  "rows_published_as_aggregates": 135064,
+  "rows_dropped": 0,
+  "without_a_parsable_sic_code": 1,
+  "dormant_sic_99999": 343,
+  "without_a_usable_postcode_outcode": 50,
+  "outcodes_in_population": 2288,
+  "outcodes_published": 2138,
+  "outcodes_withheld_n_lt_5_companies": 326,
+  "filing_secr_energy": 23,
+  "filing_co2": 17
+ },
+ "suppression": {
+  "implemented_by": "a single function, cell(), in proof/build.py",
+  "min_n_for_any_cell": 5,
+  "min_n_for_a_sum": 10,
+  "max_single_contributor_share_for_a_sum": 0.5,
+  "never_published": [
+   "a maximum",
+   "a top-N",
+   "any per-company row"
+  ],
+  "tally": {
+   "cells_withheld_n_lt_5": 4347,
+   "sums_withheld_n_lt_10": 298,
+   "sums_withheld_dominant_contributor": 256,
+   "sums_withheld_not_positive": 30,
+   "cells_published": 12964,
+   "sums_published": 1641
+  }
+ },
+ "privacy": {
+  "withheld_entirely": [
+   "company name",
+   "company registration number",
+   "address line",
+   "full postcode",
+   "telephone",
+   "e-mail",
+   "web address",
+   "Companies House link",
+   "any per-company row"
+  ],
+  "published": [
+   "counts",
+   "shares",
+   "medians",
+   "sums only where the rule allows",
+   "postcode district (outcode) letters and digits with its public centroid",
+   "region, county, DNO / network region, public substation names"
+  ]
+ },
+ "deterministic_techniques": [
+  "the suppression rule is ONE function, cell() in proof/build.py; nothing else withholds",
+  "every withheld cell is counted and the counts are published here under suppression.tally",
+  "every data file carries its source, fetch time and sha256",
+  "all counts shown on the page are computed from the JSON at run time, never typed into HTML",
+  "URLs carry only permanent keys: ?district=<outcode>&sector=<SIC code>&lens=<name>",
+  "no randomness at all: proof/build.py and star.js import no random source",
+  "publication.json lists bytes and sha256 for every shipped file",
+  "proof/leak-check.py runs over every public file and its output is committed",
+  "proof/ci-checks.json states what the page must and must not contain, so CI can re-run it"
+ ],
+ "links": [
+  {
+   "to": "https://globalgrid2050.com/testcode/202609142202/",
+   "relation": "shared line",
+   "why": "the Quantum Twin Star and this star are built from the same estate grammar and palette and are read together."
+  },
+  {
+   "to": "https://globalgrid2050.com/testcode/202609142225/?lens=ring",
+   "relation": "uses",
+   "why": "this page uses the Star Generator's legend words, count sentence and colour vocabulary."
+  },
+  {
+   "to": "https://ventusltd.github.io/star-solar-star/",
+   "relation": "used by",
+   "why": "the Sun Star's supply-side figures can be read against the district demand counts published here."
+  },
+  {
+   "to": "https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table",
+   "relation": "entangled",
+   "why": "the grid engine's relational map and these sector aggregates describe the same network from two directions."
+  },
+  {
+   "to": "https://api.postcodes.io/outcodes/",
+   "relation": "depends on",
+   "why": "every district centroid, region and county on this page comes from postcodes.io."
+  }
+ ],
+ "leak_check": {
+  "script": "proof/leak-check.py",
+  "result_file": "proof/leak-check.json",
+  "rules": [
+   "no company-type suffix word",
+   "no 8-digit number in any string",
+   "no UK full postcode, except the published origin of the distance bands",
+   "no http outside globalgrid2050.com, ventusltd.github.io, postcodes.io, gov.uk, Companies House documentation and the local test server",
+   "no e-mail sign",
+   "no company name from the private source's name column anywhere in a public file"
+  ],
+  "note": "run after every build; it exits non-zero on any hit, and its committed output carries the pass flag and the number of names tested"
+ },
+ "headless_check": {
+  "script": "proof/headless-check.mjs",
+  "result_file": "proof/headless-check.json",
+  "asserts": [
+   "0 console errors at 430x900 and 1440x1000",
+   "document.scrollWidth <= window.innerWidth at 430",
+   "every lens tab at least 44 px high",
+   "the count sentence is present and built from the JSON",
+   "proof/ci-checks.json must_contain and must_not_contain"
+  ]
+ },
+ "outputs": [
+  {
+   "file": "sectors.json",
+   "bytes": 527284,
+   "sha256": "0ced7bebb98dc03e8dedf40dbebcdbd2225cc1bf367d8757b63310f4a131a6a5"
+  },
+  {
+   "file": "geography.json",
+   "bytes": 1152154,
+   "sha256": "0c316fee71385d42834ba46b9951a54a24373969f6e7b6182ab832ab1ee8e6cb"
+  }
+ ]
+}

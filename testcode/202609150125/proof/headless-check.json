@@ -1,0 +1,49 @@
+{
+ "schema": "globalgrid2050.sector-star.headless-check.v1",
+ "page": "testcode/202609150125",
+ "run_utc": "2026-09-15T01:42:54.151Z",
+ "base": "http://127.0.0.1:8867/testcode/202609150125/",
+ "loads": [
+  {
+   "name": "430",
+   "width": 430,
+   "height": 900,
+   "errors": 0,
+   "error_text": [],
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "no_horizontal_overflow": true,
+   "tap_heights": [
+    44,
+    44,
+    44
+   ],
+   "tap_targets_44": true,
+   "count_sentence": "135,064 qualifying companies · 21 SIC sections · 87 divisions · 258 groups · 2,138 postcode districts · 10 regions · 3,868 farmers · 11,487 manufacturers · 27,569 other high energy · accounts 12 monthly files, register 2026-09-01 · data 2026-09-15 01:42 UTC",
+   "must_contain_missing": [],
+   "must_not_contain_found": [],
+   "pass": true
+  },
+  {
+   "name": "1440",
+   "width": 1440,
+   "height": 1000,
+   "errors": 0,
+   "error_text": [],
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "no_horizontal_overflow": true,
+   "tap_heights": [
+    44,
+    44,
+    44
+   ],
+   "tap_targets_44": true,
+   "count_sentence": "135,064 qualifying companies · 21 SIC sections · 87 divisions · 258 groups · 2,138 postcode districts · 10 regions · 3,868 farmers · 11,487 manufacturers · 27,569 other high energy · accounts 12 monthly files, register 2026-09-01 · data 2026-09-15 01:42 UTC",
+   "must_contain_missing": [],
+   "must_not_contain_found": [],
+   "pass": true
+  }
+ ],
+ "pass": true
+}

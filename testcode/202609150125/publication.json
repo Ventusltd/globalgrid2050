@@ -1,0 +1,199 @@
+{
+ "page": "testcode/202609150125 — Sector Star: real-economy energy users by sector and district",
+ "url": "https://globalgrid2050.com/testcode/202609150125/",
+ "built_utc": "2026-09-15T01:43:43.975Z",
+ "node": "v24.19.0",
+ "what": "Aggregates only. No company name, registration number, address line, full postcode, telephone, e-mail, web address, Companies House link or per-company row appears in any shipped file.",
+ "population": 135064,
+ "suppression": {
+  "implemented_by": "a single function, cell(), in proof/build.py",
+  "min_n_for_any_cell": 5,
+  "min_n_for_a_sum": 10,
+  "max_single_contributor_share_for_a_sum": 0.5,
+  "never_published": [
+   "a maximum",
+   "a top-N",
+   "any per-company row"
+  ],
+  "tally": {
+   "cells_withheld_n_lt_5": 4347,
+   "sums_withheld_n_lt_10": 298,
+   "sums_withheld_dominant_contributor": 256,
+   "sums_withheld_not_positive": 30,
+   "cells_published": 12964,
+   "sums_published": 1641
+  }
+ },
+ "deterministic_techniques": [
+  "the suppression rule is ONE function, cell() in proof/build.py; nothing else withholds",
+  "every withheld cell is counted and the counts are published here under suppression.tally",
+  "every data file carries its source, fetch time and sha256",
+  "all counts shown on the page are computed from the JSON at run time, never typed into HTML",
+  "URLs carry only permanent keys: ?district=<outcode>&sector=<SIC code>&lens=<name>",
+  "no randomness at all: proof/build.py and star.js import no random source",
+  "publication.json lists bytes and sha256 for every shipped file",
+  "proof/leak-check.py runs over every public file and its output is committed",
+  "proof/ci-checks.json states what the page must and must not contain, so CI can re-run it"
+ ],
+ "links": [
+  {
+   "to": "https://globalgrid2050.com/testcode/202609142202/",
+   "relation": "shared line",
+   "why": "the Quantum Twin Star and this star are built from the same estate grammar and palette and are read together."
+  },
+  {
+   "to": "https://globalgrid2050.com/testcode/202609142225/?lens=ring",
+   "relation": "uses",
+   "why": "this page uses the Star Generator's legend words, count sentence and colour vocabulary."
+  },
+  {
+   "to": "https://ventusltd.github.io/star-solar-star/",
+   "relation": "used by",
+   "why": "the Sun Star's supply-side figures can be read against the district demand counts published here."
+  },
+  {
+   "to": "https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table",
+   "relation": "entangled",
+   "why": "the grid engine's relational map and these sector aggregates describe the same network from two directions."
+  },
+  {
+   "to": "https://api.postcodes.io/outcodes/",
+   "relation": "depends on",
+   "why": "every district centroid, region and county on this page comes from postcodes.io."
+  }
+ ],
+ "leak_check": {
+  "pass": true,
+  "files_checked": 17,
+  "findings": 0,
+  "names_tested": 135062,
+  "run_utc": "2026-09-15T01:43:43.778116+00:00"
+ },
+ "headless_check": {
+  "pass": true,
+  "run_utc": "2026-09-15T01:42:54.151Z",
+  "loads": [
+   {
+    "name": "430",
+    "width": 430,
+    "errors": 0,
+    "scrollWidth": 430,
+    "innerWidth": 430,
+    "tap_heights": [
+     44,
+     44,
+     44
+    ],
+    "pass": true
+   },
+   {
+    "name": "1440",
+    "width": 1440,
+    "errors": 0,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "tap_heights": [
+     44,
+     44,
+     44
+    ],
+    "pass": true
+   }
+  ],
+  "count_sentence": "135,064 qualifying companies · 21 SIC sections · 87 divisions · 258 groups · 2,138 postcode districts · 10 regions · 3,868 farmers · 11,487 manufacturers · 27,569 other high energy · accounts 12 monthly files, register 2026-09-01 · data 2026-09-15 01:42 UTC"
+ },
+ "file_count": 17,
+ "total_bytes": 2181476,
+ "files": [
+  {
+   "file": "MODEL.md",
+   "bytes": 7152,
+   "sha256": "9e10c04cd0ecb549adee657490bfaefff6d2ec8eb58dc7cc45f7f790ecaae496"
+  },
+  {
+   "file": "README.md",
+   "bytes": 5211,
+   "sha256": "eb9bcfaf1ea14199fb4b2e1d84aed954eb81036ea9aced2f12f1f478d822fed5"
+  },
+  {
+   "file": "data/geography.json",
+   "bytes": 1152154,
+   "sha256": "0c316fee71385d42834ba46b9951a54a24373969f6e7b6182ab832ab1ee8e6cb"
+  },
+  {
+   "file": "data/provenance.json",
+   "bytes": 6725,
+   "sha256": "e897a167b6c58b1c2b590ddc53de1e9d2fe09d8c9e1d4a0be951de05cedfc5cf"
+  },
+  {
+   "file": "data/sectors.json",
+   "bytes": 527284,
+   "sha256": "0ced7bebb98dc03e8dedf40dbebcdbd2225cc1bf367d8757b63310f4a131a6a5"
+  },
+  {
+   "file": "index.html",
+   "bytes": 728,
+   "sha256": "d8817c7a30c9534a2ba9ee5803b868b46c22de2f948309d0cba15c9ed626feac"
+  },
+  {
+   "file": "proof/build.py",
+   "bytes": 36012,
+   "sha256": "2c2220cd72ed778d5fe62465ebcde0ec1775d17c22552906c5e0877c9968d402"
+  },
+  {
+   "file": "proof/ci-checks.json",
+   "bytes": 1677,
+   "sha256": "75a3ba466a901874fd29132d0090a5e9e308753055dd25e0bf22f2fc96ddcf6e"
+  },
+  {
+   "file": "proof/headless-check.json",
+   "bytes": 1482,
+   "sha256": "428ff896a8679c2b088ad5fa47ac9695d98f3a6a28b4a0b31f43621ff4364868"
+  },
+  {
+   "file": "proof/headless-check.mjs",
+   "bytes": 4501,
+   "sha256": "8864b51e253def76d7ba8dced8e5fb5f0b83428a050ec71e65424cc198b62363"
+  },
+  {
+   "file": "proof/leak-check.json",
+   "bytes": 2079,
+   "sha256": "3d8ebd5db3506229990299fe1d2db4b4a470de3e1e0c1a34c72962f74add388c"
+  },
+  {
+   "file": "proof/leak-check.py",
+   "bytes": 6472,
+   "sha256": "8d52aa861ecffa4c4af9b0c98117fc2f52c4384021042b01a0887fa39022ed3e"
+  },
+  {
+   "file": "proof/publish.mjs",
+   "bytes": 3549,
+   "sha256": "bea33d22281f9170001b7cd968e954480bb2a3b3914d3cf590f4f5872ba949da"
+  },
+  {
+   "file": "proof/sector-star-1440.png",
+   "bytes": 249203,
+   "sha256": "74448c5372203089c7c67810f2954a76c5378fa646d4a21af4cf94370990a755"
+  },
+  {
+   "file": "proof/sector-star-430.png",
+   "bytes": 154621,
+   "sha256": "eb11f228807ba62a2a0237e0c673316f2a9f97a4abec8710f419c7ee5f260579"
+  },
+  {
+   "file": "star.js",
+   "bytes": 20053,
+   "sha256": "85a7ab76b3d80c61690694de671231319083296fd0f1ecdad02fc6085c921a41"
+  },
+  {
+   "file": "style.css",
+   "bytes": 2573,
+   "sha256": "e4c7c7394249bf4e3ac847754b31da014f56120ded39ba76d7fe20aab5041d4e"
+  }
+ ],
+ "not_published": {
+  "reason": "on disk in this folder but excluded by the repository .gitignore: never committed, therefore never served",
+  "count": 0,
+  "files": []
+ }
+}

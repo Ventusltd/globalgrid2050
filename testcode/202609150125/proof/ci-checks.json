@@ -1,0 +1,62 @@
+{
+ "schema": "globalgrid2050.testcode-proof.checks.v1",
+ "page": "testcode/202609150125",
+ "url": "https://globalgrid2050.com/testcode/202609150125/",
+ "note": "What the served Sector Star must and must not contain. Every must_contain string is either static page furniture or a word the count sentence and the suppression sentence build from the JSON at run time, so a check that passes proves the data loaded. The must_not_contain list is the privacy rule.",
+ "checks": [
+  {
+   "name": "sector-star-page",
+   "target": "https://globalgrid2050.com/testcode/202609150125/",
+   "render": true,
+   "must_contain": [
+    "Sector Star",
+    "qualifying companies",
+    "SIC sections",
+    "postcode districts",
+    "farmers",
+    "manufacturers",
+    "other high energy",
+    "withheld",
+    "Suppression:",
+    "filed subset"
+   ],
+   "must_not_contain": [
+    "LIMITED",
+    "LTD",
+    "LLP",
+    "Reg no",
+    "company_number",
+    "loading…"
+   ],
+   "console_errors_allowed": 0,
+   "no_horizontal_overflow_at_px": 430
+  },
+  {
+   "name": "sector-star-data",
+   "targets": [
+    "https://globalgrid2050.com/testcode/202609150125/data/sectors.json",
+    "https://globalgrid2050.com/testcode/202609150125/data/geography.json",
+    "https://globalgrid2050.com/testcode/202609150125/data/provenance.json"
+   ],
+   "must_contain": [
+    "globalgrid2050.sector-star",
+    "suppression",
+    "min_n_for_any_cell"
+   ],
+   "must_not_contain": [
+    "company_name",
+    "company_number",
+    "address_1",
+    "LIMITED",
+    "LTD",
+    "PLC",
+    "LLP"
+   ]
+  }
+ ],
+ "rerun_locally": [
+  "python proof/build.py",
+  "python proof/leak-check.py",
+  "node proof/headless-check.mjs"
+ ]
+}

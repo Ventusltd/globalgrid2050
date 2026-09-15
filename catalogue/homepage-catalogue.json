@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-15T15:24:38Z",
+ "generated_utc": "2026-09-15T16:08:16Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -17,11 +17,47 @@
   "commit",
   "tree"
  ],
- "count": 444,
+ "count": 446,
  "skipped_unresolvable": [
   "./repd_atlas_grid_model/"
  ],
  "entries": [
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Opus 5",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "0cc1750d99",
+   "commit_full": "0cc1750d99d5d25098204210d47918b56e62af66",
+   "tree": "d0f392f07f5f09e8b949a39f10405d7f68f937fc",
+   "id": "202609151525-homepage-archive",
+   "stamp": "202609151525",
+   "family": "about-media",
+   "project": "homepage-archive",
+   "title": "Homepage archive homepage_v118",
+   "url": "./homepage_versions/homepage_v118.html",
+   "kind": "homepage",
+   "parent": null,
+   "status": "archived",
+   "stamp_source": "git first-commit time (UTC)"
+  },
+  {
+   "agent": "Codex",
+   "agent_model": null,
+   "agent_source": "testcode/ is Codex's lane (coordination board)",
+   "commit": "",
+   "commit_full": "",
+   "tree": null,
+   "id": "202609151447-test-code",
+   "stamp": "202609151447",
+   "family": "test-code",
+   "project": "test-code",
+   "title": "Test Code 202609151447",
+   "url": "./testcode/202609151447/",
+   "kind": "release",
+   "parent": null,
+   "status": "test",
+   "stamp_source": "directory name (UTC)"
+  },
   {
    "agent": "Claude",
    "agent_model": "Claude Opus 5",

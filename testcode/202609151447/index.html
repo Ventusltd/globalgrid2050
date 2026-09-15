@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="color-scheme" content="dark">
+<title>Systems — a star for every real code block</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='2.6' fill='%23ffd54a'/%3E%3Ccircle cx='8' cy='8' r='6.4' fill='none' stroke='%23d8dee9' stroke-dasharray='1 2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="stage" aria-label="Every code block of the estate that carries working code, drawn as a system."></canvas>
+<header id="bar">
+  <span id="wordmark">SYSTEMS</span>
+  <span id="count" class="dim">reading the block register…</span>
+  <button id="back" type="button" hidden>&#8592; all systems</button>
+</header>
+<section id="panel"><div id="body"></div><div id="code" hidden></div></section>
+<footer id="foot">
+  <span id="prov" class="dim">provenance loading</span>
+  <span id="hint" class="dim">tap a system to enter it · tap a planet to read its real source</span>
+</footer>
+<noscript><p class="dim" style="padding:1rem">The block register is read live when the page opens, so this needs JavaScript.</p></noscript>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>

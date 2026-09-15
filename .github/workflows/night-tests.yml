@@ -1,0 +1,111 @@
+# Night tests
+#
+# Every 30 minutes this job opens the live pages in headless Chrome and checks
+# them: HTTP status, uncaught page errors, console errors, horizontal overflow
+# on a phone viewport, the words each page must and must not show, and — the
+# strongest check — that every file publication.json lists is served with the
+# sha256 it was published with.
+#
+# THE NIGHT WINDOW
+# The job reads testcode/ci/NIGHT-UNTIL.txt (one ISO time). Past that time it
+# prints "night window closed; nothing run" and exits 0. The schedule below is
+# deliberately LEFT IN PLACE and simply goes idle: after the window closes this
+# workflow costs one trivial step per run and reports success. To extend the
+# night, put a later time in NIGHT-UNTIL.txt. To stop it for good, delete this
+# file (or remove the `schedule:` block and keep workflow_dispatch).
+#
+# GRAPHICS ON THE RUNNER
+# GitHub's runners have no GPU: Chrome draws WebGL with SwiftShader on the CPU,
+# so the heavy page can take minutes to paint. The script navigates on
+# domcontentloaded and then waits for the page's own count line, and treats a
+# page that never paints as a WARNING with its elapsed time, not a failure. The
+# served-bytes checks need no browser and run either way.
+#
+# The report is uploaded as an artifact. Nothing is committed back to the repo.
+
+name: Night tests
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: night-tests
+  cancel-in-progress: false
+
+jobs:
+  night-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Night window gate
+        id: gate
+        run: |
+          UNTIL="$(tr -d '[:space:]' < testcode/ci/NIGHT-UNTIL.txt)"
+          NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "now   $NOW"
+          echo "until $UNTIL"
+          if [ "$(date -u -d "$NOW" +%s)" -ge "$(date -u -d "$UNTIL" +%s)" ]; then
+            echo "night window closed; nothing run"
+            echo "run=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=yes" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install puppeteer and Chrome
+        if: steps.gate.outputs.run == 'yes'
+        run: |
+          mkdir -p "$RUNNER_TEMP/pptr"
+          cd "$RUNNER_TEMP/pptr"
+          npm init -y > /dev/null
+          npm i puppeteer@23 --no-audit --no-fund
+          ENTRY="$(node -p "require.resolve('puppeteer')")"
+          echo "installed puppeteer $(node -p "require('puppeteer/package.json').version") at $ENTRY"
+          echo "PUPPETEER_MODULE=$ENTRY" >> "$GITHUB_ENV"
+
+      - name: Run night tests
+        if: steps.gate.outputs.run == 'yes'
+        id: tests
+        env:
+          NIGHT_TESTS_BASE: https://globalgrid2050.com
+          NIGHT_TESTS_LOAD_MS: "240000"
+          REPORT_PATH: ${{ github.workspace }}/report.json
+        run: node testcode/ci/night-tests.mjs
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: night-report-${{ github.run_id }}
+          path: report.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Report failures
+        if: failure() && steps.gate.outputs.run == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -f report.json ]; then
+            N="$(node -p "try{JSON.parse(require('fs').readFileSync('report.json','utf8')).failed.length}catch(e){0}")"
+            NAMES="$(node -p "try{JSON.parse(require('fs').readFileSync('report.json','utf8')).failed.map(f=>'- '+f).join('\n')}catch(e){'- (report unreadable)'}")"
+          else
+            N="0"
+            NAMES="- (no report written; the job failed before the tests ran)"
+          fi
+          printf 'Night tests: %s checks failed.\n\n%s\n\nRun: %s\n' "$N" "$NAMES" "$RUN_URL" > comment.md
+          gh issue comment 37 --repo "${{ github.repository }}" --body-file comment.md

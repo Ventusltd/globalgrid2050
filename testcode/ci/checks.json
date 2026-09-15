@@ -1,0 +1,83 @@
+[
+ {
+  "name": "GPU count line",
+  "page": "qts",
+  "viewport": "430x900",
+  "must_contain": ["on GPU: 250,174 unique numbered lines"],
+  "must_not_contain": [],
+  "source": "ollama:ventus-stars",
+  "why": "the HUD must name every unique numbered line it put on the GPU"
+ },
+ {
+  "name": "family-line entries",
+  "page": "qts",
+  "viewport": "430x900",
+  "must_contain": ["664,940 family-line entries"],
+  "must_not_contain": [],
+  "source": "ollama:ventus-stars",
+  "why": "the HUD must name the family-line total alongside the unique lines"
+ },
+ {
+  "name": "AWAY pole label",
+  "page": "qts",
+  "viewport": "430x900",
+  "must_contain": ["AWAY"],
+  "must_not_contain": [],
+  "source": "ollama:ventus-stars",
+  "why": "the away pole must stay labelled on the phone viewport"
+ },
+ {
+  "name": "count line names both totals (phone)",
+  "page": "qts",
+  "viewport": "430x900",
+  "must_contain": ["250,174 unique numbered lines in LINES.md", "664,940 line entries"],
+  "must_not_contain": ["undefined", "NaN", "[object Object]", "Loading the universe…"],
+  "source": "claude",
+  "why": "the count line is the page's own arithmetic; a placeholder or a broken number means the data never arrived"
+ },
+ {
+  "name": "count line names both totals (desktop)",
+  "page": "qts",
+  "viewport": "1440x1000",
+  "must_contain": ["250,174 unique numbered lines in LINES.md", "664,940 line entries"],
+  "must_not_contain": ["undefined", "NaN", "[object Object]", "Loading the universe…"],
+  "source": "claude",
+  "why": "the same arithmetic must survive the desktop viewport"
+ },
+ {
+  "name": "controls present",
+  "page": "qts",
+  "viewport": "430x900",
+  "must_contain": ["measure", "re-prepare"],
+  "must_not_contain": [],
+  "source": "claude",
+  "why": "the two controls the page is built around must be reachable on a phone"
+ },
+ {
+  "name": "homepage nests",
+  "page": "homepage",
+  "viewport": "430x900",
+  "must_contain": ["Pipeline News", "Grid Atlas", "Grid Engine", "Integrated Development Environments"],
+  "must_not_contain": ["undefined", "NaN", "[object Object]"],
+  "source": "claude",
+  "why": "the four homepage nests are the whole index; losing one loses a wing of the estate"
+ },
+ {
+  "name": "generator count sentence",
+  "page": "generator",
+  "viewport": "1440x1000",
+  "must_contain": ["blocks on the table", "groups off the table", "function families", "unique numbered lines", "repositories"],
+  "must_not_contain": ["undefined", "NaN", "[object Object]"],
+  "source": "claude",
+  "why": "arms itself the moment the Star Generator is published; skipped while the page is a 404"
+ },
+ {
+  "name": "generator retired words",
+  "page": "generator",
+  "viewport": "430x900",
+  "must_contain": [],
+  "must_not_contain": ["dependents", "depended on by", "BLOCK 22", "360°", "Spider", "universe"],
+  "source": "claude",
+  "why": "retired vocabulary must not come back when the generator lands"
+ }
+]

@@ -49,6 +49,18 @@ assert.equal(contract.runtime.project_javascript_changed, false);
 assert.equal(contract.runtime.project_styles_changed, false);
 assert.equal(contract.runtime.mobile_interface_changed, false);
 assert.equal(contract.runtime.regional_project_signal_eligible, false);
+/* The post-release Atlas deep-link repair is declared, not discovered. The four
+   project_*_changed flags above describe V9.7's own feature work and stay false;
+   the eight files the 2026-09-05 repair rewrote across every live version are
+   listed here and byte-pinned on both sides in tests/run_v9_7.sh. A file that
+   quietly joins that set fails the shell gate; one that quietly leaves this list
+   fails here. Before this the repair existed in the tree and in no contract, and
+   the only thing that noticed was a flat styles diff that had been red a week. */
+assert.equal(contract.runtime.post_release_repair.files_differing_from_frozen_parent.length, 8);
+assert.ok(contract.runtime.post_release_repair.files_differing_from_frozen_parent
+  .includes("styles/v9-6-1.css"));
+assert.ok(contract.runtime.post_release_repair.files_differing_from_frozen_parent
+  .includes("scripts/plugins/projects-v9-5-1.js"));
 assert.equal(packageJson.version, "9.7.0");
 assert.equal(sourceContract.adapters.filter((adapter) => adapter.enabled).length, 1);
 assert.equal(sourceContract.adapters[0].independent_of_repd_signals, true);

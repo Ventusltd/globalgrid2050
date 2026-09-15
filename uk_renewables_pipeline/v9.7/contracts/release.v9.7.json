@@ -18,7 +18,27 @@
     "mobile_interface_changed": false,
     "uk_matching_changed": false,
     "browser_geography_classification_removed": true,
-    "regional_project_signal_eligible": false
+    "regional_project_signal_eligible": false,
+    "post_release_repair": {
+      "what": "Atlas deep-link receiver repair, landed in every live version on 2026-09-05",
+      "commits": [
+        "5fa6ebf7",
+        "313f5623",
+        "87fe1250"
+      ],
+      "why_the_flags_above_stay_false": "project_*_changed describe what V9.7's own feature work changed when V9.7 was cut, and V9.7's feature work is the regional news pipeline: it changed no project runtime. These files were repaired AFTER the release, across every version at once, so they are recorded here instead of being backdated into a claim about what V9.7 built.",
+      "files_differing_from_frozen_parent": [
+        "styles/v9-6-1.css",
+        "scripts/plugins/projects-v9-1.js",
+        "scripts/plugins/projects-v9-2.js",
+        "scripts/plugins/projects-v9-3.js",
+        "scripts/plugins/projects-v9-4.js",
+        "scripts/plugins/projects-v9-5.js",
+        "scripts/plugins/projects-v9-5-1.js",
+        "scripts/plugins/canonical-project-table.js"
+      ],
+      "pinned_by": "tests/run_v9_7.sh assert_blob, both sides of every file"
+    }
   },
   "expected": {
     "project_count": 7680,

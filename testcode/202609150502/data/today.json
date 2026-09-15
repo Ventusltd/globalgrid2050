@@ -1,5 +1,5 @@
 {
-  "built_utc": "2026-09-15T05:00:49Z",
+  "built_utc": "2026-09-15T05:10:25Z",
   "london_solar_geometry": {
     "date": "2026-09-14",
     "dayOfYear": 257,
@@ -31,20 +31,15 @@
     "complete": true,
     "data_date": "2026-09-14",
     "date": "2026-09-14",
-    "energy_mwh": 51993.139,
+    "energy_mwh": 51993.186,
     "installed_capacity_mwp": 23963.209,
     "interval_minutes": 30,
     "intervals": 48,
     "peak_at_utc": "2026-09-14T13:00:00Z",
     "peak_mw": 7519.05,
     "requested_date": "2026-09-14",
-    "seed_sha256": "143debe25f1878b9138e7ea6661dbd18bb1724061007e8efb831b69fac475725",
+    "seed_sha256": "ce4d9c6c9edd68f09bf0507d11abcf45e0da259ec22eefeaa98e08e5c55edc43",
     "series": [
-      {
-        "generation_mw": 0.0,
-        "installed_capacity_mwp": 23963.209,
-        "timestamp_utc": "2026-09-14T00:00:00Z"
-      },
       {
         "generation_mw": 0.0,
         "installed_capacity_mwp": 23963.209,
@@ -106,7 +101,7 @@
         "timestamp_utc": "2026-09-14T06:00:00Z"
       },
       {
-        "generation_mw": 213.113,
+        "generation_mw": 213.124,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T06:30:00Z"
       },
@@ -116,7 +111,7 @@
         "timestamp_utc": "2026-09-14T07:00:00Z"
       },
       {
-        "generation_mw": 1418.04,
+        "generation_mw": 1418.03,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T07:30:00Z"
       },
@@ -126,12 +121,12 @@
         "timestamp_utc": "2026-09-14T08:00:00Z"
       },
       {
-        "generation_mw": 2885.62,
+        "generation_mw": 2885.6,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T08:30:00Z"
       },
       {
-        "generation_mw": 3530.77,
+        "generation_mw": 3530.43,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T09:00:00Z"
       },
@@ -146,7 +141,7 @@
         "timestamp_utc": "2026-09-14T10:00:00Z"
       },
       {
-        "generation_mw": 5159.3,
+        "generation_mw": 5159.31,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T10:30:00Z"
       },
@@ -156,7 +151,7 @@
         "timestamp_utc": "2026-09-14T11:00:00Z"
       },
       {
-        "generation_mw": 6317.57,
+        "generation_mw": 6317.55,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T11:30:00Z"
       },
@@ -166,7 +161,7 @@
         "timestamp_utc": "2026-09-14T12:00:00Z"
       },
       {
-        "generation_mw": 7309.42,
+        "generation_mw": 7309.41,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T12:30:00Z"
       },
@@ -176,7 +171,7 @@
         "timestamp_utc": "2026-09-14T13:00:00Z"
       },
       {
-        "generation_mw": 7474.88,
+        "generation_mw": 7475.2,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T13:30:00Z"
       },
@@ -226,7 +221,7 @@
         "timestamp_utc": "2026-09-14T18:00:00Z"
       },
       {
-        "generation_mw": 15.01,
+        "generation_mw": 15.164,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T18:30:00Z"
       },
@@ -279,11 +274,17 @@
         "generation_mw": 0.0,
         "installed_capacity_mwp": 23963.209,
         "timestamp_utc": "2026-09-14T23:30:00Z"
+      },
+      {
+        "generation_mw": 0.0,
+        "installed_capacity_mwp": 23963.209,
+        "timestamp_utc": "2026-09-15T00:00:00Z"
       }
     ],
+    "timestamp_convention": "UTC interval end; day covers 00:30 through next 00:00",
     "used_latest_available": false
   },
-  "schema": "star-solar-star.today.v1",
-  "seed": "143debe25f1878b9138e7ea6661dbd18bb1724061007e8efb831b69fac475725",
+  "schema": "star-solar-star.today.v2",
+  "seed": "ce4d9c6c9edd68f09bf0507d11abcf45e0da259ec22eefeaa98e08e5c55edc43",
   "seed_rule": "sha256 of canonical JSON for the selected day's ordered [timestamp_utc, generation_mw] PV Live series"
 }

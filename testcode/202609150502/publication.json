@@ -2,8 +2,8 @@
   "schema": "public-byte-manifest-v1",
   "files": {
     "app.mjs": {
-      "bytes": 9655,
-      "sha256": "78bbcde69572aa7c06e9f1c992777d0f2bfa21e4507ac84486f901aaff2abb97"
+      "bytes": 9958,
+      "sha256": "e06b2fda37a6bda71c98597ae342482735edc24dbfe72e393e8af07296065865"
     },
     "data/provenance.json": {
       "bytes": 1183,
@@ -42,8 +42,8 @@
       "sha256": "d00ec10d340ff52c21e17bdd74046ba24b71f30c01b7d88d00895e4db749890a"
     },
     "proof/self-test.mjs": {
-      "bytes": 4351,
-      "sha256": "bd8dd7811dd17cf371c9fd74a2a66be3e8fb7c9da4c0b3a0a4b7e2bf470b5d28"
+      "bytes": 4670,
+      "sha256": "1bd09ec41c3e4c4fee8cb0f350d45ecac01d8c6cacd146093f00ef15b7d552f9"
     },
     "proof/snapshot.py": {
       "bytes": 1767,
@@ -62,8 +62,8 @@
       "sha256": "81631b2e388a384b9cfb0ce6778538d049405849e573c0abf8fa232f3cf7533a"
     },
     "table.mjs": {
-      "bytes": 1427,
-      "sha256": "384ffec14e8ab799bbb4612330b848d9de6c56f111af7c2b62c672c9a9007627"
+      "bytes": 1168,
+      "sha256": "2da58e11bab9a3705275e7c3e59216295d42abae77bc21e3527cd03624b27ce1"
     }
   },
   "dependencies": {

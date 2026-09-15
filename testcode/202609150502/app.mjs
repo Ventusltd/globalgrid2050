@@ -59,7 +59,11 @@ function update(){
   view={w:rect.width||$('overlay').clientWidth,h:rect.height||480,dpr:Math.min(2,devicePixelRatio||1),mobile:innerWidth<=600,
     focus:state.focus,seed:state.seed,visible:ids.slice(0,limit),lit:new Uint8Array(core.N),params:{},recipe:new Uint32Array(),trail:new Uint32Array(),kindsOn:0,cat:-1};
   if(state.focus>=0)view.lit[state.focus]=2;
-  if(state.lens==='table')L.overlay(core,view,$('overlay'),{navigate});
+  if(state.lens==='table'){
+    const host=$('overlay');L.overlay(core,view,host,{navigate});
+    const bounds=host.getBoundingClientRect();
+    view.params.tableRows=Array.from(host.children,row=>{const r=row.getBoundingClientRect();return {i:core.resolve(row.dataset.ref),x:r.left-bounds.left+r.width/2,y:r.top-bounds.top+host.scrollTop+r.height/2,height:r.height};});
+  }
   pos.fill(NaN);L.layout(core,view,pos);view.pos=pos;
   for(const cls of L.always||[])for(let i=core.range[cls][0];i<core.range[cls][1];i++)if(!Number.isFinite(pos[2*i])||!Number.isFinite(pos[2*i+1]))throw new Error('Lens left a project unanchored');
   if(state.lens==='ring'){

@@ -101,7 +101,7 @@ def tree_hashes_at(rev: str) -> dict[str, str]:
     """Subtree hash of every uk_renewables_pipeline/v9* directory at a committed revision."""
     found = {}
     for line in git("ls-tree", rev, "uk_renewables_pipeline/").splitlines():
-        meta, name = line.split("	", 1)
+        meta, name = line.split("\t", 1)
         mode, kind, sha = meta.split()
         if kind == "tree" and name.rsplit("/", 1)[-1].startswith("v9"):
             found[name.rstrip("/")] = sha

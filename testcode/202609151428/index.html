@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="color-scheme" content="dark">
+<title>The Atlas — 7,680 real projects, and the gap</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6.5' fill='none' stroke='%23d8dee9'/%3E%3Ccircle cx='8' cy='8' r='2.4' fill='%23ffd54a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="stage" aria-label="Every project in the published UK renewables register, placed by the selected law."></canvas>
+
+<header id="bar">
+  <span id="wordmark">THE ATLAS</span>
+  <span id="count" class="dim">loading the register…</span>
+</header>
+
+<nav id="laws" aria-label="view"></nav>
+
+<section id="panel">
+  <h2 id="lawTitle">Where</h2>
+  <p id="lawReads" class="dim"></p>
+  <p id="lawNote"></p>
+  <p id="gapRow" hidden><span id="gapOut"></span></p>
+  <p class="legend"><span class="k solar"></span>solar <span class="k on"></span>onshore wind
+    <span class="k off"></span>offshore wind <span class="k bess"></span>storage
+    <span class="dim">· brighter means further built</span></p>
+</section>
+
+<section id="project" hidden>
+  <button id="closeProject" type="button" aria-label="close">&#10005;</button>
+  <div id="projectBody"></div>
+</section>
+
+<footer id="foot">
+  <span id="prov" class="dim">provenance loading</span>
+  <span id="hint" class="dim">tap a view · tap a project · drag to steer · pinch to zoom</span>
+</footer>
+
+<noscript><p class="dim" style="padding:1rem">Every number here is computed in the browser from a pack built
+from committed bytes, so the page needs JavaScript.</p></noscript>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+{
+ "schema": "globalgrid2050.atlas-pack.v1",
+ "built_utc": "2026-09-15T15:20:24+01:00",
+ "source": {
+  "commit": "ebe99e25b94f7bc5f78c17cdf623be1f04c6da5c",
+  "release": "uk_renewables_pipeline/v9.7 data v9.1",
+  "files": [
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-001.json",
+    "blob_sha1": "cd862cde3daed0535d7d0be66c0fb153f05ded6c",
+    "bytes": 624542
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-002.json",
+    "blob_sha1": "96dbb415c5a7ab03101d5c7aa77e06a9e7e25777",
+    "bytes": 629501
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-003.json",
+    "blob_sha1": "c6460927ace4aaae0975cc44d3e3887c93e8bc34",
+    "bytes": 628898
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-004.json",
+    "blob_sha1": "8800b19dd0318e0af55aa34d3948ee7d815a7c46",
+    "bytes": 625997
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-005.json",
+    "blob_sha1": "1de4674a4c76a73e3fb0c79dee7b52688c797afe",
+    "bytes": 631815
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-006.json",
+    "blob_sha1": "1c8b2491e86b8428892031eaefd232e9284ffa06",
+    "bytes": 630303
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-007.json",
+    "blob_sha1": "9d3a203b0f8a79c43237a6fe435fa8ae62232d7f",
+    "bytes": 628660
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-008.json",
+    "blob_sha1": "48fefaca23be3a657edc971f29401ac59442b641",
+    "bytes": 631189
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-009.json",
+    "blob_sha1": "7b40c3a7ec9eeb7b155388cfc7f0bece8f2b4d69",
+    "bytes": 630867
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-010.json",
+    "blob_sha1": "5e1bac3be82e5228c84013b52db49500c172dea7",
+    "bytes": 628464
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-011.json",
+    "blob_sha1": "e302e524ef11cb4198b4a218b28aad3199310328",
+    "bytes": 620261
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-012.json",
+    "blob_sha1": "29de57efd6fb2670ba7899e991033da2a3538fd1",
+    "bytes": 615891
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-013.json",
+    "blob_sha1": "f792e89825c56c0c48115ad2eaa6a0ca2ca79f5c",
+    "bytes": 620861
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-014.json",
+    "blob_sha1": "41e3aa5aeae3434d3e07170099cb4cf77799c519",
+    "bytes": 619833
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-015.json",
+    "blob_sha1": "b7cfd850124da6eae28b7e62b416a59ed3b636c7",
+    "bytes": 616440
+   },
+   {
+    "path": "uk_renewables_pipeline/v9.7/data/v9.1/projects/part-016.json",
+    "blob_sha1": "937ebccb33c0dacb9693fbc247472c490b6151c3",
+    "bytes": 221745
+   }
+  ]
+ },
+ "projects": 7680,
+ "order": "ascending gg_project_id; every column is in this order",
+ "technologies": [
+  "solar",
+  "wind_onshore",
+  "wind_offshore",
+  "bess"
+ ],
+ "lifecycles": [
+  "OPERATIONAL",
+  "UNDER_CONSTRUCTION",
+  "LIVE_PRE_CONSTRUCTION",
+  "INACTIVE",
+  "UNKNOWN"
+ ],
+ "regions": [
+  "East Midlands",
+  "Eastern",
+  "London",
+  "North East",
+  "North West",
+  "Northern Ireland",
+  "Offshore",
+  "Scotland",
+  "South East",
+  "South West",
+  "Wales",
+  "West Midlands",
+  "Yorkshire and Humber",
+  "unstated"
+ ],
+ "operators_count": 3418,
+ "totals": {
+  "capacity_mw": 356474.087,
+  "by_technology": {
+   "solar": {
+    "count": 3563,
+    "mw": 67013.295
+   },
+   "wind_onshore": {
+    "count": 2399,
+    "mw": 61243.45
+   },
+   "wind_offshore": {
+    "count": 109,
+    "mw": 80535.4
+   },
+   "bess": {
+    "count": 1609,
+    "mw": 147681.942
+   }
+  },
+  "by_lifecycle": {
+   "OPERATIONAL": {
+    "count": 2232,
+    "mw": 47573.809
+   },
+   "UNDER_CONSTRUCTION": {
+    "count": 282,
+    "mw": 26972.914
+   },
+   "LIVE_PRE_CONSTRUCTION": {
+    "count": 2752,
+    "mw": 223565.525
+   },
+   "INACTIVE": {
+    "count": 1878,
+    "mw": 43135.599
+   },
+   "UNKNOWN": {
+    "count": 536,
+    "mw": 15226.24
+   }
+  },
+  "valid_geometry": 7652,
+  "capacity_known": 7680,
+  "with_application_date": 7559
+ },
+ "not_claimed": [
+  "A capacity in this pack is what the register records, not what is connected or generating.",
+  "A lifecycle is the register's own classification on the date it was published.",
+  "A coordinate is the register's, converted by a documented approximation; it is not a survey.",
+  "Nothing here says a project will be built."
+ ],
+ "files": {
+  "lat.bin": {
+   "bytes": 30720,
+   "sha256": "e14e492a51b6bbae433f0846c391216dff68b2b1ccb9c3dbb88e2c401e6cf3ce"
+  },
+  "lon.bin": {
+   "bytes": 30720,
+   "sha256": "39be4e3b205bfe31271db2cf8125b83c7106db7413a45534917e058176c3b81f"
+  },
+  "mw.bin": {
+   "bytes": 30720,
+   "sha256": "badf28a7e7fe8a665c5d33fae9d7af0022c2bdd112eaffe572aa6b74defd2ef4"
+  },
+  "tech.bin": {
+   "bytes": 7680,
+   "sha256": "f9004b3e46e62c05cd2fdc5faeb6c973627ae69f11c66070e25ceded7044d9fc"
+  },
+  "life.bin": {
+   "bytes": 7680,
+   "sha256": "d21b66c5f92d3bac38a4acb64485922e6abcc261303a12ab146fd07d04ae717a"
+  },
+  "flags.bin": {
+   "bytes": 7680,
+   "sha256": "8ffdc58c5e960df2002554a20e0699f08242c42022c47c728f87c3bc82abe429"
+  },
+  "applied.bin": {
+   "bytes": 30720,
+   "sha256": "d4df37affe4a11d430a5d4adeabeb28787463771377aba5c7681350cc2c8a8a2"
+  },
+  "granted.bin": {
+   "bytes": 30720,
+   "sha256": "f0384590f5d80f24519dbafcd6c5e1de9a5c249ebfea8bc65ea5bb4889604d67"
+  },
+  "repd.bin": {
+   "bytes": 30720,
+   "sha256": "25e2c39b9f15d57fc1a2cb84a66fcf88804b481b83c947b53143317f07d91954"
+  },
+  "region.bin": {
+   "bytes": 15360,
+   "sha256": "306ce32a371114ca6912b3c88f86d361ea74139345f64275accc54bcf7c3d193"
+  },
+  "operator.bin": {
+   "bytes": 15360,
+   "sha256": "5c98c13e3ddd4f6e7380812eb3aaa631cad8fda3d2c78e152fdc2bd2a6e864c5"
+  },
+  "names.json": {
+   "bytes": 243612,
+   "sha256": "70f8e28fb2cbc1a8553d5bb4ca233201fbab70f2410ac471b210834508f82389"
+  }
+ }
+}

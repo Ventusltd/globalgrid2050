@@ -1,0 +1,94 @@
+/* Ten Laws. Built at 430 px first. One canvas, a law bar, a note, two strips. */
+
+:root{
+  --ink:#d8dee9; --dim:#8b93a7; --ground:#0b0d12; --edge:#1b2030;
+  --lit:#ffd54a; --beam:#5ec8f2;
+  --top:env(safe-area-inset-top,0px); --bot:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  overflow:hidden; overscroll-behavior:none; -webkit-text-size-adjust:100%;
+}
+#stage{position:fixed; inset:0; width:100%; height:100%; display:block; touch-action:none}
+.dim{color:var(--dim)}
+
+#bar{
+  position:fixed; left:0; right:0; top:0; z-index:4;
+  display:flex; gap:.7rem; align-items:baseline; flex-wrap:wrap;
+  padding:calc(var(--top) + .5rem) .75rem .5rem;
+  background:linear-gradient(#0b0d12ee,#0b0d1200); pointer-events:none;
+}
+#wordmark{letter-spacing:.14em; font-size:11px}
+
+/* The law bar scrolls sideways on a phone and wraps on a desktop. */
+#laws{
+  position:fixed; z-index:3; left:0; right:0;
+  top:calc(var(--top) + 4.1rem);
+  display:flex; gap:.35rem; overflow-x:auto; scrollbar-width:none;
+  padding:.15rem .6rem .35rem; -webkit-overflow-scrolling:touch;
+}
+#laws::-webkit-scrollbar{display:none}
+.law{
+  flex:0 0 auto; display:inline-flex; align-items:center; gap:.35rem;
+  padding:.4rem .6rem; border-radius:999px; cursor:pointer;
+  background:#11151fcc; color:var(--dim); border:1px solid var(--edge);
+  font:inherit; font-size:12px; white-space:nowrap;
+}
+.law .num{
+  display:inline-grid; place-items:center; width:1.1rem; height:1.1rem;
+  border-radius:50%; background:#1b2030; color:var(--dim); font-size:10px;
+}
+.law[aria-pressed="true"]{color:var(--ink); border-color:var(--beam)}
+.law[aria-pressed="true"] .num{background:var(--beam); color:#08121a}
+.law:disabled{opacity:.42; cursor:default}
+
+#panel{
+  position:fixed; z-index:3; left:.6rem; right:.6rem; bottom:calc(var(--bot) + 3.2rem);
+  max-height:34vh; overflow:auto; -webkit-overflow-scrolling:touch;
+  background:#0e121bf2; border:1px solid var(--edge); border-radius:8px;
+  padding:.7rem .85rem .85rem;
+}
+#panel h2{margin:0 0 .2rem; font-size:15px; font-weight:600; letter-spacing:.02em}
+#panel p{margin:.25rem 0 0}
+.borrows{color:var(--lit)}
+#beamRow{display:flex; gap:.6rem; align-items:center; margin-top:.6rem}
+#beam{flex:1 1 auto; accent-color:var(--beam)}
+
+#foot{
+  position:fixed; z-index:2; left:0; right:0; bottom:0;
+  display:flex; flex-direction:column; gap:.1rem;
+  padding:.3rem .75rem calc(var(--bot) + .3rem);
+  background:linear-gradient(#0b0d1200,#0b0d12ee); pointer-events:none;
+  font-size:10px;
+}
+
+@media (min-width:760px){
+  #laws{flex-wrap:wrap; overflow:visible; right:auto; width:min(52rem,calc(100% - 1.2rem))}
+  #panel{left:1rem; right:auto; width:27rem; bottom:calc(var(--bot) + 2.4rem); max-height:52vh}
+  #foot{flex-direction:row; justify-content:space-between; gap:.8rem; font-size:11px}
+  .law{font-size:12.5px}
+}
+
+/* The Atlas adds a project card and a legend. */
+#project{
+  position:fixed; z-index:4; left:.6rem; right:.6rem; bottom:calc(var(--bot) + 3.2rem);
+  max-height:52vh; overflow:auto; -webkit-overflow-scrolling:touch;
+  background:#0e121bf6; border:1px solid var(--edge); border-radius:8px; padding:.75rem .85rem 1rem;
+}
+#project[hidden]{display:none!important}
+#closeProject{position:absolute; top:.3rem; right:.4rem; width:2rem; height:2rem;
+  background:none; border:0; color:var(--dim); font:inherit; font-size:15px; cursor:pointer}
+#project h3{margin:0 1.6rem .4rem 0; font-size:14px; font-weight:600}
+#project dl{display:grid; grid-template-columns:auto 1fr; gap:.12rem .7rem; margin:.4rem 0}
+#project dt{color:var(--dim)}
+#project dd{margin:0; overflow-wrap:anywhere}
+#project p{margin:.5rem 0 0; font-size:11.5px}
+.legend{display:flex; gap:.35rem; align-items:center; flex-wrap:wrap; font-size:11px; margin-top:.5rem!important}
+.k{display:inline-block; width:.6rem; height:.6rem; border-radius:50%; margin-right:.1rem}
+.k.solar{background:#ffd54a} .k.on{background:#70ccfa} .k.off{background:#478cea} .k.bess{background:#8cdca9}
+#gapRow{margin-top:.55rem!important; padding-top:.5rem; border-top:1px solid var(--edge)}
+#gapRow b{color:var(--lit)}
+@media (min-width:760px){ #project{left:1rem; right:auto; width:27rem; bottom:calc(var(--bot) + 2.4rem)} }

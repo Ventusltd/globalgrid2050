@@ -4,6 +4,8 @@ A read-only lab page: `index.html` + `quantum.js` (one ES module, WebGL2, no CDN
 It must be served over HTTP (the page fetches `data/*`; `file://` blocks fetch). It is not linked from any
 corporate page and uses the owner's metaphor vocabulary only here, in testcode.
 
+Vocabulary: the star-maker's 'soul' records are called states here; the file names are unchanged.
+
 Generation 2 fixes every finding of the three round-2 verdicts (`_tools/qts-verdicts-round2.json`: GPU run,
 physics critic, adversarial code review) and adds all 250,174 unique numbered lines of the estate as a second GPU
 buffer. The section "Round-2 findings" below says what changed for each.
@@ -46,7 +48,7 @@ buffer. The section "Round-2 findings" below says what changed for each.
   over 2 s unless *hold* is on (hold = no automatic re-preparation; φ still precesses for an unpaired spin).
 - **Measurement — a real projective collapse.** Tap the sphere, press *measure*, press Enter a second time on the
   same search, or press a bare Enter when no control has focus: r comes from
-  `mulberry32(hash(seedString, soulNumber, drawCount))` (seed string `2026-09-14`, overridable with `?seed=`;
+  `mulberry32(hash(seedString, stateNumber, drawCount))` (seed string `2026-09-14`, overridable with `?seed=`;
   drawCount advances on every draw, counted or not), outcome AWAY if r < sin²(θ/2) else HOME, printed as an
   auditable line prefixed `last measurement (Born audit):` with the θ it was measured at. **After the measurement
   the state is the pole** (θ = 0 or π; φ is then a global phase and is not shown — the state line prints
@@ -64,18 +66,18 @@ buffer. The section "Round-2 findings" below says what changed for each.
   copy kept for a context restore) and a chip to the record strip (append-only, the DOM keeps the last 200 chips).
 - **A click on a sea point steers only.** It sets the focus, highlights the entry in both stars and opens the lines
   panel; it never measures. Record chips re-steer (join line and message printed), they do not re-measure.
-- **The twin distribution** (tier and rule printed in the HUD): (1) the soul is in `data/entangled.json` → this
+- **The twin distribution** (tier and rule printed in the HUD): (1) the state is in `data/entangled.json` → this
   page's rule, a lookup in the pack and not a correlation: on AWAY the twin is the *defining* repository (q=1, no
   draw); on HOME one of the `called_from` repositories, 1/N each, the index drawn with a printed r; when an AWAY
   also lights a valence repository the HUD says that two dots are lit and what each is; (2) else Random-star edges
-  touching the soul in `data/random.json` → maker-draw edges with their published p **renormalised to sum to 1
+  touching the state in `data/random.json` → maker-draw edges with their published p **renormalised to sum to 1
   (classical weights q = p/Σp, nothing squared)**, or uniform when only the stars draw (no p published) has edges;
   when an atom has edges in both draws only the maker edges are used and the HUD prints how many stars-draw edges
   were left out (39 shipped atoms have both); an ENTANGLED_MAYBE partner at weight p is taken with probability p,
   else an independent draw over all candidates, and the HUD prints the effective P(partner) = p + (1−p)·q;
   (3) else the atom's `valence_repos`, 1/valence each, labelled "valence: N repositories call it without holding a
   copy … M counts callers, valence counts repositories"; (4) else uniform over the 664,940 entries ("pure chance").
-  Joins by "#N" between SOUL.md / random.json and the census are checked by name at load (36/36 entanglements,
+  Joins by "#N" between the state register (file SOUL.md) / random.json and the census are checked by name at load (36/36 entanglements,
   180/180 nodes agree in this pack; a disagreeing entanglement would not be joined) and the counts are printed.
 - **The electron sibling.** Nucleus dot; K/L/M rings with the real electron counts drawn by
   `drawArraysInstanced(POINTS, 0, 512, 3)` (gl_InstanceID is the shell; if any shell exceeds 512 every k-th electron
@@ -84,7 +86,7 @@ buffer. The section "Round-2 findings" below says what changed for each.
   bonds from `electron.json.bonds` (which equal `valence_repos` for all 500 atoms), spin arrows, class badge with
   counts from `totals.classes_electron_md`, a red badge for unpaired-and-bonded atoms gated on valence ≥ 1.
 - **Search** (`#N`, `line N` or a name) first matches a family key, then a permanent line number in LINES.md, then
-  a shipped soul number, then a family or atom name; `line N` forces the line-number path when N is also a family
+  a shipped state number, then a family or atom name; `line N` forces the line-number path when N is also a family
   key (the message says so). A line number is lit in the unique band on both stars; inside a family the family is
   steered to as well (lines panel, fetch button as before); outside every family the panel says that no family
   record holds it, so no source place is known and nothing is fetched. Search steers; it never collapses. A second
@@ -93,10 +95,10 @@ buffer. The section "Round-2 findings" below says what changed for each.
   previous focus. A bare Enter outside the search box measures only when no button, input, select or link has
   keyboard focus. Tapping a sea point runs a one-off pick pass into an RG32UI framebuffer (1×1 scissor on desktop,
   8×8 on phones); both stars are pickable, the unique band is not (search finds it).
-- **Only 983 of 10,985 families can be measured.** An atom is joined to a family by name only (soul numbers and
+- **Only 983 of 10,985 families can be measured.** An atom is joined to a family by name only (state numbers and
   family keys are different numberings), and only 500 atoms ship shells. A family with no name-matched atom — e.g.
   `#80299 haversine` — is steered to, its keys are listed, and the HUD says "shells not shipped … nothing to
-  measure"; θ is never synthesised. A measurable example: `renderTable` (family #1284, 6 atoms carry the name, soul
+  measure"; θ is never synthesised. A measurable example: `renderTable` (family #1284, 6 atoms carry the name, state
   #3859 shown first). The count 983 is computed by the page from the pack and printed in the caveats line.
 - **External requests.** After load the page makes **no** external request unless (a) the *cable* toggle is on —
   then after a measurement the family's bucket JSON is fetched from the URL recorded in `data/provenance.json`,
@@ -145,10 +147,10 @@ buffer. The section "Round-2 findings" below says what changed for each.
    compact set for a rotated phone; explicit widths for wrapping captions.
 10. `D.NB`, `D.NC`, `D.texW` derived from the pack and injected into the shader sources; load-time assertions.
 11. This README rewritten to match the code ("once per bucket, retried only after a failure", bare Enter, stars-draw
-    exclusion, click steers only, SOUL rule as a picture).
+    exclusion, click steers only, the entangled-states rule as a picture).
 12. HUD line prefixed "last measurement (Born audit):"; a click on a point steers only (kept).
-Also: chip re-steer prints its join line and a message; the SOUL HOME twin note names one of the called_from
-repositories (no "local copy or dead"); "two dots lit" sentence after an AWAY in the SOUL tier; the SOUL
+Also: chip re-steer prints its join line and a message; the entangled-states HOME twin note names one of the called_from
+repositories (no "local copy or dead"); "two dots lit" sentence after an AWAY in the entangled-states tier; the entangled-states
 "correlation" sentence moved to the picture list and reworded; name-agreement check on the "#N" joins; the
 acceptance example is a measurable family (`renderTable`), since haversine has no shipped atom and θ is never
 synthesised.
@@ -191,7 +193,7 @@ unique line in LINES.md is resident on the GPU and drawn every frame.
 
 Picture / caveats: the twin star is the same buffers drawn reflected through the centre — a deterministic mirror image
 that pictures the singlet's antipodal correlation; no second qubit is modelled, no measurement is made on the twin and
-no correlation is computed; SOUL entanglements are one definition called from other repositories and the twin rule
+no correlation is computed; Entangled states are one definition called from other repositories and the twin rule
 for them is this page's lookup, not a correlation, with no signal because nothing is transmitted; φ is decorative and a
 global phase at the poles; shells are directory/repo layers; "tunnelling" is electron.json's valence subset; the 8 s
 timer is re-preparation, not decoherence; no Bell test exists here (one qubit, one measurement basis, no second party
@@ -215,7 +217,7 @@ families are drawn fainter (alpha × √(40/lineCount), floor 0.12).
 - `line 1` steers to a line outside every family (key lit, famIdx −1, panel says nothing to fetch); `#2` steers to
   family #2 and points at `line 2`; `line 2` steers to the line (inside 36,545 families, family #10 shown).
 - A click on a visible point steered (message "#N · family #…") and left the Born line unchanged.
-- `renderTable` + Enter steered to soul #3859; a second Enter measured (0 → 1): `last measurement (Born audit):
+- `renderTable` + Enter steered to state #3859; a second Enter measured (0 → 1): `last measurement (Born audit):
   measured #3859 renderTable: AWAY · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed
   169826742 = hash("2026-09-14", 3859, 0) · AWAY, not a tunnel: valence 0 — every outside caller sits in a repository
   that holds a copy (electron.json tunnelling=false)`; the state line then read "φ — (global phase at the pole, not a

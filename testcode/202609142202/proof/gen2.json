@@ -1,5 +1,5 @@
 {
- "started_utc": "2026-09-15T00:03:58.723Z",
+ "started_utc": "2026-09-15T01:38:19.786Z",
  "port": 8875,
  "url": "http://127.0.0.1:8875/testcode/202609142202/index.html",
  "node_check": "ok",
@@ -13,23 +13,23 @@
  "expected_count_line": "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
  "chrome_version": "Chrome/153.0.8010.37",
  "desktop": {
-  "readyMs": 343,
+  "readyMs": 419,
   "renderer_page_S": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
   "renderer_fresh_context": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11)",
   "hud_count_lines": [
    "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
    "128,369 distinct permanent numbers in the family buckets (equal to the 128,369 in-family unique lines) · index.json states 250,174 unique lines, LINES.md carries 250,174 (equal; the buckets alone reproduce only the in-family part)",
-   "fps 60 (1 s mean) · draw calls 11 · DPR 1"
+   "fps 57 (1 s mean) · draw calls 11 · DPR 1"
   ],
   "hud_count_line_matches_disk": true,
-  "state_line": "state: superposition (data state) · θ=70.5° φ=147.0° · P(home)=0.667 P(away)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · a TUNNEL is possible only where valence ≥ 1 (a caller in a repository holding no copy): this atom has valence 6 (electron.json tunnelling=true) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
+  "state_line": "state: superposition (data state) · θ=70.5° φ=143.8° · P(home)=0.667 P(away)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+M)=0.333: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · a TUNNEL is possible only where valence ≥ 1 (a caller in a repository holding no copy): this atom has valence 6 (electron.json tunnelling=true) · φ precessing (decorative: precession marks \"no test or proof calls this\")",
   "born_line": "last measurement (Born audit): no measurement yet",
-  "caveats_line": "data caveats: atoms with records 500/7,607 · entangled souls listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (every shipped atom has a caller outside its home directory and repository, so no pure |0> data state can appear) · atoms with a tunnelling bond (valence ≥ 1): 106/500 · valence 0: 394/500 (394 of them with M>0) · distinct K/L/M triples: 142/500 · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985 · joins by number, names agree: entanglements 36/36, random nodes 180/180 (a disagreeing entanglement is not joined) · θ from the shell counts recorded for this atom in electron/atoms.json (star-maker @c5bf5f6, 2026-09-13); this page does not recompute them",
+  "caveats_line": "data caveats: atoms with records 500/7,607 · entangled states listed 40/69 · random p on 150/300 edges · shipped atoms with M>0: 500/500 (every shipped atom has a caller outside its home directory and repository, so no pure |0> data state can appear) · atoms with a tunnelling bond (valence ≥ 1): 106/500 · valence 0: 394/500 (394 of them with M>0) · distinct K/L/M triples: 142/500 · K+L=0 (never at home): 48 · families with a name-matched atom (measurable): 983/10,985 · joins by number, names agree: entanglements 36/36, random nodes 180/180 (a disagreeing entanglement is not joined) · θ from the shell counts recorded for this atom in electron/atoms.json (star-maker @c5bf5f6, 2026-09-13); this page does not recompute them",
   "count_div": "210 named blocks · 10,985 function families · 664,940 line entries in 160 buckets (128,369 distinct numbered lines) · 250,174 unique numbered lines in LINES.md (2026-09-14 19:56 UTC): 128,369 inside a function family, 121,805 not · index.json states 250,174",
   "fps_3s": {
-   "frames": 181,
-   "ms": 3013.3,
-   "fps": 59.7
+   "frames": 170,
+   "ms": 3002.9,
+   "fps": 56.3
   },
   "scrollWidth": 1440,
   "state0": {
@@ -44,7 +44,7 @@
    "lastQuery": "",
    "measurements": 0,
    "outcome": -1,
-   "msg": "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
+   "msg": "default focus: state #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
    "hold": false,
    "seaDrawn": 664940,
    "uniqDrawn": 250174,
@@ -66,7 +66,7 @@
   "wording": {
    "state_has_P_away": true,
    "hud_lines_with_TUNNEL": [
-    "state: superposition (data state) · θ=70.5° φ=147.0° · P(home)=0.667 P(away)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+"
+    "state: superposition (data state) · θ=70.5° φ=143.8° · P(home)=0.667 P(away)=0.333 · |α|²+|β|²=1 by construction (Bloch angles) · K0 L40 M20 → sin²(θ/2)=M/(K+L+"
    ],
    "caveats_has_tunnelling_counts": true,
    "caveats_has_theta_source": true,
@@ -77,7 +77,7 @@
    ]
   },
   "enter_after_no_match": {
-   "msg_after_search": "#999999999 is neither a family key, a line number in LINES.md nor a shipped soul number.",
+   "msg_after_search": "#999999999 is neither a family key, a line number in LINES.md nor a shipped state number.",
    "lastQuery_after_no_match": "",
    "measurements_before": 0,
    "after_second_enter": 0,
@@ -138,7 +138,7 @@
    "after": 1,
    "outcome": 1,
    "born": "last measurement (Born audit): measured #3859 renderTable: AWAY · r=0.395 < sin²(θ/2)=0.435 at θ=82.5° (prepared data state, counted) · seed 169826742 = hash(\"2026-09-14\", 3859, 0) · AWAY, not a tunnel: valence 0 — every outside caller sits in a repository that holds a copy (electron.json tunnelling=false)",
-   "state": "state: collapsed |1> AWAY · θ=180.0° φ — (global phase at the pole, not a state parameter) · P(home)=0.000 P(away)=1.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=82.5° (prepared data state, counted) · data θ=82.5° · a repeat measurement now reproduces the outcome until re-prepared · K17 L61 M60 → sin²(θ/2)=M/(K+L+M)=0.435: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · no tunnel possible: valence 0 — every outside caller sits in a repository that holds a copy (electron.json tunnelling=false) · φ frozen at the collapse · Pauli: this name is bound to more than one soul; only soul f36417ea82c1 is shipped",
+   "state": "state: collapsed |1> AWAY · θ=180.0° φ — (global phase at the pole, not a state parameter) · P(home)=0.000 P(away)=1.000 · |α|²+|β|²=1 by construction (Bloch angles) · measured at θ=82.5° (prepared data state, counted) · data θ=82.5° · a repeat measurement now reproduces the outcome until re-prepared · K17 L61 M60 → sin²(θ/2)=M/(K+L+M)=0.435: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · no tunnel possible: valence 0 — every outside caller sits in a repository that holds a copy (electron.json tunnelling=false) · φ frozen at the collapse · degenerate names (the same name, different states): this name is bound to more than one state; only state f36417ea82c1 is shipped",
    "pole_phi_hidden": true,
    "phi_wording": "φ frozen at the collapse",
    "pass": true
@@ -219,17 +219,17 @@
   "console_error_count": 0
  },
  "phone": {
-  "readyMs": 142,
+  "readyMs": 186,
   "hud_count_lines": [
    "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
    "128,369 distinct permanent numbers in the family buckets (equal to the 128,369 in-family unique lines) · index.json states 250,174 unique lines, LINES.md carries 250,174 (equal; the buckets alone reproduce only the in-family part)",
-   "fps 60 (1 s mean) · draw calls 11 · DPR 1"
+   "fps 56 (1 s mean) · draw calls 11 · DPR 1"
   ],
   "hud_count_line_matches_disk": true,
   "fps_3s": {
-   "frames": 181,
-   "ms": 3007,
-   "fps": 59.9
+   "frames": 170,
+   "ms": 3014.9,
+   "fps": 56.1
   },
   "scrollWidth": 430,
   "bodyScrollWidth": 430,
@@ -245,7 +245,7 @@
    "lastQuery": "",
    "measurements": 0,
    "outcome": -1,
-   "msg": "default focus: soul #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
+   "msg": "default focus: state #2039 Number (electron/graph.json focus_default \"#2039 Number\", shipped in electron.json) · band: 7 conductors in ELECTRON.md order (shipped in electron.json), then 69 alkali by n",
    "hold": false,
    "seaDrawn": 664940,
    "uniqDrawn": 250174,
@@ -295,7 +295,7 @@
   "hud_count_lines": [
    "on GPU: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC) + 664,940 family-line entries · 128,369 unique lines sit inside a function family, 121,805 do not",
    "128,369 distinct permanent numbers in the family buckets (equal to the 128,369 in-family unique lines) · index.json states 250,174 unique lines, LINES.md carries 250,174 (equal; the buckets alone reproduce only the in-family part)",
-   "fps 60 (1 s mean) · draw calls 11 · DPR 1"
+   "fps 56 (1 s mean) · draw calls 11 · DPR 1"
   ],
   "hud_count_line_matches_disk": true,
   "state": {
@@ -350,9 +350,9 @@
   },
   "scrollWidth": 900,
   "fps_3s": {
-   "frames": 181,
-   "ms": 3003.8,
-   "fps": 59.9
+   "frames": 170,
+   "ms": 3008.6,
+   "fps": 56.2
   },
   "sphere_handle_inside_canvas": true,
   "rotation_live": true,
@@ -367,7 +367,7 @@
   "console_error_count": 0
  },
  "port_still_listening": false,
- "finished_utc": "2026-09-15T00:04:34.141Z",
+ "finished_utc": "2026-09-15T01:38:55.481Z",
  "passes": {
   "node_check": true,
   "desktop_count_line": true,

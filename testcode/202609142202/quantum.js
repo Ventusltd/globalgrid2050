@@ -8,7 +8,7 @@ const phoneNow = () => matchMedia('(max-width:430px)').matches; // re-read on ev
 const DPR = Math.min(devicePixelRatio || 1, phoneNow() ? 2 : 3); // fixed at load (buffers are sized once); a rotation keeps it
 const params = new URLSearchParams(location.search);
 const SEED_STRING = params.get('seed') || '2026-09-14';
-const KINDCOL = { ENTANGLED_MAYBE: [0, .9, 1], MIGHT_TOUCH: [.55, .58, .65], RHYMES_WITH: [.7, .49, 1], WHAT_IF: [.22, .83, .33], COULD_REPLACE: [1, .62, .26], REMINDS_OF: [.97, .56, .7], SOUL: [0, .9, 1], VALENCE: [1, .83, .29], CHANCE: [.5, .5, .5] };
+const KINDCOL = { ENTANGLED_MAYBE: [0, .9, 1], MIGHT_TOUCH: [.55, .58, .65], RHYMES_WITH: [.7, .49, 1], WHAT_IF: [.22, .83, .33], COULD_REPLACE: [1, .62, .26], REMINDS_OF: [.97, .56, .7], STATE: [0, .9, 1], VALENCE: [1, .83, .29], CHANCE: [.5, .5, .5] };
 
 function fail(msg) {
   const d = document.createElement('div'); d.className = 'u-fail'; d.textContent = msg;
@@ -23,8 +23,8 @@ function hash32(str) { // FNV-1a
 function mulberry32(a) {
   return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 }
-function soulNum(key) { const m = /^#(\d+)\s/.exec(key); return m ? +m[1] : null; }
-function soulName(key) { const m = /^#\d+\s+(.*)$/.exec(key); if (!m) return null; const s = m[1]; const i = s.lastIndexOf('/'); return i >= 0 ? s.slice(i + 1) : s; }
+function stateNum(key) { const m = /^#(\d+)\s/.exec(key); return m ? +m[1] : null; }
+function stateName(key) { const m = /^#\d+\s+(.*)$/.exec(key); if (!m) return null; const s = m[1]; const i = s.lastIndexOf('/'); return i >= 0 ? s.slice(i + 1) : s; }
 
 // ---------- shaders ----------
 // Table sizes are injected from the pack (D.NC categories, D.NB blocks, family texture width) — see loadData(); nothing here is typed for one pack.
@@ -200,10 +200,10 @@ async function loadData() {
   D.famByName = new Map(); families.forEach((f, i) => { if (!D.famByName.has(f.name)) D.famByName.set(f.name, []); D.famByName.get(f.name).push(i); });
   D.atomByN = new Map(electron.atoms.map(a => [a.n, a]));
   D.atomByName = new Map(); electron.atoms.forEach(a => { if (!D.atomByName.has(a.name)) D.atomByName.set(a.name, []); D.atomByName.get(a.name).push(a); });
-  // joins by "#N" between SOUL.md / random.json and the electron census are by number; the names must agree or the join is refused (counts printed in the caveats line)
+  // joins by "#N" between the state register (SOUL.md) / random.json and the electron census are by number; the names must agree or the join is refused (counts printed in the caveats line)
   D.joinCheck = { entJoined: 0, entAgree: 0, nodeJoined: 0, nodeAgree: 0 };
   D.entByN = new Map(); entangled.entanglements.forEach(e => { const a = D.atomByN.get(e.n); if (a) { D.joinCheck.entJoined++; if (a.name === e.name) { D.joinCheck.entAgree++; D.entByN.set(e.n, e); } } });
-  random.nodes.forEach(nd => { const n = soulNum(nd.key || ''); const a = n != null && D.atomByN.get(n); if (a) { D.joinCheck.nodeJoined++; if (soulName(nd.key) === a.name) D.joinCheck.nodeAgree++; } });
+  random.nodes.forEach(nd => { const n = stateNum(nd.key || ''); const a = n != null && D.atomByN.get(n); if (a) { D.joinCheck.nodeJoined++; if (stateName(nd.key) === a.name) D.joinCheck.nodeAgree++; } });
   D.repoIdx = new Map(electron.repos.map((r, i) => [r.repo, i]));
   D.bondsByAtom = new Map(); electron.bonds.forEach(b => { if (!D.bondsByAtom.has(b.atom)) D.bondsByAtom.set(b.atom, []); D.bondsByAtom.get(b.atom).push(b.repo); });
   // distinct line numbers, how many families each appears in, and the first family (by pack order) holding each (one pass, once)
@@ -222,7 +222,7 @@ async function loadData() {
   D.band = cond.concat(electron.atoms.filter(a => a.class === 'alkali').map(a => a.n).sort((a, b) => a - b));
   D.bandNote = `${cond.length} conductors in ELECTRON.md order (${electron.conduction_band_electron_md ? 'shipped in electron.json' : 'not shipped'}), then ${D.band.length - cond.length} alkali by n`;
   // default focus: electron/graph.json focus_default, shipped verbatim (e.g. "#2039 Number"); null when not shipped
-  D.focusDefault = soulNum(electron.focus_default || '');
+  D.focusDefault = stateNum(electron.focus_default || '');
   D.bucketSize = provenance.checks && Number.isInteger(provenance.checks.index_bucket_size) ? provenance.checks.index_bucket_size : null;
   // one-time census facts printed as caveats (computed from the pack, not typed)
   D.measurableFamilies = families.filter(f => D.atomByName.has(f.name)).length;
@@ -232,7 +232,7 @@ async function loadData() {
   D.atomsValence0 = electron.atoms.filter(a => !(a.valence > 0)).length;
   D.atomsValence0M = electron.atoms.filter(a => !(a.valence > 0) && a.shells && a.shells.M > 0).length;
   D.distinctTriples = new Set(electron.atoms.map(a => a.shells ? `${a.shells.K}/${a.shells.L}/${a.shells.M}` : '')).size;
-  D.atomsBothDraws = electron.atoms.filter(a => { const ed = random.edges.filter(e => soulNum(e.from) === a.n || soulNum(e.to) === a.n); return ed.some(e => e.p != null) && ed.some(e => e.p == null); }).length;
+  D.atomsBothDraws = electron.atoms.filter(a => { const ed = random.edges.filter(e => stateNum(e.from) === a.n || stateNum(e.to) === a.n); return ed.some(e => e.p != null) && ed.some(e => e.p == null); }).length;
   D.shellSource = `electron/atoms.json (star-maker @${(electron.star_maker_commit || provenance.star_maker_commit || '').slice(0, 7)}, ${(electron.generated_utc || '').slice(0, 10)})`;
 }
 // binary search in the ascending unique-line array: index or -1
@@ -409,8 +409,8 @@ function setFocus({ famIdx, atom, key, note }, keepTwin) {
   S.famJoinNote = note || ''; S.lastQuery = '';
   if (famIdx != null && famIdx >= 0 && atom === undefined) {
     const f = D.families[famIdx]; const list = D.atomByName.get(f.name) || [];
-    if (list.length === 1) { atom = list[0]; S.famJoinNote = `atom joined by name only (soul numbers and family keys are different numberings)`; }
-    else if (list.length > 1) { atom = list[0]; S.famJoinNote = `${list.length} atoms carry the name "${f.name}"; showing soul #${atom.n} (first by record order); joined by name only`; }
+    if (list.length === 1) { atom = list[0]; S.famJoinNote = `atom joined by name only (state numbers and family keys are different numberings)`; }
+    else if (list.length > 1) { atom = list[0]; S.famJoinNote = `${list.length} atoms carry the name "${f.name}"; showing state #${atom.n} (first by record order); joined by name only`; }
     else atom = null;
   }
   if (atom && (famIdx == null || famIdx < 0)) {
@@ -426,22 +426,22 @@ function setFocus({ famIdx, atom, key, note }, keepTwin) {
 }
 
 function buildTwin() {
-  const a = S.atom; const cands = []; let tier = '', tierLabel = '', kind = 'CHANCE', soulEdge = null;
+  const a = S.atom; const cands = []; let tier = '', tierLabel = '', kind = 'CHANCE', stateEdge = null;
   if (a && D.entByN.has(a.n)) {
     // this page's rule, printed as used (a lookup in the pack, not a correlation): on AWAY the twin is the defining repository (q=1); on HOME one of the called_from repositories, 1/N each
-    const e = D.entByN.get(a.n); tier = 'SOUL'; kind = 'SOUL'; S.soulDef = e.defined_in; const defRepo = e.defined_in.split('/')[0];
-    tierLabel = `SOUL entanglement (${D.entangled.soul_md.entanglements_listed} listed of ${D.entangled.soul_md.entanglements_stated} stated) · this page's twin rule (a lookup in the pack, not a correlation): on AWAY the twin is the defining repository ${defRepo} (q=1); on HOME one of the ${e.called_from.length} called_from repositories (1/${e.called_from.length} each, index drawn with a printed r)`;
-    cands.push({ label: 'repo ' + defRepo + ' (on AWAY)', repo: defRepo, q: 1, kind: 'SOUL', cond: 'AWAY' });
-    e.called_from.forEach(r => cands.push({ label: 'repo ' + r + ' (on HOME)', repo: r, q: 1 / e.called_from.length, kind: 'SOUL', cond: 'HOME' }));
+    const e = D.entByN.get(a.n); tier = 'STATE'; kind = 'STATE'; S.stateDef = e.defined_in; const defRepo = e.defined_in.split('/')[0];
+    tierLabel = `entangled states (${D.entangled.soul_md.entanglements_listed} listed of ${D.entangled.soul_md.entanglements_stated} stated) · this page's twin rule (a lookup in the pack, not a correlation): on AWAY the twin is the defining repository ${defRepo} (q=1); on HOME one of the ${e.called_from.length} called_from repositories (1/${e.called_from.length} each, index drawn with a printed r)`;
+    cands.push({ label: 'repo ' + defRepo + ' (on AWAY)', repo: defRepo, q: 1, kind: 'STATE', cond: 'AWAY' });
+    e.called_from.forEach(r => cands.push({ label: 'repo ' + r + ' (on HOME)', repo: r, q: 1 / e.called_from.length, kind: 'STATE', cond: 'HOME' }));
   } else if (a) {
-    const edges = D.random.edges.filter(ed => soulNum(ed.from) === a.n || soulNum(ed.to) === a.n);
+    const edges = D.random.edges.filter(ed => stateNum(ed.from) === a.n || stateNum(ed.to) === a.n);
     if (edges.length) {
       tier = 'RANDOM'; const maker = edges.filter(ed => ed.p != null);
       const use = maker.length ? maker : edges; const sum = use.reduce((s, ed) => s + (ed.p != null ? ed.p : 1), 0);
-      use.forEach(ed => { const other = soulNum(ed.from) === a.n ? ed.to : ed.from; const w = ed.p != null ? ed.p : 1; cands.push({ label: other, repo: /^repo /.test(other) ? other.slice(5) : null, soul: soulNum(other), name: soulName(other), q: w / sum, kind: ed.kind, p: ed.p, src: ed.src }); });
+      use.forEach(ed => { const other = stateNum(ed.from) === a.n ? ed.to : ed.from; const w = ed.p != null ? ed.p : 1; cands.push({ label: other, repo: /^repo /.test(other) ? other.slice(5) : null, state: stateNum(other), name: stateName(other), q: w / sum, kind: ed.kind, p: ed.p, src: ed.src }); });
       tierLabel = maker.length ? `Random star edges (maker draw, seed ${D.random.sources.find(s => s.src === 'maker').seed}): published p, renormalised to sum to 1 (classical weights q=p/Σp)` : `Random star edges (stars draw, seed ${D.random.sources.find(s => s.src === 'stars').seed}): p not published for this draw: uniform`;
       if (maker.length && edges.length > maker.length) tierLabel += ` · ${edges.length - maker.length} stars-draw edge${edges.length - maker.length === 1 ? '' : 's'} (no p published) not used`;
-      const em = use.find(ed => ed.kind === 'ENTANGLED_MAYBE' && ed.p != null); if (em) soulEdge = em;
+      const em = use.find(ed => ed.kind === 'ENTANGLED_MAYBE' && ed.p != null); if (em) stateEdge = em;
       kind = use[0].kind;
     } else if (a.valence_repos && a.valence_repos.length) {
       tier = 'VALENCE'; kind = 'VALENCE'; tierLabel = `valence: ${a.valence} repositories call it without holding a copy, 1/${a.valence} each (shells K${a.shells.K} L${a.shells.L} M${a.shells.M}; M counts callers, valence counts repositories)`;
@@ -449,7 +449,7 @@ function buildTwin() {
     }
   }
   if (!cands.length) { tier = 'CHANCE'; kind = 'CHANCE'; tierLabel = a ? 'no link, no valence: twin is pure chance' : 'no electron record: twin is pure chance'; }
-  S.twin = { tier, tierLabel, cands: cands.slice(0, 8), all: cands, kind, soulEdge, chosen: null };
+  S.twin = { tier, tierLabel, cands: cands.slice(0, 8), all: cands, kind, stateEdge, chosen: null };
   // sample up to 8 candidates for the cloud; positions: mirror of the focused family's position, or the centre when there is none
   const base = S.famIdx >= 0 ? familyPos(S.famIdx).map(v => -v) : [0, 0];
   const cloud = new Float32Array(8 * 8); let n = 0;
@@ -458,7 +458,7 @@ function buildTwin() {
     cloud.set([base[0], base[1], .5, .5, .5, 0.05, 0.37, 1], 0); n = 1;
   }
   gl.bindBuffer(gl.ARRAY_BUFFER, B.cloud); gl.bufferSubData(gl.ARRAY_BUFFER, 0, cloud); B.cloudN = n;
-  // twin highlights on the twin star: a candidate that is a soul with a family of the same name, or a line key
+  // twin highlights on the twin star: a candidate that is a state with a family of the same name, or a line key
   S.twinKey = 0; S.twinFamily = 0xFFFF;
   const withFam = S.twin.cands.find(c => c.name && D.famByName.has(c.name)); if (withFam) S.twinFamily = D.famByName.get(withFam.name)[0];
   buildTether(base);
@@ -486,7 +486,7 @@ function buildAtomGeometry() {
     const cc = catCol(); dots.push([0, 0, cc[0], cc[1], cc[2], 1, 0, 0]); // nucleus at the sphere centre
     const bonds = D.bondsByAtom.get(a.n) || []; const trem = a.class === 'alkali' ? 1 : 0;
     bonds.forEach(rp => { const i = D.repoIdx.get(rp); if (i == null) return; const an = repoAngle(i); const m = r * 1.25; const col = trem ? [1, .3, .3, .9] : [1, .83, .29, .55]; lines.push([Math.cos(an) * m, Math.sin(an) * m, ...col, 0, trem], [Math.cos(an) * repoR, Math.sin(an) * repoR, ...col, 0, trem]); });
-    if (S.twin && S.twin.tier === 'SOUL') { (D.entByN.get(a.n).called_from).forEach(rp => { const i = D.repoIdx.get(rp); if (i == null) return; const an = repoAngle(i); lines.push([Math.cos(an) * repoR - 6 * DPR, Math.sin(an) * repoR, 0, .9, 1, .8, 0, 0], [Math.cos(an) * repoR + 6 * DPR, Math.sin(an) * repoR, 0, .9, 1, .8, 0, 0]); }); }
+    if (S.twin && S.twin.tier === 'STATE') { (D.entByN.get(a.n).called_from).forEach(rp => { const i = D.repoIdx.get(rp); if (i == null) return; const an = repoAngle(i); lines.push([Math.cos(an) * repoR - 6 * DPR, Math.sin(an) * repoR, 0, .9, 1, .8, 0, 0], [Math.cos(an) * repoR + 6 * DPR, Math.sin(an) * repoR, 0, .9, 1, .8, 0, 0]); }); }
     // spin arrows: paired two opposed, unpaired one
     const sx = r * 1.42, sy = -r * 1.1; const arrow = (x, y, dir, col) => { lines.push([x, y - 10 * DPR * dir, ...col, 0, 0], [x, y + 10 * DPR * dir, ...col, 0, 0], [x, y + 10 * DPR * dir, ...col, 0, 0], [x - 4 * DPR, y + 5 * DPR * dir, ...col, 0, 0], [x, y + 10 * DPR * dir, ...col, 0, 0], [x + 4 * DPR, y + 5 * DPR * dir, ...col, 0, 0]); };
     if (a.spin === 'paired') { arrow(sx - 5 * DPR, sy, -1, [0, .9, 1, .9]); arrow(sx + 5 * DPR, sy, 1, [0, .9, 1, .9]); } else arrow(sx, sy, -1, [1, .83, .29, 1]);
@@ -574,13 +574,13 @@ function measure() {
   if (S.twin && S.twin.chosen) { S.msg = 'earlier pair dissolved: one twin per measurement'; }
   // stage 2: the twin, same frame, from the stated distribution
   const tw = S.twin; let chosen = null, twinNote = '';
-  if (tw.tier === 'SOUL') {
-    if (outcome) { chosen = tw.all.find(c => c.cond === 'AWAY'); twinNote = `twin fixed by SOUL entanglement rule: AWAY → the defining repository (${S.soulDef}) (q=1, no draw)`; }
-    else { const list = tw.all.filter(c => c.cond === 'HOME'); const r2 = rng(); const i = Math.floor(r2 * list.length); chosen = list[i]; twinNote = `twin fixed by SOUL entanglement rule: HOME → one of the ${list.length} called_from repositories, index ${i} drawn with r=${r2.toFixed(3)} → ${chosen.label} (1/${list.length})`; }
+  if (tw.tier === 'STATE') {
+    if (outcome) { chosen = tw.all.find(c => c.cond === 'AWAY'); twinNote = `twin fixed by the entangled-states rule: AWAY → the defining repository (${S.stateDef}) (q=1, no draw)`; }
+    else { const list = tw.all.filter(c => c.cond === 'HOME'); const r2 = rng(); const i = Math.floor(r2 * list.length); chosen = list[i]; twinNote = `twin fixed by the entangled-states rule: HOME → one of the ${list.length} called_from repositories, index ${i} drawn with r=${r2.toFixed(3)} → ${chosen.label} (1/${list.length})`; }
   }
   else if (tw.tier === 'CHANCE') { const i = Math.floor(rng() * D.N); const k = D.keys[i]; let fi = 0; { let lo = 0, hi = D.families.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (D.families[m].lineOffset <= i) lo = m; else hi = m - 1; } fi = lo; } chosen = { label: `line #${k} in family #${D.families[fi].n} ${D.families[fi].name}`, key: k, famIdx: fi, kind: 'CHANCE', q: 1 / D.N }; twinNote = `twin drew uniformly over ${fmt(D.N)} entries: ${chosen.label}`; }
   else {
-    const r2 = rng(); const em = tw.soulEdge; const partner = em ? tw.all.find(c => c.kind === 'ENTANGLED_MAYBE' && c.p === em.p) : null;
+    const r2 = rng(); const em = tw.stateEdge; const partner = em ? tw.all.find(c => c.kind === 'ENTANGLED_MAYBE' && c.p === em.p) : null;
     if (em && r2 < em.p) { chosen = partner; twinNote = `twin fixed by ENTANGLED_MAYBE (p=${em.p}) · r=${r2.toFixed(3)} < p`; }
     else { const r3 = em ? rng() : r2; let acc = 0; chosen = tw.all[tw.all.length - 1]; for (const c of tw.all) { acc += c.q; if (r3 < acc) { chosen = c; break; } } twinNote = (em ? `twin drew independently (1−p, r=${r2.toFixed(3)} ≥ ${em.p}) · ` : 'twin drew from q · ') + `${chosen.label} q=${chosen.q.toFixed(3)} r=${r3.toFixed(3)}`; }
     if (em && partner) twinNote += ` · effective P(partner)=p+(1−p)·q=${(em.p + (1 - em.p) * partner.q).toFixed(3)} (the independent draw still includes the partner)`;
@@ -590,7 +590,7 @@ function measure() {
   // monogamy: an AWAY outcome lights exactly one valence repo (a tunnel: it holds no copy) with probability 1/valence; HOME dims all bond dots.
   // "tunnel" is printed only where the atom's valence field says one exists (valence ≥ 1, electron.json tunnelling=true).
   S.litRepo = null;
-  if (outcome && a.valence_repos && a.valence_repos.length) { const r4 = rng(); const i = Math.floor(r4 * a.valence_repos.length); S.litRepo = a.valence_repos[i]; born += ` · AWAY lit valence repo ${S.litRepo}: a TUNNEL (this repository holds no copy; index ${i} of ${a.valence_repos.length}, 1/${a.valence_repos.length}, r=${r4.toFixed(3)})`; if (tw.tier === 'SOUL') twinNote += ` · two dots lit: white = the twin (defining repository, fixed by rule); red-orange = the one valence repository drawn for this tunnel (index ${i} of ${a.valence_repos.length}, r=${r4.toFixed(3)})`; }
+  if (outcome && a.valence_repos && a.valence_repos.length) { const r4 = rng(); const i = Math.floor(r4 * a.valence_repos.length); S.litRepo = a.valence_repos[i]; born += ` · AWAY lit valence repo ${S.litRepo}: a TUNNEL (this repository holds no copy; index ${i} of ${a.valence_repos.length}, 1/${a.valence_repos.length}, r=${r4.toFixed(3)})`; if (tw.tier === 'STATE') twinNote += ` · two dots lit: white = the twin (defining repository, fixed by rule); red-orange = the one valence repository drawn for this tunnel (index ${i} of ${a.valence_repos.length}, r=${r4.toFixed(3)})`; }
   else if (outcome) born += ` · AWAY, not a tunnel: valence ${a.valence || 0} — every outside caller sits in a repository that holds a copy (electron.json tunnelling=${a.tunnelling})`;
   else born += ' · HOME: all bond dots dimmed';
   S.born = born; S.twinNote = twinNote;
@@ -631,7 +631,7 @@ function getBucket(bucket) {
 }
 const shaNote = b => b.sha ? (b.match ? `sha256 matches provenance (pack fetch ${b.src.fetched_utc})` : `sha256 MISMATCH: live ${b.sha.slice(0, 12)}… vs pack ${b.src.sha256.slice(0, 12)}… (fetched ${b.src.fetched_utc})`) : 'sha256 unavailable in this browser';
 async function cableFetch() {
-  if (S.famIdx < 0) { S.cableNote = 'no family key for this soul: nothing to fetch down the cable'; updateHUD(true); return; }
+  if (S.famIdx < 0) { S.cableNote = 'no family key for this state: nothing to fetch down the cable'; updateHUD(true); return; }
   const f = D.families[S.famIdx]; const bucket = bucketOf(f.n);
   if (bucket == null) { S.cableNote = 'bucket size not shipped in provenance.json: no fetch'; updateHUD(true); return; }
   const src = D.provenance.sources.find(s => s.url.endsWith(`/code/f/${bucket}.json`));
@@ -717,13 +717,13 @@ function doSearch(q) {
     const n = +m[1]; const u = uniqFacts(n);
     if (D.famByN.has(n)) { const fi = D.famByN.get(n); const f = D.families[fi]; setFocus({ famIdx: fi }); S.lastQuery = q; S.msg = `family #${n} ${f.name} · block ${f.block} · ${fmt(f.lineCount)} entries · search steers, it does not measure: ${S.atom ? 'Enter again or tap the sphere to collapse' : 'no electron record for this family, nothing to measure'}${u ? ` · #${n} is also a permanent line number: type "line ${n}" for the line` : ''}`; }
     else if (u) { focusLine(n, u); S.lastQuery = q; }
-    else if (D.atomByN.has(n)) { setFocus({ atom: D.atomByN.get(n) }); S.lastQuery = q; S.msg = `soul #${n} ${D.atomByN.get(n).name} (electron census numbering) · search steers, it does not measure: Enter again or tap the sphere to collapse`; }
-    else S.msg = `#${n} is neither a family key, a line number in LINES.md nor a shipped soul number.`;
+    else if (D.atomByN.has(n)) { setFocus({ atom: D.atomByN.get(n) }); S.lastQuery = q; S.msg = `state #${n} ${D.atomByN.get(n).name} (electron census numbering) · search steers, it does not measure: Enter again or tap the sphere to collapse`; }
+    else S.msg = `#${n} is neither a family key, a line number in LINES.md nor a shipped state number.`;
   } else {
     const fams = D.famByName.get(q), atoms = D.atomByName.get(q);
     if (fams) { setFocus({ famIdx: fams[0] }); S.lastQuery = q; S.msg = `${fams.length} famil${fams.length === 1 ? 'y' : 'ies'} named "${q}" · showing #${D.families[fams[0]].n} · search steers, it does not measure: ${S.atom ? 'Enter again or tap the sphere to collapse' : 'no electron record, nothing to measure'}`; }
-    else if (atoms) { setFocus({ atom: atoms[0] }); S.lastQuery = q; S.msg = `${atoms.length} soul${atoms.length === 1 ? '' : 's'} named "${q}" · search steers, it does not measure: Enter again or tap the sphere to collapse`; }
-    else S.msg = `no family or shipped soul is named "${q}"`;
+    else if (atoms) { setFocus({ atom: atoms[0] }); S.lastQuery = q; S.msg = `${atoms.length} state${atoms.length === 1 ? '' : 's'} named "${q}" · search steers, it does not measure: Enter again or tap the sphere to collapse`; }
+    else S.msg = `no family or shipped state is named "${q}"`;
   }
   updateHUD(true);
 }
@@ -748,7 +748,7 @@ function pickAt(cssX, cssY) {
 let hudDirty = true, hudLast = 0;
 function updateHUD(force) { if (force) hudDirty = true; }
 function stateText() {
-  const a = S.atom; if (!a) return S.famIdx >= 0 ? `shells not shipped for this soul (${fmt(D.electron.totals.atoms_shipped)} of ${fmt(D.electron.totals.atoms_in_star)} atoms carry records): tap steers, nothing to measure` : S.key ? `focus: line #${S.key} (outside every function family): no atom, nothing to measure` : 'no focus';
+  const a = S.atom; if (!a) return S.famIdx >= 0 ? `shells not shipped for this state (${fmt(D.electron.totals.atoms_shipped)} of ${fmt(D.electron.totals.atoms_in_star)} atoms carry records): tap steers, nothing to measure` : S.key ? `focus: line #${S.key} (outside every function family): no atom, nothing to measure` : 'no focus';
   const T = a.shells.K + a.shells.L + a.shells.M; if (T === 0) return 'no electrons: nothing to measure';
   const th = S.hand ? S.hand.theta : S.theta, ph = S.hand ? S.hand.phi : S.phi; const c = Math.cos(th / 2), s = Math.sin(th / 2);
   const collapsed = S.outcome >= 0 && !!S.collapse; const atPole = th < 1e-6 || Math.abs(th - PI) < 1e-6;
@@ -757,7 +757,7 @@ function stateText() {
   const phiWord = collapsed ? 'φ frozen at the collapse' : S.hand ? 'φ set by hand' : a.spin === 'unpaired' ? 'φ precessing (decorative: precession marks "no test or proof calls this")' : 'φ still (paired)';
   return `state: ${st} · θ=${deg(th)}° ${atPole ? 'φ — (global phase at the pole, not a state parameter)' : 'φ=' + deg(ph) + '°'} · P(home)=${(c * c).toFixed(3)} P(away)=${(s * s).toFixed(3)} · |α|²+|β|²=1 by construction (Bloch angles)`
     + (collapsed ? ` · measured at θ=${deg(S.measuredTheta)}° (${S.measuredHow}) · data θ=${deg(S.dataTheta)}° · a repeat measurement now reproduces the outcome until re-prepared` : '')
-    + ` · K${a.shells.K} L${a.shells.L} M${a.shells.M} → sin²(θ/2)=M/(K+L+M)=${(Math.sin(S.dataTheta / 2) ** 2).toFixed(3)}: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · ${a.valence > 0 ? `a TUNNEL is possible only where valence ≥ 1 (a caller in a repository holding no copy): this atom has valence ${a.valence} (electron.json tunnelling=${a.tunnelling})` : `no tunnel possible: valence 0 — every outside caller sits in a repository that holds a copy (electron.json tunnelling=${a.tunnelling})`} · ${phiWord}` + (a.class === 'ambiguous' ? ` · Pauli: this name is bound to more than one soul; only soul ${a.soul} is shipped` : '');
+    + ` · K${a.shells.K} L${a.shells.L} M${a.shells.M} → sin²(θ/2)=M/(K+L+M)=${(Math.sin(S.dataTheta / 2) ** 2).toFixed(3)}: the chance the next caller sits in another repository (M shell), whether or not that repository holds a copy · ${a.valence > 0 ? `a TUNNEL is possible only where valence ≥ 1 (a caller in a repository holding no copy): this atom has valence ${a.valence} (electron.json tunnelling=${a.tunnelling})` : `no tunnel possible: valence 0 — every outside caller sits in a repository that holds a copy (electron.json tunnelling=${a.tunnelling})`} · ${phiWord}` + (a.class === 'ambiguous' ? ` · degenerate names (the same name, different states): this name is bound to more than one state; only state ${a.soul} is shipped` : '');
 }
 function renderHUD(now) {
   if (!hudDirty && now - hudLast < 250) return; hudLast = now; hudDirty = false;
@@ -770,13 +770,13 @@ function renderHUD(now) {
     L.push([x, `${fmt(D.distinct)} distinct permanent numbers in the family buckets (${D.distinct === D.uniqInFamily ? 'equal to' : 'NOT equal to'} the ${fmt(D.uniqInFamily)} in-family unique lines) · index.json states ${fmt(D.provenance.checks.index_lines)} unique lines, LINES.md carries ${fmt(D.uniqN)} (${D.provenance.checks.index_lines === D.uniqN ? 'equal' : 'differ'}; the buckets alone reproduce only the in-family part)` + (D.uniqFlagDisagree ? ` · family flag disagrees with the pack on ${fmt(D.uniqFlagDisagree)} lines (the pack's own membership is used)` : '')]);
     L.push([x, `fps ${(S.fps || 0).toFixed(0)} (1 s mean) · draw calls ${S.lastDrawCalls} · DPR ${DPR}`]);
   }
-  L.push([x, `seed "${S.seedString}"${S.seedNote ? ' · ' + S.seedNote : ''} · PRNG mulberry32(hash(seed, soul, measurementCount))`]);
+  L.push([x, `seed "${S.seedString}"${S.seedNote ? ' · ' + S.seedNote : ''} · PRNG mulberry32(hash(seed, state, measurementCount))`]);
   L.push([x, stateText()]);
   L.push([x, `last measurement (Born audit): ${S.born || 'no measurement yet'}`]);
   const tw = S.twin; if (tw) { const probs = tw.cands.map(c => `${c.label} q=${c.q.toFixed(3)}${c.p != null ? ' p=' + c.p : ''}`).join(' · '); L.push([x, `twin tier: ${tw.tierLabel}${tw.cands.length ? ' · ' + probs : ''}${tw.all.length > 8 ? ` · ${tw.all.length - 8} more candidates not drawn` : ''}${S.twinNote ? ' · ' + S.twinNote : ''}`]); }
   const rp = S.reprepareAt ? Math.max(0, (S.reprepareAt - now) / 1000) : 0;
   L.push([x, S.hold ? 'hold: no automatic re-preparation (θ stays where it is; φ still precesses for an unpaired spin)' : S.reprepareAt ? `re-prepare in ${rp.toFixed(1)} s` : 'prepared (data state)']);
-  const t = D.electron.totals; L.push([x, `data caveats: atoms with records ${fmt(t.atoms_shipped)}/${fmt(t.atoms_in_star)} · entangled souls listed ${D.entangled.soul_md.entanglements_listed}/${D.entangled.soul_md.entanglements_stated} · random p on ${D.random.edges.filter(e => e.p != null).length}/${D.random.edges.length} edges · shipped atoms with M>0: ${fmt(D.atomsWithM)}/${fmt(t.atoms_shipped)} (every shipped atom has a caller outside its home directory and repository, so no pure |0> data state can appear) · atoms with a tunnelling bond (valence ≥ 1): ${fmt(D.atomsTunnelling)}/${fmt(t.atoms_shipped)} · valence 0: ${fmt(D.atomsValence0)}/${fmt(t.atoms_shipped)} (${fmt(D.atomsValence0M)} of them with M>0) · distinct K/L/M triples: ${fmt(D.distinctTriples)}/${fmt(t.atoms_shipped)} · K+L=0 (never at home): ${fmt(D.atomsNoHome)} · families with a name-matched atom (measurable): ${fmt(D.measurableFamilies)}/${fmt(D.families.length)} · joins by number, names agree: entanglements ${D.joinCheck.entAgree}/${D.joinCheck.entJoined}, random nodes ${D.joinCheck.nodeAgree}/${D.joinCheck.nodeJoined} (a disagreeing entanglement is not joined) · θ from the shell counts recorded for this atom in ${D.shellSource}; this page does not recompute them`]);
+  const t = D.electron.totals; L.push([x, `data caveats: atoms with records ${fmt(t.atoms_shipped)}/${fmt(t.atoms_in_star)} · entangled states listed ${D.entangled.soul_md.entanglements_listed}/${D.entangled.soul_md.entanglements_stated} · random p on ${D.random.edges.filter(e => e.p != null).length}/${D.random.edges.length} edges · shipped atoms with M>0: ${fmt(D.atomsWithM)}/${fmt(t.atoms_shipped)} (every shipped atom has a caller outside its home directory and repository, so no pure |0> data state can appear) · atoms with a tunnelling bond (valence ≥ 1): ${fmt(D.atomsTunnelling)}/${fmt(t.atoms_shipped)} · valence 0: ${fmt(D.atomsValence0)}/${fmt(t.atoms_shipped)} (${fmt(D.atomsValence0M)} of them with M>0) · distinct K/L/M triples: ${fmt(D.distinctTriples)}/${fmt(t.atoms_shipped)} · K+L=0 (never at home): ${fmt(D.atomsNoHome)} · families with a name-matched atom (measurable): ${fmt(D.measurableFamilies)}/${fmt(D.families.length)} · joins by number, names agree: entanglements ${D.joinCheck.entAgree}/${D.joinCheck.entJoined}, random nodes ${D.joinCheck.nodeAgree}/${D.joinCheck.nodeJoined} (a disagreeing entanglement is not joined) · θ from the shell counts recorded for this atom in ${D.shellSource}; this page does not recompute them`]);
   if (S.famJoinNote) L.push([x, `join: ${S.famJoinNote}`]);
   if (S.atom && S.atom.valence > 0) L.push([x, `valence repos (call #${S.atom.n} without holding a copy, electron.json valence_repos): ${S.atom.valence_repos.join(', ')}`]);
   L.push([x, `cable: ${S.cableOn ? 'on' : 'off'}${S.cableNote ? ' · ' + S.cableNote : ' · no automatic external request; line text only on demand'}`]);
@@ -916,14 +916,14 @@ function aboutPanel() {
 <div class="u-sub">Picture</div>
 <ul style="margin:4px 0 4px 18px;padding:0">
 <li>The twin star is the same buffers drawn point-by-point reflected through the centre (angle + π, same radius): a mirror image, deterministic. It is a picture of the singlet's antipodal correlation (spin up along n on one particle means spin down along n on the other); no second qubit is modelled and no measurement is made on the twin, so no correlation is computed.</li>
-<li>SOUL entanglements are one definition called from other repositories (SOUL.md, ${fmt(sm.entanglements_listed)} of ${fmt(sm.entanglements_stated)} listed). The twin rule is this page's choice — on AWAY the defining repository, on HOME one of the called_from repositories at 1/N — a lookup in the pack, not a correlation between two measurements. No signal is involved because nothing is transmitted.</li>
+<li>Entangled states are one definition called from other repositories (the state register, file SOUL.md, ${fmt(sm.entanglements_listed)} of ${fmt(sm.entanglements_stated)} listed). The twin rule is this page's choice — on AWAY the defining repository, on HOME one of the called_from repositories at 1/N — a lookup in the pack, not a correlation between two measurements. No signal is involved because nothing is transmitted.</li>
 <li>φ is decorative: precession only marks "no test or proof calls this" (unpaired spin); the census spin flag (paired = a test or proof calls it) only sets whether φ precesses, and φ never enters the Born probability. At a pole φ is a global phase and is not shown.</li>
 <li>Shells are directory/repo layers (K same directory, L same repository, M other repositories). "Tunnelling" in electron.json is the valence subset — a caller in a repository holding no copy (BONDS_WITH): ${fmt(D.atomsTunnelling)} of the ${fmt(t.atoms_shipped)} shipped atoms have one, ${fmt(D.atomsValence0)} have valence 0. M counts callers; valence counts repositories. The word "tunnel" appears on this page only where the atom's valence field says one exists.</li>
 <li>The 8-second timer is re-preparation, not decoherence.</li>
 <li>No Bell test exists here: one qubit, one measurement basis, no second party; nothing on this page tests quantum mechanics.</li>
 <li>Every shipped atom has a caller outside its home directory and repository: ${fmt(D.atomsWithM)} of ${fmt(t.atoms_shipped)} have M&gt;0 and ${fmt(D.atomsNoHome)} have K+L=0, so no pure |0&gt; data state can appear. ${fmt(D.distinctTriples)} distinct K/L/M triples occur among the ${fmt(t.atoms_shipped)} atoms; how star-maker counts them is not verified here. Only families whose name matches a shipped atom can be measured: ${fmt(D.measurableFamilies)} of ${fmt(D.families.length)}; the rest can be steered to, not measured, because their shells are not in the pack and θ is never synthesised.</li>
 <li>Random Star edges are prompts, not findings; p exists on ${pWith} of ${D.random.edges.length} edges; ${fmt(D.atomsBothDraws)} shipped atoms have edges in both draws.</li>
-<li>Only ${fmt(t.atoms_shipped)} of ${fmt(t.atoms_in_star)} atoms and ${fmt(sm.entanglements_listed)} of ${fmt(sm.entanglements_stated)} entanglements are shipped. Soul numbers (electron census) and family keys (code buckets) are different numberings; this page joins them by name only and says so in the HUD. Joins by "#N" between SOUL.md / random.json and the census are checked by name (${D.joinCheck.entAgree}/${D.joinCheck.entJoined} entanglements, ${D.joinCheck.nodeAgree}/${D.joinCheck.nodeJoined} nodes agree).</li>
+<li>Only ${fmt(t.atoms_shipped)} of ${fmt(t.atoms_in_star)} atoms and ${fmt(sm.entanglements_listed)} of ${fmt(sm.entanglements_stated)} entanglements are shipped. State numbers (electron census) and family keys (code buckets) are different numberings; this page joins them by name only and says so in the HUD. Joins by "#N" between the state register (SOUL.md) / random.json and the census are checked by name (${D.joinCheck.entAgree}/${D.joinCheck.entJoined} entanglements, ${D.joinCheck.nodeAgree}/${D.joinCheck.nodeJoined} nodes agree).</li>
 <li>index.json states ${fmt(D.provenance.checks.index_lines)} unique numbered lines and LINES.md carries ${fmt(D.uniqN)}; the published buckets carry ${fmt(D.N)} entries with ${fmt(D.distinct)} distinct numbers, which is the in-family part. All are printed; none is invented.</li>
 <li>Line text is never shown unless fetched from GitHub at the pinned commit on demand (the classical cable); a line outside every family has no family record and therefore no known source place — nothing is fetched for it.</li>
 <li>A tap on a sea point steers only (focus, highlight, lines panel); it never measures. Measurement is the measure button, a tap on the sphere, or Enter (a second Enter on the same search, or a bare Enter when no control has focus).</li>
@@ -965,7 +965,7 @@ function fallback2D(reason) {
     S.lastDrawCalls = 0;
     resize(); wireUI();
     const def = D.focusDefault != null ? D.atomByN.get(D.focusDefault) : null;
-    if (def) { setFocus({ atom: def }); S.bandPos = Math.max(0, D.band.indexOf(def.n)); S.msg = `default focus: soul #${def.n} ${def.name} (electron/graph.json focus_default "${D.electron.focus_default}", shipped in electron.json) · band: ${D.bandNote}`; }
+    if (def) { setFocus({ atom: def }); S.bandPos = Math.max(0, D.band.indexOf(def.n)); S.msg = `default focus: state #${def.n} ${def.name} (electron/graph.json focus_default "${D.electron.focus_default}", shipped in electron.json) · band: ${D.bandNote}`; }
     else { setFocus({ famIdx: 0 }); S.msg = `no focus_default shipped in electron.json (${JSON.stringify(D.electron.focus_default)}): showing the first family`; }
     requestAnimationFrame(frame);
     window.__qts = { S, G, D, B, familyPos, DPR, gl, uniqIndex }; // lab handle for the headless proof script; reads only (gl is exposed so a proof can provoke a context loss)

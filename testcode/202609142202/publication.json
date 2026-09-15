@@ -4,9 +4,9 @@
  "generation": "generation 2: round-2 findings fixed; all 250,174 unique lines added",
  "previous_generation": {
   "generation": "generation 2: round-2 findings fixed; all 250,174 unique lines added",
-  "published_utc": "2026-09-15T01:00:58+00:00"
+  "published_utc": "2026-09-15T01:18:29+00:00"
  },
- "published_utc": "2026-09-15T01:18:29+00:00",
+ "published_utc": "2026-09-15T01:39:22+00:00",
  "data_provenance": "data/provenance.json",
  "self_test": "proof/gen2.mjs → proof/gen2.json",
  "files": {
@@ -139,28 +139,28 @@
    "sha256": "0603eaaa86de0ff450a1c4f87bc99076401499c4b40c4d5f526300874b9e9a35"
   },
   "proof/gen2-1440.png": {
-   "bytes": 804362,
-   "sha256": "609a3d11e9bdbde9fc0a89a8a1809f2970b9ee11baeb8fe2545e4d5176ecbf0c"
+   "bytes": 802581,
+   "sha256": "10d58be6f1321484b700162b227a4383d1cad14e56e7fb642fc6f350846f8ffb"
   },
   "proof/gen2-430.png": {
-   "bytes": 296638,
-   "sha256": "33d2ea40ccbde61931b4e132e795341a4c9637b794d3fe231d6d46d1e9bde025"
+   "bytes": 296331,
+   "sha256": "4eb8b7ab747ea2bd7ebf775763259eb74b94c606b641a12dc012946bdef3b4d1"
   },
   "proof/gen2-900x430.png": {
-   "bytes": 290891,
-   "sha256": "fc3efa49b6bb630c4f24aade5dacc7611a35834b23fa2d38358dc7277ba42291"
+   "bytes": 290977,
+   "sha256": "233c971826a42d1ef7f72c435b3c4c85bd78e12ecee97ffe43f9acdd35d6b0aa"
   },
   "proof/gen2.json": {
-   "bytes": 15587,
-   "sha256": "ef492a3871db2a23b4ab16be22f56f2df79da44abe558a9e7e3580f3f24cb640"
+   "bytes": 15640,
+   "sha256": "0dbfb0f3496c5d6a896047f3e1253f6efeaa81f5aecc660ba1292cb4ef21ae3b"
   },
   "proof/gen2.mjs": {
    "bytes": 27639,
    "sha256": "afcb0c2059d0712ba87a2e4d5c79d03958b4a09a56a0b96a05d2f0f89caf7d31"
   },
   "proof/gen2.stdout.txt": {
-   "bytes": 4569,
-   "sha256": "615d5eee79762a42160117ce4c61caba21a62d0fce415c3b49ce54b0ef02fe81"
+   "bytes": 4572,
+   "sha256": "3f255a429eeb573277f447edede181250a56bf0a77c892f6769fae80b1f9f956"
   },
   "proof/prng_check2.json": {
    "bytes": 150,
@@ -295,12 +295,12 @@
    "sha256": "11a1806cf27355021839388f08fe52018058c55480d89171351acb2c71e975ab"
   },
   "quantum.js": {
-   "bytes": 111635,
-   "sha256": "008930e440ba2cce3220f915394dad239510b59d2b3f11183a45ed078c75a701"
+   "bytes": 111792,
+   "sha256": "14f3861599084b7e4072c962929be5352f1bd6502b661000d1ea15095d87212b"
   },
   "README.md": {
-   "bytes": 23909,
-   "sha256": "9abc7ed93debeac9f5ba14d7ed64126be6ec95db11f43c0233ccd9fee9489905"
+   "bytes": 24091,
+   "sha256": "05f0c964b7c0d248daebf42485adb780bdd827aa452e54e587879e78c78ce8b4"
   }
  },
  "note": "Every shipped file with bytes and sha256; logs are not shipped. Numbers on the page come from data/ only: 250,174 unique numbered lines (LINES.md 2026-09-14 19:56 UTC; 128,369 inside a function family, 121,805 not) and 664,940 family-line entries (128,369 distinct numbered lines) in the published buckets; index.json states 250,174."

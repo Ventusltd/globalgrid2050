@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="color-scheme" content="dark">
+<title>The Line Wafer — every numbered line of the estate, on one surface</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="stage" aria-label="Every permanently numbered line of code in the estate, placed by its own number."></canvas>
+
+<header id="bar">
+  <span id="wordmark">THE LINE WAFER</span>
+  <span id="count" class="dim">loading the numbered database…</span>
+</header>
+
+<form id="beam" autocomplete="off">
+  <input id="a" inputmode="numeric" pattern="[0-9]*" placeholder="line number" aria-label="line number to fly to">
+  <input id="b" inputmode="numeric" pattern="[0-9]*" placeholder="connect to…" aria-label="second line number to connect to">
+  <button id="go" type="submit">FLY</button>
+</form>
+
+<section id="panel" hidden>
+  <button id="close" type="button" aria-label="close">✕</button>
+  <div id="panelbody"></div>
+</section>
+
+<footer id="foot">
+  <span id="prov" class="dim">provenance loading</span>
+  <span id="hint" class="dim">drag to steer · pinch or scroll to focus the beam · tap a line</span>
+</footer>
+
+<noscript><p class="dim" style="padding:1rem">This surface is drawn from the numbered database at run time, so it needs JavaScript. Nothing here is typed into the page.</p></noscript>
+
+<script type="module" src="app.mjs"></script>
+</body>
+</html>

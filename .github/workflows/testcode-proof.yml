@@ -1,0 +1,200 @@
+# Testcode proof
+#
+# When a testcode/<stamp>/ folder is pushed to main, this job waits for Pages to
+# deploy that exact commit and then proves the published folder from the outside:
+#
+#   1. Served bytes — every file the folder's publication.json lists is fetched
+#      from the live site and its sha256 compared. This is the strong check: it
+#      proves what is served is what was published. Both publication.json shapes
+#      are handled (files as an object keyed by path, or as an array).
+#   2. The folder's index at 430x900 and 1440x1000 — HTTP 200, no uncaught page
+#      errors, no console errors, and no horizontal overflow.
+#   3. The folder's own proof/ci-checks.json, if it ships one: an array of
+#      {name, must_contain[], must_not_contain[]} applied to the visible text.
+#
+# The checks themselves live in testcode/ci/night-tests.mjs, which the nightly
+# job also uses; NIGHT_TESTS_STAMP puts it in single-stamp mode. There is no
+# second copy of the logic.
+#
+# One neutral comment is posted on issue 37 per push, whether it passed or
+# failed, and the reports are uploaded as an artifact.
+
+name: Testcode proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "testcode/**"
+  workflow_dispatch:
+    inputs:
+      stamp:
+        description: "testcode stamp to prove, e.g. 202609142202"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+concurrency:
+  group: testcode-proof-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Which stamps
+        id: stamps
+        env:
+          DISPATCH_STAMP: ${{ inputs.stamp }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -u
+          if [ -n "${DISPATCH_STAMP:-}" ]; then
+            CANDIDATES="$DISPATCH_STAMP"
+          else
+            # An empty or all-zero "before" means there is no usable range
+            # (first push, or a force push): fall back to this commit alone.
+            if [ -z "${BEFORE:-}" ] || [ "${BEFORE:-}" = "0000000000000000000000000000000000000000" ] \
+               || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+              RANGE_FILES="$(git show --name-only --pretty=format: "$GITHUB_SHA" -- testcode/)"
+            else
+              RANGE_FILES="$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- testcode/)"
+            fi
+            CANDIDATES="$(printf '%s\n' "$RANGE_FILES" \
+              | sed -n 's|^testcode/\([^/]\{1,\}\)/.*$|\1|p' | sort -u)"
+          fi
+
+          # Keep only folders that actually carry a publication.json.
+          STAMPS=""
+          for s in $CANDIDATES; do
+            if [ -f "testcode/$s/publication.json" ]; then
+              STAMPS="$STAMPS $s"
+            else
+              echo "skipping $s: no testcode/$s/publication.json in the repository"
+            fi
+          done
+          STAMPS="$(echo $STAMPS)"
+          echo "stamps: ${STAMPS:-(none)}"
+          echo "stamps=$STAMPS" >> "$GITHUB_OUTPUT"
+          if [ -z "$STAMPS" ]; then echo "run=no" >> "$GITHUB_OUTPUT"; else echo "run=yes" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Wait for Pages to deploy this commit
+        if: steps.stamps.outputs.run == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -u
+          DEADLINE=$(( $(date -u +%s) + 900 ))
+          echo "waiting for \"Deploy GlobalGrid2050 Pages\" on $GITHUB_SHA (up to 15 minutes)"
+          while [ "$(date -u +%s)" -lt "$DEADLINE" ]; do
+            JSON="$(gh run list --workflow "Deploy GlobalGrid2050 Pages" --commit "$GITHUB_SHA" \
+                     --json status,conclusion --limit 5 2>/dev/null || echo '[]')"
+            STATE="$(node -p "const r=JSON.parse(process.argv[1]||'[]'); r.length? r[0].status+'/'+(r[0].conclusion||'') : 'none'" "$JSON")"
+            echo "  $(date -u +%H:%M:%S) deploy run: $STATE"
+            case "$STATE" in
+              completed/success) echo "Pages deployed this commit."; exit 0 ;;
+              completed/*)       echo "Pages deploy did not succeed ($STATE); checking the live site anyway — the served-bytes check is the judge."; exit 0 ;;
+              none)              : ;;
+              *)                 : ;;
+            esac
+            sleep 20
+          done
+          echo "No completed Pages deploy for this commit within 15 minutes; checking the live site anyway."
+
+      - name: Install puppeteer and Chrome
+        if: steps.stamps.outputs.run == 'yes'
+        run: |
+          mkdir -p "$RUNNER_TEMP/pptr"
+          cd "$RUNNER_TEMP/pptr"
+          npm init -y > /dev/null
+          npm i puppeteer@23 --no-audit --no-fund
+          ENTRY="$(node -p "require.resolve('puppeteer')")"
+          echo "installed puppeteer $(node -p "require('puppeteer/package.json').version") at $ENTRY"
+          echo "PUPPETEER_MODULE=$ENTRY" >> "$GITHUB_ENV"
+
+      - name: Prove each stamp
+        if: steps.stamps.outputs.run == 'yes'
+        id: prove
+        env:
+          NIGHT_TESTS_BASE: https://globalgrid2050.com
+          NIGHT_TESTS_LOAD_MS: "240000"
+        run: |
+          set -u
+          mkdir -p reports
+          FAILED=0
+          for s in ${{ steps.stamps.outputs.stamps }}; do
+            echo "::group::testcode/$s"
+            NIGHT_TESTS_STAMP="$s" REPORT_PATH="$GITHUB_WORKSPACE/reports/report-$s.json" \
+              node testcode/ci/night-tests.mjs || FAILED=1
+            echo "::endgroup::"
+          done
+          echo "failed=$FAILED" >> "$GITHUB_OUTPUT"
+
+      - name: Upload reports
+        if: always() && steps.stamps.outputs.run == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: testcode-proof-${{ github.run_id }}
+          path: reports/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Comment on issue 37
+        if: always() && steps.stamps.outputs.run == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -u
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          node -e '
+            const fs = require("fs");
+            const stamps = process.argv[1].split(/\s+/).filter(Boolean);
+            const sha = process.argv[2], runUrl = process.argv[3];
+            const lines = [];
+            let anyFail = false;
+            for (const s of stamps) {
+              const f = `reports/report-${s}.json`;
+              if (!fs.existsSync(f)) {
+                anyFail = true;
+                lines.push(`- \`testcode/${s}\` — no report written; the check did not complete.`);
+                continue;
+              }
+              const r = JSON.parse(fs.readFileSync(f, "utf8"));
+              const sv = r.served || { ok: 0, bad: 0, total: 0 };
+              const c = r.counts || { pass: 0, fail: 0, warn: 0, skip: 0 };
+              if (c.fail) anyFail = true;
+              lines.push(
+                `- \`testcode/${s}\` — served bytes: ${sv.ok} ok / ${sv.bad} bad of ${sv.total}; ` +
+                `page checks: ${c.pass} passed, ${c.fail} failed, ${c.warn} warnings, ${c.skip} skipped.` +
+                (r.failed && r.failed.length ? `\n  Failing: ${r.failed.join("; ")}` : "")
+              );
+            }
+            const head = anyFail
+              ? `Testcode proof: ${stamps.length} folder(s) checked, failures found.`
+              : `Testcode proof: ${stamps.length} folder(s) checked, all checks passed.`;
+            fs.writeFileSync("comment.md",
+              `${head}\n\nCommit: ${sha}\n\n${lines.join("\n")}\n\nRun: ${runUrl}\n`);
+          ' "${{ steps.stamps.outputs.stamps }}" "$GITHUB_SHA" "$RUN_URL"
+          cat comment.md
+          gh issue comment 37 --repo "${{ github.repository }}" --body-file comment.md
+
+      - name: Fail if any check failed
+        if: always() && steps.stamps.outputs.run == 'yes' && steps.prove.outputs.failed == '1'
+        run: |
+          echo "one or more testcode proofs failed"
+          exit 1

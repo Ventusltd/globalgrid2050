@@ -14,6 +14,8 @@
 //   NIGHT_TESTS_BASE        origin under test        (default https://globalgrid2050.com)
 //   PUPPETEER_MODULE        module specifier/URL to import instead of `puppeteer`
 //   PUPPETEER_EXECUTABLE_PATH  Chrome binary (required with puppeteer-core)
+//   NIGHT_TESTS_STAMP       prove one testcode/<stamp>/ folder instead of the
+//                           nightly round (also accepted as the first argument)
 //   NIGHT_TESTS_LOAD_MS     ms to wait for a page's marker line (default 240000)
 //   REPORT_PATH             where to write report.json (default ./report.json)
 //   NIGHT_TESTS_HEADFUL     set to 1 to watch a local dry run
@@ -34,6 +36,13 @@ const BASE = (process.env.NIGHT_TESTS_BASE || 'https://globalgrid2050.com').repl
 const LOAD_MS = Number(process.env.NIGHT_TESTS_LOAD_MS || 240000);
 const REPORT_PATH = process.env.REPORT_PATH || path.join(process.cwd(), 'report.json');
 const IN_CI = !!process.env.CI;
+
+// Single-stamp mode: with NIGHT_TESTS_STAMP (or a stamp as the first argument)
+// the script proves one testcode/<stamp>/ folder instead of the nightly round —
+// served bytes, then the folder's index at both viewports, then the folder's own
+// proof/ci-checks.json if it ships one. Used by the testcode-proof workflow so
+// a freshly published folder is checked the moment Pages has deployed it.
+const STAMP = (process.env.NIGHT_TESTS_STAMP || process.argv[2] || '').trim();
 
 const QTS_DIR = '/testcode/202609142202/';
 const GEN_DIR = '/testcode/202609142225/';
@@ -127,25 +136,31 @@ async function mapLimit(items, limit, fn) {
 // Fetch every file publication.json lists and compare sha256. This proves what
 // is served is what was published; it needs no browser, so it still runs when
 // the page itself times out under software GL.
-async function checkServedBytes(label, dirPath) {
+async function checkServedBytes(label, dirPath, { requirePublication = false } = {}) {
   const pubUrl = `${BASE}${dirPath}publication.json`;
   const { status, json, parseError } = await getJson(pubUrl);
   if (status === 404) {
+    if (requirePublication) {
+      // In single-stamp mode the folder is known to carry a publication.json,
+      // so a 404 means the deploy did not put it on the site.
+      fail(`${label}: served bytes`, 'publication.json 404 — the folder is in the repository but is not served');
+      return { ran: false, published: false, ok: 0, bad: 0, total: 0 };
+    }
     skip(`${label}: served bytes`, 'publication.json 404 — not yet published');
-    return { ran: false, published: false };
+    return { ran: false, published: false, ok: 0, bad: 0, total: 0 };
   }
   if (status !== 200) {
     fail(`${label}: served bytes`, `publication.json HTTP ${status}`);
-    return { ran: false, published: true };
+    return { ran: false, published: true, ok: 0, bad: 1, total: 0 };
   }
   if (!json) {
     fail(`${label}: served bytes`, `publication.json is not JSON: ${parseError}`);
-    return { ran: false, published: true };
+    return { ran: false, published: true, ok: 0, bad: 1, total: 0 };
   }
   const list = normalisePublicationFiles(json);
   if (!list || !list.length) {
     fail(`${label}: served bytes`, 'publication.json lists no files');
-    return { ran: false, published: true };
+    return { ran: false, published: true, ok: 0, bad: 1, total: 0 };
   }
 
   const checked = await mapLimit(list, 6, async (entry) => {
@@ -174,7 +189,10 @@ async function checkServedBytes(label, dirPath) {
   } else {
     pass(`${label}: served bytes`, `${checked.length} files match publication.json sha256`);
   }
-  return { ran: true, published: true, list, publication: json };
+  return {
+    ran: true, published: true, list, publication: json,
+    ok: checked.length - bad.length, bad: bad.length, total: checked.length,
+  };
 }
 
 // The generator's lens modules are meant to be pure drawing code: no network,
@@ -246,7 +264,7 @@ const IGNORED_CONSOLE = [/favicon/i, /WebGL2 path failed/i, /WebGL2 unavailable/
  * warning, because on GitHub's runners Chrome draws WebGL with SwiftShader on
  * the CPU and the heavy pages can take minutes.
  */
-async function visit(browser, { url, viewport, markers }) {
+async function visit(browser, { url, viewport, markers, minDwellMs = 0 }) {
   const page = await browser.newPage();
   const pageErrors = [];
   const consoleErrors = [];
@@ -285,6 +303,10 @@ async function visit(browser, { url, viewport, markers }) {
     if (markers.some((re) => re.test(text))) { loaded = true; break; }
     await new Promise((r) => setTimeout(r, 2000));
   }
+  // A generic marker can match the static HTML before a single script has run.
+  // Stay on the page a little longer so late errors have somewhere to land.
+  const dwellLeft = minDwellMs - (Date.now() - t0);
+  if (loaded && dwellLeft > 0) await new Promise((r) => setTimeout(r, dwellLeft));
   const elapsedMs = Date.now() - t0;
 
   let metrics = { scrollWidth: null, innerWidth: null, webgl2: null, hud: '', count: '', domText: '' };
@@ -459,6 +481,63 @@ async function runGenerator(browser) {
   return { published: true, visits, served };
 }
 
+// Prove one published folder. The folder may be anything the estate publishes,
+// so there is no vocabulary to assume: readiness is "the page has put real text
+// on screen", or the first phrase its own ci-checks.json asks for.
+async function runStamp(browser, stamp) {
+  console.log(`\n== testcode/${stamp} ==`);
+  const dir = `/testcode/${stamp}/`;
+  const served = await checkServedBytes(stamp, dir, { requirePublication: true });
+
+  const indexStatus = await getStatus(`${BASE}${dir}`);
+  if (indexStatus !== 200) {
+    fail(`${stamp}: index served`, `HTTP ${indexStatus}`);
+    return { served, visits: {} };
+  }
+  pass(`${stamp}: index served`, 'HTTP 200');
+
+  // The folder may ship its own checks: [{name, must_contain[], must_not_contain[]}].
+  let folderChecks = [];
+  const ck = await getJson(`${BASE}${dir}proof/ci-checks.json`);
+  if (ck.status === 200 && Array.isArray(ck.json)) {
+    folderChecks = ck.json;
+    pass(`${stamp}: proof/ci-checks.json`, `${folderChecks.length} checks shipped with the folder`);
+  } else if (ck.status === 404) {
+    skip(`${stamp}: proof/ci-checks.json`, 'the folder ships none');
+  } else {
+    warn(`${stamp}: proof/ci-checks.json`, `HTTP ${ck.status}${ck.parseError ? ` — ${ck.parseError}` : ''}`);
+  }
+
+  const firstPhrase = folderChecks.flatMap((c) => c.must_contain || [])[0];
+  const markers = firstPhrase
+    ? [new RegExp(firstPhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))]
+    : [/[^\s][\s\S]{200,}/]; // real text on screen, not an empty shell
+
+  const visits = {};
+  for (const vp of ['430x900', '1440x1000']) {
+    const label = `${stamp} ${vp}`;
+    const v = await visit(browser, { url: `${BASE}${dir}`, viewport: vp, markers, minDwellMs: 10000 });
+    visits[vp] = v;
+    baseChecks(label, v, { expectOverflowFree: true });
+
+    for (const c of folderChecks) {
+      const cl = `${label} check: ${c.name || 'unnamed'}`;
+      if (!v.loaded) { skip(cl, 'page did not finish loading; text not judged'); continue; }
+      const missing = (c.must_contain || []).filter((n) => !v.text.includes(n));
+      const present = (c.must_not_contain || []).filter((n) => v.text.includes(n));
+      if (missing.length || present.length) {
+        const bits = [];
+        if (missing.length) bits.push(`missing ${missing.map((m) => JSON.stringify(m)).join(', ')}`);
+        if (present.length) bits.push(`forbidden ${present.map((m) => JSON.stringify(m)).join(', ')}`);
+        fail(cl, bits.join('; '), { source: 'folder' });
+      } else {
+        pass(cl, `${(c.must_contain || []).length} required, ${(c.must_not_contain || []).length} forbidden`, { source: 'folder' });
+      }
+    }
+  }
+  return { served, visits };
+}
+
 async function runHomepage(browser) {
   console.log('\n== Homepage ==');
   const markers = [/Integrated Development Environments/];
@@ -544,13 +623,20 @@ async function main() {
   const browser = await puppeteer.launch(launchOpts);
 
   const visitsByPage = {};
+  let servedSummary = null;
   try {
-    const qts = await runQts(browser);
-    visitsByPage.qts = qts.visits;
-    const gen = await runGenerator(browser);
-    if (gen.published) visitsByPage.generator = gen.visits;
-    visitsByPage.homepage = await runHomepage(browser);
-    await runDataChecks(visitsByPage);
+    if (STAMP) {
+      const one = await runStamp(browser, STAMP);
+      servedSummary = { ok: one.served.ok || 0, bad: one.served.bad || 0, total: one.served.total || 0 };
+    } else {
+      const qts = await runQts(browser);
+      visitsByPage.qts = qts.visits;
+      servedSummary = { ok: qts.served.ok || 0, bad: qts.served.bad || 0, total: qts.served.total || 0 };
+      const gen = await runGenerator(browser);
+      if (gen.published) visitsByPage.generator = gen.visits;
+      visitsByPage.homepage = await runHomepage(browser);
+      await runDataChecks(visitsByPage);
+    }
   } finally {
     await browser.close().catch(() => {});
   }
@@ -563,6 +649,9 @@ async function main() {
 
   const report = {
     base: BASE,
+    stamp: STAMP || null,
+    mode: STAMP ? 'single-stamp' : 'nightly',
+    served: servedSummary,
     started_utc: new Date(started).toISOString(),
     finished_utc: new Date().toISOString(),
     duration_s: Number(((Date.now() - started) / 1000).toFixed(1)),

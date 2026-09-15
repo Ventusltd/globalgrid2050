@@ -1,0 +1,60 @@
+{
+ "checks": {
+  "provenance_outputs_match_disk": {
+   "pass": true,
+   "detail": {
+    "outputs": 10,
+    "mismatched": []
+   }
+  },
+  "all_lines_agree_with_meta": {
+   "pass": true,
+   "detail": {
+    "lines": 282551,
+    "ascending": true,
+    "min": 1,
+    "max": 383219,
+    "in_a_family": 149457
+   }
+  },
+  "bucket_distinct_equals_in_family_unique": {
+   "pass": true,
+   "detail": {
+    "bucket_distinct": 149457,
+    "in_a_family": 149457
+   }
+  },
+  "index_lines_equals_lines_md": {
+   "pass": true,
+   "detail": {
+    "index_lines": 282551,
+    "lines_md": 282551
+   }
+  },
+  "every_family_line_is_a_lines_md_key": {
+   "pass": true,
+   "detail": {
+    "not_a_key": 0
+   }
+  },
+  "family_flag_matches_lines_bin": {
+   "pass": true,
+   "detail": {
+    "wrong": 0
+   }
+  },
+  "families_tile_lines_bin": {
+   "pass": true,
+   "detail": {
+    "families": 13187,
+    "entries": 700342
+   }
+  }
+ },
+ "expected_count_line": "on GPU: 282,551 unique numbered lines (LINES.md 2026-09-15 21:44 UTC) + 700,342 family-line entries · 149,457 unique lines sit inside a function family, 133,094 do not",
+ "previous_family_numbers": {
+  "old": 10985,
+  "still_present": 10967
+ },
+ "pass": true
+}

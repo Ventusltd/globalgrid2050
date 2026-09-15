@@ -1,0 +1,33 @@
+{
+ "old_pack": "testcode/202609142202/data",
+ "new_pack": "testcode/202609152203/data",
+ "old": {
+  "lines": 250174,
+  "max_key": 342795,
+  "families": 10985,
+  "family_line_entries": 664940,
+  "in_a_family": 128369,
+  "lines_md_generated_utc": "2026-09-14T19:56:58.242Z",
+  "index_generated_utc": "2026-09-14T19:55:48.124Z"
+ },
+ "new": {
+  "lines": 282551,
+  "max_key": 383219,
+  "families": 13187,
+  "family_line_entries": 700342,
+  "in_a_family": 149457,
+  "lines_md_generated_utc": "2026-09-15T21:44:58.012Z",
+  "index_generated_utc": "2026-09-15T21:43:36.108Z"
+ },
+ "old_keys_missing_from_new": 0,
+ "missing_examples": [],
+ "keys_in_both": 250174,
+ "keys_in_both_with_different_length": 0,
+ "length_change_examples": [],
+ "keys_new_only": 32377,
+ "keys_new_only_at_or_below_old_max": 0,
+ "new_only_below_old_max_examples": [],
+ "note": "A new key at or below the old max is not a violation by itself (a number issued after the old export can be lower only if numbering is not monotone); it is reported, not failed.",
+ "pass": true
+}
+PASS: every old key is present and every shared key has the same line length

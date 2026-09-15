@@ -1,0 +1,33 @@
+{
+ "outputs": [
+  {
+   "file": "all-lines.bin",
+   "bytes": 1130204,
+   "sha256": "4a0b0dba95335f26a87bf6d1c60aaf704803c082a7b1fd390a5634829d53b8c0"
+  },
+  {
+   "file": "all-lines.len.bin",
+   "bytes": 565102,
+   "sha256": "993e9616f499bb0ce86fa0146deccd5bb3cd23b1ba8b3c551eaa4f17e21cc02e"
+  },
+  {
+   "file": "all-lines.family.bin",
+   "bytes": 282551,
+   "sha256": "d12f9f881160434c11d27a65001404815b14024c1bd48728751da2af5de288ac"
+  },
+  {
+   "file": "all-lines.meta.json",
+   "bytes": 812,
+   "sha256": "9437be80dddacfae104542e1669804c31f914e50dff6ad61ad37879e7efaf102"
+  }
+ ],
+ "checks": {
+  "all_lines": 282551,
+  "in_a_family": 149457,
+  "outside": 133094,
+  "min": 1,
+  "max": 383219,
+  "ascending": true,
+  "lines_md_generated_utc": "2026-09-15T21:44:58.012Z"
+ }
+}

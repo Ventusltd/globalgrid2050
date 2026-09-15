@@ -1,0 +1,383 @@
+fetching stars code/index.json ...
+index.json: families=13187 lines=282551 buckets=167 bucket_size=500 generated_utc=2026-09-15T21:43:36.108Z
+fetching stars code/names.json, blocks/blocks.json, blocks/families.json ...
+fetching 167 buckets (concurrency 8) ...
+fetching star-maker electron/graph.json, electron/atoms.json, ELECTRON.md ...
+fetching stars spider/graphs/random.json and star-maker random/graph.json ...
+fetching star-maker SOUL.md and soul/graph.json (summary only) ...
+
+=== OUTPUT FILES (bytes) ===
+  lines.bin          2801368  sha256 a8c76dcb3e5e781ae5167f12332f29624eef7953f2594dce829ca084c2213310
+  families.json      2622587  sha256 dc169cd7c9afa7b95fc54723004fe3ce3668137cd764251a91938892c690f42d
+  blocks.json          69997  sha256 f05aafaaf90d6b1704c7e3d89bb0745f5e4cbd9fb13c96cfa6eb0a914856ef99
+  electron.json       221272  sha256 3e2bbaa5852a3de9fcfd001a899ad35775803d029008de62345c2af25e0d04c0
+  random.json         122868  sha256 956dd945dc179af20b388502a01f7f3cc6bc6fc2106a1c0c7b62cd8853011e76
+  entangled.json        7229  sha256 dd605adbae674dbc4c377ac2de920dac42415e17978e43667eaf669ddab797e9
+  provenance.json      52892  (not counted toward the ship limit)
+  shipped (1-6): 5845321 bytes = 5.845 MB = 5.575 MiB  (limit 3500000 bytes)
+
+=== CHECKS ===
+{
+ "index_generated_utc": "2026-09-15T21:43:36.108Z",
+ "index_families": 13187,
+ "families_built": 13187,
+ "index_lines": 282551,
+ "lines_bin_entries": 700342,
+ "distinct_line_numbers": 149457,
+ "min_line_number": 2,
+ "max_line_number": 383203,
+ "task_stated_lines_1955utc": 250174,
+ "buckets_listed": 167,
+ "buckets_fetched": 167,
+ "index_bucket_size": 500,
+ "index_buckets": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41,
+  42,
+  43,
+  44,
+  45,
+  46,
+  47,
+  48,
+  49,
+  50,
+  51,
+  52,
+  53,
+  54,
+  55,
+  56,
+  57,
+  58,
+  59,
+  60,
+  61,
+  62,
+  63,
+  64,
+  65,
+  66,
+  67,
+  68,
+  69,
+  70,
+  71,
+  72,
+  73,
+  74,
+  75,
+  76,
+  77,
+  78,
+  79,
+  80,
+  81,
+  82,
+  83,
+  84,
+  85,
+  86,
+  87,
+  88,
+  89,
+  90,
+  91,
+  92,
+  93,
+  94,
+  95,
+  96,
+  97,
+  98,
+  99,
+  100,
+  101,
+  102,
+  103,
+  104,
+  105,
+  107,
+  108,
+  109,
+  110,
+  111,
+  112,
+  113,
+  114,
+  115,
+  116,
+  117,
+  118,
+  119,
+  120,
+  121,
+  122,
+  123,
+  124,
+  125,
+  126,
+  127,
+  128,
+  129,
+  130,
+  131,
+  132,
+  133,
+  134,
+  135,
+  136,
+  140,
+  141,
+  142,
+  143,
+  144,
+  145,
+  146,
+  147,
+  148,
+  149,
+  150,
+  151,
+  152,
+  153,
+  154,
+  155,
+  156,
+  157,
+  158,
+  159,
+  160,
+  161,
+  259,
+  260,
+  261,
+  262,
+  263,
+  264,
+  265,
+  266,
+  267
+ ],
+ "families_with_no_lines": 0,
+ "families_anonymous": 2656,
+ "families_with_no_block_symbol": 0,
+ "families_with_symbol_off_table": 2008,
+ "block_symbols_in_families_json": 982,
+ "blocks_on_table": 285,
+ "blocks_inside_vs_families_json_disagree": 245,
+ "symbols_off_table": 697,
+ "names_json_keys": 6632,
+ "names_first_name_not_in_names_json": 2656,
+ "names_first_name_not_in_names_json_excluding_anonymous": 0,
+ "electron_atoms_shipped": 500,
+ "electron_atoms_graph_only": 0,
+ "electron_bonds": 169,
+ "electron_repo_nodes": 23,
+ "random_nodes": 275,
+ "random_nodes_in_both_draws": 65,
+ "random_nodes_type_differs_between_draws": 24,
+ "random_edges": 300,
+ "random_edges_with_p": 150,
+ "entanglements_listed": 40,
+ "entanglements_stated": 69,
+ "shipped_bytes": 5845321,
+ "ship_limit_bytes": 3500000,
+ "top5_families_by_lines": [
+  {
+   "n": 67933,
+   "name": "(anonymous)",
+   "lineCount": 6518,
+   "block": "Ss"
+  },
+  {
+   "n": 67596,
+   "name": "(anonymous)",
+   "lineCount": 6492,
+   "block": "Ss"
+  },
+  {
+   "n": 67259,
+   "name": "(anonymous)",
+   "lineCount": 6456,
+   "block": "Ss"
+  },
+  {
+   "n": 66925,
+   "name": "(anonymous)",
+   "lineCount": 6386,
+   "block": "Ss"
+  },
+  {
+   "n": 66591,
+   "name": "(anonymous)",
+   "lineCount": 6223,
+   "block": "Ss"
+  }
+ ],
+ "conductor_atoms": [
+  {
+   "n": 766,
+   "name": "geometry",
+   "valence": 5,
+   "spin": "paired",
+   "homes": [
+    "data-federation-map-for-globalgrid2050-all-repos"
+   ],
+   "valence_repos": [
+    "globalgrid2050",
+    "solar-electrical-topology-analysis-engine-text-based",
+    "testcode",
+    "ventus-grid-engine",
+    "youengineer-code-review"
+   ]
+  },
+  {
+   "n": 2039,
+   "name": "Number",
+   "valence": 6,
+   "spin": "unpaired",
+   "homes": [
+    "globalgrid2050"
+   ],
+   "valence_repos": [
+    "cable-trench-or-drill",
+    "claude",
+    "crm",
+    "cvaa",
+    "data-federation-map-for-globalgrid2050-all-repos",
+    "gis-sld-sandbox"
+   ]
+  },
+  {
+   "n": 2138,
+   "name": "files",
+   "valence": 4,
+   "spin": "paired",
+   "homes": [
+    "globalgrid2050"
+   ],
+   "valence_repos": [
+    "data-gridatlas",
+    "gridatlas",
+    "pipelinenews",
+    "spiders"
+   ]
+  },
+  {
+   "n": 5246,
+   "name": "finding",
+   "valence": 4,
+   "spin": "paired",
+   "homes": [
+    "gridatlas"
+   ],
+   "valence_repos": [
+    "claude",
+    "cvaa",
+    "globalgrid2050",
+    "star-maker"
+   ]
+  },
+  {
+   "n": 6554,
+   "name": "centre",
+   "valence": 5,
+   "spin": "paired",
+   "homes": [
+    "pipelinenews"
+   ],
+   "valence_repos": [
+    "globalgrid2050",
+    "gridatlas",
+    "solar-electrical-topology-analysis-engine-text-based",
+    "spiders",
+    "testcode"
+   ]
+  },
+  {
+   "n": 7846,
+   "name": "cable",
+   "valence": 4,
+   "spin": "paired",
+   "homes": [
+    "solar-electrical-topology-analysis-engine-text-based"
+   ],
+   "valence_repos": [
+    "cable-trench-or-drill",
+    "globalgrid2050",
+    "layout-tool",
+    "testcode"
+   ]
+  },
+  {
+   "n": 8421,
+   "name": "function",
+   "valence": 5,
+   "spin": "paired",
+   "homes": [
+    "testcode"
+   ],
+   "valence_repos": [
+    "cable-trench-or-drill",
+    "data-federation-map-for-globalgrid2050-all-repos",
+    "gb-electricity-ui",
+    "gis-sld-sandbox",
+    "globalgrid2050"
+   ]
+  }
+ ],
+ "mismatches": [
+  "lines.bin has 700342 entries (149457 distinct line numbers, max 383203); neither equals index.json lines 282551 — index.json's figure is not reproducible from the per-family \"lines\" lists in code/f/*.json",
+  "index.json lines 282551 != task's stated 19:55 UTC figure 250174",
+  "SOUL.md lists 40 entanglements but its table states 69",
+  "shipped data 5845321 bytes exceeds limit 3500000 (3.5 MB; 3.5 MiB = 3670016) — lines.bin alone is 2801368 bytes because it holds 700342 per-family entries, not 282551"
+ ],
+ "warnings": []
+}
+
+MISMATCHES:
+  lines.bin has 700342 entries (149457 distinct line numbers, max 383203); neither equals index.json lines 282551 — index.json's figure is not reproducible from the per-family "lines" lists in code/f/*.json
+  index.json lines 282551 != task's stated 19:55 UTC figure 250174
+  SOUL.md lists 40 entanglements but its table states 69
+  shipped data 5845321 bytes exceeds limit 3500000 (3.5 MB; 3.5 MiB = 3670016) — lines.bin alone is 2801368 bytes because it holds 700342 per-family entries, not 282551

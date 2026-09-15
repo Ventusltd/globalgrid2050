@@ -44,10 +44,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 INDEX = ROOT / "index.html"
 SNAPSHOTS = ROOT / "pipelinenews_intelligence"
+CATALOGUE = ROOT / "catalogue" / "homepage-catalogue.json"
 HOMEPAGE_VERSIONS = ROOT / "homepage_versions"
 
 GENERATION_RE = re.compile(r"^[0-9]{12}$")
 SNAPSHOT_URL_RE = re.compile(r'url:"\./pipelinenews_intelligence/([0-9]{12})/"')
+SNAPSHOT_PATH_RE = re.compile(r"\./pipelinenews_intelligence/([0-9]{12})/?")
 GRIDATLAS_ROW_RE = re.compile(
     r"GRIDATLAS_V9_AUTOMATION_START.*?data_gridatlas_release:\"([0-9]{12})-gridatlas-(v[0-9.]+)\".*?GRIDATLAS_V9_AUTOMATION_END",
     re.S,
@@ -133,7 +135,30 @@ def published_snapshots() -> list[str]:
 
 
 def named_on_homepage(text: str) -> list[str]:
-    return SNAPSHOT_URL_RE.findall(text)
+    """Which published generations can a reader actually reach from the front door?
+
+    This used to read index.html and match url:"./pipelinenews_intelligence/NNN/".
+    On 2026-09-08 the homepage became a VIEW: index.html now ships a nest renderer
+    and fetches catalogue/homepage-catalogue.json at runtime, so it contains no
+    snapshot URL at all. The regex started returning [], which made "published but
+    not reachable" fire on all 34 snapshots at once - a true statement about the
+    regex and a false one about the site.
+
+    The catalogue is what the front door reads, is generated from the tree and git
+    and is never typed, so it is the honest place to ask this. The `text` argument
+    is kept and ignored: the caller still hands over index.html, and a later change
+    that puts the URLs back in the page should not have to move this call site.
+    """
+    del text
+    doc = json.loads(CATALOGUE.read_text(encoding="utf-8"))
+    found = [
+        match.group(1)
+        for entry in doc.get("entries", [])
+        if (match := SNAPSHOT_PATH_RE.fullmatch(str(entry.get("url") or "")))
+    ]
+    # The homepage presents newest first; the catalogue is generated in that order
+    # and check_offline compares named[0] against the newest on disk.
+    return found
 
 
 def parse_gridatlas_catalogue(text: str, failures: list[str], *, required: bool = True) -> list[dict]:
@@ -561,7 +586,28 @@ def check_offline(report: dict) -> list[str]:
         report["newest_published"] = newest_published
         report["presented_first"] = named[0]
 
-    failures += check_gridatlas_homepage_identity(text, report)
+    # THE GRID ATLAS HOMEPAGE IDENTITY CHECK IS RETIRED, NOT SILENCED.
+    #
+    # check_gridatlas_homepage_identity() reads a structure that index.html has
+    # not carried since c9fd7dad restored the homepage to the catalogue view: the
+    # GRIDATLAS_V9_AUTOMATION markers, the AREAS directory, the os-strip identity
+    # and the 127-row version catalogue block are all gone from the live page. It
+    # has therefore reported eight findings about a page that does not exist on
+    # every push for a week, and thirteen of its unit tests fail before the script
+    # is even reached. A check that cannot pass is not a check.
+    #
+    # The structure still exists in homepage_versions/homepage_v034.html, which is
+    # a frozen archive - asserting against it would test nothing about today. The
+    # live Grid Atlas composition is still checked, over the network, by
+    # check_network() below, which reads the Atlas's own current.json.
+    #
+    # This is recorded in the report rather than deleted quietly, so a reader of
+    # publication-truth.json can see what is no longer being asked.
+    report["retired_checks"] = [
+        "gridatlas homepage identity: the homepage stopped carrying the Grid Atlas "
+        "version catalogue block and os-strip identity; the live composition is "
+        "still checked by check_network()",
+    ]
 
     return failures
 

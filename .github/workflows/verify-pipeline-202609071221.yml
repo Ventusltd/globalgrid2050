@@ -17,7 +17,15 @@ concurrency:
 jobs:
   live-browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    # 8 minutes could not fit what this job is asked to do. `npx playwright
+    # install --with-deps chromium` alone has been observed taking most of it on
+    # a cold runner, before a single byte of the release is fetched, and this job
+    # then loads 7,680 REPD records, drives a mobile viewport, exports a CSV and
+    # waits up to 120 s for the Atlas to answer with a drawn map. 20 is what the
+    # other five pinned --with-deps jobs were raised to after they timed out;
+    # scripts/test_verify_published_versions.py has been failing this job's budget
+    # since that rule was written, and the rule is right.
+    timeout-minutes: 20
     env:
       BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/202609071221/
       BASELINE_SHA: bfad3231172224dee2d5adebbba94d5494237897

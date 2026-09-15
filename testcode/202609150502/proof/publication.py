@@ -22,7 +22,7 @@ def main():
                  if p.is_file() and p.name != 'publication.json' and '__pycache__' not in p.parts}
         result = {'schema': 'public-byte-manifest-v1', 'files': files,
                   'dependencies': {name: digest((ROOT / name).read_bytes()) for name in DEPENDENCIES}}
-        (ROOT / 'publication.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8')
+        (ROOT / 'publication.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8', newline='\n')
         print(json.dumps({'pass': True, 'files': len(files), 'dependencies': len(DEPENDENCIES)}))
         return
     manifest_bytes = (ROOT / 'publication.json').read_bytes()

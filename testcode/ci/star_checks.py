@@ -48,7 +48,9 @@ def strict_json(raw: bytes):
                 raise ValueError("duplicate JSON key")
             result[key] = value
         return result
-    return json.loads(raw, object_pairs_hook=unique)
+    def finite_only(value):
+        raise ValueError("non-finite JSON number")
+    return json.loads(raw, object_pairs_hook=unique, parse_constant=finite_only)
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -126,13 +128,30 @@ def plan(root: Path, commit: str) -> tuple[list[dict], dict]:
                     "all_manifests_have_asset_inventory": not manifest_only and not unsupported}
 
 
+def origin(url: str) -> tuple:
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.username is not None or parsed.password is not None:
+        raise ValueError("URL credentials are not supported")
+    return parsed.scheme, parsed.hostname, parsed.port or {"https": 443, "http": 80}.get(parsed.scheme)
+
+
+class SameOriginRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # Validate before urllib opens the redirect target, including scheme and
+        # port changes. A post-response check alone is too late to prevent a request.
+        if origin(req.full_url) != origin(newurl):
+            raise ValueError("cross-origin redirect")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 def fetch(url: str, limit: int, deadline: float) -> bytes:
     remaining = deadline - time.monotonic()
     if remaining <= 0:
         raise TimeoutError("sweep deadline reached")
     request = urllib.request.Request(url, headers={"User-Agent": "GlobalGrid2050-Publication-Integrity/1.0", "Accept-Encoding": "identity"})
-    with urllib.request.urlopen(request, timeout=min(15, remaining)) as response:
-        if urllib.parse.urlsplit(response.url).netloc != urllib.parse.urlsplit(url).netloc:
+    opener = urllib.request.build_opener(SameOriginRedirect())
+    with opener.open(request, timeout=min(15, remaining)) as response:
+        if origin(response.url) != origin(url):
             raise ValueError("cross-origin redirect")
         chunks, size = [], 0
         while True:
@@ -260,11 +279,13 @@ def main(argv=None) -> int:
             report["public_pattern_findings"] = sum(sum(row.get("public_pattern_counts", {}).values()) for row in rows)
             report["sun"] = validate_sun_owner(args.sun_root, deadline)
             report["checked_items_pass"] = not coverage["unsupported_inventory"] and report["mismatches"] == 0 and report["public_pattern_findings"] == 0 and report["sun"]["validated"]
+            report["pass"] = report["checked_items_pass"]
             report["full_assurance"] = False  # Missing private-name comparison is an explicit open gate.
             report["status"] = "checked" if report["checked_items_pass"] else "findings"
             exit_code = 0 if report["checked_items_pass"] else 1
     except Exception as exc:
         report.update(status="error", error=type(exc).__name__, checked_items_pass=False, full_assurance=False)
+        report["pass"] = False
         exit_code = 1
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True)+"\n", encoding="utf-8")

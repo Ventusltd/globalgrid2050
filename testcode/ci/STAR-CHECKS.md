@@ -29,5 +29,7 @@ company suffixes, registration-number-like strings, full postcodes and email
 markers. Only counts are returned. It does not import or execute the historical
 leak checker, does not access a private source-name corpus, and cannot prove that
 private names are absent. The report always marks that comparison unavailable and
-`full_assurance: false`. `checked_items_pass` applies only to the listed checks.
+`full_assurance: false`. `pass` is an exact alias of `checked_items_pass` and applies
+only to the listed checks; it is not a claim about unlisted assets or source names.
+The workflow requires the JSON `pass` value to be the boolean `true` for a sweep.
 Neither a matching hash nor a zero pattern count authorizes publication of data.

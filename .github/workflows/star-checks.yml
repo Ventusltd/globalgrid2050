@@ -51,7 +51,17 @@ jobs:
           path: sun-owner
       - name: Audit committed publication expectations and served Sun data
         if: steps.gate.outputs.enabled == 'true'
-        run: python testcode/ci/star_checks.py --sun-root sun-owner --output star-checks-report.json
+        run: |
+          python testcode/ci/star_checks.py --sun-root sun-owner --output star-checks-report.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('star-checks-report.json').read_text())
+          if report.get('status') == 'window_closed':
+              print('night window closed before sweep; no checks executed')
+          else:
+              assert report.get('pass') is True, 'scoped publication checks did not pass'
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:

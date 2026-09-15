@@ -3,7 +3,9 @@ import importlib.util
 import json
 import pathlib
 import time
+import threading
 import unittest
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from unittest.mock import patch
 
 SPEC = importlib.util.spec_from_file_location("star_checks", pathlib.Path(__file__).with_name("star_checks.py"))
@@ -92,6 +94,42 @@ class PublicationChecks(unittest.TestCase):
         result = checks.check_item(item,checks.PUBLIC_BASE,time.monotonic()+1,lambda *args:raw)
         self.assertFalse(result['match'])
         self.assertEqual(result['error'],'ValueError')
+        for raw in (b'{"value":NaN}',b'{"value":Infinity}',b'{"value":-Infinity}'):
+            with self.assertRaises(ValueError):
+                checks.strict_json(raw)
+
+    def test_redirect_target_is_never_requested_across_origins(self):
+        requests = []
+        class Target(BaseHTTPRequestHandler):
+            def do_GET(self):
+                requests.append(self.path)
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(b'x')
+            def log_message(self,*args):
+                pass
+        target = ThreadingHTTPServer(('127.0.0.1',0),Target)
+        class Redirect(Target):
+            def do_GET(self):
+                self.send_response(302)
+                self.send_header('Location',f'http://127.0.0.1:{target.server_port}/blocked')
+                self.end_headers()
+        source = ThreadingHTTPServer(('127.0.0.1',0),Redirect)
+        threads = [threading.Thread(target=server.serve_forever,daemon=True) for server in (source,target)]
+        for thread in threads:
+            thread.start()
+        try:
+            with self.assertRaises(ValueError):
+                checks.fetch(f'http://127.0.0.1:{source.server_port}/',1,time.monotonic()+2)
+            self.assertEqual(requests,[])
+            self.assertNotEqual(checks.origin('https://example.test/'),checks.origin('http://example.test/'))
+            self.assertEqual(checks.origin('https://example.test/'),checks.origin('https://example.test:443/'))
+        finally:
+            for server in (source,target):
+                server.shutdown()
+                server.server_close()
+            for thread in threads:
+                thread.join()
 
     def test_sun_owner_pin_checked_before_execution(self):
         with patch.object(checks, "git", return_value=b"0"*40), self.assertRaises(ValueError):

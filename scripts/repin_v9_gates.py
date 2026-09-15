@@ -103,6 +103,8 @@ def rewrite(text: str, hashes: dict[str, str]) -> tuple[str, int]:
 
 
 def rewrite_contract(path: Path, hashes: dict[str, str]) -> int:
+    # Rewrite each moved "subtree" value in place, as text, so the contract keeps
+    # its own formatting: a re-dump would restyle every list in the file.
     raw = path.read_text(encoding="utf-8")
     try:
         doc = json.loads(raw)
@@ -117,12 +119,12 @@ def rewrite_contract(path: Path, hashes: dict[str, str]) -> int:
             continue
         new = hashes.get(target.rstrip("/"))
         if new and new != subtree:
-            block["subtree"] = new
-            changes += 1
+            pattern = re.compile(r'("subtree"\s*:\s*")' + re.escape(subtree) + '"')
+            raw, n = pattern.subn(lambda m: m.group(1) + new + '"', raw, count=1)
+            changes += n
     if changes:
-        indent = 2 if raw.startswith("{\n  ") else 1
-        path.write_text(json.dumps(doc, indent=indent, ensure_ascii=False) + "\n",
-                        encoding="utf-8", newline="\n")
+        with path.open("w", encoding="utf-8", newline="") as fh:
+            fh.write(raw)
     return changes
 
 
@@ -141,10 +143,12 @@ def main() -> int:
             if path.suffix == ".json":
                 moved += rewrite_contract(path, hashes)
                 continue
-            before = path.read_text(encoding="utf-8", newline="")
+            with path.open(encoding="utf-8", newline="") as fh:
+                before = fh.read()
             after, n = rewrite(before, hashes)
             if n:
-                path.write_text(after, encoding="utf-8", newline="")
+                with path.open("w", encoding="utf-8", newline="") as fh:
+                    fh.write(after)
                 moved += n
         print(f"pass {attempt}: {moved} pin(s) rewritten")
         total += moved

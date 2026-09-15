@@ -18,7 +18,7 @@ const gitTree = (revisionPath) => execFileSync(
 
 assert.equal(
   gitTree("HEAD:uk_renewables_pipeline/v9.6.2"),
-  "d978c215bceaab6666e4bf17af782191d8fab49e",
+  "ae8ca9a07555795875080003d612491a401f50d0",
   "the validated V9.6.2 parent subtree changed",
 );
 

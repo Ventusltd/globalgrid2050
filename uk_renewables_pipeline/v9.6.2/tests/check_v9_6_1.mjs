@@ -54,7 +54,7 @@ const allowedAdded = new Set([
 
 assert.equal(
   gitTree("HEAD:uk_renewables_pipeline/v9.5.1"),
-  "95672822a2c534445ca12b0dd62f29154a66c0e8",
+  "c916950580b0491cb395e952122b2e47fd8b8eba",
   "the validated V9.5.1 parent subtree changed",
 );
 

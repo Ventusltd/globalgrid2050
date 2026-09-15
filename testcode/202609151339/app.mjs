@@ -228,12 +228,12 @@ function drawMarks() {
   if (view.link) {
     const [ka, kb] = view.link;
     const A = toScreen(placeOne(ka)), B = toScreen(placeOne(kb));
-    c.strokeStyle = '#5ec8f2'; c.lineWidth = 1.2; c.setLineDash([5, 4]);
+    c.strokeStyle = '#ff2bd6'; c.lineWidth = 1.6; c.setLineDash([5, 4]);
     c.beginPath(); c.moveTo(A[0], A[1]);
     c.quadraticCurveTo((A[0] + B[0]) / 2, (A[1] + B[1]) / 2 - 40, B[0], B[1]);
     c.stroke(); c.setLineDash([]);
     for (const P of [A, B]) {
-      c.strokeStyle = '#5ec8f2'; c.beginPath(); c.arc(P[0], P[1], 9, 0, 6.2832); c.stroke();
+      c.strokeStyle = '#ff2bd6'; c.beginPath(); c.arc(P[0], P[1], 9, 0, 6.2832); c.stroke();
     }
   }
   if (view.focus >= 0) {

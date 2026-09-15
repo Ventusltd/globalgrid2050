@@ -1,0 +1,13 @@
+{
+ "homepage_version": "v116",
+ "archived_from": "index.html at HEAD before removing the Industry Analysis nest",
+ "last_commit_of_that_page": "0f68c6ca7885f07dbfbe5bb01a318a379e977287 2026-09-15T03:01:02+01:00",
+ "sha256": "83f2e850ef4cfb164da8a7ff72ab0b5f876810ae136cfb86fcb9e61c100e3de7",
+ "bytes": 17869,
+ "lines": 198,
+ "words": 1884,
+ "chars": 17839,
+ "files_in_folder_before": 190,
+ "reason": "back up before removing the Industry Analysis nest",
+ "change_intention": "Remove ONE line: the fifth nest 'Industry Analysis' (two rows, Sector Star and Solar Star, linking the stars' GitHub Pages) added in v115. The Solar Star is retired to its GitHub repository and no longer linked from the homepage. No other line changes. Reversible by restoring this snapshot."
+}

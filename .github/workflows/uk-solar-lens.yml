@@ -1,0 +1,48 @@
+name: UK Solar lens proof
+on:
+  pull_request:
+    paths: ['testcode/202609150502/**', '.github/workflows/uk-solar-lens.yml']
+  push:
+    branches: [main]
+    paths: ['testcode/202609150502/**', '.github/workflows/uk-solar-lens.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify production data, seed and null contracts
+        env:
+          REPORT_PATH: solar-self-test.json
+        run: |
+          node testcode/202609150502/proof/self-test.mjs
+          python testcode/202609150502/proof/publication.py --verify --report solar-manifest.json
+      - name: Install Chrome test harness
+        run: npm install --no-save --package-lock=false puppeteer@24.31.0
+      - name: Run production browser scenarios
+        env:
+          PROOF_DIR: solar-browser-proof
+        run: |
+          python -m http.server 8891 --bind 127.0.0.1 > /tmp/solar-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID"' EXIT
+          node testcode/202609150502/proof/browser.mjs
+          node -e "if(require('./solar-browser-proof/browser.json').pass!==true)process.exit(1)"
+      - name: Preserve proof artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uk-solar-proof-${{ github.sha }}
+          path: |
+            solar-self-test.json
+            solar-manifest.json
+            solar-browser-proof/

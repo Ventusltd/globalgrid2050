@@ -1,0 +1,83 @@
+{
+  "schema": "public-byte-manifest-v1",
+  "files": {
+    "app.mjs": {
+      "bytes": 9958,
+      "sha256": "e06b2fda37a6bda71c98597ae342482735edc24dbfe72e393e8af07296065865"
+    },
+    "data/provenance.json": {
+      "bytes": 1183,
+      "sha256": "cf43a569507480774ae73ed4e57e4dc3c274790acd8c0ee3509ab8d968ca8ddc"
+    },
+    "data/sun-provenance.json": {
+      "bytes": 26731,
+      "sha256": "e29f857bda540b960ec6188a273eba3536fe1960589d9fc469198ea338367002"
+    },
+    "data/today.json": {
+      "bytes": 8652,
+      "sha256": "b1ba3370ce70733463ec88daf56fa0af6dce149497281179bf393fbc5b4159db"
+    },
+    "data/uk-solar.json": {
+      "bytes": 1861137,
+      "sha256": "7a79be5925ed6b14d5581338f4b3df5981c8b6bf04dc3cbc148d0e5bb7b9ea5e"
+    },
+    "index.html": {
+      "bytes": 2572,
+      "sha256": "4ba36811b0dfba00383a462419ddc70a9e2492426bc49b11a376f72a86c22634"
+    },
+    "model.mjs": {
+      "bytes": 4010,
+      "sha256": "532c3f3334b4cdb45d3331c7131286e45d9e4cab4c2214252b07f2373e426682"
+    },
+    "proof/browser.mjs": {
+      "bytes": 7644,
+      "sha256": "73d5cee1449cb584045269afe9874a956915a0145c93c7650a117689068cd81f"
+    },
+    "proof/ci-checks.json": {
+      "bytes": 377,
+      "sha256": "3c0e0406527031bd4c987854af82303fc872354871e8ae015ad7a5b34791e07a"
+    },
+    "proof/publication.py": {
+      "bytes": 2591,
+      "sha256": "d00ec10d340ff52c21e17bdd74046ba24b71f30c01b7d88d00895e4db749890a"
+    },
+    "proof/self-test.mjs": {
+      "bytes": 4670,
+      "sha256": "1bd09ec41c3e4c4fee8cb0f350d45ecac01d8c6cacd146093f00ef15b7d552f9"
+    },
+    "proof/snapshot.py": {
+      "bytes": 1767,
+      "sha256": "5f0358762543371c16be18cbdf0aba152c73655cdb802b635a02371b3d21217d"
+    },
+    "README.md": {
+      "bytes": 5300,
+      "sha256": "752cf40eae04d0e373646520baedebaaf0f4f28c1dac2f884203897ab9fba7a9"
+    },
+    "ring.mjs": {
+      "bytes": 1101,
+      "sha256": "1bee84f37d74c0d15e33690e2606d447cd4b1749af30187407c47fbe7fbabd21"
+    },
+    "style.css": {
+      "bytes": 2337,
+      "sha256": "81631b2e388a384b9cfb0ce6778538d049405849e573c0abf8fa232f3cf7533a"
+    },
+    "table.mjs": {
+      "bytes": 1168,
+      "sha256": "2da58e11bab9a3705275e7c3e59216295d42abae77bc21e3527cd03624b27ce1"
+    }
+  },
+  "dependencies": {
+    "../202609142225/core.js": {
+      "bytes": 32346,
+      "sha256": "7f46e42f22ac205e91984a7b8d6cf9271799a9018a3aa03802ebb06d0c18eefa"
+    },
+    "../202609142225/gl.js": {
+      "bytes": 20896,
+      "sha256": "e73c0bef48a4870c03589adfa32e001f5d14d75443ca711df096f60ea078cf0b"
+    },
+    "../202609142225/GRAMMAR.md": {
+      "bytes": 59589,
+      "sha256": "53a290e62c1f47b5d621899623b0c048a29d45d77d6f7464bfc757900eb79ecb"
+    }
+  }
+}

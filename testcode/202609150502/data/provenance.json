@@ -1,0 +1,25 @@
+{
+  "schema": "uk-solar-snapshot-v1",
+  "source_commit": "8b930de59db7b7a6d332025da3eaf80ce8dcf9ab",
+  "fetched_utc": "2026-09-15T05:11:07.091735+00:00",
+  "files": {
+    "uk-solar.json": {
+      "url": "https://raw.githubusercontent.com/Ventusltd/star-solar-star/8b930de59db7b7a6d332025da3eaf80ce8dcf9ab/sun/uk-solar.json",
+      "bytes": 1861137,
+      "sha256": "7a79be5925ed6b14d5581338f4b3df5981c8b6bf04dc3cbc148d0e5bb7b9ea5e"
+    },
+    "today.json": {
+      "url": "https://raw.githubusercontent.com/Ventusltd/star-solar-star/8b930de59db7b7a6d332025da3eaf80ce8dcf9ab/sun/today.json",
+      "bytes": 8652,
+      "sha256": "b1ba3370ce70733463ec88daf56fa0af6dce149497281179bf393fbc5b4159db"
+    },
+    "sun-provenance.json": {
+      "url": "https://raw.githubusercontent.com/Ventusltd/star-solar-star/8b930de59db7b7a6d332025da3eaf80ce8dcf9ab/sun/provenance.json",
+      "bytes": 26731,
+      "sha256": "e29f857bda540b960ec6188a273eba3536fe1960589d9fc469198ea338367002"
+    }
+  },
+  "source_provenance": "sun-provenance.json",
+  "grammar_commit": "1e8424f947399c67f61836c51393b6cb73995d5b",
+  "grammar_sha256": "53a290e62c1f47b5d621899623b0c048a29d45d77d6f7464bfc757900eb79ecb"
+}

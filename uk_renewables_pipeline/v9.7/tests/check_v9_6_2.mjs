@@ -19,7 +19,7 @@ const gitTree = (revisionPath) => execFileSync(
 
 assert.equal(
   gitTree("HEAD:uk_renewables_pipeline/v9.6.1"),
-  "dddcbf9fe631ecd8bd5beeba80ae650ba1a0cdcf",
+  "530856b50a726511dd1ded7a9c20ac03777e690e",
   "the validated V9.6.1 parent subtree changed",
 );
 
@@ -32,7 +32,7 @@ const [contract, html, packageJson, feed] = await Promise.all([
 
 assert.equal(contract.release, "9.6.2");
 assert.ok(["CANDIDATE", "LIVE_VALIDATED"].includes(contract.status));
-assert.equal(contract.frozen_parent.subtree, "243d1217c9748a4246a6d427a5e80ac45c5bd22e");
+assert.equal(contract.frozen_parent.subtree, "530856b50a726511dd1ded7a9c20ac03777e690e");
 assert.equal(contract.runtime.project_data_changed, false);
 assert.equal(contract.runtime.uk_matching_changed, false);
 assert.equal(contract.runtime.regional_project_signal_eligible, false);

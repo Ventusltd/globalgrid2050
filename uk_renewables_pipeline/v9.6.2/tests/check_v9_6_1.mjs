@@ -54,7 +54,7 @@ const allowedAdded = new Set([
 
 assert.equal(
   gitTree("HEAD:uk_renewables_pipeline/v9.5.1"),
-  "c916950580b0491cb395e952122b2e47fd8b8eba",
+  "20b8f6fa97390f2f9897ca23031d3fdc1dd203e7",
   "the validated V9.5.1 parent subtree changed",
 );
 
@@ -86,7 +86,7 @@ const [contract, manifest, html, css, packageJson] = await Promise.all([
 assert.equal(contract.release, "9.6.1");
 assert.ok(["CANDIDATE", "LIVE_VALIDATED"].includes(contract.status));
 assert.equal(contract.frozen_parent.commit, "8b2432be75f224562fc1c416dbcc3319e31a47a8");
-assert.equal(contract.frozen_parent.subtree, "95672822a2c534445ca12b0dd62f29154a66c0e8");
+assert.equal(contract.frozen_parent.subtree, "20b8f6fa97390f2f9897ca23031d3fdc1dd203e7");
 assert.equal(contract.runtime.app, "scripts/app-v9-5-1.js");
 assert.equal(contract.runtime.data_changed, false);
 assert.equal(contract.runtime.javascript_changed, false);

@@ -15,11 +15,23 @@ version pins, which changes that version's hash, and so on up the chain. The
 hashes live in three shapes across shell, JavaScript and JSON, so the edit was
 being done by hand and getting done wrong.
 
-This rewrites all three shapes from git, iterating until nothing moves, so a
+There is a fourth shape, found the first time this ran: a bare literal that a
+test compares against a contract field, or a manifest field under another name
+(`assert.equal(contract.frozen_parent.subtree, "d9a50884...")`,
+`"frozen_v9_3_1_subtree": "d9a50884..."`). Those carry no path, so they are
+rewritten by value: every 40-hex literal in scope that equals what a v9 subtree
+hashed to at --base (default HEAD), or at any earlier pass of this run, becomes
+that subtree's current hash. Blob and commit hashes never collide with a tree
+hash, so nothing else is touched.
+
+This rewrites all four shapes from git, iterating until nothing moves, so a
 repair to any V9 test is a two-step operation instead of a hash rodeo:
 
     git add -A && git commit -m '...'
-    python3 scripts/repin_v9_gates.py && git commit -am 'chore: repin the V9 gate chain'
+    python3 scripts/repin_v9_gates.py --base HEAD~1 && git commit -am 'chore: repin the V9 gate chain'
+
+(--base is the last commit whose pins were all consistent; HEAD when the repair
+is still uncommitted in the working tree.)
 
 SCOPE - deliberately narrow
 Only uk_renewables_pipeline/v9* is rewritten. The timestamped releases
@@ -85,6 +97,27 @@ def working_tree_hashes() -> dict[str, str]:
         return found
 
 
+def tree_hashes_at(rev: str) -> dict[str, str]:
+    """Subtree hash of every uk_renewables_pipeline/v9* directory at a committed revision."""
+    found = {}
+    for line in git("ls-tree", rev, "uk_renewables_pipeline/").splitlines():
+        meta, name = line.split("	", 1)
+        mode, kind, sha = meta.split()
+        if kind == "tree" and name.rsplit("/", 1)[-1].startswith("v9"):
+            found[name.rstrip("/")] = sha
+    return found
+
+
+def rewrite_literals(text: str, literal_map: dict[str, str]) -> tuple[str, int]:
+    changes = 0
+    for old, new in literal_map.items():
+        n = text.count(old)
+        if n:
+            text = text.replace(old, new)
+            changes += n
+    return text, changes
+
+
 def rewrite(text: str, hashes: dict[str, str]) -> tuple[str, int]:
     changes = 0
 
@@ -129,27 +162,46 @@ def rewrite_contract(path: Path, hashes: dict[str, str]) -> int:
 
 
 def main() -> int:
+    argv = sys.argv[1:]
+    base = argv[argv.index("--base") + 1] if "--base" in argv else "HEAD"
     files = [
         ROOT / p for p in git("ls-files", "uk_renewables_pipeline").splitlines()
         if SCOPE.match(p) and p.endswith((".sh", ".mjs", ".js", ".json"))
     ]
+    former: dict[str, set[str]] = {p: {h} for p, h in tree_hashes_at(base).items()}
     total = 0
     for attempt in range(1, MAX_PASSES + 1):
         hashes = working_tree_hashes()
+        literal_map = {
+            old: hashes[path]
+            for path, olds in former.items() if path in hashes
+            for old in olds if old != hashes[path]
+        }
         moved = 0
         for path in files:
             if not path.is_file():
                 continue
-            if path.suffix == ".json":
-                moved += rewrite_contract(path, hashes)
-                continue
             with path.open(encoding="utf-8", newline="") as fh:
                 before = fh.read()
             after, n = rewrite(before, hashes)
-            if n:
+            if path.suffix != ".json":
+                after, m = rewrite_literals(after, literal_map)
+                n += m
+            if after != before:
                 with path.open("w", encoding="utf-8", newline="") as fh:
                     fh.write(after)
                 moved += n
+            if path.suffix == ".json":
+                moved += rewrite_contract(path, hashes)
+                with path.open(encoding="utf-8", newline="") as fh:
+                    before = fh.read()
+                after, m = rewrite_literals(before, literal_map)
+                if m:
+                    with path.open("w", encoding="utf-8", newline="") as fh:
+                        fh.write(after)
+                    moved += m
+        for path, sha in hashes.items():
+            former.setdefault(path, set()).add(sha)
         print(f"pass {attempt}: {moved} pin(s) rewritten")
         total += moved
         if not moved:

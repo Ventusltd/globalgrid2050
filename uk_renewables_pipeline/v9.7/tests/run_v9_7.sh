@@ -6,7 +6,7 @@ V97="$(cd "$HERE/.." && pwd)"
 V962="$(cd "$V97/../v9.6.2" && pwd)"
 ROOT="$(cd "$V97/../.." && pwd)"
 
-test "$(git -C "$ROOT" rev-parse 'HEAD:uk_renewables_pipeline/v9.6.2')" = "ae8ca9a07555795875080003d612491a401f50d0"
+test "$(git -C "$ROOT" rev-parse 'HEAD:uk_renewables_pipeline/v9.6.2')" = "68e44cd061736bab1ce2f8e7bf8302aa290a131f"
 
 diff -qr -x __pycache__ -x '*.pyc' -x v9.7 "$V962/data" "$V97/data"
 diff -qr -x __pycache__ -x '*.pyc' "$V962/fixtures" "$V97/fixtures"

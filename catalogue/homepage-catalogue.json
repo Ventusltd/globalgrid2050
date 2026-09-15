@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-15T22:09:25Z",
+ "generated_utc": "2026-09-15T22:19:10Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -17,11 +17,29 @@
   "commit",
   "tree"
  ],
- "count": 448,
+ "count": 449,
  "skipped_unresolvable": [
   "./repd_atlas_grid_model/"
  ],
  "entries": [
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Opus 5 (1M context)",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "75318884e4",
+   "commit_full": "75318884e4a123002f2274d99183c2bf415e01ce",
+   "tree": "362a5bf934e6b4d58e44e733ce3832ef24a7d0cb",
+   "id": "202609152209-homepage-archive",
+   "stamp": "202609152209",
+   "family": "about-media",
+   "project": "homepage-archive",
+   "title": "Homepage archive homepage_v121",
+   "url": "./homepage_versions/homepage_v121.html",
+   "kind": "homepage",
+   "parent": null,
+   "status": "archived",
+   "stamp_source": "git first-commit time (UTC)"
+  },
   {
    "agent": "Claude",
    "agent_model": "Claude Opus 5 (1M context)",

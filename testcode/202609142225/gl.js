@@ -10,6 +10,7 @@ const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 const VS_POINTS = `#version 300 es
 precision highp float;
+bool nanf(float x){ uint b = floatBitsToUint(x); return (b & 0x7f800000u) == 0x7f800000u && (b & 0x007fffffu) != 0u; }   // NaN by its bit pattern: on D3D11 through ANGLE a float compared with itself, and the isnan builtin, both fold to false, so the sentinel test must not be a float comparison
 layout(location=0) in vec2 a_quad; layout(location=1) in vec2 a_posA; layout(location=2) in vec2 a_posB;
 layout(location=3) in uvec4 a_meta; layout(location=4) in float a_mass; layout(location=5) in vec2 a_orb;
 uniform mat3 u_view; uniform vec2 u_res; uniform float u_mix, u_time, u_dpr, u_orbit; uniform float u_base[5]; uniform float u_gain[5];
@@ -17,7 +18,7 @@ out vec2 v_uv; flat out uint v_cat; flat out uint v_cls; flat out uint v_lit; ou
 float lightOf(uint lit){ float l = 0.35; if((lit&8u)!=0u) l = max(l,0.7); if((lit&1u)!=0u) l = max(l,0.8); if((lit&4u)!=0u) l = max(l,0.9); if((lit&2u)!=0u) l = 1.0; if((lit&32u)!=0u) l *= 0.4; return l; }
 void main(){
   float t = u_mix; t = t < .5 ? 4.*t*t*t : 1. - pow(-2.*t + 2., 3.)/2.;
-  vec2 A = a_posA, B = a_posB; bool na = A.x != A.x, nb = B.x != B.x;
+  vec2 A = a_posA, B = a_posB; bool na = nanf(A.x), nb = nanf(B.x);
   vec2 p = na && nb ? vec2(0.) : na ? B : nb ? A : mix(A, B, t);
   float fade = (na && nb) ? 0. : na ? t : nb ? (1. - t) : 1.;
   if (u_orbit > 0.5 && a_orb.x >= 0.0) { float ring = a_orb.x; float ang = a_orb.y + u_time * 0.25 / (ring + 1.0); p += vec2(cos(ang), sin(ang)) * (16.0 + ring * 18.0); }
@@ -48,6 +49,7 @@ void main(){
 }`;
 const VS_SEG = `#version 300 es
 precision highp float;
+bool nanf(float x){ uint b = floatBitsToUint(x); return (b & 0x7f800000u) == 0x7f800000u && (b & 0x007fffffu) != 0u; }   // NaN by its bit pattern: on D3D11 through ANGLE a float compared with itself, and the isnan builtin, both fold to false, so the sentinel test must not be a float comparison
 layout(location=0) in vec2 a_a0; layout(location=1) in vec2 a_a1; layout(location=2) in vec2 a_ac;
 layout(location=3) in vec2 a_b0; layout(location=4) in vec2 a_b1; layout(location=5) in vec2 a_bc;
 layout(location=6) in vec4 a_style; layout(location=7) in float a_flags;
@@ -59,7 +61,7 @@ void main(){
   int flags = int(a_flags); bool arrow = (flags & 2) != 0; bool rev = (flags & 4) != 0;
   if (rev) t = 1.0 - t;
   vec2 p0 = mix(a_a0, a_b0, m), p1 = mix(a_a1, a_b1, m), pc = mix(a_ac, a_bc, m);
-  bool bad = p0.x != p0.x || p1.x != p1.x || pc.x != pc.x;
+  bool bad = nanf(p0.x) || nanf(p1.x) || nanf(pc.x);
   vec2 P = (1.-t)*(1.-t)*p0 + 2.*(1.-t)*t*pc + t*t*p1;
   vec2 T = 2.*(1.-t)*(pc - p0) + 2.*t*(p1 - pc); if (length(T) < 1e-4) T = p1 - p0; vec2 Ts = normalize((u_view * vec3(T, 0.0)).xy); vec2 Nn = vec2(-Ts.y, Ts.x);   // the normal in screen space, so rotation and zoom keep widths in CSS px
   float w = a_style.x;
@@ -88,6 +90,7 @@ void main(){
 }`;
 const VS_LINES = `#version 300 es
 precision highp float;
+bool nanf(float x){ uint b = floatBitsToUint(x); return (b & 0x7f800000u) == 0x7f800000u && (b & 0x007fffffu) != 0u; }   // NaN by its bit pattern: on D3D11 through ANGLE a float compared with itself, and the isnan builtin, both fold to false, so the sentinel test must not be a float comparison
 layout(location=0) in uint a_fam; layout(location=1) in float a_ord; layout(location=2) in float a_shared;
 uniform sampler2D u_pos; uniform sampler2D u_meta; uniform mat3 u_view; uniform vec2 u_res; uniform float u_mix, u_dpr, u_zoom;
 flat out uint v_cat; out float v_light; flat out float v_shared;
@@ -96,7 +99,7 @@ void main(){
   if (a_fam == 0xffffffffu) { gl_Position = vec4(2.,2.,2.,1.); gl_PointSize = 1.0; return; }
   int f = int(a_fam); ivec2 tc = ivec2(f % 256, f / 256);
   vec4 ab = texelFetch(u_pos, tc, 0); vec4 meta = texelFetch(u_meta, tc, 0);
-  vec2 A = ab.xy, B = ab.zw; bool na = A.x != A.x, nb = B.x != B.x;
+  vec2 A = ab.xy, B = ab.zw; bool na = nanf(A.x), nb = nanf(B.x);
   if (na && nb) { gl_Position = vec4(2.,2.,2.,1.); gl_PointSize = 1.0; return; }
   vec2 p = na ? B : nb ? A : mix(A, B, m); float fade = na ? m : nb ? 1. - m : 1.;
   float r = 5.0 + 1.3 * sqrt(a_ord); float ang = a_ord * 2.39996;

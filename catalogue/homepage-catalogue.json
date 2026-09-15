@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-15T14:14:41Z",
+ "generated_utc": "2026-09-15T15:24:38Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -17,11 +17,47 @@
   "commit",
   "tree"
  ],
- "count": 442,
+ "count": 444,
  "skipped_unresolvable": [
   "./repd_atlas_grid_model/"
  ],
  "entries": [
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Opus 5",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "e53911c1db",
+   "commit_full": "e53911c1db8b97f176aebc90f2d88efa9b475cd4",
+   "tree": "a0d2895f71defe0cd286cecf6375835372f0f2b6",
+   "id": "202609151428-test-code",
+   "stamp": "202609151428",
+   "family": "test-code",
+   "project": "test-code",
+   "title": "Test Code 202609151428",
+   "url": "./testcode/202609151428/",
+   "kind": "release",
+   "parent": null,
+   "status": "test",
+   "stamp_source": "directory name (UTC)"
+  },
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Opus 5",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "ebe99e25b9",
+   "commit_full": "ebe99e25b94f7bc5f78c17cdf623be1f04c6da5c",
+   "tree": "1fa17acf6acacbf7c648eb7388c8ba99686cec76",
+   "id": "202609151413-test-code",
+   "stamp": "202609151413",
+   "family": "test-code",
+   "project": "test-code",
+   "title": "Test Code 202609151413",
+   "url": "./testcode/202609151413/",
+   "kind": "release",
+   "parent": null,
+   "status": "test",
+   "stamp_source": "directory name (UTC)"
+  },
   {
    "agent": "Claude",
    "agent_model": "Claude Opus 5",

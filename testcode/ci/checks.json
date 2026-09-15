@@ -79,5 +79,14 @@
   "must_not_contain": ["dependents", "depended on by", "BLOCK 22", "360°", "Spider", "universe"],
   "source": "claude",
   "why": "retired vocabulary must not come back when the generator lands"
+ },
+ {
+  "name": "homepage-industry-analysis-nest",
+  "page": "homepage",
+  "viewport": "430x900",
+  "must_contain": ["Industry Analysis"],
+  "must_not_contain": [],
+  "source": "claude",
+  "why": "the Industry Analysis nest carries the published stars; its summary shows while the nest is closed, so losing the label means the nest is gone"
  }
 ]

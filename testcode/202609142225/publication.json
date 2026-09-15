@@ -1,8 +1,8 @@
 {
  "page": "testcode/202609142225 — Star Generator: one grammar, six lenses",
- "built_utc": "2026-09-15T01:26:38.033Z",
+ "built_utc": "2026-09-15T01:39:22.917Z",
  "node": "v24.19.0",
- "built_stamp_in_footer": "2026-09-15 01:26 UTC",
+ "built_stamp_in_footer": "2026-09-15 01:39 UTC",
  "shipped": [
   "index.html",
   "style.css",
@@ -35,21 +35,21 @@
   },
   {
    "file": "GRAMMAR.md",
-   "bytes": 59587,
-   "sha256": "df2d7ad3ae2235032d460d03ae10c22efcdeebdc4c84a27635003cfa4b03dfcc",
-   "mtime_utc": "2026-09-15T01:13:43.138Z"
+   "bytes": 59589,
+   "sha256": "53a290e62c1f47b5d621899623b0c048a29d45d77d6f7464bfc757900eb79ecb",
+   "mtime_utc": "2026-09-15T01:36:16.359Z"
   },
   {
    "file": "README.md",
-   "bytes": 8518,
-   "sha256": "4e9b35b883a3c72d55e0ed2ee54d606a5526eb505e09e8368b0845e9ab52f4cf",
-   "mtime_utc": "2026-09-15T01:12:56.978Z"
+   "bytes": 8618,
+   "sha256": "040d6a0e9293a3b8ddf53f74733ad5a49e0c8f81fa4abe853e2bb0714db25723",
+   "mtime_utc": "2026-09-15T01:37:58.737Z"
   },
   {
    "file": "core.js",
-   "bytes": 32222,
-   "sha256": "118f19c21eb1ae7b55f767bfa13e63371d6453f96f0d3a7ba82549e3649436c4",
-   "mtime_utc": "2026-09-15T01:16:53.157Z"
+   "bytes": 32346,
+   "sha256": "7f46e42f22ac205e91984a7b8d6cf9271799a9018a3aa03802ebb06d0c18eefa",
+   "mtime_utc": "2026-09-15T01:36:16.358Z"
   },
   {
    "file": "gl.js",
@@ -60,8 +60,8 @@
   {
    "file": "index.html",
    "bytes": 1241,
-   "sha256": "3ef94766a3aea552c95b58b175ca9d18e7e72b9ace1f136145b4d20ef3451808",
-   "mtime_utc": "2026-09-15T01:26:37.905Z"
+   "sha256": "2a3344d9099941d3ff235929c3bfb320608671b79573eed6a9344809aa6a28eb",
+   "mtime_utc": "2026-09-15T01:39:22.778Z"
   },
   {
    "file": "lens_mobile_evidence.json",
@@ -437,9 +437,9 @@
   },
   {
    "file": "proof/ci-checks.json",
-   "bytes": 1069,
-   "sha256": "c48d3eb0c848c5b4f7b3d9f1bb5fc7501e59912ddb0879673ed5d0b866dba3c0",
-   "mtime_utc": "2026-09-15T01:26:29.084Z"
+   "bytes": 1140,
+   "sha256": "491f3243c48b33b4c5355435aa06b4ba905da03303920bcda4d9c4496ce027c3",
+   "mtime_utc": "2026-09-15T01:37:58.749Z"
   },
   {
    "file": "proof/code-generator-desktop.png",
@@ -1062,8 +1062,8 @@
   {
    "file": "proof/final-check.json",
    "bytes": 8789,
-   "sha256": "e10e7eb05f5c9c269839ef38b10f5674f3ff0a3449738b40c6483e9153c26f45",
-   "mtime_utc": "2026-09-15T01:09:38.229Z"
+   "sha256": "9bb4843c5fdfe4b2e973d745e9b26426417481d1176fabac90880b8fb11c751e",
+   "mtime_utc": "2026-09-15T01:39:00.613Z"
   },
   {
    "file": "proof/final-check.mjs",
@@ -1075,61 +1075,61 @@
    "file": "proof/final-f1-cat-on-1440.png",
    "bytes": 124908,
    "sha256": "0eea063d88d2dcbdfa54a037fdfe6214351cf6b623f777d0923c793ae186d762",
-   "mtime_utc": "2026-09-15T01:09:11.284Z"
+   "mtime_utc": "2026-09-15T01:38:33.621Z"
   },
   {
    "file": "proof/final-f2-chord-off-1440.png",
    "bytes": 121069,
    "sha256": "8da00f6bcbb7ac37450602a017ba40e6dabe50f23baeeea111b29104e5e8173d",
-   "mtime_utc": "2026-09-15T01:09:15.193Z"
+   "mtime_utc": "2026-09-15T01:38:37.530Z"
   },
   {
    "file": "proof/final-f3-table-430.png",
    "bytes": 136945,
    "sha256": "cb4cc295266d7b6341da472080745280cb338d34f46b428ed280133f5a8dfe90",
-   "mtime_utc": "2026-09-15T01:09:18.424Z"
+   "mtime_utc": "2026-09-15T01:38:40.764Z"
   },
   {
    "file": "proof/final-f4-tray-430.png",
-   "bytes": 145484,
-   "sha256": "0639fcb9150a96bf07d1769c8cc3924211d249aa77c58886e5b6dd2617585d4b",
-   "mtime_utc": "2026-09-15T01:09:23.042Z"
+   "bytes": 145514,
+   "sha256": "7c35374873ddba6fba4a4c52c1c5b4367e0a09e968be2751374774f1c2a2c005",
+   "mtime_utc": "2026-09-15T01:38:45.402Z"
   },
   {
    "file": "proof/final-tapsize-chord-430.png",
-   "bytes": 316379,
-   "sha256": "14d4336952b39530da768848be5c4f727c4ef19067d7fc82f92dad9b1288fbf4",
-   "mtime_utc": "2026-09-15T01:09:30.818Z"
+   "bytes": 316394,
+   "sha256": "bfddd37a9c1cc08fced7899cdadc02599fb44ea129f2c9445bc90c4dc08644d3",
+   "mtime_utc": "2026-09-15T01:38:53.141Z"
   },
   {
    "file": "proof/final-tapsize-column-430.png",
    "bytes": 185696,
    "sha256": "c2bbbf219b297740cc1a700e5acbe49491e3abe73936033645e6e86e55baf4fd",
-   "mtime_utc": "2026-09-15T01:09:37.989Z"
+   "mtime_utc": "2026-09-15T01:39:00.349Z"
   },
   {
    "file": "proof/final-tapsize-particle-430.png",
-   "bytes": 218310,
-   "sha256": "631d704d8f72cc2b8a9f05da4e0ed17fbbb032ed279d0ba7e57975e682e2fca0",
-   "mtime_utc": "2026-09-15T01:09:28.438Z"
+   "bytes": 218324,
+   "sha256": "f779b3b252ebb6177c68d2ded75739b1c93e30fcc82677879a69dfced28bb40e",
+   "mtime_utc": "2026-09-15T01:38:50.761Z"
   },
   {
    "file": "proof/final-tapsize-ring-430.png",
    "bytes": 197623,
    "sha256": "d84b3319b57c20137c32459ed5bf8ea6b6c2c22f3d0a3a0da0b3994e6bf51811",
-   "mtime_utc": "2026-09-15T01:09:26.034Z"
+   "mtime_utc": "2026-09-15T01:38:48.401Z"
   },
   {
    "file": "proof/final-tapsize-river-430.png",
-   "bytes": 395769,
-   "sha256": "befc96b0abdf8d0877866e019ebe1fe103eecea1330344d234a6fd4c54474d92",
-   "mtime_utc": "2026-09-15T01:09:33.200Z"
+   "bytes": 395772,
+   "sha256": "848a79d3222869825327b48d4eb9dc7d4bfbea4703ab52d5177a40e41c501043",
+   "mtime_utc": "2026-09-15T01:38:55.552Z"
   },
   {
    "file": "proof/final-tapsize-table-430.png",
    "bytes": 155120,
    "sha256": "74f502bcb8322a7a65079eed66dec99cfc8ff84e6a1221bb60dca9daa202cea4",
-   "mtime_utc": "2026-09-15T01:09:35.611Z"
+   "mtime_utc": "2026-09-15T01:38:57.970Z"
   },
   {
    "file": "proof/grep-tests.sh",
@@ -1464,7 +1464,7 @@
     "file": "proof/final-check.log",
     "bytes": 2413,
     "sha256": "af47d43009b5df1de528ffa6d3162491f74d9aa531f118868d2c97aee656126d",
-    "mtime_utc": "2026-09-15T01:09:38.242Z"
+    "mtime_utc": "2026-09-15T01:39:00.615Z"
    },
    {
     "file": "proof/repair-check.log",

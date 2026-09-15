@@ -205,14 +205,14 @@ export function loadPack() {
     const lineShared = new Uint8Array(M); for (let j = 0; j < distinct; j++) { const a = lineFirst[j], b = lineFirst[j + 1]; if (b - a > 1) { const fs = new Set(); for (let q = a; q < b; q++) fs.add(lineFam[lineOrder[q]]); if (fs.size > 1) for (let q = a; q < b; q++) lineShared[lineOrder[q]] = 1; } }
     Object.assign(core, { lineKey, lineFam, lineOrder, lineIndex, lineFirst, lineShared, nameToFam });
     core.packStats = U.packStats = { instances: M, distinct, unique: U.index.lines, orphans, built: prov.built_utc, sha: U.packSha };
-    // kind 5 random link (family ↔ family, joined by name: random.json numbers souls, not families — see GRAMMAR deviations)
+    // kind 5 random link (family ↔ family, joined by name: random.json numbers states, not families — see GRAMMAR deviations)
     const endpoint = s => { let m = String(s).match(/^#\d+ (.+)$/); if (m) { const nm = m[1].split('/').pop(); return nameToFam.has(nm) ? nameToFam.get(nm) : -1; } return -1; };
     let rDrawn = 0; for (const e of random.edges || []) { const a = endpoint(e.from), b = endpoint(e.to); if (a >= 0 && b >= 0 && addEdge(a, b, 5, typeof e.p === 'number' ? e.p : 0.25) >= 0) rDrawn++; }
     core.randomStats = { edges: (random.edges || []).length, drawn: rDrawn, seed: ((random.sources || [])[0] || {}).seed || null };
     // kind 6 entangled (family → repository, joined by name)
-    let eDrawn = 0, eJoined = 0; const soul = entangled.soul_md || {};
+    let eDrawn = 0, eJoined = 0; const reg = entangled.soul_md || {};   // the state register of the star-maker, read from the file it is stored in (the field name is left as the pack writes it)
     for (const x of entangled.entanglements || []) { const f = nameToFam.get(x.name); if (f == null) continue; eJoined++; for (const r of x.called_from || []) { const ri = byKey.get(`repo:${r}`); if (ri != null && addEdge(f, ri, 6) >= 0) eDrawn++; } }
-    core.entangledStats = { stated: soul.entanglements_stated ?? null, listed: (entangled.entanglements || []).length, joined: eJoined, drawn: eDrawn };
+    core.entangledStats = { stated: reg.entanglements_stated ?? null, listed: (entangled.entanglements || []).length, joined: eJoined, drawn: eDrawn };
     return core.packStats;
   })();
   return packPromise;

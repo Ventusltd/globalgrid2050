@@ -5,6 +5,8 @@ no CDN, no framework, no build step). Serve it over HTTP from the repository roo
 (`python -m http.server <port> --bind 127.0.0.1` in `globalgrid2050/`, then open
 `http://127.0.0.1:<port>/testcode/202609142225/`); `file://` blocks `fetch`. It is not linked from any corporate page.
 
+Vocabulary: the star-maker's 'soul' records are called states here; the file names are unchanged.
+
 The rules it is built to are in **GRAMMAR.md** (the owner's spec, verbatim, followed by the deviations made in this
 build and why). This README says what is here, where the numbers come from and how to run the proof.
 
@@ -54,7 +56,7 @@ The count sentence under the title is computed from those files at run time; its
 the second line figure with its source: `250,174 per code/index.json · 664,940 line instances · 128,369 distinct
 numbers in this pack`. The two figures are never blended.
 
-Two joins are made by name, because `random.json` and `entangled.json` number souls, not families: a `#N name` key is
+Two joins are made by name, because `random.json` and `entangled.json` number states, not families: a `#N name` key is
 matched to the lowest-numbered family of that name. Measured: 79 of 300 random edges and 30 of 40 entanglements
 resolve; the legend chip titles say so. Unjoined records are not drawn.
 

@@ -27,7 +27,7 @@
   "must_not_contain": []
  },
  {
-  "name": "retired words (GRAMMAR.md section 0) appear nowhere",
+  "name": "retired words and the metaphor word 'soul' (GRAMMAR.md section 0; physics vocabulary) appear nowhere",
   "must_contain": [],
   "must_not_contain": [
    "dependents",
@@ -35,7 +35,9 @@
    "DEPENDS-ON",
    "FOUND-IN",
    "CONTAINS",
-   "BLOCK 22"
+   "BLOCK 22",
+   "soul",
+   "Soul"
   ]
  },
  {

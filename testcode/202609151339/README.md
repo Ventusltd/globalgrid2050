@@ -18,7 +18,7 @@ So line 8,285 is in the same place on every device, in every session, for ever. 
 
 ## The rule it exists to meet
 
-It must be able to connect any two uniquely numbered lines in the estate. Type two numbers and it answers: the function families that carry both, or a refusal naming which of the two is carried by no family at all. 46,680 of the numbered lines are carried by more than one family; those are the ones that have anything to be joined to.
+It must be able to connect any two uniquely numbered lines in the estate. Type two numbers and it answers: the function families that carry both, or a refusal naming which of the two is carried by no family at all. 45,671 of the numbered lines are carried by more than one family; those are the ones that have anything to be joined to.
 
 ## What a connection means, and what it does not
 

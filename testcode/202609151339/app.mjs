@@ -24,30 +24,34 @@
  *
  * THE RULE THIS PAGE EXISTS TO MEET. It must be able to connect any two
  * uniquely numbered lines in the estate. Type two numbers and it answers: the
- * families that carry both, or an honest refusal naming which of the two is
- * carried by no family at all. Only a line carried by more than one family has
- * anything to be joined to, and how many those are is counted from the data
- * when the index loads. It is never typed here: the first time it was, it was
- * wrong by a thousand.
+ * families that carry both, or a refusal naming which of the two no family
+ * carries.
  *
- * WHAT IS NOT CLAIMED. A shared line number means two families contain the same
- * line of text. It does not mean one calls the other, and it is not a
- * dependency. The most-shared line in the estate is line 2, an empty line,
- * carried by 2,281 families. Triviality is visible here, not hidden: a line's
- * connection count is drawn, so the meaningless ones look exactly as
- * meaningless as they are.
+ * TWO RELATIONS, AND THE FIRST VERSION OF THIS PAGE CONFUSED THEM.
+ * FANOUT is one number appearing in several families: the same text sitting in
+ * several places, which is duplication. CO-MEMBERSHIP is two different numbers
+ * appearing in one family: two lines of the same function, which is
+ * neighbourhood and is NOT the same text. Connecting uses co-membership, so a
+ * line carried by exactly one family is perfectly connectable — to another line
+ * of that family. The page originally claimed the opposite and a reviewer was
+ * right to reject it. See lib.mjs.
+ *
+ * WHAT IS NOT CLAIMED. Neither relation is a dependency and neither means one
+ * line calls the other. Triviality is visible rather than hidden: a line's
+ * fanout is printed, so line 2, an empty line in 2,281 families, looks exactly
+ * as meaningless as it is.
  */
 
+import { place, placeAll, parseKey, indexOfKey as findKey, ownersOf, fanoutCount,
+         connectAnswer, esc, fmt } from './lib.mjs';
+
 const DATA = '../202609142202/data/';
-const GOLDEN = Math.PI * (3 - Math.sqrt(5));   /* the golden angle, 2.39996… rad */
-const SPACING = 1.0;
 
 const $ = id => document.getElementById(id);
-const stage = $('stage');
-const fmt = n => n.toLocaleString('en-GB');
+let stage = $("stage");
 
 const U = {
-  connectable: null,   /* counted when the family index lands, never typed */
+  fanout: null,        /* lines carried by MORE THAN ONE family; counted, never typed */
   keys: null,        /* Uint32Array, sorted: every permanent line number issued */
   lens: null,        /* Uint16Array: characters in that line */
   inFam: null,       /* Uint8Array: 1 when at least one family carries it */
@@ -63,32 +67,8 @@ const view = { x: 0, y: 0, zoom: 1, w: 0, h: 0, dpr: 1, focus: -1, link: null };
 
 /* ── the surface ─────────────────────────────────────────────────────────── */
 
-function place(keys) {
-  const n = keys.length, p = new Float32Array(n * 2);
-  for (let i = 0; i < n; i++) {
-    const k = keys[i], r = SPACING * Math.sqrt(k), t = k * GOLDEN;
-    p[i * 2] = r * Math.cos(t);
-    p[i * 2 + 1] = r * Math.sin(t);
-  }
-  return p;
-}
-
-/* Where a number WOULD sit, whether or not it was ever issued. The gaps have
-   addresses too; that is the point of an unbounded surface. */
-function placeOne(key) {
-  const r = SPACING * Math.sqrt(key), t = key * GOLDEN;
-  return [r * Math.cos(t), r * Math.sin(t)];
-}
-
-function indexOfKey(key) {
-  const a = U.keys; let lo = 0, hi = a.length - 1;
-  while (lo <= hi) {
-    const m = (lo + hi) >> 1;
-    if (a[m] === key) return m;
-    if (a[m] < key) lo = m + 1; else hi = m - 1;
-  }
-  return -1;
-}
+const placeOne = place;                       /* where a number sits, issued or not */
+const indexOfKey = key => findKey(U.keys, key);
 
 /* ── loading ─────────────────────────────────────────────────────────────── */
 
@@ -106,7 +86,7 @@ async function tier1() {
     bin('all-lines.family.bin', Uint8Array)
   ]);
   U.meta = meta; U.keys = keys; U.lens = lens; U.inFam = inFam; U.n = keys.length;
-  U.pos = place(keys);
+  U.pos = placeAll(keys);
 
   let carried = 0;
   for (let i = 0; i < inFam.length; i++) carried += inFam[i];
@@ -122,20 +102,9 @@ async function tier2() {
     bin('lines.bin', Uint32Array)
   ]);
   U.families = families; U.famLines = famLines;
-  const owner = new Map();
-  for (let f = 0; f < families.length; f++) {
-    const { lineOffset: o, lineCount: c } = families[f];
-    for (let i = o; i < o + c; i++) {
-      const k = famLines[i];
-      const cur = owner.get(k);
-      if (cur === undefined) owner.set(k, [f]);
-      else if (cur[cur.length - 1] !== f) cur.push(f);
-    }
-  }
+  const owner = ownersOf(families, famLines);
   U.ownerOf = owner;
-  let many = 0;
-  for (const v of owner.values()) if (v.length > 1) many++;
-  U.connectable = many;
+  U.fanout = fanoutCount(owner);
   if (view.focus >= 0) paintPanel(view.focus);
   if (view.link) connect(view.link[0], view.link[1]);
 }
@@ -179,9 +148,31 @@ function compile(g, type, src) {
   return s;
 }
 
+/* If anything after acquiring the context fails — a shader that will not compile
+   on some driver, a program that will not link — the page must fall back, not
+   half-run. A canvas cannot hand out a 2D context once it has given out a WebGL
+   one, so the canvas itself is replaced. The first version left `gl` non-null on
+   failure and then asked the same canvas for a 2D context, which returns null:
+   the fallback it advertised did not exist. */
 function initGL() {
   gl = stage.getContext('webgl2', { antialias: true, alpha: false });
-  if (!gl) { ctx2d = stage.getContext('2d'); return false; }
+  if (!gl) { gl = null; return fallback2d(); }
+  try { return buildGL(); }
+  catch (e) { gl = null; console.warn('WebGL setup failed, falling back:', e.message); return fallback2d(); }
+}
+
+function fallback2d() {
+  const fresh = stage.cloneNode(false);
+  stage.replaceWith(fresh);
+  stage = fresh;
+  ctx2d = stage.getContext('2d');
+  $('hint').textContent = ctx2d
+    ? 'drawn without the GPU: at low zoom one line in seven is plotted'
+    : 'this browser gave neither a GPU nor a 2D canvas; nothing can be drawn';
+  return false;
+}
+
+function buildGL() {
   prog = gl.createProgram();
   gl.attachShader(prog, compile(gl, gl.VERTEX_SHADER, VS));
   gl.attachShader(prog, compile(gl, gl.FRAGMENT_SHADER, FS));
@@ -366,7 +357,7 @@ function paintPanel(key) {
       show.map(f => {
         const fa = U.families[f];
         const cat = fa.category ?? 'no category recorded';
-        return `<li><span class="fam">${fa.name}</span> <span class="dim">#${fa.n} · ${fa.kind} · ${cat} · ${fmt(fa.lineCount)} lines</span></li>`;
+        return `<li><span class="fam">${esc(fa.name)}</span> <span class="dim">#${fmt(fa.n)} · ${esc(fa.kind)} · ${esc(cat)} · ${fmt(fa.lineCount)} lines</span></li>`;
       }).join('') + `</ul>`;
     if (fams.length > 60) {
       body += `<p class="dim">A line carried by this many families is almost certainly trivial: a brace, a
@@ -404,7 +395,7 @@ function connect(ka, kb) {
     body += `<p>Joined by <span class="fam">${fmt(both.length)}</span> ${both.length === 1 ? 'family that carries' : 'families that carry'} both lines:</p><ul>` +
       both.slice(0, 12).map(f => {
         const fa = U.families[f];
-        return `<li><span class="fam">${fa.name}</span> <span class="dim">#${fa.n} · ${fa.category ?? 'no category recorded'}</span></li>`;
+        return `<li><span class="fam">${esc(fa.name)}</span> <span class="dim">#${fmt(fa.n)} · ${esc(fa.category ?? 'no category recorded')}</span></li>`;
       }).join('') + `</ul>
       <p class="dim">Both lines appear inside the same function family. That means the same text sits in both
       places. It does not mean one calls the other.</p>`;
@@ -412,8 +403,10 @@ function connect(ka, kb) {
     body += `<p class="refuse">No family carries both lines, so these two are not joined.</p>
       <dl><dt>${fmt(ka)}</dt><dd>${A.length ? fmt(A.length) + ' ' + (A.length === 1 ? 'family' : 'families') : 'no family'}</dd>
           <dt>${fmt(kb)}</dt><dd>${B.length ? fmt(B.length) + ' ' + (B.length === 1 ? 'family' : 'families') : 'no family'}</dd></dl>
-      <p class="dim">An unjoined pair is the ordinary case. ${fmt(U.connectable)} of the ${fmt(U.n)} numbered
-      lines are carried by more than one family; every other line has nothing to be joined to.</p>`;
+      <p class="dim">An unjoined pair is the ordinary case: most lines of the estate sit in unrelated
+      functions. Note this is not about fanout. ${fmt(U.fanout)} of the ${fmt(U.n)} numbered lines appear in
+      more than one family, which is duplication; joining two numbers is a different question and asks
+      whether one family holds them both.</p>`;
   }
   p.innerHTML = body;
   $('panel').hidden = false;
@@ -481,12 +474,20 @@ function gestures() {
 
 function readURL() {
   const q = new URLSearchParams(location.search);
-  const a = Number(q.get('line')), b = Number(q.get('to'));
-  if (Number.isInteger(a) && a > 0) {
-    $('a').value = String(a);
-    if (Number.isInteger(b) && b > 0) { $('b').value = String(b); view.link = [a, b]; connect(a, b); }
-    else { view.focus = a; paintPanel(a); flyTo(a); }
-  }
+  const pa = parseKey(q.get('line') ?? ''), pb = parseKey(q.get('to') ?? '');
+  if (!pa.ok) { if (q.get('line')) refuse(`The link carried a line number this page cannot use: ${pa.why}.`); return; }
+  $('a').value = String(pa.key);
+  if (pb.ok) { $('b').value = String(pb.key); view.link = [pa.key, pb.key]; connect(pa.key, pb.key); }
+  else { view.focus = pa.key; paintPanel(pa.key); flyTo(pa.key); }
+}
+
+/* One refusal path, so a bad number is always visible rather than ignored. */
+function refuse(sentence) {
+  $('panelbody').replaceChildren();
+  const h = document.createElement('h2'); h.textContent = 'Refused';
+  const p2 = document.createElement('p'); p2.className = 'refuse'; p2.textContent = sentence;
+  $('panelbody').append(h, p2);
+  $('panel').hidden = false;
 }
 function writeURL(a, b) {
   const q = new URLSearchParams();
@@ -516,10 +517,11 @@ function writeURL(a, b) {
 
   $('beam').addEventListener('submit', e => {
     e.preventDefault();
-    const a = parseInt($('a').value, 10), b = parseInt($('b').value, 10);
-    if (!Number.isInteger(a) || a < 1) return;
-    if (Number.isInteger(b) && b >= 1) { view.focus = -1; connect(a, b); writeURL(a, b); }
-    else { view.focus = a; view.link = null; paintPanel(a); flyTo(a); writeURL(a, null); }
+    const pa = parseKey($('a').value), pb = parseKey($('b').value);
+    if (!pa.ok) { refuse(`That is not a line number: ${pa.why}.`); return; }
+    if ($('b').value.trim() && !pb.ok) { refuse(`Second number: ${pb.why}.`); return; }
+    if (pb.ok) { view.focus = -1; connect(pa.key, pb.key); writeURL(pa.key, pb.key); }
+    else { view.focus = pa.key; view.link = null; paintPanel(pa.key); flyTo(pa.key); writeURL(pa.key, null); }
     document.activeElement?.blur();
   });
   $('close').addEventListener('click', () => { $('panel').hidden = true; view.focus = -1; view.link = null; draw(); });

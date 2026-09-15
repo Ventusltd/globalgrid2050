@@ -73,6 +73,7 @@ body{
   font-size:10.5px;
 }
 #hint{text-align:left}
+#foot a{color:var(--beam); pointer-events:auto; text-decoration:underline}
 
 @media (min-width:760px){
   #beam{left:auto; right:1rem; width:26rem; bottom:calc(var(--bot) + 2.9rem)}

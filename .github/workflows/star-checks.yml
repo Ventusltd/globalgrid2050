@@ -1,0 +1,87 @@
+name: Star publication checks
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths: ['testcode/ci/star_checks.py', 'testcode/ci/test_star_checks.py', '.github/workflows/star-checks.yml']
+  push:
+    branches: [main]
+    paths: ['testcode/ci/star_checks.py', 'testcode/ci/test_star_checks.py', '.github/workflows/star-checks.yml']
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - name: Gate scheduled unit tests at night cutoff
+        id: gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from testcode.ci.star_checks import window_open
+          enabled = os.environ['EVENT_NAME'] not in {'schedule', 'workflow_dispatch'} or window_open(Path('testcode/ci/NIGHT-UNTIL.txt').read_text())
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('enabled=' + str(enabled).lower() + '\n')
+          print('unit_window_open=' + str(enabled).lower())
+          PY
+      - uses: actions/setup-python@v6
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          python-version: '3.12'
+      - run: python -m unittest -v testcode/ci/test_star_checks.py
+        if: steps.gate.outputs.enabled == 'true'
+  sweep:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Gate bounded night window
+        id: gate
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from testcode.ci.star_checks import window_open
+          enabled = window_open(Path('testcode/ci/NIGHT-UNTIL.txt').read_text())
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('enabled=' + str(enabled).lower() + '\n')
+          print('window_open=' + str(enabled).lower())
+          PY
+      - name: Check out reviewed Sun validator dependency closure
+        if: steps.gate.outputs.enabled == 'true'
+        uses: actions/checkout@v5
+        with:
+          repository: Ventusltd/star-solar-star
+          ref: 8b930de59db7b7a6d332025da3eaf80ce8dcf9ab
+          path: sun-owner
+      - name: Audit committed publication expectations and served Sun data
+        if: steps.gate.outputs.enabled == 'true'
+        run: |
+          python testcode/ci/star_checks.py --sun-root sun-owner --output star-checks-report.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('star-checks-report.json').read_text())
+          if report.get('status') == 'window_closed':
+              print('night window closed before sweep; no checks executed')
+          else:
+              assert report.get('pass') is True, 'scoped publication checks did not pass'
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: star-checks-${{ github.run_id }}
+          path: star-checks-report.json
+          if-no-files-found: ignore
+          retention-days: 7

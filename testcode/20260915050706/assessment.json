@@ -1,0 +1,33 @@
+{
+  "utc": "2026-09-15T05:06:55.227Z",
+  "sourceCommit": "7edc6fbd7f2d19397c6106371e3ce8de0f8c8a5d",
+  "sourceHarnessSha256": "ecf835fba11e293d5aac82c18a3eac38db77def617ae4b0d7a20325f55a9f5e0",
+  "benchSha256": "9a2aaa9b892f852b1041989199dcd5af546e4c64290036133ad47f7809390949",
+  "supplementalSha256": "b1193eaa20fc2e3cf9b0f79384c8a4e22f857d6586e25743f488b8ac7650b6cf",
+  "pass": false,
+  "checks": {
+    "ownerFunctionalChecks": true,
+    "mobileTargets": false,
+    "noWebGL2Fallback": false,
+    "liveIndustryNest": true
+  },
+  "failures": [
+    "ring at 430: crumb 96x32px; minimum 44px",
+    "particle at 430: crumb 96x32px; minimum 44px",
+    "chord at 430: crumb 96x32px; minimum 44px",
+    "river at 430: crumb 96x32px; minimum 44px",
+    "table at 430: crumb 96x32px; minimum 44px",
+    "column at 430: crumb 96x32px; minimum 44px",
+    "G.setLit is not a function"
+  ],
+  "renderer": [
+    "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  ],
+  "physicalPhoneTest": false,
+  "limits": [
+    "430px is desktop touch/viewport emulation at DPR2, not a physical phone.",
+    "FPS is a four-second requestAnimationFrame sample; it does not establish sustained thermal performance.",
+    "NVIDIA sampler describes a separate GPU from the Intel renderer and cannot attribute the renderer GPU utilisation.",
+    "The native owner harness does not define a pass field; the portable wrapper adds functional assertions. This assessment adds target-size and fallback requirements."
+  ]
+}

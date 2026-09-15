@@ -1,0 +1,2789 @@
+{
+ "run_utc": "2026-09-15T05:03:12.168Z",
+ "base": "http://127.0.0.1:8891/testcode/202609142225/",
+ "chromeArgs": [
+  "--enable-gpu",
+  "--use-gl=angle",
+  "--use-angle=d3d11",
+  "--ignore-gpu-blocklist",
+  "--no-first-run",
+  "--enable-precise-memory-info"
+ ],
+ "note": "mobile = 430x900, hasTouch, isMobile, deviceScaleFactor 2 (the page caps dpr at 2); desktop = 1440x900 dpr 1, mouse",
+ "gpuIdleBeforeChrome": {
+  "n": 11,
+  "utilMean": 0.8,
+  "utilMax": 3,
+  "memMeanMiB": 251,
+  "memMaxMiB": 251,
+  "totalMiB": 8151
+ },
+ "chrome": "Chrome/153.0.8010.37",
+ "gpuChromeBlank": {
+  "n": 5,
+  "utilMean": 0.6,
+  "utilMax": 3,
+  "memMeanMiB": 251,
+  "memMaxMiB": 251,
+  "totalMiB": 8151
+ },
+ "lenses": [
+  {
+   "lens": "ring",
+   "width": 1440,
+   "mobile": false,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 576.9,
+   "countSentenceMs": 579.5,
+   "packLoadedMs": 709.9,
+   "namesLoadedMs": 762.7,
+   "url": "?lens=ring&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 3,
+   "geometryInstances": 48,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    1082,
+    630
+   ],
+   "dpr": 1,
+   "framesSoFar": 273,
+   "litOnly": false,
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 1082,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 38,
+     "w": 74,
+     "h": 38,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 110,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 22.5,
+    "totalJSHeapMB": 34.2
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 10.5,
+    "JSHeapTotalMB": 22.2,
+    "Nodes": 488
+   },
+   "idle": {
+    "frames": 675,
+    "elapsedMs": 4003,
+    "fpsMean": 168.6,
+    "ftMeanMs": 5.93,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677235,
+    "appFrames": 676,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap"
+   ],
+   "active": {
+    "frames": 676,
+    "elapsedMs": 4003,
+    "fpsMean": 168.9,
+    "ftMeanMs": 5.92,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.2,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677235,
+    "appFrames": 677,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=ring&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 0.98,
+     "rotate": 1.12
+    },
+    "scrollWidth": 1440,
+    "memory": 21.5
+   },
+   "gpu": {
+    "load": {
+     "n": 2,
+     "utilMean": 1.5,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 4,
+     "utilMean": 1.5,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "particle",
+   "width": 1440,
+   "mobile": false,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 85,
+   "countSentenceMs": 91.6,
+   "packLoadedMs": 167.9,
+   "namesLoadedMs": 111.9,
+   "url": "?lens=particle&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 10,
+   "geometryInstances": 0,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    1082,
+    630
+   ],
+   "dpr": 1,
+   "framesSoFar": 260,
+   "litOnly": false,
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 1082,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 38,
+     "w": 74,
+     "h": 38,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 110,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 27,
+    "totalJSHeapMB": 40.3
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens particle from v03-particle-universe · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 12.7,
+    "JSHeapTotalMB": 26,
+    "Nodes": 297
+   },
+   "idle": {
+    "frames": 679,
+    "elapsedMs": 4002,
+    "fpsMean": 169.6,
+    "ftMeanMs": 5.89,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677194,
+    "appFrames": 680,
+    "glSubmitMeanMs": 0.05,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap"
+   ],
+   "active": {
+    "frames": 678,
+    "elapsedMs": 4002,
+    "fpsMean": 169.4,
+    "ftMeanMs": 5.9,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677194,
+    "appFrames": 679,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=particle&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 0.98,
+     "rotate": 0
+    },
+    "scrollWidth": 1440,
+    "memory": 20.1
+   },
+   "gpu": {
+    "load": {
+     "n": 1,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 1.5,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "chord",
+   "width": 1440,
+   "mobile": false,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 95.4,
+   "countSentenceMs": 102,
+   "packLoadedMs": 180.1,
+   "namesLoadedMs": 141.2,
+   "url": "?lens=chord&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 1,
+   "geometryInstances": 419,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    1082,
+    630
+   ],
+   "dpr": 1,
+   "framesSoFar": 263,
+   "litOnly": false,
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 1082,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 38,
+     "w": 74,
+     "h": 38,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 110,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 22.7,
+    "totalJSHeapMB": 40.2
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens chord from v05-chord-dependencies · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 8.5,
+    "JSHeapTotalMB": 26,
+    "Nodes": 269
+   },
+   "idle": {
+    "frames": 679,
+    "elapsedMs": 4003,
+    "fpsMean": 169.6,
+    "ftMeanMs": 5.9,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677604,
+    "appFrames": 680,
+    "glSubmitMeanMs": 0.05,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap"
+   ],
+   "active": {
+    "frames": 686,
+    "elapsedMs": 4005,
+    "fpsMean": 171.3,
+    "ftMeanMs": 5.84,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677604,
+    "appFrames": 687,
+    "glSubmitMeanMs": 0.05,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=chord&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 0.98,
+     "rotate": 1.12
+    },
+    "scrollWidth": 1440,
+    "memory": 27.9
+   },
+   "gpu": {
+    "load": {
+     "n": 2,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "river",
+   "width": 1440,
+   "mobile": false,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 93.1,
+   "countSentenceMs": 92.5,
+   "packLoadedMs": 191.3,
+   "namesLoadedMs": 135.6,
+   "url": "?lens=river&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 0,
+   "geometryInstances": 640,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    1082,
+    630
+   ],
+   "dpr": 1,
+   "framesSoFar": 262,
+   "litOnly": false,
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 1082,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 38,
+     "w": 74,
+     "h": 38,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 110,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 23,
+    "totalJSHeapMB": 37.2
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens river from v07-flow-repos · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 12,
+    "JSHeapTotalMB": 26.2,
+    "Nodes": 361
+   },
+   "idle": {
+    "frames": 677,
+    "elapsedMs": 4002,
+    "fpsMean": 169.2,
+    "ftMeanMs": 5.91,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677824,
+    "appFrames": 678,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap"
+   ],
+   "active": {
+    "frames": 675,
+    "elapsedMs": 4001,
+    "fpsMean": 168.7,
+    "ftMeanMs": 5.93,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677824,
+    "appFrames": 676,
+    "glSubmitMeanMs": 0.03,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=river&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 0.98,
+     "rotate": 0
+    },
+    "scrollWidth": 1440,
+    "memory": 22.2
+   },
+   "gpu": {
+    "load": {
+     "n": 2,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 1,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "table",
+   "width": 1440,
+   "mobile": false,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 110.4,
+   "countSentenceMs": 122.3,
+   "packLoadedMs": 231.2,
+   "namesLoadedMs": 155.3,
+   "url": "?lens=table&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 0,
+   "geometryInstances": 0,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    1082,
+    630
+   ],
+   "dpr": 1,
+   "framesSoFar": 261,
+   "litOnly": false,
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 1082,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 38,
+     "w": 74,
+     "h": 38,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 110,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    },
+    "tile": {
+     "px": 64,
+     "w": 112,
+     "h": 64,
+     "text": "1AtAllowed technologiesdata on"
+    },
+    "repoChip": {
+     "px": 32,
+     "w": 161,
+     "h": 32,
+     "text": "cable-trench-or-drill"
+    },
+    "catHeading": {
+     "px": 45,
+     "w": 1064,
+     "h": 45,
+     "text": "Constants and vocabularies"
+    },
+    "more": {
+     "px": 32,
+     "w": 174,
+     "h": 32,
+     "text": "show 40 more (581 left)"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 22.1,
+    "totalJSHeapMB": 40
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens table from stars/table.html + v04-periodic-arrows · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 8.4,
+    "JSHeapTotalMB": 26.2,
+    "Nodes": 2748
+   },
+   "idle": {
+    "frames": 675,
+    "elapsedMs": 4004,
+    "fpsMean": 168.6,
+    "ftMeanMs": 5.93,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 3,
+    "instancesPerFrame": 677184,
+    "appFrames": 676,
+    "glSubmitMeanMs": 0.05,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap"
+   ],
+   "active": {
+    "frames": 666,
+    "elapsedMs": 4001,
+    "fpsMean": 166.5,
+    "ftMeanMs": 6.01,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 30,
+    "over24ms": 1,
+    "drawCallsPerFrame": 3,
+    "instancesPerFrame": 677185,
+    "appFrames": 667,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=table&key=block:Vg&trail=block:Gc,family:80299,cat:connections,block:Vg,cat:connections,block:Vg&data=202609150153",
+    "focus": "block:Vg",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      -171
+     ],
+     "zoom": 1,
+     "rotate": 0
+    },
+    "scrollWidth": 1440,
+    "memory": 19.4
+   },
+   "gpu": {
+    "load": {
+     "n": 1,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 1.5,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 5,
+     "utilMean": 0.6,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "column",
+   "width": 1440,
+   "mobile": false,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 88.7,
+   "countSentenceMs": 91.7,
+   "packLoadedMs": 177.8,
+   "namesLoadedMs": 116,
+   "url": "?lens=column&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 0,
+   "geometryInstances": 13,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    1082,
+    630
+   ],
+   "dpr": 1,
+   "framesSoFar": 266,
+   "litOnly": false,
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 1082,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 38,
+     "w": 74,
+     "h": 38,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 110,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    },
+    "card": {
+     "px": 64,
+     "w": 1028,
+     "h": 64,
+     "text": "Gc · Distance and bearingblock"
+    },
+    "columnSeg": {
+     "px": 44,
+     "w": 88,
+     "h": 44,
+     "text": "show: both"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 22.6,
+    "totalJSHeapMB": 38.7
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens column from ventus-grid-engine column view + v10 single-line diagram · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 8.4,
+    "JSHeapTotalMB": 24.5,
+    "Nodes": 307
+   },
+   "idle": {
+    "frames": 676,
+    "elapsedMs": 4005,
+    "fpsMean": 168.8,
+    "ftMeanMs": 5.93,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677197,
+    "appFrames": 677,
+    "glSubmitMeanMs": 0.05,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap",
+    "drag",
+    "wheel",
+    "tap"
+   ],
+   "active": {
+    "frames": 677,
+    "elapsedMs": 4002,
+    "fpsMean": 169.2,
+    "ftMeanMs": 5.91,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 11.4,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677195,
+    "appFrames": 678,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=column&key=family:80297&trail=block:Gc,family:80299,family:80297&data=202609150153",
+    "focus": "family:80297",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 1,
+     "rotate": 0
+    },
+    "scrollWidth": 1440,
+    "memory": 20.6
+   },
+   "gpu": {
+    "load": {
+     "n": 2,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 4,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "ring",
+   "width": 430,
+   "mobile": true,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 99.7,
+   "countSentenceMs": 103.2,
+   "packLoadedMs": 193.5,
+   "namesLoadedMs": 137.6,
+   "url": "?lens=ring&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 3,
+   "geometryInstances": 48,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    812,
+    1116
+   ],
+   "dpr": 2,
+   "framesSoFar": 264,
+   "litOnly": false,
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 406,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 56,
+     "w": 72,
+     "h": 56,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 117,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 23,
+    "totalJSHeapMB": 40.2
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 8.8,
+    "JSHeapTotalMB": 26,
+    "Nodes": 276
+   },
+   "idle": {
+    "frames": 679,
+    "elapsedMs": 4002,
+    "fpsMean": 169.6,
+    "ftMeanMs": 5.89,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677235,
+    "appFrames": 680,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap"
+   ],
+   "active": {
+    "frames": 676,
+    "elapsedMs": 4002,
+    "fpsMean": 168.9,
+    "ftMeanMs": 5.92,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677235,
+    "appFrames": 677,
+    "glSubmitMeanMs": 0.03,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=ring&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 1,
+     "rotate": 4.64
+    },
+    "scrollWidth": 430,
+    "memory": 19.9
+   },
+   "gpu": {
+    "load": {
+     "n": 1,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 5,
+     "utilMean": 0.6,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "particle",
+   "width": 430,
+   "mobile": true,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 80.1,
+   "countSentenceMs": 83.8,
+   "packLoadedMs": 184.7,
+   "namesLoadedMs": 113.3,
+   "url": "?lens=particle&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 10,
+   "geometryInstances": 0,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    812,
+    1116
+   ],
+   "dpr": 2,
+   "framesSoFar": 266,
+   "litOnly": false,
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 406,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 56,
+     "w": 72,
+     "h": 56,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 117,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 27.5,
+    "totalJSHeapMB": 40
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens particle from v03-particle-universe · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 13.5,
+    "JSHeapTotalMB": 26,
+    "Nodes": 473
+   },
+   "idle": {
+    "frames": 677,
+    "elapsedMs": 4001,
+    "fpsMean": 169.2,
+    "ftMeanMs": 5.91,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677194,
+    "appFrames": 678,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap"
+   ],
+   "active": {
+    "frames": 675,
+    "elapsedMs": 4002,
+    "fpsMean": 168.7,
+    "ftMeanMs": 5.93,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 12,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677212,
+    "appFrames": 676,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=particle&key=block:Gn&trail=block:Gc,family:80299,block:Gn&data=202609150153",
+    "focus": "block:Gn",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      180,
+      80
+     ],
+     "zoom": 1,
+     "rotate": 0
+    },
+    "scrollWidth": 430,
+    "memory": 19.6
+   },
+   "gpu": {
+    "load": {
+     "n": 1,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 5,
+     "utilMean": 1.6,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "chord",
+   "width": 430,
+   "mobile": true,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 82.5,
+   "countSentenceMs": 81.4,
+   "packLoadedMs": 168.3,
+   "namesLoadedMs": 120.3,
+   "url": "?lens=chord&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 1,
+   "geometryInstances": 419,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    812,
+    1116
+   ],
+   "dpr": 2,
+   "framesSoFar": 262,
+   "litOnly": false,
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 406,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 56,
+     "w": 72,
+     "h": 56,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 117,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 24.5,
+    "totalJSHeapMB": 39.7
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens chord from v05-chord-dependencies · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 10.6,
+    "JSHeapTotalMB": 25.7,
+    "Nodes": 1335
+   },
+   "idle": {
+    "frames": 674,
+    "elapsedMs": 4000,
+    "fpsMean": 168.5,
+    "ftMeanMs": 5.94,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677604,
+    "appFrames": 675,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap"
+   ],
+   "active": {
+    "frames": 677,
+    "elapsedMs": 4002,
+    "fpsMean": 169.2,
+    "ftMeanMs": 5.91,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 5,
+    "instancesPerFrame": 677604,
+    "appFrames": 678,
+    "glSubmitMeanMs": 0.03,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=chord&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 1,
+     "rotate": 4.64
+    },
+    "scrollWidth": 430,
+    "memory": 23.2
+   },
+   "gpu": {
+    "load": {
+     "n": 1,
+     "utilMean": 3,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 5,
+     "utilMean": 0.6,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "river",
+   "width": 430,
+   "mobile": true,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 74.8,
+   "countSentenceMs": 79,
+   "packLoadedMs": 174.2,
+   "namesLoadedMs": 120.8,
+   "url": "?lens=river&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 0,
+   "geometryInstances": 640,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    812,
+    1116
+   ],
+   "dpr": 2,
+   "framesSoFar": 259,
+   "litOnly": false,
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 406,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 56,
+     "w": 72,
+     "h": 56,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 117,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 26.9,
+    "totalJSHeapMB": 41
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens river from v07-flow-repos · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 12.9,
+    "JSHeapTotalMB": 27,
+    "Nodes": 455
+   },
+   "idle": {
+    "frames": 676,
+    "elapsedMs": 4001,
+    "fpsMean": 169,
+    "ftMeanMs": 5.92,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677824,
+    "appFrames": 677,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap"
+   ],
+   "active": {
+    "frames": 677,
+    "elapsedMs": 4005,
+    "fpsMean": 169,
+    "ftMeanMs": 5.92,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677824,
+    "appFrames": 678,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=river&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      180,
+      0
+     ],
+     "zoom": 1,
+     "rotate": 0
+    },
+    "scrollWidth": 430,
+    "memory": 22.4
+   },
+   "gpu": {
+    "load": {
+     "n": 2,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 5,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "table",
+   "width": 430,
+   "mobile": true,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 156.5,
+   "countSentenceMs": 164.3,
+   "packLoadedMs": 292,
+   "namesLoadedMs": 218.1,
+   "url": "?lens=table&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 0,
+   "geometryInstances": 0,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    812,
+    1116
+   ],
+   "dpr": 2,
+   "framesSoFar": 255,
+   "litOnly": false,
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 406,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 56,
+     "w": 72,
+     "h": 56,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 117,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    },
+    "tile": {
+     "px": 56,
+     "w": 96,
+     "h": 56,
+     "text": "1AtAllowed technologiesdata on"
+    },
+    "repoChip": {
+     "px": 32,
+     "w": 161,
+     "h": 32,
+     "text": "cable-trench-or-drill"
+    },
+    "catHeading": {
+     "px": 45,
+     "w": 388,
+     "h": 45,
+     "text": "Constants and vocabularies"
+    },
+    "foldSummary": {
+     "px": 44,
+     "w": 388,
+     "h": 44,
+     "text": "repositories (34)"
+    },
+    "more": {
+     "px": 32,
+     "w": 174,
+     "h": 32,
+     "text": "show 40 more (581 left)"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 23.2,
+    "totalJSHeapMB": 40.4
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens table from stars/table.html + v04-periodic-arrows · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 9,
+    "JSHeapTotalMB": 26.2,
+    "Nodes": 5491
+   },
+   "idle": {
+    "frames": 673,
+    "elapsedMs": 4004,
+    "fpsMean": 168.1,
+    "ftMeanMs": 5.95,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.5,
+    "over24ms": 0,
+    "drawCallsPerFrame": 3,
+    "instancesPerFrame": 677184,
+    "appFrames": 674,
+    "glSubmitMeanMs": 0.05,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap"
+   ],
+   "active": {
+    "frames": 666,
+    "elapsedMs": 4001,
+    "fpsMean": 166.5,
+    "ftMeanMs": 6.01,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 23.4,
+    "over24ms": 0,
+    "drawCallsPerFrame": 3,
+    "instancesPerFrame": 677186,
+    "appFrames": 667,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=table&key=block:Fc&trail=block:Gc,family:80299,block:Vn,block:Ed,cat:connections,block:Fc&data=202609150153",
+    "focus": "block:Fc",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      -641
+     ],
+     "zoom": 1,
+     "rotate": 0
+    },
+    "scrollWidth": 430,
+    "memory": 21.1
+   },
+   "gpu": {
+    "load": {
+     "n": 2,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 4,
+     "utilMean": 1.5,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  },
+  {
+   "lens": "column",
+   "width": 430,
+   "mobile": true,
+   "errors": [],
+   "warnings": [],
+   "pageErrors": [],
+   "failedRequests": [],
+   "renderer": "ANGLE (Intel, Intel(R) Graphics (0x00007D67) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+   "vendor": "Google Inc. (Intel)",
+   "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "firstDrawMs": 87.1,
+   "countSentenceMs": 90.3,
+   "packLoadedMs": 176.3,
+   "namesLoadedMs": 128.1,
+   "url": "?lens=column&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+   "count": "222 blocks on the table (63 named · 159 found automatically) · 621 groups off the table · 11,354 function families · 257,980 unique numbered lines · 34 repositories · data 2026-09-15 01:53 UTC",
+   "countTitle": "257,980 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "N": 12243,
+   "edgeInstances": 0,
+   "geometryInstances": 13,
+   "journeyInstances": 1,
+   "lineInstances": 664940,
+   "lineBytes": 5984460,
+   "canvasPx": [
+    812,
+    1116
+   ],
+   "dpr": 2,
+   "framesSoFar": 262,
+   "litOnly": false,
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 406,
+     "h": 44,
+     "text": "Search a name, #family, Sym, x"
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32,
+     "text": "GLOBALGRID2050"
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32,
+     "text": "contains"
+    },
+    "lensTab": {
+     "px": 56,
+     "w": 72,
+     "h": 56,
+     "text": "ring"
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 117,
+     "h": 48,
+     "text": "Navigate here"
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32,
+     "text": "◂ contained in Gc · Distance a"
+    },
+    "card": {
+     "px": 64,
+     "w": 352,
+     "h": 64,
+     "text": "Gc · Distance and bearingblock"
+    },
+    "columnSeg": {
+     "px": 44,
+     "w": 88,
+     "h": 44,
+     "text": "show: both"
+    }
+   },
+   "smallestTap": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32,
+    "text": "GLOBALGRID2050"
+   },
+   "memory": {
+    "usedJSHeapMB": 23.6,
+    "totalJSHeapMB": 38.1
+   },
+   "panelHead": "#80299 haversinefamily",
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 257980,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "footer": "star-generator 202609142225 · built 2026-09-15 01:39 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens column from ventus-grid-engine column view + v10 single-line diagram · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "metricsAfterLoad": {
+    "JSHeapUsedMB": 9.8,
+    "JSHeapTotalMB": 24.2,
+    "Nodes": 509
+   },
+   "idle": {
+    "frames": 675,
+    "elapsedMs": 4001,
+    "fpsMean": 168.7,
+    "ftMeanMs": 5.93,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 7,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677197,
+    "appFrames": 676,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "actions": [
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap",
+    "drag",
+    "tap"
+   ],
+   "active": {
+    "frames": 672,
+    "elapsedMs": 4005,
+    "fpsMean": 167.8,
+    "ftMeanMs": 5.96,
+    "ftP95Ms": 6.1,
+    "ftMaxMs": 6.6,
+    "over24ms": 0,
+    "drawCallsPerFrame": 4,
+    "instancesPerFrame": 677197,
+    "appFrames": 673,
+    "glSubmitMeanMs": 0.04,
+    "glSubmitP95Ms": 0.1,
+    "glSubmitMaxMs": 0.2
+   },
+   "afterInteraction": {
+    "url": "?lens=column&key=family:80299&trail=block:Gc,family:80299&data=202609150153",
+    "focus": "family:80299",
+    "litOnly": false,
+    "view": {
+     "pan": [
+      0,
+      0
+     ],
+     "zoom": 1,
+     "rotate": 0
+    },
+    "scrollWidth": 430,
+    "memory": 22.5
+   },
+   "gpu": {
+    "load": {
+     "n": 1,
+     "utilMean": 0,
+     "utilMax": 0,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "idle": {
+     "n": 4,
+     "utilMean": 1.5,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    },
+    "active": {
+     "n": 4,
+     "utilMean": 0.8,
+     "utilMax": 3,
+     "memMeanMiB": 251,
+     "memMaxMiB": 251,
+     "totalMiB": 8151
+    }
+   }
+  }
+ ],
+ "gpuSamples": 185,
+ "coordination": [
+  {
+   "width": 1440,
+   "steps": [
+    {
+     "lens": "ring",
+     "focusKey": "family:80299",
+     "url": "?lens=ring&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 701,
+      "y": 256,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 3,
+     "scrollWidth": 1440,
+     "pageScrollY": 0,
+     "stageTop": 324,
+     "stageH": 630,
+     "overlayScrollTop": null,
+     "overlayScrollHeight": null,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "haversineSelected": true
+    },
+    {
+     "lens": "particle",
+     "focusKey": "family:80299",
+     "url": "?lens=particle&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 614,
+      "y": 208,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 10,
+     "scrollWidth": 1440,
+     "pageScrollY": 0,
+     "stageTop": 324,
+     "stageH": 630,
+     "overlayScrollTop": null,
+     "overlayScrollHeight": null,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "chord",
+     "focusKey": "family:80299",
+     "url": "?lens=chord&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 541,
+      "y": 88,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 1,
+     "scrollWidth": 1440,
+     "pageScrollY": 0,
+     "stageTop": 324,
+     "stageH": 630,
+     "overlayScrollTop": 0,
+     "overlayScrollHeight": 628,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "river",
+     "focusKey": "family:80299",
+     "url": "?lens=river&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 931,
+      "y": 165,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 0,
+     "scrollWidth": 1440,
+     "pageScrollY": 0,
+     "stageTop": 324,
+     "stageH": 630,
+     "overlayScrollTop": null,
+     "overlayScrollHeight": null,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "table",
+     "focusKey": "family:80299",
+     "url": "?lens=table&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 64,
+      "y": 315,
+      "inside": true
+     },
+     "overlayFocus": {
+      "text": "13GcDistance and bearing2 functions",
+      "inside": true
+     },
+     "labelShown": true,
+     "edges": 0,
+     "scrollWidth": 1440,
+     "pageScrollY": 0,
+     "stageTop": 324,
+     "stageH": 630,
+     "overlayScrollTop": 171,
+     "overlayScrollHeight": 3519,
+     "focusTileTopInStage": 284,
+     "viewPan": [
+      0,
+      -171
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "column",
+     "focusKey": "family:80299",
+     "url": "?lens=column&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 44,
+      "y": 238,
+      "inside": true
+     },
+     "overlayFocus": {
+      "text": "#80299 haversinefamilyuses 0 · used by 2",
+      "inside": true
+     },
+     "labelShown": true,
+     "edges": 0,
+     "scrollWidth": 1440,
+     "pageScrollY": 0,
+     "stageTop": 324,
+     "stageH": 630,
+     "overlayScrollTop": 0,
+     "overlayScrollHeight": 1056,
+     "focusTileTopInStage": 191,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    }
+   ],
+   "errors": [],
+   "hits": [
+    "#80299 haversine",
+    "line 80,299 · #8796 at"
+   ]
+  },
+  {
+   "width": 430,
+   "steps": [
+    {
+     "lens": "ring",
+     "focusKey": "family:80299",
+     "url": "?lens=ring&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 306,
+      "y": 241,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 3,
+     "scrollWidth": 430,
+     "pageScrollY": 436,
+     "stageTop": 63,
+     "stageH": 558,
+     "overlayScrollTop": null,
+     "overlayScrollHeight": null,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "haversineSelected": true
+    },
+    {
+     "lens": "particle",
+     "focusKey": "family:80299",
+     "url": "?lens=particle&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 250,
+      "y": 210,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 10,
+     "scrollWidth": 430,
+     "pageScrollY": 436,
+     "stageTop": 63,
+     "stageH": 558,
+     "overlayScrollTop": null,
+     "overlayScrollHeight": null,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "chord",
+     "focusKey": "family:80299",
+     "url": "?lens=chord&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 203,
+      "y": 133,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 1,
+     "scrollWidth": 430,
+     "pageScrollY": 420,
+     "stageTop": 79,
+     "stageH": 558,
+     "overlayScrollTop": 0,
+     "overlayScrollHeight": 556,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "river",
+     "focusKey": "family:80299",
+     "url": "?lens=river&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 155,
+      "y": 530,
+      "inside": true
+     },
+     "overlayFocus": null,
+     "labelShown": true,
+     "edges": 0,
+     "scrollWidth": 430,
+     "pageScrollY": 420,
+     "stageTop": 79,
+     "stageH": 558,
+     "overlayScrollTop": null,
+     "overlayScrollHeight": null,
+     "focusTileTopInStage": null,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "table",
+     "focusKey": "family:80299",
+     "url": "?lens=table&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 56,
+      "y": 462,
+      "inside": true
+     },
+     "overlayFocus": {
+      "text": "13GcDistance and bearing2 functions",
+      "inside": true
+     },
+     "labelShown": true,
+     "edges": 0,
+     "scrollWidth": 430,
+     "pageScrollY": 420,
+     "stageTop": 79,
+     "stageH": 558,
+     "overlayScrollTop": 0,
+     "overlayScrollHeight": 6513,
+     "focusTileTopInStage": 435,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    },
+    {
+     "lens": "column",
+     "focusKey": "family:80299",
+     "url": "?lens=column&key=family:80299&trail=family:80299&data=202609150153",
+     "panelHead": "#80299 haversinefamily",
+     "onCanvas": {
+      "x": 44,
+      "y": 238,
+      "inside": true
+     },
+     "overlayFocus": {
+      "text": "#80299 haversinefamilyuses 0 · used by 2",
+      "inside": true
+     },
+     "labelShown": true,
+     "edges": 0,
+     "scrollWidth": 430,
+     "pageScrollY": 420,
+     "stageTop": 79,
+     "stageH": 558,
+     "overlayScrollTop": 0,
+     "overlayScrollHeight": 1056,
+     "focusTileTopInStage": 191,
+     "viewPan": [
+      0,
+      0
+     ],
+     "sameKey": true,
+     "visible": true
+    }
+   ],
+   "errors": [],
+   "hits": [
+    "#80299 haversine",
+    "line 80,299 · #8796 at"
+   ]
+  }
+ ],
+ "compose": {
+  "errors": [],
+  "steps": [
+   {
+    "note": "search box top before scrolling for \"#80299\"",
+    "topBeforeScroll": 97
+   },
+   {
+    "query": "#80299",
+    "hit": "#80299 haversine",
+    "addButtonPx": [
+     117,
+     48
+    ],
+    "recipe": [
+     "family:80299"
+    ],
+    "tray": "#80299 → Gc×1 block · 1 noteHand off →",
+    "url": "?lens=ring&key=family:80299&trail=family:80299&recipe=family:80299&data=202609150153",
+    "panelHead": "#80299 haversinefamily"
+   },
+   {
+    "note": "search box top before scrolling for \"Vd\"",
+    "topBeforeScroll": -339
+   },
+   {
+    "query": "Vd",
+    "hit": "Vd · Voltage drop",
+    "addButtonPx": [
+     117,
+     48
+    ],
+    "recipe": [
+     "family:80299",
+     "block:Vd"
+    ],
+    "tray": "#80299 → Gc×Vd×2 blocks · 1 noteHand off →",
+    "url": "?lens=ring&key=block:Vd&trail=family:80299,block:Vd&recipe=family:80299,block:Vd&data=202609150153",
+    "panelHead": "Vd · Voltage dropblock"
+   }
+  ],
+  "sheetText": "Recipe2 blocks will travel (Gc, Vd) · #80299 pinned as a note\n✕ close\nHand off →\nCopy recipe\nCopy command\nblock → itself · group → itself (off the table: the code-generator cannot pick it yet) · family → its block, the family pinned · line → its family → its block when the line has one family or you pick one; a line carried by several families stays a note until you pick. The first block is the main one.\n#80299 haversine → Gc\n▲\n▼\n×\nVd · Voltage drop\n▲\n▼\n×\nneeds from outside:\nneeds: 0\npinned files (2)\nventus-grid-engine/engine/geo-core.js @ 3ebd067\nventus-grid-engine/engine/voltage-drop.js @ 3ebd067\nfamilies and lines travel as notes until the picker reads them · no commit travels in the URL: the picker takes commits from the same blocks.json\npairs and apps that already mix these blocks ↗ · https://ventusltd.github.io/code-generator/?blocks=Gc,Vd&families=80299&from=star-generator&data=202609150153",
+  "handOffFromSheet": "https://ventusltd.github.io/code-generator/?blocks=Gc,Vd&families=80299&from=star-generator&data=202609150153",
+  "handOffFromApi": "https://ventusltd.github.io/code-generator/?blocks=Gc,Vd&families=80299&from=star-generator&data=202609150153",
+  "clip": "{\n \"schema\": \"star-generator.recipe.v1\",\n \"made_utc\": \"2026-09-15T05:06:15.664Z\",\n \"data\": {\n  \"blocks_json\": \"2026-09-15T01:53:47.988Z\",\n  \"index_json\": \"2026-09-15T01:52:58.518Z\",\n  \"pack\": \"2026-09-14T22:14:00.499Z\"\n },\n \"keys\": [\n  \"family:80299\",\n  \"block:Vd\"\n ],\n \"blocks\": [\n  {\n   \"symbol\": \"Gc\",\n   \"number\": 13,\n   \"title\": \"Distance and bearing\",\n   \"category\": \"geodesy\",\n   \"files\": [\n    {\n     \"repo\": \"Ventusltd/ventus-grid-engine\",\n     \"commit\": \"3ebd067ef984e3cf6ae7a2561e9da924878efc93\",\n     \"path\": \"engine/geo-core.js\"\n    }\n   ]\n  },\n  {\n   \"symbol\": \"Vd\",\n   \"number\": 31,\n   \"title\": \"Voltage drop\",\n   \"category\": \"network\",\n   \"files\": [\n    {\n     \"repo\": \"Ventusltd/ventus-grid-engine\",\n     \"commit\": \"3ebd067ef984e3cf6ae7a2561e9da924878efc93\",\n     \"path\": \"engine/voltage-drop.js\"\n    }\n   ]\n  }\n ],\n \"families\": [\n  {\n   \"n\": 80299,\n   \"name\": \"haversine\",\n   \"block\": \"Gc\",\n   \"place\": {\n    \"repo\": \"Ventusltd/ventus-grid-engine\",\n    \"commit\": \"3ebd067ef984e3cf6ae7a2561e9da924878efc93\",\n    \"path\": \"engine/geo-core.js\",\n    \"first\": 82,\n    \"last\": 87\n   }\n  }\n ],\n \"lines\": [],\n \"needs\": [],\n \"trail\": [\n  \"family:80299\",\n  \"block:Vd\"\n ]\n}",
+  "copyButtonText": [
+   "Copy recipe",
+   "Copy command"
+  ],
+  "recipe": {
+   "schema": "star-generator.recipe.v1",
+   "made_utc": "2026-09-15T05:06:15.664Z",
+   "data": {
+    "blocks_json": "2026-09-15T01:53:47.988Z",
+    "index_json": "2026-09-15T01:52:58.518Z",
+    "pack": "2026-09-14T22:14:00.499Z"
+   },
+   "keys": [
+    "family:80299",
+    "block:Vd"
+   ],
+   "blocks": [
+    {
+     "symbol": "Gc",
+     "number": 13,
+     "title": "Distance and bearing",
+     "category": "geodesy",
+     "files": [
+      {
+       "repo": "Ventusltd/ventus-grid-engine",
+       "commit": "3ebd067ef984e3cf6ae7a2561e9da924878efc93",
+       "path": "engine/geo-core.js"
+      }
+     ]
+    },
+    {
+     "symbol": "Vd",
+     "number": 31,
+     "title": "Voltage drop",
+     "category": "network",
+     "files": [
+      {
+       "repo": "Ventusltd/ventus-grid-engine",
+       "commit": "3ebd067ef984e3cf6ae7a2561e9da924878efc93",
+       "path": "engine/voltage-drop.js"
+      }
+     ]
+    }
+   ],
+   "families": [
+    {
+     "n": 80299,
+     "name": "haversine",
+     "block": "Gc",
+     "place": {
+      "repo": "Ventusltd/ventus-grid-engine",
+      "commit": "3ebd067ef984e3cf6ae7a2561e9da924878efc93",
+      "path": "engine/geo-core.js",
+      "first": 82,
+      "last": 87
+     }
+    }
+   ],
+   "lines": [],
+   "needs": [],
+   "trail": [
+    "family:80299",
+    "block:Vd"
+   ]
+  },
+  "checks": {
+   "keysHave80299": true,
+   "keysHaveVd": true,
+   "blocks": [
+    "Gc@3ebd067",
+    "Vd@3ebd067"
+   ],
+   "families": [
+    "80299 haversine → Ventusltd/ventus-grid-engine@3ebd067 engine/geo-core.js#L82-L87"
+   ],
+   "everyBlockPinned": true,
+   "familyPinned": true,
+   "urlHasVd": true,
+   "urlHas80299": true,
+   "data": {
+    "blocks_json": "2026-09-15T01:53:47.988Z",
+    "index_json": "2026-09-15T01:52:58.518Z",
+    "pack": "2026-09-14T22:14:00.499Z"
+   },
+   "needs": 0
+  }
+ },
+ "harnessSha256": "ecf835fba11e293d5aac82c18a3eac38db77def617ae4b0d7a20325f55a9f5e0",
+ "physicalPhoneTest": false,
+ "acceptance": {
+  "completed": true,
+  "layout": true,
+  "errors": true,
+  "selection": true,
+  "recipe": true
+ },
+ "pass": true
+}

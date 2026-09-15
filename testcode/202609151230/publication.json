@@ -1,0 +1,21 @@
+{
+  "schema": "public-byte-manifest-v1",
+  "files": {
+    "app.mjs": {
+      "bytes": 9986,
+      "sha256": "e774a14bd72431db982b2f92005374121b098f2f13161142111a2ca6f5aa675c"
+    },
+    "index.html": {
+      "bytes": 4685,
+      "sha256": "e0fff754eac1ca000a5a36d0b0f3a4adbd51b88b20e6439444b323b28a8aaabc"
+    },
+    "model.mjs": {
+      "bytes": 4274,
+      "sha256": "36a5508bf14092f5360debba36aa756d4f5f337556696b433f823a9f14f3ffd5"
+    },
+    "style.css": {
+      "bytes": 6314,
+      "sha256": "da2312a149faabdec50cb8cd401d9c8da2b1f7dccfb2dc25c2c82e1cabf453fd"
+    }
+  }
+}

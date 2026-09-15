@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Time Star: six engineering ideas, six animated 2D perspectives and one readable table. An interactive visual study.">
+  <title>Time Star · Motion studies</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<main>
+  <header class="masthead">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">✳</span><div><h1>Time Star</h1><p><a href="/" aria-label="GlobalGrid2050 home">GlobalGrid2050</a> · Motion studies</p></div></div>
+    <div class="edition">INTERACTIVE STUDY <span>01 / CONTINUITY</span></div>
+  </header>
+  <section class="toolbar" aria-label="Animation controls">
+    <label class="skin-label">View <select id="skin"><option value="twin">01 · Quantum twin</option><option value="ring">02 · Orbital ring</option><option value="particle">03 · Particle field</option><option value="chord">04 · Chord weave</option><option value="river">05 · Time river</option><option value="column">06 · Resonant columns</option><option value="table">07 · Readable table</option></select></label>
+    <div class="playback"><button id="play" type="button">Pause</button><label class="speed-label">Pace <select id="speed"><option value="0.4">Slow</option><option value="1" selected>Flow</option><option value="1.8">Lively</option></select></label><button id="pin" type="button">Pin moment <span aria-hidden="true">＋</span></button></div>
+  </section>
+  <section class="stage" aria-label="Time Star visual workspace">
+    <div class="stage-heading"><div><p class="eyebrow" id="view-kicker">MIRROR / CONTINUITY</p><h2 id="view-title">The present, seen from both sides.</h2></div><output id="time-label" aria-label="Animation time" aria-live="off">18.0 s</output></div>
+    <canvas id="field" role="img" aria-label="Six coloured concepts moving in a mirrored particle star. Use the labelled concept buttons below for selection."></canvas>
+    <div id="table-wrap" hidden><table><caption>Six ideas to explore, without motion</caption><thead><tr><th scope="col">Concept</th><th scope="col">Meaning</th><th scope="col">Try it</th></tr></thead><tbody id="state-rows"></tbody></table></div>
+    <div class="stage-footer"><span id="motion-note">Harmonic motion · conceptual, not a physics solver</span><span class="render-label">2D / SAME SIX IDEAS</span></div>
+    <p id="error" role="alert" hidden></p>
+  </section>
+  <section class="transport" aria-label="Time and visual bookmarks">
+    <div class="timeline-label"><label for="time">Explore a minute</label><span>00:00 <span class="timeline-dash">—</span> 01:00</span></div>
+    <input id="time" aria-label="Animation time in seconds" type="range" min="0" max="60" step="0.05" value="18">
+    <div class="moments"><span class="eyebrow">PINNED MOMENTS</span><div id="pins"><span class="empty-pin">Pin a time to hold its echo while motion flows.</span></div><button id="clear-pins" type="button" hidden>Clear pins</button></div>
+  </section>
+  <nav id="concepts" aria-label="Select a concept"></nav>
+  <section class="concept-detail" aria-live="polite"><div><span class="eyebrow" id="concept-key">IDENTITY / 01</span><h2 id="concept-title">A name can change. An identity stays.</h2><p id="concept-copy">Keep a stable key while the shape around it changes.</p></div><div class="declaration"><span>A visual thought experiment</span><strong>Ideas, not measurements</strong><span>Explore connections. No engineering results are calculated.</span></div></section>
+  <footer class="page-footer"><p>Motion is a metaphor. Colours identify ideas; brightness, size and motion are not measurements. Pins bookmark visual time, not calculated results.</p><details><summary>About these skins</summary><p>Inspired by GlobalGrid2050’s <a href="https://globalgrid2050.com/testcode/202609142202/" target="_blank" rel="noreferrer">Quantum Twin Star</a> and <a href="https://globalgrid2050.com/testcode/202609142225/" target="_blank" rel="noreferrer">Star Generator</a>: twin, ring, particle, chord, river, column and table. These are new, lightweight 2D interpretations—not the original renderers or datasets.</p><p>Explore identity, physical meaning, replay, evidence, interaction and composition. The paths use repeating harmonic motion to make these ideas visible; they do not model quantum particles or electrical systems. Pinned moments are temporary bookmarks for this visit and disappear when the page reloads.</p></details></footer>
+</main>
+</body>
+</html>

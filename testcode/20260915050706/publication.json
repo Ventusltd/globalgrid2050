@@ -1,0 +1,55 @@
+{
+  "page": "Generator device review",
+  "built_utc": "2026-09-15T05:12:03Z",
+  "source_commit": "7edc6fbd7f2d19397c6106371e3ce8de0f8c8a5d",
+  "files": {
+    "index.html": {
+      "bytes": 2493,
+      "sha256": "95a5e0f105faa82d3c752e6bccb08c2a52e2fb81a08639882d4462a93a513d00"
+    },
+    "README.md": {
+      "bytes": 2469,
+      "sha256": "3f1e80e6b3913c215f58e9fe71ee050bf711ca5206dfc9d52c0cf2de512974a9"
+    },
+    "DECISION.md": {
+      "bytes": 2986,
+      "sha256": "0323a44c35327df2cc0d62eca3dbdbc1a2f8ae8e984fafe60e741e7a768c69c0"
+    },
+    "portable-bench.mjs": {
+      "bytes": 3120,
+      "sha256": "169a79a979fa76ce9b49e7c175dc95e5c8dc4a99f879a0b41e86952e022d8635"
+    },
+    "reproduce-night.mjs": {
+      "bytes": 2034,
+      "sha256": "706d65baa27bd3712515e2726f69dd02731dd4d6139ccc5c2f03fa9875c98ce0"
+    },
+    "assess-bench.mjs": {
+      "bytes": 1924,
+      "sha256": "7ee9cc80e01003b7543a5a752be678da5b8cd02dd76cca9bcdf438718c0f83b6"
+    },
+    "verify-evidence.mjs": {
+      "bytes": 1337,
+      "sha256": "426ebd653dfaf8556eb207f8e9fd3771868e2ba551c1201f7b01a618036c7f59"
+    },
+    "assessment.json": {
+      "bytes": 1519,
+      "sha256": "a01246e7d586db74a707aed55bdef59b73909118b9d64378a4ff1f2f46aa7d0d"
+    },
+    "supplemental.json": {
+      "bytes": 2026,
+      "sha256": "b1193eaa20fc2e3cf9b0f79384c8a4e22f857d6586e25743f488b8ac7650b6cf"
+    },
+    "proof/bench.json": {
+      "bytes": 66402,
+      "sha256": "9a2aaa9b892f852b1041989199dcd5af546e4c64290036133ad47f7809390949"
+    },
+    "proof/bench-table.md": {
+      "bytes": 3589,
+      "sha256": "243abb6cf0f7602cf4d88b8c013dfdcc25dbba040ed078ec9181d49e61db86b9"
+    },
+    "proof/ci-checks.json": {
+      "bytes": 193,
+      "sha256": "c12f22e79898824c9ace0eea1de5c2dc15e13378ad880d117c00419a8cbd8279"
+    }
+  }
+}

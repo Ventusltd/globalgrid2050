@@ -43,7 +43,7 @@
  */
 
 import { place, placeAll, parseKey, indexOfKey as findKey, ownersOf, fanoutCount,
-         connectAnswer, esc, fmt } from './lib.mjs';
+         connectAnswer, esc, fmt, SPACING } from './lib.mjs';
 
 const DATA = '../202609142202/data/';
 
@@ -372,46 +372,61 @@ function paintPanel(key) {
 function connect(ka, kb) {
   view.link = [ka, kb];
   const p = $('panelbody');
-  const ia = indexOfKey(ka), ib = indexOfKey(kb);
-  const missing = [];
-  if (ia < 0) missing.push(ka);
-  if (ib < 0) missing.push(kb);
-  if (missing.length) {
-    p.innerHTML = `<h2>Connect <span class="n">${fmt(ka)}</span> to <span class="n">${fmt(kb)}</span></h2>
-      <p class="refuse">${missing.map(fmt).join(' and ')} ${missing.length > 1 ? 'were' : 'was'} never issued as
-      ${missing.length > 1 ? 'numbers' : 'a number'}, so there is nothing at that address to connect.</p>`;
+  const head = `<h2>Connect <span class="n">${fmt(ka)}</span> to <span class="n">${fmt(kb)}</span></h2>`;
+
+  /* The index is the only thing that can be missing; everything else is decided
+     by lib.mjs so the page cannot disagree with the proofs. */
+  if (!U.ownerOf) {
+    p.innerHTML = head + `<p class="dim">The family index is still loading. The answer will appear here
+      without another tap.</p>`;
     $('panel').hidden = false; draw(); return;
   }
-  const A = famsOf(ka), B = famsOf(kb);
-  if (A === null || B === null) {
-    p.innerHTML = `<h2>Connect <span class="n">${fmt(ka)}</span> to <span class="n">${fmt(kb)}</span></h2>
-      <p class="dim">The family index is still loading. The answer will appear here without another tap.</p>`;
-    $('panel').hidden = false; draw(); return;
-  }
-  const setB = new Set(B);
-  const both = A.filter(f => setB.has(f));
-  let body = `<h2>Connect <span class="n">${fmt(ka)}</span> to <span class="n">${fmt(kb)}</span></h2>`;
-  if (both.length) {
-    body += `<p>Joined by <span class="fam">${fmt(both.length)}</span> ${both.length === 1 ? 'family that carries' : 'families that carry'} both lines:</p><ul>` +
-      both.slice(0, 12).map(f => {
-        const fa = U.families[f];
-        return `<li><span class="fam">${esc(fa.name)}</span> <span class="dim">#${fmt(fa.n)} · ${esc(fa.category ?? 'no category recorded')}</span></li>`;
-      }).join('') + `</ul>
-      <p class="dim">Both lines appear inside the same function family. That means the same text sits in both
-      places. It does not mean one calls the other.</p>`;
+
+  const a = connectAnswer(ka, kb, { keys: U.keys, owner: U.ownerOf });
+  const famLine = f => {
+    const fa = U.families[f];
+    return `<li><span class="fam">${esc(fa.name)}</span> <span class="dim">#${fmt(fa.n)} · ${esc(fa.category ?? 'no category recorded')}</span></li>`;
+  };
+  let body = head;
+
+  if (a.verdict === 'absent') {
+    body += `<p class="refuse">${a.absent.map(fmt).join(' and ')} ${a.absent.length > 1 ? 'were' : 'was'}
+      never issued in this numbering, so there is nothing at that address to connect.</p>`;
+
+  } else if (a.verdict === 'same-line') {
+    body += `<p class="refuse">Those are the same line. A line is not connected to itself, and reporting
+      that it is would be the page agreeing with you rather than answering you.</p>` +
+      (a.both.length
+        ? `<p>Line ${fmt(ka)} is carried by ${fmt(a.both.length)} ${a.both.length === 1 ? 'family' : 'families'}.</p>`
+        : `<p>No family carries line ${fmt(ka)}.</p>`);
+
+  } else if (a.verdict === 'no-family') {
+    body += `<p class="refuse">${a.without.map(fmt).join(' and ')} ${a.without.length > 1 ? 'are' : 'is'}
+      carried by no function family at all, so ${a.without.length > 1 ? 'they have' : 'it has'} nothing to be
+      joined through.</p>`;
+
+  } else if (a.verdict === 'joined') {
+    body += `<p>Joined by <span class="fam">${fmt(a.both.length)}</span>
+      ${a.both.length === 1 ? 'family that carries' : 'families that carry'} both lines${a.both.length > 12 ? ', first twelve' : ''}:</p>
+      <ul>${a.both.slice(0, 12).map(famLine).join('')}</ul>
+      <p class="dim">This is co-membership: two different lines sitting in one function. It is not the same
+      text in two places, and it is not a dependency. Either line may be carried by only that one family and
+      still connect perfectly well through it.</p>`;
+
   } else {
     body += `<p class="refuse">No family carries both lines, so these two are not joined.</p>
-      <dl><dt>${fmt(ka)}</dt><dd>${A.length ? fmt(A.length) + ' ' + (A.length === 1 ? 'family' : 'families') : 'no family'}</dd>
-          <dt>${fmt(kb)}</dt><dd>${B.length ? fmt(B.length) + ' ' + (B.length === 1 ? 'family' : 'families') : 'no family'}</dd></dl>
+      <dl><dt>${fmt(ka)}</dt><dd>${a.A.length ? fmt(a.A.length) + ' ' + (a.A.length === 1 ? 'family' : 'families') : 'no family'}</dd>
+          <dt>${fmt(kb)}</dt><dd>${a.B.length ? fmt(a.B.length) + ' ' + (a.B.length === 1 ? 'family' : 'families') : 'no family'}</dd></dl>
       <p class="dim">An unjoined pair is the ordinary case: most lines of the estate sit in unrelated
-      functions. Note this is not about fanout. ${fmt(U.fanout)} of the ${fmt(U.n)} numbered lines appear in
-      more than one family, which is duplication; joining two numbers is a different question and asks
-      whether one family holds them both.</p>`;
+      functions. This is not about fanout. ${fmt(U.fanout)} of the ${fmt(U.n)} numbered lines appear in more
+      than one family, which is duplication; joining two numbers asks the different question of whether one
+      family holds them both.</p>`;
   }
+
   p.innerHTML = body;
   $('panel').hidden = false;
 
-  /* Frame both ends of the connection. */
+  /* Frame both ends. */
   const [ax, ay] = placeOne(ka), [bx, by] = placeOne(kb);
   view.x = (ax + bx) / 2; view.y = (ay + by) / 2;
   const span = Math.max(Math.hypot(bx - ax, by - ay), 4);
@@ -477,7 +492,15 @@ function readURL() {
   const pa = parseKey(q.get('line') ?? ''), pb = parseKey(q.get('to') ?? '');
   if (!pa.ok) { if (q.get('line')) refuse(`The link carried a line number this page cannot use: ${pa.why}.`); return; }
   $('a').value = String(pa.key);
+  const rawTo = q.get('to');
   if (pb.ok) { $('b').value = String(pb.key); view.link = [pa.key, pb.key]; connect(pa.key, pb.key); }
+  else if (rawTo !== null && rawTo.trim() !== '') {
+    /* focus stays unset: tier 2 repaints the panel for a focused key when it
+       lands, which would silently replace this refusal with an ordinary card. */
+    refuse(`The link asked to connect to "${rawTo}", which is not a line number: ${pb.why}. `
+         + `Line ${pa.key} is where the beam is pointing.`);
+    flyTo(pa.key);
+  }
   else { view.focus = pa.key; paintPanel(pa.key); flyTo(pa.key); }
 }
 

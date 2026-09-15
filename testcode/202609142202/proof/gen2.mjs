@@ -180,3 +180,4 @@ const passes = { node_check: R.node_check === 'ok', desktop_count_line: R.deskto
 R.passes = passes; R.pass = Object.values(passes).every(Boolean);
 fs.writeFileSync(DIR + '/proof/gen2.json', JSON.stringify(R, null, 1));
 log('PASSES', JSON.stringify(passes)); log('PASS', R.pass, 'port still listening:', R.port_still_listening);
+process.exitCode = R.pass ? 0 : 1;   // the exit status follows the JSON pass flag so a CI caller cannot mistake a written report for a passed one

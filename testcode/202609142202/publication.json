@@ -3,10 +3,10 @@
  "name": "Quantum Twin Star",
  "generation": "generation 2: round-2 findings fixed; all 250,174 unique lines added",
  "previous_generation": {
-  "generation": "first published generation (verification round 1 complete; repair round lands as the next generation)",
-  "published_utc": "2026-09-14T23:16:33+00:00"
+  "generation": "generation 2: round-2 findings fixed; all 250,174 unique lines added",
+  "published_utc": "2026-09-15T01:00:58+00:00"
  },
- "published_utc": "2026-09-15T00:05:01+00:00",
+ "published_utc": "2026-09-15T01:18:29+00:00",
  "data_provenance": "data/provenance.json",
  "self_test": "proof/gen2.mjs → proof/gen2.json",
  "files": {
@@ -155,8 +155,8 @@
    "sha256": "ef492a3871db2a23b4ab16be22f56f2df79da44abe558a9e7e3580f3f24cb640"
   },
   "proof/gen2.mjs": {
-   "bytes": 27492,
-   "sha256": "3bc9647175c2bbe96a84b2f039f77b421538a055951b0c18f0d9dabc6c5e4f47"
+   "bytes": 27639,
+   "sha256": "afcb0c2059d0712ba87a2e4d5c79d03958b4a09a56a0b96a05d2f0f89caf7d31"
   },
   "proof/gen2.stdout.txt": {
    "bytes": 4569,
